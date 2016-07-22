@@ -12,18 +12,25 @@
                             <%# Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(Eval("OverAllRating.OverAllRating"))) %>
                         </p>
                     </div>
-                    <div class="model-user-review-title-container padding-left20 leftfloat">
-                        <h3 ><a class="font16 text-black line-height" href="/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html">
+                    <div class="model-user-review-title-container">
+                        <a class="article-target-link line-height" href="/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html">
                             <%#Eval("ReviewTitle").ToString() %>
-                            </a>
-                        </h3>
+                        </a>
                         <p class="text-light-grey"><%#Eval("ReviewDate", "{0:dd-MMM-yyyy}") %> by <%#Eval("WrittenBy").ToString() %></p>
+                        <%if (FetchedRecordsCount == 1)
+                          { %>
+                            <p class="margin-top15 line-height17">
+                                <%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Comments").ToString(),160) %>
+                            </p>
+                        <%} %>                        
                     </div>
                     <div class="clear"></div>
-                    <p class="margin-top20 line-height17">
-                        <%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Comments").ToString(),160) %> 
-                 <a href="/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html">Read full review</a>
-                    </p>
+                    <%if (FetchedRecordsCount != 1)
+                       { %>
+                        <p class="margin-top20 line-height17">
+                            <%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Comments").ToString(),160) %>
+                        </p>
+                    <%} %>
                 </div>
             </ItemTemplate>
         </asp:Repeater>

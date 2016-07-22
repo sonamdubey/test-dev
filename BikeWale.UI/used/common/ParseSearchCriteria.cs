@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Bikewale.Common;
+using Bikewale.Notifications.MySqlUtility;
+using MySql.CoreDAL;
+using System;
 using System.Collections.Specialized;
 using System.Data;
-using System.Data.SqlClient;
+using System.Data.Common;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
-using Bikewale.Common;
-using System.Data.Common;
-using Bikewale.Notifications.MySqlUtility;
-using MySql.CoreDAL;
 
 /// <summary>
 /// Summary description for ParseSearchCriteria
@@ -24,7 +22,7 @@ namespace Bikewale.Used
 
         // global StringBuilder to form sql query based on the selected parameters by the users
         StringBuilder sbClause;
-        
+
 
         // Constructor of the class which initializes 'command parameters' and 'search criterias'
         public ParseSearchCriteria(NameValueCollection qsCollection)
@@ -106,8 +104,8 @@ namespace Bikewale.Used
         // Select parameters of sql query used to fatch user results 
         public string GetSelectClause()
         {
-          return @" profileid, ll.versionid as bikeversionid, bm.maskingname as makemaskingname,
-                    bmo.maskingname as modelmaskingname, lc.maskingname as citymaskingname, 
+            return @" profileid, ll.versionid as bikeversionid, vs.makemaskingname as makemaskingname,
+                    vs.modelmaskingname as modelmaskingname, lc.maskingname as citymaskingname, 
                     ll.seller, ll.sellertype,ll.entrydate,ll.makename,
                     ll.modelname, ll.versionname, ll.lastupdated, ll.areaname,ll.price, ll.kilometers,
                     ll.makeyear bikeyear, ll.color, ll.cityname city, ll.cityid,
@@ -120,7 +118,7 @@ namespace Bikewale.Used
         // FROM clause of sql query used to fatch user results
         public string GetFromClause()
         {
-            string from_clause = " livelistings as ll  , bikemakes bm   , bikemodels bmo  , bikeversions vs  ";
+            string from_clause = " livelistings as ll  inner join bikeversions vs on ll.versionid = vs.id ";
 
             // LL_Cities table required only if used searcing with perticular city
             // if user is searcing within entire state then refrence to this table is not required.
@@ -157,11 +155,11 @@ namespace Bikewale.Used
             }
             else
             {
-                where_clause += "  ll.cityid = lc.id " + GetSearchCriteria(); 
+                where_clause += "  ll.cityid = lc.id " + GetSearchCriteria();
             }
 
 
-            where_clause += " and bm.id = ll.makeid and bmo.id = ll.modelid and ll.versionid = vs.id ";
+            where_clause += " and vs.bikemakeid = ll.makeid and vs.bikemodelid = ll.modelid and ll.versionid = vs.id ";
 
             return where_clause;
         }
@@ -175,7 +173,7 @@ namespace Bikewale.Used
         // Sql Query to show number of records matched users criteria
         public string GetRecordCountQry()
         {
-            return string.Format("select count(profileid) from {0}  where {1} ",GetFromClause(),GetWhereClause());
+            return string.Format("select count(profileid) from {0}  where {1} ", GetFromClause(), GetWhereClause());
         }
 
 
@@ -291,7 +289,7 @@ namespace Bikewale.Used
 
                     // Append sql query to the StringBuilder object for selected makes. Also make the IN clause value parameterized to avoid Sql Injection
                     sbClause.Append(" AND " + model_bracket + " MakeId IN (" + db.GetInClauseValue(make_str, "MakeId", sqlCmdParams) + ")");
-                }             
+                }
             }
 
             // get the selected models
@@ -365,7 +363,7 @@ namespace Bikewale.Used
         }
 
         public string GetSearchCriteria()
-        {           
+        {
             return sbClause.ToString();
         }
 
@@ -458,7 +456,7 @@ namespace Bikewale.Used
                 switch (paramValArray[i])
                 {
                     case "0":
-                        conditionClause += " year(makeyear) between " + (DateTime.Today.Year - 1) + " and " + DateTime.Today.Year ;
+                        conditionClause += " year(makeyear) between " + (DateTime.Today.Year - 1) + " and " + DateTime.Today.Year;
                         break;
                     case "1":
                         conditionClause += " year(makeyear) between " + (DateTime.Today.Year - 3) + " and " + (DateTime.Today.Year - 1);
@@ -582,13 +580,13 @@ namespace Bikewale.Used
 
         bool ValidateInClause(string match_str)
         {
-            Regex reg = new Regex(@"^([0-9]{1,3},?)+$");          
+            Regex reg = new Regex(@"^([0-9]{1,3},?)+$");
             return reg.IsMatch(match_str);
         }
 
         bool ValidateParamIndex(string match_str, string index_boundry)
-        {           
-            Regex reg = new Regex(@"^([0-" + index_boundry + "],?)+$");         
+        {
+            Regex reg = new Regex(@"^([0-" + index_boundry + "],?)+$");
             return reg.IsMatch(match_str);
         }
     }

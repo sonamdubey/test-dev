@@ -159,7 +159,7 @@ namespace Bikewale.Content
             data = objRoadtest.Description;
             author = objRoadtest.AuthorName;
             pageTitle = objRoadtest.Title;
-            displayDate = Convert.ToDateTime(objRoadtest.DisplayDate).ToString("dd-MMM-yyyy");
+            displayDate = objRoadtest.DisplayDate.ToString();
 
             if (objRoadtest.VehiclTagsList != null && objRoadtest.VehiclTagsList.Count > 0)
             {

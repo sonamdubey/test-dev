@@ -122,6 +122,13 @@ namespace BikewaleOpr.Campaign
         {
             bool isMaskingChanged = hdnOldMaskingNumber.Value == reqFormMaskingNumber ? false : true;
             bool IsProd = Convert.ToBoolean(ConfigurationManager.AppSettings["isProduction"]);
+            oldMaskingNumber = hdnOldMaskingNumber.Value;
+            DataTable dtCampaign = dealerCampaign.FetchBWDealerCampaign(campaignId);
+            if (dtCampaign != null && dtCampaign.Rows.Count > 0)
+            {
+                dealerMobile = dtCampaign.Rows[0]["dealerMobile"].ToString();
+            }
+
 
             ContractCampaignInputEntity ccInputs = new ContractCampaignInputEntity();
             ccInputs.ConsumerId = dealerId;
@@ -131,8 +138,9 @@ namespace BikewaleOpr.Campaign
             ccInputs.OldMaskingNumber = oldMaskingNumber;
             ccInputs.MaskingNumber = reqFormMaskingNumber;
             ccInputs.NCDBranchId = -1;
-            ccInputs.ProductTypeId = 1;
-            ccInputs.SellerMobileMaskingId = default(int);
+            ccInputs.ProductTypeId = 3;
+            ccInputs.Mobile = dealerMobile;
+            ccInputs.SellerMobileMaskingId = -1;
 
             CwWebserviceAPI CWWebservice = new CwWebserviceAPI();
             try
@@ -142,7 +150,7 @@ namespace BikewaleOpr.Campaign
                     if (isMaskingChanged)
                     {
                         // Release previous number and add new number
-                        CWWebservice.ReleaseMaskingNumber(Convert.ToUInt32(dealerId), currentUserId, reqFormMaskingNumber);
+                        CWWebservice.ReleaseMaskingNumber(Convert.ToUInt32(dealerId), currentUserId, oldMaskingNumber);
                     }
 
                     //callApp.pushDataToKnowlarity(false, "-1", dealerMobile, string.Empty, reqFormMaskingNumber);

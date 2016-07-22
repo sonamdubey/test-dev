@@ -234,7 +234,9 @@
                         success: function (response) {
                             if (JSON.parse(response).value) {
                                 $("#txtMaskingNumber").val('');
+                                //bindMaskingNumber(dealerId);                                
                                 alert("Masking Number is released successful.");
+                                location.reload();
                             }
                             else {
                                 alert("There was error while releasing masking number. Please contact System Administrator for more details.");
@@ -247,5 +249,30 @@
                 alert("An error occured. Please contact System Administrator for more details.");
             }
         }
+
+        function bindMaskingNumber(dealerId) {
+            try {
+                
+                    $.ajax({
+                        type: "POST",
+                        url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
+                        data: '{"dealerId":"' + dealerId + '"}',
+                        beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetDealerMaskingNumbers"); },
+                        success: function (response) {
+                            var res = JSON.parse(response);
+                            if (res) {
+                                $('#ddlMaskingNumber').empty();
+                                $.each(res.value, function (index, value) {
+                                    ('#ddlMaskingNumber').append($('<option>').text(value.Number).attr('value', value.IsAssigned));
+                                });                                
+                            }                            
+                        }
+
+                    });
+            } catch (e) {
+                alert("An error occured. Please contact System Administrator for more details.");
+            }
+        }
+
 </script>
 <!-- #Include file="/includes/footerNew.aspx" -->

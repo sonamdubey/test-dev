@@ -22,7 +22,7 @@
 
         <section class="bg-white box-shadow margin-bottom25">
             <div id="modelPriceDetails" class="content-inner-block-120">
-                <h1 class="font18 text-dark-black margin-bottom5"><%= bikeName %> Specifications and Features</h1>
+                <h1 class="margin-bottom5"><%= bikeName %> Specifications and Features</h1>
                 
                     <% if (price > 0)
                        { %>
@@ -60,8 +60,8 @@
 
             <div id="specsFeaturesDetailsWrapper" class="padding-right20 padding-left20 font14">
                 <div id="modelSpecifications" class="bw-model-tabs-data padding-top15">
-                    <h2 class="font18 text-dark-black margin-bottom15">Specifications</h2>
-                    <h3 class="font14 text-bold margin-bottom20">Engine and Transmission</h3>
+                    <h2 class="margin-bottom15">Specifications</h2>
+                    <h3 class="margin-bottom20">Engine and Transmission</h3>
                     <ul class="specs-features-list margin-bottom5">
                         <li>
                             <p class="specs-features-label">Displacement</p>
@@ -107,7 +107,7 @@
                         </li>
                     </ul>
 
-                    <h3 class="font14 text-bold margin-bottom20">Brakes, Wheels and Suspension</h3>
+                    <h3 class="margin-bottom20">Brakes, Wheels and Suspension</h3>
                     <ul class="specs-features-list margin-bottom5">
                         <li>
                             <p class="specs-features-label">Brake Type</p>
@@ -146,7 +146,7 @@
                         </li>
                     </ul>
 
-                    <h3 class="font14 text-bold margin-bottom20">Dimensions and Chassis</h3>
+                    <h3 class="margin-bottom20">Dimensions and Chassis</h3>
                     <ul class="specs-features-list margin-bottom5">
                         <li>
                             <p class="specs-features-label">Kerb Weight</p>
@@ -170,7 +170,7 @@
                         </li>
                     </ul>
 
-                    <h3 class="font14 text-bold margin-bottom20">Fuel efficiency and Performance</h3>
+                    <h3 class="margin-bottom20">Fuel efficiency and Performance</h3>
                     <ul class="specs-features-list margin-bottom5">
                         <li>
                             <p class="specs-features-label">Fuel Tank Capacity</p>
@@ -202,7 +202,7 @@
                 <div class="border-divider"></div>
 
                 <div id="modelFeatures" class="padding-top15 bw-model-tabs-data">
-                    <h2 class="font18 text-dark-black margin-bottom20">Features</h2>
+                    <h2 class="margin-bottom20">Features</h2>
                     <ul class="specs-features-list">
                     <li>
                         <p class="specs-features-label">Speedometer</p>

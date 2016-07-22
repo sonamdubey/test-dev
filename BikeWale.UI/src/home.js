@@ -5,7 +5,7 @@ $("a.view-more-btn").click(function(e){
 	b = $(this).find("span");
 	c = $(".brand-bottom-border");
 	a.slideToggle();
-	b.text(b.text() === "More" ? "Less" : "More");
+	b.text(b.text() === "more" ? "less" : "more");
 	c.slideToggle();
 	e.preventDefault();
 	e.stopPropagation();

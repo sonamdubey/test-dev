@@ -1,20 +1,16 @@
-﻿using System;
-using System.Text;
+﻿using Bikewale.Utility;
+using BikeWaleOpr.Common;
+using MySql.CoreDAL;
+using System;
+using System.Collections.Specialized;
+using System.Configuration;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using BikeWaleOpr.Common;
-using BikeWaleOpr.Controls;
-using System.Drawing.Imaging;
-using Ajax;
-using System.IO;
-using System.Configuration;
-using System.Data.Common;
-using BikeWaleOPR.Utilities;
-using MySql.CoreDAL;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.Content
 {
@@ -48,7 +44,7 @@ namespace BikeWaleOpr.Content
                 AjaxFunctions aj = new AjaxFunctions();
                 /* string result = aj.UpdateVerPhotos("10");
                 spnError.InnerHtml = result;*/
-			    //aj.SavePhoto("","", "335");
+                //aj.SavePhoto("","", "335");
                 Trace.Warn(ConfigurationManager.AppSettings["imgHostURL"]);
                 BindGrid(false);
             }
@@ -58,7 +54,7 @@ namespace BikeWaleOpr.Content
         {
             string selId = "";
             string selModelId = "";
-            
+
             for (int i = 0; i < dtgrdLaunches.Items.Count; i++)
             {
                 CheckBox chkLaunched = (CheckBox)dtgrdLaunches.Items[i].FindControl("chkLaunched");
@@ -75,11 +71,11 @@ namespace BikeWaleOpr.Content
             if (selId != "" && selModelId != "")
             {
                 selId = selId.Substring(0, selId.Length - 1);
-                selModelId = selModelId.Substring(0,selModelId.Length - 1);
-            
+                selModelId = selModelId.Substring(0, selModelId.Length - 1);
+
                 UpdateBikeIsLaunched(selId, selModelId);
 
-                BindGrid(false);             
+                BindGrid(false);
             }
         }   // End btn_Save_click function
 
@@ -112,7 +108,7 @@ namespace BikeWaleOpr.Content
                 objErr.SendMail();
             }
         }//End of DeleteExpectedLaunchBike
-		
+
         void BindGrid(bool IsPaging)
         {
             string sql = "";
@@ -124,7 +120,7 @@ namespace BikeWaleOpr.Content
                 left join bikemodels cmo on ec.bikemodelid = cmo.id 
                 left join bikemakes cma on cmo.bikemakeid = cma.id 
                 where islaunched=0 and ec.isdeleted = 0 
-                order by ec.launchdate desc "; 
+                order by ec.launchdate desc ";
 
             try
             {
@@ -162,8 +158,8 @@ namespace BikeWaleOpr.Content
                                 serialNo = 0;
                             else
                                 serialNo = pageSize * dtgrdLaunches.CurrentPageIndex;
-                        } 
-                    } 
+                        }
+                    }
                 }
             }
             catch (SqlException err)
@@ -179,7 +175,7 @@ namespace BikeWaleOpr.Content
                 objErr.SendMail();
             }
         }
-      
+
         void Page_Change(object sender, DataGridPageChangedEventArgs e)
         {
             // Set CurrentPageIndex to the page the user clicked.
@@ -215,6 +211,20 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_sellaunchbikeids", DbType.String, 30, launchBikeIds));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_sellauchmodelids", DbType.String, 30, launchBikeModelIds));
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+
+                    if (!string.IsNullOrEmpty(launchBikeModelIds))
+                    {
+                        foreach (string modelId in launchBikeModelIds.Split(','))
+                        {
+                            NameValueCollection nvc = new NameValueCollection();
+                            nvc.Add("ModelId", modelId);
+                            nvc.Add("IsUsed", "1");
+                            nvc.Add("IsNew", "1");
+                            nvc.Add("IsFuturistic", "0");
+                            SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
+                        }
+                    }
+
                 }
             }
             catch (SqlException sqlEx)

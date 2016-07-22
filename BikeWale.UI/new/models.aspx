@@ -90,14 +90,12 @@
                                                 </a>
                                             </div>
                                             <div class="bikeDescWrapper">
-                                                <div class="bikeTitle margin-bottom10">
-                                                    <h3><a class="modelurl" href='<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>' title="<%# DataBinder.Eval(Container.DataItem,"objMake.MakeName") + " " + DataBinder.Eval(Container.DataItem, "objModel.ModelName") %>"><%# DataBinder.Eval(Container.DataItem,"objMake.MakeName") + " " + DataBinder.Eval(Container.DataItem, "objModel.ModelName") %></a></h3>
-                                                </div>
+                                                <h3 class="bikeTitle margin-bottom10"><a class="modelurl" href='<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>' title="<%# DataBinder.Eval(Container.DataItem,"objMake.MakeName") + " " + DataBinder.Eval(Container.DataItem, "objModel.ModelName") %>"><%# DataBinder.Eval(Container.DataItem,"objMake.MakeName") + " " + DataBinder.Eval(Container.DataItem, "objModel.ModelName") %></a></h3>
                                                 <div class="text-xt-light-grey font14 margin-bottom15">
                                                     <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower"))) %>
                                                 </div>
                                                 <div class="font14 text-light-grey margin-bottom5">Ex-showroom, <%=ConfigurationManager.AppSettings["defaultName"].ToString() %></div>
-                                                <div class="font16 text-bold">
+                                                <div class="text-bold">
                                                     <%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %>
                                                 </div>
                                                 <a href="Javascript:void(0)" pagecatid="1" pqsourceid="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage %>" makename="<%# DataBinder.Eval(Container.DataItem,"objMake.MakeName").ToString() %>" modelname="<%# DataBinder.Eval(Container.DataItem,"objModel.ModelName").ToString() %>" modelid="<%# DataBinder.Eval(Container.DataItem, "objModel.ModelId").ToString() %>" class="btn btn-grey btn-sm margin-top15 font14 fillPopupData">Check on-road price</a>
@@ -225,69 +223,6 @@
         </section>
 
         <section>
-            <!--  News Bikes code starts here -->
-            <div class="container newBikes-latest-updates-container <%= reviewTabsCnt == 0 ? "hide" : string.Empty %>">
-                <div class="grid-12 margin-bottom20">
-                    <h2 class="text-bold text-center margin-top50 margin-bottom30">Latest <%=_make.MakeName%> News & Reviews from the industry</h2>
-                    <div class="bw-tabs-panel content-box-shadow margin-bottom30">
-                        <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
-                            <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>">
-                                <ul>
-                                    <li class="<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">
-                                        <h3 class="text-unbold">News</h3>
-                                    </li>
-                                    <li class="<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">
-                                        <h3 class="text-unbold">Expert Reviews</h3>
-                                    </li>
-                                    <li class="<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">
-                                        <h3 class="text-unbold">Videos</h3>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <%--<%if (!isNewsZero)
-                          { %>
-                        <BW:LatestNews runat="server" ID="ctrlNews" />
-                        <% } %>--%>
-                        <%--<%if (!isExpertReviewZero)
-                          { %>
-                        <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
-                        <% } %>--%>
-                        <%--<%if (!isVideoZero)
-                          { %>
-                        <BW:Videos runat="server" ID="ctrlVideos" />
-                        <% } %>--%>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>
-        <%--<section class="<%= (isDescription)? "": "hide" %>">
-            <!-- About Brand code starts here-->
-            <div class="container">
-                <div class="grid-12" style="<%= (isDescription) ? "": "display:none;" %>">
-                    <h2 class="text-bold text-center margin-top30 margin-bottom30">About <%= _make.MakeName %></h2>
-                    <div class="content-box-shadow content-inner-block-10 rounded-corner2 margin-bottom30 font14">
-                        <div class="brand-about-main">
-                            <%= _bikeDesc !=null ? Bikewale.Utility.FormatDescription.TruncateDescription(_bikeDesc.FullDescription, 265) : ""%>
-                        </div>
-                        <div class="brand-about-more-desc hide">
-                            <%= _bikeDesc !=null ? _bikeDesc.FullDescription : "" %>
-                        </div>
-                        <%if (!string.IsNullOrEmpty(_bikeDesc.FullDescription) && _bikeDesc.FullDescription.Length > 265)
-                          { %>
-                        <span><a href="javascript:void(0)" class="read-more-btn">Read <span>more</span></a></span>
-                        <% } %>
-                    </div>
-
-                </div>
-                <div class="clear"></div>
-
-            </div>
-
-        </section>--%>
-        <div class="clear"></div>
-        <section>
             <div class="container">
                 <div class="grid-12">
                     <% if (fetchedRecordsCount > 0)
@@ -335,10 +270,6 @@
                 var xContents = $('#discontinuedMore').contents();
                 xContents[xContents.length - 1].nodeValue = "";
             }
-
-            <%-- if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
-            if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
-            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");--%>
 
         </script>
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />

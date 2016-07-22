@@ -88,6 +88,7 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbType.Int32, contractId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerleadservingradius", DbType.Int32, dealerLeadServingRadius));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isbookingavailable", DbType.Boolean, isBookingAvailable));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_newcampaignid", DbType.Int32, ParameterDirection.Output));
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                     newCampaignId = Convert.ToInt32(cmd.Parameters["par_newcampaignid"].Value);
@@ -162,7 +163,7 @@ namespace BikewaleOpr.Common
         /// </summary>
         /// <param name="dealerId">dealer Id</param>
         /// <returns></returns>
-        public DealerCampaignBase FetchBWCampaigns(int dealerId)
+        public DealerCampaignBase FetchBWCampaigns(int dealerId, int contractId)
         {
 
             IList<DealerCampaignEntity> lstDealerCampaign = null;
@@ -176,6 +177,7 @@ namespace BikewaleOpr.Common
 
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32, dealerId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_contractId", DbType.Int32, contractId));
 
                         using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                         {
@@ -189,6 +191,20 @@ namespace BikewaleOpr.Common
                                     dealerCampaigns.DealerNumber = Convert.ToString(reader["MobileNo"]);
                                 }
 
+                                if (reader.NextResult())
+                                {
+                                    if (reader.Read())
+                                    {
+                                        dealerCampaigns.CurrentCampaign = new DealerCampaignEntity()
+                                                                    {
+                                                                        CampaignId = !Convert.IsDBNull(reader["campaignId"]) ? Convert.ToInt32(reader["campaignId"]) : default(int),
+                                                                        CampaignName = !Convert.IsDBNull(reader["CampaignName"]) ? Convert.ToString(reader["CampaignName"]) : string.Empty,
+                                                                        EmailId = !Convert.IsDBNull(reader["EmailId"]) ? Convert.ToString(reader["EmailId"]) : string.Empty,
+                                                                        MaskingNumber = !Convert.IsDBNull(reader["MaskingNumber"]) ? Convert.ToString(reader["MaskingNumber"]) : string.Empty,
+                                                                        ServingRadius = !Convert.IsDBNull(reader["ServingRadius"]) ? Convert.ToInt32(reader["ServingRadius"]) : default(int),
+                                                                    };
+                                    }
+                                }
 
                                 if (reader.NextResult())
                                 {
@@ -207,6 +223,13 @@ namespace BikewaleOpr.Common
                                             );
                                     }
                                     dealerCampaigns.DealerCampaigns = lstDealerCampaign;
+                                }
+                                if (reader.NextResult())
+                                {
+                                    if (reader.Read())
+                                    {
+                                        dealerCampaigns.ActiveMaskingNumber = Convert.ToString(reader["activeMaskingNumber"]);
+                                    }
                                 }
                             }
                         }

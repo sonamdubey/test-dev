@@ -1,4 +1,5 @@
-﻿using BikeWaleOpr.Common;
+﻿using BikewaleOpr.common;
+using BikeWaleOpr.Common;
 using BikeWaleOpr.RabbitMQ;
 using MySql.CoreDAL;
 using RabbitMqPublishing;
@@ -333,7 +334,6 @@ namespace BikeWaleOpr.Content
                     cmd.CommandText = "bikecomparisionlist";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int16, URLData));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid1", DbType.Int16, drpVersion1.SelectedItem.Value));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid2", DbType.Int16, drpVersion2.SelectedItem.Value));
@@ -358,6 +358,9 @@ namespace BikeWaleOpr.Content
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Data successfully updated');", true);
                     }
                     cId = cmd.Parameters["par_compid"].Value.ToString();
+
+                    // Removed memcached key which shows data on home page and new page
+                    MemCachedUtil.Remove("BW_CompareBikes_Cnt_4");
                     if (!String.IsNullOrEmpty(filPhoto.Value))
                         UploadImage(cId);
                     ShowBikeComparision();

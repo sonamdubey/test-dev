@@ -9,9 +9,7 @@
 .inr-sm, .inr-sm-grey { width:8px; height:12px; }
 .inr-sm { background-position:-110px -468px; }
 .inr-sm-grey { background-position:-92px -468px; }
-.inr-lg, .inr-lg-grey { width:10px; height:14px; }
-.inr-lg { background-position:-110px -490px; }
-.inr-lg-grey { background-position:-91px -490px; }
+.inr-lg-grey { width:10px; height:14px; background-position:-91px -490px; }
 .variants-dropdown .fa-angle-down { transition: transform .3s; -moz-transition: transform .3s; -webkit-transition: transform .3s; -o-transition: transform .3s; -ms-transition: transform .3s; }
 .variants-dropdown.open .fa-angle-down { -moz-transform: rotateZ(180deg); -webkit-transform: rotateZ(180deg); -o-transform: rotateZ(180deg); -ms-transform: rotateZ(180deg); transform: rotateZ(180deg); }
 .variants-dropdown-list { display:none; width:210px; overflow:hidden; background: #fff; border: 1px solid #ccc; position: absolute; top:40px; left:82px; z-index: 2;}

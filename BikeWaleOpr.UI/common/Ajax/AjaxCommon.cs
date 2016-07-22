@@ -1,11 +1,16 @@
-﻿using BikewaleOpr.common.ContractCampaignAPI;
+﻿using BikewaleOpr.BAL.ContractCampaign;
+using BikewaleOpr.common.ContractCampaignAPI;
 using BikewaleOpr.Common;
 using BikewaleOpr.Entity.ContractCampaign;
+using BikewaleOpr.Interface.ContractCampaign;
 using BikeWaleOpr.Classified;
 using Enyim.Caching;
+using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Linq;
 using System.Web;
 
 namespace BikeWaleOpr.Common
@@ -624,19 +629,68 @@ namespace BikeWaleOpr.Common
         }
 
         /// <summary>
+        /// Get dealer masking numbers from free pool
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
+        [AjaxPro.AjaxMethod()]
+        public IEnumerable<MaskingNumber> GetDealerMaskingNumbers(uint dealerId)
+        {
+            try
+            {
+                IEnumerable<MaskingNumber> numbersList = null;
+                using (IUnityContainer container = new UnityContainer())
+                {
+
+                    container.RegisterType<IContractCampaign, ContractCampaign>();
+                    IContractCampaign objCC = container.Resolve<IContractCampaign>();
+
+                    numbersList = objCC.GetAllMaskingNumbers(Convert.ToUInt32(dealerId));
+
+                    if (numbersList != null && numbersList.Count() > 0)
+                    {
+                        return numbersList;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.GetDealerMaskingNumbers");
+                objErr.SendMail();
+            }
+            return null;
+        }
+
+
+
+
+        /// <summary>
         ///  Written By : Sangram Nandkhile on 25 Mar 2016
         ///  Method to Map campaign againts contract
         ///  Modified by    :   Sumit Kate on 12 July 2016
         ///  Description    :   Call the ManageDealerCampaign class method to map the dealer Campaigns
         /// </summary>
         [AjaxPro.AjaxMethod()]
-        public bool MapCampaign(int contractId, ContractCampaignInputEntity ccInputs)
+        public bool MapCampaign(int contractId, int dealerId, int campaignId, int userId, string oldMaskingNumber, string maskingNumber, string dealerMobile)
         {
             bool isSuccess = false;
-            uint _dealerId = Convert.ToUInt32(ccInputs.ConsumerId);
+            ContractCampaignInputEntity ccInputs = new ContractCampaignInputEntity();
             try
             {
+
                 ManageDealerCampaign objMa = new ManageDealerCampaign();
+                ccInputs.ConsumerId = dealerId;
+                ccInputs.DealerType = 2;
+                ccInputs.LeadCampaignId = campaignId;
+                ccInputs.LastUpdatedBy = userId;
+                ccInputs.OldMaskingNumber = oldMaskingNumber;
+                ccInputs.MaskingNumber = maskingNumber;
+                ccInputs.NCDBranchId = -1;
+                ccInputs.ProductTypeId = 3;
+                ccInputs.Mobile = dealerMobile;
+                ccInputs.SellerMobileMaskingId = -1;
+                uint _dealerId = Convert.ToUInt32(ccInputs.ConsumerId);
                 isSuccess = objMa.MapContractCampaign(contractId, ccInputs.LeadCampaignId);
 
                 CwWebserviceAPI callApp = new CwWebserviceAPI();

@@ -295,10 +295,10 @@ namespace Bikewale.New
             switch (featureValue)
             {
                 case "True":
-                    adString = "<img align=\"absmiddle\" src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/tick.gif\" />";
+                    adString = "<span class=\"bwsprite compare-tick\"></span>";
                     break;
                 case "False":
-                    adString = "<span class=\"fa fa-times text-red font18\"></span>";
+                    adString = "<span class=\"bwsprite compare-cross\"></span>";
                     break;
                 default:
                     adString = "-";
@@ -313,9 +313,9 @@ namespace Bikewale.New
         {
             string sql = "";
 
-            sql = @" select (select maskingname from bikemakes   where id = mo.bikemakeid) as makemaskingname, mo.id as modelid, mo.name as modelname,mo.maskingname as modelmaskingname, ifnull(mo.reviewrate, 0) as modelrate, ifnull(mo.reviewcount, 0) as modeltotal, 
+            sql = @" select (select maskingname from bikemakes   where id = cv.bikemakeid) as makemaskingname, cv.bikemodelid as modelid, cv.modelname as modelname,cv.modelmaskingname as modelmaskingname, ifnull(cv.modelreviewrate, 0) as modelrate, ifnull(cv.modelreviewcount, 0) as modeltotal, 
                 ifnull(cv.reviewrate, 0) as versionrate, ifnull(cv.reviewcount, 0) as versiontotal 
-                from bikemodels as mo, bikeversions as cv   where cv.id = @id and mo.id = cv.bikemodelid ";
+                from bikeversions as cv   where cv.id = @id ";
 
 
             string reviewString = "";

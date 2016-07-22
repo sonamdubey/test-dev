@@ -29,7 +29,7 @@
         </div>
     
         <h1><%= pageTitle %></h1>
-        <div class="new-line5 f-12"><%=Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "MMMM dd, yyyy hh:mm tt") %> | By <%=author %></div>
+        <div class="new-line5 f-12"><%= displayDate %> | By <%=author %></div>
         <div class="new-line5">
             <ul class="socialplugins  new-line10">
                 <li><fb:like href="http://www.bikewale.com<%= url%>" send="false" layout="button_count"  show_faces="false"></fb:like></li>

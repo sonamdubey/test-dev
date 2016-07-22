@@ -295,9 +295,6 @@ namespace Bikewale.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbType.String, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbType.Boolean, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isused", DbType.Boolean, ParameterDirection.InputOutput));
-
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbType.Boolean, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isused", DbType.Boolean, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 150, ParameterDirection.InputOutput));
 
                     // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);

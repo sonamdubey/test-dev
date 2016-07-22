@@ -291,13 +291,13 @@ namespace Bikewale.Content
             string sql = string.Empty;
 
             if (modelId != string.Empty)
-                sql = @" select ma.name as make, mo.name as model, '' as version, ma.id as makeid,
-                            mo.id as modelid from bikemodels as mo, bikemakes as ma  
-                            where ma.id = mo.bikemakeid and mo.id = @modelid";
+                sql = @" select mo.makename as make, mo.name as model, '' as version, mo.bikemakeid as makeid,
+                            mo.id as modelid from bikemodels as mo
+                            where mo.id = @modelid";
             else
-                sql = @" select ma.name as make, mo.name as model, cv.name as version, ma.id as makeid,
-                            mo.id as modelid from bikemodels as mo, bikemakes as ma, bikeversions as cv  
-                            where ma.id = mo.bikemakeid and mo.id = cv.bikemodelid and cv.id = @versionid";
+                sql = @" select cv.makename as make, cv.modelname as model, cv.name as version, cv.bikemakeid as makeid,
+                            mo.id as modelid from bikeversions as cv  
+                            where cv.id = @versionid";
 
             try
             {

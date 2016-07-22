@@ -36,15 +36,7 @@
             <strong>Choose at least two Bikes</strong> of your choice to see how they compare on price, features, and performance. 
         </div>
         <table width="100%" border="0">
-            <tr>
-                <td class="alt">
-                    <div style="padding: 5px 0;">
-                        <asp:radiobutton id="optNew" autopostback="true" groupname="Compare" checked="true" runat="server" text="I am interested in <b>new bikes</b> only" />
-                        <br>
-                        <asp:radiobutton class="hide" id="optAll" autopostback="true" groupname="Compare" runat="server" text="I want to consider <b>new</b> as well as <b>discontinued bikes</b> in comparison" />
-                    </div>
-                </td>
-            </tr>
+            
             <tr>
                 <td class="padding-bottom10">
                     <span class="subHeading margin-right5">Bike-1</span>
@@ -162,7 +154,7 @@
         $.ajax({
             type: "POST",
             url: "/ajaxpro/Bikewale.Ajax.AjaxCompareBikes,Bikewale.ashx",
-            data: '{"makeId":"' + bikeMakeId + '", "compareBikes":"<%= compareBikes %>"}',
+            data: '{"makeId":"' + bikeMakeId + '", "compareBikes":"New"}',
             beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetModels"); },
             success: function (response) {
                 var responseJSON = eval('(' + response + ')');
@@ -183,7 +175,7 @@
         $.ajax({
             type: "POST",
             url: "/ajaxpro/Bikewale.Ajax.AjaxCompareBikes,Bikewale.ashx",
-            data: '{"modelId":"' + bikeModelId + '", "compareBikes":"<%= compareBikes %>"}',
+            data: '{"modelId":"' + bikeModelId + '", "compareBikes":"New"}',
             beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetVersions"); },
             success: function (response) {
                 var responseJSON = eval('(' + response + ')');

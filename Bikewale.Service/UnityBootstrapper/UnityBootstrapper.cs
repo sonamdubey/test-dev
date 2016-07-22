@@ -5,6 +5,7 @@ using Bikewale.BAL.BikeData;
 using Bikewale.BAL.Compare;
 using Bikewale.BAL.Customer;
 using Bikewale.BAL.Dealer;
+using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.Pager;
 using Bikewale.BAL.PriceQuote;
 using Bikewale.Cache.App;
@@ -39,6 +40,7 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Feedback;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.MobileVerification;
@@ -68,6 +70,8 @@ namespace Bikewale.Service.UnityConfiguration
         /// Description :   Register IDeepLinking, DeepLinking
         /// Modified By :   Lucky Rathore on 21 March 2016
         /// Description :   Register IDealerCacheRepository, DealerCacheRepository
+        /// Modified By :   Sumit Kate on 20 July 2016
+        /// Description :   Register Road Test/Feature/Article BAL classes for CMS Controller constructor resolution
         /// </summary>
         /// <returns></returns>
         public static IUnityContainer Initialize()
@@ -119,6 +123,8 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>();
             container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>();
             container.RegisterType<ICMSCacheContent, CMSCacheRepository>();
+            container.RegisterType<IArticles, Articles>();
+
             return container;
         }
     }

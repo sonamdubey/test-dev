@@ -1,27 +1,25 @@
-﻿using System;
+﻿using Bikewale.Common;
+using Bikewale.Controls;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Memcache;
+using MySql.CoreDAL;
+using System;
+using System.Data;
+using System.Data.Common;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using Bikewale.Common;
-using Bikewale.Controls;
-using System.Data;
-using System.Data.SqlClient;
-using Bikewale.Memcache;
-using Bikewale.Entities.PriceQuote;
-using Bikewale.CoreDAL;
-using System.Data.Common;
-using MySql.CoreDAL;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.New
-{    
+{
     public class UpcomingBikesList : Page
     {
         protected Repeater rptLaunches;
         protected RepeaterPager rpgUpcomingBikes;
         public int serial = 0;
         protected string PageNumber = string.Empty, SelectClause = string.Empty, FromClause = string.Empty, WhereClause = string.Empty,
-            OrderByClause = string.Empty, BaseUrl = string.Empty, RecordCntQry = string.Empty, prevUrl = string.Empty,nextUrl = string.Empty;
+            OrderByClause = string.Empty, BaseUrl = string.Empty, RecordCntQry = string.Empty, prevUrl = string.Empty, nextUrl = string.Empty;
         protected UpcomingBikeSearch UpcomingBikeSearch;
         protected Bikewale.Controls.NewBikeLaunches ctrl_NewBikeLaunches;
         protected DropDownList drpSort;
@@ -55,7 +53,7 @@ namespace Bikewale.New
             ctrl_NewBikeLaunches.PQSourceId = (int)PQSourceEnum.Desktop_Upcoming_NewLaunches;
 
             if (!IsPostBack)
-            {              
+            {
                 if (Request["pn"] != null && Request.QueryString["pn"] != "")
                 {
                     if (Bikewale.Common.CommonOpn.CheckId(Request.QueryString["pn"]) == true)
@@ -78,7 +76,7 @@ namespace Bikewale.New
                     }
                     else
                     {
-                        Response.Redirect("/pagenotfound.aspx",false);
+                        Response.Redirect("/pagenotfound.aspx", false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
@@ -128,15 +126,15 @@ namespace Bikewale.New
         private void FetchUpcomingBikes(string makeId, string makeName, string sort)
         {
             DbCommand cmd = DbFactory.GetDBCommand();
-            SelectClause = " mk.name makename,mk.maskingname as makemaskingname , mo.name as modelname,mo.maskingname as modelmaskingname, ecl.expectedlaunch, ecl.estimatedpricemin, ecl.estimatedpricemax, ecl.hosturl, ecl.largepicimagepath, csy.smalldescription as description, ecl.originalimagepath ";
+            SelectClause = " mo.makename, mo.makemaskingname as makemaskingname , mo.name as modelname,mo.maskingname as modelmaskingname, ecl.expectedlaunch, ecl.estimatedpricemin, ecl.estimatedpricemax, ecl.hosturl, ecl.largepicimagepath, csy.smalldescription as description, ecl.originalimagepath ";
             FromClause = @" expectedbikelaunches ecl 
                             left join bikesynopsis csy  on ecl.bikemodelid = csy.modelid and csy.isactive = 1 
-                            inner join bikemodels mo   on ecl.bikemodelid = mo.id 
-                            inner join bikemakes mk   on mk.id = mo.bikemakeid ";
-            WhereClause = " mo.futuristic = 1 and ecl.islaunched = 0  and ecl.isdeleted = 0 ";
+                            inner join bikemodels mo   on ecl.bikemodelid = mo.id ";
+            // inner join bikemakes mk   on mk.id = mo.bikemakeid ";
+            WhereClause = " mo.futuristic = 1 and ecl.islaunched = 0  and ecl.isdeleted = 0 and mo.IsDeleted = 0 ";
             if (makeId != string.Empty)
             {
-                WhereClause += "and mk.id = @makeid ";
+                WhereClause += "and mo.bikemakeid = @makeid ";
             }
             OrderByClause = GetSortCriteria(sort);
             if (sort != string.Empty)
@@ -144,9 +142,9 @@ namespace Bikewale.New
             else
                 BaseUrl = "/" + makeName + "-bikes/upcoming/";
             //if(PageNumber != string.Empty)
-                //BaseUrl = "/" + makeName + "-bikes/upcoming/page/" + PageNumber + "/";
+            //BaseUrl = "/" + makeName + "-bikes/upcoming/page/" + PageNumber + "/";
 
-            cmd.Parameters.Add(DbFactory.GetDbParam("@makeid", DbType.Int32, makeId)); 
+            cmd.Parameters.Add(DbFactory.GetDbParam("@makeid", DbType.Int32, makeId));
 
             RecordCntQry = " select count(*) from " + FromClause + " where " + WhereClause;
 
@@ -285,13 +283,13 @@ namespace Bikewale.New
                 formattedPrice = "N/A";
             }
             else
-            { 
+            {
                 //formattedPrice = price.Replace(".00", "");
                 formattedPrice = Bikewale.Common.CommonOpn.FormatNumeric(price);
             }
             return formattedPrice;
         }   // End of GetFormattedPrice function
 
-    
+
     }   // End of class
 }   // End of namespace
