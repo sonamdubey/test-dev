@@ -121,7 +121,7 @@ namespace Bikewale.Common
                 nvc.Add("provider", "");
 
                 RabbitMqPublish publish = new RabbitMqPublish();
-                publish.PublishToQueue("Sms", nvc);
+                publish.PublishToQueue(BWConfiguration.Instance.BWSmsQueue, nvc);
             }
         }
 
@@ -167,7 +167,7 @@ namespace Bikewale.Common
                 nvc.Add("provider", "");
 
                 RabbitMqPublish publish = new RabbitMqPublish();
-                publish.PublishToQueue(BWConfiguration.Instance.BWSmsQueue, nvc);
+                publish.PublishToQueue(BWConfiguration.Instance.BWPrioritySmsQueue, nvc);
             }
         }
 
