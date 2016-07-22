@@ -357,30 +357,30 @@
                         <ul class="overall-specs-tabs-wrapper">
                             <% if ((modelPage.ModelDesc != null && !string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) || modelPage.ModelVersionSpecs != null)
                            { %>
-                            <li data-tabs="#modelSummaryContent"><h3>Summary</h3></li>
+                            <li data-tabs="#modelSummaryContent">Summary</li>
                             <% } %>
                             <% if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
                             { %>
-                            <li data-tabs="#modelPricesContent"><h3>Prices</h3></li>
+                            <li data-tabs="#modelPricesContent">Prices</li>
                             <%} %>
                             <% if(modelPage.ModelVersionSpecs!= null){ %>
-                            <li data-tabs="#modelSpecsFeaturesContent"><h3>Specs & Features</h3></li>
+                            <li data-tabs="#modelSpecsFeaturesContent">Specs & Features</li>
                             <% } %>
                             <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
                              { %>
-                            <li data-tabs="#modelReviewsContent"><h3>Reviews</h3></li>
+                            <li data-tabs="#modelReviewsContent">Reviews</li>
                               <%} %>
                             <% if (ctrlVideos.FetchedRecordsCount > 0)
                                 { %>
-                                <li data-tabs="#modelVideosContent"><h3>Videos</h3></li>
+                                <li data-tabs="#modelVideosContent">Videos</li>
                             <%} %>
                              <% if (ctrlNews.FetchedRecordsCount > 0)
                              { %>
-                                <li data-tabs="#makeNewsContent"><h3>News</h3></li>
+                                <li data-tabs="#makeNewsContent">News</li>
                             <%} %>
                              <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
                               { %>
-                                 <li data-tabs="#modelAlternateBikeContent"><h3>Alternatives</h3></li>
+                                 <li data-tabs="#modelAlternateBikeContent">Alternatives</li>
                             <%} %>
                         </ul>
                     </div>
@@ -687,7 +687,7 @@
                 <div class="bwmsprite close-btn leadCapture-close-btn rightfloat"></div>
                 <div id="contactDetailsPopup">
                     <!-- Contact details Popup starts here -->
-                    <h2 class="margin-bottom5">Provide contact details</h2>
+                    <p class="font18 margin-bottom5">Provide contact details</p>
                     <p class="text-light-grey margin-bottom5">Dealership will get back to you with offers</p>
 
                     <div class="personal-info-form-container margin-top10">

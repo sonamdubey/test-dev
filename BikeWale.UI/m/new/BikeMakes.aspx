@@ -103,33 +103,23 @@
                     <div id="overallSpecsTab" class="overall-specs-tabs-container">
                         <ul class="overall-specs-tabs-wrapper">
                              <% if (_bikeDesc != null && _bikeDesc.FullDescription.Length > 0) { %>
-                            <li data-tabs="#makeAboutContent">
-                                <h3>About</h3>
-                            </li>
+                            <li data-tabs="#makeAboutContent">About</li>
                             <% } %>
                             <% if (ctrlNews.FetchedRecordsCount > 0)
                                {%>
-                            <li data-tabs="#makeNewsContent">
-                                <h3>News</h3>
-                            </li>
+                            <li data-tabs="#makeNewsContent">News</li>
                             <% } %>
                             <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
                                { %>
-                            <li data-tabs="#makeReviewsContent">
-                                <h3>Reviews</h3>
-                            </li>
+                            <li data-tabs="#makeReviewsContent">Reviews</li>
                             <%} %>
                             <% if (ctrlVideos.FetchedRecordsCount > 0)
                                { %>
-                            <li data-tabs="#makeVideosContent">
-                                <h3>Videos</h3>
-                            </li>
+                            <li data-tabs="#makeVideosContent">Videos</li>
                             <%} %>
                             <% if (ctrlDealerCard.showWidget)
                                { %>
-                            <li data-tabs="#makeDealersContent">
-                                <h3>Dealers</h3>
-                            </li>
+                            <li data-tabs="#makeDealersContent">Dealers</li>
                             <%} %>
                         </ul>
                     </div>
