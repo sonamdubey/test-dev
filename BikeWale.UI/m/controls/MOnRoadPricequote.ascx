@@ -2,7 +2,7 @@
 
 <div class="container" id="OnRoadContent">
     <div class="grid-12">
-        <h2 class="margin-top30 margin-bottom20 text-white text-center">On Road Price</h2>
+        <h2 class="font18 margin-top20 margin-bottom20 text-white text-center">On road price</h2>
 
         <!-- On road pricequote control-->
         <div class="form-control-box margin-bottom20">

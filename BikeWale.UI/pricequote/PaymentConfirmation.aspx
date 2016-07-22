@@ -12,7 +12,6 @@
     <style>
         .map-box {width: 290px;height: 90px;}
         .inr-sm { width:8px; height:12px; background-position:-110px -468px; }
-        .inr-lg { width:10px; height:14px; background-position:-110px -490px; }
         .phone-grey-icon { width:11px; height:15px; background-position:-53px -444px; position:relative; top:0; }
     </style>
 </head>

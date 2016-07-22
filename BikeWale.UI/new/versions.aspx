@@ -131,7 +131,7 @@
                         </div>
                         <div class="grid-7 model-details-wrapper omega">
                             <div class="model-name-review-container">
-                                <h1 class="font18 text-black text-bold"><%= bikeName %></h1>
+                                <h1><%= bikeName %></h1>
                                 <% if (!modelPageEntity.ModelDetails.Futuristic || modelPageEntity.ModelDetails.New)
 								   { %>
                                 <!-- Review & ratings -->
@@ -262,7 +262,7 @@
                                 <% } %>
                                 <%  if (price == 0)
 									{ %>
-                                <span class="font32">Price not available</span>
+                                <span class="font20">Price not available</span>
                                 <%  }
 									else
 									{ %>
@@ -558,7 +558,7 @@
                                 <img src="<%= modelImage %>" />
                             </div>
                             <div class="model-card-title-content inline-block-top">
-                                <h2 class="font18 text-bold margin-bottom10"><%= bikeName %></h2>
+                                <p class="font16 text-bold margin-bottom5"><%= bikeName %></p>
                                 <p class="font14 text-light-grey"><%= variantText %></p>
                             </div>
                         </div>
@@ -566,19 +566,19 @@
                               <% if (!modelPageEntity.ModelDetails.Futuristic)
 							   { %>
                                 <%if(isDiscontinued){ %>
-                                <p class="font14 text-light-grey margin-bottom5 leftfloat">Last known Ex-showroom price</p>
+                                <p class="font14 text-light-grey leftfloat">Last known Ex-showroom price</p>
                                 <%} else
                                  if (!isCitySelected)
 								   {%>
-                                <p class="font14 text-light-grey margin-bottom5 exshowroom-area"><span>Ex-showroom price in</span>&nbsp;<span class="font14 exshowroom-area-name text-truncate"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span></p>
+                                <p class="font14 text-light-grey exshowroom-area"><span>Ex-showroom price in</span>&nbsp;<span class="font14 exshowroom-area-name text-truncate"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span></p>
                                 <% } %>
                                 <% else if (!isOnRoadPrice)
 								   {%>
-                                <p class="font14 text-light-grey margin-bottom5 leftfloat exshowroom-area"><span class="leftfloat">Ex-showroom price in</span><span class="leftfloat text-truncate exshowroom-area-name city-area-name margin-right5"><%= areaName %> <%= cityName %></span></p>
+                                <p class="font14 text-light-grey leftfloat exshowroom-area"><span class="leftfloat">Ex-showroom price in</span><span class="leftfloat text-truncate exshowroom-area-name city-area-name margin-right5"><%= areaName %> <%= cityName %></span></p>
                                 <% } %>
                                 <% else
 								   {%>
-                                <p class="font14 text-light-grey margin-bottom5 leftfloat"><span class="leftfloat">On-road price in</span><span class="leftfloat text-truncate city-area-name margin-right5"><%= areaName %> <%= cityName %></span></p>
+                                <p class="font14 text-light-grey leftfloat"><span class="leftfloat">On-road price in</span><span class="leftfloat text-truncate city-area-name margin-right5"><%= areaName %> <%= cityName %></span></p>
 
                                 <% } %>                          
                             <div class="clear"></div>
@@ -586,7 +586,7 @@
                             <div>
                                  <% if (price == 0)
 									{ %>
-                                <span class="font32">Price not available</span>
+                                <span class="font18">Price not available</span>
                                 <%  } else{ %>
                                 <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
                                 <%} %>
@@ -700,7 +700,7 @@
                     <div id="modelSummaryContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom">
                         <%if(modelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(modelPageEntity.ModelDesc.SmallDescription)){ %>
                         <div class="grid-8 alpha margin-bottom20 container">
-                            <h2><%=bikeName %></h2>
+                            <h2><%=bikeName %> Summary</h2>
                             <h3>Preview</h3>
                             <p class="font14 text-light-grey line-height17">
                                 <span class="model-preview-main-content">
@@ -722,28 +722,28 @@
                          <% if(modelPageEntity.ModelVersionSpecs != null){ %>
                         <h3>Specification summary</h3>
                         <div class="grid-3 border-light-right omega">
-                            <span class="inline-block model-sprite specs-capacity-icon margin-right30"></span>
+                            <span class="inline-block model-sprite specs-capacity-icon margin-right30" title="<%=bikeName %> Engine Capacity"></span>
                             <div class="inline-block">
                                 <p class="font22 text-bold margin-bottom5"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.Displacement) %><span> cc</span></p>
                                 <p class="font16 text-light-grey">Capacity</p>
                             </div>
                         </div>
                         <div class="grid-3 padding-left40 border-light-right omega">
-                            <span class="inline-block model-sprite specs-mileage-icon margin-right30"></span>
+                            <span class="inline-block model-sprite specs-mileage-icon margin-right30" title="<%=bikeName %> Mileage"></span>
                             <div class="inline-block">
                                 <p class="font22 text-bold margin-bottom5"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall) %><span> kmpl</span></p>
                                 <p class="font16 text-light-grey">Mileage</p>
                             </div>
                         </div>
                         <div class="grid-3 padding-left60 border-light-right omega">
-                            <span class="inline-block model-sprite specs-maxpower-icon margin-right30"></span>
+                            <span class="inline-block model-sprite specs-maxpower-icon margin-right30" title="<%=bikeName %> Max Power"></span>
                             <div class="inline-block">
                                 <p class="font22 text-bold margin-bottom5"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.MaxPower) %><span> bhp</span></p>
                                 <p class="font16 text-light-grey">Max power</p>
                             </div>
                         </div>
                         <div class="grid-3 padding-left50 omega">
-                            <span class="inline-block model-sprite specs-weight-icon margin-right30"></span>
+                            <span class="inline-block model-sprite specs-weight-icon margin-right30" title="<%=bikeName %> Kerb Weight"></span>
                             <div class="inline-block">
                                 <p class="font22 text-bold margin-bottom5"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.KerbWeight) %><span> kgs</span></p>
                                 <p class="font16 text-light-grey">Weight</p>
@@ -755,7 +755,7 @@
                     
                     <%} %>
                     <% if(modelPageEntity.ModelVersions!= null && modelPageEntity.ModelVersions.Count > 0) { %>
-                    <div id="modelPricesContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom">
+                    <div id="modelPricesContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-right10 padding-bottom10 padding-left10 border-solid-bottom">
                         <h2><%=bikeName %> Prices</h2>
                         <div class="grid-8 alpha">
                             <h3 class="margin-bottom20">Prices by versions</h3>
@@ -788,8 +788,8 @@
                                         </asp:Repeater>                                  
                                     </ul>                                      
                                 </div>
-                                <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
-                                <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+                                <span class="jcarousel-control-left jcarousel-arrow-icon"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                                <span class="jcarousel-control-right jcarousel-arrow-icon"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                                 <p class="jcarousel-pagination text-center"></p>
                             </div>
                         </div>
@@ -852,7 +852,7 @@
                             <div class="margin-top25 padding-left20">
                                 <a href="<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(modelPageEntity.ModelDetails.MakeBase.MaskingName, 
                                 modelPageEntity.ModelDetails.MaskingName, "specs", variantId) %>" 
-                                    class="bw-ga" c="Model_Page" a="View_full_specifications_link_cliked" v="myBikeName">View full specifications<span class="bwsprite blue-right-arrow-icon" ></span></a>
+                                    class="bw-ga" c="Model_Page" a="View_full_specifications_link_cliked" v="myBikeName" title="<%=bikeName %> Specifications">View full specifications<span class="bwsprite blue-right-arrow-icon" ></span></a>
                             </div>
                         </div>
                         <div class="clear"></div>
@@ -874,7 +874,7 @@
                                     <div class="clear"></div>
                                     <div class="margin-top25 padding-left20">
                                         <a href="<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(modelPageEntity.ModelDetails.MakeBase.MaskingName,
-                                        modelPageEntity.ModelDetails.MaskingName, "features", variantId) %>" class="bw-ga" c="Model_Page" a="View_all_features_link_cliked" v="myBikeName">View all features<span class="bwsprite blue-right-arrow-icon"></span></a>
+                                        modelPageEntity.ModelDetails.MaskingName, "features", variantId) %>" class="bw-ga" c="Model_Page" a="View_all_features_link_cliked" v="myBikeName" title="<%=bikeName %> Features">View all features<span class="bwsprite blue-right-arrow-icon"></span></a>
                                     </div>
                                 </div>
                                 <div class="grid-6">

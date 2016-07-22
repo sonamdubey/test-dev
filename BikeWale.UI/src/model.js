@@ -1161,6 +1161,7 @@ var modelPriceCarouselPagination = function () {
         modelPriceCarousel.each(function () {
             $(this).remove();
         });
+        $('#modelPricesContent .jcarousel-arrow-icon').remove();
     }
     else if (modelPricePaginationLength >= 3) {
         modelPriceCarousel.each(function () {

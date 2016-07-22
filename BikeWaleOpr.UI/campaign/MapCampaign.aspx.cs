@@ -17,7 +17,7 @@ namespace BikewaleOpr.Campaign
         #region Variables
 
         protected Repeater rptCampaigns;
-        protected string startDate = string.Empty, endDate = string.Empty, packageName = string.Empty;
+        protected string startDate = string.Empty, endDate = string.Empty, packageName = string.Empty, oldMaskingNumber = string.Empty;
         protected int contractId, packageId, contractStatus, dealerId;
         protected Panel pnlExisting, pnlNew;
         protected HtmlInputHidden hdn_CampaignId;
@@ -88,6 +88,7 @@ namespace BikewaleOpr.Campaign
 
                     dealerName = campaigns.DealerName;
                     dealerNumber = campaigns.DealerNumber;
+                    oldMaskingNumber = campaigns.ActiveMaskingNumber;
                     if (campaigns.DealerCampaigns != null && campaigns.DealerCampaigns.Count() > 0)
                     {
                         rptCampaigns.DataSource = campaigns.DealerCampaigns;

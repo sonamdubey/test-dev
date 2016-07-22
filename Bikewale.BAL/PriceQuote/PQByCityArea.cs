@@ -81,7 +81,7 @@ namespace Bikewale.BAL.PriceQuote
                                 PQ_QuotationEntity oblDealerPQ = null;
                                 try
                                 {
-                                    oblDealerPQ = GetDealePQEntity((uint)cityId, (uint)versionId, objPQOutput.DealerId);
+                                    oblDealerPQ = GetDealePQEntity((uint)cityId, objPQOutput.DealerId, (uint)versionId );
 
                                     if (oblDealerPQ != null)
                                     {

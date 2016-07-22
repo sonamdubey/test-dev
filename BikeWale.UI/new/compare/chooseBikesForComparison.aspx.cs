@@ -25,6 +25,10 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.New
 {
+    /// <summary>
+    /// Modified By : Lucky Rathore
+    /// Description : Radio button for "ALL" or "New" bikes and its logic Removed.
+    /// </summary>
     public class ComparisonChoose : Page
     {
         protected int featuredBikeIndex = 0; // this variable not used any where in this page.
@@ -32,14 +36,11 @@ namespace Bikewale.New
         protected DropDownList cmbMake, cmbMake1, cmbMake2, cmbMake3;
 
         protected Button btnCompare;
-        protected RadioButton optNew, optAll;
 
         public int make1 = 0, model1 = 0, version1 = 0;
         public int make2 = 0, model2 = 0, version2 = 0;
         public int make3 = 0, model3 = 0, version3 = 0;
         public int make4 = 0, model4 = 0, version4 = 0;
-
-        protected string compareBikes = String.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -50,8 +51,6 @@ namespace Bikewale.New
         {
             base.Load += new EventHandler(Page_Load);
             this.btnCompare.Click += new EventHandler(btnCompare_Click);
-            optNew.CheckedChanged += new EventHandler(CompareStatusChanged);
-            optAll.CheckedChanged += new EventHandler(CompareStatusChanged);
         }
 
         void Page_Load(object Sender, EventArgs e)
@@ -63,66 +62,21 @@ namespace Bikewale.New
 
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
-
-            compareBikes = optNew.Checked ? "new" : "all";
-
-            if (!IsPostBack)
-            {
-                // check whether CompareAll cookie is set?
-                if (Request.Cookies["CompareAll"] != null)
-                {
-                    optAll.Checked = true;
-                    optNew.Checked = false;
-                }
-            }
-            else
-            {
-                Trace.Warn("Posting back...");
-            }
-
-            Trace.Warn("New ? " + optNew.Checked + ". All ? " + optAll.Checked);
-
+            
             // fill makes in drop-downs
-            FillMakes(optNew.Checked);
+            FillMakes();
 
             // if Bike ids are passed in query-string, fill the appropriate dropdowns.
             for (int i = 1; i <= 4; i++)
                 if (Request["bike" + i] != null && Bikewale.Common.CommonOpn.CheckId(Request["bike" + i]))
                     FillExisting(Request["bike" + i], i);
-
-
-            Trace.Warn("End PageLoad");
         } // Page_Load
-
-        // user is changing his preference for new or all comparison
-        void CompareStatusChanged(object sender, EventArgs e)
-        {
-            Trace.Warn("Status Changed : New ? " + optNew.Checked + ". All ? " + optAll.Checked);
-
-            if (optAll.Checked)
-            {
-                if (Request.Cookies["CompareAll"] == null)
-                {
-                    Trace.Warn("User is interested in All Bikes... setting cookie");
-
-                    HttpCookie cookie = new HttpCookie("CompareAll");
-                    cookie.Value = "1";
-                    cookie.Expires = DateTime.Now.AddYears(1);
-                    Response.Cookies.Add(cookie);
-                }
-            }
-            else
-            {
-                if (Request.Cookies["CompareAll"] != null)
-                    Response.Cookies["CompareAll"].Expires = DateTime.Now.AddYears(-1);
-            }
-        }
-
+        
         /// <summary>
-        /// 
+        ///  Modified by : Lucky Rathore on 21 July 2016.
+        ///  Description : Remove function's "onlyNew" parameter. 
         /// </summary>
-        /// <param name="onlyNew"></param>
-        void FillMakes(bool onlyNew)
+        void FillMakes()
         {
             Bikewale.Common.CommonOpn op = new Bikewale.Common.CommonOpn();
 

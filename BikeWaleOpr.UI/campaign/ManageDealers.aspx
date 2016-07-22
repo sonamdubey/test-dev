@@ -234,8 +234,9 @@
                         success: function (response) {
                             if (JSON.parse(response).value) {
                                 $("#txtMaskingNumber").val('');
-                                bindMaskingNumber(dealerId);
+                                //bindMaskingNumber(dealerId);                                
                                 alert("Masking Number is released successful.");
+                                location.reload();
                             }
                             else {
                                 alert("There was error while releasing masking number. Please contact System Administrator for more details.");
@@ -260,10 +261,10 @@
                         success: function (response) {
                             var res = JSON.parse(response);
                             if (res) {
-                                $('#txtMaskingNumber').empty();
-                                $($.parseJSON(res.value)).map(function () {
-                                    return $('<option>').val(this.IsAssigned).text(this.Number);
-                                }).appendTo('#txtMaskingNumber');
+                                $('#ddlMaskingNumber').empty();
+                                $.each(res.value, function (index, value) {
+                                    ('#ddlMaskingNumber').append($('<option>').text(value.Number).attr('value', value.IsAssigned));
+                                });                                
                             }                            
                         }
 

@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="bike-gallery-heading margin-bottom20 margin-left30 <%= videoCount == 0 ? "margin-top90" : "" %>">
-            <h3 class="text-white"><%= bikeName %></h3>
+            <p class="font18 text-bold text-white"><%= bikeName %></p>
         </div>
         <div class="bw-tabs-data" id="Photos">
             <div class="connected-carousels-photos">
