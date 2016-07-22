@@ -42,12 +42,6 @@
     .position-rel {
         position: relative;
     }
-    .active-contract {
-        background-color: #ccc;
-    } 
-    .unstarted-contract {
-        background-color: #ccc;
-    } 
 </style>
 <div>
     You are here &raquo; Search Dealer Campaigns
@@ -85,15 +79,10 @@
             <thead>
                 <tr class="dtHeader">
                     <td>Sr No.</td>
-                    <td>Contract Id</td>
-                    <td>Package Name</td>
-                    <td>Contract Start Date</td>
-                    <td>Contract End Date</td>
                     <td>Campaign Name</td>
                     <td>Campaign EmailId</td>
                     <td>LeadServingRadius</td>
                     <td>Masking Number</td>
-                    <td>Contract Status</td>
                     <td>Rules</td>
                      <td>Edit Campaign</td>
                 </tr>
@@ -103,17 +92,12 @@
         </table>
     </div>
     <script type="text/html" id="DealerCampaignList">
-        <tr class="dtItem" data-bind="style: { 'background-color': ContractStatus == 1 ? '#32cd32' : '#fffacd' }">
+        <tr class="dtItem">
             <td data-bind="text : $index() + 1"></td>
-            <td data-bind="text: ContractId"></td>
-            <td data-bind="text: PackageName"></td>
-            <td data-bind="text: StartDate"></td>
-            <td data-bind="text: EndDate"></td>
             <td data-bind="text: CampaignName"></td>
             <td data-bind="text: CampaignEmailId"></td>
             <td data-bind="text: CampaignLeadServingRadius"></td>
             <td data-bind="text: MaskingNumber"></td>
-            <td data-bind="text: ContractStatus == 1 ? 'Active' : 'Unstarted'"></td>
             <td >
                 <a  data-bind="attr: { href: '/campaign/DealersRules.aspx?campaignid=' + CampaignId() + '&dealerid='+ $root.dealerId() },text: (NoOfRules() > 0) ? 'Yes' : 'No'" target="_blank"></a>
             </td>

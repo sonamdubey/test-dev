@@ -163,7 +163,7 @@ namespace BikewaleOpr.Common
         /// </summary>
         /// <param name="dealerId">dealer Id</param>
         /// <returns></returns>
-        public DealerCampaignBase FetchBWCampaigns(int dealerId, int contractId)
+        public DealerCampaignBase FetchBWCampaigns(int dealerId)
         {
 
             IList<DealerCampaignEntity> lstDealerCampaign = null;
@@ -177,7 +177,6 @@ namespace BikewaleOpr.Common
 
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32, dealerId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_contractId", DbType.Int32, contractId));
 
                         using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                         {
@@ -191,17 +190,6 @@ namespace BikewaleOpr.Common
                                     dealerCampaigns.DealerNumber = Convert.ToString(reader["MobileNo"]);
                                 }
 
-                                if (reader.Read())
-                                {
-                                    dealerCampaigns.CurrentCampaign = new DealerCampaignEntity()
-                                    {
-                                        CampaignId = !Convert.IsDBNull(reader["campaignId"]) ? Convert.ToInt32(reader["campaignId"]) : default(int),
-                                        CampaignName = !Convert.IsDBNull(reader["CampaignName"]) ? Convert.ToString(reader["CampaignName"]) : string.Empty,
-                                        EmailId = !Convert.IsDBNull(reader["EmailId"]) ? Convert.ToString(reader["EmailId"]) : string.Empty,
-                                        MaskingNumber = !Convert.IsDBNull(reader["MaskingNumber"]) ? Convert.ToString(reader["MaskingNumber"]) : string.Empty,
-                                        ServingRadius = !Convert.IsDBNull(reader["ServingRadius"]) ? Convert.ToInt32(reader["ServingRadius"]) : default(int),
-                                    };
-                                }
 
                                 if (reader.NextResult())
                                 {
