@@ -62,7 +62,8 @@ namespace Bikewale.Utility
             _PageSize = String.Empty,
             _StaticFileVersion = String.Empty,
             _apiRequestTypeJSON = String.Empty,
-            _BWSmsQueue = String.Empty,
+            _BWPrioritySmsQueue = String.Empty,
+            _BWSmsQueue = string.Empty,
             _BWDataSynchQueue = string.Empty,
             _GoogleApiKey = string.Empty,
             _GoogleMapApiKey = String.Empty,
@@ -118,7 +119,8 @@ namespace Bikewale.Utility
             _PageSize = ConfigurationManager.AppSettings["PageSize"];
             _StaticFileVersion = ConfigurationManager.AppSettings["staticFileVersion"];
             _apiRequestTypeJSON = "application/json";
-            _BWSmsQueue = ConfigurationManager.AppSettings["PrioritySmsQueue"];
+            _BWPrioritySmsQueue = ConfigurationManager.AppSettings["PrioritySmsQueue"];
+            _BWSmsQueue = ConfigurationManager.AppSettings["SmsQueue"];
             _BWDataSynchQueue = ConfigurationManager.AppSettings["BWDataSynchQueue"];
             _GoogleApiKey = ConfigurationManager.AppSettings["APIKey"];
             _GoogleMapApiKey = ConfigurationManager.AppSettings["GoogleMapApiKey"];
@@ -223,6 +225,7 @@ namespace Bikewale.Utility
         public string PageSize { get { return _PageSize; } }
         public string StaticFileVersion { get { return _StaticFileVersion; } }
         public string APIRequestTypeJSON { get { return _apiRequestTypeJSON; } }
+        public string BWPrioritySmsQueue { get { return _BWPrioritySmsQueue; } }
         public string BWSmsQueue { get { return _BWSmsQueue; } }
         public string BWDataSynchQueue { get { return _BWDataSynchQueue; } }
         public string GoogleApiKey { get { return _GoogleApiKey; } }
