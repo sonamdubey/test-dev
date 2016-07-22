@@ -65,11 +65,11 @@ namespace Bikewale.Cache.CMS
 
                 if (modelId > 0)
                 {
-                    key = string.Format("{0}_MO_{1}", modelId);
+                    key = string.Format("{0}_MO_{1}", key, modelId);
                 }
                 else if (makeId > 0)
                 {
-                    key = string.Format("{0}_MK_{1}", makeId);
+                    key = string.Format("{0}_MK_{1}", key, makeId);
                 }
 
                 _objArticlesList = _cache.GetFromCache<IEnumerable<ArticleSummary>>(key, new TimeSpan(1, 0, 0), () => _objArticles.GetMostRecentArticlesByIdList(contentTypeIds, totalRecords, makeId, modelId));
@@ -105,11 +105,11 @@ namespace Bikewale.Cache.CMS
 
                 if (modelId > 0)
                 {
-                    key = string.Format("{0}_MO_{1}", modelId);
+                    key = string.Format("{0}_MO_{1}", key, modelId);
                 }
                 else if (makeId > 0)
                 {
-                    key = string.Format("{0}_MK_{1}", makeId);
+                    key = string.Format("{0}_MK_{1}", key, makeId);
                 }
 
                 _objArticlesList = _cache.GetFromCache<CMSContent>(key, new TimeSpan(1, 0, 0), () => _objArticles.GetArticlesByCategoryList(categoryIdList, startIndex, endIndex, makeId, modelId));
@@ -145,7 +145,7 @@ namespace Bikewale.Cache.CMS
             }
 
             return objImages;
-        } 
+        }
         #endregion
 
         /// <summary>
