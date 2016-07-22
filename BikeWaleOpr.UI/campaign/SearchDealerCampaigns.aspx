@@ -103,7 +103,8 @@
         </table>
     </div>
     <script type="text/html" id="DealerCampaignList">
-        <tr class="dtItem" data-bind="style: { 'background-color': ContractStatus == 1 ? '#32cd32' : '#fffacd' }">
+        <%--<tr class="dtItem" data-bind="style: { 'background-color': (ContractStatus == 1) ? '#32cd32' : '#fffacd' }">--%>
+        <tr class="dtItem">
             <td data-bind="text : $index() + 1"></td>
             <td data-bind="text: ContractId"></td>
             <td data-bind="text: PackageName"></td>
@@ -113,7 +114,8 @@
             <td data-bind="text: CampaignEmailId"></td>
             <td data-bind="text: CampaignLeadServingRadius"></td>
             <td data-bind="text: MaskingNumber"></td>
-            <td data-bind="text: ContractStatus == 1 ? 'Active' : 'Unstarted'"></td>
+            <td data-bind="text: ContractStatus"></td>
+            
             <td >
                 <a  data-bind="attr: { href: '/campaign/DealersRules.aspx?campaignid=' + CampaignId() + '&dealerid='+ $root.dealerId() },text: (NoOfRules() > 0) ? 'Yes' : 'No'" target="_blank"></a>
             </td>

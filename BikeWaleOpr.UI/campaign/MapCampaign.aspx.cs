@@ -28,6 +28,7 @@ namespace BikewaleOpr.Campaign
         protected DealerContractEntity dealerContract;
         protected bool isMapped = false;
         protected DealerCampaignEntity campaignEntity;
+        protected DealerCampaignBase campaigns;
         #endregion
 
         #region Events
@@ -84,7 +85,7 @@ namespace BikewaleOpr.Campaign
         {
             try
             {
-                DealerCampaignBase campaigns = dealerCampaign.FetchBWCampaigns(dealerId, contractId);
+                campaigns = dealerCampaign.FetchBWCampaigns(dealerId, contractId);
                 if (campaigns != null)
                 {
 

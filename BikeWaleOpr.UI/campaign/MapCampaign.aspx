@@ -76,6 +76,7 @@
             <hr />
             <% } %>
             <% if (campaignEntity != null) { %>
+            <h3 class="margin-left40">Currently Mapped Campaign</h3>
             <div class="margin-left40">
                     <table class="margin-top10 margin-bottom10" rules="all" cellspacing="0" cellpadding="5" style="border-width: 1px; border-style: solid; width: 100%; border-collapse: collapse;">
                                           
@@ -103,10 +104,10 @@
                     </table>
                 </div>
             <br />
-            <br />
             <hr />
             <% } %>
-            <h3 class="margin-left40"><% if(contractId > 0){ %> Map with <% } %>Existing Campaign(s)</h3>
+            <% if (campaigns != null && campaigns.DealerCampaigns != null && campaigns.DealerCampaigns.Count() > 0) { %>
+            <h3 class="margin-left40"><% if(contractId > 0){ %> Map with <% } %>Other Campaign(s)</h3>
             <% if (rptCampaigns.DataSource != null)
                { %>            
                 <div class="margin-left40">
@@ -159,6 +160,7 @@
             <% } %>
             <br />
             <br />            
+            <% } %>
         </fieldset>
     </div>
 

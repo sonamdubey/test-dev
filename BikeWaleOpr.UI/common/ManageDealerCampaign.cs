@@ -191,16 +191,19 @@ namespace BikewaleOpr.Common
                                     dealerCampaigns.DealerNumber = Convert.ToString(reader["MobileNo"]);
                                 }
 
-                                if (reader.Read())
+                                if (reader.NextResult())
                                 {
-                                    dealerCampaigns.CurrentCampaign = new DealerCampaignEntity()
+                                    if (reader.Read())
                                     {
-                                        CampaignId = !Convert.IsDBNull(reader["campaignId"]) ? Convert.ToInt32(reader["campaignId"]) : default(int),
-                                        CampaignName = !Convert.IsDBNull(reader["CampaignName"]) ? Convert.ToString(reader["CampaignName"]) : string.Empty,
-                                        EmailId = !Convert.IsDBNull(reader["EmailId"]) ? Convert.ToString(reader["EmailId"]) : string.Empty,
-                                        MaskingNumber = !Convert.IsDBNull(reader["MaskingNumber"]) ? Convert.ToString(reader["MaskingNumber"]) : string.Empty,
-                                        ServingRadius = !Convert.IsDBNull(reader["ServingRadius"]) ? Convert.ToInt32(reader["ServingRadius"]) : default(int),
-                                    };
+                                        dealerCampaigns.CurrentCampaign = new DealerCampaignEntity()
+                                                                    {
+                                                                        CampaignId = !Convert.IsDBNull(reader["campaignId"]) ? Convert.ToInt32(reader["campaignId"]) : default(int),
+                                                                        CampaignName = !Convert.IsDBNull(reader["CampaignName"]) ? Convert.ToString(reader["CampaignName"]) : string.Empty,
+                                                                        EmailId = !Convert.IsDBNull(reader["EmailId"]) ? Convert.ToString(reader["EmailId"]) : string.Empty,
+                                                                        MaskingNumber = !Convert.IsDBNull(reader["MaskingNumber"]) ? Convert.ToString(reader["MaskingNumber"]) : string.Empty,
+                                                                        ServingRadius = !Convert.IsDBNull(reader["ServingRadius"]) ? Convert.ToInt32(reader["ServingRadius"]) : default(int),
+                                                                    };
+                                    }
                                 }
 
                                 if (reader.NextResult())
