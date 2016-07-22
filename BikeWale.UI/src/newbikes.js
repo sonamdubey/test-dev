@@ -8,7 +8,7 @@ $(document).ready(function() {
 		b = $(this).find("span");
 		c = $(".brand-bottom-border");
 		a.slideToggle();
-		b.text(b.text() === "More" ? "Less" : "More");
+		b.text(b.text() === "more" ? "less" : "more");
 		c.slideToggle();
 	});
 	$("ul.brand-budget-mileage-style-UL li").click(function(){
@@ -19,12 +19,17 @@ $(document).ready(function() {
 		$("ul.brand-style-moreBtn").slideUp();
 		b.slideUp();
 	});
+	changeHeaderColor();
 
 });
 
 $(window).on("scroll", function () {
+    changeHeaderColor();
+});
+
+var changeHeaderColor = function () {
     if ($(window).scrollTop() > 40)
         $('#header').removeClass("header-landing").addClass("header-fixed");
     else
         $('#header').removeClass("header-fixed").addClass("header-landing");
-});
+}

@@ -51,7 +51,7 @@ namespace Bikewale.Common
 
             string sql = @" select si.*, ci.id as cityid, ci.name as city, si.cityid as newcity, cu.email as emailentered, 
                 si.statusid inqstatus, 
-                ve.makename as make, ve.modelname as model, ve.name as version, ve.bikemakeid as makeid, ve.bikemodelid as modelid,ve.id as versionid as bikeversionid, '' smallpic, '' largepic, 
+                ve.makename as make, ve.modelname as model, ve.name as version, ve.bikemakeid as makeid, ve.bikemodelid as modelid,ve.id as bikeversionid, '' as smallpic, '' as largepic, 
                 cu.name as sellername, cu.email as selleremail, cu.mobile sellermobile 
                 from classifiedindividualsellinquiries si  
                 left join bikeversions ve   on ve.id = si.bikeversionid 
@@ -63,7 +63,6 @@ namespace Bikewale.Common
 
             try
             {
-
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
                     cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbType.Int64, inquiryId));

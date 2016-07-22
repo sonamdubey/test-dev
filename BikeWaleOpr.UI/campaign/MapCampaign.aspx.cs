@@ -17,7 +17,7 @@ namespace BikewaleOpr.Campaign
         #region Variables
 
         protected Repeater rptCampaigns;
-        protected string startDate = string.Empty, endDate = string.Empty, packageName = string.Empty;
+        protected string startDate = string.Empty, endDate = string.Empty, packageName = string.Empty, oldMaskingNumber = string.Empty;
         protected int contractId, packageId, contractStatus, dealerId;
         protected Panel pnlExisting, pnlNew;
         protected HtmlInputHidden hdn_CampaignId;
@@ -26,6 +26,9 @@ namespace BikewaleOpr.Campaign
         protected string dealerName = string.Empty, CampaignId = string.Empty, dealerNumber = string.Empty;
         protected ManageDealerCampaign dealerCampaign;
         protected DealerContractEntity dealerContract;
+        protected bool isMapped = false;
+        protected DealerCampaignEntity campaignEntity;
+        protected DealerCampaignBase campaigns;
         #endregion
 
         #region Events
@@ -82,12 +85,20 @@ namespace BikewaleOpr.Campaign
         {
             try
             {
-                DealerCampaignBase campaigns = dealerCampaign.FetchBWCampaigns(dealerId);
+                campaigns = dealerCampaign.FetchBWCampaigns(dealerId, contractId);
                 if (campaigns != null)
                 {
 
                     dealerName = campaigns.DealerName;
                     dealerNumber = campaigns.DealerNumber;
+                    oldMaskingNumber = campaigns.ActiveMaskingNumber;
+
+                    if (campaigns.CurrentCampaign != null)
+                    {
+                        isMapped = true;
+                        campaignEntity = campaigns.CurrentCampaign;
+                    }
+
                     if (campaigns.DealerCampaigns != null && campaigns.DealerCampaigns.Count() > 0)
                     {
                         rptCampaigns.DataSource = campaigns.DealerCampaigns;

@@ -53,7 +53,7 @@
 
         <section id="bikeModelHeading" class="container">
             <div class="grid-12">
-                <h1 class="font22 text-x-black content-box-shadow content-inner-block-1420 box-shadow"><%= bikeName %> Specifications and Features</h1>
+                <h1 class="content-box-shadow content-inner-block-1420 box-shadow"><%= bikeName %> Specifications and Features</h1>
             </div>
             <div class="clear"></div>
         </section>
@@ -69,7 +69,7 @@
                                         title="<%= String.Format("{0} {1}",bikeName, versionName) %> Photos" alt="<%= String.Format("{0} {1}",bikeName, versionName) %> Photos"  />
                                 </div>
                                 <div class="model-card-title-content inline-block-top">
-                                    <h2 class="font18 text-bold margin-bottom10"><%= bikeName %></h2>
+                                    <p class="font16 text-bold margin-bottom5"><%= bikeName %></p>
                                     <p class="font14 text-light-grey"><%= versionName %></p>
                                 </div>
                             </div>
@@ -77,18 +77,18 @@
                             <% if (isDiscontinued)
                                 { %>
                                 <div class="grid-7 padding-left30">
-                                    <p class="font14 text-light-grey margin-bottom5 text-truncate">Last known Ex-showroom price</p>
+                                    <p class="font14 text-light-grey text-truncate">Last known Ex-showroom price</p>
                                     <div>
                                         <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
                                     </div>
-                                    <p class="font14 text-light-grey margin-bottom5"><%= bikeName %> is now discontinued in India.</p>
+                                    <p class="font14 text-light-grey"><%= bikeName %> is now discontinued in India.</p>
                                 </div>
                                 <div class="clear"></div>
                             <%  }
                             else
                             { %>
                                 <div class="grid-4 padding-left30">
-                                    <p class="font14 text-light-grey margin-bottom5 text-truncate"><%=IsExShowroomPrice ? "Ex-showroom price in Mumbai" : string.Format("On-road price in {0} {1}", areaName, cityName) %></p>
+                                    <p class="font14 text-light-grey text-truncate"><%=IsExShowroomPrice ? "Ex-showroom price in Mumbai" : string.Format("On-road price in {0} {1}", areaName, cityName) %></p>
                                     <span class="bwsprite inr-lg"></span>
                                     <span class="font18 text-bold">
                                         <% if (price > 0)

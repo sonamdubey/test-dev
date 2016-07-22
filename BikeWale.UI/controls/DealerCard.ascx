@@ -10,7 +10,7 @@
             <asp:Repeater ID="rptDealers" runat="server">
                 <ItemTemplate>
                     <li class="dealer-details-item grid-4 margin-bottom20">
-                        <h3 class="font14"><a href="<%# Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName, Convert.ToString(DataBinder.Eval(Container.DataItem,"DealerId"))) %>" class="text-default"><%# DataBinder.Eval(Container.DataItem,"Name") %></a></h3>
+                        <a href="<%# Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName, Convert.ToString(DataBinder.Eval(Container.DataItem,"DealerId"))) %>" class="article-target-link font14"><%# DataBinder.Eval(Container.DataItem,"Name") %></a>
                         <div class="margin-top10">
                             <p class="text-light-grey margin-bottom5">
                                 <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
@@ -60,7 +60,7 @@
                             <a href="<%# String.Format("/{0}-bikes/dealers-in-{1}/", makeMaskingName ,DataBinder.Eval(Container.DataItem,"CityBase.CityMaskingName")) %>" class="dealer-jcarousel-image-preview">
                                 <span class="city-sprite <%# DataBinder.Eval(Container.DataItem,"CityBase.CityMaskingName") %>-icon"></span>
                             </a>
-                            <h3 class="margin-bottom10"><a href="<%# String.Format("/{0}-bikes/dealers-in-{1}/", makeMaskingName ,DataBinder.Eval(Container.DataItem,"CityBase.CityMaskingName")) %>" class="text-default"><%= makeName %> dealers in <%# DataBinder.Eval(Container.DataItem,"CityBase.CityName") %></a></h3>
+                            <a href="<%# String.Format("/{0}-bikes/dealers-in-{1}/", makeMaskingName ,DataBinder.Eval(Container.DataItem,"CityBase.CityMaskingName")) %>" class="article-target-link font14 text-default"><%= makeName %> dealers in <%# DataBinder.Eval(Container.DataItem,"CityBase.CityName") %></a>
                             <p><%# DataBinder.Eval(Container.DataItem,"NumOfDealers") %> <%# Convert.ToUInt16(DataBinder.Eval(Container.DataItem,"NumOfDealers")) > 1 ? "showrooms" : "showroom" %></p>
                         </li>
                     </ItemTemplate>

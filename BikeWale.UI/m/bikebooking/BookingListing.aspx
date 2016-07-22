@@ -194,7 +194,7 @@
                                     </div>
                                     <div class="margin-bottom5">
                                         <span class="bwmsprite inr-sm-icon"></span>
-                                        <span class="font20" data-bind="CurrencyText: discountedPrice()"></span>
+                                        <span class="font18 text-bold" data-bind="CurrencyText: discountedPrice()"></span>
                                     </div>
                                     <div class="font14 margin-top5 margin-bottom5" data-bind="visible: offers().length > 0">
                                         <span class="text-default margin-right5" data-bind="text: offers().length == 1 ? offers().length + ' offer available' : offers().length + ' offers available'"></span>

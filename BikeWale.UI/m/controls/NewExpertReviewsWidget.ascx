@@ -11,14 +11,11 @@
                     </a>
                 </div>
                 <div class="review-heading-wrapper">
-                    <h4>
-                        <a href="/m/road-tests/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString() + "-" + DataBinder.Eval(Container.DataItem,"BasicId").ToString() %>.html" class="font14 text-black"><%# DataBinder.Eval(Container.DataItem, "Title").ToString()%></a>
-                    </h4>
+                    <a href="/m/road-tests/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString() + "-" + DataBinder.Eval(Container.DataItem,"BasicId").ToString() %>.html" class="font14 target-link"><%# DataBinder.Eval(Container.DataItem, "Title").ToString()%></a>
                     <p class="font12 text-truncate text-light-grey"><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString(), "MMMM dd, yyyy") %>, by <span class="text-light-grey"><%# DataBinder.Eval(Container.DataItem, "AuthorName").ToString()%></span></p>
                 </div>
                 <p class="margin-top17">
                     <%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Description").ToString(),60) %>
-                    <a href="/m/road-tests/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString() + "-" + DataBinder.Eval(Container.DataItem,"BasicId").ToString() %>.html">Read full review</a>
                 </p>
             </div>
         </div>

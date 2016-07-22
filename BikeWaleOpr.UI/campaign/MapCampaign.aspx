@@ -57,6 +57,8 @@
         var dealerName = encodeURIComponent("<%= dealerName %>");
         var dealerNumber = "<%= dealerNumber %>";
         var maskingNumber = '';
+        var userId = '<%= CurrentUser.Id %>';
+        var oldMaskingNumber = '<%= oldMaskingNumber %>';
     </script>
 
     <div>
@@ -73,7 +75,39 @@
             <br />
             <hr />
             <% } %>
-            <h3 class="margin-left40"><% if(contractId > 0){ %> Map with <% } %>Existing Campaign(s)</h3>
+            <% if (campaignEntity != null) { %>
+            <h3 class="margin-left40">Currently Mapped Campaign</h3>
+            <div class="margin-left40">
+                    <table class="margin-top10 margin-bottom10" rules="all" cellspacing="0" cellpadding="5" style="border-width: 1px; border-style: solid; width: 100%; border-collapse: collapse;">
+                                          
+                        <thead>
+                            <tr class="dtHeader">                                
+                                <th>Campaign Id</th>
+                                <th>Campaign Email Id</th>
+                                <th>Campaign Name</th>                                            
+                                <th>Masking Number</th>
+                                <th>Serving Radius</th>
+                                <th>Edit</th>
+                            </tr>
+                            </tr>
+                        </thead>
+                        <tr id="trCampaignDetails">
+                            <td><%= campaignEntity.CampaignId %></td>
+                            <td><%= campaignEntity.EmailId %></td>
+                            <td><%= campaignEntity.CampaignName %></td>
+                            <td>                                            
+                                <span id="addMaskingNumber_<%= campaignEntity.CampaignId %>"><%= campaignEntity.MaskingNumber == "" ? "" : campaignEntity.MaskingNumber %></span>
+                            </td>
+                            <td><%= campaignEntity.ServingRadius %></td>
+                            <td><a target="_blank" href="/campaign/ManageDealers.aspx?contractid=<%= contractId %>&campaignid=<%= campaignEntity.CampaignId %>&dealerid=<%= dealerId %>&dealername=<%= dealerName %>&no=<%=dealerNumber %>">Edit</a></td>            
+                        </tr>
+                    </table>
+                </div>
+            <br />
+            <hr />
+            <% } %>
+            <% if (campaigns != null && campaigns.DealerCampaigns != null && campaigns.DealerCampaigns.Count() > 0) { %>
+            <h3 class="margin-left40"><% if(contractId > 0){ %> Map with <% } %>Other Campaign(s)</h3>
             <% if (rptCampaigns.DataSource != null)
                { %>            
                 <div class="margin-left40">
@@ -126,6 +160,7 @@
             <% } %>
             <br />
             <br />            
+            <% } %>
         </fieldset>
     </div>
 
@@ -155,7 +190,7 @@
         var campaignId = '';
         campaignId = $("input[name$='rdbCampaign']:checked").val();
         maskingNumber = $("#addMaskingNumber_" + campaignId).text();
-        mapCampaign(campaignId);
+        mapCampaign(campaignId, maskingNumber);
     }
     else {
         alert("Please select existing campaign or create a new campaign");
@@ -163,32 +198,33 @@
         return false;
     });
 
-        function mapCampaign(campaignId) {
+        function mapCampaign(campaignId, maskingNumber) {
             try {
                 if (confirm("Do you want to map the selected campaign?")) {
                     //need to verify
-                    objdata = new {
+                    var objdata = {
                         "ConsumerId" : dealerId,
                         "LeadCampaignId" : campaignId,
-                        "LastUpdatedBy" :  1 ,
-                        "ProductTypeId" :1 ,
-                        "DealerType" : 2 ,
-                        "NCDBranchId" : 2,
-                        "OldMaskingNumber" : maskingNumber ,
+                        "LastUpdatedBy" : 1,
+                        "ProductTypeId" :3,
+                        "DealerType" : 2,
+                        "NCDBranchId" : -1,
+                        "OldMaskingNumber" : maskingNumber,
                         "MaskingNumber" : maskingNumber,
-                        "SellerMobileMaskingId" : -1
+                        "SellerMobileMaskingId": -1,
+                        "Mobile": dealerNumber
                         };
 
                     $.ajax({
                         type: "POST",
                         url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
                         //data: '{"contractId":"' + contractId + '" , "campaignId":"' + campaignId + '"}',
-                        data: '{"contractId":"' + contractId + '", "ccInputs":"' + campaignId + '"}',
+                        data: '{"contractId":"' + contractId + '", "dealerId":"' + dealerId + '", "campaignId":"' + campaignId + '", "userId":"' + userId + '", "oldMaskingNumber":"' + oldMaskingNumber + '", "maskingNumber":"' + maskingNumber + '", "dealerMobile":"' + dealerNumber + '"}',
                         beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "MapCampaign"); },
                         success: function (response) {
                             if (JSON.parse(response).value) {
                                 alert('Campaign has been mapped with contract. Now please wait for data sync with Carwale');
-                                mapCWCampaignContract(campaignId);
+                                //mapCWCampaignContract(campaignId);
                             }
                             else {
                                 alert("There was error occured during mapping. Please contact System Administrator for more details.");

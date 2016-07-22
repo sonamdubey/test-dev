@@ -11,10 +11,8 @@
                 </a>
             </div>
             <div class="review-heading-wrapper">
-                <h4>
-                    <a href="/m<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>" 
-                        class="font14 text-black"><%# DataBinder.Eval(Container.DataItem,"VideoTitle").ToString() %></a>
-                </h4>
+                <a href="/m<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>" 
+                    class="font14 target-link"><%# DataBinder.Eval(Container.DataItem,"VideoTitle").ToString() %></a>
                 <p class="font12 text-truncate text-light-grey">Uploaded on <%# Convert.ToDateTime (DataBinder.Eval(Container.DataItem,"DisplayDate")).ToString("MMMM dd, yyyy")%></p> 
             </div>
         </div>
