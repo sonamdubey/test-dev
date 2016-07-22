@@ -19,12 +19,17 @@ $(document).ready(function() {
 		$("ul.brand-style-moreBtn").slideUp();
 		b.slideUp();
 	});
+	changeHeaderColor();
 
 });
 
 $(window).on("scroll", function () {
+    changeHeaderColor();
+});
+
+var changeHeaderColor = function () {
     if ($(window).scrollTop() > 40)
         $('#header').removeClass("header-landing").addClass("header-fixed");
     else
         $('#header').removeClass("header-fixed").addClass("header-landing");
-});
+}
