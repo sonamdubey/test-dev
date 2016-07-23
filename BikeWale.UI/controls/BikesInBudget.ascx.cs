@@ -92,7 +92,7 @@ namespace Bikewale.Controls
 							                        and  ll.lattitude between (lc.lattitude - {1}) and (lc.lattitude + {1}) 
                                                     and  ll.longitude between (lc.longitude - {2}) and (lc.longitude + {2}) 
                          where 
-                         ll.profileid <> {3}
+                         ll.profileid <> '{3}'
                          order by abs(ll.price - {4}) asc 
                          limit {5};", cityId, lattDiff, longDiff, profileNo, price, records);
 
