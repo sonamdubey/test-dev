@@ -268,7 +268,6 @@ namespace Bikewale.Content
 
         void FillRepeaters()
         {
-            //throw new Exception("FillRepeaters() : Method not used/commented");
             CommonOpn op = new CommonOpn();
 
             string selectClause = "", fromClause = "", whereClause = "", orderByClause = "", recordCntQry = "";
@@ -302,7 +301,7 @@ namespace Bikewale.Content
                     selectClause = @" cr.id as reviewid, cu.name as customername, cu.id as customerid, '' as handlename, cr.styler, 
                                                               cr.comfortr, cr.performancer, cr.valuer, cr.fueleconomyr, cr.overallr, cr.pros, 
                                                               cr.cons, substring(cr.comments,0,cast(floor(length(cr.comments)*0.15) as  unsigned int)) as subcomments, 
-                                                              cr.title, cr.entrydatetime, cr.liked, cr.disliked, cr.viewed, ifnull(fm.posts, 0) comments, fso.threadid ";
+                                                              cr.title, cr.entrydatetime, cr.liked, cr.disliked, cr.viewed, '' comments, 0 as threadid ";
 
                     fromClause = @" customers as cu   
                                                                 inner join customerreviews as cr on cu.id = cr.customerid ";
