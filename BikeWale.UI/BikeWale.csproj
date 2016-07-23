@@ -371,6 +371,10 @@
       <DependentUpon>LeadCaptureControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\NewsMin.ascx.cs">
+      <DependentUpon>NewsMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\UsedBikes.ascx.cs">
       <DependentUpon>UsedBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1647,6 +1651,7 @@
     <Content Include="content\UserReviews\WriteReviews.aspx" />
     <Content Include="controls\DealerCard.ascx" />
     <Content Include="controls\LeadCaptureControl.ascx" />
+    <Content Include="controls\NewsMin.ascx" />
     <Content Include="controls\UsedBikes.ascx" />
     <Content Include="controls\AddBikeToCompare.ascx" />
     <Content Include="controls\AlternativeBikes.ascx" />

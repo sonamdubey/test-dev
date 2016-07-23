@@ -9,8 +9,8 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Microsoft.Practices.Unity;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -85,7 +85,7 @@ namespace Bikewale.Controls
                            .RegisterType<ICacheManager, MemcacheManager>();
                     ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-                    _objArticleList = _cache.GetMostRecentArticlesById(EnumCMSContentType.News, Convert.ToUInt32(posts), Convert.ToUInt32(MakeId), Convert.ToUInt32(ModelId));
+                    _objArticleList = _cache.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), Convert.ToUInt32(posts), Convert.ToUInt32(MakeId), Convert.ToUInt32(ModelId));
 
                     if (_objArticleList != null && _objArticleList.Count() > 0)
                     {
