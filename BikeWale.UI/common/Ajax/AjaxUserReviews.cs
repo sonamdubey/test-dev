@@ -383,83 +383,65 @@ namespace Bikewale.Ajax
         public bool UpdateReviewHelpful(string reviewId, string helpful)
         {
 
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.UpdateReviewHelpful");
-            objErr.SendMail();
-            return false;
-
-            ////check whether this review has already been viewed
-            //string viewedList = CookiesUserReviews.URHelpful;
-            //bool viewed = false;
+            //check whether this review has already been viewed
+            string viewedList = CookiesUserReviews.URHelpful;
+            bool viewed = false;
+            uint _reviewId;
+            bool returnVal = false;
 
 
-            //bool isHelpFull = helpful == "1" ? true : false;
+            bool isHelpFull = helpful == "1" ? true : false;
 
-            //if (viewedList != "")
-            //{
-            //    string[] lists = viewedList.Split(',');
-            //    for (int i = 0; i < lists.Length; i++)
-            //    {
-            //        if (reviewId == lists[i])
-            //        {
-            //            viewed = true;
-            //            break;
-            //        }
-            //    }
-            //}
+            if (viewedList != "")
+            {
+                string[] lists = viewedList.Split(',');
+                for (int i = 0; i < lists.Length; i++)
+                {
+                    if (reviewId == lists[i])
+                    {
+                        viewed = true;
+                        break;
+                    }
+                }
+            }
 
-            //if (viewed == false)
-            //{
-            //    SqlConnection con;
-            //    SqlCommand cmd;
-            //    SqlParameter prm;
-            //    Database db = new Database();
-            //    CommonOpn op = new CommonOpn();
+            if (viewed == false)
+            {
+                CommonOpn op = new CommonOpn();
 
-            //    string conStr = db.GetConString();
+                try
+                {
 
-            //    con = new SqlConnection(conStr);
+                    if (uint.TryParse(reviewId, out _reviewId) && _reviewId > 0)
+                    {
+                        using (IUnityContainer container = new UnityContainer())
+                        {
+                            container.RegisterType<IUserReviews, UserReviewsRepository>()
+                            .RegisterType<IUserReviews, UserReviewsRepository>();
+                            IUserReviews objReviews = container.Resolve<IUserReviews>();
 
-            //    try
-            //    {
-            //        cmd = new SqlCommand("UpdateCustomerReviewsHelpful", con);
-            //        cmd.CommandType = CommandType.StoredProcedure;
+                            returnVal = objReviews.UpdateReviewUseful(_reviewId, isHelpFull);
+                        }
+                    }
 
-            //        prm = cmd.Parameters.Add("@ReviewId", SqlDbType.BigInt);
-            //        prm.Value = reviewId;
-            //      Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
-            //        prm = cmd.Parameters.Add("@Helpful", SqlDbType.Bit);
-            //        prm.Value = isHelpFull;
+                }
+                catch (Exception err)
+                {
+                    HttpContext.Current.Trace.Warn("Ajaxfunctions : UpdateReviewHelpful : " + err.Message);
+                    ErrorClass objErr = new ErrorClass(err, "Ajaxfunctions.UpdateReviewHelpful");
+                    objErr.SendMail();
+                    returnVal = false;
+                } // catch Exception
+                finally
+                {
+                    //add this id to helpful
+                    CookiesUserReviews.URHelpful += reviewId + ",";
+                }
+            }
 
-            //        con.Open();
-            //        //run the command
-            //        cmd.ExecuteNonQuery();
+            returnVal = !viewed;
 
-            //        returnVal = true;
-
-            //    }
-            //    catch (Exception err)
-            //    {
-            //        HttpContext.Current.Trace.Warn("Ajaxfunctions : UpdateReviewHelpful : " + err.Message);
-            //        ErrorClass objErr = new ErrorClass(err, "Ajaxfunctions.UpdateReviewHelpful");
-            //        objErr.SendMail();
-            //        returnVal = false;
-            //    } // catch Exception
-            //    finally
-            //    {
-            //        //close the connection	
-            //        if (con.State == ConnectionState.Open)
-            //        {
-            //            con.Close();
-            //        }
-
-            //        //add this id to helpful
-            //        CookiesUserReviews.URHelpful += reviewId + ",";
-            //    }
-            //}
-
-            //returnVal = !viewed;
-
-            //return returnVal;
+            return returnVal;
         }
 
         //this function updates the liked and the disliked Budget of the customer reviews table
