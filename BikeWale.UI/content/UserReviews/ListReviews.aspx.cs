@@ -299,7 +299,7 @@ namespace Bikewale.Content
                         drpVersions.SelectedIndex = drpVersions.Items.IndexOf(drpVersions.Items.FindByValue(versionId));
                     }
 
-                    selectClause = @" cr.id as reviewid, cu.name as customername, cu.id as customerid, ifnull(up.handlename, '') as handlename, cr.styler, 
+                    selectClause = @" cr.id as reviewid, cu.name as customername, cu.id as customerid, '' as handlename, cr.styler, 
                                                               cr.comfortr, cr.performancer, cr.valuer, cr.fueleconomyr, cr.overallr, cr.pros, 
                                                               cr.cons, substring(cr.comments,0,cast(floor(length(cr.comments)*0.15) as  unsigned int)) as subcomments, 
                                                               cr.title, cr.entrydatetime, cr.liked, cr.disliked, cr.viewed, ifnull(fm.posts, 0) comments, fso.threadid ";
