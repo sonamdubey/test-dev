@@ -60,8 +60,8 @@ namespace Bikewale.Cache.Core
             }
             catch (Exception ex)
             {
-                //var objErr = new ExceptionHandler(ex, "Carwale.MemcacheCore.MemcacheManager.GetFromCache<T>()");
-                //objErr.LogException();
+                //ErrorClass objErr = new ErrorClass(ex, "MemcacheManager.GetFromCache");
+                //objErr.SendMail();
             }
             finally
             {
@@ -91,7 +91,7 @@ namespace Bikewale.Cache.Core
 
                             if (t != null)
                             {
-                                isDataFromCache = mc.Store(StoreMode.Add, key, t, DateTime.Now.Add(cacheDuration));
+                                mc.Store(StoreMode.Add, key, t, DateTime.Now.Add(cacheDuration));
                             }
 
                             mc.Remove(key + "_lock");
@@ -116,8 +116,8 @@ namespace Bikewale.Cache.Core
             }
             catch (Exception ex)
             {
-                //var objErr = new ExceptionHandler(ex, "Carwale.MemcacheCore.MemcacheManager.GetFromCache<T>()");
-                //objErr.LogException();
+                //ErrorClass objErr = new ErrorClass(ex, "MemcacheManager.GetFromCache");
+                //objErr.SendMail();
             }
             finally
             {

@@ -26,6 +26,7 @@ namespace Bikewale.Cache.CMS
         /// Description : Caching for News Details based on basic id 
         /// Modified by :   Sumit Kate on 25 July 2016
         /// Description :   If data is fetched from cache update the view count
+        /// When data is fetched from Memcache the view count should be updated in carwale edit CMS
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns></returns>
@@ -37,7 +38,7 @@ namespace Bikewale.Cache.CMS
             try
             {
                 _objArticleDetails = _cache.GetFromCache<ArticleDetails>(key, new TimeSpan(1, 0, 0), () => _objArticles.GetNewsDetails(basicId), out isDataFromCache);
-                if (isDataFromCache && _objArticleDetails != null)
+                if (isDataFromCache)
                 {
                     //Update the view count
                     _objArticles.UpdateViewCount(basicId);
@@ -161,6 +162,7 @@ namespace Bikewale.Cache.CMS
         /// Description : Caching for Articles Details based on basic id
         /// Modified by :   Sumit Kate on 25 July 2016
         /// Description :   If data is fetched from cache update the view count
+        /// When data is fetched from Memcache the view count should be updated in carwale edit CMS
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns></returns>
@@ -173,7 +175,7 @@ namespace Bikewale.Cache.CMS
             try
             {
                 _objArticleDetails = _cache.GetFromCache<ArticlePageDetails>(key, new TimeSpan(1, 0, 0), () => _objArticles.GetArticleDetails(basicId), out isDataFromCache);
-                if (isDataFromCache && _objArticleDetails != null)
+                if (isDataFromCache)
                 {
                     //Update the view count
                     _objArticles.UpdateViewCount(basicId);

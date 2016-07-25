@@ -49,7 +49,7 @@
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
-            <div itemscope="" itemtype="http://auto.schema.org/Product" class="container bg-white clearfix">
+            <div itemscope="" itemtype="http://schema.org/Product" class="container bg-white clearfix">
                 <span itemprop="name" class="hide"><%= bikeName %></span>
                 <div class="<%= !modelPage.ModelDetails.New ? "padding-top20 position-rel" : ""%>">
                     <% if (modelPage.ModelDetails.New)
