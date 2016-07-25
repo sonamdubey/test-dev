@@ -2,13 +2,12 @@
 using Bikewale.Entities.Dealer;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Bikewale.DAL.Dealer
@@ -18,19 +17,18 @@ namespace Bikewale.DAL.Dealer
         public List<Offer> GetOffersByDealerId(uint dealerId, uint modelId)
         {
             List<Offer> offers = null;
-            Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetDealerOffers";
-                    cmd.Parameters.Add("@dealerId", SqlDbType.Int, 10).Value = dealerId;
-                    cmd.Parameters.Add("@modelId", SqlDbType.Int, 5).Value = modelId;
-                    db = new Database();
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    cmd.CommandText = "getdealeroffers";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, 10, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, 5, modelId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        if (dr != null && dr.HasRows)
+                        if (dr != null)
                         {
                             offers = new List<Offer>();
                             while (dr.Read())
@@ -42,6 +40,7 @@ namespace Bikewale.DAL.Dealer
                                     OfferValue = Convert.ToUInt32(dr["OfferValue"]),
                                 });
                             }
+                            dr.Close();
                         }
 
                     }
@@ -58,10 +57,6 @@ namespace Bikewale.DAL.Dealer
                 HttpContext.Current.Trace.Warn("GetOffersByDealerId ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
             return offers;
         }

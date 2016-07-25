@@ -1,15 +1,10 @@
-﻿using Bikewale.CoreDAL;
-using Bikewale.Notifications;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
+﻿using Bikewale.Entities.App;
 using Bikewale.Interfaces.App;
-using Bikewale.Entities.App;
+using Bikewale.Notifications;
+using MySql.CoreDAL;
+using System;
+using System.Data;
+using System.Data.Common;
 
 namespace Bikewale.DAL.App
 {
@@ -32,22 +27,24 @@ namespace Bikewale.DAL.App
         {
             bool isSupported = false, isLatest = false;
             AppVersion objAppVersion = null;
-            Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand("CheckVersionStatusForApp"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("checkversionstatusforapp"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@AppVersionId", SqlDbType.Int).Value = appVersion;
-                    cmd.Parameters.Add("@SourceId", SqlDbType.TinyInt).Value = sourceId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_appversionid", DbType.Int32, appVersion));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbType.Byte, sourceId));
 
-                    db = new Database();
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        while (dr.Read())
+                        if (dr != null)
                         {
-                            isSupported = Convert.ToBoolean(dr["IsSupported"].ToString());
-                            isLatest = Convert.ToBoolean(dr["IsLatest"].ToString());
+                            while (dr.Read())
+                            {
+                                isSupported = Convert.ToBoolean(dr["IsSupported"].ToString());
+                                isLatest = Convert.ToBoolean(dr["IsLatest"].ToString());
+                            }
+                            dr.Close();
                         }
                     }
                 }
@@ -59,8 +56,6 @@ namespace Bikewale.DAL.App
             }
             finally
             {
-                if (db != null)
-                    db.CloseConnection();
                 objAppVersion = new AppVersion();
                 objAppVersion.Id = appVersion;
                 objAppVersion.IsLatest = isLatest;

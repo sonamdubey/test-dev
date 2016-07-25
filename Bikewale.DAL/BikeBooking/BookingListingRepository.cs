@@ -1,16 +1,15 @@
-﻿using Bikewale.Interfaces.BikeBooking;
+﻿using Bikewale.CoreDAL;
+using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Notifications;
+using Bikewale.Utility;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Entities.BikeBooking;
-using Bikewale.Notifications;
-using Bikewale.CoreDAL;
-using System.Data.SqlClient;
 using System.Data;
-using Bikewale.Entities.PriceQuote;
-using Bikewale.Utility;
+using System.Data.Common;
+using System.Linq;
 
 namespace Bikewale.DAL.BikeBooking
 {
@@ -35,79 +34,39 @@ namespace Bikewale.DAL.BikeBooking
             IList<DealerPriceCategoryItemEntity> lstVersionPrice = null;
             IList<PQ_Price> lstPQList = null;
             IList<BookingOfferEntity> lstBookingOffer = null;
-            Database db = null;
             int currentPage = 0;
             totalCount = 0;
             fetchedCount = 0;
             pageUrl = null;
+            string errStr = string.Empty;
             try
             {
-                db = new Database();
-
                 if (areaId > 0)
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "GetBookingListing";
-                        cmd.Parameters.Add("@AreaId", SqlDbType.Int).Value = Convert.ToInt32(areaId);
-                        #region Filters
-                        if (filter != null)
-                        {
-                            if (!String.IsNullOrEmpty(filter.MakeIds))
-                            {
-                                cmd.Parameters.AddWithValue("@paramMakeIds", filter.MakeIds.Replace(' ', ','));
-                            }
-                            if (!String.IsNullOrEmpty(filter.Budget))
-                            {
-                                cmd.Parameters.AddWithValue("@paramMinValBudget", filter.Budget.Split('-')[0]);
-                            }
-                            if (!String.IsNullOrEmpty(filter.Budget))
-                            {
-                                cmd.Parameters.AddWithValue("@paramMaxValBudget", filter.Budget.Split('-')[1]);
-                            }
-                            if (!String.IsNullOrEmpty(filter.Mileage))
-                            {
-                                cmd.Parameters.AddWithValue("@paramMileageCategoryIds", filter.Mileage.Replace(' ', ','));
-                            }
-                            if (!String.IsNullOrEmpty(filter.Displacement))
-                            {
-                                cmd.Parameters.AddWithValue("@paramDisplacementFilterIds", filter.Displacement.Replace(' ', ','));
-                            }
-                            if (!String.IsNullOrEmpty(filter.RideStyle))
-                            {
-                                cmd.Parameters.AddWithValue("@paramRideStyleId", filter.RideStyle.Replace(' ', ','));
-                            }
-                            if (!String.IsNullOrEmpty(filter.AntiBreakingSystem))
-                            {
-                                cmd.Parameters.AddWithValue("@paramHasABS", Convert.ToBoolean(Convert.ToInt32(filter.AntiBreakingSystem)));
-                            }
-                            if (!String.IsNullOrEmpty(filter.BrakeType))
-                            {
-                                cmd.Parameters.AddWithValue("@paramDrumDisc", Convert.ToBoolean(Convert.ToInt32(filter.BrakeType)));
-                            }
-                            if (!String.IsNullOrEmpty(filter.AlloyWheel))
-                            {
-                                cmd.Parameters.AddWithValue("@paramSpokeAlloy", Convert.ToBoolean(Convert.ToInt32(filter.AlloyWheel)));
-                            }
-                            if (!String.IsNullOrEmpty(filter.StartType))
-                            {
-                                cmd.Parameters.AddWithValue("@paramHasElectric", Convert.ToBoolean(Convert.ToInt32(filter.StartType)));
-                            }
-                            if (!String.IsNullOrEmpty(filter.sc))
-                            {
-                                cmd.Parameters.AddWithValue("@paramSortCategoryId", filter.sc);
-                            }
-                            if (!String.IsNullOrEmpty(filter.so))
-                            {
-                                cmd.Parameters.AddWithValue("@paramSortOrder", filter.so);
-                            }
-                        }
-                        #endregion
-                        using (SqlDataReader dr = db.SelectQry(cmd))
+                        cmd.CommandText = "getbookinglisting";
+
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbType.Int32, Convert.ToInt32(areaId)));
+
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_parammakeids", DbType.String, 50, (!String.IsNullOrEmpty(filter.MakeIds)) ? filter.MakeIds.Replace(' ', ',') : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramminvalbudget", DbType.String, 50, (!String.IsNullOrEmpty(filter.Budget)) ? filter.Budget.Split('-')[0] : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_parammaxvalbudget", DbType.String, 50, (!String.IsNullOrEmpty(filter.Budget)) ? filter.Budget.Split('-')[1] : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_parammileagecategoryids", DbType.String, 50, (!String.IsNullOrEmpty(filter.Mileage)) ? filter.Mileage.Replace(' ', ',') : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramdisplacementfilterids", DbType.String, 50, (!String.IsNullOrEmpty(filter.Displacement)) ? filter.Displacement.Replace(' ', ',') : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramridestyleid", DbType.String, 50, (!String.IsNullOrEmpty(filter.RideStyle)) ? filter.RideStyle.Replace(' ', ',') : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramhasabs", DbType.Boolean, (!String.IsNullOrEmpty(filter.AntiBreakingSystem)) ? Convert.ToBoolean(Convert.ToInt16(filter.AntiBreakingSystem)) : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramdrumdisc", DbType.Boolean, (!String.IsNullOrEmpty(filter.BrakeType)) ? Convert.ToBoolean(Convert.ToInt16(filter.BrakeType)) : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramspokealloy", DbType.Boolean, (!String.IsNullOrEmpty(filter.AlloyWheel)) ? Convert.ToBoolean(Convert.ToInt16(filter.AlloyWheel)) : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramhaselectric", DbType.Boolean, (!String.IsNullOrEmpty(filter.StartType)) ? Convert.ToBoolean(Convert.ToInt16(filter.StartType)) : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramsortcategoryid", DbType.String, 50, (!String.IsNullOrEmpty(filter.sc)) ? filter.sc : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramsortorder", DbType.String, 50, (!String.IsNullOrEmpty(filter.so)) ? filter.so : Convert.DBNull));
+
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                         {
                             lstBikeBookingListingEntity = new List<BikeBookingListingEntity>();
-                            if (dr != null && dr.HasRows)
+                            if (dr != null)
                             {
                                 #region Bike details
                                 while (dr.Read())
@@ -191,6 +150,7 @@ namespace Bikewale.DAL.BikeBooking
                                     }
                                 }
                                 #endregion
+                                dr.Close();
                             }
                         }
                         if (lstBikeBookingListingEntity != null && lstBikeBookingListingEntity.Count > 0)
@@ -233,10 +193,6 @@ namespace Bikewale.DAL.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, "BookingListingRepository.FetchBookingList");
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
             return lstSearchResult;
         }
         /// <summary>
@@ -248,21 +204,20 @@ namespace Bikewale.DAL.BikeBooking
         /// <returns></returns>
         public List<OfferEntity> FetchOffer(uint dealerId, int modelId, int cityId)
         {
-            Database db = null;
             List<OfferEntity> lstOffer = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetDealerOffers";
-                    cmd.Parameters.AddWithValue("@DealerId", Convert.ToInt32(dealerId));
-                    cmd.Parameters.AddWithValue("@ModelId", Convert.ToInt32(modelId));
-                    cmd.Parameters.AddWithValue("@CityID", Convert.ToInt32(cityId));
-                    db = new Database();
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    cmd.CommandText = "getdealeroffers";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        if (dr != null && dr.HasRows)
+                        if (dr != null)
                         {
                             lstOffer = new List<OfferEntity>();
                             while (dr.Read())
@@ -276,6 +231,7 @@ namespace Bikewale.DAL.BikeBooking
                                     IsPriceImpact = Convert.ToBoolean(dr["isPriceImpact"])
                                 });
                             }
+                            dr.Close();
                         }
 
                     }
@@ -286,10 +242,7 @@ namespace Bikewale.DAL.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, "BookingListingRepository.FetchOffer");
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
             return lstOffer;
         }
 

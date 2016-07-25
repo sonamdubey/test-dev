@@ -6,6 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Configuration;
+using System.Data.Common;
+using BikeWaleOPR.Utilities;
+using BikeWaleOPR.DAL.CoreDAL;
 
 //SQL Syntex For Parameterised Query
 //UPDATE TableName SET value1=@value1, value2=@value2 WHERE Id=@Id
@@ -671,7 +674,7 @@ namespace BikeWaleOpr.Common
 		}
 		
 		//using sqlCommand
-		public string GetInClauseValue(string input, string fieldName, SqlCommand cmd) 
+		public string GetInClauseValue(string input, string fieldName, DbCommand cmd) 
 		{ 
 			string [] inputArr = input.Split(',');
 			string[] parameters = new string[inputArr.Length];
@@ -679,7 +682,7 @@ namespace BikeWaleOpr.Common
 			{
 				for(int i=0; i < inputArr.Length; i++)
 				{
-					cmd.Parameters.Add("@" + fieldName + i, SqlDbType.VarChar, inputArr[i].Length).Value = inputArr[i].ToString();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@" + fieldName + i, DbParamTypeMapper.GetInstance[SqlDbType.VarChar], inputArr[i].Length, inputArr[i].ToString()));
 					parameters[i] = "@" + fieldName + i;
 				}
 			}

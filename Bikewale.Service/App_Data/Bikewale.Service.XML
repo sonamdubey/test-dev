@@ -515,6 +515,52 @@
             Description :   Automapper config for AppVersion Entity to DTO
             </summary>
         </member>
+        <member name="M:Bikewale.Service.AutoMappers.AutoBiz.DealerPriceQuoteMapper.Convert(System.Collections.Generic.IEnumerable{Bikewale.Entities.Location.CityEntityBase})">
+            <summary>
+            Author : Vivek Gupta
+            Date : 06-07-2016
+            </summary>
+            <param name="objCityList"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.AutoMappers.AutoBiz.DealerPriceQuoteMapper.Convert(System.Collections.Generic.IEnumerable{Bikewale.Entities.BikeData.BikeMakeEntityBase})">
+            <summary>
+            Author : Vivek Gupta
+            Date : 06-07-2016
+            </summary>
+            <param name="objMakesList"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.AutoMappers.AutoBiz.DealerPriceQuoteMapper.Convert(Bikewale.Entities.PriceQuote.OfferHtmlEntity)">
+            <summary>
+            Author : Vivek Gupta
+            Date : 06-07-2016
+            </summary>
+            <param name="objTerm"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.AutoMappers.Bikebooking.BBCityListMapper">
+            <summary>
+            Created By : Vivek Gupta on 04-07-2016
+            Desc : mapper to map city list in bike booking
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.AutoMappers.Bikebooking.BBCityListMapper.Convert(System.Collections.Generic.List{Bikewale.Entities.Location.CityEntityBase})">
+            <summary>
+            Created By : Vivek Gupta on 04-07-2016
+            Desc : mapper to map city list in bike booking
+            </summary>
+            <param name="lstCity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.AutoMappers.Bikebooking.BBMakeListMapper.Convert(System.Collections.Generic.List{Bikewale.Entities.BikeData.BikeMakeEntityBase})">
+            <summary>
+            Created By : Vivek Gupta on 04-07-2016
+            Desc : mapper to map make list in bike booking
+            </summary>
+            <param name="lstCity"></param>
+            <returns></returns>
+        </member>
         <member name="T:Bikewale.Service.AutoMappers.Bikebooking.BikeBookingListingEntityMapper">
             <summary>
             Created by  :   Sumit Kate on 05 Feb 2016
@@ -678,7 +724,7 @@
             Description :   Extend from CompressionApiController instead of ApiController 
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Controllers.App.AppVersionCheckController.#ctor(Bikewale.Interfaces.App.IAppVersion)">
+        <member name="M:Bikewale.Service.Controllers.App.AppVersionCheckController.#ctor(Bikewale.Interfaces.App.IAppVersionCache)">
             <summary>
             Constructor
             </summary>
@@ -689,6 +735,38 @@
             Checks the App Version is supported and latest
             </summary>
             <returns>AppVersion DTO</returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.AutoBiz.DealerPriceQuoteController">
+            <summary>
+            Desc: Controller class to host Dealer Pricequote Apis
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.AutoBiz.DealerPriceQuoteController.GetBikeBookingCities(System.Nullable{System.UInt32})">
+            <summary>
+            Written By : Ashish G. Kamble o 10 May 2015
+            Summary : Function to get the list of cities where bike booking option is available.
+            </summary>
+            <returns>If success returns list of cities.</returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.AutoBiz.DealerPriceQuoteController.GetBikeMakesInCity(System.UInt32)">
+            <summary>
+            Written By : Ashish G. Kamble on 10 May 2015
+            Summary : Function to get the list of bike makes in the particular city where booking option is available.
+            </summary>
+            <param name="cityId">Should be greater than 0.</param>
+            <returns>Returns list of makes.</returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.AutoBiz.DealersController">
+            <summary>
+            Created By : Ashwini Todkar on  28th Oct 2014
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.AutoBiz.DealersController.GetDealerCities">
+            <summary>
+            Created By : Suresh Prajapati on 29th Oct 2014
+            Summary : To Get Dealer Cities for which Bike Dealer exists
+            </summary>
+            <returns>Dealer's Cities</returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.AutoComplete.AutoSuggestController">
             <summary>
@@ -768,42 +846,6 @@
             <param name="cityId">city id</param>
             <param name="versionId">version id</param>
             <param name="dealerId">dealer id</param>
-            <returns></returns>
-        </member>
-        <member name="T:Bikewale.Service.Controllers.BikeBooking.BookingCancellationController">
-            <summary>
-            Process Booking Cancellation request 
-            Author  :   Sangram Nandkhile
-            Created On  :   21st Jan 2016
-            </summary>
-        </member>
-        <member name="M:Bikewale.Service.Controllers.BikeBooking.BookingCancellationController.#ctor(Bikewale.Interfaces.BikeBooking.IBookingCancellation)">
-            <summary>
-            Constructor 
-            </summary>
-        </member>
-        <member name="M:Bikewale.Service.Controllers.BikeBooking.BookingCancellationController.Post(Bikewale.Entities.BikeBooking.BikeCancellationEntity)">
-            <summary>
-            Verify Booking Cancellation request 
-            </summary>
-            <param name="request">Bike Cancellation Entity</param>
-            <returns></returns>
-        </member>
-        <member name="M:Bikewale.Service.Controllers.BikeBooking.BookingCancellationController.IsValidOtp(Bikewale.Entities.BikeBooking.BikeCancellationEntity)">
-            <summary>
-            Created By : Lucky Rathore
-            Created On : 22 Jan 2016
-            Description : verify if Booking Cancellation OTP is correct ror not.
-            </summary>
-            <param name="request"></param>
-            <returns>Deatil of the customer who wants to cancel booking.</returns>
-        </member>
-        <member name="M:Bikewale.Service.Controllers.BikeBooking.BookingCancellationController.CancelBooking(System.UInt32)">
-            <summary>
-            Created By : Sadhana Upadhyay on 25 Jan 2016
-            Summary : To cancel Bike booking 
-            </summary>
-            <param name="pqId">Price Quote Id</param>
             <returns></returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.BikeBooking.City.BBCityListController">
@@ -1306,14 +1348,8 @@
             Modified By : Sadhana Upadhyay on 29 Dec 2015
             Summary : added utmz, utma, device Id etc
             </summary>
-            <param name="name"></param>
-            <param name="email"></param>
-            <param name="mobile"></param>
-            <param name="pqId"></param>
-            <param name="cityId"></param>
-            <param name="versionId"></param>
+            <param name="objLead"></param>
             <returns></returns>
-            
         </member>
         <member name="T:Bikewale.Service.Controllers.Make.DealerMakesController">
             <summary>
@@ -1322,7 +1358,7 @@
             Dealer Makes Controller
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Controllers.Make.DealerMakesController.#ctor(Bikewale.Interfaces.Dealer.IDealer)">
+        <member name="M:Bikewale.Service.Controllers.Make.DealerMakesController.#ctor(Bikewale.Interfaces.Dealer.IDealer,Bikewale.Interfaces.Dealer.IDealerCacheRepository)">
             <summary>
             Constructor
             </summary>
@@ -1376,7 +1412,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Bikewale.Service.Controllers.Model.ModelDescriptionController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32})">
+        <member name="M:Bikewale.Service.Controllers.Model.ModelDescriptionController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsCacheRepository{System.Int32})">
             <summary>
             
             </summary>
@@ -1852,6 +1888,8 @@
             Modified by :   Sumit Kate on 01 June 2016
             Description :   Commented Mobile verification process
              noOfAttempts = -1 and isVerified = true to by pass the Mobile Verification Process
+            Modified By : Lucky Rathore on 11 July 2016.
+            Description : parameter dealerArea added in NotifyDealer(); 
             </summary>
             <param name="input">Customer details with price quote details</param>
             <returns></returns>
@@ -1861,6 +1899,8 @@
             Created by  :   Sumit Kate on 23 May 2016
             Description :   Saves the Customer details if it is a new customer.
             generated the OTP for the non verified customer
+            Modified By : Lucky Rathore on 11 July 2016.
+            Description : parameter dealerArea added in NotifyDealer(); 
             </summary>
             <param name="input"></param>
             <returns></returns>
@@ -2021,7 +2061,7 @@
             Description :   Extend from CompressionApiController instead of ApiController 
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListByCityAreaController.#ctor(Bikewale.Interfaces.BikeData.IBikeVersions{Bikewale.Entities.BikeData.BikeVersionEntity,System.UInt32},Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32})">
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListByCityAreaController.#ctor(Bikewale.Interfaces.BikeData.IBikeVersions{Bikewale.Entities.BikeData.BikeVersionEntity,System.UInt32},Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32},Bikewale.Interfaces.BikeData.IBikeVersionCacheRepository{Bikewale.Entities.BikeData.BikeVersionEntity,System.UInt32})">
             <summary>
             To Fetch PQ versionList, PQID and dealerId
             </summary>
@@ -2055,6 +2095,12 @@
             Author  :   Sumit Kate
             Created On  :   20 Aug 2015
             </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListController.#ctor(Bikewale.Interfaces.BikeData.IBikeVersionCacheRepository{Bikewale.Entities.BikeData.BikeVersionEntity,System.UInt32})">
+            <summary>
+            
+            </summary>
+            <param name="objVersion"></param>
         </member>
         <member name="M:Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListController.Get(System.UInt32,System.Nullable{System.Int32})">
             <summary>
@@ -2143,6 +2189,14 @@
             <param name="pqCityAea"></param>
             <returns></returns>
         </member>
+        <member name="M:Bikewale.Service.AutoMappers.Model.ModelMapper.Convert(System.Collections.Generic.IEnumerable{Bikewale.Entities.BikeData.MostPopularBikesBase})">
+            <summary>
+            Created by  :   Sumit Kate on 01 Jul 2016
+            Description :   AutoMapper Entity to DTO for Popular Bikes
+            </summary>
+            <param name="objModelList"></param>
+            <returns></returns>
+        </member>
         <member name="M:Bikewale.Service.AutoMappers.Version.VersionListMapper.Convert(Bikewale.Entities.BikeData.BikeVersionEntity)">
             <summary>
             Modified by :   Sumit Kate on 12 Apr 2016
@@ -2209,7 +2263,7 @@
             Description :   Extend from CompressionApiController instead of ApiController 
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Controllers.Make.MakeListController.#ctor(Bikewale.Interfaces.BikeData.IBikeMakes{Bikewale.Entities.BikeData.BikeMakeEntity,System.Int32})">
+        <member name="M:Bikewale.Service.Controllers.Make.MakeListController.#ctor(Bikewale.Interfaces.BikeData.IBikeMakesCacheRepository{System.Int32})">
             <summary>
             
             </summary>
@@ -2269,7 +2323,17 @@
             Created On : 24th August 2015
             Modified by :   Sumit Kate on 18 May 2016
             Description :   Extend from CompressionApiController instead of ApiController 
+            Modified by :   Sumit Kate on 01 Jul 2016
+            Description :   Added IBikeModelsCacheRepository ref
             </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelListController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32},Bikewale.Interfaces.BikeData.IBikeModelsCacheRepository{System.Int32})">
+            <summary>
+            Modified by :   Sumit Kate on 01 Jul 2016
+            Description :   Added IBikeModelsCacheRepository
+            </summary>
+            <param name="modelRepository"></param>
+            <param name="modelCacheRepository"></param>
         </member>
         <member name="M:Bikewale.Service.Controllers.Model.ModelListController.Get(System.Int32)">
             <summary>
@@ -2281,6 +2345,8 @@
         <member name="M:Bikewale.Service.Controllers.Model.ModelListController.Get(System.Nullable{System.SByte},System.Nullable{System.Int32})">
             <summary>
              To Get Most popular Bikes List
+             Modified by    :   Sumit Kate on 01 Jul 2016
+             Description    :   Call the Cache Layer to get the Data
             </summary>
             <param name="totalCount">No. of records to be fetched</param>
             <param name="makeId">Optional (To return Models List Based on MakeID)</param>
@@ -2301,28 +2367,6 @@
             </summary>
             <param name="requestType"></param>
             <returns></returns>
-        </member>
-        <member name="T:Bikewale.Service.Controllers.Series.SeriesListController">
-            <summary>
-            To Get List of Series 
-            Author : Sushil Kumar
-            Created On : 24th August 2015
-            </summary>
-        </member>
-        <member name="M:Bikewale.Service.Controllers.Series.SeriesListController.Get(System.Int32)">
-            <summary>
-             To get List of models for the given series id
-            </summary>
-            <param name="seriesId"></param>
-            <returns>Series List</returns>
-        </member>
-        <member name="M:Bikewale.Service.Controllers.Series.SeriesListController.Get(Bikewale.Entities.BikeData.EnumBikeType,System.Int32)">
-            <summary>
-            To get list of series based on request Type 
-            </summary>
-            <param name="requestType"></param>
-            <param name="seriesId"></param>
-            <returns>Series List Based on RequestType</returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.State.StateListController">
             <summary>
@@ -2871,6 +2915,22 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
+        <member name="M:Bikewale.Service.Utilities.CustomOkResult`1.#ctor(`0,System.Web.Http.ApiController)">
+            <summary>
+            
+            </summary>
+            <param name="content"></param>
+            <param name="controller"></param>
+        </member>
+        <member name="M:Bikewale.Service.Utilities.CustomOkResult`1.#ctor(`0,System.Net.Http.Formatting.IContentNegotiator,System.Net.Http.HttpRequestMessage,System.Collections.Generic.IEnumerable{System.Net.Http.Formatting.MediaTypeFormatter})">
+            <summary>
+            
+            </summary>
+            <param name="content"></param>
+            <param name="contentNegotiator"></param>
+            <param name="request"></param>
+            <param name="formatters"></param>
+        </member>
         <member name="M:Bikewale.Service.Utilities.CustomOkResult`1.ExecuteAsync(System.Threading.CancellationToken)">
             <summary>
             Created by  :   Sumit Kate on 12 May 2016
@@ -2891,7 +2951,7 @@
             Description :   Extend from CompressionApiController instead of ApiController 
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.#ctor(Bikewale.Interfaces.Pager.IPager)">
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.#ctor(Bikewale.Interfaces.Pager.IPager,Bikewale.Interfaces.CMS.ICMSCacheContent,Bikewale.Interfaces.BikeData.IBikeModelsCacheRepository{System.Int32},Bikewale.Interfaces.Content.IRoadTestCache,Bikewale.Interfaces.Content.IFeatureCache)">
             <summary>
             
             </summary>

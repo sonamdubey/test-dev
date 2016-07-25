@@ -60,40 +60,42 @@ namespace BikeWaleOpr.EditCms
 
         protected void FillAlbum()
         {
-            Database db = null;
-            DataSet ds = null;
+            throw new Exception("Method not used/commented");
 
-            string sql = " SELECT CEI.Id, CEI.BasicID, CEI.Caption, CEI.HostURL,CEi.ImagePathThumbnail, CEI.ImagePathLarge "
-                       + " FROM Con_EditCms_Images CEI "
-                       + " WHERE CEI.BasicId = " + basicId + " AND IsActive = 1 AND CEi.ImagePathThumbnail IS NOT NULL";
+            //Database db = null;
+            //DataSet ds = null;
 
-            try 
-	        {	        
-		        db = new Database();
+            //string sql = " SELECT CEI.Id, CEI.BasicID, CEI.Caption, CEI.HostURL,CEi.ImagePathThumbnail, CEI.ImagePathLarge "
+            //           + " FROM Con_EditCms_Images CEI "
+            //           + " WHERE CEI.BasicId = " + basicId + " AND IsActive = 1 AND CEi.ImagePathThumbnail IS NOT NULL";
 
-                using(SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.CommandText = sql;
+            //try 
+            //{	        
+            //    db = new Database();
 
-                    ds = db.SelectAdaptQry(cmd);
+            //    using(SqlCommand cmd = new SqlCommand())
+            //    {
+            //        cmd.CommandText = sql;
 
-                    if (ds != null && ds.Tables[0].Rows.Count > 0)
-                    {
-                        rpt_ShowPhotos.DataSource = ds.Tables[0];
-                        rpt_ShowPhotos.DataBind();
-                    }
-                }
-	        }
-	        catch (SqlException err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+            //        ds = db.SelectAdaptQry(cmd);
+
+            //        if (ds != null && ds.Tables[0].Rows.Count > 0)
+            //        {
+            //            rpt_ShowPhotos.DataSource = ds.Tables[0];
+            //            rpt_ShowPhotos.DataBind();
+            //        }
+            //    }
+            //}
+            //catch (SqlException err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
         }
 
         protected string ShowImage(string hostUrl, string imagePath)

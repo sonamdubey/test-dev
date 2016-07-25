@@ -63,6 +63,18 @@
       <HintPath>..\Libs\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\MySqlDatabaseDLL\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySqlDatabaseLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
@@ -89,9 +101,9 @@
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET MVC 4\Assemblies\System.Web.Http.dll</HintPath>
+      <HintPath>..\Libs\System.Web.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -110,66 +122,6 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="AspNet.ScriptManager.jQuery">
-      <HintPath>..\packages\AspNet.ScriptManager.jQuery.1.8.2\lib\net45\AspNet.ScriptManager.jQuery.dll</HintPath>
-    </Reference>
-    <Reference Include="AspNet.ScriptManager.jQuery.UI.Combined">
-      <HintPath>..\packages\AspNet.ScriptManager.jQuery.UI.Combined.1.8.24\lib\net45\AspNet.ScriptManager.jQuery.UI.Combined.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ScriptManager.MSAjax, Version=4.5.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <HintPath>..\packages\Microsoft.AspNet.ScriptManager.MSAjax.4.5.6\lib\net45\Microsoft.ScriptManager.MSAjax.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ScriptManager.WebForms, Version=4.5.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <HintPath>..\packages\Microsoft.AspNet.ScriptManager.WebForms.4.5.6\lib\net45\Microsoft.ScriptManager.WebForms.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Optimization, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Providers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.2\lib\net40\System.Web.Providers.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\DotNetOpenAuth.Core.4.1.4.12333\lib\net40-full\DotNetOpenAuth.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OAuth, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.1.4.12333\lib\net40-full\DotNetOpenAuth.OAuth.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.1.4.12333\lib\net40-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OpenId, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.1.4.12333\lib\net40-full\DotNetOpenAuth.OpenId.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.1.4.12333\lib\net40-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.AspNet, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\DotNetOpenAuth.AspNet.4.1.4.12333\lib\net40-full\DotNetOpenAuth.AspNet.dll</HintPath>
-    </Reference>
-    <Reference Include="WebGrease">
-      <Private>True</Private>
-      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
-    </Reference>
-    <Reference Include="Antlr3.Runtime">
-      <Private>True</Private>
-      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Web.Optimization.WebForms">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.WebForms.1.0.0\lib\net45\Microsoft.AspNet.Web.Optimization.WebForms.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.FriendlyUrls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.0\lib\net45\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -209,15 +161,24 @@
     </Compile>
     <Compile Include="common\AjaxAppVersion.cs" />
     <Compile Include="common\AjaxCompareFeaturedBike.cs" />
-    <Compile Include="common\AjaxEditCms.cs" />
     <Compile Include="common\AjaxFunctions.cs" />
     <Compile Include="common\Ajax\AjaxCommon.cs" />
     <Compile Include="common\Ajax\AjaxManufacturerCampaign.cs" />
     <Compile Include="common\Ajax\ImageReplication.cs" />
-    <Compile Include="common\KnowlarityApi.cs" />
+    <Compile Include="common\ContractCampaignAPI\CwWebserviceAPI.cs" />
+    <Compile Include="common\ManageCities.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="common\ManageDealerBenefits.cs" />
     <Compile Include="common\ManageDealerCampaign.cs" />
     <Compile Include="common\ManageDealerCampaignRule.cs" />
+    <Compile Include="common\ManageStates.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="common\MemCachedUtil.cs" />
+    <Compile Include="common\Mysql\Utils\MySqlDbUtilities.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="CommuteDistance\CommuteDistanceBL.cs" />
     <Compile Include="CommuteDistance\CommuteDistanceRepository.cs" />
     <Compile Include="CommuteDistance\GoogleDistanceAPIHelper.cs" />
@@ -229,7 +190,6 @@
       <DependentUpon>frmManageAppVersions.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Entities\AppEnum.cs" />
     <Compile Include="common\BikeWaleAuthentication.cs" />
     <Compile Include="common\BindControls.cs" />
     <Compile Include="common\BWHttpClient.cs" />
@@ -239,7 +199,6 @@
     <Compile Include="common\Configuration.cs" />
     <Compile Include="common\ContentCommon.cs" />
     <Compile Include="common\CurrentUser.cs" />
-    <Compile Include="common\database.cs" />
     <Compile Include="common\ErrorClass.cs" />
     <Compile Include="common\ImagingFunctions.cs" />
     <Compile Include="common\ImagingOperations.cs" />
@@ -252,13 +211,9 @@
     <Compile Include="common\ManageAppVersion.cs" />
     <Compile Include="common\ManageArea.cs" />
     <Compile Include="common\ManageBikeAvailbilityByColor.cs" />
-    <Compile Include="common\ManageBikeSeries.cs" />
-    <Compile Include="common\ManageCities.cs" />
     <Compile Include="common\ManageFeaturedBike.cs" />
     <Compile Include="common\ManageManufacturerCampaign.cs" />
     <Compile Include="common\ManageModelColor.cs" />
-    <Compile Include="common\ManageStates.cs" />
-    <Compile Include="common\ManageVideos.cs" />
     <Compile Include="common\ReviewDetail.cs" />
     <Compile Include="common\Security.cs" />
     <Compile Include="common\UpdateLiveContentCommon.cs" />
@@ -282,10 +237,6 @@
       <DependentUpon>BikeModels.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="content\BikeSeries.aspx.cs">
-      <DependentUpon>BikeSeries.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="content\BikeSynopsis.aspx.cs">
       <DependentUpon>BikeSynopsis.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -299,10 +250,6 @@
     </Compile>
     <Compile Include="content\BulkPriceUpload.aspx.cs">
       <DependentUpon>BulkPriceUpload.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="content\Cities.aspx.cs">
-      <DependentUpon>Cities.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="content\CompareFeaturedBike.aspx.cs">
@@ -345,20 +292,12 @@
       <DependentUpon>ManageUserReviews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="content\ManageVideos.aspx.cs">
-      <DependentUpon>ManageVideos.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="content\NewBikeFeatureItems.aspx.cs">
       <DependentUpon>NewBikeFeatureItems.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="content\NewBikeFeatures.aspx.cs">
       <DependentUpon>NewBikeFeatures.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="content\NewBikeModelColors.aspx.cs">
-      <DependentUpon>NewBikeModelColors.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="content\NewBikeModelColors_New.aspx.cs">
@@ -381,36 +320,12 @@
       <DependentUpon>PriceMonitoring.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="content\SeriesPhotos.aspx.cs">
-      <DependentUpon>SeriesPhotos.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="content\SeriesSynopsis.aspx.cs">
-      <DependentUpon>SeriesSynopsis.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="content\ShowroomPrices.aspx.cs">
       <DependentUpon>ShowroomPrices.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="content\States.aspx.cs">
-      <DependentUpon>States.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="content\UpdateCityDetails.aspx.cs">
-      <DependentUpon>UpdateCityDetails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="content\UpdateExpLaunches.aspx.cs">
       <DependentUpon>UpdateExpLaunches.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="content\UpdateSeriesDetails.aspx.cs">
-      <DependentUpon>UpdateSeriesDetails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="content\UpdateStateDetails.aspx.cs">
-      <DependentUpon>UpdateStateDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="content\VersionPhotos.aspx.cs">
@@ -436,9 +351,6 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="editcms\Code\AddPages.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="editcms\Code\addvideos.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="editcms\Code\Author.aspx.cs">
@@ -490,41 +402,9 @@
     <Compile Include="editcms\Code\ViewImage.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Entities\AppVersionEntity.cs" />
-    <Compile Include="Entities\AreaEntityBase.cs" />
-    <Compile Include="Entities\AreaLocationEntity.cs" />
-    <Compile Include="Entities\BookingAmountEntity.cs" />
-    <Compile Include="Entities\BookingAmountEntityBase.cs" />
-    <Compile Include="Entities\CalculatedEMI.cs" />
-    <Compile Include="Entities\CityEntityBase.cs" />
-    <Compile Include="Entities\ColorCodeBase.cs" />
-    <Compile Include="Entities\DealerAreaDetails.cs" />
-    <Compile Include="Entities\DealerBenefitEntity.cs" />
-    <Compile Include="Entities\DealerDisclaimerEntity.cs" />
-    <Compile Include="Entities\DealerLocationEntity.cs" />
-    <Compile Include="Entities\DealerPriceEntity.cs" />
-    <Compile Include="Entities\EMI.cs" />
-    <Compile Include="Entities\FacilityEntity.cs" />
-    <Compile Include="Entities\GeoLocationDestinationEntity.cs" />
-    <Compile Include="Entities\GeoLocationEntity.cs" />
-    <Compile Include="Entities\MakeEntity.cs" />
-    <Compile Include="Entities\MakeEntityBase.cs" />
-    <Compile Include="Entities\ManufacturerCampaignEntity.cs" />
-    <Compile Include="Entities\ManufacturerEntity.cs" />
-    <Compile Include="Entities\ModelColorBase.cs" />
-    <Compile Include="Entities\ModelEntity.cs" />
-    <Compile Include="Entities\ModelEntityBase.cs" />
-    <Compile Include="Entities\NewBikeDealers.cs" />
-    <Compile Include="Entities\OfferEntity.cs" />
-    <Compile Include="Entities\PQParameterEntity.cs" />
-    <Compile Include="Entities\PQ_DealerDetailEntity.cs" />
-    <Compile Include="Entities\PQ_Price.cs" />
-    <Compile Include="Entities\PQ_QuotationEntity.cs" />
-    <Compile Include="Entities\StateEntityBase.cs" />
-    <Compile Include="Entities\VersionColorBase.cs" />
-    <Compile Include="Entities\VersionColorWithAvailability.cs" />
-    <Compile Include="Entities\VersionEntity.cs" />
-    <Compile Include="Entities\VersionEntityBase.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="MobileApp\AppVersioning.aspx.cs">
       <DependentUpon>AppVersioning.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -643,6 +523,7 @@
     <Folder Include="bikewaleimg\ec\7\img\c140\" />
     <Folder Include="bikewaleimg\ec\7\img\c200\" />
     <Folder Include="content\mappingfiles\parsedpricefiles\" />
+    <Folder Include="Entities\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="obj\Release\TempPE\" />
   </ItemGroup>
@@ -1365,38 +1246,17 @@
     <Content Include="bikewaleimg\upcoming\HarleyDavidson-883Roadster-25us.jpg" />
     <Content Include="bin\Ajax.dll" />
     <Content Include="bin\AjaxPro.2.dll" />
-    <Content Include="bin\Antlr3.Runtime.dll" />
-    <Content Include="bin\AspNet.ScriptManager.jQuery.dll" />
-    <Content Include="bin\AspNet.ScriptManager.jQuery.UI.Combined.dll" />
-    <Content Include="bin\BikewaleOpr.dll" />
-    <Content Include="bin\BikewaleOpr.pdb" />
     <Content Include="bin\Carwale.WebServices.OprAuthentication.dll" />
-    <Content Include="bin\DotNetOpenAuth.AspNet.dll" />
-    <Content Include="bin\DotNetOpenAuth.Core.dll" />
-    <Content Include="bin\DotNetOpenAuth.OAuth.Consumer.dll" />
-    <Content Include="bin\DotNetOpenAuth.OAuth.dll" />
-    <Content Include="bin\DotNetOpenAuth.OpenId.dll" />
-    <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.dll" />
-    <Content Include="bin\EntityFramework.dll" />
     <Content Include="bin\Enyim.Caching.dll" />
     <Content Include="bin\FreeTextBox.dll" />
     <Content Include="bin\log4net.dll" />
-    <Content Include="bin\Microsoft.AspNet.FriendlyUrls.dll" />
-    <Content Include="bin\Microsoft.AspNet.Membership.OpenAuth.dll" />
-    <Content Include="bin\Microsoft.AspNet.Web.Optimization.WebForms.dll" />
-    <Content Include="bin\Microsoft.ScriptManager.MSAjax.dll" />
-    <Content Include="bin\Microsoft.ScriptManager.WebForms.dll" />
     <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
     <Content Include="bin\Newtonsoft.Json.dll" />
     <Content Include="bin\RabbitMQ.Client.dll" />
     <Content Include="bin\RabbitMqPublishing.dll" />
     <Content Include="bin\System.Net.Http.Formatting.dll" />
-    <Content Include="bin\System.Net.Http.Formatting.xml" />
     <Content Include="bin\System.Web.Http.dll" />
     <Content Include="bin\System.Web.Http.WebHost.dll" />
-    <Content Include="bin\System.Web.Optimization.dll" />
-    <Content Include="bin\System.Web.Providers.dll" />
-    <Content Include="bin\WebGrease.dll" />
     <Content Include="campaign\DealersRules.aspx" />
     <Content Include="campaign\ManageDealers.aspx" />
     <Content Include="campaign\MapCampaign.aspx" />
@@ -1414,12 +1274,10 @@
     <Content Include="content\BikeComparisonList.aspx" />
     <Content Include="content\BikeMakes.aspx" />
     <Content Include="content\BikeModels.aspx" />
-    <Content Include="content\BikeSeries.aspx" />
     <Content Include="content\BikeSynopsis.aspx" />
     <Content Include="content\BikeVersions.aspx" />
     <Content Include="content\BKPQMatrixNew.aspx" />
     <Content Include="content\BulkPriceUpload.aspx" />
-    <Content Include="content\Cities.aspx" />
     <Content Include="content\CompareFeaturedBike.aspx" />
     <Content Include="content\ComparisonBikes.aspx" />
     <Content Include="content\ContentsMenu.aspx" />
@@ -1434,28 +1292,21 @@
     <Content Include="content\MakeSynopsis.aspx" />
     <Content Include="content\ManageNewModelColor.aspx" />
     <Content Include="content\ManageUserReviews.aspx" />
-    <Content Include="content\ManageVideos.aspx" />
     <Content Include="content\mappingfiles\MappedBikeData.xml" />
     <Content Include="content\mappingfiles\MappedCityData.xml" />
     <Content Include="content\mappingfiles\PriceData.xml" />
     <Content Include="content\NewBikeFeatureItems.aspx" />
     <Content Include="content\NewBikeFeatures.aspx" />
-    <Content Include="content\NewBikeModelColors.aspx" />
     <Content Include="content\NewBikeModelColors_New.aspx" />
     <Content Include="content\NewBikeSpecification.aspx" />
     <Content Include="content\NewBikeStandardFeaturesStep2.aspx" />
     <Content Include="content\NewBikeVersionColors.aspx" />
     <Content Include="content\PriceMonitoring.aspx" />
-    <Content Include="content\SeriesPhotos.aspx" />
-    <Content Include="content\SeriesSynopsis.aspx" />
     <Content Include="content\ShowroomPrices.aspx" />
-    <Content Include="content\States.aspx" />
-    <Content Include="content\UpdateCityDetails.aspx" />
     <Content Include="content\UpdateExpLaunches.aspx" />
-    <Content Include="content\UpdateSeriesDetails.aspx" />
-    <Content Include="content\UpdateStateDetails.aspx" />
     <Content Include="content\VersionPhotos.aspx" />
     <Content Include="content\ViewReview.aspx" />
+    <Content Include="content\web.config" />
     <Content Include="controls\DateControl.ascx" />
     <Content Include="controls\LinkPagerControl.ascx" />
     <Content Include="controls\RichTextEditor.ascx" />
@@ -1463,7 +1314,6 @@
     <Content Include="css\Common.css" />
     <Content Include="Default.aspx" />
     <Content Include="editcms\AddPages.aspx" />
-    <Content Include="editcms\addvideos.aspx" />
     <Content Include="editcms\Author.aspx" />
     <Content Include="editcms\BasicData.aspx" />
     <Content Include="editcms\BasicInfo.aspx" />
@@ -1985,6 +1835,7 @@
     <Content Include="editor\tiny_mce_old\utils\form_utils.js" />
     <Content Include="editor\tiny_mce_old\utils\mctabs.js" />
     <Content Include="editor\tiny_mce_old\utils\validate.js" />
+    <Content Include="Global.asax" />
     <Content Include="images\calendar.png" />
     <Content Include="includes\footerNew.aspx" />
     <Content Include="includes\headerNew.aspx" />
@@ -2019,9 +1870,10 @@
     <Content Include="users\Login.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="content\web.config" />
     <Content Include="editcms\web.config" />
-    <Content Include="web.config" />
+    <Content Include="web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="newbikebooking\web.config" />
@@ -2032,6 +1884,35 @@
     <None Include="web.Release.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
+      <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
+      <Name>Bikewale.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.BAL\BikewaleOpr.BAL.csproj">
+      <Project>{16f4a3eb-ab13-44c2-99cd-a942c05f3222}</Project>
+      <Name>BikewaleOpr.BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.DALs\BikewaleOpr.DALs.csproj">
+      <Project>{01134f89-c502-492e-a368-0a93d76430ef}</Project>
+      <Name>BikewaleOpr.DALs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.Entity\BikewaleOpr.Entity.csproj">
+      <Project>{caf758ed-4954-4be3-be15-345dbc891970}</Project>
+      <Name>BikewaleOpr.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.Interface\BikewaleOpr.Interface.csproj">
+      <Project>{539fa12c-3799-4e88-a833-f65594ea1934}</Project>
+      <Name>BikewaleOpr.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.Service\BikewaleOpr.Service.csproj">
+      <Project>{d0c53270-a025-4d8b-a675-93a1ccd58bf6}</Project>
+      <Name>BikewaleOpr.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

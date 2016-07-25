@@ -1,22 +1,15 @@
 ﻿using Bikewale.BAL.BikeBooking;
 using Bikewale.Common;
-using Bikewale.DTO.BookingSummary;
-using Bikewale.DTO.PriceQuote.BikeBooking;
-using Bikewale.DTO.PriceQuote.DetailedDealerQuotation;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Mobile.Controls;
-using Bikewale.Mobile.PriceQuote;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Pricequote
@@ -191,7 +184,7 @@ namespace Bikewale.Mobile.Pricequote
                     dealerDetailEntity.objQuotation.discountedPriceList = OfferHelper.ReturnDiscountPriceList(
                         dealerDetailEntity.objOffers, dealerDetailEntity.objQuotation.PriceList);
                 }
-                    
+
 
             }
             else
@@ -230,14 +223,18 @@ namespace Bikewale.Mobile.Pricequote
         /// </summary>
         private void FetchDealerDetails()
         {
-            //dealer details
-            string _apiUrl = String.Format("/api/Dealers/GetDealerDetailsPQ/?versionId={0}&DealerId={1}&CityId={2}", versionId, dealerId, cityId);
-
+            //dealer details            
             try
             {
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerDetailEntity);
+                    container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
+                    Bikewale.Interfaces.AutoBiz.IDealers objDealer = container.Resolve<Bikewale.DAL.AutoBiz.DealersRepository>();
+                    PQParameterEntity objParam = new PQParameterEntity();
+                    objParam.CityId = cityId;
+                    objParam.DealerId = dealerId;
+                    objParam.VersionId = versionId;
+                    dealerDetailEntity = objDealer.GetDealerDetailsPQ(objParam);
                 }
 
                 if (dealerDetailEntity != null)

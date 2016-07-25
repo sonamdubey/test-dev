@@ -6,6 +6,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Microsoft.Practices.Unity;
+using MySql.CoreDAL;
 /*******************************************************************************************************
 IN THIS CLASS WE GET THE ID OF THE BIKE MAKE FROM THE QUERY STRING, AND FROM IT WE FETCH ALL THE
 MODELS FOR THIS MAKE, and the count for this model in the sell inquiry.
@@ -13,16 +14,21 @@ MODELS FOR THIS MAKE, and the count for this model in the sell inquiry.
 using System;
 using System.Collections.Generic;
 using System.Data;
+//using BikeWale.Controls;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-//using BikeWale.Controls;
 
 namespace Bikewale.New
 {
+    /// <summary>
+    /// Modified By : Lucky Rathore
+    /// Description : Radio button for "ALL" or "New" bikes and its logic Removed.
+    /// </summary>
     public class ComparisonChoose : Page
     {
         protected int featuredBikeIndex = 0; // this variable not used any where in this page.
@@ -30,14 +36,11 @@ namespace Bikewale.New
         protected DropDownList cmbMake, cmbMake1, cmbMake2, cmbMake3;
 
         protected Button btnCompare;
-        protected RadioButton optNew, optAll;
 
         public int make1 = 0, model1 = 0, version1 = 0;
         public int make2 = 0, model2 = 0, version2 = 0;
         public int make3 = 0, model3 = 0, version3 = 0;
         public int make4 = 0, model4 = 0, version4 = 0;
-
-        protected string compareBikes = String.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -48,8 +51,6 @@ namespace Bikewale.New
         {
             base.Load += new EventHandler(Page_Load);
             this.btnCompare.Click += new EventHandler(btnCompare_Click);
-            optNew.CheckedChanged += new EventHandler(CompareStatusChanged);
-            optAll.CheckedChanged += new EventHandler(CompareStatusChanged);
         }
 
         void Page_Load(object Sender, EventArgs e)
@@ -63,68 +64,23 @@ namespace Bikewale.New
 
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
-
-            compareBikes = optNew.Checked ? "new" : "all";
-
-            if (!IsPostBack)
-            {
-                // check whether CompareAll cookie is set?
-                if (Request.Cookies["CompareAll"] != null)
-                {
-                    optAll.Checked = true;
-                    optNew.Checked = false;
-                }
-            }
-            else
-            {
-                Trace.Warn("Posting back...");
-            }
-
-            Trace.Warn("New ? " + optNew.Checked + ". All ? " + optAll.Checked);
-
+            
             // fill makes in drop-downs
-            FillMakes(optNew.Checked);
+            FillMakes();
 
             // if Bike ids are passed in query-string, fill the appropriate dropdowns.
             for (int i = 1; i <= 4; i++)
-                if (Request["bike" + i] != null && CommonOpn.CheckId(Request["bike" + i]))
+                if (Request["bike" + i] != null && Bikewale.Common.CommonOpn.CheckId(Request["bike" + i]))
                     FillExisting(Request["bike" + i], i);
-
-
-            Trace.Warn("End PageLoad");
         } // Page_Load
-
-        // user is changing his preference for new or all comparison
-        void CompareStatusChanged(object sender, EventArgs e)
-        {
-            Trace.Warn("Status Changed : New ? " + optNew.Checked + ". All ? " + optAll.Checked);
-
-            if (optAll.Checked)
-            {
-                if (Request.Cookies["CompareAll"] == null)
-                {
-                    Trace.Warn("User is interested in All Bikes... setting cookie");
-
-                    HttpCookie cookie = new HttpCookie("CompareAll");
-                    cookie.Value = "1";
-                    cookie.Expires = DateTime.Now.AddYears(1);
-                    Response.Cookies.Add(cookie);
-                }
-            }
-            else
-            {
-                if (Request.Cookies["CompareAll"] != null)
-                    Response.Cookies["CompareAll"].Expires = DateTime.Now.AddYears(-1);
-            }
-        }
-
+        
         /// <summary>
-        /// 
+        ///  Modified by : Lucky Rathore on 21 July 2016.
+        ///  Description : Remove function's "onlyNew" parameter. 
         /// </summary>
-        /// <param name="onlyNew"></param>
-        void FillMakes(bool onlyNew)
+        void FillMakes()
         {
-            CommonOpn op = new CommonOpn();
+            Bikewale.Common.CommonOpn op = new Bikewale.Common.CommonOpn();
 
             IEnumerable<BikeMakeEntityBase> makeList = null;
             try
@@ -189,74 +145,66 @@ namespace Bikewale.New
         void FillExisting(string bike, int bikeNo)
         {
             Trace.Warn("inside fikll existing");
-            SqlDataReader dr = null;
-            Database db = new Database();
-            string sql;
 
-            sql = "SELECT VE.ID Version, MO.ID Model, MA.ID Make, MA.MaskingName AS MakeMaskingName,MO.MaskingName AS ModelMaskingName"
-                + " FROM BikeMakes MA, BikeModels MO, BikeVersions VE With(NoLock) "
-                + " WHERE VE.BikeModelId=MO.Id AND MO.BikeMakeId=MA.ID "
-                + " AND VE.ID=@ID";
+            string sql = @"select ve.id version, ve.bikemodelid model, ve.bikemakeid make, ve.makemaskingname as makemaskingname,ve.modelmaskingname as modelmaskingname 
+                 from bikeversions ve
+				 where ve.id=par_id";
 
-            SqlCommand cmd = new SqlCommand(sql);
-            cmd.Parameters.Add("@ID", SqlDbType.BigInt).Value = bike;
 
             Trace.Warn("sql ::: ", sql);
 
             try
             {
-                dr = db.SelectQry(cmd);
-
-                if (dr.Read())
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
+                    //cmd.Parameters.Add("par_id", SqlDbType.BigInt).Value = bike;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int32, bike));
 
-                    switch (bikeNo)
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        case 1:
-                            make1 = Convert.ToInt16(dr["Make"].ToString());
-                            model1 = Convert.ToInt16(dr["Model"].ToString());
-                            version1 = Convert.ToInt16(dr["Version"].ToString());
+                        if (dr != null && dr.Read())
+                        {
 
-                            break;
-                        case 2:
-                            make2 = Convert.ToInt16(dr["Make"].ToString());
-                            model2 = Convert.ToInt16(dr["Model"].ToString());
-                            version2 = Convert.ToInt16(dr["Version"].ToString());
+                            switch (bikeNo)
+                            {
+                                case 1:
+                                    make1 = Convert.ToInt16(dr["Make"].ToString());
+                                    model1 = Convert.ToInt16(dr["Model"].ToString());
+                                    version1 = Convert.ToInt16(dr["Version"].ToString());
 
-                            break;
-                        case 3:
-                            make3 = Convert.ToInt16(dr["Make"].ToString());
-                            model3 = Convert.ToInt16(dr["Model"].ToString());
-                            version3 = Convert.ToInt16(dr["Version"].ToString());
+                                    break;
+                                case 2:
+                                    make2 = Convert.ToInt16(dr["Make"].ToString());
+                                    model2 = Convert.ToInt16(dr["Model"].ToString());
+                                    version2 = Convert.ToInt16(dr["Version"].ToString());
 
-                            break;
-                        case 4:
-                            make4 = Convert.ToInt16(dr["Make"].ToString());
-                            model4 = Convert.ToInt16(dr["Model"].ToString());
-                            version4 = Convert.ToInt16(dr["Version"].ToString());
+                                    break;
+                                case 3:
+                                    make3 = Convert.ToInt16(dr["Make"].ToString());
+                                    model3 = Convert.ToInt16(dr["Model"].ToString());
+                                    version3 = Convert.ToInt16(dr["Version"].ToString());
 
-                            break;
+                                    break;
+                                case 4:
+                                    make4 = Convert.ToInt16(dr["Make"].ToString());
+                                    model4 = Convert.ToInt16(dr["Model"].ToString());
+                                    version4 = Convert.ToInt16(dr["Version"].ToString());
+
+                                    break;
+                            }
+
+                            dr.Close();
+                        }
                     }
                 }
             }
-            catch (SqlException err)
-            {
-                Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            } // catch Exception
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                if (dr != null)
-                    dr.Close();
-                db.CloseConnection();
-            }
+
         }
 
         void btnCompare_Click(object sender, EventArgs e)

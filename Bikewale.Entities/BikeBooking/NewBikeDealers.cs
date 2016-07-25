@@ -45,8 +45,9 @@ namespace Bikewale.Entities.BikeBooking
         public CityEntityBase objCity { get; set; }
 
         public AreaEntityBase objArea { get; set; }
-        
+
         [JsonProperty("dealerPackageType")]
         public DealerPackageTypes DealerPackageType { get; set; }
+
     }   //End of Class
 }   //End of namespace

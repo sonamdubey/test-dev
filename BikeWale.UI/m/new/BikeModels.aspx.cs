@@ -4,6 +4,7 @@ using Bikewale.BindViewModels.Webforms;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
+using Bikewale.common;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Location;
@@ -141,17 +142,23 @@ namespace Bikewale.Mobile.New
 
                     ctrlExpertReviews.TotalRecords = 2;
                     ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);
+                    ctrlExpertReviews.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
+                    ctrlExpertReviews.ModelName = modelPage.ModelDetails.ModelName;
 
                     ctrlVideos.TotalRecords = 3;
                     ctrlVideos.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                     ctrlVideos.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
                     ctrlVideos.ModelId = Convert.ToInt32(modelId);
+                    ctrlVideos.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
+                    ctrlVideos.ModelName = modelPage.ModelDetails.ModelName;
 
                     ctrlUserReviews.ReviewCount = 2;
                     ctrlUserReviews.PageNo = 1;
                     ctrlUserReviews.PageSize = 2;
                     ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
                     ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
+                    ctrlUserReviews.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
+                    ctrlUserReviews.ModelName = modelPage.ModelDetails.ModelName;
 
                     ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                     ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
@@ -440,7 +447,6 @@ namespace Bikewale.Mobile.New
                     {
                         versionId = (modelPage.ModelVersionSpecs.BikeVersionId);
                     }
-
                     if (modelPage.ModelVersions != null && !modelPage.ModelDetails.Futuristic)
                     {
                         if (modelPage.ModelVersions.Count > 1)
@@ -471,7 +477,6 @@ namespace Bikewale.Mobile.New
                             if (firstVer != null)
                                 variantText = firstVer.VersionName;
                         }
-
                     }
                 }
             }
@@ -842,33 +847,30 @@ namespace Bikewale.Mobile.New
                             {
                                 // call another api
                                 PQ_QuotationEntity oblDealerPQ = null;
+                                AutoBizCommon dealerPq = new AutoBizCommon();
                                 try
                                 {
-                                    string api = String.Format("/api/DealerPriceQuote/GetDealerPriceQuote/?cityid={0}&versionid={1}&dealerid={2}", cityId, versionId, objPQOutput.DealerId);
-                                    using (Utility.BWHttpClient objDealerPqClient = new Utility.BWHttpClient())
+                                    oblDealerPQ = oblDealerPQ = dealerPq.GetDealePQEntity(cityId, objPQOutput.DealerId, versionId);
+                                    if (oblDealerPQ != null)
                                     {
-                                        //objPrice = objClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objPrice);
-                                        oblDealerPQ = objDealerPqClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, oblDealerPQ);
-                                        if (oblDealerPQ != null)
+                                        uint insuranceAmount = 0;
+                                        foreach (var price in oblDealerPQ.PriceList)
                                         {
-                                            uint insuranceAmount = 0;
-                                            foreach (var price in oblDealerPQ.PriceList)
-                                            {
-                                                pqOnRoad.IsInsuranceFree = Bikewale.Utility.DealerOfferHelper.HasFreeInsurance(objPQOutput.DealerId.ToString(), "", price.CategoryName, price.Price, ref insuranceAmount);
-                                            }
-                                            pqOnRoad.IsInsuranceFree = true;
-                                            pqOnRoad.DPQOutput = oblDealerPQ;
-                                            pqOnRoad.InsuranceAmount = insuranceAmount;
+                                            pqOnRoad.IsInsuranceFree = Bikewale.Utility.DealerOfferHelper.HasFreeInsurance(objPQOutput.DealerId.ToString(), "", price.CategoryName, price.Price, ref insuranceAmount);
+                                        }
+                                        pqOnRoad.IsInsuranceFree = true;
+                                        pqOnRoad.DPQOutput = oblDealerPQ;
+                                        pqOnRoad.InsuranceAmount = insuranceAmount;
 
-                                            if (pqOnRoad.DPQOutput.objOffers != null && pqOnRoad.DPQOutput.objOffers.Count > 0)
-                                                pqOnRoad.DPQOutput.discountedPriceList = OfferHelper.ReturnDiscountPriceList(pqOnRoad.DPQOutput.objOffers, pqOnRoad.DPQOutput.PriceList);
-                                            if (oblDealerPQ.discountedPriceList != null && oblDealerPQ.discountedPriceList.Count > 0)
-                                            {
-                                                pqOnRoad.IsDiscount = true;
-                                                pqOnRoad.discountedPriceList = oblDealerPQ.discountedPriceList;
-                                            }
+                                        if (pqOnRoad.DPQOutput.objOffers != null && pqOnRoad.DPQOutput.objOffers.Count > 0)
+                                            pqOnRoad.DPQOutput.discountedPriceList = OfferHelper.ReturnDiscountPriceList(pqOnRoad.DPQOutput.objOffers, pqOnRoad.DPQOutput.PriceList);
+                                        if (oblDealerPQ.discountedPriceList != null && oblDealerPQ.discountedPriceList.Count > 0)
+                                        {
+                                            pqOnRoad.IsDiscount = true;
+                                            pqOnRoad.discountedPriceList = oblDealerPQ.discountedPriceList;
                                         }
                                     }
+                                    //}
                                 }
                                 catch (Exception ex)
                                 {

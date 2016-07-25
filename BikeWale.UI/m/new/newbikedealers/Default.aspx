@@ -296,7 +296,7 @@
             if (($ddlCities.find("li.activeCity")).length > 0) {
                 $("div.locator-search-city-form span").text($ddlCities.find("li.activeCity:first").text());
             }
-            
+
 
             $ddlMakes.on("click", "li", function () {
                 var _self = $(this),
@@ -371,7 +371,7 @@
                                 if (xhr.status != 200) {
                                     $("div.locator-search-city-form span").text("No cities available");
                                     lscache.set(key + mId, null, 30);
-                                    setOptions(null);  
+                                    setOptions(null);
                                 }
                             }
                         });
@@ -391,7 +391,7 @@
                 if (!isNaN(selMakeId) && selMakeId != "0") {
                     if (!isNaN(selCityId) && selCityId != "0") {
                         ddlcityMasking = $ddlCities.find("li.activeCity").attr("cityMaskingName");
-                        window.location.href = "/m/" + ddlmakemasking + "-bikes/dealers-in-" + ddlcityMasking + "/";
+                        window.location.href = "/m/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
                     }
                     else {
                         setError($("div.locator-search-city-form"), "Please select city !");

@@ -215,89 +215,93 @@ namespace BikeWaleOpr.Common
 		
 		public static string GetCustomerIdFromKey(string key)
 		{
-			SqlConnection con;
-			SqlCommand cmd;
-			SqlParameter prm;
-			Database db = new Database();
-			CommonOpn op = new CommonOpn();
+            throw new Exception("Method not used/commented");
+
+            //SqlConnection con;
+            //SqlCommand cmd;
+            //SqlParameter prm;
+            //Database db = new Database();
+            //CommonOpn op = new CommonOpn();
 						
-			string conStr = db.GetConString();
+            //string conStr = db.GetConString();
 			
-			con = new SqlConnection( conStr );
+            //con = new SqlConnection( conStr );
 			
-			string customerId = "";
+            //string customerId = "";
 			
-			try
-			{
-				cmd = new SqlCommand("FetchCustomerSecurityKey", con);
-				cmd.CommandType = CommandType.StoredProcedure;
+            //try
+            //{
+            //    cmd = new SqlCommand("FetchCustomerSecurityKey", con);
+            //    cmd.CommandType = CommandType.StoredProcedure;
 				
-				prm = cmd.Parameters.Add("@Key", SqlDbType.VarChar, 100);
-				prm.Value = key;
+            //    prm = cmd.Parameters.Add("@Key", SqlDbType.VarChar, 100);
+            //    prm.Value = key;
 				
-				prm = cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt);
-				prm.Direction = ParameterDirection.Output;
+            //    prm = cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt);
+            //    prm.Direction = ParameterDirection.Output;
 								
-				con.Open();
-				//run the command
-    			cmd.ExecuteNonQuery();
+            //    con.Open();
+            //    //run the command
+            //    cmd.ExecuteNonQuery();
 				
-				customerId = cmd.Parameters["@CustomerId"].Value.ToString();
-			}
-			catch(SqlException err)
-			{
-				HttpContext.Current.Trace.Warn("CarwaleSecurity.GetCustomerIdFromKey : " + err.Message);
-				ErrorClass objErr = new ErrorClass(err,"CarwaleSecurity.GetCustomerIdFromKey");
-				objErr.SendMail();
-			} // catch SqlException
-			catch(Exception err)
-			{
-				HttpContext.Current.Trace.Warn("CarwaleSecurity.GetCustomerIdFromKey : " + err.Message);
-				ErrorClass objErr = new ErrorClass(err,"CarwaleSecurity.GetCustomerIdFromKey");
-				objErr.SendMail();
-			} // catch Exception
-			finally
-			{
-				//close the connection	
-			    if(con.State == ConnectionState.Open)
-				{
-					con.Close();
-				}
-			}
+            //    customerId = cmd.Parameters["@CustomerId"].Value.ToString();
+            //}
+            //catch(SqlException err)
+            //{
+            //    HttpContext.Current.Trace.Warn("CarwaleSecurity.GetCustomerIdFromKey : " + err.Message);
+            //    ErrorClass objErr = new ErrorClass(err,"CarwaleSecurity.GetCustomerIdFromKey");
+            //    objErr.SendMail();
+            //} // catch SqlException
+            //catch(Exception err)
+            //{
+            //    HttpContext.Current.Trace.Warn("CarwaleSecurity.GetCustomerIdFromKey : " + err.Message);
+            //    ErrorClass objErr = new ErrorClass(err,"CarwaleSecurity.GetCustomerIdFromKey");
+            //    objErr.SendMail();
+            //} // catch Exception
+            //finally
+            //{
+            //    //close the connection	
+            //    if(con.State == ConnectionState.Open)
+            //    {
+            //        con.Close();
+            //    }
+            //}
 			
-			return customerId;
+            //return customerId;
 		}
 		
 		public static string GetCustomerKeyFromId(string id)
 		{
-			Database db = new Database();
-			string key = "";
-			SqlDataReader dr;
-			string sql = "";
+            throw new Exception("Method not used/commented");
+
+            //Database db = new Database();
+            //string key = "";
+            //SqlDataReader dr;
+            //string sql = "";
 			
-			try
-			{
-				sql = " SELECT CustomerKey FROM CustomerSecurityKey WHERE CustomerId = " + id;	
+            //try
+            //{
+            //    sql = " SELECT CustomerKey FROM CustomerSecurityKey WHERE CustomerId = " + id;	
 				
-				dr = db.SelectQry(sql);
+            //    dr = db.SelectQry(sql);
 				
-				if(dr.Read())
-				{
-					key = dr["CustomerKey"].ToString();
-				}
+            //    if(dr.Read())
+            //    {
+            //        key = dr["CustomerKey"].ToString();
+            //    }
 				
-				dr.Close();
-				db.CloseConnection();
+            //    dr.Close();
+            //    db.CloseConnection();
 				
-			}
-			catch(Exception err)
-			{
-				HttpContext.Current.Trace.Warn("CarwaleSecurity.GetCustomerKeyFromId : " + err.Message);
-				ErrorClass objErr = new ErrorClass(err,"CarwaleSecurity.GetCustomerKeyFromId");
-				objErr.SendMail();
-			} // catch Exception
+            //}
+            //catch(Exception err)
+            //{
+            //    HttpContext.Current.Trace.Warn("CarwaleSecurity.GetCustomerKeyFromId : " + err.Message);
+            //    ErrorClass objErr = new ErrorClass(err,"CarwaleSecurity.GetCustomerKeyFromId");
+            //    objErr.SendMail();
+            //} // catch Exception
 			
-			return key;
+            //return key;
 		}
 		
 		//simple symmetric algorithm

@@ -77,144 +77,150 @@ namespace BikeWaleOpr.EditCms
 					
 		private void CheckIsSinglePage()
 		{
-			string sql = string.Empty;
-			SqlDataReader dr = null;
-			Database db = new Database();
+
+            throw new Exception("Method not used/commented");
+
+            //string sql = string.Empty;
+            //SqlDataReader dr = null;
+            //Database db = new Database();
 			
-			try
-			{
-				sql = " Select IsSinglePage from Con_EditCms_Category C "
-					+ " Inner Join Con_EditCms_Basic B On B.CategoryId = C.Id " 
-					+ " Where B.Id = @BasicId ";
+            //try
+            //{
+            //    sql = " Select IsSinglePage from Con_EditCms_Category C "
+            //        + " Inner Join Con_EditCms_Basic B On B.CategoryId = C.Id " 
+            //        + " Where B.Id = @BasicId ";
 				
-				SqlParameter[] param = { new SqlParameter( "@BasicId", basicId ) };
+            //    SqlParameter[] param = { new SqlParameter( "@BasicId", basicId ) };
 				
 				
-				dr = db.SelectQry( sql, param );
+            //    dr = db.SelectQry( sql, param );
 				
-				while(dr.Read())
-				{
-					IsSinglePage = Convert.ToBoolean(dr["IsSinglePage"].ToString());
-				}
-				dr.Close();
-			}
-			catch(SqlException err)
-			{
-				Trace.Warn(err.Message + err.Source);
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.ConsumeError();
-			} // catch SqlException
-			catch(Exception err)
-			{
-				Trace.Warn(err.Message + err.Source);
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.ConsumeError();
-			}// catch Exception
-			finally
-			{
-				if( dr != null )
-					dr.Close();
+            //    while(dr.Read())
+            //    {
+            //        IsSinglePage = Convert.ToBoolean(dr["IsSinglePage"].ToString());
+            //    }
+            //    dr.Close();
+            //}
+            //catch(SqlException err)
+            //{
+            //    Trace.Warn(err.Message + err.Source);
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.ConsumeError();
+            //} // catch SqlException
+            //catch(Exception err)
+            //{
+            //    Trace.Warn(err.Message + err.Source);
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.ConsumeError();
+            //}// catch Exception
+            //finally
+            //{
+            //    if( dr != null )
+            //        dr.Close();
 				
-				db.CloseConnection();
-			}
+            //    db.CloseConnection();
+            //}
 		}
 		
 		void FillData()
 		{
-			string sql = "" ;
-			SqlDataReader dr ;
-			Database db = new Database();
+            throw new Exception("Method not used/commented");
+            //string sql = "" ;
+            //SqlDataReader dr ;
+            //Database db = new Database();
 			
-			if ( updateId != "" )
-			{
-				sql = " SELECT Id, BasicId, PageName, Priority "
-				+ " FROM Con_EditCms_Pages "
-				+ " WHERE ID = @Id"
-				+ " AND IsActive = 1";
+            //if ( updateId != "" )
+            //{
+            //    sql = " SELECT Id, BasicId, PageName, Priority "
+            //    + " FROM Con_EditCms_Pages "
+            //    + " WHERE ID = @Id"
+            //    + " AND IsActive = 1";
 				
-				SqlParameter [] param = 
-				{
-					new SqlParameter("@Id", updateId)
-				};
+            //    SqlParameter [] param = 
+            //    {
+            //        new SqlParameter("@Id", updateId)
+            //    };
 				
-				Trace.Warn(sql);
-				try
-				{
-					dr = db.SelectQry(sql, param);	
+            //    Trace.Warn(sql);
+            //    try
+            //    {
+            //        dr = db.SelectQry(sql, param);	
 					
-					if(dr.Read())
-					{
-						txtPageName.Text = dr["PageName"].ToString();
-						txtPageNo.Text = dr["Priority"].ToString();
-					}
-					dr.Close();
-					db.CloseConnection();
-				}
-				catch(Exception err)
-				{
-					Trace.Warn(err.Message + err.Source);
-					ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-					objErr.ConsumeError();
-				}
-			}
+            //        if(dr.Read())
+            //        {
+            //            txtPageName.Text = dr["PageName"].ToString();
+            //            txtPageNo.Text = dr["Priority"].ToString();
+            //        }
+            //        dr.Close();
+            //        db.CloseConnection();
+            //    }
+            //    catch(Exception err)
+            //    {
+            //        Trace.Warn(err.Message + err.Source);
+            //        ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //        objErr.ConsumeError();
+            //    }
+            //}
 		}
 		
 		void BindGrid()
 		{
-			Database db = new Database();
-			DataSet ds = new DataSet(); 
-			string sql = string.Empty;
-			bool isNewsItem = false;
+            throw new Exception("Method not used/commented");
+
+            //Database db = new Database();
+            //DataSet ds = new DataSet(); 
+            //string sql = string.Empty;
+            //bool isNewsItem = false;
 												
-			sql = " SELECT Id, BasicId, PageName, Priority "
-				+ " FROM Con_EditCms_Pages "
-				+ " WHERE BasicId = @basicId"
-				+ " AND IsActive = 1"
-				+ " ORDER BY Priority ";
-			SqlParameter [] param = 
-			{
-				new SqlParameter("@basicId", basicId)
-			};
+            //sql = " SELECT Id, BasicId, PageName, Priority "
+            //    + " FROM Con_EditCms_Pages "
+            //    + " WHERE BasicId = @basicId"
+            //    + " AND IsActive = 1"
+            //    + " ORDER BY Priority ";
+            //SqlParameter [] param = 
+            //{
+            //    new SqlParameter("@basicId", basicId)
+            //};
 			
-			Trace.Warn(sql);
+            //Trace.Warn(sql);
 					
-			try
-			{
-				ds = db.SelectAdaptQry( sql, param );
+            //try
+            //{
+            //    ds = db.SelectAdaptQry( sql, param );
 				
-				if( ds.Tables[0].Rows.Count == 1 && IsSinglePage)
-				{
-					isNewsItem = true;
-				}
-				else
-				{
-					if(ds.Tables[0].Rows.Count > 0)
-					{
-						dgPages.DataSource = ds;
-						dgPages.DataBind();
-					}
-					else
-					{
-						dgPages.DataSource = null;
-						dgPages.DataBind();
-					}
-				}				
-				Trace.Warn(ds.Tables[0].Rows.Count.ToString());
-			}
-			catch(Exception err)
-			{
-				Trace.Warn(err.Message + err.Source);
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.ConsumeError();
-			}
-			finally
-			{
-				db.CloseConnection();
-			}
-			if( isNewsItem )
-			{
-				Response.Redirect("/editcms/fillpages.aspx?pid=" + ds.Tables[0].Rows[0]["Id"].ToString() + "&bid=" + basicId);
-			}
+            //    if( ds.Tables[0].Rows.Count == 1 && IsSinglePage)
+            //    {
+            //        isNewsItem = true;
+            //    }
+            //    else
+            //    {
+            //        if(ds.Tables[0].Rows.Count > 0)
+            //        {
+            //            dgPages.DataSource = ds;
+            //            dgPages.DataBind();
+            //        }
+            //        else
+            //        {
+            //            dgPages.DataSource = null;
+            //            dgPages.DataBind();
+            //        }
+            //    }				
+            //    Trace.Warn(ds.Tables[0].Rows.Count.ToString());
+            //}
+            //catch(Exception err)
+            //{
+            //    Trace.Warn(err.Message + err.Source);
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.ConsumeError();
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
+            //if( isNewsItem )
+            //{
+            //    Response.Redirect("/editcms/fillpages.aspx?pid=" + ds.Tables[0].Rows[0]["Id"].ToString() + "&bid=" + basicId);
+            //}
 		}
 		
 		void btnSave_Click( object Sender, EventArgs e )
@@ -260,76 +266,79 @@ namespace BikeWaleOpr.EditCms
 		
 		string SaveData(string Id)
 		{
-			SqlConnection con;
-			SqlCommand cmd;
-			SqlParameter prm;
-			Database db = new Database();
-			string status = "";
-			
-			string conStr = db.GetConString();
-			
-			con = new SqlConnection( conStr );
-			
-			try
-			{
-				Trace.Warn("Saving Data") ;
-				
-				cmd = new SqlCommand("Con_EditCms_ManagePages", con);
-				cmd.CommandType = CommandType.StoredProcedure;
-				
-				prm = cmd.Parameters.Add("@Id", SqlDbType.BigInt);
-				prm.Value = Id;
-				
-				prm = cmd.Parameters.Add("@BasicId", SqlDbType.BigInt);
-				prm.Value = basicId;
-				
-				prm = cmd.Parameters.Add("@PageName", SqlDbType.VarChar,50);
-				prm.Value = txtPageName.Text.Trim().ToString();
-				
-				prm = cmd.Parameters.Add("@Priority", SqlDbType.Int);
-				prm.Value = txtPageNo.Text;
-				
-				prm = cmd.Parameters.Add("@IsActive", SqlDbType.Bit);
-				prm.Value = 1;    //Check it
-				
-				prm = cmd.Parameters.Add("@UpdatedBy", SqlDbType.BigInt);
-				prm.Value = CurrentUser.Id;  
-				
-				prm = cmd.Parameters.Add("@Status", SqlDbType.Int);
-				prm.Direction = ParameterDirection.Output;
-				
-				con.Open();
+            throw new Exception("Method not used/commented");
 
-				Trace.Warn("Execute Query");
-				cmd.ExecuteNonQuery();
-				con.Close();
-					
-				Trace.Warn(cmd.Parameters["@Status"].Value.ToString());
-				if ( cmd.Parameters["@Status"].Value.ToString() != "" ) 
-				status = cmd.Parameters["@Status"].Value.ToString();
+
+            //SqlConnection con;
+            //SqlCommand cmd;
+            //SqlParameter prm;
+            //Database db = new Database();
+            //string status = "";
+			
+            //string conStr = db.GetConString();
+			
+            //con = new SqlConnection( conStr );
+			
+            //try
+            //{
+            //    Trace.Warn("Saving Data") ;
 				
-			}
-			catch(SqlException err)
-			{
-				Trace.Warn(err.Message + err.Source);
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.ConsumeError();
-			} // catch SqlException
-			catch(Exception err)
-			{
-				Trace.Warn(err.Message + err.Source);
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.ConsumeError();
-			}// catch Exception
-			finally
-			{
-				//close the connection	
-			    if(con.State == ConnectionState.Open)
-				{
-					con.Close();
-				}
-			}
-			return status;
+            //    cmd = new SqlCommand("Con_EditCms_ManagePages", con);
+            //    cmd.CommandType = CommandType.StoredProcedure;
+				
+            //    prm = cmd.Parameters.Add("@Id", SqlDbType.BigInt);
+            //    prm.Value = Id;
+				
+            //    prm = cmd.Parameters.Add("@BasicId", SqlDbType.BigInt);
+            //    prm.Value = basicId;
+				
+            //    prm = cmd.Parameters.Add("@PageName", SqlDbType.VarChar,50);
+            //    prm.Value = txtPageName.Text.Trim().ToString();
+				
+            //    prm = cmd.Parameters.Add("@Priority", SqlDbType.Int);
+            //    prm.Value = txtPageNo.Text;
+				
+            //    prm = cmd.Parameters.Add("@IsActive", SqlDbType.Bit);
+            //    prm.Value = 1;    //Check it
+				
+            //    prm = cmd.Parameters.Add("@UpdatedBy", SqlDbType.BigInt);
+            //    prm.Value = CurrentUser.Id;  
+				
+            //    prm = cmd.Parameters.Add("@Status", SqlDbType.Int);
+            //    prm.Direction = ParameterDirection.Output;
+				
+            //    con.Open();
+
+            //    Trace.Warn("Execute Query");
+            //    cmd.ExecuteNonQuery();
+            //    con.Close();
+					
+            //    Trace.Warn(cmd.Parameters["@Status"].Value.ToString());
+            //    if ( cmd.Parameters["@Status"].Value.ToString() != "" ) 
+            //    status = cmd.Parameters["@Status"].Value.ToString();
+				
+            //}
+            //catch(SqlException err)
+            //{
+            //    Trace.Warn(err.Message + err.Source);
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.ConsumeError();
+            //} // catch SqlException
+            //catch(Exception err)
+            //{
+            //    Trace.Warn(err.Message + err.Source);
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.ConsumeError();
+            //}// catch Exception
+            //finally
+            //{
+            //    //close the connection	
+            //    if(con.State == ConnectionState.Open)
+            //    {
+            //        con.Close();
+            //    }
+            //}
+            //return status;
 		}
 		
 		void ClearText()

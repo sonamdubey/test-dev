@@ -1,11 +1,10 @@
 ﻿using BikewaleOpr.Entities;
 using BikeWaleOpr.Common;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Data;
-using System.Data.SqlClient;
+using System.Data.Common;
 
 namespace BikewaleOpr.Common
 {
@@ -24,17 +23,17 @@ namespace BikewaleOpr.Common
         public IEnumerable<ManufacturerCampaignEntity> GetManufacturerCampaigns(int dealerId)
         {
             IList<ManufacturerCampaignEntity> lstManufacturerCampaign = null;
-            Database db = null;
+
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetManufacturerCampaigns"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmanufacturercampaigns"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@DealerId", dealerId);
-                    db = new Database();
-                    using (SqlDataReader reader = db.SelectQry(cmd))
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        if (reader != null && reader.HasRows)
+                        if (reader != null)
                         {
                             lstManufacturerCampaign = new List<ManufacturerCampaignEntity>();
                             while (reader.Read())
@@ -45,7 +44,7 @@ namespace BikewaleOpr.Common
                                         CampaignId = Convert.ToUInt32(reader["Id"]),
                                         DealerId = Convert.ToUInt32(reader["DealerId"]),
                                         Description = Convert.ToString(reader["Description"]),
-                                        EntryDate = Convert.ToDateTime(reader["EntryDate"]).ToString("d/M/yyyy"),
+                                        EntryDate = (!Convert.IsDBNull(reader["EntryDate"])) ? Convert.ToDateTime(reader["EntryDate"]).ToString("d/M/yyyy") : "",
                                         IsActive = Convert.ToBoolean(reader["IsActive"]),
                                         ModelId = Convert.ToUInt32(reader["ModelId"]),
                                         ModelName = Convert.ToString(reader["ModelName"]),
@@ -62,12 +61,7 @@ namespace BikewaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, "ManageManufacturerCampaign.GetManufacturerCampaigns");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null;
-            }
+
             return lstManufacturerCampaign;
         }
 
@@ -79,20 +73,21 @@ namespace BikewaleOpr.Common
         /// <param name="modelIds">Model Ids (comma seperated value)</param>
         /// <param name="description">Campaign Description</param>
         /// <returns></returns>
-        public bool SaveManufacturerCampaign(int dealerId, string modelIds,string description)
+        public bool SaveManufacturerCampaign(int dealerId, string modelIds, string description)
         {
             bool success = false;
-            Database db = null;
+
             try
             {
-                using (SqlCommand cmd = new SqlCommand("SaveManufacturerCampaign"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("savemanufacturercampaign"))
                 {
-                    db = new Database();
+
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@DealerId", dealerId);
-                    cmd.Parameters.AddWithValue("@ModelIds", modelIds);
-                    cmd.Parameters.AddWithValue("@Description", description);
-                    success = db.InsertQry(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelids", DbType.String, 150, modelIds));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_description", DbType.String, 100, description));
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    success = true;
                 }
             }
             catch (Exception ex)
@@ -100,12 +95,7 @@ namespace BikewaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, "ManageManufacturerCampaign.SaveManufacturerCampaign");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null;
-            }
+
             return success;
         }
 
@@ -119,16 +109,18 @@ namespace BikewaleOpr.Common
         public bool SetManufacturerCampaignInActive(int dealerId, string campaignIds)
         {
             bool success = false;
-            Database db = null;
+
             try
             {
-                using (SqlCommand cmd = new SqlCommand("SetMfgCampaignInactive"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("setmfgcampaigninactive"))
                 {
-                    db = new Database();
+
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@DealerId", dealerId);
-                    cmd.Parameters.AddWithValue("@CampaignIds", campaignIds);
-                    success = db.InsertQry(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignids", DbType.String, 150, campaignIds));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    success = true;
                 }
             }
             catch (Exception ex)
@@ -136,12 +128,7 @@ namespace BikewaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, "ManageManufacturerCampaign.SetManufacturerCampaignInActive");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null;
-            }
+
             return success;
         }
 
@@ -153,16 +140,16 @@ namespace BikewaleOpr.Common
         public IEnumerable<ManufacturerEntity> GetDealerAsManuFacturer()
         {
             IList<ManufacturerEntity> manufacturers = null;
-            Database db = null;
+
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetDealerAsManuFacturer"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerasmanufacturer"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    db = new Database();
-                    using (SqlDataReader reader = db.SelectQry(cmd))
+
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        if (reader != null && reader.HasRows)
+                        if (reader != null)
                         {
                             manufacturers = new List<ManufacturerEntity>();
                             while (reader.Read())
@@ -185,12 +172,7 @@ namespace BikewaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, "ManageManufacturerCampaign.GetDealerAsManuFacturer");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null;
-            }
+
             return manufacturers;
         }
     }

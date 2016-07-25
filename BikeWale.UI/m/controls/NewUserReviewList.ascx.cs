@@ -17,6 +17,9 @@ namespace Bikewale.Mobile.Controls
         public int ModelId { get; set; }
         public string MakeMaskingName { get; set; }
         public string ModelMaskingName { get; set; }
+        public string MakeName { get; set; }
+        public string ModelName { get; set; }
+        protected string linkTitle = string.Empty;
 
         private int _reviewCount = 4;
         public int ReviewCount
@@ -57,6 +60,8 @@ namespace Bikewale.Mobile.Controls
             FetchedRecordsCount = objUserReview.FetchedRecordsCount;
             MakeMaskingName = objUserReview.MakeMaskingName;
             ModelMaskingName = objUserReview.ModelMaskingName;
+
+            linkTitle = string.Format("{0} {1} User reviews", MakeName, ModelName);
         }
     }
 }

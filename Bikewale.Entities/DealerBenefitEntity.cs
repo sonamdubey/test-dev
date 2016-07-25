@@ -28,5 +28,6 @@ namespace Bikewale.Entities
         public string City { get; set; }
         [JsonProperty("entryDate")]
         public DateTime EntryDate { get; set; }
+
     }
 }

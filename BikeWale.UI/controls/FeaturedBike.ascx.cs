@@ -54,41 +54,43 @@ namespace Bikewale.Controls
 
         private void FetchFeaturedBikes()
         {
-            SqlCommand cmd = new SqlCommand("GetFeaturedBikeMin");
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = TopRecords;
-            cmd.Parameters.Add("@ControlWidth", SqlDbType.VarChar,10).Value = ControlWidth;
+            throw new Exception("Method not used/commented");
 
-            Database db = new Database();
-            SqlDataReader dr = null;
-            try
-            {
-                dr = db.SelectQry(cmd);
-                if (dr.HasRows)
-                {
-                    rptFeaturedBike.DataSource = dr;
-                    rptFeaturedBike.DataBind();
-                }              
-            }
-            catch (SqlException exSql)
-            {
-                ErrorClass objErr = new ErrorClass(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception ex)
-            {
-                //Response.Write(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (dr != null)
-                {
-                    dr.Close();
-                }                
-                db.CloseConnection();
-            }
+            //SqlCommand cmd = new SqlCommand("GetFeaturedBikeMin");
+            //cmd.CommandType = CommandType.StoredProcedure;
+            //cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = TopRecords;
+            //cmd.Parameters.Add("@ControlWidth", SqlDbType.VarChar,10).Value = ControlWidth;
+
+            //Database db = new Database();
+            //SqlDataReader dr = null;
+            //try
+            //{
+            //    dr = db.SelectQry(cmd);
+            //    if (dr.HasRows)
+            //    {
+            //        rptFeaturedBike.DataSource = dr;
+            //        rptFeaturedBike.DataBind();
+            //    }              
+            //}
+            //catch (SqlException exSql)
+            //{
+            //    ErrorClass objErr = new ErrorClass(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception ex)
+            //{
+            //    //Response.Write(ex.Message);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if (dr != null)
+            //    {
+            //        dr.Close();
+            //    }                
+            //    db.CloseConnection();
+            //}
         }
 
         /// <summary>

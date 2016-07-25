@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
+﻿using Bikewale.BAL.EditCMS;
+using Bikewale.BAL.Pager;
+using Bikewale.Cache.CMS;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Controls;
-using System.Configuration;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using Bikewale.Entities.CMS.Articles;
-using Bikewale.Interfaces.Pager;
 using Bikewale.Entities.CMS;
-using Microsoft.Practices.Unity;
-using Bikewale.BAL.Pager;
+using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Pager;
-using System.Threading.Tasks;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.EditCMS;
+using Bikewale.Interfaces.Pager;
 using Bikewale.Utility;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Content
 {
@@ -86,29 +83,31 @@ namespace Bikewale.Content
 
                 objPager.GetStartEndIndex(_pageSize, _pageNo, out _startIndex, out _endIndex);
                 CMSContent _objFeaturesList = null;
-                string _apiUrl = "webapi/article/listbycategory/?applicationid=2&categoryidlist=" + _featuresCategoryId + "&startindex=" + _startIndex + "&endindex=" + _endIndex;
-                // Send HTTP GET requests 
 
-                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    _objFeaturesList = await objClient.GetApiResponse<CMSContent>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objFeaturesList);
-                }                
+                    container.RegisterType<IArticles, Articles>()
+                            .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                            .RegisterType<ICacheManager, MemcacheManager>();
+                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-                if (_objFeaturesList != null)
-                {
-                    if (_objFeaturesList.Articles.Count > 0)
+                    _objFeaturesList = _cache.GetArticlesByCategoryList(_featuresCategoryId, _startIndex, _endIndex,0,0);                
+
+                    if (_objFeaturesList != null && _objFeaturesList.Articles.Count > 0)
                     {
+
                         BindFeatures(_objFeaturesList);
                         BindLinkPager(objPager, Convert.ToInt32(_objFeaturesList.RecordCount));
+
+
                     }
                     else
+                    {
                         _isContentFound = false;
-                    
+                    }
                 }
-                else
-                {
-                    _isContentFound = false;
-                }
+
+
             }
             catch (Exception err)
             {
@@ -118,7 +117,7 @@ namespace Bikewale.Content
             }
             finally
             {
-                if(!_isContentFound)
+                if (!_isContentFound)
                     Response.Redirect("/pagenotfound.aspx", true);
             }
         }
@@ -167,8 +166,8 @@ namespace Bikewale.Content
 
                 //For SEO
                 //CreatePrevNextUrl(linkPager.TotalPages);
-                prevUrl =  String.IsNullOrEmpty(_pagerOutput.PreviousPageUrl) ? "" : "http://www.bikewale.com" + _pagerOutput.PreviousPageUrl;
-                nextUrl = String.IsNullOrEmpty(_pagerOutput.NextPageUrl) ? "" : "http://www.bikewale.com" + _pagerOutput.NextPageUrl;       
+                prevUrl = String.IsNullOrEmpty(_pagerOutput.PreviousPageUrl) ? "" : "http://www.bikewale.com" + _pagerOutput.PreviousPageUrl;
+                nextUrl = String.IsNullOrEmpty(_pagerOutput.NextPageUrl) ? "" : "http://www.bikewale.com" + _pagerOutput.NextPageUrl;
             }
             catch (Exception ex)
             {
@@ -184,119 +183,5 @@ namespace Bikewale.Content
             rptFeatures.DataBind();
         }
 
-        // Commented By : Ashwini Todkar on 25 Sept
-        //Not more required 
-        //private void CreatePrevNextUrl(int totalPages)
-        //{
-        //    string _mainUrl = "http://www.bikewale.com/features/page/";
-        //    string prevPageNumber = string.Empty, nextPageNumber = string.Empty;
-
-        //    if (_pageNo == 1)    //if page is first page
-        //    {
-        //        nextPageNumber = "2";
-        //        nextUrl = _mainUrl + nextPageNumber + "/";
-        //    }
-        //    else if (_pageNo == totalPages)    //if page is last page
-        //    {
-        //        prevPageNumber = (_pageNo - 1).ToString();
-        //        prevUrl = _mainUrl + prevPageNumber + "/";
-        //    }
-        //    else
-        //    {          //for middle pages
-        //        prevPageNumber = (_pageNo - 1).ToString();
-        //        prevUrl = _mainUrl + prevPageNumber + "/";
-        //        nextPageNumber = (_pageNo + 1).ToString();
-        //        nextUrl = _mainUrl + nextPageNumber + "/";
-        //    }
-        //}
-
-
-        // Commented By : Ashwini Todkar on 25 Sept
-        //Not more required as all details getting from carwale api  
-
-        //protected RepeaterPager rpgFeatures;
-        //protected Repeater rptFeatures;
-        //protected DropDownList ddlUsedCarLocations, ddlMake;
-        //protected MakeModelSearch MakeModelSearch;       
-
-        //protected string SelectClause = string.Empty, FromClause = string.Empty, WhereClause = string.Empty,
-        //                     OrderByClause = string.Empty, RecordCntQry = string.Empty, BaseUrl = string.Empty;
-
-        //private string pageNumber = string.Empty;
-        //protected override void OnInit(EventArgs e)
-        //{
-        //    rptFeatures = (Repeater)rpgFeatures.FindControl("rptFeatures");
-        //    base.Load += new EventHandler(Page_Load);
-        //}
-        //private void Page_Load(object sender, EventArgs e)
-        //{
-        //    //code for device detection added by Ashwini Todkar
-        //    DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_ORIGINAL_URL"].ToString());
-        //    dd.DetectDevice();
-
-        //    CommonOpn op = new CommonOpn();
-
-        //    if (Request["pn"] != null && Request.QueryString["pn"] != "")
-        //    {
-        //        if (CommonOpn.CheckId(Request.QueryString["pn"]) == true)
-        //            pageNumber = Request.QueryString["pn"];
-        //        Trace.Warn("pn: " + Request.QueryString["pn"]);
-        //    }
-        //    Trace.Warn("pageNumber: " + pageNumber);
-        //    if (!IsPostBack)
-        //    {
-        //        FillFeaturesDetails();
-        //    }
-        //}        
-
-        //private void FillFeaturesDetails()
-        //{
-
-        //    SelectClause = " CB.Id AS BasicId, CB.AuthorName, CB.Description, CB.DisplayDate, CB.Views, CB.Title, CB.Url, CEI.HostURL, CEI.ImagePathThumbnail, CEI.ImagePathLarge ";
-        //    FromClause = " Con_EditCms_Basic AS CB With(NoLock) Left Join Con_EditCms_Images CEI With(NoLock) On CEI.BasicId = CB.Id And CEI.IsMainImage = 1 And CEI.IsActive = 1 ";
-        //    WhereClause = " CB.CategoryId = @CategoryId AND CB.IsActive = 1 AND CB.IsPublished = 1";
-        //    OrderByClause = " DisplayDate Desc ";
-        //    RecordCntQry = " Select Count(CB.Id) From " + FromClause + " Where " + WhereClause;
-        //    BaseUrl = "/features/";
-
-        //    SqlCommand cmd = new SqlCommand();
-        //    cmd.Parameters.Add("@CategoryId", SqlDbType.BigInt).Value = "6";// Default value for Articles on Features
-
-        //    BindData(cmd);
-        //}
-
-        //void BindData(SqlCommand cmd)
-        //{
-        //    try
-        //    {
-        //        if (pageNumber != string.Empty)
-        //            rpgFeatures.CurrentPageIndex = Convert.ToInt32(pageNumber);
-
-        //        //form the base url. 
-        //        string qs = Request.ServerVariables["QUERY_STRING"];
-        //        int recordCount;
-
-        //        rpgFeatures.BaseUrl = BaseUrl;
-
-        //        rpgFeatures.SelectClause = SelectClause;
-        //        rpgFeatures.FromClause = FromClause;
-        //        rpgFeatures.WhereClause = WhereClause;
-        //        rpgFeatures.OrderByClause = OrderByClause;
-        //        rpgFeatures.RecordCountQuery = RecordCntQry;
-        //        rpgFeatures.CmdParamQ = cmd;	//pass the parameter values for the query
-        //        rpgFeatures.CmdParamR = cmd.Clone();	//pass the parameter values for the record count                
-        //        //initialize the grid, and this will also bind the repeater               
-        //        rpgFeatures.InitializeGrid();
-        //        recordCount = rpgFeatures.RecordCount;
-        //        Trace.Warn("recordCount: " + recordCount.ToString());                
-        //        Trace.Warn("BaseURL" + BaseUrl);
-        //    }
-        //    catch (Exception err)
-        //    {
-        //        Trace.Warn(err.Message);
-        //        ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-        //        objErr.SendMail();
-        //    }
-        //}
     }
 }

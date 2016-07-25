@@ -1,12 +1,9 @@
-﻿using Bikewale.CoreDAL;
-using Bikewale.Interfaces.AppAlert;
+﻿using Bikewale.Interfaces.AppAlert;
 using Bikewale.Notifications;
-using System;
-using System.Collections.Generic;
+using MySql.CoreDAL;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
 using System.Web;
 
 namespace Bikewale.DAL.AppAlert
@@ -14,40 +11,32 @@ namespace Bikewale.DAL.AppAlert
     public class AppAlertRepository : IAppAlert
     {
 
-       /// <summary>
-       /// Auth: Sangram Nandkhile on 5th January 2016
-       /// Desc: Push IMEI, GCM id, OS Type, Subscription Master Id
-       /// </summary>
-       /// <param name="imei"></param>
-       /// <param name="gcmId"></param>
-       /// <param name="osType"></param>
-       /// <param name="subsMasterId"></param>
-       /// <returns></returns>
+        /// <summary>
+        /// Auth: Sangram Nandkhile on 5th January 2016
+        /// Desc: Push IMEI, GCM id, OS Type, Subscription Master Id
+        /// </summary>
+        /// <param name="imei"></param>
+        /// <param name="gcmId"></param>
+        /// <param name="osType"></param>
+        /// <param name="subsMasterId"></param>
+        /// <returns></returns>
         public bool SaveImeiGcmData(string imei, string gcmId, string osType, string subsMasterId)
         {
-            Database db = null;
             bool isResult = true;
             try
             {
-                db = new Database();
-
-                using (SqlConnection con = new SqlConnection(db.GetConString()))
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.CommandText = "Mobile.SubscriptionActivity";
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = con;
+                    cmd.CommandText = "subscriptionactivity";
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add("@imei", SqlDbType.VarChar, 50).Value = imei;
-                        cmd.Parameters.Add("@Gcmid", SqlDbType.VarChar, 200).Value = gcmId;
-                        cmd.Parameters.Add("@osType", SqlDbType.TinyInt).Value = osType;
-                        cmd.Parameters.Add("@subsMasterId", SqlDbType.VarChar).Value = subsMasterId;
-                        LogLiveSps.LogSpInGrayLog(cmd);
-                        con.Open();
-                        cmd.ExecuteNonQuery();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imei", DbType.String, 50, imei));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_gcmid", DbType.String, 200, gcmId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ostype", DbType.Byte, osType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_subsmasterid", DbType.String, 100, subsMasterId));
+                    // LogLiveSps.LogSpInGrayLog(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
 
-                    }
                 }
             }
             catch (SqlException ex)
@@ -56,11 +45,6 @@ namespace Bikewale.DAL.AppAlert
                 objErr.SendMail();
                 isResult = false;
             }
-            finally
-            {
-                db.CloseConnection();
-            }
-
             return isResult;
         }   // End of GetAreas method
 

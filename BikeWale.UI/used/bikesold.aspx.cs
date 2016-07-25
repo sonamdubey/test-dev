@@ -1,12 +1,10 @@
-﻿using System;
+﻿using Bikewale.Controls;
+using System;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Data;
-using System.Data.SqlClient;
+using System.Data.Common;
 using Bikewale.Common;
-using Bikewale.Controls;
+using System.Data;
+using MySql.CoreDAL;
 
 namespace Bikewale.Used
 {
@@ -49,38 +47,35 @@ namespace Bikewale.Used
         }
         void GetSoldBikeDetails()
         {
+
+
             string sql = "";
 
             if (CommonOpn.CheckIsDealerFromProfileNo(profileNo) == true)
             {
-                sql = " SELECT Si.BikeVersionId, Ds.CityId AS BikeCityId, Si.Price "
-                    + " FROM SellInquiries AS Si, Dealers AS Ds With(NoLock) "
-                    + " WHERE Si.DealerId = Ds.Id AND Si.Id = @Id";
+                sql = " select si.bikeversionid, ds.cityid as bikecityid, si.price from sellinquiries as si, dealers as ds where si.dealerid = ds.id and si.id = @id";
             }
             else
             {
-                sql = " SELECT Csi.BikeVersionId, Csi.CityId AS BikeCityId, Csi.Price "
-                    + " FROM ClassifiedIndividualSellInquiries AS Csi With(NoLock)"
-                    + " WHERE Csi.Id = @Id";
+                sql = " select csi.bikeversionid, csi.cityid as bikecityid, csi.price from classifiedindividualsellinquiries as csi  where csi.id = @id";
             }
-            Trace.Warn(sql);
-            Database db = new Database();
-            SqlDataReader dr = null;
 
             try
             {
-                SqlParameter[] param = { new SqlParameter("@Id", CommonOpn.GetProfileNo(profileNo)) };
-                dr = db.SelectQry(sql, param);
+                DbParameter[] param = new[] { DbFactory.GetDbParam("@id", DbType.Int32, CommonOpn.GetProfileNo(profileNo)) };
 
-                if (dr.Read())
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, param,ConnectionType.ReadOnly))
                 {
-                    //set the city id as the current city id
-                    CommonOpn.SetCityId(dr["BikeCityId"].ToString());
+                    if (dr!=null && dr.Read())
+                    {
+                        //set the city id as the current city id
+                        CommonOpn.SetCityId(dr["BikeCityId"].ToString());
 
-                    soldVersion = dr["BikeVersionId"].ToString();
-                    soldPrice = Convert.ToInt32(dr["Price"]);
-                    soldCity = dr["BikeCityId"].ToString();
-                    Trace.Warn("soldVersion : " + soldVersion + "soldPrice : " + soldPrice + "soldCity : " + soldCity);
+                        soldVersion = dr["BikeVersionId"].ToString();
+                        soldPrice = Convert.ToInt32(dr["Price"]);
+                        soldCity = dr["BikeCityId"].ToString();
+                        dr.Close();
+                    } 
                 }
 
             }
@@ -89,13 +84,6 @@ namespace Bikewale.Used
                 Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                if(dr != null)
-                    dr.Close();
-
-                db.CloseConnection();
             }
         }
 
@@ -109,7 +97,7 @@ namespace Bikewale.Used
             bool isSuccess = true;
             if (!String.IsNullOrEmpty(Request.QueryString["profile"]))
             {
-                
+
                 profileNo = Request.QueryString["profile"];
 
                 string firstChar = profileNo.Substring(0, 1).ToUpper();
@@ -123,7 +111,7 @@ namespace Bikewale.Used
             {
                 isSuccess = false;
             }
-                return isSuccess;
+            return isSuccess;
         }
     }   // end of class
 }   // End of namespace

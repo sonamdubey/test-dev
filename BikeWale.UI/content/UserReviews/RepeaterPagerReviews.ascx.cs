@@ -10,6 +10,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Bikewale.Common;
 using Bikewale.Controls;
+using MySql.CoreDAL;
 
 namespace Bikewale.Content
 {
@@ -49,7 +50,7 @@ namespace Bikewale.Content
 
         private int totalPages = 1;
 
-        private SqlParameter[] _SParams = null;
+        private System.Data.Common.DbParameter[] _SParams = null;
 
         /******************************************************************************************/
         //Properties
@@ -121,7 +122,7 @@ namespace Bikewale.Content
         } // RecordCount
 
         // This property hold all the sqlParameters
-        public SqlParameter[] SParams
+        public System.Data.Common.DbParameter[] SParams
         {
             get
             {
@@ -408,18 +409,38 @@ namespace Bikewale.Content
             string sql = "";
             CommonOpn objCom = new CommonOpn();
 
-            Database db = new Database();
-
 
             int startIndex = (this.CurrentPageIndex - 1) * this.PageSize + 1;
             int endIndex = this.CurrentPageIndex * this.PageSize;
 
             //form the query. Only fetch the desired rows. 
-            sql = " Select * From (Select Top " + endIndex + " Row_Number() Over (Order By " + OrderByClause + ") AS RowN, "
-                + " " + SelectClause + " From " + FromClause + " "
-                + (WhereClause != "" ? " Where " + WhereClause + " " : "")
-                + " ) AS TopRecords Where "
-                + " RowN >= " + startIndex + " AND RowN <= " + endIndex + " ";
+            //sql = " Select * From (Select Top " + endIndex + " Row_Number() Over (Order By " + OrderByClause + ") AS RowN, "
+            //    + " " + SelectClause + " From " + FromClause + " "
+            //    + (WhereClause != "" ? " Where " + WhereClause + " " : "")
+            //    + " ) AS TopRecords Where "
+            //    + " RowN >= " + startIndex + " AND RowN <= " + endIndex + " ";
+
+
+            sql = string.Format(@"
+                                    drop temporary table if exists tbl_bikes_reviews;
+                                    create temporary table tbl_bikes_reviews 
+                                    select 
+                                    {0} 
+                                    from {1}  
+                                    {2} 
+                                    order by {3};
+
+                                    set @rownumber := 0;  
+
+                                    select * from (select *,@rownumber:=@rownumber+1  as rown  from tbl_bikes_reviews tb) as c
+                                    where  rown >= {4} and rown <= {5};
+
+                                    drop temporary table if exists tbl_bikes_reviews;
+                    
+                                ", SelectClause, FromClause, !String.IsNullOrEmpty(WhereClause) ? " where  " + WhereClause : string.Empty, OrderByClause, startIndex, endIndex);
+
+                                        
+            
 
             Trace.Warn("Fetch the desired rows : " + sql);
             try
@@ -429,9 +450,9 @@ namespace Bikewale.Content
                 {
                     Trace.Warn("Binding Sql : ");
 
-                    SqlParameter[] param = SParams;
+                    System.Data.Common.DbParameter[] param = SParams;
 
-                    ds = db.SelectAdaptQry(sql, param);
+                    ds = MySqlDatabase.SelectAdapterQuery(sql, param, ConnectionType.ReadOnly);
 
                     rpt.DataSource = ds;
                     rpt.DataBind();
@@ -451,24 +472,21 @@ namespace Bikewale.Content
         int GetRecordCount()
         {
             int count = 0;
-            SqlDataReader dr = null;
-            Database db = new Database();
-
             try
             {
                 if (RecordCountQuery != "")
                 {
-                    SqlParameter[] param = SParams;
+                    System.Data.Common.DbParameter[] param = SParams;
 
                     Trace.Warn("RecordCountQuery: " + RecordCountQuery);
-                    dr = db.SelectQry(RecordCountQuery, param);
-
-                    if (dr.Read())
-                    {
-                        count = Convert.ToInt32(dr[0]);
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(RecordCountQuery, param, ConnectionType.ReadOnly))
+                    { 
+                        if (dr != null && dr.Read())
+                        {
+                            count = Convert.ToInt32(dr[0]);
+                            dr.Close();
+                        } 
                     }
-
-                    db.CloseConnection();
                 }
 
             }
@@ -478,12 +496,6 @@ namespace Bikewale.Content
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            { 
-                if(dr != null)
-                    dr.Close();
-            }
-
             return count;
         }
 

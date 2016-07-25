@@ -1,24 +1,25 @@
-﻿using System;
+﻿using Bikewale.Common;
+using Bikewale.Controls;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Memcache;
+using MySql.CoreDAL;
+using System;
+using System.Data;
+using System.Data.Common;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using Bikewale.Common;
-using Bikewale.Controls;
-using System.Data;
-using System.Data.SqlClient;
-using Bikewale.Memcache;
-using Bikewale.Entities.PriceQuote;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.New
-{    
+{
     public class UpcomingBikesList : Page
     {
         protected Repeater rptLaunches;
         protected RepeaterPager rpgUpcomingBikes;
         public int serial = 0;
         protected string PageNumber = string.Empty, SelectClause = string.Empty, FromClause = string.Empty, WhereClause = string.Empty,
-            OrderByClause = string.Empty, BaseUrl = string.Empty, RecordCntQry = string.Empty, prevUrl = string.Empty,nextUrl = string.Empty;
+            OrderByClause = string.Empty, BaseUrl = string.Empty, RecordCntQry = string.Empty, prevUrl = string.Empty, nextUrl = string.Empty;
         protected UpcomingBikeSearch UpcomingBikeSearch;
         protected Bikewale.Controls.NewBikeLaunches ctrl_NewBikeLaunches;
         protected DropDownList drpSort;
@@ -53,10 +54,10 @@ namespace Bikewale.New
             ctrl_NewBikeLaunches.PQSourceId = (int)PQSourceEnum.Desktop_Upcoming_NewLaunches;
 
             if (!IsPostBack)
-            {              
+            {
                 if (Request["pn"] != null && Request.QueryString["pn"] != "")
                 {
-                    if (CommonOpn.CheckId(Request.QueryString["pn"]) == true)
+                    if (Bikewale.Common.CommonOpn.CheckId(Request.QueryString["pn"]) == true)
                         PageNumber = Request.QueryString["pn"];
                     Trace.Warn("pn: " + Request.QueryString["pn"]);
                 }
@@ -76,7 +77,7 @@ namespace Bikewale.New
                     }
                     else
                     {
-                        Response.Redirect("/pagenotfound.aspx",false);
+                        Response.Redirect("/pagenotfound.aspx", false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
@@ -125,16 +126,16 @@ namespace Bikewale.New
         /// <param name="sort">Criteria on which the data is sorted.</param>
         private void FetchUpcomingBikes(string makeId, string makeName, string sort)
         {
-            SqlCommand cmd = new SqlCommand();
-            SelectClause = " MK.Name MakeName,MK.MaskingName AS MakeMaskingName , Mo.Name AS ModelName,Mo.MaskingName as ModelMaskingName, ECL.ExpectedLaunch, ECL.EstimatedPriceMin, ECL.EstimatedPriceMax, ECL.HostURL, ECL.LargePicImagePath, Csy.SmallDescription AS Description, ECL.OriginalImagePath ";
-            FromClause = " ExpectedBikeLaunches ECL With(NoLock) "
-                + " LEFT JOIN BikeSynopsis Csy With(NoLock) ON ECL.BikeModelId = Csy.ModelId AND Csy.IsActive = 1 "
-                + " INNER JOIN BikeModels Mo With(NoLock) ON ECL.BikeModelId = Mo.ID "
-                + " INNER JOIN BikeMakes MK With(NoLock) ON MK.ID = Mo.BikeMakeId ";
-            WhereClause = " Mo.Futuristic = 1 AND ECL.isLaunched = 0  AND ECL.IsDeleted = 0 ";
+            DbCommand cmd = DbFactory.GetDBCommand();
+            SelectClause = " mo.makename, mo.makemaskingname as makemaskingname , mo.name as modelname,mo.maskingname as modelmaskingname, ecl.expectedlaunch, ecl.estimatedpricemin, ecl.estimatedpricemax, ecl.hosturl, ecl.largepicimagepath, csy.smalldescription as description, ecl.originalimagepath ";
+            FromClause = @" expectedbikelaunches ecl 
+                            left join bikesynopsis csy  on ecl.bikemodelid = csy.modelid and csy.isactive = 1 
+                            inner join bikemodels mo   on ecl.bikemodelid = mo.id ";
+            // inner join bikemakes mk   on mk.id = mo.bikemakeid ";
+            WhereClause = " mo.futuristic = 1 and ecl.islaunched = 0  and ecl.isdeleted = 0 and mo.IsDeleted = 0 ";
             if (makeId != string.Empty)
             {
-                WhereClause += "AND MK.ID = @MakeId ";
+                WhereClause += "and mo.bikemakeid = @makeid ";
             }
             OrderByClause = GetSortCriteria(sort);
             if (sort != string.Empty)
@@ -142,11 +143,11 @@ namespace Bikewale.New
             else
                 BaseUrl = "/" + makeName + "-bikes/upcoming/";
             //if(PageNumber != string.Empty)
-                //BaseUrl = "/" + makeName + "-bikes/upcoming/page/" + PageNumber + "/";
+            //BaseUrl = "/" + makeName + "-bikes/upcoming/page/" + PageNumber + "/";
 
-            cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
+            cmd.Parameters.Add(DbFactory.GetDbParam("@makeid", DbType.Int32, makeId));
 
-            RecordCntQry = " Select Count(*) From " + FromClause + " Where " + WhereClause;
+            RecordCntQry = " select count(*) from " + FromClause + " where " + WhereClause;
 
             BindData(cmd);
         }
@@ -161,21 +162,21 @@ namespace Bikewale.New
         {
             try
             {
-                SqlCommand cmd = new SqlCommand();
+                DbCommand cmd = DbFactory.GetDBCommand();
 
-                SelectClause = " MK.Name MakeName, MK.MaskingName AS MakeMaskingName, Mo.Name AS ModelName,Mo.MaskingName as ModelMaskingName, ECL.ExpectedLaunch, ECL.EstimatedPriceMin, ECL.EstimatedPriceMax, ECL.HostURL, ECL.LargePicImagePath, Csy.SmallDescription AS Description, ECL.OriginalImagePath ";
-                FromClause = " ExpectedBikeLaunches ECL With(NoLock) "
-                    + " LEFT JOIN BikeSynopsis Csy With(NoLock) ON ECL.BikeModelId = Csy.ModelId AND Csy.IsActive = 1 "
-                    + " INNER JOIN BikeModels Mo With(NoLock) ON ECL.BikeModelId = Mo.ID "
-                    + " INNER JOIN BikeMakes MK With(NoLock) ON MK.ID = Mo.BikeMakeId ";
-                WhereClause = " Mo.Futuristic = 1 AND ECL.isLaunched = 0 AND ECL.IsDeleted = 0 ";
+                SelectClause = " mk.name makename,mk.maskingname as makemaskingname , mo.name as modelname,mo.maskingname as modelmaskingname, ecl.expectedlaunch, ecl.estimatedpricemin, ecl.estimatedpricemax, ecl.hosturl, ecl.largepicimagepath, csy.smalldescription as description, ecl.originalimagepath ";
+                FromClause = @" expectedbikelaunches ecl
+                            left join bikesynopsis csy  on ecl.bikemodelid = csy.modelid and csy.isactive = 1 
+                            inner join bikemodels mo   on ecl.bikemodelid = mo.id 
+                            inner join bikemakes mk   on mk.id = mo.bikemakeid ";
+                WhereClause = " mo.futuristic = 1 and ecl.islaunched = 0  and ecl.isdeleted = 0 ";
                 OrderByClause = GetSortCriteria(sort);
                 if (sort != string.Empty)
                     BaseUrl = "/upcoming-bikes/sort/" + sort + "/";
                 else
                     BaseUrl = "/upcoming-bikes/";
 
-                RecordCntQry = " Select Count(*) From " + FromClause + " Where " + WhereClause;
+                RecordCntQry = " select count(*) from " + FromClause + " where " + WhereClause;
 
                 BindData(cmd);
             }
@@ -193,7 +194,7 @@ namespace Bikewale.New
         /// PopulateWhere to bind the data retrieved to the repeater
         /// </summary>
         /// <param name="cmd">Sql Command Object</param>
-        void BindData(SqlCommand cmd)
+        void BindData(DbCommand cmd)
         {
             try
             {
@@ -212,7 +213,7 @@ namespace Bikewale.New
                 rpgUpcomingBikes.OrderByClause = OrderByClause;
                 rpgUpcomingBikes.RecordCountQuery = RecordCntQry;
                 rpgUpcomingBikes.CmdParamQ = cmd;	//pass the parameter values for the query
-                rpgUpcomingBikes.CmdParamR = cmd.Clone();	//pass the parameter values for the record count                
+                rpgUpcomingBikes.CmdParamR = cmd;	//pass the parameter values for the record count                
                 //initialize the grid, and this will also bind the repeater
                 rpgUpcomingBikes.InitializeGrid();
                 recordCount = rpgUpcomingBikes.RecordCount;
@@ -249,19 +250,19 @@ namespace Bikewale.New
             switch (sort)
             {
                 case "1":
-                    orderByClause = " ECL.EstimatedPriceMin ASC ";
+                    orderByClause = " ecl.estimatedpricemin asc ";
                     break;
                 case "2":
-                    orderByClause = " ECL.EstimatedPriceMin DESC ";
+                    orderByClause = " ecl.estimatedpricemin desc ";
                     break;
                 case "3":
-                    orderByClause = " ECL.LaunchDate ASC ";
+                    orderByClause = " ecl.launchdate asc ";
                     break;
                 case "4":
-                    orderByClause = " ECL.LaunchDate DESC ";
+                    orderByClause = " ecl.launchdate desc ";
                     break;
                 default:
-                    orderByClause = " ECL.LaunchDate ";
+                    orderByClause = " ecl.launchdate ";
                     break;
             }
             return orderByClause;
@@ -283,13 +284,13 @@ namespace Bikewale.New
                 formattedPrice = "N/A";
             }
             else
-            { 
+            {
                 //formattedPrice = price.Replace(".00", "");
-                formattedPrice = CommonOpn.FormatNumeric(price);
+                formattedPrice = Bikewale.Common.CommonOpn.FormatNumeric(price);
             }
             return formattedPrice;
         }   // End of GetFormattedPrice function
 
-    
+
     }   // End of class
 }   // End of namespace

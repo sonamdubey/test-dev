@@ -1,15 +1,15 @@
-﻿using Bikewale.CoreDAL;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
-using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
 using Bikewale.Utility;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
 
@@ -28,30 +28,31 @@ namespace Bikewale.DAL.Dealer
         public List<NewBikeDealersMakeEntity> GetDealersMakesList()
         {
             List<NewBikeDealersMakeEntity> objMakeList = null;
-            Database db = null;
 
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealersmakelist"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetDealersMakeList";
 
                     objMakeList = new List<NewBikeDealersMakeEntity>();
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        while (dr.Read())
+                        if (dr != null)
                         {
-                            objMakeList.Add(new NewBikeDealersMakeEntity
+                            while (dr.Read())
                             {
-                                MakeId = Convert.ToInt32(dr["MakeId"]),
-                                MakeName = Convert.ToString(dr["BikeMake"]),
-                                MaskingName = Convert.ToString(dr["MaskingName"]),
-                                DealersCount = Convert.ToInt32(dr["TotalCount"])
-                            });
+                                objMakeList.Add(new NewBikeDealersMakeEntity
+                                {
+                                    MakeId = Convert.ToInt32(dr["MakeId"]),
+                                    MakeName = Convert.ToString(dr["BikeMake"]),
+                                    MaskingName = Convert.ToString(dr["MaskingName"]),
+                                    DealersCount = Convert.ToInt32(dr["TotalCount"])
+                                });
+                            }
+                            dr.Close();
                         }
                     }
                 }
@@ -68,10 +69,6 @@ namespace Bikewale.DAL.Dealer
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
 
             return objMakeList;
         }
@@ -84,48 +81,48 @@ namespace Bikewale.DAL.Dealer
         public NewBikeDealersListEntity GetDealersCitiesListByMakeId(uint makeId)
         {
             NewBikeDealersListEntity objDealerList = null;
-            Database db = null;
-
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerscitiesbymakeid"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetDealersCitiesByMakeId";
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
 
                     objDealerList = new NewBikeDealersListEntity();
                     objDealerList.TotalDealers = 0;
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         objDealerList.CityWiseDealers = new List<CityWiseDealersCountEntity>();
                         objDealerList.StatesList = new List<StateEntityBase>();
 
-                        while (dr.Read())
+                        if (dr != null)
                         {
-                            objDealerList.CityWiseDealers.Add(new CityWiseDealersCountEntity
+                            while (dr.Read())
                             {
-                                CityId = Convert.ToUInt32(dr["CityId"]),
-                                CityName = Convert.ToString(dr["City"]),
-                                CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
-                                StateId = Convert.ToInt32(dr["StateId"]),
-                                DealersCount = Convert.ToInt32(dr["TotalDealers"])
-                            });
-
-                            //get state list
-                            if (Convert.ToUInt32(dr["StateRank"]) == 1)
-                            {
-                                objDealerList.StatesList.Add(new StateEntityBase
+                                objDealerList.CityWiseDealers.Add(new CityWiseDealersCountEntity
                                 {
-                                    StateId = Convert.ToUInt32(dr["StateId"]),
-                                    StateName = Convert.ToString(dr["StateName"])
+                                    CityId = Convert.ToUInt32(dr["CityId"]),
+                                    CityName = Convert.ToString(dr["City"]),
+                                    CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
+                                    StateId = Convert.ToInt32(dr["StateId"]),
+                                    DealersCount = Convert.ToInt32(dr["TotalDealers"])
                                 });
-                            }
 
-                            objDealerList.TotalDealers = objDealerList.TotalDealers + Convert.ToInt32(dr["TotalDealers"]);
+                                //get state list
+                                if (Convert.ToUInt32(dr["StateRank"]) == 1)
+                                {
+                                    objDealerList.StatesList.Add(new StateEntityBase
+                                    {
+                                        StateId = Convert.ToUInt32(dr["StateId"]),
+                                        StateName = Convert.ToString(dr["StateName"])
+                                    });
+                                }
+
+                                objDealerList.TotalDealers = objDealerList.TotalDealers + Convert.ToInt32(dr["TotalDealers"]);
+                            }
+                            dr.Close();
                         }
                     }
                 }
@@ -142,10 +139,7 @@ namespace Bikewale.DAL.Dealer
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
             return objDealerList;
         }
 
@@ -158,40 +152,41 @@ namespace Bikewale.DAL.Dealer
         public List<NewBikeDealerEntity> GetDealersList(uint makeId, uint cityId)
         {
             List<NewBikeDealerEntity> objDealerList = null;
-            Database db = null;
 
             try
             {
-                db = new Database();
-
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetDealersList";
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
-                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
+                    cmd.CommandText = "getdealerslist";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
 
                     objDealerList = new List<NewBikeDealerEntity>();
                     StateEntityBase objState = null;
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         objState = new StateEntityBase();
 
-                        while (dr.Read())
+                        if (dr != null)
                         {
-                            objState.StateName = dr["STATE"].ToString();
-                            objDealerList.Add(new NewBikeDealerEntity
+                            while (dr.Read())
                             {
-                                Name = Convert.ToString(dr["DealerName"]),
-                                Address = Convert.ToString(dr["Address"]),
-                                PhoneNo = Convert.ToString(dr["ContactNo"]),
-                                Email = Convert.ToString(dr["EMailId"]),
-                                PinCode = Convert.ToString(dr["PinCode"]),
-                                CityName = Convert.ToString(dr["City"]),
-                                Website = Convert.ToString(dr["WebSite"]),
-                                Fax = Convert.ToString(dr["FaxNo"]),
-                                State = objState
-                            });
+                                objState.StateName = dr["STATE"].ToString();
+                                objDealerList.Add(new NewBikeDealerEntity
+                                {
+                                    Name = Convert.ToString(dr["DealerName"]),
+                                    Address = Convert.ToString(dr["Address"]),
+                                    PhoneNo = Convert.ToString(dr["ContactNo"]),
+                                    Email = Convert.ToString(dr["EMailId"]),
+                                    PinCode = Convert.ToString(dr["PinCode"]),
+                                    CityName = Convert.ToString(dr["City"]),
+                                    Website = Convert.ToString(dr["WebSite"]),
+                                    Fax = Convert.ToString(dr["FaxNo"]),
+                                    State = objState
+                                });
+                            }
+                            dr.Close();
                         }
                     }
                 }
@@ -208,10 +203,6 @@ namespace Bikewale.DAL.Dealer
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
 
             return objDealerList;
         }
@@ -225,42 +216,42 @@ namespace Bikewale.DAL.Dealer
         public IEnumerable<NewBikeDealerEntityBase> GetNewBikeDealersList(int makeId, int cityId, EnumNewBikeDealerClient? clientId = null)
         {
             IList<NewBikeDealerEntityBase> objDealerList = null;
-            Database db = null;
 
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetNewBikeDealers";
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
-                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
+                    cmd.CommandText = "getnewbikedealers";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientid", DbType.Int32, (clientId.HasValue && clientId.Value > 0) ? clientId.Value : Convert.DBNull));
 
-                    if (clientId.HasValue)
-                        cmd.Parameters.AddWithValue("@ClientId", clientId.Value);
-
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        objDealerList = new List<NewBikeDealerEntityBase>();
-                        while (dr.Read())
+                        if (dr != null)
                         {
-                            NewBikeDealerEntityBase objDealer = new NewBikeDealerEntityBase();
-                            objDealer.Id = Convert.ToInt32(dr["DealerId"]);
-                            objDealer.Name = Convert.ToString(dr["DealerName"]);
-                            objDealer.Address = Convert.ToString(dr["Address"]);
-                            objDealer.ContactNo = Convert.ToString(dr["ContactNo"]);
-                            objDealer.Email = Convert.ToString(dr["EMailId"]);
-                            objDealer.PinCode = Convert.ToString(dr["PinCode"]);
-                            objDealer.Website = Convert.ToString(dr["WebSite"]);
-                            objDealer.Fax = Convert.ToString(dr["FaxNo"]);
-                            objDealer.WorkingHours = Convert.ToString(dr["WorkingHours"]);
-                            objDealer.BikeMake = Convert.ToString(dr["BikeMake"]);
-                            objDealer.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
-                            objDealer.City = Convert.ToString(dr["City"]);
-                            objDealer.State = Convert.ToString(dr["State"]);
-                            objDealerList.Add(objDealer);
+                            objDealerList = new List<NewBikeDealerEntityBase>();
+                            while (dr.Read())
+                            {
+                                NewBikeDealerEntityBase objDealer = new NewBikeDealerEntityBase();
+                                objDealer.Id = Convert.ToInt32(dr["DealerId"]);
+                                objDealer.Name = Convert.ToString(dr["DealerName"]);
+                                objDealer.Address = Convert.ToString(dr["Address"]);
+                                objDealer.ContactNo = Convert.ToString(dr["ContactNo"]);
+                                objDealer.Email = Convert.ToString(dr["EMailId"]);
+                                objDealer.PinCode = Convert.ToString(dr["PinCode"]);
+                                objDealer.Website = Convert.ToString(dr["WebSite"]);
+                                objDealer.Fax = Convert.ToString(dr["FaxNo"]);
+                                objDealer.WorkingHours = Convert.ToString(dr["WorkingHours"]);
+                                objDealer.BikeMake = Convert.ToString(dr["BikeMake"]);
+                                objDealer.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                objDealer.City = Convert.ToString(dr["City"]);
+                                objDealer.State = Convert.ToString(dr["State"]);
+                                objDealerList.Add(objDealer);
+                            }
+                            dr.Close();
                         }
                     }
                 }
@@ -277,10 +268,6 @@ namespace Bikewale.DAL.Dealer
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
 
             return objDealerList;
         }
@@ -293,30 +280,32 @@ namespace Bikewale.DAL.Dealer
         public List<BikeMakeEntityBase> GetDealersMakeListByCityId(uint cityId)
         {
             List<BikeMakeEntityBase> objMakeList = null;
-            Database db = null;
 
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetDealerMakesByCityId";
-                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
+                    cmd.CommandText = "getdealermakesbycityid";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
 
                     objMakeList = new List<BikeMakeEntityBase>();
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        while (dr.Read())
+                        if (dr != null)
                         {
-                            objMakeList.Add(new BikeMakeEntityBase
+                            while (dr.Read())
                             {
-                                MakeId = Convert.ToInt32(dr["ID"]),
-                                MakeName = Convert.ToString(dr["Name"]),
-                                MaskingName = Convert.ToString(dr["MaskingName"])
-                            });
+                                objMakeList.Add(new BikeMakeEntityBase
+                                {
+                                    MakeId = Convert.ToInt32(dr["ID"]),
+                                    MakeName = Convert.ToString(dr["Name"]),
+                                    MaskingName = Convert.ToString(dr["MaskingName"])
+                                });
+                            }
+                            dr.Close();
                         }
                     }
                 }
@@ -333,10 +322,6 @@ namespace Bikewale.DAL.Dealer
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
 
             return objMakeList;
         }
@@ -350,29 +335,31 @@ namespace Bikewale.DAL.Dealer
         public List<CityEntityBase> GetDealersCitiesList()
         {
             List<CityEntityBase> objCityList = null;
-            Database db = null;
 
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetDealerCities_New";
+                    cmd.CommandText = "getdealercities_new";
 
                     objCityList = new List<CityEntityBase>();
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        while (dr.Read())
+                        if (dr != null)
                         {
-                            objCityList.Add(new CityEntityBase
+                            while (dr.Read())
                             {
-                                CityId = Convert.ToUInt32(dr["ID"]),
-                                CityName = Convert.ToString(dr["NAME"]),
-                                CityMaskingName = Convert.ToString(dr["CityMaskingName"])
-                            });
+                                objCityList.Add(new CityEntityBase
+                                {
+                                    CityId = Convert.ToUInt32(dr["ID"]),
+                                    CityName = Convert.ToString(dr["NAME"]),
+                                    CityMaskingName = Convert.ToString(dr["CityMaskingName"])
+                                });
+                            }
+                            dr.Close();
                         }
                     }
                 }
@@ -389,11 +376,6 @@ namespace Bikewale.DAL.Dealer
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
-
             return objCityList;
         }
 
@@ -406,37 +388,32 @@ namespace Bikewale.DAL.Dealer
         /// <returns>Lead submission status</returns>
         public bool SaveManufacturerLead(ManufacturerLeadEntity objLead)
         {
-            Database db = null;
+
             bool status = false;
             try
             {
-                db = new Database();
+
 
                 if (objLead != null && objLead.PQId > 0 && objLead.DealerId > 0)
                 {
-                    using (SqlConnection conn = new SqlConnection(db.GetConString()))
+                    using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
-                        using (SqlCommand cmd = new SqlCommand())
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.CommandText = "SaveManufacturerLead";
-                            cmd.Connection = conn;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "savemanufacturerlead";
 
-                            cmd.Parameters.Add("@Name", SqlDbType.VarChar, 50).Value = objLead.Name;
-                            cmd.Parameters.Add("@Email", SqlDbType.VarChar, 150).Value = objLead.Email;
-                            cmd.Parameters.Add("@Mobile", SqlDbType.VarChar, 10).Value = objLead.Mobile;
-                            cmd.Parameters.Add("@PQId", SqlDbType.BigInt).Value = objLead.PQId;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50, objLead.Name));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 150, objLead.Email));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 10, objLead.Mobile));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, objLead.PQId));
 
-                            //TVS Dealer ID to be sent to update pricequote ID
-                            cmd.Parameters.Add("@DealerId", SqlDbType.BigInt).Value = objLead.DealerId;
-                            LogLiveSps.LogSpInGrayLog(cmd);
+                        //TVS Dealer ID to be sent to update pricequote ID
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int64, objLead.DealerId));
+                        // LogLiveSps.LogSpInGrayLog(cmd);
 
-                            conn.Open();
-                            if (cmd.ExecuteNonQuery() < 0)
-                                status = true;
-                            
+                        if (MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase) < 0)
+                            status = true;
 
-                        }
+
                     }
                 }
             }
@@ -451,10 +428,6 @@ namespace Bikewale.DAL.Dealer
                 HttpContext.Current.Trace.Warn("SaveManufacturerLead ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return status;
@@ -483,69 +456,62 @@ namespace Bikewale.DAL.Dealer
         /// <param name="cityId">e.g. 1</param>
         /// <param name="makeId">e.g. 9</param>
         /// <returns></returns>
-        public DealersEntity GetDealerByMakeCity(uint cityId, uint makeId, uint modelId = 0)
+        public DealersEntity GetDealerByMakeCity(uint cityId, uint makeId, uint modelid = 0)
         {
             DealersEntity dealers = null;
             IList<DealersList> dealerList = null;
-            Database db = null;
 
             try
             {
-                db = new Database();
-
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetDealerByMakeCity_31052016";
-                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
-                    if (modelId > 0)
-                        cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    cmd.CommandText = "getdealerbymakecity_31052016";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelid > 0 ? modelid : Convert.DBNull));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
                         if (dr != null)
                         {
-                            if (dr.HasRows)
+                            DealersList dealerdetail;
+                            dealerList = new List<DealersList>();
+                            dealers = new DealersEntity();
+                            while (dr.Read())
                             {
-                                DealersList dealerdetail;
-                                dealerList = new List<DealersList>();
-                                dealers = new DealersEntity();
-                                while (dr.Read())
-                                {
-                                    dealerdetail = new DealersList();
-                                    dealerdetail.DealerId = SqlReaderConvertor.ParseToInt16(dr["DealerId"]);
-                                    dealerdetail.Name = Convert.ToString(dr["DealerName"]);
-                                    dealerdetail.DealerType = SqlReaderConvertor.ParseToInt16(dr["DealerPackage"]);
-                                    dealerdetail.City = Convert.ToString(dr["City"]);
-                                    dealerdetail.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
-                                    dealerdetail.EMail = Convert.ToString(dr["EMail"]);
-                                    dealerdetail.Address = Convert.ToString(dr["Address"]);
-                                    dealerdetail.CampaignId = SqlReaderConvertor.ParseToUInt32(dr["CampaignId"]);
-                                    dealerdetail.objArea = new AreaEntityBase();
-                                    dealerdetail.objArea.AreaName = Convert.ToString(dr["Area"]);
-                                    dealerdetail.objArea.Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]);
-                                    dealerdetail.objArea.Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"]);
+                                dealerdetail = new DealersList();
+                                dealerdetail.DealerId = SqlReaderConvertor.ParseToInt16(dr["DealerId"]);
+                                dealerdetail.Name = Convert.ToString(dr["DealerName"]);
+                                dealerdetail.DealerType = SqlReaderConvertor.ParseToInt16(dr["DealerPackage"]);
+                                dealerdetail.City = Convert.ToString(dr["City"]);
+                                dealerdetail.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
+                                dealerdetail.EMail = Convert.ToString(dr["EMail"]);
+                                dealerdetail.Address = Convert.ToString(dr["Address"]);
+                                dealerdetail.CampaignId = SqlReaderConvertor.ParseToUInt32(dr["CampaignId"]);
+                                dealerdetail.objArea = new AreaEntityBase();
+                                dealerdetail.objArea.AreaName = Convert.ToString(dr["Area"]);
+                                dealerdetail.objArea.Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]);
+                                dealerdetail.objArea.Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"]);
 
-                                    dealerList.Add(dealerdetail);
-                                }
-
-                                if (dr.NextResult() && dr.Read())
-                                {
-                                    dealers.TotalCount = !Convert.IsDBNull(dr["TotalCount"]) ? Convert.ToUInt16(dr["TotalCount"]) : default(UInt16);
-                                }
-
-                                if (dr.NextResult() && dr.Read())
-                                {
-                                    dealers.MakeName = !Convert.IsDBNull(dr["MakeName"]) ? Convert.ToString(dr["MakeName"]) : default(string);
-                                    dealers.CityName = !Convert.IsDBNull(dr["CityName"]) ? Convert.ToString(dr["CityName"]) : default(string);
-                                    dealers.CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(string);
-                                    dealers.MakeMaskingName = !Convert.IsDBNull(dr["MakeMaskingName"]) ? Convert.ToString(dr["MakeMaskingName"]) : default(string);
-                                }
-
-                                dealers.Dealers = dealerList;
-
+                                dealerList.Add(dealerdetail);
                             }
 
+                            if (dr.NextResult() && dr.Read())
+                            {
+                                dealers.TotalCount = !Convert.IsDBNull(dr["TotalCount"]) ? Convert.ToUInt16(dr["TotalCount"]) : default(UInt16);
+                            }
+
+                            if (dr.NextResult() && dr.Read())
+                            {
+                                dealers.MakeName = !Convert.IsDBNull(dr["MakeName"]) ? Convert.ToString(dr["MakeName"]) : default(string);
+                                dealers.CityName = !Convert.IsDBNull(dr["CityName"]) ? Convert.ToString(dr["CityName"]) : default(string);
+                                dealers.CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(string);
+                                dealers.MakeMaskingName = !Convert.IsDBNull(dr["MakeMaskingName"]) ? Convert.ToString(dr["MakeMaskingName"]) : default(string);
+                            }
+
+                            dealers.Dealers = dealerList;
+                            dr.Close();
                         }
                     }
                 }
@@ -555,10 +521,6 @@ namespace Bikewale.DAL.Dealer
                 HttpContext.Current.Trace.Warn("GetDealerByMakeCity ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return dealers;
@@ -574,26 +536,22 @@ namespace Bikewale.DAL.Dealer
         public DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId, uint campaignId)
         {
             DealerBikesEntity dealers = new DealerBikesEntity();
-            Database db = null;
 
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerbikedetails"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetDealerBikeDetails";
-                    cmd.Parameters.Add("@DealerId", SqlDbType.Int).Value = dealerId;
-                    cmd.Parameters.Add("@CampaignId", SqlDbType.Int).Value = campaignId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, campaignId));
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
-                            if (dr.Read() && dr.HasRows)
+                            if (dr.Read())
                             {
-                                DealerPackageTypes dpType;
                                 dealers.DealerDetails = new DealerDetailEntity();
                                 dealers.DealerDetails.Name = Convert.ToString(dr["DealerName"]);
                                 dealers.DealerDetails.Address = Convert.ToString(dr["Address"]);
@@ -658,6 +616,7 @@ namespace Bikewale.DAL.Dealer
                                 }
                                 dealers.Models = models;
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -666,10 +625,6 @@ namespace Bikewale.DAL.Dealer
             {
                 ErrorClass objErr = new ErrorClass(ex, "GetDealerDetailsAndBikes");
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
             return dealers;
         }
@@ -684,22 +639,19 @@ namespace Bikewale.DAL.Dealer
         public IEnumerable<CityEntityBase> FetchDealerCitiesByMake(uint makeId)
         {
             IList<CityEntityBase> objCityList = null;
-            Database db = null;
             try
             {
                 if (makeId > 0)
                 {
-                    db = new Database();
 
-                    using (SqlCommand cmd = new SqlCommand())
+                    using (DbCommand cmd = DbFactory.GetDBCommand("getdealerscitiesbymakeid_22032016"))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "GetDealersCitiesByMakeId_22032016";
-                        cmd.Parameters.AddWithValue("@MakeId", Convert.ToInt32(makeId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, Convert.ToInt32(makeId)));
 
-                        using (SqlDataReader dr = db.SelectQry(cmd))
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                         {
-                            if (dr.HasRows)
+                            if (dr != null)
                             {
                                 objCityList = new List<CityEntityBase>();
                                 while (dr.Read())
@@ -711,6 +663,7 @@ namespace Bikewale.DAL.Dealer
                                         CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(String)
                                     });
                                 }
+                                dr.Close();
                             }
                         }
                     }
@@ -721,10 +674,7 @@ namespace Bikewale.DAL.Dealer
                 ErrorClass objErr = new ErrorClass(ex, "FetchDealerCitiesByMake");
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
             return objCityList;
         }
 
@@ -738,22 +688,23 @@ namespace Bikewale.DAL.Dealer
         public IEnumerable<PopularCityDealerEntity> GetPopularCityDealer(uint makeId, uint topCount)
         {
             IList<PopularCityDealerEntity> cityDealers = null;
-            Database db = null;
             try
             {
                 if (makeId > 0)
                 {
-                    db = new Database();
 
-                    using (SqlCommand cmd = new SqlCommand())
+                    using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "GetPopularCityDealer";
-                        cmd.Parameters.AddWithValue("@MakeId", Convert.ToInt32(makeId));
-                        cmd.Parameters.AddWithValue("@TopCount", Convert.ToInt16(topCount));
-                        using (SqlDataReader dr = db.SelectQry(cmd))
+                        cmd.CommandText = "getpopularcitydealer";
+
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, Convert.ToInt32(makeId)));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, Convert.ToInt32(topCount)));
+
+
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                         {
-                            if (dr != null && dr.HasRows)
+                            if (dr != null)
                             {
                                 cityDealers = new List<PopularCityDealerEntity>();
                                 while (dr.Read())
@@ -779,10 +730,7 @@ namespace Bikewale.DAL.Dealer
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("GetPopularCityDealer(makeId : {0})", makeId));
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
             return cityDealers;
         }
     }//End class

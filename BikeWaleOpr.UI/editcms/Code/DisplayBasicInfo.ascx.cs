@@ -85,98 +85,101 @@ namespace BikeWaleOpr.EditCms
 		
 		public void GetLinkData()
 		{
-			string sql = " SELECT "
- 				+ " (SELECT COUNT (ID) FROM Con_EditCms_Bikes WHERE BasicId = @basicId AND IsActive = 1) AS BikesCount,"
-				+ " (SELECT COUNT (ID) FROM Con_EditCms_Images WHERE BasicId = @basicId) AS ImageCount,"
-				+ " (SELECT COUNT (ID) FROM Con_EditCms_OtherInfo WHERE BasicId = @basicId) AS OtherCount,"
-				+ " (SELECT COUNT (ID) FROM Con_EditCms_Pages WHERE BasicId = @basicId) AS PagesCount";
+            throw new Exception("Method not used/commented");
+            //string sql = " SELECT "
+            //    + " (SELECT COUNT (ID) FROM Con_EditCms_Bikes WHERE BasicId = @basicId AND IsActive = 1) AS BikesCount,"
+            //    + " (SELECT COUNT (ID) FROM Con_EditCms_Images WHERE BasicId = @basicId) AS ImageCount,"
+            //    + " (SELECT COUNT (ID) FROM Con_EditCms_OtherInfo WHERE BasicId = @basicId) AS OtherCount,"
+            //    + " (SELECT COUNT (ID) FROM Con_EditCms_Pages WHERE BasicId = @basicId) AS PagesCount";
 			
 			
-			SqlDataReader dr = null;
-			Database db = new Database();
-			SqlParameter [] param = 
-			{
-				new SqlParameter("@basicId", BasicId)
-			};
-			try
-			{
+            //SqlDataReader dr = null;
+            //Database db = new Database();
+            //SqlParameter [] param = 
+            //{
+            //    new SqlParameter("@basicId", BasicId)
+            //};
+            //try
+            //{
 				
-				dr = db.SelectQry(sql, param);
-				if (dr.Read())
-				{
-					bikesCount = dr["BikesCount"].ToString();
-					imageCount = dr["ImageCount"].ToString();
-					otherCount = dr["OtherCount"].ToString();
-					pagesCount = dr["PagesCount"].ToString();
-				}
-			}
-			catch(Exception err)
-			{
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
-			finally
-			{
-				dr.Close();
-				db.CloseConnection();
-			}
+            //    dr = db.SelectQry(sql, param);
+            //    if (dr.Read())
+            //    {
+            //        bikesCount = dr["BikesCount"].ToString();
+            //        imageCount = dr["ImageCount"].ToString();
+            //        otherCount = dr["OtherCount"].ToString();
+            //        pagesCount = dr["PagesCount"].ToString();
+            //    }
+            //}
+            //catch(Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    dr.Close();
+            //    db.CloseConnection();
+            //}
 		}
 		
 		public void GetData()
 		{
-			Database db = new Database();
-			SqlDataReader dr = null ;
-			string sql;
-			
-			sql = " SELECT CC.Id AS CatId, CC.Name AS CatName, CC.AllowBikeSelection, CC.MinBikeSelection, CB.Title, CB.AuthorName, CB.DisplayDate, CB.[Description]"
-				+ " FROM Con_EditCms_Basic CB, Con_EditCms_Category CC"
-				+ " WHERE CC.Id = CB.CategoryId"
-				+ " AND CB.Id = @basicId";
+            throw new Exception("Method not used/commented");
 
-			SqlParameter [] param = 
-			{
-				new SqlParameter("@basicId", BasicId)
-			};
-			try
-			{
-				dr = db.SelectQry( sql, param );
-				if(dr.Read())
-				{
-					if(dr["Description"].ToString().Length > 100)
-					{
-						description = dr["Description"].ToString().Substring(0,99) + "...";		
-					}
-					else description = dr["Description"].ToString();
-					catId = dr["CatId"].ToString();
-					catName = dr["CatName"].ToString();
-					title = dr["Title"].ToString();
-					author = dr["AuthorName"].ToString();
-					minBikeSelection = Convert.ToInt32(dr["MinBikeSelection"]);
-					if (Convert.ToBoolean(dr["AllowBikeSelection"].ToString()))
-					{
-						allowBikeSelection = "1";
-					}
-					else
-					{
-						allowBikeSelection = "0";
-					}	
-					//description = dr["Description"].ToString();					
-					displayDate = DateTime.Parse(dr["DisplayDate"].ToString());										
-				}
-				Trace.Warn("catName :" + catName + ", title: " + title + ", author: " + author);
-				Trace.Warn("description: " + description);
-				Trace.Warn("displayDate: " + displayDate.ToString("dd-MMM-yyyy"));
-			}
-			catch( SqlException err )	
-			{
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
-			finally
-			{
-                dr.Close();
-                db.CloseConnection();
-			}
+            //Database db = new Database();
+            //SqlDataReader dr = null ;
+            //string sql;
+			
+            //sql = " SELECT CC.Id AS CatId, CC.Name AS CatName, CC.AllowBikeSelection, CC.MinBikeSelection, CB.Title, CB.AuthorName, CB.DisplayDate, CB.[Description]"
+            //    + " FROM Con_EditCms_Basic CB, Con_EditCms_Category CC"
+            //    + " WHERE CC.Id = CB.CategoryId"
+            //    + " AND CB.Id = @basicId";
+
+            //SqlParameter [] param = 
+            //{
+            //    new SqlParameter("@basicId", BasicId)
+            //};
+            //try
+            //{
+            //    dr = db.SelectQry( sql, param );
+            //    if(dr.Read())
+            //    {
+            //        if(dr["Description"].ToString().Length > 100)
+            //        {
+            //            description = dr["Description"].ToString().Substring(0,99) + "...";		
+            //        }
+            //        else description = dr["Description"].ToString();
+            //        catId = dr["CatId"].ToString();
+            //        catName = dr["CatName"].ToString();
+            //        title = dr["Title"].ToString();
+            //        author = dr["AuthorName"].ToString();
+            //        minBikeSelection = Convert.ToInt32(dr["MinBikeSelection"]);
+            //        if (Convert.ToBoolean(dr["AllowBikeSelection"].ToString()))
+            //        {
+            //            allowBikeSelection = "1";
+            //        }
+            //        else
+            //        {
+            //            allowBikeSelection = "0";
+            //        }	
+            //        //description = dr["Description"].ToString();					
+            //        displayDate = DateTime.Parse(dr["DisplayDate"].ToString());										
+            //    }
+            //    Trace.Warn("catName :" + catName + ", title: " + title + ", author: " + author);
+            //    Trace.Warn("description: " + description);
+            //    Trace.Warn("displayDate: " + displayDate.ToString("dd-MMM-yyyy"));
+            //}
+            //catch( SqlException err )	
+            //{
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    dr.Close();
+            //    db.CloseConnection();
+            //}
 		}
 	}
 }

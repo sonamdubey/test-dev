@@ -78,59 +78,61 @@ namespace BikeWaleOpr.EditCms
         /// </summary>
         private void LoadImageDetails()
         {
-            string makeId = string.Empty, modelId = string.Empty;
+            throw new Exception("Method not used/commented");
 
-            SqlCommand cmd;
-            Database db = new Database();
-            SqlDataReader dr = null;
+            //string makeId = string.Empty, modelId = string.Empty;
 
-            try
-            {
-                using (SqlConnection con = new SqlConnection(db.GetConString()))
-                {
-                    cmd = new SqlCommand();
-                    cmd.CommandText = "Con_EditCms_GetImageDetails";
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Connection = con;
+            //SqlCommand cmd;
+            //Database db = new Database();
+            //SqlDataReader dr = null;
 
-                    cmd.Parameters.Add("@ImageId", SqlDbType.BigInt).Value = ImageId;
+            //try
+            //{
+            //    using (SqlConnection con = new SqlConnection(db.GetConString()))
+            //    {
+            //        cmd = new SqlCommand();
+            //        cmd.CommandText = "Con_EditCms_GetImageDetails";
+            //        cmd.CommandType = CommandType.StoredProcedure;
+            //        cmd.Connection = con;
 
-                    cmd.Parameters.Add("@Caption", SqlDbType.VarChar, 250).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@IsMainImage", SqlDbType.Bit).Direction = ParameterDirection.Output;
+            //        cmd.Parameters.Add("@ImageId", SqlDbType.BigInt).Value = ImageId;
 
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                }
-                txtCaption.Text = cmd.Parameters["@Caption"].Value.ToString();
+            //        cmd.Parameters.Add("@Caption", SqlDbType.VarChar, 250).Direction = ParameterDirection.Output;
+            //        cmd.Parameters.Add("@MakeId", SqlDbType.Int).Direction = ParameterDirection.Output;
+            //        cmd.Parameters.Add("@ModelId", SqlDbType.Int).Direction = ParameterDirection.Output;
+            //        cmd.Parameters.Add("@IsMainImage", SqlDbType.Bit).Direction = ParameterDirection.Output;
 
-                GetMakes();
-                makeId = cmd.Parameters["@MakeId"].Value.ToString();
-                ddlMakes.SelectedValue = makeId;
+            //        con.Open();
+            //        cmd.ExecuteNonQuery();
+            //        con.Close();
+            //    }
+            //    txtCaption.Text = cmd.Parameters["@Caption"].Value.ToString();
 
-                GetModels(makeId);
-                ddlModels.SelectedValue = cmd.Parameters["@ModelId"].Value.ToString();
+            //    GetMakes();
+            //    makeId = cmd.Parameters["@MakeId"].Value.ToString();
+            //    ddlMakes.SelectedValue = makeId;
+
+            //    GetModels(makeId);
+            //    ddlModels.SelectedValue = cmd.Parameters["@ModelId"].Value.ToString();
                 
-                chkMainImage.Checked = Convert.ToBoolean(cmd.Parameters["@IsMainImage"].Value);
-            }
-            catch (SqlException err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (dr != null)
-                    dr.Close();
-                db.CloseConnection();
-            }
+            //    chkMainImage.Checked = Convert.ToBoolean(cmd.Parameters["@IsMainImage"].Value);
+            //}
+            //catch (SqlException err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if (dr != null)
+            //        dr.Close();
+            //    db.CloseConnection();
+            //}
         }   // End of LoadImageDetails
         #endregion
 
@@ -163,37 +165,38 @@ namespace BikeWaleOpr.EditCms
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void UpdateImageTagging(object sender, EventArgs e)
-        { 
-            SqlCommand cmd = null;
-            Database db = null;
+        {
+            throw new Exception("Method not used/commented");
+            //SqlCommand cmd = null;
+            //Database db = null;
 
-            try
-            {
-                db = new Database();
-                cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "Con_EditCms_UpdateImageTagging";
+            //try
+            //{
+            //    db = new Database();
+            //    cmd = new SqlCommand();
+            //    cmd.CommandType = CommandType.StoredProcedure;
+            //    cmd.CommandText = "Con_EditCms_UpdateImageTagging";
                 
-                cmd.Parameters.Add("@ImageId", SqlDbType.BigInt).Value = ImageId;
-                cmd.Parameters.Add("@Caption", SqlDbType.VarChar, 250).Value = txtCaption.Text.Trim();
-                cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = ddlMakes.Text;
-                cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = hdnModels.Value;                
-                cmd.Parameters.Add("@IsMainImage", SqlDbType.Bit).Value = chkMainImage.Checked;
+            //    cmd.Parameters.Add("@ImageId", SqlDbType.BigInt).Value = ImageId;
+            //    cmd.Parameters.Add("@Caption", SqlDbType.VarChar, 250).Value = txtCaption.Text.Trim();
+            //    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = ddlMakes.Text;
+            //    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = hdnModels.Value;                
+            //    cmd.Parameters.Add("@IsMainImage", SqlDbType.Bit).Value = chkMainImage.Checked;
 
-                db.UpdateQry(cmd);
-            }
-            catch (SqlException err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (ViewState["PreviousPage"] != null)
-                {
-                    Response.Redirect(ViewState["PreviousPage"].ToString());
-                }
-            }
+            //    db.UpdateQry(cmd);
+            //}
+            //catch (SqlException err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if (ViewState["PreviousPage"] != null)
+            //    {
+            //        Response.Redirect(ViewState["PreviousPage"].ToString());
+            //    }
+            //}
         }   // End of UpdateImageTagging
     }
 }

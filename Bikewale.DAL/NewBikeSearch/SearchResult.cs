@@ -12,6 +12,8 @@ using System.Data.SqlClient;
 using System.Data;
 using Bikewale.Entities.BikeData;
 using Bikewale.Utility;
+using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.DAL.NewBikeSearch
 {
@@ -35,7 +37,6 @@ namespace Bikewale.DAL.NewBikeSearch
             SearchOutputEntity objSearch = new SearchOutputEntity();
 
             List<SearchOutputEntityBase> objSearchList = null;
-            Database db = null;
             
             string sqlStr = string.Empty;
             try
@@ -44,13 +45,11 @@ namespace Bikewale.DAL.NewBikeSearch
 
                 sqlStr = objSearchQuery.GetSearchResultQuery();
                 sqlStr += objSearchQuery.GetRecordCountQry();
-                using(SqlCommand cmd=new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand(sqlStr))
                 {
-                    cmd.CommandText = sqlStr;
                     cmd.CommandType = CommandType.Text;
 
-                    db=new Database();
-                    using(SqlDataReader dr=db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if(dr!=null)
                         {
@@ -91,6 +90,8 @@ namespace Bikewale.DAL.NewBikeSearch
                             dr.NextResult();
                             if (dr.Read())
                                 totalRecordCount = Convert.ToInt32(dr["RecordCount"]);
+
+                            dr.Close();
                         }
                     }
 
@@ -104,10 +105,6 @@ namespace Bikewale.DAL.NewBikeSearch
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.NewBikeSearch.SearchResult.GetSearchResult");
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
             return objSearch;
         }

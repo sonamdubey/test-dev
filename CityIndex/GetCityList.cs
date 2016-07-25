@@ -4,48 +4,44 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Reflection;
+using Bikewale.CoreDAL;
 
 using System.Text.RegularExpressions;
+using MySql.CoreDAL;
 namespace CityAutoSuggest
 {
     public class GetCityList
     {
-        private static string _con = ConfigurationManager.AppSettings["connectionString"];
         public static List<CityTempList> CityList()
         {
             List<CityTempList> objCity = null;
             Regex r = new Regex(@"\[([A-z0-9\s\S]+)?(\-)?([A-z0-9\s\S]+)?\]");
             try
             {
-                using (SqlConnection con = new SqlConnection(_con))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcities"))
                 {
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        //cmd.CommandText = "GetCities";                                          //----Old SP-----
-                        cmd.CommandText = "GetCitiesCS";                                          //----New SP-----
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = con;
-                        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
-                        //cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = 7;    //----For Old SP set id =7---
-                        con.Open();
+                    cmd.CommandText = "GetCitiesCS";                                          //----New SP-----
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, 7));
+                       // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
-                        using (SqlDataReader dr = cmd.ExecuteReader())
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
                         {
-                            if (dr != null)
-                            {
-                                objCity = new List<CityTempList>();
-                                while (dr.Read())
-                                    objCity.Add(new CityTempList()
-                                    {
-                                        CityId = Convert.ToInt32(dr["CityId"]),                     //Add CityId                  
-                                        CityName = dr["CityName"].ToString(),                       //Add Cityname                    
-                                        MaskingName = dr["citymaskingname"].ToString(),             //Add Masking Name
-                                        Wt = Convert.ToInt32(dr["Count"]),                          //Add PQ for that city
-                                        StateName = dr["StateName"].ToString()                      //Add StateName
-                                    });
-                            }
+                            objCity = new List<CityTempList>();
+                            while (dr.Read())
+                                objCity.Add(new CityTempList()
+                                {
+                                    CityId = Convert.ToInt32(dr["Value"]),                          //  Add CityId into Payload
+                                    CityName = dr["Text"].ToString(),                               //  Add CityName into Payload
+                                    MaskingName = dr["MaskingName"].ToString(),                     //  Add Masking Name into Payload
+                                    Wt = Convert.ToInt32(dr["Count"]),                          //Add PQ for that city
+                                    StateName = dr["StateName"].ToString()                      //Add StateName
+                                });
                         }
                     }
                 }
@@ -71,21 +67,21 @@ namespace CityAutoSuggest
             try
             {
                 Hashtable ht = new Hashtable();                                                 //Add old name corresponding to new city
-                ht.Add("Vijaywada", "Bezawada");            ht.Add("Guwahati", "Gauhati");       ht.Add("Vadodara", "Baroda");               
-                ht.Add("Valsad", "Bulsar");                 ht.Add("Shimla", "Simla");           ht.Add("Panjim", "Panaji");                 
-                ht.Add("Bangalore", "Bengaluru");           ht.Add("Mysore", "Mysuru");          ht.Add("Mangalore", "Mangaluru");            
-                ht.Add("Belgaum", "Belagavi");              ht.Add("Hospet", "Hosapete");        ht.Add("Chikmagalur", "Chikkamagaluru");    
-                ht.Add("Thiruvananthapuram", "Trivandrum"); ht.Add("Kochi", "Cochin");           ht.Add("Kozhikode", "Calicut");             
-                ht.Add("Mumbai", "Bombay");                 ht.Add("Pondicherry", "Puducherry"); ht.Add("Jalandhar", "Jullunder");           
-                ht.Add("Ropar", "Rupnagar");                ht.Add("Chennai", "Madras");         ht.Add("Kolkata", "Calcutta");
-                ht.Add("Varanasi", "Banaras");              ht.Add("Bijapur", "Vijayapura");     ht.Add("Gurugram", "Gurgaon");
-                ht.Add("Pune", "Poona");                    ht.Add("Navi Mumbai", "New Bombay"); ht.Add("Nuh", "Mewat");
+                ht.Add("Vijaywada", "Bezawada"); ht.Add("Guwahati", "Gauhati"); ht.Add("Vadodara", "Baroda");
+                ht.Add("Valsad", "Bulsar"); ht.Add("Shimla", "Simla"); ht.Add("Panjim", "Panaji");
+                ht.Add("Bangalore", "Bengaluru"); ht.Add("Mysore", "Mysuru"); ht.Add("Mangalore", "Mangaluru");
+                ht.Add("Belgaum", "Belagavi"); ht.Add("Hospet", "Hosapete"); ht.Add("Chikmagalur", "Chikkamagaluru");
+                ht.Add("Thiruvananthapuram", "Trivandrum"); ht.Add("Kochi", "Cochin"); ht.Add("Kozhikode", "Calicut");
+                ht.Add("Mumbai", "Bombay"); ht.Add("Pondicherry", "Puducherry"); ht.Add("Jalandhar", "Jullunder");
+                ht.Add("Ropar", "Rupnagar"); ht.Add("Chennai", "Madras"); ht.Add("Kolkata", "Calcutta");
+                ht.Add("Varanasi", "Banaras"); ht.Add("Bijapur", "Vijayapura"); ht.Add("Gurugram", "Gurgaon");
+                ht.Add("Pune", "Poona"); ht.Add("Navi Mumbai", "New Bombay"); ht.Add("Nuh", "Mewat");
                 ht.Add("Bengaluru", "Bangalore");
 
                 
                 Hashtable htd = new Hashtable();                                                //For Removing Text After Bracket
-                htd.Add("Aurangabad (Bihar)", "Aurangabad");    htd.Add("Dindori - MH", "Dindori"); htd.Add("Mewat", "Nuh");
-                htd.Add("Una (Gujarat)", "Una");                htd.Add("Una (HP)", "Una");         htd.Add("Gurgaon", "Gurugram");
+                htd.Add("Aurangabad (Bihar)", "Aurangabad"); htd.Add("Dindori - MH", "Dindori"); htd.Add("Mewat", "Nuh");
+                htd.Add("Una (Gujarat)", "Una"); htd.Add("Una (HP)", "Una"); htd.Add("Gurgaon", "Gurugram");
                 htd.Add("Bangalore", "Bengaluru");             
                 Hashtable htf = new Hashtable();                                                //HashTable for Duplicate       
 
@@ -137,7 +133,7 @@ namespace CityAutoSuggest
                     string[] combinations = cityName.Split(' ');                                //Break City in Diff Token
 
                     ObjTemp.mm_suggest.input.Add(ObjTemp.mm_suggest.output);                    //Add output as input
-                                                                                                //Generate all combination of a string
+                    //Generate all combination of a string
                     int l = combinations.Length;
                     for (int p = 1; p <= l; p++)
                     {

@@ -1,12 +1,6 @@
-﻿using Bikewale.CoreDAL;
-using Bikewale.Notifications;
+﻿using Bikewale.Notifications;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
 namespace Bikewale.BAL.Customer
 {
@@ -61,8 +55,8 @@ namespace Bikewale.BAL.Customer
             }
             catch (Exception ex)
             {
-                //ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                //objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
 
             return salt;
@@ -89,8 +83,8 @@ namespace Bikewale.BAL.Customer
             }
             catch (Exception ex)
             {
-                //ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                //objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
 
             return hashCode;

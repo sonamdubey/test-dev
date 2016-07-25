@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Location;
-using Bikewale.Entities.Location;
-using System.Data;
-using System.Data.SqlClient;
-using Bikewale.CoreDAL;
-using System.Web;
 using Bikewale.Notifications;
+using MySql.CoreDAL;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Web;
 
 namespace Bikewale.DAL.Location
 {
@@ -23,28 +21,29 @@ namespace Bikewale.DAL.Location
         /// <returns></returns>
         public List<AreaEntityBase> GetAreas(string cityId)
         {
-            Database db = null;
             List<AreaEntityBase> objAreaList = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetAreas"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getareas"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
-
-                    db = new Database();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
 
                     objAreaList = new List<AreaEntityBase>();
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        while (dr.Read())
+                        if (dr != null)
                         {
-                            objAreaList.Add(new AreaEntityBase
+                            while (dr.Read())
                             {
-                                AreaId = Convert.ToUInt32(dr["Value"]),
-                                AreaName = Convert.ToString(dr["Text"]),
-                                AreaMaskingName = Convert.ToString(dr["MaskingName"])
-                            });
+                                objAreaList.Add(new AreaEntityBase
+                                {
+                                    AreaId = Convert.ToUInt32(dr["Value"]),
+                                    AreaName = Convert.ToString(dr["Text"]),
+                                    AreaMaskingName = Convert.ToString(dr["MaskingName"])
+                                });
+                            }
+                            dr.Close();
                         }
                     }
 
@@ -61,10 +60,6 @@ namespace Bikewale.DAL.Location
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return objAreaList;
@@ -77,20 +72,19 @@ namespace Bikewale.DAL.Location
         /// <returns></returns>
         public IEnumerable<AreaEntityBase> GetAreasByCity(UInt16 cityId)
         {
-            Database db = null;
             List<AreaEntityBase> lstArea = null;
             AreaEntityBase area = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetAreas"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getareas"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
+                    //cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
 
-                    db = new Database();
-                    using (SqlDataReader reader = db.SelectQry(cmd))
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        if (reader != null && reader.HasRows)
+                        if (reader != null)
                         {
                             lstArea = new List<AreaEntityBase>();
                             while (reader.Read())
@@ -100,6 +94,7 @@ namespace Bikewale.DAL.Location
                                 area.AreaName = Convert.ToString(reader["Text"]);
                                 lstArea.Add(area);
                             }
+                            reader.Close();
                         }
                     }
                 }
@@ -116,10 +111,7 @@ namespace Bikewale.DAL.Location
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
             return lstArea;
         }
     }

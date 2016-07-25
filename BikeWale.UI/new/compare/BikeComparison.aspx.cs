@@ -337,185 +337,187 @@ namespace Bikewale.New
 
         void FillComparisonData(string versions)
         {
-            Trace.Warn("Fetching Comparison Data...");
-            //string sql = string.Empty;
-            Database db = null;
-            SqlCommand cmd = null;
-            DataSet ds = null;
+            throw new Exception("Method not used/commented");
 
-            //sql = " SELECT NS.*, SF.*, Ma.Name + ' ' + Mo.Name + ' ' + Ve.Name BikeName, Ma.Name AS MakeName, Mo.Name AS ModelName, Ve.HostURL, Ve.Name AS VersionName, "
-            //    + " (SELECT AvgPrice FROM Con_NewBikeNationalPrices WHERE VersionId = Ve.id ) Price, Ve.New "
-            //    + " FROM (((( NewBikeSpecifications NS LEFT JOIN NewBikeStandardFeatures SF ON NS.BikeVersionId=SF.BikeVersionId ) "
-            //    + " LEFT JOIN BikeVersions Ve ON Ve.Id=NS.BikeVersionId ) "
-            //    + " LEFT JOIN BikeModels Mo ON Mo.Id=Ve.BikeModelId ) "
-            //    + " LEFT JOIN BikeMakes Ma ON Ma.Id=Mo.BikeMakeId ) "
-            //    + " WHERE NS.BikeVersionId IN (" + db.GetInClauseValue(versions, "BikeVersionId", cmd) + ")";
+            //Trace.Warn("Fetching Comparison Data...");
+            ////string sql = string.Empty;
+            //Database db = null;
+            //SqlCommand cmd = null;
+            //DataSet ds = null;
 
-            //Trace.Warn(sql);
+            ////sql = " SELECT NS.*, SF.*, Ma.Name + ' ' + Mo.Name + ' ' + Ve.Name BikeName, Ma.Name AS MakeName, Mo.Name AS ModelName, Ve.HostURL, Ve.Name AS VersionName, "
+            ////    + " (SELECT AvgPrice FROM Con_NewBikeNationalPrices WHERE VersionId = Ve.id ) Price, Ve.New "
+            ////    + " FROM (((( NewBikeSpecifications NS LEFT JOIN NewBikeStandardFeatures SF ON NS.BikeVersionId=SF.BikeVersionId ) "
+            ////    + " LEFT JOIN BikeVersions Ve ON Ve.Id=NS.BikeVersionId ) "
+            ////    + " LEFT JOIN BikeModels Mo ON Mo.Id=Ve.BikeModelId ) "
+            ////    + " LEFT JOIN BikeMakes Ma ON Ma.Id=Mo.BikeMakeId ) "
+            ////    + " WHERE NS.BikeVersionId IN (" + db.GetInClauseValue(versions, "BikeVersionId", cmd) + ")";
 
-            try
-            {
-                db = new Database();
-                cmd = new SqlCommand();
+            ////Trace.Warn(sql);
 
-                cmd.CommandText = "GetBikeComparisonDetails";
-                cmd.CommandType = CommandType.StoredProcedure;
+            //try
+            //{
+            //    db = new Database();
+            //    cmd = new SqlCommand();
 
-                cmd.Parameters.Add("@condition", SqlDbType.VarChar, 25).Value = "specs";
-                cmd.Parameters.Add("@BikeVersions", SqlDbType.VarChar, 20).Value = versions;
-                cmd.Parameters.Add("@CityId", SqlDbType.VarChar, 20).Value = Configuration.GetDefaultCityId;
+            //    cmd.CommandText = "GetBikeComparisonDetails";
+            //    cmd.CommandType = CommandType.StoredProcedure;
 
-                ds = db.SelectAdaptQry(cmd);
+            //    cmd.Parameters.Add("@condition", SqlDbType.VarChar, 25).Value = "specs";
+            //    cmd.Parameters.Add("@BikeVersions", SqlDbType.VarChar, 20).Value = versions;
+            //    cmd.Parameters.Add("@CityId", SqlDbType.VarChar, 20).Value = Configuration.GetDefaultCityId;
 
-                Trace.Warn("Bike 1 : " + versions);
+            //    ds = db.SelectAdaptQry(cmd);
 
-                int i = 0;
+            //    Trace.Warn("Bike 1 : " + versions);
 
-                if (ds.Tables[0].Rows.Count > 0)
-                {
+            //    int i = 0;
 
-                    Trace.Warn(" Data Found");
-                    for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
-                    {
-                        // get index of versionId to be displayed!
-                        i = GetVersionIndex(ds.Tables[0].Rows[j]["BikeVersionId"].ToString());
+            //    if (ds.Tables[0].Rows.Count > 0)
+            //    {
 
-                        Trace.Warn("Index : " + i + "; Version : " + ds.Tables[0].Rows[j]["BikeVersionId"].ToString());
+            //        Trace.Warn(" Data Found");
+            //        for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
+            //        {
+            //            // get index of versionId to be displayed!
+            //            i = GetVersionIndex(ds.Tables[0].Rows[j]["BikeVersionId"].ToString());
 
-                        bike[i] = ds.Tables[0].Rows[j]["Bike"].ToString();
-                        makeName[i] = ds.Tables[0].Rows[j]["Make"].ToString();
-                        modelName[i] = ds.Tables[0].Rows[j]["Model"].ToString();
-                        ModelMaskingName[i] = ds.Tables[0].Rows[j]["ModelMaskingName"].ToString();
-                        MakeMaskingName[i] = ds.Tables[0].Rows[j]["MakeMaskingName"].ToString();
-                        versionName[i] = ds.Tables[0].Rows[j]["Version"].ToString();
-                        hostURL[i] = ds.Tables[0].Rows[j]["HostURL"].ToString();
-                        leadAggregator[i] = Convert.ToBoolean(ds.Tables[0].Rows[j]["IsNew"]) == true ? ds.Tables[0].Rows[j]["BikeVersionId"].ToString() : "";
+            //            Trace.Warn("Index : " + i + "; Version : " + ds.Tables[0].Rows[j]["BikeVersionId"].ToString());
 
-                        if (ds.Tables[0].Rows[j]["Price"].ToString() != "")
-                            price[i] = CommonOpn.FormatNumeric(ds.Tables[0].Rows[j]["Price"].ToString());
+            //            bike[i] = ds.Tables[0].Rows[j]["Bike"].ToString();
+            //            makeName[i] = ds.Tables[0].Rows[j]["Make"].ToString();
+            //            modelName[i] = ds.Tables[0].Rows[j]["Model"].ToString();
+            //            ModelMaskingName[i] = ds.Tables[0].Rows[j]["ModelMaskingName"].ToString();
+            //            MakeMaskingName[i] = ds.Tables[0].Rows[j]["MakeMaskingName"].ToString();
+            //            versionName[i] = ds.Tables[0].Rows[j]["Version"].ToString();
+            //            hostURL[i] = ds.Tables[0].Rows[j]["HostURL"].ToString();
+            //            leadAggregator[i] = Convert.ToBoolean(ds.Tables[0].Rows[j]["IsNew"]) == true ? ds.Tables[0].Rows[j]["BikeVersionId"].ToString() : "";
 
-                        //if (ds.Tables[0].Rows[j]["Price"].ToString() != "")
-                        //{
-                        //loan[i] = (int.Parse(ds.Tables[0].Rows[j]["Price"].ToString()) * 0.8).ToString();
-                        //emi[i] = CommonOpn.FormatNumeric(CommonOpn.GetEMI(int.Parse(ds.Tables[0].Rows[j]["Price"].ToString())));
-                        //}
+            //            if (ds.Tables[0].Rows[j]["Price"].ToString() != "")
+            //                price[i] = CommonOpn.FormatNumeric(ds.Tables[0].Rows[j]["Price"].ToString());
 
-                        displacement[i] = ds.Tables[0].Rows[j]["Displacement"].ToString();
-                        cylinders[i] = ds.Tables[0].Rows[j]["Cylinders"].ToString();
-                        maxPower[i] = ds.Tables[0].Rows[j]["MaxPower"].ToString();
-                        maximumTorque[i] = ds.Tables[0].Rows[j]["MaximumTorque"].ToString();
-                        bore[i] = ds.Tables[0].Rows[j]["Bore"].ToString();
-                        stroke[i] = ds.Tables[0].Rows[j]["Stroke"].ToString();
-                        valvesPerCylinder[i] = ds.Tables[0].Rows[j]["ValvesPerCylinder"].ToString();
-                        fuelDeliverySystem[i] = ds.Tables[0].Rows[j]["FuelDeliverySystem"].ToString();
-                        fuelType[i] = ds.Tables[0].Rows[j]["FuelType"].ToString();
-                        ignition[i] = ds.Tables[0].Rows[j]["Ignition"].ToString();
-                        sparkPlugsPerCylinder[i] = ds.Tables[0].Rows[j]["SparkPlugsPerCylinder"].ToString();
-                        coolingSystem[i] = ds.Tables[0].Rows[j]["CoolingSystem"].ToString();
-                        gearboxType[i] = ds.Tables[0].Rows[j]["GearboxType"].ToString();
-                        noOfGears[i] = ds.Tables[0].Rows[j]["NoOfGears"].ToString();
-                        transmissionType[i] = ds.Tables[0].Rows[j]["TransmissionType"].ToString();
-                        clutch[i] = ds.Tables[0].Rows[j]["Clutch"].ToString();
-                        performance_0_60_kmph[i] = ds.Tables[0].Rows[j]["Performance_0_60_kmph"].ToString();
-                        performance_0_80_kmph[i] = ds.Tables[0].Rows[j]["Performance_0_80_kmph"].ToString();
-                        performance_0_40_m[i] = ds.Tables[0].Rows[j]["Performance_0_40_m"].ToString();
-                        topSpeed[i] = ds.Tables[0].Rows[j]["TopSpeed"].ToString();
-                        performance_60_0_kmph[i] = ds.Tables[0].Rows[j]["Performance_60_0_kmph"].ToString();
-                        performance_80_0_kmph[i] = ds.Tables[0].Rows[j]["Performance_80_0_kmph"].ToString();
-                        kerbWeight[i] = ds.Tables[0].Rows[j]["KerbWeight"].ToString();
-                        overallLength[i] = ds.Tables[0].Rows[j]["OverallLength"].ToString();
-                        overallWidth[i] = ds.Tables[0].Rows[j]["OverallWidth"].ToString();
-                        overallHeight[i] = ds.Tables[0].Rows[j]["OverallHeight"].ToString();
-                        wheelbase[i] = ds.Tables[0].Rows[j]["Wheelbase"].ToString();
-                        groundClearance[i] = ds.Tables[0].Rows[j]["GroundClearance"].ToString();
-                        seatHeight[i] = ds.Tables[0].Rows[j]["SeatHeight"].ToString();
-                        fuelTankCapacity[i] = ds.Tables[0].Rows[j]["FuelTankCapacity"].ToString();
-                        reserveFuelCapacity[i] = ds.Tables[0].Rows[j]["ReserveFuelCapacity"].ToString();
-                        fuelEfficiencyOverall[i] = ds.Tables[0].Rows[j]["FuelEfficiencyOverall"].ToString();
-                        fuelEfficiencyRange[i] = ds.Tables[0].Rows[j]["FuelEfficiencyRange"].ToString();
-                        chassisType[i] = ds.Tables[0].Rows[j]["ChassisType"].ToString();
-                        frontSuspension[i] = ds.Tables[0].Rows[j]["FrontSuspension"].ToString();
-                        rearSuspension[i] = ds.Tables[0].Rows[j]["RearSuspension"].ToString();
-                        brakeType[i] = ds.Tables[0].Rows[j]["BrakeType"].ToString();
-                        frontDisc[i] = ds.Tables[0].Rows[j]["FrontDisc"].ToString();
-                        frontDisc_DrumSize[i] = ds.Tables[0].Rows[j]["FrontDisc_DrumSize"].ToString();
-                        rearDisc[i] = ds.Tables[0].Rows[j]["RearDisc"].ToString();
-                        rearDisc_DrumSize[i] = ds.Tables[0].Rows[j]["RearDisc_DrumSize"].ToString();
-                        calliperType[i] = ds.Tables[0].Rows[j]["CalliperType"].ToString();
-                        wheelSize[i] = ds.Tables[0].Rows[j]["WheelSize"].ToString();
-                        frontTyre[i] = ds.Tables[0].Rows[j]["FrontTyre"].ToString();
-                        rearTyre[i] = ds.Tables[0].Rows[j]["RearTyre"].ToString();
-                        tubelessTyres[i] = ds.Tables[0].Rows[j]["TubelessTyres"].ToString();
-                        radialTyres[i] = ds.Tables[0].Rows[j]["RadialTyres"].ToString();
-                        alloyWheels[i] = ds.Tables[0].Rows[j]["AlloyWheels"].ToString();
-                        electricSystem[i] = ds.Tables[0].Rows[j]["ElectricSystem"].ToString();
-                        battery[i] = ds.Tables[0].Rows[j]["Battery"].ToString();
-                        headlightType[i] = ds.Tables[0].Rows[j]["HeadlightType"].ToString();
-                        headlightBulbType[i] = ds.Tables[0].Rows[j]["HeadlightBulbType"].ToString();
-                        brake_Tail_Light[i] = ds.Tables[0].Rows[j]["Brake_Tail_Light"].ToString();
-                        turnSignal[i] = ds.Tables[0].Rows[j]["TurnSignal"].ToString();
-                        passLight[i] = ds.Tables[0].Rows[j]["PassLight"].ToString();
-                    }
+            //            //if (ds.Tables[0].Rows[j]["Price"].ToString() != "")
+            //            //{
+            //            //loan[i] = (int.Parse(ds.Tables[0].Rows[j]["Price"].ToString()) * 0.8).ToString();
+            //            //emi[i] = CommonOpn.FormatNumeric(CommonOpn.GetEMI(int.Parse(ds.Tables[0].Rows[j]["Price"].ToString())));
+            //            //}
 
-                    Trace.Warn("price : " + price[0] + "," + price[1]);
-                }
-            }
-            catch (SqlException err)
-            {
-                Trace.Warn("errrrrrr::: " + err.Message);
-                Exception ex = new Exception(err.Message + "---- versions ----- " + versions);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception err)
-            {
-                Trace.Warn("errrrrrr::: " + err.Message);
-                Exception ex = new Exception(err.Message + "---- versions ----- " + versions);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
-            HttpContext.Current.Trace.Warn("title : ", title);
-            try
-            {
-                int hideStart = arrSize;
-                HttpContext.Current.Trace.Warn("title : ", title);
-                for (int i = 0; i < arrSize; i++)
-                {
-                    if (bike[i] != null)
-                    {
-                        if (featuredBikeIndex != i)
-                        {
-                            title += bike[i] + " vs ";
-                            youHere += "bike" + (i + 1).ToString() + "=" + versionId[i] + "&";
-                        }
-                    }
-                    else
-                    {
-                        if (hideStart == arrSize) hideStart = i;
-                    }
-                }
+            //            displacement[i] = ds.Tables[0].Rows[j]["Displacement"].ToString();
+            //            cylinders[i] = ds.Tables[0].Rows[j]["Cylinders"].ToString();
+            //            maxPower[i] = ds.Tables[0].Rows[j]["MaxPower"].ToString();
+            //            maximumTorque[i] = ds.Tables[0].Rows[j]["MaximumTorque"].ToString();
+            //            bore[i] = ds.Tables[0].Rows[j]["Bore"].ToString();
+            //            stroke[i] = ds.Tables[0].Rows[j]["Stroke"].ToString();
+            //            valvesPerCylinder[i] = ds.Tables[0].Rows[j]["ValvesPerCylinder"].ToString();
+            //            fuelDeliverySystem[i] = ds.Tables[0].Rows[j]["FuelDeliverySystem"].ToString();
+            //            fuelType[i] = ds.Tables[0].Rows[j]["FuelType"].ToString();
+            //            ignition[i] = ds.Tables[0].Rows[j]["Ignition"].ToString();
+            //            sparkPlugsPerCylinder[i] = ds.Tables[0].Rows[j]["SparkPlugsPerCylinder"].ToString();
+            //            coolingSystem[i] = ds.Tables[0].Rows[j]["CoolingSystem"].ToString();
+            //            gearboxType[i] = ds.Tables[0].Rows[j]["GearboxType"].ToString();
+            //            noOfGears[i] = ds.Tables[0].Rows[j]["NoOfGears"].ToString();
+            //            transmissionType[i] = ds.Tables[0].Rows[j]["TransmissionType"].ToString();
+            //            clutch[i] = ds.Tables[0].Rows[j]["Clutch"].ToString();
+            //            performance_0_60_kmph[i] = ds.Tables[0].Rows[j]["Performance_0_60_kmph"].ToString();
+            //            performance_0_80_kmph[i] = ds.Tables[0].Rows[j]["Performance_0_80_kmph"].ToString();
+            //            performance_0_40_m[i] = ds.Tables[0].Rows[j]["Performance_0_40_m"].ToString();
+            //            topSpeed[i] = ds.Tables[0].Rows[j]["TopSpeed"].ToString();
+            //            performance_60_0_kmph[i] = ds.Tables[0].Rows[j]["Performance_60_0_kmph"].ToString();
+            //            performance_80_0_kmph[i] = ds.Tables[0].Rows[j]["Performance_80_0_kmph"].ToString();
+            //            kerbWeight[i] = ds.Tables[0].Rows[j]["KerbWeight"].ToString();
+            //            overallLength[i] = ds.Tables[0].Rows[j]["OverallLength"].ToString();
+            //            overallWidth[i] = ds.Tables[0].Rows[j]["OverallWidth"].ToString();
+            //            overallHeight[i] = ds.Tables[0].Rows[j]["OverallHeight"].ToString();
+            //            wheelbase[i] = ds.Tables[0].Rows[j]["Wheelbase"].ToString();
+            //            groundClearance[i] = ds.Tables[0].Rows[j]["GroundClearance"].ToString();
+            //            seatHeight[i] = ds.Tables[0].Rows[j]["SeatHeight"].ToString();
+            //            fuelTankCapacity[i] = ds.Tables[0].Rows[j]["FuelTankCapacity"].ToString();
+            //            reserveFuelCapacity[i] = ds.Tables[0].Rows[j]["ReserveFuelCapacity"].ToString();
+            //            fuelEfficiencyOverall[i] = ds.Tables[0].Rows[j]["FuelEfficiencyOverall"].ToString();
+            //            fuelEfficiencyRange[i] = ds.Tables[0].Rows[j]["FuelEfficiencyRange"].ToString();
+            //            chassisType[i] = ds.Tables[0].Rows[j]["ChassisType"].ToString();
+            //            frontSuspension[i] = ds.Tables[0].Rows[j]["FrontSuspension"].ToString();
+            //            rearSuspension[i] = ds.Tables[0].Rows[j]["RearSuspension"].ToString();
+            //            brakeType[i] = ds.Tables[0].Rows[j]["BrakeType"].ToString();
+            //            frontDisc[i] = ds.Tables[0].Rows[j]["FrontDisc"].ToString();
+            //            frontDisc_DrumSize[i] = ds.Tables[0].Rows[j]["FrontDisc_DrumSize"].ToString();
+            //            rearDisc[i] = ds.Tables[0].Rows[j]["RearDisc"].ToString();
+            //            rearDisc_DrumSize[i] = ds.Tables[0].Rows[j]["RearDisc_DrumSize"].ToString();
+            //            calliperType[i] = ds.Tables[0].Rows[j]["CalliperType"].ToString();
+            //            wheelSize[i] = ds.Tables[0].Rows[j]["WheelSize"].ToString();
+            //            frontTyre[i] = ds.Tables[0].Rows[j]["FrontTyre"].ToString();
+            //            rearTyre[i] = ds.Tables[0].Rows[j]["RearTyre"].ToString();
+            //            tubelessTyres[i] = ds.Tables[0].Rows[j]["TubelessTyres"].ToString();
+            //            radialTyres[i] = ds.Tables[0].Rows[j]["RadialTyres"].ToString();
+            //            alloyWheels[i] = ds.Tables[0].Rows[j]["AlloyWheels"].ToString();
+            //            electricSystem[i] = ds.Tables[0].Rows[j]["ElectricSystem"].ToString();
+            //            battery[i] = ds.Tables[0].Rows[j]["Battery"].ToString();
+            //            headlightType[i] = ds.Tables[0].Rows[j]["HeadlightType"].ToString();
+            //            headlightBulbType[i] = ds.Tables[0].Rows[j]["HeadlightBulbType"].ToString();
+            //            brake_Tail_Light[i] = ds.Tables[0].Rows[j]["Brake_Tail_Light"].ToString();
+            //            turnSignal[i] = ds.Tables[0].Rows[j]["TurnSignal"].ToString();
+            //            passLight[i] = ds.Tables[0].Rows[j]["PassLight"].ToString();
+            //        }
 
-                HideComparison(hideStart); // Hide unwanted colmuns! 
+            //        Trace.Warn("price : " + price[0] + "," + price[1]);
+            //    }
+            //}
+            //catch (SqlException err)
+            //{
+            //    Trace.Warn("errrrrrr::: " + err.Message);
+            //    Exception ex = new Exception(err.Message + "---- versions ----- " + versions);
+            //    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception err)
+            //{
+            //    Trace.Warn("errrrrrr::: " + err.Message);
+            //    Exception ex = new Exception(err.Message + "---- versions ----- " + versions);
+            //    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
+            //HttpContext.Current.Trace.Warn("title : ", title);
+            //try
+            //{
+            //    int hideStart = arrSize;
+            //    HttpContext.Current.Trace.Warn("title : ", title);
+            //    for (int i = 0; i < arrSize; i++)
+            //    {
+            //        if (bike[i] != null)
+            //        {
+            //            if (featuredBikeIndex != i)
+            //            {
+            //                title += bike[i] + " vs ";
+            //                youHere += "bike" + (i + 1).ToString() + "=" + versionId[i] + "&";
+            //            }
+            //        }
+            //        else
+            //        {
+            //            if (hideStart == arrSize) hideStart = i;
+            //        }
+            //    }
 
-                if (title.Length > 2)
-                    title = title.Substring(0, title.Length - 3); // format title. remove extra vs from end.
+            //    HideComparison(hideStart); // Hide unwanted colmuns! 
 
-                HttpContext.Current.Trace.Warn("titlejgjdsf : ", title);
+            //    if (title.Length > 2)
+            //        title = title.Substring(0, title.Length - 3); // format title. remove extra vs from end.
 
-                if (youHere.Length > 0)
-                    youHere = youHere.Substring(0, youHere.Length - 1); // format you are here link. remove extra & from end.
-            }
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message);
-                Exception ex = new Exception(err.Message + "---- versions ----- " + versions);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+            //    HttpContext.Current.Trace.Warn("titlejgjdsf : ", title);
+
+            //    if (youHere.Length > 0)
+            //        youHere = youHere.Substring(0, youHere.Length - 1); // format you are here link. remove extra & from end.
+            //}
+            //catch (Exception err)
+            //{
+            //    Trace.Warn(err.Message);
+            //    Exception ex = new Exception(err.Message + "---- versions ----- " + versions);
+            //    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
         }   // End of FillComparisonData method
 		
         //void FillComparisonData( string versions )
@@ -737,95 +739,97 @@ namespace Bikewale.New
 
         protected void GetFeatures()
         {
-            Database db = null;
-            DataSet ds = null;
+            throw new Exception("Method not used/commented");
 
-            try 
-            {
-                db = new Database();
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.CommandText = "GetBikeComparisonDetails";
-                    cmd.CommandType = CommandType.StoredProcedure;
+            //Database db = null;
+            //DataSet ds = null;
 
-                    cmd.Parameters.Add("@condition", SqlDbType.VarChar, 25).Value = "Features";
-                    cmd.Parameters.Add("@BikeVersions", SqlDbType.VarChar, 20).Value = versions;
-                    cmd.Parameters.Add("@CityId", SqlDbType.VarChar, 20).Value = Configuration.GetDefaultCityId;
+            //try 
+            //{
+            //    db = new Database();
+            //    using (SqlCommand cmd = new SqlCommand())
+            //    {
+            //        cmd.CommandText = "GetBikeComparisonDetails";
+            //        cmd.CommandType = CommandType.StoredProcedure;
 
-                    ds = db.SelectAdaptQry(cmd);
+            //        cmd.Parameters.Add("@condition", SqlDbType.VarChar, 25).Value = "Features";
+            //        cmd.Parameters.Add("@BikeVersions", SqlDbType.VarChar, 20).Value = versions;
+            //        cmd.Parameters.Add("@CityId", SqlDbType.VarChar, 20).Value = Configuration.GetDefaultCityId;
 
-                    int i = 0;
+            //        ds = db.SelectAdaptQry(cmd);
 
-                    if (ds.Tables[0].Rows.Count > 0)
-                    {
-                        Trace.Warn("Features Data Found");
-                        for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
-                        {
-                            // get index of versionId to be displayed!
-                            i = GetVersionIndex(ds.Tables[0].Rows[j]["BikeVersionId"].ToString());
+            //        int i = 0;
 
-                            Trace.Warn("Index : " + i + "; Version : " + ds.Tables[0].Rows[j]["BikeVersionId"].ToString());
+            //        if (ds.Tables[0].Rows.Count > 0)
+            //        {
+            //            Trace.Warn("Features Data Found");
+            //            for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
+            //            {
+            //                // get index of versionId to be displayed!
+            //                i = GetVersionIndex(ds.Tables[0].Rows[j]["BikeVersionId"].ToString());
 
-                            bike[i] = ds.Tables[0].Rows[j]["Bike"].ToString();
-                            makeName[i] = ds.Tables[0].Rows[j]["Make"].ToString();
-                            modelName[i] = ds.Tables[0].Rows[j]["Model"].ToString();
-                            ModelMaskingName[i] = ds.Tables[0].Rows[j]["ModelMaskingName"].ToString();
-                            MakeMaskingName[i] = ds.Tables[0].Rows[j]["MakeMaskingName"].ToString();
-                            versionName[i] = ds.Tables[0].Rows[j]["Version"].ToString();
-                            hostURL[i] = ds.Tables[0].Rows[j]["HostURL"].ToString();
-                            leadAggregator[i] = Convert.ToBoolean(ds.Tables[0].Rows[j]["IsNew"]) == true ? ds.Tables[0].Rows[j]["BikeVersionId"].ToString() : "";
+            //                Trace.Warn("Index : " + i + "; Version : " + ds.Tables[0].Rows[j]["BikeVersionId"].ToString());
 
-                            if (ds.Tables[0].Rows[j]["Price"].ToString() != "")
-                                price[i] = CommonOpn.FormatNumeric(ds.Tables[0].Rows[j]["Price"].ToString());
+            //                bike[i] = ds.Tables[0].Rows[j]["Bike"].ToString();
+            //                makeName[i] = ds.Tables[0].Rows[j]["Make"].ToString();
+            //                modelName[i] = ds.Tables[0].Rows[j]["Model"].ToString();
+            //                ModelMaskingName[i] = ds.Tables[0].Rows[j]["ModelMaskingName"].ToString();
+            //                MakeMaskingName[i] = ds.Tables[0].Rows[j]["MakeMaskingName"].ToString();
+            //                versionName[i] = ds.Tables[0].Rows[j]["Version"].ToString();
+            //                hostURL[i] = ds.Tables[0].Rows[j]["HostURL"].ToString();
+            //                leadAggregator[i] = Convert.ToBoolean(ds.Tables[0].Rows[j]["IsNew"]) == true ? ds.Tables[0].Rows[j]["BikeVersionId"].ToString() : "";
 
-                            speedometer[i] = ds.Tables[0].Rows[j]["Speedometer"].ToString();
-                            tachometer[i] = ds.Tables[0].Rows[j]["Tachometer"].ToString();
-                            tachometerType[i] = ds.Tables[0].Rows[j]["TachometerType"].ToString();
-                            shiftLight[i] = ds.Tables[0].Rows[j]["ShiftLight"].ToString();
-                            electricStart[i] = ds.Tables[0].Rows[j]["ElectricStart"].ToString();
-                            tripmeter[i] = ds.Tables[0].Rows[j]["Tripmeter"].ToString();
-                            noOfTripmeters[i] = ds.Tables[0].Rows[j]["NoOfTripmeters"].ToString();
-                            tripmeterType[i] = ds.Tables[0].Rows[j]["TripmeterType"].ToString();
-                            lowFuelIndicator[i] = ds.Tables[0].Rows[j]["LowFuelIndicator"].ToString();
-                            lowOilIndicator[i] = ds.Tables[0].Rows[j]["LowOilIndicator"].ToString();
-                            lowBatteryIndicator[i] = ds.Tables[0].Rows[j]["LowBatteryIndicator"].ToString();
-                            fuelGauge[i] = ds.Tables[0].Rows[j]["FuelGauge"].ToString();
-                            digitalFuelGauge[i] = ds.Tables[0].Rows[j]["DigitalFuelGauge"].ToString();
-                            pillionSeat[i] = ds.Tables[0].Rows[j]["PillionSeat"].ToString();
-                            pillionFootrest[i] = ds.Tables[0].Rows[j]["PillionFootrest"].ToString();
-                            pillionBackrest[i] = ds.Tables[0].Rows[j]["PillionBackrest"].ToString();
-                            pillionGrabrail[i] = ds.Tables[0].Rows[j]["PillionGrabrail"].ToString();
-                            standAlarm[i] = ds.Tables[0].Rows[j]["StandAlarm"].ToString();
+            //                if (ds.Tables[0].Rows[j]["Price"].ToString() != "")
+            //                    price[i] = CommonOpn.FormatNumeric(ds.Tables[0].Rows[j]["Price"].ToString());
 
-                            steppedSeat[i] = ds.Tables[0].Rows[j]["SteppedSeat"].ToString();
-                            antilockBrakingSystem[i] = ds.Tables[0].Rows[j]["AntilockBrakingSystem"].ToString();
-                            killswitch[i] = ds.Tables[0].Rows[j]["Killswitch"].ToString();
-                            clock[i] = ds.Tables[0].Rows[j]["Clock"].ToString();
-                            colors[i] = ds.Tables[0].Rows[j]["Colors"].ToString();
+            //                speedometer[i] = ds.Tables[0].Rows[j]["Speedometer"].ToString();
+            //                tachometer[i] = ds.Tables[0].Rows[j]["Tachometer"].ToString();
+            //                tachometerType[i] = ds.Tables[0].Rows[j]["TachometerType"].ToString();
+            //                shiftLight[i] = ds.Tables[0].Rows[j]["ShiftLight"].ToString();
+            //                electricStart[i] = ds.Tables[0].Rows[j]["ElectricStart"].ToString();
+            //                tripmeter[i] = ds.Tables[0].Rows[j]["Tripmeter"].ToString();
+            //                noOfTripmeters[i] = ds.Tables[0].Rows[j]["NoOfTripmeters"].ToString();
+            //                tripmeterType[i] = ds.Tables[0].Rows[j]["TripmeterType"].ToString();
+            //                lowFuelIndicator[i] = ds.Tables[0].Rows[j]["LowFuelIndicator"].ToString();
+            //                lowOilIndicator[i] = ds.Tables[0].Rows[j]["LowOilIndicator"].ToString();
+            //                lowBatteryIndicator[i] = ds.Tables[0].Rows[j]["LowBatteryIndicator"].ToString();
+            //                fuelGauge[i] = ds.Tables[0].Rows[j]["FuelGauge"].ToString();
+            //                digitalFuelGauge[i] = ds.Tables[0].Rows[j]["DigitalFuelGauge"].ToString();
+            //                pillionSeat[i] = ds.Tables[0].Rows[j]["PillionSeat"].ToString();
+            //                pillionFootrest[i] = ds.Tables[0].Rows[j]["PillionFootrest"].ToString();
+            //                pillionBackrest[i] = ds.Tables[0].Rows[j]["PillionBackrest"].ToString();
+            //                pillionGrabrail[i] = ds.Tables[0].Rows[j]["PillionGrabrail"].ToString();
+            //                standAlarm[i] = ds.Tables[0].Rows[j]["StandAlarm"].ToString();
 
-                            Trace.Warn("speedometer : ", speedometer[i]);
-                        }
-                    }
-                }
-            }
-            catch (SqlException err)
-            {
-                Trace.Warn(err.Message);
-                Exception ex = new Exception(err.Message + "---- versions ----- " + versions);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message);
-                Exception ex = new Exception(err.Message + "---- versions ----- " + versions);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
+            //                steppedSeat[i] = ds.Tables[0].Rows[j]["SteppedSeat"].ToString();
+            //                antilockBrakingSystem[i] = ds.Tables[0].Rows[j]["AntilockBrakingSystem"].ToString();
+            //                killswitch[i] = ds.Tables[0].Rows[j]["Killswitch"].ToString();
+            //                clock[i] = ds.Tables[0].Rows[j]["Clock"].ToString();
+            //                colors[i] = ds.Tables[0].Rows[j]["Colors"].ToString();
+
+            //                Trace.Warn("speedometer : ", speedometer[i]);
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (SqlException err)
+            //{
+            //    Trace.Warn(err.Message);
+            //    Exception ex = new Exception(err.Message + "---- versions ----- " + versions);
+            //    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception err)
+            //{
+            //    Trace.Warn(err.Message);
+            //    Exception ex = new Exception(err.Message + "---- versions ----- " + versions);
+            //    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
         }   // End of GetFeaures method
 
         protected string ShowFormatedData(string value)
@@ -909,39 +913,41 @@ namespace Bikewale.New
 		}
 		
 		public void GetColors()
-		{
-            Database db = null;
-            SqlCommand cmd = null;
-            //DataSet ds = null;
+        {
+            throw new Exception("Method not used/commented");
+
+            //Database db = null;
+            //SqlCommand cmd = null;
+            ////DataSet ds = null;
             
-            try
-            {
-                db = new Database();
-                cmd = new SqlCommand();
+            //try
+            //{
+            //    db = new Database();
+            //    cmd = new SqlCommand();
 
-                cmd.CommandText = "GetBikeComparisonDetails";
-                cmd.CommandType = CommandType.StoredProcedure;
+            //    cmd.CommandText = "GetBikeComparisonDetails";
+            //    cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.Add("@condition", SqlDbType.VarChar, 25).Value = "Colors";
-                cmd.Parameters.Add("@BikeVersions", SqlDbType.VarChar, 20).Value = versions;
-                cmd.Parameters.Add("@CityId", SqlDbType.VarChar, 20).Value = Configuration.GetDefaultCityId;
+            //    cmd.Parameters.Add("@condition", SqlDbType.VarChar, 25).Value = "Colors";
+            //    cmd.Parameters.Add("@BikeVersions", SqlDbType.VarChar, 20).Value = versions;
+            //    cmd.Parameters.Add("@CityId", SqlDbType.VarChar, 20).Value = Configuration.GetDefaultCityId;
 
-                dsColors = db.SelectAdaptQry(cmd);
-            }
-            catch (SqlException err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
+            //    dsColors = db.SelectAdaptQry(cmd);
+            //}
+            //catch (SqlException err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
 		}
 
         /// <summary>
@@ -1019,123 +1025,127 @@ namespace Bikewale.New
 //		}
 		
 		public string GetModelRatings(string versionId)
-		{
-			string sql = "";
+        {
+            throw new Exception("Method not used/commented");
 
-            sql = " SELECT (SELECT MaskingName FROM BikeMakes With(NoLock) WHERE ID = MO.BikeMakeId) AS MakeMaskingName, MO.ID as ModelId, MO.Name AS ModelName,MO.MaskingName AS ModelMaskingName, IsNull(MO.ReviewRate, 0) AS ModelRate, IsNull(MO.ReviewCount, 0) AS ModelTotal, "
-				+ " IsNull(CV.ReviewRate, 0) AS VersionRate, IsNull(CV.ReviewCount, 0) AS VersionTotal "
-                + " FROM BikeModels AS MO, BikeVersions AS CV With(NoLock) WHERE CV.ID = @ID AND MO.ID = CV.BikeModelId ";
+            //string sql = "";
+
+            //sql = " SELECT (SELECT MaskingName FROM BikeMakes With(NoLock) WHERE ID = MO.BikeMakeId) AS MakeMaskingName, MO.ID as ModelId, MO.Name AS ModelName,MO.MaskingName AS ModelMaskingName, IsNull(MO.ReviewRate, 0) AS ModelRate, IsNull(MO.ReviewCount, 0) AS ModelTotal, "
+            //    + " IsNull(CV.ReviewRate, 0) AS VersionRate, IsNull(CV.ReviewCount, 0) AS VersionTotal "
+            //    + " FROM BikeModels AS MO, BikeVersions AS CV With(NoLock) WHERE CV.ID = @ID AND MO.ID = CV.BikeModelId ";
 			
-			SqlCommand cmd =  new SqlCommand(sql);
-			cmd.Parameters.Add("@ID", SqlDbType.BigInt).Value = versionId;
+            //SqlCommand cmd =  new SqlCommand(sql);
+            //cmd.Parameters.Add("@ID", SqlDbType.BigInt).Value = versionId;
 			
-			SqlDataReader dr = null;
-			Database db = new Database();
+            //SqlDataReader dr = null;
+            //Database db = new Database();
 			
-			string reviewString = "";
+            //string reviewString = "";
 
-            try
-            {
-                dr = db.SelectQry(cmd);
+            //try
+            //{
+            //    dr = db.SelectQry(cmd);
 
-                while (dr.Read())
-                {
-                    if (Convert.ToDouble(dr["ModelRate"]) > 0)
-                    {
-                        string reviews = Convert.ToDouble(dr["ModelTotal"]) > 1 ? " reviews" : " review";
-                        //reviewString += "<div align='center'>" + CommonOpn.GetRateImage(Convert.ToDouble(dr["ModelRate"].ToString())) + "</div>"
-                        //									 + " <div style='margin-top:10px;' align='center'><a href='/Research/ReadUserReviews-Bikem-"+ dr["ModelId"].ToString() +".html'>"+ dr["ModelTotal"].ToString() + reviews +" </a></div>";
-                        reviewString += "<div>" + CommonOpn.GetRateImage(Convert.ToDouble(dr["ModelRate"].ToString())) + "</div>"
-                                     + " <div style='margin-top:5px;'><a href='/" + dr["MakeMaskingName"].ToString() + "-bikes/" +dr["ModelMaskingName"].ToString() + "/user-reviews/'>" + dr["ModelTotal"].ToString() + reviews + " </a></div>";
+            //    while (dr.Read())
+            //    {
+            //        if (Convert.ToDouble(dr["ModelRate"]) > 0)
+            //        {
+            //            string reviews = Convert.ToDouble(dr["ModelTotal"]) > 1 ? " reviews" : " review";
+            //            //reviewString += "<div align='center'>" + CommonOpn.GetRateImage(Convert.ToDouble(dr["ModelRate"].ToString())) + "</div>"
+            //            //									 + " <div style='margin-top:10px;' align='center'><a href='/Research/ReadUserReviews-Bikem-"+ dr["ModelId"].ToString() +".html'>"+ dr["ModelTotal"].ToString() + reviews +" </a></div>";
+            //            reviewString += "<div>" + CommonOpn.GetRateImage(Convert.ToDouble(dr["ModelRate"].ToString())) + "</div>"
+            //                         + " <div style='margin-top:5px;'><a href='/" + dr["MakeMaskingName"].ToString() + "-bikes/" +dr["ModelMaskingName"].ToString() + "/user-reviews/'>" + dr["ModelTotal"].ToString() + reviews + " </a></div>";
 
-                    }
-                    else
-                        reviewString = "<div style='margin-top:10px;'><a href='/content/userreviews/writereviews.aspx?bikem=" + dr["ModelId"].ToString() + "'>Write a review</a></div>";
-                }
-            }
-            catch (SqlException err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally 
-            {
-                if (dr != null)
-                {
-                    dr.Close();
-                }
-                db.CloseConnection();
-            }
-			return reviewString;
+            //        }
+            //        else
+            //            reviewString = "<div style='margin-top:10px;'><a href='/content/userreviews/writereviews.aspx?bikem=" + dr["ModelId"].ToString() + "'>Write a review</a></div>";
+            //    }
+            //}
+            //catch (SqlException err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally 
+            //{
+            //    if (dr != null)
+            //    {
+            //        dr.Close();
+            //    }
+            //    db.CloseConnection();
+            //}
+            //return reviewString;
 		}
 		
 		public string GetAllFeatures(string versionId)
-		{
-			string sql = "";
+        {
+            throw new Exception("Method not used/commented");
+
+            //string sql = "";
 						
-			sql = " SELECT NC.Id AS CategoryId, NC.Name As Category "
-                + " FROM NewBikeFeatureCategories NC With(NoLock) WHERE NC.Id IN "
-                + " (SELECT DISTINCT CategoryId FROM NewBikeFeatures NF, NewBikeFeatureItems NI With(NoLock) "
-				+ " WHERE NF.FeatureItemId=NI.Id AND BikeVersionId=@BikeVersionId )";
+            //sql = " SELECT NC.Id AS CategoryId, NC.Name As Category "
+            //    + " FROM NewBikeFeatureCategories NC With(NoLock) WHERE NC.Id IN "
+            //    + " (SELECT DISTINCT CategoryId FROM NewBikeFeatures NF, NewBikeFeatureItems NI With(NoLock) "
+            //    + " WHERE NF.FeatureItemId=NI.Id AND BikeVersionId=@BikeVersionId )";
 			
-			SqlCommand cmd =  new SqlCommand(sql);
-			cmd.Parameters.Add("@BikeVersionId", SqlDbType.BigInt).Value = versionId;
+            //SqlCommand cmd =  new SqlCommand(sql);
+            //cmd.Parameters.Add("@BikeVersionId", SqlDbType.BigInt).Value = versionId;
 			
 		
-			DataSet dsCt = new DataSet();
-			DataSet dsF = new DataSet();
-			Database db = new Database();
+            //DataSet dsCt = new DataSet();
+            //DataSet dsF = new DataSet();
+            //Database db = new Database();
 			
-			string prepareStr = "";
+            //string prepareStr = "";
 			
-			try
-			{
-				dsCt = db.SelectAdaptQry(cmd);
+            //try
+            //{
+            //    dsCt = db.SelectAdaptQry(cmd);
 
-                sql = " SELECT NI.ID, NI.Name Feature, CategoryId FROM NewBikeFeatures NF, NewBikeFeatureItems NI With(NoLock) "
-					+ " WHERE NF.FeatureItemId=NI.Id AND BikeVersionId=@BikeVersionId";
+            //    sql = " SELECT NI.ID, NI.Name Feature, CategoryId FROM NewBikeFeatures NF, NewBikeFeatureItems NI With(NoLock) "
+            //        + " WHERE NF.FeatureItemId=NI.Id AND BikeVersionId=@BikeVersionId";
 				
-				SqlCommand cmd1 =  new SqlCommand(sql);
-				cmd1.Parameters.Add("@BikeVersionId", SqlDbType.BigInt).Value = versionId;
+            //    SqlCommand cmd1 =  new SqlCommand(sql);
+            //    cmd1.Parameters.Add("@BikeVersionId", SqlDbType.BigInt).Value = versionId;
 			
-				dsF = db.SelectAdaptQry(cmd1);
+            //    dsF = db.SelectAdaptQry(cmd1);
 				
-				foreach( DataRow row in dsCt.Tables[0].Rows )
-				{
-					prepareStr += "<br><h2>" + row["Category"].ToString() + "</h2>";
+            //    foreach( DataRow row in dsCt.Tables[0].Rows )
+            //    {
+            //        prepareStr += "<br><h2>" + row["Category"].ToString() + "</h2>";
 					
-					if( dsF.Tables[0].Rows.Count > 0 )
-					{
-						DataTable dtFeatures = dsF.Tables[0];
-						DataRow[] rowFeatures = dtFeatures.Select( "CategoryId = "+  row["CategoryId"].ToString() );
+            //        if( dsF.Tables[0].Rows.Count > 0 )
+            //        {
+            //            DataTable dtFeatures = dsF.Tables[0];
+            //            DataRow[] rowFeatures = dtFeatures.Select( "CategoryId = "+  row["CategoryId"].ToString() );
 						
-						if( rowFeatures.Length > 0 )
-						{
-							prepareStr += "<ul class=\"normal\">";
+            //            if( rowFeatures.Length > 0 )
+            //            {
+            //                prepareStr += "<ul class=\"normal\">";
 							
-							for( int i = 0; i < rowFeatures.Length; i++ )
-							{
-								prepareStr += "<li>" + rowFeatures[i]["Feature"].ToString() + "</li>";
-							}
+            //                for( int i = 0; i < rowFeatures.Length; i++ )
+            //                {
+            //                    prepareStr += "<li>" + rowFeatures[i]["Feature"].ToString() + "</li>";
+            //                }
 							
-							prepareStr += "</ul>";
-						}
-					}//if
-				}//foeeach
-			}
-			catch ( SqlException err )
-			{
-				Trace.Warn(err.Message);
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
+            //                prepareStr += "</ul>";
+            //            }
+            //        }//if
+            //    }//foeeach
+            //}
+            //catch ( SqlException err )
+            //{
+            //    Trace.Warn(err.Message);
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
 			
-			return prepareStr;
+            //return prepareStr;
 		}
 		
         //protected void GoogleKeywords(string versions)

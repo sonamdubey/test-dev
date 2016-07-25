@@ -19,193 +19,197 @@ namespace Bikewale.Community.PMS
 		
 		public string ComposeMessage(string convId, string receiverId, string subject, string message, string isDraft, string status)
 		{
-			
-			SqlConnection con;
-			SqlCommand cmd;
-			SqlParameter prm;
-			Database db = new Database();
-			CommonOpn op = new CommonOpn();
+			 throw new Exception("Method not used/commented");
+            //SqlConnection con;
+            //SqlCommand cmd;
+            //SqlParameter prm;
+            //Database db = new Database();
+            //CommonOpn op = new CommonOpn();
 						
-			conStr = db.GetConString();
+            //conStr = db.GetConString();
 			
-			con = new SqlConnection( conStr );
+            //con = new SqlConnection( conStr );
 			
-			cmd = new SqlCommand("PM_ComposeMessage", con);
-			cmd.CommandType = CommandType.StoredProcedure;
+            //cmd = new SqlCommand("PM_ComposeMessage", con);
+            //cmd.CommandType = CommandType.StoredProcedure;
 		
-			prm = cmd.Parameters.Add("@ConversationId", SqlDbType.BigInt);
-			prm.Value = convId;
+            //prm = cmd.Parameters.Add("@ConversationId", SqlDbType.BigInt);
+            //prm.Value = convId;
 
-			prm = cmd.Parameters.Add("@SenderId", SqlDbType.BigInt);
-			prm.Value = CurrentUser.Id;
+            //prm = cmd.Parameters.Add("@SenderId", SqlDbType.BigInt);
+            //prm.Value = CurrentUser.Id;
 			
-			prm = cmd.Parameters.Add("@ReceiverId", SqlDbType.BigInt);
-			prm.Value = receiverId != "" ? receiverId : "";
-			HttpContext.Current.Trace.Warn("ReceiverId=" + prm.Value);			
+            //prm = cmd.Parameters.Add("@ReceiverId", SqlDbType.BigInt);
+            //prm.Value = receiverId != "" ? receiverId : "";
+            //HttpContext.Current.Trace.Warn("ReceiverId=" + prm.Value);			
 											
-			prm = cmd.Parameters.Add("@Subject", SqlDbType.VarChar, 100);
-			prm.Value = subject != "" ? subject : Convert.DBNull;
-			HttpContext.Current.Trace.Warn("Subject=" + prm.Value);			
+            //prm = cmd.Parameters.Add("@Subject", SqlDbType.VarChar, 100);
+            //prm.Value = subject != "" ? subject : Convert.DBNull;
+            //HttpContext.Current.Trace.Warn("Subject=" + prm.Value);			
 							
-			prm = cmd.Parameters.Add("@Message", SqlDbType.VarChar, 2000);
-			prm.Value = message;
-			HttpContext.Current.Trace.Warn("Message=" + prm.Value);			
+            //prm = cmd.Parameters.Add("@Message", SqlDbType.VarChar, 2000);
+            //prm.Value = message;
+            //HttpContext.Current.Trace.Warn("Message=" + prm.Value);			
 
-			prm = cmd.Parameters.Add("@IsDraft", SqlDbType.Bit);
-			prm.Value = isDraft != "" ? Convert.ToInt32(isDraft) : 0;
-			HttpContext.Current.Trace.Warn("IsDraft=" + prm.Value);			
+            //prm = cmd.Parameters.Add("@IsDraft", SqlDbType.Bit);
+            //prm.Value = isDraft != "" ? Convert.ToInt32(isDraft) : 0;
+            //HttpContext.Current.Trace.Warn("IsDraft=" + prm.Value);			
 
-			prm = cmd.Parameters.Add("@Status", SqlDbType.VarChar, 5);
-			prm.Value =  status != "" ? status : "";
-			HttpContext.Current.Trace.Warn("Status=" + prm.Value);			
+            //prm = cmd.Parameters.Add("@Status", SqlDbType.VarChar, 5);
+            //prm.Value =  status != "" ? status : "";
+            //HttpContext.Current.Trace.Warn("Status=" + prm.Value);			
 			
-			prm = cmd.Parameters.Add("@CreatedBy", SqlDbType.BigInt);
-			prm.Value = CurrentUser.Id;
+            //prm = cmd.Parameters.Add("@CreatedBy", SqlDbType.BigInt);
+            //prm.Value = CurrentUser.Id;
 
-			prm = cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime);
-			prm.Value = DateTime.Now;
+            //prm = cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime);
+            //prm.Value = DateTime.Now;
 			
-			prm = cmd.Parameters.Add("@RetInboxID", SqlDbType.BigInt);
-			prm.Direction = ParameterDirection.Output;
-            Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);	
-			try
-			{		
-				con.Open();
-				//run the command
-				cmd.ExecuteNonQuery();
+            //prm = cmd.Parameters.Add("@RetInboxID", SqlDbType.BigInt);
+            //prm.Direction = ParameterDirection.Output;
+            //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);	
+            //try
+            //{		
+            //    con.Open();
+            //    //run the command
+            //    cmd.ExecuteNonQuery();
 				
-				retId = cmd.Parameters[ "@RetInboxID" ].Value.ToString();
-				HttpContext.Current.Trace.Warn("retId =" + retId);
+            //    retId = cmd.Parameters[ "@RetInboxID" ].Value.ToString();
+            //    HttpContext.Current.Trace.Warn("retId =" + retId);
 
-			}
-			catch(Exception err)
-			{
-				HttpContext.Current.Trace.Warn(err.Message);
-				ErrorClass objErr = new ErrorClass(err,HttpContext.Current.Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			} // catch Exception
-			finally
-			{
-				//close the connection	
-			    if(con.State == ConnectionState.Open) con.Close();
-			}
+            //}
+            //catch(Exception err)
+            //{
+            //    HttpContext.Current.Trace.Warn(err.Message);
+            //    ErrorClass objErr = new ErrorClass(err,HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //} // catch Exception
+            //finally
+            //{
+            //    //close the connection	
+            //    if(con.State == ConnectionState.Open) con.Close();
+            //}
 			
-			return retId;
+            //return retId;
 		}
 
 		public void SaveDrafts(string convId, string subject, string message, string receiverId, string operation)
 		{
-			
-			SqlConnection con;
-			SqlCommand cmd;
-			SqlParameter prm;
-			Database db = new Database();
-			CommonOpn op = new CommonOpn();
+			throw new Exception("Method not used/commented");
+            //SqlConnection con;
+            //SqlCommand cmd;
+            //SqlParameter prm;
+            //Database db = new Database();
+            //CommonOpn op = new CommonOpn();
 						
-			conStr = db.GetConString();
+            //conStr = db.GetConString();
 			
-			con = new SqlConnection( conStr );
+            //con = new SqlConnection( conStr );
 			
-			cmd = new SqlCommand("PM_SaveDraft", con);
-			cmd.CommandType = CommandType.StoredProcedure;
+            //cmd = new SqlCommand("PM_SaveDraft", con);
+            //cmd.CommandType = CommandType.StoredProcedure;
 		
-			prm = cmd.Parameters.Add("@ConversationId", SqlDbType.BigInt);
-			prm.Value = convId;
-			HttpContext.Current.Trace.Warn("ConversationId=" + prm.Value);	
+            //prm = cmd.Parameters.Add("@ConversationId", SqlDbType.BigInt);
+            //prm.Value = convId;
+            //HttpContext.Current.Trace.Warn("ConversationId=" + prm.Value);	
 
-			prm = cmd.Parameters.Add("@Subject", SqlDbType.VarChar, 100);
-			prm.Value = subject != "" ? subject : Convert.DBNull;
-			HttpContext.Current.Trace.Warn("Subject=" + prm.Value);			
+            //prm = cmd.Parameters.Add("@Subject", SqlDbType.VarChar, 100);
+            //prm.Value = subject != "" ? subject : Convert.DBNull;
+            //HttpContext.Current.Trace.Warn("Subject=" + prm.Value);			
 							
-			prm = cmd.Parameters.Add("@Message", SqlDbType.VarChar, 2000);
-			prm.Value = message != "" ? message : Convert.DBNull;
-			HttpContext.Current.Trace.Warn("Message=" + prm.Value);	
+            //prm = cmd.Parameters.Add("@Message", SqlDbType.VarChar, 2000);
+            //prm.Value = message != "" ? message : Convert.DBNull;
+            //HttpContext.Current.Trace.Warn("Message=" + prm.Value);	
 
-			prm = cmd.Parameters.Add("@ReceiverId", SqlDbType.BigInt);
-			prm.Value = receiverId != "" ? receiverId : "";
-			HttpContext.Current.Trace.Warn("ReceiverId=" + prm.Value);			
+            //prm = cmd.Parameters.Add("@ReceiverId", SqlDbType.BigInt);
+            //prm.Value = receiverId != "" ? receiverId : "";
+            //HttpContext.Current.Trace.Warn("ReceiverId=" + prm.Value);			
 
-			prm = cmd.Parameters.Add("@Operation", SqlDbType.Bit);
-			prm.Value = operation != "" ? Convert.ToInt32(operation) : 1;
-			HttpContext.Current.Trace.Warn("Opeartion=" + prm.Value);			
+            //prm = cmd.Parameters.Add("@Operation", SqlDbType.Bit);
+            //prm.Value = operation != "" ? Convert.ToInt32(operation) : 1;
+            //HttpContext.Current.Trace.Warn("Opeartion=" + prm.Value);			
 
-			prm = cmd.Parameters.Add("@CreatedBy", SqlDbType.BigInt);
-			prm.Value = CurrentUser.Id;
-			HttpContext.Current.Trace.Warn("CreatedBy=" + prm.Value);	
+            //prm = cmd.Parameters.Add("@CreatedBy", SqlDbType.BigInt);
+            //prm.Value = CurrentUser.Id;
+            //HttpContext.Current.Trace.Warn("CreatedBy=" + prm.Value);	
 
-			prm = cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime);
-			prm.Value = DateTime.Now;
-            Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
+            //prm = cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime);
+            //prm.Value = DateTime.Now;
+           // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 						
-			try
-			{		
-				con.Open();
-				//run the command
-				cmd.ExecuteNonQuery();
+            //try
+            //{		
+            //    con.Open();
+            //    //run the command
+            //    cmd.ExecuteNonQuery();
 				
-			}
-			catch(Exception err)
-			{
-				HttpContext.Current.Trace.Warn(err.Message);
-				ErrorClass objErr = new ErrorClass(err,HttpContext.Current.Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			} // catch Exception
-			finally
-			{
-				//close the connection	
-			    if(con.State == ConnectionState.Open) con.Close();
-			}
+            //}
+            //catch(Exception err)
+            //{
+            //    HttpContext.Current.Trace.Warn(err.Message);
+            //    ErrorClass objErr = new ErrorClass(err,HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //} // catch Exception
+            //finally
+            //{
+            //    //close the connection	
+            //    if(con.State == ConnectionState.Open) con.Close();
+            //}
 			
 		}
 
 		public string GetHandleId(string handleName)
 		{
-			Database db =  new Database();
+            throw new Exception("Method not used/commented");
 
-            sql = "SELECT UserId FROM UserProfile With(NoLock) WHERE REPLACE(HandleName,'.','') = REPLACE(@HandleName,'.','')";
+            //Database db =  new Database();
 
-			HttpContext.Current.Trace.Warn("GetUserId : " + sql);
-			try
-			{
-				SqlParameter [] param = 
-				{ new SqlParameter("@HandleName",handleName) };
+            //sql = "SELECT UserId FROM UserProfile With(NoLock) WHERE REPLACE(HandleName,'.','') = REPLACE(@HandleName,'.','')";
+
+            //HttpContext.Current.Trace.Warn("GetUserId : " + sql);
+            //try
+            //{
+            //    SqlParameter [] param = 
+            //    { new SqlParameter("@HandleName",handleName) };
 				
-				retId = db.ExecuteScalar(sql,param);
-			}
-			catch(Exception err)
-			{
-				HttpContext.Current.Trace.Warn(err.Message);
-				ErrorClass objErr = new ErrorClass(err,HttpContext.Current.Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			} 
-			return retId;				
+            //    retId = db.ExecuteScalar(sql,param);
+            //}
+            //catch(Exception err)
+            //{
+            //    HttpContext.Current.Trace.Warn(err.Message);
+            //    ErrorClass objErr = new ErrorClass(err,HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //} 
+            //return retId;				
 		}	
 				
 		public string GetUserId(string emailId)
 		{
-			Database db = new Database();
+            throw new Exception("Method not used/commented");
 
-            sql = "SELECT id FROM Customers With(NoLock) WHERE email = @Email";
+            //Database db = new Database();
+
+            //sql = "SELECT id FROM Customers With(NoLock) WHERE email = @Email";
 			
-			HttpContext.Current.Trace.Warn("GETData from Customers:" + sql);
-			try
-			{		
-				SqlParameter [] param = 
-				{ new SqlParameter("@Email",emailId) };
+            //HttpContext.Current.Trace.Warn("GETData from Customers:" + sql);
+            //try
+            //{		
+            //    SqlParameter [] param = 
+            //    { new SqlParameter("@Email",emailId) };
 				
-				retId = db.ExecuteScalar(sql,param);
+            //    retId = db.ExecuteScalar(sql,param);
 				
-				if( retId == " " )
-					retId = "-1";
-			}
-			catch(Exception err)
-			{
-				HttpContext.Current.Trace.Warn(err.Message);
-				ErrorClass objErr = new ErrorClass(err,HttpContext.Current.Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			} 			
+            //    if( retId == " " )
+            //        retId = "-1";
+            //}
+            //catch(Exception err)
+            //{
+            //    HttpContext.Current.Trace.Warn(err.Message);
+            //    ErrorClass objErr = new ErrorClass(err,HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //} 			
 			
-			return retId;
+            //return retId;
 		} 
 
 		//To collect the Selected Ids
@@ -230,56 +234,61 @@ namespace Bikewale.Community.PMS
 
 		public void UpdateTable(string tableName, string columnName, string value, string selectedId)
 		{
-			Database db =  new Database();
-			SqlParameter[] param1 = null;
+           
+            throw new Exception("Method not used/commented");
+            
+            //Database db =  new Database();
+            //SqlParameter[] param1 = null;
 			
-			sql = "UPDATE " + tableName +" SET " + columnName +" = @Value WHERE "
-                + " MessageId IN (SELECT ID FROM PM_Messages With(NoLock) WHERE ConversationId IN (" + db.GetInClauseValue(selectedId, "ConversationId", out param1) + ") )";
+            //sql = "UPDATE " + tableName +" SET " + columnName +" = @Value WHERE "
+            //    + " MessageId IN (SELECT ID FROM PM_Messages With(NoLock) WHERE ConversationId IN (" + db.GetInClauseValue(selectedId, "ConversationId", out param1) + ") )";
 
-			HttpContext.Current.Trace.Warn("InActive Inbox : " + sql);
-			try
-			{
-				SqlParameter [] param2 = 
-				{ new SqlParameter("@Value",value) };
+            //HttpContext.Current.Trace.Warn("InActive Inbox : " + sql);
+            //try
+            //{
+            //    SqlParameter [] param2 = 
+            //    { new SqlParameter("@Value",value) };
 					
-				SqlParameter [] param = db.ConcatenateParams(param1, param2);
+            //    SqlParameter [] param = db.ConcatenateParams(param1, param2);
 				
-				db.UpdateQry(sql,param);
-			}
-			catch(Exception err)
-			{
-				HttpContext.Current.Trace.Warn(err.Message);
-				ErrorClass objErr = new ErrorClass(err,HttpContext.Current.Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			} 			
+            //    db.UpdateQry(sql,param);
+            //}
+            //catch(Exception err)
+            //{
+            //    HttpContext.Current.Trace.Warn(err.Message);
+            //    ErrorClass objErr = new ErrorClass(err,HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //} 			
 			
 		}
 
 		public void GeneralProcess(string tableName, string columnName, string value, string userId, string selectedId)
 		{
-			Database db =  new Database();
-			
-			SqlParameter[] param1 = null;
-			
-			sql = "UPDATE " + tableName + " SET " + columnName + " = @ColValue WHERE "
-				+ " ConversationId IN (" + db.GetInClauseValue(selectedId, "ConversationId",out param1) + ") AND UserId = @UserId";
+            throw new Exception("Method not used/commented");
 
-			HttpContext.Current.Trace.Warn("InActive Inbox : " + sql);
-			try
-			{
-				SqlParameter [] param2 = 
-				{ new SqlParameter("@ColValue",value),new SqlParameter("@UserId",userId) };
+            //Database db =  new Database();
+			
+            //SqlParameter[] param1 = null;
+			
+            //sql = "UPDATE " + tableName + " SET " + columnName + " = @ColValue WHERE "
+            //    + " ConversationId IN (" + db.GetInClauseValue(selectedId, "ConversationId",out param1) + ") AND UserId = @UserId";
+
+            //HttpContext.Current.Trace.Warn("InActive Inbox : " + sql);
+            //try
+            //{
+            //    SqlParameter [] param2 = 
+            //    { new SqlParameter("@ColValue",value),new SqlParameter("@UserId",userId) };
 				
-				SqlParameter [] param = db.ConcatenateParams(param1, param2);
+            //    SqlParameter [] param = db.ConcatenateParams(param1, param2);
 
-				db.UpdateQry(sql,param);
-			}
-			catch(Exception err)
-			{
-				HttpContext.Current.Trace.Warn(err.Message);
-				ErrorClass objErr = new ErrorClass(err,HttpContext.Current.Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			} 			
+            //    db.UpdateQry(sql,param);
+            //}
+            //catch(Exception err)
+            //{
+            //    HttpContext.Current.Trace.Warn(err.Message);
+            //    ErrorClass objErr = new ErrorClass(err,HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //} 			
 			
 		}
 /*******************************************************************************************************
@@ -287,58 +296,64 @@ namespace Bikewale.Community.PMS
 *******************************************************************************************************/
 		public string GetPMCheckUser(string conv,string username)
 		{
-			Database db =  new Database();
+            throw new Exception("Method not used/commented");
 
-            sql = "SELECT ID FROM PM_ConversationDetails With(NoLock) WHERE ConversationId = @ConversationId AND UserId = @UserId";
+            //Database db =  new Database();
+
+            //sql = "SELECT ID FROM PM_ConversationDetails With(NoLock) WHERE ConversationId = @ConversationId AND UserId = @UserId";
 			
-			HttpContext.Current.Trace.Warn("SQL CheckUser : " + sql );
+            //HttpContext.Current.Trace.Warn("SQL CheckUser : " + sql );
 			
-			try
-			{
-				//passing parameters
-				SqlParameter[] param = 
-				{ 	
-					new SqlParameter("@UserId", username),
-					new SqlParameter("@ConversationId", conv)
-				};
+            //try
+            //{
+            //    //passing parameters
+            //    SqlParameter[] param = 
+            //    { 	
+            //        new SqlParameter("@UserId", username),
+            //        new SqlParameter("@ConversationId", conv)
+            //    };
 								
-				retId = db.ExecuteScalar(sql,param);
-			}
-			catch(Exception ex)
-			{
-				HttpContext.Current.Trace.Warn(ex.Message + ex.Source);				
-				ErrorClass objErr = new ErrorClass(ex,HttpContext.Current.Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
-			return retId;
+            //    retId = db.ExecuteScalar(sql,param);
+            //}
+            //catch(Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);				
+            //    ErrorClass objErr = new ErrorClass(ex,HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //return retId;
 		}	
 /*******************************************************************************************************
 		Used to get the count the number of posts
 *******************************************************************************************************/
-		public string GetPMCheckPost(string userid)
-		{
-			Database db =  new Database();
+		public string GetPMCheckPost(string userid)          
 
-            sql = "SELECT COUNT(FT1.ID) AS Posts FROM ForumThreads FT1, Forums F With(NoLock) WHERE F.Id=FT1.ForumId " 
-		 		+ " AND FT1.IsActive=1 AND F.IsActive=1 AND FT1.CustomerId = @UserId";
+		{
+            throw new Exception("Method not used/commented");
+
+
+            //Database db =  new Database();
+
+            //sql = "SELECT COUNT(FT1.ID) AS Posts FROM ForumThreads FT1, Forums F With(NoLock) WHERE F.Id=FT1.ForumId " 
+            //    + " AND FT1.IsActive=1 AND F.IsActive=1 AND FT1.CustomerId = @UserId";
 			
-			HttpContext.Current.Trace.Warn("SQL Number of Posts : " + sql );
+            //HttpContext.Current.Trace.Warn("SQL Number of Posts : " + sql );
 			
-			try
-			{
-				//passing parameters
-				SqlParameter[] param = 
-				{ 	new SqlParameter("@UserId", userid) };
+            //try
+            //{
+            //    //passing parameters
+            //    SqlParameter[] param = 
+            //    { 	new SqlParameter("@UserId", userid) };
 				
-				retId = db.ExecuteScalar(sql,param);
-			}
-			catch(Exception ex)
-			{
-				HttpContext.Current.Trace.Warn(ex.Message + ex.Source);				
-				ErrorClass objErr = new ErrorClass(ex,HttpContext.Current.Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
-			return retId;
+            //    retId = db.ExecuteScalar(sql,param);
+            //}
+            //catch(Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);				
+            //    ErrorClass objErr = new ErrorClass(ex,HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //return retId;
 		}
 
 /*******************************************************************************************************
@@ -398,96 +413,102 @@ namespace Bikewale.Community.PMS
 *******************************************************************************************************/
 		public string GetUnreadMessageCount()
 		{
-			Database db = new Database();
-			DataSet ds  = new DataSet();
-			
-			string sql = "SELECT DISTINCT(PMM.ConversationId) AS Unread"
-                       + " FROM	PM_INBOX PMI With(NoLock) "
-                       + " LEFT JOIN PM_Messages PMM With(NoLock) ON PMM.Id = PMI.MessageId"
-                       + " LEFT JOIN PM_ConversationDetails PMD With(NoLock) ON PMD.ConversationId = PMM.ConversationId"
-                       + " LEFT JOIN PM_Conversations PMC With(NoLock) ON  PMC.Id = PMD.ConversationId "
-					   + " WHERE PMD.IsActive = 1 AND PMI.ReceiverId = @UserId AND "
-					   + " PMD.UserId = @UserId AND PMC.IsDraft = 0 AND PMD.IsRead = 0";
-			
-			HttpContext.Current.Trace.Warn("GetUnreadMessageCount" + sql);
-			try
-			{
-				//passing parameters
-				SqlParameter[] param = 
-				{ 	new SqlParameter("@UserId", CurrentUser.Id) };
-				
-				ds = db.SelectAdaptQry(sql,param);
+            throw new Exception("Method not used/commented");
 
-				if(ds.Tables[0].Rows.Count > 0)
-				{
-					retId = "(" + ds.Tables[0].Rows.Count.ToString() + ")";
-				}			
+            //Database db = new Database();
+            //DataSet ds  = new DataSet();
+			
+            //string sql = "SELECT DISTINCT(PMM.ConversationId) AS Unread"
+            //           + " FROM	PM_INBOX PMI With(NoLock) "
+            //           + " LEFT JOIN PM_Messages PMM With(NoLock) ON PMM.Id = PMI.MessageId"
+            //           + " LEFT JOIN PM_ConversationDetails PMD With(NoLock) ON PMD.ConversationId = PMM.ConversationId"
+            //           + " LEFT JOIN PM_Conversations PMC With(NoLock) ON  PMC.Id = PMD.ConversationId "
+            //           + " WHERE PMD.IsActive = 1 AND PMI.ReceiverId = @UserId AND "
+            //           + " PMD.UserId = @UserId AND PMC.IsDraft = 0 AND PMD.IsRead = 0";
+			
+            //HttpContext.Current.Trace.Warn("GetUnreadMessageCount" + sql);
+            //try
+            //{
+            //    //passing parameters
+            //    SqlParameter[] param = 
+            //    { 	new SqlParameter("@UserId", CurrentUser.Id) };
 				
-			}
-			catch(Exception ex)
-			{
-				HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-				ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}	
-			return retId;	
+            //    ds = db.SelectAdaptQry(sql,param);
+
+            //    if(ds.Tables[0].Rows.Count > 0)
+            //    {
+            //        retId = "(" + ds.Tables[0].Rows.Count.ToString() + ")";
+            //    }			
+				
+            //}
+            //catch(Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}	
+            //return retId;	
 		}
 /*******************************************************************************************************
 		To Get Email-Id from userId
 *******************************************************************************************************/
 		public string GetEmail(string userId)
 		{
-			Database db = new Database();
-			string email = "";
+            throw new Exception("Method not used/commented");
 
-            sql = "SELECT email FROM Customers With(NoLock) WHERE ID = @UserId";
+            //Database db = new Database();
+            //string email = "";
 
-			//Trace.Warn("GetEmail:" + sql);
-			try
-			{
-				//passing parameters
-				SqlParameter[] param = 
-				{ 	new SqlParameter("@UserId", userId) };
+            //sql = "SELECT email FROM Customers With(NoLock) WHERE ID = @UserId";
+
+            ////Trace.Warn("GetEmail:" + sql);
+            //try
+            //{
+            //    //passing parameters
+            //    SqlParameter[] param = 
+            //    { 	new SqlParameter("@UserId", userId) };
 				
-				email = db.ExecuteScalar(sql,param);
-			}
-			catch(Exception ex)
-			{
-				HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-				ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}		
+            //    email = db.ExecuteScalar(sql,param);
+            //}
+            //catch(Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}		
 		
-			return email;			
+            //return email;			
 		}
 /*******************************************************************************************************
 		To Get UserName from userId
 *******************************************************************************************************/
 		public string GetUserName(string userId)
 		{
-			Database db = new Database();
-			string userName = "";
+            throw new Exception("Method not used/commented");
 
-            sql = "SELECT name FROM Customers With(NoLock) WHERE ID = @UserId";
+            //Database db = new Database();
+            //string userName = "";
+
+            //sql = "SELECT name FROM Customers With(NoLock) WHERE ID = @UserId";
 			
-			//Trace.Warn("GetUserName:" + sql);
-			try
-			{
-				//passing parameters
-				SqlParameter[] param = 
-				{ 	new SqlParameter("@UserId", userId) };
+            ////Trace.Warn("GetUserName:" + sql);
+            //try
+            //{
+            //    //passing parameters
+            //    SqlParameter[] param = 
+            //    { 	new SqlParameter("@UserId", userId) };
 				
-				userName = db.ExecuteScalar(sql,param);
+            //    userName = db.ExecuteScalar(sql,param);
 				
-			}
-			catch(Exception ex)
-			{
-				HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-				ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}		
+            //}
+            //catch(Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}		
 		
-			return userName;			
+            //return userName;			
 		}		
 
 /*******************************************************************************************************
@@ -495,28 +516,30 @@ namespace Bikewale.Community.PMS
 *******************************************************************************************************/
 		public string GetHandleName(string userId)
 		{
-			Database db = new Database();
-			string userName = "";
+            throw new Exception("Method not used/commented");
 
-            sql = "SELECT ISNULL(HandleName, 'anonymous') AS HandleName FROM UserProfile With(NoLock) WHERE UserId = @UserId";
+            //Database db = new Database();
+            //string userName = "";
+
+            //sql = "SELECT ISNULL(HandleName, 'anonymous') AS HandleName FROM UserProfile With(NoLock) WHERE UserId = @UserId";
 			
-			try
-			{
-				//passing parameters
-				SqlParameter[] param = 
-				{ 	new SqlParameter("@UserId", userId) };
+            //try
+            //{
+            //    //passing parameters
+            //    SqlParameter[] param = 
+            //    { 	new SqlParameter("@UserId", userId) };
 			
-				userName = db.ExecuteScalar(sql,param);
+            //    userName = db.ExecuteScalar(sql,param);
 				
-			}
-			catch(Exception ex)
-			{
-				HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-				ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}		
+            //}
+            //catch(Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}		
 		
-			return userName;			
+            //return userName;			
 		}														
 	}
 }	

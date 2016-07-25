@@ -1,13 +1,11 @@
 ﻿using Bikewale.BAL.BikeBooking;
 using Bikewale.Common;
-using Bikewale.DTO.BookingSummary;
 using Bikewale.DTO.PriceQuote.BikeBooking;
 using Bikewale.DTO.PriceQuote.DetailedDealerQuotation;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.PriceQuote;
-using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
 using Carwale.BL.PaymentGateway;
 using Carwale.DAL.PaymentGateway;
@@ -16,7 +14,6 @@ using Carwale.Interfaces.PaymentGateway;
 using Microsoft.Practices.Unity;
 using Newtonsoft.Json;
 using System;
-using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.UI.HtmlControls;
@@ -43,6 +40,8 @@ namespace Bikewale.Mobile.PriceQuote
         protected BookingPageDetailsEntity objBooking = null;
         protected PQCustomerDetail objCustomer = null;
         protected PQ_DealerDetailEntity dealerDetailEntity = null;
+        protected string bikesData = string.Empty, discountedPriceList = string.Empty;
+
 
         protected override void OnInit(EventArgs e)
         {
@@ -194,7 +193,7 @@ namespace Bikewale.Mobile.PriceQuote
                 }
                 if (dealerDetailEntity.objOffers != null && dealerDetailEntity.objOffers.Count > 0)
                     dealerDetailEntity.objQuotation.discountedPriceList = OfferHelper.ReturnDiscountPriceList(dealerDetailEntity.objOffers, dealerDetailEntity.objQuotation.PriceList);
-                    
+
 
             }
             else
@@ -236,14 +235,18 @@ namespace Bikewale.Mobile.PriceQuote
         /// </summary>
         private void FetchDealerDetails()
         {
-            //dealer details
-            string _apiUrl = String.Format("/api/Dealers/GetDealerDetailsPQ/?versionId={0}&DealerId={1}&CityId={2}", versionId, dealerId, cityId);
 
             try
             {
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerDetailEntity);
+                    container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
+                    Bikewale.Interfaces.AutoBiz.IDealers objDealer = container.Resolve<Bikewale.DAL.AutoBiz.DealersRepository>();
+                    PQParameterEntity objParam = new PQParameterEntity();
+                    objParam.CityId = cityId;
+                    objParam.DealerId = dealerId;
+                    objParam.VersionId = versionId;
+                    dealerDetailEntity = objDealer.GetDealerDetailsPQ(objParam);
                 }
 
                 if (dealerDetailEntity != null)
@@ -251,6 +254,8 @@ namespace Bikewale.Mobile.PriceQuote
 
                     if (dealerDetailEntity.objQuotation != null)
                     {
+                        discountedPriceList = JsonConvert.SerializeObject(dealerDetailEntity.objQuotation.discountedPriceList);
+
                         foreach (var price in dealerDetailEntity.objQuotation.PriceList)
                         {
                             isInsuranceFree = Bikewale.Utility.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(), "", price.CategoryName, price.Price, ref insuranceAmount);
@@ -285,6 +290,7 @@ namespace Bikewale.Mobile.PriceQuote
                 rptVarients.DataSource = data;
                 rptVarients.DataBind();
                 jsonBikeVarients = EncodingDecodingHelper.EncodeTo64(JsonConvert.SerializeObject(objBooking.Varients));
+                bikesData = JsonConvert.SerializeObject(objBooking.Varients);
 
                 if (objBooking.Varients.FirstOrDefault().Make != null && objBooking.Varients.FirstOrDefault().Model != null)
                 {
@@ -298,8 +304,8 @@ namespace Bikewale.Mobile.PriceQuote
                 this.Page.Visible = false;
             }
         }
-        #endregion 
-       
+        #endregion
+
 
         #region Fetch Customer Details
         /// <summary>

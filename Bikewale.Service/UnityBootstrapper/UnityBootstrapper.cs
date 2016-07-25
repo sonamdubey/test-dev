@@ -5,10 +5,12 @@ using Bikewale.BAL.BikeData;
 using Bikewale.BAL.Compare;
 using Bikewale.BAL.Customer;
 using Bikewale.BAL.Dealer;
+using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.Pager;
 using Bikewale.BAL.PriceQuote;
 using Bikewale.Cache.App;
 using Bikewale.Cache.BikeData;
+using Bikewale.Cache.CMS;
 using Bikewale.Cache.Compare;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
@@ -34,9 +36,11 @@ using Bikewale.Interfaces.AutoComplete;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Feedback;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.MobileVerification;
@@ -66,6 +70,8 @@ namespace Bikewale.Service.UnityConfiguration
         /// Description :   Register IDeepLinking, DeepLinking
         /// Modified By :   Lucky Rathore on 21 March 2016
         /// Description :   Register IDealerCacheRepository, DealerCacheRepository
+        /// Modified By :   Sumit Kate on 20 July 2016
+        /// Description :   Register Road Test/Feature/Article BAL classes for CMS Controller constructor resolution
         /// </summary>
         /// <returns></returns>
         public static IUnityContainer Initialize()
@@ -107,7 +113,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IAppAlert, AppAlertRepository>();
             container.RegisterType<ICityCacheRepository, CityCacheRepository>();
             container.RegisterType<IAreaCacheRepository, AreaCacheRepository>();
-            container.RegisterType<IBookingCancellation, Bikewale.BAL.BikeBooking.BookingCancellation>();
+            //container.RegisterType<IBookingCancellation, Bikewale.BAL.BikeBooking.BookingCancellation>();
             container.RegisterType<IBookingListing, BookingListingRepository>();
             container.RegisterType<IOffer, OfferRepository>();
             container.RegisterType<IDeepLinking, DeepLinking>();
@@ -116,6 +122,9 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<ILeadNofitication, LeadNotificationBL>();
             container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>();
             container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>();
+            container.RegisterType<ICMSCacheContent, CMSCacheRepository>();
+            container.RegisterType<IArticles, Articles>();
+
             return container;
         }
     }

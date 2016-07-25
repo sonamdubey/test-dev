@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS.Photos;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.BikeData
@@ -23,7 +24,7 @@ namespace Bikewale.Interfaces.BikeData
         NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex);
         //List<NewLaunchedBikeEntity> GetNewLaunchedBikesList(int pageSize, out int recordCount, int? currentPageNo = null);
         BikeModelPageEntity GetModelPageDetails(U modelId);
-        List<Entities.CMS.Photos.ModelImage> GetBikeModelPhotoGallery(U modelId);
+        List<ModelImage> GetBikeModelPhotoGallery(U modelId);
         BikeModelContent GetRecentModelArticles(U modelId);
     }
 }

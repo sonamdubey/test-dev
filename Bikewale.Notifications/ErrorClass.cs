@@ -14,11 +14,7 @@ namespace Bikewale.Notifications
     {
         protected static readonly ILog log = LogManager.GetLogger(typeof(ErrorClass));
         //used for writing the debug messages
-        private HttpContext objTrace = HttpContext.Current;
-        static ErrorClass()
-        {
-            log4net.Config.XmlConfigurator.Configure();
-        }
+        private HttpContext objTrace = HttpContext.Current;       
 
         /// <summary>
         /// Error object.
@@ -95,6 +91,10 @@ namespace Bikewale.Notifications
         /// </summary>
         public void SendMail()
         {
+            //exception log
+            //ExceptionLogging.SendErrorToText(Error);
+
+
             string email = ErrorMailConfiguration.ERRORMAILTO;
             string subject = "Error in " + ErrorMailConfiguration.APPLICATIONNAME + " at page: " + PageUrl;
 

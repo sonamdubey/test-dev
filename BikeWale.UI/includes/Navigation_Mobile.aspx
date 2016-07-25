@@ -48,13 +48,13 @@
                 <li><a href="/m/pricequote/rsaofferclaim.aspx">Claim Your Offer</a></li>
                 <li><a href="/m/bikebooking/cancellation.aspx">Cancel Your Booking</a></li>
             </ul>
-        </li>--%>
+        </li>
         <li>
             <a href="/m/insurance/">
                 <span class="bwmsprite insurance-icon"></span>
                 <span class="navbarTitle">Insurance</span>
             </a>
-        </li>
+        </li>--%>
     </ul>
     <a class="bwmsprite google-play-logo" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DMobilesite%26utm_medium%3DDrawer%26utm_campaign=BikeWale%2520MobilesiteDrawer" target="_blank" rel="nofollow"></a>
 </nav>

@@ -17,7 +17,10 @@ namespace Bikewale.Controls
         public int FetchedRecordsCount { get; set; }
         public string MakeMaskingName { get; set; }
         public string ModelMaskingName { get; set; }
+        public string MakeName { get; set; }
+        public string ModelName { get; set; }
         public string MoreExpertReviewUrl { get; set; }
+        protected string linkTitle = string.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -40,10 +43,12 @@ namespace Bikewale.Controls
             else if (String.IsNullOrEmpty(ModelMaskingName))
             {
                 MoreExpertReviewUrl = String.Format("/{0}-bikes/road-tests/", MakeMaskingName);
+                linkTitle = string.Format("{0} Expert Reviews", MakeName);
             }
             else
             {
                 MoreExpertReviewUrl = String.Format("/{0}-bikes/{1}/road-tests/", MakeMaskingName, ModelMaskingName);
+                linkTitle = string.Format("{0} {1} Expert Reviews", MakeName, ModelName);
             }
         }
 

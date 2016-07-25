@@ -1,4 +1,5 @@
-﻿using Bikewale.DTO.Model;
+﻿using Bikewale.DAL.AutoBiz;
+using Bikewale.DTO.Model;
 using Bikewale.DTO.PriceQuote;
 using Bikewale.DTO.PriceQuote.BikeQuotation;
 using Bikewale.DTO.PriceQuote.DealerPriceQuote;
@@ -11,6 +12,7 @@ using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.PriceQuote;
 using Bikewale.Service.Utilities;
+using Microsoft.Practices.Unity;
 using System;
 using System.Linq;
 using System.Web.Http;
@@ -114,12 +116,15 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         }
                         if (objPQ.DealerId != 0)
                         {
-                            api = String.Format("/api/DealerPriceQuote/GetDealerPriceQuote/?cityid={0}&versionid={1}&dealerid={2}", cityId, objPQ.VersionId, objPQ.DealerId);
-
-                            using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                            using (IUnityContainer container = new UnityContainer())
                             {
-                                //objPrice = objClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objPrice);
-                                objPrice = objClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objPrice);
+                                container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, DealerPriceQuoteRepository>();
+                                Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objPriceQuote = container.Resolve<DealerPriceQuoteRepository>();
+                                PQParameterEntity objParam = new PQParameterEntity();
+                                objParam.CityId = cityId;
+                                objParam.DealerId = objPQ.DealerId;
+                                objParam.VersionId = objPQ.VersionId;
+                                objPrice = objPriceQuote.GetDealerPriceQuote(objParam);
                             }
 
                             if (objPrice != null)

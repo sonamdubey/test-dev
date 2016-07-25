@@ -8,6 +8,9 @@ using Enyim.Caching;
 using Enyim.Caching.Memcached;
 using System.Configuration;
 using System.Collections;
+using System.Data.Common;
+using Bikewale.CoreDAL;
+using MySql.CoreDAL;
 
 namespace Bikewale.Memcache
 {
@@ -87,7 +90,7 @@ namespace Bikewale.Memcache
             {                
                 if (key.Equals("BW_NewBikeLaunches"))
                 {
-                    ds = FetchDataFromDatabase("[dbo].[GetNewBikeLaunches]", param);
+                    ds = FetchDataFromDatabase("getnewbikelaunches", param);
                 }
             }
             catch (Exception ex)
@@ -111,26 +114,24 @@ namespace Bikewale.Memcache
         /// <returns>Function returns dataset containing required data.</returns>
         private DataSet FetchDataFromDatabase(string spName, SqlParameter param = null)
         {
-            DataSet ds = null;
-
+            DataSet ds = new DataSet();
             try
             {
-                Database db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand(spName))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = spName;
 
                     if (param != null)
                     {
-                        cmd.Parameters.Add(param.ParameterName, param.SqlDbType).Value = param.Value;
+                        //cmd.Parameters.Add(param.ParameterName, param.SqlDbType).Value = param.Value;
+                        cmd.Parameters.Add(DbFactory.GetDbParam(param.ParameterName.ToLower(), param.DbType, param.Value));
                         HttpContext.Current.Trace.Warn("Added " + param.ParameterName + " with value " + param.Value.ToString() + " to SP " + spName);
                     }
 
                     // Fetch the data from the database into DataSet
                     HttpContext.Current.Trace.Warn("Fetched " + spName + " from Database");
-                    ds = db.SelectAdaptQry(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException ex)
@@ -145,6 +146,7 @@ namespace Bikewale.Memcache
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
+
             return ds;
         }   // End of FetchDataFromDatabase
         
@@ -318,7 +320,7 @@ namespace Bikewale.Memcache
 
                     case "BW_MakeMapping" :
 
-                        ds = FetchDataFromDatabase("GetMakeMappingNames");
+                        ds = FetchDataFromDatabase("getmakemappingnames");
                         dt = ds.Tables[0];
 
                         foreach (DataRow dr in dt.Rows)

@@ -1,24 +1,18 @@
-﻿using Bikewale.BAL.PhotoGallery;
-using Bikewale.Entities.CMS;
-using Bikewale.Entities.PhotoGallery;
-using Bikewale.Interfaces.PhotoGallery;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
+using Bikewale.Common;
+using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS.Photos;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using System.Data;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Entities.BikeData;
-using Bikewale.BAL.BikeData;
-using Bikewale.Common;
-using System.Net.Http;
-using System.Configuration;
-using System.Net.Http.Headers;
-using Bikewale.Entities.CMS.Photos;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
 {
@@ -31,7 +25,7 @@ namespace Bikewale.Controls
     {
         protected Repeater rptPhotos;
         protected HtmlGenericControl noImageAv;
-        protected string selectedImageName = string.Empty,  selectedImagePath = string.Empty, selectedImageCategoryName = string.Empty,
+        protected string selectedImageName = string.Empty, selectedImagePath = string.Empty, selectedImageCategoryName = string.Empty,
             selectedImageMainCategoryName = string.Empty, selectedImageCategory = string.Empty;
         protected BikeModelEntity objModelEntity = null;
         protected int recordCount = 0;
@@ -39,7 +33,6 @@ namespace Bikewale.Controls
 
         public string imageId = string.Empty;
         public string ImageId { get; set; }
-
 
         protected override void OnInit(EventArgs e)
         {
@@ -68,7 +61,7 @@ namespace Bikewale.Controls
 
                 //Get Model details
                 objModelEntity = objModel.GetById(Convert.ToInt32(ModelId));
-          
+
             }
         }
 
@@ -76,66 +69,57 @@ namespace Bikewale.Controls
         /// Written By : Ashwini Todkar on 26 Sept 2014
         /// Summary    : method to get model photo list from carwale api
         /// </summary>
-        private async void GetImageList()
+        private void GetImageList()
         {
             try
             {
-                List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
-                categorList.Add(EnumCMSContentType.RoadTest);
-                categorList.Add(EnumCMSContentType.PhotoGalleries);
-                categorList.Add(EnumCMSContentType.ComparisonTests);
 
-                //sets the base URI for HTTP requests
-                string contentTypeList = CommonOpn.GetContentTypesString(categorList);
-                
-                string _applicationid = Utility.BWConfiguration.Instance.ApplicationId;
-
-                string _apiUrl = "webapi/image/modelphotolist/?applicationid=" + _applicationid + "&modelid=" + ModelId + "&categoryidlist=" + contentTypeList;
-
-                List<ModelImage> _objImageList = null;
-
-                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    _objImageList = await objClient.GetApiResponse<List<ModelImage>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objImageList);
-                }
-                
-                if (_objImageList != null && _objImageList.Count > 0)
-                    recordCount = _objImageList.Count;
-                else
-                    recordCount = 0;
+                    container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                        .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                        .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                        .RegisterType<ICacheManager, MemcacheManager>();
 
-                if (recordCount > 0)
-                {
-                    if (ImageId != string.Empty)
+                    var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
+
+                    List<ModelImage> _objImageList = objCache.GetModelPhotoGallery(ModelId);
+
+                    if (_objImageList != null && _objImageList.Count > 0)
+                        recordCount = _objImageList.Count;
+                    else
+                        recordCount = 0;
+
+                    if (recordCount > 0)
                     {
-                        //Trace.Warn("img id ", ImageId);
-
-                        ModelImage value = _objImageList.Find(item => item.ImageId == Convert.ToUInt32(ImageId));
-
-                        if (value != null)
+                        if (ImageId != string.Empty)
                         {
-                            //selectedImagePath = Bikewale.Common.ImagingFunctions.GetPathToShowImages(value.ImagePathLarge, value.HostUrl);
-                            selectedImagePath = Bikewale.Utility.Image.GetPathToShowImages(value.OriginalImgPath, value.HostUrl, Bikewale.Utility.ImageSize._640x348);
-                            //OriginalImagePath
-                            selectedImageCategoryName = value.ImageCategory;
+
+                            ModelImage value = _objImageList.Find(item => item.ImageId == Convert.ToUInt32(ImageId));
+
+                            if (value != null)
+                            {
+                                selectedImagePath = Bikewale.Utility.Image.GetPathToShowImages(value.OriginalImgPath, value.HostUrl, Bikewale.Utility.ImageSize._640x348);
+                                selectedImageCategoryName = value.ImageCategory;
+                                selectedImageCategory = selectedImageCategoryName != string.Empty ? " - " + selectedImageCategoryName : "";
+                            }
+                        }
+                        else // first image not selected
+                        {
+                            selectedImagePath = Bikewale.Utility.Image.GetPathToShowImages(_objImageList[0].OriginalImgPath, _objImageList[0].HostUrl, Bikewale.Utility.ImageSize._640x348);
+                            selectedImageCategoryName = _objImageList[0].ImageCategory;
                             selectedImageCategory = selectedImageCategoryName != string.Empty ? " - " + selectedImageCategoryName : "";
                         }
+                        BindPhotos(_objImageList);
                     }
-                    else // first image not selected
+                    else
                     {
-                        // Retrive the first image from list
-                        //selectedImagePath = Bikewale.Common.ImagingFunctions.GetPathToShowImages(_objImageList[0].ImagePathLarge, _objImageList[0].HostUrl);
-                        selectedImagePath = Bikewale.Utility.Image.GetPathToShowImages(_objImageList[0].OriginalImgPath, _objImageList[0].HostUrl, Bikewale.Utility.ImageSize._640x348);
-                        selectedImageCategoryName = _objImageList[0].ImageCategory;
-                        selectedImageCategory = selectedImageCategoryName != string.Empty ? " - " + selectedImageCategoryName : "";
+                        rptPhotos.Visible = false;
+                        noImageAv.Visible = true;
                     }
-                    BindPhotos(_objImageList);
+
                 }
-                else
-                {
-                    rptPhotos.Visible = false;
-                    noImageAv.Visible = true;
-                }
+
             }
             catch (Exception err)
             {
@@ -145,6 +129,7 @@ namespace Bikewale.Controls
             }
 
         }//End of AllImageList
+
 
         /// <summary>
         /// Written By : Ashwini Todkar on 3 Oct 2014
@@ -161,73 +146,6 @@ namespace Bikewale.Controls
             rptPhotos.DataBind();
         }
 
-
-        //Commented By Ashwini Todkar on 3 Oct 2014
-        /// <summary>
-        /// Created By : Sadhana Upadhyay on 4 July 2014
-        /// Summary : to get all model photo list
-        /// </summary>
-       // protected void AllImageList()
-        //{
-            //List<ModelPhotoEntity> objPhotosList = null;
-
-            //using (IUnityContainer container = new UnityContainer())
-            //{
-            //    container.RegisterType<IModelPhotos<ModelPhotoEntity, int>, ModelPhotos<ModelPhotoEntity, int>>();
-            //    IModelPhotos<ModelPhotoEntity, int> objPhotos = container.Resolve<IModelPhotos<ModelPhotoEntity, int>>();
-
-                
-
-
-                //objPhotosList = new List<ModelPhotoEntity>();
-                //objPhotosList = objPhotos.GetModelPhotosList(ModelId, categorList);
-               
-            //    container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
-            //    IBikeModels<BikeModelEntity, int> objModel = container.Resolve<IBikeModels<BikeModelEntity, int>>();
-
-            //    //Get Model details
-            //    objModelEntity = objModel.GetById(Convert.ToInt32(ModelId));
-
-            //    recordCount = objPhotosList.Count;
-
-            //    if (recordCount > 0)
-            //    {
-            //        if (ImageId != string.Empty)
-            //        {
-            //            Trace.Warn("img id ", ImageId);
-
-            //            ModelPhotoEntity value = objPhotosList.Find(item => item.ImageId == Convert.ToUInt32(ImageId));
-
-            //            if (value != null)
-            //            {
-            //                selectedImagePath = Bikewale.Common.ImagingFunctions.GetPathToShowImages(value.ImagePathLarge, value.HostUrl);
-                            
-            //                selectedImageCategoryName = value.ImageCategory;
-            //                selectedImageCategory = selectedImageCategoryName != string.Empty ? " - " + selectedImageCategoryName : "";
-            //            }
-            //        }
-            //        else // first image not selected
-            //        {
-            //            // Retrive the first row from DataTable
-            //            selectedImagePath = Bikewale.Common.ImagingFunctions.GetPathToShowImages(objPhotosList[0].ImagePathLarge, objPhotosList[0].HostUrl);
-
-            //            selectedImageCategoryName = objPhotosList[0].ImageCategory;
-            //            selectedImageCategory = selectedImageCategoryName != string.Empty ? " - " + selectedImageCategoryName : "";
-            //        }
-
-            //        rptPhotos.Visible = true;
-            //        noImageAv.Visible = false;
-
-            //        rptPhotos.DataSource = objPhotosList;
-            //        rptPhotos.DataBind();
-            //    }
-            //    else
-            //    {
-            //        rptPhotos.Visible = false;
-            //        noImageAv.Visible = true;
-            //    }
-                
-            //}
     }// End of class  
     //}   //End of class
 }   //End of namespace

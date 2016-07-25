@@ -29,6 +29,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>App_Data\Bikewale.Service.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -51,6 +52,26 @@
     <Reference Include="Enyim.Caching, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Enyim.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="Gelf4Net, Version=2.0.3.11, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Gelf4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Gelf4Net.UdpAppender, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Gelf4Net.UdpAppender.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\grpc\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="Grpc.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\grpc\Grpc.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.Unity">
@@ -75,6 +96,10 @@
     <Reference Include="RabbitMqPublishing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\RabbitMqPublishing.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Interactive.Async, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\grpc\System.Interactive.Async.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -179,8 +204,11 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="AutoMappers\AppDeepLinking\DeepLinkingMapper.cs" />
     <Compile Include="AutoMappers\App\AppVersionMapper.cs" />
+    <Compile Include="AutoMappers\AutoBiz\DealerPriceQuoteMapper.cs" />
     <Compile Include="AutoMappers\AutoComplete\SuggestionListMapper.cs" />
     <Compile Include="AutoMappers\Bikebooking\Area\BBAreaListMapper.cs" />
+    <Compile Include="AutoMappers\Bikebooking\BBCityListMapper.cs" />
+    <Compile Include="AutoMappers\Bikebooking\BBMakeListMapper.cs" />
     <Compile Include="AutoMappers\Bikebooking\BikeBookingListingEntityMapper.cs" />
     <Compile Include="AutoMappers\Bikebooking\BookingListingFilterDTOMapper.cs" />
     <Compile Include="AutoMappers\Bikebooking\BookingPageDetailsEntityMapper.cs" />
@@ -217,11 +245,12 @@
     <Compile Include="Controllers\AppDeepLinking\DeepLinkingController.cs" />
     <Compile Include="Controllers\AppNotifications\AppAlertController.cs" />
     <Compile Include="Controllers\App\AppVersionCheckController.cs" />
+    <Compile Include="Controllers\AutoBiz\DealerPriceQuote\DealerPriceQuote.cs" />
+    <Compile Include="Controllers\AutoBiz\Dealers\Dealers.cs" />
     <Compile Include="Controllers\AutoComplete\AutoSuggestController.cs" />
     <Compile Include="Controllers\BikeBooking\Area\BBAreaListController.cs" />
     <Compile Include="Controllers\BikeBooking\BikeBookingListingController.cs" />
     <Compile Include="Controllers\BikeBooking\BikeBookingPageController.cs" />
-    <Compile Include="Controllers\BikeBooking\BookingCancellationController.cs" />
     <Compile Include="Controllers\BikeBooking\City\BBCityListController.cs" />
     <Compile Include="Controllers\BikeBooking\Make\BBMakeListController.cs" />
     <Compile Include="Controllers\BikeBooking\Model\BBModelListController.cs" />
@@ -288,7 +317,6 @@
     <Compile Include="Controllers\Make\MakeListController.cs" />
     <Compile Include="Controllers\Model\ModelController.cs" />
     <Compile Include="Controllers\Model\ModelListController.cs" />
-    <Compile Include="Controllers\Series\SeriesListController.cs" />
     <Compile Include="Controllers\State\StateListController.cs" />
     <Compile Include="Controllers\UsedBikes\PopularUsedBikesController.cs" />
     <Compile Include="Controllers\UserReviews\UserReviewsController.cs" />

@@ -1,13 +1,14 @@
 ﻿using Bikewale.DTO.CMS.Articles;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.CMS;
 using Bikewale.Service.Utilities;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -23,12 +24,12 @@ namespace Bikewale.Service.Controllers.CMS
     /// </summary>
     public class CMSListController : CompressionApiController//ApiController
     {
-        string _applicationid = Utility.BWConfiguration.Instance.ApplicationId;
-
+        ICMSCacheContent _objCMSContent = null;
         private readonly IPager _pager = null;
-        public CMSListController(IPager pager)
+        public CMSListController(IPager pager, ICMSCacheContent objCMSContent)
         {
             _pager = pager;
+            _objCMSContent = objCMSContent;
         }
 
         #region List Recent Categories Content
@@ -44,35 +45,17 @@ namespace Bikewale.Service.Controllers.CMS
         [ResponseType(typeof(IEnumerable<CMSArticleSummary>)), Route("api/cms/cat/{categoryId}/posts/{posts}/")]
         public IHttpActionResult Get(EnumCMSContentType categoryId, uint posts)
         {
-            List<ArticleSummary> objRecentArticles = null;
             try
             {
-                string apiUrl = "/webapi/article/mostrecentlist/?applicationid=2&totalrecords=" + posts;
 
-                if (categoryId == EnumCMSContentType.RoadTest)
-                {
-                    apiUrl += "&contenttypes=" + (short)categoryId + "," + (short)EnumCMSContentType.ComparisonTests;
-                }
-                else if (categoryId == EnumCMSContentType.News)
-                {
-                    apiUrl += "&contenttypes=" + (short)categoryId + "," + (short)EnumCMSContentType.AutoExpo2016;
-                }
-                else
-                {
-                    apiUrl += "&contenttypes=" + (short)categoryId;
-                }
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    //objRecentArticles = objClient.GetApiResponseSync<List<ArticleSummary>>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objRecentArticles);
-                    objRecentArticles = objClient.GetApiResponseSync<List<ArticleSummary>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objRecentArticles);
-                }
+                IEnumerable<ArticleSummary> objRecentArticles = _objCMSContent.GetMostRecentArticlesByIdList(Convert.ToString((int)categoryId), posts, 0, 0);
 
-                if (objRecentArticles != null && objRecentArticles.Count > 0)
+                if (objRecentArticles != null && objRecentArticles.Count() > 0)
                 {
 
                     List<CMSArticleSummary> objCMSRArticles = new List<CMSArticleSummary>();
                     objCMSRArticles = CMSMapper.Convert(objRecentArticles);
-                    objRecentArticles.Clear();
+
                     objRecentArticles = null;
                     objCMSRArticles = new CMSShareUrl().GetShareUrl(objCMSRArticles);
                     return Ok(objCMSRArticles);
@@ -103,44 +86,15 @@ namespace Bikewale.Service.Controllers.CMS
         [ResponseType(typeof(IEnumerable<CMSArticleSummary>)), Route("api/cms/cat/{categoryId}/posts/{posts}/make/{makeId}/")]
         public IHttpActionResult Get(EnumCMSContentType categoryId, uint posts, string makeId, string modelId = null)
         {
-            List<ArticleSummary> objRecentArticles = null;
             try
             {
-                string apiUrl = "/webapi/article/mostrecentlist/?applicationid=2&totalrecords=" + posts;
-                string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+                IEnumerable<ArticleSummary> objRecentArticles = _objCMSContent.GetMostRecentArticlesByIdList(Convert.ToString((int)categoryId), posts, Convert.ToUInt32(makeId), Convert.ToUInt32(modelId));
 
-                if (categoryId == EnumCMSContentType.RoadTest)
+                if (objRecentArticles != null && objRecentArticles.Count() > 0)
                 {
-                    apiUrl += "&contenttypes=" + (short)categoryId + "," + (short)EnumCMSContentType.ComparisonTests;
-                }
-                else if (categoryId == EnumCMSContentType.News)
-                {
-                    apiUrl += "&contenttypes=" + (short)categoryId + "," + (short)EnumCMSContentType.AutoExpo2016;
-                }
-                else
-                {
-                    apiUrl += "&contenttypes=" + (short)categoryId;
-                }
-                if (String.IsNullOrEmpty(modelId))
-                {
-                    apiUrl += "&makeid=" + makeId;
-                }
-                else
-                {
-                    apiUrl += "&makeid=" + makeId + "&modelid=" + modelId;
-                }
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    //objRecentArticles = objClient.GetApiResponseSync<List<ArticleSummary>>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objRecentArticles);
-                    objRecentArticles = objClient.GetApiResponseSync<List<ArticleSummary>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objRecentArticles);
-                }
-
-                if (objRecentArticles != null && objRecentArticles.Count > 0)
-                {
-                    List<CMSArticleSummary> objCMSRArticles = new List<CMSArticleSummary>();
+                    List<CMSArticleSummary> objCMSRArticles;
                     objCMSRArticles = CMSMapper.Convert(objRecentArticles);
 
-                    objRecentArticles.Clear();
                     objRecentArticles = null;
                     objCMSRArticles = new CMSShareUrl().GetShareUrl(objCMSRArticles);
                     return Ok(objCMSRArticles);
@@ -154,6 +108,9 @@ namespace Bikewale.Service.Controllers.CMS
             }
             return NotFound();
         }  //get 
+
+
+
         #endregion
 
 
@@ -177,25 +134,7 @@ namespace Bikewale.Service.Controllers.CMS
                 int startIndex = 0, endIndex = 0;
                 _pager.GetStartEndIndex(Convert.ToInt32(posts), Convert.ToInt32(pageNumber), out startIndex, out endIndex);
 
-                string apiUrl = "/webapi/article/listbycategory/?applicationid=2";
-
-                if (categoryId == EnumCMSContentType.RoadTest)
-                {
-                    apiUrl += "&categoryidlist=" + (int)categoryId + "," + (int)EnumCMSContentType.ComparisonTests;
-                }
-                else if (categoryId == EnumCMSContentType.News)
-                {
-                    apiUrl += "&categoryidlist=" + (short)categoryId + "," + (short)EnumCMSContentType.AutoExpo2016;
-                }
-                else
-                {
-                    apiUrl += "&categoryidlist=" + (int)categoryId;
-                }
-                apiUrl += "&startindex=" + startIndex + "&endindex=" + endIndex;
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    objFeaturedArticles = objClient.GetApiResponseSync<Bikewale.Entities.CMS.Articles.CMSContent>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objFeaturedArticles);
-                }
+                objFeaturedArticles = _objCMSContent.GetArticlesByCategoryList(Convert.ToString((int)categoryId), startIndex, endIndex, 0, 0);
 
                 if (objFeaturedArticles != null && objFeaturedArticles.Articles.Count > 0)
                 {
@@ -215,7 +154,10 @@ namespace Bikewale.Service.Controllers.CMS
                 return InternalServerError();
             }
             return NotFound();
-        }  //get 
+        }
+
+
+        //get 
         #endregion
 
 
@@ -240,35 +182,11 @@ namespace Bikewale.Service.Controllers.CMS
             {
                 int startIndex = 0, endIndex = 0;
                 _pager.GetStartEndIndex(Convert.ToInt32(posts), Convert.ToInt32(pageNumber), out startIndex, out endIndex);
-                string apiUrl = "/webapi/article/listbycategory/?applicationid=2";
 
-                if (categoryId == EnumCMSContentType.RoadTest)
-                {
-                    apiUrl += "&categoryidlist=" + (int)categoryId + "," + (int)EnumCMSContentType.ComparisonTests;
-                }
-                else if (categoryId == EnumCMSContentType.News)
-                {
-                    apiUrl += "&categoryidlist=" + (short)categoryId + "," + (short)EnumCMSContentType.AutoExpo2016;
-                }
-                else
-                {
-                    apiUrl += "&categoryidlist=" + (int)categoryId;
-                }
-                if (String.IsNullOrEmpty(modelId))
-                {
-                    apiUrl += "&makeid=" + makeId;
-                }
-                else
-                {
-                    apiUrl += "&makeid=" + makeId + "&modelid=" + modelId;
+                int intMakeId = string.IsNullOrEmpty(makeId) ? 0 : Convert.ToInt32(makeId);
+                int intModelId = string.IsNullOrEmpty(modelId) ? 0 : Convert.ToInt32(modelId);
 
-                }
-                apiUrl += "&startindex=" + startIndex + "&endindex=" + endIndex;
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    //objFeaturedArticles = objClient.GetApiResponseSync<Bikewale.Entities.CMS.Articles.CMSContent>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objFeaturedArticles);
-                    objFeaturedArticles = objClient.GetApiResponseSync<Bikewale.Entities.CMS.Articles.CMSContent>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objFeaturedArticles);
-                }
+                objFeaturedArticles = _objCMSContent.GetArticlesByCategoryList(Convert.ToString((int)categoryId), startIndex, endIndex, intMakeId, intModelId);
 
                 if (objFeaturedArticles != null && objFeaturedArticles.Articles.Count > 0)
                 {

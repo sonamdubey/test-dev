@@ -1,13 +1,17 @@
-﻿using System;
-using System.Web;
-using System.Data;
-using System.Data.SqlClient;
-using AjaxPro;
-using BikeWaleOpr.VO;
-using BikeWaleOpr.Classified;
-using System.Configuration;
-using Enyim.Caching;
+﻿using BikewaleOpr.BAL.ContractCampaign;
+using BikewaleOpr.common.ContractCampaignAPI;
 using BikewaleOpr.Common;
+using BikewaleOpr.Entity.ContractCampaign;
+using BikewaleOpr.Interface.ContractCampaign;
+using BikeWaleOpr.Classified;
+using Enyim.Caching;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
 
 namespace BikeWaleOpr.Common
 {
@@ -64,42 +68,44 @@ namespace BikeWaleOpr.Common
         [AjaxPro.AjaxMethod()]
         public string GetModels(string makeId)
         {
-            string sql = string.Empty, jsonModels = string.Empty;
-            DataTable dt = null;
-            DataSet ds = null;
-            Database db = null;
+            throw new Exception("Method not used/commented");
 
-            if (String.IsNullOrEmpty(makeId))
-                return jsonModels;
+            //string sql = string.Empty, jsonModels = string.Empty;
+            //DataTable dt = null;
+            //DataSet ds = null;
+            //Database db = null;
 
-            sql = " SELECT ID AS Value, Name AS Text FROM BikeModels WHERE IsDeleted = 0 AND "
-                + " BikeMakeId =" + makeId  + " ORDER BY Text ";
-            try
-            {
-                db = new Database();
-                ds = db.SelectAdaptQry(sql);
+            //if (String.IsNullOrEmpty(makeId))
+            //    return jsonModels;
 
-                if (ds.Tables[0].Rows.Count > 0)
-                {
-                    dt = ds.Tables[0];
+            //sql = " SELECT ID AS Value, Name AS Text FROM BikeModels WHERE IsDeleted = 0 AND "
+            //    + " BikeMakeId =" + makeId  + " ORDER BY Text ";
+            //try
+            //{
+            //    db = new Database();
+            //    ds = db.SelectAdaptQry(sql);
 
-                    jsonModels = JSON.GetJSONString(dt);
-                }
-            }
-            catch (SqlException err)
-            {
-                HttpContext.Current.Trace.Warn("AjaxCommon.GetModels Sql Ex : ", err.Message);
-                ErrorClass objErr = new ErrorClass(err, "AjaxCommon.GetModels");
-                objErr.SendMail();
-            }
-            catch (Exception err)
-            {
-                HttpContext.Current.Trace.Warn("AjaxCommon.GetModels Ex : ", err.Message);
-                ErrorClass objErr = new ErrorClass(err, "AjaxCommon.GetModels");
-                objErr.SendMail();
-            }
+            //    if (ds.Tables[0].Rows.Count > 0)
+            //    {
+            //        dt = ds.Tables[0];
 
-            return jsonModels;
+            //        jsonModels = JSON.GetJSONString(dt);
+            //    }
+            //}
+            //catch (SqlException err)
+            //{
+            //    HttpContext.Current.Trace.Warn("AjaxCommon.GetModels Sql Ex : ", err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, "AjaxCommon.GetModels");
+            //    objErr.SendMail();
+            //}
+            //catch (Exception err)
+            //{
+            //    HttpContext.Current.Trace.Warn("AjaxCommon.GetModels Ex : ", err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, "AjaxCommon.GetModels");
+            //    objErr.SendMail();
+            //}
+
+            //return jsonModels;
         }   // End of GetModels function
 
         /// <summary>
@@ -140,13 +146,13 @@ namespace BikeWaleOpr.Common
         {
             bool isSuccess = false;
             try
-            { 
+            {
                 MakeModelVersion mmv = new MakeModelVersion();
                 isSuccess = mmv.UpdateMakeMaskingName(maskingName, updatedBy, makeId);
             }
-            catch(Exception err)
+            catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err,HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
             return isSuccess;
@@ -160,24 +166,24 @@ namespace BikeWaleOpr.Common
         /// <param name="name">passed as series name to bikeseries table</param>   
         /// <param name="maskingName">passed as series masking name for url formation to bikeseries table</param>      
         /// <param name="seriesId">identify which series mask name is changed</param>
-      
-        [AjaxPro.AjaxMethod()]
-        public bool UpdateSeriesMaskingName(string name, string maskingName, string seriesId)
-        {
-            bool isSuccess = false;
-            try
-            {
-                ManageBikeSeries mbs = new ManageBikeSeries();
-                //MakeModelVersion mmv = new MakeModelVersion();
-                isSuccess = mbs.UpdateSeries(name,maskingName,seriesId);
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            return isSuccess;
-        }//End of UpdateMakeMaskingName
+
+        //[AjaxPro.AjaxMethod()]
+        //public bool UpdateSeriesMaskingName(string name, string maskingName, string seriesId)
+        //{
+        //    bool isSuccess = false;
+        //    try
+        //    {
+        //        ManageBikeSeries mbs = new ManageBikeSeries();
+        //        //MakeModelVersion mmv = new MakeModelVersion();
+        //        isSuccess = mbs.UpdateSeries(name, maskingName, seriesId);
+        //    }
+        //    catch (Exception err)
+        //    {
+        //        ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+        //        objErr.SendMail();
+        //    }
+        //    return isSuccess;
+        //}//End of UpdateMakeMaskingName
 
         /// <summary>
         ///  Written By : Ashwini Todkar on 7 oct 2013
@@ -187,7 +193,7 @@ namespace BikeWaleOpr.Common
         /// <param name="updatedBy"> passed which user has updated last time</param>
         /// <param name="modelId">identify which model mask name is changed</param>
         /// <returns>nothing</returns>
-       
+
         [AjaxPro.AjaxMethod()]
         public bool UpdateModelMaskingName(string maskingName, string updatedBy, string modelId)
         {
@@ -214,7 +220,7 @@ namespace BikeWaleOpr.Common
         public void DeleteState(string stateId)
         {
             try
-            {          
+            {
                 ManageStates objMS = new ManageStates();
                 objMS.DeleteState(stateId);
             }
@@ -223,7 +229,7 @@ namespace BikeWaleOpr.Common
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }           
+            }
         }
 
         /// <summary>
@@ -237,13 +243,13 @@ namespace BikeWaleOpr.Common
             try
             {
                 ManageCities objMC = new ManageCities();
-                objMC.DeleteCity(cityId);           
-            }        
+                objMC.DeleteCity(cityId);
+            }
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }        
+            }
         }
 
         /// <summary>
@@ -309,21 +315,21 @@ namespace BikeWaleOpr.Common
         /// Summary    : ajax method to delete bike series 
         /// </summary>
         /// <param name="seriesId"></param>
-        [AjaxPro.AjaxMethod()]
-        public void DeleteSeries(string seriesId)
-        {
-            try
-            {
-                ManageBikeSeries ms = new ManageBikeSeries();
-                ms.DeleteSeries(seriesId);
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("Exception in DeleteSeries", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-        }
+        //[AjaxPro.AjaxMethod()]
+        //public void DeleteSeries(string seriesId)
+        //{
+        //    try
+        //    {
+        //        ManageBikeSeries ms = new ManageBikeSeries();
+        //        ms.DeleteSeries(seriesId);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        HttpContext.Current.Trace.Warn("Exception in DeleteSeries", ex.Message);
+        //        ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+        //        objErr.SendMail();
+        //    }
+        //}
 
         /// <summary>
         /// Craeted By : Sadhana Upadhyay on 12th Feb 2014
@@ -335,12 +341,9 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                Database db = new Database();
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    CompareBike compBike = new CompareBike();
-                    compBike.DeleteCompareBike(deleteId);
-                }
+                CompareBike compBike = new CompareBike();
+                compBike.DeleteCompareBike(deleteId);
+
             }
             catch (Exception err)
             {
@@ -358,7 +361,7 @@ namespace BikeWaleOpr.Common
         /// <param name="prioritiesList"></param>
         [AjaxPro.AjaxMethod()]
         public void UpdatePriorities(string prioritiesList)
-        {            
+        {
             if (prioritiesList.Length > 0)
                 prioritiesList = prioritiesList.Substring(0, prioritiesList.Length - 1);
             try
@@ -549,7 +552,7 @@ namespace BikeWaleOpr.Common
                     jsonCities = JSON.GetJSONString(dt);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.GetPriceQuoteCities");
                 objErr.SendMail();
@@ -585,7 +588,7 @@ namespace BikeWaleOpr.Common
                     jsonCities = JSON.GetJSONString(dt);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.GetAreas");
                 objErr.SendMail();
@@ -594,36 +597,113 @@ namespace BikeWaleOpr.Common
         }
 
         /// <summary>
-        ///  Written By : Sangram Nandkhile on 25 Mar 2016
-        ///  Method to Map campaign againts contract
+        /// Created by  :   Sumit Kate on 13 July 2016
+        /// Description :   Release Number
         /// </summary>
+        /// <param name="maskingNumber"></param>
+        /// <returns></returns>
         [AjaxPro.AjaxMethod()]
-        public void MapCampaign(string contractId, string campaignId)
+        public bool ReleaseNumber(uint dealerId, int campaignId, string maskingNumber)
         {
             bool isSuccess = false;
-            Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand("BW_UpdateBWDealerContractCampaign"))
+                if (campaignId > 0 && !String.IsNullOrEmpty(maskingNumber))
                 {
-                    db = new Database();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@ContractId", contractId);
-                    cmd.Parameters.AddWithValue("@CampaignId", campaignId);
-                    isSuccess = db.UpdateQry(cmd);
+                    ManageDealerCampaign objMa = new ManageDealerCampaign();
+                    if (objMa.ReleaseCampaignMaskingNumber(campaignId))
+                    {
+                        CwWebserviceAPI callApp = new CwWebserviceAPI();
+                        callApp.ReleaseMaskingNumber(dealerId, Convert.ToInt32(CurrentUser.Id), maskingNumber);
+                        isSuccess = true;
+                    }
                 }
             }
             catch (Exception ex)
             {
+                isSuccess = false;
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.MapCampaign");
                 objErr.SendMail();
             }
-            finally
+            return isSuccess;
+        }
+
+        /// <summary>
+        /// Get dealer masking numbers from free pool
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
+        [AjaxPro.AjaxMethod()]
+        public IEnumerable<MaskingNumber> GetDealerMaskingNumbers(uint dealerId)
+        {
+            try
             {
-                if (db != null)
-                    db.CloseConnection();
-                db = null;
+                IEnumerable<MaskingNumber> numbersList = null;
+                using (IUnityContainer container = new UnityContainer())
+                {
+
+                    container.RegisterType<IContractCampaign, ContractCampaign>();
+                    IContractCampaign objCC = container.Resolve<IContractCampaign>();
+
+                    numbersList = objCC.GetAllMaskingNumbers(Convert.ToUInt32(dealerId));
+
+                    if (numbersList != null && numbersList.Count() > 0)
+                    {
+                        return numbersList;
+                    }
+
+                }
             }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.GetDealerMaskingNumbers");
+                objErr.SendMail();
+            }
+            return null;
+        }
+
+
+
+
+        /// <summary>
+        ///  Written By : Sangram Nandkhile on 25 Mar 2016
+        ///  Method to Map campaign againts contract
+        ///  Modified by    :   Sumit Kate on 12 July 2016
+        ///  Description    :   Call the ManageDealerCampaign class method to map the dealer Campaigns
+        /// </summary>
+        [AjaxPro.AjaxMethod()]
+        public bool MapCampaign(int contractId, int dealerId, int campaignId, int userId, string oldMaskingNumber, string maskingNumber, string dealerMobile)
+        {
+            bool isSuccess = false;
+            ContractCampaignInputEntity ccInputs = new ContractCampaignInputEntity();
+            try
+            {
+
+                ManageDealerCampaign objMa = new ManageDealerCampaign();
+                ccInputs.ConsumerId = dealerId;
+                ccInputs.DealerType = 2;
+                ccInputs.LeadCampaignId = campaignId;
+                ccInputs.LastUpdatedBy = userId;
+                ccInputs.OldMaskingNumber = oldMaskingNumber;
+                ccInputs.MaskingNumber = maskingNumber;
+                ccInputs.NCDBranchId = -1;
+                ccInputs.ProductTypeId = 3;
+                ccInputs.Mobile = dealerMobile;
+                ccInputs.SellerMobileMaskingId = -1;
+                uint _dealerId = Convert.ToUInt32(ccInputs.ConsumerId);
+                isSuccess = objMa.MapContractCampaign(contractId, ccInputs.LeadCampaignId);
+
+                CwWebserviceAPI callApp = new CwWebserviceAPI();
+                callApp.ReleaseMaskingNumber(_dealerId, ccInputs.LastUpdatedBy, ccInputs.OldMaskingNumber);
+                callApp.AddCampaignContractData(ccInputs);
+            }
+            catch (Exception ex)
+            {
+                isSuccess = false;
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.MapCampaign");
+                objErr.SendMail();
+            }
+            return isSuccess;
         }
 
         /// <summary>
@@ -649,7 +729,7 @@ namespace BikeWaleOpr.Common
                     jsonDealerCampaigns = JSON.GetJSONString(dt);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.GetDealerCampaigns");
                 objErr.SendMail();

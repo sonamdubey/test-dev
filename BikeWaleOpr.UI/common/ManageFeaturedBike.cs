@@ -1,6 +1,9 @@
-﻿using System;
+﻿using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
 
@@ -20,15 +23,14 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    Database db = new Database();
-                    cmd.CommandText = "SetFeaturedBikePriority";
+                    cmd.CommandText = "setfeaturedbikepriority";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@PrioritiesList", SqlDbType.VarChar, 1000).Value = prioritiesList;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_prioritieslist", DbType.String, 1000, prioritiesList));
 
-                    db.UpdateQry(cmd);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception err)

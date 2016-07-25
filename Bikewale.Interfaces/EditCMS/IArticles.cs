@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.CMS.Photos;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.EditCMS
@@ -9,7 +10,12 @@ namespace Bikewale.Interfaces.EditCMS
     /// </summary>
     public interface IArticles
     {
-        IEnumerable<ArticleSummary> GetRecentNews(int makeId, int modelId, int totalRecords);
-        IEnumerable<ArticleSummary> GetRecentExpertReviews(int makeId, int modelId, int totalRecords);
+        ArticleDetails GetNewsDetails(uint basicId);
+        ArticlePageDetails GetArticleDetails(uint basicId);
+        IEnumerable<ModelImage> GetArticlePhotos(int basicId);
+        IEnumerable<ArticleSummary> GetMostRecentArticlesByIdList(string categoryIdList, uint totalRecords, uint makeId, uint modelId);
+        CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, int makeId, int modelId);
+
+
     }
 }

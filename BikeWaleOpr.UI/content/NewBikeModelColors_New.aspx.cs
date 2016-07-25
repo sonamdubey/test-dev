@@ -283,7 +283,7 @@ namespace BikewaleOpr.content
 
             if (!IsPostBack)
             {
-                sql = "SELECT ID, Name FROM BikeMakes WHERE IsDeleted <> 1 ORDER BY NAME";
+                sql = "SELECT ID, Name from bikemakes where isdeleted <> 1 order by name";
                 op.FillDropDown(sql, cmbMake, "Name", "ID");
                 ListItem item = new ListItem("--Select--", "0");
                 cmbMake.Items.Insert(0, item);

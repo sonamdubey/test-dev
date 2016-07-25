@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
+﻿using BikeWaleOpr.VO;
+using MySql.CoreDAL;
+using System;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
-using BikeWaleOpr.Common;
-using BikeWaleOpr.VO;
+using System.Web;
 
 namespace BikeWaleOpr.Common
 {
@@ -21,15 +21,13 @@ namespace BikeWaleOpr.Common
         /// <returns>DataSet</returns>
         public DataSet GetAllStatesDetails()
         {
-            Database db = new Database();
             DataSet ds = null;
-
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetAllStatesDetails"))
-                {                
-                    cmd.CommandType = CommandType.StoredProcedure;                    
-                    ds = db.SelectAdaptQry(cmd);                
+                using (DbCommand cmd = DbFactory.GetDBCommand("getallstatesdetails"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException err)
@@ -48,7 +46,7 @@ namespace BikeWaleOpr.Common
             return ds;
         }//End of GetAllStatesDetails
 
-        
+
         /// <summary>
         /// Written By : Ashwini Todkar on 2nd Jan 2014
         /// Summary : This method returns state details like State name, Masking name,state code
@@ -57,40 +55,31 @@ namespace BikeWaleOpr.Common
         /// <returns>state object</returns>
         public State GetStateDetails(string stateId)
         {
-            Database db = null;
-            SqlConnection conn = null;
-            State objState = null; 
+            State objState = null;
 
             try
             {
-                db = new Database();
+                objState = new State();
 
-                using (conn = new SqlConnection(db.GetConString()))
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    objState = new State();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getstatedetails";
 
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "GetStateDetails";
-                        cmd.Connection = conn;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 30, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, 40, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_statecode", DbType.String, 2, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int32, stateId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isdeleted", DbType.Boolean, ParameterDirection.Output));
 
-                        cmd.Parameters.Add("@ID", SqlDbType.Int).Value = stateId;
-                        cmd.Parameters.Add("@Name", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@MaskingName", SqlDbType.VarChar, 40).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@StateCode", SqlDbType.VarChar, 2).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@IsDeleted", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
-                        
-                        objState.StateName = cmd.Parameters["@Name"].Value.ToString();
-                        HttpContext.Current.Trace.Warn(" objState.StateName  :" + objState.StateName);
-                        objState.MaskingName = cmd.Parameters["@MaskingName"].Value.ToString();
-                        objState.StdCode = cmd.Parameters["@StateCode"].Value.ToString();
-                        objState.IsDeleted = Convert.ToBoolean(cmd.Parameters["@IsDeleted"].Value);
-                    }
+                    objState.StateName = cmd.Parameters["par_name"].Value.ToString();
+                    objState.MaskingName = cmd.Parameters["par_maskingname"].Value.ToString();
+                    objState.StdCode = cmd.Parameters["par_statecode"].Value.ToString();
+                    objState.IsDeleted = Convert.ToBoolean(cmd.Parameters["par_isdeleted"].Value);
                 }
+
             }
             catch (SqlException ex)
             {
@@ -103,13 +92,6 @@ namespace BikeWaleOpr.Common
                 HttpContext.Current.Trace.Warn("GetStateDetails ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                if (conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
             }
             return objState;
         }//End of GetStateDetails
@@ -125,29 +107,21 @@ namespace BikeWaleOpr.Common
         /// <param name="stdCode"></param>
         public void ManageStateDetails(string stateId, string stateName, string maskingName, string stdCode)
         {
-            Database db = null;
-            SqlConnection conn = null;
-
             try
             {
-                db = new Database();
-                using (conn = new SqlConnection(db.GetConString()))
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "ManageStates";
-                        cmd.Connection = conn;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "managestates";
 
-                        cmd.Parameters.Add("@ID", SqlDbType.Int).Value = stateId;
-                        cmd.Parameters.Add("@Name", SqlDbType.VarChar, 30).Value = stateName;
-                        cmd.Parameters.Add("@MaskingName", SqlDbType.VarChar, 40).Value = maskingName;
-                        cmd.Parameters.Add("@StateCode", SqlDbType.VarChar, 2).Value = stdCode;
-                        cmd.Parameters.Add("@UpdatedBy", SqlDbType.Int).Value = CurrentUser.Id;
 
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
-                    }
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int32, stateId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 30, stateName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, 40, maskingName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_statecode", DbType.String, 2, stdCode));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, CurrentUser.Id));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException ex)
@@ -162,13 +136,6 @@ namespace BikeWaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                if (conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
-            }
         }//End of ManageStateDetails method
 
         /// <summary>
@@ -178,15 +145,15 @@ namespace BikeWaleOpr.Common
         /// <param name="stateId"></param>
         public void DeleteState(string stateId)
         {
-            Database db = null;
+
             try
             {
-                using (SqlCommand cmd = new SqlCommand("DeleteState"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("deletestate"))
                 {
-                    db = new Database();
+
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@ID", SqlDbType.Int).Value = stateId;
-                    db.UpdateQry(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int32, stateId));
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException err)
@@ -199,11 +166,6 @@ namespace BikeWaleOpr.Common
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-            }
         }//End of DeleteState method
 
         /// <summary>
@@ -213,30 +175,32 @@ namespace BikeWaleOpr.Common
         /// <returns>datatable</returns>
         public DataTable FillStates()
         {
-            Database db = null;
             DataTable dt = null;
-
-            using (SqlCommand cmd = new SqlCommand("GetStates"))
+            try
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                           
-                try
+                using (DbCommand cmd = DbFactory.GetDBCommand("getstates"))
                 {
-                    db = new Database();
-                    dt = db.SelectAdaptQry(cmd).Tables[0];
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                            dt = ds.Tables[0];
+                    }
+
                 }
-                catch (SqlException ex)
-                {
-                    HttpContext.Current.Trace.Warn("ManageStates sql ex : " + ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
-                catch (Exception ex)
-                {
-                    HttpContext.Current.Trace.Warn("ManageStates  ex : " + ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
+            }
+            catch (SqlException ex)
+            {
+                HttpContext.Current.Trace.Warn("ManageStates sql ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn("ManageStates  ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
             return dt;
         }   // End of FillStates method

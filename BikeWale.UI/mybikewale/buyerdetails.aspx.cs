@@ -5,6 +5,9 @@ using System.Web.UI.WebControls;
 using Bikewale.Common;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.Common;
+using MySql.CoreDAL;
+
 
 namespace Bikewale.MyBikeWale
 {
@@ -47,26 +50,24 @@ namespace Bikewale.MyBikeWale
 
         protected void FillBuyersList()
         {
-            Database db = null;
-            DataSet ds = null;
-
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetClassifiedIndividualBuyerDetails";
+                    cmd.CommandText = "getclassifiedindividualbuyerdetails";  
+                    //cmd.Parameters.Add("@inquiryid", SqlDbType.BigInt).Value = inquiryId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, inquiryId));
 
-                    cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt).Value = inquiryId;
-
-                    ds = db.SelectAdaptQry(cmd);
-
-                    if (ds != null && ds.Tables[0].Rows.Count > 0)
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        rptBuyersList.DataSource = ds.Tables[0];
-                        rptBuyersList.DataBind();
+
+                        if (ds != null && ds.Tables[0].Rows.Count > 0)
+                        {
+                            rptBuyersList.DataSource = ds.Tables[0];
+                            rptBuyersList.DataBind();
+                        } 
                     }
                 }
             }

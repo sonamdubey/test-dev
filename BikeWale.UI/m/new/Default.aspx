@@ -31,7 +31,7 @@
             <div class="container">
                 <div class="newbikes-banner-div">
                     <!-- Top banner code starts here -->
-                    <h1 class="text-uppercase text-white text-center padding-top25 font24">NEW Bikes</h1>
+                    <h1 class="font22 text-uppercase text-white text-center padding-top25 font24">NEW Bikes</h1>
                     <p class=" font16 text-white text-center">View all bikes under one roof</p>
                 </div>
                 <!-- Top banner code ends here -->
@@ -90,7 +90,7 @@
             <!--  Upcoming, New Launches and Top Selling code starts here -->
             <div class="container <%= ((mctrlMostPopularBikes.FetchedRecordsCount + mctrlMostPopularBikes.FetchedRecordsCount + mctrlMostPopularBikes.FetchedRecordsCount) > 0 )?"":"hide" %> ">
                 <div class="grid-12 alpha omega">
-                    <h2 class="text-center margin-top30 margin-bottom20">Featured bikes</h2>
+                    <h2 class="font18 text-center margin-top20 margin-bottom20">Featured bikes</h2>
                     <div class="bw-tabs-panel">
                         <div class="bw-tabs bw-tabs-flex">
                             <ul>
@@ -161,8 +161,8 @@
         <section class="container">
             <!-- Tools you may need code starts here -->
             <div class="grid-12">
-                <h2 class="text-center margin-top30 margin-bottom20">Tools you may need</h2>
-                <div class="tools-need-container margin-bottom30 text-center">
+                <h2 class="font18 text-center margin-top20 margin-bottom20">Tools you may need</h2>
+                <div class="tools-need-container margin-bottom20 text-center">
                     <ul>
                         <li class="bg-white content-inner-block-20 content-box-shadow margin-bottom20">
                             <a href="/m/pricequote/">
@@ -236,7 +236,7 @@
             <!--  News, reviews and videos code starts here -->
             <div class="container">
                 <div class="grid-12 alpha omega">
-                    <h2 class="text-center margin-top30 margin-bottom20">Latest Updates</h2>
+                    <h2 class="font18 text-center margin-top20 margin-bottom20">Latest updates</h2>
                     <div class="bw-tabs-panel">
                         <div class="bw-tabs">
                             <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">

@@ -30,6 +30,9 @@ namespace Bikewale.Controls
         public int FetchedRecordsCount { get; set; }
         public string MakeMaskingName { get; set; }
         public string ModelMaskingName { get; set; }
+        public string MakeName { get; set; }
+        public string ModelName { get; set; }
+        protected string linkTitle = string.Empty;
 
 
         protected override void OnInit(EventArgs e)
@@ -55,6 +58,9 @@ namespace Bikewale.Controls
             objUserReview.BindUserReview(rptUserReview);
             MakeMaskingName = objUserReview.MakeMaskingName;
             ModelMaskingName = objUserReview.ModelMaskingName;
+
+            linkTitle = string.Format("{0} {1} User reviews", MakeName, ModelName);
+
             this.FetchedRecordsCount = objUserReview.FetchedRecordsCount;
             if (this.FetchedRecordsCount == 1)
                 CssWidth = 12;

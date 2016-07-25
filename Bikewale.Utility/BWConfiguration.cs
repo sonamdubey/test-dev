@@ -62,12 +62,15 @@ namespace Bikewale.Utility
             _PageSize = String.Empty,
             _StaticFileVersion = String.Empty,
             _apiRequestTypeJSON = String.Empty,
-            _BWSmsQueue = String.Empty,
+            _BWPrioritySmsQueue = String.Empty,
+            _BWSmsQueue = string.Empty,
+            _BWDataSynchQueue = string.Empty,
             _GoogleApiKey = string.Empty,
             _GoogleMapApiKey = String.Empty,
             _apiMaxWaitTime = string.Empty,
             _useGrpc = string.Empty,
-            _bikeWaleLogo = string.Empty;
+            _bikeWaleLogo = string.Empty,
+            _CWSAPiHostUrl = string.Empty;
 
 
         // Private constructor, so no outsiders have access.
@@ -75,8 +78,8 @@ namespace Bikewale.Utility
         {
             // Initialize _data member here
             _defaultCity = ConfigurationManager.AppSettings["defaultName"];
-            _bwconnectionString = ConfigurationManager.AppSettings["bwconnectionString"];
-            _cwconnectionString = ConfigurationManager.AppSettings["connectionString"];
+            _bwconnectionString = ConfigurationManager.AppSettings["mySqlBwConnectionString"];
+            _cwconnectionString = ConfigurationManager.AppSettings["mySqlConnectionString"];
             _offerUniqueTransaction = ConfigurationManager.AppSettings["OfferUniqueTransaction"];
             _billDeskWorkingKey = ConfigurationManager.AppSettings["BillDeskWorkingKey"];
             _imgHostURL = ConfigurationManager.AppSettings["imgHostURL"];
@@ -116,12 +119,15 @@ namespace Bikewale.Utility
             _PageSize = ConfigurationManager.AppSettings["PageSize"];
             _StaticFileVersion = ConfigurationManager.AppSettings["staticFileVersion"];
             _apiRequestTypeJSON = "application/json";
-            _BWSmsQueue = ConfigurationManager.AppSettings["PrioritySmsQueue"];
+            _BWPrioritySmsQueue = ConfigurationManager.AppSettings["PrioritySmsQueue"];
+            _BWSmsQueue = ConfigurationManager.AppSettings["SmsQueue"];
+            _BWDataSynchQueue = ConfigurationManager.AppSettings["BWDataSynchQueue"];
             _GoogleApiKey = ConfigurationManager.AppSettings["APIKey"];
             _GoogleMapApiKey = ConfigurationManager.AppSettings["GoogleMapApiKey"];
             _apiMaxWaitTime = ConfigurationManager.AppSettings["ApiMaxWaitTime"];
             _useGrpc = ConfigurationManager.AppSettings["UseGrpc"];
             _bikeWaleLogo = "http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-logo.png";
+            _CWSAPiHostUrl = ConfigurationManager.AppSettings["CwWebServiceHostUrl"];
         }
 
         // Static method to provide access to instance
@@ -219,10 +225,13 @@ namespace Bikewale.Utility
         public string PageSize { get { return _PageSize; } }
         public string StaticFileVersion { get { return _StaticFileVersion; } }
         public string APIRequestTypeJSON { get { return _apiRequestTypeJSON; } }
+        public string BWPrioritySmsQueue { get { return _BWPrioritySmsQueue; } }
         public string BWSmsQueue { get { return _BWSmsQueue; } }
+        public string BWDataSynchQueue { get { return _BWDataSynchQueue; } }
         public string GoogleApiKey { get { return _GoogleApiKey; } }
         public string GoogleMapApiKey { get { return _GoogleMapApiKey; } }
         public int ApiMaxWaitTime { get { return string.IsNullOrEmpty(_apiMaxWaitTime) ? 0 : Convert.ToInt32(_apiMaxWaitTime); } }
         public string UseGrpc { get { return _useGrpc; } }
+        public string CWSApiHostUrl { get { return _CWSAPiHostUrl; } }
     }   // class
 }   // namespace

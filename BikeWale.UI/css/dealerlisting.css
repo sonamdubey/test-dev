@@ -28,10 +28,10 @@ body { overflow-x:hidden; }
 #dealersList li.active h2 .dealer-pointer-arrow::before {border-right: 14px solid #e2e2e2;border-top: 14px solid transparent;border-bottom: 14px solid transparent;content: "";position: absolute; top:50px; left: -35px;z-index: 1;}
 #dealersList li.active h2 .dealer-pointer-arrow::after { border-right: 14px solid #f9f9f9; border-top: 14px solid transparent; border-bottom: 14px solid transparent; content: ""; position: absolute; top:50px;left: -34px; z-index: 1; }
 #dealersList h2 { padding-top:18px; border-top:1px solid #e2e2e2; }
-#dealersList .btn.get-assistance-btn {padding:8px 20px;width:236px}
+#dealersList .btn.get-assistance-btn {padding:8px 35px;width:236px}
 #dealersList a { display:block; }
 #dealersList a:hover, #dealerDetailsSliderCard a:hover { text-decoration:none; }
-.featured-tag {position:relative;left:-20px;top:-5px;width:100px;display:block;background:#4d5057;z-index:1; line-height:28px; }
+.featured-tag {position:relative;left:-20px;top:-5px;width:100px;display:block;background:#4d5057;z-index:1; line-height:28px; font-weight:400; }
 .featured-tag:after {content:'';width:12px; height:28px;background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=15Mar2016) no-repeat right top;position:absolute;left:98px;}
 .tel-sm-grey-icon{width: 15px;height: 15px;background-position: 0 -435px;position: relative;top: 2px;}
 .btn-white-orange { background: transparent; color: #82888b; border: 1px solid #82888b;}
@@ -81,7 +81,6 @@ a.text-black:hover { text-decoration:none; }
 #dealersList .mail-grey-icon { position:relative; top:6px; }
 .vertical-top { display:inline-block;vertical-align:top; }
 .crosshair-icon { width:20px; height:20px; background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/detect-location-icon.jpg) no-repeat; }
-.inr-lg { width:10px; height:14px; background-position:-110px -491px; }
 
 #leadCapturePopup{display:none;width:450px;min-height:470px;background:#fff;margin:0 auto;position:fixed;top:5%;right:5%;left:5%;z-index:10;padding:30px 40px}
 .personal-info-form-container{margin:10px auto;width:300px;min-height:100px}

@@ -188,14 +188,14 @@
                 this.value = this.value.replace(/[^0-9]/g, '');
             });
 
-            function btnDelete_Click() {
+            function btnDelete_Click() {                
                 var loanId = '<%=loanId%>';
-                var host = '<%=cwHostUrl%>';
+                var BwOprHostUrl = '<%= ConfigurationManager.AppSettings["BwOprHostUrlForJs"] %>';
                 var acknowledge = confirm("Are you sure you want to delete this record");
                 if (acknowledge) {
                     $.ajax({
                         type: "GET",
-                        url: host + "api/Dealers/DeleteDealerEMI/?id=" + loanId,
+                        url: BwOprHostUrl + "/api/Dealers/DeleteDealerEMI/?id=" + loanId,
                         success: function (response) {
                             $('input[type="text"]').each(function () {
                                 $(this).val('');
@@ -210,6 +210,5 @@
             }
         </script>
     </form>
-
 </body>
 </html>

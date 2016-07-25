@@ -9,6 +9,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Bikewale.Common;
+using System.Data.Common;
 
 namespace Bikewale.News
 {
@@ -45,8 +46,8 @@ namespace Bikewale.News
 
         public int totalPages = 1;
 
-        private SqlCommand _cmdParamQ = null;
-        private SqlCommand _cmdParamR = null;
+        private DbCommand _cmdParamQ = null;
+        private DbCommand _cmdParamR = null;
 
         private DataSet _dataSetTags = null;
         private DataSet _dataSetSubCat = null;
@@ -115,7 +116,7 @@ namespace Bikewale.News
         } // RecordCount
 
         // This property hold all the CmdParam
-        public SqlCommand CmdParamQ //command variable to store the parameters for query
+        public DbCommand CmdParamQ //command variable to store the parameters for query
         {
             get
             {
@@ -127,7 +128,7 @@ namespace Bikewale.News
             }
         } // CmdParam
 
-        public SqlCommand CmdParamR	//command variable for the record count
+        public DbCommand CmdParamR	//command variable for the record count
         {
             get
             {
@@ -207,8 +208,8 @@ namespace Bikewale.News
         }
 
         //added by : Ashwini Todkar on 21 jan 2014
-        SqlCommand _CmdParamQry;
-        public SqlCommand CmdParamQry //command variable to store the parameters for query
+        DbCommand _CmdParamQry;
+        public DbCommand CmdParamQry //command variable to store the parameters for query
         {
             get { return _CmdParamQry; }
             set { _CmdParamQry = value; }
@@ -400,107 +401,109 @@ namespace Bikewale.News
         // query provided.
         public void BindRepeater()
         {
-            this.SerialNo = (this.CurrentPageIndex - 1) * this.PageSize;
+            throw new Exception("Method not used/commented");
 
-            string sql = "";
-            CommonOpn objCom = new CommonOpn();
+            //this.SerialNo = (this.CurrentPageIndex - 1) * this.PageSize;
 
-            Database db = new Database();
+            //string sql = "";
+            //CommonOpn objCom = new CommonOpn();
 
-            int startIndex = (this.CurrentPageIndex - 1) * this.PageSize + 1;
-            int endIndex = this.CurrentPageIndex * this.PageSize;
+            //Database db = new Database();
 
-            //form the query. Only fetch the desired rows. 
+            //int startIndex = (this.CurrentPageIndex - 1) * this.PageSize + 1;
+            //int endIndex = this.CurrentPageIndex * this.PageSize;
 
-            sql = " Select * From (Select Top " + endIndex + " Row_Number() Over (Order By " + OrderByClause + ") AS RowN, "
-                + " " + SelectClause + " From " + FromClause + " "
-                + (WhereClause != "" ? " Where " + WhereClause + " " : "")
-                + " ) AS TopRecords Where "
-                + " RowN >= " + startIndex + " AND RowN <= " + endIndex + " ";
+            ////form the query. Only fetch the desired rows. 
 
-            Trace.Warn("Fetch the desired rows : " + sql);
-            try
-            {
-                DataSet ds = new DataSet();
-                if (sql != "")
-                {
-                    Trace.Warn("Binding Sql : " + sql);
+            //sql = " Select * From (Select Top " + endIndex + " Row_Number() Over (Order By " + OrderByClause + ") AS RowN, "
+            //    + " " + SelectClause + " From " + FromClause + " "
+            //    + (WhereClause != "" ? " Where " + WhereClause + " " : "")
+            //    + " ) AS TopRecords Where "
+            //    + " RowN >= " + startIndex + " AND RowN <= " + endIndex + " ";
 
-                    CmdParamQ.CommandText = sql;
-                    ds = db.SelectAdaptQry(CmdParamQ);
-                    Trace.Warn("data Row Count: " + ds.Tables[0].Rows.Count.ToString());
+            //Trace.Warn("Fetch the desired rows : " + sql);
+            //try
+            //{
+            //    DataSet ds = new DataSet();
+            //    if (sql != "")
+            //    {
+            //        Trace.Warn("Binding Sql : " + sql);
 
-                    Trace.Warn("GetTags : " + GetTags);
-                    /* if (GetTags)
-                     {
-                         DataView Dv = ds.Tables[0].DefaultView;
-                         DataTable dt = Dv.ToTable(true, "BasicId");
+            //        CmdParamQ.CommandText = sql;
+            //        ds = db.SelectAdaptQry(CmdParamQ);
+            //        Trace.Warn("data Row Count: " + ds.Tables[0].Rows.Count.ToString());
 
-                         Trace.Warn(" dt count " + dt.Rows.Count.ToString());
+            //        Trace.Warn("GetTags : " + GetTags);
+            //        /* if (GetTags)
+            //         {
+            //             DataView Dv = ds.Tables[0].DefaultView;
+            //             DataTable dt = Dv.ToTable(true, "BasicId");
 
-                         DataRow[] distinctRows = dt.Select();
-                         string ids = string.Empty;
-                         foreach (DataRow drow in dt.Rows)
-                         {
-                             ids += drow["BasicId"].ToString() + ",";
-                         }
+            //             Trace.Warn(" dt count " + dt.Rows.Count.ToString());
 
-                         ids = ids.Substring(0, ids.Length - 1);
+            //             DataRow[] distinctRows = dt.Select();
+            //             string ids = string.Empty;
+            //             foreach (DataRow drow in dt.Rows)
+            //             {
+            //                 ids += drow["BasicId"].ToString() + ",";
+            //             }
 
-                         Trace.Warn("Here: ");
-                         SqlCommand cmdTags = new SqlCommand();
-                         string tagsSql = " Select BT.BasicId, Tag, Slug From Con_EditCms_Tags T "
-                                        + " Left Join Con_EditCms_BasicTags BT On BT.TagId = T.ID "
-                                        + " Where BT.BasicId In ( " + db.GetInClauseValue(ids, "BasicIds", cmdTags) + " )";
-                         cmdTags.CommandText = tagsSql;
+            //             ids = ids.Substring(0, ids.Length - 1);
 
-                         Trace.Warn("tagsSql: " + tagsSql);
-                         Trace.Warn("ids: " + ids);
+            //             Trace.Warn("Here: ");
+            //             SqlCommand cmdTags = new SqlCommand();
+            //             string tagsSql = " Select BT.BasicId, Tag, Slug From Con_EditCms_Tags T "
+            //                            + " Left Join Con_EditCms_BasicTags BT On BT.TagId = T.ID "
+            //                            + " Where BT.BasicId In ( " + db.GetInClauseValue(ids, "BasicIds", cmdTags) + " )";
+            //             cmdTags.CommandText = tagsSql;
 
-                         DataSetTags = db.SelectAdaptQry(cmdTags);
-                     }
-                     Trace.Warn("GetSubCat : " + GetSubCat);
-                     if (GetSubCat)//fetch the subcategories for these basic ids
-                     {
-                         DataView Dv = ds.Tables[0].DefaultView;
-                         DataTable dt = Dv.ToTable(true, "BasicId");
+            //             Trace.Warn("tagsSql: " + tagsSql);
+            //             Trace.Warn("ids: " + ids);
 
-                         Trace.Warn(" dt count " + dt.Rows.Count.ToString());
+            //             DataSetTags = db.SelectAdaptQry(cmdTags);
+            //         }
+            //         Trace.Warn("GetSubCat : " + GetSubCat);
+            //         if (GetSubCat)//fetch the subcategories for these basic ids
+            //         {
+            //             DataView Dv = ds.Tables[0].DefaultView;
+            //             DataTable dt = Dv.ToTable(true, "BasicId");
 
-                         DataRow[] distinctRows = dt.Select();
-                         string ids = string.Empty;
-                         foreach (DataRow drow in dt.Rows)
-                         {
-                             ids += drow["BasicId"].ToString() + ",";
-                         }
+            //             Trace.Warn(" dt count " + dt.Rows.Count.ToString());
 
-                         ids = ids.Substring(0, ids.Length - 1);
+            //             DataRow[] distinctRows = dt.Select();
+            //             string ids = string.Empty;
+            //             foreach (DataRow drow in dt.Rows)
+            //             {
+            //                 ids += drow["BasicId"].ToString() + ",";
+            //             }
 
-                         Trace.Warn("Here: ");
-                         SqlCommand cmdSubCat = new SqlCommand();
-                         string subCatSql = " Select BSC.BasicId, SC.Id, SC.Name From Con_EditCms_SubCategories SC "
-                                          + " Inner Join Con_EditCms_BasicSubCategories BSC On BSC.SubCategoryId = SC.Id "
-                                          + " Where BSC.BasicId In ( " + db.GetInClauseValue(ids, "BasicIds", cmdSubCat) + " ) ";
-                         cmdSubCat.CommandText = subCatSql;
+            //             ids = ids.Substring(0, ids.Length - 1);
 
-                         Trace.Warn("subCatSql: " + subCatSql);
-                         Trace.Warn("ids: " + ids);
+            //             Trace.Warn("Here: ");
+            //             SqlCommand cmdSubCat = new SqlCommand();
+            //             string subCatSql = " Select BSC.BasicId, SC.Id, SC.Name From Con_EditCms_SubCategories SC "
+            //                              + " Inner Join Con_EditCms_BasicSubCategories BSC On BSC.SubCategoryId = SC.Id "
+            //                              + " Where BSC.BasicId In ( " + db.GetInClauseValue(ids, "BasicIds", cmdSubCat) + " ) ";
+            //             cmdSubCat.CommandText = subCatSql;
 
-                         DataSetSubCat = db.SelectAdaptQry(cmdSubCat);
-                     }*/
-                    rpt.DataSource = ds;
-                    Trace.Warn("DataSource Set");
-                    rpt.DataBind();
-                    Trace.Warn("PageSize: " + PageSize);
-                }
-                Trace.Warn("Binding Complete...");
-            }
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+            //             Trace.Warn("subCatSql: " + subCatSql);
+            //             Trace.Warn("ids: " + ids);
+
+            //             DataSetSubCat = db.SelectAdaptQry(cmdSubCat);
+            //         }*/
+            //        rpt.DataSource = ds;
+            //        Trace.Warn("DataSource Set");
+            //        rpt.DataBind();
+            //        Trace.Warn("PageSize: " + PageSize);
+            //    }
+            //    Trace.Warn("Binding Complete...");
+            //}
+            //catch (Exception err)
+            //{
+            //    Trace.Warn(err.Message + err.Source);
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
         }
 
         //int GetRecordCount()
@@ -550,39 +553,41 @@ namespace Bikewale.News
         /// <returns></returns>
         private DataSet GetRepeaterData()
         {
-            DataSet ds = new DataSet();
+            throw new Exception("Method not used/commented");
 
-            this.SerialNo = (this.CurrentPageIndex - 1) * this.PageSize;
+            //DataSet ds = new DataSet();
 
-            string sql = string.Empty;
+            //this.SerialNo = (this.CurrentPageIndex - 1) * this.PageSize;
 
-            Database db = new Database();
+            //string sql = string.Empty;
 
-            int startIndex = (this.CurrentPageIndex - 1) * this.PageSize + 1;
-            int endIndex = this.CurrentPageIndex * this.PageSize;
+            //Database db = new Database();
 
-            Trace.Warn("CmdParamQry " + CmdParamQry);
+            //int startIndex = (this.CurrentPageIndex - 1) * this.PageSize + 1;
+            //int endIndex = this.CurrentPageIndex * this.PageSize;
 
-            try
-            {
-                // Assign parameter(predefine) to the SqlCommand
+            //Trace.Warn("CmdParamQry " + CmdParamQry);
 
-                CmdParamQry.Parameters.Add("@StartIndex", SqlDbType.Int).Value = startIndex;
-                CmdParamQry.Parameters.Add("@EndIndex", SqlDbType.Int).Value = endIndex;
+            //try
+            //{
+            //    // Assign parameter(predefine) to the SqlCommand
 
-                // Execute Sql command and bind data with the repeater.
-                ds = db.SelectAdaptQry(CmdParamQry);
+            //    CmdParamQry.Parameters.Add("@StartIndex", SqlDbType.Int).Value = startIndex;
+            //    CmdParamQry.Parameters.Add("@EndIndex", SqlDbType.Int).Value = endIndex;
 
-                Trace.Warn("rows count : " + ds.Tables[0].Rows.Count);
-            }
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+            //    // Execute Sql command and bind data with the repeater.
+            //    ds = db.SelectAdaptQry(CmdParamQry);
 
-            return ds;
+            //    Trace.Warn("rows count : " + ds.Tables[0].Rows.Count);
+            //}
+            //catch (Exception err)
+            //{
+            //    Trace.Warn(err.Message + err.Source);
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+
+            //return ds;
         }
     }//class
 }//namespace

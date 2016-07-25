@@ -1,11 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Data;
-using System.Data.SqlClient;
-using System.Configuration;
+﻿
+using Bikewale.Utility;
 using Enyim.Caching;
-using Enyim.Caching.Memcached;
+using MySql.CoreDAL;
+using System;
+using System.Collections.Specialized;
+using System.Configuration;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Web;
 
 /// <summary>
 /// Getting All details of make model and versions of the bikes
@@ -39,7 +42,7 @@ namespace BikeWaleOpr.Common
         public MakeModelVersion()
         {
             _isMemcachedUsed = bool.Parse(ConfigurationManager.AppSettings.Get("IsMemcachedUsed"));
-            if (_mc == null)
+            if (_isMemcachedUsed && _mc == null)
             {
                 InitializeMemcached();
             }
@@ -60,29 +63,32 @@ namespace BikeWaleOpr.Common
         public DataTable GetMakes(string RequestType)
         {
             DataTable dt = null;
-            Database db = null;
-
-            using (SqlCommand cmd = new SqlCommand("GetBikeMakes"))
+            try
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = RequestType;
-                try
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes"))
                 {
-                    db = new Database();
-                    dt = db.SelectAdaptQry(cmd).Tables[0];
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, RequestType));
+
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                            dt = ds.Tables[0];
+                    }
+
                 }
-                catch (SqlException ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
-                catch (Exception ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
+            }
+            catch (SqlException ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
             return dt;
         }
@@ -96,31 +102,37 @@ namespace BikeWaleOpr.Common
         public DataTable GetModels(string MakeId, string RequestType)
         {
             DataTable dt = null;
-            Database db = null;
 
-            using (SqlCommand cmd = new SqlCommand("GetBikeModels"))
+            try
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = RequestType;
-                cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = MakeId;
 
-                try
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemodels"))
                 {
-                    db = new Database();
-                    dt = db.SelectAdaptQry(cmd).Tables[0];
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, RequestType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, MakeId));
+
+
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                            dt = ds.Tables[0];
+                    }
+
                 }
-                catch (SqlException ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
-                catch (Exception ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
+            }
+            catch (SqlException ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
             return dt;
         }
@@ -134,32 +146,37 @@ namespace BikeWaleOpr.Common
         /// <returns></returns>
         public DataTable GetVersions(string ModelId, string RequestType)
         {
-            Database db = null;
+
             DataTable dt = null;
 
-            using (SqlCommand cmd = new SqlCommand("GetBikeVersions"))
+            try
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = RequestType;
-                cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = ModelId;
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikeversions"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, RequestType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, ModelId));
 
-                try
-                {
-                    db = new Database();
-                    dt = db.SelectAdaptQry(cmd).Tables[0];
+
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                            dt = ds.Tables[0];
+                    }
+
                 }
-                catch (SqlException ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
-                catch (Exception ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
+            }
+            catch (SqlException ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
             return dt;
         }
@@ -169,146 +186,115 @@ namespace BikeWaleOpr.Common
         /// Method will set makeid, make, model on the basis of model id
         /// </summary>
         /// <param name="modelId"></param>
-        public void GetModelDetails(string modelId)
-        {
-            Database db = null;
-            SqlConnection conn = null;
+        //public void GetModelDetails(string modelId)
+        //{
+        //throw new NotImplementedException("public void GetModelDetails(string modelId)");
+        //try
+        //{
+        //    using (DbCommand cmd = DbFactory.GetDBCommand())
+        //    {
+        //        cmd.CommandType = CommandType.StoredProcedure;
+        //        cmd.CommandText = "getmodeldetails";
 
-            try
-            {
-                db = new Database();
-                conn = new SqlConnection(db.GetConString());
+        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, Configuration.GetDefaultCityId));    // Prices for default city in webconfig
+        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, ParameterDirection.Output));
+        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbType.String, 30, ParameterDirection.Output));
+        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_model", DbType.String, 30, ParameterDirection.Output));
+        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_isfuturistic", DbType.Boolean, ParameterDirection.Output));
+        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_smallpic", DbType.String, 50, ParameterDirection.Output));
+        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_largepic", DbType.String, 50, ParameterDirection.Output));
+        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, 50, ParameterDirection.Output));
+        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_minprice", DbType.String, 50, ParameterDirection.Output));
+        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_maxprice", DbType.String, 50, ParameterDirection.Output));
 
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetModelDetails";
-                    cmd.Connection = conn;
+        //        MySqlDatabase.ExecuteNonQuery(cmd);
 
-                    HttpContext.Current.Trace.Warn("modelId : " + modelId);
+        //        ModelId = cmd.Parameters["par_modelid"].Value.ToString();
+        //        Model = cmd.Parameters["par_model"].Value.ToString();
+        //        MakeId = cmd.Parameters["par_makeid"].Value.ToString();
+        //        Make = cmd.Parameters["par_Make"].Value.ToString();
+        //        IsFuturistic = Convert.ToBoolean(cmd.Parameters["par_isfuturistic"].Value);
+        //        SmallPic = cmd.Parameters["par_smallpic"].Value.ToString();
+        //        LargePic = cmd.Parameters["par_largepic"].Value.ToString();
+        //        HostUrl = cmd.Parameters["par_hosturl"].Value.ToString();
+        //        MinPrice = cmd.Parameters["par_minprice"].Value.ToString();
+        //        MaxPrice = cmd.Parameters["par_maxprice"].Value.ToString();
+        //    }
+        //}
+        //catch (SqlException ex)
+        //{
+        //    HttpContext.Current.Trace.Warn("GetModelDetails sql ex : " + ex.Message + ex.Source);
+        //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+        //    objErr.SendMail();
+        //}
+        //catch (Exception ex)
+        //{
+        //    HttpContext.Current.Trace.Warn("GetModelDetails ex : " + ex.Message + ex.Source);
+        //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+        //    objErr.SendMail();
+        //}
+        //}   // End of GetMakeFromModelId method
 
-                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
-                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = Configuration.GetDefaultCityId;    // Prices for default city in webconfig
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@Make", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@Model", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@IsFuturistic", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@SmallPic", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@LargePic", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@HostURL", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@MinPrice", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@MaxPrice", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;                    
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-
-                    HttpContext.Current.Trace.Warn("qry success");
-
-                    ModelId = cmd.Parameters["@ModelId"].Value.ToString();
-                    Model = cmd.Parameters["@Model"].Value.ToString();
-                    MakeId = cmd.Parameters["@MakeId"].Value.ToString();
-                    Make = cmd.Parameters["@Make"].Value.ToString();
-                    IsFuturistic = Convert.ToBoolean(cmd.Parameters["@IsFuturistic"].Value);
-                    SmallPic = cmd.Parameters["@SmallPic"].Value.ToString();
-                    LargePic = cmd.Parameters["@LargePic"].Value.ToString();
-                    HostUrl = cmd.Parameters["@HostURL"].Value.ToString();
-                    MinPrice = cmd.Parameters["@MinPrice"].Value.ToString();
-                    MaxPrice = cmd.Parameters["@MaxPrice"].Value.ToString();                    
-                }
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetModelDetails sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("GetModelDetails ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
-            }
-        }   // End of GetMakeFromModelId method
-
-        /// <summary>
-        /// Written By : Ashish G. Kamble on 3/8/2012
-        /// Method will set makeid, make, model id, model, version id, version on the basis of version id
-        /// </summary>
-        /// <param name="versionId"></param>
-        /// <returns></returns>
         public void GetVersionDetails(string versionId)
         {
-            Database db = null;
-            SqlConnection conn = null;
 
-            try
-            {
-                db = new Database();
-                conn = new SqlConnection(db.GetConString());
+            throw new NotImplementedException();
+            //try
+            //{
+            //    using (DbCommand cmd = DbFactory.GetDBCommand())
+            //    {
+            //        cmd.CommandType = CommandType.StoredProcedure;
+            //        cmd.CommandText = "getversiondetails";
 
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetVersionDetails";
-                    cmd.Connection = conn;
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, Configuration.GetDefaultCityId));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbType.String, 30, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_model", DbType.String, 30, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_version", DbType.String, 30, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, 100, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_largepic", DbType.String, 50, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_smallpic", DbType.String, 50, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_minprice", DbType.Int32, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_maxprice", DbType.Int32, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_bike", DbType.String, 100, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, 50, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbType.String, 50, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 150, ParameterDirection.Output));
 
-                    cmd.Parameters.Add("@VersionId", SqlDbType.Int).Value = versionId;
-                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = Configuration.GetDefaultCityId;    // Prices for default city in webconfig
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@Make", SqlDbType.VarChar, 20).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@Model", SqlDbType.VarChar, 20).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@Version", SqlDbType.VarChar, 20).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@HostUrl", SqlDbType.VarChar, 20).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@LargePic", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@SmallPic", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@MinPrice", SqlDbType.Int).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@MaxPrice", SqlDbType.Int).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@Bike", SqlDbType.VarChar, 100).Direction = ParameterDirection.Output;
+            //        MySqlDatabase.ExecuteNonQuery(cmd);
 
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-
-                    VersionId = cmd.Parameters["@VersionId"].Value.ToString();
-                    Version = cmd.Parameters["@Version"].Value.ToString();
-                    ModelId = cmd.Parameters["@ModelId"].Value.ToString();
-                    Model = cmd.Parameters["@Model"].Value.ToString();
-                    MakeId = cmd.Parameters["@MakeId"].Value.ToString();
-                    Make = cmd.Parameters["@Make"].Value.ToString();
-                    BikeName = cmd.Parameters["@Bike"].Value.ToString();
-                    HostUrl = cmd.Parameters["@HostUrl"].Value.ToString();
-                    LargePic = cmd.Parameters["@LargePic"].Value.ToString();
-                    SmallPic = cmd.Parameters["@SmallPic"].Value.ToString();                    
-                    MinPrice = cmd.Parameters["@MinPrice"].Value.ToString();
-                    MaxPrice = cmd.Parameters["@MaxPrice"].Value.ToString();    
-                }
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
-            }
+            //        if (!String.IsNullOrEmpty(cmd.Parameters["par_makeid"].Value.ToString()))
+            //        {
+            //            VersionId = cmd.Parameters["par_VersionId"].Value.ToString();
+            //            Version = cmd.Parameters["par_version"].Value.ToString();
+            //            ModelId = cmd.Parameters["par_modelid"].Value.ToString();
+            //            Model = cmd.Parameters["par_model"].Value.ToString();
+            //            MakeId = cmd.Parameters["par_makeid"].Value.ToString();
+            //            Make = cmd.Parameters["par_make"].Value.ToString();
+            //            BikeName = cmd.Parameters["par_bike"].Value.ToString();
+            //            HostUrl = cmd.Parameters["par_hosturl"].Value.ToString();
+            //            LargePic = cmd.Parameters["par_largepic"].Value.ToString();
+            //            SmallPic = cmd.Parameters["par_smallpic"].Value.ToString();
+            //            MinPrice = cmd.Parameters["par_minprice"].Value.ToString();
+            //            MaxPrice = cmd.Parameters["par_maxprice"].Value.ToString();
+            //        }
+            //    }
+            //}
+            //catch (SqlException ex)
+            //{
+            //    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
         }   // End of GetVersionDetails method
 
         /// <summary>
@@ -324,23 +310,23 @@ namespace BikeWaleOpr.Common
 
             string sql = "";
 
-            sql = " SELECT Name AS MakeName, ID AS MakeId FROM BikeMakes "
-                + " WHERE ID = @makeId ";
-
-            SqlDataReader dr = null;
-            Database db = new Database();
-            SqlParameter[] param = { new SqlParameter("@makeId", makeId) };
+            sql = " select name as makename, id as makeid from bikemakes where id = @makeid ";
 
             try
             {
-                dr = db.SelectQry(sql, param);
-
-                if (dr.Read())
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    Make = dr["MakeName"].ToString();
-                    MakeId = dr["MakeId"].ToString();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@makeid", DbType.Int32, makeId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            Make = dr["MakeName"].ToString();
+                            MakeId = dr["MakeId"].ToString();
 
-                    BikeName = dr["MakeName"].ToString();
+                            BikeName = dr["MakeName"].ToString();
+                        }
+                    }
                 }
 
             }
@@ -348,14 +334,6 @@ namespace BikeWaleOpr.Common
             {
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                if (dr != null)
-                {
-                    dr.Close();
-                }
-                db.CloseConnection();
             }
 
             return Make;
@@ -372,30 +350,28 @@ namespace BikeWaleOpr.Common
         /// <param name="makeId"></param>
         public bool UpdateMakeMaskingName(string maskingName, string updatedBy, string makeId)
         {
-            SqlCommand cmd;
-            SqlParameter prm;
-            Database db = null;
             bool isSuccess = false;
-
             try
             {
-                db = new Database();
 
-                cmd = new SqlCommand("UpdateMakeMaskingName");
-                cmd.CommandType = CommandType.StoredProcedure;
+                using (DbCommand cmd = DbFactory.GetDBCommand("updatemakemaskingname"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, 50, maskingName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, updatedBy));
+                    isSuccess = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
 
-                prm = cmd.Parameters.Add("@MaskingName", SqlDbType.VarChar, 50);
-                prm.Value = maskingName;
+                    // Update the Make Masking Name in CW database
+                    NameValueCollection nvc = new NameValueCollection();
+                    nvc.Add("makeid", makeId);
+                    nvc.Add("maskingname", maskingName);
+                    SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
 
-                prm = cmd.Parameters.Add("@MakeId", SqlDbType.Int);
-                prm.Value = makeId;
-
-                prm = cmd.Parameters.Add("@UpdatedBy", SqlDbType.Int);
-                prm.Value = updatedBy;
-
-                isSuccess = db.UpdateQry(cmd);
-
-                _mc.Remove("BW_MakeMapping");                
+                    if (_mc != null)
+                        _mc.Remove("BW_MakeMapping");
+                    isSuccess = true;
+                }
             }
             catch (SqlException err)
             {
@@ -420,73 +396,39 @@ namespace BikeWaleOpr.Common
         /// <param name="updatedBy">passed which user has updated last time</param>
         /// <param name="modelId">identify which model mask name is changed</param>
         /// <returns>nothing</returns>
-        
+
         public bool UpdateModelMaskingName(string maskingName, string updatedBy, string modelId)
         {
-            SqlCommand cmd;
-            SqlParameter prm;
-            Database db = null;
             bool isSuccess = false;
-
             try
-            {   
-                db = new Database();
-                cmd = new SqlCommand("UpdateModelMaskingName");
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                prm = cmd.Parameters.Add("@MaskingName", SqlDbType.VarChar,50);
-                prm.Value = maskingName;
-
-                prm = cmd.Parameters.Add("@updatedBy", SqlDbType.Int);
-                prm.Value = updatedBy;
-
-                prm = cmd.Parameters.Add("@ModelId", SqlDbType.Int);
-                prm.Value = modelId;
-
-                isSuccess = db.UpdateQry(cmd);
-
-                _mc.Remove("BW_ModelMapping");
-                _mc.Remove("BW_NewBikeLaunches");
-                _mc.Remove("BW_OldModelMaskingNames");
-                _mc.Remove("BW_NewModelMaskingNames");
-                _mc.Remove("BW_TopVersionId");
-            }
-            catch (SqlException err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if(db != null)
-                    db.CloseConnection();
-            }
-
-            return isSuccess;
-        }   // End of UpdateModelMaskingName
-
-        /// <summary>
-        /// Written By : Ashwini Todkar on 17 Feb 2014
-        /// Method to discontinue all versions of a model
-        /// </summary>
-        /// <param name="modelId"></param>
-        public void DiscontinueBikeModel(string modelId)
-        {
-            Database db = null;
-
-            try 
-            {
-                using (SqlCommand cmd = new SqlCommand("DiscontinueBikeModel"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("updatemodelmaskingname"))
                 {
-                    db = new Database();
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
-                    db.UpdateQry(cmd);
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, 50, maskingName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, updatedBy));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismodelmaskingexist", DbType.Boolean, ParameterDirection.Output));
+                    isSuccess = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+
+                    if (!Convert.ToBoolean(cmd.Parameters["par_ismodelmaskingexist"].Value))
+                    {
+                        NameValueCollection nvc = new NameValueCollection();
+                        nvc.Add("ModelMaskingName", maskingName);
+                        nvc.Add("modelId", modelId);
+                        SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
+                        isSuccess = true;
+                    }
+                    if (_mc != null)
+                    {
+                        _mc.Remove("BW_ModelMapping");
+                        _mc.Remove("BW_NewBikeLaunches");
+                        _mc.Remove("BW_OldModelMaskingNames");
+                        _mc.Remove("BW_NewModelMaskingNames");
+                        _mc.Remove("BW_TopVersionId");
+                    }
+
                 }
             }
             catch (SqlException err)
@@ -499,10 +441,37 @@ namespace BikeWaleOpr.Common
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
+
+            return isSuccess;
+        }   // End of UpdateModelMaskingName
+
+        /// <summary>
+        /// Written By : Ashwini Todkar on 17 Feb 2014
+        /// Method to discontinue all versions of a model
+        /// </summary>
+        /// <param name="modelId"></param>
+        public void DiscontinueBikeModel(string modelId)
+        {
+            try
             {
-                if (db != null)
-                    db.CloseConnection();
+                using (DbCommand cmd = DbFactory.GetDBCommand("discontinuebikemodel"))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+                }
+            }
+            catch (SqlException err)
+            {
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
         }//End of DiscontinueBikeModel
 
@@ -513,21 +482,17 @@ namespace BikeWaleOpr.Common
         /// <param name="makeId">Id of the make whose synopsis is to be updated.</param>
         public void ManageMakeSynopsis(string makeId, string synopsis)
         {
-            Database db = null;
-            
             try
             {
-                db = new Database();
-
-                using (SqlCommand cmd = new SqlCommand("ManageMakeSynopsis"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("managemakesynopsis"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
-                    cmd.Parameters.Add("@Discription", SqlDbType.VarChar).Value = synopsis.Trim();
-                    cmd.Parameters.Add("@UserId", SqlDbType.BigInt).Value = CurrentUser.Id;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_discription", DbType.String, synopsis.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int64, CurrentUser.Id));
 
-                    db.UpdateQry(cmd);
-                    HttpContext.Current.Trace.Warn("Success");
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+
                 }
             }
             catch (SqlException sqlEx)
@@ -552,20 +517,21 @@ namespace BikeWaleOpr.Common
         /// <param name="deletedBy"></param>
         public void DeleteMakeModelVersion(string makeId, string deletedBy)
         {
-            Database db = null;
-
             try
             {
-                db = new Database();
-
-                using (SqlCommand cmd = new SqlCommand("UpdateModelVersionIsDeleted"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("updatemodelversionisdeleted"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, deletedBy));
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
 
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
-                    cmd.Parameters.Add("@UpdatedBy", SqlDbType.Int).Value = deletedBy;
-
-                    db.UpdateQry(cmd);
+                    // Push the data to carwale DB
+                    // Create name value collection
+                    NameValueCollection nvc = new NameValueCollection();
+                    nvc.Add("makeId", makeId);
+                    nvc.Add("IsDeleted", "1");
+                    SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
                 }
             }
             catch (SqlException sqlEx)
@@ -588,22 +554,20 @@ namespace BikeWaleOpr.Common
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="deletedBy"></param>
-        public void DeleteModelVersions(string modelId , string deletedBy)
+        public void DeleteModelVersions(string modelId, string deletedBy)
         {
-            Database db = null;
-
             try
             {
-                db = new Database();
-
-                using (SqlCommand cmd = new SqlCommand("UpdateVersionIsDeleted"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("updateversionisdeleted"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
-                    cmd.Parameters.Add("@UpdatedBy", SqlDbType.Int).Value = deletedBy;
-
-                    db.UpdateQry(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, deletedBy));
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+                    NameValueCollection nvc = new NameValueCollection();
+                    nvc.Add("ModelId", modelId);
+                    nvc.Add("IsDeleted", "1");
+                    SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
                 }
             }
             catch (SqlException sqlEx)
@@ -626,33 +590,21 @@ namespace BikeWaleOpr.Common
         /// </summary>
         /// <param name="makeId"></param>
         public void GetMakeSynopsis(string makeId, ref string make, ref string synopsis)
-        {            
-            Database db = null;
-            
+        {
             try
             {
-                db = new Database();
-
-                using (SqlConnection conn = new SqlConnection(db.GetConString()))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmakesynopsis"))
                 {
-                    using (SqlCommand cmd = new SqlCommand("GetMakeSynopsis"))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
-                        cmd.Parameters.Add("@Make", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@Synopsis", SqlDbType.VarChar,8000).Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbType.String, 30, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_synopsis", DbType.String, 8000, ParameterDirection.Output));
 
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
-                        make = cmd.Parameters["@Make"].Value.ToString();
-                        synopsis = cmd.Parameters["@Synopsis"].Value.ToString();
-
-                        if (conn.State == ConnectionState.Open)
-                            conn.Close();
-                    }
+                    make = cmd.Parameters["par_makeid"].Value.ToString();
+                    synopsis = cmd.Parameters["par_synopsis"].Value.ToString();
                 }
             }
             catch (SqlException sqlEx)
@@ -666,10 +618,6 @@ namespace BikeWaleOpr.Common
                 HttpContext.Current.Trace.Warn("GetMakeSynopsis Exception : ", ex.Message);
                 ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 errObj.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
         }   // End of GetMakeSynopsis
 

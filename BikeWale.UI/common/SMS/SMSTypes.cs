@@ -3,6 +3,8 @@ using System.Web;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.Common
 {
@@ -14,55 +16,58 @@ namespace Bikewale.Common
         public void SMSToSeller(string profileId, string buyerName, string buyerMobile,
                                     bool showDetails, string bikeModel, string makeYear, string pageUrl)
         {
+
             //check whether the seller is an individual or a dealer
             bool isDealer = CommonOpn.CheckIsDealerFromProfileNo(profileId);
             string sellInqId = CommonOpn.GetProfileNo(profileId);
 
             //now get the seller mobile number from the profile id
-            Database db = new Database();
-            SqlDataReader dr = null;
+
             string sql = "", sellerMobile = "";
             try
             {
                 if (isDealer == true)
-                    sql = " Select D.MobileNo AS Mobile From Dealers AS D, SellInquiries AS SI With(NoLock) "
-                        + " Where SI.ID = @sellInqId AND D.ID = SI.DealerId ";
+                    sql = " select d.mobileno as mobile from dealers as d, sellinquiries as si    where si.id = @sellinqid and d.id = si.dealerid ";
                 else
-                    sql = " Select C.Mobile AS Mobile From Customers AS C, ClassifiedIndividualSellInquiries AS SI With(NoLock) "
-                        + " Where SI.ID = @sellInqId AND C.ID = SI.CustomerId ";
+                    sql = " select c.mobile as mobile from customers as c, classifiedindividualsellinquiries as si   where si.id = @sellinqid and c.id = si.customerid ";
 
-                SqlParameter[] param = { new SqlParameter("@sellInqId", sellInqId) };
-                dr = db.SelectQry(sql, param);
 
-                if (dr.Read())
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    sellerMobile = dr["Mobile"].ToString();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@sellinqid", DbType.Int64, sellInqId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            sellerMobile = dr["Mobile"].ToString();
+
+                            // old template commented by Ashish on 15/9/2012
+                            //string message = "New Enquiry on BikeWale for your " + makeYear + "-" + bikeModel + ": " + buyerName + " " + buyerMobile + ".";
+                            string message = "New inquiry on BikeWale for your " + bikeModel + ":" + buyerName + buyerMobile + ".";
+
+                            if (isDealer == false)
+                                //message += " SMS 'REMOVE' to 56767767 to remove your advertisement from bikeWale.";
+                                //message += " SMS SOLD to 56767767 to remove your ad from BikeWale.";
+                                message += " Visit www.bikewale.com/mybikewale/ to manage your ad.";
+                            else
+                                message += " Visit www.bikewale.com/dealers for more details.";
+
+
+                            EnumSMSServiceType esms = isDealer == true ?
+                                                                EnumSMSServiceType.UsedPurchaseInquiryDealerSeller :
+                                                                EnumSMSServiceType.UsedPurchaseInquiryIndividualSeller;
+
+
+                            HttpContext.Current.Trace.Warn("Sending SMS To Seller : " + message);
+
+                            SMSCommon sc = new SMSCommon();
+
+                            sc.ProcessSMS(sellerMobile, message, esms, pageUrl, true);
+                            dr.Close();
+                        }
+                    }
                 }
-
-                db.CloseConnection();
-
-                // old template commented by Ashish on 15/9/2012
-                //string message = "New Enquiry on BikeWale for your " + makeYear + "-" + bikeModel + ": " + buyerName + " " + buyerMobile + ".";
-                string message = "New inquiry on BikeWale for your " + bikeModel + ":" + buyerName + buyerMobile + ".";
-
-                if (isDealer == false)
-                    //message += " SMS 'REMOVE' to 56767767 to remove your advertisement from bikeWale.";
-                    //message += " SMS SOLD to 56767767 to remove your ad from BikeWale.";
-                    message += " Visit www.bikewale.com/mybikewale/ to manage your ad.";
-                else
-                    message += " Visit www.bikewale.com/dealers for more details.";
-
-
-                EnumSMSServiceType esms = isDealer == true ?
-                                                    EnumSMSServiceType.UsedPurchaseInquiryDealerSeller :
-                                                    EnumSMSServiceType.UsedPurchaseInquiryIndividualSeller;
-
-
-                HttpContext.Current.Trace.Warn("Sending SMS To Seller : " + message);
-
-                SMSCommon sc = new SMSCommon();
-
-                sc.ProcessSMS(sellerMobile, message, esms, pageUrl, true);
 
             }
             catch (Exception err)
@@ -71,14 +76,7 @@ namespace Bikewale.Common
                 ErrorClass objErr = new ErrorClass(err, "Common.SMSCommon");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (dr != null)
-                {
-                    dr.Close();
-                }
-                db.CloseConnection();
-            }
+
         }
 
         public void SMSToBuyer(string profileId, string buyerMobile, string sellerName,
@@ -89,45 +87,39 @@ namespace Bikewale.Common
 
             try
             {
-                string message = "";
+                string message = string.Format("For {0} you selected at BikeWale, call its seller {1} at {2}. Visit www.bikewale.com/MyBikeWale/ for more details.", bikeModel, sellerName, sellerContact);
 
-                //if bike belongs to Mumbai & NCR
-                if (CommonOpn.CheckForMumbai(profileId))
-                {
-                    if (showDetails == true)
-                    {
-                        //message = "For \"" + bikeModel + "\" you selected at BikeWale, call its seller "
-                        //        + sellerName + " at " + sellerContact + ". Visit www.bikewale.com/MyBikeWale/ for more details.";
+                ////if bike belongs to Mumbai & NCR
+                //if (CommonOpn.CheckForMumbai(profileId))
+                //{
+                //    //if (showDetails == true)
+                //    //{
+                //        //message = "For \"" + bikeModel + "\" you selected at BikeWale, call its seller "
+                //        //        + sellerName + " at " + sellerContact + ". Visit www.bikewale.com/MyBikeWale/ for more details.";
 
-                        message = "For " + bikeModel + " you selected at BikeWale, call its seller "
-                                + sellerName + " at " + sellerContact + ". Visit www.bikewale.com/MyBikeWale/ for more details.";
+                //        message = "For " + bikeModel + " you selected at BikeWale, call its seller "
+                //                + sellerName + " at " + sellerContact + ". Visit www.bikewale.com/MyBikeWale/ for more details.";
 
-                        /*
-                        + (isDealer == false ? " To get finance on this bike call Kshitij at 9821651116" : "");*/
-                    }
-                    else
-                    {
-                        //message = "Get seller details for \"" + makeYear + "-" + bikeModel + "\" for just Rs.500.\n"
-                        //+ "Pay online at www.bikeWale.com/MybikeWale/ or call 022-67398888 for help";  //32651254, 32651255
-
-                    }
-                }
-                else//bike belongs to other cities.
-                {
-                    //if(showDetails == true)
-                    //{
-                    //message = "For \"" + bikeModel + "\" you selected at BikeWale, call its seller "
-                    //        + sellerName + " at " + sellerContact + ". Visit www.BikeWale.com/MyBikeWale/ for more details";
-                    message = "For " + bikeModel + " you selected at BikeWale, call its seller "
-                                + sellerName + " at " + sellerContact + ". Visit www.bikewale.com/MyBikeWale/ for more details.";
-                    /*}
-                    else
-                    {
-                        message = "Get seller details for \"" + makeYear + "-" + bikeModel + "\" for just Rs.500.\n"
-                                + "Pay online at www.bikeWale.com/MybikeWale/ or call 022-67398888 for help";  //32651254, 32651255
+                //        /*
+                //        + (isDealer == false ? " To get finance on this bike call Kshitij at 9821651116" : "");*/
+                //    //}
+                //}
+                //else//bike belongs to other cities.
+                //{
+                //    //if(showDetails == true)
+                //    //{
+                //    //message = "For \"" + bikeModel + "\" you selected at BikeWale, call its seller "
+                //    //        + sellerName + " at " + sellerContact + ". Visit www.BikeWale.com/MyBikeWale/ for more details";
+                //    message = "For " + bikeModel + " you selected at BikeWale, call its seller "
+                //                + sellerName + " at " + sellerContact + ". Visit www.bikewale.com/MyBikeWale/ for more details.";
+                //    /*}
+                //    else
+                //    {
+                //        message = "Get seller details for \"" + makeYear + "-" + bikeModel + "\" for just Rs.500.\n"
+                //                + "Pay online at www.bikeWale.com/MybikeWale/ or call 022-67398888 for help";  //32651254, 32651255
 						
-                    }*/
-                }
+                //    }*/
+                //}
 
 
                 EnumSMSServiceType esms = EnumSMSServiceType.UsedPurchaseInquiryIndividualBuyer;
@@ -271,7 +263,7 @@ namespace Bikewale.Common
                 objErr.SendMail();
             }
         }//
-        
+
         /// <summary>
         /// Modified By : Sadhana Upadhyay on 22 Dec 2015 
         /// Summary : To push sms in priority queue
@@ -305,35 +297,39 @@ namespace Bikewale.Common
         // FUNCTION TO SEND ADDRESS OF THE DEALER TO THE REQUESTED CUSTOMER FROM DEALER SHOWROOM
         private string GetTCNumber(string serviceType)
         {
-            Database db = new Database();
-            SqlDataReader dr = null;
-            string sql = "";
-            string number = "";
-            try
-            {
-                sql = " Select Number From TeleCaller_SMS With(NoLock) Where ServiceType = @serviceType";
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "SMSTypes.GetTCNumber");
+            objErr.SendMail();
+            return string.Empty;
 
-                SqlParameter[] param = { new SqlParameter("@serviceType", serviceType) };
-                dr = db.SelectQry(sql, param);
+            //Database db = new Database();
+            //SqlDataReader dr = null;
+            //string sql = "";
+            //string number = "";
+            //try
+            //{
+            //    sql = " Select Number From TeleCaller_SMS With(NoLock) Where ServiceType = @serviceType";
 
-                if (dr.Read())
-                {
-                    number = dr["Number"].ToString();
-                }
-                dr.Close();
-            }
-            catch (Exception err)
-            {
-                HttpContext.Current.Trace.Warn("Common.GetTCNumber : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Common.GetTCNumber");
-                objErr.SendMail();
-            }
-            finally
-            {
+            //    SqlParameter[] param = { new SqlParameter("@serviceType", serviceType) };
+            //    dr = db.SelectQry(sql, param);
 
-                db.CloseConnection();
-            }
-            return number;
+            //    if (dr.Read())
+            //    {
+            //        number = dr["Number"].ToString();
+            //    }
+            //    dr.Close();
+            //}
+            //catch (Exception err)
+            //{
+            //    HttpContext.Current.Trace.Warn("Common.GetTCNumber : " + err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, "Common.GetTCNumber");
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+
+            //    db.CloseConnection();
+            //}
+            //return number;
         }
 
         /// <summary>
@@ -402,7 +398,7 @@ namespace Bikewale.Common
                 }
                 else
                 {
-                    message = String.Format("Pay Rs. {0} to book your {1} at BikeWale to get free insurance, free accessories worth Rs. 3,000 and discount on bike worth Rs. 1,000 at the dealership!",bookingAmount,BikeName);
+                    message = String.Format("Pay Rs. {0} to book your {1} at BikeWale to get free insurance, free accessories worth Rs. 3,000 and discount on bike worth Rs. 1,000 at the dealership!", bookingAmount, BikeName);
                 }
                 SMSCommon sc = new SMSCommon();
                 sc.ProcessSMS(customerMobile, message, esms, pageUrl);

@@ -41,26 +41,28 @@ namespace BikeWaleOpr.Content
 		
 		private void LoadComparisonBikes()
 		{
-            Database db = new Database();
-            SqlCommand cmd = new SqlCommand();
-            string sql = " SELECT	CFC.VersionId, CMA.Name + ' ' + CMO.Name + ' ' + CV.Name AS ComparisonBike"
-                       + " FROM	CompareFeaturedBike CFC, BikeVersions CV, BikeModels CMO, BikeMakes CMA"
-                       + " WHERE"
-                       + " CFC.VersionId = CV.ID  AND"
-                       + " CV.BikeModelId = CMO.ID AND"
-                       + " CMO.BikeMakeId = CMA.ID AND"
-                       + " CFC.IsActive = 1 AND CFC.FeaturedVersionId IN (" + Request.QueryString["featureBikeId"].ToString() + ")";
+            throw new Exception("Method not used/commented");
 
-			CommonOpn op = new CommonOpn();
-			try
-			{
-				op.BindRepeaterReader(sql, rptComparisonBikes);
-			}
-			catch(Exception err)
-			{
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
+            //Database db = new Database();
+            //SqlCommand cmd = new SqlCommand();
+            //string sql = " SELECT	CFC.VersionId, CMA.Name + ' ' + CMO.Name + ' ' + CV.Name AS ComparisonBike"
+            //           + " FROM	CompareFeaturedBike CFC, BikeVersions CV, BikeModels CMO, BikeMakes CMA"
+            //           + " WHERE"
+            //           + " CFC.VersionId = CV.ID  AND"
+            //           + " CV.BikeModelId = CMO.ID AND"
+            //           + " CMO.BikeMakeId = CMA.ID AND"
+            //           + " CFC.IsActive = 1 AND CFC.FeaturedVersionId IN (" + Request.QueryString["featureBikeId"].ToString() + ")";
+
+            //CommonOpn op = new CommonOpn();
+            //try
+            //{
+            //    op.BindRepeaterReader(sql, rptComparisonBikes);
+            //}
+            //catch(Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
 		}
 		
 		protected void GetBikesAlreadyAdded(string bike)

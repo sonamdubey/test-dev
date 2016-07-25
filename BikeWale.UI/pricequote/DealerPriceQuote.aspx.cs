@@ -214,7 +214,7 @@ namespace Bikewale.BikeBooking
                             }
 
                             //bind secondary Dealer
-                            if (detailedDealer.SecondaryDealerCount > 0)
+                            if (detailedDealer.SecondaryDealers != null && detailedDealer.SecondaryDealers.Count() > 0)
                             {
                                 isSecondaryDealerAvailable = true;
                                 rptDealers.DataSource = detailedDealer.SecondaryDealers;

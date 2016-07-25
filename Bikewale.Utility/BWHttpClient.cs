@@ -1,14 +1,8 @@
-﻿using Newtonsoft.Json;
-using RabbitMqPublishing.Common;
+﻿using RabbitMqPublishing.Common;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
-using System.Configuration;
 
 namespace Bikewale.Utility
 {
@@ -64,7 +58,7 @@ namespace Bikewale.Utility
             }
             return objTask;
         }
-         
+
         /// <summary>
         /// 
         /// </summary>
@@ -90,6 +84,9 @@ namespace Bikewale.Utility
                         break;
                     case APIHost.AB:
                         httpClient = SingletonABHttpClient.Instance;
+                        break;
+                    case APIHost.CWS:
+                        httpClient = SingletonCWSHttpClient.Instance;
                         break;
                     case APIHost.None:
                         break;
@@ -256,6 +253,9 @@ namespace Bikewale.Utility
                     case APIHost.AB:
                         httpClient = SingletonABHttpClient.Instance;
                         break;
+                    case APIHost.CWS:
+                        httpClient = SingletonCWSHttpClient.Instance;
+                        break;
                     case APIHost.None:
                         break;
                     default:
@@ -279,7 +279,7 @@ namespace Bikewale.Utility
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.PostAsync<T>({0},{1})", apiHost, apiUrl));                
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.PostAsync<T>({0},{1})", apiHost, apiUrl));
                 objErr.SendMail();
             }
             return isSuccess;
@@ -346,6 +346,9 @@ namespace Bikewale.Utility
                         break;
                     case APIHost.AB:
                         httpClient = SingletonABHttpClient.Instance;
+                        break;
+                    case APIHost.CWS:
+                        httpClient = SingletonCWSHttpClient.Instance;
                         break;
                     case APIHost.None:
                         break;

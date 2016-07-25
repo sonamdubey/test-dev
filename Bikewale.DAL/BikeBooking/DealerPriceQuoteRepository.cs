@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Interfaces.BikeBooking;
-using System.Data.SqlClient;
-using System.Web;
-using Bikewale.Notifications;
-using System.Data;
-using Bikewale.CoreDAL;
-using Bikewale.Entities.Customer;
+﻿using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.BikeBooking;
-using Bikewale.Entities.Location;
-using System.Configuration;
-using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Customer;
 using Bikewale.Entities.Dealer;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Notifications;
+using MySql.CoreDAL;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
 
 namespace Bikewale.DAL.BikeBooking
 {
@@ -39,52 +36,31 @@ namespace Bikewale.DAL.BikeBooking
         public bool SaveCustomerDetail(DPQ_SaveEntity entity)
         {
             bool isSuccess = false;
-            Database db = null;
+
             try
             {
-                db = new Database();
-                using (SqlConnection conn = new SqlConnection(db.GetConString()))
+
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.CommandText = "SaveBikeDealerQuotations_30122015";
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
+                    cmd.CommandText = "savebikedealerquotations_30122015";
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add("@dealerId", SqlDbType.Int).Value = entity.DealerId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, entity.DealerId));
 
-                        cmd.Parameters.Add("@pqId", SqlDbType.Int).Value = entity.PQId;
-                        cmd.Parameters.Add("@customerName", SqlDbType.VarChar, 50).Value = entity.CustomerName;
-                        cmd.Parameters.Add("@customerEmail", SqlDbType.VarChar, 50).Value = entity.CustomerEmail;
-                        cmd.Parameters.Add("@customerMobile", SqlDbType.VarChar, 50).Value = entity.CustomerMobile;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int32, entity.PQId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customername", DbType.String, 50, entity.CustomerName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbType.String, 50, entity.CustomerEmail));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, 50, entity.CustomerMobile));
 
-                        if (entity.ColorId.HasValue)
-                        {
-                            cmd.Parameters.Add("@colorId", SqlDbType.Int).Value = entity.ColorId.Value;
-                        }
-
-                        if (entity.LeadSourceId.HasValue)
-                        {
-                            cmd.Parameters.Add("@LeadSourceId", SqlDbType.TinyInt).Value = entity.LeadSourceId.Value;
-                        }
-                        if (!String.IsNullOrEmpty(entity.UTMA))
-                        {
-                            cmd.Parameters.Add("@utma", SqlDbType.VarChar, 100).Value = entity.UTMA;
-                        }
-                        if (!String.IsNullOrEmpty(entity.UTMZ))
-                        {
-                            cmd.Parameters.Add("@utmz", SqlDbType.VarChar, 100).Value = entity.UTMZ;
-                        }
-                        if (!String.IsNullOrEmpty(entity.DeviceId))
-                        {
-                            cmd.Parameters.Add("@deviceId", SqlDbType.VarChar, 25).Value = entity.DeviceId;
-                        }
-                        LogLiveSps.LogSpInGrayLog(cmd);
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_colorid", DbType.Int32, (entity.ColorId.HasValue) ? entity.ColorId.Value : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbType.Byte, (entity.LeadSourceId.HasValue) ? entity.LeadSourceId.Value : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_utma", DbType.String, 500, (!String.IsNullOrEmpty(entity.UTMA)) ? entity.UTMA : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbType.String, 500, (!String.IsNullOrEmpty(entity.UTMZ)) ? entity.UTMZ : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_deviceid", DbType.String, 25, (!String.IsNullOrEmpty(entity.DeviceId)) ? entity.DeviceId : Convert.DBNull));
+                    // LogLiveSps.LogSpInGrayLog(cmd);
+                    if (Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase)))
                         isSuccess = true;
 
-                    }
                 }
             }
             catch (SqlException sqEx)
@@ -101,10 +77,7 @@ namespace Bikewale.DAL.BikeBooking
                 objErr.SendMail();
                 isSuccess = false;
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
             return isSuccess;
         }
 
@@ -120,18 +93,17 @@ namespace Bikewale.DAL.BikeBooking
         {
             bool isSuccess = false;
 
-            Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "UpdateIsMobileVerified";
+                    cmd.CommandText = "updateismobileverified";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@pqId", SqlDbType.BigInt).Value = pqId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
 
-                    db = new Database();
-                    isSuccess = db.UpdateQry(cmd);
+                    if (Convert.ToBoolean(MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase)))
+                        isSuccess = true;
                 }
             }
             catch (SqlException sqEx)
@@ -162,20 +134,18 @@ namespace Bikewale.DAL.BikeBooking
         public bool UpdateMobileNumber(uint pqId, string mobileNo)
         {
             bool isSuccess = false;
-
-            Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "UpdateMobileNumber";
+                    cmd.CommandText = "updatemobilenumber";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@pqId", SqlDbType.BigInt).Value = pqId;
-                    cmd.Parameters.Add("@customerMobile", SqlDbType.VarChar, 50).Value = mobileNo;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, 50, mobileNo));
 
-                    db = new Database();
-                    isSuccess = db.UpdateQry(cmd);
+                    if (Convert.ToBoolean(MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase)))
+                        isSuccess = true;
                 }
             }
             catch (SqlException sqEx)
@@ -206,19 +176,18 @@ namespace Bikewale.DAL.BikeBooking
         {
             bool isSuccess = false;
 
-            Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "IsPushedToAB";
+                    cmd.CommandText = "ispushedtoab";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@pqId", SqlDbType.BigInt).Value = pqId;
-                    cmd.Parameters.Add("@ABInquiryId", SqlDbType.BigInt).Value = abInquiryId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_abinquiryid", DbType.Int64, abInquiryId));
 
-                    db = new Database();
-                    isSuccess = db.UpdateQry(cmd);
+                    if (Convert.ToBoolean(MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase)))
+                        isSuccess = true;
                 }
             }
             catch (SqlException sqEx)
@@ -251,11 +220,11 @@ namespace Bikewale.DAL.BikeBooking
         {
             bool isSuccess = false;
 
-            Database db = null;
+           
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandText = "BookAppointmentDate";
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -263,7 +232,7 @@ namespace Bikewale.DAL.BikeBooking
                     cmd.Parameters.Add("@pqId", SqlDbType.BigInt).Value = pqId;
                     cmd.Parameters.Add("@appointmentDate", SqlDbType.DateTime).Value = date;
 
-                    db = new Database();
+                    
                     isSuccess = db.UpdateQry(cmd);
                 }
             }
@@ -295,19 +264,16 @@ namespace Bikewale.DAL.BikeBooking
         {
             PQCustomerDetail objCustomer = null;
 
-            Database db = null;
-
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetNewBikePriceQuoteCustomerDetail";
+                    cmd.CommandText = "getnewbikepricequotecustomerdetail";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@PqId", SqlDbType.BigInt).Value = pqId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
 
-                    db = new Database();
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         objCustomer = new PQCustomerDetail();
                         if (dr.Read())
@@ -329,7 +295,7 @@ namespace Bikewale.DAL.BikeBooking
 
                         if (dr.NextResult())
                         {
-                            if (dr.Read())
+                            if (dr != null && dr.Read())
                             {
                                 objCustomer.objColor = new VersionColor()
                                 {
@@ -338,6 +304,7 @@ namespace Bikewale.DAL.BikeBooking
                                 };
                             }
                         }
+                        if (dr != null) dr.Close();
                     }
                 }
             }
@@ -355,11 +322,6 @@ namespace Bikewale.DAL.BikeBooking
                 objErr.SendMail();
                 // isSuccess = false;
             }
-            finally
-            {
-                db.CloseConnection();
-            }
-
             return objCustomer;
         }
 
@@ -372,22 +334,23 @@ namespace Bikewale.DAL.BikeBooking
         public bool IsNewBikePQExists(uint pqId)
         {
             bool isVerified = false;
-            Database db = null;
+
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "IsNewBikePQExists";
+                    cmd.CommandText = "isnewbikepqexists";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@pqId", SqlDbType.BigInt).Value = pqId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
 
-                    db = new Database();
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        if (dr.Read())
+                        if (dr != null && dr.Read())
                             isVerified = Convert.ToBoolean(dr["IsMobileVerified"]);
+                        if (dr != null) dr.Close();
                     }
                 }
             }
@@ -405,10 +368,6 @@ namespace Bikewale.DAL.BikeBooking
                 objErr.SendMail();
                 // isSuccess = false;
             }
-            finally
-            {
-                db.CloseConnection();
-            }
             return isVerified;
         }
 
@@ -423,26 +382,27 @@ namespace Bikewale.DAL.BikeBooking
         public List<BikeVersionEntityBase> GetVersionList(uint versionId, uint dealerId, uint cityId)
         {
             List<BikeVersionEntityBase> objVersions = null;
-            Database db = null;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetDealerPriceVersionsList";
+                    cmd.CommandText = "getdealerpriceversionslist";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@VersionId", SqlDbType.Int).Value = versionId;
-                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
-                    cmd.Parameters.Add("@DealerId", SqlDbType.Int).Value = dealerId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
 
-                    db = new Database();
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         objVersions = new List<BikeVersionEntityBase>();
 
                         while (dr.Read())
                             objVersions.Add(new BikeVersionEntityBase() { VersionId = Convert.ToInt32(dr["VersionId"]), VersionName = dr["VersionName"].ToString() });
+
+                        if (dr != null) dr.Close();
                     }
                 }
             }
@@ -458,10 +418,6 @@ namespace Bikewale.DAL.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
 
             return objVersions;
         }
@@ -469,33 +425,31 @@ namespace Bikewale.DAL.BikeBooking
 
         public bool SaveRSAOfferClaim(RSAOfferClaimEntity objOffer, string bikeName)
         {
-            Database db = null;
+
             bool isSuccess = false;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "SaveRSAOfferClaim";
+                    cmd.CommandText = "saversaofferclaim";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@BookingNum", SqlDbType.VarChar, 20).Value = objOffer.BookingNum;
-                    cmd.Parameters.Add("@CustomerName", SqlDbType.VarChar, 100).Value = objOffer.CustomerName;
-                    cmd.Parameters.Add("@CustomerMobile", SqlDbType.VarChar, 50).Value = objOffer.CustomerMobile;
-                    cmd.Parameters.Add("@CustomerEmail", SqlDbType.VarChar, 50).Value = objOffer.CustomerEmail;
-                    cmd.Parameters.Add("@BikeRegistrationNo", SqlDbType.VarChar, 50).Value = objOffer.BikeRegistrationNo;
-                    cmd.Parameters.Add("@CustomerAddress", SqlDbType.VarChar, 150).Value = objOffer.CustomerAddress;
-                    cmd.Parameters.Add("@DeliveryDate", SqlDbType.DateTime).Value = objOffer.DeliveryDate;
-                    cmd.Parameters.Add("@DealerName", SqlDbType.VarChar, 50).Value = objOffer.DealerName;
-                    cmd.Parameters.Add("@DealerAddress", SqlDbType.VarChar, 150).Value = objOffer.DealerAddress;
-                    cmd.Parameters.Add("@VersionId", SqlDbType.Int).Value = objOffer.VersionId;
-                    cmd.Parameters.Add("@Comments", SqlDbType.VarChar, 250).Value = objOffer.Comments;
-                    cmd.Parameters.Add("@HelmetId", SqlDbType.TinyInt).Value = objOffer.HelmetId;
-                    cmd.Parameters.Add("@CustomerPincode", SqlDbType.VarChar, 6).Value = objOffer.CustomerPincode;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bookingnum", DbType.String, 20, objOffer.BookingNum));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customername", DbType.String, 100, objOffer.CustomerName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, 50, objOffer.CustomerMobile));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbType.String, 50, objOffer.CustomerEmail));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeregistrationno", DbType.String, 50, objOffer.BikeRegistrationNo));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customeraddress", DbType.String, 150, objOffer.CustomerAddress));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_deliverydate", DbType.DateTime, objOffer.DeliveryDate));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealername", DbType.String, 50, objOffer.DealerName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealeraddress", DbType.String, 150, objOffer.DealerAddress));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, objOffer.VersionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 250, objOffer.Comments));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_helmetid", DbType.Byte, objOffer.HelmetId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerpincode", DbType.String, 6, objOffer.CustomerPincode));
 
-                    db = new Database();
-
-                    isSuccess = db.InsertQry(cmd);
+                    isSuccess = MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException ex)
@@ -525,19 +479,18 @@ namespace Bikewale.DAL.BikeBooking
         {
             bool isSuccess = false;
 
-            Database db = null;
+
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "UpdatePQColor";
+                    cmd.CommandText = "updatepqcolor";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@pqId", SqlDbType.BigInt).Value = pqId;
-                    cmd.Parameters.Add("@ColorId", SqlDbType.Int).Value = colorId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_colorid", DbType.Int32, colorId));
 
-                    db = new Database();
-                    isSuccess = db.UpdateQry(cmd);
+                    isSuccess = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException sqEx)
@@ -560,58 +513,6 @@ namespace Bikewale.DAL.BikeBooking
         }
 
         /// <summary>
-        /// Created By : Sadhana Upadhyay on 10 Dec 2014
-        /// Summary : To get customer selected bike color by pqid
-        /// </summary>
-        /// <param name="pqId"></param>
-        /// <returns></returns>
-        //public VersionColor GetPQBikeColor(uint pqId)
-        //{
-        //    VersionColor objColor = null;
-        //    Database db = null;
-
-        //    try
-        //    {
-        //        using (SqlCommand cmd = new SqlCommand())
-        //        {
-        //            cmd.CommandText = "GetPQBikeColor";
-        //            cmd.CommandType = CommandType.StoredProcedure;
-
-        //            cmd.Parameters.Add("@PqId", SqlDbType.Int).Value = pqId;
-
-        //            db = new Database();
-        //            using (SqlDataReader dr = db.SelectQry(cmd))
-        //            {
-        //                if (dr.Read())
-        //                {
-        //                    objColor = new VersionColor();
-
-        //                    objColor.ColorId = Convert.ToUInt32(dr["ColorID"]);
-        //                    objColor.ColorName = dr["ColorName"].ToString();
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (SqlException sqEx)
-        //    {
-        //        HttpContext.Current.Trace.Warn("GetPQBikeColor sqlex : " + sqEx.Message + sqEx.Source);
-        //        ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
-        //        objErr.SendMail();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        HttpContext.Current.Trace.Warn("GetPQBikeColor ex : " + ex.Message + ex.Source);
-        //        ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-        //        objErr.SendMail();
-        //    }
-        //    finally
-        //    {
-        //        db.CloseConnection();
-        //    }
-        //    return objColor;
-        //}
-
-        /// <summary>
         /// Created By : Sadhana Upadhyay on 17 Dec 2014
         /// Summary : To update transactional details in dealer price quote table
         /// </summary>
@@ -622,22 +523,19 @@ namespace Bikewale.DAL.BikeBooking
         public bool UpdatePQTransactionalDetail(uint pqId, uint transId, bool isTransComplete, string bookingReferenceNo)
         {
             bool isSuccess = false;
-
-            Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "UpdatePQTransactionalDetail_22012016";
+                    cmd.CommandText = "updatepqtransactionaldetail_22012016";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@PqId", SqlDbType.BigInt).Value = pqId;
-                    cmd.Parameters.Add("@TransactionId", SqlDbType.BigInt).Value = transId;
-                    cmd.Parameters.Add("@TransactionCompleted", SqlDbType.Bit).Value = isTransComplete;
-                    cmd.Parameters.Add("@BookingReferenceNo", SqlDbType.VarChar, 20).Value = bookingReferenceNo;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_transactionid", DbType.Int64, transId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_transactioncompleted", DbType.Boolean, isTransComplete));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bookingreferenceno", DbType.String, 20, bookingReferenceNo));
 
-                    db = new Database();
-                    isSuccess = db.UpdateQry(cmd);
+                    isSuccess = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException sqEx)
@@ -670,29 +568,22 @@ namespace Bikewale.DAL.BikeBooking
         public bool IsDealerNotified(uint dealerId, string customerMobile, ulong customerId)
         {
             bool isNotified = false;
-            Database db = null;
             try
             {
-                db = new Database();
-                using (SqlConnection con = new SqlConnection(db.GetConString()))
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.CommandText = "IsDealerNotified";
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = con;
+                    cmd.CommandText = "isdealernotified";
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add("@DealerId", SqlDbType.Int).Value = dealerId;
-                        cmd.Parameters.Add("@CustomerId", SqlDbType.VarChar, 50).Value = customerId;
-                        cmd.Parameters.Add("@CustomerMobile", SqlDbType.VarChar, 50).Value = customerMobile;
-                        cmd.Parameters.Add("@IsDealerNotified", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        LogLiveSps.LogSpInGrayLog(cmd);
-                        con.Open();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.String, 50, customerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, 50, customerMobile));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealernotified", DbType.Boolean, ParameterDirection.Output));
+                    // LogLiveSps.LogSpInGrayLog(cmd);
 
-                        cmd.ExecuteNonQuery();
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
 
-                        isNotified = Convert.ToBoolean(cmd.Parameters["@IsDealerNotified"].Value);
-                    }
+                    isNotified = Convert.ToBoolean(cmd.Parameters["par_isdealernotified"].Value);
                 }
             }
             catch (SqlException sqEx)
@@ -722,29 +613,21 @@ namespace Bikewale.DAL.BikeBooking
         public bool IsDealerPriceAvailable(uint versionId, uint cityId)
         {
             bool isDealerAreaAvailable = false;
-            Database db = null;
             try
             {
-                db = new Database();
-                using (SqlConnection con = new SqlConnection(db.GetConString()))
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.CommandText = "IsDealerPriceAvailable";
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = con;
+                    cmd.CommandText = "isdealerpriceavailable";
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
-                        cmd.Parameters.Add("@VersionId", SqlDbType.VarChar, 50).Value = versionId;
-                        cmd.Parameters.Add("@IsDealerPriceAvailable", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.String, 50, versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealerpriceavailable", DbType.Boolean, ParameterDirection.Output));
 
-                        LogLiveSps.LogSpInGrayLog(cmd);
-                        con.Open();
+                    // LogLiveSps.LogSpInGrayLog(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
-                        cmd.ExecuteNonQuery();
-
-                        isDealerAreaAvailable = Convert.ToBoolean(cmd.Parameters["@IsDealerPriceAvailable"].Value);
-                    }
+                    isDealerAreaAvailable = Convert.ToBoolean(cmd.Parameters["par_isdealerpriceavailable"].Value);
                 }
             }
             catch (SqlException sqEx)
@@ -761,10 +644,7 @@ namespace Bikewale.DAL.BikeBooking
                 objErr.SendMail();
                 isDealerAreaAvailable = false;
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
             return isDealerAreaAvailable;
         }
 
@@ -779,24 +659,24 @@ namespace Bikewale.DAL.BikeBooking
         public uint GetDefaultPriceQuoteVersion(uint modelId, uint cityId)
         {
             uint versionId = 0;
-            Database db = null;
+
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetPriceQuoteVersion";
+                    cmd.CommandText = "getpricequoteversion";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
-                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
 
-                    db = new Database();
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
                             if (dr.Read())
                                 versionId = Convert.ToUInt32(dr["VersionId"]);
+                            dr.Close();
                         }
                     }
                 }
@@ -811,10 +691,7 @@ namespace Bikewale.DAL.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, "GetDefaultPriceQuoteVersion ex : " + ex.Message);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
             return versionId;
         }   //End of GetDefaultPriceQuoteVersion
         #endregion
@@ -831,21 +708,21 @@ namespace Bikewale.DAL.BikeBooking
         public List<Bikewale.Entities.Location.AreaEntityBase> GetAreaList(uint modelId, uint cityId)
         {
             List<Bikewale.Entities.Location.AreaEntityBase> objArea = null;
-            Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getpricequotearea"))
                 {
-                    cmd.CommandText = "GetPriceQuoteArea";
+
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
+                    //cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
 
-                    if (modelId > 0)
-                        cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
+                    //if (modelId > 0)
+                    //    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int64, cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int64, (modelId > 0) ? modelId : Convert.DBNull));
 
-                    db = new Database();
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -856,6 +733,7 @@ namespace Bikewale.DAL.BikeBooking
                                     AreaId = Convert.ToUInt32(dr["Value"]),
                                     AreaName = dr["Text"].ToString()
                                 });
+                            dr.Close();
                         }
                     }
                 }
@@ -870,11 +748,6 @@ namespace Bikewale.DAL.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, "GetAreaList ex : " + ex.Message);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
-
             return objArea;
         }   //End of GetAreaList
         #endregion
@@ -887,7 +760,6 @@ namespace Bikewale.DAL.BikeBooking
         public BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId)
         {
             BookingPageDetailsEntity entity = null;
-            Database db = null;
             List<DealerPriceCategoryItemEntity> DealerPriceCategoryItemEntities = null;
             List<BikeDealerPriceDetail> BikeDealerPriceDetails = null;
             List<string> disclaimers = null;
@@ -896,18 +768,18 @@ namespace Bikewale.DAL.BikeBooking
             List<BikeVersionColorsAvailability> modelColorList = null;
             try
             {
-                db = new Database(ConfigurationManager.AppSettings["connectionstring"]);
-
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "BW_GetVarientsPriceDetail_13012016";
+                    cmd.CommandText = "bw_getvarientspricedetail_13012016";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
-                    cmd.Parameters.Add("@VersionId", SqlDbType.Int).Value = versionId;
-                    cmd.Parameters.Add("@DealerId", SqlDbType.Int).Value = dealerId;
-                    using (SqlDataReader reader = db.SelectQry(cmd))
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        if (reader != null && reader.HasRows)
+                        if (reader != null)
                         {
                             #region Price Breakup for all Versions
                             DealerPriceCategoryItemEntities = new List<DealerPriceCategoryItemEntity>();
@@ -977,7 +849,7 @@ namespace Bikewale.DAL.BikeBooking
                                 {
                                     disclaimers.Add(Convert.ToString(reader["Disclaimer"]));
                                 }
-                            } 
+                            }
                             #endregion
 
                             #region Dealer Offer Entity
@@ -1027,12 +899,12 @@ namespace Bikewale.DAL.BikeBooking
                                     };
                                 }
                             }
-                            #endregion 
+                            #endregion
 
                             #region Model Colors Versionwise
                             if (reader.NextResult())
                             {
-                                if (reader.HasRows)
+                                if (reader != null)
                                 {
                                     modelColorList = new List<BikeVersionColorsAvailability>();
                                     while (reader.Read())
@@ -1047,8 +919,10 @@ namespace Bikewale.DAL.BikeBooking
                                         });
                                     }
                                 }
-                            } 
+                            }
                             #endregion
+
+                            reader.Close();
 
                             entity = new BookingPageDetailsEntity();
                             entity.Dealer = objDealerDetails;
@@ -1068,13 +942,13 @@ namespace Bikewale.DAL.BikeBooking
 
                             entity.Varients = BikeDealerPriceDetails;
 
-                            if (entity.Varients != null && entity.Varients.Count > 0 && modelColorList!=null )
+                            if (entity.Varients != null && entity.Varients.Count > 0 && modelColorList != null)
                             {
                                 foreach (var variant in entity.Varients)
                                 {
-                                    
+
                                     var ColorListForDealer = from color in modelColorList
-                                                             where color.VersionId == variant.MinSpec.VersionId 
+                                                             where color.VersionId == variant.MinSpec.VersionId
                                                              group color by color.ColorId into newgroup
                                                              orderby newgroup.Key
                                                              select newgroup;
@@ -1103,6 +977,7 @@ namespace Bikewale.DAL.BikeBooking
                                     variant.BikeModelColors = objColorAvail;
                                 }
                             }
+
                         }
                     }
                 }
@@ -1119,10 +994,6 @@ namespace Bikewale.DAL.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
 
             return entity;
         }
@@ -1130,19 +1001,17 @@ namespace Bikewale.DAL.BikeBooking
         private IEnumerable<BikeModelColor> GetModelColor(int modelId)
         {
             List<BikeModelColor> colors = null;
-            Database db = null;
+
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetModelColor";
+                    cmd.CommandText = "getmodelcolor";
 
-                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
 
-                    db = new Database();
-
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -1160,6 +1029,7 @@ namespace Bikewale.DAL.BikeBooking
                                     }
                                 );
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -1176,10 +1046,6 @@ namespace Bikewale.DAL.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
 
             return colors;
         }
@@ -1191,16 +1057,16 @@ namespace Bikewale.DAL.BikeBooking
         private IEnumerable<BikeModelColor> GetVariantColorByModel(int modelId)
         {
             List<BikeModelColor> colors = null;
-            Database db = null;
+
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetVariantColorByModel";
-                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
-                    db = new Database();
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    cmd.CommandText = "getvariantcolorbymodel";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -1218,6 +1084,7 @@ namespace Bikewale.DAL.BikeBooking
                                     }
                                 );
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -1231,10 +1098,6 @@ namespace Bikewale.DAL.BikeBooking
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return colors;

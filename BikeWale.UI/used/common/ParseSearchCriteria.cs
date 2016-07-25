@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Bikewale.Common;
+using Bikewale.Notifications.MySqlUtility;
+using MySql.CoreDAL;
+using System;
 using System.Collections.Specialized;
 using System.Data;
-using System.Data.SqlClient;
+using System.Data.Common;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
-using Bikewale.Common;
 
 /// <summary>
 /// Summary description for ParseSearchCriteria
@@ -15,19 +16,19 @@ namespace Bikewale.Used
 {
     public class ParseSearchCriteria
     {
-        public SqlCommand sqlCmdParams = null;
+        public DbCommand sqlCmdParams = null;
 
         NameValueCollection qsColl;
 
         // global StringBuilder to form sql query based on the selected parameters by the users
         StringBuilder sbClause;
-        
+
 
         // Constructor of the class which initializes 'command parameters' and 'search criterias'
         public ParseSearchCriteria(NameValueCollection qsCollection)
         {
             qsColl = qsCollection;
-            sqlCmdParams = new SqlCommand();
+            sqlCmdParams = DbFactory.GetDBCommand();
 
             string _currentPageIndex = qsColl.Get("pn");
             HttpContext.Current.Trace.Warn("current page index : +", _currentPageIndex);
@@ -103,18 +104,21 @@ namespace Bikewale.Used
         // Select parameters of sql query used to fatch user results 
         public string GetSelectClause()
         {
-            return " ProfileId, LL.VersionId AS BikeVersionId, BM.MaskingName AS MakeMaskingName,BMO.MaskingName AS ModelMaskingName, LC.MaskingName AS CityMaskingName,"
-                + " LL.Seller, Ll.SellerType,LL.EntryDate, "
-                + " LL.MakeName, LL.ModelName, LL.VersionName, LL.LastUpdated, LL.AreaName, "
-                + " LL.Price, LL.Kilometers, LL.MakeYear BikeYear, LL.Color, LL.CityName City, LL.CityId, ISNULL(LL.PhotoCount, 0) AS PhotoCount , LL.FrontImagePath, "
-                + " CertificationId, Vs.BikeFuelType, Vs.BikeTransmission, LL.AdditionalFuel, LL.HostUrl, LL.OriginalImagePath ";
+            return @" profileid, ll.versionid as bikeversionid, vs.makemaskingname as makemaskingname,
+                    vs.modelmaskingname as modelmaskingname, lc.maskingname as citymaskingname, 
+                    ll.seller, ll.sellertype,ll.entrydate,ll.makename,
+                    ll.modelname, ll.versionname, ll.lastupdated, ll.areaname,ll.price, ll.kilometers,
+                    ll.makeyear bikeyear, ll.color, ll.cityname city, ll.cityid,
+                    ifnull(ll.photocount, 0) as photocount , ll.frontimagepath,  
+                    certificationid, vs.bikefueltype, vs.biketransmission, ll.additionalfuel,
+                    ll.hosturl, ll.originalimagepath ";
         }
 
 
         // FROM clause of sql query used to fatch user results
         public string GetFromClause()
         {
-            string from_clause = " LiveListings AS LL WITH(NOLOCK), BikeMakes BM  WITH (NOLOCK), BikeModels BMO WITH (NOLOCK), BikeVersions Vs WITH(NOLOCK)  ";
+            string from_clause = " livelistings as ll  inner join bikeversions vs on ll.versionid = vs.id ";
 
             // LL_Cities table required only if used searcing with perticular city
             // if user is searcing within entire state then refrence to this table is not required.
@@ -123,7 +127,7 @@ namespace Bikewale.Used
             //{
             //    from_clause += " ,BWCities AS LC WITH(NOLOCK) ";
             //}
-            from_clause += " ,BWCities AS LC WITH(NOLOCK) ";
+            from_clause += " ,bwcities as lc   ";
 
             return from_clause;
         }
@@ -140,23 +144,22 @@ namespace Bikewale.Used
             // no lattitude and longitude required in this case.
             if (CityDistance == 1)
             {
-                where_clause = " LL.StateId IN ( Select StateId FROM BWCities With(NoLock) Where Id = @CityId ) AND LC.ID = LL.CityId " + GetSearchCriteria();
+                where_clause = " ll.stateid in ( select stateid from bwcities   where id = @v_cityid ) and lc.id = ll.cityid " + GetSearchCriteria();
             }
             else if (CityId != "")
             {
-                where_clause = " LC.Id = @CityId AND "
-                              + " LL.Lattitude BETWEEN LC.Lattitude - @Lattitude AND LC.Lattitude + @Lattitude AND "
-                              + " LL.Longitude BETWEEN LC.Longitude - @Longitude AND LC.Longitude + @Longitude " + GetSearchCriteria();
+                where_clause = @" lc.id = @v_cityid and  
+                               ll.lattitude between lc.lattitude - @v_lattitude and lc.lattitude + @v_lattitude and  
+                               ll.longitude between lc.longitude - @v_longitude and lc.longitude + @v_longitude " + GetSearchCriteria();
 
-                //where_clause = " LC.Id = @CityId " + GetSearchCriteria();
             }
             else
             {
-                where_clause += "  LL.CityId = LC.ID " + GetSearchCriteria(); 
+                where_clause += "  ll.cityid = lc.id " + GetSearchCriteria();
             }
 
 
-            where_clause += " AND BM.ID = LL.MakeId AND BMO.ID = LL.ModelId AND LL.VersionId = Vs.Id ";
+            where_clause += " and vs.bikemakeid = ll.makeid and vs.bikemodelid = ll.modelid and ll.versionid = vs.id ";
 
             return where_clause;
         }
@@ -170,7 +173,7 @@ namespace Bikewale.Used
         // Sql Query to show number of records matched users criteria
         public string GetRecordCountQry()
         {
-            return " Select Count(ProfileId) From " + GetFromClause() + " Where " + GetWhereClause();
+            return string.Format("select count(profileid) from {0}  where {1} ", GetFromClause(), GetWhereClause());
         }
 
 
@@ -194,11 +197,14 @@ namespace Bikewale.Used
                         IsCriteriasParsed = false;
                     }
 
-                    sqlCmdParams.Parameters.Add("@Lattitude", SqlDbType.Decimal).Value = Lattitude;
-                    sqlCmdParams.Parameters.Add("@Longitude", SqlDbType.Decimal).Value = Longitude;
-                    sqlCmdParams.Parameters.Add("@CityId", SqlDbType.BigInt).Value = CityId;
+                    //sqlCmdParams.Parameters.Add("@v_lattitude", SqlDbType.Decimal).Value = Lattitude;
+                    //sqlCmdParams.Parameters.Add("@v_longitude", SqlDbType.Decimal).Value = Longitude;
+                    //sqlCmdParams.Parameters.Add("@v_cityid", SqlDbType.BigInt).Value = CityId;
 
-                    HttpContext.Current.Trace.Warn("Lattitude : " + Lattitude + ",Longitude : " + Longitude + ",CityId : " + CityId);
+                    sqlCmdParams.Parameters.Add(DbFactory.GetDbParam("@v_lattitude", DbType.Decimal, Lattitude));
+                    sqlCmdParams.Parameters.Add(DbFactory.GetDbParam("@v_longitude", DbType.Decimal, Longitude));
+                    sqlCmdParams.Parameters.Add(DbFactory.GetDbParam("@v_cityid", DbType.Int64, CityId));
+
                 }
             }
             catch (Exception ex)
@@ -216,7 +222,7 @@ namespace Bikewale.Used
             sbClause = new StringBuilder();
 
             // object of 'Database' class. nedeed to querysreing IN clause value 
-            Database db = new Database();
+            MySqlDbUtilities db = new MySqlDbUtilities();
 
             // Get method returns null in the following cases: 1) if the specified key is not found; and 2) 
             // if the specified key is found and its associated value is null. This method does not distinguish between the two cases.						
@@ -283,7 +289,7 @@ namespace Bikewale.Used
 
                     // Append sql query to the StringBuilder object for selected makes. Also make the IN clause value parameterized to avoid Sql Injection
                     sbClause.Append(" AND " + model_bracket + " MakeId IN (" + db.GetInClauseValue(make_str, "MakeId", sqlCmdParams) + ")");
-                }             
+                }
             }
 
             // get the selected models
@@ -311,8 +317,9 @@ namespace Bikewale.Used
 
                 if (seller_type.IndexOf(',') < 0)
                 {
-                    sqlCmdParams.Parameters.Add("@SellerType", SqlDbType.SmallInt).Value = seller_type;
-                    sbClause.Append(" AND SellerType = @SellerType");
+                    //sqlCmdParams.Parameters.Add("@SellerType", SqlDbType.SmallInt).Value = seller_type;
+                    sqlCmdParams.Parameters.Add(DbFactory.GetDbParam("@v_sellertype", DbType.Int16, seller_type));
+                    sbClause.Append(" and sellertype = @v_sellertype");
                 }
             }
 
@@ -344,8 +351,9 @@ namespace Bikewale.Used
                     // If any of these criteria(FuelType, Transmission, Body Style) is selected by the user refrence to BikeVersions table is needed.		
                     IsVersionTableRefrenceNeeded = true;
 
-                    sbClause.Append(" AND Vs.BikeTransmission = @Transmission");
-                    sqlCmdParams.Parameters.Add("@Transmission", SqlDbType.TinyInt).Value = trans;
+                    sbClause.Append(" and vs.biketransmission = @v_transmission");
+                    //sqlCmdParams.Parameters.Add("@Transmission", SqlDbType.TinyInt).Value = trans;
+                    sqlCmdParams.Parameters.Add(DbFactory.GetDbParam("@v_transmission", DbType.Byte, trans));
                 }
             }
 
@@ -355,7 +363,7 @@ namespace Bikewale.Used
         }
 
         public string GetSearchCriteria()
-        {           
+        {
             return sbClause.ToString();
         }
 
@@ -402,25 +410,25 @@ namespace Bikewale.Used
                 switch (paramValArray[i])
                 {
                     case "0":
-                        conditionClause += " LL.Price Between 0 And 10000 ";
+                        conditionClause += " ll.price between 0 and 10000 ";
                         break;
                     case "1":
-                        conditionClause += " LL.Price Between 10001 And 20000 ";
+                        conditionClause += " ll.price between 10001 and 20000 ";
                         break;
                     case "2":
-                        conditionClause += " LL.Price Between 20001 And 35000 ";
+                        conditionClause += " ll.price between 20001 and 35000 ";
                         break;
                     case "3":
-                        conditionClause += " LL.Price Between 35001 And 50000 ";
+                        conditionClause += " ll.price between 35001 and 50000 ";
                         break;
                     case "4":
-                        conditionClause += " LL.Price Between 50001 And 80000 ";
+                        conditionClause += " ll.price between 50001 and 80000 ";
                         break;
                     case "5":
-                        conditionClause += " LL.Price Between 80001 And 150000 ";
+                        conditionClause += " ll.price between 80001 and 150000 ";
                         break;
                     case "6":
-                        conditionClause += " LL.Price >= 150001 ";
+                        conditionClause += " ll.price >= 150001 ";
                         break;
                     default:
                         conditionClause = string.Empty;
@@ -448,26 +456,26 @@ namespace Bikewale.Used
                 switch (paramValArray[i])
                 {
                     case "0":
-                        conditionClause += " Year(MakeYear) Between " + (DateTime.Today.Year - 1) + " And " + DateTime.Today.Year ;
+                        conditionClause += " year(makeyear) between " + (DateTime.Today.Year - 1) + " and " + DateTime.Today.Year;
                         break;
                     case "1":
-                        conditionClause += " Year(MakeYear) Between " + (DateTime.Today.Year - 3) + " And " + (DateTime.Today.Year - 1);
+                        conditionClause += " year(makeyear) between " + (DateTime.Today.Year - 3) + " and " + (DateTime.Today.Year - 1);
                         break;
                     case "2":
-                        conditionClause += " Year(MakeYear) Between " + (DateTime.Today.Year - 5) + " And " + (DateTime.Today.Year - 3);
+                        conditionClause += " year(makeyear) between " + (DateTime.Today.Year - 5) + " and " + (DateTime.Today.Year - 3);
                         break;
                     case "3":
-                        conditionClause += " Year(MakeYear) Between " + (DateTime.Today.Year - 8) + " And " + (DateTime.Today.Year - 5);
+                        conditionClause += " year(makeyear) between " + (DateTime.Today.Year - 8) + " and " + (DateTime.Today.Year - 5);
                         break;
                     case "4":
-                        conditionClause += " Year(MakeYear) <= " + (DateTime.Today.Year - 8);
+                        conditionClause += " year(makeyear) <= " + (DateTime.Today.Year - 8);
                         break;
                     default:
                         conditionClause = string.Empty;
                         break;
                 }
                 if (paramValArray.Length > 1 && i != (paramValArray.Length - 1) && conditionClause != string.Empty)
-                    conditionClause += " OR ";
+                    conditionClause += " or ";
             }
 
             if (conditionClause != "")
@@ -481,29 +489,29 @@ namespace Bikewale.Used
             string conditionClause = string.Empty;
 
             if (paramValArray.Length > 0)
-                conditionClause = " AND ( ";
+                conditionClause = " and ( ";
 
             for (int i = 0; i < paramValArray.Length; ++i)
             {
                 switch (paramValArray[i])
                 {
                     case "0":
-                        conditionClause += " Kilometers Between 0 And 5000 ";
+                        conditionClause += " kilometers between 0 and 5000 ";
                         break;
                     case "1":
-                        conditionClause += " Kilometers Between 5000 And 15000 ";
+                        conditionClause += " kilometers between 5000 and 15000 ";
                         break;
                     case "2":
-                        conditionClause += " Kilometers Between 15000 And 30000 ";
+                        conditionClause += " kilometers between 15000 and 30000 ";
                         break;
                     case "3":
-                        conditionClause += " Kilometers Between 30000 And 50000 ";
+                        conditionClause += " kilometers between 30000 and 50000 ";
                         break;
                     case "4":
-                        conditionClause += " Kilometers Between 50000 And 80000 ";
+                        conditionClause += " kilometers between 50000 and 80000 ";
                         break;
                     case "5":
-                        conditionClause += " Kilometers >= 80000 ";
+                        conditionClause += " kilometers >= 80000 ";
                         break;
                     default:
                         conditionClause = string.Empty;
@@ -534,35 +542,35 @@ namespace Bikewale.Used
                 switch (sortCriteria)
                 {
                     case "0":
-                        retVal = "MakeYear " + (sortOrder == "1" ? "DESC" : "ASC");
+                        retVal = "makeyear " + (sortOrder == "1" ? "desc" : "asc");
                         break;
 
                     case "1":
-                        retVal = "MakeName " + (sortOrder == "1" ? "DESC" : "ASC");
+                        retVal = "makename " + (sortOrder == "1" ? "desc" : "asc");
                         break;
 
                     case "2":
-                        retVal = "LL.Price " + (sortOrder == "1" ? "DESC" : "ASC");
+                        retVal = "ll.price " + (sortOrder == "1" ? "desc" : "asc");
                         break;
 
                     case "3":
-                        retVal = "Kilometers " + (sortOrder == "1" ? "DESC" : "ASC");
+                        retVal = "kilometers " + (sortOrder == "1" ? "desc" : "asc");
                         break;
 
                     case "4":
-                        retVal = "SellerType " + (sortOrder == "1" ? "DESC" : "ASC");
+                        retVal = "sellertype " + (sortOrder == "1" ? "desc" : "asc");
                         break;
 
                     case "5":
-                        retVal = "LL.CityName " + (sortOrder == "1" ? "DESC" : "ASC");
+                        retVal = "ll.cityname " + (sortOrder == "1" ? "desc" : "asc");
                         break;
 
                     case "6":
-                        retVal = "LastUpdated " + (sortOrder == "1" ? "DESC" : "ASC");
+                        retVal = "lastupdated " + (sortOrder == "1" ? "desc" : "asc");
                         break;
 
                     default:
-                        retVal = "LastUpdated DESC";//Priority, SellerType DESC, LastUpdated DESC
+                        retVal = "lastupdated desc";//Priority, SellerType DESC, LastUpdated DESC
                         break;
                 }
 
@@ -572,13 +580,13 @@ namespace Bikewale.Used
 
         bool ValidateInClause(string match_str)
         {
-            Regex reg = new Regex(@"^([0-9]{1,3},?)+$");          
+            Regex reg = new Regex(@"^([0-9]{1,3},?)+$");
             return reg.IsMatch(match_str);
         }
 
         bool ValidateParamIndex(string match_str, string index_boundry)
-        {           
-            Regex reg = new Regex(@"^([0-" + index_boundry + "],?)+$");         
+        {
+            Regex reg = new Regex(@"^([0-" + index_boundry + "],?)+$");
             return reg.IsMatch(match_str);
         }
     }

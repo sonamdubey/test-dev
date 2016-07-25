@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
+﻿using Bikewale.Common;
+using Bikewale.DAL.UserReviews;
+using Bikewale.Interfaces.UserReviews;
+using Microsoft.Practices.Unity;
+using System;
 using System.Web;
-using Bikewale.Common;
-using Bikewale.Forums.Common;
 
 /// <summary>
 /// Summary description for AjaxUserReviews
@@ -22,70 +21,77 @@ namespace Bikewale.Ajax
         [AjaxPro.AjaxMethod()]
         public bool ApproveReview(string reviewId, string customerId, string title, string bike)
         {
-            string sql;
-            string threadId = "", messageText, titleText;
-            bool ret = false;
-            Database db = new Database();
+
+            //string sql;
+            //string threadId = "", messageText, titleText;
+            //bool ret = false;
+            //Database db = new Database();
 
             try
             {
-                //the IsVerified status is set to 1 to approve the review
-                sql = " UPDATE CustomerReviews SET IsVerified=1 WHERE ID = @reviewId ";
-                SqlParameter[] param1 = { new SqlParameter("@reviewId", reviewId) };
-                db.UpdateQry(sql, param1);
+                throw new Exception("ApproveReview(string reviewId, string customerId, string title, string bike) : Method not used/commented");
+                //    //the IsVerified status is set to 1 to approve the review
+                //    sql = " UPDATE CustomerReviews SET IsVerified=1 WHERE ID = @reviewId ";
+                //    SqlParameter[] param1 = { new SqlParameter("@reviewId", reviewId) };
+                //    db.UpdateQry(sql, param1);
 
-                UpdateReviewRateCount(reviewId);
+                //    UpdateReviewRateCount(reviewId);
 
-                messageText = "Dear Friends,"
-                            + "<br/><br/>I have written a review on " + bike + " and look forward to your comments on it."
-                            + "<br/><br/>Review Link: <a href=\"http://www.bikewale.com/content/userreviews/reviewdetails.aspx?rid=" + reviewId + "\"><strong>" + title + "</strong></a>&nbsp;"
-                            + "<br/><br/>Thanks.";
+                //    messageText = "Dear Friends,"
+                //                + "<br/><br/>I have written a review on " + bike + " and look forward to your comments on it."
+                //                + "<br/><br/>Review Link: <a href=\"http://www.bikewale.com/content/userreviews/reviewdetails.aspx?rid=" + reviewId + "\"><strong>" + title + "</strong></a>&nbsp;"
+                //                + "<br/><br/>Thanks.";
 
-                titleText = title + " - " + bike + " User Review";
+                //    titleText = title + " - " + bike + " User Review";
 
-                //to create a new thread of the approved review
-                threadId = ForumsCommon.CreateNewThread(customerId, messageText, 1, "25", titleText);
+                //    //to create a new thread of the approved review
+                //    threadId = ForumsCommon.CreateNewThread(customerId, messageText, 1, "25", titleText);
 
-                db = new Database();
-                sql = " INSERT INTO Forum_ArticleAssociation"
-                    + " (ArticleType,ThreadId,ArticleId,CreateDate)"
-                    + " VALUES(3, @threadId , @reviewId , GETDATE())";
+                //    db = new Database();
+                //    sql = " INSERT INTO Forum_ArticleAssociation"
+                //        + " (ArticleType,ThreadId,ArticleId,CreateDate)"
+                //        + " VALUES(3, @threadId , @reviewId , GETDATE())";
 
-                SqlParameter[] param2 = { new SqlParameter("@threadId", threadId), new SqlParameter("@reviewId", reviewId) };
-                db.InsertQry(sql, param2);
-                ret = true;
+                //    SqlParameter[] param2 = { new SqlParameter("@threadId", threadId), new SqlParameter("@reviewId", reviewId) };
+                //    db.InsertQry(sql, param2);
+                //    ret = true;
+
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.ApproveReview");
                 objErr.SendMail();
+                return false;
             }
-            finally
-            {
-                db.CloseConnection();
-            }
-            return ret;
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
+            //return ret;
         }
 
         //this function is used to approve the review which is being updated by the users
         [AjaxPro.AjaxMethod()]
         public bool ApproveUpdatedReview(string reviewId, string customerId)
         {
-            bool ret = false;
-            try
-            {
-                UpdateReplicaAsVerified(reviewId);
-                UpdateChangesToCustomerReviews(reviewId);
-                UpdateReviewRateCount(reviewId);
-                AddReplyInForums(reviewId, customerId);
-                ret = true;
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.ApproveUpdatedReview");
-                objErr.SendMail();
-            }
-            return ret;
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.ApproveUpdatedReview");
+            objErr.SendMail();
+            return false;
+            //bool ret = false;
+            //try
+            //{
+            //    UpdateReplicaAsVerified(reviewId);
+            //    UpdateChangesToCustomerReviews(reviewId);
+            //    UpdateReviewRateCount(reviewId);
+            //    AddReplyInForums(reviewId, customerId);
+            //    ret = true;
+            //}
+            //catch (Exception ex)
+            //{
+            //    ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.ApproveUpdatedReview");
+            //    objErr.SendMail();
+            //}
+            //return ret;
         }
 
 
@@ -111,28 +117,31 @@ namespace Bikewale.Ajax
         [AjaxPro.AjaxMethod()]
         public bool DeleteReview(string reviewId)
         {
-            string sql;
-            bool ret = false;
-            Database db = new Database();
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
+            objErr.SendMail();
+            return false;
+            //string sql;
+            //bool ret = false;
+            //Database db = new Database();
 
-            try
-            {
-                //the IsActive status is set to 0 to approve the review
-                sql = " UPDATE CustomerReviews SET IsActive=0 WHERE ID = @reviewId";
-                SqlParameter[] param = { new SqlParameter("@reviewId", reviewId) };
-                db.UpdateQry(sql, param);
-                ret = true;
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.ApproveReview");
-                objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
-            return ret;
+            //try
+            //{
+            //    //the IsActive status is set to 0 to approve the review
+            //    sql = " UPDATE CustomerReviews SET IsActive=0 WHERE ID = @reviewId";
+            //    SqlParameter[] param = { new SqlParameter("@reviewId", reviewId) };
+            //    db.UpdateQry(sql, param);
+            //    ret = true;
+            //}
+            //catch (Exception ex)
+            //{
+            //    ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.ApproveReview");
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
+            //return ret;
         }
 
 
@@ -156,194 +165,216 @@ namespace Bikewale.Ajax
         [AjaxPro.AjaxMethod()]
         public bool DeleteAbusedReview(string reviewId)
         {
-            string sql = "";
-            Database db = new Database();
-            bool ret = false;
-            try
-            {
-                UpdateAbuseAsVerified(reviewId);
-                sql = " UPDATE CustomerReviews SET IsActive=0 WHERE ID = @reviewId";
-                SqlParameter[] param = { new SqlParameter("@reviewId", reviewId) };
-                db.UpdateQry(sql, param);
-                UpdateReviewRateCount(reviewId);
-                ret = true;
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.ApproveUpdatedReview");
-                objErr.SendMail();
-            }
-            return ret;
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
+            objErr.SendMail();
+            return false;
+
+            //string sql = "";
+            //Database db = new Database();
+            //bool ret = false;
+            //try
+            //{
+            //    UpdateAbuseAsVerified(reviewId);
+            //    sql = " UPDATE CustomerReviews SET IsActive=0 WHERE ID = @reviewId";
+            //    SqlParameter[] param = { new SqlParameter("@reviewId", reviewId) };
+            //    db.UpdateQry(sql, param);
+            //    UpdateReviewRateCount(reviewId);
+            //    ret = true;
+            //}
+            //catch (Exception ex)
+            //{
+            //    ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.ApproveUpdatedReview");
+            //    objErr.SendMail();
+            //}
+            //return ret;
         }
 
         private void UpdateReplicaAsVerified(string reviewId)
         {
-            string sql;
-            Database db = new Database();
 
-            try
-            {
-                sql = " UPDATE CustomerReviewsReplica SET IsVerified=1 WHERE ReviewId = @reviewId";
-                SqlParameter[] param = { new SqlParameter("@reviewId", reviewId) };
-                db.UpdateQry(sql, param);
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.UpdateReplicaAsVerified");
-                objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
+            objErr.SendMail();
+            //string sql;
+            //Database db = new Database();
+
+            //try
+            //{
+            //    sql = " UPDATE CustomerReviewsReplica SET IsVerified=1 WHERE ReviewId = @reviewId";
+            //    SqlParameter[] param = { new SqlParameter("@reviewId", reviewId) };
+            //    db.UpdateQry(sql, param);
+            //}
+            //catch (Exception ex)
+            //{
+            //    ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.UpdateReplicaAsVerified");
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
         }
 
         private void UpdateAbuseAsVerified(string reviewId)
         {
-            string sql;
-            Database db = new Database();
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
+            objErr.SendMail();
 
-            try
-            {
-                sql = " UPDATE ReviewAbusedDetails SET IsVerified=1 WHERE CustomerReviewId = @reviewId";
-                SqlParameter[] param = { new SqlParameter("@reviewId", reviewId) };
-                db.UpdateQry(sql, param);
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.UpdateAbuseAsVerified");
-                objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
+            //string sql;
+            //Database db = new Database();
+
+            //try
+            //{
+            //    sql = " UPDATE ReviewAbusedDetails SET IsVerified=1 WHERE CustomerReviewId = @reviewId";
+            //    SqlParameter[] param = { new SqlParameter("@reviewId", reviewId) };
+            //    db.UpdateQry(sql, param);
+            //}
+            //catch (Exception ex)
+            //{
+            //    ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.UpdateAbuseAsVerified");
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
         }
 
         private void UpdateChangesToCustomerReviews(string reviewId)
         {
-            string sql = "";
-            Database db = new Database();
-            try
-            {
-                sql = " UPDATE CustomerReviews"
-                    + " SET     "
-                    + " StyleR = CustomerReviewsReplica.StyleR,"
-                    + " ComfortR = CustomerReviewsReplica.ComfortR,"
-                    + " PerformanceR = CustomerReviewsReplica.PerformanceR,"
-                    + " ValueR = CustomerReviewsReplica.ValueR,"
-                    + " FuelEconomyR = CustomerReviewsReplica.FuelEconomyR,"
-                    + " OverallR = CustomerReviewsReplica.OverallR,"
-                    + " Pros = CustomerReviewsReplica.Pros,"
-                    + " Cons = CustomerReviewsReplica.Cons,"
-                    + " Title = CustomerReviewsReplica.Title,"
-                    + " Comments = CustomerReviewsReplica.Comments,"
-                    + " IsOwned = CustomerReviewsReplica.IsOwned,"
-                    + " IsNewlyPurchased = CustomerReviewsReplica.IsNewlyPurchased,"
-                    + " Familiarity = CustomerReviewsReplica.Familiarity,"
-                    + " Mileage = CustomerReviewsReplica.Mileage,"
-                    + " LastUpdatedBy = CustomerReviews.CustomerId,"
-                    + " LastUpdatedOn = CustomerReviewsReplica.LastUpdatedOn"
-                    + " FROM "
-                    + " CustomerReviews, CustomerReviewsReplica"
-                    + " WHERE "
-                    + " CustomerReviews.Id = CustomerReviewsReplica.ReviewId"
-                    + " AND CustomerReviewsReplica.ReviewId = @reviewId";
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
+            objErr.SendMail();
 
-                SqlParameter[] param = { new SqlParameter("@reviewId", reviewId) };
-                db.UpdateQry(sql, param);
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.UpdateChangesToCustomerReviews");
-                objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
+            //string sql = "";
+            //Database db = new Database();
+            //try
+            //{
+            //    sql = " UPDATE CustomerReviews"
+            //        + " SET     "
+            //        + " StyleR = CustomerReviewsReplica.StyleR,"
+            //        + " ComfortR = CustomerReviewsReplica.ComfortR,"
+            //        + " PerformanceR = CustomerReviewsReplica.PerformanceR,"
+            //        + " ValueR = CustomerReviewsReplica.ValueR,"
+            //        + " FuelEconomyR = CustomerReviewsReplica.FuelEconomyR,"
+            //        + " OverallR = CustomerReviewsReplica.OverallR,"
+            //        + " Pros = CustomerReviewsReplica.Pros,"
+            //        + " Cons = CustomerReviewsReplica.Cons,"
+            //        + " Title = CustomerReviewsReplica.Title,"
+            //        + " Comments = CustomerReviewsReplica.Comments,"
+            //        + " IsOwned = CustomerReviewsReplica.IsOwned,"
+            //        + " IsNewlyPurchased = CustomerReviewsReplica.IsNewlyPurchased,"
+            //        + " Familiarity = CustomerReviewsReplica.Familiarity,"
+            //        + " Mileage = CustomerReviewsReplica.Mileage,"
+            //        + " LastUpdatedBy = CustomerReviews.CustomerId,"
+            //        + " LastUpdatedOn = CustomerReviewsReplica.LastUpdatedOn"
+            //        + " FROM "
+            //        + " CustomerReviews, CustomerReviewsReplica"
+            //        + " WHERE "
+            //        + " CustomerReviews.Id = CustomerReviewsReplica.ReviewId"
+            //        + " AND CustomerReviewsReplica.ReviewId = @reviewId";
+
+            //    SqlParameter[] param = { new SqlParameter("@reviewId", reviewId) };
+            //    db.UpdateQry(sql, param);
+            //}
+            //catch (Exception ex)
+            //{
+            //    ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.UpdateChangesToCustomerReviews");
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
         }
 
         private void AddReplyInForums(string reviewIds, string customerIds)
         {
-            string threadId = "";
-            threadId = GetThreadIdForReview(reviewIds);
-            if (threadId != "-1")
-            {
-                ForumsCommon.SavePost(customerIds, "This review is updated", 1, threadId);
-            }
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
+            objErr.SendMail();
+
+            //string threadId = "";
+            //threadId = GetThreadIdForReview(reviewIds);
+            //if (threadId != "-1")
+            //{
+            //    ForumsCommon.SavePost(customerIds, "This review is updated", 1, threadId);
+            //}
         }
 
         private string GetThreadIdForReview(string reviewId)
         {
-            string returnVal = "-1";
-            string sql = "SELECT ThreadId FROM Forum_ArticleAssociation With(NoLock) WHERE ArticleType = 3 AND ArticleId = @reviewId";
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
+            objErr.SendMail();
+            return string.Empty;
 
-            SqlDataReader dr = null;
-            Database db = new Database();
-            try
-            {
-                SqlParameter[] param = { new SqlParameter("@reviewId", reviewId) };
-                dr = db.SelectQry(sql, param);
-                if (dr.Read())
-                {
-                    returnVal = dr[0].ToString();
-                }
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, "AjaxUserReviews.GetThreadIdForReview");
-                objErr.SendMail();
-                returnVal = "-1";
-            }
-            finally
-            {
-                if(dr != null)
-                    dr.Close();
+            //string returnVal = "-1";
+            //string sql = "SELECT ThreadId FROM Forum_ArticleAssociation With(NoLock) WHERE ArticleType = 3 AND ArticleId = @reviewId";
 
-                db.CloseConnection();
-            }
+            //SqlDataReader dr = null;
+            //Database db = new Database();
+            //try
+            //{
+            //    SqlParameter[] param = { new SqlParameter("@reviewId", reviewId) };
+            //    dr = db.SelectQry(sql, param);
+            //    if (dr.Read())
+            //    {
+            //        returnVal = dr[0].ToString();
+            //    }
+            //}
+            //catch (Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, "AjaxUserReviews.GetThreadIdForReview");
+            //    objErr.SendMail();
+            //    returnVal = "-1";
+            //}
+            //finally
+            //{
+            //    if(dr != null)
+            //        dr.Close();
 
-            return returnVal;
+            //    db.CloseConnection();
+            //}
+
+            //return returnVal;
         }
 
 
         private void UpdateReviewRateCount(string reviewId)
         {
-            SqlConnection con;
-            SqlCommand cmd;
-            SqlParameter prm;
-            Database db = new Database();
-            CommonOpn op = new CommonOpn();
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.UpdateReviewRateCount");
+            objErr.SendMail();
 
-            string conStr = db.GetConString();
-            con = new SqlConnection(conStr);
-            try
-            {
-                cmd = new SqlCommand("ReviewRateCountUpdate", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+            //SqlConnection con;
+            //SqlCommand cmd;
+            //SqlParameter prm;
+            //Database db = new Database();
+            //CommonOpn op = new CommonOpn();
 
-                prm = cmd.Parameters.Add("@ID", SqlDbType.BigInt);
-                prm.Value = reviewId;
-                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
-                con.Open();
-                //run the command
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception err)
-            {
-                HttpContext.Current.Trace.Warn("Ajaxfunctions : UpdateReviewRateCount : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Ajaxfunctions.UpdateReviewRateCount");
-                objErr.SendMail();
-            } // catch Exception
-            finally
-            {
-                //close the connection	
-                if (con.State == ConnectionState.Open)
-                {
-                    con.Close();
-                }
-            }
+            //string conStr = db.GetConString();
+            //con = new SqlConnection(conStr);
+            //try
+            //{
+            //    cmd = new SqlCommand("ReviewRateCountUpdate", con);
+            //    cmd.CommandType = CommandType.StoredProcedure;
+            //    prm = cmd.Parameters.Add("@ID", SqlDbType.BigInt);
+            //    prm.Value = reviewId;
+
+            //    con.Open();
+            //    //run the command
+            //    cmd.ExecuteNonQuery();
+            //}
+            //catch (Exception err)
+            //{
+            //    HttpContext.Current.Trace.Warn("Ajaxfunctions : UpdateReviewRateCount : " + err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, "Ajaxfunctions.UpdateReviewRateCount");
+            //    objErr.SendMail();
+            //} // catch Exception
+            //finally
+            //{
+            //    //close the connection	
+            //    if (con.State == ConnectionState.Open)
+            //    {
+            //        con.Close();
+            //    }
+            //}
         }
 
         //this function updates the liked and the disliked Budget of the customer reviews table
@@ -351,11 +382,12 @@ namespace Bikewale.Ajax
         [AjaxPro.AjaxMethod()]
         public bool UpdateReviewHelpful(string reviewId, string helpful)
         {
-            bool returnVal = false;
 
             //check whether this review has already been viewed
             string viewedList = CookiesUserReviews.URHelpful;
             bool viewed = false;
+            uint _reviewId;
+            bool returnVal = false;
 
 
             bool isHelpFull = helpful == "1" ? true : false;
@@ -375,32 +407,22 @@ namespace Bikewale.Ajax
 
             if (viewed == false)
             {
-                SqlConnection con;
-                SqlCommand cmd;
-                SqlParameter prm;
-                Database db = new Database();
                 CommonOpn op = new CommonOpn();
-
-                string conStr = db.GetConString();
-
-                con = new SqlConnection(conStr);
 
                 try
                 {
-                    cmd = new SqlCommand("UpdateCustomerReviewsHelpful", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
 
-                    prm = cmd.Parameters.Add("@ReviewId", SqlDbType.BigInt);
-                    prm.Value = reviewId;
+                    if (uint.TryParse(reviewId, out _reviewId) && _reviewId > 0)
+                    {
+                        using (IUnityContainer container = new UnityContainer())
+                        {
+                            container.RegisterType<IUserReviews, UserReviewsRepository>()
+                            .RegisterType<IUserReviews, UserReviewsRepository>();
+                            IUserReviews objReviews = container.Resolve<IUserReviews>();
 
-                    prm = cmd.Parameters.Add("@Helpful", SqlDbType.Bit);
-                    prm.Value = isHelpFull;
-                    Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
-                    con.Open();
-                    //run the command
-                    cmd.ExecuteNonQuery();
-
-                    returnVal = true;
+                            returnVal = objReviews.UpdateReviewUseful(_reviewId, isHelpFull);
+                        }
+                    }
 
                 }
                 catch (Exception err)
@@ -412,12 +434,6 @@ namespace Bikewale.Ajax
                 } // catch Exception
                 finally
                 {
-                    //close the connection	
-                    if (con.State == ConnectionState.Open)
-                    {
-                        con.Close();
-                    }
-
                     //add this id to helpful
                     CookiesUserReviews.URHelpful += reviewId + ",";
                 }
@@ -434,36 +450,36 @@ namespace Bikewale.Ajax
         public bool UpdateReviewAbuse(string reviewId, string comments)
         {
             bool returnVal = false;
-
-            SqlConnection con;
-            SqlCommand cmd;
-            SqlParameter prm;
-            Database db = new Database();
-            CommonOpn op = new CommonOpn();
-
-            string conStr = db.GetConString();
-
-            con = new SqlConnection(conStr);
+            uint _reviewId;
 
             try
             {
-                cmd = new SqlCommand("UpdateCustomerReviewsAbuse", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                uint.TryParse(reviewId, out _reviewId);
 
-                prm = cmd.Parameters.Add("@ReviewId", SqlDbType.BigInt);
-                prm.Value = reviewId;
+                //using (DbCommand cmd = DbFactory.GetDBCommand("updatecustomerreviewsabuse"))
+                //{
+                //    cmd.CommandType = CommandType.StoredProcedure;
+                //    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int64, reviewId));
+                //    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 500, comments));
+                //    cmd.Parameters.Add(DbFactory.GetDbParam("par_reportedby", DbType.Int64, CurrentUser.Id));
+                //    MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
+                //    // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
-                prm = cmd.Parameters.Add("@Comments", SqlDbType.VarChar, 500);
-                prm.Value = comments;
+                //    returnVal = true;
+                //}
 
-                prm = cmd.Parameters.Add("@ReportedBy", SqlDbType.BigInt);
-                prm.Value = CurrentUser.Id;
-                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
-                con.Open();
-                //run the command
-                cmd.ExecuteNonQuery();
+                if (_reviewId > 0)
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IUserReviews, UserReviewsRepository>()
+                        .RegisterType<IUserReviews, UserReviewsRepository>();
+                        IUserReviews objReviews = container.Resolve<IUserReviews>();
 
-                returnVal = true;
+                        returnVal = objReviews.AbuseReview(_reviewId, comments, CurrentUser.Id.ToString());
+                    }
+                }
+
 
             }
             catch (Exception err)
@@ -473,14 +489,6 @@ namespace Bikewale.Ajax
                 objErr.SendMail();
                 returnVal = false;
             } // catch Exception
-            finally
-            {
-                //close the connection	
-                if (con.State == ConnectionState.Open)
-                {
-                    con.Close();
-                }
-            }
 
             return returnVal;
         }
@@ -488,31 +496,34 @@ namespace Bikewale.Ajax
         [AjaxPro.AjaxMethod()]
         public string GetModels(string makeId)
         {
-            DataSet ds = new DataSet();
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.GetModels");
+            objErr.SendMail();
+            return string.Empty;
+            //DataSet ds = new DataSet();
 
-            if (makeId == "" || CommonOpn.CheckId(makeId) == false)
-                return "";
+            //if (makeId == "" || CommonOpn.CheckId(makeId) == false)
+            //    return "";
 
-            Database db = new Database();
-            string sql = "";
+            //Database db = new Database();
+            //string sql = "";
 
-            sql = " SELECT ID AS Value, Name AS Text FROM BikeModels With(NoLock) WHERE IsDeleted = 0 AND Futuristic = 0 AND "
-                + " BikeMakeId =@makeId ORDER BY Text ";
+            //sql = " SELECT ID AS Value, Name AS Text FROM BikeModels With(NoLock) WHERE IsDeleted = 0 AND Futuristic = 0 AND "
+            //    + " BikeMakeId =@makeId ORDER BY Text ";
 
-            try
-            {
-                SqlParameter[] param = { new SqlParameter("@makeId", makeId) };
-                ds = db.SelectAdaptQry(sql, param);
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, "AjaxUserReviews.GetModels");
-                objErr.SendMail();
-            }
+            //try
+            //{
+            //    SqlParameter[] param = { new SqlParameter("@makeId", makeId) };
+            //    ds = db.SelectAdaptQry(sql, param);
+            //}
+            //catch (Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, "AjaxUserReviews.GetModels");
+            //    objErr.SendMail();
+            //}
 
-            string jsonString = ds.Tables.Count > 0 ? JSON.GetJSONString(ds.Tables[0]) : "";
+            //string jsonString = ds.Tables.Count > 0 ? JSON.GetJSONString(ds.Tables[0]) : "";
 
-            return jsonString;
+            //return jsonString;
         }
     }
 }

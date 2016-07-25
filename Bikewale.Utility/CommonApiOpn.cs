@@ -15,21 +15,16 @@ namespace Bikewale.Utility
         /// <returns></returns>
         public static string GetContentTypesString<T>(List<T> contentList)
         {
-
-            string _contentTypes = string.Empty;
-            ushort _contentType = 0;
+            StringBuilder _contentTypes = new StringBuilder();
             if (contentList != null && contentList.Count > 0)
             {
                 foreach (var item in contentList)
                 {
-                    _contentType = Convert.ToUInt16(item);
-                    _contentTypes += _contentType.ToString() + ',';
+                    _contentTypes.Append(Convert.ToUInt16(item)).Append(',');
                 }
-
-                _contentTypes = _contentTypes.Remove(_contentTypes.LastIndexOf(','));
             }
                 
-           return _contentTypes;            
+           return _contentTypes.ToString().TrimEnd(',');            
 
         } //End of GetContentTypes
     }

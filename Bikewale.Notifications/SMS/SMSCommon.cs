@@ -1,15 +1,12 @@
 ﻿using Bikewale.Utility;
+using MySql.CoreDAL;
 using RabbitMqPublishing;
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Notifications
 {
@@ -43,7 +40,7 @@ namespace Bikewale.Notifications
         LimitedBikeBookedOffer = 26,
         ClaimedOffer = 27,
         BookingCancellationOTP = 28,
-        BookingCancellationToCustomer=29
+        BookingCancellationToCustomer = 29
     }
 
     public class SMSCommon
@@ -102,7 +99,7 @@ namespace Bikewale.Notifications
                 nvc.Add("provider", "");
 
                 RabbitMqPublish publish = new RabbitMqPublish();
-                publish.PublishToQueue("Sms", nvc);
+                publish.PublishToQueue(BWConfiguration.Instance.BWSmsQueue, nvc);
             }
         }
 
@@ -149,7 +146,7 @@ namespace Bikewale.Notifications
                 nvc.Add("provider", "");
 
                 RabbitMqPublish publish = new RabbitMqPublish();
-                publish.PublishToQueue(BWConfiguration.Instance.BWSmsQueue, nvc);
+                publish.PublishToQueue(BWConfiguration.Instance.BWPrioritySmsQueue, nvc);
             }
         }
 
@@ -163,26 +160,19 @@ namespace Bikewale.Notifications
         /// <param name="retMsg">The return message from the provider that is received after the SMS is sent</param>
         private void UpdateSMSSentData(string currentId, string retMsg)
         {
-            SqlConnection con = null;
 
             if (!String.IsNullOrEmpty(currentId))
             {
-                string sql = "UPDATE SMSSent SET ReturnedMsg = @RetMsg WHERE ID = @CurrentId";
+                string sql = "update smssent set returnedmsg = @retmsg where id = @currentid";
                 try
                 {
-                    using (con = new SqlConnection())
+                    using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                     {
-                        using (SqlCommand cmd = new SqlCommand())
-                        {
-                            cmd.CommandText = sql;
-                            cmd.CommandType = CommandType.Text;
-                            cmd.Parameters.Add("@CurrentId", SqlDbType.Int).Value = Convert.ToInt32(currentId);
-                            cmd.Parameters.Add("@RetMsg", SqlDbType.VarChar).Value = retMsg;
-                            con.ConnectionString = Bikewale.Utility.BWConfiguration.Instance.BWConnectionString;
-                            LogLiveSps.LogSpInGrayLog(cmd);
-                            con.Open();
-                            cmd.ExecuteNonQuery();
-                        }
+                        cmd.Parameters.Add(DbFactory.GetDbParam("@currentid", DbType.Int32, Convert.ToInt32(currentId)));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("@retmsg", DbType.String, retMsg));
+
+                        // LogLiveSps.LogSpInGrayLog(cmd);
+                        cmd.ExecuteNonQuery();
                     }
                 }
                 catch (Exception err)
@@ -190,68 +180,37 @@ namespace Bikewale.Notifications
                     ErrorClass objErr = new ErrorClass(err, "Bikewale.Notifications.SMSCommon");
                     objErr.SendMail();
                 }
-                finally
-                {
-                    if (con != null && con.State == ConnectionState.Open)
-                    {
-                        con.Close();
-                    }
-                }
             }
         }
 
         string SaveSMSSentData(string number, string message, EnumSMSServiceType esms, bool status, string retMsg, string pageUrl)
         {
-            SqlConnection con;
-            SqlCommand cmd;
-            SqlParameter prm;
-            string conStr = ConfigurationManager.AppSettings["bwconnectionstring"];
             string currentId = string.Empty;
             try
             {
-                using (con = new SqlConnection(conStr))
+
+                using (DbCommand cmd = DbFactory.GetDBCommand("insertsmssent"))
                 {
-                    using (cmd = new SqlCommand("InsertSMSSent", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                        prm = cmd.Parameters.Add("@Number", SqlDbType.VarChar, 50);
-                        prm.Value = number;
-
-                        prm = cmd.Parameters.Add("@Message", SqlDbType.VarChar, 500);
-                        prm.Value = message;
-
-                        prm = cmd.Parameters.Add("@ServiceType", SqlDbType.Int);
-                        prm.Value = esms;
-
-                        prm = cmd.Parameters.Add("@SMSSentDateTime", SqlDbType.DateTime);
-                        prm.Value = DateTime.Now;
-
-                        prm = cmd.Parameters.Add("@Successfull", SqlDbType.Bit);
-                        prm.Value = status;
-
-                        prm = cmd.Parameters.Add("@ReturnedMsg", SqlDbType.VarChar, 500);
-                        prm.Value = retMsg;
-
-                        prm = cmd.Parameters.Add("@SMSPageUrl", SqlDbType.VarChar, 500);
-                        prm.Value = pageUrl;
-                        LogLiveSps.LogSpInGrayLog(cmd);
-                        con.Open();
-                        //run the command
-                        //cmd.ExecuteNonQuery();
-                        currentId = Convert.ToString(cmd.ExecuteScalar());
-                    }
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_number", DbType.String, 50, number));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_message", DbType.String, 500, message));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_servicetype", DbType.Int32, esms));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_smssentdatetime", DbType.DateTime, DateTime.Now));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_successfull", DbType.Boolean, status));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_returnedmsg", DbType.String, 500, retMsg));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_smspageurl", DbType.String, 500, pageUrl));
+                    // LogLiveSps.LogSpInGrayLog(cmd);
+                    currentId = Convert.ToString(MySqlDatabase.ExecuteScalar(cmd, ConnectionType.MasterDatabase));
                 }
             }
             catch (SqlException err)
             {
-                //HttpContext.Current.Trace.Warn("Common.SMSCommon : " + err.Message);
                 ErrorClass objErr = new ErrorClass(err, "Bikewale.Notifications.SMSCommon");
                 objErr.SendMail();
             } // catch SqlException
             catch (Exception err)
             {
-                //HttpContext.Current.Trace.Warn("Common.SMSCommon : " + err.Message);
                 ErrorClass objErr = new ErrorClass(err, "Bikewale.Notifications.SMSCommon");
                 objErr.SendMail();
             } // catch Exception

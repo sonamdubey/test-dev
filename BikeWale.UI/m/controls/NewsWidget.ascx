@@ -34,7 +34,7 @@
         <div class="bwmsprite swiper-button-prev hide"></div>
     </div>
     <div class="text-center margin-bottom30">
-        <a class="font16" href="/m/news/">View More News</a>
+        <a class="font16" href="/m/news/">View more news</a>
     </div>
     <script type="text/javascript">
         $(document).ready(function () { $("img.lazy").lazyload(); });

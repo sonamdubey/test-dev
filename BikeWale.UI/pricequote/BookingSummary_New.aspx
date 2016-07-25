@@ -527,8 +527,8 @@
             </div>
         </section>
 
-        <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize((objBooking.Varients))%>' />
-        <input id="hdnDiscountList" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(dealerDetailEntity.objQuotation.discountedPriceList)%>' />
+        <input id="hdnBikeData" type="hidden" value='<%= bikesData %>' />
+        <input id="hdnDiscountList" type="hidden" value='<%= discountedPriceList %>' />
         <!-- #include file="/includes/footerscript.aspx" -->
         <!-- #include file="/includes/footerBW.aspx" -->
 
@@ -547,7 +547,8 @@
             var thisBikename = "<%= this.bikeName %>";
             var clientIP = "<%= clientIP %>"; 
             var pageUrl = "<%= pageUrl %>";
-            var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
+
+            //var bwHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl1"]%>';
             
             //select bike version
             var bikeVersionId = "<%= (objCustomer!=null && objCustomer.SelectedVersionId > 0)?objCustomer.SelectedVersionId:versionId %>";

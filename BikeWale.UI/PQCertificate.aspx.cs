@@ -1,18 +1,14 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities.BikeBooking;
+using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.BikeBooking
 {
     public class PQCertificate : System.Web.UI.Page
     {
-        protected string ImgPath = string.Empty, contactNo =string.Empty, address = string.Empty, Organization = string.Empty;
+        protected string ImgPath = string.Empty, contactNo = string.Empty, address = string.Empty, Organization = string.Empty;
         protected string BikeName = string.Empty;
         protected Repeater rptQuote, rptOffers, rptFacility, rptDisclaimer;
         protected PQ_DealerDetailEntity objPQ = null;
@@ -26,16 +22,20 @@ namespace Bikewale.BikeBooking
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string _apiUrl = "/api/Dealers/GetDealerDetailsPQ/?versionId=" + Request.QueryString["versionId"]+ "&DealerId=" + Request.QueryString["dealerId"] + "&CityId=" + Request.QueryString["cityId"];
-        
-            using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+            using (IUnityContainer container = new UnityContainer())
             {
-                objPQ = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objPQ);
-            }            
+                container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
+                Bikewale.Interfaces.AutoBiz.IDealers objDealer = container.Resolve<Bikewale.DAL.AutoBiz.DealersRepository>();
+                PQParameterEntity objParam = new PQParameterEntity();
+                objParam.CityId = Convert.ToUInt32(PriceQuoteQueryString.CityId); ;
+                objParam.DealerId = Convert.ToUInt32(PriceQuoteQueryString.DealerId);
+                objParam.VersionId = Convert.ToUInt32(PriceQuoteQueryString.VersionId); ;
+                objPQ = objDealer.GetDealerDetailsPQ(objParam);
+            }
 
             if (objPQ != null)
             {
-                ImgPath = Bikewale.Utility.Image.GetPathToShowImages(objPQ.objQuotation.OriginalImagePath, objPQ.objQuotation.HostUrl,Bikewale.Utility.ImageSize._210x118);
+                ImgPath = Bikewale.Utility.Image.GetPathToShowImages(objPQ.objQuotation.OriginalImagePath, objPQ.objQuotation.HostUrl, Bikewale.Utility.ImageSize._210x118);
                 BikeName = objPQ.objQuotation.objMake.MakeName + " " + objPQ.objQuotation.objModel.ModelName + " " + objPQ.objQuotation.objVersion.VersionName;
                 noOfDays = Convert.ToUInt32(Request.QueryString["availability"]);
                 TotalPrice = Convert.ToUInt32(Request.QueryString["totalPrice"]);

@@ -76,7 +76,7 @@ namespace Bikewale.Controls
             if (Regex.IsMatch(txtEmail.Text.Trim().ToLower(), reEmail))
             {                
                 RegisterCustomer objCust = new RegisterCustomer();
-                Trace.Warn("customer exist : " + objCust.IsRegisterdCustomer(txtEmail.Text.Trim()));
+ 
                 if (String.IsNullOrEmpty(objCust.IsRegisterdCustomer(txtEmail.Text.Trim())))
                 {
                     string CustomerId = objCust.RegisterUser(txtName.Text.Trim(), txtEmail.Text.Trim(), txtMobile.Text.Trim(), "", txtPassword.Text.Trim(), "");

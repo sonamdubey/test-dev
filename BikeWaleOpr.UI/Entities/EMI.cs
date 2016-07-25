@@ -1,28 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Bikewale.Entities.BikeBooking
+namespace BikewaleOpr.Entities
 {
-    /// <summary>
-    /// Written by Ashwini Todkar on 29 Oct 2014
-    /// </summary>    
-    public class EMI
-    {        
-        [JsonProperty("tenure")]
-        public UInt16 Tenure { get; set; }
-
-        [JsonProperty("loanToValue")]
-        public UInt16 LoanToValue { get; set; }
-
-        [JsonProperty("rateOfInterest")]
-        public float RateOfInterest { get; set; }
-
-        [JsonProperty("loanProvider")]
-        public string LoanProvider { get; set; }
-    }
 
     /// <summary>
     /// Created By: Sangram Nandkhile
@@ -41,7 +21,7 @@ namespace Bikewale.Entities.BikeBooking
 
         [JsonProperty("minDownPayment")]
         public float MinDownPayment { get; set; }
-        
+
         [JsonProperty("maxDownPayment")]
         public float MaxDownPayment { get; set; }
 

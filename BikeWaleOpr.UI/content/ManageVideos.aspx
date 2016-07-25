@@ -102,7 +102,7 @@
                             <td align="center"> <b><%= ++serialNo%></b></td>
                             <td  align="center"><b><%#DataBinder.Eval(Container.DataItem,"BikeName")%></b></td>
                             <td  align="center"><iframe class="youtube-player" type="text/html" src="<%#DataBinder.Eval(Container.DataItem,"VideoSrc").ToString() %>" width="350" height="200" frameborder="0"></iframe> </td>
-                            <td  align="center"><%#DataBinder.Eval(Container.DataItem,"IsActive").ToString()=="True"?"Active":"InActive" %></td>
+                            <td  align="center"><%#DataBinder.Eval(Container.DataItem,"IsActive").ToString()=="1"?"Active":"InActive" %></td>
                             <td  align="center"><a style="cursor:pointer;" videoId="<%#DataBinder.Eval(Container.DataItem,"VideoId")%>" videolink="<%#DataBinder.Eval(Container.DataItem,"VideoSrc")%>" isActive="<%#DataBinder.Eval(Container.DataItem,"IsActive")%>" make="<%#DataBinder.Eval(Container.DataItem,"Make")%>" model="<%#DataBinder.Eval(Container.DataItem,"Model")%>" makeId="<%#DataBinder.Eval(Container.DataItem,"MakeId")%>" modelId="<%#DataBinder.Eval(Container.DataItem,"ModelId")%>" videoTitle="<%#DataBinder.Eval(Container.DataItem,"VideoTitle")%>" class="edit"> <img src="http://opr.carwale.com/images/icons/edit.gif" title="edit" border="0"/></a></td>
                         </tr>
                 </ItemTemplate>

@@ -36,7 +36,6 @@
                     <input type="button" value="Manage Offers" id="btnManageoffer" />&nbsp;&nbsp;
                     <input runat="server" type="submit" value="Manage Prices And Availability" id="btnManagePrice" />&nbsp;&nbsp;
                     <input type="button" value="Manage Facilities" id="btnManagefacilities" />&nbsp;&nbsp;
-                    <input type="button" value="Manage Dealer Area Mapping" id="btnMapDealer" />&nbsp;&nbsp;
                     <input type="button" value="Manage Emi" id="btnEmi" />&nbsp;&nbsp;
                     <%--<input type ="button" value="Manage Bike Avalability" id="btngoAvailable"/>--%>&nbsp;&nbsp;
                     <input type="button" value="Manage Dealer Disclaimer" id="btnDisclaimer" />&nbsp;&nbsp;
@@ -413,14 +412,15 @@
             }
 
         });
-        var ABApiHostUrl = '<%= cwHostUrl%>';
+        var BwOprHostUrl = '<%= BwOprHostUrl %>';
         var ddlDealer = $("#drpDealer");
         var selectString = "--Select Dealer--";
         var onInitCity = $("#drpCity option:selected").val();
+        
         if (onInitCity > 0) {
             $.ajax({
                 type: "GET",
-                url: ABApiHostUrl + "/api/Dealers/GetAllDealers/?cityId=" + onInitCity,
+                url: BwOprHostUrl + "/api/Dealers/GetAllDealers/?cityId=" + onInitCity,
                 success: function (response) {
                     ddlDealer.empty().append("<option value=\"0\">" + selectString + "</option>").removeAttr("disabled");
                     for (var i = 0; i < response.length; i++) {
@@ -439,11 +439,11 @@
             var cityId = $(this).val();
             $("#hdnCityId").val(cityId);
             //alert("cityId : " + $("#hdnCityId").val());
-
+            
             if (cityId > 0) {
                 $.ajax({
                     type: "GET",
-                    url: ABApiHostUrl + "/api/Dealers/GetAllDealers/?cityId=" + cityId,
+                    url: BwOprHostUrl + "/api/Dealers/GetAllDealers/?cityId=" + cityId,
                     success: function (response) {
                         ddlDealer.empty().append("<option value=\"0\">" + selectString + "</option>").removeAttr("disabled");
                         for (var i = 0; i < response.length; i++) {
@@ -465,7 +465,7 @@
             if (cityId > 0) {
                 $.ajax({
                     type: "GET",
-                    url: ABApiHostUrl + "/api/Dealers/GetAllDealers/?cityId=" + cityId,
+                    url: BwOprHostUrl + "/api/Dealers/GetAllDealers/?cityId=" + cityId,
                     success: function (response) {
                         ddlDealerList.empty().append("<option value=\"0\">" + selectString + "</option>").removeAttr("disabled");
                         for (var i = 0; i < response.length; i++) {

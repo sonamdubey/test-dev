@@ -63,10 +63,10 @@
 					<td><span>City :</span></td>
 					<td><%=cd.City%></td>
 				</tr>
+					<!--<td><span>State :</span></td>
 				<tr>
-					<td><span>State :</span></td>
 					<td><%=cd.State%></td>
-				</tr>						
+				</tr>	-->					
 			</table>		
 	    </div>
         <div class="grid_4 margin-top15">

@@ -32,7 +32,7 @@ namespace Bikewale.Memcache
                 BWMemcache objCache = new BWMemcache();
 
                 SqlParameter param = null;
-                param = new SqlParameter("@TopCount", SqlDbType.Int);
+                param = new SqlParameter("par_topcount", SqlDbType.Int);
                 param.Value = TopCount;
 
                 ds = objCache.GetDataSet("BW_NewBikeLaunches", param);

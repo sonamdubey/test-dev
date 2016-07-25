@@ -120,109 +120,111 @@ namespace BikeWaleOpr.EditCms
 
         private void LoadData(string AuthorId)
         {
-            
-            string sql = "Select * from Con_EditCms_Author where Authorid=@Authorid";
+            throw new Exception("Method not used/commented");
+            //string sql = "Select * from Con_EditCms_Author where Authorid=@Authorid";
 
-            SqlConnection con;	
-            Database db = new Database();           
-            SqlParameter[] param = 
-			{
-				new SqlParameter("@Authorid", AuthorId)
-			};
-            con = new SqlConnection(db.GetConString());		
-            try
-            {
-                //SqlDataReader dr = db.SelectQry(sql, param);
-                con.Open();
-                using (SqlCommand cmd = new SqlCommand(sql, con))
-                {
-                    cmd.Parameters.AddRange(param);
-                    SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-                    while (dr.Read())
-                    {
-                        Trace.Warn(dr["Designation"].ToString());
-                        txtDesignation.Text = dr["Designation"].ToString();                       
-                        rteDescription.Text = dr["FullProfile"].ToString();
-                        txtBriefProfile.Text = dr["BriefProfile"].ToString();
-                    }
-					dr.Close();
-                }                           
-            }
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (con.State == ConnectionState.Open)
-                {
-                    con.Close();
-                }
-            }
+            //SqlConnection con;	
+            //Database db = new Database();           
+            //SqlParameter[] param = 
+            //{
+            //    new SqlParameter("@Authorid", AuthorId)
+            //};
+            //con = new SqlConnection(db.GetConString());		
+            //try
+            //{
+            //    //SqlDataReader dr = db.SelectQry(sql, param);
+            //    con.Open();
+            //    using (SqlCommand cmd = new SqlCommand(sql, con))
+            //    {
+            //        cmd.Parameters.AddRange(param);
+            //        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+            //        while (dr.Read())
+            //        {
+            //            Trace.Warn(dr["Designation"].ToString());
+            //            txtDesignation.Text = dr["Designation"].ToString();                       
+            //            rteDescription.Text = dr["FullProfile"].ToString();
+            //            txtBriefProfile.Text = dr["BriefProfile"].ToString();
+            //        }
+            //        dr.Close();
+            //    }                           
+            //}
+            //catch (Exception err)
+            //{
+            //    Trace.Warn(err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if (con.State == ConnectionState.Open)
+            //    {
+            //        con.Close();
+            //    }
+            //}
         }
 
 		void btnSave_Click( object Sender, EventArgs e )
 		{
-			SqlConnection con;			
-			SqlParameter prm;
-			Database db = new Database();			
-			string conStr = db.GetConString();		
+            throw new Exception("Method not used/commented");
+
+            //SqlConnection con;			
+            //SqlParameter prm;
+            //Database db = new Database();			
+            //string conStr = db.GetConString();		
            			
-			con = new SqlConnection( conStr );				
+            //con = new SqlConnection( conStr );				
 			
-			try
-			{
-                if (UploadPhotoFile(ddlAuthor.SelectedValue, inpPhoto.PostedFile.FileName))
-                {
+            //try
+            //{
+            //    if (UploadPhotoFile(ddlAuthor.SelectedValue, inpPhoto.PostedFile.FileName))
+            //    {
 
-                    using (SqlCommand cmd = new SqlCommand("Con_EditCms_UpdateAuthorProfile", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
+            //        using (SqlCommand cmd = new SqlCommand("Con_EditCms_UpdateAuthorProfile", con))
+            //        {
+            //            cmd.CommandType = CommandType.StoredProcedure;
 
-                        prm = cmd.Parameters.Add("@AuthorId", SqlDbType.BigInt);
-                        prm.Value = ddlAuthor.SelectedValue;
+            //            prm = cmd.Parameters.Add("@AuthorId", SqlDbType.BigInt);
+            //            prm.Value = ddlAuthor.SelectedValue;
 
-                        prm = cmd.Parameters.Add("@Designation", SqlDbType.VarChar, 25);
-                        prm.Value = txtDesignation.Text.Trim();
+            //            prm = cmd.Parameters.Add("@Designation", SqlDbType.VarChar, 25);
+            //            prm.Value = txtDesignation.Text.Trim();
 
-                        prm = cmd.Parameters.Add("@PicPath", SqlDbType.VarChar, 100);
-                        prm.Value = PicPath;
+            //            prm = cmd.Parameters.Add("@PicPath", SqlDbType.VarChar, 100);
+            //            prm.Value = PicPath;
 
-                        prm = cmd.Parameters.Add("@BriefProfile", SqlDbType.VarChar, 100);
-                        prm.Value = txtBriefProfile.Text.Trim();
+            //            prm = cmd.Parameters.Add("@BriefProfile", SqlDbType.VarChar, 100);
+            //            prm.Value = txtBriefProfile.Text.Trim();
 
-                        prm = cmd.Parameters.Add("@FullProfile", SqlDbType.VarChar, 500);
-                        prm.Value = rteDescription.Text.Trim();
+            //            prm = cmd.Parameters.Add("@FullProfile", SqlDbType.VarChar, 500);
+            //            prm.Value = rteDescription.Text.Trim();
 
-                        con.Open();
+            //            con.Open();
 
-                        cmd.ExecuteNonQuery();
+            //            cmd.ExecuteNonQuery();
 
-                        lblResult.Text = "Record Saved";
-                    }                   
-                }
-			}
-			catch(SqlException err)
-			{
-				Trace.Warn(err.Message);
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
-			catch(Exception err)
-			{
-				Trace.Warn(err.Message);
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
-			finally
-			{
-			    if(con.State == ConnectionState.Open)
-				{
-					con.Close();
-				}
-			}          
+            //            lblResult.Text = "Record Saved";
+            //        }                   
+            //    }
+            //}
+            //catch(SqlException err)
+            //{
+            //    Trace.Warn(err.Message);
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch(Exception err)
+            //{
+            //    Trace.Warn(err.Message);
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if(con.State == ConnectionState.Open)
+            //    {
+            //        con.Close();
+            //    }
+            //}          
 		}
 
         bool UploadPhotoFile(string photoId,string FilePath)

@@ -1,5 +1,10 @@
 ﻿using Bikewale.BAL.EditCMS;
+using Bikewale.Cache.CMS;
+using Bikewale.Cache.Core;
+using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
@@ -29,12 +34,16 @@ namespace Bikewale.BindViewModels.Controls
             ArticleSummary firstArticle = null;
             try
             {
+
                 IEnumerable<ArticleSummary> _objArticleList = null;
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IArticles, Articles>();
-                    IArticles _articles = container.Resolve<IArticles>();
-                    _objArticleList = _articles.GetRecentNews(Convert.ToInt32(MakeId), Convert.ToInt32(ModelId), Convert.ToInt32(TotalRecords));
+                    container.RegisterType<IArticles, Articles>()
+                            .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                            .RegisterType<ICacheManager, MemcacheManager>();
+                    ICMSCacheContent _articles = container.Resolve<ICMSCacheContent>();
+
+                    _objArticleList = _articles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), Convert.ToUInt32(TotalRecords), Convert.ToUInt32(MakeId), Convert.ToUInt32(ModelId));
                 }
 
                 if (_objArticleList != null && _objArticleList.Count() > 0)

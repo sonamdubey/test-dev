@@ -1,9 +1,20 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BAL.EditCMS;
+using Bikewale.BAL.GrpcFiles;
+using Bikewale.Cache.CMS;
+using Bikewale.Cache.Core;
+using Bikewale.Common;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.EditCMS;
 using Bikewale.Memcache;
+using Grpc.CMS;
+using log4net;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -18,17 +29,18 @@ namespace Bikewale.Content
     public class viewRT : System.Web.UI.Page
     {
         protected HtmlSelect ddlPages;
-        //protected Repeater rptPages, rptPageContent;
         protected Repeater rptPageContent;
-        protected int BasicId = 0, pageId = 1;
+        protected uint BasicId = 0, pageId = 1;
         protected String baseUrl = String.Empty, pageTitle = String.Empty, modelName = String.Empty, modelUrl = String.Empty;
         protected String data = String.Empty, nextPageUrl = String.Empty, prevPageUrl = String.Empty, author = String.Empty, displayDate = String.Empty, canonicalUrl = String.Empty;
-        //private CMSPageDetailsEntity pageDetails = null;
         protected StringBuilder _bikeTested;
         protected Repeater rptPhotos;
-        // private IPager objPager = null;
         protected ArticlePageDetails objRoadtest;
         private bool _isContentFound = true;
+
+        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
+        static readonly ILog _logger = LogManager.GetLogger(typeof(ViewRT));
+        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
 
         protected override void OnInit(EventArgs e)
         {
@@ -63,9 +75,7 @@ namespace Bikewale.Content
                  Check if basic id exists in mapped carwale basic id log **/
 
                 string basicId = BasicIdMapping.GetCWBasicId(Request["id"]);
-                //Trace.Warn("basicid" + basicId);
-                //if id exists then redirect url to new basic id url
-                //Trace.Warn("news host : " + Request.ServerVariables["HTTP_X_ORIGINAL_URL"]);
+
                 if (!String.IsNullOrEmpty(basicId))
                 {
                     string _newUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
@@ -77,16 +87,7 @@ namespace Bikewale.Content
                     CommonOpn.RedirectPermanent(_newUrl);
                 }
 
-                BasicId = Convert.ToInt32(Request.QueryString["id"]);
-
-                // if (!Int32.TryParse(Request.QueryString["id"].ToString(), out BasicId))
-                // isSuccess = false;
-
-                //if (Request.QueryString["pn"] != null && !String.IsNullOrEmpty(Request.QueryString["pn"]) && CommonOpn.CheckId(Request.QueryString["pn"]))
-                //{
-                //    if (!Int32.TryParse(Request.QueryString["pn"], out pageId))
-                //        isSuccess = false;
-                //}
+                BasicId = Convert.ToUInt32(Request.QueryString["id"]);
             }
             else
             {
@@ -96,28 +97,43 @@ namespace Bikewale.Content
             return isSuccess;
         }
 
-        private async void GetRoadTestDetails()
+        private void GetRoadTestDetails()
         {
             try
             {
-                string _apiUrl = "webapi/article/contentpagedetail/?basicid=" + BasicId;
 
-                // Send HTTP GET requests 
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    objRoadtest = await objClient.GetApiResponse<ArticlePageDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objRoadtest);
+                    container.RegisterType<IArticles, Articles>()
+                       .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                       .RegisterType<ICacheManager, MemcacheManager>();
+                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
+
+                    objRoadtest = _cache.GetArticlesDetails(BasicId);
+
+                    if (objRoadtest != null)
+                    {
+                        GetRoadTestData();
+                        BindPages();
+
+                        IEnumerable<ModelImage> objImg = _cache.GetArticlePhotos(Convert.ToInt32(BasicId));
+
+                        if (objImg != null && objImg.Count() > 0)
+                        {
+                            rptPhotos.DataSource = objImg;
+                            rptPhotos.DataBind();
+                        }
+
+                    }
+                    else
+                    {
+                        _isContentFound = false;
+                    }
+
                 }
 
-                if (objRoadtest != null)
-                {
-                    GetRoadTestData();
-                    BindPages();
-                    BindPhotos();
-                }
-                else
-                {
-                    _isContentFound = false;
-                }
+
+                
             }
             catch (Exception ex)
             {
@@ -136,49 +152,6 @@ namespace Bikewale.Content
             }
         }
 
-        private async void BindPhotos()
-        {
-            try
-            {
-                string _apiUrl = "webapi/image/GetArticlePhotos/?basicid=" + BasicId;
-                List<ModelImage> objImg = null;
-
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    objImg = await objClient.GetApiResponse<List<ModelImage>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objImg);
-                }
-
-                if (objImg != null && objImg.Count > 0)
-                {
-                    rptPhotos.DataSource = objImg;
-                    rptPhotos.DataBind();
-                }
-            }
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-        }
-
-        //private void GetNavigationLinks()
-        //{
-        //    PagerEntity pagerEntity = new PagerEntity();
-        //    pagerEntity.BaseUrl = "/m/road-tests/";
-        //    pagerEntity.PageNo = pageId;
-        //    pagerEntity.PagerSlotSize = 5;
-        //    pagerEntity.PageUrlType = objRoadtest.ArticleUrl + "-" + BasicId.ToString() + "/p";
-        //    pagerEntity.TotalResults = objRoadtest.PageList.Count;// pageDetails.PageList.Count;
-        //    pagerEntity.PageSize = 1;
-
-        //    PagerOutputEntity pagerOutput = objPager.GetPager<PagerOutputEntity>(pagerEntity);
-
-        //    //get next and prev page links for SEO
-        //   // prevPageUrl = pagerOutput.PreviousPageUrl;
-        //   // nextPageUrl = pagerOutput.NextPageUrl;
-        //}
-
         private void GetRoadTestData()
         {
 
@@ -187,7 +160,7 @@ namespace Bikewale.Content
             data = objRoadtest.Description;
             author = objRoadtest.AuthorName;
             pageTitle = objRoadtest.Title;
-            displayDate = Convert.ToDateTime(objRoadtest.DisplayDate).ToString("dd-MMM-yyyy");
+            displayDate = objRoadtest.DisplayDate.ToString();
 
             if (objRoadtest.VehiclTagsList != null && objRoadtest.VehiclTagsList.Count > 0)
             {
@@ -211,30 +184,12 @@ namespace Bikewale.Content
                     }
                 }
             }
-
-            //if (pageDetails.ImageList != null)
-            //    BindPhotos();
         }
-
-        //private void BindPhotos()
-        //{
-        //    if (pageDetails.ImageList != null)
-        //    {
-        //        rptPhotos.DataSource = pageDetails.ImageList;
-        //        rptPhotos.DataBind();
-        //    }
-        //}
 
         private void BindPages()
         {
-            //Trace.Warn("pageDetails.PageList : ", pageDetails.PageList.Count.ToString());
-
-            //rptPages.DataSource = objRoadtest.PageList;
-            //rptPages.DataBind();
-
             rptPageContent.DataSource = objRoadtest.PageList;
             rptPageContent.DataBind();
-            //ddlPages.Items.FindByValue(pageId.ToString()).Selected = true;
         }
 
         protected string GetImageUrl(string hostUrl, string imagePath)

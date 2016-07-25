@@ -1,9 +1,9 @@
-﻿using System;
-using System.Web;
+﻿using Bikewale.Common;
+using MySql.CoreDAL;
+using System;
 using System.Data;
 using System.Data.SqlClient;
-using Bikewale.Common;
-using AjaxPro;
+using System.Web;
 
 namespace Bikewale.Ajax
 {
@@ -22,36 +22,38 @@ namespace Bikewale.Ajax
         [AjaxPro.AjaxMethod()]
         public string GetModels(string makeId, string compareBikes)
         {
-            DataSet ds = null;
-            Database db = null;
             string jsonModels = String.Empty;
+            uint _makeid; string sql = string.Empty;
 
-            if (String.IsNullOrEmpty(makeId))
-                return jsonModels;
-
-            string sql = " SELECT DISTINCT CAST(Mo.ID AS VARCHAR(10)) + '_' + Mo.MaskingName AS Value, Mo.Name As Text "
-                        + " FROM BikeModels Mo, BikeVersions Ve, NewBikeSpecifications N With(NoLock) "
-                        + " WHERE Mo.IsDeleted = 0 "
-                        + " AND Ve.IsDeleted = 0 "
-                        + " AND Mo.ID = Ve.BikeModelId "
-                        + " AND Ve.ID = N.BikeVersionid "
-                        + " AND Mo.BikeMakeId = " + makeId;
-
-            if (!(String.IsNullOrEmpty(compareBikes)))
-            { 
-                if(compareBikes == "new")
-                {
-                    sql += " AND Ve.New=1 AND MO.Futuristic = 0 ";
-                }
-            }
             try
             {
-                db = new Database();
-                ds = db.SelectAdaptQry(sql);
-
-                if (ds != null)
+                if (!String.IsNullOrEmpty(makeId) && uint.TryParse(makeId, out _makeid))
                 {
-                    jsonModels = JSON.GetJSONString(ds.Tables[0]);
+                    sql = @" select distinct concat(ve.bikemodelid,'_',ve.modelmaskingname) as Value, ve.modelname as Text  
+                         from bikeversions ve
+                         join newbikespecifications n on ve.id = n.bikeversionid
+                         where ve.isdeleted = 0                           
+                         and ve.bikemakeid = " + _makeid;
+
+
+                    if (!(String.IsNullOrEmpty(compareBikes)))
+                    {
+                        if (compareBikes == "new")
+                        {
+                            sql += " and ve.new=1 and ve.isfuturisticmodel = 0 and ve.isdeleted=0";
+       
+                        }
+                    }
+
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly))
+                    {
+
+                        if (ds != null)
+                        {
+                            jsonModels = JSON.GetJSONString(ds.Tables[0]);
+                        }
+                    }
+
                 }
             }
             catch (SqlException err)
@@ -63,10 +65,6 @@ namespace Bikewale.Ajax
             {
                 ErrorClass objErr = new ErrorClass(err, "AjaxCompareBikes.GetModels");
                 objErr.SendMail();
-            }
-            finally 
-            {
-                db.CloseConnection();
             }
             return jsonModels;
         }
@@ -81,37 +79,38 @@ namespace Bikewale.Ajax
         [AjaxPro.AjaxMethod()]
         public string GetVersions(string modelId, string compareBikes)
         {
-            DataSet ds = null;
-            Database db = null;
+
             string jsonVersions = string.Empty;
+            uint _modelid; string sql = string.Empty;
 
-            if (String.IsNullOrEmpty(modelId))
-                return jsonVersions;
-
-            string sql = " SELECT DISTINCT Ve.ID AS Value, Ve.Name As Text "
-                         + " FROM BikeModels Mo, BikeVersions Ve, NewBikeSpecifications N, BikeMakes Ma With(NoLock) "
-                         + " WHERE Mo.IsDeleted = 0 "
-                         + " AND Ve.IsDeleted = 0 "
-                         + " AND Mo.ID = Ve.BikeModelId "
-                         + " AND Ve.ID = N.BikeVersionid "
-                         + " AND Ve.BikeModelId = " + modelId;
-
-            if (!(String.IsNullOrEmpty(compareBikes)))
-            {
-                if (compareBikes == "new")
-                {
-                    sql += " AND Ve.New=1 ";
-                }
-            }
             try
             {
-                db = new Database();
-                ds = db.SelectAdaptQry(sql);
-
-                if (ds != null)
+                if (!String.IsNullOrEmpty(modelId) && uint.TryParse(modelId, out _modelid))
                 {
-                    jsonVersions = JSON.GetJSONString(ds.Tables[0]);
+                    sql = @" select distinct ve.id as Value, ve.name as Text
+                         from bikeversions ve, newbikespecifications n
+                         where ve.isdeleted = 0                         
+                         and ve.id = n.bikeversionid
+                         and ve.bikemodelid = " + _modelid;
+
+                    if (!(String.IsNullOrEmpty(compareBikes)))
+                    {
+                        if (compareBikes == "new")
+                        {
+                            sql += " and ve.new=1 ";
+                        }
+                    }
+
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly))
+                    {
+
+                        if (ds != null)
+                        {
+                            jsonVersions = JSON.GetJSONString(ds.Tables[0]);
+                        }
+                    }
                 }
+
             }
             catch (SqlException err)
             {
@@ -123,10 +122,7 @@ namespace Bikewale.Ajax
                 ErrorClass objErr = new ErrorClass(err, "AjaxCompareBikes.GetModels");
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
             return jsonVersions;
         }
 
@@ -139,37 +135,43 @@ namespace Bikewale.Ajax
         /// <param name="type"></param>
         /// <returns></returns>
         [AjaxPro.AjaxMethod()]
-        public string GetNewBikeModels(string makeId, string compareBikes,string type)
+        public string GetNewBikeModels(string makeId, string compareBikes, string type)
         {
-            DataTable dt = null;
-            Database db = null;
-            string retVal = String.Empty;
 
-            if (String.IsNullOrEmpty(makeId))
-                return retVal;
+            string retVal = string.Empty;
+            uint _makeid; string sql = string.Empty;
 
-            string sql = " SELECT DISTINCT CAST(Mo.ID AS VARCHAR(10)) + '_' + Mo.MaskingName AS Value, Mo.Name As Text "
-                        + " FROM BikeModels Mo, BikeVersions Ve, NewBikeSpecifications N With(NoLock) "
-                        + " WHERE Mo.IsDeleted = 0 "
-                        + " AND Ve.IsDeleted = 0 "
-                        + " AND Mo.ID = Ve.BikeModelId "
-                        + " AND Ve.ID = N.BikeVersionid "
-                        + " AND Mo.BikeMakeId = " + makeId;
-
-            if (!(String.IsNullOrEmpty(compareBikes)))
-            {
-                if (compareBikes == "new")
-                {
-                    sql += " AND Ve.New=1 AND MO.Futuristic = 0 ";
-                }
-            }
             try
             {
-                db = new Database();
-                dt = db.SelectAdaptQry(sql).Tables[0];
-                for (int i = 0; i < dt.Rows.Count; i++)
+                if (!String.IsNullOrEmpty(makeId) && uint.TryParse(makeId, out _makeid))
                 {
-                    retVal += "<li><a onclick='ShowVersion(this);' id = '" + dt.Rows[i]["Value"].ToString() + "' type = '" + type + "' >" + dt.Rows[i]["Text"].ToString() + "</a></li>";
+                    sql = @" select distinct concat(ve.bikemodelid,'_',ve.modelmaskingname) as Value, ve.modelname as Text  
+                         from bikeversions ve, newbikespecifications n 
+                         where ve.isdeleted = 0                           
+                         and ve.id = n.bikeversionid  
+                         and ve.bikemakeid = " + _makeid;
+
+
+                    if (!(String.IsNullOrEmpty(compareBikes)))
+                    {
+                        if (compareBikes == "new")
+                        {
+                            sql += " and ve.new=1 and ve.isfuturisticmodel = 0 ";
+                        }
+                    }
+
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly))
+                    {
+
+                        if (ds != null)
+                        {
+                            DataTable dt = ds.Tables[0];
+                            for (int i = 0; i < dt.Rows.Count; i++)
+                            {
+                                retVal += "<li><a onclick='ShowVersion(this);' id = '" + dt.Rows[i]["Value"].ToString() + "' type = '" + type + "' >" + dt.Rows[i]["Text"].ToString() + "</a></li>";
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception err)

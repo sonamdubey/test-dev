@@ -42,6 +42,12 @@
     .position-rel {
         position: relative;
     }
+    .active-contract {
+        background-color: #ccc;
+    } 
+    .unstarted-contract {
+        background-color: #ccc;
+    } 
 </style>
 <div>
     You are here &raquo; Search Dealer Campaigns
@@ -54,14 +60,14 @@
         <div style="border: 1px solid #777;" class="padding10">
             <span>Dealer's City : <font color="red">* &nbsp</font>
                 <asp:dropdownlist id="drpCity" enabled="True" cssclass="drpClass" runat="server">
-					<asp:ListItem Text="--Select City--" Value="-1"/>
-					</asp:dropdownlist>
+                    <asp:ListItem Text="--Select City--" Value="-1"/>
+                    </asp:dropdownlist>
                 <span style="font-weight: bold; color: red;" id="spndrpCity" class="error" />&nbsp&nbsp
             </span>
             <span>Dealer Name : <font color="red">* &nbsp</font>
                 <asp:dropdownlist id="drpDealer" enabled="True" cssclass="drpClass" runat="server">
-				<asp:ListItem Text="--Select Dealer--" Value="-1" />
-				</asp:dropdownlist>
+                <asp:ListItem Text="--Select Dealer--" Value="-1" />
+                </asp:dropdownlist>
             </span>
             <span>
                 <input id="getCampaigns" type="button" class="padding10" value="Get Campaigns" />
@@ -79,15 +85,14 @@
             <thead>
                 <tr class="dtHeader">
                     <td>Sr No.</td>
+                    <td>Contract Id</td>
+                    <td>Package Name</td>
+                    <td>Contract Start Date</td>
+                    <td>Contract End Date</td>
                     <td>Campaign Name</td>
                     <td>Campaign EmailId</td>
                     <td>LeadServingRadius</td>
-                    <td>IsActive Campaign</td>
                     <td>Masking Number</td>
-                    <td>Mobile Number</td>
-                    <td>Dealer Name</td>
-                    <td>Contract StartDate</td>
-                    <td>Contract EndDate</td>
                     <td>Contract Status</td>
                     <td>Rules</td>
                      <td>Edit Campaign</td>
@@ -98,30 +103,31 @@
         </table>
     </div>
     <script type="text/html" id="DealerCampaignList">
+        <%--<tr class="dtItem" data-bind="style: { 'background-color': (ContractStatus == 1) ? '#32cd32' : '#fffacd' }">--%>
         <tr class="dtItem">
             <td data-bind="text : $index() + 1"></td>
+            <td data-bind="text: ContractId"></td>
+            <td data-bind="text: PackageName"></td>
+            <td data-bind="text: StartDate"></td>
+            <td data-bind="text: EndDate"></td>
             <td data-bind="text: CampaignName"></td>
             <td data-bind="text: CampaignEmailId"></td>
             <td data-bind="text: CampaignLeadServingRadius"></td>
-            <td data-bind="text: (IsActiveCampaign()) ? 'Yes' : 'No'"></td>
-            <td data-bind="text: MappedMaskingNo"></td>
-            <td data-bind="text: MappedMobileNo"></td>
-            <td data-bind="text: Organization"></td>
-            <td data-bind="text: ContractStartDate"></td>
-            <td data-bind="text: ContractEndDate"></td>
-            <td data-bind="text: (ContractStatus()) ? 'Active' : 'Inactive'"></td>
+            <td data-bind="text: MaskingNumber"></td>
+            <td data-bind="text: ContractStatus"></td>
+            
             <td >
-                <a  data-bind="attr: { href: '/campaign/DealersRules.aspx?campaignid=' + CampaignId() + '&dealerid='+DealerId() },text: (NoOfRules() > 0) ? 'Yes' : 'No'" target="_blank"></a>
+                <a  data-bind="attr: { href: '/campaign/DealersRules.aspx?campaignid=' + CampaignId() + '&dealerid='+ $root.dealerId() },text: (NoOfRules() > 0) ? 'Yes' : 'No'" target="_blank"></a>
             </td>
             <td >
-                <a  data-bind="attr: { href: '/campaign/ManageDealers.aspx?dealername=' + Organization() + '&contractid=' + ContractId() + '&campaignid=' + CampaignId() + '&dealerid=' + DealerId() }" target="_blank"><img src="http://opr.carwale.com/images/edit.jpg" alt="Edit"/></a>
+                <a  data-bind="attr: { href: '/campaign/ManageDealers.aspx?dealername=' + $root.dealerName() + '&contractid=' + ContractId() + '&campaignid=' + CampaignId() + '&dealerid=' + $root.dealerId() }" target="_blank"><img src="http://opr.carwale.com/images/edit.jpg" alt="Edit"/></a>
             </td>
         </tr>
     </script>
 </div>
 <script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/common/chosen.jquery.min.js?v15416"></script>
 <script>
-    var ABApiHostUrl = '<%= cwHostUrl%>';
+    var BwOprHostUrl = '<%= BwOprHostUrl%>';
     var ddlDealer = $("#drpDealer");
     var msg = $("#selDealerHeading");    
     var selectString = "--Select Dealer--";
@@ -129,7 +135,7 @@
     if (onInitCity > 0) {
         $.ajax({
             type: "GET",
-            url: ABApiHostUrl + "/api/Dealers/GetAllDealers/?cityId=" + onInitCity,
+            url: BwOprHostUrl + "/api/Dealers/GetAllDealers/?cityId=" + onInitCity,
             success: function (response) {
                 ddlDealer.empty().append("<option value=\"0\">" + selectString + "</option>").removeAttr("disabled");
                 for (var i = 0; i < response.length; i++) {
@@ -146,7 +152,7 @@
         if (cityId > 0) {
             $.ajax({
                 type: "GET",
-                url: ABApiHostUrl + "/api/Dealers/GetAllDealers/?cityId=" + cityId,
+                url: BwOprHostUrl + "/api/Dealers/GetAllDealers/?cityId=" + cityId,
                 success: function (response) {
                     ddlDealer.empty().append("<option value=\"0\">" + selectString + "</option>").removeAttr("disabled");
                     for (var i = 0; i < response.length; i++) {
@@ -191,6 +197,8 @@
                         if (responseJSON.value != "") {
                             response = eval('(' + responseJSON.value + ')');
                             if (response != null && response.Table != null) {
+                                response.dealerId = dealerId;
+                                response.dealerName = dId.text();
                                 ko.applyBindings(new DealerViewModel(response), element);
                                 $('#DealerCampaignsList').show();
                             }
@@ -222,7 +230,9 @@
     });
 
     $("#drpCity").chosen({ width: "200px", no_results_text: "No matches found!!", search_contains: true });
-    $("#drpDealer").chosen({ width: "200px", no_results_text: "No matches found!!", search_contains: true });    function startLoading(ele) {
+    $("#drpDealer").chosen({ width: "200px", no_results_text: "No matches found!!", search_contains: true });
+
+    function startLoading(ele) {
         try {
             var _self = $(ele).find(".progress-bar").css({ 'width': '0' }).show();
             _self.animate({ width: '100%' }, 5000);
@@ -237,6 +247,8 @@
         }
         catch (e) { return };
     }
-
+
+
+
 </script>
 <!-- #Include file="/includes/footerNew.aspx" -->

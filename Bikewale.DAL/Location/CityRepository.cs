@@ -1,12 +1,13 @@
-﻿using Bikewale.CoreDAL;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
+using MySql.CoreDAL;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
 
@@ -23,28 +24,33 @@ namespace Bikewale.DAL.Location
         /// <returns></returns>
         public List<CityEntityBase> GetAllCities(EnumBikeType requestType)
         {
-            Database db = null;
+
             List<CityEntityBase> objCityList = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetCities"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcities"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@RequestType", requestType);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.Int32, requestType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int64, Convert.DBNull));
 
-                    db = new Database();
+
                     objCityList = new List<CityEntityBase>();
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
-                        while (dr.Read())
+                        if (dr != null)
                         {
-                            objCityList.Add(new CityEntityBase
+                            while (dr.Read())
                             {
-                                CityId = Convert.ToUInt32(dr["Value"]),
-                                CityName = Convert.ToString(dr["Text"]),
-                                CityMaskingName = Convert.ToString(dr["MaskingName"])
-                            });
+                                objCityList.Add(new CityEntityBase
+                                {
+                                    CityId = Convert.ToUInt32(dr["Value"]),
+                                    CityName = Convert.ToString(dr["Text"]),
+                                    CityMaskingName = Convert.ToString(dr["MaskingName"])
+                                });
+                            }
+                            dr.Close();
                         }
                     }
                 }
@@ -60,10 +66,6 @@ namespace Bikewale.DAL.Location
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
             return objCityList;
         }   // End of GetCities method
@@ -77,30 +79,32 @@ namespace Bikewale.DAL.Location
         /// <returns></returns>
         public List<CityEntityBase> GetCities(string stateId, EnumBikeType requestType)
         {
-            Database db = null;
             List<CityEntityBase> objCityList = null;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetCities"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcities"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = requestType;
-                    cmd.Parameters.Add("@StateId", SqlDbType.BigInt).Value = stateId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, requestType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int64, stateId));
 
-                    db = new Database();
                     objCityList = new List<CityEntityBase>();
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        while (dr.Read())
+                        if (dr != null)
                         {
-                            objCityList.Add(new CityEntityBase
+                            while (dr.Read())
                             {
-                                CityId = Convert.ToUInt32(dr["Value"]),
-                                CityName = Convert.ToString(dr["Text"]),
-                                CityMaskingName = Convert.ToString(dr["MaskingName"])
-                            });
+                                objCityList.Add(new CityEntityBase
+                                {
+                                    CityId = Convert.ToUInt32(dr["Value"]),
+                                    CityName = Convert.ToString(dr["Text"]),
+                                    CityMaskingName = Convert.ToString(dr["MaskingName"])
+                                });
+                            }
+                            dr.Close();
                         }
                     }
                 }
@@ -117,10 +121,6 @@ namespace Bikewale.DAL.Location
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
             return objCityList;
         }   // End of GetCities method
 
@@ -133,16 +133,14 @@ namespace Bikewale.DAL.Location
         public List<CityEntityBase> GetPriceQuoteCities(uint modelId)
         {
             List<CityEntityBase> objCities = null;
-            Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetPriceQuoteCities_05022016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getpricequotecities_05022016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@modelId", SqlDbType.BigInt).Value = modelId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int64, modelId));
 
-                    db = new Database();
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -155,6 +153,7 @@ namespace Bikewale.DAL.Location
                                     IsPopular = Convert.ToBoolean(dr["IsPopular"]),
                                     HasAreas = Convert.ToBoolean(dr["HasAreas"])
                                 });
+                            dr.Close();
                         }
                     }
                 }
@@ -169,10 +168,6 @@ namespace Bikewale.DAL.Location
                 ErrorClass objErr = new ErrorClass(ex, "ex in CityRepository : " + ex.Message);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
 
             return objCities;
         }
@@ -184,19 +179,16 @@ namespace Bikewale.DAL.Location
         /// <returns></returns>
         public Hashtable GetMaskingNames()
         {
-            Database db = null;
             Hashtable ht = null;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetCityMappingNames";
+                    cmd.CommandText = "getcitymappingnames";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    db = new Database();
-
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -207,6 +199,7 @@ namespace Bikewale.DAL.Location
                                 if (!ht.ContainsKey(dr["CityMaskingName"]))
                                     ht.Add(dr["CityMaskingName"], dr["ID"]);
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -217,10 +210,7 @@ namespace Bikewale.DAL.Location
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
             return ht;
         }
 
@@ -231,19 +221,16 @@ namespace Bikewale.DAL.Location
         /// <returns></returns>
         public Hashtable GetOldMaskingNames()
         {
-            Database db = null;
             Hashtable ht = null;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetOldCityMappingNames";
+                    cmd.CommandText = "getoldcitymappingnames";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    db = new Database();
-
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -254,6 +241,7 @@ namespace Bikewale.DAL.Location
                                 if (!ht.ContainsKey(dr["OldMaskingName"]))
                                     ht.Add(dr["OldMaskingName"], dr["NewMaskingName"]);
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -263,10 +251,6 @@ namespace Bikewale.DAL.Location
                 HttpContext.Current.Trace.Warn("CityRepository.GetOldMaskingNamesList ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
             return ht;
         }
@@ -279,23 +263,21 @@ namespace Bikewale.DAL.Location
         /// <returns></returns>
         public DealerStateCities GetDealerStateCities(uint makeId, uint stateId)
         {
-            Database db = null;
 
             DealerStateCities objStateCities = null;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetCitywiseDealersCnt";
+                    cmd.CommandText = "getcitywisedealerscnt";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
-                    cmd.Parameters.Add("@StateId", SqlDbType.Int).Value = stateId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, stateId));
 
-                    db = new Database();
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -334,6 +316,8 @@ namespace Bikewale.DAL.Location
                                 objStateCities.dealerStates = dealerStates;
                             }
 
+                            dr.Close();
+
                         }
                     }
                 }
@@ -342,10 +326,6 @@ namespace Bikewale.DAL.Location
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("ServerVariable: {0} , Parameters : makeId({1}), stateId({2})", HttpContext.Current.Request.ServerVariables["URL"], makeId, stateId));
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
             return objStateCities;
         }

@@ -1,7 +1,6 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Interfaces.BikeBooking;
-using Bikewale.Mobile.PriceQuote;
 using Bikewale.Utility;
 using Carwale.BL.PaymentGateway;
 using Carwale.DAL.PaymentGateway;
@@ -9,7 +8,6 @@ using Carwale.Entity.PaymentGateway;
 using Carwale.Interfaces.PaymentGateway;
 using Microsoft.Practices.Unity;
 using System;
-using System.Configuration;
 using System.Web;
 using System.Web.UI.WebControls;
 
@@ -90,12 +88,17 @@ namespace Bikewale.BikeBooking
             bool _isContentFound = true;
             try
             {
-                string _apiUrl = "/api/Dealers/GetDealerDetailsPQ/?versionId=" + versionId + "&DealerId=" + dealerId + "&CityId=" + cityId;
-
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    _objPQ = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objPQ);
+                    container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
+                    Bikewale.Interfaces.AutoBiz.IDealers objDealer = container.Resolve<Bikewale.DAL.AutoBiz.DealersRepository>();
+                    PQParameterEntity objParam = new PQParameterEntity();
+                    objParam.CityId = Convert.ToUInt32(cityId);
+                    objParam.DealerId = Convert.ToUInt32(dealerId);
+                    objParam.VersionId = Convert.ToUInt32(versionId);
+                    _objPQ = objDealer.GetDealerDetailsPQ(objParam);
                 }
+
 
                 if (_objPQ != null)
                 {

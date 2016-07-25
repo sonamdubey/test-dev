@@ -46,7 +46,7 @@
                 <div class="bike-img">
                     <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objPriceQuote.OriginalImagePath,objPriceQuote.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" alt="" title="" border="0" />
                 </div>
-                <h1 class="padding-left10 font18 text-dark-black"><%= objPriceQuote.objMake.MakeName + " " + objPriceQuote.objModel.ModelName %></h1>
+                <h1 class="padding-left10"><%= objPriceQuote.objMake.MakeName + " " + objPriceQuote.objModel.ModelName %></h1>
             </div>
             <div class="clear"></div>
 
@@ -138,9 +138,9 @@
                         <td class="padding-bottom15" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%= CommonOpn.FormatPrice(objExQuotation.RTO.ToString()) %></td>
                     </tr>
                     <tr>
-                        <td class="text-light-grey padding-bottom15" align="left">Insurance (<a target="_blank" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'BW_PQ', act: 'Insurance_Clicked',lab: '<%= (objExQuotation!=null)?(objExQuotation.MakeName + "_" + objExQuotation.ModelName + "_" + objExQuotation.VersionName + "_" + objExQuotation.City):string.Empty %>' });" href="/m/insurance/" style="display: inline-block; position: relative; font-size: 11px; margin-top: 1px;">
+                        <td class="text-light-grey padding-bottom15" align="left">Insurance <%--(<a target="_blank" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'BW_PQ', act: 'Insurance_Clicked',lab: '<%= (objExQuotation!=null)?(objExQuotation.MakeName + "_" + objExQuotation.ModelName + "_" + objExQuotation.VersionName + "_" + objExQuotation.City):string.Empty %>' });" href="/m/insurance/" style="display: inline-block; position: relative; font-size: 11px; margin-top: 1px;">
                                 Up to 60% off - PolicyBoss                                
-                        </a>)<span style="margin-left: 5px; vertical-align: super; font-size: 9px;">Ad</span>
+                        </a>)<span style="margin-left: 5px; vertical-align: super; font-size: 9px;">Ad</span>--%>
                         </td>
                         <td class="padding-bottom15" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%=CommonOpn.FormatPrice(objExQuotation.Insurance.ToString()) %></td>
                     </tr>
@@ -485,7 +485,7 @@
         <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
             <div class="container margin-bottom30">
                 <div class="grid-12">
-                    <h2 class="margin-top30px margin-bottom20 text-center padding-top20"><%= objPriceQuote.objMake.MakeName + " " + objPriceQuote.objModel.ModelName  %> alternatives</h2>
+                    <h2 class="font18 margin-top20px margin-bottom20 text-center padding-top20"><%= objPriceQuote.objMake.MakeName + " " + objPriceQuote.objModel.ModelName  %> alternatives</h2>
 
                     <div class="swiper-container discover-bike-carousel alternatives-carousel padding-bottom60">
                         <div class="swiper-wrapper">
@@ -509,7 +509,7 @@
                 <div class="bwmsprite close-btn leadCapture-close-btn rightfloat"></div>
                 <div id="contactDetailsPopup">
                     <!-- Contact details Popup starts here -->
-                    <h2 class="margin-top10 margin-bottom10">Provide contact details</h2>
+                    <p class="font18 margin-top10 margin-bottom10">Provide contact details</p>
                     <p class="text-light-grey margin-bottom10">Dealership will get back to you with offers</p>
 
                     <div class="personal-info-form-container">

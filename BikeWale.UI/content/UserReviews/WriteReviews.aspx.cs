@@ -1,7 +1,9 @@
 ﻿using Bikewale.Common;
 using Bikewale.Controls;
+using MySql.CoreDAL;
 using System;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI.HtmlControls;
@@ -64,7 +66,7 @@ namespace Bikewale.Content
             set { ViewState["BikeModel"] = value; }
         }
 
-        public string CarVersion
+        public string BikeVersion
         {
             get
             {
@@ -167,7 +169,7 @@ namespace Bikewale.Content
                     Response.Redirect("/users/login.aspx?returnUrl=" + HttpUtility.UrlEncode(Request.ServerVariables["HTTP_X_ORIGINAL_URL"]));
                 }
                 LoadDefaultComments();
-                BikeName = GetCar();
+                BikeName = GetBike();
 
                 if (BikeName == string.Empty)
                 {
@@ -253,71 +255,72 @@ namespace Bikewale.Content
 
             if (customerId == "-1")
             {
-
                 SaveCustomer();
-                //redirect to the login page
+
                 // Response.Redirect("/Research/NotAuthorized.aspx?redirect=" + msgPage);
                 Response.Redirect(msgPage);
             }
             else
             {
-                //redirect it to message page
                 Response.Redirect(msgPage);
             }
         }
 
         private void SaveCustomer()
         {
-            using (SqlCommand cmd = new SqlCommand("RegisterCustomer"))
+            try
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@Name", SqlDbType.VarChar, 50).Value = txtName.Text.Trim();
-                cmd.Parameters.Add("@Email", SqlDbType.VarChar, 100).Value = txtEmail.Text.Trim();
-                Database db = new Database();
-                try
+                using (DbCommand cmd = DbFactory.GetDBCommand("registercustomer"))
                 {
-                    db.InsertQry(cmd);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50, txtName.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 100, txtEmail.Text.Trim()));
+
+                    MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                 }
-                catch (Exception ex)
-                {
-                    Trace.Warn(ex.Message);
-                    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
+            }
+            catch (Exception ex)
+            {
+                Trace.Warn(ex.Message);
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
         }
 
-        public string GetCar()
+        public string GetBike()
         {
             string Bike = string.Empty;
-            Database db = new Database();
-            SqlDataReader dr = null;
-
             string sql = string.Empty;
 
             if (modelId != string.Empty)
-                sql = " SELECT MA.Name AS Make, MO.Name AS Model, '' AS Version, MA.ID AS MakeId, MO.ID AS ModelId FROM BikeModels AS MO, BikeMakes AS MA With(NoLock) "
-                    + " WHERE MA.ID = MO.BikeMakeId AND MO.ID = @modelId";
+                sql = @" select mo.makename as make, mo.name as model, '' as version, mo.bikemakeid as makeid,
+                            mo.id as modelid from bikemodels as mo
+                            where mo.id = @modelid";
             else
-                sql = " SELECT MA.Name AS Make, MO.Name AS Model, CV.Name AS Version, MA.ID AS MakeId, MO.ID AS ModelId FROM BikeModels AS MO, BikeMakes AS MA, BikeVersions AS CV With(NoLock) "
-                    + " WHERE MA.ID = MO.BikeMakeId AND MO.ID = CV.BikeModelId AND CV.ID = @versionId";
-
-            SqlCommand cmd = new SqlCommand(sql);
-            cmd.Parameters.Add("@modelId", SqlDbType.BigInt).Value = (modelId != string.Empty ? modelId : "-1");
-            cmd.Parameters.Add("@versionId", SqlDbType.BigInt).Value = (versionId != string.Empty ? versionId : "-1");
+                sql = @" select cv.makename as make, cv.modelname as model, cv.name as version, cv.bikemakeid as makeid,
+                            mo.id as modelid from bikeversions as cv  
+                            where cv.id = @versionid";
 
             try
             {
-                dr = db.SelectQry(cmd);
-
-                if (dr.Read())
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    BikeMake = dr["Make"].ToString();
-                    BikeModel = dr["Model"].ToString();
-                    CarVersion = dr["Version"].ToString();
-                    Bike = (BikeMake + " " + BikeModel + " " + CarVersion).Trim();
-                    ModelIdVer = dr["ModelId"].ToString();
-                    MakeId = dr["MakeId"].ToString();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@modelid", DbType.Int64, (modelId != "" ? modelId : "-1")));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@versionid", DbType.Int64, (versionId != "" ? versionId : "-1")));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            BikeMake = dr["Make"].ToString();
+                            BikeModel = dr["Model"].ToString();
+                            BikeVersion = dr["Version"].ToString();
+                            Bike = string.Format("{0} {1} {2}", BikeMake, BikeModel, BikeVersion).Trim();
+                            ModelIdVer = dr["ModelId"].ToString();
+                            MakeId = dr["MakeId"].ToString();
+                            dr.Close();
+                        }
+                    }
                 }
             }
             catch (SqlException err)
@@ -326,13 +329,7 @@ namespace Bikewale.Content
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                if (dr != null)
-                    dr.Close();
 
-                db.CloseConnection();
-            }
             return Bike;
         }
 
@@ -340,12 +337,8 @@ namespace Bikewale.Content
         {
             //this function checks whether this user has already added a review for this version
             bool found = false;
-            Database db = new Database();
-            SqlDataReader dr = null;
-
             string sql = string.Empty;
             string id = versionId == string.Empty ? drpVersions.SelectedItem.Value : versionId;
-            Trace.Warn("CheckVersionReview : " + id);
 
             string email = txtEmail.Text.Trim().Replace("'", "''");
 
@@ -353,35 +346,40 @@ namespace Bikewale.Content
             {
                 if (customerId != "-1")
                 {
-                    sql = " SELECT Count(Id) FROM CustomerReviews With(NoLock) "
-                        + " WHERE CustomerId = @CustomerId AND VersionId = @VersionId";
+                    sql = @" select count(id) from customerreviews   
+                         where customerid = @customerid and versionid = @versionid";
                 }
                 else if (txtEmail.Text.Trim() != string.Empty)
                 {
-                    sql = " SELECT Count(Id) FROM CustomerReviews With(NoLock) WHERE "
-                        + " (ID IN (Select RecordId From UnregisteredCustomers With(NoLock) Where "
-                        + " Email = @Email AND RegistrationType = 3) "
-                        + " OR CustomerId IN (Select Id From Customers With(NoLock) Where "
-                        + " Email = @Email)) AND IsActive=1 AND VersionId = @VersionId";
+                    sql = @" select count(id) from customerreviews  where  
+                        (id in (select recordid from unregisteredcustomers   where  
+                        email = @email and registrationtype = 3)  
+                        or customerid in (select id from customers  where 
+                        email = @email)) and isactive=1 and versionid = @versionid";
                 }
-
-                SqlCommand cmd = new SqlCommand(sql);
-                cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = (customerId != string.Empty ? customerId : "-1");
-                cmd.Parameters.Add("@VersionId", SqlDbType.BigInt).Value = (id != string.Empty ? id : "-1");
-                cmd.Parameters.Add("@Email", SqlDbType.VarChar, 100).Value = email;
 
                 try
                 {
                     if (sql != string.Empty)
                     {
-                        dr = db.SelectQry(cmd);
-
-                        if (dr.Read())
+                        using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                         {
-                            if (Convert.ToInt32(dr[0]) > 0)
-                                found = true;
-                            else
-                                found = false;
+                            cmd.Parameters.Add(DbFactory.GetDbParam("@customerid", DbType.Int64, (customerId != "" ? customerId : "-1")));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("@versionid", DbType.Int64, (id != "" ? id : "-1")));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("@email", DbType.String, 100, email));
+
+                            using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                            {
+                                if (dr.Read())
+                                {
+                                    if (Convert.ToInt32(dr[0]) > 0)
+                                        found = true;
+                                    else
+                                        found = false;
+
+                                    dr.Close();
+                                }
+                            }
                         }
                     }
                 }
@@ -391,13 +389,6 @@ namespace Bikewale.Content
                     ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                     objErr.SendMail();
                 } // catch Exception
-                finally
-                {
-                    if (dr != null)
-                        dr.Close();
-
-                    db.CloseConnection();
-                }
             }
             return found;
         }
@@ -409,12 +400,9 @@ namespace Bikewale.Content
             CommonOpn op = new CommonOpn();
             try
             {
-                sql = " SELECT Name, ID FROM BikeVersions With(NoLock) WHERE IsDeleted = 0 AND BikeModelId = @BikeModelId ORDER BY Name ";
+                sql = " select Name, Id from bikeversions  where isdeleted = 0 and bikemodelid = @bikemodelid order by name ";
 
-                SqlParameter[] param = 
-				{
-					new SqlParameter("@BikeModelId", modelId)
-				};
+                DbParameter[] param = new[] { DbFactory.GetDbParam("@bikemodelid", DbType.Int64, ModelIdVer) };
 
                 op.FillDropDown(sql, drpVersions, "Name", "ID", param);
 
@@ -437,117 +425,51 @@ namespace Bikewale.Content
         {
             string recordId = string.Empty;
 
-            SqlConnection con;
-            SqlCommand cmd;
-            SqlParameter prm;
-            Database db = new Database();
-            CommonOpn op = new CommonOpn();
-
-            string conStr = db.GetConString();
-
-            con = new SqlConnection(conStr);
-
             if (versionId == string.Empty)
                 versionId = drpVersions.SelectedItem.Value;
 
-            Trace.Warn("versionId : " + versionId);
             try
             {
-                cmd = new SqlCommand("EntryCustomerReviews", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                float _mileage = default(float);
+                if (!string.IsNullOrEmpty(txtMileage.Text.Trim()))
+                {
+                    float.TryParse(txtMileage.Text.Trim(), out _mileage);
+                }
 
-                prm = cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt);
-                prm.Value = customerId;
-                Trace.Warn("customerId : " + customerId);
 
-                prm = cmd.Parameters.Add("@MakeId", SqlDbType.BigInt);
-                prm.Value = MakeId;
-                Trace.Warn("MakeId : " + MakeId);
+                using (DbCommand cmd = DbFactory.GetDBCommand("entrycustomerreviews"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                prm = cmd.Parameters.Add("@ModelId", SqlDbType.BigInt);
-                prm.Value = ModelIdVer;
-                Trace.Warn("ModelIdVer : " + ModelIdVer);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int64, MakeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int64, ModelIdVer));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int64, versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_styler", DbType.Int16, hdnRateST.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comfortr", DbType.Int16, hdnRateCM.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_performancer", DbType.Int16, hdnRatePE.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_valuer", DbType.Int16, hdnRateVC.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fueleconomyr", DbType.Int16, hdnRateFE.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overallr", DbType.Double, (Convert.ToInt32(hdnRateST.Value) + Convert.ToInt32(hdnRateCM.Value) + Convert.ToInt32(hdnRatePE.Value) + Convert.ToInt32(hdnRateVC.Value) + Convert.ToInt32(hdnRateFE.Value)) / 5));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pros", DbType.String, 100, txtPros.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cons", DbType.String, 100, txtCons.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 8000, SanitizeHTML.ToSafeHtml(ftbDescription.Text.Trim())));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_title", DbType.String, 100, txtTitle.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_entrydatetime", DbType.DateTime, DateTime.Now));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isowned", DbType.Boolean, !(radNot.Checked)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isnewlypurchased", DbType.Boolean, (radNew.Checked) ? true : false));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_familiarity", DbType.Int16, ddlFamiliar.SelectedValue));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mileage", DbType.Double, _mileage));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int64, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CommonOpn.GetClientIP()));
+                    //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
 
-                prm = cmd.Parameters.Add("@VersionId", SqlDbType.BigInt);
-                prm.Value = versionId;
+                    recordId = cmd.Parameters["par_id"].Value.ToString();
 
-                prm = cmd.Parameters.Add("@StyleR", SqlDbType.SmallInt);
-                prm.Value = hdnRateST.Value;
-                Trace.Warn("hdnRateST.Value : " + hdnRateST.Value);
-
-                prm = cmd.Parameters.Add("@ComfortR", SqlDbType.SmallInt);
-                prm.Value = hdnRateCM.Value;
-                Trace.Warn("hdnRateCM.Value : " + hdnRateCM.Value);
-
-                prm = cmd.Parameters.Add("@PerformanceR", SqlDbType.SmallInt);
-                prm.Value = hdnRatePE.Value;
-                Trace.Warn("hdnRatePE.Value : " + hdnRatePE.Value);
-
-                prm = cmd.Parameters.Add("@ValueR", SqlDbType.SmallInt);
-                prm.Value = hdnRateVC.Value;
-                Trace.Warn("hdnRateVC.Value : " + hdnRateVC.Value);
-
-                prm = cmd.Parameters.Add("@FuelEconomyR", SqlDbType.SmallInt);
-                prm.Value = hdnRateFE.Value;
-                Trace.Warn("hdnRateFE.Value : " + hdnRateFE.Value);
-
-                prm = cmd.Parameters.Add("@OverallR", SqlDbType.Float);
-                prm.Value = (Convert.ToInt32(hdnRateST.Value) + Convert.ToInt32(hdnRateCM.Value) + Convert.ToInt32(hdnRatePE.Value) + Convert.ToInt32(hdnRateVC.Value) + Convert.ToInt32(hdnRateFE.Value)) / 5;
-                Trace.Warn("hdnRateOA.Value : " + hdnRateOA.Value);
-
-                prm = cmd.Parameters.Add("@Pros", SqlDbType.VarChar, 100);
-                prm.Value = txtPros.Text.Trim();
-                Trace.Warn("txtPros.Text.Trim() : " + txtPros.Text.Trim());
-
-                prm = cmd.Parameters.Add("@Cons", SqlDbType.VarChar, 100);
-                prm.Value = txtCons.Text.Trim();
-                Trace.Warn("txtCons.Text.Trim() : " + txtCons.Text.Trim());
-
-                prm = cmd.Parameters.Add("@Comments", SqlDbType.VarChar, 8000);
-                prm.Value = SanitizeHTML.ToSafeHtml(ftbDescription.Text.Trim());
-                Trace.Warn("ftbDescription.Text.Trim() : " + ftbDescription.Text.Trim());
-
-                prm = cmd.Parameters.Add("@Title", SqlDbType.VarChar, 100);
-                prm.Value = txtTitle.Text.Trim();
-                Trace.Warn("txtTitle.Text.Trim() : " + txtTitle.Text.Trim());
-
-                prm = cmd.Parameters.Add("@EntryDateTime", SqlDbType.DateTime);
-                prm.Value = DateTime.Now;
-
-                prm = cmd.Parameters.Add("@IsOwned", SqlDbType.Bit);
-                prm.Value = !(radNot.Checked);
-
-                prm = cmd.Parameters.Add("@IsNewlyPurchased", SqlDbType.Bit);
-                if (radNew.Checked == true)
-                    prm.Value = true;
-                else
-                    prm.Value = false;
-
-                prm = cmd.Parameters.Add("@Familiarity", SqlDbType.SmallInt);
-                prm.Value = ddlFamiliar.SelectedValue;
-
-                prm = cmd.Parameters.Add("@Mileage", SqlDbType.Float);
-                if (txtMileage.Text.Trim() != string.Empty)
-                    prm.Value = txtMileage.Text.Trim().Replace("'", "''");
-                else
-                    prm.Value = 0;
-
-                prm = cmd.Parameters.Add("@ID", SqlDbType.BigInt);
-                prm.Direction = ParameterDirection.Output;
-
-                prm = cmd.Parameters.Add("@ClientIP", SqlDbType.VarChar, 40);
-                prm.Value = CommonOpn.GetClientIP();
-                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
-                con.Open();
-                //run the command
-                cmd.ExecuteNonQuery();
-
-                recordId = cmd.Parameters["@ID"].Value.ToString();
-
-                //update the source id of the review
-                SourceIdCommon.UpdateSourceId(EnumTableType.CustomerReviews, recordId);
-
-                Trace.Warn("done!!");
+                    //update the source id of the review
+                    SourceIdCommon.UpdateSourceId(EnumTableType.CustomerReviews, recordId);
+                }
             }
             catch (SqlException err)
             {
@@ -561,15 +483,6 @@ namespace Bikewale.Content
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                //close the connection	
-                if (con.State == ConnectionState.Open)
-                {
-                    con.Close();
-                }
-            }
-
             return recordId;
         }
     }

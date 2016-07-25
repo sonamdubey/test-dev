@@ -37,7 +37,7 @@
 <script type="text/javascript">
     var makeId = '<%= MakeId %>';
     var seriesId = '<%= SeriesId %>';
-    var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
+    var bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';
     var isPageLoad = true;
 
     // knockout data binding
@@ -122,7 +122,7 @@
         if (viewModel.selectedModel() != undefined) {
             $.ajax({
                 type: "GET",
-                url: abHostUrl + "/api/DealerPriceQuote/getBikeBookingCities/?modelId=" + viewModel.selectedModel(),                
+                url: bwHostUrl + "/api/DealerPriceQuote/getBikeBookingCities/?modelId=" + viewModel.selectedModel(),
                 dataType: 'json',                
                 success: function (response) {                                                            
                     viewModel.bookingCities(response);                    

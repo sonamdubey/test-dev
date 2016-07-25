@@ -14,6 +14,7 @@
     <script src="/src/jquery-1.6.min.js" type="text/javascript"></script>
 </head>
 <body>
+       <form runat="server">
     <div class="margin20">
         <div>
             <h3>Add Synopsis for <%=makeName + " " +series%></h3>

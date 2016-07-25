@@ -1,15 +1,13 @@
 ﻿using Bikewale.Notifications;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Enyim.Caching;
 using Enyim.Caching.Memcached;
 using System.Data;
 using System.Data.SqlClient;
 using Bikewale.CoreDAL;
+using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.Cache.Memcache
 {
@@ -53,16 +51,15 @@ namespace Bikewale.Cache.Memcache
         private DataSet FetchDSfromDb(string key)
         {
             DataSet ds = new DataSet();
-            SqlParameter param;
+            DbParameter  param;
 
             try
             {
                 if (key.Equals("BW_BikeMakes"))
                 {
-                    param = new SqlParameter("@condition", SqlDbType.VarChar, 10);
-                    param.Value = "Make";
+                    param =   DbFactory.GetDbParam("par_condition", DbType.String, 10, "Make") ;
 
-                    ds = FetchDataFromDatabase("[dbo].[GetMakeModelVersion]", param);
+                    ds = FetchDataFromDatabase("GetMakeModelVersion", param);
                 }
             }
             catch (Exception ex)
@@ -88,7 +85,7 @@ namespace Bikewale.Cache.Memcache
             {
                 if (key.Equals("BW_NewBikeLaunches"))
                 {
-                    ds = FetchDataFromDatabase("[dbo].[GetNewBikeLaunches]", param);
+                    ds = FetchDataFromDatabase("GetNewBikeLaunches", param);
                 }
             }
             catch (Exception ex)
@@ -108,26 +105,24 @@ namespace Bikewale.Cache.Memcache
         /// <param name="spName">Name of the sp from which data is required.</param>
         /// <param name="param">If any sql parameters to be passed on to sp. (optional)</param>
         /// <returns>Function returns dataset containing required data.</returns>
-        private DataSet FetchDataFromDatabase(string spName, SqlParameter param = null)
+        private DataSet FetchDataFromDatabase(string spName, DbParameter param = null)
         {
             DataSet ds = null;
 
             try
             {
-                Database db = new Database();
-
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = spName;
 
                     if (param != null)
                     {
-                        cmd.Parameters.Add(param.ParameterName, param.SqlDbType).Value = param.Value;
+                        cmd.Parameters.Add(DbFactory.GetDbParam(param.ParameterName, DbType.String, param.Value));
                     }
 
                     // Fetch the data from the database into DataSet
-                    ds = db.SelectAdaptQry(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException ex)
@@ -273,7 +268,7 @@ namespace Bikewale.Cache.Memcache
                 {
                     case "BW_BasicIdMapping":
 
-                        ds = FetchDataFromDatabase("GetCWMappedBasicIds");
+                        ds = FetchDataFromDatabase("getcwmappedbasicids");
                         dt = ds.Tables[0];
 
                         foreach (DataRow dr in dt.Rows)
@@ -286,7 +281,7 @@ namespace Bikewale.Cache.Memcache
 
                     case "BW_ModelMapping":
 
-                        ds = FetchDataFromDatabase("SP_GetModelMappingNames");
+                        ds = FetchDataFromDatabase("sp_getmodelmappingnames");
                         dt = ds.Tables[0];
 
                         foreach (DataRow dr in dt.Rows)
@@ -299,7 +294,7 @@ namespace Bikewale.Cache.Memcache
 
                     case "BW_MakeMapping":
 
-                        ds = FetchDataFromDatabase("GetMakeMappingNames");
+                        ds = FetchDataFromDatabase("getmakemappingnames");
                         dt = ds.Tables[0];
 
                         foreach (DataRow dr in dt.Rows)
@@ -311,7 +306,7 @@ namespace Bikewale.Cache.Memcache
                         break;
                     case "BW_CityMapping":
 
-                        ds = FetchDataFromDatabase("GetCityMappingNames");
+                        ds = FetchDataFromDatabase("getcitymappingnames");
                         dt = ds.Tables[0];
 
                         foreach (DataRow dr in dt.Rows)
@@ -326,7 +321,7 @@ namespace Bikewale.Cache.Memcache
 
                     case "BW_SeriesMapping":
 
-                        ds = FetchDataFromDatabase("GetSeriesMappingNames");
+                        ds = FetchDataFromDatabase("getseriesmappingnames");
                         dt = ds.Tables[0];
 
                         foreach (DataRow dr in dt.Rows)
@@ -338,7 +333,7 @@ namespace Bikewale.Cache.Memcache
 
                     case "BW_ModelWiseUsedBikesCount":
 
-                        ds = FetchDataFromDatabase("GetModelwiseUsedBikeCounts");
+                        ds = FetchDataFromDatabase("getmodelwiseusedbikecounts");
                         dt = ds.Tables[0];
 
                         foreach (DataRow dr in dt.Rows)
@@ -350,7 +345,7 @@ namespace Bikewale.Cache.Memcache
                         }
                         break;
                     case "BW_MakeWiseUsedBikesCount":
-                        ds = FetchDataFromDatabase("GetMakewiseUsedBikeCounts");
+                        ds = FetchDataFromDatabase("getmakewiseusedbikecounts");
                         dt = ds.Tables[0];
 
                         foreach (DataRow dr in dt.Rows)
@@ -362,7 +357,7 @@ namespace Bikewale.Cache.Memcache
                         }
                         break;
                     case "BW_TopVersionId":
-                        ds = FetchDataFromDatabase("GetModelTopVersionIds");
+                        ds = FetchDataFromDatabase("getmodeltopversionids");
                         dt = ds.Tables[0];
 
                         foreach (DataRow dr in dt.Rows)

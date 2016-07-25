@@ -1,10 +1,11 @@
-﻿using Bikewale.CoreDAL;
-using Bikewale.Entities.PriceQuote;
+﻿using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
 
@@ -37,62 +38,33 @@ namespace Bikewale.DAL.PriceQuote
         public ulong RegisterPriceQuote(PriceQuoteParametersEntity pqParams)
         {
             ulong quoteId = 0;
-            Database db = null;
             try
             {
 
                 if (pqParams.VersionId > 0)
                 {
-                    db = new Database();
-                    using (SqlConnection conn = new SqlConnection(db.GetConString()))
+                    using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
-                        using (SqlCommand cmd = new SqlCommand())
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.CommandText = "SavePriceQuote_New_20042016";
-                            cmd.Connection = conn;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "savepricequote_new_20042016";
 
-                            cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = pqParams.CityId;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, pqParams.CityId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbType.Int32, (pqParams.AreaId > 0) ? pqParams.AreaId : Convert.DBNull));
 
-                            if (pqParams.AreaId > 0)
-                            {
-                                cmd.Parameters.Add("@AreaId", SqlDbType.Int).Value = pqParams.AreaId;
-                            }
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int32, pqParams.VersionId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbType.Byte, pqParams.SourceId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, Bikewale.CoreDAL.CommonOpn.GetClientIP()));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, pqParams.DealerId));
 
-                            cmd.Parameters.Add("@BikeVersionId", SqlDbType.Int).Value = pqParams.VersionId;
-                            cmd.Parameters.Add("@SourceId", SqlDbType.TinyInt).Value = pqParams.SourceId;
-                            cmd.Parameters.Add("@ClientIP", SqlDbType.VarChar, 40).Value = CommonOpn.GetClientIP();
-                            cmd.Parameters.Add("@QuoteId", SqlDbType.BigInt).Direction = ParameterDirection.Output;
-                            cmd.Parameters.Add("@DealerId", SqlDbType.Int).Value = pqParams.DealerId;
-
-                            if (pqParams.PQLeadId.HasValue)
-                            {
-                                cmd.Parameters.Add("@PQSourceId", SqlDbType.TinyInt).Value = pqParams.PQLeadId.Value;
-                            }
-                            if (!String.IsNullOrEmpty(pqParams.UTMA))
-                            {
-                                cmd.Parameters.Add("@utma", SqlDbType.VarChar, 100).Value = pqParams.UTMA;
-                            }
-                            if (!String.IsNullOrEmpty(pqParams.UTMZ))
-                            {
-                                cmd.Parameters.Add("@utmz", SqlDbType.VarChar, 100).Value = pqParams.UTMZ;
-                            }
-                            if (!String.IsNullOrEmpty(pqParams.DeviceId))
-                            {
-                                cmd.Parameters.Add("@deviceId", SqlDbType.VarChar, 25).Value = pqParams.DeviceId;
-                            }
-                            if (pqParams.RefPQId.HasValue)
-                            {
-                                cmd.Parameters.Add("@refPQId", SqlDbType.Int).Value = pqParams.RefPQId.Value;
-                            }
-
-                            LogLiveSps.LogSpInGrayLog(cmd);
-                            conn.Open();
-                            cmd.ExecuteNonQuery();
-
-                            quoteId = Convert.ToUInt64(cmd.Parameters["@QuoteId"].Value);
-
-                        }
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pqsourceid", DbType.Byte, (pqParams.PQLeadId.HasValue) ? pqParams.PQLeadId : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_utma", DbType.String, 500, (!String.IsNullOrEmpty(pqParams.UTMA)) ? pqParams.UTMA : null));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_refpqid", DbType.Int64, (pqParams.RefPQId.HasValue) ? pqParams.RefPQId : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbType.String, 500, (!String.IsNullOrEmpty(pqParams.UTMZ)) ? pqParams.UTMZ : null));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_deviceid", DbType.String, 25, (!String.IsNullOrEmpty(pqParams.DeviceId)) ? pqParams.DeviceId : null));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbType.Int64, ParameterDirection.Output));
+                        // LogLiveSps.LogSpInGrayLog(cmd);
+                        MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                        quoteId = Convert.ToUInt64(cmd.Parameters["par_quoteid"].Value);
                     }
                 }
             }
@@ -108,10 +80,6 @@ namespace Bikewale.DAL.PriceQuote
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
 
             return quoteId;
         }
@@ -124,55 +92,46 @@ namespace Bikewale.DAL.PriceQuote
         public BikeQuotationEntity GetPriceQuoteById(ulong pqId)
         {
             BikeQuotationEntity objQuotation = null;
-            Database db = null;
             try
             {
                 objQuotation = new BikeQuotationEntity();
-
-                db = new Database();
-
-                using (SqlConnection conn = new SqlConnection(db.GetConString()))
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    cmd.CommandText = "getpricequote_new_01022016";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbType.Int64, pqId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_exshowroomprice", DbType.Int64, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_rto", DbType.Int32, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_insurance", DbType.Int32, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_onroadprice", DbType.Int64, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makename", DbType.String, 30, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbType.String, 30, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionname", DbType.String, 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_city", DbType.String, 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_numofrows", DbType.Int32, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_manufacturerid", DbType.Int32, ParameterDirection.Output));
+                    // LogLiveSps.LogSpInGrayLog(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+
+                    int numberOfRecords = Convert.ToInt32(cmd.Parameters["par_numofrows"].Value);
+                    if (numberOfRecords > 0)
                     {
-                        cmd.CommandText = "GetPriceQuote_New_01022016";
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
+                        objQuotation.ExShowroomPrice = Convert.ToUInt64(cmd.Parameters["par_exshowroomprice"].Value);
+                        objQuotation.RTO = Convert.ToUInt32(cmd.Parameters["par_rto"].Value);
+                        objQuotation.Insurance = Convert.ToUInt32(cmd.Parameters["par_insurance"].Value);
+                        objQuotation.OnRoadPrice = Convert.ToUInt64(cmd.Parameters["par_onroadprice"].Value);
+                        objQuotation.MakeName = Convert.ToString(cmd.Parameters["par_makename"].Value);
+                        objQuotation.ModelName = Convert.ToString(cmd.Parameters["par_modelname"].Value);
+                        objQuotation.VersionName = Convert.ToString(cmd.Parameters["par_versionname"].Value);
+                        objQuotation.City = Convert.ToString(cmd.Parameters["par_city"].Value);
+                        objQuotation.VersionId = Convert.ToUInt32(cmd.Parameters["par_versionid"].Value);
+                        objQuotation.CampaignId = Convert.ToUInt32(cmd.Parameters["par_campaignid"].Value);
+                        objQuotation.ManufacturerId = Convert.ToUInt32(cmd.Parameters["par_manufacturerid"].Value);
 
-                        cmd.Parameters.Add("@QuoteId", SqlDbType.BigInt).Value = pqId;
-                        cmd.Parameters.Add("@ExShowroomPrice", SqlDbType.BigInt).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@RTO", SqlDbType.Int).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@Insurance", SqlDbType.Int).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@OnRoadPrice", SqlDbType.BigInt).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@MakeName", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@ModelName", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@VersionName", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@City", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@VersionId", SqlDbType.Int).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@NumOfRows", SqlDbType.Int).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@CampaignId", SqlDbType.Int).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@ManufacturerId", SqlDbType.Int).Direction = ParameterDirection.Output;
-                        LogLiveSps.LogSpInGrayLog(cmd);
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
-
-                        int numberOfRecords = Convert.ToInt32(cmd.Parameters["@NumOfRows"].Value);
-                        if (numberOfRecords > 0)
-                        {
-                            objQuotation.ExShowroomPrice = Convert.ToUInt64(cmd.Parameters["@ExShowroomPrice"].Value);
-                            objQuotation.RTO = Convert.ToUInt32(cmd.Parameters["@RTO"].Value);
-                            objQuotation.Insurance = Convert.ToUInt32(cmd.Parameters["@Insurance"].Value);
-                            objQuotation.OnRoadPrice = Convert.ToUInt64(cmd.Parameters["@OnRoadPrice"].Value);
-                            objQuotation.MakeName = Convert.ToString(cmd.Parameters["@MakeName"].Value);
-                            objQuotation.ModelName = Convert.ToString(cmd.Parameters["@ModelName"].Value);
-                            objQuotation.VersionName = Convert.ToString(cmd.Parameters["@VersionName"].Value);
-                            objQuotation.City = Convert.ToString(cmd.Parameters["@City"].Value);
-                            objQuotation.VersionId = Convert.ToUInt32(cmd.Parameters["@VersionId"].Value);
-                            objQuotation.CampaignId = Convert.ToUInt32(cmd.Parameters["@CampaignId"].Value);
-                            objQuotation.ManufacturerId = Convert.ToUInt32(cmd.Parameters["@ManufacturerId"].Value);
-
-                            objQuotation.PriceQuoteId = pqId;
-                        }
+                        objQuotation.PriceQuoteId = pqId;
                     }
                 }
             }
@@ -187,10 +146,6 @@ namespace Bikewale.DAL.PriceQuote
                 HttpContext.Current.Trace.Warn("GetPriceQuote ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return objQuotation;
@@ -218,36 +173,38 @@ namespace Bikewale.DAL.PriceQuote
         public List<OtherVersionInfoEntity> GetOtherVersionsPrices(ulong pqId)
         {
             List<OtherVersionInfoEntity> objVersionInfo = null;
-            Database db = null;
 
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetPriceQuoteVersions_New";
+                    cmd.CommandText = "getpricequoteversions_new";
 
-                    cmd.Parameters.Add("@QuoteId", SqlDbType.BigInt).Value = pqId;
-
+                    // cmd.Parameters.Add("@QuoteId", SqlDbType.BigInt).Value = pqId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbType.Int64, pqId));
                     objVersionInfo = new List<OtherVersionInfoEntity>();
 
 
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
-                        while (dr.Read())
+                        if (dr != null)
                         {
-                            objVersionInfo.Add(new OtherVersionInfoEntity
+                            while (dr.Read())
                             {
-                                VersionId = Convert.ToUInt32(dr["VersionId"]),
-                                VersionName = Convert.ToString(dr["VersionName"]),
-                                OnRoadPrice = Convert.ToUInt64(dr["OnRoadPrice"]),
-                                Price = Convert.ToUInt32(dr["Price"]),
-                                RTO = Convert.ToUInt32(dr["RTO"]),
-                                Insurance = Convert.ToUInt32(dr["Insurance"])
-                            });
+                                objVersionInfo.Add(new OtherVersionInfoEntity
+                                {
+                                    VersionId = Convert.ToUInt32(dr["VersionId"]),
+                                    VersionName = Convert.ToString(dr["VersionName"]),
+                                    OnRoadPrice = Convert.ToUInt64(dr["OnRoadPrice"]),
+                                    Price = Convert.ToUInt32(dr["Price"]),
+                                    RTO = Convert.ToUInt32(dr["RTO"]),
+                                    Insurance = Convert.ToUInt32(dr["Insurance"])
+                                });
+                            }
+                            dr.Close();
                         }
                     }
                 }
@@ -265,11 +222,6 @@ namespace Bikewale.DAL.PriceQuote
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
-
             return objVersionInfo;
         }
 
@@ -286,43 +238,26 @@ namespace Bikewale.DAL.PriceQuote
         public bool UpdatePriceQuote(UInt32 pqId, PriceQuoteParametersEntity pqParams)
         {
             bool isUpdated = false;
-            Database db = null;
+
             try
             {
-                db = new Database();
-
-                using (SqlConnection conn = new SqlConnection(db.GetConString()))
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.CommandText = "UpdatePriceQuoteBikeVersion";
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
-                        cmd.Parameters.Add("@QuoteId", SqlDbType.Int).Value = pqId;
-                        cmd.Parameters.Add("@BikeVersionId", SqlDbType.Int).Value = pqParams.VersionId;
+                    cmd.CommandText = "updatepricequotebikeversion";
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                        if (pqParams.ColorId > 0)
-                        {
-                            cmd.Parameters.Add("@BikeColorId", SqlDbType.Int).Value = pqParams.ColorId;
-                        }
-                        LogLiveSps.LogSpInGrayLog(cmd);
-                        conn.Open();
-                        int rowsAffected = cmd.ExecuteNonQuery();
-                        if (rowsAffected > 0)
-                        {
-                            isUpdated = true;
-                        }
-                    }
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbType.Int64, pqId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int32, pqParams.VersionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikecolorid", DbType.Int32, (pqParams.ColorId > 0) ? pqParams.ColorId : Convert.DBNull));
+                    // LogLiveSps.LogSpInGrayLog(cmd);
+                    if (Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase)))
+                        isUpdated = true;
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
             return isUpdated;
         }
@@ -338,38 +273,26 @@ namespace Bikewale.DAL.PriceQuote
         public bool SaveBookingState(uint pqId, PriceQuoteStates state)
         {
             bool isUpdated = false;
-            Database db = null;
             try
             {
-                db = new Database();
 
-                using (SqlConnection conn = new SqlConnection(db.GetConString()))
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.CommandText = "SavePQBookingState";
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
-                        cmd.Parameters.Add("@QuoteId", SqlDbType.Int).Value = pqId;
-                        cmd.Parameters.Add("@stateId", SqlDbType.Int).Value = Convert.ToInt32(state);
-                        LogLiveSps.LogSpInGrayLog(cmd);
-                        conn.Open();
-                        int rowsAffected = cmd.ExecuteNonQuery();
-                        if (rowsAffected > 0)
-                        {
-                            isUpdated = true;
-                        }
-                    }
+                    cmd.CommandText = "savepqbookingstate";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbType.Int32, pqId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, Convert.ToInt32(state)));
+
+
+                    // LogLiveSps.LogSpInGrayLog(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    isUpdated = true;
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
             return isUpdated;
         }
@@ -387,26 +310,29 @@ namespace Bikewale.DAL.PriceQuote
         public PriceQuoteParametersEntity FetchPriceQuoteDetailsById(ulong pqId)
         {
             PriceQuoteParametersEntity objQuotation = null;
-            Database db = null;
             try
             {
-                db = new Database();
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandText = "GetPriceQuoteData_02052016";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@QuoteId", SqlDbType.Int).Value = pqId;
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    //cmd.Parameters.Add("@QuoteId", SqlDbType.Int).Value = pqId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbType.Int32, pqId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
                         objQuotation = new PriceQuoteParametersEntity();
-                        while (dr.Read())
+                        if (dr != null)
                         {
-                            objQuotation.AreaId = !Convert.IsDBNull(dr["AreaId"]) ? Convert.ToUInt32(dr["AreaId"]) : default(UInt32);
-                            objQuotation.CityId = !Convert.IsDBNull(dr["cityid"]) ? Convert.ToUInt32(dr["cityid"]) : default(UInt32);
-                            objQuotation.VersionId = !Convert.IsDBNull(dr["BikeVersionId"]) ? Convert.ToUInt32(dr["BikeVersionId"]) : default(UInt32);
-                            objQuotation.DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32);
-                            objQuotation.CampaignId = !Convert.IsDBNull(dr["CampaignId"]) ? Convert.ToUInt32(dr["CampaignId"]) : default(UInt32);
+                            while (dr.Read())
+                            {
+                                objQuotation.AreaId = !Convert.IsDBNull(dr["AreaId"]) ? Convert.ToUInt32(dr["AreaId"]) : default(UInt32);
+                                objQuotation.CityId = !Convert.IsDBNull(dr["cityid"]) ? Convert.ToUInt32(dr["cityid"]) : default(UInt32);
+                                objQuotation.VersionId = !Convert.IsDBNull(dr["BikeVersionId"]) ? Convert.ToUInt32(dr["BikeVersionId"]) : default(UInt32);
+                                objQuotation.DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32);
+                                objQuotation.CampaignId = !Convert.IsDBNull(dr["CampaignId"]) ? Convert.ToUInt32(dr["CampaignId"]) : default(UInt32);
+                            }
+                            dr.Close();
                         }
                     }
                 }
@@ -415,10 +341,6 @@ namespace Bikewale.DAL.PriceQuote
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return objQuotation;
@@ -435,54 +357,45 @@ namespace Bikewale.DAL.PriceQuote
         public IEnumerable<PriceQuoteOfTopCities> FetchPriceQuoteOfTopCities(uint modelId, uint topCount)
         {
             IList<PriceQuoteOfTopCities> objPrice = null;
-            Database db = null;
+
             try
             {
-                db = new Database();
-
-                using (SqlConnection conn = new SqlConnection())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    cmd.CommandText = "getmodelpricefortopcities";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.SByte, topCount));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        cmd.CommandText = "GetModelPriceForTopCities";
-                        cmd.CommandType = CommandType.StoredProcedure;
-
-                        cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
-                        cmd.Parameters.Add("@TopCount", SqlDbType.TinyInt).Value = topCount;
-                        
-                        using (SqlDataReader dr = db.SelectQry(cmd))
+                        objPrice = new List<PriceQuoteOfTopCities>();
+                        while (dr.Read())
                         {
-                            objPrice = new List<PriceQuoteOfTopCities>();
-                            while (dr.Read())
+                            objPrice.Add(new PriceQuoteOfTopCities
                             {
-                                objPrice.Add(new PriceQuoteOfTopCities
-                                {
-                                    CityName = !Convert.IsDBNull(dr["City"]) ? Convert.ToString(dr["City"]) : default(string),
-                                    CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(string),
-                                    OnRoadPrice = !Convert.IsDBNull(dr["OnRoadPrice"]) ? Convert.ToUInt32(dr["OnRoadPrice"]) : default(UInt32),
-                                    Make = Convert.IsDBNull(dr["Make"]) ? default(string) : Convert.ToString(dr["Make"]),
-                                    MakeMaskingName = Convert.IsDBNull(dr["MakeMaskingName"]) ? default(string) : Convert.ToString(dr["MakeMaskingName"]),
-                                    Model = Convert.IsDBNull(dr["Model"]) ? default(string) : Convert.ToString(dr["Model"]),
-                                    ModelMaskingName = Convert.IsDBNull(dr["ModelMaskingName"]) ? default(string) : Convert.ToString(dr["ModelMaskingName"])
+                                CityName = !Convert.IsDBNull(dr["City"]) ? Convert.ToString(dr["City"]) : default(string),
+                                CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(string),
+                                OnRoadPrice = !Convert.IsDBNull(dr["OnRoadPrice"]) ? Convert.ToUInt32(dr["OnRoadPrice"]) : default(UInt32),
+                                Make = Convert.IsDBNull(dr["Make"]) ? default(string) : Convert.ToString(dr["Make"]),
+                                MakeMaskingName = Convert.IsDBNull(dr["MakeMaskingName"]) ? default(string) : Convert.ToString(dr["MakeMaskingName"]),
+                                Model = Convert.IsDBNull(dr["Model"]) ? default(string) : Convert.ToString(dr["Model"]),
+                                ModelMaskingName = Convert.IsDBNull(dr["ModelMaskingName"]) ? default(string) : Convert.ToString(dr["ModelMaskingName"])
 
-                                });
-                            }
-
-                            if (dr != null)
-                                dr.Close();
+                            });
                         }
 
+                        if (dr != null)
+                            dr.Close();
                     }
+
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " inputs: modelId : " + modelId + " : topCount :" + topCount);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return objPrice;
@@ -502,57 +415,48 @@ namespace Bikewale.DAL.PriceQuote
         public IEnumerable<PriceQuoteOfTopCities> GetModelPriceInNearestCities(uint modelId, uint cityId, ushort topCount)
         {
             IList<PriceQuoteOfTopCities> objPrice = null;
-            Database db = null;
 
             try
             {
-                db = new Database();
-
-                using (SqlConnection conn = new SqlConnection())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    cmd.CommandText = "getmodelpricefornearestcities";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_toprecords", DbType.Int16, topCount));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        cmd.CommandText = "GetModelPriceForNearestCities";
-                        cmd.CommandType = CommandType.StoredProcedure;
+                        objPrice = new List<PriceQuoteOfTopCities>();
 
-                        cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
-                        cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
-                        cmd.Parameters.Add("@TopRecords", SqlDbType.TinyInt).Value = topCount;
-                        
-                        using (SqlDataReader dr = db.SelectQry(cmd))
+                        if (dr != null)
                         {
-                            objPrice = new List<PriceQuoteOfTopCities>();
-
-                            if (dr != null)
+                            while (dr.Read())
                             {
-                                while (dr.Read())
+                                objPrice.Add(new PriceQuoteOfTopCities
                                 {
-                                    objPrice.Add(new PriceQuoteOfTopCities
-                                    {
-                                        CityName = Convert.IsDBNull(dr["City"]) ? default(string) : Convert.ToString(dr["City"]),
-                                        CityMaskingName = Convert.IsDBNull(dr["CityMaskingName"]) ? default(string) : Convert.ToString(dr["CityMaskingName"]),
-                                        OnRoadPrice = Convert.IsDBNull(dr["OnRoadPrice"]) ? default(UInt32) : Convert.ToUInt32(dr["OnRoadPrice"]),
-                                        Make = Convert.IsDBNull(dr["Make"]) ? default(string) : Convert.ToString(dr["Make"]),
-                                        MakeMaskingName = Convert.IsDBNull(dr["MakeMaskingName"]) ? default(string) : Convert.ToString(dr["MakeMaskingName"]),
-                                        Model = Convert.IsDBNull(dr["Model"]) ? default(string) : Convert.ToString(dr["Model"]),
-                                        ModelMaskingName = Convert.IsDBNull(dr["ModelMaskingName"]) ? default(string) : Convert.ToString(dr["ModelMaskingName"])
-                                    });
-                                }
-                                dr.Close();
+                                    CityName = Convert.IsDBNull(dr["City"]) ? default(string) : Convert.ToString(dr["City"]),
+                                    CityMaskingName = Convert.IsDBNull(dr["CityMaskingName"]) ? default(string) : Convert.ToString(dr["CityMaskingName"]),
+                                    OnRoadPrice = Convert.IsDBNull(dr["OnRoadPrice"]) ? default(UInt32) : Convert.ToUInt32(dr["OnRoadPrice"]),
+                                    Make = Convert.IsDBNull(dr["Make"]) ? default(string) : Convert.ToString(dr["Make"]),
+                                    MakeMaskingName = Convert.IsDBNull(dr["MakeMaskingName"]) ? default(string) : Convert.ToString(dr["MakeMaskingName"]),
+                                    Model = Convert.IsDBNull(dr["Model"]) ? default(string) : Convert.ToString(dr["Model"]),
+                                    ModelMaskingName = Convert.IsDBNull(dr["ModelMaskingName"]) ? default(string) : Convert.ToString(dr["ModelMaskingName"])
+                                });
                             }
+                            dr.Close();
                         }
-
                     }
+
                 }
+
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + String.Format(" inputs: modelId : {0} : topCount : {1} : cityId : {2}", modelId, topCount, cityId));
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return objPrice;
@@ -574,58 +478,56 @@ namespace Bikewale.DAL.PriceQuote
         {
             List<BikeQuotationEntity> bikePrices = null;
             HasArea = false;
-            Database db = null;
+
             try
             {
-                db = new Database();
-                using (SqlConnection conn = new SqlConnection())
-                {
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.CommandText = "GetVersionPricesByModelId";
-                        cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
-                        cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
-                        cmd.Parameters.Add("@HasAreasInCity", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        
-                        using (SqlDataReader dr = db.SelectQry(cmd))
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "getversionpricesbymodelid";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hasareasincity", DbType.Boolean, ParameterDirection.Output));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        bikePrices = new List<BikeQuotationEntity>();
+                        while (dr.Read())
                         {
-                            bikePrices = new List<BikeQuotationEntity>();
+                            bikePrices.Add(new BikeQuotationEntity
+                            {
+                                VersionId = Convert.ToUInt32(Convert.ToString(dr["BikeVersionId"])),
+                                VersionName = Convert.ToString(dr["Version"]),
+                                MakeName = Convert.ToString(dr["Make"]),
+                                MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
+                                ModelName = Convert.ToString(dr["Model"]),
+                                ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
+                                CityId = Convert.ToUInt32(dr["CityId"]),
+                                CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
+                                City = Convert.ToString(dr["City"]),
+                                ExShowroomPrice = Convert.ToUInt64(dr["Price"]),
+                                RTO = Convert.ToUInt32(dr["RTO"]),
+                                Insurance = Convert.ToUInt32(dr["Insurance"]),
+                                OnRoadPrice = Convert.ToUInt64(dr["OnRoadPrice"]),
+                                OriginalImage = Convert.ToString(dr["OriginalImagePath"]),
+                                HostUrl = Convert.ToString(dr["HostUrl"]),
+                                MakeId = Convert.ToUInt32(Convert.ToString(dr["MakeId"])),
+                                IsModelNew = Convert.ToBoolean(dr["IsModelNew"]),
+                                IsVersionNew = Convert.ToBoolean(dr["IsVersionNew"])
+
+                            });
+
+                        }
+                        if (dr.NextResult())
+                        {
                             while (dr.Read())
                             {
-                                bikePrices.Add(new BikeQuotationEntity
-                                {
-                                    VersionId = Convert.ToUInt32(Convert.ToString(dr["BikeVersionId"])),
-                                    VersionName = Convert.ToString(dr["Version"]),
-                                    MakeName = Convert.ToString(dr["Make"]),
-                                    MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
-                                    ModelName = Convert.ToString(dr["Model"]),
-                                    ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
-                                    CityId = Convert.ToUInt32(dr["CityId"]),
-                                    CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
-                                    City = Convert.ToString(dr["City"]),
-                                    ExShowroomPrice = Convert.ToUInt64(dr["Price"]),
-                                    RTO = Convert.ToUInt32(dr["RTO"]),
-                                    Insurance = Convert.ToUInt32(dr["Insurance"]),
-                                    OnRoadPrice = Convert.ToUInt64(dr["OnRoadPrice"]),
-                                    OriginalImage = Convert.ToString(dr["OriginalImagePath"]),
-                                    HostUrl = Convert.ToString(dr["HostUrl"]),
-                                    MakeId = Convert.ToUInt32(Convert.ToString(dr["MakeId"])),
-                                    IsModelNew = Convert.ToBoolean(dr["IsModelNew"]),
-                                    IsVersionNew = Convert.ToBoolean(dr["IsVersionNew"])
-
-                                });
-
-                            }
-                            if (dr.NextResult())
-                            {
-                                while (dr.Read())
-                                {
-                                    HasArea = Convert.ToBoolean(dr["HasAreasInCity"].ToString());
-                                }
+                                HasArea = Convert.ToBoolean(dr["par_hasareasincity"].ToString());
                             }
                         }
+
+                        if (dr != null) dr.Close();
                     }
                 }
             }
@@ -633,10 +535,6 @@ namespace Bikewale.DAL.PriceQuote
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - {1}", HttpContext.Current.Request.ServerVariables["URL"], "GetVersionPricesByModelId"));
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return bikePrices;
