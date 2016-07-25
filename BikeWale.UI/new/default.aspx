@@ -54,10 +54,10 @@
                 <div class="bw-tabs-panel brand-budget-mileage-style-wrapper content-box-shadow margin-minus50">
                     <div class="bw-tabs bw-tabs-flex">
                         <ul class="brand-budget-mileage-style-UL">
-                            <li class="active" data-tabs="discoverBrand">Brand</li>
-                            <li data-tabs="discoverBudget">Budget</li>
-                            <li data-tabs="discoverMileage">Mileage</li>
-                            <li data-tabs="discoverStyle">Style</li>
+                            <li class="active" data-tabs="discoverBrand"><h3>Brand</h3></li>
+                            <li data-tabs="discoverBudget"><h3>Budget</h3></li>
+                            <li data-tabs="discoverMileage"><h3>Mileage</h3></li>
+                            <li data-tabs="discoverStyle"><h3>Style</h3></li>
                         </ul>
                     </div>
                     <div class="bw-tabs-data" id="discoverBrand">
@@ -95,7 +95,7 @@
                             </ul>
                         </div>
                         <div class="view-brandType text-center padding-top10 padding-bottom30">
-                            <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16">View <span>More</span> Brands</a>
+                            <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16">View <span>more</span> brands</a>
                         </div>
                     </div>
                     <div class="bw-tabs-data hide" id="discoverBudget">
@@ -282,13 +282,13 @@
         <section class="container <%= ((ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount) > 0 )?"":"hide" %> ">
             <!--  Discover bikes section code starts here -->
             <div class="grid-12">
-                <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Featured bikes</h2>
+                <h2 class="text-bold text-center margin-top40 margin-bottom20 font22">Featured bikes</h2>
                 <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow">
                     <div class="bw-tabs bw-tabs-flex">
                         <ul>
-                            <li class="active" style="<%= (ctrlMostPopularBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlMostPopularBikes">Most Popular</li>
-                            <li style="<%= (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlNewLaunchedBikes">New launches</li>
-                            <li style="<%= (ctrlUpcomingBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlUpcomingBikes">Upcoming </li>
+                            <li class="active" style="<%= (ctrlMostPopularBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlMostPopularBikes"><h3>Most Popular</h3></li>
+                            <li style="<%= (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlNewLaunchedBikes"><h3>New launches</h3></li>
+                            <li style="<%= (ctrlUpcomingBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlUpcomingBikes"><h3>Upcoming</h3></li>
                         </ul>
                     </div>
                     <div class="bw-tabs-data <%= (ctrlMostPopularBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlMostPopularBikes">
@@ -336,7 +336,7 @@
 
         <section class="container">
             <!--  Compare section code starts here -->
-            <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Compare now</h2>
+            <h2 class="text-bold text-center margin-top40 margin-bottom20 font22">Compare bikes</h2>
             <div class="grid-12">
                 <div class="content-box-shadow">
                     <BW:CompareBikes ID="ctrlCompareBikes" runat="server" />
@@ -354,13 +354,13 @@
         <section class="container">
             <!--  Tools you may need section code starts here -->
             <div class="grid-12">
-                <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Tools you may need</h2>
+                <h2 class="text-bold text-center margin-top40 margin-bottom20 font22">Tools you may need</h2>
                 <div class="bw-tabs-panel tools-may-need-wrapper content-box-shadow">
                     <div class="bw-tabs bw-tabs-flex">
                         <ul class="tools-may-need-UL">
-                            <li data-tabs="getFinal-price" class="active">On-road price</li>
-                            <li data-tabs="locate-dealer" class="">Locate a dealer</li>
-                            <li data-tabs="calculate-emi" class="">Calculate EMI's</li>
+                            <li data-tabs="getFinal-price" class="active"><h3>On-road price</h3></li>
+                            <li data-tabs="locate-dealer" class=""><h3>Locate a dealer</h3></li>
+                            <li data-tabs="calculate-emi" class=""><h3>Calculate EMI's</h3></li>
                         </ul>
                     </div>
                     <div class="bw-tabs-data padding-bottom30" id="getFinal-price">
@@ -414,14 +414,14 @@
             <!--  News Bikes latest updates code starts here -->
             <div class="newBikes-latest-updates-container">
                 <div class="grid-12">
-                    <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Latest updates from the industry</h2>
+                    <h2 class="text-bold text-center margin-top40 margin-bottom20 font22">Latest updates from the bike industry</h2>
                     <div class="bw-tabs-panel content-box-shadow margin-bottom30">
                         <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
                             <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
                                 <ul>
-                                    <li class="<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">News</li>
-                                    <li class="<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>
-                                    <li class="<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
+                                    <li class="<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews"><h3>News</h3></li>
+                                    <li class="<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews"><h3>Expert Reviews</h3></li>
+                                    <li class="<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos"><h3>Videos</h3></li>
                                 </ul>
                             </div>
                         </div>

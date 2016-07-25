@@ -7,6 +7,9 @@ using System.Web;
 using System.Data;
 using System.Data.SqlClient;
 using BikeWaleOpr.Entities;
+using System.Data.Common;
+using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 
 namespace BikewaleOpr.Common
 {
@@ -24,19 +27,19 @@ namespace BikewaleOpr.Common
         public IEnumerable<ModelColorBase> FetchModelColors(int modelId)
         {
             List<ModelColorBase> modelColors = null;
-            Database db = null;
+            
             IList<ColorCodeBase> colorCodes = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetBikeModelColor"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemodelcolor"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@modelId", modelId);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
 
-                    db = new Database();
-                    using (SqlDataReader reader = db.SelectQry(cmd))
+
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        if (reader != null && reader.HasRows)
+                        if (reader != null )
                         {
                             modelColors = new List<ModelColorBase>();
                             while (reader.Read())
@@ -78,12 +81,7 @@ namespace BikewaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, "ManageModelColor.FetchModelColors");
                 objErr.SendMail();
             }
-            finally
-            {
-                if(db!=null)
-                    db.CloseConnection();
-                db = null;
-            }
+            
             return modelColors;
         }
         
@@ -95,18 +93,19 @@ namespace BikewaleOpr.Common
         public IEnumerable<VersionColorBase> FetchVersionColors(int versionId)
         {
             IList<VersionColorBase> versionColors = null;
-            Database db = null;
+            
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetBikeVersionColor"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikeversioncolor"))
                 {
-                    db = new Database();
+                    
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@versionId", versionId);
 
-                    using (SqlDataReader reader = db.SelectQry(cmd))
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
+
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        if (reader != null && reader.HasRows)
+                        if (reader != null )
                         {
                             versionColors = new List<VersionColorBase>();
                             while (reader.Read())
@@ -127,12 +126,7 @@ namespace BikewaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, "ManageModelColor.FetchVersionColors");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null;
-            }
+            
             return versionColors;
         }
 
@@ -156,18 +150,17 @@ namespace BikewaleOpr.Common
         public IEnumerable<VersionEntityBase> FetchBikeVersion(int modelId)
         {
             IList<VersionEntityBase> bikeVersions = null;
-            Database db = null;
+            
             try
             {
-                using (SqlCommand cmd = new SqlCommand("SELECT ID AS VersionId,Name AS VersionName FROM BikeVersions WHERE BikeModelId = @ModelId AND IsDeleted = 0"))
-                {
-                    db = new Database();
-                    cmd.CommandType = CommandType.Text;                    
-                    cmd.Parameters.AddWithValue("@ModelId", modelId);
+                using (DbCommand cmd = DbFactory.GetDBCommand("SELECT ID AS VersionId,Name AS VersionName from bikeversions where bikemodelid = @modelid and isdeleted = 0"))
+                {                    
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@modelid", DbType.Int32, modelId));
 
-                    using (SqlDataReader reader = db.SelectQry(cmd))
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        if (reader != null && reader.HasRows)
+                        if (reader != null)
                         {
                             bikeVersions = new List<VersionEntityBase>();
                             while (reader.Read())
@@ -187,12 +180,7 @@ namespace BikewaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, "ManageModelColor.FetchBikeVersion");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null;
-            }
+            
             return bikeVersions;
         }
 
@@ -207,19 +195,20 @@ namespace BikewaleOpr.Common
         public bool SaveModelColor(int modelId, string colorName, int userId, string hexCodes)
         {
             bool isSaved = false;
-            Database db = null;
+            
             try
             {
-                using (SqlCommand cmd = new SqlCommand("SaveModelColor"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("savemodelcolor"))
                 {
-                    db = new Database();
+                    
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@modelId", modelId);
-                    cmd.Parameters.AddWithValue("@colorName", colorName);
-                    cmd.Parameters.AddWithValue("@userId", userId);
-                    cmd.Parameters.AddWithValue("@hexCodes", hexCodes);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.String, 100, userId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_colorname", DbType.String, 100, colorName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hexcodes", DbType.String, 500, hexCodes));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_companycolorname", DbType.String, 100, Convert.DBNull));
 
-                    isSaved = db.InsertQry(cmd);
+                    isSaved = MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -227,12 +216,7 @@ namespace BikewaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, "ManageModelColor.SaveModelColor");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null;
-            }
+            
             return isSaved;
         }
 
@@ -245,19 +229,20 @@ namespace BikewaleOpr.Common
         public bool SaveVersionColor(VersionColorBase versionColor, int versionId ,int userId)
         {
             bool isSaved = false;
-            Database db = null;
+            
             try
             {
-                using (SqlCommand cmd = new SqlCommand("SaveVersionColor"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("saveversioncolor"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@isActive", versionColor.IsActive);
-                    cmd.Parameters.AddWithValue("@versionId", versionId);
-                    cmd.Parameters.AddWithValue("@modelColorId", Convert.ToInt32(versionColor.ModelColorID));
-                    cmd.Parameters.AddWithValue("@userId", userId);
 
-                    db = new Database();
-                    isSaved = db.InsertQry(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelcolorid", DbType.Int32, Convert.ToInt32(versionColor.ModelColorID)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.String, 100, userId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Boolean, versionColor.IsActive));
+
+
+                    isSaved = MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -265,12 +250,7 @@ namespace BikewaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, "ManageModelColor.SaveVersionColor");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null;
-            }
+           
             return isSaved;
         }
 
@@ -284,18 +264,19 @@ namespace BikewaleOpr.Common
         public bool UpdateColorCode(int colorId, string hexCode, int userId,bool isActive)
         {
             bool isUpdated = false;
-            Database db = null;
+            
             try
             {
-                using (SqlCommand cmd = new SqlCommand("UpdateModelColor"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("updatemodelcolor"))
                 {
-                    db = new Database();
+                    
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@colorId", colorId);
-                    cmd.Parameters.AddWithValue("@hexCode", hexCode);
-                    cmd.Parameters.AddWithValue("@userId", userId);
-                    cmd.Parameters.AddWithValue("@isActive", isActive);
-                    isUpdated = db.UpdateQry(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_colorid", DbType.Int32, colorId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hexcode", DbType.String, 6, hexCode));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.String, 100, userId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Boolean, isActive));
+
+                    isUpdated = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -303,12 +284,7 @@ namespace BikewaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, "ManageModelColor.UpdateColorCode");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null;
-            }
+           
             return isUpdated;
         }
 
@@ -323,18 +299,19 @@ namespace BikewaleOpr.Common
         public bool AddColorCode(int modelColorId,string hexCode,int userId,bool isActive = true)
         {
             bool isSaved = false;
-            Database db = null;
+            
             try
             {
-                using (SqlCommand cmd = new SqlCommand("AddModelColorHexCode"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("addmodelcolorhexcode"))
                 {
-                    db = new Database();
+                    
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@modelColorId", modelColorId);
-                    cmd.Parameters.AddWithValue("@hexCode", hexCode);
-                    cmd.Parameters.AddWithValue("@userId", userId);
-                    cmd.Parameters.AddWithValue("@isActive", isActive);
-                    isSaved = db.UpdateQry(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelcolorid", DbType.Int32, modelColorId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hexcode", DbType.String,6, hexCode));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.String, 100, userId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Boolean, isActive));
+
+                    isSaved = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -342,12 +319,7 @@ namespace BikewaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, "ManageModelColor.AddColorCode");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null;
-            }
+           
             return isSaved;
         }
 
@@ -360,16 +332,19 @@ namespace BikewaleOpr.Common
         public bool DeleteModelColor(int modelColorId,int userId)
         {
             bool isDeleted = false;
-            Database db = null;
+            
             try
             {
-                using (SqlCommand cmd = new SqlCommand("DeleteModelColor"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("deletemodelcolor"))
                 {
-                    db = new Database();
+                    
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@modelColorId", modelColorId);
-                    cmd.Parameters.AddWithValue("@userId", userId);
-                    isDeleted = db.UpdateQry(cmd);
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelcolorid", DbType.Int32, modelColorId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, userId));
+
+
+                    isDeleted = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -377,12 +352,7 @@ namespace BikewaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, "ManageModelColor.DeleteModelColor");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null;
-            }
+            
             return isDeleted;
         }
 

@@ -1,18 +1,17 @@
-﻿using Bikewale.BAL.CMS;
+﻿using Bikewale.BAL.EditCMS;
+using Bikewale.Cache.CMS;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
-using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.EditCMS;
 using Bikewale.Memcache;
+using log4net;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Content
 {
@@ -29,7 +28,11 @@ namespace Bikewale.Mobile.Content
         protected String _newsId = String.Empty;
         private ArticleDetails objNews = null;
         private bool _isContentFound = true;
-       
+
+        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
+        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
+        static readonly ILog _logger = LogManager.GetLogger(typeof(newsdetails));
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -91,21 +94,24 @@ namespace Bikewale.Mobile.Content
         ///  PopulateWhere to set news details from carwale api asynchronously
         /// </summary>
         /// <param name="_basicId"></param>
-        private async void GetNewsDetails(int _basicId)
+        private void GetNewsDetails(int _basicId)
         {
             try
-            {                
-                string _apiUrl = "webapi/article/contentdetail/?basicid=" + _basicId;
-
-                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+            {
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    objNews = await objClient.GetApiResponse<ArticleDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objNews);
-                }                
+                    container.RegisterType<IArticles, Articles>()
+                            .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                            .RegisterType<ICacheManager, MemcacheManager>();
+                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-                if (objNews != null)
-                    GetNewsData();
-                else
-                    _isContentFound = false;
+                    objNews = _cache.GetNewsDetails(Convert.ToUInt32(_basicId));
+
+                    if (objNews != null)
+                        GetNewsData();
+                    else
+                        _isContentFound = false;
+                }
             }
             catch (Exception err)
             {
@@ -138,11 +144,11 @@ namespace Bikewale.Mobile.Content
             pageViews = objNews.Views;
             pageUrl = _newsId + '-' + objNews.ArticleUrl + ".html";
 
-            if (!String.IsNullOrEmpty(objNews.NextArticle.ArticleUrl ))
+            if (!String.IsNullOrEmpty(objNews.NextArticle.ArticleUrl))
                 nextPageUrl = objNews.NextArticle.BasicId + "-" + objNews.NextArticle.ArticleUrl + ".html";
-            
+
             if (!String.IsNullOrEmpty(objNews.PrevArticle.ArticleUrl))
-                prevPageUrl = objNews.PrevArticle.BasicId + "-" + objNews.PrevArticle.ArticleUrl + ".html";            
+                prevPageUrl = objNews.PrevArticle.BasicId + "-" + objNews.PrevArticle.ArticleUrl + ".html";
         }
 
         protected String GetMainImagePath()
@@ -150,7 +156,6 @@ namespace Bikewale.Mobile.Content
             String mainImgUrl = String.Empty;
             //mainImgUrl = ImagingFunctions.GetPathToShowImages( objNews.LargePicUrl, objNews.HostUrl);
             mainImgUrl = Bikewale.Utility.Image.GetPathToShowImages(objNews.OriginalImgUrl, objNews.HostUrl, Bikewale.Utility.ImageSize._640x348);
-
             return mainImgUrl;
         }
     }

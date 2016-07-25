@@ -1,10 +1,12 @@
-﻿using System;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
-using System.Web;
+﻿using Bikewale.Ajax;
 using Bikewale.Common;
-using Bikewale.Ajax;
+using MySql.CoreDAL;
+using System;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Text;
+using System.Web;
 
 /// <summary>
 ///     Created By : Ashish G. Kamble
@@ -15,13 +17,13 @@ namespace Bikewale.Used
 {
     public class PurchaseInquiries
     {
-	    public string ProcessUsedBikePurchaseInquiry( string profileId, string buyerName, string buyerEmail, string buyerMobile, bool showDetails, string bikeModel, string makeYear, string pageUrl )
-		{
+        public string ProcessUsedBikePurchaseInquiry(string profileId, string buyerName, string buyerEmail, string buyerMobile, bool showDetails, string bikeModel, string makeYear, string pageUrl)
+        {
             string status = string.Empty, message = string.Empty, CustomerId = string.Empty;
 
             // Generate JSON string manually
-			StringBuilder sb = new StringBuilder();
-			sb.Append("{");
+            StringBuilder sb = new StringBuilder();
+            sb.Append("{");
 
             try
             {
@@ -71,7 +73,7 @@ namespace Bikewale.Used
                                 purInquiryId = SubmitInquiryCustomer(CustomerId, CommonOpn.GetProfileNo(profileId));
 
                                 // Send alerts to both parties
-                                SendAlertsIndividualSeller(profileId, CustomerId, buyerName, buyerMobile, buyerEmail.ToLower(), pageUrl, showDetails);                                
+                                SendAlertsIndividualSeller(profileId, CustomerId, buyerName, buyerMobile, buyerEmail.ToLower(), pageUrl, showDetails);
                             }
 
                             if (purInquiryId != "-1")
@@ -87,7 +89,7 @@ namespace Bikewale.Used
                                 sb.Append("\"SellerContact\":\"" + objSeller.SellerContact + "\",");
                                 sb.Append("\"SellerAddress\":\"" + objSeller.SellerAddress + "\",");
                                 sb.Append("\"SellerContactPerson\":\"" + objSeller.SellerContactPerson + "\",");
-                                
+
                             }
                         }
                         else
@@ -158,7 +160,7 @@ namespace Bikewale.Used
         //    }
         //}
 
-        
+
         /// <summary>
         /// Indiviual Seller: Function to send EMAIL and SMS alerts to both buyers and sellers 
         /// </summary>
@@ -187,12 +189,12 @@ namespace Bikewale.Used
                 //to the buyer
                 st.SMSToBuyer(profileId, buyerMobile, csd.SellerName, csd.SellerMobile, showDetails, csd.BikeName, csd.MakeYear, pageUrl);
 
-              
+
                 Bikewale.Common.Mails.SendSellerDetailsToBuyer(csd.SellerEmail, csd.SellerName, csd.SellerMobile, csd.City, profileId, buyerId, csd.BikeName, csd.Kilometers, csd.MakeYear, CommonOpn.FormatNumeric(csd.Price));
 
                 //send mail to the seller of the buyer info
                 Bikewale.Common.Mails.ContactSeller(csd.SellerEmail, csd.SellerName, buyerId, "", profileId, csd.BikeName, csd.Kilometers, csd.MakeYear, CommonOpn.FormatNumeric(csd.Price));
-              
+
             }
             catch (Exception ex)
             {
@@ -204,7 +206,7 @@ namespace Bikewale.Used
             }
             return msg;
         }   // End of SendAlertsIndividualSeller method
-        
+
         /// <summary>
         ///  Submit purchase inquiries for Individual
         /// Modified By : Sadhana Upadhyay on 2nd April 2014
@@ -215,46 +217,37 @@ namespace Bikewale.Used
         /// <returns>id of the latest inserted record in ClassifiedRequests table</returns>
         private static string SubmitInquiryCustomer(string customerId, string sellInqId)
         {
+
             string inqId = "-1";
 
-            SqlConnection con;
-            SqlCommand cmd;
-            SqlParameter prm;
-            Database db = new Database();
             CommonOpn op = new CommonOpn();
 
-            string conStr = db.GetConString();
-            con = new SqlConnection(conStr);
 
             try
             {
-                HttpContext.Current.Trace.Warn("Submitting Data");
-                cmd = new SqlCommand("InsertClassifiedRequests", con);
-                cmd.CommandType = CommandType.StoredProcedure;
 
-                prm = cmd.Parameters.Add("@SellInquiryId", SqlDbType.BigInt);
-                prm.Value = sellInqId;
+                using (DbCommand cmd = DbFactory.GetDBCommand("insertclassifiedrequests"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                prm = cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt);
-                prm.Value = customerId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sellinquiryid", DbType.Int64, sellInqId));
 
-                prm = cmd.Parameters.Add("@RequestDateTime", SqlDbType.DateTime);
-                prm.Value = DateTime.Now;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
 
-                prm = cmd.Parameters.Add("@Comments", SqlDbType.VarChar, 500);
-                prm.Value = "";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requestdatetime", DbType.DateTime, DateTime.Now));
 
-                prm = cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt);
-                prm.Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 500, ""));
 
-                prm = cmd.Parameters.Add("@ClientIP", SqlDbType.VarChar, 40);
-                prm.Value = CommonOpn.GetClientIP();
-                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
-                con.Open();
-                //run the command
-                cmd.ExecuteNonQuery();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, ParameterDirection.Output));
 
-                inqId = cmd.Parameters["@InquiryId"].Value.ToString();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CommonOpn.GetClientIP()));
+
+                    //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+                    //run the command
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+
+                    inqId = cmd.Parameters["par_inquiryid"].Value.ToString();
+                }
 
             }
             catch (SqlException err)
@@ -272,17 +265,10 @@ namespace Bikewale.Used
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                //close the connection	
-                if (con.State == ConnectionState.Open)
-                {
-                    con.Close();
-                }
-            }
+
             return inqId;
         }   // End of SubmitInquiryCustomer
 
-             
+
     }   // End of class
 }   // End of namespace

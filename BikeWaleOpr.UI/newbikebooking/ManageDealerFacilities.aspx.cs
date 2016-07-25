@@ -1,11 +1,12 @@
-﻿using BikeWaleOpr.Common;
+﻿using BikewaleOpr.DAL;
+using BikewaleOpr.Entities;
+using BikewaleOpr.Interface;
+using BikeWaleOpr.Common;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using BikeWaleOpr.Entities;
 
 namespace BikeWaleOpr.NewBikeBooking
 {
@@ -17,7 +18,7 @@ namespace BikeWaleOpr.NewBikeBooking
         protected CheckBox chkIsActiveFacility;
         protected HiddenField hdnFacilityId;
 
-        protected int dealerId = 0;
+        protected uint dealerId = 0;
 
         protected override void OnInit(EventArgs e)
         {
@@ -28,71 +29,91 @@ namespace BikeWaleOpr.NewBikeBooking
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(Request.QueryString["dealerId"] != null)
-            {   
-                int.TryParse(Request.QueryString["dealerId"].ToString(), out dealerId);
+            if (Request.QueryString["dealerId"] != null)
+            {
+                uint.TryParse(Request.QueryString["dealerId"].ToString(), out dealerId);
             }
 
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
-                if(dealerId > 0)
-                    GetFacilities();                
+                if (dealerId > 0)
+                    GetFacilities();
             }
         }
 
-        protected async void GetFacilities()
+        protected void GetFacilities()
         {
-            string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-            string _requestType = "application/json";
-
-            List<FacilityEntity> objFacilities = null;
-            
-            string _apiUrl = "/api/Dealers/GetDealerFacilities/?dealerId=" + dealerId;
-            // Send HTTP GET requests 
-
-            objFacilities = await BWHttpClient.GetApiResponse<List<FacilityEntity>>(_abHostUrl, _requestType, _apiUrl, objFacilities);
-
-            if (objFacilities != null)
+            try
             {
+                List<FacilityEntity> objFacilities = null;
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IDealers, DealersRepository>();
+                    IDealers objDealer = container.Resolve<DealersRepository>();
+                    objFacilities = objDealer.GetDealerFacilities(dealerId);
+                }
+                if (objFacilities != null)
+                {
                     rptFacilities.DataSource = objFacilities;
                     rptFacilities.DataBind();
 
-                Trace.Warn("GetFacilities bind data");
+                    Trace.Warn("GetFacilities bind data");
+                }
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn("GetFacilities  ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
         }
 
         protected void AddFacility(object sender, EventArgs e)
         {
-            if(dealerId > 0)
+            try
             {
-                string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string _requestType = "application/json";
-
-                string _apiUrl = "/api/Dealers/SaveDealerFacilities/?dealerId=" + dealerId + "&facility=" + txtFacility.Text.Trim() + "&isActive=" + chkIsActiveFacility.Checked.ToString();
-                // Send HTTP POST requests 
-            
-                BWHttpClient.PostSync<string>(_abHostUrl, _requestType, _apiUrl, "");
-
-                GetFacilities();
+                if (dealerId > 0)
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IDealers, DealersRepository>();
+                        IDealers objDealer = container.Resolve<DealersRepository>();
+                        objDealer.SaveDealerFacility(dealerId, txtFacility.Text.Trim(), chkIsActiveFacility.Checked);
+                    }
+                    GetFacilities();
+                }
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn("AddFacility ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
         }
 
         protected void UpdateFacility(object sender, EventArgs e)
-        { 
-            if(dealerId > 0)
+        {
+            uint facilityID = Convert.ToUInt32(hdnFacilityId.Value);
+            try
             {
-                string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string _requestType = "application/json";
-
-                string _apiUrl = "/api/Dealers/UpdateDealerFacilities/?facilityId=" + hdnFacilityId.Value + "&facility=" + txtFacility.Text.Trim() + "&isActive=" + chkIsActiveFacility.Checked.ToString();
-                // Send HTTP POST requests 
-
-                Trace.Warn("_apiUrl : " + _apiUrl);
-            
-                BWHttpClient.PostSync<string>(_abHostUrl, _requestType, _apiUrl, "");
-
-                GetFacilities();
+                if (dealerId > 0)
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IDealers, DealersRepository>();
+                        IDealers objDealer = container.Resolve<DealersRepository>();
+                        objDealer.UpdateDealerFacility(facilityID, txtFacility.Text.Trim(), chkIsActiveFacility.Checked);
+                    }
+                    GetFacilities();
+                }
             }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn("AddFacility ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            GetFacilities();
         }
 
     }   // Class

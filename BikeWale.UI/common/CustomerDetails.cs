@@ -2,19 +2,12 @@
 COMMON OPERATIONS.
 */
 
+using MySql.CoreDAL;
 using System;
-using System.Text;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Configuration;
-using System.Text.RegularExpressions;
-using System.Web.Security;
-using System.Security.Principal;
-using System.Web.Mail;
 
 namespace Bikewale.Common
 {
@@ -37,113 +30,64 @@ namespace Bikewale.Common
 
         public CustomerDetails(string customerId)
         {
-            SqlConnection con;
-            SqlCommand cmd;
-            SqlParameter prm;
-            Database db = new Database();
             CommonOpn op = new CommonOpn();
-
-            string conStr = db.GetConString();
-
-            con = new SqlConnection(conStr);
 
             try
             {
-                cmd = new SqlCommand("FetchCustomerDetails", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                prm = cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt);
-                prm.Value = customerId;
-
-                prm = cmd.Parameters.Add("@Name", SqlDbType.VarChar, 100);
-                prm.Direction = ParameterDirection.Output;
-
-                prm = cmd.Parameters.Add("@Email", SqlDbType.VarChar, 100);
-                prm.Direction = ParameterDirection.Output;
-
-                prm = cmd.Parameters.Add("@Address", SqlDbType.VarChar, 250);
-                prm.Direction = ParameterDirection.Output;
-
-                prm = cmd.Parameters.Add("@StateId", SqlDbType.BigInt);
-                prm.Direction = ParameterDirection.Output;
-
-                prm = cmd.Parameters.Add("@State", SqlDbType.VarChar, 50);
-                prm.Direction = ParameterDirection.Output;
-
-                prm = cmd.Parameters.Add("@CityId", SqlDbType.BigInt);
-                prm.Direction = ParameterDirection.Output;
-
-                prm = cmd.Parameters.Add("@City", SqlDbType.VarChar, 50);
-                prm.Direction = ParameterDirection.Output;
-
-                prm = cmd.Parameters.Add("@AreaId", SqlDbType.BigInt);
-                prm.Direction = ParameterDirection.Output;
-
-                prm = cmd.Parameters.Add("@Area", SqlDbType.VarChar, 50);
-                prm.Direction = ParameterDirection.Output;
-
-                prm = cmd.Parameters.Add("@PinCodeId", SqlDbType.BigInt);
-                prm.Direction = ParameterDirection.Output;
-
-                prm = cmd.Parameters.Add("@PinCode", SqlDbType.VarChar, 10);
-                prm.Direction = ParameterDirection.Output;
-
-                prm = cmd.Parameters.Add("@Phone", SqlDbType.VarChar, 50);
-                prm.Direction = ParameterDirection.Output;
-
-                prm = cmd.Parameters.Add("@Mobile", SqlDbType.VarChar, 50);
-                prm.Direction = ParameterDirection.Output;
-
-                prm = cmd.Parameters.Add("@Password", SqlDbType.VarChar, 50);
-                prm.Direction = ParameterDirection.Output;
-
-                prm = cmd.Parameters.Add("@ReceiveNewsletters", SqlDbType.Bit);
-                prm.Direction = ParameterDirection.Output;
-
-                prm = cmd.Parameters.Add("@RegistrationDateTime", SqlDbType.DateTime);
-                prm.Direction = ParameterDirection.Output;
-
-                prm = cmd.Parameters.Add("@IsVerified", SqlDbType.Bit);
-                prm.Direction = ParameterDirection.Output;
-
-                prm = cmd.Parameters.Add("@IsFake", SqlDbType.Bit);
-                prm.Direction = ParameterDirection.Output;
-
-                prm = cmd.Parameters.Add("@IsExist", SqlDbType.Bit);
-                prm.Direction = ParameterDirection.Output;
-                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
-                con.Open();
-                //run the command
-                cmd.ExecuteNonQuery();
-
-                //HttpContext.Current.Trace.Warn("Common.CustomerDetails : Returned Value : " + ret.ToString());
-
-                this.Exists = Convert.ToBoolean(cmd.Parameters["@IsExist"].Value);
-
-                if (this.Exists == true)
+                using (DbCommand cmd = DbFactory.GetDBCommand("fetchcustomerdetails"))
                 {
-                    this.Name = cmd.Parameters["@Name"].Value.ToString();
-                    this.Email = cmd.Parameters["@Email"].Value.ToString();
-                    this.Address = cmd.Parameters["@Address"].Value.ToString();
-                    this.StateId = cmd.Parameters["@StateId"].Value.ToString();
-                    this.State = cmd.Parameters["@State"].Value.ToString();
-                    this.CityId = cmd.Parameters["@CityId"].Value.ToString();
-                    this.City = cmd.Parameters["@City"].Value.ToString();
-                    this.AreaId = cmd.Parameters["@AreaId"].Value.ToString();
-                    this.Area = cmd.Parameters["@Area"].Value.ToString();
-                    this.PinCodeId = cmd.Parameters["@PinCodeId"].Value.ToString();
-                    this.PinCode = cmd.Parameters["@PinCode"].Value.ToString();
-                    this.Phone1 = cmd.Parameters["@Phone"].Value.ToString();
-                    this.Mobile = cmd.Parameters["@Mobile"].Value.ToString();
-                    this.Password = cmd.Parameters["@Password"].Value.ToString();
-                    this.ReceiveNewsletters = Convert.ToBoolean(cmd.Parameters["@ReceiveNewsletters"].Value);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 100, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 100, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_address", DbType.String, 250, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int64, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_state", DbType.String, 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int64, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_city", DbType.String, 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbType.Int64, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_area", DbType.String, 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pincodeid", DbType.Int64, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pincode", DbType.String, 10, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_phone", DbType.String, 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_password", DbType.String, 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_receivenewsletters", DbType.Boolean, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_registrationdatetime", DbType.DateTime, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isverified", DbType.Boolean, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isfake", DbType.Boolean, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isexist", DbType.Boolean, ParameterDirection.Output));
 
-                    if (cmd.Parameters["@RegistrationDateTime"].Value != DBNull.Value)
-                        this.RegistrationDateTime = cmd.Parameters["@RegistrationDateTime"].Value.ToString();
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
-                    this.IsVerified = Convert.ToBoolean(cmd.Parameters["@IsVerified"].Value);
+                    this.Exists = Convert.ToBoolean(cmd.Parameters["par_isexist"].Value);
 
-                    this.IsFake = Convert.ToBoolean(cmd.Parameters["@IsFake"].Value);
+                    if (this.Exists == true)
+                    {
+                        this.Name = cmd.Parameters["par_name"].Value.ToString();
+                        this.Email = cmd.Parameters["par_email"].Value.ToString();
+                        this.Address = cmd.Parameters["par_address"].Value.ToString();
+                        this.StateId = cmd.Parameters["par_stateid"].Value.ToString();
+                        this.State = cmd.Parameters["par_state"].Value.ToString();
+                        this.CityId = cmd.Parameters["par_cityid"].Value.ToString();
+                        this.City = cmd.Parameters["par_city"].Value.ToString();
+                        this.AreaId = cmd.Parameters["par_areaid"].Value.ToString();
+                        this.Area = cmd.Parameters["par_area"].Value.ToString();
+                        this.PinCodeId = cmd.Parameters["par_pincodeid"].Value.ToString();
+                        this.PinCode = cmd.Parameters["par_pincode"].Value.ToString();
+                        this.Phone1 = cmd.Parameters["par_phone"].Value.ToString();
+                        this.Mobile = cmd.Parameters["par_mobile"].Value.ToString();
+                        this.Password = cmd.Parameters["par_password"].Value.ToString();
+                        this.ReceiveNewsletters = Convert.ToBoolean(cmd.Parameters["par_receivenewsletters"].Value);
+
+                        if (cmd.Parameters["par_registrationdatetime"].Value != DBNull.Value)
+                            this.RegistrationDateTime = cmd.Parameters["par_registrationdatetime"].Value.ToString();
+
+                        this.IsVerified = Convert.ToBoolean(cmd.Parameters["par_isverified"].Value);
+
+                        this.IsFake = Convert.ToBoolean(cmd.Parameters["par_isfake"].Value);
+                    }
                 }
             }
             catch (SqlException err)
@@ -158,14 +102,6 @@ namespace Bikewale.Common
                 ErrorClass objErr = new ErrorClass(err, "Common.CustomerDetails");
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                //close the connection	
-                if (con.State == ConnectionState.Open)
-                {
-                    con.Close();
-                }
-            }
 
         } // SaveData
 
@@ -474,56 +410,66 @@ namespace Bikewale.Common
         //this function returns true or false depending on the customer is fake or not
         public static bool IsValidEmailId(string emailId)
         {
-            SqlDataReader dr = null;
-            Database db = new Database();
-            string sql = "";
-            bool status = true;
-            try
-            {
-                sql = " Select IsFake From Customers With(NoLock) Where Email = @emailId";
 
-                SqlParameter[] param = { new SqlParameter("@emailId", emailId.Trim()) };
-                dr = db.SelectQry(sql, param);
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "CustomerDetails.IsValidEmailId");
+            objErr.SendMail();
+            return false;
 
-                if (dr.Read())
-                {
-                    status = !(Convert.ToBoolean(dr["IsFake"]));
-                }                
-            }
-            catch (Exception err)
-            {
-                HttpContext.Current.Trace.Warn("Common.IsValidEmailId : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Common.IsValidEmailId");
-                objErr.SendMail();
-            } // catch Exception
-            finally
-            {
-                if(dr != null)
-                    dr.Close();
+            //SqlDataReader dr = null;
+            //Database db = new Database();
+            //string sql = "";
+            //bool status = true;
+            //try
+            //{
+            //    sql = " Select IsFake From Customers With(NoLock) Where Email = @emailId";
 
-                db.CloseConnection();
-            }
-            return status;
+            //    SqlParameter[] param = { new SqlParameter("@emailId", emailId.Trim()) };
+            //    dr = db.SelectQry(sql, param);
+
+            //    if (dr.Read())
+            //    {
+            //        status = !(Convert.ToBoolean(dr["IsFake"]));
+            //    }
+            //}
+            //catch (Exception err)
+            //{
+            //    HttpContext.Current.Trace.Warn("Common.IsValidEmailId : " + err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, "Common.IsValidEmailId");
+            //    objErr.SendMail();
+            //} // catch Exception
+            //finally
+            //{
+            //    if (dr != null)
+            //        dr.Close();
+
+            //    db.CloseConnection();
+            //}
+            //return status;
         }
 
         //this function returns customerid of the customer based on customer email
         public static string GetCustomerIdFromEmail(string emailId)
         {
-            SqlDataReader dr = null;
-            Database db = new Database();
+
             string sql = "";
             string id = "-1";
             try
             {
-                sql = " Select Id From Customers With(NoLock) Where Email = @emailId";
+                sql = " select id from customers  where email = @emailid";
 
-                SqlParameter[] param = { new SqlParameter("@emailId", emailId.Trim()) };
-                dr = db.SelectQry(sql, param);
-
-                if (dr.Read())
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    id = dr["Id"].ToString();
-                }                
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@emailid", DbType.String, emailId.Trim()));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            id = dr["Id"].ToString();
+                            dr.Close();
+                        }
+                    }
+                }
             }
             catch (Exception err)
             {
@@ -531,13 +477,7 @@ namespace Bikewale.Common
                 ErrorClass objErr = new ErrorClass(err, "Common.GetCustomerIdFromEmail");
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                if(dr != null)
-                    dr.Close();
 
-                db.CloseConnection();
-            }
             return id;
         }
     }

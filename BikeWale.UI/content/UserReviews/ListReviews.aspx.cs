@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
+using Bikewale.Common;
+using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
+using Microsoft.Practices.Unity;
+using MySql.CoreDAL;
+using System;
 using System.Data;
-using System.Data.SqlClient;
+using System.Data.Common;
 using System.Text.RegularExpressions;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using Bikewale.Common;
-using Bikewale.Memcache;
-using Microsoft.Practices.Unity;
-using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Cache.Core;
-using Bikewale.DAL.BikeData;
-using Bikewale.Cache.BikeData;
 
 namespace Bikewale.Content
 {
@@ -86,6 +84,7 @@ namespace Bikewale.Content
             Form.Action = Request.RawUrl;
             //code for device detection added by Ashwini Todkar
             // Modified By :Ashish Kamble on 5 Feb 2016
+            Form.Action = Request.RawUrl;
             string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
             if (String.IsNullOrEmpty(originalUrl))
                 originalUrl = Request.ServerVariables["URL"];
@@ -129,7 +128,7 @@ namespace Bikewale.Content
                     }
                 }
 
-               
+
                 //ModelMapping mm = new ModelMapping();
                 //modelId = mm.GetModelId(Request.QueryString["bikem"]);
                 //Trace.Warn( "Model Name : ",Request.QueryString["bikem"]);
@@ -143,7 +142,7 @@ namespace Bikewale.Content
                     this.Page.Visible = false;
                 }
             }
-            
+
             //also get the forumId
             if (Request["pn"] != null && Request.QueryString["pn"] != "")
             {
@@ -164,7 +163,7 @@ namespace Bikewale.Content
             {
                 versionId = Request.QueryString["version"];
                 Trace.Warn("modelId " + versionId);
-               
+
                 //verify the id as passed in the url
                 if (CommonOpn.CheckId(versionId) == false)
                 {
@@ -176,19 +175,19 @@ namespace Bikewale.Content
                 }
             }
             Trace.Warn("start post back ");
-           
+
             if (!IsPostBack)
             {
                 //objBike = new MakeModelVersion();
-                
-              //  ModelStartPrice = objBike.GetModelStartingPrice(modelId);
-                ModelVersionDescription objBike; 
+
+                //  ModelStartPrice = objBike.GetModelStartingPrice(modelId);
+                ModelVersionDescription objBike;
                 if (modelId != "")
                 {
                     objBike = new ModelVersionDescription();
                     objBike.GetDetailsByModel(modelId);
                     ModelStartPrice = objBike.ModelBasePrice;
-                    
+
                     BikeName = objBike.BikeName;
                     LargePic = objBike.LargePic;
 
@@ -247,7 +246,7 @@ namespace Bikewale.Content
                 // onpostback select first page
 
 
-              //  frmMain.Action = "/content/" + UrlRewrite.FormatSpecial(MakeName) + "-bikes/" + UrlRewrite.FormatSpecial(ModelName) + "/userreviews-p1/";
+                //  frmMain.Action = "/content/" + UrlRewrite.FormatSpecial(MakeName) + "-bikes/" + UrlRewrite.FormatSpecial(ModelName) + "/userreviews-p1/";
             }
 
             GoogleKeywords();
@@ -272,8 +271,6 @@ namespace Bikewale.Content
         {
             CommonOpn op = new CommonOpn();
 
-            Database db = new Database();
-
             string selectClause = "", fromClause = "", whereClause = "", orderByClause = "", recordCntQry = "";
             versionId = versionId != "" ? versionId : drpVersions.SelectedItem.Value;
             Trace.Warn("versionId :: " + versionId);
@@ -281,19 +278,19 @@ namespace Bikewale.Content
             {
                 if (versionId == "0" || versionId == "")
                 {
-                    selectClause = " CR.ID AS ReviewId, CU.Name AS CustomerName, CU.ID AS CustomerId, ISNULL(UP.HandleName, '') As HandleName, CR.StyleR, "
-                                + " CR.ComfortR, CR.PerformanceR, CR.ValueR, CR.FuelEconomyR, CR.OverallR, CR.Pros, "
-                                + " CR.Cons, Substring(CR.Comments,0,Cast(Floor(LEN(CR.Comments)*0.15) AS INT)) AS SubComments, "
-                                + " CR.Title, CR.EntryDateTime, CR.Liked, CR.Disliked, CR.Viewed, ISNULL(Fm.Posts, 0) Comments, Fso.ThreadId ";
+                    selectClause = @" cr.id as reviewid, cu.name as customername, cu.id as customerid, '' as handlename, cr.styler, 
+                                                             cr.comfortr, cr.performancer, cr.valuer, cr.fueleconomyr, cr.overallr, cr.pros, 
+                                                             cr.cons, substring(cr.comments,0,cast(floor(length(cr.comments)*0.15) as  unsigned int)) as subcomments, 
+                                                             cr.title, cr.entrydatetime, cr.liked, cr.disliked, cr.viewed, '' comments, 0 as threadid ";
 
-                    fromClause = " Customers AS CU With(NoLock) LEFT JOIN UserProfile UP With(NoLock) ON UP.UserId = CU.ID, CustomerReviews AS CR With(NoLock) LEFT JOIN Forum_ArticleAssociation Fso With(NoLock) ON CR.ID = Fso.ArticleId "
-                                + " LEFT JOIN Forums Fm With(NoLock) ON Fso.ThreadId = Fm.ID ";
+                    fromClause = @" customers as cu inner join customerreviews as cr on cu.id = cr.customerid ";
 
-                    whereClause = " CU.ID = CR.CustomerId AND CR.IsActive=1 AND CR.IsVerified=1 AND CR.ModelId = @ModelId ";
+                    whereClause = " cu.id = cr.customerid and cr.isactive=1 and cr.isverified=1 and cr.modelid = @v_modelid ";
 
-                    orderByClause = SortingCriteria + " DESC";
+                    orderByClause = SortingCriteria + " desc";
 
-                    recordCntQry = " Select Count(*) From " + fromClause + " Where " + whereClause;
+                    recordCntQry = string.Format(" select count(*) from {0} where {1}", fromClause, whereClause);
+
                 }
                 else
                 {
@@ -302,28 +299,27 @@ namespace Bikewale.Content
                         drpVersions.SelectedIndex = drpVersions.Items.IndexOf(drpVersions.Items.FindByValue(versionId));
                     }
 
-                    selectClause = " CR.ID AS ReviewId, CU.Name AS CustomerName, CU.ID AS CustomerId, ISNULL(UP.HandleName, '') As HandleName, CR.StyleR, "
-                                 + " CR.ComfortR, CR.PerformanceR, CR.ValueR, CR.FuelEconomyR, CR.OverallR, CR.Pros, "
-                                 + " CR.Cons, Substring(CR.Comments,0,Cast(Floor(LEN(CR.Comments)*0.15) AS INT)) AS SubComments, "
-                                 + " CR.Title, CR.EntryDateTime, CR.Liked, CR.Disliked, CR.Viewed, ISNULL(Fm.Posts, 0) Comments, Fso.ThreadId ";
+                    selectClause = @" cr.id as reviewid, cu.name as customername, cu.id as customerid, '' as handlename, cr.styler, 
+                                                              cr.comfortr, cr.performancer, cr.valuer, cr.fueleconomyr, cr.overallr, cr.pros, 
+                                                              cr.cons, substring(cr.comments,0,cast(floor(length(cr.comments)*0.15) as  unsigned int)) as subcomments, 
+                                                              cr.title, cr.entrydatetime, cr.liked, cr.disliked, cr.viewed, '' comments, 0 as threadid ";
 
-                    fromClause = " Customers AS CU With(NoLock) LEFT JOIN UserProfile UP With(NoLock) ON UP.UserId = CU.ID, CustomerReviews AS CR With(NoLock) LEFT JOIN Forum_ArticleAssociation Fso With(NoLock) ON CR.ID = Fso.ArticleId "
-                                + " LEFT JOIN Forums Fm With(NoLock) ON Fso.ThreadId = Fm.ID ";
+                    fromClause = @" customers as cu   
+                                                                inner join customerreviews as cr on cu.id = cr.customerid ";
 
-                    whereClause = " CU.ID = CR.CustomerId AND CR.IsActive=1 AND CR.IsVerified=1 AND CR.VersionId = @VersionId ";
+                    whereClause = " cu.id = cr.customerid and cr.isactive=1 and cr.isverified=1 and cr.versionid = @v_versionid ";
 
-                    orderByClause = SortingCriteria + " DESC";
+                    orderByClause = SortingCriteria + " desc";
 
-                    recordCntQry = " Select Count(*) From " + fromClause + " Where " + whereClause;
+                    recordCntQry = string.Format(" select count(*) from {0} where {1}", fromClause, whereClause);
                 }
 
 
 
-                SqlParameter[] param = 
-				{
-					new SqlParameter("@ModelId", modelId),
-					new SqlParameter("@VersionId", versionId)
-				};
+                DbParameter[] param = new[] {   DbFactory.GetDbParam("@v_modelid", DbType.Int32,modelId ),
+                                                            DbFactory.GetDbParam("@v_versionid", DbType.Int32,versionId)
+                                                        };
+
 
                 Trace.Warn("pageNumber :  : : " + pageNumber);
                 if (pageNumber != "")
@@ -389,55 +385,56 @@ namespace Bikewale.Content
         protected void GoogleKeywords()
         {
             string sql = "";
-            SqlDataReader dr = null;
-
-            if (versionId != "")
+            uint _modelId = 0, _versionId = 0;
+            if (versionId != "-1")
             {
-                sql = " SELECT DISTINCT CM.Name AS Make, Se.Name AS SubSegment, Bo.Name BikeBodyStyle "
-                    + " FROM BikeModels AS CMO, BikeMakes AS CM, BikeBodyStyles Bo, "
-                    + " (BikeVersions Ve With(NoLock) LEFT JOIN BikeSubSegments Se With(NoLock) ON Se.Id = Ve.SubSegmentId ) "
-                    + " WHERE CM.ID=CMO.BikeMakeId AND CMO.ID=Ve.BikeModelId AND Bo.Id=Ve.BodyStyleId "
-                    + " AND Ve.Id = @Id";
+                sql = @" select distinct cmo.makename as make, se.name as subsegment, bo.name bikebodystyle
+                   from bikemodels as cmo, bikebodystyles bo,
+                    (bikeversions ve   left join bikesubsegments se   on se.id = ve.subsegmentid )
+                    where cmo.id=ve.bikemodelid and bo.id=ve.bodystyleid
+                    and ve.id = @v_versionid";
             }
             else
             {
-                sql = " SELECT DISTINCT CM.Name AS Make, Se.Name AS SubSegment, Bo.Name BikeBodyStyle "
-                    + " FROM BikeModels AS CMO, BikeMakes AS CM, BikeBodyStyles Bo, "
-                    + " (BikeVersions Ve With(NoLock) LEFT JOIN BikeSubSegments Se With(NoLock) ON Se.Id = Ve.SubSegmentId ) "
-                    + " WHERE CM.ID=CMO.BikeMakeId AND CMO.ID=Ve.BikeModelId AND Bo.Id=Ve.BodyStyleId "
-                    + " AND Ve.BikeModelId = @BikeModelId";
+                sql = @" select distinct cmo.makename as make, se.name as subsegment, bo.name bikebodystyle 
+                     from bikemodels as cmo, bikebodystyles bo, 
+                     (bikeversions ve   left join bikesubsegments se   on se.id = ve.subsegmentid ) 
+                     where cmo.id=ve.bikemodelid and bo.id=ve.bodystyleid 
+                     and ve.bikemodelid = @v_modelid";
             }
-            SqlCommand cmd = new SqlCommand(sql);
-            cmd.Parameters.Add("@Id", SqlDbType.BigInt).Value = versionId != "" ? versionId : "-1";
-            cmd.Parameters.Add("@BikeModelId", SqlDbType.BigInt).Value = modelId != "" ? modelId : "-1";
-
-            Database db = new Database();
             try
             {
-                dr = db.SelectQry(cmd);
-                if (dr.Read())
+                if (!string.IsNullOrEmpty(modelId) && !string.IsNullOrEmpty(versionId))
                 {
-                    oem = dr["Make"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
-                    bodyType = dr["BikeBodyStyle"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
-                    subSegment = dr["SubSegment"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
+                    uint.TryParse(versionId, out _versionId);
+                    uint.TryParse(modelId, out _modelId);
                 }
 
-                Trace.Warn("oem : " + oem);
-                Trace.Warn(" bodyType : " + bodyType);
-                Trace.Warn(" subSegment : " + subSegment);                
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
+                {
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_modelid", DbType.Int32, _modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_versionid", DbType.Int32, _versionId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+
+                            oem = dr["Make"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
+                            bodyType = dr["BikeBodyStyle"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
+                            subSegment = dr["SubSegment"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
+
+                            dr.Close();
+                        }
+
+                    }
+                }
             }
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                if(dr != null)
-                    dr.Close();
-
-                db.CloseConnection();
             }
         }
 
@@ -480,14 +477,14 @@ namespace Bikewale.Content
 
         public string MakeMaskingName
         {
-            get 
+            get
             {
                 if (ViewState["MakeMaskingName"] != null)
                     return ViewState["MakeMaskingName"].ToString();
                 else
                     return "-1";
             }
-            set{ ViewState["MakeMaskingName"] = value; }          
+            set { ViewState["MakeMaskingName"] = value; }
         }
 
         public string ModelIdVer
@@ -686,6 +683,6 @@ namespace Bikewale.Content
                 HttpContext.Current.Response.Cookies.Add(objCookie);
             }
         }
-		
+
     }//class
 }//namespace

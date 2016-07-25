@@ -71,47 +71,49 @@ namespace Bikewale.Used
 		
 		void BindPhotos()
 		{
-			string sql = "";
-			Database db = new Database();
-			DataSet ds = new DataSet();
+            throw new Exception("Method not used/commented");
+
+            //string sql = "";
+            //Database db = new Database();
+            //DataSet ds = new DataSet();
 						
-			Trace.Warn(sql);
-			try
-			{
-				string whomBike = CommonOpn.CheckIsDealerFromProfileNo(profileNo) == true ? "1" : "0";	//1 for dealer Bike and 0 for customer Bike
+            //Trace.Warn(sql);
+            //try
+            //{
+            //    string whomBike = CommonOpn.CheckIsDealerFromProfileNo(profileNo) == true ? "1" : "0";	//1 for dealer Bike and 0 for customer Bike
 
-                sql = " SELECT ImageUrlThumb, ImageUrlThumbSmall, ImageUrlFull, IsMain, DirectoryPath, HostUrl, OriginalImagePath FROM BikePhotos With(NoLock) "
-					+ " WHERE IsDealer = @whomBike AND IsActive = 1 AND IsApproved = 1 AND InquiryId = @inquiryId";
-				Trace.Warn(sql);
-				SqlParameter [] param ={new SqlParameter("@whomBike", whomBike), new SqlParameter("@inquiryId", inquiryId)};
-				dsData = db.SelectAdaptQry(sql, param);
+            //    sql = " SELECT ImageUrlThumb, ImageUrlThumbSmall, ImageUrlFull, IsMain, DirectoryPath, HostUrl, OriginalImagePath FROM BikePhotos With(NoLock) "
+            //        + " WHERE IsDealer = @whomBike AND IsActive = 1 AND IsApproved = 1 AND InquiryId = @inquiryId";
+            //    Trace.Warn(sql);
+            //    SqlParameter [] param ={new SqlParameter("@whomBike", whomBike), new SqlParameter("@inquiryId", inquiryId)};
+            //    dsData = db.SelectAdaptQry(sql, param);
 
-                DataRow[] drMain = dsData.Tables[0].Select("IsMain = 1");
+            //    DataRow[] drMain = dsData.Tables[0].Select("IsMain = 1");
 
-                Trace.Warn("drMain : ", drMain.Length.ToString());
+            //    Trace.Warn("drMain : ", drMain.Length.ToString());
 
-				if( fileName == "" || fileName == null)
-				{									
-					fileName = drMain[0]["ImageUrlFull"].ToString();                                      
-				}
+            //    if( fileName == "" || fileName == null)
+            //    {									
+            //        fileName = drMain[0]["ImageUrlFull"].ToString();                                      
+            //    }
 
-                directoryPath = drMain[0]["DirectoryPath"].ToString();
+            //    directoryPath = drMain[0]["DirectoryPath"].ToString();
 
-                rptPhotos.DataSource = dsData;
-                rptPhotos.DataBind();										
-			}
-            catch (SqlException err)
-            {
-                Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-			catch(Exception err)
-			{
-				Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-			}
+            //    rptPhotos.DataSource = dsData;
+            //    rptPhotos.DataBind();										
+            //}
+            //catch (SqlException err)
+            //{
+            //    Trace.Warn(err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch(Exception err)
+            //{
+            //    Trace.Warn(err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
 		}
 
 		public string GetSelectedClass(string url)

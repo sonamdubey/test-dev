@@ -4,16 +4,11 @@ using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Utility;
 using Carwale.BL.PaymentGateway;
 using Carwale.DAL.PaymentGateway;
-using Carwale.Entity.Enum;
 using Carwale.Entity.PaymentGateway;
 using Carwale.Interfaces.PaymentGateway;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.PriceQuote
@@ -23,7 +18,7 @@ namespace Bikewale.Mobile.PriceQuote
         protected Button btnTryAgain;
         protected PQCustomerDetail objCustomer = null;
         protected BookingAmountEntity objAmount = null;
-        protected string versionId = string.Empty, dealerId = string.Empty, MakeModel =string.Empty;
+        protected string versionId = string.Empty, dealerId = string.Empty, MakeModel = string.Empty;
         protected uint PqId = 0;
 
         protected override void OnInit(EventArgs e)
@@ -157,12 +152,12 @@ namespace Bikewale.Mobile.PriceQuote
             bool _isContentFound = true;
             try
             {
-                string _apiUrl = "/api/dealers/getdealerbookingamount/?versionId=" + PriceQuoteQueryString.VersionId + "&DealerId=" + PriceQuoteQueryString.DealerId;                
-
-                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    objAmount = objClient.GetApiResponseSync<BookingAmountEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objAmount);
-                }                
+                    container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
+                    Bikewale.Interfaces.AutoBiz.IDealers objDealer = container.Resolve<Bikewale.DAL.AutoBiz.DealersRepository>();
+                    objAmount = objDealer.GetDealerBookingAmount(Convert.ToUInt32(PriceQuoteQueryString.VersionId), Convert.ToUInt32(PriceQuoteQueryString.DealerId));
+                }
 
                 if (objAmount != null)
                     MakeModel = objAmount.objMake.MakeName + " " + objAmount.objModel.ModelName;

@@ -1,17 +1,16 @@
-﻿using System;
-using System.Text;
+﻿using Bikewale.Utility;
+using BikeWaleOpr.Common;
+using MySql.CoreDAL;
+using System;
+using System.Collections.Specialized;
+using System.Configuration;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using BikeWaleOpr.Common;
-using BikeWaleOpr.Controls;
-using System.Drawing.Imaging;
-using Ajax;
-using System.IO;
-using System.Configuration;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.Content
 {
@@ -45,7 +44,7 @@ namespace BikeWaleOpr.Content
                 AjaxFunctions aj = new AjaxFunctions();
                 /* string result = aj.UpdateVerPhotos("10");
                 spnError.InnerHtml = result;*/
-			    //aj.SavePhoto("","", "335");
+                //aj.SavePhoto("","", "335");
                 Trace.Warn(ConfigurationManager.AppSettings["imgHostURL"]);
                 BindGrid(false);
             }
@@ -55,7 +54,7 @@ namespace BikeWaleOpr.Content
         {
             string selId = "";
             string selModelId = "";
-            
+
             for (int i = 0; i < dtgrdLaunches.Items.Count; i++)
             {
                 CheckBox chkLaunched = (CheckBox)dtgrdLaunches.Items[i].FindControl("chkLaunched");
@@ -72,11 +71,11 @@ namespace BikeWaleOpr.Content
             if (selId != "" && selModelId != "")
             {
                 selId = selId.Substring(0, selId.Length - 1);
-                selModelId = selModelId.Substring(0,selModelId.Length - 1);
-            
+                selModelId = selModelId.Substring(0, selModelId.Length - 1);
+
                 UpdateBikeIsLaunched(selId, selModelId);
 
-                BindGrid(false);             
+                BindGrid(false);
             }
         }   // End btn_Save_click function
 
@@ -89,16 +88,13 @@ namespace BikeWaleOpr.Content
 
         public void DeleteExpectedLaunchBike(string bikeModelId)
         {
-            Database db = null;
-
             try
             {
-                using (SqlCommand cmd = new SqlCommand("DeleteExpectedLaunchBike"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("deleteexpectedlaunchbike"))
                 {
-                    db = new Database();
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@BikeModelId", SqlDbType.Int).Value = bikeModelId;
-                    db.UpdateQry(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikemodelid", DbType.Int32, bikeModelId));
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException err)
@@ -111,69 +107,59 @@ namespace BikeWaleOpr.Content
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-            }
         }//End of DeleteExpectedLaunchBike
-		
+
         void BindGrid(bool IsPaging)
         {
             string sql = "";
-            DataSet ds = new DataSet();
-            Database db = new Database();
-
             int pageSize = dtgrdLaunches.PageSize;
 
-           /* sql = " SELECT EC.Id, EC.ModelName,Ec.Sort, Ma.Name MakeName "
-                + " FROM BikeMakes Ma, ExpectedBikeLaunches EC "
-                + " WHERE IsLaunched=0 AND EC.BikeMakeId=Ma.Id ORDER BY Ec.Sort,ModelName ";*/
-
-            sql = " SELECT EC.Id, EC.LaunchDate, EC.ExpectedLaunch, EC.BikeModelId, CMA.Name +'-'+ CMO.Name AS BikeName "
-                + " , EC.EstimatedPriceMin, EC.EstimatedPriceMax, EC.HostURL, EC.SmallPicImagePath ,EC.LargePicImagePath"
-                + " FROM ExpectedBikeLaunches EC "
-                + " LEFT JOIN BikeModels CMO ON EC.BikeModelId = CMO.ID "
-                + " LEFT JOIN BikeMakes CMA ON CMO.BikeMakeId = CMA.ID "
-                + " WHERE IsLaunched=0 AND EC.IsDeleted = 0 "
-                + " ORDER BY EC.LaunchDate DESC ";
-
-            Trace.Warn("BindGrid : " + sql);
+            sql = @" SELECT ec.Id, ec.LaunchDate, ec.ExpectedLaunch, ec.BikeModelId, concat(cma.Name ,'-', cmo.Name) AS BikeName 
+                , ec.EstimatedPriceMin, ec.EstimatedPriceMax, ec.HostURL, ec.SmallPicImagePath ,ec.LargePicImagePath
+                from expectedbikelaunches ec 
+                left join bikemodels cmo on ec.bikemodelid = cmo.id 
+                left join bikemakes cma on cmo.bikemakeid = cma.id 
+                where islaunched=0 and ec.isdeleted = 0 
+                order by ec.launchdate desc ";
 
             try
             {
-                ds = db.SelectAdaptQry(sql);
-                //objCom.BindGridSet(sql, dtgrdLaunches);
 
-                if (ds.Tables[0].Rows.Count > 0)
+                using (DataSet ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly))
                 {
-                    spnError.InnerHtml = " ";
-                }
-                else
-                {
-                    spnError.InnerHtml = "Sorry! No Record Exists. ";
-                }
+                    if (ds != null && ds.Tables != null)
+                    {
+                        if (ds.Tables[0].Rows.Count > 0)
+                        {
+                            spnError.InnerHtml = " ";
+                        }
+                        else
+                        {
+                            spnError.InnerHtml = "Sorry! No Record Exists. ";
+                        }
 
-                if (ds.Tables[0].Rows.Count > pageSize)
-                {
-                    dtgrdLaunches.AllowPaging = true;
-                    dtgrdLaunches.PageSize = pageSize;
-                }
-                else
-                    dtgrdLaunches.AllowPaging = false;
+                        if (ds.Tables[0].Rows.Count > pageSize)
+                        {
+                            dtgrdLaunches.AllowPaging = true;
+                            dtgrdLaunches.PageSize = pageSize;
+                        }
+                        else
+                            dtgrdLaunches.AllowPaging = false;
 
-                if (!IsPaging)
-                    dtgrdLaunches.CurrentPageIndex = 0;
+                        if (!IsPaging)
+                            dtgrdLaunches.CurrentPageIndex = 0;
 
-                dtgrdLaunches.DataSource = ds;
-                dtgrdLaunches.DataBind();
+                        dtgrdLaunches.DataSource = ds;
+                        dtgrdLaunches.DataBind();
 
-                if (dtgrdLaunches.Items.Count > 0)
-                {
-                    if (dtgrdLaunches.CurrentPageIndex == 0)
-                        serialNo = 0;
-                    else
-                        serialNo = pageSize * dtgrdLaunches.CurrentPageIndex;
+                        if (dtgrdLaunches.Items.Count > 0)
+                        {
+                            if (dtgrdLaunches.CurrentPageIndex == 0)
+                                serialNo = 0;
+                            else
+                                serialNo = pageSize * dtgrdLaunches.CurrentPageIndex;
+                        }
+                    }
                 }
             }
             catch (SqlException err)
@@ -188,12 +174,8 @@ namespace BikeWaleOpr.Content
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally 
-            {
-                db.CloseConnection();
-            }
         }
-      
+
         void Page_Change(object sender, DataGridPageChangedEventArgs e)
         {
             // Set CurrentPageIndex to the page the user clicked.
@@ -221,19 +203,28 @@ namespace BikeWaleOpr.Content
         /// <param name="launchBikeModelIds"></param>
         protected void UpdateBikeIsLaunched(string launchBikeIds, string launchBikeModelIds)
         {
-            Database db = null;
-
             try
             {
-                using (SqlCommand cmd = new SqlCommand("UpdateBikeIsLaunched"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("updatebikeislaunched"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@SelLaunchBikeIds", SqlDbType.VarChar, 30).Value = launchBikeIds;
-                    cmd.Parameters.Add("@SelLauchModelIds", SqlDbType.VarChar, 30).Value = launchBikeModelIds;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sellaunchbikeids", DbType.String, 30, launchBikeIds));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sellauchmodelids", DbType.String, 30, launchBikeModelIds));
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
 
-                    db = new Database();
+                    if (!string.IsNullOrEmpty(launchBikeModelIds))
+                    {
+                        foreach (string modelId in launchBikeModelIds.Split(','))
+                        {
+                            NameValueCollection nvc = new NameValueCollection();
+                            nvc.Add("ModelId", modelId);
+                            nvc.Add("IsUsed", "1");
+                            nvc.Add("IsNew", "1");
+                            nvc.Add("IsFuturistic", "0");
+                            SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
+                        }
+                    }
 
-                    db.UpdateQry(cmd);
                 }
             }
             catch (SqlException sqlEx)
@@ -247,11 +238,6 @@ namespace BikeWaleOpr.Content
                 Trace.Warn("Exception ", ex.Message);
                 ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 errObj.SendMail();
-            }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
             }
         }//End UpdateBikeIsLaunched
     } // class

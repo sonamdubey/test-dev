@@ -11,8 +11,8 @@ using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Service.Utilities;
 using Bikewale.Utility;
+using Microsoft.Practices.Unity;
 using System;
-using System.Configuration;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -164,17 +164,17 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         objCust = pqCustomer.objCustomerBase;
 
                         PQ_DealerDetailEntity dealerDetailEntity = null;
-                        string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                        string _requestType = "application/json";
 
-                        string _apiUrl = String.Format("/api/Dealers/GetDealerDetailsPQ/?versionId={0}&DealerId={1}&CityId={2}", input.VersionId, input.DealerId, input.CityId);
-                        // Send HTTP GET requests 
-
-                        using (BWHttpClient objClient = new BWHttpClient())
+                        using (IUnityContainer container = new UnityContainer())
                         {
-                            dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(APIHost.AB, _requestType, _apiUrl, dealerDetailEntity);
+                            container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
+                            Bikewale.Interfaces.AutoBiz.IDealers objDealer = container.Resolve<Bikewale.DAL.AutoBiz.DealersRepository>();
+                            PQParameterEntity objParam = new PQParameterEntity();
+                            objParam.CityId = Convert.ToUInt32(input.CityId);
+                            objParam.DealerId = Convert.ToUInt32(input.DealerId);
+                            objParam.VersionId = Convert.ToUInt32(input.VersionId);
+                            dealerDetailEntity = objDealer.GetDealerDetailsPQ(objParam);
                         }
-
 
                         if (dealerDetailEntity != null && dealerDetailEntity.objQuotation != null)
                         {
@@ -239,12 +239,12 @@ namespace Bikewale.Service.Controllers.PriceQuote
                             objDPQSmsEntity.DealerCity = dealerDetailEntity.objDealer.objCity != null ? dealerDetailEntity.objDealer.objCity.CityName : string.Empty;
                             objDPQSmsEntity.OrganisationName = dealerDetailEntity.objDealer.Organization;
 
-                            _objLeadNofitication.NotifyCustomer(input.PQId, bikeName, imagePath, dealerDetailEntity.objDealer.Organization,
-                                dealerDetailEntity.objDealer.EmailId, dealerDetailEntity.objDealer.MobileNo, dealerDetailEntity.objDealer.Organization,
-                                dealerDetailEntity.objDealer.Address, objCust.CustomerName, objCust.CustomerEmail,
-                                dealerDetailEntity.objQuotation.PriceList, dealerDetailEntity.objOffers, dealerDetailEntity.objDealer.objArea.PinCode,
-                                dealerDetailEntity.objDealer.objState.StateName, dealerDetailEntity.objDealer.objCity.CityName, TotalPrice, objDPQSmsEntity,
-                                "api/UpdatePQCustomerDetail", input.LeadSourceId, versionName, dealerDetailEntity.objDealer.objArea.Latitude, dealerDetailEntity.objDealer.objArea.Longitude, dealerDetailEntity.objDealer.WorkingTime, platformId);
+                            string custArea = objCust.AreaDetails == null ? string.Empty : objCust.AreaDetails.AreaName,
+                                custCity = objCust.cityDetails == null ? string.Empty : objCust.cityDetails.CityName;
+
+                            _objLeadNofitication.NotifyDealer(input.PQId, dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName,
+                                dealerDetailEntity.objDealer.Organization, dealerDetailEntity.objDealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, custArea, custCity, dealerDetailEntity.objQuotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, dealerDetailEntity.objDealer.PhoneNo, bikeName, objDPQSmsEntity.DealerArea);
+
 
                             if (isVerified)
                             {

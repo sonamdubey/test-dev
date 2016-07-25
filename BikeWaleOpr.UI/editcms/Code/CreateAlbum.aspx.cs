@@ -218,71 +218,75 @@ namespace BikeWaleOpr.EditCms
         #region Position Button Click
         void btnPosition_Click(object sender, EventArgs e)
         {
-            SqlConnection con;
-            SqlCommand cmd;
-            SqlParameter prm;
-            Database db = new Database();
+            throw new Exception("Method not used/commented");
 
-            string conStr = db.GetConString();
+            //SqlConnection con;
+            //SqlCommand cmd;
+            //SqlParameter prm;
+            //Database db = new Database();
 
-            if (txtPosition.Text != "")
-            {
-                con = new SqlConnection(conStr);
-                try
-                {
-                    cmd = new SqlCommand("Con_EditCms_UpdateSequence", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
+            //string conStr = db.GetConString();
 
-                    prm = cmd.Parameters.Add("@BasicId", SqlDbType.BigInt);
-                    prm.Value = basicId;
+            //if (txtPosition.Text != "")
+            //{
+            //    con = new SqlConnection(conStr);
+            //    try
+            //    {
+            //        cmd = new SqlCommand("Con_EditCms_UpdateSequence", con);
+            //        cmd.CommandType = CommandType.StoredProcedure;
 
-                    prm = cmd.Parameters.Add("@ID", SqlDbType.BigInt);
-                    prm.Value = int.Parse(hdnImageId.Value.ToString());
+            //        prm = cmd.Parameters.Add("@BasicId", SqlDbType.BigInt);
+            //        prm.Value = basicId;
 
-                    prm = cmd.Parameters.Add("@ToSequence", SqlDbType.Int);
-                    prm.Value = int.Parse(txtPosition.Text);
+            //        prm = cmd.Parameters.Add("@ID", SqlDbType.BigInt);
+            //        prm.Value = int.Parse(hdnImageId.Value.ToString());
 
-                    prm = cmd.Parameters.Add("@LastUpdatedBy", SqlDbType.BigInt);
-                    prm.Value = CurrentUser.Id;
+            //        prm = cmd.Parameters.Add("@ToSequence", SqlDbType.Int);
+            //        prm.Value = int.Parse(txtPosition.Text);
 
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                }
-                catch (Exception err)
-                {
-                    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
-                finally
-                {
-                    if (con.State == ConnectionState.Open)
-                    {
-                        con.Close();
-                    }
-                    FillList();
-                }
-            }
+            //        prm = cmd.Parameters.Add("@LastUpdatedBy", SqlDbType.BigInt);
+            //        prm.Value = CurrentUser.Id;
+
+            //        con.Open();
+            //        cmd.ExecuteNonQuery();
+            //    }
+            //    catch (Exception err)
+            //    {
+            //        ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //        objErr.SendMail();
+            //    }
+            //    finally
+            //    {
+            //        if (con.State == ConnectionState.Open)
+            //        {
+            //            con.Close();
+            //        }
+            //        FillList();
+            //    }
+            //}
         }
         #endregion
 
         #region Delete Photo From list
         void dlstPhoto_Delete(object sender, DataListCommandEventArgs e)
         {
-            string sql = "Update Con_EditCms_Images Set IsActive = 0 WHERE ID=" + dlstPhoto.DataKeys[e.Item.ItemIndex];
-            Trace.Warn(dlstPhoto.DataKeys[e.Item.ItemIndex].ToString());
-            Database db = new Database();
-            try
-            {
-                db.UpdateQry(sql);
-            }
-            catch (SqlException err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+            throw new Exception("Method not used/commented");
 
-            FillList();
-            GetMainImage();
+            //string sql = "Update Con_EditCms_Images Set IsActive = 0 WHERE ID=" + dlstPhoto.DataKeys[e.Item.ItemIndex];
+            //Trace.Warn(dlstPhoto.DataKeys[e.Item.ItemIndex].ToString());
+            //Database db = new Database();
+            //try
+            //{
+            //    db.UpdateQry(sql);
+            //}
+            //catch (SqlException err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+
+            //FillList();
+            //GetMainImage();
 
         }
         #endregion
@@ -290,58 +294,61 @@ namespace BikeWaleOpr.EditCms
         #region Show Gallery Button Click
         void btnGallery_Click(object sender, EventArgs e)
         {
-            string sql = string.Empty;
-            Database db = new Database();
-            string conStr = db.GetConString();
 
-            SqlConnection con;
+            throw new Exception("Method not used/commented");
 
-            con = new SqlConnection(conStr);
+            //string sql = string.Empty;
+            //Database db = new Database();
+            //string conStr = db.GetConString();
 
-            if (btnGallery.Text == "Show Gallery")
-            {
-                sql = "Update Con_EditCms_Basic Set ShowGallery = 1 Where Id = @BasicId";
-            }
-            else
-            {
-                sql = "Update Con_EditCms_Basic Set ShowGallery = 0 Where Id = @BasicId";
-            }
-            try
-            {
+            //SqlConnection con;
 
-                SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@BasicId", SqlDbType.BigInt).Value = basicId;
+            //con = new SqlConnection(conStr);
 
-                con.Open();
+            //if (btnGallery.Text == "Show Gallery")
+            //{
+            //    sql = "Update Con_EditCms_Basic Set ShowGallery = 1 Where Id = @BasicId";
+            //}
+            //else
+            //{
+            //    sql = "Update Con_EditCms_Basic Set ShowGallery = 0 Where Id = @BasicId";
+            //}
+            //try
+            //{
 
-                int check = cmd.ExecuteNonQuery();
+            //    SqlCommand cmd = new SqlCommand(sql, con);
+            //    cmd.Parameters.Add("@BasicId", SqlDbType.BigInt).Value = basicId;
 
-                if (check > 0)
-                {
-                    ShowGallery();
-                }
-                else
-                {
-                    lblGallery.InnerText = "Show Gallery Status Not Changed";
-                }
-            }
-            catch (SqlException err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (con.State == ConnectionState.Open)
-                {
-                    con.Close();
-                }
-            }
+            //    con.Open();
+
+            //    int check = cmd.ExecuteNonQuery();
+
+            //    if (check > 0)
+            //    {
+            //        ShowGallery();
+            //    }
+            //    else
+            //    {
+            //        lblGallery.InnerText = "Show Gallery Status Not Changed";
+            //    }
+            //}
+            //catch (SqlException err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if (con.State == ConnectionState.Open)
+            //    {
+            //        con.Close();
+            //    }
+            //}
         }
         #endregion
 
@@ -364,44 +371,47 @@ namespace BikeWaleOpr.EditCms
         /// <returns></returns>
         private string GetHostUrl(string basicId)
         {
-            string retVal = string.Empty, sql = string.Empty;
-            Database db = new Database();
-            SqlDataReader dr = null;
-            SqlCommand cmd = new SqlCommand();
 
-            sql = "SELECT HostUrl FROM Con_EditCms_Basic Where Id = @BasicId";
-            cmd.CommandText = sql;
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.Add("@BasicId", SqlDbType.BigInt).Value = basicId;
+            throw new Exception("Method not used/commented");
 
-            try
-            {
-                dr = db.SelectQry(cmd);
-                while (dr.Read())
-                {
-                    retVal = dr["HostURL"].ToString();
-                }
-            }
-            catch (SqlException ex)
-            {
-                Trace.Warn("SqlEX: " + ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception ex)
-            {
-                Trace.Warn("EX: " + ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (dr != null)
-                    dr.Close();
-                db.CloseConnection();
-            }
-            Trace.Warn("retVal: " + retVal);
-            return retVal;
+            //string retVal = string.Empty, sql = string.Empty;
+            //Database db = new Database();
+            //SqlDataReader dr = null;
+            //SqlCommand cmd = new SqlCommand();
+
+            //sql = "SELECT HostUrl FROM Con_EditCms_Basic Where Id = @BasicId";
+            //cmd.CommandText = sql;
+            //cmd.CommandType = CommandType.Text;
+            //cmd.Parameters.Add("@BasicId", SqlDbType.BigInt).Value = basicId;
+
+            //try
+            //{
+            //    dr = db.SelectQry(cmd);
+            //    while (dr.Read())
+            //    {
+            //        retVal = dr["HostURL"].ToString();
+            //    }
+            //}
+            //catch (SqlException ex)
+            //{
+            //    Trace.Warn("SqlEX: " + ex.Message);
+            //    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception ex)
+            //{
+            //    Trace.Warn("EX: " + ex.Message);
+            //    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if (dr != null)
+            //        dr.Close();
+            //    db.CloseConnection();
+            //}
+            //Trace.Warn("retVal: " + retVal);
+            //return retVal;
         }
         #endregion
 
@@ -411,41 +421,44 @@ namespace BikeWaleOpr.EditCms
         /// </summary>
         private void LoadEditImageDetails()
         {
-            string sql = "SELECT * FROM Con_EditCms_Images WHERE ID = " + lblEditImageId.Text;
-            SqlDataReader dr = null;
-            Database db = new Database();
-            string makeId = string.Empty, modelId = string.Empty, imageName = string.Empty, imagePath = string.Empty, hostUrl = string.Empty, StatusId=string.Empty;
+            throw new Exception("Method not used/commented");
 
-            try
-            {
-                dr = db.SelectQry(sql);
-                if (dr.Read())
-                {
-                    txtCaption.Text = dr["Caption"].ToString();
-                    ddlCategory.SelectedValue = dr["ImageCategoryId"].ToString();
-                    makeId = dr["MakeId"].ToString();
-                    modelId = dr["ModelId"].ToString();
-                    imageName = dr["ImageName"].ToString();
-                    imagePath = dr["ImagePathThumbNail"].ToString();
-                    hostUrl = dr["HostUrl"].ToString();
-                }
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (dr != null)
-                    dr.Close();
-                db.CloseConnection();
-            }
-            txtImageName.Value = imageName.Split('.')[0].Substring(0, imageName.LastIndexOf('-'));
-            EditImagePath = ImagingOperations.GetPathToShowImages("/bikewaleimg/ec/", hostUrl) + imagePath;
-            BindControls.BindAllMakes(ddlMake);
-            ddlMake.SelectedValue = makeId;
-            GetModels(makeId, modelId);
+
+            //string sql = "SELECT * FROM Con_EditCms_Images WHERE ID = " + lblEditImageId.Text;
+            //SqlDataReader dr = null;
+            //Database db = new Database();
+            //string makeId = string.Empty, modelId = string.Empty, imageName = string.Empty, imagePath = string.Empty, hostUrl = string.Empty, StatusId=string.Empty;
+
+            //try
+            //{
+            //    dr = db.SelectQry(sql);
+            //    if (dr.Read())
+            //    {
+            //        txtCaption.Text = dr["Caption"].ToString();
+            //        ddlCategory.SelectedValue = dr["ImageCategoryId"].ToString();
+            //        makeId = dr["MakeId"].ToString();
+            //        modelId = dr["ModelId"].ToString();
+            //        imageName = dr["ImageName"].ToString();
+            //        imagePath = dr["ImagePathThumbNail"].ToString();
+            //        hostUrl = dr["HostUrl"].ToString();
+            //    }
+            //}
+            //catch (Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if (dr != null)
+            //        dr.Close();
+            //    db.CloseConnection();
+            //}
+            //txtImageName.Value = imageName.Split('.')[0].Substring(0, imageName.LastIndexOf('-'));
+            //EditImagePath = ImagingOperations.GetPathToShowImages("/bikewaleimg/ec/", hostUrl) + imagePath;
+            //BindControls.BindAllMakes(ddlMake);
+            //ddlMake.SelectedValue = makeId;
+            //GetModels(makeId, modelId);
         }
         #endregion
 
@@ -457,40 +470,42 @@ namespace BikeWaleOpr.EditCms
         /// <param name="modelId">Model Id which needs to be selected from the list of models retrieved</param>
         private void GetModels(string makeId, string modelId)
         {
-            string sql = string.Empty;
-            Database db = new Database();
-            SqlCommand cmd = new SqlCommand();
-            DataSet ds = new DataSet();
+            throw new Exception("Method not used/commented");
 
-            sql = "SELECT ID AS Value, Name AS Text FROM BikeModels WHERE IsDeleted = 0 AND BikeMakeId = @MakeId Order by Text";
-            cmd.CommandText = sql;
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
+            //string sql = string.Empty;
+            //Database db = new Database();
+            //SqlCommand cmd = new SqlCommand();
+            //DataSet ds = new DataSet();
 
-            try
-            {
-                ds = db.SelectAdaptQry(cmd);
-                ddlModel.DataSource = ds.Tables[0];
-                ddlModel.DataTextField = "Text";
-                ddlModel.DataValueField = "Value";
-                ddlModel.DataBind();
-                ddlModel.Items.Insert(0, new ListItem("--Select Model--", "0"));
-                ddlModel.SelectedValue = modelId;
-            }
-            catch (SqlException ex)
-            {
-                ErrorClass objEx = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objEx.SendMail();
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objEx = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objEx.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
+            //sql = "SELECT ID AS Value, Name AS Text FROM BikeModels WHERE IsDeleted = 0 AND BikeMakeId = @MakeId Order by Text";
+            //cmd.CommandText = sql;
+            //cmd.CommandType = CommandType.Text;
+            //cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
+
+            //try
+            //{
+            //    ds = db.SelectAdaptQry(cmd);
+            //    ddlModel.DataSource = ds.Tables[0];
+            //    ddlModel.DataTextField = "Text";
+            //    ddlModel.DataValueField = "Value";
+            //    ddlModel.DataBind();
+            //    ddlModel.Items.Insert(0, new ListItem("--Select Model--", "0"));
+            //    ddlModel.SelectedValue = modelId;
+            //}
+            //catch (SqlException ex)
+            //{
+            //    ErrorClass objEx = new ErrorClass(ex, Request.ServerVariables["URL"]);
+            //    objEx.SendMail();
+            //}
+            //catch (Exception ex)
+            //{
+            //    ErrorClass objEx = new ErrorClass(ex, Request.ServerVariables["URL"]);
+            //    objEx.SendMail();
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
         }
         #endregion
 
@@ -504,28 +519,30 @@ namespace BikeWaleOpr.EditCms
         /// </summary>
         void FillList()
         {
-            CommonOpn op = new CommonOpn();
-            Database db = new Database();
+            throw new Exception("Method not used/commented");
 
-            string sql;
-            sql = " SELECT CEI.ID, CEI.BasicID, CEI.Caption, CEI.Sequence, CEI.HostURL, CEI.ImageName, CEI.ImagePathThumbNail, CEI.MakeId, CEI.ModelId, CEI.StatusId "
-                + " FROM Con_EditCms_Images CEI"
-                + " WHERE CEI.BasicId = " + basicId + " AND IsActive = 1 AND IsMainImage = 0 ORDER BY Sequence Asc";
+            //CommonOpn op = new CommonOpn();
+            //Database db = new Database();
 
-            Trace.Warn(sql);
+            //string sql;
+            //sql = " SELECT CEI.ID, CEI.BasicID, CEI.Caption, CEI.Sequence, CEI.HostURL, CEI.ImageName, CEI.ImagePathThumbNail, CEI.MakeId, CEI.ModelId, CEI.StatusId "
+            //    + " FROM Con_EditCms_Images CEI"
+            //    + " WHERE CEI.BasicId = " + basicId + " AND IsActive = 1 AND IsMainImage = 0 ORDER BY Sequence Asc";
 
-            try
-            {
-                op.BindListReader(sql, dlstPhoto);
+            //Trace.Warn(sql);
 
-                if (dlstPhoto.Items.Count > 0) btnContinue.Style.Add("display", "block");
-                else btnContinue.Style.Add("display", "none");
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+            //try
+            //{
+            //    op.BindListReader(sql, dlstPhoto);
+
+            //    if (dlstPhoto.Items.Count > 0) btnContinue.Style.Add("display", "block");
+            //    else btnContinue.Style.Add("display", "none");
+            //}
+            //catch (Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
         }
         #endregion
 
@@ -541,111 +558,114 @@ namespace BikeWaleOpr.EditCms
         /// <returns>String(Image Id)</returns>
         string SaveData(string saveid)
         {
-            string sql = string.Empty;
-            Database db = new Database();
-            string lastSavedId = "";
-            SqlCommand cmdParam = new SqlCommand();
-            bool hasCustomImage = false;
-            string conStr = db.GetConString();
-
-            SqlParameter prm;
-
-            try
-            {
-                using (SqlConnection con = new SqlConnection(db.GetConString()))
-                {
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.CommandText = "Con_EditCms_Images_Save";
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = con;
-
-                        prm = cmd.Parameters.Add("@ID", SqlDbType.BigInt);
-                        prm.Value = saveid;
-                        Trace.Warn("saveid : ", saveid);
-                        prm = cmd.Parameters.Add("@BasicId", SqlDbType.BigInt);
-                        prm.Value = basicId;
-
-                        prm = cmd.Parameters.Add("@ImageCategoryId", SqlDbType.BigInt);
-                        prm.Value = ddlCategory.SelectedItem.Value;
-
-                        prm = cmd.Parameters.Add("@Caption", SqlDbType.VarChar, 250);
-                        prm.Value = txtCaption.Text.Trim();
-
-                        prm = cmd.Parameters.Add("@LastUpdatedBy", SqlDbType.BigInt);
-                        prm.Value = CurrentUser.Id;
-
-                        prm = cmd.Parameters.Add("@HostUrl", SqlDbType.VarChar, 250);
-                        prm.Value = ConfigurationManager.AppSettings["imgHostURL"];
-
-                        prm = cmd.Parameters.Add("@IsReplicated", SqlDbType.Bit);
-                        prm.Value = 0;
-
-                        prm = cmd.Parameters.Add("@ImageId", SqlDbType.BigInt);
-                        prm.Direction = ParameterDirection.Output;
-
-                        prm = cmd.Parameters.Add("@MakeId", SqlDbType.Int);
-                        prm.Value = ddlMake.SelectedValue;
-
-                        prm = cmd.Parameters.Add("@ModelId", SqlDbType.Int);
-                        prm.Value = hdn_selModel.Value;
-
-                        prm = cmd.Parameters.Add("@ImageName", SqlDbType.VarChar, 150);
-                        prm.Value = txtImageName.Value.Trim().Replace(' ', '-').ToLower();
-
-                        prm = cmd.Parameters.Add("@IsMainImage", SqlDbType.Bit);
-                        prm.Value = chkIsMainImg.Checked;
-
-                        prm = cmd.Parameters.Add("@HasCustomImage", SqlDbType.Bit);
-                        prm.Value = ddlDimensions.SelectedValue == "-1" ? false : true;
-
-                        prm = cmd.Parameters.Add("@ImagePath", SqlDbType.VarChar, 50);
-                        prm.Value = "/bikewaleimg/ec/" + (chkIsMainImg.Checked ? basicId + "/img/m/" : basicId + "/img/");
-
-                        prm = cmd.Parameters.Add("@StatusId", SqlDbType.TinyInt);
-                        prm.Value = 1;
-
-                        prm = cmd.Parameters.Add("@TimeStamp", SqlDbType.VarChar, 25);
-                        prm.Value = timeStamp;
-
-                        con.Open();
-                        cmd.ExecuteNonQuery();
-
-                        lastSavedId = cmd.Parameters["@ImageId"].Value.ToString();
-                    }
-                }
-                string dirPathCmn = "/bikewaleimg/ec/" + basicId + "/img/ol/";
-                string imageNameCmn = txtImageName.Value.Trim().Replace(' ', '-') + "-" + lastSavedId + ".jpg";
+            throw new Exception("Method not used/commented");
 
 
-                //update to common image datatable here
-                //give dir path where original file is saved
-                //modify dirpath for common database enteries
+            //string sql = string.Empty;
+            //Database db = new Database();
+            //string lastSavedId = "";
+            //SqlCommand cmdParam = new SqlCommand();
+            //bool hasCustomImage = false;
+            //string conStr = db.GetConString();
 
-                // Insert record in IMG_AllBikePhotos
-                BikeCommonRQ bikeRQ = new BikeCommonRQ();
-                string rabbitMQUrl = bikeRQ.UploadImageToCommonDatabase(lastSavedId, imageNameCmn, ImageCategories.EDITCMS, dirPathCmn);
+            //SqlParameter prm;
 
-                Trace.Warn("Rabbit MQ Path : " + rabbitMQUrl);
-                if (inpPhoto.Value != "")
-                {
-                    UploadPhotoFile(txtImageName.Value.Trim().Replace(' ', '-'), lastSavedId, rabbitMQUrl, out hasCustomImage);
-                }
+            //try
+            //{
+            //    using (SqlConnection con = new SqlConnection(db.GetConString()))
+            //    {
+            //        using (SqlCommand cmd = new SqlCommand())
+            //        {
+            //            cmd.CommandText = "Con_EditCms_Images_Save";
+            //            cmd.CommandType = CommandType.StoredProcedure;
+            //            cmd.Connection = con;
+
+            //            prm = cmd.Parameters.Add("@ID", SqlDbType.BigInt);
+            //            prm.Value = saveid;
+            //            Trace.Warn("saveid : ", saveid);
+            //            prm = cmd.Parameters.Add("@BasicId", SqlDbType.BigInt);
+            //            prm.Value = basicId;
+
+            //            prm = cmd.Parameters.Add("@ImageCategoryId", SqlDbType.BigInt);
+            //            prm.Value = ddlCategory.SelectedItem.Value;
+
+            //            prm = cmd.Parameters.Add("@Caption", SqlDbType.VarChar, 250);
+            //            prm.Value = txtCaption.Text.Trim();
+
+            //            prm = cmd.Parameters.Add("@LastUpdatedBy", SqlDbType.BigInt);
+            //            prm.Value = CurrentUser.Id;
+
+            //            prm = cmd.Parameters.Add("@HostUrl", SqlDbType.VarChar, 250);
+            //            prm.Value = ConfigurationManager.AppSettings["imgHostURL"];
+
+            //            prm = cmd.Parameters.Add("@IsReplicated", SqlDbType.Bit);
+            //            prm.Value = 0;
+
+            //            prm = cmd.Parameters.Add("@ImageId", SqlDbType.BigInt);
+            //            prm.Direction = ParameterDirection.Output;
+
+            //            prm = cmd.Parameters.Add("@MakeId", SqlDbType.Int);
+            //            prm.Value = ddlMake.SelectedValue;
+
+            //            prm = cmd.Parameters.Add("@ModelId", SqlDbType.Int);
+            //            prm.Value = hdn_selModel.Value;
+
+            //            prm = cmd.Parameters.Add("@ImageName", SqlDbType.VarChar, 150);
+            //            prm.Value = txtImageName.Value.Trim().Replace(' ', '-').ToLower();
+
+            //            prm = cmd.Parameters.Add("@IsMainImage", SqlDbType.Bit);
+            //            prm.Value = chkIsMainImg.Checked;
+
+            //            prm = cmd.Parameters.Add("@HasCustomImage", SqlDbType.Bit);
+            //            prm.Value = ddlDimensions.SelectedValue == "-1" ? false : true;
+
+            //            prm = cmd.Parameters.Add("@ImagePath", SqlDbType.VarChar, 50);
+            //            prm.Value = "/bikewaleimg/ec/" + (chkIsMainImg.Checked ? basicId + "/img/m/" : basicId + "/img/");
+
+            //            prm = cmd.Parameters.Add("@StatusId", SqlDbType.TinyInt);
+            //            prm.Value = 1;
+
+            //            prm = cmd.Parameters.Add("@TimeStamp", SqlDbType.VarChar, 25);
+            //            prm.Value = timeStamp;
+
+            //            con.Open();
+            //            cmd.ExecuteNonQuery();
+
+            //            lastSavedId = cmd.Parameters["@ImageId"].Value.ToString();
+            //        }
+            //    }
+            //    string dirPathCmn = "/bikewaleimg/ec/" + basicId + "/img/ol/";
+            //    string imageNameCmn = txtImageName.Value.Trim().Replace(' ', '-') + "-" + lastSavedId + ".jpg";
+
+
+            //    //update to common image datatable here
+            //    //give dir path where original file is saved
+            //    //modify dirpath for common database enteries
+
+            //    // Insert record in IMG_AllBikePhotos
+            //    BikeCommonRQ bikeRQ = new BikeCommonRQ();
+            //    string rabbitMQUrl = bikeRQ.UploadImageToCommonDatabase(lastSavedId, imageNameCmn, ImageCategories.EDITCMS, dirPathCmn);
+
+            //    Trace.Warn("Rabbit MQ Path : " + rabbitMQUrl);
+            //    if (inpPhoto.Value != "")
+            //    {
+            //        UploadPhotoFile(txtImageName.Value.Trim().Replace(' ', '-'), lastSavedId, rabbitMQUrl, out hasCustomImage);
+            //    }
                 
-            }
-            catch (SqlException err)
-            {
-                Trace.Warn("SqlEX: " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception err)
-            {
-                Trace.Warn("EX: " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            return lastSavedId;
+            //}
+            //catch (SqlException err)
+            //{
+            //    Trace.Warn("SqlEX: " + err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception err)
+            //{
+            //    Trace.Warn("EX: " + err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //return lastSavedId;
         }
         #endregion
         
@@ -658,49 +678,52 @@ namespace BikeWaleOpr.EditCms
         /// </summary>
         protected void GetMainImage()
         {
-            string mainImageString = string.Empty;
-            string sql = string.Empty;
-            SqlCommand cmd = new SqlCommand();
-            SqlDataReader dr = null;
-            Database db = new Database();
 
-            sql = "Select Id, ImageName, ImagePathThumbnail, HostUrl, StatusId from Con_EditCms_Images Where BasicId = @BasicId And IsMainImage = 1";
-            cmd.CommandText = sql;
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.Add("@BasicId", SqlDbType.BigInt).Value = basicId;
-            try
-            {
-                dr = db.SelectQry(cmd);
-                while (dr.Read())
-                {
-                    mainImgId = dr["Id"].ToString();
-                    imageName = dr["ImageName"].ToString();
-                    hostUrl = dr["HostUrl"].ToString();
-                    imagePathThumbnail = dr["ImagePathThumbnail"].ToString();
-                    statusId = dr["StatusId"].ToString();
-                }
-            }
-            catch (SqlException ex)
-            {
-                Trace.Warn("SqlEx: " + ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception ex)
-            {
-                Trace.Warn("Ex: " + ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (dr != null)
-                {
-                    dr.Close();
-                    dr.Dispose();
-                }
-                db.CloseConnection();
-            }
+            throw new Exception("Method not used/commented");
+
+            //string mainImageString = string.Empty;
+            //string sql = string.Empty;
+            //SqlCommand cmd = new SqlCommand();
+            //SqlDataReader dr = null;
+            //Database db = new Database();
+
+            //sql = "Select Id, ImageName, ImagePathThumbnail, HostUrl, StatusId from Con_EditCms_Images Where BasicId = @BasicId And IsMainImage = 1";
+            //cmd.CommandText = sql;
+            //cmd.CommandType = CommandType.Text;
+            //cmd.Parameters.Add("@BasicId", SqlDbType.BigInt).Value = basicId;
+            //try
+            //{
+            //    dr = db.SelectQry(cmd);
+            //    while (dr.Read())
+            //    {
+            //        mainImgId = dr["Id"].ToString();
+            //        imageName = dr["ImageName"].ToString();
+            //        hostUrl = dr["HostUrl"].ToString();
+            //        imagePathThumbnail = dr["ImagePathThumbnail"].ToString();
+            //        statusId = dr["StatusId"].ToString();
+            //    }
+            //}
+            //catch (SqlException ex)
+            //{
+            //    Trace.Warn("SqlEx: " + ex.Message);
+            //    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception ex)
+            //{
+            //    Trace.Warn("Ex: " + ex.Message);
+            //    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if (dr != null)
+            //    {
+            //        dr.Close();
+            //        dr.Dispose();
+            //    }
+            //    db.CloseConnection();
+            //}
 
         }
         #endregion
@@ -1004,45 +1027,47 @@ namespace BikeWaleOpr.EditCms
         /// <param name="photoId">Image Id</param>
         private void SaveImageSizes(string imageSizes, string photoId)
         {
-            string sql = string.Empty;
-            Database db = new Database();
-            bool isSizeSaved = false;
-            SqlCommand cmd = new SqlCommand();
+            throw new Exception("Method not used/commented");
 
-            sql = "Insert Into Con_EditCms_ImageSizes (ImageId, ImageWidth, ImageHeight) Values (@ImageId, @ImageWidth, @ImageHeight)";
-            cmd.CommandText = sql;
-            cmd.CommandType = CommandType.Text;
-            string[] sizes = imageSizes.Split('|');
+            //string sql = string.Empty;
+            //Database db = new Database();
+            //bool isSizeSaved = false;
+            //SqlCommand cmd = new SqlCommand();
 
-            try
-            {
-                for (int i = 0; i < sizes.Length; ++i)
-                {
-                    string imgWidth = sizes[i].Split(',')[0].ToString();
-                    string imgHeight = sizes[i].Split(',')[1].ToString();
-                    cmd.Parameters.Add("@ImageId", SqlDbType.BigInt).Value = photoId;
-                    cmd.Parameters.Add("@ImageWidth", SqlDbType.Int).Value = imgWidth;
-                    cmd.Parameters.Add("@ImageHeight", SqlDbType.Int).Value = imgHeight;
+            //sql = "Insert Into Con_EditCms_ImageSizes (ImageId, ImageWidth, ImageHeight) Values (@ImageId, @ImageWidth, @ImageHeight)";
+            //cmd.CommandText = sql;
+            //cmd.CommandType = CommandType.Text;
+            //string[] sizes = imageSizes.Split('|');
 
-                    isSizeSaved = db.InsertQry(cmd);
-                }
-            }
-            catch (SqlException err)
-            {
-                Trace.Warn("Error: " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception err)
-            {
-                Trace.Warn("Error: " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
+            //try
+            //{
+            //    for (int i = 0; i < sizes.Length; ++i)
+            //    {
+            //        string imgWidth = sizes[i].Split(',')[0].ToString();
+            //        string imgHeight = sizes[i].Split(',')[1].ToString();
+            //        cmd.Parameters.Add("@ImageId", SqlDbType.BigInt).Value = photoId;
+            //        cmd.Parameters.Add("@ImageWidth", SqlDbType.Int).Value = imgWidth;
+            //        cmd.Parameters.Add("@ImageHeight", SqlDbType.Int).Value = imgHeight;
+
+            //        isSizeSaved = db.InsertQry(cmd);
+            //    }
+            //}
+            //catch (SqlException err)
+            //{
+            //    Trace.Warn("Error: " + err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception err)
+            //{
+            //    Trace.Warn("Error: " + err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
         }
         #endregion
 
@@ -1052,52 +1077,55 @@ namespace BikeWaleOpr.EditCms
         /// </summary>
         void ShowGallery()
         {
-            string sql = string.Empty;
-            Database db = new Database();
-            bool showGallery = false;
 
-            try
-            {
-                sql = "Select ShowGallery From Con_EditCms_Basic Where Id = @BasicId";
-                SqlParameter[] param = 
-				{
-					new SqlParameter("@BasicId", basicId)
-				};
+            throw new Exception("Method not used/commented");
 
-                SqlDataReader dr = db.SelectQry(sql, param);
+            //string sql = string.Empty;
+            //Database db = new Database();
+            //bool showGallery = false;
 
-                if (dr.Read())
-                {
-                    showGallery = (bool)dr["ShowGallery"];
+            //try
+            //{
+            //    sql = "Select ShowGallery From Con_EditCms_Basic Where Id = @BasicId";
+            //    SqlParameter[] param = 
+            //    {
+            //        new SqlParameter("@BasicId", basicId)
+            //    };
 
-                    if (showGallery)
-                    {
-                        Gallery = "Yes";
-                        btnGallery.Text = "Don't Show Gallery";
-                        GetMainImage();
-                    }
-                    else
-                    {
-                        Gallery = "No";
-                        btnGallery.Text = "Show Gallery";
-                    }
-                }
-                dr.Close();
-            }
-            catch (SqlException err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
+            //    SqlDataReader dr = db.SelectQry(sql, param);
+
+            //    if (dr.Read())
+            //    {
+            //        showGallery = (bool)dr["ShowGallery"];
+
+            //        if (showGallery)
+            //        {
+            //            Gallery = "Yes";
+            //            btnGallery.Text = "Don't Show Gallery";
+            //            GetMainImage();
+            //        }
+            //        else
+            //        {
+            //            Gallery = "No";
+            //            btnGallery.Text = "Show Gallery";
+            //        }
+            //    }
+            //    dr.Close();
+            //}
+            //catch (SqlException err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
         }
         #endregion
 

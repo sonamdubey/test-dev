@@ -385,89 +385,93 @@ namespace Bikewale.Controls
 		// This function will bind Repeater with the
 		// query provided.
 		public void BindRepeater()
-		{						
-			this.SerialNo = (this.CurrentPageIndex - 1) * this.PageSize;
+		{
+            throw new Exception("Method not used/commented");
+		
+            //this.SerialNo = (this.CurrentPageIndex - 1) * this.PageSize;
 			
-			string sql = "";
-			CommonOpn objCom = new CommonOpn();		
+            //string sql = "";
+            //CommonOpn objCom = new CommonOpn();		
 						
-			Database db = new Database();			
+            //Database db = new Database();			
 			
 			
-			int startIndex = (this.CurrentPageIndex - 1) * this.PageSize + 1;
-			int endIndex = this.CurrentPageIndex * this.PageSize;
+            //int startIndex = (this.CurrentPageIndex - 1) * this.PageSize + 1;
+            //int endIndex = this.CurrentPageIndex * this.PageSize;
 			
-			//form the query. Only fetch the desired rows. 
-			sql = " Select * From (Select Top " + endIndex + " Row_Number() Over (Order By " + OrderByClause + ") AS RowN, "
-				+ " " + SelectClause + " From " + FromClause + " "
-				+ (WhereClause != "" ? " Where " + WhereClause + " " : "")
-				+ " ) AS TopRecords Where " 
-				+ " RowN >= " + startIndex + " AND RowN <= " + endIndex + " ";
+            ////form the query. Only fetch the desired rows. 
+            //sql = " Select * From (Select Top " + endIndex + " Row_Number() Over (Order By " + OrderByClause + ") AS RowN, "
+            //    + " " + SelectClause + " From " + FromClause + " "
+            //    + (WhereClause != "" ? " Where " + WhereClause + " " : "")
+            //    + " ) AS TopRecords Where " 
+            //    + " RowN >= " + startIndex + " AND RowN <= " + endIndex + " ";
 			
-			Trace.Warn("sql : " + sql);
+            //Trace.Warn("sql : " + sql);
 			
-			try
-			{
-				DataSet ds = new DataSet();
-				if ( sql != "" )
-				{
-					Trace.Warn( "Binding Sql : ");
+            //try
+            //{
+            //    DataSet ds = new DataSet();
+            //    if ( sql != "" )
+            //    {
+            //        Trace.Warn( "Binding Sql : ");
 					
-					SqlParameter [] param = SParams;
+            //        SqlParameter [] param = SParams;
 					
-					ds = db.SelectAdaptQry( sql, param );
+            //        ds = db.SelectAdaptQry( sql, param );
 					
-					rpt.DataSource = ds;
-					rpt.DataBind();
-				}
-				Trace.Warn( "Binding Complete..." );
-			}
-			catch(Exception err)
-			{
-				Trace.Warn(err.Message + err.Source);
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
+            //        rpt.DataSource = ds;
+            //        rpt.DataBind();
+            //    }
+            //    Trace.Warn( "Binding Complete..." );
+            //}
+            //catch(Exception err)
+            //{
+            //    Trace.Warn(err.Message + err.Source);
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
 		}
 		
 		
 		int GetRecordCount()
 		{
-			int count = 0;
-			SqlDataReader dr = null;
-			Database db = new Database();
+            throw new Exception("Method not used/commented");
 
-            try
-            {
-                if (RecordCountQuery != "")
-                {
-                    SqlParameter[] param = SParams;
+            //int count = 0;
+            //SqlDataReader dr = null;
+            //Database db = new Database();
 
-                    Trace.Warn(RecordCountQuery);
-                    dr = db.SelectQry(RecordCountQuery, param);
+            //try
+            //{
+            //    if (RecordCountQuery != "")
+            //    {
+            //        SqlParameter[] param = SParams;
 
-                    if (dr.Read())
-                    {
-                        count = Convert.ToInt32(dr[0]);
-                    }
+            //        Trace.Warn(RecordCountQuery);
+            //        dr = db.SelectQry(RecordCountQuery, param);
 
-                }
+            //        if (dr.Read())
+            //        {
+            //            count = Convert.ToInt32(dr[0]);
+            //        }
 
-            }
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if(dr != null)
-                    dr.Close();
-                db.CloseConnection();
-            }
+            //    }
+
+            //}
+            //catch (Exception err)
+            //{
+            //    Trace.Warn(err.Message + err.Source);
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if(dr != null)
+            //        dr.Close();
+            //    db.CloseConnection();
+            //}
 			
-			return count;
+            //return count;
 		}
 		
 		

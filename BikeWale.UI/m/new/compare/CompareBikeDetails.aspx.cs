@@ -241,10 +241,10 @@ namespace Bikewale.Mobile.New
             switch (featureValue)
             {
                 case "True":
-                    adString = "<img align=\"absmiddle\" src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/tick.gif\" />";
+                    adString = "<span class=\"bwmsprite compare-tick\"></span>";
                     break;
                 case "False":
-                    adString = "<span class=\"bwmsprite cross-md-dark-grey\"></span>";
+                    adString = "<span class=\"bwmsprite compare-cross\"></span>";
                     break;
                 default:
                     adString = "-";

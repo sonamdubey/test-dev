@@ -1,22 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Microsoft.Practices.Unity;
-using Bikewale.Entities.CMS;
-using Bikewale.Interfaces.CMS;
-using Bikewale.BAL.CMS;
-using Bikewale.Interfaces.Pager;
+﻿using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.Pager;
-using Bikewale.Entities.Pager;
+using Bikewale.Cache.CMS;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
-using Bikewale.Mobile.Controls;
-using System.Net.Http;
-using System.Configuration;
-using System.Net.Http.Headers;
+using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.Pager;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.EditCMS;
+using Bikewale.Interfaces.Pager;
+using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Web;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Content
 {
@@ -44,7 +47,7 @@ namespace Bikewale.Mobile.Content
             {
                 if (!String.IsNullOrEmpty(Request.QueryString["pn"]))
                     Int32.TryParse(Request.QueryString["pn"], out curPageNo);
-                     
+
                 GetFeaturesList();
             }
         }
@@ -79,21 +82,22 @@ namespace Bikewale.Mobile.Content
                     categorList.Add(EnumCMSContentType.SpecialFeature);
                     string _featuresCategoryId = CommonApiOpn.GetContentTypesString(categorList);
 
-                    // Send HTTP GET requests 
-                    HttpResponseMessage response = await client.GetAsync("webapi/article/listbycategory/?applicationid=" + ConfigurationManager.AppSettings["applicationId"] + "&categoryidlist=" + _featuresCategoryId + "&startindex=" + _startIndex + "&endindex=" + _endIndex);
-
-                    response.EnsureSuccessStatusCode();    // Throw if not a success code.
-
-                    if (response.IsSuccessStatusCode) //success status 200 above Status
+                    using (IUnityContainer container = new UnityContainer())
                     {
-                        var _objFeaturesList = await response.Content.ReadAsAsync<CMSContent>();
+                        container.RegisterType<IArticles, Articles>()
+                                .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                                .RegisterType<ICacheManager, MemcacheManager>();
+                        ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-                        if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                        var _objFeaturesList = _cache.GetArticlesByCategoryList(_featuresCategoryId, _startIndex, _endIndex, 0, 0);
+
+                        if (_objFeaturesList != null && _objFeaturesList.Articles.Count > 0)
                         {
-                            int _totalPages = objPager.GetTotalPages(Convert.ToInt32(_objFeaturesList.RecordCount), _pageSize);
 
+                            int _totalPages = objPager.GetTotalPages(Convert.ToInt32(_objFeaturesList.RecordCount), _pageSize);
                             BindFeatures(_objFeaturesList);
                             BindLinkPager(objPager, Convert.ToInt32(_objFeaturesList.RecordCount), _totalPages);
+
                         }
                         else
                         {
@@ -126,7 +130,7 @@ namespace Bikewale.Mobile.Content
         }
 
         private void BindLinkPager(IPager objPager, int recordCount, int totalPages)
-        {           
+        {
             PagerEntity pagerEntity = new PagerEntity();
 
             pagerEntity.BaseUrl = "/m/features/";
@@ -145,7 +149,7 @@ namespace Bikewale.Mobile.Content
 
             //get next and prev page links for SEO
             prevPageUrl = pagerOutput.PreviousPageUrl;
-            nextPageUrl = pagerOutput.NextPageUrl;       
+            nextPageUrl = pagerOutput.NextPageUrl;
         }
 
         private void BindFeatures(CMSContent _objFeaturesList)

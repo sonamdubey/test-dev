@@ -154,66 +154,17 @@ namespace Bikewale.Mobile.BikeBooking
 
         /// <summary>
         /// Written By : Ashwini Todkar on 7 Nov 2014
-        /// PopulateWhere save quote certificate as pdf
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void SaveAsPdf(object sender, EventArgs e)
-        //{
-        //    string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-        //    string _requestType = "application/json";
-        //    string _apiUrl = "/api/Dealers/GetDealerDetailsPQ/?versionId=" + PriceQuoteCookie.VersionId + "&DealerId=" + Request.QueryString["dealerId"] + "&CityId=" + cityId;
-        //    // Send HTTP GET requests 
-
-        //    PQ_DealerDetailEntity objPQR = BWHttpClient.GetApiResponseSync<PQ_DealerDetailEntity>(_abHostUrl, _requestType, _apiUrl, _objPQ);
-
-        //    if (objPQR != null)
-        //    {
-        //        _objPQ = objPQR;
-        //        string attachment = "attachment; filename=" + "DealerQuotation" + ".pdf";
-        //        Response.ClearContent();
-        //        Response.AddHeader("content-disposition", attachment);
-        //        Response.ContentType = "application/pdf";
-
-        //        StringWriter s_tw = new StringWriter();
-        //        HtmlTextWriter h_textw = new HtmlTextWriter(s_tw);
-
-        //        //PQPdfTemplate._objPQ = objPQR;
-        //        //PQPdfTemplate.BikeName = BikeName;
-        //        //PQPdfTemplate.ImgPath = ImgPath;
-        //        PQPdfTemplate.VersionId = Convert.ToUInt32(PriceQuoteCookie.VersionId);
-        //        PQPdfTemplate.DealerId = Convert.ToUInt32(Request.QueryString["dealerId"]);
-        //        PQPdfTemplate.BindDetails();
-        //        PQPdfTemplate.RenderControl(h_textw);//Name of the Panel
-
-        //        Document doc = new Document(PageSize.A4, 10, 10, 10, 10);
-        //        FontFactory.GetFont("Verdana", 40);
-        //        PdfWriter.GetInstance(doc, Response.OutputStream);
-
-        //        doc.Open();
-
-        //        StringReader s_tr = new StringReader(s_tw.ToString());
-        //        HTMLWorker html_worker = new HTMLWorker(doc);
-
-        //        html_worker.Parse(s_tr);
-        //        doc.Close();
-        //        Response.Write(doc);
-        //    }
-        //}
-
-        /// <summary>
-        /// Written By : Ashwini Todkar on 7 Nov 2014
         /// Summary    : PopulateWhere to get availability of bike with dealer e.g. in stock or waiting
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="versionId"></param>
         private void GetBikeAvailability(string dealerId, string versionId)
         {
-            string _apiUrl = "/api/Dealers/GetAvailabilityDays/?dealerId=" + dealerId + "&versionId=" + versionId;
-
-            using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+            using (IUnityContainer container = new UnityContainer())
             {
-                noOfDays = objClient.GetApiResponseSync<uint>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, noOfDays);
+                container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
+                Bikewale.Interfaces.AutoBiz.IDealers objDays = container.Resolve<Bikewale.DAL.AutoBiz.DealersRepository>();
+                noOfDays = objDays.GetAvailabilityDays(Convert.ToUInt32(dealerId), Convert.ToUInt32(versionId));
             }
         }
 
@@ -227,13 +178,15 @@ namespace Bikewale.Mobile.BikeBooking
         {
             try
             {
-                string _apiUrl = "/api/Dealers/GetDealerDetailsPQ/?versionId=" + PriceQuoteQueryString.VersionId + "&DealerId=" + PriceQuoteQueryString.DealerId + "&CityId=" + cityId;
-
-                Trace.Warn("_apiUrl: ", _apiUrl);
-
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    _objPQ = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objPQ);
+                    container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
+                    Bikewale.Interfaces.AutoBiz.IDealers objDealer = container.Resolve<Bikewale.DAL.AutoBiz.DealersRepository>();
+                    PQParameterEntity objParam = new PQParameterEntity();
+                    objParam.CityId = Convert.ToUInt32(PriceQuoteQueryString.CityId); ;
+                    objParam.DealerId = Convert.ToUInt32(PriceQuoteQueryString.DealerId);
+                    objParam.VersionId = Convert.ToUInt32(PriceQuoteQueryString.VersionId); ;
+                    _objPQ = objDealer.GetDealerDetailsPQ(objParam);
                 }
 
                 if (_objPQ != null && _objPQ.objQuotation != null)
@@ -351,7 +304,7 @@ namespace Bikewale.Mobile.BikeBooking
 
                             if (!IsDealerNotified())
                             {
-                                SendEmailSMSToDealerCustomer.SendEmailToDealer(_objPQ.objQuotation.objMake.MakeName + " " + _objPQ.objQuotation.objModel.ModelName,  _objPQ.objQuotation.objVersion.VersionName, _objPQ.objDealer.Name, _objPQ.objDealer.EmailId, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerEmail, objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.AreaDetails.AreaName, objCustomer.objCustomerBase.cityDetails.CityName, _objPQ.objQuotation.PriceList, Convert.ToInt32(TotalPrice), _objPQ.objOffers, ImgPath);
+                                SendEmailSMSToDealerCustomer.SendEmailToDealer(_objPQ.objQuotation.objMake.MakeName + " " + _objPQ.objQuotation.objModel.ModelName, _objPQ.objQuotation.objVersion.VersionName, _objPQ.objDealer.Name, _objPQ.objDealer.EmailId, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerEmail, objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.AreaDetails.AreaName, objCustomer.objCustomerBase.cityDetails.CityName, _objPQ.objQuotation.PriceList, Convert.ToInt32(TotalPrice), _objPQ.objOffers, ImgPath);
                                 SendEmailSMSToDealerCustomer.SMSToDealer(_objPQ.objDealer.MobileNo, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerMobile, BikeName, objCustomer.objCustomerBase.AreaDetails.AreaName, objCustomer.objCustomerBase.cityDetails.CityName);
                             }
                             DealerPriceQuoteCookie.CreateDealerPriceQuoteCookie(PriceQuoteQueryString.PQId, true, true);

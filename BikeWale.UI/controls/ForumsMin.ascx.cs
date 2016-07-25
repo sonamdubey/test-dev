@@ -32,37 +32,39 @@ namespace Bikewale.Controls
 
         private void BindForums()
         {
-            SqlCommand cmd = new SqlCommand("GetForumsMin");
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = TopRecords;
+            throw new Exception("Method not used/commented");
 
-            Database db = new Database();
-            SqlDataReader dr = null;
-            try
-            {
-                dr = db.SelectQry(cmd);
-                if (dr.HasRows)
-                {
-                    rptForums.DataSource = dr;
-                    rptForums.DataBind();
-                }
-            }
-            catch (SqlException exSql)
-            {
-                ErrorClass objErr = new ErrorClass(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception ex)
-            {
-                //Response.Write(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                dr.Close();
-                db.CloseConnection();
-            }
+            //SqlCommand cmd = new SqlCommand("GetForumsMin");
+            //cmd.CommandType = CommandType.StoredProcedure;
+            //cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = TopRecords;
+
+            //Database db = new Database();
+            //SqlDataReader dr = null;
+            //try
+            //{
+            //    dr = db.SelectQry(cmd);
+            //    if (dr.HasRows)
+            //    {
+            //        rptForums.DataSource = dr;
+            //        rptForums.DataBind();
+            //    }
+            //}
+            //catch (SqlException exSql)
+            //{
+            //    ErrorClass objErr = new ErrorClass(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception ex)
+            //{
+            //    //Response.Write(ex.Message);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    dr.Close();
+            //    db.CloseConnection();
+            //}
         }
 
         /// <summary>

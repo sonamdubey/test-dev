@@ -12,7 +12,7 @@
     <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
     <script type="text/javascript">
-        var host = '<%=cwHostUrl%>';
+        var host = '<%= ConfigurationManager.AppSettings["BwOprHostUrlForJs"]%>';
     </script>
     <style type="text/css">
         .errMessage, .errorMessage {

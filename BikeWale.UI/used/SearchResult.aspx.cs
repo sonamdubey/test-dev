@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using Bikewale.Common;
 using Bikewale.Controls;
-using Bikewale.Used;
 
 ///
 /// Created by umesh
@@ -74,7 +71,7 @@ namespace Bikewale.Used
             rpgListings.OrderByClause = objPC.GetOrderByClause();
             rpgListings.RecordCountQuery = objPC.GetRecordCountQry();
             rpgListings.CmdParamQry = objPC.sqlCmdParams;
-            rpgListings.CmdParamCountQry = objPC.sqlCmdParams.Clone();
+            rpgListings.CmdParamCountQry = objPC.sqlCmdParams;
 
             Trace.Warn("CurrentPageIndexx : ", objPC.GetCurrentPageIndex.ToString());
             if (objPC.GetCurrentPageIndex > 1)

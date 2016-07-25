@@ -5,6 +5,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI.WebControls;
+using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.Content
 {
@@ -79,7 +81,6 @@ namespace Bikewale.Content
         {
             try
             {
-                DataTable dt;
                 MakeModelVersion mmv = new MakeModelVersion();
                 //dt = mmv.GetMakes("NEW");
 
@@ -110,27 +111,25 @@ namespace Bikewale.Content
         {
             try
             {
-                DataSet ds = null;
 
-                using (SqlCommand cmd = new SqlCommand("GetUserReviews"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getuserreviews"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
+                     {
 
-                    Database db = new Database();
-                    ds = new DataSet();
+                         dsMain = new DataSet();
+                         dsMain = ds;
 
-                    ds = db.SelectAdaptQry(cmd);
+                         rptMakes.DataSource = ds.Tables[0];
+                         rptMakes.DataBind();
+
+                         rptMostReviewed.DataSource = ds.Tables[2];
+                         rptMostReviewed.DataBind();
+                         Trace.Warn("++dsmain rows count ", dsMain.Tables.Count.ToString());
+                     }
                 }
 
-                dsMain = new DataSet();
-                dsMain = ds;
-
-                rptMakes.DataSource = ds.Tables[0];
-                rptMakes.DataBind();
-
-                rptMostReviewed.DataSource = ds.Tables[2];
-                rptMostReviewed.DataBind();
-                Trace.Warn("++dsmain rows count ", dsMain.Tables.Count.ToString());
             }
             catch (SqlException sqlEx)
             {

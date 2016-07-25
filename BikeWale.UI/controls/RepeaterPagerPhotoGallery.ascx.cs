@@ -266,90 +266,94 @@ namespace Bikewale.Controls
         // query provided.
         public void BindRepeater()
         {
-            this.SerialNo = (this.CurrentPageIndex - 1) * this.PageSize;
+            throw new Exception("Method not used/commented");
 
-            string sql = string.Empty;
+            //this.SerialNo = (this.CurrentPageIndex - 1) * this.PageSize;
 
-            CommonOpn objCom = new CommonOpn();
-            Database db = new Database();
+            //string sql = string.Empty;
 
-            int startIndex = (this.CurrentPageIndex - 1) * this.PageSize + 1;
-            int endIndex = this.CurrentPageIndex * this.PageSize;
+            //CommonOpn objCom = new CommonOpn();
+            //Database db = new Database();
 
-            //Query Modified By Sadhana Upadhyay on 3 July 2014
-            sql = " select * from( "
-                + " SELECT  Top " + endIndex + " *,ROW_NUMBER() OVER (ORDER BY " + OrderByClause + " ) as RowNum from ( "
-                + " SELECT " + SelectClause + " From " + FromClause + " Where " + WhereClause + ")as tbl where rnk=1)as topRecord WHERe  RowNum >= " + startIndex + " AND RowNum <= " + endIndex;
+            //int startIndex = (this.CurrentPageIndex - 1) * this.PageSize + 1;
+            //int endIndex = this.CurrentPageIndex * this.PageSize;
 
-            Trace.Warn("Fetch the desired rows : " + sql);
-            try
-            {
-                if (sql != "")
-                {
-                    // Assign CommandText to the SqlCommand
-                    CmdParamQry.CommandText = sql;
+            ////Query Modified By Sadhana Upadhyay on 3 July 2014
+            //sql = " select * from( "
+            //    + " SELECT  Top " + endIndex + " *,ROW_NUMBER() OVER (ORDER BY " + OrderByClause + " ) as RowNum from ( "
+            //    + " SELECT " + SelectClause + " From " + FromClause + " Where " + WhereClause + ")as tbl where rnk=1)as topRecord WHERe  RowNum >= " + startIndex + " AND RowNum <= " + endIndex;
 
-                    // Execute Sql command and bind data with the repeater.
-                    rpt.DataSource = db.SelectAdaptQry(CmdParamQry);
-                    rpt.DataBind();
-                }
-            }
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+            //Trace.Warn("Fetch the desired rows : " + sql);
+            //try
+            //{
+            //    if (sql != "")
+            //    {
+            //        // Assign CommandText to the SqlCommand
+            //        CmdParamQry.CommandText = sql;
+
+            //        // Execute Sql command and bind data with the repeater.
+            //        rpt.DataSource = db.SelectAdaptQry(CmdParamQry);
+            //        rpt.DataBind();
+            //    }
+            //}
+            //catch (Exception err)
+            //{
+            //    Trace.Warn(err.Message + err.Source);
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
         }
 
         // Total number of records matched users criteria	
         int GetRecordCount()
         {
-            int count = 0;
+            throw new Exception("Method not used/commented");
 
-            SqlDataReader dr = null;
-            Database db = new Database();
+            //int count = 0;
 
-            try
-            {
-                if (RecordCountQuery != "")
-                {
-                    Trace.Warn("RecordCountQuery : " + RecordCountQuery);
-                    CmdParamCountQry.CommandText = RecordCountQuery;
-                    dr = db.SelectQry(CmdParamCountQry);
+            //SqlDataReader dr = null;
+            //Database db = new Database();
 
-                    if (dr.Read())
-                    {
-                        count = Convert.ToInt32(dr[0]);
+            //try
+            //{
+            //    if (RecordCountQuery != "")
+            //    {
+            //        Trace.Warn("RecordCountQuery : " + RecordCountQuery);
+            //        CmdParamCountQry.CommandText = RecordCountQuery;
+            //        dr = db.SelectQry(CmdParamCountQry);
 
-                        // If matching record count is between 1 to 10. Start showing user a message
-                        // "Not enough bikes? If you increase the Kms Around in the left, you may get more bikes."
-                        //if(count < 20 && count >  0){
-                        //    //GetEntireStateCount();
-                        //    div_nec.Visible = true;
-                        //    States st = new States(CityId);
+            //        if (dr.Read())
+            //        {
+            //            count = Convert.ToInt32(dr[0]);
 
-                        //    if( st.StateName != "" )
-                        //        stateName = st.StateName;
-                        //}
-                    }
-                }
-            }
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if(dr != null)
-                 dr.Close();
+            //            // If matching record count is between 1 to 10. Start showing user a message
+            //            // "Not enough bikes? If you increase the Kms Around in the left, you may get more bikes."
+            //            //if(count < 20 && count >  0){
+            //            //    //GetEntireStateCount();
+            //            //    div_nec.Visible = true;
+            //            //    States st = new States(CityId);
 
-                db.CloseConnection();
-            }
+            //            //    if( st.StateName != "" )
+            //            //        stateName = st.StateName;
+            //            //}
+            //        }
+            //    }
+            //}
+            //catch (Exception err)
+            //{
+            //    Trace.Warn(err.Message + err.Source);
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if(dr != null)
+            //     dr.Close();
 
-            return count;
+            //    db.CloseConnection();
+            //}
+
+            //return count;
         }
 
         // Function to create paging navigation, so that user can browse across the pages.

@@ -127,7 +127,7 @@
             </tr>
         </table>
 
-        <h3 class="margin-top10">Full Review <span><%= userLoggedIn ? "<a class='f-small' href='/userreviews/editreview.aspx?rid=" + reviewId + "'>Edit</a>" : "" %></span></h3>
+        <h3 class="margin-top10">Full Review <%--<span><%= userLoggedIn ? "<a class='f-small' href='/userreviews/editreview.aspx?rid=" + reviewId + "'>Edit</a>" : "" %></span>--%></h3>
         <div class="margin-top15 format-content"><%= comments %></div>
         <div class="hr-dotted"></div>
         <div class="margin-top10 content-block grey-bg border-light margin-bottom15">

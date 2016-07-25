@@ -52,6 +52,9 @@
     <Compile Include="AppDeepLinking\IDeepLinking.cs" />
     <Compile Include="App\IAppVersion.cs" />
     <Compile Include="App\IAppVersionCache.cs" />
+    <Compile Include="AutoBiz\DealerPriceQuote\IDealer.cs" />
+    <Compile Include="AutoBiz\DealerPriceQuote\IDealerPriceQuote.cs" />
+    <Compile Include="AutoBiz\Dealers\IDealers.cs" />
     <Compile Include="AutoComplete\IAutoSuggest.cs" />
     <Compile Include="BikeBooking\IBikeBooking.cs" />
     <Compile Include="BikeBooking\IBookingCancellation.cs" />
@@ -63,13 +66,17 @@
     <Compile Include="BikeData\IBikeModels.cs" />
     <Compile Include="BikeData\IBikeModelsCacheRepository.cs" />
     <Compile Include="BikeData\IBikeModelsRepository.cs" />
-    <Compile Include="BikeData\IBikeSeries.cs" />
+    <Compile Include="BikeData\IBikeSeries.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="BikeData\IBikeVersionCacheRepository.cs" />
     <Compile Include="BikeData\IBikeVersions.cs" />
     <Compile Include="BikeBooking\IFeedBacks.cs" />
+    <Compile Include="CMS\ICMSCacheRepository.cs" />
     <Compile Include="CMS\ICMSContentRepository.cs" />
     <Compile Include="Compare\IBikeCompare.cs" />
     <Compile Include="Compare\IBikeCompareCacheRepository.cs" />
+    <Compile Include="Content\IFeatureCache.cs" />
     <Compile Include="Customer\ICustomer.cs" />
     <Compile Include="Customer\ICustomerAuthentication.cs" />
     <Compile Include="Customer\ICustomerRepository.cs" />
@@ -94,7 +101,6 @@
     <Compile Include="NewBikeSearch\ISearchQuery.cs" />
     <Compile Include="NewBikeSearch\ISearchResult.cs" />
     <Compile Include="Pager\IPager.cs" />
-    <Compile Include="PhotoGallery\IModelPhotos.cs" />
     <Compile Include="PriceQuote\IDealerPriceQuoteDetail.cs" />
     <Compile Include="PriceQuote\ILeadNofitication.cs" />
     <Compile Include="PriceQuote\IPriceQuote.cs" />
@@ -109,7 +115,9 @@
     <Compile Include="Videos\IVideos.cs" />
     <Compile Include="Videos\IVideosCacheRepository.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="PhotoGallery\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>

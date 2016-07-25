@@ -245,118 +245,122 @@ namespace Bikewale.Controls
 		// This function will bind Repeater with the
 		// query provided.
 		public void BindRepeater()
-		{						
-			this.SerialNo = (this.CurrentPageIndex - 1) * this.PageSize;
+        {
+            throw new Exception("Method not used/commented");
+				
+            //this.SerialNo = (this.CurrentPageIndex - 1) * this.PageSize;
 			
-			string sql = "";
-			CommonOpn objCom = new CommonOpn();		
+            //string sql = "";
+            //CommonOpn objCom = new CommonOpn();		
 						
-			Database db = new Database();			
+            //Database db = new Database();			
 			
 			
-			int startIndex = (this.CurrentPageIndex - 1) * this.PageSize + 1;
-			int endIndex = this.CurrentPageIndex * this.PageSize;
+            //int startIndex = (this.CurrentPageIndex - 1) * this.PageSize + 1;
+            //int endIndex = this.CurrentPageIndex * this.PageSize;
 
-            Trace.Warn("start index", startIndex.ToString());
-            Trace.Warn("end index", endIndex.ToString());
+            //Trace.Warn("start index", startIndex.ToString());
+            //Trace.Warn("end index", endIndex.ToString());
 
-			//form the query. Only fetch the desired rows. 
-			//sql = " Select * From (Select Top " + endIndex + " DENSE_RANK() Over (Order By " + OrderByClause + ") AS RowN, "
+            ////form the query. Only fetch the desired rows. 
+            ////sql = " Select * From (Select Top " + endIndex + " DENSE_RANK() Over (Order By " + OrderByClause + ") AS RowN, "
             
-            /*sql = " Select * From (Select DENSE_RANK() Over (Order By " + OrderByClause + ") AS RowN, "
-                + " " + SelectClause + " From " + FromClause + " "
-                + (WhereClause != "" ? " Where " + WhereClause + " " : "")
-                + " ) AS TopRecords Where " 
-                + " RowN >= " + startIndex + " AND RowN <= " + endIndex + " ";*/
-
-            // Code Commented By : Ashish G. Kamble on 28 Mar 2013
-            //sql = " Select * From (Select DENSE_RANK() Over (Order By " + OrderByClause + ") AS RowN, * FROM ( SELECT "
+            ///*sql = " Select * From (Select DENSE_RANK() Over (Order By " + OrderByClause + ") AS RowN, "
             //    + " " + SelectClause + " From " + FromClause + " "
             //    + (WhereClause != "" ? " Where " + WhereClause + " " : "")
-            //    + " )AS tbl ) AS TopRecords Where "
-            //    + " RowN >= " + startIndex + " AND RowN <= " + endIndex + " ";
+            //    + " ) AS TopRecords Where " 
+            //    + " RowN >= " + startIndex + " AND RowN <= " + endIndex + " ";*/
 
-            //Trace.Warn("SelectClause : ", SelectClause);
-            // Modified by : Suresh on 24 July 2014 
-            // Summary : Changed query to sort records by price
-            sql = " WITH CTE_BikeModels AS( "
-                + " SELECT "
-                + " DENSE_RANK() OVER( ORDER BY MO.MinPrice ) AS DenseRank, "
-                + SelectClause
-                + " FROM "
-                + FromClause
-                + (WhereClause != "" ? " Where " + WhereClause + " " : "")
-                + " ) "
-                + " SELECT * "
-                + " FROM CTE_BikeModels WITH (NOLOCK) "
-                + " WHERE DenseRank BETWEEN " + startIndex + " AND " + endIndex
-                + " ORDER BY MinPrice ";               
+            //// Code Commented By : Ashish G. Kamble on 28 Mar 2013
+            ////sql = " Select * From (Select DENSE_RANK() Over (Order By " + OrderByClause + ") AS RowN, * FROM ( SELECT "
+            ////    + " " + SelectClause + " From " + FromClause + " "
+            ////    + (WhereClause != "" ? " Where " + WhereClause + " " : "")
+            ////    + " )AS tbl ) AS TopRecords Where "
+            ////    + " RowN >= " + startIndex + " AND RowN <= " + endIndex + " ";
 
-			Trace.Warn("Fetch the desired rows : " + sql);			
-			try
-			{
-				DataSet ds = new DataSet();
-				if ( sql != "" )
-				{
-					Trace.Warn( "Binding Sql : ");
+            ////Trace.Warn("SelectClause : ", SelectClause);
+            //// Modified by : Suresh on 24 July 2014 
+            //// Summary : Changed query to sort records by price
+            //sql = " WITH CTE_BikeModels AS( "
+            //    + " SELECT "
+            //    + " DENSE_RANK() OVER( ORDER BY MO.MinPrice ) AS DenseRank, "
+            //    + SelectClause
+            //    + " FROM "
+            //    + FromClause
+            //    + (WhereClause != "" ? " Where " + WhereClause + " " : "")
+            //    + " ) "
+            //    + " SELECT * "
+            //    + " FROM CTE_BikeModels WITH (NOLOCK) "
+            //    + " WHERE DenseRank BETWEEN " + startIndex + " AND " + endIndex
+            //    + " ORDER BY MinPrice ";               
+
+            //Trace.Warn("Fetch the desired rows : " + sql);			
+            //try
+            //{
+            //    DataSet ds = new DataSet();
+            //    if ( sql != "" )
+            //    {
+            //        Trace.Warn( "Binding Sql : ");
 					
-					CmdParamQ.CommandText = sql;
-					ds = db.SelectAdaptQry( CmdParamQ );
+            //        CmdParamQ.CommandText = sql;
+            //        ds = db.SelectAdaptQry( CmdParamQ );
 					
-					AddFeaturedBikeToDataSet(ds);
+            //        AddFeaturedBikeToDataSet(ds);
 					
-					rpt.DataSource = ds;
-					rpt.DataBind();
-					Trace.Warn( "PageSize: " + PageSize);	
-				}
-				Trace.Warn( "Binding Complete..." );
-			}
-			catch(Exception err)
-			{
-				Trace.Warn(err.Message + err.Source);
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
+            //        rpt.DataSource = ds;
+            //        rpt.DataBind();
+            //        Trace.Warn( "PageSize: " + PageSize);	
+            //    }
+            //    Trace.Warn( "Binding Complete..." );
+            //}
+            //catch(Exception err)
+            //{
+            //    Trace.Warn(err.Message + err.Source);
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
 		}
 		
 		
 		int GetRecordCount()
 		{
-			int count = 0;
-			SqlDataReader dr = null;
-			Database db = new Database();
+            throw new Exception("Method not used/commented");
 
-            try
-            {
-                if (RecordCountQuery != "")
-                {
-                    CmdParamR.CommandText = RecordCountQuery;
+            //int count = 0;
+            //SqlDataReader dr = null;
+            //Database db = new Database();
 
-                    Trace.Warn("RecordCountQuery: " + RecordCountQuery);
-                    dr = db.SelectQry(CmdParamR);
+            //try
+            //{
+            //    if (RecordCountQuery != "")
+            //    {
+            //        CmdParamR.CommandText = RecordCountQuery;
 
-                    if (dr.Read())
-                    {
-                        count = Convert.ToInt32(dr[0]);
-                    }
+            //        Trace.Warn("RecordCountQuery: " + RecordCountQuery);
+            //        dr = db.SelectQry(CmdParamR);
 
-                }
+            //        if (dr.Read())
+            //        {
+            //            count = Convert.ToInt32(dr[0]);
+            //        }
 
-            }
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if(dr != null)
-                    dr.Close();
-                db.CloseConnection();
-            }
+            //    }
 
-			return count;
+            //}
+            //catch (Exception err)
+            //{
+            //    Trace.Warn(err.Message + err.Source);
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if(dr != null)
+            //        dr.Close();
+            //    db.CloseConnection();
+            //}
+
+            //return count;
 		}
 		
 		

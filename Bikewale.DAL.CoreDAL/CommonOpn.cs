@@ -6,7 +6,6 @@ using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Net.Mail;
@@ -29,54 +28,54 @@ namespace Bikewale.CoreDAL
 
         //this function binds the grid with the datareader
         //takes as input the sql string and the datagridname
-        public void BindGridReader(string sql, DataGrid dtgrd)
-        {
-            SqlDataReader dataReader = null;
-            Database objSelect = new Database();
-            try
-            {
-                dataReader = objSelect.SelectQry(sql);
-                dtgrd.DataSource = dataReader;
-                dtgrd.DataBind();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                if (dataReader != null)
-                    dataReader.Close();
+        //public void BindGridReader(string sql, DataGrid dtgrd)
+        //{
+        //    SqlDataReader dataReader = null;
+        //    Database objSelect = new Database();
+        //    try
+        //    {
+        //        dataReader = objSelect.SelectQry(sql);
+        //        dtgrd.DataSource = dataReader;
+        //        dtgrd.DataBind();				
+        //    }
+        //    catch(Exception)
+        //    {
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        if(dataReader != null)
+        //            dataReader.Close();
 
-                objSelect.CloseConnection();
-            }
-        }
+        //        objSelect.CloseConnection();
+        //    }
+        //}
 
         //this function binds the grid with the datareader
         //takes as input the sql string and the datagridname
-        public void BindGridReader(string sql, DataGrid dtgrd, SqlParameter[] param)
-        {
-            SqlDataReader dataReader = null;
-            Database objSelect = new Database();
-            try
-            {
-                dataReader = objSelect.SelectQry(sql, param);
-                dtgrd.DataSource = dataReader;
-                dtgrd.DataBind();
+        //public void BindGridReader(string sql, DataGrid dtgrd, SqlParameter [] param)
+        //{
+        //    SqlDataReader dataReader = null;
+        //    Database objSelect = new Database();
+        //    try
+        //    {
+        //        dataReader = objSelect.SelectQry(sql, param);
+        //        dtgrd.DataSource = dataReader;
+        //        dtgrd.DataBind();
 
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                if (dataReader != null)
-                    dataReader.Close();
+        //    }
+        //    catch(Exception)
+        //    {
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        if (dataReader != null)
+        //            dataReader.Close();
 
-                objSelect.CloseConnection();
-            }
-        }
+        //        objSelect.CloseConnection();
+        //    }
+        //}
 
         /// <summary>
         /// Added By : Sadhana Upadhyay on 15/11/2013
@@ -116,355 +115,355 @@ namespace Bikewale.CoreDAL
 
         //this function binds the repeater with the datareader
         //takes as input the sql string and the datagridname
-        public void BindRepeaterReader(string sql, Repeater rpt)
-        {
-            SqlDataReader dataReader = null;
-            Database objSelect = new Database();
-            try
-            {
-                HttpContext.Current.Trace.Warn(rpt.ID);
-                dataReader = objSelect.SelectQry(sql);
-                rpt.DataSource = dataReader;
-                rpt.DataBind();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                if (dataReader != null)
-                    dataReader.Close();
-                objSelect.CloseConnection();
-            }
-        }
+        //public void BindRepeaterReader(string sql, Repeater rpt)
+        //{
+        //    SqlDataReader dataReader = null;
+        //    Database objSelect = new Database();
+        //    try
+        //    {
+        //        HttpContext.Current.Trace.Warn(rpt.ID);
+        //        dataReader = objSelect.SelectQry(sql);
+        //        rpt.DataSource = dataReader;
+        //        rpt.DataBind();					
+        //    }
+        //    catch(Exception)
+        //    {
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        if(dataReader != null)
+        //            dataReader.Close();
+        //        objSelect.CloseConnection();
+        //    }
+        //}
 
         //this function binds the repeater with the datareader
         //takes as input the sql string and the datagridname
-        public void BindRepeaterReader(string sql, Repeater rpt, SqlParameter[] param)
-        {
-            SqlDataReader dataReader = null;
-            Database objSelect = new Database();
-            try
-            {
-                dataReader = objSelect.SelectQry(sql, param);
-                rpt.DataSource = dataReader;
-                rpt.DataBind();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                if (dataReader != null)
-                    dataReader.Close();
-                objSelect.CloseConnection();
-            }
-        }
+        //public void BindRepeaterReader(string sql, Repeater rpt, SqlParameter [] param)
+        //{
+        //    SqlDataReader dataReader = null;
+        //    Database objSelect = new Database();
+        //    try
+        //    {
+        //        dataReader = objSelect.SelectQry(sql, param);
+        //        rpt.DataSource = dataReader;
+        //        rpt.DataBind();				
+        //    }
+        //    catch(Exception)
+        //    {
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        if(dataReader != null)
+        //            dataReader.Close();
+        //        objSelect.CloseConnection();
+        //    }
+        //}
 
         //this function binds the grid with the dataset
         //takes as input the sql string and the datagridname
-        public void BindGridSet(string sql, DataGrid dtgrd)
-        {
-            DataSet dataSet = new DataSet();
+        //public void BindGridSet(string sql, DataGrid dtgrd)
+        //{
+        //    DataSet dataSet = new DataSet();
 
-            Database objSelect = new Database();
-            try
-            {
-                dataSet = objSelect.SelectAdaptQry(sql);
-                dtgrd.DataSource = dataSet;
-                dtgrd.DataBind();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        //    Database objSelect = new Database();
+        //    try
+        //    {
+        //        dataSet = objSelect.SelectAdaptQry(sql);
+        //        dtgrd.DataSource = dataSet;
+        //        dtgrd.DataBind();
+        //    }
+        //    catch(Exception)
+        //    {
+        //        throw;
+        //    }
+        //}
 
-        //this function binds the grid with the dataset
-        //takes as input the sql string and the datagridname
-        public void BindGridSet(string sql, DataGrid dtgrd, SqlParameter[] param)
-        {
-            DataSet dataSet = new DataSet();
+        ////this function binds the grid with the dataset
+        ////takes as input the sql string and the datagridname
+        //public void BindGridSet(string sql, DataGrid dtgrd, SqlParameter [] param)
+        //{
+        //    DataSet dataSet = new DataSet();
 
-            Database objSelect = new Database();
-            try
-            {
-                dataSet = objSelect.SelectAdaptQry(sql, param);
-                dtgrd.DataSource = dataSet;
-                dtgrd.DataBind();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        //    Database objSelect = new Database();
+        //    try
+        //    {
+        //        dataSet = objSelect.SelectAdaptQry(sql, param);
+        //        dtgrd.DataSource = dataSet;
+        //        dtgrd.DataBind();
+        //    }
+        //    catch(Exception)
+        //    {
+        //        throw;
+        //    }
+        //}
 
-        // This function does the same thing as the above one,
-        // but it has an unque feature of providing paging by default.
-        // you have to do nothing but provide pageSize.
-        public void BindGridSet(string sql, DataGrid dtgrd, int PageSize)
-        {
-            DataSet dataSet = new DataSet();
+        //// This function does the same thing as the above one,
+        //// but it has an unque feature of providing paging by default.
+        //// you have to do nothing but provide pageSize.
+        //public void BindGridSet( string sql, DataGrid dtgrd, int PageSize )
+        //{
+        //    DataSet dataSet = new DataSet();
 
-            Database objSelect = new Database();
-            try
-            {
-                dataSet = objSelect.SelectAdaptQry(sql);
-                if (dataSet.Tables[0].Rows.Count > PageSize)
-                {
-                    dtgrd.AllowPaging = true;
-                    dtgrd.PageSize = PageSize;
-                }
-                else
-                {
-                    dtgrd.AllowPaging = false;
-                }
-                dtgrd.DataSource = dataSet;
-                dtgrd.DataBind();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        //    Database objSelect = new Database();
+        //    try
+        //    {
+        //        dataSet = objSelect.SelectAdaptQry(sql);
+        //        if ( dataSet.Tables[0].Rows.Count > PageSize )
+        //        {
+        //            dtgrd.AllowPaging = true;
+        //            dtgrd.PageSize = PageSize;
+        //        }
+        //        else
+        //        {
+        //            dtgrd.AllowPaging = false;
+        //        }
+        //        dtgrd.DataSource = dataSet;
+        //        dtgrd.DataBind();
+        //    }
+        //    catch(Exception)
+        //    {
+        //        throw;
+        //    }
+        //}
 
-        // This function does the same thing as the above one,
-        // but it has an unque feature of providing paging by default.
-        // you have to do nothing but provide pageSize.
-        public void BindGridSet(string sql, DataGrid dtgrd, int PageSize, SqlParameter[] param)
-        {
-            DataSet dataSet = new DataSet();
+        //// This function does the same thing as the above one,
+        //// but it has an unque feature of providing paging by default.
+        //// you have to do nothing but provide pageSize.
+        //public void BindGridSet( string sql, DataGrid dtgrd, int PageSize, SqlParameter [] param)
+        //{
+        //    DataSet dataSet = new DataSet();
 
-            Database objSelect = new Database();
-            try
-            {
-                dataSet = objSelect.SelectAdaptQry(sql, param);
-                if (dataSet.Tables[0].Rows.Count > PageSize)
-                {
-                    dtgrd.AllowPaging = true;
-                    dtgrd.PageSize = PageSize;
-                }
-                else
-                {
-                    dtgrd.AllowPaging = false;
-                }
-                dtgrd.DataSource = dataSet;
-                dtgrd.DataBind();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        //    Database objSelect = new Database();
+        //    try
+        //    {
+        //        dataSet = objSelect.SelectAdaptQry(sql, param);
+        //        if ( dataSet.Tables[0].Rows.Count > PageSize )
+        //        {
+        //            dtgrd.AllowPaging = true;
+        //            dtgrd.PageSize = PageSize;
+        //        }
+        //        else
+        //        {
+        //            dtgrd.AllowPaging = false;
+        //        }
+        //        dtgrd.DataSource = dataSet;
+        //        dtgrd.DataBind();
+        //    }
+        //    catch(Exception)
+        //    {
+        //        throw;
+        //    }
+        //}
 
-        //this function binds the datalist with the datareader
-        //takes as input the sql string and the datalist id
-        public void BindListReader(string sql, DataList dtlst)
-        {
-            SqlDataReader dataReader = null;
-            Database objSelect = new Database();
-            try
-            {
-                dataReader = objSelect.SelectQry(sql);
-                dtlst.DataSource = dataReader;
-                dtlst.DataBind();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                if (dataReader != null)
-                    dataReader.Close();
-                objSelect.CloseConnection();
-            }
-        }
+        ////this function binds the datalist with the datareader
+        ////takes as input the sql string and the datalist id
+        //public void BindListReader(string sql, DataList dtlst)
+        //{
+        //    SqlDataReader dataReader = null;
+        //    Database objSelect = new Database();
+        //    try
+        //    {
+        //        dataReader = objSelect.SelectQry(sql);
+        //        dtlst.DataSource = dataReader;
+        //        dtlst.DataBind();				
+        //    }
+        //    catch(Exception)
+        //    {
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        if(dataReader != null)
+        //            dataReader.Close();
+        //        objSelect.CloseConnection();
+        //    }
+        //}
 
-        //this function binds the datalist with the datareader
-        //takes as input the sql string and the datalist id
-        public void BindListReader(string sql, DataList dtlst, SqlParameter[] param)
-        {
-            SqlDataReader dataReader = null;
-            Database objSelect = new Database();
-            try
-            {
-                dataReader = objSelect.SelectQry(sql, param);
-                dtlst.DataSource = dataReader;
-                dtlst.DataBind();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                if (dataReader != null)
-                    dataReader.Close();
-                objSelect.CloseConnection();
-            }
-        }
+        ////this function binds the datalist with the datareader
+        ////takes as input the sql string and the datalist id
+        //public void BindListReader(string sql, DataList dtlst, SqlParameter [] param)
+        //{
+        //    SqlDataReader dataReader = null;
+        //    Database objSelect = new Database();
+        //    try
+        //    {
+        //        dataReader = objSelect.SelectQry(sql, param);
+        //        dtlst.DataSource = dataReader;
+        //        dtlst.DataBind();				
+        //    }
+        //    catch(Exception)
+        //    {
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        if(dataReader != null)
+        //            dataReader.Close();
+        //        objSelect.CloseConnection();
+        //    }
+        //}
 
-        //this function binds the dropdownlist with the datareader
-        //takes as input the sql string, dropdownlist name, the text field and the value field
-        public void FillDropDown(string sql, DropDownList drp, string text, string value)
-        {
-            SqlDataReader dataReader = null;
-            Database objSelect = new Database();
-            try
-            {
-                dataReader = objSelect.SelectQry(sql);
-                drp.DataSource = dataReader;
-                drp.DataTextField = text;
-                drp.DataValueField = value;
-                drp.DataBind();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                if (dataReader != null)
-                {
-                    dataReader.Close();
-                }
-                objSelect.CloseConnection();
-            }
-        }
+        ////this function binds the dropdownlist with the datareader
+        ////takes as input the sql string, dropdownlist name, the text field and the value field
+        //public void FillDropDown(string sql, DropDownList drp, string text, string value)
+        //{
+        //    SqlDataReader dataReader = null;
+        //    Database objSelect = new Database();
+        //    try
+        //    {
+        //        dataReader = objSelect.SelectQry(sql);
+        //        drp.DataSource = dataReader;
+        //        drp.DataTextField = text;
+        //        drp.DataValueField = value;
+        //        drp.DataBind();
+        //    }
+        //    catch(Exception)
+        //    {
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        if (dataReader != null)
+        //        {
+        //            dataReader.Close();
+        //        }
+        //        objSelect.CloseConnection();
+        //    }
+        //}
 
-        //this function binds the dropdownlist with the datareader
-        //takes as input the sql string, dropdownlist name, the text field and the value field
-        public void FillDropDown(string sql, DropDownList drp, string text, string value, SqlParameter[] param)
-        {
-            SqlDataReader dataReader = null;
-            Database objSelect = new Database();
-            try
-            {
-                dataReader = objSelect.SelectQry(sql, param);
-                drp.DataSource = dataReader;
-                drp.DataTextField = text;
-                drp.DataValueField = value;
-                drp.DataBind();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                if (dataReader != null)
-                    dataReader.Close();
+        ////this function binds the dropdownlist with the datareader
+        ////takes as input the sql string, dropdownlist name, the text field and the value field
+        //public void FillDropDown(string sql, DropDownList drp, string text, string value, SqlParameter [] param)
+        //{
+        //    SqlDataReader dataReader = null;
+        //    Database objSelect = new Database();
+        //    try
+        //    {
+        //        dataReader = objSelect.SelectQry(sql, param);
+        //        drp.DataSource = dataReader;
+        //        drp.DataTextField = text;
+        //        drp.DataValueField = value;
+        //        drp.DataBind();				
+        //    }
+        //    catch(Exception)
+        //    {
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        if(dataReader != null)
+        //            dataReader.Close();
 
-                objSelect.CloseConnection();
-            }
-        }
+        //        objSelect.CloseConnection();				
+        //    }
+        //}
 
-        //this function binds the checkboxlist 
-        //takes as input the sql string, dropdownlist name, the text field and the value field
-        public void BindCheckBoxList(string sql, CheckBoxList chk, string text, string value)
-        {
-            SqlDataReader dataReader = null;
-            Database objSelect = new Database();
-            try
-            {
-                dataReader = objSelect.SelectQry(sql);
-                chk.DataSource = dataReader;
-                chk.DataTextField = text;
-                chk.DataValueField = value;
-                chk.DataBind();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                if (dataReader != null)
-                    dataReader.Close();
+        ////this function binds the checkboxlist 
+        ////takes as input the sql string, dropdownlist name, the text field and the value field
+        //public void BindCheckBoxList(string sql, CheckBoxList chk, string text, string value)
+        //{
+        //    SqlDataReader dataReader = null;
+        //    Database objSelect = new Database();
+        //    try
+        //    {
+        //        dataReader = objSelect.SelectQry(sql);
+        //        chk.DataSource = dataReader;
+        //        chk.DataTextField = text;
+        //        chk.DataValueField = value;
+        //        chk.DataBind();				
+        //    }
+        //    catch(Exception)
+        //    {
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        if(dataReader != null)
+        //            dataReader.Close();
 
-                objSelect.CloseConnection();
-            }
-        }
+        //        objSelect.CloseConnection();				
+        //    }
+        //}
 
-        //this function binds the checkboxlist 
-        //takes as input the sql string, dropdownlist name, the text field and the value field
-        public void BindCheckBoxList(string sql, CheckBoxList chk, string text, string value, SqlParameter[] param)
-        {
-            SqlDataReader dataReader = null;
-            Database objSelect = new Database();
-            try
-            {
-                dataReader = objSelect.SelectQry(sql, param);
-                chk.DataSource = dataReader;
-                chk.DataTextField = text;
-                chk.DataValueField = value;
-                chk.DataBind();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                if (dataReader != null)
-                    dataReader.Close();
+        ////this function binds the checkboxlist 
+        ////takes as input the sql string, dropdownlist name, the text field and the value field
+        //public void BindCheckBoxList(string sql, CheckBoxList chk, string text, string value, SqlParameter [] param)
+        //{
+        //    SqlDataReader dataReader = null;
+        //    Database objSelect = new Database();
+        //    try
+        //    {
+        //        dataReader = objSelect.SelectQry(sql, param);
+        //        chk.DataSource = dataReader;
+        //        chk.DataTextField = text;
+        //        chk.DataValueField = value;
+        //        chk.DataBind();				
+        //    }
+        //    catch(Exception)
+        //    {
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        if(dataReader != null)
+        //            dataReader.Close();
 
-                objSelect.CloseConnection();
-            }
-        }
+        //        objSelect.CloseConnection();				
+        //    }
+        //}
 
-        //this function binds the RadioButtonList with the datareader
-        //takes as input the sql string and the datagridname
-        public void BindRadioListReader(string sql, RadioButtonList clst)
-        {
-            SqlDataReader dataReader = null;
-            Database objSelect = new Database();
-            try
-            {
-                dataReader = objSelect.SelectQry(sql);
-                clst.DataSource = dataReader;
-                clst.DataBind();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                if (dataReader != null)
-                    dataReader.Close();
+        ////this function binds the RadioButtonList with the datareader
+        ////takes as input the sql string and the datagridname
+        //public void BindRadioListReader(string sql, RadioButtonList clst)
+        //{
+        //    SqlDataReader dataReader = null;
+        //    Database objSelect = new Database();
+        //    try
+        //    {
+        //        dataReader = objSelect.SelectQry(sql);
+        //        clst.DataSource = dataReader;
+        //        clst.DataBind();				
+        //    }
+        //    catch(Exception)
+        //    {
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        if(dataReader != null)
+        //            dataReader.Close();
 
-                objSelect.CloseConnection();
-            }
-        }
+        //        objSelect.CloseConnection();
+        //    }
+        //}
 
-        //this function binds the RadioButtonList with the datareader
-        //takes as input the sql string and the datagridname
-        public void BindRadioListReader(string sql, RadioButtonList clst, SqlParameter[] param)
-        {
-            SqlDataReader dataReader = null;
-            Database objSelect = new Database();
-            try
-            {
-                dataReader = objSelect.SelectQry(sql, param);
-                clst.DataSource = dataReader;
-                clst.DataBind();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                if (dataReader != null)
-                    dataReader.Close();
+        ////this function binds the RadioButtonList with the datareader
+        ////takes as input the sql string and the datagridname
+        //public void BindRadioListReader(string sql, RadioButtonList clst, SqlParameter [] param)
+        //{
+        //    SqlDataReader dataReader = null;
+        //    Database objSelect = new Database();
+        //    try
+        //    {
+        //        dataReader = objSelect.SelectQry(sql, param);
+        //        clst.DataSource = dataReader;
+        //        clst.DataBind();				
+        //    }
+        //    catch(Exception)
+        //    {
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        if(dataReader != null)
+        //            dataReader.Close();
 
-                objSelect.CloseConnection();
-            }
-        }
+        //        objSelect.CloseConnection();
+        //    }
+        //}
 
         /// <summary>
         /// Using in User tracking for SaveActivity 
@@ -1112,381 +1111,381 @@ namespace Bikewale.CoreDAL
             /// registered on the page(for three combos linked together).
             /// </summary>
         *****************************************************************************************************/
-        public string GenerateChainScript(string DropDownList1, string DropDownList2, string DropDownList3, string Query1, string Query2)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append("<script language=\"javascript\" src=\"../src/chains.js?v=1.0\"></script>");
-            sb.Append("<script language=\"javascript\">");
-            sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
-            sb.Append("document.getElementById('" + DropDownList2 + "').onchange = " + DropDownList2 + "_OnChange; ");
-            sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
-            sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
-            SqlDataReader dr;
-            Database db = new Database();
-            try
-            {
-                dr = db.SelectQry(Query1);
-
-                while (dr.Read())
-                {
-                    sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
-                }
-                //sb.Append( "alert('" + DropDownList2 + "');" );
-                sb.Append("fillChain( '" + DropDownList2 + "', DropDownList1, arrayValues, '" + DropDownList3 + "' ); }");
-
-                dr.Close();
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
-
-            sb.Append("function " + DropDownList2 + "_OnChange( e ) {");
-            sb.Append("var DropDownList = document.getElementById('" + DropDownList2 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
-
-            dr = db.SelectQry(Query2);
-
-            while (dr.Read())
-            {
-                sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
-            }
-
-            dr.Close();
-            db.CloseConnection();
-
-            sb.Append("fillChain( '" + DropDownList3 + "', DropDownList, arrayValues, 'NA' ); } ");
-
-            sb.Append("</script>");
-
-            return sb.ToString();
-
-        }
-        /*****************************************************************************************************
-            /// <summary>
-            /// This method can be used to Create Script for filling
-            /// chained combos with a text box value on selection of last combo. It will return script, which should be
-            /// registered on the page(for three combos linked together).
-            /// </summary>
-        *****************************************************************************************************/
-        public string GenerateChainScript(string DropDownList1, string DropDownList2, string DropDownList3, string TextBox1, string TextBox2, string Query1, string Query2, string Query3)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append("<script language=\"javascript\" src=\"../src/chains.js?v=1.0\"></script>");
-            sb.Append("<script language=\"javascript\">");
-            sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
-            sb.Append("document.getElementById('" + DropDownList2 + "').onchange = " + DropDownList2 + "_OnChange; ");
-            sb.Append("document.getElementById('" + DropDownList3 + "').onchange = " + DropDownList3 + "_OnChange; ");
-            sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
-            sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
-            SqlDataReader dr;
-            Database db = new Database();
-            try
-            {
-                dr = db.SelectQry(Query1);
-
-                while (dr.Read())
-                {
-                    sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
-                }
-
-                sb.Append("fillChain( '" + DropDownList2 + "', DropDownList1, arrayValues, '" + DropDownList3 + "','" + TextBox1 + "','" + TextBox2 + "'); }");
-
-                dr.Close();
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
-
-            sb.Append("function " + DropDownList2 + "_OnChange( e ) {");
-            sb.Append("var DropDownList = document.getElementById('" + DropDownList2 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
-
-            dr = db.SelectQry(Query2);
-
-            while (dr.Read())
-            {
-                sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
-            }
-
-            sb.Append("fillChain( '" + DropDownList3 + "', DropDownList, arrayValues, 'NA','" + TextBox1 + "','" + TextBox2 + "' ); } ");
-
-            dr.Close();
-            db.CloseConnection();
-
-            sb.Append("function " + DropDownList3 + "_OnChange( e ) {");
-            sb.Append("var DropDownList = document.getElementById('" + DropDownList3 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
-
-            dr = db.SelectQry(Query3);
-
-            while (dr.Read())
-            {
-                sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\",\"" + dr[2] + "\" ]; i++;");
-            }
-            sb.Append("fillChainText( '" + TextBox1 + "','" + TextBox2 + "', DropDownList, arrayValues ); } ");
-            dr.Close();
-            db.CloseConnection();
-
-
-            sb.Append("</script>");
-
-            return sb.ToString();
-
-        }
-        /*****************************************************************************************************
-            /// <summary>
-            /// This method can be used to Create Script for filling
-            /// chained combos. It will return script, which should be
-            /// registered on the page(for two combos linked together).
-            /// </summary>
-        *****************************************************************************************************/
-        public string GenerateChainScript(string DropDownList1, string DropDownList2, string Query1)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append("<script language=\"javascript\" src=\"../src/chains.js?v=1.0\"></script>");
-            sb.Append("<script language=\"javascript\">");
-            sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
-            sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
-            sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
-            SqlDataReader dr;
-            Database db = new Database();
-            try
-            {
-                dr = db.SelectQry(Query1);
-
-                while (dr.Read())
-                {
-                    sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
-                }
-
-                sb.Append("fillChainTwo( '" + DropDownList2 + "', DropDownList1, arrayValues); }");
-
-                dr.Close();
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
-
-            sb.Append("</script>");
-
-            return sb.ToString();
-
-        }
-        /*****************************************************************************************************
-            /// <summary>
-            /// This method can be used to Create Script for filling
-            /// chained combos. It will return script, which should be
-            /// registered on the page(for two combos linked together).
-            ///wid the previous functions we fill the other combo wid the values 
-            ///tht matches the value in the first combo.and with this function we the 
-            ///the other combos wid thevalues that does not match the value in fiorst combo
-            /// </summary>
-        *****************************************************************************************************/
-        public string GenerateReverseChainScript(string DropDownList1, string DropDownList2, string Query1)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append("<script language=\"javascript\" src=\"../src/chains.js?v=1.0\"></script>");
-            sb.Append("<script language=\"javascript\">");
-            sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
-            sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
-            sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
-            SqlDataReader dr;
-            Database db = new Database();
-            try
-            {
-                dr = db.SelectQry(Query1);
-
-                while (dr.Read())
-                {
-                    sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
-                }
-
-                sb.Append("fillReverseChain( '" + DropDownList2 + "', DropDownList1, arrayValues); }");
-
-                dr.Close();
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
-
-            sb.Append("</script>");
-
-            return sb.ToString();
-
-        }
-        /*****************************************************************************************************
-            /// <summary>
-            /// This method can be used to Create Script for filling
-            /// chained combos. It will return script, which should be
-            /// registered on the page(for three combos linked together).
-            /// </summary>
-        *****************************************************************************************************/
-        public string GenerateChainScript(string DropDownList1, string DropDownList2, string DropDownList3, string Query1, string Query2, bool fillTwoCombosWithOneParent)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append("<script language=\"javascript\" src=\"../src/chains.js?v=1.0\"></script>");
-            sb.Append("<script language=\"javascript\">");
-            sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
-            sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
-            sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
-            SqlDataReader dr;
-            Database db = new Database();
-            try
-            {
-                dr = db.SelectQry(Query1);
-
-                while (dr.Read())
-                {
-                    sb.Append("arrayValues[i] = [ " + dr[0] + ",'" + dr[1] + "'," + dr[2] + " ]; i++;");
-                }
-
-                dr.Close();
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
-
-            sb.Append("var arrayValues1 = new Array(); i = 0;");
-
-            try
-            {
-
-                dr = db.SelectQry(Query2);
-
-                while (dr.Read())
-                {
-                    sb.Append("arrayValues1[i] = [ " + dr[0] + ",'" + dr[1] + "'," + dr[2] + " ]; i++;");
-                }
-
-                dr.Close();
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
-
-            sb.Append("fillChainTwoSameParent( '" + DropDownList2 + "','" + DropDownList3 + "', DropDownList1, arrayValues , arrayValues1 ); }");
-
-            sb.Append("</script>");
-
-            return sb.ToString();
-
-        }
-
-        public string GenerateChainScript(string DropDownList1, string DropDownList2, string Query1, string selectString)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append("<script language=\"javascript\" src=\"/src/chains.js?v=1.0\"></script>");
-            sb.Append("<script language=\"javascript\">");
-            sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
-            sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
-            sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
-            SqlDataReader dr;
-            Database db = new Database();
-            try
-            {
-                dr = db.SelectQry(Query1);
-
-                while (dr.Read())
-                {
-                    sb.Append("arrayValues[i] = [ " + dr[0] + ",'" + dr[1] + "'," + dr[2] + " ]; i++;");
-                }
-
-                sb.Append("fillChainTwo( '" + DropDownList2 + "', DropDownList1, arrayValues, '0' , '" + selectString + "' ); }");
-
-                dr.Close();
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
-
-            sb.Append("</script>");
-
-            return sb.ToString();
-
-        }
-
-        /*  Summary     : Get Model From Make
-            Author      : Dilip V 13-Jun-2012
-            Modifier    : */
-        public static DataSet GetModelFromMake(string makeId)
-        {
-            DataSet ds = new DataSet();
-            SqlCommand cmd = new SqlCommand();
-
-            if (makeId == "")
-                return ds;
-
-            Database db = new Database();
-            string sql = "";
-
-            sql = " SELECT ID AS Value, Name AS Text FROM BikeModels With(NoLock) WHERE IsDeleted = 0 AND "
-                + " BikeMakeId IN (" + db.GetInClauseValue(makeId, "MakeId", cmd) + ") ORDER BY Text ";
-
-            HttpContext.Current.Trace.Warn("sql =" + sql);
-
-            try
-            {
-                cmd.CommandText = sql;
-                ds = db.SelectAdaptQry(cmd);
-            }
-            catch (SqlException err)
-            {
-                SqlError(err);
-            }
-            catch (Exception err)
-            {
-                ExceptionError(err);
-            }
-
-            return ds;
-        }
+        //public string GenerateChainScript(string DropDownList1, string DropDownList2, string DropDownList3, string Query1, string Query2)
+        //{
+        //    StringBuilder sb = new StringBuilder();
+
+        //    sb.Append("<script language=\"javascript\" src=\"../src/chains.js?v=1.0\"></script>");
+        //    sb.Append("<script language=\"javascript\">");
+        //    sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
+        //    sb.Append("document.getElementById('" + DropDownList2 + "').onchange = " + DropDownList2 + "_OnChange; ");
+        //    sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
+        //    sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
+        //    sb.Append("var arrayValues = new Array(); var i = 0;");
+        //    SqlDataReader dr;
+        //    Database db = new Database();
+        //    try
+        //    {
+        //        dr = db.SelectQry(Query1);
+
+        //        while (dr.Read())
+        //        {
+        //            sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
+        //        }
+        //        //sb.Append( "alert('" + DropDownList2 + "');" );
+        //        sb.Append("fillChain( '" + DropDownList2 + "', DropDownList1, arrayValues, '" + DropDownList3 + "' ); }");
+
+        //        dr.Close();
+        //    }
+        //    catch (SqlException ex)
+        //    {
+        //        HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        db.CloseConnection();
+        //    }
+
+        //    sb.Append("function " + DropDownList2 + "_OnChange( e ) {");
+        //    sb.Append("var DropDownList = document.getElementById('" + DropDownList2 + "');");
+        //    sb.Append("var arrayValues = new Array(); var i = 0;");
+
+        //    dr = db.SelectQry(Query2);
+
+        //    while (dr.Read())
+        //    {
+        //        sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
+        //    }
+
+        //    dr.Close();
+        //    db.CloseConnection();
+
+        //    sb.Append("fillChain( '" + DropDownList3 + "', DropDownList, arrayValues, 'NA' ); } ");
+
+        //    sb.Append("</script>");
+
+        //    return sb.ToString();
+
+        //}
+        ///*****************************************************************************************************
+        //    /// <summary>
+        //    /// This method can be used to Create Script for filling
+        //    /// chained combos with a text box value on selection of last combo. It will return script, which should be
+        //    /// registered on the page(for three combos linked together).
+        //    /// </summary>
+        //*****************************************************************************************************/
+        //public string GenerateChainScript(string DropDownList1, string DropDownList2, string DropDownList3, string TextBox1, string TextBox2, string Query1, string Query2, string Query3)
+        //{
+        //    StringBuilder sb = new StringBuilder();
+
+        //    sb.Append("<script language=\"javascript\" src=\"../src/chains.js?v=1.0\"></script>");
+        //    sb.Append("<script language=\"javascript\">");
+        //    sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
+        //    sb.Append("document.getElementById('" + DropDownList2 + "').onchange = " + DropDownList2 + "_OnChange; ");
+        //    sb.Append("document.getElementById('" + DropDownList3 + "').onchange = " + DropDownList3 + "_OnChange; ");
+        //    sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
+        //    sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
+        //    sb.Append("var arrayValues = new Array(); var i = 0;");
+        //    SqlDataReader dr;
+        //    Database db = new Database();
+        //    try
+        //    {
+        //        dr = db.SelectQry(Query1);
+
+        //        while (dr.Read())
+        //        {
+        //            sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
+        //        }
+
+        //        sb.Append("fillChain( '" + DropDownList2 + "', DropDownList1, arrayValues, '" + DropDownList3 + "','" + TextBox1 + "','" + TextBox2 + "'); }");
+
+        //        dr.Close();
+        //    }
+        //    catch (SqlException ex)
+        //    {
+        //        HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        db.CloseConnection();
+        //    }
+
+        //    sb.Append("function " + DropDownList2 + "_OnChange( e ) {");
+        //    sb.Append("var DropDownList = document.getElementById('" + DropDownList2 + "');");
+        //    sb.Append("var arrayValues = new Array(); var i = 0;");
+
+        //    dr = db.SelectQry(Query2);
+
+        //    while (dr.Read())
+        //    {
+        //        sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
+        //    }
+
+        //    sb.Append("fillChain( '" + DropDownList3 + "', DropDownList, arrayValues, 'NA','" + TextBox1 + "','" + TextBox2 + "' ); } ");
+
+        //    dr.Close();
+        //    db.CloseConnection();
+
+        //    sb.Append("function " + DropDownList3 + "_OnChange( e ) {");
+        //    sb.Append("var DropDownList = document.getElementById('" + DropDownList3 + "');");
+        //    sb.Append("var arrayValues = new Array(); var i = 0;");
+
+        //    dr = db.SelectQry(Query3);
+
+        //    while (dr.Read())
+        //    {
+        //        sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\",\"" + dr[2] + "\" ]; i++;");
+        //    }
+        //    sb.Append("fillChainText( '" + TextBox1 + "','" + TextBox2 + "', DropDownList, arrayValues ); } ");
+        //    dr.Close();
+        //    db.CloseConnection();
+
+
+        //    sb.Append("</script>");
+
+        //    return sb.ToString();
+
+        //}
+        ///*****************************************************************************************************
+        //    /// <summary>
+        //    /// This method can be used to Create Script for filling
+        //    /// chained combos. It will return script, which should be
+        //    /// registered on the page(for two combos linked together).
+        //    /// </summary>
+        //*****************************************************************************************************/
+        //public string GenerateChainScript(string DropDownList1, string DropDownList2, string Query1)
+        //{
+        //    StringBuilder sb = new StringBuilder();
+
+        //    sb.Append("<script language=\"javascript\" src=\"../src/chains.js?v=1.0\"></script>");
+        //    sb.Append("<script language=\"javascript\">");
+        //    sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
+        //    sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
+        //    sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
+        //    sb.Append("var arrayValues = new Array(); var i = 0;");
+        //    SqlDataReader dr;
+        //    Database db = new Database();
+        //    try
+        //    {
+        //        dr = db.SelectQry(Query1);
+
+        //        while (dr.Read())
+        //        {
+        //            sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
+        //        }
+
+        //        sb.Append("fillChainTwo( '" + DropDownList2 + "', DropDownList1, arrayValues); }");
+
+        //        dr.Close();
+        //    }
+        //    catch (SqlException ex)
+        //    {
+        //        HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        db.CloseConnection();
+        //    }
+
+        //    sb.Append("</script>");
+
+        //    return sb.ToString();
+
+        //}
+        ///*****************************************************************************************************
+        //    /// <summary>
+        //    /// This method can be used to Create Script for filling
+        //    /// chained combos. It will return script, which should be
+        //    /// registered on the page(for two combos linked together).
+        //    ///wid the previous functions we fill the other combo wid the values 
+        //    ///tht matches the value in the first combo.and with this function we the 
+        //    ///the other combos wid thevalues that does not match the value in fiorst combo
+        //    /// </summary>
+        //*****************************************************************************************************/
+        //public string GenerateReverseChainScript(string DropDownList1, string DropDownList2, string Query1)
+        //{
+        //    StringBuilder sb = new StringBuilder();
+
+        //    sb.Append("<script language=\"javascript\" src=\"../src/chains.js?v=1.0\"></script>");
+        //    sb.Append("<script language=\"javascript\">");
+        //    sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
+        //    sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
+        //    sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
+        //    sb.Append("var arrayValues = new Array(); var i = 0;");
+        //    SqlDataReader dr;
+        //    Database db = new Database();
+        //    try
+        //    {
+        //        dr = db.SelectQry(Query1);
+
+        //        while (dr.Read())
+        //        {
+        //            sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
+        //        }
+
+        //        sb.Append("fillReverseChain( '" + DropDownList2 + "', DropDownList1, arrayValues); }");
+
+        //        dr.Close();
+        //    }
+        //    catch (SqlException ex)
+        //    {
+        //        HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        db.CloseConnection();
+        //    }
+
+        //    sb.Append("</script>");
+
+        //    return sb.ToString();
+
+        //}
+        ///*****************************************************************************************************
+        //    /// <summary>
+        //    /// This method can be used to Create Script for filling
+        //    /// chained combos. It will return script, which should be
+        //    /// registered on the page(for three combos linked together).
+        //    /// </summary>
+        //*****************************************************************************************************/
+        //public string GenerateChainScript(string DropDownList1, string DropDownList2, string DropDownList3, string Query1, string Query2, bool fillTwoCombosWithOneParent)
+        //{
+        //    StringBuilder sb = new StringBuilder();
+
+        //    sb.Append("<script language=\"javascript\" src=\"../src/chains.js?v=1.0\"></script>");
+        //    sb.Append("<script language=\"javascript\">");
+        //    sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
+        //    sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
+        //    sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
+        //    sb.Append("var arrayValues = new Array(); var i = 0;");
+        //    SqlDataReader dr;
+        //    Database db = new Database();
+        //    try
+        //    {
+        //        dr = db.SelectQry(Query1);
+
+        //        while (dr.Read())
+        //        {
+        //            sb.Append("arrayValues[i] = [ " + dr[0] + ",'" + dr[1] + "'," + dr[2] + " ]; i++;");
+        //        }
+
+        //        dr.Close();
+        //    }
+        //    catch (SqlException ex)
+        //    {
+        //        HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        db.CloseConnection();
+        //    }
+
+        //    sb.Append("var arrayValues1 = new Array(); i = 0;");
+
+        //    try
+        //    {
+
+        //        dr = db.SelectQry(Query2);
+
+        //        while (dr.Read())
+        //        {
+        //            sb.Append("arrayValues1[i] = [ " + dr[0] + ",'" + dr[1] + "'," + dr[2] + " ]; i++;");
+        //        }
+
+        //        dr.Close();
+        //    }
+        //    catch (SqlException ex)
+        //    {
+        //        HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        db.CloseConnection();
+        //    }
+
+        //    sb.Append("fillChainTwoSameParent( '" + DropDownList2 + "','" + DropDownList3 + "', DropDownList1, arrayValues , arrayValues1 ); }");
+
+        //    sb.Append("</script>");
+
+        //    return sb.ToString();
+
+        //}
+
+        //public string GenerateChainScript(string DropDownList1, string DropDownList2, string Query1, string selectString)
+        //{
+        //    StringBuilder sb = new StringBuilder();
+
+        //    sb.Append("<script language=\"javascript\" src=\"/src/chains.js?v=1.0\"></script>");
+        //    sb.Append("<script language=\"javascript\">");
+        //    sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
+        //    sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
+        //    sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
+        //    sb.Append("var arrayValues = new Array(); var i = 0;");
+        //    SqlDataReader dr;
+        //    Database db = new Database();
+        //    try
+        //    {
+        //        dr = db.SelectQry(Query1);
+
+        //        while (dr.Read())
+        //        {
+        //            sb.Append("arrayValues[i] = [ " + dr[0] + ",'" + dr[1] + "'," + dr[2] + " ]; i++;");
+        //        }
+
+        //        sb.Append("fillChainTwo( '" + DropDownList2 + "', DropDownList1, arrayValues, '0' , '" + selectString + "' ); }");
+
+        //        dr.Close();
+        //    }
+        //    catch (SqlException ex)
+        //    {
+        //        HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        db.CloseConnection();
+        //    }
+
+        //    sb.Append("</script>");
+
+        //    return sb.ToString();
+
+        //}
+
+        ///*  Summary     : Get Model From Make
+        //    Author      : Dilip V 13-Jun-2012
+        //    Modifier    : */
+        //public static DataSet GetModelFromMake(string makeId)
+        //{
+        //    DataSet ds = new DataSet();
+        //    SqlCommand cmd = new SqlCommand();
+
+        //    if (makeId == "")
+        //        return ds;
+
+        //    Database db = new Database();
+        //    string sql = "";
+
+        //    sql = " SELECT ID AS Value, Name AS Text FROM BikeModels With(NoLock) WHERE IsDeleted = 0 AND "
+        //        + " BikeMakeId IN (" + db.GetInClauseValue(makeId, "MakeId", cmd) + ") ORDER BY Text ";
+
+        //    HttpContext.Current.Trace.Warn("sql =" + sql);
+
+        //    try
+        //    {
+        //        cmd.CommandText = sql;
+        //        ds = db.SelectAdaptQry(cmd);
+        //    }
+        //    catch (SqlException err)
+        //    {
+        //        SqlError(err);
+        //    }
+        //    catch (Exception err)
+        //    {
+        //        ExceptionError(err);
+        //    }
+
+        //    return ds;
+        //}
         // Converts format of number provided to indian format.
         // e.g. 1000 -> 1,000 and 250000 -> 2,50,000.
         public static string FormatNumeric(string numberToFormat)
@@ -1742,73 +1741,73 @@ namespace Bikewale.CoreDAL
         //Check Whether this profileno bike belongs to mumbai or not 
         //Used in SMSCommon and Mails Pages
         //Purpose : Append LOAN message for mumbai bikes
-        public static bool CheckForMumbai(string bikeProfileId)
-        {
-            bool isFromMumbai = false;
+        //public static bool CheckForMumbai(string bikeProfileId)
+        //{
+        //    bool isFromMumbai = false;
 
-            if (CommonOpn.CheckIsDealerFromProfileNo(bikeProfileId))	// if dealer
-            {
-                if (GetBikeCity(CommonOpn.GetProfileNo(bikeProfileId), true))
-                {
-                    isFromMumbai = true;
-                }
-            }
-            else // if individual
-            {
-                if (GetBikeCity(CommonOpn.GetProfileNo(bikeProfileId), false))
-                {
-                    isFromMumbai = true;
-                }
-            }
-            return isFromMumbai;
-        }
+        //    if (CommonOpn.CheckIsDealerFromProfileNo(bikeProfileId))	// if dealer
+        //    {
+        //        if (GetBikeCity(CommonOpn.GetProfileNo(bikeProfileId), true))
+        //        {
+        //            isFromMumbai = true;
+        //        }
+        //    }
+        //    else // if individual
+        //    {
+        //        if (GetBikeCity(CommonOpn.GetProfileNo(bikeProfileId), false))
+        //        {
+        //            isFromMumbai = true;
+        //        }
+        //    }
+        //    return isFromMumbai;
+        //}
 
         //Supportive function of above function
-        static bool GetBikeCity(string bikeProfileNo, bool isDealer)
-        {
-            string sql = "";
-            bool isCity = false;
-            SqlDataReader dr = null;
-            Database db = new Database();
+        //static bool GetBikeCity(string bikeProfileNo, bool isDealer)
+        //{
+        //    string sql = "";
+        //    bool isCity = false;
+        //    SqlDataReader dr = null;
+        //    Database db = new Database();
 
-            //dealer
-            if (isDealer == true)
-            {
-                sql = "SELECT SI.ID FROM SellInquiries AS SI, Dealers AS D With(NoLock) "
-                    + " WHERE D.Id = SI.DealerId AND D.CityId IN(1,6,8,13,40)"
-                    + " AND SI.Id = @bikeProfileNo";
-            }
-            //Individual
-            else
-            {
-                sql = "SELECT Id FROM ClassifiedIndividualSellInquiries With(NoLock) "
-                    + " WHERE CityId IN(1,6,8,13,40) AND Id = @bikeProfileNo";
-            }
+        //    //dealer
+        //    if (isDealer == true)
+        //    {
+        //        sql = "SELECT SI.ID FROM SellInquiries AS SI, Dealers AS D With(NoLock) "
+        //            + " WHERE D.Id = SI.DealerId AND D.CityId IN(1,6,8,13,40)"
+        //            + " AND SI.Id = @bikeProfileNo";
+        //    }
+        //    //Individual
+        //    else
+        //    {
+        //        sql = "SELECT Id FROM ClassifiedIndividualSellInquiries With(NoLock) "
+        //            + " WHERE CityId IN(1,6,8,13,40) AND Id = @bikeProfileNo";
+        //    }
 
-            SqlParameter[] param = { new SqlParameter("@bikeProfileNo", bikeProfileNo) };
-            try
-            {
-                dr = db.SelectQry(sql, param);
+        //    SqlParameter[] param = { new SqlParameter("@bikeProfileNo", bikeProfileNo) };
+        //    try
+        //    {
+        //        dr = db.SelectQry(sql, param);
 
-                if (dr.Read())
-                {
-                    isCity = true;
-                }
-                dr.Close();
-            }
-            catch (Exception err)
-            {
-                HttpContext.Current.Trace.Warn("Common.SMSCommon : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Common.GetBikeCity");
-                objErr.SendMail();
-            }
-            finally
-            {
+        //        if (dr.Read())
+        //        {
+        //            isCity = true;
+        //        }
+        //        dr.Close();
+        //    }
+        //    catch (Exception err)
+        //    {
+        //        HttpContext.Current.Trace.Warn("Common.SMSCommon : " + err.Message);
+        //        ErrorClass objErr = new ErrorClass(err, "Common.GetBikeCity");
+        //        objErr.SendMail();
+        //    }
+        //    finally
+        //    {
 
-                db.CloseConnection();
-            }
-            return isCity;
-        }
+        //        db.CloseConnection();
+        //    }
+        //    return isCity;
+        //}
 
         //this function returns the city id as selected by the user and is as set in
         //the cookie

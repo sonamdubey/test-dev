@@ -17,8 +17,8 @@ namespace Bikewale.News
     public class NewsFeed : System.Web.UI.Page
     {
         protected Repeater rptNews;
-        private string selectClause = "", fromClause = "", whereClause = "", orderByClause = "";
-        private int CurrentPageIndex = 1, PageSize = 10;
+        //private string selectClause = "", fromClause = "", whereClause = "", orderByClause = "";
+        private int CurrentPageIndex = 1;//, PageSize = 10;
         private string _slug = string.Empty;
         private string _subCat = string.Empty;
         private string relatedItem1 = string.Empty, relatedItem2 = string.Empty, relatedItem3 = string.Empty, relatedItem4 = string.Empty;
@@ -57,105 +57,105 @@ namespace Bikewale.News
 
         private void BindNews()
         {
-            SqlCommand cmd = new SqlCommand();
-            bool hasRows = false;
+            //SqlCommand cmd = new SqlCommand();
+            //bool hasRows = false;
 
-            if (_slug != string.Empty && _subCat == string.Empty)
-            {
-                selectClause = " CB.Id AS BasicId, CB.AuthorName, CB.Description, CB.DisplayDate, CB.Views, CB.Title, CB.Url, CB.MainImageSet, I.HostUrl, I.ImagePathLarge, I.ImagePathThumbnail,I.OriginalImgPath ";
-                selectClause = selectClause + ", (Select top 1 CPC.Data From Con_EditCms_Pages AS CP, Con_EditCms_PageContent AS CPC With(NoLock) WHERE CP.BasicId = CB.Id and CPC.PageId = CP.Id) as Content";
-                fromClause = " Con_EditCms_Tags CT With(NoLock) "
-                        + " Inner Join Con_EditCms_BasicTags BT With(NoLock) On BT.TagId = CT.Id "
-                        + " Inner Join Con_EditCMs_Basic CB With(NoLock) On CB.Id = BT.BasicId "
-                        + " LEFT JOIN Con_EditCms_Images AS I With(NoLock) ON I.BasicId = CB.Id AND I.IsMainImage = 1 ";
-                whereClause = " CT.Slug = @Slug And CB.CategoryId = @CategoryId AND CB.IsActive = 1 AND CB.IsPublished = 1 AND CB.ApplicationId = 2 ";
-                orderByClause = " DisplayDate Desc ";
+            //if (_slug != string.Empty && _subCat == string.Empty)
+            //{
+            //    selectClause = " CB.Id AS BasicId, CB.AuthorName, CB.Description, CB.DisplayDate, CB.Views, CB.Title, CB.Url, CB.MainImageSet, I.HostUrl, I.ImagePathLarge, I.ImagePathThumbnail,I.OriginalImgPath ";
+            //    selectClause = selectClause + ", (Select top 1 CPC.Data From Con_EditCms_Pages AS CP, Con_EditCms_PageContent AS CPC With(NoLock) WHERE CP.BasicId = CB.Id and CPC.PageId = CP.Id) as Content";
+            //    fromClause = " Con_EditCms_Tags CT With(NoLock) "
+            //            + " Inner Join Con_EditCms_BasicTags BT With(NoLock) On BT.TagId = CT.Id "
+            //            + " Inner Join Con_EditCMs_Basic CB With(NoLock) On CB.Id = BT.BasicId "
+            //            + " LEFT JOIN Con_EditCms_Images AS I With(NoLock) ON I.BasicId = CB.Id AND I.IsMainImage = 1 ";
+            //    whereClause = " CT.Slug = @Slug And CB.CategoryId = @CategoryId AND CB.IsActive = 1 AND CB.IsPublished = 1 AND CB.ApplicationId = 2 ";
+            //    orderByClause = " DisplayDate Desc ";
 
-                cmd.Parameters.Add("@Slug", SqlDbType.VarChar, 150).Value = _slug;
-                cmd.Parameters.Add("@CategoryId", SqlDbType.BigInt).Value = "1";
-            }
-            else if (_slug == string.Empty && _subCat != string.Empty)
-            {
-                selectClause = " CB.Id AS BasicId, CB.AuthorName, CB.Description, CB.DisplayDate, CB.Views, CB.Title, CB.Url, CB.MainImageSet ,  I.HostUrl, I.ImagePathLarge, I.ImagePathThumbnail,I.OriginalImgPath ";
-                selectClause = selectClause + ", (Select top 1 CPC.Data From Con_EditCms_Pages AS CP, Con_EditCms_PageContent AS CPC With(NoLock) WHERE CP.BasicId = CB.Id and CPC.PageId = CP.Id) as Content";
-                fromClause = " Con_EditCms_SubCategories SC With(NoLock) "
-                            + " Inner Join Con_EditCms_BasicSubCategories BSC With(NoLock) On BSC.SubCategoryId = SC.Id "
-                            + " Inner Join Con_EditCMs_Basic CB With(NoLock) On CB.Id = BSC.BasicId "
-                            + " LEFT JOIN Con_EditCms_Images AS I With(NoLock) ON I.BasicId = CB.Id AND I.IsMainImage = 1 ";
-                whereClause = " SC.Id = @SubCatId And CB.CategoryId = @CategoryId AND CB.IsActive = 1 AND CB.IsPublished = 1 AND CB.ApplicationId = 2 ";
-                orderByClause = " DisplayDate Desc ";
+            //    cmd.Parameters.Add("@Slug", SqlDbType.VarChar, 150).Value = _slug;
+            //    cmd.Parameters.Add("@CategoryId", SqlDbType.BigInt).Value = "1";
+            //}
+            //else if (_slug == string.Empty && _subCat != string.Empty)
+            //{
+            //    selectClause = " CB.Id AS BasicId, CB.AuthorName, CB.Description, CB.DisplayDate, CB.Views, CB.Title, CB.Url, CB.MainImageSet ,  I.HostUrl, I.ImagePathLarge, I.ImagePathThumbnail,I.OriginalImgPath ";
+            //    selectClause = selectClause + ", (Select top 1 CPC.Data From Con_EditCms_Pages AS CP, Con_EditCms_PageContent AS CPC With(NoLock) WHERE CP.BasicId = CB.Id and CPC.PageId = CP.Id) as Content";
+            //    fromClause = " Con_EditCms_SubCategories SC With(NoLock) "
+            //                + " Inner Join Con_EditCms_BasicSubCategories BSC With(NoLock) On BSC.SubCategoryId = SC.Id "
+            //                + " Inner Join Con_EditCMs_Basic CB With(NoLock) On CB.Id = BSC.BasicId "
+            //                + " LEFT JOIN Con_EditCms_Images AS I With(NoLock) ON I.BasicId = CB.Id AND I.IsMainImage = 1 ";
+            //    whereClause = " SC.Id = @SubCatId And CB.CategoryId = @CategoryId AND CB.IsActive = 1 AND CB.IsPublished = 1 AND CB.ApplicationId = 2 ";
+            //    orderByClause = " DisplayDate Desc ";
 
-                cmd.Parameters.Add("@SubCatId", SqlDbType.BigInt).Value = _subCat;
-                cmd.Parameters.Add("@CategoryId", SqlDbType.BigInt).Value = "1";
-            }
-            else
-            {
-                selectClause = " CB.Id AS BasicId, CB.AuthorName, CB.Description, CB.DisplayDate, CB.Views, CB.Title, CB.Url, CB.MainImageSet,  I.HostUrl, I.ImagePathLarge, I.ImagePathThumbnail,I.OriginalImgPath ";
-                selectClause = selectClause + ", (Select top 1 CPC.Data From Con_EditCms_Pages AS CP, Con_EditCms_PageContent AS CPC With(NoLock) WHERE CP.BasicId = CB.Id and CPC.PageId = CP.Id) as Content";
-                fromClause = " Con_EditCms_Basic AS CB With(NoLock) "
-                           + " LEFT JOIN Con_EditCms_Images AS I With(NoLock) ON I.BasicId = CB.Id AND I.IsMainImage = 1 ";
-                whereClause = " CB.CategoryId = @CategoryId AND CB.IsActive = 1 AND CB.IsPublished = 1 AND CB.ApplicationId = 2 ";
-                orderByClause = " DisplayDate Desc ";
+            //    cmd.Parameters.Add("@SubCatId", SqlDbType.BigInt).Value = _subCat;
+            //    cmd.Parameters.Add("@CategoryId", SqlDbType.BigInt).Value = "1";
+            //}
+            //else
+            //{
+            //    selectClause = " CB.Id AS BasicId, CB.AuthorName, CB.Description, CB.DisplayDate, CB.Views, CB.Title, CB.Url, CB.MainImageSet,  I.HostUrl, I.ImagePathLarge, I.ImagePathThumbnail,I.OriginalImgPath ";
+            //    selectClause = selectClause + ", (Select top 1 CPC.Data From Con_EditCms_Pages AS CP, Con_EditCms_PageContent AS CPC With(NoLock) WHERE CP.BasicId = CB.Id and CPC.PageId = CP.Id) as Content";
+            //    fromClause = " Con_EditCms_Basic AS CB With(NoLock) "
+            //               + " LEFT JOIN Con_EditCms_Images AS I With(NoLock) ON I.BasicId = CB.Id AND I.IsMainImage = 1 ";
+            //    whereClause = " CB.CategoryId = @CategoryId AND CB.IsActive = 1 AND CB.IsPublished = 1 AND CB.ApplicationId = 2 ";
+            //    orderByClause = " DisplayDate Desc ";
 
-                cmd.Parameters.Add("@CategoryId", SqlDbType.BigInt).Value = "1";
-            }
+            //    cmd.Parameters.Add("@CategoryId", SqlDbType.BigInt).Value = "1";
+            //}
 
-            try
-            {
-                int startIndex = (CurrentPageIndex - 1) * this.PageSize + 1;
-                int endIndex = CurrentPageIndex * this.PageSize;
+            //try
+            //{
+            //    int startIndex = (CurrentPageIndex - 1) * this.PageSize + 1;
+            //    int endIndex = CurrentPageIndex * this.PageSize;
 
-                string sql = " Select * From (Select Top " + endIndex + " Row_Number() Over (Order By " + orderByClause + ") AS RowN, "
-                    + " " + selectClause + " From " + fromClause + " "
-                    + (whereClause != "" ? " Where " + whereClause + " " : "")
-                    + " ) AS TopRecords Where "
-                    + " RowN >= " + startIndex + " AND RowN <= " + endIndex + " ";
+            //    string sql = " Select * From (Select Top " + endIndex + " Row_Number() Over (Order By " + orderByClause + ") AS RowN, "
+            //        + " " + selectClause + " From " + fromClause + " "
+            //        + (whereClause != "" ? " Where " + whereClause + " " : "")
+            //        + " ) AS TopRecords Where "
+            //        + " RowN >= " + startIndex + " AND RowN <= " + endIndex + " ";
 
-                Trace.Warn(sql);
-                cmd.CommandText = sql;
-                cmd.CommandType = CommandType.Text;
+            //    Trace.Warn(sql);
+            //    cmd.CommandText = sql;
+            //    cmd.CommandType = CommandType.Text;
 
-                //Response.Write(sql);
+            //    //Response.Write(sql);
 
-                CommonOpn objCom = new CommonOpn();
+            //    CommonOpn objCom = new CommonOpn();
 
-                cwConnectionString = System.Configuration.ConfigurationManager.AppSettings["connectionString"];
-                Database db = new Database(cwConnectionString);
-                ds = db.SelectAdaptQry(cmd);
-                if (ds.Tables[0].Rows.Count > 0)
-                {
-                    hasRows = true;
-                    WriteRSSPrologue();
-                    GetRelatedItems();
+            //    cwConnectionString = System.Configuration.ConfigurationManager.AppSettings["connectionString"];
+            //    Database db = new Database(cwConnectionString);
+            //    ds = db.SelectAdaptQry(cmd);
+            //    if (ds.Tables[0].Rows.Count > 0)
+            //    {
+            //        hasRows = true;
+            //        WriteRSSPrologue();
+            //        GetRelatedItems();
 
-                    for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-                    {
-                        CreateItem(i);
-                    }
-                    WriteRSSClosing();
+            //        for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            //        {
+            //            CreateItem(i);
+            //        }
+            //        WriteRSSClosing();
 
-                    writer.Flush();
-                    writer.Close();
+            //        writer.Flush();
+            //        writer.Close();
 
-                    Response.ContentEncoding = System.Text.Encoding.UTF8;
-                    Response.ContentType = "text/xml";
-                    Response.Cache.SetCacheability(HttpCacheability.Public);
-                }
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+            //        Response.ContentEncoding = System.Text.Encoding.UTF8;
+            //        Response.ContentType = "text/xml";
+            //        Response.Cache.SetCacheability(HttpCacheability.Public);
+            //    }
+            //}
+            //catch (Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
 
-            if (!hasRows)
-            {
-                Response.Redirect("/news/", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
-            }
+            //if (!hasRows)
+            //{
+            //    Response.Redirect("/news/", false);
+            //    HttpContext.Current.ApplicationInstance.CompleteRequest();
+            //    this.Page.Visible = false;
+            //}
 
-            Response.End();
+            //Response.End();
         }
 
         private void GetRelatedItems()
@@ -182,21 +182,23 @@ namespace Bikewale.News
 
         private void GetRelatedLinksFromDB()
         {
-            SqlCommand cmd = new SqlCommand();
-            int startIndex = 1;
-            int endIndex = 4;
-            string sql = " Select * From (Select Top " + endIndex + " Row_Number() Over (Order By " + orderByClause + ") AS RowN, "
-                    + " " + selectClause + " From " + fromClause + " "
-                    + (whereClause != "" ? " Where " + whereClause + " " : "")
-                    + " ) AS TopRecords Where "
-                    + " RowN >= " + startIndex + " AND RowN <= " + endIndex + " ";
-            cmd.CommandText = sql;
-            cmd.CommandType = CommandType.Text;
-            CommonOpn objCom = new CommonOpn();
+            throw new Exception("Method not used/commented");
 
-            cwConnectionString = System.Configuration.ConfigurationManager.AppSettings["connectionString"];
-            Database db = new Database(cwConnectionString);
-            dsRelated = db.SelectAdaptQry(cmd);
+            //SqlCommand cmd = new SqlCommand();
+            //int startIndex = 1;
+            //int endIndex = 4;
+            //string sql = " Select * From (Select Top " + endIndex + " Row_Number() Over (Order By " + orderByClause + ") AS RowN, "
+            //        + " " + selectClause + " From " + fromClause + " "
+            //        + (whereClause != "" ? " Where " + whereClause + " " : "")
+            //        + " ) AS TopRecords Where "
+            //        + " RowN >= " + startIndex + " AND RowN <= " + endIndex + " ";
+            //cmd.CommandText = sql;
+            //cmd.CommandType = CommandType.Text;
+            //CommonOpn objCom = new CommonOpn();
+
+            //cwConnectionString = System.Configuration.ConfigurationManager.AppSettings["connectionString"];
+            //Database db = new Database(cwConnectionString);
+            //dsRelated = db.SelectAdaptQry(cmd);
 
         }
 

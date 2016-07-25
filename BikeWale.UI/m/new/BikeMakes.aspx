@@ -9,7 +9,7 @@
 <html>
 <head>
     <%
-        title = _make.MakeName + " Price in India, Review, Mileage & Photos - Bikewale";
+        title = _make.MakeName + " Bikes Prices, Reviews, Mileage & Photos - BikeWale";
         description = _make.MakeName + " Price in India - Rs." + Bikewale.Utility.Format.FormatPrice(_minModelPrice.ToString()) +
            " to  Rs." + Bikewale.Utility.Format.FormatPrice(_maxModelPrice.ToString()) + ". Check out " + _make.MakeName +
            " on road price, reviews, mileage, versions, news & photos at Bikewale.";
@@ -49,7 +49,7 @@
                     </div>
                     <!--  class="grid-12"-->
                     <div class="bg-white box-shadow content-inner-block-1520">
-                        <h2 class="text-x-black"><%= _make.MakeName %> Bikes</h2>
+                        <h1><%= _make.MakeName %> Bikes</h1>
                     </div>
                     <div class="search-bike-container position-rel pos-top3 box-shadow">
                         <div class="search-bike-item">
@@ -70,7 +70,7 @@
                                                     <div class="font14 text-x-light margin-bottom10">
                                                         <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower"))) %>
                                                     </div>
-                                                    <div class="margin-bottom10 font14 text-light-grey">Ex-showroom, <%=ConfigurationManager.AppSettings["defaultName"].ToString() %></div>
+                                                    <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, <%=ConfigurationManager.AppSettings["defaultName"].ToString() %></div>
                                                     <div class="margin-bottom5">
                                                         <span class="bwmsprite inr-sm-icon" style="<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))=="0")?"display:none;": "display:inline-block;"%>"></span>
                                                         <span class="text-bold font18"><%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %></span>
@@ -103,33 +103,23 @@
                     <div id="overallSpecsTab" class="overall-specs-tabs-container">
                         <ul class="overall-specs-tabs-wrapper">
                              <% if (_bikeDesc != null && _bikeDesc.FullDescription.Length > 0) { %>
-                            <li data-tabs="#makeAboutContent">
-                                <h3>About</h3>
-                            </li>
+                            <li data-tabs="#makeAboutContent">About</li>
                             <% } %>
                             <% if (ctrlNews.FetchedRecordsCount > 0)
                                {%>
-                            <li data-tabs="#makeNewsContent">
-                                <h3>News</h3>
-                            </li>
+                            <li data-tabs="#makeNewsContent">News</li>
                             <% } %>
                             <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
                                { %>
-                            <li data-tabs="#makeReviewsContent">
-                                <h3>Reviews</h3>
-                            </li>
+                            <li data-tabs="#makeReviewsContent">Reviews</li>
                             <%} %>
                             <% if (ctrlVideos.FetchedRecordsCount > 0)
                                { %>
-                            <li data-tabs="#makeVideosContent">
-                                <h3>Videos</h3>
-                            </li>
+                            <li data-tabs="#makeVideosContent">Videos</li>
                             <%} %>
                             <% if (ctrlDealerCard.showWidget)
                                { %>
-                            <li data-tabs="#makeDealersContent">
-                                <h3>Dealers</h3>
-                            </li>
+                            <li data-tabs="#makeDealersContent">Dealers</li>
                             <%} %>
                         </ul>
                     </div>

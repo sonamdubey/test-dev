@@ -57,6 +57,10 @@ namespace Bikewale.Common
         ********************************************************************************************/
         public void SendMail()
         {
+            //exception log
+           // ExceptionLogging.SendErrorToText(err);
+
+
             string sendError = "";
             //get the value of sendError from web.config file
             try
@@ -155,9 +159,9 @@ namespace Bikewale.Common
 
                     objTrace.Trace.Warn(msg.From + "," + msg.To + "," + msg.Subject + "," + msg.Body);
                 }
-                catch (Exception err)
+                catch (Exception ex)
                 {
-                    objTrace.Trace.Warn("CommonOpn:SendMail: " + err.Message);
+                    objTrace.Trace.Warn("CommonOpn:SendMail: " + ex.Message);
                 }
             }
         }

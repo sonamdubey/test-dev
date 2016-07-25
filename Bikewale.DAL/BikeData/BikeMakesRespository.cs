@@ -2,9 +2,11 @@
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
 
@@ -36,18 +38,15 @@ namespace Bikewale.DAL.BikeData
         {
             List<BikeMakeEntityBase> objMakesList = null;
 
-            Database db = null;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetBikeMakes_New_29032016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes_new_29032016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = makeType.ToString();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, makeType.ToString()));
 
-                    db = new Database();
-
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -71,23 +70,12 @@ namespace Bikewale.DAL.BikeData
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
-
             return objMakesList;
         }
 
@@ -119,45 +107,36 @@ namespace Bikewale.DAL.BikeData
         public T GetById(U id)
         {
             T t = default(T);
-            Database db = null;
             try
             {
-                db = new Database();
                 t = new T();
 
-                using (SqlConnection conn = new SqlConnection(db.GetConString()))
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getmakedetails";
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makename", DbType.String, 30, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbType.String, 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_used", DbType.Boolean, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_futuristic", DbType.Boolean, ParameterDirection.Output));
+
+                    // LogLiveSps.LogSpInGrayLog(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+
+                    HttpContext.Current.Trace.Warn("qry success");
+
+                    if (!string.IsNullOrEmpty(cmd.Parameters["par_makename"].Value.ToString()))
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "GetMakeDetails";
-                        cmd.Connection = conn;
-
-                        HttpContext.Current.Trace.Warn("modelId : " + id);
-
-                        cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = id;
-                        cmd.Parameters.Add("@MakeName", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@MakeMaskingName", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@New", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@Used", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@Futuristic", SqlDbType.Bit).Direction = ParameterDirection.Output;
-
-                        LogLiveSps.LogSpInGrayLog(cmd);
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
-
-                        HttpContext.Current.Trace.Warn("qry success");
-
-                        if (!string.IsNullOrEmpty(cmd.Parameters["@MakeName"].Value.ToString()))
-                        {
-                            t.MakeName = cmd.Parameters["@MakeName"].Value.ToString();
-                            t.MaskingName = cmd.Parameters["@MakeMaskingName"].Value.ToString();
-                            t.New = Convert.ToBoolean(cmd.Parameters["@New"].Value);
-                            t.Used = Convert.ToBoolean(cmd.Parameters["@Used"].Value);
-                            t.Futuristic = Convert.ToBoolean(cmd.Parameters["@Futuristic"].Value);
-                        }
-
+                        t.MakeName = cmd.Parameters["par_makename"].Value.ToString();
+                        t.MaskingName = cmd.Parameters["par_makemaskingname"].Value.ToString();
+                        t.New = Convert.ToBoolean(cmd.Parameters["par_new"].Value);
+                        t.Used = Convert.ToBoolean(cmd.Parameters["par_used"].Value);
+                        t.Futuristic = Convert.ToBoolean(cmd.Parameters["par_futuristic"].Value);
                     }
+
                 }
             }
             catch (SqlException ex)
@@ -172,10 +151,6 @@ namespace Bikewale.DAL.BikeData
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
 
             return t;
         }
@@ -189,67 +164,67 @@ namespace Bikewale.DAL.BikeData
         public List<BikeModelsListEntity> GetModelsList(U makeId)
         {
             List<BikeModelsListEntity> objList = null;
-            Database db = null;
-            try
-            {
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.CommandText = "GetSerieswiseModels_New";
-                    cmd.CommandType = CommandType.StoredProcedure;
+            //Database db = null;
+            //try
+            //{
+            //    using (SqlCommand cmd = new SqlCommand())
+            //    {
+            //        cmd.CommandText = "GetSerieswiseModels_New";
+            //        cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@MakeId", SqlDbType.VarChar, 10).Value = makeId;
+            //        cmd.Parameters.Add("@MakeId", SqlDbType.VarChar, 10).Value = makeId;
 
-                    db = new Database();
+            //        db = new Database();
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
-                    {
-                        if (dr != null)
-                        {
-                            objList = new List<BikeModelsListEntity>();
+            //        using (SqlDataReader dr = db.SelectQry(cmd))
+            //        {
+            //            if (dr != null)
+            //            {
+            //                objList = new List<BikeModelsListEntity>();
 
-                            while (dr.Read())
-                            {
-                                BikeModelsListEntity objModel = new BikeModelsListEntity();
+            //                while (dr.Read())
+            //                {
+            //                    BikeModelsListEntity objModel = new BikeModelsListEntity();
 
-                                objModel.ModelSeries.SeriesId = Convert.ToInt16(dr["SeriesId"]);
-                                objModel.ModelSeries.SeriesName = Convert.ToString(dr["Series"]);
-                                objModel.ModelSeries.MaskingName = Convert.ToString(dr["SeriesMaskingName"]);
-                                objModel.ModelId = Convert.ToInt32(dr["ModelId"]);
-                                objModel.ModelName = Convert.ToString(dr["Model"]);
-                                objModel.ModelCount = Convert.ToUInt16(dr["ModelCount"]);
-                                objModel.MinPrice = Convert.ToInt64(dr["MinPrice"]);
-                                objModel.MaxPrice = Convert.ToInt64(dr["MaxPrice"]);
-                                objModel.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
-                                objModel.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
-                                objModel.SeriesSmallPicUrl = Convert.ToString(dr["SmallPicUrl"]);
-                                objModel.SeriesHostUrl = Convert.ToString(dr["HostUrl"]);
-                                objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
-                                objModel.MakeBase.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
-                                objModel.ModelRank = Convert.ToUInt16(dr["ModelRank"]);
-                                objModel.MakeBase.MakeName = Convert.ToString(dr["MakeName"]);
-                                objModel.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
-                                objList.Add(objModel);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (SqlException err)
-            {
-                HttpContext.Current.Trace.Warn("SQL Exception in GetModelsList", err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception err)
-            {
-                HttpContext.Current.Trace.Warn("Exception in GetModelsList", err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
+            //                    objModel.ModelSeries.SeriesId = Convert.ToInt16(dr["SeriesId"]);
+            //                    objModel.ModelSeries.SeriesName = Convert.ToString(dr["Series"]);
+            //                    objModel.ModelSeries.MaskingName = Convert.ToString(dr["SeriesMaskingName"]);
+            //                    objModel.ModelId = Convert.ToInt32(dr["ModelId"]);
+            //                    objModel.ModelName = Convert.ToString(dr["Model"]);
+            //                    objModel.ModelCount = Convert.ToUInt16(dr["ModelCount"]);
+            //                    objModel.MinPrice = Convert.ToInt64(dr["MinPrice"]);
+            //                    objModel.MaxPrice = Convert.ToInt64(dr["MaxPrice"]);
+            //                    objModel.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
+            //                    objModel.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
+            //                    objModel.SeriesSmallPicUrl = Convert.ToString(dr["SmallPicUrl"]);
+            //                    objModel.SeriesHostUrl = Convert.ToString(dr["HostUrl"]);
+            //                    objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
+            //                    objModel.MakeBase.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
+            //                    objModel.ModelRank = Convert.ToUInt16(dr["ModelRank"]);
+            //                    objModel.MakeBase.MakeName = Convert.ToString(dr["MakeName"]);
+            //                    objModel.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+            //                    objList.Add(objModel);
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (SqlException err)
+            //{
+            //    HttpContext.Current.Trace.Warn("SQL Exception in GetModelsList", err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception err)
+            //{
+            //    HttpContext.Current.Trace.Warn("Exception in GetModelsList", err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
 
             return objList;
         }
@@ -257,25 +232,23 @@ namespace Bikewale.DAL.BikeData
         public BikeDescriptionEntity GetMakeDescription(U makeId)
         {
             BikeDescriptionEntity objMake = null;
-            Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmakesynopsis"))
                 {
-                    cmd.CommandText = "GetMakeSynopsis";
+                    //cmd.CommandText = "getmakesynopsis";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
+                    //cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
 
-                    db = new Database();
-
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {
                             objMake = new BikeDescriptionEntity()
                             {
-                                Name = Convert.ToString("MakeName"),
+                                Name = Convert.ToString(dr["MakeName"]),
                                 SmallDescription = Convert.ToString(dr["Description"]),
                                 FullDescription = Convert.ToString(dr["Description"])
                             };
@@ -285,21 +258,11 @@ namespace Bikewale.DAL.BikeData
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetMakeDescription sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetMakeDescription ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return objMake;
@@ -313,16 +276,18 @@ namespace Bikewale.DAL.BikeData
         public DataTable GetMakes(string RequestType)
         {
             DataTable dt = null;
-            Database db = null;
 
-            using (SqlCommand cmd = new SqlCommand("GetBikeMakes"))
+            using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = RequestType;
+                cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, RequestType));
                 try
                 {
-                    db = new Database();
-                    dt = db.SelectAdaptQry(cmd).Tables[0];
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                            dt = ds.Tables[0];
+                    }
                 }
                 catch (SqlException ex)
                 {
@@ -351,39 +316,32 @@ namespace Bikewale.DAL.BikeData
             if (!CommonOpn.IsNumeric(makeId))
                 return null;
 
-            Database db = null;
-
             BikeMakeEntityBase makeDetails = null;
 
             try
             {
-                db = new Database();
 
-                using (SqlConnection conn = new SqlConnection(db.GetConString()))
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getmakedetails";
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makename", DbType.String, 30, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbType.String, 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_used", DbType.Boolean, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_futuristic", DbType.Boolean, ParameterDirection.Output));
+
+                    // LogLiveSps.LogSpInGrayLog(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+
+                    if (!string.IsNullOrEmpty(cmd.Parameters["par_makename"].Value.ToString()))
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "GetMakeDetails";
-                        cmd.Connection = conn;
-
-                        cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
-                        cmd.Parameters.Add("@MakeName", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@MakeMaskingName", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@New", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@Used", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@Futuristic", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
-
-                        if (!string.IsNullOrEmpty(cmd.Parameters["@MakeName"].Value.ToString()))
-                        {
-                            makeDetails = new BikeMakeEntityBase();
-                            makeDetails.MakeName = cmd.Parameters["@MakeName"].Value.ToString();
-                            makeDetails.MaskingName = cmd.Parameters["@MakeMaskingName"].Value.ToString();
-                            makeDetails.MakeId = Convert.ToInt32(makeId);
-                        }
+                        makeDetails = new BikeMakeEntityBase();
+                        makeDetails.MakeName = cmd.Parameters["par_makename"].Value.ToString();
+                        makeDetails.MaskingName = cmd.Parameters["par_makemaskingname"].Value.ToString();
+                        makeDetails.MakeId = Convert.ToInt32(makeId);
                     }
                 }
             }
@@ -391,10 +349,6 @@ namespace Bikewale.DAL.BikeData
             {
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return makeDetails;
@@ -408,16 +362,14 @@ namespace Bikewale.DAL.BikeData
         public IEnumerable<BikeMakeEntityBase> UpcomingBikeMakes()
         {
             IList<BikeMakeEntityBase> makes = null;
-            Database db = null;
             try
             {
-                using (SqlCommand sqlCommand = new SqlCommand("GetUpcomingBikeMakes"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getupcomingbikemakes"))
                 {
-                    db = new Database();
-                    sqlCommand.CommandType = CommandType.StoredProcedure;
-                    using (SqlDataReader reader = db.SelectQry(sqlCommand))
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        if (reader != null && reader.HasRows)
+                        if (reader != null)
                         {
                             makes = new List<BikeMakeEntityBase>();
                             while (reader.Read())
@@ -431,8 +383,9 @@ namespace Bikewale.DAL.BikeData
                                         LogoUrl = Convert.ToString(reader["LogoUrl"]),
                                         HostUrl = Convert.ToString(reader["HostURL"])
                                     }
-                                    );
+                                  );
                             }
+                            reader.Close();
                         }
                     }
                 }
@@ -441,10 +394,6 @@ namespace Bikewale.DAL.BikeData
             {
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
             return makes;
         }
@@ -457,30 +406,30 @@ namespace Bikewale.DAL.BikeData
         public IEnumerable<BikeVersionEntity> GetDiscontinuedBikeModelsByMake(uint makeId)
         {
             IList<BikeVersionEntity> bikeLinkList = null;
-            Database db = null;
             try
             {
-                using (SqlCommand sqlCommand = new SqlCommand("GetDiscontinuedBikeModelsByMake"))
+                using (DbCommand DbCommand = DbFactory.GetDBCommand("getdiscontinuedbikemodelsbymake"))
                 {
-                    db = new Database();
-                    sqlCommand.CommandType = CommandType.StoredProcedure;
-                    sqlCommand.Parameters.Add("@MakeId", SqlDbType.Int, 20).Value = makeId;
-                    using (SqlDataReader reader = db.SelectQry(sqlCommand))
+                    DbCommand.CommandType = CommandType.StoredProcedure;
+                    DbCommand.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.UInt32, makeId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(DbCommand, ConnectionType.ReadOnly))
                     {
-                        if (reader != null && reader.HasRows)
+                        if (dr != null)
                         {
                             bikeLinkList = new List<BikeVersionEntity>();
-                            while (reader.Read())
+                            while (dr.Read())
                             {
                                 bikeLinkList.Add(
                                         new BikeVersionEntity()
                                         {
-                                            ModelMasking = Convert.ToString(reader["modelmaskingname"]),
-                                            ModelName = Convert.ToString(reader["Name"])
+                                            ModelMasking = Convert.ToString(dr["modelmaskingname"]),
+                                            ModelName = Convert.ToString(dr["Name"])
                                         }
                                     );
                             }
                         }
+
+                        dr.Close();
                     }
                 }
             }
@@ -489,10 +438,7 @@ namespace Bikewale.DAL.BikeData
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
             return bikeLinkList;
 
         }

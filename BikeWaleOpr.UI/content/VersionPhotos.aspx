@@ -63,7 +63,7 @@
 
 	function checkAll( chk )
 	{
-		var chks = document.getElementById( 'versionTable' ).getElementsByTagName( 'input' );
+		var chks = document.getElementById('versionTable').getElementsByTagName('input');
 		
 		if ( chks.length && chks.length > 0 )
 		{

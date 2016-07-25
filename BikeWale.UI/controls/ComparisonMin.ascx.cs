@@ -145,7 +145,7 @@ namespace Bikewale.Controls
             this.m_TopRecord = objComp.FetchTopRecord();
             this.m_FetchedRecordsCount = objComp.FetchedRecordCount;
 
-            if (m_FetchedRecordsCount > 0)
+            if (m_FetchedRecordsCount > 0 && m_TopRecord!=null )
             {
                 this.m_TopCompareImage = Bikewale.Utility.Image.GetPathToShowImages(m_TopRecord.OriginalImagePath, m_TopRecord.HostURL, Bikewale.Utility.ImageSize._476x268);
 

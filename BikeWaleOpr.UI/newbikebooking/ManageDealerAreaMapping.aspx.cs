@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
+﻿using BikewaleOpr.DALs;
+using BikewaleOpr.Entities;
+using BikewaleOpr.Interface;
 using BikeWaleOpr.Common;
-using System.Data;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
-using BikeWaleOpr.Entities;
-using System.Threading.Tasks;
-using System.Linq;
+using System.Data;
+using System.Web;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.NewBikeBooking
 {
@@ -24,9 +24,9 @@ namespace BikeWaleOpr.NewBikeBooking
         protected Button unmapDealer, MapDealer;
         protected HtmlInputHidden hdnMapArea, hdnUnmapArea;
         protected string cityId = string.Empty;
-        protected uint dealerId=0;
+        protected uint dealerId = 0;
         protected List<DealerAreaDetails> objMapping = null;
-        protected string abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
+        protected string BwOprHostUrl = ConfigurationManager.AppSettings["BwOprHostUrlForJs"];
 
         protected override void OnInit(EventArgs e)
         {
@@ -38,31 +38,27 @@ namespace BikeWaleOpr.NewBikeBooking
 
         private void MapAreas(object sender, EventArgs e)
         {
-            bool isSuccess = false;
             string arealist = hdnUnmapArea.Value;
-            Trace.Warn(arealist);
-            string abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-            string requestType = "application/json";
-            string api = "/api/dealerpricequote/MapDealerWithArea/?dealerid=" + dealerId + "&areaidlist=" + arealist;
-
-            Trace.Warn(abHostUrl + api);
-            bool isUpdated = BWHttpClient.PostSync<bool>(abHostUrl, requestType, api, isSuccess);
-            hdnUnmapArea.Value = "";
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>();
+                IDealerPriceQuote objPriceQuote = container.Resolve<DealerPriceQuoteRepository>();
+                objPriceQuote.MapDealerWithArea(dealerId, arealist);
+            }
+            hdnUnmapArea.Value = string.Empty;
             BindArea();
         }
 
         private void UnmapAreas(object sender, EventArgs e)
         {
-            bool isSuccess = false;
             string arealist = hdnMapArea.Value;
-            Trace.Warn(arealist);
-            //string abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-            string requestType = "application/json";
-            string api = "/api/dealerpricequote/UnmapDealerWithArea/?dealerid=" + dealerId + "&areaidlist=" + arealist;
-
-            Trace.Warn(abHostUrl + api);
-            bool isUpdated = BWHttpClient.PostSync<bool>(abHostUrl, requestType, api, isSuccess);
-            hdnMapArea.Value = "";
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>();
+                IDealerPriceQuote objPriceQuote = container.Resolve<DealerPriceQuoteRepository>();
+                objPriceQuote.UnmapDealer(dealerId, arealist);
+            }
+            hdnMapArea.Value = string.Empty;
             BindArea();
         }
 
@@ -70,29 +66,26 @@ namespace BikeWaleOpr.NewBikeBooking
         {
             dealerId = Convert.ToUInt32(Request.QueryString["dealerid"]);
 
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
-            Trace.Warn("DDDDDDDDDs");
-            Trace.Warn(ddlCity.SelectedValue);
-            GetCity();
+                GetCity();
             }
             else
                 BindArea();
         }
 
-        private  void BindArea()
+        private void BindArea()
         {
             try
             {
                 cityId = ddlCity.SelectedValue;
-                Trace.Warn(cityId);
-                //string abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string requestType = "application/json";
-                string api = "/api/DealerPriceQuote/GetDealerAreaDetail/?cityid=" + cityId;
-
-                objMapping = BWHttpClient.GetApiResponseSync<List<DealerAreaDetails>>(abHostUrl, requestType, api, objMapping);
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>();
+                    IDealerPriceQuote objPriceQuote = container.Resolve<DealerPriceQuoteRepository>();
+                    objMapping = objPriceQuote.GetDealerAreaDetails(Convert.ToUInt32(cityId));
+                }
                 dealerId = Convert.ToUInt32(Request.QueryString["dealerid"]);
-                
                 if (objMapping != null)
                 {
                     var objmappedArea = new List<DealerAreaDetails>();
@@ -101,26 +94,20 @@ namespace BikeWaleOpr.NewBikeBooking
                         if (citylist.DealerId == dealerId)
                             objmappedArea.Add(citylist);
                     }
-
-
                     rptMappedArea.DataSource = objmappedArea;
                     rptMappedArea.DataBind();
-
                     var objUnMappedCity = new List<DealerAreaDetails>();
                     foreach (var citylist in objMapping)
                     {
-                        if (citylist.DealerId != dealerId )
+                        if (citylist.DealerId != dealerId)
                             objUnMappedCity.Add(citylist);
                     }
-                    Trace.Warn("+++", objUnMappedCity.Count.ToString());
-
                     rptUnmappedCity.DataSource = objUnMappedCity;
                     rptUnmappedCity.DataBind();
                 }
             }
             catch (Exception ex)
             {
-                Trace.Warn("BindArea Ex: ", ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
@@ -134,7 +121,7 @@ namespace BikeWaleOpr.NewBikeBooking
         {
             try
             {
-                ManageCities objCity=new ManageCities();
+                ManageCities objCity = new ManageCities();
                 DataTable dt = objCity.GetCities(0, "7").Tables[0];
                 if (dt != null && dt.Rows.Count > 0)
                 {
@@ -154,24 +141,24 @@ namespace BikeWaleOpr.NewBikeBooking
             }
         }//End of GetStates method
 
-        protected string showArea(string areaName,string AreaId, string pinCode, int dealerCount, int dealerRank)
+        protected string showArea(string areaName, string AreaId, string pinCode, int dealerCount, int dealerRank)
         {
             string retVal = string.Empty;
             if (dealerRank == 1)
             {
                 retVal = "<div class='inner-content'>"
-                       + "<input type='checkbox' id='chkMappedCity' class='unmapdealers' areaId='" + AreaId + "' dealerCount='" + dealerCount + "' areaName='"+areaName+"' />"
+                       + "<input type='checkbox' id='chkMappedCity' class='unmapdealers' areaId='" + AreaId + "' dealerCount='" + dealerCount + "' areaName='" + areaName + "' />"
                        + areaName + " - " + pinCode;
-                     
+
 
                 if (dealerCount > 0)
                 {
-                    retVal += "<a style='float:right;' id='edit_" + AreaId + "' areaId='" + AreaId + "'>View Mapped Dealer( "+dealerCount+" )</a>";
+                    retVal += "<a style='float:right;' id='edit_" + AreaId + "' areaId='" + AreaId + "'>View Mapped Dealer( " + dealerCount + " )</a>";
                 }
 
                 retVal += "</div>";
             }
-        
+
             return retVal;
         }
     }

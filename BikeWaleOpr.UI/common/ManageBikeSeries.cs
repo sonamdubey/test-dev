@@ -9,6 +9,9 @@ using System.Configuration;
 using System.Collections.Specialized;
 using RabbitMqPublishing;
 using BikeWaleOpr.RabbitMQ;
+using System.Data.Common;
+using BikeWaleOPR.DAL.CoreDAL;
+using BikeWaleOPR.Utilities;
 
 namespace BikeWaleOpr.Common
 {
@@ -25,17 +28,15 @@ namespace BikeWaleOpr.Common
         /// <returns></returns>
         public DataSet GetSeries(string makeId)
         {
-            Database db = null;
             DataSet ds = null;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetBikeSeries"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikeseries"))
                 {
-                    db = new Database();
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
-                    ds = db.SelectAdaptQry(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
             catch (SqlException sqlEx)
@@ -61,23 +62,22 @@ namespace BikeWaleOpr.Common
         /// <param name="maskingName"></param>
         /// <param name="makeId"></param>
         /// <param name="id" > if id = -1 then it adds record to BikeSeries table else update particular bike series</param>
-        public bool SaveSeries(string name,string maskingName,string makeId)
+        public bool SaveSeries(string name, string maskingName, string makeId)
         {
-            Database db = null;
+
             bool isSuccess = false;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "SaveBikeSeries";
+                    cmd.CommandText = "savebikeseries";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@Name", SqlDbType.VarChar, 30).Value = name;
-                    cmd.Parameters.Add("@MaskingName", SqlDbType.VarChar, 50).Value = maskingName;
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
-                    cmd.Parameters.Add("@UpdatedBy", SqlDbType.Int).Value = BikeWaleAuthentication.GetOprUserId();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, name));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, maskingName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.Int], BikeWaleAuthentication.GetOprUserId()));
 
-                    db = new Database();
-                    isSuccess = db.InsertQry(cmd);               
+                    isSuccess = MySqlDatabase.InsertQuery(cmd);
                 }
             }
             catch (SqlException sqlEx)
@@ -105,22 +105,20 @@ namespace BikeWaleOpr.Common
         /// <param name="seriesId"></param>
         public bool UpdateSeries(string name, string maskingName, string seriesId)
         {
-            Database db = null;
             bool isSuccess = false;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "UpdateBikeSeries";
+                    cmd.CommandText = "updatebikeseries";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@Name", SqlDbType.VarChar, 30).Value = name;
-                    cmd.Parameters.Add("@MaskingName", SqlDbType.VarChar, 50).Value = maskingName;
-                    cmd.Parameters.Add("@UpdatedBy", SqlDbType.Int).Value = BikeWaleAuthentication.GetOprUserId();
-                    cmd.Parameters.Add("@ID", SqlDbType.Int).Value = seriesId;
-                    db = new Database();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, name));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, maskingName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.Int], BikeWaleAuthentication.GetOprUserId()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], seriesId));
 
-                    isSuccess = db.UpdateQry(cmd);
+                    isSuccess = MySqlDatabase.UpdateQuery(cmd);
                 }
             }
             catch (SqlException sqlEx)
@@ -146,19 +144,16 @@ namespace BikeWaleOpr.Common
         /// <param name="seriesId"></param>
         public void DeleteSeries(string seriesId)
         {
-            Database db = null;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "DeleteSeries";
+                    cmd.CommandText = "deleteseries";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@SeriesId", SqlDbType.Int).Value = seriesId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbParamTypeMapper.GetInstance[SqlDbType.Int], seriesId));
 
-                    db = new Database();
-
-                    db.UpdateQry(cmd);
+                    MySqlDatabase.UpdateQuery(cmd);
                 }
             }
             catch (SqlException sqlEx)
@@ -209,22 +204,22 @@ namespace BikeWaleOpr.Common
         /// </summary>
         /// <param name="seriesId"></param>
         /// <param name="imageName"></param>
-     private void SaveImagePathToDB(string seriesId,string imageName)
+        private void SaveImagePathToDB(string seriesId, string imageName)
         {
+
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    Database db = new Database();
 
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "SaveBikeSeriesPhotos";
-                    cmd.Parameters.Add("@Id", SqlDbType.Int).Value = seriesId;
-                    cmd.Parameters.Add("@HostUrl", SqlDbType.VarChar, 100).Value = ConfigurationManager.AppSettings["imgHostURL"];
-                    cmd.Parameters.Add("@OriginalImageUrl", SqlDbType.VarChar, 150).Value = "/bw/series/" + imageName + "-" + seriesId + ".jpg?" + CommonOpn.GetTimeStamp();
-                    cmd.Parameters.Add("@IsReplicated", SqlDbType.Bit).Value = 0;
+                    cmd.CommandText = "savebikeseriesphotos";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], seriesId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ConfigurationManager.AppSettings["imgHostURL"]));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimageurl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, "/bw/series/" + imageName + "-" + seriesId + ".jpg?" + CommonOpn.GetTimeStamp()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isreplicated", DbParamTypeMapper.GetInstance[SqlDbType.Bit], 0));
 
-                    db.UpdateQry(cmd);
+                    MySqlDatabase.UpdateQuery(cmd);
                 }
             }
             catch (SqlException ex)
@@ -252,9 +247,9 @@ namespace BikeWaleOpr.Common
             try
             {
                 // Save image path to database
-                SaveImagePathToDB(seriesId,imageName);
+                SaveImagePathToDB(seriesId, imageName);
                 // Publish image to rabitmq for replication
-                UploadSeriesPhoto(seriesId,imageName);
+                UploadSeriesPhoto(seriesId, imageName);
             }
             catch (SqlException ex)
             {
@@ -271,19 +266,17 @@ namespace BikeWaleOpr.Common
         /// <returns></returns>
         public DataSet GetSeriesDetails(string seriesId)
         {
-            Database db = null;
             DataSet ds = null;
 
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetBikeSeriesInfo";
+                    cmd.CommandText = "getbikeseriesinfo";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@SeriesId", SqlDbType.Int).Value = seriesId;
-                    ds = db.SelectAdaptQry(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbParamTypeMapper.GetInstance[SqlDbType.Int], seriesId));
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
             catch (SqlException ex)
@@ -298,10 +291,7 @@ namespace BikeWaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {              
-                db.CloseConnection();
-            }
+
             return ds;
         }
 
@@ -314,31 +304,34 @@ namespace BikeWaleOpr.Common
         /// <returns></returns>
         public DataTable GetSeriesDdl(string MakeId)
         {
-            Database db = null;
             DataTable dt = null;
 
-            using (SqlCommand cmd = new SqlCommand("GetModelSeries"))
+            try
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = MakeId;
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodelseries"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], MakeId));
 
-                try
-                {
-                    db = new Database();
-                    dt = db.SelectAdaptQry(cmd).Tables[0];
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    {
+                        if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                            dt = ds.Tables[0];
+                    }
+
                 }
-                catch (SqlException ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
-                catch (Exception ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
+            }
+            catch (SqlException ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
             return dt;
         }   //End of GetSeriesDdl
@@ -347,16 +340,15 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    Database db = new Database();
-                    cmd.CommandText = "UpdateModelSeries";
+                    cmd.CommandText = "updatemodelseries";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@SeriesId", SqlDbType.Int).Value = seriesId;
-                    cmd.Parameters.Add("@ModelIdList", SqlDbType.VarChar, 500).Value = modelIdList;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbParamTypeMapper.GetInstance[SqlDbType.Int], seriesId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelidlist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, modelIdList));
 
-                    db.UpdateQry(cmd);
+                    MySqlDatabase.UpdateQuery(cmd);
                 }
             }
             catch (SqlException ex)
@@ -380,22 +372,19 @@ namespace BikeWaleOpr.Common
         /// <param name="makeId">Id of the make whose synopsis is to be updated.</param>
         public void ManageSeriesSynopsis(string seriesId, string synopsis)
         {
-            Database db = null;
-
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "ManageSeriesSynopsis";
+                    cmd.CommandText = "manageseriessynopsis";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@SeriesId", SqlDbType.Int).Value = seriesId;
-                    cmd.Parameters.Add("@Discription", SqlDbType.VarChar).Value = synopsis.Trim();
-                    cmd.Parameters.Add("@UserId", SqlDbType.BigInt).Value = CurrentUser.Id;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbParamTypeMapper.GetInstance[SqlDbType.Int], seriesId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_discription", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], synopsis.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], CurrentUser.Id));
 
-                    db.UpdateQry(cmd);
+                    MySqlDatabase.UpdateQuery(cmd);
                 }
             }
             catch (SqlException sqlEx)
@@ -420,36 +409,28 @@ namespace BikeWaleOpr.Common
         /// <param name="makeId"></param>
         public void GetSeriesSynopsis(string seriesId, ref string series, ref string synopsis, ref string makeName)
         {
-            Database db = null;
 
             try
             {
-                db = new Database();
 
-                using (SqlConnection conn = new SqlConnection(db.GetConString()))
-                {
-                    using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
-                        cmd.CommandText = "GetSeriesSynopsis";
+                        cmd.CommandText = "getseriessynopsis";
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
 
-                        cmd.Parameters.Add("@SeriesId", SqlDbType.Int).Value = seriesId;
-                        cmd.Parameters.Add("@Series", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@Synopsis", SqlDbType.VarChar, 8000).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@MakeName", SqlDbType.VarChar, 8000).Direction = ParameterDirection.Output;
 
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbParamTypeMapper.GetInstance[SqlDbType.Int], seriesId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_series", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_synopsis", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 8000, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_makename", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 8000, ParameterDirection.Output));
 
-                        series = cmd.Parameters["@Series"].Value.ToString();
-                        synopsis = cmd.Parameters["@Synopsis"].Value.ToString();
-                        makeName = cmd.Parameters["@MakeName"].Value.ToString();
+                        MySqlDatabase.ExecuteNonQuery(cmd);
 
-                        if (conn.State == ConnectionState.Open)
-                            conn.Close();
+                        series = cmd.Parameters["par_series"].Value.ToString();
+                        synopsis = cmd.Parameters["par_synopsis"].Value.ToString();
+                        makeName = cmd.Parameters["par_makename"].Value.ToString();
+
                     }
-                }
             }
             catch (SqlException sqlEx)
             {
@@ -463,10 +444,7 @@ namespace BikeWaleOpr.Common
                 ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 errObj.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
         }   // End of GetSeriesSynopsis
     }//End of class ManageBikeSeries
 }//End of Namespace

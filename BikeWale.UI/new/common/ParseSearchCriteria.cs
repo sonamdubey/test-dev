@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Collections.Specialized;
 using Bikewale.Common;
+using Bikewale.Notifications.MySqlUtility;
 
 namespace Bikewale.New
 {
@@ -154,7 +155,7 @@ namespace Bikewale.New
 
         void Init_SearchCriteria()
         {
-            Database db = new Database();
+            MySqlDbUtilities db = new MySqlDbUtilities();
 
             //Authenticate budget parameters
             string budget = qsColl.Get("budget");

@@ -45,44 +45,46 @@ namespace BikeWaleOpr.EditCms
 
         private string GetHostUrl(string basicId)
         {
-            string retVal = string.Empty, sql = string.Empty;
-            Database db = new Database();
-            SqlDataReader dr = null;
-            SqlCommand cmd = new SqlCommand();
+            throw new Exception("Method not used/commented");
 
-            sql = "SELECT hostUrl FROM Con_EditCms_Basic Where Id = @BasicId";
-            cmd.CommandText = sql;
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.Add("@BasicId", SqlDbType.BigInt).Value = basicId;
+            //string retVal = string.Empty, sql = string.Empty;
+            //Database db = new Database();
+            //SqlDataReader dr = null;
+            //SqlCommand cmd = new SqlCommand();
 
-            try
-            {
-                dr = db.SelectQry(cmd);
-                while (dr.Read())
-                {
-                    retVal = dr["hostUrl"].ToString();
-                }
-            }
-            catch (SqlException ex)
-            {
-                Trace.Warn("SqlEX: " + ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception ex)
-            {
-                Trace.Warn("EX: " + ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (dr != null)
-                    dr.Close();
-                db.CloseConnection();
-            }
-            Trace.Warn("retVal: " + retVal);
-            return retVal;
+            //sql = "SELECT hostUrl FROM Con_EditCms_Basic Where Id = @BasicId";
+            //cmd.CommandText = sql;
+            //cmd.CommandType = CommandType.Text;
+            //cmd.Parameters.Add("@BasicId", SqlDbType.BigInt).Value = basicId;
+
+            //try
+            //{
+            //    dr = db.SelectQry(cmd);
+            //    while (dr.Read())
+            //    {
+            //        retVal = dr["hostUrl"].ToString();
+            //    }
+            //}
+            //catch (SqlException ex)
+            //{
+            //    Trace.Warn("SqlEX: " + ex.Message);
+            //    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception ex)
+            //{
+            //    Trace.Warn("EX: " + ex.Message);
+            //    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if (dr != null)
+            //        dr.Close();
+            //    db.CloseConnection();
+            //}
+            //Trace.Warn("retVal: " + retVal);
+            //return retVal;
         }
 
 		protected string GetImagePath()
@@ -99,45 +101,48 @@ namespace BikeWaleOpr.EditCms
 		
 		void GetCaption()
 		{
-			CommonOpn op = new CommonOpn();
-			Database db = new Database();
-            SqlDataReader dr = null;
+
+            throw new Exception("Method not used/commented");
+
+            //CommonOpn op = new CommonOpn();
+            //Database db = new Database();
+            //SqlDataReader dr = null;
 		
-			string sql;
-			sql = " SELECT Caption, hostUrl"
-				+ " FROM Con_EditCms_Images"
-				+ " WHERE BasicId = @basicId AND Id = @imgId";
+            //string sql;
+            //sql = " SELECT Caption, hostUrl"
+            //    + " FROM Con_EditCms_Images"
+            //    + " WHERE BasicId = @basicId AND Id = @imgId";
 			
-			SqlParameter [] param = 
-			{
-				new SqlParameter("@basicId", basicId),
-				new SqlParameter("@imgId", imgId)
-			};
+            //SqlParameter [] param = 
+            //{
+            //    new SqlParameter("@basicId", basicId),
+            //    new SqlParameter("@imgId", imgId)
+            //};
 			
-			try
-			{
-                dr = db.SelectQry(sql, param);
-                while (dr.Read())
-                {
-                    caption = dr["Caption"].ToString();
-                    hostUrl = dr["hostUrl"].ToString();
-                }
+            //try
+            //{
+            //    dr = db.SelectQry(sql, param);
+            //    while (dr.Read())
+            //    {
+            //        caption = dr["Caption"].ToString();
+            //        hostUrl = dr["hostUrl"].ToString();
+            //    }
                 
-			}
-			catch(SqlException err)
-			{
-				Trace.Warn(err.Message + err.Source);
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.ConsumeError();
-			}// catch Exception
-			finally
-			{
-                if (dr != null)
-                {
-                    dr.Close();
-                }
-				db.CloseConnection();
-			}
+            //}
+            //catch(SqlException err)
+            //{
+            //    Trace.Warn(err.Message + err.Source);
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.ConsumeError();
+            //}// catch Exception
+            //finally
+            //{
+            //    if (dr != null)
+            //    {
+            //        dr.Close();
+            //    }
+            //    db.CloseConnection();
+            //}
 		}
 	}
 }

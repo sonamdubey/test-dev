@@ -1,16 +1,5 @@
-﻿using System;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
+﻿using Bikewale.Common;
 using System.Web.UI.WebControls;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.Security;
-using System.Drawing;
-using System.Configuration;
-using Bikewale.Common;
-using Ajax;
 
 namespace Bikewale
 {
@@ -19,7 +8,7 @@ namespace Bikewale
     {
         public static void BindAllMakes(DropDownList drpMake)
         {
-            string sql = "SELECT ID, NAME FROM BIKEMAKES WITH(NOLOCK) WHERE ISDELETED = 0 ORDER BY NAME";
+            string sql = "select id, name from bikemakes where isdeleted = 0 order by name";
             CommonOpn objCom = new CommonOpn();
             objCom.FillDropDown(sql, drpMake, "Name", "ID");
             drpMake.Items.Insert(0, new ListItem("--Select--", "-1"));

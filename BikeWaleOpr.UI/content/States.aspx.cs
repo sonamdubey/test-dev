@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BikeWaleOpr.Common;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using BikeWaleOpr.Common;
-using System.Web.UI.HtmlControls;
-using BikeWaleOpr.VO;
 
 namespace BikeWaleOpr.Content
 {
@@ -29,7 +26,7 @@ namespace BikeWaleOpr.Content
             base.Load += new EventHandler(Page_Load);
             btnSave.Click += new EventHandler(SaveState);
         }
-		
+
         protected void Page_Load(object sender, EventArgs e)
         {
             string id = string.Empty;
@@ -46,7 +43,7 @@ namespace BikeWaleOpr.Content
         void GetAllStates()
         {
             try
-            {          
+            {
                 ManageStates objMS = new ManageStates();
                 DataSet ds = objMS.GetAllStatesDetails();
 
@@ -75,7 +72,7 @@ namespace BikeWaleOpr.Content
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void SaveState(object sender, EventArgs e)
-        { 
+        {
             try
             {
                 ManageStates objStates = new ManageStates();

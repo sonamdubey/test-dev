@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Bikewale.Common;
+using Bikewale.Controls;
+using MySql.CoreDAL;
+using System;
 using System.Data;
-using System.Data.SqlClient;
+using System.Data.Common;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using Bikewale.Common;
-using Bikewale.Controls;
-using Bikewale.Forums.Common;
 
 namespace Bikewale.Content
 {
@@ -23,7 +21,7 @@ namespace Bikewale.Content
         public string lastUpdatedOn = "";
         public string _title = "", entryDate = "", pros = "", cons = "", comments = "", Prev = "Previous Review", Next = "Next Review",
                     customerId = "-1", totalComments = "0", logoURL = "",
-                    reviewerEmail = "", reviewerId = "-1", reviewerName = "", handleName = "",HostUrl="";
+                    reviewerEmail = "", reviewerId = "-1", reviewerName = "", handleName = "", HostUrl = "";
         public string isOwned = "", isNewlyPurchased = "", familiarity = "", mileage = "";
 
         public HtmlTableRow trVerReviewed;
@@ -285,23 +283,17 @@ namespace Bikewale.Content
             if (!IsPostBack)
             {
                 customerId = CurrentUser.Id;
-                ForumsCommon fc = new ForumsCommon();
-                isModerator = fc.GetModeratorLoginStatus(CurrentUser.Id);
-                Trace.Warn("moderate");
                 GetDetails();
-                //GetNextPreviousReview();
-               
-                //MakeModelVersion objBike = new MakeModelVersion();
                 ModelVersionDescription objBike = new ModelVersionDescription();
                 objBike.GetDetailsByModel(ModelId);
                 ModelStartPrice = objBike.ModelBasePrice;
                 Trace.Warn("ModelStartPrice " + ModelStartPrice + " ," + ModelId);
-                
-                ucDiscuss.ThreadId = GetThreadIdForReview(reviewId);
+                //ucDiscuss.ThreadId = GetThreadIdForReview(reviewId);
                 ucDiscuss.Type = "review";
 
-                GetMoreReviews();
 
+
+                GetMoreReviews();
                 GoogleKeywords();
             }
 
@@ -313,139 +305,147 @@ namespace Bikewale.Content
                 this.Page.Visible = false;
             }
 
-            logoURL = VersionId + "b.jpg";											
+            logoURL = VersionId + "b.jpg";
         }//pageload
 
         private string GetThreadIdForReview(string review_Id)
         {
-            string returnVal = "-1";
-            string sql = "SELECT ThreadId FROM Forum_ArticleAssociation With(NoLock) WHERE ArticleType = 3 AND ArticleId = @ArticleId";
+            throw new Exception("GetThreadIdForReview(string review_Id) : Method not used/commented");
+            //string returnVal = "-1";
+            //string sql = "select threadid from forum_articleassociation  where articletype = 3 and articleid = @v_articleid";
+            //uint _reviewId = 0;
 
-            SqlCommand cmd = new SqlCommand(sql);
-            cmd.Parameters.Add("@ArticleId", SqlDbType.BigInt).Value = (review_Id != "" ? review_Id : "-1");
+            //try
+            //{
+            //    if (!string.IsNullOrEmpty(review_Id))
+            //    {
+            //        uint.TryParse(review_Id, out _reviewId);
+            //    }
+            //    //cmd.Parameters.Add("@v_articleid", SqlDbType.BigInt).Value = (review_Id != "" ? review_Id : "-1");  
+            //    using (DbCommand cmd = DbFactory.GetDBCommand(sql))
+            //    {
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("@v_articleid", DbType.Int64, _reviewId));
+            //        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+            //        {
+            //            if (dr != null && dr.Read())
+            //            {
+            //                returnVal = dr[0].ToString();
 
-            SqlDataReader dr = null;
-            Database db = new Database();
-            try
-            {
-                dr = db.SelectQry(cmd);
+            //                dr.Close();
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //    returnVal = "-1";
+            //}
 
-                if (dr.Read())
-                {
-                    returnVal = dr[0].ToString();
-                }
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-                returnVal = "-1";
-            }
-            finally
-            {
-                dr.Close();
-                db.CloseConnection();
-            }
-
-            return returnVal;
+            //return returnVal;
         }
 
         void GetDetails()
         {
             string sql = "";
-
-            SqlDataReader dr = null;
-            Database db = new Database();
-
+            uint _reviewId = 0;
             try
             {
-                if (AlreadyViewed(reviewId) == false)
+                if (!string.IsNullOrEmpty(reviewId) && uint.TryParse(reviewId, out _reviewId))
                 {
-                    //update the viewd count by 1
-                    sql = " UPDATE CustomerReviews SET Viewed = IsNull(Viewed, 0) + 1 WHERE ID = @ID";
+                    using (DbCommand cmd = DbFactory.GetDBCommand())
+                    {
+                        DbCommand cmd1 = cmd;
+                        if (AlreadyViewed(reviewId) == false)
+                        {
+                            //update the viewd count by 1
+                            sql = " update customerreviews set viewed = ifnull(viewed, 0) + 1 where id = @v_reviewid";
+                            cmd.CommandText = sql;
 
-                    SqlCommand cmd = new SqlCommand(sql);
-                    cmd.Parameters.Add("@ID", SqlDbType.BigInt).Value = (reviewId != "" ? reviewId : "-1");
+                            //cmd.Parameters.Add("@v_reviewid", SqlDbType.BigInt).Value = (reviewId != "" ? reviewId : "-1");
+                            cmd.Parameters.Add(DbFactory.GetDbParam("@v_reviewid", DbType.Int64, _reviewId));
 
-                    db.UpdateQry(cmd);
+                            MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
 
-                    //add this to the cookie
-                    URV += reviewId + ",";
+                            //add this to the cookie
+                            URV += reviewId + ",";
 
-                    Trace.Warn(URV);
+                            Trace.Warn(URV);
+                        }
+
+                        cmd1.CommandType = CommandType.StoredProcedure;
+                        cmd1.CommandText = "getcustomerreviewinfo";
+                        cmd1.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int64, _reviewId));
+
+
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd1, ConnectionType.ReadOnly))
+                        {
+                            if (dr != null && dr.Read())
+                            {
+                                BikeMake = dr["Make"].ToString();
+                                BikeModel = dr["Model"].ToString();
+                                ModelMaskingName = dr["ModelMaskingName"].ToString();
+                                //ModelMaskingName = dr["ModelMaskingName"].ToString();
+                                BikeVersion = dr["Version"].ToString();
+                                BikeName = (BikeMake + " " + BikeModel + " " + BikeVersion).Trim();
+                                MakeMaskingName = dr["MakeMaskingName"].ToString();
+                                ModelId = dr["ModelId"].ToString();
+                                VersionId = dr["VersionId"].ToString();
+                                LargePic = dr["LargePic"].ToString();
+
+                                _title = dr["Title"].ToString();
+                                reviewerId = dr["CustomerId"].ToString();
+
+                                reviewerName = dr["CustomerName"].ToString();
+                                handleName = "";
+                                handleName = dr["HandleName"].ToString();
+                                reviewerEmail = dr["CustomerEmail"].ToString();
+                                entryDate = Convert.ToDateTime(dr["EntryDateTime"]).ToString("dd MMMM, yyyy");
+                                pros = dr["Pros"].ToString();
+                                cons = dr["Cons"].ToString();
+                                comments = dr["Comments"].ToString();
+                                overallR = Convert.ToDouble(dr["OverallR"]);
+                                liked = Convert.ToDouble(dr["Liked"]);
+                                disliked = Convert.ToDouble(dr["Disliked"]);
+                                viewed = Convert.ToDouble(dr["Viewed"]);
+                                styleR = Convert.ToDouble(dr["StyleR"]);
+                                comfortR = Convert.ToDouble(dr["ComfortR"]);
+                                performanceR = Convert.ToDouble(dr["PerformanceR"]);
+                                valueR = Convert.ToDouble(dr["ValueR"]);
+                                fuelEconomyR = Convert.ToDouble(dr["FuelEconomyR"]);
+
+                                totalComments = dr["TotalComments"].ToString();
+                                logoURL = dr["LogoUrl"].ToString();
+                                lastUpdatedOn = dr["LastUpdatedOn"].ToString();
+                                bikewaleRecommends = Convert.ToBoolean(dr["BikewaleRecommended"]);
+
+                                isOwned = dr["IsOwned"].ToString();
+                                isNewlyPurchased = dr["IsNewlyPurchased"].ToString();
+                                familiarity = dr["Familiarity"].ToString();
+                                mileage = dr["Mileage"].ToString();
+                                HostUrl = dr["HostURL"].ToString();
+                                IsNew = Convert.ToBoolean(dr["New"]);
+                                IsUsed = Convert.ToBoolean(dr["Used"]);
+                                OriginalImagePath = dr["OriginalImagePath"].ToString();
+                                if (reviewerId == CurrentUser.Id)
+                                    userLoggedIn = true;
+
+                                dr.Close();
+                            }
+                        }
+
+
+                    }
                 }
 
-                SqlCommand cmd1 = new SqlCommand("GetCustomerReviewInfo");
-                cmd1.CommandType = CommandType.StoredProcedure;
-                cmd1.Parameters.Add("@ReviewId", SqlDbType.BigInt).Value = (reviewId != "" ? reviewId : "-1");
-
-                Trace.Warn("reviewId " + reviewId);
-
-                dr = db.SelectQry(cmd1);
-
-                if (dr.Read())
-                {
-                    BikeMake = dr["Make"].ToString();
-                    BikeModel = dr["Model"].ToString();
-                    ModelMaskingName = dr["ModelMaskingName"].ToString();
-                    //ModelMaskingName = dr["ModelMaskingName"].ToString();
-                    BikeVersion = dr["Version"].ToString();
-                    BikeName = (BikeMake + " " + BikeModel + " " + BikeVersion).Trim();
-                    MakeMaskingName = dr["MakeMaskingName"].ToString();
-                    ModelId = dr["ModelId"].ToString();
-                    VersionId = dr["VersionId"].ToString();
-                    LargePic = dr["LargePic"].ToString();
-
-                    _title = dr["Title"].ToString();
-                    reviewerId = dr["CustomerId"].ToString();
-
-                    reviewerName = dr["CustomerName"].ToString();
-                    handleName = "";
-                    handleName = dr["HandleName"].ToString();
-                    reviewerEmail = dr["CustomerEmail"].ToString();
-                    entryDate = Convert.ToDateTime(dr["EntryDateTime"]).ToString("dd MMMM, yyyy");
-                    pros = dr["Pros"].ToString();
-                    cons = dr["Cons"].ToString();
-                    comments = dr["Comments"].ToString();
-                    overallR = Convert.ToDouble(dr["OverallR"]);
-                    liked = Convert.ToDouble(dr["Liked"]);
-                    disliked = Convert.ToDouble(dr["Disliked"]);
-                    viewed = Convert.ToDouble(dr["Viewed"]);
-                    styleR = Convert.ToDouble(dr["StyleR"]);
-                    comfortR = Convert.ToDouble(dr["ComfortR"]);
-                    performanceR = Convert.ToDouble(dr["PerformanceR"]);
-                    valueR = Convert.ToDouble(dr["ValueR"]);
-                    fuelEconomyR = Convert.ToDouble(dr["FuelEconomyR"]);
-
-                    totalComments = dr["TotalComments"].ToString();
-                    logoURL = dr["LogoUrl"].ToString();
-                    lastUpdatedOn = dr["LastUpdatedOn"].ToString();
-                    bikewaleRecommends = Convert.ToBoolean(dr["BikewaleRecommended"]);
-
-                    isOwned = dr["IsOwned"].ToString();
-                    isNewlyPurchased = dr["IsNewlyPurchased"].ToString();
-                    familiarity = dr["Familiarity"].ToString();
-                    mileage = dr["Mileage"].ToString();
-                    HostUrl = dr["HostURL"].ToString();
-                    IsNew = Convert.ToBoolean(dr["New"]);
-                    IsUsed = Convert.ToBoolean(dr["Used"]);
-                    OriginalImagePath = dr["OriginalImagePath"].ToString();
-                    Trace.Warn("IsNew : "+IsNew+" "+"IsUsed : "+IsUsed);
-                    if (reviewerId == CurrentUser.Id)
-                        userLoggedIn = true;
-                }
             }
             catch (Exception err)
             {
-                Trace.Warn("object not defined : "+err.Message);
+                Trace.Warn("object not defined : " + err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                dr.Close();
-                db.CloseConnection();
-            }
         }
 
 
@@ -462,36 +462,39 @@ namespace Bikewale.Content
             string sql = "";
             string prevId = "", nextId = "";
 
-            sql = " SELECT Top 1 Cr1.Id NextReview, Cr2.ID PreviousReview "
-                + " FROM CustomerReviews Cr With(NoLock) "
-                + " LEFT JOIN CustomerReviews Cr1 With(NoLock) ON Cr.ModelId = Cr1.ModelId AND Cr1.ID > @ReviewId AND Cr1.IsVerified = 1 AND Cr1.IsActive = 1 "
-                + " LEFT JOIN CustomerReviews Cr2 With(NoLock) ON Cr.ModelId = Cr2.ModelId AND Cr2.ID < @ReviewId AND Cr2.IsVerified = 1 AND Cr2.IsActive = 1 "
-                + " WHERE Cr.ModelId = @ModelId ORDER BY Cr2.ID Desc ";
-
-            Trace.Warn(sql);
-
-            SqlCommand cmd = new SqlCommand(sql);
-            cmd.Parameters.Add("@ModelId", SqlDbType.BigInt).Value = (ModelId != "" ? ModelId : "-1");
-            cmd.Parameters.Add("@ReviewId", SqlDbType.BigInt).Value = (reviewId != "" ? reviewId : "-1");
-
-            SqlDataReader dr = null;
-            Database db = new Database();
+            sql = @" select top 1 cr1.id nextreview, cr2.id previousreview
+                from customerreviews cr  
+                left join customerreviews cr1   on cr.modelid = cr1.modelid and cr1.id > @v_reviewid and cr1.isverified = 1 and cr1.isactive = 1
+                left join customerreviews cr2  on cr.modelid = cr2.modelid and cr2.id < @v_reviewid and cr2.isverified = 1 and cr2.isactive = 1
+                where cr.modelid = @v_modelid order by cr2.id desc ";
 
             try
             {
-                dr = db.SelectQry(cmd);
 
-                while (dr.Read())
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    nextId = dr["NextReview"].ToString();
-                    prevId = dr["PreviousReview"].ToString();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_modelid", DbType.Int32, ModelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_reviewid", DbType.Int32, reviewId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                nextId = dr["NextReview"].ToString();
+                                prevId = dr["PreviousReview"].ToString();
+                            }
+                            dr.Close();
+                        }
+                    }
                 }
 
                 //Prev = prevId == "" ? "Previous Review" : "<a href=\"/research/" + UrlRewrite.FormatSpecial(BikeMake) + "-bikes/" + UrlRewrite.FormatSpecial(BikeModel) + "/userreviews/" + prevId + ".html\">Previous Review</a>";
                 //Next = nextId == "" ? "Next Review" : "<a href=\"/research/" + UrlRewrite.FormatSpecial(BikeMake) + "-bikes/" + UrlRewrite.FormatSpecial(BikeModel) + "/userreviews/" + nextId + ".html\">Next Review</a>";
 
                 Prev = prevId == "" ? "Previous Review" : "<a href=\"/research/" + MakeMaskingName + "-bikes/" + ModelMaskingName + "/userreviews/" + prevId + ".html\">Previous Review</a>";
-                Next = nextId == "" ? "Next Review" : "<a href=\"/research/" +MakeMaskingName + "-bikes/" + ModelMaskingName + "/userreviews/" + nextId + ".html\">Next Review</a>";
+                Next = nextId == "" ? "Next Review" : "<a href=\"/research/" + MakeMaskingName + "-bikes/" + ModelMaskingName + "/userreviews/" + nextId + ".html\">Next Review</a>";
 
                 Trace.Warn("Prev : " + Prev + " : Next : " + Next);
             }
@@ -501,11 +504,6 @@ namespace Bikewale.Content
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                dr.Close();
-                db.CloseConnection();
-            }
         }
 
         // send mail to the reviewer
@@ -558,58 +556,55 @@ namespace Bikewale.Content
         protected void GoogleKeywords()
         {
             string sql = "";
-            SqlDataReader dr = null;
-
+            uint _modelId = 0, _versionId = 0;
             if (VersionId != "-1")
             {
-                sql = " SELECT DISTINCT CM.Name AS Make, Se.Name AS SubSegment, Bo.Name BikeBodyStyle "
-                    + " FROM BikeModels AS CMO, BikeMakes AS CM, BikeBodyStyles Bo, "
-                    + " (BikeVersions Ve With(NoLock) LEFT JOIN BikeSubSegments Se With(NoLock) ON Se.Id = Ve.SubSegmentId ) "
-                    + " WHERE CM.ID=CMO.BikeMakeId AND CMO.ID=Ve.BikeModelId AND Bo.Id=Ve.BodyStyleId "
-                    + " AND Ve.Id = @Id";
+                sql = @" select distinct cm.name as make, se.name as subsegment, bo.name bikebodystyle
+                   from bikemodels as cmo, bikemakes as cm, bikebodystyles bo,
+                    (bikeversions ve   left join bikesubsegments se   on se.id = ve.subsegmentid )
+                    where cm.id=cmo.bikemakeid and cmo.id=ve.bikemodelid and bo.id=ve.bodystyleid
+                    and ve.id = @v_versionid";
             }
             else
             {
-                sql = " SELECT DISTINCT CM.Name AS Make, Se.Name AS SubSegment, Bo.Name BikeBodyStyle "
-                    + " FROM BikeModels AS CMO, BikeMakes AS CM, BikeBodyStyles Bo, "
-                    + " (BikeVersions Ve With(NoLock) LEFT JOIN BikeSubSegments Se With(NoLock) ON Se.Id = Ve.SubSegmentId ) "
-                    + " WHERE CM.ID=CMO.BikeMakeId AND CMO.ID=Ve.BikeModelId AND Bo.Id=Ve.BodyStyleId "
-                    + " AND Ve.BikeModelId = @BikeModelId";
+                sql = @" select distinct cm.name as make, se.name as subsegment, bo.name bikebodystyle 
+                     from bikemodels as cmo, bikemakes as cm, bikebodystyles bo, 
+                     (bikeversions ve   left join bikesubsegments se   on se.id = ve.subsegmentid ) 
+                     where cm.id=cmo.bikemakeid and cmo.id=ve.bikemodelid and bo.id=ve.bodystyleid 
+                     and ve.bikemodelid = @v_modelid";
             }
-
-            SqlCommand cmd = new SqlCommand(sql);
-            cmd.Parameters.Add("@BikeModelId", SqlDbType.BigInt).Value = (ModelId != "" ? ModelId : "-1");
-            cmd.Parameters.Add("@Id", SqlDbType.BigInt).Value = (VersionId != "" ? VersionId : "-1");
-
-            Database db = new Database();
             try
             {
-                dr = db.SelectQry(cmd);
-                if (dr.Read())
+                if (!string.IsNullOrEmpty(ModelId) && !string.IsNullOrEmpty(VersionId))
                 {
-
-                    oem = dr["Make"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
-                    bodyType = dr["BikeBodyStyle"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
-                    subSegment = dr["SubSegment"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
+                    uint.TryParse(VersionId, out _versionId);
+                    uint.TryParse(ModelId, out _modelId);
                 }
 
-                Trace.Warn(sql);
-                Trace.Warn("oem : " + oem);
-                Trace.Warn(" bodyType : " + bodyType);
-                Trace.Warn(" subSegment : " + subSegment);                
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
+                {
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_modelid", DbType.Int32, _modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_versionid", DbType.Int32, _versionId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+
+                            oem = dr["Make"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
+                            bodyType = dr["BikeBodyStyle"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
+                            subSegment = dr["SubSegment"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
+                            dr.Close();
+                        }
+
+                    }
+                }
             }
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                if(dr != null)
-                    dr.Close();
-
-                db.CloseConnection();
             }
         }
 
@@ -656,20 +651,17 @@ namespace Bikewale.Content
 
             try
             {
-                sql = " Select Top 5 CR.ID AS ReviewId, ISNULL(UP.HandleName, CU.Name) AS CustomerName, CU.ID AS CustomerId, "
-                    + " CR.Title, CR.EntryDateTime, Liked, OverallR "
+                sql = @" select cr.id as reviewid, cu.name as customername, cu.id as customerid,
+                        cr.title, cr.entrydatetime, liked, overallr 
+                        from  customers as cu , customerreviews as cr  
+                        where cu.id = cr.customerid and cr.isactive=1 and 
+                        cr.isverified=1 and cr.modelid = @v_modelid and cr.id <> @v_reviewid
+                        order by liked desc 
+                        limit 5";
 
-                    + " From  Customers AS CU With(NoLock) left Join UserProfile UP With(NoLock) ON UP.UserId = CU.Id, CustomerReviews AS CR With(NoLock) "
+                DbParameter[] param = new[] { DbFactory.GetDbParam("par_modelid", DbType.Int32,ModelId ),
+                    DbFactory.GetDbParam("par_reviewid", DbType.Int32,reviewId )};
 
-                    + " Where CU.ID = CR.CustomerId AND CR.IsActive=1 AND "
-                    + " CR.IsVerified=1 AND CR.ModelId = @ModelId AND CR.Id <> @ReviewId"
-                    + " Order BY Liked DESC ";
-
-                SqlParameter[] param = 
-				{					
-					new SqlParameter("@ModelId", ModelId),
-					new SqlParameter("@ReviewId", reviewId)
-				};
 
                 op.BindRepeaterReader(sql, rptMoreUserReviews, param);
             }

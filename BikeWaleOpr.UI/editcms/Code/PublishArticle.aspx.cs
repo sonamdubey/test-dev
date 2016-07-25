@@ -47,42 +47,44 @@ namespace BikeWaleOpr.EditCms
 
         private void GetTitle(string basicId)
         {
-            string sql = string.Empty;
-            SqlDataReader dr = null;
-            SqlCommand cmd = new SqlCommand();
-            Database db = new Database();
+            throw new Exception("Method not used/commented");
 
-            try
-            {
-                sql = "Select Title From Con_EditCms_Basic Where Id = @BasicId";
-                cmd.CommandText = sql;
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("@BasicId", SqlDbType.BigInt).Value = basicId;
+            //string sql = string.Empty;
+            //SqlDataReader dr = null;
+            //SqlCommand cmd = new SqlCommand();
+            //Database db = new Database();
 
-                dr = db.SelectQry(cmd);
-                while (dr.Read())
-                {
-                    ArticleTitle = dr["Title"].ToString();
-                }
-            }
-            catch (SqlException ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (dr != null)
-                {
-                    dr.Close();
-                }
-                db.CloseConnection();
-            }
+            //try
+            //{
+            //    sql = "Select Title From Con_EditCms_Basic Where Id = @BasicId";
+            //    cmd.CommandText = sql;
+            //    cmd.CommandType = CommandType.Text;
+            //    cmd.Parameters.Add("@BasicId", SqlDbType.BigInt).Value = basicId;
+
+            //    dr = db.SelectQry(cmd);
+            //    while (dr.Read())
+            //    {
+            //        ArticleTitle = dr["Title"].ToString();
+            //    }
+            //}
+            //catch (SqlException ex)
+            //{
+            //    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception ex)
+            //{
+            //    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if (dr != null)
+            //    {
+            //        dr.Close();
+            //    }
+            //    db.CloseConnection();
+            //}
         }		
 	}
 }		

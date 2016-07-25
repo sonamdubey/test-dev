@@ -2,7 +2,6 @@
 using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -10,7 +9,7 @@ using System.Web;
 namespace Bikewale.BAL.Videos
 {
     /// <summary>
-    /// Created By : Sushl Kumar  on 18th Febrauary 2016
+    /// Created By : Sushil Kumar  on 18th Febrauary 2016
     /// Summary : Bussiness logic to get videos 
     /// </summary>
     public class Videos : IVideos
@@ -25,7 +24,7 @@ namespace Bikewale.BAL.Videos
             _cwHostUrl = BWConfiguration.Instance.CwApiHostUrl;
             _applicationid = BWConfiguration.Instance.ApplicationId;
             _requestType = BWConfiguration.Instance.APIRequestTypeJSON;
-            
+
         }
 
         /// <summary>
@@ -75,15 +74,15 @@ namespace Bikewale.BAL.Videos
             try
             {
                 string _apiUrl = string.Empty;
-                if(sortOrder.HasValue)
+                if (sortOrder.HasValue)
                 {
-                    _apiUrl = String.Format("/api/v1/videos/subcategory/{0}/?appId=2&pageNo={1}&pageSize={2}&sortCategory={3}", categoryIdList, pageNo, pageSize,sortOrder);
+                    _apiUrl = String.Format("/api/v1/videos/subcategory/{0}/?appId=2&pageNo={1}&pageSize={2}&sortCategory={3}", categoryIdList, pageNo, pageSize, sortOrder);
                 }
                 else
                 {
                     _apiUrl = String.Format("/api/v1/videos/subcategory/{0}/?appId=2&pageNo={1}&pageSize={2}", categoryIdList, pageNo, pageSize);
                 }
-                
+
 
                 using (BWHttpClient objclient = new BWHttpClient())
                 {
@@ -165,7 +164,7 @@ namespace Bikewale.BAL.Videos
         /// <param name="pageNo"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public IEnumerable<BikeVideoEntity> GetVideosByMakeModel(ushort pageNo, ushort pageSize, uint makeId , uint? modelId = null)
+        public IEnumerable<BikeVideoEntity> GetVideosByMakeModel(ushort pageNo, ushort pageSize, uint makeId, uint? modelId = null)
         {
             //BikeVideosListEntity objVideosList = null;
             IEnumerable<BikeVideoEntity> objVideosList = null;
@@ -180,7 +179,7 @@ namespace Bikewale.BAL.Videos
                 {
                     _apiUrl = String.Format("/api/v1/videos/make/{0}/?appId=2&pageNo={1}&pageSize={2}", makeId, pageNo, pageSize);
                 }
-                
+
                 using (BWHttpClient objclient = new BWHttpClient())
                 {
                     objVideosList = objclient.GetApiResponseSync<IEnumerable<BikeVideoEntity>>(APIHost.CW, _requestType, _apiUrl, objVideosList);

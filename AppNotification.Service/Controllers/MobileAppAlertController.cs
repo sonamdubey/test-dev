@@ -25,25 +25,24 @@ namespace AppNotification.Service.Controllers
         [HttpPost]
         public IHttpActionResult Post([FromBody]MobileAppNotifications appNotification)
         {
-
-            using (IUnityContainer container = new UnityContainer())
+            try
             {
-                try
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IRequestManager<MobileAppNotifications>, MobileAppAlertService<MobileAppNotifications>>().RegisterType<IMobileAppAlertRepository, MobileAppAlertRepository>(); 
+
+                    container.RegisterType<IRequestManager<MobileAppNotifications>, MobileAppAlertService<MobileAppNotifications>>().RegisterType<IMobileAppAlertRepository, MobileAppAlertRepository>();
                     _queueProcessor = container.Resolve<IRequestManager<MobileAppNotifications>>();
                     _queueProcessor.ProcessRequest(appNotification);
                     return Ok(true);
-                }
-                catch (Exception err)
-                {
-                    ErrorClass objErr = new ErrorClass(err, "Exception : AppNotification.Service.Controllers.MobileAppAlertController.Post");
-                    objErr.SendMail();
-                    return InternalServerError();
+
                 }
             }
-            
-            return NotFound();
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "Exception : AppNotification.Service.Controllers.MobileAppAlertController.Post");
+                objErr.SendMail();
+                return InternalServerError();
+            }
         }
     }
 }

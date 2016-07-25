@@ -12,6 +12,8 @@ using System.Web.Security;
 using System.Security.Cryptography;
 using System.Xml;
 using Bikewale.Common;
+using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.CV
 {
@@ -37,92 +39,57 @@ namespace Bikewale.CV
 			string cuiCode = GetRandomCode(rnd1, 5);
 			
 			CUICode = cuiCode;
-			
-			SqlConnection con;
-			SqlCommand cmd;
-			SqlParameter prm;
-			Database db = new Database();
+
 			CommonOpn op = new CommonOpn();
-						
-			string conStr = db.GetConString();
-			
-			con = new SqlConnection( conStr );
+
             HttpContext.Current.Trace.Warn("IsMobileVerified method" + "," + cvId);
 			try
-			{
-                
-				cmd = new SqlCommand("CV_VerifyMobile", con);
-				cmd.CommandType = CommandType.StoredProcedure;
-				
-				prm = cmd.Parameters.Add("@EmailId", SqlDbType.VarChar, 100);
-				prm.Value = eMail.ToLower();
-				
-				prm = cmd.Parameters.Add("@MobileNo", SqlDbType.VarChar, 50);
-				prm.Value = mobile;
-				
-				prm = cmd.Parameters.Add("@CVID", SqlDbType.BigInt);
-				prm.Value = cvId;
-				
-				prm = cmd.Parameters.Add("@CWICode", SqlDbType.VarChar, 50);
-				prm.Value = cwiCode;
-				
-				prm = cmd.Parameters.Add("@CUICode", SqlDbType.VarChar, 50);
-				prm.Value = cuiCode;
-							
-				prm = cmd.Parameters.Add("@EntryDateTime", SqlDbType.DateTime);
-				prm.Value = DateTime.Now;
-				
-				prm = cmd.Parameters.Add("@IsMobileVer", SqlDbType.Bit);
-				prm.Direction = ParameterDirection.Output;
-								
-				prm = cmd.Parameters.Add("@NewCVID", SqlDbType.BigInt);
-				prm.Direction = ParameterDirection.Output;
-                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);					
-				con.Open();
-				//run the command
-    			cmd.ExecuteNonQuery();
-			
-				isMobVer = Convert.ToBoolean(cmd.Parameters["@IsMobileVer"].Value);
-				HttpContext.Current.Trace.Warn("customerverification isMobVer : " + isMobVer);
-                HttpContext.Current.Trace.Warn("customerverification NewCVID : " + cmd.Parameters["@NewCVID"].Value.ToString());
-				if(isMobVer == false)
-				{
-                    HttpContext.Current.Trace.Warn("isMobVer : ", isMobVer.ToString());
-					//check whether a pending verification is already there for this customer
-					if(cvId == "-1") //for the first time, hence add it into the database and also a fresh xml file
-					{
-						cvId = cmd.Parameters["@NewCVID"].Value.ToString();
-						CustomerVerification.CVId = cvId;
+			{ 
+                using (DbCommand cmd = DbFactory.GetDBCommand("cv_verifymobile"))
+                {                     
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_emailid", DbType.String, 100, eMail.ToLower()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobileno", DbType.String, 50, mobile));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cwicode", DbType.String, 50, cwiCode));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cuicode", DbType.String, 50, cuiCode));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cvid", DbType.Int64, cvId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_newcvid", DbType.Int32, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismobilever", DbType.Boolean, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_entrydatetime", DbType.DateTime, DateTime.Now));  
 
-                        HttpContext.Current.Trace.Warn("customerverification cvId" + cvId);
-                        HttpContext.Current.Trace.Warn("customerverification isMobVer" + isMobVer);
-						
-						//send sms to the customer
-						SMSTypes st = new SMSTypes();
-						st.SMSMobileVerification(mobile, name, cwiCode, HttpContext.Current.Request.ServerVariables["URL"]);
-					}
-				}
+                //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);					
+                    //run the command
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+
+                    isMobVer = Convert.ToBoolean(cmd.Parameters["par_ismobilever"].Value);
+
+                    if (isMobVer == false)
+                    {
+                        HttpContext.Current.Trace.Warn("isMobVer : ", isMobVer.ToString());
+                        //check whether a pending verification is already there for this customer
+                        if (cvId == "-1") //for the first time, hence add it into the database and also a fresh xml file
+                        {
+                            cvId = cmd.Parameters["par_newcvid"].Value.ToString();
+                            CustomerVerification.CVId = cvId;
+
+                            //send sms to the customer
+                            SMSTypes st = new SMSTypes();
+                            st.SMSMobileVerification(mobile, name, cwiCode, HttpContext.Current.Request.ServerVariables["URL"]);
+                        }
+                    } 
+                }
 			}
             catch (SqlException err)
-            {
-                HttpContext.Current.Trace.Warn("CustomerVerification.IsMobileVerified sql : " + err.Message);
+            { 
                 ErrorClass objErr = new ErrorClass(err, "CustomerVerification.IsMobileVerified sql ");
                 objErr.SendMail();
             } // catch Exception
 			catch(Exception err)
 			{
-				HttpContext.Current.Trace.Warn("CustomerVerification.IsMobileVerified : " + err.Message);
 				ErrorClass objErr = new ErrorClass(err,"CustomerVerification.IsMobileVerified");
 				objErr.SendMail();
 			} // catch Exception
-			finally
-			{
-				//close the connection	
-			    if(con.State == ConnectionState.Open)
-				{
-					con.Close();
-				}
-			}
+
             return isMobVer;
 		}
 		
@@ -135,57 +102,34 @@ namespace Bikewale.CV
 			//for this mobile number from the database
 			//in case this function is called from the user interface then pass cwiCode else if it is from sms
 			//received from the user, pass cuiCode
-			
-			SqlConnection con;
-			SqlCommand cmd;
-			SqlParameter prm;
-			Database db = new Database();
-			CommonOpn op = new CommonOpn();
-						
-			string conStr = db.GetConString();
-			
-			con = new SqlConnection( conStr );
 									
 			try
 			{
-				cmd = new SqlCommand("CV_CheckVerification", con);
-				cmd.CommandType = CommandType.StoredProcedure;
-			
-				prm = cmd.Parameters.Add("@MobileNo", SqlDbType.VarChar, 50);
-				prm.Value = mobile;
+                using (DbCommand cmd = DbFactory.GetDBCommand("cv_checkverification"))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobileno", DbType.String, 50, mobile));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cwicode", DbType.String, 50, cwiCode));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cuicode", DbType.String, 50, cuiCode));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isverified", DbType.Boolean, ParameterDirection.Output));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+
+                    verified = Convert.ToBoolean(cmd.Parameters["par_isverified"].Value); 
+                //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+
+                }
 				
-				prm = cmd.Parameters.Add("@CWICode", SqlDbType.VarChar, 50);
-				prm.Value = cwiCode;
-				
-				prm = cmd.Parameters.Add("@CUICode", SqlDbType.VarChar, 50);
-				prm.Value = cuiCode;
-				
-				prm = cmd.Parameters.Add("@IsVerified", SqlDbType.Bit);
-				prm.Direction = ParameterDirection.Output;
-                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
-				con.Open();
-				//run the command
-    			cmd.ExecuteNonQuery();
-				
-				verified = Convert.ToBoolean(cmd.Parameters["@IsVerified"].Value);
-				
-				HttpContext.Current.Trace.Warn("CustomerVerification.verified : " + verified.ToString());
+
 			}
 			catch(Exception err)
 			{
-				HttpContext.Current.Trace.Warn("CustomerVerification.SavePendingListData : " + err.Message);
 				ErrorClass objErr = new ErrorClass(err,"CustomerVerification.SavePendingListData");
 				objErr.SendMail();
 			} // catch Exception
-			finally
-			{
-				//close the connection	
-			    if(con.State == ConnectionState.Open)
-				{
-					con.Close();
-				}
-			}
-			
+
 			return verified;
 		}
 		

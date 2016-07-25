@@ -1,9 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Entities.BikeBooking
 {
@@ -29,5 +25,6 @@ namespace Bikewale.Entities.BikeBooking
         public string SmallPicUrl { get; set; }
         public string OriginalImagePath { get; set; }
         public IEnumerable<PQ_BikeVarient> Varients { get; set; }
+
     }
 }

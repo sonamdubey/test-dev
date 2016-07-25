@@ -1,9 +1,10 @@
 ﻿using Consumer;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
+using System.Data.Common;
 using System.Reflection;
 
 namespace BikewaleAutoSuggest
@@ -17,18 +18,13 @@ namespace BikewaleAutoSuggest
 
             try
             {
-                using (SqlConnection conn = new SqlConnection(_con))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getautosuggestmakemodellist"))
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        cmd.CommandText = "GetAutoSuggestMakeModelList";                                        //  Call SP
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
-                        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
-                        conn.Open();
-
-                        SqlDataReader dr = cmd.ExecuteReader();
-
                         if (dr != null)
                         {
                             objList = new List<TempList>();
@@ -37,14 +33,14 @@ namespace BikewaleAutoSuggest
                             {
                                 objList.Add(new TempList()
                                 {
-                                    MakeId = Convert.ToInt32(dr["MakeId"]),                                     //  Add MakeId
-                                    ModelId = Convert.ToInt32(dr["ModelId"]),                                   //  Add ModelId
-                                    Make = dr["Make"].ToString() + " Bikes",                                    //  Add MakeName
-                                    Model = dr["Model"].ToString(),                                             //  Add ModelName
-                                    MakeMaskingName = dr["MakeMaskingName"].ToString(),                         //  Add MakeMaskingName
-                                    ModelMaskingName = dr["ModelMaskingName"].ToString(),                       //  Add ModelMaskingName
-                                    New = Convert.ToBoolean(dr["New"]),                                         //  Add New Flag
-                                    Futuristic = Convert.ToBoolean(dr["Futuristic"])                            //  Add Futuristic
+                                    MakeId = Convert.ToInt32(dr["MakeId"]),
+                                    ModelId = Convert.ToInt32(dr["ModelId"]),
+                                    Make = dr["Make"].ToString() + " Bikes",
+                                    Model = dr["Model"].ToString(),
+                                    MakeMaskingName = dr["MakeMaskingName"].ToString(),
+                                    ModelMaskingName = dr["ModelMaskingName"].ToString(),
+                                    New = Convert.ToBoolean(dr["New"]),
+                                    Futuristic = Convert.ToBoolean(dr["Futuristic"])
                                 });
                             }
 
@@ -54,16 +50,17 @@ namespace BikewaleAutoSuggest
                             {
                                 objList.Add(new TempList()
                                 {
-                                    MakeId = Convert.ToInt32(dr["MakeId"]),                                     //  Add MakeId
-                                    ModelId = Convert.ToInt32(dr["ModelId"]),                                   //  Add ModelId
-                                    Make = dr["Make"].ToString(),                                               //  Add MakeName
-                                    Model = dr["Model"].ToString(),                                             //  Add ModelName
-                                    MakeMaskingName = dr["MakeMaskingName"].ToString(),                         //  Add MakeMaskingName
-                                    ModelMaskingName = dr["ModelMaskingName"].ToString(),                       //  Add ModelMaskingName
-                                    New = Convert.ToBoolean(dr["New"]),                                         //  Add New Flag
-                                    Futuristic = Convert.ToBoolean(dr["Futuristic"])                            //  Add Futuristic
+                                    MakeId = Convert.ToInt32(dr["MakeId"]),
+                                    ModelId = Convert.ToInt32(dr["ModelId"]),
+                                    Make = dr["Make"].ToString(),
+                                    Model = dr["Model"].ToString(),
+                                    MakeMaskingName = dr["MakeMaskingName"].ToString(),
+                                    ModelMaskingName = dr["ModelMaskingName"].ToString(),
+                                    New = Convert.ToBoolean(dr["New"]),
+                                    Futuristic = Convert.ToBoolean(dr["Futuristic"])
                                 });
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -83,7 +80,7 @@ namespace BikewaleAutoSuggest
             try
             {
                 objSuggestList = new List<BikeList>();
-                foreach(TempList bikeItem in objBikeList)
+                foreach (TempList bikeItem in objBikeList)
                 {
                     string bikeName = (bikeItem.Make + " " + bikeItem.Model).Trim();
                     BikeList ObjTemp = new BikeList();
@@ -100,13 +97,13 @@ namespace BikewaleAutoSuggest
                         ModelId = bikeItem.ModelId.ToString(),
                         MakeMaskingName = bikeItem.MakeMaskingName,
                         ModelMaskingName = bikeItem.ModelMaskingName,
-                        Futuristic=bikeItem.Futuristic.ToString()
+                        Futuristic = bikeItem.Futuristic.ToString()
                     };
 
                     ObjTemp.mm_suggest.Weight = count;
 
                     ObjTemp.mm_suggest.input = new List<string>();
-                    bikeName = bikeName.Replace('-', ' ').Replace("'","");
+                    bikeName = bikeName.Replace('-', ' ').Replace("'", "");
                     string[] tokens = bikeName.Split(' ');
 
                     if (tokens.Length == 1)    //If Display Name has length=1
@@ -119,7 +116,7 @@ namespace BikewaleAutoSuggest
                         ObjTemp.mm_suggest.input.Add(tokens[1].Trim());
 
                         ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[1].Trim());
-						
+
                     }
                     else if (tokens.Length == 3)    //If Display Name has length=3
                     {
@@ -132,10 +129,6 @@ namespace BikewaleAutoSuggest
                         ObjTemp.mm_suggest.input.Add(tokens[1].Trim() + " " + tokens[2].Trim());
 
                         ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[1].Trim() + " " + tokens[2].Trim());
-
-                        ////For Royal Enfield add Bullet in Suggestion
-                        //if(tokens[0].Equals("Royal",StringComparison.CurrentCultureIgnoreCase) && tokens[1].Equals("Enfield",StringComparison.CurrentCultureIgnoreCase))
-                        //    ObjTemp.mm_suggest.input.Add("Bullet");
 
 
                         //For Royal Enfield Bikes add Bullet in Suggestion
@@ -167,9 +160,6 @@ namespace BikewaleAutoSuggest
 
                         ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[1].Trim() + " " + tokens[2].Trim() + " " + tokens[3].Trim());
 
-                        ////For Royal Enfield add Bullet in Suggestion
-                        //if(tokens[0].Equals("Royal",StringComparison.CurrentCultureIgnoreCase) && tokens[1].Equals("Enfield",StringComparison.CurrentCultureIgnoreCase))
-                        //    ObjTemp.mm_suggest.input.Add("Bullet");
 
                         //For Royal Enfield Bikes add Bullet in Suggestion
                         if (bikeName.Contains("Royal Enfield"))
@@ -214,9 +204,6 @@ namespace BikewaleAutoSuggest
 
                         ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[1].Trim() + " " + tokens[2].Trim() + " " + tokens[3].Trim() + " " + tokens[4].Trim());
 
-                        ////For Royal Enfield add Bullet in Suggestion
-                        //if(tokens[0].Equals("Royal",StringComparison.CurrentCultureIgnoreCase) && tokens[1].Equals("Enfield",StringComparison.CurrentCultureIgnoreCase))
-                        //ObjTemp.mm_suggest.input.Add("Bullet");
 
                         //For Royal Enfield Bikes add Bullet in Suggestion
                         if (bikeName.Contains("Royal Enfield"))
@@ -246,42 +233,16 @@ namespace BikewaleAutoSuggest
                             }
                         }
 
-                        ////For Royal Enfield add Bullet in Suggestion
-                        //if (tokens[0].Equals("Royal", StringComparison.CurrentCultureIgnoreCase) && tokens[1].Equals("Enfield", StringComparison.CurrentCultureIgnoreCase))
-                        //    ObjTemp.mm_suggest.input.Add("Bullet");
-
                         //For Royal Enfield Bikes add Bullet in Suggestion
                         if (bikeName.Contains("Royal Enfield"))
                             ObjTemp.mm_suggest.input.Add("Bullet");
                     }
-                                //for (int index = 0; index < tokens.Length; index++)
-                                //{
-                                //    if (!String.IsNullOrEmpty(tokens[index].Trim()))
-                                //        ObjTemp.mm_suggest.input.Add(tokens[index].Trim());
-                                //}
-
-                                //for (int index = 0; index < tokens.Length; index++)
-                                //{
-                                //    for (int jindex = index + 1; jindex < tokens.Length; jindex++)
-                                //    {
-                                //        ObjTemp.mm_suggest.input.Add(tokens[index].Trim() + " " + tokens[jindex].Trim());
-                                //    }
-                                //}
-
-                                //for (int index = 0; index < tokens.Length - 1; index++)
-                                //{
-                                //    for (int jindex = index + 2; jindex < tokens.Length; jindex++)
-                                //    {
-                                //        ObjTemp.mm_suggest.input.Add(tokens[index].Trim() + " " + tokens[index + 1].Trim() + " " + tokens[jindex].Trim());
-                                //    }
-                                //}
-                                //ObjTemp.mm_suggest.input.Add(bikeName);
 
                     objSuggestList.Add(ObjTemp);
                     count--;
                 }
-            } 
-            catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine("Get Suggest List Exception  : " + ex.Message);
                 Logs.WriteErrorLog(MethodBase.GetCurrentMethod().Name + " :Exception in Generating Suggestion List for make model :", ex);

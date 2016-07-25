@@ -32,7 +32,7 @@ namespace Bikewale.Cache.BikeData
                 // Get MaskingNames from Memcache
                 var htNewMaskingNames = _cache.GetFromCache<Hashtable>("BW_NewModelMaskingNames", new TimeSpan(1, 0, 0), () => _modelsRepository.GetMaskingNames());
 
-                if (htNewMaskingNames.Contains(maskingName))
+                if (htNewMaskingNames != null && htNewMaskingNames.Contains(maskingName))
                 {
                     response.ModelId = Convert.ToUInt32(htNewMaskingNames[maskingName]);
                 }
@@ -51,7 +51,7 @@ namespace Bikewale.Cache.BikeData
                     var htOldMaskingNames = _cache.GetFromCache<Hashtable>("BW_OldModelMaskingNames", new TimeSpan(1, 0, 0), () => _modelsRepository.GetOldMaskingNames());
 
                     // new masking name found for given masking name. Its renamed so 301 permanant redirect.
-                    if (htOldMaskingNames[maskingName] != null)
+                    if (htOldMaskingNames!=null && htOldMaskingNames[maskingName] != null)
                     {
                         response.MaskingName = htOldMaskingNames[maskingName].ToString();
                         response.StatusCode = 301;

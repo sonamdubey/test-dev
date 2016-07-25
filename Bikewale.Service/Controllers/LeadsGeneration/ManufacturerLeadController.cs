@@ -34,26 +34,18 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
             _objDealer = dealer;
         }
 
+
         /// <summary>
         /// To genearate manufacturer Lead
         /// Modified By : Sadhana Upadhyay on 29 Dec 2015
         /// Summary : added utmz, utma, device Id etc
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="email"></param>
-        /// <param name="mobile"></param>
-        /// <param name="pqId"></param>
-        /// <param name="cityId"></param>
-        /// <param name="versionId"></param>
+        /// <param name="objLead"></param>
         /// <returns></returns>
-        /// 
-
-        //uint cityId, uint versionId, string name, string email, string mobile, string pqId, UInt16? platformId, UInt16? leadSourceId, string deviceId = null
+        /////uint cityId, uint versionId, string name, string email, string mobile, string pqId, UInt16? platformId, UInt16? leadSourceId, string deviceId = null
         [ResponseType(typeof(bool))]
         public IHttpActionResult Post([FromBody]ManufacturerLeadEntity objLead)
         {
-            //string abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-            // ManufacturerLeadEntity objLead = null;
             bool status = false;
 
             try
@@ -61,16 +53,6 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
 
                 if (objLead.CityId > 0 && objLead.VersionId > 0 && objLead.PQId != 0 && !String.IsNullOrEmpty(objLead.Name) && !String.IsNullOrEmpty(objLead.Email) && !String.IsNullOrEmpty(objLead.Mobile) && objLead.DealerId != 0)
                 {
-                    //objLead = new ManufacturerLeadEntity();
-                    //objLead.Name = objMfgLead.Name;
-                    //objLead.Mobile = mobile;
-                    //objLead.Email = email;
-                    //objLead.CityId = cityId;
-                    //objLead.VersionId = versionId;
-                    //objLead.PQId = Convert.ToUInt32(pqId);
-
-                    //dealer Id for TVS manufacturer 
-                    //objLead.DealerId = Convert.ToUInt32(ConfigurationManager.AppSettings["TVSManufacturerId"]);
 
                     if (objLead != null && objLead.PQId > 0 && objLead.DealerId > 0)
                     {
@@ -80,7 +62,6 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
                         if (status)
                         {
                             //Push inquiry Id to AutoBiz
-                            //objLead.DealerId, objLead.PQId, objLead.Name, objLead.Mobile, objLead.Email,null
                             DPQ_SaveEntity entity = new DPQ_SaveEntity()
                             {
                                 DealerId = objLead.DealerId,

@@ -3,14 +3,12 @@
 
 using System;
 using System.Web;
-using System.Configuration;
-using System.Web.Mail;
-using System.Text;
 using System.Data.SqlClient;
 using System.Data;
 using System.IO;
-using System.Web.Security;
 using System.Security.Cryptography;
+using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.Common 
 {
@@ -215,34 +213,32 @@ namespace Bikewale.Common
 		
 		public static string GetCustomerIdFromKey(string key)
 		{
-			SqlConnection con;
-			SqlCommand cmd;
-			SqlParameter prm;
-			Database db = new Database();
+
 			CommonOpn op = new CommonOpn();
-						
-			string conStr = db.GetConString();
-			
-			con = new SqlConnection( conStr );
-			
 			string customerId = "";
 			
 			try
 			{
-				cmd = new SqlCommand("FetchCustomerSecurityKey", con);
-				cmd.CommandType = CommandType.StoredProcedure;
-				
-				prm = cmd.Parameters.Add("@Key", SqlDbType.VarChar, 100);
-				prm.Value = key;
-				
-				prm = cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt);
-				prm.Direction = ParameterDirection.Output;
-                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);			
-				con.Open();
-				//run the command
-    			cmd.ExecuteNonQuery();
-				
-				customerId = cmd.Parameters["@CustomerId"].Value.ToString();
+                using (DbCommand cmd = DbFactory.GetDBCommand("fetchcustomersecuritykey"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    //prm = cmd.Parameters.Add("@key", SqlDbType.VarChar, 100);
+                    //prm.Value = key;
+
+                    //prm = cmd.Parameters.Add("@customerid", SqlDbType.BigInt);
+                    //prm.Direction = ParameterDirection.Output;
+
+                			
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int32, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_key", DbType.String, 100, key));
+                    // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+                    //run the command
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+
+                    customerId = cmd.Parameters["@CustomerId"].Value.ToString(); 
+                }
 			}
 			catch(SqlException err)
 			{
@@ -256,38 +252,30 @@ namespace Bikewale.Common
 				ErrorClass objErr = new ErrorClass(err,"BikewaleSecurity.GetCustomerIdFromKey");
 				objErr.SendMail();
 			} // catch Exception
-			finally
-			{
-				//close the connection	
-			    if(con.State == ConnectionState.Open)
-				{
-					con.Close();
-				}
-			}
 			
 			return customerId;
 		}
 		
 		public static string GetCustomerKeyFromId(string id)
 		{
-			Database db = new Database();
 			string key = "";
-			SqlDataReader dr;
-			string sql = "";
-			
+			string sql = "";			
 			try
 			{
-                sql = " SELECT CustomerKey FROM CustomerSecurityKey With(NoLock) WHERE CustomerId = " + id;	
-				
-				dr = db.SelectQry(sql);
-				
-				if(dr.Read())
-				{
-					key = dr["CustomerKey"].ToString();
-				}
-				
-				dr.Close();
-				db.CloseConnection();
+                sql = " select customerkey from customersecuritykey  where customerid = @v_id";
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
+                {
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_id", DbType.Int32, id));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr!=null && dr.Read())
+                        {
+                            key = dr["CustomerKey"].ToString();
+                            dr.Close();
+                        }
+                    } 
+                }
 				
 			}
 			catch(Exception err)

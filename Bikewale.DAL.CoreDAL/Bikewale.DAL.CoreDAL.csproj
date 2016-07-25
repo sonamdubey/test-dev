@@ -52,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonOpn.cs" />
-    <Compile Include="Database.cs" />
     <Compile Include="ElasticSearchInstance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

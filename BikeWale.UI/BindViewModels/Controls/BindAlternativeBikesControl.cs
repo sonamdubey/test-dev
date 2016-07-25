@@ -1,19 +1,16 @@
-﻿using System;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
+using Bikewale.Common;
+using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
+using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
-using Bikewale.DTO.BikeData;
-using System.Configuration;
-using Bikewale.Common;
-using Microsoft.Practices.Unity;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.BAL.BikeData;
-using Bikewale.Entities.BikeData;
-using Bikewale.Cache.BikeData;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Cache.Core;
-using Bikewale.DAL.BikeData;
 
 namespace Bikewale.BindViewModels.Controls
 {
@@ -32,14 +29,13 @@ namespace Bikewale.BindViewModels.Controls
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity,int>, BikeVersionsCacheRepository<BikeVersionEntity, int>>()
+                    container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, int>, BikeVersionsCacheRepository<BikeVersionEntity, int>>()
                         .RegisterType<IBikeVersions<BikeVersionEntity, int>, BikeVersions<BikeVersionEntity, int>>()
                               .RegisterType<ICacheManager, MemcacheManager>()
                              ;
-                    var objCache = container.Resolve<IBikeVersionCacheRepository<BikeVersionEntity,int>>();
+                    var objCache = container.Resolve<IBikeVersionCacheRepository<BikeVersionEntity, int>>();
 
                     IEnumerable<SimilarBikeEntity> objSimilarBikes = objCache.GetSimilarBikesList(Convert.ToInt32(VersionId), Convert.ToUInt32(TopCount), Convert.ToUInt32(Deviation));
-
 
                     if (objSimilarBikes != null && objSimilarBikes.Count() > 0)
                     {

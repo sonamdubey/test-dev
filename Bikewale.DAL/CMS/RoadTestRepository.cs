@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web;
 using Bikewale.Entities.CMS;
-using Bikewale.Interfaces.CMS;
 using Bikewale.CoreDAL;
 using Bikewale.Notifications;
+using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.DAL.CMS
 {
@@ -33,29 +31,23 @@ namespace Bikewale.DAL.CMS
         public override IList<T> GetContentList(int startIndex, int endIndex, out int recordCount, ContentFilter filters)
         {
             IList<T> objList = default(List<T>);
-            Database db = null;
             recordCount = 0;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetRoadTestList";
+                    cmd.CommandText = "getroadtestlist";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@startindex", SqlDbType.Int).Value = startIndex;
-                    cmd.Parameters.Add("@endindex", SqlDbType.Int).Value = endIndex;
-                    cmd.Parameters.Add("@CategoryId", SqlDbType.TinyInt).Value = EnumCMSContentType.RoadTest;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbType.Int32, startIndex));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbType.Int32, endIndex));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbType.Byte, EnumCMSContentType.RoadTest)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, (filters.MakeId > 0) ? filters.MakeId : Convert.DBNull));  
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, (filters.ModelId > 0) ? filters.ModelId : Convert.DBNull));
 
-                    if (filters.MakeId > 0)
-                        cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = filters.MakeId;
 
-                    if (filters.ModelId > 0)
-                        cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = filters.ModelId;
-
-                    db = new Database();
-
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -88,6 +80,7 @@ namespace Bikewale.DAL.CMS
                                     recordCount = Convert.ToInt32(dr["RecordCount"]);
                                 }
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -101,10 +94,6 @@ namespace Bikewale.DAL.CMS
             {
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return objList;

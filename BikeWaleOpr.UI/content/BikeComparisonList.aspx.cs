@@ -1,17 +1,18 @@
-﻿using System;
-using System.Data;
-using System.Data.SqlClient;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
+﻿using BikewaleOpr.common;
 using BikeWaleOpr.Common;
-using System.Configuration;
-using RabbitMqPublishing;
 using BikeWaleOpr.RabbitMQ;
+using MySql.CoreDAL;
+using RabbitMqPublishing;
+using System;
 using System.Collections.Specialized;
+using System.Configuration;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.IO;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.Content
 {
@@ -131,15 +132,16 @@ namespace BikeWaleOpr.Content
                 FillMakes();
                 ShowBikeComparision();
                 LoadBikeComparision(Request.QueryString["id"]);
-                
+
             }
-            else {
+            else
+            {
                 AjaxFunctions aj = new AjaxFunctions();
-                aj.UpdateContents(drpModel1, hdn_drpModel1.Value, Request.Form["drpModel1"]); 
+                aj.UpdateContents(drpModel1, hdn_drpModel1.Value, Request.Form["drpModel1"]);
                 aj.UpdateContents(drpVersion1, hdn_drpVersion1.Value, Request.Form["drpVersion1"]);
                 aj.UpdateContents(drpModel2, hdn_drpModel2.Value, Request.Form["drpModel2"]);
-                aj.UpdateContents(drpVersion2, hdn_drpVersion2.Value, Request.Form["drpVersion2"]); 
-            }            
+                aj.UpdateContents(drpVersion2, hdn_drpVersion2.Value, Request.Form["drpVersion2"]);
+            }
         }
 
         //Fill Bike Makes
@@ -190,22 +192,24 @@ namespace BikeWaleOpr.Content
             //                + " WHERE Bv1.ID = BL.VersionId1 AND BMO1.ID = Bv1.BikeModelId AND BMa1.ID = BMo1.BikeMakeId "
             //                + " AND Bv2.ID = BL.VersionId2 AND BMo2.ID = Bv2.BikeModelId AND BMa2.ID = BMo2.BikeMakeId AND BL.IsArchived = 0 "
             //                + " ORDER BY ID ASC";
-            
+
             CommonOpn op = new CommonOpn();
 
             try
             {
-                Database db = new Database();
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "Con_GetBikeComparisonListing";
+                    cmd.CommandText = "con_getbikecomparisonlisting";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    DataSet ds = new DataSet();
-                    ds = db.SelectAdaptQry(cmd);
-                    Trace.Warn("Dataset : "+ ds);
-                    MyRepeater.DataSource = ds.Tables[0];
-                    MyRepeater.DataBind();
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                        {
+                            MyRepeater.DataSource = ds.Tables[0];
+                            MyRepeater.DataBind();
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -224,81 +228,72 @@ namespace BikeWaleOpr.Content
 
         void LoadBikeComparision(string URLData)
         {
-            SqlDataReader dr = null;
             AjaxFunctions aj = new AjaxFunctions();
-            Trace.Warn("Load Bike comparison");
+
             if (URLData != null)
             {
 
                 btnSave.Text = "Update";
                 btnCancel.Visible = true;
 
-                //sql = " SELECT BL.ID, Ma1.ID as Make1 , Mo1.ID as Model1 , Bv1.ID AS Version1, "
-                //    + " Ma2.ID as Make2 , Mo2.ID as Model2 , Bv2.ID AS Version2, BL.HostURL, BL.ImagePath, BL.ImageName, BL.DisplayPriority, BL.IsActive "
-                //    + " FROM Con_BikeComparisonList BL, BikeMakes AS Ma1, BikeModels AS Mo1, BikeVersions AS Bv1, "
-                //    + " BikeMakes AS Ma2, BikeModels AS Mo2, BikeVersions AS Bv2 "
-                //    + " WHERE Bv1.ID = BL.VersionId1 AND Mo1.ID = Bv1.BikeModelId AND Ma1.ID = Mo1.BikeMakeId "
-                //    + " AND Bv2.ID = BL.VersionId2 AND Mo2.ID = Bv2.BikeModelId AND "
-                //    + " Ma2.ID = Mo2.BikeMakeId AND BL.ID = " + URLData;							
-
                 CommonOpn objCom = new CommonOpn();
 
                 try
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
-                      
-                        Database db = new Database();
-                        cmd.CommandText = "GetBikeComparisonDetailById";
+                        cmd.CommandText = "getbikecomparisondetailbyid";
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add("@Id", SqlDbType.Int).Value = URLData;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int32, URLData));
 
-                        dr = db.SelectQry(cmd);
 
-                        if (dr.Read())
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                         {
+                            if (dr != null && dr.Read())
+                            {
 
-                            drpMake1.SelectedValue = dr["Make1"].ToString();
+                                drpMake1.SelectedValue = dr["Make1"].ToString();
 
-                            drpModel1.DataSource = aj.GetModels(dr["Make1"].ToString());
-                            drpModel1.DataTextField = "Text";
-                            drpModel1.DataValueField = "Value";
-                            drpModel1.DataBind();
-                            drpModel1.Items.Insert(0, new ListItem("--Select--", "0"));
-                            drpModel1.SelectedIndex = drpModel1.Items.IndexOf(drpModel1.Items.FindByValue(dr["Model1"].ToString()));
-                            drpModel1.Enabled = true;
+                                drpModel1.DataSource = aj.GetModels(dr["Make1"].ToString());
+                                drpModel1.DataTextField = "Text";
+                                drpModel1.DataValueField = "Value";
+                                drpModel1.DataBind();
+                                drpModel1.Items.Insert(0, new ListItem("--Select--", "0"));
+                                drpModel1.SelectedIndex = drpModel1.Items.IndexOf(drpModel1.Items.FindByValue(dr["Model1"].ToString()));
+                                drpModel1.Enabled = true;
 
-                            drpVersion1.DataSource = aj.GetVersions(dr["Model1"].ToString());
-                            drpVersion1.DataTextField = "Text";
-                            drpVersion1.DataValueField = "Value";
-                            drpVersion1.DataBind();
-                            drpVersion1.Items.Insert(0, new ListItem("--Select--", "0"));
-                            drpVersion1.SelectedIndex = drpVersion1.Items.IndexOf(drpVersion1.Items.FindByValue(dr["Version1"].ToString()));
-                            drpVersion1.Enabled = true;
+                                drpVersion1.DataSource = aj.GetVersions(dr["Model1"].ToString());
+                                drpVersion1.DataTextField = "Text";
+                                drpVersion1.DataValueField = "Value";
+                                drpVersion1.DataBind();
+                                drpVersion1.Items.Insert(0, new ListItem("--Select--", "0"));
+                                drpVersion1.SelectedIndex = drpVersion1.Items.IndexOf(drpVersion1.Items.FindByValue(dr["Version1"].ToString()));
+                                drpVersion1.Enabled = true;
 
-                            drpMake2.SelectedValue = dr["Make2"].ToString();
+                                drpMake2.SelectedValue = dr["Make2"].ToString();
 
-                            drpModel2.DataSource = aj.GetModels(dr["Make2"].ToString());
-                            drpModel2.DataTextField = "Text";
-                            drpModel2.DataValueField = "Value";
-                            drpModel2.DataBind();
-                            drpModel2.Items.Insert(0, new ListItem("--Select--", "0"));
-                            drpModel2.SelectedIndex = drpModel2.Items.IndexOf(drpModel2.Items.FindByValue(dr["Model2"].ToString()));
-                            drpModel2.Enabled = true;
+                                drpModel2.DataSource = aj.GetModels(dr["Make2"].ToString());
+                                drpModel2.DataTextField = "Text";
+                                drpModel2.DataValueField = "Value";
+                                drpModel2.DataBind();
+                                drpModel2.Items.Insert(0, new ListItem("--Select--", "0"));
+                                drpModel2.SelectedIndex = drpModel2.Items.IndexOf(drpModel2.Items.FindByValue(dr["Model2"].ToString()));
+                                drpModel2.Enabled = true;
 
-                            drpVersion2.DataSource = aj.GetVersions(dr["Model2"].ToString());
-                            drpVersion2.DataTextField = "Text";
-                            drpVersion2.DataValueField = "Value";
-                            drpVersion2.DataBind();
-                            drpVersion2.Items.Insert(0, new ListItem("--Select--", "0"));
-                            drpVersion2.SelectedIndex = drpVersion2.Items.IndexOf(drpVersion2.Items.FindByValue(dr["Version2"].ToString()));
-                            drpVersion2.Enabled = true;
+                                drpVersion2.DataSource = aj.GetVersions(dr["Model2"].ToString());
+                                drpVersion2.DataTextField = "Text";
+                                drpVersion2.DataValueField = "Value";
+                                drpVersion2.DataBind();
+                                drpVersion2.Items.Insert(0, new ListItem("--Select--", "0"));
+                                drpVersion2.SelectedIndex = drpVersion2.Items.IndexOf(drpVersion2.Items.FindByValue(dr["Version2"].ToString()));
+                                drpVersion2.Enabled = true;
 
-                            hostUrl = dr["HostURL"].ToString();
-                            hostURL = dr["HostURL"].ToString();
-                            originalImgPath = dr["OriginalImagePath"].ToString();
-                            chkIsActive.Checked = Convert.ToBoolean(dr["IsActive"].ToString());
+                                hostUrl = dr["HostURL"].ToString();
+                                hostURL = dr["HostURL"].ToString();
+                                originalImgPath = dr["OriginalImagePath"].ToString();
+                                chkIsActive.Checked = Convert.ToBoolean(dr["IsActive"].ToString());
+                            }
                         }
                     }
                 }
@@ -307,11 +302,6 @@ namespace BikeWaleOpr.Content
                     Trace.Warn(err.Message + err.Source);
                     ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                     objErr.ConsumeError();
-                }
-                finally
-                {
-                    if (dr != null)
-                        dr.Close();
                 }
             }
         }
@@ -325,11 +315,9 @@ namespace BikeWaleOpr.Content
         /// <param name="e"></param>
         void btnSave_Click(object Sender, EventArgs e)
         {
-            SqlParameter prm;
-            Database db = new Database();
             int isActive = (chkIsActive.Checked == true ? 1 : 0);
             int URLData;
-            
+
             if (Request.QueryString["id"] == null)
             {
                 URLData = -1;
@@ -341,61 +329,42 @@ namespace BikeWaleOpr.Content
 
             try
             {
-                using (SqlConnection con = new SqlConnection(db.GetConString()))
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    cmd.CommandText = "bikecomparisionlist";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int16, URLData));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid1", DbType.Int16, drpVersion1.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid2", DbType.Int16, drpVersion2.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_entrydate", DbType.DateTime, DateTime.Now));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Boolean, isActive));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_compid", DbType.Int32, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_status", DbType.Int16, ParameterDirection.Output));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+
+                    int Status = Int16.Parse(cmd.Parameters["par_status"].Value.ToString());
+                    if (Status == 0)
                     {
-                        Trace.Warn("Connection : "+con);
-                        cmd.CommandText = "BikeComparisionList";
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = con;
-
-                        prm = cmd.Parameters.Add("@Id", SqlDbType.SmallInt);
-                        prm.Value = URLData;
-
-                        prm = cmd.Parameters.Add("@VersionId1", SqlDbType.SmallInt);
-                        prm.Value = drpVersion1.SelectedItem.Value;
-
-                        prm = cmd.Parameters.Add("@VersionId2", SqlDbType.SmallInt);
-                        prm.Value = drpVersion2.SelectedItem.Value;
-
-                        prm = cmd.Parameters.Add("@EntryDate", SqlDbType.DateTime);
-                        prm.Value = DateTime.Now;
-
-                        prm = cmd.Parameters.Add("@IsActive", SqlDbType.Bit);
-                        prm.Value = isActive;
-
-                        cmd.Parameters.Add("@CompId", SqlDbType.Int).Direction = ParameterDirection.Output;
-
-                        prm = cmd.Parameters.Add("@Status", SqlDbType.SmallInt);
-                        prm.Direction = ParameterDirection.Output;
-
-                        
-
-                        con.Open();
-                        //run the command
-                        cmd.ExecuteNonQuery();
-
-                        int Status = Int16.Parse(cmd.Parameters["@Status"].Value.ToString());
-                        if (Status == 0)
-                        {
-                            Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Duplicate data not allowed');", true);
-                        }
-                        if (Status == 1)
-                        {
-                            Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Data successfully inserted');", true);
-                        }
-                        if (Status == 2)
-                        {
-                            Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Data successfully updated');", true);
-                        }
-                        cId = cmd.Parameters["@CompId"].Value.ToString();
-                        if(!String.IsNullOrEmpty(filPhoto.Value))
-                            UploadImage(cId);
-                        ShowBikeComparision();
-                        Response.Redirect("/content/bikecomparisonlist.aspx");
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Duplicate data not allowed');", true);
                     }
-                    con.Close();
+                    if (Status == 1)
+                    {
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Data successfully inserted');", true);
+                    }
+                    if (Status == 2)
+                    {
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Data successfully updated');", true);
+                    }
+                    cId = cmd.Parameters["par_compid"].Value.ToString();
+
+                    // Removed memcached key which shows data on home page and new page
+                    MemCachedUtil.Remove("BW_CompareBikes_Cnt_4");
+                    if (!String.IsNullOrEmpty(filPhoto.Value))
+                        UploadImage(cId);
+                    ShowBikeComparision();
+                    Response.Redirect("/content/bikecomparisonlist.aspx");
                 }
             }
 
@@ -425,7 +394,7 @@ namespace BikeWaleOpr.Content
         {
             CommonOpn co = new CommonOpn();
             string imgPath = ImagingOperations.GetPathToSaveImages("\\bw\\bikecomparison\\");
-            
+
 
             try
             {
@@ -434,7 +403,7 @@ namespace BikeWaleOpr.Content
                     Directory.CreateDirectory(imgPath);
                 }
 
-                string imageName = (drpMake1.SelectedItem.Text + "_" + drpModel1.SelectedItem.Text + "_vs_" + drpMake2.SelectedItem.Text + "_" + drpModel2.SelectedItem.Text + ".jpg").Replace(" ","").ToLower();
+                string imageName = (drpMake1.SelectedItem.Text + "_" + drpModel1.SelectedItem.Text + "_vs_" + drpMake2.SelectedItem.Text + "_" + drpModel2.SelectedItem.Text + ".jpg").Replace(" ", "").ToLower();
                 // upload file for temporary purpose
                 Trace.Warn("Inside RabbitMQ");
                 //rabbitmq code here 
@@ -478,32 +447,21 @@ namespace BikeWaleOpr.Content
         /// </summary>
         void SaveBikeComparePhoto(string photoId)
         {
-            SqlParameter prm;
             try
             {
-            Database db = new Database();
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "SaveBikeComparisonPhoto";
+                    cmd.CommandText = "savebikecomparisonphoto";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    prm = cmd.Parameters.Add("@Id", SqlDbType.SmallInt);
-                    prm.Value = photoId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int16, photoId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, 100, ConfigurationManager.AppSettings["imgHostURL"]));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imagename", DbType.String, 150, (drpMake1.SelectedItem.Text + "_" + drpModel1.SelectedItem.Text + "_vs_" + drpMake2.SelectedItem.Text + "_" + drpModel2.SelectedItem.Text + ".jpg?").Replace(" ", "").ToLower() + timeStamp));
 
-                    prm = cmd.Parameters.Add("@HostUrl", SqlDbType.VarChar, 100);
-                    prm.Value = ConfigurationManager.AppSettings["imgHostURL"];
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imagepath", DbType.String, 50, "/bw/bikecomparison/"));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isreplicated", DbType.Boolean, 0));
 
-                    Trace.Warn("Host URL : " + hostURL);
-                    prm = cmd.Parameters.Add("@ImageName", SqlDbType.VarChar, 150);
-                    prm.Value = (drpMake1.SelectedItem.Text + "_" + drpModel1.SelectedItem.Text + "_vs_" + drpMake2.SelectedItem.Text + "_" + drpModel2.SelectedItem.Text + ".jpg?").Replace(" ", "").ToLower() + timeStamp;
-
-                    prm = cmd.Parameters.Add("@ImagePath", SqlDbType.VarChar, 50);
-                    prm.Value = "/bw/bikecomparison/";
-
-                    prm = cmd.Parameters.Add("@IsReplicated", SqlDbType.Bit);
-                    prm.Value = 0;
-
-                    db.UpdateQry(cmd);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException err)

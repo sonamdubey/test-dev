@@ -2,7 +2,7 @@
 <div class="container">
     <div class="grid-5 leftfloat">
         <div class="bg-white content-inner-block-15 light-box-shadow rounded-corner2 margin-top70" id="OnRoadContent">
-            <h2 class="text-bold margin-bottom20 font28">On road price</h2> 
+            <h2 class="text-bold margin-bottom20 font22">On-road price</h2> 
             <!-- On road pricequote control-->              
             <div class="form-control-box margin-bottom20">
                 <input value="" class="form-control ui-autocomplete-input" type="text" placeholder="Search Make and Model" id="makemodelFinalPrice" tabindex="1" autocomplete="off" style="width: 365px;">
@@ -32,7 +32,7 @@
     var preSelectedCityId = 0;
     var preSelectedCityName = "", selectedMakeName = '', selectedCityName = '', gaLabel = '', selectedAreaName = '';
     var selectedModel = 0;
-    var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
+    var bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';
     var pageId;
     $onRoadContent = $('#OnRoadContent');
     onRoadcity  = $('#ddlCitiesOnRoad');

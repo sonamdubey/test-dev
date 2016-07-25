@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.PriceQuote.Quotation" Trace="false" Debug="false" %>
-<%@ Register TagPrefix="uc" TagName="UserReviewsMin" Src="~/controls/UserReviewsMin.ascx" %>
 <%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
 
@@ -26,7 +25,6 @@
     .PQOffersUL li{padding-bottom:15px}
     .margin-top7 { margin-top:7px; }
     .inr-sm { width:8px; height:12px; background-position:-110px -468px; }
-    .inr-lg { width:10px; height:14px; background-position:-110px -490px; }
     .pqVariants .variants-dropdown{ width:210px; height: 40px; margin-left: 12px; color: #555; position: relative; cursor: pointer; background: #fff;}
     .variant-selection-tab { width:90%; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; }
     #upDownArrow.fa-angle-down { transition: all 0.5s ease-in-out 0s; font-size: 20px;}
@@ -119,7 +117,7 @@
         <div class="grid-12 margin-bottom20" id="dealerPriceQuoteContainer">
             <div class="content-box-shadow padding-top20 padding-bottom20 rounded-corner2">
                 <div class="grid-4 padding-right10 padding-left20" id="PQImageVariantContainer">
-        	        <div class="pqBikeImage margin-bottom15">
+                    <div class="pqBikeImage margin-bottom15">
                         <img alt=" <%= mmv.BikeName %> Photos" src="<%=imgPath%>" title="<%= mmv.BikeName %> Photos">
                     </div>
                     <div class="pqVariants <%=(versionList.Count > 1)?"":"hide" %>">
@@ -155,10 +153,10 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="PQDetailsTableTitle padding-bottom15">Insurance (Comprehensive)<br />
+                                    <td class="PQDetailsTableTitle padding-bottom15">Insurance (Comprehensive)<%--<br />
                                         <div style="position: relative; color: #999; font-size: 11px; margin-top: 1px;">Save up to 60% on insurance - <a onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'BW_PQ', act: 'Insurance_Clicked',lab: '<%= (objQuotation!=null)?(objQuotation.MakeName + "_" + objQuotation.ModelName + "_" + objQuotation.VersionName + "_" + objQuotation.City):string.Empty %>' });" target="_blank" href="/insurance/">PolicyBoss</a>
                                             <span style="margin-left: 8px; vertical-align: super; font-size: 9px;">Ad</span>  
-                                        </div>
+                                        </div>--%>
                                     </td>
                                     <td align="right" class="PQDetailsTableAmount padding-bottom15">
                                         <span class="bwsprite inr-sm"></span>&nbsp;<span><%= CommonOpn.FormatNumeric(  objQuotation.Insurance.ToString()  ) %></span>
@@ -191,19 +189,19 @@
                     <%}
                       else if ((objQuotation.CampaignId > 0)){ %>
                     <div class="modelGetDetails padding-right20">
-						<h3 class="padding-bottom10">                                                   
+                        <h3 class="padding-bottom10">                                                   
                                 Get following details from <%=objQuotation.MakeName %>:                     
-						</h3>
-						<ul>
-							<li>Offers from the nearest dealers</li>
-							<li>Waiting period on this bike at the dealership</li>
-							<li>Nearest dealership from your place</li>
-							<li>Finance options on this bike</li>
-						</ul>
-					</div>
+                        </h3>
+                        <ul>
+                            <li>Offers from the nearest dealers</li>
+                            <li>Waiting period on this bike at the dealership</li>
+                            <li>Nearest dealership from your place</li>
+                            <li>Finance options on this bike</li>
+                        </ul>
+                    </div>
                     <div class="grid-3 leftfloat noOffers margin-top20">
                         <input type="button" value="Get more details" class="btn btn-orange margin-right20 leftfloat" id="getMoreDetailsBtnCampaign">
-					</div>
+                    </div>
                     <div class="blackOut-window"></div>
                     <%} %>
 
@@ -213,63 +211,63 @@
         </div>
         <div class="clear"></div>
         <!-- lead capture popup start-->    
-		<div id="leadCapturePopup" class="text-center rounded-corner2">
-			<div class="leadCapture-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-			<!-- contact details starts here -->
-			<div id="contactDetailsPopup">
-				<div class="icon-outer-container rounded-corner50">
-					<div class="icon-inner-container rounded-corner50">
-						<span class="bwsprite user-contact-details-icon margin-top25"></span>
-					</div>
-				</div>
-				<p class="font20 margin-top25 margin-bottom10">Get more details on this bike</p>
-				<p class="text-light-grey margin-bottom20">Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!</p>
-				<div class="personal-info-form-container">
-					<div class="form-control-box personal-info-list">
-						<input type="text" class="form-control get-first-name" placeholder="Full name (mandatory)"
-							id="getFullName" data-bind="value: fullName">
-						<span class="bwsprite error-icon errorIcon"></span>
-						<div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
-					</div>
-					<div class="form-control-box personal-info-list">
-						<input type="text" class="form-control get-email-id" placeholder="Email address (mandatory)"
-							id="getEmailID" data-bind="value: emailId">
-						<span class="bwsprite error-icon errorIcon"></span>
-						<div class="bw-blackbg-tooltip errorText">Please enter email address</div>
-					</div>
-					<div class="form-control-box personal-info-list">
-						<p class="mobile-prefix">+91</p>
-						<input type="text" class="form-control padding-left40 get-mobile-no" placeholder="Mobile no. (mandatory)"
-							id="getMobile" maxlength="10" data-bind="value: mobileNo">
-						<span class="bwsprite error-icon errorIcon"></span>
-						<div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
-					</div>
-					<div class="clear"></div>
-					<a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitCampaignLead }">Submit</a>                         
-				</div>                   				
-			</div>
-			<!-- contact details ends here -->
+        <div id="leadCapturePopup" class="text-center rounded-corner2">
+            <div class="leadCapture-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+            <!-- contact details starts here -->
+            <div id="contactDetailsPopup">
+                <div class="icon-outer-container rounded-corner50">
+                    <div class="icon-inner-container rounded-corner50">
+                        <span class="bwsprite user-contact-details-icon margin-top25"></span>
+                    </div>
+                </div>
+                <p class="font20 margin-top25 margin-bottom10">Get more details on this bike</p>
+                <p class="text-light-grey margin-bottom20">Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!</p>
+                <div class="personal-info-form-container">
+                    <div class="form-control-box personal-info-list">
+                        <input type="text" class="form-control get-first-name" placeholder="Full name (mandatory)"
+                            id="getFullName" data-bind="value: fullName">
+                        <span class="bwsprite error-icon errorIcon"></span>
+                        <div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
+                    </div>
+                    <div class="form-control-box personal-info-list">
+                        <input type="text" class="form-control get-email-id" placeholder="Email address (mandatory)"
+                            id="getEmailID" data-bind="value: emailId">
+                        <span class="bwsprite error-icon errorIcon"></span>
+                        <div class="bw-blackbg-tooltip errorText">Please enter email address</div>
+                    </div>
+                    <div class="form-control-box personal-info-list">
+                        <p class="mobile-prefix">+91</p>
+                        <input type="text" class="form-control padding-left40 get-mobile-no" placeholder="Mobile no. (mandatory)"
+                            id="getMobile" maxlength="10" data-bind="value: mobileNo">
+                        <span class="bwsprite error-icon errorIcon"></span>
+                        <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
+                    </div>
+                    <div class="clear"></div>
+                    <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitCampaignLead }">Submit</a>                         
+                </div>                   				
+            </div>
+            <!-- contact details ends here -->
             <!-- thank you message starts here -->
             <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
                     <div class="icon-outer-container rounded-corner50">
-					    <div class="icon-inner-container rounded-corner50">
-						    <span class="bwsprite user-contact-details-icon margin-top25"></span>
-					    </div>
-				    </div>
+                        <div class="icon-inner-container rounded-corner50">
+                            <span class="bwsprite user-contact-details-icon margin-top25"></span>
+                        </div>
+                    </div>
                     <p class="font18 text-bold margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
                     <p class="font16 margin-bottom40"><%=objQuotation.MakeName%> Company would get back to you shortly with additional information.</p>
                     <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
             </div>
-			<!-- thank you message ends here -->			
-		</div>
-			<!-- lead capture popup End-->
+            <!-- thank you message ends here -->			
+        </div>
+            <!-- lead capture popup End-->
         <div class="clear"></div>
     </section>
 
     <section class="margin-bottom20 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
         <div class="container">
         <div class="grid-12 alternative-section" id="alternative-bikes-section">
-            <h2 class="text-bold text-center margin-top20 margin-bottom30"><%= mmv.Make + " " + mmv.Model %> alternatives</h2>
+            <h2 class="text-bold text-center margin-top20 margin-bottom30 font22"><%= mmv.Make + " " + mmv.Model %> alternatives</h2>
             <div class="content-box-shadow">
                 <div class="jcarousel-wrapper alternatives-carousel margin-top20">
                     <div class="jcarousel">
@@ -290,7 +288,7 @@
         <!-- Upcoming bikes from brands -->
         <div class="container">
             <div class="grid-12">
-                <h2 class="text-bold text-center margin-top20 margin-bottom30">Upcoming bikes from <%= mmv.Make %></h2>
+                <h2 class="text-bold text-center margin-top20 margin-bottom30 font22">Upcoming bikes from <%= mmv.Make %></h2>
                 <div class="content-box-shadow rounded-corner2">
                     <div class="jcarousel-wrapper upcoming-brand-bikes-container margin-top20">
                         <div class="jcarousel">

@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.BikeBooking.DealerPriceQuote" Trace="false" EnableEventValidation="false" %>
-
 <%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Import Namespace="Bikewale.BikeBooking" %>
@@ -59,7 +58,7 @@
                         </ul>
                         <div class="clear"></div>
                     </div>
-                    <h1 class="font26 text-default margin-bottom10">On-road price quote for <%= BikeName %> in <%= GetLocationCookie() %></h1>
+                    <h1 class="margin-bottom10">On-road price quote for <%= BikeName %> in <%= GetLocationCookie() %></h1>
                     <div class="clear"></div>
                 </div>
                 <div class="clear"></div>
@@ -181,10 +180,10 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="PQDetailsTableTitle padding-bottom15">Insurance (Comprehensive)<br />
+                                                    <td class="PQDetailsTableTitle padding-bottom15">Insurance (Comprehensive)<%--<br />
                                                         <div style="position: relative; color: #999; font-size: 11px; margin-top: 1px;">Save up to 60% on insurance - <a onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'BW_PQ', act: 'Insurance_Clicked',lab: '<%= (objQuotation!=null)?(objQuotation.MakeName + "_" + objQuotation.ModelName + "_" + objQuotation.VersionName + "_" + objQuotation.City):string.Empty %>' });" target="_blank" href="/insurance/">PolicyBoss</a>
                                                             <span style="margin-left: 8px; vertical-align: super; font-size: 9px;">Ad</span>  
-                                                        </div>
+                                                        </div>--%>
                                                     </td>
                                                     <td align="right" class="PQDetailsTableAmount padding-bottom15">
                                                         <span class="bwsprite inr-sm"></span>&nbsp;<span><%= CommonOpn.FormatNumeric(  objQuotation.Insurance.ToString()  ) %></span>
@@ -632,10 +631,10 @@
                                 <div class="pq-no-premium-dealer font14 text-light-grey">Sorry, there are no dealers nearby</div>
                                 <%} %>
                             </div>
-                            <%if (detailedDealer != null && detailedDealer.SecondaryDealerCount > 0)
+                            <%if (detailedDealer != null && detailedDealer.SecondaryDealers != null && detailedDealer.SecondaryDealers.Count() > 0 )
                               { %>
                             <div class="margin-left10 pq-sidebar-dealer-listing margin-top15 padding-right20 padding-left20">
-                                <p class="padding-bottom15">Prices available from <%= detailedDealer.SecondaryDealerCount %> <%= (detailedDealer.SecondaryDealerCount > 1)?"more dealers":"more dealer" %> :</p>
+                                <p class="padding-bottom15">Prices available from <%= detailedDealer.SecondaryDealers.Count() %> <%= (detailedDealer.SecondaryDealers.Count() > 1)?"more dealers":"more dealer" %> :</p>
                                 <ul id="dealerList">
                                     <asp:Repeater ID="rptDealers" runat="server">
                                         <ItemTemplate>
@@ -659,7 +658,7 @@
         <section class="margin-bottom30 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
             <div class="container">
                 <div class="grid-12 alternative-section" id="alternative-bikes-section">
-                    <h2 class="text-bold text-center margin-top20 margin-bottom30"><%= BikeName %> alternatives</h2>
+                    <h2 class="text-bold text-center margin-top20 margin-bottom30 font22"><%= BikeName %> alternatives</h2>
                     <div class="content-box-shadow">
                         <div class="jcarousel-wrapper alternatives-carousel margin-top20">
                             <div class="jcarousel">

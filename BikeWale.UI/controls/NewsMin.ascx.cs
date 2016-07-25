@@ -1,8 +1,16 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BAL.EditCMS;
+using Bikewale.Cache.CMS;
+using Bikewale.Cache.Core;
+using Bikewale.Common;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.EditCMS;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -68,42 +76,38 @@ namespace Bikewale.Controls
         {
             try
             {
-                List<ArticleSummary> _objArticleList = null;
+                IEnumerable<ArticleSummary> _objArticleList = null;
 
-                int _contentType = (int)EnumCMSContentType.News;
-                string _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + posts;
-
-
-                if (!String.IsNullOrEmpty(MakeId) || !String.IsNullOrEmpty(ModelId))
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    if (!String.IsNullOrEmpty(ModelId))
-                        _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + posts + "&makeid=" + MakeId + "&modelid=" + ModelId;
+                    container.RegisterType<IArticles, Articles>()
+                           .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                           .RegisterType<ICacheManager, MemcacheManager>();
+                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
+
+                    _objArticleList = _cache.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), Convert.ToUInt32(posts), Convert.ToUInt32(MakeId), Convert.ToUInt32(ModelId));
+
+                    if (_objArticleList != null && _objArticleList.Count() > 0)
+                    {
+                        RecordCount = _objArticleList.Count();
+
+                        divControl.Attributes.Remove("class");
+
+                        ArticleSummary objFirstArticle = _objArticleList.FirstOrDefault();
+
+                        GetFirstNews(objFirstArticle);
+
+                        _objArticleList.ToList().RemoveAt(0);
+
+                        rptCarNews.DataSource = _objArticleList;
+                        rptCarNews.DataBind();
+                    }
                     else
-                        _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + posts + "&makeid=" + MakeId;
+                        divControl.Attributes.Add("class", "hide");
+
                 }
 
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    _objArticleList = await objClient.GetApiResponse<List<ArticleSummary>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objArticleList);
-                }
 
-                if (_objArticleList != null && _objArticleList.Count > 0)
-                {
-                    RecordCount = _objArticleList.Count;
-
-                    divControl.Attributes.Remove("class");
-
-                    ArticleSummary objFirstArticle = _objArticleList[0];
-
-                    GetFirstNews(objFirstArticle);
-
-                    _objArticleList.RemoveAt(0);
-
-                    rptCarNews.DataSource = _objArticleList;
-                    rptCarNews.DataBind();
-                }
-                else
-                    divControl.Attributes.Add("class", "hide");
             }
             catch (Exception ex)
             {

@@ -1,9 +1,11 @@
 ﻿using BikewaleOpr.Entities;
 using BikeWaleOpr.Common;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -26,24 +28,22 @@ namespace BikewaleOpr.common
         /// <returns></returns>
         public DataTable GetDealerCategories(string dealerId)
         {
-            DataSet ds = null;
             DataTable dt = null;
-            Database db = null;
             try
             {
-                db = new Database();
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetDealerBenefitCategory";
-                    ds = db.SelectAdaptQry(cmd);
-                    if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                    cmd.CommandText = "getdealerbenefitcategory";
+
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        dt = ds.Tables[0];
-                        DataRow dr= dt.NewRow();
-                        dr[0] = 0;
-                        dr[1] = "Select";
-                        dt.Rows.InsertAt(dr, 0);
+                        if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                            dt = ds.Tables[0];
+                            DataRow dr = dt.NewRow();
+                            dr[0] = 0;
+                            dr[1] = "Select";
+                            dt.Rows.InsertAt(dr, 0);
                     }
                 }
             }
@@ -53,12 +53,7 @@ namespace BikewaleOpr.common
                 ErrorClass objErr = new ErrorClass(ex, "GetDealerCategories");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null;
-            }
+
             return dt;
         }
     }

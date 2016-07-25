@@ -24,6 +24,7 @@ namespace Bikewale.Mobile.controls
         public uint ModelId { get; set; }
         public uint TopCount { get; set; }
         public bool IsDiscontinued { get; set; }
+        protected string bikeName = string.Empty;
 
         protected bool showWidget = false;
 
@@ -85,6 +86,8 @@ namespace Bikewale.Mobile.controls
                         rptTopCityPrices.DataSource = prices;
                         rptTopCityPrices.DataBind();
 
+                        bikeName = string.Format("{0} {1}", prices.First().Make, prices.First().Model);
+
                         showWidget = true;
                     }
                 }
@@ -96,6 +99,6 @@ namespace Bikewale.Mobile.controls
             }
         }
 
-        
+
     }
 }

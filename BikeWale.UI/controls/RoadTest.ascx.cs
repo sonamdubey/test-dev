@@ -1,8 +1,16 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BAL.EditCMS;
+using Bikewale.Cache.CMS;
+using Bikewale.Cache.Core;
+using Bikewale.Common;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.EditCMS;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
@@ -80,74 +88,62 @@ namespace Bikewale.Controls
         {
             try
             {
-                List<ArticleSummary> _objRoadtestList = null;
+                IEnumerable<ArticleSummary> _objRoadtestList = null;
 
                 if (_topRecords == "2")
                 {
                     _topRecords = "4";
 
-                    int _contentType = (int)EnumCMSContentType.RoadTest;
-                    string _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + _topRecords;
-
-
-                    if (!String.IsNullOrEmpty(MakeId) || !String.IsNullOrEmpty(ModelId))
+                    using (IUnityContainer container = new UnityContainer())
                     {
-                        if (!String.IsNullOrEmpty(ModelId))
-                            _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + _topRecords + "&makeid=" + MakeId + "&modelid=" + ModelId;
+                        container.RegisterType<IArticles, Articles>()
+                               .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                               .RegisterType<ICacheManager, MemcacheManager>();
+                        ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
+
+                        _objRoadtestList = _cache.GetMostRecentArticlesById(EnumCMSContentType.News, Convert.ToUInt32(_topRecords), Convert.ToUInt32(MakeId), Convert.ToUInt32(ModelId));
+
+                        if (_objRoadtestList != null && _objRoadtestList.Count() > 0)
+                        {
+
+                            divControl.Attributes.Remove("class");
+                            rptRoadTest.DataSource = _objRoadtestList.Take(2);
+                            rptRoadTest.DataBind();
+
+                            recordCount = 2;
+                        }
                         else
-                            _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + _topRecords + "&makeid=" + MakeId;
+                            divControl.Attributes.Add("class", "hide");
+
                     }
 
-                    using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                    {
-                        _objRoadtestList = await objClient.GetApiResponse<List<ArticleSummary>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objRoadtestList);
-                    }
-
-                    if (_objRoadtestList != null && _objRoadtestList.Count > 0)
-                    {
-                        List<ArticleSummary> objRoadTests = new List<ArticleSummary>();
-
-                        for (int i = 0; i < 2; i++)
-                            objRoadTests.Add(_objRoadtestList[i]);
-
-                        divControl.Attributes.Remove("class");
-                        rptRoadTest.DataSource = objRoadTests;
-                        rptRoadTest.DataBind();
-
-                        recordCount = objRoadTests.Count;
-                    }
-                    else
-                        divControl.Attributes.Add("class", "hide");
                 }
                 else
                 {
-                    int _contentType = (int)EnumCMSContentType.RoadTest;
-                    string _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + _topRecords;
 
-
-                    if (!String.IsNullOrEmpty(MakeId) || !String.IsNullOrEmpty(ModelId))
+                    using (IUnityContainer container = new UnityContainer())
                     {
-                        if (!String.IsNullOrEmpty(ModelId))
-                            _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + _topRecords + "&makeid=" + MakeId + "&modelid=" + ModelId;
+                        container.RegisterType<IArticles, Articles>()
+                               .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                               .RegisterType<ICacheManager, MemcacheManager>();
+                        ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
+
+                        _objRoadtestList = _cache.GetMostRecentArticlesById(EnumCMSContentType.News, Convert.ToUInt32(_topRecords), Convert.ToUInt32(MakeId), Convert.ToUInt32(ModelId));
+
+                        if (_objRoadtestList != null && _objRoadtestList.Count() > 0)
+                        {
+                            divControl.Attributes.Remove("class");
+                            rptRoadTest.DataSource = _objRoadtestList;
+                            rptRoadTest.DataBind();
+
+                            recordCount = _objRoadtestList.Count();
+                        }
                         else
-                            _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + _topRecords + "&makeid=" + MakeId;
-                    }
+                            divControl.Attributes.Add("class", "hide");
 
-                    using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                    {
-                        _objRoadtestList = await objClient.GetApiResponse<List<ArticleSummary>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objRoadtestList);
-                    }
 
-                    if (_objRoadtestList != null && _objRoadtestList.Count > 0)
-                    {
-                        divControl.Attributes.Remove("class");
-                        rptRoadTest.DataSource = _objRoadtestList;
-                        rptRoadTest.DataBind();
 
-                        recordCount = _objRoadtestList.Count;
                     }
-                    else
-                        divControl.Attributes.Add("class", "hide");
                 }
             }
             catch (Exception ex)

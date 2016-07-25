@@ -8,6 +8,9 @@ using Ajax;
 using AjaxPro;
 using System.Net;
 using System.IO;
+using System.Data.Common;
+using BikeWaleOPR.DAL.CoreDAL;
+using BikeWaleOPR.Utilities;
 
 namespace BikeWaleOpr.Common
 {
@@ -57,13 +60,13 @@ namespace BikeWaleOpr.Common
             DataSet ds = null;
             try
             {
-                Database db = new Database();
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getvideosbybasicid"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetVideosByBasicId";
-                    cmd.Parameters.Add("@BasicId", SqlDbType.BigInt).Value = basicId;
-                    ds = db.SelectAdaptQry(cmd);
+                    //cmd.CommandText = "getvideosbybasicid";
+                    //cmd.Parameters.Add("@BasicId", SqlDbType.BigInt).Value = basicId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_basicid", DbParamTypeMapper.GetInstance[SqlDbType.Int], basicId)); 
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
             catch (SqlException ex)
@@ -90,14 +93,13 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("deletevideobybasicid"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "DeleteVideoByBasicId";
-                    cmd.Parameters.Add("@BasicId", SqlDbType.BigInt).Value = basicId;
-
-                    Database db = new Database();
-                    db.UpdateQry(cmd);
+                    //cmd.CommandText = "deletevideobybasicid";
+                    //cmd.Parameters.Add("@BasicId", SqlDbType.BigInt).Value = basicId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_basicid", DbParamTypeMapper.GetInstance[SqlDbType.Int], basicId));
+                    MySqlDatabase.UpdateQuery(cmd);
                 }
             }
             catch (SqlException ex)
@@ -130,31 +132,29 @@ namespace BikeWaleOpr.Common
 
             try
             {
-                Database db = new Database();
-                
-                using (SqlConnection con = new SqlConnection(db.GetConString()))
-                {
-                    using (SqlCommand cmd = new SqlCommand())
+
+                using (DbCommand cmd = DbFactory.GetDBCommand("modifyvideos"))
                     {
-                        cmd.CommandText = "ModifyVideos";
-                        cmd.Connection = con;
+                        //cmd.CommandText = "modifyvideos";
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add("@BasicId", SqlDbType.BigInt).Value = basicId;
-                        cmd.Parameters.Add("@Views", SqlDbType.Int).Value = views;
-                        cmd.Parameters.Add("@Likes", SqlDbType.Int).Value = likes;
-                        cmd.Parameters.Add("@VideoUrl", SqlDbType.VarChar, 150).Value = videoUrl;
-                        cmd.Parameters.Add("@VideoId", SqlDbType.VarChar, 20).Value = videoId;
-                        cmd.Parameters.Add("@Duration", SqlDbType.BigInt).Value = duration;
+                        //cmd.Parameters.Add("@BasicId", SqlDbType.BigInt).Value = basicId;
+                        //cmd.Parameters.Add("@Views", SqlDbType.Int).Value = views;
+                        //cmd.Parameters.Add("@Likes", SqlDbType.Int).Value = likes;
+                        //cmd.Parameters.Add("@VideoUrl", SqlDbType.VarChar, 150).Value = videoUrl;
+                        //cmd.Parameters.Add("@VideoId", SqlDbType.VarChar, 20).Value = videoId;
+                        //cmd.Parameters.Add("@Duration", SqlDbType.BigInt).Value = duration;
 
-                        con.Open();
-                        returnValue = cmd.ExecuteNonQuery();
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_basicid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], basicId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_views", DbParamTypeMapper.GetInstance[SqlDbType.Int], views));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_likes", DbParamTypeMapper.GetInstance[SqlDbType.Int], likes));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_videourl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, videoUrl));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_videoid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, videoId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_duration", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], duration));
 
-                        if (con.State == ConnectionState.Open)
-                            con.Close();
+
+                        returnValue = MySqlDatabase.ExecuteNonQuery(cmd);
                     }
-                    con.Close();
-                }
             }
             catch (SqlException ex)
             {

@@ -29,5 +29,6 @@ namespace Bikewale.Entities.BikeBooking
 
         [JsonProperty("latitude"), DataMember]
         public double Latitude { get; set; }
+
     }
 }

@@ -1,10 +1,10 @@
 ﻿using BikewaleOpr.Entities;
 using BikeWaleOpr.Common;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
+using System.Data.Common;
 using System.Diagnostics;
 
 namespace BikewaleOpr.CommuteDistance
@@ -16,17 +16,6 @@ namespace BikewaleOpr.CommuteDistance
     internal class CommuteDistanceRepository
     {
 
-        protected string connectionString = String.Empty;
-
-        /// <summary>
-        /// Created By : Lucky Rathore On 12 Apr 2016
-        /// Description : Set connectionString
-        /// </summary>
-        public CommuteDistanceRepository()
-        {
-            this.connectionString = ConfigurationManager.AppSettings["connectionstring"];
-        }
-
         /// <summary>
         /// Created By : Lucky Rathore On 12 Apr 2016
         /// Description : To Get List of Delaers  whoes area mapping needed to be done.
@@ -34,23 +23,18 @@ namespace BikewaleOpr.CommuteDistance
         /// <returns>List of Delaers</returns>
         public IEnumerable<GeoLocationEntity> GetDealer()
         {
-            SqlConnection connection = null;
-            SqlCommand command = null;
-            SqlDataReader objReader = null;
             GeoLocationEntity location = null;
             IList<GeoLocationEntity> dealers = null;
             try
             {
-                using (connection = new SqlConnection(this.connectionString))
+                using (DbCommand command = DbFactory.GetDBCommand())
                 {
-                    using (command = new SqlCommand())
+                    command.CommandText = "getcommutedistancedealers";
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (IDataReader objReader = MySqlDatabase.SelectQuery(command, ConnectionType.ReadOnly))
                     {
-                        command.Connection = connection;
-                        command.CommandText = "GetCommuteDistanceDealers";
-                        command.CommandType = CommandType.StoredProcedure;
-                        connection.Open();
-                        objReader = command.ExecuteReader();
-                        if (objReader != null && objReader.HasRows)
+                        if (objReader != null)
                         {
                             dealers = new List<GeoLocationEntity>();
                             while (objReader.Read())
@@ -75,13 +59,7 @@ namespace BikewaleOpr.CommuteDistance
                 ErrorClass objErr = new ErrorClass(ex, "GetDealer");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (connection != null && connection.State == ConnectionState.Open)
-                {
-                    connection.Close();
-                }
-            }
+
             return dealers;
         }
 
@@ -93,26 +71,23 @@ namespace BikewaleOpr.CommuteDistance
         /// <returns>List of Area</returns>
         public IEnumerable<GeoLocationEntity> GetAreaByDealer(UInt16 dealerId, UInt16 leadServingDistance, out GeoLocationEntity dealerLocation)
         {
-            SqlConnection connection = null;
-            SqlCommand command = null;
-            SqlDataReader objReader = null;
             GeoLocationEntity location = null;
             IList<GeoLocationEntity> areas = null;
             GeoLocationEntity dealerLocationEntity = null;
             try
             {
-                using (connection = new SqlConnection(this.connectionString))
+
+                using (DbCommand command = DbFactory.GetDBCommand())
                 {
-                    using (command = new SqlCommand())
+                    command.CommandText = "getareasbydealer";
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    command.Parameters.Add(DbFactory.GetDbParam("par_leadservingdistance", DbType.Byte, Convert.ToByte(leadServingDistance)));
+
+
+                    using (IDataReader objReader = MySqlDatabase.SelectQuery(command, ConnectionType.ReadOnly))
                     {
-                        command.Connection = connection;
-                        command.CommandText = "GetAreasByDealer";
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.Add("@DealerId", SqlDbType.Int).Value = dealerId;
-                        command.Parameters.Add("@LeadServingDistance", SqlDbType.TinyInt).Value = Convert.ToByte(leadServingDistance);
-                        connection.Open();
-                        objReader = command.ExecuteReader();
-                        if (objReader != null && objReader.HasRows)
+                        if (objReader != null)
                         {
 
                             if (objReader.Read())
@@ -152,10 +127,6 @@ namespace BikewaleOpr.CommuteDistance
             }
             finally
             {
-                if (connection != null && connection.State == ConnectionState.Open)
-                {
-                    connection.Close();
-                }
                 dealerLocation = dealerLocationEntity;
             }
             return areas;
@@ -170,23 +141,19 @@ namespace BikewaleOpr.CommuteDistance
         /// <returns></returns>
         public bool UpdateArea(UInt16 dealerId, string areaDistance)
         {
-            SqlConnection connection = null;
-            SqlCommand command = null;
             int resp = 0;
             try
             {
-                using (connection = new SqlConnection(this.connectionString))
+
+                using (DbCommand command = DbFactory.GetDBCommand())
                 {
-                    using (command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "UpdateCommuteDistance";
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.Add("@DealerId", SqlDbType.Int).Value = dealerId;
-                        command.Parameters.Add("@AreaDistance", SqlDbType.VarChar, -1).Value = areaDistance;
-                        connection.Open();
-                        resp = command.ExecuteNonQuery();
-                    }
+
+                    command.CommandText = "updatecommutedistance";
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    command.Parameters.Add(DbFactory.GetDbParam("par_areadistance", DbType.String, areaDistance));
+
+                    resp = MySqlDatabase.ExecuteNonQuery(command, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -194,13 +161,7 @@ namespace BikewaleOpr.CommuteDistance
                 ErrorClass objErr = new ErrorClass(ex, "UpdateArea");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (connection != null && connection.State == ConnectionState.Open)
-                {
-                    connection.Close();
-                }
-            }
+
             return resp > 0 ? true : false;
         }
     }

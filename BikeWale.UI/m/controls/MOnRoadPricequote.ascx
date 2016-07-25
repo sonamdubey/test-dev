@@ -2,7 +2,7 @@
 
 <div class="container" id="OnRoadContent">
     <div class="grid-12">
-        <h2 class="margin-top30 margin-bottom20 text-white text-center">On Road Price</h2>
+        <h2 class="font18 margin-top20 margin-bottom20 text-white text-center">On road price</h2>
 
         <!-- On road pricequote control-->
         <div class="form-control-box margin-bottom20">
@@ -35,7 +35,7 @@
     var preSelectedCityId = 0;
     var preSelectedCityName = "";
     var selectedModel = 0;
-    var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
+    var bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';
     var metroCitiesIds = [40, 12, 13, 10, 224, 1, 198, 105, 246, 176, 2, 128];
     var pageId;
     var selectedMakeName = '', selectedCityName = '', gaLabel = '', selectedAreaName = '';

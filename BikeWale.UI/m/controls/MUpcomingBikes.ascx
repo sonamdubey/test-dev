@@ -3,7 +3,7 @@
 <!-- Mobile Upcoming Bikes Starts here-->
 <asp:Repeater ID="rptUpcomingBikes" runat="server">
     <ItemTemplate>
-        <div class="swiper-slide">
+        <div class="swiper-slide upcoming-front">
             <div class="front">
                 <div class="contentWrapper">
                     <!--<div class="position-abt pos-right10 pos-top10 infoBtn bwmsprite alert-circle-icon"></div>-->
@@ -14,7 +14,7 @@
                         </a>
                     </div>
                     <div class="bikeDescWrapper">
-                        <div class="bikeTitle">
+                        <div class="bikeTitle margin-bottom10">
                             <h3><a href="/m<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem, "MakeBase.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelBase.MaskingName"))) %>"><%# DataBinder.Eval(Container.DataItem, "MakeBase.MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem, "ModelBase.ModelName").ToString() %></a></h3>
                         </div>
                         <div class="margin-bottom5">

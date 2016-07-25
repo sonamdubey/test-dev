@@ -1,9 +1,10 @@
 ﻿using BikeWaleOpr.Common;
+using MySql.CoreDAL;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Reflection;
 using System.Web;
@@ -44,35 +45,28 @@ namespace BikeWaleOpr.RabbitMQ
         /// <param name="directoryPath"></param>
         public string UploadImageToCommonDatabase(string photoId, string imageName, ImageCategories imgC, string directoryPath)
         {
-            Database db = new Database();
-
             string url = string.Empty;
 
             try
             {
-                using (SqlConnection con = new SqlConnection(db.GetConString()))
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "IMG_AllBikePhotosInsert";
-                        cmd.Connection = con;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "img_allbikephotosinsert";
 
-                        cmd.Parameters.Add("@ItemId", SqlDbType.BigInt).Value = photoId;
-                        cmd.Parameters.Add("@OrigFileName", SqlDbType.VarChar).Value = imageName;
-                        cmd.Parameters.Add("@CategoryId", SqlDbType.Int).Value = imgC;
-                        //die path for original image
-                        cmd.Parameters.Add("@DirPath", SqlDbType.VarChar).Value = directoryPath;
-                        //host url for original image
-                        cmd.Parameters.Add("@HostUrl", SqlDbType.VarChar).Value = ConfigurationManager.AppSettings["RabbitImgHostURL"].ToString();
-                        //output parameter complete url for original image
-                        cmd.Parameters.Add("@Url", SqlDbType.VarChar, 255).Direction = ParameterDirection.Output;
-                        if (con.State == ConnectionState.Closed)
-                            con.Open();
-                        cmd.ExecuteNonQuery();
-                        url = cmd.Parameters["@Url"].Value.ToString();
-                    }
-                    con.Close();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_itemid", DbType.Int64, photoId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_origfilename", DbType.String, imageName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbType.Int32, imgC));
+                    //die path for original image
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dirpath", DbType.String, directoryPath));
+                    //host url for original image
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, ConfigurationManager.AppSettings["RabbitImgHostURL"].ToString()));
+                    //output parameter complete url for original image
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_url", DbType.String, 255, ParameterDirection.Output));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+
+                    url = cmd.Parameters["par_url"].Value.ToString();
                 }
             }
             catch (SqlException ex)
@@ -101,19 +95,18 @@ namespace BikeWaleOpr.RabbitMQ
         public DataSet FetchProcessedImagesList(string imageList, ImageCategories imgC)
         {
             //verify that all the values in the image list is numeric
-            Database db = new Database();
             DataSet ds = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "IMG_FetchProcessedImageList";
+                    cmd.CommandText = "img_fetchprocessedimagelist";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@ImageList", SqlDbType.VarChar, 1000).Value = imageList;
-                    cmd.Parameters.Add("@CategoryId", SqlDbType.Int).Value = imgC;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imagelist", DbType.String, 1000, imageList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbType.Int32, imgC));
 
-                    ds = db.SelectAdaptQry(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (Exception ex)
@@ -122,12 +115,6 @@ namespace BikeWaleOpr.RabbitMQ
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                //close the connection  
-                db.CloseConnection();
-            }
-
             return ds;
         }   //End of FetchProcessedImagesList
 
@@ -136,15 +123,15 @@ namespace BikeWaleOpr.RabbitMQ
             DataSet ds = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    Database db = new Database();
-                    cmd.CommandText = "IMG_CheckPhotosStatus";
+                    cmd.CommandText = "img_checkphotosstatus";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@PhotoId", SqlDbType.VarChar).Value = imageId;
-                    cmd.Parameters.Add("@CategoryId", SqlDbType.Int).Value = (int)imgC;
 
-                    ds = db.SelectAdaptQry(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbType.String, imageId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbType.Int32, (int)imgC));
+
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (Exception ex)

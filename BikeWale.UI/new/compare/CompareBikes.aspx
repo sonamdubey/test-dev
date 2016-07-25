@@ -270,6 +270,10 @@
     padding: 10px;
 }
     .related-comparison-wrapper { display:inline-block; vertical-align:top; width:220px; }
+    .bikeclose .cross-md-dark-grey { background-position: -62px -223px; }
+    .bikeclose .cross-md-dark-grey:hover { background-position: -62px -246px; }
+    .compare-tick { width: 18px; height: 14px; background-position: -153px -515px; }
+    .compare-cross { width: 14px; height: 14px; background-position: -181px -515px; }
 </style>
 
 <div class="container_12">
@@ -315,7 +319,7 @@
                                            <td class="maintd <%# Container.ItemIndex == featuredBikeIndex ? "featuredBike" : ""  %>">
                                                <table class="<%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>" cellpadding="0" border="0" cellspacing="0">
                                                    <tr><td>
-                                                       <div class="bikeclose"><a class='delBike pointer font16 right-float <%= !isFeatured ? ((count==2) ? "hide" : "") : ((count==3) ? "hide" : "") %>' versionId='<%# DataBinder.Eval(Container.DataItem,"BikeVersionId") %>'><span class="fa fa-times text-red"></span></a></div>
+                                                       <div class="bikeclose"><a class='delBike pointer font16 right-float <%= !isFeatured ? ((count==2) ? "hide" : "") : ((count==3) ? "hide" : "") %>' versionId='<%# DataBinder.Eval(Container.DataItem,"BikeVersionId") %>'><span class="bwsprite cross-md-dark-grey"></span></a></div>
                                                        <div class="clear"></div>
                                                        <div class="bikemain">
                                                            <div class="bikename"><strong><a class="blue" href='/<%# DataBinder.Eval(Container.DataItem,"MakeMaskingName") +"-bikes/"+ DataBinder.Eval(Container.DataItem,"ModelMaskingName") %>/' title='<%# DataBinder.Eval(Container.DataItem,"Make") + " " + DataBinder.Eval(Container.DataItem,"Model") + " " + DataBinder.Eval(Container.DataItem,"Version") + " Details"%>'><%#DataBinder.Eval(Container.DataItem,"Make") + " " + DataBinder.Eval(Container.DataItem,"Model")%></a></strong></div>

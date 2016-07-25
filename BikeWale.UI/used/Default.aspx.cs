@@ -78,7 +78,6 @@ namespace Bikewale.Used
         private void FillMake()
         {
             string sql = string.Empty;
-            DataTable dt = null;
 
             try
             {

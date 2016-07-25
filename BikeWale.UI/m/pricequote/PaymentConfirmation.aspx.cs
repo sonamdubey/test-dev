@@ -1,6 +1,4 @@
-﻿using Bikewale.BikeBooking;
-using Bikewale.BikeBooking.Common;
-using Bikewale.Common;
+﻿using Bikewale.Common;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Utility;
@@ -76,12 +74,15 @@ namespace Bikewale.Mobile.PriceQuote
             bool _isContentFound = true;
             try
             {
-                string _apiUrl = String.Format("/api/Dealers/GetDealerDetailsPQ/?versionId={0}&DealerId={1}&CityId={2}", PriceQuoteQueryString.VersionId, PriceQuoteQueryString.DealerId, PriceQuoteQueryString.CityId);
-                
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    //_objPQ = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objPQ);
-                    _objPQ = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objPQ);
+                    container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
+                    Bikewale.Interfaces.AutoBiz.IDealers objDealer = container.Resolve<Bikewale.DAL.AutoBiz.DealersRepository>();
+                    PQParameterEntity objParam = new PQParameterEntity();
+                    objParam.CityId = Convert.ToUInt32(PriceQuoteQueryString.CityId); ;
+                    objParam.DealerId = Convert.ToUInt32(PriceQuoteQueryString.DealerId);
+                    objParam.VersionId = Convert.ToUInt32(PriceQuoteQueryString.VersionId); ;
+                    _objPQ = objDealer.GetDealerDetailsPQ(objParam);
                 }
 
                 if (_objPQ != null)
@@ -212,13 +213,12 @@ namespace Bikewale.Mobile.PriceQuote
                 request.InquiryId = Convert.ToUInt32(objCustomer.AbInquiryId);
                 request.PaymentAmount = BooingAmt;
                 request.Price = totalPrice;
-                
+
                 string _apiUrl = "/webapi/booking/";
                 uint bookingId = default(uint);
 
-                using(Bikewale.Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (Bikewale.Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
-                    //bookingId = objClient.PostSync<BookingRequest, uint>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, request);
                     bookingId = objClient.PostSync<BookingRequest, uint>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, request);
                 }
             }
@@ -243,6 +243,6 @@ namespace Bikewale.Mobile.PriceQuote
                 totalPrice += priceListObj.Price;
             }
             return totalPrice;
-        } 
+        }
     }
 }

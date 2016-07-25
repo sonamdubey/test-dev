@@ -1,4 +1,7 @@
 using Bikewale.Common;
+using Grpc.CMS;
+using log4net;
+using MySql.CoreDAL;
 using Newtonsoft.Json;
 /***********************************************************/
 // Desc: Common class for research compare section
@@ -8,6 +11,7 @@ using System;
 using System.Collections;
 using System.Configuration;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -23,7 +27,12 @@ namespace Bikewale.New
         private HttpContext objTrace = HttpContext.Current;
         protected ArrayList arObj = null;
 
-        DataSet dsRating;
+        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
+        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
+        static readonly ILog _logger = LogManager.GetLogger(typeof(CompareBikes));
+
+
+        //DataSet dsRating;
 
         public CompareBikes() { }
 
@@ -41,11 +50,35 @@ namespace Bikewale.New
         /***********************************************************/
         public static string GetFeaturedBike(string versions)
         {
+            try
+            {
+                if (_useGrpc)
+                {
+                    var grpcInt = GrpcMethods.GrpcGetFeaturedCar(versions, 1, 2);
+                    return grpcInt.IntOutput.ToString();
+                }
+                else
+                {
+                    return GetFeaturedBikeOldWay(versions);
+                }
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+                return GetFeaturedBikeOldWay(versions);
+            }
+        }
+
+        private static string GetFeaturedBikeOldWay(string versions)
+        {
             string featuredBikeId = "";
-            Database db = new Database();
 
             try
             {
+                if (_logGrpcErrors)
+                {
+                    _logger.Error(string.Format("Grpc did not work for GetFeaturedBikeOldWay {0}", versions));
+                }
 
                 // Get Sponsored bike by Web Api
                 using (HttpClient client = new HttpClient())
@@ -69,14 +102,9 @@ namespace Bikewale.New
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                //db.CloseConnection();
-            }
 
             return featuredBikeId;
         }
-
 
         // This function will get current versionId from dataset and will match it with the version in the array. 
         // if it matches, it will return index.this is just to match the order of Bikes being compared!
@@ -116,24 +144,26 @@ namespace Bikewale.New
 
         void GetAllModelRatings(string versions)
         {
-            string sql = string.Empty;
-            SqlCommand cmd = new SqlCommand();
-            Database db = new Database();
-            dsRating = new DataSet();
 
-            sql = " SELECT (SELECT MaskingName FROM BikeMakes With(NoLock) WHERE ID = MO.BikeMakeId) AS MakeMaskingName, MO.ID as ModelId, MO.Name AS ModelName,MO.MaskingName AS ModelMaskingName, CV.ID As BikeVersionId, IsNull(MO.ReviewRate, 0) AS ModelRate, IsNull(MO.ReviewCount, 0) AS ModelTotal, "
-                + " IsNull(CV.ReviewRate, 0) AS VersionRate, IsNull(CV.ReviewCount, 0) AS VersionTotal "
-                + " FROM BikeModels AS MO, BikeVersions AS CV With(NoLock) WHERE CV.ID in ( " + db.GetInClauseValue(versions, "BikeVersionId", cmd) + " ) AND MO.ID = CV.BikeModelId ";
 
-            cmd.CommandText = sql;
+            //string sql = string.Empty;
+            //SqlCommand cmd =  new SqlCommand();
+            //Database db = new Database();
+            //dsRating = new DataSet();
+
+            //sql = " SELECT (SELECT MaskingName FROM BikeMakes With(NoLock) WHERE ID = MO.BikeMakeId) AS MakeMaskingName, MO.ID as ModelId, MO.Name AS ModelName,MO.MaskingName AS ModelMaskingName, CV.ID As BikeVersionId, IsNull(MO.ReviewRate, 0) AS ModelRate, IsNull(MO.ReviewCount, 0) AS ModelTotal, "
+            //    + " IsNull(CV.ReviewRate, 0) AS VersionRate, IsNull(CV.ReviewCount, 0) AS VersionTotal "
+            //    + " FROM BikeModels AS MO, BikeVersions AS CV With(NoLock) WHERE CV.ID in ( " + db.GetInClauseValue(versions, "BikeVersionId", cmd) + " ) AND MO.ID = CV.BikeModelId ";
+
+            //cmd.CommandText = sql;
 
             try
             {
-                dsRating = db.SelectAdaptQry(cmd);
+                //    dsRating = db.SelectAdaptQry(cmd);
+                throw new Exception("GetAllModelRatings(string versions) : Method not used/commented");
             }
-            catch (SqlException err)
+            catch (Exception err)
             {
-                //Trace.Warn("GetAllModelRatings Error = " + err.Message);			
                 ErrorClass objErr = new ErrorClass(err, objTrace.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
@@ -141,29 +171,31 @@ namespace Bikewale.New
 
         public string GetModelRatings(string versionId)
         {
-            string reviewString = string.Empty;
+            //string reviewString = string.Empty;
             try
             {
-                if (dsRating.Tables[0].Rows.Count > 0)
-                {
-                    DataRow[] drRating = dsRating.Tables[0].Select("BikeVersionId=" + versionId);
+                throw new Exception("GetAllModelRatings(string versions) : Method not used/commented");
 
-                    if (drRating.Length > 0)
-                    {
-                        for (int i = 0; i < drRating.Length; ++i)
-                        {
-                            if (Convert.ToDouble(drRating[i]["ModelRate"]) > 0)
-                            {
-                                string reviews = Convert.ToDouble(drRating[i]["ModelTotal"]) > 1 ? " reviews" : " review";
-                                reviewString += "<div>" + CommonOpn.GetRateImage(Convert.ToDouble(drRating[i]["ModelRate"].ToString())) + "</div>"
-                                             + " <div style='margin-top:5px;'><a href='/research/" + drRating[i]["MakeMaskingName"].ToString() + "-bikes/" + drRating[i]["ModelMaskingName"].ToString() + "/userreviews/'>" + drRating[i]["ModelTotal"].ToString() + reviews + " </a></div>";
-                            }
-                            else
-                                reviewString = "<div style='margin-top:10px;'><a href='/research/userreviews-bikem-" + drRating[i]["ModelId"].ToString() + ".html'>Write a review</a></div>";
-                        }
-                    }
-                }
-                return reviewString;
+                //if (dsRating.Tables[0].Rows.Count > 0)
+                //{
+                //    DataRow[] drRating = dsRating.Tables[0].Select("BikeVersionId=" + versionId);
+
+                //    if (drRating.Length > 0)
+                //    {
+                //        for (int i = 0; i < drRating.Length; ++i)
+                //        {
+                //            if (Convert.ToDouble(drRating[i]["ModelRate"]) > 0)
+                //            {
+                //                string reviews = Convert.ToDouble(drRating[i]["ModelTotal"]) > 1 ? " reviews" : " review";
+                //                reviewString += "<div>" + CommonOpn.GetRateImage(Convert.ToDouble(drRating[i]["ModelRate"].ToString())) + "</div>"
+                //                             + " <div style='margin-top:5px;'><a href='/research/" + drRating[i]["MakeMaskingName"].ToString() + "-bikes/" + drRating[i]["ModelMaskingName"].ToString() + "/userreviews/'>" + drRating[i]["ModelTotal"].ToString() + reviews + " </a></div>";
+                //            }
+                //            else
+                //                reviewString = "<div style='margin-top:10px;'><a href='/research/userreviews-bikem-" + drRating[i]["ModelId"].ToString() + ".html'>Write a review</a></div>";
+                //        }
+                //    }
+                //}
+                //return reviewString;
             }
             catch (Exception err)
             {
@@ -185,17 +217,12 @@ namespace Bikewale.New
             DataSet ds = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (System.Data.Common.DbCommand cmd = DbFactory.GetDBCommand("getbikecomparisonmin"))
                 {
-                    Database db = null;
-                    cmd.CommandText = "GetBikeComparisonMin";
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
 
-                    cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = topCount;
-
-                    db = new Database();
-
-                    ds = db.SelectAdaptQry(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException exSql)
@@ -229,14 +256,13 @@ namespace Bikewale.New
             DataSet ds = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcomparisondetails_26022016"))
                 {
-                    Database db = null;
-                    cmd.CommandText = "GetComparisonDetails_26022016";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@BikeVersions", SqlDbType.VarChar, 50).Value = versionList;
-                    db = new Database();
-                    ds = db.SelectAdaptQry(cmd);
+                    //cmd.Parameters.Add("@bikeversions", SqlDbType.VarChar, 50).Value = versionList;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversions", DbType.String, 50, versionList));
+
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException exSql)

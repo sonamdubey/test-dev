@@ -2,932 +2,899 @@
 COMMON OPERATIONS.
 */
 
+using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 using System;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using System.Web.Caching;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
 using System.Configuration;
-using System.Text.RegularExpressions;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Net.Mail;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
-namespace BikeWaleOpr.Common 
+namespace BikeWaleOpr.Common
 {
-	public class CommonOpn
-	{
-			
-		//used for writing the debug messages
-		private HttpContext objTrace = HttpContext.Current;
-		
-				
-		//this function binds the grid with the datareader
-		//takes as input the sql string and the datagridname
-		public void BindGridReader(string sql, DataGrid dtgrd)
-		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
-			try
-			{
-				dataReader = objSelect.SelectQry(sql);
-				dtgrd.DataSource = dataReader;
-				dtgrd.DataBind();
-				dataReader.Close();
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-			finally
-			{
-                if (dataReader != null)
+    public class CommonOpn
+    {
+
+        //used for writing the debug messages
+        private HttpContext objTrace = HttpContext.Current;
+
+
+        //this function binds the grid with the datareader
+        //takes as input the sql string and the datagridname
+        public void BindGridReader(string sql, DataGrid dtgrd)
+        {
+            try
+            {
+                using (IDataReader dataReader = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
+                {
+                    dtgrd.DataSource = dataReader;
+                    dtgrd.DataBind();
                     dataReader.Close();
-				objSelect.CloseConnection();
-			}
-		}
-		
-		//this function binds the grid with the datareader
-		//takes as input the sql string and the datagridname
-		public void BindGridReader(string sql, DataGrid dtgrd, SqlParameter [] param)
-		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
-			try
-			{
-				dataReader = objSelect.SelectQry(sql, param);
-				dtgrd.DataSource = dataReader;
-				dtgrd.DataBind();
-				dataReader.Close();
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-			finally
-			{
-                if (dataReader != null)
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
+        //this function binds the grid with the datareader
+        //takes as input the sql string and the datagridname
+        public void BindGridReader(string sql, DataGrid dtgrd, SqlParameter[] param)
+        {
+
+            try
+            {
+                using (IDataReader dataReader = MySqlDatabase.SelectQuery(sql, param, ConnectionType.ReadOnly))
+                {
+                    dtgrd.DataSource = dataReader;
+                    dtgrd.DataBind();
                     dataReader.Close();
-				objSelect.CloseConnection();
-			}
-		}
-		
-			
-		//this function binds the repeater with the datareader
-		//takes as input the sql string and the datagridname
-		public void BindRepeaterReader(string sql, Repeater rpt)
-		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
-			try
-			{
-                HttpContext.Current.Trace.Warn(rpt.ID);
-				dataReader = objSelect.SelectQry(sql);
-				rpt.DataSource = dataReader;
-				rpt.DataBind();	
-				dataReader.Close();
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-			finally
-			{
-                if (dataReader != null)
-                    dataReader.Close();
-				objSelect.CloseConnection();
-			}
-		}
-		
-		//this function binds the repeater with the datareader
-		//takes as input the sql string and the datagridname
-		public void BindRepeaterReader(string sql, Repeater rpt, SqlParameter [] param)
-		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
-			try
-			{
-				dataReader = objSelect.SelectQry(sql, param);
-				rpt.DataSource = dataReader;
-				rpt.DataBind();
-				dataReader.Close();
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-			finally
-			{
-                if (dataReader != null)
-                    dataReader.Close();
-				objSelect.CloseConnection();
-			}
-		}
-		
-		//this function binds the grid with the dataset
-		//takes as input the sql string and the datagridname
-		public void BindGridSet(string sql, DataGrid dtgrd)
-		{
-			DataSet dataSet = new DataSet();
-			
-			Database objSelect = new Database();
-			try
-			{
-				dataSet = objSelect.SelectAdaptQry(sql);
-				dtgrd.DataSource = dataSet;
-				dtgrd.DataBind();
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-		}
-		
-		//this function binds the grid with the dataset
-		//takes as input the sql string and the datagridname
-		public void BindGridSet(string sql, DataGrid dtgrd, SqlParameter [] param)
-		{
-			DataSet dataSet = new DataSet();
-			
-			Database objSelect = new Database();
-			try
-			{
-				dataSet = objSelect.SelectAdaptQry(sql, param);
-				dtgrd.DataSource = dataSet;
-				dtgrd.DataBind();
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-		}
-		
-		// This function does the same thing as the above one,
-		// but it has an unque feature of providing paging by default.
-		// you have to do nothing but provide pageSize.
-		public void BindGridSet( string sql, DataGrid dtgrd, int PageSize )
-		{
-			DataSet dataSet = new DataSet();
-			
-			Database objSelect = new Database();
-			try
-			{
-				dataSet = objSelect.SelectAdaptQry(sql);
-				if ( dataSet.Tables[0].Rows.Count > PageSize )
-				{
-					dtgrd.AllowPaging = true;
-					dtgrd.PageSize = PageSize;
-				}
-				else
-				{
-					dtgrd.AllowPaging = false;
-				}
-				dtgrd.DataSource = dataSet;
-				dtgrd.DataBind();
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-		}
-		
-		// This function does the same thing as the above one,
-		// but it has an unque feature of providing paging by default.
-		// you have to do nothing but provide pageSize.
-		public void BindGridSet( string sql, DataGrid dtgrd, int PageSize, SqlParameter [] param)
-		{
-			DataSet dataSet = new DataSet();
-			
-			Database objSelect = new Database();
-			try
-			{
-				dataSet = objSelect.SelectAdaptQry(sql, param);
-				if ( dataSet.Tables[0].Rows.Count > PageSize )
-				{
-					dtgrd.AllowPaging = true;
-					dtgrd.PageSize = PageSize;
-				}
-				else
-				{
-					dtgrd.AllowPaging = false;
-				}
-				dtgrd.DataSource = dataSet;
-				dtgrd.DataBind();
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-		}
-		
-		//this function binds the datalist with the datareader
-		//takes as input the sql string and the datalist id
-		public void BindListReader(string sql, DataList dtlst)
-		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
-			try
-			{
-				dataReader = objSelect.SelectQry(sql);
-				dtlst.DataSource = dataReader;
-				dtlst.DataBind();
-				dataReader.Close();
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-			finally
-			{
-                if (dataReader != null)
-                    dataReader.Close();
-				objSelect.CloseConnection();
-			}
-		}
-		
-		//this function binds the datalist with the datareader
-		//takes as input the sql string and the datalist id
-		public void BindListReader(string sql, DataList dtlst, SqlParameter [] param)
-		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
-			try
-			{
-				dataReader = objSelect.SelectQry(sql, param);
-				dtlst.DataSource = dataReader;
-				dtlst.DataBind();
-				dataReader.Close();
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-			finally
-			{
-                if (dataReader != null)
-                    dataReader.Close();
-				objSelect.CloseConnection();
-			}
-		}
-		
-		//this function binds the dropdownlist with the datareader
-		//takes as input the sql string, dropdownlist name, the text field and the value field
-		public void FillDropDown(string sql, DropDownList drp, string text, string value)
-		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
-			try
-			{
-				dataReader = objSelect.SelectQry(sql);
-				drp.DataSource = dataReader;
-				drp.DataTextField = text;
-				drp.DataValueField = value;
-				drp.DataBind();
-				dataReader.Close();
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-			finally
-			{
-                if (dataReader != null)
-                    dataReader.Close();	
-				objSelect.CloseConnection();
-				
-			}
-		}
-		
-		//this function binds the dropdownlist with the datareader
-		//takes as input the sql string, dropdownlist name, the text field and the value field
-		public void FillDropDown(string sql, DropDownList drp, string text, string value, SqlParameter [] param)
-		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
-			try
-			{
-				dataReader = objSelect.SelectQry(sql, param);
-				drp.DataSource = dataReader;
-				drp.DataTextField = text;
-				drp.DataValueField = value;
-				drp.DataBind();
-				dataReader.Close();
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-			finally
-			{
-                if (dataReader != null)
-                    dataReader.Close();	
-				objSelect.CloseConnection();
-				
-			}
-		}
-		
-		//this function binds the checkboxlist 
-		//takes as input the sql string, dropdownlist name, the text field and the value field
-		public void BindCheckBoxList(string sql, CheckBoxList chk, string text, string value)
-		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
-			try
-			{
-				dataReader = objSelect.SelectQry(sql);
-				chk.DataSource = dataReader;
-				chk.DataTextField = text;
-				chk.DataValueField = value;
-				chk.DataBind();
-				dataReader.Close();
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-			finally
-			{
-				if(dataReader != null)
-                	dataReader.Close();
-				objSelect.CloseConnection();
-				
-			}
-		}
-		
-		//this function binds the checkboxlist 
-		//takes as input the sql string, dropdownlist name, the text field and the value field
-		public void BindCheckBoxList(string sql, CheckBoxList chk, string text, string value, SqlParameter [] param)
-		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
-			try
-			{
-				dataReader = objSelect.SelectQry(sql, param);
-				chk.DataSource = dataReader;
-				chk.DataTextField = text;
-				chk.DataValueField = value;
-				chk.DataBind();
-				dataReader.Close();
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-			finally
-			{
-				
-				objSelect.CloseConnection();
-				
-			}
-		}
-		
-		//this function binds the RadioButtonList with the datareader
-		//takes as input the sql string and the datagridname
-		public void BindRadioListReader(string sql, RadioButtonList clst)
-		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
-			try
-			{
-				dataReader = objSelect.SelectQry(sql);
-				clst.DataSource = dataReader;
-				clst.DataBind();
-				dataReader.Close();
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-			finally
-			{
-				
-				objSelect.CloseConnection();
-			}
-		}
-		
-		//this function binds the RadioButtonList with the datareader
-		//takes as input the sql string and the datagridname
-		public void BindRadioListReader(string sql, RadioButtonList clst, SqlParameter [] param)
-		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
-			try
-			{
-				dataReader = objSelect.SelectQry(sql, param);
-				clst.DataSource = dataReader;
-				clst.DataBind();
-				dataReader.Close();
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-			finally
-			{
-				
-				objSelect.CloseConnection();
-			}
-		}
-		
-		///<summary>
-		/// This Property will be used for Application Path.
-		///</summary>
-		public static string AppPath
-		{
-			get 
-			{
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
+
+        //this function binds the repeater with the datareader
+        //takes as input the sql string and the datagridname
+        public void BindRepeaterReader(string sql, Repeater rpt)
+        {
+            try
+            {
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
+                {
+                    rpt.DataSource = dr;
+                    rpt.DataBind();
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //this function binds the repeater with the datareader
+        //takes as input the sql string and the datagridname
+        public void BindRepeaterReader(string sql, Repeater rpt, SqlParameter[] param)
+        {
+            try
+            {
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, param, ConnectionType.ReadOnly))
+                {
+                    rpt.DataSource = dr;
+                    rpt.DataBind();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //this function binds the grid with the dataset
+        //takes as input the sql string and the datagridname
+        public void BindGridSet(string sql, DataGrid dtgrd)
+        {
+            try
+            {
+                using (DataSet dataSet = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly))
+                {
+
+                    dtgrd.DataSource = dataSet;
+                    dtgrd.DataBind();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //this function binds the grid with the dataset
+        //takes as input the sql string and the datagridname
+        public void BindGridSet(string sql, DataGrid dtgrd, SqlParameter[] param)
+        {
+            try
+            {
+                using (DataSet dataSet = MySqlDatabase.SelectAdapterQuery(sql, param, ConnectionType.ReadOnly))
+                {
+                    dtgrd.DataSource = dataSet;
+                    dtgrd.DataBind();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        // This function does the same thing as the above one,
+        // but it has an unque feature of providing paging by default.
+        // you have to do nothing but provide pageSize.
+        public void BindGridSet(string sql, DataGrid dtgrd, int PageSize)
+        {
+            try
+            {
+                using (DataSet dataSet = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly))
+                {
+                    if (dataSet.Tables[0].Rows.Count > PageSize)
+                    {
+                        dtgrd.AllowPaging = true;
+                        dtgrd.PageSize = PageSize;
+                    }
+                    else
+                    {
+                        dtgrd.AllowPaging = false;
+                    }
+
+                    dtgrd.DataSource = dataSet;
+                    dtgrd.DataBind();
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        // This function does the same thing as the above one,
+        // but it has an unque feature of providing paging by default.
+        // you have to do nothing but provide pageSize.
+        public void BindGridSet(string sql, DataGrid dtgrd, int PageSize, SqlParameter[] param)
+        {
+            try
+            {
+                using (DataSet dataSet = MySqlDatabase.SelectAdapterQuery(sql, param, ConnectionType.ReadOnly))
+                {
+                    if (dataSet.Tables[0].Rows.Count > PageSize)
+                    {
+                        dtgrd.AllowPaging = true;
+                        dtgrd.PageSize = PageSize;
+                    }
+                    else
+                    {
+                        dtgrd.AllowPaging = false;
+                    }
+
+                    dtgrd.DataSource = dataSet;
+                    dtgrd.DataBind();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //this function binds the datalist with the datareader
+        //takes as input the sql string and the datalist id
+        public void BindListReader(string sql, DataList dtlst)
+        {
+
+            throw new Exception("Method not used/commented");
+
+            //SqlDataReader dataReader = null;
+            //Database objSelect = new Database();
+            //try
+            //{
+            //    dataReader = objSelect.SelectQry(sql);
+            //    dtlst.DataSource = dataReader;
+            //    dtlst.DataBind();
+            //    dataReader.Close();
+            //}
+            //catch (Exception)
+            //{
+            //    throw;
+            //}
+            //finally
+            //{
+            //    if (dataReader != null)
+            //        dataReader.Close();
+            //    objSelect.CloseConnection();
+            //}
+        }
+
+        //this function binds the datalist with the datareader
+        //takes as input the sql string and the datalist id
+        public void BindListReader(string sql, DataList dtlst, SqlParameter[] param)
+        {
+
+            throw new Exception("Method not used/commented");
+
+            //SqlDataReader dataReader = null;
+            //Database objSelect = new Database();
+            //try
+            //{
+            //    dataReader = objSelect.SelectQry(sql, param);
+            //    dtlst.DataSource = dataReader;
+            //    dtlst.DataBind();
+            //    dataReader.Close();
+            //}
+            //catch (Exception)
+            //{
+            //    throw;
+            //}
+            //finally
+            //{
+            //    if (dataReader != null)
+            //        dataReader.Close();
+            //    objSelect.CloseConnection();
+            //}
+        }
+
+        //this function binds the dropdownlist with the datareader
+        //takes as input the sql string, dropdownlist name, the text field and the value field
+        public void FillDropDown(string sql, DropDownList drp, string text, string value)
+        {
+            try
+            {
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
+                {
+
+                    if (dr != null)
+                    {
+                        drp.DataSource = dr;
+                        drp.DataTextField = text;
+                        drp.DataValueField = value;
+                        drp.DataBind();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //this function binds the dropdownlist with the datareader
+        //takes as input the sql string, dropdownlist name, the text field and the value field
+        public void FillDropDown(string sql, DropDownList drp, string text, string value, DbParameter[] param)
+        {
+            try
+            {
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, param, ConnectionType.ReadOnly))
+                {
+                    if (dr != null)
+                    {
+                        drp.DataSource = dr;
+                        drp.DataTextField = text;
+                        drp.DataValueField = value;
+                        drp.DataBind();
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //this function binds the checkboxlist 
+        //takes as input the sql string, dropdownlist name, the text field and the value field
+        public void BindCheckBoxList(string sql, CheckBoxList chk, string text, string value)
+        {
+            try
+            {
+
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
+                {
+                    if (dr != null)
+                    {
+                        chk.DataSource = dr;
+                        chk.DataTextField = text;
+                        chk.DataValueField = value;
+                        chk.DataBind();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
+        //this function binds the checkboxlist 
+        //takes as input the sql string, dropdownlist name, the text field and the value field
+        public void BindCheckBoxList(string sql, CheckBoxList chk, string text, string value, DbParameter[] param)
+        {
+            try
+            {
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, param, ConnectionType.ReadOnly))
+                {
+                    if (dr != null)
+                    {
+                        chk.DataSource = dr;
+                        chk.DataTextField = text;
+                        chk.DataValueField = value;
+                        chk.DataBind();
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //this function binds the RadioButtonList with the datareader
+        //takes as input the sql string and the datagridname
+        public void BindRadioListReader(string sql, RadioButtonList clst)
+        {
+            try
+            {
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
+                {
+                    if (dr != null)
+                    {
+                        clst.DataSource = dr;
+                        clst.DataBind();
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //this function binds the RadioButtonList with the datareader
+        //takes as input the sql string and the datagridname
+        public void BindRadioListReader(string sql, RadioButtonList clst, DbParameter[] param)
+        {
+            try
+            {
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, param, ConnectionType.ReadOnly))
+                {
+                    if (dr != null)
+                    {
+                        clst.DataSource = dr;
+                        clst.DataBind();
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        ///<summary>
+        /// This Property will be used for Application Path.
+        ///</summary>
+        public static string AppPath
+        {
+            get
+            {
                 return (string)ConfigurationManager.AppSettings["AppPath"];
-			}
-		} // AppPath
-		
-		///<summary>
-		/// This Property will be used for Ad Path.
-		///</summary>
-		public static string AdPath
-		{
-			get 
-			{ 
-				string adPath = "";
-				
-				if ( HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf( "carwale.com" ) >= 0 ) 
-					adPath = "http://www.carwale.co.in/";
-				else
-					adPath = "/";
-				
-				return adPath;
-			}
-		} // AdPath
-		
-		
-		///<summary>
-		/// This Method will be used for resolving relative paths 
-		/// in reference to the Absolute Application Path.
-		/// <param name="RelativePath">Relative Path of file.</param>
-		///</summary>
-		public static string ResolvePath( string RelativePath )
-		{
-            return (string)ConfigurationManager.AppSettings["AppPath"] + RelativePath; 
-			
-		} // ResolvePath
-		
-		///<summary>
-		/// This Method will be used for resolving relative paths 
-		/// in reference to the Absolute Application Path.
-		/// <param name="RelativePath">Relative Path of file.</param>
-		///</summary>
-		public static string ResolvePhysicalPath( string RelativePath )
-		{
-            string fullPath = (string)ConfigurationManager.AppSettings["AppPath"] + RelativePath; 
-			// the next line is to make path compatible with Plesk 6.5.
-			// Plesh uses paths after appending non_ssl.
-			Page myPage = new Page();
-			string makePleskCompatible = myPage.Server.MapPath( fullPath ).Replace( "\\default\\htdocs\\","\\carwale.com\\httpdocs\\" );
-			return makePleskCompatible; 
-			
-		} // ResolvePath
-		
-		// This Function will save image to the images.carwale.com.
-		// If the application is running locally, it will save the 
-		// file in the requested directory only.
-		public static void SaveImage( HtmlInputFile fil, string RelativePath )
-		{
-            string fullPath = (string)ConfigurationManager.AppSettings["AppPath"] + RelativePath; 
-			fullPath = fullPath.Replace( "images/", "" );
-			HttpContext.Current.Trace.Warn("Images Path : " + fullPath );
-			// the next line is to make path compatible with Plesk 6.5.
-			// Plesh uses paths after appending non_ssl.
-			Page myPage = new Page();
-			string makePleskCompatible = myPage.Server.MapPath( fullPath ).Replace( "\\default\\htdocs\\","\\carwale.com\\subdomains\\images\\httpdocs\\" );
-			
-			fil.PostedFile.SaveAs( makePleskCompatible );
-		} // ResolvePath
-		
-		// This Function returns the path of the image for the images.carwale.com.
-		// If the application is running locally, it will return the path of the  
-		// file in the requested directory only.
-		//NOTE:-- if some changes is done in the below function, then corresponding changes
-		//is to be done in the function SaveImage, just above this function
-		//for the path of the image.
-		public static string ImagePathForSavingImages( string RelativePath )
-		{
+            }
+        } // AppPath
+
+        ///<summary>
+        /// This Property will be used for Ad Path.
+        ///</summary>
+        public static string AdPath
+        {
+            get
+            {
+                string adPath = "";
+
+                if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf("carwale.com") >= 0)
+                    adPath = "http://www.carwale.co.in/";
+                else
+                    adPath = "/";
+
+                return adPath;
+            }
+        } // AdPath
+
+
+        ///<summary>
+        /// This Method will be used for resolving relative paths 
+        /// in reference to the Absolute Application Path.
+        /// <param name="RelativePath">Relative Path of file.</param>
+        ///</summary>
+        public static string ResolvePath(string RelativePath)
+        {
+            return (string)ConfigurationManager.AppSettings["AppPath"] + RelativePath;
+
+        } // ResolvePath
+
+        ///<summary>
+        /// This Method will be used for resolving relative paths 
+        /// in reference to the Absolute Application Path.
+        /// <param name="RelativePath">Relative Path of file.</param>
+        ///</summary>
+        public static string ResolvePhysicalPath(string RelativePath)
+        {
             string fullPath = (string)ConfigurationManager.AppSettings["AppPath"] + RelativePath;
-			
-			if ( HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf( "carwale.com" ) >= 0 ) 
-				fullPath = fullPath.Replace( "images/", "" );
-				
-			HttpContext.Current.Trace.Warn("Images Path : " + fullPath );
-			// the next line is to make path compatible with Plesk 6.5.
-			// Plesh uses paths after appending non_ssl.
-			Page myPage = new Page();
-			string makePleskCompatible = myPage.Server.MapPath( fullPath ).Replace( "\\default\\htdocs\\","\\carwale.com\\subdomains\\images\\httpdocs\\" );
-			HttpContext.Current.Trace.Warn("makePleskCompatible : " + makePleskCompatible);
-			
-			return makePleskCompatible;
-		} // ResolvePath
-		
-		// Returns the Images Path.
-		public static string ImagePath 
-		{
-			get
-			{
-				string imgPath = "";
-				
-				if ( HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf( "carwale.com" ) >= 0 )
-				{
-					imgPath = "http://img.carwale.com/";
+            // the next line is to make path compatible with Plesk 6.5.
+            // Plesh uses paths after appending non_ssl.
+            Page myPage = new Page();
+            string makePleskCompatible = myPage.Server.MapPath(fullPath).Replace("\\default\\htdocs\\", "\\carwale.com\\httpdocs\\");
+            return makePleskCompatible;
 
-					// remove the following line as soon as 
-					// images.carwale.com is activated.
-					//imgPath = CommonOpn.AppPath + "img/";
-				}
-				else
-				{
-					imgPath = CommonOpn.AppPath + "images/";
-				}
-							
-				//HttpContext.Current.Trace.Warn( "Image Path : " + imgPath );
+        } // ResolvePath
 
-				return imgPath;
-			}
-		}
-		
-		public static string ResolveImagePath ( string imgPath )
-		{
-			
-			Page myPage = new Page();
-			//HttpContext.Current.Trace.Warn( "Original Image Path : " + imgPath);
-			//string absPath = myPage.Server.MapPath( "/" );
-			string absPath = "";
-			
-			if ( HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf( "carwale.com" ) >= 0 )
-			{
-				absPath = myPage.Server.MapPath( imgPath.Replace("http://img.carwale.com/","/") ).ToLower().Replace( "\\carwale\\","\\carwaleimg\\" );
+        // This Function will save image to the images.carwale.com.
+        // If the application is running locally, it will save the 
+        // file in the requested directory only.
+        public static void SaveImage(HtmlInputFile fil, string RelativePath)
+        {
+            string fullPath = (string)ConfigurationManager.AppSettings["AppPath"] + RelativePath;
+            fullPath = fullPath.Replace("images/", "");
+            HttpContext.Current.Trace.Warn("Images Path : " + fullPath);
+            // the next line is to make path compatible with Plesk 6.5.
+            // Plesh uses paths after appending non_ssl.
+            Page myPage = new Page();
+            string makePleskCompatible = myPage.Server.MapPath(fullPath).Replace("\\default\\htdocs\\", "\\carwale.com\\subdomains\\images\\httpdocs\\");
 
-				// remove the following line as soon as 
-				// images.carwale.com is activated.
-				//imgPath = CommonOpn.AppPath + "img/";
-			}
-			else
-			{
-				absPath = myPage.Server.MapPath( imgPath );
-			}
-			
-			//return makePleskCompatible; 
-			
-			//HttpContext.Current.Trace.Warn( "Index Of : " + imgPath.IndexOf( "images.carwale.com" ) );
-			
-			//absPath = absPath.Replace( "\\default\\htdocs\\","\\carwale.com\\subdomains\\images\\httpdocs\\" )
-					//+ imgPath.Replace( "http://images.carwale.com", "" ).Replace( "/", "\\" );
+            fil.PostedFile.SaveAs(makePleskCompatible);
+        } // ResolvePath
 
-			HttpContext.Current.Trace.Warn( "Resolved Image Path : " + absPath );
-			return absPath;
-			
-		} 
-		        
-		
-		///<summary>
-		/// This Method is used to verify the id of as passed in the url
-		/// This matches the string with the regular expression, and also
-		/// check its length not to be greater than 9
-		/// <param name="input">The input string to be verified.</param>
-		///</summary>
-		public static bool CheckId( string input )
-		{
-			bool retVal = false;
-			try
-			{
-				//check with the regular expression
-				if(Regex.IsMatch(input, @"^[0-9]+$") == true)
-				{
-					//check its length
-					if(input.Length <=9)
-					{
-						retVal = true;
-					}
-					else
-					{
-						retVal = false;
-					}
-				}
-				else
-				{
-					retVal = false;
-				}
-			}
-			catch(Exception err)
-			{
-				HttpContext.Current.Trace.Warn(err.Message);
-				retVal = false;
-			}
-			
-			return retVal;
-		} // CheckId
-		
-		
-		public static bool IsNumeric( string input )
-		{
-			bool retVal = false;
-			try
-			{
-				//check with the regular expression
-				if(Regex.IsMatch(input, @"^[0-9]+$") == true)
-				{
-					//check its length
-					if(input.Length <=9)
-					{
-						retVal = true;
-					}
-					else
-					{
-						retVal = false;
-					}
-				}
-				else
-				{
-					retVal = false;
-				}
-			}
-			catch(Exception err)
-			{
-				HttpContext.Current.Trace.Warn(err.Message);
-				retVal = false;
-			}
-			
-			return retVal;
-		} // IsNumeric
-		
-		///<summary>
-		/// This Method is used to verify the id of as passed in the url
-		/// This matches the string with the regular expression, and also
-		/// check its length not to be greater than 15
-		/// <param name="input">The input string to be verified.</param>
-		///</summary>
-		public static bool CheckLongId( string input )
-		{
-			bool retVal = false;
-			try
-			{
-				//check with the regular expression
-				if(Regex.IsMatch(input, @"^[0-9]+$") == true)
-				{
-					//check its length
-					if(input.Length <=15)
-					{
-						retVal = true;
-					}
-					else
-					{
-						retVal = false;
-					}
-				}
-				else
-				{
-					retVal = false;
-				}
-			}
-			catch(Exception err)
-			{
-				HttpContext.Current.Trace.Warn(err.Message);
-				retVal = false;
-			}
-			
-			return retVal;
-		} // CheckLongId
-		
-			
-		
-		/********************************************************************************************
-		6()
-		THIS FUNCTION sends the mail to the dealers with thte email id as passed in the text format.
-		Note that web.config file is case sensitive, 
-		The mail id from which the mail is to be sent is get from the key, "localMail".
-		********************************************************************************************/
-		public void SendMail(string email, string subject, string body)
-		{
-			try
+        // This Function returns the path of the image for the images.carwale.com.
+        // If the application is running locally, it will return the path of the  
+        // file in the requested directory only.
+        //NOTE:-- if some changes is done in the below function, then corresponding changes
+        //is to be done in the function SaveImage, just above this function
+        //for the path of the image.
+        public static string ImagePathForSavingImages(string RelativePath)
+        {
+            string fullPath = (string)ConfigurationManager.AppSettings["AppPath"] + RelativePath;
+
+            if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf("carwale.com") >= 0)
+                fullPath = fullPath.Replace("images/", "");
+
+            HttpContext.Current.Trace.Warn("Images Path : " + fullPath);
+            // the next line is to make path compatible with Plesk 6.5.
+            // Plesh uses paths after appending non_ssl.
+            Page myPage = new Page();
+            string makePleskCompatible = myPage.Server.MapPath(fullPath).Replace("\\default\\htdocs\\", "\\carwale.com\\subdomains\\images\\httpdocs\\");
+            HttpContext.Current.Trace.Warn("makePleskCompatible : " + makePleskCompatible);
+
+            return makePleskCompatible;
+        } // ResolvePath
+
+        // Returns the Images Path.
+        public static string ImagePath
+        {
+            get
+            {
+                string imgPath = "";
+
+                if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf("carwale.com") >= 0)
+                {
+                    imgPath = "http://img.carwale.com/";
+
+                    // remove the following line as soon as 
+                    // images.carwale.com is activated.
+                    //imgPath = CommonOpn.AppPath + "img/";
+                }
+                else
+                {
+                    imgPath = CommonOpn.AppPath + "images/";
+                }
+
+                //HttpContext.Current.Trace.Warn( "Image Path : " + imgPath );
+
+                return imgPath;
+            }
+        }
+
+        public static string ResolveImagePath(string imgPath)
+        {
+
+            Page myPage = new Page();
+            //HttpContext.Current.Trace.Warn( "Original Image Path : " + imgPath);
+            //string absPath = myPage.Server.MapPath( "/" );
+            string absPath = "";
+
+            if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf("carwale.com") >= 0)
+            {
+                absPath = myPage.Server.MapPath(imgPath.Replace("http://img.carwale.com/", "/")).ToLower().Replace("\\carwale\\", "\\carwaleimg\\");
+
+                // remove the following line as soon as 
+                // images.carwale.com is activated.
+                //imgPath = CommonOpn.AppPath + "img/";
+            }
+            else
+            {
+                absPath = myPage.Server.MapPath(imgPath);
+            }
+
+            //return makePleskCompatible; 
+
+            //HttpContext.Current.Trace.Warn( "Index Of : " + imgPath.IndexOf( "images.carwale.com" ) );
+
+            //absPath = absPath.Replace( "\\default\\htdocs\\","\\carwale.com\\subdomains\\images\\httpdocs\\" )
+            //+ imgPath.Replace( "http://images.carwale.com", "" ).Replace( "/", "\\" );
+
+            HttpContext.Current.Trace.Warn("Resolved Image Path : " + absPath);
+            return absPath;
+
+        }
+
+
+        ///<summary>
+        /// This Method is used to verify the id of as passed in the url
+        /// This matches the string with the regular expression, and also
+        /// check its length not to be greater than 9
+        /// <param name="input">The input string to be verified.</param>
+        ///</summary>
+        public static bool CheckId(string input)
+        {
+            bool retVal = false;
+            try
+            {
+                //check with the regular expression
+                if (Regex.IsMatch(input, @"^[0-9]+$") == true)
+                {
+                    //check its length
+                    if (input.Length <= 9)
+                    {
+                        retVal = true;
+                    }
+                    else
+                    {
+                        retVal = false;
+                    }
+                }
+                else
+                {
+                    retVal = false;
+                }
+            }
+            catch (Exception err)
+            {
+                HttpContext.Current.Trace.Warn(err.Message);
+                retVal = false;
+            }
+
+            return retVal;
+        } // CheckId
+
+
+        public static bool IsNumeric(string input)
+        {
+            bool retVal = false;
+            try
+            {
+                //check with the regular expression
+                if (Regex.IsMatch(input, @"^[0-9]+$") == true)
+                {
+                    //check its length
+                    if (input.Length <= 9)
+                    {
+                        retVal = true;
+                    }
+                    else
+                    {
+                        retVal = false;
+                    }
+                }
+                else
+                {
+                    retVal = false;
+                }
+            }
+            catch (Exception err)
+            {
+                HttpContext.Current.Trace.Warn(err.Message);
+                retVal = false;
+            }
+
+            return retVal;
+        } // IsNumeric
+
+        ///<summary>
+        /// This Method is used to verify the id of as passed in the url
+        /// This matches the string with the regular expression, and also
+        /// check its length not to be greater than 15
+        /// <param name="input">The input string to be verified.</param>
+        ///</summary>
+        public static bool CheckLongId(string input)
+        {
+            bool retVal = false;
+            try
+            {
+                //check with the regular expression
+                if (Regex.IsMatch(input, @"^[0-9]+$") == true)
+                {
+                    //check its length
+                    if (input.Length <= 15)
+                    {
+                        retVal = true;
+                    }
+                    else
+                    {
+                        retVal = false;
+                    }
+                }
+                else
+                {
+                    retVal = false;
+                }
+            }
+            catch (Exception err)
+            {
+                HttpContext.Current.Trace.Warn(err.Message);
+                retVal = false;
+            }
+
+            return retVal;
+        } // CheckLongId
+
+
+
+        /********************************************************************************************
+        6()
+        THIS FUNCTION sends the mail to the dealers with thte email id as passed in the text format.
+        Note that web.config file is case sensitive, 
+        The mail id from which the mail is to be sent is get from the key, "localMail".
+        ********************************************************************************************/
+        public void SendMail(string email, string subject, string body)
+        {
+            try
             {
                 // make sure we use the local SMTP server
                 SmtpClient client = new SmtpClient(ConfigurationManager.AppSettings["SMTPSERVER"]);//"127.0.0.1";
-                
+
                 //get the from mail address
                 string localMail = ConfigurationManager.AppSettings["localMail"].ToString();
-                
+
                 MailAddress from = new MailAddress(localMail, "CarWale.com");
-        
+
                 // Set destinations for the e-mail message.
                 MailAddress to = new MailAddress(email);
-                
+
                 // create mail message object
                 MailMessage msg = new MailMessage(from, to);
-                
+
                 // Add Reply-to in the message header.
-                msg.Headers.Add( "Reply-to", "contact@carwale.com" );
-                
+                msg.Headers.Add("Reply-to", "contact@carwale.com");
+
                 // set some properties
                 msg.IsBodyHtml = true;
                 msg.Priority = MailPriority.High;
-                    
+
                 //prepare the subject
                 msg.Subject = subject;
-                
+
                 //body = " Person Accessing the Page : " + CurrentUser.Email + "\n" + body;                            
                 msg.Body = body;
-                
+
                 // Mail Server Configuration. Needed for Rediff Hosting.
                 //msg.Fields["http://schemas.microsoft.com/cdo/configuration/sendusing"] = 1;
                 //msg.Fields["http://schemas.microsoft.com/cdo/configuration/smtpserverpickupdirectory"] = "C:\\inetpub\\mailroot\\pickup";
-                
+
                 // Send the e-mail
                 client.Send(msg);
-                
+
                 objTrace.Trace.Warn(msg.From + "," + msg.To + "," + msg.Subject + "," + msg.Body);
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 objTrace.Trace.Warn("CommonOpn:SendMail: " + err.Message);
-                ErrorClass objErr = new ErrorClass(err,"SendMail in CommonOpn");
+                ErrorClass objErr = new ErrorClass(err, "SendMail in CommonOpn");
                 objErr.SendMail();
-            }			
-			
-		}
-		
-		/********************************************************************************************
-		SendMail()
-		THIS FUNCTION sends the mail to the dealers with thte email id as passed, in the html format.
-		Note that web.config file is case sensitive, 
-		The mail id from which the mail is to be sent is get from the key, "localMail".
-		********************************************************************************************/
-		public void SendMail(string email, string subject, string body, bool htmlType)
-		{
-			try
+            }
+
+        }
+
+        /********************************************************************************************
+        SendMail()
+        THIS FUNCTION sends the mail to the dealers with thte email id as passed, in the html format.
+        Note that web.config file is case sensitive, 
+        The mail id from which the mail is to be sent is get from the key, "localMail".
+        ********************************************************************************************/
+        public void SendMail(string email, string subject, string body, bool htmlType)
+        {
+            try
             {
                 // make sure we use the local SMTP server
                 SmtpClient client = new SmtpClient(ConfigurationManager.AppSettings["SMTPSERVER"]);//"127.0.0.1";
-                
+
                 //get the from mail address
                 string localMail = ConfigurationManager.AppSettings["localMail"].ToString();
-                
+
                 MailAddress from = new MailAddress(localMail, "CarWale.com");
-        
+
                 // Set destinations for the e-mail message.
                 MailAddress to = new MailAddress(email);
-                
+
                 // create mail message object
                 MailMessage msg = new MailMessage(from, to);
-                
+
                 // Add Reply-to in the message header.
-                msg.Headers.Add( "Reply-to", "contact@bikewale.com" );
-                
+                msg.Headers.Add("Reply-to", "contact@bikewale.com");
+
                 // set some properties
                 msg.IsBodyHtml = true;
                 msg.Priority = MailPriority.High;
-                    
+
                 //prepare the subject
                 msg.Subject = subject;
-                
+
                 //body = " Person Accessing the Page : " + CurrentUser.Email + "\n" + body;                            
                 msg.Body = body;
-                
+
                 // Mail Server Configuration. Needed for Rediff Hosting.
                 //msg.Fields["http://schemas.microsoft.com/cdo/configuration/sendusing"] = 1;
                 //msg.Fields["http://schemas.microsoft.com/cdo/configuration/smtpserverpickupdirectory"] = "C:\\inetpub\\mailroot\\pickup";
-                
+
                 // Send the e-mail
                 client.Send(msg);
-                
+
                 objTrace.Trace.Warn(msg.From + "," + msg.To + "," + msg.Subject + "," + msg.Body);
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 objTrace.Trace.Warn("CommonOpn:SendMail: " + err.Message);
-                ErrorClass objErr = new ErrorClass(err,"SendMail in CommonOpn");
+                ErrorClass objErr = new ErrorClass(err, "SendMail in CommonOpn");
                 objErr.SendMail();
-            }			
-			
-		}
-		
-		/********************************************************************************************
-		Does exactly what the conventional SendMail function does except it 
-		needs replyTo parameter as well.
-		********************************************************************************************/
-		public void SendMail(string email, string subject, string body, bool htmlType, string replyTo )
-		{
-			try
+            }
+
+        }
+
+        /********************************************************************************************
+        Does exactly what the conventional SendMail function does except it 
+        needs replyTo parameter as well.
+        ********************************************************************************************/
+        public void SendMail(string email, string subject, string body, bool htmlType, string replyTo)
+        {
+            try
             {
                 // make sure we use the local SMTP server
                 SmtpClient client = new SmtpClient(ConfigurationManager.AppSettings["SMTPSERVER"]);//"127.0.0.1";
-                
+
                 //get the from mail address
                 string localMail = ConfigurationManager.AppSettings["localMail"].ToString();
-                
+
                 MailAddress from = new MailAddress(localMail, "CarWale.com");
-        
+
                 // Set destinations for the e-mail message.
                 MailAddress to = new MailAddress(email);
-                
+
                 // create mail message object
                 MailMessage msg = new MailMessage(from, to);
-                
+
                 // Add Reply-to in the message header.
-                msg.Headers.Add( "Reply-to", "contact@carwale.com" );
-                
+                msg.Headers.Add("Reply-to", "contact@carwale.com");
+
                 // set some properties
                 msg.IsBodyHtml = true;
                 msg.Priority = MailPriority.High;
-                    
+
                 //prepare the subject
                 msg.Subject = subject;
-                
+
                 //body = " Person Accessing the Page : " + CurrentUser.Email + "\n" + body;                            
                 msg.Body = body;
-                
+
                 // Mail Server Configuration. Needed for Rediff Hosting.
                 //msg.Fields["http://schemas.microsoft.com/cdo/configuration/sendusing"] = 1;
                 //msg.Fields["http://schemas.microsoft.com/cdo/configuration/smtpserverpickupdirectory"] = "C:\\inetpub\\mailroot\\pickup";
-                
+
                 // Send the e-mail
                 client.Send(msg);
-                
+
                 objTrace.Trace.Warn(msg.From + "," + msg.To + "," + msg.Subject + "," + msg.Body);
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 objTrace.Trace.Warn("CommonOpn:SendMail: " + err.Message);
-                ErrorClass objErr = new ErrorClass(err,"SendMail in CommonOpn");
+                ErrorClass objErr = new ErrorClass(err, "SendMail in CommonOpn");
                 objErr.SendMail();
-            }				
-			
-		}
-		
-		
-		//Send mail to multiple clients
-		public void SendMail(string email, string subject, string body, int mutipleMail)
-		{
-			try
+            }
+
+        }
+
+
+        //Send mail to multiple clients
+        public void SendMail(string email, string subject, string body, int mutipleMail)
+        {
+            try
             {
-				if(email != "")
-				{
-					// make sure we use the local SMTP server
-					//SmtpClient client = new SmtpClient("124.153.73.180");//"127.0.0.1";
+                if (email != "")
+                {
+                    // make sure we use the local SMTP server
+                    //SmtpClient client = new SmtpClient("124.153.73.180");//"127.0.0.1";
                     SmtpClient client = new SmtpClient(ConfigurationManager.AppSettings["SMTPSERVER"]);
-					
-					//get the from mail address
+
+                    //get the from mail address
                     string localMail = ConfigurationManager.AppSettings["localMail"].ToString();
-		
-					MailAddress from = new MailAddress(localMail, "CarWale.com");
-					
-					// Set destinations for the e-mail message.
-					MailAddress to = new MailAddress(email);
-					
-					// create mail message object
-					MailMessage msg = new MailMessage(from, to);
-							
-					string [] emailList  = email.Split(',');
-					if(emailList.Length > 0)
-					{
-						for(int i=0; i<emailList.Length; i++)
-						{
-							msg.To.Add(new MailAddress(emailList[i].ToString()));
-						}
-					}
-					
-					// Add Reply-to in the message header.
-					msg.Headers.Add( "Reply-to", "contact@carwale.com" );
-					
-					// set some properties
-					msg.IsBodyHtml = true;
-					msg.Priority = MailPriority.High;
-						
-					//prepare the subject
-					msg.Subject = subject;
-					
-					//body = " Person Accessing the Page : " + CurrentUser.Email + "\n" + body;                            
-					msg.Body = body;
-					
-					objTrace.Trace.Warn(msg.From + "," + msg.To + "," + msg.Subject + "," + msg.Body);
-					
-					// Send the e-mail
-					client.Send(msg);
-					
-				}
+
+                    MailAddress from = new MailAddress(localMail, "CarWale.com");
+
+                    // Set destinations for the e-mail message.
+                    MailAddress to = new MailAddress(email);
+
+                    // create mail message object
+                    MailMessage msg = new MailMessage(from, to);
+
+                    string[] emailList = email.Split(',');
+                    if (emailList.Length > 0)
+                    {
+                        for (int i = 0; i < emailList.Length; i++)
+                        {
+                            msg.To.Add(new MailAddress(emailList[i].ToString()));
+                        }
+                    }
+
+                    // Add Reply-to in the message header.
+                    msg.Headers.Add("Reply-to", "contact@carwale.com");
+
+                    // set some properties
+                    msg.IsBodyHtml = true;
+                    msg.Priority = MailPriority.High;
+
+                    //prepare the subject
+                    msg.Subject = subject;
+
+                    //body = " Person Accessing the Page : " + CurrentUser.Email + "\n" + body;                            
+                    msg.Body = body;
+
+                    objTrace.Trace.Warn(msg.From + "," + msg.To + "," + msg.Subject + "," + msg.Body);
+
+                    // Send the e-mail
+                    client.Send(msg);
+
+                }
             }
-            catch(Exception err)
+            catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err,"SendMail in CommonOpn");
+                ErrorClass objErr = new ErrorClass(err, "SendMail in CommonOpn");
                 objErr.SendMail();
-            }				
-		}
-		
-		//following is the function which returns a portion of a query which excludes the members whose status is in suspended mode
-		public string GetExcludedMembers()
-		{
-			string sql = "";
-			sql = " NOT IN ( SELECT Id FROM Dealers WHERE Status = 1 )";
-				
-			return sql;
-		}
+            }
+        }
+
+        //following is the function which returns a portion of a query which excludes the members whose status is in suspended mode
+        public string GetExcludedMembers()
+        {
+            string sql = "";
+            sql = " NOT IN ( SELECT Id FROM Dealers WHERE Status = 1 )";
+
+            return sql;
+        }
 
 
         /********************************************************************************************
@@ -947,7 +914,7 @@ namespace BikeWaleOpr.Common
                 MailAddress from = new MailAddress(fromEmail, "");
 
                 // Set destinations for the e-mail message.
-                MailAddress to = new MailAddress(email);                
+                MailAddress to = new MailAddress(email);
 
                 // create mail message object
                 MailMessage msg = new MailMessage(from, to);
@@ -957,7 +924,7 @@ namespace BikeWaleOpr.Common
 
                 // Check if cc is there or not
                 if (addCC != "")
-                {                    
+                {
                     MailAddress cc = new MailAddress(addCC);
                     msg.CC.Add(cc);
                 }
@@ -1006,58 +973,61 @@ namespace BikeWaleOpr.Common
         *****************************************************************************************************/
         public string GenerateChainScript(string DropDownList1, string DropDownList2, string DropDownList3, string Query1, string Query2)
         {
-            StringBuilder sb = new StringBuilder();
+            throw new Exception("Method not used/commented");
 
-            sb.Append("<script language=\"javascript\" src=\"../src/chains.js\"></script>");
-            sb.Append("<script language=\"javascript\">");
-            sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
-            sb.Append("document.getElementById('" + DropDownList2 + "').onchange = " + DropDownList2 + "_OnChange; ");
-            sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
-            sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
-            SqlDataReader dr;
-            Database db = new Database();
-            try
-            {
-                dr = db.SelectQry(Query1);
 
-                while (dr.Read())
-                {
-                    sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
-                }
-                //sb.Append( "alert('" + DropDownList2 + "');" );
-                sb.Append("fillChain( '" + DropDownList2 + "', DropDownList1, arrayValues, '" + DropDownList3 + "' ); }");
+            //StringBuilder sb = new StringBuilder();
 
-                dr.Close();
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
+            //sb.Append("<script language=\"javascript\" src=\"../src/chains.js\"></script>");
+            //sb.Append("<script language=\"javascript\">");
+            //sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
+            //sb.Append("document.getElementById('" + DropDownList2 + "').onchange = " + DropDownList2 + "_OnChange; ");
+            //sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
+            //sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
+            //sb.Append("var arrayValues = new Array(); var i = 0;");
+            //SqlDataReader dr;
+            //Database db = new Database();
+            //try
+            //{
+            //    dr = db.SelectQry(Query1);
 
-            sb.Append("function " + DropDownList2 + "_OnChange( e ) {");
-            sb.Append("var DropDownList = document.getElementById('" + DropDownList2 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
+            //    while (dr.Read())
+            //    {
+            //        sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
+            //    }
+            //    //sb.Append( "alert('" + DropDownList2 + "');" );
+            //    sb.Append("fillChain( '" + DropDownList2 + "', DropDownList1, arrayValues, '" + DropDownList3 + "' ); }");
 
-            dr = db.SelectQry(Query2);
+            //    dr.Close();
+            //}
+            //catch (SqlException ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
 
-            while (dr.Read())
-            {
-                sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
-            }
+            //sb.Append("function " + DropDownList2 + "_OnChange( e ) {");
+            //sb.Append("var DropDownList = document.getElementById('" + DropDownList2 + "');");
+            //sb.Append("var arrayValues = new Array(); var i = 0;");
 
-            dr.Close();
-            db.CloseConnection();
+            //dr = db.SelectQry(Query2);
 
-            sb.Append("fillChain( '" + DropDownList3 + "', DropDownList, arrayValues, 'NA' ); } ");
+            //while (dr.Read())
+            //{
+            //    sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
+            //}
 
-            sb.Append("</script>");
+            //dr.Close();
+            //db.CloseConnection();
 
-            return sb.ToString();
+            //sb.Append("fillChain( '" + DropDownList3 + "', DropDownList, arrayValues, 'NA' ); } ");
+
+            //sb.Append("</script>");
+
+            //return sb.ToString();
 
         }
         /*****************************************************************************************************
@@ -1069,74 +1039,76 @@ namespace BikeWaleOpr.Common
         *****************************************************************************************************/
         public string GenerateChainScript(string DropDownList1, string DropDownList2, string DropDownList3, string TextBox1, string TextBox2, string Query1, string Query2, string Query3)
         {
-            StringBuilder sb = new StringBuilder();
 
-            sb.Append("<script language=\"javascript\" src=\"../src/chains.js\"></script>");
-            sb.Append("<script language=\"javascript\">");
-            sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
-            sb.Append("document.getElementById('" + DropDownList2 + "').onchange = " + DropDownList2 + "_OnChange; ");
-            sb.Append("document.getElementById('" + DropDownList3 + "').onchange = " + DropDownList3 + "_OnChange; ");
-            sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
-            sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
-            SqlDataReader dr;
-            Database db = new Database();
-            try
-            {
-                dr = db.SelectQry(Query1);
+            throw new Exception("Method not used/commented");
+            //StringBuilder sb = new StringBuilder();
 
-                while (dr.Read())
-                {
-                    sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
-                }
+            //sb.Append("<script language=\"javascript\" src=\"../src/chains.js\"></script>");
+            //sb.Append("<script language=\"javascript\">");
+            //sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
+            //sb.Append("document.getElementById('" + DropDownList2 + "').onchange = " + DropDownList2 + "_OnChange; ");
+            //sb.Append("document.getElementById('" + DropDownList3 + "').onchange = " + DropDownList3 + "_OnChange; ");
+            //sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
+            //sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
+            //sb.Append("var arrayValues = new Array(); var i = 0;");
+            //SqlDataReader dr;
+            //Database db = new Database();
+            //try
+            //{
+            //    dr = db.SelectQry(Query1);
 
-                sb.Append("fillChain( '" + DropDownList2 + "', DropDownList1, arrayValues, '" + DropDownList3 + "','" + TextBox1 + "','" + TextBox2 + "'); }");
+            //    while (dr.Read())
+            //    {
+            //        sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
+            //    }
 
-                dr.Close();
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
+            //    sb.Append("fillChain( '" + DropDownList2 + "', DropDownList1, arrayValues, '" + DropDownList3 + "','" + TextBox1 + "','" + TextBox2 + "'); }");
 
-            sb.Append("function " + DropDownList2 + "_OnChange( e ) {");
-            sb.Append("var DropDownList = document.getElementById('" + DropDownList2 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
+            //    dr.Close();
+            //}
+            //catch (SqlException ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
 
-            dr = db.SelectQry(Query2);
+            //sb.Append("function " + DropDownList2 + "_OnChange( e ) {");
+            //sb.Append("var DropDownList = document.getElementById('" + DropDownList2 + "');");
+            //sb.Append("var arrayValues = new Array(); var i = 0;");
 
-            while (dr.Read())
-            {
-                sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
-            }
+            //dr = db.SelectQry(Query2);
 
-            sb.Append("fillChain( '" + DropDownList3 + "', DropDownList, arrayValues, 'NA','" + TextBox1 + "','" + TextBox2 + "' ); } ");
+            //while (dr.Read())
+            //{
+            //    sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
+            //}
 
-            dr.Close();
-            db.CloseConnection();
+            //sb.Append("fillChain( '" + DropDownList3 + "', DropDownList, arrayValues, 'NA','" + TextBox1 + "','" + TextBox2 + "' ); } ");
 
-            sb.Append("function " + DropDownList3 + "_OnChange( e ) {");
-            sb.Append("var DropDownList = document.getElementById('" + DropDownList3 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
+            //dr.Close();
+            //db.CloseConnection();
 
-            dr = db.SelectQry(Query3);
+            //sb.Append("function " + DropDownList3 + "_OnChange( e ) {");
+            //sb.Append("var DropDownList = document.getElementById('" + DropDownList3 + "');");
+            //sb.Append("var arrayValues = new Array(); var i = 0;");
 
-            while (dr.Read())
-            {
-                sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\",\"" + dr[2] + "\" ]; i++;");
-            }
-            sb.Append("fillChainText( '" + TextBox1 + "','" + TextBox2 + "', DropDownList, arrayValues ); } ");
-            dr.Close();
-            db.CloseConnection();
+            //dr = db.SelectQry(Query3);
+
+            //while (dr.Read())
+            //{
+            //    sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\",\"" + dr[2] + "\" ]; i++;");
+            //}
+            //sb.Append("fillChainText( '" + TextBox1 + "','" + TextBox2 + "', DropDownList, arrayValues ); } ");
+            //dr.Close();
+            //db.CloseConnection();
 
 
-            sb.Append("</script>");
+            //sb.Append("</script>");
 
-            return sb.ToString();
+            //return sb.ToString();
 
         }
         /*****************************************************************************************************
@@ -1148,41 +1120,44 @@ namespace BikeWaleOpr.Common
         *****************************************************************************************************/
         public string GenerateChainScript(string DropDownList1, string DropDownList2, string Query1)
         {
-            StringBuilder sb = new StringBuilder();
 
-            sb.Append("<script language=\"javascript\" src=\"../src/chains.js\"></script>");
-            sb.Append("<script language=\"javascript\">");
-            sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
-            sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
-            sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
-            SqlDataReader dr;
-            Database db = new Database();
-            try
-            {
-                dr = db.SelectQry(Query1);
+            throw new Exception("Method not used/commented");
 
-                while (dr.Read())
-                {
-                    sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
-                }
+            //StringBuilder sb = new StringBuilder();
 
-                sb.Append("fillChainTwo( '" + DropDownList2 + "', DropDownList1, arrayValues); }");
+            //sb.Append("<script language=\"javascript\" src=\"../src/chains.js\"></script>");
+            //sb.Append("<script language=\"javascript\">");
+            //sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
+            //sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
+            //sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
+            //sb.Append("var arrayValues = new Array(); var i = 0;");
+            //SqlDataReader dr;
+            //Database db = new Database();
+            //try
+            //{
+            //    dr = db.SelectQry(Query1);
 
-                dr.Close();
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
+            //    while (dr.Read())
+            //    {
+            //        sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
+            //    }
 
-            sb.Append("</script>");
+            //    sb.Append("fillChainTwo( '" + DropDownList2 + "', DropDownList1, arrayValues); }");
 
-            return sb.ToString();
+            //    dr.Close();
+            //}
+            //catch (SqlException ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
+
+            //sb.Append("</script>");
+
+            //return sb.ToString();
 
         }
         /*****************************************************************************************************
@@ -1197,41 +1172,43 @@ namespace BikeWaleOpr.Common
         *****************************************************************************************************/
         public string GenerateReverseChainScript(string DropDownList1, string DropDownList2, string Query1)
         {
-            StringBuilder sb = new StringBuilder();
+            throw new Exception("Method not used/commented");
 
-            sb.Append("<script language=\"javascript\" src=\"../src/chains.js\"></script>");
-            sb.Append("<script language=\"javascript\">");
-            sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
-            sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
-            sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
-            SqlDataReader dr;
-            Database db = new Database();
-            try
-            {
-                dr = db.SelectQry(Query1);
+            //StringBuilder sb = new StringBuilder();
 
-                while (dr.Read())
-                {
-                    sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
-                }
+            //sb.Append("<script language=\"javascript\" src=\"../src/chains.js\"></script>");
+            //sb.Append("<script language=\"javascript\">");
+            //sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
+            //sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
+            //sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
+            //sb.Append("var arrayValues = new Array(); var i = 0;");
+            //SqlDataReader dr;
+            //Database db = new Database();
+            //try
+            //{
+            //    dr = db.SelectQry(Query1);
 
-                sb.Append("fillReverseChain( '" + DropDownList2 + "', DropDownList1, arrayValues); }");
+            //    while (dr.Read())
+            //    {
+            //        sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
+            //    }
 
-                dr.Close();
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
+            //    sb.Append("fillReverseChain( '" + DropDownList2 + "', DropDownList1, arrayValues); }");
 
-            sb.Append("</script>");
+            //    dr.Close();
+            //}
+            //catch (SqlException ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
 
-            return sb.ToString();
+            //sb.Append("</script>");
+
+            //return sb.ToString();
 
         }
         /*****************************************************************************************************
@@ -1243,64 +1220,67 @@ namespace BikeWaleOpr.Common
         *****************************************************************************************************/
         public string GenerateChainScript(string DropDownList1, string DropDownList2, string DropDownList3, string Query1, string Query2, bool fillTwoCombosWithOneParent)
         {
-            StringBuilder sb = new StringBuilder();
 
-            sb.Append("<script language=\"javascript\" src=\"../src/chains.js\"></script>");
-            sb.Append("<script language=\"javascript\">");
-            sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
-            sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
-            sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
-            SqlDataReader dr;
-            Database db = new Database();
-            try
-            {
-                dr = db.SelectQry(Query1);
 
-                while (dr.Read())
-                {
-                    sb.Append("arrayValues[i] = [ " + dr[0] + ",'" + dr[1] + "'," + dr[2] + " ]; i++;");
-                }
+            throw new Exception("Method not used/commented");
+            //StringBuilder sb = new StringBuilder();
 
-                dr.Close();
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
+            //sb.Append("<script language=\"javascript\" src=\"../src/chains.js\"></script>");
+            //sb.Append("<script language=\"javascript\">");
+            //sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
+            //sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
+            //sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
+            //sb.Append("var arrayValues = new Array(); var i = 0;");
+            //SqlDataReader dr;
+            //Database db = new Database();
+            //try
+            //{
+            //    dr = db.SelectQry(Query1);
 
-            sb.Append("var arrayValues1 = new Array(); i = 0;");
+            //    while (dr.Read())
+            //    {
+            //        sb.Append("arrayValues[i] = [ " + dr[0] + ",'" + dr[1] + "'," + dr[2] + " ]; i++;");
+            //    }
 
-            try
-            {
+            //    dr.Close();
+            //}
+            //catch (SqlException ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
 
-                dr = db.SelectQry(Query2);
+            //sb.Append("var arrayValues1 = new Array(); i = 0;");
 
-                while (dr.Read())
-                {
-                    sb.Append("arrayValues1[i] = [ " + dr[0] + ",'" + dr[1] + "'," + dr[2] + " ]; i++;");
-                }
+            //try
+            //{
 
-                dr.Close();
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
+            //    dr = db.SelectQry(Query2);
 
-            sb.Append("fillChainTwoSameParent( '" + DropDownList2 + "','" + DropDownList3 + "', DropDownList1, arrayValues , arrayValues1 ); }");
+            //    while (dr.Read())
+            //    {
+            //        sb.Append("arrayValues1[i] = [ " + dr[0] + ",'" + dr[1] + "'," + dr[2] + " ]; i++;");
+            //    }
 
-            sb.Append("</script>");
+            //    dr.Close();
+            //}
+            //catch (SqlException ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
 
-            return sb.ToString();
+            //sb.Append("fillChainTwoSameParent( '" + DropDownList2 + "','" + DropDownList3 + "', DropDownList1, arrayValues , arrayValues1 ); }");
+
+            //sb.Append("</script>");
+
+            //return sb.ToString();
 
         }
 
@@ -1313,35 +1293,33 @@ namespace BikeWaleOpr.Common
 
             sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; var arrayValues = new Array(); ");
             //sb.Append("$(function(){$('#" + DropDownList1 + "').on('change',function(){});});
-                        
+
             //sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
             sb.Append("\n var i = 0;");
-            SqlDataReader dr;
-            Database db = new Database();
+
             try
             {
-                dr = db.SelectQry(Query1);
-
-                while (dr.Read())
+                using (IDataReader dr = MySqlDatabase.SelectQuery(Query1, ConnectionType.ReadOnly))
                 {
-                    sb.Append("\narrayValues[i++] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ];");
+                    if (dr != null)
+                    {
+                        while (dr.Read())
+                        {
+                            sb.Append("\narrayValues[i++] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ];");
+                        }
+                    }
                 }
 
-                sb.Append("\nfunction " + DropDownList1 + "_OnChange( e ) {"); 
+                sb.Append("\nfunction " + DropDownList1 + "_OnChange( e ) {");
                 sb.Append("\nfillChainTwo( '" + DropDownList2 + "', " + DropDownList1 + ", arrayValues, '" + selectString + "' ); }");
 
                 //sb.Append("document.getElementById('" + DropDownList1 + "').trigger('change');");
                 sb.Append("fillChainTwo( '" + DropDownList2 + "', " + DropDownList1 + ", arrayValues, '" + selectString + "' );");
-                
-                dr.Close();
+
             }
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             sb.Append("</script>");
@@ -1356,27 +1334,22 @@ namespace BikeWaleOpr.Common
         public static DataSet GetModelFromMake(string makeId)
         {
             DataSet ds = new DataSet();
-            SqlCommand cmd = new SqlCommand();
+            DbCommand cmd = DbFactory.GetDBCommand();
+            MySqlDbUtilities db = new MySqlDbUtilities();
 
             if (makeId == "")
                 return ds;
 
-            Database db = new Database();
             string sql = "";
 
-            sql = " SELECT ID AS Value, Name AS Text FROM BikeModels WHERE IsDeleted = 0 AND "
-                + " BikeMakeId IN (" + db.GetInClauseValue(makeId, "MakeId", cmd) + ") ORDER BY Text ";
+            sql = " select id as Value, name as Text from bikemodels where isdeleted = 0 and  bikemakeid in (" + db.GetInClauseValue(makeId, "MakeId", cmd) + ") order by text ";
 
             HttpContext.Current.Trace.Warn("sql =" + sql);
 
             try
             {
                 cmd.CommandText = sql;
-                ds = db.SelectAdaptQry(cmd);
-            }
-            catch (SqlException err)
-            {
-                CommonOpn.SqlError(err);
+                ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
             }
             catch (Exception err)
             {
@@ -1417,29 +1390,28 @@ namespace BikeWaleOpr.Common
         /// <returns></returns>
         public static double GetInsurancePremium(string bikeVersionId, string cityId, double price)
         {
-            Database db = new Database();
-            SqlDataReader dr = null;
             string sql = "", city = "", fuelType = string.Empty;
             double cc = 0, premium = 0;
             int topSpeed = 0;
 
-            sql = " SELECT Displacement, ISNULL(topspeed, 0) topspeed, fueltype, "
-                + " (SELECT IsNull(Name,'') FROM Cities WHERE Id=" + cityId + " ) City "
-                + " FROM NewBikeSpecifications WHERE bikeVersionId=" + bikeVersionId;
+            sql = @" SELECT Displacement, ifnull(topspeed, 0) topspeed, fueltype, 
+                    (SELECT ifnull(Name,'') from cities where id=" + cityId + @" ) city 
+                    from newbikespecifications where bikeversionid=" + bikeVersionId;
 
             //HttpContext.Current.Trace.Warn( sql );
 
             try
             {
-                dr = db.SelectQry(sql);
-
-                if (dr.Read())
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
                 {
-                    cc = Convert.ToDouble(dr["Displacement"].ToString() == "" ? "0" : dr["Displacement"].ToString());
-                    city = dr["city"].ToString();
-                    topSpeed = Convert.ToInt32(dr["topspeed"]);
-                    fuelType = dr["fueltype"].ToString();
-                }                
+                    if (dr != null && dr.Read())
+                    {
+                        cc = Convert.ToDouble(dr["Displacement"].ToString() == "" ? "0" : dr["Displacement"].ToString());
+                        city = dr["city"].ToString();
+                        topSpeed = Convert.ToInt32(dr["topspeed"]);
+                        fuelType = dr["fueltype"].ToString();
+                    }
+                }
             }
             catch (Exception err)
             {
@@ -1447,14 +1419,6 @@ namespace BikeWaleOpr.Common
                 ErrorClass objErr = new ErrorClass(err, "CommonOpn.GetInsurancePremium");
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                if (dr != null)
-                {
-                    dr.Close();
-                }
-                db.CloseConnection();
-            }
 
             if (price > 0 && cc > 0)
             {
@@ -1488,38 +1452,8 @@ namespace BikeWaleOpr.Common
                     rateKey = zone + ":" + cc;
                     dataRateKey = zone + "" + cc;
 
-                    //Fetch Insurance discount if exists
-                    //sql = " SELECT IsNull(Discount, 0) AS Discount "
-                    //    + " FROM Con_InsuranceDiscount AS CD, BikeVersions AS CV"
-                    //    + " WHERE CV.Id = " + bikeVersionId + " AND CD.ModelID = CV.BikeModelId AND CD.CityId = " + cityId;
-
-                    //HttpContext.Current.Trace.Warn(sql);
-
                     double discount = 0;
-                    //try
-                    //{
-                    //    dr = db.SelectQry(sql);
 
-                    //    if (dr.Read())
-                    //    {
-                    //        discount = Convert.ToDouble(dr[0]);
-                    //    }
-                    //}
-                    //catch (Exception err)
-                    //{
-                    //    HttpContext.Current.Trace.Warn(err.Message);
-                    //    ErrorClass objErr = new ErrorClass(err, "CommonOpn.SaveClassifiedRequests");
-                    //    objErr.SendMail();
-                    //} // catch Exception
-                    //finally
-                    //{
-                    //    if (dr != null)
-                    //    {
-                    //        dr.Close();
-                    //    }
-                    //    db.CloseConnection();
-                    //}
-                    //Ends here
 
                     //rate = double.Parse(ConfigurationSettings.AppSettings[rateKey]);
                     rate = double.Parse(ConfigurationManager.AppSettings[rateKey]);
@@ -1547,18 +1481,6 @@ namespace BikeWaleOpr.Common
                     liaPremium = double.Parse(ConfigurationManager.AppSettings["L:" + cc]);
                     HttpContext.Current.Trace.Warn("liaPremium : " + liaPremium);
 
-                    //liaPADriverOwner = double.Parse(ConfigurationSettings.AppSettings["PADriverOwnerLiability"]); // Owner-Driver mandatory liability.
-                    //HttpContext.Current.Trace.Warn("liaPADriverOwner : " + liaPADriverOwner);
-
-                    // Paid-Driver liability is optional however, 
-                    // we r making it mandatory for compulsary
-                    // considering its amount 25/-
-                    // Removed. Only liaPADriverOwner is being considered.
-                    //liaPaidDriver = double.Parse(ConfigurationSettings.AppSettings["PaidDriverLiability"]);
-                    //HttpContext.Current.Trace.Warn("liaPaidDriver : " + liaPaidDriver);
-
-                    // compute all the liabilities.				
-                    //liabilities = liaPremium + liaPADriverOwner + liaPaidDriver;
                     liabilities = liaPremium;
                     HttpContext.Current.Trace.Warn("liabilities : " + liabilities);
 
@@ -1588,7 +1510,7 @@ namespace BikeWaleOpr.Common
             {
                 if (topSpeed > 25)
                     premium = 1250;
-                else if(topSpeed <= 25 && topSpeed > 0)
+                else if (topSpeed <= 25 && topSpeed > 0)
                     premium = 1000;
             }
 
@@ -1607,68 +1529,54 @@ namespace BikeWaleOpr.Common
         /// <returns></returns>
         public static double GetRegistrationCharges(string bikeVersionId, string cityId, double price)
         {
-            Database db = new Database();
-            SqlDataReader dr = null;
             string sql = "";
             string fuelType = "", bodyStyleId = string.Empty;
             int stateId = 0, weight = 0, cc = 0, sc = 0, topSpeed = 0;
             double regCharges = 0, roadTax = 0;
             bool isImported = false;
 
-            //sql = " SELECT StateId, "
-            //    + " IsNull((SELECT IsNull(KerbWeight,0) FROM NewBikeSpecifications WHERE BikeVersionId=" + bikeVersionId + "), 0) Weight, "
-            //    + " IsNull((SELECT IsNull(FuelType,'') FROM NewBikeSpecifications WHERE BikeVersionId=" + bikeVersionId + "), '') FuelType, "
-            //    //+ " IsNull((SELECT IsNull(SeatingCapacity,'') FROM NewBikeSpecifications WHERE BikeVersionId=" + bikeVersionId + "), '0') SeatingCapacity, "
-            //    + " IsNull((SELECT IsNull(Imported,0) FROM BikeVersions WHERE Id=" + bikeVersionId + "), 0) IsImported, "
-            //    + " ISNULL((SELECT IsNull(Amount, 0) FROM CON_RegCharges WHERE CityId = " + cityId + " AND"
-            //    + " ModelId IN( SELECT BikeModelId FROM BikeVersions WHERE Id=" + bikeVersionId + ")),0) AS RegCharges, "
-            //    + " ISNULL((Select IsNull(Displacement, 0) From NewBikeSpecifications Where BikeVersionId = " + bikeVersionId + "), 0) AS Displacement "
-            //    //+ " ISNULL((Select AirConditioner From NewBikeStandardFeatures Where BikeVersionId = " + bikeVersionId + "), 0) AS ACStatus "
-            //    + " FROM Cities WHERE Id=" + cityId;
 
-            sql = " SELECT "
-                + " CT.STATEID AS stateid, "
-                + " Isnull(nbs.KerbWeight, 0) AS Weight , "
-                + " Isnull(nbs.fueltype, '') AS FuelType, "
-                + " Isnull(nbs.displacement, 0) AS  Displacement, "
-                + " Isnull(bv.imported, 0) AS IsImported, "
-                + " Isnull(cr.amount, 0) AS RegCharges, "
-                + " ISNULL(topspeed, 0) topspeed, "
-                + " bs.ID AS BodyStyleId "
-                + " FROM  "
-                + " bikeversions BV "
-                + " INNER JOIN bikeModels BM ON BM.ID = BV.BikeModelId "
-                + " INNER JOIN newbikespecifications nbs ON NBS.BikeVersionId=BV.ID AND BV.ID=" + bikeVersionId
-                + " LEFT JOIN BikeBodyStyles bs ON bs.ID = BV.BodyStyleId "
-                + " LEFT JOIN con_regcharges cr ON CR.ModelId=BM.ID "
-                + " LEFT JOIN  Cities  AS CT ON CT.ID=" + cityId;
+            sql = @" select 
+                ct.stateid as stateid, 
+                ifnull(nbs.kerbweight, 0) as weight , 
+                ifnull(nbs.fueltype, '') as fueltype, 
+                ifnull(nbs.displacement, 0) as  displacement, 
+                if(bv.imported,true,false) as isimported, 
+                ifnull(cr.amount,0) as regcharges, 
+                ifnull(topspeed, 0) topspeed, 
+                bs.id as bodystyleid 
+                from  
+                bikeversions bv 
+                inner join bikemodels bm on bm.id = bv.bikemodelid 
+                inner join newbikespecifications nbs on nbs.bikeversionid=bv.id and bv.id=" + bikeVersionId +
+                @"   left join bikebodystyles bs on bs.id = bv.bodystyleid 
+                left join con_regcharges cr on cr.modelid=bm.id 
+                left join  cities  as ct on ct.id=" + cityId;
 
             try
             {
-                dr = db.SelectQry(sql);
-
-                if (dr.Read())
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
                 {
-                    stateId = Convert.ToInt32(dr["StateId"].ToString());
-                    weight = Convert.ToInt32(dr["Weight"].ToString());
-                    regCharges = Convert.ToDouble(dr["RegCharges"]);
-                    fuelType = dr["FuelType"].ToString();
-                    bodyStyleId = dr["BodyStyleId"].ToString();
-                    topSpeed = Convert.ToInt32(dr["topspeed"]);
+                    if (dr != null && dr.Read())
+                    {
+                        stateId = Convert.ToInt32(dr["StateId"].ToString());
+                        weight = Convert.ToInt32(dr["Weight"].ToString());
+                        regCharges = Convert.ToDouble(dr["RegCharges"]);
+                        fuelType = dr["FuelType"].ToString();
+                        bodyStyleId = dr["BodyStyleId"].ToString();
+                        topSpeed = Convert.ToInt32(dr["topspeed"]);
 
-                    HttpContext.Current.Trace.Warn("stateId : ",stateId.ToString());
-                    HttpContext.Current.Trace.Warn("weight : ", weight.ToString());
-                    HttpContext.Current.Trace.Warn("regCharges : ", regCharges.ToString());
-                    HttpContext.Current.Trace.Warn("FuelType : ", fuelType);
+                        HttpContext.Current.Trace.Warn("stateId : ", stateId.ToString());
+                        HttpContext.Current.Trace.Warn("weight : ", weight.ToString());
+                        HttpContext.Current.Trace.Warn("regCharges : ", regCharges.ToString());
+                        HttpContext.Current.Trace.Warn("FuelType : ", fuelType);
 
-                    isImported = Convert.ToBoolean(dr["IsImported"].ToString());
+                        isImported = Convert.ToBoolean(dr["IsImported"]);
 
-                    //if ( dr["IsImported"].ToString().ToLower() == "diesel" )
-                    //isDiesel = false;
-
-                    //sc = Convert.ToInt32(dr["SeatingCapacity"]);
-                    cc = Convert.ToInt32(dr["Displacement"]);
-                    //hasAC = dr["ACStatus"].ToString() == "A" ? true : false;
+                        //sc = Convert.ToInt32(dr["SeatingCapacity"]);
+                        cc = Convert.ToInt32(dr["Displacement"]);
+                        //hasAC = dr["ACStatus"].ToString() == "A" ? true : false;
+                    }
                 }
             }
             catch (Exception err)
@@ -1676,14 +1584,6 @@ namespace BikeWaleOpr.Common
                 ErrorClass objErr = new ErrorClass(err, "CommonOpn.GetRegistrationCharges");
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                if (dr != null)
-                {
-                    dr.Close();
-                }
-                db.CloseConnection();
-            }
 
             switch (stateId)
             {
@@ -1699,14 +1599,14 @@ namespace BikeWaleOpr.Common
                 */
                 case 1:
                     double mumRate = 0;
-                    
+
                     if (price < 1000000)
                         mumRate = 0.07;
                     else if (price > 1000000 && price < 2000000)
                         mumRate = 0.08;
                     else
                         mumRate = 0.09;
-                    
+
                     if (!isImported) roadTax = price * mumRate;
                     else roadTax = price * mumRate * 2;
 
@@ -1715,7 +1615,7 @@ namespace BikeWaleOpr.Common
                 // Tamilnadu. 0 -10 10%, above 10  - 15%
                 case 11:
                     if (fuelType.ToLower().Equals("electric"))
-                    {                        
+                    {
                         roadTax = price * 0.04;
                     }
                     else
@@ -1771,7 +1671,7 @@ namespace BikeWaleOpr.Common
 
                 // calculation for telangana
                 case 41:
-                    roadTax = price * 0.09;                    
+                    roadTax = price * 0.09;
                     break;
                 case 5:
                     if (price <= 600000)
@@ -1919,8 +1819,8 @@ namespace BikeWaleOpr.Common
                 // 19.8% otherwise.
                 case 2:
                     if (fuelType.ToLower().Equals("electric"))
-                    {                        
-                       roadTax = price * 0.04;
+                    {
+                        roadTax = price * 0.04;
                     }
                     else
                     {
@@ -1992,7 +1892,7 @@ namespace BikeWaleOpr.Common
                     {
                         roadTax = price * 0.04;
                     }
-                    else 
+                    else
                     {
                         roadTax = price * 0.05;
                     }
@@ -2196,7 +2096,7 @@ namespace BikeWaleOpr.Common
                     {
                         roadTax = 3590;
                     }
-                break;
+                    break;
 
                 // Daman & Diu
                 // If price < 2 lakh	8%
@@ -2210,21 +2110,21 @@ namespace BikeWaleOpr.Common
                     {
                         roadTax = price * 0.025;
                     }
-                break;
+                    break;
 
                 //Jammu & Kashmir
                 //If Body-Style is Scooter	Rs. 2400
                 //If Body-Style is not Scooter	Rs. 4000
                 case 24:
-                if (bodyStyleId.Equals("5"))
+                    if (bodyStyleId.Equals("5"))
                     {
                         roadTax = 2400;
                     }
-                    else 
+                    else
                     {
                         roadTax = 4000;
                     }
-                break;
+                    break;
 
                 //Meghalaya
                 //If weight < 65 Kgs		Rs. 1050
@@ -2248,7 +2148,7 @@ namespace BikeWaleOpr.Common
                     {
                         roadTax = 2850;
                     }
-                break;
+                    break;
 
                 //Tripura
                 //If bike is without gear	Rs. 1000
@@ -2269,9 +2169,9 @@ namespace BikeWaleOpr.Common
                         else
                         {
                             roadTax = 2650;
-                        }                        
+                        }
                     }
-                break;
+                    break;
 
 
                 default:
@@ -2314,7 +2214,7 @@ namespace BikeWaleOpr.Common
 
                 // RTO Calculations for electric bikes whose speed is less than 25
                 if (fuelType.ToLower() == "electric")
-                {                    
+                {
                     if (topSpeed <= 25 && topSpeed > 0)
                         regCharges = 0;
                 }
@@ -2413,5 +2313,5 @@ namespace BikeWaleOpr.Common
             return formatted;
         }
 
-	}//End Class 
+    }//End Class 
 }//End 0namespace

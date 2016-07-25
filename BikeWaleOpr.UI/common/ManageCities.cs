@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using BikeWaleOpr.Common;
-using BikeWaleOpr.VO;
+﻿using BikeWaleOpr.VO;
+using MySql.CoreDAL;
+using System;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
+using System.Web;
 
 namespace BikeWaleOpr.Common
 {
@@ -21,20 +21,19 @@ namespace BikeWaleOpr.Common
         /// <param name="stateId"></param>
         /// <returns>Dataset</returns>
         public DataSet GetAllCitiesDetails(string stateId)
-        {            
+        {
             DataSet ds = null;
 
             try
             {
-                Database db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand("GetAllCitiesDetails"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getallcitiesdetails"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@ID", SqlDbType.Int).Value = stateId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int32, stateId));
 
-                    ds = db.SelectAdaptQry(cmd);
-                  
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
+
                 }
             }
             catch (SqlException err)
@@ -59,35 +58,37 @@ namespace BikeWaleOpr.Common
         /// summary    : This method deletes city
         /// </summary>
         /// <param name="cityId"></param>
-        public void DeleteCity( string cityId)
+        public void DeleteCity(string cityId)
         {
-            Database db = null;   
-  
-            try
-            {
-                using (SqlCommand cmd = new SqlCommand("DeleteCity"))
-                {
-                    db = new Database();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@ID", SqlDbType.Int).Value = cityId;
-                    db.UpdateQry(cmd);
-                }
-            }
-            catch (SqlException err)
-            {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-            }
+            throw new Exception("Method not used/commented");
+
+            //Database db = null;   
+
+            //try
+            //{
+            //    using (SqlCommand cmd = new SqlCommand("DeleteCity"))
+            //    {
+            //        db = new Database();
+            //        cmd.CommandType = CommandType.StoredProcedure;
+            //        cmd.Parameters.Add("@ID", SqlDbType.Int).Value = cityId;
+            //        db.UpdateQry(cmd);
+            //    }
+            //}
+            //catch (SqlException err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if (db != null)
+            //        db.CloseConnection();
+            //}
         }//End of DeleteCity method
 
         /// <summary>
@@ -98,72 +99,74 @@ namespace BikeWaleOpr.Common
         /// <returns>City Object</returns>
         public City GetCityDetails(string cityId)
         {
-            Database db = null;
-            City objCity = null;
-            SqlConnection conn = null;
-            try
-            {
-                db = new Database();
+            throw new Exception("City GetCityDetails(string cityId) : Method not used/commented");
 
-                objCity = new City();
+            //Database db = null;
+            //City objCity = null;
+            //SqlConnection conn = null;
+            //try
+            //{
+            //    db = new Database();
 
-                using(conn = new SqlConnection(db.GetConString()))
-                {
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
+            //    objCity = new City();
 
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "GetCityDetails";
-                        cmd.Connection = conn;
+            //    using(conn = new SqlConnection(db.GetConString()))
+            //    {
+            //        using (SqlCommand cmd = new SqlCommand())
+            //        {
 
-                        HttpContext.Current.Trace.Warn("CITYID : " + cityId);
+            //            cmd.CommandType = CommandType.StoredProcedure;
+            //            cmd.CommandText = "GetCityDetails";
+            //            cmd.Connection = conn;
 
-                        cmd.Parameters.Add("@ID", SqlDbType.Int).Value = cityId;
-                        cmd.Parameters.Add("@Name", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@MaskingName", SqlDbType.VarChar, 60).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@Lattitude", SqlDbType.Float).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@Longitude", SqlDbType.Float).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@DefaultPinCode", SqlDbType.VarChar, 10).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@StateId", SqlDbType.Int).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@IsDeleted", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@StdCode", SqlDbType.Int).Direction = ParameterDirection.Output;
+            //            HttpContext.Current.Trace.Warn("CITYID : " + cityId);
 
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
-                        
-                        HttpContext.Current.Trace.Warn("qry success");
+            //            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = cityId;
+            //            cmd.Parameters.Add("@Name", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
+            //            cmd.Parameters.Add("@MaskingName", SqlDbType.VarChar, 60).Direction = ParameterDirection.Output;
+            //            cmd.Parameters.Add("@Lattitude", SqlDbType.Float).Direction = ParameterDirection.Output;
+            //            cmd.Parameters.Add("@Longitude", SqlDbType.Float).Direction = ParameterDirection.Output;
+            //            cmd.Parameters.Add("@DefaultPinCode", SqlDbType.VarChar, 10).Direction = ParameterDirection.Output;
+            //            cmd.Parameters.Add("@StateId", SqlDbType.Int).Direction = ParameterDirection.Output;
+            //            cmd.Parameters.Add("@IsDeleted", SqlDbType.Bit).Direction = ParameterDirection.Output;
+            //            cmd.Parameters.Add("@StdCode", SqlDbType.Int).Direction = ParameterDirection.Output;
 
-                        objCity.CityName = cmd.Parameters["@Name"].Value.ToString();                  
-                        objCity.MaskingName = cmd.Parameters["@MaskingName"].Value.ToString();
-                        objCity.Lattitude = cmd.Parameters["@Lattitude"].Value.ToString();
-                        objCity.Longitude = cmd.Parameters["@Longitude"].Value.ToString();
-                        objCity.DefaultPinCode = cmd.Parameters["@DefaultPinCode"].Value.ToString();
-                        objCity.StateId = cmd.Parameters["@StateId"].Value.ToString();
-                        objCity.IsDeleted = Convert.ToBoolean(cmd.Parameters["@IsDeleted"].Value);
-                        objCity.StdCode = cmd.Parameters["@StdCode"].Value.ToString();
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetCityDetails sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("GetCityDetails ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
-            }
-            return objCity;
+            //            conn.Open();
+            //            cmd.ExecuteNonQuery();
+
+            //            HttpContext.Current.Trace.Warn("qry success");
+
+            //            objCity.CityName = cmd.Parameters["@Name"].Value.ToString();                  
+            //            objCity.MaskingName = cmd.Parameters["@MaskingName"].Value.ToString();
+            //            objCity.Lattitude = cmd.Parameters["@Lattitude"].Value.ToString();
+            //            objCity.Longitude = cmd.Parameters["@Longitude"].Value.ToString();
+            //            objCity.DefaultPinCode = cmd.Parameters["@DefaultPinCode"].Value.ToString();
+            //            objCity.StateId = cmd.Parameters["@StateId"].Value.ToString();
+            //            objCity.IsDeleted = Convert.ToBoolean(cmd.Parameters["@IsDeleted"].Value);
+            //            objCity.StdCode = cmd.Parameters["@StdCode"].Value.ToString();
+            //        }
+            //    }
+            //}
+            //catch (SqlException ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("GetCityDetails sql ex : " + ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("GetCityDetails ex : " + ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if (conn.State == ConnectionState.Open)
+            //    {
+            //        conn.Close();
+            //    }
+            //}
+            //return objCity;
         }//End of GetCityDetails
 
         /// <summary>
@@ -180,40 +183,25 @@ namespace BikeWaleOpr.Common
         /// <param name="stateId"></param>
         public void ManageCityDetails(City objCity)
         {
-            //string cityId, string city, string maskingName, string lattitude, string longitude,string stdCode,string defaultPinCode,string stateId
-            Database db = null;
-            SqlConnection conn = null;
-
             try
             {
-                db = new Database();
-
-                using (conn = new SqlConnection(db.GetConString()))
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "ManageCities";
-                        cmd.Connection = conn;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "managecities";
 
-                        cmd.Parameters.Add("@ID", SqlDbType.Int).Value = objCity.CityId;
-                        cmd.Parameters.Add("@Name", SqlDbType.VarChar, 50).Value = objCity.CityName;
-                        cmd.Parameters.Add("@MaskingName", SqlDbType.VarChar, 60).Value = objCity.MaskingName;
-                        cmd.Parameters.Add("@Lattitude", SqlDbType.Float).Value = objCity.Lattitude;
-                        cmd.Parameters.Add("@Longitude", SqlDbType.Float).Value = objCity.Longitude;
-                        cmd.Parameters.Add("@DefaultPinCode", SqlDbType.VarChar, 10).Value = objCity.DefaultPinCode;
-                        cmd.Parameters.Add("@UpdatedBy", SqlDbType.Int).Value = CurrentUser.Id;
-                        cmd.Parameters.Add("@StateId", SqlDbType.Int).Value = objCity.StateId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int32, objCity.CityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50, objCity.CityName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, 60, objCity.MaskingName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lattitude", DbType.Double, objCity.Lattitude));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_longitude", DbType.Double, objCity.Longitude));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_defaultpincode", DbType.String, 10, objCity.DefaultPinCode));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, CurrentUser.Id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, objCity.StateId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stdcode", DbType.Int32, (objCity.StdCode != "") ? objCity.StdCode : Convert.DBNull));
 
-                        if (objCity.StdCode != "")
-                        {
-                            cmd.Parameters.Add("@StdCode", SqlDbType.Int).Value = objCity.StdCode;
-                        }
-                        HttpContext.Current.Trace.Warn("Update city sql ex : " + objCity.StdCode);
-                        
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
-                    }
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException ex)
@@ -228,13 +216,7 @@ namespace BikeWaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                if (conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
-            }
+
         }//End of ManageCityDetails
 
         /// <summary>
@@ -246,25 +228,19 @@ namespace BikeWaleOpr.Common
         /// <returns></returns>
         public DataSet GetCities(int stateId, string requestType)
         {
-
             DataSet ds = null;
-
             try
             {
-                Database db = new Database();
-
-                using (SqlCommand cmd = new SqlCommand("GetCities"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcities"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    if (stateId > 0 )
-                        cmd.Parameters.Add("@StateId", SqlDbType.Int).Value = stateId;
-                    else
-                        cmd.Parameters.Add("@StateId", SqlDbType.Int).Value = null;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, requestType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, (stateId > 0) ? stateId : Convert.DBNull));
 
-                    cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = requestType;
 
-                    ds = db.SelectAdaptQry(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
+
                 }
             }
             catch (SqlException err)
@@ -292,36 +268,28 @@ namespace BikeWaleOpr.Common
         /// <returns></returns>
         public DataSet GetCWCities(int stateId, string requestType)
         {
-
             DataSet ds = null;
-
             try
             {
-                Database db = new Database();
-
-                using (SqlCommand cmd = new SqlCommand("GetCWCities"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcwcities"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    if (stateId > 0)
-                        cmd.Parameters.Add("@StateId", SqlDbType.Int).Value = stateId;
-                    else
-                        cmd.Parameters.Add("@StateId", SqlDbType.Int).Value = null;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, requestType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, (stateId > 0) ? stateId : Convert.DBNull));
 
-                    cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = requestType;
-
-                    ds = db.SelectAdaptQry(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException err)
             {
-                HttpContext.Current.Trace.Warn(err.Message + err.Source);
+                //HttpContext.Current.Trace.Warn(err.Message + err.Source);
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
             catch (Exception err)
             {
-                HttpContext.Current.Trace.Warn(err.Message + err.Source);
+                //HttpContext.Current.Trace.Warn(err.Message + err.Source);
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
@@ -336,19 +304,16 @@ namespace BikeWaleOpr.Common
         /// <returns></returns>
         public DataSet GetPriceQuoteCities(uint modelId)
         {
-            Database db = null;
             DataSet ds = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetPriceQuoteCities";
+                    cmd.CommandText = "getpricequotecities";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@modelId", SqlDbType.Int).Value = modelId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
 
-                    db = new Database();
-
-                    ds = db.SelectAdaptQry(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException ex)

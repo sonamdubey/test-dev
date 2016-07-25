@@ -69,7 +69,7 @@
     popupArea = $('#ddlAreaPopup');
     var selectedModel = 0;
     var selectedMakeName = '', selectedModelName = '', selectedCityName = '', selectedAreaName = '', gaLabel = '';
-    var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
+    var bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';
     var metroCitiesIds = [40, 12, 13, 10, 224, 1, 198, 105, 246, 176, 2, 128];
     var pageId, PQSourceId;
     var onCookieObj = {};

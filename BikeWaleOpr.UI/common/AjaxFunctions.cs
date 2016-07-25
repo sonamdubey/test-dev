@@ -12,6 +12,7 @@ using Ajax;
 using BikeWaleOpr.Common;
 using System.Text.RegularExpressions;
 using System.Configuration;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr
 {
@@ -27,15 +28,19 @@ namespace BikeWaleOpr
             if (stateId == "")
                 return ds;
 
-            Database db = new Database();
             string sql = "";
-
-            sql = " SELECT ID AS Value, Name AS Text FROM Cities WHERE "
-                + " StateId =" + stateId + " AND IsDeleted = 0 ORDER BY Text ";
+            uint _stateId = default(uint);
+            if (!string.IsNullOrEmpty(stateId) && uint.TryParse(stateId, out _stateId))
+            {
+                sql = " select id as Value, name as Text from cities where stateid =" + _stateId + " and isdeleted = 0 order by text ";
+            }             
 
             try
             {
-                ds = db.SelectAdaptQry(sql);
+                if (_stateId > 0)
+                {
+                    ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly); 
+                }
             }
             catch (Exception err)
             {
@@ -56,15 +61,21 @@ namespace BikeWaleOpr
 
             if (makeId == "")
                 return ds;
-
-            Database db = new Database();
             string sql = "";
 
-            sql = " SELECT ID AS Value, Name AS Text FROM BikeModels WHERE IsDeleted = 0 AND "
-                + " BikeMakeId =" + makeId + " ORDER BY Text ";
+            uint _makeId = default(uint);
+            if(!string.IsNullOrEmpty(makeId) && uint.TryParse(makeId,out _makeId))
+            {
+                sql = " select id AS Value, name AS Text from bikemodels where isdeleted = 0 and bikemakeid =" + _makeId + " order by text ";
+            }
+
+            
             try
             {
-                ds = db.SelectAdaptQry(sql);
+                if (_makeId > 0)
+                {
+                    ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly); 
+                }
             }
             catch (Exception err)
             {
@@ -84,16 +95,21 @@ namespace BikeWaleOpr
 
             if (modelId == "")
                 return ds;
-
-            Database db = new Database();
             string sql = "";
 
-            sql = " SELECT ID AS Value, Name AS Text FROM BikeVersions WHERE IsDeleted = 0 AND "
-                + " BikeModelId =" + modelId + " ORDER BY Text ";
+            uint _modelid = default(uint);
+            if (!string.IsNullOrEmpty(modelId) && uint.TryParse(modelId, out _modelid))
+            {
+                sql = " select id as Value, name as Text from bikeversions where isdeleted = 0 and  bikemodelid =" + modelId + " order by text ";
+            }
+            
             try
             {
-                ds = db.SelectAdaptQry(sql);
-                HttpContext.Current.Trace.Warn("dscount" + ds.Tables[0].Rows.Count.ToString());
+                if (_modelid > 0)
+                {
+                    ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly); 
+                }
+                
             }
             catch (Exception err)
             {
@@ -153,80 +169,82 @@ namespace BikeWaleOpr
         [Ajax.AjaxMethod()]
         public bool UpdateLaunchDate(string Id, string minPrice, string maxPrice, string expLaunch, string newLaunch, string modelId)
         {
-            string[] tempDate = newLaunch.Split('-');
-            DateTime newLaunchDate = new DateTime(int.Parse(tempDate[0]), int.Parse(tempDate[1]), int.Parse(tempDate[2]), int.Parse(tempDate[3]), int.Parse(tempDate[4]), 0);
+            throw new Exception("Method not used/commented");
 
-            bool retVal = false;
-            SqlConnection con;
-            SqlCommand cmd;
-            SqlParameter prm;
-            Database db = new Database();
-            CommonOpn op = new CommonOpn();
+            //string[] tempDate = newLaunch.Split('-');
+            //DateTime newLaunchDate = new DateTime(int.Parse(tempDate[0]), int.Parse(tempDate[1]), int.Parse(tempDate[2]), int.Parse(tempDate[3]), int.Parse(tempDate[4]), 0);
 
-            string conStr = db.GetConString();
-            con = new SqlConnection(conStr);
+            //bool retVal = false;
+            //SqlConnection con;
+            //SqlCommand cmd;
+            //SqlParameter prm;
+            //Database db = new Database();
+            //CommonOpn op = new CommonOpn();
 
-            try
-            {
-                cmd = new SqlCommand("CON_UpdateExpectedBikeLaunches", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+            //string conStr = db.GetConString();
+            //con = new SqlConnection(conStr);
 
-                prm = cmd.Parameters.Add("@Id", SqlDbType.BigInt);
-                prm.Value = Id;
+            //try
+            //{
+            //    cmd = new SqlCommand("CON_UpdateExpectedBikeLaunches", con);
+            //    cmd.CommandType = CommandType.StoredProcedure;
 
-                prm = cmd.Parameters.Add("@ExpectedLaunch", SqlDbType.VarChar, 250);
-                prm.Value = expLaunch;
+            //    prm = cmd.Parameters.Add("@Id", SqlDbType.BigInt);
+            //    prm.Value = Id;
 
-                prm = cmd.Parameters.Add("@LaunchDate", SqlDbType.DateTime);
-                prm.Value = newLaunchDate;
+            //    prm = cmd.Parameters.Add("@ExpectedLaunch", SqlDbType.VarChar, 250);
+            //    prm.Value = expLaunch;
 
-                prm = cmd.Parameters.Add("@EstimatedPriceMin", SqlDbType.Decimal);
-                prm.Value = minPrice;
-                prm.Precision = 5;
-                prm.Scale = 2;
+            //    prm = cmd.Parameters.Add("@LaunchDate", SqlDbType.DateTime);
+            //    prm.Value = newLaunchDate;
 
-                prm = cmd.Parameters.Add("@EstimatedPriceMax", SqlDbType.Decimal);
-                prm.Value = maxPrice;
-                prm.Precision = 5;
-                prm.Scale = 2;
+            //    prm = cmd.Parameters.Add("@EstimatedPriceMin", SqlDbType.Decimal);
+            //    prm.Value = minPrice;
+            //    prm.Precision = 5;
+            //    prm.Scale = 2;
 
-                prm = cmd.Parameters.Add("@ModelId", SqlDbType.VarChar, 10);
-                prm.Value = modelId;
+            //    prm = cmd.Parameters.Add("@EstimatedPriceMax", SqlDbType.Decimal);
+            //    prm.Value = maxPrice;
+            //    prm.Precision = 5;
+            //    prm.Scale = 2;
 
-                prm = cmd.Parameters.Add("@Url", SqlDbType.VarChar, 100);
-                prm.Value = ConfigurationManager.AppSettings["imgHostURL"];
+            //    prm = cmd.Parameters.Add("@ModelId", SqlDbType.VarChar, 10);
+            //    prm.Value = modelId;
 
-                con.Open();
-                //run the command
-                cmd.ExecuteNonQuery();
+            //    prm = cmd.Parameters.Add("@Url", SqlDbType.VarChar, 100);
+            //    prm.Value = ConfigurationManager.AppSettings["imgHostURL"];
 
-                retVal = true;
+            //    con.Open();
+            //    //run the command
+            //    cmd.ExecuteNonQuery();
 
-            }
-            catch (SqlException err)
-            {
-                //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
-                HttpContext.Current.Trace.Warn(err.Message.ToString());
-                ErrorClass objErr = new ErrorClass(err, "AjaxFunctions.UpdateLaunchDet");
-                objErr.SendMail();
-                retVal = false;
-            } // catch SqlException
-            catch (Exception err)
-            {
-                HttpContext.Current.Trace.Warn(err.Message.ToString());
-                ErrorClass objErr = new ErrorClass(err, "AjaxFunctions.UpdateLaunchDet");
-                objErr.SendMail();
-                retVal = false;
-            } // catch Exception
-            finally
-            {
-                //close the connection	
-                if (con.State == ConnectionState.Open)
-                {
-                    con.Close();
-                }
-            }
-            return retVal;
+            //    retVal = true;
+
+            //}
+            //catch (SqlException err)
+            //{
+            //    //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
+            //    HttpContext.Current.Trace.Warn(err.Message.ToString());
+            //    ErrorClass objErr = new ErrorClass(err, "AjaxFunctions.UpdateLaunchDet");
+            //    objErr.SendMail();
+            //    retVal = false;
+            //} // catch SqlException
+            //catch (Exception err)
+            //{
+            //    HttpContext.Current.Trace.Warn(err.Message.ToString());
+            //    ErrorClass objErr = new ErrorClass(err, "AjaxFunctions.UpdateLaunchDet");
+            //    objErr.SendMail();
+            //    retVal = false;
+            //} // catch Exception
+            //finally
+            //{
+            //    //close the connection	
+            //    if (con.State == ConnectionState.Open)
+            //    {
+            //        con.Close();
+            //    }
+            //}
+            //return retVal;
         }
 
         //this function returns the dataset containing the name and id of the new models
@@ -245,28 +263,30 @@ namespace BikeWaleOpr
         [Ajax.AjaxMethod()]
         public DataSet GetNewVersions(string modelId)
         {
-            DataSet ds = new DataSet();
+            throw new Exception("Method not used/commented");
 
-            if (modelId == "")
-                return ds;
+            //DataSet ds = new DataSet();
 
-            Database db = new Database();
-            string sql = "";
+            //if (modelId == "")
+            //    return ds;
 
-            sql = " SELECT ID AS Value, Name AS Text FROM BikeVersions WHERE IsDeleted = 0 AND "
-                + " BikeModelId =" + modelId + " AND New = 1 ORDER BY Text ";
+            //Database db = new Database();
+            //string sql = "";
 
-            try
-            {
-                ds = db.SelectAdaptQry(sql);
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, "AjaxFunctions.GetVersions");
-                objErr.SendMail();
-            }
+            //sql = " SELECT ID AS Value, Name AS Text FROM BikeVersions WHERE IsDeleted = 0 AND "
+            //    + " BikeModelId =" + modelId + " AND New = 1 ORDER BY Text ";
 
-            return ds;
+            //try
+            //{
+            //    ds = db.SelectAdaptQry(sql);
+            //}
+            //catch (Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, "AjaxFunctions.GetVersions");
+            //    objErr.SendMail();
+            //}
+
+            //return ds;
         }
 
         //this function returns a string containing the help contents 

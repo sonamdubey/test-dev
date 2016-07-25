@@ -10,7 +10,6 @@
     AdPath = "/1017752/BikeWale_New_";
     ShowTargeting = "1";
     TargetedModel = objModelEntity.ModelName;
-    //Trace.Warn(System.Reflection.Assembly.GetEntryAssembly().Location.ToString());
 %>
 <!-- #include file="/includes/headNew.aspx" -->
 <script runat="server">	
@@ -48,11 +47,6 @@
             <li class="fwd-arrow">&rsaquo;</li>
             <li><a href="/<%= objModelEntity.MakeBase.MaskingName%>-bikes/"><%=objModelEntity.MakeBase.MakeName %> Bikes</a></li>
             <li class="fwd-arrow">&rsaquo;</li>
-            <%if (modelCount > 1)
-              { %>
-            <li><a href="/<%= objModelEntity.MakeBase.MaskingName%>-bikes/<%=objSeriesEntity.MaskingName %>-series/"><%=objSeriesEntity.SeriesName%></a></li>
-            <li class="fwd-arrow">&rsaquo;</li>
-            <%} %>
             <li><a href="/<%= objModelEntity.MakeBase.MaskingName%>-bikes/<%= objModelEntity.MaskingName%>/"><%=objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %></a></li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li class="current"><strong>Photos</strong></li>
@@ -61,19 +55,6 @@
     </div>
     <div class="grid_12">
         <PG:PhotoGallary ID="photoGallary" runat="server"></PG:PhotoGallary>
-    </div>
-    <div class="grid_8">
-        <div class="top-spacing">&nbsp;</div>
-        <div id="divOtherModels" runat="server">
-            <h2>More <%=objModelEntity.MakeBase.MakeName %> Photos</h2>
-            <div class="rpt-img-container">
-                <div id="omLoading" class="loading"></div>
-                <div id="divOtherModelsGallery" class="grid_8">
-                </div>
-                <div class="clear"></div>
-            </div>
-        </div>
-        <div class="top-spacing">&nbsp;</div>
     </div>
     <div class="grid_4">
         <div class="top-spacing">&nbsp;</div>

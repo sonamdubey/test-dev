@@ -1,7 +1,13 @@
 ﻿using Bikewale.BAL.EditCMS;
+using Bikewale.Cache.CMS;
+using Bikewale.Cache.Core;
+using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -36,23 +42,33 @@ namespace Bikewale.BindViewModels.Controls
             try
             {
                 IEnumerable<ArticleSummary> _objArticleList = null;
+                List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
+                categorList.Add(EnumCMSContentType.RoadTest);
+                categorList.Add(EnumCMSContentType.ComparisonTests);
+                string _contentType = CommonApiOpn.GetContentTypesString(categorList);
 
+                
 
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IArticles, Articles>();
-                    IArticles _articles = container.Resolve<IArticles>();
-                    _objArticleList = _articles.GetRecentExpertReviews(Convert.ToInt32(MakeId), Convert.ToInt32(ModelId), Convert.ToInt32(TotalRecords));
+                    container.RegisterType<IArticles, Articles>()
+                           .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                           .RegisterType<ICacheManager, MemcacheManager>();
+                    ICMSCacheContent _objArticles = container.Resolve<ICMSCacheContent>();
+
+                    _objArticleList = _objArticles.GetMostRecentArticlesByIdList(_contentType, Convert.ToUInt32(TotalRecords), Convert.ToUInt32(MakeId), Convert.ToUInt32(ModelId));
+
+                    if (_objArticleList != null && _objArticleList.Count() > 0)
+                    {
+                        FetchedRecordsCount = _objArticleList.Count();
+
+                        rptr.DataSource = _objArticleList;
+                        rptr.DataBind();
+                    }
                 }
 
 
-                if (_objArticleList != null && _objArticleList.Count() > 0)
-                {
-                    FetchedRecordsCount = _objArticleList.Count();
-
-                    rptr.DataSource = _objArticleList;
-                    rptr.DataBind();
-                }
+                
             }
             catch (Exception ex)
             {

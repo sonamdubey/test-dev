@@ -171,7 +171,7 @@
             var html = $("#updHtml").html();
             var title = "<h3>" + $(".make_" + availabilityId).text() + " " + $(".model_" + availabilityId).text() + " " + $(".version_" + availabilityId).text() + "</h3>";
             html = title + html;
-            var hostUrl = '<%=cwHostUrl%>';
+            var BwOprHostUrl = '<%= ConfigurationManager.AppSettings["BwOprHostUrlForJs"] %>';
             var avbId = availabilityId;
             var url = "";
             var applyIframe = true;
@@ -193,7 +193,7 @@
                 if (days >= 0 && days != "") {
                     $.ajax({
                         type: "GET",
-                        url: hostUrl + "/api/Dealers/EditAvailabilityDays/?availabilityId=" + avbId + "&days=" + days,
+                        url: BwOprHostUrl + "/api/Dealers/EditAvailabilityDays/?availabilityId=" + avbId + "&days=" + days,
                         success: function (response) {
                             $("#gb-content").html("Bike availability updated Successfully, Please Close this Box");
                         }

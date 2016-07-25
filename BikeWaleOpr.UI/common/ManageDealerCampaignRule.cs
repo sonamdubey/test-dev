@@ -1,10 +1,8 @@
 ﻿using BikeWaleOpr.Common;
+using MySql.CoreDAL;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
+using System.Data.Common;
 
 namespace BikewaleOpr.Common
 {
@@ -25,21 +23,22 @@ namespace BikewaleOpr.Common
         public DataTable FetchBWDealerCampaignRules(int campaignId, int dealerId)
         {
             DataTable dtDealerCampaign = null;
-            Database db = null;
+
             try
             {
                 if (campaignId > 0 && dealerId > 0)
                 {
-                    using (SqlCommand cmd = new SqlCommand("BW_FetchBWDealerCampaignRules"))
+                    using (DbCommand cmd = DbFactory.GetDBCommand("bw_fetchbwdealercampaignrules"))
                     {
-                        db = new Database();
+
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@CampaignId", campaignId);
-                        cmd.Parameters.AddWithValue("@DealerID", dealerId);
-                        DataSet ds = db.SelectAdaptQry(cmd);
-                        if (ds != null && ds.Tables.Count > 0)
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, campaignId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+
+                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                         {
-                            dtDealerCampaign = ds.Tables[0];
+                            if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                                dtDealerCampaign = ds.Tables[0];
                         }
                     }
                 }
@@ -49,12 +48,7 @@ namespace BikewaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.FetchBWDealerCampaignRules");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null;
-            }
+
             return dtDealerCampaign;
         }
 
@@ -72,36 +66,30 @@ namespace BikewaleOpr.Common
         /// <param name="stateId"></param>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public bool InsertBWDealerCampaignRules(int userId, int campaignId, int cityId, int dealerId, int makeId, int stateId, string modelId)
+        public bool InsertBWDealerCampaignRules(int userId, int campaignId, int cityId, int dealerId, int makeId, int stateId, string modelIds)
         {
             bool isSuccess = false;
-            Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand("BW_InsertCampaignRule"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_insertcampaignrule"))
                 {
-                    db = new Database();
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@CampaignId", campaignId);
-                    cmd.Parameters.AddWithValue("@DealerId", dealerId);
-                    cmd.Parameters.AddWithValue("@CityId", cityId);                    
-                    cmd.Parameters.AddWithValue("@StateId", stateId);
-                    cmd.Parameters.AddWithValue("@MakeId", makeId);
-                    cmd.Parameters.AddWithValue("@UserID", userId);
-                    cmd.Parameters.AddWithValue("@ModelId", modelId);
-                    isSuccess = db.InsertQry(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, campaignId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, stateId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, userId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.String, modelIds));
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+
+                    isSuccess = true;
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.InsertBWDealerCampaignRules");
                 objErr.SendMail();
-            }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null;
             }
             return isSuccess;
         }
@@ -124,22 +112,22 @@ namespace BikewaleOpr.Common
         public bool UpdateBWDealerCampaignRule(bool isActive, int userId, int ruleId, int campaignId, int cityId, int dealerId, int makeId, int stateId, int modelId)
         {
             bool isSuccess = false;
-            Database db = null;
+
             try
             {
-                using (SqlCommand cmd = new SqlCommand("BW_UpdateCampaignRule"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_updatecampaignrule"))
                 {
-                    db = new Database();
-                    cmd.CommandType = CommandType.StoredProcedure;                    
-                    cmd.Parameters.AddWithValue("@RuleId",ruleId);	
-                    cmd.Parameters.AddWithValue("@DealerId",dealerId);	
-                    cmd.Parameters.AddWithValue("@CityId",cityId);	
-                    cmd.Parameters.AddWithValue("@ModelId",modelId);	
-                    cmd.Parameters.AddWithValue("@StateId",stateId);	
-                    cmd.Parameters.AddWithValue("@MakeId",makeId);		
-                    cmd.Parameters.AddWithValue("@UserId",userId);
-                    cmd.Parameters.AddWithValue("@IsActive", isActive);	
-                    isSuccess = db.UpdateQry(cmd);
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ruleid", DbType.Int32, ruleId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, stateId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, userId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Boolean, isActive));
+                    isSuccess = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -147,12 +135,7 @@ namespace BikewaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.UpdateBWDealerCampaignRule");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null;
-            }
+
             return isSuccess;
         }
 
@@ -167,16 +150,16 @@ namespace BikewaleOpr.Common
         public bool DeleteDealerCampaignRules(int userId, string ruleIds)
         {
             bool isDeleted = false;
-            Database db = null;
+
             try
             {
-                using (SqlCommand cmd = new SqlCommand("BW_DeleteCampaignRules"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_deletecampaignrules"))
                 {
-                    db = new Database();
+
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@RuleIds", ruleIds);
-                    cmd.Parameters.AddWithValue("@userId", userId);
-                    isDeleted = db.UpdateQry(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ruleids", DbType.String, 100, ruleIds));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, userId));
+                    isDeleted = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -184,12 +167,7 @@ namespace BikewaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.DeleteDealerCampaignRules");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null;
-            }
+
             return isDeleted;
         }
     }

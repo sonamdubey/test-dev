@@ -1,14 +1,12 @@
-﻿using System;
+﻿using BikewaleOpr.DAL;
+using BikewaleOpr.Entities;
+using BikewaleOpr.Interface;
+using BikeWaleOpr.Common;
+using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using BikeWaleOpr.Common;
-using System.Configuration;
-using BikeWaleOpr.Entities;
-using System.Threading.Tasks;
 
 namespace BikeWaleOpr.BikeBooking
 {
@@ -16,7 +14,6 @@ namespace BikeWaleOpr.BikeBooking
     {
         protected DropDownList ddlMake, ddlModel, ddlVersions;
         protected TextBox txtdayslimit;
-        protected string cwHostUrl = string.Empty;
         protected Button btnsaveData;
         protected HiddenField hdn_ddlMake, hdn_ddlModel, hdn_ddlVersions;
         protected Repeater rptavilableData;
@@ -82,35 +79,28 @@ namespace BikeWaleOpr.BikeBooking
         /// Created By  : Suresh Prajapati on 11th Nov, 2014.
         /// Description : Method To Get Added Bikes Availability By Specific Dealer.
         /// </summary>
-        private async void GetBikeAvailability()
+        private void GetBikeAvailability()
         {
             try
             {
-                cwHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string _requestType = "application/json";
-
-                // get pager instance
-
-                string _apiUrl = "/api/Dealers/GetBikeAvailability/?dealerId=" + Request.QueryString["dealerId"];
-                // Send HTTP GET requests
-
-                Trace.Warn("GetBikeAvailability : API url :" + _apiUrl);
-
+                uint dealerId = Convert.ToUInt32(Request.QueryString["dealerId"]);
                 List<OfferEntity> objAvailibility = null;
-                objAvailibility = await BWHttpClient.GetApiResponse<List<OfferEntity>>(cwHostUrl, _requestType, _apiUrl, objAvailibility);
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IDealers, DealersRepository>();
+                    IDealers objCity = container.Resolve<DealersRepository>();
 
-                Trace.Warn("objAvailibility list : ", objAvailibility.Count.ToString());
+                    objAvailibility = objCity.GetBikeAvailability(dealerId);
+                }
 
                 if (objAvailibility != null)
                 {
                     rptavilableData.DataSource = objAvailibility;
                     rptavilableData.DataBind();
                 }
-
             }
             catch (Exception err)
             {
-                Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
@@ -124,16 +114,14 @@ namespace BikeWaleOpr.BikeBooking
         {
             try
             {
-                cwHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string _requestType = "application/json";
-
-                string _apiUrl = "/api/Dealers/SaveBikeAvailability/?dealerId=" + Request.QueryString["dealerId"] + "&bikemodelId=" + hdn_ddlModel.Value + "&bikeversionId=" + hdn_ddlVersions.Value + "&numOfDays=" + txtdayslimit.Text;
-         
-                Trace.Warn("url : " + cwHostUrl + _apiUrl);
-                // Send HTTP GET requests
+                uint dealerId = Convert.ToUInt32(Request.QueryString["dealerId"]);
                 bool isSuccess = false;
-                bool isDone = BWHttpClient.PostSync<bool>(cwHostUrl, _requestType, _apiUrl, isSuccess);
-
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IDealers, DealersRepository>();
+                    IDealers objCity = container.Resolve<DealersRepository>();
+                    isSuccess = objCity.SaveBikeAvailability(dealerId, Convert.ToUInt32(hdn_ddlModel.Value), Convert.ToUInt32(hdn_ddlVersions.Value), Convert.ToUInt16(txtdayslimit.Text));
+                }
                 GetBikeAvailability();
             }
             catch (Exception err)

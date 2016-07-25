@@ -5,9 +5,11 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Memcache;
 using Microsoft.Practices.Unity;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -121,28 +123,20 @@ namespace Bikewale.New
 
         private void BindControl()
         {
-            string sql = "";
-            Database db = new Database();
-
-            sql = " SELECT  C.Id AS CityId,c.MaskingName AS CityMaskingName, "
-                + " C.Name AS City, COUNT(DNC.Id) AS TotalBranches, "
-                + " S.Name AS [State], S.ID AS StateId, "
-                + " ROW_NUMBER() Over(Partition By StateId Order by StateId) AS StateRank "
-                + " FROM Dealer_NewBike AS DNC, BWCities AS C, States AS S With(NoLock) "
-                + " WHERE DNC.CityId = C.Id AND C.StateId = S.ID AND DNC.IsActive = 1 "
-                + " AND C.IsDeleted = 0 AND DNC.MakeId = @MakeId "
-                + " GROUP By C.Id, C.Name, S.Name, S.ID, StateId,C.MaskingName "
-                + " Order By [State], CityId  ";
-
-            SqlParameter[] param = { 				
-				new SqlParameter("@MakeId", makeId)
-			};
-
-            Trace.Warn(sql);
-
             try
             {
-                dsStateCity = db.SelectAdaptQry(sql, param);
+                using (DbCommand cmd = DbFactory.GetDBCommand("getstatewisecitydealers"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                            dsStateCity = ds;
+                    }
+                }
+
                 StateCount = int.Parse(dsStateCity.Tables[0].Rows.Count.ToString());
                 Trace.Warn("----------" + makeId);
             }

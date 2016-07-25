@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Interfaces.NewBikeSearch;
-using Bikewale.Entities.NewBikeSearch;
-using Microsoft.Practices.Unity;
 using Bikewale.Notifications;
-using System.Configuration;
 using Bikewale.Utility;
+using Microsoft.Practices.Unity;
+using System;
 
 namespace Bikewale.DAL.NewBikeSearch
 {
@@ -21,8 +16,8 @@ namespace Bikewale.DAL.NewBikeSearch
         FilterInput filterInputs;
         IUnityContainer container;
         IProcessFilter processFilter;
-        string _whereClause = " MA.IsDeleted = 0 AND MA.New = 1 AND MO.IsDeleted = 0 AND MO.New = 1 "
-                            + " AND MO.Futuristic = 0 AND BV.New = 1 AND BV.IsDeleted = 0";
+        string _whereClause = " bv.isnewmake = 1 and mo.isdeleted = 0 and mo.new = 1 "
+                            + " and mo.futuristic = 0 and bv.new = 1 and bv.isdeleted = 0";
 
 
         /// <summary>
@@ -35,30 +30,30 @@ namespace Bikewale.DAL.NewBikeSearch
             string selectClause = string.Empty;
             try
             {
-                selectClause = @" MA.NAME + ' ' + MO.NAME AS BikeName
-		                        ,MA.ID AS MakeId
-		                        ,Ma.NAME MakeName
-		                        ,MA.MaskingName AS MakeMaskingName
-		                        ,MO.ID AS ModelId
-		                        ,Mo.NAME ModelName
-		                        ,MO.MaskingName AS ModelMappingName
-		                        ,MO.HostURL
-		                        ,MO.OriginalImagePath AS ImagePath
-		                        ,ISNULL(SD.Displacement,0) Displacement
-		                        ,SD.FuelType
-		                        ,ISNULL(SD.MaxPower,0) AS Power
-		                        ,ISNULL(SD.FuelEfficiencyOverall,0) FuelEfficiencyOverall
-		                        ,ISNULL(SD.KerbWeight,0) AS [Weight]
-		                        ,ISNULL(MO.MinPrice, 0) AS MinPrice
-		                        ,ISNULL(MO.MaxPrice, 0) AS MaxPrice
-		                        ,ISNULL(MO.ReviewRate, 0) MoReviewRate
-		                        ,ISNULL(MO.ReviewCount, 0) MoReviewCount
-		                        ,ISNULL(BV.ReviewRate, 0) VsReviewRate
-		                        ,ISNULL(BV.ReviewCount, 0) VsReviewCount
-                                ,ISNULL(SD.MaximumTorque,0) MaximumTorque
-                                ,ISNULL(MPB.ModelwisePQCount, 0) ModelwisePQCount ";
+                selectClause = @" concat(bv.makename,' ',bv.modelname) as bikename
+		                        ,bv.bikemakeid as makeid
+		                        ,bv.makename makename
+		                        ,bv.makemaskingname as makemaskingname
+		                        ,bv.bikemodelid as modelid
+		                        ,bv.modelname modelname
+		                        ,bv.modelmaskingname as modelmappingname
+		                        ,bv.modelhosturl as hosturl
+		                        ,bv.modeloriginalimagepath as imagepath
+		                        ,ifnull(sd.displacement,0) displacement
+		                        ,sd.fueltype
+		                        ,ifnull(sd.maxpower,0) as power
+		                        ,ifnull(sd.fuelefficiencyoverall,0) fuelefficiencyoverall
+		                        ,ifnull(sd.kerbweight,0) as weight
+		                        ,ifnull(mo.minprice, 0) as minprice
+		                        ,ifnull(mo.maxprice, 0) as maxprice
+		                        ,ifnull(mo.reviewrate, 0) moreviewrate
+		                        ,ifnull(mo.reviewcount, 0) moreviewcount
+		                        ,ifnull(bv.reviewrate, 0) vsreviewrate
+		                        ,ifnull(bv.reviewcount, 0) vsreviewcount
+                                ,ifnull(sd.maximumtorque,0) maximumtorque
+                                ,ifnull(mpb.modelwisepqcount, 0) modelwisepqcount ";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.NewBikeSearch.SearchQuery.GetSelectClause");
                 objError.SendMail();
@@ -71,13 +66,12 @@ namespace Bikewale.DAL.NewBikeSearch
             string fromClause = string.Empty;
             try
             {
-                fromClause = " BikeVersions AS BV WITH (NOLOCK) "
-                            + " INNER JOIN BikeModels AS MO WITH (NOLOCK) ON MO.ID = BV.BikeModelId "
-                            + " INNER JOIN BikeMakes AS MA WITH (NOLOCK) ON MA.ID = MO.BikeMakeId "
-                            + " LEFT JOIN NewBikeSpecifications AS SD WITH (NOLOCK) ON SD.BikeVersionId = BV.ID "
-                            + " LEFT JOIN MostPopularBikes MPB WITH(NOLOCK) ON MPB.ModelId = MO.ID AND MPB.RowNum = 1 ";
+                fromClause = " bikeversions as bv "
+                            + " inner join bikemodels as mo on mo.id = bv.bikemodelid "
+                            + " left join newbikespecifications as sd  on sd.bikeversionid = bv.id "
+                            + " left join mostpopularbikes mpb  on mpb.modelid = mo.id and mpb.rownum = 1 ";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.NewBikeSearch.SearchQuery.GetSelectClause");
                 objError.SendMail();
@@ -102,19 +96,19 @@ namespace Bikewale.DAL.NewBikeSearch
                 switch (sortCriteria)
                 {
                     case "1":
-                        retVal = " MinPrice " + (sortOrder == "1" ? " DESC " : " ASC ");
+                        retVal = " minprice " + (sortOrder == "1" ? " desc " : " asc ");
                         break;
 
                     case "2":
-                        retVal = " FuelEfficiencyOverall " + (string.IsNullOrEmpty(sortOrder) || sortOrder == "0" ? " DESC " : " ASC ");
+                        retVal = " fuelefficiencyoverall " + (string.IsNullOrEmpty(sortOrder) || sortOrder == "0" ? " DESC " : " ASC ");
                         break;
 
                     default:
-                        retVal = " ModelwisePQCount DESC ";
+                        retVal = " modelwisepqcount desc ";
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.NewBikeSearch.SearchQuery.GetOrderByClause");
                 objError.SendMail();
@@ -127,10 +121,9 @@ namespace Bikewale.DAL.NewBikeSearch
             string recordCountQuery = string.Empty;
             try
             {
-                recordCountQuery = " Select Count(*) AS RecordCount FROM ( SELECT ROW_NUMBER() OVER (PARTITION BY MO.ID ORDER BY MO.MinPrice) AS ModelRank "
-                                    + " From " + GetFromClause() + " Where " + GetWhereClause() + " ) tbl WHERE ModelRank = 1; ";
+                recordCountQuery = " select count(*) as recordcount  from temp_bikes_searched   where modelrank = 1 ; drop temporary table if exists temp_bikes_searched;";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.NewBikeSearch.SearchQuery.GetRecordCountQry");
             }
@@ -140,7 +133,7 @@ namespace Bikewale.DAL.NewBikeSearch
         public void InitSearchCriteria(FilterInput filter)
         {
             filterInputs = filter;
-            if(!String.IsNullOrEmpty(filterInputs.MinBudget))
+            if (!String.IsNullOrEmpty(filterInputs.MinBudget))
                 BudgetClause();
 
             if (CollectionHelper.IsNotEmpty(filterInputs.Displacement))
@@ -152,7 +145,7 @@ namespace Bikewale.DAL.NewBikeSearch
             if (CollectionHelper.IsNotEmpty(filterInputs.RideStyle))
                 RideStyleClause();
 
-            if(CollectionHelper.IsNotEmpty(filterInputs.Make) || CollectionHelper.IsNotEmpty(filterInputs.Model))
+            if (CollectionHelper.IsNotEmpty(filterInputs.Make) || CollectionHelper.IsNotEmpty(filterInputs.Model))
                 MakeModelFilterClause();
 
             ABSFilterClause();
@@ -167,33 +160,33 @@ namespace Bikewale.DAL.NewBikeSearch
         private void BrakeTypeFilterClause()
         {
             if (filterInputs.DrumBrake && !filterInputs.DiscBrake)
-                _whereClause += " AND SD.FrontDisc = 0 ";
-            else if(filterInputs.DiscBrake && !filterInputs.DrumBrake)
-                _whereClause += " AND SD.FrontDisc = 1 ";
+                _whereClause += " and sd.frontdisc = 0 ";
+            else if (filterInputs.DiscBrake && !filterInputs.DrumBrake)
+                _whereClause += " and sd.frontdisc = 1 ";
         }
 
         private void StartTypeFilterClause()
         {
             if (filterInputs.Electric && !filterInputs.Manual)
-                _whereClause += " AND SD.ElectricStart = 1 ";
-            else if(!filterInputs.Electric && filterInputs.Manual)
-                _whereClause += " AND SD.ElectricStart = 0 ";
+                _whereClause += " and sd.electricstart = 1 ";
+            else if (!filterInputs.Electric && filterInputs.Manual)
+                _whereClause += " and sd.electricstart = 0 ";
         }
 
         private void WheelFilterClause()
         {
             if (filterInputs.SpokeWheel && !filterInputs.AlloyWheel)
-                _whereClause += " AND SD.AlloyWheels = 0 ";
+                _whereClause += " and sd.alloywheels = 0 ";
             else if (filterInputs.AlloyWheel && !filterInputs.SpokeWheel)
-                _whereClause += " AND SD.AlloyWheels = 1 ";
+                _whereClause += " and sd.alloywheels = 1 ";
         }
 
         private void ABSFilterClause()
         {
             if (filterInputs.ABSAvailable && !filterInputs.ABSNotAvailable)
-                _whereClause += " AND SD.AntilockBrakingSystem = 1 ";
-            else if(!filterInputs.ABSAvailable && filterInputs.ABSNotAvailable)
-                _whereClause += " AND SD.AntilockBrakingSystem = 0 ";
+                _whereClause += " and sd.antilockbrakingsystem = 1 ";
+            else if (!filterInputs.ABSAvailable && filterInputs.ABSNotAvailable)
+                _whereClause += " and sd.antilockbrakingsystem = 0 ";
         }
 
         /// <summary>
@@ -213,10 +206,10 @@ namespace Bikewale.DAL.NewBikeSearch
                     }
                     makeList = makeList.Substring(0, makeList.Length - 1);
 
-                    _whereClause += " AND MA.Id IN ( " + makeList + " ) ";
-                 }
+                    _whereClause += " and bv.bikemakeid in ( " + makeList + " ) ";
+                }
 
-                if(filterInputs.Model!=null && filterInputs.Model.Length>0)
+                if (filterInputs.Model != null && filterInputs.Model.Length > 0)
                 {
                     foreach (string str in filterInputs.Model)
                     {
@@ -225,14 +218,14 @@ namespace Bikewale.DAL.NewBikeSearch
                     modelList = modelList.Substring(0, modelList.Length - 1);
 
                     if (filterInputs.Make != null && filterInputs.Make.Length > 0)
-                        _whereClause += " OR ";
+                        _whereClause += " or ";
                     else
-                        _whereClause += " AND ";
+                        _whereClause += " and ";
 
-                    _whereClause += " MO.Id IN ( " + modelList + " ) ";
+                    _whereClause += " mo.id in ( " + modelList + " ) ";
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.NewBikeSearch.SearchQuery.MileageClause");
                 objError.SendMail();
@@ -253,7 +246,7 @@ namespace Bikewale.DAL.NewBikeSearch
 
                 rideStyleList = rideStyleList.Substring(0, rideStyleList.Length - 1);
 
-                _whereClause += " AND BV.BodyStyleId IN ( " + rideStyleList + " ) ";
+                _whereClause += " and bv.bodystyleid in ( " + rideStyleList + " ) ";
             }
             catch (Exception ex)
             {
@@ -281,12 +274,12 @@ namespace Bikewale.DAL.NewBikeSearch
                             if (tempClause == string.Empty)
                                 tempClause = mileageClause;
                             else
-                                tempClause += " OR " + mileageClause;
+                                tempClause += " or " + mileageClause;
                         }
                     }
                 }
                 if (!String.IsNullOrEmpty(tempClause))
-                    _whereClause += " AND ( " + tempClause + " ) ";
+                    _whereClause += " and ( " + tempClause + " ) ";
             }
             catch (Exception ex)
             {
@@ -314,12 +307,12 @@ namespace Bikewale.DAL.NewBikeSearch
                             if (tempClause == string.Empty)
                                 tempClause = displacementClause;
                             else
-                                tempClause += " OR " + displacementClause;
+                                tempClause += " or " + displacementClause;
                         }
                     }
                 }
                 if (!String.IsNullOrEmpty(tempClause))
-                    _whereClause += " AND ( " + tempClause + " ) ";
+                    _whereClause += " and ( " + tempClause + " ) ";
 
             }
             catch (Exception ex)
@@ -338,11 +331,11 @@ namespace Bikewale.DAL.NewBikeSearch
             try
             {
                 if (!String.IsNullOrEmpty(filterInputs.MinBudget) && !String.IsNullOrEmpty(filterInputs.MaxBudget))
-                    _whereClause += " AND Mo.MinPrice BETWEEN " + filterInputs.MinBudget + " AND " + filterInputs.MaxBudget;
+                    _whereClause += " and mo.minprice between " + filterInputs.MinBudget + " and " + filterInputs.MaxBudget;
                 else if (!String.IsNullOrEmpty(filterInputs.MinBudget) && String.IsNullOrEmpty(filterInputs.MaxBudget))
-                    _whereClause += " AND Mo.MinPrice >= " + filterInputs.MinBudget;
+                    _whereClause += " and mo.minprice >= " + filterInputs.MinBudget;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.NewBikeSearch.SearchQuery.BudgetClause");
                 objError.SendMail();
@@ -356,22 +349,22 @@ namespace Bikewale.DAL.NewBikeSearch
             switch (id)
             {
                 case "1":
-                    clause = " SD.Displacement <= 110 ";
+                    clause = " sd.displacement <= 110 ";
                     break;
                 case "2":
-                    clause = " SD.Displacement BETWEEN 110 AND 150 ";
+                    clause = " sd.displacement between 110 and 150 ";
                     break;
                 case "3":
-                    clause = " SD.Displacement BETWEEN 150 AND 200 ";
+                    clause = " sd.displacement between 150 and 200 ";
                     break;
                 case "4":
-                    clause = " SD.Displacement BETWEEN 200 AND 250 ";
+                    clause = " sd.displacement between 200 and 250 ";
                     break;
                 case "5":
-                    clause = " SD.Displacement BETWEEN 250 AND 500 ";
+                    clause = " sd.displacement between 250 and 500 ";
                     break;
                 case "6":
-                    clause = " SD.Displacement >= 500 ";
+                    clause = " sd.displacement >= 500 ";
                     break;
                 default:
                     break;
@@ -387,16 +380,16 @@ namespace Bikewale.DAL.NewBikeSearch
             switch (id)
             {
                 case "1":
-                    clause = " SD.FuelEfficiencyOverall >= 70 ";
+                    clause = " sd.fuelefficiencyoverall >= 70 ";
                     break;
                 case "2":
-                    clause = " SD.FuelEfficiencyOverall <= 70 AND SD.FuelEfficiencyOverall >= 50 ";
+                    clause = " sd.fuelefficiencyoverall <= 70 and sd.fuelefficiencyoverall >= 50 ";
                     break;
                 case "3":
-                    clause = " SD.FuelEfficiencyOverall <= 50 AND SD.FuelEfficiencyOverall >= 30 ";
+                    clause = " sd.fuelefficiencyoverall <= 50 and sd.fuelefficiencyoverall >= 30 ";
                     break;
                 case "4":
-                    clause = " SD.FuelEfficiencyOverall <= 30 ";
+                    clause = " sd.fuelefficiencyoverall <= 30 ";
                     break;
                 default:
                     break;
@@ -409,14 +402,37 @@ namespace Bikewale.DAL.NewBikeSearch
             string searchResultQuery = string.Empty;
             try
             {
-                searchResultQuery = " WITH CTE_BikeModels AS ( SELECT DENSE_RANK() OVER (ORDER BY " + GetDenseRankClause() + " , MO.MinPrice ASC, MO.Name ASC) AS DenseRank "
-                                    + " ,ROW_NUMBER() OVER (PARTITION BY MO.ID ORDER BY MO.MinPrice) AS ModelRank, "
-                                    + GetSelectClause()
-                                    + " FROM " + GetFromClause() + " Where " + GetWhereClause() + " ) SELECT * FROM CTE_BikeModels "
-                                    + " WHERE DenseRank BETWEEN " + filterInputs.StartIndex + " AND " + filterInputs.EndIndex
-                                    + " AND ModelRank = 1 ORDER BY " + GetOrderByClause() + " ; ";
+                //searchResultQuery = @" WITH CTE_BikeModels AS ( SELECT DENSE_RANK() OVER (ORDER BY " + GetDenseRankClause() + " , MO.MinPrice ASC, MO.Name ASC) AS DenseRank "
+                //                    + " ,ROW_NUMBER() OVER (PARTITION BY MO.ID ORDER BY MO.MinPrice) AS ModelRank, "
+                //                    + GetSelectClause()
+                //                    + " FROM " + GetFromClause() + " Where " + GetWhereClause() + " ) SELECT * FROM CTE_BikeModels "
+                //                    + " WHERE DenseRank BETWEEN " + filterInputs.StartIndex + " AND " + filterInputs.EndIndex
+                //                    + " AND ModelRank = 1 ORDER BY " + GetOrderByClause() + " ; ";
+
+                searchResultQuery = string.Format(@"set @row_number:=0;set @curr_id:=0;
+                                                    drop temporary table if exists temp_bikes_searched;
+                                                    create temporary table temp_bikes_searched
+                                                    select *, @row_number:= if(@curr_Id = modelid,@row_number+1,1) as modelrank,@curr_Id := modelid from
+                                                    (   select {0}
+                                                        from {1}
+                                                        where {2}  
+                                                        order by bv.bikemodelid
+                                                    ) as t order by minprice ;
+
+                                                    set @row_number:=0;
+
+                                                    select * from 
+                                                    (
+                                                        select *,@row_number:= @row_number+1 as denserank
+                                                        from temp_bikes_searched
+	                                                    where modelrank = 1
+                                                        order by  {3},  minprice asc,  modelname asc
+                                                    ) as t
+                                                    where denserank between {4} and {5};
+                                                 ", GetSelectClause(), GetFromClause(), GetWhereClause(), GetOrderByClause(), filterInputs.StartIndex, filterInputs.EndIndex);
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.NewBikeSearch.SearchQuery.GetSearchResultQuery");
                 objError.SendMail();
@@ -436,15 +452,15 @@ namespace Bikewale.DAL.NewBikeSearch
                 switch (sortCriteria)
                 {
                     case "1":
-                        retVal = " MO.MinPrice " + (sortOrder == "1" ? " DESC " : " ASC ");
+                        retVal = " mo.minprice " + (sortOrder == "1" ? " desc " : " asc ");
                         break;
 
                     case "2":
-                        retVal = " SD.FuelEfficiencyOverall " + (string.IsNullOrEmpty(sortOrder) || sortOrder == "0" ? " DESC " : " ASC ");
+                        retVal = " sd.fuelefficiencyoverall " + (string.IsNullOrEmpty(sortOrder) || sortOrder == "0" ? " DESC " : " ASC ");
                         break;
 
                     default:
-                        retVal = " MPB.ModelwisePQCount DESC ";
+                        retVal = " mpb.modelwisepqcount desc ";
                         break;
                 }
             }

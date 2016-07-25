@@ -7,9 +7,9 @@ using Bikewale.Interfaces.PriceQuote;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Linq;
 
 namespace Bikewale.Controls
 {
@@ -20,6 +20,7 @@ namespace Bikewale.Controls
     public class PriceInTopCities : UserControl
     {
         protected Repeater rptTopCityPrices;
+        protected string bikeName = string.Empty;
 
         public uint ModelId { get; set; }
         public uint TopCount { get; set; }
@@ -85,6 +86,8 @@ namespace Bikewale.Controls
                         rptTopCityPrices.DataSource = prices;
                         rptTopCityPrices.DataBind();
 
+                        bikeName = string.Format("{0} {1}", prices.First().Make, prices.First().Model);
+
                         showWidget = true;
                     }
                 }
@@ -94,6 +97,7 @@ namespace Bikewale.Controls
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-        }        
+        }
+
     }
 }

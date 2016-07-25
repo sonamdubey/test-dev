@@ -9,6 +9,9 @@ using System.Web.UI.HtmlControls;
 using BikeWaleOpr.Common;
 using System.Configuration;
 using BikeWaleOpr.Controls;
+using System.Data.Common;
+using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -24,7 +27,7 @@ namespace BikeWaleOpr.Content
         protected RichTextEditor rteDetail;
         protected Button btnUpdateReview;
         protected Repeater rptReviews;
-        
+
         // Variable for html Control
         protected HtmlGenericControl errMsg, divShowReview;
 
@@ -42,8 +45,8 @@ namespace BikeWaleOpr.Content
             reviewId = Request.QueryString["id"];
             errMsg.InnerHtml = "";
             errMsg.Visible = false;
-            if(!IsPostBack)
-                    detailreview();
+            if (!IsPostBack)
+                detailreview();
         }   // End of page load
 
 
@@ -57,66 +60,66 @@ namespace BikeWaleOpr.Content
         {
             if (!String.IsNullOrEmpty(reviewId))
             {
-                Database db = null;
-                DataSet ds = null;
 
-                string sql = " SELECT StyleR, ComfortR, PerformanceR, ValueR, FuelEconomyR, Pros, Cons, Comments, Title, "
-                           + " IsNewlyPurchased, Familiarity, Mileage,IsVerified,IsDiscarded FROM CustomerReviews WHERE ID = " + reviewId;
+                string sql = @" SELECT StyleR, ComfortR, PerformanceR, ValueR, FuelEconomyR, Pros, Cons, Comments, Title, 
+                            IsNewlyPurchased, Familiarity, Mileage,IsVerified,IsDiscarded from customerreviews where id = " + reviewId;
                 try
                 {
-                    db = new Database();
 
-                    using (SqlCommand cmd = new SqlCommand())
+                    using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
                         cmd.CommandType = CommandType.Text;
                         cmd.CommandText = sql;
 
-                        ds = db.SelectAdaptQry(cmd);
-
-                        if (ds != null && ds.Tables[0].Rows.Count > 0)
+                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                         {
-                            txtExterior.Text = ds.Tables[0].Rows[0]["StyleR"].ToString();
-                            exterior.Text = "/5";
+                            if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                            {
 
-                            txtComfort.Text = ds.Tables[0].Rows[0]["ComfortR"].ToString();
-                            Comfort.Text = "/5";
+                                txtExterior.Text = ds.Tables[0].Rows[0]["StyleR"].ToString();
+                                exterior.Text = "/5";
 
-                            txtPerformance.Text = ds.Tables[0].Rows[0]["PerformanceR"].ToString();
-                            Performance.Text = "/5";
+                                txtComfort.Text = ds.Tables[0].Rows[0]["ComfortR"].ToString();
+                                Comfort.Text = "/5";
 
-                            txtValue.Text = ds.Tables[0].Rows[0]["ValueR"].ToString();
-                            Value.Text = "/5";
+                                txtPerformance.Text = ds.Tables[0].Rows[0]["PerformanceR"].ToString();
+                                Performance.Text = "/5";
 
-                            txtFuel.Text = ds.Tables[0].Rows[0]["FuelEconomyR"].ToString();
-                            Fuel.Text = "/5";
+                                txtValue.Text = ds.Tables[0].Rows[0]["ValueR"].ToString();
+                                Value.Text = "/5";
 
-                            txtPros.Text = ds.Tables[0].Rows[0]["Pros"].ToString();
+                                txtFuel.Text = ds.Tables[0].Rows[0]["FuelEconomyR"].ToString();
+                                Fuel.Text = "/5";
 
-                            txtCons.Text = ds.Tables[0].Rows[0]["Cons"].ToString();
+                                txtPros.Text = ds.Tables[0].Rows[0]["Pros"].ToString();
 
-                            rteDetail.Text = ds.Tables[0].Rows[0]["Comments"].ToString();
+                                txtCons.Text = ds.Tables[0].Rows[0]["Cons"].ToString();
 
-                            txtTitle.Text = ds.Tables[0].Rows[0]["Title"].ToString();
+                                rteDetail.Text = ds.Tables[0].Rows[0]["Comments"].ToString();
 
-                            Purchased.Text = ds.Tables[0].Rows[0]["IsNewlyPurchased"].ToString() == "True" ? "Yes" : "No";
+                                txtTitle.Text = ds.Tables[0].Rows[0]["Title"].ToString();
 
-                            txtFamiliarity.Text = ds.Tables[0].Rows[0]["Familiarity"].ToString();
-                            Familiarity.Text = "/5";
+                                Purchased.Text = ds.Tables[0].Rows[0]["IsNewlyPurchased"].ToString() == "True" ? "Yes" : "No";
 
-                            txtMileage.Text = ds.Tables[0].Rows[0]["Mileage"].ToString();
+                                txtFamiliarity.Text = ds.Tables[0].Rows[0]["Familiarity"].ToString();
+                                Familiarity.Text = "/5";
 
-                            isDiscarded = Convert.ToBoolean( ds.Tables[0].Rows[0]["IsDiscarded"]);
-                            isVerified = Convert.ToBoolean(ds.Tables[0].Rows[0]["IsVerified"]);
-                            divShowReview.Visible = true;
+                                txtMileage.Text = ds.Tables[0].Rows[0]["Mileage"].ToString();
 
+                                isDiscarded = Convert.ToBoolean(ds.Tables[0].Rows[0]["IsDiscarded"]);
+                                isVerified = Convert.ToBoolean(ds.Tables[0].Rows[0]["IsVerified"]);
+                                divShowReview.Visible = true;
+
+                            }
+                            else
+                            {
+                                divShowReview.Visible = false;
+                                errMsg.InnerHtml = "<h3>Oops !! The review does not exists.</h3>";
+                                errMsg.Visible = true;
+                            }
                         }
-                        else
-                        {
-                            divShowReview.Visible = false;
-                            errMsg.InnerHtml = "<h3>Oops !! The review does not exists.</h3>";
-                            errMsg.Visible = true;
-                        }
-                    }                    
+
+                    }
                 }
                 catch (SqlException ex)
                 {
@@ -142,43 +145,43 @@ namespace BikeWaleOpr.Content
         /// <param name="e"></param>
         protected void UpdateReview(object sender, EventArgs e)
         {
-            Database db = null;
             float overallRating;
 
             overallRating = (Convert.ToInt32(txtExterior.Text) + Convert.ToInt32(txtComfort.Text) + Convert.ToInt32(txtPerformance.Text) + Convert.ToInt32(txtFuel.Text) + Convert.ToInt32(txtValue.Text)) / 5;
 
-            try 
-	        {
-                db = new Database();
+            try
+            {
 
-		        using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "UpdateCustomerReviews";
+                    cmd.CommandText = "updatecustomerreviews";
 
-                    cmd.Parameters.Add("@StyleR", SqlDbType.SmallInt).Value = txtExterior.Text;
-                    cmd.Parameters.Add("@ComfortR", SqlDbType.SmallInt).Value = txtComfort.Text;
-                    cmd.Parameters.Add("@PerformanceR", SqlDbType.SmallInt).Value = txtPerformance.Text;
-                    cmd.Parameters.Add("@FuelEconomyR", SqlDbType.SmallInt).Value = txtFuel.Text;
-                    cmd.Parameters.Add("@ValueR", SqlDbType.SmallInt).Value = txtValue.Text;                
-                    cmd.Parameters.Add("@OverallR", SqlDbType.SmallInt).Value = overallRating;
-                    cmd.Parameters.Add("@Pros", SqlDbType.VarChar, 100).Value = txtPros.Text;
-                    cmd.Parameters.Add("@Cons", SqlDbType.VarChar, 100).Value = txtCons.Text;
-                    cmd.Parameters.Add("@Comments", SqlDbType.VarChar, 8000).Value = SanitizeHTML.ToSafeHtml(rteDetail.Text);
-                    cmd.Parameters.Add("@Title", SqlDbType.VarChar, 100).Value = txtTitle.Text;
-                    cmd.Parameters.Add("@ID", SqlDbType.BigInt).Value = reviewId;
-                    cmd.Parameters["@ID"].Direction = ParameterDirection.InputOutput;
-                    cmd.Parameters.Add("@Familiarity", SqlDbType.SmallInt).Value = txtFamiliarity.Text;
-                    cmd.Parameters.Add("@Mileage", SqlDbType.Float).Value = txtMileage.Text;
-                    cmd.Parameters.Add("@UpdatedBy", SqlDbType.BigInt).Value = CurrentUser.Id;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_styler", DbType.Int16, txtExterior.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comfortr", DbType.Int16, txtComfort.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_performancer", DbType.Int16, txtPerformance.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fueleconomyr", DbType.Int16, txtFuel.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_valuer", DbType.Int16, txtValue.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overallr", DbType.Int16, overallRating));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pros", DbType.String, 100, txtPros.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cons", DbType.String, 100, txtCons.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 8000, SanitizeHTML.ToSafeHtml(rteDetail.Text)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_title", DbType.String, 100, txtTitle.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int64, reviewId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_familiarity", DbType.Int16, txtFamiliarity.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mileage", DbType.Double, txtMileage.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int64, CurrentUser.Id));
 
-                    db.UpdateQry(cmd);
+                    if (MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        errMsg.InnerHtml = "<h3>Record Updated Successfully.</h3>";
+                        errMsg.Visible = true;
+                    }
 
-                    errMsg.InnerHtml = "<h3>Record Updated Successfully.</h3>";
-                    errMsg.Visible = true;
+                    
                 }
-	        }
-	        catch (SqlException ex)
+            }
+            catch (SqlException ex)
             {
                 Trace.Warn("UserReviews.UpdateReview Sql Ex : ", ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, "UserReviews.UpdateReview");

@@ -61,7 +61,6 @@
     <Compile Include="CustomSMS.cs" />
     <Compile Include="CustomSMSDAL.cs" />
     <Compile Include="CustomSMSEntity.cs" />
-    <Compile Include="LogLiveSps.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
