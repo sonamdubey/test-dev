@@ -32,6 +32,8 @@ namespace Bikewale.Service.Controllers.Customer
 
         /// <summary>
         ///  Function will authenticate the customer.
+        ///  Modified By : Sushil Kumar on 25th July 2016
+        ///  Description : Added check for null and empty email id and password
         /// </summary>
         /// <param name="objLogin"></param>
         /// <returns>Returns authenticated users basic details.</returns>
@@ -42,30 +44,37 @@ namespace Bikewale.Service.Controllers.Customer
             try
             {
 
-                if (objLogin.CreateAuthTicket.HasValue)
+                if (objLogin != null && !String.IsNullOrEmpty(objLogin.Email) && !String.IsNullOrEmpty(objLogin.Password))
                 {
-                    objCust = _authenticate.AuthenticateUser(objLogin.Email, objLogin.Password, objLogin.CreateAuthTicket.Value);
+                    if (objLogin.CreateAuthTicket.HasValue)
+                    {
+                        objCust = _authenticate.AuthenticateUser(objLogin.Email, objLogin.Password, objLogin.CreateAuthTicket.Value);
+                    }
+                    else
+                    {
+                        objCust = _authenticate.AuthenticateUser(objLogin.Email, objLogin.Password);
+                    }
+
+                    AuthenticatedCustomer objCustomer = new AuthenticatedCustomer();
+
+                    if (objCust != null && objCust.IsExist == true)
+                    {
+                        Mapper.CreateMap<CustomerEntity, AuthenticatedCustomer>();
+                        objCustomer = Mapper.Map<CustomerEntity, AuthenticatedCustomer>(objCust);
+
+                        objCustomer.IsAuthorized = true;
+
+                        return Ok(objCustomer);
+                    }
+                    else
+                    {
+                        objCustomer.IsAuthorized = false;
+                        return Ok(objCustomer);
+                    }
                 }
                 else
                 {
-                    objCust = _authenticate.AuthenticateUser(objLogin.Email, objLogin.Password);
-                }
-
-                AuthenticatedCustomer objCustomer = new AuthenticatedCustomer();
-
-                if (objCust != null && objCust.IsExist == true)
-                {
-                    Mapper.CreateMap<CustomerEntity, AuthenticatedCustomer>();
-                    objCustomer = Mapper.Map<CustomerEntity, AuthenticatedCustomer>(objCust);
-
-                    objCustomer.IsAuthorized = true;
-
-                    return Ok(objCustomer);
-                }
-                else
-                {
-                    objCustomer.IsAuthorized = false;
-                    return Ok(objCustomer);
+                    return BadRequest();
                 }
             }
             catch (Exception ex)

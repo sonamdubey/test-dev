@@ -47,7 +47,7 @@ function isValidLoginDetails()
     var objEmail = $("#" + ctrlTxtLoginEmailId);
     var objPass = $("#" + ctrlTxtLoginPasswordId);
     
-    if (objEmail.val().trim() != "") {
+    if (objEmail.val().trim() != "" && reEmail.test(objEmail.val())) {
         toggleErrorMsg(objEmail, false);
     }
     else {
