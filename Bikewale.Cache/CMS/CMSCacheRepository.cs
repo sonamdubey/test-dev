@@ -37,7 +37,7 @@ namespace Bikewale.Cache.CMS
             try
             {
                 _objArticleDetails = _cache.GetFromCache<ArticleDetails>(key, new TimeSpan(1, 0, 0), () => _objArticles.GetNewsDetails(basicId), out isDataFromCache);
-                if (isDataFromCache)
+                if (isDataFromCache && _objArticleDetails != null)
                 {
                     //Update the view count
                     _objArticles.UpdateViewCount(basicId);
@@ -173,7 +173,7 @@ namespace Bikewale.Cache.CMS
             try
             {
                 _objArticleDetails = _cache.GetFromCache<ArticlePageDetails>(key, new TimeSpan(1, 0, 0), () => _objArticles.GetArticleDetails(basicId), out isDataFromCache);
-                if (isDataFromCache)
+                if (isDataFromCache && _objArticleDetails != null)
                 {
                     //Update the view count
                     _objArticles.UpdateViewCount(basicId);
