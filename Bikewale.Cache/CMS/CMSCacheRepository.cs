@@ -40,17 +40,17 @@ namespace Bikewale.Cache.CMS
             try
             {
                 _objArticleDetails = _cache.GetFromCache<ArticleDetails>(key, new TimeSpan(1, 0, 0), () => _objArticles.GetNewsDetails(basicId), out isDataFromCache);
-                if (isDataFromCache)
-                {
-                    //Update the view count
-                    //_objArticles.UpdateViewCount(basicId);
-                    if (basicId > 0)
-                    {
-                        NameValueCollection nvc = new NameValueCollection();
-                        nvc.Add("ContentId", basicId.ToString());
-                        SyncBWData.PushToQueue("cw.UpdateContentViewCount", DataBaseName.CW, nvc);
-                    }
-                }
+                //if (isDataFromCache)
+                //{
+                //    //Update the view count
+                //    //_objArticles.UpdateViewCount(basicId);
+                //    if (basicId > 0)
+                //    {
+                //        NameValueCollection nvc = new NameValueCollection();
+                //        nvc.Add("ContentId", basicId.ToString());
+                //        SyncBWData.PushToQueue("cw.UpdateContentViewCount", DataBaseName.CW, nvc);
+                //    }
+                //}
             }
             catch (Exception ex)
             {
@@ -183,17 +183,17 @@ namespace Bikewale.Cache.CMS
             try
             {
                 _objArticleDetails = _cache.GetFromCache<ArticlePageDetails>(key, new TimeSpan(1, 0, 0), () => _objArticles.GetArticleDetails(basicId), out isDataFromCache);
-                if (isDataFromCache)
-                {
-                    //Update the view count
-                    //_objArticles.UpdateViewCount(basicId);
-                    if (basicId > 0)
-                    {
-                        NameValueCollection nvc = new NameValueCollection();
-                        nvc.Add("ContentId", basicId.ToString());
-                        SyncBWData.PushToQueue("cw.UpdateContentViewCount", DataBaseName.CW, nvc);
-                    }
-                }
+                //if (isDataFromCache)
+                //{
+                //    //Update the view count
+                //    //_objArticles.UpdateViewCount(basicId);
+                //    if (basicId > 0)
+                //    {
+                //        NameValueCollection nvc = new NameValueCollection();
+                //        nvc.Add("ContentId", basicId.ToString());
+                //        SyncBWData.PushToQueue("cw.UpdateContentViewCount", DataBaseName.CW, nvc);
+                //    }
+                //}
             }
             catch (Exception ex)
             {
