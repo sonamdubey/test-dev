@@ -4,10 +4,12 @@ using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using Grpc.CMS;
 using log4net;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Configuration;
 using System.Web;
 
@@ -557,6 +559,31 @@ namespace Bikewale.BAL.EditCMS
             }
 
             return objImages;
+        }
+        #endregion
+
+        #region Update the View Count
+        /// <summary>
+        /// Created by  :   Sumit Kate on 25 July 2016
+        /// Description :   Updates the View count
+        /// </summary>
+        /// <param name="basicId"></param>
+        public void UpdateViewCount(uint basicId)
+        {
+            try
+            {
+                if (basicId > 0)
+                {
+                    NameValueCollection nvc = new NameValueCollection();
+                    nvc.Add("ContentId", basicId.ToString());
+                    SyncBWData.PushToQueue("cw.UpdateContentViewCount", DataBaseName.CW, nvc);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
         }
         #endregion
 

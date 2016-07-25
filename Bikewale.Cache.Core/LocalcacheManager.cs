@@ -1,6 +1,5 @@
 ﻿using Bikewale.Interfaces.Cache.Core;
 using System;
-using System.Collections.Generic;
 using System.Web;
 
 namespace Bikewale.Cache.Core
@@ -62,6 +61,12 @@ namespace Bikewale.Cache.Core
                 //var objErr = new ExceptionHandler(ex, "Carwale.MemcacheCore.LocalCacheManager.RefreshCache()");
                 //objErr.LogException();
             }
+        }
+
+
+        public T GetFromCache<T>(string key, TimeSpan cacheDuration, Func<T> dbCallback, out bool isDataFromCache)
+        {
+            throw new NotImplementedException();
         }
     }
 }
