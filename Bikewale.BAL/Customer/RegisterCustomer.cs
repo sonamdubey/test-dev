@@ -27,8 +27,8 @@ namespace Bikewale.BAL.Customer
             }
             catch (Exception ex)
             {
-                //ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                //objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
 
             return pass;
@@ -62,7 +62,7 @@ namespace Bikewale.BAL.Customer
             return salt;
         }   // End of GenerateRandomSalt PopulateWhere 
         #endregion
-
+                                                                                                          
         #region GenerateHashCode PopulateWhere
         /// <summary>
         ///     Written By : Ashish G.Kamble on 29 Oct 2012

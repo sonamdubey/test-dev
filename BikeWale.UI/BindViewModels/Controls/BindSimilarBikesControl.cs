@@ -1,8 +1,7 @@
-﻿
-using Bikewale.DAL.Compare;
+﻿using Bikewale.DAL.Compare;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.Compare;
-using Carwale.Notifications;
+using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
