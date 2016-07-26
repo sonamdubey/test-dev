@@ -4,10 +4,8 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Notifications;
-using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 
 namespace Bikewale.Cache.CMS
 {
@@ -40,17 +38,13 @@ namespace Bikewale.Cache.CMS
             try
             {
                 _objArticleDetails = _cache.GetFromCache<ArticleDetails>(key, new TimeSpan(1, 0, 0), () => _objArticles.GetNewsDetails(basicId), out isDataFromCache);
-                //if (isDataFromCache)
-                //{
-                //    //Update the view count
-                //    //_objArticles.UpdateViewCount(basicId);
-                //    if (basicId > 0)
-                //    {
-                //        NameValueCollection nvc = new NameValueCollection();
-                //        nvc.Add("ContentId", basicId.ToString());
-                //        SyncBWData.PushToQueue("cw.UpdateContentViewCount", DataBaseName.CW, nvc);
-                //    }
-                //}
+                if (isDataFromCache)
+                {
+                    if (basicId > 0)
+                    {
+                        _objArticles.UpdateViewCount(basicId);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -183,17 +177,14 @@ namespace Bikewale.Cache.CMS
             try
             {
                 _objArticleDetails = _cache.GetFromCache<ArticlePageDetails>(key, new TimeSpan(1, 0, 0), () => _objArticles.GetArticleDetails(basicId), out isDataFromCache);
-                //if (isDataFromCache)
-                //{
-                //    //Update the view count
-                //    //_objArticles.UpdateViewCount(basicId);
-                //    if (basicId > 0)
-                //    {
-                //        NameValueCollection nvc = new NameValueCollection();
-                //        nvc.Add("ContentId", basicId.ToString());
-                //        SyncBWData.PushToQueue("cw.UpdateContentViewCount", DataBaseName.CW, nvc);
-                //    }
-                //}
+                if (isDataFromCache)
+                {
+                    //Update the view count                    
+                    if (basicId > 0)
+                    {
+                        _objArticles.UpdateViewCount(basicId);
+                    }
+                }
             }
             catch (Exception ex)
             {
