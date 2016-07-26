@@ -287,12 +287,7 @@ namespace Bikewale.Controls
 			
 			int startIndex = (this.CurrentPageIndex - 1) * this.PageSize + 1;
 			int endIndex = this.CurrentPageIndex * this.PageSize;						
-									
-            //sql = " Select * From (Select Row_Number() Over (Order By " + OrderByClause + ") AS RowN, "
-            //    + " " + SelectClause + " From " + FromClause + " "
-            //    + (WhereClause != "" ? " Where " + WhereClause + " " : "")
-            //    + " ) AS TopRecords Where " 
-            //    + " RowN >= " + startIndex + " AND RowN <= " + endIndex + " ";
+
 
             sql = string.Format(@"set @row_number:=0;
                                 select * from 

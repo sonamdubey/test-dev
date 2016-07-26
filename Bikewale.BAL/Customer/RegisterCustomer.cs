@@ -62,7 +62,7 @@ namespace Bikewale.BAL.Customer
             return salt;
         }   // End of GenerateRandomSalt PopulateWhere 
         #endregion
-                                                                                                          
+
         #region GenerateHashCode PopulateWhere
         /// <summary>
         ///     Written By : Ashish G.Kamble on 29 Oct 2012
@@ -78,8 +78,11 @@ namespace Bikewale.BAL.Customer
 
             try
             {
-                PasswordHashingLib.PasswordHashing objPass = new PasswordHashingLib.PasswordHashing();
-                hashCode = objPass.ComputePasswordHash(password, salt);
+                if (!string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(salt))
+                {
+                    PasswordHashingLib.PasswordHashing objPass = new PasswordHashingLib.PasswordHashing();
+                    hashCode = objPass.ComputePasswordHash(password, salt);
+                }
             }
             catch (Exception ex)
             {
