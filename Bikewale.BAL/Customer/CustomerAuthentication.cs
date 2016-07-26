@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Practices.Unity;
+﻿using Bikewale.DAL.Customer;
 using Bikewale.Entities.Customer;
 using Bikewale.Interfaces.Customer;
-using Bikewale.DAL.Customer;
-using System.Web.Security;
 using Bikewale.Notifications;
+using Microsoft.Practices.Unity;
+using System;
+using System.Web.Security;
 
 namespace Bikewale.BAL.Customer
 {
@@ -18,16 +14,19 @@ namespace Bikewale.BAL.Customer
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
-    public class CustomerAuthentication<T,U> : ICustomerAuthentication<T,U> where T : CustomerEntity, new()
+    public class CustomerAuthentication<T, U> : ICustomerAuthentication<T, U> where T : CustomerEntity, new()
     {
         private readonly ICustomerRepository<T, U> customerRepository = null;
+        private readonly ICustomer<T, U> _objCustomer = null;
 
         public CustomerAuthentication()
         {
             using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<ICustomerRepository<T, U>, CustomerRepository<T, U>>();
+                container.RegisterType<ICustomer<T, U>, Customer<T, U>>();
                 customerRepository = container.Resolve<ICustomerRepository<T, U>>();
+                _objCustomer = container.Resolve<ICustomer<T, U>>();
             }
         }
 
@@ -39,17 +38,11 @@ namespace Bikewale.BAL.Customer
         public bool IsRegisteredUser(string email)
         {
             bool isRegistered = false;
-            ICustomer<T, U> objCust = null;
 
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<ICustomer<T, U>, Customer<T, U>>();
-                objCust = container.Resolve<ICustomer<T, U>>();
-            }
+            CustomerEntity objCustEntity = _objCustomer.GetByEmail(email);
 
-            CustomerEntity objCustEntity = objCust.GetByEmail(email);
-
-            isRegistered = objCustEntity.IsExist;
+            if (objCustEntity != null)
+                isRegistered = objCustEntity.IsExist;
 
             return isRegistered;
         }
@@ -101,33 +94,34 @@ namespace Bikewale.BAL.Customer
         /// <returns></returns>
         public T AuthenticateUser(string email, string password, bool? createAuthTicket = null)
         {
-            ICustomer<T, U> objCust = null;
             T objCustEntity = null;
 
-            using (IUnityContainer container = new UnityContainer())
+            try
             {
-                container.RegisterType<ICustomer<T, U>, Customer<T, U>>();
-                objCust = container.Resolve<ICustomer<T, U>>();
-            }
+                objCustEntity = _objCustomer.GetByEmail(email);
 
-            objCustEntity = objCust.GetByEmail(email);
-
-            if(objCustEntity != null)
-            { 
-                RegisterCustomer objRegister = new RegisterCustomer();
-                string userHash = objRegister.GenerateHashCode(password, objCustEntity.PasswordSalt);
-
-                if (string.Equals(userHash, objCustEntity.PasswordHash))
+                if (objCustEntity != null)
                 {
-                    if (createAuthTicket.HasValue)
+                    RegisterCustomer objRegister = new RegisterCustomer();
+                    string userHash = objRegister.GenerateHashCode(password, objCustEntity.PasswordSalt);
+
+                    if (string.Equals(userHash, objCustEntity.PasswordHash))
                     {
-                        objCustEntity.AuthenticationTicket = GenerateAuthenticationToken(objCustEntity.CustomerId.ToString(), objCustEntity.CustomerName, objCustEntity.CustomerEmail);
+                        if (createAuthTicket.HasValue)
+                        {
+                            objCustEntity.AuthenticationTicket = GenerateAuthenticationToken(objCustEntity.CustomerId.ToString(), objCustEntity.CustomerName, objCustEntity.CustomerEmail);
+                        }
+                    }
+                    else
+                    {
+                        objCustEntity = null;
                     }
                 }
-                else
-                {
-                    objCustEntity = null;
-                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("AuthenticateUser |  email : {0}, password : {1}, createAuthTicket : {2}", email, password, (createAuthTicket.HasValue) ? createAuthTicket.Value : false));
+                objErr.SendMail();
             }
 
             return objCustEntity;
