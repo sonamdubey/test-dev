@@ -302,7 +302,7 @@ namespace BikeWaleOpr.BikeBooking
                 {
                     container.RegisterType<IDealers, DealersRepository>();
                     IDealers objCity = container.Resolve<DealersRepository>();
-                    isSuccess = objCity.SaveDealerOffer(dealerId, Convert.ToUInt32(userId), Convert.ToInt32(drpCity.SelectedValue), (hdn_modelId.Value), Convert.ToInt32(drpOffers.SelectedValue), offerText.Text, Convert.ToInt32(offerValue.Text), dtDate.Value, chkIsPriceImpact.Checked);
+                    isSuccess = objCity.SaveDealerOffer(dealerId, Convert.ToUInt32(userId), Convert.ToInt32(drpCity.SelectedValue), (hdn_modelId.Value), Convert.ToInt32(drpOffers.SelectedValue), Server.HtmlEncode(offerText.Text), Convert.ToInt32(offerValue.Text), dtDate.Value, chkIsPriceImpact.Checked);
                 }
 
                 if (isSuccess)
