@@ -74,7 +74,7 @@
             </div>
         </section>
         <section>
-            <div itemscope="" itemtype="http://auto.schema.org/Product" class="container" id="modelDetailsContainer">
+            <div itemscope="" itemtype="http://schema.org/Product" class="container" id="modelDetailsContainer">
                 <span itemprop="name" class="hide"><%= bikeName %></span>
                 <div class="grid-12 margin-bottom20">
                     <div class="content-inner-block-20 content-box-shadow">

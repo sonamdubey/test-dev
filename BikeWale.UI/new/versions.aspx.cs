@@ -232,7 +232,6 @@ namespace Bikewale.New
                     ToggleOfferDiv();
                     //calling _bwutmz cookie logic.
                     Trace.Warn("Trace 22 : Clear trailing Query");
-                    //ClearTrailingQuerystring(this);
                     Trace.Warn("Trace 23 : Page Load ends");
                 }
             }

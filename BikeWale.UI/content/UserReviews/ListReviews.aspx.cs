@@ -91,13 +91,11 @@ namespace Bikewale.Content
 
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
-
+            ModelMaskingResponse objResponse = null;
 
             //also get the forumId
             if (Request["bikem"] != null && Request.QueryString["bikem"] != "")
             {
-                ModelMaskingResponse objResponse = null;
-
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
@@ -176,80 +174,83 @@ namespace Bikewale.Content
             }
             Trace.Warn("start post back ");
 
-            if (!IsPostBack)
+            if (objResponse != null && objResponse.StatusCode != 404)
             {
-                //objBike = new MakeModelVersion();
-
-                //  ModelStartPrice = objBike.GetModelStartingPrice(modelId);
-                ModelVersionDescription objBike;
-                if (modelId != "")
+                if (!IsPostBack)
                 {
-                    objBike = new ModelVersionDescription();
-                    objBike.GetDetailsByModel(modelId);
-                    ModelStartPrice = objBike.ModelBasePrice;
+                    //objBike = new MakeModelVersion();
 
-                    BikeName = objBike.BikeName;
-                    LargePic = objBike.LargePic;
+                    //  ModelStartPrice = objBike.GetModelStartingPrice(modelId);
+                    ModelVersionDescription objBike;
+                    if (modelId != "")
+                    {
+                        objBike = new ModelVersionDescription();
+                        objBike.GetDetailsByModel(modelId);
+                        ModelStartPrice = objBike.ModelBasePrice;
 
-                    RatingOverall = objBike.ModelRatingOverall;
-                    RatingLooks = objBike.ModelRatingLooks;
-                    RatingPerformance = objBike.ModelRatingPerformance;
-                    RatingComfort = objBike.ModelRatingComfort;
-                    RatingFuelEconomy = objBike.ModelRatingFuelEconomy;
-                    RatingValueForMoney = objBike.ModelRatingValueForMoney;
+                        BikeName = objBike.BikeName;
+                        LargePic = objBike.LargePic;
 
-                    MakeName = objBike.MakeName;
-                    ModelName = objBike.ModelName;
-                    ModelMaskingName = objBike.ModelMaskingName;
-                    MakeMaskingName = objBike.MakeMaskingName;
-                    HostUrl = objBike.HostUrl;
-                    IsNew = objBike.IsNew;
-                    IsUsed = objBike.IsUsed;
-                    OriginalImagePath = objBike.OriginalImagePath;
-                    Trace.Warn("MakeName : " + MakeName + "ModelName : " + ModelName + " LargePic : " + LargePic);
+                        RatingOverall = objBike.ModelRatingOverall;
+                        RatingLooks = objBike.ModelRatingLooks;
+                        RatingPerformance = objBike.ModelRatingPerformance;
+                        RatingComfort = objBike.ModelRatingComfort;
+                        RatingFuelEconomy = objBike.ModelRatingFuelEconomy;
+                        RatingValueForMoney = objBike.ModelRatingValueForMoney;
+
+                        MakeName = objBike.MakeName;
+                        ModelName = objBike.ModelName;
+                        ModelMaskingName = objBike.ModelMaskingName;
+                        MakeMaskingName = objBike.MakeMaskingName;
+                        HostUrl = objBike.HostUrl;
+                        IsNew = objBike.IsNew;
+                        IsUsed = objBike.IsUsed;
+                        OriginalImagePath = objBike.OriginalImagePath;
+                        Trace.Warn("MakeName : " + MakeName + "ModelName : " + ModelName + " LargePic : " + LargePic);
+                    }
+                    else
+                    {
+                        objBike = new ModelVersionDescription();
+                        objBike.GetDetailsByVersion(versionId);
+                        ModelStartPrice = objBike.ModelBasePrice;
+                        BikeName = objBike.BikeName;
+                        LargePic = objBike.LargePic;
+                        RatingOverall = objBike.ModelRatingOverall;
+                        RatingLooks = objBike.ModelRatingLooks;
+                        RatingPerformance = objBike.ModelRatingPerformance;
+                        RatingComfort = objBike.ModelRatingComfort;
+                        RatingFuelEconomy = objBike.ModelRatingFuelEconomy;
+                        RatingValueForMoney = objBike.ModelRatingValueForMoney;
+
+                        MakeName = objBike.MakeName;
+                        ModelName = objBike.ModelName;
+                        ModelMaskingName = objBike.ModelMaskingName;
+                        MakeMaskingName = objBike.MakeMaskingName;
+                        HostUrl = objBike.HostUrl;
+                        IsNew = objBike.IsNew;
+                        IsUsed = objBike.IsUsed;
+                        OriginalImagePath = objBike.OriginalImagePath;
+                        Trace.Warn("MakeName : " + MakeName + "ModelName : " + ModelName + " LargePic : " + LargePic);
+                    }
+
+                    Trace.Warn("RatingOverall : " + RatingOverall);
+
+                    // This static function bind all versions having reviews count greter then zero
+                    // for selected model.
+                    FillControls.FillReviewedVersions(drpVersions, modelId);
+
+                    FillRepeaters();
+
+                    // Rewrite form action property with the rewritten url 
+                    // just to make url consistent
+                    // onpostback select first page
+
+
+                    //  frmMain.Action = "/content/" + UrlRewrite.FormatSpecial(MakeName) + "-bikes/" + UrlRewrite.FormatSpecial(ModelName) + "/userreviews-p1/";
                 }
-                else
-                {
-                    objBike = new ModelVersionDescription();
-                    objBike.GetDetailsByVersion(versionId);
-                    ModelStartPrice = objBike.ModelBasePrice;
-                    BikeName = objBike.BikeName;
-                    LargePic = objBike.LargePic;
-                    RatingOverall = objBike.ModelRatingOverall;
-                    RatingLooks = objBike.ModelRatingLooks;
-                    RatingPerformance = objBike.ModelRatingPerformance;
-                    RatingComfort = objBike.ModelRatingComfort;
-                    RatingFuelEconomy = objBike.ModelRatingFuelEconomy;
-                    RatingValueForMoney = objBike.ModelRatingValueForMoney;
 
-                    MakeName = objBike.MakeName;
-                    ModelName = objBike.ModelName;
-                    ModelMaskingName = objBike.ModelMaskingName;
-                    MakeMaskingName = objBike.MakeMaskingName;
-                    HostUrl = objBike.HostUrl;
-                    IsNew = objBike.IsNew;
-                    IsUsed = objBike.IsUsed;
-                    OriginalImagePath = objBike.OriginalImagePath;
-                    Trace.Warn("MakeName : " + MakeName + "ModelName : " + ModelName + " LargePic : " + LargePic);
-                }
-
-                Trace.Warn("RatingOverall : " + RatingOverall);
-
-                // This static function bind all versions having reviews count greter then zero
-                // for selected model.
-                FillControls.FillReviewedVersions(drpVersions, modelId);
-
-                FillRepeaters();
-
-                // Rewrite form action property with the rewritten url 
-                // just to make url consistent
-                // onpostback select first page
-
-
-                //  frmMain.Action = "/content/" + UrlRewrite.FormatSpecial(MakeName) + "-bikes/" + UrlRewrite.FormatSpecial(ModelName) + "/userreviews-p1/";
+                GoogleKeywords();
             }
-
-            GoogleKeywords();
         }//pageload
 
 

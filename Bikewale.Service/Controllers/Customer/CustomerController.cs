@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Description;
-using AutoMapper;
+﻿using AutoMapper;
 using Bikewale.BAL.Customer;
 using Bikewale.DTO.Customer;
 using Bikewale.Entities.Customer;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Notifications;
+using System;
+using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.Customer
 {
@@ -38,22 +34,18 @@ namespace Bikewale.Service.Controllers.Customer
         /// Written By : Ashish G. Kamble on 8 Sept 2015
         /// Summary : Function to register the customer with bikewale. All fields are mandatory
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="email"></param>
-        /// <param name="mobile"></param>
-        /// <param name="password"></param>
-        /// <param name="clientIP"></param>
+        /// <param name="userInfo"></param>
         /// <returns>Returns registered customers data.</returns>
         [ResponseType(typeof(RegisteredCustomer))]
         public IHttpActionResult POST([FromBody] RegisterInputParameters userInfo)
-        {            
+        {
             try
             {
                 CustomerEntity objCust = _customerRepository.GetByEmail(userInfo.Email);
                 RegisteredCustomer objRegCust = new RegisteredCustomer();
-                
 
-                if (!objCust.IsExist)
+
+                if (objCust != null && !objCust.IsExist)
                 {
                     CustomerEntity objinputCust = new CustomerEntity() { CustomerName = userInfo.Name, CustomerEmail = userInfo.Email, CustomerMobile = userInfo.Mobile, Password = userInfo.Password, ClientIP = userInfo.ClientIP };
 
