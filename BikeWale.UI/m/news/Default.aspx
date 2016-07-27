@@ -46,9 +46,9 @@
 									<div class="article-category">
 										<span class="text-uppercase font12 text-bold"><%# GetContentCategory(DataBinder.Eval(Container.DataItem,"CategoryId").ToString()) %></span>
 									</div>
-									<div class="font14 text-bold text-black">
+									<h2 class="font14 text-bold text-black">
 										<%# DataBinder.Eval(Container.DataItem,"Title") %>
-									</div>
+									</h2>
 								</div>
 							</div>
 							<div class="article-stats-wrapper font12 leftfloat text-light-grey">

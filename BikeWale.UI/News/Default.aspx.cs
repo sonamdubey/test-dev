@@ -10,8 +10,10 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Pager;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.News
@@ -63,7 +65,17 @@ namespace Bikewale.News
             IPager objPager = GetPager();
             int _startIndex = 0, _endIndex = 0;
             objPager.GetStartEndIndex(_pageSize, _pageNumber, out _startIndex, out _endIndex);
-            //string contentTypeList = CommonApiOpn.GetContentTypesString(new List<EnumCMSContentType>() { EnumCMSContentType.News, EnumCMSContentType.AutoExpo2016 });
+
+            List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
+            categorList.Add(EnumCMSContentType.AutoExpo2016);
+            categorList.Add(EnumCMSContentType.News);
+            categorList.Add(EnumCMSContentType.Features);
+            categorList.Add(EnumCMSContentType.RoadTest);
+            categorList.Add(EnumCMSContentType.ComparisonTests);
+            string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
+
+            categorList.Clear();
+            categorList = null;
 
             using (IUnityContainer container = new UnityContainer())
             {
@@ -72,7 +84,7 @@ namespace Bikewale.News
                            .RegisterType<ICacheManager, MemcacheManager>();
                 ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-                CMSContent objNews = _cache.GetArticlesByCategoryList(Convert.ToString((int)EnumCMSContentType.News), _startIndex, _endIndex, 0, 0);
+                CMSContent objNews = _cache.GetArticlesByCategoryList(contentTypeList, _startIndex, _endIndex, 0, 0);
 
                 if (objNews != null)
                 {
@@ -168,6 +180,51 @@ namespace Bikewale.News
                 _objPager = container.Resolve<IPager>();
             }
             return _objPager;
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 26th July 2016
+        ///  Description  : Function to show category type based on categoryId
+        /// </summary>
+        /// <param name="contentType"></param>
+        /// <returns></returns>
+        protected string GetContentCategory(string contentType)
+        {
+            string _category = string.Empty;
+            EnumCMSContentType _contentType = default(EnumCMSContentType);
+            try
+            {
+                if (!string.IsNullOrEmpty(contentType) && Enum.TryParse<EnumCMSContentType>(contentType, true, out _contentType))
+                {
+                    switch (_contentType)
+                    {
+                        case EnumCMSContentType.AutoExpo2016:
+                            _category = "NEWS";
+                            break;
+                        case EnumCMSContentType.News:
+                            _category = "NEWS";
+                            break;
+                        case EnumCMSContentType.Features:
+                            _category = "FEATURES";
+                            break;
+                        case EnumCMSContentType.ComparisonTests:
+                            _category = "EXPERT REVIEWS";
+                            break;
+                        case EnumCMSContentType.RoadTest:
+                            _category = "EXPERT REVIEWS";
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Mobile.News.Default.GetContentCategory");
+                objErr.SendMail();
+            }
+            return _category;
         }
 
 

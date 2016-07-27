@@ -42,9 +42,9 @@
                                 <img alt='Road Test: <%# DataBinder.Eval(Container.DataItem, "Title") %>' title="Road Test: <%# DataBinder.Eval(Container.DataItem, "Title") %>" src='<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgUrl").ToString(), DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>' width="100%" border="0">
                             </div>
                             <div class="padding-left10 article-desc-wrapper">
-                                <div class="font14 text-bold text-black">
+                                <h2 class="font14 text-bold text-black">
                                     Road Test: <%# DataBinder.Eval(Container.DataItem, "Title") %>
-                                </div>
+                                </h2>
                             </div>
                         </div>
                         <div class="article-stats-wrapper font12 leftfloat text-light-grey">
