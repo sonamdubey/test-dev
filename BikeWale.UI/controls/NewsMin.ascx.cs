@@ -72,6 +72,10 @@ namespace Bikewale.Controls
             }
         }
 
+        /// <summary>
+        /// Modified By : Lucky Rathore on 27 July 2016
+        /// Description : Skip 1st atricle before binding Data.
+        /// </summary>
         public async void LoadNews()
         {
             try
