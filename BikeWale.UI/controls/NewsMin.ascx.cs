@@ -97,9 +97,7 @@ namespace Bikewale.Controls
 
                         GetFirstNews(objFirstArticle);
 
-                        _objArticleList.ToList().RemoveAt(0);
-
-                        rptCarNews.DataSource = _objArticleList;
+                        rptCarNews.DataSource = _objArticleList.Skip(1);
                         rptCarNews.DataBind();
                     }
                     else
