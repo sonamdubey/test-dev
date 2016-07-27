@@ -31,46 +31,20 @@
         <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
         <a href="/m/" class="normal" itemprop="url"><span itemprop="title">Home</span></a> </span>
         &rsaquo; <span class="lightgray">Road Test</span></div>
-    <div class="box1 new-line5 hide" onClick="BoxClicked(this);" type="expando">
-	    <div class="heading">Search By : </div>
-	    <div class="plus"></div>
-    </div>
-    <div class="box-bot" style="padding:10px;display:none;">
-	    <div><select id="ddlMakes" runat="server"></select>
-	    </div>
-	    <div class="new-line10">
-            <img id="imgLoaderModels" src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
-            <select id="ddlModels"  runat="server">
-                <option value="0">--Select Model--</option>
-            </select>
-	    </div>
-	    <div class="new-line10">
-		    <div onClick="SearchClicked();" style='display:none;width:60px;height:30px;background-image: url("/images/nav.png");background-position: 0px 0px;border-radius:7px;-moz-border-radius:7px;-webkit-border-radius:7px;float:left;'>
-			    <div style="margin:auto;width:50px;height:30px;background-image: url('/images/icons-sheet.png');background-position: 12px -672px;"></div>
-		    </div>
-		    <div style="width:60px;float:left;">
-			  <%--  <input type="button" id="btnSubmit" class="linkButtonBig"  Text="&nbsp;&nbsp;&nbsp;&nbsp;GO&nbsp;&nbsp;&nbsp;&nbsp;" />--%>
-                  <a id="filterButton" href="#" class="normal" style="color:#fff !important;"><span class="linkButton">Go</span></a>
-		    </div>
-		    <div id="errSearch" class="error" style="padding:8px;width:160px;float:left;display:none;">Select make</div>
-		    <div style="clear:both;"></div>
-	    </div>
-	    <div class="new-line10"><a class="normal" href="/m/road-tests/">Show all road tests&nbsp;&nbsp;<span class="arr-small">»</span></a></div>
-    </div>
     <h1>Latest bike Road Tests</h1>
     <div id="divListing">
         <asp:Repeater id="rptRoadTest" runat="server">
             <itemtemplate>
                 <a class="normal" href='/m/road-tests/<%#DataBinder.Eval(Container.DataItem, "ArticleUrl").ToString()%>-<%# DataBinder.Eval(Container.DataItem, "BasicId") %>.html' >
-		            <div class="box1 new-line15" >
+                    <div class="box1 new-line15" >
                         <div class="article-wrapper">
                             <div class="article-image-wrapper">
                                 <img alt='Road Test: <%# DataBinder.Eval(Container.DataItem, "Title") %>' title="Road Test: <%# DataBinder.Eval(Container.DataItem, "Title") %>" src='<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgUrl").ToString(), DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>' width="100%" border="0">
                             </div>
-					        <div class="padding-left10 article-desc-wrapper">
+                            <div class="padding-left10 article-desc-wrapper">
                                 <div class="font14 text-bold text-black">
-				                    Road Test: <%# DataBinder.Eval(Container.DataItem, "Title") %>
-			                    </div>
+                                    Road Test: <%# DataBinder.Eval(Container.DataItem, "Title") %>
+                                </div>
                             </div>
                         </div>
                         <div class="article-stats-wrapper font12 leftfloat text-light-grey">
@@ -83,8 +57,8 @@
                         <%--<div style="border:1px solid #b3b4c6;background-color:#ffffff;width:100px;position:absolute;right:-1px;bottom:-10px;padding:2px 2px;font-size:13px;" class="lightgray">
                             <%# CommonOpn.GetDisplayDate(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString()) %>
                         </div>--%>
-		            </div>
-	            </a>
+                    </div>
+                </a>
             </itemtemplate>
         </asp:Repeater>                
     </div>  
@@ -106,7 +80,7 @@
             $(box).find(":nth-child(2)").attr("class", "plus");	
             $(box).removeClass("bot-rad-0");
         }
-		
+        
         $("#ddlMakes, #ddlModels").each(function(){
             $(this).width(parseInt($(this).parent().width())-5);
         });
