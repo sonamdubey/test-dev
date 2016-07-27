@@ -48,15 +48,12 @@
                             </div>
                         </div>
                         <div class="article-stats-wrapper font12 leftfloat text-light-grey">
-                            <span class="bwmsprite calender-grey-icon inline-block"></span><span class="inline-block">date</span>
+                            <span class="bwmsprite calender-grey-icon inline-block"></span><span class="inline-block"><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem,"DisplayDate").ToString(),"MMMM dd, yyyy") %></span>
                         </div>
                         <div class="article-stats-wrapper font12 leftfloat text-light-grey">
                             <span class="bwmsprite author-grey-icon inline-block"></span><span class="inline-block"><%# DataBinder.Eval(Container.DataItem, "AuthorName") %></span>
                         </div>
                         <div class="clear"></div>
-                        <%--<div style="border:1px solid #b3b4c6;background-color:#ffffff;width:100px;position:absolute;right:-1px;bottom:-10px;padding:2px 2px;font-size:13px;" class="lightgray">
-                            <%# CommonOpn.GetDisplayDate(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString()) %>
-                        </div>--%>
                     </div>
                 </a>
             </itemtemplate>
@@ -64,100 +61,7 @@
     </div>  
     <Pager:Pager ID="listPager" runat="server" />  
 </div>
-<script language="javascript" type="text/javascript">
-    function BoxClicked(box)
-    {	
-        var nextHidden = $(box).next().is(":hidden").toString();
-        if (nextHidden == "true")
-        {
-            $(box).next().show();
-            $(box).find(":nth-child(2)").attr("class", "minus");
-            $(box).addClass("bot-rad-0");
-        }
-        else
-        {
-            $(box).next().hide();
-            $(box).find(":nth-child(2)").attr("class", "plus");	
-            $(box).removeClass("bot-rad-0");
-        }
-        
-        $("#ddlMakes, #ddlModels").each(function(){
-            $(this).width(parseInt($(this).parent().width())-5);
-        });
-    }
 
-    $("#ddlMakes").change(function () {
-        make = $(this).val();
-        if (make <= 0) {
-            $("#ddlModels").html("<option value='0'>--Select Model--</option>");
-            $("#ddlModels").selectmenu("refresh", true);
-            $("#ddlModels").attr("disabled", true);
-        }
-        else {
-            $("#imgLoaderModels").show();
-            fillModel();
-        }
-    });
-
-    $(document).ready(function () {
-        $("#ddlModels").attr("disabled", true);
-        if ($("#ddlMakes").val().split('_')[0] > 0) {
-            $("#imgLoaderModels").show();
-            fillModel();
-        }
-    });
-
-
-    function fillModel() {
-        $("#ddlModels").html("<option value='0'>--Select Model--</option>");
-        $("#ddlModels").selectmenu("refresh", true);
-
-        if ($("#ddlMakes").val() > "0") {
-            var MakeId = $("#ddlMakes").val().split('_')[0];
-            //$("#ddlModels").empty().append("<option value=\"\">Loading...</option>");
-            var reqType = "ROADTEST";
-            $.ajax({
-                type: "POST",
-                url: "/ajaxpro/Bikewale.Ajax.AjaxCommon,Bikewale.ashx",
-                data: '{"requestType":"' + reqType + '" , "makeId":"' + MakeId + '"}',
-                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetModelsWithMappingName"); },
-                success: function (response) {
-                    $("#imgLoaderModels").hide();
-                    var responseJSON = eval('(' + response + ')');
-                    if (responseJSON.value != "") {
-                        var resObj = eval('(' + responseJSON.value + ')');
-                        var dependentCmbs = new Array;
-                        bindDropDownList(resObj, $("#ddlModels"), "", dependentCmbs, "--Select Model--");
-                    }
-                    else
-                        $("#ddlModels").empty().append("<option value=\"\">--Select Model--</option>");
-                }
-            });
-            $("#ddlModels").attr("disabled", false);
-            $("#imgLoaderModels").hide();
-        }
-    }
-
-    $("#filterButton").click(function () {
-        var makeId = $("#ddlMakes").val().split('_')[0];
-        var makeName = $("#ddlMakes").val().split('_')[1];
-        var modelId = $("#ddlModels").val().split('_')[0];
-        var modelName = $("#ddlModels").val().split('_')[1];
-        
-        if (modelId > 0)
-        {
-            window.location = "/m/" + makeName + "-bikes/" + modelName + "/road-tests/";
-        }
-        else if (makeId > 0)
-        {
-            window.location = "/m/" + makeName + "-bikes/road-tests/";
-        }
-        else 
-            alert("Please Select Make.");
-       
-    });
-
-</script>
 <!-- #include file="/includes/footermobile.aspx" -->
 <script type="text/javascript">
     ga_pg_id = "12";
