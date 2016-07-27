@@ -230,8 +230,12 @@ namespace Bikewale.Common
 
             try
             {
-                PasswordHashingLib.PasswordHashing objPass = new PasswordHashingLib.PasswordHashing();
-                hashCode = objPass.ComputePasswordHash(password, salt);
+                if (!String.IsNullOrEmpty(password) && !String.IsNullOrEmpty(salt))
+                {
+                    PasswordHashingLib.PasswordHashing objPass = new PasswordHashingLib.PasswordHashing();
+                    hashCode = objPass.ComputePasswordHash(password, salt);
+                }
+
             }
             catch (Exception ex)
             {
