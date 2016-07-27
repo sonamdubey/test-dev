@@ -41,6 +41,12 @@ namespace Bikewale.News
             base.Load += new EventHandler(Page_Load);
         }
 
+        /// <summary>
+        /// Modified By : Sushil Kumar on 26th July 2016
+        /// Description : Added Features,expert reviews and autoexpo categories for multiple categories 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Page_Load(object sender, EventArgs e)
         {
             // Modified By :Lucky Rathore on 12 July 2016.
@@ -66,16 +72,6 @@ namespace Bikewale.News
             int _startIndex = 0, _endIndex = 0;
             objPager.GetStartEndIndex(_pageSize, _pageNumber, out _startIndex, out _endIndex);
 
-            List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
-            categorList.Add(EnumCMSContentType.AutoExpo2016);
-            categorList.Add(EnumCMSContentType.News);
-            categorList.Add(EnumCMSContentType.Features);
-            categorList.Add(EnumCMSContentType.RoadTest);
-            categorList.Add(EnumCMSContentType.ComparisonTests);
-            string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
-
-            categorList.Clear();
-            categorList = null;
 
             using (IUnityContainer container = new UnityContainer())
             {
@@ -83,6 +79,17 @@ namespace Bikewale.News
                            .RegisterType<ICMSCacheContent, CMSCacheRepository>()
                            .RegisterType<ICacheManager, MemcacheManager>();
                 ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
+
+                List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
+                categorList.Add(EnumCMSContentType.AutoExpo2016);
+                categorList.Add(EnumCMSContentType.News);
+                categorList.Add(EnumCMSContentType.Features);
+                categorList.Add(EnumCMSContentType.RoadTest);
+                categorList.Add(EnumCMSContentType.ComparisonTests);
+                string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
+
+                categorList.Clear();
+                categorList = null;
 
                 CMSContent objNews = _cache.GetArticlesByCategoryList(contentTypeList, _startIndex, _endIndex, 0, 0);
 
@@ -221,7 +228,7 @@ namespace Bikewale.News
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Mobile.News.Default.GetContentCategory");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Exception : Desktop.News.Default.GetContentCategory");
                 objErr.SendMail();
             }
             return _category;
