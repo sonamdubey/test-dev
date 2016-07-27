@@ -598,7 +598,7 @@ namespace BikewaleOpr.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityId", DbType.Int32, cityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelId", DbType.String, -1, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_offercategoryId", DbType.Int32, offercategoryId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_offerText", DbType.String, -1, offerText));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_offerText", DbType.String, -1, HttpContext.Current.Server.HtmlDecode(offerText)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_offerValue", DbType.Int32, offerValue));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_UserId", DbType.Int32, userId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_offerValidTill", DbType.DateTime, offervalidTill));
