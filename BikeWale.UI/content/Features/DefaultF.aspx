@@ -20,6 +20,8 @@
 <style type="text/css">
 	#content { margin:0; }
 	#content h1 { margin-left:10px; margin-right:10px; }
+    .article-image-wrapper { width: 206px; margin-right: 20px; float: left; }
+    .article-desc-wrapper { width: auto; }
 	.sponsored-tag-wrapper { width: 120px;height: 24px;background: #4d5057; color: #fff; font-size: 12px; line-height: 25px; padding: 0 20px; top:-10px; left:-20px; }
 	.sponsored-left-tag {width: 0;height: 0;border-top: 13px solid transparent;border-bottom: 15px solid transparent;border-right: 10px solid #fff;position: relative;top: -6px;left: 30px;font-size: 0;line-height: 0;z-index: 1; }
 	.sept-dashed { margin:10px 0 15px; }
@@ -32,6 +34,9 @@
 	.calender-grey-icon { background-position:-129px -515px; }
 	.author-grey-icon { background-position:-105px -515px; }
 	#colorbox { width: 400px !important;height: 400px !important;}
+    .article-date { min-width: 164px; padding-right: 10px; }
+    .article-author { min-width: 220px; }
+    .article-date , .article-author { display: inline-block; vertical-align: middle; }
 </style>
 <div class="container margin-bottom30">
 	<div class="grid-12">
@@ -51,35 +56,33 @@
 						<div id='post-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>' class=" <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")).ToLower().Contains("sponsored") ? "sponsored-content" : "post-content" %> article-content">
 							<%# Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")).ToLower().Contains("sponsored") ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
 							<div class="margin-bottom10">
-								<div class="grid-4 alpha omega article-image-wrapper">
+								<div class="article-image-wrapper">
 									<%# DataBinder.Eval(Container.DataItem,"OriginalImgUrl").ToString() != "" ? "<a href='/features/" + DataBinder.Eval(Container.DataItem,"ArticleUrl") + "-" + DataBinder.Eval(Container.DataItem,"BasicId") + "/'><img src='" + Bikewale.Utility.Image.GetPathToShowImages( DataBinder.Eval( Container.DataItem, "OriginalImgUrl" ).ToString(),DataBinder.Eval( Container.DataItem, "HostURL" ).ToString() ,Bikewale.Utility.ImageSize._210x118) +"' alt='"+ DataBinder.Eval(Container.DataItem,"Title") +"' title='"+ DataBinder.Eval(Container.DataItem,"Title") +"' width='100%' border='0' /></a>" : "" %>
 								</div>
-								<div class="grid-8 padding-left20 omega">
+								<div class="article-desc-wrapper">
 									<h2 class="font14 margin-bottom8">
 										<a href="/features/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>/" rel="bookmark" class="text-black text-bold">
 											<%# DataBinder.Eval(Container.DataItem,"Title") %>
 										</a>
 									</h2>
-									<div class="font12 text-light-grey">
-										<div class="grid-5 alpha">
+									<div class="font12 text-light-grey margin-bottom25">
+										<div class="article-date">
 											<span class="bwsprite calender-grey-icon inline-block"></span>
 											<span class="inline-block">
 												<%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem,"DisplayDate").ToString(),"MMMM dd, yyyy") %>
 											</span>
 										</div>
-										<div class="grid-7 alpha">
+										<div class="article-author">
 											<span class="bwsprite author-grey-icon inline-block"></span>
 											<span class="inline-block">
 												<%# DataBinder.Eval(Container.DataItem,"AuthorName") %>
 											</span>
 										</div>
-										<div class="clear"></div>
 									</div>
+                                    <div class="font14"><%# DataBinder.Eval(Container.DataItem,"Description") %><a href="/features/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>/">Read full story</a></div>
 								</div>
 								<div class="clear"></div>
 							</div>
-							<div class="font14"><%# DataBinder.Eval(Container.DataItem,"Description") %><a href="/features/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>/">Read full story</a></div>
-							<div class="clear"></div>  
 						</div>
 					</itemtemplate>
 				</asp:repeater>

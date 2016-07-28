@@ -5,7 +5,7 @@
     title = "Road tests, First drives of New Bikes in India";
     description = "Road testing a bike is the only way to know true capabilities of a bike. Read our road tests to know how bikes perform on various aspects.";
     keywords = "road test, road tests, roadtests, roadtest, bike reviews, expert bike reviews, detailed bike reviews, test-drives, comprehensive bike tests, bike preview, first drives";
-    canonical = "http://www.bikewale.com" + "/road-tests/";
+    canonical = "http://www.bikewale.com/road-tests/";
     relPrevPageUrl = String.IsNullOrEmpty(prevPageUrl) ? "" : "http://www.bikewale.com" + prevPageUrl;
     relNextPageUrl = String.IsNullOrEmpty(nextPageUrl) ? "" : "http://www.bikewale.com" + nextPageUrl;
     AdPath = "/1017752/Bikewale_Mobile_NewBikes";
