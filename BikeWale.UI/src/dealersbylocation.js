@@ -125,6 +125,10 @@ $("#getStateInput, #getCityInput").on("focus", function () {
 $("#getStateInput, #getCityInput").on("keyup", function (event) {
     if (event.keyCode != 40 && event.keyCode != 38 && event.keyCode != 13) {
         filter.location($(this));
+
+        if ($(window).scrollTop() > 0) {
+            $("html, body").animate({ scrollTop: 0 });
+        }
     }
     else {
         if ($(this).val().length > 0) {

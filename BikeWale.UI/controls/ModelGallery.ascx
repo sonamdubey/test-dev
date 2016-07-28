@@ -4,7 +4,7 @@
     <div class="blackOut-window-model"></div>
     <div class="modelgallery-close-btn position-abt pos-top20 pos-right20 bwsprite cross-lg-white cur-pointer hide"></div>
     <div class="bw-tabs-panel bike-gallery-popup hide" id="bike-gallery-popup">
-        <div class="text-center photos-videos-tabs margin-top20 margin-bottom20">
+        <div class="text-center photos-videos-tabs margin-bottom20">
             <div class="bw-tabs home-tabs <%= videoCount == 0 ? "hide" : "" %>">
                 <ul>
                     <li class="active" data-tabs="Photos" id="photos-tab">Photos</li>
