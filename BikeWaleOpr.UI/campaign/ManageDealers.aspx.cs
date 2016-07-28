@@ -154,7 +154,10 @@ namespace BikewaleOpr.Campaign
                     }
 
                     //callApp.pushDataToKnowlarity(false, "-1", dealerMobile, string.Empty, reqFormMaskingNumber);
-                    CWWebservice.AddCampaignContractData(ccInputs);
+                    if (!String.IsNullOrEmpty(ccInputs.MaskingNumber))
+                    {
+                        CWWebservice.AddCampaignContractData(ccInputs);
+                    }
 
                     if (!CWWebservice.IsCCMapped(Convert.ToUInt32(dealerId), Convert.ToUInt32(contractId), Convert.ToUInt32(campaignId)))
                     {
