@@ -169,7 +169,7 @@ namespace Bikewale.Mobile.New
                         rptVarients.DataSource = modelPage.ModelVersions;
                         rptVarients.DataBind();
                     }
-                    
+
                     if (!modelPage.ModelDetails.Futuristic || modelPage.ModelDetails.New)
                         ctrlTopCityPrices.ModelId = Convert.ToUInt32(modelId);
                     else ctrlTopCityPrices.ModelId = 0;
@@ -623,13 +623,13 @@ namespace Bikewale.Mobile.New
                                     }
                                 }
 
-                                else if (versionId != 0)
+                                else if (versionId != 0 && isOnRoadPrice)
                                 {
                                     objSelectedVariant = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == versionId).FirstOrDefault();
                                     price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
                                 }
 
-                                else
+                                else if (isOnRoadPrice)
                                 {
                                     objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault();
                                     price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
