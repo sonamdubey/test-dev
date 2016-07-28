@@ -24,6 +24,8 @@ namespace Bikewale.Mobile.Content
     /// <summary>
     /// Created By : Ashwini Todkar on 20 May 2014
     /// Modified By : Ashwini Todkar on 30 Sept 2014
+    /// Created By : Sushil Kumar on 28th July 2016
+    /// Description : Removed commented code realted to get features old content 
     /// </summary>
     public class Features : System.Web.UI.Page
     {
@@ -60,7 +62,7 @@ namespace Bikewale.Mobile.Content
                 // get pager instance
                 IPager objPager = GetPager();
 
-                int _startIndex = 0, _endIndex = 0;// _featuresCategoryId = (int)EnumCMSContentType.Features;
+                int _startIndex = 0, _endIndex = 0;
 
                 objPager.GetStartEndIndex(_pageSize, curPageNo, out _startIndex, out _endIndex);
 

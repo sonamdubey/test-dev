@@ -73,9 +73,9 @@ namespace Bikewale.News
             {
                 CommonOpn op = new CommonOpn();
 
-                if (Request["pn"] != null && Request.QueryString["pn"] != "")
+                if (Request["pn"] != null && !string.IsNullOrEmpty(Request.QueryString["pn"]))
                 {
-                    if (CommonOpn.CheckId(Request.QueryString["pn"]) == true)
+                    if (CommonOpn.CheckId(Request.QueryString["pn"]))
                         _pageNumber = Convert.ToInt32(Request.QueryString["pn"]);
                 }
 
