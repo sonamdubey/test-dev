@@ -35,6 +35,8 @@ namespace Bikewale.BAL.PriceQuote
         /// Created By : Lucky Rathore
         /// Created on : 15 March 2016
         /// Description : call API to get reponse for DealerPriceQuote Page.
+        /// Modified by :   Sumit Kate on 27 July 2016
+        /// Description :   If dealer type is premium and emi is not present send the default values for EMI
         /// </summary>
         /// <param name="cityId">e.g. 1</param>
         /// <param name="versionID">e.g. 806</param>
@@ -54,6 +56,24 @@ namespace Bikewale.BAL.PriceQuote
                     objParam.DealerId = dealerId > 0 ? Convert.ToUInt32(dealerId) : default(UInt32);
                     objParam.VersionId = versionID;
                     dealerQuotation = objPriceQuote.GetDealerPriceQuoteByPackage(objParam);
+
+                    if (dealerQuotation != null)
+                    {
+                        if (dealerQuotation.PrimaryDealer != null && dealerQuotation.PrimaryDealer.DealerDetails != null)
+                        {
+                            if (dealerQuotation.PrimaryDealer.EMIDetails == null && dealerQuotation.PrimaryDealer.DealerDetails.DealerPackageType == DealerPackageTypes.Premium)
+                            {
+                                dealerQuotation.PrimaryDealer.EMIDetails = new EMI();
+                                dealerQuotation.PrimaryDealer.EMIDetails.MaxDownPayment = 40;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MinDownPayment = 10;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MaxTenure = 48;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MinTenure = 12;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MaxRateOfInterest = 15;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MinRateOfInterest = 10;
+                                dealerQuotation.PrimaryDealer.EMIDetails.ProcessingFee = 2000;
+                            }
+                        }
+                    }
                 }
 
             }
