@@ -15,6 +15,7 @@
 	alternate = "http://www.bikewale.com/m/news/";
 	AdId = "1395995626568";
 	AdPath = "/1017752/BikeWale_News_";
+    
 %>
 <!-- #include file="/includes/headnews.aspx" -->
 <style type="text/css">
@@ -29,6 +30,7 @@
 	.article-content { margin-left:10px; padding-top:20px; padding-bottom:20px; border-top:1px solid #e2e2e2; }
 	#content > div.article-content:first-of-type { padding-top:0; border-top:0; }
 	.article-image-wrapper a { width:206px; height:116px; display:block; }
+    .article-image-wrapper img { height: 116px; }
 	.article-category { color:#c20000; margin-top:4px; margin-bottom:6px; }
 	.margin-bottom8 { margin-bottom:8px; }
 	.calender-grey-icon, .author-grey-icon { width:14px; height:15px; position:relative; top:-2px; margin-right:4px; }
@@ -58,8 +60,8 @@
 				<h1 class="black-text margin-bottom20">Bike News <span>Latest Indian Bikes News and Views</span></h1>
 					<asp:repeater id="rptNews" runat="server">
 						<itemtemplate>
-							<div id='post-<%# Eval("BasicId") %>' class="<%# Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")).ToLower().Contains("sponsored") ? "sponsored-content" : "post-content" %> article-content">
-								<%# Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")).ToLower().Contains("sponsored") ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
+							<div id='post-<%# Eval("BasicId") %>' class="<%# Regex.Match(Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")), @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "sponsored-content" : "post-content" %> article-content">
+								<%# Regex.Match(Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")), @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
 								<div class="margin-bottom10">
 									<div class="article-image-wrapper">
 										<%#"<a href='/news/" + Eval("BasicId") + "-" + Eval("ArticleUrl") + ".html'><img src='" + Bikewale.Utility.Image.GetPathToShowImages(Eval("OriginalImgUrl").ToString(), Eval("HostUrl").ToString(),Bikewale.Utility.ImageSize._210x118) + "' alt='"+ Eval("Title") +"' title='"+ Eval("Title") +"' width='100%' border='0' /></a>" %>
