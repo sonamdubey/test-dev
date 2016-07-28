@@ -456,7 +456,7 @@ button, a[data-role="button"]:not([data-icon]):focus, input[type="button"]:focus
 .lock-browser-scroll { position: fixed; overflow-y: scroll; width: 100%; }
 
 /* sprite classes */
-.bwmsprite { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite.png?v=4Mar2016) no-repeat; display: inline-block; }
+.bwmsprite { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite.png?v=27June2016v2) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}

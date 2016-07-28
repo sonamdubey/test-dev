@@ -193,7 +193,7 @@ namespace Bikewale.Mobile
                                     this.versionId = modelPg.ModelVersionSpecs.BikeVersionId;
                                 }
                                 modelImage = Bikewale.Utility.Image.GetPathToShowImages(modelPg.ModelDetails.OriginalImagePath, modelPg.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._272x153);
-                                var selectedVersion = modelPg.ModelVersions.First(p => p.VersionId == this.versionId);
+                                var selectedVersion = modelPg.ModelVersions.FirstOrDefault(p => p.VersionId == this.versionId);
                                 if (selectedVersion != null)
                                 {
                                     price = Convert.ToUInt32(selectedVersion.Price);

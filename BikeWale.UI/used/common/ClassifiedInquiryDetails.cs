@@ -1,14 +1,13 @@
+using Bikewale.Common;
+using MySql.CoreDAL;
 /*
-	This class will contain all the common function related to Sell Bike process
+    This class will contain all the common function related to Sell Bike process
 */
 using System;
-using System.Text;
 using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using Bikewale.Common;
 using System.Data.Common;
-using MySql.CoreDAL;
+using System.Text;
+using System.Web;
 
 namespace Bikewale.Used
 {
@@ -16,24 +15,24 @@ namespace Bikewale.Used
     ///     Created By : Ashish G. Kamble on 24/8/2012
     ///     Class contains to process the classified bike inquiry details
     /// </summary>
-	public class ClassifiedInquiryDetails
-	{			
-		//used for writing the debug messages
-		private HttpContext objTrace = HttpContext.Current;
-		
-		// Constructor of the class
+    public class ClassifiedInquiryDetails
+    {
+        //used for writing the debug messages
+        private HttpContext objTrace = HttpContext.Current;
+
+        // Constructor of the class
         /// <summary>
         /// Modified By : Sadhana Upadhyay on 14 Oct 2014
         /// Summary : Added condition for IsApproved flag
         /// </summary>
         /// <param name="profileId"></param>
-		public ClassifiedInquiryDetails(string profileId)
-		{			
-			InquiryId = CommonOpn.GetProfileNo(profileId);			            
+        public ClassifiedInquiryDetails(string profileId)
+        {
+            InquiryId = CommonOpn.GetProfileNo(profileId);
 
-			string sql = "";
-			
-			Seller = "Individual";
+            string sql = "";
+
+            Seller = "Individual";
 
             sql = @" select cm.id as makeid, cmo.id as modelid, cv.id as versionid,
                  cm.name as make,cm.maskingname as makemaskingname, cm.logourl as logourl, cmo.name as model,cmo.maskingname as modelmaskingname,
@@ -59,20 +58,20 @@ namespace Bikewale.Used
                 left join states as st on c.stateid = st.id 
                 where csi.id = @v_inquiryid 
                 and (csi.customerid = @v_currentuserid or csi.isapproved = 1 ) ";
-			
-			try
-			{
+
+            try
+            {
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
                     //cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt).Value = InquiryId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("@v_currentuserid", DbType.Int64, CurrentUser.Id));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_inquiryid", DbType.Int64, InquiryId)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_inquiryid", DbType.Int64, InquiryId));
 
                     string engine = "";
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        if (dr!=null && dr.Read())
+                        if (dr != null && dr.Read())
                         {
                             // If Bike removed from the portal for any of the following reason
                             // 1. Bike marked as Fake
@@ -160,23 +159,23 @@ namespace Bikewale.Used
 
                             dr.Close();
 
-                        }  
+                        }
                     }
                 }
-			}
-			catch(Exception ex)
-			{
-				objTrace.Trace.Warn(ex.Message);				
-				ErrorClass objErr = new ErrorClass(ex, objTrace.Request.ServerVariables["URL"]);
-				objErr.SendMail();				
-			}
-		}
+            }
+            catch (Exception ex)
+            {
+                objTrace.Trace.Warn(ex.Message);
+                ErrorClass objErr = new ErrorClass(ex, objTrace.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+        }
 
         public string Parse_Features()
         {
-            StringBuilder sb = null;  
+            StringBuilder sb = null;
             sb = new StringBuilder();
-            
+
             sb.Append("<ul class='ul-tick-chk'>");
 
             // Append feature to list only when it is true(available)
@@ -207,7 +206,7 @@ namespace Bikewale.Used
             if (CheckFeature(Clock)) { sb.Append("<li>Clock</li>"); }
 
             sb.Append("</ul>");
-            
+
             return sb != null ? sb.ToString() : "";
         }
 
@@ -218,40 +217,40 @@ namespace Bikewale.Used
 
             if (!String.IsNullOrEmpty(feature))
             {
-                isChecked = (feature == "1")?true:false;
+                isChecked = (feature == "1") ? true : false;
             }
             //HttpContext.Current.Trace.Warn("isChecked : ", isChecked.ToString() + " feature : " + feature);
             return isChecked;
         }
-		
-        string GetOwner( string ownerId )
-		{
-			string ownerStr = "";
-			
-			switch( ownerId )
-			{
-				case "1" :
-					ownerStr = "First";
-					break;
-				case "2" :
-					ownerStr = "Second";
-					break;
-				case "3" : 
-					ownerStr = "Third";
-					break;
-				case "4" : 
-					ownerStr = "Fourth";
-					break;
-				default : 
-					ownerStr = "Fifth";
-					break;
-			}
-			
-			return ownerStr;
-		}
-		
-        string GetFuelTypeText(string fuelType, string additinalFuel) 
-        {   
+
+        string GetOwner(string ownerId)
+        {
+            string ownerStr = "";
+
+            switch (ownerId)
+            {
+                case "1":
+                    ownerStr = "First";
+                    break;
+                case "2":
+                    ownerStr = "Second";
+                    break;
+                case "3":
+                    ownerStr = "Third";
+                    break;
+                case "4":
+                    ownerStr = "Fourth";
+                    break;
+                default:
+                    ownerStr = "Fifth";
+                    break;
+            }
+
+            return ownerStr;
+        }
+
+        string GetFuelTypeText(string fuelType, string additinalFuel)
+        {
             var fuelVal = "-";
 
             switch (fuelType)
@@ -279,48 +278,48 @@ namespace Bikewale.Used
             return fuelVal;
         }
 
-		// Lot of redundent conditions just to checkout whether Bike is active on the Portal or Sold Out
-		// Need to be optimised
-		bool GetSoldOutStatus(string statusId, string expiryDate, bool isBikeFake, string packageExpiryDate, string isDealer, bool isSellerFake)
-		{			
-			bool isSold = true;
-			
-			if ( statusId == "1" )
-			{
-				if(expiryDate != "" )
-				{
-					if(Convert.ToDateTime(expiryDate) >= DateTime.Today)
-						isSold = false;
-				}
-				else
-					isSold = false;
-			}
-				
-			if(isSold == false && isBikeFake.ToString() != "" ) 
-				isSold = isBikeFake;
-			
-			if( isDealer == "1" ) // dealer
-			{
-				if(isSold == false && isSellerFake.ToString() != "" ) 
-					isSold = isSellerFake;
-					
-				if( packageExpiryDate != "" ) 
-				{
-					if( Convert.ToDateTime( packageExpiryDate ) < DateTime.Today ) isSold = true;
-				}
-				else
-					isSold = true;
-			}
-									
-			return isSold;
-		}
-		//
-			// Bike Make-Model-Version Information
-		//		
-		public string BikeName
-		{
-			get{ return MakeName +" "+ ModelName +" "+ VersionName; }			
-		}
+        // Lot of redundent conditions just to checkout whether Bike is active on the Portal or Sold Out
+        // Need to be optimised
+        bool GetSoldOutStatus(string statusId, string expiryDate, bool isBikeFake, string packageExpiryDate, string isDealer, bool isSellerFake)
+        {
+            bool isSold = true;
+
+            if (statusId == "1")
+            {
+                if (expiryDate != "")
+                {
+                    if (Convert.ToDateTime(expiryDate) >= DateTime.Today)
+                        isSold = false;
+                }
+                else
+                    isSold = false;
+            }
+
+            if (isSold == false && isBikeFake.ToString() != "")
+                isSold = isBikeFake;
+
+            if (isDealer == "1") // dealer
+            {
+                if (isSold == false && isSellerFake.ToString() != "")
+                    isSold = isSellerFake;
+
+                if (packageExpiryDate != "")
+                {
+                    if (Convert.ToDateTime(packageExpiryDate) < DateTime.Today) isSold = true;
+                }
+                else
+                    isSold = true;
+            }
+
+            return isSold;
+        }
+        //
+        // Bike Make-Model-Version Information
+        //		
+        public string BikeName
+        {
+            get { return MakeName + " " + ModelName + " " + VersionName; }
+        }
 
         string _MakeMaskingName = "";
         public string MakeMaskingName
@@ -335,55 +334,55 @@ namespace Bikewale.Used
             get { return _ModelMaskingName; }
             set { _ModelMaskingName = value; }
         }
-		
-		string _MakeName = "";
-		public string MakeName
-		{
-			get{ return _MakeName; }
-			set{ _MakeName = value; }
-		}
-		
-		string _ModelName = "";
-		public string ModelName
-		{
-			get{ return _ModelName; }
-			set{ _ModelName = value; }
-		}
-		
-		string _VersionName = "";
-		public string VersionName
-		{
-			get{ return _VersionName; }
-			set{ _VersionName = value; }
-		}
-		
-		string _MakeId = "";
-		public string MakeId
-		{
-			get{ return _MakeId; }
-			set{ _MakeId = value; }
-		}
-		
-		string _ModelId = "";
-		public string ModelId
-		{
-			get{ return _ModelId; }
-			set{ _ModelId = value; }
-		}
-		
-		string _VersionId = "";
-		public string VersionId
-		{
-			get{ return _VersionId; }
-			set{ _VersionId = value; }
-		}
-		
-		string _CityName = "";
-		public string CityName
-		{
-			get{ return _CityName; }
-			set{ _CityName = value; }
-		}
+
+        string _MakeName = "";
+        public string MakeName
+        {
+            get { return _MakeName; }
+            set { _MakeName = value; }
+        }
+
+        string _ModelName = "";
+        public string ModelName
+        {
+            get { return _ModelName; }
+            set { _ModelName = value; }
+        }
+
+        string _VersionName = "";
+        public string VersionName
+        {
+            get { return _VersionName; }
+            set { _VersionName = value; }
+        }
+
+        string _MakeId = "";
+        public string MakeId
+        {
+            get { return _MakeId; }
+            set { _MakeId = value; }
+        }
+
+        string _ModelId = "";
+        public string ModelId
+        {
+            get { return _ModelId; }
+            set { _ModelId = value; }
+        }
+
+        string _VersionId = "";
+        public string VersionId
+        {
+            get { return _VersionId; }
+            set { _VersionId = value; }
+        }
+
+        string _CityName = "";
+        public string CityName
+        {
+            get { return _CityName; }
+            set { _CityName = value; }
+        }
 
         string _CityMaskingName = "";
         public string CityMaskingName
@@ -391,13 +390,13 @@ namespace Bikewale.Used
             get { return _CityMaskingName; }
             set { _CityMaskingName = value; }
         }
-		
-		string _CityId = "";
-		public string CityId
-		{
-			get{ return _CityId; }
-			set{ _CityId = value; }
-		}
+
+        string _CityId = "";
+        public string CityId
+        {
+            get { return _CityId; }
+            set { _CityId = value; }
+        }
 
         string _AreaName = "";
         public string AreaName
@@ -405,180 +404,180 @@ namespace Bikewale.Used
             get { return _AreaName; }
             set { _AreaName = value; }
         }
-		
-		string _StateName = "";
-		public string StateName
-		{
-			get{ return _StateName; }
-			set{ _StateName = value; }
-		}
-		
-		string _StateCode = "";
-		public string StateCode
-		{
-			get{ return _StateCode; }
-			set{ _StateCode = value; }
-		}
-		
-		//
-			// Bike Basic Information
-		// 
-		string _InquiryId = "";
-		public string InquiryId
-		{
-			get{ return _InquiryId; }
-			set{ _InquiryId = value; }
-		}
-		
-		string _AskingPrice = "";
-		public string AskingPrice
-		{
-			get{ return _AskingPrice; }
-			set{ _AskingPrice = value; }
-		}
-		
-		string _Kms = "";
-		public string Kms
-		{
-			get{ return _Kms; }
-			set{ _Kms = value; }
-		}
-		
-		string _ModelYear = "";
-		public string ModelYear
-		{
-			get{ return _ModelYear; }
-			set{ _ModelYear = value; }
-		}
-		
-		string _ModelMonthOnly = "";
-		public string ModelMonthOnly
-		{
-			get{ return _ModelMonthOnly; }
-			set{ _ModelMonthOnly = value; }
-		}	
-		
-		string _ModelYearOnly = "";
-		public string ModelYearOnly
-		{
-			get{ return _ModelYearOnly; }
-			set{ _ModelYearOnly = value; }
-		}				
-		
-		string _ExtiriorColor = "";
-		public string ExtiriorColor
-		{
-			get{ return _ExtiriorColor; }
-			set{ _ExtiriorColor = value; }
-		}
-		
-		string _ExtiriorCode = "";
-		public string ExtiriorCode
-		{
-			get{ return _ExtiriorCode; }
-			set{ _ExtiriorCode = value; }
-		}
-		
-		
-		string _Registration = "";
-		public string Registration
-		{
-			get{ return _Registration; }
-			set{ _Registration = value; }
-		}
-		
-		string _FuelEconomy = "";
-		public string FuelEconomy
-		{
-			get{ return _FuelEconomy; }
-			set{ _FuelEconomy = value; }
-		}
-		
-		string _Engine = "";
-		public string Engine
-		{
-			get{ return _Engine; }
-			set{ _Engine = value; }
-		}
-		
-		string _Owner = "";
-		public string Owner
-		{
-			get{ return _Owner; }
-			set{ _Owner = value; }
-		}
-		
-		string _Seller = "";
-		public string Seller
-		{
-			get{ return _Seller; }
-			set{ _Seller = value; }
-		}
-		
-		string _SellerId = "";
-		public string SellerId
-		{
-			get{ return _SellerId; }
-			set{ _SellerId = value; }
-		}
-		
-		string _Insurance = "";
-		public string Insurance
-		{
-			get{ return _Insurance; }
-			set{ _Insurance = value; }
-		}
-		
-		string _InsuranceExpiry = "";
-		public string InsuranceExpiry
-		{
-			get{ return _InsuranceExpiry; }
-			set{ _InsuranceExpiry = value; }
-		}
-		
-		string _LifetimeTax = "";
-		public string LifetimeTax
-		{
-			get{ return _LifetimeTax; }
-			set{ _LifetimeTax = value; }
-		}
-		
-		string _CustomersNote = "";
-		public string CustomersNote
-		{
-			get{ return _CustomersNote; }
-			set{ _CustomersNote = value; }
-		}				
-		
-		string _Warranties = "";
-		public string Warranties
-		{
-			get{ return _Warranties; }
-			set{ _Warranties = value; }
-		}	
-		
-		string _Modifications = "";
-		public string Modifications
-		{
-			get{ return _Modifications; }
-			set{ _Modifications = value; }
-		}
+
+        string _StateName = "";
+        public string StateName
+        {
+            get { return _StateName; }
+            set { _StateName = value; }
+        }
+
+        string _StateCode = "";
+        public string StateCode
+        {
+            get { return _StateCode; }
+            set { _StateCode = value; }
+        }
+
+        //
+        // Bike Basic Information
+        // 
+        string _InquiryId = "";
+        public string InquiryId
+        {
+            get { return _InquiryId; }
+            set { _InquiryId = value; }
+        }
+
+        string _AskingPrice = "";
+        public string AskingPrice
+        {
+            get { return _AskingPrice; }
+            set { _AskingPrice = value; }
+        }
+
+        string _Kms = "";
+        public string Kms
+        {
+            get { return _Kms; }
+            set { _Kms = value; }
+        }
+
+        string _ModelYear = "";
+        public string ModelYear
+        {
+            get { return _ModelYear; }
+            set { _ModelYear = value; }
+        }
+
+        string _ModelMonthOnly = "";
+        public string ModelMonthOnly
+        {
+            get { return _ModelMonthOnly; }
+            set { _ModelMonthOnly = value; }
+        }
+
+        string _ModelYearOnly = "";
+        public string ModelYearOnly
+        {
+            get { return _ModelYearOnly; }
+            set { _ModelYearOnly = value; }
+        }
+
+        string _ExtiriorColor = "";
+        public string ExtiriorColor
+        {
+            get { return _ExtiriorColor; }
+            set { _ExtiriorColor = value; }
+        }
+
+        string _ExtiriorCode = "";
+        public string ExtiriorCode
+        {
+            get { return _ExtiriorCode; }
+            set { _ExtiriorCode = value; }
+        }
+
+
+        string _Registration = "";
+        public string Registration
+        {
+            get { return _Registration; }
+            set { _Registration = value; }
+        }
+
+        string _FuelEconomy = "";
+        public string FuelEconomy
+        {
+            get { return _FuelEconomy; }
+            set { _FuelEconomy = value; }
+        }
+
+        string _Engine = "";
+        public string Engine
+        {
+            get { return _Engine; }
+            set { _Engine = value; }
+        }
+
+        string _Owner = "";
+        public string Owner
+        {
+            get { return _Owner; }
+            set { _Owner = value; }
+        }
+
+        string _Seller = "";
+        public string Seller
+        {
+            get { return _Seller; }
+            set { _Seller = value; }
+        }
+
+        string _SellerId = "";
+        public string SellerId
+        {
+            get { return _SellerId; }
+            set { _SellerId = value; }
+        }
+
+        string _Insurance = "";
+        public string Insurance
+        {
+            get { return _Insurance; }
+            set { _Insurance = value; }
+        }
+
+        string _InsuranceExpiry = "";
+        public string InsuranceExpiry
+        {
+            get { return _InsuranceExpiry; }
+            set { _InsuranceExpiry = value; }
+        }
+
+        string _LifetimeTax = "";
+        public string LifetimeTax
+        {
+            get { return _LifetimeTax; }
+            set { _LifetimeTax = value; }
+        }
+
+        string _CustomersNote = "";
+        public string CustomersNote
+        {
+            get { return _CustomersNote; }
+            set { _CustomersNote = value; }
+        }
+
+        string _Warranties = "";
+        public string Warranties
+        {
+            get { return _Warranties; }
+            set { _Warranties = value; }
+        }
+
+        string _Modifications = "";
+        public string Modifications
+        {
+            get { return _Modifications; }
+            set { _Modifications = value; }
+        }
 
         //Modified By : Ashwini Todkar on 4 Sep 2014
         //Changed _soldOutStatus datatype from bool to string to get status of Sell bike inquiry
         string _soldOutStatus = string.Empty;
         public string SoldOutStatus
-		{
+        {
             get { return _soldOutStatus; }
             set { _soldOutStatus = value; }
-		}
-		
-		string _LastUpdated = string.Empty;
-		public string LastUpdated
-		{
-			get{ return _LastUpdated; }
-			set{ _LastUpdated = value; }
-		}
+        }
+
+        string _LastUpdated = string.Empty;
+        public string LastUpdated
+        {
+            get { return _LastUpdated; }
+            set { _LastUpdated = value; }
+        }
 
         string _CertifiedId = string.Empty;
         public string CertifiedId
@@ -619,5 +618,5 @@ namespace Bikewale.Used
         public string AntilockBrakingSystem { get; set; }
         public string Killswitch { get; set; }
         public string Clock { get; set; }
-	}
+    }
 }
