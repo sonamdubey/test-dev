@@ -10,9 +10,9 @@
     <%  
         title = "Bike Videos, Expert Video Reviews with Road Test & Bike Comparison - BikeWale";
         description ="Check latest bike and scooter videos, watch BikeWale expert's take on latest bikes and scooters - features, performance, price, fuel economy, handling and more.";
+        keywords = "bike videos, video reviews, expert video reviews, road test videos, bike comparison videos";
         canonical = "http://www.bikewale.com/bike-videos/";
         alternate =  "http://www.bikewale.com/m/bike-videos/";
-        keywords = "bike videos, video reviews, expert video reviews, road test videos, bike comparison videos";
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <style type="text/css">
