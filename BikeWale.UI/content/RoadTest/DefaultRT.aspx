@@ -20,12 +20,16 @@
 <style type="text/css">
     #content { margin:0; }
     #content h1 { margin-left:10px; margin-right:10px; }
-    .top-breadcrumb { padding-top:20px; margin-right:15px; margin-bottom:10px; margin-left:15px; }
+    .sponsored-tag-wrapper { width: 120px;height: 24px;background: #4d5057; color: #fff; font-size: 12px; line-height: 25px; padding: 0 20px; top:-10px; left:-20px; }
+	.sponsored-left-tag {width: 0;height: 0;border-top: 13px solid transparent;border-bottom: 15px solid transparent;border-right: 10px solid #fff;position: relative;top: -6px;left: 30px;font-size: 0;line-height: 0;z-index: 1; }
+	.sept-dashed { margin:10px 0 15px; }
+	.top-breadcrumb { padding-top:20px; margin-right:15px; margin-bottom:10px; margin-left:15px; }
     .article-image-wrapper { width: 206px; margin-right: 20px; float: left; }
     .article-desc-wrapper { width: auto; }
     .article-content { margin-left:10px; padding-top:20px; padding-bottom:20px; border-top:1px solid #e2e2e2; }
     #content > div.article-content:first-of-type { padding-top:0; border-top:0; }
     .article-image-wrapper a { width:100%; height:116px; display:block; }
+    .article-image-wrapper img { height: 116px; }
     .margin-bottom8 { margin-bottom:8px; }
     .calender-grey-icon, .author-grey-icon { width:14px; height:15px; position:relative; top:-2px; margin-right:4px; }
     .calender-grey-icon { background-position:-129px -515px; }
@@ -53,7 +57,8 @@
                 <div class="alert moz-round" id="alertObj" runat="server" visible="false"></div>
                 <asp:repeater id="rptRoadTest" runat="server" enableviewstate="false">
 				    <Itemtemplate>					
-					    <div id='post-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>' class="article-content">
+					    <div id='post-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>' class="<%# Regex.Match(Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")), @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "sponsored-content" : "post-content" %> article-content">
+                            <%# Regex.Match(Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")), @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
                             <div class="margin-bottom10">
                                 <div class="article-image-wrapper">
                                     <%# !String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"OriginalImgUrl").ToString()) ? "<a href='/road-tests/" + DataBinder.Eval(Container.DataItem,"ArticleUrl") + "-" + DataBinder.Eval(Container.DataItem,"BasicId") + ".html'><img src='" + Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImgUrl").ToString(),DataBinder.Eval(Container.DataItem,"HostURL").ToString(),Bikewale.Utility.ImageSize._210x118) +"' alt='"+ DataBinder.Eval(Container.DataItem,"Title").ToString() +"' title='"+ DataBinder.Eval(Container.DataItem,"Title").ToString() +"' width='100%' border='0' /></a>" : "" %>

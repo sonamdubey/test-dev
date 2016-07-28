@@ -37,6 +37,7 @@
             <itemtemplate>
                 <a class="normal" href='/m/road-tests/<%#DataBinder.Eval(Container.DataItem, "ArticleUrl").ToString()%>-<%# DataBinder.Eval(Container.DataItem, "BasicId") %>.html' >
                     <div class="box1 new-line15" >
+                        <%# Regex.Match(Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")), @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
                         <div class="article-wrapper">
                             <div class="article-image-wrapper">
                                 <img alt='Road Test: <%# DataBinder.Eval(Container.DataItem, "Title") %>' title="Road Test: <%# DataBinder.Eval(Container.DataItem, "Title") %>" src='<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgUrl").ToString(), DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>' width="100%" border="0">

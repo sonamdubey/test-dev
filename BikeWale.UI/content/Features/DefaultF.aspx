@@ -29,6 +29,7 @@
 	.article-content { margin-left:10px; padding-top:20px; padding-bottom:20px; border-top:1px solid #e2e2e2; }
 	#content > div.article-content:first-of-type { padding-top:0; border-top:0; }
 	.article-image-wrapper a { width:100%; height:116px; display:block; }
+    .article-image-wrapper img { height: 116px; }
 	.margin-bottom8 { margin-bottom:8px; }
 	.calender-grey-icon, .author-grey-icon { width:14px; height:15px; position:relative; top:-2px; margin-right:4px; }
 	.calender-grey-icon { background-position:-129px -515px; }
@@ -53,8 +54,8 @@
 				<h1 class="black-text margin-bottom15">Features</h1>
 				<asp:repeater id="rptFeatures" runat="server">
 					<itemtemplate>
-						<div id='post-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>' class=" <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")).ToLower().Contains("sponsored") ? "sponsored-content" : "post-content" %> article-content">
-							<%# Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")).ToLower().Contains("sponsored") ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
+						<div id='post-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>' class="<%# Regex.Match(Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")), @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "sponsored-content" : "post-content" %> article-content">
+								<%# Regex.Match(Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")), @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
 							<div class="margin-bottom10">
 								<div class="article-image-wrapper">
 									<%# DataBinder.Eval(Container.DataItem,"OriginalImgUrl").ToString() != "" ? "<a href='/features/" + DataBinder.Eval(Container.DataItem,"ArticleUrl") + "-" + DataBinder.Eval(Container.DataItem,"BasicId") + "/'><img src='" + Bikewale.Utility.Image.GetPathToShowImages( DataBinder.Eval( Container.DataItem, "OriginalImgUrl" ).ToString(),DataBinder.Eval( Container.DataItem, "HostURL" ).ToString() ,Bikewale.Utility.ImageSize._210x118) +"' alt='"+ DataBinder.Eval(Container.DataItem,"Title") +"' title='"+ DataBinder.Eval(Container.DataItem,"Title") +"' width='100%' border='0' /></a>" : "" %>
