@@ -183,7 +183,7 @@ namespace Bikewale.Mobile.News
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Mobile.News.Default.GetContentCategory");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Exception : Mobile.News.Default.GetContentCategory");
                 objErr.SendMail();
             }
             return _category;

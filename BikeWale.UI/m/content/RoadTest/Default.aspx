@@ -5,7 +5,7 @@
     title = "Road tests, First drives of New Bikes in India";
     description = "Road testing a bike is the only way to know true capabilities of a bike. Read our road tests to know how bikes perform on various aspects.";
     keywords = "road test, road tests, roadtests, roadtest, bike reviews, expert bike reviews, detailed bike reviews, test-drives, comprehensive bike tests, bike preview, first drives";
-    canonical = "http://www.bikewale.com" + "/road-tests/";
+    canonical = "http://www.bikewale.com/road-tests/";
     relPrevPageUrl = String.IsNullOrEmpty(prevPageUrl) ? "" : "http://www.bikewale.com" + prevPageUrl;
     relNextPageUrl = String.IsNullOrEmpty(nextPageUrl) ? "" : "http://www.bikewale.com" + nextPageUrl;
     AdPath = "/1017752/Bikewale_Mobile_NewBikes";
@@ -42,9 +42,9 @@
                                 <img alt='Road Test: <%# DataBinder.Eval(Container.DataItem, "Title") %>' title="Road Test: <%# DataBinder.Eval(Container.DataItem, "Title") %>" src='<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgUrl").ToString(), DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>' width="100%" border="0">
                             </div>
                             <div class="padding-left10 article-desc-wrapper">
-                                <div class="font14 text-bold text-black">
+                                <h2 class="font14 text-bold text-black">
                                     Road Test: <%# DataBinder.Eval(Container.DataItem, "Title") %>
-                                </div>
+                                </h2>
                             </div>
                         </div>
                         <div class="article-stats-wrapper font12 leftfloat text-light-grey">
