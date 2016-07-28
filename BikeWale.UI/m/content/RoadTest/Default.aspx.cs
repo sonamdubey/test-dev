@@ -57,7 +57,7 @@ namespace Bikewale.Content
             }
         }
 
-        private async void GetRoadTestList()
+        private void GetRoadTestList()
         {
             try
             {
@@ -133,14 +133,14 @@ namespace Bikewale.Content
         {
             PagerOutputEntity _pagerOutput = null;
             PagerEntity _pagerEntity = null;
-            string _baseUrl = "/m/road-tests/";
+            string _baseUrl = "/m/expert-reviews/";
 
             try
             {
                 if (!String.IsNullOrEmpty(makeId) && !String.IsNullOrEmpty(modelId))
-                    _baseUrl = Request.QueryString["make"] + "-bikes/" + Request.QueryString["model"] + "/road-tests/";
+                    _baseUrl = Request.QueryString["make"] + "-bikes/" + Request.QueryString["model"] + "/expert-reviews/";
                 else if (!String.IsNullOrEmpty(Request.QueryString["make"]))
-                    _baseUrl = "/m/" + Request.QueryString["make"] + "-bikes/" + "/road-tests/";
+                    _baseUrl = "/m/" + Request.QueryString["make"] + "-bikes/" + "/expert-reviews/";
 
                 _pagerEntity = new PagerEntity();
                 _pagerEntity.BaseUrl = _baseUrl;

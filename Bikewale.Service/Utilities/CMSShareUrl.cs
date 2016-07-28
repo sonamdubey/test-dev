@@ -89,7 +89,7 @@ namespace Bikewale.Service.Utilities
                     articleSummary.ShareUrl = string.Format("{0}/features/{1}-{2}/", _bwHostUrl, articleSummary.ArticleUrl, articleSummary.BasicId);
                     break;
                 case EnumCMSContentType.RoadTest:
-                    articleSummary.ShareUrl = string.Format("{0}/road-tests/{1}-{2}.html", _bwHostUrl, articleSummary.ArticleUrl, articleSummary.BasicId);
+                    articleSummary.ShareUrl = string.Format("{0}/expert-reviews/{1}-{2}.html", _bwHostUrl, articleSummary.ArticleUrl, articleSummary.BasicId);
                     break;
                 case EnumCMSContentType.SpecialFeature:
                     articleSummary.ShareUrl = string.Format("{0}/features/{1}-{2}/", _bwHostUrl, articleSummary.ArticleUrl, articleSummary.BasicId);

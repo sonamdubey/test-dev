@@ -19,10 +19,10 @@
 
         $("#lnkShowAll").click(function (e) {
             e.preventDefault();
-            var url = '/road-tests/';
+            var url = '/expert-reviews/';
             var loc = '/';
-            if (url.indexOf("road-tests") > 0) {
-                loc += "road-tests/";
+            if (url.indexOf("expert-reviews") > 0) {
+                loc += "expert-reviews/";
             } else if (url.indexOf("comparos") > 0) {
                 loc += "comparos/";
             }
@@ -31,7 +31,7 @@
     });
 
     function MakeModelSearch_click() {
-        var url = '/road-tests/';
+        var url = '/expert-reviews/';
         if ($("#MakeModelSearch_drpMake").val() == 0) {
             if ($("#MakeModelSearch_drpModel").val() == "") {
                 window.location.href = '/new/' + url.split('/')[2] + '/';
@@ -59,8 +59,8 @@
         if (modelId != "" && modelId != null && modelId > 0) {            
             loc += modelName + "/";
         }
-        if (url.indexOf("road-tests") > 0) {
-            loc += "road-tests/";
+        if (url.indexOf("expert-reviews") > 0) {
+            loc += "expert-reviews/";
         } else if (url.indexOf("comparos") > 0) {
             loc += "comparos/";
         }      

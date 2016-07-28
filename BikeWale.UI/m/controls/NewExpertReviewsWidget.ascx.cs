@@ -36,16 +36,16 @@ namespace Bikewale.Mobile.Controls
 
             if (String.IsNullOrEmpty(MakeMaskingName) && String.IsNullOrEmpty(ModelMaskingName))
             {
-                MoreExpertReviewUrl = "/m/road-tests/";
+                MoreExpertReviewUrl = "/m/expert-reviews/";
             }
             else if (String.IsNullOrEmpty(ModelMaskingName))
             {
-                MoreExpertReviewUrl = String.Format("/m/{0}-bikes/road-tests/", MakeMaskingName);
+                MoreExpertReviewUrl = String.Format("/m/{0}-bikes/expert-reviews/", MakeMaskingName);
                 linkTitle = string.Format("{0} Expert Reviews", MakeName);
             }
             else
             {
-                MoreExpertReviewUrl = String.Format("/m/{0}-bikes/{1}/road-tests/", MakeMaskingName, ModelMaskingName);
+                MoreExpertReviewUrl = String.Format("/m/{0}-bikes/{1}/expert-reviews/", MakeMaskingName, ModelMaskingName);
                 linkTitle = string.Format("{0} {1} Expert Reviews", MakeName, ModelName);
             }
         }

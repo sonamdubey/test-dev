@@ -5,7 +5,7 @@
 	title = "Road tests, First drives of New Bikes in India";
 	description = "Road testing a bike is the only way to know true capabilities of a bike. Read our road tests to know how bikes perform on various aspects.";
 	keywords = "road test, road tests, roadtests, roadtest, bike reviews, expert bike reviews, detailed bike reviews, test-drives, comprehensive bike tests, bike preview, first drives";
-	canonical = "http://www.bikewale.com" + "/road-tests/";
+	canonical = "http://www.bikewale.com" + "/expert-reviews/";
 	relPrevPageUrl = String.IsNullOrEmpty(prevPageUrl) ? "" : "http://www.bikewale.com" + prevPageUrl;
 	relNextPageUrl = String.IsNullOrEmpty(nextPageUrl) ? "" : "http://www.bikewale.com" + nextPageUrl;
 	AdPath = "/1017752/Bikewale_Mobile_NewBikes";
@@ -46,13 +46,13 @@
 			<div id="errSearch" class="error" style="padding:8px;width:160px;float:left;display:none;">Select make</div>
 			<div style="clear:both;"></div>
 		</div>
-		<div class="new-line10"><a class="normal" href="/m/road-tests/">Show all road tests&nbsp;&nbsp;<span class="arr-small">»</span></a></div>
+		<div class="new-line10"><a class="normal" href="/m/expert-reviews/">Show all road tests&nbsp;&nbsp;<span class="arr-small">»</span></a></div>
 	</div>
-	<div class="pgsubhead">Latest bike Road Tests</div>
+	<div class="pgsubhead">Latest bike Expert Reviews</div>
 	<div id="divListing">
 		<asp:Repeater id="rptRoadTest" runat="server">
 			<itemtemplate>
-				<a class="normal" href='/m/road-tests/<%#DataBinder.Eval(Container.DataItem, "ArticleUrl").ToString()%>-<%# DataBinder.Eval(Container.DataItem, "BasicId") %>.html' >
+				<a class="normal" href='/m/expert-reviews/<%#DataBinder.Eval(Container.DataItem, "ArticleUrl").ToString()%>-<%# DataBinder.Eval(Container.DataItem, "BasicId") %>.html' >
 					<div class="box1 new-line15" >
 						<table cellspacing="0" cellpadding="0" style="width:100%;overflow:visible;">
 							<tr>
@@ -159,11 +159,11 @@
 		
 		if (modelId > 0)
 		{
-			window.location = "/m/" + makeName + "-bikes/" + modelName + "/road-tests/";
+			window.location = "/m/" + makeName + "-bikes/" + modelName + "/expert-reviews/";
 		}
 		else if (makeId > 0)
 		{
-			window.location = "/m/" + makeName + "-bikes/road-tests/";
+			window.location = "/m/" + makeName + "-bikes/expert-reviews/";
 		}
 		else 
 			alert("Please Select Make.");
