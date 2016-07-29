@@ -322,7 +322,7 @@
             <!-- Dealer Widget ends here -->
 
             <!--Dealer Campaign starts here -->
-            <div class="city-unveil-offer-container <%= (objExQuotation.CampaignId > 0) ? "" : "hide" %>">
+            <div class="city-unveil-offer-container <%= (objExQuotation != null && objExQuotation.CampaignId > 0) ? "" : "hide" %>">
                 <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="bwmsprite disclaimer-icon margin-right5"></span>                   
                         Get following details from <%=objVersionDetails.MakeBase.MakeName %>:                   
                 </h4>
@@ -342,7 +342,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="grid-12 float-button float-fixed clearfix <%= (objExQuotation.CampaignId > 0) ? "" : "hide" %>">
+            <div class="grid-12 float-button float-fixed clearfix <%= (objExQuotation != null && objExQuotation.CampaignId > 0) ? "" : "hide" %>">
                 <input type="button" value="Get more details" class="btn btn-full-width btn-sm margin-right10 leftfloat btn-orange" id="getMoreDetailsBtnCampaign" />
             </div>
 
