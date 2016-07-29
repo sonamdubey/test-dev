@@ -132,3 +132,8 @@ $('.btn-grey-state').on('click', function () {
 $('#getMoreDetails').on('click', function () {
     getMoreDetailsClicked = true;
 });
+$("#getMoreDetailsBtnCampaign").on("click", function () {
+    $("#leadCapturePopup").show();
+    $('body').addClass('lock-browser-scroll');
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_More_Details_Clicked', 'lab': bikeVersionLocation });
+});
