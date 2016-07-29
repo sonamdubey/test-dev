@@ -94,13 +94,13 @@ namespace Bikewale.Content
                     var _titleStartIndex = _newUrl.LastIndexOf('/') + 1;
                     var _titleEndIndex = _newUrl.LastIndexOf('-');
                     string _newUrlTitle = _newUrl.Substring(_titleStartIndex, _titleEndIndex - _titleStartIndex + 1);
-                    _newUrl = "/road-tests/" + _newUrlTitle + basicId + ".html";
+                    _newUrl = "/expert-reviews/" + _newUrlTitle + basicId + ".html";
                     CommonOpn.RedirectPermanent(_newUrl);
                 }
             }
             else
             {
-                Response.Redirect("/road-tests/", false);
+                Response.Redirect("/expert-reviews/", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }

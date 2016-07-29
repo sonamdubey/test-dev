@@ -73,6 +73,8 @@ namespace Bikewale.New
         protected void Page_Load(object sender, EventArgs e)
         {
             // Modified By :Lucky Rathore on 12 July 2016.
+
+            Trace.Warn("page load starts");
             Form.Action = Request.RawUrl;
             //Function to process and validate Query String  
             if (ProcessQueryString())
