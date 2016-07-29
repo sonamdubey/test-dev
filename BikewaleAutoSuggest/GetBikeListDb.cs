@@ -97,7 +97,9 @@ namespace BikewaleAutoSuggest
                         ModelId = bikeItem.ModelId.ToString(),
                         MakeMaskingName = bikeItem.MakeMaskingName,
                         ModelMaskingName = bikeItem.ModelMaskingName,
-                        Futuristic = bikeItem.Futuristic.ToString()
+                        Futuristic = bikeItem.Futuristic.ToString(),
+                        IsNew = bikeItem.New.ToString()
+
                     };
 
                     ObjTemp.mm_suggest.Weight = count;

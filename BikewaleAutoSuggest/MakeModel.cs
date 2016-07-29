@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace BikewaleAutoSuggest
 {
@@ -28,6 +24,7 @@ namespace BikewaleAutoSuggest
         public string MakeMaskingName { get; set; }
         public string ModelMaskingName { get; set; }
         public string Futuristic { get; set; }
+        public string IsNew { get; set; }
     }
 
     public class TempList
