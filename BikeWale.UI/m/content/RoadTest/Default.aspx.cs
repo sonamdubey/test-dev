@@ -269,11 +269,12 @@ namespace Bikewale.Content
                 makeId = MakeMapping.GetMakeId(makeMaskingName.ToLower());
                 using (IUnityContainer container1 = new UnityContainer())
                 {
-                    container1.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
-                    var makesRepository = container1.Resolve<IBikeMakes<BikeMakeEntity, int>>();
-                    BikeMakeEntityBase objMMV = makesRepository.GetMakeDetails(makeId);
-                    if (objMMV != null)
-                        makeName = objMMV.MakeName;
+                    container1.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                            .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                            .RegisterType<ICacheManager, MemcacheManager>();
+                    var _objMakeCache = container1.Resolve<IBikeMakesCacheRepository<int>>();
+                    BikeMakeEntityBase objMMV = _objMakeCache.GetMakeDetails(Convert.ToUInt32(makeId));
+                    makeName = objMMV.MakeName;
                 }
                 if (String.IsNullOrEmpty(makeId))
                 {

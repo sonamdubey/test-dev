@@ -90,11 +90,15 @@ namespace Bikewale.Content
                 _makeId = MakeMapping.GetMakeId(_makeName.ToLower());
                 using (IUnityContainer container1 = new UnityContainer())
                 {
-                    container1.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
-                    var makesRepository = container1.Resolve<IBikeMakes<BikeMakeEntity, int>>();
-                    BikeMakeEntityBase objMMV = makesRepository.GetMakeDetails(_makeId);
+                    container1.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                            .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                            .RegisterType<ICacheManager, MemcacheManager>();
+                    var _objMakeCache = container1.Resolve<IBikeMakesCacheRepository<int>>();
+                    BikeMakeEntityBase objMMV = _objMakeCache.GetMakeDetails(Convert.ToUInt32(_makeId));
                     makeName = objMMV.MakeName;
                 }
+
+
             }
 
             if (!String.IsNullOrEmpty(_makeId))
@@ -233,9 +237,9 @@ namespace Bikewale.Content
             try
             {
                 if (!String.IsNullOrEmpty(modelName))
-                    _baseUrl = "/" + makeName + "-bikes/" + modelName + "/expert-reviews/";
+                    _baseUrl = string.Format("/{0}-bikes/{1}/expert-reviews/", makeName, modelName);
                 else if (!String.IsNullOrEmpty(makeName))
-                    _baseUrl = "/" + makeName + "-bikes" + "/expert-reviews/";
+                    _baseUrl = string.Format("/{0}-bikes/expert-reviews/", makeName);
 
                 _pagerEntity = new PagerEntity();
                 _pagerEntity.BaseUrl = _baseUrl;

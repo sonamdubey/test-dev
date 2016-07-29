@@ -4,39 +4,39 @@
 <%@ Register TagPrefix="CE" TagName="CalculateEMIMin" Src="/controls/CalculateEMIMin.ascx" %>
 <%@ Register TagPrefix="uc" TagName="InstantBikePrice" Src="/controls/instantbikeprice.ascx" %>
 <%
-    // Listing page
-    if (string.IsNullOrEmpty(modelName) && string.IsNullOrEmpty(makeName))
-    {
-        title = "Expert Bike Reviews India - Bike Comparison & Road Tests - BikeWale";
-        description = "Latest expert reviews on upcoming and new bikes in India. Read bike comparison tests and road tests exclusively on BikeWale";
-        keywords = "Expert bike reviews, bike road tests, bike comparison tests, bike reviews, road tests, expert reviews, bike comparison, comparison tests";
-        canonical = "http://www.bikewale.com" + "/expert-reviews/";
-        alternate = "http://www.bikewale.com" + "/m/expert-reviews/";
-    }
-    // Model Name exists
-    else if (!string.IsNullOrEmpty(modelName))
-    {
-        title = string.Format("{0} {1} Expert Reviews India - Bike Comparison & Road Tests - BikeWale",makeName, modelName);
-        description = string.Format("Latest expert reviews on {0} {1} in India. Read {0} {1} comparison tests and road tests exclusively on BikeWale", makeName, modelName);
-        keywords = string.Format("{0} {1} expert reviews, {0} {1} road tests, {0} {1} comparison tests, {0} {1} reviews, {0}{1} bike comparison", makeName, modelName);
-        canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/expert-reviews/", makeMaskingName, modelMaskingName);
-        alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/{1}/expert-reviews/", makeMaskingName, modelMaskingName);
-    }
-    // Make name exists
-    else
-    {
-        title = string.Format("{0} Bikes Expert Reviews India - Bike Comparison & Road Tests - BikeWale", makeName);
-        description = string.Format("Latest expert reviews on upcoming and new {0} bikes in India. Read {0} bike comparison tests and road tests exclusively on BikeWale", makeName);
-        keywords = string.Format("{0} bike expert reviews, {0} bike road tests, {0} bike comparison tests, {0} bike reviews, {0} road tests, {0} expert reviews, {0} bike comparison, {0} comparison tests.",makeName);
-        canonical = string.Format("http://www.bikewale.com/{0}-bikes/expert-reviews/", makeMaskingName);
-        alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/expert-reviews/", makeMaskingName);
-    }
-    fbTitle = title;
+	// Listing page
+	if (string.IsNullOrEmpty(modelName) && string.IsNullOrEmpty(makeName))
+	{
+		title = "Expert Bike Reviews India - Bike Comparison & Road Tests - BikeWale";
+		description = "Latest expert reviews on upcoming and new bikes in India. Read bike comparison tests and road tests exclusively on BikeWale";
+		keywords = "Expert bike reviews, bike road tests, bike comparison tests, bike reviews, road tests, expert reviews, bike comparison, comparison tests";
+		canonical = "http://www.bikewale.com" + "/expert-reviews/";
+		alternate = "http://www.bikewale.com" + "/m/expert-reviews/";
+	}
+	// Model Name exists
+	else if (!string.IsNullOrEmpty(modelName))
+	{
+		title = string.Format("{0} {1} Expert Reviews India - Bike Comparison & Road Tests - BikeWale",makeName, modelName);
+		description = string.Format("Latest expert reviews on {0} {1} in India. Read {0} {1} comparison tests and road tests exclusively on BikeWale", makeName, modelName);
+		keywords = string.Format("{0} {1} expert reviews, {0} {1} road tests, {0} {1} comparison tests, {0} {1} reviews, {0}{1} bike comparison", makeName, modelName);
+		canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/expert-reviews/", makeMaskingName, modelMaskingName);
+		alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/{1}/expert-reviews/", makeMaskingName, modelMaskingName);
+	}
+	// Make name exists
+	else
+	{
+		title = string.Format("{0} Bikes Expert Reviews India - Bike Comparison & Road Tests - BikeWale", makeName);
+		description = string.Format("Latest expert reviews on upcoming and new {0} bikes in India. Read {0} bike comparison tests and road tests exclusively on BikeWale", makeName);
+		keywords = string.Format("{0} bike expert reviews, {0} bike road tests, {0} bike comparison tests, {0} bike reviews, {0} road tests, {0} expert reviews, {0} bike comparison, {0} comparison tests.",makeName);
+		canonical = string.Format("http://www.bikewale.com/{0}-bikes/expert-reviews/", makeMaskingName);
+		alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/expert-reviews/", makeMaskingName);
+	}
+	fbTitle = title;
 	AdId = "1395986297721";
 	AdPath = "/1017752/Bikewale_Reviews_";
-    prevPageUrl = prevUrl;
-    nextPageUrl = nextUrl;
-    fbImage = Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo;
+	prevPageUrl = prevUrl;
+	nextPageUrl = nextUrl;
+	fbImage = Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo;
 %>
 <!-- #include file="/includes/headNew.aspx" -->
 <style type="text/css">
@@ -74,16 +74,16 @@
 			<div class="clear"></div>
 	
 			<div id="content" class="grid-8">
-        <% if (!string.IsNullOrEmpty(modelName)) 
-           {%>
-        <h1><%= makeName  %> <%= modelName %> Expert Reviews</h1>
-        <% }
-           else if(!string.IsNullOrEmpty(makeName)) { %>
+		<% if (!string.IsNullOrEmpty(modelName)) 
+		   {%>
+		<h1><%= makeName  %> <%= modelName %> Expert Reviews</h1>
+		<% }
+		   else if(!string.IsNullOrEmpty(makeName)) { %>
 		<h1><%= makeName  %> Bikes Expert Reviews</h1>
-        <% } else {
-         %>
-        <h1>Expert Reviews</h1>
-        <% } %>
+		<% } else {
+		 %>
+		<h1>Expert Reviews</h1>
+		<% } %>
 				<div class="alert moz-round" id="alertObj" runat="server" visible="false"></div>
 				<asp:repeater id="rptRoadTest" runat="server" enableviewstate="false">
 					<Itemtemplate>					
@@ -94,7 +94,7 @@
 								</div>
 								<div class="article-desc-wrapper">
 									<h2 class="font14 margin-bottom8">
-                                        <a href='/expert-reviews/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>.html' rel="bookmark" class="text-black text-bold">
+										<a href='/expert-reviews/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>.html' rel="bookmark" class="text-black text-bold">
 											<%# DataBinder.Eval(Container.DataItem,"Title").ToString() %>
 										</a>
 									</h2>
@@ -111,7 +111,7 @@
 												<%# DataBinder.Eval(Container.DataItem,"AuthorName") %>
 											</span>
 										</div>
-                                    <div class="font14"><%# DataBinder.Eval(Container.DataItem,"Description") %><a href="/expert-reviews/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>.html">Read full review</a></div>
+									<div class="font14"><%# DataBinder.Eval(Container.DataItem,"Description") %><a href="/expert-reviews/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>.html">Read full review</a></div>
 								<a href="/expert-reviews/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>.html">Read full article &raquo;</a>
 								</div>
 								<div class="clear"></div>

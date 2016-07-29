@@ -18,7 +18,7 @@
         title = "Expert Bike Reviews India - Bike Comparison & Road Tests - BikeWale";
         description = "Latest expert reviews on upcoming and new bikes in India. Read bike comparison tests and road tests exclusively on BikeWale";
         keywords = "Expert bike reviews, bike road tests, bike comparison tests, bike reviews, road tests, expert reviews, bike comparison, comparison tests";
-        canonical = "http://www.bikewale.com" + "/m/expert-reviews/";
+        canonical = "http://www.bikewale.com/expert-reviews/";
     }
     // Model Name exists
     else if (!string.IsNullOrEmpty(modelName))
@@ -26,7 +26,7 @@
         title = string.Format("{0} {1} Expert Reviews India - Bike Comparison & Road Tests - BikeWale", makeName, modelName);
         description = string.Format("Latest expert reviews on {0} {1} in India. Read {0} {1} comparison tests and road tests exclusively on BikeWale", makeName, modelName);
         keywords = string.Format("{0} {1} expert reviews, {0} {1} road tests, {0} {1} comparison tests, {0} {1} reviews, {0}{1} bike comparison", makeName, modelName);
-        canonical = string.Format("http://www.bikewale.com/m/{0}-bikes/{1}/expert-reviews/", makeMaskingName, modelMaskingName);
+        canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/expert-reviews/", makeMaskingName, modelMaskingName);
     }
     // Make name exists
     else
@@ -34,7 +34,7 @@
         title = string.Format("{0} Bikes Expert Reviews India - Bike Comparison & Road Tests - BikeWale", makeName);
         description = string.Format("Latest expert reviews on upcoming and new {0} bikes in India. Read {0} bike comparison tests and road tests exclusively on BikeWale", makeName);
         keywords = string.Format("{0} bike expert reviews, {0} bike road tests, {0} bike comparison tests, {0} bike reviews, {0} road tests, {0} expert reviews, {0} bike comparison, {0} comparison tests.", makeName);
-        canonical = string.Format("http://www.bikewale.com/m/{0}-bikes/expert-reviews/", makeMaskingName);
+        canonical = string.Format("http://www.bikewale.com/{0}-bikes/expert-reviews/", makeMaskingName);
     }
     fbTitle = title;
     AdId = "1395986297721";
