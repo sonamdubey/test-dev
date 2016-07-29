@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.Search" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.SearchOld" %>
 
 <html>
 <head>

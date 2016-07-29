@@ -1,19 +1,23 @@
 ﻿using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
+using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.New
 {
-    public class SearchOld : System.Web.UI.Page
-    {
+	public class Search : System.Web.UI.Page
+	{
         protected Repeater rptPopularBrand, rptOtherBrands;
 
         protected override void OnInit(EventArgs e)
@@ -21,10 +25,10 @@ namespace Bikewale.Mobile.New
             this.Load += new EventHandler(Page_Load);
         }
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
+		protected void Page_Load(object sender, EventArgs e)
+		{
             BindRepeaters();
-        }
+		}
 
         /// <summary>
         /// Created by  : Sushil Kumar on 04 Mar 2016
@@ -61,5 +65,5 @@ namespace Bikewale.Mobile.New
                 objErr.SendMail();
             }
         }
-    }
+	}
 }
