@@ -871,6 +871,10 @@
       <DependentUpon>dealersinindia.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\new\ModelGallery.aspx.cs">
+      <DependentUpon>ModelGallery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\new\ModelPricesInCity.aspx.cs">
       <DependentUpon>ModelPricesInCity.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2217,6 +2221,7 @@
     <Content Include="m\customerror.aspx" />
     <Content Include="m\new\dealersinstate.aspx" />
     <Content Include="m\new\dealersinindia.aspx" />
+    <Content Include="m\new\ModelGallery.aspx" />
     <Content Include="m\new\ModelPricesInCity.aspx" />
     <Content Include="m\new\ModelSpecsFeatures.aspx" />
     <Content Include="m\new\newbikedealers\DealerDetails.aspx" />
