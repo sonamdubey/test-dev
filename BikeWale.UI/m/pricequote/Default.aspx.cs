@@ -62,13 +62,6 @@ namespace Bikewale.Mobile.PriceQuote
                             mmv.GetModelDetails(modelId);
                         }
 
-                        ////if query string contains version then get version details
-                        //if (!String.IsNullOrEmpty(versionId))
-                        //{
-                        //    mmv.GetVersionDetails(versionId);
-                        //    modelId = mmv.ModelId;
-                        //}
-
                         if (!string.IsNullOrEmpty(mmv.MakeId))
                         {
                             makeId = mmv.MakeId;
@@ -84,15 +77,6 @@ namespace Bikewale.Mobile.PriceQuote
                                 ddlMake.SelectedValue = makeId;
                                 ddlModel.SelectedValue = modelId;
 
-                                //ddlVersion.SelectedValue = String.IsNullOrEmpty(versionId) ? "0" : versionId;
-
-                                //DataTable dt = mmv.GetVersions(modelId, "New");
-                                //if (dt != null && dt.Rows.Count > 0)
-                                //{
-                                //    versionId = Convert.ToString(dt.Rows[0]["Value"]);
-                                //    txtVersion.Text = versionId;
-                                //}
-
                                 ddlModel.Enabled = true;
                                 //ddlVersion.Enabled = true;
                                 ddlCity.Enabled = true;
@@ -102,7 +86,6 @@ namespace Bikewale.Mobile.PriceQuote
                     else
                     {
                         ddlModel.Items.Insert(0, new ListItem("--Select Model--", "0"));
-                        //ddlVersion.Items.Insert(0, new ListItem("--Select Version--", "0"));
                         ddlCity.Items.Insert(0, new ListItem("--Select City--", "0"));
                     }
                 }
@@ -164,25 +147,13 @@ namespace Bikewale.Mobile.PriceQuote
                 }
                 finally
                 {
-                    //    if (objPQOutput.DealerId > 0 && objPQOutput.PQId > 0)
-                    //    {
-                    //        Response.Redirect("~/m/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString(), Convert.ToString(objPQOutput.IsDealerAvailable))), false);
-                    //        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    //        this.Page.Visible = false;
-                    //    }
-
                     if (objPQOutput.PQId > 0)
                     {
                         Response.Redirect("~/m/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString())), false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
-                    //else if (objPQOutput.DealerId == 0 && objPQOutput.PQId > 0 && !objPQOutput.IsDealerAvailable)
-                    //{
-                    //    Response.Redirect("~/m/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), "")), false);
-                    //    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    //    this.Page.Visible = false;
-                    //}
+
                     else
                     {
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Sorry, Price for this Version is not available.');", true);
@@ -206,10 +177,6 @@ namespace Bikewale.Mobile.PriceQuote
         {
             try
             {
-                //if (!String.IsNullOrEmpty(txtVersion.Text))
-                //    versionId = txtVersion.Text.ToString();
-                //else
-                //    versionId = "0";
                 cityId = Convert.ToUInt32(String.IsNullOrEmpty(txtCity.Text) ? "0" : txtCity.Text);
                 areaId = Convert.ToUInt32(String.IsNullOrEmpty(txtArea.Text) ? "0" : txtArea.Text);
             }
@@ -230,12 +197,6 @@ namespace Bikewale.Mobile.PriceQuote
             try
             {
                 MakeModelVersion mmv = new MakeModelVersion();
-
-                //ddlMake.DataSource = mmv.GetMakes("PRICEQUOTE");
-                //ddlMake.DataValueField = "Value";
-                //ddlMake.DataTextField = "TEXT";
-                //ddlMake.DataBind();
-                //ddlMake.Items.Insert(0, (new ListItem("--Select Make--", "0")));
                 mmv.GetMakes(EnumBikeType.PriceQuote, ref ddlMake);
 
             }
@@ -368,12 +329,7 @@ namespace Bikewale.Mobile.PriceQuote
                 hdnmodel.Value = modelId;
 
             }
-            //if (!String.IsNullOrEmpty(Request.QueryString["version"]) && CommonOpn.CheckId(Request["version"]))
-            //{
-            //    versionId = Request.QueryString["version"];
-            //    txtVersion.Text = versionId;
-            //    isQueryStringValid = true;
-            //}
+
             return isQueryStringValid;
         }   // End of processQueryString method
 
