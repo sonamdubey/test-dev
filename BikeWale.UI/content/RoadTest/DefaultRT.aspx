@@ -89,7 +89,7 @@
                                 </div>
                                 <div class="article-desc-wrapper">
                                     <h2 class="font14 margin-bottom8">
-                                        <a href='/road-tests/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>.html' rel="bookmark" class="text-black text-bold">
+                                        <a href='/expert-reviews/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>.html' rel="bookmark" class="text-black text-bold">
                                             <%# DataBinder.Eval(Container.DataItem,"Title").ToString() %>
                                         </a>
                                     </h2>
@@ -106,7 +106,7 @@
                                                 <%# DataBinder.Eval(Container.DataItem,"AuthorName") %>
                                             </span>
                                         </div>
-                                    <div class="font14"><%# DataBinder.Eval(Container.DataItem,"Description") %><a href="/road-tests/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>.html">Read full review</a></div>
+                                    <div class="font14"><%# DataBinder.Eval(Container.DataItem,"Description") %><a href="/expert-reviews/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>.html">Read full review</a></div>
 								<a href="/expert-reviews/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>.html">Read full article &raquo;</a>
                                 </div>
                                 <div class="clear"></div>

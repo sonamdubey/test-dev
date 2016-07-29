@@ -209,6 +209,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Utils.dll</HintPath>
     </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="WURFL, Version=1.3.1.0, Culture=neutral, PublicKeyToken=816aeec277aa13b9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\WURFL.dll</HintPath>
@@ -2471,7 +2479,6 @@
   </ItemGroup>
   <ItemGroup>
     <!-- <Content Include="Forums\ISAPI\error.log" /> -->
-    <Content Include="m\.htaccess" />
     <Content Include="m\fonts\Roboto-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>

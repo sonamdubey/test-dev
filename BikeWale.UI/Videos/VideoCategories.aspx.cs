@@ -61,10 +61,6 @@ namespace Bikewale.Videos
                 }
                 descName = string.Format("{0} - Watch BikeWale's Expert's Take on New Bike and Scooter Launches - Features, performance, price, fuel economy, handling and more",
                 titleName);
-            
-            
-            //title = "Bike Videos, Expert Video Reviews with Road Test & Bike Comparison -   BikeWale";
-            //desc = "Check latest bike and scooter videos, " + descText; 
         }
 
         /// <summary>
