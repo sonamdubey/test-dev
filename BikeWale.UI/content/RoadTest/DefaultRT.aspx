@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.DefaultRT" Trace="false" Async="true" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" Src="/controls/LinkPagerControl.ascx" %>
+<%@ Register TagPrefix="Mms" TagName="MakeModelSearch" Src="/Controls/MakeModelSearch.ascx" %>
 <%@ Register TagPrefix="CE" TagName="CalculateEMIMin" Src="/controls/CalculateEMIMin.ascx" %>
 <%@ Register TagPrefix="uc" TagName="InstantBikePrice" Src="/controls/instantbikeprice.ascx" %>
 <%
@@ -69,32 +70,35 @@
 				<li>You are here: </li>
 				<li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/" itemprop="url"><span itemprop="title">Home</span></a></li>
 				<li class="fwd-arrow">&rsaquo;</li>
-			<li class="current"><strong>Expert Reviews</strong></li>
+				<li class="current"><strong>Expert Reviews</strong></li>
 			</ul>
 			<div class="clear"></div>
 	
 			<div id="content" class="grid-8">
-		<% if (!string.IsNullOrEmpty(modelName)) 
-		   {%>
-		<h1><%= makeName  %> <%= modelName %> Expert Reviews</h1>
-		<% }
-		   else if(!string.IsNullOrEmpty(makeName)) { %>
-		<h1><%= makeName  %> Bikes Expert Reviews</h1>
-		<% } else {
-		 %>
-		<h1>Expert Reviews</h1>
-		<% } %>
+                <% if (!string.IsNullOrEmpty(modelName)) 
+		           {%>
+		        <h1 class="black-text margin-bottom15"><%= makeName  %> <%= modelName %> Expert Reviews</h1>
+		        <% }
+		           else if(!string.IsNullOrEmpty(makeName)) { %>
+		        <h1 class="black-text margin-bottom15"><%= makeName  %> Bikes Expert Reviews</h1>
+		        <% } else {
+		         %>
+		        <h1 class="black-text margin-bottom15">Expert Reviews</h1>
+		        <% } %>
+
+				<Mms:MakeModelSearch ID="MakeModelSearch" RequestType="RoadTest" runat="server" Visible="false"></Mms:MakeModelSearch>
 				<div class="alert moz-round" id="alertObj" runat="server" visible="false"></div>
 				<asp:repeater id="rptRoadTest" runat="server" enableviewstate="false">
 					<Itemtemplate>					
 						<div id='post-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>' class="<%# Regex.Match(Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")), @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "sponsored-content" : "post-content" %> article-content">
 							<%# Regex.Match(Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")), @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
 							<div class="margin-bottom10">
-							<a href='/expert-reviews/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>.html' rel="bookmark" title="Permanent Link to <%# DataBinder.Eval(Container.DataItem,"Title") %>">
+								<div class="article-image-wrapper">
+									<%# string.Format("<a href='/road-tests/{0}-{1}.html'><img src='{2}' alt='{3}' title='{3}' width='100%' border='0' /></a>", DataBinder.Eval(Container.DataItem,"ArticleUrl"),DataBinder.Eval(Container.DataItem,"BasicId"),Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImgUrl").ToString(),DataBinder.Eval(Container.DataItem,"HostURL").ToString(),Bikewale.Utility.ImageSize._210x118),DataBinder.Eval(Container.DataItem,"Title")) %>
 								</div>
 								<div class="article-desc-wrapper">
 									<h2 class="font14 margin-bottom8">
-										<a href='/expert-reviews/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>.html' rel="bookmark" class="text-black text-bold">
+										<a href='/road-tests/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>.html' rel="bookmark" class="text-black text-bold">
 											<%# DataBinder.Eval(Container.DataItem,"Title").ToString() %>
 										</a>
 									</h2>
@@ -111,8 +115,8 @@
 												<%# DataBinder.Eval(Container.DataItem,"AuthorName") %>
 											</span>
 										</div>
-									<div class="font14"><%# DataBinder.Eval(Container.DataItem,"Description") %><a href="/expert-reviews/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>.html">Read full review</a></div>
-								<a href="/expert-reviews/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>.html">Read full article &raquo;</a>
+									</div>
+									<div class="font14"><%# DataBinder.Eval(Container.DataItem,"Description") %><a href="/road-tests/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>.html">Read full review</a></div>
 								</div>
 								<div class="clear"></div>
 							</div>
@@ -149,10 +153,11 @@
 </script>--%>
 <script type="text/javascript" src="<%= staticUrlPath != "" ? "http://st1.aeplcdn.com" + staticUrlPath : "" %>/src/common/jquery.colorbox-min.js?v=1.0"></script>
 <script type="text/javascript">
-	$(document).ready(function () {
-		$(".cboxElement").colorbox({
-			rel: 'cboxElement'
-		});
-	});
+    $(document).ready(function () {
+        $(".cboxElement").colorbox({
+            rel: 'cboxElement'
+        });
+    });
 </script>
 <!-- #include file="/includes/footerInner.aspx" -->
+
