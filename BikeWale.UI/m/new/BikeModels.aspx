@@ -96,8 +96,8 @@
                             <asp:Repeater ID="rptModelPhotos" runat="server">
                                 <ItemTemplate>
                                     <div class="swiper-slide">                                       
-                                        <img class='<%# Container.ItemIndex == 0 ? "" : "swiper-lazy" %>' data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" />
-                                        <span class='<%# Container.ItemIndex == 0 ? "" : "swiper-lazy-preloader" %>'></span>                                       
+                                        <img class='<%# Container.ItemIndex != 0 ? "swiper-lazy" : "" %>' data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" />
+                                        <span class='<%# Container.ItemIndex != 0 ? "swiper-lazy-preloader" : "" %>'></span>                                       
                                     </div>
                                 </ItemTemplate>
                             </asp:Repeater>
