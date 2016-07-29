@@ -119,3 +119,6 @@ a.text-darker-black:hover { text-decoration:none; }
 .button-clicked-state {background:#82888b;color:#fff;text-decoration:none;border:1px solid #82888b;}
 #calldealer:hover { text-decoration:none; }
 .get-offer-link {color: #0288d1!important; font-weight:bold}
+.city-unveil-offer-container { margin-top:20px; border:1px dashed #82888b; width:100%; min-height:115px; padding:10px; }
+.city-unveil-offer-container ul { margin-left:20px; list-style-type:disc; }
+.city-unveil-offer-container ul li { margin-top:5px; padding-bottom:5px; font-size: 14px;}
