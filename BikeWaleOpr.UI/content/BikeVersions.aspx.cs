@@ -185,7 +185,7 @@ namespace BikeWaleOpr.Content
                 bikemodelid, if(bv.used,1,0) as used, if(bv.new,1,0) as new, if(bv.indian,1,0) as indian, if(bv.imported,1,0) as imported, if(bv.classic,1,0) as classic, if(bv.modified,1,0) as modified, if(bv.futuristic,1,0) as futuristic, sse.id as subsegmentid, sse.name as subsegmentname,
                 DATE_FORMAT(bv.vcreatedon, '%d %b %Y %T') as createdon, DATE_FORMAT(bv.vupdatedon, '%d %b %Y %T')  as updatedon, ou.username as updatedby
                 from bikeversions bv left join bikebodystyles bs on bs.id = bv.bodystyleid left join bikesegments se on se.id = bv.segmentid 
-		        left join bikesubsegments sse on sse.id = bv.subsegmentid left join oprusers ou on bv.vupdatedby = ou.id 
+                left join bikesubsegments sse on sse.id = bv.subsegmentid left join oprusers ou on bv.vupdatedby = ou.id 
                 where bv.isdeleted = 0 and bv.bikemodelid = " + _modelid;
 
                 if (SortCriteria != "")
@@ -272,7 +272,7 @@ namespace BikeWaleOpr.Content
                 };
             try
             {
-                MySqlDatabase.InsertQuery(sql, param, ConnectionType.ReadOnly);
+                MySqlDatabase.InsertQuery(sql, param, ConnectionType.MasterDatabase);
                 NameValueCollection nvc = new NameValueCollection();
                 nvc.Add("VersionId", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
                 nvc.Add("versionname", txt.Text.Trim().Replace("'", "''"));

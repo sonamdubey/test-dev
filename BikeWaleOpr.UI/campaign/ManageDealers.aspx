@@ -104,7 +104,7 @@
                     <tr>
                         <td style="width: 20%"><strong>Campaign Masking Number :</strong><b class='required'>*</b></td>
                         <td>
-                            <asp:textbox runat="server" readonly="true" name="maskingNumber" id="txtMaskingNumber" maxlength="10" class="req numeric width300" enabled="true" />
+                            <asp:textbox runat="server" readonly="true" name="maskingNumber" id="txtMaskingNumber" maxlength="10" class="numeric width300" enabled="true" />
                             <asp:dropdownlist id="ddlMaskingNumber" runat="server" />
                             <asp:hiddenfield id="hdnOldMaskingNumber" runat="server" />
                             <%--<a id="mapNewMaskingNumber" href="javascript:void(0)" onclick="ShowMapMaskingNumberPopup()">Map new Masking number</a>--%>
