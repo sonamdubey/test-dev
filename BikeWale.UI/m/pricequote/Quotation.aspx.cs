@@ -219,7 +219,7 @@ namespace Bikewale.Mobile.PriceQuote
             }
             finally
             {
-                if (objPQOutput.PQId > 0 && objPQOutput.DealerId > 0)
+                if (objPQOutput.PQId > 0)
                 {
                     // Save pq cookie
                     //PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), objPQOutput.DealerId.ToString());                    
@@ -227,13 +227,13 @@ namespace Bikewale.Mobile.PriceQuote
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
-                else if (objPQOutput.PQId > 0)
-                {
-                    //PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), string.Empty);                    
-                    Response.Redirect("/m/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), string.Empty)), false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
-                }
+                //else if (objPQOutput.PQId > 0)
+                //{
+                //    //PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), string.Empty);                    
+                //    Response.Redirect("/m/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), string.Empty)), false);
+                //    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                //    this.Page.Visible = false;
+                //}
                 else
                 {
                     Response.Redirect("/m/pricequote/default.aspx", false);

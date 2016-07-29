@@ -67,7 +67,7 @@
         var versionName = "<%= objQuotation.VersionName%>";
         var myBikeName = "<%=objVersionDetails.MakeBase.MakeName%>";
 
-</script>
+    </script>
 
 </head>
 <body class="bg-light-grey">

@@ -164,25 +164,25 @@ namespace Bikewale.Mobile.PriceQuote
                 }
                 finally
                 {
-                    if (objPQOutput.DealerId > 0 && objPQOutput.PQId > 0)
-                    {
-                        Response.Redirect("~/m/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString())), false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                    }
+                    //    if (objPQOutput.DealerId > 0 && objPQOutput.PQId > 0)
+                    //    {
+                    //        Response.Redirect("~/m/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString(), Convert.ToString(objPQOutput.IsDealerAvailable))), false);
+                    //        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    //        this.Page.Visible = false;
+                    //    }
 
-                    else if (objPQOutput.DealerId == 0 && objPQOutput.IsDealerAvailable && objPQOutput.PQId > 0)
+                    if (objPQOutput.PQId > 0)
                     {
                         Response.Redirect("~/m/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString())), false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
-                    else if (objPQOutput.DealerId == 0 && objPQOutput.PQId > 0 && !objPQOutput.IsDealerAvailable)
-                    {
-                        Response.Redirect("~/m/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), "")), false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                    }
+                    //else if (objPQOutput.DealerId == 0 && objPQOutput.PQId > 0 && !objPQOutput.IsDealerAvailable)
+                    //{
+                    //    Response.Redirect("~/m/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), "")), false);
+                    //    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    //    this.Page.Visible = false;
+                    //}
                     else
                     {
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Sorry, Price for this Version is not available.');", true);

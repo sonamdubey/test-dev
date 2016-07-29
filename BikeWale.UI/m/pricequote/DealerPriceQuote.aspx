@@ -33,6 +33,10 @@
         }
         var clientIP = "<%= clientIP%>";
         var pageUrl = "<%= Bikewale.Utility.BWConfiguration.Instance.BwHostUrl %>" + "/quotation/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;               
+
+        var campaignId = "<%= objExQuotation != null ? objExQuotation.CampaignId : 0 %>";
+        var manufacturerId = "<%= objExQuotation != null ? objExQuotation.ManufacturerId : 0 %>";
+
     </script>
     <style type="text/css">
         
@@ -114,7 +118,6 @@
                         <td align="left" class="text-dark-black padding-bottom5">Total On Road Price</td>
                         <td align="right" class="text-dark-black padding-bottom5">
                             <div><span class="bwmsprite inr-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(totalPrice.ToString()) %></div>
-
                         </td>
                     </tr>
                     <tr>
@@ -295,7 +298,7 @@
             </div>
             <!-- show below div when no premium dealer -->
             <%}
-              else
+              else if (isSecondaryDealer)
               { %>
             <div class="font14 text-light-grey border-solid padding-top20 padding-right10 padding-bottom20 padding-left10">Sorry, there are no dealers nearby</div>
             <%} %>
@@ -317,6 +320,33 @@
             </div>
             <%} %>
             <!-- Dealer Widget ends here -->
+
+            <!--Dealer Campaign starts here -->
+            <div class="city-unveil-offer-container <%= (objExQuotation.CampaignId > 0) ? "" : "hide" %>">
+                <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="bwmsprite disclaimer-icon margin-right5"></span>                   
+                        Get following details from <%=objVersionDetails.MakeBase.MakeName %>:                   
+                </h4>
+                <ul class="bike-details-list-ul">
+                    <li>
+                        <span class="show">Offers from the nearest dealers</span>
+                    </li>
+                    <li>
+                        <span class="show">Waiting period on this bike at the dealership</span>
+                    </li>
+                    <li>
+
+                        <span class="show">Nearest dealership from your place</span>
+                    </li>
+                    <li>
+                        <span class="show">Finance options on this bike</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="grid-12 float-button float-fixed clearfix <%= (objExQuotation.CampaignId > 0) ? "" : "hide" %>">
+                <input type="button" value="Get more details" class="btn btn-full-width btn-sm margin-right10 leftfloat btn-orange" id="getMoreDetailsBtnCampaign" />
+            </div>
+
+            <!--Dealer Campaign ends here -->
 
             <!--Exciting Offers section starts here-->
             <div class="grid-12 float-button float-fixed">
@@ -772,7 +802,12 @@
                 };
 
                 self.submitLead = function () {
-                    if (ValidateUserDetail()) {
+
+                    if (campaignId > 0)
+                    {
+                        self.submitCampaignLead();
+                    }
+                    else if (ValidateUserDetail()) {
                         self.verifyCustomer();
                         if (self.IsValid()) {
                             $("#contactDetailsPopup").hide();
@@ -803,6 +838,59 @@
                             otpText.val('').removeClass("border-red").siblings("span, div").hide();
                         }
                         setPQUserCookie();
+                    }
+                };
+
+                self.submitCampaignLead = function () {
+
+                    var isValidCustomer = ValidateUserDetail();
+
+                    if (isValidCustomer && campaignId > 0) {
+
+                        $('#processing').show();
+                        var objCust = {
+                            "dealerId": manufacturerId,
+                            "pqId": pqId,
+                            "name": self.fullName(),
+                            "mobile": self.mobileNo(),
+                            "email": self.emailId(),
+                            "versionId": versionId,
+                            "cityId": cityId,
+                            "leadSourceId": 3,
+                            "deviceId": getCookie('BWC')
+                        }
+                        $.ajax({
+                            type: "POST",
+                            url: "/api/ManufacturerLead/",
+                            data: ko.toJSON(objCust),
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader('utma', getCookie('__utma'));
+                                xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
+                            },
+                            async: false,
+                            contentType: "application/json",
+                            dataType: 'json',
+                            success: function (response) {
+                                //var obj = ko.toJS(response);
+                                $("#personalInfo,#otpPopup").hide();
+                                $('#processing').hide();
+
+                                //validationSuccess($(".get-lead-mobile"));
+                                $("#contactDetailsPopup").hide();
+                                $('#notify-response .notify-leadUser').text(self.fullName());
+                                $('#notify-response').show();
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                $('#processing').hide();
+                                $("#contactDetailsPopup, #otpPopup").hide();
+                                var leadMobileVal = mobile.val();
+                                nameValTrue();
+                                hideError(self.mobileNo());
+                            }
+                        });
+
+                        setPQUserCookie();
+                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Lead_Submitted', 'lab': bikeVersionLocation });
                     }
                 };
 
