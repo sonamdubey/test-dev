@@ -60,44 +60,61 @@ namespace Bikewale.News
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
 
-            CommonOpn op = new CommonOpn();
+            LoadNewsList();
+        }
 
-            if (Request["pn"] != null && Request.QueryString["pn"] != "")
+        /// <summary>
+        /// Created BY : Sushil Kumar on 28th July 2016
+        /// Description : To Load news list
+        /// </summary>
+        private void LoadNewsList()
+        {
+            try
             {
-                if (CommonOpn.CheckId(Request.QueryString["pn"]) == true)
-                    _pageNumber = Convert.ToInt32(Request.QueryString["pn"]);
-            }
+                CommonOpn op = new CommonOpn();
 
-            IPager objPager = GetPager();
-            int _startIndex = 0, _endIndex = 0;
-            objPager.GetStartEndIndex(_pageSize, _pageNumber, out _startIndex, out _endIndex);
-
-
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IArticles, Articles>()
-                           .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                           .RegisterType<ICacheManager, MemcacheManager>();
-                ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
-
-                List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
-                categorList.Add(EnumCMSContentType.AutoExpo2016);
-                categorList.Add(EnumCMSContentType.News);
-                categorList.Add(EnumCMSContentType.Features);
-                categorList.Add(EnumCMSContentType.RoadTest);
-                categorList.Add(EnumCMSContentType.ComparisonTests);
-                string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
-
-                categorList.Clear();
-                categorList = null;
-
-                CMSContent objNews = _cache.GetArticlesByCategoryList(contentTypeList, _startIndex, _endIndex, 0, 0);
-
-                if (objNews != null)
+                if (Request["pn"] != null && !string.IsNullOrEmpty(Request.QueryString["pn"]))
                 {
-                    BindNews(objNews);
-                    BindLinkPager(objPager, Convert.ToInt32(objNews.RecordCount));
+                    if (CommonOpn.CheckId(Request.QueryString["pn"]))
+                        _pageNumber = Convert.ToInt32(Request.QueryString["pn"]);
                 }
+
+                IPager objPager = GetPager();
+                int _startIndex = 0, _endIndex = 0;
+                objPager.GetStartEndIndex(_pageSize, _pageNumber, out _startIndex, out _endIndex);
+
+
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IArticles, Articles>()
+                               .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                               .RegisterType<ICacheManager, MemcacheManager>();
+                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
+
+                    List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
+                    categorList.Add(EnumCMSContentType.AutoExpo2016);
+                    categorList.Add(EnumCMSContentType.News);
+                    categorList.Add(EnumCMSContentType.Features);
+                    categorList.Add(EnumCMSContentType.RoadTest);
+                    categorList.Add(EnumCMSContentType.ComparisonTests);
+                    string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
+
+                    categorList.Clear();
+                    categorList = null;
+
+                    CMSContent objNews = _cache.GetArticlesByCategoryList(contentTypeList, _startIndex, _endIndex, 0, 0);
+
+                    if (objNews != null)
+                    {
+                        BindNews(objNews);
+                        BindLinkPager(objPager, Convert.ToInt32(objNews.RecordCount));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " Bikewale.News.Page_Load");
+                objErr.SendMail();
             }
         }
 

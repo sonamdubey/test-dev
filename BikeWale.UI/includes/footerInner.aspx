@@ -59,7 +59,7 @@
 </footer>
 <!-- Ends here -->
 <BW:Login ID="ctrlLogin" runat="server" />
-<!-- #include file="/feedback/feedback.aspx" -->
+
 <!-- #include file="/includes/footerscript.aspx" -->
 </form>
 </body>

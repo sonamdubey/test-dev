@@ -1,8 +1,6 @@
-﻿<%@ Page Language="C#" Inherits="Bikewale.Videos.Default" AutoEventWireup="false" EnableViewState="false" Trace="false" %>
-
+﻿<%@ Page Language="C#" Inherits="Bikewale.Videos.Default" AutoEventWireup="false" EnableViewState="false" Trace="false" %>  
 <%@ Import Namespace="Bikewale.Utility.StringExtention" %>
-<%@ Register TagPrefix="BikeWale" TagName="video" Src="/controls/VideoCarousel.ascx" %>
-
+<%@ Register TagPrefix="BikeWale" TagName="video" Src="/controls/VideoCarousel.ascx" %>  
 <%@ Register Src="~/controls/VideoByCategory.ascx" TagName="ByCategory" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ExpertReviewsVideos.ascx" TagName="ExpertReview" TagPrefix="BW" %>
 
@@ -12,7 +10,9 @@
     <%  
         title = "Bike Videos, Expert Video Reviews with Road Test & Bike Comparison - BikeWale";
         description ="Check latest bike and scooter videos, watch BikeWale expert's take on latest bikes and scooters - features, performance, price, fuel economy, handling and more.";
+        keywords = "bike videos, video reviews, expert video reviews, road test videos, bike comparison videos";
         canonical = "http://www.bikewale.com/bike-videos/";
+        alternate =  "http://www.bikewale.com/m/bike-videos/";
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <style type="text/css">

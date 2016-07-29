@@ -53,6 +53,18 @@ namespace Bikewale.Mobile.News
                     if (!Int32.TryParse(Request.QueryString["pn"], out curPageNo))
                         curPageNo = 1;
 
+                LoadNewsList();
+            }
+        }
+
+        /// <summary>
+        /// Created BY : Sushil Kumar on 28th July 2016
+        /// Description : To Load news list
+        /// </summary>
+        private void LoadNewsList()
+        {
+            try
+            {
                 IPager objPager = GetPager();
                 int _startIndex = 0, _endIndex = 0;
                 objPager.GetStartEndIndex(_pageSize, curPageNo, out _startIndex, out _endIndex);
@@ -80,6 +92,11 @@ namespace Bikewale.Mobile.News
                     BindNews(objNews);
                     BindLinkPager(objPager, Convert.ToInt32(objNews.RecordCount));
                 }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " Bikewale.Mobile.News.Page_Load");
+                objErr.SendMail();
             }
         }
 
