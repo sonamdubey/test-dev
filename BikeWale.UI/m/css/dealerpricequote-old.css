@@ -1,0 +1,121 @@
+﻿#bwheader-logo, .navbarBtn, .global-location, .sort-btn { display:none; }
+.pq-inner-block-10 { padding:10px 10px 5px; }
+.bottom-shadow { -webkit-box-shadow:0 2px 2px #ccc; -moz-box-shadow:0 2px 2px #ccc; box-shadow:0 2px 2px #ccc; }
+.bike-name-image-wrapper { display:table; width:100%; }
+.bike-name-image-wrapper .bike-img , .bike-name-image-wrapper h1 { display:table-cell; vertical-align:middle; }
+.pricequote-benefits-list .pq-benefits-image, .pricequote-benefits-list .offer-benefit-sprite, .pricequote-benefits-list .pq-benefits-title { display:inline-block; vertical-align:middle; }
+.pricequote-benefits-list .pq-benefits-title { width:85%; text-align:left; }
+.bike-img { width:70px; height:40px; }
+.bike-img img { width:100%; }
+.text-dark-black { color:#1a1a1a; }
+.grid-3.version-label-text { width:65px; }
+#versionsDropdownWrapper .form-control { width:70%; padding:5px; }
+.grid-9.variantDropDown { width:70%; max-width:300px; }
+.version-div { height:32px; padding:5px; border:1px solid #ccc; color:#555; position:relative; cursor:pointer; background:#fff; }
+.version-by-title { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; width:100%; }
+.pos-top13 { top:13px; }
+.version-selection-div { background:#fff; border:1px solid #ccc; position:absolute; z-index:2; left:0; right:0; }
+.version-selection-div ul li { margin-bottom:5px; margin-top:5px; font-size:14px; }
+.version-selection-div ul li.selected { font-weight:bold; }
+.version-selection-div ul li input{background: #fff;color:rgb(77, 80, 87); padding:2px 0 2px 8px; width:100%; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; text-align:left;}
+.text-truncate { width:100%; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; text-align:left; }
+.version-selection-div ul li:hover input{ padding:2px 0 2px 8px; cursor:pointer; background:#82888b; color:#fff; }
+#upDownArrow.fa-angle-down { transition: all 0.5s ease-in-out 0s; font-size: 20px; }
+.version-div .fa-angle-down { transition: transform .3s; -moz-transition: transform .3s; -webkit-transition: transform .3s; -o-transition: transform .3s; -ms-transition: transform .3s; }
+.version-div.open .fa-angle-down { -moz-transform: rotateZ(180deg); -webkit-transform: rotateZ(180deg); -o-transform: rotateZ(180deg); -ms-transform: rotateZ(180deg); transform: rotateZ(180deg); }
+.break-line { border-top:1px solid #e2e2e2; }
+.padding-top7 { padding-top:7px; }
+.border-trl { border-top:1px solid #e2e2e2; border-right:1px solid #e2e2e2; border-left:1px solid #e2e2e2; }
+.border-rbl { border-right:1px solid #e2e2e2; border-bottom:1px solid #e2e2e2; border-left:1px solid #e2e2e2; }
+.header-solid-bottom { border-bottom:1px solid #e2e2e2; }
+#pqDealerHeader { width:100%; background:#fff; }
+.pq-fixed { position:fixed; top:0; left:0px; padding-right:10px; padding-left:10px; z-index:9; }
+.border-light-top { border-top: 1px solid #f1f1f1; }
+.border-light-bottom { border-bottom: 1px solid #f1f1f1; }
+.pricequote-benefits-list li { margin-top:7px; padding-bottom:7px; }
+.pq-dealer-listing li { padding-top:15px; padding-bottom:15px; border-top:1px solid #f1f1f1; }
+#offersPopup, #emiPopup { display:none; }
+.offers-box-icon { width:44px; height:48px; background-position:-83px -396px; }
+#offersPopup ul li { width:100%; margin-top:15px; margin-bottom:15px; }
+#offersPopup ul li:first-child { margin-top:0; }
+.pricequote-benefits-list li { width:100%; min-height:35px;}
+.offer-benefit-sprite { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/offerbenefitsprite.png?v1=1Apr2016v1) no-repeat; display: inline-block; }
+.benifitIcon_1 , .benifitIcon_2 , .benifitIcon_3 , .benifitIcon_4 , .benifitIcon_5 , .offerIcon_1 , .offerIcon_2 , .offerIcon_3 , .offerIcon_4 , .offerIcon_5, .offerIcon_6, .offerIcon_7 { width:30px; }
+.benifitIcon_1 { height:26px; background-position:0 -181px; }
+.benifitIcon_2 { height:30px; background-position:0 -141px; }
+.benifitIcon_3 { height:25px; background-position:0 -75px; }
+.benifitIcon_4 { height:18px; background-position:0 -293px; }
+.offerIcon_1 { height:25px; background-position:0 -40px; }
+.offerIcon_2 { height:25px; background-position:0 -321px; }
+.offerIcon_3 { height:30px; background-position:0 0; }
+.offerIcon_4 { height:26px; background-position:0 -257px; }
+.offerIcon_5, .benifitIcon_5, .offerIcon_7 { height:30px; background-position:0 -217px; }
+.offerIcon_6 { height:21px; background-position:0 -110px; }
+.cal-emi-icon {width:37px; height: 48px; background-position:0 -356px}
+.tel-sm-icon { width: 17px; height: 15px;background-position: -86px -323px; position: relative; top: 2px;}
+.thankyou-icon {width:48px; height:58px; background-position: -137px -404px; }
+#calldealer.btn-sm { padding:8px 10px; }
+#calldealer .tel-white-icon{position: relative;top: 2px}
+
+.emi-slider-box { border-top:1px solid #e2e2e2; padding-bottom:20px; padding-top:20px; margin-top: 5px; margin-right:20px; }
+.emi-slider-box:first-child { border-top:none; padding-top:10px; }
+.finance-emi-left-box { width:100%; overflow: hidden;}
+.finance-emi-right-box { width:100%; }
+.emi-slider-box-left-section { width:100%; float:left; }
+.ui-widget-content { background: #e2e2e2; height: 7px; margin: 10px 0 0; width: 100%; border-radius: 0px; }
+.ui-slider .ui-slider-range { border: none; display: block; font-size: 0.7em; position: absolute; z-index: 1; border-radius: 0px; }
+.ui-widget-header { background: #565a5c; height: 6px; }
+.ui-slider { position: relative; text-align: left; }
+.ui-slider .ui-slider-handle { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/slider-sprite.png?v=11Mar2016) no-repeat; cursor:pointer; height:20px; width:20px; display:block; margin-left: -9px; position: absolute; outline:none; top: -7px; z-index: 2; background-position:0 0; }
+.emi-slider-box-right-section { text-align:right; }
+.pos-top2 { top:2px; }
+.btn.emi-quote-btn { padding:8px 31px; }
+/* range points */
+.slider-range-points ul li { float:left; position:relative; }
+.slider-range-points ul.range-pointsUL li { width:14%; }
+.slider-range-points ul.range-pointsUL.month-range li { width:10%;}
+.range-points-bar { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/slider-sprite.png?v=11Mar2016) no-repeat; height:5px; width:2px; display:block; z-index: 1; background-position:-30px 0px; }
+.range-points-bar span { position:absolute; top:5px; left:-20px; font-size:11px; color:#a8afb3;}
+.range-points-bar:first-child span { left:0; }
+.tenure-rate-interest .range-points-bar span { left:0px; }
+.slider-range-points .range-five-pointsUL.range-pointsUL li { width:20%; }
+.text-darker-black { color:#1a1a1a; }
+a.text-darker-black:hover { text-decoration:none; }
+
+.inner-section{background:#fff;clear:both;overflow:hidden}
+.alternatives-carousel .jcarousel li.front{border:none}
+.discover-bike-carousel .jcarousel li{height:auto}
+.discover-bike-carousel .front{height:auto}
+#leadCapturePopup .leadCapture-close-btn{z-index:2}
+#leadCapturePopup .error-icon,#leadCapturePopup .bw-blackbg-tooltip{display:none}
+.btn-grey{background:#fff;color:#82888b;border:1px solid #82888b}
+.btn-grey:hover{background:#82888b;color:#fff;text-decoration:none;border:1px solid #82888b}
+#notifyAvailabilityContainer{min-height:320px;background:#fff;margin:0 auto;padding:10px;position:fixed;top:10%;right:5%;left:5%;z-index:10}
+#notify-form .grid-12{padding:10px 20px}
+.personal-info-notify-container input{margin:0 auto}
+.notify-offers-list{list-style:disc;margin-left:10px}
+#notifyAvailabilityContainer .notify-close-btn{z-index:2}
+#leadCapturePopup .error-icon,#leadCapturePopup .bw-blackbg-tooltip{display:none}
+.float-button{background-color:#f5f5f5;padding:10px}
+.float-button.float-fixed{position:fixed;bottom:0;z-index:8;left:0;right:0}
+#otpPopup{display:none}
+.icon-outer-container{width:102px;height:102px;margin:0 auto;background:#fff;border:1px solid #ccc}
+.icon-inner-container{width:92px;height:92px;margin:4px auto;background:#fff;border:1px solid #666}
+.user-contact-details-icon{width:36px;height:44px;background-position:-107px -227px}
+.otp-icon{width:30px;height:40px;background-position:-107px -177px}
+.edit-blue-icon{width:16px;height:16px;background-position:-114px -123px}
+#getMobile{padding:9px 40px}
+.mobile-prefix{position:absolute;padding:10px 13px 13px;color:#999;z-index:2}
+#otpPopup .errorIcon,#otpPopup .errorText{display:none}
+#otpPopup .otp-box p.resend-otp-btn{color:#0288d1;cursor:pointer;font-size:14px}
+#otpPopup .update-mobile-box{display:none}
+#otpPopup .edit-mobile-btn{cursor:pointer}
+.thankyou-icon {width:48px; height:58px; background-position: -137px -404px; }
+.text-default {color:#4d5057}
+.dealership-loc-icon { width:8px; height:12px; background-position:-41px -437px; position:relative;top:4px; }
+.dealership-address { width:92%; }
+.vertical-top { display:inline-block;vertical-align:top; }
+.btn-grey-state {background:#fff;color:#82888b;border:1px solid #82888b;}
+.button-clicked-state {background:#82888b;color:#fff;text-decoration:none;border:1px solid #82888b;}
+#calldealer:hover { text-decoration:none; }
+.get-offer-link {color: #0288d1!important; font-weight:bold}

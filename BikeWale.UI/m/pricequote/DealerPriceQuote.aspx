@@ -17,7 +17,7 @@
     %>
     <script>var quotationPage = true;</script>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/dealerpricequote.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/dealerpricequote-old.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
     <script type="text/javascript">
         var dealerId = '<%= dealerId%>';
         var pqId = '<%= pqId%>';
@@ -590,7 +590,7 @@
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- all other js plugins -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/dealerpricequote.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/dealerpricequote-old.js?<%= staticFileVersion %>"></script>
 
         <script type="text/javascript">
             var leadSourceId;
