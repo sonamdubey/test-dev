@@ -166,9 +166,9 @@ namespace Bikewale.Content
                 {
                     // Modified By :Lucky Rathore on 12 July 2016.
                     Form.Action = Request.RawUrl;
-                    string OriginalUrl = HttpContext.Current.Request.RawUrl;
-                    string LoginPageUrl = "/users/login.aspx?returnUrl=";
-                    HttpContext.Current.Response.Redirect(String.Format("{0}{1}", LoginPageUrl, OriginalUrl));
+                    
+                    
+                    HttpContext.Current.Response.Redirect(String.Format("{0}{1}","/users/login.aspx?returnUrl=", HttpContext.Current.Request.RawUrl));
                    
                    
                 }
