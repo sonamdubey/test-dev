@@ -166,7 +166,11 @@ namespace Bikewale.Content
                 {
                     // Modified By :Lucky Rathore on 12 July 2016.
                     Form.Action = Request.RawUrl;
-                    Response.Redirect("/users/login.aspx?returnUrl=" + HttpUtility.UrlEncode(Request.ServerVariables["HTTP_X_ORIGINAL_URL"]));
+
+
+                    HttpContext.Current.Response.Redirect(String.Format("/users/login.aspx?returnUrl={0}", HttpContext.Current.Request.RawUrl));
+                   
+                   
                 }
                 LoadDefaultComments();
                 BikeName = GetBike();
