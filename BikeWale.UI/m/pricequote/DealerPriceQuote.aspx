@@ -576,6 +576,14 @@
                     <a href="javascript:void(0)" id="aOkayButton" class="btn btn-orange okay-thanks-msg">Okay</a>
                     <div class="clear"></div>
                 </div>
+                 <!-- thank you message for campaign leads starts here -->
+                <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
+                    <p class="font18 text-bold margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
+                    <p class="font16 margin-bottom40"><%=objVersionDetails.MakeBase.MakeName%> Company would get back to you shortly with additional information.</p>
+                    <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
+                     <div class="clear"></div>
+                </div>
+				<!-- thank you message for campaign leads ends here -->   
                 <!-- Contact details Popup ends here -->
                 <div id="otpPopup">
                     <!-- OTP Popup starts here -->
@@ -666,7 +674,7 @@
 
                 });
 
-                $(".leadCapture-close-btn").on("click", function () {
+                $(".leadCapture-close-btn, #notifyOkayBtn").on("click", function () {
                     leadCapturePopup.hide();
                     $("#dealer-assist-msg").hide();
                     window.history.back();
