@@ -3,7 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><%= bikeName %> Photos</title>
+    <%
+        title = String.Format("{0} Photos - Bikewale", bikeName );
+        keywords = string.Format("{0} 3G photos, {0} 3G pictures, {0} 3G pics, {1} 3G photos, {1} 3G pictures, {1} 3G pics,", bikeName, modelName);
+        description = String.Format("View pictures of {0}. This {0} picture clearly shows you how {1} looks like.",bikeName, modelName );
+        canonical = String.Format("http://www.bikewale.com/{0}-bikes/{1}/photos/", makeMaskingName,modelMaskingName);
+     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/m/css/model-gallery.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 </head>

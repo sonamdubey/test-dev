@@ -18,7 +18,7 @@ namespace Bikewale.m.New
     {
 
         protected ModelGallery ctrlModelGallery;
-        protected string bikeName = "KTM Duke 200", modelMaskingName = string.Empty;
+        protected string bikeName = string.Empty, modelName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty;
         protected int modelId = 0;
         protected BikeModelPageEntity modelPage = default(BikeModelPageEntity);
 
@@ -44,7 +44,11 @@ namespace Bikewale.m.New
                     modelContainer.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
                     IBikeModels<BikeModelEntity, int> objClient = modelContainer.Resolve<IBikeModels<BikeModelEntity, int>>();
                     BikeModelEntity bikemodelEnt = objClient.GetById(Convert.ToInt32(modelId));
-                    bikeName = string.Format("{0} {1}", bikemodelEnt.MakeBase.MakeName, bikemodelEnt.ModelName);
+                    if (bikemodelEnt != null)
+                    {
+                        modelName = bikemodelEnt.ModelName;
+                        bikeName = string.Format("{0} {1}", bikemodelEnt.MakeBase.MakeName, modelName);
+                    }
                 }
 
                 List<ModelImage> objImageList = objCache.GetModelPhotoGallery(modelId);
@@ -67,6 +71,7 @@ namespace Bikewale.m.New
             try
             {
                 modelMaskingName = Request.QueryString["model"];
+                makeMaskingName = Request.QueryString["make"];
                 if (!string.IsNullOrEmpty(modelMaskingName))
                 {
                     using (IUnityContainer container = new UnityContainer())
