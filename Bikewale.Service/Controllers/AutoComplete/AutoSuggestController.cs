@@ -141,20 +141,26 @@ namespace Bikewale.Service.Controllers.AutoComplete
                             }
                         }
                     }
-  
-                    Bikewale.DTO.AutoComplete.V2.Payload obj = new Bikewale.DTO.AutoComplete.V2.Payload();
-                    Bikewale.DTO.AutoComplete.V2.BikeList objBikesV2 = new Bikewale.DTO.AutoComplete.V2.BikeList();
-                    objBikesV2.Bikes = new List<Bikewale.DTO.AutoComplete.V2.SuggestionList>();
 
-                    foreach (var item in objBikes.Bikes)
+
+                    if ((int)source < 2)
                     {
-                        Bikewale.DTO.AutoComplete.V2.SuggestionList bike = new Bikewale.DTO.AutoComplete.V2.SuggestionList();
-                        bike.Payload = Newtonsoft.Json.JsonConvert.DeserializeObject<Bikewale.DTO.AutoComplete.V2.Payload>(item.Payload.ToString());
-                        bike.Text = item.Text;
-                        objBikesV2.Bikes.Add(bike);
-                    }
+                        Bikewale.DTO.AutoComplete.V2.Payload obj = new Bikewale.DTO.AutoComplete.V2.Payload();
+                        Bikewale.DTO.AutoComplete.V2.BikeList objBikesV2 = new Bikewale.DTO.AutoComplete.V2.BikeList();
+                        objBikesV2.Bikes = new List<Bikewale.DTO.AutoComplete.V2.SuggestionList>();
 
-                    return Ok(objBikesV2);
+                        foreach (var item in objBikes.Bikes)
+                        {
+                            Bikewale.DTO.AutoComplete.V2.SuggestionList bike = new Bikewale.DTO.AutoComplete.V2.SuggestionList();
+                            bike.Payload = Newtonsoft.Json.JsonConvert.DeserializeObject<Bikewale.DTO.AutoComplete.V2.Payload>(item.Payload.ToString());
+                            bike.Text = item.Text;
+                            objBikesV2.Bikes.Add(bike);
+                        }
+
+                        return Ok(objBikesV2);
+                    }
+                    else
+                        return Ok(objBikes);
                 }
                 else
                     return NotFound();
