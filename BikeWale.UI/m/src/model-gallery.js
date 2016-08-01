@@ -1,7 +1,14 @@
 ﻿$(document).ready(function () {
     $('.carousel-navigation-photos .swiper-slide').first().addClass('swiper-slide-active');
     showImgTitle(galleryTop);
-    $('#videos').hide();
+
+    var hashValue = window.location.hash.substr(1);
+    if (hashValue == 'videos') {
+        $('.model-gallery-container').find('#videos-tab').trigger('click');
+    }
+    else { 
+        $('#videos').hide();
+    }
 });
 
 var slideToClick = function (swiper) {
@@ -13,7 +20,7 @@ var slideToClick = function (swiper) {
 
 var videosThumbs = new Swiper('.carousel-navigation-videos', {
     slideActiveClass: '',
-    spaceBetween: 15,
+    spaceBetween: 0,
     slidesPerView: 'auto',
     slideToClickedSlide: true,
     preloadImages: false,
@@ -25,7 +32,7 @@ var videosThumbs = new Swiper('.carousel-navigation-videos', {
 
 var galleryThumbs = new Swiper('.carousel-navigation-photos', {
     slideActiveClass: '',
-    spaceBetween: 15,
+    spaceBetween: 0,
     slidesPerView: 'auto',
     slideToClickedSlide: true,
     preloadImages: false,
