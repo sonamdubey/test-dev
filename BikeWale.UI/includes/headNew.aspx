@@ -14,8 +14,8 @@
 <meta property="og:type" content="website" />
 <meta property="og:title" content="<%=fbTitle%>"/> 
 <meta property="og:image" content="<%=fbImage%>"/> 
-<meta property="og:image:width" content="200" />
-<meta property="og:image:height" content="200" />
+<%--<meta property="og:image:width" content="200" />
+<meta property="og:image:height" content="200" />--%>
 <meta property="og:url" content="<%= canonical %>" />
 <meta property="og:description" content="<%= description %>" />
  <% } %>
