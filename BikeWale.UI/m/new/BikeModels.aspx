@@ -69,7 +69,7 @@
 
                     <% if (modelPage.ModelDetails.New || !modelPage.ModelDetails.New)
                        { %>
-                    <div class="padding-left20 padding-right10 margin-top5 margin-bottom5">
+                    <div class="padding-left20 padding-right10 margin-top5 margin-bottom10">
                         <p class=" <%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> leftfloat margin-right10 rating-wrap">
                             <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble((modelPage.ModelDetails == null || modelPage.ModelDetails.ReviewRate == null) ? 0 : modelPage.ModelDetails.ReviewRate )) %>
                         </p>
@@ -89,6 +89,22 @@
                         <div class="clear"></div>
                     </div>
                     <% } %>
+
+                    <div id="model-image-wrapper">
+                        <div class="model-main-image">
+                            <img src="http://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/15246/img/l/TVS-Wego-Front-three-quarter-47840.jpg" alt="" title="" />
+                            <div class="model-media-details">
+                                <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/photos" class="model-media-item">
+                                    <span class="bwmsprite gallery-photo-icon"></span>
+                                    <span class="model-media-count">61</span>
+                                </a>
+                                <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/photos#videos" class="model-media-item">
+                                    <span class="bwmsprite gallery-video-icon"></span>
+                                    <span class="model-media-count">7</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="swiper-container model margin-bottom10" id="bikeBannerImageCarousel">
                         <div class="swiper-wrapper stage" id="ulModelPhotos">
@@ -771,8 +787,6 @@
             </div>
         </div>
         <!-- Terms and condition Popup end -->
-
-        <!-- all other js plugins -->
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
