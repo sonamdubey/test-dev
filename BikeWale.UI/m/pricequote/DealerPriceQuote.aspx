@@ -349,7 +349,7 @@
             <!--Dealer Campaign ends here -->
 
             <!--Exciting Offers section starts here-->
-            <div class="grid-12 float-button float-fixed">
+            <div class="grid-12 float-button float-fixed <%= (objExQuotation != null && objExQuotation.CampaignId > 0) ? "hide" : "" %>">
                 <%if (!string.IsNullOrEmpty(maskingNum))
                   { %>
                 <div class="grid-6 alpha omega padding-right5">
