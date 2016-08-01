@@ -47,10 +47,6 @@
                                         <img class="swiper-lazy" data-src="http://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15246/img/l/TVS-Wego-Exterior-47833.jpg?20151702124435&t=124435577&t=124435577" src="" alt="" />
                                         <span class="swiper-lazy-preloader"></span>
                                     </div>
-                                    <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="http://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15246/img/l/TVS-Wego-Exterior-47829.jpg?20151702124349&t=124349570&t=124349570" src="" alt="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
                                 </div>
                                 <div class="bwmsprite swiper-button-next"></div>
                                 <div class="bwmsprite swiper-button-prev"></div>
@@ -73,10 +69,6 @@
                                     </div>
                                     <div class="swiper-slide">
                                         <img class="swiper-lazy" data-src="http://imgd5.aeplcdn.com//110x61//bikewaleimg/ec/15246/img/l/TVS-Wego-Exterior-47825.jpg?20151702124307&t=124307153&t=124307153" src="" title="" alt="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="http://imgd8.aeplcdn.com//110x61//bikewaleimg/ec/15246/img/l/TVS-Wego-Front-three-quarter-47824.jpg?20151702124256&t=124256427&t=124256427" src="" title="" alt="" />
                                         <span class="swiper-lazy-preloader"></span>
                                     </div>
                                 </div>
