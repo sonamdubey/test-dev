@@ -56,7 +56,7 @@ var galleryTop = new Swiper('.carousel-stage-photos', {
     onSlideChangeEnd: slidegalleryThumbs
 });
 
-$(".modelgallery-close-btn").click(function () {
+$(".gallery-close-btn").on('click', function () {
     window.history.back();
 });
 
