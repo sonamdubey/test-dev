@@ -81,9 +81,12 @@
     <Compile Include="AutoBiz\PQ_VersionPriceDTO.cs" />
     <Compile Include="AutoBiz\StateEntityBaseDTO.cs" />
     <Compile Include="AutoComplete\BikeList.cs" />
+    <Compile Include="AutoComplete\V2\BikeList.cs" />
     <Compile Include="AutoComplete\CityPayload.cs" />
     <Compile Include="AutoComplete\Payload.cs" />
+    <Compile Include="AutoComplete\V2\Payload.cs" />
     <Compile Include="AutoComplete\SuggestionList.cs" />
+    <Compile Include="AutoComplete\V2\SuggestionList.cs" />
     <Compile Include="BikeBooking\BikeBookingListingDTO.cs" />
     <Compile Include="BikeBooking\BikeBookingListingOutput.cs" />
     <Compile Include="BikeBooking\BikeBookingOfferDTO.cs" />
