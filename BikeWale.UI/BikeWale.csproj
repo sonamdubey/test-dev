@@ -2321,6 +2321,7 @@
     <Content Include="m\src\insurance.js" />
     <Content Include="m\src\jquery-1.10.2.min.js" />
     <Content Include="m\src\jquery.mobile-1.4.2.min.js" />
+    <Content Include="m\src\model-gallery.js" />
     <Content Include="m\src\newbikes.js" />
     <!-- <Content Include="m\src\new\bwm-search.js" /> -->
     <Content Include="m\src\BikeBooking\bookinglisting.js" />

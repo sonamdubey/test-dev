@@ -1,9 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.m.controls.ModelGallery" %>
 <!-- model-gallery-container starts here -->
 <section class="model-gallery-container">
-    <div class="blackOut-window-model"></div>
-    <div class="modelgallery-close-btn position-abt pos-top20 pos-right20 bwmsprite cross-lg-white cur-pointer hide"></div>
-    <div class="bw-tabs-panel bike-gallery-popup hide" id="bike-gallery-popup">
+   <%-- <div class="blackOut-window-model"></div>--%>
+    <div class="modelgallery-close-btn position-abt pos-top20 pos-right20 bwmsprite cross-lg-white cur-pointer"></div>
+    <div class="bw-tabs-panel bike-gallery-popup" id="bike-gallery-popup">
         <div class="text-center margin-top30 margin-bottom20">
             <div class="bw-tabs home-tabs <%= videoCount == 0 ? "hide" : "" %>">
                 <ul>
