@@ -18,7 +18,6 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
-using Bikewale.m.controls;
 using Bikewale.Mobile.controls;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
@@ -45,7 +44,6 @@ namespace Bikewale.Mobile.New
         protected NewExpertReviewsWidget ctrlExpertReviews;
         protected NewVideosWidget ctrlVideos;
         protected NewUserReviewList ctrlUserReviews;
-        protected ModelGallery ctrlModelGallery;
         protected BikeModelPageEntity modelPage;
         protected VersionSpecifications bikeSpecs;
         protected PQOnRoadPrice pqOnRoad;
@@ -290,9 +288,9 @@ namespace Bikewale.Mobile.New
                     rptModelPhotos.DataSource = modelPage.Photos;
                     rptModelPhotos.DataBind();
 
-                    ctrlModelGallery.bikeName = bikeName;
-                    ctrlModelGallery.modelId = Convert.ToInt32(modelId);
-                    ctrlModelGallery.Photos = modelPage.Photos;
+                    //ctrlModelGallery.bikeName = bikeName;
+                    //ctrlModelGallery.modelId = Convert.ToInt32(modelId);
+                    // ctrlModelGallery.Photos = modelPage.Photos;
                 }
 
                 if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
