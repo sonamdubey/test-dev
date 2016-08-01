@@ -75,7 +75,7 @@ namespace Bikewale.BAL.PriceQuote
         /// <param name="versionID">e.g. 806</param>
         /// <param name="dealerId">e.g. 12527</param>
         /// <returns>DetailedDealerQuotationEntity entity</returns>
-        public Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity GetDealerQuotationV2(UInt32 cityId, UInt32 versionID, UInt32 dealerId)
+        public Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity GetDealerQuotationV2(UInt32 cityId, UInt32 versionID, UInt32 dealerId, uint areaId)
         {
             Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity dealerQuotation = null;
             try
@@ -88,6 +88,7 @@ namespace Bikewale.BAL.PriceQuote
                     objParam.CityId = cityId;
                     objParam.DealerId = dealerId > 0 ? Convert.ToUInt32(dealerId) : default(UInt32);
                     objParam.VersionId = versionID;
+                    objParam.AreaId = areaId;
                     dealerQuotation = objPriceQuote.GetDealerPriceQuoteByPackageV2(objParam);
 
                     if (dealerQuotation != null)
