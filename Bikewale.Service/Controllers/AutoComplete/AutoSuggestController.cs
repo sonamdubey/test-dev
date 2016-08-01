@@ -161,7 +161,7 @@ namespace Bikewale.Service.Controllers.AutoComplete
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.AutoComplete.AutoSuggestController");
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.AutoComplete.AutoSuggestController.GetV2");
                 objErr.SendMail();
                 return InternalServerError();
             }

@@ -10,10 +10,11 @@ namespace Bikewale.DTO.AutoComplete.V2
     /// <summary>
     /// Created By : Sajal Gupta
     /// Created On : 01/08/2016
+    /// Description : Dto for saving list of bike details.
     /// </summary>
     public class BikeList
     {
-        [JsonProperty("suggestionListV2")]
+        [JsonProperty("bikes")]
         public List<SuggestionList> Bikes { get; set; }
     }
 }
