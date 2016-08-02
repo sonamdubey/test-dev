@@ -104,8 +104,6 @@ namespace Bikewale.Service.Controllers.AutoComplete
 
             try
             {
-                
-
                 BikeList objBikes = new BikeList();
                 int noOfSuggestion = noOfRecords.HasValue ? noOfRecords.Value : 10;
 
@@ -142,8 +140,8 @@ namespace Bikewale.Service.Controllers.AutoComplete
                         }
                     }
 
-
-                    if ((int)source < 2)
+                    //Condition for checking parameter source value for AllMakeModels(masking name)
+                    if ((int)source == 1)
                     {
                         Bikewale.DTO.AutoComplete.V2.Payload obj = new Bikewale.DTO.AutoComplete.V2.Payload();
                         Bikewale.DTO.AutoComplete.V2.BikeList objBikesV2 = new Bikewale.DTO.AutoComplete.V2.BikeList();
