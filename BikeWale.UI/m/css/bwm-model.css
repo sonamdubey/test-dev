@@ -41,6 +41,14 @@
 .margin-bottom7 { margin-bottom:7px; }
 .border-light-top { border-top:1px solid #f1f1f1; }
 .tel-grey-icon { position:relative;top:2px; }
+#model-image-wrapper .model-main-image { background-color: #fff; max-width: 476px; margin: 0 auto; min-height: 180px; max-height: 268px; position: relative; text-align: center; }
+#model-image-wrapper .model-media-details { position: absolute; right: 15px; bottom: 10px; font-size: 12px; }
+.model-media-item { display:inline-block; vertical-align: middle; padding: 3px 5px 0; color: #82888b; background: rgba(240, 240, 240, 0.8); border-radius: 2px; }
+.model-media-item:hover { text-decoration:none; }
+.model-media-count { position: relative; top: -1px; }
+.gallery-photo-icon, .gallery-video-icon { height: 12px; }
+.gallery-photo-icon { width: 16px; background-position: 0 -486px; }
+.gallery-video-icon { width: 12px; background-position: -26px -486px; }
 
 #upDownArrow.fa-angle-down { transition: all 0.5s ease-in-out 0s; font-size: 20px; }
 .sort-div .fa-angle-down { transition: transform .3s; -moz-transition: transform .3s; -webkit-transition: transform .3s; -o-transition: transform .3s; -ms-transition: transform .3s; }
@@ -179,29 +187,12 @@
 
 #SneakPeak img { width:100%; }
 
-/* photo gallery */
-.bike-gallery-popup { width:100%; max-width: 476px; height:100%; margin:0 auto;padding-top: 40px; overflow-y:auto; position:fixed; top:0; right:0; left:0; z-index:10; }
-@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-device-pixel-ratio: 2) and (device-aspect-ratio: 2/3){ 
-    .bike-gallery-popup{padding-top: 0 }
-}
-.blackOut-window-model { background:#222; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.95; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=95); -moz-opacity:0.95; -khtml-opacity: 0.95; }
-.modelgallery-close-btn { z-index:11; }
-/* offers popup */
 .termsPopUpContainer { width: 90%; height: 400px; overflow-y:auto; background-color: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 7%; left: 5%; right: 5%; }
 .termsPopUpCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }
 #terms h1 { font-size:18px; padding-top:10px; }
 
 .viewterms{color: #ababab;text-decoration: none;font-size: 10px;cursor: pointer;}
 .viewterms:hover{text-decoration:underline;}
-
-.bike-gallery-heading h3 { margin:0 auto 10px; }
-
-/*image-videos tabs*/
-.bike-gallery-popup .home-tabs { background:#ccc; margin-top:0; margin-bottom:0;}
-.bike-gallery-popup .home-tabs li { width:146px; text-align:center; font-size:18px; padding:7px 20px; background:#f5f5f5;}
-.bike-gallery-popup .home-tabs li:first-child { margin-right:-2px;}
-.bike-gallery-popup .home-tabs li.active{ background:#fff; color:#2a2a2a;} 
-
 
 .connected-carousels-photos .bike-gallery-details { position: absolute; bottom: 0; font-size:14px; width:100%; color:#fff; padding:20px 20px 5px; min-height:45px; background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(5,0,0,0.7));z-index: 1;}
 
@@ -265,8 +256,6 @@
 #faqSlug .icon-outer-container { width:82px; height:82px; }
 #faqSlug .icon-inner-container { width:72px; height:72px; }
 
-/*li.offertxt .tnc { display:none }  
-li.offertxt:hover .tnc {display:inline}*/
 .question-mark-icon { width:22px; height:33px; background-position:-189px -348px; }
 .faq-slug-container { width:100%; }
 .question-icon-container { width:82px; }

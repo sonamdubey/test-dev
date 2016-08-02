@@ -4,7 +4,6 @@
 <%@ Register Src="/m/controls/NewVideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/NewAlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
 <%@ Register Src="/m/controls/NewUserReviewList.ascx" TagPrefix="BW" TagName="UserReviews" %>
-<%@ Register Src="~/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
 <%@ Register Src="~/m/controls/MPriceInTopCities.ascx" TagPrefix="BW" TagName="TopCityPrice" %>
 <!DOCTYPE html> 
 <html>
@@ -70,7 +69,7 @@
 
                     <% if (modelPage.ModelDetails.New || !modelPage.ModelDetails.New)
                        { %>
-                    <div class="padding-left20 padding-right10 margin-top5 margin-bottom5">
+                    <div class="padding-left20 padding-right10 margin-top5 margin-bottom10">
                         <p class=" <%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> leftfloat margin-right10 rating-wrap">
                             <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble((modelPage.ModelDetails == null || modelPage.ModelDetails.ReviewRate == null) ? 0 : modelPage.ModelDetails.ReviewRate )) %>
                         </p>
@@ -90,8 +89,26 @@
                         <div class="clear"></div>
                     </div>
                     <% } %>
+                    <div id="model-image-wrapper">
+                        <div class="model-main-image">
+                            <img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image" />
+                            <% if (modelPage !=null && modelPage.Photos != null && modelPage.Photos.Count > 1)
+                               { %>
+                            <div class="model-media-details">
+                                <a href="./photos" class="model-media-item">
+                                    <span class="bwmsprite gallery-photo-icon"></span>
+                                    <span class="model-media-count"><%= modelPage.Photos.Count %></span>
+                                </a>
+                                <%--<a href="./photos#videos" class="model-media-item">
+                                    <span class="bwmsprite gallery-video-icon"></span>
+                                    <span class="model-media-count">7</span>
+                                </a>--%>
+                            </div>
+                            <% } %>
+                        </div>
+                    </div>
 
-                    <div class="swiper-container model margin-bottom10" id="bikeBannerImageCarousel">
+                    <%--<div class="swiper-container model margin-bottom10" id="bikeBannerImageCarousel">
                         <div class="swiper-wrapper stage" id="ulModelPhotos">
                             <asp:Repeater ID="rptModelPhotos" runat="server">
                                 <ItemTemplate>
@@ -106,7 +123,7 @@
                            { %>
                         <p class="pagination-number text-center font12 text-white position-abt"><span class="bike-model-gallery-count">1 of <%= modelPage.Photos.Count %></span></p>
                         <% } %>
-                    </div>
+                    </div>--%>
 
                     <% if (modelPage.ModelDetails.Futuristic)
                        { %>
@@ -772,10 +789,6 @@
             </div>
         </div>
         <!-- Terms and condition Popup end -->
-
-        <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
-
-        <!-- all other js plugins -->
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->

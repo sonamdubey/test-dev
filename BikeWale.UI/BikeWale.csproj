@@ -879,6 +879,10 @@
       <DependentUpon>dealersinindia.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\new\ModelGallery.aspx.cs">
+      <DependentUpon>ModelGallery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\new\ModelPricesInCity.aspx.cs">
       <DependentUpon>ModelPricesInCity.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2224,6 +2228,7 @@
     <Content Include="m\css\jqm-demos.css" />
     <Content Include="m\css\jquery.mobile-1.4.2.min.css" />
     <Content Include="m\css\mobile-rsa.css" />
+    <Content Include="m\css\model-gallery.css" />
     <Content Include="m\css\new.css" />
     <Content Include="m\css\new\bwm-bookinglisting.css" />
     <Content Include="m\css\new\bwm-modelprice-in-city.css" />
@@ -2233,6 +2238,7 @@
     <Content Include="m\customerror.aspx" />
     <Content Include="m\new\dealersinstate.aspx" />
     <Content Include="m\new\dealersinindia.aspx" />
+    <Content Include="m\new\ModelGallery.aspx" />
     <Content Include="m\new\ModelPricesInCity.aspx" />
     <Content Include="m\new\ModelSpecsFeatures.aspx" />
     <Content Include="m\new\newbikedealers\DealerDetails.aspx" />
@@ -2315,6 +2321,7 @@
     <Content Include="m\src\insurance.js" />
     <Content Include="m\src\jquery-1.10.2.min.js" />
     <Content Include="m\src\jquery.mobile-1.4.2.min.js" />
+    <Content Include="m\src\model-gallery.js" />
     <Content Include="m\src\newbikes.js" />
     <!-- <Content Include="m\src\new\bwm-search.js" /> -->
     <Content Include="m\src\BikeBooking\bookinglisting.js" />

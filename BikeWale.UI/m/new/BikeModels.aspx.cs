@@ -18,7 +18,6 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
-using Bikewale.m.controls;
 using Bikewale.Mobile.controls;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
@@ -45,11 +44,10 @@ namespace Bikewale.Mobile.New
         protected NewExpertReviewsWidget ctrlExpertReviews;
         protected NewVideosWidget ctrlVideos;
         protected NewUserReviewList ctrlUserReviews;
-        protected ModelGallery ctrlModelGallery;
         protected BikeModelPageEntity modelPage;
         protected VersionSpecifications bikeSpecs;
         protected PQOnRoadPrice pqOnRoad;
-        protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColors, rptOffers, rptVariants, rptSecondaryDealers;
+        protected Repeater rptNavigationPhoto, rptVarients, rptColors, rptOffers, rptVariants, rptSecondaryDealers;
         protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty;
         protected String clientIP = CommonOpn.GetClientIP();
         protected bool isCitySelected, isAreaSelected, isBikeWalePQ, isDiscontinued, isOnRoadPrice, toShowOnRoadPriceButton;
@@ -282,19 +280,8 @@ namespace Bikewale.Mobile.New
         /// </summary>
         private void BindRepeaters()
         {
-
             if (modelPage != null)
             {
-                if (modelPage.Photos != null && modelPage.Photos.Count > 0)
-                {
-                    rptModelPhotos.DataSource = modelPage.Photos;
-                    rptModelPhotos.DataBind();
-
-                    ctrlModelGallery.bikeName = bikeName;
-                    ctrlModelGallery.modelId = Convert.ToInt32(modelId);
-                    ctrlModelGallery.Photos = modelPage.Photos;
-                }
-
                 if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
                 {
                     rptVarients.DataSource = modelPage.ModelVersions;
