@@ -135,5 +135,5 @@ $('#getMoreDetails').on('click', function () {
 $("#getMoreDetailsBtnCampaign").on("click", function () {
     $("#leadCapturePopup").show();
     $('body').addClass('lock-browser-scroll');
-    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_More_Details_Clicked', 'lab': bikeVersionLocation });
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_More_Details_Clicked', 'lab': bikeName + "_" + getCityArea });
 });

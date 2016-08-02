@@ -49,7 +49,7 @@ namespace Bikewale.Mobile.BikeBooking
         protected bool IsDiscount = false;
         protected UInt32 totalDiscount = 0;
         protected DetailedDealerQuotationEntity objPriceQuote = null;
-        protected string dealerName = string.Empty, dealerArea = string.Empty, dealerAdd = string.Empty, maskingNum = string.Empty;
+        protected string dealerName = string.Empty, dealerArea = string.Empty, dealerAdd = string.Empty, maskingNum = string.Empty, contactHours = string.Empty;
         protected double latitude = 0, longitude = 0;
         protected uint offerCount = 0, secondaryDealersCount = 0;
         protected bool isEMIAvailable = false, isUSPAvailable = false, isOfferAvailable = false, isPrimaryDealer = false, isSecondaryDealer = false, isBookingAvailable = false;
@@ -57,6 +57,7 @@ namespace Bikewale.Mobile.BikeBooking
         protected DealerQuotationEntity primarydealer = null;
         IPriceQuote objIQuotation = null;
         protected BikeQuotationEntity objExQuotation = null;
+        protected LeadCaptureControl ctrlLeadCapture;
 
         protected override void OnInit(EventArgs e)
         {
@@ -83,6 +84,10 @@ namespace Bikewale.Mobile.BikeBooking
                     GetDealerPriceQuote(cityId, versionId, dealerId);
                     BindAlternativeBikeControl(versionId.ToString());
                     mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(Convert.ToString(cityId), Convert.ToString(pqId), Convert.ToString(areaId), Convert.ToString(versionId), Convert.ToString(dealerId)));
+
+                    ctrlLeadCapture.CityId = cityId;
+                    ctrlLeadCapture.ModelId = Convert.ToUInt32(objVersionDetails.ModelBase.ModelId);
+                    ctrlLeadCapture.AreaId = 0;
                 }
                 else
                     SavePriceQuote();
@@ -169,6 +174,7 @@ namespace Bikewale.Mobile.BikeBooking
                                 latitude = dealerDetails.objArea.Latitude;
                                 longitude = dealerDetails.objArea.Longitude;
                                 dealerType = dealerDetails.DealerPackageType;
+                                contactHours = dealerDetails.WorkingTime;
                             }
 
                             //bind Offer
