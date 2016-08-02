@@ -40,6 +40,14 @@
     box-shadow:0 2px 2px #ccc;
 }
 
+.dropdown-select-wrapper {
+	display: inline-block;
+}
+
+.dropdown-select {
+	display: none;
+}
+
 .dropdown-menu {
 	min-width: 125px;
 	font-size: 14px;
