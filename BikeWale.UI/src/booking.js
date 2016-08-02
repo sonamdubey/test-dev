@@ -657,6 +657,7 @@ $('.tnc').on('click', function (e) {
 });
 
 function LoadTerms(offerId) {
+   
     $("div#termsPopUpContainer").show();
     $(".blackOut-window").show();
     $('#terms').empty();
@@ -680,7 +681,8 @@ function LoadTerms(offerId) {
         });
     }
     else {
-        $('#terms').html($("#orig-terms").html());
+        $("#terms").load("/statichtml/tnc.html");
+      
     }
     $(".termsPopUpContainer").css('height', '500');
 }
