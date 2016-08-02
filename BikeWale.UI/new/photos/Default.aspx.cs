@@ -30,18 +30,17 @@ namespace Bikewale.New.PhotoGallery
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
+
+            DeviceDetection dd = new DeviceDetection(originalUrl);
+            dd.DetectDevice();
             if (!Page.IsPostBack)
             {
                 if (ProcessQueryString())
                 {
-                    string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
-                    if (String.IsNullOrEmpty(originalUrl))
-                        originalUrl = Request.ServerVariables["URL"];
-                    if (!String.IsNullOrEmpty(originalUrl))
-                    {
-                        DeviceDetection dd = new DeviceDetection(originalUrl);
-                        dd.DetectDevice();
-                    }
+
                     using (IUnityContainer container = new UnityContainer())
                     {
                         container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();

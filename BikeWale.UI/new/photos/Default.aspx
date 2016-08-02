@@ -4,7 +4,7 @@
 <%
     title = String.Format("{0} Photos - BikeWale", bikeName);
     keywords = string.Format("{0} photos, {0} pictures, {0} images, {1} {0} photos", modelName, makename);
-    description = String.Format("View pictures of {1} in different colours and angles. Check out {2} photos of {1} on BikeWale", modelName, bikeName, photoGallary.FetchedCount);
+    description = String.Format("View pictures of {0} in different colours and angles. Check out {2} photos of {1} on BikeWale", modelName, bikeName, photoGallary.FetchedCount);
     canonical = String.Format("http://www.bikewale.com/{0}-bikes/{1}/photos/", objModelEntity.MakeBase.MaskingName, objModelEntity.MaskingName); 
     alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/{1}/photos/", objModelEntity.MakeBase.MaskingName, objModelEntity.MaskingName);
     AdId = "1395986297721";

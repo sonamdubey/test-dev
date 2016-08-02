@@ -12,9 +12,9 @@ using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 
-namespace Bikewale.m.New
+namespace Bikewale.Mobile.New
 {
-    public partial class ModelGalleryPage : System.Web.UI.Page
+    public class ModelGalleryPage : System.Web.UI.Page
     {
 
         protected ModelGallery ctrlModelGallery;
@@ -35,22 +35,19 @@ namespace Bikewale.m.New
                 container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
                     .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                     .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
-                    .RegisterType<ICacheManager, MemcacheManager>();
+                    .RegisterType<ICacheManager, MemcacheManager>()
+                    .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
                 var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
 
-
-                using (IUnityContainer modelContainer = new UnityContainer())
+                IBikeModels<BikeModelEntity, int> objClient = container.Resolve<IBikeModels<BikeModelEntity, int>>();
+                BikeModelEntity bikemodelEnt = objClient.GetById(Convert.ToInt32(modelId));
+                if (bikemodelEnt != null)
                 {
-                    modelContainer.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
-                    IBikeModels<BikeModelEntity, int> objClient = modelContainer.Resolve<IBikeModels<BikeModelEntity, int>>();
-                    BikeModelEntity bikemodelEnt = objClient.GetById(Convert.ToInt32(modelId));
-                    if (bikemodelEnt != null)
-                    {
-                        modelName = bikemodelEnt.ModelName;
-                        
-                        bikeName = string.Format("{0} {1}", bikemodelEnt.MakeBase.MakeName, modelName);
-                    }
+                    modelName = bikemodelEnt.ModelName;
+
+                    bikeName = string.Format("{0} {1}", bikemodelEnt.MakeBase.MakeName, modelName);
                 }
+
 
                 List<ModelImage> objImageList = objCache.GetModelPhotoGallery(modelId);
                 if (objImageList != null && objImageList.Count > 0)
