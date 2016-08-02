@@ -1170,7 +1170,8 @@
                     });
                 }
                 else {
-                    $('#terms').html($("#orig-terms").html());
+                    $("#terms").load("/statichtml/tnc.html");
+                   
                 }
                 $('#termspinner').hide();
             }
