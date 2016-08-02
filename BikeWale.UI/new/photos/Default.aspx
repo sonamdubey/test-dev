@@ -2,10 +2,10 @@
 
 <%@ Register TagPrefix="PG" TagName="PhotoGallary" Src="/controls/PhotoGallaryMin.ascx" %>
 <%
-    title = objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + " Photos";
-    description = "View exterior picture of " + objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + ". This " + objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + " picture clearly shows you how " + objModelEntity.ModelName + " looks like.";
-    keywords = objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + " pics, pictures, photos, pics";
-    canonical = "http://www.bikewale.com/" + objModelEntity.MakeBase.MaskingName + "-bikes/" + objModelEntity.MaskingName + "/photos/";
+    title = String.Format("{0} Photos - BikeWale", bikeName);
+    keywords = string.Format("{0} photos, {0} pictures, {0} images, {1} {0} photos", modelName, makename);
+    description = String.Format("View pictures of {1} in different colours and angles. Check out {2} photos of {1} on BikeWale", modelName, bikeName, photoGallary.FetchedCount);
+    canonical = String.Format("http://www.bikewale.com/{0}-bikes/{1}/photos/", objModelEntity.MakeBase.MaskingName, objModelEntity.MaskingName); 
     alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/{1}/photos/", objModelEntity.MakeBase.MaskingName, objModelEntity.MaskingName);
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";

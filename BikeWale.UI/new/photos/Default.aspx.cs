@@ -18,7 +18,7 @@ namespace Bikewale.New.PhotoGallery
     public class BikePhotos : System.Web.UI.Page
     {
         protected PhotoGallaryMin photoGallary;
-        protected string modelId = string.Empty, photoId = string.Empty, imageId = string.Empty, selectedImagePath = string.Empty;
+        protected string modelId = string.Empty, photoId = string.Empty, imageId = string.Empty, selectedImagePath = string.Empty, bikeName = string.Empty, modelName = string.Empty, makename = string.Empty;
         protected BikeModelEntity objModelEntity = null;
         // protected int modelCount = 0;
         //protected BikeSeriesEntity objSeriesEntity;
@@ -46,11 +46,12 @@ namespace Bikewale.New.PhotoGallery
                     {
                         container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
                         IBikeModels<BikeModelEntity, int> objModel = container.Resolve<IBikeModels<BikeModelEntity, int>>();
-
                         //Get Model details
                         objModelEntity = objModel.GetById(Convert.ToInt32(modelId));
-
-                        photoGallary.ModelId = objModelEntity.ModelId;
+                        modelName = objModelEntity.ModelName;
+                        makename = objModelEntity.MakeBase.MakeName;
+                        bikeName = string.Format("{0} {1}", objModelEntity.MakeBase.MakeName, objModelEntity.ModelName);
+                        photoGallary.modelId = objModelEntity.ModelId;
                         photoGallary.ImageId = imageId;
                     }
                 }

@@ -18,8 +18,8 @@ namespace Bikewale.m.New
     {
 
         protected ModelGallery ctrlModelGallery;
-        protected string bikeName = string.Empty, modelName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty;
-        protected int modelId = 0;
+        protected string bikeName = string.Empty, modelName = string.Empty, makeName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty;
+        protected int modelId = 0, imgCount = 0;
         protected BikeModelPageEntity modelPage = default(BikeModelPageEntity);
 
         protected override void OnInit(EventArgs e)
@@ -47,6 +47,7 @@ namespace Bikewale.m.New
                     if (bikemodelEnt != null)
                     {
                         modelName = bikemodelEnt.ModelName;
+                        
                         bikeName = string.Format("{0} {1}", bikemodelEnt.MakeBase.MakeName, modelName);
                     }
                 }
@@ -57,6 +58,7 @@ namespace Bikewale.m.New
                     ctrlModelGallery.bikeName = bikeName;
                     ctrlModelGallery.modelId = Convert.ToInt32(modelId);
                     ctrlModelGallery.Photos = objImageList;
+                    imgCount = objImageList.Count;
                 }
             }
         }
