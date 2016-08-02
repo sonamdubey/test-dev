@@ -48,7 +48,7 @@
 .swiper-button-prev, .swiper-button-next { border: 0; }
 
 .carousel-stage-videos .yt-iframe-preview iframe { width:100%; height:200px; }
-
+.bw-tabs-panel .horizontal-tabs-wrapper.hide { display: none }
 @media screen and (max-width: 320px) {
     #bike-gallery-popup { margin-top: 40px; }
     #bike-gallery-popup .stage-photos { margin-bottom: 0; }

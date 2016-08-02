@@ -1,16 +1,13 @@
 ﻿using Bikewale.BAL.BikeData;
+using Bikewale.Common;
+using Bikewale.Controls;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Memcache;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using Bikewale.Controls;
-using Bikewale.Common;
 
 namespace Bikewale.New.PhotoGallery
 {
@@ -37,6 +34,12 @@ namespace Bikewale.New.PhotoGallery
             {
                 if (ProcessQueryString())
                 {
+                    string originalUrl = Request.ServerVariables["URL"];
+                    if (String.IsNullOrEmpty(originalUrl))
+                    {
+                        DeviceDetection dd = new DeviceDetection(originalUrl);
+                        dd.DetectDevice();
+                    }
                     using (IUnityContainer container = new UnityContainer())
                     {
                         container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
@@ -48,7 +51,7 @@ namespace Bikewale.New.PhotoGallery
                         photoGallary.ModelId = objModelEntity.ModelId;
                         photoGallary.ImageId = imageId;
                     }
-                }            
+                }
             }
         }
         /// <summary>
@@ -90,7 +93,7 @@ namespace Bikewale.New.PhotoGallery
             {
                 imageId = Request.QueryString["imgid"];
             }
-      
+
             return isSuccess;
         }   //End of ProcessQueryString
     }   //End of class

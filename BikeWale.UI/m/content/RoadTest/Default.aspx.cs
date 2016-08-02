@@ -259,7 +259,6 @@ namespace Bikewale.Content
                         }
                     }
                 }
-
             }
 
 
@@ -292,7 +291,5 @@ namespace Bikewale.Content
                     _curPageNo = Convert.ToInt32(Request.QueryString["pn"]);
             }
         }
-
-
     }
 }

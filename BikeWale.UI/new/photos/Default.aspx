@@ -4,8 +4,9 @@
 <%
     title = objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + " Photos";
     description = "View exterior picture of " + objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + ". This " + objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + " picture clearly shows you how " + objModelEntity.ModelName + " looks like.";
-    keywords = objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + "pics, pictures, photos, pics";
+    keywords = objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + " pics, pictures, photos, pics";
     canonical = "http://www.bikewale.com/" + objModelEntity.MakeBase.MaskingName + "-bikes/" + objModelEntity.MaskingName + "/photos/";
+    alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/{1}/photos/", objModelEntity.MakeBase.MaskingName, objModelEntity.MaskingName);
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
     ShowTargeting = "1";
