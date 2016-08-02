@@ -93,7 +93,7 @@ namespace Bikewale.Service.Controllers.AutoComplete
         /// <summary>
         /// Created By : Sajal Gupta
         /// Created On : 01/08/2016
-        /// Description : Optimised version by sending only makeId and modelId in the payload.
+        /// Description : Optimised version by sending only makeId and modelId in the payload for source value 1 and 2 in mobile app.
         /// </summary>
         [Route("api/v2/autosuggest/")]
         public IHttpActionResult GetV2(string inputText, AutoSuggestEnum source, int? noOfRecords = null)
@@ -140,25 +140,22 @@ namespace Bikewale.Service.Controllers.AutoComplete
                         }
                     }
 
-                    //Condition for checking parameter source value for AllMakeModels(masking name)
-                    if ((int)source == 1)
+                    //Condition for checking parameter source value and platformId
+                    if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4") && ((int)source == 1 || (int)source == 2))  
                     {
-                        Bikewale.DTO.AutoComplete.V2.Payload obj = new Bikewale.DTO.AutoComplete.V2.Payload();
-                        Bikewale.DTO.AutoComplete.V2.BikeList objBikesV2 = new Bikewale.DTO.AutoComplete.V2.BikeList();
-                        objBikesV2.Bikes = new List<Bikewale.DTO.AutoComplete.V2.SuggestionList>();
-
-                        foreach (var item in objBikes.Bikes)
-                        {
-                            Bikewale.DTO.AutoComplete.V2.SuggestionList bike = new Bikewale.DTO.AutoComplete.V2.SuggestionList();
-                            bike.Payload = Newtonsoft.Json.JsonConvert.DeserializeObject<Bikewale.DTO.AutoComplete.V2.Payload>(item.Payload.ToString());
-                            bike.Text = item.Text;
-                            objBikesV2.Bikes.Add(bike);
-                        }
-
-                        return Ok(objBikesV2);
+                            Bikewale.DTO.AutoComplete.V2.Payload obj = new Bikewale.DTO.AutoComplete.V2.Payload();
+                            Bikewale.DTO.AutoComplete.V2.BikeList objBikesV2 = new Bikewale.DTO.AutoComplete.V2.BikeList();
+                            objBikesV2.Bikes = new List<Bikewale.DTO.AutoComplete.V2.SuggestionList>();
+                            foreach (var item in objBikes.Bikes)
+                            {
+                                Bikewale.DTO.AutoComplete.V2.SuggestionList bike = new Bikewale.DTO.AutoComplete.V2.SuggestionList();
+                                bike.Payload = Newtonsoft.Json.JsonConvert.DeserializeObject<Bikewale.DTO.AutoComplete.V2.Payload>(item.Payload.ToString());
+                                bike.Text = item.Text;
+                                objBikesV2.Bikes.Add(bike);
+                            }
+                            return Ok(objBikesV2);                                                               
                     }
-                    else
-                        return Ok(objBikes);
+                    return Ok(objBikes);
                 }
                 else
                     return NotFound();
