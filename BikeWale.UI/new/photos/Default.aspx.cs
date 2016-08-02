@@ -34,8 +34,10 @@ namespace Bikewale.New.PhotoGallery
             {
                 if (ProcessQueryString())
                 {
-                    string originalUrl = Request.ServerVariables["URL"];
+                    string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
                     if (String.IsNullOrEmpty(originalUrl))
+                        originalUrl = Request.ServerVariables["URL"];
+                    if (!String.IsNullOrEmpty(originalUrl))
                     {
                         DeviceDetection dd = new DeviceDetection(originalUrl);
                         dd.DetectDevice();
