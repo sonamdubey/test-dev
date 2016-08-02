@@ -378,8 +378,8 @@ span.pgEnd a{text-decoration:none; color:#737373;}
 .cboxIE #cboxMiddleRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/borderMiddleRight.png, sizingMethod='scale');}
 
 /* ------------------------ Breadcrumb ------------------------ */
-.breadcrumb{list-style:none; padding:0; height:15px; margin-top:15px;}
-.breadcrumb li{float:left; padding:0 2px;}
+.breadcrumb{list-style:none; margin-top:15px;}
+.breadcrumb li { display: inline-block; margin-right: 5px; }
 .breadcrumb li a{color:#191919; text-decoration:none;}
 .breadcrumb li a:hover { text-decoration:underline; }
 .breadcrumb li.fwd-arrow{font-size:12px;}

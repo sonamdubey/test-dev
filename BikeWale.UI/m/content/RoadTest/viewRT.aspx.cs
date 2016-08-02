@@ -57,7 +57,7 @@ namespace Bikewale.Content
                 }
                 else
                 {
-                    Response.Redirect("/m/road-tests/", false);
+                    Response.Redirect("/m/expert-reviews/", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
@@ -67,7 +67,8 @@ namespace Bikewale.Content
         private bool ProcessQueryString()
         {
             bool isSuccess = true;
-
+            // Modified By :Lucky Rathore on 12 July 2016.
+            Form.Action = Request.RawUrl;
             if (!String.IsNullOrEmpty(Request.QueryString["id"]) && CommonOpn.CheckId(Request.QueryString["id"]))
             {
                 /** Modified By : Ashwini Todkar on 19 Aug 2014 , add when consuming carwale api
@@ -82,7 +83,7 @@ namespace Bikewale.Content
                     var _titleStartIndex = _newUrl.LastIndexOf('/') + 1;
                     var _titleEndIndex = _newUrl.LastIndexOf('-');
                     string _newUrlTitle = _newUrl.Substring(_titleStartIndex, _titleEndIndex - _titleStartIndex + 1);
-                    _newUrl = "/m/road-tests/" + _newUrlTitle + basicId + ".html";
+                    _newUrl = "/m/expert-reviews/" + _newUrlTitle + basicId + ".html";
                     CommonOpn.RedirectPermanent(_newUrl);
                 }
 
@@ -154,8 +155,8 @@ namespace Bikewale.Content
         private void GetRoadTestData()
         {
 
-            baseUrl = "/m/road-tests/" + objRoadtest.ArticleUrl + '-' + BasicId.ToString() + "/";
-            canonicalUrl = "http://www.bikewale.com/road-tests/" + objRoadtest.ArticleUrl + '-' + BasicId.ToString() + ".html";
+            baseUrl = "/m/expert-reviews/" + objRoadtest.ArticleUrl + '-' + BasicId.ToString() + "/";
+            canonicalUrl = "http://www.bikewale.com/expert-reviews/" + objRoadtest.ArticleUrl + '-' + BasicId.ToString() + ".html";
             data = objRoadtest.Description;
             author = objRoadtest.AuthorName;
             pageTitle = objRoadtest.Title;

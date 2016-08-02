@@ -6,7 +6,6 @@ using BikeWaleOpr.Controls;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Web.UI.WebControls;
 
@@ -66,7 +65,7 @@ namespace BikeWaleOpr.BikeBooking
             string requestType = String.Empty;
             string apiUrl = String.Empty;
             bool isSuccess = false;
-            bool isPost = false;
+
             try
             {
                 using (IUnityContainer container = new UnityContainer())
@@ -76,7 +75,7 @@ namespace BikeWaleOpr.BikeBooking
                     isSuccess = objCity.CopyOffersToCities(Convert.ToUInt32(dealerId), lstOfferIds, lstCityId);
                 }
 
-                if (isPost)
+                if (isSuccess)
                 {
                     lblTransferStatus.Visible = true;
                 }
@@ -298,12 +297,12 @@ namespace BikeWaleOpr.BikeBooking
                 string fullDate = dtDate.Value.ToString("yyyy-MM-dd") + "T" + hour + ":" + min + ":00";
                 bool isPriceImpact = chkIsPriceImpact.Checked;
                 bool isSuccess = false;
-
+                Int32? oValue = !String.IsNullOrEmpty(offerValue.Text) ? Convert.ToInt32(offerValue.Text) : default(int);
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IDealers, DealersRepository>();
                     IDealers objCity = container.Resolve<DealersRepository>();
-                    isSuccess = objCity.SaveDealerOffer(dealerId, Convert.ToUInt32(userId), Convert.ToInt32(drpCity.SelectedValue), (hdn_modelId.Value), Convert.ToInt32(drpOffers.SelectedValue), Server.UrlEncode(offerText.Text), Convert.ToInt32(offerValue.Text), dtDate.Value, chkIsPriceImpact.Checked);
+                    isSuccess = objCity.SaveDealerOffer(dealerId, Convert.ToUInt32(userId), Convert.ToInt32(drpCity.SelectedValue), (hdn_modelId.Value), Convert.ToInt32(drpOffers.SelectedValue), Server.HtmlEncode(offerText.Text), oValue, dtDate.Value, chkIsPriceImpact.Checked);
                 }
 
                 if (isSuccess)

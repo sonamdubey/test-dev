@@ -46,6 +46,8 @@ namespace Bikewale.Mobile.New
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Modified By :Lucky Rathore on 12 July 2016.
+            Form.Action = Request.RawUrl;
             string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
             if (String.IsNullOrEmpty(originalUrl))
                 originalUrl = Request.ServerVariables["URL"];

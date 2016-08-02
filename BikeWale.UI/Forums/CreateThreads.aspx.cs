@@ -56,7 +56,8 @@ namespace Bikewale.Forums
         private void Page_Load(object sender, EventArgs e)
         {
             customerId = CurrentUser.Id;
-
+            // Modified By :Lucky Rathore on 12 July 2016.
+            Form.Action = Request.RawUrl;
             //if the customer is already registered then dont ask information for the 
             //customer name and location, else ask the name, email and the location
             if (customerId != "-1")

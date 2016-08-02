@@ -23,7 +23,7 @@ namespace AppNotification.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_start_num", DbType.Int32, startNum));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_end_num", DbType.Int32, endNum));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
                         if (dr != null)
                         {
@@ -56,7 +56,7 @@ namespace AppNotification.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_obj_type_id", DbType.Int32, alertTypeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_count", DbType.Int32, ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
 
                     numOfRegIds = (int)cmd.Parameters["par_count"].Value;
                 }

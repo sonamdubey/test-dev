@@ -445,7 +445,7 @@ namespace Bikewale.Notifications
             {
                 areaName = ", " + areaName;
             }
-            message = string.Format("BikeWale purchase enquiry for {0} showroom: Please call  {1}{2}, {3} at {4} for {5} and schedule customer visit.", dealerArea, customerName, areaName, cityName, customerMobile, BikeName);
+            message = string.Format("BikeWale purchase enquiry for {0} showroom: Please call {1}{2}, {3} at {4} for {5} and schedule customer visit.", dealerArea, customerName, areaName, cityName, customerMobile, BikeName);
             return message;
         }
 

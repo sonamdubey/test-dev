@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.SearchOld" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.Search" %>
 
 <%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
 <!doctype html>

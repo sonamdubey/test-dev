@@ -35,6 +35,8 @@ namespace Bikewale.Insurance
             _headerParameters.Add("clientid", "5");
             _headerParameters.Add("platformid", "2");
 
+            // Modified By :Lucky Rathore on 12 July 2016.
+            Form.Action = Request.RawUrl;
             if (!IsPostBack)
             {
                 // Modified By :Ashish Kamble on 5 Feb 2016

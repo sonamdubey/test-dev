@@ -164,6 +164,8 @@ namespace Bikewale.Content
             {
                 if (customerId == "-1")
                 {
+                    // Modified By :Lucky Rathore on 12 July 2016.
+                    Form.Action = Request.RawUrl;
                     Response.Redirect("/users/login.aspx?returnUrl=" + HttpUtility.UrlEncode(Request.ServerVariables["HTTP_X_ORIGINAL_URL"]));
                 }
                 LoadDefaultComments();

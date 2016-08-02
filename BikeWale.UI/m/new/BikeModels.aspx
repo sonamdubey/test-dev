@@ -23,8 +23,6 @@
         keywords = string.Format("{0}, {0} Price, {0} Reviews, {0} Photos, {0} Mileage", bikeName);
         EnableOG = true;
         OGImage = modelImage;
-        //isVersionPage is declare to handle calling of BWCookies.SetBWUtmz() function.
-        isVersionPage = true; 
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <script type="text/javascript">
@@ -49,7 +47,7 @@
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
-            <div itemscope="" itemtype="http://auto.schema.org/Product" class="container bg-white clearfix">
+            <div itemscope="" itemtype="http://schema.org/Product" class="container bg-white clearfix">
                 <span itemprop="name" class="hide"><%= bikeName %></span>
                 <div class="<%= !modelPage.ModelDetails.New ? "padding-top20 position-rel" : ""%>">
                     <% if (modelPage.ModelDetails.New)
@@ -97,9 +95,9 @@
                         <div class="swiper-wrapper stage" id="ulModelPhotos">
                             <asp:Repeater ID="rptModelPhotos" runat="server">
                                 <ItemTemplate>
-                                    <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" />
-                                        <span class="swiper-lazy-preloader"></span>
+                                    <div class="swiper-slide">                                       
+                                        <img class='<%# Container.ItemIndex != 0 ? "swiper-lazy" : "" %>' data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" />
+                                        <span class='<%# Container.ItemIndex != 0 ? "swiper-lazy-preloader" : "" %>'></span>                                       
                                     </div>
                                 </ItemTemplate>
                             </asp:Repeater>
@@ -814,7 +812,7 @@
                 }
             });
             function secondarydealer_Click(dealerID) {
-                var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerID;
+                var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerID + "&IsDealerAvailable=true";
                 window.location.href = "/m/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
             }
         </script>

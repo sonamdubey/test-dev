@@ -33,6 +33,8 @@ namespace Bikewale.News
         }
         private void Page_Load(object sender, EventArgs e)
         {
+            // Modified By :Lucky Rathore on 12 July 2016.
+            Form.Action = Request.RawUrl;
             //code for device detection added by Ashwini Todkar
             // Modified By :Ashish Kamble on 5 Feb 2016
 

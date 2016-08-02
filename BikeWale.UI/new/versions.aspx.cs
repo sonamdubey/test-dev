@@ -25,7 +25,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Reflection;
 using System.Web;
 using System.Web.UI.WebControls;
 
@@ -185,9 +184,9 @@ namespace Bikewale.New
         protected void Page_Load(object sender, EventArgs e)
         {
             Trace.Warn("Trace 1 : DeviceDetection Start");
-            //device detection
             // Modified By :Ashish Kamble on 5 Feb 2016
             Form.Action = Request.RawUrl;
+            //device detection
             string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
             if (String.IsNullOrEmpty(originalUrl))
                 originalUrl = Request.ServerVariables["URL"];
@@ -231,9 +230,7 @@ namespace Bikewale.New
                     Trace.Warn("Trace 21 : LoadNewsVidsReviews ends");
                     ToggleOfferDiv();
                     //calling _bwutmz cookie logic.
-                    BWCookies.SetBWUtmz();
                     Trace.Warn("Trace 22 : Clear trailing Query");
-                    //ClearTrailingQuerystring(this);
                     Trace.Warn("Trace 23 : Page Load ends");
                 }
             }
@@ -287,16 +284,6 @@ namespace Bikewale.New
             }
         }
 
-        // Clear trailing query string -- added on 09-feb-2016 by Sangram
-        private void ClearTrailingQuerystring(bikeModel bikeModel)
-        {
-            PropertyInfo isreadonly = typeof(System.Collections.Specialized.NameValueCollection).GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
-            if (isreadonly != null)
-            {
-                isreadonly.SetValue(bikeModel.Request.QueryString, false, null);
-                bikeModel.Request.QueryString.Clear();
-            }
-        }
 
         /// <summary>
         /// Modified by     :   Sumit Kate on 15 Feb 2016
@@ -745,14 +732,14 @@ namespace Bikewale.New
                                     }
                                 }
 
-                                else if (variantId != 0)
+                                else if (variantId != 0 && isOnRoadPrice)
                                 {
                                     objSelectedVariant = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == variantId).FirstOrDefault();
                                     if (objSelectedVariant != null)
                                         price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
                                 }
 
-                                else
+                                else if (isOnRoadPrice)
                                 {
                                     objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault();
                                     price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);

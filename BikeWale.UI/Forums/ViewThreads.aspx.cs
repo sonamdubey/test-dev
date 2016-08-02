@@ -1042,6 +1042,8 @@ namespace Bikewale.Forums
         // Quick Reply
         void butSave_Click(object Sender, EventArgs e)
         {
+            // Modified By :Lucky Rathore on 12 July 2016.
+            Form.Action = Request.RawUrl;
             if (flagLogin == true)
             {
                 //check whether the user is in the banned list or not

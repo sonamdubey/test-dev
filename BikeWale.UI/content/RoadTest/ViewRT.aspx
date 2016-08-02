@@ -7,12 +7,12 @@
     title = articleTitle;
     //description 	= RoadTestPageDesc;
     //keywords		= RoadTestPageKeywords;
-    canonical = "http://www.bikewale.com/road-tests/" + articleUrl + "-" + basicId + ".html";
+    canonical = "http://www.bikewale.com/expert-reviews/" + articleUrl + "-" + basicId + ".html";
     //prevPageUrl     = prevUrl;
     //nextPageUrl     = nextUrl;
     fbTitle = articleTitle;
     //fbImage			= fbLogoUrl;
-    alternate = "http://www.bikewale.com/m/road-tests/" + articleUrl + "-" + basicId + ".html";
+    alternate = "http://www.bikewale.com/m/expert-reviews/" + articleUrl + "-" + basicId + ".html";
     AdId = "1395986297721";
     AdPath = "/1017752/Bikewale_Reviews_";
 %>
@@ -150,7 +150,7 @@
                 <a href="/" itemprop="url"><span itemprop="title">Home</span></a>
             </li>
             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">&rsaquo; 
-                <a title="Indian Bike News" itemprop="url" href="/road-tests/"><span itemprop="title">Road Tests</span></a>
+                <a title="Indian Bike News" itemprop="url" href="/expert-reviews/"><span itemprop="title">Expert Reviews</span></a>
             </li>
             <li class="current">&rsaquo; <strong><%= articleTitle%></strong></li>
         </ul>
@@ -162,11 +162,11 @@
         <div class="byline" style="padding-bottom: 5px;"><%= authorName %>, <%= Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "MMMM dd, yyyy hh:mm tt") %>. <%= (_bikeTested!=null && !String.IsNullOrEmpty(_bikeTested.ToString())) ? String.Format("| {0}",_bikeTested) : "" %></div>
         <ul class="social">
             <li>
-                <fb:like href="http://www.bikewale.com/road-tests/<%= articleUrl%>-<%= basicId %>.html" send="false" layout="button_count" width="80" show_faces="false"></fb:like>
+                <fb:like href="http://www.bikewale.com/expert-reviews/<%= articleUrl%>-<%= basicId %>.html" send="false" layout="button_count" width="80" show_faces="false"></fb:like>
             </li>
-            <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.bikewale.com/road-tests/<%= articleUrl%>-<%= basicId %>.html" data-via='<%=articleTitle %>' data-lang="en">Tweet</a></li>
+            <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.bikewale.com/expert-reviews/<%= articleUrl%>-<%= basicId %>.html" data-via='<%=articleTitle %>' data-lang="en">Tweet</a></li>
             <li>
-                <div class="g-plusone" data-size="medium" data-href="http://www.bikewale.com/road-tests/<%= articleUrl%>-<%= basicId %>.html"></div>
+                <div class="g-plusone" data-size="medium" data-href="http://www.bikewale.com/expert-reviews/<%= articleUrl%>-<%= basicId %>.html"></div>
             </li>
         </ul>
         <div class="clear"></div>
@@ -268,7 +268,8 @@
         ScrollToTop("back-to-top", speed);
 
         $('#drpPages,#drpPages_footer').change(function () {
-            //alert($(this).attr("id"));
+            // Modified By :Lucky Rathore on 12 July 2016.
+            Form.Action = Request.RawUrl;
             var url = '<%= HttpContext.Current.Request.ServerVariables["HTTP_X_ORIGINAL_URL"] %>';
             if (url.indexOf(".html") > 0) {
                 url = url.substring(0, url.indexOf('.html')) + "/p" + $(this).val() + "/";

@@ -24,6 +24,9 @@ namespace Bikewale.Cache.CMS
         /// <summary>
         /// Created By : Sushil Kumar on 21st July 2016
         /// Description : Caching for News Details based on basic id 
+        /// Modified by :   Sumit Kate on 25 July 2016
+        /// Description :   If data is fetched from cache update the view count
+        /// When data is fetched from Memcache the view count should be updated in carwale edit CMS
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns></returns>
@@ -31,9 +34,17 @@ namespace Bikewale.Cache.CMS
         {
             ArticleDetails _objArticleDetails = null;
             string key = string.Format("BW_NewsDetails_{0}", basicId);
+            bool isDataFromCache = false;
             try
             {
-                _objArticleDetails = _cache.GetFromCache<ArticleDetails>(key, new TimeSpan(1, 0, 0), () => _objArticles.GetNewsDetails(basicId));
+                _objArticleDetails = _cache.GetFromCache<ArticleDetails>(key, new TimeSpan(1, 0, 0), () => _objArticles.GetNewsDetails(basicId), out isDataFromCache);
+                if (isDataFromCache)
+                {
+                    if (basicId > 0)
+                    {
+                        _objArticles.UpdateViewCount(basicId);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -151,6 +162,9 @@ namespace Bikewale.Cache.CMS
         /// <summary>
         /// Created By : Sushil Kumar on 21st July 2016
         /// Description : Caching for Articles Details based on basic id
+        /// Modified by :   Sumit Kate on 25 July 2016
+        /// Description :   If data is fetched from cache update the view count
+        /// When data is fetched from Memcache the view count should be updated in carwale edit CMS
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns></returns>
@@ -159,9 +173,18 @@ namespace Bikewale.Cache.CMS
 
             ArticlePageDetails _objArticleDetails = null;
             string key = string.Format("BW_Article_Details_{0}", basicId);
+            bool isDataFromCache = false;
             try
             {
-                _objArticleDetails = _cache.GetFromCache<ArticlePageDetails>(key, new TimeSpan(1, 0, 0), () => _objArticles.GetArticleDetails(basicId));
+                _objArticleDetails = _cache.GetFromCache<ArticlePageDetails>(key, new TimeSpan(1, 0, 0), () => _objArticles.GetArticleDetails(basicId), out isDataFromCache);
+                if (isDataFromCache)
+                {
+                    //Update the view count                    
+                    if (basicId > 0)
+                    {
+                        _objArticles.UpdateViewCount(basicId);
+                    }
+                }
             }
             catch (Exception ex)
             {

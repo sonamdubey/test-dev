@@ -65,7 +65,9 @@
                 </div>
             </div>
             <p class="font18 text-bold margin-top20 margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
-            <p class="font16 margin-bottom40">Thank you for providing your details. <span data-bind="text : dealerName()"></span><span data-bind="    visible : dealerArea() && dealerArea().length > 0 ,text : ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
+            
+            <p class="font16 margin-bottom40" data-bind="visible : !(campaignId() > 0)">Thank you for providing your details. <span data-bind="text : dealerName()"></span><span data-bind="visible : dealerArea() && dealerArea().length > 0 ,text : ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
+            <p class="font16 margin-bottom40" data-bind="visible: (campaignId() > 0)"><span data-bind="    text: dealerName()"></span> Company would get back to you shortly with additional information.</p>
             <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
         </div>
         <!-- thank you message ends here -->
@@ -75,14 +77,14 @@
 
 <script type="text/javascript">
 
-    var leadBtnBookNow = $(".leadcapturebtn"), leadCapturePopup = $("#leadCapturePopup"),leadBike = $("#getLeadBike");
+    var leadBtnBookNow = $(".leadcapturebtn"), leadCapturePopup = $("#leadCapturePopup"), leadBike = $("#getLeadBike");
     var fullName = $("#getFullName");
     var emailid = $("#getEmailID");
     var mobile = $("#getMobile");
     var detailsSubmitBtn = $("#user-details-submit-btn");
     var prevEmail = "";
     var prevMobile = "";
-    var leadmodelid =  <%= ModelId %>, leadcityid = <%= CityId %>, leadareaid =  <%= AreaId %>;
+    var leadmodelid = '<%= ModelId %>', leadcityid = '<%= CityId %>', leadareaid = '<%= AreaId %>';
     //var getCityArea = GetGlobalCityArea();
 
 
@@ -371,25 +373,30 @@
             }
         };
 
-        self.submitLead = function (data, event) {
-            self.IsVerified(false);
-            isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
+        self.submitLead = function (data, event) {  
+            if (self.campaignId() > 0) {
+                self.submitCampaignLead(data, event);
+            }
+            else {
 
-            if (self.dealerId() && isValidDetails) {
-                self.verifyCustomer();
-                if (self.IsVerified()) {
+                self.IsVerified(false);
+                isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
 
-                    $("#contactDetailsPopup").hide();
-                    $("#personalInfo").hide()
-                    $("#notify-response").fadeIn();
+                if (self.dealerId() && isValidDetails) {
+                    self.verifyCustomer();
+                    if (self.IsVerified()) {
 
+                        $("#contactDetailsPopup").hide();
+                        $("#personalInfo").hide()
+                        $("#notify-response").fadeIn();
+                    }
+                    else {
+                        $("#leadCapturePopup").show();
+                        $('body').addClass('lock-browser-scroll');
+                        $(".blackOut-window").show();
+                    }
+                    setPQUserCookie();
                 }
-                else {
-                    $("#leadCapturePopup").show();
-                    $('body').addClass('lock-browser-scroll');
-                    $(".blackOut-window").show();
-                }
-                setPQUserCookie();
             }
         };
 
@@ -489,6 +496,58 @@
             }
 
             return isValid;
+        };
+
+        self.submitCampaignLead = function (data, event) {            
+            var isValidCustomer = self.validateUserInfo(fullName, emailid, mobile);
+
+            if (isValidCustomer && campaignId > 0) {
+
+                if (self.isRegisterPQ())
+                    self.generatePQ(data, event);
+
+                $('#processing').show();
+                var objCust = {
+                    "dealerId": self.dealerId(),
+                    "pqId": self.pqId(),
+                    "name": self.fullName(),
+                    "mobile": self.mobileNo(),
+                    "email": self.emailId(),
+                    "versionId": self.versionId(),
+                    "cityId": self.cityId(),
+                    "leadSourceId": self.leadSourceId(),
+                    "deviceId": getCookie('BWC')
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "/api/ManufacturerLead/",
+                    data: ko.toJSON(objCust),
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('utma', getCookie('__utma'));
+                        xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
+                    },
+                    async: false,
+                    contentType: "application/json",
+                    dataType: 'json',
+                    success: function (response) {                        
+                        $("#personalInfo,#otpPopup").hide();
+                        $('#processing').hide();
+
+                        $("#contactDetailsPopup").hide();
+                        $('#notify-response .notify-leadUser').text(self.fullName());
+                        $('#notify-response').show();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        $('#processing').hide();
+                        $("#contactDetailsPopup, #otpPopup").hide();
+                        var leadMobileVal = mobile.val();
+                        nameValTrue();
+                        hideError(self.mobileNo());
+                    }
+                });
+
+                setPQUserCookie();                
+            }
         };
     }
 

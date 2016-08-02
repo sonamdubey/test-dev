@@ -317,3 +317,8 @@ $("#city-menu-input, #area-menu-input").on("keyup", function () {
         }
     }
 });
+$("#getMoreDetailsBtnCampaign").on("click", function () {
+    $("#leadCapturePopup").show();
+    $('body').addClass('lock-browser-scroll');
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_More_Details_Clicked', 'lab': bikeName + "_" + getCityArea });
+});

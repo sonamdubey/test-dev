@@ -37,7 +37,7 @@
                         <ul class="gallery-tabs">
                             <li id="lifeatured-data" class="active-tab">Featured</li>
                             <li id="linews-data">News</li>
-                            <li id="liroad-test-data">Road Tests</li>                            
+                            <li id="liroad-test-data">Expert Reviews</li>                            
                         </ul>
                         <div class="gallery-border"></div>
                     </div>
@@ -142,7 +142,7 @@
             <ul class="featured-bike-tabs padding-top10">
                 <li id="lifeatured-bike" class="fbike-active-tab">Featured Bikes</li>
                 <li id="liupcoming-bike">Upcoming New Bikes</li>   
-                <li id="liroad-test">Road Tests</li>          
+                <li id="liroad-test">Expert Reviews</li>          
             </ul>
         </div>      
         <div class="padding-top10" id="featured-bike">              

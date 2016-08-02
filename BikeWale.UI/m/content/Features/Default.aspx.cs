@@ -15,9 +15,7 @@ using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Web;
 using System.Web.UI.WebControls;
 
@@ -26,6 +24,8 @@ namespace Bikewale.Mobile.Content
     /// <summary>
     /// Created By : Ashwini Todkar on 20 May 2014
     /// Modified By : Ashwini Todkar on 30 Sept 2014
+    /// Created By : Sushil Kumar on 28th July 2016
+    /// Description : Removed commented code realted to get features old content 
     /// </summary>
     public class Features : System.Web.UI.Page
     {
@@ -55,54 +55,42 @@ namespace Bikewale.Mobile.Content
         /// Written By : Ashwini Todkar on 30 Sept 2014
         /// Summary    : PopulateWhere to get features list from web api asynchronously
         /// </summary>
-        private async void GetFeaturesList()
+        private void GetFeaturesList()
         {
             try
             {
-                using (var client = new HttpClient())
+                // get pager instance
+                IPager objPager = GetPager();
+
+                int _startIndex = 0, _endIndex = 0;
+
+                objPager.GetStartEndIndex(_pageSize, curPageNo, out _startIndex, out _endIndex);
+
+                List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
+                categorList.Add(EnumCMSContentType.Features);
+                categorList.Add(EnumCMSContentType.SpecialFeature);
+                string _featuresCategoryId = CommonApiOpn.GetContentTypesString(categorList);
+
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    //uint _totalPages = 0;
-                    //sets the base URI for HTTP requests
-                    string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-                    client.BaseAddress = new Uri(_cwHostUrl);
+                    container.RegisterType<IArticles, Articles>()
+                            .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                            .RegisterType<ICacheManager, MemcacheManager>();
+                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-                    //sets the Accept header to "application/json", which tells the server to send data in JSON format.
-                    client.DefaultRequestHeaders.Accept.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    var _objFeaturesList = _cache.GetArticlesByCategoryList(_featuresCategoryId, _startIndex, _endIndex, 0, 0);
 
-                    // get pager instance
-                    IPager objPager = GetPager();
-
-                    int _startIndex = 0, _endIndex = 0;// _featuresCategoryId = (int)EnumCMSContentType.Features;
-
-                    objPager.GetStartEndIndex(_pageSize, curPageNo, out _startIndex, out _endIndex);
-
-                    List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
-                    categorList.Add(EnumCMSContentType.Features);
-                    categorList.Add(EnumCMSContentType.SpecialFeature);
-                    string _featuresCategoryId = CommonApiOpn.GetContentTypesString(categorList);
-
-                    using (IUnityContainer container = new UnityContainer())
+                    if (_objFeaturesList != null && _objFeaturesList.Articles.Count > 0)
                     {
-                        container.RegisterType<IArticles, Articles>()
-                                .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                                .RegisterType<ICacheManager, MemcacheManager>();
-                        ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-                        var _objFeaturesList = _cache.GetArticlesByCategoryList(_featuresCategoryId, _startIndex, _endIndex, 0, 0);
+                        int _totalPages = objPager.GetTotalPages(Convert.ToInt32(_objFeaturesList.RecordCount), _pageSize);
+                        BindFeatures(_objFeaturesList);
+                        BindLinkPager(objPager, Convert.ToInt32(_objFeaturesList.RecordCount), _totalPages);
 
-                        if (_objFeaturesList != null && _objFeaturesList.Articles.Count > 0)
-                        {
-
-                            int _totalPages = objPager.GetTotalPages(Convert.ToInt32(_objFeaturesList.RecordCount), _pageSize);
-                            BindFeatures(_objFeaturesList);
-                            BindLinkPager(objPager, Convert.ToInt32(_objFeaturesList.RecordCount), _totalPages);
-
-                        }
-                        else
-                        {
-                            _isContentFound = false;
-                        }
+                    }
+                    else
+                    {
+                        _isContentFound = false;
                     }
                 }
             }
@@ -168,70 +156,5 @@ namespace Bikewale.Mobile.Content
             }
             return _objPager;
         }
-
-        //private void GetFeatures()
-        //{
-        //    try
-        //    {
-        //        using (IUnityContainer container = new UnityContainer())
-        //        {
-        //            ContentFilter filter = new ContentFilter();
-
-        //            container.RegisterType<ICMSContentRepository<CMSContentListEntity, CMSPageDetailsEntity>, CMSData<CMSContentListEntity, CMSPageDetailsEntity>>();
-        //            ICMSContentRepository<CMSContentListEntity, CMSPageDetailsEntity> repository = container.Resolve<ICMSContentRepository<CMSContentListEntity, CMSPageDetailsEntity>>(new ResolverOverride[] { new ParameterOverride("contentType", EnumCMSContentType.Features) });
-
-        //            container.RegisterType<IPager, Pager>();
-        //            IPager objPager = container.Resolve<IPager>();
-
-        //            int startIndex = 0, endIndex = 0, pageSize = 10, recordCount = 0;
-        //            objPager.GetStartEndIndex(pageSize, curPageNo, out startIndex, out endIndex);
-
-        //            //get page wise features list
-        //            IList<CMSContentListEntity> t = repository.GetContentList(startIndex, endIndex, out recordCount, filter);
-
-        //            if (t.Count > 0)
-        //            {
-        //                rptFeatures.DataSource = t;
-        //                rptFeatures.DataBind();
-        //            }
-
-        //            totalPages = objPager.GetTotalPages(recordCount, pageSize);
-
-        //            //if current page number exceeded the total pages count i.e. the page is not available 
-        //            if (curPageNo > totalPages)
-        //            {
-        //                Response.Redirect("/m/pagenotfound.aspx", false);
-        //                HttpContext.Current.ApplicationInstance.CompleteRequest();
-        //                this.Page.Visible = false;
-        //            }
-        //            else
-        //            {
-        //                PagerEntity pagerEntity = new PagerEntity();
-        //                pagerEntity.BaseUrl = "/m/features/";
-        //                pagerEntity.PageNo = curPageNo;
-        //                pagerEntity.PagerSlotSize = totalPages;
-        //                pagerEntity.PageUrlType = "page/";
-        //                pagerEntity.TotalResults = recordCount;
-        //                pagerEntity.PageSize = pageSize;
-
-        //                PagerOutputEntity pagerOutput = objPager.GetPager<PagerOutputEntity>(pagerEntity);
-
-        //                listPager.PagerOutput = pagerOutput;
-        //                listPager.TotalPages = totalPages;
-        //                listPager.CurrentPageNo = curPageNo;
-
-        //                //get next and prev page links for SEO
-        //                prevPageUrl = pagerOutput.PreviousPageUrl;
-        //                nextPageUrl = pagerOutput.NextPageUrl;
-        //            }
-        //        }
-        //    }
-        //    catch (Exception err)
-        //    {
-        //        Trace.Warn(err.Message);
-        //        ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-        //        objErr.SendMail();
-        //    }
-        //}
     }
 }

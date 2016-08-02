@@ -27,8 +27,8 @@ namespace Bikewale.BAL.Customer
             }
             catch (Exception ex)
             {
-                //ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                //objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
 
             return pass;
@@ -78,8 +78,11 @@ namespace Bikewale.BAL.Customer
 
             try
             {
-                PasswordHashingLib.PasswordHashing objPass = new PasswordHashingLib.PasswordHashing();
-                hashCode = objPass.ComputePasswordHash(password, salt);
+                if (!string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(salt))
+                {
+                    PasswordHashingLib.PasswordHashing objPass = new PasswordHashingLib.PasswordHashing();
+                    hashCode = objPass.ComputePasswordHash(password, salt);
+                }
             }
             catch (Exception ex)
             {

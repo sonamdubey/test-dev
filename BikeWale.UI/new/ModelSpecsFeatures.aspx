@@ -9,8 +9,8 @@
         title = string.Format("{0} Specifications and Features - Check out mileage and other technical specifications - BikeWale", bikeName);
         description = string.Format("Know more about {0} Specifications and Features. See details about mileage, engine displacement, power, kerb weight and other specifications.", bikeName);
         keywords = string.Format("{0} specifications, {0} specs, {0} features, {0} mileage, {0} fuel efficiency", bikeName);
-        alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/{1}/specifications-features/?vid={2}", makeMaskingName, modelMaskingName,versionId);
-        canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/specifications-features/?vid={2}", makeMaskingName, modelMaskingName,versionId);
+        alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/{1}/specifications-features/", makeMaskingName, modelMaskingName);
+        canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/specifications-features/", makeMaskingName, modelMaskingName);
         ogImage = modelImage;
         isAd970x90Shown = true;
         AdId = "1442913773076";

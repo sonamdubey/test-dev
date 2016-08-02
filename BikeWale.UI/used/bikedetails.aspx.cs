@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Bikewale.Common;
+using System;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using Bikewale.Common;
-using System.Text.RegularExpressions;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Used
 {
@@ -20,7 +20,7 @@ namespace Bikewale.Used
         public ClassifiedInquiryPhotos objPhotos;
 
         protected Repeater rptCompareList = null;
-        
+
         // variable used for paging photos
         public int pageNo = 1;
         public int scale = 10;
@@ -51,28 +51,34 @@ namespace Bikewale.Used
             base.Load += new EventHandler(Page_Load);
         }
 
+        /// <summary>
+        /// Modified By : Suhsil Kumar on 26th July 2016
+        /// Description : Added null check for objInquiry and objPhotos
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
             customerId = CurrentUser.Id;
-            
+
             ValidateProfileId();
 
             objInquiry = new ClassifiedInquiryDetails(profileId);
             objPhotos = new ClassifiedInquiryPhotos();
 
-            if (!IsPostBack)
+            if (!IsPostBack && objInquiry != null)
             {
                 // Validate profile id. Profile id is a unique id if each classified listing
                 // if listed Bike is of a 'Dealer' than profile id will be like D78243(primary key of the table prepand by 'D')
                 // if listed Bike is of a 'Individual' than profile id will be like S78243(primary key of the table prepand by 'S')				
 
-                
+
 
                 // if fake/wrong profile id passed in query string
                 //Modified By : Ashwini Todkar added soldoutstatus fake or invalid
                 if (objInquiry.AskingPrice == "" || objInquiry.AskingPrice == "-1" || objInquiry.SoldOutStatus == "4" || objInquiry.SoldOutStatus == "2")
                 {
-                    Response.Redirect("/pageNotFound.aspx",false);
+                    Response.Redirect("/pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
@@ -93,7 +99,7 @@ namespace Bikewale.Used
 
                 // Bind photos 
                 bool isAprooved = true;
-                
+
                 objPhotos.BindWithRepeater(sellInqId, isDealer, rptPhotos, isAprooved);
 
                 if (objInquiry.VersionId != "" && objInquiry.CityId != "")
@@ -102,25 +108,28 @@ namespace Bikewale.Used
                     objCrossSell.GetOtherModels(objInquiry.VersionId, objInquiry.ModelId, objInquiry.CityId, rptBikeDetails, profileId);
                 }
 
-                if (rptBikeDetails.Items.Count == 0) other_models.Style.Add("display", "none");
+                if (rptBikeDetails != null && rptBikeDetails.Items.Count == 0) other_models.Style.Add("display", "none");
 
-                // If photos not uploaded by the seller
-                // Hide photos contents and make 'requestPhotos' div visible where buyer can request seller to upload photos.
-                if (objPhotos.ClassifiedImageCount == 0)
+                if (objPhotos != null)
                 {
-                    scrollable_imgs.Visible = false;
+                    // If photos not uploaded by the seller
+                    // Hide photos contents and make 'requestPhotos' div visible where buyer can request seller to upload photos.
+                    if (objPhotos.ClassifiedImageCount == 0)
+                    {
+                        scrollable_imgs.Visible = false;
 
-                    ClassifiedBuyerDetails objCBD = new ClassifiedBuyerDetails();
-                    objCBD.GetBuyerDetails();
+                        ClassifiedBuyerDetails objCBD = new ClassifiedBuyerDetails();
+                        objCBD.GetBuyerDetails();
 
-                    if (objCBD.BuyerId == "")
-                        requestPhotos.Visible = true;
-                    else if (!ClassifiedInquiryPhotos.IsPhotoRequestDone(sellInqId, objCBD.BuyerId, isDealer))
-                        requestPhotos.Visible = true;
-                }
-                else if (objPhotos.ClassifiedImageCount <= 9)
-                {
-                    navigate_img.Visible = false;
+                        if (objCBD.BuyerId == "")
+                            requestPhotos.Visible = true;
+                        else if (!ClassifiedInquiryPhotos.IsPhotoRequestDone(sellInqId, objCBD.BuyerId, isDealer))
+                            requestPhotos.Visible = true;
+                    }
+                    else if (objPhotos.ClassifiedImageCount <= 9)
+                    {
+                        navigate_img.Visible = false;
+                    }
                 }
 
                 // If seller's note not provided, Hide the relavent container
@@ -135,17 +144,9 @@ namespace Bikewale.Used
                 //researchBaseUrl = "/" + UrlRewrite.FormatSpecial(objInquiry.MakeName) + "-bikes/" + UrlRewrite.FormatSpecial(objInquiry.ModelName) + "/" + UrlRewrite.FormatSpecial(objInquiry.VersionName);
                 //bikeCanonical = "/used-bikes-in-" + UrlRewrite.FormatSpecial(objInquiry.CityName) + "/" + UrlRewrite.FormatSpecial(objInquiry.MakeName) + "-" + UrlRewrite.FormatSpecial(objInquiry.ModelName) + "-" + profileId + "/";
 
-                researchBaseUrl = "/" + objInquiry.MakeMaskingName  + "-bikes/" + objInquiry.ModelMaskingName + "/" ;
+                researchBaseUrl = "/" + objInquiry.MakeMaskingName + "-bikes/" + objInquiry.ModelMaskingName + "/";
                 bikeCanonical = "/used/bikes-in-" + objInquiry.CityMaskingName + "/" + objInquiry.MakeMaskingName + "-" + objInquiry.ModelMaskingName + "-" + profileId + "/";
-                
-                
-                // Summary : Get selected Bikes list from cookies
-                //selectedBikesList = ClassifiedCookies.GetCompareList;
 
-                //compareCaption = GetCompareCaption();
-
-                //ClassifiedCompareBikes compareBikesObj = new ClassifiedCompareBikes();
-                //compareBikesObj.BindCompareBikesData(rptCompareList);
 
             }
         }   // End of page load
@@ -163,7 +164,7 @@ namespace Bikewale.Used
                 // First check whether the bike profile id is valid or not then process next operations.
                 if (!Bikewale.Common.Validations.IsValidProfileId(profileId))
                 {
-                    Response.Redirect("/pageNotFound.aspx",false);
+                    Response.Redirect("/pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
@@ -173,7 +174,7 @@ namespace Bikewale.Used
 
                     if (!CommonOpn.CheckId(sellInqId))
                     {
-                        Response.Redirect("/pageNotFound.aspx",false);
+                        Response.Redirect("/pageNotFound.aspx", false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
@@ -181,7 +182,7 @@ namespace Bikewale.Used
             }
             else
             {
-                Response.Redirect("/pageNotFound.aspx",false);
+                Response.Redirect("/pageNotFound.aspx", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }
@@ -191,10 +192,13 @@ namespace Bikewale.Used
         {
             string returnHtml = "";
 
-            if (objInquiry.ExtiriorCode != "")
-                returnHtml = "<div class=\"bike-color\" title=\"" + objInquiry.ExtiriorColor + "\" style=\"background-color:#" + objInquiry.ExtiriorCode + ";\"></div>";
-            else
-                returnHtml = objInquiry.ExtiriorColor;
+            if (objInquiry != null)
+            {
+                if (objInquiry.ExtiriorCode != "")
+                    returnHtml = "<div class=\"bike-color\" title=\"" + objInquiry.ExtiriorColor + "\" style=\"background-color:#" + objInquiry.ExtiriorCode + ";\"></div>";
+                else
+                    returnHtml = objInquiry.ExtiriorColor;
+            }
 
             return returnHtml;
         }   // End of GetColorCode
@@ -209,7 +213,7 @@ namespace Bikewale.Used
         protected string GetOriginalImagePath(string imgName, string hostUrl, string size)
         {
             Trace.Warn("hostUrl : ", hostUrl);
-            return Bikewale.Utility.Image.GetPathToShowImages(imgName, hostUrl,size);
+            return Bikewale.Utility.Image.GetPathToShowImages(imgName, hostUrl, size);
         }
 
         public string GetPageItemContainer()

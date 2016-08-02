@@ -91,7 +91,8 @@ namespace Bikewale.Mobile.New
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            // Modified By :Ashish Kamble on 5 Feb 2016
+            Form.Action = Request.RawUrl;
             // Do not change the sequence of the function calls
             Trace.Warn("Trace 3 : ParseQueryString Start");
             ParseQueryString();
@@ -168,16 +169,7 @@ namespace Bikewale.Mobile.New
                         rptVarients.DataSource = modelPage.ModelVersions;
                         rptVarients.DataBind();
                     }
-                    //calling _bwutmz cookie logic.
-                    BWCookies.SetBWUtmz();
 
-                    // Clear trailing query string -- added on 09-feb-2016 by Sangram
-                    PropertyInfo isreadonly = typeof(System.Collections.Specialized.NameValueCollection).GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
-                    if (isreadonly != null)
-                    {
-                        isreadonly.SetValue(this.Request.QueryString, false, null);
-                        this.Request.QueryString.Clear();
-                    }
                     if (!modelPage.ModelDetails.Futuristic || modelPage.ModelDetails.New)
                         ctrlTopCityPrices.ModelId = Convert.ToUInt32(modelId);
                     else ctrlTopCityPrices.ModelId = 0;
@@ -631,13 +623,13 @@ namespace Bikewale.Mobile.New
                                     }
                                 }
 
-                                else if (versionId != 0)
+                                else if (versionId != 0 && isOnRoadPrice)
                                 {
                                     objSelectedVariant = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == versionId).FirstOrDefault();
                                     price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
                                 }
 
-                                else
+                                else if (isOnRoadPrice)
                                 {
                                     objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault();
                                     price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);

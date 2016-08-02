@@ -37,6 +37,8 @@ namespace Bikewale.Content
 
         private void Page_Load(object sender, EventArgs e)
         {
+            // Modified By :Lucky Rathore on 12 July 2016.
+            Form.Action = Request.RawUrl;
             //code for device detection added by Ashwini Todkar
             // Modified By :Ashish Kamble on 5 Feb 2016
             string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
@@ -86,17 +88,19 @@ namespace Bikewale.Content
 
                 if (!String.IsNullOrEmpty(basicId))
                 {
+                    // Modified By :Lucky Rathore on 12 July 2016.
+                    Form.Action = Request.RawUrl;
                     string _newUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
                     var _titleStartIndex = _newUrl.LastIndexOf('/') + 1;
                     var _titleEndIndex = _newUrl.LastIndexOf('-');
                     string _newUrlTitle = _newUrl.Substring(_titleStartIndex, _titleEndIndex - _titleStartIndex + 1);
-                    _newUrl = "/road-tests/" + _newUrlTitle + basicId + ".html";
+                    _newUrl = "/expert-reviews/" + _newUrlTitle + basicId + ".html";
                     CommonOpn.RedirectPermanent(_newUrl);
                 }
             }
             else
             {
-                Response.Redirect("/road-tests/", false);
+                Response.Redirect("/expert-reviews/", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }

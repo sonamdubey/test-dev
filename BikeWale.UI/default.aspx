@@ -123,7 +123,7 @@
                             <div class="budget-container margin-bottom20">
                                 <ul class="text-center">
                                     <li>
-                                        <a href="/new/search.aspx#budget=0-50000">
+                                        <a href="/new/bike-search/#budget=0-50000">
                                             <span class="budget-title-box font16">Upto
                                             </span>
                                             <span class="budget-amount-box">
@@ -133,7 +133,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/new/search.aspx#budget=50000-100000">
+                                        <a href="/new/bike-search/#budget=50000-100000">
                                             <span class="budget-title-box font16">Between
                                             </span>
                                             <span class="budget-amount-box">
@@ -146,7 +146,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/new/search.aspx#budget=100000-250000">
+                                        <a href="/new/bike-search/#budget=100000-250000">
                                             <span class="budget-title-box font16">Between
                                             </span>
                                             <span class="budget-amount-box">
@@ -161,7 +161,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/new/search.aspx#budget=250000-">
+                                        <a href="/new/bike-search/#budget=250000-">
                                             <span class="budget-title-box font16">Above
                                             </span>
                                             <span class="budget-amount-box">
@@ -178,7 +178,7 @@
                             <div class="mileage-container margin-bottom20">
                                 <ul class="text-center">
                                     <li>
-                                        <a href="/new/search.aspx#mileage=1">
+                                        <a href="/new/bike-search/#mileage=1">
                                             <span class="mileage-title-box font16">Above
                                             </span>
                                             <span class="mileage-amount-box font20">
@@ -187,7 +187,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/new/search.aspx#mileage=2">
+                                        <a href="/new/bike-search/#mileage=2">
                                             <span class="mileage-title-box font16">Between
                                             </span>
                                             <span class="mileage-amount-box">
@@ -199,7 +199,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/new/search.aspx#mileage=3">
+                                        <a href="/new/bike-search/#mileage=3">
                                             <span class="mileage-title-box font16">Between
                                             </span>
                                             <span class="mileage-amount-box">
@@ -211,7 +211,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/new/search.aspx#mileage=4">
+                                        <a href="/new/bike-search/#mileage=4">
                                             <span class="mileage-title-box font16">Upto
                                             </span>
                                             <span class="mileage-amount-box">
@@ -227,7 +227,7 @@
                             <div class="style-type-container margin-bottom35">
                                 <ul class="text-center">
                                     <li>
-                                        <a href="/new/search.aspx#ridestyle=5">
+                                        <a href="/new/bike-search/#ridestyle=5">
                                             <span class="style-type">
                                                 <span class="styletypesprite style-scooters"></span>
                                             </span>
@@ -235,7 +235,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/new/search.aspx#ridestyle=3">
+                                        <a href="/new/bike-search/#ridestyle=3">
                                             <span class="style-type">
                                                 <span class="styletypesprite style-street"></span>
                                             </span>
@@ -243,7 +243,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/new/search.aspx#ridestyle=1">
+                                        <a href="/new/bike-search/#ridestyle=1">
                                             <span class="style-type">
                                                 <span class="styletypesprite style-cruiser"></span>
                                             </span>
@@ -251,7 +251,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/new/search.aspx#ridestyle=2">
+                                        <a href="/new/bike-search/#ridestyle=2">
                                             <span class="style-type">
                                                 <span class="styletypesprite style-sports"></span>
                                             </span>

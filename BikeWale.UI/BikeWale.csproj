@@ -947,6 +947,10 @@
       <DependentUpon>BookingListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\new\search_new.aspx.cs">
+      <DependentUpon>search_new.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\offerterms.aspx.cs">
       <DependentUpon>offerterms.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1072,6 +1076,10 @@
     </Compile>
     <Compile Include="new\modelSpecsFeatures.aspx.cs">
       <DependentUpon>modelSpecsFeatures.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\search_new.aspx.cs">
+      <DependentUpon>search_new.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\versions.aspx.cs">
@@ -2274,6 +2282,7 @@
     <Content Include="m\new\newbikedealers\NewBikeDealerList_old.aspx" />
     <Content Include="m\new\newbikelaunch\Default.aspx" />
     <Content Include="m\bikebooking\BookingListing.aspx" />
+    <Content Include="m\new\search_new.aspx" />
     <Content Include="m\offerterms.aspx" />
     <Content Include="m\new\Search.aspx" />
     <Content Include="m\new\upcomingbikes\Default.aspx" />
@@ -2331,6 +2340,7 @@
     <Content Include="new\listnewbikedealersbycity.aspx" />
     <Content Include="new\ModelPricesInCity.aspx" />
     <Content Include="new\modelSpecsFeatures.aspx" />
+    <Content Include="new\search_new.aspx" />
     <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />
     <Content Include="offerterms.aspx" />
@@ -2486,7 +2496,6 @@
   </ItemGroup>
   <ItemGroup>
     <!-- <Content Include="Forums\ISAPI\error.log" /> -->
-    <Content Include="m\.htaccess" />
     <Content Include="m\fonts\Roboto-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
@@ -2518,6 +2527,7 @@
     <Content Include="bin\*.*" />
     <!-- <Content Include="images\model-sprite_tmp5443" /> -->
     <!-- <Content Include="images\ratings\ratings\Thumbs.db" /> -->
+    <Content Include="rewriterules.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

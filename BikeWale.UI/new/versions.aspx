@@ -25,7 +25,6 @@
         keywords = string.Format("{0}, {0} Price, {0} Reviews, {0} Photos, {0} Mileage", bikeName);
         ogImage = modelImage; 
         isAd970x90BTFShown = true;
-        isVersionPage = true;
          %>
     <!-- #include file="/includes/headscript.aspx" -->
     <% isHeaderFix = false; %>
@@ -75,7 +74,7 @@
             </div>
         </section>
         <section>
-            <div itemscope="" itemtype="http://auto.schema.org/Product" class="container" id="modelDetailsContainer">
+            <div itemscope="" itemtype="http://schema.org/Product" class="container" id="modelDetailsContainer">
                 <span itemprop="name" class="hide"><%= bikeName %></span>
                 <div class="grid-12 margin-bottom20">
                     <div class="content-inner-block-20 content-box-shadow">
@@ -95,8 +94,8 @@
                                                 <ItemTemplate>
                                                     <li>
                                                         <div class="carousel-img-container">
-                                                            <span>
-                                                                <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="" border="0" />
+                                                            <span>                                                                
+                                                                <img class='<%# Container.ItemIndex != 0 ? "lazy" : "" %>' data-original='<%# Container.ItemIndex != 0 ? Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) : "" %>' title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src='<%# Container.ItemIndex != 0 ? "" : Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>' border="0" />
                                                             </span>
                                                         </div>
                                                     </li>
