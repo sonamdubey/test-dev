@@ -971,16 +971,16 @@
       <DependentUpon>BookingSummary_New.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\pricequote\DealerPriceQuote_v2.aspx.cs">
-      <DependentUpon>DealerPriceQuote_v2.aspx</DependentUpon>
+    <Compile Include="m\pricequote\DealerPriceQuote.aspx.cs">
+      <DependentUpon>DealerPriceQuote.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\pricequote\DealerPriceQuote_old.aspx.cs">
       <DependentUpon>DealerPriceQuote_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\pricequote\DealerPriceQuote.aspx.cs">
-      <DependentUpon>DealerPriceQuote.aspx</DependentUpon>
+    <Compile Include="m\pricequote\DealerPriceQuote_02082016.aspx.cs">
+      <DependentUpon>DealerPriceQuote_02082016.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\pricequote\Default.aspx.cs">
@@ -2281,9 +2281,9 @@
     <Content Include="m\pricequote\BikeDealerDetails.aspx" />
     <Content Include="m\pricequote\BookingSummary.aspx" />
     <Content Include="m\pricequote\BookingSummary_New.aspx" />
-    <Content Include="m\pricequote\DealerPriceQuote_v2.aspx" />
-    <Content Include="m\pricequote\DealerPriceQuote_old.aspx" />
     <Content Include="m\pricequote\DealerPriceQuote.aspx" />
+    <Content Include="m\pricequote\DealerPriceQuote_old.aspx" />
+    <Content Include="m\pricequote\DealerPriceQuote_02082016.aspx" />
     <Content Include="m\pricequote\Default.aspx" />
     <Content Include="m\pricequote\DetailedDealerQuotation.aspx" />
     <Content Include="m\pricequote\PaymentConfirmation.aspx" />

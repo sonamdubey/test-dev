@@ -43,12 +43,12 @@ namespace Bikewale.Mobile.BikeBooking
         protected List<BikeVersionsListEntity> versionList = null;
         protected bool IsInsuranceFree = false;
         protected AlternativeBikes ctrlAlternateBikes;
-        protected string cityArea = string.Empty;
+        protected string cityArea = string.Empty, currentCity = string.Empty, currentArea = string.Empty;
         protected uint bookingAmount = 0;
         protected String clientIP = CommonOpn.GetClientIP();
         protected bool IsDiscount = false;
         protected UInt32 totalDiscount = 0;
-        protected DetailedDealerQuotationEntity objPriceQuote = null;
+        protected Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity objPriceQuote = null;
         protected string dealerName = string.Empty, dealerArea = string.Empty, dealerAdd = string.Empty, maskingNum = string.Empty;
         protected double latitude = 0, longitude = 0;
         protected uint offerCount = 0, secondaryDealersCount = 0;
@@ -57,6 +57,7 @@ namespace Bikewale.Mobile.BikeBooking
         protected DealerQuotationEntity primarydealer = null;
         IPriceQuote objIQuotation = null;
         protected BikeQuotationEntity objExQuotation = null;
+        protected LeadCaptureControl ctrlLeadCapture;
 
         protected override void OnInit(EventArgs e)
         {
@@ -78,7 +79,6 @@ namespace Bikewale.Mobile.BikeBooking
 
                 areaId = PriceQuoteQueryString.AreaId;
                 cityId = Convert.ToUInt32(PriceQuoteQueryString.CityId);
-
                 if (!IsPostBack)
                 {
                     pqId = PriceQuoteQueryString.PQId;
@@ -94,6 +94,8 @@ namespace Bikewale.Mobile.BikeBooking
                     SavePriceQuote();
 
                 cityArea = GetLocationCookie();
+                currentCity = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea().City;
+                currentArea = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea().Area;
             }
             else
             {
@@ -111,12 +113,14 @@ namespace Bikewale.Mobile.BikeBooking
                 {
                     container.RegisterType<IDealerPriceQuoteDetail, DealerPriceQuoteDetail>();
                     IDealerPriceQuoteDetail objIPQ = container.Resolve<IDealerPriceQuoteDetail>();
-                    objPriceQuote = objIPQ.GetDealerQuotation(cityId, versionId, dealerId);
+                    objPriceQuote = objIPQ.GetDealerQuotationV2(cityId, versionId, dealerId, Convert.ToUInt32(areaId));
 
                     if (objPriceQuote != null)
                     {
                         BikeName = (objPriceQuote.objMake != null ? objPriceQuote.objMake.MakeName : "") + " " + (objPriceQuote.objModel != null ? objPriceQuote.objModel.ModelName : "");
-
+                        ctrlLeadCapture.AreaId = Convert.ToUInt32(areaId);
+                        ctrlLeadCapture.CityId = cityId;
+                        ctrlLeadCapture.ModelId = Convert.ToUInt32(objPriceQuote.objModel.ModelId);
                         if (objPriceQuote.PrimaryDealer.DealerDetails != null)
                         {
                             isPrimaryDealer = true;
