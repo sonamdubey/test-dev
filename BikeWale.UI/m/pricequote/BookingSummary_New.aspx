@@ -222,7 +222,7 @@
                         <div class="contact-details-container margin-top30">
                             <h3 class="padding-bottom10 border-light-bottom"><span class="bwmsprite loc-change-blue-icon text-red"></span>Contact details:</h3>
                             <ul>
-                                <li class="text-black">Offers from the nearest dealers<br />
+                                <li class="text-black">Nearest Dealership Details<br />
                                     <span class="text-light-grey"><%= dealerAddress %></span>
                                 </li>
                                 <li class="text-black">Availability<br />

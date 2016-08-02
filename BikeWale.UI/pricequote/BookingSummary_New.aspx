@@ -330,7 +330,7 @@
                                     <h3 class="padding-bottom10 padding-left5 margin-right10 border-light-bottom"><span class="bwsprite contact-icon margin-right5"></span>Dealership details:</h3>
                                     <ul>
                                         <li>
-                                            <p class="text-bold">Offers from the nearest dealers</p>
+                                            <p class="text-bold">Nearest Dealership Details</p>
                                             <p class="text-light-grey"><%= dealerAddress %></p>
                                         </li>
                                         <li>
