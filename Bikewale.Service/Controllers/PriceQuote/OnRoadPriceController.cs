@@ -429,7 +429,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         if ((objPQ.DealerId != 0) || objPQ.IsDealerAvailable)
                         {
 
-                            Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity objDealerQuotation = _objDPQ.GetDealerQuotationV2(cityId, objPQOutput.VersionId, objPQOutput.DealerId);
+                            Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity objDealerQuotation = _objDPQ.GetDealerQuotationV2(cityId, objPQOutput.VersionId, objPQOutput.DealerId, areaId.Value);
 
                             onRoadPrice.Versions = PQBikePriceQuoteOutputMapper.Convert(bpqOutput.Varients);
 
@@ -437,7 +437,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                             {
                                 onRoadPrice.SecondaryDealers = PQBikePriceQuoteOutputMapper.Convert(objDealerQuotation.SecondaryDealers);
                             }
-                            
+
                             if (onRoadPrice.SecondaryDealers == null)
                             {
                                 onRoadPrice.SecondaryDealers = new System.Collections.Generic.List<DTO.PriceQuote.v3.DPQDealerBase>();

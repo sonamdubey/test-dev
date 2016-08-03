@@ -979,12 +979,16 @@
       <DependentUpon>BookingSummary_New.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\pricequote\DealerPriceQuote.aspx.cs">
+      <DependentUpon>DealerPriceQuote.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\pricequote\DealerPriceQuote_old.aspx.cs">
       <DependentUpon>DealerPriceQuote_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\pricequote\DealerPriceQuote.aspx.cs">
-      <DependentUpon>DealerPriceQuote.aspx</DependentUpon>
+    <Compile Include="m\pricequote\DealerPriceQuote_02082016.aspx.cs">
+      <DependentUpon>DealerPriceQuote_02082016.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\pricequote\Default.aspx.cs">
@@ -2222,6 +2226,7 @@
     <Content Include="m\css\bwm-model.css" />
     <Content Include="m\css\bwm-newbikes.css" />
     <Content Include="m\css\dealerpricequote.css" />
+    <Content Include="m\css\dealerpricequote-old.css" />
     <Content Include="m\css\design.css" />
     <Content Include="m\css\home.css" />
     <Content Include="m\css\insurance.css" />
@@ -2291,8 +2296,9 @@
     <Content Include="m\pricequote\BikeDealerDetails.aspx" />
     <Content Include="m\pricequote\BookingSummary.aspx" />
     <Content Include="m\pricequote\BookingSummary_New.aspx" />
-    <Content Include="m\pricequote\DealerPriceQuote_old.aspx" />
     <Content Include="m\pricequote\DealerPriceQuote.aspx" />
+    <Content Include="m\pricequote\DealerPriceQuote_old.aspx" />
+    <Content Include="m\pricequote\DealerPriceQuote_02082016.aspx" />
     <Content Include="m\pricequote\Default.aspx" />
     <Content Include="m\pricequote\DetailedDealerQuotation.aspx" />
     <Content Include="m\pricequote\PaymentConfirmation.aspx" />
@@ -2313,6 +2319,7 @@
     <Content Include="m\src\dealerdetail.js" />
     <Content Include="m\src\dealerlisting.js" />
     <Content Include="m\src\dealerpricequote.js" />
+    <Content Include="m\src\dealerpricequote-old.js" />
     <Content Include="m\src\dealersbylocation.js" />
     <Content Include="m\src\frameworks.js" />
     <Content Include="m\src\home.js" />

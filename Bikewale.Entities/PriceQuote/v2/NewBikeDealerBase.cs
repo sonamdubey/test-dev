@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Entities.PriceQuote.v2
 {
@@ -34,6 +31,12 @@ namespace Bikewale.Entities.PriceQuote.v2
 
         [JsonProperty("versions")]
         public IEnumerable<VersionPriceEntity> Versions { get; set; }
+
+        [JsonProperty("offerCount")]
+        public UInt16 OfferCount { get; set; }
+
+        [JsonProperty("distance")]
+        public double Distance { get; set; }
 
     }
 }

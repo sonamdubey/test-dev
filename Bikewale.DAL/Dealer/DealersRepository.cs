@@ -388,12 +388,9 @@ namespace Bikewale.DAL.Dealer
         /// <returns>Lead submission status</returns>
         public bool SaveManufacturerLead(ManufacturerLeadEntity objLead)
         {
-
             bool status = false;
             try
             {
-
-
                 if (objLead != null && objLead.PQId > 0 && objLead.DealerId > 0)
                 {
                     using (DbCommand cmd = DbFactory.GetDBCommand())
@@ -405,15 +402,14 @@ namespace Bikewale.DAL.Dealer
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 150, objLead.Email));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 10, objLead.Mobile));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, objLead.PQId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbType.Int16, objLead.LeadSourceId));
 
                         //TVS Dealer ID to be sent to update pricequote ID
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int64, objLead.DealerId));
                         // LogLiveSps.LogSpInGrayLog(cmd);
 
-                        if (MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase) < 0)
+                        if (MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase) > 0)
                             status = true;
-
-
                     }
                 }
             }

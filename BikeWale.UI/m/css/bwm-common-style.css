@@ -6,7 +6,7 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input
 ul,ol{ list-style: none; }
 a img { border: none; }
 a { color: #0288d1; text-decoration: none; }
-a:hover { text-decoration: underline; }
+a:hover { cursor: pointer; text-decoration: underline; }
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary { display: block }
 *, :after, :before, #globalCity-input input[type="text"] { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 h1 { font-size: 18px; font-weight: 600; color: #2a2a2a; }
@@ -78,8 +78,8 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 .btn { display: inline-block; padding: 8px 42px; font-size: 16px; line-height: 1.42857143; text-align: center; white-space: nowrap; border: 1px solid transparent; border-radius: 2px;
 	outline: none; text-decoration: none; vertical-align: middle; -ms-touch-action: manipulation; touch-action: manipulation; cursor: pointer; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; background-image: none; -webkit-appearance:none;
 }
-.btn-orange { background: #f04031; color: #fff; }
-.btn-orange:hover { background: #f85649; text-decoration: none; }
+.btn-orange { background: #ef3030; color: #fff; }
+.btn-orange:hover { background: #ef3030; text-decoration: none; }
 .btn-orange:focus { background: #df3828; }
 .btn-white { background: #fff; color: #4d5057; border: 1px solid #4d5057; }
 .btn-white:hover { background: #4d5057; color: #fff; text-decoration: none; }
@@ -326,8 +326,8 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
 .headerTitle { position:relative; top:-2px; left:-10px;}
-.white-back-arrow{background:url("http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/white-back-arrow.png") no-repeat scroll left top; width: 27px; height: 20px; cursor: pointer; position: relative; top:0; display: block; }
-.white-back-arrow:hover{background-position:left top;}
+.header-dealername { max-width: 210px; font-size: 16px; font-weight: bold; overflow: hidden; text-align: left; text-overflow: ellipsis; white-space: nowrap; }
+.white-back-arrow{ width: 22px; height: 18px; cursor: pointer; background-position: -63px -163px; position: relative; top: 8px; }
 .bw-logo { background-position: -31px 0px; width: 84px; height: 24px; }
 .bw-logo.bw-lg-fixed-position { position: absolute; left: 52px; }
 .search-icon-grey, .search-icon-white { width: 18px; height: 18px; }
@@ -352,15 +352,16 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .map-loc-icon { width:12px; height:16px; background-position:-40px -164px; }
 .tel-grey-icon { width:16px; height:16px; background-position:-40px -111px; }
 .tel-green-icon { width:16px; height:16px; background-position:-62px -111px; }
-.tel-white-icon { width:16px; height:16px; background-position:-83px -111px; }
+.tel-white-icon { width:18px; height:18px; background-position:-83px -109px; }
 .inr-xxsm-icon { width:11px; height:10px; background-position:-54px -94px; }
 .inr-grey-xxsm-icon { width:8px; height:10px; background-position:-76px -87px; }
 .inr-red-xxsm-icon { width:8px; height:10px; background-position:-91px -87px; }
 .inr-xsm-icon { width:9px; height:12px; background-position:-38px -36px; }
 .inr-grey-xsm-icon { width:9px; height:12px; background-position:-40px -58px; }
-.inr-sm-icon { width:10px; height:14px; background-position:-40px -80px; }
+.inr-sm-icon { width:10px; height:14px; background-position:-40px -79px; }
 .inr-grey-sm-icon { width:10px; height:14px; background-position:-79px -63px; }
-.inr-md-icon { width:11px; height:18px; background-position:-56px -35px; }
+.inr-dark-sm-icon { width:10px; height:14px; background-position:-140px -460px; }
+.inr-md-icon { width:12px; height:18px; background-position:-56px -35px; }
 .inr-lg-icon { width:13px; height:21px; background-position:-76px -34px; }
 .inr-xlg-icon { width:16px; height:22px; background-position:-56px -63px; }
 .fa-spinner { width:16px; height:16px; background:#fff url(http://imgd4.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat; }
@@ -452,6 +453,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .text-bold { font-weight: bold; }
 .text-unbold { font-weight: normal; }
 .text-italic { font-style: italic; }
+.text-default {color:#4d5057}
 .text-x-light { color:#a8afb3; }
 .text-xx-light { color:#a2a2a2; }
 .text-light-grey { color: #82888b; }
@@ -486,7 +488,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .content-inner-block-10 { padding: 10px; }
 .content-inner-block-15 { padding: 15px; }
 .content-inner-block-20 { padding: 20px; }
-.content-box-shadow { background: #fff; -moz-box-shadow: 2px 2px 2px #dcdcdc; -webkit-box-shadow: 2px 2px 2px #dcdcdc; -o-box-shadow: 2px 2px 2px #dcdcdc; -ms-box-shadow: 2px 2px 2px #dcdcdc; box-shadow: 2px 2px 2px #dcdcdc; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
+.content-box-shadow { background: #fff; -moz-box-shadow: 2px 2px 2px #dcdcdc; -webkit-box-shadow: 2px 2px 2px #dcdcdc; -o-box-shadow: 2px 2px 2px #dcdcdc; -ms-box-shadow: 2px 2px 2px #dcdcdc; box-shadow: 2px 2px 2px #dcdcdc; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; border:1px solid #e2e2e2\9; }
 
 .bg-white { background: #FFF; }
 .bg-light-grey { background: #f5f5f5; }

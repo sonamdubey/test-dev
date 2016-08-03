@@ -1253,6 +1253,9 @@ var appendHash = function (state) {
         case "locatorsearch":
             window.location.hash = state;
             break;
+        case "cityAreaPopup":
+            window.location.hash = state;
+            break;
         default:
             return true;
     }
@@ -1285,7 +1288,6 @@ var closePopUp = function (state) {
             listingLocationPopupClose();
             break;
         case "offersPopup":
-            //listingOfferPopupClose();
             offersPopupClose($('div#offersPopup'));
             break;
         case "emiPopup":
@@ -1296,6 +1298,9 @@ var closePopUp = function (state) {
             break;
         case "locatorsearch":
             locatorSearchClose();
+            break;
+        case "cityAreaPopup":
+            cityArea.close();
             break;
         default:
             return true;

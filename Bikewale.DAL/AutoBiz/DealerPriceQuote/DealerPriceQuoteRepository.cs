@@ -1003,6 +1003,8 @@ namespace Bikewale.DAL.AutoBiz
         /// <summary>
         /// Created by  :   Sushil Kumar on 16th June 2016
         /// Description :   Get Dealer's Price Quotes with versionprices
+        /// Modified by :   Sumit Kate on 01 Aug 2016
+        /// Description :   Secondary Dealer Offer count and secondary dealer distance from given area
         /// </summary>
         /// <param name="objParams"></param>
         /// <returns></returns>
@@ -1021,14 +1023,14 @@ namespace Bikewale.DAL.AutoBiz
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerdetails_16062016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerdetails_28072016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32, objParams.DealerId > 0 ? Convert.ToInt64(objParams.DealerId) : Convert.DBNull));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionId", DbType.Int32, Convert.ToInt64(objParams.VersionId)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityId", DbType.Int32, Convert.ToInt64(objParams.CityId)));
-
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32, objParams.DealerId > 0 ? Convert.ToInt32(objParams.DealerId) : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionId", DbType.Int32, Convert.ToInt32(objParams.VersionId)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityId", DbType.Int32, Convert.ToInt32(objParams.CityId)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_areaId",DbType.Int32,Convert.ToInt32(objParams.AreaId)));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -1233,7 +1235,9 @@ namespace Bikewale.DAL.AutoBiz
                                             DealerId = !Convert.IsDBNull(dr["ID"]) ? Convert.ToUInt32(dr["ID"]) : default(UInt32),
                                             Name = !Convert.IsDBNull(dr["Organization"]) ? Convert.ToString(dr["Organization"]) : default(string),
                                             MaskingNumber = !Convert.IsDBNull(dr["MaskingNumber"]) ? Convert.ToString(dr["MaskingNumber"]) : default(string),
-                                            DealerPackageType = (Enum.TryParse((!Convert.IsDBNull(dr["DealerPackageType"]) ? Convert.ToString(dr["DealerPackageType"]) : default(string)), out s)) ? s : DealerPackageTypes.Invalid
+                                            DealerPackageType = (Enum.TryParse((!Convert.IsDBNull(dr["DealerPackageType"]) ? Convert.ToString(dr["DealerPackageType"]) : default(string)), out s)) ? s : DealerPackageTypes.Invalid,
+                                            Distance = !Convert.IsDBNull(dr["distance"]) ? Convert.ToDouble(dr["distance"]) : default(double),
+                                            OfferCount = !Convert.IsDBNull(dr["offerCount"]) ? Convert.ToUInt16(dr["offerCount"]) : default(UInt16)
                                         }
                                         );
                                 }
