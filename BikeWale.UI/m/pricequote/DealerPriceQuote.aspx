@@ -331,7 +331,7 @@
                 </ul>
             </div>
             <div class="grid-12 float-button float-fixed clearfix">
-                <input type="button" value="Get more details" class="btn btn-full-width btn-sm margin-right10 leftfloat btn-orange bw-ga leadcapturebtn" id="getMoreDetailsBtnCampaign"  data-item-registerpq="true" data-leadsourceid="29" data-item-id="<%= objExQuotation != null ? objExQuotation.ManufacturerId : 0 %>" data-item-name="<%= objPriceQuote.objMake.MakeName %>" data-item-area="<%= dealerArea %>" data-pqsourceid="<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation) %>" data-item-campid="<%=objExQuotation != null ? objExQuotation.CampaignId : 0 %>" c="Dealer_PQ" a="Get_more_details_campaign_clicked" f="GetBikeVerLoc" />
+                <input type="button" value="Get more details" class="btn btn-full-width btn-sm margin-right10 leftfloat btn-orange bw-ga leadcapturebtn" id="getMoreDetailsBtnCampaign"  data-item-registerpq="false" data-leadsourceid="29" data-item-id="<%= objExQuotation != null ? objExQuotation.ManufacturerId : 0 %>" data-item-name="<%= objPriceQuote.objMake.MakeName %>" data-item-area="<%= dealerArea %>" data-pqsourceid="<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation) %>" data-item-campid="<%=objExQuotation != null ? objExQuotation.CampaignId : 0 %>" c="Dealer_PQ" a="Get_more_details_campaign_clicked" f="GetBikeVerLoc" />
             </div>
             <%}else { %>
             <!--Dealer Campaign ends here -->
@@ -385,9 +385,9 @@
                                     </div>
                                 </a>
                                 <div>
-                                    <a href="javascript:void(0)" data-pqsourceid="<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation) %>" data-leadsourceid="17" leadsourceid="17" data-item-registerpq="true" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId")  %>" data-item-name="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-item-area="<%# DataBinder.Eval(Container.DataItem,"Area") %>" class="btn btn-white btn-sm-1 margin-right5 inline-block leadcapturebtn bw-ga" c="Dealer_PQ" a="Get_Offers_Clicked" l="Secondary Dealer List_<%=BikeName %>_<%= currentCity %>_<%= currentArea%>">Get offers from dealer</a>
+                                    <a href="javascript:void(0)" data-pqsourceid="<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation) %>" data-leadsourceid="17" leadsourceid="17" data-item-registerpq="true" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId")  %>" data-item-name="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-item-area="<%# DataBinder.Eval(Container.DataItem,"Area") %>" class="btn btn-white btn-sm-1 margin-right5 inline-block leadcapturebtn bw-ga" c="Dealer_PQ" a="Get_Offers_Clicked" l="Secondary Dealer List_<%=BikeName %>_<%= currentCity %>_<%= currentArea%>" data-ga-cat="Dealer_PQ" data-ga-act="Lead_Submitted" data-ga-lab="Secondary Dealer List_<%=BikeName %>_<%= currentCity %>_<%= currentArea%>">Get offers from dealer</a>
                                     <%# !String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()) ? 
-                                    "<a href='tel:" + DataBinder.Eval(Container.DataItem,"MaskingNumber") + "' class=\"inline-block bw-ga\" c=\"Dealer_PQ\" a=\"Dealer_Number_Clicked\" l=\"Secondary Dealer List_" + String.Format("{0}_{1}_{2}",BikeName,currentCity,currentArea) + "\"><span class=\"bwmsprite tel-sm-icon\"></span><span class=\"font14 text-default text-bold\">" + DataBinder.Eval(Container.DataItem,"MaskingNumber") + "</span></a>" : "" %>
+                                    "<a href='tel:" + DataBinder.Eval(Container.DataItem,"MaskingNumber") + "' class=\"inline-block bw-ga\" c=\"Dealer_PQ\" a=\"Dealer_Number_Clicked\" l=\"Secondary Dealer List_" + BikeName + currentCity + currentArea + "\"><span class=\"bwmsprite tel-sm-icon\"></span><span class=\"font14 text-default text-bold\">" + DataBinder.Eval(Container.DataItem,"MaskingNumber") + "</span></a>" : "" %>
                                 </div>
                             </div>
                         </ItemTemplate>
@@ -601,8 +601,14 @@
                     "pqsourceid": ele.attr('data-pqsourceid'),
                     "pageurl": pageUrl,
                     "clientip": clientIP,
-                    "isregisterpq": ele.attr('data-item-registerpq'),
-                    "campid": ele.attr('data-item-campid')
+                    "isregisterpq": ele.attr('data-item-registerpq') == "true" ? true : false,
+                    "campid": ele.attr('data-item-campid'),
+                    "pqid": pqId,
+                    "gaobject" : {
+                        cat : ele.attr('data-ga-cat'),
+                        act: ele.attr('data-ga-act'),
+                        lab: ele.attr('data-ga-lab')
+                                }
                 };
 
                 dleadvm.setOptions(leadOptions);
