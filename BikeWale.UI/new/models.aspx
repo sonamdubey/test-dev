@@ -78,7 +78,7 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    <div id="bikeMakeList" class="brand-bikes-list-container padding-top25 padding-left20 rounded-corner2">
+                    <div id="bikeMakeList" class="padding-top25 padding-left20 rounded-corner2 inner-content-card">
                         <ul id="listitems" class="listitems">
                             <asp:Repeater ID="rptMostPopularBikes" runat="server">
                                 <ItemTemplate>
@@ -116,7 +116,7 @@
                 <div class="grid-12">
                     <div class="content-box-shadow padding-top20 padding-bottom25">
                         <h2 class="padding-left20 padding-right20 text-x-black text-bold margin-bottom20">Upcoming <%= _make.MakeName %> Bikes</h2>
-                        <div class="jcarousel-wrapper bike-carousel-wrapper">
+                        <div class="jcarousel-wrapper inner-content-carousel">
                             <div class="jcarousel">
                                 <ul>
                                     <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
@@ -135,7 +135,7 @@
             <div id="makeTabsContentWrapper" class="grid-12 margin-bottom20">
                 <div class="content-box-shadow">
                     <div id="makeOverallTabsWrapper">
-                        <div id="makeOverallTabs">
+                        <div id="makeOverallTabs" class="overall-floating-tabs">
                             <div class="overall-specs-tabs-wrapper">
                                 <%
                                     if (_bikeDesc != null && _bikeDesc.FullDescription.Length > 0)

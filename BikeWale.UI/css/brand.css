@@ -2,11 +2,10 @@
 .content-inner-block-1420 { padding:14px 20px; }
 .text-x-black { color:#1a1a1a; }
 #bikeMakeList .bikeDescWrapper { padding:15px 0; }
-.brand-bikes-list-container li { width:294px; min-height:390px; margin-right:20px; margin-bottom:5px; }
-.brand-bikes-list-container li.front { border:none;}
-.brand-bikes-list-container li .imageWrapper { width:294px; height:166px; }
-.brand-bikes-list-container li .imageWrapper a { width:294px; height:166px; display: block; background: url('http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
-.brand-bikes-list-container li .imageWrapper a img { width:294px; height:166px; }
+.inner-content-card li { width:294px; min-height:390px; margin-right:20px; margin-bottom:5px; }
+.inner-content-card li.front { border:none;}
+.inner-content-card li .imageWrapper { width:100%; height:166px; }
+.inner-content-card li .imageWrapper a { display:table-cell; vertical-align:middle; background: url('http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
 .sort-div { width:190px; height:36px; padding:7px; border:1px solid #e2e2e2; position:relative; cursor:pointer; background:#fff; }
 .sort-by-title { width:150px; }
 .text-truncate { width:100%; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
@@ -20,24 +19,23 @@
 .sort-div .fa-angle-down { transition: transform .3s; -moz-transition: transform .3s; -webkit-transition: transform .3s; -o-transition: transform .3s; -ms-transition: transform .3s; }
 .sort-div.open .fa-angle-down { -moz-transform: rotateZ(180deg); -webkit-transform: rotateZ(180deg); -o-transform: rotateZ(180deg); -ms-transform: rotateZ(180deg); transform: rotateZ(180deg); }
 .sort-by-text p { height:35px; line-height:35px; }
-#makeUpcomingBikesContent .jcarousel { padding-left: 20px; }
 #makeUpcomingBikesContent .jcarousel-control-left { left:0; }
 #makeUpcomingBikesContent .jcarousel-control-right { right:0; }
-.bike-carousel-wrapper .jcarousel { width:934px; left:10px; padding:0; }
-.bike-carousel-wrapper .jcarousel li { width:292px; height:auto; margin-right:28px; }
-.bike-carousel-wrapper h3 a.text-black { display:block; }
-.bike-carousel-wrapper .jcarousel-control-left { left:-10px; top:13%; }
-.bike-carousel-wrapper .jcarousel-control-right { right:10px; top:13%; }
-.bike-carousel-wrapper .jcarousel-control-prev, .bike-carousel-wrapper .jcarousel-control-next {width: 36px;height: 68px;}
-.bike-carousel-wrapper .jcarousel-control-prev:hover { background-position: -36px -134px}
-.bike-carousel-wrapper .jcarousel-control-next:hover {background-position: -63px -134px}
-.bike-carousel-wrapper .jcarousel-control-prev {background-position: -36px -79px;}
-.bike-carousel-wrapper .jcarousel-control-next {background-position: -63px -79px;}
-.bike-carousel-wrapper .jcarousel-control-prev.inactive {background-position: -36px -24px;}
-.bike-carousel-wrapper .jcarousel-control-next.inactive {background-position: -63px -24px;}
+.inner-content-carousel .jcarousel { width:934px; left:20px; padding:0; }
+.inner-content-carousel .jcarousel li { width:292px; height:auto; margin-right:28px; }
+.inner-content-carousel h3 a.text-black { display:block; }
+.inner-content-carousel .jcarousel-control-left { left:-10px; top:13%; }
+.inner-content-carousel .jcarousel-control-right { right:10px; top:13%; }
+.inner-content-carousel .jcarousel-control-prev, .inner-content-carousel .jcarousel-control-next {width: 36px;height: 68px;}
+.inner-content-carousel .jcarousel-control-prev:hover { background-position: -36px -134px}
+.inner-content-carousel .jcarousel-control-next:hover {background-position: -63px -134px}
+.inner-content-carousel .jcarousel-control-prev {background-position: -36px -79px;}
+.inner-content-carousel .jcarousel-control-next {background-position: -63px -79px;}
+.inner-content-carousel .jcarousel-control-prev.inactive {background-position: -36px -24px;}
+.inner-content-carousel .jcarousel-control-next.inactive {background-position: -63px -24px;}
 .content-inner-block-2010 { padding:20px 10px; }
 #makeOverallTabsWrapper { width:100%; height:45px; }
-#makeOverallTabs { width:976px; background: #fff; border-bottom:1px solid #e2e2e2; }
+.overall-floating-tabs { width:976px; background: #fff; border-bottom:1px solid #e2e2e2; }
 #makeOverallTabs.fixed-tab { position:fixed; top:0; margin:0 auto; z-index:5; border-bottom:0; -moz-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -webkit-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -o-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -ms-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; }
 .overall-specs-tabs-wrapper { display:table; background:#fff; }
 .overall-specs-tabs-wrapper a { padding:10px 20px; display:table-cell; font-size:14px; color:#82888b; }
@@ -92,19 +90,6 @@
 .newBikes-latest-updates-container .home-tabs li { width:170px; text-align:center; font-size:18px; padding:13px 14px; background:#f5f5f5;}
 .newBikes-latest-updates-container .home-tabs li:first-child { margin-right:-2px;}
 .newBikes-latest-updates-container .home-tabs li.active{ background:#fff; color:#2a2a2a;}
-
-@media all and (min-width: 800px) and (max-width: 996px) {
-    body { overflow-x:hidden; }
-	.container { width:800px; margin:0; }
-    .brand-bikes-list-container li { width: 245px; height: 410px; margin-right: 5px; margin-bottom: 5px; }
-    .brand-bikes-list-container li .imageWrapper, .brand-bikes-list-container li .imageWrapper a { width: 245px; height: 138px; }
-    .brand-bikes-list-container li .imageWrapper a img { width: 100%; height: 138px; }
-    
-    .upcoming-brand-bikes-container .jcarousel li { width:248px; margin-right:0px; }
-    .upcoming-brand-bikes-container .jcarousel li .imageWrapper, .upcoming-brand-bikes-container .jcarousel li .imageWrapper a { width:245px; height:138px; }
-    .upcoming-brand-bikes-container .jcarousel li .imageWrapper a { background:url('http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; display:block; }
-    .upcoming-brand-bikes-container .jcarousel li .imageWrapper a img { width:100%; height:138px; }
-    .jcarousel-wrapper { margin-left: 20px; width: 96%; }
-    .upcoming-brand-bikes-container .jcarousel-control-left { left: -28px; }
-    .upcoming-brand-bikes-container .jcarousel-control-right { right: -24px; }    
+@media only screen and (max-width:1024px) {
+    #makeUsedBikeContent .grid-4 { width:300px; }
 }
