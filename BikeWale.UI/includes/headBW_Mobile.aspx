@@ -64,11 +64,11 @@
            
                 <div class="leftfloat">
                     <span class="navbarBtn bwmsprite nav-icon margin-right10"></span>
-                    <span id="book-back" class="bwmsprite white-back-arrow margin-right10 leftfloat hide"></span>
-                    <div class="headerTitle text-white leftfloat">
+                    <span id="book-back" class="bwmsprite white-back-arrow margin-right10 leftfloat hide"></span>                   
+                    <div class="headerTitle text-white leftfloat hide">
                         <p class="font12">Detailed Price Quote</p>
-                        <p class="header-dealername">Dealer Name</p>
-                    </div>
+                        <p class="header-dealername"></p>
+                    </div>                   
                 </div>
                 <div class="rightfloat">
                     <div class="global-search" id="global-search" style="display:none">

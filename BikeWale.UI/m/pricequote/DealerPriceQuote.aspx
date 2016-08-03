@@ -15,7 +15,7 @@
         canonical = string.Empty;
         AdPath = "/1017752/Bikewale_Mobile_PriceQuote";
         AdId = "1398766000399";
-        PopupWidget.Visible = true;
+        PopupWidget.Visible = true;       
     %>
     <script>var quotationPage = true;</script>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
@@ -35,9 +35,18 @@
         }
         var clientIP = "<%= clientIP%>";
         var pageUrl = window.location.href;
-
+        var dealerName = '<%= dealerName%>';
         var campaignId = "<%= objExQuotation != null ? objExQuotation.CampaignId : 0 %>";
         var manufacturerId = "<%= objExQuotation != null ? objExQuotation.ManufacturerId : 0 %>";
+
+        $(document).ready( function(){
+            if(dealerName != "")
+            {                
+                $(".headerTitle").removeClass("hide");
+                $(".header-dealername").text(dealerName);
+            }
+        });
+
     </script>
     <style type="text/css">
         
@@ -132,8 +141,8 @@
                   {%>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pqTable font14">
                     <tr>
-                        <td class="text-light-grey padding-bottom15" width="75%" align="left">Ex-Showroom Price</td>
-                        <td class="padding-bottom15" width="25%" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%= CommonOpn.FormatPrice(objExQuotation.ExShowroomPrice.ToString()) %></td>
+                        <td class="text-light-grey padding-bottom15" width="65%" align="left">Ex-Showroom Price</td>
+                        <td class="padding-bottom15" width="35%" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%= CommonOpn.FormatPrice(objExQuotation.ExShowroomPrice.ToString()) %></td>
                     </tr>
                     <tr>
                         <td class="text-light-grey padding-bottom15" align="left">RTO</td>
