@@ -119,7 +119,7 @@
                                        <td colspan="2" class="floatLeft">Terms and Conditions 
                                         </td>
                                         <td colspan="2" class="floatLeft margin-left10">
-                                            <asp:TextBox ID="txtAreaTerms" maxlength="4096" TextMode="Multiline" height="100px" wrap="true" runat="server" Width="200%" />
+                                            <asp:TextBox ID="txtAreaTerms" maxlength="4096" TextMode="Multiline" height="150px" wrap="true" runat="server" Width="200%" />
                                         </td>
                                    </tr>
                 
@@ -136,7 +136,7 @@
                     <td>
                         <table><tr><td>
                             <%-- Start Pivotal Tracker # : 95410582 Author : Sumit Kate --%>
-                        <fieldset class="margin-left10">
+                        <fieldset class="margin-left10" >
                             <legend>Copy Offers to other Cities</legend>
                             <table><tr><td>Select State : <span class="errMessage">*</span></td>
                             <td><asp:DropDownList ID="ddlState" runat="server" /></td><td>Select cities : <span class="errMessage">*</span></td><td>
@@ -162,7 +162,8 @@
                     <div><span id="spnTxtUpdOfferValidity" class="errorMessage"></span></div>
                 </div>
                 <div class="margin-top10">Is Price Impact Value : <input type="checkbox" runat="server" id="chkPopup" /></div>
-                <div class="margin-top10">Terms and Conditions : <textarea style="display:inline" runat="server" id="txtTerms" ></textarea></div>
+                <div class="margin-top10">Terms and Conditions : </div>
+                <textarea class="margin-top10" style="height:150px; width:100%"  runat="server" id="txtTerms" ></textarea>
                 <div class="margin-top10">
                     <asp:Button ID="btnUpdate" Text="Update" runat="server" />
                 </div>

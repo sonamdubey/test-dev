@@ -575,8 +575,6 @@ namespace BikewaleOpr.DAL
         /// Modified By : Suresh Prajapati on 30th Dec, 2014.
         /// Description : Added UserId saving feature for saved dealer offer.
         /// 
-        /// Modified By : Aditi
-        /// Description :
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="cityId"></param>
