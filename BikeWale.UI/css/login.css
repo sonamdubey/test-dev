@@ -1,0 +1,21 @@
+﻿#loginSignupWrapper { width:430px; height:440px; overflow:hidden; background:#fff; margin:0 auto; padding:35px 70px; position:absolute; top:15%; left:5%; right:5%; }
+.login-signup-wrapper { height:400px; overflow:hidden; }
+.user-login-box, .user-signup-box { width:290px; }
+.user-signup-box { position:absolute; top:345px; background:#fff; z-index:2; transition: all 1s; }
+.user-signup-box form { display:none; }
+.horizontal-divider { border-top:1px solid #e2e2e2; }
+.horizontal-divider span { top:-10px; background:#fff; padding:0 10px; left:43%; }
+.login-box-signup-target { cursor:pointer; }
+.login-box-footer { display:block; position:absolute; bottom:0; height:30px; background:#fff; width:100%; z-index:3; }
+.forgot-password-content { display:none; }
+.login-signup-wrapper.activate-signup .user-signup-box { top:0; transition: all 1s; }
+.login-signup-wrapper.activate-signup .login-box-signup-target { cursor:default; }
+.margin-bottom17 { margin-bottom:17px; }
+.margin-bottom45 { margin-bottom:45px; }
+.footer-fixed { background: rgba(51, 51, 51, 0.8); background: #333333\9; position: fixed; bottom: 0; right: 0; left: 0; padding: 10px 20px; z-index: 3; color:#fff; font-size:14px; }
+
+@media screen and (max-width: 768px) {
+	body { background: none; }
+    #loginFooter { display:none; }
+	#loginSignupWrapper { width:300px; height:400px; padding: 0; top:75px }
+}

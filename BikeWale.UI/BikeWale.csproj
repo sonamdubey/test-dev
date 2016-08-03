@@ -674,6 +674,10 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Login_New.aspx.cs">
+      <DependentUpon>Login_New.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="memcache\BasicIdMapping.cs" />
     <Compile Include="memcache\BikeMakes.cs" />
     <Compile Include="memcache\BWMemcache.cs" />
@@ -1775,6 +1779,7 @@
     <Content Include="css\insurance.css" />
     <Content Include="css\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="css\jquery.ad-gallery.css" />
+    <Content Include="css\login.css" />
     <Content Include="css\model.css" />
     <Content Include="css\newbikes.css" />
     <Content Include="css\new\modelprice-in-city.css" />
@@ -2161,6 +2166,7 @@
     <Content Include="includes\PaymentHeaderMobile.aspx" />
     <Content Include="includes\pgheader.aspx" />
     <Content Include="insurance\Default.aspx" />
+    <Content Include="Login_New.aspx" />
     <Content Include="mybikewale\buyerdetails.aspx" />
     <Content Include="mybikewale\Default.aspx" />
     <Content Include="mybikewale\MyListing.aspx" />
