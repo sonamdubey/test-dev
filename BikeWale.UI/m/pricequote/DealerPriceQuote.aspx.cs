@@ -335,6 +335,7 @@ namespace Bikewale.Mobile.BikeBooking
             uint selectedVersionId = Convert.ToUInt32(ddlVersion.SelectedValue);
             try
             {
+                versionId = selectedVersionId;
                 using (IUnityContainer container = new UnityContainer())
                 {
                     // save price quote
