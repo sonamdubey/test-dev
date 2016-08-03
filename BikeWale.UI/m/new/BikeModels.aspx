@@ -108,23 +108,6 @@
                         </div>
                     </div>
 
-                    <%--<div class="swiper-container model margin-bottom10" id="bikeBannerImageCarousel">
-                        <div class="swiper-wrapper stage" id="ulModelPhotos">
-                            <asp:Repeater ID="rptModelPhotos" runat="server">
-                                <ItemTemplate>
-                                    <div class="swiper-slide">                                       
-                                        <img class='<%# Container.ItemIndex != 0 ? "swiper-lazy" : "" %>' data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" />
-                                        <span class='<%# Container.ItemIndex != 0 ? "swiper-lazy-preloader" : "" %>'></span>                                       
-                                    </div>
-                                </ItemTemplate>
-                            </asp:Repeater>
-                        </div>
-                        <% if (modelPage.Photos != null && modelPage.Photos.Count > 1)
-                           { %>
-                        <p class="pagination-number text-center font12 text-white position-abt"><span class="bike-model-gallery-count">1 of <%= modelPage.Photos.Count %></span></p>
-                        <% } %>
-                    </div>--%>
-
                     <% if (modelPage.ModelDetails.Futuristic)
                        { %>
                     <div class="bikeDescWrapper">
