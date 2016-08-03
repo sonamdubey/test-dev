@@ -40,11 +40,10 @@
         var manufacturerId = "<%= objExQuotation != null ? objExQuotation.ManufacturerId : 0 %>";
 
         $(document).ready( function(){
-            if(dealerName != "")
-            {                
-                $(".headerTitle").removeClass("hide");
-                $(".header-dealername").text(dealerName);
-            }
+            if (dealerName != "") {
+                $("#headerText").removeClass("hide");
+                $("#header-dealername").text(dealerName);
+            }           
         });
 
     </script>
@@ -340,7 +339,7 @@
                 </ul>
             </div>
             <div class="grid-12 float-button float-fixed clearfix">
-                <input type="button" value="Get more details" class="btn btn-full-width btn-sm margin-right10 leftfloat btn-orange bw-ga leadcapturebtn" id="getMoreDetailsBtnCampaign"  data-item-registerpq="false" data-leadsourceid="29" data-item-id="<%= objExQuotation != null ? objExQuotation.ManufacturerId : 0 %>" data-item-name="<%= objPriceQuote.objMake.MakeName %>" data-item-area="<%= dealerArea %>" data-pqsourceid="<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation) %>" data-item-campid="<%=objExQuotation != null ? objExQuotation.CampaignId : 0 %>" c="Dealer_PQ" a="Get_more_details_campaign_clicked" f="GetBikeVerLoc" />
+                <input type="button" value="Get more details" class="btn btn-full-width btn-sm margin-right10 leftfloat btn-orange bw-ga leadcapturebtn" id="getMoreDetailsBtnCampaign"  data-item-registerpq="false" data-leadsourceid="29" data-item-id="<%= objExQuotation != null ? objExQuotation.ManufacturerId : 0 %>" data-item-name="<%= objPriceQuote.objMake.MakeName %>" data-item-area="<%= dealerArea %>" data-pqsourceid="<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation) %>" data-item-campid="<%=objExQuotation != null ? objExQuotation.CampaignId : 0 %>" c="Dealer_PQ" a="Get_more_details_campaign_clicked" f="GetBikeVerLoc" data-ga-cat="Dealer_PQ" data-ga-act="Lead_Submitted" data-ga-lab="manufacturer_lead_List_<%=BikeName %>_<%= currentCity %>_<%= currentArea%>" />
             </div>
             <%}else { %>
             <!--Dealer Campaign ends here -->
@@ -622,25 +621,7 @@
 
                 dleadvm.setOptions(leadOptions);
 
-            });
-
-           <%-- $(".leadcapturebtn").click(function (e) {
-                ele = $(this);
-                var leadOptions = {
-                    "dealerid": campaignId > 0 ? manufacturerId : dealerId,
-                    "dealername": campaignId > 0 ? '<%= objPriceQuote.objMake.MakeName %>' : '<%= dealerName %>',
-                    "dealerarea": '<%= dealerArea %>',
-                    "versionid": versionId,
-                    "leadsourceid": ele.attr('leadSourceId'),
-                    "pqsourceid": ele.attr('pqsourceid'),
-                    "pageurl": pageUrl,
-                    "clientip": clientIP,
-                    "isregisterpq": true,
-                    "campid": campaignId
-                };
-
-                dleadvm.setOptions(leadOptions);
-            });--%>
+            });           
 
             $('#getDealerDetails,#btnBookBike').click(function () {
                 var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
