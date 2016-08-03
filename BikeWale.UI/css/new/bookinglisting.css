@@ -93,3 +93,7 @@
 #offersPopup .btn { padding: 8px 60px }
 #offersPopup ul li { background: url("http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/star-icon.png?v=22122015") no-repeat 0 3px; padding-left:20px; width:100%; min-height:auto; padding-bottom:10px; }
 .inner-content-popup { margin:0 auto; width:350px; }
+
+@media only screen and (max-width:1024px) {
+    .search-bike-list ul li { width:312px; }
+}

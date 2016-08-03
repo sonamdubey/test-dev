@@ -116,3 +116,11 @@ a.text-darker-black:hover { text-decoration:none; }
 .dealership-address { width:92%; }
 .vertical-top { display:inline-block;vertical-align:top; }
 .disclaimer {list-style-type: disc; padding-left:20px;}
+
+@media only screen and (max-width:1024px) {
+    #pqBikeDetails.grid-8 { width:640px; }
+    #PQDealerSidebarContainer.grid-4 { width:298px; }
+    #buyingAssistBtn.btn { width:85px; }
+    .pricequote-offers-list li, .pricequote-benefits-list li{ width:195px; }
+    .emi-slider-box-right-section { width:115px; padding: 8px 0; }
+}

@@ -14,14 +14,6 @@
     var areaClicked = false;
 </script>
 <link href="<%= !string.IsNullOrEmpty(staticUrl1) ? "http://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/css/chosen.min.css?<%=staticFileVersion1 %>" rel="stylesheet" />
-<style type="text/css">
-.progress-bar {width:0;height:2px;background:#16A085;bottom:0px;left:0;border-radius:2px;}
-.btn-loader {background-color:#822821;}
-.btnSpinner {right:22px;top:10px;z-index:9;background:rgb(255, 255, 255);}
-#popupWrapper .form-control-box { height:40px; }
-#popupWrapper .form-control, #popupWrapper .chosen-container { border:none; }
-#divCityLoader, #divAreaLoader { border:1px solid #ccc; border-radius:4px; }
-</style>
 <div class="bw-popup hide bw-popup-sm" id="popupWrapper">
     <div class="popup-inner-container" stopbinding: true>
         <div class="bwsprite popup-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>

@@ -32,9 +32,9 @@
 #ctrlUpcomingBikes .model-preview-image-container { border:none; }
 .model-preview-image-container a { width:100%; height:164px; display:block; background: url('http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
 .model-preview-image-container a img { width:100%; height:164px; }
-.discover-bike-carousel .jcarousel li { width:303px; height:auto; margin-right:10px; }
-.discover-bike-carousel .jcarousel li.front { border:none;}
-.discover-bike-carousel .jcarousel li .imageWrapper a { width:303px; }
+.inner-content-carousel .jcarousel li { width:303px; height:auto; margin-right:10px; }
+.inner-content-carousel .jcarousel li.front { border:none;}
+.inner-content-carousel .jcarousel li .imageWrapper a { width:100%; }
 .tools-may-need-wrapper { background:#fff; }
 .final-price-logo {  margin:0 auto; }
 .final-price-search-container { margin:0 auto; width:775px; height: 40px; }
@@ -61,4 +61,8 @@
 #btnLocateDealer, #btnCalcEmi { width:166px; }
 @-moz-document url-prefix() {
     .tools-may-need-wrapper .btn-lg { padding:7px 20px; }
+}
+@media only screen and (max-width:1024px) {
+    .brand-type-container ul li, .brand-type { width:170px; }
+    .budget-container ul li a, .mileage-container ul li a, .style-type-container ul li { width:215px; }
 }

@@ -202,6 +202,7 @@ li.offertxt:hover span {display:inline}
 .model-card-image-content { width:117px; height:66px; background:#ccc; }
 .model-card-image-content img { width:100%; height:66px; }
 .model-card-title-content { width:245px; }
+.floating-card-area-details { padding-left:30px; }
 .model-single-user-review { width:780px; }
 .model-orp-btn .btn { padding:8px 29px; }
 .model-powered-by-text { width:210px !important; padding:0 10px; }
@@ -291,16 +292,17 @@ li.offertxt:hover span {display:inline}
 #modelNewsContent h3 { margin-bottom: 7px; }
 .line-height { line-height: 1.5; }
 
-@media all and (min-width: 800px) and (max-width: 996px){
-	body { overflow-x:hidden; }
-	.container { width:800px; margin:0; }
-    .connected-carousels .stage { width:379px; overflow:hidden; }
-    .connected-carousels .carousel-stage { height:215px; }
-    .stage .carousel-stage li { width:379px; height:214px; }
-    .stage .carousel li .carousel-img-container, .connected-carousels .carousel li .carousel-img-container span, .connected-carousels .carousel li .carousel-img-container span img { width:379px; height:214px; }
-    .connected-carousels .navigation { width:379px; }
-    .connected-carousels .carousel-navigation { width:320px; }
-    .connected-carousels .carousel li .carousel-img-container span { width:379px; height:214px; display:block; background:url('http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
-    .jcarousel-wrapper { margin-left: 20px; width: 96%; }
-    .header-not-fixed { width:800px; }
+@media only screen and (max-width:1024px) {
+    #modelDetailsContainer .model-details-wrapper { width:500px; }
+    .form-control-username { width: 250px; }
+    .btn.btn-inv-grey { padding: 8px 55px; }
+    #modelDetailsFloatingCardContent { width:960px; left:2%; right:2%; }
+    #modelDetailsFloatingCardContent .model-details-floating-card{ width:940px; }
+    .model-card-title-content { width:230px; }
+    .floating-card-area-details { padding-left:0; }
+    #modelPricesContent .jcarousel { width: 590px; }
+    #modelPricesContent .jcarousel li { width: 284px; }
+    .prices-by-cities-list .grid-7 { width: 70px; }
+    .model-user-review-title-container { width: 265px; }
+    .model-single-news .model-news-title-container { width:595px; }
 }

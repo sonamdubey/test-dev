@@ -5,7 +5,7 @@
             <h2 class="text-bold margin-bottom20 font22">On-road price</h2> 
             <!-- On road pricequote control-->              
             <div class="form-control-box margin-bottom20">
-                <input value="" class="form-control ui-autocomplete-input" type="text" placeholder="Search Make and Model" id="makemodelFinalPrice" tabindex="1" autocomplete="off" style="width: 365px;">
+                <input value="" class="form-control ui-autocomplete-input" type="text" placeholder="Search Make and Model" id="makemodelFinalPrice" tabindex="1" autocomplete="off">
                 <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please enter make/model name</div>
