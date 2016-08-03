@@ -65,9 +65,9 @@
                 <div class="leftfloat">
                     <span class="navbarBtn bwmsprite nav-icon margin-right10"></span>
                     <span id="book-back" class="bwmsprite white-back-arrow margin-right10 leftfloat hide"></span>                   
-                    <div class="headerTitle text-white leftfloat hide">
-                        <p class="font12">Detailed Price Quote</p>
-                        <p class="header-dealername"></p>
+                    <div class="headerTitle text-white leftfloat">
+                        <p class="font12 hide" id="headerText">Detailed Price Quote</p>
+                        <p class="header-dealername" id="header-dealername"></p>
                     </div>                   
                 </div>
                 <div class="rightfloat">
