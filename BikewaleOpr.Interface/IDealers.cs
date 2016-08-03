@@ -18,7 +18,7 @@ namespace BikewaleOpr.Interface
         EMI GetDealerLoanAmounts(uint dealerId);
         List<OfferEntity> GetDealerOffers(int dealerId);
         void SaveDealerLoanAmounts(uint dealerId, ushort tenure, float rateOfInterest, ushort ltv, string loanProvider);
-        bool SaveDealerOffer(int dealerId, uint userId, int cityId, string modelId, int offercategoryId, string offerText, int? offerValue, DateTime offervalidTill, bool isPriceImpact);
+        bool SaveDealerOffer(int dealerId, uint userId, int cityId, string modelId, int offercategoryId, string offerText, int? offerValue, DateTime offervalidTill, bool isPriceImpact,string termsConditions);
         void UpdateDealerLoanAmounts(uint dealerId, ushort tenure, float rateOfInterest, ushort ltv, string loanProvider);
         bool DeleteDealerOffer(string offerId);
         bool SaveBikeAvailability(uint dealerId, uint bikemodelId, uint? bikeversionId, ushort numOfDays);
@@ -37,7 +37,7 @@ namespace BikewaleOpr.Interface
         BookingAmountEntity GetDealerBookingAmount(uint versionId, uint dealerId);
         #endregion
         bool DeleteBookingAmount(uint bookingId);
-        void UpdateDealerBikeOffers(uint offerId, uint userId, uint offerCategoryId, string offerText, uint? offerValue, DateTime offerValidTill, bool isPriceImpact);
+        void UpdateDealerBikeOffers(uint offerId, uint userId, uint offerCategoryId, string offerText, uint? offerValue, DateTime offerValidTill, bool isPriceImpact, string termsConditions);
         bool SaveBikeAvailability(DataTable dtValue);
         bool DeleteBikeAvailabilityDays(DataTable dtValue);
         bool CopyOffersToCities(uint dealerId, string lstOfferIds, string lstCityId);
