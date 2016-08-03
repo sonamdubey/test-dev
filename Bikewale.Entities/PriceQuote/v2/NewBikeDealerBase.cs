@@ -8,6 +8,8 @@ namespace Bikewale.Entities.PriceQuote.v2
     /// Created By : Sushil Kumar
     /// Created On : 17th June 2016
     /// Description : Dealer Basics details with version prices.
+    /// Modified by :   Sumit Kate on 03 Aug 2016
+    /// Description :   Added new property SelectedVersionPrice
     /// </summary>
     public class NewBikeDealerBase
     {
@@ -38,5 +40,7 @@ namespace Bikewale.Entities.PriceQuote.v2
         [JsonProperty("distance")]
         public double Distance { get; set; }
 
+        [JsonProperty("selectedVersionPrice")]
+        public uint SelectedVersionPrice { get; set; }
     }
 }

@@ -383,8 +383,8 @@
                                         <span class="font12 text-light-grey"><%# DataBinder.Eval(Container.DataItem,"Area") %></span>
                                         <div class="margin-top15">
                                             <div class="grid-4 alpha omega <%# (Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"OfferCount")) > 0) ?  "border-solid-right" : "" %>">
-                                                <p class="font12 text-light-grey margin-bottom5">On-road price</p>
-                                                <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold"><%# Bikewale.Utility.Format.FormatPrice((DataBinder.Eval(Container.DataItem,"Versions") as System.Collections.Generic.IEnumerable<Bikewale.Entities.PriceQuote.VersionPriceEntity>).Where(m => (m.DealerId == Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"DealerId"))) && (m.VersionId == versionId)).FirstOrDefault().VersionPrice.ToString()) %></span>
+                                                <p class="font12 text-light-grey margin-bottom5">On-road price</p>                                                
+                                                <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"SelectedVersionPrice").ToString()) %></span>
                                             </div>
                                             <%# (Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"OfferCount")) > 0) ? 
                                             "<div class=\"grid-8 padding-top10 padding-left20 omega\"><span class=\"bwmsprite offers-sm-box-icon\"></span><span class=\"font14 text-default text-bold\">" + DataBinder.Eval(Container.DataItem,"OfferCount") + "</span><span class=\"font12 text-light-grey\"> Offer" + (Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"OfferCount")) > 1 ? "s" : "") + " available</span></div>" : "" %>

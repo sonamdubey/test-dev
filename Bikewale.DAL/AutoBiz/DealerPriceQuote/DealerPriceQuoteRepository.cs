@@ -1005,6 +1005,8 @@ namespace Bikewale.DAL.AutoBiz
         /// Description :   Get Dealer's Price Quotes with versionprices
         /// Modified by :   Sumit Kate on 01 Aug 2016
         /// Description :   Secondary Dealer Offer count and secondary dealer distance from given area
+        /// Modified by :   Sumit Kate on 03 Aug 2016
+        /// Description :   Set the Selected version price for secondary dealers for easy binding
         /// </summary>
         /// <param name="objParams"></param>
         /// <returns></returns>
@@ -1030,7 +1032,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32, objParams.DealerId > 0 ? Convert.ToInt32(objParams.DealerId) : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_versionId", DbType.Int32, Convert.ToInt32(objParams.VersionId)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityId", DbType.Int32, Convert.ToInt32(objParams.CityId)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_areaId",DbType.Int32,Convert.ToInt32(objParams.AreaId)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_areaId", DbType.Int32, Convert.ToInt32(objParams.AreaId)));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -1278,6 +1280,16 @@ namespace Bikewale.DAL.AutoBiz
                                             }
                                         }
                                     }
+                                    //Set the Selected version price for secondary dealers for easy binding
+                                    foreach (var secDealer in secondaryDealers)
+                                    {
+                                        secDealer.SelectedVersionPrice = (from verPrice in versionprices
+                                                                          where (verPrice.DealerId == secDealer.DealerId)
+                                                                          && (verPrice.VersionId == objParams.VersionId)
+                                                                          select verPrice.VersionPrice).FirstOrDefault();
+
+                                    }
+
                                 }
                             }
 
