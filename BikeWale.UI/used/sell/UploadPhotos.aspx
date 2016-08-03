@@ -3,6 +3,9 @@
 <%
     title = "Upload actual bike photos - BikeWale";
     description = "Upload your bike's photo";
+     isAd970x90BottomShown = false;
+    is300x250Shown = false;
+                     is300x250BTFShown = false;
 %>
 <!-- #include file="/includes/headUsed.aspx" -->
 <script language="javascript" src="/src/flash_upload/swfobject.js?v=1.0" type="text/javascript"></script>

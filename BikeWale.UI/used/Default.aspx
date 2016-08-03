@@ -11,6 +11,9 @@
     description = "With more than 10,000 used bikes listed for sale, BikeWale is India's largest source of used bikes in India. Find a second hand bikes or list your bikes for sale.";
     AdId = "1395992162974";
     AdPath = "/1017752/BikeWale_UsedBikes_HomePage_";
+    
+     is300x250Shown = false;
+     isAd970x90Shown = false;
 %>
 <!-- #include file="/includes/headUsed.aspx" -->
 <style type="text/css">
