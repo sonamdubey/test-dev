@@ -30,6 +30,7 @@ namespace Bikewale.Mobile.New
         protected void Page_Load(object sender, EventArgs e)
         {
             ParseQueryString();
+            BikeModelEntity bikemodelEnt = default(BikeModelEntity);
             using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
@@ -40,15 +41,14 @@ namespace Bikewale.Mobile.New
                 var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
 
                 IBikeModels<BikeModelEntity, int> objClient = container.Resolve<IBikeModels<BikeModelEntity, int>>();
-                BikeModelEntity bikemodelEnt = objClient.GetById(Convert.ToInt32(modelId));
+                bikemodelEnt = objClient.GetById(Convert.ToInt32(modelId));
                 if (bikemodelEnt != null)
                 {
                     modelName = bikemodelEnt.ModelName;
-
-                    bikeName = string.Format("{0} {1}", bikemodelEnt.MakeBase.MakeName, modelName);
+                    makeMaskingName = bikemodelEnt.MakeBase.MaskingName;
+                    makeName = bikemodelEnt.MakeBase.MakeName;
+                    bikeName = string.Format("{0} {1}", makeName, modelName);
                 }
-
-
                 List<ModelImage> objImageList = objCache.GetModelPhotoGallery(modelId);
                 if (objImageList != null && objImageList.Count > 0)
                 {
@@ -70,7 +70,6 @@ namespace Bikewale.Mobile.New
             try
             {
                 modelMaskingName = Request.QueryString["model"];
-                makeMaskingName = Request.QueryString["make"];
                 if (!string.IsNullOrEmpty(modelMaskingName))
                 {
                     using (IUnityContainer container = new UnityContainer())
