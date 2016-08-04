@@ -13,9 +13,11 @@
     TargetedModel = mmv.Model;
     AdId = "1395986297721";
     AdPath = "/1017752/Bikewale_PQ_";
+
+    isAd300x250BTFShown = false;
 %>
 <!-- #include file="/includes/headscript.aspx" -->
-
+ 
 <style type="text/css">
     #PQImageVariantContainer img{width:100%}
     .PQDetailsTableTitle{color:#82888b}

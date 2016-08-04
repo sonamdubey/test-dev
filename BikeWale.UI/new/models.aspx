@@ -20,6 +20,8 @@
         AdPath = "/1017752/Bikewale_NewBike_";
         AdId = "1442913773076";
         isAd970x90Shown = true;
+        isAd300x250BTFShown = false;
+        
         keywords = string.Format("{0}, {0} Bikes , {0} Bikes prices, {0} Bikes reviews, new {0} Bikes", _make.MakeName);
     %>
     <!-- #include file="/includes/headscript.aspx" -->

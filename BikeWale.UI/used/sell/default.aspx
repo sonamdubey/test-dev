@@ -6,6 +6,7 @@
     keywords = "sell bike, bike sale, used bike sell, second-hand bike sell, sell bike India, list your bike";
     AdId = "1395995407638";
     AdPath = "/1017752/BikeWale_SellBikes_HomePage_";
+    isAd300x250BTFShown = false;
 %>
 <!-- #include file="/includes/headSell.aspx" -->
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/classified/sellbike.js?<%= staticFileVersion %>"></script>

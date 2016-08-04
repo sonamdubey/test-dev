@@ -2,7 +2,11 @@
 <%
     title = "One-time Mobile Verification";
     description = "One-time Mobile Verification";
+
+    isAd300x250Shown = false;
+    isAd300x250BTFShown = false;
 %>
+
 <!-- #include file="/includes/headSell.aspx" -->
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/classified/sellbike.js?1.1"></script>
 <div class="container_12 margin-top20">    

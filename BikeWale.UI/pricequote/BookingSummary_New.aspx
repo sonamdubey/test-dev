@@ -8,7 +8,10 @@
         title = bikeName + " Bookingbooking-sprite buy-icon customize-icon-grey Summary";
         description = "Authorise dealer price details of a bike " + bikeName;
         keywords = bikeName + ", price, authorised, dealer,Booking ";
-        isAd970x90Shown = false;     
+        isAd970x90Shown = false;
+        isAd300x250Shown = false;
+        isAd300x250BTFShown = false;
+        isAd970x90BottomShown = false;
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/booking.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
