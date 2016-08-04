@@ -119,7 +119,7 @@
                                        <td colspan="2" class="floatLeft">Terms and Conditions 
                                         </td>
                                         <td colspan="2" class="floatLeft margin-left10">
-                                            <asp:TextBox ID="txtAreaTerms" maxlength="4096" TextMode="Multiline" height="150px" wrap="true" runat="server" Width="200%" />
+                                            <asp:TextBox ID="txtAreaTerms" maxlength="4096" TextMode="Multiline" height="200px" wrap="true" runat="server" Width="450px" />
                                         </td>
                                    </tr>
                 

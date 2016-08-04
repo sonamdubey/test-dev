@@ -58,7 +58,7 @@ namespace BikewaleOpr.Entities
         public DateTime OfferValidTill { get; set; }
 
         [JsonProperty("terms")]
-        public String Terms { get; set; }
+        public string Terms { get; set; }
 
     }
 }

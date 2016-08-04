@@ -511,6 +511,9 @@ namespace BikewaleOpr.DAL
         /// 
         /// Modified By : Suresh Prajapati on 30th Dec, 2014
         /// Description : Added City name column in the list
+        /// 
+        ///Modified By : Aditi Srivastava on 3rd Aug, 2016
+        /// Description : Added terms and conditions parameter in  offerEntity
         /// </summary>
         /// <param name="cityId"></param>
         /// <param name="dealerId"></param>
@@ -551,6 +554,7 @@ namespace BikewaleOpr.DAL
                                 if (!String.IsNullOrEmpty(dr["OfferValidTill"].ToString()))
                                     objOffer.OffervalidTill = DateTime.Parse(dr["OfferValidTill"].ToString());
                                 objOffer.IsPriceImpact = Convert.ToBoolean(Convert.ToString(dr["IsPriceImpact"]));
+                                if (!String.IsNullOrEmpty(dr["Terms"].ToString()))
                                 objOffer.Terms = dr["Terms"].ToString();
                                 objOffers.Add(objOffer);
                             }
