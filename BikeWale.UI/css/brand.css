@@ -22,6 +22,7 @@
 #makeUpcomingBikesContent .jcarousel-control-left { left:0; }
 #makeUpcomingBikesContent .jcarousel-control-right { right:0; }
 .inner-content-carousel .jcarousel { width:934px; left:20px; padding:0; }
+#makeDealersContent .inner-content-carousel .jcarousel { left:10px;}
 .inner-content-carousel .jcarousel li { width:292px; height:auto; margin-right:28px; }
 .inner-content-carousel h3 a.text-black { display:block; }
 .inner-content-carousel .jcarousel-control-left { left:-10px; top:13%; }
@@ -92,4 +93,7 @@
 .newBikes-latest-updates-container .home-tabs li.active{ background:#fff; color:#2a2a2a;}
 @media only screen and (max-width:1024px) {
     #makeUsedBikeContent .grid-4 { width:300px; }
+    .inner-content-carousel .jcarousel li { width: 281px !important; }
+    .dealer-jcarousel-image-preview { width:281px; }
+    .inner-content-carousel .jcarousel-control-right { right: -10px; }
 }

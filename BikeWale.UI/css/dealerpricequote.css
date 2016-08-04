@@ -123,4 +123,5 @@ a.text-darker-black:hover { text-decoration:none; }
     #buyingAssistBtn.btn { width:85px; }
     .pricequote-offers-list li, .pricequote-benefits-list li{ width:195px; }
     .emi-slider-box-right-section { width:115px; padding: 8px 0; }
+    .pqVariants .variants-dropdown { width:170px; }
 }
