@@ -1253,6 +1253,12 @@ var appendHash = function (state) {
         case "locatorsearch":
             window.location.hash = state;
             break;
+        case "moreDealers":
+            window.location.hash = state;
+            break;
+        case "dealerOffers":
+            window.location.hash = state;
+            break;
         default:
             return true;
     }
@@ -1296,6 +1302,12 @@ var closePopUp = function (state) {
             break;
         case "locatorsearch":
             locatorSearchClose();
+            break;
+        case "moreDealers":
+            popupDiv.close($('#more-dealers-popup'));
+            break;
+        case "dealerOffers":
+            popupDiv.close($('#dealer-offers-popup'));
             break;
         default:
             return true;

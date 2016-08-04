@@ -955,3 +955,161 @@ $('a.read-more-model-preview').click(function () {
         self.removeClass('open');
     }
 });
+
+var dealersPopupDiv = $('#more-dealers-popup'),
+    dealerOffersDiv = $('#dealer-offers-popup');
+
+$('#more-dealers-target').on('click', function () {
+    popupDiv.open(dealersPopupDiv);
+    appendHash("moreDealers");
+    $('body, html').addClass('lock-browser-scroll');
+});
+
+$('.dealers-popup-close-btn').on("click", function () {
+    popupDiv.close(dealersPopupDiv);
+    window.history.back();
+});
+
+$('#dealer-offers-list').on('click', 'li', function () {
+    popupDiv.open(dealerOffersDiv);
+    appendHash("dealerOffers");
+    $('body, html').addClass('lock-browser-scroll');
+});
+
+$('.offers-popup-close-btn').on("click", function () {
+    popupDiv.close(dealerOffersDiv);
+    window.history.back();
+});
+
+var popupDiv = {
+    open: function (div) {
+        div.show();
+    },
+
+    close: function (div) {
+        div.hide();
+        $('body, html').removeClass('lock-browser-scroll');
+    }
+};
+
+
+$(document).ready(function () {
+    dropdown.setDropdown();
+    dropdown.dimension();
+});
+
+$(window).resize(function () {
+    dropdown.dimension();
+});
+
+$('.dropdown-select-wrapper').on('click', '.dropdown-label', function () {
+    dropdown.active($(this));
+});
+
+$('.dropdown-select-wrapper').on('click', '.dropdown-menu-list.dropdown-with-select li', function () {
+    var element = $(this);
+    if (!element.hasClass('active')) {
+        dropdown.selectItem($(this));
+        dropdown.selectOption($(this));
+    }
+});
+
+var dropdown = {
+    setDropdown: function () {
+        var selectDropdown = $('.dropdown-select');
+
+        selectDropdown.each(function () {
+            dropdown.setMenu($(this));
+        });
+    },
+
+    setMenu: function (element) {
+        $('<div class="dropdown-menu"></div>').insertAfter(element);
+        dropdown.setStructure(element);
+    },
+
+    setStructure: function (element) {
+        var elementValue = element.find('option:selected').text(),
+			menu = element.next('.dropdown-menu');
+
+        menu.append('<p class="dropdown-label">' + elementValue + '</p><div class="dropdown-list-wrapper"><p class="dropdown-selected-item">' + elementValue + '</p><ul class="dropdown-menu-list dropdown-with-select"></ul></div>');
+
+        dropdown.setOption(element);
+    },
+
+    setOption: function (element) {
+        var selectedIndex = element.find('option:selected').index(),
+			menu = element.next('.dropdown-menu'),
+			menuList = menu.find('ul');
+
+        element.find('option').each(function (index) {
+            if (selectedIndex == index) {
+                menuList.append('<li class="active" data-option-value="' + $(this).val() + '">' + $(this).text() + '</li>');
+            }
+            else {
+                menuList.append('<li data-option-value="' + $(this).val() + '">' + $(this).text() + '</li>');
+            }
+        });
+    },
+
+    active: function (label) {
+        $('.dropdown-select-wrapper').find('.dropdown-menu').removeClass('dropdown-active');
+        label.closest('.dropdown-menu').addClass('dropdown-active');
+    },
+
+    inactive: function () {
+        $('.dropdown-select-wrapper').find('.dropdown-menu').removeClass('dropdown-active');
+    },
+
+    selectItem: function (element) {
+        var elementText = element.text(),
+			menu = element.closest('.dropdown-menu'),
+			dropdownLabel = menu.find('.dropdown-label'),
+			selectedItem = menu.find('.dropdown-selected-item');
+
+        element.siblings('li').removeClass('active');
+        element.addClass('active');
+        selectedItem.text(elementText);
+        dropdownLabel.text(elementText);
+    },
+
+    selectOption: function (element) {
+        var elementValue = element.attr('data-option-value'),
+			wrapper = element.closest('.dropdown-select-wrapper'),
+			selectDropdown = wrapper.find('.dropdown-select');
+
+        selectDropdown.val(elementValue).trigger('change');
+
+    },
+
+    dimension: function () {
+        var windowWidth = dropdown.deviceWidth();
+        if (windowWidth > 480) {
+            dropdown.resizeWidth(windowWidth);
+        }
+        else {
+            $('.dropdown-select-wrapper').find('.dropdown-list-wrapper').css('width', 'auto');
+        }
+    },
+
+    deviceWidth: function () {
+        var windowWidth = $(window).width();
+        return windowWidth;
+    },
+
+    resizeWidth: function (newWidth) {
+        $('.dropdown-select-wrapper').find('.dropdown-list-wrapper').css('width', newWidth/2);
+    }
+};
+
+$(document).on('click', function (event) {
+    event.stopPropagation();
+    var bodyElement = $('body'),
+		dropdownLabel = bodyElement.find('.dropdown-label'),
+		dropdownList = bodyElement.find('.dropdown-menu-list'),
+		noSelectLabel = bodyElement.find('.dropdown-selected-item');
+
+    if (!$(event.target).is(dropdownLabel) && !$(event.target).is(dropdownList) && !$(event.target).is(noSelectLabel)) {
+        dropdown.inactive();
+    }
+});

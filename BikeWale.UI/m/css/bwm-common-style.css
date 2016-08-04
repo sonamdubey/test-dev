@@ -464,6 +464,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .text-link { cursor: pointer; color: #0288d1; }
 .text-orange { color: #f04031; }
 .text-orange-light { color: #F88379; }
+.text-default { color: #4d5057; }
 
 .font9 { font-size: 9px; }
 .font10 { font-size: 10px; }

@@ -289,7 +289,7 @@
                            { 
                      %>
                     <ul id="moreDealersList">
-                        <asp:Repeater ID="rptSecondaryDealers" runat="server">
+                        <asp:Repeater ID="Repeater1" runat="server">
                             <ItemTemplate>
                                 <li>
                                     <a href="javascript:void(0)" class="font18 text-bold text-darker-black margin-right20" onclick="secondarydealer_Click(<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "DealerId")) %>)"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Name")) %></a><br />
@@ -364,6 +364,105 @@
                %>
             </div>
         </section>      
+
+        <section class="margin-top20">
+            <div class="container bg-white clearfix elevated-shadow">
+                <div class="grid-12 padding-top5 padding-bottom5 border-solid-bottom">
+                    <div class="grid-6 alpha border-solid-right">
+                        <p class="font12 text-light-grey padding-left10">Version:</p>
+                        <div class="dropdown-select-wrapper">
+                            <select class="dropdown-select">
+                                <option value="22">Standard</option>
+                                <option value="23">Platina 100 Alloy Wheel KS</option>
+                                <option value="24">Kick Drum Start/Alloy</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid-6 padding-left20">
+                        <p class="font12 text-light-grey">Location:</p>
+                        <p class="font14 text-bold">
+					        <span class="selected-location-label inline-block text-truncate"><span>Andheri</span>,&nbsp;<span>Mumbai</span></span>
+					        <a href="javascript:void(0)" rel="nofollow" class="inline-block"><span class="bwmsprite loc-change-blue-icon"></span></a>
+				        </p>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+
+                <div class="padding-10-20">
+                    <p class="font12 text-light-grey">On-road price in Andheri, Mumbai</p>
+                    <p class="">
+                        <span class="bwmsprite inr-md-icon"></span>
+                        <span class="font22 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %>&nbsp;</span>
+                        <a href="javascript:void(0)" class="font14 text-bold">View detailed price</a>
+                    </p>
+                </div>
+
+                <div id="model-dealer-card">
+                    <div class="dealer-details margin-bottom10">
+                        <div class="inline-block margin-right10">
+                            <span class="offers-sprite dealership-icon"></span>
+                        </div><div class="inline-block">
+                            <h2 class="text-default"><%=viewModel.Organization %></h2>
+                            <p class="font14 text-light-grey"><%=viewModel.AreaName %></p>
+                        </div>
+                    </div>
+
+                    <div class="dealer-offers-content margin-bottom20">
+                        <p class="offers-content-label">Offers available:</p>
+                        <ul id="dealer-offers-list">
+                            <li>
+                                <p class="margin-bottom5">
+                                    <span class="offers-sprite offerIcon_2_sm"></span>
+                                </p>
+                                <p>Accessories</p>
+                            </li>
+                            <li>
+                                <p class="margin-bottom5">
+                                    <span class="offers-sprite offerIcon_1_sm"></span>
+                                </p>
+                                <p>Insurance</p>
+                            </li>
+                            <li>
+                                <p class="margin-bottom5">
+                                    <span class="offers-sprite offerIcon_3_sm"></span>
+                                </p>
+                                <p>Cashback</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="margin-bottom20">
+					    <div class="vertical-top">
+						    <a href="javascript:void(0)" class="btn btn-teal btn-sm-0">Book Now</a>
+					    </div><p class="booknow-label font11 line-height-1-5 text-xx-light padding-left10 vertical-top">
+                            Pay <span class="bwmsprite inr-grey-xxxsm-icon"></span>1,000 to book online and<br>balance of <span class="bwmsprite inr-grey-xxxsm-icon"></span>64,983 at dealership
+					    </p>
+				    </div>
+
+                    <div class="margin-bottom20">
+					    <div class="vertical-top">
+						    <a href="javascript:void(0)" class="btn btn-white callback-btn btn-sm-0">Request callback</a>
+					    </div><p class="callback-label font11 line-height-1-5 text-xx-light padding-left10 vertical-top">Get EMI options, test rides other services from dealer</p>
+				    </div>
+
+                    <div class="margin-bottom20">
+                        <div class="inline-block nearby-partner-left-col">
+                            <div class="inline-block margin-right10">
+                                <span class="offers-sprite dealership-icon"></span>
+                            </div><div class="inline-block nearby-partner-label">
+                                <p class="font14">One partner dealer near you</p>
+                            </div>
+                        </div>
+                        <a href="javascript:void(0)" class="btn btn-orange btn-sm-0">View dealer details</a>
+                    </div>
+                </div>
+
+                <div class="content-inner-block-20 border-solid-top font16">
+                    <a href="javascript:void(0)" rel="nofollow" id="more-dealers-target">Prices from <%=viewModel.SecondaryDealerCount %> more partner dealers<span class="bwmsprite blue-right-arrow-icon"></span></a>
+                </div>
+            </div>
+        </section>
 
         <section>
             <div id="modelSpecsTabsContentWrapper" class="container bg-white clearfix box-shadow margin-top30 margin-bottom30">
@@ -517,7 +616,7 @@
 
                 <% if(modelPage.ModelVersionSpecs != null){ %>
                 <div id="modelSpecsFeaturesContent" class="bw-model-tabs-data font14">
-                    <div class="content-inner-block-1520">
+                    <div class="padding-15-20">
                         <h2><%=bikeName %> Specifications & Features</h2>
                         <h3>Specifications</h3>
 
@@ -789,6 +888,71 @@
             </div>
         </div>
         <!-- Terms and condition Popup end -->
+
+        <div id="dealer-offers-popup" class="bwm-fullscreen-popup">
+            <div class="offers-popup-close-btn position-abt pos-top15 pos-right15 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
+            <div class="icon-outer-container rounded-corner50percent margin-bottom10">
+                <div class="icon-inner-container rounded-corner50percent text-center">
+                    <span class="offers-sprite offers-box-icon margin-top12"></span>
+                </div>
+            </div>
+            <p class="font16 text-bold text-center margin-bottom20">Offers from this dealer</p>
+            <ul class="dealer-offers-list margin-bottom25">
+                <li>
+                    <span class="dealer-offer-image offers-sprite offerIcon_2"></span>
+                    <span class="dealer-offer-label">Accessories ( Helmet, Seat Cover, Grip Cover, Buzzer, Free Polishing Pre-delivery )</span>
+                </li>
+                <li>
+                    <span class="dealer-offer-image offers-sprite offerIcon_1"></span>
+                    <span class="dealer-offer-label">Get Insurance FREE at Dealership.</span>
+                </li>
+                <li>
+                    <span class="dealer-offer-image offers-sprite offerIcon_3"></span>
+                    <span class="dealer-offer-label">Get Free Petrol worth Rs.1000/-</span>
+                </li>
+            </ul>
+            <div class="text-center">
+                <a href="javascript:void(0);" class="btn btn-orange text-bold">Get offers from dealer</a>
+            </div>
+        </div>
+
+        <div id="more-dealers-popup" class="bwm-fullscreen-popup">
+            <div class="dealers-popup-close-btn position-abt pos-top15 pos-right15 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
+            <div class="icon-outer-container rounded-corner50percent margin-bottom10">
+				<div class="icon-inner-container rounded-corner50percent text-center">
+					<span class="offers-sprite offers-box-icon margin-top12"></span>
+				</div>
+			</div>
+            <p class="font16 text-bold text-center margin-bottom15"><%=viewModel.SecondaryDealerCount %> partner dealers near you</p>
+            <ul>
+                <asp:Repeater ID="rptSecondaryDealers" runat="server">
+                    <ItemTemplate>
+                        <li class="secondary-dealer-card">
+                            <a href="javascript:void(0)" onclick="secondarydealer_Click(<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "DealerId")) %>)">
+						        <div>
+							        <span class="grid-9 alpha omega font14 text-default text-bold"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Name")) %></span>
+							        <span class="grid-3 omega text-light-grey text-right">5.4 kms</span>
+							        <div class="clear"></div>
+							        <span class="font12 text-light-grey"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Area")) %></span>
+							        <div class="margin-top15">
+								        <div class="grid-4 alpha omega border-solid-right">
+									        <p class="font12 text-light-grey margin-bottom5">On-road price</p>
+									        <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,02,887</span>
+								        </div>
+								        <div class="grid-8 padding-top10 padding-left20 omega">
+									        <span class="bwmsprite offers-sm-box-icon"></span>
+									        <span class="font14 text-default text-bold">2</span>
+									        <span class="font12 text-light-grey">Offers available</span>
+								        </div>
+								        <div class="clear"></div>
+							        </div>
+						        </div>
+					        </a>
+                        </li>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </ul>
+        </div>
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
