@@ -91,20 +91,22 @@
                     <% } %>
                     <div id="model-image-wrapper">
                         <div class="model-main-image">
-                            <img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image" />
                             <% if (modelPage !=null && modelPage.Photos != null && modelPage.Photos.Count > 1)
                                { %>
+                            <a href="./photos/" ><img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image" /></a>
                             <div class="model-media-details">
-                                <a href="./photos" class="model-media-item">
+                                <div class="model-media-item" style="cursor: pointer;" onclick="window.location='./photos/';">
                                     <span class="bwmsprite gallery-photo-icon"></span>
                                     <span class="model-media-count"><%= modelPage.Photos.Count %></span>
-                                </a>
+                                </div>
                                 <%--<a href="./photos#videos" class="model-media-item">
                                     <span class="bwmsprite gallery-video-icon"></span>
                                     <span class="model-media-count">7</span>
                                 </a>--%>
                             </div>
-                            <% } %>
+                            <% }else{ %>
+                            <img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image" />
+                            <%} %>
                         </div>
                     </div>
 
