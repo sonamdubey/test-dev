@@ -43,6 +43,43 @@ namespace Bikewale.Utility
         }
 
         /// <summary>
+        /// Summary: Overload created to cater weight in Min specs
+        /// </summary>
+        /// <param name="displacement">CC</param>
+        /// <param name="fuelEffecient">kmpl</param>
+        /// <param name="maxpower">bhp</param>
+        /// <param name="weight">kgs</param>
+        /// <returns></returns>
+        public static string GetMinSpecs(string displacement, string fuelEffecient, string maxpower, string weight)
+        {
+            string str = String.Empty;
+            try
+            {
+                if (!string.IsNullOrEmpty(displacement) && displacement != "0")
+                    str += "<span><span>" + displacement + "</span><span> CC</span></span>";
+
+                if (!string.IsNullOrEmpty(fuelEffecient) && fuelEffecient != "0")
+                    str += "<span>, <span>" + fuelEffecient + "</span><span> Kmpl</span></span>";
+
+                if (!string.IsNullOrEmpty(maxpower) && maxpower != "0")
+                    str += "<span>, <span>" + maxpower + "</span><span> bhp</span></span>";
+
+                if (!string.IsNullOrEmpty(weight) && weight != "0")
+                    str += "<span>, <span>" + weight + "</span><span> kgs</span></span>";
+
+                //if (str != string.Empty)
+                //    return str;
+                else
+                    return "Specs Unavailable";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return str;
+        }
+
+        /// <summary>
         /// Written By : Ashish G. Kamble On 10 Sept 2015
         /// Summary : Function to format the availability
         /// </summary>
