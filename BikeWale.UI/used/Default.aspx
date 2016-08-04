@@ -14,6 +14,7 @@
     
      is300x250Shown = false;
      isAd970x90Shown = false;
+     isAd970x90BottomShown = false;
 %>
 <!-- #include file="/includes/headUsed.aspx" -->
 <style type="text/css">

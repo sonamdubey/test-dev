@@ -14,6 +14,7 @@
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "", canonical = "", prevPageUrl = "", nextPageUrl = "", AdId = "", AdPath = "";
         private bool isHeaderFix = true, 
+        
                     isAd970x90Shown = true,
                     isAd970x90BTFShown = false,
                     isAd970x90BottomShown = true,
