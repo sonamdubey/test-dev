@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.BikeBooking.DealerPriceQuote" Trace="false" Async="true" %>
 
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagPrefix="BW" TagName="LeadCapture" %>
-<%@ Register Src="~/m/controls/AlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
+<%@ Register Src="~/m/controls/NewAlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Import Namespace="Bikewale.BikeBooking" %>
 <%@ Import Namespace="System.Linq" %>
@@ -11,8 +11,6 @@
     <%
         title = String.Format("{0} {1} {2} Price Quote", objPriceQuote.objMake.MakeName, objPriceQuote.objModel.ModelName, objPriceQuote.objVersion.VersionName);
         description = String.Format("{0} {1} {2} price quote", objPriceQuote.objMake.MakeName, objPriceQuote.objModel.ModelName, objPriceQuote.objVersion.VersionName);
-        keywords = string.Empty;
-        canonical = string.Empty;
         AdPath = "/1017752/Bikewale_Mobile_PriceQuote";
         AdId = "1398766000399";
         PopupWidget.Visible = true;       
@@ -182,7 +180,7 @@
 
                 <div class="padding-left15 padding-right15 margin-bottom15">
                     <p class="text-light-grey">On-road price</p>
-                    <p><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold"><%= Bikewale.Utility.Format.FormatPrice(totalPrice.ToString()) %></span></p>
+                    <p><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold"><%= Bikewale.Utility.Format.FormatPrice(!(totalPrice.ToString() == "" || totalPrice.ToString() == "0") ? totalPrice.ToString() : (objExQuotation != null ? objExQuotation.OnRoadPrice.ToString() : "")) %></span></p>
                     <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium && dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)
                       { %>
                     <p class="text-light-grey margin-top5">EMI&nbsp;<span class="bwmsprite inr-xxsm-icon"></span><span class="text-default">Amount</span>&nbsp;onwards.&nbsp;<a href="javascript:void(0)" class="calculate-emi-target">Calculate Now</a></p>
@@ -218,10 +216,7 @@
                         balance amount of <span class="bwmsprite inr-grey-xxxsm-icon"></span><%=Bikewale.Utility.Format.FormatPrice((totalPrice - objPriceQuote.PrimaryDealer.BookingAmount).ToString()) %> at dealership
                     </p>
                 </div>
-                <%} %>
-
-                <% if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard || !String.IsNullOrEmpty(maskingNum))
-                   { %>
+                <%} %>               
                 <div class="border-solid margin-right5 margin-left5 margin-bottom15">
 
                     <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
@@ -270,13 +265,12 @@
                     <%} %>
 
                     <div class="padding-15-20">
-                        <% if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium || dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)
-                           {%>
+                        
                         <p class="margin-bottom10">
                             <span class="bwmsprite dealership-loc-icon inline-block margin-right15"></span>
                             <span class="inline-block dealership-address"><%= dealerAdd %></span>
                         </p>
-                        <%} %>
+                        
                         <%if (!string.IsNullOrEmpty(maskingNum))
                           { %>
                         <p class="margin-bottom10">
@@ -310,9 +304,7 @@
                         </asp:Repeater>
                     </ul>
                 </div>
-                <%} %>
-
-                <% } %>
+                <%} %>               
             </div>
             <%} %>
             <!-- Dealer Widget ends here -->
@@ -375,7 +367,7 @@
                     <asp:Repeater ID="rptSecondaryDealers" runat="server">
                         <ItemTemplate>
                             <div class="swiper-slide secondary-dealer-card">
-                                <a href="javascript:void(0)" class="secondary-dealer bw-ga" c="Dealer_PQ" a="Secondary_Dealer_Card_Clicked" l="<%= BikeName %>" dealerid="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>">
+                                <a href="javascript:void(0)" class="secondary-dealer bw-ga" c="Dealer_PQ" a="Secondary_Dealer_Card_Clicked" l="<%= BikeName + "_" + currentCity + "_" +currentArea %>" dealerid="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>">
                                     <div class="margin-bottom15">
                                         <span class="grid-9 alpha omega font14 text-default text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></span>
                                         <span class="grid-3 omega text-light-grey text-right"><%# String.Format("{0:0.0}",DataBinder.Eval(Container.DataItem,"Distance")) %> kms</span>
@@ -395,7 +387,7 @@
                                 <div>
                                     <a href="javascript:void(0)" data-pqsourceid="<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation) %>" data-leadsourceid="17" leadsourceid="17" data-item-registerpq="true" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId")  %>" data-item-name="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-item-area="<%# DataBinder.Eval(Container.DataItem,"Area") %>" class="btn btn-white btn-sm-1 margin-right5 inline-block leadcapturebtn bw-ga" c="Dealer_PQ" a="Get_Offers_Clicked" l="Secondary Dealer List_<%=BikeName %>_<%= currentCity %>_<%= currentArea%>" data-ga-cat="Dealer_PQ" data-ga-act="Lead_Submitted" data-ga-lab="Secondary Dealer List_<%=BikeName %>_<%= currentCity %>_<%= currentArea%>">Get offers from dealer</a>
                                     <%# !String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()) ? 
-                                    "<a href='tel:" + DataBinder.Eval(Container.DataItem,"MaskingNumber") + "' class=\"inline-block bw-ga\" c=\"Dealer_PQ\" a=\"Dealer_Number_Clicked\" l=\"Secondary Dealer List_" + BikeName + currentCity + currentArea + "\"><span class=\"bwmsprite tel-sm-icon\"></span><span class=\"font14 text-default text-bold\">" + DataBinder.Eval(Container.DataItem,"MaskingNumber") + "</span></a>" : "" %>
+                                    ("<a href='tel:" + DataBinder.Eval(Container.DataItem,"MaskingNumber") + "' class=\"inline-block bw-ga\" c=\"Dealer_PQ\" a=\"Dealer_Number_Clicked\" l=\"Secondary Dealer List_" + BikeName + "_" + Bikewale.Utility.GlobalCityArea.GetGlobalCityArea().City + "_" +Bikewale.Utility.GlobalCityArea.GetGlobalCityArea().Area + "\"><span class=\"bwmsprite tel-sm-icon\"></span><span class=\"font14 text-default text-bold\">" + DataBinder.Eval(Container.DataItem,"MaskingNumber") + "</span></a>") : "" %>
                                 </div>
                             </div>
                         </ItemTemplate>
@@ -406,23 +398,8 @@
         <%} %>
 
         <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
-            <div class="container margin-bottom30">
-                <div class="grid-12">
-                    <h2 class="font18 margin-top20px margin-bottom20 text-center padding-top20"><%= objPriceQuote.objMake.MakeName + " " + objPriceQuote.objModel.ModelName  %> alternatives</h2>
-
-                    <div class="swiper-container discover-bike-carousel alternatives-carousel padding-bottom60">
-                        <div class="swiper-wrapper">
-                            <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
-                        </div>
-                        <!-- Add Pagination -->
-                        <div class="swiper-pagination"></div>
-                        <!-- Navigation -->
-                        <div class="bwmsprite swiper-button-next hide"></div>
-                        <div class="bwmsprite swiper-button-prev hide"></div>
-                    </div>
-
-                </div>
-                <div class="clear"></div>
+            <div class="bg-white bottom-shadow margin-top20 margin-bottom20 padding-bottom10">
+                <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
             </div>
         </section>
 
