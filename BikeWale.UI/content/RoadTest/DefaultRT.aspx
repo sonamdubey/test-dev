@@ -38,6 +38,8 @@
 	prevPageUrl = prevUrl;
 	nextPageUrl = nextUrl;
 	fbImage = Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo;
+    //modified by SajalGupta for unfilled impression of ads on 04 Aug 2016.
+    isAd300x250Shown = false;
 %>
 <!-- #include file="/includes/headNew.aspx" -->
 <style type="text/css">

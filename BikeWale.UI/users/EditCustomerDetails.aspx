@@ -1,5 +1,8 @@
 <%@ Page Inherits="Bikewale.MyBikeWale.EditCustomerDetails" AutoEventWireUp="false" Language="C#" EnableEventValidation="false" Trace="false" Debug="false" %>
 <%@ Import NameSpace="Bikewale.Common" %>
+<% //Modified By :Sajal Gupta on 03 August 2016
+    isAd300x250Shown = false;
+    isAd300x250BtfShown = false; %>
 <!-- #include file="/Includes/headMyBikeWale.aspx" -->
 <div class="container_12">
     <div class="grid_12">

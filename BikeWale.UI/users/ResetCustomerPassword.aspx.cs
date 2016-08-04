@@ -49,7 +49,7 @@ namespace Bikewale.Users
         {
             string email = string.Empty;
             
-            token = Request.QueryString["tkn"].ToString();            
+            token = Request.QueryString["tkn"];            
             Trace.Warn("token : " + token);
 
             if (!String.IsNullOrEmpty(token))
