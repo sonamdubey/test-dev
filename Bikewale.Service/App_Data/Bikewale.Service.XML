@@ -787,6 +787,13 @@
             <param name="inputText">user entered input in search box</param>
             <returns></returns>
         </member>
+        <member name="M:Bikewale.Service.Controllers.AutoComplete.AutoSuggestController.GetV2(System.String,Bikewale.Entities.AutoComplete.AutoSuggestEnum,System.Nullable{System.Int32})">
+            <summary>
+            Created By : Sajal Gupta
+            Created On : 01/08/2016
+            Description : Optimised version by sending only makeId and modelId in the payload for source value 1 and 2 in mobile app.
+            </summary>
+        </member>
         <member name="T:Bikewale.Service.Controllers.BikeBooking.Area.BBAreaListController">
             <summary>
             BikeBooking Area List Controller
