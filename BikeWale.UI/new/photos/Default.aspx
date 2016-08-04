@@ -11,6 +11,8 @@
     AdPath = "/1017752/BikeWale_New_";
     ShowTargeting = "1";
     TargetedModel = objModelEntity.ModelName;
+    //modified by SajalGupta for unfilled impression of ads on 04 Aug 2016.
+    isAd300x250_BTFShown = false;
 %>
 <!-- #include file="/includes/headNew.aspx" -->
 <script runat="server">	

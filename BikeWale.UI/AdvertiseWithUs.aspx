@@ -6,6 +6,9 @@
     keywords = "Visitor Agreement, Relationship and Notice, Fees and Services, Use of the Site, Privacy";
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
+    //Modified By :Sajal Gupta on 03 August 2016
+    isAd300x250Shown = false;
+    isAd600x270Shown = false;
 %>
 <script runat="server">
     protected void Page_Load(object Sender, EventArgs e)
@@ -21,6 +24,7 @@
     }
 </script>
 <!-- #include file="/includes/headhome.aspx" -->
+
 <div class="container_12 container-min-height">
     <div class="grid_12 margin-top10">
         <h1>Advertise with Us</h1>

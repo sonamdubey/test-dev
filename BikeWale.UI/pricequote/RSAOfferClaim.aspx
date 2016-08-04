@@ -4,8 +4,11 @@
 <%
     title = "Bike Purchase Offer Claim";
     AdId = "1395986297721";
-    AdPath = "/1017752/BikeWale_PQ_";      
+    AdPath = "/1017752/BikeWale_PQ_";
+    //modified by SajalGupta for unfilled impression of ads on 04 Aug 2016.
+    isAd300x250_BTFShown = false;
 %>
+
 <!-- #include file="/includes/headNew.aspx" -->
 <link rel="stylesheet" href="/css/datepicker.css" />
 <link rel="stylesheet" href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?<%= staticFileVersion %>" />
