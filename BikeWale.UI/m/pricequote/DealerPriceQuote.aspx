@@ -182,7 +182,7 @@
 
                 <div class="padding-left15 padding-right15 margin-bottom15">
                     <p class="text-light-grey">On-road price</p>
-                    <p><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold"><%= Bikewale.Utility.Format.FormatPrice(totalPrice.ToString()) %></span></p>
+                    <p><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold"><%= Bikewale.Utility.Format.FormatPrice(!(totalPrice.ToString() == "" || totalPrice.ToString() == "0") ? totalPrice.ToString() : (objExQuotation != null ? objExQuotation.OnRoadPrice.ToString() : "")) %></span></p>
                     <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium && dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)
                       { %>
                     <p class="text-light-grey margin-top5">EMI&nbsp;<span class="bwmsprite inr-xxsm-icon"></span><span class="text-default">Amount</span>&nbsp;onwards.&nbsp;<a href="javascript:void(0)" class="calculate-emi-target">Calculate Now</a></p>
@@ -218,10 +218,7 @@
                         balance amount of <span class="bwmsprite inr-grey-xxxsm-icon"></span><%=Bikewale.Utility.Format.FormatPrice((totalPrice - objPriceQuote.PrimaryDealer.BookingAmount).ToString()) %> at dealership
                     </p>
                 </div>
-                <%} %>
-
-                <% if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard || !String.IsNullOrEmpty(maskingNum))
-                   { %>
+                <%} %>               
                 <div class="border-solid margin-right5 margin-left5 margin-bottom15">
 
                     <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
@@ -270,13 +267,12 @@
                     <%} %>
 
                     <div class="padding-15-20">
-                        <% if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium || dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)
-                           {%>
+                        
                         <p class="margin-bottom10">
                             <span class="bwmsprite dealership-loc-icon inline-block margin-right15"></span>
                             <span class="inline-block dealership-address"><%= dealerAdd %></span>
                         </p>
-                        <%} %>
+                        
                         <%if (!string.IsNullOrEmpty(maskingNum))
                           { %>
                         <p class="margin-bottom10">
@@ -310,9 +306,7 @@
                         </asp:Repeater>
                     </ul>
                 </div>
-                <%} %>
-
-                <% } %>
+                <%} %>               
             </div>
             <%} %>
             <!-- Dealer Widget ends here -->
