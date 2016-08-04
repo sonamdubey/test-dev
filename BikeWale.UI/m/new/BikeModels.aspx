@@ -403,12 +403,12 @@
                         <div class="inline-block margin-right10">
                             <span class="offers-sprite dealership-icon"></span>
                         </div><div class="inline-block">
-                            <h2 class="text-default"><%=viewModel.Organization %></h2>
-                            <p class="font14 text-light-grey"><%=viewModel.AreaName %></p>
+                            <h2 class="text-default">Pilot Honda</h2>
+                            <p class="font14 text-light-grey">Byculla East</p>
                         </div>
                     </div>
 
-                    <div class="dealer-offers-content margin-bottom20">
+                    <div class="dealer-offers-content margin-bottom10">
                         <p class="offers-content-label">Offers available:</p>
                         <ul id="dealer-offers-list">
                             <li>
@@ -434,16 +434,15 @@
 
                     <div class="margin-bottom20">
 					    <div class="vertical-top">
-						    <a href="javascript:void(0)" class="btn btn-teal btn-sm-0">Book Now</a>
-					    </div><p class="booknow-label font11 line-height-1-5 text-xx-light padding-left10 vertical-top">
-                            Pay <span class="bwmsprite inr-grey-xxxsm-icon"></span>1,000 to book online and<br>balance of <span class="bwmsprite inr-grey-xxxsm-icon"></span>64,983 at dealership
-					    </p>
+						    <a href="javascript:void(0)" class="btn btn-teal btn-sm-0">Book now</a>
+					    </div><p class="booknow-label font11 line-height-1-5 text-xx-light vertical-top">
+                            Pay <span class="bwmsprite inr-grey-xxxsm-icon"></span>1,000 to book online and balance of <span class="bwmsprite inr-grey-xxxsm-icon"></span>64,983 at dealership</p>
 				    </div>
 
                     <div class="margin-bottom20">
 					    <div class="vertical-top">
 						    <a href="javascript:void(0)" class="btn btn-white callback-btn btn-sm-0">Request callback</a>
-					    </div><p class="callback-label font11 line-height-1-5 text-xx-light padding-left10 vertical-top">Get EMI options, test rides other services from dealer</p>
+					    </div><p class="callback-label font11 line-height-1-5 text-xx-light vertical-top">Get EMI options, test rides other services from dealer</p>
 				    </div>
 
                     <div class="margin-bottom20">
