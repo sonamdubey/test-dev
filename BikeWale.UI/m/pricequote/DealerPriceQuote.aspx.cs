@@ -42,7 +42,7 @@ namespace Bikewale.Mobile.BikeBooking
         protected BikeVersionEntity objVersionDetails = null;
         protected List<BikeVersionsListEntity> versionList = null;
         protected bool IsInsuranceFree = false;
-        protected AlternativeBikes ctrlAlternateBikes;
+        protected NewAlternativeBikes ctrlAlternateBikes;
         protected string cityArea = string.Empty, currentCity = string.Empty, currentArea = string.Empty;
         protected uint bookingAmount = 0;
         protected String clientIP = CommonOpn.GetClientIP();
