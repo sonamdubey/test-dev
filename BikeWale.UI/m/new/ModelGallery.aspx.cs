@@ -53,6 +53,7 @@ namespace Bikewale.Mobile.New
                 if (objImageList != null && objImageList.Count > 0)
                 {
                     ctrlModelGallery.bikeName = bikeName;
+                    ctrlModelGallery.modelName = modelName;
                     ctrlModelGallery.modelId = Convert.ToInt32(modelId);
                     ctrlModelGallery.Photos = objImageList;
                     imgCount = objImageList.Count;

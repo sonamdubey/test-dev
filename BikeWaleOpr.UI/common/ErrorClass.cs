@@ -2,12 +2,12 @@
 //
 
 using System;
-using System.Web;
 using System.Configuration;
+using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.Net.Mail;
 using System.Text;
-using System.Data.SqlClient;
-using System.Data.OleDb;
+using System.Web;
 
 namespace BikeWaleOpr.Common
 {
@@ -58,7 +58,7 @@ namespace BikeWaleOpr.Common
         public void SendMail()
         {
             //exception log
-           // ExceptionLogging.SendErrorToText(err);
+            // ExceptionLogging.SendErrorToText(err);
 
             string sendError = "";
             //get the value of sendError from web.config file
@@ -123,7 +123,10 @@ namespace BikeWaleOpr.Common
                     sb.Append(HttpContext.Current.Request.ServerVariables["URL"].ToString());
 
                     sb.Append("\nREWRITE URL : ");
-                    sb.Append(HttpContext.Current.Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+                    if (!string.IsNullOrEmpty(HttpContext.Current.Request.ServerVariables["HTTP_X_REWRITE_URL"]))
+                    {
+                        sb.Append(HttpContext.Current.Request.ServerVariables["HTTP_X_REWRITE_URL"]);
+                    }
 
                     sb.Append("\nREFERRER : ");
                     if (HttpContext.Current.Request.ServerVariables["HTTP_REFERER"] != null)
