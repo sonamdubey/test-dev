@@ -511,6 +511,9 @@ namespace BikewaleOpr.DAL
         /// 
         /// Modified By : Suresh Prajapati on 30th Dec, 2014
         /// Description : Added City name column in the list
+        /// 
+        ///Modified By : Aditi Srivastava on 3rd Aug, 2016
+        /// Description : Added terms and conditions parameter in  offerEntity
         /// </summary>
         /// <param name="cityId"></param>
         /// <param name="dealerId"></param>
@@ -551,6 +554,8 @@ namespace BikewaleOpr.DAL
                                 if (!String.IsNullOrEmpty(dr["OfferValidTill"].ToString()))
                                     objOffer.OffervalidTill = DateTime.Parse(dr["OfferValidTill"].ToString());
                                 objOffer.IsPriceImpact = Convert.ToBoolean(Convert.ToString(dr["IsPriceImpact"]));
+                                if (!String.IsNullOrEmpty(dr["Terms"].ToString()))
+                                objOffer.Terms = dr["Terms"].ToString();
                                 objOffers.Add(objOffer);
                             }
                         }
@@ -573,6 +578,7 @@ namespace BikewaleOpr.DAL
         /// 
         /// Modified By : Suresh Prajapati on 30th Dec, 2014.
         /// Description : Added UserId saving feature for saved dealer offer.
+        /// 
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="cityId"></param>
@@ -583,7 +589,7 @@ namespace BikewaleOpr.DAL
         /// <param name="offervalidTill"></param>
         /// <returns></returns>
 
-        public bool SaveDealerOffer(int dealerId, uint userId, int cityId, string modelId, int offercategoryId, string offerText, int? offerValue, DateTime offervalidTill, bool isPriceImpact)
+        public bool SaveDealerOffer(int dealerId, uint userId, int cityId, string modelId, int offercategoryId, string offerText, int? offerValue, DateTime offervalidTill, bool isPriceImpact, string termsConditions)
         {
 
             bool isSuccess = false;
@@ -605,6 +611,9 @@ namespace BikewaleOpr.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isPriceImpact", DbType.Boolean, isPriceImpact));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_IsActive", DbType.Boolean, Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_result", DbType.Byte, ParameterDirection.Output));
+
+                   cmd.Parameters.Add(DbFactory.GetDbParam("par_terms", DbType.String, -1, HttpContext.Current.Server.HtmlDecode(termsConditions)));
+                    
                     MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                     isSuccess = Convert.ToBoolean(cmd.Parameters["par_result"].Value);
 
@@ -629,7 +638,7 @@ namespace BikewaleOpr.DAL
         /// <param name="offerText"></param>
         /// <param name="offerValue"></param>
         /// <param name="offerValidTill"></param>
-        public void UpdateDealerBikeOffers(uint offerId, uint userId, uint offerCategoryId, string offerText, uint? offerValue, DateTime offerValidTill, bool isPriceImpact)
+        public void UpdateDealerBikeOffers(uint offerId, uint userId, uint offerCategoryId, string offerText, uint? offerValue, DateTime offerValidTill, bool isPriceImpact, string termsConditions)
         {
             try
             {
@@ -649,7 +658,7 @@ namespace BikewaleOpr.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferValue", DbType.Int32, offerValue));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferValidTill", DbType.DateTime, offerValidTill));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isPriceImpact", DbType.Boolean, isPriceImpact));
-
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_terms", DbType.String, termsConditions));
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
