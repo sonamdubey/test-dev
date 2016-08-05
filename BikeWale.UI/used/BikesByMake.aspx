@@ -3,6 +3,8 @@
     title           = "Make wise used bikes listing - BikeWale";
     keywords        = "Make wise used bikes listing,used bikes for sale, second hand bikes, buy used bike";
     description     = "bikewale.com Make wise used bikes listing.";
+     is300x250BTFShown = false;
+     is300x250Shown = false;
 %>
 <!-- #include file="/includes/headUsed.aspx" -->
 <style type="text/css">

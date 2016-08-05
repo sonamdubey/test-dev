@@ -9,6 +9,8 @@
     nextPageUrl = nextUrl;
     AdId = "1395992162974";
     AdPath = "/1017752/BikeWale_UsedBikes_Search_Results_";
+     is300x250BTFShown = false;
+     is300x250Shown = false;
 %>
 <!-- #include file="/includes/headUsed.aspx" -->
 <script type="text/javascript">

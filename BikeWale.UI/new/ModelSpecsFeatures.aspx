@@ -13,6 +13,9 @@
         canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/specifications-features/", makeMaskingName, modelMaskingName);
         ogImage = modelImage;
         isAd970x90Shown = true;
+        isAd300x250Shown = false;
+        isAd300x250BTFShown = false;
+        
         AdId = "1442913773076";
         AdPath = "/1017752/Bikewale_NewBike_";
           %>

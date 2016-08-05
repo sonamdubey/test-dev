@@ -5,7 +5,11 @@
     description = "Complete contact information, phone numbers, fax number of BikeWale.";
     keywords = "";
     AdId = "1395986297721";
-    AdPath = "/1017752/BikeWale_New_"; %>
+    AdPath = "/1017752/BikeWale_New_";
+    //Modified By :Sajal Gupta on 03 August 2016
+    isAd300x250Shown = false;
+    isAd600x270Shown = false;
+%>
 
 <script runat="server">
     protected void Page_Load(object Sender, EventArgs e)
@@ -22,6 +26,8 @@
     }
 </script>
 <!-- #include file="/includes/headhome.aspx" -->
+
+
 <div class="container_12 margin-top15 container-min-height">
     <div class="grid_12 min-height">
         <h1>Contact BikeWale</h1>

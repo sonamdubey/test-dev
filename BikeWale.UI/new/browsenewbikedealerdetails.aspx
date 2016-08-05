@@ -4,8 +4,7 @@
 <html>
 <head>
     <%
-        isAd970x90Shown = false;
-
+       
         keywords = String.Format("{0} dealers city, {0} showrooms {1}, {1} bike dealers, {0} dealers, {1} bike showrooms, bike dealers, bike showrooms, dealerships", makeName, cityName);
         description = String.Format("{0} bike dealers/showrooms in {1}. Find {0} bike dealer information for more than 200 cities. Dealer information includes full address, phone numbers, email, pin code etc", makeName, cityName);
         title = String.Format("{0} Dealers in {1} city | {0} New bike Showrooms in {1} - BikeWale", makeName, cityName);
@@ -14,6 +13,9 @@
         AdId = "1395986297721";
         AdPath = "/1017752/BikeWale_New_";
         isAd970x90Shown = false;
+        isAd300x250Shown = false;
+        isAd300x250BTFShown = false;
+        isAd970x90BottomShown = false;
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/dealerlisting.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />

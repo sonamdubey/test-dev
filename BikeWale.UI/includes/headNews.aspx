@@ -24,7 +24,12 @@
 	    private string title = "", description = "", keywords = "", canonical = "",prevPageUrl = "",nextPageUrl = "", fbTitle = "", fbImage = "", AdId = "", AdPath = "",alternate = "";	    
         private bool isHeaderFix = true, isAd970x90Shown = true, isAd970x90BottomShown = true;
         private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
-        private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];        
+        private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
+                    isAd970x90Shown = true,
+                    isAd970x90BTFShown = false,
+                    isAd970x90BottomShown = true,
+                    is300x250Shown=true,
+                    is300x250BTFShown=true;        
     </script>
     <!-- #include file="/includes/gacode.aspx" --> 
     <script type="text/javascript">
@@ -53,8 +58,12 @@
 
     <script type='text/javascript'>
         googletag.cmd.push(function () {
+             <% if(isAd300x250Shown){ %>
             googletag.defineSlot('<%= AdPath%>300x250', [300, 250], 'div-gpt-ad-<%= AdId%>-1').addService(googletag.pubads());
+              <% } %>
+             <% if(isAd300x250_BTFShown){ %>
             googletag.defineSlot('<%= AdPath%>300x250_BTF', [300, 250], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());
+              <% } %>
             <%--googletag.defineSlot('<%= AdPath%>300x600_BTF', [[120, 240], [120, 600], [160, 600], [250, 250], [300, 250], [300, 600]], 'div-gpt-ad-<%= AdId%>-3').addService(googletag.pubads());
             --%>
             <% if(isAd970x90Shown){ %>

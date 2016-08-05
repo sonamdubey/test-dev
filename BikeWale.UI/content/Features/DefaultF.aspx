@@ -14,7 +14,9 @@
 	prevPageUrl = prevUrl;
 	nextPageUrl = nextUrl;
 	AdId = "1395986297721";
-	AdPath = "/1017752/BikeWale_New_"; 
+	AdPath = "/1017752/BikeWale_New_";
+    //modified by SajalGupta for unfilled impression of ads on 04 Aug 2016.
+    isAd300x250Shown = false;
 %>
 <!-- #include file="/includes/headNew.aspx" -->
 <style type="text/css">
