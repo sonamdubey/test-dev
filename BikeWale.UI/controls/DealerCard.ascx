@@ -51,7 +51,7 @@
    { %>
 <div id="makeDealersContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
     <h2 class="padding-left10 padding-right10"><%= makeName %> Dealers in India</h2>
-    <div class="jcarousel-wrapper bike-carousel-wrapper margin-bottom15">
+    <div class="jcarousel-wrapper inner-content-carousel margin-bottom15">
         <div class="jcarousel">
             <ul>
                 <asp:Repeater ID="rptPopularCityDealers" runat="server">
