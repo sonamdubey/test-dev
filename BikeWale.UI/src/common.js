@@ -144,8 +144,9 @@ $(document).ready(function () {
 	
 	// login code starts 
 	$("#firstLogin").click(function(){
-		$(".blackOut-window").show();
-		$(".loginPopUpWrapper").animate({right:'0'});
+		//$(".blackOut-window").show();
+	    //$(".loginPopUpWrapper").animate({right:'0'});
+	    window.location.href = "/users/login.aspx";
 	});
 	$(".blackOut-window").mouseup(function(e){
 		var loginPopUp = $(".loginPopUpWrapper");
