@@ -16,7 +16,7 @@
     AdId = "1395995626568";
     AdPath = "/1017752/BikeWale_News_";
     isAd300x250Shown=false;
-    isAd970x90BottomShown =false;
+    
 %>
 <!-- #include file="/includes/headnews.aspx" -->
 <style type="text/css">
