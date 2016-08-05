@@ -12,5 +12,6 @@ namespace Bikewale.DTO.BikeData
         public ushort FuelEfficiencyOverall { get; set; }
         public float MaxPower { get; set; }
         public float MaximumTorque { get; set; }
+        public float KerbWeight { get; set; }
     }
 }

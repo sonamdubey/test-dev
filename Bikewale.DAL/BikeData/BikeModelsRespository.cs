@@ -616,7 +616,7 @@ namespace Bikewale.DAL.BikeData
             int recordCount = 0;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getnewlaunchedbikes"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getnewlaunchedbikes_04082016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbType.Int32, startIndex));
@@ -651,6 +651,7 @@ namespace Bikewale.DAL.BikeData
                                 objModels.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
                                 objModels.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
                                 objModels.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
+                                objModels.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["kerbweight"]);
                                 objModels.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
                                 objModelList.Add(objModels);
 
@@ -746,7 +747,7 @@ namespace Bikewale.DAL.BikeData
             MostPopularBikesBase objData = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularbikesbymake"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularbikesbymake_04082016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
@@ -782,6 +783,7 @@ namespace Bikewale.DAL.BikeData
                                 objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
                                 objData.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
                                 objData.BikePopularityIndex = Convert.ToUInt16(dr["PopularityIndex"]);
+                                objData.Specs.KerbWeight = Convert.ToUInt16(dr["KerbWeight"]);
                                 objList.Add(objData);
                             }
                             dr.Close();
