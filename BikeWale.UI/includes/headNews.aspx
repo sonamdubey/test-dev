@@ -22,14 +22,10 @@
     <script src="http://st2.aeplcdn.com/src/jquery.jcarousel.min.js" type="text/javascript"></script>
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "", canonical = "",prevPageUrl = "",nextPageUrl = "", fbTitle = "", fbImage = "", AdId = "", AdPath = "",alternate = "";	    
-        private bool isHeaderFix = true, isAd970x90Shown = true, isAd970x90BottomShown = true;
+      
         private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
         private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
-                    isAd970x90Shown = true,
-                    isAd970x90BTFShown = false,
-                    isAd970x90BottomShown = true,
-                    is300x250Shown=true,
-                    is300x250BTFShown=true;        
+        private bool isHeaderFix = true,isAd970x90Shown = true,isAd970x90BTFShown = false,isAd970x90BottomShown = true,isAd300x250Shown=true,isAd300x250_BTFShown=true;        
     </script>
     <!-- #include file="/includes/gacode.aspx" --> 
     <script type="text/javascript">
