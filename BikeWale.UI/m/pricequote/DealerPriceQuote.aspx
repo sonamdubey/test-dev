@@ -44,7 +44,6 @@
             else {
                 $("#headerText").removeClass("font12").addClass("font20 margin-top5");
             }
-
         });
 
     </script>  
@@ -187,7 +186,7 @@
                     <%} %>
                 </div>
 
-                <%if (isOfferAvailable && (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium))
+                <%if (isOfferAvailable && (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium || dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe))
                   { %>
                 <div class="margin-right10 margin-bottom15 margin-left10 break-line"></div>
                 <div class="padding-left15 padding-right15 margin-bottom10">
@@ -737,7 +736,12 @@
                 self.monthlyEMI = ko.pureComputed({
                     read: function () {
                         var calculatedEMI = $.calculateEMI(self.loan(), self.tenure(), self.rateofinterest(), self.processingFees());
-                        $("#spnEMIAmount").text(calculatedEMI);
+
+                        if (calculatedEMI > 0)
+                            $("#spnEMIAmount").text(calculatedEMI);                            
+                        else {
+                            $("#spnEMIAmount").parent().addClass("hide");
+                        }
                         return calculatedEMI;
                     },
                     owner: this
