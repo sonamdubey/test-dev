@@ -39,15 +39,15 @@
 
         $(document).ready( function(){
             if (dealerName != "") {
-                $("#headerText").removeClass("hide");
                 $("#header-dealername").text(dealerName);
-            }           
+            }
+            else {
+                $("#headerText").removeClass("font12").addClass("font20 margin-top5");
+            }
+
         });
 
-    </script>
-    <style type="text/css">
-        
-    </style>
+    </script>  
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -85,7 +85,7 @@
                     <asp:Repeater ID="rptPriceList" runat="server">
                         <ItemTemplate>
                             <tr>
-                                <td align="left" width="65%" class="padding-bottom15"><%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img class='insurance-free-icon' alt='Free_icon' src='http://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %></td>
+                                <td align="left" width="65%" class="padding-bottom15"><%# DataBinder.Eval(Container.DataItem,"CategoryName") %></td>
                                 <td align="right" width="35%" class="padding-bottom15 text-bold"><span class="bwmsprite inr-xxsm-icon"></span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></td>
                             </tr>
                         </ItemTemplate>
@@ -181,13 +181,13 @@
                 <div class="padding-left15 padding-right15 margin-bottom15">
                     <p class="text-light-grey">On-road price</p>
                     <p><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold"><%= Bikewale.Utility.Format.FormatPrice(!(totalPrice.ToString() == "" || totalPrice.ToString() == "0") ? totalPrice.ToString() : (objExQuotation != null ? objExQuotation.OnRoadPrice.ToString() : "")) %></span></p>
-                    <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium && dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)
+                    <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium || dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)
                       { %>
-                    <p class="text-light-grey margin-top5">EMI&nbsp;<span class="bwmsprite inr-xxsm-icon"></span><span class="text-default">Amount</span>&nbsp;onwards.&nbsp;<a href="javascript:void(0)" class="calculate-emi-target">Calculate Now</a></p>
+                    <p class="text-light-grey margin-top5">EMI&nbsp;<span class="bwmsprite inr-xxsm-icon"></span><span id="spnEMIAmount" class="text-default"></span>&nbsp;onwards.&nbsp;<a href="javascript:void(0)" class="calculate-emi-target">Calculate Now</a></p>
                     <%} %>
                 </div>
 
-                <%if (isOfferAvailable && (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium || dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe))
+                <%if (isOfferAvailable && (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium))
                   { %>
                 <div class="margin-right10 margin-bottom15 margin-left10 break-line"></div>
                 <div class="padding-left15 padding-right15 margin-bottom10">
@@ -335,15 +335,13 @@
             </div>
             <%}else { %>
             <!--Dealer Campaign ends here -->
-
+          <%if(isPrimaryDealer){ %>
             <div id="pricequote-floating-button-wrapper" class="grid-12 alpha omega">
-                <div class="float-button float-fixed">
-
+                <div class="float-button float-fixed">                  
                     <div class="grid-<%= !String.IsNullOrEmpty(maskingNum) ? "7" : "12" %> alpha omega padding-right5">
                         <input type="button" data-role="none" id="leadBtnBookNow" data-pqsourceid="<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation) %>" data-leadsourceid="17" leadsourceid="17" data-item-registerpq="false" data-item-id="<%= dealerId %>" data-item-name="<%= dealerName %>" data-item-area="<%= dealerArea %>" name="leadBtnBookNow" class="btn btn-full-width btn-orange leadcapturebtn" value="Get offers" />
-                    </div>
-
-                    <%if (isPrimaryDealer && !String.IsNullOrEmpty(maskingNum))
+                    </div>                  
+                    <%if (!String.IsNullOrEmpty(maskingNum))
                       { %>
                     <div class="<%= !string.IsNullOrEmpty(maskingNum) ? "grid-5 omega padding-left5" : "" %>">
                         <a id="calldealer" class="btn btn-full-width btn-green rightfloat" href="tel:<%= maskingNum %>">
@@ -353,6 +351,7 @@
                     <%} %>
                 </div>
             </div>
+            <%} %>
             <%} %>
             <div class="clear"></div>
         </div>
@@ -459,7 +458,7 @@
             </div>
         </div>
 
-        <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium && dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)
+        <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium || dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)
           { %>
         <div id="emiPopup" data-bind="visible: true" style="display: none" class="bwm-fullscreen-popup text-center padding-top30">
             <div class="emi-popup-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
@@ -556,7 +555,7 @@
                     </div>
                 </div>
                 <div class="clear"></div>
-                <a id="btnEmiQuote" leadsourceid="18" class="btn btn-orange text-bold emi-quote-btn">Get EMI quote from dealer</a>
+                <a id="btnEmiQuote" leadsourceid="18" class="btn btn-orange text-bold emi-quote-btn leadcapturebtn"  data-pqsourceid="<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation) %>" data-leadsourceid="18" data-item-registerpq="false" data-item-id="<%= dealerId %>" data-item-name="<%= dealerName %>" data-item-area="<%= dealerArea %>" data-ga-cat="Dealer_PQ" data-ga-act="Lead_Submitted" data-ga-lab="EMI_Calculator_<%=BikeName %>_<%= currentCity %>_<%= currentArea%>">Get EMI quote from dealer</a>
             </div>
         </div>
         <%} %>
@@ -685,7 +684,7 @@
             }
 
 
-            <% if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium && dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)
+            <% if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium || dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)
                { %>
 
             ko.bindingHandlers.slider = {
@@ -737,7 +736,9 @@
 
                 self.monthlyEMI = ko.pureComputed({
                     read: function () {
-                        return $.calculateEMI(self.loan(), self.tenure(), self.rateofinterest(), self.processingFees());
+                        var calculatedEMI = $.calculateEMI(self.loan(), self.tenure(), self.rateofinterest(), self.processingFees());
+                        $("#spnEMIAmount").text(calculatedEMI);
+                        return calculatedEMI;
                     },
                     owner: this
                 });
