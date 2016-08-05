@@ -154,3 +154,83 @@
     ctrlTxtRegPasswdSignup = '<%= txtRegPasswdSignup.ClientID %>';
     ctrlChkAgreeSignup = '<%= chkAgreeSignup.ClientID %>';
 </script>
+<script type="text/javascript">
+
+    var email = $("#<%=txtLoginEmail.ClientID.ToString() %>");
+    var pass = $("#<%=txtLoginPassword.ClientID.ToString() %>");
+    var loginBtn = $("#ctlLogin_butLogin");
+
+
+
+    $("#<%=txtLoginEmail.ClientID.ToString() %>,#<%=txtLoginPassword.ClientID.ToString() %>").keypress(function (e) {
+        try {	//for firefox           
+            if (e.which || e.keyCode) {
+                if ((e.which == 13) || (e.keyCode == 13)) {
+                    return true;
+                }
+            }
+            else { return false };
+        }
+        catch (exception) {
+            //for ie
+            if (event.keyCode) {
+                if (event.keyCode == 13) {
+                    return false;
+                }
+            }
+            else { return true };
+        }
+    });
+
+
+    function pressLoginButton(e) {
+        var isValid = false;
+        emailVal = email.val().trim();
+        passVal = pass.val().trim();
+        if (emailVal.length > 0 && validateEmail(emailVal)) {
+            if (passVal.length > 0) {
+                isValid = true;
+            }
+            else {
+                setError(pass, 'Password should not be empty');
+                isValid = false;
+            }
+        }
+        else {
+            setError(email, 'Enter valid email id');
+            isValid = false;
+        }
+        return isValid;
+    }
+
+    function validateEmail(emailVal) {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(emailVal);
+    }
+
+
+    email.on('focus', function () {
+
+        hideError($(this));
+
+    });
+
+    pass.on('focus', function () {
+
+        hideError($(this));
+
+    });
+
+    function setError(ele, msg) {
+        ele.addClass("border-red");
+        ele.siblings("span, div").show();
+        ele.siblings("div").text(msg);
+    }
+
+    function hideError(ele) {
+        if (ele != null) {
+            ele.removeClass("border-red");
+            ele.siblings("span, div").hide();
+        }
+    }
+</script>

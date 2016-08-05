@@ -1,10 +1,10 @@
 ﻿var reEmail = /^[a-z]+(([a-z_0-9]*)|([a-z_0-9]*\.[a-z_0-9]+))*@([a-z_0-9\-]+)((\.[a-z]{3})|((\.[a-z]{2})+)|(\.[a-z]{3}(\.[a-z]{2})+))$/;
-var objREmail = $("#" + ctrlTxtEmailSignup);
-var objRPass = $("#" + ctrlTxtRegPasswdSignup);
-var objRName = $("#" + ctrlTxtNameSignup);
-var objRMobile = $("#" + ctrlTxtMobileSignup);
-var objRbtnSignup = $("#" + ctrlBtnSignup);
-var objRCheckbox = $("#" + ctrlChkAgreeSignup);
+var objREmail = $("#" + txtEmailSignup);
+var objRPass = $("#" + txtRegPasswdSignup);
+var objRName = $("#" + txtNameSignup);
+var objRMobile = $("#" + txtMobileSignup);
+var objRbtnSignup = $("#" + btnSignup);
+var objRCheckbox = $("#" + chkAgreeSignup);
 var objRegister = {};
 
 $(objRCheckbox).attr('checked', true);
@@ -40,7 +40,7 @@ $("#" + ctrlBtnLoginId).click(function () {
 
     return isSuccess;
 });
-
+/*
 function isValidLoginDetails()
 {
     var isValid = true;
@@ -79,7 +79,7 @@ function sendForgetPwd() {
         return false;
     }
 }
-
+*/
 function requestPwd() {    
     $.ajax({
         type: "POST",
