@@ -77,7 +77,7 @@ $('#getMoreDetails').on('click', function () {
 
 $(document).ready(function () {
     $('#bw-header').addClass('fixed');
-    dropdown.setDropdown();
+    //dropdown.setDropdown();
 
     var $window = $(window),
         buttonWrapper = $('#pricequote-floating-button-wrapper'),
@@ -110,76 +110,6 @@ $('.dropdown-select-wrapper').on('click', '.dropdown-menu-list.dropdown-with-sel
         dropdown.selectOption($(this));
     }
 });
-
-var dropdown = {
-    setDropdown: function () {
-        var selectDropdown = $('.dropdown-select');
-
-        selectDropdown.each(function () {
-            dropdown.setMenu($(this));
-        });
-    },
-
-    setMenu: function (element) {
-        $('<div class="dropdown-menu"></div>').insertAfter(element);
-        dropdown.setStructure(element);
-    },
-
-    setStructure: function (element) {
-        var elementText = element.find('option:selected').text(),
-			menu = element.next('.dropdown-menu');
-
-        menu.append('<p class="dropdown-label">' + elementText + '</p><div class="dropdown-list-wrapper"><p class="dropdown-selected-item">' + elementText + '</p><ul class="dropdown-menu-list dropdown-with-select"></ul></div>');
-
-        dropdown.setOption(element);
-    },
-
-    setOption: function (element) {
-        var selectedIndex = element.find('option:selected').index(),
-			menu = element.next('.dropdown-menu'),
-			menuList = menu.find('ul'),
-            i;
-
-        element.find('option').each(function (index) {
-            if (selectedIndex == index) {
-                menuList.append('<li class="active" data-option-value="' + $(this).val() + '">' + $(this).text() + '</li>');
-            }
-            else {
-                menuList.append('<li data-option-value="' + $(this).val() + '">' + $(this).text() + '</li>');
-            }
-        });
-    },
-
-    active: function (label) {
-        $('.dropdown-select-wrapper').find('.dropdown-menu').removeClass('dropdown-active');
-        label.closest('.dropdown-menu').addClass('dropdown-active');
-    },
-
-    inactive: function () {
-        $('.dropdown-select-wrapper').find('.dropdown-menu').removeClass('dropdown-active');
-    },
-
-    selectItem: function (element) {
-        var elementText = element.text(),
-			menu = element.closest('.dropdown-menu'),
-			dropdownLabel = menu.find('.dropdown-label'),
-			selectedItem = menu.find('.dropdown-selected-item');
-
-        element.siblings('li').removeClass('active');
-        element.addClass('active');
-        selectedItem.text(elementText);
-        dropdownLabel.text(elementText);
-    },
-
-    selectOption: function (element) {
-        var elementValue = element.attr('data-option-value'),
-			wrapper = element.closest('.dropdown-select-wrapper'),
-			selectDropdown = wrapper.find('.dropdown-select');
-
-        selectDropdown.val(elementValue).trigger('change');
-
-    }
-}
 
 $(document).on('click', function (event) {
     event.stopPropagation();
