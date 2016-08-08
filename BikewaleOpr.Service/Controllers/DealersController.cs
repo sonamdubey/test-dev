@@ -105,7 +105,7 @@ namespace BikewaleOpr.Service
         /// <param name="offerValidTill"></param>
         /// <returns></returns>
         [HttpPost]
-        public IHttpActionResult UpdateDealerBikeOffers(uint offerId, uint userId, uint offerCategoryId, string offerText, uint? offerValue, DateTime offerValidTill, bool isPriceImpact)
+        public IHttpActionResult UpdateDealerBikeOffers(uint offerId, uint userId, uint offerCategoryId, string offerText, uint? offerValue, DateTime offerValidTill, bool isPriceImpact,string terms)
         {
             try
             {
@@ -113,7 +113,7 @@ namespace BikewaleOpr.Service
                 {
                     container.RegisterType<IDealers, DealersRepository>();
                     IDealers objDealer = container.Resolve<DealersRepository>();
-                    objDealer.UpdateDealerBikeOffers(offerId, userId, offerCategoryId, offerText, offerValue, offerValidTill, isPriceImpact);
+                    objDealer.UpdateDealerBikeOffers(offerId, userId, offerCategoryId, offerText, offerValue, offerValidTill, isPriceImpact,terms);
                 }
             }
             catch (Exception ex)

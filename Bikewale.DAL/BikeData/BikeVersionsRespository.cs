@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using Bikewale.Entities.BikeData;
-using Bikewale.CoreDAL;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
-using System.Diagnostics;
 using Bikewale.Utility;
-using System.Data.Common;
 using MySql.CoreDAL;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Web;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -136,7 +131,7 @@ namespace Bikewale.DAL.BikeData
                                 });
                             }
                             dr.Close();
-                        }                        
+                        }
                     }
                 }
 
@@ -170,7 +165,7 @@ namespace Bikewale.DAL.BikeData
 
                     var paramColl = cmd.Parameters;
 
-                        // LogLiveSps.LogSpInGrayLog(cmd);
+                    // LogLiveSps.LogSpInGrayLog(cmd);
 
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, id));
@@ -192,7 +187,7 @@ namespace Bikewale.DAL.BikeData
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_futuristic", DbType.Boolean, ParameterDirection.Output));
 
 
-                    MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     if (!string.IsNullOrEmpty(cmd.Parameters["par_makeid"].Value.ToString()))
                     {
@@ -336,9 +331,9 @@ namespace Bikewale.DAL.BikeData
 
                     paramColl.Add(DbFactory.GetDbParam("par_rowcount", DbType.Byte, ParameterDirection.Output));
 
-                        // LogLiveSps.LogSpInGrayLog(cmd);
+                    // LogLiveSps.LogSpInGrayLog(cmd);
 
-                    int rowsAffected = MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
+                    int rowsAffected = MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     int rowCount = Convert.ToInt16(paramColl["par_rowcount"].Value);
 
@@ -453,7 +448,7 @@ namespace Bikewale.DAL.BikeData
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getsimilarbikeslist";
+                    cmd.CommandText = "getsimilarbikeslist_04082016";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, topCount));
@@ -464,7 +459,7 @@ namespace Bikewale.DAL.BikeData
                     {
                         objSimilarBikes = new List<SimilarBikeEntity>();
 
-                        if (dr!=null)
+                        if (dr != null)
                         {
                             while (dr.Read())
                             {
@@ -487,14 +482,15 @@ namespace Bikewale.DAL.BikeData
                                 objBike.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
                                 objBike.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
                                 objBike.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
-                                objBike.MaxPower = SqlReaderConvertor.ToNullableUInt16(dr["MaxPower"]);
+                                objBike.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
+                                objBike.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
                                 objBike.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
                                 objBike.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
                                 objSimilarBikes.Add(objBike);
                             }
                             dr.Close();
                         }
-                        
+
                     }
                 }
             }
@@ -525,11 +521,11 @@ namespace Bikewale.DAL.BikeData
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         objColors = new List<VersionColor>();
 
-                        if (dr!=null)
+                        if (dr != null)
                         {
                             while (dr.Read())
                                 objColors.Add(new VersionColor() { ColorName = dr["Color"].ToString(), ColorCode = dr["HexCode"].ToString(), CompanyCode = dr["CompanyCode"].ToString(), ColorId = Convert.ToUInt32(dr["ColorId"]) });

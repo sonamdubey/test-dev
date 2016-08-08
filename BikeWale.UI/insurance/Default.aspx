@@ -10,10 +10,11 @@
          description = "BikeWale - India's favourite bike portal. Find new and used bikes, buy or sell your bikes, compare new bikes prices & values.";
          alternate = "http://www.bikewale.com/m/insurance/";
          canonical = "http://www.bikewale.com/insurance/"; 
-         %>
-    <%
+    
         isAd970x90Shown = false;
         isAd970x90BottomShown = false;
+        isAd300x250Shown = false;
+        isAd300x250BTFShown = false;
          %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>

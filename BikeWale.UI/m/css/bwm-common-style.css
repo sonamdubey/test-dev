@@ -79,11 +79,11 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 	outline: none; text-decoration: none; vertical-align: middle; -ms-touch-action: manipulation; touch-action: manipulation; cursor: pointer; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; background-image: none; -webkit-appearance:none;
 }
 .btn-orange { background: #ef3030; color: #fff; }
-.btn-orange:hover { background: #ef3030; text-decoration: none; }
-.btn-orange:focus { background: #df3828; }
-.btn-white { background: #fff; color: #4d5057; border: 1px solid #4d5057; }
-.btn-white:hover { background: #4d5057; color: #fff; text-decoration: none; }
-.btn-white:focus { background: #4d5057; color: #fff; border: 1px solid #4d5057; }
+.btn-orange:hover { background: #f44336; text-decoration: none; }
+.btn-orange:focus { background: #d42c2c; }
+.btn-white { background:#fff; color:#e42029; border:1px solid #e42029; }
+.btn-white:hover { background: #f44336; color: #fff; text-decoration: none; border:1px solid #f44336; }
+.btn-white:focus { background: #d42c2c; color: #fff; border: 1px solid #d42c2c; }
 .btn-disable { cursor: not-allowed; opacity: .3; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)"; filter: alpha(opacity=30); -moz-opacity:0.3; -khtml-opacity: 0.3; }
 
 .btn-xs { padding: 8px; }
@@ -321,7 +321,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .navUL li a.sept-nav-list { padding: 15px 0 0 55px; color: #82888b; height: 36px; }
 .blackOut-window { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.5; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
 /* sprite classes */
-.bwmsprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-new.png?v1=1Aug2016) no-repeat; display: inline-block; }
+.bwmsprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-new.png?v1=8Aug2016) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
@@ -352,7 +352,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .map-loc-icon { width:12px; height:16px; background-position:-40px -164px; }
 .tel-grey-icon { width:16px; height:16px; background-position:-40px -111px; }
 .tel-green-icon { width:16px; height:16px; background-position:-62px -111px; }
-.tel-white-icon { width:18px; height:18px; background-position:-83px -109px; }
+.tel-white-icon { width:18px; height:18px; background-position:-83px -109px; position:relative; top:3px; }
 .inr-xxsm-icon { width:11px; height:10px; background-position:-54px -94px; }
 .inr-grey-xxsm-icon { width:8px; height:10px; background-position:-76px -87px; }
 .inr-red-xxsm-icon { width:8px; height:10px; background-position:-91px -87px; }
@@ -471,6 +471,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .font10 { font-size: 10px; }
 .font11 { font-size: 11px; }
 .font12 { font-size: 12px; }
+.font13 { font-size: 13px; }
 .font14 { font-size: 14px; }
 .font16 { font-size: 16px; }
 .font18 { font-size: 18px; }
@@ -747,3 +748,4 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 .star-zero-icon { width:20px; height:20px; display:inline-block; vertical-align:top; background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAASFBMVEUAAADMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMwqgb9tAAAAF3RSTlMAER/258y9oHxxQSIX7ezCY1dHCDQzKCqVHdMAAAB6SURBVBjTfcxXEsIwDEVRucQ9HXj73ykCD8gZJ7lf8hlZdF9+nWCMJ+hcb8oY1eEKrB16wMtLZ/VpBMbvkDVjsjhkE3HFteYK1YJYkLvJylcpyJ40VBxa0wzTBEA3GHkpa16PDc7wO9HuMYsVs9RhMeWP2+M3PTe66g1paAjabbO70gAAAABJRU5ErkJggg=='); }
 
 .globalCity-autocomplete.ui-menu .ui-menu-item a { width:99%; }
+#modelAlternateBikeContent .btn-xs { padding:6px 0 }

@@ -4,6 +4,9 @@
     title = "Forgot Password? - BikeWale";
     description = "Retrieve Your Password On Your Email";
     keywords = "password, retrieve your password, get password";
+    //Modified By :Sajal Gupta on 03 August 2016
+    isAd300x250Shown = false;
+    isAd300x250BtfShown = false;
 %>
 <!-- #include file="/includes/headMyBikeWale.aspx" -->    
 <div class="container_12 margin-top10">

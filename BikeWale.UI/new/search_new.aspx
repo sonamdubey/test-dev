@@ -13,7 +13,11 @@
         AdPath = "/1017752/Bikewale_NewBike_";
         isAd970x90Shown = true;
         isAd970x90BottomShown = true;
-        isAd970x90BTFShown = true;  
+      
+        isAd300x250Shown = false;
+        isAd300x250BTFShown = false;
+        isAd970x90BTFShown = false;
+         
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <script>ga_pg_id = '5';</script>

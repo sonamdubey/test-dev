@@ -1,4 +1,7 @@
 <%@ Page Inherits="Bikewale.Users.ChangePassword" AutoEventWireUp="false" Language="C#" Trace="false" Debug="false" %>
+<% //Modified By :Sajal Gupta on 03 August 2016
+    isAd300x250Shown = false;
+    isAd300x250BtfShown = false; %>
 <!-- #include file="/includes/headMyBikeWale.aspx" -->
     <div class="container_12 container-min-height">
         <div class="grid_12">

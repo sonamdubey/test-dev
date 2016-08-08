@@ -15,6 +15,7 @@
     alternate = "http://www.bikewale.com/m/news/";
     AdId = "1395995626568";
     AdPath = "/1017752/BikeWale_News_";
+    isAd300x250Shown=false;
     
 %>
 <!-- #include file="/includes/headnews.aspx" -->

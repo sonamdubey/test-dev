@@ -24,7 +24,10 @@
         AdPath = "/1017752/Bikewale_NewBike_";
         isAd970x90Shown = true;
         isAd970x90BTFShown = false;
-        isAd970x90BottomShown = true;             
+        isAd970x90BottomShown = true;
+        isAd300x250Shown = false;
+        isAd300x250BTFShown = false;
+                   
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/new/modelprice-in-city.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />

@@ -14,7 +14,7 @@ namespace BikeWaleOpr.BikeBooking
     public class ManageOffers : System.Web.UI.Page
     {
         protected DropDownList DropDownMake, DropDownModels, drpCity, drpOffers, ddlUpdOffers, ddlHours, ddlMins, ddlState;
-        protected TextBox offerText, txtUpdOffer, offerValue, txtUpdOfferValue;
+        protected TextBox offerText, txtUpdOffer, offerValue, txtUpdOfferValue, txtAreaTerms;
         protected CheckBox chkIsPriceImpact;
         protected Button btnAdd, btnUpdate, btnCopyOffers;
         public string cwHostUrl = string.Empty;
@@ -302,7 +302,7 @@ namespace BikeWaleOpr.BikeBooking
                 {
                     container.RegisterType<IDealers, DealersRepository>();
                     IDealers objCity = container.Resolve<DealersRepository>();
-                    isSuccess = objCity.SaveDealerOffer(dealerId, Convert.ToUInt32(userId), Convert.ToInt32(drpCity.SelectedValue), (hdn_modelId.Value), Convert.ToInt32(drpOffers.SelectedValue), Server.HtmlEncode(offerText.Text), oValue, dtDate.Value, chkIsPriceImpact.Checked);
+                    isSuccess = objCity.SaveDealerOffer(dealerId, Convert.ToUInt32(userId), Convert.ToInt32(drpCity.SelectedValue), (hdn_modelId.Value), Convert.ToInt32(drpOffers.SelectedValue), Server.HtmlEncode(offerText.Text), oValue, dtDate.Value, chkIsPriceImpact.Checked, Server.HtmlEncode(txtAreaTerms.Text));
                 }
 
                 if (isSuccess)

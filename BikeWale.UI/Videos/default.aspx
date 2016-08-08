@@ -13,14 +13,17 @@
         keywords = "bike videos, video reviews, expert video reviews, road test videos, bike comparison videos";
         canonical = "http://www.bikewale.com/bike-videos/";
         alternate =  "http://www.bikewale.com/m/bike-videos/";
+
+        isAd970x90Shown = false;
+        isAd300x250Shown = false;
+        isAd300x250BTFShown = false;
+        isAd970x90BottomShown = false;
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <style type="text/css">
         #videoJumbotron .grid-8 { padding:20px 0 20px 20px; }#videoJumbotron .grid-4 { padding:20px 10px; }.main-video-container { width:100%; height:350px; display:block; position:relative; background:url('http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; text-align:center; overflow:hidden; }.main-video-container img { width:100%; position:relative; top:-59px; }.main-video-container span { position: absolute; left:0; bottom:0; text-align:left; font-size: 22px; width: 624px; color: #fff; padding: 20px; background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(5,0,0,0.7)); }.main-video-container span:hover { text-decoration:underline; }#videoJumbotron ul { border-left:1px solid #e2e2e2; padding-left:14px; }#videoJumbotron li { width:280px; height:auto; margin-top:20px; padding-top:20px; border-top:1px solid #e2e2e2; }#videoJumbotron li:first-child { margin-top:0; padding-top:0; border-top:none; }.sidebar-video-image { width:100px; height:55px; overflow:hidden; margin-right:15px; display:inline-block; vertical-align:middle; background:url('http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; text-align:center; }.sidebar-video-title { width:160px; height:auto; display:inline-block; vertical-align:middle; }.sidebar-video-title:hover { color:#4d5057; }.sidebar-video-image img { width:100%; position:relative; top:-10px; }.powerdrift-banner { background:url('http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/d-powerdrift-banner.jpg') no-repeat center; height:129px; }.powerdrift-banner h3 { line-height:1.7; }.margin-top35 { margin-top:35px; }.powerdrift-subscribe { padding:15px 15px 10px; margin-top:25px; margin-right:25px; background:#fff; }.firstride-jcarousel li { height:312px; border: 1px solid #e2e2e2; padding:20px; }.videocarousel-image-wrapper { width:271px; height:153px; margin-bottom:15px; overflow:hidden; text-align:center; }.videocarousel-image-wrapper a, .reviews-image-wrapper a { width:100%; height:100%; display:block; overflow:hidden; background:url('http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }.videocarousel-image-wrapper img, .reviews-image-wrapper img { width:100%; }.reviews-image-wrapper img { position:relative; top:-43px; }.border-light-right { border-right:1px solid #e2e2e2; }.more-videos-link { width:200px; display:block; margin:5px auto 25px; }.reviews-image-wrapper { width:458px; height:258px; margin-bottom:15px; border:1px solid #e2e2e2; overflow:hidden; text-align:center; }
     </style>
-    <%
-        isAd970x90Shown = false;
-    %>
+  
 </head>
 <body class="bg-light-grey header-fixed-inner">
     <form id="form1" runat="server">

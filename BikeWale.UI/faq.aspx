@@ -13,6 +13,8 @@
         isAd970x90Shown = false;
         isAd970x90BottomShown = false;
         isTransparentHeader = true;
+        isAd300x250Shown = false;
+        isAd300x250BTFShown = false;
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <style type="text/css">
