@@ -306,7 +306,7 @@
                    else if (toShowOnRoadPriceButton)
                {%>
                 <div class="grid-12 float-button float-fixed">
-                    <a class="btn btn-full-width font18 btn-orange fillPopupData" 
+                    <a class="btn btn-full-width font18 btn-orange getquotation" 
                         isModel="true" data-pqsourceid="54" pqSourceId="54" modelId="<%= modelId %>" 
                          href="javascript:void(0)" rel="nofollow">Check on-road price</a>
                 </div>

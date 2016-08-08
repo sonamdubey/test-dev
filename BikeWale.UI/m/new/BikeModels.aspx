@@ -45,6 +45,9 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <div id="top-progress-bar">
+            <div class="progress-bar"></div>
+        </div>
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
             <div itemscope="" itemtype="http://schema.org/Product" class="container bg-white clearfix">
@@ -172,15 +175,15 @@
 
                         <% if (isDiscontinued)
                            { %>
-                        <p class="margin-top15 margin-left10 font14 text-light-grey clear fillPopupData">Last known Ex-showroom price</p>
+                        <p class="margin-top15 margin-left10 font14 text-light-grey clear ">Last known Ex-showroom price</p>
                         <% } %>
                         <% else
                                if (!isCitySelected)
                                {%>
-                        <p class="font14 fillPopupData text-light-grey margin-top10 margin-bottom7">
+                        <p class="font14 getquotation text-light-grey margin-top10 margin-bottom7">
                             Ex-showroom price in <span href="javascript:void(0)" class="text-light-grey clear">
                                 <%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span>
-                            <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity" rel="nofollow">
+                            <a href="javascript:void(0)" data-reload="true" ismodel="true" modelid='<%= modelId %>' class="getquotation margin-left5 changeCity" rel="nofollow">
                                 <span class="bwmsprite loc-change-blue-icon"></span>
                             </a>
                             <% } %>
@@ -189,14 +192,14 @@
                                    {%>
                             <p class="margin-top10 margin-bottom7 font14 text-light-grey clear">
                                 Ex-showroom price in <span><%= areaName %> <%= cityName %></span>
-                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity" rel="nofollow"><span class="bwmsprite loc-change-blue-icon"></span></a>
+                                <a href="javascript:void(0)" data-reload="true"  ismodel="true" modelid='<%= modelId %>' class="getquotation margin-left5 changeCity" rel="nofollow"><span class="bwmsprite loc-change-blue-icon"></span></a>
                             </p>
                             <% } %>
                             <% else
                                    {%>
                             <p class="margin-top10 margin-bottom10 font14 text-light-grey clear">
                                 On-road price in <span><%= areaName %> <%= cityName %></span>
-                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity" rel="nofollow"><span class="bwmsprite loc-change-blue-icon"></span></a>
+                                <a href="javascript:void(0)" data-reload="true"  ismodel="true" modelid='<%= modelId %>' class="getquotation margin-left5 changeCity" rel="nofollow"><span class="bwmsprite loc-change-blue-icon"></span></a>
                             </p>
                             <% } %>
                             <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
@@ -319,7 +322,7 @@
                    {   %>
             <div class="grid-12 float-button float-fixed clearfix padding-bottom10">
 
-                <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" style="width: 100%" class="btn btn-orange margin-top10 fillPopupData">Check on-road price</a>
+                <a id="btnGetOnRoadPrice" href="javascript:void(0)" data-reload="true"  ismodel="true" modelid="<%=modelId %>" style="width: 100%" class="btn btn-orange margin-top10 getquotation">Check on-road price</a>
                 <% }
                    else
                    {   %>
