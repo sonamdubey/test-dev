@@ -8,128 +8,63 @@
     var cityClicked = false;
     var areaClicked = false;
 </script>
-<style type="text/css">
-    .progress-bar {
-        width: 0;
-        height: 2px;
-        background: #16A085;
-        bottom: 0px;
-        left: 0;
-        border-radius: 2px;
-    }
 
-    .btn-loader {
-        background-color: #822821;
-    }
-
-    .btnSpinner {
-        right: 8px;
-        top: 10px;
-        z-index: 9;
-        display: none;
-        background: #fff;
-    }
-</style>
-<!--bw popup code starts here-->
-<div class="bw-city-popup bwm-fullscreen-popup hide bw-popup-sm text-center" id="popupWrapper">
-    <div class="popup-inner-container">
-        <div class="bwmsprite onroad-price-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
-        <div id="popupHeading" class="content-inner-block-20">
-            <p class="font18 margin-bottom5 text-capitalize">Please Tell Us Your Location</p>
-            <div class="text-light-grey margin-bottom5"><span class="red">*</span>Get on-road prices by just sharing your location!</div>
-            <!-- ko if: !oBrowser() -->
-            <div id="citySelection" class="form-control text-left input-sm position-rel margin-bottom10">
-                <span class="position-abt progress-bar"></span>
-                <div class="selected-city" data-bind="text: (SelectedCity() != undefined && SelectedCity().name != '') ? SelectedCity().name : 'Select City'"></div>
-                <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
-                <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
+<div id="popupWrapper">
+    <div id="city-area-popup" class="bwm-fullscreen-popup">
+        <div class="header-fixed fixed">
+            <div class="leftfloat header-back-btn">
+                <a href="javascript:void(0)" rel="nofollow"><span class="bwmsprite white-back-arrow"></span></a>
+            </div>
+            <div class="leftfloat header-title text-bold text-white font18">Select location</div>
+            <div class="clear"></div>
+        </div>
+        <div class="city-area-banner"></div>
+        <div id="city-area-content">
+            <div id="city-menu" class="city-area-menu open">
+                <div id="city-menu-tab" class="city-area-tab cursor-pointer">
+                    <span class="city-area-tab-label" data-bind="text: (SelectedCity() != undefined && SelectedCity().name != '') ? 'City : ' + SelectedCity().name : 'Select your city'"></span>
+                    <span class="chevron bwmsprite chevron-down"></span>
+                </div>
+                <div class="inputbox-list-wrapper">
+                    <div class="form-control-box user-input-box">
+                        <span class="bwmsprite search-icon-grey"></span>
+                        <input type="text" class="form-control padding-right40" placeholder="Type to select city" id="city-menu-input" autocomplete="off" data-bind="textInput: cityFilter">
+                        <span class="fa fa-spinner fa-spin position-abt text-black"></span>
+                    </div>
+                    <ul id="city-menu-list" data-bind="foreach: BookingCities" >
+                         <li data-bind="text: name, attr: { 'cityId': id }, click: function (d, e) { $parent.selectCity(d, e); }"></li>
+                    </ul>
+                </div>
             </div>
 
-            <div id="areaSelection" class="form-control text-left input-sm position-rel margin-bottom10 " data-bind="visible: BookingAreas().length > 0">
-                <span class="position-abt progress-bar"></span>
-                <div class="selected-area" data-bind="text: (SelectedArea() != undefined && SelectedArea().name != '') ? SelectedArea().name : 'Select Area'">Select Area</div>
-                <span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span>
-                <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
-
-            </div>
-            <!-- /ko -->
-            <!-- ko if: oBrowser() -->
-            <div class="form-control-box margin-bottom10 ">
-                <select class="form-control" tabindex="2" data-bind="options: BookingCities, value: SelectedCityId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select City--', event: { change: selectCity }"></select>
-                <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
-            </div>
-            <div class="form-control-box" data-bind="visible: BookingAreas().length > 0">
-                <select class="form-control" data-bind="options: BookingAreas, value: SelectedAreaId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select Area--', event: { change: function (data, event) { selectArea(data, event); } }"></select>
-                <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
-            </div>
-            <!-- /ko -->
-            <div id="btnPriceLoader" class="center-align margin-top20 text-center position-rel">
-                <div id="errMsgPopup" class="text-red margin-bottom10 hide"></div>
-                <!-- ko if:SelectedCityId() > 0 &&  (SelectedAreaId() > 0 || !hasAreas()) -->
-                <span class="position-abt progress-bar btn-loader"></span>
-                <a id="btnDealerPricePopup" class="btn btn-orange btn-full-width font18" data-bind=" click: getPriceQuote ">Show on-road price</a>
-                <!-- /ko -->
+            <div id="area-menu" class="city-area-menu">
+                <div id="area-menu-tab" class="city-area-tab">
+                    <span class="city-area-tab-label" data-bind="text: (SelectedArea() != undefined && SelectedArea().name != '') ? 'Area : ' + SelectedArea().name : 'Select your area'"></span>
+                </div>
+                <div class="inputbox-list-wrapper">
+                    <div class="form-control-box user-input-box">
+                        <span class="bwmsprite search-icon-grey"></span>
+                        <input type="text" class="form-control padding-right40" placeholder="Type to select area" id="area-menu-input" autocomplete="off" data-bind="textInput: areaFilter">
+                        <span class="fa fa-spinner fa-spin position-abt text-black"></span>
+                    </div> 
+                    <ul id="area-menu-list" data-bind="foreach: BookingAreas" >
+                        <li data-bind="text: name, attr: { 'areaId': id }, click: function (d, e) { $parent.selectArea(d, e); }"></li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <!-- ko if: !oBrowser() -->
-        <div id="popupContent" class="bwm-city-area-popup-wrapper">
-            <div class="bw-city-popup-box bwm-city-area-box city-list-container form-control-box text-left">
-                <div class="user-input-box">
-                    <span class="back-arrow-box">
-                        <span class="bwmsprite back-long-arrow-left"></span>
-                    </span>
-                    <input class="form-control" type="text" id="popupCityInput" autocomplete="off" placeholder="Select City" data-bind="attr: { value: (SelectedCity() != undefined) ? SelectedCity().name : '' }" />
-                </div>
-                <ul id="popupCityList" class="margin-top40" data-bind="foreach: BookingCities">
-                    <li data-bind="text: name, attr: { 'cityId': id }, css: (isPopular) ? 'isPopular' : '', click: function (data, event) { $parent.selectCity(data, event); }"></li>
-                </ul>
-                <div class="margin-top30 font24 text-center margin-top60 "><span class="fa fa-spinner fa-spin text-black" style="display: none;"></span><span id="popupLoader"></span></div>
-            </div>
-
-            <div class="bw-area-popup-box bwm-city-area-box area-list-container form-control-box text-left" data-bind="visible: BookingAreas().length > 0">
-                <div class="user-input-box">
-                    <span class="back-arrow-box">
-                        <span class="bwmsprite back-long-arrow-left"></span>
-                    </span>
-                    <input class="form-control" type="text" id="popupAreaInput" autocomplete="off" placeholder="Select Area" data-bind="attr: { value: (SelectedArea() != undefined) ? SelectedArea().name : '' }" />
-                </div>
-                <ul id="popupAreaList" class="margin-top40" data-bind="foreach: BookingAreas, visible: BookingAreas().length > 0 ">
-                    <li data-bind="text: name, attr: { 'areaId': id }, click: function (data, event) { $parent.selectArea(data, event); }"></li>
-                </ul>
-                <div class="margin-top30 font24 text-center margin-top60 "><span class="fa fa-spinner fa-spin text-black" style="display: none;"></span><span id="areaPopupLoader" style="display: none;">Loading Area..</span></div>
-            </div>
-        </div>
-        <!-- /ko -->
     </div>
 </div>
-<!--bw popup code ends here-->
+<!-- pricequote widget ends here-->
 
 <script type="text/javascript">
     var selectedModel = 0;
-    var bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';
-    var preSelectedCityId = 0;
     var preSelectedCityName = "";
     var onCookieObj = {};
     var selectedMakeName = '', selectedModelName = '', selectedCityName = '', selectedAreaName = '', gaLabel = '', isModelPage = false;
     var PQSourceId;
     var opBrowser = false;
 
-
-    (function (window) {
-        // browser
-        var nAgt = navigator.userAgent;
-        var browser = navigator.appName;
-        var verOffset;
-        // Opera Mini
-        //if ((verOffset = nAgt.indexOf('Mini')) != -1) {
-        if ((/Mini/gi).test(nAgt)) {
-            browser = 'Opera Mini';
-            opBrowser = true;
-        }
-        window.jscd = {
-            browser: browser,
-        };
-    }(this));
 
     $('#popupWrapper .close-btn,.blackOut-window').click(function () {
         $('.bw-city-popup').fadeOut(100);
@@ -512,7 +447,7 @@
                 self.selectCity(self, null);
             }
 
-        } 
+        }
 
 
     }
