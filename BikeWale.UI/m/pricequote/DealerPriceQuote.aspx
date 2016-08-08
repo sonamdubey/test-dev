@@ -266,8 +266,8 @@
                         <asp:Repeater ID="rptOffers" runat="server">
                             <ItemTemplate>
                                 <li>
-                                    <span class="offer-benefit-sprite offerIcon_<%# DataBinder.Eval(Container.DataItem,"OfferCategoryId") %>"></span>
-                                    <span class="pq-benefits-title padding-top5 padding-left10"><%# DataBinder.Eval(Container.DataItem,"OfferText") %></span>
+                                    <span class="offers-sprite offerIcon_<%# DataBinder.Eval(Container.DataItem,"OfferCategoryId") %>"></span>
+                                    <span class="pq-benefits-title padding-left10"><%# DataBinder.Eval(Container.DataItem,"OfferText") %></span>
                                 </li>
                             </ItemTemplate>
                         </asp:Repeater>
@@ -337,8 +337,8 @@
                     <div class="padding-15-20">
                         
                         <p class="margin-bottom10">
-                            <span class="bwmsprite dealership-loc-icon vertical-top margin-right15"></span>
-                            <span class="vertical-top dealership-address"><%= dealerAdd %></span>
+                            <span class="bwmsprite dealership-loc-icon inline-block margin-right15"></span>
+                            <span class="inline-block dealership-address"><%= dealerAdd %></span>
                         </p>
                         
                         <%if (!string.IsNullOrEmpty(maskingNum))
@@ -361,13 +361,13 @@
 
                 <%if (isUSPAvailable && (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium))
                   { %>
-                <div class="padding-right15 padding-left15 padding-bottom10">
+                <div class="padding-right15 padding-left15">
                     <p class="text-bold margin-bottom15">Benefits from this dealer:</p>
                     <ul class="pricequote-benefits-list">
                         <asp:Repeater ID="rptBenefits" runat="server">
                             <ItemTemplate>
                                 <li>
-                                    <span class="offer-benefit-sprite benifitIcon_<%# DataBinder.Eval(Container.DataItem,"CatId") %>"></span>
+                                    <span class="offers-sprite benifitIcon_<%# DataBinder.Eval(Container.DataItem,"CatId") %>"></span>
                                     <span class="pq-benefits-title padding-left15"><%# DataBinder.Eval(Container.DataItem,"BenefitText") %></span>
                                 </li>
                             </ItemTemplate>
@@ -534,7 +534,7 @@
             <div class="emi-popup-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
             <div class="icon-outer-container rounded-corner50percent">
                 <div class="icon-inner-container rounded-corner50percent">
-                    <span class="offer-benefit-sprite cal-emi-icon margin-top20"></span>
+                    <span class="offers-sprite cal-emi-icon margin-top15"></span>
                 </div>
             </div>
             <p class="font16 text-bold margin-top25 margin-bottom10">EMI Calculator</p>

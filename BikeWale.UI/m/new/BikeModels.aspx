@@ -249,8 +249,8 @@
                             <asp:Repeater ID="rptOffers" runat="server">
                               <ItemTemplate>
                                 <li>
-                                    <span class="dealers-benefits-image offer-benefit-sprite offerIcon_<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferCategoryId"))%>"></span>
-                                    <span class="dealers-benefits-title padding-left15"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
+                                    <span class="dealers-benefits-image offers-sprite offerIcon_<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferCategoryId"))%>"></span>
+                                    <span class="dealers-benefits-title padding-left10"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
                                 </li>
                             </ItemTemplate>
                             </asp:Repeater>
@@ -332,11 +332,11 @@
                         %>
                         <% if ( viewModel.IsPremiumDealer)
                             { 
-                        %>  <div class="grid-6 alpha omega padding-top10 padding-right5 padding-bottom10">
-                                <a id="getAssistance" leadSourceId="19" class="btn btn-white btn-full-width btn-sm rightfloat" href="javascript:void(0);">Get offers</a>
+                        %>  <div class="grid-7 alpha omega padding-top10 padding-right5 padding-bottom10">
+                                <a id="getAssistance" leadSourceId="19" class="btn btn-orange btn-full-width rightfloat" href="javascript:void(0);">Get offers</a>
                             </div>
-                            <div class="grid-6 alpha omega padding-top10 padding-bottom10 padding-left5">
-                                <a id="calldealer" class="btn btn-orange btn-full-width btn-sm rightfloat" href="tel:+91<%= viewModel.MaskingNumber == string.Empty? viewModel.MobileNo: viewModel.MaskingNumber %>"><span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer</a>
+                            <div class="grid-5 alpha omega padding-top10 padding-bottom10 padding-left5">
+                                <a id="calldealer" class="btn btn-green btn-full-width rightfloat" href="tel:+91<%= viewModel.MaskingNumber == string.Empty? viewModel.MobileNo: viewModel.MaskingNumber %>"><span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer</a>
                             </div>
                         <% }                             
                         }  
@@ -413,7 +413,7 @@
                     <div class="text-center">
                         <div class="summary-overview-box">
                             <div class="odd btmAftBorder">
-                                <span class="inline-block model-sprite specs-capacity-icon margin-right10" title="<%=bikeName %> Engine Capacity"></span>
+                                <span class="inline-block offers-sprite specs-capacity-icon margin-right10" title="<%=bikeName %> Engine Capacity"></span>
                                 <div class="inline-block">
                                     <p class="font18 text-bold margin-bottom5">
                                         <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement) %>
@@ -423,7 +423,7 @@
                                 </div>
                             </div>
                             <div class="even btmAftBorder">
-                                <span class="inline-block model-sprite specs-mileage-icon margin-right10" title="<%=bikeName %> Mileage"></span>
+                                <span class="inline-block offers-sprite specs-mileage-icon margin-right10" title="<%=bikeName %> Mileage"></span>
                                 <div class="inline-block">
                                     <p class="font18 text-bold margin-bottom5">
                                         <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelEfficiencyOverall) %>
@@ -433,7 +433,7 @@
                                 </div>
                             </div>
                             <div class="odd">
-                                <span class="inline-block model-sprite specs-maxpower-icon margin-right10" title="<%=bikeName %> Max Power"></span>
+                                <span class="inline-block offers-sprite specs-maxpower-icon margin-right10" title="<%=bikeName %> Max Power"></span>
                                 <div class="inline-block">
                                     <p class="font18 text-bold margin-bottom5">
                                         <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower) %>
@@ -443,7 +443,7 @@
                                 </div>
                             </div>
                             <div class="even">
-                                <span class="inline-block model-sprite specs-weight-icon margin-right10" title="<%=bikeName %> Kerb Weight"></span>
+                                <span class="inline-block offers-sprite specs-weight-icon margin-right10" title="<%=bikeName %> Kerb Weight"></span>
                                 <div class="inline-block">
                                     <p class="font18 text-bold margin-bottom5">
                                         <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight) %>
