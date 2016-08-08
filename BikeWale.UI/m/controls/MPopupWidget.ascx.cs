@@ -57,7 +57,7 @@ namespace Bikewale.Mobile.controls
 
         /// <summary>
         /// Created By  : Sushil Kumar on 2nd August 2016
-        /// Description : To detect opera min and uc min browser
+        /// Description : To detect opera mini and uc mini browser
         /// </summary>
         private void DetectOperaBrowser()
         {
