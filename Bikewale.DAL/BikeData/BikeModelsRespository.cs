@@ -783,7 +783,7 @@ namespace Bikewale.DAL.BikeData
                                 objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
                                 objData.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
                                 objData.BikePopularityIndex = Convert.ToUInt16(dr["PopularityIndex"]);
-                                objData.Specs.KerbWeight = Convert.ToUInt16(dr["KerbWeight"]);
+                                objData.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
                                 objList.Add(objData);
                             }
                             dr.Close();
