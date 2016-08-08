@@ -10,51 +10,53 @@
 
 <!-- pricequote widget starts here-->
 <div id="popupWrapper">
-		<div id="city-area-popup" class="bwm-fullscreen-popup">
-			<div class="header-fixed fixed">
-				<div class="leftfloat header-back-btn">
-					<a href="javascript:void(0)" rel="nofollow"><span class="bwmsprite white-back-arrow"></span></a>
-				</div>
-				<div class="leftfloat header-title text-bold text-white font18">Select location</div>
-				<div class="clear"></div>
-			</div>
-			<div class="city-area-banner"></div>
-			<div id="city-area-content">
-				<div id="city-menu" class="city-area-menu open">
-					<div id="city-menu-tab" class="city-area-tab cursor-pointer">
-						<span class="city-area-tab-label" data-bind="text: (SelectedCity() != undefined && SelectedCity().name != '') ? SelectedCity().name : 'Select your city'"></span>
-						<span class="chevron bwmsprite chevron-down"></span>
-					</div>
-					<div class="inputbox-list-wrapper">
-						<div class="form-control-box user-input-box">
-							<span class="bwmsprite search-icon-grey"></span>
-							<input type="text" class="form-control padding-right40" placeholder="Type to select city" id="city-menu-input">
-							<span class="fa fa-spinner fa-spin position-abt text-black"></span>
-						</div>
-						<ul id="city-menu-list" data-bind="foreach: BookingCities">
-							<li data-bind="text: name, attr: { 'cityId': id }, css: (isPopular) ? 'isPopular' : '', click: function (data, event) { $parent.selectCity(data, event); }"></li>
-						</ul>
-					</div>
-				</div>
+    <div id="city-area-popup" class="bwm-fullscreen-popup">
+        <div class="header-fixed fixed">
+            <div class="leftfloat header-back-btn">
+                <a href="javascript:void(0)" rel="nofollow"><span class="bwmsprite white-back-arrow"></span></a>
+            </div>
+            <div class="leftfloat header-title text-bold text-white font18">Select location</div>
+            <div class="clear"></div>
+        </div>
+        <div class="city-area-banner"></div>
+        <div id="city-area-content">
+            <div id="city-menu" class="city-area-menu open">
+                <div id="city-menu-tab" class="city-area-tab cursor-pointer">
+                    <span class="city-area-tab-label" data-bind="text: (SelectedCity() != undefined && SelectedCity().name != '') ? 'City : ' + SelectedCity().name : 'Select your city'"></span>
+                    <span class="chevron bwmsprite chevron-down"></span>
+                </div>
+                <div class="inputbox-list-wrapper">
+                    <div class="form-control-box user-input-box">
+                        <span class="bwmsprite search-icon-grey"></span>
+                        <input type="text" class="form-control padding-right40" placeholder="Type to select city" id="city-menu-input" autocomplete="off" data-bind="textInput: cityFilter">
+                        <span class="fa fa-spinner fa-spin position-abt text-black"></span>
+                    </div>
+                    <ul id="city-menu-list" data-bind="template: { name: 'bindCityList-template', foreach: visibleCities }" ></ul>
+                    <script type="text/html" id="bindCityList-template">
+                         <li data-bind="text: name, attr: { 'cityId': id }, click: function (d, e) { $parent.selectCity(d, e); }"></li>
+                    </script>
+                </div>
+            </div>
 
-				<div id="area-menu" class="city-area-menu">
-					<div id="area-menu-tab" class="city-area-tab">
-						<span class="city-area-tab-label" data-bind="text: (SelectedArea() != undefined && SelectedArea().name != '') ? SelectedArea().name : 'Select your area'"></span>
-					</div>
-					<div class="inputbox-list-wrapper">
-						<div class="form-control-box user-input-box">
-							<span class="bwmsprite search-icon-grey"></span>
-							<input type="text" class="form-control padding-right40" placeholder="Type to select area" id="area-menu-input">
-							<span class="fa fa-spinner fa-spin position-abt text-black"></span>
-						</div>
-						<ul id="area-menu-list" data-bind="foreach: BookingAreas">
-							<li data-bind="text: name, attr: { 'areaId': id }, click: function (data, event) { $parent.selectArea(data, event); }"></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+            <div id="area-menu" class="city-area-menu">
+                <div id="area-menu-tab" class="city-area-tab">
+                    <span class="city-area-tab-label" data-bind="text: (SelectedArea() != undefined && SelectedArea().name != '') ? 'Area : ' + SelectedArea().name : 'Select your area'"></span>
+                </div>
+                <div class="inputbox-list-wrapper">
+                    <div class="form-control-box user-input-box">
+                        <span class="bwmsprite search-icon-grey"></span>
+                        <input type="text" class="form-control padding-right40" placeholder="Type to select area" id="area-menu-input" autocomplete="off" data-bind="textInput: areaFilter">
+                        <span class="fa fa-spinner fa-spin position-abt text-black"></span>
+                    </div> 
+                     <ul id="area-menu-list" data-bind="template: { name: 'bindAreaList-template', foreach: visibleAreas }" ></ul>
+                    <script type="text/html" id="bindAreaList-template">
+                         <li data-bind="text: name, attr: { 'areaId': id }, click: function (d, e) { $parent.selectArea(d, e); }"></li>
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- pricequote widget ends here-->
 
 <!-- widget script starts here-->
@@ -127,8 +129,34 @@
         self.oBrowser = ko.observable(<%= isOperaBrowser.ToString().ToLower()%>);
 		self.IsPersistance = ko.observable(false);
 		self.IsReload = ko.observable(false);
+		self.cityFilter =  ko.observable("");
+		self.areaFilter = ko.observable("");
 
-		
+		self.FilterData = function (data,filter)
+		{
+		    filterObj = data;
+		    if(filter && filter.length > 0)
+		    {
+		        var pat = new RegExp(filter,"i");
+		        filterObj = data.filter(function(place){
+		            if(pat.test(place.name)) return place;
+		            //filterObj = ko.utils.arrayFilter(data, function(item) {
+		            //     if(pat.test(item.name)) return item;
+
+		        });
+
+		    }
+		    return filterObj;
+		}
+
+		self.visibleCities = ko.computed(function(){
+		    return self.FilterData(self.BookingCities(),self.cityFilter());  		   
+		});
+
+		self.visibleAreas = ko.computed(function(){
+		    return self.FilterData(self.BookingAreas(),self.areaFilter());  		   
+		});	
+
 		self.setOptions = function (options,event) {
 		    if (options != null) {
 		        if (options.modelId != null)
