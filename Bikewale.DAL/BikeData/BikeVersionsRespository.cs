@@ -483,7 +483,7 @@ namespace Bikewale.DAL.BikeData
                                 objBike.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
                                 objBike.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
                                 objBike.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
-                                objBike.MaxPower = SqlReaderConvertor.ToNullableUInt16(dr["MaxPower"]);
+                                objBike.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
                                 objBike.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
                                 objBike.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
                                 objSimilarBikes.Add(objBike);
