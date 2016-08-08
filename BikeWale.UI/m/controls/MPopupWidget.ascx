@@ -20,7 +20,8 @@
         </div>
         <div class="city-area-banner"></div>
         <div id="city-area-content">
-            <div id="city-menu" class="city-area-menu open">
+             <% if(!isOperaBrowser) { %>
+                                  <div id="city-menu" class="city-area-menu open">
                 <div id="city-menu-tab" class="city-area-tab cursor-pointer">
                     <span class="city-area-tab-label" data-bind="text: (SelectedCity() != undefined && SelectedCity().name != '') ? 'City : ' + SelectedCity().name : 'Select your city'"></span>
                     <span class="chevron bwmsprite chevron-down"></span>
@@ -36,8 +37,7 @@
                          <li data-bind="text: name, attr: { 'cityId': id }, click: function (d, e) { $parent.selectCity(d, e); }"></li>
                     </script>
                 </div>
-            </div>
-
+            </div>  
             <div id="area-menu" class="city-area-menu">
                 <div id="area-menu-tab" class="city-area-tab">
                     <span class="city-area-tab-label" data-bind="text: (SelectedArea() != undefined && SelectedArea().name != '') ? 'Area : ' + SelectedArea().name : 'Select your area'"></span>
@@ -54,6 +54,18 @@
                     </script>
                 </div>
             </div>
+            <% } else {%>
+
+             <div class="form-control-box margin-bottom10 ">
+                <select class="form-control" tabindex="2" data-bind="options: BookingCities, value: SelectedCityId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select City--', event: { change: selectCity }"></select>
+                <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
+            </div>
+            <div class="form-control-box" data-bind="visible: BookingAreas().length > 0">
+                <select class="form-control" data-bind="options: BookingAreas, value: SelectedAreaId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select Area--', event: { change: function (data, event) { selectArea(data, event); } }"></select>
+                <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
+            </div>
+
+            <% } %>
         </div>
     </div>
 </div>
@@ -75,7 +87,7 @@
         startLoading($('#top-progress-bar'));
         checkCookies();
         var options = {
-            "modelId": ele.attr('modelId') ,//ele.attr("data-modelid"),
+            "modelId": ele.attr('modelId') ,
             "cityId": onCookieObj.PQCitySelectedId,
             "areaId": onCookieObj.PQAreaSelectedId,
             "makename" : ele.attr('makeName'),
@@ -90,7 +102,6 @@
         vmquotation.setOptions(options);
         appendHash("onRoadPrice");
 
-        //$('#popupWrapper').fadeIn(10);
     });
 
     var showPQPopup = function(isCitySelected) {
@@ -206,9 +217,6 @@
 		{
 		    var isAborted = false;
 
-		    //self.SelectedCity(findCityById(self.SelectedCityId()));
-		    //self.SelectedArea(findAreaById(self.SelectedAreaId()));   
-
 		    if (self.SelectedModelId() != null && self.SelectedModelId()  > 0) {
 
 		        var objData = {
@@ -319,7 +327,6 @@
         self.selectCity = function (data, event) {
             startLoading($('#top-progress-bar'));
             var isAborted = false;
-            //$(".bwm-city-area-popup-wrapper .back-arrow-box").click();
             if (!self.oBrowser()) {
                 self.SelectedCity(data);
                 self.SelectedCityId(data.id);
@@ -330,8 +337,6 @@
 
             if(self.SelectedCity()!=null && !self.SelectedCity().hasAreas)
             {
-                //cityArea.close();
-                //window.history.back();
                 $('#city-area-content').addClass('city-selected');
                 self.IsPersistance(false); 						
             }
@@ -374,8 +379,6 @@
             //}
 
             self.IsPersistance(false);
-            //cityArea.close();
-            //window.history.back();
             self.InitializePQ(data,event);
 
         };
