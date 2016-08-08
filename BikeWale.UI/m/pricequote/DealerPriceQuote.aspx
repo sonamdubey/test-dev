@@ -70,8 +70,8 @@
                 </div>
                 <p class="font12 text-light-grey padding-left15 padding-right15">Location:</p>
                 <p class="font16 text-bold padding-left15 padding-right15">
-                    <span>Andheri</span>,&nbsp;<span>Mumbai</span>
-                    <a href="javascript:void(0)" rel="nofollow"><span id="change-location" class="bwmsprite loc-change-blue-icon"></span></a>
+                    <%= (!string.IsNullOrEmpty(currentArea) ? string.Format("<span>{0}</span>,&nbsp;<span>{1}</span>",currentArea,currentCity) : string.Format("<span>{0}</span>",currentCity)) %>
+                    <a href="javascript:void(0)" rel="nofollow" pqSourceId="<%= Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation %>" modelId="<%= objPriceQuote.objModel.ModelId %>" class="fillPopupData"><span class="bwmsprite loc-change-blue-icon"></span></a>
                 </p>
             </div>
             <script type="text/javascript">                
@@ -471,62 +471,6 @@
                 <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
             </div>
         </section>
-
-
-        <div id="city-area-popup" class="bwm-fullscreen-popup">
-            <div class="header-fixed fixed">
-                <div class="leftfloat header-back-btn">
-                    <a href="javascript:void(0)" rel="nofollow"><span class="bwmsprite white-back-arrow"></span></a>
-                </div>
-                <div class="leftfloat header-title text-bold text-white font18">Select location</div>
-                <div class="clear"></div>
-            </div>
-            <div class="city-area-banner"></div>
-            <div id="city-area-content">
-                <div id="city-menu" class="city-area-menu open">
-                    <div id="city-menu-tab" class="city-area-tab cursor-pointer">
-                        <span class="city-area-tab-label">Select your city</span>
-                        <span class="chevron bwmsprite chevron-down"></span>
-                    </div>
-                    <div class="inputbox-list-wrapper">
-                        <div class="form-control-box user-input-box">
-                            <span class="bwmsprite search-icon-grey"></span>
-                            <input type="text" class="form-control padding-right40" placeholder="Type to select city" id="city-menu-input">
-                            <span class="fa fa-spinner fa-spin position-abt text-black"></span>
-                        </div>
-                        <ul id="city-menu-list">
-                            <li>Ahmednagar</li>
-                            <li>Akola</li>
-                            <li>Chiplun</li>
-                            <li>Mumbai</li>
-                            <li>Nagpur</li>
-                            <li>Panvel</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div id="area-menu" class="city-area-menu">
-                    <div id="area-menu-tab" class="city-area-tab">
-                        <span class="city-area-tab-label">Select your area</span>
-                    </div>
-                    <div class="inputbox-list-wrapper">
-                        <div class="form-control-box user-input-box">
-                            <span class="bwmsprite search-icon-grey"></span>
-                            <input type="text" class="form-control padding-right40" placeholder="Type to select area" id="area-menu-input">
-                            <span class="fa fa-spinner fa-spin position-abt text-black"></span>
-                        </div>
-                        <ul id="area-menu-list">
-                            <li>Ahmednagar</li>
-                            <li>Akola</li>
-                            <li>Chiplun</li>
-                            <li>Mumbai</li>
-                            <li>Nagpur</li>
-                            <li>Panvel</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium || dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)
           { %>
