@@ -275,6 +275,8 @@
     width:14px;
     height:15px;
     background-position: -38px -435px;
+    position: relative;
+    top: 4px;
 }
 
 .dropdown-icon {
@@ -388,18 +390,13 @@
     height: auto;
 }
 
-.float-button {
+.floating-btn-inactive .float-button {
     padding:10px 5px 0;
     overflow: hidden;
+    background: #fff;
 }
 
 .float-button.float-fixed {
-    position:fixed;
-    bottom:0;
-    z-index:8;
-    left:0;
-    right:0;
-    padding: 10px;
     background: rgba(245,245,245,0.9);
 }
 
@@ -571,10 +568,12 @@
     padding: 20px 5px;
 }
 
+.booknow-label {
+    width: 65%;
+}
 
 #emiPopup .inr-xxsm-icon { width: 8px; }
 .cal-emi-icon {width:37px; height: 48px; background-position:0 -356px}
-.thankyou-icon {width:48px; height:58px; background-position: -137px -404px; }
 #calldealer.btn-sm { padding:8px 10px; }
 #calldealer .tel-white-icon{position: relative;top: 2px}
 
@@ -620,7 +619,6 @@
 #otpPopup .otp-box p.resend-otp-btn{color:#0288d1;cursor:pointer;font-size:14px}
 #otpPopup .update-mobile-box{display:none}
 #otpPopup .edit-mobile-btn{cursor:pointer}
-.thankyou-icon {width:48px; height:58px; background-position: -137px -404px; }
 
 .btn-grey-state {background:#fff;color:#82888b;border:1px solid #82888b;}
 .button-clicked-state {background:#82888b;color:#fff;text-decoration:none;border:1px solid #82888b;}
@@ -639,7 +637,7 @@
 
 @media only screen and (max-width: 350px) {
     .booknow-label {
-        width: 170px;
+        width: 168px;
     }
     .float-button .btn {
         font-size: 16px;

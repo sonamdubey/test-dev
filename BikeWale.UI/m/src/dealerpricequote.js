@@ -82,7 +82,8 @@ $(document).ready(function () {
     var $window = $(window),
         buttonWrapper = $('#pricequote-floating-button-wrapper'),
         floatingButton = buttonWrapper.find('.float-button'),
-        windowHeight;
+        windowHeight,
+        body = $('body');
 
     $(window).scroll(function () {
         var windowScrollTop = $(this).scrollTop(),
@@ -91,9 +92,11 @@ $(document).ready(function () {
 
         if (windowScrollTop + windowHeight > buttonWrapperTop) {
             floatingButton.removeClass('float-fixed');
+            body.addClass('floating-btn-inactive');
         }
         else {
             floatingButton.addClass('float-fixed');
+            body.removeClass('floating-btn-inactive');
         }
     });
 
@@ -247,8 +250,14 @@ $("#city-menu-input, #area-menu-input").on("keyup", function () {
         }
     }
 });
+
 $("#getMoreDetailsBtnCampaign").on("click", function () {
     $("#leadCapturePopup").show();
     $('body').addClass('lock-browser-scroll');
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_More_Details_Clicked', 'lab': bikeName + "_" + getCityArea });
+});
+
+var swiper = new Swiper('.pq-secondary-dealer-swiper', {
+    slidesPerView: 'auto',
+    spaceBetween: 0
 });
