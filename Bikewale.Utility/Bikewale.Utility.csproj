@@ -76,6 +76,7 @@
     <Compile Include="FormatDate.cs" />
     <Compile Include="FormatMinSpecs.cs" />
     <Compile Include="GlobalCityArea.cs" />
+    <Compile Include="TermsHtmlFormatting.cs" />
     <Compile Include="Image.cs" />
     <Compile Include="OfferHelper.cs" />
     <Compile Include="PageBase.cs">

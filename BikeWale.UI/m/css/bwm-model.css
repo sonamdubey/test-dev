@@ -73,7 +73,7 @@
 .offers-voucher-icon { height:24px; background-position:-39px 0; }
 .offers-pickup-icon { height:30px; background-position:-79px 0; }
 
-.offers-sprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v1=8Aug2016) no-repeat; display: inline-block; }
+.offers-sprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v2=8Aug2016) no-repeat; display: inline-block; }
 .benifitIcon_1, .benifitIcon_2, .benifitIcon_3, .benifitIcon_4, .benifitIcon_5 { width:18px; }
 .offerIcon_1 , .offerIcon_2 , .offerIcon_3 , .offerIcon_4 , .offerIcon_5, .offerIcon_6, .offerIcon_7 { width:30px; }
 .benifitIcon_1 { height:16px; background-position:-46px -142px; }
@@ -87,7 +87,7 @@
 .offerIcon_4 { height:30px; background-position:0 -206px; }
 .offerIcon_5 { height:30px; background-position:0 -246px; }
 .offerIcon_6 { height:22px; background-position:0 -286px; }
-.offerIcon_7 { height:26px; background-position:0 -318px; }
+.offerIcon_7 { height:28px; background-position:0 -318px; }
 
 #otpPopup { display:none; }
 .user-contact-details-icon { width:36px; height:44px; background-position: -107px -227px; }
