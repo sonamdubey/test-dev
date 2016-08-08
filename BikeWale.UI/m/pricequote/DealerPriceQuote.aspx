@@ -266,8 +266,8 @@
                     <div class="padding-15-20">
                         
                         <p class="margin-bottom10">
-                            <span class="bwmsprite dealership-loc-icon inline-block margin-right15"></span>
-                            <span class="inline-block dealership-address"><%= dealerAdd %></span>
+                            <span class="bwmsprite dealership-loc-icon vertical-top margin-right15"></span>
+                            <span class="vertical-top dealership-address"><%= dealerAdd %></span>
                         </p>
                         
                         <%if (!string.IsNullOrEmpty(maskingNum))
@@ -359,13 +359,13 @@
           {%>
         <div id="pq-secondary-dealer" class="bg-white padding-top15 padding-bottom15 bottom-shadow">
             <p class="font18 text-bold text-black padding-right20 padding-left20 margin-bottom10">Prices from <%= secondaryDealersCount == 1 ? secondaryDealersCount + " more dealer" : secondaryDealersCount + " more dealers" %></p>
-            <div class="swiper-container">
+            <div class="swiper-container pq-secondary-dealer-swiper">
                 <div class="swiper-wrapper padding-top5 padding-bottom5">
                     <%--bind secondary dealers--%>
                     <asp:Repeater ID="rptSecondaryDealers" runat="server">
                         <ItemTemplate>
                             <div class="swiper-slide secondary-dealer-card">
-                                <a href="javascript:void(0)" class="secondary-dealer bw-ga" c="Dealer_PQ" a="Secondary_Dealer_Card_Clicked" l="<%= BikeName + "_" + currentCity + "_" +currentArea %>" dealerid="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>">
+                                <a href="javascript:void(0)" class="secondary-dealer bw-ga text-default" c="Dealer_PQ" a="Secondary_Dealer_Card_Clicked" l="<%= BikeName + "_" + currentCity + "_" +currentArea %>" dealerid="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>">
                                     <div class="margin-bottom15">
                                         <span class="grid-9 alpha omega font14 text-default text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></span>
                                         <span class="grid-3 omega text-light-grey text-right"><%# String.Format("{0:0.0}",DataBinder.Eval(Container.DataItem,"Distance")) %> kms</span>
