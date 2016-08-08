@@ -27,3 +27,7 @@
 .budget-container ul li a span.budget-title-box, .mileage-container ul li a span.mileage-title-box { padding-top: 47px; padding-bottom: 5px; }
 .budget-container ul li:hover .inr-budget { background-position:-20px -515px; }
 .popular-used-bikes-container .jcarousel ul li:hover .bikes-avaiable-count span{ color:#0288d1; }
+@media only screen and (max-width:1024px) {
+    .brand-type-container ul li, .brand-type { width:170px; }
+    .budget-container ul li a, .mileage-container ul li a, .style-type-container ul li { width:215px; }
+}

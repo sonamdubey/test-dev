@@ -105,8 +105,11 @@ a.text-black:hover { text-decoration:none; }
 .assistance-response-close.cross-lg-lgt-grey:hover { background-position: -36px -252px; }
 .ui-autocomplete.availableBrandList { height:100px; overflow-y:scroll; }
 .ui-autocomplete.availableBrandList li.ui-menu-item { padding:6px; }
+.dealer-card{cursor:pointer}
 @-moz-document url-prefix() {
     .brand-city-filter .chosen-container {padding: 9px;}
     #applyFiltersBtn.btn{padding:7px 31px;}
 }
-.dealer-card{cursor:pointer}
+@media only screen and (max-width:1024px) {
+    #locateDealerFilter { margin:0; }
+}

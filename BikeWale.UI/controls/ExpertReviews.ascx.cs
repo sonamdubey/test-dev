@@ -31,15 +31,15 @@ namespace Bikewale.Controls
 
             if (String.IsNullOrEmpty(MakeMaskingName) && String.IsNullOrEmpty(ModelMaskingName))
             {
-                MoreExpertReviewUrl = "/road-tests/";
+                MoreExpertReviewUrl = "/expert-reviews/";
             }
             else if (String.IsNullOrEmpty(ModelMaskingName))
             {
-                MoreExpertReviewUrl = String.Format("/{0}-bikes/road-tests/", MakeMaskingName);
+                MoreExpertReviewUrl = String.Format("/{0}-bikes/expert-reviews/", MakeMaskingName);
             }
             else
             {
-                MoreExpertReviewUrl = String.Format("/{0}-bikes/{1}/road-tests/", MakeMaskingName, ModelMaskingName);
+                MoreExpertReviewUrl = String.Format("/{0}-bikes/{1}/expert-reviews/", MakeMaskingName, ModelMaskingName);
             }
         }
 

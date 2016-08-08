@@ -429,13 +429,9 @@
                                 window.location = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + Base64.encode(cookieValue);
                             }
 
-                            else if (jsonObj != undefined && jsonObj.dealerId == 0 && jsonObj.isDealerAvailable && jsonObj.quoteId > 0) {
+                            else if (jsonObj != undefined && jsonObj.dealerId == 0 && jsonObj.quoteId > 0) {
                                 gtmCodeAppender(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
                                 window.location = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + Base64.encode(cookieValue);
-                            }
-                            else if (jsonObj != undefined && jsonObj.dealerId == 0 && jsonObj.quoteId > 0 && !jsonObj.isDealerAvailable) {
-                                gtmCodeAppender(pageId, 'BW_PriceQuote_Success_Submit', gaLabel);
-                                window.location = "/m/pricequote/quotation.aspx" + "?MPQ=" + Base64.encode(cookieValue);
                             }
                             else {
                                 gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);

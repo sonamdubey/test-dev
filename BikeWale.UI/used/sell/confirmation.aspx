@@ -1,5 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Used.Confirmation" %>
-
+<%
+   is300x250BTFShown = false;
+    is300x250Shown = false;
+%>
 <!-- #include file="/includes/headUsed.aspx" -->
     <div class="container_12 margin-top15">
         <div class="grid_8 min-height">

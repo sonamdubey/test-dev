@@ -1,16 +1,13 @@
 ﻿using Bikewale.BAL.BikeData;
+using Bikewale.Common;
+using Bikewale.Controls;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Memcache;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using Bikewale.Controls;
-using Bikewale.Common;
 
 namespace Bikewale.New.PhotoGallery
 {
@@ -21,7 +18,7 @@ namespace Bikewale.New.PhotoGallery
     public class BikePhotos : System.Web.UI.Page
     {
         protected PhotoGallaryMin photoGallary;
-        protected string modelId = string.Empty, photoId = string.Empty, imageId = string.Empty, selectedImagePath = string.Empty;
+        protected string modelId = string.Empty, photoId = string.Empty, imageId = string.Empty, selectedImagePath = string.Empty, bikeName = string.Empty, modelName = string.Empty, makename = string.Empty;
         protected BikeModelEntity objModelEntity = null;
         // protected int modelCount = 0;
         //protected BikeSeriesEntity objSeriesEntity;
@@ -33,22 +30,30 @@ namespace Bikewale.New.PhotoGallery
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
+
+            DeviceDetection dd = new DeviceDetection(originalUrl);
+            dd.DetectDevice();
             if (!Page.IsPostBack)
             {
                 if (ProcessQueryString())
                 {
+
                     using (IUnityContainer container = new UnityContainer())
                     {
                         container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
                         IBikeModels<BikeModelEntity, int> objModel = container.Resolve<IBikeModels<BikeModelEntity, int>>();
-
                         //Get Model details
                         objModelEntity = objModel.GetById(Convert.ToInt32(modelId));
-
-                        photoGallary.ModelId = objModelEntity.ModelId;
+                        modelName = objModelEntity.ModelName;
+                        makename = objModelEntity.MakeBase.MakeName;
+                        bikeName = string.Format("{0} {1}", objModelEntity.MakeBase.MakeName, objModelEntity.ModelName);
+                        photoGallary.modelId = objModelEntity.ModelId;
                         photoGallary.ImageId = imageId;
                     }
-                }            
+                }
             }
         }
         /// <summary>
@@ -90,7 +95,7 @@ namespace Bikewale.New.PhotoGallery
             {
                 imageId = Request.QueryString["imgid"];
             }
-      
+
             return isSuccess;
         }   //End of ProcessQueryString
     }   //End of class

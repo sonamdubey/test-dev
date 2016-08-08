@@ -3,7 +3,10 @@
 <head>
     <meta charset="utf-8">
     <title>BikeWale Cancellation Policy</title>
-
+    <% 
+    is300x250Shown=false;
+    is300x250_BTFShown=false;
+ %>
     <!-- #include file="/includes/pgheader.aspx" -->
 <link rel="stylesheet" href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?<%= staticFileVersion %>" type="text/css">
     <div class="container_12">

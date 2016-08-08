@@ -7,6 +7,7 @@
     canonical = bikeCanonical;
     AdId = "1395992162974";
     AdPath = "/1017752/BikeWale_UsedBikes_Details_";
+   is300x250BTFShown=false;
 
 %>
 <!-- #include file="/includes/headUsed.aspx" -->

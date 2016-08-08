@@ -166,7 +166,11 @@ namespace Bikewale.Content
                 {
                     // Modified By :Lucky Rathore on 12 July 2016.
                     Form.Action = Request.RawUrl;
-                    Response.Redirect("/users/login.aspx?returnUrl=" + HttpUtility.UrlEncode(Request.ServerVariables["HTTP_X_ORIGINAL_URL"]));
+
+
+                    HttpContext.Current.Response.Redirect(String.Format("/users/login.aspx?returnUrl={0}", HttpContext.Current.Request.RawUrl));
+                   
+                   
                 }
                 LoadDefaultComments();
                 BikeName = GetBike();
@@ -298,7 +302,7 @@ namespace Bikewale.Content
                             where mo.id = @modelid";
             else
                 sql = @" select cv.makename as make, cv.modelname as model, cv.name as version, cv.bikemakeid as makeid,
-                            mo.id as modelid from bikeversions as cv  
+                            cv.bikemodelid as modelid from bikeversions as cv  
                             where cv.id = @versionid";
 
             try
@@ -338,7 +342,7 @@ namespace Bikewale.Content
             //this function checks whether this user has already added a review for this version
             bool found = false;
             string sql = string.Empty;
-            string id = versionId == string.Empty ? drpVersions.SelectedItem.Value : versionId;
+            string id = string.IsNullOrEmpty(versionId) && drpVersions.SelectedItem!=null ? drpVersions.SelectedItem.Value : versionId;
 
             string email = txtEmail.Text.Trim().Replace("'", "''");
 

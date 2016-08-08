@@ -12,6 +12,8 @@
         isAd976x400FirstShown = false,
         isAd976x400SecondShown = false,
         isAd976x204 = false,
+        isAd300x250BTFShown=true,
+        isAd300x250Shown=true,
         isTransparentHeader = false,
         enableOG = true;
 </script>
@@ -71,8 +73,12 @@
 </script>
 <script type='text/javascript'>
     googletag.cmd.push(function () {
+        <% if(isAd300x250Shown){ %>
         googletag.defineSlot('<%= AdPath%>300x250', [[300, 250]], 'div-gpt-ad-<%= AdId%>-1').addService(googletag.pubads());                    
+        <% } %>
+        <% if(isAd300x250BTFShown){ %>
         googletag.defineSlot('<%= AdPath%>300x250_BTF', [[300, 250]], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());        
+        <% } %>
         <% if(isAd970x90Shown){ %>
         googletag.defineSlot('<%= AdPath%>970x90', [[970, 66], [970, 60], [960, 90], [950, 90], [960, 66], [728, 90], [960, 60], [970, 90]], 'div-gpt-ad-<%= AdId%>-3').addService(googletag.pubads()); 
         <% } %>

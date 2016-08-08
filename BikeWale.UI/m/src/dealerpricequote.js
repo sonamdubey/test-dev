@@ -1,66 +1,4 @@
-﻿var versionByDiv = $(".version-div"),
-    versionListDiv = $(".version-selection-div"),
-    versionListLI = $(".version-selection-div ul li");
-
-versionByDiv.click(function () {
-    if (!versionByDiv.hasClass("open"))
-        $.versionChangeDown(versionByDiv);
-    else
-        $.versionChangeUp(versionByDiv);
-});
-
-$.versionChangeDown = function (versionByDiv) {
-    versionByDiv.addClass("open");
-    versionListDiv.show();
-};
-
-$.versionChangeUp = function (sortByDiv) {
-    versionByDiv.removeClass("open");
-    versionListDiv.slideUp();
-};
-
-$(document).mouseup(function (e) {
-    if (!$(".variantDropDown, .version-div, .version-div #upDownArrow, .version-by-title").is(e.target)) {
-        $.versionChangeUp($(".version-div"));
-    }
-});
-//TODO handle version select event
-
-$(document).ready(function () {
-    var pqDealerHeader = $('#pqDealerHeader'),
-        pqDealerBody = $('#pqDealerBody'),
-        pqRemoveHeader = $('#pqRemoveHeader'),
-        pqDealerHeaderWrapper = $('#pqDealerDetails'),
-        $window = $(window),
-        floatButton = $('.float-button'),
-        bodHt, footerHt, scrollPosition;
-        $window.scroll(function () {
-            if ($('#pqDealerHeader')[0] != undefined) {
-                if (!pqDealerHeader.hasClass('pq-fixed')) {
-                    if ($window.scrollTop() > pqDealerHeader.offset().top && $window.scrollTop() < pqRemoveHeader.offset().top - 40) { //subtract 40px (pq header height)
-                        pqDealerHeader.addClass('pq-fixed').find('.dealership-name').addClass('text-truncate padding-bottom5 border-light-bottom');
-                        pqDealerBody.addClass('padding-top40');
-                    }
-                }
-                else if (pqDealerHeader.hasClass('pq-fixed')) {
-                    if ($window.scrollTop() < pqDealerHeaderWrapper.offset().top || $window.scrollTop() > pqRemoveHeader.offset().top - 40) { //subtract 40px (pq header height)
-                        pqDealerHeader.removeClass('pq-fixed').find('.dealership-name').removeClass('text-truncate padding-bottom5 border-light-bottom');
-                        pqDealerBody.removeClass('padding-top40');
-                    }
-                }
-            }
-            bodHt = $('body').height();
-            footerHt = $('footer').height();
-            scrollPosition = $(this).scrollTop();
-            if (floatButton.offset().top < $('footer').offset().top - 50)
-                floatButton.addClass('float-fixed');
-            if (floatButton.offset().top > $('footer').offset().top - 50)
-                    floatButton.removeClass('float-fixed');
-        });
-    
-});
-
-var offersPopupDiv = $("#offersPopup");
+﻿var offersPopupDiv = $("#offersPopup");
 
 $(".view-offers-target").on("click", function () {
     offersPopupOpen(offersPopupDiv);
@@ -97,33 +35,35 @@ $(".offers-popup-close-btn").on("click", function () {
     window.history.back();
 });
 
-    var offersPopupOpen = function (offersPopupDiv) {
-        offersPopupDiv.show();
-    };
+var offersPopupOpen = function (offersPopupDiv) {
+    offersPopupDiv.show();
+};
 
-    var offersPopupClose = function (offersPopupDiv) {
-        offersPopupDiv.hide();
-    };
+var offersPopupClose = function (offersPopupDiv) {
+    offersPopupDiv.hide();
+};
 
-    var emiPopupDiv = $("#emiPopup");
+var emiPopupDiv = $("#emiPopup");
 
-    $(".calculate-emi-target").on("click", function () {
-        emiPopupOpen(emiPopupDiv);
-        appendHash("emiPopup");
-    });
+$(".calculate-emi-target").on("click", function () {
+    emiPopupOpen(emiPopupDiv);
+    appendHash("emiPopup");
+    $('body, html').addClass('lock-browser-scroll');
+});
 
-    $(".emi-popup-close-btn").on("click", function () {
-        emiPopupClose(emiPopupDiv);
-        window.history.back();
-    });
+$(".emi-popup-close-btn").on("click", function () {
+    emiPopupClose(emiPopupDiv);
+    window.history.back();
+});
 
-    var emiPopupOpen = function (emiPopupDiv) {
-        emiPopupDiv.show();
-    };
+var emiPopupOpen = function (emiPopupDiv) {
+    emiPopupDiv.show();
+};
 
-    var emiPopupClose = function (emiPopupDiv) {
-        emiPopupDiv.hide();
-    };
+var emiPopupClose = function (emiPopupDiv) {
+    emiPopupDiv.hide();
+    $('body, html').removeClass('lock-browser-scroll');
+};
 
 $('.btn-grey-state').on('click', function () {
     $(this).addClass('button-clicked-state');
@@ -131,4 +71,193 @@ $('.btn-grey-state').on('click', function () {
 });
 $('#getMoreDetails').on('click', function () {
     getMoreDetailsClicked = true;
+});
+
+/**/
+
+$(document).ready(function () {
+    $('#bw-header').addClass('fixed');
+    //dropdown.setDropdown();
+
+    var $window = $(window),
+        buttonWrapper = $('#pricequote-floating-button-wrapper'),
+        floatingButton = buttonWrapper.find('.float-button'),
+        windowHeight,
+        body = $('body');
+
+    $(window).scroll(function () {
+        var windowScrollTop = $(this).scrollTop(),
+            buttonWrapperTop = buttonWrapper.offset().top,
+            windowHeight = $(this).height() - 63;
+
+        if (windowScrollTop + windowHeight > buttonWrapperTop) {
+            floatingButton.removeClass('float-fixed');
+            body.addClass('floating-btn-inactive');
+        }
+        else {
+            floatingButton.addClass('float-fixed');
+            body.removeClass('floating-btn-inactive');
+        }
+    });
+
+});
+
+$('.dropdown-select-wrapper').on('click', '.dropdown-label', function () {
+    dropdown.active($(this));
+});
+
+$('.dropdown-select-wrapper').on('click', '.dropdown-menu-list.dropdown-with-select li', function () {
+    var element = $(this);
+    if (!element.hasClass('active')) {
+        dropdown.selectItem($(this));
+        dropdown.selectOption($(this));
+    }
+});
+
+$(document).on('click', function (event) {
+    event.stopPropagation();
+    var bodyElement = $('body'),
+		dropdownLabel = bodyElement.find('.dropdown-label'),
+		dropdownList = bodyElement.find('.dropdown-menu-list'),
+		noSelectLabel = bodyElement.find('.dropdown-selected-item');
+
+    if (!$(event.target).is(dropdownLabel) && !$(event.target).is(dropdownList) && !$(event.target).is(noSelectLabel)) {
+        dropdown.inactive();
+    }
+
+});
+
+$('#change-location').on('click', function () {
+    cityArea.open();
+    appendHash("cityAreaPopup");
+    cityArea.openList(tabParent);
+    cityArea.closeList(areaMenu);
+    areaMenu.hide();
+});
+
+$('#city-area-popup .white-back-arrow').on('click', function () {
+    cityArea.close();
+    window.history.back();
+});
+
+$('#city-area-content').on('click', '#city-menu-tab', function () {
+    var tab = $(this),
+        tabParent = tab.parent('.city-area-menu'),
+        cityAreaContent = $('#city-area-content');
+
+    if (cityAreaContent.hasClass('city-selected')) {
+        var areaMenu = $('#area-menu');
+
+        if (!tabParent.hasClass('open')) {
+            cityArea.openList(tabParent);
+            cityArea.closeList(areaMenu);
+            areaMenu.hide();
+        }
+        else {
+            cityArea.closeList(tabParent);
+            areaMenu.show();
+            cityArea.openList(areaMenu);
+        }
+    }
+});
+
+$(".inputbox-list-wrapper").on("click", "li", function () {
+    var item = $(this);
+    if (!item.hasClass('active')) {
+        cityArea.setSelection(item);
+    }
+});
+
+var cityArea = {
+    popup: $('#city-area-popup'),
+
+    open: function () {
+        cityArea.popup.show();
+        $('body, html').addClass('lock-browser-scroll');
+    },
+
+    close: function () {
+        cityArea.popup.hide();
+        $('body, html').removeClass('lock-browser-scroll');
+    },
+
+    openList: function (wrapper) {
+        wrapper.find('.inputbox-list-wrapper').slideDown();
+        wrapper.addClass('open');
+    },
+
+    closeList: function (wrapper) {
+        wrapper.find('.inputbox-list-wrapper').slideUp();
+        wrapper.removeClass('open');
+    },
+
+    setSelection: function (item) {
+        var selectionText = item.text(),
+            wrapper = item.closest('.city-area-menu');
+
+        wrapper.find('li').removeClass('active');
+        item.addClass('active');
+        cityArea.setLabel(selectionText, wrapper);
+    },
+
+    setLabel: function (itemText, wrapper) {
+        var tabLabel = wrapper.find('.city-area-tab-label');
+
+        if (wrapper.attr('id') == 'city-menu') {
+            var areaMenu = $('#area-menu');
+            $('#city-area-content').addClass('city-selected');
+            tabLabel.text('City: ' + itemText);
+            cityArea.closeList(wrapper);
+            cityArea.resetLabel('Select your area', areaMenu);
+            areaMenu.show();
+            cityArea.openList(areaMenu);
+            areaMenu.find('li').removeClass('active');
+        }
+        else {
+            tabLabel.text('Area: ' + itemText);
+            $('#city-area-popup .white-back-arrow').trigger('click');
+        }
+    },
+
+    resetLabel: function (message, wrapper) {
+        wrapper.find('.city-area-tab-label').text(message);
+    },
+}
+
+
+$('#city-menu-input').on('focus', function (event) {
+    event.stopPropagation();
+    $("#city-area-popup").animate({ scrollTop: 147 });
+});
+
+$('#area-menu-input').on('focus', function (event) {
+    event.stopPropagation();
+    $("#city-area-popup").animate({ scrollTop: 190 });
+});
+
+$("#city-menu-input, #area-menu-input").on("keyup", function () {
+    var inputbox = $(this);
+    locationFilter(inputbox);
+
+    if (inputbox.val().length == 0) {
+        var wrapper = inputbox.closest('.city-area-menu');
+
+        if (wrapper.attr('id') == 'city-menu') {
+            cityArea.resetLabel('Select your city', wrapper);
+        }
+        else {
+            cityArea.resetLabel('Select your area', wrapper);
+        }
+    }
+});
+
+$("#getMoreDetailsBtnCampaign").on("click", function () {
+    $("#leadCapturePopup").show();
+    $('body').addClass('lock-browser-scroll');
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_More_Details_Clicked', 'lab': bikeName + "_" + getCityArea });
+});
+
+var swiper = new Swiper('.pq-secondary-dealer-swiper', {
+    slidesPerView: 'auto',
+    spaceBetween: 0
 });

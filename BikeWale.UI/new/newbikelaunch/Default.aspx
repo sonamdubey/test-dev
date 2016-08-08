@@ -14,6 +14,9 @@
     alternate = "http://www.bikewale.com/m/new-bikes-launches/";
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
+    //modified by SajalGupta for unfilled impression of ads on 04 Aug 2016.
+    isAd300x250Shown = false;
+    isAd300x250_BTFShown = false;
 %>
 
 <!-- #include file="/includes/headNew.aspx" -->
@@ -58,7 +61,7 @@
                                     Not rated yet,  <a href="/content/userreviews/writereviews.aspx?bikem=<%# DataBinder.Eval(Container.DataItem,"ModelId") %>">Be the first one to write a review</a>
                                 </div>
                                 <div class="margin-top15 margin-bottom10">
-                                    <%--<a class="<%# DataBinder.Eval(Container.DataItem,"BasicId").ToString() == "0" ? "hide" : "" %>" title="<%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName") + " " + DataBinder.Eval(Container.DataItem,"ModelName") %> Road Test" href="/road-tests/<%#DataBinder.Eval(Container.DataItem,"RoadTestUrl") %>-<%#DataBinder.Eval(Container.DataItem,"BasicId") %>.html">Road Test</a>                     
+                                    <%--<a class="<%# DataBinder.Eval(Container.DataItem,"BasicId").ToString() == "0" ? "hide" : "" %>" title="<%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName") + " " + DataBinder.Eval(Container.DataItem,"ModelName") %> Road Test" href="/expert-reviews/<%#DataBinder.Eval(Container.DataItem,"RoadTestUrl") %>-<%#DataBinder.Eval(Container.DataItem,"BasicId") %>.html">Road Test</a>                     
                                     <%--<span class='<%# DataBinder.Eval(Container.DataItem,"BasicId").ToString() == "0" ? "hide" : "" %>'>&nbsp|&nbsp</span> --%>
                                     <a title="View <%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName") + " " + DataBinder.Eval(Container.DataItem,"ModelName") %> Photos" href="/<%# DataBinder.Eval(Container.DataItem,"MakeBase.MaskingName") %>-bikes/<%#DataBinder.Eval(Container.DataItem,"MaskingName") %>/photos/">Photos</a>
                                 </div>

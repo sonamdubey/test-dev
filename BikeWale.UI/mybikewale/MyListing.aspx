@@ -3,6 +3,8 @@
 <%
     AdId = "1395996606542";
     AdPath = "/1017752/BikeWale_MyBikeWale_";
+    //Modified By :Sajal Gupta on 03 August 2016
+    isAd300x250BtfShown = false;
 %>
 <!-- #include file="/includes/headmybikewale.aspx" -->
 <style>

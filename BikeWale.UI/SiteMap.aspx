@@ -5,6 +5,9 @@
     keywords = "BikeWale sitemap, site map, BikeWale sitemap, bikewale directory, Bike Market, Corporate world, bikewale in News";
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
+    //Modified By :Sajal Gupta on 03 August 2016
+    isAd300x250Shown = false;
+    isAd600x270Shown = false;
 %>
 <!-- #include file="/includes/headhome.aspx" -->
 <style type="text/css">
@@ -19,7 +22,7 @@
                 <li><a href="http://www.bikewale.com/pricequote/">Check On-Road Price in Your City</a></li>
                 <li><a href="http://www.bikewale.com/upcoming-bikes/">Upcoming Bikes</a></li>
                 <li><a href="http://www.bikewale.com/comparebikes/">Compare Bikes</a></li>
-                <li><a href="http://www.bikewale.com/road-tests/">Road Tests</a></li>
+                <li><a href="http://www.bikewale.com/expert-reviews/">Expert Reviews</a></li>
                 <li><a href="http://www.bikewale.com/new/search.aspx">Find New Bikes</a></li>
                 <li>
                     <a class="grid_4 alpha black-text" href="http://www.bikewale.com/new/"><b>Bikes by Make</b></a>

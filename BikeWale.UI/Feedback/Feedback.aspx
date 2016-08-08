@@ -6,14 +6,14 @@
 <div class="feedback-popup content-block hide">
     <div class="close-btn-fback"><a href="#">&times;</a></div>
     <div class="feedback-form">
-        <h2>Please share your feedback:</h2>
+        <span>Please share your feedback:</span>
         <textarea id="txtFeedbackComment" placeholder="Type here..."></textarea>
         <div id="errFeedback" class="left-float margin-top15 error"></div>
         <input type="button" value="Send Feedback" class="action-btn right-float margin-top10" id="sendFeedback" />
         <div class="clear"></div>
     </div>
     <div class="thankyou-msg">
-        <h2>Wow, you're awesome!</h2>
+        <span>Wow, you're awesome!</span>
         <div class="margin-top5">Thanks for your time and insights. We look forward to building great products for you.</div>
     </div>
     <span class="popup-point"></span>

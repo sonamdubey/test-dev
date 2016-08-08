@@ -1,91 +1,604 @@
-﻿#bwheader-logo, .navbarBtn, .global-location, .sort-btn { display:none; }
-.pq-inner-block-10 { padding:10px 10px 5px; }
-.bottom-shadow { -webkit-box-shadow:0 2px 2px #ccc; -moz-box-shadow:0 2px 2px #ccc; box-shadow:0 2px 2px #ccc; }
-.bike-name-image-wrapper { display:table; width:100%; }
-.bike-name-image-wrapper .bike-img , .bike-name-image-wrapper h1 { display:table-cell; vertical-align:middle; }
-.pricequote-benefits-list .pq-benefits-image, .pricequote-benefits-list .offer-benefit-sprite, .pricequote-benefits-list .pq-benefits-title { display:inline-block; vertical-align:middle; }
-.pricequote-benefits-list .pq-benefits-title { width:85%; text-align:left; }
-.bike-img { width:70px; height:40px; }
-.bike-img img { width:100%; }
-.text-dark-black { color:#1a1a1a; }
-.grid-3.version-label-text { width:65px; }
-#versionsDropdownWrapper .form-control { width:70%; padding:5px; }
-.grid-9.variantDropDown { width:70%; max-width:300px; }
-.version-div { height:32px; padding:5px; border:1px solid #ccc; color:#555; position:relative; cursor:pointer; background:#fff; }
-.version-by-title { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; width:100%; }
-.pos-top13 { top:13px; }
-.version-selection-div { background:#fff; border:1px solid #ccc; position:absolute; z-index:2; left:0; right:0; }
-.version-selection-div ul li { margin-bottom:5px; margin-top:5px; font-size:14px; }
-.version-selection-div ul li.selected { font-weight:bold; }
-.version-selection-div ul li input{background: #fff;color:rgb(77, 80, 87); padding:2px 0 2px 8px; width:100%; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; text-align:left;}
-.text-truncate { width:100%; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; text-align:left; }
-.version-selection-div ul li:hover input{ padding:2px 0 2px 8px; cursor:pointer; background:#82888b; color:#fff; }
-#upDownArrow.fa-angle-down { transition: all 0.5s ease-in-out 0s; font-size: 20px; }
-.version-div .fa-angle-down { transition: transform .3s; -moz-transition: transform .3s; -webkit-transition: transform .3s; -o-transition: transform .3s; -ms-transition: transform .3s; }
-.version-div.open .fa-angle-down { -moz-transform: rotateZ(180deg); -webkit-transform: rotateZ(180deg); -o-transform: rotateZ(180deg); -ms-transform: rotateZ(180deg); transform: rotateZ(180deg); }
-.break-line { border-top:1px solid #e2e2e2; }
-.padding-top7 { padding-top:7px; }
-.border-trl { border-top:1px solid #e2e2e2; border-right:1px solid #e2e2e2; border-left:1px solid #e2e2e2; }
-.border-rbl { border-right:1px solid #e2e2e2; border-bottom:1px solid #e2e2e2; border-left:1px solid #e2e2e2; }
-.header-solid-bottom { border-bottom:1px solid #e2e2e2; }
-#pqDealerHeader { width:100%; background:#fff; }
-.pq-fixed { position:fixed; top:0; left:0px; padding-right:10px; padding-left:10px; z-index:9; }
-.border-light-top { border-top: 1px solid #f1f1f1; }
-.border-light-bottom { border-bottom: 1px solid #f1f1f1; }
-.pricequote-benefits-list li { margin-top:7px; padding-bottom:7px; }
-.pq-dealer-listing li { padding-top:15px; padding-bottom:15px; border-top:1px solid #f1f1f1; }
-#offersPopup, #emiPopup { display:none; }
-.offers-box-icon { width:44px; height:48px; background-position:-83px -396px; }
-#offersPopup ul li { width:100%; margin-top:15px; margin-bottom:15px; }
-#offersPopup ul li:first-child { margin-top:0; }
-.pricequote-benefits-list li { width:100%; min-height:35px;}
-.offer-benefit-sprite { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/offerbenefitsprite.png?v1=1Apr2016v1) no-repeat; display: inline-block; }
-.benifitIcon_1 , .benifitIcon_2 , .benifitIcon_3 , .benifitIcon_4 , .benifitIcon_5 , .offerIcon_1 , .offerIcon_2 , .offerIcon_3 , .offerIcon_4 , .offerIcon_5, .offerIcon_6, .offerIcon_7 { width:30px; }
-.benifitIcon_1 { height:26px; background-position:0 -181px; }
-.benifitIcon_2 { height:30px; background-position:0 -141px; }
-.benifitIcon_3 { height:25px; background-position:0 -75px; }
-.benifitIcon_4 { height:18px; background-position:0 -293px; }
-.offerIcon_1 { height:25px; background-position:0 -40px; }
-.offerIcon_2 { height:25px; background-position:0 -321px; }
-.offerIcon_3 { height:30px; background-position:0 0; }
-.offerIcon_4 { height:26px; background-position:0 -257px; }
-.offerIcon_5, .benifitIcon_5, .offerIcon_7 { height:30px; background-position:0 -217px; }
-.offerIcon_6 { height:21px; background-position:0 -110px; }
-.cal-emi-icon {width:37px; height: 48px; background-position:0 -356px}
-.tel-sm-icon { width: 17px; height: 15px;background-position: -86px -323px; position: relative; top: 2px;}
-.thankyou-icon {width:48px; height:58px; background-position: -137px -404px; }
-#calldealer.btn-sm { padding:8px 10px; }
-#calldealer .tel-white-icon{position: relative;top: 2px}
+﻿header { 
+    height: 50px;
+}
 
-.emi-slider-box { border-top:1px solid #e2e2e2; padding-bottom:20px; padding-top:20px; margin-top: 5px; margin-right:20px; }
+#bw-header.fixed { 
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 3;
+}
+
+.header-fixed {
+    padding: 7px 5px 10px 15px;
+}
+
+#bwheader-logo, .navbarBtn, .global-location, .sort-btn {
+    display:none;
+}
+
+.global-search {
+    top: 10px;
+}
+
+.bike-details h1 {
+    padding: 5px 15px 10px
+}
+
+.padding-10-5 {
+    padding: 10px 5px;
+}
+
+.padding-15-20 {
+    padding: 15px 20px;
+}
+
+.bottom-shadow {
+    -webkit-box-shadow:0 2px 2px #ccc;
+    -moz-box-shadow:0 2px 2px #ccc;
+    box-shadow:0 2px 2px #ccc;
+}
+
+.dropdown-select-wrapper {
+    display: inline-block;
+}
+
+.dropdown-select {
+    display: none;
+}
+
+.dropdown-menu {
+    min-width: 125px;
+    font-size: 14px;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    color: #4d5057;
+}
+
+.dropdown-menu .dropdown-label, .dropdown-menu .dropdown-selected-item, .single-version-label {
+    max-width: 260px;
+    padding: 5px 30px 5px 10px;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dropdown-menu .dropdown-label, .dropdown-menu .dropdown-selected-item {
+    width: 100%;
+    background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.dropdown-menu .dropdown-label {
+    cursor: pointer;
+    display: inline-block;
+    z-index: 0;
+}
+
+.dropdown-menu .dropdown-list-wrapper {
+    display: none;
+    min-width: 170px;
+    overflow:hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #fff;
+    z-index: 1;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -o-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px;
+    border: 1px solid #e2e2e2\9;
+    -webkit-box-shadow: -3px 3px 15px 1px #ddd;
+    -moz-box-shadow: -3px 3px 15px 1px #ddd;
+    -ms-box-shadow: -3px 3px 15px 1px #ddd;
+    -o-box-shadow: -3px 3px 15px 1px #ddd;
+    box-shadow: -3px 3px 15px 1px #ddd;
+}
+
+.dropdown-menu.dropdown-active .dropdown-list-wrapper {
+    display: inline-block;
+}
+
+.dropdown-menu .dropdown-menu-list {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.dropdown-menu .dropdown-menu-list li {
+    padding: 5px 10px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.dropdown-menu .dropdown-with-select li:hover {
+    background: #eee;
+}
+
+#dealer-timings-dropdown .dropdown-label {
+    padding: 0;
+    font-weight: 400;
+    border-bottom: 0;
+}
+
+#dealer-timings-dropdown .dropdown-list-wrapper {
+    top: -4px;
+}
+
+.loc-change-blue-icon { 
+    width:12px;
+    height:16px;
+    background-position:-197px -395px;
+    position:relative;
+    top:1px;
+    cursor: pointer;
+}
+
+.loc-change-blue-icon:hover { 
+    background-position:-86px -278px;
+}
+
+.break-line {
+    border-top:1px solid #e2e2e2;
+}
+
+.dealer-title-card {
+    width: 100%;
+    text-align:left;
+    background: #4d5057;
+    padding: 15px;
+    color: #e2e2e2;
+    -webkit-box-shadow: 0 2px 4px rgba(77,80,87,0.5);
+    -moz-box-shadow: 0 2px 4px rgba(77,80,87,0.5);
+    box-shadow: 0 2px 4px rgba(77,80,87,0.5);
+}
+
+.pricequote-benefits-list li {
+    width:100%;
+    min-height:35px;
+    margin-top: 10px;
+    padding:0 5px;
+}
+
+.pricequote-benefits-list li:first-child {
+    margin-top: 0;
+}
+
+.pricequote-benefits-list li span {
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.pricequote-benefits-list .pq-benefits-title {
+    width:85%;
+    text-align:left;
+}
+
+.pricequote-floating-button .grid-7 {
+    width: 66%;
+}
+
+.pricequote-floating-button .grid-5 {
+    width: 44%;
+}
+
+.btn-teal {
+    background: #41b4c4;
+    color: #fff;
+    border: 1px solid #41b4c4;
+}
+
+.btn-teal:hover {
+    background: #58bdcb;
+    text-decoration: none;
+}
+
+.btn-teal:focus {
+    background: #37939f;
+    border: 1px solid #37939f;
+}
+
+.btn-green {
+    background: #1b9618;
+    color: #fff;
+    border: 1px solid #1b9618;
+}
+
+.btn-green:focus {
+    background: #008b08;
+    border: 1px solid #008b08;
+}
+
+.btn-sm-0 {
+    padding: 5px 20px;
+    font-size: 14px;
+}
+
+.btn-sm-1 {
+    padding: 5px 16px;
+    font-size: 14px;
+}
+
+.line-height-1-5 {
+    line-height: 1.5;
+}
+
+.dealership-address {
+    width:85%;
+}
+
+.vertical-top {
+    display:inline-block;
+    vertical-align:top;
+}
+
+.tel-sm-icon {
+    width: 15px;
+    height: 12px;
+    background-position: -88px -324px;
+    position: relative;
+    top: 2px;
+}
+
+.tel-grey-sm-icon {
+    width: 14px;
+    height: 12px;
+    background-position: 1px -436px;
+}
+
+.dealership-loc-icon {
+    width:14px;
+    height:15px;
+    background-position: -38px -435px;
+}
+
+.dropdown-icon {
+    width: 10px;
+    height: 5px;
+    background-position: -66px -147px;
+}
+
+.inr-grey-xxxsm-icon { 
+    width:7px;
+    height:10px;
+    background-position:-94px -136px;
+}
+
+.clock-icon { 
+    width:14px;
+    height:14px;
+    background-position:-159px -461px;
+    position: relative;
+    top: 3px;
+}
+
+.offers-sm-box-icon { 
+    width:16px;
+    height:16px;
+    background-position:-183px -460px;
+    position: relative;
+    top: 1px;
+}
+
+.offers-sprite {
+    background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v1=8Aug2016) no-repeat;
+    display: inline-block;
+}
+
+.offerIcon_1, .offerIcon_2, .offerIcon_3, .offerIcon_4, .offerIcon_5, .offerIcon_6, .offerIcon_7 {
+    width: 30px;
+}
+
+.offerIcon_1 {
+    height:30px;
+    background-position:0 -92px;
+}
+
+.offerIcon_2 {
+    height:24px;
+    background-position:0 -132px;
+}
+
+.offerIcon_3 {
+    height:30px;
+    background-position:0 -166px;
+}
+
+.offerIcon_4 {
+    height:30px;
+    background-position:0 -206px;
+}
+
+.offerIcon_5 {
+    height:30px;
+    background-position:0 -246px;
+}
+
+.offerIcon_6 {
+    height:22px;
+    background-position:0 -286px;
+}
+
+.offerIcon_7 {
+    height:26px;
+    background-position:0 -318px;
+}
+
+.benifitIcon_1 , .benifitIcon_2 , .benifitIcon_3 , .benifitIcon_4 , .benifitIcon_5 {
+    width:18px;
+}
+
+.benifitIcon_1 {
+    height:16px;
+    background-position:-46px -142px;
+}
+
+.benifitIcon_2 {
+    height:18px;
+    background-position:-46px -168px;
+}
+
+.benifitIcon_3 {
+    height:14px;
+    background-position:-46px -196px;
+}
+
+.benifitIcon_4 {
+    height:16px;
+    background-position:-46px -220px;
+}
+
+.benifitIcon_5 {
+    height:18px;
+    background-position:-46px -246px;
+}
+
+.offers-box-icon {
+    width: 34px;
+    height: 37px;
+    background-position: 0 0;
+}
+
+.emi-calc-icon {
+    width: 34px;
+    height: 35px;
+    background-position: 0 -47px;
+}
+
+.text-green {
+    color: #4caf50;
+}
+
+.secondary-dealer-card {
+    width: 308px;
+    min-height: 102px;
+    padding: 10px 10px 20px;
+    -webkit-box-shadow: 0 1px 7px 0 #ccc;
+    -moz-box-shadow: 0 1px 7px 0 #ccc;
+    box-shadow: 0 1px 7px 0 #ccc;
+    border-radius: 2px;
+    border: 1px solid #ccc\9;
+}
+
+.secondary-dealer-card:first-child {
+    margin-left: 10px;
+}
+
+#pricequote-floating-button-wrapper {
+    min-height: 1px;
+    height: auto;
+}
+
+.floating-btn-inactive .float-button {
+    padding:10px 5px 0;
+    overflow: hidden;
+    background: #fff;
+}
+
+.float-button.float-fixed {
+    background: rgba(245,245,245,0.9);
+}
+
+.float-button .btn {
+    padding: 8px 0;
+    font-size: 18px;
+}
+
+.text-truncate { 
+    width:100%;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    text-align:left;
+}
+
+.lock-browser-scroll {
+    position: fixed;
+    overflow-y: scroll;
+    width: 100%;
+}
+
+#city-area-popup.bwm-fullscreen-popup {
+    padding: 50px 0 10px;
+    display: none;
+}
+
+#city-area-popup .header-fixed {
+    padding: 15px 10px;
+    height: 50px;
+}
+
+#city-area-popup .white-back-arrow {
+    top: 0px;
+    display: inline-block;
+}
+
+#city-area-popup .header-title {
+    position: relative;
+    top: -3px;
+}
+
+.header-fixed.fixed {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 3;
+}
+
+#city-area-popup .header-back-btn {
+    padding-left:5px;
+    cursor:pointer;
+    margin-right:4px;
+}
+
+.city-area-banner {
+    width: 100%;
+    max-width: 768px;
+    height: 110px;
+    background: #fff url(http://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/m/city-area-banner.jpg) no-repeat center bottom;
+}
+
+#city-area-content {
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+
+.city-area-tab {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    padding: 10px 20px;
+    position: relative;
+}
+
+.chevron-down {
+    display: none;
+    width: 16px;
+    height: 11px;
+    background-position: -194px -421px;
+    cursor: pointer;
+}
+
+.city-area-tab .chevron-down {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    -moz-transition: transform .3s;
+    -webkit-transition: transform .3s;
+    -o-transition: transform .3s;
+    -ms-transition: transform .3s;
+    transition: transform .3s;
+}
+
+#area-menu .city-area-tab {
+    border-top: 1px solid #e2e2e2;
+}
+
+.city-selected .chevron-down {
+    display: inline-block;
+}
+
+.city-selected .city-area-menu.open .chevron-down {
+    display: inline-block;
+    -moz-transform: rotateZ(180deg);
+    -webkit-transform: rotateZ(180deg);
+    -o-transform: rotateZ(180deg);
+    -ms-transform: rotateZ(180deg);
+    transform: rotateZ(180deg);
+}
+
+.inputbox-list-wrapper {
+    padding: 0 20px;
+}
+
+.inputbox-list-wrapper .user-input-box {
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.form-control-box .search-icon-grey {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    z-index: 2;
+    background-position: -34px -275px;
+}
+
+.form-control-box .fa-spinner {
+    display: none;
+    right: 14px;
+    top: 12px;
+    z-index: 3;
+}
+
+.inputbox-list-wrapper li {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    display: block;
+    border-top: 1px solid #f1f1f1;
+}
+
+.inputbox-list-wrapper li:first-child {
+    border-top: 0;
+}
+
+#area-menu {
+    display: none;
+}
+
+#area-menu-list li {
+    color: #82888b;
+    border-top: 0;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+#area-menu-list li.active {
+    color: #4d5057;
+}
+
+#emiPopup.bwm-fullscreen-popup { 
+    display:none;
+    padding: 20px 5px;
+}
+
+.booknow-label {
+    width: 65%;
+}
+
+#emiPopup .inr-xxsm-icon { width: 8px; }
+.cal-emi-icon {width:34px; height: 35px; background-position:0 -47px}
+#calldealer.btn-sm { padding:8px 10px; }
+
+.emi-slider-box { padding: 10px 15px 20px }
 .emi-slider-box:first-child { border-top:none; padding-top:10px; }
 .finance-emi-left-box { width:100%; overflow: hidden;}
 .finance-emi-right-box { width:100%; }
 .emi-slider-box-left-section { width:100%; float:left; }
-.ui-widget-content { background: #e2e2e2; height: 7px; margin: 10px 0 0; width: 100%; border-radius: 0px; }
+.ui-widget-content { background: #bababa; height: 4px; margin: 20px 0 3px; width: 100%; border-radius: 0px; }
 .ui-slider .ui-slider-range { border: none; display: block; font-size: 0.7em; position: absolute; z-index: 1; border-radius: 0px; }
-.ui-widget-header { background: #565a5c; height: 6px; }
+.ui-widget-header { background: #ef3030; height: 4px; }
 .ui-slider { position: relative; text-align: left; }
-.ui-slider .ui-slider-handle { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/slider-sprite.png?v=11Mar2016) no-repeat; cursor:pointer; height:20px; width:20px; display:block; margin-left: -9px; position: absolute; outline:none; top: -7px; z-index: 2; background-position:0 0; }
+.ui-slider .ui-slider-handle { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/slider-handle.png) no-repeat; cursor:pointer; height:28px; width:28px; display:block; margin-left: -9px; position: absolute; outline:none; top: -12px; z-index: 2; background-position:3px 3px; }
 .emi-slider-box-right-section { text-align:right; }
 .pos-top2 { top:2px; }
-.btn.emi-quote-btn { padding:8px 31px; }
-/* range points */
-.slider-range-points ul li { float:left; position:relative; }
-.slider-range-points ul.range-pointsUL li { width:14%; }
-.slider-range-points ul.range-pointsUL.month-range li { width:10%;}
-.range-points-bar { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/slider-sprite.png?v=11Mar2016) no-repeat; height:5px; width:2px; display:block; z-index: 1; background-position:-30px 0px; }
-.range-points-bar span { position:absolute; top:5px; left:-20px; font-size:11px; color:#a8afb3;}
-.range-points-bar:first-child span { left:0; }
-.tenure-rate-interest .range-points-bar span { left:0px; }
-.slider-range-points .range-five-pointsUL.range-pointsUL li { width:20%; }
-.text-darker-black { color:#1a1a1a; }
-a.text-darker-black:hover { text-decoration:none; }
+.btn.emi-quote-btn { padding:8px 19px; }
 
 .inner-section{background:#fff;clear:both;overflow:hidden}
 .alternatives-carousel .jcarousel li.front{border:none}
 .discover-bike-carousel .jcarousel li{height:auto}
 .discover-bike-carousel .front{height:auto}
+
+/*lead capture*/
 #leadCapturePopup .leadCapture-close-btn{z-index:2}
 #leadCapturePopup .error-icon,#leadCapturePopup .bw-blackbg-tooltip{display:none}
 .btn-grey{background:#fff;color:#82888b;border:1px solid #82888b}
@@ -96,11 +609,9 @@ a.text-darker-black:hover { text-decoration:none; }
 .notify-offers-list{list-style:disc;margin-left:10px}
 #notifyAvailabilityContainer .notify-close-btn{z-index:2}
 #leadCapturePopup .error-icon,#leadCapturePopup .bw-blackbg-tooltip{display:none}
-.float-button{background-color:#f5f5f5;padding:10px}
-.float-button.float-fixed{position:fixed;bottom:0;z-index:8;left:0;right:0}
 #otpPopup{display:none}
-.icon-outer-container{width:102px;height:102px;margin:0 auto;background:#fff;border:1px solid #ccc}
-.icon-inner-container{width:92px;height:92px;margin:4px auto;background:#fff;border:1px solid #666}
+.icon-outer-container{width:72px;height:72px;}
+.icon-inner-container{width:64px;height:64px;margin:3px auto;}
 .user-contact-details-icon{width:36px;height:44px;background-position:-107px -227px}
 .otp-icon{width:30px;height:40px;background-position:-107px -177px}
 .edit-blue-icon{width:16px;height:16px;background-position:-114px -123px}
@@ -110,12 +621,37 @@ a.text-darker-black:hover { text-decoration:none; }
 #otpPopup .otp-box p.resend-otp-btn{color:#0288d1;cursor:pointer;font-size:14px}
 #otpPopup .update-mobile-box{display:none}
 #otpPopup .edit-mobile-btn{cursor:pointer}
-.thankyou-icon {width:48px; height:58px; background-position: -137px -404px; }
-.text-default {color:#4d5057}
-.dealership-loc-icon { width:8px; height:12px; background-position:-41px -437px; position:relative;top:4px; }
-.dealership-address { width:92%; }
-.vertical-top { display:inline-block;vertical-align:top; }
+
 .btn-grey-state {background:#fff;color:#82888b;border:1px solid #82888b;}
 .button-clicked-state {background:#82888b;color:#fff;text-decoration:none;border:1px solid #82888b;}
 #calldealer:hover { text-decoration:none; }
+
 .get-offer-link {color: #0288d1!important; font-weight:bold}
+.city-unveil-offer-container { margin-top:20px; border:1px dashed #82888b; width:100%; min-height:115px; padding:10px; }
+.city-unveil-offer-container ul { margin-left:20px; list-style-type:disc; }
+.city-unveil-offer-container ul li { margin-top:5px; padding-bottom:5px; font-size: 14px;} 
+
+@media only screen and (min-width: 360px) {
+    .header-dealername {
+        max-width: 260px;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .booknow-label {
+        width: 168px;
+    }
+    .float-button .btn {
+        font-size: 16px;
+    }
+}
+#modelAlternateBikeContent.margin-bottom20 { margin-bottom:0; }
+#modelAlternateBikeContent .swiper-container { padding-bottom:5px; }
+#modelAlternateBikeContent .swiper-slide { width:186px; min-height:240px; border:1px solid #e2e2e2; background:#fff; -webkit-box-shadow: 0 1px 4px 0 #ccc; -moz-box-shadow: 0 1px 4px 0 #ccc; box-shadow: 0 1px 4px 0 #ccc; }
+#modelAlternateBikeContent .swiper-slide:first-child { margin-left:10px; }
+#modelAlternateBikeContent h2.margin-bottom20 { margin-bottom:10px; }
+#modelAlternateBikeContent .swiper-slide h3 {  margin-bottom:7px; }
+.model-swiper-image-preview { width:100%; height:101px; }
+.model-swiper-image-preview a { width:180px; height:103px; display:block; position:relative; }
+.model-swiper-details { padding:10px 18px 20px; }
+.btn-x-sm { padding:8px 14px; color:#4d5057; }

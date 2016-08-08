@@ -48,7 +48,7 @@
             </a>
             <ul class="nestedUL">
                 <li><a href="/news/">News</a></li>
-                <li><a href="/road-tests/">Expert Reviews</a></li>
+                <li><a href="/expert-reviews/">Expert Reviews</a></li>
                 <li><a href="/user-reviews/">User Reviews</a></li>
                 <li><a href="/features/">Features</a></li>
                 <li><a href="/bike-videos/">Videos</a></li>

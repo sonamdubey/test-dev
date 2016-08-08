@@ -1,4 +1,5 @@
-﻿using Bikewale.BAL.EditCMS;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
@@ -36,7 +37,7 @@ namespace Bikewale.Content
 
         protected int totalPages = 0;
         private const int _pageSize = 10;
-        protected string prevPageUrl = String.Empty, nextPageUrl = String.Empty, modelId = string.Empty, makeId = string.Empty;
+        protected string prevPageUrl = String.Empty, nextPageUrl = String.Empty, modelId = string.Empty, makeId = string.Empty, makeName = string.Empty, modelName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty;
         private bool _isContentFound = true;
         int _curPageNo = 1;
 
@@ -50,14 +51,13 @@ namespace Bikewale.Content
             if (!IsPostBack)
             {
                 ProcessQueryString();
-
                 GetRoadTestList();
                 BindMakes();
                 AutoFill();
             }
         }
 
-        private async void GetRoadTestList()
+        private void GetRoadTestList()
         {
             try
             {
@@ -66,9 +66,7 @@ namespace Bikewale.Content
                 IPager objPager = GetPager();
 
                 int _startIndex = 0, _endIndex = 0;
-
                 objPager.GetStartEndIndex(_pageSize, _curPageNo, out _startIndex, out _endIndex);
-
                 CMSContent _objRoadTestList = null;
 
                 using (IUnityContainer container = new UnityContainer())
@@ -133,14 +131,14 @@ namespace Bikewale.Content
         {
             PagerOutputEntity _pagerOutput = null;
             PagerEntity _pagerEntity = null;
-            string _baseUrl = "/m/road-tests/";
+            string _baseUrl = "/m/expert-reviews/";
 
             try
             {
                 if (!String.IsNullOrEmpty(makeId) && !String.IsNullOrEmpty(modelId))
-                    _baseUrl = Request.QueryString["make"] + "-bikes/" + Request.QueryString["model"] + "/road-tests/";
+                    _baseUrl = Request.QueryString["make"] + "-bikes/" + Request.QueryString["model"] + "/expert-reviews/";
                 else if (!String.IsNullOrEmpty(Request.QueryString["make"]))
-                    _baseUrl = "/m/" + Request.QueryString["make"] + "-bikes/" + "/road-tests/";
+                    _baseUrl = "/m/" + Request.QueryString["make"] + "-bikes/" + "/expert-reviews/";
 
                 _pagerEntity = new PagerEntity();
                 _pagerEntity.BaseUrl = _baseUrl;
@@ -224,7 +222,8 @@ namespace Bikewale.Content
 
         private void ProcessQueryString()
         {
-            if (!String.IsNullOrEmpty(Request.QueryString["model"]))
+            modelMaskingName = Request.QueryString["model"];
+            if (!String.IsNullOrEmpty(modelMaskingName))
             {
                 ModelMaskingResponse objResponse = null;
 
@@ -232,21 +231,24 @@ namespace Bikewale.Content
                 {
                     container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
                              .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                            ;
+                             .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
                     var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-
-                    objResponse = objCache.GetModelMaskingResponse(Request.QueryString["model"]);
-
+                    objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
                     if (objResponse != null && objResponse.StatusCode == 200)
                     {
                         modelId = objResponse.ModelId.ToString();
+                        using (IUnityContainer modelContainer = new UnityContainer())
+                        {
+                            modelContainer.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
+                            IBikeModels<BikeModelEntity, int> objClient = modelContainer.Resolve<IBikeModels<BikeModelEntity, int>>();
+                            BikeModelEntity bikemodelEnt = objClient.GetById(Convert.ToInt32(modelId));
+                            modelName = bikemodelEnt.ModelName;
+                        }
                     }
                     else
                     {
                         if (objResponse.StatusCode == 301)
                         {
-                            //redirect permanent to new page 
                             CommonOpn.RedirectPermanent(Request.RawUrl.Replace(Request.QueryString["model"], objResponse.MaskingName));
                         }
                         else
@@ -257,13 +259,22 @@ namespace Bikewale.Content
                         }
                     }
                 }
-
             }
 
-            if (!String.IsNullOrEmpty(Request.QueryString["make"]))
-            {
-                makeId = MakeMapping.GetMakeId(Request.QueryString["make"].ToLower());
 
+            makeMaskingName = Request.QueryString["make"];
+            if (!String.IsNullOrEmpty(makeMaskingName))
+            {
+                makeId = MakeMapping.GetMakeId(makeMaskingName.ToLower());
+                using (IUnityContainer container1 = new UnityContainer())
+                {
+                    container1.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                            .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                            .RegisterType<ICacheManager, MemcacheManager>();
+                    var _objMakeCache = container1.Resolve<IBikeMakesCacheRepository<int>>();
+                    BikeMakeEntityBase objMMV = _objMakeCache.GetMakeDetails(Convert.ToUInt32(makeId));
+                    makeName = objMMV.MakeName;
+                }
                 if (String.IsNullOrEmpty(makeId))
                 {
                     Response.Redirect("/m/pagenotfound.aspx", false);
@@ -280,7 +291,5 @@ namespace Bikewale.Content
                     _curPageNo = Convert.ToInt32(Request.QueryString["pn"]);
             }
         }
-
-
     }
 }

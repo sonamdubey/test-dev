@@ -12,6 +12,8 @@
         AdId = "1395986297721";
         AdPath = "/1017752/Bikewale_PQ_";
         isAd970x90Shown = true;
+        isAd300x250Shown = false;
+        isAd300x250BTFShown = false;
         
     %>
     <!-- #include file="/includes/headscript.aspx" -->

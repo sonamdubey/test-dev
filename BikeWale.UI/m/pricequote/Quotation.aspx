@@ -67,7 +67,7 @@
         var versionName = "<%= objQuotation.VersionName%>";
         var myBikeName = "<%=objVersionDetails.MakeBase.MakeName%>";
 
-</script>
+    </script>
 
 </head>
 <body class="bg-light-grey">
@@ -228,9 +228,9 @@
                 <!-- Contact details Popup ends here -->
                  <!-- thank you message starts here -->
                 <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
-                        <p class="font18 text-bold margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
-                        <p class="font16 margin-bottom40"><%=objVersionDetails.MakeBase.MakeName%> Company would get back to you shortly with additional information.</p>
-                        <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
+                    <p class="font18 text-bold margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
+                    <p class="font16 margin-bottom40"><%=objVersionDetails.MakeBase.MakeName%> Company would get back to you shortly with additional information.</p>
+                    <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
                 </div>
 				<!-- thank you message ends here -->               
             </div>
