@@ -299,7 +299,7 @@ namespace Bikewale.BAL.PriceQuote
         /// Description : To generate pricequote dependent on modelid,cityid and areaId
         /// </summary>
         /// <returns></returns>
-        public Bikewale.Entities.PriceQuote.v2.PQByCityAreaEntity GetPriceQuoteByCityArea(PriceQuoteParametersEntity pqInput)
+        public Bikewale.Entities.PriceQuote.v2.PQByCityAreaEntity GetPriceQuoteByCityArea(PriceQuoteParametersEntity pqInput, bool isReload)
         {
             Bikewale.Entities.PriceQuote.v2.PQByCityAreaEntity pqOutput = null;
             try
@@ -330,11 +330,13 @@ namespace Bikewale.BAL.PriceQuote
 
                                 if (pqOutput.IsAreaExists)
                                 {
-
-                                    PQOutputEntity priceQuote = objDealer.ProcessPQ(pqInput);
-                                    if (priceQuote != null)
+                                    if (!isReload)
                                     {
-                                        pqOutput.PriceQuote = priceQuote;
+                                        PQOutputEntity priceQuote = objDealer.ProcessPQ(pqInput);
+                                        if (priceQuote != null)
+                                        {
+                                            pqOutput.PriceQuote = priceQuote;
+                                        }
                                     }
                                 }
                                 else  //selected area is not in the list
@@ -345,8 +347,10 @@ namespace Bikewale.BAL.PriceQuote
                             }
                             else //when city exists and no areas for that city exists show bikewale pricequote (hasareas for that city is false)
                             {
-
-                                pqOutput.PriceQuote = objDealer.ProcessPQ(pqInput);
+                                if (!isReload)
+                                {
+                                    pqOutput.PriceQuote = objDealer.ProcessPQ(pqInput);
+                                }
                             }
                         }
                         else // when selected city is not in the list show cities list 

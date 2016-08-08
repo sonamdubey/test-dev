@@ -36,6 +36,9 @@ namespace Bikewale.DTO.PriceQuote.v2
         [JsonProperty("refPQId")]
         public UInt64? RefPQId { get; set; }
 
+        [JsonProperty("isReload")]
+        public bool IsReload { get; set; }
+
         [JsonProperty("isPersistance")]
         public bool IsPersistance { get; set; }
     }

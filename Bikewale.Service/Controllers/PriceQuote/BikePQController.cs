@@ -6,6 +6,7 @@ using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.PriceQuote;
 using Bikewale.Service.Utilities;
+using Bikewale.Utility;
 using System;
 using System.Linq;
 using System.Web.Http;
@@ -86,9 +87,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     objPQEntity.DeviceId = input.DeviceId;
                     objPQEntity.PQLeadId = input.PQLeadId;
                     objPQEntity.RefPQId = input.RefPQId;
-
                     PQByCityArea pqbyCityArea = new PQByCityArea();
-                    pqOut = pqbyCityArea.GetPriceQuoteByCityArea(objPQEntity);
 
                     if (input.IsPersistance)
                     {
@@ -103,12 +102,26 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     }
                     else
                     {
-                        pqOut = pqbyCityArea.GetPriceQuoteByCityArea(objPQEntity);
+                        pqOut = pqbyCityArea.GetPriceQuoteByCityArea(objPQEntity, input.IsReload);
                     }
 
 
                     if (pqOut != null)
                     {
+                        pqOutput = PQBikePriceQuoteOutputMapper.Convert(pqOut);
+
+                        if (input.IsPersistance)
+                        {
+                            pqOutput.ActionUrl = string.Empty;
+                            pqOutput.Action = false;
+                        }
+                        else if (pqOutput.PriceQuote != null)
+                        {
+                            string queryString = String.Format("CityId={0}&AreaId={1}&PQId={2}&VersionId={3}&DealerId={4}", objPQEntity.CityId, objPQEntity.AreaId, pqOutput.PriceQuote.PQId, pqOutput.PriceQuote.VersionId, pqOutput.PriceQuote.DealerId);
+                            pqOutput.ActionUrl = string.Format("/pricequote/dealerpricequote.aspx?MPQ=", EncodingDecodingHelper.EncodeTo64(queryString));
+                        }
+
+
                         return Ok(pqOutput);
                     }
                     else
