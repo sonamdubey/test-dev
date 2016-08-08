@@ -1,4 +1,5 @@
-﻿using BikewaleOpr.DAL;
+﻿using Bikewale.Utility.Terms;
+using BikewaleOpr.DAL;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Interface;
 using BikeWaleOpr.Common;
@@ -23,6 +24,8 @@ namespace BikeWaleOpr.BikeBooking
         protected DateControl dtDate;
         protected HiddenField hdn_modelId, hdnCities, hdnOffersIds; //hdn_cityId, , hdn_offerType, hdn_dtDate, hdn_dtMonth, hdn_ddlHours, hdn_ddlMins;
         protected string userId = "0";
+
+        TermsHtmlFormatting htmlFormatFunction = new TermsHtmlFormatting();
 
         protected override void OnInit(EventArgs e)
         {
@@ -125,12 +128,15 @@ namespace BikeWaleOpr.BikeBooking
                 ManageCities objCities = new ManageCities();
                 DataSet ds = objCities.GetCWCities(0, "ALL");
                 //Trace.Warn("cities : " + ds.Tables[0].Rows.Count);
-                drpCity.DataSource = ds.Tables[0];
-                drpCity.DataTextField = "Text";
-                drpCity.DataValueField = "Value";
+                if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                {
+                    drpCity.DataSource = ds.Tables[0];
+                    drpCity.DataTextField = "Text";
+                    drpCity.DataValueField = "Value";
 
-                drpCity.DataBind();
-                drpCity.Items.Insert(0, new ListItem("--Select City--", "-1"));
+                    drpCity.DataBind();
+                    drpCity.Items.Insert(0, new ListItem("--Select City--", "-1"));
+                }
             }
             catch (Exception ex)
             {
@@ -240,6 +246,9 @@ namespace BikeWaleOpr.BikeBooking
         /// <summary>
         /// Created By : Suresh Prajapati on 03rd Nov, 2014.
         /// Discription : Binds the List of Entity to repeater for particular dealer of city.
+        /// 
+        /// Modified By: Aditi Srivastava
+        /// Description: Remove html li tags from terms and conditions
         /// </summary>
 
         private void GetDealerOffers()
@@ -255,6 +264,9 @@ namespace BikeWaleOpr.BikeBooking
                     container.RegisterType<IDealers, DealersRepository>();
                     IDealers objCity = container.Resolve<DealersRepository>();
                     objOfferList = objCity.GetDealerOffers(dealerId);
+                    foreach(var offer in objOfferList){
+                        offer.Terms = htmlFormatFunction.RemoveHtmlListTag(offer.Terms);
+                    }
                 }
 
                 if (objOfferList != null && objOfferList.Count > 0)
@@ -302,7 +314,7 @@ namespace BikeWaleOpr.BikeBooking
                 {
                     container.RegisterType<IDealers, DealersRepository>();
                     IDealers objCity = container.Resolve<DealersRepository>();
-                    isSuccess = objCity.SaveDealerOffer(dealerId, Convert.ToUInt32(userId), Convert.ToInt32(drpCity.SelectedValue), (hdn_modelId.Value), Convert.ToInt32(drpOffers.SelectedValue), Server.HtmlEncode(offerText.Text), oValue, dtDate.Value, chkIsPriceImpact.Checked, Server.HtmlEncode(txtAreaTerms.Text));
+                    isSuccess = objCity.SaveDealerOffer(dealerId, Convert.ToUInt32(userId), Convert.ToInt32(drpCity.SelectedValue), (hdn_modelId.Value), Convert.ToInt32(drpOffers.SelectedValue), Server.HtmlEncode(offerText.Text), oValue, dtDate.Value, chkIsPriceImpact.Checked, htmlFormatFunction.MakeHtmlList(txtAreaTerms.Text));
                 }
 
                 if (isSuccess)
