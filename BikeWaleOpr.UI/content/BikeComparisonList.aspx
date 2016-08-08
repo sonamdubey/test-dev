@@ -80,7 +80,7 @@
                 <table>
                     <tr>
                         <td colspan="2">
-                            <img id="imgCompPhoto" src="<%= String.IsNullOrEmpty(originalImgPath) ? "http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/nobike.jpg" : BikeWaleOpr.ImagingOperations.GetPathToShowImages(hostUrl,"310X174",originalImgPath)%>" height="110px"/>
+                            <img id="imgCompPhoto" src="<%= BikeWaleOpr.ImagingOperations.GetPathToShowImages(hostUrl,"310X174",originalImgPath)%>" height="110px"/>
                         </td>
                     </tr>
                     <tr>
