@@ -130,19 +130,8 @@
                     <div style="display:inline;">
                         <div style="width:237px;display:inline-block;border:1px solid #DBDBDC;padding:5px;">
                             <div id ="divMainImageRepTable" pending="<%= isReplicated =="0"? "true" : "false" %>">
-                                <% if (originalImgPath != string.Empty)
-                                   { %>
                                     <img id="imgLargePicPath" image-id="<%=Id %>" src="<%= isReplicated =="0"? "http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/loader.gif" :  BikeWaleOpr.ImagingOperations.GetPathToShowImages(hostUrl,"227X128",originalImgPath)%>"/>
-                                 <% } else { %>
-                                <img src="http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/nobike.jpg" height="125px" width="200px" />
-                                <% } %>
                             </div>
-
-                           <%-- <% if(largePicImgPath != string.Empty) { %>
-                                <img id="imgLargePicPath" src="<%=BikeWaleOpr.ImagingOperations.GetPathToShowImages(largePicImgPath, hostUrl) + "?v=" + imgVersion.ToString() %>"/>
-                            <% } else { %>
-                                
-                            <% } %>--%>
                         </div>
                         &nbsp;&nbsp;&nbsp;&nbsp;<input type="file" id="filLarge" runat="server" /><div>Original Image
                     </div>
