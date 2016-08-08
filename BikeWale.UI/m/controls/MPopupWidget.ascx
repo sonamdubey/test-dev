@@ -1,15 +1,15 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.controls.MPopupWidget" %> 
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.controls.MPopupWidget" %>
 <script type="text/javascript">
-	lscache.flushExpired(); 
-	var modelCityKey = "mc_";
-	var cityAreaKey = "ca_";
-	var pCityId = <%= CityId %>;
+    lscache.flushExpired(); 
+    var modelCityKey = "mc_";
+    var cityAreaKey = "ca_";
+    var pCityId = <%= CityId %>;
     var pAreaId = <%= AreaId %>;
     var onCookieObj = {};
 </script>
 
-		<!-- pricequote widget starts here-->
-	<div id="popupWrapper">
+<!-- pricequote widget starts here-->
+<div id="popupWrapper">
 		<div id="city-area-popup" class="bwm-fullscreen-popup">
 			<div class="header-fixed fixed">
 				<div class="leftfloat header-back-btn">
@@ -55,700 +55,388 @@
 			</div>
 		</div>
 	</div>
-	  <!-- pricequote widget ends here-->
+<!-- pricequote widget ends here-->
 
-		<!-- widget script starts here-->
-		<script type="text/javascript" >
+<!-- widget script starts here-->
+<script type="text/javascript">
 
-			$('#popupWrapper .close-btn,.blackOut-window').click(function () {
-				$('.bw-city-popup').fadeOut(100);
-				$('body').removeClass('lock-browser-scroll');
-				$(".blackOut-window").hide();
-				$('a.fillPopupData').removeClass('ui-btn-active');
-			});
+    $('#popupWrapper .close-btn,.blackOut-window').click(function () {
+        $('.bw-city-popup').fadeOut(100);
+        $('body').removeClass('lock-browser-scroll');
+        $(".blackOut-window").hide();
+        $('a.fillPopupData').removeClass('ui-btn-active');
+        stopLoading($('#top-progress-bar'));
+    });
 
-			$(document).on("click", ".getquotation", function (e) {
-			    var ele = $(this); e.stopPropagation();
-			    checkCookies();
-				var options = {
-					"modelId": ele.attr('modelId') ,//ele.attr("data-modelid"),
-					"cityId": onCookieObj.PQCitySelectedId,
-					"areaId": onCookieObj.PQAreaSelectedId,
-					"makename" : ele.attr('makeName'),
-					"modelname" : ele.attr('modelName'),
-					"pagecatid" : ele.attr('pagecatid'),
-					"pagesrcid" : ele.attr('pqSourceId'),
-					"ismodelpage" : ele.attr('ismodel'),
-					"popupstate" : ele.attr("data-popup-state")
+    $(document).on("click", ".getquotation", function (e) {
+        var ele = $(this); e.stopPropagation();
+        startLoading($('#top-progress-bar'));
+        checkCookies();
+        var options = {
+            "modelId": ele.attr('modelId') ,//ele.attr("data-modelid"),
+            "cityId": onCookieObj.PQCitySelectedId,
+            "areaId": onCookieObj.PQAreaSelectedId,
+            "makename" : ele.attr('makeName'),
+            "modelname" : ele.attr('modelName'),
+            "pagecatid" : ele.attr('pagecatid'),
+            "pagesrcid" : ele.attr('pqSourceId'),
+            "ispersistent" : ele.attr('ismodel') !=null ? true : false,
+            "isreload" : ele.attr("data-reload") !=null ? true : false 
 
-				}; 
+        }; 
 				
-				vmquotation.setOptions(options);
-				appendHash("onRoadPrice");
+        vmquotation.setOptions(options);
+        appendHash("onRoadPrice");
 
-				//$('#popupWrapper').fadeIn(10);
-			});
+        //$('#popupWrapper').fadeIn(10);
+    });
 
-			var showPQPopup = function(isCitySelected) {
-			    var tab = $('#city-area-content #city-menu-tab'),
-                tabParent = tab.parent('.city-area-menu'),
-                cityAreaContent = $('#city-area-content');
-			    var areaMenu = $('#area-menu');
+    var showPQPopup = function(isCitySelected) {
+        var tab = $('#city-area-content #city-menu-tab'),
+        tabParent = tab.parent('.city-area-menu'),
+        cityAreaContent = $('#city-area-content');
+        var areaMenu = $('#area-menu');
 
-			    if (cityAreaContent.hasClass('city-selected')) {
-			        var areaMenu = $('#area-menu');
-			    }
+        if (cityAreaContent.hasClass('city-selected')) {
+            var areaMenu = $('#area-menu');
+        }
 
-			    
+        cityArea.open();
+        cityArea.openList(tabParent);
+        cityArea.closeList(areaMenu);
+        areaMenu.hide();
+        if(isCitySelected)
+        {
+            $('#city-area-content #city-menu-tab').click();
+        }			    
+    };
 
-			    cityArea.open();
-			    cityArea.openList(tabParent);
-			    cityArea.closeList(areaMenu);
-			    areaMenu.hide();
-			    if(isCitySelected)
-			    {
-			        $('#city-area-content #city-menu-tab').click();
-			    }			    
-			};
+    var mPopup = function () {
+        var self = this;
+        self.MakeName = "";
+        self.ModelName = "";
+        self.PageCatId = "";
+        self.PageSourceId = "";
+        self.SelectedModelId = ko.observable();
+        self.SelectedCity = ko.observable();
+        self.SelectedArea = ko.observable();
+        self.SelectedCityId = ko.observable(<%= CityId %>);
+        self.SelectedAreaId = ko.observable(<%= AreaId %>);
+        self.BookingCities = ko.observableArray([]);
+        self.BookingAreas = ko.observableArray([]);
+        self.oBrowser = ko.observable(<%= isOperaBrowser.ToString().ToLower()%>);
+		self.IsPersistance = ko.observable(false);
+		self.IsReload = ko.observable(false);
 
-			var mPopup = function () {
-				var self = this;
-				self.MakeName = "";
-				self.ModelName = "";
-				self.PageCatId = "";
-				self.PageSourceId = "";
-				self.SelectedModelId = ko.observable();
-				self.SelectedCity = ko.observable();
-				self.SelectedArea = ko.observable();
-				self.SelectedCityId = ko.observable(<%= CityId %>);
-			    self.SelectedAreaId = ko.observable(<%= AreaId %>);
-				self.BookingCities = ko.observableArray([]);
-				self.BookingAreas = ko.observableArray([]);
-				self.oBrowser = ko.observable(<%= isOperaBrowser.ToString().ToLower()%>);
-			    self.IsPersistance = ko.observable(false);
-			    self.PopupState = ko.observable(false);
+		
+		self.setOptions = function (options,event) {
+		    if (options != null) {
+		        if (options.modelId != null)
+		            self.SelectedModelId(options.modelId);
 
-				self.setOptions = function (options,event) {
-					if (options != null) {
-						if (options.modelId != null)
-							self.SelectedModelId(options.modelId);
+		        if (options.cityId != null)
+		            self.SelectedCityId(options.cityId);
 
-						if (options.cityId != null)
-							self.SelectedCityId(options.cityId);
+		        if (options.areaId != null)
+		            self.SelectedAreaId(options.areaId);
 
-						if (options.areaId != null)
-							self.SelectedAreaId(options.areaId);
+		        if (options.city != null)
+		            self.SelectedCity(options.city);
 
-						if (options.city != null)
-							self.SelectedCity(options.city);
+		        if (options.area != null)
+		            self.SelectedArea(options.area);
 
-						if (options.area != null)
-							self.SelectedArea(options.area);
+		        if (options.modelname != null)
+		            self.ModelName = options.modelname;
 
-						if (options.modelname != null)
-							self.ModelName = options.modelname;
+		        if (options.makename != null)
+		            self.MakeName = options.makename;
 
-						if (options.makename != null)
-							self.MakeName = options.makename;
+		        if (options.pagecatid != null)
+		            self.PageCatId = options.pagecatid;
 
-						if (options.pagecatid != null)
-						    self.PageCatId = options.pagecatid;
+		        if (options.pagesrcid != null)
+		            self.PageSourceId = options.pagesrcid;
+						
+		        if (options.ispersistent != null)
+		            self.IsPersistance(options.ispersistent);
 
-						if (options.pagesrcid != null)
-						    self.PageSourceId = options.pagesrcid;
-                        
-						if (options.ismodelpage != null)
-						    self.IsPersistance(options.ismodelpage);
-
-						if (options.popupstate != null)
-						    self.PopupState(options.popupstate);
+		        if (options.isreload != null)
+		            self.IsReload(options.isreload);
 
 
-						if(self.SelectedModelId())
-						{
-						    self.InitializePQ();
-						}
+		        if(self.SelectedModelId())
+		        {
+		            self.InitializePQ();
+		        }
 
-						gtmCodeAppender(self.PageCatId, "Get_On_Road_Price_Click", self.MakeName + self.ModelName);
-					}
-				};
+		        gtmCodeAppender(self.PageCatId, "Get_On_Road_Price_Click", self.MakeName + self.ModelName);
+		    }
+		};
 
-				self.InitializePQ = function(data,event)
-				{
-				    var isAborted = false;
+		self.InitializePQ = function(data,event)
+		{
+		    var isAborted = false;
 
-				    self.SelectedCity(findCityById(self.SelectedCityId()));
-				    self.SelectedArea(findAreaById(self.SelectedAreaId()));   
+		    //self.SelectedCity(findCityById(self.SelectedCityId()));
+		    //self.SelectedArea(findAreaById(self.SelectedAreaId()));   
 
-				    //if (self.IsPersistance && ga_pg_id != null && ga_pg_id == 2) {
+		    if (self.SelectedModelId() != null && self.SelectedModelId()  > 0) {
 
-				    //    if(self.SelectedCity())
-				    //    {
-				    //        cookieValue = self.SelectedCity().id + "_" + self.SelectedCity().name;
-				    //        if (self.SelectedArea() != undefined) {
-				    //            cookieValue += ("_" + self.SelectedArea().id + "_" + self.SelectedArea().name);
-				    //        }
-
-				    //        SetCookieInDays("location", cookieValue, 365);
-				    //    }
-
-				    //    window.location.reload(); 
-
-				    //}else 
-				    
-				    if (self.SelectedModelId() != null && self.SelectedModelId()  > 0) {
-
-				        var objData = {
-				            "CityId":self.SelectedCityId(),
-				            "AreaId":self.SelectedAreaId(),
-				            "ModelId":self.SelectedModelId(),
-				            "ClientIP":"<%= ClientIP %>",
+		        var objData = {
+		            "CityId":self.SelectedCityId(),
+		            "AreaId":self.SelectedAreaId(),
+		            "ModelId":self.SelectedModelId(),
+		            "ClientIP":"<%= ClientIP %>",
 				            "SourceType":"2",
 				            "VersionId":0,
 				            "pQLeadId":self.PageSourceId,
 				            'deviceId': getCookie('BWC'),
 				            'isPersistance' : self.IsPersistance()  ,
-				            'refPQId': typeof pqId != 'undefined' ? pqId : ''
+				            'refPQId': typeof pqId != 'undefined' ? pqId : '',
+				            'isReload' : self.IsReload()
 				        }
 
-				        $.ajax({
-				            type: "POST",
-				            url: "/api/generatepq/",
-				            data : objData, 
-				            dataType: 'json',
-				            beforeSend: function (xhr) {
-				                xhr.setRequestHeader('utma', getCookie('__utma'));
-				                xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
-				            },
-				            success: function (response) {
-				                var _responseData = ko.toJS(response);				                
-				                if(self.SelectedCity())
-				                {
-				                    cookieValue = self.SelectedCity().id + "_" + self.SelectedCity().name;
-				                    if (self.SelectedArea() != undefined) {
-				                        cookieValue += ("_" + self.SelectedArea().id + "_" + self.SelectedArea().name);
-				                    }
+                        $.ajax({
+                            type: "POST",
+                            url: "/api/generatepq/",
+                            data : objData, 
+                            dataType: 'json',
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader('utma', getCookie('__utma'));
+                                xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
+                            },
+                            success: function (response) {
+                                var _responseData = ko.toJS(response);
+								
+                                if (_responseData && _responseData.pqCities && _responseData.pqCities.length > 0) {									
 
-				                    SetCookieInDays("location", cookieValue, 365);
-				                }
+                                    var cities = ko.toJS(_responseData.pqCities);
+                                    if (cities!=null && cities.length > 0) {
+                                        self.BookingCities(cities);
+                                    }									
+                                    if(self.SelectedCityId() > 0)
+                                    {
+                                        self.SelectedCity(findCityById(self.SelectedCityId()));
+                                        
+                                        $('#city-area-content').addClass('city-selected');
+                                        var hasAreas = (self.SelectedCity() != null && self.SelectedCity().hasAreas) ? true : false;
+                                        if(!hasAreas) {
+                                            $('#city-area-content').removeClass('city-selected'); 									        
+                                        }
+                                        if(self.SelectedAreaId() > 0)
+                                        {
+                                            self.SelectedArea(findAreaById(self.SelectedAreaId()));
+                                        }                                 
+                                    }
 
-				                if (_responseData && !_responseData.priceQuote) {
-				                    
+                                    var areas = ko.toJS(_responseData.pqAreas);
+                                    if (areas) {
+                                        self.BookingAreas(areas);
+                                    }
 
-				                    if(_responseData.isAreaExists)
-				                    {
-				                        var areas = ko.toJS(_responseData.pqAreas);
-				                        if (areas) {
-				                            self.BookingAreas(areas);
-				                        }
-				                        else {
-				                            self.BookingAreas([]);
-				                        }
-				                    }
+                                    showPQPopup(self.SelectedCityId() > 0 );
 
-				                    var cities = ko.toJS(_responseData.pqCities);
-				                    if (cities) {
-				                        self.BookingCities(cities);
-				                    }
-				                    //else {
-				                    //    self.BookingCities([]);
-				                    //}
-				                }
-				                else{
+                                }
+                                else  if(_responseData.priceQuote != null){
+                                    
+                                    cityArea.close();
+                                   
+                                    var jsonObj = _responseData.priceQuote;
 
-				                    var jsonObj = _responseData.priceQuote;
+                                    gaLabel = GetGlobalCityArea() + ', ';
 
-				                    gaLabel = GetGlobalCityArea() + ', ';
+                                    if (self.MakeName != undefined || self.ModelName != undefined)
+                                        gaLabel = self.MakeName + ',' + self.ModelName + ',';				                    
 
-				                    if (self.MakeName != undefined || self.ModelName != undefined)
-				                        gaLabel = self.MakeName + ',' + self.ModelName + ',';				                    
+                                    var queryStr = "CityId=" + self.SelectedCityId() + "&AreaId=" + (!isNaN(self.SelectedAreaId()) ? self.SelectedAreaId() : 0) + "&PQId=" + jsonObj.quoteId + "&VersionId=" + jsonObj.versionId + "&DealerId=" + jsonObj.dealerId;
 
-				                    var queryStr = "CityId=" + self.SelectedCityId() + "&AreaId=" + (!isNaN(self.SelectedAreaId()) ? self.SelectedAreaId() : 0) + "&PQId=" + jsonObj.quoteId + "&VersionId=" + jsonObj.versionId + "&DealerId=" + jsonObj.dealerId;
+                                    if(jsonObj.dealerId > 0)
+                                        gtmCodeAppender(self.PageCatId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
+                                    else gtmCodeAppender(self.PageCatId, 'BW_PriceQuote_Success_Submit', gaLabel);
 
-				                    if(jsonObj.dealerId > 0)
-				                        gtmCodeAppender(self.PageCatId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
-				                    else gtmCodeAppender(self.PageCatId, 'BW_PriceQuote_Success_Submit', gaLabel);
+                                    if(!self.IsReload())
+                                        window.location = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + Base64.encode(queryStr);
+                                    else   window.location.reload(); 
+                                }
+                                else
+                                {
+                                    window.location.reload();
+                                }
+                                
+                            },
+                            complete: function (xhr) {
+                                if(xhr.status == 200 && !xhr.priceQuote) {
+                                    if(self.SelectedCity())
+                                    {
+                                        cookieValue = self.SelectedCity().id + "_" + self.SelectedCity().name;
 
-				                    window.location = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + Base64.encode(queryStr);
-				                }
-				            },
-				            complete: function (xhr) {
-				                if(xhr.status == 200 && !xhr.priceQuote) {
-				                    showPQPopup(self.SelectedCityId() > 0);
-				                }
-				            }
-				        });
-				    }
+                                        self.SelectedArea(findAreaById(self.SelectedAreaId()));
+
+                                        if (self.SelectedArea() != null) {
+                                            cookieValue += ("_" + self.SelectedArea().id + "_" + self.SelectedArea().name);
+                                        }
+
+                                        SetCookieInDays("location", cookieValue, 365);
+                                    }
+
+                                }
+                                stopLoading($('#top-progress-bar'));
+                            }
+                        });
+                    }
 				};
 
-				//self.getCities = function () {
-				//	var isAborted = false;
-				//	//$("#citySelection div.selected-city").text("Loading Cities..");
-				//	//$("#popupLoader").text("Loading cities..").show().prev().show();
-				//	self.BookingCities([]);
-				//	$("#areaSelection").hide();
-				//	if (self.SelectedModelId() != undefined && self.SelectedModelId() > 0)
-				//	{
-				//		self.SelectedCityId(0);
-				//		modelCityKey = "mc_" + self.SelectedModelId();
-				//		$.ajax({
-				//			type: "GET",
-				//			url: "/api/v2/PQCityList/?modelId=" + self.SelectedModelId(),
-				//			dataType: 'json',
-				//			beforeSend: function (xhr) {
-				//				startLoading($("#citySelection"));
-				//				$("#popupContent").show();
-				//				$("#citySelection div.selected-city").text("Loading Cities..").next().show();
-				//				$("#popupLoader").text("Loading cities..").show().prev().show();
-				//				if (data = lscache.get(modelCityKey)) {
-				//					var cities = ko.toJS(data);
-				//					var citySelected = null;
-				//					if (cities) {
-				//						self.BookingCities(data);
-				//					}
-				//					else {
-				//						self.BookingCities([]);
-				//					}
-				//					isAborted = true;
-				//					xhr.abort();
-				//				}
-				//			},
-				//			success: function (response) {
-				//				var _gZippedCitiesParse = ko.toJS(response);
-				//				lscache.set(modelCityKey, _gZippedCitiesParse.cities, 60);
-				//				var cities = ko.toJS(_gZippedCitiesParse.cities);
-				//				var citySelected = null;
-				//				if (cities) {
-				//					self.BookingCities(cities);
-				//				}
-				//				else {
-				//					self.BookingCities([]);
-				//				}
-				//			},
-				//			complete: function (xhr) {
-				//				completeCityOp(self);
-				//			}
-				//		});
-				//	}
+				
+        self.selectCity = function (data, event) {
+            startLoading($('#top-progress-bar'));
+            var isAborted = false;
+            //$(".bwm-city-area-popup-wrapper .back-arrow-box").click();
+            if (!self.oBrowser()) {
+                self.SelectedCity(data);
+                self.SelectedCityId(data.id);
+            }
+            else {
+                self.SelectedCity(findCityById(self.SelectedCityId()));
+            }
 
-				//	if (isAborted) {
-				//		completeCityOp(self);
-				//	}
-				//};
+            if(self.SelectedCity()!=null && !self.SelectedCity().hasAreas)
+            {
+                //cityArea.close();
+                //window.history.back();
+                $('#city-area-content').addClass('city-selected');
+                self.IsPersistance(false); 						
+            }
+					
 
-				self.selectCity = function (data, event) {
-					var isAborted = false;
-					//$(".bwm-city-area-popup-wrapper .back-arrow-box").click();
-					if (!self.oBrowser()) {
-						self.SelectedCity(data);
-						self.SelectedCityId(data.id);
-					}
-					else {
-						self.SelectedCity(findCityById(self.SelectedCityId()));
-					}
+            self.InitializePQ(data,event);
 
-					if(self.SelectedCity()!=null && !self.SelectedCity().hasAreas)
-					    self.IsPersistance(false);
+				
+            //-------------------------------------------------------------------------------------------
+            //ev = $._data($('ul#popupCityList')[0], 'events');
+            //if (!(ev && ev.click)) {
+            //	$('ul#popupCityList').on('click', 'li', function (e) {
+            //		if (ga_pg_id != null && ga_pg_id == 2 && cityClicked == false) {
+            //			var actText = '';
+            //			if (self.SelectedCity().hasAreas) {
+            //				actText = 'City_Selected_Has_Area';
+            //			}
+            //			else {
+            //				actText = 'City_Selected_Doesnt_Have_Area';
+            //			}
+            //			dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': actText, 'lab': getBikeVersion() + '_' + self.SelectedCity().name });
+            //			cityClicked = true;
+            //		}
+            //	});
+            //}
 
-					self.InitializePQ(data,event);
+        };
 
-					//if (self.SelectedModelId() != undefined && self.SelectedModelId() > 0 && self.SelectedCity() != undefined) {
-					//	self.hasAreas(findCityById(self.SelectedCity().id).hasAreas);
-					//	if (self.hasAreas()) {
-					//		cityAreaKey = "ca_" + self.SelectedCityId().toString();
-					//		self.BookingAreas([]);
-					//		self.SelectedArea(undefined);
-					//		self.SelectedAreaId(0);
-					//		$("#areaSelection").show();
-					//		$("#areaSelection div.selected-area").text("Loading areas..");
-					//		$("#areaPopupLoader").text("Loading areas..").show().prev().show();
+        self.selectArea = function (data, event) {
+            if (!self.oBrowser()) {
+                self.SelectedArea(data);
+                self.SelectedAreaId(data.id);
+            }
+            else {
+                self.SelectedArea(findAreaById(self.SelectedAreaId()));
+            }
+            //if (ga_pg_id != null && ga_pg_id == 2 && areaClicked == false) {
+            //	dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Area_Selected', 'lab': myBikeName + '_' + getBikeVersion() + '_' + self.SelectedCity().name + '_' + self.SelectedArea().name });
+            //	areaClicked = true;
+            //}
 
-					//		$.ajax({
-					//			type: "GET",
-					//			url: "/api/v2/PQAreaList/?modelId=" + self.SelectedModelId() + "&cityId=" + self.SelectedCity().id,
-					//			dataType: 'json',
-					//			beforeSend: function (xhr) {
-					//				startLoading($("#areaSelection"));
-					//				$("#areaSelection div.selected-area").text("Loading areas..").next().show();
-					//				$("#areaPopupLoader").text("Loading areas..").show().prev().show();
-					//				if (data = lscache.get(cityAreaKey)) {
-					//					var areas = ko.toJS(data);
-					//					var areaSelected = null;
-					//					if (areas) {
-					//						self.BookingAreas(data);
-					//					}
-					//					else {
-					//						self.BookingAreas([]);
-					//					}
-					//					isAborted = true;
-					//					xhr.abort();
-					//				}
-					//			},
-					//			success: function (response) {
-					//				var gArea = ko.toJS(response.areas);
-					//				lscache.set(cityAreaKey, gArea, 60);
-					//				var areas = ko.toJS(gArea);
-					//				var areaSelected = null;
-					//				if (areas) {
-					//					self.BookingAreas(areas);
-					//				}
+            self.IsPersistance(false);
+            //cityArea.close();
+            //window.history.back();
+            self.InitializePQ(data,event);
 
-					//			},
-					//			complete: function (xhr) {
-					//				completeAreaOp(self, xhr);
-					//			}
+        };
 
-					//		});
-					//	}
-					//	else {
-					//		$(".bwm-city-area-popup-wrapper .back-arrow-box").click();
-					//		self.BookingAreas([]);
-					//		self.SelectedArea(undefined);
-					//		self.SelectedAreaId(0);
-					//	}
+				
 
-					//	if (isAborted) {
-					//		if (self.BookingCities().length > 0)
-					//			completeAreaOp(self, ko.toJS({ "status": 200 }));
-					//		else completeAreaOp(self, ko.toJS({ "status": 404 }));
-					//	}
-					//}
-                    //-------------------------------------------------------------------------------------------
-					//ev = $._data($('ul#popupCityList')[0], 'events');
-					//if (!(ev && ev.click)) {
-					//	$('ul#popupCityList').on('click', 'li', function (e) {
-					//		if (ga_pg_id != null && ga_pg_id == 2 && cityClicked == false) {
-					//			var actText = '';
-					//			if (self.SelectedCity().hasAreas) {
-					//				actText = 'City_Selected_Has_Area';
-					//			}
-					//			else {
-					//				actText = 'City_Selected_Doesnt_Have_Area';
-					//			}
-					//			dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': actText, 'lab': getBikeVersion() + '_' + self.SelectedCity().name });
-					//			cityClicked = true;
-					//		}
-					//	});
-					//}
-
-				};
-
-				self.selectArea = function (data, event) {
-					if (!self.oBrowser()) {
-						self.SelectedArea(data);
-						self.SelectedAreaId(data.id);
-						//$(".bwm-city-area-popup-wrapper .back-arrow-box").click();
-					}
-					else {
-						self.SelectedArea(findAreaById(self.SelectedAreaId()));
-					}
-					//if (ga_pg_id != null && ga_pg_id == 2 && areaClicked == false) {
-					//	dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Area_Selected', 'lab': myBikeName + '_' + getBikeVersion() + '_' + self.SelectedCity().name + '_' + self.SelectedArea().name });
-					//	areaClicked = true;
-				    //}
-
-					self.IsPersistance(false);
-
-					self.InitializePQ(data,event);
-
-				};
-
-				//self.verifyDetails = function (data, event) {
-				//	isValid = true;
-				//	var errMsg = "Missing fields:";
-
-				//	if (self.SelectedCityId() == undefined) {
-				//		errMsg += "City,";
-				//		isValid = false;
-				//	}
-				//	if (self.BookingAreas().length > 0 && self.SelectedArea() == undefined && (self.SelectedAreaId() == undefined || self.SelectedAreaId() == 0)) {
-				//		errMsg += "Area,";
-				//		isValid = false;
-				//	}
-				//	if (!isValid) {
-				//		errMsg = errMsg.substring(0, errMsg.length - 1);
-				//		gtmCodeAppender(pageId, "Error in submission", errMsg);
-				//	}
-				//	return isValid;
-				//};
-
-				<%--self.getPriceQuote = function (data, event) {
-					var cityId = self.SelectedCityId(), areaId = self.SelectedAreaId() ? self.SelectedAreaId() : 0;
-					pageId = self.PageCatId;
-
-					cookieValue = self.SelectedCity().id + "_" + self.SelectedCity().name;
-					if (self.SelectedArea() != undefined) {
-						cookieValue += ("_" + self.SelectedArea().id + "_" + self.SelectedArea().name);
-					}
-					SetCookieInDays("location", cookieValue, 365);
-
-					if (self.verifyDetails()) {
-
-						if (isModelPage && ga_pg_id != null && ga_pg_id == 2) {
-							try {
-								startLoading($("#btnPriceLoader"));
-								var selArea = '';
-								if (self.SelectedArea() != undefined) {
-									selArea = '_' + self.SelectedArea().name;
-								}
-								bikeVersionLocation = myBikeName + '_' + getBikeVersion() + '_' + self.SelectedCity().name + selArea;
-							}
-							catch (err) { }
-							window.location.reload();
-
-							stopLoading($("#btnPriceLoader"));
-
-						}
-						else {
-							startLoading($("#btnPriceLoader"));
-
-							var obj = {
-								'CityId': self.SelectedCityId(),
-								'AreaId': self.SelectedAreaId(),
-								'ModelId': (self.SelectedModelId() != undefined) ? self.SelectedModelId() : selectedModel,
-								'ClientIP': '<%= ClientIP %>',
-								'SourceType': '2',
-								'VersionId': 0,
-								'pQLeadId': PQSourceId,
-								'deviceId': getCookie('BWC'),
-								'refPQId': typeof pqId != 'undefined' ? pqId : ''
-							};
-							$.ajax({
-								type: 'POST',
-								url: "/api/PriceQuote/",
-								data: obj,
-								dataType: 'json',
-								beforeSend: function (xhr) {
-
-									xhr.setRequestHeader('utma', getCookie('__utma'));
-									xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
-								},
-								success: function (json) {
-									var jsonObj = ko.toJS(json);
-									selectedCityName = self.SelectedCity().name;
-
-									if (self.MakeName != undefined || self.ModelName != undefined)
-										gaLabel = self.MakeName + ',' + self.ModelName + ',';
-
-									gaLabel += selectedCityName;
-
-									if (self.SelectedArea() != undefined) {
-										selectedAreaName = self.SelectedArea().name;
-										gaLabel += ',' + selectedAreaName;
-									}
-
-									cookieValue = "CityId=" + self.SelectedCityId() + "&AreaId=" + (!isNaN(self.SelectedAreaId()) ? self.SelectedAreaId() : 0) + "&PQId=" + jsonObj.quoteId + "&VersionId=" + jsonObj.versionId + "&DealerId=" + jsonObj.dealerId;
-
-									if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
-										gtmCodeAppender(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
-										window.location = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + Base64.encode(cookieValue);
-									}
-
-									else if (jsonObj != undefined && jsonObj.dealerId == 0 && jsonObj.isDealerAvailable && jsonObj.quoteId > 0) {
-										gtmCodeAppender(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
-										window.location = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + Base64.encode(cookieValue);
-									}
-									else if (jsonObj != undefined && jsonObj.dealerId == 0 && jsonObj.quoteId > 0 && !jsonObj.isDealerAvailable) {
-										gtmCodeAppender(pageId, 'BW_PriceQuote_Success_Submit', gaLabel);
-										window.location = "/m/pricequote/quotation.aspx" + "?MPQ=" + Base64.encode(cookieValue);
-									}
-									else {
-										gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
-										$("#errMsgPopup").text("Oops. We do not seem to have pricing for given details.").show();
-									}
-
-									//window.history.back();
-								},
-								complete: function (e) {
-									stopLoading($("#btnPriceLoader"));
-									if (e.status == 404 || e.status == 204) {
-										$("#errMsg").text("Oops. Some error occured. Please try again.").show();
-										gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
-									}
+    }
 
 
+            function findAreaById(id) {
+                return ko.utils.arrayFirst(vmquotation.BookingAreas(), function (child) {
+                    return (child.id === id || child.areaId === id);
+                });
+            }
 
-								}
-							});
-						}
-					} else {
-						$("#errMsgPopup").text("Please select all the details").show();
-						gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
-					}
+            function findCityById(id) {
+                return ko.utils.arrayFirst(vmquotation.BookingCities(), function (child) {
+                    return (child.id === id || child.cityId === id);
+                });
+            }
 
+            function startLoading(ele) {
+                try {
+                    var _self = $(ele).find(".progress-bar").css({ 'width': '0' }).show();
+                    _self.animate({ width: '100%' }, 7000);
+                }
+                catch (e) { return };
+            }
 
-				};--%>
+            function stopLoading(ele) {
+                try {
+                    var _self = $(ele).find(".progress-bar");
+                    _self.stop(true, true).css({ 'width': '100%' }).fadeOut(1000);
+                }
+                catch (e) { return };
+            }
 
-			}
+            function gtmCodeAppender(pageId, action, label) {
+                var category = '';
+                if (pageId != null) {
+                    switch (pageId) {
+                        case "1":
+                            category = 'Make_Page';
+                            break;
+                        case "2":
+                            category = "CheckPQ_Series";
+                            action = "CheckPQ_Series_" + action;
+                            break;
+                        case "3":
+                            category = "Model_Page";
+                            action = "CheckPQ_Model_" + action;
+                            break;
+                        case '4':
+                            category = 'New_Bikes_Page';
+                            break;
+                        case '5':
+                            category = 'HP';
+                            break;
+                        case '6':
+                            category = 'Search_Page';
+                            break;
+                    }
+                    if (label) {
+                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': action, 'lab': label });
+                    }
+                    else {
+                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': action });
+                    }
+                }
 
+            }
 
-			//function completeCityOp(self) {
-			//	$("#popupLoader").text("Loading cities..").hide().prev().hide();
-			//	if (self.BookingCities() != null && self.BookingCities().length > 0) {
-			//		$("#citySelection div.selected-city").text("Select City").next().hide();
-			//		$("#popupCityList li.isPopular").last().addClass("border-last-bottom");
-			//	} else {
-			//		$("#citySelection div.selected-city").text("No cities Found").next().hide();
-			//		lscache.set(modelCityKey, null, 60);
-			//	}
-			//	stopLoading($("#citySelection"));
-			//	checkCookies();
-			//	var cityFound = null;
+            function checkCookies() {
+                c = document.cookie.split('; ');
+                for (i = c.length - 1; i >= 0; i--) {
+                    C = c[i].split('=');
+                    if (C[0] == "location") {
+                        var cData = (String(C[1])).split('_');
+                        onCookieObj.PQCitySelectedId = parseInt(cData[0]);
+                        onCookieObj.PQCitySelectedName = cData[1];
+                        onCookieObj.PQAreaSelectedId = parseInt(cData[2]);
+                        onCookieObj.PQAreaSelectedName = cData[3];
 
-			//	if (self.SelectedCityId() == null) {
-			//		if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0 && selectElementFromArray(self.BookingCities(), onCookieObj.PQCitySelectedId)) {
-			//			cityFound = findCityById(onCookieObj.PQCitySelectedId);
+                    }
+                }
+            }
 
-			//			if (cityFound != null) {
-			//				self.SelectedCity(ko.toJS({ 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName }));
-			//				self.SelectedCityId(onCookieObj.PQCitySelectedId);
-			//				self.hasAreas(cityFound.hasAreas);
-			//			}
-			//			if (!self.oBrowser()) {
-			//				$("ul#popupCityList li[cityId='" + onCookieObj.PQCitySelectedId + "']").click();
-			//			}
-			//			else {
-			//				self.selectCity(self, null);
-			//			}
+            var vmquotation = new mPopup;
+            ko.applyBindings(vmquotation, $("#popupWrapper")[0]);
 
-			//		}
-			//	}
-			//	else {
-			//		_cityid = parseInt(self.SelectedCityId());
-			//		cityFound = findCityById(_cityid);
-			//		if (cityFound != null) {
-			//			self.SelectedCityId(_cityid);
-			//			self.SelectedCity(ko.toJS({ 'id': cityFound.id, 'name': cityFound.name }));
-			//			self.hasAreas(cityFound.hasAreas);
-			//		}
-			//		if (!self.oBrowser()) {
-			//			$("ul#popupCityList li[cityId='" + _cityid + "']").click();
-			//		}
-			//		else {
-			//			self.selectCity(self, null);
-			//		}
-
-			//	}
-
-
-			//}
-
-			//function completeAreaOp(self, xhr) {
-			//	$("#areaSelection div.selected-area").next().hide();
-			//	$("#areaPopupLoader").text("Loading areas..").hide().prev().hide();
-			//	if (xhr.status == 404 || xhr.status == 204) {
-			//		$(".bwm-city-area-popup-wrapper .back-arrow-box").click();
-			//		self.BookingAreas([]);
-			//		self.SelectedArea(undefined);
-			//		self.SelectedAreaId(0);
-			//		$("#areaSelection div.selected-area").text("No areas Found");
-			//		lscache.set(cityAreaKey, null, 60);
-
-			//	}
-			//	else {
-			//		if (self.BookingAreas().length > 0) {
-			//			$("#areaSelection div.selected-area").text("Select Area");
-			//		} else {
-			//			$("#areaSelection div.selected-area").text("No areas available");
-			//		}
-			//		self.SelectedArea(undefined);
-			//		self.SelectedAreaId(0);
-			//	}
-
-			//	stopLoading($("#areaSelection"));
-
-			//	if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0 && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(self.BookingAreas(), onCookieObj.PQAreaSelectedId)) {
-			//		if (!self.oBrowser()) {
-			//			$("ul#popupAreaList li[areaId='" + onCookieObj.PQAreaSelectedId + "']").click();
-			//		}
-			//		else {
-			//			self.selectArea(self, null);
-			//		}
-			//	}
-
-
-			//}
-
-			function findAreaById(id) {
-				return ko.utils.arrayFirst(vmquotation.BookingAreas(), function (child) {
-					return (child.id === id || child.areaId === id);
-				});
-			}
-
-			function findCityById(id) {
-				return ko.utils.arrayFirst(vmquotation.BookingCities(), function (child) {
-					return (child.id === id || child.cityId === id);
-				});
-			}
-
-			function startLoading(ele) {
-				try {
-					var _self = $(ele).find(".progress-bar").css({ 'width': '0' }).show();
-					_self.animate({ width: '100%' }, 7000);
-				}
-				catch (e) { return };
-			}
-
-			function stopLoading(ele) {
-				try {
-					var _self = $(ele).find(".progress-bar");
-					_self.stop(true, true).css({ 'width': '100%' }).fadeOut(1000);
-				}
-				catch (e) { return };
-			}
-
-			function gtmCodeAppender(pageId, action, label) {
-			    var category = '';
-				if (pageId != null) {
-					switch (pageId) {
-						case "1":
-							category = 'Make_Page';
-							break;
-						case "2":
-							category = "CheckPQ_Series";
-							action = "CheckPQ_Series_" + action;
-							break;
-						case "3":
-							category = "Model_Page";
-							action = "CheckPQ_Model_" + action;
-							break;
-						case '4':
-							category = 'New_Bikes_Page';
-							break;
-						case '5':
-							category = 'HP';
-							break;
-						case '6':
-							category = 'Search_Page';
-							break;
-					}
-					if (label) {
-						dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': action, 'lab': label });
-					}
-					else {
-						dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': action });
-					}
-				}
-
-			}
-
-			function checkCookies() {
-				c = document.cookie.split('; ');
-				for (i = c.length - 1; i >= 0; i--) {
-					C = c[i].split('=');
-					if (C[0] == "location") {
-						var cData = (String(C[1])).split('_');
-						onCookieObj.PQCitySelectedId = parseInt(cData[0]);
-						onCookieObj.PQCitySelectedName = cData[1];
-						onCookieObj.PQAreaSelectedId = parseInt(cData[2]);
-						onCookieObj.PQAreaSelectedName = cData[3];
-
-					}
-				}
-			}
-
-			vmquotation = new mPopup;
-			ko.applyBindings(vmquotation, $("#popupWrapper")[0]);
-
-        </script>
-		<!-- widget script ends here-->
+</script>
+<!-- widget script ends here-->

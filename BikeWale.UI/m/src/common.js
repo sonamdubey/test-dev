@@ -1702,18 +1702,18 @@ $('#area-menu-input').on('focus', function (event) {
 });
 
 
-$("#city-menu-input, #area-menu-input").on("keyup", function () {
-    var inputbox = $(this);
-    locationFilter(inputbox, $(this).closest('.city-area-menu'));
+//$("#city-menu-input, #area-menu-input").on("keyup", function () {
+//    var inputbox = $(this);
+//    //locationFilter(inputbox, $(this).closest('.city-area-menu'));
 
-    if (inputbox.val().length == 0) {
-        var wrapper = inputbox.closest('.city-area-menu');
+//    if (inputbox.val().length == 0) {
+//        var wrapper = inputbox.closest('.city-area-menu');
 
-        if (wrapper.attr('id') == 'city-menu') {
-            cityArea.resetLabel('Select your city', wrapper);
-        }
-        else {
-            cityArea.resetLabel('Select your area', wrapper);
-        }
-    }
-});
+//        if (wrapper.attr('id') == 'city-menu') {
+//            cityArea.resetLabel('Select your city', wrapper);
+//        }
+//        else {
+//            cityArea.resetLabel('Select your area', wrapper);
+//        }
+//    }
+//});
