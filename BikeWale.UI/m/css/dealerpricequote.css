@@ -285,7 +285,7 @@
 }
 
 .offers-sprite {
-    background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v1=8Aug2016) no-repeat;
+    background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v2=8Aug2016) no-repeat;
     display: inline-block;
 }
 
@@ -324,7 +324,7 @@
 }
 
 .offerIcon_7 {
-    height:26px;
+    height:28px;
     background-position:0 -318px;
 }
 
