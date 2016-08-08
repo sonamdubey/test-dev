@@ -2,6 +2,7 @@
 using Bikewale.DTO.PriceQuote.City.v2;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Bikewale.DTO.PriceQuote
 {
@@ -25,5 +26,10 @@ namespace Bikewale.DTO.PriceQuote
         [JsonProperty("isAreaExists")]
         public bool IsAreaExists { get; set; }
 
+        [JsonProperty("action"), DefaultValue(true)] //true  means redirect, false = reload
+        public bool Action { get; set; }
+
+        [JsonProperty("actionUrl")]
+        public string ActionUrl { get; set; }
     }
 }

@@ -90,6 +90,22 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     PQByCityArea pqbyCityArea = new PQByCityArea();
                     pqOut = pqbyCityArea.GetPriceQuoteByCityArea(objPQEntity);
 
+                    if (input.IsPersistance)
+                    {
+                        pqOut = new Bikewale.Entities.PriceQuote.v2.PQByCityAreaEntity();
+                        pqOut.PQCitites = pqbyCityArea.FetchCityByModelId(Convert.ToInt32(objPQEntity.ModelId));
+
+                        var selectedCity = pqOut.PQCitites.FirstOrDefault(p => p.CityId == objPQEntity.CityId);
+                        pqOut.IsCityExists = selectedCity != null;
+
+                        if (pqOut.IsCityExists && selectedCity.HasAreas)
+                            pqOut.PQAreas = pqbyCityArea.GetAreaForCityAndModel(Convert.ToInt32(objPQEntity.ModelId), Convert.ToInt32(objPQEntity.CityId));
+                    }
+                    else
+                    {
+                        pqOut = pqbyCityArea.GetPriceQuoteByCityArea(objPQEntity);
+                    }
+
 
                     if (pqOut != null)
                     {
