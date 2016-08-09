@@ -334,9 +334,6 @@
 								return;
 							}
 						}
-			<%--			$(function () {
-						    google.maps.event.addDomListener(window, 'load', initializeDealerMap($("#dealerMap")[0], '<%= latitude %>', '<%= longitude %>'));
-						});--%>
 						
 					</script>
 					<%} %>

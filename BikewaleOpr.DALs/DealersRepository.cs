@@ -546,19 +546,19 @@ namespace BikewaleOpr.DAL
                             while (dr.Read())
                             {
                                 objOffer = new OfferEntity();
-                                objOffer.objMake = new BikeMakeEntityBase() { MakeName = dr["MakeName"].ToString() };
-                                objOffer.objModel = new BikeModelEntityBase() { ModelName = dr["ModelName"].ToString() };
-                                objOffer.objCity = new CityEntityBase() { CityName = dr["CityName"].ToString() };
+                                objOffer.objMake = new BikeMakeEntityBase() { MakeName = Convert.ToString(dr["MakeName"]) };
+                                objOffer.objModel = new BikeModelEntityBase() { ModelName = Convert.ToString(dr["ModelName"]) };
+                                objOffer.objCity = new CityEntityBase() { CityName = Convert.ToString(dr["CityName"]) };
                                 objOffer.OfferId = Convert.ToUInt32(dr["Id"]);
-                                objOffer.OfferType = dr["OfferType"].ToString();
-                                objOffer.OfferTypeId = Convert.ToUInt32(dr["OfferTypeId"].ToString());
-                                objOffer.OfferText = dr["OfferText"].ToString();
-                                objOffer.OfferValue = Convert.ToUInt32(dr["OfferValue"].ToString());
-                                if (!String.IsNullOrEmpty(dr["OfferValidTill"].ToString()))
-                                    objOffer.OffervalidTill = DateTime.Parse(dr["OfferValidTill"].ToString());
+                                objOffer.OfferType = Convert.ToString(dr["OfferType"]);
+                                objOffer.OfferTypeId = Convert.ToUInt32(dr["OfferTypeId"]);
+                                objOffer.OfferText = Convert.ToString(dr["OfferText"]);
+                                objOffer.OfferValue = Convert.ToUInt32(dr["OfferValue"]);
+                                if (!String.IsNullOrEmpty(Convert.ToString(dr["OfferValidTill"])))
+                                    objOffer.OffervalidTill = DateTime.Parse(Convert.ToString(dr["OfferValidTill"]));
                                 objOffer.IsPriceImpact = Convert.ToBoolean(Convert.ToString(dr["IsPriceImpact"]));
-                                if (!String.IsNullOrEmpty(dr["Terms"].ToString()))
-                                    objOffer.Terms = dr["Terms"].ToString();
+                                if (!String.IsNullOrEmpty(Convert.ToString(dr["Terms"])))
+                                    objOffer.Terms = Convert.ToString(dr["Terms"]);
 
                                 objOffers.Add(objOffer);
                             }
