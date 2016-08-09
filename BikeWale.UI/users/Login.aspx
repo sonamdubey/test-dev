@@ -131,6 +131,11 @@
             var passVal = $("#<%=txtRegPasswdSignup.ClientID.ToString() %>");
             var forgotPass = $("#txtForgotPassEmail");
 
+            $(window).resize(function () {
+                setBackgroundImage();
+            });
+
+
         </script>
          <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/login/login.js?<%= staticFileVersion %>"></script>
     </form>
