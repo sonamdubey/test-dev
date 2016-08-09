@@ -1,4 +1,5 @@
 ﻿using Bikewale.Notifications;
+using Bikewale.Utility.Terms;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Interface;
 using MySql.CoreDAL;
@@ -6,14 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Web;
-using Bikewale.Utility.Terms;
+
 
 namespace BikewaleOpr.DAL
 {
-    
+
     public class DealersRepository : IDealers
     {
         /// <summary>
@@ -547,19 +546,19 @@ namespace BikewaleOpr.DAL
                             while (dr.Read())
                             {
                                 objOffer = new OfferEntity();
-                                objOffer.objMake = new BikeMakeEntityBase() { MakeName = dr["MakeName"].ToString() };
-                                objOffer.objModel = new BikeModelEntityBase() { ModelName = dr["ModelName"].ToString() };
-                                objOffer.objCity = new CityEntityBase() { CityName = dr["CityName"].ToString() };
+                                objOffer.objMake = new BikeMakeEntityBase() { MakeName = Convert.ToString(dr["MakeName"]) };
+                                objOffer.objModel = new BikeModelEntityBase() { ModelName = Convert.ToString(dr["ModelName"]) };
+                                objOffer.objCity = new CityEntityBase() { CityName = Convert.ToString(dr["CityName"]) };
                                 objOffer.OfferId = Convert.ToUInt32(dr["Id"]);
-                                objOffer.OfferType = dr["OfferType"].ToString();
-                                objOffer.OfferTypeId = Convert.ToUInt32(dr["OfferTypeId"].ToString());
-                                objOffer.OfferText = dr["OfferText"].ToString();
-                                objOffer.OfferValue = Convert.ToUInt32(dr["OfferValue"].ToString());
-                                if (!String.IsNullOrEmpty(dr["OfferValidTill"].ToString()))
-                                    objOffer.OffervalidTill = DateTime.Parse(dr["OfferValidTill"].ToString());
+                                objOffer.OfferType = Convert.ToString(dr["OfferType"]);
+                                objOffer.OfferTypeId = Convert.ToUInt32(dr["OfferTypeId"]);
+                                objOffer.OfferText = Convert.ToString(dr["OfferText"]);
+                                objOffer.OfferValue = Convert.ToUInt32(dr["OfferValue"]);
+                                if (!String.IsNullOrEmpty(Convert.ToString(dr["OfferValidTill"])))
+                                    objOffer.OffervalidTill = DateTime.Parse(Convert.ToString(dr["OfferValidTill"]));
                                 objOffer.IsPriceImpact = Convert.ToBoolean(Convert.ToString(dr["IsPriceImpact"]));
-                                if (!String.IsNullOrEmpty(dr["Terms"].ToString()))
-                                objOffer.Terms = dr["Terms"].ToString();
+                                if (!String.IsNullOrEmpty(Convert.ToString(dr["Terms"])))
+                                    objOffer.Terms = Convert.ToString(dr["Terms"]);
 
                                 objOffers.Add(objOffer);
                             }
@@ -601,8 +600,8 @@ namespace BikewaleOpr.DAL
         {
 
             bool isSuccess = false;
-            
-            
+
+
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("bw_savedealeroffers_07012016"))
@@ -621,7 +620,7 @@ namespace BikewaleOpr.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_IsActive", DbType.Boolean, Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_result", DbType.Byte, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_terms", DbType.String, -1, terms));
-                    
+
                     MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                     isSuccess = Convert.ToBoolean(cmd.Parameters["par_result"].Value);
 
@@ -652,7 +651,7 @@ namespace BikewaleOpr.DAL
         public void UpdateDealerBikeOffers(uint offerId, uint userId, uint offerCategoryId, string offerText, uint? offerValue, DateTime offerValidTill, bool isPriceImpact, string terms)
         {
             TermsHtmlFormatting htmlFormatFunction = new TermsHtmlFormatting();
-            
+
             try
             {
 
