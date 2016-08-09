@@ -19,10 +19,10 @@ namespace Bikewale.Utility
             try
             {
                 if (!string.IsNullOrEmpty(displacement) && displacement != "0")
-                    str += "<span><span>" + displacement + "</span><span> CC</span></span>";
+                    str += "<span><span>" + displacement + "</span><span> cc</span></span>";
 
                 if (!string.IsNullOrEmpty(fuelEffecient) && fuelEffecient != "0")
-                    str += "<span>, <span>" + fuelEffecient + "</span><span> Kmpl</span></span>";
+                    str += "<span>, <span>" + fuelEffecient + "</span><span> kmpl</span></span>";
 
                 if (!string.IsNullOrEmpty(maxpower) && maxpower != "0")
                     str += "<span>, <span>" + maxpower + "</span><span> bhp</span></span>";
@@ -56,10 +56,10 @@ namespace Bikewale.Utility
             try
             {
                 if (!string.IsNullOrEmpty(displacement) && displacement != "0")
-                    str += "<span>" + displacement + " CC</span>";
+                    str += "<span>" + displacement + " cc</span>";
 
                 if (!string.IsNullOrEmpty(fuelEffecient) && fuelEffecient != "0")
-                    str += ", <span>" + fuelEffecient + " Kmpl</span></span>";
+                    str += ", <span>" + fuelEffecient + " kmpl</span></span>";
 
                 if (!string.IsNullOrEmpty(maxpower) && maxpower != "0")
                     str += ", <span>" + maxpower + " bhp</span></span>";

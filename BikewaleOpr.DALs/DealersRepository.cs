@@ -1,4 +1,5 @@
 ﻿using Bikewale.Notifications;
+using Bikewale.Utility.Terms;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Interface;
 using MySql.CoreDAL;
@@ -6,14 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Web;
-using Bikewale.Utility.Terms;
+
 
 namespace BikewaleOpr.DAL
 {
-    
+
     public class DealersRepository : IDealers
     {
         /// <summary>
@@ -559,7 +558,7 @@ namespace BikewaleOpr.DAL
                                     objOffer.OffervalidTill = DateTime.Parse(dr["OfferValidTill"].ToString());
                                 objOffer.IsPriceImpact = Convert.ToBoolean(Convert.ToString(dr["IsPriceImpact"]));
                                 if (!String.IsNullOrEmpty(dr["Terms"].ToString()))
-                                objOffer.Terms = dr["Terms"].ToString();
+                                    objOffer.Terms = dr["Terms"].ToString();
 
                                 objOffers.Add(objOffer);
                             }
@@ -601,8 +600,8 @@ namespace BikewaleOpr.DAL
         {
 
             bool isSuccess = false;
-            
-            
+
+
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("bw_savedealeroffers_07012016"))
@@ -621,7 +620,7 @@ namespace BikewaleOpr.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_IsActive", DbType.Boolean, Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_result", DbType.Byte, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_terms", DbType.String, -1, terms));
-                    
+
                     MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                     isSuccess = Convert.ToBoolean(cmd.Parameters["par_result"].Value);
 
@@ -652,7 +651,7 @@ namespace BikewaleOpr.DAL
         public void UpdateDealerBikeOffers(uint offerId, uint userId, uint offerCategoryId, string offerText, uint? offerValue, DateTime offerValidTill, bool isPriceImpact, string terms)
         {
             TermsHtmlFormatting htmlFormatFunction = new TermsHtmlFormatting();
-            
+
             try
             {
 
