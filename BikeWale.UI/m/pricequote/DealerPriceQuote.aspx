@@ -827,47 +827,6 @@
 				return bikeName + "_" + versionName + "_" + getCityArea;
 			}
 			ga_pg_id = "7";
-
-            <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
-                      { %>    
-            function initializeDealerMap(element, latitude, longitude) {
-                try {
-                    mapUrl = "http://maps.google.com/?q=" + latitude + "," + longitude;
-                    latLng = new google.maps.LatLng(latitude, longitude),
-                    mapOptions = {
-                        zoom: 13,
-                        center: latLng,
-                        scrollwheel: false,
-                        navigationControl: false,
-                        draggable: false,
-                        mapTypeId: google.maps.MapTypeId.ROADMAP
-                    },
-                    map = new google.maps.Map(element, mapOptions),
-                    marker = new google.maps.Marker({
-                        title: "Dealer's Location",
-                        position: latLng,
-                        map: map,
-                        animation: google.maps.Animation.DROP
-                    });
-
-                    google.maps.event.addListener(marker, 'click', function () {
-                        window.open(mapUrl, '_blank');
-                    });
-
-                    google.maps.event.addListener(map, 'click', function () {
-                        window.open(mapUrl, '_blank');
-                    });
-
-                    google.maps.event.addListenerOnce(map, 'idle', function () {
-                    });
-                } catch (e) {
-                    return;
-                }
-            }
-            google.maps.event.addDomListener(window, 'load', initializeDealerMap($("#dealerMap")[0], '<%= latitude %>', '<%= longitude %>'));
-       
-                    <%} %>
-
 		</script>
 
 	</form>
