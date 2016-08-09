@@ -8,7 +8,7 @@
 .login-form-box .bw-blackbg-tooltip { display:none; top: 28px; }
 </style>
 <span id="spnError" class="error" runat="server"></span>
-<h1>Login &nbsp; &nbsp;<span> Don't have an account? <a href="/users/register.aspx">Register</a></span></h1>
+<h1>Login &nbsp; &nbsp;<span> Don't have an account? <a href="/users/login.aspx">Register</a></span></h1>
 <table class="tbl-default margin-top15" border="0" cellspacing="0" cellpadding="3">
     <tr>
         <td width="150"><strong>Enter your email id</strong></td>
@@ -25,7 +25,7 @@
         <td>
             <div class="login-form-box">
                 <asp:TextBox ID="txtPasswd" TextMode="Password" runat="server" CssClass="text" TabIndex="2"></asp:TextBox>
-                &nbsp;&nbsp;<a href="/users/forgotpassword.aspx">Forgot password?</a>
+                &nbsp;&nbsp;<a href="/users/login.aspx">Forgot password?</a>
                 <span class="bwsprite error-icon"></span>
                 <div class="bw-blackbg-tooltip"></div>
             </div>

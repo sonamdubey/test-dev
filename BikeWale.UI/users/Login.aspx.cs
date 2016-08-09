@@ -1,9 +1,9 @@
 ﻿using Bikewale.Common;
-using Bikewale.Common.BWSecurity;
+using Bikewale.Service.Controllers.Customer;
+using Bikewale.UI.Entities.Customer;
 using System;
 using System.Text.RegularExpressions;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
@@ -11,9 +11,10 @@ namespace BikWale.Users
 {
     public class Login : System.Web.UI.Page
     {
-        protected Button butLogin;
-        protected HtmlGenericControl spnError, txtLoginid, txtPasswd, txtEmailSignup;
-        protected CheckBox chkRemember;
+        protected Button btnLogin, btnSignup;
+        protected HtmlGenericControl errEmail;
+        protected TextBox txtLoginid, txtPasswd, txtNameSignup, txtEmailSignup, txtMobileSignup, txtRegPasswdSignup;
+        protected HiddenField hdnAuthData;
 
         private string redirectUrl = "";
 
@@ -33,7 +34,7 @@ namespace BikWale.Users
 
         public string EmailId
         {
-            set { txtLoginid.InnerText = value; }
+            set { txtLoginid.Text = value; }
         }
 
         public string Header
@@ -45,7 +46,8 @@ namespace BikWale.Users
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
-            this.butLogin.Click += new System.EventHandler(this.LoginClick);
+            this.btnLogin.Click += new System.EventHandler(this.LoginUser);
+            this.btnSignup.Click += new System.EventHandler(this.RegisterCustomer);
         }
 
         private void Page_Load(object sender, EventArgs e)
@@ -82,127 +84,112 @@ namespace BikWale.Users
             }
         }
 
-        private void LoginClick(object sender, System.EventArgs e)
+        private void LoginUser(object sender, EventArgs e)
         {
-            if (CurrentUser.Id != "-1")
+            try
             {
-                if ((Request["ReturnUrl"] != null) && (Request.QueryString["ReturnUrl"] != ""))
+                if (!string.IsNullOrEmpty(hdnAuthData.Value))
                 {
-                    string returnUrl = Request.QueryString["ReturnUrl"];
+                    // Desirialize the response for the authentication
+                    System.Web.Script.Serialization.JavaScriptSerializer cityjson = new System.Web.Script.Serialization.JavaScriptSerializer();
+                    AuthenticatedCustomer objCust = (AuthenticatedCustomer)cityjson.Deserialize(hdnAuthData.Value, typeof(AuthenticatedCustomer));
 
-                    //validating return url
-                    if (ScreenInput.IsValidRedirectUrl(returnUrl) == true)
-                        Response.Redirect(returnUrl);
-                    else
-                        Response.Redirect("/");
-
-                    Trace.Warn("returnUrl " + returnUrl);
-                }
-                else if (redirectUrl != "")
-                {
-                    //validating redirect url
-                    if (ScreenInput.IsValidRedirectUrl(redirectUrl) == true)
-                        Response.Redirect(redirectUrl);
-                    else
-                        Response.Redirect("/");
-                }
-                else
-                {
-                    Response.Redirect(CommonOpn.AppPath + "MyBikeWale/");
+                    if (objCust.IsAuthorized)
+                    {
+                        CreateAuthenticationCookie(objCust.AuthenticationTicket, true);
+                    }
                 }
             }
-
-            Page.Validate();
-            if (!Page.IsValid)
+            catch (Exception ex)
             {
-                return;
-            }
-
-            string loginId = txtLoginid.InnerText.Trim();
-            string pwdEntered = txtPasswd.InnerText.Trim();
-            bool rememberMe = chkRemember.Checked ? true : false;
-            CustomersLogin login = new CustomersLogin();
-
-            if (login.DoLogin(loginId, pwdEntered, rememberMe) == true)
-            {
-                if (!String.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
-                {
-                    string returnUrl = Request.QueryString["ReturnUrl"];
-
-                    if (ScreenInput.IsValidRedirectUrl(returnUrl) == true)
-                        Response.Redirect(returnUrl);
-                    else
-                        Response.Redirect("/");
-
-                    Trace.Warn("returnUrl " + returnUrl);
-                }
-                else if (redirectUrl != "")
-                {
-                    Trace.Warn("Rediracting to : " + redirectUrl);
-                    if (ScreenInput.IsValidRedirectUrl(redirectUrl) == true)
-                        Response.Redirect(redirectUrl);
-                    else
-                        Response.Redirect("/");
-                }
-                else
-                {
-                    Response.Redirect(CommonOpn.AppPath + "MyBikeWale/");
-                }
-            }
-            else
-            {
-                //show the error message
-                spnError.InnerText = "Wrong loginid or password.";
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
         }
 
-        void btnRegister_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Written By : Ashish G. Kamble on 8 Sept 2015
+        /// Summary : Function to register the customer with bikewale
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RegisterCustomer(object sender, EventArgs e)
         {
-            if (CurrentUser.Id != "-1")
+            RegisteredCustomer objRegCustomer = null;
+            try
             {
-                string returnUrl = "";
-                if (Request["returnUrl"] != null && Request["returnUrl"] != "")
-                    returnUrl += Request["returnUrl"];
-                else if (redirectUrl != "")
-                    returnUrl = redirectUrl;
-                else
-                    returnUrl += "/Users/registrationConfirmation.aspx?returnUrl=" + Request["returnUrl"];
+                RegisterInputParameters objReg = new RegisterInputParameters();
+                objReg.Name = txtNameSignup.Text.Trim();
+                objReg.Email = txtEmailSignup.Text.Trim();
+                objReg.Password = txtRegPasswdSignup.Text.Trim();
+                objReg.Mobile = txtMobileSignup.Text.Trim();
+                objReg.ClientIP = CommonOpn.GetClientIP();
 
-                // redirect to the confirmation page.
-                Response.Redirect(returnUrl);
+                // Register customer                
+                string _apiUrl = "/api/Customer/";
+                string reEmail = @"^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,6}$";
 
-                return;
-            }
-
-            string reEmail = @"^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,6}$";
-
-            if (Regex.IsMatch(txtEmail.Text.Trim().ToLower(), reEmail))
-            {
-                RegisterCustomer objCust = new RegisterCustomer();
-
-                if (String.IsNullOrEmpty(objCust.IsRegisterdCustomer(txtEmail.Text.Trim())))
+                if (Regex.IsMatch(txtEmailSignup.Text.Trim().ToLower(), reEmail))
                 {
-                    string CustomerId = objCust.RegisterUser(txtName.Text.Trim(), txtEmail.Text.Trim(), txtMobile.Text.Trim(), "", txtPassword.Text.Trim(), "");
-                    if (!String.IsNullOrEmpty(CustomerId))
+                    using (Bikewale.Utility.BWHttpClient objClient = new Bikewale.Utility.BWHttpClient())
                     {
-                        // If customer registration is successfull then login the user automatically.                        
-                        CustomersLogin login = new CustomersLogin();
+                        objRegCustomer = objClient.PostSync<RegisterInputParameters, RegisteredCustomer>(Bikewale.Utility.APIHost.BW, Bikewale.Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objReg);
+                    }
 
-                        if (login.DoLogin(txtEmail.Text.Trim().ToLower(), txtPassword.Text.Trim(), false) == true)
-                        {
-                            Response.Redirect(CommonOpn.AppPath + "MyBikeWale/");
-                        }
+                    if (objRegCustomer != null && objRegCustomer.IsNewCustomer)
+                    {
+                        // Authenticate the customer
+                        CreateAuthenticationCookie(objRegCustomer.AuthenticationTicket, true);
+                    }
+                    else if (objRegCustomer != null && !objRegCustomer.IsNewCustomer)
+                    {
+                        errEmail.InnerText = "Already Registered. Please Login.";
                     }
                 }
                 else
                 {
-                    errEmail.InnerHtml = "This email is already registered with us.";
+                    errEmail.InnerText = "Invalid Email!";
+                    errEmail.Attributes.Remove("class");
+                    errEmail.Attributes.Add("class", "bw-blackbg-tooltip error");
                 }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="authTicket"></param>
+        /// <param name="rememberMe"></param>
+        private void CreateAuthenticationCookie(string authTicket, bool rememberMe)
+        {
+            // Add bikewale login cookie
+            HttpCookie objCookie = new HttpCookie("_bikewale");
+
+            objCookie.Value = authTicket;
+
+            // If remember me checked, create persistent cookie
+            if (rememberMe)
+            {
+                objCookie.Expires = DateTime.Now.AddYears(1);
+            }
+
+            // Add cookie into response
+            HttpContext.Current.Response.Cookies.Add(objCookie);
+
+            // Redirect to the requested page.
+            if (!string.IsNullOrEmpty(Request.ServerVariables["HTTP_REFERER"]))
+            {
+                Response.Redirect(Request.ServerVariables["HTTP_REFERER"], false);
             }
             else
             {
-                errEmail.InnerText = "Invalid Email!";
+                Response.Redirect(CommonOpn.AppPath + "MyBikeWale/");
             }
-        } // btnSave_Click    
+        }
     }
 }

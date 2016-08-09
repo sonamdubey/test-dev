@@ -56,7 +56,7 @@
                     $("#processing_pwd_fp").html("Your password has been sent to your email address.");
                 }
                 else if(responseJSON.value == false) {
-                    $("#processing_pwd_fp").html("<span class=readmore>This email id is not registered with us. <a href='register.aspx' style='font-weight:normal;'>Register Now</a><span>");
+                    $("#processing_pwd_fp").html("<span class=readmore>This email id is not registered with us. <a href='login.aspx' style='font-weight:normal;'>Register Now</a><span>");
                 }
             }
         });
