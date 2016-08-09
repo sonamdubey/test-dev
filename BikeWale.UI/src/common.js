@@ -674,10 +674,16 @@ function pushNavMenuAnalytics(menuItem) {
 
                 if (options.source == '1') {
                     if (item.payload.modelId > 0) {
-                        if (item.payload.futuristic == 'False') {
-                            ulItem.append('<a href="#" pqSourceId="' + pqSourceId + '" modelId="' + item.payload.modelId + '" class="fillPopupData target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>');
-                        } else {
-                            ulItem.append('<span class="upcoming-link">coming soon</span>');
+                        if (item.payload.futuristic == 'True') {
+                            ulItem.append('<span class="upcoming-link">coming soon</span>')
+                        } else if (item.payload.futuristic == 'False') {
+                            if (item.payload.isNew == 'True') {
+                                ulItem.append('<a pqSourceId="' + pqSourceId + '" modelId="' + item.payload.modelId + '" class="fillPopupData target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>');
+                            }
+                            else {
+                                ulItem.append('<span class="upcoming-link">discontinued</span>')
+                            }
+
                         }
 
                         ulItem.append('<div class="clear"></div>');
