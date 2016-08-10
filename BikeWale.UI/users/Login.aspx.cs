@@ -17,7 +17,7 @@ namespace BikWale.Users
         protected TextBox txtLoginid, txtPasswd, txtNameSignup, txtEmailSignup, txtMobileSignup, txtRegPasswdSignup;
         protected HiddenField hdnAuthData;
 
-        private string redirectUrl = "";
+        private string redirectUrl = "/";
 
         private string header = "Registered Members : Please Login Here";
         private bool _showFooter = true;
@@ -74,7 +74,7 @@ namespace BikWale.Users
                         Response.Cookies.Add(rememberMe);
                     }
 
-                    Response.Redirect("/");
+                    RedirectPath();
                 }
             }
 
@@ -182,6 +182,14 @@ namespace BikWale.Users
             // Add cookie into response
             HttpContext.Current.Response.Cookies.Add(objCookie);
 
+            RedirectPath();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void RedirectPath()
+        {
             // Redirect to the requested page.
 
             //Response.Redirect(CommonOpn.AppPath + "MyBikeWale/");
@@ -201,10 +209,6 @@ namespace BikWale.Users
                     Response.Redirect(redirectUrl);
                 else
                     Response.Redirect("/");
-            }
-            else
-            {
-                Response.Redirect(CommonOpn.AppPath + "MyBikeWale/");
             }
         }
     }
