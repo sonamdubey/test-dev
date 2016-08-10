@@ -86,17 +86,20 @@ $(document).ready(function () {
         body = $('body');
 
     $(window).scroll(function () {
-        var windowScrollTop = $(this).scrollTop(),
-            buttonWrapperTop = buttonWrapper.offset().top,
+        var windowScrollTop = $(this).scrollTop();
+        if (buttonWrapper && buttonWrapper.offset()) {
+            buttonWrapperTop = buttonWrapper.offset().top;
+
             windowHeight = $(this).height() - 63;
 
-        if (windowScrollTop + windowHeight > buttonWrapperTop) {
-            floatingButton.removeClass('float-fixed');
-            body.addClass('floating-btn-inactive');
-        }
-        else {
-            floatingButton.addClass('float-fixed');
-            body.removeClass('floating-btn-inactive');
+            if (windowScrollTop + windowHeight > buttonWrapperTop) {
+                floatingButton.removeClass('float-fixed');
+                body.addClass('floating-btn-inactive');
+            }
+            else {
+                floatingButton.addClass('float-fixed');
+                body.removeClass('floating-btn-inactive');
+            }
         }
     });
 
