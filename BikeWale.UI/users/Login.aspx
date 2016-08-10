@@ -6,10 +6,9 @@
 <%
     title = "User Login - BikeWale";
     description = "bikewale.com user login";
-    keywords = "users, login, register, forgot password";
-    //Modified By :Sajal Gupta on 03 August 2016
+    keywords = "users, login, register, forgot password";    
     isAd300x250Shown = false;
-    isAd300x250BtfShown = false;
+    isAd300x250BTFShown = false;
     
 %>
 <!-- #include file="/includes/headscript.aspx" -->
