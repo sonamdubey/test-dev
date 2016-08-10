@@ -279,7 +279,7 @@
             }
         </script>
     </form>
-    <div class="back-to-top" id="back-to-top"><a><span></span></a></div>
+    <div class="back-to-top" id="back-to-top"></div>
 </body>
 </html>
 
