@@ -475,10 +475,6 @@
       <DependentUpon>LocateDealer_New.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\LoginControl.ascx.cs">
-      <DependentUpon>LoginControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="controls\LoginControlNew.ascx.cs">
       <DependentUpon>LoginControlNew.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -569,10 +565,6 @@
     </Compile>
     <Compile Include="controls\RecentLaunchedBikesMin.ascx.cs">
       <DependentUpon>RecentLaunchedBikesMin.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\RegisterControl.ascx.cs">
-      <DependentUpon>RegisterControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\RepeaterPager.ascx.cs">
@@ -672,10 +664,6 @@
     </Compile>
     <Compile Include="insurance\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Login_New.aspx.cs">
-      <DependentUpon>Login_New.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="memcache\BasicIdMapping.cs" />
@@ -1300,10 +1288,6 @@
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="users\Register.aspx.cs">
-      <DependentUpon>Register.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="users\ResetCustomerPassword.aspx.cs">
       <DependentUpon>ResetCustomerPassword.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1697,7 +1681,6 @@
     <Content Include="controls\LinkPagerControl.ascx" />
     <Content Include="controls\LocateDealer.ascx" />
     <Content Include="controls\LocateDealer_New.ascx" />
-    <Content Include="controls\LoginControl.ascx" />
     <Content Include="controls\LoginControlNew.ascx" />
     <Content Include="controls\loginStatus.ascx" />
     <Content Include="controls\LoginStatusNew.ascx" />
@@ -1722,7 +1705,6 @@
     <Content Include="controls\PhotoGallaryMin.ascx" />
     <Content Include="controls\PriceInTopCities.ascx" />
     <Content Include="controls\RecentLaunchedBikesMin.ascx" />
-    <Content Include="controls\RegisterControl.ascx" />
     <Content Include="controls\RepeaterPager.ascx" />
     <Content Include="controls\RepeaterPagerAdvanced.ascx" />
     <Content Include="controls\RepeaterPagerUsed.ascx" />
@@ -2166,7 +2148,6 @@
     <Content Include="includes\PaymentHeaderMobile.aspx" />
     <Content Include="includes\pgheader.aspx" />
     <Content Include="insurance\Default.aspx" />
-    <Content Include="Login_New.aspx" />
     <Content Include="mybikewale\buyerdetails.aspx" />
     <Content Include="mybikewale\Default.aspx" />
     <Content Include="mybikewale\MyListing.aspx" />
@@ -2483,10 +2464,8 @@
     <Content Include="users\changePassword.aspx" />
     <Content Include="users\EditCustomerDetails.aspx" />
     <Content Include="users\newssubscription.aspx" />
-    <Content Include="users\ForgotPassword.aspx" />
     <Content Include="users\Login.aspx" />
     <Content Include="users\MyContactDetails.aspx" />
-    <Content Include="users\Register.aspx" />
     <Content Include="users\registrationConfirmation.aspx" />
     <Content Include="users\ResetCustomerPassword.aspx" />
     <Content Include="Videos\default.aspx" />
