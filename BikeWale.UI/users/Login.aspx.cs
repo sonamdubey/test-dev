@@ -1,4 +1,5 @@
 ﻿using Bikewale.Common;
+using Bikewale.Common.BWSecurity;
 using Bikewale.Service.Controllers.Customer;
 using Bikewale.UI.Entities.Customer;
 using System;
@@ -182,9 +183,24 @@ namespace BikWale.Users
             HttpContext.Current.Response.Cookies.Add(objCookie);
 
             // Redirect to the requested page.
-            if (!string.IsNullOrEmpty(Request.ServerVariables["HTTP_REFERER"]))
+
+            //Response.Redirect(CommonOpn.AppPath + "MyBikeWale/");
+
+            if (!String.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
             {
-                Response.Redirect(Request.ServerVariables["HTTP_REFERER"], false);
+                string returnUrl = Request.QueryString["ReturnUrl"];
+
+                if (ScreenInput.IsValidRedirectUrl(returnUrl) == true)
+                    Response.Redirect(returnUrl);
+                else
+                    Response.Redirect("/");
+            }
+            else if (redirectUrl != "")
+            {
+                if (ScreenInput.IsValidRedirectUrl(redirectUrl) == true)
+                    Response.Redirect(redirectUrl);
+                else
+                    Response.Redirect("/");
             }
             else
             {

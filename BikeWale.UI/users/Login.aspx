@@ -12,7 +12,8 @@
 <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/login.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-    <form id="form1" runat="server">       
+    <form id="form1" runat="server">
+        <div class="blackOut-window"></div>       
         <!-- #include file="/includes/Navigation.aspx" -->
         
         <div id="header" class="header-fixed"> <!-- Header code starts here -->

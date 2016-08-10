@@ -278,3 +278,51 @@ function requestForgotPwd() {
         }
     });
 }
+
+// nav bar code starts here
+$(".navbarBtn").on('click', function () {
+    navbarShow();
+});
+
+$(".blackOut-window").mouseup(function (e) {
+    navbarHide();
+});
+
+$(".navUL > li > a").on('click', function () {
+    if (!$(this).hasClass("open")) {
+        var a = $(".navUL li a");
+        a.removeClass("open").next("ul").slideUp(350);
+        $(this).addClass("open").next("ul").slideDown(350);
+
+        if ($(this).siblings().size() === 0) {
+            navbarHide();
+        }
+
+        $(".nestedUL > li > a").click(function () {
+            $(".nestedUL li a").removeClass("open");
+            $(this).addClass("open");
+            navbarHide();
+        });
+
+    }
+    else if ($(this).hasClass("open")) {
+        $(this).removeClass("open").next("ul").slideUp(350);
+    }
+});
+
+$(document).keydown(function (e) {
+    if (e.keyCode == 27) {
+        navbarHide();
+    }
+});
+
+function navbarShow() {
+    $("#nav").addClass('open').animate({ 'left': '0px' });
+    $(".blackOut-window").show();
+}
+
+function navbarHide() {
+    $("#nav").removeClass('open').animate({ 'left': '-350px' });
+    $(".blackOut-window").hide();
+}
+// nav bar code ends here
