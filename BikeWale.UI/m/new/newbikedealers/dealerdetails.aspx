@@ -157,7 +157,7 @@
             #getUserLocation {position:absolute;cursor:pointer}
             .thankyou-icon {width:34px; height:38px; background-position: -143px -406px;}
             .crosshair-icon {width: 20px;height: 20px;background: url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/detect-location-icon.jpg) no-repeat;}
-            .dealership-loc-icon {width: 10px;height: 15px;background-position: -40px -435px;position: relative;top: 4px;}
+            .dealership-loc-icon {width: 12px;height: 15px;background-position: -38px -435px;position: relative;top: 4px;}
             .vertical-top { display:inline-block;vertical-align:top; }
     </style>
     <script src="http://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
