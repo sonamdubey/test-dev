@@ -21,7 +21,7 @@
         <div class="city-area-banner"></div>
         <div id="city-area-content">
              <% if(!isOperaBrowser) { %>
-                                  <div id="city-menu" class="city-area-menu open">
+            <div id="city-menu" class="city-area-menu open">
                 <div id="city-menu-tab" class="city-area-tab cursor-pointer">
                     <span class="city-area-tab-label" data-bind="text: (SelectedCity() != undefined && SelectedCity().name != '') ? 'City : ' + SelectedCity().name : 'Select your city'"></span>
                     <span class="chevron bwmsprite chevron-down"></span>
@@ -29,7 +29,7 @@
                 <div class="inputbox-list-wrapper">
                     <div class="form-control-box user-input-box">
                         <span class="bwmsprite search-icon-grey"></span>
-                        <input type="text" class="form-control padding-right40" placeholder="Type to select city" id="city-menu-input" autocomplete="off" data-bind="textInput: cityFilter">
+                        <input type="text" class="form-control padding-right40" placeholder="Type to select city" id="city-menu-input" autocomplete="off"><!-- data-bind="textInput: cityFilter" -->
                         <span class="fa fa-spinner fa-spin position-abt text-black"></span>
                     </div>
                     <ul id="city-menu-list" data-bind="template: { name: 'bindCityList-template', foreach: visibleCities }" ></ul>
@@ -250,6 +250,7 @@
                                     var cities = ko.toJS(_responseData.pqCities);
                                     if (cities!=null && cities.length > 0) {
                                         self.BookingCities(cities);
+                                        $('#city-menu-input').fastLiveFilter('#city-menu-list');
                                     }									
                                     if(self.SelectedCityId() > 0)
                                     {
@@ -263,6 +264,7 @@
                                         if(self.SelectedAreaId() > 0)
                                         {
                                             self.SelectedArea(findAreaById(self.SelectedAreaId()));
+                                            $('#area-menu-input').fastLiveFilter('#area-menu-list');
                                         }                                 
                                     }
 
