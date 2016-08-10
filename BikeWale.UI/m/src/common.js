@@ -965,11 +965,10 @@ function slideChangeStart() {
                               .append('<a OptionName=' + item.label.replace(/\s/g, '').toLowerCase() + '>' + __highlight(item.label, reqTerm) + '</a>');
 
                 if (options.source == '1') {
-                    debugger;
                     if (item.payload.modelId > 0) {
                         if (item.payload.futuristic == 'True') {
                             ulItem.append('<span class="upcoming-link">coming soon</span>')                           
-                        } else if (item.payload.futuristic == 'False') {
+                        } else {
                             if (item.payload.isNew == 'True') {
                                 ulItem.append('<a pqSourceId="' + pqSourceId + '" modelId="' + item.payload.modelId + '" class="fillPopupData target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>');
                             }

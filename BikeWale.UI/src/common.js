@@ -676,11 +676,10 @@ function pushNavMenuAnalytics(menuItem) {
                     if (item.payload.modelId > 0) {
                         if (item.payload.futuristic == 'True') {
                             ulItem.append('<span class="upcoming-link">coming soon</span>')
-                        } else if (item.payload.futuristic == 'False') {
+                        } else {
                             if (item.payload.isNew == 'True') {
                                 ulItem.append('<a pqSourceId="' + pqSourceId + '" modelId="' + item.payload.modelId + '" class="fillPopupData target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>');
-                            }
-                            else {
+                            } else {
                                 ulItem.append('<span class="upcoming-link">discontinued</span>')
                             }
 
