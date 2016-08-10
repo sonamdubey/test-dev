@@ -117,21 +117,24 @@ namespace Bikewale.Common
 
                     if (makes != null && makes.Count() > 0)
                     {
-                        if (requestType == EnumBikeType.Used || requestType == EnumBikeType.UserReviews)
+                        if (drpDownList != null)
                         {
-                            drpDownList.DataSource = makes.Select(a => new { Value = string.Format("{0}_{1}", a.MakeId, a.MaskingName), Text = a.MakeName, Id = a.MakeId });
+                            if (requestType == EnumBikeType.Used || requestType == EnumBikeType.UserReviews)
+                            {
+                                drpDownList.DataSource = makes.Select(a => new { Value = string.Format("{0}_{1}", a.MakeId, a.MaskingName), Text = a.MakeName, Id = a.MakeId });
+                            }
+                            else
+                            {
+                                drpDownList.DataSource = makes.Select(a => new { Value = a.MakeId, Text = a.MakeName });
+                            }
+
+
+                            drpDownList.DataValueField = "Value";
+                            drpDownList.DataTextField = "Text";
+
+                            drpDownList.DataBind();
+                            drpDownList.Items.Insert(0, new ListItem("--Select Make--", "0"));
                         }
-                        else
-                        {
-                            drpDownList.DataSource = makes.Select(a => new { Value = a.MakeId, Text = a.MakeName });
-                        }
-
-
-                        drpDownList.DataValueField = "Value";
-                        drpDownList.DataTextField = "Text";
-
-                        drpDownList.DataBind();
-                        drpDownList.Items.Insert(0, new ListItem("--Select Make--", "0"));
                     }
 
                 }

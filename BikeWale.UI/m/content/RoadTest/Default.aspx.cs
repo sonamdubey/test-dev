@@ -195,9 +195,12 @@ namespace Bikewale.Content
             try
             {
                 HttpContext.Current.Trace.Warn("AUTO FILL");
-                if (makeId != "" && makeId != "-1")
+                if (makeId != "" && makeId != "-1" && ddlModels != null)
                 {
-                    ddlMakes.SelectedIndex = ddlMakes.Items.IndexOf(ddlMakes.Items.FindByValue(makeId + '_' + Request.QueryString["make"].ToString()));
+                    if (ddlMakes != null)
+                    {
+                        ddlMakes.SelectedIndex = ddlMakes.Items.IndexOf(ddlMakes.Items.FindByValue(makeId + '_' + Request.QueryString["make"].ToString()));
+                    }
                     ddlModels.Disabled = false;
                     ddlModels.DataSource = mmv.GetModelsWithMappingName(makeId, "ROADTEST");
                     ddlModels.DataTextField = "Text";
