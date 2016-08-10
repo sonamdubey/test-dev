@@ -1,12 +1,10 @@
 ﻿using Bikewale.Utility;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 
 namespace Bikewale.Common
 {
-    
+
     public class PriceQuoteQueryString
     {
         #region Properties
@@ -85,7 +83,7 @@ namespace Bikewale.Common
                 return String.Empty;
             }
         }
-        
+
         #endregion
         public static bool IsPQQueryStringExists()
         {

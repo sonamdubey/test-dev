@@ -71,7 +71,7 @@
     var detailsSubmitBtn = $("#user-details-submit-btn");
     var prevEmail = "";
     var prevMobile = "";
-    var leadmodelid =  <%= ModelId %>, leadcityid = <%= CityId %>, leadareaid =  <%= AreaId %>;
+    var leadmodelid =  '<%= ModelId %>', leadcityid = '<%= CityId %>', leadareaid =  '<%= AreaId %>';
     //var getCityArea = GetGlobalCityArea();
 
 
@@ -116,7 +116,7 @@
 
         $("#getMobile").on("blur", function () {
             if (prevMobile != $(this).val().trim()) {
-                if (validateMobileNo($(this))) {
+                if (self.validateMobileNo($(this))) {
                     dleadvm.IsVerified(false);
                     otpText.val('');
                     otpContainer.removeClass("show").addClass("hide");
@@ -133,7 +133,7 @@
 
         $("#getEmailID").on("blur", function () {
             if (prevEmail != $(this).val().trim()) {
-                if (validateEmailId($(this))) {
+                if (self.validateEmailId($(this))) {
                     dleadvm.IsVerified(false);
                     otpText.val('');
                     otpContainer.removeClass("show").addClass("hide");

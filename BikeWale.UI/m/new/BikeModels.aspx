@@ -4,7 +4,6 @@
 <%@ Register Src="/m/controls/NewVideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/NewAlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
 <%@ Register Src="/m/controls/NewUserReviewList.ascx" TagPrefix="BW" TagName="UserReviews" %>
-<%@ Register Src="~/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
 <%@ Register Src="~/m/controls/MPriceInTopCities.ascx" TagPrefix="BW" TagName="TopCityPrice" %>
 <!DOCTYPE html> 
 <html>
@@ -70,7 +69,7 @@
 
                     <% if (modelPage.ModelDetails.New || !modelPage.ModelDetails.New)
                        { %>
-                    <div class="padding-left20 padding-right10 margin-top5 margin-bottom5">
+                    <div class="padding-left20 padding-right10 margin-top5 margin-bottom10">
                         <p class=" <%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> leftfloat margin-right10 rating-wrap">
                             <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble((modelPage.ModelDetails == null || modelPage.ModelDetails.ReviewRate == null) ? 0 : modelPage.ModelDetails.ReviewRate )) %>
                         </p>
@@ -90,22 +89,25 @@
                         <div class="clear"></div>
                     </div>
                     <% } %>
-
-                    <div class="swiper-container model margin-bottom10" id="bikeBannerImageCarousel">
-                        <div class="swiper-wrapper stage" id="ulModelPhotos">
-                            <asp:Repeater ID="rptModelPhotos" runat="server">
-                                <ItemTemplate>
-                                    <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                </ItemTemplate>
-                            </asp:Repeater>
+                    <div id="model-image-wrapper">
+                        <div class="model-main-image">
+                            <% if (modelPage !=null && modelPage.Photos != null && modelPage.Photos.Count > 1)
+                               { %>
+                            <a href="./photos/" ><img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image" /></a>
+                            <div class="model-media-details">
+                                <div class="model-media-item" style="cursor: pointer;" onclick="window.location='./photos/';">
+                                    <span class="bwmsprite gallery-photo-icon"></span>
+                                    <span class="model-media-count"><%= modelPage.Photos.Count %></span>
+                                </div>
+                                <%--<a href="./photos#videos" class="model-media-item">
+                                    <span class="bwmsprite gallery-video-icon"></span>
+                                    <span class="model-media-count">7</span>
+                                </a>--%>
+                            </div>
+                            <% }else{ %>
+                            <img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image" />
+                            <%} %>
                         </div>
-                        <% if (modelPage.Photos != null && modelPage.Photos.Count > 1)
-                           { %>
-                        <p class="pagination-number text-center font12 text-white position-abt"><span class="bike-model-gallery-count">1 of <%= modelPage.Photos.Count %></span></p>
-                        <% } %>
                     </div>
 
                     <% if (modelPage.ModelDetails.Futuristic)
@@ -247,8 +249,8 @@
                             <asp:Repeater ID="rptOffers" runat="server">
                               <ItemTemplate>
                                 <li>
-                                    <span class="dealers-benefits-image offer-benefit-sprite offerIcon_<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferCategoryId"))%>"></span>
-                                    <span class="dealers-benefits-title padding-left15"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
+                                    <span class="dealers-benefits-image offers-sprite offerIcon_<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferCategoryId"))%>"></span>
+                                    <span class="dealers-benefits-title padding-left10"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
                                 </li>
                             </ItemTemplate>
                             </asp:Repeater>
@@ -330,11 +332,11 @@
                         %>
                         <% if ( viewModel.IsPremiumDealer)
                             { 
-                        %>  <div class="grid-6 alpha omega padding-top10 padding-right5 padding-bottom10">
-                                <a id="getAssistance" leadSourceId="19" class="btn btn-white btn-full-width btn-sm rightfloat" href="javascript:void(0);">Get offers</a>
+                        %>  <div class="grid-7 alpha omega padding-top10 padding-right5 padding-bottom10">
+                                <a id="getAssistance" leadSourceId="19" class="btn btn-orange btn-full-width rightfloat" href="javascript:void(0);">Get offers</a>
                             </div>
-                            <div class="grid-6 alpha omega padding-top10 padding-bottom10 padding-left5">
-                                <a id="calldealer" class="btn btn-orange btn-full-width btn-sm rightfloat" href="tel:+91<%= viewModel.MaskingNumber == string.Empty? viewModel.MobileNo: viewModel.MaskingNumber %>"><span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer</a>
+                            <div class="grid-5 alpha omega padding-top10 padding-bottom10 padding-left5">
+                                <a id="calldealer" class="btn btn-green btn-full-width rightfloat" href="tel:+91<%= viewModel.MaskingNumber == string.Empty? viewModel.MobileNo: viewModel.MaskingNumber %>"><span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer</a>
                             </div>
                         <% }                             
                         }  
@@ -411,7 +413,7 @@
                     <div class="text-center">
                         <div class="summary-overview-box">
                             <div class="odd btmAftBorder">
-                                <span class="inline-block model-sprite specs-capacity-icon margin-right10" title="<%=bikeName %> Engine Capacity"></span>
+                                <span class="inline-block offers-sprite specs-capacity-icon margin-right10" title="<%=bikeName %> Engine Capacity"></span>
                                 <div class="inline-block">
                                     <p class="font18 text-bold margin-bottom5">
                                         <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement) %>
@@ -421,7 +423,7 @@
                                 </div>
                             </div>
                             <div class="even btmAftBorder">
-                                <span class="inline-block model-sprite specs-mileage-icon margin-right10" title="<%=bikeName %> Mileage"></span>
+                                <span class="inline-block offers-sprite specs-mileage-icon margin-right10" title="<%=bikeName %> Mileage"></span>
                                 <div class="inline-block">
                                     <p class="font18 text-bold margin-bottom5">
                                         <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelEfficiencyOverall) %>
@@ -431,7 +433,7 @@
                                 </div>
                             </div>
                             <div class="odd">
-                                <span class="inline-block model-sprite specs-maxpower-icon margin-right10" title="<%=bikeName %> Max Power"></span>
+                                <span class="inline-block offers-sprite specs-maxpower-icon margin-right10" title="<%=bikeName %> Max Power"></span>
                                 <div class="inline-block">
                                     <p class="font18 text-bold margin-bottom5">
                                         <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower) %>
@@ -441,7 +443,7 @@
                                 </div>
                             </div>
                             <div class="even">
-                                <span class="inline-block model-sprite specs-weight-icon margin-right10" title="<%=bikeName %> Kerb Weight"></span>
+                                <span class="inline-block offers-sprite specs-weight-icon margin-right10" title="<%=bikeName %> Kerb Weight"></span>
                                 <div class="inline-block">
                                     <p class="font18 text-bold margin-bottom5">
                                         <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight) %>
@@ -773,10 +775,6 @@
         </div>
         <!-- Terms and condition Popup end -->
 
-        <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
-
-        <!-- all other js plugins -->
-
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?<%= staticFileVersion %>"></script>
@@ -812,7 +810,7 @@
                 }
             });
             function secondarydealer_Click(dealerID) {
-                var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerID;
+                var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerID + "&IsDealerAvailable=true";
                 window.location.href = "/m/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
             }
         </script>

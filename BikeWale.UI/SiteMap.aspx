@@ -5,6 +5,9 @@
     keywords = "BikeWale sitemap, site map, BikeWale sitemap, bikewale directory, Bike Market, Corporate world, bikewale in News";
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
+    //Modified By :Sajal Gupta on 03 August 2016
+    isAd300x250Shown = false;
+    isAd600x270Shown = false;
 %>
 <!-- #include file="/includes/headhome.aspx" -->
 <style type="text/css">
@@ -14,39 +17,47 @@
     <div class="grid_12 margin-top10">
         <h1 class="black-text">BikeWale Site Map</h1>
         <div class="grid_4 alpha margin-top15">
-            <h3><a class="black-text" href="/new/">New Bikes</a></h3>
+            <h3><a class="black-text" href="http://www.bikewale.com/new/">New Bikes</a></h3>
             <ul class="ul-normal">
-                <li><a href="/pricequote/">Check On-Road Price in Your City</a></li>
-                <li><a href="/upcoming-bikes/">Upcoming Bikes</a></li>
-                <li><a href="/comparebikes/">Compare Bikes</a></li>
-                <li><a href="/road-tests/">Road Tests</a></li>
-                <li><a href="/new/search.aspx">Find New Bikes</a></li>
+                <li><a href="http://www.bikewale.com/pricequote/">Check On-Road Price in Your City</a></li>
+                <li><a href="http://www.bikewale.com/upcoming-bikes/">Upcoming Bikes</a></li>
+                <li><a href="http://www.bikewale.com/comparebikes/">Compare Bikes</a></li>
+                <li><a href="http://www.bikewale.com/expert-reviews/">Expert Reviews</a></li>
+                <li><a href="http://www.bikewale.com/new/search.aspx">Find New Bikes</a></li>
                 <li>
                     <a class="grid_4 alpha black-text" href="http://www.bikewale.com/new/"><b>Bikes by Make</b></a>
                     <ul class="grid_2 alpha">
-                        <li><a href="/aprilia-bikes/">Aprilia</a></li>
-                        <li><a href="/bajaj-bikes/">Bajaj</a></li>
-                        <li><a href="/bmw-bikes/">BMW</a></li>
-                        <li><a href="/ducati-bikes/">Ducati</a></li>
-                        <li><a href="/harleydavidson-bikes/">Harley Davidson</a></li>
-                        <li><a href="/hero-bikes/">Hero</a></li>
-                        <li><a href="/honda-bikes/">Honda</a></li>
-                        <li><a href="/hyosung-bikes/">Hyosung</a></li>
-                        <li><a href="/yo-bikes/">Yo</a></li>
+                        <li><a href="http://www.bikewale.com/aprilia-bikes/">Aprilia</a></li>
+                        <li><a href="http://www.bikewale.com/bajaj-bikes/">Bajaj</a></li>
+                        <li><a href="http://www.bikewale.com/benelli-bikes/">Benelli</a></li>
+                        <li><a href="http://www.bikewale.com/bmw-bikes/">BMW</a></li>
+                        <li><a href="http://www.bikewale.com/ducati-bikes/">Ducati</a></li>
+                        <li><a href="http://www.bikewale.com/harleydavidson-bikes/">Harley Davidson</a></li>
+                        <li><a href="http://www.bikewale.com/hero-bikes/">Hero</a></li>
+                        <li><a href="http://www.bikewale.com/heroelectric-bikes/">Hero Electric</a></li>
+                        <li><a href="http://www.bikewale.com/honda-bikes/">Honda</a></li>
+                        <li><a href="http://www.bikewale.com/hyosung-bikes/">Hyosung</a></li>
+                        <li><a href="http://www.bikewale.com/motoguzzi-bikes/">Moto Guzzi</a></li>
+                        <li><a href="http://www.bikewale.com/mv-agusta-bikes/">MV Agusta</a></li>
+                        <li><a href="http://www.bikewale.com/yo-bikes/">Yo</a></li>
                     </ul>
                     <ul class="grid_2 alpha omega">
-                        <li><a href="/kawasaki-bikes/">Kawasaki</a></li>
-                        <li><a href="/ktm-bikes/">KTM</a></li>
-                        <li><a href="/mahindra-bikes/">Mahindra</a></li>
-                        <li><a href="/royalenfield-bikes/">Royal Enfield</a></li>
-                        <li><a href="/suzuki-bikes/">Suzuki</a></li>
-                        <li><a href="/tvs-bikes/">TVS</a></li>
-                        <li><a href="/vespa-bikes/">Vespa</a></li>
-                        <li><a href="/yamaha-bikes/">Yamaha</a></li>                        
+                        <li><a href="http://www.bikewale.com/indian-bikes/">Indian</a></li>
+                        <li><a href="http://www.bikewale.com/kawasaki-bikes/">Kawasaki</a></li>
+                        <li><a href="http://www.bikewale.com/ktm-bikes/">KTM</a></li>
+                        <li><a href="http://www.bikewale.com/lml-bikes/">LML</a></li>
+                        <li><a href="http://www.bikewale.com/mahindra-bikes/">Mahindra</a></li>
+                        <li><a href="http://www.bikewale.com/royalenfield-bikes/">Royal Enfield</a></li>
+                        <li><a href="http://www.bikewale.com/suzuki-bikes/">Suzuki</a></li>
+                        <li><a href="http://www.bikewale.com/tvs-bikes/">TVS</a></li>
+                        <li><a href="http://www.bikewale.com/triumph-bikes/">Triumph</a></li>
+                         <li><a href="http://www.bikewale.com/um-bikes/">UM</a></li>
+                        <li><a href="http://www.bikewale.com/vespa-bikes/">Vespa</a></li>
+                        <li><a href="http://www.bikewale.com/yamaha-bikes/">Yamaha</a></li>                        
                     </ul><div class="clear"></div>
                 </li>
                 <li>
-                    <a class="grid_4 alpha black-text" href="new/locatenewbikedealers.aspx"><b>Locate New Bike Dealers</b></a>
+                    <a class="grid_4 alpha black-text" href="http://www.bikewale.com/new/locate-dealers/"><b>Locate New Bike Dealers</b></a>
                     <ul class="grid_2 alpha">
                         <li><a href="http://www.bikewale.com/new/aprilia-dealers/">Aprilia</a></li>
                         <li><a href="http://www.bikewale.com/new/bajaj-dealers/">Bajaj</a></li>
@@ -71,13 +82,13 @@
             </ul>                       
         </div>
         <div class="grid_4 alpha margin-top15">
-            <h3><a class="black-text" href="/used/">Used Bikes</a></h3>
+            <h3><a class="black-text" href="http://www.bikewale.com/used/">Used Bikes</a></h3>
             <ul class="ul-normal">
                 <%--<li><a href="/used/search.aspx">Find Used Bikes</a></li>--%>
-                <li><a href="/used/sell/">Sell Your Bike</a></li>
-                <li><a href="/mybikewale/myinquiries/">View Your Used Bike Listing</a></li>
+                <li><a href="http://www.bikewale.com/used/sell/">Sell Your Bike</a></li>
+                <li><a href="http://www.bikewale.com/mybikewale/myinquiries/">View Your Used Bike Listing</a></li>
                 <li>
-                    <a class="grid_4 alpha black-text" href="/used/"><b>Browse Used Bikes</b></a>
+                    <a class="grid_4 alpha black-text" href="http://www.bikewale.com/used/"><b>Browse Used Bikes</b></a>
                     <ul class="grid_2 alpha">
                         <li><a href="http://www.bikewale.com/used/bikes-in-newdelhi/">New Delhi</a></li>
                         <li><a href="http://www.bikewale.com/used/bikes-in-bangalore/">Bangalore</a></li>
@@ -88,9 +99,9 @@
                     </ul>
                     <ul class="grid_2 alpha omega">
                         <li><a href="http://www.bikewale.com/used/bikes-in-mumbai/">Mumbai</a></li>
-                        <li><a href="http://www.bikewale.com/used/bikes-in-mumbai/">Chennai</a></li>
-                        <li><a href="http://www.bikewale.com/used/bikes-in-mumbai/">Hyderabad</a></li>
-                        <li><a href="http://www.bikewale.com/used/bikes-in-mumbai/">Kolkata</a></li>
+                        <li><a href="http://www.bikewale.com/used/bikes-in-chennai/">Chennai</a></li>
+                        <li><a href="http://www.bikewale.com/used/bikes-in-hyderabad/">Hyderabad</a></li>
+                        <li><a href="http://www.bikewale.com/used/bikes-in-kolkata/">Kolkata</a></li>
                         <li><a href="http://www.bikewale.com/used/bikes-in-cochin/">Cochin</a></li>
                         <li><a href="http://www.bikewale.com/used/bikes-in-pondicherry/">Pondicherry</a></li>
                     </ul>
@@ -98,30 +109,23 @@
             </ul>
             <h3 class="margin-top10">User Community</h3>
             <ul class="ul-normal">
-                <li><a href="/user-reviews/">User Reviews</a></li>                
+                <li><a href="http://www.bikewale.com/user-reviews/">User Reviews</a></li>                
             </ul>
             <h3 class="margin-top10">Tools</h3>
             <ul class="ul-normal">
-                <li><a href="/bike-loan-emi-calculator/">EMI Calculator</a></li>
+                <li><a href="http://www.bikewale.com/bike-loan-emi-calculator/">EMI Calculator</a></li>
             </ul>                         
         </div>
          <div class="grid_4 omega margin-top15">
-            <h3><a class="black-text" href="/news/">Bike News</a></h3>
-            <h3 class="margin-top10"><a class="black-text" href="/mybikewale/">My BikeWale</a></h3>
-            <ul class="ul-normal">
-                <li><a href="/mybikewale/myprofile/">My Profile</a></li>
-                <li><a href="/mybikewale/editcontactdetails/">Edit My Profile</a></li>
-                <li><a href="/mybikewale/changepassword/">Change Password</a></li>
-                <li><a href="/users/login.aspx">Login</a> | <a href="/users/register.aspx">Register</a></li>
-                <li><a href="/users/forgotpassword.aspx">Forget Password</a></li>
-            </ul>
+            <h3><a class="black-text" href="http://www.bikewale.com/news/">Bike News</a></h3>
+            
             <h3 class="margin-top10">Miscellaneous</h3>
             <ul class="ul-normal">
-                <li><a href="/aboutus.aspx">About Us</a></li>
-                <li><a href="/contactus.aspx">Contact Us</a></li>
-                <li><a href="/advertisewithus.aspx">Advertise With Us</a></li>
-                <li><a href="/privacypolicy.aspx">Privacy Policy</a></li>
-                <li><a href="/visitoragreement.aspx">Visitor Agreement</a></li>
+                <li><a href="http://www.bikewale.com/aboutus.aspx">About Us</a></li>
+                <li><a href="http://www.bikewale.com/contactus.aspx">Contact Us</a></li>
+                <li><a href="http://www.bikewale.com/advertisewithus.aspx">Advertise With Us</a></li>
+                <li><a href="http://www.bikewale.com/privacypolicy.aspx">Privacy Policy</a></li>
+                <li><a href="http://www.bikewale.com/visitoragreement.aspx">Visitor Agreement</a></li>
                 <li><a href="http://www.carwale.com">carwale.com</a></li>
             </ul>            
         </div>

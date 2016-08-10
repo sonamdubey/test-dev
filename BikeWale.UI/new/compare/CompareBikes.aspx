@@ -17,7 +17,9 @@
     AdPath = "/1017752/BikeWale_CompareBikes_";
     ShowTargeting = "1";
     TargetedModels = targetedModels;
-    
+    //modified by SajalGupta for unfilled impression of ads on 04 Aug 2016.
+    isAd300x250Shown = false;
+    isAd300x250_BTFShown = false;
 %>
 
 <!-- #include file="/includes/headNew.aspx" -->
@@ -330,7 +332,7 @@
                                                    <%--<tr><td><a title='View complete details of <%# DataBinder.Eval(Container.DataItem,"Bike")%>' href='/<%# DataBinder.Eval(Container.DataItem,"MakeMaskingName")%>-bikes/<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName") %>/'><img class="second-img" alt="<%#DataBinder.Eval(Container.DataItem,"Bike")%>" src="<%# !String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"HostURL").ToString()) ? Bikewale.Common.ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/", DataBinder.Eval(Container.DataItem,"HostURL").ToString()) + DataBinder.Eval(Container.DataItem,"largePic") :  "http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/nobike.jpg" %>" border="0"/></a></td></tr>--%>
                                                    <tr>
                                                        <td>
-                                                           <a title='View complete details of <%# DataBinder.Eval(Container.DataItem,"Bike")%>' href='/<%# DataBinder.Eval(Container.DataItem,"MakeMaskingName")%>-bikes/<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName") %>/'><img class="second-img" alt="<%#DataBinder.Eval(Container.DataItem,"Bike")%>" src="<%# !String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"HostURL").ToString()) ? Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImagePath").ToString(), DataBinder.Eval(Container.DataItem,"HostURL").ToString(),Bikewale.Utility.ImageSize._310x174) :  "http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/nobike.jpg" %>" border="0"/></a>
+                                                           <a title='View complete details of <%# DataBinder.Eval(Container.DataItem,"Bike")%>' href='/<%# DataBinder.Eval(Container.DataItem,"MakeMaskingName")%>-bikes/<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName") %>/'><img class="second-img" alt="<%#DataBinder.Eval(Container.DataItem,"Bike")%>" src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImagePath").ToString(), DataBinder.Eval(Container.DataItem,"HostURL").ToString(),Bikewale.Utility.ImageSize._310x174) %>" border="0"/></a>
                                                        </td>
                                                    </tr>
                                                    <tr class="<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"Futuristic")) ? "hide" : "" %>">

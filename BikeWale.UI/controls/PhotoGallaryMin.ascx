@@ -35,7 +35,7 @@
                                             border="0" alt='<%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName") + " " + DataBinder.Eval(Container.DataItem,"ModelBase.ModelName") + " - " + DataBinder.Eval(Container.DataItem,"ImageCategory") %>'
                                             title='<%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName") + " " + DataBinder.Eval(Container.DataItem,"ModelBase.ModelName") + " - " + DataBinder.Eval(Container.DataItem,"ImageCategory") %> ' 
                                             desc='<%# DataBinder.Eval(Container.DataItem, "Caption").ToString() %>' <%--artID='<%# DataBinder.Eval(Container.DataItem, "BasicId").ToString() %>'--%> 
-                                            imgCnt='<%=recordCount %>' artTitle='<%# Server.HtmlEncode(DataBinder.Eval(Container.DataItem, "ImageTitle").ToString().Replace("'","&rsquo;")) %>' 
+                                            imgCnt='<%=FetchedCount %>' artTitle='<%# Server.HtmlEncode(DataBinder.Eval(Container.DataItem, "ImageTitle").ToString().Replace("'","&rsquo;")) %>' 
                                            <%-- artUrl='<%# DataBinder.Eval(Container.DataItem, "ArticleUrl").ToString() %>'--%>/>
 			                        </a>
                                 </li>                                

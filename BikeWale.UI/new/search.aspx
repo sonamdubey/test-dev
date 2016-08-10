@@ -1,14 +1,24 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.Search" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.SearchOld" %>
 
 <html>
 <head>
     <%
+        title = "Search New Bikes by Brand, Budget, Mileage and Ride Style - BikeWale";
+        description = "Search through all the new bike models by various criteria. Get instant on-road price for the bike of your choice";
+        keywords = "search new bikes, search bikes by brand, search bikes by budget, search bikes by price, search bikes by style, street bikes, scooters, commuter bikes, cruiser bikes";
+        canonical = "http://www.bikewale.com/new/bike-search/";
+        alternate = "http://www.bikewale.com/m/new/bike-search/";
         isHeaderFix = false;
         AdId = "1442913773076";
         AdPath = "/1017752/Bikewale_NewBike_";
         isAd970x90Shown = true;
         isAd970x90BottomShown = true;
-        isAd970x90BTFShown = true;        
+        
+
+        isAd300x250Shown = false;
+        isAd300x250BTFShown = false;
+        isAd970x90BTFShown = false;
+         
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <script>ga_pg_id = '5';</script>

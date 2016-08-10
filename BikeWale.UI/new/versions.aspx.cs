@@ -25,7 +25,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Reflection;
 using System.Web;
 using System.Web.UI.WebControls;
 
@@ -284,7 +283,7 @@ namespace Bikewale.New
 
             }
         }
-        
+
 
         /// <summary>
         /// Modified by     :   Sumit Kate on 15 Feb 2016
@@ -733,14 +732,14 @@ namespace Bikewale.New
                                     }
                                 }
 
-                                else if (variantId != 0)
+                                else if (variantId != 0 && isOnRoadPrice)
                                 {
                                     objSelectedVariant = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == variantId).FirstOrDefault();
                                     if (objSelectedVariant != null)
                                         price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
                                 }
 
-                                else
+                                else if (isOnRoadPrice)
                                 {
                                     objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault();
                                     price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);

@@ -1,6 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.Search_old" Trace="false" Debug="false" %>
 <%@ Import Namespace="System.Data" %>
-
+<% //modified by SajalGupta for unfilled impression of ads on 04 Aug 2016.
+    isAd300x250Shown = false;
+    isAd300x250_BTFShown = false; %>
 <!-- #include file="/includes/headNew.aspx" -->
 <script type="text/javascript" src="/src/new/search.js?v=1.1"></script>
 <style type="text/css">

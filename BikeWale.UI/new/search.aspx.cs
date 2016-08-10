@@ -15,8 +15,8 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.New
 {
-	public class Search : System.Web.UI.Page
-	{
+    public class SearchOld : System.Web.UI.Page
+    {
         protected Repeater rptPopularBrand, rptOtherBrands;
 
         protected override void OnInit(EventArgs e)
@@ -24,8 +24,8 @@ namespace Bikewale.New
             this.Load += new EventHandler(Page_Load);
         }
 
-		protected void Page_Load(object sender, EventArgs e)
-		{
+        protected void Page_Load(object sender, EventArgs e)
+        {
             // Modified By :Lucky Rathore on 12 July 2016.
             Form.Action = Request.RawUrl;
             //device detection
@@ -38,7 +38,7 @@ namespace Bikewale.New
             dd.DetectDevice();
 
             BindRepeaters();
-		}
+        }
 
         /// <summary>
         /// Created by  :   Sumit Kate on 04 Mar 2016
@@ -74,5 +74,5 @@ namespace Bikewale.New
                 objErr.SendMail();
             }
         }
-	}
+    }
 }

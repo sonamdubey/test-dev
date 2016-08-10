@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Utility
 {
@@ -17,7 +13,7 @@ namespace Bikewale.Utility
             }
             else
             {
-                imgUrl = "http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/nobike.jpg";
+                imgUrl = string.Format("http://imgd3.aeplcdn.com/{0}/bikewaleimg/images/noimage.png", size);
             }
             return imgUrl;
         }

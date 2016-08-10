@@ -33,6 +33,7 @@ namespace Bikewale.Pricequote
         protected PQ_DealerDetailEntity dealerDetailEntity = null;
         protected UsersTestimonials ctrlUsersTestimonials;
 
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -178,12 +179,14 @@ namespace Bikewale.Pricequote
 
                     latitude = Convert.ToString(dealerDetailEntity.objDealer.objArea.Latitude);
                     longitude = Convert.ToString(dealerDetailEntity.objDealer.objArea.Longitude);
+                    
+                    
                 }
 
                 //Dealer Address
                 if (dealerDetailEntity.objDealer != null && !String.IsNullOrEmpty(dealerDetailEntity.objDealer.Address))
                 {
-                    dealerAddress = String.Format("{0}<br/>{1},{2},{3}-{4},{5}.", dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.Address, dealerDetailEntity.objDealer.objArea.AreaName, dealerDetailEntity.objDealer.objCity.CityName, dealerDetailEntity.objDealer.objArea.PinCode, dealerDetailEntity.objDealer.objState.StateName);
+                    dealerAddress = String.Format("{0}<br/>{1},{2},{3}-{4},{5}.", dealerDetailEntity.objDealer.Organization, dealerDetailEntity.objDealer.Address, dealerDetailEntity.objDealer.objArea.AreaName, dealerDetailEntity.objDealer.objCity.CityName, dealerDetailEntity.objDealer.objArea.PinCode, dealerDetailEntity.objDealer.objState.StateName);
                 }
 
                 //bind offers provided by dealer

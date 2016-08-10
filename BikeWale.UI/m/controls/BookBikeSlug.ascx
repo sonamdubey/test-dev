@@ -5,7 +5,7 @@
         <div class="bwmsprite close-btn floatright"></div>
         <h1>Dealer not available</h1>
         <p class="new-line10 msg1">Oops, currently we don't have a partner dealer in your locality. We are adding dealers everyday. You can check an indicative on-road price below.
-            <a href="/m/pricequote/quotation.aspx" class="bwm-btn ui-link">Get Estimated Price</a>
+            <a href="/m/pricequote/dealerpricequote.aspx" class="bwm-btn ui-link">Get Estimated Price</a>
         </p>        
         <p class="new-line10 msg2 hide">Oops, We are unable to process your request right now. Please try again later.</p>
     </div>

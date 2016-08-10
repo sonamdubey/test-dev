@@ -456,13 +456,12 @@ button, a[data-role="button"]:not([data-icon]):focus, input[type="button"]:focus
 .lock-browser-scroll { position: fixed; overflow-y: scroll; width: 100%; }
 
 /* sprite classes */
-.bwmsprite { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite.png?v=4Mar2016) no-repeat; display: inline-block; }
+.bwmsprite { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite.png?v=27June2016v2) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
 .headerTitle { position:relative; top:-2px; left:-10px;}
-.white-back-arrow{background:url("http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/white-back-arrow.png") no-repeat scroll left top; width: 27px; height: 20px; cursor: pointer; position: relative; top:0; display: block; }
-.white-back-arrow:hover{background-position:left top;}
+.white-back-arrow{ width: 22px; height: 18px; cursor: pointer; background-position: -63px -163px; position: relative; top: 8px; }
 .bw-logo { background-position: -31px 0px; width: 121px; height: 24px; }
 .bw-logo.bw-lg-fixed-position { position: absolute; left: 52px; }
 .search-icon-grey, .search-icon-white { width: 18px; height: 18px; }

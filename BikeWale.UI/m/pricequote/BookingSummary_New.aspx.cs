@@ -155,6 +155,7 @@ namespace Bikewale.Mobile.PriceQuote
         /// Author  : Sushil Kumar 
         /// Created On : 12th December 2015
         /// Summary : Fetch and bind dealer details
+        /// modified by :subodh jain on 1 aug 2016 changed string format in dealer address 
         /// </summary>
         private void GetDealerDetails()
         {
@@ -183,7 +184,7 @@ namespace Bikewale.Mobile.PriceQuote
                 //Dealer Address
                 if (dealerDetailEntity.objDealer != null && !String.IsNullOrEmpty(dealerDetailEntity.objDealer.Address))
                 {
-                    dealerAddress = String.Format("{0}<br/>{1},{2},{3}-{4},{5}.", dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.Address, dealerDetailEntity.objDealer.objArea.AreaName, dealerDetailEntity.objDealer.objCity.CityName, dealerDetailEntity.objDealer.objArea.PinCode, dealerDetailEntity.objDealer.objState.StateName);
+                    dealerAddress = String.Format("{0}<br/>{1},{2},{3}-{4},{5}.", dealerDetailEntity.objDealer.Organization, dealerDetailEntity.objDealer.Address, dealerDetailEntity.objDealer.objArea.AreaName, dealerDetailEntity.objDealer.objCity.CityName, dealerDetailEntity.objDealer.objArea.PinCode, dealerDetailEntity.objDealer.objState.StateName);
                 }
 
                 //bind offers provided by dealer

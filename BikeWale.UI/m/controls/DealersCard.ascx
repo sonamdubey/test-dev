@@ -16,7 +16,7 @@
                     <div class="swiper-slide bike-carousel-swiper dealer-by-city">
                         <%# GetDealerDetailLink(DataBinder.Eval(Container.DataItem,"DealerType").ToString(), DataBinder.Eval(Container.DataItem,"DealerId").ToString(), DataBinder.Eval(Container.DataItem,"CampaignId").ToString(), DataBinder.Eval(Container.DataItem,"Name").ToString()) %>
                         <p class="margin-bottom5 text-light-grey <%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Address").ToString()))?"hide":string.Empty %>">
-                            <span class="bwmsprite dealership-loc-icon vertical-top margin-right5"></span>
+                            <span class="bwmsprite dealership-loc-icon vertical-top"></span>
                             <span class="vertical-top dealership-address dealer-details-main-content"><%# Bikewale.Utility.FormatDescription.TruncateDescription(Convert.ToString(DataBinder.Eval(Container.DataItem,"Address")), 60) %></span>
                             <span class="vertical-top dealership-address dealer-details-more-content" style="display:none"><%# Convert.ToString(DataBinder.Eval(Container.DataItem,"Address")) %></span>
                         </p>

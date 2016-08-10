@@ -24,7 +24,7 @@
         TargetedCity = cityName;
         keywords = string.Format("{0}, {0} Price, {0} Reviews, {0} Photos, {0} Mileage", bikeName);
         ogImage = modelImage; 
-        isAd970x90BTFShown = true;
+        isAd970x90BTFShown = false;
          %>
     <!-- #include file="/includes/headscript.aspx" -->
     <% isHeaderFix = false; %>
@@ -94,8 +94,8 @@
                                                 <ItemTemplate>
                                                     <li>
                                                         <div class="carousel-img-container">
-                                                            <span>
-                                                                <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="" border="0" />
+                                                            <span>                                                                
+                                                                <img class='<%# Container.ItemIndex != 0 ? "lazy" : "" %>' data-original='<%# Container.ItemIndex != 0 ? Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) : "" %>' title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src='<%# Container.ItemIndex != 0 ? "" : Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>' border="0" />
                                                             </span>
                                                         </div>
                                                     </li>
@@ -561,7 +561,7 @@
                                 <p class="font14 text-light-grey"><%= variantText %></p>
                             </div>
                         </div>
-                        <div class="grid-4 padding-left30">
+                        <div class="grid-4 floating-card-area-details">
                               <% if (!modelPageEntity.ModelDetails.Futuristic)
                                { %>
                                 <%if(isDiscontinued){ %>
@@ -698,7 +698,7 @@
                        { %>
                     <div id="modelSummaryContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom">
                         <%if(modelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(modelPageEntity.ModelDesc.SmallDescription)){ %>
-                        <div class="grid-8 alpha margin-bottom20 container">
+                        <div class="grid-8 alpha margin-bottom20">
                             <h2><%=bikeName %> Summary</h2>
                             <h3>Preview</h3>
                             <p class="font14 text-light-grey line-height17">

@@ -1,5 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.WriteReviews" Trace="false" ValidateRequest="false" %>
 <%@ Register TagPrefix="BW" TagName="RTE" src="/Controls/RichTextEditor.ascx" %>
+<%  //modified by SajalGupta for unfilled impression of ads on 04 Aug 2016.
+    isAd300x250Shown = false;
+    isAd300x250_BTFShown = false; %>
 <!-- #include file="/includes/headnew.aspx" -->
     <div class="container_12">
         <div class="grid_12">

@@ -28,8 +28,8 @@ namespace Bikewale.Controls
         protected string selectedImageName = string.Empty, selectedImagePath = string.Empty, selectedImageCategoryName = string.Empty,
             selectedImageMainCategoryName = string.Empty, selectedImageCategory = string.Empty;
         protected BikeModelEntity objModelEntity = null;
-        protected int recordCount = 0;
-        public int ModelId { get; set; }
+        public int FetchedCount { get; set; }
+        public int modelId { get; set; }
 
         public string imageId = string.Empty;
         public string ImageId { get; set; }
@@ -60,7 +60,7 @@ namespace Bikewale.Controls
                 IBikeModels<BikeModelEntity, int> objModel = container.Resolve<IBikeModels<BikeModelEntity, int>>();
 
                 //Get Model details
-                objModelEntity = objModel.GetById(Convert.ToInt32(ModelId));
+                objModelEntity = objModel.GetById(Convert.ToInt32(modelId));
 
             }
         }
@@ -73,7 +73,6 @@ namespace Bikewale.Controls
         {
             try
             {
-
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
@@ -83,14 +82,13 @@ namespace Bikewale.Controls
 
                     var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
 
-                    List<ModelImage> _objImageList = objCache.GetModelPhotoGallery(ModelId);
+                    List<ModelImage> _objImageList = objCache.GetModelPhotoGallery(modelId);
 
                     if (_objImageList != null && _objImageList.Count > 0)
-                        recordCount = _objImageList.Count;
+                        FetchedCount = _objImageList.Count;
                     else
-                        recordCount = 0;
-
-                    if (recordCount > 0)
+                        FetchedCount = 0;
+                    if (FetchedCount > 0)
                     {
                         if (ImageId != string.Empty)
                         {
@@ -119,7 +117,6 @@ namespace Bikewale.Controls
                     }
 
                 }
-
             }
             catch (Exception err)
             {

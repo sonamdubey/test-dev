@@ -5,7 +5,11 @@
     description = "Bikewale Terms & Conditions";
     keywords = "";
     AdId = "1395986297721";
-    AdPath = "/1017752/BikeWale_New_"; %>
+    AdPath = "/1017752/BikeWale_New_";
+    //Modified By :Sajal Gupta on 03 August 2016
+    isAd300x250Shown = false;
+    isAd600x270Shown = false;
+  %>
 
 <!-- #include file="/includes/headhome.aspx" -->
 

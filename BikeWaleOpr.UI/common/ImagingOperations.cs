@@ -1,11 +1,7 @@
-﻿using System;
-using System.Web;
-using System.Configuration;
-using System.Web.UI.HtmlControls;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Drawing.Drawing2D;
+﻿using System.Configuration;
 using System.IO;
+using System.Web;
+using System.Web.UI.HtmlControls;
 
 /// <summary>
 /// Summary description for ImagingFunctions
@@ -21,9 +17,9 @@ namespace BikeWaleOpr
 
             if (HttpContext.Current.Request["HTTP_HOST"].IndexOf("localhost") >= 0)
             {
-                physicalPath = HttpContext.Current.Request["APPL_PHYSICAL_PATH"].ToLower() + relativePath;    
+                physicalPath = HttpContext.Current.Request["APPL_PHYSICAL_PATH"].ToLower() + relativePath;
             }
-            else 
+            else
             {
                 //physicalPath = HttpContext.Current.Request["APPL_PHYSICAL_PATH"].ToLower().Replace("bikewaleopr", "carwaleimg") + relativePath;   
                 physicalPath = ConfigurationManager.AppSettings["imgPathFolder"] + relativePath;
@@ -33,7 +29,7 @@ namespace BikeWaleOpr
 
         public static string GetPathToShowImages(string relativePath)
         {
-                       
+
             return "http://" + ConfigurationManager.AppSettings["imgHostURL"] + relativePath;
         }
 
@@ -51,10 +47,9 @@ namespace BikeWaleOpr
         /// <param name="imgSize"></param>
         /// <param name="relativePath"></param>
         /// <returns></returns>
-        public static string GetPathToShowImages(string hostUrl,string imgSize,string relativePath)
+        public static string GetPathToShowImages(string hostUrl, string imgSize, string relativePath)
         {
-
-            return hostUrl + "/" + imgSize + "/" + relativePath;
+            return Bikewale.Utility.Image.GetPathToShowImages(relativePath, hostUrl, imgSize);
         }
 
         public static void SaveImageContent(HtmlInputFile fil, string relativePath)

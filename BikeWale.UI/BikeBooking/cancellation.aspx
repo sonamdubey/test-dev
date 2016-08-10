@@ -5,11 +5,15 @@
 <html>
 <head>
     <title></title>
-    <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/cancellation.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
     <%
         isAd970x90Shown = false;
+        isAd300x250Shown = false;
+        isAd300x250BTFShown = false;
+        isAd970x90BottomShown = false;
          %>
+    <!-- #include file="/includes/headscript.aspx" -->
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/cancellation.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
+    
 </head>
 <body class="bg-light-grey">
     <form id="form1" runat="server">

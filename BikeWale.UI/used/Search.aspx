@@ -9,6 +9,8 @@
     nextPageUrl = nextUrl;
     AdId = "1395992162974";
     AdPath = "/1017752/BikeWale_UsedBikes_Search_Results_";
+     is300x250BTFShown = false;
+     is300x250Shown = false;
 %>
 <!-- #include file="/includes/headUsed.aspx" -->
 <script type="text/javascript">
@@ -136,7 +138,7 @@
 </div>
 <div id="expended_row" class="hide">
 	<div><span id="last_update_row" class="right-float"></span><span id="close_row"><img alt="collapse" src="http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/collapsible.png" title="collapse" border="0" align="left"/></span>&nbsp;<span id="bike_row" class="price2" style="zoom:1;"></span>&nbsp;&nbsp;<span id="profileId_row"></span></div>    
-	<div style="width:10%;" class="thumb_img left-float margin-top10" align="center"><img id="front_image" alt="Loading..." src="http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/nobike.jpg" border="0" /><br /><a id="photo_count"></a><div id="certified_cont"></div></div>
+	<div style="width:10%;" class="thumb_img left-float margin-top10" align="center"><img id="front_image" alt="Loading..." src="http://imgd3.aeplcdn.com/0x0/bikewaleimg/images/noimage.png" border="0" /><br /><a id="photo_count"></a><div id="certified_cont"></div></div>
 	<div style="width:80%; display:block;" class="right-float">
 		<table class="tbl_row" width="100%" cellspacing="0" border="0" cellpadding="0">
 		  <tr>

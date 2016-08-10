@@ -11,6 +11,8 @@
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
     alternate = "http://www.bikewale.com/m/" + MakeMaskingName + "-bikes/" + ModelMaskingName + "/user-reviews/" + reviewerId + ".html";
+    //modified by SajalGupta for unfilled impression of ads on 04 Aug 2016.
+    isAd300x250Shown = false;
 %>
 <!-- #include file="/includes/headnew.aspx" -->
 <div class="container_12">

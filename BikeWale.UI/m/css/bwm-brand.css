@@ -17,7 +17,7 @@ header { width:100%; height:50px; }
 .filter-sort-div .filter-icon { position: relative; top: 2px; }
 #sort-by-div.fixed { position: fixed; left: 0; right: 0; top: 50px; z-index: 999; }
 .modelurl img { width:292px; }
-#listitems .bikeDescWrapper { padding-right:35px; padding-left:35px; }
+#listitems .bikeDescWrapper { padding-right:20px; padding-left:20px; }
 .text-default { color:#4d5057; }
 .text-truncate { width:100%; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
 .swiper-slide.bike-carousel-swiper { width:184px; min-height:250px; background:#fff; border:1px solid #e2e2e2; }.bike-carousel-swiper img { width:100%; height:103px; }
@@ -73,7 +73,7 @@ header { width:100%; height:50px; }
 .swiper-slide.bike-carousel-swiper.dealer-by-city { width:184px; min-height:210px;padding:17px 10px; }
 .swiper-slide.bike-carousel-swiper.dealer-no-city { width:184px; min-height:210px; }
 .vertical-top {display: inline-block;vertical-align: top;}
-.dealership-loc-icon {width: 10px;height: 12px;background-position: -41px -437px;position: relative;top: 4px;}
+.dealership-loc-icon {width: 10px;height: 15px;background-position: -40px -435px;position: relative;top: 4px;}
 .dealership-address, .dealership-email {width: 87%;}
 .tel-sm-grey-icon { width: 15px; height: 15px;background-position: 0 -435px; position: relative;top: 2px;}
 .mail-grey-icon { width: 15px;height: 9px;background-position: -19px -437px;position: relative;top: 6px;}

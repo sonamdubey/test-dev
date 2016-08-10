@@ -1,4 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false"  EnableEventValidation="false"  Inherits="Bikewale.MyBikeWale.NewsSubscription" %>
+<% //Modified By :Sajal Gupta on 03 August 2016
+    isAd300x250Shown = false;
+    isAd300x250BtfShown = false; %>
 <!-- #include file="/Includes/headMyBikeWale.aspx" -->
 <div class="container_12 container-min-height">
     <div class="grid_12">

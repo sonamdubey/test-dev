@@ -19,10 +19,10 @@ namespace Bikewale.Utility
             try
             {
                 if (!string.IsNullOrEmpty(displacement) && displacement != "0")
-                    str += "<span><span>" + displacement + "</span><span> CC</span></span>";
+                    str += "<span><span>" + displacement + "</span><span> cc</span></span>";
 
                 if (!string.IsNullOrEmpty(fuelEffecient) && fuelEffecient != "0")
-                    str += "<span>, <span>" + fuelEffecient + "</span><span> Kmpl</span></span>";
+                    str += "<span>, <span>" + fuelEffecient + "</span><span> kmpl</span></span>";
 
                 if (!string.IsNullOrEmpty(maxpower) && maxpower != "0")
                     str += "<span>, <span>" + maxpower + "</span><span> bhp</span></span>";
@@ -40,6 +40,45 @@ namespace Bikewale.Utility
                 throw ex;
             }
             return str;
+        }
+
+        /// <summary>
+        /// Summary: Overload created to cater weight in Min specs
+        /// </summary>
+        /// <param name="displacement">CC</param>
+        /// <param name="fuelEffecient">kmpl</param>
+        /// <param name="maxpower">bhp</param>
+        /// <param name="weight">kgs</param>
+        /// <returns></returns>
+        public static string GetMinSpecs(string displacement, string fuelEffecient, string maxpower, string weight)
+        {
+            string str = String.Empty;
+            try
+            {
+                if (!string.IsNullOrEmpty(displacement) && displacement != "0")
+                    str += "<span>" + displacement + " cc</span>";
+
+                if (!string.IsNullOrEmpty(fuelEffecient) && fuelEffecient != "0")
+                    str += ", <span>" + fuelEffecient + " kmpl</span></span>";
+
+                if (!string.IsNullOrEmpty(maxpower) && maxpower != "0")
+                    str += ", <span>" + maxpower + " bhp</span></span>";
+
+                if (!string.IsNullOrEmpty(weight) && weight != "0")
+                    str += ", <span>" + weight + " kgs</span>";
+
+                if (str.StartsWith(","))
+                    str = str.Remove(0, 2).Trim();
+
+                if (str != string.Empty)
+                    return str;
+                else
+                    return "Specs Unavailable";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>

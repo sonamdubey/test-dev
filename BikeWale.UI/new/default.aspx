@@ -29,6 +29,8 @@
         isAd970x90BottomShown = false;
         isAd976x400FirstShown = true;
         isAd976x400SecondShown = true;
+        isAd300x250Shown = false;
+        isAd300x250BTFShown = false;
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/newbikes.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
@@ -102,7 +104,7 @@
                         <div class="budget-container margin-bottom20">
                             <ul class="text-center">
                                 <li>
-                                    <a href="/new/search.aspx#budget=0-50000">
+                                    <a href="/new/bike-search/#budget=0-50000">
                                         <span class="budget-title-box font16">Upto
                                         </span>
                                         <span class="budget-amount-box">
@@ -112,7 +114,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/new/search.aspx#budget=50000-100000">
+                                    <a href="/new/bike-search/#budget=50000-100000">
                                         <span class="budget-title-box font16">Between
                                         </span>
                                         <span class="budget-amount-box">
@@ -125,7 +127,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/new/search.aspx#budget=100000-250000">
+                                    <a href="/new/bike-search/#budget=100000-250000">
                                         <span class="budget-title-box font16">Between
                                         </span>
                                         <span class="budget-amount-box">
@@ -140,7 +142,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/new/search.aspx#budget=250000-">
+                                    <a href="/new/bike-search/#budget=250000-">
                                         <span class="budget-title-box font16">Above
                                         </span>
                                         <span class="budget-amount-box">
@@ -157,7 +159,7 @@
                         <div class="mileage-container margin-bottom20">
                             <ul class="text-center">
                                 <li>
-                                    <a href="/new/search.aspx#mileage=1">
+                                    <a href="/new/bike-search/#mileage=1">
                                         <span class="mileage-title-box font16">Above
                                         </span>
                                         <span class="mileage-amount-box">
@@ -166,7 +168,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/new/search.aspx#mileage=2">
+                                    <a href="/new/bike-search/#mileage=2">
                                         <span class="mileage-title-box font16">Between
                                         </span>
                                         <span class="mileage-amount-box">
@@ -178,7 +180,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/new/search.aspx#mileage=3">
+                                    <a href="/new/bike-search/#mileage=3">
                                         <span class="mileage-title-box font16">Between
                                         </span>
                                         <span class="mileage-amount-box">
@@ -190,7 +192,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/new/search.aspx#mileage=4">
+                                    <a href="/new/bike-search/#mileage=4">
                                         <span class="mileage-title-box font16">Upto
                                         </span>
                                         <span class="mileage-amount-box">
@@ -206,7 +208,7 @@
                         <div class="style-type-container margin-bottom20">
                             <ul class="text-center">
                                 <li>
-                                    <a href="/new/search.aspx#ridestyle=5">
+                                    <a href="/new/bike-search/#ridestyle=5">
                                         <span class="style-type">
                                             <span class="styletypesprite style-scooters"></span>
                                         </span>
@@ -214,7 +216,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/new/search.aspx#ridestyle=3">
+                                    <a href="/new/bike-search/#ridestyle=3">
                                         <span class="style-type">
                                             <span class="styletypesprite style-street"></span>
                                         </span>
@@ -222,7 +224,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/new/search.aspx#ridestyle=1">
+                                    <a href="/new/bike-search/#ridestyle=1">
                                         <span class="style-type">
                                             <span class="styletypesprite style-cruiser"></span>
                                         </span>
@@ -230,7 +232,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/new/search.aspx#ridestyle=2">
+                                    <a href="/new/bike-search/#ridestyle=2">
                                         <span class="style-type">
                                             <span class="styletypesprite style-sports"></span>
                                         </span>
@@ -240,7 +242,7 @@
                             </ul>
                             <ul class="brand-style-moreBtn styleTypeMore hide text-center">
                                 <li>
-                                    <a href="/new/search.aspx#ridestyle=1">
+                                    <a href="/new/bike-search/#ridestyle=1">
                                         <span class="style-type">
                                             <span class="styletypesprite style-cruiser"></span>
                                         </span>
@@ -249,7 +251,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/new/search.aspx#ridestyle=2">
+                                    <a href="/new/bike-search/#ridestyle=2">
                                         <span class="style-type">
                                             <span class="styletypesprite style-sports"></span>
                                         </span>
@@ -258,7 +260,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/new/search.aspx#ridestyle=5">
+                                    <a href="/new/bike-search/#ridestyle=5">
                                         <span class="style-type">
                                             <span class="styletypesprite style-scooters"></span>
                                         </span>
@@ -292,7 +294,7 @@
                         </ul>
                     </div>
                     <div class="bw-tabs-data <%= (ctrlMostPopularBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlMostPopularBikes">
-                        <div class="jcarousel-wrapper discover-bike-carousel">
+                        <div class="jcarousel-wrapper inner-content-carousel">
                             <div class="jcarousel">
                                 <ul>
                                     <BW:MostPopularBikes PageId="5" runat="server" ID="ctrlMostPopularBikes" />
@@ -305,7 +307,7 @@
                     </div>
 
                     <div class="bw-tabs-data hide <%= (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlNewLaunchedBikes">
-                        <div class="jcarousel-wrapper discover-bike-carousel">
+                        <div class="jcarousel-wrapper inner-content-carousel">
                             <div class="jcarousel">
                                 <ul>
                                     <BW:NewLaunchedBikes PageId="5" runat="server" ID="ctrlNewLaunchedBikes" />
@@ -318,7 +320,7 @@
                     </div>
 
                     <div class="bw-tabs-data hide <%= (ctrlUpcomingBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlUpcomingBikes">
-                        <div class="jcarousel-wrapper discover-bike-carousel">
+                        <div class="jcarousel-wrapper inner-content-carousel">
                             <div class="jcarousel">
                                 <ul>
                                     <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />

@@ -1,14 +1,14 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.Search" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.SearchOld" %>
 
 <%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
 <!doctype html>
 <html>
 <head>
     <%
-        title = "New Bikes, Used Bikes, Bike Prices, Reviews & Photos in India";
-        keywords = "new bikes, used bikes, buy used bikes, sell your bike, bikes prices, reviews, photos, news, compare bikes, Instant Bike On-Road Price";
-        description = "BikeWale - India's favourite bike portal. Find new and used bikes, buy or sell your bikes, compare new bikes prices & values.";
-        canonical = "http://www.bikewale.com";
+        title = "Search New Bikes by Brand, Budget, Mileage and Ride Style - BikeWale";
+        keywords = "search new bikes, search bikes by brand, search bikes by budget, search bikes by price, search bikes by style, street bikes, scooters, commuter bikes, cruiser bikes";
+        description = "Search through all the new bike models by various criteria. Get instant on-road price for the bike of your choice";
+        canonical = "http://www.bikewale.com/new/bike-search/"; 
         AdPath = "/1017752/Bikewale_Mobile_Homepage";
         AdId = "1398766000399";
         Ad_320x50 = true;
@@ -136,7 +136,7 @@
                                         <span class="bwmsprite inr-sm-icon"></span>
                                         <span class="text-bold font18" data-bind="text: price"></span>
                                     </div>                                    
-                                    <a data-bind="attr: { modelId: bikemodel.modelId , pqSourceId : '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewBikeSearch%>    '}" class="btn btn-sm btn-white font14 margin-top20 fillPopupData" rel="nofollow">Check on-road price</a>
+                                    <a data-bind="attr: { modelId: bikemodel.modelId , pqSourceId : '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewBikeSearch%>    '}" class="btn btn-sm btn-white font14 margin-top10 fillPopupData" rel="nofollow">Check on-road price</a>
                                 </div>
                             </div>
                         </div>

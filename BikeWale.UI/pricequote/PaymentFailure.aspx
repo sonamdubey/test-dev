@@ -5,6 +5,10 @@
     <% 
         AdId = "1395986297721";
         AdPath = "/1017752/Bikewale_PQ_";
+        isAd300x250Shown = false;
+        isAd300x250BTFShown = false;
+        isAd970x90Shown = false;
+        isAd970x90BottomShown = false;
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bookingfail.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">

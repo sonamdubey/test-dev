@@ -177,9 +177,9 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .compare-now-image-preview a img { width: 100%; height: 268px; }
 
 /* news, review and videos section on home page classes */
-.news-expert-video-content .img-preview { width:310px; height:174px; display:table; text-align:center;}
-.news-expert-video-content .img-preview a { width:310px; height:174px; display:block; background: url('http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
-.news-expert-video-content .img-preview a img { width:100%; height:174px; }
+.news-expert-video-content .img-preview { width:100%; height:174px; display:table; text-align:center;}
+.news-expert-video-content .img-preview a { display:table-cell; vertical-align:middle; background: url('http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
+.news-expert-video-content .img-preview a img { max-width:100%; height:auto; }
 #modelNewsContent .article-target-link, #modelReviewsContent .article-target-link, #modelVideosContent .article-target-link { margin-bottom: 8px; line-height: 1.5; }
 #modelNewsContent .model-news-title-container.model-news-text-wrapper { display:block; width: auto; padding-left:0; }
 #modelNewsContent .grid-8 .article-target-link { line-height:1.6; }
@@ -225,9 +225,9 @@ footer ul li a:hover { text-decoration: underline; }
 
 .front, .back { height: 290px; background: #fff; overflow:hidden; display: inline-block; border-radius: 3px; border:1px solid #ccc; -webkit-backface-visibility: hidden; -moz-backface-visibility: hidden; -ms-backface-visibility: hidden; backface-visibility: hidden; }
 .contentWrapper, .formWrapper { position:relative; overflow:hidden; background:#fff; }
-.imageWrapper { width:310px; height:174px; overflow: hidden; text-align: center; }
-.imageWrapper a { width:310px; height:174px; display:block; background: url('http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;}
-.imageWrapper a img { width:100%; height:174px; }
+.imageWrapper { width:310px; height:174px; overflow: hidden; text-align: center; display: table; }
+.imageWrapper a { display:table-cell; vertical-align:middle; background: url('http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
+.imageWrapper a img { max-width:100%; height:auto; }
 .bikeDescWrapper { padding: 15px; background:#fff; }
 .bikeTitle a { color:#2a2a2a; font-size: 16px; display: block; }
 .bikeTitle a:hover, a.bikeTitle:hover { text-decoration:underline; }
@@ -293,7 +293,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .footer-social-icons .fa-gp:hover { background: #db4c3f; }
 
 /* sprite classes */
-.bwsprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite.png?v1=20July2016v01) no-repeat; display: inline-block; }
+.bwsprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite.png?v1=27Jun2016v01) no-repeat; display: inline-block; }
 .bw-circle-icon { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-circle-icon.png) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
 .nav-icon:hover { background-position: 0 -29px; }
@@ -422,6 +422,11 @@ a.action-btn:hover{text-decoration:none;}
 .booking-how-it-works { background-color: #cbcbcb; width: 976px; height: 1291px; }
 
 .chosen-container.chosen-container-single a:hover { text-decoration:none; }
+.progress-bar {width:0;height:2px;background:#16A085;bottom:0px;left:0;border-radius:2px;}
+.btn-loader {background-color:#822821;}
+.btnSpinner {right:22px;top:10px;z-index:9;background:rgb(255, 255, 255);}
+#popupWrapper .form-control, #popupWrapper .chosen-container { border:none; }
+#divCityLoader, #divAreaLoader { border:1px solid #ccc; border-radius:4px; }
 
 /* common properties */
 .leftfloat{float:left;}
@@ -474,7 +479,7 @@ a.action-btn:hover{text-decoration:none;}
 .content-inner-block-10 { padding: 10px; }
 .content-inner-block-15 { padding: 15px; }
 .content-inner-block-20 { padding: 20px; }
-.content-box-shadow { background: #fff; -moz-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -webkit-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -o-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -ms-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; }
+.content-box-shadow { background: #fff; -moz-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -webkit-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -o-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -ms-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; border:1px solid #e2e2e2\9; }
 .inline-block { display:inline-block; vertical-align: middle; }
 .block { display: block; }
 .ul-arrow li { margin-top: 10px;}
@@ -681,31 +686,25 @@ a.action-btn:hover{text-decoration:none;}
 .bw-blackbg-tooltip-search-error {right:-150px; top:50px; width:357px;}
 .bw-blackbg-tooltip-search-error:before {right:177px; top:-5px;}
 
-.popular-used-bikes-container .imageWrapper a { width:310px; height:175px;  display:block; }
-.popular-used-bikes-container .imageWrapper a img { width:310px; height:175px; background: url('http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
 .not-rated-container { height:24px; }
  #globalSearch::-ms-clear {width:0;height:0;display:none;}
-@media all and (min-width:996px) and (max-width:1024px){
-   .container{width:960px;}
-   .jcarousel-wrapper{width:100%;}
-   .jcarousel li{width:300px;}
-   .jcarousel-control-prev, .jcarousel-control-next{background-size: 130px auto;height: 34px;padding: 0;width: 20px;}
-   .jcarousel-control-left {left: -10px;}
-   .jcarousel-control-right {right: -10px;}
-   .jcarousel-control-prev {background-position: -21px -50px;}
-   .jcarousel-control-prev:hover { background-position: -21px -84px; }
-   .jcarousel-control-next {background-position: -42px -50px;}
-   .jcarousel-control-next:hover { background-position: -42px -84px; }
-   .jcarousel-control-prev.inactive {background-position: -21px -16px;}
-   .jcarousel-control-next.inactive {background-position: -42px -16px;}
+@media only screen and (max-width:1024px) {
+    .container{width:100%; max-width:960px;}
+    .home-top-banner {background-position:63%}
+    .home-getFinalPrice-banner{background-position:54%}
+    .jcarousel-wrapper, #modelAlternateBikeContent .inner-content-carousel{width:100% !important;}
+    .jcarousel li{width:300px;}
+    .jcarousel-control-left, .jcarousel-control-right { top: 18%; }
+    .jcarousel-control-left {left: -10px;}
+    .jcarousel-control-right {right: -10px;}
+    .inner-content-carousel .jcarousel { width:900px !important; }
+    .inner-content-carousel .jcarousel li { width: 292px !important; }
+    .inner-content-carousel .jcarousel .imageWrapper { width: 100% !important; }
+    .inner-content-card li {width: 283px !important;}
+    #makeUpcomingBikesContent .inner-content-carousel li, #modelAlternateBikeContent .inner-content-carousel li { width: 282px !important; margin-right: 20px !important; }
+    .overall-floating-tabs { width: 940px !important; }
 }
 
-@media all and (min-width: 800px) and (max-width: 996px){
-	#ctrlNews .img-preview, #ctrlExpertReviews .img-preview { width:240px; height:140px; }
-	#ctrlNews .img-preview a, #ctrlExpertReviews .img-preview a { width:240px; height:140px; display: block; background: url('http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
-	#ctrlNews .img-preview a img, #ctrlExpertReviews .img-preview a img { width:100%; height:140px; }
-	.yt-iframe-preview iframe { height:140px; }
-}
 /* offers popup */
 .termsPopUpContainer { width: 700px; height: 150px; overflow-y:auto; background-color: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 10%; left: 5%; right: 5%; }
 .termsPopUpCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }

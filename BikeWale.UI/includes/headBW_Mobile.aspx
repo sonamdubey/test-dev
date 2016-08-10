@@ -4,11 +4,6 @@
     <div class="globalcity-popup bwm-fullscreen-popup hide" id="globalcity-popup">
     	<div class="globalcity-popup-data text-center">
         	<div class="globalcity-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
-        	<%--<div class="icon-outer-container rounded-corner50percent margin-bottom15">
-                <div class="icon-inner-container rounded-corner50percent">
-                    <span class="bwmsprite cityPopup-icon margin-top15"></span>
-                </div>
-        	</div>--%>
             <p class="font20 margin-bottom5 text-capitalize">Please tell us your city</p>
             <p class="text-light-grey margin-bottom5">This allows us to provide relevant content for you.</p>
             <div class="form-control-box">
@@ -68,9 +63,12 @@
         	    <a href="/m/" id="bwheader-logo" title="BikeWale" class="bwmsprite bw-logo bw-lg-fixed-position"></a>
            
                 <div class="leftfloat">
-                    <span class="navbarBtn bwmsprite nav-icon margin-right10"></span>                
-                    <span id="book-back" class="white-back-arrow margin-right10 leftfloat hide"></span>
-                    <p class="headerTitle font18 text-bold text-white leftfloat hide">Detailed on-road price</p>
+                    <span class="navbarBtn bwmsprite nav-icon margin-right10"></span>
+                    <span id="book-back" class="bwmsprite white-back-arrow margin-right10 leftfloat hide"></span>                   
+                    <div class="headerTitle text-white leftfloat">
+                        <p class="font12" id="headerText">Detailed Price Quote</p>
+                        <p class="header-dealername" id="header-dealername"></p>
+                    </div>                   
                 </div>
                 <div class="rightfloat">
                     <div class="global-search" id="global-search" style="display:none">
