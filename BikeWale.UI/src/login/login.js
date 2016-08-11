@@ -1,5 +1,5 @@
 ﻿var reEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-var reName = /^[a-zA-Z0-9'\- ]+$/;
+var reName = /^[a-zA-Z'\- ]+$/;
 var re = /^[0-9]*$/
 var regPass = /^[a-zA-Z]+$/;
 var timer;
@@ -190,7 +190,7 @@ function validateControl() {
         setError(nameVal, 'Required');
         nameValid = false;
     } else if (!reName.test($.trim(nameSignup))) {
-        setError(nameVal, 'Name should be Alphanumeric.');
+        setError(nameVal, 'Name should be Alphabetic.');
         nameValid = false;
     }
     else {
@@ -227,7 +227,13 @@ function validateControl() {
     }
 
     if (passSignup.length > 5) {
-        pwdValid = true;
+        if (passSignup.length == $.trim(passSignup).replace(" ","").length)
+            pwdValid = true;
+        else
+        {
+            setError(passVal, 'Password should not contain blank spaces');
+            pwdValid = false;
+        }
     }
     else {
         setError(passVal, 'Password should contain atleast 6 characters');
