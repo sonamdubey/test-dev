@@ -341,6 +341,8 @@ namespace Bikewale.BAL.BikeBooking
         /// <summary>
         /// Created By : Lucky Rathore
         /// Description : To get dealer ID if primary dealer exist for mention Input.
+        /// Modified By  : Sushil Kumar on 8th August 2016
+        /// Description : Changed paramters order for IsSubscribedDealerExistsV3(versionId, areaId)
         /// </summary>
         /// <param name="versionId"></param>
         /// <param name="areaId"></param>
@@ -358,7 +360,7 @@ namespace Bikewale.BAL.BikeBooking
                         container.RegisterType<IDealer, Bikewale.BAL.AutoBiz.Dealers>();
                         container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, DealerPriceQuoteRepository>();
                         IDealer objDealer = container.Resolve<IDealer>();
-                        objDealerInfo = objDealer.IsSubscribedDealerExistsV3(areaId, versionId);
+                        objDealerInfo = objDealer.IsSubscribedDealerExistsV3(versionId, areaId);
 
                         objDealerDetail = new DealerInfo() { DealerId = objDealerInfo.DealerId, IsDealerAvailable = objDealerInfo.IsDealerAvailable };
                     }
