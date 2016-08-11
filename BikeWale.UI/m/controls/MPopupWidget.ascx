@@ -45,7 +45,7 @@
                 <div class="inputbox-list-wrapper">
                     <div class="form-control-box user-input-box">
                         <span class="bwmsprite search-icon-grey"></span>
-                        <input type="text" class="form-control padding-right40" placeholder="Type to select area" id="area-menu-input" autocomplete="off" data-bind="textInput: areaFilter">
+                        <input type="text" class="form-control padding-right40" placeholder="Type to select area" id="area-menu-input" autocomplete="off"><!-- data-bind="textInput: areaFilter" -->
                         <span class="fa fa-spinner fa-spin position-abt text-black"></span>
                     </div> 
                      <ul id="area-menu-list" data-bind="template: { name: 'bindAreaList-template', foreach: visibleAreas }" ></ul>
@@ -264,13 +264,13 @@
                                         if(self.SelectedAreaId() > 0)
                                         {
                                             self.SelectedArea(findAreaById(self.SelectedAreaId()));
-                                            $('#area-menu-input').fastLiveFilter('#area-menu-list');
                                         }                                 
                                     }
 
                                     var areas = ko.toJS(_responseData.pqAreas);
                                     if (areas) {
                                         self.BookingAreas(areas);
+                                        $('#area-menu-input').fastLiveFilter('#area-menu-list');
                                     }
 
                                     showPQPopup(self.SelectedCityId() > 0 );

@@ -145,16 +145,15 @@ jQuery.fn.fastLiveFilter = function (list, options) {
 
     var keyTimeout;
 
-    // NOTE: because we cache lis & len here, users would need to re-init the plugin
-    // if they modify the list in the DOM later.  This doesn't give us that much speed
-    // boost, so perhaps it's not worth putting it here.
+    var noResult = "<li style='display:none'>No result found!</li>";
+    list.append(noResult);
+
     var lis = list.children();
     var len = lis.length;
     var oldDisplay = len > 0 ? lis[0].style.display : "block";
     callback(len); // do a one-time callback on initialization to make sure everything's in sync
 
     input.change(function () {
-        // var startTime = new Date().getTime();
         var filter = input.val().toLowerCase();
         var li, innerText;
         var numShown = 0;
@@ -176,8 +175,11 @@ jQuery.fn.fastLiveFilter = function (list, options) {
             }
         }
         callback(numShown);
-        // var endTime = new Date().getTime();
-        // console.log('Search for ' + filter + ' took: ' + (endTime - startTime) + ' (' + numShown + ' results)');
+        if (!numShown) {
+            li = lis[len-1];
+            li.style.display = "block";
+        }
+        
         return false;
     }).keydown(function () {
         clearTimeout(keyTimeout);
