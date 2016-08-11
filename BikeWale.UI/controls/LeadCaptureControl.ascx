@@ -45,7 +45,7 @@
                 <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
             </div>
             <div class="clear"></div>
-            <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
+            <a class="btn btn-orange margin-top10 "  id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
         </div>
     </div>
     <div id="dealer-lead-msg" class="hide">
@@ -72,8 +72,11 @@
     var prevEmail = "";
     var prevMobile = "";
     var leadmodelid =  '<%= ModelId %>', leadcityid = '<%= CityId %>', leadareaid =  '<%= AreaId %>';
-    //var getCityArea = GetGlobalCityArea();
+    // var getCityArea = GetGlobalCityArea();
 
+    
+   
+    
 
     $(function () {
 
