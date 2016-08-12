@@ -110,7 +110,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .home-getFinalPrice-banner { background-color:#cbcbcb; background-size: cover; height: 490px; }
 
 /* global-search classes */
-.global-search { width: 420px; position: relative; display: inline-block; margin-right: 30px; }
+.global-search { width: 420px; position: relative; display: inline-block; vertical-align:middle; margin-right: 30px; }
 .global-search span.search-icon-grey { position: absolute; right: 10px; top: 5px; cursor: pointer; }
 .global-search input[type="text"], #globalCity-input input[type="text"] { width: 100%; padding: 7px 5px; border: none; outline: none; }
 
@@ -130,12 +130,12 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .nav-bike-booking-target a:hover { text-decoration:none; }
 
 /* global-location classes */
-.global-location { position: relative; display: inline-block; color: #fff; margin-right: 20px; }
+.global-location { position: relative; display: inline-block; vertical-align:middle; color: #fff; margin-right: 20px; }
 .gl-default-stage { border: 1px solid #acaba7; padding: 4px 10px; cursor: pointer; }
 .gl-default-stage span.cross-md-lgt-grey { position: relative; top: 2px; margin-left: 20px; }
 
 /* login classes */
-.login-box { display: inline-block; padding: 4px 10px; color: #fff; cursor: pointer; margin-right: 10px; }
+.login-box { display: inline-block; vertical-align:middle; padding: 4px 10px; color: #fff; cursor: pointer; margin-right: 10px; }
 .login-box:hover { color: #ccc; }
 .loginCloseBtn.cross-md-dark-grey { background-position: -62px -223px; }
 .loginCloseBtn.cross-md-dark-grey:hover { background-position: -62px -246px; }
@@ -264,7 +264,7 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 .blackOut-window-dark { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.95; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
 div#globalPopupBlackOut {z-index: 9; }
 /*logged in classes*/
-.loggedin-box, .login-with-photo { width: 29px; height: 29px; overflow: hidden; float: right; }
+.loggedin-box, .login-with-photo { width: 29px; height: 29px; overflow: hidden; display:inline-block; vertical-align:middle; }
 .login-with-photo img { width: 100%; }
 .loggedin-box:hover { cursor: pointer; }
 .loggedinProfileWrapper { background: #fff; width: 280px; position: fixed; top: 0; right: -280px; bottom: 0; z-index: 10; }
