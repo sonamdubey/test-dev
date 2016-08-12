@@ -218,7 +218,7 @@
         <script type="text/javascript">
             ga_pg_id = '3';
             var _makeName = '<%= _make.MakeName %>';
-
+            var cityNameLead = '<%=cityName%>'; 
             var clientIP = "172.16.3.151";
             var pageUrl = window.location.href;
             $(".leadcapturebtn").click(function (e) {
@@ -234,7 +234,12 @@
                     "clientip": clientIP,
                     "isdealerbikes": true,
                     "campid": ele.attr('data-camp-id'),
-                    "isregisterpq": true
+                    "isregisterpq": true,
+                    "gaobject": {
+                        cat: ele.attr('data-ga-cat'),
+                        act: ele.attr('data-ga-act'),
+                        lab: ele.attr('data-ga-lab')
+                    }
                 };
 
                 dleadvm.setOptions(leadOptions);
@@ -242,6 +247,9 @@
             }); 
 
             $(document).ready(function () {
+                
+              
+
                 jQuery('.jcarousel-wrapper.upComingBikes .jcarousel')
                 .on('jcarousel:targetin', 'li', function () {
                     $("img.lazy").lazyload({

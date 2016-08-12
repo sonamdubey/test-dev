@@ -29,14 +29,17 @@ namespace Bikewale.Mobile
     /// <summary>
     /// Created By : Lucky Rathore on 03 June 2016
     /// Description : class handle Binding of specification and Feature and other logics.
+    /// 
+    /// Modified By: Aditi Srivastava
+    /// Description: Added a variable for make,model and version name together and also for checking if dealer offersd are available
     /// </summary>
     public class ModelSpecsFeatures : PageBase
     {
         protected uint cityId, areaId, modelId, versionId, dealerId, price = 0;
-        protected string cityName = "Mumbai", areaName, makeName, modelName, bikeName, versionName, makeMaskingName, modelMaskingName, modelImage, clientIP = CommonOpn.GetClientIP();
+        protected string cityName = "Mumbai", areaName, makeName, modelName, bikeName, versionName,makeMaskingName, modelMaskingName, modelImage, clientIP = CommonOpn.GetClientIP();
         protected IEnumerable<CityEntityBase> objCityList = null;
         protected IEnumerable<Bikewale.Entities.Location.AreaEntityBase> objAreaList = null;
-        protected bool isCitySelected, isAreaSelected, isBikeWalePQ, isOnRoadPrice, isAreaAvailable, showOnRoadPriceButton, isDiscontinued, IsDealerPriceQuote, IsExShowroomPrice = true, toShowOnRoadPriceButton;
+        protected bool isCitySelected, isAreaSelected, isBikeWalePQ,isDealerOfferAvailable,isOnRoadPrice, isAreaAvailable, showOnRoadPriceButton, isDiscontinued, IsDealerPriceQuote, IsExShowroomPrice = true, toShowOnRoadPriceButton;
         protected BikeSpecificationEntity specs;
         protected BikeModelPageEntity modelDetail;
         protected DetailedDealerQuotationEntity dealerDetail;
@@ -94,6 +97,8 @@ namespace Bikewale.Mobile
                 specs = modelPg.ModelVersionSpecs;
             }
             SetFlags();
+            if (dealerDetail != null)
+                isDealerOfferAvailable = true;
         }
 
         /// <summary>
@@ -185,6 +190,7 @@ namespace Bikewale.Mobile
                                 makeMaskingName = modelPg.ModelDetails.MakeBase.MaskingName;
                             }
                             bikeName = string.Format("{0} {1}", makeName, modelName);
+                            
                             if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)
                             {
                                 // Check it versionId passed through url exists in current model's versions
@@ -231,6 +237,7 @@ namespace Bikewale.Mobile
                     IDealerPriceQuoteDetail objIPQ = container.Resolve<IDealerPriceQuoteDetail>();
                     IDealerPriceQuote dealerPQ = container.Resolve<IDealerPriceQuote>();
                     DealerInfo dealerInfo = dealerPQ.IsDealerExists(versionId, areaId);
+                 
                     if (dealerInfo != null && dealerInfo.DealerId > 0)
                     {
                         detailedDealer = objIPQ.GetDealerQuotation(cityId, versionId, dealerInfo.DealerId);
@@ -479,6 +486,7 @@ namespace Bikewale.Mobile
                 toShowOnRoadPriceButton = true;
             }
         }
+       
 
     }
 }

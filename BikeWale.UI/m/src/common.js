@@ -8,6 +8,7 @@ var IsPriceQuoteLinkClicked = false;
 var ga_pg_id = '0';
 
 function triggerGA(cat, act, lab) {
+    
     try {
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': cat, 'act': act, 'lab': lab });
     }
@@ -16,6 +17,7 @@ function triggerGA(cat, act, lab) {
 }
 
 $('.bw-ga').click(function () {
+    
     try {
         var obj = $(this);
         if (obj.attr('l') !== undefined) {

@@ -387,7 +387,25 @@
             }
         };
 
-        self.submitLead = function (data, event) {  
+        self.submitLead = function (data, event) {
+          
+           
+            var lab,cat='Make_Page',act='Lead_Submitted';
+            var bikeMakeModel,cityAreaLead;
+            if (self.selectedBike() != null)
+                bikeMakeModel = self.selectedBike().make.makeName + '_' + self.selectedBike().model.modelName;
+            else
+                bikeMakeModel = "";
+ 
+            if (self.dealerArea() != null)
+                cityAreaLead = self.dealerArea();
+            else
+                cityAreaLead = "";
+
+            lab = bikeMakeModel + '_' + cityNameLead + '_' + cityAreaLead;
+            triggerGA(cat, act, lab);
+            
+
             if (self.campaignId() > 0) {
                 self.submitCampaignLead(data, event);
             }

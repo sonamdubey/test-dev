@@ -118,7 +118,7 @@
                 <div class="grid-12 float-button float-fixed">
                     <p class="grid-6 font13 select-area-label text-light-grey">Please select area to get accurate on-road price</p>
                     <p class="grid-6 alpha">
-                        <a href="javascript:void(0)" pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectArea %>" selcityid="<%=cityId %>" modelid="<%=modelId %>" class="btn btn-xs btn-full-width font16 btn-orange fillPopupData changeCity" rel="nofollow">Select your area</a>
+                        <a href="javascript:void(0)" pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectArea %>" selcityid="<%=cityId %>" modelid="<%=modelId %>" c="Price_in_City_Page" a=" Select_Area_Clicked" l="<%= string.Format("{0}_{1}_{2}", makeName, modelName, versionName)%>" class="bw-ga btn btn-xs btn-full-width font16 btn-orange fillPopupData changeCity" rel="nofollow">Select your area</a>
                     </p>
                 </div>
                 <%} %>
@@ -138,7 +138,8 @@
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript">
-            
+            ga_pg_id = "100";
+            var bikenamever = '<%=makeName %>'+'_'+'<%=modelName %>'+'_'+'<%=versionName %>';
             var modelId = <%= modelId %>;
             var clientIP = "<%= clientIP%>";
             var pageUrl = window.location.href; 
