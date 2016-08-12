@@ -368,15 +368,8 @@
             $(document).ready(function () {
                 var ShowOffer='<%=isGetOfferShown%>'
                     if(ShowOffer)
-                    {
-                      
-                        try {
-
-                            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'SpecsandFeature', 'act': 'Get_Offers_Shown', 'lab': "<%= string.Format("{0}_{1}_{2}_{3}", makeName, modelName,cityName,areaName)%>"});
-                        }
-                        catch (e) {// log error   
-                        }
-                        
+                    {                     
+                        triggerGA('SpecsandFeature', 'Get_Offers_Shown', "<%= string.Format("{0}_{1}_{2}_{3}", makeName, modelName,cityName,areaName)%>");
                 }
                 $("#btnDealerPricePopup").click(function () {
                   
@@ -385,12 +378,8 @@
                         if ($('#ddlAreaPopup option:selected').index() > 0) {
                             selArea = '_' + $('#ddlAreaPopup option:selected').html();
                         }
-                    try {
-
-                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'SpecsandFeature', 'act': 'Show_On_Road_Price_Clicked', 'lab': "<%= string.Format("{0}_{1}_{2}", makeName, modelName, versionName)%>"}+ $('#ddlCitiesPopup option:selected').html() + selArea);
-        }
-                     catch (e) {// log error   
-                     }
+                    
+                        triggerGA('SpecsandFeature', 'Show_On_Road_Price_Clicked',"<%= string.Format("{0}_{1}", makeName, modelName)%>"+$('#versions .active').text()+ $('#ddlCitiesPopup option:selected').html() + selArea);
                 });
                
                 var hashValue = window.location.hash.substr(1);

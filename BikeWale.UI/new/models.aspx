@@ -258,12 +258,11 @@
 
                     var bikeName = $('#getLeadBike :selected').text();
                     var cityName = GetGlobalCityArea();
-                    try {
-
-                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Make_Page', 'act': 'Lead_Submitted', 'lab':bikeName+cityName });
-                    }
-                    catch (e) {// log error   
-                    }
+                
+                    bikeName = bikeName.replace(" ", "_");
+                    
+                    triggerGA('Make_Page', 'Lead_Submitted', bikeName + "_" + cityName );
+                    console.write(bikeName + cityName);
                 });
 
                 $("img.lazy").lazyload();
