@@ -388,7 +388,11 @@
     border: 1px solid #ccc\9;
 }
 
-.secondary-dealer-card:first-child {
+.secondary-dealer-card a:hover {
+    text-decoration: none;
+}
+
+.secondary-dealer-card.swiper-slide-active:first-child {
     margin-left: 10px;
 }
 
