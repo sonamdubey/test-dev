@@ -228,6 +228,7 @@ footer ul li a:hover { text-decoration: underline; }
 .imageWrapper { width:310px; height:174px; overflow: hidden; text-align: center; display: table; }
 .imageWrapper a { display:table-cell; vertical-align:middle; background: url('http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
 .imageWrapper a img { max-width:100%; height:auto; }
+.used-bike-carousel .imageWrapper a img { width:310px; }
 .bikeDescWrapper { padding: 15px; background:#fff; }
 .bikeTitle a { color:#2a2a2a; font-size: 16px; display: block; }
 .bikeTitle a:hover, a.bikeTitle:hover { text-decoration:underline; }
