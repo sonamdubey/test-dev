@@ -9,7 +9,7 @@
 <%@ Register Src="~/controls/PriceInTopCities.ascx" TagPrefix="BW" TagName="TopCityPrice" %>
 <!doctype html>
 <html>
-<head>
+<head itemscope itemtype="http://www.schema.org/WebPage">
     <%
         var modDetails = modelPageEntity.ModelDetails;
         title = String.Format("{0} Price, Mileage & Reviews - BikeWale", bikeName);
@@ -26,6 +26,7 @@
         ogImage = modelImage; 
         isAd970x90BTFShown = false;
          %>
+    <meta itemprop="description" name="description" content= "<%= String.Format("{0} Price in India - Rs. {1}. Check out {0} on road price, reviews, mileage, versions, news & photos at Bikewale.com", bikeName, Bikewale.Utility.Format.FormatPrice(price.ToString()))%>" />
     <!-- #include file="/includes/headscript.aspx" -->
     <% isHeaderFix = false; %>
     <script type="text/javascript">
@@ -46,7 +47,7 @@
     </script>
     <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model.css?<%= staticFileVersion %>12345" rel="stylesheet" type="text/css" />
 </head>
-<body class="bg-light-grey">
+<body itemscope itemtype="http://schema.org/Product" class="bg-light-grey">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <section class="bg-light-grey padding-top10" id="breadcrumb">
@@ -74,7 +75,7 @@
             </div>
         </section>
         <section>
-            <div itemscope="" itemtype="http://schema.org/Product" class="container" id="modelDetailsContainer">
+            <div class="container" id="modelDetailsContainer">
                 <span itemprop="name" class="hide"><%= bikeName %></span>
                 <div class="grid-12 margin-bottom20">
                     <div class="content-inner-block-20 content-box-shadow">
@@ -547,14 +548,16 @@
                 </div>
             </div>
             <!-- Terms and condition Popup Ends -->
-        </section>       
+        </section>     
+        <meta itemprop="manufacturer" name="manufacturer" content="<%= modelPageEntity.ModelDetails.MakeBase.MakeName %>">  
+        <meta itemprop="model" content="<%= TargetedModel %>"/>
         <section id="modelDetailsFloatingCardContent" class="container">
             <div class="grid-12">
                 <div class="model-details-floating-card">
                     <div class="content-box-shadow content-inner-block-1020">
                         <div class="grid-5 alpha omega">
                             <div class="model-card-image-content inline-block-top margin-right20">
-                                <img src="<%= modelImage %>" />
+                                <meta itemprop="image" content="<%= modelImage %>" />
                             </div>
                             <div class="model-card-title-content inline-block-top">
                                 <p class="font16 text-bold margin-bottom5"><%= bikeName %></p>

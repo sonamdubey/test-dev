@@ -7,7 +7,7 @@
 <%@ Register Src="~/m/controls/MPriceInTopCities.ascx" TagPrefix="BW" TagName="TopCityPrice" %>
 <!DOCTYPE html> 
 <html>
-<head>
+<head itemscope itemtype="http://www.schema.org/WebPage">
     <%
         description = String.Format("{0} Price in India - Rs. {1}. Check out {0} on road price, reviews, mileage, versions, news & photos at Bikewale.com", bikeName, Bikewale.Utility.Format.FormatPrice(price.ToString()));
         title = String.Format("{0} Price, Mileage & Reviews - BikeWale", bikeName);
@@ -23,6 +23,7 @@
         EnableOG = true;
         OGImage = modelImage;
     %>
+    <meta itemprop="description" name="description" content= "<%= String.Format("{0} Price in India - Rs. {1}. Check out {0} on road price, reviews, mileage, versions, news & photos at Bikewale.com", bikeName, Bikewale.Utility.Format.FormatPrice(price.ToString()))%>" />
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <script type="text/javascript">
         var dealerId = '<%= dealerId%>';
@@ -42,11 +43,14 @@
     </script>
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 </head>
-<body>
+<body itemscope itemtype="http://schema.org/Product">
+    <meta itemprop="image" content="<%= modelImage %>" />
+    <meta itemprop="manufacturer" name="manufacturer" content="<%= modelPage.ModelDetails.MakeBase.MakeName %>">  
+    <meta itemprop="model" content="<%= modelPage.ModelDetails.ModelName %>"/>
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
-            <div itemscope="" itemtype="http://schema.org/Product" class="container bg-white clearfix">
+            <div class="container bg-white clearfix">
                 <span itemprop="name" class="hide"><%= bikeName %></span>
                 <div class="<%= !modelPage.ModelDetails.New ? "padding-top20 position-rel" : ""%>">
                     <% if (modelPage.ModelDetails.New)
