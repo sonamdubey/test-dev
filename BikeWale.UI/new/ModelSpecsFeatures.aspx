@@ -377,7 +377,7 @@
                         if ($('#ddlAreaPopup option:selected').index() > 0) {
                             selArea = '_' + $('#ddlAreaPopup option:selected').html();
                         }
-                        triggerGA('SpecsandFeature', 'Show_On_Road_Price_Clicked', bikeVersionName + $('#versions .active').text() + '_' + $('#ddlCitiesPopup option:selected').html() + selArea);
+                        triggerGA('SpecsandFeature', 'Show_On_Road_Price_Clicked', bikeVersionName+'_'+ $('#versions .active').text() + '_' + $('#ddlCitiesPopup option:selected').html() + selArea);
                     });
                 
            
