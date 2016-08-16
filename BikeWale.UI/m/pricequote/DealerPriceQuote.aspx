@@ -402,7 +402,7 @@
 				</ul>
 			</div>
 			<div class="grid-12 float-button float-fixed clearfix">
-				<input type="button" value="Get more details" class="btn btn-full-width btn-sm margin-right10 leftfloat btn-orange bw-ga leadcapturebtn" id="getMoreDetailsBtnCampaign"  data-item-registerpq="false" data-leadsourceid="29" data-item-id="<%= objExQuotation != null ? objExQuotation.ManufacturerId : 0 %>" data-item-name="<%= objPriceQuote.objMake.MakeName %>" data-item-area="<%= dealerArea %>" data-pqsourceid="<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation) %>" data-item-campid="<%=objExQuotation != null ? objExQuotation.CampaignId : 0 %>" c="Dealer_PQ" a="Get_more_details_campaign_clicked" f="GetBikeVerLoc" data-ga-cat="Dealer_PQ" data-ga-act="Lead_Submitted" data-ga-lab="manufacturer_lead_List_<%=BikeName %>_<%= currentCity %>_<%= currentArea%>" />
+				<input type="button" value="Get more details" class="btn btn-full-width btn-sm margin-right10 leftfloat btn-orange bw-ga leadcapturebtn" id="getMoreDetailsBtnCampaign"  data-item-registerpq="false" data-leadsourceid="29" data-item-id="<%= objExQuotation != null ? objExQuotation.ManufacturerId : 0 %>" data-item-name="<%= objPriceQuote.objMake.MakeName %>" data-item-area="<%= dealerArea %>" data-pqsourceid="<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation) %>" data-item-mfg-campid="<%=objExQuotation != null ? objExQuotation.CampaignId : 0 %>" c="Dealer_PQ" a="Get_more_details_campaign_clicked" f="GetBikeVerLoc" data-ga-cat="Dealer_PQ" data-ga-act="Lead_Submitted" data-ga-lab="manufacturer_lead_List_<%=BikeName %>_<%= currentCity %>_<%= currentArea%>" />
 			</div>
 			<%}else { %>
 			<!--Dealer Campaign ends here -->
@@ -601,7 +601,7 @@
 					"pageurl": pageUrl,
 					"clientip": clientIP,
 					"isregisterpq": ele.attr('data-item-registerpq') == "true" ? true : false,
-					"campid": ele.attr('data-item-campid'),
+					"mfgCampid": ele.attr('data-item-mfg-campid'),
 					"pqid": pqId,
 					"gaobject" : {
 						cat : ele.attr('data-ga-cat'),

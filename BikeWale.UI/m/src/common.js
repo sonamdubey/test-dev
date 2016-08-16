@@ -8,13 +8,23 @@ var IsPriceQuoteLinkClicked = false;
 var ga_pg_id = '0';
 
 function triggerGA(cat, act, lab) {
-    
     try {
+       
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': cat, 'act': act, 'lab': lab });
     }
     catch (e) {// log error   
     }
 }
+
+function triggerNonInteractiveGA(cat, act, lab) {
+    try {
+        dataLayer.push({ 'event': 'Bikewale_noninteraction', 'cat': cat, 'act': act, 'lab': lab });
+    }
+    catch (e) {// log error   
+    }
+}
+
+
 
 $('.bw-ga').click(function () {
     
@@ -104,10 +114,12 @@ function GetCatForNav() {
             case "15":
                 ret_category = "SpecsAndFeature";
                 break;
+            case "16":
+                ret_category = "Price_in_City_Page";
+                break;
             case "39":
                 ret_category = "BookingListing";
                 break;
-            
         }
     }
     return ret_category;

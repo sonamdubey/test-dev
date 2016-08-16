@@ -340,8 +340,7 @@
                         if(areaname!=''){
                             lab=lab+'_'+areaname;
                         }
-                        
-                        dataLayer.push({ 'event': 'Bikewale_non_interaction', 'cat': 'SpecsandFeature', 'act': 'Get_Offers_Shown', 'lab': lab });
+                        triggerNonInteractiveGA('SpecsandFeature','Get_Offers_Shown',lab);
                     }
                     catch(e){
 

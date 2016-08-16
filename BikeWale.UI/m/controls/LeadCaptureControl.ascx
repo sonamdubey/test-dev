@@ -85,7 +85,7 @@
     var prevEmail = "";
     var prevMobile = "";
     var leadmodelid = '<%= ModelId %>', leadcityid = '<%= CityId %>', leadareaid = '<%= AreaId %>';
-    //var getCityArea = GetGlobalCityArea();
+    var CityArea = '<%=cityName%>' + '<%=areaName != "" ? "_" + areaName : "" %>';
 
 
     $(function () {
@@ -184,7 +184,8 @@
         self.isDealerBikes = ko.observable(false);
         self.dealerBikes = ko.observableArray([]);
         self.selectedBike = ko.observable();
-        self.campaignId = ko.observable();        
+        self.campaignId = ko.observable();
+        self.mfgCampaignId = ko.observable();
         self.GAObject = ko.observable();
         self.setOptions = function(options)
         {
@@ -213,6 +214,11 @@
 
                 if(options.campid!=null)
                     self.campaignId(options.campid);
+
+                if (options.mfgCampid != null)
+                {
+                    self.mfgCampaignId(options.mfgCampid);
+                }
 
                 if(options.isdealerbikes!=null && options.isdealerbikes)
                 {
@@ -338,8 +344,14 @@
         }
 
         self.pushToGA = function (data, event) {
+         
             if (data != null && data.act != null) {
-                triggerGA(data.cat,data.act,data.lab)
+                if (data.lab == "lead_label") {
+                   
+                    data.lab = self.selectedBike().make.makeName + '_' + self.selectedBike().model.modelName+'_'+CityArea;
+                    }
+                    triggerGA(data.cat, data.act, data.lab)
+                
             }
         }
 
@@ -389,24 +401,7 @@
 
         self.submitLead = function (data, event) {
           
-           
-            var lab,cat='Make_Page',act='Lead_Submitted';
-            var bikeMakeModel,cityAreaLead;
-            if (self.selectedBike() != null)
-                bikeMakeModel = self.selectedBike().make.makeName + '_' + self.selectedBike().model.modelName;
-            else
-                bikeMakeModel = "";
- 
-            if (self.dealerArea() != null)
-                cityAreaLead = self.dealerArea();
-            else
-                cityAreaLead = "";
-
-            lab = bikeMakeModel + '_' + cityNameLead + '_' + cityAreaLead;
-            triggerGA(cat, act, lab);
-            
-
-            if (self.campaignId() > 0) {
+            if (self.mfgCampaignId > 0) {
                 self.submitCampaignLead(data, event);
             }
             else {
@@ -533,7 +528,7 @@
         self.submitCampaignLead = function (data, event) {            
             var isValidCustomer = self.validateUserInfo(fullName, emailid, mobile);
 
-            if (isValidCustomer && campaignId > 0) {
+            if (isValidCustomer && self.mfgCampaignId > 0) {
 
                 if (self.isRegisterPQ())
                     self.generatePQ(data, event);

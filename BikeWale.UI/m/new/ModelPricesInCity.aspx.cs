@@ -72,7 +72,7 @@ namespace Bikewale.Mobile.New
                 ctrlDealers.ModelId = modelId;
                 ctrlDealers.PQSourceId = (int)PQSourceEnum.Mobile_PriceInCity_DealersCard_GetOfferButton;
                 ctrlDealers.ModelId = modelId;
-
+                ctrlDealers.PageName = "Price_in_City_Page";
                 ctrlLeadCapture.CityId = cityId;
                 ctrlLeadCapture.ModelId = modelId;
                 ctrlLeadCapture.AreaId = 0;

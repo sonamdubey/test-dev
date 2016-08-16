@@ -218,7 +218,7 @@
         <script type="text/javascript">
             ga_pg_id = '3';
             var _makeName = '<%= _make.MakeName %>';
-            var cityNameLead = '<%=cityName%>'; 
+             
             var clientIP = "172.16.3.151";
             var pageUrl = window.location.href;
             $(".leadcapturebtn").click(function (e) {

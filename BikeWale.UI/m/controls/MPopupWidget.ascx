@@ -375,9 +375,7 @@
                 cookieValue += ("_" + self.SelectedArea().id + "_" + self.SelectedArea().name);
             }  
             SetCookieInDays("location", cookieValue, 365);
-
             if (self.verifyDetails()) {
-               
                 var lab, act = 'Show_On_Road_Price_Clicked',cat;
                 if (self.SelectedArea() != undefined) {
                     lab = bikenamever + '_' + self.SelectedCity().name + '_' + self.SelectedArea().name;
@@ -385,14 +383,10 @@
                 else {
                     lab = bikenamever + '_' + self.SelectedCity().name;
                 }
-                if (ga_pg_id == 15) {
-                    cat = 'SpecsandFeature';
+                if (ga_pg_id == 15 || ga_pg_id == 16) {
+                    cat = GetCatForNav();
+                    triggerGA(cat, act, lab);
                 }
-                else if (ga_pg_id == 100) {
-                    cat = 'Price_in_City_Page';
-                }
-                
-                triggerGA(cat,act,lab);
                 
 
 
