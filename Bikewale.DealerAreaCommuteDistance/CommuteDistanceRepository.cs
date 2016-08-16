@@ -30,7 +30,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                 {
                     command.CommandText = "bw_getcampaigndealersbycity";
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(DbFactory.GetDbParam("par_city", DbType.Int32, cityId));
+                    command.Parameters.Add(DbFactory.GetDbParam("par_city", DbType.Int32, Convert.ToInt32(cityId)));
                     using (IDataReader objReader = MySqlDatabase.SelectQuery(command, ConnectionType.MasterDatabase))
                     {
                         if (objReader != null)
@@ -40,7 +40,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                             {
                                 lstDealers.Add(new GeoLocationEntity()
                                 {
-                                    Id = !Convert.IsDBNull(objReader["dealerid"]) ? Convert.ToUInt16(objReader["dealerid"]) : default(UInt16),
+                                    Id = !Convert.IsDBNull(objReader["dealerid"]) ? Convert.ToUInt32(objReader["dealerid"]) : default(UInt16),
                                     Latitude = !Convert.IsDBNull(objReader["Lattitude"]) ? Convert.ToDouble(objReader["Lattitude"]) : default(double),
                                     Longitude = !Convert.IsDBNull(objReader["Longitude"]) ? Convert.ToDouble(objReader["Longitude"]) : default(double)
                                 });
@@ -76,7 +76,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                     {
                         command.CommandText = "bw_savecommutedistancebyid";
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.Add(DbFactory.GetDbParam("par_idtype", DbType.Int32, idType));
+                        command.Parameters.Add(DbFactory.GetDbParam("par_idtype", DbType.Int32, Convert.ToInt32(idType)));
                         command.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int32, id));
                         command.Parameters.Add(DbFactory.GetDbParam("par_distancematrix", DbType.String, distanceMatrix));
                         MySqlDatabase.ExecuteNonQuery(command, ConnectionType.MasterDatabase);
@@ -97,7 +97,7 @@ namespace Bikewale.DealerAreaCommuteDistance
         /// </summary>
         /// <param name="areaId"></param>
         /// <returns></returns>
-        public IEnumerable<GeoLocationEntity> GetDealersByArea(int areaId)
+        public IEnumerable<GeoLocationEntity> GetDealersByArea(UInt32 areaId)
         {
             IList<GeoLocationEntity> lstDealers = null;
             try
@@ -106,7 +106,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                 {
                     command.CommandText = "bw_getdealerbyarea";
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbType.Int32, areaId));
+                    command.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbType.Int32, Convert.ToInt32(areaId)));
 
                     using (IDataReader objReader = MySqlDatabase.SelectQuery(command, ConnectionType.MasterDatabase))
                     {
@@ -117,7 +117,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                             {
                                 lstDealers.Add(new GeoLocationEntity()
                                 {
-                                    Id = !Convert.IsDBNull(objReader["dealerid"]) ? Convert.ToUInt16(objReader["dealerid"]) : default(UInt16),
+                                    Id = !Convert.IsDBNull(objReader["dealerid"]) ? Convert.ToUInt32(objReader["dealerid"]) : default(UInt32),
                                     Latitude = !Convert.IsDBNull(objReader["Lattitude"]) ? Convert.ToDouble(objReader["Lattitude"]) : default(double),
                                     Longitude = !Convert.IsDBNull(objReader["Longitude"]) ? Convert.ToDouble(objReader["Longitude"]) : default(double)
                                 });
@@ -140,7 +140,7 @@ namespace Bikewale.DealerAreaCommuteDistance
         /// </summary>
         /// <param name="dealerID"></param>
         /// <returns></returns>
-        public IEnumerable<GeoLocationEntity> GetAreasByDealer(int dealerID)
+        public IEnumerable<GeoLocationEntity> GetAreasByDealer(UInt32 dealerID)
         {
             IList<GeoLocationEntity> lstArea = null;
             try
@@ -149,7 +149,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                 {
                     command.CommandText = "bw_getareasbydealer";
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerID));
+                    command.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, Convert.ToInt32(dealerID)));
 
                     using (IDataReader objReader = MySqlDatabase.SelectQuery(command, ConnectionType.MasterDatabase))
                     {
@@ -160,7 +160,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                             {
                                 lstArea.Add(new GeoLocationEntity()
                                 {
-                                    Id = !Convert.IsDBNull(objReader["ID"]) ? Convert.ToUInt16(objReader["ID"]) : default(UInt16),
+                                    Id = !Convert.IsDBNull(objReader["ID"]) ? Convert.ToUInt32(objReader["ID"]) : default(UInt32),
                                     Latitude = !Convert.IsDBNull(objReader["Lattitude"]) ? Convert.ToDouble(objReader["Lattitude"]) : default(double),
                                     Longitude = !Convert.IsDBNull(objReader["Longitude"]) ? Convert.ToDouble(objReader["Longitude"]) : default(double)
                                 });
@@ -185,7 +185,7 @@ namespace Bikewale.DealerAreaCommuteDistance
         /// <param name="lattitude"></param>
         /// <param name="longitude"></param>
         /// <returns></returns>
-        public bool IsAreaGeoLocationChanged(UInt16 areaId, double lattitude, double longitude)
+        public bool IsAreaGeoLocationChanged(UInt32 areaId, double lattitude, double longitude)
         {
             bool isChanged = false;
             try
@@ -194,7 +194,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                 {
                     command.CommandText = "isAreaLatLonChanged";
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(DbFactory.GetDbParam("par_areaId", DbType.Int32, areaId));
+                    command.Parameters.Add(DbFactory.GetDbParam("par_areaId", DbType.Int32, Convert.ToInt32(areaId)));
                     command.Parameters.Add(DbFactory.GetDbParam("par_lattitude", DbType.Double, lattitude));
                     command.Parameters.Add(DbFactory.GetDbParam("par_longitude", DbType.Double, longitude));
 
@@ -226,7 +226,7 @@ namespace Bikewale.DealerAreaCommuteDistance
         /// <param name="lattitude"></param>
         /// <param name="longitude"></param>
         /// <returns></returns>
-        public bool IsDealerGeoLocationChanged(UInt16 dealerId, double lattitude, double longitude)
+        public bool IsDealerGeoLocationChanged(UInt32 dealerId, double lattitude, double longitude)
         {
             bool isChanged = false;
             try
@@ -235,7 +235,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                 {
                     command.CommandText = "isDealerLatLonChanged";
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32, dealerId));
+                    command.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32, Convert.ToInt32(dealerId)));
                     command.Parameters.Add(DbFactory.GetDbParam("par_lattitude", DbType.Double, lattitude));
                     command.Parameters.Add(DbFactory.GetDbParam("par_longitude", DbType.Double, longitude));
 
@@ -265,7 +265,7 @@ namespace Bikewale.DealerAreaCommuteDistance
         /// </summary>
         /// <param name="areaId"></param>
         /// <returns></returns>
-        public bool IsAreaExists(UInt16 areaId)
+        public bool IsAreaExists(UInt32 areaId)
         {
             bool isExists = false;
             try
