@@ -367,11 +367,11 @@
             ga_pg_id=15;
             $(document).ready(function () {
                 var ShowOffer='<%=isGetOfferShown%>'
-                    if(ShowOffer==true)
+                var isOfferShown = (ShowOffer.toLowerCase() === 'true');
+                    if(isOfferShown)
                     {    
                         triggerGA('SpecsandFeature', 'Get_Offers_Shown', "<%= string.Format("{0}_{1}_{2}_{3}", makeName, modelName,cityName,areaName)%>");
                     }
-               
                     $("#btnDealerPricePopup").click(function () {
                         var selArea = '';
                         if ($('#ddlAreaPopup option:selected').index() > 0) {
