@@ -207,16 +207,14 @@
             var pageUrl = window.location.href; 
             var bikeName='<%=bikeName%>';
             ga_pg_id=16;
-            if(ga_pg_id==16)
-            $("#btnDealerPricePopup").click(function () {
-                var selArea = '';
-                if ($('#ddlAreaPopup option:selected').index() > 0) {
-                    selArea = '_' + $('#ddlAreaPopup option:selected').html();
-                }
-                triggerGA('Price_in_City_Page', 'Show_On_Road_Price_Clicked', "<%= string.Format("{0}_{1}_", makeName, modelName)%>"+"_"+ $('#versions .active').text() + "_" + $('#ddlCitiesPopup option:selected').html() + "_" + selArea);
+                $("#btnDealerPricePopup").click(function () {
+                    var selArea = '';
+                    if ($('#ddlAreaPopup option:selected').index() > 0) {
+                        selArea = '_' + $('#ddlAreaPopup option:selected').html();
+                    }
+                    triggerGA('Price_in_City_Page', 'Show_On_Road_Price_Clicked', "<%= string.Format("{0}_{1}_", makeName, modelName)%>"+"_"+ $('#versions .active').text() + "_" + $('#ddlCitiesPopup option:selected').html() + "_" + selArea);
             
-            });
-           
+                });
             $(".leadcapturebtn").click(function(e){
                 ele = $(this);
                 var leadOptions = {

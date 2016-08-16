@@ -371,7 +371,7 @@
                     {    
                         triggerGA('SpecsandFeature', 'Get_Offers_Shown', "<%= string.Format("{0}_{1}_{2}_{3}", makeName, modelName,cityName,areaName)%>");
                     }
-                if (ga_pg_id == 15) {
+               
                     $("#btnDealerPricePopup").click(function () {
                         var selArea = '';
                         if ($('#ddlAreaPopup option:selected').index() > 0) {
@@ -379,7 +379,7 @@
                         }
                         triggerGA('SpecsandFeature', 'Show_On_Road_Price_Clicked', bikeVersionName + $('#versions .active').text() + '_' + $('#ddlCitiesPopup option:selected').html() + selArea);
                     });
-                }
+                
            
                
                 var hashValue = window.location.hash.substr(1);
