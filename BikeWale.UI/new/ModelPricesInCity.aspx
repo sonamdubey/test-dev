@@ -206,8 +206,8 @@
             var clientIP = "<%= clientIP%>";
             var pageUrl = window.location.href; 
             var bikeName='<%=bikeName%>';
-            ga_pg_id=1;
-            if(ga_pg_id==1)
+            ga_pg_id=16;
+            if(ga_pg_id==16)
             $("#btnDealerPricePopup").click(function () {
                 var selArea = '';
                 if ($('#ddlAreaPopup option:selected').index() > 0) {

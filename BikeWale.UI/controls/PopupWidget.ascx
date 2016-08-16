@@ -65,7 +65,7 @@
     var metroCitiesIds = [40, 12, 13, 10, 224, 1, 198, 105, 246, 176, 2, 128];
     var pageId, PQSourceId;
     var onCookieObj = {};
-    var ga_pg_id = 1;
+   
 
     // knockout popupData binding
     var viewModelPopup = {
@@ -332,14 +332,7 @@
             if ($('#ddlAreaPopup option:selected').index() > 0) {
                 selArea = '_' + $('#ddlAreaPopup option:selected').html();
             }
-           /*
-            if (ga_pg_id == 15) {
-              
-               
-                    var lab = bikeVersionName +'_'+$('#ddlCitiesPopup option:selected').html() + selArea;
-                    triggerGA('Price_in_City_Page', 'Show_On_Road_Price_Clicked', lab);
-               
-            }*/
+        
             if (ga_pg_id != null && ga_pg_id == 2 && sourceHref == '1') {
                 try {
                     bikeVersionLocation = myBikeName + '_' + getBikeVersion() + '_' + $('#ddlCitiesPopup option:selected').html() + selArea;                  

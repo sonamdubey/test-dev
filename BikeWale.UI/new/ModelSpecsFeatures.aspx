@@ -373,13 +373,10 @@
                     }
                 if (ga_pg_id == 15) {
                     $("#btnDealerPricePopup").click(function () {
-
-
                         var selArea = '';
                         if ($('#ddlAreaPopup option:selected').index() > 0) {
                             selArea = '_' + $('#ddlAreaPopup option:selected').html();
                         }
-
                         triggerGA('SpecsandFeature', 'Show_On_Road_Price_Clicked', bikeVersionName + $('#versions .active').text() + '_' + $('#ddlCitiesPopup option:selected').html() + selArea);
                     });
                 }
