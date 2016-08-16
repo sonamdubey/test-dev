@@ -7,7 +7,7 @@
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UsedBikes.ascx" TagName="MostRecentBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/DealerCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
-<%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
+<%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPretriggerGA('Make_Page', 'Lead_Submitted', bikeName + "_" + cityNamefix="BW" %>
 <!Doctype html>
 <html>
 <head>
@@ -254,11 +254,9 @@
 
             $(document).ready(function () {
                 $('#user-details-submit-btn').click(function () {
-   
                     var bikeName = $('#getLeadBike :selected').text();
                     var cityName = GetGlobalCityArea();      
                     triggerGA('Make_Page', 'Lead_Submitted', bikeName + "_" + cityName );
-                   
                 });
 
                 $("img.lazy").lazyload();
@@ -307,9 +305,7 @@
                 "campid": ele.attr('data-camp-id'),
                 "isregisterpq": true
             };
-
             dleadvm.setOptions(leadOptions);
-
         });
     </script>
 </body>
