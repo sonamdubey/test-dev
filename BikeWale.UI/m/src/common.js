@@ -9,7 +9,7 @@ var ga_pg_id = '0';
 
 function triggerGA(cat, act, lab) {
     try {
-        alert(cat + '   ' + lab);
+       
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': cat, 'act': act, 'lab': lab });
     }
     catch (e) {// log error   
@@ -18,7 +18,7 @@ function triggerGA(cat, act, lab) {
 
 function triggerNonInteractiveGA(cat, act, lab) {
     try {
-        alert(cat + '   ' + lab);
+        
         dataLayer.push({ 'event': 'Bikewale_noninteraction', 'cat': cat, 'act': act, 'lab': lab });
     }
     catch (e) {// log error   
