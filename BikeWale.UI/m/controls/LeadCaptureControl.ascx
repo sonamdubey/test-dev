@@ -348,7 +348,7 @@
             if (data != null && data.act != null) {
                 if (data.lab == "lead_label") {
                    
-                    data.lab = self.selectedBike().make.makeName + '_' + self.selectedBike().model.modelName+'_'+CityArea;
+                    data.lab = self.selectedBike().make.makeName + '_' + self.selectedBike().model.modelName+'_'+ CityArea;
                     }
                     triggerGA(data.cat, data.act, data.lab)
                 
@@ -401,7 +401,7 @@
 
         self.submitLead = function (data, event) {
           
-            if (self.mfgCampaignId > 0) {
+            if (self.mfgCampaignId() > 0) {
                 self.submitCampaignLead(data, event);
             }
             else {
@@ -528,7 +528,7 @@
         self.submitCampaignLead = function (data, event) {            
             var isValidCustomer = self.validateUserInfo(fullName, emailid, mobile);
 
-            if (isValidCustomer && self.mfgCampaignId > 0) {
+            if (isValidCustomer && self.mfgCampaignId() > 0) {
 
                 if (self.isRegisterPQ())
                     self.generatePQ(data, event);

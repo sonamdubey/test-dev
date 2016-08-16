@@ -135,7 +135,7 @@ namespace Bikewale.Mobile.New
         /// <summary>
         /// Sets model details
         /// Modified by: Aditi Srivastava on 12th Aug, 2016
-        /// Description: added version name parameter
+        /// Description: added version name variable
         /// </summary>
         /// <param name="bikePrices"></param>
         private void SetModelDetails(IEnumerable<BikeQuotationEntity> bikePrices)

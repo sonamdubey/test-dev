@@ -326,17 +326,17 @@
             var pageUrl = window.location.href;
             var clientIP = '<%= clientIP %>';
             var dealerOffers='<%=isDealerOfferAvailable%>';
-            var bikenamever = '<%=makeName %>'+'_'+'<%=modelName %>'+'_'+'<%=versionName %>';
+            var bikenamever = '<%=string.Format("{0}_{1}_{2}", makeName,modelName,versionName)%>';
             var areaname='<%=areaName%>';
-            var bikenameLocation='<%=makeName %>'+'_'+'<%=modelName %>'+'_'+'<%=cityName%>';
+            var bikenameLocation='<%=string.Format("{0}_{1}_{2}", makeName,modelName,cityName)%>';
             if(areaname!='')
                 bikenameLocation=bikenameLocation+'_'+areaname;
             $(document).ready(function () {
                 
                 if(dealerOffers){
                     try{
-                        //make model city area ('_' separated)
-                        var lab='<%=makeName%>'+'_'+'<%=modelName%>'+'_'+'<%=cityName%>';
+                        
+                        var lab=bikenameLocation;
                         if(areaname!=''){
                             lab=lab+'_'+areaname;
                         }

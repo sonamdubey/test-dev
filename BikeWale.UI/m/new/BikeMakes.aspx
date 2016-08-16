@@ -219,7 +219,7 @@
             ga_pg_id = '3';
             var _makeName = '<%= _make.MakeName %>';
              
-            var clientIP = "172.16.3.151";
+            var clientIP = '<%= Bikewale.Common.CommonOpn.GetClientIP() %>';
             var pageUrl = window.location.href;
             $(".leadcapturebtn").click(function (e) {
                 ele = $(this);

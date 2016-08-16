@@ -139,8 +139,8 @@
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript">
             ga_pg_id = "16";
-            var bikenamever = '<%=makeName %>'+'_'+'<%=modelName %>'+'_'+'<%=versionName %>';
-            var modelId = <%= modelId %>;
+            var bikenamever = '<%= string.Format("{0}_{1}_{2}", makeName, modelName,versionName)%>';
+            var modelId = "<%= modelId %>";
             var clientIP = "<%= clientIP%>";
             var pageUrl = window.location.href; 
 
