@@ -110,7 +110,7 @@
                                 if (  dealerDetail != null && dealerDetail.PrimaryDealer != null && dealerDetail.PrimaryDealer != null && dealerDetail.PrimaryDealer.DealerDetails.DealerPackageType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
                                 {%>
                             <div class="grid-3 model-orp-btn alpha omega">
-                                <a href="javascript:void(0)" data-leadsourceid="26" data-pqsourceid="50" data-item-name="<%= dealerDetail.PrimaryDealer.DealerDetails.Organization %>" data-item-area="<%= areaName %>" data-item-id="<%= dealerDetail.PrimaryDealer.DealerDetails.DealerId %>"  class="btn btn-orange font14 margin-top5 leadcapturebtn">Get offers from this dealer</a>
+                                <a href="javascript:void(0)" c="SpecsandFeature" a="Get_Offers_Clicked" v="BkCityArea"data-leadsourceid="26" data-pqsourceid="50" data-item-name="<%= dealerDetail.PrimaryDealer.DealerDetails.Organization %>" data-item-area="<%= areaName %>" data-item-id="<%= dealerDetail.PrimaryDealer.DealerDetails.DealerId %>"  class="btn btn-orange font14 margin-top5 leadcapturebtn bw-ga">Get offers from this dealer</a>
                                 <!-- if no 'powered by' text is present remove margin-top5 add margin-top10 in offers button -->
                                 <p class="model-powered-by-text font12 margin-top10 text-truncate"><span class="text-light-grey">Powered by </span><%= dealerDetail.PrimaryDealer.DealerDetails.Organization %></p>
                             </div>
@@ -118,7 +118,7 @@
                                 else if (!isCitySelected || !isAreaSelected) 
                                 {%>
                                 <div class="grid-3 model-orp-btn alpha omega">
-                                    <a href="javascript:void(0)" isModel="true" data-pqsourceid="49" pqSourceId="49" modelId="<%= modelId %>" class="btn btn-orange font14 margin-top5 fillPopupData">Check on-road price</a>
+                                    <a href="javascript:void(0)" v="bikeVersionName" c="SpecsandFeature" a="Check_On_Road_Price_Clicked" isModel="true" data-pqsourceid="49" pqSourceId="49" modelId="<%= modelId %>" class="btn btn-orange font14 margin-top5 fillPopupData  bw-ga">Check on-road price</a>
                                 </div>
                             <% } %>
                             <div class="clear"></div>
@@ -360,8 +360,28 @@
         <script type="text/javascript">
             var pageUrl = window.location.href;
             var clientIP = '<%= clientIP %>';
-            
+            var bikename='<%= bikeName %> '
+            var bikeVersionName=bikename+' <%= versionName %>' 
+            var cityArea='<%=cityName%> '+'<%=areaName%>'
+            var BkCityArea=bikename+cityArea;
+            ga_pg_id=15;
             $(document).ready(function () {
+                var ShowOffer='<%=isGetOfferShown%>'
+                var isOfferShown = (ShowOffer.toLowerCase() === 'true');
+                    if(isOfferShown)
+                    {    
+                        triggerGA('SpecsandFeature', 'Get_Offers_Shown', "<%= string.Format("{0}_{1}_{2}_{3}", makeName, modelName,cityName,areaName)%>");
+                    }
+                    $("#btnDealerPricePopup").click(function () {
+                        var selArea = '';
+                        if ($('#ddlAreaPopup option:selected').index() > 0) {
+                            selArea = '_' + $('#ddlAreaPopup option:selected').html();
+                        }
+                        triggerGA('SpecsandFeature', 'Show_On_Road_Price_Clicked', bikeVersionName + $('#versions .active').text() + '_' + $('#ddlCitiesPopup option:selected').html() + selArea);
+                    });
+                
+           
+               
                 var hashValue = window.location.hash.substr(1);
                 if (hashValue.length > 0) {
                     $("body, html").animate({

@@ -159,7 +159,7 @@
                                     <p>Complete buying assistance</p>
                                 </li>
                             </ul>
-                            <a href="javascript:void(0)" pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_SelectAreas %>" selcityid="<%=cityId %>" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange btn-xxlg font14 fillPopupData changeCity" rel="nofollow">Select your area</a>
+                            <a href="javascript:void(0)" pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_SelectAreas %>" f="getBikeVersionName" c="Price_in_City_Page" a="Select_Area_Clicked" selcityid="<%=cityId %>" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange btn-xxlg font14 fillPopupData changeCity bw-ga" rel="nofollow">Select your area</a>
                             <%}
                                else
                                { %>
@@ -200,12 +200,21 @@
 
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
+        
         <script type="text/javascript">
-
             var modelId = <%= modelId %>;
             var clientIP = "<%= clientIP%>";
             var pageUrl = window.location.href; 
-
+            var bikeName='<%=bikeName%>';
+            ga_pg_id=16;
+                $("#btnDealerPricePopup").click(function () {
+                    var selArea = '';
+                    if ($('#ddlAreaPopup option:selected').index() > 0) {
+                        selArea = '_' + $('#ddlAreaPopup option:selected').html();
+                    }
+                    triggerGA('Price_in_City_Page', 'Show_On_Road_Price_Clicked', "<%= string.Format("{0}_{1}_", makeName, modelName)%>"+"_"+ $('#versions .active').text() + "_" + $('#ddlCitiesPopup option:selected').html() + "_" + selArea);
+            
+                });
             $(".leadcapturebtn").click(function(e){
                 ele = $(this);
                 var leadOptions = {
@@ -234,7 +243,14 @@
                 $('.model-versions-tabs-wrapper a[id="' + version + '"]').addClass('active');
                 $('.priceTable').hide();
                 $('.priceTable[id="' + version + '"]').show();
-            }           
+            }  
+            function getBikeVersionName()
+            {
+                var bikeVersion=$('#versions .active').text();
+                var bikeNameVersion='<%=bikeName%> '+ bikeVersion;
+                return bikeNameVersion;
+            
+            }
 
         </script>
     </form>
