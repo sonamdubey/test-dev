@@ -200,21 +200,25 @@
 
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
-        
         <script type="text/javascript">
+            
+            
             var modelId = <%= modelId %>;
             var clientIP = "<%= clientIP%>";
             var pageUrl = window.location.href; 
-            var bikeName='<%=bikeName%>';
             $("#btnDealerPricePopup").click(function () {
-                debugger;
+              
+                 
                 var selArea = '';
                 if ($('#ddlAreaPopup option:selected').index() > 0) {
                     selArea = '_' + $('#ddlAreaPopup option:selected').html();
                 }
-                    var lab= bikeName+'_'+ $('#versions .active').text()+'_'+$('#ddlCitiesPopup option:selected').html() + selArea
-                triggerGA('Price_in_City_Page', 'Show_On_Road_Price_Clicked', "<%= string.Format("{0}_{1}_", makeName, modelName)%>" + $('#versions .active').text() + "_" + $('#ddlCitiesPopup option:selected').html() + "_" + selArea);
-            
+                try {
+
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Price_in_City_Page', 'act': 'Show_On_Road_Price_Clicked', 'lab': "<%= string.Format("{0}_{1}", makeName, modelName)%>"}+$('#versions .active').text()+ $('#ddlCitiesPopup option:selected').html() + selArea);
+                }
+                catch (e) {// log error   
+                }
             });
            
             $(".leadcapturebtn").click(function(e){

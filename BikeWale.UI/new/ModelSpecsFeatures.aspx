@@ -368,15 +368,19 @@
             $(document).ready(function () {
                 var ShowOffer='<%=isGetOfferShown%>'
                     if(ShowOffer)
-                    {
-                        try {
-                              var lab='<%= string.Format("{0}_{1}_{2}_{3}", makeName, modelName,cityName,areaName)%>'
-                            triggerGA('SpecsandFeature', 'Get_Offers_Shown', lab);
-                        }
-                        catch (e) {// log error   
-                        }   
+                    {                     
+                        triggerGA('SpecsandFeature', 'Get_Offers_Shown', "<%= string.Format("{0}_{1}_{2}_{3}", makeName, modelName,cityName,areaName)%>");
                 }
-               
+                $("#btnDealerPricePopup").click(function () {
+                  
+                 
+                        var selArea = '';
+                        if ($('#ddlAreaPopup option:selected').index() > 0) {
+                            selArea = '_' + $('#ddlAreaPopup option:selected').html();
+                        }
+                    
+                        triggerGA('SpecsandFeature', 'Show_On_Road_Price_Clicked',"<%= string.Format("{0}_{1}", makeName, modelName)%>"+$('#versions .active').text()+ $('#ddlCitiesPopup option:selected').html() + selArea);
+                });
                
                 var hashValue = window.location.hash.substr(1);
                 if (hashValue.length > 0) {

@@ -212,9 +212,18 @@
                 if ($('#ddlAreaPopup option:selected').index() > 0) {
                     selArea = '_' + $('#ddlAreaPopup option:selected').html();
                 }
+<<<<<<< HEAD
+                try {
                     var lab= bikeName+'_'+ $('#versions .active').text()+'_'+$('#ddlCitiesPopup option:selected').html() + selArea
+                    triggerGA('Price_in_City_Page', 'Show_On_Road_Price_Clicked', lab);
+                }
+                catch (e) {// log error   
+                }
+=======
+
                 triggerGA('Price_in_City_Page', 'Show_On_Road_Price_Clicked', "<%= string.Format("{0}_{1}_", makeName, modelName)%>" + $('#versions .active').text() + "_" + $('#ddlCitiesPopup option:selected').html() + "_" + selArea);
             
+>>>>>>> 80500fbfa54daeab93286b8e09daa62b859ad444
             });
            
             $(".leadcapturebtn").click(function(e){

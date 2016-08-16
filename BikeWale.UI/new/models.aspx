@@ -258,13 +258,11 @@
 
                     var bikeName = $('#getLeadBike :selected').text();
                     var cityName = GetGlobalCityArea();
-                    try {
-
-                        var lab = bikeName+'-'+ cityName;
-                        triggerGA('Make_Page', 'Lead_Submitted', lab);
-                    }
-                    catch (e) {// log error   
-                    }
+                
+                    bikeName = bikeName.replace(" ", "_");
+                    
+                    triggerGA('Make_Page', 'Lead_Submitted', bikeName + "_" + cityName );
+                    console.write(bikeName + cityName);
                 });
 
                 $("img.lazy").lazyload();

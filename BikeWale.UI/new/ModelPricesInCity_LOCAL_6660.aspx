@@ -200,7 +200,6 @@
 
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
-        
         <script type="text/javascript">
             var modelId = <%= modelId %>;
             var clientIP = "<%= clientIP%>";
@@ -212,9 +211,12 @@
                 if ($('#ddlAreaPopup option:selected').index() > 0) {
                     selArea = '_' + $('#ddlAreaPopup option:selected').html();
                 }
+                try {
                     var lab= bikeName+'_'+ $('#versions .active').text()+'_'+$('#ddlCitiesPopup option:selected').html() + selArea
-                triggerGA('Price_in_City_Page', 'Show_On_Road_Price_Clicked', "<%= string.Format("{0}_{1}_", makeName, modelName)%>" + $('#versions .active').text() + "_" + $('#ddlCitiesPopup option:selected').html() + "_" + selArea);
-            
+                    triggerGA('Price_in_City_Page', 'Show_On_Road_Price_Clicked', lab);
+                }
+                catch (e) {// log error   
+                }
             });
            
             $(".leadcapturebtn").click(function(e){
