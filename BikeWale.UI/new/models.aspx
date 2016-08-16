@@ -260,7 +260,8 @@
                     var cityName = GetGlobalCityArea();
                     try {
 
-                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Make_Page', 'act': 'Lead_Submitted', 'lab':bikeName+cityName });
+                        var lab = bikeName+'-'+ cityName;
+                        triggerGA('Make_Page', 'Lead_Submitted', lab);
                     }
                     catch (e) {// log error   
                     }

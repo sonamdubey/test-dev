@@ -326,12 +326,23 @@
         if (isValidInfoPopup()) {
             //$("#errMsgPopup").text("");
             setLocationCookie($('#ddlCitiesPopup option:selected'), $('#ddlAreaPopup option:selected'));
+
+            var selArea = '';
+            if ($('#ddlAreaPopup option:selected').index() > 0) {
+                selArea = '_' + $('#ddlAreaPopup option:selected').html();
+            }
+           
+            if (ga_pg_id == 15) {
+              
+                try {
+                    var lab = bikeVersionName +'_'+$('#ddlCitiesPopup option:selected').html() + selArea;
+                    triggerGA('Price_in_City_Page', 'Show_On_Road_Price_Clicked', lab);
+                }
+                catch (e) {
+                }
+            }
             if (ga_pg_id != null && ga_pg_id == 2 && sourceHref == '1') {
                 try {
-                    var selArea = '';
-                    if ($('#ddlAreaPopup option:selected').index() > 0) {
-                        selArea = '_' + $('#ddlAreaPopup option:selected').html();
-                    }
                     bikeVersionLocation = myBikeName + '_' + getBikeVersion() + '_' + $('#ddlCitiesPopup option:selected').html() + selArea;                  
                 }
                 catch (err) { }

@@ -110,7 +110,7 @@
                                 if (  dealerDetail != null && dealerDetail.PrimaryDealer != null && dealerDetail.PrimaryDealer != null && dealerDetail.PrimaryDealer.DealerDetails.DealerPackageType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
                                 {%>
                             <div class="grid-3 model-orp-btn alpha omega">
-                                <a href="javascript:void(0)" c="SpecsandFeature" a="Get_Offers_Clicked" v="BkCityArea" data-leadsourceid="26" data-pqsourceid="50" data-item-name="<%= dealerDetail.PrimaryDealer.DealerDetails.Organization %>" data-item-area="<%= areaName %>" data-item-id="<%= dealerDetail.PrimaryDealer.DealerDetails.DealerId %>"  class="btn btn-orange font14 margin-top5 leadcapturebtn bw-ga">Get offers from this dealer</a>
+                                <a href="javascript:void(0)" c="SpecsandFeature" a="Get_Offers_Clicked" v="BkCityArea"data-leadsourceid="26" data-pqsourceid="50" data-item-name="<%= dealerDetail.PrimaryDealer.DealerDetails.Organization %>" data-item-area="<%= areaName %>" data-item-id="<%= dealerDetail.PrimaryDealer.DealerDetails.DealerId %>"  class="btn btn-orange font14 margin-top5 leadcapturebtn bw-ga">Get offers from this dealer</a>
                                 <!-- if no 'powered by' text is present remove margin-top5 add margin-top10 in offers button -->
                                 <p class="model-powered-by-text font12 margin-top10 text-truncate"><span class="text-light-grey">Powered by </span><%= dealerDetail.PrimaryDealer.DealerDetails.Organization %></p>
                             </div>
@@ -364,34 +364,19 @@
             var bikeVersionName=bikename+' <%= versionName %>' 
             var cityArea='<%=cityName%> '+'<%=areaName%>'
             var BkCityArea=bikename+cityArea;
-            
+            ga_pg_id=15;
             $(document).ready(function () {
                 var ShowOffer='<%=isGetOfferShown%>'
                     if(ShowOffer)
                     {
-                      
                         try {
-
-                            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'SpecsandFeature', 'act': 'Get_Offers_Shown', 'lab': "<%= string.Format("{0}_{1}_{2}_{3}", makeName, modelName,cityName,areaName)%>"});
+                              var lab='<%= string.Format("{0}_{1}_{2}_{3}", makeName, modelName,cityName,areaName)%>'
+                            triggerGA('SpecsandFeature', 'Get_Offers_Shown', lab);
                         }
                         catch (e) {// log error   
-                        }
-                        
+                        }   
                 }
-                $("#btnDealerPricePopup").click(function () {
-                  
-                 
-                        var selArea = '';
-                        if ($('#ddlAreaPopup option:selected').index() > 0) {
-                            selArea = '_' + $('#ddlAreaPopup option:selected').html();
-                        }
-                    try {
-
-                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'SpecsandFeature', 'act': 'Show_On_Road_Price_Clicked', 'lab': "<%= string.Format("{0}_{1}_{2}", makeName, modelName, versionName)%>"}+ $('#ddlCitiesPopup option:selected').html() + selArea);
-        }
-                     catch (e) {// log error   
-                     }
-                });
+               
                
                 var hashValue = window.location.hash.substr(1);
                 if (hashValue.length > 0) {
