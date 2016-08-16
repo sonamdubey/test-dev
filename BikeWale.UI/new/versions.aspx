@@ -9,7 +9,7 @@
 <%@ Register Src="~/controls/PriceInTopCities.ascx" TagPrefix="BW" TagName="TopCityPrice" %>
 <!doctype html>
 <html>
-<head itemscope itemtype="http://www.schema.org/WebPage">
+<head>
     <%
         var modDetails = modelPageEntity.ModelDetails;
         title = String.Format("{0} Price, Mileage & Reviews - BikeWale", bikeName);
@@ -26,7 +26,6 @@
         ogImage = modelImage; 
         isAd970x90BTFShown = false;
          %>
-    <meta itemprop="description" name="description" content= "<%= String.Format("{0} Price in India - Rs. {1}. Check out {0} on road price, reviews, mileage, versions, news & photos at Bikewale.com", bikeName, Bikewale.Utility.Format.FormatPrice(price.ToString()))%>" />
     <!-- #include file="/includes/headscript.aspx" -->
     <% isHeaderFix = false; %>
     <script type="text/javascript">
@@ -47,8 +46,10 @@
     </script>
     <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model.css?<%= staticFileVersion %>12345" rel="stylesheet" type="text/css" />
 </head>
-<body itemscope itemtype="http://schema.org/Product" class="bg-light-grey">
+<body class="bg-light-grey" itemscope itemtype="http://schema.org/Product">
     <form runat="server">
+        <meta itemprop="description" itemtype="https://schema.org/description" content= "<%= description%>" />
+        <meta itemprop="name" content="<%= bikeName %>" />
         <!-- #include file="/includes/headBW.aspx" -->
         <section class="bg-light-grey padding-top10" id="breadcrumb">
             <div class="container">
@@ -76,7 +77,6 @@
         </section>
         <section>
             <div class="container" id="modelDetailsContainer">
-                <span itemprop="name" class="hide"><%= bikeName %></span>
                 <div class="grid-12 margin-bottom20">
                     <div class="content-inner-block-20 content-box-shadow">
                         <div class="grid-5 alpha">
@@ -143,6 +143,7 @@
                                     </p>
 
                                     <span itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating">
+                                        
                                         <meta itemprop="ratingValue" content="<%=modelPageEntity.ModelDetails.ReviewRate %>">
                                         <meta itemprop="worstRating" content="1">
                                         <meta itemprop="bestRating" content="5">

@@ -7,7 +7,7 @@
 <%@ Register Src="~/m/controls/MPriceInTopCities.ascx" TagPrefix="BW" TagName="TopCityPrice" %>
 <!DOCTYPE html> 
 <html>
-<head itemscope itemtype="http://www.schema.org/WebPage">
+<head>
     <%
         description = String.Format("{0} Price in India - Rs. {1}. Check out {0} on road price, reviews, mileage, versions, news & photos at Bikewale.com", bikeName, Bikewale.Utility.Format.FormatPrice(price.ToString()));
         title = String.Format("{0} Price, Mileage & Reviews - BikeWale", bikeName);
@@ -23,7 +23,6 @@
         EnableOG = true;
         OGImage = modelImage;
     %>
-    <meta itemprop="description" name="description" content= "<%= String.Format("{0} Price in India - Rs. {1}. Check out {0} on road price, reviews, mileage, versions, news & photos at Bikewale.com", bikeName, Bikewale.Utility.Format.FormatPrice(price.ToString()))%>" />
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <script type="text/javascript">
         var dealerId = '<%= dealerId%>';
@@ -44,6 +43,7 @@
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 </head>
 <body itemscope itemtype="http://schema.org/Product">
+    <meta itemprop="description" itemtype="https://schema.org/description" content= "<%= description%>" />
     <meta itemprop="image" content="<%= modelImage %>" />
     <meta itemprop="manufacturer" name="manufacturer" content="<%= modelPage.ModelDetails.MakeBase.MakeName %>">  
     <meta itemprop="model" content="<%= modelPage.ModelDetails.ModelName %>"/>
@@ -80,14 +80,16 @@
                         <p class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "hide" : ""  %> leftfloat margin-right10 rating-wrap">
                             Not rated yet
                         </p>
-
+                        <% if (modelPage.ModelDetails.ReviewCount > 0)
+                                       { %>
                         <span itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating">
-                            <meta itemprop="ratingValue" content="<%=modelPage.ModelDetails.ReviewRate %>">
-                            <meta itemprop="worstRating" content="1">
-                            <meta itemprop="bestRating" content="5">
+                        <meta itemprop="ratingValue" content="<%=modelPage.ModelDetails.ReviewRate %>">
+                        <meta itemprop="worstRating" content="1">
+                        <meta itemprop="bestRating" content="5">
                             <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/user-reviews/" class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> border-solid-left leftfloat margin-right10 padding-left10 line-Ht22">
                                 <span itemprop="reviewCount"><%= modelPage.ModelDetails.ReviewCount %>
                                 </span>Reviews
+                                  <% } %>
                             </a>
                         </span>
                         <div class="clear"></div>
@@ -205,7 +207,7 @@
                                 <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity" rel="nofollow"><span class="bwmsprite loc-change-blue-icon"></span></a>
                             </p>
                             <% } %>
-                            <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                            <div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
                                 <p class="line-Ht18 padding-bottom5">
 
                                     <%if (price > 0)
