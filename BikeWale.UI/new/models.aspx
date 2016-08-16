@@ -254,15 +254,11 @@
 
             $(document).ready(function () {
                 $('#user-details-submit-btn').click(function () {
-                    
-
+   
                     var bikeName = $('#getLeadBike :selected').text();
-                    var cityName = GetGlobalCityArea();
-                
-                    bikeName = bikeName.replace(" ", "_");
-                    
+                    var cityName = GetGlobalCityArea();      
                     triggerGA('Make_Page', 'Lead_Submitted', bikeName + "_" + cityName );
-                    console.write(bikeName + cityName);
+                   
                 });
 
                 $("img.lazy").lazyload();
