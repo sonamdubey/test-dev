@@ -159,6 +159,7 @@ namespace Bikewale.Utility
                             _articleUrl = string.Format("/expert-reviews/{0}-{1}.html", articleUrl, basicId);
                             break;
                         default:
+                            _articleUrl = "/";
                             break;
                     }
                 }
