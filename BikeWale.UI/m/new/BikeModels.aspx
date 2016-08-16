@@ -43,7 +43,10 @@
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 </head>
 <body itemscope itemtype="http://schema.org/Product">
-    <meta itemprop="description" itemtype="https://schema.org/description" content= "<%= description%>" />
+     <% if (modelPage != null && modelPage.ModelDesc != null)
+                                       { %>
+    <meta itemprop="description" itemtype="https://schema.org/description" content= "<%= modelPage.ModelDesc.SmallDescription %>" />
+    <% } %>
     <meta itemprop="image" content="<%= modelImage %>" />
     <meta itemprop="manufacturer" name="manufacturer" content="<%= modelPage.ModelDetails.MakeBase.MakeName %>">  
     <meta itemprop="model" content="<%= modelPage.ModelDetails.ModelName %>"/>
