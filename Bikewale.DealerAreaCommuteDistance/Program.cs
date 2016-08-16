@@ -1,6 +1,7 @@
 ﻿
 using Consumer;
 using System;
+using System.Configuration;
 namespace Bikewale.DealerAreaCommuteDistance
 {
     class Program
@@ -10,22 +11,15 @@ namespace Bikewale.DealerAreaCommuteDistance
             log4net.Config.XmlConfigurator.Configure();
             try
             {
-                Console.WriteLine("Processing...");
-                var watch = System.Diagnostics.Stopwatch.StartNew();
                 Logs.WriteInfoLog("Started at : " + DateTime.Now);
-                CommuteDistanceBL bl = new CommuteDistanceBL();
-                bl.UpdateCommuteDistances();
-                watch.Stop();
-                var elapsedMs = String.Format("Processing Time taken in ms : {0}", watch.Elapsed.Seconds);
-
-                Console.WriteLine(elapsedMs);
-                Logs.WriteInfoLog(elapsedMs);
-                Console.WriteLine("Done!!!");
+                CommuteDistanceConsumer consumer = new CommuteDistanceConsumer();
+                Random Random = new Random();
+                string hostName = CreateConnection.nodes[Random.Next(CreateConnection.nodes.Count)];
+                consumer.RabbitMQExecution("RabbitMq-" + ConfigurationManager.AppSettings["QueueName"].ToUpper() + "-Queue", hostName);
             }
             catch (Exception ex)
             {
                 Logs.WriteErrorLog("Exception " + ex.Message);
-                Console.WriteLine("Exception " + ex.Message);
             }
             finally
             {

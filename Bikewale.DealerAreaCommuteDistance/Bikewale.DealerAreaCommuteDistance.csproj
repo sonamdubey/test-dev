@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommuteDistanceBL.cs" />
+    <Compile Include="CommuteDistanceConsumer.cs" />
     <Compile Include="CommuteDistanceRepository.cs" />
     <Compile Include="DealerEntity.cs" />
     <Compile Include="GoogleDistanceAPIHelper.cs" />
