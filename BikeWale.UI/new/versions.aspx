@@ -48,7 +48,7 @@
 </head>
 <body class="bg-light-grey" itemscope itemtype="http://schema.org/Product">
     <form runat="server">
-        <meta itemprop="description" itemtype="https://schema.org/description" content= "<%= description%>" />
+        <meta itemprop="description" itemtype="https://schema.org/description" content= "<%=modelPageEntity.ModelDesc.SmallDescription %>" />
         <meta itemprop="name" content="<%= bikeName %>" />
         <!-- #include file="/includes/headBW.aspx" -->
         <section class="bg-light-grey padding-top10" id="breadcrumb">
