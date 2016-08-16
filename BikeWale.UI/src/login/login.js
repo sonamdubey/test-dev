@@ -116,7 +116,8 @@ $(document).ready(function () {
 
 var setBackgroundImage = function () {
     if ($(window).innerWidth() > 768)
-        $('body').css({ 'background': '#6e6d71 url(http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/login-background-banner.jpg) no-repeat center center' });
+        $('body').css({ 'background': '#6e6d71 url(http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/login-background-banner.jpg) no-repeat center center', 'background-size' : 'cover' });
+        
     else
         $('body').css({ 'background': 'none' });
 }
