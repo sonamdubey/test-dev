@@ -2135,6 +2135,7 @@
     <Content Include="ads\Ad976x400_First.aspx" />
     <Content Include="ads\Ad976x400_Second.aspx" />
     <Content Include="includes\footer.aspx" />
+    <Content Include="includes\footerloginBW.aspx" />
     <Content Include="includes\footerBW.aspx" />
     <Content Include="includes\footerBW_Mobile.aspx" />
     <Content Include="includes\footerHome.aspx" />
