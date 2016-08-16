@@ -137,37 +137,25 @@ namespace Bikewale.Utility
         {
             string _articleUrl = string.Empty;
             EnumCMSContentType _contentType = default(EnumCMSContentType);
-            try
+            if (!string.IsNullOrEmpty(articleType) && Enum.TryParse<EnumCMSContentType>(articleType, true, out _contentType))
             {
-                if (!string.IsNullOrEmpty(articleType) && Enum.TryParse<EnumCMSContentType>(articleType, true, out _contentType))
+                switch (_contentType)
                 {
-                    switch (_contentType)
-                    {
-                        case EnumCMSContentType.AutoExpo2016:
-                            _articleUrl = string.Format("/news/{0}-{1}.html", basicId, articleUrl);
-                            break;
-                        case EnumCMSContentType.News:
-                            _articleUrl = string.Format("/news/{0}-{1}.html", basicId, articleUrl);
-                            break;
-                        case EnumCMSContentType.Features:
-                            _articleUrl = string.Format("/features/{0}-{1}/", articleUrl, basicId);
-                            break;
-                        case EnumCMSContentType.ComparisonTests:
-                            _articleUrl = string.Format("/expert-reviews/{0}-{1}.html", articleUrl, basicId);
-                            break;
-                        case EnumCMSContentType.RoadTest:
-                            _articleUrl = string.Format("/expert-reviews/{0}-{1}.html", articleUrl, basicId);
-                            break;
-                        default:
-                            _articleUrl = "/";
-                            break;
-                    }
+                    case EnumCMSContentType.AutoExpo2016:
+                    case EnumCMSContentType.News:
+                        _articleUrl = string.Format("/news/{0}-{1}.html", basicId, articleUrl);
+                        break;
+                    case EnumCMSContentType.ComparisonTests:
+                    case EnumCMSContentType.RoadTest:
+                        _articleUrl = string.Format("/expert-reviews/{0}-{1}.html", articleUrl, basicId);
+                        break;
+                    case EnumCMSContentType.Features:
+                        _articleUrl = string.Format("/features/{0}-{1}/", articleUrl, basicId);
+                        break;
+                    default:
+                        _articleUrl = "/";
+                        break;
                 }
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
             }
             return _articleUrl;
         }
