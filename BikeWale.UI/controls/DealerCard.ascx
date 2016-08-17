@@ -79,5 +79,5 @@
 <% } %>
  <script type="text/javascript">
 
-     var bikeCity='<%=makeName%> '+'<%=cityName%>'
+     var bikeCity='<%=makeName%> '+'_'+'<%=cityName%>'
      </script>
