@@ -61,10 +61,10 @@
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <a href="/<%= modelPageEntity.ModelDetails.MakeBase.MaskingName %>-bikes/" itemprop="url">
-                                    <span itemprop="title"><%= modelPageEntity.ModelDetails.MakeBase.MakeName %></span>
+                                    <span itemprop="title"><%= modelPageEntity.ModelDetails.MakeBase.MakeName %> Bikes</span>
                                 </a></li>
                             <li><span class="bwsprite fa-angle-right margin-right10"></span>
-                                <span><%= modelPageEntity.ModelDetails.ModelName %></span>
+                              <span itemprop="title"><%= modelPageEntity.ModelDetails.MakeBase.MakeName %></span> <span><%= modelPageEntity.ModelDetails.ModelName %></span>
                             </li>
                         </ul>
                         <div class="clear"></div>
@@ -1031,6 +1031,7 @@
             var modelPriceByVersionSlider = 2;
             // Cache selectors outside callback for performance.
             var leadSourceId;
+           
             var getCityArea = GetGlobalCityArea();
             if (bikeVersionLocation == '') {
                 bikeVersionLocation = getBikeVersionLocation();
