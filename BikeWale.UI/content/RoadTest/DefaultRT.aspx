@@ -70,7 +70,7 @@
 		<div class="content-box-shadow padding-bottom20">
 			<ul class="breadcrumb top-breadcrumb">
 				<li>You are here: </li>
-				<li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/" itemprop="url"><span itemprop="url">Home</span></a></li>
+				<li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/" itemprop="url"><span itemprop="title">Home</span></a></li>
 				<li class="fwd-arrow">&rsaquo;</li>
                 <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/<%=makeMaskingName %>-bikes/" itemprop="url"><span itemprop="title"><%=makeName%> Bikes</span></a></li>
                 <li class="fwd-arrow">&rsaquo;</li>
