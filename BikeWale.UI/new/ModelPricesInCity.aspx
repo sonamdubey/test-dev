@@ -247,7 +247,7 @@
             function getBikeVersionName()
             {
                 var bikeVersion=$('#versions .active').text();
-                var bikeNameVersion='<%=bikeName%> '+ bikeVersion;
+                var bikeNameVersion='<%=bikeName%>'+'_'+ bikeVersion;
                 return bikeNameVersion;
             
             }
