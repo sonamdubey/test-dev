@@ -255,9 +255,11 @@
             $(document).ready(function () {
                 $('#user-details-submit-btn').click(function () {
                     var bikeName = $('#getLeadBike :selected').text();
-                    var cityName = GetGlobalCityArea();      
-                    triggerGA('Make_Page', 'Lead_Submitted', bikeName + "_" + cityName );
-                });
+                    if (bikeName != 'Select a bike') {
+                        var cityName = GetGlobalCityArea();
+                        triggerGA('Make_Page', 'Lead_Submitted', bikeName + "_" + cityName);
+                    }
+                    });
 
                 $("img.lazy").lazyload();
                 if ($("#discontinuedMore a").length > 4) {
