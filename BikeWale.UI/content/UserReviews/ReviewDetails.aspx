@@ -33,13 +33,13 @@
             <li class="fwd-arrow">&rsaquo;</li>
             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                 <a href="/<%= MakeMaskingName%>-bikes/" itemprop="url">
-                    <span itemprop="title"><%= BikeMake%></span>
+                    <span itemprop="title"><%= BikeMake%> Bikes</span>
                 </a>
             </li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                 <a href="/<%= MakeMaskingName%>-bikes/<%= ModelMaskingName%>/" itemprop="url">
-                    <span itemprop="title"><%= BikeModel%></span>
+                    <span itemprop="title"><%= BikeMake%> <%= BikeModel%></span>
                 </a>
             </li>
             <li class="fwd-arrow">&rsaquo;</li>

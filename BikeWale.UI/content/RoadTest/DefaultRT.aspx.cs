@@ -34,9 +34,7 @@ namespace Bikewale.Content
         //protected MakeModelSearch MakeModelSearch;
         protected HtmlGenericControl alertObj;
         protected LinkPagerControl linkPager;
-
         protected string nextUrl = string.Empty, prevUrl = string.Empty, makeName = string.Empty, modelName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty;
-
         private const int _pageSize = 10;
         private int _pageNo = 1;
         private const int _pagerSlotSize = 5;
@@ -125,6 +123,7 @@ namespace Bikewale.Content
                                 IBikeModels<BikeModelEntity, int> objClient = modelContainer.Resolve<IBikeModels<BikeModelEntity, int>>();
                                 BikeModelEntity bikemodelEnt = objClient.GetById(Convert.ToInt32(_modelId));
                                 modelName = bikemodelEnt.ModelName;
+                               
                             }
                         }
                         else
