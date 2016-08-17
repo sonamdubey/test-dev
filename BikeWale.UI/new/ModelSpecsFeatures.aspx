@@ -379,7 +379,14 @@
                         }
                         triggerGA('SpecsandFeature', 'Show_On_Road_Price_Clicked', bikeVersionName+'_'+ $('#versions .active').text() + '_' + $('#ddlCitiesPopup option:selected').html() + selArea);
                     });
-                
+                    $("#user-details-submit-btn").click(function () {
+                        if ($("#getFullName").val() != '' && $("#getEmailID").val() != '' && $("#getMobile").val() != '')
+                        {
+                            triggerGA('SpecsandFeature', 'Lead_Submitted', "<%= string.Format("{0}_{1}_{2}_{3}", makeName, modelName,cityName,areaName)%>");
+                        }
+
+                    });
+
            
                
                 var hashValue = window.location.hash.substr(1);
