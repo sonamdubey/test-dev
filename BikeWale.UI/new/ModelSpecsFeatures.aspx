@@ -360,10 +360,10 @@
         <script type="text/javascript">
             var pageUrl = window.location.href;
             var clientIP = '<%= clientIP %>';
-            var bikename='<%= bikeName %> '
-            var bikeVersionName=bikename+' <%= versionName %>' 
-            var cityArea='<%=cityName%> '+'<%=areaName%>'
-            var BkCityArea=bikename+cityArea;
+            var bikename='<%= bikeName %>'
+            var bikeVersionName=bikename+'_'+'<%= versionName %>' 
+            var cityArea='<%=cityName%>'+'_'+'<%=areaName%>'
+            var BkCityArea=bikename+'_'+cityArea;
             ga_pg_id=15;
             $(document).ready(function () {
                 var ShowOffer='<%=isGetOfferShown%>'
