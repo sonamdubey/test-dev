@@ -1691,12 +1691,12 @@ var cityArea = {
 }
 
 
-$('#city-menu-input').on('focus', function (event) {
+$('#city-menu-input').on('focus click', function (event) {
     event.stopPropagation();
     $("#city-area-popup").animate({ scrollTop: 147 });
 });
 
-$('#area-menu-input').on('focus', function (event) {
+$('#area-menu-input').on('focus click', function (event) {
     event.stopPropagation();
     $("#city-area-popup").animate({ scrollTop: 190 });
 });
