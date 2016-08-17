@@ -474,35 +474,45 @@
                     <!-- varient code starts here -->
                     <h3 class="padding-right20 padding-left20">Prices by versions</h3>
 
-                    <div class="swiper-container">
-                        <div class="swiper-wrapper font14">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="padding-right20 padding-left20 margin-bottom5">
+                        <thead>
+                            <tr>
+                                <th align="left" width="65%" class="font12 text-unbold text-x-light padding-bottom5 border-solid-bottom">Version</th>
+                                <th align="left" width="35%" class="font12 text-unbold text-x-light padding-bottom5 border-solid-bottom">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             <asp:Repeater ID="rptVarients" runat="server" OnItemDataBound="rptVarients_ItemDataBound2">
-                                <ItemTemplate>                         
-                                        <div class="swiper-slide model-prices-version-content rounded-corner2">
-                                            <p class="text-bold text-truncate margin-bottom13"><%# DataBinder.Eval(Container.DataItem, "VersionName") %></p>
-                                            <p class="text-truncate text-xt-light-grey margin-bottom13"><%# Bikewale.Utility.FormatMinSpecs.GetMinVersionSpecs(Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "AlloyWheels")), Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "ElectricStart")), Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "AntilockBrakingSystem")), Convert.ToString(DataBinder.Eval(Container.DataItem, "BrakeType"))) %></p>
-                                            <p class="text-truncate text-light-grey margin-bottom10" id="<%# "locprice_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">
-                                                 <asp:Label ID="lblExOn" Text="Ex-showroom price" runat="server"></asp:Label>,
-                                                    <% if (cityId != 0 && cityName != string.Empty)
-                                                    { %>
-                                                    <%= cityName %>
-                                                    <% }
-                                                        else
-                                                        { %>
-                                                    <%= Bikewale.Common.Configuration.GetDefaultCityName %>
-                                                    <% } %>
-                                            </p>
-                                            <p class="font18 text-bold text-black">
-                                                <span class="bwmsprite inr-dark-md-icon"></span>
-                                                <span id="<%# "priced_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>"> <asp:Label Text='<%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price"))) %>' ID="txtComment" runat="server"></asp:Label></span>
-                                            </p>
-                                        </div>
-                                        <asp:HiddenField ID="hdnVariant" runat="server" Value='<%#Eval("VersionId") %>' />                           
+                                <ItemTemplate>
+                                    <tr>
+							            <td width="65%" class="padding-bottom10 padding-top10 font14 divider-bottom" valign="top"><%# DataBinder.Eval(Container.DataItem, "VersionName") %></td>
+							            <td width="35%" class="padding-bottom10 padding-top10 divider-bottom" valign="top">
+                                            <span class="bwmsprite inr-dark-md-icon"></span>
+                                            <span id="<%# "priced_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>" class="font16 text-bold">
+                                                <asp:Label Text='<%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price"))) %>' ID="txtComment" runat="server"></asp:Label>
+                                            </span>
+							            </td>
+						            </tr>
+                                    <asp:HiddenField ID="hdnVariant" runat="server" Value='<%#Eval("VersionId") %>' />                           
                                 </ItemTemplate>
                             </asp:Repeater>
-                        </div>
-                    </div>
-
+                            <tr>
+						        <td colspan="2" class="padding-top5 font12 text-x-light">Above mentioned price are Ex-showroom, Mumbai</td>
+                                <%--<p class="text-truncate text-light-grey margin-bottom10" id="<%# "locprice_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">
+                                    <asp:Label ID="lblExOn" Text="Ex-showroom price" runat="server"></asp:Label>,
+                                    <% if (cityId != 0 && cityName != string.Empty)
+                                    { %>
+                                    <%= cityName %>
+                                    <% }
+                                        else
+                                        { %>
+                                    <%= Bikewale.Common.Configuration.GetDefaultCityName %>
+                                    <% } %>
+                                </p>--%>
+					        </tr>
+                        </tbody>
+                    </table>
+                    
                     <!-- varient code ends here -->
                     <% } %>
                    <BW:TopCityPrice ID="ctrlTopCityPrices" runat="server" />
@@ -515,38 +525,43 @@
                         <h2><%=bikeName %> Specifications & Features</h2>
                         <h3>Specifications</h3>
 
-                        <ul id="modelSpecsList">
+                        <ul id="model-specs-list">
                             <li>
-                                <div class="text-light-grey padding-right10">Displacement</div>
-                                <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement,"cc") %></div>
-                            </li>       
-                            <li>
-                                <div class="text-light-grey padding-right10">Max Power</div>
-                                <div class="text-bold"> <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower, "bhp", 
-                                                                    modelPage.ModelVersionSpecs.MaxPowerRPM, "rpm") %></div>
-                            </li>
-                            <li>
-                                <div class="text-light-grey padding-right10">Maximum Torque</div>
-                                <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaximumTorque, "Nm",
-                                                                    modelPage.ModelVersionSpecs.MaximumTorqueRPM, "rpm") %></div>
-                            </li>
-                            <li>
-                                <div class="text-light-grey padding-right10">No. of gears</div>
-                                <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.NoOfGears) %></div>
-                            </li>
-                            <li>
-                                <div class="text-light-grey padding-right10">Fuel Tank Capacity</div>
-                                <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelTankCapacity, "litres") %></div>
-                            </li>
-                            <li>
-                                <div class="text-light-grey padding-right10">Top Speed</div>
-                                <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.TopSpeed, "kmph") %></div>
+                                <div class="model-accordion-tab">
+                                    <span class="offers-sprite engine-sm-icon"></span>
+                                    <span>Engine & transmission</span>
+                                    <span></span>
+                                </div>
+                                <ul id="modelSpecsList">
+                                    <li>
+                                        <div class="text-light-grey padding-right10">Displacement</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement,"cc") %></div>
+                                    </li>       
+                                    <li>
+                                        <div class="text-light-grey padding-right10">Max Power</div>
+                                        <div class="text-bold"> <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower, "bhp", 
+                                                                            modelPage.ModelVersionSpecs.MaxPowerRPM, "rpm") %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey padding-right10">Maximum Torque</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaximumTorque, "Nm",
+                                                                            modelPage.ModelVersionSpecs.MaximumTorqueRPM, "rpm") %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey padding-right10">No. of gears</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.NoOfGears) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey padding-right10">Fuel Tank Capacity</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelTankCapacity, "litres") %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey padding-right10">Top Speed</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.TopSpeed, "kmph") %></div>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
-                        <div class="margin-top25">
-                            <a href="/m<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName, "modelSpecifications",versionId) %>"  class="bw-ga" c="Model_Page" a="View_full_specifications_link_cliked" v="myBikeName" title="<%=bikeName %> Specifications">View full specifications<span class="bwmsprite blue-right-arrow-icon"></span></a>
-                            
-                        </div>
 
                         <h3 class="margin-top25">Features</h3>
 
