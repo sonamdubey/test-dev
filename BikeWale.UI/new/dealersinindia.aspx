@@ -32,6 +32,11 @@
                                 <span itemprop="title">Home</span>
                             </a>
                         </li>
+                           <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <a href="/<%=makeMaskingName%>-bikes/" itemprop="url">
+                                <span itemprop="title"><%=objMMV.MakeName %> Bikes</span>
+                            </a>
+                        </li>
                         <li><span class="bwsprite fa fa-angle-right margin-right10"></span>Dealer Locator</li>
                     </ul>
                     <div class="clear"></div>

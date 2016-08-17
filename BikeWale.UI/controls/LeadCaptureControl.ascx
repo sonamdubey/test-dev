@@ -79,7 +79,7 @@
     
 
     $(function () {
-
+        
         leadBtnBookNow.on('click', function () {
             leadCapturePopup.show();
             $("#dealer-lead-msg").hide();
@@ -118,6 +118,7 @@
         }); 
 
         $("#getMobile").on("blur", function () {
+           
             if (prevMobile != $(this).val().trim()) {
                 if (self.validateMobileNo($(this))) {
                     dleadvm.IsVerified(false);
@@ -144,7 +145,6 @@
                 }
             }
         });
-
     });
 
 

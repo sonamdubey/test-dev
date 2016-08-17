@@ -47,11 +47,11 @@
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <a href="/<%= makeMaskingName %>-bikes/" itemprop="url">
-                                    <span itemprop="title"><%=makeName %></span>
+                                    <span itemprop="title"><%=makeName %> Bikes</span>
                                 </a></li>
                             <li><span class="bwsprite fa-angle-right margin-right10"></span>
                                 <a href="/<%= makeMaskingName %>-bikes/<%= modelMaskingName %>/" itemprop="url">
-                                    <span><%= modelName %></span>
+                                    <span><%=makeName %> <%= modelName %></span>
                                 </a>
                             </li>
                             <li><span class="bwsprite fa-angle-right margin-right10"></span>

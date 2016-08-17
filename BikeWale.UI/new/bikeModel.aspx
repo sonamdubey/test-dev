@@ -62,8 +62,8 @@
                         <!-- breadcrumb code starts here -->
                         <ul>
                             <li><a href="/">Home</a></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span><a href="/<%= modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/"><%= modelPage.ModelDetails.MakeBase.MakeName %></a></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span><%= modelPage.ModelDetails.ModelName %></li>
+                            <li><span class="fa fa-angle-right margin-right10"></span><a href="/<%= modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/"><%= modelPage.ModelDetails.MakeBase.MakeName %> Bikes</a></li>
+                            <li><span class="fa fa-angle-right margin-right10"></span><span itemprop="title"><%= modelPageEntity.ModelDetails.MakeBase.MakeName %></span> <%= modelPage.ModelDetails.ModelName %></li>
                         </ul>
                         <div class="clear"></div>
                     </div>

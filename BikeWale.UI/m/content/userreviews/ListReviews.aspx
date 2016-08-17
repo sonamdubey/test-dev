@@ -19,9 +19,9 @@
             <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
             <a href="/m/new/" class="normal" itemprop="url"><span itemprop="title">New Bikes</span></a></span> &rsaquo;  
             <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-            <a href="/m/<%=objModelEntity.MakeBase.MaskingName %>-bikes/" class="normal" itemprop="url"><span itemprop="title"><%=objModelEntity.MakeBase.MakeName %></span></a> </span>&rsaquo; 
+            <a href="/m/<%=objModelEntity.MakeBase.MaskingName %>-bikes/" class="normal" itemprop="url"><span itemprop="title"><%=objModelEntity.MakeBase.MakeName %> Bikes</span></a> </span>&rsaquo; 
             <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-            <a href="/m/<%=objModelEntity.MakeBase.MaskingName %>-bikes/<%= objModelEntity.MaskingName %>/" class="normal" itemprop="url"><span itemprop="title"><%= objModelEntity.ModelName %></span></a></span> &rsaquo; 
+            <a href="/m/<%=objModelEntity.MakeBase.MaskingName %>-bikes/<%= objModelEntity.MaskingName %>/" class="normal" itemprop="url"><span itemprop="title"><%=objModelEntity.MakeBase.MakeName %> <%= objModelEntity.ModelName %></span></a></span> &rsaquo; 
             <span class="lightgray">User Reviews</span>
         </div>
         <div class="new-line5">

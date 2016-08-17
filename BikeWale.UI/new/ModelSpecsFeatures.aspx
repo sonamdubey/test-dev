@@ -40,7 +40,7 @@
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
-                                <a href="/<%= makeMaskingName %>-bikes/<%= modelMaskingName %>/" itemprop="url"><span itemprop="title"><%= modelName %></span></a>
+                                <a href="/<%= makeMaskingName %>-bikes/<%= modelMaskingName %>/" itemprop="url"><span itemprop="title"><%= makeName %> <%= modelName %></span></a>
                             </li>
                             <li>
                                 <span class="bwsprite fa-angle-right margin-right10"></span>

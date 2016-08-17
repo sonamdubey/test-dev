@@ -17,9 +17,9 @@
             <li>You are here: </li>
             <li><a href="/">Home</a></li>           
             <li class="fwd-arrow">&rsaquo;</li>
-            <li><a href="/<%= MakeMaskingName%>-bikes/"><%=make %></a></li>
+            <li><a href="/<%= MakeMaskingName%>-bikes/"><%=make %> Bikes</a></li>
             <li class="fwd-arrow">&rsaquo;</li>
-            <li><a href="/<%= MakeMaskingName%>-bikes/<%= ModelMaskingName%>/"><%=model %></a></li>
+            <li><a href="/<%= MakeMaskingName%>-bikes/<%= ModelMaskingName%>/"><%=make %> <%=model %></a></li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li class="current"><strong><%=make %> <%=model %> Specifications</strong></li>
         </ul><div class="clear"></div>

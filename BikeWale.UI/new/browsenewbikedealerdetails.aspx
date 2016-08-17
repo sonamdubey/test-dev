@@ -47,10 +47,10 @@
                         </li>
                         <li class="fwd-arrow">&rsaquo;</li>
                         <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                            <a itemprop="url" href="/new/<%=makeMaskingName %>-dealers/"><span itemprop="title"><%=makeName%> Dealers</span></a>
+                            <a itemprop="url" href="/new/<%=makeMaskingName %>-dealers/"><span itemprop="title"><%=makeName%> Bikes Dealers</span></a>
                         </li>
                         <li class="fwd-arrow">&rsaquo;</li>
-                        <li class="current"><strong><%=makeName%> Dealers in <%=cityName%></strong></li>
+                        <li class="current"><strong><%=makeName%> Bikes Dealers in <%=cityName%></strong></li>
                     </ul>
                     <div class="clear"></div>
                 </div>
