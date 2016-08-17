@@ -1267,8 +1267,8 @@ var closePopUp = function (state) {
             CloseCityPopUp();
             break;
         case "onRoadPrice":
-            //closeOnRoadPricePopUp();
-            cityArea.close();
+            closeOnRoadPricePopUp();
+            //cityArea.close();
             break;
         case "contactDetails":
             leadPopupClose();

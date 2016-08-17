@@ -45,9 +45,9 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div id="top-progress-bar">
+        <%--<div id="top-progress-bar">
             <div class="progress-bar"></div>
-        </div>
+        </div>--%>
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
             <div itemscope="" itemtype="http://schema.org/Product" class="container bg-white clearfix">

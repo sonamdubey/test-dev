@@ -195,6 +195,7 @@ ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
 /* on road price popup */
 #popupWrapper.bwm-fullscreen-popup { padding:0; background:#f5f5f5; }
 .user-input-box { width:100%; position:fixed; top:0; left:100%; }
+#popupCityList, #popupAreaList { padding-top:40px; }
 #popupCityList li, #popupAreaList li { border-top: 1px solid #ccc; font-size: 14px; padding: 15px 10px; color: #333333; cursor:pointer; }
 #popupCityList li:hover, #popupAreaList li:hover { background: #ededed; } 
 .border-last-bottom { border-bottom:2px solid #555; }
@@ -754,150 +755,20 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     width: 100%;
 }
 
-#city-area-popup.bwm-fullscreen-popup {
-    padding: 50px 0 10px;
+#popupWrapper.loader-active .popup-inner-container, #popup-loader-container {
     display: none;
 }
 
-#city-area-popup .header-fixed {
-    padding: 15px 10px;
-    height: 50px;
-}
-
-#city-area-popup .white-back-arrow {
-    top: 0px;
-    display: inline-block;
-}
-
-#city-area-popup .header-title {
-    position: relative;
-    top: -3px;
-}
-
-.header-fixed.fixed {
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    z-index: 3;
-}
-
-#city-area-popup .header-back-btn {
-    padding-left:5px;
-    cursor:pointer;
-    margin-right:4px;
-}
-
-.city-area-banner {
-    width: 100%;
-    max-width: 768px;
-    height: 110px;
-    background: #fff url(http://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/m/city-area-banner.jpg) no-repeat center bottom;
-}
-
-#city-area-content {
-    padding-top: 5px;
-    padding-bottom: 10px;
-}
-
-.city-area-tab {
-    font-size: 16px;
-    font-weight: bold;
-    color: #000;
-    padding: 10px 20px;
-    position: relative;
-}
-
-.chevron-down {
-    display: none;
-    width: 16px;
-    height: 11px;
-    background-position: -194px -421px;
-    cursor: pointer;
-}
-
-.city-area-tab .chevron-down {
-    position: absolute;
-    top: 16px;
-    right: 20px;
-    -moz-transition: transform .3s;
-    -webkit-transition: transform .3s;
-    -o-transition: transform .3s;
-    -ms-transition: transform .3s;
-    transition: transform .3s;
-}
-
-#area-menu .city-area-tab {
-    border-top: 1px solid #e2e2e2;
-}
-
-.city-selected .chevron-down {
-    display: inline-block;
-}
-
-.city-selected .city-area-menu.open .chevron-down {
-    display: inline-block;
-    -moz-transform: rotateZ(180deg);
-    -webkit-transform: rotateZ(180deg);
-    -o-transform: rotateZ(180deg);
-    -ms-transform: rotateZ(180deg);
-    transform: rotateZ(180deg);
-}
-
-.inputbox-list-wrapper {
-    padding: 0 20px;
-    min-height:300px;
-}
-
-.inputbox-list-wrapper .user-input-box {
-    position: relative;
-    top: 0;
-    left: 0;
-}
-
-.form-control-box .search-icon-grey {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    cursor: pointer;
-    z-index: 2;
-    background-position: -34px -275px;
-}
-
-.form-control-box .fa-spinner {
-    display: none;
-    right: 14px;
-    top: 12px;
-    z-index: 3;
-}
-
-.inputbox-list-wrapper li {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    font-size: 16px;
-    cursor: pointer;
+#popupWrapper.loader-active #popup-loader-container {
+    text-align: center;
     display: block;
-    border-top: 1px solid #f1f1f1;
 }
 
-.inputbox-list-wrapper li:first-child {
-    border-top: 0;
+#popup-loader {
+    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+    background: url(../images/red-loader2.gif) no-repeat center center;
 }
-
-#area-menu {
-    display: none;
-}
-
-#area-menu-list li {
-    color: #82888b;
-    border-top: 0;
-    padding-top: 12px;
-    padding-bottom: 12px;
-}
-
-#area-menu-list li.active {
-    color: #4d5057;
-}
-
 
 
