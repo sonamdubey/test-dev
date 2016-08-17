@@ -277,7 +277,7 @@ function requestForgotPwd() {
         success: function (response) {
             var responseJSON = eval('(' + response + ')');
             if (responseJSON.value == true) {
-                $("#processing_pwd_fp").html("Your password has been sent to your email address.");
+                $("#processing_pwd_fp").html("The link to reset your password has been sent on your email id.");
             }
             else if (responseJSON.value == false) {
                 $("#processing_pwd_fp").html("<span class='readmore'>This email id is not registered with us.");

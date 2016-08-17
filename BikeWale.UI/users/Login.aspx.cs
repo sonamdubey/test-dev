@@ -1,5 +1,4 @@
 ﻿using Bikewale.Common;
-using Bikewale.Common.BWSecurity;
 using Bikewale.Service.Controllers.Customer;
 using Bikewale.UI.Entities.Customer;
 using System;
@@ -30,6 +29,7 @@ namespace BikWale.Users
 
         public string RedirectUrl
         {
+            get { return redirectUrl; }
             set { redirectUrl = value; }
         }
 
@@ -77,12 +77,6 @@ namespace BikWale.Users
                     RedirectPath();
                 }
             }
-
-            //check whether the user is already authenticated
-            if (HttpContext.Current.User.Identity.IsAuthenticated == true)
-            {
-                Response.Redirect(CommonOpn.AppPath + "default.aspx");
-            }
         }
 
         private void LoginUser(object sender, EventArgs e)
@@ -95,7 +89,7 @@ namespace BikWale.Users
                     System.Web.Script.Serialization.JavaScriptSerializer cityjson = new System.Web.Script.Serialization.JavaScriptSerializer();
                     AuthenticatedCustomer objCust = (AuthenticatedCustomer)cityjson.Deserialize(hdnAuthData.Value, typeof(AuthenticatedCustomer));
 
-                    if (objCust.IsAuthorized)
+                    if (objCust != null && objCust.IsAuthorized)
                     {
                         CreateAuthenticationCookie(objCust.AuthenticationTicket, true);
                     }
@@ -105,6 +99,7 @@ namespace BikWale.Users
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
+                RedirectPath();
             }
         }
 
@@ -158,6 +153,7 @@ namespace BikWale.Users
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
+                RedirectPath();
             }
         }
 
@@ -198,17 +194,25 @@ namespace BikWale.Users
             {
                 string returnUrl = Request.QueryString["ReturnUrl"];
 
-                if (ScreenInput.IsValidRedirectUrl(returnUrl) == true)
-                    Response.Redirect(returnUrl);
+                if (!string.IsNullOrEmpty(returnUrl))
+                    Response.Redirect(returnUrl, false);
                 else
-                    Response.Redirect("/");
+                    Response.Redirect("/", false);
+
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
             }
-            else if (redirectUrl != "")
+            else if (RedirectUrl != "")
             {
-                if (ScreenInput.IsValidRedirectUrl(redirectUrl) == true)
-                    Response.Redirect(redirectUrl);
+                if (!string.IsNullOrEmpty(RedirectUrl))
+                {
+                    Response.Redirect(RedirectUrl, false);
+                }
                 else
-                    Response.Redirect("/");
+                {
+                    Response.Redirect("/", false);
+                }
+
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
             }
         }
     }
