@@ -67,7 +67,7 @@
                 <div id="errMsgPopup" class="text-red margin-bottom10 hide"></div>
                 <!-- ko if:SelectedCityId() > 0 &&  (SelectedAreaId() > 0 || !hasAreas()) -->
                 <span class="position-abt progress-bar btn-loader"></span>
-                <a id="btnDealerPricePopup" class="btn btn-orange btn-full-width font18" data-bind=" click: getPriceQuote ">Show on-road price</a>
+                <a id="btnDealerPricePopup"  class="btn btn-orange btn-full-width font18" data-bind=" click: getPriceQuote">Show on-road price</a>
                 <!-- /ko -->
             </div>
         </div>
@@ -113,8 +113,8 @@
     var selectedMakeName = '', selectedModelName = '', selectedCityName = '', selectedAreaName = '', gaLabel = '', isModelPage = false;
     var PQSourceId;
     var opBrowser = false;
-
-
+    
+    
     (function (window) {
         // browser
         var nAgt = navigator.userAgent;
@@ -138,6 +138,8 @@
         $('a.fillPopupData').removeClass('ui-btn-active');
     });
 
+
+
     $('body').on("click", "a.fillPopupData", function (e) {
 
         e.stopPropagation();
@@ -147,11 +149,15 @@
         selCityId = $(this).attr('selCityId');
         PQSourceId = $(this).attr('pqSourceId');
         var makeName = $(this).attr('makeName'), modelName = $(this).attr('modelName');
+      
         var modelIdPopup = parseInt(str, 10);
         gtmCodeAppender(pageIdAttr, "Get_On_Road_Price_Click", modelName);
         MPopupViewModel.MakeName = makeName;
         MPopupViewModel.ModelName = modelName;
+        
         MPopupViewModel.PageCatId = pageIdAttr;
+       
+       
         selectedModel = modelIdPopup;
         isModelPage = $(this).attr('ismodel');
         if (MPopupViewModel.SelectedModelId() != selectedModel) {
@@ -177,6 +183,9 @@
         self.BookingAreas = ko.observableArray([]);
         self.oBrowser = ko.observable(opBrowser);
         self.hasAreas = ko.observable();
+
+        
+
         self.getCities = function () {
             var isAborted = false;
             $("#citySelection div.selected-city").text("Loading Cities..");
@@ -315,6 +324,7 @@
                         else {
                             actText = 'City_Selected_Doesnt_Have_Area';
                         }
+                     
                         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': actText, 'lab': getBikeVersion() + '_' + self.SelectedCity().name });
                         cityClicked = true;
                     }
@@ -360,14 +370,26 @@
         self.getPriceQuote = function (data, event) {
             var cityId = self.SelectedCityId(), areaId = self.SelectedAreaId() ? self.SelectedAreaId() : 0;
             pageId = self.PageCatId;
-
             cookieValue = self.SelectedCity().id + "_" + self.SelectedCity().name;
             if (self.SelectedArea() != undefined) {
                 cookieValue += ("_" + self.SelectedArea().id + "_" + self.SelectedArea().name);
-            }
+            }  
             SetCookieInDays("location", cookieValue, 365);
-
             if (self.verifyDetails()) {
+                var lab, act = 'Show_On_Road_Price_Clicked',cat;
+               
+                if (ga_pg_id == 15 || ga_pg_id == 16) {
+                    cat = GetCatForNav();
+                    if (self.SelectedArea() != undefined) {
+                        lab = bikenamever + '_' + self.SelectedCity().name + '_' + self.SelectedArea().name;
+                    }
+                    else {
+                        lab = bikenamever + '_' + self.SelectedCity().name;
+                    }
+                    triggerGA(cat, act, lab);
+                }
+                
+
 
                 if (isModelPage && ga_pg_id != null && ga_pg_id == 2) {
                     try {

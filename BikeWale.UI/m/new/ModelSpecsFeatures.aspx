@@ -15,6 +15,7 @@
     <style type="text/css">
         .content-inner-block-1420{padding:14px 20px;}.content-inner-block-120{padding:10px 20px 0;}.text-dark-black{color:#1a1a1a;}.text-truncate{width:100%; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}.model-price-content{width:110px;}.model-area-content{width:60%;position:relative;top:6px;}.specs-features-wrapper{height:44px;}#specsFeaturesTabsWrapper{width:100%; background:#fff;z-index:3; display:block; border-bottom:1px solid #e2e2e2; overflow-x:auto;}.model-specs-features-tabs-wrapper{display:table; background:#fff;}.model-specs-features-tabs-wrapper li{padding:10px 20px; display:table-cell; text-align:center; white-space:nowrap; font-size:14px; color:#82888b;}.model-specs-features-tabs-wrapper li.active{border-bottom:3px solid #ef3f30; font-weight:bold; color:#4d5057;}.border-divider{ border-top:1px solid #e2e2e2;}.specs-features-list{overflow:hidden;}.specs-features-list li{margin-bottom:20px;}.specs-features-list p {width:50%;float:left; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}.specs-features-label{color:#82888b;}.specs-features-value {padding-left:20px;font-weight:bold;}.fixed-topNav{position:fixed;top:0;left:0;}.float-button{background-color:#fff;padding:10px}.float-button.float-fixed{position:fixed;bottom:0;z-index:8;left:0;right:0;background:#f5f5f5;}
     </style>
+   
 </head>
 <body>
     <form runat="server">
@@ -290,7 +291,7 @@
                      %>
                 <div class="grid-12 float-button float-fixed">
                     <div class="grid-6 alpha omega padding-right5">
-                        <a class="btn btn-white btn-full-width btn-sm rightfloat leadcapturebtn" 
+                        <a class="bw-ga btn btn-white btn-full-width btn-sm rightfloat leadcapturebtn" c="SpecsandFeature" a="Get_Offers_Clicked" v="bikenameLocation" data-ga-cat="SpecsandFeature" data-ga-act="Lead_Submitted" data-ga-lab="<%= string.Format("{0}_{1}", makeName, modelName)%>"
                             data-leadsourceid="28" data-pqsourceid="55" data-item-name="<%= dealerDetail.PrimaryDealer.DealerDetails.Organization %>"
                              data-item-area="<%= areaName %>" data-item-id="<%= dealerDetail.PrimaryDealer.DealerDetails.DealerId %>"
                             href="javascript:void(0)" rel="nofollow">Get offers</a>
@@ -306,8 +307,8 @@
                    else if (toShowOnRoadPriceButton)
                {%>
                 <div class="grid-12 float-button float-fixed">
-                    <a class="btn btn-full-width font18 btn-orange fillPopupData" 
-                        isModel="true" data-pqsourceid="54" pqSourceId="54" modelId="<%= modelId %>" 
+                    <a class="btn btn-full-width font18 btn-orange fillPopupData bw-ga" c="SpecsandFeature"
+                        a="Check_On_Road_Price_Clicked" l="<%=string.Format("{0}_{1}_{2}", makeName,modelName,versionName) %>" isModel="true" data-pqsourceid="54" pqSourceId="54" modelId="<%= modelId %>" 
                          href="javascript:void(0)" rel="nofollow">Check on-road price</a>
                 </div>
                 <%} %>
@@ -324,7 +325,28 @@
             ga_pg_id = "15";
             var pageUrl = window.location.href;
             var clientIP = '<%= clientIP %>';
+            var dealerOffers = '<%=isDealerOfferAvailable%>';
+            var bikenamever = '<%=string.Format("{0}_{1}_{2}", makeName,modelName,versionName)%>';
+            var areaname='<%=areaName%>';
+            var bikenameLocation='<%=string.Format("{0}_{1}_{2}", makeName,modelName,cityName)%>';
+            if(areaname!='')
+                bikenameLocation=bikenameLocation+'_'+areaname;
             $(document).ready(function () {
+                
+                if(dealerOffers){
+                    try{
+                        
+                        var lab=bikenameLocation;
+                        if(areaname!=''){
+                            lab=lab+'_'+areaname;
+                        }
+                        triggerNonInteractiveGA('SpecsandFeature','Get_Offers_Shown',lab);
+                    }
+                    catch(e){
+
+                    }
+                }
+
                 var $window = $(window),
                     topNavBarWrapper = $('.specs-features-wrapper'),
                     topNavBar = $('#specsFeaturesTabsWrapper'),
@@ -392,12 +414,17 @@
                         "dealerid": ele.attr('data-item-id'),
                         "dealername": ele.attr('data-item-name'),
                         "dealerarea": ele.attr('data-item-area'),
-                        "versionid": <%= versionId %>,
+                        "versionid": '<%= versionId %>',
                         "leadsourceid": ele.attr('data-leadsourceid'),
                         "pqsourceid": ele.attr('data-pqsourceid'),
                         "pageurl": pageUrl,
                         "clientip": clientIP,
-                        "isregisterpq": true
+                        "isregisterpq": true,
+                        "gaobject": {
+                            cat: ele.attr('data-ga-cat'),
+                            act: ele.attr('data-ga-act'),
+                            lab: ele.attr('data-ga-lab')
+                        }
                     };
                     dleadvm.setOptions(leadOptions);
                 });
@@ -407,6 +434,8 @@
                         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Specs_Page', 'act': 'Lead_Submitted', 'lab': "<%= string.Format("{0}_{1}_{2}_{3}_{4}", makeName, modelName, versionName, cityName, areaName )%>" });
                     }
                 });
+
+                
                 
             });
         </script>
