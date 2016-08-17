@@ -113,7 +113,7 @@
     var selectedMakeName = '', selectedModelName = '', selectedCityName = '', selectedAreaName = '', gaLabel = '', isModelPage = false;
     var PQSourceId;
     var opBrowser = false;
-
+    
     
     (function (window) {
         // browser
@@ -377,14 +377,15 @@
             SetCookieInDays("location", cookieValue, 365);
             if (self.verifyDetails()) {
                 var lab, act = 'Show_On_Road_Price_Clicked',cat;
-                if (self.SelectedArea() != undefined) {
-                    lab = bikenamever + '_' + self.SelectedCity().name + '_' + self.SelectedArea().name;
-                }
-                else {
-                    lab = bikenamever + '_' + self.SelectedCity().name;
-                }
+               
                 if (ga_pg_id == 15 || ga_pg_id == 16) {
                     cat = GetCatForNav();
+                    if (self.SelectedArea() != undefined) {
+                        lab = bikenamever + '_' + self.SelectedCity().name + '_' + self.SelectedArea().name;
+                    }
+                    else {
+                        lab = bikenamever + '_' + self.SelectedCity().name;
+                    }
                     triggerGA(cat, act, lab);
                 }
                 

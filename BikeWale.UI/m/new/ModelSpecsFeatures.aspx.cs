@@ -237,10 +237,13 @@ namespace Bikewale.Mobile
                     IDealerPriceQuoteDetail objIPQ = container.Resolve<IDealerPriceQuoteDetail>();
                     IDealerPriceQuote dealerPQ = container.Resolve<IDealerPriceQuote>();
                     DealerInfo dealerInfo = dealerPQ.IsDealerExists(versionId, areaId);
-                 
+                   
+
                     if (dealerInfo != null && dealerInfo.DealerId > 0)
                     {
                         detailedDealer = objIPQ.GetDealerQuotation(cityId, versionId, dealerInfo.DealerId);
+                        
+                        
                     }
 
                 }

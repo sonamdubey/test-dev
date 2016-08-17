@@ -291,7 +291,7 @@
                      %>
                 <div class="grid-12 float-button float-fixed">
                     <div class="grid-6 alpha omega padding-right5">
-                        <a class="btn btn-white btn-full-width btn-sm rightfloat leadcapturebtn bw-ga" c="SpecsandFeature" a="Get_Offers_Clicked" v="bikenameLocation"
+                        <a class="bw-ga btn btn-white btn-full-width btn-sm rightfloat leadcapturebtn" c="SpecsandFeature" a="Get_Offers_Clicked" v="bikenameLocation" data-ga-cat="SpecsandFeature" data-ga-act="Lead_Submitted" data-ga-lab="<%= string.Format("{0}_{1}", makeName, modelName)%>"
                             data-leadsourceid="28" data-pqsourceid="55" data-item-name="<%= dealerDetail.PrimaryDealer.DealerDetails.Organization %>"
                              data-item-area="<%= areaName %>" data-item-id="<%= dealerDetail.PrimaryDealer.DealerDetails.DealerId %>"
                             href="javascript:void(0)" rel="nofollow">Get offers</a>
@@ -325,7 +325,7 @@
             ga_pg_id = "15";
             var pageUrl = window.location.href;
             var clientIP = '<%= clientIP %>';
-            var dealerOffers='<%=isDealerOfferAvailable%>';
+            var dealerOffers = '<%=isDealerOfferAvailable%>';
             var bikenamever = '<%=string.Format("{0}_{1}_{2}", makeName,modelName,versionName)%>';
             var areaname='<%=areaName%>';
             var bikenameLocation='<%=string.Format("{0}_{1}_{2}", makeName,modelName,cityName)%>';
@@ -414,12 +414,17 @@
                         "dealerid": ele.attr('data-item-id'),
                         "dealername": ele.attr('data-item-name'),
                         "dealerarea": ele.attr('data-item-area'),
-                        "versionid": <%= versionId %>,
+                        "versionid": '<%= versionId %>',
                         "leadsourceid": ele.attr('data-leadsourceid'),
                         "pqsourceid": ele.attr('data-pqsourceid'),
                         "pageurl": pageUrl,
                         "clientip": clientIP,
-                        "isregisterpq": true
+                        "isregisterpq": true,
+                        "gaobject": {
+                            cat: ele.attr('data-ga-cat'),
+                            act: ele.attr('data-ga-act'),
+                            lab: ele.attr('data-ga-lab')
+                        }
                     };
                     dleadvm.setOptions(leadOptions);
                 });
