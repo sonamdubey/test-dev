@@ -38,7 +38,7 @@ namespace Bikewale.Ajax
 
                     if (!(String.IsNullOrEmpty(compareBikes)))
                     {
-                        if (compareBikes == "New")
+                        if (compareBikes == "New" || compareBikes == "new")
                         {
                             sql += " and ve.new=1 and ve.isfuturisticmodel = 0 and ve.isdeleted=0";
        
