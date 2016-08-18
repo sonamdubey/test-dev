@@ -86,6 +86,8 @@ namespace Bikewale.DAL.PriceQuote
 
         /// <summary>
         /// Summary : Function to Get the price quote by price quote id.
+        /// Modified by :   Sumit Kate on 18 Aug 2016
+        /// Description :   Created new SP to return state name in result. Replaced in/out parameters with DataReader approach
         /// </summary>
         /// <param name="pqId">price quote id. Only positive numbers are allowed</param>
         /// <returns>Returns price quote object.</returns>
@@ -97,41 +99,29 @@ namespace Bikewale.DAL.PriceQuote
                 objQuotation = new BikeQuotationEntity();
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getpricequote_new_01022016";
+                    cmd.CommandText = "getpricequote_new_18082016";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbType.Int64, pqId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_exshowroomprice", DbType.Int64, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_rto", DbType.Int32, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_insurance", DbType.Int32, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_onroadprice", DbType.Int64, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makename", DbType.String, 30, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbType.String, 30, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionname", DbType.String, 50, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_city", DbType.String, 50, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_numofrows", DbType.Int32, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_manufacturerid", DbType.Int32, ParameterDirection.Output));
-                    // LogLiveSps.LogSpInGrayLog(cmd);
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
-
-                    int numberOfRecords = Convert.ToInt32(cmd.Parameters["par_numofrows"].Value);
-                    if (numberOfRecords > 0)
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
-                        objQuotation.ExShowroomPrice = Convert.ToUInt64(cmd.Parameters["par_exshowroomprice"].Value);
-                        objQuotation.RTO = Convert.ToUInt32(cmd.Parameters["par_rto"].Value);
-                        objQuotation.Insurance = Convert.ToUInt32(cmd.Parameters["par_insurance"].Value);
-                        objQuotation.OnRoadPrice = Convert.ToUInt64(cmd.Parameters["par_onroadprice"].Value);
-                        objQuotation.MakeName = Convert.ToString(cmd.Parameters["par_makename"].Value);
-                        objQuotation.ModelName = Convert.ToString(cmd.Parameters["par_modelname"].Value);
-                        objQuotation.VersionName = Convert.ToString(cmd.Parameters["par_versionname"].Value);
-                        objQuotation.City = Convert.ToString(cmd.Parameters["par_city"].Value);
-                        objQuotation.VersionId = Convert.ToUInt32(cmd.Parameters["par_versionid"].Value);
-                        objQuotation.CampaignId = Convert.ToUInt32(cmd.Parameters["par_campaignid"].Value);
-                        objQuotation.ManufacturerId = Convert.ToUInt32(cmd.Parameters["par_manufacturerid"].Value);
+                        if (dr != null && dr.Read())
+                        {
+                            objQuotation.ExShowroomPrice = Convert.ToUInt64(dr["exshowroom"]);
+                            objQuotation.RTO = Convert.ToUInt32(dr["rto"]);
+                            objQuotation.Insurance = Convert.ToUInt32(dr["insurance"]);
+                            objQuotation.OnRoadPrice = Convert.ToUInt64(dr["onroad"]);
+                            objQuotation.MakeName = Convert.ToString(dr["make"]);
+                            objQuotation.ModelName = Convert.ToString(dr["model"]);
+                            objQuotation.VersionName = Convert.ToString(dr["version"]);
+                            objQuotation.City = Convert.ToString(dr["cityname"]);
+                            objQuotation.VersionId = Convert.ToUInt32(dr["versionid"]);
+                            objQuotation.CampaignId = Convert.ToUInt32(dr["campaignid"]);
+                            objQuotation.ManufacturerId = !Convert.IsDBNull(dr["manufacturerid"]) ? Convert.ToUInt32(dr["manufacturerid"]) : default(UInt32);
+                            objQuotation.State = Convert.ToString(dr["statename"]);
 
-                        objQuotation.PriceQuoteId = pqId;
+                            objQuotation.PriceQuoteId = pqId;
+                        }
                     }
                 }
             }
