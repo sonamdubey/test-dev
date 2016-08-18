@@ -1,14 +1,10 @@
 ﻿using BikewaleOpr.Entities;
 using BikeWaleOpr.Common;
-using BikeWaleOPR.Utilities;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace BikewaleOpr.Common
 {
@@ -64,6 +60,8 @@ namespace BikewaleOpr.Common
 
         /// <summary>
         /// Inserts or updates the app version
+        /// Author  :   Sumit Kate
+        /// Description :   remove the cache if exists
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="userId"></param>
@@ -84,6 +82,14 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, userId));
 
                     isSaved = MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
+
+                    Enyim.Caching.MemcachedClient _mc1 = new Enyim.Caching.MemcachedClient("memcached");
+                    string cacheKey = String.Format("BW_AppVersion_{0}_Src_{1}", entity.Id, Convert.ToInt16(entity.AppType));
+                    var cacheObject = _mc1.Get(cacheKey);
+                    if (cacheObject != null)
+                    {
+                        _mc1.Remove(cacheKey);
+                    }
                 }
             }
             catch (Exception ex)

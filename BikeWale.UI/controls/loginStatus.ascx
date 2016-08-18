@@ -38,6 +38,6 @@
 <div class="grid_3 omega">
     <ul class="right-align">
         <li>Welcome, <asp:Label ID="lblUser" runat="server" /> <asp:HyperLink ID="hrefLogin" runat="server"></asp:HyperLink></li>
-        <%=CurrentUser.Id!= "-1" ? "": "<li>|</li><li><a href='/users/register.aspx'>REGISTER</a></li>" %>        
+        <%=CurrentUser.Id!= "-1" ? "": "<li>|</li><li><a href='/users/login.aspx'>REGISTER</a></li>" %>        
     </ul>
 </div>

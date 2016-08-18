@@ -38,10 +38,10 @@ namespace Bikewale.Ajax
 
                     if (!(String.IsNullOrEmpty(compareBikes)))
                     {
-                        if (compareBikes == "new")
+                        if (compareBikes.Equals("New", StringComparison.CurrentCultureIgnoreCase))
                         {
                             sql += " and ve.new=1 and ve.isfuturisticmodel = 0 and ve.isdeleted=0";
-       
+
                         }
                     }
 
@@ -95,7 +95,7 @@ namespace Bikewale.Ajax
 
                     if (!(String.IsNullOrEmpty(compareBikes)))
                     {
-                        if (compareBikes == "new")
+                        if (compareBikes.Equals("New", StringComparison.CurrentCultureIgnoreCase))
                         {
                             sql += " and ve.new=1 ";
                         }
@@ -154,7 +154,7 @@ namespace Bikewale.Ajax
 
                     if (!(String.IsNullOrEmpty(compareBikes)))
                     {
-                        if (compareBikes == "new")
+                        if (compareBikes.Equals("New", StringComparison.CurrentCultureIgnoreCase))
                         {
                             sql += " and ve.new=1 and ve.isfuturisticmodel = 0 ";
                         }

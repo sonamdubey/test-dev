@@ -341,6 +341,10 @@ namespace Bikewale.BAL.BikeBooking
         /// <summary>
         /// Created By : Lucky Rathore
         /// Description : To get dealer ID if primary dealer exist for mention Input.
+        /// Modified By  : Sushil Kumar on 8th August 2016
+        /// Description : Changed paramters order for IsSubscribedDealerExistsV3(versionId, areaId)
+        /// Modified By  : Sushil Kumar on 9th August 2016
+        /// Description : Added null checks for objDealerDetail
         /// </summary>
         /// <param name="versionId"></param>
         /// <param name="areaId"></param>
@@ -351,6 +355,7 @@ namespace Bikewale.BAL.BikeBooking
             BikeWale.Entities.AutoBiz.DealerInfo objDealerInfo = null;
             try
             {
+                objDealerDetail = new DealerInfo();
                 if (versionId > 0 && areaId > 0)
                 {
                     using (IUnityContainer container = new UnityContainer())
@@ -358,17 +363,20 @@ namespace Bikewale.BAL.BikeBooking
                         container.RegisterType<IDealer, Bikewale.BAL.AutoBiz.Dealers>();
                         container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, DealerPriceQuoteRepository>();
                         IDealer objDealer = container.Resolve<IDealer>();
-                        objDealerInfo = objDealer.IsSubscribedDealerExistsV3(areaId, versionId);
+                        objDealerInfo = objDealer.IsSubscribedDealerExistsV3(versionId, areaId);
 
-                        objDealerDetail = new DealerInfo() { DealerId = objDealerInfo.DealerId, IsDealerAvailable = objDealerInfo.IsDealerAvailable };
+                        if (objDealerInfo != null)
+                        {
+                            objDealerDetail.DealerId = objDealerInfo.DealerId;
+                            objDealerDetail.IsDealerAvailable = objDealerInfo.IsDealerAvailable;
+                        }
                     }
 
                 }
             }
             catch (Exception ex)
             {
-                objDealerDetail.DealerId = 0;
-                objDealerDetail.IsDealerAvailable = false;
+
                 ErrorClass objErr = new ErrorClass(ex, "ProcessPQ ex : " + ex.Message);
                 objErr.SendMail();
             }

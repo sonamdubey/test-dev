@@ -223,8 +223,6 @@ namespace Bikewale.News
                     switch (_contentType)
                     {
                         case EnumCMSContentType.AutoExpo2016:
-                            _category = "NEWS";
-                            break;
                         case EnumCMSContentType.News:
                             _category = "NEWS";
                             break;
@@ -232,8 +230,6 @@ namespace Bikewale.News
                             _category = "FEATURES";
                             break;
                         case EnumCMSContentType.ComparisonTests:
-                            _category = "EXPERT REVIEWS";
-                            break;
                         case EnumCMSContentType.RoadTest:
                             _category = "EXPERT REVIEWS";
                             break;

@@ -8,6 +8,8 @@ namespace Bikewale.Entities.PriceQuote
     /// Description : Added makeId property to get makeId for dealers card widget 
     /// Modified By : Sushil Kumar on 8th June 2016
     /// Description : Added ismodelnew and isversion new data 
+    /// Modified By :   Sumit Kate on 18 Aug 2016
+    /// Description :   Added state
     /// </summary>
     public class BikeQuotationEntity
     {
@@ -42,6 +44,8 @@ namespace Bikewale.Entities.PriceQuote
         public uint MakeId { get; set; }
         public bool IsModelNew { get; set; }
         public bool IsVersionNew { get; set; }
+
+        public string State { get; set; }
 
     }
 }
