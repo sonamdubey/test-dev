@@ -36,12 +36,6 @@
             </li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                <a href="/new/" itemprop="url">
-                    <span itemprop="title">New</span>
-                </a>
-            </li>
-            <li class="fwd-arrow">&rsaquo;</li>
-            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                 <a href="/<%= MakeMaskingName %>-bikes/" itemprop="url">
                     <span itemprop="title"><%= MakeName%> Bikes</span>
                 </a>
