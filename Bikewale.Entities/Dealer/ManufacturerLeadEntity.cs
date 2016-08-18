@@ -5,79 +5,36 @@ namespace Bikewale.Entities.Dealer
     /// <summary>
     /// Created By : Sushil Kumar
     /// Created On : 21th October 2015
+    /// Modified By :   Sumit Kate on 18 Aug 2016
+    /// Description :   Removed the private variable and kept only public properties
     /// </summary>
     public class ManufacturerLeadEntity
     {
-        private string _name;
         [JsonProperty("name")]
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
+        public string Name { get; set; }
 
-        private string _email;
         [JsonProperty("email")]
-        public string Email
-        {
-            get { return _email; }
-            set { _email = value; }
-        }
+        public string Email { get; set; }
 
-        private string _mobile;
         [JsonProperty("mobile")]
-        public string Mobile
-        {
-            get { return _mobile; }
-            set { _mobile = value; }
-        }
+        public string Mobile { get; set; }
 
-        private uint _versionId;
         [JsonProperty("versionId")]
-        public uint VersionId
-        {
-            get { return _versionId; }
-            set { _versionId = value; }
-        }
+        public uint VersionId { get; set; }
 
-        private uint _cityId;
         [JsonProperty("cityId")]
-        public uint CityId
-        {
-            get { return _cityId; }
-            set { _cityId = value; }
-        }
+        public uint CityId { get; set; }
 
-        private uint _dealerId;
         [JsonProperty("dealerId")]
-        public uint DealerId
-        {
-            get { return _dealerId; }
-            set { _dealerId = value; }
-        }
+        public uint DealerId { get; set; }
 
-        private uint _pqId;
         [JsonProperty("pqId")]
-        public uint PQId
-        {
-            get { return _pqId; }
-            set { _pqId = value; }
-        }
+        public uint PQId { get; set; }
 
-        private string _deviceId;
         [JsonProperty("deviceId")]
-        public string DeviceId
-        {
-            get { return _deviceId; }
-            set { _deviceId = value; }
-        }
+        public string DeviceId { get; set; }
 
-        private ushort _leadSourceId;
         [JsonProperty("leadSourceId")]
-        public ushort LeadSourceId
-        {
-            get { return _leadSourceId; }
-            set { _leadSourceId = value; }
-        }
+        public ushort LeadSourceId { get; set; }
     }
 }

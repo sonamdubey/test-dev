@@ -234,5 +234,27 @@ namespace Bikewale.BAL.Dealer
                 return null;
             }
         }
+        /// <summary>
+        /// Created by  :   Sumit Kate on 18 Aug 2016
+        /// Description :   Store Manufacturer Lead response
+        /// </summary>
+        /// <param name="pqId"></param>
+        /// <param name="custEmail"></param>
+        /// <param name="mobile"></param>
+        /// <param name="response"></param>
+        /// <returns></returns>
+        public bool UpdateManufaturerLead(uint pqId, string custEmail, string mobile, string response)
+        {
+            try
+            {
+                return dealerRepository.UpdateManufaturerLead(pqId, custEmail, mobile, response);
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("UpdateManufaturerLead({0}, {1}, {2}, {3})", pqId, custEmail, mobile, response));
+                objErr.SendMail();
+                return false;
+            }
+        }
     }
 }

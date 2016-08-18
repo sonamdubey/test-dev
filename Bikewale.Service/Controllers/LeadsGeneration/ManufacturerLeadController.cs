@@ -2,6 +2,7 @@
 using Bikewale.Entities.Dealer;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Service.TCAPI;
 using Bikewale.Service.Utilities;
@@ -23,15 +24,17 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
     {
         private readonly IDealerPriceQuote _objIPQ = null;
         private readonly IDealer _objDealer = null;
+        private readonly ILeadNofitication _objLead = null;
         /// <summary>
         /// Constructor 
         /// </summary>
         /// <param name="objIPQ"></param>
         /// <param name="dealer"></param>
-        public ManufacturerLeadController(IDealerPriceQuote objIPQ, IDealer dealer)
+        public ManufacturerLeadController(IDealerPriceQuote objIPQ, IDealer dealer, ILeadNofitication objLead)
         {
             _objIPQ = objIPQ;
             _objDealer = dealer;
+            _objLead = objLead;
         }
 
 
@@ -39,6 +42,8 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
         /// To genearate manufacturer Lead
         /// Modified By : Sadhana Upadhyay on 29 Dec 2015
         /// Summary : added utmz, utma, device Id etc
+        /// Modified by :   Sumit Kate on 18 Aug 2016
+        /// Description :   rearranged the data validation checks and return BadRequest if data is invalid
         /// </summary>
         /// <param name="objLead"></param>
         /// <returns></returns>
@@ -50,11 +55,9 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
 
             try
             {
-
-                if (objLead.CityId > 0 && objLead.VersionId > 0 && objLead.PQId != 0 && !String.IsNullOrEmpty(objLead.Name) && !String.IsNullOrEmpty(objLead.Email) && !String.IsNullOrEmpty(objLead.Mobile) && objLead.DealerId != 0)
+                if (objLead != null)
                 {
-
-                    if (objLead != null && objLead.PQId > 0 && objLead.DealerId > 0)
+                    if (objLead.CityId > 0 && objLead.VersionId > 0 && objLead.PQId > 0 && !String.IsNullOrEmpty(objLead.Name) && !String.IsNullOrEmpty(objLead.Email) && !String.IsNullOrEmpty(objLead.Mobile) && objLead.DealerId > 0)
                     {
                         //save manufacturer lead
                         status = _objDealer.SaveManufacturerLead(objLead);
@@ -78,15 +81,24 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
                             if (_objIPQ.SaveCustomerDetail(entity))
                             {
                                 status = AutoBizAdaptor.PushInquiryInAB(Convert.ToString(objLead.DealerId), objLead.PQId, objLead.Name, objLead.Mobile, objLead.Email, Convert.ToString(objLead.VersionId), Convert.ToString(objLead.CityId));
+                                _objLead.PushLeadToGaadi(objLead);
                             }
                         }
+                        return Ok(status);
+                    }
+                    else
+                    {
+                        return BadRequest();
                     }
                 }
-                return Ok(status);
+                else
+                {
+                    return BadRequest();
+                }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.PriceQuoteController.Post");
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.ManufacturerLeadController.Post : " + Newtonsoft.Json.JsonConvert.SerializeObject(objLead));
                 objErr.SendMail();
                 return InternalServerError();
             }
