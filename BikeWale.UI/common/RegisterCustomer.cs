@@ -1,4 +1,6 @@
-﻿using MySql.CoreDAL;
+﻿using Bikewale.Notifications;
+using Bikewale.Notifications.MailTemplates;
+using MySql.CoreDAL;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -560,8 +562,11 @@ namespace Bikewale.Common
                     CustomerDetails objCustDetails = new CustomerDetails(customerId);
                     custName = objCustDetails.Name;
 
-                    // Send Reset password link to the customer                    
-                    Bikewale.Common.Mails.CustomerPasswordRecovery(email, custName, token);
+                    // Send Reset password link to the customer   
+
+                    ComposeEmailBase objEmail = new PasswordRecoveryMail(custName, email, token);
+                    objEmail.Send(email, "BikeWale Password Recovery");
+
                     isSend = true;
                 }
             }
