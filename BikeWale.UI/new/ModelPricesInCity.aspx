@@ -206,6 +206,7 @@
             var clientIP = "<%= clientIP%>";
             var pageUrl = window.location.href; 
             var bikeName='<%=bikeName%>';
+            var CityArea=GetGlobalCityArea();
             ga_pg_id=16;
                 $("#btnDealerPricePopup").click(function () {
                     var selArea = '';
@@ -216,11 +217,12 @@
             
                 });
             $("#user-details-submit-btn").click(function () {
+                
                 var selArea = '';
                 if ($('#ddlAreaPopup option:selected').index() > 0) {
                     selArea = '_' + $('#ddlAreaPopup option:selected').html();
                 }
-                triggerGA('Price_in_City_Page', 'Lead_Submitted', "<%= string.Format("{0}_{1}_", makeName, modelName)%>"+ $('#versions .active').text() + '_' + $('#ddlCitiesPopup option:selected').html() + selArea);
+                triggerGA('Price_in_City_Page', 'Lead_Submitted', "<%= string.Format("{0}_{1}_", makeName, modelName)%>"+ CityArea);
             
             });
             $(".leadcapturebtn").click(function(e){
