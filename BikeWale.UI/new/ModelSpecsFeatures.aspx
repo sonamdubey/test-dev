@@ -368,27 +368,24 @@
             $(document).ready(function () {
                 var ShowOffer='<%=isGetOfferShown%>'
                 var isOfferShown = (ShowOffer.toLowerCase() === 'true');
-                    if(isOfferShown)
-                    {    
-                        triggerGA('SpecsandFeature', 'Get_Offers_Shown', "<%= string.Format("{0}_{1}_{2}_{3}", makeName, modelName,cityName,areaName)%>");
+                if(isOfferShown)
+                {    
+                    triggerGA('SpecsandFeature', 'Get_Offers_Shown', "<%= string.Format("{0}_{1}_{2}_{3}", makeName, modelName,cityName,areaName)%>");
+                }
+                $("#btnDealerPricePopup").click(function () {
+                    var selArea = '';
+                    if ($('#ddlAreaPopup option:selected').index() > 0) {
+                        selArea = '_' + $('#ddlAreaPopup option:selected').html();
                     }
-                    $("#btnDealerPricePopup").click(function () {
-                        var selArea = '';
-                        if ($('#ddlAreaPopup option:selected').index() > 0) {
-                            selArea = '_' + $('#ddlAreaPopup option:selected').html();
-                        }
-                        triggerGA('SpecsandFeature', 'Show_On_Road_Price_Clicked', bikeVersionName+'_'+ $('#versions .active').text() + '_' + $('#ddlCitiesPopup option:selected').html() + selArea);
-                    });
-                    $("#user-details-submit-btn").click(function () {
-                        if ($("#getFullName").val() != '' && $("#getEmailID").val() != '' && $("#getMobile").val() != '')
-                        {
-                            triggerGA('SpecsandFeature', 'Lead_Submitted', "<%= string.Format("{0}_{1}_{2}_{3}", makeName, modelName,cityName,areaName)%>");
-                        }
+                    triggerGA('SpecsandFeature', 'Show_On_Road_Price_Clicked', bikeVersionName+'_'+ $('#versions .active').text() + '_' + $('#ddlCitiesPopup option:selected').html() + selArea);
+                });
+                $("#user-details-submit-btn").click(function () {
+                    if ($("#getFullName").val() != '' && $("#getEmailID").val() != '' && $("#getMobile").val() != '')
+                    {
+                        triggerGA('SpecsandFeature', 'Lead_Submitted', "<%= string.Format("{0}_{1}_{2}_{3}", makeName, modelName,cityName,areaName)%>");
+                    }
+                });
 
-                    });
-
-           
-               
                 var hashValue = window.location.hash.substr(1);
                 if (hashValue.length > 0) {
                     $("body, html").animate({
@@ -456,14 +453,13 @@
                     };
                     dleadvm.setOptions(leadOptions);
                 });
-                $("#user-details-submit-btn").click(function(){
-                    if(dleadvm.IsVerified)
-                    {
-                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Specs_Page', 'act': 'Lead_Submitted', 'lab': "<%= string.Format("{0}_{1}_{2}_{3}_{4}", makeName, modelName, versionName, cityName, areaName )%>" });
-                    }
-                });
-
-            });
+                   // $("#user-details-submit-btn").click(function(){
+                   //    if(dleadvm.IsVerified)
+                   //   {
+                   //       dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Specs_Page', 'act': 'Lead_Submitted', 'lab': "<%= string.Format("{0}_{1}_{2}_{3}_{4}", makeName, modelName, versionName, cityName, areaName )%>" });
+                   //   }
+                  //});
+           });
         </script>
 
     </form>
