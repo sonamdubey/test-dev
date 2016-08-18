@@ -202,8 +202,11 @@ ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
 .img-preview img { width: 100% }
 .yt-iframe-preview iframe { width: 100%; height: 174px; }
 .target-link { color:#2a2a2a; font-weight: 600; display: block; }
-#makeNewsContent .target-link, #makeReviewsContent .review-heading-wrapper .target-link, #makeVideosContent .target-link, #modelReviewsContent .review-heading-wrapper .target-link, #modelReviewsContent .model-user-review-title-container .target-link, #modelVideosContent .target-link { margin-top:2px; margin-bottom:7px; }
+#makeNewsContent .target-link, #makeReviewsContent .review-heading-wrapper .target-link, #makeVideosContent .target-link, #modelReviewsContent .review-heading-wrapper .target-link, #modelReviewsContent .model-user-review-title-container .target-link, #modelVideosContent .target-link { margin-bottom:7px; }
 .target-link:hover { text-decoration:underline; }
+.article-stats-content { font-size:12px; color: #82888b; width: 78%; display:inline-block; vertical-align:middle; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
+.article-stats-content.video-view-count { width: 72%; }
+.video-image-thumbnail { position:relative; height: 68px; }
 
 /* footer classes */
 footer ul li { display: inline-block; }
@@ -320,8 +323,8 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .navUL li a:hover span.nav-drop { color: #1a1a1a; }
 .navUL li a.sept-nav-list { padding: 15px 0 0 55px; color: #82888b; height: 36px; }
 .blackOut-window { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.5; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
-/* sprite classes http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-new.png?v1=8Aug2016 */
-.bwmsprite { background: url(../images/bwmsprite-new.png?v1=8Aug2016) no-repeat; display: inline-block; }
+/* sprite classes */
+.bwmsprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-new.png?v1=18Aug2016) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
@@ -342,6 +345,8 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .google-play-logo  { background-position: 2px -340px; width: 120px; height: 45px; }
 .icon-outer-container { width:102px; height:102px; margin:0 auto; background:#fff; border:1px solid #ccc; }
 .icon-inner-container { width:92px; height:92px; margin:4px auto; background:#fff; border:1px solid #666; }
+.play-icon-wrapper { width: 100%; height: 100%; display: block; position:absolute; top:0; left:0; margin: 0 auto; text-align:center; padding-top:18%; background: transparent; background: rgba(0,0,0,0.1) }
+.video-play-icon { width:24px; height:24px; background-position:-107px -486px; }
 /* fa alternatives */
 .search-bold-icon { width:15px; height:15px; background-position:-61px -278px; }
 .video-views-icon { width:17px; height:13px; background-position:-59px -303px; }
@@ -749,8 +754,13 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 
 .globalCity-autocomplete.ui-menu .ui-menu-item a { width:99%; }
 #modelAlternateBikeContent .btn-xs { padding:6px 0 }
-.calender-grey-sm-icon, .author-grey-sm-icon {width:10px;height:10px;}
-.views-grey-sm-icon {width:10px;height:14px;}
+.calender-grey-sm-icon, .author-grey-sm-icon {width:10px;height:10px;margin-right:2px;vertical-align:middle;}
+.views-grey-sm-icon {width:14px;height:10px;vertical-align:middle;}
 .calender-grey-sm-icon {background-position: -48px -486px;}
 .author-grey-sm-icon {background-position: -66px -486px;}
 .views-grey-sm-icon {background-position: -84px -486px;}
+
+@media all and (max-width: 350px) {
+    .article-stats-content { width:72%; }
+    #makeVideosContent .article-stats-content.video-view-count { width: 68%; }
+}

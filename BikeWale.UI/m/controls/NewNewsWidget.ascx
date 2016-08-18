@@ -4,8 +4,8 @@
     <h2><%= WidgetTitle %> News</h2>
 
        <!-- when one news -->
-        <% if (FetchedRecordsCount == 1)
-           { %>
+    <% if (FetchedRecordsCount == 1)
+        { %>
 
     <div class="margin-bottom15">
         <div class="review-image-wrapper">
@@ -21,21 +21,30 @@
         </div>
     </div>
       <% }
-           else
-           { %>
+        else
+        { %>
      
-    <div class="margin-bottom15">
+    <div class="margin-bottom20">
         <div class="review-image-wrapper">
             <a href="/m/news/<%= String.Format("{0}-{1}.html", firstPost.BasicId,firstPost.ArticleUrl) %>">
                 <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages( firstPost.OriginalImgUrl, firstPost.HostUrl ,Bikewale.Utility.ImageSize._370x208) %>" title="<%=firstPost.Title %>" alt="<%=firstPost.Title %>"  />
             </a>
         </div>
         <div class="review-heading-wrapper">
-            <a href="/m/news/<%= String.Format("{0}-{1}.html", firstPost.BasicId,firstPost.ArticleUrl) %>" class="target-link">
-                <%=firstPost.Title %>
-            </a>
-           <p class="font12 text-truncate text-light-grey"><%= Bikewale.Utility.FormatDate.GetFormatDate(firstPost.DisplayDate.ToString(), "MMMM dd, yyyy") %>, by <%=firstPost.AuthorName %></p>
+            <a href="/m/news/<%= String.Format("{0}-{1}.html", firstPost.BasicId,firstPost.ArticleUrl) %>" class="target-link"><%= Bikewale.Utility.FormatDescription.TruncateDescription(firstPost.Title.ToString(),44) %></a>
+            <div class="grid-7 alpha padding-right5">
+                <span class="bwmsprite calender-grey-sm-icon"></span>
+                <span class="article-stats-content"><%= Bikewale.Utility.FormatDate.GetFormatDate(firstPost.DisplayDate.ToString(), "MMM dd, yyyy") %></span>
+            </div>
+            <div class="grid-5 alpha omega">
+                <span class="bwmsprite author-grey-sm-icon"></span>
+                <span class="article-stats-content"><%=firstPost.AuthorName %></span>
+            </div>
+            <div class="clear"></div>
         </div>
+        <p class="margin-top10">
+            <!-- desc -->
+        </p>
     </div>
 
     <ul id="makeNewsList">
@@ -54,8 +63,6 @@
         <a href="/m/news/" class="font14">Read all news<span class="bwmsprite blue-right-arrow-icon"></span></a>
     </div>
 </div>
-
-
 
 <div class="bw-tabs-data" id="ctrlNews">  
     <script type="text/javascript">

@@ -12,11 +12,19 @@
                     </p>
                 </div>
                 <div class="model-user-review-title-container">
-                    <a class="target-link" href="/m/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html"><%#Eval("ReviewTitle").ToString() %></a>
-                    <p class="font12 text-truncate text-light-grey"><%#Eval("ReviewDate", "{0:dd-MMM-yyyy}") %> by <%#Eval("WrittenBy").ToString() %></p>
+                    <a class="target-link" href="/m/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html"><%# Bikewale.Utility.FormatDescription.TruncateDescription(Eval("ReviewTitle").ToString(),44) %></a>
+                    <div class="grid-7 alpha padding-right5">
+                        <span class="bwmsprite calender-grey-sm-icon"></span>
+                        <span class="article-stats-content"><%#Eval("ReviewDate", "{0:MMM dd, yyyy}") %></span>
+                    </div>
+                    <div class="grid-5 alpha omega">
+                        <span class="bwmsprite author-grey-sm-icon"></span>
+                        <span class="article-stats-content"><%#Eval("WrittenBy").ToString() %></span>
+                    </div>
+                    <div class="clear"></div>
                 </div>
                 
-                <p class="margin-top17"><%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Comments").ToString(),120) %></p>
+                <p class="margin-top10"><%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Comments").ToString(),180) %></p>
             </div>
     </ItemTemplate>
   </asp:Repeater>
