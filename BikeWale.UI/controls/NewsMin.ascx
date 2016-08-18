@@ -3,8 +3,8 @@
     <div class="<%= RecordCount > 0 ? "grey-bg content-block border-radius5 padding-bottom20 margin-top15" : "hide" %>">
     <h2>Bike News</h2>
     <div class="margin-bottom10" style="border-bottom:2px solid #fff; padding-bottom:10px;">
-        <div class="margin-bottom10"><a href="/news/<%=basicId %>-<%=url%>.html"><b><%=title%></b></a></div>
-        <a class="<%= RecordCount > 0 ? "" : "hide" %>" href="/news/<%=basicId %>-<%=url%>.html"><img class="margin-bottom10" src="<%= Bikewale.Utility.Image.GetPathToShowImages(imagePathCustom,hostUrl,Bikewale.Utility.ImageSize._310x174) %>" width="278" style="border:1px solid #E5E4E4;"/></a>
+        <div class="margin-bottom10"><a href="<%= Bikewale.Utility.UrlFormatter.GetArticleUrl(basicId,url,Bikewale.Entities.CMS.EnumCMSContentType.News.ToString()) %>"><b><%=title%></b></a></div>
+        <a class="<%= RecordCount > 0 ? "" : "hide" %>" href="<%= Bikewale.Utility.UrlFormatter.GetArticleUrl(basicId,url,Bikewale.Entities.CMS.EnumCMSContentType.News.ToString()) %>"><img class="margin-bottom10" src="<%= Bikewale.Utility.Image.GetPathToShowImages(imagePathCustom,hostUrl,Bikewale.Utility.ImageSize._310x174) %>" width="278" style="border:1px solid #E5E4E4;"/></a>
         <% if(isExpandable == "1") {%>
 			<p>
 				<%= TruncateDesc(description) %> <span class="text-grey"> <%= GetPubDate(displayDate) %></span>
@@ -15,7 +15,7 @@
         <asp:Repeater runat="server" id="rptCarNews">	 
 	        <itemtemplate>
 		        <li>
-			        <a href="/news/<%# DataBinder.Eval(Container.DataItem,"BasicId") %>-<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>.html"><b><%# DataBinder.Eval(Container.DataItem, "Title") %></b></a>
+			        <a href="<%# Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"BasicId")),Convert.ToString(DataBinder.Eval(Container.DataItem,"ArticleUrl")),Bikewale.Entities.CMS.EnumCMSContentType.News.ToString()) %>"><b><%# DataBinder.Eval(Container.DataItem, "Title") %></b></a>
 			        <% if(isExpandable == "1") {%>
 			        <p>
 				        <%# TruncateDesc(DataBinder.Eval(Container.DataItem, "Description").ToString()) %> <span class="text-grey"> <%# GetPubDate(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString()) %></span>

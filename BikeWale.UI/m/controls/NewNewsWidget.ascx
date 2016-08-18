@@ -9,12 +9,12 @@
 
     <div class="margin-bottom15">
         <div class="review-image-wrapper">
-            <a href="/m/news/<%= String.Format("{0}-{1}.html", firstPost.BasicId,firstPost.ArticleUrl) %>">
+            <a href="/m/<%= Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(firstPost.BasicId),firstPost.ArticleUrl,Bikewale.Entities.CMS.EnumCMSContentType.News.ToString()) %>">
                 <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages( firstPost.OriginalImgUrl, firstPost.HostUrl ,Bikewale.Utility.ImageSize._370x208) %>" title="<%=firstPost.Title %>" alt="<%=firstPost.Title %>"  />
             </a>
         </div>
         <div class="review-heading-wrapper">
-            <a href="/m/news/<%= String.Format("{0}-{1}.html", firstPost.BasicId,firstPost.ArticleUrl) %>" class="target-link">
+            <a href="/m/<%= Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(firstPost.BasicId),firstPost.ArticleUrl,Bikewale.Entities.CMS.EnumCMSContentType.News.ToString()) %>" class="target-link">
                 <%=firstPost.Title %>
             </a>
             <p class="font10 text-truncate text-light-grey"><%= Bikewale.Utility.FormatDate.GetFormatDate(firstPost.DisplayDate.ToString(), "MMMM dd, yyyy") %>, by <%=firstPost.AuthorName %></p>
@@ -26,12 +26,12 @@
      
     <div class="margin-bottom15">
         <div class="review-image-wrapper">
-            <a href="/m/news/<%= String.Format("{0}-{1}.html", firstPost.BasicId,firstPost.ArticleUrl) %>">
+            <a href="/m<%= Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(firstPost.BasicId),firstPost.ArticleUrl,Bikewale.Entities.CMS.EnumCMSContentType.News.ToString()) %>">
                 <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages( firstPost.OriginalImgUrl, firstPost.HostUrl ,Bikewale.Utility.ImageSize._370x208) %>" title="<%=firstPost.Title %>" alt="<%=firstPost.Title %>"  />
             </a>
         </div>
         <div class="review-heading-wrapper">
-            <a href="/m/news/<%= String.Format("{0}-{1}.html", firstPost.BasicId,firstPost.ArticleUrl) %>" class="target-link">
+            <a href="/m<%= Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(firstPost.BasicId),firstPost.ArticleUrl,Bikewale.Entities.CMS.EnumCMSContentType.News.ToString()) %>" class="target-link">
                 <%=firstPost.Title %>
             </a>
            <p class="font12 text-truncate text-light-grey"><%= Bikewale.Utility.FormatDate.GetFormatDate(firstPost.DisplayDate.ToString(), "MMMM dd, yyyy") %>, by <%=firstPost.AuthorName %></p>
@@ -42,7 +42,7 @@
       <asp:Repeater ID="rptNews" runat="server">
           <ItemTemplate>
             <li>
-                <p class="margin-bottom5 red-bullet-point"><a href="/m/news/<%# DataBinder.Eval(Container.DataItem,"BasicId").ToString() + "-" + DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString() %>.html"
+                <p class="margin-bottom5 red-bullet-point"><a href="/m<%# Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"BasicId")),Convert.ToString(DataBinder.Eval(Container.DataItem,"ArticleUrl")),Bikewale.Entities.CMS.EnumCMSContentType.News.ToString()) %>"
                      class="target-link"><%# DataBinder.Eval(Container.DataItem, "Title").ToString()%></a></p>
                 <p class="margin-left15 font12 text-truncate text-light-grey"><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString(), "MMMM dd, yyyy") %>, by <%# DataBinder.Eval(Container.DataItem, "AuthorName").ToString()%></p>
             </li>
