@@ -36,7 +36,6 @@
     var MakeName = '<%=objModelEntity.MakeBase.MakeName %>';
     var ModelName = '<%=objModelEntity.ModelName %>';
     var ImageName = '<%=imageId%>';
-
     var MainCategory = '0';
     var selectedImagePath = '<%= selectedImagePath%>';
 </script>

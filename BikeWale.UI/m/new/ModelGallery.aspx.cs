@@ -49,8 +49,7 @@ namespace Bikewale.Mobile.New
                     makeName = bikemodelEnt.MakeBase.MakeName;
                     bikeName = string.Format("{0} {1}", makeName, modelName);
                 }
-                //modified on 17th Aug 2016
-                List<ModelImage> objImageList = (List<ModelImage>)objCache.GetModelPhotos(modelId);
+                List<ModelImage> objImageList = objCache.GetModelPhotoGallery(modelId);
                 if (objImageList != null && objImageList.Count > 0)
                 {
                     ctrlModelGallery.bikeName = bikeName;

@@ -2,7 +2,6 @@
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Utility;
-using Bikewale.Entities.CMS.Photos;
 using MySql.CoreDAL;
 using System;
 using System.Collections;
@@ -1044,53 +1043,5 @@ namespace Bikewale.DAL.BikeData
         {
             throw new NotImplementedException();
         }
-        /// <summary>
-        /// Created By: Aditi Srivastava on 17th Aug, 2016
-        /// Description: Fetches model image original image path and host url of model image
-        /// </summary>
-        /// <param name="modelId"></param>
-        /// <returns></returns>
-        public ModelPhotos GetModelPhotoInfo(U modelId)
-        {
-            ModelPhotos modelPhotos = null;
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmodelphotos"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
-
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
-                    {
-                        if (dr != null)
-                        {
-                            while (dr.Read())
-                            {
-                                modelPhotos = new ModelPhotos();
-                                modelPhotos.HostURL = Convert.ToString(dr["HostUrl"]);
-                                modelPhotos.OriginalImgPath = Convert.ToString(dr["OriginalImagePath"]);
-                               
-                            }
-                            dr.Close();
-                        }
-                    }
-                }
-            }
-            catch (SqlException err)
-            {
-                HttpContext.Current.Trace.Warn("SQL Exception in GetModelPhotos", err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception err)
-            {
-                HttpContext.Current.Trace.Warn("Exception in GetModelPhotos", err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            return modelPhotos;
-        }
-
-         
-        }   // class
+    }   // class
 }   // namespace

@@ -3,7 +3,7 @@
     var StartIndex = 0;
     var LiIndex = 0;
     $('#galleryList li').each(function () {
-        if ($(this).children('img').attr('id') > 0)
+        if ($(this).children('a').attr('href').indexOf(ImageName) > 0)
             StartIndex = LiIndex;
         LiIndex++
     });

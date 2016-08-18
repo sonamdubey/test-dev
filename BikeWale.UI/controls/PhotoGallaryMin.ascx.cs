@@ -68,9 +68,6 @@ namespace Bikewale.Controls
         /// <summary>
         /// Written By : Ashwini Todkar on 26 Sept 2014
         /// Summary    : method to get model photo list from carwale api
-        /// Modified By: Aditi Srivastava on 18th Aug,2016
-        /// Description: Changed method GetModelPhotoGallery to GetModelPhotos
-        /// 
         /// </summary>
         private void GetImageList()
         {
@@ -84,8 +81,8 @@ namespace Bikewale.Controls
                         .RegisterType<ICacheManager, MemcacheManager>();
 
                     var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
-                    //Earlier GetModelPhotoGallery was used
-                    List<ModelImage> _objImageList =(List<ModelImage>)objCache.GetModelPhotos(modelId);
+
+                    List<ModelImage> _objImageList = objCache.GetModelPhotoGallery(modelId);
 
                     if (_objImageList != null && _objImageList.Count > 0)
                         FetchedCount = _objImageList.Count;
