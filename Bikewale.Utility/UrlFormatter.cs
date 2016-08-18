@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bikewale.Entities.CMS;
+using System;
 using System.Text.RegularExpressions;
 
 namespace Bikewale.Utility
@@ -120,6 +121,43 @@ namespace Bikewale.Utility
             {
                 return String.Format("/used/{0}-bikes-in-india/", make);
             }
+        }
+
+
+        /// <summary>
+        ///  Created By : Sushil Kumar 
+        ///  Created On  : 16th August 2016
+        ///  Description : To get article url for news,expert reviews and features listing pages
+        /// </summary>
+        /// <param name="basicId"></param>
+        /// <param name="articleUrl"></param>
+        /// <param name="articleType"></param>
+        /// <returns></returns>
+        public static string GetArticleUrl(string basicId, string articleUrl, string articleType)
+        {
+            string _articleUrl = string.Empty;
+            EnumCMSContentType _contentType = default(EnumCMSContentType);
+            if (!string.IsNullOrEmpty(articleType) && Enum.TryParse<EnumCMSContentType>(articleType, true, out _contentType))
+            {
+                switch (_contentType)
+                {
+                    case EnumCMSContentType.AutoExpo2016:
+                    case EnumCMSContentType.News:
+                        _articleUrl = string.Format("/news/{0}-{1}.html", basicId, articleUrl);
+                        break;
+                    case EnumCMSContentType.ComparisonTests:
+                    case EnumCMSContentType.RoadTest:
+                        _articleUrl = string.Format("/expert-reviews/{0}-{1}.html", articleUrl, basicId);
+                        break;
+                    case EnumCMSContentType.Features:
+                        _articleUrl = string.Format("/features/{0}-{1}/", articleUrl, basicId);
+                        break;
+                    default:
+                        _articleUrl = "/";
+                        break;
+                }
+            }
+            return _articleUrl;
         }
     }
 }
