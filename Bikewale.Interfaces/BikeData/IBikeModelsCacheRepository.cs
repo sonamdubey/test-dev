@@ -22,5 +22,6 @@ namespace Bikewale.Interfaces.BikeData
         NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex);
         BikeDescriptionEntity GetModelSynopsis(U modelId);
         List<ModelImage> GetModelPhotoGallery(U modelId);
+        IEnumerable<ModelImage> GetModelPhotos(U modelId);
     }
 }

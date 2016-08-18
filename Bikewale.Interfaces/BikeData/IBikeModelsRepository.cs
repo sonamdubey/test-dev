@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS.Photos;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -9,6 +10,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Summary : Interface for DAL to get bikedata 
     /// Modified By Vivek Gupta on 9-5-2016
     /// Added defimition of BikeModelContent GetRecentModelArticles(U modelId);
+    /// Modified By: Aditi Srivastava on 17th Aug, 2016
+    /// Description: Added GetModelPhotos(int modelId) for getting imageurl and original path;
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -38,7 +41,7 @@ namespace Bikewale.Interfaces.BikeData
         /// <param name="makeId"></param>
         /// <returns></returns>
         List<MostPopularBikesBase> GetMostPopularBikesByMake(int makeId);
-
+        
         Hashtable GetMaskingNames();
         Hashtable GetOldMaskingNames();
 
@@ -46,5 +49,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<BikeMakeModelEntity> GetAllModels(EnumBikeType requestType);
         List<BikeVersionMinSpecs> GetVersionMinSpecs(U modelId, bool isNew);
         BikeModelContent GetRecentModelArticles(U modelId);
+        ModelPhotos GetModelPhotoInfo(U modelId);
     }
 }
