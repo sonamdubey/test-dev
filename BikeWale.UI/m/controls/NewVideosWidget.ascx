@@ -8,6 +8,7 @@
                 <a href="/m<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>" class="video-image-thumbnail">
                     <img class="lazy" data-original="<%#String.Format("http://img.youtube.com/vi/{0}/mqdefault.jpg",DataBinder.Eval(Container.DataItem,"VideoId")) %>"
                         alt="<%#DataBinder.Eval(Container.DataItem,"VideoTitle") %>" title="<%#DataBinder.Eval(Container.DataItem,"VideoTitle") %>" src="" border="0" />
+                   
                     <span class="play-icon-wrapper">
                         <span class="bwmsprite video-play-icon"></span>
                     </span>
@@ -27,7 +28,7 @@
                 <div class="clear"></div>
             </div>
             <p class="margin-top10">
-                <!-- desc -->
+                <%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Description").ToString(),180) %>
             </p>
         </div>
         </ItemTemplate>

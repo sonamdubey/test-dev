@@ -9,7 +9,7 @@
 <html>
 <head>
     <%
-        description = String.Format("{0} Price in India - Rs. {1}. Find {0} Reviews, Specs, Features, Mileage, On Road Price. See {0} Colours, Images at Bikewale.", bikeName, Bikewale.Utility.Format.FormatPrice(price.ToString()));
+        description = String.Format("{0} Price in India - Rs. {1}. Find {0} Reviews, Specs, Features, Mileage, On Road Price. See {0} Colours, Images at Bikewale.", bikeName, Bikewale.Utility.Format.FormatPriceLong(price.ToString()));
         title = String.Format("{0} Price, Reviews, Spec, Photos, Mileage | Bikewale", bikeName);
         canonical = String.Format("http://www.bikewale.com/{0}-bikes/{1}/", modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName);
         AdPath = "/1017752/Bikewale_Mobile_Model";
@@ -19,7 +19,7 @@
         Ad_300x250 = true;
         TargetedModel = bikeModelName;
         TargetedCity = cityName;
-        keywords = string.Format("{0}, {0} Bike, {0} Price, {0} Reviews, {0} Photos, {0} Mileage", bikeName);
+        keywords = string.Format("{0}, {0} Bike, bike, {0} Price, {0} Reviews, {0} Photos, {0} Mileage", bikeName);
         EnableOG = true;
         OGImage = modelImage;
     %>
@@ -525,7 +525,7 @@
 
                 <% if(modelPage.ModelVersionSpecs != null){ %>
                 <div id="modelSpecsFeaturesContent" class="bw-model-tabs-data font14">
-                    <h2 class="padding-top15 padding-right20 padding-left20"><%=bikeName %> Specifications & Features</h2>
+                    <h2 class="padding-top15 padding-right20 padding-left20"><%=modelPage.ModelDetails.ModelName%> Specifications & Features</h2>
                     <h3 class="padding-right20 padding-left20 model-specs-header">Specifications</h3>
 
                     <ul id="model-specs-list">
@@ -729,10 +729,6 @@
                             <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.PillionFootrest) %></div>
                         </li>
                     </ul>
-                    <div class="padding-top10 padding-right20 padding-left20">
-                        <a href="#model-main-features-list"  class="view-features-link bw-ga" c="Model_Page" a="View_all_features_link_cliked" v="myBikeName" title="<%=bikeName %> Features" rel="nofollow">View all features</a>
-                        <%--<a href="/m<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName, "modelFeatures",versionId) %>"  class="bw-ga" c="Model_Page" a="View_all_features_link_cliked" v="myBikeName" title="<%=bikeName %> Features">View all features<span class="bwmsprite blue-right-arrow-icon"></span></a>--%>
-                    </div>
                     <div class="margin-right20 margin-left20 border-solid-bottom padding-bottom20"></div>
                 </div>
                 <% } %>
@@ -783,12 +779,13 @@
                         <BW:UserReviews runat="server" ID="ctrlUserReviews" />
 
                     <% } %>
+                        
                 </div>
                 <% } %>
                 <%if (ctrlVideos.FetchedRecordsCount > 0)
                     { %>
                     <div id="modelVideosContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
-                        <h2><%= bikeName %> Videos</h2>
+                        <h2><%= bikeModelName %> Videos</h2>
                             <BW:Videos runat="server" ID="ctrlVideos" />
                     </div>
                 <% } %>
@@ -944,6 +941,7 @@
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
+
             var leadSourceId;
             vmModelId = '<%= modelId%>';
             clientIP = '<%= clientIP%>';
@@ -974,6 +972,7 @@
                     dataLayer.push({ "event": "Bikewale_noninteraction", "cat": "Model_Page", "act": "Get_Offers_Shown", "lab": myBikeName + "_" + getBikeVersion() + '_' + getCityArea });
                 }
             });
+           
             function secondarydealer_Click(dealerID) {
                 var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerID + "&IsDealerAvailable=true";
                 window.location.href = "/m/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
