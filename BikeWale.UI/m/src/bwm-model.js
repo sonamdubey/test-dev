@@ -27,13 +27,21 @@ var otpText = $("#getOTP");
 var otpBtn = $("#otp-submit-btn");
 var getOffersClicked = false;
 
-
 $("#leadBtnBookNow").on('click', function () {
     leadCapturePopup.show();
     $('body').addClass('lock-browser-scroll');
     $(".blackOut-window").show();
 });
+function openLeadPopup(ele) {
+    leadSourceId = ele.attr("leadSourceId");
+    leadCapturePopup.show();
+    $('body').addClass('lock-browser-scroll');
+    $(".blackOut-window").show();
+}
 
+$(".leadcapture").on('click', function () {
+    openLeadPopup($(this));
+});
 var leadPopupClose = function () {
     leadCapturePopup.hide();
     $("#contactDetailsPopup").show();
@@ -130,6 +138,16 @@ $('#bookNowBtn').on('click', function (e) {
     var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
     window.location.href = "/m/pricequote/bookingSummary_new.aspx?MPQ=" + Base64.encode(cookieValue);
 });
+
+$('#requestcallback').on('click', function (e) {
+    openLeadPopup($(this));
+});
+
+$('#getofferspopup').on('click', function (e) {
+    $('#dealer-offers-popup').hide();
+    openLeadPopup($(this));
+});
+
 
 function CustomerModel() {
     var arr = setuserDetails();
@@ -748,6 +766,7 @@ $("input[name*='btnVariant']").on("click", function () {
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Version_Change', 'lab': bikeVersionLocation });
 });
 
+
 ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);
 
 $(document).mouseup(function (e) {
@@ -1031,9 +1050,7 @@ var dropdown = {
     setStructure: function (element) {
         var elementValue = element.find('option:selected').text(),
 			menu = element.next('.dropdown-menu');
-
-        menu.append('<p class="dropdown-label">' + elementValue + '</p><div class="dropdown-list-wrapper"><p class="dropdown-selected-item">' + elementValue + '</p><ul class="dropdown-menu-list dropdown-with-select"></ul></div>');
-
+        menu.append('<p class="dropdown-label">' + elementValue + '</p><div class="dropdown-list-wrapper"><p class="dropdown-selected-item">' + elementValue + '</p><ul id="templist" class="dropdown-menu-list dropdown-with-select"></ul></div>');
         dropdown.setOption(element);
     },
 
@@ -1044,10 +1061,13 @@ var dropdown = {
 
         element.find('option').each(function (index) {
             if (selectedIndex == index) {
-                menuList.append('<li class="active" data-option-value="' + $(this).val() + '">' + $(this).text() + '</li>');
+                //<input type="submit" name="rptVariants$ctl02$btnVariant" value="Kick/Drum/Spokes" id="rptVariants_btnVariant_2" title="Kick/Drum/Spokes" versionid="111" style="width: 100%; text-align: left">
+                menuList.append('<li><input value="' + $(this).text() + '" type="submit" runat="server" class="active" id="temp_' + index + '" data-option-value="' + $(this).val() + '" title="' + $(this).text() + '"></li>');
+                //menuList.append('<li runat="server" name="newversion" class="active" data-option-value="' + $(this).val() + '">' + $(this).text() + '</li>');
             }
             else {
-                menuList.append('<li data-option-value="' + $(this).val() + '">' + $(this).text() + '</li>');
+                menuList.append('<li><input value="' + $(this).text() + '" type="submit" runat="server" id="temp_' + index + '" data-option-value="' + $(this).val() + '" title="' + $(this).text() + '"></li>');
+               // menuList.append('<li runat="server" name="newversion" data-option-value="' + $(this).val() + '">' + $(this).text() + '</li>');
             }
         });
     },

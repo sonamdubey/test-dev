@@ -47,15 +47,16 @@ namespace Bikewale.Mobile.New
         protected BikeModelPageEntity modelPage;
         protected VersionSpecifications bikeSpecs;
         protected PQOnRoadPrice pqOnRoad;
-        protected Repeater rptNavigationPhoto, rptVarients, rptColors, rptOffers, rptVariants, rptSecondaryDealers;
-        protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty;
+        protected Repeater rptNavigationPhoto, rptVarients, rptColors, rptOffers, rptNewOffers, rptVariants, rptSecondaryDealers;
+        protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty, location = string.Empty;
         protected String clientIP = CommonOpn.GetClientIP();
         protected bool isCitySelected, isAreaSelected, isBikeWalePQ, isDiscontinued, isOnRoadPrice, toShowOnRoadPriceButton;
         //Varible to Hide or show controlers
         protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true, isAreaAvailable, isDealerPQ, isDealerAssitance, isBookingAvailable, isOfferAvailable;
         protected bool isUserReviewActive, isExpertReviewActive, isNewsActive, isVideoActive;
         protected NewAlternativeBikes ctrlAlternativeBikes;
-        protected short reviewTabsCnt;
+        protected ushort reviewTabsCnt, moreOffersCount;
+        public DropDownList ddlNewVersionList;
         //Variable to Assing ACTIVE class
 
         static readonly string _PageNotFoundPath;
@@ -79,8 +80,14 @@ namespace Bikewale.Mobile.New
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
+            //ddlNewVersionList.SelectedIndexChanged += new EventHandler(ddlNewVersionList_SelectedIndexChanged);
             //ddlVariant.SelectedIndexChanged += new EventHandler(ddlVariant_SelectedIndexChanged);
         }
+
+        //private void ddlNewVersionList_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    throw new NotImplementedException();
+        //}
         /// <summary>
         /// Modified By : Lucky Rathore on 04 July 2016.
         /// Description : function "SetBWUtmz" called.
@@ -166,6 +173,14 @@ namespace Bikewale.Mobile.New
                     {
                         rptVarients.DataSource = modelPage.ModelVersions;
                         rptVarients.DataBind();
+
+                        ddlNewVersionList.DataSource = modelPage.ModelVersions;
+                        ddlNewVersionList.DataTextField = "VersionName";
+                        ddlNewVersionList.DataValueField = "VersionId";
+                        ddlNewVersionList.DataBind();
+                        if (IsPostBack)
+                            ddlNewVersionList.SelectedValue = versionId.ToString();
+
                     }
 
                     if (!modelPage.ModelDetails.Futuristic || modelPage.ModelDetails.New)
@@ -410,7 +425,7 @@ namespace Bikewale.Mobile.New
                         {
                             if (objAreaList.Any(p => p.AreaId == areaId))
                             {
-                                areaName = locArray[3] + ",";
+                                areaName = locArray[3];
                                 isAreaSelected = true;
                             }
                         }
@@ -578,6 +593,20 @@ namespace Bikewale.Mobile.New
                                 {
                                     rptOffers.DataSource = pqOnRoad.DPQOutput.objOffers;
                                     rptOffers.DataBind();
+
+                                    // New model page offers section
+                                    IEnumerable<OfferEntity> distictOfferCategories = pqOnRoad.DPQOutput.objOffers.GroupBy(offer => offer.OfferCategoryId).Select(g => g.First());
+                                    int distictOfferCount = distictOfferCategories.Count();
+                                    if (distictOfferCount > 3)
+                                    {
+                                        rptNewOffers.DataSource = distictOfferCategories.Take(2);
+                                        moreOffersCount = Convert.ToUInt16(pqOnRoad.DPQOutput.objOffers.Count() - 2);
+                                    }
+                                    else
+                                    {
+                                        rptNewOffers.DataSource = distictOfferCategories;
+                                    }
+                                    rptNewOffers.DataBind();
                                     isOfferAvailable = true;
                                 }
                                 if (selectedVariant.PriceList != null)
@@ -903,6 +932,18 @@ namespace Bikewale.Mobile.New
             if ((!isCitySelected) || (isCitySelected && isAreaAvailable && !isAreaSelected))
             {
                 toShowOnRoadPriceButton = true;
+            }
+
+            if (!isDiscontinued)
+            {
+                if (isCitySelected)
+                {
+                    location += areaName != string.Empty ? string.Format("{0}, {1}", areaName, cityName) : cityName;
+                }
+                else
+                {
+                    location = Bikewale.Utility.BWConfiguration.Instance.DefaultName;
+                }
             }
         }
 
