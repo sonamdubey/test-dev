@@ -144,9 +144,9 @@
             var modelId = "<%= modelId %>";
             var clientIP = "<%= clientIP%>";
             var pageUrl = window.location.href; 
-            debugger;
+           
             $(".leadcapturebtn").click(function(e){
-                ele = $(this);    
+                ele = $(this);              
                 var areaName = ele.attr('data-item-area');
                 var leadOptions = {
                     "dealerid" : ele.attr('data-item-id'),
@@ -161,7 +161,7 @@
                     "gaobject": {
                         cat: ele.attr('data-ga-cat'),
                         act: ele.attr('data-ga-act'),
-                        lab: bikeNameLocation + areaName == "" ? "" : "_" + areaName
+                        lab: bikeNameLocation.concat(areaName == "" ? "" : "_" + areaName)
                     }
                 };
 
