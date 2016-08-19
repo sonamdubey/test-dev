@@ -33,11 +33,12 @@ namespace Bikewale.Mobile.New
         protected uint modelId = 0, cityId = 0, versionId, makeId;
         public int versionCount;
         public string makeName = string.Empty, makeMaskingName = string.Empty, modelName = string.Empty, modelMaskingName = string.Empty,versionName=string.Empty, bikeName = string.Empty, modelImage = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty;
+        protected string areaName = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea().Area;
         string redirectUrl = string.Empty;
         private bool redirectToPageNotFound = false, redirectPermanent = false;
         protected bool isAreaAvailable, isDiscontinued;
         protected String clientIP = CommonOpn.GetClientIP();
-
+        
 
         protected override void OnInit(EventArgs e)
         {

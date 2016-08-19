@@ -39,6 +39,7 @@
         var campaignId = "<%= campaignId%>";
         var manufacturerId = "<%= manufacturerId%>";
         var isDealerPQ = "<%= isDealerPQ %>";
+       
     </script>
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 </head>

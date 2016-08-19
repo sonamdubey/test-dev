@@ -144,10 +144,10 @@
             var modelId = "<%= modelId %>";
             var clientIP = "<%= clientIP%>";
             var pageUrl = window.location.href; 
-           
+            var areaName = '<%=areaName%>';
             $(".leadcapturebtn").click(function(e){
-                ele = $(this);              
-                var areaName = ele.attr('data-item-area');
+                ele = $(this);
+                
                 var leadOptions = {
                     "dealerid" : ele.attr('data-item-id'),
                     "dealername" : ele.attr('data-item-name'),
