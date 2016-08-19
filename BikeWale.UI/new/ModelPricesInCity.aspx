@@ -211,23 +211,13 @@
                 $("#btnDealerPricePopup").click(function () {
                     var selArea = '';
                     if ($('#ddlAreaPopup option:selected').index() > 0) {
-                        selArea = '_' + $('#ddlAreaPopup option:selected').html();
+                        selArea = '_' + $('#ddlAreaPopup option:selected').text();
                     }
-                    triggerGA('Price_in_City_Page', 'Show_On_Road_Price_Clicked', "<%= string.Format("{0}_{1}_", makeName, modelName)%>"+ $('#versions .active').text() + '_' + $('#ddlCitiesPopup option:selected').html() + selArea);
+                    triggerGA('Price_in_City_Page', 'Show_On_Road_Price_Clicked', "<%= string.Format("{0}_", bikeName)%>"+ $('#versions .active').text() + '_' + $('#ddlCitiesPopup option:selected').text() + selArea);
             
                 });
-            $("#user-details-submit-btn").click(function () {
-                
-                var selArea = '';
-                if ($('#ddlAreaPopup option:selected').index() > 0) {
-                    selArea = '_' + $('#ddlAreaPopup option:selected').html();
-                }
-                if ($("#getFullName").val() != '' && $("#getEmailID").val() != '' && $("#getMobile").val() != ''){
-                    triggerGA('Price_in_City_Page', 'Lead_Submitted', "<%= string.Format("{0}_{1}_", makeName, modelName)%>"+ CityArea);
-                }
-            });
             $(".leadcapturebtn").click(function(e){
-             
+               
                 ele = $(this);
                 var leadOptions = {
                     "dealerid" : ele.attr('data-item-id'),
@@ -238,7 +228,12 @@
                     "pqsourceid" : ele.attr('data-pqsourceid'),
                     "pageurl" : pageUrl,
                     "clientip" : clientIP,
-                    "isregisterpq" : true
+                    "isregisterpq" : true,
+                    "gaobject" : {
+                        cat : 'Price_in_City_Page',
+                        act: 'Lead_Submitted',
+                        lab: '<%= string.Format("{0}_", bikeName)%>'+ CityArea
+                    }
                 };
 
                 dleadvm.setOptions(leadOptions);
