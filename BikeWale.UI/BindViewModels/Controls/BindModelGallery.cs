@@ -118,7 +118,7 @@ namespace Bikewale.BindViewModels.Controls
         {
             try
             {
-                if (photos != null && photos.Count > 1)
+                if (photos != null && photos.Count >= 1)
                 {
                     FetchedImageCount = photos.Count;
                     rptrImages.DataSource = photos;
