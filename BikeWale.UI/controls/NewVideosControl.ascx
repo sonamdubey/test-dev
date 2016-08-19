@@ -9,23 +9,25 @@
                     <div class="model-preview-image-container">
                         <a href="<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>">
                             <img class="lazy" data-original="<%#String.Format("http://img.youtube.com/vi/{0}/mqdefault.jpg",DataBinder.Eval(Container.DataItem,"VideoId")) %>" title="<%#DataBinder.Eval(Container.DataItem,"VideoTitle") %>" alt="" src="" />
+                            <span class="play-icon-wrapper">
+                                <span class="bwsprite video-play-icon"></span>
+                            </span>
                         </a>
                     </div>
                 </div>
                 <div class="grid-8">
                     <a href="<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>" class="article-target-link"><%# DataBinder.Eval(Container.DataItem,"VideoTitle").ToString() %></a>
-                    <p class="text-light-grey margin-bottom15">Updated on <span><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString(),"MMMM dd, yyyy") %></span></p>
-                    <div class="grid-3 alpha omega border-solid-right font14">
-                        <span class="bwsprite video-views-icon margin-right5"></span>
-                        <span class="text-light-grey margin-right5">Views:</span>
-                        <span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Views").ToString()) %></span>
+                    <div class="article-stats-left-grid">
+                        <span class="bwsprite calender-grey-sm-icon"></span>
+                        <span class="article-stats-content"><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString(),"MMM dd, yyyy") %></span>
                     </div>
-                    <div class="grid-3 omega padding-left20 font14">
-                        <span class="bwsprite video-likes-icon margin-right5"></span>
-                        <span class="text-light-grey margin-right5">Likes:</span>
-                        <span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Likes").ToString()) %></span>
+                    <div class="article-stats-right-grid">
+                        <span class="bwsprite review-sm-lgt-grey"></span>
+                        <span class="article-stats-content"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Views").ToString()) %></span>
                     </div>
-                    <div class="clear"></div>
+                    <p class="margin-top12 line-height17">
+                        <!-- desc -->
+                    </p>
                 </div>
                 <div class="clear"></div>
             </div>
