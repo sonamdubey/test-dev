@@ -222,8 +222,9 @@
                 if ($('#ddlAreaPopup option:selected').index() > 0) {
                     selArea = '_' + $('#ddlAreaPopup option:selected').html();
                 }
-                triggerGA('Price_in_City_Page', 'Lead_Submitted', "<%= string.Format("{0}_{1}_", makeName, modelName)%>"+ CityArea);
-            
+                if ($("#getFullName").val() != '' && $("#getEmailID").val() != '' && $("#getMobile").val() != ''){
+                    triggerGA('Price_in_City_Page', 'Lead_Submitted', "<%= string.Format("{0}_{1}_", makeName, modelName)%>"+ CityArea);
+                }
             });
             $(".leadcapturebtn").click(function(e){
              
