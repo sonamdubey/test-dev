@@ -236,7 +236,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetModelPhotoGallery");
+                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetModelPhotos");
                 objErr.SendMail();
             }
 

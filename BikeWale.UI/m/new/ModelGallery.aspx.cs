@@ -26,7 +26,12 @@ namespace Bikewale.Mobile.New
         {
             this.Load += new EventHandler(Page_Load);
         }
-
+        /// <summary>
+        /// Modified By: Aditi Srivastava on 17th Aug 2016
+        /// Description: changed GetModelPhotosGallery function call to GetModelPhotos
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
             ParseQueryString();
@@ -49,7 +54,7 @@ namespace Bikewale.Mobile.New
                     makeName = bikemodelEnt.MakeBase.MakeName;
                     bikeName = string.Format("{0} {1}", makeName, modelName);
                 }
-                //modified on 17th Aug 2016
+               
                 List<ModelImage> objImageList = (List<ModelImage>)objCache.GetModelPhotos(modelId);
                 if (objImageList != null && objImageList.Count > 0)
                 {

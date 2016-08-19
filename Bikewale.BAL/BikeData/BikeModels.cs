@@ -200,44 +200,53 @@ namespace Bikewale.BAL.BikeData
         {
             List<ModelImage> modelPhotos = null;
             ModelPhotos modelPhotoInfo = null;
-            modelPhotos = GetBikeModelPhotoGallery(modelId);
-            modelPhotoInfo = modelRepository.GetModelPhotoInfo(modelId);
-            modelPhotoInfo.ModelName = "Model Image";
-            if (modelPhotos != null)
+            try
             {
-                modelPhotos.Insert(0,
-                    new ModelImage()
+                modelPhotos = GetBikeModelPhotoGallery(modelId);
+                modelPhotoInfo = modelRepository.GetModelPhotoInfo(modelId);
+                if(modelPhotoInfo!=null){
+                    modelPhotoInfo.ModelName = "Bike Model Image";
+                if (modelPhotos != null)
+                {
+                    modelPhotos.Insert(0,
+                        new ModelImage()
+                        {
+                            HostUrl = modelPhotoInfo.HostURL,
+                            OriginalImgPath = modelPhotoInfo.OriginalImgPath,
+                            ImageCategory = modelPhotoInfo.ModelName,
+                            Caption = "",
+                            ImageTitle = "",
+                            ImageName = modelPhotoInfo.ModelName,
+                            AltImageName = "",
+                            ImageDescription = "",
+                            ImagePathThumbnail = "",
+                            ImagePathLarge = ""
+                        });
+                }
+                else
+                {
+                    modelPhotos = new List<ModelImage>();
+                    modelPhotos.Add(new ModelImage()
                     {
                         HostUrl = modelPhotoInfo.HostURL,
                         OriginalImgPath = modelPhotoInfo.OriginalImgPath,
-                        ImageCategory=modelPhotoInfo.ModelName,
-                        Caption="",
-                        ImageTitle="",
+                        ImageCategory = modelPhotoInfo.ModelName,
+                        Caption = "",
+                        ImageTitle = "",
                         ImageName = modelPhotoInfo.ModelName,
-                        AltImageName="",
-                        ImageDescription="",
-                        ImagePathThumbnail="",
-                        ImagePathLarge=""
-                   });
+                        AltImageName = "",
+                        ImageDescription = "",
+                        ImagePathThumbnail = "",
+                        ImagePathLarge = ""
+                    });
+                }
+              }
             }
-            else
+            catch(Exception ex)
             {
-                modelPhotos = new List<ModelImage>();
-                modelPhotos.Add(new ModelImage()
-                {
-                    HostUrl = modelPhotoInfo.HostURL,
-                    OriginalImgPath = modelPhotoInfo.OriginalImgPath,
-                    ImageCategory = modelPhotoInfo.ModelName,
-                    Caption = "",
-                    ImageTitle = "",
-                    ImageName = modelPhotoInfo.ModelName,
-                    AltImageName = "",
-                    ImageDescription = "",
-                    ImagePathThumbnail = "",
-                    ImagePathLarge = ""
-                });
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetModelPhotos");
+                objErr.SendMail();
             }
-            
             return modelPhotos;
 
         }

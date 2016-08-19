@@ -1076,21 +1076,13 @@ namespace Bikewale.DAL.BikeData
                     }
                 }
             }
-            catch (SqlException err)
-            {
-                HttpContext.Current.Trace.Warn("SQL Exception in GetModelPhotos", err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception err)
             {
-                HttpContext.Current.Trace.Warn("Exception in GetModelPhotos", err.Message);
+                HttpContext.Current.Trace.Warn("Exception in GetModelPhotoInfo", err.Message);
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
             return modelPhotos;
         }
-
-         
         }   // class
 }   // namespace
