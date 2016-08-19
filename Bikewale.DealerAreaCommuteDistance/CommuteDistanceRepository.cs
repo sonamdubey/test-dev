@@ -61,11 +61,11 @@ namespace Bikewale.DealerAreaCommuteDistance
         /// Created by  :   Sumit Kate on 16 Aug 2016
         /// Description :   Updates the dealer-area distance mapping
         /// </summary>
-        /// <param name="idType"></param>
+        /// <param name="idType">if id value has dealerid, idType should be 1, if id value has areaid, idtype should be 2</param>
         /// <param name="id"></param>
         /// <param name="distanceMatrix"></param>
         /// <returns></returns>
-        public bool UpdateDistances(UInt16 idType, Int32 id, string distanceMatrix)
+        public bool UpdateDistances(UInt16 idType, UInt32 id, string distanceMatrix)
         {
             bool isSuccess = false;
             if (Enumerable.Range(1, 2).Contains(idType))

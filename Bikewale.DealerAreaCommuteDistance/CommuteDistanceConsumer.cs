@@ -8,14 +8,18 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 namespace Bikewale.DealerAreaCommuteDistance
 {
+    /// <summary>
+    /// Created by  :   Sumit Kate on 19 Aug 2016
+    /// Description :   Rabbit MQ Consumer for Dealer-Area Commute Distance
+    /// </summary>
     public class CommuteDistanceConsumer
     {
         internal void RabbitMQExecution(string queueName, string hostName)
         {
             string operationType = string.Empty;
-            int cityID = default(int);
-            ushort areaId = default(ushort), dealerId = default(ushort);
-            double lattitude = default(double), longitude = default(double);
+            int cityID;
+            UInt32 areaId, dealerId;
+            double lattitude, longitude;
             try
             {
                 // Create the connection based on Host Name and Queue Name
@@ -52,7 +56,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                                 {
                                     case "INSERTAREA":
                                         cityID = Convert.ToInt32(nvc["par_cityid"]);
-                                        areaId = Convert.ToUInt16(nvc["par_id"]);
+                                        areaId = Convert.ToUInt32(nvc["par_id"]);
                                         lattitude = Convert.ToDouble(nvc["par_lattitude"]);
                                         longitude = Convert.ToDouble(nvc["par_longitude"]);
                                         if (bl.IsAreaExists(areaId))
@@ -62,7 +66,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                                         Model.BasicAck(e.DeliveryTag, false);
                                         break;
                                     case "UPDATEAREA":
-                                        areaId = Convert.ToUInt16(nvc["par_id"]);
+                                        areaId = Convert.ToUInt32(nvc["par_id"]);
                                         lattitude = Convert.ToDouble(nvc["par_lattitude"]);
                                         longitude = Convert.ToDouble(nvc["par_longitude"]);
                                         if (bl.IsAreaGeoLocationChanged(areaId, lattitude, longitude))
@@ -70,7 +74,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                                         Model.BasicAck(e.DeliveryTag, false);
                                         break;
                                     case "UPDATEBIKEDEALER":
-                                        dealerId = Convert.ToUInt16(nvc["par_dealerid"]);
+                                        dealerId = Convert.ToUInt32(nvc["par_dealerid"]);
                                         lattitude = Convert.ToDouble(nvc["par_lattitude"]);
                                         longitude = Convert.ToDouble(nvc["par_longitude"]);
                                         if (bl.IsDealerGeoLocationChanged(dealerId, lattitude, longitude))
@@ -92,7 +96,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                         {
                             Logs.WriteErrorLog("RabbitMQExecution: Consumer was Closed: " + ex.Message);
                             SendMail.HandleException(ex, "Bikewale.CommuteDistanceConsumer/RabbitMQExecution:-Consumer Closed");
-                            break;
+                            continue;
                         }
                     }
                 }

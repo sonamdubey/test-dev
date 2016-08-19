@@ -25,12 +25,12 @@ namespace Bikewale.DealerAreaCommuteDistance
 
         /// <summary>
         /// Created by  :   Sumit Kate on 18 Apr 2016
-        /// Description :   Calculates the Commute Distance between dealer and areas
+        /// Description :   Calculates the Commute Distance between dealer and areas while area lat-long is changed
         /// </summary>
         /// <param name="cityId"></param>
         /// <param name="leadServingDistance"></param>
         /// <returns></returns>
-        internal bool UpdateCommuteDistanceForArea(UInt16 areaId, double lattitude, double longitude)
+        internal bool UpdateCommuteDistanceForArea(UInt32 areaId, double lattitude, double longitude)
         {
             GoogleDistanceAPIHelper googleApi = null;
             IEnumerable<GeoLocationDestinationEntity> apiResp = null;
@@ -46,7 +46,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                 area.Id = areaId;
                 area.Latitude = lattitude;
                 area.Longitude = longitude;
-                if (area != null && (dealers != null && dealers.Count() > 0))
+                if (area != null && dealers != null && dealers.Count() > 0)
                 {
                     googleApi = new GoogleDistanceAPIHelper();
                     dealersBatch = dealers.Take(maxArea);
@@ -93,12 +93,12 @@ namespace Bikewale.DealerAreaCommuteDistance
 
         /// <summary>
         /// Created by  :   Sumit Kate on 18 Apr 2016
-        /// Description :   Calculates the Commute Distance between dealer and areas
+        /// Description :   Calculates the Commute Distance between dealer and areas while adding new area
         /// </summary>
         /// <param name="cityId"></param>
         /// <param name="leadServingDistance"></param>
         /// <returns></returns>
-        internal bool UpdateCommuteDistanceForAreaAdd(Int32 cityId, UInt16 areaId, double lattitude, double longitude)
+        internal bool UpdateCommuteDistanceForAreaAdd(Int32 cityId, UInt32 areaId, double lattitude, double longitude)
         {
             GoogleDistanceAPIHelper googleApi = null;
             IEnumerable<GeoLocationDestinationEntity> apiResp = null;
@@ -114,7 +114,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                 area.Id = areaId;
                 area.Latitude = lattitude;
                 area.Longitude = longitude;
-                if (area != null && (dealers != null && dealers.Count() > 0))
+                if (area != null && dealers != null && dealers.Count() > 0)
                 {
                     googleApi = new GoogleDistanceAPIHelper();
                     dealersBatch = dealers.Take(maxArea);
@@ -167,7 +167,7 @@ namespace Bikewale.DealerAreaCommuteDistance
         /// <param name="dealerId"></param>
         /// <param name="leadServingDistance"></param>
         /// <returns></returns>
-        internal bool UpdateCommuteDistanceForDealerUpdate(UInt16 dealerId, double lattitude, double longitude)
+        internal bool UpdateCommuteDistanceForDealerUpdate(UInt32 dealerId, double lattitude, double longitude)
         {
             GoogleDistanceAPIHelper googleApi = null;
             IEnumerable<GeoLocationDestinationEntity> apiResp = null;
@@ -183,7 +183,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                 dealer.Id = dealerId;
                 dealer.Latitude = lattitude;
                 dealer.Longitude = longitude;
-                if (dealer != null && (areas != null && areas.Count() > 0))
+                if (dealer != null && areas != null && areas.Count() > 0)
                 {
                     googleApi = new GoogleDistanceAPIHelper();
                     areasBatch = areas.Take(maxArea);
@@ -235,7 +235,7 @@ namespace Bikewale.DealerAreaCommuteDistance
         /// <param name="lattitude"></param>
         /// <param name="longitude"></param>
         /// <returns></returns>
-        internal bool IsAreaGeoLocationChanged(UInt16 areaId, double lattitude, double longitude)
+        internal bool IsAreaGeoLocationChanged(UInt32 areaId, double lattitude, double longitude)
         {
             return commuteDistance.IsAreaGeoLocationChanged(areaId, lattitude, longitude);
         }
@@ -248,12 +248,18 @@ namespace Bikewale.DealerAreaCommuteDistance
         /// <param name="lattitude"></param>
         /// <param name="longitude"></param>
         /// <returns></returns>
-        internal bool IsDealerGeoLocationChanged(UInt16 dealerId, double lattitude, double longitude)
+        internal bool IsDealerGeoLocationChanged(UInt32 dealerId, double lattitude, double longitude)
         {
             return commuteDistance.IsDealerGeoLocationChanged(dealerId, lattitude, longitude);
         }
 
-        internal bool IsAreaExists(UInt16 areaId)
+        /// <summary>
+        /// Created by  :   Sumit Kate on 16 Aug 2016
+        /// Description :   Checks whether Area exists
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <returns></returns>
+        internal bool IsAreaExists(UInt32 areaId)
         {
             return commuteDistance.IsAreaExists(areaId);
         }

@@ -15,7 +15,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                 CommuteDistanceConsumer consumer = new CommuteDistanceConsumer();
                 Random Random = new Random();
                 string hostName = CreateConnection.nodes[Random.Next(CreateConnection.nodes.Count)];
-                consumer.RabbitMQExecution("RabbitMq-" + ConfigurationManager.AppSettings["QueueName"].ToUpper() + "-Queue", hostName);
+                consumer.RabbitMQExecution(String.Format("RabbitMq-{0}-Queue", ConfigurationManager.AppSettings["QueueName"].ToUpper()), hostName);
             }
             catch (Exception ex)
             {
