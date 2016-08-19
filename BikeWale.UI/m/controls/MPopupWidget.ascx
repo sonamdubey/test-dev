@@ -31,16 +31,8 @@
 </style>
  <!-- pricequote widget starts here-->
 <div class="bw-city-popup bwm-fullscreen-popup bw-popup-sm text-center hide" id="popupWrapper">
-    
+    <div class="city-area-banner"></div>
     <div class="popup-inner-container">
-        <div class="header-fixed fixed">
-            <div class="leftfloat header-back-btn">
-                <a href="javascript:void(0)" rel="nofollow"><span class="bwmsprite white-back-arrow"></span></a>
-            </div>
-            <div class="leftfloat header-title text-bold text-white font18">Select location</div>
-            <div class="clear"></div>
-        </div>
-        <div class="city-area-banner"></div>
         <div class="bwmsprite onroad-price-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
         <div id="popupHeading" class="content-inner-block-20">
             <p class="font18 margin-bottom5 text-capitalize">Please Tell Us Your Location</p>
@@ -117,14 +109,16 @@
 
     </div>
     <div id="popup-loader-container">
-        <p data-bind="visible : SelectedCityId() > 0" class="font18 text-bold">
-        <span data-bind="text : (SelectedCity() && SelectedCity().hasAreas) ?'Loading areas for':(!IsPersistance() ?'Fetching on-road price for':'Loading locations..')"></span> 
-            <br />
-            <span data-bind="text : SelectedArea() && SelectedArea().name!=null ? SelectedArea().name+',&nbsp;' :''"></span>  
-            <span data-bind="text : SelectedCity() && SelectedCity().name!=null ? SelectedCity().name:''"></span> 
-        </p>
-        <p data-bind="visible : SelectedCityId() < 1" class="font18 text-bold">Fetching Cities...</p>   
         <div id="popup-loader"></div>
+        <div id="popup-loader-text">
+            <p data-bind="visible : SelectedCityId() > 0" class="font18 text-bold">
+            <span data-bind="text : (SelectedCity() && SelectedCity().hasAreas) ?'Loading areas for':(!IsPersistance() ?'Fetching on-road price for':'Loading locations..')"></span> 
+                <br />
+                <span data-bind="text : SelectedArea() && SelectedArea().name!=null ? SelectedArea().name+',&nbsp;' :''"></span>  
+                <span data-bind="text : SelectedCity() && SelectedCity().name!=null ? SelectedCity().name:''"></span> 
+            </p>
+            <p data-bind="visible : SelectedCityId() < 1" class="font18 text-bold">Fetching Cities...</p>   
+        </div>
     </div>
 </div>
 <!-- pricequote widget ends here-->
@@ -386,7 +380,7 @@
                 self.IsPersistance(false); 						
             }
             
-            if(data.id != self.SelectedCityId()){
+            if(data.id != onCookieObj.PQCitySelectedId){
                 self.InitializePQ(data,event);
             }
             
@@ -428,7 +422,7 @@
             //}
 
             self.IsPersistance(false);
-            if(data.id != self.SelectedAreaId()){
+            if(data.id != onCookieObj.PQAreaSelectedId){
                 self.InitializePQ(data,event);
             }
 
