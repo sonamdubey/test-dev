@@ -151,6 +151,7 @@
     <Compile Include="CMS\CMSPageEntity.cs" />
     <Compile Include="CMS\ContentFilter.cs" />
     <Compile Include="CMS\EnumCMSContentType.cs" />
+    <Compile Include="CMS\Photos\ModelPhotos.cs" />
     <Compile Include="Compare\BikeColor.cs" />
     <Compile Include="Compare\BikeCompareEntity.cs" />
     <Compile Include="Compare\BikeDetails.cs" />
