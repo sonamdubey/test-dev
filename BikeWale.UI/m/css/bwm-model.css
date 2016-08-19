@@ -43,7 +43,7 @@
 .tel-grey-icon { position:relative;top:2px; }
 #model-image-wrapper .model-main-image { background-color: #fff; max-width: 476px; margin: 0 auto; min-height: 180px; max-height: 268px; position: relative; text-align: center; }
 #model-image-wrapper .model-media-details { position: absolute; right: 15px; bottom: 10px; font-size: 12px; }
-.model-media-item { display:inline-block; vertical-align: middle; padding: 3px 5px 0; color: #82888b; background: rgba(240, 240, 240, 0.8); border-radius: 2px; }
+.model-media-item { display:inline-block; vertical-align: middle; padding: 5px 5px 3px; color: #82888b; background: rgba(240, 240, 240, 0.8); border-radius: 2px; }
 .model-media-item:hover { text-decoration:none; }
 .model-media-count { position: relative; top: -1px; }
 .gallery-photo-icon, .gallery-video-icon { height: 12px; }
@@ -67,24 +67,6 @@
 .viewMoreOffersBtn { cursor: pointer; color: #0288d1; margin-left:25px; }
 .viewBreakupText { cursor: pointer; color: #0288d1; margin-top:3px; }
 .breakup-header { width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:left; }
-.pricequote-sprite { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/pricequote-sprite.png?v1=11Mar2016v1) no-repeat; display: inline-block; }
-.offers-insurance-icon, .offers-voucher-icon, .offers-pickup-icon { width:30px; }
-.offers-insurance-icon { height:30px; background-position:0 0; }
-.offers-voucher-icon { height:24px; background-position:-39px 0; }
-.offers-pickup-icon { height:30px; background-position:-79px 0; }
-
-.offer-benefit-sprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat; display: inline-block; }
-.benifitIcon_1 , .benifitIcon_2 , .benifitIcon_3 , .benifitIcon_4 , .benifitIcon_5 , .offerIcon_1 , .offerIcon_2 , .offerIcon_3 , .offerIcon_4 , .offerIcon_5, .offerIcon_6, .offerIcon_7 { width:30px; }
-.benifitIcon_1 { height:26px; background-position:0 -181px; }
-.benifitIcon_2 { height:30px; background-position:0 -141px; }
-.benifitIcon_3 { height:25px; background-position:0 -75px; }
-.benifitIcon_4 { height:18px; background-position:0 -293px; }
-.offerIcon_1 { height:25px; background-position:0 -40px; }
-.offerIcon_2 { height:25px; background-position:0 -321px; }
-.offerIcon_3 { height:30px; background-position:0 0; }
-.offerIcon_4 { height:26px; background-position:0 -257px; }
-.offerIcon_5, .benifitIcon_5, .offerIcon_7  { height:30px; background-position:0 -217px; }
-.offerIcon_6 { height:21px; background-position:0 -110px; }
 
 /**/
 #otpPopup { display:none; }
@@ -358,6 +340,8 @@
 }
 
 .elevated-shadow {
+    position:relative;
+    top:1px;
     -moz-box-shadow: 0 0 7px #ccc;
     -webkit-box-shadow: 0 0 7px #ccc;
     -o-box-shadow: 0 0 7px #ccc;
@@ -515,6 +499,10 @@
     margin-left: 0;
 }
 
+#dealer-offers-list .more-offers-card {
+    background-color: #f9f9f9;
+}
+
 .vertical-top {
     display: inline-block;
     vertical-align: top;
@@ -545,7 +533,7 @@ a.btn:hover {
 }
 
 .booknow-label {
-    width: 65%;
+    width: 64%;
     padding-left: 10px
 }
 
@@ -634,7 +622,7 @@ a.btn:hover {
 }
 
 .offers-sprite {
-    background: url(../images/offers-benefits-sprite.png) no-repeat;
+    background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v19Aug2016) no-repeat;
     display: inline-block;
 }
 
@@ -651,27 +639,19 @@ a.btn:hover {
 }
 
 .dealership-icon {
-    width:24px;
-    height:18px;
-    background-position:0 -283px;
+    width:29px;
+    height:24px;
+    background-position:0 -356px;
 }
 
-.offerIcon_1 , .offerIcon_2 , .offerIcon_3 , .offerIcon_4 , .offerIcon_5, .offerIcon_6, .offerIcon_7 {
-    width:36px;
-}
-
-.benifitIcon_1 , .benifitIcon_2 , .benifitIcon_3 , .benifitIcon_4 , .benifitIcon_5 {
-
-}
-
-.offerIcon_1 { height:29px; background-position:0 -137px; }
-.offerIcon_2 { height:35px; background-position:0 -92px; }
-.offerIcon_3 { height:36px; background-position:0 -176px; }
-
-.offerIcon_1_sm , .offerIcon_2_sm , .offerIcon_3_sm , .offerIcon_4_sm , .offerIcon_5_sm, .offerIcon_6_sm, .offerIcon_7_sm { width:28px; height:27px; }
-.offerIcon_1_sm { background-position:0 -336px; }
-.offerIcon_2_sm { background-position:0 -306px; }
-.offerIcon_3_sm { background-position:0 -365px; }
+.offerIcon_1_sm , .offerIcon_2_sm , .offerIcon_3_sm , .offerIcon_4_sm , .offerIcon_5_sm, .offerIcon_6_sm, .offerIcon_7_sm { width:30px; height:28px; }
+.offerIcon_1_sm { background-position:0 -93px; }
+.offerIcon_2_sm { background-position:0 -132px; }
+.offerIcon_3_sm { background-position:0 -166px; }
+.offerIcon_4_sm { background-position:0 -207px; }
+.offerIcon_5_sm { background-position:0 -246px; }
+.offerIcon_6_sm { background-position:0 -283px; }
+.offerIcon_7_sm { background-position:0 -317px; }
 
 #dealer-offers-popup .btn {
     padding: 8px 19px;
@@ -697,10 +677,16 @@ a.btn:hover {
     padding-top:0;
 }
 
+.fullwidth{
+    width: 100%;
+    text-align: left;
+    background-color: transparent;
+    cursor: pointer;
+}
 
 @media only screen and (max-width: 320px) {
     .selected-location-label {
-        width: 85%;
+        width: 82%;
     }
 
     .booknow-label, .callback-label {

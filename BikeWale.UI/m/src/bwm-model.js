@@ -793,17 +793,6 @@ function getBikeVersionLocation() {
     return bikeVersionLocation;
 }
 
-function getBikeVersion() {
-    var versionName = '';
-    if ($('#defaultVariant').length > 0) {
-        versionName = $('#defaultVariant').html();
-    }
-    else if ($('#versText').length > 0) {
-        versionName = $('#versText').html()
-    }
-    return versionName;
-}
-
 $('.tnc').on('click', function (e) {
     LoadTerms($(this).attr("id"));
 });
@@ -1013,8 +1002,10 @@ var popupDiv = {
 
 
 $(document).ready(function () {
-    dropdown.setDropdown();
-    dropdown.dimension();
+    if (versionCount > 1) {
+        dropdown.setDropdown();
+        dropdown.dimension();
+    }
 });
 
 $(window).resize(function () {
@@ -1050,7 +1041,7 @@ var dropdown = {
     setStructure: function (element) {
         var elementValue = element.find('option:selected').text(),
 			menu = element.next('.dropdown-menu');
-        menu.append('<p class="dropdown-label">' + elementValue + '</p><div class="dropdown-list-wrapper"><p class="dropdown-selected-item">' + elementValue + '</p><ul id="templist" class="dropdown-menu-list dropdown-with-select"></ul></div>');
+        menu.append('<p id="defaultVariant" class="dropdown-label">' + elementValue + '</p><div class="dropdown-list-wrapper"><p class="dropdown-selected-item">' + elementValue + '</p><ul id="templist" class="dropdown-menu-list dropdown-with-select"></ul></div>');
         dropdown.setOption(element);
     },
 
@@ -1061,13 +1052,10 @@ var dropdown = {
 
         element.find('option').each(function (index) {
             if (selectedIndex == index) {
-                //<input type="submit" name="rptVariants$ctl02$btnVariant" value="Kick/Drum/Spokes" id="rptVariants_btnVariant_2" title="Kick/Drum/Spokes" versionid="111" style="width: 100%; text-align: left">
-                menuList.append('<li><input value="' + $(this).text() + '" type="submit" runat="server" class="active" id="temp_' + index + '" data-option-value="' + $(this).val() + '" title="' + $(this).text() + '"></li>');
-                //menuList.append('<li runat="server" name="newversion" class="active" data-option-value="' + $(this).val() + '">' + $(this).text() + '</li>');
+                menuList.append('<li><input value="' + $(this).text() + '" type="submit" runat="server" class="active fullwidth" id="temp_' + index + '" data-option-value="' + $(this).val() + '" title="' + $(this).text() + '"></li>');
             }
             else {
-                menuList.append('<li><input value="' + $(this).text() + '" type="submit" runat="server" id="temp_' + index + '" data-option-value="' + $(this).val() + '" title="' + $(this).text() + '"></li>');
-               // menuList.append('<li runat="server" name="newversion" data-option-value="' + $(this).val() + '">' + $(this).text() + '</li>');
+                menuList.append('<li><input value="' + $(this).text() + '" type="submit" runat="server" class="fullwidth" id="temp_' + index + '" data-option-value="' + $(this).val() + '" title="' + $(this).text() + '"></li>');
             }
         });
     },

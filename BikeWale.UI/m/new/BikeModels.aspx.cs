@@ -48,14 +48,14 @@ namespace Bikewale.Mobile.New
         protected VersionSpecifications bikeSpecs;
         protected PQOnRoadPrice pqOnRoad;
         protected Repeater rptNavigationPhoto, rptVarients, rptColors, rptOffers, rptNewOffers, rptVariants, rptSecondaryDealers;
-        protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty, location = string.Empty;
+        protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty, location = string.Empty, priceText = "Ex-showroom", detailedPriceLink = string.Empty;
         protected String clientIP = CommonOpn.GetClientIP();
         protected bool isCitySelected, isAreaSelected, isBikeWalePQ, isDiscontinued, isOnRoadPrice, toShowOnRoadPriceButton;
         //Varible to Hide or show controlers
         protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true, isAreaAvailable, isDealerPQ, isDealerAssitance, isBookingAvailable, isOfferAvailable;
         protected bool isUserReviewActive, isExpertReviewActive, isNewsActive, isVideoActive;
         protected NewAlternativeBikes ctrlAlternativeBikes;
-        protected ushort reviewTabsCnt, moreOffersCount;
+        protected ushort reviewTabsCnt, moreOffersCount, versionCount = 1;
         public DropDownList ddlNewVersionList;
         //Variable to Assing ACTIVE class
 
@@ -173,13 +173,14 @@ namespace Bikewale.Mobile.New
                     {
                         rptVarients.DataSource = modelPage.ModelVersions;
                         rptVarients.DataBind();
-
-                        ddlNewVersionList.DataSource = modelPage.ModelVersions;
-                        ddlNewVersionList.DataTextField = "VersionName";
-                        ddlNewVersionList.DataValueField = "VersionId";
-                        ddlNewVersionList.DataBind();
-                        if (IsPostBack)
+                        if (versionCount > 1)
+                        {
+                            ddlNewVersionList.DataSource = modelPage.ModelVersions;
+                            ddlNewVersionList.DataTextField = "VersionName";
+                            ddlNewVersionList.DataValueField = "VersionId";
+                            ddlNewVersionList.DataBind();
                             ddlNewVersionList.SelectedValue = versionId.ToString();
+                        }
 
                     }
 
@@ -190,6 +191,7 @@ namespace Bikewale.Mobile.New
                     ctrlTopCityPrices.IsDiscontinued = isDiscontinued;
                     ctrlTopCityPrices.TopCount = 8;
                 }
+                SetFlagsAtEnd();
             }
             catch (Exception ex)
             {
@@ -206,7 +208,8 @@ namespace Bikewale.Mobile.New
             {
                 versionId = Convert.ToUInt32(e.CommandName);
                 FetchVariantDetails(versionId);
-                defaultVariant.Text = Convert.ToString(e.CommandArgument);
+                //defaultVariant.Text = Convert.ToString(e.CommandArgument);
+                variantText = Convert.ToString(e.CommandArgument);
             }
         }
 
@@ -299,6 +302,7 @@ namespace Bikewale.Mobile.New
             {
                 if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
                 {
+                    versionCount = Convert.ToUInt16(modelPage.ModelVersions.Count);
                     rptVarients.DataSource = modelPage.ModelVersions;
                     rptVarients.DataBind();
                 }
@@ -457,7 +461,8 @@ namespace Bikewale.Mobile.New
                             {
                                 var firstVer = modelPage.ModelVersions.Where(p => p.VersionId == versionId).FirstOrDefault();
                                 if (firstVer != null)
-                                    defaultVariant.Text = firstVer.VersionName;
+                                    variantText = firstVer.VersionName;
+                                //defaultVariant.Text = firstVer.VersionName;
 
                                 if (versionId == 0)
                                     hdnVariant.Value = Convert.ToString(modelPage.ModelVersionSpecs.BikeVersionId);
@@ -468,7 +473,11 @@ namespace Bikewale.Mobile.New
                             {
                                 var firstVer = modelPage.ModelVersions.FirstOrDefault();
                                 if (firstVer != null)
-                                    defaultVariant.Text = firstVer.VersionName;
+                                {
+                                    // defaultVariant.Text = firstVer.VersionName;
+                                    variantText = firstVer.VersionName;
+                                }
+                                variantText = firstVer.VersionName;
                             }
                             rptVariants.DataSource = modelPage.ModelVersions;
                             rptVariants.DataBind();
@@ -939,6 +948,7 @@ namespace Bikewale.Mobile.New
                 if (isCitySelected)
                 {
                     location += areaName != string.Empty ? string.Format("{0}, {1}", areaName, cityName) : cityName;
+
                 }
                 else
                 {
@@ -946,7 +956,27 @@ namespace Bikewale.Mobile.New
                 }
             }
         }
+        /// <summary>
+        /// Author: Sangram Nandkhile
+        /// Created on: 19-aug-2016
+        /// Desc: Set flags at the end of page load
+        /// </summary>
+        private void SetFlagsAtEnd()
+        {
+            if (isDiscontinued)
+            {
+                priceText = "Last known Ex-showroom";
+            }
+            else if (isCitySelected && isOnRoadPrice)
+            {
+                priceText = "On-road price";
+            }
 
+            if (isOnRoadPrice && price > 0)
+            {
+                detailedPriceLink = PriceQuoteQueryString.FormBase64QueryString(cityId.ToString(), pqId, areaId.ToString(), versionId.ToString(), dealerId.ToString());
+            }
+        }
         /// <summary>
         /// Created By: Sangram Nandkhile on 17-Mar-2016
         /// Summary   : To create Viewmodel for Version Page View
