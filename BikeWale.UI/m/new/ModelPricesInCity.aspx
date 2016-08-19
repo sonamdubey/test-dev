@@ -140,12 +140,14 @@
         <script type="text/javascript">
             ga_pg_id = "16";
             var bikenamever = '<%= string.Format("{0}_{1}_{2}", makeName, modelName,versionName)%>';
+            var bikeNameLocation = '<%=string.Format("{0}_{1}_{2}",makeName,modelName,cityName)%>';
             var modelId = "<%= modelId %>";
             var clientIP = "<%= clientIP%>";
             var pageUrl = window.location.href; 
-
+           
             $(".leadcapturebtn").click(function(e){
-                ele = $(this);
+                ele = $(this);              
+                var areaName = ele.attr('data-item-area');
                 var leadOptions = {
                     "dealerid" : ele.attr('data-item-id'),
                     "dealername" : ele.attr('data-item-name'),
@@ -155,7 +157,12 @@
                     "pqsourceid" : ele.attr('data-pqsourceid'),
                     "pageurl" : pageUrl,
                     "clientip" : clientIP,
-                    "isregisterpq" : true
+                    "isregisterpq": true,
+                    "gaobject": {
+                        cat: ele.attr('data-ga-cat'),
+                        act: ele.attr('data-ga-act'),
+                        lab: bikeNameLocation.concat(areaName == "" ? "" : "_" + areaName)
+                    }
                 };
 
                 dleadvm.setOptions(leadOptions);

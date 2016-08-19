@@ -94,7 +94,6 @@
             leadCapturePopup.show();
             $("#notify-response").hide();
             $("div#contactDetailsPopup").show();
-            //$('body').addClass('lock-browser-scroll');
             $(".blackOut-window").show();
         });
 
@@ -347,14 +346,9 @@
          
             if (data != null && data.act != null) {
                 if (data.lab == "lead_label") {
-                    data.lab = self.selectedBike().make.makeName + '_' + self.selectedBike().model.modelName+'_'+ CityArea;
+                    data.lab = self.selectedBike().make.makeName + '_' + self.selectedBike().model.modelName + '_' + CityArea;
                 }
-                else if (data.cat == "SpecsandFeature" && data.act == "Lead_Submitted")
-                {
-                    data.lab = data.lab + '_' + CityArea;
-                }
-                    triggerGA(data.cat, data.act, data.lab)
-                
+                triggerGA(data.cat, data.act, data.lab)
             }
         }
 
