@@ -205,7 +205,7 @@ namespace Bikewale.BAL.BikeData
                 modelPhotos = GetBikeModelPhotoGallery(modelId);
                 modelPhotoInfo = modelRepository.GetModelPhotoInfo(modelId);
                 if(modelPhotoInfo!=null){
-                    modelPhotoInfo.ModelName = "Bike Model Image";
+                    modelPhotoInfo.ImageCategory = "Model Image";
                 if (modelPhotos != null)
                 {
                     modelPhotos.Insert(0,
@@ -213,7 +213,14 @@ namespace Bikewale.BAL.BikeData
                         {
                             HostUrl = modelPhotoInfo.HostURL,
                             OriginalImgPath = modelPhotoInfo.OriginalImgPath,
-                            ImageCategory = modelPhotoInfo.ModelName,
+                            ImageCategory = modelPhotoInfo.ImageCategory,
+                            MakeBase = new BikeMakeEntityBase(){
+                                MakeName=modelPhotoInfo.MakeName
+                            },
+                            ModelBase = new BikeModelEntityBase()
+                            {
+                                ModelName = modelPhotoInfo.ModelName
+                            },
                             Caption = "",
                             ImageTitle = "",
                             ImageName = modelPhotoInfo.ModelName,
@@ -230,7 +237,15 @@ namespace Bikewale.BAL.BikeData
                     {
                         HostUrl = modelPhotoInfo.HostURL,
                         OriginalImgPath = modelPhotoInfo.OriginalImgPath,
-                        ImageCategory = modelPhotoInfo.ModelName,
+                        ImageCategory = modelPhotoInfo.ImageCategory,
+                        MakeBase = new BikeMakeEntityBase()
+                        {
+                            MakeName = modelPhotoInfo.MakeName
+                        },
+                        ModelBase = new BikeModelEntityBase()
+                        {
+                            ModelName = modelPhotoInfo.ModelName
+                        },
                         Caption = "",
                         ImageTitle = "",
                         ImageName = modelPhotoInfo.ModelName,

@@ -100,8 +100,7 @@
                     <% } %>
                     <div id="model-image-wrapper">
                         <div class="model-main-image">
-                            <% if (modelPage !=null && modelPage.Photos != null && modelPage.Photos.Count > 1)
-                               { %>
+                           
                             <a href="./photos/" ><img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image" /></a>
                             <div class="model-media-details">
                                 <div class="model-media-item" style="cursor: pointer;" onclick="window.location='./photos/';">
@@ -113,9 +112,7 @@
                                     <span class="model-media-count">7</span>
                                 </a>--%>
                             </div>
-                            <% }else{ %>
-                            <img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image" />
-                            <%} %>
+                           
                         </div>
                     </div>
 

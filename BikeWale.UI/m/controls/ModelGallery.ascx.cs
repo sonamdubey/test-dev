@@ -22,7 +22,7 @@ namespace Bikewale.m.controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Photos != null && Photos.Count > 1)
+            if (Photos != null && Photos.Count >= 1)
             {
                 BindModelGalleryWidget();
             }

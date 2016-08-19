@@ -1069,7 +1069,8 @@ namespace Bikewale.DAL.BikeData
                                 modelPhotos = new ModelPhotos();
                                 modelPhotos.HostURL = Convert.ToString(dr["HostUrl"]);
                                 modelPhotos.OriginalImgPath = Convert.ToString(dr["OriginalImagePath"]);
-                               
+                                modelPhotos.ModelName = Convert.ToString(dr["Name"]);
+                                modelPhotos.MakeName = Convert.ToString(dr["MakeName"]);
                             }
                             dr.Close();
                         }
