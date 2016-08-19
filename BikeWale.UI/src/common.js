@@ -144,9 +144,8 @@ $(document).ready(function () {
 	}); // nav bar code ends here
 	
 	// login code starts 
-	$("#firstLogin").click(function(){
-		$(".blackOut-window").show();
-		$(".loginPopUpWrapper").animate({right:'0'});
+	$("#firstLogin").click(function(){		
+	    window.location.href = "/users/login.aspx?ReturnUrl=" + window.location.href;
 	});
 	$(".blackOut-window").mouseup(function(e){
 		var loginPopUp = $(".loginPopUpWrapper");

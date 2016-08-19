@@ -163,9 +163,7 @@
             GB_show(caption, url, 200, 500, applyIframe, GB_Html);
             $("#txtEditText").val($('.text_' + disclaimerId).text());
             $("#txtEditText").focus();
-            $("#btnUpdate").click(function () {
-                alert(host);
-                debugger;
+            $("#btnUpdate").click(function () {               
                 $("#spnUpdateText").text("");
                 var newtxt = $("#txtEditText").val();
                 var isError = false;
