@@ -29,70 +29,7 @@
         background: #fff;
     }
 </style>
-<!-- pricequote widget starts here-->
-<%--<div id="popupWrapper">
-    <div id="city-area-popup" class="bwm-fullscreen-popup">
-        <div class="header-fixed fixed">
-            <div class="leftfloat header-back-btn">
-                <a href="javascript:void(0)" rel="nofollow"><span class="bwmsprite white-back-arrow"></span></a>
-            </div>
-            <div class="leftfloat header-title text-bold text-white font18">Select location</div>
-            <div class="clear"></div>
-        </div>
-        <div class="city-area-banner"></div>
-        <div id="city-area-content">
-             <% if(!isOperaBrowser) { %>
-                                  <div id="city-menu" class="city-area-menu open">
-                <div id="city-menu-tab" class="city-area-tab cursor-pointer">
-                    <span class="city-area-tab-label" data-bind="text: (SelectedCity() != undefined && SelectedCity().name != '') ? 'City : ' + SelectedCity().name : 'Select your city'"></span>
-                    <span class="chevron bwmsprite chevron-down"></span>
-                </div>
-                <div class="inputbox-list-wrapper">
-                    <div class="form-control-box user-input-box">
-                        <span class="bwmsprite search-icon-grey"></span>
-                        <input type="text" class="form-control padding-right40" placeholder="Type to select city" id="city-menu-input" autocomplete="off" data-bind="textInput: cityFilter">
-                        <span class="fa fa-spinner fa-spin position-abt text-black"></span>
-                    </div>
-                    <ul id="city-menu-list" data-bind="template: { name: 'bindCityList-template', foreach: visibleCities }" ></ul>
-                    <script type="text/html" id="bindCityList-template">
-                         <li data-bind="text: name, attr: { 'cityId': id }, click: function (d, e) { $parent.selectCity(d, e); }"></li>
-                    </script>
-                </div>
-            </div>  
-            <div id="area-menu" class="city-area-menu">
-                <div id="area-menu-tab" class="city-area-tab">
-                    <span class="city-area-tab-label" data-bind="text: (SelectedArea() != undefined && SelectedArea().name != '') ? 'Area : ' + SelectedArea().name : 'Select your area'"></span>
-                </div>
-                <div class="inputbox-list-wrapper">
-                    <div class="form-control-box user-input-box">
-                        <span class="bwmsprite search-icon-grey"></span>
-                        <input type="text" class="form-control padding-right40" placeholder="Type to select area" id="area-menu-input" autocomplete="off" data-bind="textInput: areaFilter">
-                        <span class="fa fa-spinner fa-spin position-abt text-black"></span>
-                    </div> 
-                     <ul id="area-menu-list" data-bind="template: { name: 'bindAreaList-template', foreach: visibleAreas }" ></ul>
-                    <script type="text/html" id="bindAreaList-template">
-                         <li data-bind="text: name, attr: { 'areaId': id }, click: function (d, e) { $parent.selectArea(d, e); }"></li>
-                    </script>
-                </div>
-            </div>
-            <% } else {%>
-
-             <div class="form-control-box margin-bottom10 ">
-                <select class="form-control" tabindex="2" data-bind="options: BookingCities, value: SelectedCityId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select City--', event: { change: selectCity }"></select>
-                <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
-            </div>
-            <div class="form-control-box" data-bind="visible: BookingAreas().length > 0">
-                <select class="form-control" data-bind="options: BookingAreas, value: SelectedAreaId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select Area--', event: { change: function (data, event) { selectArea(data, event); } }"></select>
-                <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
-            </div>
-
-            <% } %>
-        </div>
-    </div>
-</div>--%>
-<!-- pricequote widget ends here-->
-
- <!--bw popup code starts here-->
+ <!-- pricequote widget starts here-->
 <div class="bw-city-popup bwm-fullscreen-popup bw-popup-sm text-center hide" id="popupWrapper">
     
     <div class="popup-inner-container">
@@ -190,7 +127,7 @@
         <div id="popup-loader"></div>
     </div>
 </div>
-<!--bw popup code ends here-->
+<!-- pricequote widget ends here-->
 
 <!-- widget script starts here-->
 <script type="text/javascript">
@@ -200,7 +137,6 @@
         $('body').removeClass('lock-browser-scroll');
         $(".blackOut-window").hide();
         $('a.fillPopupData').removeClass('ui-btn-active');
-        //stopLoading($('#top-progress-bar'));
     });
 
     $(document).on("click", ".getquotation", function (e) {
@@ -230,27 +166,6 @@
 
     });
 
-    var showPQPopup = function(isCitySelected) {
-        //var tab = $('#city-area-content #city-menu-tab'),
-        //tabParent = tab.parent('.city-area-menu'),
-        //cityAreaContent = $('#city-area-content');
-        //var areaMenu = $('#area-menu');
-
-        //if (cityAreaContent.hasClass('city-selected')) {
-        //    var areaMenu = $('#area-menu');
-        //}
-
-        //cityArea.open();
-        //cityArea.openList(tabParent);
-        //cityArea.closeList(areaMenu);
-        //areaMenu.hide();
-        //if(isCitySelected)
-        //{
-        //    $('#city-area-content #city-menu-tab').click();
-        //}		
-        
-    };
-
     var mPopup = function () {
         var self = this;
         self.MakeName = "";
@@ -279,9 +194,6 @@
                 var pat = new RegExp(filter,"i");
                 filterObj = data.filter(function(place){
                     if(pat.test(place.name)) return place;
-                    //filterObj = ko.utils.arrayFilter(data, function(item) {
-                    //     if(pat.test(item.name)) return item;
-
                 });
 
             }
@@ -430,7 +342,7 @@
                                
                             },
                             complete: function (xhr) {
-                                if(xhr.status == 200 && !xhr.priceQuote) {
+                                if(xhr.status == 200 && xhr.priceQuote!=null) {
                                     if(self.SelectedCity())
                                     {
                                         cookieValue = self.SelectedCity().id + "_" + self.SelectedCity().name;
@@ -443,7 +355,6 @@
 
                                         SetCookieInDays("location", cookieValue, 365);
                                     }
-                                    completeCityOp(self);
                                 }
                                                                 
                                 stopLoading($("#btnPriceLoader"));
@@ -460,8 +371,6 @@
 
                 $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
                 startLoading($("#areaSelection"));
-                $("#areaSelection div.selected-area").text("Loading areas..").next().show();
-                $("#areaPopupLoader").text("Loading areas..").show().prev().show();
 
                 self.SelectedCity(data);
                 self.SelectedCityId(data.id);
@@ -480,8 +389,6 @@
             if(data.id != self.SelectedCityId()){
                 self.InitializePQ(data,event);
             }
-           
-            completeAreaOp(self);
             
             //-------------------------------------------------------------------------------------------
             //ev = $._data($('ul#popupCityList')[0], 'events');
@@ -526,85 +433,6 @@
             }
 
         };
-
-                
-
-    }
-
-
-    function completeCityOp(self) {
-        $("#popupLoader").text("Loading cities..").hide().prev().hide();
-        if (self.BookingCities() != null && self.BookingCities().length > 0) {
-            $("#citySelection div.selected-city").text("Select City").next().hide();
-            $("#popupCityList li.isPopular").last().addClass("border-last-bottom");
-        } else {
-            $("#citySelection div.selected-city").text("No cities Found").next().hide();
-        }
-        stopLoading($("#citySelection"));
-        checkCookies();
-        var cityFound = null;
-
-        if (self.SelectedCityId() == null) {
-            if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0 && selectElementFromArray(self.BookingCities(), onCookieObj.PQCitySelectedId)) {
-                cityFound = findCityById(onCookieObj.PQCitySelectedId);
-
-                if (cityFound != null) {
-                    self.SelectedCity(ko.toJS({ 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName }));
-                    self.SelectedCityId(onCookieObj.PQCitySelectedId);
-                    self.hasAreas(cityFound.hasAreas);
-                }
-
-            }
-        }
-        else {
-            _cityid = parseInt(self.SelectedCityId());
-            cityFound = findCityById(_cityid);
-            if (cityFound != null) {
-                self.SelectedCityId(_cityid);
-                self.SelectedCity(ko.toJS({ 'id': cityFound.id, 'name': cityFound.name }));
-                self.hasAreas(cityFound.hasAreas);
-            }
-
-        } 
-
-
-    }
-
-    function completeAreaOp(self, xhr) {
-        $("#areaSelection div.selected-area").next().hide();
-        $("#areaPopupLoader").text("Loading areas..").hide().prev().hide();
-
-        if (self.SelectedCity() && !self.SelectedCity().hasAreas) {
-            $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
-            self.BookingAreas([]);
-            self.SelectedArea(undefined);
-            self.SelectedAreaId(0);
-            $("#areaSelection div.selected-area").text("No areas Found");
-
-        }
-        else {
-            if (self.BookingAreas().length > 0) {
-                $("#areaSelection div.selected-area").text("Select Area");
-            } else {
-                $("#areaSelection div.selected-area").text("No areas available");
-            }
-            self.SelectedArea(undefined);
-            self.SelectedAreaId(0);
-        }
-
-        stopLoading($("#areaSelection"));
-
-        if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0 && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(self.BookingAreas(), onCookieObj.PQAreaSelectedId)) {
-            if (!self.oBrowser()) {
-                self.SelectedArea(data);
-                self.SelectedAreaId(data.id);
-            }
-            else {
-                self.SelectedArea(findAreaById(self.SelectedAreaId()));
-            }
-        }
-
-
     }
 
 
@@ -681,7 +509,6 @@
                         onCookieObj.PQCitySelectedName = cData[1];
                         onCookieObj.PQAreaSelectedId = parseInt(cData[2]);
                         onCookieObj.PQAreaSelectedName = cData[3];
-
                     }
                 }
             }
