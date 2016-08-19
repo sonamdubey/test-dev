@@ -119,7 +119,7 @@ namespace Bikewale.New
                 ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_DealersCard_GetOfferButton;
                 ctrlDealerCard.LeadSourceId = 29;
                 ctrlDealerCard.TopCount = Convert.ToUInt16(cityId > 0 ? 3 : 6);
-
+                ctrlDealerCard.pageName = "Make_Page";
                 ctrlLeadCapture.CityId = cityId;
                 ctrlLeadCapture.AreaId = 0;
                 BindDiscountinuedBikes();

@@ -89,11 +89,12 @@ namespace Bikewale.New
                 ctrlDealers.ModelId = modelId;
                 ctrlDealers.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_DealersCard_GetOfferButton;
                 ctrlDealers.ModelId = modelId;
+                ctrlDealers.pageName = "Price_In_City_Page";
 
                 ctrlLeadCapture.CityId = cityId;
                 ctrlLeadCapture.ModelId = modelId;
                 ctrlLeadCapture.AreaId = 0;
-
+               
                 BindAlternativeBikeControl();
 
             }
