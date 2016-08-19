@@ -840,6 +840,7 @@
                 if ($("#getAssistance").length > 0) {
                     dataLayer.push({ "event": "Bikewale_noninteraction", "cat": "Model_Page", "act": "Get_Offers_Shown", "lab": myBikeName + "_" + getBikeVersion() + '_' + getCityArea });
                 }
+
             });
             function secondarydealer_Click(dealerID) {
                 var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerID + "&IsDealerAvailable=true";
@@ -849,18 +850,6 @@
                 var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId + "&IsDealerAvailable=true";
                 window.location.href = "/m/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
             });
-
-            function getBikeVersion() {
-                //debugger;
-                //var versionName = '';
-                //if ($('#ddlNewVersionList').length > 0) {
-                //    versionName = $('#defaultVariant').html();
-                //}
-                //else if ($('#singleversion').length > 0) {
-                //    versionName = $('#singleversion').html()
-                //}
-                return versionName;
-            }
             
         </script>
     </form>

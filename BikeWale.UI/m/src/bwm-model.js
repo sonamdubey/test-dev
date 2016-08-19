@@ -84,6 +84,19 @@ $('#getMoreDetailsBtn,#getAssistance').on('click', function (e) {
     }
 });
 
+function getBikeVersion() {
+    return versionName;
+}
+
+function getBikeVersionLocation() {
+    var versionName = getBikeVersion();
+    var loctn = getCityArea;
+    if (loctn != '')
+        loctn = '_' + loctn;
+    var bikeVersionLocation = myBikeName + '_' + versionName + loctn;
+    return bikeVersionLocation;
+}
+
 $("#viewBreakupText").on('click', function (e) {
     triggerGA('Model_Page', 'View_Detailed_Price_Clicked', bikeVersionLocation);
     secondarydealer_Click(dealerId);
@@ -784,14 +797,6 @@ $("#btnDealerPricePopup").on("click", function () {
     dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Show_On_Road_Price_Clicked", "lab": bikeVersionLocation });
 });
 
-function getBikeVersionLocation() {
-    var versionName = getBikeVersion();
-    var loctn = getCityArea;
-    if (loctn != '')
-        loctn = '_' + loctn;
-    var bikeVersionLocation = myBikeName + '_' + versionName + loctn;
-    return bikeVersionLocation;
-}
 
 $('.tnc').on('click', function (e) {
     LoadTerms($(this).attr("id"));
