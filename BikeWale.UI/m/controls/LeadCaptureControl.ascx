@@ -94,7 +94,6 @@
             leadCapturePopup.show();
             $("#notify-response").hide();
             $("div#contactDetailsPopup").show();
-            //$('body').addClass('lock-browser-scroll');
             $(".blackOut-window").show();
         });
 
@@ -346,7 +345,7 @@
         self.pushToGA = function (data, event) {
          
             if (data != null && data.act != null) {
-                if (data.lab == "lead_label") {//lead_label is assigned to data.lab only when modelId is being selected in lead capture control
+                if (data.lab == "lead_label") {
                     data.lab = self.selectedBike().make.makeName + '_' + self.selectedBike().model.modelName + '_' + CityArea;
                 }
                 triggerGA(data.cat, data.act, data.lab)
