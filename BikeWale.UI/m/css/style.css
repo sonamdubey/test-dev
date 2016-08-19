@@ -1,6 +1,5 @@
 ﻿@charset "utf-8";
 /* CSS Document */
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700);
 body { font-size:13px; font-family: 'Open Sans', sans-serif, Arial; color:#4d5057; background: #f4f3f3; font-style: normal; -webkit-overflow-scrolling: touch; }
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,label{ margin: 0; padding: 0; }
 ul,ol{ list-style: none; }
