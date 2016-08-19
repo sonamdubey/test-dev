@@ -179,6 +179,7 @@
         self.dealerBikes = ko.observableArray([]);
         self.selectedBike = ko.observable();
         self.campaignId = ko.observable();
+        self.GAObject = ko.observable();
         
         self.setOptions = function(options)
         {
@@ -212,7 +213,10 @@
                 {
                     self.isDealerBikes(options.isdealerbikes);
                     self.getDealerBikes();
-                }                    
+                }
+
+                if (options.gaobject != null)
+                    self.GAObject(options.gaobject);
 
                 if(options.pageurl!=null)
                     self.pageUrl = options.pageurl;
@@ -326,6 +330,12 @@
 
         };
 
+        self.pushToGA = function (data, event) {
+            if (data != null && data.act != null) {
+                triggerGA(data.cat, data.act, data.lab)
+            }
+        }
+
         self.verifyCustomer = function (data, event) {
             
             if(self.isRegisterPQ())
@@ -363,6 +373,8 @@
                     complete: function (xhr, ajaxOptions, thrownError) {
                         if(xhr.status!=200)
                             self.IsVerified(false);
+
+                        self.pushToGA(self.GAObject());
                     }
                 });
             }
