@@ -96,29 +96,37 @@
 <div class="bw-city-popup bwm-fullscreen-popup bw-popup-sm text-center hide" id="popupWrapper">
     
     <div class="popup-inner-container">
+        <div class="header-fixed fixed">
+            <div class="leftfloat header-back-btn">
+                <a href="javascript:void(0)" rel="nofollow"><span class="bwmsprite white-back-arrow"></span></a>
+            </div>
+            <div class="leftfloat header-title text-bold text-white font18">Select location</div>
+            <div class="clear"></div>
+        </div>
+        <div class="city-area-banner"></div>
         <div class="bwmsprite onroad-price-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
         <div id="popupHeading" class="content-inner-block-20">
             <p class="font18 margin-bottom5 text-capitalize">Please Tell Us Your Location</p>
             <div class="text-light-grey margin-bottom5"><span class="red">*</span>Get on-road prices by just sharing your location!</div>
             <% if(isOperaBrowser) { %>
-             <!-- ko if: oBrowser() -->
+
             <div class="form-control-box margin-bottom10 ">
-                <select class="form-control" tabindex="2" data-bind="options: BookingCities, value: SelectedCityId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select City--', event: { change: selectCity }"></select>
+                <select id="opCityList" class="form-control" tabindex="2" data-bind="options: BookingCities, value: SelectedCityId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select City--', event: { change: function(d,e){selectCity(d,e);} }"></select>
                 <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
             </div>
             <div class="form-control-box" data-bind="visible: BookingAreas().length > 0">
-                <select class="form-control" data-bind="options: BookingAreas, value: SelectedAreaId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select Area--', event: { change: function (data, event) { selectArea(data, event); } }"></select>
+                <select id="opAreaList" class="form-control" data-bind="options: BookingAreas, value: SelectedAreaId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select Area--', event: { change: function (d,e) { selectArea(d,e); } }"></select>
                 <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
             </div>
-            <!-- /ko -->
-            <% } %>
-            <!-- ko if: !oBrowser() -->
+
+            <% } else { %>
+
             <div id="citySelection" class="form-control text-left input-sm position-rel margin-bottom10">
                 <span class="position-abt progress-bar"></span>
                 <div class="selected-city" data-bind="text: (SelectedCity() != undefined && SelectedCity().name != '') ? SelectedCity().name : 'Select City'"></div>
                 <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
                 <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
-            </div>   
+            </div>
             <div id="areaSelection" class="form-control text-left input-sm position-rel margin-bottom10 " data-bind="visible: BookingAreas().length > 0">
                 <span class="position-abt progress-bar"></span>
                 <div class="selected-area" data-bind="text: (SelectedArea() != undefined && SelectedArea().name != '') ? SelectedArea().name : 'Select Area'">Select Area</div>
@@ -126,7 +134,7 @@
                 <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
 
             </div>
-            <!-- /ko -->              
+
             <div id="btnPriceLoader" class="center-align margin-top20 text-center position-rel">
                 <div id="errMsgPopup" class="text-red margin-bottom10 hide"></div>
                 <!-- ko if:SelectedCityId() > 0 &&  (SelectedAreaId() > 0 || !hasAreas() ) -->
@@ -134,46 +142,49 @@
                 <a id="btnDealerPricePopup" class="btn btn-orange btn-full-width font18" data-bind="visible:IsPersistance(),click: function(d,e){ IsPersistance(false); InitializePQ(d,e);} ">Show on-road price</a>
                 <!-- /ko -->
             </div>
-        </div>
-        <!-- ko if: !oBrowser() -->
-        <div id="popupContent" class="bwm-city-area-popup-wrapper">
-            <div class="bw-city-popup-box bwm-city-area-box city-list-container form-control-box text-left">
-                <div class="user-input-box">
-                    <span class="back-arrow-box">
-                        <span class="bwmsprite back-long-arrow-left"></span>
-                    </span>
-                     <input type="text" class="form-control padding-right40" placeholder="Type to select city" id="popupCityInput" autocomplete="off" data-bind="textInput: cityFilter,attr: { value: (SelectedCity() != undefined) ? SelectedCity().name : '' }">
-                     </div>
-                <ul id="popupCityList" data-bind="template: { name: 'bindCityList-template', foreach: visibleCities }" ></ul>
+
+            <div id="popupContent" class="bwm-city-area-popup-wrapper">
+                <div class="bw-city-popup-box bwm-city-area-box city-list-container form-control-box text-left">
+                    <div class="user-input-box">
+                        <span class="back-arrow-box">
+                            <span class="bwmsprite back-long-arrow-left"></span>
+                        </span>
+                        <input type="text" class="form-control padding-right40" placeholder="Type to select city" id="popupCityInput" autocomplete="off" data-bind="textInput: cityFilter,attr: { value: (SelectedCity() != undefined) ? SelectedCity().name : '' }">
+                    </div>
+                    <ul id="popupCityList" data-bind="template: { name: 'bindCityList-template', foreach: visibleCities }"></ul>
                     <script type="text/html" id="bindCityList-template">
-                         <li data-bind="text: name, attr: { 'cityId': id }, click: function (d, e) { $parent.selectCity(d, e); }"></li>
+                        <li data-bind="text: name, attr: { 'cityId': id }, click: function (d, e) { $parent.selectCity(d, e); }"></li>
                     </script>
-                <div class="margin-top30 font24 text-center margin-top60 "><span class="fa fa-spinner fa-spin text-black" style="display: none;"></span><span id="popupLoader"></span></div>
-            </div>
-
-            <div class="bw-area-popup-box bwm-city-area-box area-list-container form-control-box text-left" data-bind="visible: BookingAreas().length > 0">
-                <div class="user-input-box">
-                    <span class="back-arrow-box">
-                        <span class="bwmsprite back-long-arrow-left"></span>
-                    </span>
-                    <input type="text" class="form-control padding-right40" placeholder="Type to select area" id="popupAreaInput" autocomplete="off" data-bind="textInput: areaFilter,attr: { value: (SelectedArea() != undefined) ? SelectedArea().name : '' }">
+                    <div class="margin-top30 font24 text-center margin-top60 "><span class="fa fa-spinner fa-spin text-black" style="display: none;"></span><span id="popupLoader"></span></div>
                 </div>
-                <ul id="popupAreaList" data-bind="template: { name: 'bindAreaList-template', foreach: visibleAreas }" ></ul>
+
+                <div class="bw-area-popup-box bwm-city-area-box area-list-container form-control-box text-left" data-bind="visible: BookingAreas().length > 0">
+                    <div class="user-input-box">
+                        <span class="back-arrow-box">
+                            <span class="bwmsprite back-long-arrow-left"></span>
+                        </span>
+                        <input type="text" class="form-control padding-right40" placeholder="Type to select area" id="popupAreaInput" autocomplete="off" data-bind="textInput: areaFilter,attr: { value: (SelectedArea() != undefined) ? SelectedArea().name : '' }">
+                    </div>
+                    <ul id="popupAreaList" data-bind="template: { name: 'bindAreaList-template', foreach: visibleAreas }"></ul>
                     <script type="text/html" id="bindAreaList-template">
-                         <li data-bind="text: name, attr: { 'areaId': id }, click: function (d, e) { $parent.selectArea(d, e); }"></li>
+                        <li data-bind="text: name, attr: { 'areaId': id }, click: function (d, e) { $parent.selectArea(d, e); }"></li>
                     </script>
 
-                <div class="margin-top30 font24 text-center margin-top60 "><span class="fa fa-spinner fa-spin text-black" style="display: none;"></span><span id="areaPopupLoader" style="display: none;">Loading Area..</span></div>
+                    <div class="margin-top30 font24 text-center margin-top60 "><span class="fa fa-spinner fa-spin text-black" style="display: none;"></span><span id="areaPopupLoader" style="display: none;">Loading Area..</span></div>
+                </div>
             </div>
+
+            <% } %>
+
         </div>
-        <!-- /ko -->
+
     </div>
     <div id="popup-loader-container">
         <p data-bind="visible : SelectedCityId() > 0" class="font18 text-bold">
         <span data-bind="text : (SelectedCity() && SelectedCity().hasAreas) ?'Loading areas for':(!IsPersistance() ?'Fetching on-road price for':'Loading locations..')"></span> 
             <br />
             <span data-bind="text : SelectedArea() && SelectedArea().name!=null ? SelectedArea().name+',&nbsp;' :''"></span>  
-            <span data-bind="text : SelectedCity() && SelectedCity().name!=null ? SelectedCity().name:''"> 
+            <span data-bind="text : SelectedCity() && SelectedCity().name!=null ? SelectedCity().name:''"></span> 
         </p>
         <p data-bind="visible : SelectedCityId() < 1" class="font18 text-bold">Fetching Cities...</p>   
         <div id="popup-loader"></div>
@@ -253,7 +264,7 @@
         self.SelectedAreaId = ko.observable(<%= AreaId %>);
         self.BookingCities = ko.observableArray([]);
         self.BookingAreas = ko.observableArray([]);
-        self.oBrowser = ko.observable(<%= isOperaBrowser.ToString().ToLower()%>);
+        self.oBrowser = ko.observable(<%= (isOperaBrowser).ToString().ToLower()%>);
         self.IsPersistance = ko.observable(false);
         self.IsReload = ko.observable(false);
         self.cityFilter =  ko.observable("");
@@ -369,29 +380,24 @@
                                     var cities = ko.toJS(_responseData.pqCities);
                                     if (cities!=null && cities.length > 0) {
                                         self.BookingCities(cities);
-                                       // $('#popupCityInput').fastLiveFilter('#popupCityList');
-                                    }									
-                                    if(self.SelectedCityId() > 0)
-                                    {
-                                        self.SelectedCity(findCityById(self.SelectedCityId()));
-                                        
-                                        self.hasAreas((self.SelectedCity() != null && self.SelectedCity().hasAreas) ? true : false);
-                                        //if(self.hasAreas()) {
-                                        //    $('#city-area-content').removeClass('city-selected'); 									        
-                                        //}
-                                        if(self.SelectedAreaId() > 0)
+                                        if(self.SelectedCityId() > 0)
                                         {
-                                            self.SelectedArea(findAreaById(self.SelectedAreaId()));
-                                        }                                 
-                                    }
+                                            self.SelectedCity(findCityById(self.SelectedCityId()));
+                                        
+                                            self.hasAreas((self.SelectedCity() != null && self.SelectedCity().hasAreas) ? true : false);
 
-                                    var areas = ko.toJS(_responseData.pqAreas);
-                                    if (areas) {
-                                        self.BookingAreas(areas);
-                                       // $('#popupAreaInput').fastLiveFilter('#popupAreaList');
-                                    }
+                                            var areas = ko.toJS(_responseData.pqAreas);
+                                            if (areas) {
+                                                self.BookingAreas(areas);
+                                                if(self.SelectedAreaId() > 0)
+                                                {
+                                                    self.SelectedArea(findAreaById(self.SelectedAreaId()));
+                                                }
+                                            }
 
-                                    //showPQPopup(self.SelectedCityId() > 0 );
+                                                                         
+                                        }
+                                    }
                                     $('#popupWrapper').removeClass('loader-active');
 
                                 }
@@ -450,19 +456,19 @@
                 
         self.selectCity = function (data, event) {
 
-            var isAborted = false;
-
-            $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
-            startLoading($("#areaSelection"));
-            $("#areaSelection div.selected-area").text("Loading areas..").next().show();
-            $("#areaPopupLoader").text("Loading areas..").show().prev().show();
-
             if (!self.oBrowser()) {
+
+                $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
+                startLoading($("#areaSelection"));
+                $("#areaSelection div.selected-area").text("Loading areas..").next().show();
+                $("#areaPopupLoader").text("Loading areas..").show().prev().show();
+
                 self.SelectedCity(data);
                 self.SelectedCityId(data.id);
             }
             else {
                 self.SelectedCity(findCityById(self.SelectedCityId()));
+                if(!event.originalEvent) return;
             }
 
             if(self.SelectedCity()!=null && !self.SelectedCity().hasAreas)
@@ -471,7 +477,10 @@
                 self.IsPersistance(false); 						
             }
             
-            self.InitializePQ(data,event);
+            if(data.id != self.SelectedCityId()){
+                self.InitializePQ(data,event);
+            }
+           
             completeAreaOp(self);
             
             //-------------------------------------------------------------------------------------------
@@ -496,22 +505,25 @@
 
         self.selectArea = function (data, event) {
 
-            $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
-
-            if (!self.oBrowser()) {
+            if (!self.oBrowser()) {                
+                $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
                 self.SelectedArea(data);
                 self.SelectedAreaId(data.id);
             }
             else {
                 self.SelectedArea(findAreaById(self.SelectedAreaId()));
+                if(!event.originalEvent) return;
             }
+
             //if (ga_pg_id != null && ga_pg_id == 2 && areaClicked == false) {
             //	dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Area_Selected', 'lab': myBikeName + '_' + getBikeVersion() + '_' + self.SelectedCity().name + '_' + self.SelectedArea().name });
             //	areaClicked = true;
             //}
 
             self.IsPersistance(false);
-            self.InitializePQ(data,event);
+            if(data.id != self.SelectedAreaId()){
+                self.InitializePQ(data,event);
+            }
 
         };
 
@@ -527,7 +539,6 @@
             $("#popupCityList li.isPopular").last().addClass("border-last-bottom");
         } else {
             $("#citySelection div.selected-city").text("No cities Found").next().hide();
-            //lscache.set(modelCityKey, null, 60);
         }
         stopLoading($("#citySelection"));
         checkCookies();
@@ -542,12 +553,6 @@
                     self.SelectedCityId(onCookieObj.PQCitySelectedId);
                     self.hasAreas(cityFound.hasAreas);
                 }
-                //if (!self.oBrowser()) {
-                //    $("ul#popupCityList li[cityId='" + onCookieObj.PQCitySelectedId + "']").click();
-                //}
-                //else {
-                //    self.selectCity(self, null);
-                //}
 
             }
         }
@@ -559,12 +564,6 @@
                 self.SelectedCity(ko.toJS({ 'id': cityFound.id, 'name': cityFound.name }));
                 self.hasAreas(cityFound.hasAreas);
             }
-            //if (!self.oBrowser()) {
-            //    $("ul#popupCityList li[cityId='" + _cityid + "']").click();
-            //}
-            //else {
-            //    self.selectCity(self, null);
-            //}
 
         } 
 
@@ -581,7 +580,6 @@
             self.SelectedArea(undefined);
             self.SelectedAreaId(0);
             $("#areaSelection div.selected-area").text("No areas Found");
-            //lscache.set(cityAreaKey, null, 60);
 
         }
         else {
@@ -597,13 +595,6 @@
         stopLoading($("#areaSelection"));
 
         if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0 && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(self.BookingAreas(), onCookieObj.PQAreaSelectedId)) {
-            //if (!self.oBrowser()) {
-            //    $("ul#popupAreaList li[areaId='" + onCookieObj.PQAreaSelectedId + "']").click();
-            //}
-            //else {
-            //    self.selectArea(self, null);
-            //}
-
             if (!self.oBrowser()) {
                 self.SelectedArea(data);
                 self.SelectedAreaId(data.id);

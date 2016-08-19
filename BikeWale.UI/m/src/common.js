@@ -1147,30 +1147,6 @@ $(function () {
     });
 });
 
-$.fn.shake = function (options) {
-    var settings = {
-        'shakes': 2,
-        'distance': 10,
-        'duration': 400
-    };
-    if (options) {
-        $.extend(settings, options);
-    }
-    var pos;
-    return this.each(function () {
-        $this = $(this);
-        pos = $this.css('position');
-        if (!pos || pos === 'static') {
-            $this.css('position', 'relative');
-        }
-        for (var x = 1; x <= settings.shakes; x++) {
-            $this.animate({ left: settings.distance * -1 }, (settings.duration / settings.shakes) / 4)
-                .animate({ left: settings.distance }, (settings.duration / settings.shakes) / 2)
-                .animate({ left: 0 }, (settings.duration / settings.shakes) / 4);
-        }
-    });
-};
-
 //App Banner
 $(function () {
     var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
@@ -1347,75 +1323,36 @@ $(".bwm-city-area-popup-wrapper .back-arrow-box").on("click", function () {
 
 var locationFilter = function (filterContent, wrapperMenu) {
 
-    var chosenValue = Math.random() < 0.5 ? true : false;
     var inputText = $(filterContent).val();
     inputText = inputText.toLowerCase();
     var inputTextLength = inputText.length;
     if (inputTextLength > 0) {
+          
+        wrapperMenu.find("li").each(function () {
+            var locationName = $(this).text().toLowerCase();
+            if (/\s/.test(locationName))
+                var splitlocationName = locationName.split(" ")[1];
+            else
+                splitlocationName = "";
 
-            console.time("IndexOf");
-            listContainer = '#' + wrapperMenu.attr("id") + ' li';
-            $(listContainer).each(function () {
-
-                showCurrentLi = $(this).text().toLowerCase().indexOf(inputText) > -1;
-
-            $(this).toggle(showCurrentLi);
-
+            if ((inputText == locationName.substring(0, inputTextLength)) || inputText == splitlocationName.substring(0, inputTextLength))
+                $(this).show();
+            else
+                $(this).hide();
         });
 
-    //else{
-    //    wrapperMenu.find("li").each(function () {
-    //        var locationName = $(this).text().toLowerCase();
-    //        if (/\s/.test(locationName))
-    //            var splitlocationName = locationName.split(" ")[1];
-    //        else
-    //            splitlocationName = "";
+        //listContainer = '#' + wrapperMenu.attr("id") + ' li';
+        //$(listContainer).each(function () {
 
-    //        if ((inputText == locationName.substring(0, inputTextLength)) || inputText == splitlocationName.substring(0, inputTextLength))
-    //            $(this).show();
-    //        else
-    //            $(this).hide();
-    //    });
-    //}
-       
+        //    showCurrentLi = $(this).text().toLowerCase().indexOf(inputText) > -1;
+
+        //    $(this).toggle(showCurrentLi);
 
     }
     else {
         $(filterContent).parent("div.user-input-box").siblings("ul").find("li").show(); 
     }
 };
-
-$("#popupCityInput, #popupAreaInput").on("keyup", function () {
-    locationFilter($(this));
-});
-
-/**
-* JavaScript Client Detection
-* (C) viazenetti GmbH (Christian Ludwig)
-*/
-var oprBrowser = false;
-(function (window) {
-
-    // browser
-    var nAgt = navigator.userAgent;
-    var browser = navigator.appName;
-    var verOffset;
-
-    // Opera Mini
-    //if ((verOffset = nAgt.indexOf('Mini')) != -1) {
-    if ((/Mini/gi).test(nAgt)) {
-        browser = 'Opera Mini';
-        oprBrowser = true;
-    }
-    window.jscd = {
-        browser: browser,
-    };
-
-    if (oprBrowser) {
-        //alert("Opera Mini browser!");
-    }
-
-}(this));
 
 var Base64 = {
     _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
@@ -1700,20 +1637,3 @@ $('#area-menu-input').on('focus click', function (event) {
     event.stopPropagation();
     $("#city-area-popup").animate({ scrollTop: 190 });
 });
-
-
-//$("#city-menu-input, #area-menu-input").on("keyup", function () {
-//    var inputbox = $(this);
-//    //locationFilter(inputbox, $(this).closest('.city-area-menu'));
-
-//    if (inputbox.val().length == 0) {
-//        var wrapper = inputbox.closest('.city-area-menu');
-
-//        if (wrapper.attr('id') == 'city-menu') {
-//            cityArea.resetLabel('Select your city', wrapper);
-//        }
-//        else {
-//            cityArea.resetLabel('Select your area', wrapper);
-//        }
-//    }
-//});
