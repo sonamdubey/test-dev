@@ -206,7 +206,8 @@
             var clientIP = "<%= clientIP%>";
             var pageUrl = window.location.href; 
             var bikeName='<%=bikeName%>';
-            var CityArea=GetGlobalCityArea();
+            var CityArea=GetGlobalCityArea()||"";
+         
             ga_pg_id=16;
                 $("#btnDealerPricePopup").click(function () {
                     var selArea = '';
