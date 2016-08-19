@@ -346,15 +346,10 @@
         self.pushToGA = function (data, event) {
          
             if (data != null && data.act != null) {
-                if (data.lab == "lead_label") {
-                    data.lab = self.selectedBike().make.makeName + '_' + self.selectedBike().model.modelName+'_'+ CityArea;
+                if (data.lab == "lead_label") {//lead_label is assigned to data.lab only when modelId is being selected in lead capture control
+                    data.lab = self.selectedBike().make.makeName + '_' + self.selectedBike().model.modelName + '_' + CityArea;
                 }
-                else if (data.cat == "SpecsandFeature" && data.act == "Lead_Submitted")
-                {
-                    data.lab = data.lab + '_' + CityArea;
-                }
-                    triggerGA(data.cat, data.act, data.lab)
-                
+                triggerGA(data.cat, data.act, data.lab)
             }
         }
 

@@ -291,7 +291,7 @@
                      %>
                 <div class="grid-12 float-button float-fixed">
                     <div class="grid-6 alpha omega padding-right5">
-                        <a class="bw-ga btn btn-white btn-full-width btn-sm rightfloat leadcapturebtn" c="SpecsandFeature" a="Get_Offers_Clicked" v="bikenameLocation" data-ga-cat="SpecsandFeature" data-ga-act="Lead_Submitted" data-ga-lab="<%= string.Format("{0}_{1}", makeName, modelName)%>"
+                        <a class="bw-ga btn btn-white btn-full-width btn-sm rightfloat leadcapturebtn" c="SpecsandFeature" a="Get_Offers_Clicked" v="bikenameLocation" data-ga-cat="SpecsandFeature" data-ga-act="Lead_Submitted" data-ga-lab="<%= string.Format("{0}_{1}_{2}_{3}", makeName, modelName, cityName, areaName)%>"
                             data-leadsourceid="28" data-pqsourceid="55" data-item-name="<%= dealerDetail.PrimaryDealer.DealerDetails.Organization %>"
                              data-item-area="<%= areaName %>" data-item-id="<%= dealerDetail.PrimaryDealer.DealerDetails.DealerId %>"
                             href="javascript:void(0)" rel="nofollow">Get offers</a>
