@@ -502,17 +502,7 @@
                             </asp:Repeater>
                             <tr>
 						        <td colspan="2" class="padding-top5 font12 text-x-light">Above mentioned prices are Ex-showroom, Mumbai</td>
-                                <%--<p class="text-truncate text-light-grey margin-bottom10" id="<%# "locprice_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">
-                                    <asp:Label ID="lblExOn" Text="Ex-showroom price" runat="server"></asp:Label>,
-                                    <% if (cityId != 0 && cityName != string.Empty)
-                                    { %>
-                                    <%= cityName %>
-                                    <% }
-                                        else
-                                        { %>
-                                    <%= Bikewale.Common.Configuration.GetDefaultCityName %>
-                                    <% } %>
-                                </p>--%>
+                            
 					        </tr>
                         </tbody>
                     </table>
