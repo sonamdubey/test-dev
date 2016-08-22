@@ -268,7 +268,7 @@ namespace Bikewale.New
 
                 ctrlUserReviews.ReviewCount = 3;
                 ctrlUserReviews.PageNo = 1;
-                ctrlUserReviews.PageSize = 2;
+                ctrlUserReviews.PageSize = 3;
                 ctrlUserReviews.ModelId = _modelId;
                 ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
                 ctrlUserReviews.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
