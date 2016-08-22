@@ -1,34 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.controls.MPopupWidget" %>
 <script type="text/javascript">
-    lscache.flushExpired(); 
-    var modelCityKey = "mc_";
-    var cityAreaKey = "ca_";
+
     var pCityId = <%= CityId %>;
     var pAreaId = <%= AreaId %>;
     var onCookieObj = {};
 </script>
- <style type="text/css">
-    .progress-bar {
-        width: 0;
-        height: 2px;
-        background: #16A085;
-        bottom: 0px;
-        left: 0;
-        border-radius: 2px;
-    }
-
-    .btn-loader {
-        background-color: #822821;
-    }
-
-    .btnSpinner {
-        right: 8px;
-        top: 10px;
-        z-index: 9;
-        display: none;
-        background: #fff;
-    }
-</style>
  <!-- pricequote widget starts here-->
 <div class="bw-city-popup bwm-fullscreen-popup bw-popup-sm text-center hide" id="popupWrapper">
     <div class="city-area-banner"></div>
@@ -51,15 +27,11 @@
             <% } else { %>
 
             <div id="citySelection" class="form-control text-left input-sm position-rel margin-bottom10">
-                <span class="position-abt progress-bar"></span>
-                <div class="selected-city" data-bind="text: (SelectedCity() != undefined && SelectedCity().name != '') ? SelectedCity().name : 'Select City'"></div>
-                <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
+                <div class="selected-city" data-bind="text: (SelectedCity() != null && SelectedCity().name != '') ? SelectedCity().name : 'Select City'"></div>
                 <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
             </div>
             <div id="areaSelection" class="form-control text-left input-sm position-rel margin-bottom10 " data-bind="visible: BookingAreas().length > 0">
-                <span class="position-abt progress-bar"></span>
-                <div class="selected-area" data-bind="text: (SelectedArea() != undefined && SelectedArea().name != '') ? SelectedArea().name : 'Select Area'">Select Area</div>
-                <span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span>
+                <div class="selected-area" data-bind="text: (SelectedArea() != null && SelectedArea().name != '') ? SelectedArea().name : 'Select Area'">Select Area</div>
                 <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
 
             </div>
@@ -67,7 +39,6 @@
             <div id="btnPriceLoader" class="center-align margin-top20 text-center position-rel">
                 <div id="errMsgPopup" class="text-red margin-bottom10 hide"></div>
                 <!-- ko if:SelectedCityId() > 0 &&  (SelectedAreaId() > 0 || !hasAreas() ) -->
-                <span class="position-abt progress-bar btn-loader"></span>
                 <a id="btnDealerPricePopup" class="btn btn-orange btn-full-width font18" data-bind="visible:IsPersistance(),click: function(d,e){ IsPersistance(false); InitializePQ(d,e);} ">Show on-road price</a>
                 <!-- /ko -->
             </div>
@@ -84,7 +55,7 @@
                     <script type="text/html" id="bindCityList-template">
                         <li data-bind="text: name, attr: { 'cityId': id }, click: function (d, e) { $parent.selectCity(d, e); }"></li>
                     </script>
-                    <div class="margin-top30 font24 text-center margin-top60 "><span class="fa fa-spinner fa-spin text-black" style="display: none;"></span><span id="popupLoader"></span></div>
+                    <div class="margin-top30 font24 text-center margin-top60 "></div>
                 </div>
 
                 <div class="bw-area-popup-box bwm-city-area-box area-list-container form-control-box text-left" data-bind="visible: BookingAreas().length > 0">
@@ -98,8 +69,7 @@
                     <script type="text/html" id="bindAreaList-template">
                         <li data-bind="text: name, attr: { 'areaId': id }, click: function (d, e) { $parent.selectArea(d, e); }"></li>
                     </script>
-
-                    <div class="margin-top30 font24 text-center margin-top60 "><span class="fa fa-spinner fa-spin text-black" style="display: none;"></span><span id="areaPopupLoader" style="display: none;">Loading Area..</span></div>
+                    <div class="margin-top30 font24 text-center margin-top60 "></div>
                 </div>
             </div>
 
@@ -111,13 +81,7 @@
     <div id="popup-loader-container">
         <div id="popup-loader"></div>
         <div id="popup-loader-text">
-            <p data-bind="visible : SelectedCityId() > 0" class="font18 text-bold">
-            <span data-bind="text : (SelectedCity() && SelectedCity().hasAreas) ?'Loading areas for':(!IsPersistance() ?'Fetching on-road price for':'Loading locations..')"></span> 
-                <br />
-                <span data-bind="text : SelectedArea() && SelectedArea().name!=null ? SelectedArea().name+',&nbsp;' :''"></span>  
-                <span data-bind="text : SelectedCity() && SelectedCity().name!=null ? SelectedCity().name:''"></span> 
-            </p>
-            <p data-bind="visible : SelectedCityId() < 1" class="font18 text-bold">Fetching Cities...</p>   
+            <p data-bind="text : LoaderText" class="font14"></p> 
         </div>
     </div>
 </div>
@@ -141,8 +105,8 @@
             "modelId": ele.attr('modelId') ,
             "cityId": onCookieObj.PQCitySelectedId,
             "areaId": onCookieObj.PQAreaSelectedId,
-            "city" : { 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName },
-            "area" : { 'id': onCookieObj.PQAreaSelectedId, 'name': onCookieObj.PQAreaSelectedName },
+            "city" : (onCookieObj.PQCitySelectedId > 0)?{ 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName }:null,
+            "area" : (onCookieObj.PQAreaSelectedId > 0)?{ 'id': onCookieObj.PQAreaSelectedId, 'name': onCookieObj.PQAreaSelectedName }:null,
             "makename" : ele.attr('makeName'),
             "modelname" : ele.attr('modelName'),
             "pagecatid" : ele.attr('pagecatid'),
@@ -152,7 +116,6 @@
 
         }; 
 
-        startLoading($("#citySelection"));
         $('#popupWrapper').fadeIn(10);
         $("#popupContent").show();
         appendHash("onRoadPrice");        
@@ -180,6 +143,23 @@
         self.areaFilter = ko.observable("");
         self.hasAreas = ko.observable();
 
+
+        self.LoaderText = ko.computed(function()
+        {
+            var loaderText = '';
+            if (self.SelectedCityId() > 0) {
+                var locate = self.SelectedAreaId() && self.SelectedArea() && self.SelectedArea().name!=null ? self.SelectedArea().name+', ' :'';
+                locate +=   self.SelectedCityId() && self.SelectedCity() && self.SelectedCity().name!=null ? self.SelectedCity().name:'';
+
+                loaderText = (self.SelectedCity() && self.SelectedCity().hasAreas) ?'Loading areas for ' + locate:(!self.IsPersistance() ?(self.IsReload()?'Fetching on-road price for ' + locate:'Loading...'):'Loading locations..');
+            }
+            else{
+                loaderText = 'Fetching Cities...';
+            }
+
+            return loaderText;
+        });
+
         self.FilterData = function (data,filter)
         {
             filterObj = data;
@@ -192,7 +172,7 @@
 
             }
             return filterObj;
-        }
+        };
 
         self.visibleCities = ko.computed(function(){
             return self.FilterData(self.BookingCities(),self.cityFilter());  		   
@@ -250,7 +230,6 @@
         self.InitializePQ = function(data,event)
         {
 
-            var isAborted = false;
             $('#popupWrapper').addClass('loader-active');
 
             if (self.SelectedModelId() != null && self.SelectedModelId()  > 0) {
@@ -326,7 +305,8 @@
 
                                     if(!self.IsReload())
                                         window.location = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + Base64.encode(queryStr);
-                                    else   window.location.reload(); 
+                                    else   window.location.reload();                                     
+
 
                                 }
                                 else
@@ -334,25 +314,6 @@
                                     window.location.reload();
                                 }
                                
-                            },
-                            complete: function (xhr) {
-                                if(xhr.status == 200 && xhr.priceQuote!=null) {
-                                    if(self.SelectedCity())
-                                    {
-                                        cookieValue = self.SelectedCity().id + "_" + self.SelectedCity().name;
-
-                                        self.SelectedArea(findAreaById(self.SelectedAreaId()));
-
-                                        if (self.SelectedArea() != null) {
-                                            cookieValue += ("_" + self.SelectedArea().id + "_" + self.SelectedArea().name);
-                                        }
-
-                                        SetCookieInDays("location", cookieValue, 365);
-                                    }
-                                }
-                                                                
-                                stopLoading($("#btnPriceLoader"));
-                                
                             }
                         });
                     }
@@ -364,8 +325,7 @@
             if (!self.oBrowser()) {
 
                 $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
-                startLoading($("#areaSelection"));
-
+                
                 self.SelectedCity(data);
                 self.SelectedCityId(data.id);
             }
@@ -380,27 +340,25 @@
                 self.IsPersistance(false); 						
             }
             
-            if(data.id != onCookieObj.PQCitySelectedId){
+            if(data.id != onCookieObj.PQCitySelectedId){      
+
                 self.InitializePQ(data,event);
-            }
+            } 
+                                
             
-            //-------------------------------------------------------------------------------------------
-            //ev = $._data($('ul#popupCityList')[0], 'events');
-            //if (!(ev && ev.click)) {
-            //	$('ul#popupCityList').on('click', 'li', function (e) {
-            //		if (ga_pg_id != null && ga_pg_id == 2 && cityClicked == false) {
-            //			var actText = '';
-            //			if (self.SelectedCity().hasAreas) {
-            //				actText = 'City_Selected_Has_Area';
-            //			}
-            //			else {
-            //				actText = 'City_Selected_Doesnt_Have_Area';
-            //			}
-            //			dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': actText, 'lab': getBikeVersion() + '_' + self.SelectedCity().name });
-            //			cityClicked = true;
-            //		}
-            //	});
-            //}
+            cookieValue = self.SelectedCity().id + "_" + self.SelectedCity().name;
+            SetCookieInDays("location", cookieValue, 365);
+
+            if (ga_pg_id != null && ga_pg_id == 2) {
+                var actText = '';
+                if (self.SelectedCity().hasAreas) {
+                    actText = 'City_Selected_Has_Area';
+                }
+                else {
+                    actText = 'City_Selected_Doesnt_Have_Area';
+                }
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': actText, 'lab': getBikeVersion() + '_' + self.SelectedCity().name });
+            }
 
         };
 
@@ -416,15 +374,24 @@
                 if(!event.originalEvent) return;
             }
 
-            //if (ga_pg_id != null && ga_pg_id == 2 && areaClicked == false) {
-            //	dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Area_Selected', 'lab': myBikeName + '_' + getBikeVersion() + '_' + self.SelectedCity().name + '_' + self.SelectedArea().name });
-            //	areaClicked = true;
-            //}
-
             self.IsPersistance(false);
-            if(data.id != onCookieObj.PQAreaSelectedId){
+
+            if(data.id != onCookieObj.PQAreaSelectedId){                
                 self.InitializePQ(data,event);
+
+                cookieValue = self.SelectedCity().id + "_" + self.SelectedCity().name; 
+                self.SelectedArea(findAreaById(self.SelectedAreaId()));
+                if (self.SelectedArea() != null) {
+                    cookieValue += ("_" + self.SelectedArea().id + "_" + self.SelectedArea().name);
+                }
+                SetCookieInDays("location", cookieValue, 365);
+
             }
+
+            if (ga_pg_id != null && ga_pg_id == 2 ) {
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Area_Selected', 'lab': self.MakeName + ' ' + self.ModelName + '_' + getBikeVersion() + '_' + self.SelectedCity().name + '_' + self.SelectedArea().name });
+            }
+
 
         };
     }
@@ -440,22 +407,6 @@
                 return ko.utils.arrayFirst(vmquotation.BookingCities(), function (child) {
                     return (child.id === id || child.cityId === id);
                 });
-            }
-
-            function startLoading(ele) {
-                try {
-                    var _self = $(ele).find(".progress-bar").css({ 'width': '0' }).show();
-                    _self.animate({ width: '100%' }, 7000);
-                }
-                catch (e) { return };
-            }
-
-            function stopLoading(ele) {
-                try {
-                    var _self = $(ele).find(".progress-bar");
-                    _self.stop(true, true).css({ 'width': '100%' }).fadeOut(1000);
-                }
-                catch (e) { return };
             }
 
             function gtmCodeAppender(pageId, action, label) {
