@@ -103,7 +103,7 @@
                     <div id="model-image-wrapper">
                         <div class="model-main-image">
                            
-                            <a href="./photos/" ><img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image" /></a>
+                            <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/photos/" ><img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image" /></a>
                             <div class="model-media-details">
                                 <div class="model-media-item" style="cursor: pointer;" onclick="window.location='./photos/';">
                                     <span class="bwmsprite gallery-photo-icon"></span>
