@@ -220,9 +220,8 @@ footer ul li a:hover { text-decoration: underline; }
 .ui-menu .ui-menu-item { padding: 10px; background:#fff; font-size:14px; cursor:pointer; }
 .ui-menu .ui-menu-item:hover, .ui-menu .ui-menu-item.ui-state-focus { background:#eee; }
 .ui-menu .ui-menu-item a { color: #333; width:60%; float:left; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; }
-.ui-menu .ui-menu-item a.target-popup-link { width:35%; display:block; float:right; position:absolute; right:10px; color:#0288d1; font-size:12px; text-align: right; }
-.ui-menu .ui-menu-item span.upcoming-link { float:right; color:#4d5057; font-size:12px; }
-
+.ui-menu .ui-menu-item a.target-popup-link, .ui-menu .ui-menu-item span.upcoming-link { width:35%; display:block; float:right; position:absolute; right:10px; color:#0288d1; font-size:12px; text-align: right; }
+.ui-menu .ui-menu-item span.upcoming-link { color: #4d5057; }
 
 /** Swiper 3.1.7 **/
 .swiper-container { margin: 0 auto; position: relative; overflow: hidden; /* Fix of Webkit flickering */

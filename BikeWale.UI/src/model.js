@@ -1172,6 +1172,7 @@ $('#model-specs-list').on('click', '.model-accordion-tab', function () {
     if (!tab.hasClass('active')) {
         allTabs.removeClass('active');
         tab.addClass('active');
+        $('html, body').animate({ scrollTop: tab.offset().top - $("#modelDetailsFloatingCardContent").height() }, 500);
     }
     else {
         tab.removeClass('active');
