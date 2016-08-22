@@ -232,6 +232,7 @@
                     { 
                 %>
                 <div id="model-dealer-card">
+                    <% if(viewModel.IsPremiumDealer){ %>
                     <div class="dealer-details margin-bottom10">
                         <div class="inline-block margin-right10">
                             <span class="offers-sprite dealership-icon"></span>
@@ -241,6 +242,7 @@
                             <p class="font14 text-light-grey"><%=viewModel.AreaName %></p>
                         </div>
                     </div>
+                    <% } %>
                     <% if (viewModel.Offers != null && viewModel.OfferCount > 0)
                        { %>
                     <div class="dealer-offers-content margin-bottom10">
@@ -929,13 +931,13 @@
                             <a href="javascript:void(0)" onclick="secondarydealer_Click(<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "DealerId")) %>)">
 						        <div>
 							        <span class="grid-9 alpha omega font14 text-default text-bold"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Name")) %></span>
-							        <span class="grid-3 omega text-light-grey text-right">5.4 kms</span>
+							        <span class="grid-3 omega text-light-grey text-right"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Distance")) %> kms</span>
 							        <div class="clear"></div>
 							        <span class="font12 text-light-grey"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Area")) %></span>
 							        <div class="margin-top15">
 								        <div class="grid-4 alpha omega border-solid-right">
 									        <p class="font12 text-light-grey margin-bottom5">On-road price</p>
-									        <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">1,02,887</span>
+									        <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem, "SelectedVersionPrice").ToString()) %></span>
 								        </div>
 								        <div class="grid-8 padding-top10 padding-left20 omega">
 									        <span class="bwmsprite offers-sm-box-icon"></span>

@@ -32,6 +32,9 @@ namespace Bikewale.Entities.PriceQuote
         [JsonProperty("secondaryDealers")]
         public IEnumerable<NewBikeDealerBase> SecondaryDealers { get; set; }
 
+        [JsonProperty("secondaryDealersV2")]
+        public IEnumerable<Bikewale.Entities.PriceQuote.v2.NewBikeDealerBase> SecondaryDealersV2 { get; set; }
+
         [JsonProperty("secondaryDealerCount")]
         public int SecondaryDealerCount { get; set; }
     }

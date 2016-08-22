@@ -253,25 +253,6 @@ namespace Bikewale.Mobile.New
             _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
         }
 
-
-        //private void BindModelGallery()
-        //{
-        //    if (modelPage != null)
-        //    {
-        //        List<ModelImage> photos = modelPage.Photos;
-
-        //        if (photos != null && photos.Count > 0)
-        //        {
-        //            photos.Insert(0, new ModelImage()
-        //            {
-        //                HostUrl = modelPage.ModelDetails.HostUrl,
-        //                OriginalImgPath = modelPage.ModelDetails.OriginalImagePath,
-        //                ImageCategory = bikeName,
-        //            });
-        //        }
-        //    }
-        //}
-
         private void BindAlternativeBikeControl()
         {
             ctrlAlternativeBikes.TopCount = 6;
@@ -979,7 +960,7 @@ namespace Bikewale.Mobile.New
             {
                 if (cityId > 0 && versionId > 0)
                 {
-                    viewModel = new ModelPageVM(cityId, versionId, dealerId);
+                    viewModel = new ModelPageVM(cityId, versionId, dealerId, areaId);
                     if (viewModel.DealerCampaign.PrimaryDealer.OfferList != null && viewModel.DealerCampaign.PrimaryDealer.OfferList.Count() > 0)
                     {
                         rptOffers.DataSource = viewModel.Offers;
@@ -988,7 +969,7 @@ namespace Bikewale.Mobile.New
                     }
                     if (viewModel.DealerCampaign.SecondaryDealerCount > 0)
                     {
-                        rptSecondaryDealers.DataSource = viewModel.DealerCampaign.SecondaryDealers;
+                        rptSecondaryDealers.DataSource = viewModel.DealerCampaign.SecondaryDealersV2;
                         rptSecondaryDealers.DataBind();
                     }
                 }
