@@ -25,9 +25,10 @@
         keywords = string.Format("{0},{0} Bike, bike, {0} Price, {0} Reviews, {0} Photos, {0} Mileage", bikeName);
         ogImage = modelImage; 
         isAd970x90BTFShown = false;
-         %>
+        isHeaderFix = false;
+    %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <% isHeaderFix = false; %>
+    
     <script type="text/javascript">
         var dealerId = '<%= dealerId%>';
         var pqId = '<%= pqId%>';

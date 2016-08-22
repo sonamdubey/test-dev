@@ -4,20 +4,12 @@
 .swiper-container.model .swiper-slide > img {max-width:100%; }
 .colours-wrap .jcarousel li {width:120px; height:auto;}
 #versText { width:75%; }
-.rating-wrap img { width:18px;}
-.line-Ht22{line-height:22px;}
-.line-Ht18 {line-height:18px;} 
+
 .pos-top3{top:3px;}
 .pos-top8{top:8px;}
 .pos-left3 {left: 3px;}
 .font6{font-size:6px}
-.btn-grey { background: #fff; color: #f04031; border:1px solid #f04031; }
-.btn-grey:hover { background: #f04031; color:#fff; text-decoration: none; border:1px solid #f04031; }
-.btn-grey:focus { background: #f04031; color: #fff; border: 1px solid #f04031; }
-.text-blue { color:#0288d1; }
-.text-darker-black { color:#1a1a1a; }
-.grid-3.version-label-text { width:60px; }
-.grid-9.variantDropDown { width:70%; max-width:320px; }
+
 .sort-div { height:32px; padding:5px 5px 5px 8px; border:1px solid #ccc; color:#555; position:relative; cursor:pointer; background:#fff; }
 .sort-by-title { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; width:85%; }
 .sort-selection-div { background:#fff; border:1px solid #ccc; position:absolute; z-index:2; left:0; right:0; }
@@ -25,37 +17,13 @@
 .sort-selection-div ul li.selected { font-weight:bold; }
 .sort-selection-div ul li input{background: #fff;color:rgb(77, 80, 87); padding:2px 0 2px 8px;  white-space:nowrap; text-overflow:ellipsis; overflow:hidden; text-align:left;}
 .sort-selection-div ul li:hover input{ padding:2px 0 2px 8px; cursor:pointer; background:#82888b; color:#fff;}
+
 .pos-top13 { top:13px; }
-.dealers-benefits-list .dealers-benefits-image, .dealers-benefits-list .dealers-benefits-title { display:inline-block; vertical-align:middle; }
-.dealers-benefits-list .dealers-benefits-title { width:85%; text-align:left; }
-.dealers-benefits-list li { margin-top:10px; padding: 0 5px; }
-.dealers-benefits-list li:first-child { margin-top:0; }
-.less-dealers-link { display:none; }
-#moreDealersList { display:none; padding-right:10px; padding-left:10px; overflow:hidden; }
-#moreDealersList li { padding-top:15px; padding-bottom:15px; border-bottom:1px solid #f1f1f1; }
-#moreDealersList a:hover { text-decoration:none; }
-.fa-chevron-up { width:10px; height:5px; background-position:-86px -162px; }
-.fa-chevron-down { width:10px; height:5px; background-position:-86px -167px; }
-.pagination-number { width:100%; bottom:2px; z-index:2; }
-.bike-model-gallery-count { background:rgba(49,49,49,0.7); padding:2px 10px; }
-.margin-bottom7 { margin-bottom:7px; }
-.border-light-top { border-top:1px solid #f1f1f1; }
-.tel-grey-icon { position:relative;top:2px; }
-#model-image-wrapper .model-main-image { background-color: #fff; max-width: 476px; margin: 0 auto; min-height: 180px; max-height: 268px; position: relative; text-align: center; }
-#model-image-wrapper .model-media-details { position: absolute; right: 15px; bottom: 10px; font-size: 12px; }
-.model-media-item { display:inline-block; vertical-align: middle; padding: 5px 5px 3px; color: #82888b; background: rgba(240, 240, 240, 0.8); border-radius: 2px; }
-.model-media-item:hover { text-decoration:none; }
-.model-media-count { position: relative; top: -1px; }
-.gallery-photo-icon, .gallery-video-icon { height: 12px; }
-.gallery-photo-icon { width: 16px; background-position: 0 -486px; }
-.gallery-video-icon { width: 12px; background-position: -26px -486px; }
 
 #upDownArrow.fa-angle-down { transition: all 0.5s ease-in-out 0s; font-size: 20px; }
 .sort-div .fa-angle-down { transition: transform .3s; -moz-transition: transform .3s; -webkit-transition: transform .3s; -o-transition: transform .3s; -ms-transition: transform .3s; }
 .sort-div.open .fa-angle-down { -moz-transform: rotateZ(180deg); -webkit-transform: rotateZ(180deg); -o-transform: rotateZ(180deg); -ms-transform: rotateZ(180deg); transform: rotateZ(180deg); }
-.text-xt-light-grey {color :#a8afb3; }
-.block { display:block; width:100%; }
-.border-light-right { border-right:1px solid #e2e2e2; }
+
 .model-specs-overview { display:block; padding-bottom:10px; font-weight:400; overflow:hidden; }
 .model-specs-overview > div {width:49%; float:left; padding:10px 0; position:relative;}
 .model-specs-overview > div.btmAftBorder { margin-bottom:12px;  } 
@@ -67,7 +35,7 @@
 .viewMoreOffersBtn { cursor: pointer; color: #0288d1; margin-left:25px; }
 .viewBreakupText { cursor: pointer; color: #0288d1; margin-top:3px; }
 .breakup-header { width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:left; }
-.offers-sprite {background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v19Aug2016) no-repeat; display: inline-block;}
+
 #otpPopup { display:none; }
 .user-contact-details-icon { width:36px; height:44px; background-position: -107px -227px; }
 .otp-icon { width:30px; height:40px; background-position: -107px -177px; }
@@ -103,15 +71,6 @@
 .overview-box div.odd.btmAftBorder:after{left:0;}
 .overview-box div.even.btmAftBorder:after{right:0;}
 
-/* horizontal tabs classes */
-.bw-horz-tabs {width:372px; border-bottom:1px solid #ccc; border-left:1px solid #ccc; border-top:1px solid #ccc; }
-.bw-horz-tabs li { padding:25px 0 25px 50px; background:#f5f5f5; border-top:1px solid #ccc; font-size:16px; cursor:pointer; border-left:3px solid rgba(0,0,0,0)}
-.bw-horz-tabs li.active { background:#fff; border-left:3px solid #ef3f30;}
-.bw-horz-tabs li:first-child { border-top:none;}
-.bw-horz-tabs-data  {width:100%;}
-.bw-horz-tabs-data .bw-tabs-data li { float:left; margin-bottom:20px; width:100%;}
-.bw-horz-tabs-data .bw-tabs-data li div {float:left; width:60%; padding-right:15px; /*text-overflow:ellipsis; overflow:hidden; white-space:nowrap;*/}
-.bw-horz-tabs-data .bw-tabs-data li div:last-child{width:40%; padding-left:15px; padding-right:0;}
 /* inner classes classes */
 .specification-box li { display:block; float:left;}
 .specification-box li div {float:left; width:205px; padding-right:10px;}
@@ -123,9 +82,6 @@
 .color-box.red {background:#f00;}
 .color-box.blue {background:#3749a4;}
 
-.loc-change-blue-icon { width:12px; height:16px; background-position:-197px -395px; position:relative; top:2px; }
-.loc-change-blue-icon:hover { background-position:-86px -278px; }
-/**************/
 /* or text classes */
 .or-text:before { border-top: 1px solid #ccc; content: ""; left: 0; position: absolute; top: 18px; width: 100%;}
 .or-text div {background: #fff none repeat scroll 0 0; display: inline-block; position: relative; cursor:pointer;}
@@ -134,16 +90,11 @@
 
 .discover-bike-carousel .front, .discover-bike-carousel .back, .discover-bike-carousel .jcarousel li { height: auto;min-height: 420px; }
 
-/*.breakupPopUpContainer { min-height: 300px; background: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 10%; left: 5%; right: 5%; padding:20px; }*/
 .breakupCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }
 
-.upcoming-text-label{background:#4c4c4c;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:-10px}
-.upcoming-text-label:after{content: "";background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=4Mar2016) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px;}
-.reviews-rating{width:45%;}
 #ctrlExpertReviews li{min-height:236px;height:auto;}
 #ctrlExpertReviews li .front{height:100%;}
 .view-breakup-text {cursor:pointer;color:#0288d1;}
-.container img {max-width:100%;}
 
 #SneakPeak img { width:100%; }
 
@@ -162,15 +113,6 @@
 #notifyAvailabilityContainer .notify-close-btn {z-index:2;}
 #leadCapturePopup .error-icon, #leadCapturePopup .bw-blackbg-tooltip {display:none} 
 
-.float-button { background-color:#f5f5f5; }
-.float-button.float-fixed{position:fixed; bottom:0; z-index:8; left:0; right:0;background: rgba(245,245,245,0.9);}
-
-.contact-icon, .offers-icon, .disclaimer-icon, .call-icon { width:14px; height:16px; }
-.disclaimer-icon { background-position: -135px -308px; }
-.offers-icon { background-position: -135px -280px; }
-.contact-icon { background-position: -107px -280px; }
-.call-icon { background-position: -107px -135px; }
-
 .offer-list-container ul.offersList li, .offer-list-container ul.moreOffersList li { background:url("http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/star-icon.png") no-repeat 0 3px; padding: 0 0 0 18px;} 
 .bike-details-list-ul { list-style:disc; margin-left:18px; }
 #faqSlug .icon-outer-container { width:82px; height:82px; }
@@ -185,13 +127,7 @@
 .color-box.color-count-one span { width:100%; height:100%; display:block !important; background:#eee; }  
 .color-box.color-count-two span { width:100%; height:50%; display:block !important; background:#e34f4f; }
 .color-box.color-count-three span { width:100%; height:33.33%; display:block !important; }
-.overall-specs-tabs-container { width:100%; display:block; background:#fff; overflow-x:auto; z-index:2;-webkit-overflow-scrolling: touch;  }
-.overall-specs-tabs-container.fixed-tab-nav { position:fixed; top:0; left:0; }
-.overall-specs-tabs-wrapper { width:100%; display:table; border-bottom:1px solid #e2e2e2; }
-.overall-specs-tabs-wrapper li { display:table-cell; width:1%; padding:10px 15px; text-align:center; white-space:nowrap; font-size:14px; color:#82888b;cursor:pointer;}
-.overall-specs-tabs-container::-webkit-scrollbar {width: 0; height: 0;}
-.overall-specs-tabs-container::-webkit-scrollbar-track, .overall-specs-tabs-container::-webkit-scrollbar-thumb {display:none;}
-.overall-specs-tabs-wrapper li.active { border-bottom:3px solid #ef3f30; color:#4d5057; font-weight: bold; }
+
 #modelOverallSpecsTopContent { height:44px; }
 #modelSpecsTabsContentWrapper .overall-specs-tabs-wrapper li.active h3 { font-weight:bold; }
 #modelSpecsTabsContentWrapper h2 { margin-bottom:13px; }
@@ -208,15 +144,7 @@
 .summary-overview-box div.btmAftBorder:after{content:'';position:absolute; bottom:-8px; height:1px; background-color:#f5f5f5; width:90%;}
 .summary-overview-box div.odd.btmAftBorder:after{left:0;}
 .summary-overview-box div.even.btmAftBorder:after{right:0;}
-.inr-dark-grey-xsm-icon { width:9px; height:12px; background-position:0px -459px; position:relative; top:1px; }
-.inr-dark-md-icon { width:11px; height:14px; background-position:-19px -459px; }
-.specs-capacity-icon, .specs-mileage-icon, .specs-maxpower-icon, .specs-weight-icon { width:30px; }
-.specs-capacity-icon { height:20px; background-position:-46px 0; }
-.specs-mileage-icon { height:24px; background-position:-46px -30px; }
-.specs-maxpower-icon { height:30px; background-position:-46px -62px; }
-.specs-weight-icon { height:30px; background-position:-46px -102px; }
-.margin-bottom13 { margin-bottom:13px; }
-.text-truncate { width:100%; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
+
 .swiper-wrapper .swiper-slide:first-child { margin-left:10px; }
 .model-gallery-container .swiper-wrapper .swiper-slide:first-child { margin-left:0; }
 .prices-by-cities-list { margin:0 20px; }
@@ -272,242 +200,10 @@
 .btn-x-sm { padding:8px 14px; color:#4d5057; }
 #modelForSaleContent li { margin-top:20px; }
 #modelForSaleContent li:first-child { margin-top:0; }
-.float-button .btn { padding: 8px 0; font-size: 18px;}
-.btn-green {background: #1b9618;color: #fff;border: 1px solid #1b9618;}
-.btn-green:focus {background: #008b08;border: 1px solid #008b08;}
 .divider-bottom { border-bottom:1px solid #eee; }
 .view-features-link { position: relative; display:block; }
 .view-features-link:before { content: ''; width: 100%; height: 20px; position:absolute; top:-40px; left: 0; z-index: 1; background: -webkit-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%); background: -moz-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%); background: -o-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%); background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%);}
 .view-features-link.active:before { content: none; }
-
-@media all and (max-width: 350px) {
-    .summary-overview-box > div.odd{padding-left:0;}
-    .summary-overview-box > div.even{padding-left:15px;}
-    .review-heading-wrapper, .model-user-review-title-container { width:50%; }
-    .news-heading-wrapper { width:40%; }
-}
-
-.elevated-shadow {
-    position:relative;
-    top:1px;
-    -moz-box-shadow: 0 0 7px #ccc;
-    -webkit-box-shadow: 0 0 7px #ccc;
-    -o-box-shadow: 0 0 7px #ccc;
-    -ms-box-shadow: 0 0 7px #ccc;
-    box-shadow: 0 0 7px #ccc;
-}
-
-.dropdown-select {
-	display: none;
-}
-
-.dropdown-menu {
-	width: 100%;
-    height: 20px;
-    min-width: 125px;
-	font-size: 14px;
-	position: relative;
-	display: inline-block;
-	vertical-align: middle;
-	color: #4d5057;
-}
-
-.single-version-label {
-	padding: 5px 30px 5px 9px;
-	font-weight: bold;
-	width: 100%;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-.dropdown-menu .dropdown-label, .dropdown-menu .dropdown-selected-item {
-	width: 100%;
-	font-weight: bold;
-	background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-.dropdown-menu .dropdown-selected-item {
-    border-bottom: 1px solid #e2e2e2;
-}
-
-.dropdown-menu .dropdown-label {
-    padding-right: 30px;
-    padding-left: 9px;
-}
-
-.dropdown-menu .dropdown-selected-item {
-    padding: 5px 30px 5px 9px;
-}
-
-.dropdown-menu .dropdown-label {
-	cursor: pointer;
-	display: inline-block;
-	z-index: 0;
-}
-
-.dropdown-menu .dropdown-list-wrapper {
-	display: none;
-	min-width: 170px;
-	overflow:hidden;
-	position: absolute;
-	top: 3px;
-	left: 0;
-	background: #fff;
-	z-index: 1;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	-o-border-radius: 2px;
-	-ms-border-radius: 2px;
-	border-radius: 2px;
-	border: 1px solid #e2e2e2\9;
-	-webkit-box-shadow: -3px 3px 15px 1px #ddd;
-	-moz-box-shadow: -3px 3px 15px 1px #ddd;
-	-ms-box-shadow: -3px 3px 15px 1px #ddd;
-	-o-box-shadow: -3px 3px 15px 1px #ddd;
-	box-shadow: -3px 3px 15px 1px #ddd;
-}
-
-.dropdown-menu.dropdown-active .dropdown-list-wrapper {
-	display: inline-block;
-}
-
-.dropdown-menu .dropdown-menu-list {
-	padding-top: 10px;
-	padding-bottom: 10px;
-}
-
-.dropdown-menu .dropdown-menu-list li {
-	padding: 5px 10px;
-	cursor: pointer;
-	white-space: nowrap;
-}
-
-.dropdown-menu .dropdown-with-select li:hover {
-	background: #eee;
-}
-
-.selected-location-label.text-truncate {
-    width: 84%;
-}
-
-.padding-10-20 {
-    padding:10px 20px;
-}
-
-#model-dealer-card {
-    padding-top: 15px;
-    margin-right: 20px;
-    margin-left: 20px;
-    border-top: 1px solid #eee;
-}
-
-#model-dealer-card .offers-content-label {
-    width: 64px;
-    font-size: 14px;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-#dealer-offers-list {
-    width: 78%;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-#dealer-offers-list li {
-    width: 76px;
-    height: 70px;
-    text-align:center;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    float: left;
-    cursor: pointer;
-    font-size: 11px;
-    border: 1px solid #f5f5f5;
-    -webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	-o-border-radius: 2px;
-	-ms-border-radius: 2px;
-	border-radius: 2px;
-	border: 1px solid #e2e2e2\9;
-    -webkit-box-shadow: 1px 1px 1px #ddd;
-	-moz-box-shadow: 1px 1px 1px #ddd;
-	-ms-box-shadow: 1px 1px 1px #ddd;
-	-o-box-shadow: 1px 1px 1px #ddd;
-	box-shadow: 1px 1px 1px #ddd;
-}
-
-#dealer-offers-list li:first-child {
-    margin-left: 0;
-}
-
-#dealer-offers-list .more-offers-card {
-    background-color: #f9f9f9;
-}
-
-.vertical-top {
-    display: inline-block;
-    vertical-align: top;
-}
-
-.inr-grey-xxxsm-icon {
-    width: 7px;
-    height: 10px;
-    background-position: -94px -136px;
-}
-
-.btn-sm-0 {
-    padding: 5px 21px;
-    font-size: 14px;
-}
-
-.btn-teal {
-    background: #41b4c4;
-    color: #fff;
-    border: 1px solid #41b4c4;
-}
-a.btn:hover {
-    text-decoration: none;
-}
-
-.line-height-1-5 {
-    line-height: 1.5;
-}
-
-.booknow-label {
-    width: 64%;
-    padding-left: 10px
-}
-
-.callback-btn.btn-sm-0 {
-    padding: 5px 28px;
-}
-
-.callback-label {
-    width: 46%;
-    padding-left: 10px;
-}
-
-.nearby-partner-left-col {
-    width: 45%;
-    max-width: 260px;
-    margin-right: 5px;
-}
-
-.nearby-partner-label {
-    width: 73%;
-}
-
-#more-dealers-popup.bwm-fullscreen-popup, #dealer-offers-popup.bwm-fullscreen-popup {
-    padding: 30px 25px;
-    display: none;
-}
 
 .icon-outer-container {
     width: 72px;
@@ -518,10 +214,6 @@ a.btn:hover {
     width: 64px;
     height: 64px;
     margin: 3px auto;
-}
-
-.margin-top12 {
-    margin-top:12px;
 }
 
 .secondary-dealer-card a {
@@ -553,78 +245,11 @@ a.btn:hover {
     margin: 0 auto;
 }
 
-.offers-sm-box-icon {
-    width: 16px;
-    height: 16px;
-    background-position: -183px -460px;
-    position: relative;
-    top: 1px;
-}
-
-.tel-sm-icon {
-    width: 15px;
-    height: 12px;
-    background-position: -88px -324px;
-    position: relative;
-    top: 2px;
-}
-
-.offers-box-icon {
-    width: 34px;
-    height: 37px;
-    background-position: 0 0;
-}
-
-.emi-calc-icon {
-    width: 34px;
-    height: 35px;
-    background-position: 0 -47px;
-}
-
-.dealership-icon {
-    width:29px;
-    height:24px;
-    background-position:0 -356px;
-}
-
-.offerIcon_1_sm , .offerIcon_2_sm , .offerIcon_3_sm , .offerIcon_4_sm , .offerIcon_5_sm, .offerIcon_6_sm, .offerIcon_7_sm { width:30px; height:28px; }
-.offerIcon_1_sm { background-position:0 -93px; }
-.offerIcon_2_sm { background-position:0 -132px; }
-.offerIcon_3_sm { background-position:0 -166px; }
-.offerIcon_4_sm { background-position:0 -207px; }
-.offerIcon_5_sm { background-position:0 -246px; }
-.offerIcon_6_sm { background-position:0 -283px; }
-.offerIcon_7_sm { background-position:0 -317px; }
-
-#dealer-offers-popup .btn {
-    padding: 8px 19px;
-}
-
-.dealer-offers-list .dealer-offer-image, .dealer-offers-list .dealer-offer-label {
-    display:inline-block;
-    vertical-align:middle;
-}
-
-.dealer-offers-list .dealer-offer-label {
-    width:85%;
-    font-size:14px;
-    text-align:left;
-    padding-left:10px;
-}
-
-.dealer-offers-list li {
-    padding-top:20px;
-}
-
-.dealer-offers-list li:first-child {
-    padding-top:0;
-}
-
-.fullwidth{
-    width: 100%;
-    text-align: left;
-    background-color: transparent;
-    cursor: pointer;
+@media all and (max-width: 350px) {
+    .summary-overview-box > div.odd{padding-left:0;}
+    .summary-overview-box > div.even{padding-left:15px;}
+    .review-heading-wrapper, .model-user-review-title-container { width:50%; }
+    .news-heading-wrapper { width:40%; }
 }
 
 @media only screen and (max-width: 320px) {
