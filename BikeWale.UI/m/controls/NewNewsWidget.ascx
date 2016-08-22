@@ -13,10 +13,10 @@
             </a>
         </div>
         <div class="review-heading-wrapper">
-            <a href="/m/news/<%= String.Format("{0}-{1}.html", firstPost.BasicId,firstPost.ArticleUrl) %>" class="target-link">
-                <%=firstPost.Title %>
+            <a href="/m/news/<%#String.Format("{0}-{1}.html", DataBinder.Eval(Container.DataItem,"BasicId").ToString(),DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString()) %>" class="target-link">
+                <%#DataBinder.Eval(Container.DataItem,"Title").ToString() %>
             </a>
-            <p class="font10 text-truncate text-light-grey"><%= Bikewale.Utility.FormatDate.GetFormatDate(firstPost.DisplayDate.ToString(), "MMMM dd, yyyy") %>, by <%=firstPost.AuthorName %></p>
+            <p class="font10 text-truncate text-light-grey"><%#Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem,"DisplayDate").ToString(), "MMMM dd, yyyy") %>, by <%#DataBinder.Eval(Container.DataItem,"AuthorName").ToString()%></p>
         </div>
     </div>
                 <p class="margin-top10">
