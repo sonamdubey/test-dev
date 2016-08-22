@@ -206,9 +206,6 @@ namespace Bikewale.Mobile.New
 
                         Label currentTextBox = (Label)e.Item.FindControl("txtComment");
                         HiddenField hdn = (HiddenField)e.Item.FindControl("hdnVariant");
-                        Label lblExOn = (Label)e.Item.FindControl("lblExOn");
-                        if (isOnRoadPrice)
-                            lblExOn.Text = "On-road price";
                         if (pqOnRoad.IsDealerPriceAvailable && pqOnRoad.DPQOutput != null && pqOnRoad.DPQOutput.Varients != null)
                         {
                             var selecteVersionList = pqOnRoad.DPQOutput.Varients.Where(p => Convert.ToString(p.objVersion.VersionId) == hdn.Value);
