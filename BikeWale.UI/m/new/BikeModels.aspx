@@ -222,7 +222,6 @@
                         <span class="font22 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %>&nbsp;</span>
                         <%if (isOnRoadPrice && price > 0)
                           {%>
-                        <%--<span id="viewBreakupText" class="font16 text-bold viewBreakupText">View detailed price</span>--%>
                         <a href="/m/pricequote/dealerpricequote.aspx?MPQ=<%= detailedPriceLink %>" class="font16 text-bold viewBreakupText" rel="nofollow" >View detailed price</a>
                         <% } %>
                     </p>
@@ -311,12 +310,13 @@
                     </div>
                     <% } %>
                 </div>
+                 <% } %>
+
                 <% if(viewModel.SecondaryDealerCount > 0){ %>
                     <div class="content-inner-block-20 border-solid-top font16">
                         <a href="javascript:void(0)" rel="nofollow" id="more-dealers-target">Prices from <%=viewModel.SecondaryDealerCount %> more partner dealers<span class="bwmsprite blue-right-arrow-icon"></span></a>
                     </div>
                 <% } %>
-            <% } %>
             </div>
         </section>
 
@@ -939,11 +939,13 @@
 									        <p class="font12 text-light-grey margin-bottom5">On-road price</p>
 									        <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem, "SelectedVersionPrice").ToString()) %></span>
 								        </div>
-								        <div class="grid-8 padding-top10 padding-left20 omega <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"OfferCount")) == "0" ?  "hide" : string.Empty %>">
-									        <span class="bwmsprite offers-sm-box-icon"></span>
-									        <span class="font14 text-default text-bold"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferCount")) %></span>
-									        <span class="font12 text-light-grey">Offers available</span>
-								        </div>
+                                        <div class="<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsPremiumDealer")) == false ?  "hide" : string.Empty %>">
+                                            <div class="grid-8 padding-top10 padding-left20 omega <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"OfferCount")) == "0" ?  "hide" : string.Empty %>">
+                                                <span class="bwmsprite offers-sm-box-icon"></span>
+                                                <span class="font14 text-default text-bold"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferCount")) %></span>
+                                                <span class="font12 text-light-grey">Offers available</span>
+                                            </div>
+                                        </div>
 								        <div class="clear"></div>
 							        </div>
 						        </div>
