@@ -80,14 +80,8 @@ namespace Bikewale.Mobile.New
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
-            //ddlNewVersionList.SelectedIndexChanged += new EventHandler(ddlNewVersionList_SelectedIndexChanged);
-            //ddlVariant.SelectedIndexChanged += new EventHandler(ddlVariant_SelectedIndexChanged);
         }
 
-        //private void ddlNewVersionList_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    throw new NotImplementedException();
-        //}
         /// <summary>
         /// Modified By : Lucky Rathore on 04 July 2016.
         /// Description : function "SetBWUtmz" called.
@@ -947,7 +941,7 @@ namespace Bikewale.Mobile.New
             {
                 if (isCitySelected)
                 {
-                    location += areaName != string.Empty ? string.Format("{0}, {1}", areaName, cityName) : cityName;
+                    location += !string.IsNullOrEmpty(areaName) ? string.Format("{0}, {1}", areaName, cityName) : cityName;
 
                 }
                 else
