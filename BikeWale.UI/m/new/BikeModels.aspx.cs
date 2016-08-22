@@ -150,7 +150,7 @@ namespace Bikewale.Mobile.New
                     ctrlVideos.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
                     ctrlVideos.ModelName = modelPage.ModelDetails.ModelName;
 
-                    ctrlUserReviews.ReviewCount = 2;
+                    ctrlUserReviews.ReviewCount = 3;
                     ctrlUserReviews.PageNo = 1;
                     ctrlUserReviews.PageSize = 2;
                     ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
