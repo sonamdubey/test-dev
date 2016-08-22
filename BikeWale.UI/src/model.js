@@ -1091,7 +1091,6 @@ assistFormSubmit.on('click', function () {
 
 //
 $(document).ready(function () {
-    modelPriceCarouselPagination();
 
     var modelPrice = $('#scrollFloatingButton'),
         $window = $(window),
@@ -1150,29 +1149,6 @@ $(document).ready(function () {
 
 });
 
-$(window).resize(function () {
-    modelPriceCarouselPagination();
-});
-
-var modelPriceCarouselPagination = function () {
-    var modelPriceCarousel = $('#modelPricesContent .jcarousel-pagination a'),
-        modelPricePaginationLength = modelPriceCarousel.length;
-    if (modelPricePaginationLength < 3) {
-        modelPriceCarousel.each(function () {
-            $(this).remove();
-        });
-        $('#modelPricesContent .jcarousel-arrow-icon').remove();
-    }
-    else if (modelPricePaginationLength >= 3) {
-        modelPriceCarousel.each(function () {
-            var anchorTag = $(this).attr('href');
-            var anchorTarget = anchorTag.substr(1, anchorTag.length);
-            if (anchorTarget % 2 == 0)
-                $(this).remove();
-        });
-    }
-};
-
 $('a.read-more-model-preview').click(function () {
     if (!$(this).hasClass('open')) {
         $('.model-preview-main-content').hide();
@@ -1187,4 +1163,33 @@ $('a.read-more-model-preview').click(function () {
         $(this).removeClass('open');
     }
 
+});
+
+$('#model-specs-list').on('click', '.model-accordion-tab', function () {
+    var tab = $(this),
+        allTabs = $('#model-specs-list .model-accordion-tab');
+
+    if (!tab.hasClass('active')) {
+        allTabs.removeClass('active');
+        tab.addClass('active');
+    }
+    else {
+        tab.removeClass('active');
+    }
+});
+
+$('.view-features-link').on('click', function () {
+    var target = $(this),
+        moreFeatures = $('#model-more-features-list');
+
+    if (!target.hasClass('active')) {
+        target.addClass('active');
+        moreFeatures.slideDown();
+        target.text('Collapse');
+    }
+    else {
+        target.removeClass('active');
+        moreFeatures.slideUp();
+        target.text('View all features');
+    }
 });

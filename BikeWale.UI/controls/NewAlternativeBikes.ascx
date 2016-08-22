@@ -4,7 +4,7 @@
 </style>
 <!-- Alternative Bikes Starts here-->    
 <div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14">
-    <h2 class="padding-left20 padding-right20">Alternative Bikes</h2>
+    <h2 class="padding-left20 padding-right20">Alternative Bikes for <%=model%></h2>
     <div class="jcarousel-wrapper inner-content-carousel">
         <div class="jcarousel">
             <ul>

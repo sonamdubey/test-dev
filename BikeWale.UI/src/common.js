@@ -430,9 +430,6 @@ $(function () {
     if (typeof (testimonialSlider) != 'undefined') {
         _target = 1;
     }
-    if (typeof (modelPriceByVersionSlider) != 'undefined') {
-        _target = 2;
-    }
     var jcarousel = $('.jcarousel').jcarousel({
         vertical: false
     });
