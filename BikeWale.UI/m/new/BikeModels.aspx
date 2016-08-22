@@ -312,7 +312,8 @@
                 </div>
                  <% } %>
 
-                <% if(viewModel.SecondaryDealerCount > 0){ %>
+                <% if (viewModel!= null && viewModel.SecondaryDealerCount > 0)
+                   { %>
                     <div class="content-inner-block-20 border-solid-top font16">
                         <a href="javascript:void(0)" rel="nofollow" id="more-dealers-target">Prices from <%=viewModel.SecondaryDealerCount %> more partner dealers<span class="bwmsprite blue-right-arrow-icon"></span></a>
                     </div>
