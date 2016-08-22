@@ -1274,7 +1274,10 @@ var appendHash = function (state) {
         case "locatorsearch":
             window.location.hash = state;
             break;
-        case "cityAreaPopup":
+        case "moreDealers":
+            window.location.hash = state;
+            break;
+        case "dealerOffers":
             window.location.hash = state;
             break;
         default:
@@ -1320,8 +1323,11 @@ var closePopUp = function (state) {
         case "locatorsearch":
             locatorSearchClose();
             break;
-        case "cityAreaPopup":
-            cityArea.close();
+        case "moreDealers":
+            popupDiv.close($('#more-dealers-popup'));
+            break;
+        case "dealerOffers":
+            popupDiv.close($('#dealer-offers-popup'));
             break;
         default:
             return true;
