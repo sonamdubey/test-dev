@@ -52,6 +52,9 @@
     <meta itemprop="manufacturer" name="manufacturer" content="<%= modelPage.ModelDetails.MakeBase.MakeName %>">  
     <meta itemprop="model" content="<%= modelPage.ModelDetails.ModelName %>"/>
     <form id="form1" runat="server">
+        <%--<div id="top-progress-bar">
+            <div class="progress-bar"></div>
+        </div>--%>
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
             <div class="container bg-white clearfix">
@@ -199,7 +202,7 @@
                         <p class="font14 text-bold">
                             <span class="selected-location-label inline-block text-truncate"><span><%= location %></span></span>
 
-                            <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity" rel="nofollow">
+                            <a href="javascript:void(0)" data-reload="true" ismodel="true" modelid='<%= modelId %>' class="getquotation margin-left5 changeCity" rel="nofollow">
                                 <span class="bwmsprite loc-change-blue-icon"></span></a>
                         </p>
                     </div>
