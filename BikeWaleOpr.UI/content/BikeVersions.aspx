@@ -183,7 +183,7 @@
 			</asp:TemplateColumn>
             <asp:TemplateColumn HeaderText="Specs" ItemStyle-Width="350">
 			    <itemtemplate>
-			        <input type="button" value="Add" onclick="javascript:window.open('newbikespecification.aspx?versionId=<%# DataBinder.Eval( Container.DataItem, "id" ) %>','','left=200,width=900,height=600,scrollbars=yes')" />
+			        <input type="button" value="Add" onclick="javascript:window.open('newbikespecification.aspx?&modelid=<%# DataBinder.Eval( Container.DataItem, "bikemodelid" ) %>&versionId=<%# DataBinder.Eval( Container.DataItem, "id" ) %>      ','','left=200,width=900,height=600,scrollbars=yes')" />
 			    </itemtemplate>
 			</asp:TemplateColumn>
             <asp:TemplateColumn HeaderText="Colors" ItemStyle-Width="350">

@@ -1889,6 +1889,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.Cache.Core\Bikewale.Cache.Core.csproj">
+      <Project>{038bc901-9d7f-4a95-8ca6-117db3aa48cc}</Project>
+      <Name>Bikewale.Cache.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
       <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
       <Name>Bikewale.Utility</Name>

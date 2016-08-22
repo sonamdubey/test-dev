@@ -3,6 +3,7 @@ IN THIS CLASS THE NEW MEMBEERS WHO HAVE REQUESTED FOR REGISTRATION ARE SHOWN
 *******************************************************************************************************/
 
 using Bikewale.Utility;
+using BikewaleOpr.common;
 using BikeWaleOpr.Common;
 using MySql.CoreDAL;
 using System;
@@ -170,6 +171,7 @@ namespace BikeWaleOpr.Content
             CheckBox chkUsed = (CheckBox)e.Item.FindControl("chkUsed");
             CheckBox chkNew = (CheckBox)e.Item.FindControl("chkNew");
             TextBox txt = (TextBox)e.Item.FindControl("txtMake");
+            var makeid = dtgrdMembers.DataKeys[e.Item.ItemIndex];
 
             try
             {
@@ -194,6 +196,13 @@ namespace BikeWaleOpr.Content
                     nvc.Add("isused", Convert.ToInt16(chkUsed.Checked).ToString());
                     nvc.Add("isfuturistic", Convert.ToInt16(chkFuturistic.Checked).ToString());
                     SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
+
+                    //Refresh memcache object for bikemake description change
+                    MemCachedUtil.Remove(string.Format("BW_MakeDetails_{0}", makeid));
+
+                    //Refresh memcache object for popularBikes change
+                    MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_{0}", makeid));
+
                 }
 
             }

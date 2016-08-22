@@ -1,3 +1,4 @@
+using BikewaleOpr.common;
 using BikeWaleOpr.Common;
 using MySql.CoreDAL;
 /*******************************************************************************************************
@@ -469,6 +470,9 @@ namespace BikeWaleOpr.Content
                     {
                         spnError.InnerText = "Problem occered while saving data";
                     }
+
+                    //Refresh memcache object for popularBikes change
+                    MemCachedUtil.Remove(string.Format("BW_VersionMinSpecs_{0}_New_{1}", lblBike.Text, Request.QueryString["isNew"]));
                 }
             }
             catch (SqlException err)

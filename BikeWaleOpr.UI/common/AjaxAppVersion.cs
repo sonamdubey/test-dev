@@ -2,10 +2,13 @@
 using BikewaleOpr.Common;
 using BikewaleOpr.Entities;
 using BikeWaleOpr.Common;
+using Bikewale.Cache.Core;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Bikewale.Interfaces.Cache.Core;
 
 namespace BikewaleOpr.Common
 {
@@ -79,6 +82,16 @@ namespace BikewaleOpr.Common
                 entity.IsSupported = isSupported;
                 isSuccess = objManageAppVersion.SaveAppVersion(entity, userId);
                 appVersions = objManageAppVersion.GetAppVersions((AppEnum)appType);
+
+                 //Refresh memcache object for app versions
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<ICacheManager, MemcacheManager>();
+                    ICacheManager objCache = container.Resolve<ICacheManager>();
+
+                    objCache.RefreshCache(string.Format("BW_AppVersion_{0}_Src_{1}", appVersionId, appType));
+                }
+
                 if (appVersions != null && appVersions.Count() > 0)
                 {
                     json = JavaScriptSerializer.Serialize(appVersions);

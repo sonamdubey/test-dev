@@ -1,4 +1,5 @@
 ﻿using Bikewale.Utility;
+using BikewaleOpr.common;
 using BikeWaleOpr.Common;
 using MySql.CoreDAL;
 using System;
@@ -77,6 +78,10 @@ namespace BikeWaleOpr.Content
 
                 BindGrid(false);
             }
+
+            //Refresh memcache object for newbikelaunches
+            MemCachedUtil.Remove("BW_NewBikeLaunches");
+
         }   // End btn_Save_click function
 
 
