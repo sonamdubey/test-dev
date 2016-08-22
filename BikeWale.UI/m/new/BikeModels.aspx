@@ -157,7 +157,7 @@
                         %>  <div class="grid-<%= String.IsNullOrEmpty(viewModel.MaskingNumber)? "12":"6" %> alpha omega padding-top10 padding-right5 padding-bottom10">
                                 <a id="getAssistance" leadSourceId="19" class="btn btn-white btn-full-width btn-sm rightfloat" href="javascript:void(0);">Get offers</a>
                             </div>
-                            <%  if(viewModel.MaskingNumber != string.Empty)
+                            <%  if(!string.IsNullOrEmpty(viewModel.MaskingNumber))
                                 { %>
                                 <div class="grid-6 alpha omega padding-top10 padding-bottom10 padding-left5">
                                     <a id="calldealer" class="btn btn-orange btn-full-width btn-sm rightfloat" href="tel:+91<%= String.IsNullOrEmpty(viewModel.MaskingNumber)? viewModel.MobileNo: viewModel.MaskingNumber %>"><span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer</a>
