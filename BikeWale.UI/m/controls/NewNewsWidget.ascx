@@ -4,13 +4,12 @@
     <h2><%= WidgetTitle %> News</h2>
 
        <!-- when one news -->
-    <% if (FetchedRecordsCount == 1)
-        { %>
-
+    <asp:Repeater ID="rptNews" runat="server">
+          <ItemTemplate>
     <div class="margin-bottom15">
         <div class="review-image-wrapper">
-            <a href="/m/news/<%= String.Format("{0}-{1}.html", firstPost.BasicId,firstPost.ArticleUrl) %>">
-                <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages( firstPost.OriginalImgUrl, firstPost.HostUrl ,Bikewale.Utility.ImageSize._370x208) %>" title="<%=firstPost.Title %>" alt="<%=firstPost.Title %>"  />
+            <a href="/m/news/<%# DataBinder.Eval(Container.DataItem,"BasicId").ToString() + "-" + DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString() %>.html" >
+                <img class="lazy" data-original="<%#Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImgUrl").ToString(), DataBinder.Eval(Container.DataItem,"HostUrl").ToString() ,Bikewale.Utility.ImageSize._370x208) %>" title="<%#DataBinder.Eval(Container.DataItem,"Title").ToString() %>" alt="<%#DataBinder.Eval(Container.DataItem,"Title").ToString() %>"  />
             </a>
         </div>
         <div class="review-heading-wrapper">
@@ -20,11 +19,14 @@
             <p class="font10 text-truncate text-light-grey"><%= Bikewale.Utility.FormatDate.GetFormatDate(firstPost.DisplayDate.ToString(), "MMMM dd, yyyy") %>, by <%=firstPost.AuthorName %></p>
         </div>
     </div>
-      <% }
-        else
-        { %>
-     
-    <div class="margin-bottom20">
+                <p class="margin-top10">
+            <!-- desc -->
+                  <%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem,"Description").ToString(),180) %>
+        </p>
+     </ItemTemplate>
+
+    </asp:Repeater>
+<%--    <div class="margin-bottom20">
         <div class="review-image-wrapper">
             <a href="/m/news/<%= String.Format("{0}-{1}.html", firstPost.BasicId,firstPost.ArticleUrl) %>">
                 <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages( firstPost.OriginalImgUrl, firstPost.HostUrl ,Bikewale.Utility.ImageSize._370x208) %>" title="<%=firstPost.Title %>" alt="<%=firstPost.Title %>"  />
@@ -58,7 +60,7 @@
           </ItemTemplate>
       </asp:Repeater>
     </ul>
-    <% } %>
+  --%>
     <div>
         <a href="/m/news/" class="font14">Read all news<span class="bwmsprite blue-right-arrow-icon"></span></a>
     </div>
