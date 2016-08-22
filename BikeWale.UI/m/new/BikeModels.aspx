@@ -506,7 +506,6 @@
 					        </tr>
                         </tbody>
                     </table>
-                    
                     <!-- varient code ends here -->
                     <% } %>
                    <BW:TopCityPrice ID="ctrlTopCityPrices" runat="server" />
