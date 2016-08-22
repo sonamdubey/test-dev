@@ -124,7 +124,7 @@ namespace Bikewale.Utility
                         break;
                     case 6:
                     case 7:
-                        retValue = String.Format("{0} Lakhs", Convert.ToString(Math.Round(numeric / 100000, 2)));
+                        retValue = String.Format("{0} Lakhs", Convert.ToString(Math.Round(numeric / 100000,2)));
                         break;
                     case 8:
                     case 9:

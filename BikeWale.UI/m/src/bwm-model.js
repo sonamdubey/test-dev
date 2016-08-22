@@ -780,12 +780,12 @@ $(document).ready(function () {
             }
         });
         
-        var scrollToTab = $('#modelReviewsContent');
+        var scrollToTab = $('#modelSpecsTabsContentWrapper .bw-model-tabs-data:eq(4)');
         if (scrollToTab.length != 0) {
             if (windowScrollTop > scrollToTab.offset().top - 45) {
                 if (!$('#overallSpecsTab').hasClass('scrolled-left')) {
                     $('.overall-specs-tabs-container').addClass('scrolled-left');
-                    scrollHorizontal(300);
+                    scrollHorizontal(400);
                 }
             }
 
@@ -840,5 +840,34 @@ $('a.read-more-model-preview').click(function () {
         $('.model-preview-more-content').hide();
         self.text(self.text() === 'Read more' ? 'Collapse' : 'Read more');
         self.removeClass('open');
+    }
+});
+
+$('#model-specs-list').on('click', '.model-accordion-tab', function () {
+    var tab = $(this),
+        allTabs = $('#model-specs-list .model-accordion-tab');
+
+    if (!tab.hasClass('active')) {
+        allTabs.removeClass('active');
+        tab.addClass('active');
+    }
+    else {
+        tab.removeClass('active');
+    }
+});
+
+$('.view-features-link').on('click', function () {
+    var target = $(this),
+        moreFeatures = $('#model-more-features-list');
+
+    if (!target.hasClass('active')) {
+        target.addClass('active');
+        moreFeatures.slideDown();
+        target.text('Collapse');
+    }
+    else {
+        target.removeClass('active');
+        moreFeatures.slideUp();
+        target.text('View all features');
     }
 });

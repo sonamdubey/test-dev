@@ -138,7 +138,7 @@ namespace Bikewale.Mobile.New
                     ctrlNews.ModelId = Convert.ToInt32(modelId);
                     ctrlNews.WidgetTitle = bikeName;
 
-                    ctrlExpertReviews.TotalRecords = 2;
+                    ctrlExpertReviews.TotalRecords = 3;
                     ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);
                     ctrlExpertReviews.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
                     ctrlExpertReviews.ModelName = modelPage.ModelDetails.ModelName;
@@ -150,9 +150,9 @@ namespace Bikewale.Mobile.New
                     ctrlVideos.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
                     ctrlVideos.ModelName = modelPage.ModelDetails.ModelName;
 
-                    ctrlUserReviews.ReviewCount = 2;
+                    ctrlUserReviews.ReviewCount = 3;
                     ctrlUserReviews.PageNo = 1;
-                    ctrlUserReviews.PageSize = 2;
+                    ctrlUserReviews.PageSize = 3;
                     ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
                     ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
                     ctrlUserReviews.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
@@ -206,9 +206,6 @@ namespace Bikewale.Mobile.New
 
                         Label currentTextBox = (Label)e.Item.FindControl("txtComment");
                         HiddenField hdn = (HiddenField)e.Item.FindControl("hdnVariant");
-                        Label lblExOn = (Label)e.Item.FindControl("lblExOn");
-                        if (isOnRoadPrice)
-                            lblExOn.Text = "On-road price";
                         if (pqOnRoad.IsDealerPriceAvailable && pqOnRoad.DPQOutput != null && pqOnRoad.DPQOutput.Varients != null)
                         {
                             var selecteVersionList = pqOnRoad.DPQOutput.Varients.Where(p => Convert.ToString(p.objVersion.VersionId) == hdn.Value);
@@ -272,6 +269,7 @@ namespace Bikewale.Mobile.New
                 ctrlAlternativeBikes.VersionId = modelPage.ModelVersions[0].VersionId;
                 ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Mobile_ModelPage_Alternative;
                 ctrlAlternativeBikes.WidgetTitle = bikeName;
+                ctrlAlternativeBikes.modelName = modelPage.ModelDetails.ModelName;
             }
         }
 

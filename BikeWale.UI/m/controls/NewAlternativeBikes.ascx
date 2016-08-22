@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.NewAlternativeBikes" %>
 <!-- Most Alternative Bikes Starts here-->
 <div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top15 font14 margin-bottom20">
-    <h2 class="padding-left20 padding-right20 margin-bottom20">Alternative bikes</h2>
+    <h2 class="padding-left20 padding-right20 margin-bottom20">Alternative bikes for <%=modelName%></h2>
     <div class="swiper-container padding-top5 padding-bottom5">
         <div class="swiper-wrapper font14"> 
           <asp:Repeater ID="rptAlternateBikes" runat="server">   

@@ -50,9 +50,9 @@ namespace Bikewale.BindViewModels.Controls
                 if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
                 {
                     if (ModelId.HasValue && ModelId.Value > 0)
-                        cacheKey = "BW_Videos__Model_" + ModelId.Value + "_P_" + pageNo + "_Cnt_" + TotalRecords;
+                        cacheKey = "BW_Videos_Model_" + ModelId.Value + "_P_" + pageNo + "_Cnt_" + TotalRecords;
                     else
-                        cacheKey = "BW_Videos__Make_" + MakeId.Value + "_P_" + pageNo + "_Cnt_" + TotalRecords;
+                        cacheKey = "BW_Videos_Make_" + MakeId.Value + "_P_" + pageNo + "_Cnt_" + TotalRecords;
                 }
 
                 using (IUnityContainer container = new UnityContainer())
