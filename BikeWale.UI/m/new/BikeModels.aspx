@@ -632,7 +632,7 @@
                 <%if (ctrlVideos.FetchedRecordsCount > 0)
                     { %>
                     <div id="modelVideosContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
-                        <h2><%= bikeName %> Videos</h2>
+                        <h2><%= bikeModelName %> Videos</h2>
                             <BW:Videos runat="server" ID="ctrlVideos" />
                     </div>
                 <% } %>

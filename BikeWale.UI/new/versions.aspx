@@ -13,7 +13,7 @@
     <%
         var modDetails = modelPageEntity.ModelDetails;
         title = String.Format("{0} Price, Reviews, Spec, Photos, Mileage | Bikewale", bikeName);
-        description = String.Format("{0} Price in India - Rs. {1}. Find {0} Reviews, Specs, Features, Mileage, On Road Price. See {0} Colors, Images at Bikewale.", bikeName, Bikewale.Utility.Format.FormatPrice(price.ToString()));
+        description = String.Format("{0} Price in India - Rs. {1}. Find {0} Reviews, Specs, Features, Mileage, On Road Price. See {2} Colors, Images at Bikewale.", bikeName, Bikewale.Utility.Format.FormatPriceLong(price.ToString()), bikeModelName);
         canonical = String.Format("http://www.bikewale.com/{0}-bikes/{1}/", modelPageEntity.ModelDetails.MakeBase.MaskingName, modelPageEntity.ModelDetails.MaskingName);
         AdId = "1442913773076";
         AdPath = "/1017752/Bikewale_NewBike_";
@@ -22,7 +22,7 @@
         alternate = "http://www.bikewale.com/m/" + modDetails.MakeBase.MaskingName + "-bikes/" + modDetails.MaskingName + "/";
         isAd970x90Shown = true;
         TargetedCity = cityName;
-        keywords = string.Format("{0}, Bike, {0} Price, {0} Reviews, {0} Photos, {0} Mileage", bikeName);
+        keywords = string.Format("{0},{0} Bike, bike, {0} Price, {0} Reviews, {0} Photos, {0} Mileage", bikeName);
         ogImage = modelImage; 
         isAd970x90BTFShown = false;
          %>
@@ -819,7 +819,7 @@
 
                     <% if(modelPageEntity.ModelVersionSpecs != null ){ %>
                     <div id="modelSpecsFeaturesContent" class="bw-model-tabs-data padding-top20 font14">
-                        <h2 class="padding-left20 padding-right20"><%=bikeName %> Specifications & Features</h2>
+                        <h2 class="padding-left20 padding-right20"><%=bikeModelName%> Specifications & Features</h2>
                         <h3 class="padding-left20">Specifications</h3>
 
                         <ul id="model-specs-list">

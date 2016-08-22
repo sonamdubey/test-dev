@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.NewVideosControl" %>
-<h2 class="padding-right10 padding-left10"><%= WidgetTitle %> Videos</h2>
+<h2 class="padding-right10 padding-left10"><%= ModelName %> Videos</h2>
 <div class="model-updates-videos-container" id="ctrlVideos">
     <!-- Videos data code starts here-->
     <asp:Repeater ID="rptVideos" runat="server">
@@ -27,6 +27,7 @@
                     </div>
                     <p class="margin-top12 line-height17">
                         <!-- desc -->
+                          <%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Description").ToString(),200) %>
                     </p>
                 </div>
                 <div class="clear"></div>
