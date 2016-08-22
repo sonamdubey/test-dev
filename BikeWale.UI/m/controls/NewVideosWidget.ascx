@@ -23,7 +23,7 @@
                 </div>
                 <div class="grid-5 alpha omega">
                     <span class="bwmsprite views-grey-sm-icon"></span>
-                    <span class="article-stats-content video-view-count">count</span>
+                    <span class="article-stats-content video-view-count"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Views").ToString()) %></span>
                 </div>
                 <div class="clear"></div>
             </div>

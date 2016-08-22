@@ -462,7 +462,7 @@
                                 </ItemTemplate>
                             </asp:Repeater>
                             <tr>
-						        <td colspan="2" class="padding-top5 font12 text-x-light">Above mentioned prices are Ex-showroom, Mumbai</td>
+						        <td colspan="2" class="padding-top5 font12 text-x-light">Above mentioned prices are <%=priceText %>, <%=location %></td>
                             
 					        </tr>
                         </tbody>
@@ -475,7 +475,7 @@
 
                 <% if(modelPage.ModelVersionSpecs != null){ %>
                 <div id="modelSpecsFeaturesContent" class="bw-model-tabs-data font14">
-                    <div class="padding-15-20">
+                    <h2 class="padding-top15 padding-right20 padding-left20"><%=modelPage.ModelDetails.ModelName%> Specifications & Features</h2>
                     <h3 class="padding-right20 padding-left20 model-specs-header">Specifications</h3>
 
                     <ul id="model-specs-list">
@@ -939,9 +939,9 @@
 									        <p class="font12 text-light-grey margin-bottom5">On-road price</p>
 									        <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem, "SelectedVersionPrice").ToString()) %></span>
 								        </div>
-								        <div class="grid-8 padding-top10 padding-left20 omega">
+								        <div class="grid-8 padding-top10 padding-left20 omega <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"OfferCount")) == "0" ?  "hide" : string.Empty %>">
 									        <span class="bwmsprite offers-sm-box-icon"></span>
-									        <span class="font14 text-default text-bold">2</span>
+									        <span class="font14 text-default text-bold"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferCount")) %></span>
 									        <span class="font12 text-light-grey">Offers available</span>
 								        </div>
 								        <div class="clear"></div>

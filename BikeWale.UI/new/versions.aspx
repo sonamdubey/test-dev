@@ -797,7 +797,7 @@
                                                         <asp:Label ID="lblExOn" Text="Ex-showroom" runat="server"></asp:Label>, 
                                                         <% if (cityId != 0)
                                                             { %>
-                                                        <span><%= areaName %> <%= cityName %></span>
+                                                        <span><%= cityName %></span>
                                                         <% }
                                                             else
                                                             { %>

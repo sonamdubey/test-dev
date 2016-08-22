@@ -1013,3 +1013,32 @@ $(document).on('click', function (event) {
         dropdown.inactive();
     }
 });
+
+$('#model-specs-list').on('click', '.model-accordion-tab', function () {
+    var tab = $(this),
+        allTabs = $('#model-specs-list .model-accordion-tab');
+
+    if (!tab.hasClass('active')) {
+        allTabs.removeClass('active');
+        tab.addClass('active');
+    }
+    else {
+        tab.removeClass('active');
+    }
+});
+
+$('.view-features-link').on('click', function () {
+    var target = $(this),
+        moreFeatures = $('#model-more-features-list');
+
+    if (!target.hasClass('active')) {
+        target.addClass('active');
+        moreFeatures.slideDown();
+        target.text('Collapse');
+    }
+    else {
+        target.removeClass('active');
+        moreFeatures.slideUp();
+        target.text('View all features');
+    }
+});

@@ -942,7 +942,7 @@ namespace Bikewale.Mobile.New
             }
             else if (isCitySelected && isOnRoadPrice)
             {
-                priceText = "On-road price";
+                priceText = "On-road";
             }
 
             if (isOnRoadPrice && price > 0)
