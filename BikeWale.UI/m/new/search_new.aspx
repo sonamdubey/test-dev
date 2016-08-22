@@ -321,6 +321,6 @@
     <!-- all other js plugins -->
     <!-- #include file="/includes/footerscript_Mobile.aspx" -->
     <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/new/search.js?<%= staticFileVersion %>" type="text/javascript"></script>
-    <div class="back-to-top" id="back-to-top"><a><span></span></a></div>
+    <div class="back-to-top" id="back-to-top"></div>
 </body>
 </html>
