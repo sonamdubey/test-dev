@@ -617,7 +617,7 @@
                         </li>
                     </ul>
 
-                    <h3 class="margin-top20 padding-right20 padding-left20">Features</h3>
+                    <h3 id="model-features-heading" class="margin-top20 padding-right20 padding-left20">Features</h3>
 
                     <ul class="specs-features-list model-features-list" id="model-main-features-list">
                         <li>
@@ -684,8 +684,7 @@
                         </li>
                     </ul>
                       <div class="padding-top10 padding-right20 padding-left20">		
-                         <a href="#model-main-features-list"  class="view-features-link bw-ga" c="Model_Page" a="View_all_features_link_cliked" v="myBikeName" title="<%=bikeName %> Features" rel="nofollow">View all features</a>		
-                         <%--<a href="/m<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName, "modelFeatures",versionId) %>"  class="bw-ga" c="Model_Page" a="View_all_features_link_cliked" v="myBikeName" title="<%=bikeName %> Features">View all features<span class="bwmsprite blue-right-arrow-icon"></span></a>--%>		
+                         <a href="javascript:void(0)"  class="view-features-link bw-ga" c="Model_Page" a="View_all_features_link_cliked" v="myBikeName" title="<%=bikeName %> Features" rel="nofollow">View all features</a>
                     </div>
                     <div class="margin-right20 margin-left20 border-solid-bottom padding-bottom20"></div>
                 </div>
