@@ -978,8 +978,6 @@
             }
             var getCityArea = GetGlobalCityArea();
             $(document).ready(function (e) {
-                var selectedversion = '<%=versionText%>';
-                $('.dropdown-select-wrapper #defaultVariant').text(selectedversion);
                 $(".leadcapturesubmit").on('click', function () {
                     openLeadPopup($(this));
                 });
