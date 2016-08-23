@@ -308,7 +308,7 @@
                {%>
                 <div class="grid-12 float-button float-fixed">
                     <a class="btn btn-full-width font18 btn-orange getquotation bw-ga" c="SpecsandFeature"
-                        a="Check_On_Road_Price_Clicked" l="<%=string.Format("{0}_{1}_{2}", makeName,modelName,versionName) %>" isModel="true" data-pqsourceid="54" pqSourceId="54" modelId="<%= modelId %>" 
+                        a="Check_On_Road_Price_Clicked" l="<%=string.Format("{0}_{1}_{2}", makeName,modelName,versionName) %>" data-persistent="true" data-pqsourceid="54" data-pqSourceId="54" data-modelId="<%= modelId %>" 
                          href="javascript:void(0)" rel="nofollow">Check on-road price</a>
                 </div>
                 <%} %>

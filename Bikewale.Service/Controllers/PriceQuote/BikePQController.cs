@@ -95,9 +95,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         pqOut.PQCitites = pqbyCityArea.FetchCityByModelId(Convert.ToInt32(objPQEntity.ModelId));
 
                         var selectedCity = pqOut.PQCitites.FirstOrDefault(p => p.CityId == objPQEntity.CityId);
-                        pqOut.IsCityExists = selectedCity != null;
-
-                        if (pqOut.IsCityExists && selectedCity.HasAreas)
+                        if (selectedCity != null && selectedCity.HasAreas)
                             pqOut.PQAreas = pqbyCityArea.GetAreaForCityAndModel(Convert.ToInt32(objPQEntity.ModelId), Convert.ToInt32(objPQEntity.CityId));
                     }
                     else
@@ -112,13 +110,12 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                         if (input.IsPersistance)
                         {
-                            pqOutput.ActionUrl = string.Empty;
+                            pqOutput.QueryString = string.Empty;
                             pqOutput.Action = false;
                         }
                         else if (pqOutput.PriceQuote != null)
                         {
-                            string queryString = String.Format("CityId={0}&AreaId={1}&PQId={2}&VersionId={3}&DealerId={4}", objPQEntity.CityId, objPQEntity.AreaId, pqOutput.PriceQuote.PQId, pqOutput.PriceQuote.VersionId, pqOutput.PriceQuote.DealerId);
-                            pqOutput.ActionUrl = string.Format("/pricequote/dealerpricequote.aspx?MPQ=", EncodingDecodingHelper.EncodeTo64(queryString));
+                            pqOutput.QueryString = EncodingDecodingHelper.EncodeTo64(string.Format("CityId={0}&AreaId={1}&PQId={2}&VersionId={3}&DealerId={4}", objPQEntity.CityId, pqOutput.PriceQuote.DealerId > 0 ? objPQEntity.AreaId : 0, pqOutput.PriceQuote.PQId, pqOutput.PriceQuote.VersionId, pqOutput.PriceQuote.DealerId));
                         }
 
 

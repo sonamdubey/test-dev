@@ -52,7 +52,7 @@
                         <div class="compareBikeBox compareBikeBorder-Rt">
                              <div class="new-line5"><a href="/m/<%=bikeDetails.Rows[0]["MakeMaskingName"] %>-bikes/<%=bikeDetails.Rows[0]["ModelMaskingName"] %>" style="color:black;text-decoration:none;font-weight:bold;" class="ui-link"><%=bikeDetails.Rows[0]["Make"] + " " + bikeDetails.Rows[0]["Model"] + " " + bikeDetails.Rows[0]["Version"]%></a></div>
                             <div class="new-line5 <%=bikeDetails.Rows[0]["Price"].ToString() == "0" ? "hide" : "" %>">Price : Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(bikeDetails.Rows[0]["Price"].ToString()) %></div>
-                            <div class="new-line5 <%=bikeDetails.Rows[0]["Price"].ToString() != "0" ? "hide" : "" %>"><a class="getquotation" href="/m/pricequote/default.aspx?version=<%=bikeDetails.Rows[0]["BikeVersionId"] %>" modelId="<%=bikeDetails.Rows[0]["Model"]%>">Check On-Road Price</a></div>
+                            <div class="new-line5 <%=bikeDetails.Rows[0]["Price"].ToString() != "0" ? "hide" : "" %>"><a class="getquotation" href="/m/pricequote/default.aspx?version=<%=bikeDetails.Rows[0]["BikeVersionId"] %>" data-modelId="<%=bikeDetails.Rows[0]["Model"]%>">Check On-Road Price</a></div>
                         </div>
                     <div style="width:23px;height:24px;position:absolute;top:17px;z-index:1;right:-10px;background: url('http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/icons-sheet.png?v=5.2') no-repeat scroll 0 0 transparent;background-position: 0 -1148px;"></div></div>
             
@@ -60,7 +60,7 @@
                         <div class="compareBikeBox compareBikeBorder-Rt">
                             <div class="new-line5"><a href="/m/<%=bikeDetails.Rows[1]["MakeMaskingName"] %>-bikes/<%=bikeDetails.Rows[1]["ModelMaskingName"] %>" style="color:black;text-decoration:none;font-weight:bold;" class="ui-link"><%=bikeDetails.Rows[1]["Make"] + " " + bikeDetails.Rows[1]["Model"] + " " + bikeDetails.Rows[1]["Version"]%></a></div>
                             <div class="new-line5 <%=bikeDetails.Rows[1]["Price"].ToString() == "0" ? "hide" : "" %>">Price : Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(bikeDetails.Rows[1]["Price"].ToString()) %></div>
-                            <div class="new-line5 <%=bikeDetails.Rows[1]["Price"].ToString() != "0" ? "hide" : "" %>"><a href="/m/pricequote/default.aspx?version=<%=bikeDetails.Rows[1]["BikeVersionId"] %>" class="getquotation" modelId="<%=bikeDetails.Rows[1]["Model"]%>">Check On-Road Price</a></div>
+                            <div class="new-line5 <%=bikeDetails.Rows[1]["Price"].ToString() != "0" ? "hide" : "" %>"><a href="/m/pricequote/default.aspx?version=<%=bikeDetails.Rows[1]["BikeVersionId"] %>" class="getquotation" data-modelId="<%=bikeDetails.Rows[1]["Model"]%>">Check On-Road Price</a></div>
                         </div>
                     </div>
             
@@ -98,7 +98,7 @@
                     <div id="divImgContainer1" class="divImage"><a href="/m/<%=bikeDetails.Rows[1]["MakeMaskingName"] %>-bikes/<%=bikeDetails.Rows[1]["ModelMaskingName"] %>/" style="color:black;text-decoration:none;font-weight:bold;" class="ui-link"><img src="<%= Bikewale.Utility.Image.GetPathToShowImages(bikeDetails.Rows[1]["OriginalImagePath"].ToString() ,bikeDetails.Rows[1]["HostURL"].ToString(),Bikewale.Utility.ImageSize._310x174) %>"></a></div>
                     <div id="divBikeName1" class="new-line5"><a href="/m/<%=bikeDetails.Rows[1]["MakeMaskingName"] %>-bikes/<%=bikeDetails.Rows[1]["ModelMaskingName"] %>/" style="color:black;text-decoration:none;font-weight:bold;" class="ui-link"><%=bikeDetails.Rows[1]["Make"] + " " + bikeDetails.Rows[1]["Model"] + " " + bikeDetails.Rows[1]["Version"]%></a></div>
                     <div class="new-line5 <%=bikeDetails.Rows[1]["Price"].ToString() == "0" ? "hide" : "" %>">Price : Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(bikeDetails.Rows[1]["Price"].ToString()) %></div>
-                    <div class="new-line5  <%=bikeDetails.Rows[1]["Price"].ToString() != "0" ? "hide" : "" %>"><a href="/m/pricequote/default.aspx?version=<%=bikeDetails.Rows[1]["BikeVersionId"] %>" class="getquotation" modelId="<%=bikeDetails.Rows[1]["Model"]%>">Check On-Road Price</a></div>
+                    <div class="new-line5  <%=bikeDetails.Rows[1]["Price"].ToString() != "0" ? "hide" : "" %>"><a href="/m/pricequote/default.aspx?version=<%=bikeDetails.Rows[1]["BikeVersionId"] %>" class="getquotation" data-modelId="<%=bikeDetails.Rows[1]["Model"]%>">Check On-Road Price</a></div>
                 </div>
             </div>
                 

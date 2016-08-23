@@ -985,7 +985,7 @@ function slideChangeStart() {
                             ulItem.append('<span class="upcoming-link">coming soon</span>')                           
                         } else {
                             if (item.payload.isNew == 'True') {
-                                ulItem.append('<a pqSourceId="' + pqSourceId + '" modelId="' + item.payload.modelId + '" class="getquotation target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>');
+                                ulItem.append('<a data-pqSourceId="' + pqSourceId + '" data-modelId="' + item.payload.modelId + '" class="getquotation target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>');
                             }
                             else {
                                 ulItem.append('<span class="upcoming-link">discontinued</span>')
