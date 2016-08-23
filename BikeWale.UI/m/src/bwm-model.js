@@ -1030,15 +1030,18 @@ $('#model-specs-list').on('click', '.model-accordion-tab', function () {
 
 $('.view-features-link').on('click', function () {
     var target = $(this),
+        featuresHeading = $('#model-features-heading'),
         moreFeatures = $('#model-more-features-list');
 
     if (!target.hasClass('active')) {
         target.addClass('active');
+        $('html, body').animate({ scrollTop: featuresHeading.offset().top - 44 }, 500);
         moreFeatures.slideDown();
         target.text('Collapse');
     }
     else {
         target.removeClass('active');
+        $('html, body').animate({ scrollTop: featuresHeading.offset().top - 44 }, 500);
         moreFeatures.slideUp();
         target.text('View all features');
     }
