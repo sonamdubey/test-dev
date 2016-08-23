@@ -303,6 +303,8 @@
                                         gtmCodeAppender(self.PageCatId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
                                     else gtmCodeAppender(self.PageCatId, 'BW_PriceQuote_Success_Submit', gaLabel);
 
+                                    self.setLocationCookie();
+
                                     if(!self.IsReload())
                                         window.location = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + Base64.encode(queryStr);
                                     else   window.location.reload();                                     
@@ -311,6 +313,7 @@
                                 }
                                 else
                                 {
+                                    self.setLocationCookie();
                                     window.location.reload();
                                 }
                                
@@ -343,11 +346,7 @@
             if(data.id != onCookieObj.PQCitySelectedId){      
 
                 self.InitializePQ(data,event);
-            } 
-                                
-            
-            cookieValue = self.SelectedCity().id + "_" + self.SelectedCity().name;
-            SetCookieInDays("location", cookieValue, 365);
+            }                                
 
             if (ga_pg_id != null && ga_pg_id == 2) {
                 var actText = '';
@@ -378,14 +377,6 @@
 
             if(data.id != onCookieObj.PQAreaSelectedId){                
                 self.InitializePQ(data,event);
-
-                cookieValue = self.SelectedCity().id + "_" + self.SelectedCity().name; 
-                self.SelectedArea(findAreaById(self.SelectedAreaId()));
-                if (self.SelectedArea() != null) {
-                    cookieValue += ("_" + self.SelectedArea().id + "_" + self.SelectedArea().name);
-                }
-                SetCookieInDays("location", cookieValue, 365);
-
             }
 
             if (ga_pg_id != null && ga_pg_id == 2 ) {
@@ -393,6 +384,20 @@
             }
 
 
+        };
+
+        self.setLocationCookie = function() {
+            if (self.SelectedCityId() > 0 ) {
+                self.SelectedCity(findCityById(self.SelectedCityId()));
+                if (self.SelectedCity() && self.SelectedCity().id > 0) {
+                    cookieValue = self.SelectedCity().id + "_" + self.SelectedCity().name; 
+                    self.SelectedArea(findAreaById(self.SelectedAreaId()));
+                    if (self.SelectedArea() != null) {
+                        cookieValue += ("_" + self.SelectedArea().id + "_" + self.SelectedArea().name);
+                    }
+                    SetCookieInDays("location", cookieValue, 365);
+                }
+            }
         };
     }
 
