@@ -121,7 +121,7 @@
                         </div>
                     <% if (modelPage.ModelDetails.Futuristic)
                        { %>
-                    <div class="bikeDescWrapper">
+                             <div class="bikeDescWrapper">
                           <% if (modelPage.UpcomingBike != null) {%>
                          <div class="margin-bottom10 font14 text-light-grey">Expected price</div>
                          <div>
@@ -180,63 +180,62 @@
         <section>
             <asp:HiddenField ID="hdnVariant" Value="0" runat="server" />
             <div class="container bg-white clearfix elevated-shadow">
+                <!-- new bikes section -->
                 <% if (!isDiscontinued)
                    { %>
                 <div class="grid-12 padding-top5 padding-bottom5 border-solid-bottom">
                     <div class="grid-6 alpha border-solid-right">
                         <p class="font12 text-light-grey padding-left10">Version:</p>
+                        <p id="defversion" class="single-version-label font14 margin-left5"><%=variantText %></p>
                         <% if (versionCount > 1)
                            { %>
-                        <div class="dropdown-select-wrapper">
-                            <asp:DropDownList CssClass="dropdown-select" ID="ddlNewVersionList" runat="server" />
-                        </div>
-                        <% }
-                           else
-                           {%>
-                        <p id="singleversion" class="single-version-label font14 margin-left5"><%=variantText %></p>
+                            <div class="dropdown-select-wrapper">
+                                <asp:DropDownList CssClass="dropdown-select" ID="ddlNewVersionList" runat="server" />
+                            </div>
                         <% } %>
                     </div>
-
                     <div class="grid-6 padding-left20">
                         <p class="font12 text-light-grey">Location:</p>
                         <p class="font14 text-bold">
-                            <span class="selected-location-label inline-block text-truncate"><span><%= location %></span></span>
-
-                            <a href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid='<%= modelId %>' class="getquotation margin-left5 changeCity" rel="nofollow">
-                                <span class="bwmsprite loc-change-blue-icon"></span></a>
+                            <a href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid='<%= modelId %>' class="getquotation changeCity" rel="nofollow">
+                                <span class="selected-location-label inline-block text-default text-truncate"><span><%= location %></span></span>                            
+                                <span class="bwmsprite loc-change-blue-icon"></span>
+                            </a>
                         </p>
                     </div>
                     <div class="clear"></div>
                 </div>
                 <div class="clear"></div>
                 <% }
-                   else
+                   else if(isDiscontinued && !modelPage.ModelDetails.Futuristic) { %>
+                       <div class="bike-price-container padding-10-20">
+                            <div class="bike-price-container ">
+                                <span class="font14 text-grey"><%= bikeName %> is now discontinued in India.</span>
+                            </div>
+                        </div>
+                 <% } 
+                   if (!modelPage.ModelDetails.Futuristic)
                    { %>
-                <div class="bike-price-container padding-10-20">
-                    <div class="bike-price-container ">
-                        <span class="font14 text-grey"><%= bikeName %> is now discontinued in India.</span>
-                    </div>
-                </div>
+                        <div class="padding-10-20">
+                            <p class="font12 text-light-grey"><%=priceText %> price in <%= location %></p>
+                            <p>
+                                <span class="bwmsprite inr-md-icon"></span>
+                                <span class="font22 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %>&nbsp;</span>
+                                <%if (isOnRoadPrice && price > 0)
+                                  {%>
+                                <a href="/m/pricequote/dealerpricequote.aspx?MPQ=<%= detailedPriceLink %>" class="font16 text-bold viewBreakupText" rel="nofollow" >View detailed price</a>
+                                <% } %>
+                            </p>
+                        </div>
                 <% } %>
-                <div class="padding-10-20">
-                    <p class="font12 text-light-grey"><%=priceText %> price in <%= location %></p>
-                    <p class="">
-                        <span class="bwmsprite inr-md-icon"></span>
-                        <span class="font22 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %>&nbsp;</span>
-                        <%if (isOnRoadPrice && price > 0)
-                          {%>
-                        <a href="/m/pricequote/dealerpricequote.aspx?MPQ=<%= detailedPriceLink %>" class="font16 text-bold viewBreakupText" rel="nofollow" >View detailed price</a>
-                        <% } %>
-                    </p>
-                </div>
                 <%
                     if (viewModel != null && !isBikeWalePQ)
                     { 
                 %>
-                <div id="model-dealer-card">
+                         <div id="model-dealer-card">
                     <% if(viewModel.IsPremiumDealer){ %>
                     <div class="dealer-details margin-bottom10">
-                        <div class="inline-block margin-right5">
+                        <div class="dealership-icon-wrapper inline-block margin-right5">
                             <span class="offers-sprite dealership-icon"></span>
                         </div>
                         <div class="inline-block">
@@ -265,7 +264,7 @@
                                     <% if (moreOffersCount > 3)
                                        {%>
                                     <li class="more-offers-card">
-                                        <p class="font18 text-bold text-light-grey margin-top5 margin-bottom5">+<%= moreOffersCount %> </p>
+                                        <p class="font18 text-bold text-light-grey margin-top5 margin-bottom7">+<%= moreOffersCount %> </p>
                                         <p>more offers</p>
                                     </li>
                                     <% } %>
@@ -282,18 +281,18 @@
                         <div class="vertical-top">
                             <a rel="nofollow" href="/m/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-teal btn-sm-0">Book now</a>
                         </div>
-                        <p class="booknow-label font11 line-height-1-5 text-xx-light vertical-top">
+                        <p class="booknow-label font11 line-height-1-7 text-xx-light vertical-top">
                             Pay <span class="bwmsprite inr-grey-xxxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(bookingAmt.ToString()) %> to book online and <br />balance of <span class="bwmsprite inr-grey-xxxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice((price - bookingAmt).ToString()) %> at dealership
                         </p>
                     </div>
                     <% }
                                      else
-                                     { %>
+                        { %>
                     <div class="margin-bottom20">
                         <div class="vertical-top">
                             <a id="requestcallback" c="Model_Page" a="Request_Callback_Details_Clicked" v="bikeVersionLocation" leadSourceId="30" href="javascript:void(0)" class="btn btn-white callback-btn btn-sm-0 bw-ga">Request callback</a>
                         </div>
-                        <p class="callback-label font11 line-height-1-5 text-xx-light vertical-top">Get EMI options, test rides other services from dealer</p>
+                        <p class="callback-label font11 line-height-1-7 text-xx-light vertical-top">Get EMI options, test rides other services from dealer</p>
                     </div>
                     <% 
                     }
@@ -302,7 +301,7 @@
                        { %>
                     <div class="margin-bottom20">
                         <div class="inline-block nearby-partner-left-col">
-                            <div class="inline-block margin-right5">
+                            <div class="dealership-icon-wrapper inline-block margin-right5">
                                 <span class="offers-sprite dealership-icon"></span>
                             </div>
                             <div class="inline-block nearby-partner-label">
@@ -314,7 +313,6 @@
                     <% } %>
                 </div>
                  <% } %>
-
                 <% if (viewModel!= null && viewModel.SecondaryDealerCount > 0)
                    { %>
                     <div class="content-inner-block-20 border-solid-top font16">
@@ -617,7 +615,7 @@
                         </li>
                     </ul>
 
-                    <h3 class="margin-top20 padding-right20 padding-left20">Features</h3>
+                    <h3 id="model-features-heading" class="margin-top20 padding-right20 padding-left20">Features</h3>
 
                     <ul class="specs-features-list model-features-list" id="model-main-features-list">
                         <li>
@@ -684,8 +682,7 @@
                         </li>
                     </ul>
                       <div class="padding-top10 padding-right20 padding-left20">		
-                         <a href="#model-main-features-list"  class="view-features-link bw-ga" c="Model_Page" a="View_all_features_link_cliked" v="myBikeName" title="<%=bikeName %> Features" rel="nofollow">View all features</a>		
-                         <%--<a href="/m<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName, "modelFeatures",versionId) %>"  class="bw-ga" c="Model_Page" a="View_all_features_link_cliked" v="myBikeName" title="<%=bikeName %> Features">View all features<span class="bwmsprite blue-right-arrow-icon"></span></a>--%>		
+                         <a href="javascript:void(0)"  class="view-features-link bw-ga" c="Model_Page" a="View_all_features_link_cliked" v="myBikeName" title="<%=bikeName %> Features" rel="nofollow">View all features</a>
                     </div>
                     <div class="margin-right20 margin-left20 border-solid-bottom padding-bottom20"></div>
                 </div>
@@ -964,7 +961,6 @@
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
-
             var leadSourceId;
             vmModelId = '<%= modelId%>';
             clientIP = '<%= clientIP%>';
@@ -982,7 +978,6 @@
             }
             var getCityArea = GetGlobalCityArea();
             $(document).ready(function (e) {
-
                 $(".leadcapturesubmit").on('click', function () {
                     openLeadPopup($(this));
                 });
@@ -990,6 +985,7 @@
                     if ($(this).attr('data-option-value') == $('#hdnVariant').val()) {
                         return false;
                     }
+                    $('.dropdown-select-wrapper #defaultVariant').text($(this).val());
                     $('#hdnVariant').val($(this).attr('data-option-value'));
                     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Version_Change', 'lab': bikeVersionLocation });
                 });

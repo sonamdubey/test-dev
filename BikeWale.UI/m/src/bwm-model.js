@@ -35,8 +35,9 @@ $("#leadBtnBookNow").on('click', function () {
 function openLeadPopup(ele) {
     leadSourceId = ele.attr("leadSourceId");
     leadCapturePopup.show();
-    $('body').addClass('lock-browser-scroll');
-    $(".blackOut-window").show();
+    appendHash("contactDetails");
+    $('body, html').addClass('lock-browser-scroll');
+    $(".blackOut-window").show();    
 }
 
 $(".leadcapture").on('click', function () {
@@ -46,7 +47,7 @@ var leadPopupClose = function () {
     leadCapturePopup.hide();
     $("#contactDetailsPopup").show();
     $("#otpPopup,#notify-response").hide();
-    $('body').removeClass('lock-browser-scroll');
+    $('body, html').removeClass('lock-browser-scroll');
     $(".blackOut-window").hide();
 };
 
@@ -160,7 +161,6 @@ $('#getofferspopup').on('click', function (e) {
     $('#dealer-offers-popup').hide();
     openLeadPopup($(this));
 });
-
 
 function CustomerModel() {
     var arr = setuserDetails();
@@ -895,6 +895,7 @@ var popupDiv = {
 
 $(document).ready(function () {
     if (versionCount > 1) {
+        $('#defversion').hide();
         dropdown.setDropdown();
         dropdown.dimension();
     }
@@ -962,7 +963,7 @@ var dropdown = {
     },
 
     selectItem: function (element) {
-        var elementText = element.text(),
+        var elementText = element.find('input[type="submit"]').val(),
 			menu = element.closest('.dropdown-menu'),
 			dropdownLabel = menu.find('.dropdown-label'),
 			selectedItem = menu.find('.dropdown-selected-item');
@@ -1030,15 +1031,18 @@ $('#model-specs-list').on('click', '.model-accordion-tab', function () {
 
 $('.view-features-link').on('click', function () {
     var target = $(this),
+        featuresHeading = $('#model-features-heading'),
         moreFeatures = $('#model-more-features-list');
 
     if (!target.hasClass('active')) {
         target.addClass('active');
+        $('html, body').animate({ scrollTop: featuresHeading.offset().top - 44 }, 500);
         moreFeatures.slideDown();
         target.text('Collapse');
     }
     else {
         target.removeClass('active');
+        $('html, body').animate({ scrollTop: featuresHeading.offset().top - 44 }, 500);
         moreFeatures.slideUp();
         target.text('View all features');
     }

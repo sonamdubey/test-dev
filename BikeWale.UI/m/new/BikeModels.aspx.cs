@@ -48,7 +48,7 @@ namespace Bikewale.Mobile.New
         protected VersionSpecifications bikeSpecs;
         protected PQOnRoadPrice pqOnRoad;
         protected Repeater rptNavigationPhoto, rptVarients, rptColors, rptOffers, rptNewOffers, rptVariants, rptSecondaryDealers;
-        protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty, location = string.Empty, priceText = "Ex-showroom", detailedPriceLink = string.Empty;
+        protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty, location = string.Empty, priceText = "Ex-showroom", detailedPriceLink = string.Empty, versionText = string.Empty;
         protected String clientIP = CommonOpn.GetClientIP();
         protected bool isCitySelected, isAreaSelected, isBikeWalePQ, isDiscontinued, isOnRoadPrice, toShowOnRoadPriceButton;
         //Varible to Hide or show controlers
@@ -174,6 +174,7 @@ namespace Bikewale.Mobile.New
                             ddlNewVersionList.DataValueField = "VersionId";
                             ddlNewVersionList.DataBind();
                             ddlNewVersionList.SelectedValue = versionId.ToString();
+                            versionText = ddlNewVersionList.SelectedItem.Text;
                         }
 
                     }
@@ -958,7 +959,7 @@ namespace Bikewale.Mobile.New
         {
             try
             {
-                if (cityId > 0 && versionId > 0)
+                if (cityId > 0 && areaId > 0 && versionId > 0)
                 {
                     viewModel = new ModelPageVM(cityId, versionId, dealerId, areaId);
                     if (viewModel.DealerCampaign.PrimaryDealer.OfferList != null && viewModel.DealerCampaign.PrimaryDealer.OfferList.Count() > 0)
