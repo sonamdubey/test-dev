@@ -121,7 +121,7 @@
                         </div>
                     <% if (modelPage.ModelDetails.Futuristic)
                        { %>
-                    <div class="bikeDescWrapper">
+                             <div class="bikeDescWrapper">
                           <% if (modelPage.UpcomingBike != null) {%>
                          <div class="margin-bottom10 font14 text-light-grey">Expected price</div>
                          <div>
@@ -180,6 +180,7 @@
         <section>
             <asp:HiddenField ID="hdnVariant" Value="0" runat="server" />
             <div class="container bg-white clearfix elevated-shadow">
+                <!-- new bikes section -->
                 <% if (!isDiscontinued)
                    { %>
                 <div class="grid-12 padding-top5 padding-bottom5 border-solid-bottom">
@@ -206,26 +207,29 @@
                 </div>
                 <div class="clear"></div>
                 <% }
-                   else if (!modelPage.ModelDetails.Futuristic)
-                   { %>
-                        <div class="bike-price-container padding-10-20">
+                   
+                   else if(isDiscontinued && !modelPage.ModelDetails.Futuristic) { %>
+                       <div class="bike-price-container padding-10-20">
                             <div class="bike-price-container ">
                                 <span class="font14 text-grey"><%= bikeName %> is now discontinued in India.</span>
                             </div>
                         </div>
+                 <% } 
+                    
+                   if (!modelPage.ModelDetails.Futuristic)
+                   { %>
                         <div class="padding-10-20">
-                    <p class="font12 text-light-grey"><%=priceText %> price in <%= location %></p>
-                    <p>
-                        <span class="bwmsprite inr-md-icon"></span>
-                        <span class="font22 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %>&nbsp;</span>
-                        <%if (isOnRoadPrice && price > 0)
-                          {%>
-                        <a href="/m/pricequote/dealerpricequote.aspx?MPQ=<%= detailedPriceLink %>" class="font16 text-bold viewBreakupText" rel="nofollow" >View detailed price</a>
-                        <% } %>
-                    </p>
-                </div>
+                            <p class="font12 text-light-grey"><%=priceText %> price in <%= location %></p>
+                            <p>
+                                <span class="bwmsprite inr-md-icon"></span>
+                                <span class="font22 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %>&nbsp;</span>
+                                <%if (isOnRoadPrice && price > 0)
+                                  {%>
+                                <a href="/m/pricequote/dealerpricequote.aspx?MPQ=<%= detailedPriceLink %>" class="font16 text-bold viewBreakupText" rel="nofollow" >View detailed price</a>
+                                <% } %>
+                            </p>
+                        </div>
                 <% } %>
-
                 <%
                     if (viewModel != null && !isBikeWalePQ)
                     { 
@@ -960,7 +964,6 @@
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
-
             var leadSourceId;
             vmModelId = '<%= modelId%>';
             clientIP = '<%= clientIP%>';
