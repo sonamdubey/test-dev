@@ -185,18 +185,14 @@
                 <div class="grid-12 padding-top5 padding-bottom5 border-solid-bottom">
                     <div class="grid-6 alpha border-solid-right">
                         <p class="font12 text-light-grey padding-left10">Version:</p>
+                        <p id="defversion" class="single-version-label font14 margin-left5"><%=variantText %></p>
                         <% if (versionCount > 1)
                            { %>
-                        <div class="dropdown-select-wrapper">
-                            <asp:DropDownList CssClass="dropdown-select" ID="ddlNewVersionList" runat="server" />
-                        </div>
-                        <% }
-                           else
-                           {%>
-                        <p id="singleversion" class="single-version-label font14 margin-left5"><%=variantText %></p>
+                            <div class="dropdown-select-wrapper">
+                                <asp:DropDownList CssClass="dropdown-select" ID="ddlNewVersionList" runat="server" />
+                            </div>
                         <% } %>
                     </div>
-
                     <div class="grid-6 padding-left20">
                         <p class="font12 text-light-grey">Location:</p>
                         <p class="font14 text-bold">
@@ -210,17 +206,16 @@
                 </div>
                 <div class="clear"></div>
                 <% }
-                   else
+                   else if (!modelPage.ModelDetails.Futuristic)
                    { %>
-                <div class="bike-price-container padding-10-20">
-                    <div class="bike-price-container ">
-                        <span class="font14 text-grey"><%= bikeName %> is now discontinued in India.</span>
-                    </div>
-                </div>
-                <% } %>
-                <div class="padding-10-20">
+                        <div class="bike-price-container padding-10-20">
+                            <div class="bike-price-container ">
+                                <span class="font14 text-grey"><%= bikeName %> is now discontinued in India.</span>
+                            </div>
+                        </div>
+                        <div class="padding-10-20">
                     <p class="font12 text-light-grey"><%=priceText %> price in <%= location %></p>
-                    <p class="">
+                    <p>
                         <span class="bwmsprite inr-md-icon"></span>
                         <span class="font22 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %>&nbsp;</span>
                         <%if (isOnRoadPrice && price > 0)
@@ -229,11 +224,13 @@
                         <% } %>
                     </p>
                 </div>
+                <% } %>
+
                 <%
                     if (viewModel != null && !isBikeWalePQ)
                     { 
                 %>
-                <div id="model-dealer-card">
+                         <div id="model-dealer-card">
                     <% if(viewModel.IsPremiumDealer){ %>
                     <div class="dealer-details margin-bottom10">
                         <div class="inline-block margin-right5">
@@ -982,7 +979,8 @@
             }
             var getCityArea = GetGlobalCityArea();
             $(document).ready(function (e) {
-
+                var selectedversion = '<%=versionText%>';
+                $('.dropdown-select-wrapper #defaultVariant').text(selectedversion);
                 $(".leadcapturesubmit").on('click', function () {
                     openLeadPopup($(this));
                 });
@@ -990,6 +988,7 @@
                     if ($(this).attr('data-option-value') == $('#hdnVariant').val()) {
                         return false;
                     }
+                    $('.dropdown-select-wrapper #defaultVariant').text($(this).val());
                     $('#hdnVariant').val($(this).attr('data-option-value'));
                     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Version_Change', 'lab': bikeVersionLocation });
                 });
