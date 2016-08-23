@@ -207,7 +207,6 @@
                 </div>
                 <div class="clear"></div>
                 <% }
-                   
                    else if(isDiscontinued && !modelPage.ModelDetails.Futuristic) { %>
                        <div class="bike-price-container padding-10-20">
                             <div class="bike-price-container ">
@@ -215,7 +214,6 @@
                             </div>
                         </div>
                  <% } 
-                    
                    if (!modelPage.ModelDetails.Futuristic)
                    { %>
                         <div class="padding-10-20">
@@ -289,7 +287,7 @@
                     </div>
                     <% }
                                      else
-                                     { %>
+                        { %>
                     <div class="margin-bottom20">
                         <div class="vertical-top">
                             <a id="requestcallback" c="Model_Page" a="Request_Callback_Details_Clicked" v="bikeVersionLocation" leadSourceId="30" href="javascript:void(0)" class="btn btn-white callback-btn btn-sm-0 bw-ga">Request callback</a>
@@ -315,7 +313,6 @@
                     <% } %>
                 </div>
                  <% } %>
-
                 <% if (viewModel!= null && viewModel.SecondaryDealerCount > 0)
                    { %>
                     <div class="content-inner-block-20 border-solid-top font16">
