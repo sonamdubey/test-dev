@@ -1768,6 +1768,8 @@
     <Content Include="css\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="css\jquery.ad-gallery.css" />
     <Content Include="css\login.css" />
+    <Content Include="css\model-atf.css" />
+    <Content Include="css\model-btf.css" />
     <Content Include="css\model.css" />
     <Content Include="css\newbikes.css" />
     <Content Include="css\new\modelprice-in-city.css" />
