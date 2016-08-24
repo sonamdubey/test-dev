@@ -1736,6 +1736,8 @@
     <Content Include="css\bookinglanding.css" />
     <Content Include="css\brand.css" />
     <Content Include="css\booking.css" />
+    <Content Include="css\bw-common-atf.css" />
+    <Content Include="css\bw-common-btf.css" />
     <Content Include="css\bw-common-style.css" />
     <Content Include="css\bw-pq-new.css" />
     <Content Include="css\bw-pq.css" />
@@ -2127,7 +2129,9 @@
     <Content Include="includes\footermobile_noad.aspx" />
     <Content Include="includes\footerscript.aspx" />
     <Content Include="includes\footerscript_mobile.aspx" />
+    <Content Include="includes\gacode_desktop.aspx" />
     <Content Include="includes\gacode.aspx" />
+    <Content Include="includes\gacode_mobile.aspx" />
     <Content Include="includes\globalStaticFiles.aspx" />
     <Content Include="includes\globalStaticFiles_mobile.aspx" />
     <Content Include="includes\headBW.aspx" />
@@ -2142,8 +2146,10 @@
     <Content Include="includes\headMyBikeWale.aspx" />
     <Content Include="includes\headNew.aspx" />
     <Content Include="includes\headNews.aspx" />
+    <Content Include="includes\headscript_desktop_min.aspx" />
     <Content Include="includes\headscript.aspx" />
     <Content Include="includes\headscript_mobile.aspx" />
+    <Content Include="includes\headscript_mobile_min.aspx" />
     <Content Include="includes\headSell.aspx" />
     <Content Include="includes\headTools.aspx" />
     <Content Include="includes\headUsed.aspx" />
@@ -2209,8 +2215,12 @@
     <Content Include="m\css\bwm-bookingflow.css" />
     <Content Include="m\css\bwm-brand.css" />
     <Content Include="m\css\bwm-cancellation.css" />
+    <Content Include="m\css\bwm-common-atf.css" />
+    <Content Include="m\css\bwm-common-btf.css" />
     <Content Include="m\css\bwm-common-style.css" />
     <Content Include="m\css\bwm-dealersbylocation.css" />
+    <Content Include="m\css\bwm-model-atf.css" />
+    <Content Include="m\css\bwm-model-btf.css" />
     <Content Include="m\css\bwm-model.css" />
     <Content Include="m\css\bwm-newbikes.css" />
     <Content Include="m\css\dealerpricequote.css" />
@@ -2350,6 +2360,7 @@
     <Content Include="src\cancellation.js" />
     <Content Include="src\chosen.jquery.min.js" />
     <Content Include="src\common.js" />
+    <Content Include="src\common.min.js" />
     <Content Include="src\common\chosen.jquery.min.js" />
     <Content Include="src\dealerlisting.js" />
     <Content Include="src\dealerpricequote.js" />

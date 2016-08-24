@@ -27,9 +27,12 @@
         isAd970x90BTFShown = false;
         isHeaderFix = false;
     %>
-    <!-- #include file="/includes/headscript.aspx" -->
-    
+    <!-- #include file="/includes/headscript_desktop_min.aspx" -->
+    <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model.css?<%= staticFileVersion %>12345" rel="stylesheet" type="text/css" />
+
     <script type="text/javascript">
+        <!-- #include file="\includes\gacode_desktop.aspx" -->
+
         var dealerId = '<%= dealerId%>';
         var pqId = '<%= pqId%>';
         var versionId = '<%= variantId%>';
@@ -45,7 +48,9 @@
         var clientIP = "<%= clientIP%>";
         var pageUrl = "<%= canonical %>";
     </script>
-    <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model.css?<%= staticFileVersion %>12345" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+    
 </head>
 <body class="bg-light-grey" itemscope itemtype="http://schema.org/Product">
     <form runat="server">
@@ -553,7 +558,10 @@
                 </div>
             </div>
             <!-- Terms and condition Popup Ends -->
-        </section>     
+        </section>
+
+        
+
         <meta itemprop="manufacturer" name="manufacturer" content="<%= modelPageEntity.ModelDetails.MakeBase.MakeName %>">  
         <meta itemprop="model" content="<%= TargetedModel %>"/>
         <section id="modelDetailsFloatingCardContent" class="container">
@@ -1250,9 +1258,14 @@
 
         <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
         <!-- #include file="/includes/footerBW.aspx" -->
-        <!-- #include file="/includes/footerscript.aspx" -->
+        <!--[if lt IE 9]>
+            <script src="/src/html5.js"></script>
+        <![endif]-->
+        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>">"></script>
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/model.js?<%= staticFileVersion %>">"></script>
-        <%--<link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/brand.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">--%>
+        
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
 
         <script type="text/javascript">
             ga_pg_id = '2';

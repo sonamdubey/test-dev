@@ -3,7 +3,7 @@
     private string staticUrl1 = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
     private string staticFileVersion1 = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
 </script>
-<script src="<%= staticUrl1 != "" ? "http://st2.aeplcdn.com" + staticUrl1 : "" %>/src/lscache.min.js?<%= staticFileVersion1%>"></script>
+
 <!--bw popup code starts here-->
 <script type="text/javascript">
     lscache.flushExpired();  //remove expired

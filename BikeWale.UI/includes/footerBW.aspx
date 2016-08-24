@@ -5,6 +5,37 @@
         <!-- #include file="/ads/Ad970x90_Bottom.aspx" -->
 </section>
 <% } %>
+
+<div class="blackOut-window"></div>
+<!-- #include file="/includes/Navigation.aspx" -->
+<%--<BW:Login ID="ctrlLogin" runat="server" />--%>    
+<%--<div id="divLoginControlLoad"></div>--%>
+<div class="globalcity-popup rounded-corner2 hide" id="globalcity-popup"><!-- global city pop up code starts here -->
+    <div class="globalcity-popup-data text-center">
+        <div class="globalcity-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+        <div class="icon-outer-container rounded-corner50 margin-bottom20">
+            <div class="icon-inner-container rounded-corner50">
+                <span class="bwsprite cityPopup-icon margin-top15"></span>
+            </div>
+        </div>
+        <p class="font20 margin-bottom15">Please tell us your city</p>
+        <p class="text-light-grey margin-bottom15">This allows us to provide relevant content for you.</p>
+        <div class="form-control-box globalcity-input-box">
+            <div class="margin-bottom20">
+                <span class="position-abt pos-right15 pos-top15 cwmsprite cross-sm-dark-grey cur-pointer"></span>
+                <input type="text" class="form-control padding-right30" name="globalCityPopUp" placeholder="Type to select city" id="globalCityPopUp">
+                <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none"></span>
+                <span class="bwsprite error-icon hide"></span>
+                <div class="bw-blackbg-tooltip hide">Please enter your city</div>
+            </div>
+        </div>
+        <div>
+            <a id="btnGlobalCityPopup" class="btn btn-orange font18">Confirm city</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
 <footer class="bg-footer padding-top40 padding-bottom20" id="bg-footer"><!-- Footer section code starts here -->
     <div class="container">
         <div class="grid-4">
