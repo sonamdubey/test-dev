@@ -44,11 +44,12 @@
 			else {
 				$("#headerText").removeClass("font12").addClass("font20 margin-top5");
 			}
+			$('body').fadeIn("slow");
 		});
 
 	</script>  
 </head>
-<body class="bg-light-grey">
+<body class="bg-light-grey hide">
 	<form runat="server">
 		<!-- #include file="/includes/headBW_Mobile.aspx" -->
 		<div class="bg-white padding-10-5 bottom-shadow margin-bottom10">
