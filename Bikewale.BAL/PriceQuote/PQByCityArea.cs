@@ -315,20 +315,17 @@ namespace Bikewale.BAL.PriceQuote
                     if (cityList != null)
                     {
                         selectedCity = cityList.FirstOrDefault(p => p.CityId == pqInput.CityId);
-                        pqOutput.IsCityExists = selectedCity != null;
-
-                        if (pqOutput.IsCityExists)
+                        if (selectedCity != null)
                         {
                             if (selectedCity.HasAreas)
                             {
-                                pqOutput.IsAreaExists = pqInput.AreaId > 0;
                                 IEnumerable<Bikewale.Entities.Location.AreaEntityBase> areaList = null;
 
-                                if (!pqOutput.IsAreaExists)
+                                if (!(pqInput.AreaId > 0))
                                     areaList = GetAreaForCityAndModel(Convert.ToInt32(pqInput.ModelId), Convert.ToInt32(pqInput.CityId));
 
 
-                                if (pqOutput.IsAreaExists)
+                                if (pqInput.AreaId > 0)
                                 {
                                     if (!isReload)
                                     {

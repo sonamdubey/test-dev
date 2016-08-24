@@ -14,8 +14,6 @@ namespace Bikewale.Entities.PriceQuote.v2
         public PQOutputEntity PriceQuote { get; set; }
         public IEnumerable<CityEntityBase> PQCitites { get; set; }
         public IEnumerable<Bikewale.Entities.Location.AreaEntityBase> PQAreas { get; set; }
-        public bool IsCityExists { get; set; }
-        public bool IsAreaExists { get; set; }
 
     }
 }

@@ -146,7 +146,7 @@
                    {   %>
             <div class="grid-12 float-button float-fixed clearfix padding-bottom10">
 
-                <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" style="width: 100%" class="btn btn-orange margin-top10 fillPopupData">Check on-road price</a>
+                <a id="btnGetOnRoadPrice" href="javascript:void(0)" data-persistent="true" data-modelid="<%=modelId %>" style="width: 100%" class="btn btn-orange margin-top10 getquotation">Check on-road price</a>
                 <% }
                    else
                    {   %>
@@ -197,8 +197,8 @@
                     <div class="grid-6 padding-left20">
                         <p class="font12 text-light-grey">Location:</p>
                         <p class="font14 text-bold">
-                            <a href="javascript:void(0)" data-reload="true" ismodel="true" modelid='<%= modelId %>' class="getquotation changeCity" rel="nofollow">
-                                <span class="selected-location-label inline-block text-default text-truncate"><span><%= location %></span></span>
+                            <a href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid='<%= modelId %>' class="getquotation changeCity" rel="nofollow">
+                                <span class="selected-location-label inline-block text-default text-truncate"><span><%= location %></span></span>                            
                                 <span class="bwmsprite loc-change-blue-icon"></span>
                             </a>
                         </p>

@@ -20,16 +20,10 @@ namespace Bikewale.DTO.PriceQuote
         [JsonProperty("pqAreas")]
         public IEnumerable<PQAreaBase> PQAreas { get; set; }
 
-        [JsonProperty("isCityExists")]
-        public bool IsCityExists { get; set; }
-
-        [JsonProperty("isAreaExists")]
-        public bool IsAreaExists { get; set; }
-
         [JsonProperty("action"), DefaultValue(true)] //true  means redirect, false = reload
         public bool Action { get; set; }
 
-        [JsonProperty("actionUrl")]
-        public string ActionUrl { get; set; }
+        [JsonProperty("qStr")]
+        public string QueryString { get; set; }
     }
 }
