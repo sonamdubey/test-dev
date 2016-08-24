@@ -113,7 +113,9 @@
             "ispersistent" : ele.attr('data-persistent') !=null ? true : false,
             "isreload" : ele.attr("data-reload") !=null ? true : false 
 
-        }; 
+        };
+        
+        options.cityId = ele.attr('data-preselcity') || options.cityId;
 
         $('#popupWrapper').show();
         $("#popupContent").show();
@@ -299,7 +301,7 @@
                                     {
                                         checkCookies();
                                         cookieValue = onCookieObj.PQCitySelectedId + "_" + onCookieObj.PQCitySelectedName 
-                                        cookieValue += (jsonObj.dealerId > 0)?("_" + onCookieObj.PQAreaSelectedId + "_" + onCookieObj.PQAreaSelectedName):'';
+                                        cookieValue += (jsonObj.isDealerAvailable)?("_" + onCookieObj.PQAreaSelectedId + "_" + onCookieObj.PQAreaSelectedName):'';
                                         SetCookieInDays("location", cookieValue, 365);
                                     }
 
@@ -404,13 +406,13 @@
 
             function findAreaById(id) {
                 return ko.utils.arrayFirst(vmquotation.BookingAreas(), function (child) {
-                    return (child.id === id || child.areaId === id);
+                    return (child.id == id || child.areaId == id);
                 });
             }
 
             function findCityById(id) {
                 return ko.utils.arrayFirst(vmquotation.BookingCities(), function (child) {
-                    return (child.id === id || child.cityId === id);
+                    return (child.id == id || child.cityId == id);
                 });
             }
 

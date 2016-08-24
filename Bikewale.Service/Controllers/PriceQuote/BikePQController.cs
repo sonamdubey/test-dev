@@ -115,7 +115,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         }
                         else if (pqOutput.PriceQuote != null)
                         {
-                            pqOutput.QueryString = EncodingDecodingHelper.EncodeTo64(string.Format("CityId={0}&AreaId={1}&PQId={2}&VersionId={3}&DealerId={4}", objPQEntity.CityId, pqOutput.PriceQuote.DealerId > 0 ? objPQEntity.AreaId : 0, pqOutput.PriceQuote.PQId, pqOutput.PriceQuote.VersionId, pqOutput.PriceQuote.DealerId));
+                            pqOutput.QueryString = EncodingDecodingHelper.EncodeTo64(string.Format("CityId={0}&AreaId={1}&PQId={2}&VersionId={3}&DealerId={4}", objPQEntity.CityId, pqOutput.PriceQuote.IsDealerAvailable ? objPQEntity.AreaId : 0, pqOutput.PriceQuote.PQId, pqOutput.PriceQuote.VersionId, pqOutput.PriceQuote.DealerId));
                         }
 
 
