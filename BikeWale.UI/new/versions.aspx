@@ -53,6 +53,8 @@
         <meta itemprop="description" itemtype="https://schema.org/description" content= "<%=modelPageEntity.ModelDesc.SmallDescription %>" />
         <% } %>
         <meta itemprop="name" content="<%= bikeName %>" />
+        <meta itemprop="image" content="<%= modelImage %>" />
+        
         <!-- #include file="/includes/headBW.aspx" -->
         <section class="bg-light-grey padding-top10" id="breadcrumb">
             <div class="container">
@@ -561,7 +563,7 @@
                     <div class="content-box-shadow content-inner-block-1020">
                         <div class="grid-5 alpha omega">
                             <div class="model-card-image-content inline-block-top margin-right20">
-                                <meta itemprop="image" content="<%= modelImage %>" />
+                                <img  src="<%= modelImage %>" ></img>
                             </div>
                             <div class="model-card-title-content inline-block-top">
                                 <p class="font16 text-bold margin-bottom5"><%= bikeName %></p>
