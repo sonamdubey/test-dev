@@ -370,7 +370,7 @@ namespace Bikewale.DAL.BikeData
                         objSpecs.Wheelbase = Convert.ToUInt16(paramColl["par_wheelbase"].Value);
                         objSpecs.GroundClearance = Convert.ToUInt16(paramColl["par_groundclearance"].Value);
                         objSpecs.SeatHeight = Convert.ToUInt16(paramColl["par_seatheight"].Value);
-                        objSpecs.FuelTankCapacity = Convert.ToUInt16(paramColl["par_fueltankcapacity"].Value);
+                        objSpecs.FuelTankCapacity = Convert.ToSingle(paramColl["par_fueltankcapacity"].Value);
                         objSpecs.ReserveFuelCapacity = Convert.ToSingle(paramColl["par_reservefuelcapacity"].Value);
                         objSpecs.FuelEfficiencyOverall = Convert.ToUInt16(paramColl["par_fuelefficiencyoverall"].Value);
                         objSpecs.FuelEfficiencyRange = Convert.ToUInt16(paramColl["par_fuelefficiencyrange"].Value);
