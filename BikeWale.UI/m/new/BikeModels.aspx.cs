@@ -47,7 +47,7 @@ namespace Bikewale.Mobile.New
         protected BikeModelPageEntity modelPage;
         protected VersionSpecifications bikeSpecs;
         protected PQOnRoadPrice pqOnRoad;
-        protected Repeater rptNavigationPhoto, rptVarients, rptColors, rptOffers, rptNewOffers, rptVariants, rptSecondaryDealers;
+        protected Repeater rptNavigationPhoto, rptVarients, rptColors, rptOffers, rptNewOffers, rptSecondaryDealers;
         protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty, location = string.Empty, priceText = "Ex-showroom", detailedPriceLink = string.Empty, versionText = string.Empty;
         protected String clientIP = CommonOpn.GetClientIP();
         protected bool isCitySelected, isAreaSelected, isBikeWalePQ, isDiscontinued, isOnRoadPrice, toShowOnRoadPriceButton;
@@ -436,7 +436,6 @@ namespace Bikewale.Mobile.New
                                 var firstVer = modelPage.ModelVersions.Where(p => p.VersionId == versionId).FirstOrDefault();
                                 if (firstVer != null)
                                     variantText = firstVer.VersionName;
-                                //defaultVariant.Text = firstVer.VersionName;
 
                                 if (versionId == 0)
                                     hdnVariant.Value = Convert.ToString(modelPage.ModelVersionSpecs.BikeVersionId);
@@ -448,13 +447,10 @@ namespace Bikewale.Mobile.New
                                 var firstVer = modelPage.ModelVersions.FirstOrDefault();
                                 if (firstVer != null)
                                 {
-                                    // defaultVariant.Text = firstVer.VersionName;
                                     variantText = firstVer.VersionName;
                                 }
                                 variantText = firstVer.VersionName;
                             }
-                            rptVariants.DataSource = modelPage.ModelVersions;
-                            rptVariants.DataBind();
                         }
                         else if (modelPage.ModelVersions.Count == 1)
                         {
@@ -510,7 +506,6 @@ namespace Bikewale.Mobile.New
                                     }
                                 }
                             }
-
                         }
                         if (!modelPage.ModelDetails.New)
                             isDiscontinued = true;
@@ -559,7 +554,6 @@ namespace Bikewale.Mobile.New
                             dealerId = pqOnRoad.PriceQuote.DealerId;
                             pqId = Convert.ToString(pqOnRoad.PriceQuote.PQId);
                         }
-                        //PriceQuoteCookie.SavePQCookie(cityId.ToString(), pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId);
 
                         mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), pqId, areaId.ToString(), versionId.ToString(), dealerId.ToString()));
                         if (pqOnRoad.IsDealerPriceAvailable && pqOnRoad.DPQOutput != null && pqOnRoad.DPQOutput.Varients != null && pqOnRoad.DPQOutput.Varients.Count() > 0)
