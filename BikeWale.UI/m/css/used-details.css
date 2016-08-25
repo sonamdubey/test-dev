@@ -11,11 +11,15 @@
     background-color: #f5f5f5;
 }
 
-#model-main-image a {
+.model-gallery-target {
     width:100%;
     display: table-cell;
     vertical-align: middle;
     line-height: 0;
+}
+
+.model-gallery-target.hide {
+    display: none;
 }
 
 #model-main-image img {
@@ -57,10 +61,37 @@
     border-bottom: 1px solid #eee;
 }
 
+.btn-inv-teal {
+    background: transparent;
+    color: #3799a7;
+    border: 1px solid #3799a7;
+}
+
+.btn-inv-teal:hover {
+    background: #41b4c4;
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid #41b4c4;
+}
+
+.btn-inv-teal:focus {
+    background: #37939f;
+    border: 1px solid #37939f;
+}
+
+.btn-inv-teal.btn-sm {
+    padding: 6px 19px;
+}
+
+.no-image-content {
+    display: table-cell;
+    vertical-align: middle;
+}
+
 /* bike details */
 .model-date-icon, .kms-driven-icon, .model-loc-icon { 
     width:10px;
-    height:12px;
+    height:14px;
     margin-right: 5px;
     vertical-align:middle;
 }
@@ -91,6 +122,24 @@
     text-overflow:ellipsis;
     white-space:nowrap;
     overflow:hidden;
+}
+
+.float-button {
+    background-color: #f5f5f5;
+}
+
+.float-button .btn {
+    padding: 8px 0;
+    font-size: 18px;
+}
+
+.float-button.float-fixed {
+    position: fixed;
+    bottom: 0;
+    z-index: 8;
+    left: 0;
+    right: 0;
+    background: rgba(245, 245, 245, 0.9);
 }
 
 /* floating tabs */
@@ -269,3 +318,314 @@
     background-position:-196px -486px;
 }
 
+/* lead capture popup */
+#get-seller-details-popup.bwm-fullscreen-popup, #request-media-popup.bwm-fullscreen-popup {
+    padding: 30px 30px 100px;
+    display: none;
+}
+
+#mobile-verification-section, #update-mobile-content, #seller-details-section, #request-sent-section {
+    display: none;
+}
+
+.btn-fixed-width {
+    padding-right: 0;
+    padding-left: 0;
+    width: 205px;
+}
+
+#submit-request-sent-btn.btn{
+    padding: 8px 67px
+}
+
+.icon-outer-container {
+    width: 72px;
+    height: 72px;
+}
+
+.icon-inner-container {
+    width: 64px;
+    height: 64px;
+    margin: 3px auto;
+}
+
+.user-contact-details-icon {
+    width: 29px;
+    height: 30px;
+    background-position: -109px -216px
+}
+
+.otp-icon {
+    width: 29px;
+    height: 29px;
+    background-position: -109px -177px;
+}
+
+.edit-blue-icon {
+    width: 25px;
+    height: 25px;
+    background-position: -110px -120px;
+    position: relative;
+    top: 13px;
+    cursor: pointer;
+}
+
+.request-media-icon {
+    width:32px;
+    height:25px;
+    background-position: -136px -428px;
+    position:relative;
+    top:2px;
+}
+
+.thankyou-icon {
+    width:24px;
+    height:28px;
+    background-position: -138px -394px;
+}
+
+.no-image-icon {
+    width:40px;
+    height:30px;
+    background-position: 0 -510px;
+}
+
+.margin-bottom35 { 
+    margin-bottom: 35px;
+}
+
+.dealer-details-list li {
+    margin-bottom: 25px;
+}
+
+.dealer-details-list .data-key {
+    font-size: 12px;
+    color: #82888b;
+}
+
+.dealer-details-list .data-value {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* input field */
+input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow: none; }
+.input-box { height:60px; text-align: left; }
+.input-box input { width: 100%; display:block; padding: 7px 0; border-bottom:1px solid #82888b; font-weight: bold; color: #4d5057; }
+.input-box label { position: absolute; top: 4px; left: 0; font-size:16px; color: #82888b; -webkit-transition:0.2s ease all; -moz-transition:0.2s ease all; -o-transition:0.2s ease all; transition:0.2s ease all; }
+.input-number-box input { padding-left: 25px; }
+.input-number-prefix { display:none; position: absolute; top: 7px; font-weight: bold; color: #82888b; }
+.boundary { position: relative; width: 100%; display: block; }
+.boundary:before, .boundary:after { content: ''; position: absolute; bottom: 0; width: 0; height: 2px; background-color: #41b4c4; -webkit-transition:0.2s ease all; -moz-transition:0.2s ease all; -o-transition:0.2s ease all; transition:0.2s ease all; }
+.boundary:before { left:50%; }
+.boundary:after { right:50%; }
+.error-text { display:none; font-size:12px; position: relative; top: 4px; left: 0; color: #d9534f; }
+/* on focus */
+.input-box input:focus ~ label { top:-14px; font-size:12px; }
+.input-box.not-empty label { top:-14px; font-size:12px; }
+.input-box.input-number-box input:focus ~ .input-number-prefix, .input-box.input-number-box.not-empty .input-number-prefix { display:inline-block; }
+.input-box input:focus ~ .boundary:before, .input-box input:focus ~ .boundary:after { width: 50%; } 
+/* validation */
+.input-box.invalid .boundary:before, .input-box.invalid .boundary:after { background-color: #d9534f; width:50%; }
+.input-box.invalid .error-text { display:inline-block; }
+
+/* gallery popup */
+#model-gallery-container {
+    display:none;
+    width:100%;
+    height: 100%;
+    position:fixed;
+    top:0;
+    left:0;
+    overflow-y: scroll;
+    background: rgba(0,0,0,0.9);
+    z-index:8;
+}
+
+#model-gallery-container h1 {
+    font-size: 16px;
+    color: #fff;
+    padding-right: 30px;
+    padding-bottom: 5px;
+    position: fixed;
+    top: 15px;
+    left: 20px;
+}
+#bike-gallery-popup {
+    width: 100%;
+    max-width: 476px;
+    height: auto;
+    margin: 0 auto;
+    position: fixed;
+    top: 25%;
+    left: 0%;
+    right: 0%;
+}
+.media-title {
+    width: 75%;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.gallery-count {
+    width: 25%;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.connected-carousels-photos .stage-photos {
+    width: 100%;
+    margin: 0 auto 15px;
+    position: relative;
+}
+
+/** Navigation container **/
+.connected-carousels-photos .navigation-photos {
+    width: 100%;
+    max-width: 476px;
+    position: relative;
+    margin: 0 auto;
+}
+/** Shared carousel styles **/
+.connected-carousels-photos .carousel-photos {
+    min-height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+.connected-carousels-photos .carousel-photos .swiper-slide {
+    width: 100%;
+    margin: 0;
+    max-height: 268px;
+    font-size: 0;
+    position: relative;
+    height: auto;
+    text-align: center;
+}
+/** Navigation carousel specific styles **/
+.connected-carousels-photos .carousel-navigation-photos {
+    height: auto;
+    width: 100%;
+    background: none;
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+.navigation-photos .carousel-navigation-photos .swiper-slide {
+    display: block;
+    position: relative;
+    width: 107px;
+    height: 52px;
+    overflow: hidden;
+    padding-left: 15px;
+}
+.navigation-photos .carousel-navigation-photos .swiper-slide:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 50px;
+    display: block;
+    background: #2a2a2a;
+    opacity: 0.5;
+}
+.navigation-photos .carousel-navigation-photos .swiper-slide.swiper-slide-active:after {
+    content: none;
+}
+.navigation-photos .carousel-navigation-photos .swiper-slide img {
+    width: 90px;
+    height: 50px;
+    border: 1px solid #2a2a2a;
+}
+.navigation-photos .carousel-navigation-photos .swiper-slide.swiper-slide-active img {
+    border: 1px solid #f5f5f5;
+}
+/** Stage carousel controls **/
+
+.connected-carousels-photos .photos-prev-stage,
+.connected-carousels-photos .photos-next-stage {
+    display: block;
+    position: absolute;
+    top: 40%;
+    color: #fff;
+}
+.connected-carousels-photos .photos-prev-stage {
+    left: 0;
+}
+.connected-carousels-photos .photos-next-stage {
+    right: 0;
+}
+.connected-carousels-photos .prev,
+.connected-carousels-photos .next {
+    position: absolute;
+    top: 40%;
+    z-index: 1;
+    width: 26px;
+    height: 43px;
+    text-indent: -9999px;
+    border: 1px solid #e6e6e6;
+    background-color: #fff;
+    padding: 5px;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    -o-border-radius: 0;
+    -ms-border-radius: 0;
+    border-radius: 0;
+}
+.connected-carousels-photos .photos-prev-stage,
+.connected-carousels-photos .photos-prev-navigation {
+    background-position: -153px -207px;
+}
+.connected-carousels-photos .photos-next-stage,
+.connected-carousels-photos .photos-next-navigation {
+    background-position: -177px -238px;
+}
+.connected-carousels-photos .photos-prev-stage:hover,
+.connected-carousels-photos .photos-prev-navigation:hover {
+    background-position: -153px -238px;
+}
+.connected-carousels-photos .photos-next-stage:hover,
+.connected-carousels-photos .photos-next-navigation:hover {
+    background-position: -177px -238px;
+}
+.connected-carousels-photos .photos-prev-stage.inactive,
+.connected-carousels-photos .photos-next-stage.inactive,
+.connected-carousels-photos .photos-prev-navigation.inactive,
+.connected-carousels-photos .photos-next-navigation.inactive {
+    display: block;
+}
+.connected-carousels-photos .photos-prev-stage.inactive,
+.connected-carousels-photos .photos-prev-navigation.inactive {
+    background-position: -153px -176px;
+    cursor: not-allowed;
+}
+.connected-carousels-photos .photos-next-stage.inactive,
+.connected-carousels-photos .photos-next-navigation.inactive {
+    background-position: -177px -176px;
+    cursor: not-allowed;
+}
+/** Navigation carousel controls **/
+
+.connected-carousels-photos .photos-prev-navigation {
+    left: 0;
+    top: 3%;
+}
+.connected-carousels-photos .photos-next-navigation {
+    right: 0;
+    top: 3%;
+}
+.swiper-button-next {
+    right: 5px;
+}
+.swiper-button-prev {
+    left: 5px;
+}
+.swiper-button-prev,
+.swiper-button-next {
+    border: 0;
+}
+
+@media screen and (max-width: 320px) {
+    #bike-gallery-popup .stage-photos {
+        margin-bottom: 0;
+    }
+}
