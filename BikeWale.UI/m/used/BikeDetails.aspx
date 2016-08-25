@@ -557,7 +557,7 @@
                         <span class="error-text"></span>
                     </div>
                     <div class="input-box input-number-box form-control-box margin-bottom15">
-                        <input type="number" id="getUserMobile"/>
+                        <input type="tel" id="getUserMobile" maxlength="10"/>
                         <label for="getUserMobile">Mobile number<sup>*</sup></label>
                         <span class="input-number-prefix">+91</span>
                         <span class="boundary"></span>
@@ -590,7 +590,7 @@
                         </div>
 
                         <div class="input-box form-control-box margin-bottom15">
-                            <input type="number" id="getUserOTP" />
+                            <input type="tel" id="getUserOTP" maxlength="5" />
                             <label for="getUserOTP">One-time password</label>
                             <span class="boundary"></span>
                             <span class="error-text"></span>
@@ -600,7 +600,7 @@
 
                     <div id="update-mobile-content">
                         <div class="input-box input-number-box form-control-box margin-bottom15">
-                            <input type="number" id="getUpdatedMobile" />
+                            <input type="tel" id="getUpdatedMobile" maxlength="10" />
                             <label for="getUpdatedMobile">Mobile number<sup>*</sup></label>
                             <span class="input-number-prefix">+91</span>
                             <span class="boundary"></span>
@@ -670,7 +670,7 @@
                         <span class="error-text"></span>
                     </div>
                     <div class="input-box input-number-box form-control-box margin-bottom15">
-                        <input type="number" id="requesterMobile"/>
+                        <input type="tel" id="requesterMobile" maxlength="10" />
                         <label for="requesterMobile">Mobile number<sup>*</sup></label>
                         <span class="input-number-prefix">+91</span>
                         <span class="boundary"></span>
