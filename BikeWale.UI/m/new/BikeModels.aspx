@@ -196,12 +196,12 @@
                     </div>
                     <div class="grid-6 padding-left20">
                         <p class="font12 text-light-grey">Location:</p>
-                        <p class="font14 text-bold">
+                        <div class="font14 text-bold">
                             <a href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid='<%= modelId %>' class="getquotation changeCity" rel="nofollow">
-                                <span class="selected-location-label inline-block text-default text-truncate"><span><%= location %></span></span>                            
+                                <span class="selected-location-label inline-block text-default text-truncate"><%= location %></span>                            
                                 <span class="bwmsprite loc-change-blue-icon"></span>
                             </a>
-                        </p>
+                        </div>
                     </div>
                     <div class="clear"></div>
                 </div>
