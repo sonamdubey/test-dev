@@ -312,12 +312,7 @@
 
                                     if(!self.IsReload() && _responseData.qStr!='')
                                     {
-                                        
-                                        $('#popupWrapper').fadeOut("slow",function(){
-                                            $(window).bind("unload", function() { });
-                                            window.location.href = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + _responseData.qStr;
-                                        })
-
+                                        window.location.href = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + _responseData.qStr;
                                     }                                        
                                     else   window.location.reload(true);   
                                 }
