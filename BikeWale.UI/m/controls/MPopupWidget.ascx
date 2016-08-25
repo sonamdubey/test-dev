@@ -45,6 +45,7 @@
                     <div class="user-input-box">
                         <span class="back-arrow-box">
                             <span class="bwmsprite back-long-arrow-left"></span>
+                            <%--<span class="bwmsprite cross-md-dark-grey"></span>--%>
                         </span>
                         <input type="text" class="form-control padding-right40" placeholder="Type to select city" id="popupCityInput" autocomplete="off" data-bind="textInput: cityFilter,attr: { value: (SelectedCity() != undefined) ? SelectedCity().name : '' }">
                     </div>
@@ -345,7 +346,7 @@
 
                 
         self.selectCity = function (data, event) {
-            self.SelectedArea(null);
+            
             if (!self.oBrowser()) {
                 $(".bwm-city-area-popup-wrapper .back-arrow-box").click();                 
                 self.SelectedCity(data);
@@ -359,7 +360,7 @@
             if(self.SelectedCity()!=null && !self.SelectedCity().hasAreas)
             {
                 $('#city-area-content').addClass('city-selected');
-                self.LoadingText('Loading...');
+                self.LoadingText("Fetching on-road price for " + self.SelectedCity().name);
                 self.IsPersistance(false);
             }
             else{
@@ -367,6 +368,8 @@
             }
             
             if(data.id != onCookieObj.PQCitySelectedId){ 
+                self.SelectedArea(null);
+                self.SelectedAreaId(0);
                 self.InitializePQ(true);
             }                                
 
