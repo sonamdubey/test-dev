@@ -37,9 +37,7 @@
             </div>
 
             <div id="btnPriceLoader" class="center-align margin-top20 text-center position-rel">
-                <!-- ko if:SelectedCityId() > 0 &&  (SelectedAreaId() > 0 || !hasAreas() ) -->
-                <a id="btnDealerPricePopup" class="btn btn-orange btn-full-width font18" data-bind="visible:IsPersistance(),click: function(){ IsPersistance(false); InitializePQ();} ">Show on-road price</a>
-                <!-- /ko -->
+                <a id="btnDealerPricePopup" class="btn btn-orange btn-full-width font18" data-bind="visible: SelectedCityId() > 0 && IsPersistance() && (!hasAreas() || SelectedAreaId() > 0),click: function(){ IsPersistance(false); InitializePQ();} ">Show on-road price</a>
             </div>
 
             <div id="popupContent" class="bwm-city-area-popup-wrapper">
@@ -47,6 +45,7 @@
                     <div class="user-input-box">
                         <span class="back-arrow-box">
                             <span class="bwmsprite back-long-arrow-left"></span>
+                            <%--<span class="bwmsprite cross-md-dark-grey"></span>--%>
                         </span>
                         <input type="text" class="form-control padding-right40" placeholder="Type to select city" id="popupCityInput" autocomplete="off" data-bind="textInput: cityFilter,attr: { value: (SelectedCity() != undefined) ? SelectedCity().name : '' }">
                     </div>
@@ -80,7 +79,7 @@
     <div id="popup-loader-container">
         <div id="popup-loader"></div>
         <div id="popup-loader-text">
-            <p data-bind="text : LoaderText" class="font14"></p> 
+            <p data-bind="text : LoadingText()" class="font14"></p> 
         </div>
     </div>
 </div>
@@ -91,9 +90,8 @@
 
     $('#popupWrapper .close-btn').click(function () {        
         $('.getquotation').removeClass('ui-btn-active');
-        $('#popupWrapper').hide();
         $("#popupContent").hide();
-        $('#popupWrapper').removeClass('loader-active');
+        $('#popupWrapper').removeClass('loader-active').hide();
     });
 
     $(document).on("click", ".getquotation", function (e) {
@@ -117,9 +115,10 @@
         
         options.cityId = ele.attr('data-preselcity') || options.cityId;
 
+        $('#popupWrapper').addClass('loader-active');
         $('#popupWrapper').show();
         $("#popupContent").show();
-        appendHash("onRoadPrice");        
+        appendHash("onRoadPrice");
         vmquotation.setOptions(options);
 
     });
@@ -143,24 +142,7 @@
         self.cityFilter =  ko.observable("");
         self.areaFilter = ko.observable("");
         self.hasAreas = ko.observable();
-
-
-        self.LoaderText = ko.computed(function()
-        {
-            var ltxt = '';
-            if (self.SelectedCityId() > 0) {
-                var loc = self.SelectedAreaId() && self.SelectedArea() && self.SelectedArea().name!=null ? self.SelectedArea().name+', ' :'';
-                loc +=   self.SelectedCityId() && self.SelectedCity() && self.SelectedCity().name!=null ? self.SelectedCity().name:'';
-                if(self.SelectedCity() && self.SelectedCity().hasAreas)
-                    ltxt =  (self.SelectedAreaId()>0)?'Fetching on-road price for ' + loc:'Loading areas for ' + loc;
-                else ltxt = (!self.IsPersistance() ?(self.IsReload()?'Fetching on-road price for ' + loc:'Loading...'):'Loading locations..')
-            }
-            else{
-                ltxt = 'Fetching Cities...';
-            }
-
-            return ltxt;
-        });
+        self.LoadingText = ko.observable("Loading...");
 
         self.FilterData = function (data,filter)
         {
@@ -186,11 +168,17 @@
 
         self.setOptions = function (options,event) {
             if (options != null) {
+
                 if (options.modelId != null)
                     self.SelectedModelId(options.modelId);
 
                 if (options.cityId != null)
+                {
                     self.SelectedCityId(options.cityId);
+                }else{
+                    self.LoadingText('Fetching Cities...');
+                }
+                   
 
                 if (options.areaId != null)
                     self.SelectedAreaId(options.areaId);
@@ -214,7 +202,11 @@
                     self.PageSourceId = options.pagesrcid;
                         
                 if (options.ispersistent != null)
+                {
                     self.IsPersistance(options.ispersistent);
+                    self.LoadingText("Loading locations...");
+                }
+                   
 
                 if (options.isreload != null)
                     self.IsReload(options.isreload);
@@ -230,8 +222,7 @@
         };
 
         self.InitializePQ = function(isLocChanged)
-        {
-
+        { 
             $('#popupWrapper').addClass('loader-active');
 
             if (self.SelectedModelId() != null && self.SelectedModelId()  > 0) {
@@ -280,6 +271,7 @@
                                                 {
                                                     self.SelectedArea(findAreaById(self.SelectedAreaId()));
                                                 }
+                                                else self.SelectedArea(null);
                                             }                                                                         
                                         }
                                     }
@@ -297,13 +289,21 @@
                                     if (self.MakeName || self.ModelName )
                                         gaLabel += self.MakeName + ',' + self.ModelName + ',';
                                     
-                                    if(!isLocChanged)
-                                    {
-                                        checkCookies();
-                                        cookieValue = onCookieObj.PQCitySelectedId + "_" + onCookieObj.PQCitySelectedName 
-                                        cookieValue += (jsonObj.isDealerAvailable)?("_" + onCookieObj.PQAreaSelectedId + "_" + onCookieObj.PQAreaSelectedName):'';
-                                        SetCookieInDays("location", cookieValue, 365);
-                                    }
+
+                                    if (self.SelectedCityId() > 0 ) {                                       
+                                        if (self.SelectedCity() && self.SelectedCity().id > 0) {
+                                            lbtext = "Fetching on-road price for " + self.SelectedCity().name;
+                                            cookieValue = self.SelectedCity().id + "_" + self.SelectedCity().name; 
+                                            if (self.SelectedArea() && jsonObj.isDealerAvailable) {
+                                                cookieValue += ("_" + self.SelectedArea().id + "_" + self.SelectedArea().name);
+                                                lbtext = "Fetching on-road price for " + self.SelectedArea().name + ", " + self.SelectedCity().name;
+                                            }
+                                            SetCookieInDays("location", cookieValue, 365);
+
+                                            self.LoadingText(lbtext); 
+                                        }
+
+                                    }    
 
                                     if(jsonObj.dealerId > 0)
                                         gtmCodeAppender(self.PageCatId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
@@ -311,12 +311,29 @@
                                     
 
                                     if(!self.IsReload() && _responseData.qStr!='')
-                                        window.location = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + _responseData.qStr;
-                                    else   window.location.reload();   
+                                    {                                          
+                                        $('#popupWrapper .close-btn').click();
+                                        window.location.href = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + _responseData.qStr; 
+                                    }                                        
+                                    else   window.location.reload(true);   
                                 }
                                 else
                                 {
-                                    window.location.reload();
+                                    if (self.SelectedCityId() > 0 ) {                                       
+                                        if (self.SelectedCity() && self.SelectedCity().id > 0) {
+                                            lbtext = "Fetching on-road price for " + self.SelectedCity().name;
+                                            cookieValue = self.SelectedCity().id + "_" + self.SelectedCity().name; 
+                                            if (self.SelectedArea() && self.SelectedArea().id > 0 ) {
+                                                cookieValue += ("_" + self.SelectedArea().id + "_" + self.SelectedArea().name);
+                                                lbtext = "Fetching on-road price for " + self.SelectedArea().name + ", " + self.SelectedCity().name;
+                                            }
+                                            SetCookieInDays("location", cookieValue, 365);
+
+                                            self.LoadingText(lbtext); 
+                                        }
+
+                                    }
+                                    window.location.reload(true);
                                 }
                             }
                         });
@@ -325,11 +342,9 @@
 
                 
         self.selectCity = function (data, event) {
-
+            
             if (!self.oBrowser()) {
-
-                $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
-                
+                $(".bwm-city-area-popup-wrapper .back-arrow-box").click();                 
                 self.SelectedCity(data);
                 self.SelectedCityId(data.id);
             }
@@ -341,12 +356,17 @@
             if(self.SelectedCity()!=null && !self.SelectedCity().hasAreas)
             {
                 $('#city-area-content').addClass('city-selected');
-                self.IsPersistance(false); 						
+                self.LoadingText("Fetching on-road price for " + self.SelectedCity().name);
+                self.IsPersistance(false);
+            }
+            else{
+                self.LoadingText("Loading areas for " + self.SelectedCity().name);  
             }
             
             if(data.id != onCookieObj.PQCitySelectedId){ 
+                self.SelectedArea(null);
+                self.SelectedAreaId(0);
                 self.InitializePQ(true);
-                self.setLocationCookie();
             }                                
 
             if (ga_pg_id != null && ga_pg_id == 2) {
@@ -377,8 +397,8 @@
             self.IsPersistance(false);
 
             if(data.id != onCookieObj.PQAreaSelectedId){
+                self.LoadingText("Fetching on-road price for " + self.SelectedArea().name + ", " + self.SelectedCity().name);
                 self.InitializePQ(true);
-                self.setLocationCookie();
             }
 
             if (ga_pg_id != null && ga_pg_id == 2 ) {
@@ -386,20 +406,6 @@
             }
 
 
-        };
-
-        self.setLocationCookie = function() {
-            if (self.SelectedCityId() > 0 ) {
-                self.SelectedCity(findCityById(self.SelectedCityId()));
-                if (self.SelectedCity() && self.SelectedCity().id > 0) {
-                    cookieValue = self.SelectedCity().id + "_" + self.SelectedCity().name; 
-                    self.SelectedArea(findAreaById(self.SelectedAreaId()));
-                    if (self.SelectedArea() != null) {
-                        cookieValue += ("_" + self.SelectedArea().id + "_" + self.SelectedArea().name);
-                    }
-                    SetCookieInDays("location", cookieValue, 365);
-                }
-            }
         };
     }
 
@@ -467,10 +473,6 @@
 
             var vmquotation = new mPopup;
             ko.applyBindings(vmquotation, $("#popupWrapper")[0]);
-
-            window.onbeforeunload  = function() {
-              $('#popupWrapper .close-btn').click();
-            }
 
 </script>
 <!-- widget script ends here-->

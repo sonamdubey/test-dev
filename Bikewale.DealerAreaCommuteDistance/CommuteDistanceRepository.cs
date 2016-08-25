@@ -5,160 +5,294 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 
 namespace Bikewale.DealerAreaCommuteDistance
 {
     /// <summary>
-    /// Created By : Lucky Rathore On 12 Apr 2016
+    /// Created By : Sumit Kate on 12 Aug 2016
     /// Description : To Handle communitcation with DB.
     /// </summary>
     internal class CommuteDistanceRepository
     {
-
         /// <summary>
-        /// Created By : Lucky Rathore On 12 Apr 2016
-        /// Description : To Get List of Delaers  whoes area mapping needed to be done.
+        /// Created by  :   Sumit Kate on 16 Aug 2016
+        /// Description :   Get active campaign dealers of the city
         /// </summary>
-        /// <returns>List of Delaers</returns>
-        public IEnumerable<DealerEntity> FetchActiveContractDealer()
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<GeoLocationEntity> GetCampaignDealerByCity(int cityId)
         {
-            ICollection<DealerEntity> dealers = null;
+            IList<GeoLocationEntity> lstDealers = null;
             try
             {
                 using (DbCommand command = DbFactory.GetDBCommand())
                 {
-                    command.CommandText = "getactivecontractdealer";
+                    command.CommandText = "bw_getcampaigndealersbycity";
                     command.CommandType = CommandType.StoredProcedure;
-
+                    command.Parameters.Add(DbFactory.GetDbParam("par_city", DbType.Int32, Convert.ToInt32(cityId)));
                     using (IDataReader objReader = MySqlDatabase.SelectQuery(command, ConnectionType.MasterDatabase))
                     {
                         if (objReader != null)
                         {
-                            dealers = new List<DealerEntity>();
+                            lstDealers = new List<GeoLocationEntity>();
                             while (objReader.Read())
                             {
-                                dealers.Add(new DealerEntity()
+                                lstDealers.Add(new GeoLocationEntity()
                                 {
-                                    Id = !Convert.IsDBNull(objReader["dealerid"]) ? Convert.ToUInt16(objReader["dealerid"]) : default(UInt16),
-                                    LeadServingRadius = !Convert.IsDBNull(objReader["servingradius"]) ? Convert.ToUInt16(objReader["servingradius"]) : default(UInt16),
+                                    Id = !Convert.IsDBNull(objReader["dealerid"]) ? Convert.ToUInt32(objReader["dealerid"]) : default(UInt16),
+                                    Latitude = !Convert.IsDBNull(objReader["Lattitude"]) ? Convert.ToDouble(objReader["Lattitude"]) : default(double),
+                                    Longitude = !Convert.IsDBNull(objReader["Longitude"]) ? Convert.ToDouble(objReader["Longitude"]) : default(double)
                                 });
                             }
-                            Logs.WriteInfoLog(String.Format("Total Records fetched : {0}", dealers.Count));
                         }
-                        else
-                        {
-                            Logs.WriteInfoLog("No Records fetched");
-                        }
+
                     }
                 }
             }
             catch (Exception ex)
             {
-                Logs.WriteErrorLog("GetDealer " + ex.Message);
+                Logs.WriteErrorLog("GetCampaignDealerByCity " + ex.Message);
             }
-
-            return dealers;
+            return lstDealers;
         }
 
         /// <summary>
-        /// Created By : Lucky Rathore On 12 Apr 2016
-        /// Description : To Get Area of city from which specfied dealer Belong.
+        /// Created by  :   Sumit Kate on 16 Aug 2016
+        /// Description :   Updates the dealer-area distance mapping
         /// </summary>
-        /// <param name="dealerId">e.g. 4</param>
-        /// <returns>List of Area</returns>
-        public IEnumerable<GeoLocationEntity> GetAreaByDealer(UInt16 dealerId, UInt16 leadServingDistance, out GeoLocationEntity dealerLocation)
+        /// <param name="idType">if id value has dealerid, idType should be 1, if id value has areaid, idtype should be 2</param>
+        /// <param name="id"></param>
+        /// <param name="distanceMatrix"></param>
+        /// <returns></returns>
+        public bool UpdateDistances(UInt16 idType, UInt32 id, string distanceMatrix)
         {
-            GeoLocationEntity location = null;
-            IList<GeoLocationEntity> areas = null;
-            GeoLocationEntity dealerLocationEntity = null;
+            bool isSuccess = false;
+            if (Enumerable.Range(1, 2).Contains(idType))
+            {
+                try
+                {
+                    using (DbCommand command = DbFactory.GetDBCommand())
+                    {
+                        command.CommandText = "bw_savecommutedistancebyid";
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add(DbFactory.GetDbParam("par_idtype", DbType.Int32, Convert.ToInt32(idType)));
+                        command.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int32, id));
+                        command.Parameters.Add(DbFactory.GetDbParam("par_distancematrix", DbType.String, distanceMatrix));
+                        MySqlDatabase.ExecuteNonQuery(command, ConnectionType.MasterDatabase);
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logs.WriteErrorLog("UpdateDistances " + ex.Message);
+                }
+            }
+            return isSuccess;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 16 Aug 2016
+        /// Description :   Gets Already mapped dealers to area
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <returns></returns>
+        public IEnumerable<GeoLocationEntity> GetDealersByArea(UInt32 areaId)
+        {
+            IList<GeoLocationEntity> lstDealers = null;
             try
             {
-
                 using (DbCommand command = DbFactory.GetDBCommand())
                 {
-                    command.CommandText = "getareasbydealer_04082016";
+                    command.CommandText = "bw_getdealerbyarea";
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
-                    command.Parameters.Add(DbFactory.GetDbParam("par_leadservingdistance", DbType.Byte, Convert.ToByte(leadServingDistance)));
-
+                    command.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbType.Int32, Convert.ToInt32(areaId)));
 
                     using (IDataReader objReader = MySqlDatabase.SelectQuery(command, ConnectionType.MasterDatabase))
                     {
                         if (objReader != null)
                         {
-
-                            if (objReader.Read())
+                            lstDealers = new List<GeoLocationEntity>();
+                            while (objReader.Read())
                             {
-                                dealerLocationEntity = new GeoLocationEntity();
-                                dealerLocationEntity.Id = DBNull.Value == objReader["DealerId"] ? default(UInt16) : Convert.ToUInt16(objReader["DealerId"]);
-                                dealerLocationEntity.Latitude = DBNull.Value == objReader["Lattitude"] ? 0 : Convert.ToDouble(objReader["Lattitude"]);
-                                dealerLocationEntity.Longitude = DBNull.Value == objReader["Longitude"] ? 0 : Convert.ToDouble(objReader["Longitude"]);
-                            }
-
-
-                            if (objReader.NextResult())
-                            {
-                                areas = new List<GeoLocationEntity>();
-                                while (objReader.Read())
+                                lstDealers.Add(new GeoLocationEntity()
                                 {
-                                    location = new GeoLocationEntity();
-                                    location.Id = DBNull.Value == objReader["AreaId"] ? default(UInt16) : Convert.ToUInt16(objReader["AreaId"]);
-                                    location.Latitude = DBNull.Value == objReader["Lattitude"] ? 0 : Convert.ToDouble(objReader["Lattitude"]);
-                                    location.Longitude = DBNull.Value == objReader["Longitude"] ? 0 : Convert.ToDouble(objReader["Longitude"]);
-                                    areas.Add(location);
-                                }
-                                Logs.WriteInfoLog(String.Format("Total Records fetched : {0}", areas.Count));
+                                    Id = !Convert.IsDBNull(objReader["dealerid"]) ? Convert.ToUInt32(objReader["dealerid"]) : default(UInt32),
+                                    Latitude = !Convert.IsDBNull(objReader["Lattitude"]) ? Convert.ToDouble(objReader["Lattitude"]) : default(double),
+                                    Longitude = !Convert.IsDBNull(objReader["Longitude"]) ? Convert.ToDouble(objReader["Longitude"]) : default(double)
+                                });
                             }
-                        }
-                        else
-                        {
-                            Logs.WriteInfoLog("No Records fetched");
                         }
                     }
+
                 }
             }
             catch (Exception ex)
             {
-                Logs.WriteErrorLog("GetAreaByDealer " + ex.Message);
+                Logs.WriteErrorLog("GetDealersByArea " + areaId + ex.Message);
             }
-            finally
-            {
-                dealerLocation = dealerLocationEntity;
-            }
-            return areas;
+            return lstDealers;
         }
 
         /// <summary>
-        /// Created By : Lucky Rathore On 12 Apr 2016
-        /// Description : To update distance.
+        /// Created by  :   Sumit Kate on 16 Aug 2016
+        /// Description :   Gets mapped Areas by dealer
         /// </summary>
-        /// <param name="dealerId">e.g. 4</param>
-        /// <param name="areaDistance">e.g. '18890:51,18249:89,17768:79' (areaId:CityId comma seprated pair)</param>
+        /// <param name="dealerID"></param>
         /// <returns></returns>
-        public bool UpdateArea(UInt16 dealerId, string areaDistance)
+        public IEnumerable<GeoLocationEntity> GetAreasByDealer(UInt32 dealerID)
         {
-            int resp = 0;
+            IList<GeoLocationEntity> lstArea = null;
             try
             {
-
                 using (DbCommand command = DbFactory.GetDBCommand())
                 {
-
-                    command.CommandText = "updatecommutedistance";
+                    command.CommandText = "bw_getareasbydealer";
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
-                    command.Parameters.Add(DbFactory.GetDbParam("par_areadistance", DbType.String, areaDistance));
+                    command.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, Convert.ToInt32(dealerID)));
 
-                    MySqlDatabase.ExecuteNonQuery(command, ConnectionType.MasterDatabase);
-                    resp = 1;
+                    using (IDataReader objReader = MySqlDatabase.SelectQuery(command, ConnectionType.MasterDatabase))
+                    {
+                        if (objReader != null)
+                        {
+                            lstArea = new List<GeoLocationEntity>();
+                            while (objReader.Read())
+                            {
+                                lstArea.Add(new GeoLocationEntity()
+                                {
+                                    Id = !Convert.IsDBNull(objReader["ID"]) ? Convert.ToUInt32(objReader["ID"]) : default(UInt32),
+                                    Latitude = !Convert.IsDBNull(objReader["Lattitude"]) ? Convert.ToDouble(objReader["Lattitude"]) : default(double),
+                                    Longitude = !Convert.IsDBNull(objReader["Longitude"]) ? Convert.ToDouble(objReader["Longitude"]) : default(double)
+                                });
+                            }
+                        }
+                    }
+
                 }
             }
             catch (Exception ex)
             {
-                Logs.WriteErrorLog("UpdateArea " + ex.Message);
+                Logs.WriteErrorLog("GetAreasByDealer " + dealerID + ex.Message);
             }
+            return lstArea;
+        }
 
-            return resp > 0 ? true : false;
+        /// <summary>
+        /// Created by  :   Sumit Kate on 16 Aug 2016
+        /// Description :   Checks whether Area Lat-Lon is changed
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <param name="lattitude"></param>
+        /// <param name="longitude"></param>
+        /// <returns></returns>
+        public bool IsAreaGeoLocationChanged(UInt32 areaId, double lattitude, double longitude)
+        {
+            bool isChanged = false;
+            try
+            {
+                using (DbCommand command = DbFactory.GetDBCommand())
+                {
+                    command.CommandText = "isAreaLatLonChanged";
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(DbFactory.GetDbParam("par_areaId", DbType.Int32, Convert.ToInt32(areaId)));
+                    command.Parameters.Add(DbFactory.GetDbParam("par_lattitude", DbType.Double, lattitude));
+                    command.Parameters.Add(DbFactory.GetDbParam("par_longitude", DbType.Double, longitude));
+
+                    using (IDataReader objReader = MySqlDatabase.SelectQuery(command, ConnectionType.MasterDatabase))
+                    {
+                        if (objReader != null)
+                        {
+                            if (objReader.Read())
+                            {
+                                isChanged = !Convert.IsDBNull(objReader["IsChanged"]) ? Convert.ToBoolean(objReader["IsChanged"]) : false;
+                            }
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog(string.Format("IsAreaGeoLocationChanged({0},{1},{2}) - {3}", areaId, lattitude, longitude, ex.Message));
+            }
+            return isChanged;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 16 Aug 2016
+        /// Description :   Checks whether Dealer Lat-Lon is changed
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="lattitude"></param>
+        /// <param name="longitude"></param>
+        /// <returns></returns>
+        public bool IsDealerGeoLocationChanged(UInt32 dealerId, double lattitude, double longitude)
+        {
+            bool isChanged = false;
+            try
+            {
+                using (DbCommand command = DbFactory.GetDBCommand())
+                {
+                    command.CommandText = "isDealerLatLonChanged";
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32, Convert.ToInt32(dealerId)));
+                    command.Parameters.Add(DbFactory.GetDbParam("par_lattitude", DbType.Double, lattitude));
+                    command.Parameters.Add(DbFactory.GetDbParam("par_longitude", DbType.Double, longitude));
+
+                    using (IDataReader objReader = MySqlDatabase.SelectQuery(command, ConnectionType.MasterDatabase))
+                    {
+                        if (objReader != null)
+                        {
+                            if (objReader.Read())
+                            {
+                                isChanged = !Convert.IsDBNull(objReader["IsChanged"]) ? Convert.ToBoolean(objReader["IsChanged"]) : false;
+                            }
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog("IsDealerGeoLocationChanged " + ex.Message);
+            }
+            return isChanged;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 16 Aug 2016
+        /// Description :   Checks whether Area exists
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <returns></returns>
+        public bool IsAreaExists(UInt32 areaId)
+        {
+            bool isExists = false;
+            try
+            {
+                using (DbCommand command = DbFactory.GetDBCommand())
+                {
+                    command.CommandText = "select id from areas where id = " + areaId;
+                    command.CommandType = CommandType.Text;
+
+                    using (IDataReader objReader = MySqlDatabase.SelectQuery(command, ConnectionType.MasterDatabase))
+                    {
+                        if (objReader != null)
+                        {
+                            if (objReader.Read())
+                            {
+                                isExists = !Convert.IsDBNull(objReader["id"]) ? Convert.ToInt32(objReader["id"]) > 0 : false;
+                            }
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog("IsAreaExists " + ex.Message);
+            }
+            return isExists;
         }
     }
 }
