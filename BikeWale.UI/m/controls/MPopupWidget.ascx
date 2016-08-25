@@ -91,7 +91,7 @@
     $('#popupWrapper .close-btn').click(function () {        
         $('.getquotation').removeClass('ui-btn-active');
         $("#popupContent").hide();
-        $('#popupWrapper').removeClass('loader-active');
+        $('#popupWrapper').removeClass('loader-active').hide();
     });
 
     $(document).on("click", ".getquotation", function (e) {
@@ -311,8 +311,9 @@
                                     
 
                                     if(!self.IsReload() && _responseData.qStr!='')
-                                    {
-                                        window.location.href = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + _responseData.qStr;
+                                    {                                          
+                                        $('#popupWrapper .close-btn').click();
+                                        window.location.href = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + _responseData.qStr; 
                                     }                                        
                                     else   window.location.reload(true);   
                                 }
