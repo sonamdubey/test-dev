@@ -5,11 +5,9 @@ using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Notifications;
-using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -55,7 +53,7 @@ namespace Bikewale.BindViewModels.Controls
         {
             try
             {
-                if (FetchedRecordCount > 0 && repeater != null && CompareList!=null)
+                if (FetchedRecordCount > 0 && repeater != null && CompareList != null)
                 {
                     repeater.DataSource = CompareList.Skip(skipCount);
                     repeater.DataBind();
