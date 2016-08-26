@@ -364,15 +364,10 @@ function GetGlobalCityArea() {
     var cookieName = "location";
     var cityArea = '';
     if (isCookieExists(cookieName)) {
-        var arrays = getCookie(cookieName).split(",")[0].split("_");
-        if (arrays.length > 2) {
-            cityArea = arrays[1] + '_' + arrays[3];
-        }
-        else if (arrays.length) {
-            cityArea = arrays[1];
-        }
-        return cityArea;
+        cityArea = getCookie(cookieName);
+        cityArea = cityArea.replace(/[0-9](_)*/g, '').replace(/-+/g, ' ');        
     }
+    return cityArea;
 }
 
 $('#newBikeList').on('keypress', function (e) {
@@ -715,6 +710,7 @@ function SetCookieInDays(cookieName, cookieValue, nDays) {
     var today = new Date();
     var expire = new Date();
     expire.setTime(today.getTime() + 3600000 * 24 * nDays);
+    cookieValue = cookieValue.replace(/\s+/g, '-');
     document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + '; path =/';
 }
 
@@ -772,7 +768,8 @@ function CheckGlobalCookie()
     var cookieName = "location";
     if(isCookieExists(cookieName))
     {
-        var locationCookie = getCookie(cookieName).split("_");
+        var locationCookie = getCookie(cookieName);
+        locationCookie = (locationCookie.replace('-', ' ')).split("_");
         var cityName = locationCookie[1];
         globalCityId = parseInt(locationCookie[0]);
         showGlobalCity(cityName);
