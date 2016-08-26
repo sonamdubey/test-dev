@@ -312,8 +312,8 @@
 
                                     if(!self.IsReload() && _responseData.qStr!='')
                                     {                                          
-                                        $('#popupWrapper .close-btn').click();
-                                        window.location.href = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + _responseData.qStr; 
+                                        $('#popupWrapper').hide();
+                                        window.location.href = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + _responseData.qStr;
                                     }                                        
                                     else   window.location.reload(true);   
                                 }
