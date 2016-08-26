@@ -1187,3 +1187,36 @@ function registerPQ(myData) {
         }
     });
 }
+
+
+$('#termsPopUpCloseBtn').on("click", function () {
+    $(".blackOut-window").hide();
+    $("div#termsPopUpContainer").hide()
+    $("div#offersPopup").hide();
+});
+
+function LoadTerms(offerId) {
+    $("div#offersPopup").hide();
+    $("div#termsPopUpContainer").show();
+    $(".blackOut-window").show();
+    if (offerId != 0 && offerId != null) {
+        $('#terms').empty();
+        $.ajax({
+            type: "GET",
+            url: "/api/Terms/?offerMaskingName=&offerId=" + offerId,
+            dataType: 'json',
+            success: function (response) {
+                if (response != null)
+                    $('#terms').html(response);
+                $(".termsPopUpContainer").css('height', '450')
+            },
+            error: function (request, status, error) {
+                $("div#termsPopUpContainer").hide();
+                $(".blackOut-window").hide();
+            }
+        });
+    }
+    else {
+        $("#terms").load("/statichtml/tnc.html");
+    }
+}

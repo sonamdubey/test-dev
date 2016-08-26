@@ -9,6 +9,32 @@ $('.tnc').on('click', function (e) {
     LoadTerms($(this).attr("id"));
 });
 
+function LoadTerms(offerId) {
+    $("div#termsPopUpContainer").show();
+    $(".blackOut-window").show();
+    if (offerId != 0 && offerId != null) {
+        $('#termspinner').show();
+        $('#terms').empty();
+        $.ajax({
+            type: "GET",
+            url: "/api/Terms/?offerMaskingName=&offerId=" + offerId,
+            dataType: 'json',
+            success: function (response) {
+                if (response != null)
+                    $('#terms').html(response);
+            },
+            error: function (request, status, error) {
+                $("div#termsPopUpContainer").hide();
+                $(".blackOut-window").hide();
+            }
+        });
+    }
+    else {
+        $("#terms").load("/statichtml/tnc.html");
+    }
+    $('#termspinner').hide();
+}
+
 $("#ddlVersion").on("change", function () {
     versionName = $(this).children(":selected").text();    
     dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Version_Changed", "lab": bikeName + "_" + versionName + "_" + getCityArea });

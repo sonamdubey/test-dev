@@ -742,10 +742,7 @@ $('.less-dealers-link').on('click', function () {
 });
 
 
-
-//
 $(document).ready(function () {
-    
     var $window = $(window),
         overallSpecsTabsContainer = $('.overall-specs-tabs-container'),
         modelSpecsTabsContentWrapper = $('#modelSpecsTabsContentWrapper'),
@@ -777,7 +774,6 @@ $(document).ready(function () {
                 overallSpecsTabsContainer.removeClass('fixed-tab-nav');
             }
         }
-
 
         $('#modelSpecsTabsContentWrapper .bw-model-tabs-data').each(function () {
             var top = $(this).offset().top - overallSpecsTabsContainer.height(),

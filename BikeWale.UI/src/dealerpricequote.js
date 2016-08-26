@@ -568,3 +568,39 @@ function loadDisclaimer(dealerType) {
     }
     $("#read-more").show();
 }
+
+$('.tnc').on('click', function (e) {
+    LoadTerms($(this).attr("id"));
+});
+
+$('#termsPopUpCloseBtn').on("click", function () {
+    $(".blackOut-window").hide();
+    $("div#termsPopUpContainer").hide()
+});
+
+function LoadTerms(offerId) {
+    $("div#termsPopUpContainer").show();
+    $(".blackOut-window").show();
+    if (offerId != 0 && offerId != null) {
+        $('#termspinner').show();
+        $('#terms').empty();
+        $.ajax({
+            type: "GET",
+            url: "/api/Terms/?offerMaskingName=&offerId=" + offerId,
+            dataType: 'json',
+            success: function (response) {
+                if (response != null)
+                    $('#terms').html(response);
+                $(".termsPopUpContainer").css('height', '500');
+            },
+            error: function (request, status, error) {
+                $("div#termsPopUpContainer").hide();
+                $(".blackOut-window").hide();
+            }
+        });
+    }
+    else {
+        $("#terms").load("/statichtml/tnc.html");
+    }
+    $('#termspinner').hide();
+}
