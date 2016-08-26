@@ -345,7 +345,7 @@ namespace Bikewale.Mobile.Pricequote
                 var cookies = this.Context.Request.Cookies;
                 if (cookies.AllKeys.Contains("location"))
                 {
-                    string cookieLocation = cookies["location"].Value;
+                    string cookieLocation = cookies["location"].Value.Replace('-', ' ');
                     if (!String.IsNullOrEmpty(cookieLocation) && cookieLocation.IndexOf('_') != -1)
                     {
                         string[] locArray = cookieLocation.Split('_');
