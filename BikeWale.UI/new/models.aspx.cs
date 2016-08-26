@@ -31,7 +31,7 @@ namespace Bikewale.New
         protected NewExpertReviews ctrlExpertReviews;
         protected NewVideosControl ctrlVideos;
         protected MostPopularBikes_new ctrlMostPopularBikes;
-        protected Repeater rptMostPopularBikes, rptDiscontinued;
+        protected Repeater rptMostPopularBikes, rptDiscontinued, rptTop;
         protected DealerCard ctrlDealerCard;
         protected bool isDescription = false;
         protected Literal ltrDefaultCityName;
@@ -201,8 +201,9 @@ namespace Bikewale.New
         {
             BindMakePage objMake = new BindMakePage();
             objMake.totalCount = 6;
+            objMake.TopCount = 6;
             objMake.makeId = Convert.ToInt32(makeId);
-            objMake.BindMostPopularBikes(rptMostPopularBikes);
+            objMake.BindMostPopularBikes(rptMostPopularBikes, rptTop);
             _make = objMake.Make;
             _bikeDesc = objMake.BikeDesc;
 
