@@ -30,8 +30,8 @@
 .border-light-right { border-right:1px solid #e2e2e2; }
 
 .offers-sprite {background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v19Aug2016) no-repeat; display: inline-block;}
-.loc-change-blue-icon { width:12px; height:16px; background-position:-197px -395px; position:relative; top:2px; }
-.loc-change-blue-icon:hover { background-position:-86px -278px; }
+.loc-change-blue-icon { width:16px; height:16px; background-position:-195px -395px; position:relative; top:2px; }
+.loc-change-blue-icon:hover { background-position:-84px -278px; }
 .upcoming-text-label{background:#4c4c4c;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:-10px}
 .upcoming-text-label:after{content: "";background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=4Mar2016) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px;}
 .float-button { background-color:#f5f5f5; }
@@ -176,6 +176,8 @@
     font-size: 14px;
     display: inline-block;
     vertical-align: middle;
+    position:relative;
+    top:-5px;
 }
 
 #dealer-offers-list {
@@ -247,13 +249,15 @@ a.btn:hover {
     text-decoration: none;
 }
 
-.line-height-1-5 {
-    line-height: 1.5;
+.line-height-1-7 {
+    line-height: 1.7;
 }
 
 .booknow-label {
     width: 64%;
-    padding-left: 10px
+    padding-left: 10px;
+    position:relative;
+    top:-3px;
 }
 
 .callback-btn.btn-sm-0 {
@@ -263,6 +267,8 @@ a.btn:hover {
 .callback-label {
     width: 46%;
     padding-left: 10px;
+    position:relative;
+    top:-3px;
 }
 
 .nearby-partner-left-col {
@@ -312,13 +318,21 @@ a.btn:hover {
     background-position: 0 -47px;
 }
 
+.dealership-icon-wrapper {
+    height: 22px;
+}
+
 .dealership-icon {
     width:29px;
-    height:24px;
+    height:22px;
     background-position:0 -356px;
 }
 
-.offerIcon_1_sm , .offerIcon_2_sm , .offerIcon_3_sm , .offerIcon_4_sm , .offerIcon_5_sm, .offerIcon_6_sm, .offerIcon_7_sm { width:30px; height:28px; }
+.margin-bottom7 {
+    margin-bottom: 7px
+}
+
+.offerIcon_1_sm , .offerIcon_2_sm , .offerIcon_3_sm , .offerIcon_4_sm , .offerIcon_5_sm, .offerIcon_6_sm, .offerIcon_7_sm { width:30px; height:29px; }
 .offerIcon_1_sm { background-position:0 -93px; }
 .offerIcon_2_sm { background-position:0 -132px; }
 .offerIcon_3_sm { background-position:0 -166px; }

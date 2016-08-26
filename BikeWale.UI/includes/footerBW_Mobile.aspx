@@ -44,7 +44,7 @@
         </span>
         <input type="text" name="globalSearch" placeholder="Search" id="globalSearch" class="form-control padding-right30" autocomplete="off">
         <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none;right:35px;top:13px"></span>
-        <ul id="errGlobalSearch" style="width:100%;margin-left:0" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide">
+        <ul id="errGlobalSearch" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide">
             <li class="ui-menu-item" tabindex="-1">
                     <span class="text-bold">Oops! No suggestions found</span><br /> <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
             </li>

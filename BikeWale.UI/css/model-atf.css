@@ -104,3 +104,11 @@
 .pos-top2 { top:2px; }
 
 #leadCapturePopup, #otpPopup { display:none;}
+
+#modelSpecsTabsContentWrapper { min-height:300px; }
+#modelDetailsFloatingCardContent { display:block; position:fixed; top:-500px; left:5%; right:5%; margin:0 auto; width:996px; z-index:5;
+-webkit-transition:all 0.2s ease 0s; -moz-transition:all 0.2s ease 0s; -o-transition:all 0.2s ease 0s; -ms-transition:all 0.2s ease 0s; transition:all 0.2s ease 0s;}
+#modelDetailsFloatingCardContent .model-details-floating-card { width:976px; }
+#modelDetailsFloatingCardContent.fixed-card { top:0; }
+#modelDetailsFloatingCardContent .overall-specs-tabs-wrapper { display:none; }
+#modelDetailsFloatingCardContent.activate-tabs .overall-specs-tabs-wrapper { display:block; }

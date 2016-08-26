@@ -1,16 +1,21 @@
 ﻿@charset "utf-8";
+
 .swiper-container.model{width:100%;}
 .swiper-container.model .swiper-slide { background-color: #fff; width:100%; margin:0; min-height:180px; max-height:268px; position:relative; text-align:center;}
 .swiper-container.model .swiper-slide > img {max-width:100%; }
 .colours-wrap .jcarousel li {width:120px; height:auto;}
 #versText { width:75%; }
+
+.reviews-rating{width:45%;}
 .rating-wrap img { width:18px;}
 .line-Ht22{line-height:22px;}
 .line-Ht18 {line-height:18px;} 
+
 .pos-top3{top:3px;}
 .pos-top8{top:8px;}
 .pos-left3 {left: 3px;}
 .font6{font-size:6px}
+
 .btn-grey { background: #fff; color: #f04031; border:1px solid #f04031; }
 .btn-grey:hover { background: #f04031; color:#fff; text-decoration: none; border:1px solid #f04031; }
 .btn-grey:focus { background: #f04031; color: #fff; border: 1px solid #f04031; }
@@ -18,6 +23,7 @@
 .text-darker-black { color:#1a1a1a; }
 .grid-3.version-label-text { width:60px; }
 .grid-9.variantDropDown { width:70%; max-width:320px; }
+
 .sort-div { height:32px; padding:5px 5px 5px 8px; border:1px solid #ccc; color:#555; position:relative; cursor:pointer; background:#fff; }
 .sort-by-title { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; width:85%; }
 .sort-selection-div { background:#fff; border:1px solid #ccc; position:absolute; z-index:2; left:0; right:0; }
@@ -25,19 +31,10 @@
 .sort-selection-div ul li.selected { font-weight:bold; }
 .sort-selection-div ul li input{background: #fff;color:rgb(77, 80, 87); padding:2px 0 2px 8px;  white-space:nowrap; text-overflow:ellipsis; overflow:hidden; text-align:left;}
 .sort-selection-div ul li:hover input{ padding:2px 0 2px 8px; cursor:pointer; background:#82888b; color:#fff;}
+
 .pos-top13 { top:13px; }
-.dealers-benefits-list .dealers-benefits-image, .dealers-benefits-list .dealers-benefits-title { display:inline-block; vertical-align:middle; }
-.dealers-benefits-list .dealers-benefits-title { width:85%; text-align:left; }
-.dealers-benefits-list li { margin-top:10px; padding: 0 5px; }
-.dealers-benefits-list li:first-child { margin-top:0; }
-.less-dealers-link { display:none; }
-#moreDealersList { display:none; padding-right:10px; padding-left:10px; overflow:hidden; }
-#moreDealersList li { padding-top:15px; padding-bottom:15px; border-bottom:1px solid #f1f1f1; }
-#moreDealersList a:hover { text-decoration:none; }
-.fa-chevron-up { width:10px; height:5px; background-position:-86px -162px; }
-.fa-chevron-down { width:10px; height:5px; background-position:-86px -167px; }
-.pagination-number { width:100%; bottom:2px; z-index:2; }
 .bike-model-gallery-count { background:rgba(49,49,49,0.7); padding:2px 10px; }
+
 .margin-bottom7 { margin-bottom:7px; }
 .border-light-top { border-top:1px solid #f1f1f1; }
 .tel-grey-icon { position:relative;top:2px; }
@@ -53,6 +50,7 @@
 #upDownArrow.fa-angle-down { transition: all 0.5s ease-in-out 0s; font-size: 20px; }
 .sort-div .fa-angle-down { transition: transform .3s; -moz-transition: transform .3s; -webkit-transition: transform .3s; -o-transition: transform .3s; -ms-transition: transform .3s; }
 .sort-div.open .fa-angle-down { -moz-transform: rotateZ(180deg); -webkit-transform: rotateZ(180deg); -o-transform: rotateZ(180deg); -ms-transform: rotateZ(180deg); transform: rotateZ(180deg); }
+
 .text-xt-light-grey {color :#a8afb3; }
 .block { display:block; width:100%; }
 .border-light-right { border-right:1px solid #e2e2e2; }
@@ -125,7 +123,7 @@
 
 .changeCity:hover { text-decoration:none }
 .loc-change-blue-icon { width:16px; height:16px; background-position:-195px -395px; position:relative; top:2px; }
-.loc-change-blue-icon:hover { background-position:-86px -278px; }
+.loc-change-blue-icon:hover { background-position:-84px -278px; }
 /**************/
 /* or text classes */
 .or-text:before { border-top: 1px solid #ccc; content: ""; left: 0; position: absolute; top: 18px; width: 100%;}
@@ -140,7 +138,6 @@
 
 .upcoming-text-label{background:#4c4c4c;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:-10px}
 .upcoming-text-label:after{content: "";background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=4Mar2016) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px;}
-.reviews-rating{width:45%;}
 #ctrlExpertReviews li{min-height:236px;height:auto;}
 #ctrlExpertReviews li .front{height:100%;}
 .view-breakup-text {cursor:pointer;color:#0288d1;}
@@ -687,5 +684,3 @@ a.btn:hover {
         font-size: 15px;
     }
 }
-
-/*.progress-bar { width:0; height:4px; background-color: #16A085; position:fixed; top:0; left:0; z-index:200; }*/
