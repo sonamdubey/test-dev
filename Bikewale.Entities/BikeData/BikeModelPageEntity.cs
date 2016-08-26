@@ -26,10 +26,6 @@ namespace Bikewale.Entities.BikeData
         [DataMember]
         public List<ModelImage> Photos { get; set; }
         [DataMember]
-        public int PhotosCount { get; set; } //Added by Aditi Srivastava
-        [DataMember]
-        public int VideosCount { get; set; } //Added by Aditi Srivastava
-        [DataMember]
         public Overview objOverview { get; set; }
         [DataMember]
         public Features objFeatures { get; set; }
