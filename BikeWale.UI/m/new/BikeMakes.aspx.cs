@@ -89,6 +89,7 @@ namespace Bikewale.Mobile
                 ctrlDealerCard.makeMaskingName = makeMaskingName;
                 ctrlDealerCard.makeName = _make.MakeName;
                 ctrlDealerCard.cityName = cityName;
+                ctrlDealerCard.PageName = "Make_Page";
 
                 ctrlDealerCard.TopCount = 6;
                 ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_MakePage_GetOffersFromDealer;

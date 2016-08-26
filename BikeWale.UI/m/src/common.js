@@ -9,13 +9,26 @@ var ga_pg_id = '0';
 
 function triggerGA(cat, act, lab) {
     try {
+        
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': cat, 'act': act, 'lab': lab });
     }
     catch (e) {// log error   
     }
 }
 
+function triggerNonInteractiveGA(cat, act, lab) {
+    try {
+        
+        dataLayer.push({ 'event': 'Bikewale_noninteraction', 'cat': cat, 'act': act, 'lab': lab });
+    }
+    catch (e) {// log error   
+    }
+}
+
+
+
 $('.bw-ga').click(function () {
+    
     try {
         var obj = $(this);
         if (obj.attr('l') !== undefined) {
@@ -102,10 +115,12 @@ function GetCatForNav() {
             case "15":
                 ret_category = "SpecsAndFeature";
                 break;
+            case "16":
+                ret_category = "Price_in_City_Page";
+                break;
             case "39":
                 ret_category = "BookingListing";
                 break;
-            
         }
     }
     return ret_category;
@@ -966,10 +981,16 @@ function slideChangeStart() {
 
                 if (options.source == '1') {
                     if (item.payload.modelId > 0) {
-                        if (item.payload.futuristic == 'False') {
-                            ulItem.append('<a pqSourceId="' + pqSourceId + '" modelId="' + item.payload.modelId + '" class="fillPopupData target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>');
+                        if (item.payload.futuristic == 'True') {
+                            ulItem.append('<span class="upcoming-link">coming soon</span>')                           
                         } else {
-                            ulItem.append('<span class="upcoming-link">coming soon</span>')
+                            if (item.payload.isNew == 'True') {
+                                ulItem.append('<a data-pqSourceId="' + pqSourceId + '" data-modelId="' + item.payload.modelId + '" class="getquotation target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>');
+                            }
+                            else {
+                                ulItem.append('<span class="upcoming-link">discontinued</span>')
+                            }
+                               
                         }
                     }
                 }
@@ -1147,30 +1168,6 @@ $(function () {
     });
 });
 
-$.fn.shake = function (options) {
-    var settings = {
-        'shakes': 2,
-        'distance': 10,
-        'duration': 400
-    };
-    if (options) {
-        $.extend(settings, options);
-    }
-    var pos;
-    return this.each(function () {
-        $this = $(this);
-        pos = $this.css('position');
-        if (!pos || pos === 'static') {
-            $this.css('position', 'relative');
-        }
-        for (var x = 1; x <= settings.shakes; x++) {
-            $this.animate({ left: settings.distance * -1 }, (settings.duration / settings.shakes) / 4)
-                .animate({ left: settings.distance }, (settings.duration / settings.shakes) / 2)
-                .animate({ left: 0 }, (settings.duration / settings.shakes) / 4);
-        }
-    });
-};
-
 //App Banner
 $(function () {
     var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
@@ -1253,7 +1250,10 @@ var appendHash = function (state) {
         case "locatorsearch":
             window.location.hash = state;
             break;
-        case "cityAreaPopup":
+        case "moreDealers":
+            window.location.hash = state;
+            break;
+        case "dealerOffers":
             window.location.hash = state;
             break;
         default:
@@ -1268,6 +1268,7 @@ var closePopUp = function (state) {
             break;
         case "onRoadPrice":
             closeOnRoadPricePopUp();
+            //cityArea.close();
             break;
         case "contactDetails":
             leadPopupClose();
@@ -1299,8 +1300,11 @@ var closePopUp = function (state) {
         case "locatorsearch":
             locatorSearchClose();
             break;
-        case "cityAreaPopup":
-            cityArea.close();
+        case "moreDealers":
+            popupDiv.close($('#more-dealers-popup'));
+            break;
+        case "dealerOffers":
+            popupDiv.close($('#dealer-offers-popup'));
             break;
         default:
             return true;
@@ -1343,13 +1347,16 @@ $(".bwm-city-area-popup-wrapper .back-arrow-box").on("click", function () {
     $(".user-input-box").stop().animate({ 'left': '100%' }, 500);
 });
 
-var locationFilter = function (filterContent) {
+
+var locationFilter = function (filterContent, wrapperMenu) {
+
     var inputText = $(filterContent).val();
     inputText = inputText.toLowerCase();
     var inputTextLength = inputText.length;
-    if (inputText != "") {
-        $(filterContent).parent("div.user-input-box").siblings("ul").find("li").each(function () {
-            var locationName = $(this).text().toLowerCase().trim();
+    if (inputTextLength > 0) {
+          
+        wrapperMenu.find("li").each(function () {
+            var locationName = $(this).text().toLowerCase();
             if (/\s/.test(locationName))
                 var splitlocationName = locationName.split(" ")[1];
             else
@@ -1360,45 +1367,19 @@ var locationFilter = function (filterContent) {
             else
                 $(this).hide();
         });
+
+        //listContainer = '#' + wrapperMenu.attr("id") + ' li';
+        //$(listContainer).each(function () {
+
+        //    showCurrentLi = $(this).text().toLowerCase().indexOf(inputText) > -1;
+
+        //    $(this).toggle(showCurrentLi);
+
     }
     else {
-        $(filterContent).parent("div.user-input-box").siblings("ul").find("li").each(function () {
-            $(this).show();
-        });
+        $(filterContent).parent("div.user-input-box").siblings("ul").find("li").show(); 
     }
 };
-
-$("#popupCityInput, #popupAreaInput").on("keyup", function () {
-    locationFilter($(this));
-});
-
-/**
-* JavaScript Client Detection
-* (C) viazenetti GmbH (Christian Ludwig)
-*/
-var oprBrowser = false;
-(function (window) {
-
-    // browser
-    var nAgt = navigator.userAgent;
-    var browser = navigator.appName;
-    var verOffset;
-
-    // Opera Mini
-    //if ((verOffset = nAgt.indexOf('Mini')) != -1) {
-    if ((/Mini/gi).test(nAgt)) {
-        browser = 'Opera Mini';
-        oprBrowser = true;
-    }
-    window.jscd = {
-        browser: browser,
-    };
-
-    if (oprBrowser) {
-        //alert("Opera Mini browser!");
-    }
-
-}(this));
 
 var Base64 = {
     _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
@@ -1582,3 +1563,104 @@ function formatPrice(x) { try { x = x.toString(); var lastThree = x.substring(x.
     window.errorLog = errorLog;
 })();
 
+$('#city-area-popup .white-back-arrow').on('click', function () {
+    cityArea.close();
+    window.history.back();
+});
+
+$('#city-area-content').on('click', '#city-menu-tab', function () {
+    var tab = $(this),
+        tabParent = tab.parent('.city-area-menu'),
+        cityAreaContent = $('#city-area-content');
+
+    if (cityAreaContent.hasClass('city-selected')) {
+        var areaMenu = $('#area-menu');
+
+        if (!tabParent.hasClass('open')) {
+            cityArea.openList(tabParent);
+            cityArea.closeList(areaMenu);
+            areaMenu.hide();
+        }
+        else {
+            cityArea.closeList(tabParent);
+            areaMenu.show();
+            cityArea.openList(areaMenu);
+        }
+    }
+});
+
+/*
+$(".inputbox-list-wrapper").on("click", "li", function () {
+    var item = $(this);
+    if (!item.hasClass('active')) {
+        cityArea.setSelection(item);
+    }
+});
+*/
+
+var cityArea = {
+    popup: $('#city-area-popup'),
+
+    open: function () {
+        cityArea.popup.show();
+        $('body, html').addClass('lock-browser-scroll');
+    },
+
+    close: function () {
+        cityArea.popup.hide();
+        $('body, html').removeClass('lock-browser-scroll');
+    },
+
+    openList: function (wrapper) {
+        wrapper.find('.inputbox-list-wrapper').slideDown();
+        wrapper.addClass('open');
+    },
+
+    closeList: function (wrapper) {
+        wrapper.find('.inputbox-list-wrapper').slideUp();
+        wrapper.removeClass('open');
+    },
+
+    setSelection: function (item) {
+        var selectionText = item.text(),
+            wrapper = item.closest('.city-area-menu');
+
+        wrapper.find('li').removeClass('active');
+        item.addClass('active');
+        cityArea.setLabel(selectionText, wrapper);
+    },
+
+    setLabel: function (itemText, wrapper) {
+        var tabLabel = wrapper.find('.city-area-tab-label');
+
+        if (wrapper.attr('id') == 'city-menu') {
+            var areaMenu = $('#area-menu');
+            $('#city-area-content').addClass('city-selected');
+            tabLabel.text('City: ' + itemText);
+            cityArea.closeList(wrapper);
+            cityArea.resetLabel('Select your area', areaMenu);
+            areaMenu.show();
+            cityArea.openList(areaMenu);
+            areaMenu.find('li').removeClass('active');
+        }
+        else {
+            tabLabel.text('Area: ' + itemText);
+            $('#city-area-popup .white-back-arrow').trigger('click');
+        }
+    },
+
+    resetLabel: function (message, wrapper) {
+        wrapper.find('.city-area-tab-label').text(message);
+    },
+}
+
+
+$('#city-menu-input').on('focus click', function (event) {
+    event.stopPropagation();
+    $("#city-area-popup").animate({ scrollTop: 147 });
+});
+
+$('#area-menu-input').on('focus click', function (event) {
+    event.stopPropagation();
+    $("#city-area-popup").animate({ scrollTop: 190 });
+});

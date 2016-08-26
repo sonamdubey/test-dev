@@ -12,7 +12,7 @@ namespace Bikewale.Mobile.Controls
     {
         public Repeater rptAlternateBikes;
         public int VersionId { get; set; }
-
+        public string modelName { get; set; }
         private int _topCount = 6;
         public int TopCount
         {

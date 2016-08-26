@@ -38,15 +38,11 @@ header { width:100%; height:50px; }
 #makeTabsContentWrapper h3 { margin-bottom:12px; }
 .model-preview-more-content { display:none; }
 .border-divider { border-top:1px solid #e2e2e2; }
-.news-image-wrapper { width:148px; height:83px; border:1px solid #e2e2e2; display:inline-block; vertical-align:top; margin-right:15px; overflow:hidden; }
-.review-image-wrapper { width:120px; height:68px; border:1px solid #e2e2e2; display:inline-block; vertical-align:top; margin-right:15px; }
+.news-image-wrapper { width:148px; height:83px; border:1px solid #e2e2e2; display:inline-block; vertical-align:top; margin-right:10px; overflow:hidden; }
+.review-image-wrapper { width:120px; height:68px; border:1px solid #e2e2e2; display:inline-block; vertical-align:top; margin-right:10px; }
 .news-image-wrapper a, .review-image-wrapper a { width:100%; display:block; }
-.news-image-wrapper img, .review-image-wrapper img { width:100%; }
-#makeNewsList { overflow:hidden; margin-bottom:15px; }
+.news-image-wrapper img, .review-image-wrapper img { width:100%; height: 68px; }
 .blue-right-arrow-icon { width:10px; height:12px; background-position:-56px -435px; position:relative; top:1px; left:7px; }
-.red-bullet-point { padding-left: 15px; background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjZDQ0U3NDI2MTVBQjExRTY4QzVGQ0EyRjFCREI2NzRFIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjZDQ0U3NDI3MTVBQjExRTY4QzVGQ0EyRjFCREI2NzRFIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NkNDRTc0MjQxNUFCMTFFNjhDNUZDQTJGMUJEQjY3NEUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NkNDRTc0MjUxNUFCMTFFNjhDNUZDQTJGMUJEQjY3NEUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz73rpDzAAAARElEQVR42mJ8b2/AxsDA0A3EMUDMCMSLgbiUBUh0AXEeAwKA2N+ZgEQsAyZIZWLAAZigZqKDOSA7yqCWwowEKawFCDAAYb0Jxr5ZaeYAAAAASUVORK5CYII=') no-repeat 0 8px; }
-#makeNewsList li { margin-top:10px; }
-#makeNewsList li:first-child { margin-top:0; }
 #makeNewsContent .news-heading-wrapper h4, #makeReviewsContent .review-heading-wrapper h4, #makeReviewsContent .make-user-review-title-container h4 { margin-top:2px; margin-bottom:7px; }
 .news-heading-wrapper { width:47%; display:inline-block; vertical-align:top; }
 .review-heading-wrapper { width: 55%; display:inline-block; vertical-align:top; }
@@ -54,18 +50,18 @@ header { width:100%; height:50px; }
 .make-user-review-rating-container { width:120px; height:68px; border:1px solid #e2e2e2; background:#f9f9f9; padding-top:10px; text-align:center;display:inline-block; vertical-align:top; margin-right:15px;}
 .make-user-review-title-container { width:55%; display:inline-block; vertical-align:top;}
 .dealer-city-image-preview { height: 75px; display:block; text-align:center; margin-bottom:25px; }
- .city-sprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite.png) no-repeat; display: inline-block; }
- .mumbai-icon, .pune-icon, .bangalore-icon, .delhi-icon, .chennai-icon, .hyderabad-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon { height: 70px; }
- .mumbai-icon { width: 98px; background-position: 0 0; }
- .pune-icon { width: 140px; background-position: -108px 0; }
- .bangalore-icon { width: 102px; background-position: -258px 0; }
- .delhi-icon { width: 54px; background-position: -370px 0; }
- .chennai-icon { width: 41px; background-position: -434px 0; }
- .hyderabad-icon { width: 49px; background-position: -485px 0; }
- .kolkata-icon { width: 138px; background-position: -544px 0; }
- .lucknow-icon { width: 132px; background-position: -692px 0; }
- .ahmedabad-icon { width: 0px; background-position: 0 0; }
- .chandigarh-icon { width: 0px; background-position: 0 0; }
+.city-sprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite.png) no-repeat; display: inline-block; }
+.mumbai-icon, .pune-icon, .bangalore-icon, .delhi-icon, .chennai-icon, .hyderabad-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon { height: 70px; }
+.mumbai-icon { width: 98px; background-position: 0 0; }
+.pune-icon { width: 140px; background-position: -108px 0; }
+.bangalore-icon { width: 102px; background-position: -258px 0; }
+.delhi-icon { width: 54px; background-position: -370px 0; }
+.chennai-icon { width: 41px; background-position: -434px 0; }
+.hyderabad-icon { width: 49px; background-position: -485px 0; }
+.kolkata-icon { width: 138px; background-position: -544px 0; }
+.lucknow-icon { width: 132px; background-position: -692px 0; }
+.ahmedabad-icon { width: 0px; background-position: 0 0; }
+.chandigarh-icon { width: 0px; background-position: 0 0; }
 #makeUsedBikeContent li { margin-top:20px; }
 #makeUsedBikeContent li:first-child { margin-top:0; }
 #makeDealersContent h2 { margin-bottom:20px; }

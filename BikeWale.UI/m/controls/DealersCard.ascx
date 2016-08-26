@@ -24,8 +24,8 @@
                         <a href="mailto:<%# DataBinder.Eval(Container.DataItem,"Email") %>" class="text-light-grey <%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Email").ToString()))?"hide":"block" %>"><span class="bwmsprite mail-grey-icon vertical-top"></span><span class="text-truncate vertical-top dealership-email"><%# DataBinder.Eval(Container.DataItem,"Email") %></span></a>
                         <% if (!IsDiscontinued)
                            { %>
-                        <input type="button" data-leadsourceid="<%= LeadSourceId %>" data-pqsourceid="<%= PQSourceId %>" data-item-name="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-item-area="<%# (DataBinder.Eval(Container.DataItem,"objArea")!=null) ? DataBinder.Eval(Container.DataItem,"objArea.AreaName") : "" %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>"
-                            data-camp-id="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>" class="margin-top15 btn btn-white font14 leadcapturebtn <%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>" value="Get offers" />
+                        <input type="button" c="<%=PageName %>" a="Get_Offers_Clicked" l="<%= string.Format("{0}_{1}", makeName, cityName)%>" data-ga-cat="<%=PageName %>" data-ga-act="Lead_Submitted" data-ga-lab="lead_label" data-leadsourceid="<%= LeadSourceId %>" data-pqsourceid="<%= PQSourceId %>" data-item-name="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-item-area="<%# (DataBinder.Eval(Container.DataItem,"objArea")!=null) ? DataBinder.Eval(Container.DataItem,"objArea.AreaName") : "" %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>"
+                            data-camp-id="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>" class="bw-ga margin-top15 btn btn-white font14 leadcapturebtn <%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>" value="Get offers" />
                         <%} %>
                     </div>
                 </ItemTemplate>
@@ -37,7 +37,10 @@
         <a href="/m<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>">View all dealers<span class="bwmsprite blue-right-arrow-icon font14"></span></a>
     </div>
 </div>
-<script>$('.dealer-details-main-content').on('click', function () { $(this).hide(); $(this).next('.dealer-details-more-content').show(); });</script>
+<script>
+    $('.dealer-details-main-content').on('click', function () { $(this).hide(); $(this).next('.dealer-details-more-content').show(); });
+    
+</script>
 <% }
        else
        { %>

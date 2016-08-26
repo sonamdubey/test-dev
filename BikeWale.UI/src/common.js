@@ -18,6 +18,7 @@ function triggerGA(cat, act, lab) {
     }
 }
 $('.bw-ga').click(function () {
+  
     try {
         var obj = $(this);
         if (obj.attr('l') !== undefined) {
@@ -429,9 +430,6 @@ $(function () {
     if (typeof (testimonialSlider) != 'undefined') {
         _target = 1;
     }
-    if (typeof (modelPriceByVersionSlider) != 'undefined') {
-        _target = 2;
-    }
     var jcarousel = $('.jcarousel').jcarousel({
         vertical: false
     });
@@ -607,6 +605,7 @@ function pushNavMenuAnalytics(menuItem) {
                     if (!(cacheProp in cache) && reqTerm.length > 0) {
                         var indexToHit = options.source;
                         var count = options.recordCount;
+                        
                         var path = "/api/AutoSuggest/?source=" + indexToHit + "&inputText=" + encodeURIComponent(reqTerm) + "&noofrecords=" + count;
                         cache[cacheProp] = new Array();
                         $.ajax({
@@ -673,10 +672,15 @@ function pushNavMenuAnalytics(menuItem) {
 
                 if (options.source == '1') {
                     if (item.payload.modelId > 0) {
-                        if (item.payload.futuristic == 'False') {
-                            ulItem.append('<a href="#" pqSourceId="' + pqSourceId + '" modelId="' + item.payload.modelId + '" class="fillPopupData target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>');
+                        if (item.payload.futuristic == 'True') {
+                            ulItem.append('<span class="upcoming-link">coming soon</span>')
                         } else {
-                            ulItem.append('<span class="upcoming-link">coming soon</span>');
+                            if (item.payload.isNew == 'True') {
+                                ulItem.append('<a pqSourceId="' + pqSourceId + '" modelId="' + item.payload.modelId + '" class="fillPopupData target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>');
+                            } else {
+                                ulItem.append('<span class="upcoming-link">discontinued</span>')
+                            }
+
                         }
 
                         ulItem.append('<div class="clear"></div>');

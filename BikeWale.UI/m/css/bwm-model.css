@@ -43,7 +43,7 @@
 .tel-grey-icon { position:relative;top:2px; }
 #model-image-wrapper .model-main-image { background-color: #fff; max-width: 476px; margin: 0 auto; min-height: 180px; max-height: 268px; position: relative; text-align: center; }
 #model-image-wrapper .model-media-details { position: absolute; right: 15px; bottom: 10px; font-size: 12px; }
-.model-media-item { display:inline-block; vertical-align: middle; padding: 3px 5px 0; color: #82888b; background: rgba(240, 240, 240, 0.8); border-radius: 2px; }
+.model-media-item { display:inline-block; vertical-align: middle; padding: 5px 5px 3px; color: #82888b; background: rgba(240, 240, 240, 0.8); border-radius: 2px; }
 .model-media-item:hover { text-decoration:none; }
 .model-media-count { position: relative; top: -1px; }
 .gallery-photo-icon, .gallery-video-icon { height: 12px; }
@@ -67,28 +67,7 @@
 .viewMoreOffersBtn { cursor: pointer; color: #0288d1; margin-left:25px; }
 .viewBreakupText { cursor: pointer; color: #0288d1; margin-top:3px; }
 .breakup-header { width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:left; }
-.pricequote-sprite { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/pricequote-sprite.png?v1=11Mar2016v1) no-repeat; display: inline-block; }
-.offers-insurance-icon, .offers-voucher-icon, .offers-pickup-icon { width:30px; }
-.offers-insurance-icon { height:30px; background-position:0 0; }
-.offers-voucher-icon { height:24px; background-position:-39px 0; }
-.offers-pickup-icon { height:30px; background-position:-79px 0; }
-
-.offers-sprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v2=8Aug2016) no-repeat; display: inline-block; }
-.benifitIcon_1, .benifitIcon_2, .benifitIcon_3, .benifitIcon_4, .benifitIcon_5 { width:18px; }
-.offerIcon_1 , .offerIcon_2 , .offerIcon_3 , .offerIcon_4 , .offerIcon_5, .offerIcon_6, .offerIcon_7 { width:30px; }
-.benifitIcon_1 { height:16px; background-position:-46px -142px; }
-.benifitIcon_2 { height:18px; background-position:-46px -168px; }
-.benifitIcon_3 { height:14px; background-position:-46px -196px; }
-.benifitIcon_4 { height:16px; background-position:-46px -220px; }
-.benifitIcon_5 { height:18px; background-position:-46px -246px; }
-.offerIcon_1 { height:30px; background-position:0 -92px; }
-.offerIcon_2 { height:24px; background-position:0 -132px; }
-.offerIcon_3 { height:30px; background-position:0 -166px; }
-.offerIcon_4 { height:30px; background-position:0 -206px; }
-.offerIcon_5 { height:30px; background-position:0 -246px; }
-.offerIcon_6 { height:22px; background-position:0 -286px; }
-.offerIcon_7 { height:28px; background-position:0 -318px; }
-
+.offers-sprite {background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v23Aug2016) no-repeat; display: inline-block;}
 #otpPopup { display:none; }
 .user-contact-details-icon { width:36px; height:44px; background-position: -107px -227px; }
 .otp-icon { width:30px; height:40px; background-position: -107px -177px; }
@@ -144,19 +123,9 @@
 .color-box.red {background:#f00;}
 .color-box.blue {background:#3749a4;}
 
-.loc-change-blue-icon { width:12px; height:16px; background-position:-197px -395px; position:relative; top:2px; }
+.changeCity:hover { text-decoration:none }
+.loc-change-blue-icon { width:16px; height:16px; background-position:-195px -395px; position:relative; top:2px; }
 .loc-change-blue-icon:hover { background-position:-86px -278px; }
-
-/*benefits*/
-#benefitsOfBookingContainer { padding:20px 20px 10px; background:#f5f5f5; }
-#benefitsOfBookingContainer ul { overflow:hidden; }
-#benefitsOfBookingContainer li { padding:20px 5px 16px; border-top:1px solid #e2e2e2; }
-#benefitsOfBookingContainer li:first-child { border-top:none; }
-#benefitsOfBookingContainer li .benefits-item { display:inline-block; vertical-align:top; }
-#benefitsOfBookingContainer li.benefits-dealer-visits { padding-left:0; padding-right:0; }
-#benefitsOfBookingContainer li.benefits-dealer-visits .benefits-item { display:inline-block; vertical-align:middle; }
-#benefitsOfBookingContainer .benefits-item p { color:#4d5057; line-height:16px; margin-bottom:5px;font-weight:bold;font-size:18px }
-
 /**************/
 /* or text classes */
 .or-text:before { border-top: 1px solid #ccc; content: ""; left: 0; position: absolute; top: 18px; width: 100%;}
@@ -227,10 +196,10 @@
 #modelOverallSpecsTopContent { height:44px; }
 #modelSpecsTabsContentWrapper .overall-specs-tabs-wrapper li.active h3 { font-weight:bold; }
 #modelSpecsTabsContentWrapper h2 { margin-bottom:13px; }
-#modelSpecsTabsContentWrapper h3 { margin-bottom:12px; }
+#modelSpecsTabsContentWrapper h3, #modelSpecsTabsContentWrapper #modelSpecsFeaturesContent .model-specs-header { margin-bottom:12px; }
 #modelSpecsFeaturesContent h3, #modelReviewsContent h3.model-section-subtitle { margin-bottom:20px; }
 .model-preview-more-content { display:none; }
-.content-inner-block-1520 { padding:15px 20px; } 
+.padding-15-20 { padding:15px 20px; } 
 .content-inner-block-1222 { padding:15px 20px 20px; }
 .summary-overview-box{text-align:left; padding:0; display:inline-block; margin:auto; clear:both;}
 .summary-overview-box > div {width:49%; float:left; padding:7px 0 10px; position:relative;}
@@ -247,9 +216,6 @@
 .specs-mileage-icon { height:24px; background-position:-46px -30px; }
 .specs-maxpower-icon { height:30px; background-position:-46px -62px; }
 .specs-weight-icon { height:30px; background-position:-46px -102px; }
-.model-prices-version-content { width:292px; height:154px; border:1px solid #e2e2e2; background:#fff; padding:18px 10px; }
-.model-prices-version-content a {color:#0288d1;font-size:14px;font-weight:400; margin-bottom:10px;display:block;}
-.model-prices-version-contentt a:hover {color:#0288d1;}
 .margin-bottom13 { margin-bottom:13px; }
 .text-truncate { width:100%; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
 .swiper-wrapper .swiper-slide:first-child { margin-left:10px; }
@@ -260,30 +226,44 @@
 .prices-by-cities-list li a { width:50%; }
 .prices-by-cities-list li .price-in-city-price { width:45%; color:#2a2a2a; }
 .prices-by-cities-list, #modelSpecsFeaturesContent ul { overflow:hidden;}
-#modelSpecsList li, #modelFeaturesList li { width:100%; float:left; margin-top:20px; }
-#modelSpecsList li:first-child, #modelFeaturesList li:first-child { margin-top:0; }
-#modelSpecsList li div, #modelFeaturesList li div {width:50%; float:left; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
-#modelSpecsList li:first-child, #modelFeaturesList li:first-child {  }
+/* model specs and features */
+.model-accordion-tab { padding:10px 20px; position: relative; border-bottom: 1px solid #e2e2e2; cursor: pointer; }
+#model-specs-list > li:first-child .model-accordion-tab { border-top: 1px solid #e2e2e2; }
+.model-accordion-tab .fa-angle-down { position: absolute; right: 20px; top: 17px; transition: transform .3s; -moz-transition: transform .3s; -webkit-transition: transform .3s; -o-transition: transform .3s; -ms-transition: transform .3s; }
+.model-accordion-tab.active .fa-angle-down { -moz-transform: rotateZ(180deg); -webkit-transform: rotateZ(180deg); -o-transform: rotateZ(180deg); -ms-transform: rotateZ(180deg); transform: rotateZ(180deg); }
+.model-accordion-tab.brakes-accordion-tab { padding-top: 7px; padding-bottom: 8px; }
+.model-accordion-tab.active + .specs-features-list { display: block }
+.engine-sm-icon, .brakes-sm-icon, .dimension-sm-icon, .fuel-sm-icon { width:20px; }
+.engine-sm-icon { height: 13px; background-position: -46px -274px;}
+.brakes-sm-icon { height: 20px; background-position: -46px -294px; position:relative; top:3px;}
+.dimension-sm-icon { height: 14px; background-position: -46px -323px;}
+.fuel-sm-icon { height: 16px; background-position: -46px -344px;}
+.specs-features-list { display: none; padding-right:20px; padding-bottom:10px; padding-left:20px; border-bottom: 1px solid #e2e2e2; }
+.specs-features-list li { width:100%; float:left; margin-top:20px; }
+.specs-features-list li:first-child { margin-top:10px; }
+.specs-features-list li div {width:50%; float:left; padding-right: 5px; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
+.specs-features-list.model-features-list { display: block; border-bottom: none; }
+.specs-features-list.model-features-list li:first-child { margin-top:0; }
+#model-more-features-list { display:none; margin-top:10px; }
+
 .blue-right-arrow-icon { width:6px; height:10px; background-position:-58px -437px; position:relative; top:1px; left:7px; }
 #modelColorsList li { width:100%; margin-top:20px; }
 #modelColorsList li:first-child { margin-top:0; }
 #modelColorsList li p { width:75%; }
-#modelSpecsFeaturesContent .color-box { width:44px; height:44px; margin-right:20px; background: #f1f1f1; border: 1px solid #e2e2e2; }
+#modelColoursContent .color-box { width:44px; height:44px; margin-right:15px; background: #f1f1f1; border: 1px solid #e2e2e2; }
 .color-box.color-count-one span { width:100%; height:100%; display:block !important; background:#f1f1f1; }  
 .color-box.color-count-two span { width:100%; height:50%; display:block !important; background:#f1f1f1; } 
 .color-box.color-count-three span { width:100%; height:33.33%; display:block !important; }
 .news-image-wrapper { width:148px; height:83px; border:1px solid #e2e2e2; display:inline-block; vertical-align:top; margin-right:15px; }
 .news-image-wrapper a { width:148px; height:83px; display:table-cell; vertical-align:middle; text-align:center; }
 .news-image-wrapper img { width:148px; height:83px;}
-.review-image-wrapper a { width:100%; height:100%; display:block; }
-.review-image-wrapper img { width:100%; }
-#makeNewsList { overflow:hidden; }
-#makeNewsList li { margin-bottom: 15px; }
+.review-image-wrapper a { width:100%; display:block; }
+.review-image-wrapper img { width:100%; height: 68px; }
 .news-heading-wrapper { width:47%; display:inline-block; vertical-align:top; }
-.review-image-wrapper { width:120px; height:68px; border:1px solid #e2e2e2; display:inline-block; vertical-align:top; margin-right:15px; }
+.review-image-wrapper { width:120px; height:68px; border:1px solid #e2e2e2; display:inline-block; vertical-align:top; margin-right:10px; }
 .review-heading-wrapper { width: 55%; display:inline-block; vertical-align:top; }
 .margin-top17 { margin-top:17px; }
-.model-user-review-rating-container { width:120px; height:68px; border:1px solid #e2e2e2; background:#f9f9f9; padding-top:10px; text-align:center;display:inline-block; vertical-align:top; margin-right:15px;}
+.model-user-review-rating-container { width:120px; height:68px; border:1px solid #e2e2e2; background:#f9f9f9; padding-top:10px; text-align:center;display:inline-block; vertical-align:top; margin-right:10px;}
 .model-user-review-title-container { width:55%; display:inline-block; vertical-align:top;}
 #modelAlternateBikeContent .swiper-slide { width:186px; min-height:240px; border:1px solid #e2e2e2\9; background:#fff; -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.2); -moz-box-shadow: 0 1px 4px rgba(0,0,0,0.2); -ms-box-shadow: 0 1px 4px rgba(0,0,0,0.2); box-shadow: 0 1px 4px rgba(0,0,0,0.2); -webkit-border-radius:2px; -moz-border-radius:2px; -ms-border-radius:2px; border-radius:2px; }
 #modelAlternateBikeContent .swiper-slide h3 {  margin-bottom:7px; }
@@ -293,10 +273,13 @@
 .btn-x-sm { padding:8px 14px; color:#4d5057; }
 #modelForSaleContent li { margin-top:20px; }
 #modelForSaleContent li:first-child { margin-top:0; }
-.red-bullet-point { padding-left: 15px; background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjZDQ0U3NDI2MTVBQjExRTY4QzVGQ0EyRjFCREI2NzRFIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjZDQ0U3NDI3MTVBQjExRTY4QzVGQ0EyRjFCREI2NzRFIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NkNDRTc0MjQxNUFCMTFFNjhDNUZDQTJGMUJEQjY3NEUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NkNDRTc0MjUxNUFCMTFFNjhDNUZDQTJGMUJEQjY3NEUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz73rpDzAAAARElEQVR42mJ8b2/AxsDA0A3EMUDMCMSLgbiUBUh0AXEeAwKA2N+ZgEQsAyZIZWLAAZigZqKDOSA7yqCWwowEKawFCDAAYb0Jxr5ZaeYAAAAASUVORK5CYII=') no-repeat 0 25%; }
 .float-button .btn { padding: 8px 0; font-size: 18px;}
 .btn-green {background: #1b9618;color: #fff;border: 1px solid #1b9618;}
 .btn-green:focus {background: #008b08;border: 1px solid #008b08;}
+.divider-bottom { border-bottom:1px solid #eee; }
+.view-features-link { position: relative; display:block; }
+.view-features-link:before { content: ''; width: 100%; height: 20px; position:absolute; top:-40px; left: 0; z-index: 1; background: -webkit-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%); background: -moz-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%); background: -o-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%); background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%);}
+.view-features-link.active:before { content: none; }
 
 @media all and (max-width: 350px) {
     .summary-overview-box > div.odd{padding-left:0;}
@@ -304,3 +287,405 @@
     .review-heading-wrapper, .model-user-review-title-container { width:50%; }
     .news-heading-wrapper { width:40%; }
 }
+
+.elevated-shadow {
+    position:relative;
+    top:1px;
+    -moz-box-shadow: 0 0 7px #ccc;
+    -webkit-box-shadow: 0 0 7px #ccc;
+    -o-box-shadow: 0 0 7px #ccc;
+    -ms-box-shadow: 0 0 7px #ccc;
+    box-shadow: 0 0 7px #ccc;
+}
+
+.dropdown-select {
+	display: none;
+}
+
+.dropdown-menu {
+	width: 100%;
+    height: 20px;
+    min-width: 125px;
+	font-size: 14px;
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	color: #4d5057;
+}
+
+.single-version-label {
+	padding: 5px 30px 5px 9px;
+	font-weight: bold;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.dropdown-menu .dropdown-label, .dropdown-menu .dropdown-selected-item {
+	width: 100%;
+	font-weight: bold;
+	background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.dropdown-menu .dropdown-selected-item {
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.dropdown-menu .dropdown-label {
+    padding-right: 30px;
+    padding-left: 9px;
+}
+
+.dropdown-menu .dropdown-selected-item {
+    padding: 5px 30px 5px 9px;
+}
+
+.dropdown-menu .dropdown-label {
+	cursor: pointer;
+	display: inline-block;
+	z-index: 0;
+}
+
+.dropdown-menu .dropdown-list-wrapper {
+	display: none;
+	min-width: 170px;
+	overflow:hidden;
+	position: absolute;
+	top: 3px;
+	left: 0;
+	background: #fff;
+	z-index: 1;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-o-border-radius: 2px;
+	-ms-border-radius: 2px;
+	border-radius: 2px;
+	border: 1px solid #e2e2e2\9;
+	-webkit-box-shadow: -3px 3px 15px 1px #ddd;
+	-moz-box-shadow: -3px 3px 15px 1px #ddd;
+	-ms-box-shadow: -3px 3px 15px 1px #ddd;
+	-o-box-shadow: -3px 3px 15px 1px #ddd;
+	box-shadow: -3px 3px 15px 1px #ddd;
+}
+
+.dropdown-menu.dropdown-active .dropdown-list-wrapper {
+	display: inline-block;
+}
+
+.dropdown-menu .dropdown-menu-list {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.dropdown-menu .dropdown-menu-list li {
+	padding: 5px 10px;
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+.dropdown-menu .dropdown-with-select li:hover {
+	background: #eee;
+}
+
+.selected-location-label.text-truncate {
+    width: 84%;
+}
+
+.padding-10-20 {
+    padding:10px 20px;
+}
+
+#model-dealer-card {
+    padding-top: 15px;
+    margin-right: 20px;
+    margin-left: 20px;
+    border-top: 1px solid #eee;
+}
+
+#model-dealer-card .offers-content-label {
+    width: 64px;
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: middle;
+    position:relative;
+    top:-5px;
+}
+
+#dealer-offers-list {
+    width: 78%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#dealer-offers-list li {
+    width: 76px;
+    height: 70px;
+    text-align:center;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    float: left;
+    cursor: pointer;
+    font-size: 11px;
+    border: 1px solid #f5f5f5;
+    -webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-o-border-radius: 2px;
+	-ms-border-radius: 2px;
+	border-radius: 2px;
+	border: 1px solid #e2e2e2\9;
+    -webkit-box-shadow: 1px 1px 1px #ddd;
+	-moz-box-shadow: 1px 1px 1px #ddd;
+	-ms-box-shadow: 1px 1px 1px #ddd;
+	-o-box-shadow: 1px 1px 1px #ddd;
+	box-shadow: 1px 1px 1px #ddd;
+}
+
+#dealer-offers-list li:first-child {
+    margin-left: 0;
+}
+
+#dealer-offers-list .more-offers-card {
+    background-color: #f9f9f9;
+}
+
+.vertical-top {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.inr-grey-xxxsm-icon {
+    width: 7px;
+    height: 10px;
+    background-position: -94px -136px;
+}
+
+.btn-sm-0 {
+    padding: 5px 21px;
+    font-size: 14px;
+}
+
+.btn-teal {
+    background: #41b4c4;
+    color: #fff;
+    border: 1px solid #41b4c4;
+}
+a.btn:hover {
+    text-decoration: none;
+}
+
+.line-height-1-7 {
+    line-height: 1.7;
+}
+
+.booknow-label {
+    width: 64%;
+    padding-left: 10px;
+    position:relative;
+    top:-3px;
+}
+
+.callback-btn.btn-sm-0 {
+    padding: 5px 28px;
+}
+
+.callback-label {
+    width: 46%;
+    padding-left: 10px;
+    position:relative;
+    top:-3px;
+}
+
+.nearby-partner-left-col {
+    width: 45%;
+    max-width: 260px;
+    margin-right: 5px;
+}
+
+.nearby-partner-label {
+    width: 73%;
+}
+
+#more-dealers-popup.bwm-fullscreen-popup, #dealer-offers-popup.bwm-fullscreen-popup {
+    padding: 30px 25px;
+    display: none;
+}
+
+.icon-outer-container {
+    width: 72px;
+    height: 72px;
+}
+
+.icon-inner-container {
+    width: 64px;
+    height: 64px;
+    margin: 3px auto;
+}
+
+.margin-top12 {
+    margin-top:12px;
+}
+
+.secondary-dealer-card a {
+    width: 308px;
+    min-height: 102px;
+    padding: 10px 10px 20px;
+    -webkit-box-shadow: 0 1px 7px 0 #ccc;
+    -moz-box-shadow: 0 1px 7px 0 #ccc;
+    box-shadow: 0 1px 7px 0 #ccc;
+    border-radius: 2px;
+    border: 1px solid #ccc\9;
+    display: block;
+}
+
+.secondary-dealer-card a:hover {
+    text-decoration:none;
+}
+
+.secondary-dealer-card {
+    margin-top: 10px;
+}
+
+.secondary-dealer-card:first-child {
+    margin-top: 0;
+}
+
+#more-dealers-popup ul {
+    max-width: 310px;
+    margin: 0 auto;
+}
+
+.offers-sm-box-icon {
+    width: 16px;
+    height: 16px;
+    background-position: -183px -460px;
+    position: relative;
+    top: 1px;
+}
+
+.tel-sm-icon {
+    width: 15px;
+    height: 12px;
+    background-position: -88px -324px;
+    position: relative;
+    top: 2px;
+}
+
+.offers-box-icon {
+    width: 34px;
+    height: 37px;
+    background-position: 0 0;
+}
+
+.emi-calc-icon {
+    width: 34px;
+    height: 35px;
+    background-position: 0 -47px;
+}
+
+.dealership-icon-wrapper {
+    height: 22px;
+}
+
+.dealership-icon {
+    width:29px;
+    height:22px;
+    background-position:0 -356px;
+}
+
+.margin-bottom7 {
+    margin-bottom: 7px
+}
+
+.offerIcon_1_sm , .offerIcon_2_sm , .offerIcon_3_sm , .offerIcon_4_sm , .offerIcon_5_sm, .offerIcon_6_sm, .offerIcon_7_sm { width:30px; height:29px; }
+.offerIcon_1_sm { background-position:0 -93px; }
+.offerIcon_2_sm { background-position:0 -132px; }
+.offerIcon_3_sm { background-position:0 -166px; }
+.offerIcon_4_sm { background-position:0 -207px; }
+.offerIcon_5_sm { background-position:0 -246px; }
+.offerIcon_6_sm { background-position:0 -283px; }
+.offerIcon_7_sm { background-position:0 -317px; }
+
+#dealer-offers-popup .btn {
+    padding: 8px 19px;
+}
+
+.dealer-offers-list .dealer-offer-image, .dealer-offers-list .dealer-offer-label {
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.dealer-offers-list .dealer-offer-label {
+    width:85%;
+    font-size:14px;
+    text-align:left;
+    padding-left:10px;
+}
+
+.dealer-offers-list li {
+    padding-top:20px;
+}
+
+.dealer-offers-list li:first-child {
+    padding-top:0;
+}
+
+.fullwidth{
+    width: 100%;
+    text-align: left;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 320px) {
+    .selected-location-label.text-truncate {
+        width: 82%;
+    }
+
+    .booknow-label, .callback-label {
+        width: 100%;
+        padding-left: 0;
+        margin-top: 5px;
+        top:0;
+    }
+
+    .nearby-partner-left-col {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .nearby-partner-label {
+        width: 85%;
+    }
+
+    #model-dealer-card .offers-content-label {
+        vertical-align: top;
+        top:0;
+    }
+
+    #dealer-offers-list {
+        width:75%;
+        vertical-align:top;
+    }
+
+    #dealer-offers-list li {
+        margin-left: 0;
+        margin-right: 10px;
+    }
+
+    #more-dealers-popup.bwm-fullscreen-popup {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .float-button .btn {
+        font-size: 15px;
+    }
+}
+
+/*.progress-bar { width:0; height:4px; background-color: #16A085; position:fixed; top:0; left:0; z-index:200; }*/

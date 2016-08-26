@@ -21,7 +21,7 @@
         AdId = "1442913773076";
         isAd970x90Shown = true;
         isAd300x250BTFShown = false;
-        
+
         keywords = string.Format("{0}, {0} Bikes , {0} Bikes prices, {0} Bikes reviews, new {0} Bikes", _make.MakeName);
     %>
     <!-- #include file="/includes/headscript.aspx" -->
@@ -251,8 +251,16 @@
         </section>
 
         <script>
-            
+
             $(document).ready(function () {
+                $('#user-details-submit-btn').click(function () {
+                    var bikeName = $('#getLeadBike :selected').text();
+                    if (bikeName != 'Select a bike') {
+                        var cityName = GetGlobalCityArea();
+                        triggerGA('Make_Page', 'Lead_Submitted', bikeName + "_" + cityName);
+                    }
+                    });
+
                 $("img.lazy").lazyload();
                 if ($("#discontinuedMore a").length > 4) {
                     $('#discontinuedMore').hide();
@@ -299,9 +307,7 @@
                 "campid": ele.attr('data-camp-id'),
                 "isregisterpq": true
             };
-
             dleadvm.setOptions(leadOptions);
-
         });
     </script>
 </body>

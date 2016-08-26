@@ -34,6 +34,8 @@ namespace Bikewale.Mobile.Controls
         public int LeadSourceId = 27; // DealersCard GetOfferButton
         public int PQSourceId { get; set; }
         public bool IsDiscontinued { get; set; }
+        public string PageName { get; set; }
+       
 
         public bool showWidget = false;
         protected bool isCitySelected { get { return CityId > 0; } }

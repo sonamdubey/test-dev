@@ -27,16 +27,15 @@
                 <ul id="galleryList" class="ad-thumb-list">
                     <asp:Repeater ID="rptPhotos" runat="server" EnableViewState="false">
 	                    <itemtemplate>
-                                <li>                                    
-                                    <a original-href="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem,"HostUrl").ToString(),Bikewale.Utility.ImageSize._640x348) %>" 
-                                        href="/<%# Bikewale.Common.UrlRewrite.FormatSpecial(DataBinder.Eval(Container.DataItem,"MakeBase.MakeName").ToString()) + "-bikes/" + DataBinder.Eval(Container.DataItem,"ModelBase.MaskingName") + "/photos/" + (DataBinder.Eval(Container.DataItem,"MakeBase.MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem,"ModelBase.ModelName").ToString() + " " + DataBinder.Eval(Container.DataItem,"ImageId")).Replace(" ", "-") %>.html" >
-				                            <img height="70" 
+                                <li>
+                                    <a original-href="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem,"HostUrl").ToString(),Bikewale.Utility.ImageSize._640x348) %>">
+                                   <img height="70" id='<%# Container.ItemIndex %>'
                                             src='<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem,"HostUrl").ToString(),Bikewale.Utility.ImageSize._144x81) %>' 
-                                            border="0" alt='<%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName") + " " + DataBinder.Eval(Container.DataItem,"ModelBase.ModelName") + " - " + DataBinder.Eval(Container.DataItem,"ImageCategory") %>'
-                                            title='<%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName") + " " + DataBinder.Eval(Container.DataItem,"ModelBase.ModelName") + " - " + DataBinder.Eval(Container.DataItem,"ImageCategory") %> ' 
-                                            desc='<%# DataBinder.Eval(Container.DataItem, "Caption").ToString() %>' <%--artID='<%# DataBinder.Eval(Container.DataItem, "BasicId").ToString() %>'--%> 
-                                            imgCnt='<%=FetchedCount %>' artTitle='<%# Server.HtmlEncode(DataBinder.Eval(Container.DataItem, "ImageTitle").ToString().Replace("'","&rsquo;")) %>' 
-                                           <%-- artUrl='<%# DataBinder.Eval(Container.DataItem, "ArticleUrl").ToString() %>'--%>/>
+                                            border="0" alt='<%# string.Format("{0} {1} - {2}",DataBinder.Eval(Container.DataItem,"MakeBase.MakeName") , DataBinder.Eval(Container.DataItem,"ModelBase.ModelName"),DataBinder.Eval(Container.DataItem,"ImageCategory")) %>'
+                                            title='<%# string.Format("{0} {1} - {2}",DataBinder.Eval(Container.DataItem,"MakeBase.MakeName") , DataBinder.Eval(Container.DataItem,"ModelBase.ModelName"),DataBinder.Eval(Container.DataItem,"ImageCategory")) %>' 
+                                            desc='<%# DataBinder.Eval(Container.DataItem, "Caption").ToString() %>'
+                                            imgCnt='<%=FetchedCount %>' artTitle='<%# Server.HtmlEncode(DataBinder.Eval(Container.DataItem, "ImageTitle").ToString().Replace("'","&rsquo;")) %>' />
+                                          
 			                        </a>
                                 </li>                                
 	                    </itemtemplate>

@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.NewAlternativeBikes" %>
 <!-- Most Alternative Bikes Starts here-->
 <div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top15 font14 margin-bottom20">
-    <h2 class="padding-left20 padding-right20 margin-bottom20">Alternative bikes</h2>
+    <h2 class="padding-left20 padding-right20 margin-bottom20">Alternative bikes for <%=modelName%></h2>
     <div class="swiper-container padding-top5 padding-bottom5">
         <div class="swiper-wrapper font14"> 
           <asp:Repeater ID="rptAlternateBikes" runat="server">   
@@ -21,7 +21,7 @@
                                 <span class="bwmsprite inr-xsm-icon"></span>
                                 <span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem, "MinPrice").ToString()) %></span>
                             </p>
-                            <a href="javascript:void(0)" pqSourceId="<%= PQSourceId %>" modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelBase.ModelId")) %>" class="<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))!="0")?"":"hide" %> btn btn-xs btn-full-width btn-white margin-top10 fillPopupData font13" rel="nofollow">Check on-road price</a>
+                            <a href="javascript:void(0)" data-pqSourceId="<%= PQSourceId %>" data-modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelBase.ModelId")) %>" class="<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))!="0")?"":"hide" %> btn btn-xs btn-full-width btn-white margin-top10 getquotation font12" rel="nofollow">Check on-road price</a>
                         </div>
                     </div>         
                 </ItemTemplate>

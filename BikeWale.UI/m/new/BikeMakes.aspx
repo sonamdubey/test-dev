@@ -75,7 +75,7 @@
                                                         <span class="bwmsprite inr-sm-icon" style="<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))=="0")?"display:none;": "display:inline-block;"%>"></span>
                                                         <span class="text-bold font18"><%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %></span>
                                                     </div>
-                                                    <a href="javascript:void(0)" makename="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objMake.MakeName")) %>" modelname="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" pagecatid="1" pqsourceid="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_MakePage %>" modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelId")) %>" class="btn btn-sm btn-white font14 margin-top10 fillPopupData" rel="nofollow">Check on-road price</a>
+                                                    <a href="javascript:void(0)" data-makename="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objMake.MakeName")) %>" data-modelname="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" data-pagecatid="1" data-pqsourceid="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_MakePage %>" data-modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelId")) %>" class="btn btn-sm btn-white font14 margin-top20 getquotation" rel="nofollow">Check on-road price</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -218,8 +218,8 @@
         <script type="text/javascript">
             ga_pg_id = '3';
             var _makeName = '<%= _make.MakeName %>';
-
-            var clientIP = "172.16.3.151";
+             
+            var clientIP = '<%= Bikewale.Common.CommonOpn.GetClientIP() %>';
             var pageUrl = window.location.href;
             $(".leadcapturebtn").click(function (e) {
                 ele = $(this);
@@ -234,7 +234,12 @@
                     "clientip": clientIP,
                     "isdealerbikes": true,
                     "campid": ele.attr('data-camp-id'),
-                    "isregisterpq": true
+                    "isregisterpq": true,
+                    "gaobject": {
+                        cat: ele.attr('data-ga-cat'),
+                        act: ele.attr('data-ga-act'),
+                        lab: ele.attr('data-ga-lab')
+                    }
                 };
 
                 dleadvm.setOptions(leadOptions);
@@ -242,6 +247,9 @@
             }); 
 
             $(document).ready(function () {
+                
+              
+
                 jQuery('.jcarousel-wrapper.upComingBikes .jcarousel')
                 .on('jcarousel:targetin', 'li', function () {
                     $("img.lazy").lazyload({
@@ -279,7 +287,7 @@
             }
         </script>
     </form>
-    <div class="back-to-top" id="back-to-top"><a><span></span></a></div>
+    <div class="back-to-top" id="back-to-top"></div>
 </body>
 </html>
 

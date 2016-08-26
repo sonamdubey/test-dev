@@ -26,30 +26,24 @@
             </li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                <a href="/new/" itemprop="url">
-                    <span itemprop="title">New</span>
-                </a>
-            </li>
-            <li class="fwd-arrow">&rsaquo;</li>
-            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                 <a href="/<%= MakeMaskingName%>-bikes/" itemprop="url">
-                    <span itemprop="title"><%= BikeMake%></span>
+                    <span itemprop="title"><%= BikeMake%> Bikes</span>
                 </a>
             </li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                 <a href="/<%= MakeMaskingName%>-bikes/<%= ModelMaskingName%>/" itemprop="url">
-                    <span itemprop="title"><%= BikeModel%></span>
+                    <span itemprop="title"><%= BikeMake%> <%= BikeModel%></span>
                 </a>
             </li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                 <a href="/<%= MakeMaskingName%>-bikes/<%= ModelMaskingName%>/user-reviews/" itemprop="url">
-                    <span itemprop="title"><%=BikeModel%> Reviews</span>
+                    <span itemprop="title">User Reviews</span>
                 </a>
             </li>
-            <li class="fwd-arrow">&rsaquo;</li>
-            <li class="current"><strong>User Reviews</strong></li>
+             <li class="fwd-arrow">&rsaquo;</li>
+            <li class="current"><strong><%= _title %></strong></li>
         </ul>
         <div class="clear"></div>
     </div>

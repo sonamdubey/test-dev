@@ -218,5 +218,29 @@ namespace Bikewale.Cache.BikeData
 
             return objPhotos;
         }
+
+        /// <summary>
+        /// Created By: Aditi Srivastava on 17th Aug, 2016
+        /// Description: 
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public IEnumerable<ModelImage> GetModelPhotos(U modelId)
+        {
+            List<ModelImage> objPhotos = null;
+
+            string key = string.Format("BW_ModelPhotoGallery_MO_{0}", modelId);
+            try
+            {
+                objPhotos = _cache.GetFromCache<List<ModelImage>>(key, new TimeSpan(1, 0, 0), () => (List<ModelImage>)_objModels.GetModelPhotos(modelId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetModelPhotos");
+                objErr.SendMail();
+            }
+
+            return objPhotos;
+        }
     }
 }

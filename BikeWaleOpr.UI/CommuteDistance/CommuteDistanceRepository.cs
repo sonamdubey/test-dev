@@ -93,7 +93,7 @@ namespace BikewaleOpr.CommuteDistance
                             if (objReader.Read())
                             {
                                 dealerLocationEntity = new GeoLocationEntity();
-                                dealerLocationEntity.Id = DBNull.Value == objReader["DealerId"] ? default(UInt16) : Convert.ToUInt16(objReader["DealerId"]);
+                                dealerLocationEntity.Id = DBNull.Value == objReader["DealerId"] ? default(UInt32) : Convert.ToUInt32(objReader["DealerId"]);
                                 dealerLocationEntity.Latitude = DBNull.Value == objReader["Lattitude"] ? 0 : Convert.ToDouble(objReader["Lattitude"]);
                                 dealerLocationEntity.Longitude = DBNull.Value == objReader["Longitude"] ? 0 : Convert.ToDouble(objReader["Longitude"]);
                             }
@@ -105,7 +105,7 @@ namespace BikewaleOpr.CommuteDistance
                                 while (objReader.Read())
                                 {
                                     location = new GeoLocationEntity();
-                                    location.Id = DBNull.Value == objReader["AreaId"] ? default(UInt16) : Convert.ToUInt16(objReader["AreaId"]);
+                                    location.Id = DBNull.Value == objReader["AreaId"] ? default(UInt32) : Convert.ToUInt32(objReader["AreaId"]);
                                     location.Latitude = DBNull.Value == objReader["Lattitude"] ? 0 : Convert.ToDouble(objReader["Lattitude"]);
                                     location.Longitude = DBNull.Value == objReader["Longitude"] ? 0 : Convert.ToDouble(objReader["Longitude"]);
                                     areas.Add(location);
@@ -139,7 +139,7 @@ namespace BikewaleOpr.CommuteDistance
         /// <param name="dealerId">e.g. 4</param>
         /// <param name="areaDistance">e.g. '18890:51,18249:89,17768:79' (areaId:CityId comma seprated pair)</param>
         /// <returns></returns>
-        public bool UpdateArea(UInt16 dealerId, string areaDistance)
+        public bool UpdateArea(UInt32 dealerId, string areaDistance)
         {
             int resp = 0;
             try

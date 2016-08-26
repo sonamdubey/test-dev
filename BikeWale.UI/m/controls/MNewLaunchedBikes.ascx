@@ -23,7 +23,7 @@
                         <div class="margin-bottom5">
                             <%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "MinPrice")) %>                             
                         </div>
-                        <a href="javascript:void(0)" modelName="<%# DataBinder.Eval(Container.DataItem,"ModelName").ToString() %>" makeName="<%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName").ToString() %>" pqSourceId="<%= PQSourceId%>" pagecatid="<%=PageId %>" modelId="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelId")) %>" class="btn btn-sm btn-white margin-top10 fillPopupData <%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "MinPrice"))!="0")?"":"hide" %> ">Check on-road price</a>
+                        <a href="javascript:void(0)" data-modelName="<%# DataBinder.Eval(Container.DataItem,"ModelName").ToString() %>" data-makeName="<%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName").ToString() %>" data-pqSourceId="<%= PQSourceId%>" data-pagecatid="<%=PageId %>" data-modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelId")) %>" class="btn btn-sm btn-white margin-top10 getquotation <%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "MinPrice"))!="0")?"":"hide" %> ">Check on-road price</a>
                     </div>
                 </div>
             </div>

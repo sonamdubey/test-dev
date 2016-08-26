@@ -36,7 +36,7 @@ namespace Bikewale.New
         protected string cityName, areaName, makeName, modelName, modelImage, bikeName, versionName, makeMaskingName, modelMaskingName, clientIP = CommonOpn.GetClientIP();
         protected IEnumerable<CityEntityBase> objCityList = null;
         protected IEnumerable<Bikewale.Entities.Location.AreaEntityBase> objAreaList = null;
-        protected bool isCitySelected, isAreaSelected, isBikeWalePQ, isOnRoadPrice, isAreaAvailable, showOnRoadPriceButton, isDiscontinued, IsDealerPriceQuote, IsExShowroomPrice = true, toShowOnRoadPriceButton;
+        protected bool isCitySelected, isAreaSelected, isBikeWalePQ, isOnRoadPrice, isAreaAvailable, showOnRoadPriceButton, isDiscontinued, IsDealerPriceQuote, IsExShowroomPrice = true, toShowOnRoadPriceButton,isGetOfferShown;
         protected BikeSpecificationEntity specs;
         protected BikeModelPageEntity modelDetail;
         protected DetailedDealerQuotationEntity dealerDetail;
@@ -238,6 +238,7 @@ namespace Bikewale.New
                     IDealerPriceQuoteDetail objIPQ = container.Resolve<IDealerPriceQuoteDetail>();
                     IDealerPriceQuote dealerPQ = container.Resolve<IDealerPriceQuote>();
                     DealerInfo dealerInfo = dealerPQ.IsDealerExists(versionId, areaId);
+                    
                     if (dealerInfo != null && dealerInfo.DealerId > 0)
                     {
                         detailedDealer = objIPQ.GetDealerQuotation(cityId, versionId, dealerInfo.DealerId);
@@ -484,6 +485,10 @@ namespace Bikewale.New
             if ((!isCitySelected) || (isCitySelected && isAreaAvailable && !isAreaSelected))
             {
                 toShowOnRoadPriceButton = true;
+            }
+            if (dealerDetail != null && dealerDetail.PrimaryDealer != null && dealerDetail.PrimaryDealer != null && dealerDetail.PrimaryDealer.DealerDetails.DealerPackageType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium && !isDiscontinued)
+            {
+                isGetOfferShown = true;
             }
         }
 

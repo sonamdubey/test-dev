@@ -198,6 +198,7 @@
     <Compile Include="PriceQuote\BikeBooking\DealerDetailsDTO.cs" />
     <Compile Include="PriceQuote\BikeBooking\DealerOfferDTO.cs" />
     <Compile Include="PriceQuote\BikeBooking\DealerVersionPriceItemDTO.cs" />
+    <Compile Include="PriceQuote\BikePQOutput.cs" />
     <Compile Include="PriceQuote\BikeQuotation\OtherVersionInfoDTO.cs" />
     <Compile Include="PriceQuote\City\v2\PQCityBase.cs" />
     <Compile Include="PriceQuote\City\v2\PQCityList.cs" />
@@ -218,6 +219,7 @@
     <Compile Include="PriceQuote\v2\EMI.cs" />
     <Compile Include="PriceQuote\v2\PQCustomerDetailInput.cs" />
     <Compile Include="PriceQuote\v2\PQCustomerDetailOutput.cs" />
+    <Compile Include="PriceQuote\v2\PQInput.cs" />
     <Compile Include="PriceQuote\v2\PQOnRoad.cs" />
     <Compile Include="PriceQuote\v2\PQOutput.cs" />
     <Compile Include="PriceQuote\v2\PQPrimaryDealer.cs" />

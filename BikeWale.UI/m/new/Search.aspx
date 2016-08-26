@@ -136,7 +136,7 @@
                                         <span class="bwmsprite inr-sm-icon"></span>
                                         <span class="text-bold font18" data-bind="text: price"></span>
                                     </div>                                    
-                                    <a data-bind="attr: { modelId: bikemodel.modelId , pqSourceId : '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewBikeSearch%>    '}" class="btn btn-sm btn-white font14 margin-top10 fillPopupData" rel="nofollow">Check on-road price</a>
+                                    <a data-bind="attr: { 'data-modelId': bikemodel.modelId, 'data-pqSourceId': PQSourceId }" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
                                 </div>
                             </div>
                         </div>
@@ -321,6 +321,7 @@
     <!-- all other js plugins -->
     <!-- #include file="/includes/footerscript_Mobile.aspx" -->
     <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/new/search.js?<%= staticFileVersion %>" type="text/javascript"></script>
+    <script type="text/javascript"> var PQSourceId = '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewBikeSearch %>';</script>
     <div class="back-to-top" id="back-to-top"><a><span></span></a></div>
 </body>
 </html>

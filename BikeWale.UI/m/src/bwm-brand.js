@@ -158,7 +158,7 @@ $(document).ready(function () {
             }
         });
 
-        var scrollToTab = $('#makeReviewsContent');
+        var scrollToTab = $('#makeTabsContentWrapper .bw-model-tabs-data:eq(3)');
         if (scrollToTab.length != 0) { 
             if (windowScrollTop > scrollToTab.offset().top - 45) {
                 if (!$('#overallSpecsTab').hasClass('scrolled-left')) {

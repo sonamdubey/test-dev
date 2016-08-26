@@ -45,7 +45,7 @@
                 <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
             </div>
             <div class="clear"></div>
-            <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
+            <a class="btn btn-orange margin-top10 "  id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
         </div>
     </div>
     <div id="dealer-lead-msg" class="hide">
@@ -72,11 +72,14 @@
     var prevEmail = "";
     var prevMobile = "";
     var leadmodelid =  '<%= ModelId %>', leadcityid = '<%= CityId %>', leadareaid =  '<%= AreaId %>';
-    //var getCityArea = GetGlobalCityArea();
+    // var getCityArea = GetGlobalCityArea();
 
+    
+   
+    
 
     $(function () {
-
+        
         leadBtnBookNow.on('click', function () {
             leadCapturePopup.show();
             $("#dealer-lead-msg").hide();
@@ -115,6 +118,7 @@
         }); 
 
         $("#getMobile").on("blur", function () {
+           
             if (prevMobile != $(this).val().trim()) {
                 if (self.validateMobileNo($(this))) {
                     dleadvm.IsVerified(false);
@@ -141,7 +145,6 @@
                 }
             }
         });
-
     });
 
 
@@ -176,6 +179,7 @@
         self.dealerBikes = ko.observableArray([]);
         self.selectedBike = ko.observable();
         self.campaignId = ko.observable();
+        self.GAObject = ko.observable();
         
         self.setOptions = function(options)
         {
@@ -209,7 +213,10 @@
                 {
                     self.isDealerBikes(options.isdealerbikes);
                     self.getDealerBikes();
-                }                    
+                }
+
+                if (options.gaobject != null)
+                    self.GAObject(options.gaobject);
 
                 if(options.pageurl!=null)
                     self.pageUrl = options.pageurl;
@@ -323,6 +330,12 @@
 
         };
 
+        self.pushToGA = function (data, event) {
+            if (data != null && data.act != null) {
+                triggerGA(data.cat, data.act, data.lab)
+            }
+        }
+
         self.verifyCustomer = function (data, event) {
             
             if(self.isRegisterPQ())
@@ -360,6 +373,8 @@
                     complete: function (xhr, ajaxOptions, thrownError) {
                         if(xhr.status!=200)
                             self.IsVerified(false);
+
+                        self.pushToGA(self.GAObject());
                     }
                 });
             }
