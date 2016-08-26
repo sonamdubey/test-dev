@@ -242,8 +242,7 @@
                                 <asp:Repeater ID="rptDealerOffers" runat="server">
                                     <ItemTemplate>
                                         <li class="offertxt"><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
-                                            <%--<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>--%>
-                                            <%# "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>"  %>
+                                            <span class="tnc font9 <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsOfferTerms"))? string.Empty: "hide" %>" id="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferId")) %>">View terms</span>
                                         </li>
                                     </ItemTemplate>
                                 </asp:Repeater>
@@ -304,8 +303,7 @@
                                 <asp:Repeater ID="rptDealerFinalOffers" runat="server">
                                     <ItemTemplate>
                                         <li class="offertxt"><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
-                                            <%--<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>--%>
-                                            <%# "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>"  %>
+                                            <span class="tnc font9 <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsOfferTerms"))? string.Empty: "hide" %>" id="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferId")) %>">View terms</span>
                                         </li>
                                     </ItemTemplate>
                                 </asp:Repeater>

@@ -157,23 +157,20 @@
                                     <p class="font16 margin-bottom10 text-bold">
                                         Availed exclusive Bikewale offers  
                                     </p>
+                                    <% if(IsInsuranceFree) { %>
+                                    <p>Free Insurance for 1 year worth Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(insuranceAmount.ToString()) %>  at the dealership</p>
+                                    <% } else { %>
                                     <ul>
                                         <asp:Repeater ID="rptOffers" runat="server">
                                             <ItemTemplate>
-                                                <% if (IsInsuranceFree)
-                                                   {%>
-                                                <li>Free Insurance for 1 year worth Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(insuranceAmount.ToString()) %>  at the dealership</li>
-                                                <%
-                                               }
-                                                   else
-                                                   {%>
-                                                <li><%# DataBinder.Eval(Container.DataItem,"OfferText")%></li>
-                                                <% 
-                                               }
-                                                %>
+                                               <%-- <li><%# DataBinder.Eval(Container.DataItem,"OfferText")%></li>--%>
+                                                <li class="offertxt"><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
+                                                    <span class="tnc font9 <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsOfferTerms"))? string.Empty: "hide" %>" id="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferId")) %>">View terms</span>
+                                                </li>
                                             </ItemTemplate>
                                         </asp:Repeater>
                                     </ul>
+                                    <% } %>
                                 </div>
                             </div>
                         <%} %>

@@ -681,7 +681,6 @@ $('.tnc').on('click', function (e) {
 });
 
 function LoadTerms(offerId) {
-    
     $("div#termsPopUpContainer").show();
     $(".blackOut-window").show();
     if (offerId != 0 && offerId != null) {

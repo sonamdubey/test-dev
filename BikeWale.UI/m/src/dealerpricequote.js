@@ -5,6 +5,10 @@ $(".view-offers-target").on("click", function () {
     appendHash("offersPopup");
 });
 
+$('.tnc').on('click', function (e) {
+    LoadTerms($(this).attr("id"));
+});
+
 $("#ddlVersion").on("change", function () {
     versionName = $(this).children(":selected").text();    
     dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Version_Changed", "lab": bikeName + "_" + versionName + "_" + getCityArea });

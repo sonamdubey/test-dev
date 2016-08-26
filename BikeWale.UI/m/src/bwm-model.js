@@ -686,7 +686,9 @@ $("#btnDealerPricePopup").on("click", function () {
 
 
 $('.tnc').on('click', function (e) {
+    appendHash("termsConditions");
     LoadTerms($(this).attr("id"));
+    popupDiv.close(dealerOffersDiv);
 });
 
 $('.changeCity').on('click', function (e) {
@@ -718,7 +720,6 @@ function LoadTerms(offerId) {
     }
     else {
         $("#terms").load("/statichtml/tnc.html");
-        //$('#terms').html($("#orig-terms").html());
     }
     $('#termspinner').hide();
 }
@@ -857,7 +858,8 @@ $('a.read-more-model-preview').click(function () {
 });
 
 var dealersPopupDiv = $('#more-dealers-popup'),
-    dealerOffersDiv = $('#dealer-offers-popup');
+    dealerOffersDiv = $('#dealer-offers-popup'),
+    termsConditions = $('#termsPopUpContainer');
 
 $('#more-dealers-target').on('click', function () {
     popupDiv.open(dealersPopupDiv);
@@ -878,6 +880,12 @@ $('#dealer-offers-list').on('click', 'li', function () {
 
 $('.offers-popup-close-btn').on("click", function () {
     popupDiv.close(dealerOffersDiv);
+    window.history.back();
+});
+
+$('#termsPopUpCloseBtn ').on("click", function () {
+    popupDiv.close(termsConditions);
+    popupDiv.open(dealerOffersDiv);
     window.history.back();
 });
 

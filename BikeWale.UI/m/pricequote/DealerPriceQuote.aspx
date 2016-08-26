@@ -269,6 +269,7 @@
 								<li>
 									<span class="offers-sprite offerIcon_<%# DataBinder.Eval(Container.DataItem,"OfferCategoryId") %>"></span>
 									<span class="pq-benefits-title padding-left10"><%# DataBinder.Eval(Container.DataItem,"OfferText") %></span>
+                                    <span class="tnc font9 <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsOfferTerms"))? string.Empty: "hide" %>" id="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferId")) %>">View terms</span>
 								</li>
 							</ItemTemplate>
 						</asp:Repeater>
