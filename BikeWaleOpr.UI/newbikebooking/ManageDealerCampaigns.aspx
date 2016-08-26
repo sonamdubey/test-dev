@@ -104,7 +104,9 @@
         fillmodels(makeId);
     });
 
+    
     $("input.rdbtn").click(function () {
+        debugger;
         if ($(this).val() == "1") {
             $("#ddlModel").show();
             $("#ddlMake").show();
