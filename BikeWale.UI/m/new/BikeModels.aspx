@@ -833,8 +833,7 @@
                         </div>
                         <div class="clear"></div>
                         <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-                    </div>
-                    <input type="button" class="btn btn-full-width btn-orange hide" value="Submit" onclick="validateDetails();" class="rounded-corner5" data-role="none" id="btnSubmit" />
+                    </div>                    
                 </div>
                 <!-- Contact details Popup ends here -->
                  <!-- thank you message starts here -->
