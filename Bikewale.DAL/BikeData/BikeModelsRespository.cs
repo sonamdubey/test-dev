@@ -95,6 +95,7 @@ namespace Bikewale.DAL.BikeData
 
             try
             {
+                
                 modelPage.ModelDetails = GetById(modelId);
                 modelPage.ModelDesc = GetModelSynopsis(modelId);
                 modelPage.ModelVersions = GetVersionMinSpecs(modelId, isNew);
@@ -310,6 +311,8 @@ namespace Bikewale.DAL.BikeData
         /// Summary : Function to get particular model's all details.
         /// Modified By : Sadhana Upadhyay on 20 Aug 2014
         /// Summary : To retrieve new and used flag
+        /// Modified By: Aditi Srivastava on 25th Aug,2016
+        /// Summary: Used a different sp(earlier getmodeldetails_new) to retrieve model details using data reader
         /// </summary>
         /// <param name="id">Model Id should be a positive number.</param>
         /// <returns>Returns object containing the particular model's all details.</returns>
@@ -318,65 +321,57 @@ namespace Bikewale.DAL.BikeData
             T t = default(T);
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new_25082016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, id));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbType.String, 30, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_model", DbType.String, 30, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isfuturistic", DbType.Boolean, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_smallpic", DbType.String, 50, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_largepic", DbType.String, 50, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, 50, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_minprice", DbType.String, 50, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maxprice", DbType.String, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbType.String, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewcount", DbType.Int32, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewrate", DbType.Double, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbType.Boolean, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isused", DbType.Boolean, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 150, ParameterDirection.InputOutput));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
-
-
-                    if (!string.IsNullOrEmpty(cmd.Parameters["par_makeid"].Value.ToString()))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        t = new T();
-                        t.ModelId = Convert.ToInt32(cmd.Parameters["par_modelid"].Value);
-                        t.ModelName = cmd.Parameters["par_model"].Value.ToString();
-                        t.MakeBase.MakeId = Convert.ToInt32(cmd.Parameters["par_makeid"].Value);
-                        t.MakeBase.MakeName = cmd.Parameters["par_make"].Value.ToString();
-                        t.Futuristic = Convert.ToBoolean(cmd.Parameters["par_isfuturistic"].Value);
-                        t.New = Convert.ToBoolean(cmd.Parameters["par_isnew"].Value);
-                        t.Used = Convert.ToBoolean(cmd.Parameters["par_isused"].Value);
-                        t.SmallPicUrl = cmd.Parameters["par_smallpic"].Value.ToString();
-                        t.LargePicUrl = cmd.Parameters["par_largepic"].Value.ToString();
-                        t.HostUrl = cmd.Parameters["par_hosturl"].Value.ToString();
-                        t.MinPrice = Convert.ToInt64(cmd.Parameters["par_minprice"].Value);
-                        t.MaxPrice = Convert.ToInt64(cmd.Parameters["par_maxprice"].Value);
-                        t.MaskingName = cmd.Parameters["par_maskingname"].Value.ToString();
-                        t.MakeBase.MaskingName = cmd.Parameters["par_makemaskingname"].Value.ToString();
-                        t.ModelSeries.SeriesId = 0;
-                        t.ModelSeries.SeriesName = string.Empty;
-                        t.ModelSeries.MaskingName = string.Empty;
-                        t.ReviewCount = Convert.ToInt32(cmd.Parameters["par_reviewcount"].Value);
-                        t.ReviewRate = Convert.ToDouble(cmd.Parameters["par_reviewrate"].Value);
-                        t.OriginalImagePath = Convert.ToString(cmd.Parameters["par_originalimagepath"].Value);
+                        if (dr != null)
+                        {
+                                     
+                            while (dr.Read())
+                            {
+                                t = new T();
+                                t.ModelId = Convert.ToInt32(cmd.Parameters["par_modelid"].Value);
+                                t.ModelName = Convert.ToString(dr["Name"]);
+                                t.MakeBase.MakeId = Convert.ToInt32(dr["BikeMakeId"]);
+                                t.MakeBase.MakeName = Convert.ToString(dr["MakeName"]);
+                                t.Futuristic = Convert.ToBoolean(dr["Futuristic"]);
+                                t.New = Convert.ToBoolean(dr["New"]);
+                                t.Used = Convert.ToBoolean(dr["Used"]);
+                                t.SmallPicUrl = Convert.ToString(dr["SmallPic"]);
+                                t.LargePicUrl = Convert.ToString(dr["LargePic"]);
+                                t.HostUrl = Convert.ToString(dr["HostURL"]);
+                                t.MinPrice = Convert.ToInt64(dr["MinPrice"]);
+                                t.MaxPrice = Convert.ToInt64(dr["MaxPrice"]);
+                                t.MaskingName = Convert.ToString(dr["MaskingName"]);
+                                t.MakeBase.MaskingName = Convert.ToString(dr["MakeMaskingname"]);
+                                t.ModelSeries.SeriesId = 0;
+                                t.ModelSeries.SeriesName = string.Empty;
+                                t.ModelSeries.MaskingName = string.Empty;
+                                t.ReviewCount = Convert.ToInt32(dr["ReviewCount"]);
+                                t.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
+                                t.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                                t.PhotosCount = Convert.ToInt32(dr["PhotosCount"]);
+                                t.VideosCount = Convert.ToInt32(dr["VideosCount"]);
+                            }
+                            dr.Close();
+                        }
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception err)
             {
-                HttpContext.Current.Trace.Warn("GetModelDetails ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                HttpContext.Current.Trace.Warn("Exception in GetById", err.Message);
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
             return t;
-        }
+
+                   }
+
 
         /// <summary>
         /// Summary  : Function to get the bike versions list for the given model id

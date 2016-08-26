@@ -63,6 +63,7 @@ namespace Bikewale.Mobile.New
                     ctrlModelGallery.modelId = Convert.ToInt32(modelId);
                     ctrlModelGallery.Photos = objImageList;
                     imgCount = objImageList.Count;
+                    
                 }
             }
         }

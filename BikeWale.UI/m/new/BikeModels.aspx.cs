@@ -28,6 +28,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Web;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.New
@@ -90,6 +91,7 @@ namespace Bikewale.Mobile.New
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             // Modified By :Ashish Kamble on 5 Feb 2016
             Form.Action = Request.RawUrl;
             // Do not change the sequence of the function calls
@@ -134,6 +136,8 @@ namespace Bikewale.Mobile.New
                     Trace.Warn("Trace 19 : LoadVariants End");
                     #endregion
 
+                    
+
                     ////news,videos,revews, user reviews
                     ctrlNews.TotalRecords = 3;
                     ctrlNews.ModelId = Convert.ToInt32(modelId);
@@ -162,7 +166,7 @@ namespace Bikewale.Mobile.New
                     ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                     ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
                     Trace.Warn("Trace 20 : Page Load ends");
-
+                    
                     if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
                     {
                         rptVarients.DataSource = modelPage.ModelVersions;

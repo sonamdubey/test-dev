@@ -270,6 +270,8 @@ namespace Bikewale.BAL.BikeData
         /// <summary>
         /// Written By : Ashish G. Kamble on 7 Oct 2015
         /// Summary : Function to get the model page details
+        /// Modified By: Aditi Srivastava on 26 Aug 2016
+        /// Summary: Added a condition to avoid fetching the whole model gallery in case of desktop model page 
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
@@ -957,7 +959,10 @@ namespace Bikewale.BAL.BikeData
                 {
                     // Added by : Ashish G. Kamble on 15 Dec 2015
                     // Get model photo gallery
-                    objModelPage.Photos = GetBikeModelPhotoGallery(modelId);
+                    if (HttpContext.Current.Response.Cookies["DesktopDetected"].Value == "1")
+                        objModelPage.Photos = GetBikeModelPhotoGallery(modelId);                        
+                    else
+                        objModelPage.Photos = null;
 
                     if (objModelPage.Photos != null)
                     {

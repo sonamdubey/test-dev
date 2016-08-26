@@ -108,14 +108,17 @@
                            
                             <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/photos/" ><img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image" /></a>
                             <div class="model-media-details">
-                                <div class="model-media-item" style="cursor: pointer;" onclick="window.location='./photos/';">
+                                <div class="model-media-item" style="cursor: pointer;" onclick="window.location='/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/photos/';">
                                     <span class="bwmsprite gallery-photo-icon"></span>
-                                    <span class="model-media-count"><%= modelPage.Photos.Count %></span>
+                                    <span class="model-media-count"><%= modelPage.ModelDetails.PhotosCount %></span>
+                                    
                                 </div>
-                                <%--<a href="./photos#videos" class="model-media-item">
-                                    <span class="bwmsprite gallery-video-icon"></span>
-                                    <span class="model-media-count">7</span>
-                                </a>--%>
+                                <% if (modelPage.ModelDetails.VideosCount > 0) { %>
+                                <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/photos/#videos" class="model-media-item">
+                                     <span class="bwmsprite gallery-video-icon"></span>
+                                    <span class="model-media-count"><%=modelPage.ModelDetails.VideosCount%></span>
+                                </a>
+                                <% } %>
                             </div>
                            
                         </div>
