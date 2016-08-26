@@ -173,6 +173,8 @@
     vertical-align:middle;
 }
 
+.pricequote-benefits-list li span.hide {display:none;}
+
 .pricequote-benefits-list .pq-benefits-title {
     width:85%;
     text-align:left;

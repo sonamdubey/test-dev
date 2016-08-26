@@ -268,8 +268,8 @@
 							<ItemTemplate>
 								<li>
 									<span class="offers-sprite offerIcon_<%# DataBinder.Eval(Container.DataItem,"OfferCategoryId") %>"></span>
-									<span class="pq-benefits-title padding-left10"><%# DataBinder.Eval(Container.DataItem,"OfferText") %></span>
-                                    <span class="tnc font9 <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsOfferTerms"))? string.Empty: "hide" %>" id="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferId")) %>">View terms</span>
+									<span class="pq-benefits-title padding-left10"><%# DataBinder.Eval(Container.DataItem,"OfferText") %><span class="margin-left10 tnc font9 <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsOfferTerms"))? string.Empty: "hide" %>" id="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferId")) %>">View terms</span></span>
+                                    
 								</li>
 							</ItemTemplate>
 						</asp:Repeater>
@@ -579,6 +579,20 @@
 		<!-- Lead Capture pop up start  -->               
 		<BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
 		 <!-- Lead Capture pop up end  -->
+        <!-- Terms and condition Popup start -->
+        <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+            <div class="fixed-close-btn-wrapper">
+                <div id="termsPopUpCloseBtn" class="termsPopUpCloseBtn bwmsprite fixed-close-btn cross-lg-lgt-grey cur-pointer"></div>
+            </div>
+            <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
+                <img src="http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
+            </div>
+            <div id="terms" class="breakup-text-container padding-bottom10 font14">
+            </div>
+            <div id='orig-terms' class="hide">
+            </div>
+        </div>
+        <!-- Terms and condition Popup end -->
 		<!-- #include file="/includes/footerBW_Mobile.aspx" -->
 		<!-- #include file="/includes/footerscript_Mobile.aspx" -->
 		<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/dealerpricequote.js?<%= staticFileVersion %>"></script>
@@ -655,7 +669,6 @@
 				}
 				else {
 					$("#terms").load("/statichtml/tnc.html");
-				   
 				}
 				$('#termspinner').hide();
 			}
