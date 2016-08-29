@@ -734,6 +734,9 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 
 .viewterms{color: #ababab;text-decoration: none;font-size: 10px;cursor: pointer;}
 .viewterms:hover{text-decoration:underline;}
+
+.tnc {border-bottom: 1px solid #ababab;color: #ababab; text-decoration: none;}
+#terms li{list-style-type: square;margin-left: 10px;}
 /* AutoExpo classes */
 .ae-sprite {background: url("http://imgd3.aeplcdn.com/0x0/cw/static/sprites/ae-sprite.png") no-repeat;display:inline-block;}
 .ae-logo { background-color: #fff; background-position: -34px 2px; height: 27px; margin-top: -7px; position: relative; top: 4px; width: 45px; margin-left: -8px }

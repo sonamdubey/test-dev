@@ -1,5 +1,4 @@
-﻿using Bikewale.CoreDAL;
-using Bikewale.Entities.BikeBooking;
+﻿using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Notifications;
@@ -228,7 +227,8 @@ namespace Bikewale.DAL.BikeBooking
                                     OfferText = Convert.ToString(dr["OfferText"]),
                                     OfferCategoryId = Convert.ToUInt32(dr["OfferTypeId"]),
                                     OfferValue = Convert.ToUInt32(dr["OfferValue"]),
-                                    IsPriceImpact = Convert.ToBoolean(dr["isPriceImpact"])
+                                    IsPriceImpact = Convert.ToBoolean(dr["isPriceImpact"]),
+                                    IsOfferTerms = !Convert.IsDBNull(dr["IsOfferTerms"]) ? Convert.ToBoolean(dr["IsOfferTerms"]) : default(Boolean),
                                 });
                             }
                             dr.Close();

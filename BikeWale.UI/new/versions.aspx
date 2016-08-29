@@ -375,6 +375,7 @@
                                             <li>
                                                 <span class="benefit-list-image offer-benefit-sprite offerIcon_<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferCategoryId"))%>"></span>
                                                 <span class="benefit-list-title"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText"))%></span>
+                                                <span class="tnc font9 <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsOfferTerms"))? string.Empty: "hide" %>" id="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferId")) %>">View terms</span>
                                             </li>
                                         </ItemTemplate>
                                     </asp:Repeater>
@@ -543,10 +544,9 @@
                 <div class="fixed-close-btn-wrapper">
                     <div class="termsPopUpCloseBtn fixed-close-btn bwsprite cross-lg-lgt-grey cur-pointer"></div>
                 </div>
+                <h3>Terms and conditions</h3>
                 <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
-                    <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
                     <img class="lazy" data-original="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif"  src="" />
-
                 </div>
                 <div id="terms" class="breakup-text-container padding-bottom10 font14">
                 </div>

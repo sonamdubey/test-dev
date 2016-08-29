@@ -159,7 +159,7 @@
                             <img src="/images/no_result_m.png" />
                         </div>
                         <div id="loading" class="hide">
-                            <img src="/images/search-loading.gif" />
+                            <img src="http:/img2.aeplcdn.com/bikewaleimg/images/search-loading.gif" />
                         </div>
                     </div>
                 </div>
@@ -209,7 +209,10 @@
                                         </div>
                                         <p class="font18 margin-top25 margin-bottom20 text-default">Available offers on this bike</p>
                                         <ul class="offers-list-ul" data-bind="foreach: offers()">
-                                            <li data-bind="text: offerText()"></li>
+                                            <li>
+                                                <span data-bind="text: offerText()"></span>
+                                                <span class="tnc font9" data-bind="visible: isOfferTerms(), attr: { 'offerId': offerId }, click: function () { loadTerms(offerId()); }">view terms</span>
+                                            </li>
                                         </ul>
                                         <input type="button" class="book-now-popup-btn margin-top30 btn btn-orange font16" data-bind="click: function () { window.history.back(); registerPQ($data); }" value="Book now" />
                                     </div>
@@ -394,6 +397,22 @@
         <!--Filters ends here-->
         <div class="clear"></div>
     </div>
+    <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+            <div class="fixed-close-btn-wrapper">
+                <div id="termsPopUpCloseBtn" class="termsPopUpCloseBtn bwmsprite fixed-close-btn cross-lg-lgt-grey cur-pointer"></div>
+            </div>
+            <h3>Terms and Conditions</h3>
+            <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
+                <img src="http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
+            </div>
+            <div id="terms" class="breakup-text-container padding-bottom10 font14">
+            </div>
+            <div id='orig-terms' class="hide">
+            </div>
+        </div>
+        <!-- Terms and condition Popup end -->
+
+
     <!--Main container ends here-->
     <!-- #include file="/includes/footerBW_Mobile.aspx" -->
     <script>
@@ -419,9 +438,6 @@
                     $("#listingPopupAreaList").append($('<li>').text(value.areaName.toString().trim()).attr('areaid', value.areaId));
                 });
             }
-
-            //$ddlAreas.trigger('chosen:updated');
-            //$("#bookingAreasList_chosen .chosen-single.chosen-default span").text("No Areas available");
         }
 
 
@@ -430,11 +446,12 @@
     <!-- #include file="/includes/footerscript_Mobile.aspx" -->
     <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/BikeBooking/bookinglisting.js?<%= staticFileVersion %>" type="text/javascript"></script>
     <script>
-
-        //$("#listingPopupCityList").chosen({ no_results_text: "No matches found!!" });
-        //$("#listingPopupAreaList").chosen({ no_results_text: "No matches found!!" });
         $('.chosen-container').attr('style', 'width:100%;');
         $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");
+        $('#termsPopUpCloseBtn ').on("click", function () {
+            $('#termsPopUpContainer').hide();
+            $(".blackOut-window").hide();
+        });
     </script>
 
     <script type="text/javascript">

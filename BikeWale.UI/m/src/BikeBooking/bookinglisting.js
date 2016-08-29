@@ -1140,6 +1140,33 @@ function formatPrice(price) {
     return price;
 }
 
+function loadTerms(offerId) {
+    $('#offersPopup').hide();
+    LoadTerms(offerId);
+}
+function LoadTerms(offerId) {
+    $("div#termsPopUpContainer").show();
+    $(".blackOut-window").show();
+    if (offerId != 0 && offerId != null) {
+        $('#terms').empty();
+        $.ajax({
+            type: "GET",
+            url: "/api/Terms/?offerId=" + offerId,
+            dataType: 'json',
+            success: function (response) {
+                if (response != null)
+                    $('#terms').html(response);
+            },
+            error: function (request, status, error) {
+                $("div#termsPopUpContainer").hide();
+                $(".blackOut-window").hide();
+            }
+        });
+    }
+    else {
+        $("#terms").load("/statichtml/tnc.html");
+    }
+}
 function registerPQ(myData) {
     var obj = {
         'CityId': selectedCityId,

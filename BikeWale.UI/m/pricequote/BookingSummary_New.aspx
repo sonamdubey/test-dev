@@ -242,8 +242,7 @@
                                 <asp:Repeater ID="rptDealerOffers" runat="server">
                                     <ItemTemplate>
                                         <li class="offertxt"><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
-                                            <%--<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>--%>
-                                            <%# "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>"  %>
+                                            <span class="tnc font9 <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsOfferTerms"))? string.Empty: "hide" %>" id="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferId")) %>">View terms</span>
                                         </li>
                                     </ItemTemplate>
                                 </asp:Repeater>
@@ -304,8 +303,7 @@
                                 <asp:Repeater ID="rptDealerFinalOffers" runat="server">
                                     <ItemTemplate>
                                         <li class="offertxt"><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
-                                            <%--<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>--%>
-                                            <%# "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>"  %>
+                                            <span class="tnc font9 <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsOfferTerms"))? string.Empty: "hide" %>" id="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferId")) %>">View terms</span>
                                         </li>
                                     </ItemTemplate>
                                 </asp:Repeater>
@@ -401,7 +399,7 @@
             </div>
             <h3>Terms and Conditions</h3>
             <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
-                <img src="/images/search-loading.gif" />
+                <img src="http:/img2.aeplcdn.com/bikewaleimg/images/search-loading.gif" />
             </div>
             <div id="terms" class="breakup-text-container padding-bottom10 font14">
             </div>

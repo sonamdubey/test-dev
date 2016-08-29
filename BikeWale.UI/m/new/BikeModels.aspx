@@ -883,8 +883,9 @@
         <!-- Terms and condition Popup start -->
         <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
             <div class="fixed-close-btn-wrapper">
-                <div class="termsPopUpCloseBtn bwmsprite fixed-close-btn cross-lg-lgt-grey cur-pointer"></div>
+                <div id="termsPopUpCloseBtn" class="termsPopUpCloseBtn bwmsprite fixed-close-btn cross-lg-lgt-grey cur-pointer"></div>
             </div>
+            <h3>Terms and Conditions</h3>
             <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
                 <img src="http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
             </div>
@@ -909,7 +910,10 @@
                         <ItemTemplate>
                             <li>
                                 <span class="dealer-offer-image offers-sprite offerIcon_<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferCategoryId"))%>_sm"></span>
-                                <span class="dealer-offer-label"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
+                                <span class="dealer-offer-label"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %>
+                                    <span class="tnc font9 <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsOfferTerms"))? string.Empty: "hide" %>" id="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferId")) %>">View terms</span>
+                                </span>
+                                
                             </li>
                         </ItemTemplate>
                     </asp:Repeater>

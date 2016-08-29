@@ -1210,52 +1210,7 @@ var hashChange = function (e) {
 };
 
 var appendHash = function (state) {
-    switch (state) {
-        case "globalCity":
-            window.location.hash = state;
-            break;
-        case "onRoadPrice":
-            window.location.hash = state;
-            break;
-        case "contactDetails":
-            window.location.hash = state;
-            break;
-        case "viewBreakup":
-            window.location.hash = state;
-            break;
-        case "otp":
-            window.location.hash = state;
-            break;
-        case "dpqPopup":
-            window.location.hash = state;
-            break;
-        case "bookingsearch":
-            window.location.hash = state;
-            break;
-        case "listingPopup":
-            window.location.hash = state;
-            break;
-        case "offersPopup":
-            window.location.hash = state;
-            break;
-        case "emiPopup":
-            window.location.hash = state;
-            break;
-        case "assistancePopup":
-            window.location.hash = state;
-            break;
-        case "locatorsearch":
-            window.location.hash = state;
-            break;
-        case "moreDealers":
-            window.location.hash = state;
-            break;
-        case "dealerOffers":
-            window.location.hash = state;
-            break;
-        default:
-            return true;
-    }
+    window.location.hash = state;
 };
 
 var closePopUp = function (state) {
@@ -1265,7 +1220,6 @@ var closePopUp = function (state) {
             break;
         case "onRoadPrice":
             closeOnRoadPricePopUp();
-            //cityArea.close();
             break;
         case "contactDetails":
             leadPopupClose();
@@ -1302,6 +1256,9 @@ var closePopUp = function (state) {
             break;
         case "dealerOffers":
             popupDiv.close($('#dealer-offers-popup'));
+            break;
+        case "termsConditions":
+            popupDiv.close($('#termsPopUpContainer'));
             break;
         default:
             return true;
@@ -1364,13 +1321,6 @@ var locationFilter = function (filterContent, wrapperMenu) {
             else
                 $(this).hide();
         });
-
-        //listContainer = '#' + wrapperMenu.attr("id") + ' li';
-        //$(listContainer).each(function () {
-
-        //    showCurrentLi = $(this).text().toLowerCase().indexOf(inputText) > -1;
-
-        //    $(this).toggle(showCurrentLi);
 
     }
     else {
@@ -1586,14 +1536,6 @@ $('#city-area-content').on('click', '#city-menu-tab', function () {
     }
 });
 
-/*
-$(".inputbox-list-wrapper").on("click", "li", function () {
-    var item = $(this);
-    if (!item.hasClass('active')) {
-        cityArea.setSelection(item);
-    }
-});
-*/
 
 var cityArea = {
     popup: $('#city-area-popup'),
@@ -1661,3 +1603,29 @@ $('#area-menu-input').on('focus click', function (event) {
     event.stopPropagation();
     $("#city-area-popup").animate({ scrollTop: 190 });
 });
+
+function LoadTerms(offerId) {
+    $("div#termsPopUpContainer").show();
+    $(".blackOut-window").show();
+    if (offerId != 0 && offerId != null) {
+        $('#termspinner').show();
+        $('#terms').empty();
+        $.ajax({
+            type: "GET",
+            url: "/api/Terms/?offerId=" + offerId,
+            dataType: 'json',
+            success: function (response) {
+                if (response != null)
+                    $('#terms').html(response);
+            },
+            error: function (request, status, error) {
+                $("div#termsPopUpContainer").hide();
+                $(".blackOut-window").hide();
+            }
+        });
+    }
+    else {
+        $("#terms").load("/statichtml/tnc.html");
+    }
+    $('#termspinner').hide();
+}

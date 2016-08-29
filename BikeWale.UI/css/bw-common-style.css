@@ -723,6 +723,8 @@ a.action-btn:hover{text-decoration:none;}
 
 li.offertxt span { display:none }  
 li.offertxt:hover span {display:inline}
+.tnc {border-bottom: 1px solid #ababab;color: #ababab; text-decoration: none;cursor:pointer;}
+#terms li{list-style-type: square;margin-left: 10px;}
 /* AutoExpo classes */
 .ae-sprite {background: url("http://imgd3.aeplcdn.com/0x0/cw/static/sprites/ae-sprite.png") no-repeat;display:inline-block;}
 .ae-logo { background-position:-90px 0px;  width:58px; height:32px; position: relative; top: 2px;}

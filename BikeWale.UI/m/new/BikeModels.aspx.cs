@@ -576,9 +576,6 @@ namespace Bikewale.Mobile.New
                                 price = onRoadPrice;
                                 if (pqOnRoad.DPQOutput.objOffers != null && pqOnRoad.DPQOutput.objOffers.Count > 0)
                                 {
-                                    rptOffers.DataSource = pqOnRoad.DPQOutput.objOffers;
-                                    rptOffers.DataBind();
-
                                     // New model page offers section
                                     IEnumerable<OfferEntity> distictOfferCategories = pqOnRoad.DPQOutput.objOffers.GroupBy(offer => offer.OfferCategoryId).Select(g => g.First());
                                     int distictOfferCount = distictOfferCategories.Count();

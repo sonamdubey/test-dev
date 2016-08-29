@@ -331,7 +331,7 @@
                                     <img src="/images/no_result_d.png" />
                                 </div>
                                 <div id="loading" class="hide">
-                                    <img src="/images/search-loading.gif" />
+                                    <img src="http:/img2.aeplcdn.com/bikewaleimg/images/search-loading.gif" />
                                 </div>
                             </div>
                         </div>
@@ -392,7 +392,9 @@
                                                 </div>
                                                 <p class="font18 margin-top25 margin-bottom20 text-default">Available <span data-bind="text: (offers().length > 1) ? ' offers' : ' offer'"></span> on this bike</p>
                                                 <ul class="offers-list-ul" data-bind="foreach : offers()">
-                                                    <li data-bind="text : offerText()"></li>
+                                                    <li><span data-bind="text : offerText()" />
+                                                        <span class="tnc font9" data-bind="visible: isOfferTerms(), attr: { 'offerId': offerId }, click: function () { LoadTerms(offerId()); }">view terms</span>
+                                                    </li>
                                                 </ul>
                                                 <input type="button" class="btn btn-orange margin-top15" value="Book Now" data-bind="click: function () { registerPQ($data); }" />
                                             </div>
@@ -406,7 +408,22 @@
                 <div class="clear"></div>
             </div>
         </section>
-
+        <!-- Terms and condition Popup start -->
+            <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+                <div class="fixed-close-btn-wrapper">
+                    <div id="termsPopUpCloseBtn" class="termsPopUpCloseBtn fixed-close-btn bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                </div>
+                <h3>Terms and conditions</h3>
+                <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
+                    <img class="lazy" data-original="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif"  src="" />
+                </div>
+                <div id="terms" class="breakup-text-container padding-bottom10 font14">
+                </div>
+                <div id='orig-terms' class='hide'>
+                </div>
+            </div>
+            <!-- Terms and condition Popup Ends -->
+        
 
         <!-- #include file="/includes/footerBW.aspx" -->
         <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/lscache.min.js?<%= staticFileVersion%>"></script>

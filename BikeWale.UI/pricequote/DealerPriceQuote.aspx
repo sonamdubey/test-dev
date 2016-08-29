@@ -225,6 +225,7 @@
                                         <li>
                                             <span class="inline-block pq-benefits-image offer-benefit-sprite <%#  "offerIcon_" + DataBinder.Eval(Container.DataItem,"OfferCategoryId") %> margin-right10"></span>
                                             <span class="inline-block pq-benefits-title"><%#  DataBinder.Eval(Container.DataItem,"OfferText") %></span>
+                                            <span class="tnc font9 <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsOfferTerms"))? string.Empty: "hide" %>" id="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferId")) %>">View terms</span>
                                         </li>
                                     </ItemTemplate>
                                 </asp:Repeater>
@@ -685,7 +686,21 @@
                 <div class="clear"></div>
             </div>
         </section>
-
+         <!-- Terms and condition Popup start -->
+            <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+                <div class="fixed-close-btn-wrapper">
+                    <div id="termsPopUpCloseBtn" class="termsPopUpCloseBtn fixed-close-btn bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                </div>
+                <h3>Terms and conditions</h3>
+                <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
+                    <img class="lazy" data-original="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif"  src="" />
+                </div>
+                <div id="terms" class="breakup-text-container padding-bottom10 font14">
+                </div>
+                <div id='orig-terms' class='hide'>
+                </div>
+            </div>
+            <!-- Terms and condition Popup Ends -->
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript">
