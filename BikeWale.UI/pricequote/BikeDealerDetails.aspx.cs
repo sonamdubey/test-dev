@@ -179,8 +179,8 @@ namespace Bikewale.Pricequote
 
                     latitude = Convert.ToString(dealerDetailEntity.objDealer.objArea.Latitude);
                     longitude = Convert.ToString(dealerDetailEntity.objDealer.objArea.Longitude);
-                    
-                    
+
+
                 }
 
                 //Dealer Address
@@ -357,7 +357,7 @@ namespace Bikewale.Pricequote
                 var cookies = this.Context.Request.Cookies;
                 if (cookies.AllKeys.Contains("location"))
                 {
-                    string cookieLocation = cookies["location"].Value;
+                    string cookieLocation = cookies["location"].Value.Replace('-', ' ');
                     if (!String.IsNullOrEmpty(cookieLocation) && cookieLocation.IndexOf('_') != -1)
                     {
                         string[] locArray = cookieLocation.Split('_');

@@ -461,7 +461,7 @@ namespace Bikewale.BikeBooking
             {
                 if (this.Context.Request.Cookies.AllKeys.Contains("location") && !string.IsNullOrEmpty(this.Context.Request.Cookies["location"].Value) && this.Context.Request.Cookies["location"].Value != "0")
                 {
-                    location = this.Context.Request.Cookies["location"].Value;
+                    location = this.Context.Request.Cookies["location"].Value.Replace('-', ' ');
                     string[] arr = Regex.Split(location, "_");
 
                     if (arr.Length > 0)

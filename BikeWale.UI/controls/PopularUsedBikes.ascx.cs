@@ -1,9 +1,6 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
@@ -14,7 +11,7 @@ namespace Bikewale.Controls
         public uint TotalRecords { get; set; }
         public int FetchedRecordsCount { get; set; }
         public int PQSourceId { get; set; }
-        
+
 
         protected string cityName = String.Empty;
         protected static int? cityId = null;
@@ -40,18 +37,28 @@ namespace Bikewale.Controls
             this.FetchedRecordsCount = objUsed.FetchedRecordsCount;
         }
 
+        /// <summary>
+        /// Modified By : Sushil Kumar on 26th August 2016
+        /// Description : Replaced location name from location cookie to selected location objects for city and area respectively.
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="cityName"></param>
         private void CheckCityCookie(out int? cityId, out string cityName)
         {
-            string location = String.Empty;
-            if (this.Context.Request.Cookies.AllKeys.Contains("location") && this.Context.Request.Cookies["location"].Value!= "0")
+            string location = string.Empty;
+            cityId = null;
+            cityName = string.Empty;
+            if (this.Context.Request.Cookies.AllKeys.Contains("location") && this.Context.Request.Cookies["location"].Value != "0")
             {
                 location = this.Context.Request.Cookies["location"].Value;
-                cityId = Convert.ToInt32(location.Split('_')[0]);
-                cityName = location.Split('_')[1];
-                return;
+                var _locArray = location.Split('_');
+                if (_locArray != null && _locArray.Length > 0)
+                {
+                    cityId = Convert.ToInt32(_locArray[0]);
+                    cityName = (_locArray[1]).Replace('-', ' ');
+                }
             }
-            cityId = null;
-            cityName = String.Empty;
+
         }
 
         protected string FormatControlHeader()
@@ -90,7 +97,7 @@ namespace Bikewale.Controls
 
         protected string FormatImgAltTitle(string makeName)
         {
-            return String.Format("{0} used bikes",makeName);
+            return String.Format("{0} used bikes", makeName);
         }
 
         public override void Dispose()
