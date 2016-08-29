@@ -1,14 +1,20 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BAL.EditCMS;
+using Bikewale.Cache.CMS;
+using Bikewale.Cache.Core;
+using Bikewale.Common;
+using Bikewale.Entities.CMS;
+using Bikewale.Entities.CMS.Articles;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.EditCMS;
 using Bikewale.Utility;
+using Microsoft.Practices.Unity;
 using System;
-using System.Data;
-using System.Data.SqlClient;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Web;
 using System.Xml;
-using System.Data.Common;
-using MySql.CoreDAL;
-
 namespace Bikewale.News
 {
     public class Sitemap : System.Web.UI.Page
@@ -19,29 +25,31 @@ namespace Bikewale.News
         }
         private void GenerateNewsSiteMap()
         {
-            string mydomain = "http://www.bikewale.com/news/";             
+            string mydomain = "http://www.bikewale.com/news/";
 
             XmlTextWriter writer = null;
-            DataTable dataTable = null;
-            SqlDataAdapter da = null;
-            DataRow dtr = null; 
-
+            CMSContent objNews = null;
+            IEnumerable<ArticleSummary> articles = null;
+            DateTime twoDaysOld = DateTime.Now.AddDays(-2).Date;
             try
             {
                 writer = new XmlTextWriter(Response.OutputStream, Encoding.UTF8);
-                    using (DbCommand cmd = DbFactory.GetDBCommand("googlesitemapdetails"))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_applicationid", DbType.Int32, Convert.ToInt32(BWConfiguration.Instance.ApplicationId)));
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IArticles, Articles>()
+                               .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                               .RegisterType<ICacheManager, MemcacheManager>();
+                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-                        // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
-                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
-                        {
-                            if (da != null)
-                            {
-                                dataTable = ds.Tables[0];
-                            } 
-                        }
+                    List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
+                    categorList.Add(EnumCMSContentType.AutoExpo2016);
+                    categorList.Add(EnumCMSContentType.News);
+                    string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
+
+                    categorList.Clear();
+                    categorList = null;
+
+                    objNews = _cache.GetArticlesByCategoryList(contentTypeList, 1, 50, 0, 0);
                 }
                 // Creating the SiteMap XML using XMLTextWriter
                 writer.Formatting = System.Xml.Formatting.Indented;
@@ -49,37 +57,41 @@ namespace Bikewale.News
                 writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
                 writer.WriteAttributeString("xmlns", "news", null, "http://www.google.com/schemas/sitemap-news/0.9");
                 writer.WriteAttributeString("xmlns", "image", null, "http://www.google.com/schemas/sitemap-image/1.1");
-                if (dataTable != null && dataTable.Rows.Count > 0)
+                if (objNews != null && objNews.RecordCount > 0)
                 {
-                    int i = 0;
-                    while (i < dataTable.Rows.Count)
-                    {
+                    articles = objNews.Articles;
+                    articles = from article in articles
+                               where article.DisplayDate.Date >= twoDaysOld
+                               orderby article.DisplayDate descending
+                               select article;
 
-                        dtr = dataTable.Rows[i];
-                        writer.WriteStartElement("url");
-                        writer.WriteElementString("loc", String.Format("{0}{1}-{2}.html", mydomain, dtr["BasicId"].ToString(), dtr["Url"].ToString()));
-                        writer.WriteStartElement("news:news");
-                        writer.WriteStartElement("news:publication");
-                        writer.WriteElementString("news:name", "BikeWale");
-                        writer.WriteElementString("news:language", "en");
-                        writer.WriteEndElement();
-                        writer.WriteElementString("news:genres", "PressRelease, Blog");
-                        writer.WriteElementString("news:geo_locations", "India");
-                        writer.WriteElementString("news:publication_date", Convert.ToDateTime(dtr["DisplayDate"]).ToString("yyyy-MM-ddThh:mm:sszzz"));
-                        writer.WriteElementString("news:keywords", Convert.IsDBNull(dtr["Tag"]) ? "" : dtr["Tag"].ToString());
-                        writer.WriteElementString("news:title", dtr["Title"].ToString());
-                        writer.WriteEndElement();
-                        if (!Convert.IsDBNull(dtr["HostUrl"]))
+                    if (articles != null)
+                    {
+                        foreach (var article in articles)
                         {
-                            writer.WriteStartElement("image:image");
-                            writer.WriteElementString("image:loc", dtr["HostUrl"].ToString() + ImageSize._174x98 + dtr["OriginalImgPath"].ToString());
-                            writer.WriteElementString("image:title", dtr["Caption"].ToString());
-                            writer.WriteElementString("image:caption", dtr["Caption"].ToString());
-                            writer.WriteElementString("image:geo_location", "India");
+                            writer.WriteStartElement("url");
+                            writer.WriteElementString("loc", String.Format("{0}{1}-{2}.html", mydomain, article.BasicId, article.ArticleUrl));
+                            writer.WriteStartElement("news:news");
+                            writer.WriteStartElement("news:publication");
+                            writer.WriteElementString("news:name", "BikeWale");
+                            writer.WriteElementString("news:language", "en");
+                            writer.WriteEndElement();
+                            writer.WriteElementString("news:genres", "PressRelease, Blog");
+                            writer.WriteElementString("news:publication_date", article.DisplayDate.ToString("yyyy-MM-ddThh:mm:sszzz"));
+                            //writer.WriteElementString("news:keywords", article.tTag"]) ? "" : dtr["Tag"].ToString());
+                            writer.WriteElementString("news:title", article.Title);
+                            writer.WriteEndElement();
+                            if (!String.IsNullOrEmpty(article.HostUrl))
+                            {
+                                writer.WriteStartElement("image:image");
+                                writer.WriteElementString("image:loc", string.Format("{0},{1},{2}", article.HostUrl, ImageSize._174x98, article.OriginalImgUrl));
+                                //writer.WriteElementString("image:title", dtr["Caption"].ToString());
+                                //writer.WriteElementString("image:caption", dtr["Caption"].ToString());
+                                writer.WriteElementString("image:geo_location", "India");
+                                writer.WriteEndElement();
+                            }
                             writer.WriteEndElement();
                         }
-                        writer.WriteEndElement();
-                        i++;
                     }
                 }
                 writer.WriteEndDocument();

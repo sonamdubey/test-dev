@@ -1,13 +1,21 @@
-﻿using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Text.RegularExpressions;
-using System.Xml;
-using System.Data;
-using System.Data.SqlClient;
+﻿using Bikewale.BAL.EditCMS;
+using Bikewale.Cache.CMS;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
-
+using Bikewale.Entities.CMS;
+using Bikewale.Entities.CMS.Articles;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.EditCMS;
+using Bikewale.Utility;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.UI.WebControls;
+using System.Xml;
 namespace Bikewale.News
 {
     /// <summary>
@@ -26,7 +34,10 @@ namespace Bikewale.News
         XmlTextWriter writer;
         DataSet ds = new DataSet();
         DataSet dsRelated = new DataSet();
-
+        CMSContent objNews = null;
+        CMSContent objRelatedNews = null;
+        IEnumerable<ArticleSummary> articles = null;
+        IEnumerable<ArticleSummary> relatedArticles = null;
         protected string _title = "";
         protected override void OnInit(EventArgs e)
         {
@@ -58,147 +69,115 @@ namespace Bikewale.News
         private void BindNews()
         {
             //SqlCommand cmd = new SqlCommand();
-            //bool hasRows = false;
+            bool hasRows = false;
 
-            //if (_slug != string.Empty && _subCat == string.Empty)
-            //{
-            //    selectClause = " CB.Id AS BasicId, CB.AuthorName, CB.Description, CB.DisplayDate, CB.Views, CB.Title, CB.Url, CB.MainImageSet, I.HostUrl, I.ImagePathLarge, I.ImagePathThumbnail,I.OriginalImgPath ";
-            //    selectClause = selectClause + ", (Select top 1 CPC.Data From Con_EditCms_Pages AS CP, Con_EditCms_PageContent AS CPC With(NoLock) WHERE CP.BasicId = CB.Id and CPC.PageId = CP.Id) as Content";
-            //    fromClause = " Con_EditCms_Tags CT With(NoLock) "
-            //            + " Inner Join Con_EditCms_BasicTags BT With(NoLock) On BT.TagId = CT.Id "
-            //            + " Inner Join Con_EditCMs_Basic CB With(NoLock) On CB.Id = BT.BasicId "
-            //            + " LEFT JOIN Con_EditCms_Images AS I With(NoLock) ON I.BasicId = CB.Id AND I.IsMainImage = 1 ";
-            //    whereClause = " CT.Slug = @Slug And CB.CategoryId = @CategoryId AND CB.IsActive = 1 AND CB.IsPublished = 1 AND CB.ApplicationId = 2 ";
-            //    orderByClause = " DisplayDate Desc ";
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IArticles, Articles>()
+                               .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                               .RegisterType<ICacheManager, MemcacheManager>();
+                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-            //    cmd.Parameters.Add("@Slug", SqlDbType.VarChar, 150).Value = _slug;
-            //    cmd.Parameters.Add("@CategoryId", SqlDbType.BigInt).Value = "1";
-            //}
-            //else if (_slug == string.Empty && _subCat != string.Empty)
-            //{
-            //    selectClause = " CB.Id AS BasicId, CB.AuthorName, CB.Description, CB.DisplayDate, CB.Views, CB.Title, CB.Url, CB.MainImageSet ,  I.HostUrl, I.ImagePathLarge, I.ImagePathThumbnail,I.OriginalImgPath ";
-            //    selectClause = selectClause + ", (Select top 1 CPC.Data From Con_EditCms_Pages AS CP, Con_EditCms_PageContent AS CPC With(NoLock) WHERE CP.BasicId = CB.Id and CPC.PageId = CP.Id) as Content";
-            //    fromClause = " Con_EditCms_SubCategories SC With(NoLock) "
-            //                + " Inner Join Con_EditCms_BasicSubCategories BSC With(NoLock) On BSC.SubCategoryId = SC.Id "
-            //                + " Inner Join Con_EditCMs_Basic CB With(NoLock) On CB.Id = BSC.BasicId "
-            //                + " LEFT JOIN Con_EditCms_Images AS I With(NoLock) ON I.BasicId = CB.Id AND I.IsMainImage = 1 ";
-            //    whereClause = " SC.Id = @SubCatId And CB.CategoryId = @CategoryId AND CB.IsActive = 1 AND CB.IsPublished = 1 AND CB.ApplicationId = 2 ";
-            //    orderByClause = " DisplayDate Desc ";
+                    List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
+                    categorList.Add(EnumCMSContentType.AutoExpo2016);
+                    categorList.Add(EnumCMSContentType.News);
+                    string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
 
-            //    cmd.Parameters.Add("@SubCatId", SqlDbType.BigInt).Value = _subCat;
-            //    cmd.Parameters.Add("@CategoryId", SqlDbType.BigInt).Value = "1";
-            //}
-            //else
-            //{
-            //    selectClause = " CB.Id AS BasicId, CB.AuthorName, CB.Description, CB.DisplayDate, CB.Views, CB.Title, CB.Url, CB.MainImageSet,  I.HostUrl, I.ImagePathLarge, I.ImagePathThumbnail,I.OriginalImgPath ";
-            //    selectClause = selectClause + ", (Select top 1 CPC.Data From Con_EditCms_Pages AS CP, Con_EditCms_PageContent AS CPC With(NoLock) WHERE CP.BasicId = CB.Id and CPC.PageId = CP.Id) as Content";
-            //    fromClause = " Con_EditCms_Basic AS CB With(NoLock) "
-            //               + " LEFT JOIN Con_EditCms_Images AS I With(NoLock) ON I.BasicId = CB.Id AND I.IsMainImage = 1 ";
-            //    whereClause = " CB.CategoryId = @CategoryId AND CB.IsActive = 1 AND CB.IsPublished = 1 AND CB.ApplicationId = 2 ";
-            //    orderByClause = " DisplayDate Desc ";
+                    categorList.Clear();
+                    categorList = null;
 
-            //    cmd.Parameters.Add("@CategoryId", SqlDbType.BigInt).Value = "1";
-            //}
+                    objNews = _cache.GetArticlesByCategoryList(contentTypeList, 1, 50, 0, 0);
+                }
+                if (objNews.RecordCount > 0)
+                {
+                    hasRows = true;
+                    articles = objNews.Articles;
+                    WriteRSSPrologue();
+                    GetRelatedItems();
+                    int articleCount = articles.Count();
+                    for (int i = 0; i < articleCount; i++)
+                    {
+                        CreateItem(i);
+                    }
+                    WriteRSSClosing();
 
-            //try
-            //{
-            //    int startIndex = (CurrentPageIndex - 1) * this.PageSize + 1;
-            //    int endIndex = CurrentPageIndex * this.PageSize;
+                    writer.Flush();
+                    writer.Close();
 
-            //    string sql = " Select * From (Select Top " + endIndex + " Row_Number() Over (Order By " + orderByClause + ") AS RowN, "
-            //        + " " + selectClause + " From " + fromClause + " "
-            //        + (whereClause != "" ? " Where " + whereClause + " " : "")
-            //        + " ) AS TopRecords Where "
-            //        + " RowN >= " + startIndex + " AND RowN <= " + endIndex + " ";
+                    Response.ContentEncoding = System.Text.Encoding.UTF8;
+                    Response.ContentType = "text/xml";
+                    Response.Cache.SetCacheability(HttpCacheability.Public);
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
 
-            //    Trace.Warn(sql);
-            //    cmd.CommandText = sql;
-            //    cmd.CommandType = CommandType.Text;
+            if (!hasRows)
+            {
+                Response.Redirect("/news/", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
+            }
 
-            //    //Response.Write(sql);
-
-            //    CommonOpn objCom = new CommonOpn();
-
-            //    cwConnectionString = System.Configuration.ConfigurationManager.AppSettings["connectionString"];
-            //    Database db = new Database(cwConnectionString);
-            //    ds = db.SelectAdaptQry(cmd);
-            //    if (ds.Tables[0].Rows.Count > 0)
-            //    {
-            //        hasRows = true;
-            //        WriteRSSPrologue();
-            //        GetRelatedItems();
-
-            //        for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-            //        {
-            //            CreateItem(i);
-            //        }
-            //        WriteRSSClosing();
-
-            //        writer.Flush();
-            //        writer.Close();
-
-            //        Response.ContentEncoding = System.Text.Encoding.UTF8;
-            //        Response.ContentType = "text/xml";
-            //        Response.Cache.SetCacheability(HttpCacheability.Public);
-            //    }
-            //}
-            //catch (Exception err)
-            //{
-            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //}
-
-            //if (!hasRows)
-            //{
-            //    Response.Redirect("/news/", false);
-            //    HttpContext.Current.ApplicationInstance.CompleteRequest();
-            //    this.Page.Visible = false;
-            //}
-
-            //Response.End();
+            Response.End();
         }
 
         private void GetRelatedItems()
         {
             if (CurrentPageIndex == 1)
             {
-                relatedItem1 = "http://www.bikewale.com/news/" + ds.Tables[0].Rows[0]["BasicId"].ToString() + "-" + ds.Tables[0].Rows[0]["Url"].ToString() + ".html";
-                relatedItem2 = "http://www.bikewale.com/news/" + ds.Tables[0].Rows[1]["BasicId"].ToString() + "-" + ds.Tables[0].Rows[1]["Url"].ToString() + ".html";
-                relatedItem3 = "http://www.bikewale.com/news/" + ds.Tables[0].Rows[2]["BasicId"].ToString() + "-" + ds.Tables[0].Rows[2]["Url"].ToString() + ".html";
-                relatedItem4 = "http://www.bikewale.com/news/" + ds.Tables[0].Rows[3]["BasicId"].ToString() + "-" + ds.Tables[0].Rows[3]["Url"].ToString() + ".html";
+                ArticleSummary firstArticle = articles.FirstOrDefault();
+                ArticleSummary secondArticle = articles.Skip(1).FirstOrDefault();
+                ArticleSummary thirdArticle = articles.Skip(2).FirstOrDefault();
+                ArticleSummary forthArticle = articles.Skip(3).FirstOrDefault();
+                relatedItem1 = String.Format("http://www.bikewale.com/news/{0}-{1}.html", firstArticle.BasicId, firstArticle.ArticleUrl);
+                relatedItem1 = String.Format("http://www.bikewale.com/news/{0}-{1}.html", secondArticle.BasicId, secondArticle.ArticleUrl);
+                relatedItem1 = String.Format("http://www.bikewale.com/news/{0}-{1}.html", thirdArticle.BasicId, thirdArticle.ArticleUrl);
+                relatedItem1 = String.Format("http://www.bikewale.com/news/{0}-{1}.html", forthArticle.BasicId, forthArticle.ArticleUrl);
             }
             else
             {
                 GetRelatedLinksFromDB();
-                if (dsRelated.Tables[0].Rows.Count > 0)
+                if (relatedArticles != null && relatedArticles.Count() > 0)
                 {
-                    relatedItem1 = "http://www.bikewale.com/news/" + dsRelated.Tables[0].Rows[0]["BasicId"].ToString() + "-" + dsRelated.Tables[0].Rows[0]["Url"].ToString() + ".html";
-                    relatedItem2 = "http://www.bikewale.com/news/" + dsRelated.Tables[0].Rows[1]["BasicId"].ToString() + "-" + dsRelated.Tables[0].Rows[1]["Url"].ToString() + ".html";
-                    relatedItem3 = "http://www.bikewale.com/news/" + dsRelated.Tables[0].Rows[2]["BasicId"].ToString() + "-" + dsRelated.Tables[0].Rows[2]["Url"].ToString() + ".html";
-                    relatedItem4 = "http://www.bikewale.com/news/" + dsRelated.Tables[0].Rows[3]["BasicId"].ToString() + "-" + dsRelated.Tables[0].Rows[3]["Url"].ToString() + ".html";
+                    ArticleSummary firstArticle = relatedArticles.FirstOrDefault();
+                    ArticleSummary secondArticle = relatedArticles.Skip(1).FirstOrDefault();
+                    ArticleSummary thirdArticle = relatedArticles.Skip(2).FirstOrDefault();
+                    ArticleSummary forthArticle = relatedArticles.Skip(3).FirstOrDefault();
+                    relatedItem1 = String.Format("http://www.bikewale.com/news/{0}-{1}.html", firstArticle.BasicId, firstArticle.ArticleUrl);
+                    relatedItem1 = String.Format("http://www.bikewale.com/news/{0}-{1}.html", secondArticle.BasicId, secondArticle.ArticleUrl);
+                    relatedItem1 = String.Format("http://www.bikewale.com/news/{0}-{1}.html", thirdArticle.BasicId, thirdArticle.ArticleUrl);
+                    relatedItem1 = String.Format("http://www.bikewale.com/news/{0}-{1}.html", forthArticle.BasicId, forthArticle.ArticleUrl);
                 }
             }
         }
 
         private void GetRelatedLinksFromDB()
         {
-            throw new Exception("Method not used/commented");
 
-            //SqlCommand cmd = new SqlCommand();
-            //int startIndex = 1;
-            //int endIndex = 4;
-            //string sql = " Select * From (Select Top " + endIndex + " Row_Number() Over (Order By " + orderByClause + ") AS RowN, "
-            //        + " " + selectClause + " From " + fromClause + " "
-            //        + (whereClause != "" ? " Where " + whereClause + " " : "")
-            //        + " ) AS TopRecords Where "
-            //        + " RowN >= " + startIndex + " AND RowN <= " + endIndex + " ";
-            //cmd.CommandText = sql;
-            //cmd.CommandType = CommandType.Text;
-            //CommonOpn objCom = new CommonOpn();
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IArticles, Articles>()
+                           .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                           .RegisterType<ICacheManager, MemcacheManager>();
+                ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-            //cwConnectionString = System.Configuration.ConfigurationManager.AppSettings["connectionString"];
-            //Database db = new Database(cwConnectionString);
-            //dsRelated = db.SelectAdaptQry(cmd);
+                List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
+                categorList.Add(EnumCMSContentType.AutoExpo2016);
+                categorList.Add(EnumCMSContentType.News);
+                string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
+
+                categorList.Clear();
+                categorList = null;
+
+                objRelatedNews = _cache.GetArticlesByCategoryList(contentTypeList, 1, 50, 0, 0);
+                relatedArticles = objRelatedNews != null && objRelatedNews.RecordCount > 0 ? objRelatedNews.Articles : null;
+            }
 
         }
 
@@ -210,39 +189,37 @@ namespace Bikewale.News
         {
             if (index == 0)
             {
+                ArticleSummary firstArticle = articles.FirstOrDefault();
                 AddRSSItem(
-                    ds.Tables[0].Rows[index]["BasicId"].ToString(),
-                    ds.Tables[0].Rows[index]["Title"].ToString().Replace("\n", "").Replace("\r", "").Replace("\t", ""),
-                    "http://www.bikewale.com/news/" + ds.Tables[0].Rows[index]["BasicId"].ToString() + "-" + ds.Tables[0].Rows[index]["Url"].ToString() + ".html",
-                    ds.Tables[0].Rows[index]["AuthorName"].ToString(),
-                    ds.Tables[0].Rows[index]["DisplayDate"].ToString(),
-                    ds.Tables[0].Rows[index]["Views"].ToString(),
-                    //Bikewale.Common.ImagingFunctions.GetImagePath("/bikewaleimg/ec/") + ds.Tables[0].Rows[index]["BasicId"].ToString() + "/img/m/" + ds.Tables[0].Rows[index]["BasicId"].ToString() + "_m",
-                    //Bikewale.Common.ImagingFunctions.GetImagePath("/bikewaleimg/ec/") + ds.Tables[0].Rows[index]["BasicId"].ToString() + "/img/m/" + ds.Tables[0].Rows[index]["BasicId"].ToString() + "_l",
-                    Bikewale.Utility.Image.GetPathToShowImages(ds.Tables[0].Rows[index]["OriginalImgPath"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString(), Bikewale.Utility.ImageSize._310x174),
-                    Bikewale.Utility.Image.GetPathToShowImages(ds.Tables[0].Rows[index]["OriginalImgPath"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString(), Bikewale.Utility.ImageSize._642x361),
-                    ds.Tables[0].Rows[index]["Description"].ToString().Replace("\n", "").Replace("\r", "").Replace("\t", ""),
-                    ds.Tables[0].Rows[index]["Content"].ToString().Replace("\n", "").Replace("\r", "").Replace("\t", ""),
+                    firstArticle.BasicId.ToString(),
+                    firstArticle.Title,
+                    String.Format("http://www.bikewale.com/news/{0}-{1}.html", firstArticle.BasicId, firstArticle.ArticleUrl),
+                    firstArticle.AuthorName,
+                    firstArticle.DisplayDate.ToString(),
+                    firstArticle.Views.ToString(),
+                    Bikewale.Utility.Image.GetPathToShowImages(firstArticle.OriginalImgUrl, firstArticle.HostUrl, Bikewale.Utility.ImageSize._310x174),
+                    Bikewale.Utility.Image.GetPathToShowImages(firstArticle.OriginalImgUrl, firstArticle.HostUrl, Bikewale.Utility.ImageSize._642x361),
+                    firstArticle.Description,
+                    firstArticle.Description,
                     relatedItem2,
                     relatedItem3,
                     relatedItem4
                     );
             }
             else if (index == 1)
-            { 
+            {
+                ArticleSummary secondArticle = articles.Skip(index).FirstOrDefault();
                 AddRSSItem(
-                    ds.Tables[0].Rows[index]["BasicId"].ToString(),
-                    ds.Tables[0].Rows[index]["Title"].ToString().Replace("\n", "").Replace("\r", "").Replace("\t", ""),
-                    "http://www.bikewale.com/news/" + ds.Tables[0].Rows[index]["BasicId"].ToString() + "-" + ds.Tables[0].Rows[index]["Url"].ToString() + ".html",
-                    ds.Tables[0].Rows[index]["AuthorName"].ToString(),
-                    ds.Tables[0].Rows[index]["DisplayDate"].ToString(),
-                    ds.Tables[0].Rows[index]["Views"].ToString(),
-                    //Bikewale.Common.ImagingFunctions.GetPathToShowImages(ds.Tables[0].Rows[index]["ImagePathThumbnail"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString()),
-                    //Bikewale.Common.ImagingFunctions.GetPathToShowImages(ds.Tables[0].Rows[index]["ImagePathLarge"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString()),
-                    Bikewale.Utility.Image.GetPathToShowImages(ds.Tables[0].Rows[index]["OriginalImgPath"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString(), Bikewale.Utility.ImageSize._310x174),
-                    Bikewale.Utility.Image.GetPathToShowImages(ds.Tables[0].Rows[index]["OriginalImgPath"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString(), Bikewale.Utility.ImageSize._642x361),
-                    ds.Tables[0].Rows[index]["Description"].ToString().Replace("\n", "").Replace("\r", "").Replace("\t", ""),
-                    ds.Tables[0].Rows[index]["Content"].ToString().Replace("\n", "").Replace("\r", "").Replace("\t", ""),
+                    secondArticle.BasicId.ToString(),
+                    secondArticle.Title,
+                    String.Format("http://www.bikewale.com/news/{0}-{1}.html", secondArticle.BasicId, secondArticle.ArticleUrl),
+                    secondArticle.AuthorName,
+                    secondArticle.DisplayDate.ToString(),
+                    secondArticle.Views.ToString(),
+                    Bikewale.Utility.Image.GetPathToShowImages(secondArticle.OriginalImgUrl, secondArticle.HostUrl, Bikewale.Utility.ImageSize._310x174),
+                    Bikewale.Utility.Image.GetPathToShowImages(secondArticle.OriginalImgUrl, secondArticle.HostUrl, Bikewale.Utility.ImageSize._642x361),
+                    secondArticle.Description,
+                    secondArticle.Description,
                     relatedItem1,
                     relatedItem3,
                     relatedItem4
@@ -250,19 +227,18 @@ namespace Bikewale.News
             }
             else if (index == 2)
             {
+                ArticleSummary thirdArticle = articles.Skip(index).FirstOrDefault();
                 AddRSSItem(
-                    ds.Tables[0].Rows[index]["BasicId"].ToString(),
-                    ds.Tables[0].Rows[index]["Title"].ToString().Replace("\n", "").Replace("\r", "").Replace("\t", ""),
-                    "http://www.bikewale.com/news/" + ds.Tables[0].Rows[index]["BasicId"].ToString() + "-" + ds.Tables[0].Rows[index]["Url"].ToString() + ".html",
-                    ds.Tables[0].Rows[index]["AuthorName"].ToString(),
-                    ds.Tables[0].Rows[index]["DisplayDate"].ToString(),
-                    ds.Tables[0].Rows[index]["Views"].ToString(),
-                    //Bikewale.Common.ImagingFunctions.GetPathToShowImages(ds.Tables[0].Rows[index]["ImagePathThumbnail"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString()),
-                    //Bikewale.Common.ImagingFunctions.GetPathToShowImages(ds.Tables[0].Rows[index]["ImagePathLarge"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString()),
-                    Bikewale.Utility.Image.GetPathToShowImages(ds.Tables[0].Rows[index]["OriginalImgPath"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString(), Bikewale.Utility.ImageSize._310x174),
-                    Bikewale.Utility.Image.GetPathToShowImages(ds.Tables[0].Rows[index]["OriginalImgPath"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString(), Bikewale.Utility.ImageSize._642x361),
-                    ds.Tables[0].Rows[index]["Description"].ToString().Replace("\n", "").Replace("\r", "").Replace("\t", ""),
-                    ds.Tables[0].Rows[index]["Content"].ToString().Replace("\n", "").Replace("\r", "").Replace("\t", ""),
+                    thirdArticle.BasicId.ToString(),
+                    thirdArticle.Title,
+                    String.Format("http://www.bikewale.com/news/{0}-{1}.html", thirdArticle.BasicId, thirdArticle.ArticleUrl),
+                    thirdArticle.AuthorName,
+                    thirdArticle.DisplayDate.ToString(),
+                    thirdArticle.Views.ToString(),
+                    Bikewale.Utility.Image.GetPathToShowImages(thirdArticle.OriginalImgUrl, thirdArticle.HostUrl, Bikewale.Utility.ImageSize._310x174),
+                    Bikewale.Utility.Image.GetPathToShowImages(thirdArticle.OriginalImgUrl, thirdArticle.HostUrl, Bikewale.Utility.ImageSize._642x361),
+                    thirdArticle.Description,
+                    thirdArticle.Description,
                     relatedItem1,
                     relatedItem2,
                     relatedItem4
@@ -270,22 +246,21 @@ namespace Bikewale.News
             }
             else
             {
+                ArticleSummary forthArticle = articles.Skip(index).FirstOrDefault();
                 AddRSSItem(
-                    ds.Tables[0].Rows[index]["BasicId"].ToString(),
-                    ds.Tables[0].Rows[index]["Title"].ToString().Replace("\n", "").Replace("\r", "").Replace("\t", ""),
-                    "http://www.bikewale.com/news/" + ds.Tables[0].Rows[index]["BasicId"].ToString() + "-" + ds.Tables[0].Rows[index]["Url"].ToString() + ".html",
-                    ds.Tables[0].Rows[index]["AuthorName"].ToString(),
-                    ds.Tables[0].Rows[index]["DisplayDate"].ToString(),
-                    ds.Tables[0].Rows[index]["Views"].ToString(),
-                    //Bikewale.Common.ImagingFunctions.GetPathToShowImages(ds.Tables[0].Rows[index]["ImagePathThumbnail"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString()),
-                    //Bikewale.Common.ImagingFunctions.GetPathToShowImages(ds.Tables[0].Rows[index]["ImagePathLarge"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString()),
-                    Bikewale.Utility.Image.GetPathToShowImages(ds.Tables[0].Rows[index]["OriginalImgPath"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString(), Bikewale.Utility.ImageSize._310x174),
-                    Bikewale.Utility.Image.GetPathToShowImages(ds.Tables[0].Rows[index]["OriginalImgPath"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString(), Bikewale.Utility.ImageSize._642x361),
-                    ds.Tables[0].Rows[index]["Description"].ToString().Replace("\n", "").Replace("\r", "").Replace("\t", ""),
-                    ds.Tables[0].Rows[index]["Content"].ToString().Replace("\n", "").Replace("\r", "").Replace("\t", ""),
+                    forthArticle.BasicId.ToString(),
+                    forthArticle.Title,
+                    String.Format("http://www.bikewale.com/news/{0}-{1}.html", forthArticle.BasicId, forthArticle.ArticleUrl),
+                    forthArticle.AuthorName,
+                    forthArticle.DisplayDate.ToString(),
+                    forthArticle.Views.ToString(),
+                    Bikewale.Utility.Image.GetPathToShowImages(forthArticle.OriginalImgUrl, forthArticle.HostUrl, Bikewale.Utility.ImageSize._310x174),
+                    Bikewale.Utility.Image.GetPathToShowImages(forthArticle.OriginalImgUrl, forthArticle.HostUrl, Bikewale.Utility.ImageSize._642x361),
+                    forthArticle.Description,
+                    forthArticle.Description,
                     relatedItem1,
                     relatedItem2,
-                    relatedItem3
+                    relatedItem4
                     );
             }
         }
@@ -308,7 +283,7 @@ namespace Bikewale.News
             writer.WriteElementString("img:alt", "Bike News - Latest Indian Bike News & Views | BikeWale");
             writer.WriteElementString("link", "http://www.bikewale.com/news/");
             writer.WriteElementString("description", "Latest news updates on Indian bike industry, expert views and interviews exclusively on BikeWale.");
-            writer.WriteElementString("copyright", "Copyright 2012 BikeWale");
+            writer.WriteElementString("copyright", "Copyright " + DateTime.Now.Year + " BikeWale");
             writer.WriteElementString("generator", "BikeWale RSS Generator");
             writer.WriteStartElement("atom:link");
             writer.WriteAttributeString("href", "http://www.bikewale.com/news/feed/");
@@ -341,7 +316,7 @@ namespace Bikewale.News
             writer.WriteEndElement();
             //writer.WriteElementString("title", sItemTitle);
             //writer.WriteElementString("img:alt", sItemTitle);
-           
+
             writer.WriteElementString("link", sItemLink);
             writer.WriteElementString("guid", sItemLink);
             writer.WriteElementString("bw:author", sItemAuthor);
