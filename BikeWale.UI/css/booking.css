@@ -105,11 +105,12 @@ zoom: 1; vertical-align:middle; }
 .viewterms:hover{text-decoration:underline;}
 
 li.offertxt span { display:none }  
-li.offertxt:hover span {display:inline}
-
+li.offertxt:hover span {display:inline; cursor:pointer;}
+li.offertxt .hide, li.offertxt:hover span.hide {display:none;}
 #testimonialWrapper { max-width:770px; margin:0 auto; }
 #testimonialWrapper .jcarousel-wrapper { width:770px; }
 #testimonialWrapper li { width:770px; padding:0 20px; height:auto; }
+.offertxt{ list-style-type:circle; margin-left:10px;padding:5px;}
 /*
 #testimonialWrapper .jcarousel { width:934px; overflow:hidden; left:20px; padding:20px 0; }
 #testimonialWrapper .jcarousel li { width:298px; height:180px; margin-right: 20px; padding:0 10px; text-align:center; }

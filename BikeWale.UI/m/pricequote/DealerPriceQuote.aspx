@@ -584,6 +584,7 @@
             <div class="fixed-close-btn-wrapper">
                 <div id="termsPopUpCloseBtn" class="termsPopUpCloseBtn bwmsprite fixed-close-btn cross-lg-lgt-grey cur-pointer"></div>
             </div>
+            <h3>Terms and Conditions</h3>
             <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
                 <img src="http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
             </div>

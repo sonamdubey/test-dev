@@ -210,8 +210,9 @@
                                         <p class="font18 margin-top25 margin-bottom20 text-default">Available offers on this bike</p>
                                         <ul class="offers-list-ul" data-bind="foreach: offers()">
                                             <li>
-                                                <span data-bind="text: offerText()"></span>
-                                                <span class="tnc font9" data-bind="visible: isOfferTerms(), attr: { 'offerId': offerId }, click: function () { loadTerms(offerId()); }">view terms</span>
+                                                <span data-bind="text: offerText()">
+                                                    <span class="tnc font9" data-bind="visible: isOfferTerms(), attr: { 'offerId': offerId }, click: function () { loadTerms(offerId()); }">view terms</span>
+                                                </span>
                                             </li>
                                         </ul>
                                         <input type="button" class="book-now-popup-btn margin-top30 btn btn-orange font16" data-bind="click: function () { window.history.back(); registerPQ($data); }" value="Book now" />
@@ -401,6 +402,7 @@
             <div class="fixed-close-btn-wrapper">
                 <div id="termsPopUpCloseBtn" class="termsPopUpCloseBtn bwmsprite fixed-close-btn cross-lg-lgt-grey cur-pointer"></div>
             </div>
+            <h3>Terms and Conditions</h3>
             <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
                 <img src="http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
             </div>

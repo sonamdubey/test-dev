@@ -154,8 +154,8 @@
                             <div class="grid-6 availed-offers-container">
                                 <!-- offers container -->
                                 <div class="availed-offers-info margin-left10 padding-top10 padding-bottom10">
-                                    <p class="font16 margin-bottom10 text-bold">
-                                        Availed exclusive Bikewale offers  
+                                    <p class="font16 margin-bottom10 text-bold offertxt">
+                                        Availed exclusive Bikewale offers
                                     </p>
                                     <% if(IsInsuranceFree) { %>
                                     <p>Free Insurance for 1 year worth Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(insuranceAmount.ToString()) %>  at the dealership</p>
@@ -163,8 +163,7 @@
                                     <ul>
                                         <asp:Repeater ID="rptOffers" runat="server">
                                             <ItemTemplate>
-                                               <%-- <li><%# DataBinder.Eval(Container.DataItem,"OfferText")%></li>--%>
-                                                <li class="offertxt"><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
+                                               <li class="offertxt"><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
                                                     <span class="tnc font9 <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsOfferTerms"))? string.Empty: "hide" %>" id="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferId")) %>">View terms</span>
                                                 </li>
                                             </ItemTemplate>
@@ -277,6 +276,23 @@
         </div>
         <!--required documents popup ends here-->
 
+        <!-- Terms and condition Popup start -->
+            <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+                <div class="fixed-close-btn-wrapper">
+                    <div class="termsPopUpCloseBtn fixed-close-btn bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                </div>
+                <h3>Terms and conditions</h3>
+                <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
+                    <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
+                    <img class="lazy" data-original="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif"  src="" />
+
+                </div>
+                <div id="terms" class="breakup-text-container padding-bottom10 font14">
+                </div>
+                <div id='orig-terms' class='hide'>
+                </div>
+            </div>
+            <!-- Terms and condition Popup Ends -->
 
         <!-- #include file="/includes/footerBW.aspx" -->                                    
         <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
@@ -336,7 +352,6 @@
                     unlockPopup();
                 });
 
-
                 function unlockPopup() {
                     $('body').removeClass('lock-browser-scroll');
                     $(".blackOut-window").hide();
@@ -346,8 +361,44 @@
                     $(".cancellation-popup").hide();
                     $('.required-doc').hide();
                 });
-
             });
+
+            $('.tnc').on('click', function (e) {
+                LoadTerms($(this).attr("id"));
+            });
+
+            $('.termsPopUpCloseBtn ').on("click", function () {
+                $('#termsPopUpContainer').hide();
+                $(".blackOut-window").hide();
+            });
+
+            function LoadTerms(offerId) {
+                $("div#termsPopUpContainer").show();
+                $(".blackOut-window").show();
+                if (offerId != 0 && offerId != null) {
+                    $(".termsPopUpContainer").css('height', '150')
+                    $('#termspinner').show();
+                    $('#terms').empty();
+                    $.ajax({
+                        type: "GET",
+                        url: "/api/Terms/?offerMaskingName=&offerId=" + offerId,
+                        dataType: 'json',
+                        success: function (response) {
+                            $('#termspinner').hide();
+                            if (response != null)
+                                $('#terms').html(response);
+                        },
+                        error: function (request, status, error) {
+                            $("div#termsPopUpContainer").hide();
+                            $(".blackOut-window").hide();
+                        }
+                    });
+                } else {
+                    $("#terms").load("/statichtml/tnc.html");
+                }
+
+                $(".termsPopUpContainer").css('height', '500');
+            }
         </script>
     </form>
 
