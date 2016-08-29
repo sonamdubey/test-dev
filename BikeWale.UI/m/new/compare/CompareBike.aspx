@@ -15,6 +15,7 @@
 <script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
 <style>
     a {text-decoration:none !important;}
+    .ui-title { color: #fff; }
 </style>
     <input type="hidden" id="hdnMake1" runat="server" />
 <input type="hidden" id="hdnMake2" runat="server" />
