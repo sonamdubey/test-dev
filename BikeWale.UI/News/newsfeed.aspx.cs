@@ -96,8 +96,8 @@ namespace Bikewale.News
                     articles = objNews.Articles;
                     WriteRSSPrologue();
                     GetRelatedItems();
-
-                    for (int i = 0; i < articles.Count(); i++)
+                    int articleCount = articles.Count();
+                    for (int i = 0; i < articleCount; i++)
                     {
                         CreateItem(i);
                     }
