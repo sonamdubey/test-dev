@@ -720,14 +720,6 @@ namespace Bikewale.DAL.AutoBiz
                         }
                     }
                     #endregion
-
-                    //termsHtml = Convert.ToString(MySqlDatabase.ExecuteScalar(cmd, ConnectionType.ReadOnly));
-                    //if (!string.IsNullOrEmpty(termsHtml))
-                    //{
-                    //    offerTerms = new OfferHtmlEntity();
-                    //    offerTerms.Html = termsHtml;
-                    //    offerTerms.IsExpired = Convert.ToBoolean(cmd.Parameters["par_isExpired"].Value);
-                    //}
                 }
             }
             catch (Exception ex)
