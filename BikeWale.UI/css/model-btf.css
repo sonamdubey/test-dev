@@ -106,12 +106,7 @@ li.offertxt:hover span {display:inline}
 #modelSpecsTabsContentWrapper h2 { margin-bottom:15px; }
 #modelSpecsTabsContentWrapper h3 { margin-bottom:12px; }
 #modelSpecsFeaturesContent h3, #modelReviewsContent h3.model-section-subtitle { margin-bottom:20px; }
-.overall-specs-tabs-wrapper { display:table; background:#fff; }
-.overall-specs-tabs-wrapper a { padding:10px 20px; display:table-cell; font-size:14px; color:#82888b; }
-.overall-specs-tabs-wrapper a:hover { text-decoration:none; color:#4d5057; }
-#modelSpecsTabsContentWrapper .overall-specs-tabs-wrapper a:first-child, .overall-specs-tabs-wrapper a.active { border-bottom:3px solid #ef3f30; font-weight:bold; color:#4d5057; }
 .content-inner-block-1020 { padding:10px 20px; }
-.content-inner-block-2010 { padding:20px 10px; }
 .inr-sm-grey { width:8px; height:12px; background-position:-92px -468px; }
 .inr-md-lg { width:12px; height:17px; background-position:-64px -515px; }
 .inr-lg-dark { width:10px; height:14px; background-position:-85px -515px; }
