@@ -33,18 +33,29 @@ namespace Bikewale.Mobile.controls
             objUsed.BindRepeater(rptPopularUsedBikes);
             this.FetchedRecordsCount = objUsed.FetchedRecordsCount;
         }
+
+        /// <summary>
+        /// Modified By : Sushil Kumar on 26th August 2016
+        /// Description : Replaced location name from location cookie to selected location objects for city and area respectively.
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="cityName"></param>
         private void CheckCityCookie(out int? cityId, out string cityName)
         {
             string location = String.Empty;
+            cityId = null;
+            cityName = String.Empty;
             if (this.Context.Request.Cookies.AllKeys.Contains("location"))
             {
                 location = this.Context.Request.Cookies["location"].Value;
-                cityId = Convert.ToInt32(location.Split('_')[0]);
-                cityName = location.Split('_')[1];
-                return;
+                var _locArray = location.Split('_');
+                if (_locArray != null && _locArray.Length > 0)
+                {
+                    cityId = Convert.ToInt32(_locArray[0]);
+                    cityName = (_locArray[1]).Replace('-', ' ');
+                }
             }
-            cityId = null;
-            cityName = String.Empty;
+
         }
 
         protected string FormatControlHeader()

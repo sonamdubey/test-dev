@@ -36,10 +36,10 @@ namespace Bikewale.Mobile
     public class ModelSpecsFeatures : PageBase
     {
         protected uint cityId, areaId, modelId, versionId, dealerId, price = 0;
-        protected string cityName = "Mumbai", areaName, makeName, modelName, bikeName, versionName,makeMaskingName, modelMaskingName, modelImage, clientIP = CommonOpn.GetClientIP();
+        protected string cityName = "Mumbai", areaName, makeName, modelName, bikeName, versionName, makeMaskingName, modelMaskingName, modelImage, clientIP = CommonOpn.GetClientIP();
         protected IEnumerable<CityEntityBase> objCityList = null;
         protected IEnumerable<Bikewale.Entities.Location.AreaEntityBase> objAreaList = null;
-        protected bool isCitySelected, isAreaSelected, isBikeWalePQ,isDealerOfferAvailable,isOnRoadPrice, isAreaAvailable, showOnRoadPriceButton, isDiscontinued, IsDealerPriceQuote, IsExShowroomPrice = true, toShowOnRoadPriceButton;
+        protected bool isCitySelected, isAreaSelected, isBikeWalePQ, isDealerOfferAvailable, isOnRoadPrice, isAreaAvailable, showOnRoadPriceButton, isDiscontinued, IsDealerPriceQuote, IsExShowroomPrice = true, toShowOnRoadPriceButton;
         protected BikeSpecificationEntity specs;
         protected BikeModelPageEntity modelDetail;
         protected DetailedDealerQuotationEntity dealerDetail;
@@ -190,7 +190,7 @@ namespace Bikewale.Mobile
                                 makeMaskingName = modelPg.ModelDetails.MakeBase.MaskingName;
                             }
                             bikeName = string.Format("{0} {1}", makeName, modelName);
-                            
+
                             if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)
                             {
                                 // Check it versionId passed through url exists in current model's versions
@@ -237,10 +237,10 @@ namespace Bikewale.Mobile
                     IDealerPriceQuoteDetail objIPQ = container.Resolve<IDealerPriceQuoteDetail>();
                     IDealerPriceQuote dealerPQ = container.Resolve<IDealerPriceQuote>();
                     DealerInfo dealerInfo = dealerPQ.IsDealerExists(versionId, areaId);
-                    
+
                     if (dealerInfo != null && dealerInfo.DealerId > 0)
                     {
-                        detailedDealer = objIPQ.GetDealerQuotation(cityId, versionId, dealerInfo.DealerId);                        
+                        detailedDealer = objIPQ.GetDealerQuotation(cityId, versionId, dealerInfo.DealerId);
                     }
 
                 }
@@ -345,6 +345,8 @@ namespace Bikewale.Mobile
         /// <summary>
         /// Modified by :   Sumit Kate on 05 Jan 2016
         /// Description :   Replaced the Convert.ToXXX with XXX.TryParse method
+        /// Modified By : Sushil Kumar on 26th August 2016
+        /// Description : Replaced location name from location cookie to selected location objects for city and area respectively.
         /// </summary>
         private void CheckCityCookie()
         {
@@ -368,10 +370,11 @@ namespace Bikewale.Mobile
                             if (objCityList != null)
                             {
                                 // If Model doesn't have current City then don't show it, Show Ex-showroom Mumbai
-                                isCitySelected = objCityList.Any(p => p.CityId == cityId);
-                                if (isCitySelected)
+                                var _objCity = objCityList.FirstOrDefault(p => p.CityId == cityId);
+                                if (_objCity != null)
                                 {
-                                    cityName = locArray[1];
+                                    cityName = _objCity.CityName;
+                                    isCitySelected = true;
                                 }
                             }
                         }
@@ -381,13 +384,13 @@ namespace Bikewale.Mobile
                     // locArray.Length = 4 Means City and area exists
                     if (locArray.Length > 3 && cityId != 0)
                     {
-                        UInt32.TryParse(locArray[2], out areaId);
-                        if (objAreaList != null)
+                        if (objAreaList != null && UInt32.TryParse(locArray[2], out areaId))
                         {
-                            isAreaSelected = objAreaList.Any(p => p.AreaId == areaId);
-                            if (isAreaAvailable)
+                            var _objArea = objAreaList.FirstOrDefault(p => p.AreaId == areaId);
+                            if (_objArea != null && isAreaAvailable)
                             {
-                                areaName = locArray[3];
+                                areaName = _objArea.AreaName;
+                                isAreaSelected = true;
                             }
                         }
                     }
@@ -486,7 +489,7 @@ namespace Bikewale.Mobile
                 toShowOnRoadPriceButton = true;
             }
         }
-       
+
 
     }
 }

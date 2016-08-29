@@ -544,6 +544,8 @@ namespace Bikewale.New
         /// <summary>
         /// Modified by :   Sumit Kate on 05 Jan 2016
         /// Description :   Replaced the Convert.ToXXX with XXX.TryParse method
+        /// Modified By : Sushil Kumar on 26th August 2016
+        /// Description : Replaced location name from location cookie to selected location objects for city and area respectively.
         /// </summary>
         private void CheckCityCookie()
         {
@@ -567,10 +569,11 @@ namespace Bikewale.New
                             if (objCityList != null)
                             {
                                 // If Model doesn't have current City then don't show it, Show Ex-showroom Mumbai
-                                isCitySelected = objCityList.Any(p => p.CityId == cityId);
-                                if (isCitySelected)
+                                var _objCity = objCityList.FirstOrDefault(p => p.CityId == cityId);
+                                if (_objCity != null)
                                 {
-                                    cityName = locArray[1];
+                                    cityName = _objCity.CityName;
+                                    isCitySelected = true;
                                 }
                             }
                         }
@@ -580,15 +583,16 @@ namespace Bikewale.New
                     // locArray.Length = 4 Means City and area exists
                     if (locArray.Length > 3 && cityId != 0)
                     {
-                        UInt32.TryParse(locArray[2], out areaId);
-                        if (objAreaList != null)
+                        if (objAreaList != null && UInt32.TryParse(locArray[2], out areaId))
                         {
-                            isAreaSelected = objAreaList.Any(p => p.AreaId == areaId);
-                            if (isAreaAvailable)
+                            var _objArea = objAreaList.FirstOrDefault(p => p.AreaId == areaId);
+                            if (_objArea != null && isAreaAvailable)
                             {
-                                areaName = locArray[3] + ",";
+                                areaName = _objArea.AreaName;
+                                isAreaSelected = true;
                             }
                         }
+
                     }
                 }
             }
