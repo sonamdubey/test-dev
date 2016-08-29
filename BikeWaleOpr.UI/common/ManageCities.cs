@@ -1,6 +1,7 @@
 ﻿using BikeWaleOpr.VO;
 using MySql.CoreDAL;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -14,6 +15,60 @@ namespace BikeWaleOpr.Common
     /// </summary>    
     public class ManageCities
     {
+        /// <summary>
+        /// Written By: Aditi Srivastava on 26 Aug 2016
+        /// Description: Gets all the cities with their IDs and state name for Adding Manufacturer Campaign Rules
+        /// </summary>
+        /// <returns></returns>
+        public DataSet GetMfgCampaignCities()
+        {
+            List<ManufacturerCities> cityList = null;
+            DataSet ds = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmanufacturercities"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    
+
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
+
+                }
+                //using (DbCommand cmd = DbFactory.GetDBCommand("getmanufacturercities"))
+                //{
+                //    cmd.CommandType = CommandType.StoredProcedure;
+                //   using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                //    {
+                //        if (dr != null)
+                //        {
+                //            cityList = new List<ManufacturerCities>();
+
+                //            while (dr.Read())
+                //            {
+                //                cityList.Add(new ManufacturerCities()
+                //                {
+                //                    CityId = Convert.ToInt32(dr["Id"]),
+                //                    CityName = Convert.ToString(dr["Name"]),
+                //                    StateName = Convert.ToString(dr["StateName"])
+                //                });
+                //            }
+                //            dr.Close();
+                //        }
+                //    }
+                //}
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return ds;
+        }
+
+
+
         /// <summary>
         /// Written By : Ashwini Todkar on 2nd Jan 2014
         /// summary    : This Method returns city name,id,masking name,default pin code,lattitude and longitude 

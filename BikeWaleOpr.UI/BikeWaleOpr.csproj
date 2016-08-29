@@ -461,11 +461,15 @@
       <DependentUpon>ManageOffers.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pager\IPager.cs" />
-    <Compile Include="pager\Pager.cs" />
-    <Compile Include="pager\PagerEntity.cs" />
-    <Compile Include="pager\PagerOutputEntity.cs" />
-    <Compile Include="pager\PageUrlList.cs" />
+    <Compile Include="newbikebooking\ManufacturerCampaignRules.aspx.cs">
+      <DependentUpon>ManufacturerCampaignRules.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="rabbitmq\pager\IPager.cs" />
+    <Compile Include="rabbitmq\pager\Pager.cs" />
+    <Compile Include="rabbitmq\pager\PagerEntity.cs" />
+    <Compile Include="rabbitmq\pager\PagerOutputEntity.cs" />
+    <Compile Include="rabbitmq\pager\PageUrlList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="rabbitmq\CommonRQ.cs" />
     <Compile Include="rabbitmq\rabbitMQEnum.cs" />
@@ -1855,6 +1859,7 @@
     <Content Include="newbikebooking\ManageDealerFacilities.aspx" />
     <Content Include="newbikebooking\ManageDealerLoanAmounts.aspx" />
     <Content Include="newbikebooking\ManageOffers.aspx" />
+    <Content Include="newbikebooking\ManufacturerCampaignRules.aspx" />
     <Content Include="pagenotfound.aspx" />
     <Content Include="research\urlmapping\map_models.txt" />
     <Content Include="src\AjaxFunctions.js" />

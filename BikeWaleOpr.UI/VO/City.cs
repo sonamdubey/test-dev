@@ -21,4 +21,11 @@ namespace BikeWaleOpr.VO
         public string StdCode { get; set; }
         public string DefaultPinCode { get; set; }      
     }
+
+    public class ManufacturerCities
+    {
+        public int CityId { get; set; }
+        public string CityName { get; set; }
+        public string StateName { get; set; }
+    }
 }
