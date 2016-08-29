@@ -283,9 +283,7 @@
                 </div>
                 <h3>Terms and conditions</h3>
                 <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
-                    <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
                     <img class="lazy" data-original="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif"  src="" />
-
                 </div>
                 <div id="terms" class="breakup-text-container padding-bottom10 font14">
                 </div>
@@ -381,7 +379,7 @@
                     $('#terms').empty();
                     $.ajax({
                         type: "GET",
-                        url: "/api/Terms/?offerMaskingName=&offerId=" + offerId,
+                        url: "/api/Terms/?offerId=" + offerId,
                         dataType: 'json',
                         success: function (response) {
                             $('#termspinner').hide();

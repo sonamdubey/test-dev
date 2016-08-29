@@ -688,7 +688,7 @@ function LoadTerms(offerId) {
         $('#terms').empty();
         $.ajax({
             type: "GET",
-            url: "/api/Terms/?offerMaskingName=&offerId=" + offerId,
+            url: "/api/Terms/?offerId=" + offerId,
             dataType: 'json',
             success: function (response) {
                 if (response != null)

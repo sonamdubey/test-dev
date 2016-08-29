@@ -159,7 +159,7 @@
                             <img src="/images/no_result_m.png" />
                         </div>
                         <div id="loading" class="hide">
-                            <img src="/images/search-loading.gif" />
+                            <img src="http:/img2.aeplcdn.com/bikewaleimg/images/search-loading.gif" />
                         </div>
                     </div>
                 </div>
