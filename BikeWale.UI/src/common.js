@@ -87,8 +87,6 @@ $(document).ready(function () {
 	        globalCityId = city.cityId;
 	        CloseCityPopUp();
 	        showGlobalCity(cityName);
-	        // City is selected
-	        //var cityName = $(".cityName").html();
 	        dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'City_Popup_Default', 'lab': cityName });
 	    },
 	    open: function (result) {
@@ -900,7 +898,6 @@ $("#newBikeList").bw_autocomplete({
     },
     click: function (event, ui, orgTxt) {
         MakeModelRedirection(ui.item);
-        // GA code
         var keywrd = ui.item.label + '_' + $('#newBikeList').val();
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
     },
@@ -912,7 +909,6 @@ $("#newBikeList").bw_autocomplete({
             $('#errNewBikeSearch').hide()
             focusedMakeModel = new Object();
             focusedMakeModel = objBikes.result[$('li.ui-state-focus').index()];
-            //$('#btnSearch').click();
         }
         else {
             $('#errNewBikeSearch').hide()
@@ -985,7 +981,6 @@ $("#globalSearch").bw_autocomplete({
         if ($('li.ui-state-focus a:visible').text() != "") {
             focusedMakeModel = new Object();
             focusedMakeModel = objBikes.result[$('li.ui-state-focus').index()];
-            //$('li.ui-state-focus.fillPopupData').focus();
         }
         else {
             $('#errGlobalSearch').hide();
