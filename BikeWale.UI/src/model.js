@@ -1181,15 +1181,19 @@ $('#model-specs-list').on('click', '.model-accordion-tab', function () {
 
 $('.view-features-link').on('click', function () {
     var target = $(this),
-        moreFeatures = $('#model-more-features-list');
+        featuresHeading = $('#model-features-content'),
+        moreFeatures = $('#model-more-features-list'),
+        floatingCard = $("#modelDetailsFloatingCardContent").height() + 10;
 
     if (!target.hasClass('active')) {
         target.addClass('active');
+        $('html, body').animate({ scrollTop: featuresHeading.offset().top - floatingCard }, 500);
         moreFeatures.slideDown();
         target.text('Collapse');
     }
     else {
         target.removeClass('active');
+        $('html, body').animate({ scrollTop: featuresHeading.offset().top - floatingCard }, 500);
         moreFeatures.slideUp();
         target.text('View all features');
     }

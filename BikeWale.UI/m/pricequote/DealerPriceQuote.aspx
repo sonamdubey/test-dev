@@ -70,7 +70,7 @@
 				</div>
 				<p class="font12 text-light-grey padding-left15 padding-right15">Location:</p>
 				<p class="font16 text-bold padding-left15 padding-right15">
-					<%= (!string.IsNullOrEmpty(currentArea) ? string.Format("{0}, {1}",currentArea,currentCity) : currentCity) %>
+					<%= (!string.IsNullOrEmpty(currentArea) ? string.Format("{0}, {1}",currentArea.Replace('-', ' '),currentCity.Replace('-', ' ')) : currentCity.Replace('-', ' ')) %>
 					<a href="javascript:void(0)" rel="nofollow" data-pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation %>" data-modelId="<%= objPriceQuote.objModel.ModelId %>" class="getquotation" data-persistent="true"><span class="bwmsprite loc-change-blue-icon"></span></a>
 				</p>
 			</div>
@@ -410,12 +410,12 @@
 		  <%if(isPrimaryDealer){ %>
 			<div id="pricequote-floating-button-wrapper" class="grid-12 alpha omega">
 				<div class="float-button float-fixed">                  
-					<div class="grid-<%= !String.IsNullOrEmpty(maskingNum) ? "7" : "12" %> alpha omega padding-right5">
+					<div class="grid-<%= !String.IsNullOrEmpty(maskingNum) ? "6" : "12" %> alpha omega padding-right5">
 						<input type="button" data-role="none" id="leadBtnBookNow" data-pqsourceid="<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation) %>" data-leadsourceid="17" leadsourceid="17" data-item-registerpq="false" data-item-id="<%= dealerId %>" data-item-name="<%= dealerName %>" data-item-area="<%= dealerArea %>" name="leadBtnBookNow" class="btn btn-full-width btn-orange leadcapturebtn" value="Get offers" />
 					</div>                  
 					<%if (!String.IsNullOrEmpty(maskingNum))
 					  { %>
-					<div class="<%= !string.IsNullOrEmpty(maskingNum) ? "grid-5 omega padding-left5" : "" %>">
+					<div class="<%= !string.IsNullOrEmpty(maskingNum) ? "grid-6 omega padding-left5" : "" %>">
 						<a id="calldealer" class="btn btn-full-width btn-green rightfloat" href="tel:<%= maskingNum %>">
 							<span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer
 						</a>

@@ -239,106 +239,106 @@
                     'isPersistance' : self.IsPersistance()  ,
                     'refPQId': typeof pqId != 'undefined' ? pqId : '',
                     'isReload' : self.IsReload()
-                        }
+                }
 
-                        $.ajax({
-                            type: "POST",
-                            url: "/api/generatepq/",
-                            data : objData, 
-                            dataType: 'json',
-                            beforeSend: function (xhr) {
-                                xhr.setRequestHeader('utma', getCookie('__utma'));
-                                xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
-                            },
-                            success: function (response) {
-                                var _responseData = ko.toJS(response);
+                $.ajax({
+                    type: "POST",
+                    url: "/api/generatepq/",
+                    data : objData, 
+                    dataType: 'json',
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('utma', getCookie('__utma'));
+                        xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
+                    },
+                    success: function (response) {
+                        var _responseData = ko.toJS(response);
                                 
-                                if (_responseData && _responseData.pqCities && _responseData.pqCities.length > 0) {									
+                        if (_responseData && _responseData.pqCities && _responseData.pqCities.length > 0) {									
 
-                                    var cities = ko.toJS(_responseData.pqCities);
-                                    if (cities!=null && cities.length > 0) {
-                                        self.BookingCities(cities);
-                                        if(self.SelectedCityId() > 0)
-                                        {
-                                            self.SelectedCity(findCityById(self.SelectedCityId()));
-                                        
-                                            self.hasAreas((self.SelectedCity() != null && self.SelectedCity().hasAreas) ? true : false);
-
-                                            var areas = ko.toJS(_responseData.pqAreas);
-                                            if (areas) {
-                                                self.BookingAreas(areas);
-                                                if(self.SelectedAreaId() > 0)
-                                                {
-                                                    self.SelectedArea(findAreaById(self.SelectedAreaId()));
-                                                }
-                                                else self.SelectedArea(null);
-                                            }                                                                         
-                                        }
-                                    }
-                                    $('#popupWrapper').removeClass('loader-active');
-
-                                }
-                                else  if(_responseData.priceQuote != null){
-                                    
-                                    cityArea.close();
-                                   
-                                    var jsonObj = _responseData.priceQuote;
-
-                                    gaLabel = GetGlobalCityArea() + ', ';
-
-                                    if (self.MakeName || self.ModelName )
-                                        gaLabel += self.MakeName + ',' + self.ModelName + ',';
-                                    
-
-                                    if (self.SelectedCityId() > 0 ) {                                       
-                                        if (self.SelectedCity() && self.SelectedCity().id > 0) {
-                                            lbtext = "Fetching on-road price for " + self.SelectedCity().name;
-                                            cookieValue = self.SelectedCity().id + "_" + self.SelectedCity().name; 
-                                            if (self.SelectedArea() && jsonObj.isDealerAvailable) {
-                                                cookieValue += ("_" + self.SelectedArea().id + "_" + self.SelectedArea().name);
-                                                lbtext = "Fetching on-road price for " + self.SelectedArea().name + ", " + self.SelectedCity().name;
-                                            }
-                                            SetCookieInDays("location", cookieValue, 365);
-
-                                            self.LoadingText(lbtext); 
-                                        }
-
-                                    }    
-
-                                    if(jsonObj.dealerId > 0)
-                                        gtmCodeAppender(self.PageCatId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
-                                    else gtmCodeAppender(self.PageCatId, 'BW_PriceQuote_Success_Submit', gaLabel); 
-                                    
-
-                                    if(!self.IsReload() && _responseData.qStr!='')
-                                    {                                          
-                                        //$('#popupWrapper').hide();
-                                        window.location.href = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + _responseData.qStr;
-                                    }                                        
-                                    else   window.location.reload(true);   
-                                }
-                                else
+                            var cities = ko.toJS(_responseData.pqCities);
+                            if (cities!=null && cities.length > 0) {
+                                self.BookingCities(cities);
+                                if(self.SelectedCityId() > 0)
                                 {
-                                    if (self.SelectedCityId() > 0 ) {                                       
-                                        if (self.SelectedCity() && self.SelectedCity().id > 0) {
-                                            lbtext = "Fetching on-road price for " + self.SelectedCity().name;
-                                            cookieValue = self.SelectedCity().id + "_" + self.SelectedCity().name; 
-                                            if (self.SelectedArea() && self.SelectedArea().id > 0 ) {
-                                                cookieValue += ("_" + self.SelectedArea().id + "_" + self.SelectedArea().name);
-                                                lbtext = "Fetching on-road price for " + self.SelectedArea().name + ", " + self.SelectedCity().name;
-                                            }
-                                            SetCookieInDays("location", cookieValue, 365);
+                                    self.SelectedCity(findCityById(self.SelectedCityId()));
+                                        
+                                    self.hasAreas((self.SelectedCity() != null && self.SelectedCity().hasAreas) ? true : false);
 
-                                            self.LoadingText(lbtext); 
+                                    var areas = ko.toJS(_responseData.pqAreas);
+                                    if (areas) {
+                                        self.BookingAreas(areas);
+                                        if(self.SelectedAreaId() > 0)
+                                        {
+                                            self.SelectedArea(findAreaById(self.SelectedAreaId()));
                                         }
-
-                                    }
-                                    window.location.reload(true);
+                                        else self.SelectedArea(null);
+                                    }                                                                         
                                 }
                             }
-                        });
+                            $('#popupWrapper').removeClass('loader-active');
+
+                        }
+                        else  if(_responseData.priceQuote != null){
+                                    
+                            cityArea.close();
+                                   
+                            var jsonObj = _responseData.priceQuote;
+
+                            gaLabel = GetGlobalCityArea() + ', ';
+
+                            if (self.MakeName || self.ModelName )
+                                gaLabel += self.MakeName + ',' + self.ModelName + ',';
+                                    
+
+                            if (self.SelectedCityId() > 0 ) {                                       
+                                if (self.SelectedCity() && self.SelectedCity().id > 0) {
+                                    lbtext = "Fetching on-road price for " + self.SelectedCity().name;
+                                    cookieValue = self.SelectedCity().id + "_" + self.SelectedCity().name; 
+                                    if (self.SelectedArea() && jsonObj.isDealerAvailable) {
+                                        cookieValue += ("_" + self.SelectedArea().id + "_" + self.SelectedArea().name);
+                                        lbtext = "Fetching on-road price for " + self.SelectedArea().name + ", " + self.SelectedCity().name;
+                                    }
+                                    SetCookieInDays("location", cookieValue, 365);
+
+                                    self.LoadingText(lbtext); 
+                                }
+
+                            }    
+
+                            if(jsonObj.dealerId > 0)
+                                gtmCodeAppender(self.PageCatId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
+                            else gtmCodeAppender(self.PageCatId, 'BW_PriceQuote_Success_Submit', gaLabel); 
+                                    
+
+                            if(!self.IsReload() && _responseData.qStr!='')
+                            {                                          
+                                        //$('#popupWrapper').hide();
+                                window.location.href = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + _responseData.qStr;
+                            }                                        
+                            else   window.location.reload(true);   
+                        }
+                        else
+                        {
+                            if (self.SelectedCityId() > 0 ) {                                       
+                                if (self.SelectedCity() && self.SelectedCity().id > 0) {
+                                    lbtext = "Fetching on-road price for " + self.SelectedCity().name;
+                                    cookieValue = self.SelectedCity().id + "_" + self.SelectedCity().name; 
+                                    if (self.SelectedArea() && self.SelectedArea().id > 0 ) {
+                                        cookieValue += ("_" + self.SelectedArea().id + "_" + self.SelectedArea().name);
+                                        lbtext = "Fetching on-road price for " + self.SelectedArea().name + ", " + self.SelectedCity().name;
+                                    }
+                                    SetCookieInDays("location", cookieValue, 365);
+
+                                    self.LoadingText(lbtext); 
+                                }
+
+                            }
+                            window.location.reload(true);
+                        }
                     }
-                };
+                });
+            }
+        };
 
                 
         self.selectCity = function (data, event) {
@@ -410,69 +410,69 @@
     }
 
 
-            function findAreaById(id) {
-                return ko.utils.arrayFirst(vmquotation.BookingAreas(), function (child) {
-                    return (child.id == id || child.areaId == id);
-                });
+    function findAreaById(id) {
+        return ko.utils.arrayFirst(vmquotation.BookingAreas(), function (child) {
+            return (child.id == id || child.areaId == id);
+        });
+    }
+
+    function findCityById(id) {
+        return ko.utils.arrayFirst(vmquotation.BookingCities(), function (child) {
+            return (child.id == id || child.cityId == id);
+        });
+    }
+
+    function gtmCodeAppender(pageId, action, label) {
+        var category = '';
+        if (pageId != null) {
+            switch (pageId) {
+                case "1":
+                    category = 'Make_Page';
+                    break;
+                case "2":
+                    category = "CheckPQ_Series";
+                    action = "CheckPQ_Series_" + action;
+                    break;
+                case "3":
+                    category = "Model_Page";
+                    action = "CheckPQ_Model_" + action;
+                    break;
+                case '4':
+                    category = 'New_Bikes_Page';
+                    break;
+                case '5':
+                    category = 'HP';
+                    break;
+                case '6':
+                    category = 'Search_Page';
+                    break;
             }
-
-            function findCityById(id) {
-                return ko.utils.arrayFirst(vmquotation.BookingCities(), function (child) {
-                    return (child.id == id || child.cityId == id);
-                });
+            if (label) {
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': action, 'lab': label });
             }
-
-            function gtmCodeAppender(pageId, action, label) {
-                var category = '';
-                if (pageId != null) {
-                    switch (pageId) {
-                        case "1":
-                            category = 'Make_Page';
-                            break;
-                        case "2":
-                            category = "CheckPQ_Series";
-                            action = "CheckPQ_Series_" + action;
-                            break;
-                        case "3":
-                            category = "Model_Page";
-                            action = "CheckPQ_Model_" + action;
-                            break;
-                        case '4':
-                            category = 'New_Bikes_Page';
-                            break;
-                        case '5':
-                            category = 'HP';
-                            break;
-                        case '6':
-                            category = 'Search_Page';
-                            break;
-                    }
-                    if (label) {
-                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': action, 'lab': label });
-                    }
-                    else {
-                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': action });
-                    }
-                }
-
+            else {
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': action });
             }
+        }
 
-            function checkCookies() {
-                c = document.cookie.split('; ');
-                for (i = c.length - 1; i >= 0; i--) {
-                    C = c[i].split('=');
-                    if (C[0] == "location") {
-                        var cData = (String(C[1])).split('_');
-                        onCookieObj.PQCitySelectedId = parseInt(cData[0]);
-                        onCookieObj.PQCitySelectedName = cData[1];
-                        onCookieObj.PQAreaSelectedId = parseInt(cData[2]);
-                        onCookieObj.PQAreaSelectedName = cData[3];
-                    }
-                }
+    }
+
+    function checkCookies() {
+        c = document.cookie.split('; ');
+        for (i = c.length - 1; i >= 0; i--) {
+            C = c[i].split('=');
+            if (C[0] == "location") {
+                var cData = (String(C[1])).split('_');
+                onCookieObj.PQCitySelectedId = parseInt(cData[0]);
+                onCookieObj.PQCitySelectedName = cData[1];
+                onCookieObj.PQAreaSelectedId = parseInt(cData[2]);
+                onCookieObj.PQAreaSelectedName = cData[3];
             }
+        }
+    }
 
-            var vmquotation = new mPopup;
-            ko.applyBindings(vmquotation, $("#popupWrapper")[0]);
+    var vmquotation = new mPopup;
+    ko.applyBindings(vmquotation, $("#popupWrapper")[0]);
 
 </script>
 <!-- widget script ends here-->
