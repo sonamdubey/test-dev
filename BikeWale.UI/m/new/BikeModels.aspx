@@ -162,12 +162,12 @@
                         %>
                         <% if ( viewModel.IsPremiumDealer)
                             { 
-                        %>  <div class="grid-<%= String.IsNullOrEmpty(viewModel.MaskingNumber)? "12":"7" %> alpha omega padding-top10 padding-right5 padding-bottom10">
+                        %>  <div class="grid-<%= String.IsNullOrEmpty(viewModel.MaskingNumber)? "12":"6" %> alpha omega padding-right5">
                                 <a id="getAssistance" leadSourceId="19" class="btn btn-orange btn-full-width rightfloat" href="javascript:void(0);">Get offers</a>
                             </div>
                             <%  if(!string.IsNullOrEmpty(viewModel.MaskingNumber))
                                 { %>
-                                <div class="grid-5 alpha omega padding-top10 padding-bottom10 padding-left5">
+                                <div class="grid-6 alpha omega padding-left5">
                                     <a id="calldealer" class="btn btn-green btn-full-width rightfloat" href="tel:+91<%= String.IsNullOrEmpty(viewModel.MaskingNumber)? viewModel.MobileNo: viewModel.MaskingNumber %>"><span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer</a>
                                 </div>
                             <% } %>
