@@ -705,7 +705,30 @@ namespace BikeWaleOpr.Common
             }
             return isSuccess;
         }
+        [AjaxPro.AjaxMethod()]
+        public string GetManufactureCampaigns(string dealerId)
+        {
+            string jsonManufactureCampaigns = string.Empty;
+            DataTable dt = null;
+            try
+            {
+                ManageDealerCampaign objMa = new ManageDealerCampaign();
 
+                dt = objMa.SearchManufactureCampaigns(Convert.ToUInt32(dealerId));
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    jsonManufactureCampaigns = JSON.GetJSONString(dt);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.GetDealerCampaigns");
+                objErr.SendMail();
+            }
+            return jsonManufactureCampaigns;
+        }
+        
         /// <summary>
         ///  Created By : Sushil Kumar
         ///  Created On : 18th April 2016
