@@ -98,7 +98,7 @@
                                                 </div>
                                                 <div class="bikeDescWrapper">
                                                     <div class="bikeTitle margin-bottom10">
-                                                        <h3><a class="modelurl" href='/m<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>' title="<%# DataBinder.Eval(Container.DataItem,"objMake.MakeName") + " " + DataBinder.Eval(Container.DataItem, "objModel.ModelName") %>"><%# DataBinder.Eval(Container.DataItem,"objMake.MakeName") + " " + DataBinder.Eval(Container.DataItem, "objModel.ModelName") %></a></h3>
+                                                        <h3><a class="modelurl text-bold" href='/m<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>' title="<%# DataBinder.Eval(Container.DataItem,"objMake.MakeName") + " " + DataBinder.Eval(Container.DataItem, "objModel.ModelName") %>"><%# DataBinder.Eval(Container.DataItem,"objMake.MakeName") + " " + DataBinder.Eval(Container.DataItem, "objModel.ModelName") %></a></h3>
                                                     </div>
                                                     <div class="font14 text-x-light margin-bottom10">
                                                         <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Kerbweight"))) %>
@@ -164,7 +164,7 @@
                    { %>
                 <div id="makeAboutContent" class="bw-model-tabs-data padding-top15 padding-bottom15 border-solid-bottom">
                     <div class="margin-bottom20 padding-right20 padding-left20">
-                        <h2>About <%= _make.MakeName %></h2>
+                        <h2 class="text-bold">About <%= _make.MakeName %></h2>
                         <p class="font14 text-light-grey line-height17 margin-bottom15">
                             <span class="model-preview-main-content">
                                 <%= Bikewale.Utility.FormatDescription.TruncateDescription(_bikeDesc.FullDescription, 700) %>
@@ -191,14 +191,14 @@
                 <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
                    { %>
                 <div class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14" id="makeReviewsContent">
-                    <h2><%=_make.MakeName %> Reviews</h2>
+                    <h2 class="text-bold"><%=_make.MakeName %> Reviews</h2>
                     <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
                 </div>
                 <% } %>
                 <%if (ctrlVideos.FetchedRecordsCount > 0)
                   { %>
                 <div id="makeVideosContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
-                    <h2><%= _make.MakeName %> Videos</h2>
+                    <h2 class="text-bold"><%= _make.MakeName %> Videos</h2>
                     <BW:Videos runat="server" ID="ctrlVideos" />
                 </div>
                 <% } %>
