@@ -1213,53 +1213,8 @@ var hashChange = function (e) {
 };
 
 var appendHash = function (state) {
-    switch (state) {
-        case "globalCity":
-            window.location.hash = state;
-            break;
-        case "onRoadPrice":
-            window.location.hash = state;
-            break;
-        case "contactDetails":
-            window.location.hash = state;
-            break;
-        case "viewBreakup":
-            window.location.hash = state;
-            break;
-        case "otp":
-            window.location.hash = state;
-            break;
-        case "dpqPopup":
-            window.location.hash = state;
-            break;
-        case "bookingsearch":
-            window.location.hash = state;
-            break;
-        case "listingPopup":
-            window.location.hash = state;
-            break;
-        case "offersPopup":
-            window.location.hash = state;
-            break;
-        case "emiPopup":
-            window.location.hash = state;
-            break;
-        case "assistancePopup":
-            window.location.hash = state;
-            break;
-        case "locatorsearch":
-            window.location.hash = state;
-            break;
-        case "moreDealers":
-            window.location.hash = state;
-            break;
-        case "dealerOffers":
-            window.location.hash = state;
-            break;
-        default:
-            return true;
-    }
-};
+    window.location.hash = state;
+}
 
 var closePopUp = function (state) {
     switch (state) {
@@ -1268,7 +1223,6 @@ var closePopUp = function (state) {
             break;
         case "onRoadPrice":
             closeOnRoadPricePopUp();
-            //cityArea.close();
             break;
         case "contactDetails":
             leadPopupClose();
@@ -1305,6 +1259,12 @@ var closePopUp = function (state) {
             break;
         case "dealerOffers":
             popupDiv.close($('#dealer-offers-popup'));
+            break;
+        case "sellerDealers":
+            getSellerDetailsPopup.close();
+            break;
+        case "requestMedia":
+            requestMediaPopup.close();
             break;
         default:
             return true;
