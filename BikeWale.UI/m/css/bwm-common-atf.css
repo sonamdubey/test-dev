@@ -37,8 +37,6 @@ h6 { font-size: 10px; }
 .beta { padding-top: 0 !important; }
 .gamma { padding-bottom: 0 !important; }
 .clear { clear: both; }
-.hide { display: none }
-.show { display: block }
 
 /* form properties */
 input, select, button { font-family: 'Open Sans', sans-serif, Arial; border: none; outline: none; margin:0;}
@@ -180,10 +178,20 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .content-inner-block-20 { padding: 20px; }
 .content-box-shadow { background: #fff; -moz-box-shadow: 2px 2px 2px #dcdcdc; -webkit-box-shadow: 2px 2px 2px #dcdcdc; -o-box-shadow: 2px 2px 2px #dcdcdc; -ms-box-shadow: 2px 2px 2px #dcdcdc; box-shadow: 2px 2px 2px #dcdcdc; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; border:1px solid #e2e2e2\9; }
 
+.margin-top10 { margin-top: 10px; }
+.margin-right10 { margin-right: 10px; }
+.margin-bottom10 { margin-bottom: 10px; }
+.margin-left10 { margin-left: 10px; }
+
 .margin-top20 { margin-top: 20px; }
 .margin-right20 { margin-right: 20px; }
 .margin-bottom20 { margin-bottom: 20px; }
 .margin-left20 { margin-left: 20px; }
+
+.padding-top10 { padding-top: 10px; }
+.padding-right10 { padding-right: 10px; }
+.padding-bottom10 { padding-bottom: 10px; }
+.padding-left10 { padding-left: 10px; }
 
 .padding-top15 { padding-top: 15px; }
 .padding-right15 { padding-right: 15px; }
@@ -231,3 +239,6 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 .ui-menu .ui-menu-item a { color: #333; width:60%; float:left; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ui-menu .ui-menu-item a.target-popup-link, .ui-menu .ui-menu-item span.upcoming-link { width:35%; display:block; float:right; position:absolute; right:10px; color:#0288d1; font-size:12px; text-align: right; }
 .ui-menu .ui-menu-item span.upcoming-link { color: #4d5057; }
+
+.hide { display: none }
+.show { display: block }
