@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Bikewale.Entities.Used
 {
@@ -10,13 +9,12 @@ namespace Bikewale.Entities.Used
     [Serializable]
     public class BikeDetailsMin
     {
-        public IList<BikePhoto> Photo { get; set; }
+        public BikePhoto Photo { get; set; }
         public uint AskingPrice { get; set; }
         public string ModelYear { get; set; }
         public uint KmsDriven { get; set; }
         public string OwnerType { get; set; }
         public string RegisteredAt { get; set; }
-        public ushort PhotosCount { get { if (Photo != null) { return Convert.ToUInt16(Photo.Count); } return 0; } }
 
     }
 }
