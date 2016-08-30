@@ -13,7 +13,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
 {
     public class ManufacturerCampaign : IManufacturerCampaign
     {
-        public List<ManufactureDealerCampaign> SearchManufactureCampaigns(uint dealerId)
+        public IEnumerable<ManufactureDealerCampaign> SearchManufactureCampaigns(uint dealerId)
         {
             List<ManufactureDealerCampaign> dtManufactureCampaigns = null;
             try
@@ -24,8 +24,9 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                     {
 
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId > 0 ? dealerId : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId ));
                         dtManufactureCampaigns = new List<ManufactureDealerCampaign>();
+                       
                         using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                         {
                             if (dr != null)
@@ -67,7 +68,6 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.UInt32, id));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.UInt32, isactive));
-                    //var k = MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                     if (Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase)))
                         isSuccess = true;
                 }

@@ -25,7 +25,7 @@ namespace BikewaleOpr.Service.Controllers
         [HttpPost]
         public IHttpActionResult GetManufactureCampaigns(string dealerId)
         {
-            List<ManufactureDealerCampaign> _objMfgList = new List<ManufactureDealerCampaign>();
+            IEnumerable<ManufactureDealerCampaign> _objMfgList = new List<ManufactureDealerCampaign>();
             try
             {
                 _objMfgList = _objManufacturerCampaign.SearchManufactureCampaigns(Convert.ToUInt32(dealerId));

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="BikeWaleOpr.NewBikeBooking.ManageDealersCampaigns" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikeWaleOpr.NewBikeBooking.ManageDealersCampaigns" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
 <%--<script type="text/javascript" src="/src/common/common.js?V1.1"></script>--%>
 <script type="text/ecmascript" src="/src/AjaxFunctions.js"></script>
@@ -44,7 +44,7 @@
 <div style="margin-left:200px">
         <h3 id="selDealerHeading"></h3>
     </div>
- <div id="t1">
+ <div id="mfgtable">
         <table class="margin-top10 margin-bottom10" rules="all" cellspacing="0" cellpadding="5" style="border-width: 1px; border-style: solid; width: 80%; border-collapse: collapse;" id="DealerCampaignsList">
                 <tr class="dtHeader">
                     <td>Sr No.</td>
@@ -74,10 +74,10 @@
             </td>
             <td >
              
-                <a  data-bind="attr: { href: '/campaign/ManageDealer.aspx?campaignid=' + id + '&dealerid=' + dealerid + '&dealerHeading=' + dealerHeading}"  target="_blank"><img src="http://opr.carwale.com/images/edit.jpg" alt="Edit"/></a>
+                <a  data-bind="attr: { href: '/campaign/ManageDealer.aspx?campaignid=' + id + '&dealerid=' + dealerid + '&dealerHeading='+encodeURIComponent(dealerHeading)}"  target="_blank"><img src="http://opr.carwale.com/images/edit.jpg" alt="Edit"/></a>
             </td>
             
-            <td><input  type="button"  data-bind="event: { click: function (d, e) { $parent.ChangeStatus(d, e); } }, value: (isactive ? 'Stop' : 'Start'), style: { color: isactive > 0 ? 'red' : 'green' }"  style="padding:10px; margin-left:20px; cursor:pointer;"/></td>
+            <td><input  type="button"  data-bind="event: { click: function (data, event) { $parent.ChangeStatus(data, event); } }, value: (isactive ? 'Stop' : 'Start'), style: { color: isactive > 0 ? 'red' : 'green' }"  style="padding:10px; margin-left:20px; cursor:pointer;"/></td>
              
         </tr>
     </script>    
@@ -85,20 +85,21 @@
 <script>
     var ddlManufacturers = $("#ddlManufacturers");
     var BwOprHostUrl = '<%=ConfigurationManager.AppSettings["BwOprHostUrlForJs"]%>';
-    var d = new Date().toJSON().slice(0, 10);
-    $('#t1').hide();
+    debugger;
+    $('#mfgtable').hide();
     var mfgCamp = function () {
         var self = this;
         self.selectedManufacturer = ko.observable();
         self.Manufacturers = ko.observableArray([]);
         self.ManufacturersCampaign = ko.observableArray([]);
         var msg = $("#selDealerHeading");
+       
         self.redirect = function () {
             dId = $("#ddlManufacturers option:selected");
             dealerId = dId.val();
             dealerHeading = dId.text();
-            if (!isNaN(dealerId) && dealerId != "0") {
-                var url = BwOprHostUrl + '/campaign/ManageDealer.aspx?dealerHeading=' + dealerHeading + '&dealerid=' + dealerId;
+            if (!isNaN(dealerId) && dealerId > "0") {
+                var url = BwOprHostUrl + '/campaign/ManageDealer.aspx?dealerHeading=' + encodeURIComponent(dealerHeading) + '&dealerid=' + dealerId;
                 window.location.href = url;
             }
             else {
@@ -109,8 +110,7 @@
             dId = $("#ddlManufacturers option:selected");
             dealerId = dId.val();
             dealerHeading = dId.text();
-
-            if (!isNaN(dealerId) && dealerId != "0") {
+            if (!isNaN(dealerId) && dealerId > "0") {
                 var element = document.getElementById('DealerCampaignsList');
                 $.ajax({
                     type: "POST",
@@ -122,10 +122,10 @@
                         if (response.length > 0) {
                             ko.applyBindings(ko.mapping.fromJS(response, {}, self), element);
                             self.ManufacturersCampaign(response);
-                            $('#t1').show();
+                            $('#mfgtable').show();
                         }
                         else {
-                            $('#t1').hide();
+                            $('#mfgtable').hide();
                             msg.text("Campaigns for " + dealerHeading + " not available ");
                         }
                     },
@@ -141,14 +141,14 @@
 
         }
 
-        self.ChangeStatus = function (d, e) {
-            if (d.isactive == 1)
-                d.isactive = 0;
+        self.ChangeStatus = function (data, event) {
+            if (data.isactive == 1)
+                data.isactive = 0;
             else
-                d.isactive = 1;
+                data.isactive = 1;
          $.ajax({
                 type: "POST",
-                url: BwOprHostUrl + "/api/ManufacturerCampaign/GetstatuschangeCampaigns/?id=" + d.id + '&isactive=' + d.isactive,
+                url: BwOprHostUrl + "/api/ManufacturerCampaign/GetstatuschangeCampaigns/?id=" + data.id + '&isactive=' + data.isactive,
                 datatype: "json",
                 success: function (response) {
                     self.SearchCampaigns();

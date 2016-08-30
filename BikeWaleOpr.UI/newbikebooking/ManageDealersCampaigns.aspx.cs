@@ -16,15 +16,20 @@ namespace BikeWaleOpr.NewBikeBooking
     {
        protected DropDownList ddlManufacturers;
 
+       override protected void OnInit(EventArgs e)
+       {
+           this.Load += new System.EventHandler(this.Page_Load);
+       }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             GetDealerAsManuFacturer();
 
         }
 
-        public string GetDealerAsManuFacturer()
+        public void GetDealerAsManuFacturer()
         {
-            string json = String.Empty;
+         
             IEnumerable<ManufacturerEntity> manufacturers = null;
             ManageManufacturerCampaign _objMfgRepo = new ManageManufacturerCampaign();
             try
@@ -44,7 +49,7 @@ namespace BikeWaleOpr.NewBikeBooking
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            return json;
+           
         }
     }
 }
