@@ -5,14 +5,14 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="<%= keywords %>" />
-    <meta name="description" content="<%= description %>" />
+    <meta name="description" content="<%= description %>" />    <% if( alternate != "" ) { %><meta name="alternate" content="<%= alternate %>" /><% } %>
     <title><%= title %></title>
     <% if( canonical != "" ) { %><link rel="canonical" href="<%=canonical%>" /><% } %>
     <% if( prevPageUrl != "" ) { %><link rel="prev" href="<%= prevPageUrl %>" /><% } %>
     <% if( nextPageUrl != "" ) { %><link rel="next" href="<%= nextPageUrl %>" /><% } %>
     <!-- #include file="globalStaticFiles.aspx"-->    
     <script language="c#" runat="server">	    
-	    private string title = "", description = "", keywords = "", canonical = "", prevPageUrl = "", nextPageUrl = "", AdId = "", AdPath = "";
+	    private string title = "", description = "", keywords = "", canonical = "", prevPageUrl = "", nextPageUrl = "", AdId = "", AdPath = "",alternate="";
         private bool isHeaderFix = true, 
                     isAd970x90Shown = true,
                     isAd970x90BTFShown = false,

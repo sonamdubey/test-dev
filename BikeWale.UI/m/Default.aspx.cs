@@ -5,7 +5,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.m.controls;
+using Bikewale.Mobile.Controls;
 using Bikewale.Mobile.Controls;
 using Microsoft.Practices.Unity;
 using System;

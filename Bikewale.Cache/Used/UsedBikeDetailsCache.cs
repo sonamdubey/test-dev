@@ -15,13 +15,19 @@ namespace Bikewale.Cache.Used
     public class UsedBikeDetailsCache : IUsedBikeDetailsCacheRepository
     {
         private readonly ICacheManager _cache;
-        private readonly IUsedBikeDetails _objModels;
+        private readonly IUsedBikeDetails _objUsedBikes;
 
-        public UsedBikeDetailsCache(ICacheManager cache, IUsedBikeDetails objModels)
+        /// <summary>
+        /// Intitalize the references for the cache and DL
+        /// </summary>
+        /// <param name="cache"></param>
+        /// <param name="objUsedBikes"></param>
+        public UsedBikeDetailsCache(ICacheManager cache, IUsedBikeDetails objUsedBikes)
         {
             _cache = cache;
-            _objModels = objModels;
+            _objUsedBikes = objUsedBikes;
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -29,7 +35,18 @@ namespace Bikewale.Cache.Used
         /// <returns></returns>
         public ClassifiedInquiryDetails GetProfileDetails(uint inquiryId)
         {
-            throw new NotImplementedException();
+            ClassifiedInquiryDetails objUsedBikes = null;
+            string key = String.Format("BW_ProfileDetails_{0}", inquiryId);
+            try
+            {
+                objUsedBikes = _cache.GetFromCache<ClassifiedInquiryDetails>(key, new TimeSpan(0, 30, 0), () => _objUsedBikes.GetProfileDetails(inquiryId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.Used.GetProfileDetails");
+                objErr.SendMail();
+            }
+            return objUsedBikes;
         }
         
 
@@ -46,7 +63,7 @@ namespace Bikewale.Cache.Used
             string key = String.Format("BW_SimilarUsedBikesForProfile_{0}", inquiryId);
             try
             {
-                objUsedBikes = _cache.GetFromCache<IEnumerable<BikeDetailsMin>>(key, new TimeSpan(0, 30, 0), () => _objModels.GetSimilarBikes(inquiryId,cityId,modelId,topCount));
+                objUsedBikes = _cache.GetFromCache<IEnumerable<BikeDetailsMin>>(key, new TimeSpan(0, 30, 0), () => _objUsedBikes.GetSimilarBikes(inquiryId,cityId,modelId,topCount));
             }
             catch (Exception ex)
             {
@@ -68,7 +85,7 @@ namespace Bikewale.Cache.Used
             string key = String.Format("BW_OtherUsedBikesInCityForProfile_{0}", inquiryId);
             try
             {
-                objUsedBikes = _cache.GetFromCache<IEnumerable<OtherUsedBikeDetails>>(key, new TimeSpan(0, 30, 0), () => _objModels.GetOtherBikesByCityId(inquiryId, cityId, topCount));
+                objUsedBikes = _cache.GetFromCache<IEnumerable<OtherUsedBikeDetails>>(key, new TimeSpan(0, 30, 0), () => _objUsedBikes.GetOtherBikesByCityId(inquiryId, cityId, topCount));
             }
             catch (Exception ex)
             {

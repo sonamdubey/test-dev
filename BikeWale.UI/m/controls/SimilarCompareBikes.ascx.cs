@@ -7,7 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.Mobile.controls
+namespace Bikewale.Mobile.Controls
 {
     /// <summary>
     /// Created by : Sangram Nandkhile on 12 May 2016

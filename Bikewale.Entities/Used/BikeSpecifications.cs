@@ -9,27 +9,26 @@ namespace Bikewale.Entities.Used
     [Serializable]
     public class BikeSpecifications
     {
-        class Specifications
-        {
 
-            public float Displacement { get; set; }
-            public float MaxPower { get; set; }
-            public float MaximumTorque { get; set; }
-            public ushort NoOfGears { get; set; }
-            public float FuelTankCapacity { get; set; }
-            public uint TopSpeed { get; set; }
-        }
+        #region Specifications
+        public float Displacement { get; set; }
+        public float MaxPower { get; set; }
+        public float MaxPowerRPM { get; set; }
+        public float MaximumTorque { get; set; }
+        public float MaximumTorqueRPM { get; set; }
+        public ushort FuelEfficiencyOverall { get; set; }
+        public ushort NoOfGears { get; set; }
+        public string BrakeType { get; set; }
+        #endregion
 
-        class Features
-        {
-
-            public string Speedometer { get; set; }
-            public bool FuelGauge { get; set; }
-            public string TachometerType { get; set; }
-            public bool DigitalFuelGauge { get; set; }
-            public bool ElectricStart { get; set; }
-            public bool Tripmeter { get; set; }
-        }
+        #region Features
+        public string Speedometer { get; set; }
+        public bool FuelGauge { get; set; }
+        public string TachometerType { get; set; }
+        public bool DigitalFuelGauge { get; set; }
+        public bool ElectricStart { get; set; }
+        public bool Tripmeter { get; set; }
+        #endregion
 
     }
 

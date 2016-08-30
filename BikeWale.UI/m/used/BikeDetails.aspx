@@ -4,7 +4,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Used details</title>
+    <%
+    title = pgTitle;
+    keywords = pgKeywords;
+    description = pgDescription;
+    canonical = pgCanonicalUrl;
+    OGImage =  (firstImage!=null) ? Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImagePath,firstImage.HostUrl,Bikewale.Utility.ImageSize._310x174) : string.Empty;
+    AdPath = "/1017752/Bikewale_Mobile_Model";
+    AdId = "1444028976556";
+    Ad_320x50 = false;
+    Ad_Bot_320x50 = false;
+    %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/used-details.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 </head>
@@ -14,42 +24,57 @@
 
         <section>
             <div class="container bg-white clearfix box-shadow margin-bottom10">
-                <h1 class="font16 padding-top15 padding-right20 padding-bottom15 padding-left20">2009, Royal Enfield Classic Desert Storm</h1>
+                <h1 class="font16 padding-top15 padding-right20 padding-bottom15 padding-left20"><%= modelYear %>, <%= bikeName %></h1>
                 <div id="model-main-image">
-                    <a href="javascript:void(0)" class="model-gallery-target hide" rel="nofollow">
-                        <img src="http://imgd3.aeplcdn.com//310x174//bw/used/S43685/43685_20160713013010469.jpg" alt="" title="" />
+                    <%if(inquiryDetails.PhotosCount > 0) { %>
+                    <a href="javascript:void(0)" class="model-gallery-target " rel="nofollow">
+                        <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImagePath,firstImage.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" alt="<%= bikeName %>" title="<%= bikeName %>" />
                         <div class="model-media-details">
                             <div class="model-media-item">
                                 <span class="bwmsprite gallery-photo-icon"></span>
-                                <span class="model-media-count">55</span>
+                                <span class="model-media-count"><%= inquiryDetails.PhotosCount %></span>
                             </div>
                         </div>
                     </a>
-                    <div class="no-image-content">
+                    <% } else  { %>
+                    <div class=" no-image-content  " style="display: none">
                         <span class="bwmsprite no-image-icon"></span>
                         <p class="font12 text-bold text-light-grey margin-top5 margin-bottom15">Seller has not uploaded any photos</p>
                         <a href="javascript:void(0)" id="request-media-btn" class="btn btn-inv-teal btn-sm font14 text-bold" rel="nofollow">Request photos</a>
                     </div>
+                    <% } %>
                 </div>
+                <% if (inquiryDetails.MinDetails!=null) { %>
+                
                 <div class="margin-right20 margin-left20 padding-top15 padding-bottom15 border-bottom-light font14">
+                    <% if (!string.IsNullOrEmpty(modelYear))
+                       { %>
                     <div class="grid-6 alpha omega margin-bottom5">
                         <span class="bwmsprite model-date-icon"></span>
-                        <span class="model-details-label">2013 model</span>
+                        <span class="model-details-label"><%= modelYear %> model</span>
                     </div>
+                    <% } %>
+                    <% if(inquiryDetails.MinDetails.KmsDriven > 0) { %>
                     <div class="grid-6 omega margin-bottom5">
                         <span class="bwmsprite kms-driven-icon"></span>
-                        <span class="model-details-label">1,45,000 kms</span>
+                        <span class="model-details-label"><%= Bikewale.Utility.Format.FormatPrice(inquiryDetails.MinDetails.KmsDriven.ToString()) %> kms</span>
                     </div>
+                    <% } %>
+                    <% if(!string.IsNullOrEmpty(inquiryDetails.MinDetails.OwnerType)) { %>
                     <div class="grid-6 alpha omega margin-bottom5">
                         <span class="bwmsprite author-grey-sm-icon"></span>
-                        <span class="model-details-label">2nd owner</span>
+                        <span class="model-details-label"><%= inquiryDetails.MinDetails.OwnerType %> Owner</span>
                     </div>
+                    <% } %>
+                     <% if (!string.IsNullOrEmpty(inquiryDetails.MinDetails.RegisteredAt))
+                        { %>
                     <div class="grid-6 omega margin-bottom5">
                         <span class="bwmsprite model-loc-icon"></span>
-                        <span class="model-details-label">Mumbai</span>
+                        <span class="model-details-label"><%= inquiryDetails.MinDetails.RegisteredAt %></span>
                     </div>
+                    <%} %>
                     <div class="clear"></div>
-                    <p><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold">1,22,000</span></p>
+                    <p><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold"><%= Bikewale.Utility.Format.FormatPrice(inquiryDetails.MinDetails.AskingPrice.ToString()) %></span></p>
                 </div>
 
                 <div class="grid-12 float-button float-fixed clearfix">
@@ -57,49 +82,54 @@
                         <a id="get-seller-button" class="btn btn-orange btn-full-width rightfloat" href="javascript:void(0);" rel="nofollow">Get seller details</a>
                     </div>
                 </div>
-                
+                <% } %>
+
+                <% if(inquiryDetails.OtherDetails!=null) { %>
                 <div class="margin-right20 margin-left20 padding-top15 padding-bottom20 font14">
                     <p class="text-bold margin-bottom15">Ad details</p>
                     <ul class="specs-features-list">
                         <li>
                             <p class="specs-features-label">Profile ID</p>
-                            <p class="specs-features-value">1348762</p>
+                            <p class="specs-features-value">S<%= inquiryDetails.OtherDetails.Id %></p>
                         </li>
                         <li>
                             <p class="specs-features-label">Date updated</p>
-                            <p class="specs-features-value">02 Nov 2015</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatDate.GetDDMMYYYY(inquiryDetails.OtherDetails.LastUpdatedOn.ToString()) %></p>
                         </li>
                         <li>
                             <p class="specs-features-label">Seller</p>
-                            <p class="specs-features-value">Individual</p>
+                            <p class="specs-features-value"><%= inquiryDetails.OtherDetails.Seller %></p>
                         </li>
                         <li>
                             <p class="specs-features-label">Manufacturing year</p>
-                            <p class="specs-features-value">Aug 2013</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatDate.GetDDMMYYYY(inquiryDetails.MinDetails.ModelYear.ToString()) %></p>
                         </li>
+                         <% if (!string.IsNullOrEmpty(inquiryDetails.OtherDetails.Color.ColorName))
+                            { %>
                         <li>
                             <p class="specs-features-label">Colour</p>
-                            <p class="specs-features-value">Yellow</p>
+                            <p class="specs-features-value"><%= inquiryDetails.OtherDetails.Color.ColorName %></p>
                         </li>
+                         <%} %>
                         <li>
                             <p class="specs-features-label">Bike registered at</p>
-                            <p class="specs-features-value">Thane</p>
+                            <p class="specs-features-value"><%= inquiryDetails.OtherDetails.RegisteredAt %></p>
                         </li>
                         <li>
                             <p class="specs-features-label">Insurance</p>
-                            <p class="specs-features-value">Comprehensive</p>
+                            <p class="specs-features-value"><%= inquiryDetails.OtherDetails.Insurance %></p>
                         </li>
                         <li>
                             <p class="specs-features-label">Registration no.</p>
-                            <p class="specs-features-value">MH-02-BN-5823</p>
+                            <p class="specs-features-value"><%= inquiryDetails.OtherDetails.RegistrationNo %></p>
                         </li>
                     </ul>
                     <div class="clear"></div>
                     <div class="margin-bottom15 padding-top15 border-bottom-light"></div>
                     <p class="text-bold margin-bottom15">Ad description</p>
-                    <p class="text-light-grey">top notch condition original parts,and fitments no accident met till date. brokers r excused.. only original buyers can call.</p>
+                    <p class="text-light-grey"><%= inquiryDetails.OtherDetails.Description %></p>
                 </div>
-
+                <% } %>
             </div>
         </section>
 
@@ -108,82 +138,87 @@
                 <div id="model-overall-specs-wrapper">
                     <div id="overall-specs-tab" class="overall-specs-tabs-container">
                         <ul class="overall-specs-tabs-wrapper">
+                            <% if (inquiryDetails.SpecsFeatures!=null) { %>
                             <li data-tabs="#modelSpecs" class="active">Specifications</li>
                             <li data-tabs="#modelFeatures">Features</li>
+                            <% } %>
                             <li data-tabs="#modelSimilar">Similar bikes</li>
                             <li data-tabs="#modelOtherBikes">Other bikes</li>
                         </ul>
                     </div>
                 </div>
 
-                <div id="modelSpecs" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 font14 border-solid-bottom">
-                    <h2 class="margin-bottom20">Specification summary</h2>
-                    <ul class="specs-features-list">
-                        <li>
-                            <p class="specs-features-label">Displacement</p>
-                            <p class="specs-features-value">199.50 cc</p>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Max Power</p>
-                            <p class="specs-features-value">24.50 bhp @ 9,750 rpm</p>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Maximum Torque</p>
-                            <p class="specs-features-value">18.60 Nm @ 8,000 rpm</p>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">No. of gears</p>
-                            <p class="specs-features-value">6</p>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Mileage</p>
-                            <p class="specs-features-value">35 kmpl</p>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Brake Type</p>
-                            <p class="specs-features-value">Rear</p>
-                        </li>
-                    </ul>
-                    <div class="clear"></div>
+               <% if (inquiryDetails.SpecsFeatures!=null) { %>
+                    <div id="modelSpecs" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 font14 border-solid-bottom">
+                        <h2 class="margin-bottom20">Specification summary</h2>
+                        <ul class="specs-features-list">
+                            <li>
+                                <p class="specs-features-label">Displacement</p>
+                                <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.Displacement,"cc") %></p>
+                            </li>
+                            <li>
+                                <p class="specs-features-label">Max Power</p>
+                                <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.MaxPower, "bhp",inquiryDetails.SpecsFeatures.MaxPowerRPM, "rpm") %></p>
+                            </li>
+                            <li>
+                                <p class="specs-features-label">Maximum Torque</p>
+                                <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.MaximumTorque, "Nm",inquiryDetails.SpecsFeatures.MaximumTorqueRPM, "rpm") %></p>
+                            </li>
+                            <li>
+                                <p class="specs-features-label">No. of gears</p>
+                                <p class="specs-features-value"><%= inquiryDetails.SpecsFeatures.NoOfGears %></p>
+                            </li>
+                            <li>
+                                <p class="specs-features-label">Mileage</p>
+                                <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.FuelEfficiencyOverall, "kmpl") %></p>
+                            </li>
+                            <li>
+                                <p class="specs-features-label">Brake Type</p>
+                                <p class="specs-features-value"> <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.BrakeType) %></p>
+                            </li>
+                        </ul>
+                        <div class="clear"></div>
 
-                    <div class="margin-top15">
-                        <a href="" title="">View full specifications<span class="bwmsprite blue-right-arrow-icon"></span></a>
+                        <div class="margin-top15">
+                            <a href="/m<%= moreBikeSpecsUrl %>" title="">View full specifications<span class="bwmsprite blue-right-arrow-icon"></span></a>
+                        </div>
                     </div>
-                </div>
 
-                <div id="modelFeatures" class="bw-model-tabs-data margin-right20 margin-left20 padding-top20 padding-bottom20 font14 border-solid-bottom">
-                    <h2 class="margin-bottom20">Features summary</h2>
-                    <ul class="specs-features-list">
-                        <li>
-                            <p class="specs-features-label">Speedometer</p>
-                            <p class="specs-features-value">Analogue</p>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Fuel Guage</p>
-                            <p class="specs-features-value">Yes</p>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Tachometer Type</p>
-                            <p class="specs-features-value">--</p>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Digital Fuel Guage</p>
-                            <p class="specs-features-value">No</p>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Tripmeter</p>
-                            <p class="specs-features-value">No</p>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Electric Start</p>
-                            <p class="specs-features-value">Yes</p>
-                        </li>
-                    </ul>
-                    <div class="clear"></div>
-                    <div class="margin-top15">
-                        <a href="" title="">View full features<span class="bwmsprite blue-right-arrow-icon"></span></a>
+                    <div id="modelFeatures" class="bw-model-tabs-data margin-right20 margin-left20 padding-top20 padding-bottom20 font14 border-solid-bottom">
+                        <h2 class="margin-bottom20">Features summary</h2>
+                        <ul class="specs-features-list">
+                            <li>
+                                <p class="specs-features-label">Speedometer</p>
+                                <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.Speedometer) %></p>
+                            </li>
+                            <li>
+                                <p class="specs-features-label">Fuel Guage</p>
+                                <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.FuelGauge) %></p>
+                            </li>
+                            <li>
+                                <p class="specs-features-label">Tachometer Type</p>
+                                <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.TachometerType) %></p>
+                            </li>
+                            <li>
+                                <p class="specs-features-label">Digital Fuel Guage</p>
+                                <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.DigitalFuelGauge) %></p>
+                            </li>
+                            <li>
+                                <p class="specs-features-label">Tripmeter</p>
+                                <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.Tripmeter) %></p>
+                            </li>
+                            <li>
+                                <p class="specs-features-label">Electric Start</p>
+                                <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.ElectricStart) %></p>
+                            </li>
+                        </ul>
+                        <div class="clear"></div>
+                        <div class="margin-top15">
+                            <a href="/m<%= moreBikeFeaturesUrl %>" title="">View full features<span class="bwmsprite blue-right-arrow-icon"></span></a>
+                        </div>
                     </div>
-                </div>
+                
+                <% } %>
                 <!-- Similar used bikes starts -->
                 <BW:SimilarUsedBikes ID="ctrlSimilarUsedBikes" runat="server" />
                 <!-- Similar used bikes ends -->
@@ -328,79 +363,55 @@
             <div id="modelSpecsFooter"></div>
         </section>
 
-        <!-- gallery start -->
-        <div id="model-gallery-container">
-            <p class="font16 text-white">2009, Royal Enfield Classic Desert Storm Photos</p>
-            <div class="gallery-close-btn position-abt pos-top15 pos-right15 bwmsprite cross-md-white cur-pointer"></div>
+       <!-- gallery start -->
+<div id="model-gallery-container">
+    <p class="font16 text-white"><%=modelYear %>, <%= bikeName %> Photos</p>
+    <div class="gallery-close-btn position-abt pos-top15 pos-right15 bwmsprite cross-md-white cur-pointer"></div>
 
-            <div id="bike-gallery-popup">
-                <div class="font14 text-white margin-bottom15">
-                    <span class="leftfloat media-title"></span>
-                    <span class="rightfloat gallery-count"></span>
-                    <div class="clear"></div>
+    <div id="bike-gallery-popup">
+        <div class="font14 text-white margin-bottom15">
+            <span class="leftfloat media-title"></span>
+            <span class="rightfloat gallery-count"></span>
+            <div class="clear"></div>
+        </div>
+        <div class="connected-carousels-photos">
+            <div class="stage-photos">
+                <div class="swiper-container noSwiper carousel-photos carousel-stage-photos">
+                    <div class="swiper-wrapper">
+                        <asp:Repeater ID="rptUsedBikePhotos" runat="server">
+                            <ItemTemplate>
+                                <div class="swiper-slide">
+                                    <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>" alt="<%= bikeName %>" title="<%= bikeName %>" />
+                                    <span class="swiper-lazy-preloader"></span>
+                                </div>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </div>
+                    <div class="bwmsprite swiper-button-next"></div>
+                    <div class="bwmsprite swiper-button-prev"></div>
                 </div>
-                <div class="connected-carousels-photos">
-                    <div class="stage-photos">
-                        <div class="swiper-container noSwiper carousel-photos carousel-stage-photos">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com//476x268//bw/models/honda-cb-shine-electric-start/drum/alloy-112.jpg?20151209184344" alt=""  title="" />
-                                    <span class="swiper-lazy-preloader"></span>
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="swiper-lazy" data-src="http://imgd8.aeplcdn.com//476x268//bw/ec/23814/Honda-CB-Shine-Front-threequarter-74768.jpg?wm=2" alt=""  title="" />
-                                    <span class="swiper-lazy-preloader"></span>
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="swiper-lazy" data-src="http://imgd4.aeplcdn.com//476x268//bw/ec/22012/Honda-CB-Shine-Side-66803.jpg?wm=2&t=125705630&t=125705630" alt=""  title="" />
-                                    <span class="swiper-lazy-preloader"></span>
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="swiper-lazy" data-src="http://imgd4.aeplcdn.com//476x268//bw/ec/22012/Honda-CB-Shine-Side-66802.jpg?wm=2&t=125659890&t=125659890" alt=""  title="" />
-                                    <span class="swiper-lazy-preloader"></span>
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="swiper-lazy" data-src="http://imgd4.aeplcdn.com//476x268//bw/ec/22012/Honda-CB-Shine-Side-66801.jpg?wm=2&t=125653770&t=125653770" alt=""  title="" />
-                                    <span class="swiper-lazy-preloader"></span>
-                                </div>
-                            </div>
-                            <div class="bwmsprite swiper-button-next"></div>
-                            <div class="bwmsprite swiper-button-prev"></div>
-                        </div>
-                    </div>
+            </div>
 
-                    <div class="navigation-photos">
-                        <div class="swiper-container noSwiper carousel-navigation-photos">
-                            <div class="swiper-wrapper">
+            <div class="navigation-photos">
+                <div class="swiper-container noSwiper carousel-navigation-photos">
+                    <div class="swiper-wrapper">
+                        <asp:Repeater ID="rptUsedBikeNavPhotos" runat="server">
+                            <ItemTemplate>
                                 <div class="swiper-slide">
-                                    <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com//110x61//bw/models/honda-cb-shine-electric-start/drum/alloy-112.jpg?20151209184344" alt=""  title="a" />
+                                    <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>" alt="<%= bikeName %>" title="<%= bikeName %>" />
                                     <span class="swiper-lazy-preloader"></span>
                                 </div>
-                                <div class="swiper-slide">
-                                    <img class="swiper-lazy" data-src="http://imgd8.aeplcdn.com//110x61//bw/ec/23814/Honda-CB-Shine-Front-threequarter-74768.jpg?wm=2" alt=""  title="b" />
-                                    <span class="swiper-lazy-preloader"></span>
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="swiper-lazy" data-src="http://imgd4.aeplcdn.com//110x61//bw/ec/22012/Honda-CB-Shine-Side-66803.jpg?wm=2&t=125705630&t=125705630" alt=""  title="c" />
-                                    <span class="swiper-lazy-preloader"></span>
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="swiper-lazy" data-src="http://imgd4.aeplcdn.com//110x61//bw/ec/22012/Honda-CB-Shine-Side-66802.jpg?wm=2&t=125659890&t=125659890" alt=""  title="d" />
-                                    <span class="swiper-lazy-preloader"></span>
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="swiper-lazy" data-src="http://imgd4.aeplcdn.com//110x61//bw/ec/22012/Honda-CB-Shine-Side-66801.jpg?wm=2&t=125653770&t=125653770" alt=""  title="e" />
-                                    <span class="swiper-lazy-preloader"></span>
-                                </div>
-                            </div>
-                            <div class="bwmsprite swiper-button-next hide"></div>
-                            <div class="bwmsprite swiper-button-prev hide"></div>
-                        </div>
+                            </ItemTemplate>
+                        </asp:Repeater>
                     </div>
+                    <div class="bwmsprite swiper-button-next hide"></div>
+                    <div class="bwmsprite swiper-button-prev hide"></div>
                 </div>
             </div>
         </div>
-        <!-- gallery end -->
+    </div>
+</div>
+<!-- gallery end -->
 
         <!-- get seller details pop up start  -->
         <div id="get-seller-details-popup" class="bw-popup bwm-fullscreen-popup">
@@ -428,7 +439,7 @@
                         <span class="error-text"></span>
                     </div>
                     <div class="input-box input-number-box form-control-box margin-bottom15">
-                        <input type="tel" id="getUserMobile" maxlength="10"/>
+                        <input type="tel" id="getUserMobile" maxlength="10" />
                         <label for="getUserMobile">Mobile number<sup>*</sup></label>
                         <span class="input-number-prefix">+91</span>
                         <span class="boundary"></span>
@@ -436,7 +447,7 @@
                     </div>
                     <a class="btn btn-orange btn-fixed-width" id="submit-user-details-btn">Get details</a>
                 </div>
-                
+
                 <div id="mobile-verification-section">
                     <div class="icon-outer-container rounded-corner50percent margin-bottom10">
                         <div class="icon-inner-container rounded-corner50percent">
@@ -446,7 +457,7 @@
                     <p class="font18 text-bold margin-bottom10">Mobile verification</p>
                     <p class="font14 text-light-grey margin-bottom25">We have just sent a 5-digit verification code on your mobile number.</p>
 
-                    
+
                     <div id="verify-otp-content">
                         <div class="margin-bottom35">
                             <div class="leftfloat text-left">
@@ -478,7 +489,7 @@
                             <span class="error-text"></span>
                         </div>
                         <a class="btn btn-orange btn-fixed-width" id="submit-updated-mobile-btn">Done</a>
-                    </div>                    
+                    </div>
                 </div>
 
                 <div id="seller-details-section">
@@ -507,7 +518,7 @@
                             <p class="data-key">City</p>
                             <p class="data-value">Mumbai, Maharashtra</p>
                         </li>
-                    </ul>                   
+                    </ul>
 
                 </div>
                 <!-- OTP Popup ends here -->
@@ -557,8 +568,10 @@
                         </div>
                     </div>
                     <p class="font18 text-bold margin-bottom10">Request sent!</p>
-                    <p class="font14 text-light-grey margin-bottom25">We have requested seller to upload photos.<br />
-                        We will let you know as soon as the seller uploads it.</p>
+                    <p class="font14 text-light-grey margin-bottom25">
+                        We have requested seller to upload photos.<br />
+                        We will let you know as soon as the seller uploads it.
+                    </p>
 
                     <a class="btn btn-orange" id="submit-request-sent-btn">Done</a>
                 </div>

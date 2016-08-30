@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="False" Inherits="Bikewale.Mobile.controls.MMostPopularBikes" %>
+﻿<%@ Control Language="C#" AutoEventWireup="False" Inherits="Bikewale.Mobile.Controls.MMostPopularBikes" %>
 <!-- Most Popular Bikes Starts here-->
 <asp:Repeater ID="rptMostPopularBikes" runat="server">
         <ItemTemplate>
