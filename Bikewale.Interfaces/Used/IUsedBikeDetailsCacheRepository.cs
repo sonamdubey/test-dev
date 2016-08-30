@@ -10,7 +10,7 @@ namespace Bikewale.Interfaces.Used
     public interface IUsedBikeDetailsCacheRepository
     {
         ClassifiedInquiryDetails GetProfileDetails(uint inquiryId);
-        IEnumerable<BikeDetailsMin> GetSimilarBikes(uint inquiryId, uint cityId, uint modelId);
+        IEnumerable<BikeDetailsMin> GetSimilarBikes(uint inquiryId, uint cityId, uint modelId, ushort topCount);
         IEnumerable<BikeDetailsMin> GetBikesByCityId(uint inquiryId, uint cityId);
     }
 }

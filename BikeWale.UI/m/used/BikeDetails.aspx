@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Used.BikeDetails" %>
-
+<%@ Register Src="~/m/controls/SimilarUsedBikes.ascx" TagPrefix="BW" TagName="SimilarUsedBikes" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -183,142 +183,9 @@
                         <a href="" title="">View full features<span class="bwmsprite blue-right-arrow-icon"></span></a>
                     </div>
                 </div>
-
-                <div id="modelSimilar" class="bw-model-tabs-data padding-top20 padding-bottom15">
-                    <h2 class="margin-right20 margin-bottom15 margin-left20">Similar NS 200 bikes</h2>
-                    <div id="similar-bike-swiper" class="swiper-container padding-top5 padding-bottom5">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide swiper-shadow">
-                                <div class="model-swiper-image-preview">
-                                    <a href="">
-                                        <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com//310x174//bw/models/hero-splendor-ismart-spoke-755.jpg?20151209181902" title="" alt="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </a>
-                                </div>
-                                <div class="model-swiper-details font11">
-                                    <a href="" class="target-link font12 text-truncate margin-bottom5" title="Hero Splendor iSmart">Hero Splendor iSmart</a>
-                                    <div class="grid-6 alpha padding-right5">
-                                        <span class="bwmsprite model-date-icon-xs"></span>
-                                        <span class="model-details-label">2013 model</span>
-                                    </div>
-                                    <div class="grid-6 omega padding-left5">
-                                        <span class="bwmsprite kms-driven-icon-xs"></span>
-                                        <span class="model-details-label">1,45,000 kms</span>
-                                    </div>
-                                    <div class="grid-6 alpha padding-right5">
-                                        <span class="bwmsprite author-grey-icon-xs"></span>
-                                        <span class="model-details-label">2nd owner</span>
-                                    </div>
-                                    <div class="grid-6 omega padding-left5">
-                                        <span class="bwmsprite model-loc-icon-xs"></span>
-                                        <span class="model-details-label">Mumbai</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <p class="margin-top5"><span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-bold">1,22,000</span></p>
-                                    <a href="javascript:void(0)" class="btn btn-xs btn-full-width btn-white margin-top10 font14" rel="nofollow">Get seller details</a>
-                                </div>
-                            </div>
-
-                            <div class="swiper-slide swiper-shadow">
-                                <div class="model-swiper-image-preview">
-                                    <a href="">
-                                        <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com//310x174//bw/models/hero-splendor-ismart-spoke-755.jpg?20151209181902" title="" alt="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </a>
-                                </div>
-                                <div class="model-swiper-details font11">
-                                    <a href="" class="target-link font12 text-truncate margin-bottom5" title="Hero Splendor iSmart">Hero Splendor iSmart</a>
-                                    <div class="grid-6 alpha padding-right5">
-                                        <span class="bwmsprite model-date-icon-xs"></span>
-                                        <span class="model-details-label">2013 model</span>
-                                    </div>
-                                    <div class="grid-6 omega padding-left5">
-                                        <span class="bwmsprite kms-driven-icon-xs"></span>
-                                        <span class="model-details-label">1,45,000 kms</span>
-                                    </div>
-                                    <div class="grid-6 alpha padding-right5">
-                                        <span class="bwmsprite author-grey-icon-xs"></span>
-                                        <span class="model-details-label">2nd owner</span>
-                                    </div>
-                                    <div class="grid-6 omega padding-left5">
-                                        <span class="bwmsprite model-loc-icon-xs"></span>
-                                        <span class="model-details-label">Mumbai</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <p class="margin-top5"><span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-bold">1,22,000</span></p>
-                                    <a href="javascript:void(0)" class="btn btn-xs btn-full-width btn-white margin-top10 font14" rel="nofollow">Get seller details</a>
-                                </div>
-                            </div>
-
-                            <div class="swiper-slide swiper-shadow">
-                                <div class="model-swiper-image-preview">
-                                    <a href="">
-                                        <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com//310x174//bw/models/hero-splendor-ismart-spoke-755.jpg?20151209181902" title="" alt="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </a>
-                                </div>
-                                <div class="model-swiper-details font11">
-                                    <a href="" class="target-link font12 text-truncate margin-bottom5" title="Hero Splendor iSmart">Hero Splendor iSmart</a>
-                                    <div class="grid-6 alpha padding-right5">
-                                        <span class="bwmsprite model-date-icon-xs"></span>
-                                        <span class="model-details-label">2013 model</span>
-                                    </div>
-                                    <div class="grid-6 omega padding-left5">
-                                        <span class="bwmsprite kms-driven-icon-xs"></span>
-                                        <span class="model-details-label">1,45,000 kms</span>
-                                    </div>
-                                    <div class="grid-6 alpha padding-right5">
-                                        <span class="bwmsprite author-grey-icon-xs"></span>
-                                        <span class="model-details-label">2nd owner</span>
-                                    </div>
-                                    <div class="grid-6 omega padding-left5">
-                                        <span class="bwmsprite model-loc-icon-xs"></span>
-                                        <span class="model-details-label">Mumbai</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <p class="margin-top5"><span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-bold">1,22,000</span></p>
-                                    <a href="javascript:void(0)" class="btn btn-xs btn-full-width btn-white margin-top10 font14" rel="nofollow">Get seller details</a>
-                                </div>
-                            </div>
-
-                            <div class="swiper-slide swiper-shadow">
-                                <div class="model-swiper-image-preview">
-                                    <a href="">
-                                        <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com//310x174//bw/models/hero-splendor-ismart-spoke-755.jpg?20151209181902" title="" alt="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </a>
-                                </div>
-                                <div class="model-swiper-details font11">
-                                    <a href="" class="target-link font12 text-truncate margin-bottom5" title="Hero Splendor iSmart">Hero Splendor iSmart</a>
-                                    <div class="grid-6 alpha padding-right5">
-                                        <span class="bwmsprite model-date-icon-xs"></span>
-                                        <span class="model-details-label">2013 model</span>
-                                    </div>
-                                    <div class="grid-6 omega padding-left5">
-                                        <span class="bwmsprite kms-driven-icon-xs"></span>
-                                        <span class="model-details-label">1,45,000 kms</span>
-                                    </div>
-                                    <div class="grid-6 alpha padding-right5">
-                                        <span class="bwmsprite author-grey-icon-xs"></span>
-                                        <span class="model-details-label">2nd owner</span>
-                                    </div>
-                                    <div class="grid-6 omega padding-left5">
-                                        <span class="bwmsprite model-loc-icon-xs"></span>
-                                        <span class="model-details-label">Mumbai</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <p class="margin-top5"><span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-bold">1,22,000</span></p>
-                                    <a href="javascript:void(0)" class="btn btn-xs btn-full-width btn-white margin-top10 font14" rel="nofollow">Get seller details</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="margin-top10 margin-right20 margin-left20">
-                        <a href="" title="" class="font14">View all NS 200 in Mumbai<span class="bwmsprite blue-right-arrow-icon"></span></a>
-                    </div>
-                </div>
-
-                <div class="margin-right20 margin-left20 border-solid-bottom"></div>
+                <!-- Similar used bikes starts -->
+                <BW:SimilarUsedBikes ID="ctrlTopCityPrices" runat="server" />
+                <!-- Similar used bikes ends -->
 
                 <div id="modelOtherBikes" class="bw-model-tabs-data padding-top20 padding-bottom15">
                     <h2 class="margin-right20 margin-bottom15 margin-left20">Other used bikes in Mumbai</h2>

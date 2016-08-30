@@ -1,7 +1,10 @@
 ﻿using Bikewale.Entities.Used;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Used;
+using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Bikewale.Cache.Used
 {
@@ -11,6 +14,14 @@ namespace Bikewale.Cache.Used
     /// </summary>
     public class UsedBikeDetailsCache : IUsedBikeDetailsCacheRepository
     {
+        private readonly ICacheManager _cache;
+        private readonly IUsedBikeDetails _objModels;
+
+        public UsedBikeDetailsCache(ICacheManager cache, IUsedBikeDetails objModels)
+        {
+            _cache = cache;
+            _objModels = objModels;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -20,6 +31,7 @@ namespace Bikewale.Cache.Used
         {
             throw new NotImplementedException();
         }
+        
 
         /// <summary>
         /// 
@@ -28,9 +40,20 @@ namespace Bikewale.Cache.Used
         /// <param name="cityId"></param>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public IEnumerable<BikeDetailsMin> GetSimilarBikes(uint inquiryId, uint cityId, uint modelId)
+        public IEnumerable<BikeDetailsMin> GetSimilarBikes(uint inquiryId, uint cityId, uint modelId, ushort topCount)
         {
-            throw new NotImplementedException();
+            IEnumerable<BikeDetailsMin> objUsedBikes = null;
+            string key = String.Format("BW_SimilarUsedBikesForProfile_{0}", inquiryId);
+            try
+            {
+                objUsedBikes = _cache.GetFromCache<IEnumerable<BikeDetailsMin>>(key, new TimeSpan(0, 30, 0), () => _objModels.GetSimilarBikes(inquiryId,cityId,modelId,topCount));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, MethodBase.GetCurrentMethod().DeclaringType.Name + " -  " + System.Reflection.MethodInfo.GetCurrentMethod().Name);
+                objErr.SendMail();
+            }
+            return objUsedBikes;
         }
 
         /// <summary>
