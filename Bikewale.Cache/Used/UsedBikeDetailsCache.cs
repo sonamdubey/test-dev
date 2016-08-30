@@ -62,9 +62,20 @@ namespace Bikewale.Cache.Used
         /// <param name="inquiryId"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        public IEnumerable<BikeDetailsMin> GetBikesByCityId(uint inquiryId, uint cityId)
+        public IEnumerable<OtherUsedBikeDetails> GetOtherBikesByCityId(uint inquiryId, uint cityId, ushort topCount)
         {
-            throw new NotImplementedException();
+            IEnumerable<OtherUsedBikeDetails> objUsedBikes = null;
+            string key = String.Format("BW_OtherUsedBikesInCityForProfile_{0}", inquiryId);
+            try
+            {
+                objUsedBikes = _cache.GetFromCache<IEnumerable<OtherUsedBikeDetails>>(key, new TimeSpan(0, 30, 0), () => _objModels.GetOtherBikesByCityId(inquiryId, cityId, topCount));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, MethodBase.GetCurrentMethod().DeclaringType.Name + " -  " + System.Reflection.MethodInfo.GetCurrentMethod().Name);
+                objErr.SendMail();
+            }
+            return objUsedBikes;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Bikewale.m.controls;
+﻿using Bikewale.Mobile.Controls;
 using System;
 
 namespace Bikewale.Mobile.Used
@@ -8,9 +8,9 @@ namespace Bikewale.Mobile.Used
     /// </summary>
     public partial class BikeDetails : System.Web.UI.Page
     {
-        protected SimilarUsedBikes similarUsedBikes;
+        public SimilarUsedBikes ctrlSimilarUsedBikes;
+        public OtherUsedBikeByCity ctrlOtherUsedBikes;
 
-        string profileId = "S42667";
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -23,7 +23,30 @@ namespace Bikewale.Mobile.Used
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                BindUserControls();
+            }
+        }
 
+        private void BindUserControls()
+        {
+            ctrlSimilarUsedBikes.InquiryId = 42512;
+            ctrlSimilarUsedBikes.CityId = 1;
+            ctrlSimilarUsedBikes.ModelId = 197;
+            ctrlSimilarUsedBikes.TopCount = 5;
+            ctrlSimilarUsedBikes.ModelName = "Duke 200";
+            ctrlSimilarUsedBikes.ModelMaskingName = "duke200";
+            ctrlSimilarUsedBikes.MakeName = "KTM";
+            ctrlSimilarUsedBikes.MakeMaskingName = "ktm";
+            ctrlSimilarUsedBikes.BikeName = string.Format("{0} {1}", ctrlSimilarUsedBikes.MakeName, ctrlSimilarUsedBikes.ModelName);
+
+
+
+            ctrlOtherUsedBikes.InquiryId = 42512;
+            ctrlOtherUsedBikes.CityId = 1;
+            ctrlOtherUsedBikes.ModelId = 197;
+            ctrlOtherUsedBikes.TopCount = 5;
         }
 
     }

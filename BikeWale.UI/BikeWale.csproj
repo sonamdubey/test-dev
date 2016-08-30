@@ -254,6 +254,7 @@
     <Compile Include="BindViewModels\Controls\BIndNewLaunchedBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindNewsControl.cs" />
     <Compile Include="BindViewModels\Controls\BindNewsWidget.cs" />
+    <Compile Include="BindViewModels\Controls\BindOtherUsedBikesForCity.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarUsedBikes.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarVideos.cs" />
@@ -830,6 +831,10 @@
     </Compile>
     <Compile Include="m\controls\NewVideosWidget.ascx.cs">
       <DependentUpon>NewVideosWidget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\OtherUsedBikeByCity.ascx.cs">
+      <DependentUpon>OtherUsedBikeByCity.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\PopularUsedBikes.ascx.cs">
@@ -2207,6 +2212,7 @@
     <Content Include="m\controls\NewsWidget.ascx" />
     <Content Include="m\controls\NewUserReviewList.ascx" />
     <Content Include="m\controls\NewVideosWidget.ascx" />
+    <Content Include="m\controls\OtherUsedBikeByCity.ascx" />
     <Content Include="m\controls\PopularUsedBikes.ascx" />
     <Content Include="m\controls\SimilarCompareBikes.ascx" />
     <Content Include="m\controls\MPriceInTopCities.ascx" />

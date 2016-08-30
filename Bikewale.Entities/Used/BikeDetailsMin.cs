@@ -23,9 +23,15 @@ namespace Bikewale.Entities.Used
     /// Description : Similar Bikes Minimum details entity for used bikes
     /// </summary>
     [Serializable]
-    public class BikeSimilarDetails : BikeDetailsMin
+    public class OtherUsedBikeDetails : BikeDetailsMin
     {
+        public string MakeMaskingName { get; set; }
+        public string MakeName { get; set; }
+        public string ModelName { get; set; }
+        public string ModelMaskingName { get; set; }
+        public string CityMaskingName { get; set; }
 
+        public string BikeName { get; set; }
     }
 
 }

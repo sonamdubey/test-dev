@@ -7,17 +7,17 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Used;
 using Microsoft.Practices.Unity;
 using System.Collections.Generic;
+using System.Linq;
 namespace Bikewale.BindViewModels.Controls
 {
     /// <summary>
     /// Created by : Sangram Nandkhile on 30th Aug 2016
-    /// Summary: Bind view model for binding similar used bikes
+    /// Summary: Bind view model for binding Other used bikes in a city
     /// </summary>
-    public class BindSimilarUsedBikes
+    public class BindOtherUsedBikesForCity
     {
-        public ushort TotalRecords { get; set; }
+
         public uint InquiryId { get; set; }
-        public uint CityId { get; set; }
         public string CityName { get; set; }
         public string CityMaskingName { get; set; }
 
@@ -30,19 +30,21 @@ namespace Bikewale.BindViewModels.Controls
 
         public string BikeName { get; set; }
 
-        public IEnumerable<BikeDetailsMin> BindUsedSimilarBikes()
+        public IEnumerable<OtherUsedBikeDetails> GetOtherBikesByCityId(uint InquiryId, uint CityId, ushort TopCount)
         {
-            IEnumerable<BikeDetailsMin> similarBikeList = default(IEnumerable<BikeDetailsMin>);
+            IEnumerable<OtherUsedBikeDetails> otherBikesinCity = default(IEnumerable<OtherUsedBikeDetails>);
             using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>()
                     .RegisterType<IUsedBikeDetails, IUsedBikeDetailsRepository>()
                     .RegisterType<ICacheManager, MemcacheManager>();
-
                 var objCache = container.Resolve<IUsedBikeDetailsCacheRepository>();
-                similarBikeList = objCache.GetSimilarBikes(InquiryId, CityId, ModelId, TotalRecords);
+                otherBikesinCity = objCache.GetOtherBikesByCityId(InquiryId, CityId, TopCount);
             }
-            return similarBikeList;
+
+            this.CityName = otherBikesinCity.FirstOrDefault().RegisteredAt;
+            this.CityMaskingName = otherBikesinCity.FirstOrDefault().CityMaskingName;
+            return otherBikesinCity;
         }
     }
 }

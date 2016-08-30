@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Used.BikeDetails" %>
 <%@ Register Src="~/m/controls/SimilarUsedBikes.ascx" TagPrefix="BW" TagName="SimilarUsedBikes" %>
+<%@ Register Src="~/m/controls/OtherUsedBikeByCity.ascx" TagPrefix="BW" TagName="OtherUsedBikes" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -184,7 +185,10 @@
                     </div>
                 </div>
                 <!-- Similar used bikes starts -->
-                <BW:SimilarUsedBikes ID="ctrlTopCityPrices" runat="server" />
+                <BW:SimilarUsedBikes ID="ctrlSimilarUsedBikes" runat="server" />
+                <!-- Similar used bikes ends -->
+                <!-- Similar used bikes starts -->
+                <BW:OtherUsedBikes ID="ctrlOtherUsedBikes" runat="server" />
                 <!-- Similar used bikes ends -->
 
                 <div id="modelOtherBikes" class="bw-model-tabs-data padding-top20 padding-bottom15">
