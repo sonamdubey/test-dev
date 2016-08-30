@@ -13,6 +13,12 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
 {
     public class ManufacturerCampaign : IManufacturerCampaign
     {
+        /// <summary>
+        /// Created by Subodh Jain 29 aug 2016
+        /// Description : Return all the campaigns for selected dealer
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
         public IEnumerable<ManufactureDealerCampaign> SearchManufactureCampaigns(uint dealerId)
         {
             List<ManufactureDealerCampaign> dtManufactureCampaigns = null;
@@ -24,9 +30,9 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                     {
 
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId ));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
                         dtManufactureCampaigns = new List<ManufactureDealerCampaign>();
-                       
+
                         using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                         {
                             if (dr != null)
@@ -55,6 +61,12 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             }
             return dtManufactureCampaigns;
         }
+        /// <summary>
+        /// Created by Subodh Jain 29 aug 2016
+        /// Description : Change Status of the campaign
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
         public bool statuschangeCampaigns(uint id, uint isactive)
         {
 

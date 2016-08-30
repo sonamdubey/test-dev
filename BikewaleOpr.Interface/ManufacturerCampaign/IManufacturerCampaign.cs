@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace BikewaleOpr.Interface.ManufacturerCampaign
 {
+    /// <summary>
+    /// Created by Subodh Jain 29 aug 2016
+    /// Description : Interface for manufactureCampaign
+    /// </summary>
     public interface IManufacturerCampaign
     {
         IEnumerable<ManufactureDealerCampaign> SearchManufactureCampaigns(uint dealerid);

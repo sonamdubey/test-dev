@@ -27,6 +27,8 @@ namespace BikeWaleOpr.NewBikeBooking
 
         }
 
+        /// Created by Subodh Jain 29 aug 2016
+        /// Description : To fetch all manufacture in dropdown list
         public void GetDealerAsManuFacturer()
         {
          

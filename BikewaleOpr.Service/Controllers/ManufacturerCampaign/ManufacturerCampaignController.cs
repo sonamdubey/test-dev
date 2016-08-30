@@ -22,6 +22,12 @@ namespace BikewaleOpr.Service.Controllers
         {
             _objManufacturerCampaign = objManufacturerCampaign;
         }
+        /// <summary>
+        /// Created by Subodh Jain 29 aug 2016
+        /// Description : return list of campaigns for selected dealer
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
         [HttpPost]
         public IHttpActionResult GetManufactureCampaigns(string dealerId)
         {
@@ -37,7 +43,12 @@ namespace BikewaleOpr.Service.Controllers
             }
             return Ok(_objMfgList);
         }
-
+        /// <summary>
+        /// Created by Subodh Jain 29 aug 2016
+        /// Description : Change status for Campaign
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
         [HttpPost]
         public IHttpActionResult GetstatuschangeCampaigns(string id, string isactive)
         {
