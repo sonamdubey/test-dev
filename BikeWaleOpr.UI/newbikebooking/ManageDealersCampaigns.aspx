@@ -33,7 +33,7 @@
         <h3> Manage Manufacturer's Campaigns</h3>
       
         <div class="margin-top10">
-            <span>Manufacture Campaigns : <font color="red">* &nbsp</font>
+            <span>Select Manufacture : <font color="red">* &nbsp</font>
             <%--<select id="ddlManufacturers" data-bind="options: Manufacturers, optionsValue: 'Id', optionsText: 'Organization', value: selectedManufacturer, optionsCaption: 'Choose manufacturer...'" ></select>--%>
                 <asp:DropDownList id="ddlManufacturers" runat="server"></asp:DropDownList>
             <input type="button" data-bind="click: SearchCampaigns" id="SearchCampaigns" value="SearchCampaigns" style="padding:10px; margin-left:20px; cursor:pointer;"/>
@@ -85,91 +85,87 @@
 <script>
     var ddlManufacturers = $("#ddlManufacturers");
     var BwOprHostUrl = '<%=ConfigurationManager.AppSettings["BwOprHostUrlForJs"]%>';
-  var d = new Date().toJSON().slice(0, 10);
-  $('#t1').hide();
+    var d = new Date().toJSON().slice(0, 10);
+    $('#t1').hide();
+    var mfgCamp = function () {
+        var self = this;
+        self.selectedManufacturer = ko.observable();
+        self.Manufacturers = ko.observableArray([]);
+        self.ManufacturersCampaign = ko.observableArray([]);
+        var msg = $("#selDealerHeading");
+        self.redirect = function () {
+            dId = $("#ddlManufacturers option:selected");
+            dealerId = dId.val();
+            dealerHeading = dId.text();
+            if (!isNaN(dealerId) && dealerId != "0") {
+                var url = BwOprHostUrl + '/campaign/ManageDealer.aspx?dealerHeading=' + dealerHeading + '&dealerid=' + dealerId;
+                window.location.href = url;
+            }
+            else {
+                alert("Please select Dealer");
+            }
+        }
+        self.SearchCampaigns = function () {
+            dId = $("#ddlManufacturers option:selected");
+            dealerId = dId.val();
+            dealerHeading = dId.text();
+
+            if (!isNaN(dealerId) && dealerId != "0") {
+                var element = document.getElementById('DealerCampaignsList');
+                $.ajax({
+                    type: "POST",
+                    url: BwOprHostUrl + "/api/ManufacturerCampaign/GetManufactureCampaigns/?dealerId=" + dealerId,
+                    datatype: "json",
+                    success: function (response) {
+                        ko.cleanNode(element);
+
+                        if (response.length > 0) {
+                            ko.applyBindings(ko.mapping.fromJS(response, {}, self), element);
+                            self.ManufacturersCampaign(response);
+                            $('#t1').show();
+                        }
+                        else {
+                            $('#t1').hide();
+                            msg.text("Campaigns for " + dealerHeading + " not available ");
+                        }
+                    },
+                    complete: function (xhr) {
+                        if (xhr.status != 200) {
+                            alert("Something went wrong .Please try again !!");
+                        }
+                    }
+                });
+            } else {
+                alert("Please select Dealer");
+            }
+
+        }
+
+        self.ChangeStatus = function (d, e) {
+            if (d.isactive == 1)
+                d.isactive = 0;
+            else
+                d.isactive = 1;
+         $.ajax({
+                type: "POST",
+                url: BwOprHostUrl + "/api/ManufacturerCampaign/GetstatuschangeCampaigns/?id=" + d.id + '&isactive=' + d.isactive,
+                datatype: "json",
+                success: function (response) {
+                    self.SearchCampaigns();
+                },
+                complete: function (xhr) {
+                    if (xhr.status != 200) {
+                        alert("Something went wrong .Please try again !!")
+                    }
+                }
+            });
+
+        };
 
 
-
-  var mfgCamp = function () {
-      var self = this;
-      self.selectedManufacturer = ko.observable();
-      self.Manufacturers = ko.observableArray([]);
-      self.ManufacturersCampaign = ko.observableArray([]);
-      var msg = $("#selDealerHeading");
-      self.redirect = function () {
-          dId = $("#ddlManufacturers option:selected");
-          dealerId = dId.val();
-          dealerHeading = dId.text();
-          if (!isNaN(dealerId) && dealerId != "0") {
-              var url = BwOprHostUrl + '/campaign/ManageDealer.aspx?dealerHeading=' + dealerHeading + '&dealerid=' + dealerId;
-              window.location.href = url;
-          }
-          else {
-              alert("Please select Dealer");
-          }
-      }
-      self.SearchCampaigns = function () {
-          dId = $("#ddlManufacturers option:selected");
-          dealerId = dId.val();
-          dealerHeading = dId.text();
-
-          if (!isNaN(dealerId) && dealerId != "0") {
-              var element = document.getElementById('DealerCampaignsList');
-              $.ajax({
-                  type: "POST",
-                  url: BwOprHostUrl + "/api/ManufacturerCampaign/GetManufactureCampaigns/?dealerId=" + dealerId,
-                  datatype: "json",
-                  success: function (response) {
-                      ko.cleanNode(element);
-
-                      if (response.length > 0) {
-                          ko.applyBindings(ko.mapping.fromJS(response, {}, self), element);
-                          self.ManufacturersCampaign(response);
-                          $('#t1').show();
-                      }
-                      else {
-
-                          msg.text("Campaigns for " + dealerHeading + " not available ");
-                      }
-                  },
-                  complete: function (xhr) {
-                      if (xhr.status != 200) {
-                          alert("Something went wrong .Please try again !!");
-                      }
-                  }
-              });
-          } else {
-              alert("Please select Dealer");
-          }
-
-      }
-
-      self.ChangeStatus = function (d, e) {
-          if (d.isactive == 1)
-              d.isactive = 0;
-          else
-              d.isactive = 1;
-
-          $.ajax({
-              type: "POST",
-              url: BwOprHostUrl + "/api/ManufacturerCampaign/GetstatuschangeCampaigns/?id=" + d.id + '&isactive=' + d.isactive,
-              datatype: "json",
-              success: function (response) {
-                  self.SearchCampaigns();
-              },
-              complete: function (xhr) {
-                  if (xhr.status != 200) {
-                      alert("Something went wrong .Please try again !!")
-                  }
-              }
-          });
-
-      };
-
-
-  }
-  var viewModel = new mfgCamp();
-  ko.applyBindings(viewModel, $("#mfgCampaigns")[0]);
+    }
+    var viewModel = new mfgCamp();
+    ko.applyBindings(viewModel, $("#mfgCampaigns")[0]);
 
 </script>
 

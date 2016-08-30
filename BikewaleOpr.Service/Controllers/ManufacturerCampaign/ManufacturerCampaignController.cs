@@ -23,7 +23,7 @@ namespace BikewaleOpr.Service.Controllers
             _objManufacturerCampaign = objManufacturerCampaign;
         }
         [HttpPost]
-        public List<ManufactureDealerCampaign> GetManufactureCampaigns(string dealerId)
+        public IHttpActionResult GetManufactureCampaigns(string dealerId)
         {
             List<ManufactureDealerCampaign> _objMfgList = new List<ManufactureDealerCampaign>();
             try
@@ -35,7 +35,7 @@ namespace BikewaleOpr.Service.Controllers
                 ErrorClass objErr = new ErrorClass(ex, "SearchManufactureCampaign");
                 objErr.SendMail();
             }
-            return _objMfgList;
+            return Ok(_objMfgList);
         }
 
         [HttpPost]
