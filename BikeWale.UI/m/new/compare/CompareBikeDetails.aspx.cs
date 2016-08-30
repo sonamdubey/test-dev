@@ -6,7 +6,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Memcache;
-using Bikewale.Mobile.controls;
+using Bikewale.Mobile.Controls;
 using Bikewale.New;
 using Microsoft.Practices.Unity;
 using System;

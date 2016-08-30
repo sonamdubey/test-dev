@@ -53,8 +53,8 @@
             <div class="specs-features-wrapper">
                 <div id="specsFeaturesTabsWrapper">
                     <ul class="model-specs-features-tabs-wrapper">
-                        <li class="active" data-tabs="#modelSpecifications">Specifications</li>
-                        <li data-tabs="#modelFeatures">Features</li>
+                        <li class="active" data-tabs="#specs">Specifications</li>
+                        <li data-tabs="#features">Features</li>
                     </ul>
                 </div>
             </div>

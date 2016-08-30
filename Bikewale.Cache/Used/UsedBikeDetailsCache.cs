@@ -1,5 +1,7 @@
 ﻿using Bikewale.Entities.Used;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Used;
+using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
 
@@ -11,6 +13,20 @@ namespace Bikewale.Cache.Used
     /// </summary>
     public class UsedBikeDetailsCache : IUsedBikeDetailsCacheRepository
     {
+        private readonly ICacheManager _cache;
+        private readonly IUsedBikeDetails _objUsedBikes;
+
+        /// <summary>
+        /// Intitalize the references for the cache and DL
+        /// </summary>
+        /// <param name="cache"></param>
+        /// <param name="objUsedBikes"></param>
+        public UsedBikeDetailsCache(ICacheManager cache, IUsedBikeDetails objUsedBikes)
+        {
+            _cache = cache;
+            _objUsedBikes = objUsedBikes;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -18,7 +34,18 @@ namespace Bikewale.Cache.Used
         /// <returns></returns>
         public ClassifiedInquiryDetails GetProfileDetails(uint inquiryId)
         {
-            throw new NotImplementedException();
+            ClassifiedInquiryDetails objUsedBikes = null;
+            string key = String.Format("BW_ProfileDetails_{0}", inquiryId);
+            try
+            {
+                objUsedBikes = _cache.GetFromCache<ClassifiedInquiryDetails>(key, new TimeSpan(0, 30, 0), () => _objUsedBikes.GetProfileDetails(inquiryId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.Used.GetProfileDetails");
+                objErr.SendMail();
+            }
+            return objUsedBikes;
         }
 
         /// <summary>

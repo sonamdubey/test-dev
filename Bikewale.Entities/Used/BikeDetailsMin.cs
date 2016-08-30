@@ -11,7 +11,7 @@ namespace Bikewale.Entities.Used
     {
         public BikePhoto Photo { get; set; }
         public uint AskingPrice { get; set; }
-        public string ModelYear { get; set; }
+        public DateTime ModelYear { get; set; }
         public uint KmsDriven { get; set; }
         public string OwnerType { get; set; }
         public string RegisteredAt { get; set; }

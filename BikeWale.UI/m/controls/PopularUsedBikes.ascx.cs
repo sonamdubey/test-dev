@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.Mobile.controls
+namespace Bikewale.Mobile.Controls
 {
     public class PopularUsedBikes : System.Web.UI.UserControl
     {

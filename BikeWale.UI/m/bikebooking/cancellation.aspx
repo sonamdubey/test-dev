@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="cancellation.aspx.cs" Inherits="Bikewale.m.bikebooking.Cancellation" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="cancellation.aspx.cs" Inherits="Bikewale.Mobile.bikebooking.Cancellation" %>
 
 <!DOCTYPE html>
 

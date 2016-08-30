@@ -4,7 +4,6 @@ using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace Bikewale.Cache.UsedBikes
 {
@@ -41,7 +40,7 @@ namespace Bikewale.Cache.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, MethodBase.GetCurrentMethod().DeclaringType.Name + " -  " + System.Reflection.MethodInfo.GetCurrentMethod().Name);
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.UsedBikes.GetMostRecentUsedBikes");
                 objErr.SendMail();
             }
             return objUsedBikes;

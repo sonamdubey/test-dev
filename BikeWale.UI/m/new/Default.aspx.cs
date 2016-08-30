@@ -1,5 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
-using Bikewale.Mobile.controls;
+using Bikewale.Mobile.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.controls.SimilarCompareBikes" %>   
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.SimilarCompareBikes" %>   
     <asp:Repeater ID="rptSimilarBikes" runat="server">        
         <ItemTemplate>   
                <div class="swiper-slide related-comparison-carousel-content">

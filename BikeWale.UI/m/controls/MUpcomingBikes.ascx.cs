@@ -2,7 +2,7 @@
 using System;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.Mobile.controls
+namespace Bikewale.Mobile.Controls
 {
     public class MUpcomingBikes : System.Web.UI.UserControl
     {
