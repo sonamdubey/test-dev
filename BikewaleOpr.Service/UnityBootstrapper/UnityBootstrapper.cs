@@ -1,4 +1,6 @@
-﻿using Microsoft.Practices.Unity;
+﻿using BikewaleOpr.DALs.ManufactureCampaign;
+using BikewaleOpr.Interface.ManufacturerCampaign;
+using Microsoft.Practices.Unity;
 
 namespace BikewaleOpr.Service.UnityConfiguration
 {
@@ -13,7 +15,7 @@ namespace BikewaleOpr.Service.UnityConfiguration
         public static IUnityContainer Initialize()
         {
             IUnityContainer container = new UnityContainer();
-
+            container.RegisterType<IManufacturerCampaign, ManufacturerCampaign>();
             return container;
         }
     }

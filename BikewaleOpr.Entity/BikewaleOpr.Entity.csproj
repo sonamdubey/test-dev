@@ -57,6 +57,7 @@
     <Compile Include="BookingAmountEntityBase.cs" />
     <Compile Include="ColorCodeBase.cs" />
     <Compile Include="ContractCampaign\ContractCampaignInputEntity.cs" />
+    <Compile Include="ContractCampaign\ManufactureDealerCampaign.cs" />
     <Compile Include="ContractCampaign\MaskingNumber.cs" />
     <Compile Include="DealerAreaDetails.cs" />
     <Compile Include="DealerBenefitEntity.cs" />

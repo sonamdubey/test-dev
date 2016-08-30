@@ -281,35 +281,7 @@ namespace BikewaleOpr.Common
             return dtb;
         }
 
-        public DataTable SearchManufactureCampaigns(uint dealerId)
-        {
-            DataTable dtManufactureCampaigns = null;
-
-            try
-            {
-                if (dealerId > 0)
-                {
-                    using (DbCommand cmd = DbFactory.GetDBCommand("searchmanufacturercampaign"))
-                    {
-
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId > 0 ? dealerId : Convert.DBNull));
-
-                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.MasterDatabase))
-                        {
-                            if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
-                                dtManufactureCampaigns = ds.Tables[0];
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaign.GetDealerCampaigns");
-                objErr.SendMail();
-            }
-            return dtManufactureCampaigns;
-        }
+       
 
 
         /// <summary>
