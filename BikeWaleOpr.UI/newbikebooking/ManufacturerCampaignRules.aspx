@@ -107,7 +107,7 @@
                            </td>
                             <td><%# Eval("MakeName").ToString() %></td>
                             <td><%# Eval("ModelName").ToString() %></td>
-                            <td><%# string.Format("{0},{1}",Eval("CityName").ToString(),Eval("StateName").ToString()) %></td>
+                            <td><%# Eval("StateName").ToString()==""?Eval("CityName").ToString():string.Format("{0},{1}",Eval("CityName").ToString(),Eval("StateName").ToString()) %></td>
                      </tr>
                     </ItemTemplate>
             

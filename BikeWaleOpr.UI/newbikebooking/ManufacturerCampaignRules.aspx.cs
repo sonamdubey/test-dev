@@ -18,8 +18,7 @@ namespace BikewaleOpr.newbikebooking
     public class ManufacturerCampaignRules : System.Web.UI.Page
     {
         #region variable
-        //remove harcoded campaignId on integration
-        public int campaignId=4, currentUserId, makeId;
+        public int campaignId, currentUserId, makeId;
         List<string> distinctModels = null;
         public DropDownList ddlMake,ddlCity;
         public ListBox ddlModel;
