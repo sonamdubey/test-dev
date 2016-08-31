@@ -14,7 +14,6 @@ namespace Bikewale.BindViewModels.Webforms.Used
 {
     public class UsedBikeDetailsPage
     {
-
         public uint InquiryId { get; set; }
         public string BikeName { get; set; }
         public string Title { get; set; }
@@ -28,6 +27,10 @@ namespace Bikewale.BindViewModels.Webforms.Used
         public string MoreBikeFeaturesUrl { get; set; }
         public bool IsPageNotFoundRedirection { get; set; }
 
+        /// <summary>
+        /// Created by  : Sushil Kumar on 29th August 2016
+        /// Description : Bind used bike details page for the used bike
+        /// </summary>
         public void BindUsedBikeDetailsPage()
         {
             try
@@ -44,7 +47,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
 
         /// <summary>
         /// Created by  : Sushil Kumar on 29th August 2016
-        /// Bind profile details for the used bike
+        /// Description : Bind profile details for the used bike
         /// </summary>
         private void GetProfileDetails()
         {
@@ -80,7 +83,9 @@ namespace Bikewale.BindViewModels.Webforms.Used
         }
 
         /// <summary>
-        /// Function to do the redirection on different pages.
+        /// Created by  : Sushil Kumar on 29th August 2016
+        /// Description : Function to do the redirection on different pages.
+        /// 
         /// </summary>
         public void IsValidProfileId(string qsProfile)
         {

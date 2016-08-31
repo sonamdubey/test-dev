@@ -28,7 +28,8 @@ namespace Bikewale.Cache.Used
         }
 
         /// <summary>
-        /// 
+        /// Created by  : Sushil Kumar on 29th August 2016
+        /// Description : Cache layer profile details for the used bike
         /// </summary>
         /// <param name="inquiryId"></param>
         /// <returns></returns>

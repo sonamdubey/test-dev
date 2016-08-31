@@ -19,18 +19,23 @@ namespace Bikewale.Mobile.Used
         protected ClassifiedInquiryDetails inquiryDetails = null;
         protected UsedBikePhotoGallery ctrlUsedBikeGallery;
         protected Repeater rptUsedBikeNavPhotos, rptUsedBikePhotos;
-        private bool _isPageNotFound;
 
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
 
             BindProfileDetails();
-            if (inquiryId > 0)
+
+            if (inquiryId > 0 && inquiryDetails != null)
             {
                 BindUsedBikePhotos();
             }
@@ -44,7 +49,8 @@ namespace Bikewale.Mobile.Used
         }
 
         /// <summary>
-        /// 
+        /// Created by  : Sushil Kumar on 04 Mar 2016
+        /// Description : Bind used bikes photos for the used bike
         /// </summary>
         private void BindUsedBikePhotos()
         {
@@ -61,8 +67,8 @@ namespace Bikewale.Mobile.Used
         }
 
         /// <summary>
-        /// Created by  : Sushil Kumar on 04 Mar 2016
-        /// Bind profile details for the used bike
+        /// Created by  : Sushil Kumar on 30th Aug 2016
+        /// Description : Bind profile details for the used bike
         /// </summary>
         private void BindProfileDetails()
         {
