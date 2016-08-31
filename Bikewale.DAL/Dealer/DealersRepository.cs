@@ -580,7 +580,7 @@ namespace Bikewale.DAL.Dealer
                                     bikes.BikeName = Convert.ToString(dr["Bike"]);
                                     bikes.HostURL = Convert.ToString(dr["HostURL"]);
                                     bikes.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
-                                    bikes.VersionPrice = SqlReaderConvertor.ToNullableInt64(dr["OnRoadPrice"]);
+                                    bikes.VersionPrice = SqlReaderConvertor.ToInt64(dr["OnRoadPrice"]);
 
                                     objMake = new BikeMakeEntityBase();
                                     objModel = new BikeModelEntityBase();
