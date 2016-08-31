@@ -147,7 +147,7 @@
                             <li data-tabs="#modelSpecs" class="active">Specifications</li>
                             <li data-tabs="#modelFeatures">Features</li>
                             <% } %>
-                            <li data-tabs="#modelSimilar">Similar bikes</li>
+                            <li class="<%= (inquiryDetails.SpecsFeatures!=null)?string.Empty:"active" %>" data-tabs="#modelSimilar">Similar bikes</li>
                             <li data-tabs="#modelOtherBikes">Other bikes</li>
                         </ul>
                     </div>
@@ -185,7 +185,7 @@
                         <div class="clear"></div>
 
                         <div class="margin-top15">
-                            <a href="/m<%= moreBikeSpecsUrl %>" title="">View full specifications<span class="bwmsprite blue-right-arrow-icon"></span></a>
+                            <a href="/m<%= moreBikeSpecsUrl %>" title="<%= string.Format("{0} Specifications",bikeName) %>">View full specifications<span class="bwmsprite blue-right-arrow-icon"></span></a>
                         </div>
                     </div>
 
@@ -219,7 +219,7 @@
                         </ul>
                         <div class="clear"></div>
                         <div class="margin-top15">
-                            <a href="/m<%= moreBikeFeaturesUrl %>" title="">View full features<span class="bwmsprite blue-right-arrow-icon"></span></a>
+                            <a href="/m<%= moreBikeFeaturesUrl %>" title="<%= string.Format("{0} Features",bikeName) %>">View full features<span class="bwmsprite blue-right-arrow-icon"></span></a>
                         </div>
                     </div>
                 <% } %>
