@@ -73,6 +73,8 @@ namespace Bikewale.BindViewModels.Webforms.Used
                         MoreBikeFeaturesUrl = string.Format("/{0}-bikes/{1}/specifications-features/?vid={2}#features", InquiryDetails.Make.MaskingName, InquiryDetails.Model.MaskingName, InquiryDetails.Version.VersionId);
                         FirstImage = (InquiryDetails.PhotosCount > 0) ? InquiryDetails.Photo.FirstOrDefault() : null;
                     }
+                    else
+                        IsPageNotFoundRedirection = true;
                 }
             }
             catch (Exception ex)

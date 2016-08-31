@@ -719,7 +719,7 @@ namespace Bikewale.DAL.BikeData
                                 objData.BikeName = Convert.ToString(dr["BikeName"]);
                                 objData.HostURL = Convert.ToString(dr["HostUrl"]);
                                 objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
-                                objData.VersionPrice = SqlReaderConvertor.ToNullableInt64(dr["VersionPrice"]);
+                                objData.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
                                 objData.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
                                 objData.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
                                 objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
@@ -778,7 +778,7 @@ namespace Bikewale.DAL.BikeData
                                 objData.BikeName = Convert.ToString(dr["BikeName"]);
                                 objData.HostURL = Convert.ToString(dr["HostUrl"]);
                                 objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
-                                objData.VersionPrice = SqlReaderConvertor.ToNullableInt64(dr["VersionPrice"]);
+                                objData.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
                                 objData.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
                                 objData.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
                                 objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
