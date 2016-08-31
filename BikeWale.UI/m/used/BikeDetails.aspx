@@ -12,8 +12,8 @@
     OGImage =  (firstImage!=null) ? Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImagePath,firstImage.HostUrl,Bikewale.Utility.ImageSize._360x202) : string.Empty;
     AdPath = "/1017752/Bikewale_Mobile_Model";
     AdId = "1444028976556";
-    Ad_320x50 = false;
-    Ad_Bot_320x50 = false;
+    Ad_320x50 = true;
+    Ad_Bot_320x50 = true;
     Ad_300x250 = false;
     TargetedModel = (inquiryDetails.Model!=null) ? inquiryDetails.Model.ModelName:string.Empty;
     TargetedCity = (inquiryDetails.City != null) ? inquiryDetails.City.CityName : string.Empty;
@@ -150,7 +150,7 @@
                             <li data-tabs="#modelFeatures">Features</li>
                             <% } %>
                             <% if(ctrlSimilarUsedBikes.FetchedRecordsCount >0){ %>
-                            <li data-tabs="#modelSimilar">Similar bikes</li>
+                            <li class="<%= (inquiryDetails.SpecsFeatures!=null)?string.Empty:"active" %>" data-tabs="#modelSimilar">Similar bikes</li>
                             <% } %>
                             <% if(ctrlOtherUsedBikes.FetchedRecordsCount >0){ %>
                             <li data-tabs="#modelOtherBikes">Other bikes</li>
@@ -191,7 +191,7 @@
                         <div class="clear"></div>
 
                         <div class="margin-top15">
-                            <a href="/m<%= moreBikeSpecsUrl %>" title="">View full specifications<span class="bwmsprite blue-right-arrow-icon"></span></a>
+                            <a href="/m<%= moreBikeSpecsUrl %>" title="<%= string.Format("{0} Specifications",bikeName) %>">View full specifications<span class="bwmsprite blue-right-arrow-icon"></span></a>
                         </div>
                     </div>
 
@@ -225,7 +225,7 @@
                         </ul>
                         <div class="clear"></div>
                         <div class="margin-top15">
-                            <a href="/m<%= moreBikeFeaturesUrl %>" title="">View full features<span class="bwmsprite blue-right-arrow-icon"></span></a>
+                            <a href="/m<%= moreBikeFeaturesUrl %>" title="<%= string.Format("{0} Features",bikeName) %>">View full features<span class="bwmsprite blue-right-arrow-icon"></span></a>
                         </div>
                     </div>
                 <% } %>
