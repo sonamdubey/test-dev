@@ -15,8 +15,8 @@
     Ad_320x50 = false;
     Ad_Bot_320x50 = false;
     Ad_300x250 = false;
-    TargetedModel = inquiryDetails.Model.ModelName;
-    TargetedCity = inquiryDetails.City.CityName;
+    TargetedModel = (inquiryDetails.Model!=null) ? inquiryDetails.Model.ModelName:string.Empty;
+    TargetedCity = (inquiryDetails.City != null) ? inquiryDetails.City.CityName : string.Empty;
     
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
@@ -25,7 +25,7 @@
 <body>
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
-        <% if(inquiryDetails!=null) { %>
+
         <section>
             <div class="container bg-white clearfix box-shadow margin-bottom10">
                 <h1 class="font16 padding-top15 padding-right20 padding-bottom15 padding-left20"><%= modelYear %>, <%= bikeName %></h1>
@@ -129,9 +129,12 @@
                         </li>
                     </ul>
                     <div class="clear"></div>
+                      <% if (!string.IsNullOrEmpty(inquiryDetails.OtherDetails.Description))
+                            { %>
                     <div class="margin-bottom15 padding-top15 border-bottom-light"></div>
                     <p class="text-bold margin-bottom15">Ad description</p>
                     <p class="text-light-grey"><%= inquiryDetails.OtherDetails.Description %></p>
+                    <% } %>
                 </div>
                 <% } %>
             </div>
@@ -452,7 +455,7 @@
             </div>
         </div>
         <!-- request for image popup ends -->
-        <% } %>
+
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/used-details.js?<%= staticFileVersion %>"></script>

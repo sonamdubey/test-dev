@@ -28,7 +28,11 @@ namespace Bikewale.Mobile.Used
             InitializeComponent();
         }
 
-        void InitializeComponent()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         {
             base.Load += new EventHandler(Page_Load);
         }
@@ -36,7 +40,8 @@ namespace Bikewale.Mobile.Used
         protected void Page_Load(object sender, EventArgs e)
         {
             BindProfileDetails();
-            if (inquiryId > 0)
+
+            if (inquiryId > 0 && inquiryDetails != null)
             {
                 BindUsedBikePhotos();
                 BindUserControls();
@@ -50,7 +55,8 @@ namespace Bikewale.Mobile.Used
         }
 
         /// <summary>
-        /// 
+        /// Created by  : Sushil Kumar on 04 Mar 2016
+        /// Description : Bind used bikes photos for the used bike
         /// </summary>
         private void BindUsedBikePhotos()
         {
@@ -94,8 +100,8 @@ namespace Bikewale.Mobile.Used
         }
 
         /// <summary>
-        /// Created by  : Sushil Kumar on 04 Mar 2016
-        /// Bind profile details for the used bike
+        /// Created by  : Sushil Kumar on 30th Aug 2016
+        /// Description : Bind profile details for the used bike
         /// </summary>
         private void BindProfileDetails()
         {
