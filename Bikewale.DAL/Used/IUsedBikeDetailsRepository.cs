@@ -85,27 +85,31 @@ namespace Bikewale.DAL.Used
                             _objInquiryDetails.OtherDetails.RegistrationNo = Convert.ToString(dr["RegistrationNo"]);
                             _objInquiryDetails.OtherDetails.Color = new VersionColor() { ColorName = Convert.ToString(dr["Color"]) };
 
-                            // bike specifications and features
-                            _objInquiryDetails.SpecsFeatures = new BikeSpecifications();
-                            #region Specifications
-                            _objInquiryDetails.SpecsFeatures.Displacement = SqlReaderConvertor.ToFloat(dr["Displacement"]);
-                            _objInquiryDetails.SpecsFeatures.MaxPower = SqlReaderConvertor.ToFloat(dr["MaxPower"]);
-                            _objInquiryDetails.SpecsFeatures.MaximumTorque = SqlReaderConvertor.ToFloat(dr["MaximumTorque"]);
-                            _objInquiryDetails.SpecsFeatures.NoOfGears = SqlReaderConvertor.ToUInt16(dr["NoOfGears"]);
-                            _objInquiryDetails.SpecsFeatures.MaxPowerRPM = SqlReaderConvertor.ToFloat(dr["MaxPowerRPM"]);
-                            _objInquiryDetails.SpecsFeatures.MaximumTorqueRPM = SqlReaderConvertor.ToFloat(dr["MaximumTorqueRPM"]);
-                            _objInquiryDetails.SpecsFeatures.FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["FuelEfficiencyOverall"]);
-                            _objInquiryDetails.SpecsFeatures.BrakeType = Convert.ToString(dr["BrakeType"]);
-                            #endregion
+                            if (SqlReaderConvertor.ToBoolean(dr["isspecexists"]))
+                            {
+                                // bike specifications and features
+                                _objInquiryDetails.SpecsFeatures = new BikeSpecifications();
+                                #region Specifications
+                                _objInquiryDetails.SpecsFeatures.Displacement = SqlReaderConvertor.ToFloat(dr["Displacement"]);
+                                _objInquiryDetails.SpecsFeatures.MaxPower = SqlReaderConvertor.ToFloat(dr["MaxPower"]);
+                                _objInquiryDetails.SpecsFeatures.MaximumTorque = SqlReaderConvertor.ToFloat(dr["MaximumTorque"]);
+                                _objInquiryDetails.SpecsFeatures.NoOfGears = SqlReaderConvertor.ToUInt16(dr["NoOfGears"]);
+                                _objInquiryDetails.SpecsFeatures.MaxPowerRPM = SqlReaderConvertor.ToFloat(dr["MaxPowerRPM"]);
+                                _objInquiryDetails.SpecsFeatures.MaximumTorqueRPM = SqlReaderConvertor.ToFloat(dr["MaximumTorqueRPM"]);
+                                _objInquiryDetails.SpecsFeatures.FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["FuelEfficiencyOverall"]);
+                                _objInquiryDetails.SpecsFeatures.BrakeType = Convert.ToString(dr["BrakeType"]);
+                                #endregion
 
-                            #region Features
-                            _objInquiryDetails.SpecsFeatures.Speedometer = Convert.ToString(dr["Speedometer"]);
-                            _objInquiryDetails.SpecsFeatures.FuelGauge = SqlReaderConvertor.ToBoolean(dr["FuelGauge"]);
-                            _objInquiryDetails.SpecsFeatures.TachometerType = Convert.ToString(dr["TachometerType"]);
-                            _objInquiryDetails.SpecsFeatures.DigitalFuelGauge = SqlReaderConvertor.ToBoolean(dr["DigitalFuelGauge"]);
-                            _objInquiryDetails.SpecsFeatures.ElectricStart = SqlReaderConvertor.ToBoolean(dr["ElectricStart"]);
-                            _objInquiryDetails.SpecsFeatures.Tripmeter = SqlReaderConvertor.ToBoolean(dr["Tripmeter"]);
-                            #endregion
+                                #region Features
+                                _objInquiryDetails.SpecsFeatures.Speedometer = Convert.ToString(dr["Speedometer"]);
+                                _objInquiryDetails.SpecsFeatures.FuelGauge = SqlReaderConvertor.ToBoolean(dr["FuelGauge"]);
+                                _objInquiryDetails.SpecsFeatures.TachometerType = Convert.ToString(dr["TachometerType"]);
+                                _objInquiryDetails.SpecsFeatures.DigitalFuelGauge = SqlReaderConvertor.ToBoolean(dr["DigitalFuelGauge"]);
+                                _objInquiryDetails.SpecsFeatures.ElectricStart = SqlReaderConvertor.ToBoolean(dr["ElectricStart"]);
+                                _objInquiryDetails.SpecsFeatures.Tripmeter = SqlReaderConvertor.ToBoolean(dr["Tripmeter"]);
+                                #endregion
+
+                            }
 
                         }
 
