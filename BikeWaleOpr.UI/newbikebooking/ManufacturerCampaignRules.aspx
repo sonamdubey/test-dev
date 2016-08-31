@@ -17,8 +17,8 @@
         .errMessage {color:#FF4A4A;}
         .valign { vertical-align: top;}
     </style>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.js"></script>
+    <script type="text/javascript" src="/BikeWale.UI/src/frameworks.js"></script>
+    <script src="/src/chosen.jquery.min.js"></script>
     <script type="text/javascript">
         $(function () {
             $(".chosen-select").chosen({
@@ -27,7 +27,7 @@
         });
     </script>
     <link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" /> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css"/>
+   <link rel="stylesheet" href="/css/chosen.min.css"/>
 
 </head>
     
@@ -65,10 +65,12 @@
                 </table>
             </div>
         </fieldset>
+       <div style="margin-left:205px;margin-top:10px;margin-bottom:10px">
         <asp:Label class="redmsg errMessage margin-bottom10 margin-left10 greenMessage" ID="lblErrorSummary" runat="server" />
         <br />
         <asp:Label class="greenMessage margin-bottom10 margin-left10" ID="lblGreenMessage" runat="server" />
         <br />
+           </div>
        <div style="margin-left:210px">
         <% 
             if(rptRules.DataSource!= null){ 

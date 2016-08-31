@@ -11,6 +11,10 @@ using System.Web.UI.WebControls;
 
 namespace BikewaleOpr.newbikebooking
 {
+    /// <summary>
+    /// Written By: Aditi Srivastava on 29 Aug 2016
+    /// Summary: Create page for manufacturer campaign rules using the campaign id
+    /// </summary>
     public class ManufacturerCampaignRules : System.Web.UI.Page
     {
         #region variable
@@ -44,9 +48,11 @@ namespace BikewaleOpr.newbikebooking
         protected void Page_Load(object sender, EventArgs e)
         {
             SetPageVariables();
-            if(!IsPostBack)
-            selAllIndia.Checked = true;
-            campaign = new ManageDealerCampaignRule();
+            if (!IsPostBack)
+            {
+                selAllIndia.Checked = true;
+                campaign = new ManageDealerCampaignRule();
+            }
             FillDropDowns();            
             lblGreenMessage.Text = string.Empty;
             lblErrorSummary.Text = string.Empty;
@@ -140,8 +146,8 @@ namespace BikewaleOpr.newbikebooking
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     ddlMake.DataSource = dt;
-                    ddlMake.DataTextField = "Text"; //make name
-                    ddlMake.DataValueField = "Value";//make id
+                    ddlMake.DataTextField = "Text"; 
+                    ddlMake.DataValueField = "Value";
                     ddlMake.DataBind();
                 }
                 
@@ -169,8 +175,8 @@ namespace BikewaleOpr.newbikebooking
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     ddlModel.DataSource = dt;
-                    ddlModel.DataTextField = "Text"; //name
-                    ddlModel.DataValueField = "Value";//id      
+                    ddlModel.DataTextField = "Text"; 
+                    ddlModel.DataValueField = "Value"; 
                     ddlModel.DataBind();
                     }
             }

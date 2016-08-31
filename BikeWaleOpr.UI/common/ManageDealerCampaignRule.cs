@@ -6,9 +6,20 @@ using System.Data.Common;
 
 namespace BikewaleOpr.Common
 {
+     /// <summary>
+     /// Created by  :   Sumit Kate on 19 Mar 2016
+     /// Description :   Manage Dealer Campaign Rule
+     /// </summary>
     public class ManageDealerCampaignRule
     {
-        
+         /// <summary>
+         /// Created by  :   Sumit Kate on 19 Mar 2016
+         /// Description :   Fetches Campaign Rules
+         ///                 SP Called : BW_FetchBWDealerCampaignRules
+         /// </summary>
+         /// <param name="campaignId"></param>
+         /// <param name="dealerId"></param>
+         /// <returns></returns>
         public DataTable FetchBWDealerCampaignRules(int campaignId, int dealerId)
         {
             DataTable dtDealerCampaign = null;
@@ -40,7 +51,20 @@ namespace BikewaleOpr.Common
 
             return dtDealerCampaign;
         }
-
+        /// <summary>
+         /// Created by  :   Sumit Kate on 19 Mar 2016
+         /// Description :   Insert new Campaign Rule/s
+         ///                 SP Called : BW_InsertCampaignRule
+         ///                 If valid modelId is passed then it adds the rules for all the available dealer bikes of a particular make.
+         /// </summary>
+         /// <param name="userId"></param>
+         /// <param name="campaignId"></param>
+         /// <param name="cityId"></param>
+         /// <param name="dealerId"></param>
+         /// <param name="makeId"></param>
+         /// <param name="stateId"></param>
+         /// <param name="modelId"></param>
+        /// <returns></returns>
      
         public bool InsertBWDealerCampaignRules(int userId, int campaignId, int cityId, int dealerId, int makeId, int stateId, string modelIds)
         {
@@ -69,8 +93,21 @@ namespace BikewaleOpr.Common
             }
             return isSuccess;
         }
-
-       
+         /// <summary>
+         /// Created by  :   Sumit Kate on 19 Mar 2016
+         /// Description :   updates a Campaign rule
+         ///                 SP Called : BW_UpdateCampaignRule 
+         /// </summary>
+         /// <param name="isActive"></param>
+         /// <param name="userId"></param>
+         /// <param name="ruleId"></param>
+         /// <param name="campaignId"></param>
+         /// <param name="cityId"></param>
+         /// <param name="dealerId"></param>
+         /// <param name="makeId"></param>
+         /// <param name="stateId"></param>
+         /// <param name="modelId"></param>
+         /// <returns></returns>
         public bool UpdateBWDealerCampaignRule(bool isActive, int userId, int ruleId, int campaignId, int cityId, int dealerId, int makeId, int stateId, int modelId)
         {
             bool isSuccess = false;
@@ -101,7 +138,14 @@ namespace BikewaleOpr.Common
             return isSuccess;
         }
 
-    
+         /// <summary>
+         /// Created by  :   Sumit Kate on 19 Mar 2016
+         /// Description :   Delete Dealer Campaign Rules
+         ///                 SP Called : BW_DeleteCampaignRules 
+         /// </summary>
+         /// <param name="userId"></param>
+         /// <param name="ruleIds">Comma separated values</param>
+         /// <returns></returns>
         public bool DeleteDealerCampaignRules(int userId, string ruleIds)
         {
             bool isDeleted = false;
