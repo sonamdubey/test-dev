@@ -11,6 +11,12 @@ using System.Web;
 
 namespace BikewaleOpr.DALs.ManufactureCampaign
 {
+    /// <summary>
+    /// Created by Subodh Jain 29 aug 2016
+    /// Description :For Manufacturer Campaign
+    /// </summary>
+    /// <param name="dealerId"></param>
+    /// <returns></returns>
     public class ManufacturerCampaign : IManufacturerCampaign
     {
         /// <summary>
@@ -21,7 +27,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         /// <returns></returns>
         public IEnumerable<ManufactureDealerCampaign> SearchManufactureCampaigns(uint dealerId)
         {
-            List<ManufactureDealerCampaign> dtManufactureCampaigns = null;
+            IList<ManufactureDealerCampaign> dtManufactureCampaigns = null;
             try
             {
                 if (dealerId > 0)
@@ -31,12 +37,13 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
 
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
-                        dtManufactureCampaigns = new List<ManufactureDealerCampaign>();
+
 
                         using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                         {
                             if (dr != null)
                             {
+                                dtManufactureCampaigns = new List<ManufactureDealerCampaign>();
                                 while (dr.Read())
                                 {
                                     dtManufactureCampaigns.Add(new ManufactureDealerCampaign
@@ -73,8 +80,6 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             bool isSuccess = false;
             try
             {
-
-
                 using (DbCommand cmd = DbFactory.GetDBCommand("statuschangeCampaigns"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -86,14 +91,56 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("Exception at UpdateDealerDisclaimer : " + ex.Message + ex.Source);
+
                 ErrorClass objErr = new ErrorClass(ex, "ManufacturerCampaign.statuschangeCampaigns");
                 objErr.SendMail();
             }
             return isSuccess;
         }
+        /// <summary>
+        /// Created by Subodh Jain 29 aug 2016
+        /// Description :To fetch all the manufacturer in dropdown
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
+        public IEnumerable<ManufacturerEntity> GetDealerAsManuFacturer()
+        {
+            IList<ManufacturerEntity> manufacturers = null;
 
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerasmanufacturer"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
 
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (reader != null)
+                        {
+                            manufacturers = new List<ManufacturerEntity>();
+                            while (reader.Read())
+                            {
+                                manufacturers.Add(
+                                    new ManufacturerEntity()
+                                    {
+                                        Id = Convert.ToInt32(reader["Id"]),
+                                        Name = Convert.ToString(reader["Name"]),
+                                        Organization = Convert.ToString(reader["Organization"])
+                                    }
+                                    );
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ManageManufacturerCampaign.GetDealerAsManuFacturer");
+                objErr.SendMail();
+            }
+
+            return manufacturers;
+        }
 
     }
 }

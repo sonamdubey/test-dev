@@ -1,7 +1,10 @@
 ﻿using AjaxPro;
 using BikewaleOpr.Common;
+using BikewaleOpr.DALs.ManufactureCampaign;
 using BikewaleOpr.Entities;
+using BikewaleOpr.Interface.ManufacturerCampaign;
 using BikeWaleOpr.Common;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -27,23 +30,37 @@ namespace BikeWaleOpr.NewBikeBooking
 
         }
 
+        /// <summary>
         /// Created by Subodh Jain 29 aug 2016
-        /// Description : To fetch all manufacture in dropdown list
+        /// Description :To fetch all the manufacturer in dropdown
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
         public void GetDealerAsManuFacturer()
         {
          
             IEnumerable<ManufacturerEntity> manufacturers = null;
-            ManageManufacturerCampaign _objMfgRepo = new ManageManufacturerCampaign();
+            ManufacturerCampaign _objMfgRepo = new ManufacturerCampaign();
             try
             {
-                manufacturers = _objMfgRepo.GetDealerAsManuFacturer();
-                if (manufacturers != null && manufacturers.Count() > 0)
+
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    ddlManufacturers.DataSource = manufacturers;
-                    ddlManufacturers.DataTextField = "Name";
-                    ddlManufacturers.DataValueField = "Id";
-                    ddlManufacturers.DataBind();
-                    ddlManufacturers.Items.Insert(0, new ListItem("--Select Manufacturer--", "0"));
+                    container.RegisterType<IManufacturerCampaign, ManufacturerCampaign>();
+
+
+                    _objMfgRepo = container.Resolve<ManufacturerCampaign>();
+
+
+                    manufacturers = _objMfgRepo.GetDealerAsManuFacturer();
+                    if (manufacturers != null && manufacturers.Count() > 0)
+                    {
+                        ddlManufacturers.DataSource = manufacturers;
+                        ddlManufacturers.DataTextField = "Name";
+                        ddlManufacturers.DataValueField = "Id";
+                        ddlManufacturers.DataBind();
+                        ddlManufacturers.Items.Insert(0, new ListItem("--Select Manufacturer--", "0"));
+                    }
                 }
             }
             catch (Exception ex)

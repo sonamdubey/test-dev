@@ -17,6 +17,6 @@ namespace BikewaleOpr.Interface.ManufacturerCampaign
     {
         IEnumerable<ManufactureDealerCampaign> SearchManufactureCampaigns(uint dealerid);
         bool statuschangeCampaigns(uint id, uint isactive);
-
+        IEnumerable<ManufacturerEntity> GetDealerAsManuFacturer();
     }
 }

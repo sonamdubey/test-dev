@@ -1,6 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikeWaleOpr.NewBikeBooking.ManageDealersCampaigns" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
-<%--<script type="text/javascript" src="/src/common/common.js?V1.1"></script>--%>
 <script type="text/ecmascript" src="/src/AjaxFunctions.js"></script>
 <script src="/src/knockout.js" type="text/javascript"></script>
 <style>
@@ -34,9 +33,9 @@
       
         <div class="margin-top10">
             <span>Select Manufacture : <font color="red">* &nbsp</font>
-            <%--<select id="ddlManufacturers" data-bind="options: Manufacturers, optionsValue: 'Id', optionsText: 'Organization', value: selectedManufacturer, optionsCaption: 'Choose manufacturer...'" ></select>--%>
-                <asp:DropDownList id="ddlManufacturers" runat="server"></asp:DropDownList>
-            <input type="button" data-bind="click: SearchCampaigns" id="SearchCampaigns" value="SearchCampaigns" style="padding:10px; margin-left:20px; cursor:pointer;"/>
+           <asp:DropDownList id="ddlManufacturers" runat="server">                    
+                </asp:DropDownList>
+            <input type="button" data-bind="click: SearchCampaigns" id="SearchCampaigns" value="Search Campaigns" style="padding:10px; margin-left:20px; cursor:pointer;"/>
                 
            <input type="button" data-bind="click: redirect" value="Add Campaigns"  style="padding:10px; margin-left:20px; cursor:pointer;"/>
         </div> 
@@ -56,14 +55,11 @@
                     <td>Action</td>
 
                 </tr>
-         
-             
-            <tbody data-bind="template: { name: 'DealerCampaignList', foreach: ManufacturersCampaign }">
+        <tbody data-bind="template: { name: 'DealerCampaignList', foreach: ManufacturersCampaign }">
             </tbody>
                     </table>
        </div>    
           <script type="text/html" id="DealerCampaignList">
-        <%--<tr class="dtItem" data-bind="style: { 'background-color': (ContractStatus == 1) ? '#32cd32' : '#fffacd' }">--%>
         <tr class="dtItem">
             <td data-bind="text: $index() + 1"></td>
             <td data-bind="text: id"></td>
@@ -85,7 +81,6 @@
 <script>
     var ddlManufacturers = $("#ddlManufacturers");
     var BwOprHostUrl = '<%=ConfigurationManager.AppSettings["BwOprHostUrlForJs"]%>';
-    debugger;
     $('#mfgtable').hide();
     var mfgCamp = function () {
         var self = this;
@@ -98,7 +93,7 @@
             dId = $("#ddlManufacturers option:selected");
             dealerId = dId.val();
             dealerHeading = dId.text();
-            if (!isNaN(dealerId) && dealerId > "0") {
+            if (!isNaN(dealerId) && dealerId > 0) {
                 var url = BwOprHostUrl + '/campaign/ManageDealer.aspx?dealerHeading=' + encodeURIComponent(dealerHeading) + '&dealerid=' + dealerId;
                 window.location.href = url;
             }
@@ -110,7 +105,7 @@
             dId = $("#ddlManufacturers option:selected");
             dealerId = dId.val();
             dealerHeading = dId.text();
-            if (!isNaN(dealerId) && dealerId > "0") {
+            if (!isNaN(dealerId) && dealerId > 0) {
                 var element = document.getElementById('DealerCampaignsList');
                 $.ajax({
                     type: "POST",
@@ -161,9 +156,7 @@
             });
 
         };
-
-
-    }
+ }
     var viewModel = new mfgCamp();
     ko.applyBindings(viewModel, $("#mfgCampaigns")[0]);
 

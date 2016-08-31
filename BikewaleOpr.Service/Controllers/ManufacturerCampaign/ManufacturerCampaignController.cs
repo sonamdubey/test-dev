@@ -1,20 +1,16 @@
 ﻿using Bikewale.Notifications;
-using BikewaleOpr.DALs.ManufactureCampaign;
+using BikewaleOpr.Entity.ContractCampaign;
 using BikewaleOpr.Interface.ManufacturerCampaign;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
-
-
-using BikewaleOpr.Entity.ContractCampaign;
-
-
-using System.Web;
-using BikewaleOpr.Entities;
-
 namespace BikewaleOpr.Service.Controllers
-{
+{  /// <summary>
+    /// Created by Subodh Jain 29 aug 2016
+    /// Description :For Manufacturer Campaign
+    /// </summary>
+    /// <param name="dealerId"></param>
+    /// <returns></returns>
     public class ManufacturerCampaignController : ApiController
     {
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
@@ -29,19 +25,27 @@ namespace BikewaleOpr.Service.Controllers
         /// <param name="dealerId"></param>
         /// <returns></returns>
         [HttpPost]
-        public IHttpActionResult GetManufactureCampaigns(string dealerId)
+        public IHttpActionResult GetManufactureCampaigns(uint dealerId)
         {
-            IEnumerable<ManufactureDealerCampaign> _objMfgList = new List<ManufactureDealerCampaign>();
+            IEnumerable<ManufactureDealerCampaign> _objMfgList = null;
             try
             {
-                _objMfgList = _objManufacturerCampaign.SearchManufactureCampaigns(Convert.ToUInt32(dealerId));
+                if (dealerId > 0)
+                {
+                    _objMfgList = _objManufacturerCampaign.SearchManufactureCampaigns(dealerId);
+                    return Ok(_objMfgList);
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "SearchManufactureCampaign");
                 objErr.SendMail();
-            }
-            return Ok(_objMfgList);
+                return InternalServerError();
+            }            
         }
         /// <summary>
         /// Created by Subodh Jain 29 aug 2016
@@ -50,22 +54,22 @@ namespace BikewaleOpr.Service.Controllers
         /// <param name="dealerId"></param>
         /// <returns></returns>
         [HttpPost]
-        public IHttpActionResult GetstatuschangeCampaigns(string id, string isactive)
+        public IHttpActionResult GetstatuschangeCampaigns(uint id, uint isactive)
         {
             bool isSuccess = false;
             try
             {
-                isSuccess = _objManufacturerCampaign.statuschangeCampaigns(Convert.ToUInt32(id), Convert.ToUInt32(isactive));
+                isSuccess = _objManufacturerCampaign.statuschangeCampaigns(id, isactive);
             }
             catch (Exception ex)
             {
-                //HttpContext.Current.Trace.Warn("UpdateBookingAmount ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, "statuschangeCampaigns");
+              ErrorClass objErr = new ErrorClass(ex, "statuschangeCampaigns");
                 objErr.SendMail();
                 return InternalServerError();
             }
             return Ok(isSuccess);
         }
+
 
     }
 }
