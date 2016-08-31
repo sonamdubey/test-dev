@@ -22,9 +22,9 @@ namespace BikewaleOpr.BAL
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IManufacturerCampaign, ManufacturerCampaign>();
+                    container.RegisterType<IManufacturerCampaignRepository, ManufacturerCampaign>();
                     container.RegisterType<IContractCampaign, BikewaleOpr.BAL.ContractCampaign.ContractCampaign>();
-                    IManufacturerCampaign objMfgCampaign = container.Resolve<IManufacturerCampaign>();
+                    IManufacturerCampaignRepository objMfgCampaign = container.Resolve<IManufacturerCampaignRepository>();
                     IContractCampaign _objContractCampaign = container.Resolve<IContractCampaign>();
                     if(objMfgCampaign.ReleaseCampaignMaskingNumber(campaignId))
                     {

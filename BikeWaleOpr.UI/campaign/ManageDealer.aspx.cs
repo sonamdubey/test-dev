@@ -1,4 +1,5 @@
 ﻿using BikewaleOpr.DALs.ManufactureCampaign;
+using BikewaleOpr.Entities;
 using BikewaleOpr.Entity;
 using BikewaleOpr.Entity.ManufacturerCampaign;
 using BikewaleOpr.Interface.ManufacturerCampaign;
@@ -49,7 +50,7 @@ namespace BikewaleOpr.Campaign
             dealerId = Convert.ToInt32(Request.QueryString["dealerid"]);
             userId = Convert.ToInt32(CurrentUser.Id);
 
-            manufacturerName = Request.QueryString["dealerHeading"];
+            manufacturerName = Request.QueryString["manufactureName"];
         }
 
         protected override void OnInit(EventArgs e)
@@ -71,9 +72,9 @@ namespace BikewaleOpr.Campaign
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IManufacturerCampaign, ManufacturerCampaign>();
-                    IManufacturerCampaign objMfgCampaign = container.Resolve<IManufacturerCampaign>();
-                    List<ManufacturerCampaignEntity> dataReader = objMfgCampaign.FetchCampaignDetails(campaignId);
+                    container.RegisterType<IManufacturerCampaignRepository, ManufacturerCampaign>();
+                    IManufacturerCampaignRepository objMfgCampaign = container.Resolve<IManufacturerCampaignRepository>();
+                    List<BikewaleOpr.Entity.ManufacturerCampaign.ManufacturerCampaignEntity> dataReader = objMfgCampaign.FetchCampaignDetails(campaignId);
 
                     int count = 0;
                     int pageId, isDefault;

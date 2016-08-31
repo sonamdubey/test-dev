@@ -18,9 +18,10 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
     public class ManufacturerCampaignController : ApiController
     {
         private readonly IManufacturerCampaignRepository _objManufacturerCampaign = null;
-        
-        public ManufacturerCampaignController(IManufacturerCampaignRepository objManufacturerCampaign)
-        public ManufacturerCampaignController(IManufacturerCampaign objManufacturerCampaign, IContractCampaign objContractCampaign, IManufacturerReleaseMaskingNumber objManufacturerReleaseMaskingNumber)
+       private readonly IContractCampaign _objContractCampaign =null;
+       private readonly IManufacturerReleaseMaskingNumber _objManufacturerReleaseMaskingNumber = null; 
+       
+        public ManufacturerCampaignController(IManufacturerCampaignRepository objManufacturerCampaign, IContractCampaign objContractCampaign, IManufacturerReleaseMaskingNumber objManufacturerReleaseMaskingNumber)
         {
             _objManufacturerCampaign = objManufacturerCampaign;
             _objContractCampaign = objContractCampaign;

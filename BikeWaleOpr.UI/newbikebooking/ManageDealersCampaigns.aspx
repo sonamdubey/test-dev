@@ -35,7 +35,7 @@
         <td data-bind="text: id"></td>
         <td data-bind="text: description"></td>
         <td data-bind="text: isactive ? 'Active' : 'In-Acitve'"></td>
-        <td><a  data-bind="attr: { href: '/campaign/ManufacturerCampaignRules.aspx?campaignid=' + id + '&dealerid=' + dealerid }" target="_blank"><img src="http://opr.carwale.com/images/edit.jpg" alt="Edit"/></a></td>
+        <td><a  data-bind="attr: { href: '/newbikebooking/ManufacturerCampaignRules.aspx?campaignid=' + id + '&dealerid=' + dealerid }" target="_blank"><img src="http://opr.carwale.com/images/edit.jpg" alt="Edit"/></a></td>
         <td>
             <a  data-bind="attr: { href: '/campaign/ManageDealer.aspx?campaignid=' + id + '&dealerid=' + dealerid + '&manufactureName='+encodeURIComponent(manufactureName)}"  target="_blank"><img src="http://opr.carwale.com/images/edit.jpg" alt="Edit"/></a>
         </td>            

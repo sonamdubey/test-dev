@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.Campaign.ManageDealer" AsyncTimeout="45" EnableEventValidation="false" Async="true" %>
+﻿<%@ Page Language="C#" validateRequest = "false" AutoEventWireup="false" Inherits="BikewaleOpr.Campaign.ManageDealer" AsyncTimeout="45" EnableEventValidation="false" Async="true" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
 <script src="http://st1.aeplcdn.com/bikewale/src/frameworks.js?01July2016v1" type="text/javascript"></script>
 <script src="/src/AjaxFunctions.js" type="text/javascript"></script>
@@ -163,7 +163,7 @@
                        
                     <tr>
                         <td colspan="2"> 
-                            <input type="Button" onclick="window.location.href = 'http://www.google.com'" value="Edit Rules" style="padding10" /> 
+                            <input type="Button" onclick="window.location.href= '<%= BwOprHostUrl%>'+'/newbikebooking/ManufacturerCampaignRules.aspx?campaignid=' + '<%=campaignId%>' + '&dealerid=' + '<%=dealerId%>' "  value="Edit Rules" /> 
                         </td>
                          
                     </tr>                    
