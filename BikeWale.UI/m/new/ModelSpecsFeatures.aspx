@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.ModelSpecsFeatures" EnableViewState="false" %>
-<%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadPopUp" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +19,6 @@
 <body>
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
-
         <section class="bg-white box-shadow margin-bottom25">
             <div id="modelPriceDetails" class="content-inner-block-120">
                 <h1 class="margin-bottom5"><%= bikeName %> Specifications and Features</h1>
@@ -285,69 +283,15 @@
 
             </div>
 
-            <%if(!isDiscontinued){ %>
-                <% if (dealerDetail != null && dealerDetail.PrimaryDealer != null && dealerDetail.PrimaryDealer.DealerDetails != null 
-                       && dealerDetail.PrimaryDealer.DealerDetails.DealerPackageType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium){
-                     %>
-                <div class="grid-12 float-button float-fixed">
-                    <div class="grid-6 alpha omega padding-right5">
-                        <a class="bw-ga btn btn-white btn-full-width btn-sm rightfloat leadcapturebtn" c="SpecsandFeature" a="Get_Offers_Clicked" v="bikenameLocation" data-ga-cat="SpecsandFeature" data-ga-act="Lead_Submitted" data-ga-lab="<%= string.Format("{0}_{1}_{2}_{3}", makeName, modelName, cityName, areaName)%>"
-                            data-leadsourceid="28" data-pqsourceid="55" data-item-name="<%= dealerDetail.PrimaryDealer.DealerDetails.Organization %>"
-                             data-item-area="<%= areaName %>" data-item-id="<%= dealerDetail.PrimaryDealer.DealerDetails.DealerId %>"
-                            href="javascript:void(0)" rel="nofollow">Get offers</a>
-                    </div>
-                    <div class="grid-6 alpha omega padding-left5">
-                        <a id="calldealer" class="btn btn-orange btn-full-width btn-sm rightfloat" href="tel:+91<%= dealerDetail.PrimaryDealer.DealerDetails.MaskingNumber %>">
-                            <span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer
-                        </a>
-                    </div>
-                </div>
-                <div class="clear"></div>
-                <%}
-                   else if (toShowOnRoadPriceButton)
-               {%>
-                <div class="grid-12 float-button float-fixed">
-                    <a class="btn btn-full-width font18 btn-orange getquotation bw-ga" c="SpecsandFeature"
-                        a="Check_On_Road_Price_Clicked" l="<%=string.Format("{0}_{1}_{2}", makeName,modelName,versionName) %>" data-persistent="true" data-pqsourceid="54" data-pqSourceId="54" data-modelId="<%= modelId %>" 
-                         href="javascript:void(0)" rel="nofollow">Check on-road price</a>
-                </div>
-                <%} %>
-            <%} %>
-            <div class="clear"></div>
-
             <div id="specsFeaturesFooter"></div>
-
         </section>
-        <BW:LeadPopUp ID="ctrlLeadPopUp" runat="server" />
+
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->    
         <script type="text/javascript">
             ga_pg_id = "15";
-            var pageUrl = window.location.href;
-            var clientIP = '<%= clientIP %>';
-            var dealerOffers = '<%=isDealerOfferAvailable%>';
-            var bikenamever = '<%=string.Format("{0}_{1}_{2}", makeName,modelName,versionName)%>';
-            var areaname='<%=areaName%>';
-            var bikenameLocation='<%=string.Format("{0}_{1}_{2}", makeName,modelName,cityName)%>';
-            if(areaname!='')
-                bikenameLocation=bikenameLocation+'_'+areaname;
             $(document).ready(function () {
-                
-                if(dealerOffers){
-                    try{
-                        
-                        var lab=bikenameLocation;
-                        if(areaname!=''){
-                            lab=lab+'_'+areaname;
-                        }
-                        triggerNonInteractiveGA('SpecsandFeature','Get_Offers_Shown',lab);
-                    }
-                    catch(e){
-
-                    }
-                }
-
-                var $window = $(window),
+                    var $window = $(window),
                     topNavBarWrapper = $('.specs-features-wrapper'),
                     topNavBar = $('#specsFeaturesTabsWrapper'),
                     specsFeaturesFooter = $('#specsFeaturesFooter'),
@@ -396,10 +340,8 @@
 
                             var currentActiveTab = topNavBar.find('li[data-tabs="#' + $(this).attr('id') + '"]');
                             topNavBar.find(currentActiveTab).addClass('active');
-
                         }
                     });
-                    
                 });
 
                 $('.model-specs-features-tabs-wrapper li').click(function () {
@@ -407,36 +349,6 @@
                     $('html, body').animate({ scrollTop: $(target).offset().top - topNavBar.height()}, 1000);
                     return false;
                 });
-
-                $(".leadcapturebtn").click(function () {
-                    ele = $(this);
-                    var leadOptions = {
-                        "dealerid": ele.attr('data-item-id'),
-                        "dealername": ele.attr('data-item-name'),
-                        "dealerarea": ele.attr('data-item-area'),
-                        "versionid": '<%= versionId %>',
-                        "leadsourceid": ele.attr('data-leadsourceid'),
-                        "pqsourceid": ele.attr('data-pqsourceid'),
-                        "pageurl": pageUrl,
-                        "clientip": clientIP,
-                        "isregisterpq": true,
-                        "gaobject": {
-                            cat: ele.attr('data-ga-cat'),
-                            act: ele.attr('data-ga-act'),
-                            lab: ele.attr('data-ga-lab')
-                        }
-                    };
-                    dleadvm.setOptions(leadOptions);
-                });
-                $("#user-details-submit-btn").click(function(){
-                    if(dleadvm.IsVerified)
-                    {
-                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Specs_Page', 'act': 'Lead_Submitted', 'lab': "<%= string.Format("{0}_{1}_{2}_{3}_{4}", makeName, modelName, versionName, cityName, areaName )%>" });
-                    }
-                });
-
-                
-                
             });
         </script>
     </form>

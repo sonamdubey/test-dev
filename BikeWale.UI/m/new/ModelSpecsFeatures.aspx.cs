@@ -1,26 +1,14 @@
-﻿﻿using Bikewale.BAL.BikeBooking;
-using Bikewale.BAL.BikeData;
-using Bikewale.BAL.PriceQuote;
+﻿﻿using Bikewale.BAL.BikeData;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
-using Bikewale.Cache.Location;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
-using Bikewale.DAL.Location;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.Dealer;
-using Bikewale.Entities.Location;
-using Bikewale.Entities.PriceQuote;
-using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.Location;
-using Bikewale.Interfaces.PriceQuote;
-using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
@@ -36,15 +24,11 @@ namespace Bikewale.Mobile
     public class ModelSpecsFeatures : PageBase
     {
         protected uint cityId, areaId, modelId, versionId, dealerId, price = 0;
-        protected string cityName = "Mumbai", areaName, makeName, modelName, bikeName, versionName,makeMaskingName, modelMaskingName, modelImage, clientIP = CommonOpn.GetClientIP();
-        protected IEnumerable<CityEntityBase> objCityList = null;
-        protected IEnumerable<Bikewale.Entities.Location.AreaEntityBase> objAreaList = null;
-        protected bool isCitySelected, isAreaSelected, isBikeWalePQ,isDealerOfferAvailable,isOnRoadPrice, isAreaAvailable, showOnRoadPriceButton, isDiscontinued, IsDealerPriceQuote, IsExShowroomPrice = true, toShowOnRoadPriceButton;
+        protected string cityName = "Mumbai", areaName, makeName, modelName, bikeName, versionName, makeMaskingName, modelMaskingName, modelImage;
+        protected bool isDiscontinued, IsExShowroomPrice = true;
         protected BikeSpecificationEntity specs;
         protected BikeModelPageEntity modelDetail;
-        protected DetailedDealerQuotationEntity dealerDetail;
-        protected BikeModelPageEntity modelPg;
-        protected LeadCaptureControl ctrlLeadPopUp;
+
 
         protected override void OnInit(EventArgs e)
         {
@@ -61,102 +45,11 @@ namespace Bikewale.Mobile
         protected void Page_Load(object sender, EventArgs e)
         {
             ProcessQueryString();
-
             modelDetail = FetchModelPageDetails(modelId, versionId);
-            if (modelDetail != null)
-            {
-                CheckCityCookie();
-                //for Lead Pop up Controle
-                ctrlLeadPopUp.ModelId = modelId;
-                ctrlLeadPopUp.CityId = cityId;
-                ctrlLeadPopUp.AreaId = areaId;
-
-                PQByCityArea pqOnRoad = null;
-                PQOnRoadPrice pqEntity = null;
-                if (cityId > 0 && versionId > 0)
-                {
-                    string PQLeadId = (PQSourceEnum.Mobile_SpecsAndFeaturePage_OnLoad).ToString();
-                    string UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : string.Empty;
-                    string UTMZ = Request.Cookies["_bwutmz"] != null ? Request.Cookies["_bwutmz"].Value : string.Empty;
-                    string DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : string.Empty;
-                    pqOnRoad = new PQByCityArea();
-                    pqEntity = pqOnRoad.GetOnRoadPrice((int)modelId, (int)cityId, (int)areaId, (int)versionId, 2, UTMA, UTMZ, DeviceId, clientIP, PQLeadId);
-                    dealerDetail = GetDetailedDealer();
-                }
-                if (pqEntity != null)
-                {
-                    SetPrice(pqEntity, modelDetail);
-                }
-            }
             if (versionId > 0)
             {
                 specs = FetchVariantDetails(versionId);
             }
-            else
-            {
-                specs = modelPg.ModelVersionSpecs;
-            }
-            SetFlags();
-            if (dealerDetail != null)
-                isDealerOfferAvailable = true;
-        }
-
-        /// <summary>
-        /// created by Sangram Nandkhile on 07 Jun 2016
-        /// Summary: Set price according to version id
-        /// </summary>
-        private void SetPrice(PQOnRoadPrice pqOnRoad, BikeModelPageEntity modelDetail)
-        {
-
-            PQByCityAreaEntity pqEntity = new PQByCityAreaEntity();
-            if (pqOnRoad != null)
-            {
-                pqEntity.PqId = pqOnRoad.PriceQuote.PQId;
-                pqEntity.DealerId = pqOnRoad.PriceQuote.DealerId;
-                // When City has areas and area is not selected then show ex-showrrom price so user can select it
-                bool isAreaExistAndSelected = pqEntity.IsAreaExists && pqEntity.IsAreaSelected;
-                // when DPQ OR Only city level pricing exists
-                if (isAreaExistAndSelected || (!pqEntity.IsAreaExists))
-                {
-                    #region  Iterate over version to fetch Dealer PQ or BikeWalePQ
-
-                    foreach (var version in modelDetail.ModelVersions)
-                    {
-                        if (pqOnRoad.DPQOutput != null)
-                        {
-                            var selected = pqOnRoad.DPQOutput.Varients.Where(p => p.objVersion.VersionId == versionId).FirstOrDefault();
-                            if (selected != null)
-                            {
-                                price = selected.OnRoadPrice;
-                                IsExShowroomPrice = false;
-                                break;
-                            }
-                            else if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
-                            {
-                                var selectedBPQ = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == versionId).FirstOrDefault();
-                                if (selectedBPQ != null)
-                                {
-                                    price = Convert.ToUInt32(selectedBPQ.OnRoadPrice);
-                                    IsExShowroomPrice = false;
-                                    break;
-                                }
-                            }
-                        }
-                        else if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
-                        {
-                            var selectedBPQ = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == versionId).FirstOrDefault();
-                            if (selectedBPQ != null)
-                            {
-                                price = Convert.ToUInt32(selectedBPQ.OnRoadPrice);
-                                IsExShowroomPrice = false;
-                                break;
-                            }
-                        }
-                    }
-                    #endregion
-                }
-            }
-
         }
 
         /// <summary>
@@ -165,7 +58,7 @@ namespace Bikewale.Mobile
         /// </summary>
         private BikeModelPageEntity FetchModelPageDetails(uint modelID, uint versionId)
         {
-            modelPg = new BikeModelPageEntity();
+            BikeModelPageEntity modelPg = new BikeModelPageEntity();
             try
             {
                 if (modelID > 0)
@@ -190,7 +83,7 @@ namespace Bikewale.Mobile
                                 makeMaskingName = modelPg.ModelDetails.MakeBase.MaskingName;
                             }
                             bikeName = string.Format("{0} {1}", makeName, modelName);
-                            
+
                             if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)
                             {
                                 // Check it versionId passed through url exists in current model's versions
@@ -220,37 +113,6 @@ namespace Bikewale.Mobile
                 objErr.SendMail();
             }
             return modelPg;
-        }
-
-        /// <summary>
-        /// Created by: Sangram Nandkhile on 16 mar 2016
-        /// Summary     : API to fetch detailed dealer entity
-        /// </summary>
-        private DetailedDealerQuotationEntity GetDetailedDealer()
-        {
-            DetailedDealerQuotationEntity detailedDealer = null;
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IDealerPriceQuoteDetail, DealerPriceQuoteDetail>().RegisterType<IDealerPriceQuote, DealerPriceQuote>();
-                    IDealerPriceQuoteDetail objIPQ = container.Resolve<IDealerPriceQuoteDetail>();
-                    IDealerPriceQuote dealerPQ = container.Resolve<IDealerPriceQuote>();
-                    DealerInfo dealerInfo = dealerPQ.IsDealerExists(versionId, areaId);
-                    
-                    if (dealerInfo != null && dealerInfo.DealerId > 0)
-                    {
-                        detailedDealer = objIPQ.GetDealerQuotation(cityId, versionId, dealerInfo.DealerId);                        
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.New.ModelSpecsFeatures.GetDetailedDealer");
-                objErr.SendMail();
-            }
-            return detailedDealer;
         }
 
         /// <summary>
@@ -322,15 +184,7 @@ namespace Bikewale.Mobile
                             }
                         }
                     }
-                    //else
-                    //{
-                    //    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                    //    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    //    this.Page.Visible = false;
-                    //}
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -341,152 +195,6 @@ namespace Bikewale.Mobile
             }
 
         }
-
-        /// <summary>
-        /// Modified by :   Sumit Kate on 05 Jan 2016
-        /// Description :   Replaced the Convert.ToXXX with XXX.TryParse method
-        /// </summary>
-        private void CheckCityCookie()
-        {
-            // Read current cookie values
-            // Check if there are areas for current model and City
-            // If No then drop area cookie
-            string location = String.Empty;
-            var cookies = this.Context.Request.Cookies;
-            if (cookies.AllKeys.Contains("location"))
-            {
-                location = cookies["location"].Value;
-                if (!String.IsNullOrEmpty(location) && location.IndexOf('_') != -1)
-                {
-                    string[] locArray = location.Split('_');
-                    if (locArray.Length > 0)
-                    {
-                        UInt32.TryParse(locArray[0], out cityId);
-                        if (modelId > 0)
-                        {
-                            objCityList = FetchCityByModelId(modelId);
-                            if (objCityList != null)
-                            {
-                                // If Model doesn't have current City then don't show it, Show Ex-showroom Mumbai
-                                isCitySelected = objCityList.Any(p => p.CityId == cityId);
-                                if (isCitySelected)
-                                {
-                                    cityName = locArray[1];
-                                }
-                            }
-                        }
-                    }
-                    // This function will check if Areas are available for city and Model
-                    objAreaList = GetAreaForCityAndModel();
-                    // locArray.Length = 4 Means City and area exists
-                    if (locArray.Length > 3 && cityId != 0)
-                    {
-                        UInt32.TryParse(locArray[2], out areaId);
-                        if (objAreaList != null)
-                        {
-                            isAreaSelected = objAreaList.Any(p => p.AreaId == areaId);
-                            if (isAreaAvailable)
-                            {
-                                areaName = locArray[3];
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Author          :   Sangram Nandkhile
-        /// Created Date    :   24 Nov 2015
-        /// Description     :   Gets City Details by ModelId
-        /// </summary>
-        /// <param name="modelId">Model Id</param>
-        private IEnumerable<CityEntityBase> FetchCityByModelId(uint modelId)
-        {
-            IEnumerable<CityEntityBase> cityList = null;
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<ICity, CityRepository>()
-                                 .RegisterType<ICacheManager, MemcacheManager>()
-                                 .RegisterType<ICityCacheRepository, CityCacheRepository>();
-                    ICityCacheRepository objcity = container.Resolve<ICityCacheRepository>();
-                    cityList = objcity.GetPriceQuoteCities(modelId);
-                    return cityList;
-                }
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "FetchCityByModelId");
-                objErr.SendMail();
-            }
-            return cityList;
-        }
-
-        /// <summary>
-        /// Author          :   Sangram Nandkhile
-        /// Created Date    :   24 Nov 2015
-        /// Description     :   Get List of Area depending on City and Model Id
-        /// </summary>
-        private IEnumerable<Bikewale.Entities.Location.AreaEntityBase> GetAreaForCityAndModel()
-        {
-            IEnumerable<Bikewale.Entities.Location.AreaEntityBase> areaList = null;
-            try
-            {
-                if (CommonOpn.CheckId(modelId.ToString()) && modelId > 0)
-                {
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IDealerPriceQuote, DealerPriceQuote>()
-                            .RegisterType<ICacheManager, MemcacheManager>()
-                            .RegisterType<IAreaCacheRepository, AreaCacheRepository>();
-
-                        IAreaCacheRepository objArea = container.Resolve<IAreaCacheRepository>();
-                        areaList = objArea.GetAreaList(modelId, cityId);
-                        isAreaAvailable = (areaList != null && areaList.Count() > 0);
-                        return areaList;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "GetAreaForCityAndModel");
-                objErr.SendMail();
-            }
-
-            return areaList;
-        }
-
-        /// <summary>
-        /// Author: Sangram Nandkhile
-        /// Created on: 21-12-2015
-        /// Desc: Set flags for aspx mark up to show and hide buttons, insurance links
-        /// </summary>
-        private void SetFlags()
-        {
-            if (isCitySelected)
-            {
-                if (isAreaAvailable)
-                {
-                    if (isAreaSelected)
-                    {
-                        isOnRoadPrice = true;
-                    }
-                }
-                else
-                {
-                    isOnRoadPrice = true;
-                }
-            }
-            // if city and area is not selected OR if city is selected & area is available but not selected
-            //if ((!isCitySelected && !isAreaSelected) || (isCitySelected && isAreaAvailable && !isAreaSelected))
-            if ((!isCitySelected) || (isCitySelected && isAreaAvailable && !isAreaSelected))
-            {
-                toShowOnRoadPriceButton = true;
-            }
-        }
-       
 
     }
 }
