@@ -21,8 +21,9 @@ namespace Bikewale.Utility.Terms
         public string MakeHtmlList(string terms)
         {
             StringBuilder termsFormatted = new StringBuilder();
-            List<string> termsList = new List<string>(Regex.Split(terms, Environment.NewLine));
-
+            terms = terms.Trim();
+            string[] termsList = terms.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+            
             string termsConditions;
             if (termsList != null)
             {
