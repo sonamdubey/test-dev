@@ -3,6 +3,7 @@ using Bikewale.Entities.Location;
 using Bikewale.Entities.Used;
 using Bikewale.Interfaces.Used;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,6 @@ namespace Bikewale.DAL.Used
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.UInt32, inquiryId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_currentuserid", DbType.Int32, -1));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -43,41 +43,41 @@ namespace Bikewale.DAL.Used
                         if (dr.Read())
                         {
                             _objInquiryDetails.Make = new BikeMakeEntityBase();
-                            _objInquiryDetails.Make.MakeId = Convert.ToInt32(dr["MakeId"]);
+                            _objInquiryDetails.Make.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
                             _objInquiryDetails.Make.MakeName = Convert.ToString(dr["Make"]);
                             _objInquiryDetails.Make.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
 
                             _objInquiryDetails.Model = new BikeModelEntityBase();
-                            _objInquiryDetails.Model.ModelId = Convert.ToInt32(dr["ModelId"]);
+                            _objInquiryDetails.Model.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
                             _objInquiryDetails.Model.ModelName = Convert.ToString(dr["Model"]);
                             _objInquiryDetails.Model.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
 
                             _objInquiryDetails.Version = new BikeVersionEntityBase();
-                            _objInquiryDetails.Version.VersionId = Convert.ToInt32(dr["VersionId"]);
+                            _objInquiryDetails.Version.VersionId = SqlReaderConvertor.ToInt32(dr["VersionId"]);
                             _objInquiryDetails.Version.VersionName = Convert.ToString(dr["Version"]);
 
                             _objInquiryDetails.City = new CityEntityBase();
-                            _objInquiryDetails.City.CityId = Convert.ToUInt32(dr["CityId"]);
+                            _objInquiryDetails.City.CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]);
                             _objInquiryDetails.City.CityName = Convert.ToString(dr["City"]);
                             _objInquiryDetails.City.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
 
 
                             _objInquiryDetails.State = new StateEntityBase();
-                            _objInquiryDetails.State.StateId = Convert.ToUInt32(dr["StateId"]);
+                            _objInquiryDetails.State.StateId = SqlReaderConvertor.ToUInt32(dr["StateId"]);
                             _objInquiryDetails.State.StateName = Convert.ToString(dr["State"]);
 
                             //minimum ad details for inquiry id
                             _objInquiryDetails.MinDetails = new BikeDetailsMin();
-                            _objInquiryDetails.MinDetails.AskingPrice = Convert.ToUInt32(dr["Price"]);
-                            _objInquiryDetails.MinDetails.ModelYear = Convert.ToDateTime(dr["MakeYear"]);
-                            _objInquiryDetails.MinDetails.KmsDriven = Convert.ToUInt32(dr["KmsDriven"]);
+                            _objInquiryDetails.MinDetails.AskingPrice = SqlReaderConvertor.ToUInt32(dr["Price"]);
+                            _objInquiryDetails.MinDetails.ModelYear = SqlReaderConvertor.ToDateTime(dr["MakeYear"]);
+                            _objInquiryDetails.MinDetails.KmsDriven = SqlReaderConvertor.ToUInt32(dr["KmsDriven"]);
                             _objInquiryDetails.MinDetails.OwnerType = Convert.ToString(dr["OwnerType"]);
                             _objInquiryDetails.MinDetails.RegisteredAt = Convert.ToString(dr["RegisteredAt"]);
 
                             //ad details for inquiry id
                             _objInquiryDetails.OtherDetails = new BikeDetails();
-                            _objInquiryDetails.OtherDetails.Id = Convert.ToUInt32(dr["sellerid"]);
-                            _objInquiryDetails.OtherDetails.LastUpdatedOn = Convert.ToDateTime(dr["LastUpdatedOn"]);
+                            _objInquiryDetails.OtherDetails.Id = SqlReaderConvertor.ToUInt32(dr["sellerid"]);
+                            _objInquiryDetails.OtherDetails.LastUpdatedOn = SqlReaderConvertor.ToDateTime(dr["LastUpdatedOn"]);
                             _objInquiryDetails.OtherDetails.Seller = Convert.ToString(dr["SellerType"]);
                             _objInquiryDetails.OtherDetails.Insurance = Convert.ToString(dr["insurancetype"]);
                             _objInquiryDetails.OtherDetails.Description = Convert.ToString(dr["Description"]);
@@ -88,23 +88,23 @@ namespace Bikewale.DAL.Used
                             // bike specifications and features
                             _objInquiryDetails.SpecsFeatures = new BikeSpecifications();
                             #region Specifications
-                            _objInquiryDetails.SpecsFeatures.Displacement = Convert.ToSingle(dr["Displacement"]);
-                            _objInquiryDetails.SpecsFeatures.MaxPower = Convert.ToSingle(dr["MaxPower"]);
-                            _objInquiryDetails.SpecsFeatures.MaximumTorque = Convert.ToSingle(dr["MaximumTorque"]);
-                            _objInquiryDetails.SpecsFeatures.NoOfGears = Convert.ToUInt16(dr["NoOfGears"]);
-                            _objInquiryDetails.SpecsFeatures.MaxPowerRPM = Convert.ToSingle(dr["MaxPowerRPM"]);
-                            _objInquiryDetails.SpecsFeatures.MaximumTorqueRPM = Convert.ToSingle(dr["MaximumTorqueRPM"]);
-                            _objInquiryDetails.SpecsFeatures.FuelEfficiencyOverall = Convert.ToUInt16(dr["FuelEfficiencyOverall"]);
+                            _objInquiryDetails.SpecsFeatures.Displacement = SqlReaderConvertor.ToFloat(dr["Displacement"]);
+                            _objInquiryDetails.SpecsFeatures.MaxPower = SqlReaderConvertor.ToFloat(dr["MaxPower"]);
+                            _objInquiryDetails.SpecsFeatures.MaximumTorque = SqlReaderConvertor.ToFloat(dr["MaximumTorque"]);
+                            _objInquiryDetails.SpecsFeatures.NoOfGears = SqlReaderConvertor.ToUInt16(dr["NoOfGears"]);
+                            _objInquiryDetails.SpecsFeatures.MaxPowerRPM = SqlReaderConvertor.ToFloat(dr["MaxPowerRPM"]);
+                            _objInquiryDetails.SpecsFeatures.MaximumTorqueRPM = SqlReaderConvertor.ToFloat(dr["MaximumTorqueRPM"]);
+                            _objInquiryDetails.SpecsFeatures.FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["FuelEfficiencyOverall"]);
                             _objInquiryDetails.SpecsFeatures.BrakeType = Convert.ToString(dr["BrakeType"]);
                             #endregion
 
                             #region Features
                             _objInquiryDetails.SpecsFeatures.Speedometer = Convert.ToString(dr["Speedometer"]);
-                            _objInquiryDetails.SpecsFeatures.FuelGauge = Convert.ToBoolean(dr["FuelGauge"]);
+                            _objInquiryDetails.SpecsFeatures.FuelGauge = SqlReaderConvertor.ToBoolean(dr["FuelGauge"]);
                             _objInquiryDetails.SpecsFeatures.TachometerType = Convert.ToString(dr["TachometerType"]);
-                            _objInquiryDetails.SpecsFeatures.DigitalFuelGauge = Convert.ToBoolean(dr["DigitalFuelGauge"]);
-                            _objInquiryDetails.SpecsFeatures.ElectricStart = Convert.ToBoolean(dr["ElectricStart"]);
-                            _objInquiryDetails.SpecsFeatures.Tripmeter = Convert.ToBoolean(dr["Tripmeter"]);
+                            _objInquiryDetails.SpecsFeatures.DigitalFuelGauge = SqlReaderConvertor.ToBoolean(dr["DigitalFuelGauge"]);
+                            _objInquiryDetails.SpecsFeatures.ElectricStart = SqlReaderConvertor.ToBoolean(dr["ElectricStart"]);
+                            _objInquiryDetails.SpecsFeatures.Tripmeter = SqlReaderConvertor.ToBoolean(dr["Tripmeter"]);
                             #endregion
 
                         }
@@ -118,7 +118,7 @@ namespace Bikewale.DAL.Used
                                 {
                                     OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                     HostUrl = Convert.ToString(dr["HostUrl"]),
-                                    IsMain = Convert.ToBoolean(dr["IsMain"])
+                                    IsMain = SqlReaderConvertor.ToBoolean(dr["IsMain"])
                                 });
                             }
                         }

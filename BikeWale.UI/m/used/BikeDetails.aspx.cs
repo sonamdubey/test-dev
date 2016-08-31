@@ -19,6 +19,7 @@ namespace Bikewale.Mobile.Used
         protected ClassifiedInquiryDetails inquiryDetails = null;
         protected UsedBikePhotoGallery ctrlUsedBikeGallery;
         protected Repeater rptUsedBikeNavPhotos, rptUsedBikePhotos;
+        protected bool isPageNotFound;
 
         public SimilarUsedBikes ctrlSimilarUsedBikes;
         public OtherUsedBikeByCity ctrlOtherUsedBikes;
@@ -42,7 +43,7 @@ namespace Bikewale.Mobile.Used
         {
             BindProfileDetails();
 
-            if (inquiryId > 0 && inquiryDetails != null)
+            if (!isPageNotFound)
             {
                 BindUsedBikePhotos();
                 BindUserControls();
@@ -128,6 +129,7 @@ namespace Bikewale.Mobile.Used
                         moreBikeSpecsUrl = usedBikeDetails.MoreBikeSpecsUrl;
                         moreBikeFeaturesUrl = usedBikeDetails.MoreBikeFeaturesUrl;
                         profileId = string.Format("S{0}", inquiryId);
+                        isPageNotFound = usedBikeDetails.IsPageNotFoundRedirection;
                     }
                 }
             }

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Utility
 {
@@ -11,19 +6,19 @@ namespace Bikewale.Utility
     {
         public static bool? ToNullableBool(object reader)
         {
-            bool? retVal = false;          
+            bool? retVal = false;
             return ((DBNull.Value != reader) ? Convert.ToBoolean(reader) : retVal);
         }
 
         public static UInt16? ToNullableUInt16(object reader)
         {
-            UInt16? retVal = 0;           
+            UInt16? retVal = 0;
             return ((DBNull.Value != reader) ? Convert.ToUInt16(reader) : retVal);
         }
 
         public static UInt32? ToNullableUInt32(object reader)
         {
-            UInt32? retVal = 0;           
+            UInt32? retVal = 0;
             return ((DBNull.Value != reader) ? Convert.ToUInt32(reader) : retVal);
         }
 
@@ -35,16 +30,54 @@ namespace Bikewale.Utility
 
         public static float? ToNullableFloat(object reader)
         {
-            float? retVal = 0.0f;           
+            float? retVal = 0.0f;
             return ((DBNull.Value != reader) ? Convert.ToSingle(reader) : retVal);
         }
 
 
-        public static Int64 ToNullableInt64(object reader)
+        public static Int64 ToInt64(object reader)
         {
-            Int64 retVal = 0;
+            Int64 retVal = default(Int64);
             return ((DBNull.Value != reader) ? Convert.ToInt64(reader) : retVal);
         }
+
+        public static int ToInt32(object reader)
+        {
+            int retVal = default(Int32);
+            return ((DBNull.Value != reader) ? Convert.ToInt32(reader) : retVal);
+        }
+
+        public static float ToFloat(object reader)
+        {
+            float retVal = default(float);
+            return ((DBNull.Value != reader) ? Convert.ToSingle(reader) : retVal);
+        }
+
+        public static UInt32 ToUInt32(object reader)
+        {
+            UInt32 retVal = default(UInt32);
+            return ((DBNull.Value != reader) ? Convert.ToUInt32(reader) : retVal);
+        }
+
+        public static UInt16 ToUInt16(object reader)
+        {
+            UInt16 retVal = default(UInt16);
+            return ((DBNull.Value != reader) ? Convert.ToUInt16(reader) : retVal);
+        }
+
+        public static DateTime ToDateTime(object reader)
+        {
+            DateTime retVal = default(DateTime);
+            return ((DBNull.Value != reader) ? Convert.ToDateTime(reader) : retVal);
+        }
+
+        public static Boolean ToBoolean(object reader)
+        {
+            Boolean retVal = default(Boolean);
+            return ((DBNull.Value != reader) ? Convert.ToBoolean(reader) : retVal);
+        }
+
+
 
         /// <summary>
         ///  Created By : Sushil Kumar on 26th March 2016
@@ -55,12 +88,12 @@ namespace Bikewale.Utility
         public static UInt16 ParseToInt16(object reader)
         {
             UInt16 retVal = default(UInt16);
-            if(DBNull.Value != reader)
+            if (DBNull.Value != reader)
             {
-                UInt16.TryParse(reader.ToString(),out retVal);
+                UInt16.TryParse(reader.ToString(), out retVal);
             }
             return retVal;
-            
+
         }
 
         /// <summary>
