@@ -105,85 +105,9 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         /// <param name="dealerId"></param>
         /// <returns></returns>
         public IEnumerable<ManufacturerEntity> GetManufacturersList()
-                }
-                catch (Exception ex)
-                {
-                    ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.FetchManufacturerCampaignRules");
-                    objErr.SendMail();
-                }
-
-                return dtManufacturerCampaignRules;
-            }
-            
-        /// <summary>
-        ///  Created By: Aditi Srivastava on 29 Aug 2016
-        /// Description: Inserts new manufacturer campaign rules
-        /// </summary>
-        /// <param name="MgfRules"></param>
-        /// <returns></returns>
-            public bool SaveManufacturerCampaignRules(MfgNewRulesEntity MgfRules)
-            {
-                bool isSuccess = false;
-                try
-                {
-                    using (DbCommand cmd = DbFactory.GetDBCommand("savemanufacturercampaignrules"))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, MgfRules.CampaignId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelcityids", DbType.String, MgfRules.CityIds));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, MgfRules.UserId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelids", DbType.String, MgfRules.ModelIds));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isallindia", DbType.Boolean, MgfRules.IsAllIndia));
-                        MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
-
-                        isSuccess = true;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.SaveManufacturerCampaignRules");
-                    objErr.SendMail();
-                }
-                return isSuccess;
-            }
-
-            /// <summary>
-            ///  Created By: Aditi Srivastava on 29 Aug 2016
-            /// Description: Deletes selected manufacturer campaign rules
-            /// </summary>
-            /// <param name="userId"></param>
-            /// <param name="ruleIds"></param>
-            /// <returns></returns>
-           public bool DeleteManufacturerCampaignRules(int userId, string ruleIds)
-            {
-                bool isDeleted = false;
-
-                try
-                {
-                    using (DbCommand cmd = DbFactory.GetDBCommand("deletemanufacturercampaignrules"))
-                    {
-
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, userId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_ruleids", DbType.String, 100, ruleIds));
-                        isDeleted = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.DeleteManufacturerCampaignRules");
-                    objErr.SendMail();
-                }
-
-                return isDeleted;
-            }
-
-        /// <summary>
-        /// 
-        /// </summary>
-           {
+        {
             IList<ManufacturerEntity> manufacturers = null;
-        
+
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getdealerasmanufacturer"))
@@ -218,7 +142,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
 
             return manufacturers;
         }
-         /// <summary>
+        /// <summary>
         /// Created By: Aditi Srivastava on 29 Aug 2016
         /// Description: Fetches a list of all cities and states
         /// </summary>
@@ -229,29 +153,29 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getmanufacturercities"))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                        if (dr != null)
                         {
-                            if (dr != null)
-                            {
-                                AllMfgcities = new List<MfgCityEntity>();
+                            AllMfgcities = new List<MfgCityEntity>();
 
-                                while (dr.Read())
+                            while (dr.Read())
+                            {
+                                AllMfgcities.Add(new MfgCityEntity()
                                 {
-                                    AllMfgcities.Add(new MfgCityEntity()
-                                    {
-                                        CityId = Convert.ToInt32(dr["Id"]),
-                                        CityName = dr["Name"].ToString(),
-                                        StateName = dr["StateName"].ToString()
-                                    });
-                                }
-                                dr.Close();
+                                    CityId = Convert.ToInt32(dr["Id"]),
+                                    CityName = dr["Name"].ToString(),
+                                    StateName = dr["StateName"].ToString()
+                                });
                             }
+                            dr.Close();
                         }
                     }
-                
+                }
+
             }
             catch (Exception ex)
             {
@@ -268,116 +192,114 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         /// <param name="campaignId"></param>
         /// <param name="dealerId"></param>
         /// <returns></returns>
-            public List<MfgCampaignRulesEntity> FetchManufacturerCampaignRules(int campaignId)
+        public List<MfgCampaignRulesEntity> FetchManufacturerCampaignRules(int campaignId)
+        {
+            List<MfgCampaignRulesEntity> dtManufacturerCampaignRules = null;
+
+            try
             {
-                List<MfgCampaignRulesEntity> dtManufacturerCampaignRules = null;
-
-                try
+                if (campaignId > 0)
                 {
-                    if (campaignId > 0)
+                    using (DbCommand cmd = DbFactory.GetDBCommand("fetchmanufacturercampaignrules"))
                     {
-                        using (DbCommand cmd = DbFactory.GetDBCommand("fetchmanufacturercampaignrules"))
+
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, campaignId));
+
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                         {
-
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, campaignId));
-
-                            using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                            if (dr != null)
                             {
-                                if (dr != null)
-                                {
-                                    dtManufacturerCampaignRules = new List<MfgCampaignRulesEntity>();
+                                dtManufacturerCampaignRules = new List<MfgCampaignRulesEntity>();
 
-                                    while (dr.Read())
+                                while (dr.Read())
+                                {
+                                    dtManufacturerCampaignRules.Add(new MfgCampaignRulesEntity()
                                     {
-                                        dtManufacturerCampaignRules.Add(new MfgCampaignRulesEntity()
-                                        { 
-                                            CampaignRuleId=Convert.ToInt32(dr["campaignruleid"]),
-                                            ModelName =dr["modelname"].ToString() ,
-                                            MakeName = dr["makename"].ToString(),
-                                            CityName = dr["cityname"].ToString(),
-                                            StateName=dr["statename"].ToString()
-                                        });
-                                    }
-                                    dr.Close();
+                                        CampaignRuleId = Convert.ToInt32(dr["campaignruleid"]),
+                                        ModelName = dr["modelname"].ToString(),
+                                        MakeName = dr["makename"].ToString(),
+                                        CityName = dr["cityname"].ToString(),
+                                        StateName = dr["statename"].ToString()
+                                    });
                                 }
+                                dr.Close();
                             }
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.FetchManufacturerCampaignRules");
-                    objErr.SendMail();
-                }
-
-                return dtManufacturerCampaignRules;
             }
-            
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.FetchManufacturerCampaignRules");
+                objErr.SendMail();
+            }
+
+            return dtManufacturerCampaignRules;
+        }
+
         /// <summary>
         ///  Created By: Aditi Srivastava on 29 Aug 2016
         /// Description: Inserts new manufacturer campaign rules
         /// </summary>
         /// <param name="MgfRules"></param>
         /// <returns></returns>
-            public bool SaveManufacturerCampaignRules(MfgNewRulesEntity MgfRules)
+        public bool SaveManufacturerCampaignRules(MfgNewRulesEntity MgfRules)
+        {
+            bool isSuccess = false;
+            try
             {
-                bool isSuccess = false;
-                try
+                using (DbCommand cmd = DbFactory.GetDBCommand("savemanufacturercampaignrules"))
                 {
-                    using (DbCommand cmd = DbFactory.GetDBCommand("savemanufacturercampaignrules"))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, MgfRules.CampaignId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelcityids", DbType.String, MgfRules.CityIds));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, MgfRules.UserId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelids", DbType.String, MgfRules.ModelIds));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isallindia", DbType.Boolean, MgfRules.IsAllIndia));
-                        MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, MgfRules.CampaignId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelcityids", DbType.String, MgfRules.CityIds));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, MgfRules.UserId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelids", DbType.String, MgfRules.ModelIds));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isallindia", DbType.Boolean, MgfRules.IsAllIndia));
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
 
-                        isSuccess = true;
-                    }
+                    isSuccess = true;
                 }
-                catch (Exception ex)
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.SaveManufacturerCampaignRules");
+                objErr.SendMail();
+            }
+            return isSuccess;
+        }
+
+        /// <summary>
+        ///  Created By: Aditi Srivastava on 29 Aug 2016
+        /// Description: Deletes selected manufacturer campaign rules
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="ruleIds"></param>
+        /// <returns></returns>
+        public bool DeleteManufacturerCampaignRules(int userId, string ruleIds)
+        {
+            bool isDeleted = false;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("deletemanufacturercampaignrules"))
                 {
-                    ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.SaveManufacturerCampaignRules");
-                    objErr.SendMail();
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, userId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ruleids", DbType.String, 100, ruleIds));
+                    isDeleted = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
-                return isSuccess;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.DeleteManufacturerCampaignRules");
+                objErr.SendMail();
             }
 
-            /// <summary>
-            ///  Created By: Aditi Srivastava on 29 Aug 2016
-            /// Description: Deletes selected manufacturer campaign rules
-            /// </summary>
-            /// <param name="userId"></param>
-            /// <param name="ruleIds"></param>
-            /// <returns></returns>
-           public bool DeleteManufacturerCampaignRules(int userId, string ruleIds)
-            {
-                bool isDeleted = false;
-
-                try
-                {
-                    using (DbCommand cmd = DbFactory.GetDBCommand("deletemanufacturercampaignrules"))
-                    {
-
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, userId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_ruleids", DbType.String, 100, ruleIds));
-                        isDeleted = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.DeleteManufacturerCampaignRules");
-                    objErr.SendMail();
-                }
-
-                return isDeleted;
-            }
-
-
+            return isDeleted;
+        }
 
     }
 
