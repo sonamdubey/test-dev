@@ -19,6 +19,7 @@ namespace Bikewale.Mobile.Used
         protected ClassifiedInquiryDetails inquiryDetails = null;
         protected UsedBikePhotoGallery ctrlUsedBikeGallery;
         protected Repeater rptUsedBikeNavPhotos, rptUsedBikePhotos;
+        private bool _isPageNotFound;
 
         public SimilarUsedBikes ctrlSimilarUsedBikes;
         public OtherUsedBikeByCity ctrlOtherUsedBikes;
@@ -35,16 +36,25 @@ namespace Bikewale.Mobile.Used
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            BindProfileDetails();
+            if (inquiryId > 0)
             {
-                ValidateProfileId();
-                BindProfileDetails();
                 BindUsedBikePhotos();
                 BindUserControls();
             }
+            else
+            {
+                Response.Redirect("/pageNotFound.aspx", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
+            }
+
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void BindUsedBikePhotos()
         {
             if (inquiryDetails != null && inquiryDetails.PhotosCount > 0)
@@ -92,61 +102,46 @@ namespace Bikewale.Mobile.Used
         /// </summary>
         private void BindProfileDetails()
         {
+            UsedBikeDetailsPage usedBikeDetails = null;
             try
             {
-                UsedBikeDetailsPage usedBikeDetails = new UsedBikeDetailsPage();
-                usedBikeDetails.InquiryId = this.inquiryId;
-                usedBikeDetails.BindUsedBikeDetailsPage(rptUsedBikePhotos);
-                pgTitle = usedBikeDetails.Title;
-                pgDescription = usedBikeDetails.Description;
-                pgKeywords = usedBikeDetails.Keywords;
-                pgCanonicalUrl = usedBikeDetails.CanonicalUrl;
-                inquiryDetails = usedBikeDetails.InquiryDetails;
-                firstImage = usedBikeDetails.FirstImage;
-                bikeName = usedBikeDetails.BikeName;
-                modelYear = usedBikeDetails.ModelYear;
-                moreBikeSpecsUrl = usedBikeDetails.MoreBikeSpecsUrl;
-                moreBikeFeaturesUrl = usedBikeDetails.MoreBikeFeaturesUrl;
-                profileId = string.Format("S{0}", inquiryId);
+                if (Request["profile"] != null)
+                {
+                    usedBikeDetails = new UsedBikeDetailsPage();
+
+                    usedBikeDetails.IsValidProfileId(Request.QueryString["profile"]);
+
+                    if (!usedBikeDetails.IsPageNotFoundRedirection)
+                    {
+                        inquiryId = usedBikeDetails.InquiryId;
+                        usedBikeDetails.BindUsedBikeDetailsPage();
+                        pgTitle = usedBikeDetails.Title;
+                        pgDescription = usedBikeDetails.Description;
+                        pgKeywords = usedBikeDetails.Keywords;
+                        pgCanonicalUrl = usedBikeDetails.CanonicalUrl;
+                        inquiryDetails = usedBikeDetails.InquiryDetails;
+                        firstImage = usedBikeDetails.FirstImage;
+                        bikeName = usedBikeDetails.BikeName;
+                        modelYear = usedBikeDetails.ModelYear;
+                        moreBikeSpecsUrl = usedBikeDetails.MoreBikeSpecsUrl;
+                        moreBikeFeaturesUrl = usedBikeDetails.MoreBikeFeaturesUrl;
+                        profileId = string.Format("S{0}", inquiryId);
             }
             catch (Exception ex)
             {
-
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " BindProfileDetails");
                 objErr.SendMail();
             }
-        }
-
-        /// <summary>
-        /// Created By  : Sushil Kumar  on   30th August 2016
-        /// Description : Function to validate profile id
-        /// </summary>
-        void ValidateProfileId()
-        {
-            try
-            {
-                if (Request["profile"] != null && Request.QueryString["profile"] != string.Empty && uint.TryParse(Request.QueryString["profile"].Substring(1), out inquiryId))
-                {
-
-                    if (inquiryId < 1)
-                    {
-                        Response.Redirect("/pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
                     }
-                }
-                else
-                {
-                    Response.Redirect("/pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " ValidateProfileId");
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Mobile.Used.BikeDetails.BindProfileDetails");
                 objErr.SendMail();
             }
-        }   //  End of ValidateProfileId
+
+
+        }
     }
 }

@@ -9,11 +9,15 @@
     keywords = pgKeywords;
     description = pgDescription;
     canonical = pgCanonicalUrl;
-    OGImage =  (firstImage!=null) ? Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImagePath,firstImage.HostUrl,Bikewale.Utility.ImageSize._310x174) : string.Empty;
+    OGImage =  (firstImage!=null) ? Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImagePath,firstImage.HostUrl,Bikewale.Utility.ImageSize._360x202) : string.Empty;
     AdPath = "/1017752/Bikewale_Mobile_Model";
     AdId = "1444028976556";
     Ad_320x50 = false;
     Ad_Bot_320x50 = false;
+    Ad_300x250 = false;
+    TargetedModel = inquiryDetails.Model.ModelName;
+    TargetedCity = inquiryDetails.City.CityName;
+    
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/used-details.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
@@ -21,14 +25,14 @@
 <body>
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
-
+        <% if(inquiryDetails!=null) { %>
         <section>
             <div class="container bg-white clearfix box-shadow margin-bottom10">
                 <h1 class="font16 padding-top15 padding-right20 padding-bottom15 padding-left20"><%= modelYear %>, <%= bikeName %></h1>
                 <div id="model-main-image">
                     <%if(inquiryDetails.PhotosCount > 0) { %>
-                    <a href="javascript:void(0)" class="model-gallery-target " rel="nofollow">
-                        <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImagePath,firstImage.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" alt="<%= bikeName %>" title="<%= bikeName %>" />
+                    <a href="javascript:void(0)" class="<%= inquiryDetails.PhotosCount > 1 ? "model-gallery-target " : string.Empty %>" rel="nofollow">
+                        <img src="<%= (firstImage!=null) ? Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImagePath,firstImage.HostUrl,Bikewale.Utility.ImageSize._360x202) : string.Empty %>" alt="<%= bikeName %>" title="<%= bikeName %>" />
                         <div class="model-media-details">
                             <div class="model-media-item">
                                 <span class="bwmsprite gallery-photo-icon"></span>
@@ -37,7 +41,7 @@
                         </div>
                     </a>
                     <% } else  { %>
-                    <div class=" no-image-content  " style="display: none">
+                    <div class=" no-image-content ">
                         <span class="bwmsprite no-image-icon"></span>
                         <p class="font12 text-bold text-light-grey margin-top5 margin-bottom15">Seller has not uploaded any photos</p>
                         <a href="javascript:void(0)" id="request-media-btn" class="btn btn-inv-teal btn-sm font14 text-bold" rel="nofollow">Request photos</a>
@@ -63,7 +67,7 @@
                     <% if(!string.IsNullOrEmpty(inquiryDetails.MinDetails.OwnerType)) { %>
                     <div class="grid-6 alpha omega margin-bottom5">
                         <span class="bwmsprite author-grey-sm-icon"></span>
-                        <span class="model-details-label"><%= inquiryDetails.MinDetails.OwnerType %> Owner</span>
+                        <span class="model-details-label"><%= Bikewale.Utility.Format.AddNumberOrdinal(Convert.ToUInt16(inquiryDetails.MinDetails.OwnerType),4) %> owner</span>
                     </div>
                     <% } %>
                      <% if (!string.IsNullOrEmpty(inquiryDetails.MinDetails.RegisteredAt))
@@ -102,7 +106,7 @@
                         </li>
                         <li>
                             <p class="specs-features-label">Manufacturing year</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatDate.GetDDMMYYYY(inquiryDetails.MinDetails.ModelYear.ToString()) %></p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatDate.GetFormatDate(inquiryDetails.MinDetails.ModelYear.ToString(),"MMM yyyy") %></p>
                         </li>
                          <% if (!string.IsNullOrEmpty(inquiryDetails.OtherDetails.Color.ColorName))
                             { %>
@@ -232,8 +236,9 @@
             <div id="modelSpecsFooter"></div>
         </section>
 
+        <% if(inquiryDetails.PhotosCount > 1) { %>
        <!-- gallery start -->
-<div id="model-gallery-container">
+        <div id="model-gallery-container">
     <p class="font16 text-white"><%=modelYear %>, <%= bikeName %> Photos</p>
     <div class="gallery-close-btn position-abt pos-top15 pos-right15 bwmsprite cross-md-white cur-pointer"></div>
 
@@ -250,7 +255,7 @@
                         <asp:Repeater ID="rptUsedBikePhotos" runat="server">
                             <ItemTemplate>
                                 <div class="swiper-slide">
-                                    <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>" alt="<%= bikeName %>" title="<%= bikeName %>" />
+                                    <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._360x202) %>" alt="<%= bikeName %>" title="<%= bikeName %>" />
                                     <span class="swiper-lazy-preloader"></span>
                                 </div>
                             </ItemTemplate>
@@ -281,6 +286,7 @@
     </div>
 </div>
         <!-- gallery end -->
+        <% } %>
         <!-- get seller details pop up start  -->
         <div id="get-seller-details-popup" class="bw-popup bwm-fullscreen-popup">
             <div class="popup-inner-container text-center">
@@ -446,7 +452,7 @@
             </div>
         </div>
         <!-- request for image popup ends -->
-
+        <% } %>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/used-details.js?<%= staticFileVersion %>"></script>

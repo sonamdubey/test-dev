@@ -26,6 +26,7 @@ namespace Bikewale.Utility
         public const string _144x81 = "144x81";
         public const string _227x128 = "227x128";
         public const string _310x174 = "310x174";
+        public const string _360x202 = "360x202";
         public const string _393x221 = "393x221";
         public const string _476x268 = "476x268";
         public const string _559x314 = "559x314";
