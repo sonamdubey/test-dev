@@ -33,6 +33,7 @@ namespace Bikewale.Mobile.Used
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        protected void InitializeComponent()
         {
             base.Load += new EventHandler(Page_Load);
         }
