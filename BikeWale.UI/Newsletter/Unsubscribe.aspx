@@ -3,6 +3,9 @@
 <%
 	// Define all the necessary meta-tags info here.	
 	Title 			= "Unsubscribe News-Letters";
+    //Modified By :Sajal Gupta on 03 August 2016
+    isAd300x250Shown = false;
+    isAd300x250BtfShown = false;
 %>
 <!-- #include file="/includes/headmybikewale.aspx" -->
 <div class="container_12">

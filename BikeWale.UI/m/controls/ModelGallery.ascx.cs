@@ -2,9 +2,6 @@
 using Bikewale.Entities.CMS.Photos;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.m.controls
@@ -12,7 +9,7 @@ namespace Bikewale.m.controls
     public class ModelGallery : System.Web.UI.UserControl
     {
         protected Repeater rptVideoNav, rptModelPhotos, rptNavigationPhoto;
-        public string bikeName = String.Empty;
+        public string bikeName = String.Empty, modelName = string.Empty;
         public int imageCount = 0, videoCount = 0;
         public int modelId;
         public List<ModelImage> Photos;
@@ -25,7 +22,7 @@ namespace Bikewale.m.controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Photos != null && Photos.Count > 1)
+            if (Photos != null && Photos.Count >= 1)
             {
                 BindModelGalleryWidget();
             }

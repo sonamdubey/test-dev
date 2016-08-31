@@ -15,6 +15,7 @@
     alternate = "http://www.bikewale.com/m/news/";
     AdId = "1395995626568";
     AdPath = "/1017752/BikeWale_News_";
+    isAd300x250Shown=false;
     
 %>
 <!-- #include file="/includes/headnews.aspx" -->
@@ -63,14 +64,14 @@
                                 <%# Regex.Match(Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")), @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
                                 <div class="margin-bottom10">
                                     <div class="article-image-wrapper">
-                                        <%#"<a href='/news/" + Eval("BasicId") + "-" + Eval("ArticleUrl") + ".html'><img src='" + Bikewale.Utility.Image.GetPathToShowImages(Eval("OriginalImgUrl").ToString(), Eval("HostUrl").ToString(),Bikewale.Utility.ImageSize._210x118) + "' alt='"+ Eval("Title") +"' title='"+ Eval("Title") +"' width='100%' border='0' /></a>" %>
+                                        <%# string.Format("<a href='{0}'><img src='{1}' alt='{2}' title='{2}' width='100%' border='0' /></a>",Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"BasicId")),Convert.ToString(DataBinder.Eval(Container.DataItem,"ArticleUrl")),Convert.ToString(DataBinder.Eval(Container.DataItem,"CategoryId"))),Bikewale.Utility.Image.GetPathToShowImages(Convert.ToString(DataBinder.Eval(Container.DataItem,"OriginalImgUrl")),Convert.ToString(DataBinder.Eval(Container.DataItem,"HostUrl")),Bikewale.Utility.ImageSize._210x118),Convert.ToString(DataBinder.Eval(Container.DataItem,"Title"))) %>
                                     </div>
                                     <div class="article-desc-wrapper">
                                         <div class="article-category">
                                             <span class="text-uppercase font12 text-bold"><%# GetContentCategory(DataBinder.Eval(Container.DataItem,"CategoryId").ToString()) %></span>
                                         </div>
                                         <h2 class="font14 margin-bottom8">
-                                            <a href="/news/<%# Eval("BasicId") %>-<%# Eval("ArticleUrl") %>.html" rel="bookmark" class="text-black text-bold"><%# Eval("Title") %></a>
+                                            <a href="<%# Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"BasicId")),Convert.ToString(DataBinder.Eval(Container.DataItem,"ArticleUrl")),Convert.ToString(DataBinder.Eval(Container.DataItem,"CategoryId"))) %>" rel="bookmark" class="text-black text-bold"><%# Eval("Title") %></a>
                                         </h2>
                                         <div class="font12 text-light-grey margin-bottom25">
                                             <div class="article-date">
@@ -82,11 +83,11 @@
                                             <div class="article-author">
                                                 <span class="bwsprite author-grey-icon inline-block"></span>
                                                 <span class="inline-block">
-                                                    <%# Eval("AuthorName") %>
+                                                    <%# DataBinder.Eval(Container.DataItem,"AuthorName") %>
                                                 </span>
                                             </div>
                                         </div>
-                                        <div class="font14"><%# Eval("Description") %><a href="/news/<%# Eval("BasicId") %>-<%# Eval("ArticleUrl") %>.html">Read full story</a></div>
+                                        <div class="font14"><%# DataBinder.Eval(Container.DataItem,"Description") %><a href="<%# Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"BasicId")),Convert.ToString(DataBinder.Eval(Container.DataItem,"ArticleUrl")),Convert.ToString(DataBinder.Eval(Container.DataItem,"CategoryId"))) %>">Read full story</a></div>
                                     </div>
                                     <div class="clear"></div>
                                 </div>

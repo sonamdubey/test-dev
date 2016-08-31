@@ -23,6 +23,8 @@
         isAd976x400FirstShown = true;
         isAd976x400SecondShown = true;
         isAd976x204 = true;
+        isAd300x250Shown = false;
+        isAd300x250BTFShown = false;
         PopupWidget.Visible = true;
     %>
     <!-- #include file="/includes/headscript.aspx" -->

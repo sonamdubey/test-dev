@@ -1,7 +1,11 @@
 <%@ Page Language="C#" Inherits="Bikewale.Used.UploadBasic" Trace="false" Debug="false" AutoEventWireUp="false"  ValidateRequest="false" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <% title = "Basic File Uploader"; %>
-<% isAd970x90Shown = false; %>
+<%
+    isAd300x250Shown = false;
+    isAd300x250BTFShown = false;
+        
+ %>
 <!-- #include file="/includes/headSell.aspx" -->
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/classified/sellbike.js?14sept2015"></script>
 <script language="javascript">

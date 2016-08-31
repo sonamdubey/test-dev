@@ -16,7 +16,9 @@
         private bool isHeaderFix = true, 
                     isAd970x90Shown = true,
                     isAd970x90BTFShown = false,
-                    isAd970x90BottomShown = true;
+                    isAd970x90BottomShown = true,
+                    is300x250Shown=true,
+                    is300x250BTFShown=true;
         private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
         private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script>
@@ -47,17 +49,26 @@
 
     <script type='text/javascript'>
         googletag.cmd.push(function () {
+             <% if(is300x250Shown){ %>
             googletag.defineSlot('<%= AdPath%>300x250', [300, 250], 'div-gpt-ad-<%= AdId%>-1').addService(googletag.pubads());
+            <% } %>
+
+             <% if(is300x250BTFShown){ %>
             googletag.defineSlot('<%= AdPath%>300x250_BTF', [300, 250], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());
+            <% } %>
+
             <% if(isAd970x90Shown){ %>
             googletag.defineSlot('<%= AdPath%>970x90', [[970, 66], [970, 60], [960, 90], [950, 90], [960, 66], [728, 90], [960, 60], [970, 90]], 'div-gpt-ad-<%= AdId%>-3').addService(googletag.pubads());
             <% } %>
+
             <% if(isAd970x90BTFShown){ %>
             googletag.defineSlot('<%= AdPath%>970x90_BTF', [[970, 200], [970, 150], [960, 60], [970, 66], [960, 90], [970, 60], [728, 90], [970, 90], [960, 66]], 'div-gpt-ad-<%= AdId%>-4').addService(googletag.pubads());
             <% } %>
+
             <% if(isAd970x90BottomShown){ %>
             googletag.defineSlot('<%= AdPath%>Bottom_970x90', [[970, 60], [960, 90], [970, 66], [960, 66], [728, 90], [970, 90], [950, 90], [960, 60]], 'div-gpt-ad-<%= AdId%>-5').addService(googletag.pubads());
             <% } %>
+
             <%-- googletag.defineSlot('<%= AdPath%>300x600_BTF', [[120, 240], [120, 600], [160, 600], [250, 250], [300, 250], [300, 600]], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());
            --%>
             googletag.pubads().collapseEmptyDivs();

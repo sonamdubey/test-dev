@@ -1,12 +1,15 @@
 ﻿using Bikewale.BAL.ABServiceRef;
+using Bikewale.DAL.Dealer;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 
 namespace Bikewale.BAL.PriceQuote
 {
@@ -15,6 +18,8 @@ namespace Bikewale.BAL.PriceQuote
     /// Description :   Lead Notification BL
     /// Modified BY : Lucky Rathore on 12 May 2016
     /// Description : Signature of Notify Dealer and SendEmailToDealer changed.
+    /// Modified by :   Sumit Kate on 18 Aug 2016
+    /// Description :   Push Lead To Gaadi.com external API
     /// </summary>
     public class LeadNotificationBL : ILeadNofitication
     {
@@ -161,6 +166,55 @@ namespace Bikewale.BAL.PriceQuote
                 ErrorClass objErr = new ErrorClass(ex, "LeadNotificationBL.PushtoAB");
                 objErr.SendMail();
             }
+        }
+
+        /// <summary>
+        /// Created By  :   Sumit Kate on 18 Aug 2016
+        /// Description :   Push Lead To Gaadi.com external API
+        /// </summary>
+        /// <param name="leadEntity"></param>
+        /// <returns></returns>
+        public bool PushLeadToGaadi(Entities.Dealer.ManufacturerLeadEntity leadEntity)
+        {
+            string leadURL = string.Empty;
+            string response = string.Empty;
+            bool isSuccess = false;
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IPriceQuote, Bikewale.BAL.PriceQuote.PriceQuote>().
+                    RegisterType<IDealer, DealersRepository>();
+                    IPriceQuote objPriceQuote = container.Resolve<IPriceQuote>();
+                    BikeQuotationEntity quotation = objPriceQuote.GetPriceQuoteById(leadEntity.PQId);
+                    leadURL = String.Format("http://hondalms.gaadi.com/lms/externalApi/girnarLeadHMSIApi.php?name={0}&email={1}&mobile={2}&city={3}&state={4}&make={5}&model={6}&sub_source=bikewale", leadEntity.Name, leadEntity.Email, leadEntity.Mobile, quotation.City, quotation.State, quotation.MakeName, quotation.ModelName);
+
+                    using (HttpClient httpClient = new HttpClient())
+                    {
+                        using (HttpResponseMessage _response = httpClient.GetAsync(leadURL).Result)
+                        {
+                            if (_response.IsSuccessStatusCode)
+                            {
+                                if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
+                                {
+                                    response = _response.Content.ReadAsStringAsync().Result;
+                                    IDealer objDealer = container.Resolve<IDealer>();
+                                    objDealer.UpdateManufaturerLead(leadEntity.PQId, leadEntity.Email, leadEntity.Mobile, response);
+                                    _response.Content.Dispose();
+                                    _response.Content = null;
+                                    isSuccess = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "LeadNotificationBL.PushLeadToGaadi");
+                objErr.SendMail();
+            }
+            return isSuccess;
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.Controls.LeadCaptureControl" %>
 
 <style>
-    #leadCapturePopup .bw-blackbg-tooltip,#leadCapturePopup .error-icon,.dealer-brand-wrapper{display:none}#leadCapturePopup .leadCapture-close-btn{z-index:2}.btn-grey{background:#fff;color:#82888b;border:1px solid #82888b}.btn-grey:hover{background:#82888b;color:#fff;text-decoration:none;border:1px solid #82888b}#notifyAvailabilityContainer{min-height:320px;background:#fff;margin:0 auto;padding:10px;position:fixed;top:10%;right:5%;left:5%;z-index:10}#notify-form .grid-12{padding:10px 20px}.personal-info-notify-container input{margin:0 auto}.notify-offers-list{list-style:disc;margin-left:10px}#notifyAvailabilityContainer .notify-close-btn{z-index:2}.float-button{background-color:#f5f5f5;padding:10px}.float-button.float-fixed{position:fixed;bottom:0;z-index:8;left:0;right:0}#getMobile{padding:9px 40px}.mobile-prefix{position:absolute;padding:10px 13px 13px;color:#999;z-index:2}.thankyou-icon{width:48px;height:58px;background-position:-137px -404px}#brandSearchBar{padding:0;background:#f5f5f5;z-index:11;position:fixed;left:100%;top:0;overflow-y:scroll;width:100%;height:100%}#brandSearchBar li{text-align:left;border-top:1px solid #ccc;font-size:14px;padding:15px 10px;color:#333;cursor:pointer}#brandSearchBar li:hover{background:#ededed}.bwm-dealer-brand-box .back-arrow-box{height:30px;width:40px;top:5px;z-index:11;cursor:pointer}.bwm-dealer-brand-box span.back-long-arrow-left{position:absolute;top:7px;left:10px}.bwm-dealer-brand-box .back-arrow-box{position:absolute;left:5px}.bwm-dealer-brand-box .form-control{padding:10px 50px}.activeBrand{font-weight:700;background-color:#ddd}.dealer-search-brand-form{padding:10px 25px 10px 10px;cursor:pointer;background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png?v1=19082015) 96% 50% no-repeat #fff;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-radius:2px;border:1px solid #ccc}.dealer-search-brand{width:100%;height:40px}.border-red{border:1px solid red!important}
+    #leadCapturePopup .bw-blackbg-tooltip,#leadCapturePopup .error-icon,.dealer-brand-wrapper{display:none}#leadCapturePopup .leadCapture-close-btn{z-index:2}.btn-grey{background:#fff;color:#82888b;border:1px solid #82888b}.btn-grey:hover{background:#82888b;color:#fff;text-decoration:none;border:1px solid #82888b}#notifyAvailabilityContainer{min-height:320px;background:#fff;margin:0 auto;padding:10px;position:fixed;top:10%;right:5%;left:5%;z-index:10}#notify-form .grid-12{padding:10px 20px}.personal-info-notify-container input{margin:0 auto}.notify-offers-list{list-style:disc;margin-left:10px}#notifyAvailabilityContainer .notify-close-btn{z-index:2}.float-button{background-color:#f5f5f5;padding:10px}.float-button.float-fixed{position:fixed;bottom:0;z-index:8;left:0;right:0}#getMobile{padding:9px 40px}.mobile-prefix{position:absolute;padding:10px 13px 13px;color:#999;z-index:2}.thankyou-icon{width:50px;height:50px;background-position:-137px -404px}#brandSearchBar{padding:0;background:#f5f5f5;z-index:11;position:fixed;left:100%;top:0;overflow-y:scroll;width:100%;height:100%}#brandSearchBar li{text-align:left;border-top:1px solid #ccc;font-size:14px;padding:15px 10px;color:#333;cursor:pointer}#brandSearchBar li:hover{background:#ededed}.bwm-dealer-brand-box .back-arrow-box{height:30px;width:40px;top:5px;z-index:11;cursor:pointer}.bwm-dealer-brand-box span.back-long-arrow-left{position:absolute;top:7px;left:10px}.bwm-dealer-brand-box .back-arrow-box{position:absolute;left:5px}.bwm-dealer-brand-box .form-control{padding:10px 50px}.activeBrand{font-weight:700;background-color:#ddd}.dealer-search-brand-form{padding:10px 25px 10px 10px;cursor:pointer;background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png?v1=19082015) 96% 50% no-repeat #fff;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-radius:2px;border:1px solid #ccc}.dealer-search-brand{width:100%;height:40px}.border-red{border:1px solid red!important}#notify-response .icon-outer-container{width:72px;height:72px;}#notify-response .icon-inner-container{width:64px;height:64px;margin:3px auto;}
 </style>
 <!-- Lead Capture pop up start  -->
 <div id="leadCapturePopup" class="bw-popup bwm-fullscreen-popup contact-details hide">
@@ -61,11 +61,13 @@
         <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
             <div class="icon-outer-container rounded-corner50percent">
                 <div class="icon-inner-container rounded-corner50percent">
-                    <span class="bwmsprite thankyou-icon margin-top25"></span>
+                    <span class="bwmsprite thankyou-icon margin-top10"></span>
                 </div>
             </div>
             <p class="font18 text-bold margin-top20 margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
-            <p class="font16 margin-bottom40">Thank you for providing your details. <span data-bind="text : dealerName()"></span><span data-bind="    visible : dealerArea() && dealerArea().length > 0 ,text : ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
+            
+            <p class="font16 margin-bottom40" data-bind="visible : !(campaignId() > 0)">Thank you for providing your details. <span data-bind="text : dealerName()"></span><span data-bind="visible : dealerArea() && dealerArea().length > 0 ,text : ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
+            <p class="font16 margin-bottom40" data-bind="visible: (campaignId() > 0)"><span data-bind="    text: dealerName()"></span> Company would get back to you shortly with additional information.</p>
             <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
         </div>
         <!-- thank you message ends here -->
@@ -75,16 +77,16 @@
 
 <script type="text/javascript">
 
-    var leadBtnBookNow = $(".leadcapturebtn"), leadCapturePopup = $("#leadCapturePopup"),leadBike = $("#getLeadBike");
+    var leadBtnBookNow = $(".leadcapturebtn"), leadCapturePopup = $("#leadCapturePopup"), leadBike = $("#getLeadBike");
     var fullName = $("#getFullName");
     var emailid = $("#getEmailID");
     var mobile = $("#getMobile");
     var detailsSubmitBtn = $("#user-details-submit-btn");
     var prevEmail = "";
     var prevMobile = "";
-    var leadmodelid =  <%= ModelId %>, leadcityid = <%= CityId %>, leadareaid =  <%= AreaId %>;
-    //var getCityArea = GetGlobalCityArea();
-
+    var leadmodelid = '<%= ModelId %>', leadcityid = '<%= CityId %>', leadareaid = '<%= AreaId %>';
+    var CityArea = '<%=cityName%>' + '<%=areaName != "" ? "_" + areaName : "" %>';
+    
 
     $(function () {
 
@@ -92,7 +94,6 @@
             leadCapturePopup.show();
             $("#notify-response").hide();
             $("div#contactDetailsPopup").show();
-            //$('body').addClass('lock-browser-scroll');
             $(".blackOut-window").show();
         });
 
@@ -183,7 +184,8 @@
         self.dealerBikes = ko.observableArray([]);
         self.selectedBike = ko.observable();
         self.campaignId = ko.observable();
-        
+        self.mfgCampaignId = ko.observable();
+        self.GAObject = ko.observable();
         self.setOptions = function(options)
         {
             if(options!=null)
@@ -212,6 +214,11 @@
                 if(options.campid!=null)
                     self.campaignId(options.campid);
 
+                if (options.mfgCampid != null)
+                {
+                    self.mfgCampaignId(options.mfgCampid);
+                }
+
                 if(options.isdealerbikes!=null && options.isdealerbikes)
                 {
                     self.isDealerBikes(options.isdealerbikes);
@@ -223,6 +230,11 @@
 
                 if(options.clientip!=null)
                     self.clientIP = options.clientip;
+                if (options.pqid != null)
+                    self.pqId(options.pqid);
+
+                if (options.gaobject != null)
+                    self.GAObject(options.gaobject);
             }
         };
 
@@ -330,6 +342,16 @@
 
         }
 
+        self.pushToGA = function (data, event) {
+         
+            if (data != null && data.act != null) {
+                if (data.lab == "lead_label") {
+                    data.lab = self.selectedBike().make.makeName + '_' + self.selectedBike().model.modelName + '_' + CityArea;
+                }
+                triggerGA(data.cat, data.act, data.lab)
+            }
+        }
+
         self.verifyCustomer = function (data, event) {
             
             if(self.isRegisterPQ())
@@ -364,32 +386,41 @@
                         var obj = ko.toJS(response);
                         self.IsVerified(obj.isSuccess);
                     },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        self.IsVerified(false);
+                    complete: function (xhr, ajaxOptions, thrownError) {
+                        if (xhr.status != 200)
+                            self.IsVerified(false);
+
+                       self.pushToGA(self.GAObject());
                     }
                 });
             }
         };
 
         self.submitLead = function (data, event) {
-            self.IsVerified(false);
-            isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
+          
+            if (self.mfgCampaignId() > 0) {
+                self.submitCampaignLead(data, event);
+            }
+            else {
 
-            if (self.dealerId() && isValidDetails) {
-                self.verifyCustomer();
-                if (self.IsVerified()) {
+                self.IsVerified(false);
+                isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
 
-                    $("#contactDetailsPopup").hide();
-                    $("#personalInfo").hide()
-                    $("#notify-response").fadeIn();
+                if (self.dealerId() && isValidDetails) {
+                    self.verifyCustomer();
+                    if (self.IsVerified()) {
 
+                        $("#contactDetailsPopup").hide();
+                        $("#personalInfo").hide()
+                        $("#notify-response").fadeIn();
+                    }
+                    else {
+                        $("#leadCapturePopup").show();
+                        $('body').addClass('lock-browser-scroll');
+                        $(".blackOut-window").show();
+                    }
+                    setPQUserCookie();
                 }
-                else {
-                    $("#leadCapturePopup").show();
-                    $('body').addClass('lock-browser-scroll');
-                    $(".blackOut-window").show();
-                }
-                setPQUserCookie();
             }
         };
 
@@ -489,6 +520,58 @@
             }
 
             return isValid;
+        };
+
+        self.submitCampaignLead = function (data, event) {            
+            var isValidCustomer = self.validateUserInfo(fullName, emailid, mobile);
+
+            if (isValidCustomer && self.mfgCampaignId() > 0) {
+
+                if (self.isRegisterPQ())
+                    self.generatePQ(data, event);
+
+                $('#processing').show();
+                var objCust = {
+                    "dealerId": self.dealerId(),
+                    "pqId": self.pqId(),
+                    "name": self.fullName(),
+                    "mobile": self.mobileNo(),
+                    "email": self.emailId(),
+                    "versionId": self.versionId(),
+                    "cityId": self.cityId(),
+                    "leadSourceId": self.leadSourceId(),
+                    "deviceId": getCookie('BWC')
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "/api/ManufacturerLead/",
+                    data: ko.toJSON(objCust),
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('utma', getCookie('__utma'));
+                        xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
+                    },
+                    async: false,
+                    contentType: "application/json",
+                    dataType: 'json',
+                    success: function (response) {                        
+                        $("#personalInfo,#otpPopup").hide();
+                        $('#processing').hide();
+
+                        $("#contactDetailsPopup").hide();
+                        $('#notify-response .notify-leadUser').text(self.fullName());
+                        $('#notify-response').show();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        $('#processing').hide();
+                        $("#contactDetailsPopup, #otpPopup").hide();
+                        var leadMobileVal = mobile.val();
+                        nameValTrue();
+                        hideError(self.mobileNo());
+                    }
+                });
+
+                setPQUserCookie();                
+            }
         };
     }
 

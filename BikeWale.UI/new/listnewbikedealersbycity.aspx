@@ -44,7 +44,7 @@
                 <a itemprop="url" href="/new/locate-dealers/"><span itemprop="title">New Bike Dealers</span></a>
             </li>
             <li class="fwd-arrow">&rsaquo;</li>
-            <li class="current"><strong><%=objMMV.Make%> Dealers/Showrooms</strong></li>
+            <li class="current"><strong><%=objMMV.Make%> Bikes Dealers/Showrooms</strong></li>
         </ul>
         <div class="clear"></div>
     </div>

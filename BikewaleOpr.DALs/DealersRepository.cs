@@ -1,4 +1,5 @@
 ﻿using Bikewale.Notifications;
+using Bikewale.Utility.Terms;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Interface;
 using MySql.CoreDAL;
@@ -8,8 +9,10 @@ using System.Data;
 using System.Data.Common;
 using System.Web;
 
+
 namespace BikewaleOpr.DAL
 {
+
     public class DealersRepository : IDealers
     {
         /// <summary>
@@ -511,6 +514,9 @@ namespace BikewaleOpr.DAL
         /// 
         /// Modified By : Suresh Prajapati on 30th Dec, 2014
         /// Description : Added City name column in the list
+        /// 
+        ///Modified By : Aditi Srivastava on 3rd Aug, 2016
+        /// Description : Added terms and conditions parameter in  offerEntity
         /// </summary>
         /// <param name="cityId"></param>
         /// <param name="dealerId"></param>
@@ -540,17 +546,20 @@ namespace BikewaleOpr.DAL
                             while (dr.Read())
                             {
                                 objOffer = new OfferEntity();
-                                objOffer.objMake = new BikeMakeEntityBase() { MakeName = dr["MakeName"].ToString() };
-                                objOffer.objModel = new BikeModelEntityBase() { ModelName = dr["ModelName"].ToString() };
-                                objOffer.objCity = new CityEntityBase() { CityName = dr["CityName"].ToString() };
+                                objOffer.objMake = new BikeMakeEntityBase() { MakeName = Convert.ToString(dr["MakeName"]) };
+                                objOffer.objModel = new BikeModelEntityBase() { ModelName = Convert.ToString(dr["ModelName"]) };
+                                objOffer.objCity = new CityEntityBase() { CityName = Convert.ToString(dr["CityName"]) };
                                 objOffer.OfferId = Convert.ToUInt32(dr["Id"]);
-                                objOffer.OfferType = dr["OfferType"].ToString();
-                                objOffer.OfferTypeId = Convert.ToUInt32(dr["OfferTypeId"].ToString());
-                                objOffer.OfferText = dr["OfferText"].ToString();
-                                objOffer.OfferValue = Convert.ToUInt32(dr["OfferValue"].ToString());
-                                if (!String.IsNullOrEmpty(dr["OfferValidTill"].ToString()))
-                                    objOffer.OffervalidTill = DateTime.Parse(dr["OfferValidTill"].ToString());
+                                objOffer.OfferType = Convert.ToString(dr["OfferType"]);
+                                objOffer.OfferTypeId = Convert.ToUInt32(dr["OfferTypeId"]);
+                                objOffer.OfferText = Convert.ToString(dr["OfferText"]);
+                                objOffer.OfferValue = Convert.ToUInt32(dr["OfferValue"]);
+                                if (!String.IsNullOrEmpty(Convert.ToString(dr["OfferValidTill"])))
+                                    objOffer.OffervalidTill = DateTime.Parse(Convert.ToString(dr["OfferValidTill"]));
                                 objOffer.IsPriceImpact = Convert.ToBoolean(Convert.ToString(dr["IsPriceImpact"]));
+                                if (!String.IsNullOrEmpty(Convert.ToString(dr["Terms"])))
+                                    objOffer.Terms = Convert.ToString(dr["Terms"]);
+
                                 objOffers.Add(objOffer);
                             }
                         }
@@ -573,6 +582,10 @@ namespace BikewaleOpr.DAL
         /// 
         /// Modified By : Suresh Prajapati on 30th Dec, 2014.
         /// Description : Added UserId saving feature for saved dealer offer.
+        /// 
+        /// Modified By: Aditi Srivastava on 8th Aug, 2016
+        /// Description: To save terms and conditions enclosed in <ol><li> tags
+        /// 
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="cityId"></param>
@@ -583,10 +596,11 @@ namespace BikewaleOpr.DAL
         /// <param name="offervalidTill"></param>
         /// <returns></returns>
 
-        public bool SaveDealerOffer(int dealerId, uint userId, int cityId, string modelId, int offercategoryId, string offerText, int? offerValue, DateTime offervalidTill, bool isPriceImpact)
+        public bool SaveDealerOffer(int dealerId, uint userId, int cityId, string modelId, int offercategoryId, string offerText, int? offerValue, DateTime offervalidTill, bool isPriceImpact, string terms)
         {
 
             bool isSuccess = false;
+
 
             try
             {
@@ -605,6 +619,8 @@ namespace BikewaleOpr.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isPriceImpact", DbType.Boolean, isPriceImpact));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_IsActive", DbType.Boolean, Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_result", DbType.Byte, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_terms", DbType.String, -1, terms));
+
                     MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                     isSuccess = Convert.ToBoolean(cmd.Parameters["par_result"].Value);
 
@@ -622,6 +638,9 @@ namespace BikewaleOpr.DAL
         /// <summary>
         /// Created By  : Suresh Prajapati on 28th Dec, 2014.
         /// Description : To Edit/Update added Bike offers
+        /// 
+        /// Modified By: Aditi Srivastava
+        /// Description: Added html formatting for updating terms and conditions
         /// </summary>
         /// <param name="offerId"></param>
         /// <param name="userId"></param>
@@ -629,8 +648,10 @@ namespace BikewaleOpr.DAL
         /// <param name="offerText"></param>
         /// <param name="offerValue"></param>
         /// <param name="offerValidTill"></param>
-        public void UpdateDealerBikeOffers(uint offerId, uint userId, uint offerCategoryId, string offerText, uint? offerValue, DateTime offerValidTill, bool isPriceImpact)
+        public void UpdateDealerBikeOffers(uint offerId, uint userId, uint offerCategoryId, string offerText, uint? offerValue, DateTime offerValidTill, bool isPriceImpact, string terms)
         {
+            TermsHtmlFormatting htmlFormatFunction = new TermsHtmlFormatting();
+
             try
             {
 
@@ -649,7 +670,7 @@ namespace BikewaleOpr.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferValue", DbType.Int32, offerValue));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferValidTill", DbType.DateTime, offerValidTill));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isPriceImpact", DbType.Boolean, isPriceImpact));
-
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_terms", DbType.String, htmlFormatFunction.MakeHtmlList(terms)));
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }

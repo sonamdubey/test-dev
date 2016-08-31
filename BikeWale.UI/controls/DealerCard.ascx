@@ -33,8 +33,9 @@
                             </p>
                             <% if (!IsDiscontinued)
                                { %>
-                            <input type="button" data-leadsourceid="<%= LeadSourceId %>" data-pqsourceid="<%= PQSourceId %>" data-item-name="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-item-area="<%# (DataBinder.Eval(Container.DataItem,"objArea")!=null) ? DataBinder.Eval(Container.DataItem,"objArea.AreaName") : "" %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>"
-                                data-camp-id="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>" class="btn btn-grey btn-md font14 leadcapturebtn <%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>" value="Get offers from dealer" />
+                           
+                            <input type="button" c="<%=pageName%>" a="Get_Offers_Clicked" v="bikeCity" data-leadsourceid="<%= LeadSourceId %>" data-pqsourceid="<%= PQSourceId %>" data-item-name="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-item-area="<%# (DataBinder.Eval(Container.DataItem,"objArea")!=null) ? DataBinder.Eval(Container.DataItem,"objArea.AreaName") : "" %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>"
+                                data-camp-id="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>" class="btn btn-grey btn-md font14 leadcapturebtn <%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %> bw-ga" value="Get offers from dealer" />
                             <%} %>
                         </div>
                         <div class="clear"></div>
@@ -51,7 +52,7 @@
    { %>
 <div id="makeDealersContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
     <h2 class="padding-left10 padding-right10"><%= makeName %> Dealers in India</h2>
-    <div class="jcarousel-wrapper bike-carousel-wrapper margin-bottom15">
+    <div class="jcarousel-wrapper inner-content-carousel margin-bottom15">
         <div class="jcarousel">
             <ul>
                 <asp:Repeater ID="rptPopularCityDealers" runat="server">
@@ -76,3 +77,8 @@
 </div>
 <% } %>
 <% } %>
+ <script type="text/javascript">
+ 
+
+     var bikeCity='<%=makeName%> '+'_'+'<%=cityName%>'
+     </script>

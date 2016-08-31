@@ -475,10 +475,6 @@
       <DependentUpon>LocateDealer_New.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\LoginControl.ascx.cs">
-      <DependentUpon>LoginControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="controls\LoginControlNew.ascx.cs">
       <DependentUpon>LoginControlNew.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -569,10 +565,6 @@
     </Compile>
     <Compile Include="controls\RecentLaunchedBikesMin.ascx.cs">
       <DependentUpon>RecentLaunchedBikesMin.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\RegisterControl.ascx.cs">
-      <DependentUpon>RegisterControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\RepeaterPager.ascx.cs">
@@ -879,6 +871,10 @@
       <DependentUpon>dealersinindia.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\new\ModelGallery.aspx.cs">
+      <DependentUpon>ModelGallery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\new\ModelPricesInCity.aspx.cs">
       <DependentUpon>ModelPricesInCity.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -975,12 +971,16 @@
       <DependentUpon>BookingSummary_New.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\pricequote\DealerPriceQuote.aspx.cs">
+      <DependentUpon>DealerPriceQuote.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\pricequote\DealerPriceQuote_old.aspx.cs">
       <DependentUpon>DealerPriceQuote_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\pricequote\DealerPriceQuote.aspx.cs">
-      <DependentUpon>DealerPriceQuote.aspx</DependentUpon>
+    <Compile Include="m\pricequote\DealerPriceQuote_02082016.aspx.cs">
+      <DependentUpon>DealerPriceQuote_02082016.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\pricequote\Default.aspx.cs">
@@ -1290,10 +1290,6 @@
     </Compile>
     <Compile Include="users\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="users\Register.aspx.cs">
-      <DependentUpon>Register.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="users\ResetCustomerPassword.aspx.cs">
@@ -1689,7 +1685,6 @@
     <Content Include="controls\LinkPagerControl.ascx" />
     <Content Include="controls\LocateDealer.ascx" />
     <Content Include="controls\LocateDealer_New.ascx" />
-    <Content Include="controls\LoginControl.ascx" />
     <Content Include="controls\LoginControlNew.ascx" />
     <Content Include="controls\loginStatus.ascx" />
     <Content Include="controls\LoginStatusNew.ascx" />
@@ -1714,7 +1709,6 @@
     <Content Include="controls\PhotoGallaryMin.ascx" />
     <Content Include="controls\PriceInTopCities.ascx" />
     <Content Include="controls\RecentLaunchedBikesMin.ascx" />
-    <Content Include="controls\RegisterControl.ascx" />
     <Content Include="controls\RepeaterPager.ascx" />
     <Content Include="controls\RepeaterPagerAdvanced.ascx" />
     <Content Include="controls\RepeaterPagerUsed.ascx" />
@@ -1771,6 +1765,7 @@
     <Content Include="css\insurance.css" />
     <Content Include="css\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="css\jquery.ad-gallery.css" />
+    <Content Include="css\login.css" />
     <Content Include="css\model.css" />
     <Content Include="css\newbikes.css" />
     <Content Include="css\new\modelprice-in-city.css" />
@@ -2122,6 +2117,7 @@
     <Content Include="ads\Ad976x400_First.aspx" />
     <Content Include="ads\Ad976x400_Second.aspx" />
     <Content Include="includes\footer.aspx" />
+    <Content Include="includes\footerloginBW.aspx" />
     <Content Include="includes\footerBW.aspx" />
     <Content Include="includes\footerBW_Mobile.aspx" />
     <Content Include="includes\footerHome.aspx" />
@@ -2218,12 +2214,14 @@
     <Content Include="m\css\bwm-model.css" />
     <Content Include="m\css\bwm-newbikes.css" />
     <Content Include="m\css\dealerpricequote.css" />
+    <Content Include="m\css\dealerpricequote-old.css" />
     <Content Include="m\css\design.css" />
     <Content Include="m\css\home.css" />
     <Content Include="m\css\insurance.css" />
     <Content Include="m\css\jqm-demos.css" />
     <Content Include="m\css\jquery.mobile-1.4.2.min.css" />
     <Content Include="m\css\mobile-rsa.css" />
+    <Content Include="m\css\model-gallery.css" />
     <Content Include="m\css\new.css" />
     <Content Include="m\css\new\bwm-bookinglisting.css" />
     <Content Include="m\css\new\bwm-modelprice-in-city.css" />
@@ -2233,6 +2231,7 @@
     <Content Include="m\customerror.aspx" />
     <Content Include="m\new\dealersinstate.aspx" />
     <Content Include="m\new\dealersinindia.aspx" />
+    <Content Include="m\new\ModelGallery.aspx" />
     <Content Include="m\new\ModelPricesInCity.aspx" />
     <Content Include="m\new\ModelSpecsFeatures.aspx" />
     <Content Include="m\new\newbikedealers\DealerDetails.aspx" />
@@ -2285,8 +2284,9 @@
     <Content Include="m\pricequote\BikeDealerDetails.aspx" />
     <Content Include="m\pricequote\BookingSummary.aspx" />
     <Content Include="m\pricequote\BookingSummary_New.aspx" />
-    <Content Include="m\pricequote\DealerPriceQuote_old.aspx" />
     <Content Include="m\pricequote\DealerPriceQuote.aspx" />
+    <Content Include="m\pricequote\DealerPriceQuote_old.aspx" />
+    <Content Include="m\pricequote\DealerPriceQuote_02082016.aspx" />
     <Content Include="m\pricequote\Default.aspx" />
     <Content Include="m\pricequote\DetailedDealerQuotation.aspx" />
     <Content Include="m\pricequote\PaymentConfirmation.aspx" />
@@ -2307,6 +2307,7 @@
     <Content Include="m\src\dealerdetail.js" />
     <Content Include="m\src\dealerlisting.js" />
     <Content Include="m\src\dealerpricequote.js" />
+    <Content Include="m\src\dealerpricequote-old.js" />
     <Content Include="m\src\dealersbylocation.js" />
     <Content Include="m\src\frameworks.js" />
     <Content Include="m\src\home.js" />
@@ -2315,6 +2316,7 @@
     <Content Include="m\src\insurance.js" />
     <Content Include="m\src\jquery-1.10.2.min.js" />
     <Content Include="m\src\jquery.mobile-1.4.2.min.js" />
+    <Content Include="m\src\model-gallery.js" />
     <Content Include="m\src\newbikes.js" />
     <!-- <Content Include="m\src\new\bwm-search.js" /> -->
     <Content Include="m\src\BikeBooking\bookinglisting.js" />
@@ -2470,10 +2472,8 @@
     <Content Include="users\changePassword.aspx" />
     <Content Include="users\EditCustomerDetails.aspx" />
     <Content Include="users\newssubscription.aspx" />
-    <Content Include="users\ForgotPassword.aspx" />
     <Content Include="users\Login.aspx" />
     <Content Include="users\MyContactDetails.aspx" />
-    <Content Include="users\Register.aspx" />
     <Content Include="users\registrationConfirmation.aspx" />
     <Content Include="users\ResetCustomerPassword.aspx" />
     <Content Include="Videos\default.aspx" />

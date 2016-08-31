@@ -11,6 +11,8 @@
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
     alternate = "http://www.bikewale.com/m/" + MakeMaskingName + "-bikes/" + ModelMaskingName + "/user-reviews/" + reviewerId + ".html";
+    //modified by SajalGupta for unfilled impression of ads on 04 Aug 2016.
+    isAd300x250Shown = false;
 %>
 <!-- #include file="/includes/headnew.aspx" -->
 <div class="container_12">
@@ -24,30 +26,24 @@
             </li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                <a href="/new/" itemprop="url">
-                    <span itemprop="title">New</span>
-                </a>
-            </li>
-            <li class="fwd-arrow">&rsaquo;</li>
-            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                 <a href="/<%= MakeMaskingName%>-bikes/" itemprop="url">
-                    <span itemprop="title"><%= BikeMake%></span>
+                    <span itemprop="title"><%= BikeMake%> Bikes</span>
                 </a>
             </li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                 <a href="/<%= MakeMaskingName%>-bikes/<%= ModelMaskingName%>/" itemprop="url">
-                    <span itemprop="title"><%= BikeModel%></span>
+                    <span itemprop="title"><%= BikeMake%> <%= BikeModel%></span>
                 </a>
             </li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                 <a href="/<%= MakeMaskingName%>-bikes/<%= ModelMaskingName%>/user-reviews/" itemprop="url">
-                    <span itemprop="title"><%=BikeModel%> Reviews</span>
+                    <span itemprop="title">User Reviews</span>
                 </a>
             </li>
-            <li class="fwd-arrow">&rsaquo;</li>
-            <li class="current"><strong>User Reviews</strong></li>
+             <li class="fwd-arrow">&rsaquo;</li>
+            <li class="current"><strong><%= _title %></strong></li>
         </ul>
         <div class="clear"></div>
     </div>

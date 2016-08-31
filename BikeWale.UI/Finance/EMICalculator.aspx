@@ -6,7 +6,7 @@
     description = "EMI Calculator for new and used Bike loans. Calculate accurate Bike loan emi in advanced and arrears finance modes.";
     AdId = "1395991249804";
     AdPath = "/1017752/BikeWale_EMICalculator_";
-    
+    isAd300x250Shown = false;
 %>
 <!-- #include file="/includes/headTools.aspx" -->
 <script type="text/javascript" src="/src/calculateemi.js?v=1.0"></script>
@@ -162,6 +162,9 @@ All loan figures are based upon non-commercial usage and are subject to credit a
         <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
         <!-- #include file="/ads/Ad300x250.aspx" -->   
         </div>--%>
+
+        
+
     </div>
 </div>
 

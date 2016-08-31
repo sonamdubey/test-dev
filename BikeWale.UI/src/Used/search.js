@@ -607,7 +607,7 @@ function rowExpend(){
             expnd_row.find("#front_image").attr('src', compImgUrl).css({ 'cursor': 'pointer' });
             expnd_row.find("#photo_count").text(currRow.find("#photo_count").val() + " Photos");
         } else {
-            expnd_row.find("#front_image").attr('src', 'http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/nobike.jpg').css({ 'cursor': 'default' });
+            expnd_row.find("#front_image").attr('src', 'http://imgd3.aeplcdn.com/0x0/bikewaleimg/images/noimage.png').css({ 'cursor': 'default' });
             expnd_row.find("#photo_count").text("");
         }
 

@@ -12,6 +12,8 @@ namespace Bikewale.Entities.PriceQuote
     /// Modified By : Lucky Rathore
     /// Modified on : 21 March 2016
     /// Description : DealerPkgType added.
+    /// Modified by :   Sumit Kate on 01 Aug 2016
+    /// Description :   Added Offer Count and Distance
     /// </summary>
     [Serializable, DataContract]
     public class NewBikeDealerBase

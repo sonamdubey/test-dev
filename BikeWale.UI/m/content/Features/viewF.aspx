@@ -3,7 +3,7 @@
     title = pageTitle + " - Bikewale ";
     keywords = "features, stories, travelogues, specials, drives";
     description = "";
-    canonical = "http://www.bikewale.com" + baseUrl;
+    canonical = "http://www.bikewale.com" + url;
     AdPath = "/1017752/Bikewale_Mobile_NewBikes";
     AdId = "1398766302464";
     menu = "8";

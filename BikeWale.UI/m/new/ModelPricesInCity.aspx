@@ -118,7 +118,7 @@
                 <div class="grid-12 float-button float-fixed">
                     <p class="grid-6 font13 select-area-label text-light-grey">Please select area to get accurate on-road price</p>
                     <p class="grid-6 alpha">
-                        <a href="javascript:void(0)" pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectArea %>" selcityid="<%=cityId %>" modelid="<%=modelId %>" class="btn btn-xs btn-full-width font16 btn-orange fillPopupData changeCity" rel="nofollow">Select your area</a>
+                        <a href="javascript:void(0)" pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectArea %>" selcityid="<%=cityId %>" modelid="<%=modelId %>" c="Price_in_City_Page" a="Select_Area_Clicked" l="<%= string.Format("{0}_{1}_{2}", makeName, modelName, versionName)%>" class="bw-ga btn btn-xs btn-full-width font16 btn-orange fillPopupData changeCity" rel="nofollow">Select your area</a>
                     </p>
                 </div>
                 <%} %>
@@ -138,13 +138,16 @@
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript">
-            
-            var modelId = <%= modelId %>;
+            ga_pg_id = "16";
+            var bikenamever = '<%= string.Format("{0}_{1}_{2}", makeName, modelName,versionName)%>';
+            var bikeNameLocation = '<%=string.Format("{0}_{1}_{2}",makeName,modelName,cityName)%>';
+            var modelId = "<%= modelId %>";
             var clientIP = "<%= clientIP%>";
             var pageUrl = window.location.href; 
-
+            var areaName = '<%=areaName%>';
             $(".leadcapturebtn").click(function(e){
                 ele = $(this);
+                
                 var leadOptions = {
                     "dealerid" : ele.attr('data-item-id'),
                     "dealername" : ele.attr('data-item-name'),
@@ -154,7 +157,12 @@
                     "pqsourceid" : ele.attr('data-pqsourceid'),
                     "pageurl" : pageUrl,
                     "clientip" : clientIP,
-                    "isregisterpq" : true
+                    "isregisterpq": true,
+                    "gaobject": {
+                        cat: ele.attr('data-ga-cat'),
+                        act: ele.attr('data-ga-act'),
+                        lab: bikeNameLocation.concat(areaName == "" ? "" : "_" + areaName)
+                    }
                 };
 
                 dleadvm.setOptions(leadOptions);

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.Campaign.ManageDealer" AsyncTimeout="45" Async="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.Campaign.ManageDealer" AsyncTimeout="45" EnableEventValidation="false" Async="true" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
 <script src="http://st1.aeplcdn.com/bikewale/src/frameworks.js?01July2016v1" type="text/javascript"></script>
 <script src="/src/AjaxFunctions.js" type="text/javascript"></script>
@@ -107,10 +107,11 @@
                     <tr>
                         <td style="width: 20%"><strong>Campaign Masking Number :</strong><b class='required'>*</b></td>
                         <td>
-                            <asp:textbox runat="server" readonly="true" name="maskingNumber" id="txtMaskingNumber" maxlength="10" class="numeric width300" enabled="true" />
+                            <asp:textbox runat="server"  name="maskingNumber" id="txtMaskingNumber" maxlength="10" class="numeric width300" enabled="true" />
                             <asp:dropdownlist id="ddlMaskingNumber" runat="server" />
-                            <asp:hiddenfield id="hdnOldMaskingNumber" runat="server" />
-                            <a id="releaseMaskingNumber" href="javascript:void(0)">Release Masking number</a>
+                            <asp:hiddenfield id="hdnOldMaskingNumber" runat="server" />                          
+                            <% if (isEdit)
+                               { %> <a id="releaseMaskingNumber" href="javascript:void(0)">Release Masking number</a><%} %>
                         </td>
                     </tr>  
                     <tr>
@@ -168,21 +169,14 @@
                     </tr>                    
                 </tbody>                                                                    
             </table>
-
-
-                
             <asp:label class="errMessage margin-bottom10 margin-left10 required" id="lblErrorSummary" runat="server" />
             <br />
-           
-
-       
-                     
 
 </div>
 
 <script type="text/javascript">
 
-   
+    var BwOprHostUrl = '<%= BwOprHostUrl%>';
     $(document).ready(function () {
 
         if ('<%= isEdit %>' == 'False')
@@ -196,8 +190,94 @@
         else
         {        
             $("#btnUpdate").val("update");
+            
+        }
+
+        //bindMaskingNumber(dealerId);
+        bindMaskingNumber(21079);
+
+    });
+
+    $("#ddlMaskingNumber option[Value='True']").each(function () {
+        $(this).prop("disabled", true);
+        if ($(this).text() == txtMaskingNumber) {
+            $('#txtMaskingNumber').val($(this).text());
+            
         }
     });
+
+    $("#ddlMaskingNumber").change(function () {
+        $('#txtMaskingNumber').val($(this).find("option:selected").text());
+        $('#hdnOldMaskingNumber').val($(this).find("option:selected").text());
+    });
+
+    $("#releaseMaskingNumber").on("click", function () {
+        var maskingNumber = $("#txtMaskingNumber").val();
+        if (maskingNumber.length > 0) {
+            releaseMaskingNumber(maskingNumber);
+        }
+        return false;
+    });
+
+
+    function releaseMaskingNumber(maskingNumber) {
+        try {
+            if (confirm("Do you want to release the number?")) {
+                $.ajax({
+                    
+                    type: "POST",
+                    url: BwOprHostUrl + "/api/ManufacturerCampaign/ReleaseNumber/?dealerId=" + <%= dealerId %> + "&campaignId=" + <%= campaignId %> + "&maskingNumber=" +  maskingNumber  + "&userId=" + <%= userId %>,
+                    datatype: "json",
+
+                    success: function (response) {
+                        if (response) {
+                            $("#txtMaskingNumber").val('');
+                            //bindMaskingNumber(dealerId);                                
+                            alert("Masking Number is released successful.");
+                            location.reload();
+                        }
+                        else {
+                            alert("There was error while releasing masking number. Please contact System Administrator for more details.");
+                        }
+                    }
+
+                });
+            }
+        } catch (e) {
+            alert("An error occured. Please contact System Administrator for more details.");
+        }
+    }
+
+
+
+    function bindMaskingNumber(dealerId) {
+        try {
+
+            $.ajax({
+                type: "GET",
+                url: BwOprHostUrl + "/api/ManufacturerCampaign/GetDealerMaskingNumbers/?dealerId=" + <%= dealerId %>,
+                datatype: "json",
+                success: function (response) {
+                    var res = response;
+                    if (res) {
+                        $('#ddlMaskingNumber').empty();
+                        $.each(res, function (index, value) {
+                            $('#ddlMaskingNumber').append($('<option>').text(value.number).attr('value', value.isAssigned));
+                        });
+                    }
+                }
+
+            });
+        } catch (e) {
+            alert("An error occured. Please contact System Administrator for more details.");
+        }
+    }
+
+
+
+
+
+
 
     function enableDisable(bEnable, textBoxID)
     {

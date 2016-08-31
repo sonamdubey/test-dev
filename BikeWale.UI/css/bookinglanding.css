@@ -40,3 +40,6 @@
 @-moz-document url-prefix() {
     .booking-landing-search-btn.btn-lg { padding:6px 20px; }
 }
+@media only screen and (max-width:1024px) {
+    #faqsWraper .grid-4 { width:290px; }
+}

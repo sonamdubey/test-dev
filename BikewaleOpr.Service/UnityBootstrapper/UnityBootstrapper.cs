@@ -1,4 +1,10 @@
-﻿using Microsoft.Practices.Unity;
+﻿using BikewaleOpr.BAL.ContractCampaign;
+using BikewaleOpr.DALs.ManufactureCampaign;
+using BikewaleOpr.Interface.ContractCampaign;
+using BikewaleOpr.Interface.ManufacturerCampaign;
+using Microsoft.Practices.Unity;
+using BikewaleOpr.BAL;
+
 
 namespace BikewaleOpr.Service.UnityConfiguration
 {
@@ -13,7 +19,10 @@ namespace BikewaleOpr.Service.UnityConfiguration
         public static IUnityContainer Initialize()
         {
             IUnityContainer container = new UnityContainer();
-
+            container.RegisterType<IManufacturerCampaign, ManufacturerCampaign>();
+            container.RegisterType<IContractCampaign, ContractCampaign>();
+            container.RegisterType<IManufacturerReleaseMaskingNumber, ManufacturerReleaseMaskingNumber>();
+           
             return container;
         }
     }

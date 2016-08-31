@@ -29,6 +29,8 @@
         isAd970x90BottomShown = false;
         isAd976x400FirstShown = true;
         isAd976x400SecondShown = true;
+        isAd300x250Shown = false;
+        isAd300x250BTFShown = false;
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/newbikes.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
@@ -292,7 +294,7 @@
                         </ul>
                     </div>
                     <div class="bw-tabs-data <%= (ctrlMostPopularBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlMostPopularBikes">
-                        <div class="jcarousel-wrapper discover-bike-carousel">
+                        <div class="jcarousel-wrapper inner-content-carousel">
                             <div class="jcarousel">
                                 <ul>
                                     <BW:MostPopularBikes PageId="5" runat="server" ID="ctrlMostPopularBikes" />
@@ -305,7 +307,7 @@
                     </div>
 
                     <div class="bw-tabs-data hide <%= (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlNewLaunchedBikes">
-                        <div class="jcarousel-wrapper discover-bike-carousel">
+                        <div class="jcarousel-wrapper inner-content-carousel">
                             <div class="jcarousel">
                                 <ul>
                                     <BW:NewLaunchedBikes PageId="5" runat="server" ID="ctrlNewLaunchedBikes" />
@@ -318,7 +320,7 @@
                     </div>
 
                     <div class="bw-tabs-data hide <%= (ctrlUpcomingBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlUpcomingBikes">
-                        <div class="jcarousel-wrapper discover-bike-carousel">
+                        <div class="jcarousel-wrapper inner-content-carousel">
                             <div class="jcarousel">
                                 <ul>
                                     <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />

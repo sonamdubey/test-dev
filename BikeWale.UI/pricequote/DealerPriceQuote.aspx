@@ -12,6 +12,8 @@
         AdId = "1395986297721";
         AdPath = "/1017752/Bikewale_PQ_";
         isAd970x90Shown = true;
+        isAd300x250Shown = false;
+        isAd300x250BTFShown = false;
         
     %>
     <!-- #include file="/includes/headscript.aspx" -->
@@ -582,40 +584,49 @@
                                         <%} %>
                                         <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
                                           { %>
-                                        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
+                                        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&callback=initializeDealerMap" async defer></script>
                                         <div id="dealerMap" class=" margin-top15 text-center position-rel" style="height: 100px">
                                             <img class="position-abs" src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
                                         </div>
                                         <script type="text/javascript">
-                                            function initializeDealerMap(element,latitude,longitude) {
-                                                mapUrl  = "http://maps.google.com/?q=" + latitude + "," + longitude;
-                                                latLng = new google.maps.LatLng(latitude, longitude),
-                                                mapOptions = {
-                                                    zoom: 13,
-                                                    center: latLng,
-                                                    scrollwheel: false,
-                                                    navigationControl: false,
-                                                    draggable: false,
-                                                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                                                },
-                                                map = new google.maps.Map(element, mapOptions),
-                                                marker = new google.maps.Marker({
-                                                    title: "Dealer's Location",
-                                                    position: latLng,
-                                                    map: map,
-                                                    animation: google.maps.Animation.DROP
-                                                });
+                                            function initializeDealerMap() {
+                                                var element = document.getElementById('dealerMap');
+                                                var latitude = '<%= latitude %>';
+                                                var longitude = '<%= longitude %>';
 
-                                                google.maps.event.addListener(marker, 'click', function() {
-                                                    window.open(mapUrl, '_blank');
-                                                });
+                                                try {
+                                                    mapUrl = "http://maps.google.com/?q=" + latitude + "," + longitude;
+                                                    latLng = new google.maps.LatLng(latitude, longitude),
+                                                    mapOptions = {
+                                                        zoom: 13,
+                                                        center: latLng,
+                                                        scrollwheel: false,
+                                                        navigationControl: false,
+                                                        draggable: false,
+                                                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                                                    },
+                                                    map = new google.maps.Map(element, mapOptions),
+                                                    marker = new google.maps.Marker({
+                                                        title: "Dealer's Location",
+                                                        position: latLng,
+                                                        map: map,
+                                                        animation: google.maps.Animation.DROP
+                                                    });
 
-                                                google.maps.event.addListener(map, 'click', function() {
-                                                    window.open(mapUrl, '_blank');
-                                                });
+                                                    google.maps.event.addListener(marker, 'click', function () {
+                                                        window.open(mapUrl, '_blank');
+                                                    });
+
+                                                    google.maps.event.addListener(map, 'click', function () {
+                                                        window.open(mapUrl, '_blank');
+                                                    });
+
+                                                    google.maps.event.addListenerOnce(map, 'idle', function () {
+                                                    });
+                                                } catch (e) {
+                                                    return;
+                                                }
                                             }
-                                            google.maps.event.addDomListener(window, 'load', initializeDealerMap($("#dealerMap")[0],<%= latitude %>,<%= longitude %>));
-
                                         </script>
                                         <% } %>
                                         <%if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard)

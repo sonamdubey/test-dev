@@ -1395,8 +1395,8 @@ namespace BikeWaleOpr.Common
             int topSpeed = 0;
 
             sql = @" SELECT Displacement, ifnull(topspeed, 0) topspeed, fueltype, 
-                    (SELECT ifnull(Name,'') from cities where id=" + cityId + @" ) city 
-                    from newbikespecifications where bikeversionid=" + bikeVersionId;
+					(SELECT ifnull(Name,'') from cities where id=" + cityId + @" ) city 
+					from newbikespecifications where bikeversionid=" + bikeVersionId;
 
             //HttpContext.Current.Trace.Warn( sql );
 
@@ -1537,21 +1537,21 @@ namespace BikeWaleOpr.Common
 
 
             sql = @" select 
-                ct.stateid as stateid, 
-                ifnull(nbs.kerbweight, 0) as weight , 
-                ifnull(nbs.fueltype, '') as fueltype, 
-                ifnull(nbs.displacement, 0) as  displacement, 
-                if(bv.imported,true,false) as isimported, 
-                ifnull(cr.amount,0) as regcharges, 
-                ifnull(topspeed, 0) topspeed, 
-                bs.id as bodystyleid 
-                from  
-                bikeversions bv 
-                inner join bikemodels bm on bm.id = bv.bikemodelid 
-                inner join newbikespecifications nbs on nbs.bikeversionid=bv.id and bv.id=" + bikeVersionId +
+				ct.stateid as stateid, 
+				ifnull(nbs.kerbweight, 0) as weight , 
+				ifnull(nbs.fueltype, '') as fueltype, 
+				ifnull(nbs.displacement, 0) as  displacement, 
+				if(bv.imported,true,false) as isimported, 
+				ifnull(cr.amount,0) as regcharges, 
+				ifnull(topspeed, 0) topspeed, 
+				bs.id as bodystyleid 
+				from  
+				bikeversions bv 
+				inner join bikemodels bm on bm.id = bv.bikemodelid 
+				inner join newbikespecifications nbs on nbs.bikeversionid=bv.id and bv.id=" + bikeVersionId +
                 @"   left join bikebodystyles bs on bs.id = bv.bodystyleid 
-                left join con_regcharges cr on cr.modelid=bm.id 
-                left join  cities  as ct on ct.id=" + cityId;
+				left join con_regcharges cr on cr.modelid=bm.id 
+				left join  cities  as ct on ct.id=" + cityId;
 
             try
             {
@@ -1571,7 +1571,7 @@ namespace BikeWaleOpr.Common
                         HttpContext.Current.Trace.Warn("regCharges : ", regCharges.ToString());
                         HttpContext.Current.Trace.Warn("FuelType : ", fuelType);
 
-                        isImported = Convert.ToBoolean(dr["IsImported"]);
+                        isImported = Convert.ToBoolean(dr["isimported"]);
 
                         //sc = Convert.ToInt32(dr["SeatingCapacity"]);
                         cc = Convert.ToInt32(dr["Displacement"]);
@@ -1584,52 +1584,65 @@ namespace BikeWaleOpr.Common
                 ErrorClass objErr = new ErrorClass(err, "CommonOpn.GetRegistrationCharges");
                 objErr.SendMail();
             } // catch Exception
-
+            double tmpTax = 0;
             switch (stateId)
             {
                 // Maharashtra.
                 /*
-                    Up to 10 Lakh (Indian) : 7%
-                    10 Lakh - 20 Lakh (Indian) : 8%
-                    20 Lakh Plus (Indian) : 9%
-					
-                    Up to 10 Lakh (Imported) : 14%
-                    10 Lakh - 20 Lakh (Imported) : 16%
-                    20 Lakh Plus (Imported) : 18%
+                    Maharashtra	Indian	0-99 cc	8%
+                    Maharashtra	Indian	100-299 cc	9%
+                    Maharashtra	Indian	300 + CC	10%
+                    Maharashtra	Imported	0-99 cc	16%
+                    Maharashtra	Imported	100-299 cc	18%
+
                 */
                 case 1:
-                    double mumRate = 0;
-
-                    if (price < 1000000)
-                        mumRate = 0.07;
-                    else if (price > 1000000 && price < 2000000)
-                        mumRate = 0.08;
+                    if (cc >= 0 && cc <= 99)
+                    {
+                        if (isImported)
+                        {
+                            roadTax = price * 0.16;
+                        }
+                        else
+                        {
+                            roadTax = price * 0.08;
+                        }
+                    }
+                    else if (cc > 100 && cc <= 299)
+                    {
+                        if (isImported)
+                        {
+                            roadTax = price * 0.18;
+                        }
+                        else
+                        {
+                            roadTax = price * 0.09;
+                        }
+                    }
                     else
-                        mumRate = 0.09;
-
-                    if (!isImported) roadTax = price * mumRate;
-                    else roadTax = price * mumRate * 2;
+                    {
+                        if (isImported)
+                        {
+                            roadTax = price * 0.2;
+                        }
+                        else
+                        {
+                            roadTax = price * 0.1;
+                        }
+                    }
 
 
                     break;
-                // Tamilnadu. 0 -10 10%, above 10  - 15%
+                // Tamilnadu	All		8%
                 case 11:
-                    if (fuelType.ToLower().Equals("electric"))
-                    {
-                        roadTax = price * 0.04;
-                    }
-                    else
-                    {
-                        roadTax = price * 0.08;
-                    }
-
-                    //if (price <= 1000000)
+                    roadTax = price * 0.08;
+                    //if (fuelType.ToLower().Equals("electric"))
                     //{
-                    //    roadTax = price * 0.10;
+                    //    roadTax = price * 0.04;
                     //}
                     //else
                     //{
-                    //    roadTax = price * 0.15;
+                    //    roadTax = price * 0.08;
                     //}
                     break;
                 // Andhra Pradesh. 
@@ -1646,80 +1659,35 @@ namespace BikeWaleOpr.Common
                     //    roadTax = price * 0.14;
                     //}
                     break;
-                // Delhi. 
-                /*If Fuel type = Petrol, Lpg, CNG etc...
-				
-                0-400000
-                4% of Ex + 2000
-                400001-600000
-                4% of Ex + 4000
-                600001-1000000
-                6% of Ex + 4000
-                1000000+
-                10% of Ex + 4000
-				 
-                If Fuel type = Diesel
-				
-                0-400000
-                5% of Ex + 2000
-                400001-600000
-                5% of Ex + 4000
-                600001-1000000
-                8.75% of Ex + 4000
-                1000000+
-                12.5% of Ex + 4000*/
 
                 // calculation for telangana
                 case 41:
                     roadTax = price * 0.09;
                     break;
+
+                // Delhi. 
+                /*
+                    Delhi		0-25000 Rs.	2%
+                    Delhi		25000-40000	4%
+                    Delhi		40000 - 60000	6%
+                    Delhi		60000 +	8%
+                */
                 case 5:
-                    if (price <= 600000)
+                    if (price <= 25000)
                     {
-                        if (fuelType.ToLower() == "diesel")
-                        {
-                            roadTax = price * 0.05;
-
-                            if (price <= 400000)
-                                roadTax += 2000;
-                            else
-                                roadTax += 4000;
-                        }
-                        else
-                        {
-                            roadTax = price * 0.04;
-
-                            if (price <= 400000)
-                                roadTax += 2000;
-                            else
-                                roadTax += 4000;
-                        }
+                        roadTax = price * 0.02;
                     }
-                    else if (price <= 1000000)
+                    else if (price > 25000 && price <= 40000)
                     {
-                        if (fuelType.ToLower() == "diesel")
-                        {
-                            roadTax = price * .0875;
-                            roadTax += 4000;
-                        }
-                        else
-                        {
-                            roadTax = price * 0.06;
-                            roadTax += 4000;
-                        }
+                        roadTax = price * 0.04;
+                    }
+                    else if (price > 40000 && price <= 60000)
+                    {
+                        roadTax = price * 0.06;
                     }
                     else
                     {
-                        if (fuelType.ToLower() == "diesel")
-                        {
-                            roadTax = price * .125;
-                            roadTax += 4000;
-                        }
-                        else
-                        {
-                            roadTax = price * 0.10;
-                            roadTax += 4000;
-                        }
+                        roadTax = price * 0.08;
                     }
                     break;
                 // GOA. 
@@ -1739,54 +1707,46 @@ namespace BikeWaleOpr.Common
                     break;
 
                 // ASSAM. 
-                // 0-3,00,000 3% of Ex-showroom
-                // 3,00,001-15,00,000 4% of Ex-showroom
-                // 15,00,001-20,00,000 5% of Ex-showroom
-                // 20,00,000 + 7% of Ex-showroom
+                //Assam	<65 kg		2600
+                //Assam	65-90 kg		3600
+                //Assam	90-135 kg		5000
+                //Assam	135-165 kg		5500
+                //Assam	>165 kg		6500
                 case 16:
-                    if (price <= 300000)
+                    if (weight < 65)
                     {
-                        roadTax = price * 0.03;
+                        roadTax = 2600;
                     }
-                    else if (price <= 1500000)
+                    else if (weight >= 65 && weight <= 90)
                     {
-                        roadTax = price * 0.04;
+                        roadTax = 3600;
                     }
-                    else if (price <= 2000000)
+                    else if (weight > 90 && weight <= 135)
                     {
-                        roadTax = price * 0.05;
+                        roadTax = 5000;
+                    }
+                    else if (weight > 135 && weight <= 165)
+                    {
+                        roadTax = 5500;
                     }
                     else
                     {
-                        roadTax = price * 0.07;
+                        roadTax = 6500;
                     }
                     break;
 
-                //Uttar Pradesh. weight <= 1000 then 5%
-                //weight <= 5000 then 6%
-                //Else 7%
+                //Uttar Pradesh
+
+                // Uttar Prdesh	All		10%
                 case 15:
-                    roadTax = price * 0.07;
-
-                    //if (weight <= 1000)
-                    //{
-                    //    roadTax = price * 0.05;
-                    //}
-                    //else if (weight <= 5000)
-                    //{
-                    //    roadTax = price * 0.06;
-                    //}
-                    //else
-                    //{
-                    //    roadTax = price * 0.07;
-                    //}
-
-                    //if ( !isDiesel ) roadTax = price * 0.025; 
-                    //else  roadTax = price * 0.05; 
+                    roadTax = price * 0.1;
                     break;
                 // Madhya Pradesh. 7%!
                 case 3:
-                    roadTax = price * 0.07;
+                    if (fuelType.ToLower().Equals("electric"))
+                        roadTax = price * 0.05;
+                    else
+                        roadTax = price * 0.07;
                     break;
                 // Orissa. 5%!
                 case 20:
@@ -1830,33 +1790,17 @@ namespace BikeWaleOpr.Common
                         }
                         else
                         {
-                            roadTax = price * 0.132;
+                            roadTax = price * 0.13;
                         }
                     }
                     break;
-                // Bihar. 3750 flat!
+                // Bihar. 
                 case 14:
-                    roadTax = price * 0.0625;
-                    //roadTax = 3750; ;
+                    roadTax = price * 0.07;
                     break;
                 // Kerala. 6%!
                 case 4:
                     roadTax = price * 0.06;
-
-                    //if (price <= 500000)
-                    //{
-                    //    roadTax = price * 0.06;
-                    //}
-                    //else if (price <= 1000000)
-                    //{
-                    //    roadTax = price * 0.08;
-                    //}
-                    //else if (price <= 1500000)
-                    //{
-                    //    roadTax = price * 0.10;
-                    //}
-                    //else
-                    //    roadTax = price * 0.15;
                     break;
                 // Rajasthan. 
                 // 5% if price less than 6 lakh
@@ -1872,19 +1816,6 @@ namespace BikeWaleOpr.Common
                     {
                         roadTax = price * 0.06;
                     }
-
-                    //if (price <= 600000)
-                    //{
-                    //    roadTax = price * 0.05;
-                    //}
-                    //else if (price <= 1000000)
-                    //{
-                    //    roadTax = price * 0.08;
-                    //}
-                    //else
-                    //{
-                    //    roadTax = price * 0.10;
-                    //}
                     break;
                 // Uttaranchal. 2%!
                 case 25:
@@ -1933,14 +1864,6 @@ namespace BikeWaleOpr.Common
                     {
                         roadTax = price * 0.03;
                     }
-                    //if (price <= 500000)
-                    //    roadTax = (price * 0.02);
-                    //else if (price > 500000 && price <= 1000000)
-                    //    roadTax = (price * 0.04);
-                    //else if (price > 1000000 && price <= 2000000)
-                    //    roadTax = (price * 0.06);
-                    //else
-                    //    roadTax = (price * 0.08);
                     break;
                 // Chandigarh. 
                 //if price < 7 lakh Then 2% + 3000.
@@ -1948,27 +1871,16 @@ namespace BikeWaleOpr.Common
                 //if price > 20 lakh Then 4% + 10000.
                 case 21:
                     if (price <= 100000)
-                        roadTax = (price * 0.02678);
+                        roadTax = (price * 0.0268);
                     else if (price > 100000 && price <= 400000)
-                        roadTax = (price * 0.03571);
+                        roadTax = (price * 0.0357);
                     else
-                        roadTax = (price * 0.04464);
+                        roadTax = (price * 0.0446);
                     break;
                 // Haryana. 
-                //if price < 5 lakh Then 2% + 3000.
-                //if price > 5 lakh and price < 10 lakh 4% + 5000
-                //if price > 10 lakh and price < 20 lakh 6% + 8000
-                //if price > 20 lakh Then 8% + 10000.
-                //case 22:
-                //    if (price <= 20000)
-                //        roadTax = (price * 0.02);
-                //    else if (price > 20000 && price <= 60000)
-                //        roadTax = (price * 0.04);
-                //    else if (price > 60000 && price <= 200000)
-                //        roadTax = (price * 0.06);
-                //    else
-                //        roadTax = (price * 0.08);
-                //    break;
+                //Haryana	< 75,000		4%
+                //Haryana	75,000 - 2 Lakh		6%
+                //Haryana	2 + Lakh		8%
 
                 case 22:
                     if (price < 75000)
@@ -1979,14 +1891,13 @@ namespace BikeWaleOpr.Common
                         roadTax = (price * 0.08);
                     break;
 
-                //west bengal	
-                //this depends on the cc of the bike and also whether the bike has got ac or not. the rate is fixed and does not depend on other factors
-                //0-900cc  		19000(Non AC)  	23000(AC)
-                //901-1490cc 	21900(Non AC) 	29400(AC)
-                //1491-2000cc 	33300(Non AC) 	43300(AC)
-                //2001 & above 	43750(Non AC) 	56250(AC)
+                //west bengal
+
+                //West Bengal		Upto 80 cc	6.5% of vehicle cost or Rs 1800 (whichever is higher)
+                //West Bengal		Between 80 and 160 cc	9% of vehicle cost or Rs 3600 (whichever is higher)
+                //West Bengal		More than 160 cc	10% of vehicle cost or Rs 5800 (whichever is higher)
                 case 12:
-                    double tmpTax = 0;
+                    //double tmpTax = 0;
 
                     if (cc >= 0 && cc <= 80)
                     {
@@ -2027,36 +1938,6 @@ namespace BikeWaleOpr.Common
                             roadTax = tmpTax;
                         }
                     }
-
-
-                    //if (cc >= 0 && cc <= 900)
-                    //{
-                    //    if (hasAC == true)
-                    //        roadTax = 23000;
-                    //    else
-                    //        roadTax = 19000;
-                    //}
-                    //else if (cc >= 901 && cc <= 1490)
-                    //{
-                    //    if (hasAC == true)
-                    //        roadTax = 29400;
-                    //    else
-                    //        roadTax = 21900;
-                    //}
-                    //else if (cc >= 1491 && cc <= 2000)
-                    //{
-                    //    if (hasAC == true)
-                    //        roadTax = 43300;
-                    //    else
-                    //        roadTax = 33300;
-                    //}
-                    //else
-                    //{
-                    //    if (hasAC == true)
-                    //        roadTax = 56250;
-                    //    else
-                    //        roadTax = 43750;
-                    //}
                     break;
 
                 // Jharkhand. 
@@ -2226,8 +2107,7 @@ namespace BikeWaleOpr.Common
         public bool verifyPrivilege(int PageId)
         {
             bool found = false;
-            //HttpContext.Current.Trace.Warn("Reading Cookie : " );
-            //HttpContext.Current.Trace.Warn("Reading Cookie : " + HttpContext.Current.Request.Cookies["Customer"].Value );
+
             if (HttpContext.Current.Request.Cookies["Customer"] != null && HttpContext.Current.Request.Cookies["Customer"].Value != "")
             {
                 //HttpContext.Current.Trace.Warn("Reading Cookie : " + HttpContext.Current.Request.Cookies["Customer"].Value );
@@ -2242,7 +2122,6 @@ namespace BikeWaleOpr.Common
                     }
                     else
                         found = false;
-                    //HttpContext.Current.Trace.Warn("Customer Tasks : " + i.ToString() + " : " + str[i] );
                 }
             }
             else

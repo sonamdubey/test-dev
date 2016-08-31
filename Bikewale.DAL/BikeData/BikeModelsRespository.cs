@@ -2,6 +2,7 @@
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Utility;
+using Bikewale.Entities.CMS.Photos;
 using MySql.CoreDAL;
 using System;
 using System.Collections;
@@ -616,7 +617,7 @@ namespace Bikewale.DAL.BikeData
             int recordCount = 0;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getnewlaunchedbikes"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getnewlaunchedbikes_04082016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbType.Int32, startIndex));
@@ -651,6 +652,7 @@ namespace Bikewale.DAL.BikeData
                                 objModels.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
                                 objModels.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
                                 objModels.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
+                                objModels.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["kerbweight"]);
                                 objModels.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
                                 objModelList.Add(objModels);
 
@@ -746,7 +748,7 @@ namespace Bikewale.DAL.BikeData
             MostPopularBikesBase objData = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularbikesbymake"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularbikesbymake_04082016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
@@ -782,6 +784,7 @@ namespace Bikewale.DAL.BikeData
                                 objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
                                 objData.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
                                 objData.BikePopularityIndex = Convert.ToUInt16(dr["PopularityIndex"]);
+                                objData.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
                                 objList.Add(objData);
                             }
                             dr.Close();
@@ -1041,5 +1044,46 @@ namespace Bikewale.DAL.BikeData
         {
             throw new NotImplementedException();
         }
-    }   // class
+        /// <summary>
+        /// Created By: Aditi Srivastava on 17th Aug, 2016
+        /// Description: Fetches model image original image path and host url of model image
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public ModelPhotos GetModelPhotoInfo(U modelId)
+        {
+            ModelPhotos modelPhotos = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodelphotos"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                modelPhotos = new ModelPhotos();
+                                modelPhotos.HostURL = Convert.ToString(dr["HostUrl"]);
+                                modelPhotos.OriginalImgPath = Convert.ToString(dr["OriginalImagePath"]);
+                                modelPhotos.ModelName = Convert.ToString(dr["Name"]);
+                                modelPhotos.MakeName = Convert.ToString(dr["MakeName"]);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                HttpContext.Current.Trace.Warn("Exception in GetModelPhotoInfo", err.Message);
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            return modelPhotos;
+        }
+        }   // class
 }   // namespace

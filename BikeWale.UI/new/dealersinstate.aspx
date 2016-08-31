@@ -10,6 +10,9 @@
         description = string.Format("{0} bike dealers/showrooms in {1}. Find dealer information for more than {2} dealers in {3} cities. Dealer information includes full address, phone numbers, email, pin code etc.", objMMV.MakeName,stateName, DealerCount, citiesCount);
         canonical = string.Format("http://www.bikewale.com/{0}-bikes/dealers-in-{1}-state/", objMMV.MaskingName, stateMaskingName);
         isAd970x90Shown = false;
+        isAd300x250Shown = false;
+        isAd300x250BTFShown = false;
+        isAd970x90BottomShown = false;
         alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/dealers-in-{1}-state/", objMMV.MaskingName, stateMaskingName);
     %>
     <!-- #include file="/includes/headscript.aspx" -->
@@ -27,6 +30,11 @@
                         <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                             <a href="/" itemprop="url">
                                 <span itemprop="title">Home</span>
+                            </a>
+                        </li>
+                         <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <a href="/<%=makeMaskingName%>-bikes/" itemprop="url">
+                                <span itemprop="title"><%=objMMV.MakeName %> Bikes</span>
                             </a>
                         </li>
                         <li><span class="bwsprite fa fa-angle-right margin-right10"></span>Dealer Locator</li>

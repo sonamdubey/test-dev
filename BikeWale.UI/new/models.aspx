@@ -20,6 +20,8 @@
         AdPath = "/1017752/Bikewale_NewBike_";
         AdId = "1442913773076";
         isAd970x90Shown = true;
+        isAd300x250BTFShown = false;
+
         keywords = string.Format("{0}, {0} Bikes , {0} Bikes prices, {0} Bikes reviews, new {0} Bikes", _make.MakeName);
     %>
     <!-- #include file="/includes/headscript.aspx" -->
@@ -78,7 +80,7 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    <div id="bikeMakeList" class="brand-bikes-list-container padding-top25 padding-left20 rounded-corner2">
+                    <div id="bikeMakeList" class="padding-top25 padding-left20 rounded-corner2 inner-content-card">
                         <ul id="listitems" class="listitems">
                             <asp:Repeater ID="rptMostPopularBikes" runat="server">
                                 <ItemTemplate>
@@ -92,7 +94,7 @@
                                             <div class="bikeDescWrapper">
                                                 <h3 class="bikeTitle margin-bottom10"><a class="modelurl" href='<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>' title="<%# DataBinder.Eval(Container.DataItem,"objMake.MakeName") + " " + DataBinder.Eval(Container.DataItem, "objModel.ModelName") %>"><%# DataBinder.Eval(Container.DataItem,"objMake.MakeName") + " " + DataBinder.Eval(Container.DataItem, "objModel.ModelName") %></a></h3>
                                                 <div class="text-xt-light-grey font14 margin-bottom15">
-                                                    <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower"))) %>
+                                                    <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.KerbWeight"))) %>
                                                 </div>
                                                 <div class="font14 text-light-grey margin-bottom5">Ex-showroom, <%=ConfigurationManager.AppSettings["defaultName"].ToString() %></div>
                                                 <div class="text-bold">
@@ -116,7 +118,7 @@
                 <div class="grid-12">
                     <div class="content-box-shadow padding-top20 padding-bottom25">
                         <h2 class="padding-left20 padding-right20 text-x-black text-bold margin-bottom20">Upcoming <%= _make.MakeName %> Bikes</h2>
-                        <div class="jcarousel-wrapper bike-carousel-wrapper">
+                        <div class="jcarousel-wrapper inner-content-carousel">
                             <div class="jcarousel">
                                 <ul>
                                     <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
@@ -135,7 +137,7 @@
             <div id="makeTabsContentWrapper" class="grid-12 margin-bottom20">
                 <div class="content-box-shadow">
                     <div id="makeOverallTabsWrapper">
-                        <div id="makeOverallTabs">
+                        <div id="makeOverallTabs" class="overall-floating-tabs">
                             <div class="overall-specs-tabs-wrapper">
                                 <%
                                     if (_bikeDesc != null && _bikeDesc.FullDescription.Length > 0)
@@ -249,8 +251,16 @@
         </section>
 
         <script>
-            
+
             $(document).ready(function () {
+                $('#user-details-submit-btn').click(function () {
+                    var bikeName = $('#getLeadBike :selected').text();
+                    if (bikeName != 'Select a bike') {
+                        var cityName = GetGlobalCityArea();
+                        triggerGA('Make_Page', 'Lead_Submitted', bikeName + "_" + cityName);
+                    }
+                    });
+
                 $("img.lazy").lazyload();
                 if ($("#discontinuedMore a").length > 4) {
                     $('#discontinuedMore').hide();
@@ -297,9 +307,7 @@
                 "campid": ele.attr('data-camp-id'),
                 "isregisterpq": true
             };
-
             dleadvm.setOptions(leadOptions);
-
         });
     </script>
 </body>

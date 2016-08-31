@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using Newtonsoft.Json;
 namespace Bikewale.DTO.BikeData
 {
     public class MinSpecs
@@ -12,5 +7,7 @@ namespace Bikewale.DTO.BikeData
         public ushort FuelEfficiencyOverall { get; set; }
         public float MaxPower { get; set; }
         public float MaximumTorque { get; set; }
+        [JsonProperty("weight")]
+        public float KerbWeight { get; set; }
     }
 }

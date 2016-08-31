@@ -38,7 +38,7 @@ namespace Bikewale.Controls
         public int PQSourceId { get; set; }
         public bool IsDiscontinued { get; set; }
         protected bool isCitySelected { get { return CityId > 0; } }
-
+        public string pageName { get; set; }
         public bool showWidget = false;
 
         protected override void OnInit(EventArgs e)

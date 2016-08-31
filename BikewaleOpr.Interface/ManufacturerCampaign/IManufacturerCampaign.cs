@@ -1,4 +1,6 @@
-﻿using BikewaleOpr.Entity.ManufacturerCampaign;
+﻿using BikewaleOpr.Entities;
+using BikewaleOpr.Entity.ContractCampaign;
+using BikewaleOpr.Entity.ManufacturerCampaign;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +25,10 @@ namespace BikewaleOpr.Interface.ManufacturerCampaign
         void UpdateBWDealerCampaign(string description, int isActive, string maskingNumber, int dealerId, int userId, int campaignId, string templateHtml1, int templateId1, string templateHtml2, int templateId2, string templateHtml3, int templateId3, string templateHtml4, int templateId4);
         void SaveManufacturerCampaignTemplate(string templateHtml1, int templateId1, string templateHtml2, int templateId2, string templateHtml3, int templateId3, string templateHtml4, int templateId4, int userId, int campaignId);
         //void SaveManufacturerCampaignTemplateMapping(int campaignId, int templateId, int pageId, int isActive, int userId);
-        List<ManufacturerCampaignEntity> FetchCampaignDetails(int campaignId);
+        List<BikewaleOpr.Entity.ManufacturerCampaign.ManufacturerCampaignEntity> FetchCampaignDetails(int campaignId);
+        IEnumerable<ManufactureDealerCampaign> SearchManufactureCampaigns(uint dealerid);
+        bool statuschangeCampaigns(uint id, uint isactive);
+        IEnumerable<ManufacturerEntity> GetDealerAsManuFacturer();
+        bool ReleaseCampaignMaskingNumber(int campaignId);
     }
 }

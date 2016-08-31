@@ -32,12 +32,13 @@ namespace Bikewale.Mobile.New
         public Repeater rprVersionPrices, rpVersioNames;
         protected uint modelId = 0, cityId = 0, versionId, makeId;
         public int versionCount;
-        public string makeName = string.Empty, makeMaskingName = string.Empty, modelName = string.Empty, modelMaskingName = string.Empty, bikeName = string.Empty, modelImage = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty;
+        public string makeName = string.Empty, makeMaskingName = string.Empty, modelName = string.Empty, modelMaskingName = string.Empty,versionName=string.Empty, bikeName = string.Empty, modelImage = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty;
+        protected string areaName = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea().Area;
         string redirectUrl = string.Empty;
         private bool redirectToPageNotFound = false, redirectPermanent = false;
         protected bool isAreaAvailable, isDiscontinued;
         protected String clientIP = CommonOpn.GetClientIP();
-
+        
 
         protected override void OnInit(EventArgs e)
         {
@@ -71,8 +72,8 @@ namespace Bikewale.Mobile.New
                 ctrlDealers.TopCount = 3;
                 ctrlDealers.ModelId = modelId;
                 ctrlDealers.PQSourceId = (int)PQSourceEnum.Mobile_PriceInCity_DealersCard_GetOfferButton;
-                ctrlDealers.ModelId = modelId;
 
+                ctrlDealers.PageName = "Price_in_City_Page";
                 ctrlLeadCapture.CityId = cityId;
                 ctrlLeadCapture.ModelId = modelId;
                 ctrlLeadCapture.AreaId = 0;
@@ -134,6 +135,8 @@ namespace Bikewale.Mobile.New
 
         /// <summary>
         /// Sets model details
+        /// Modified by: Aditi Srivastava on 12th Aug, 2016
+        /// Description: added version name variable
         /// </summary>
         /// <param name="bikePrices"></param>
         private void SetModelDetails(IEnumerable<BikeQuotationEntity> bikePrices)
@@ -156,6 +159,7 @@ namespace Bikewale.Mobile.New
                         cityName = firstVersion.City;
                         versionId = firstVersion.VersionId;
                         makeId = firstVersion.MakeId;
+                        versionName = firstVersion.VersionName;
                     }
                 }
             }

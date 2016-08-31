@@ -14,14 +14,6 @@
     var areaClicked = false;
 </script>
 <link href="<%= !string.IsNullOrEmpty(staticUrl1) ? "http://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/css/chosen.min.css?<%=staticFileVersion1 %>" rel="stylesheet" />
-<style type="text/css">
-.progress-bar {width:0;height:2px;background:#16A085;bottom:0px;left:0;border-radius:2px;}
-.btn-loader {background-color:#822821;}
-.btnSpinner {right:22px;top:10px;z-index:9;background:rgb(255, 255, 255);}
-#popupWrapper .form-control-box { height:40px; }
-#popupWrapper .form-control, #popupWrapper .chosen-container { border:none; }
-#divCityLoader, #divAreaLoader { border:1px solid #ccc; border-radius:4px; }
-</style>
 <div class="bw-popup hide bw-popup-sm" id="popupWrapper">
     <div class="popup-inner-container" stopbinding: true>
         <div class="bwsprite popup-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
@@ -55,7 +47,7 @@
                 <span class="position-abt progress-bar"></span>
             </div>           
                         
-            <input id="btnDealerPricePopup" class="action-btn margin-top15 margin-left70" style="display: block;" type="button" value="Show on-road price" data-bind="click: getPriceQuotePopup, enable: (!hasAreas() && bookingCities().length > 0) || (hasAreas && bookingAreas().length > 0)">
+            <input id="btnDealerPricePopup" class ="action-btn margin-top15 margin-left70 " style="display: block;" type="button" value="Show on-road price" data-bind="click: getPriceQuotePopup, enable: (!hasAreas() && bookingCities().length > 0) || (hasAreas && bookingAreas().length > 0)">
         </div>
     </div>
 </div>
@@ -73,6 +65,7 @@
     var metroCitiesIds = [40, 12, 13, 10, 224, 1, 198, 105, 246, 176, 2, 128];
     var pageId, PQSourceId;
     var onCookieObj = {};
+   
 
     // knockout popupData binding
     var viewModelPopup = {
@@ -83,13 +76,13 @@
         hasAreas: ko.observable(),
         getPriceQuoteButtonCliked: ko.observable(false)
     };
-
+   
     function findCityById(vm, id) {
         return ko.utils.arrayFirst(vm.bookingCities(), function (child) {
             return (child.id === id || child.cityId === id);
         });
     }
-
+  
 
     function FillCitiesPopup(modelId, makeName, modelName, pageIdAttr, pqSourceId) {        
         PQSourceId = pqSourceId;
@@ -326,19 +319,22 @@
         errMsgParent.find('.error-tooltip-siblings').hide();
         errMsgParent.find('.bw-blackbg-tooltip').text("");
     }
-
+ 
     function getPriceQuotePopup() {
         var cityId = viewModelPopup.selectedCity(), areaId = viewModelPopup.selectedArea() ? viewModelPopup.selectedArea() : 0;
         viewModelPopup.getPriceQuoteButtonCliked(true);
+       
         if (isValidInfoPopup()) {
             //$("#errMsgPopup").text("");
             setLocationCookie($('#ddlCitiesPopup option:selected'), $('#ddlAreaPopup option:selected'));
+
+            var selArea = '';
+            if ($('#ddlAreaPopup option:selected').index() > 0) {
+                selArea = '_' + $('#ddlAreaPopup option:selected').html();
+            }
+        
             if (ga_pg_id != null && ga_pg_id == 2 && sourceHref == '1') {
                 try {
-                    var selArea = '';
-                    if ($('#ddlAreaPopup option:selected').index() > 0) {
-                        selArea = '_' + $('#ddlAreaPopup option:selected').html();
-                    }
                     bikeVersionLocation = myBikeName + '_' + getBikeVersion() + '_' + $('#ddlCitiesPopup option:selected').html() + selArea;                  
                 }
                 catch (err) { }

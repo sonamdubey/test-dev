@@ -250,14 +250,14 @@ namespace Bikewale.New
                 ctrlNews.ModelId = _modelId;
                 ctrlNews.WidgetTitle = bikeName;
 
-                ctrlExpertReviews.TotalRecords = 2;
+                ctrlExpertReviews.TotalRecords = 3;
                 ctrlExpertReviews.ModelId = _modelId;
                 ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                 ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
                 ctrlExpertReviews.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
                 ctrlExpertReviews.ModelName = modelPage.ModelDetails.ModelName;
 
-                ctrlVideos.TotalRecords = 2;
+                ctrlVideos.TotalRecords = 3;
                 ctrlVideos.ModelId = _modelId;
                 ctrlVideos.MakeId = modelPage.ModelDetails.MakeBase.MakeId;
                 ctrlVideos.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
@@ -266,9 +266,9 @@ namespace Bikewale.New
                 ctrlVideos.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
                 ctrlVideos.ModelName = modelPage.ModelDetails.ModelName;
 
-                ctrlUserReviews.ReviewCount = 2;
+                ctrlUserReviews.ReviewCount = 3;
                 ctrlUserReviews.PageNo = 1;
-                ctrlUserReviews.PageSize = 2;
+                ctrlUserReviews.PageSize = 3;
                 ctrlUserReviews.ModelId = _modelId;
                 ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
                 ctrlUserReviews.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
@@ -411,6 +411,7 @@ namespace Bikewale.New
             ctrlAlternativeBikes.TopCount = 6;
             ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_ModelPage_Alternative;
             ctrlAlternativeBikes.WidgetTitle = bikeName;
+            ctrlAlternativeBikes.model = modelPage.ModelDetails.ModelName;
             if (modelPage != null)
             {
                 var modelVersions = modelPage.ModelVersions;

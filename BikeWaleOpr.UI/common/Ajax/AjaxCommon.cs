@@ -1,8 +1,10 @@
 ﻿using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.common.ContractCampaignAPI;
 using BikewaleOpr.Common;
+using BikewaleOpr.DALs.ManufactureCampaign;
 using BikewaleOpr.Entity.ContractCampaign;
 using BikewaleOpr.Interface.ContractCampaign;
+using BikewaleOpr.Interface.ManufacturerCampaign;
 using BikeWaleOpr.Classified;
 using Enyim.Caching;
 using Microsoft.Practices.Unity;
@@ -706,6 +708,8 @@ namespace BikeWaleOpr.Common
             return isSuccess;
         }
 
+        
+       
         /// <summary>
         ///  Created By : Sushil Kumar
         ///  Created On : 18th April 2016

@@ -68,14 +68,14 @@
                                                         <h3><a class="modelurl" href='/m<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>' title="<%# DataBinder.Eval(Container.DataItem,"objMake.MakeName") + " " + DataBinder.Eval(Container.DataItem, "objModel.ModelName") %>"><%# DataBinder.Eval(Container.DataItem,"objMake.MakeName") + " " + DataBinder.Eval(Container.DataItem, "objModel.ModelName") %></a></h3>
                                                     </div>
                                                     <div class="font14 text-x-light margin-bottom10">
-                                                        <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower"))) %>
+                                                        <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Kerbweight"))) %>
                                                     </div>
                                                     <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, <%=ConfigurationManager.AppSettings["defaultName"].ToString() %></div>
                                                     <div class="margin-bottom5">
                                                         <span class="bwmsprite inr-sm-icon" style="<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))=="0")?"display:none;": "display:inline-block;"%>"></span>
                                                         <span class="text-bold font18"><%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %></span>
                                                     </div>
-                                                    <a href="javascript:void(0)" makename="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objMake.MakeName")) %>" modelname="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" pagecatid="1" pqsourceid="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_MakePage %>" modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelId")) %>" class="btn btn-sm btn-white font14 margin-top20 fillPopupData" rel="nofollow">Check on-road price</a>
+                                                    <a href="javascript:void(0)" makename="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objMake.MakeName")) %>" modelname="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" pagecatid="1" pqsourceid="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_MakePage %>" modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelId")) %>" class="btn btn-sm btn-white font14 margin-top10 fillPopupData" rel="nofollow">Check on-road price</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -218,8 +218,8 @@
         <script type="text/javascript">
             ga_pg_id = '3';
             var _makeName = '<%= _make.MakeName %>';
-
-            var clientIP = "172.16.3.151";
+             
+            var clientIP = '<%= Bikewale.Common.CommonOpn.GetClientIP() %>';
             var pageUrl = window.location.href;
             $(".leadcapturebtn").click(function (e) {
                 ele = $(this);
@@ -234,7 +234,12 @@
                     "clientip": clientIP,
                     "isdealerbikes": true,
                     "campid": ele.attr('data-camp-id'),
-                    "isregisterpq": true
+                    "isregisterpq": true,
+                    "gaobject": {
+                        cat: ele.attr('data-ga-cat'),
+                        act: ele.attr('data-ga-act'),
+                        lab: ele.attr('data-ga-lab')
+                    }
                 };
 
                 dleadvm.setOptions(leadOptions);
@@ -242,6 +247,9 @@
             }); 
 
             $(document).ready(function () {
+                
+              
+
                 jQuery('.jcarousel-wrapper.upComingBikes .jcarousel')
                 .on('jcarousel:targetin', 'li', function () {
                     $("img.lazy").lazyload({

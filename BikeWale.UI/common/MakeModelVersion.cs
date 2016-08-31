@@ -117,21 +117,24 @@ namespace Bikewale.Common
 
                     if (makes != null && makes.Count() > 0)
                     {
-                        if (requestType == EnumBikeType.Used || requestType == EnumBikeType.UserReviews)
+                        if (drpDownList != null)
                         {
-                            drpDownList.DataSource = makes.Select(a => new { Value = string.Format("{0}_{1}", a.MakeId, a.MaskingName), Text = a.MakeName, Id = a.MakeId });
+                            if (requestType == EnumBikeType.Used || requestType == EnumBikeType.UserReviews)
+                            {
+                                drpDownList.DataSource = makes.Select(a => new { Value = string.Format("{0}_{1}", a.MakeId, a.MaskingName), Text = a.MakeName, Id = a.MakeId });
+                            }
+                            else
+                            {
+                                drpDownList.DataSource = makes.Select(a => new { Value = a.MakeId, Text = a.MakeName });
+                            }
+
+
+                            drpDownList.DataValueField = "Value";
+                            drpDownList.DataTextField = "Text";
+
+                            drpDownList.DataBind();
+                            drpDownList.Items.Insert(0, new ListItem("--Select Make--", "0"));
                         }
-                        else
-                        {
-                            drpDownList.DataSource = makes.Select(a => new { Value = a.MakeId, Text = a.MakeName });
-                        }
-
-
-                        drpDownList.DataValueField = "Value";
-                        drpDownList.DataTextField = "Text";
-
-                        drpDownList.DataBind();
-                        drpDownList.Items.Insert(0, new ListItem("--Select Make--", "0"));
                     }
 
                 }
@@ -468,7 +471,7 @@ namespace Bikewale.Common
 
             if (String.IsNullOrEmpty(hostUrl) || String.IsNullOrEmpty(imagePath))
             {
-                fullImagePath = "http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/nobike.jpg";
+                fullImagePath = "http://imgd3.aeplcdn.com/0x0/bikewaleimg/images/noimage.png";
             }
             else
             {
@@ -481,14 +484,8 @@ namespace Bikewale.Common
         {
             string fullImagePath = string.Empty;
 
-            if (String.IsNullOrEmpty(hostUrl) || String.IsNullOrEmpty(imagePath))
-            {
-                fullImagePath = "http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/nobike.jpg";
-            }
-            else
-            {
-                fullImagePath = Bikewale.Utility.Image.GetPathToShowImages(imagePath, hostUrl, size);
-            }
+            fullImagePath = Bikewale.Utility.Image.GetPathToShowImages(imagePath, hostUrl, size);
+
             return fullImagePath;
         }
 

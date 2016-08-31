@@ -388,12 +388,9 @@ namespace Bikewale.DAL.Dealer
         /// <returns>Lead submission status</returns>
         public bool SaveManufacturerLead(ManufacturerLeadEntity objLead)
         {
-
             bool status = false;
             try
             {
-
-
                 if (objLead != null && objLead.PQId > 0 && objLead.DealerId > 0)
                 {
                     using (DbCommand cmd = DbFactory.GetDBCommand())
@@ -405,15 +402,14 @@ namespace Bikewale.DAL.Dealer
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 150, objLead.Email));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 10, objLead.Mobile));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, objLead.PQId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbType.Int16, objLead.LeadSourceId));
 
                         //TVS Dealer ID to be sent to update pricequote ID
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int64, objLead.DealerId));
                         // LogLiveSps.LogSpInGrayLog(cmd);
 
-                        if (MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase) < 0)
+                        if (MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase) > 0)
                             status = true;
-
-
                     }
                 }
             }
@@ -732,6 +728,45 @@ namespace Bikewale.DAL.Dealer
             }
 
             return cityDealers;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 18 Aug 2016
+        /// Description :   Update Manufacturer Lead with received response from external API
+        /// </summary>
+        /// <param name="pqId"></param>
+        /// <param name="custEmail"></param>
+        /// <param name="mobile"></param>
+        /// <param name="response"></param>
+        /// <returns></returns>
+        public bool UpdateManufaturerLead(uint pqId, string custEmail, string mobile, string response)
+        {
+            bool status = false;
+            try
+            {
+                if (pqId > 0 && !String.IsNullOrEmpty(custEmail) && !String.IsNullOrEmpty(mobile))
+                {
+                    using (DbCommand cmd = DbFactory.GetDBCommand())
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "updatemanufacturerlead";
+
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 150, custEmail));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 10, mobile));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_response", DbType.String, 250, response));
+                        if (MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase) > 0)
+                            status = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return status;
         }
     }//End class
 }

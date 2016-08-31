@@ -12,6 +12,8 @@
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
     alternate = "http://www.bikewale.com" + "/m/" + MakeMaskingName + "-bikes/" + ModelMaskingName + "/user-reviews/";
+    //modified by SajalGupta for unfilled impression of ads on 04 Aug 2016.
+    isAd300x250Shown = false;
 %>
 <!-- #include file="/includes/headnew.aspx" -->
 
@@ -34,20 +36,14 @@
             </li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                <a href="/new/" itemprop="url">
-                    <span itemprop="title">New</span>
-                </a>
-            </li>
-            <li class="fwd-arrow">&rsaquo;</li>
-            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                 <a href="/<%= MakeMaskingName %>-bikes/" itemprop="url">
-                    <span itemprop="title"><%= MakeName%></span>
+                    <span itemprop="title"><%= MakeName%> Bikes</span>
                 </a>
             </li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                 <a href="/<%=  MakeMaskingName %>-bikes/<%= ModelMaskingName %>/" itemprop="url">
-                    <span itemprop="title"><%= ModelName%></span>
+                    <span itemprop="title"> <%= MakeName%> <%= ModelName%></span>
                 </a>
             </li>
             <li class="fwd-arrow">&rsaquo;</li>

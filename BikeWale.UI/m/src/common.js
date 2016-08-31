@@ -9,13 +9,26 @@ var ga_pg_id = '0';
 
 function triggerGA(cat, act, lab) {
     try {
+        
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': cat, 'act': act, 'lab': lab });
     }
     catch (e) {// log error   
     }
 }
 
+function triggerNonInteractiveGA(cat, act, lab) {
+    try {
+        
+        dataLayer.push({ 'event': 'Bikewale_noninteraction', 'cat': cat, 'act': act, 'lab': lab });
+    }
+    catch (e) {// log error   
+    }
+}
+
+
+
 $('.bw-ga').click(function () {
+    
     try {
         var obj = $(this);
         if (obj.attr('l') !== undefined) {
@@ -102,10 +115,12 @@ function GetCatForNav() {
             case "15":
                 ret_category = "SpecsAndFeature";
                 break;
+            case "16":
+                ret_category = "Price_in_City_Page";
+                break;
             case "39":
                 ret_category = "BookingListing";
                 break;
-            
         }
     }
     return ret_category;
@@ -966,10 +981,16 @@ function slideChangeStart() {
 
                 if (options.source == '1') {
                     if (item.payload.modelId > 0) {
-                        if (item.payload.futuristic == 'False') {
-                            ulItem.append('<a pqSourceId="' + pqSourceId + '" modelId="' + item.payload.modelId + '" class="fillPopupData target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>');
+                        if (item.payload.futuristic == 'True') {
+                            ulItem.append('<span class="upcoming-link">coming soon</span>')                           
                         } else {
-                            ulItem.append('<span class="upcoming-link">coming soon</span>')
+                            if (item.payload.isNew == 'True') {
+                                ulItem.append('<a pqSourceId="' + pqSourceId + '" modelId="' + item.payload.modelId + '" class="fillPopupData target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>');
+                            }
+                            else {
+                                ulItem.append('<span class="upcoming-link">discontinued</span>')
+                            }
+                               
                         }
                     }
                 }
@@ -1253,6 +1274,12 @@ var appendHash = function (state) {
         case "locatorsearch":
             window.location.hash = state;
             break;
+        case "moreDealers":
+            window.location.hash = state;
+            break;
+        case "dealerOffers":
+            window.location.hash = state;
+            break;
         default:
             return true;
     }
@@ -1285,7 +1312,6 @@ var closePopUp = function (state) {
             listingLocationPopupClose();
             break;
         case "offersPopup":
-            //listingOfferPopupClose();
             offersPopupClose($('div#offersPopup'));
             break;
         case "emiPopup":
@@ -1296,6 +1322,12 @@ var closePopUp = function (state) {
             break;
         case "locatorsearch":
             locatorSearchClose();
+            break;
+        case "moreDealers":
+            popupDiv.close($('#more-dealers-popup'));
+            break;
+        case "dealerOffers":
+            popupDiv.close($('#dealer-offers-popup'));
             break;
         default:
             return true;

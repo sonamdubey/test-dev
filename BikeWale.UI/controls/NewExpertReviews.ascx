@@ -6,16 +6,23 @@
             <div class="margin-bottom20">
                 <div class="grid-4">
                     <div class="model-preview-image-container">
-                        <a href="/expert-reviews/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString() + "-" + DataBinder.Eval(Container.DataItem,"BasicId").ToString() %>.html">
+                        <a href="<%# Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"BasicId")),Convert.ToString(DataBinder.Eval(Container.DataItem,"ArticleUrl")),Bikewale.Entities.CMS.EnumCMSContentType.RoadTest.ToString()) %>">
                             <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgUrl").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>" title="<%# DataBinder.Eval(Container.DataItem, "Title").ToString()%>" alt="<%# DataBinder.Eval(Container.DataItem, "Title").ToString()%>" src="" />
                         </a>
                     </div>
                 </div>
                 <div class="grid-8">
-                    <a href="/expert-reviews/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString() + "-" + DataBinder.Eval(Container.DataItem,"BasicId").ToString() %>.html" class="article-target-link"><%# DataBinder.Eval(Container.DataItem, "Title").ToString()%></a>
-                    <p class="text-light-grey margin-bottom15"><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString(),"MMMM dd, yyyy") %>, by <span class="text-light-grey"><%# DataBinder.Eval(Container.DataItem, "AuthorName").ToString()%></span></p>
-                    <p class="line-height17">
-                        <%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Description").ToString(),170) %>
+                    <a href="<%# Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"BasicId")),Convert.ToString(DataBinder.Eval(Container.DataItem,"ArticleUrl")),Bikewale.Entities.CMS.EnumCMSContentType.RoadTest.ToString()) %>" class="article-target-link"><%# DataBinder.Eval(Container.DataItem, "Title").ToString()%></a>
+                    <div class="article-stats-left-grid">
+                        <span class="bwsprite calender-grey-sm-icon"></span>
+                        <span class="article-stats-content"><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString(),"MMM dd, yyyy") %></span>
+                    </div>
+                    <div class="article-stats-right-grid">
+                        <span class="bwsprite author-grey-sm-icon"></span>
+                        <span class="article-stats-content"><%# DataBinder.Eval(Container.DataItem, "AuthorName").ToString()%></span>
+                    </div>
+                    <p class="line-height17 margin-top10">
+                        <%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Description").ToString(),280) %>
                     </p>
                 </div>
                 <div class="clear"></div>
