@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManufacturerCampaignRules.aspx.cs" Inherits="BikewaleOpr.newbikebooking.ManufacturerCampaignRules" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.newbikebooking.ManufacturerCampaignRules" enableEventValidation="false" %>
 
 <!DOCTYPE html>
 
@@ -21,7 +21,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.js"></script>
     <script type="text/javascript">
         $(function () {
-            $(".chosen-select").chosen();
+            $(".chosen-select").chosen({
+                placeholder_text_multiple: "Select Cities"
+            });
         });
     </script>
     <link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" /> 
@@ -41,22 +43,18 @@
                 <table>
                     <tr>
                         <td class="valign margin-left20">Make:
-                            <asp:DropDownList ID="ddlMake" runat="server" Width="100%" />
+                            <asp:DropDownList ID="ddlMake" name="make" runat="server" Width="100%" />
                         </td>
                         <td class="valign margin-left20">Model:
-                            <%--<asp:DropDownList ID="ddlModel" runat="server" Width="100%" />--%>
-                            <asp:DropDownList ID="ddlModel" multiple="multiple" runat="server" style="width:100%;height: 100px;" />
+                            <asp:ListBox ID="ddlModel" SelectionMode="multiple" runat="server" style="width:100%;height: 100px;" />
                             <asp:HiddenField ID="hdnSelectedModel" runat="server" />
                         </td>
                         <td class="valign margin-left20">All India:
-                            <asp:CheckBox ID="selAllIndia" runat="server" Width="100%" />
+                            <asp:CheckBox ID="selAllIndia" runat="server"  Width="100%" />
                         </td>
                         <td class="valign margin-left20">City:
                           <asp:DropDownList class="chosen-select" runat="server" multiple="true" name="cities" id="ddlCity" Width="100%"/>
-                              
-                         
-                            <%--<asp:DropDownList ID="ddlCity" runat="server" Width="100%" />
-                            <asp:HiddenField ID="hdnSelectedCity" runat="server" />--%>
+                              <asp:HiddenField ID="hdnSelectedCities" runat="server" />
                         </td>
                     </tr>
                     <tr>
@@ -71,19 +69,21 @@
         <br />
         <asp:Label class="greenMessage margin-bottom10 margin-left10" ID="lblGreenMessage" runat="server" />
         <br />
+       <div style="margin-left:210px">
         <% 
             if(rptRules.DataSource!= null){ 
         %>
-        <asp:Button runat="server" OnClientClick="return deleteRules();" class="margin-bottom10 margin-left10" ID="btnDelete" Text="Delete" />
+       
+        <asp:Button runat="server" OnClientClick="return deleteRules();" class="margin-bottom10 margin-left10" ID="btnDeleteRules" Text="Delete" />
         <br />
         <% 
             } 
         %>
         <asp:Repeater ID="rptRules" runat="server">
                     <HeaderTemplate>
-                        <h1>Added Rule(s) :</h1>
+                        <h1 >Added Rule(s) :</h1>
                         <br />
-                        <table border="1" style="border-collapse: collapse;" cellpadding="5" class="margin-left10">
+                        <table border="1" style="border-collapse: collapse;" cellpadding="5">
                             <tr style="background-color: #D4CFCF;">
                                 <th>
                                     <div>Select All</div>
@@ -97,52 +97,42 @@
                                 
                             </tr>
                     </HeaderTemplate>
+            
                     <ItemTemplate>
                     <tr>
                            <td align="center">
-                                <input type="checkbox" class="checkboxAll" id="chkOffer_<%# DataBinder.Eval(Container.DataItem,"Id") %>" RuleId="<%# DataBinder.Eval(Container.DataItem,"Id") %>" />
+                                <input type="checkbox" class="checkboxAll" id="chkOffer_<%# DataBinder.Eval(Container.DataItem,"CampaignRuleId") %>" RuleId="<%# DataBinder.Eval(Container.DataItem,"CampaignRuleId") %>" />
                            </td>
                             <td><%# Eval("MakeName").ToString() %></td>
                             <td><%# Eval("ModelName").ToString() %></td>
-                            <td><%# Eval("CityName").ToString() %></td>
-                        </tr>
+                            <td><%# string.Format("{0},{1}",Eval("CityName").ToString(),Eval("StateName").ToString()) %></td>
+                     </tr>
                     </ItemTemplate>
+            
                     <FooterTemplate>
                         </table>
                     </FooterTemplate>
                 </asp:Repeater>
-
+           </div>
         <asp:HiddenField ID="hdnCheckedRules" runat="server" Value="" />
         <script type="text/javascript">
             $(document).ready(function () {
-                if ($("#ddlMake").val() > 0) {
-                    GetModels($("#ddlMake"));
-                }
-                if ($("#ddlState").val() > 0) {
-                    loadStateCities();
-                }
-                $("#ddlModel").append("<option value='0' title=''> -- Select Models --</option>");
-                $("#ddlCity").append("<option value='0' title=''> -- Select City --</option>");
-                $('#ddlModel').prop('disabled', true);
-                $('#ddlCity').prop('disabled', true);
-            });
-
+             $("#ddlModel").append("<option value='0' title=''> -- Select Models --</option>");
+                      });
+           
+           
             $("#ddlMake").change(function () {
                 $("#lblSaved").text("");
                 $("#ddlModel").val("0").attr("disabled", "disabled");
-                GetModels(this);
+                if ($("#ddlMake").val() > 0) {
+                    GetModels(this);
+                      }
                 $('#hdnSelectedModel').val('');
             });
-
-            $("#ddlState").change(function () {
-                loadStateCities();
-                $('#hdnSelectedCity').val('');
-            });
-
          
 
             $("#ddlCity").change(function () {
-                $('#hdnSelectedCity').val($("#ddlCity").val());
+                $('#hdnSelectedCities').val($("#ddlCity").val());
             });
 
             $("#rptRules_chkAll").click(function () {
@@ -155,18 +145,38 @@
             });
 
             function ValidateForm() {
+                var isAllIndia = $("#selAllIndia").prop("checked");
+               
                 $('#lblErrorSummary').html('');
-                if ($("#ddlCity").val() == null || $("#ddlModel").val() == null){
-                    alert('Select values from List');
-                    return false;
-                }
-                else if ($("#ddlMake").val() == 0 || $("#ddlState").val() == 0 || $("#ddlCity").val() == 0 ||  $("#ddlModel").val() == 0) {
-                    alert('Select values from List')
-                    return false;
+                if (isAllIndia) {
+                    if ($("#ddlModel").val() == null) {
+                        alert('Select values from List');
+                        return false;
+                    }
+                    else if ($("#ddlMake").val() == 0 || $("#ddlModel").val() == 0) {
+                        alert('Select values from List')
+                        return false;
+                    }
+                    else {
+                        $('#hdnSelectedModel').val($("#ddlModel").val());
+                        return true;
+                    }
+
                 }
                 else {
-                    $('#hdnSelectedModel').val($("#ddlModel").val());
-                    return true;
+                    if ($("#ddlCity").val() == null || $("#ddlModel").val() == null) {
+                        alert('Select values from List');
+                        return false;
+                    }
+                    else if ($("#ddlMake").val() == 0 || $("#ddlCity").val() == 0 || $("#ddlModel").val() == 0) {
+                        alert('Select values from List')
+                        return false;
+                    }
+                    else {
+                        $('#hdnSelectedModel').val($("#ddlModel").val());
+                        $('#hdnSelectedCities').val($("#ddlCity").val());
+                        return true;
+                    }
                 }
             }
             function deleteRules () {
@@ -205,45 +215,22 @@
                             var responseJSON = eval('(' + response + ')');
                             var resObj = eval('(' + responseJSON.value + ')');
                             bindDropDownList(resObj, $("#ddlModel"), "", "");
+
                         }
                     });
                 } else {
                     $("#ddlModel").val("0").attr("disabled", "disabled");
                 }
             }
-            function loadStateCities() {
-                var stateId = $("#ddlState").val();
-                if (stateId > 0) {
-                    var requestType = "ALL";
-                    $("#hdnCities").val("");
-                    $.ajax({
-                        type: "POST",
-                        url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
-                        data: '{"requestType":"' + requestType + '", "stateId":"' + stateId + '"}',
-                        beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetCWCities"); },
-                        success: function (response) {
-                            var responseJSON = eval('(' + response + ')');
-                            var resObj = eval('(' + responseJSON.value + ')');
-                            bindDropDownList(resObj, $("#ddlCity"), "", "--Select city--");
-                        }
-                    });
-                } else {
-                    $("#ddlCity").val("0").attr("disabled", "disabled");
-                }
-            }
+           
             function bindDropDownList(response, cmbToFill, viewStateId, selectString) {
                 if (response.Table != null) {
-                    //if (!selectString || selectString == '') selectString = "--Select--";
                     $(cmbToFill).empty();
                     $(cmbToFill).prop('disabled', false);
                     if (selectString != '') {
                         $(cmbToFill).append("<option value=\"0\" title='" + selectString + "'>" + selectString + "</option>");
                     }
                     var hdnValues = "";
-                    // Add select all option for Models
-                    //if (($(cmbToFill).attr('id') == 'ddlModel')) {
-                    //    $(cmbToFill).append("<option value=\"-1\" title='-- Select all --'>" + '-- Select all --' + "</option>");
-                    //}
                     for (var i = 0; i < response.Table.length; i++) {
                         $(cmbToFill).append("<option value=" + response.Table[i].Value + " title='" + response.Table[i].Text + "'>" + response.Table[i].Text + "</option>");
                         if (hdnValues == "")
@@ -252,6 +239,8 @@
                             hdnValues += "|" + response.Table[i].Text + "|" + response.Table[i].Value;
                     }
                     if (viewStateId) $("#" + viewStateId).val(hdnValues);
+                    
+
                 }
             }
         </script>

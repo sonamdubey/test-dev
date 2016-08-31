@@ -469,11 +469,11 @@
       <DependentUpon>ManufacturerCampaignRules.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="rabbitmq\pager\IPager.cs" />
-    <Compile Include="rabbitmq\pager\Pager.cs" />
-    <Compile Include="rabbitmq\pager\PagerEntity.cs" />
-    <Compile Include="rabbitmq\pager\PagerOutputEntity.cs" />
-    <Compile Include="rabbitmq\pager\PageUrlList.cs" />
+    <Compile Include="pager\IPager.cs" />
+    <Compile Include="pager\Pager.cs" />
+    <Compile Include="pager\PagerEntity.cs" />
+    <Compile Include="pager\PagerOutputEntity.cs" />
+    <Compile Include="pager\PageUrlList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="rabbitmq\CommonRQ.cs" />
     <Compile Include="rabbitmq\rabbitMQEnum.cs" />
