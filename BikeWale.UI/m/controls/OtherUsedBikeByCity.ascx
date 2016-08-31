@@ -43,9 +43,9 @@
                     <% } %>
                 </div>
             </div>
-            <div class="margin-top10 margin-right20 margin-left20">
+            <%--<div class="margin-top10 margin-right20 margin-left20">
                 <a href="/m/used/bikes-in-<%=viewModel.CityName %>/" title="Used bikes in <%=viewModel.CityName %>" class="font14">View all used bikes in <%= viewModel.CityName %><span class="bwmsprite blue-right-arrow-icon"></span></a>
-            </div>
+            </div>--%>
         </div>
         <div class="margin-right20 margin-left20 border-solid-bottom"></div>
 <% } %>

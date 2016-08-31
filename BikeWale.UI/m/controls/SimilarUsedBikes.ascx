@@ -4,7 +4,7 @@
    {  %>
         <div id="modelSimilar" class="bw-model-tabs-data padding-top20 padding-bottom15">
             
-            <h2 class="margin-right20 margin-bottom15 margin-left20">Similar <%= ModelName %> bikes</h2>
+            <h2 class="margin-right20 margin-bottom15 margin-left20">Similar used <%= ModelName %> bikes</h2>
             
             <div id="similar-bike-swiper" class="swiper-container padding-top5 padding-bottom5">
                 <div class="swiper-wrapper">
@@ -43,9 +43,9 @@
                     <% } %>
                 </div>
             </div>
-            <div class="margin-top10 margin-right20 margin-left20">
+            <%--<div class="margin-top10 margin-right20 margin-left20">
                 <a href="/m/used/bikes-in-<%= CityMaskingName %>/<%= MakeMaskingName %>-<%= ModelMaskingName %>/" title="" class="font14">View all <%= ModelName %> in <%= CityName %><span class="bwmsprite blue-right-arrow-icon"></span></a>
-            </div>
+            </div>--%>
         </div>
         <div class="margin-right20 margin-left20 border-solid-bottom"></div>
 <% } %>
