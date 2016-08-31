@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Bikewale.Mobile.Controls;
-using Bikewale.Mobile.controls;
-using Bikewale.Common;
-using Bikewale.m.controls;
-using Bikewale.Entities.PriceQuote;
-using Microsoft.Practices.Unity;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Cache.BikeData;
-using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.Cache.Core;
+﻿using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.m.controls;
+using Bikewale.Mobile.Controls;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile
 {
@@ -25,7 +21,7 @@ namespace Bikewale.Mobile
         protected ExpertReviewsWidget ctrlExpertReviews;
         protected VideosWidget ctrlVideos;
         protected CompareBikesMin ctrlCompareBikes;
-        protected MOnRoadPricequote MOnRoadPricequote; 
+        protected MOnRoadPricequote MOnRoadPricequote;
         protected short reviewTabsCnt = 0;
         //Variable to Assing ACTIVE .css class
         protected bool isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
@@ -39,7 +35,7 @@ namespace Bikewale.Mobile
         }
 
         protected void Page_Load(object sender, EventArgs e)
-        {   
+        {
             ctrlNews.TotalRecords = 3;
             ctrlExpertReviews.TotalRecords = 3;
             ctrlVideos.TotalRecords = 3;

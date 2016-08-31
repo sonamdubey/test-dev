@@ -70,8 +70,8 @@
 				</div>
 				<p class="font12 text-light-grey padding-left15 padding-right15">Location:</p>
 				<p class="font16 text-bold padding-left15 padding-right15">
-					<%= (!string.IsNullOrEmpty(currentArea) ? string.Format("<span>{0}</span>,&nbsp;<span>{1}</span>",currentArea,currentCity) : string.Format("<span>{0}</span>",currentCity)) %>
-					<a href="javascript:void(0)" rel="nofollow" pqSourceId="<%= Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation %>" modelId="<%= objPriceQuote.objModel.ModelId %>" class="fillPopupData"><span class="bwmsprite loc-change-blue-icon"></span></a>
+					<%= (!string.IsNullOrEmpty(currentArea) ? string.Format("{0}, {1}",currentArea,currentCity) : currentCity) %>
+					<a href="javascript:void(0)" rel="nofollow" data-pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation %>" data-modelId="<%= objPriceQuote.objModel.ModelId %>" class="getquotation" data-persistent="true"><span class="bwmsprite loc-change-blue-icon"></span></a>
 				</p>
 			</div>
 			<script type="text/javascript">                

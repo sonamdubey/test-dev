@@ -71,7 +71,7 @@
                                     <span itemprop="title"><%= modelPageEntity.ModelDetails.MakeBase.MakeName %> Bikes</span>
                                 </a></li>
                             <li><span class="bwsprite fa-angle-right margin-right10"></span>
-                              <span itemprop="title"><%= modelPageEntity.ModelDetails.MakeBase.MakeName %></span> <span><%= modelPageEntity.ModelDetails.ModelName %></span>
+                              <span><%= modelPageEntity.ModelDetails.MakeBase.MakeName %><%= modelPageEntity.ModelDetails.ModelName %></span>
                             </li>
                         </ul>
                         <div class="clear"></div>
@@ -511,7 +511,7 @@
                             <% } %>
                         </div>
                         <% } %>
-                        <% if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ && viewModel.SecondaryDealerCount > 0)
+                        <% if (viewModel != null && viewModel.SecondaryDealerCount > 0)
                            { %>
                         <ul id="moreDealersList">
                             <asp:Repeater ID="rptSecondaryDealers" runat="server">
@@ -525,7 +525,7 @@
                             </asp:Repeater>
                         <% } %>
                         </ul>
-                        <% if (viewModel!=null && !isBikeWalePQ && viewModel.SecondaryDealerCount > 0)
+                        <% if (viewModel!=null && viewModel.SecondaryDealerCount > 0)
                            { %>
                         <div class="text-center margin-top20">
                             <a href="javascript:void(0)" class="font14 more-dealers-link">Check price from <%=viewModel.SecondaryDealerCount %> more dealers <span class="font12"><span class="bwsprite chevron-down"></span></span></a>

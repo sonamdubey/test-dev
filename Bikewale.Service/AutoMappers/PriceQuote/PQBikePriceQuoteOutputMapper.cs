@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
+using Bikewale.DTO.PriceQuote.Area.v2;
 using Bikewale.DTO.PriceQuote.BikeQuotation;
+using Bikewale.DTO.PriceQuote.City.v2;
 using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using System.Collections.Generic;
 using System.Linq;
@@ -163,6 +166,15 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
             Mapper.CreateMap<Entities.PriceQuote.v2.NewBikeDealerBase, DTO.PriceQuote.v3.DPQDealerBase>();
             Mapper.CreateMap<VersionPriceEntity, DTO.PriceQuote.VersionPriceBase>();
             return Mapper.Map<IEnumerable<Entities.PriceQuote.v2.NewBikeDealerBase>, List<DTO.PriceQuote.v3.DPQDealerBase>>(enumerable);
+        }
+
+        internal static DTO.PriceQuote.BikePQOutput Convert(Entities.PriceQuote.v2.PQByCityAreaEntity pqOut)
+        {
+            Mapper.CreateMap<PQOutputEntity, Bikewale.DTO.PriceQuote.v2.PQOutput>();
+            Mapper.CreateMap<CityEntityBase, PQCityBase>();
+            Mapper.CreateMap<Bikewale.Entities.Location.AreaEntityBase, PQAreaBase>();
+            Mapper.CreateMap<Entities.PriceQuote.v2.PQByCityAreaEntity, DTO.PriceQuote.BikePQOutput>();
+            return Mapper.Map<Entities.PriceQuote.v2.PQByCityAreaEntity, DTO.PriceQuote.BikePQOutput>(pqOut);
         }
     }
 }

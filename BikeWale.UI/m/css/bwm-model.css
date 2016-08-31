@@ -67,7 +67,7 @@
 .viewMoreOffersBtn { cursor: pointer; color: #0288d1; margin-left:25px; }
 .viewBreakupText { cursor: pointer; color: #0288d1; margin-top:3px; }
 .breakup-header { width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:left; }
-.offers-sprite {background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v19Aug2016) no-repeat; display: inline-block;}
+.offers-sprite {background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v23Aug2016) no-repeat; display: inline-block;}
 #otpPopup { display:none; }
 .user-contact-details-icon { width:36px; height:44px; background-position: -107px -227px; }
 .otp-icon { width:30px; height:40px; background-position: -107px -177px; }
@@ -123,7 +123,8 @@
 .color-box.red {background:#f00;}
 .color-box.blue {background:#3749a4;}
 
-.loc-change-blue-icon { width:12px; height:16px; background-position:-197px -395px; position:relative; top:2px; }
+.changeCity:hover { text-decoration:none }
+.loc-change-blue-icon { width:16px; height:16px; background-position:-195px -395px; position:relative; top:2px; }
 .loc-change-blue-icon:hover { background-position:-86px -278px; }
 /**************/
 /* or text classes */
@@ -410,6 +411,8 @@
     font-size: 14px;
     display: inline-block;
     vertical-align: middle;
+    position:relative;
+    top:-5px;
 }
 
 #dealer-offers-list {
@@ -476,13 +479,15 @@ a.btn:hover {
     text-decoration: none;
 }
 
-.line-height-1-5 {
-    line-height: 1.5;
+.line-height-1-7 {
+    line-height: 1.7;
 }
 
 .booknow-label {
     width: 64%;
-    padding-left: 10px
+    padding-left: 10px;
+    position:relative;
+    top:-3px;
 }
 
 .callback-btn.btn-sm-0 {
@@ -490,8 +495,10 @@ a.btn:hover {
 }
 
 .callback-label {
-    width: 47%;
+    width: 46%;
     padding-left: 10px;
+    position:relative;
+    top:-3px;
 }
 
 .nearby-partner-left-col {
@@ -581,13 +588,21 @@ a.btn:hover {
     background-position: 0 -47px;
 }
 
+.dealership-icon-wrapper {
+    height: 22px;
+}
+
 .dealership-icon {
     width:29px;
-    height:24px;
+    height:22px;
     background-position:0 -356px;
 }
 
-.offerIcon_1_sm , .offerIcon_2_sm , .offerIcon_3_sm , .offerIcon_4_sm , .offerIcon_5_sm, .offerIcon_6_sm, .offerIcon_7_sm { width:30px; height:28px; }
+.margin-bottom7 {
+    margin-bottom: 7px
+}
+
+.offerIcon_1_sm , .offerIcon_2_sm , .offerIcon_3_sm , .offerIcon_4_sm , .offerIcon_5_sm, .offerIcon_6_sm, .offerIcon_7_sm { width:30px; height:29px; }
 .offerIcon_1_sm { background-position:0 -93px; }
 .offerIcon_2_sm { background-position:0 -132px; }
 .offerIcon_3_sm { background-position:0 -166px; }
@@ -636,6 +651,7 @@ a.btn:hover {
         width: 100%;
         padding-left: 0;
         margin-top: 5px;
+        top:0;
     }
 
     .nearby-partner-left-col {
@@ -649,6 +665,7 @@ a.btn:hover {
 
     #model-dealer-card .offers-content-label {
         vertical-align: top;
+        top:0;
     }
 
     #dealer-offers-list {
@@ -665,4 +682,10 @@ a.btn:hover {
         padding-right: 0;
         padding-left: 0;
     }
+
+    .float-button .btn {
+        font-size: 15px;
+    }
 }
+
+/*.progress-bar { width:0; height:4px; background-color: #16A085; position:fixed; top:0; left:0; z-index:200; }*/

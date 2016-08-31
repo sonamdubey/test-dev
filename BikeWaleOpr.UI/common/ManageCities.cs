@@ -1,6 +1,7 @@
 ﻿using BikeWaleOpr.VO;
 using MySql.CoreDAL;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -14,6 +15,7 @@ namespace BikeWaleOpr.Common
     /// </summary>    
     public class ManageCities
     {
+       
         /// <summary>
         /// Written By : Ashwini Todkar on 2nd Jan 2014
         /// summary    : This Method returns city name,id,masking name,default pin code,lattitude and longitude 

@@ -195,6 +195,7 @@ ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
 /* on road price popup */
 #popupWrapper.bwm-fullscreen-popup { padding:0; background:#f5f5f5; }
 .user-input-box { width:100%; position:fixed; top:0; left:100%; }
+#popupCityList, #popupAreaList { padding-top:40px; }
 #popupCityList li, #popupAreaList li { border-top: 1px solid #ccc; font-size: 14px; padding: 15px 10px; color: #333333; cursor:pointer; }
 #popupCityList li:hover, #popupAreaList li:hover { background: #ededed; } 
 .border-last-bottom { border-bottom:2px solid #555; }
@@ -220,9 +221,8 @@ footer ul li a:hover { text-decoration: underline; }
 .ui-menu .ui-menu-item { padding: 10px; background:#fff; font-size:14px; cursor:pointer; }
 .ui-menu .ui-menu-item:hover, .ui-menu .ui-menu-item.ui-state-focus { background:#eee; }
 .ui-menu .ui-menu-item a { color: #333; width:60%; float:left; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; }
-.ui-menu .ui-menu-item a.target-popup-link { width:35%; display:block; float:right; position:absolute; right:10px; color:#0288d1; font-size:12px; text-align: right; }
-.ui-menu .ui-menu-item span.upcoming-link { float:right; color:#4d5057; font-size:12px; }
-
+.ui-menu .ui-menu-item a.target-popup-link, .ui-menu .ui-menu-item span.upcoming-link { width:35%; display:block; float:right; position:absolute; right:10px; color:#0288d1; font-size:12px; text-align: right; }
+.ui-menu .ui-menu-item span.upcoming-link { color: #4d5057; }
 
 /** Swiper 3.1.7 **/
 .swiper-container { margin: 0 auto; position: relative; overflow: hidden; /* Fix of Webkit flickering */
@@ -722,10 +722,7 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 .unchecked { background: url("http://imgd4.aeplcdn.com/0x0/bw/static/sprites/m/inputUnchecked.png?v=150915") no-repeat 0 center; }
 .checked { background: url("http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/inputChecked.png?v=150915") no-repeat 0 center; }
 
-.back-to-top {bottom: 30px;position: fixed;width:30px; height:30px; z-index:8; right: 20px;display:none;}
-.back-to-top a {color: #d1d1d1;display: block;width:100%; height:100%;text-align: center;text-decoration: none;}
-.back-to-top a:hover span {background-color: rgb(0, 0, 0);}
-.back-to-top span {background: #cb2100 url("http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/up-arrow.png") no-repeat scroll center center;cursor:pointer;border-radius: 50%;display: block;height: 100%;width: 100%;}
+.back-to-top {width:48px; height:48px; z-index:8; position:fixed; bottom:20px; right: 20px;display:none;background: url('http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/top-icon.png') no-repeat scroll center center;cursor:pointer;}
 
 .clearfix:before, .clearfix:after { content: " "; display: table; }
 .clearfix:after { clear: both; }
@@ -761,7 +758,49 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 .author-grey-sm-icon {background-position: -66px -486px;}
 .views-grey-sm-icon {background-position: -84px -486px;}
 
+.lock-browser-scroll {
+    position: fixed;
+    overflow-y: scroll;
+    width: 100%;
+}
+
 @media all and (max-width: 350px) {
     .article-stats-content { width:72%; }
     #makeVideosContent .article-stats-content.video-view-count { width: 68%; }
+}
+#popupWrapper.loader-active .popup-inner-container, #popup-loader-container {
+    display: none;
+}
+
+#popupWrapper.loader-active #popup-loader-container {
+    text-align: center;
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow-y: hidden;
+    position: relative;
+}
+
+#popup-loader {
+    height: 50px;
+    background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/loader-red.gif) no-repeat center center;
+    position: fixed;
+    top: 45%;
+    left: 5%;
+    right: 5%;
+    margin: 0 auto;
+}
+
+#popup-loader-text {
+    position: fixed;
+    top: 60%;
+    margin: 0 auto;
+    left: 5%;
+    right: 5%;
+}
+
+.city-area-banner {
+    width: 100%;
+    height: 109px;
+    background: #f5f5f5 url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/city-area-banner.png) repeat-x center bottom;
 }

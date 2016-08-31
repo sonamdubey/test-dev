@@ -1280,7 +1280,7 @@ namespace Bikewale.New
         {
             try
             {
-                if (cityId > 0 && variantId > 0)
+                if (cityId > 0 && areaId > 0 && variantId > 0)
                 {
                     viewModel = new ModelPageVM(cityId, variantId, dealerId);
                     if (viewModel.Offers != null && viewModel.Offers.Count() > 0)

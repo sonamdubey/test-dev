@@ -469,6 +469,10 @@
       <DependentUpon>ManageOffers.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="newbikebooking\ManufacturerCampaignRules.aspx.cs">
+      <DependentUpon>ManufacturerCampaignRules.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="pager\IPager.cs" />
     <Compile Include="pager\Pager.cs" />
     <Compile Include="pager\PagerEntity.cs" />
@@ -1320,6 +1324,7 @@
     <Content Include="controls\LinkPagerControl.ascx" />
     <Content Include="controls\RichTextEditor.ascx" />
     <Content Include="css\960_12_col.css" />
+    <Content Include="css\chosen.min.css" />
     <Content Include="css\Common.css" />
     <Content Include="Default.aspx" />
     <Content Include="editcms\AddPages.aspx" />
@@ -1865,12 +1870,14 @@
     <Content Include="newbikebooking\ManageDealerLoanAmounts.aspx" />
     <Content Include="newbikebooking\ManageDealersCampaigns.aspx" />
     <Content Include="newbikebooking\ManageOffers.aspx" />
+    <Content Include="newbikebooking\ManufacturerCampaignRules.aspx" />
     <Content Include="pagenotfound.aspx" />
     <Content Include="research\urlmapping\map_models.txt" />
     <Content Include="src\AjaxFunctions.js" />
     <Content Include="src\bt.js" />
     <Content Include="src\calender.js" />
     <Content Include="src\chains.js" />
+    <Content Include="src\chosen.jquery.min.js" />
     <Content Include="src\common\common.js" />
     <Content Include="src\graybox.js" />
     <Content Include="src\greybox.js" />

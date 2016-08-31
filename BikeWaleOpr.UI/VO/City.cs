@@ -21,4 +21,14 @@ namespace BikeWaleOpr.VO
         public string StdCode { get; set; }
         public string DefaultPinCode { get; set; }      
     }
+    /// <summary>
+    /// Created By: Aditi Srivastava on 26 Aug 2016
+    /// Description: This class is used to get all cities and their states for Mnaufacturer Campaigns
+    /// </summary>
+    public class ManufacturerCities
+    {
+        public int CityId { get; set; }
+        public string CityName { get; set; }
+        public string StateName { get; set; }
+    }
 }

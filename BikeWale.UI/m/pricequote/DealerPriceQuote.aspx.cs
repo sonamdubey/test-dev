@@ -407,6 +407,8 @@ namespace Bikewale.Mobile.BikeBooking
             {
                 ctrlAlternateBikes.VersionId = Convert.ToInt32(versionId);
                 ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_DPQ_Alternative;
+                ctrlAlternateBikes.modelName = (objPriceQuote != null && objPriceQuote.objModel != null) ? objPriceQuote.objModel.ModelName : string.Empty;
+
             }
         }
 

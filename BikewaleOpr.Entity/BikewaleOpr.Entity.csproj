@@ -77,10 +77,13 @@
     <Compile Include="FacilityEntity.cs" />
     <Compile Include="GeoLocationDestinationEntity.cs" />
     <Compile Include="GeoLocationEntity.cs" />
+    <Compile Include="MfgNewRulesEntity.cs" />
     <Compile Include="MakeEntity.cs" />
     <Compile Include="MakeEntityBase.cs" />
     <Compile Include="ManufacturerCampaignEntity.cs" />
     <Compile Include="ManufacturerEntity.cs" />
+    <Compile Include="MfgCampaignRulesEntity.cs" />
+    <Compile Include="MfgCityEntity.cs" />
     <Compile Include="ModelColorBase.cs" />
     <Compile Include="ModelEntityBase.cs" />
     <Compile Include="NewBikeDealers.cs" />

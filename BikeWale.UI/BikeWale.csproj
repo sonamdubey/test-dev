@@ -791,6 +791,10 @@
       <DependentUpon>MOnRoadPricequote.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\MPopupWidget_old.ascx.cs">
+      <DependentUpon>MPopupWidget_old.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\MPopupWidget.ascx.cs">
       <DependentUpon>MPopupWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2184,6 +2188,7 @@
     <Content Include="m\controls\ModelGallery.ascx" />
     <Content Include="m\controls\ModelPriceInNearestCities.ascx" />
     <Content Include="m\controls\MOnRoadPricequote.ascx" />
+    <Content Include="m\controls\MPopupWidget_old.ascx" />
     <Content Include="m\controls\MPopupWidget.ascx" />
     <Content Include="m\controls\MUpcomingBikes.ascx" />
     <Content Include="m\controls\NewAlternativeBikes.ascx" />

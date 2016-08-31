@@ -25,7 +25,7 @@
                             <span class="article-stats-content"><%#Eval("WrittenBy").ToString() %></span>
                         </div>
                         <p class="margin-top12 line-height17">
-                            <%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Comments").ToString(),200) %>
+                            <%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Comments").ToString(),200) %> ...
                         </p>
                     </div>
                     <div class="clear"></div>
