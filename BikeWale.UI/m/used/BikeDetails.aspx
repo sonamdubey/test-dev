@@ -10,8 +10,8 @@
     OGImage =  (firstImage!=null) ? Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImagePath,firstImage.HostUrl,Bikewale.Utility.ImageSize._360x202) : string.Empty;
     AdPath = "/1017752/Bikewale_Mobile_Model";
     AdId = "1444028976556";
-    Ad_320x50 = false;
-    Ad_Bot_320x50 = false;
+    Ad_320x50 = true;
+    Ad_Bot_320x50 = true;
     Ad_300x250 = false;
     TargetedModel = (inquiryDetails.Model!=null) ? inquiryDetails.Model.ModelName:string.Empty;
     TargetedCity = (inquiryDetails.City != null) ? inquiryDetails.City.CityName : string.Empty;
