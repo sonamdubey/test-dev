@@ -41,8 +41,8 @@ namespace BikewaleOpr.Campaign
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IManufacturerCampaign, ManufacturerCampaign>();
-                    IManufacturerCampaign objMfgCampaign = container.Resolve<IManufacturerCampaign>();
+                    container.RegisterType<IManufacturerCampaignRepository, ManufacturerCampaign>();
+                    IManufacturerCampaignRepository objMfgCampaign = container.Resolve<IManufacturerCampaignRepository>();
                 }
 
             }

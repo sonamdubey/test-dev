@@ -5,7 +5,8 @@
 /* default styles
    -------------- */
 body { padding: 0; margin: 0; font: 0.7em Tahoma, sans-serif; line-height: 1.5em; background: #fff; color: #454545; }
-input, select {font-size:11px;}
+input{font-size:11px; padding: 6px; cursor:pointer;}
+select {font-size:11px; padding: 6px; cursor: pointer; vertical-align: top;}
 
 a {	color: #E0691A;	background: inherit;}
 a:hover { color: #6C757A; background: inherit; }
@@ -22,6 +23,7 @@ input.search { width: 292px; border: 0;	background: #FFF url(../Images/input.gif
 input.submit {background: #E0691A url(../Images/submit.gif) no-repeat;border: 0;padding: 4px 0;	width: 65px; margin: 0 15px 1px 0; color: #FFF;	font: bold 1em Arial, Sans-Serif;}
 input.login { width: 150px;	border: none; padding: 4px; }
 
+.text-align-center {text-align:center;}
 .errorMessage{ font: bold 1em Arial, Sans-Serif; color:#FF0000 }
 .compulsary{ color:#FF0000 }
 .AddTable{ border:0px solid #eeeeee; border-collapse:collapse; padding:2px 2px 2px 2px ; text-align:center;font: normal 1em Arial, Sans-Serif; }
@@ -65,7 +67,7 @@ input.login { width: 150px;	border: none; padding: 4px; }
 .top_info_right { float: right; width: 290px; padding: 0 0 0 35px; }
 .browse_category  { font-size: 0.9em; width: 80px; color: #FFF; background: inherit; }
 
-.bar { clear: both; font-size: 1.0em; height: 30px; color: #FFF; margin: 0px 0px 0px 0px; background: #FF9148; }
+.bar { clear: both; font-size: 1.0em; height: 30px; color: #FFF; margin: 0px 0px 5px 0px; background: #FF9148; }
 .bar li { margin: 0; padding: 7px 5px 5px 8px; color: #FFEADC; background: #FF9148; float: left; }	
 .bar li.active { background: #E0691A url(bar.gif) no-repeat center top; color: #fff; font-weight: bold; padding: 7px 10px 6px 10px; }	
 .bar li a { font-weight: bold; color: #FFF; background: inherit; text-decoration: none; } 	
@@ -93,7 +95,7 @@ input.login { width: 150px;	border: none; padding: 4px; }
 .margin-right10 { margin-right:10px; }
 .margin-top10 { margin-top:10px; }
 .margin-bottom10 { margin-bottom:10px; }
-
+.min-height600 { min-height:600px; }
 
 /* ---------- left side   --------- */
 .left { float: right; width: 82%; margin: 0 0 10px 0; }
@@ -158,3 +160,10 @@ a.selected:link,a.selected:visited,a.selected:hover,a.selected:focus,a.selected:
     .green  { background-color:#B2Df75;  }
     .yellow { background-color:#FFFF7F; }
     .orange { background-color:#FDBA2B; }
+
+    /* new css */
+    
+    .dtItem {border-bottom: 1px solid #808080;}    
+    .footer {margin-top: 20px;}
+    .top_info_left {text-transform: capitalize;}
+    .dtItem {font-size: larger;}

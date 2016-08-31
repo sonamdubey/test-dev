@@ -17,17 +17,18 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
     /// </summary>
     /// <param name="dealerId"></param>
     /// <returns></returns>
-    public class ManufacturerCampaign : IManufacturerCampaign
+    public class ManufacturerCampaign : IManufacturerCampaignRepository
     {
         /// <summary>
         /// Created by Subodh Jain 29 aug 2016
-        /// Description : Return all the campaigns for selected dealer
+        /// Description : Return all the campaigns for given manufacturer id
         /// </summary>
         /// <param name="dealerId"></param>
         /// <returns></returns>
         public IEnumerable<ManufactureDealerCampaign> SearchManufactureCampaigns(uint dealerId)
         {
             IList<ManufactureDealerCampaign> dtManufactureCampaigns = null;
+
             try
             {
                 if (dealerId > 0)
@@ -74,24 +75,24 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         /// </summary>
         /// <param name="dealerId"></param>
         /// <returns></returns>
-        public bool statuschangeCampaigns(uint id, uint isactive)
+        public bool UpdateCampaignStatus(uint id, bool isactive)
         {
-
             bool isSuccess = false;
+
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("statuschangeCampaigns"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.UInt32, id));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.UInt32, isactive));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Boolean, isactive));
+
                     if (Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase)))
                         isSuccess = true;
                 }
             }
             catch (Exception ex)
             {
-
                 ErrorClass objErr = new ErrorClass(ex, "ManufacturerCampaign.statuschangeCampaigns");
                 objErr.SendMail();
             }
@@ -103,7 +104,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         /// </summary>
         /// <param name="dealerId"></param>
         /// <returns></returns>
-        public IEnumerable<ManufacturerEntity> GetDealerAsManuFacturer()
+        public IEnumerable<ManufacturerEntity> GetManufacturersList()
         {
             IList<ManufacturerEntity> manufacturers = null;
 

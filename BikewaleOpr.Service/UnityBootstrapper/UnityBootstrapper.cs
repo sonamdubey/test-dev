@@ -15,7 +15,9 @@ namespace BikewaleOpr.Service.UnityConfiguration
         public static IUnityContainer Initialize()
         {
             IUnityContainer container = new UnityContainer();
-            container.RegisterType<IManufacturerCampaign, ManufacturerCampaign>();
+
+            container.RegisterType<IManufacturerCampaignRepository, ManufacturerCampaign>();
+            
             return container;
         }
     }

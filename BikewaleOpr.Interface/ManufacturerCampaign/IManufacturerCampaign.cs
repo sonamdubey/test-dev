@@ -13,10 +13,10 @@ namespace BikewaleOpr.Interface.ManufacturerCampaign
     /// Created by Subodh Jain 29 aug 2016
     /// Description : Interface for manufactureCampaign
     /// </summary>
-    public interface IManufacturerCampaign
+    public interface IManufacturerCampaignRepository
     {
         IEnumerable<ManufactureDealerCampaign> SearchManufactureCampaigns(uint dealerid);
-        bool statuschangeCampaigns(uint id, uint isactive);
-        IEnumerable<ManufacturerEntity> GetDealerAsManuFacturer();
+        bool UpdateCampaignStatus(uint id, bool isactive);
+        IEnumerable<ManufacturerEntity> GetManufacturersList();
     }
 }
