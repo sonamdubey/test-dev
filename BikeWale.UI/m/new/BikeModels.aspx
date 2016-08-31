@@ -113,17 +113,20 @@
                            
                             <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/photos/" ><img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image" /></a>
                             <div class="model-media-details">
+                                <% if (modelPage.ModelDetails.PhotosCount>0)
+                                { %>
                                 <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/photos" class="model-media-item">
                                     <span class="bwmsprite gallery-photo-icon"></span>
                                     <span class="model-media-count"><%= modelPage.ModelDetails.PhotosCount %></span>
-                                    
                                 </a>
-                               
+                                <% } %>
+                               <% if (modelPage.ModelDetails.VideosCount>0)
+                                { %>
                                 <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/photos/#videos" class="model-media-item">
                                      <span class="bwmsprite gallery-video-icon"></span>
                                     <span class="model-media-count"><%=modelPage.ModelDetails.VideosCount%></span>
                                 </a>
-                              
+                               <% } %>
                             </div>
                            
                         </div>
