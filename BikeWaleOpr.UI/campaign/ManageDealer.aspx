@@ -83,18 +83,25 @@
 </div>
 <div>
 
-    <% if(isEdit)  { %>
-    <h1> Edit </h1>
-    <% }else {  %> 
-    <h1> Add </h1>
+
+    <% if (isEdit)
+       { %>
+    <h1>Edit <%= manufacturerName %> Campaign</h1>
+    <% }
+       else
+       {  %>
+    <h1>Add <%= manufacturerName %> Campaign </h1>
     <% }  %> 
+
+    <asp:label class="greenMessage margin-bottom10 margin-left10" id="lblGreenMessage" runat="server" />
+            <br />
 
     <table class="margin-top10 margin-bottom10" rules="all" cellspacing="0" cellpadding="5" style="border-width: 1px; border-style: solid; width: 60%; border-collapse: collapse;">
                 <tbody>
                     <tr>
                         <td style="width: 20%"><strong>Campaign Description :</strong> </td>
                         <td>
-                            <asp:textbox runat="server"  maxlength="300" class="req width300" enabled="true" width="300"/>
+                            <asp:textbox runat="server" id="campaignDescription" maxlength="300" class="req width300" enabled="true" width="300"/>
                         </td>
                     </tr>
                     <tr>
@@ -108,64 +115,90 @@
                     </tr>  
                     <tr>
                         <td style="width: 20%"><strong>Is Active :</strong><b class='required'>*</b> 
-                        <asp:CheckBox runat="server" id="CheckBox1" Checked="True" /> 
+                        <asp:CheckBox runat="server" id="isActive" Checked="True" /> 
                         </td>                   
                     </tr>   
                     <tr>
                         <td style="width: 20%"><strong>1. Dealer Price Quote Page Desktop</strong><b class='required'>*</b>                         
                         </td>
                         <td>
-                            <asp:textbox id="textBox1" disabled="true" textmode="multiline" multiline="true" height="100" width="300" runat="server" class="req width300" />
-                            <span id="spnDealerEmail" class="Required marginleft18"></span>
-                            <asp:CheckBox runat="server" id="CheckBox2" Checked="True" text ="Use Default" onclick="enableDisable(this.checked, 'textBox1')"/> 
+                            <asp:textbox id="textBox1" textmode="multiline" multiline="true" height="100" width="300" runat="server" />                           
+                            <asp:CheckBox runat="server" id="CheckBox1" Checked="True" text ="Use Default" onclick="enableDisable(this.checked, 'textBox1')"/> 
+                            <asp:hiddenfield id="Hiddenfield1" runat="server" />
                         </td>
                     </tr>   
                     <tr>
                         <td style="width: 20%"><strong>2. Dealer Price Quote Page Mobile</strong><b class='required'>*</b>                         
                         </td>
                         <td>
-                            <asp:textbox id="textBox2" textmode="multiline" disabled="true" multiline="true" height="100" width="300" runat="server" class="req width300" />
-                            <span id="spnDealerEmail" class="Required marginleft18"></span>
-                            <asp:CheckBox runat="server" id="CheckBox3" Checked="True" text ="Use Default" onclick="enableDisable(this.checked, 'textBox2')"/> 
+                            <asp:textbox id="textBox2" textmode="multiline" multiline="true" height="100" width="300" runat="server" />                        
+                            <asp:CheckBox runat="server" id="CheckBox2" Checked="True" text ="Use Default" onclick="enableDisable(this.checked, 'textBox2')"/> 
+                            <asp:hiddenfield id="Hiddenfield2" runat="server" />
                         </td>
                     </tr> 
                     <tr>
                         <td style="width: 20%"><strong>3. Model Page Desktop</strong><b class='required'>*</b>                         
                         </td>
                         <td>
-                            <asp:textbox id="textBox3" disabled="true" textmode="multiline" multiline="true" height="100" width="300" runat="server" class="req width300" />
-                            <span id="spnDealerEmail" class="Required marginleft18"></span>
-                            <asp:CheckBox runat="server" id="CheckBox4" Checked="True" text ="Use Default" onclick="enableDisable(this.checked, 'textBox3')"/> 
+                            <asp:textbox id="textBox3" textmode="multiline" multiline="true" height="100" width="300" runat="server"  />                           
+                            <asp:CheckBox runat="server" id="CheckBox3" Checked="True" text ="Use Default" onclick="enableDisable(this.checked, 'textBox3')"/> 
+                            <asp:hiddenfield id="Hiddenfield3" runat="server" />
                         </td>
                     </tr>  
                     <tr>
                         <td style="width: 20%"><strong>4. Model Page Mobile</strong><b class='required'>*</b>                         
                         </td>
                         <td>
-                            <asp:textbox id="textBox4" disabled="true" textmode="multiline" multiline="true" height="100" width="300" runat="server" class="req width300" />
-                            <span id="spnDealerEmail" class="Required marginleft18"></span>
-                            <asp:CheckBox runat="server" id="CheckBox5" Checked="True" text ="Use Default" onclick="enableDisable(this.checked, 'textBox4')"/> 
+                            <asp:textbox id="textBox4" textmode="multiline" multiline="true" height="100" width="300" runat="server" />                            
+                            <asp:CheckBox runat="server" id="CheckBox4" Checked="True" text ="Use Default" onclick="enableDisable(this.checked, 'textBox4')"/> 
+                            <asp:hiddenfield id="Hiddenfield4" runat="server" />
                         </td>
                     </tr>             
                     <tr>
                         <td colspan="2">
-                            <asp:button id="btnUpdate" onclientclick="return ValidateForm();" text="Save" runat="server" cssclass="padding10" />
+                            <asp:button id="btnUpdate" onclientclick="return ValidateForm();"  runat="server" cssclass="padding10" />
                         </td>
-                    </tr>
-                </tbody>                         
+                    </tr> 
+                       
+                    <tr>
+                        <td colspan="2"> 
+                            <input type="Button" onclick="window.location.href = 'http://www.google.com'" value="Edit Rules" style="padding10" /> 
+                        </td>
+                         
+                    </tr>                    
+                </tbody>                                                                    
             </table>
 
 
-                <asp:label class="errMessage margin-bottom10 margin-left10 required" id="lblErrorSummary" runat="server" />
-            <br />
-            <asp:label class="greenMessage margin-bottom10 margin-left10" id="lblGreenMessage" runat="server" />
+                
+            <asp:label class="errMessage margin-bottom10 margin-left10 required" id="lblErrorSummary" runat="server" />
             <br />
            
-                      
+
+       
+                     
 
 </div>
 
 <script type="text/javascript">
+
+   
+    $(document).ready(function () {
+
+        if ('<%= isEdit %>' == 'False')
+        { 
+            $('#textBox1').prop("disabled", true);
+            $('#textBox2').prop("disabled", true);
+            $('#textBox3').prop("disabled", true);
+            $('#textBox4').prop("disabled", true);
+            $("#btnUpdate").val("save");
+        }
+        else
+        {        
+            $("#btnUpdate").val("update");
+        }
+    });
+
     function enableDisable(bEnable, textBoxID)
     {
         $('#' + textBoxID).prop("disabled", bEnable);

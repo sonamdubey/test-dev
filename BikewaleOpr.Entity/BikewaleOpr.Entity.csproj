@@ -79,6 +79,8 @@
     <Compile Include="MakeEntity.cs" />
     <Compile Include="MakeEntityBase.cs" />
     <Compile Include="ManufacturerCampaignEntity.cs" />
+    <Compile Include="ManufacturerCampaignPageIDEnum.cs" />
+    <Compile Include="ManufacturerCampaign\ManufacturerCampaignEntity.cs" />
     <Compile Include="ManufacturerEntity.cs" />
     <Compile Include="ModelColorBase.cs" />
     <Compile Include="ModelEntityBase.cs" />
