@@ -19,7 +19,6 @@ namespace Bikewale.Mobile.Used
         protected ClassifiedInquiryDetails inquiryDetails = null;
         protected UsedBikePhotoGallery ctrlUsedBikeGallery;
         protected Repeater rptUsedBikeNavPhotos, rptUsedBikePhotos;
-        private bool _isPageNotFound;
 
         public SimilarUsedBikes ctrlSimilarUsedBikes;
         public OtherUsedBikeByCity ctrlOtherUsedBikes;
@@ -48,8 +47,6 @@ namespace Bikewale.Mobile.Used
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }
-
-
         }
 
         /// <summary>
@@ -108,9 +105,7 @@ namespace Bikewale.Mobile.Used
                 if (Request["profile"] != null)
                 {
                     usedBikeDetails = new UsedBikeDetailsPage();
-
                     usedBikeDetails.IsValidProfileId(Request.QueryString["profile"]);
-
                     if (!usedBikeDetails.IsPageNotFoundRedirection)
                     {
                         inquiryId = usedBikeDetails.InquiryId;
@@ -126,12 +121,6 @@ namespace Bikewale.Mobile.Used
                         moreBikeSpecsUrl = usedBikeDetails.MoreBikeSpecsUrl;
                         moreBikeFeaturesUrl = usedBikeDetails.MoreBikeFeaturesUrl;
                         profileId = string.Format("S{0}", inquiryId);
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " BindProfileDetails");
-                objErr.SendMail();
-            }
                     }
                 }
             }
@@ -140,8 +129,6 @@ namespace Bikewale.Mobile.Used
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Mobile.Used.BikeDetails.BindProfileDetails");
                 objErr.SendMail();
             }
-
-
         }
     }
 }
