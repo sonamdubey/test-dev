@@ -109,26 +109,20 @@
                     <p class="text-bold"><%= objCustomer.objCustomerBase.CustomerMobile %></p>
                 </div>
 
-                <%if(_objPQ!=null && _objPQ.objOffers!=null && _objPQ.objOffers.Count > 0) {%>
-                    <p class="font16 text-bold padding-top20">Availed exclusive Bikewale offers </p>
-                        <% if (IsInsuranceFree) {%>
+                <%if (_objPQ != null && _objPQ.objOffers != null && _objPQ.objOffers.Count > 0)
+                  {%>
+                <p class="font16 text-bold padding-top20">Availed exclusive Bikewale offers </p>
+
                 <ul class="confirmation-offers">
-                           <li class="font14 padding-bottom10">Free Insurance for 1 year worth Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(insuranceAmount.ToString()) %>  at the dealership</li>
+                    <asp:Repeater ID="rptOffers" runat="server">
+                        <ItemTemplate>
+                            <li class="offertxt"><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
+                                <span class="tnc font9 <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsOfferTerms"))? string.Empty: "hide" %>" id="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferId")) %>">View terms</span>
+                            </li>
+                        </ItemTemplate>
+                    </asp:Repeater>
                 </ul>
-                       <%
-                           } 
-                           else {  %>
-                                <ul class="confirmation-offers">
-                                    <asp:Repeater ID="rptOffers" runat="server">
-                                        <ItemTemplate>
-                                            <li class="offertxt"><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
-                                                <span class="tnc font9 <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsOfferTerms"))? string.Empty: "hide" %>" id="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferId")) %>">View terms</span>
-                                            </li>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
-                                </ul>
-                        <%} 
-                  }%>
+                <% }%>
             </div>
         </div>
     	<div class="grid-12">
@@ -201,7 +195,7 @@
         <!-- Terms and condition Popup start -->
             <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
                 <div class="fixed-close-btn-wrapper">
-                    <div class="termsPopUpCloseBtn fixed-close-btn bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                    <div class="termsPopUpCloseBtn fixed-close-btn bwmsprite cross-lg-lgt-grey cur-pointer"></div>
                 </div>
                 <h3>Terms and conditions</h3>
                 <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
@@ -363,6 +357,11 @@
                     $(".cancellation-popup").hide();
                     $('.required-doc').hide();
                 });
+                $('.blackOut-window').on("click", function () {
+                    $(".blackOut-window").hide();
+                    $("div#termsPopUpContainer").hide()
+                });
+
             });            
         </script>
   </form>

@@ -516,14 +516,11 @@
                 $ddlAreas.trigger('chosen:updated');
                 $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("No Areas available");
             }
-
-
         </script>
 
         <!-- #include file="/includes/footerscript.aspx" -->
 
         <script>
-
             $ddlCities.chosen({ no_results_text: "No matches found!!" });
             $ddlAreas.chosen({ no_results_text: "No matches found!!" });
             $('.chosen-container').attr('style', 'width:100%;');

@@ -397,6 +397,10 @@
 
                 $(".termsPopUpContainer").css('height', '500');
             }
+            $('.blackOut-window').on("click", function () {
+                $("div#termsPopUpContainer").hide();
+                $(".blackOut-window").hide();
+            });
         </script>
     </form>
 

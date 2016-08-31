@@ -224,8 +224,8 @@
                                     <ItemTemplate>
                                         <li>
                                             <span class="inline-block pq-benefits-image offer-benefit-sprite <%#  "offerIcon_" + DataBinder.Eval(Container.DataItem,"OfferCategoryId") %> margin-right10"></span>
-                                            <span class="inline-block pq-benefits-title"><%#  DataBinder.Eval(Container.DataItem,"OfferText") %></span>
-                                            <span class="tnc font9 <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsOfferTerms"))? string.Empty: "hide" %>" id="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferId")) %>">View terms</span>
+                                            <span class="inline-block pq-benefits-title"><%#  DataBinder.Eval(Container.DataItem,"OfferText") %><span class="tnc font9 margin-left5 <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsOfferTerms"))? string.Empty: "hide" %>" id="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferId")) %>">View terms</span></span>
+                                            
                                         </li>
                                     </ItemTemplate>
                                 </asp:Repeater>
@@ -929,6 +929,10 @@
             $("#readmore").on("click", function () {
                 var dealerType = '<%=dealerType %>';
                 loadDisclaimer(dealerType);
+            });
+            $('.blackOut-window').on("click", function () {
+                $("div#termsPopUpContainer").hide();
+                $(".blackOut-window").hide();
             });
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealerpricequote.js?<%= staticFileVersion %>"></script>

@@ -578,6 +578,11 @@ $('#termsPopUpCloseBtn').on("click", function () {
     $("div#termsPopUpContainer").hide()
 });
 
+$('.blackOut-window').on("click", function () {
+    $(".blackOut-window").hide();
+    $("div#termsPopUpContainer").hide()
+});
+
 function LoadTerms(offerId) {
     $("div#termsPopUpContainer").show();
     $(".blackOut-window").show();
