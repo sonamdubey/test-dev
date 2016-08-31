@@ -6,7 +6,9 @@ using BikeWaleOpr.Common;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -23,11 +25,12 @@ namespace BikewaleOpr.Campaign
         protected Button btnUpdate;
         protected TextBox campaignDescription, txtMaskingNumber, textBox1, textBox2, textBox3, textBox4;
         protected CheckBox isActive, CheckBox1, CheckBox2, CheckBox3, CheckBox4;
-        protected HiddenField Hiddenfield1, Hiddenfield2, Hiddenfield3, Hiddenfield4;
+        protected HiddenField Hiddenfield1, Hiddenfield2, Hiddenfield3, Hiddenfield4, hdnOldMaskingNumber;
         protected int dealerId, userId;
         protected int campaignId = 0;
         protected Label lblGreenMessage;
         protected string manufacturerName;
+        protected string BwOprHostUrl = ConfigurationManager.AppSettings["BwOprHostUrlForJs"];
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -145,7 +148,7 @@ namespace BikewaleOpr.Campaign
                     IManufacturerCampaignRepository objMfgCampaign = container.Resolve<IManufacturerCampaignRepository>();
                     if (!isEdit)
                     {
-                        campaignId = objMfgCampaign.InsertBWDealerCampaign(campaignDescription.Text.Trim(), (isActive.Checked ? 1 : 0), txtMaskingNumber.Text.Trim(), dealerId, userId);
+                        campaignId = objMfgCampaign.InsertBWDealerCampaign(campaignDescription.Text.Trim(), (isActive.Checked ? 1 : 0), hdnOldMaskingNumber.Value, dealerId, userId);
                     
                         if(!CheckBox1.Checked)
                         {
@@ -229,7 +232,7 @@ namespace BikewaleOpr.Campaign
                             templateHtml4 = null;
                             templateId4 = 4;
                         }
-                        objMfgCampaign.UpdateBWDealerCampaign(campaignDescription.Text.Trim(), (isActive.Checked ? 1 : 0), txtMaskingNumber.Text.Trim(), dealerId, userId, campaignId, templateHtml1, templateId1, templateHtml2, templateId2, templateHtml3, templateId3, templateHtml4, templateId4);
+                        objMfgCampaign.UpdateBWDealerCampaign(campaignDescription.Text.Trim(), (isActive.Checked ? 1 : 0), hdnOldMaskingNumber.Value, dealerId, userId, campaignId, templateHtml1, templateId1, templateHtml2, templateId2, templateHtml3, templateId3, templateHtml4, templateId4);
                         ShowData(campaignId);                       
                     }
 

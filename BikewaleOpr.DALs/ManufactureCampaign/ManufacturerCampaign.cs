@@ -8,59 +8,14 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Web;
 
 namespace BikewaleOpr.DALs.ManufactureCampaign
 {
-    /// <summary>
-    /// Created by Subodh Jain 29 aug 2016
-    /// Description :For Manufacturer Campaign
-    /// </summary>
-    /// <param name="dealerId"></param>
-    /// <returns></returns>
     public class ManufacturerCampaign : IManufacturerCampaignRepository
     {
         /// <summary>
-        /// Created by Subodh Jain 29 aug 2016
         /// Description : Return all the campaigns for given manufacturer id
-        /// </summary>
-        /// <param name="dealerId"></param>
-        /// <returns></returns>
-        public IEnumerable<ManufactureDealerCampaign> SearchManufactureCampaigns(uint dealerId)
-        {
-            IList<ManufactureDealerCampaign> dtManufactureCampaigns = null;
 
-            try
-            {
-                if (dealerId > 0)
-                {
-                    using (DbCommand cmd = DbFactory.GetDBCommand("searchmanufacturercampaign"))
-                    {
-
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
-
-
-                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
-                        {
-                            if (dr != null)
-                            {
-                                dtManufactureCampaigns = new List<ManufactureDealerCampaign>();
-                                while (dr.Read())
-                                {
-                                    dtManufactureCampaigns.Add(new ManufactureDealerCampaign
-                                    {
-                                        id = Convert.ToInt32(dr["id"]),
-                                        dealerid = Convert.ToInt32(dr["dealerid"]),
-                                        description = Convert.ToString(dr["description"]),
-                                        isactive = Convert.ToInt32(dr["isactive"])
-
-                                    });
-                                }
-                                dr.Close();
-                            }
-                        }
-                    }
                 }
             }
             catch (Exception ex)
@@ -132,6 +87,114 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "MaufacturerCampaign.SaveManufacturerCampaignTemplate");
+                objErr.SendMail();
+            }
+        }
+        
+        //public void SaveManufacturerCampaignTemplateMapping(int campaignId, int templateId, int pageId, int isActive, int userId)
+        //{
+        //    try
+        //    {
+        //        using (DbCommand cmd = DbFactory.GetDBCommand("savemanufacturercampaigntemplatemapping"))
+        //        {
+        //            cmd.CommandType = CommandType.StoredProcedure;
+        //            cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignId", DbType.Int32, campaignId));
+        //            cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId", DbType.Int32, templateId));
+        //            cmd.Parameters.Add(DbFactory.GetDbParam("par_pageId", DbType.Int32, pageId));
+        //            cmd.Parameters.Add(DbFactory.GetDbParam("par_isActive", DbType.Int32, isActive));
+        //            cmd.Parameters.Add(DbFactory.GetDbParam("par_userId", DbType.Int32, userId));
+        //            MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ErrorClass objErr = new ErrorClass(ex, "MaufacturerCampaign.SaveManufacturerCampaignTemplateMapping");
+        //        objErr.SendMail();
+        //    }
+        //}
+
+        /// <summary>
+        /// Created by :Sajal Gupta on 30/08/2016
+        /// Description : This method fetches campaign and template data from database.
+        /// </summary>
+        /// <param name="campaignId"></param>
+        /// <returns></returns>
+        public List<BikewaleOpr.Entity.ManufacturerCampaign.ManufacturerCampaignEntity> FetchCampaignDetails(int campaignId)
+        {
+            List<BikewaleOpr.Entity.ManufacturerCampaign.ManufacturerCampaignEntity> objManufacturerCampaignDetails = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("fetchcampaigndetails"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignId", DbType.Int32, campaignId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objManufacturerCampaignDetails = new List<BikewaleOpr.Entity.ManufacturerCampaign.ManufacturerCampaignEntity>();
+                            while (dr.Read())
+                            {
+                                objManufacturerCampaignDetails.Add(new BikewaleOpr.Entity.ManufacturerCampaign.ManufacturerCampaignEntity() { CampaignDescription = dr["Description"].ToString(), CampaignMaskingNumber = dr["maskingnumber"].ToString(), IsActive = Convert.ToInt32(dr["isactive"]), IsDefault = Convert.ToInt32(dr["isdefault"]), PageId = Convert.ToInt32(dr["pageid"]), TemplateHtml = dr["templatehtml"].ToString(), TemplateId = Convert.ToInt32(dr["id"]) });
+                            }
+                        }
+                    }
+                    return objManufacturerCampaignDetails;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "MaufacturerCampaign.FetchCampaignDetails");
+                objErr.SendMail();
+
+                return objManufacturerCampaignDetails;
+            }
+        }
+        
+        /// <summary>
+        /// Created by Subodh Jain 29 aug 2016
+        /// Description : Return all the campaigns for selected dealer
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
+        public IEnumerable<ManufactureDealerCampaign> SearchManufactureCampaigns(uint dealerId)
+        {
+            IList<ManufactureDealerCampaign> dtManufactureCampaigns = null;
+            try
+            {
+                if (dealerId > 0)
+                {
+                    using (DbCommand cmd = DbFactory.GetDBCommand("searchmanufacturercampaign"))
+                    {
+
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+
+
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                        {
+                            if (dr != null)
+                            {
+                                dtManufactureCampaigns = new List<ManufactureDealerCampaign>();
+                                while (dr.Read())
+                                {
+                                    dtManufactureCampaigns.Add(new ManufactureDealerCampaign
+                                    {
+                                        id = Convert.ToInt32(dr["id"]),
+                                        dealerid = Convert.ToInt32(dr["dealerid"]),
+                                        description = Convert.ToString(dr["description"]),
+                                        isactive = Convert.ToInt32(dr["isactive"])
+
+                                    });
+                                }
+                                dr.Close();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
                 objErr.SendMail();
             }
         }
@@ -237,11 +300,10 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "ManageManufacturerCampaign.GetDealerAsManuFacturer");
-                objErr.SendMail();
-            }
+                }
 
             return manufacturers;
-        }
+            }
         /// <summary>
         /// Created By: Aditi Srivastava on 29 Aug 2016
         /// Description: Fetches a list of all cities and states
@@ -275,7 +337,6 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                         }
                     }
                 }
-
             }
             catch (Exception ex)
             {
@@ -324,20 +385,13 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                                     });
                                 }
                                 dr.Close();
-                            }
-                        }
-                    }
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.FetchManufacturerCampaignRules");
-                objErr.SendMail();
-            }
 
             return dtManufacturerCampaignRules;
-        }
-
         /// <summary>
         ///  Created By: Aditi Srivastava on 29 Aug 2016
         /// Description: Inserts new manufacturer campaign rules
@@ -369,7 +423,6 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             }
             return isSuccess;
         }
-
         /// <summary>
         ///  Created By: Aditi Srivastava on 29 Aug 2016
         /// Description: Deletes selected manufacturer campaign rules
@@ -397,10 +450,8 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                 ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.DeleteManufacturerCampaignRules");
                 objErr.SendMail();
             }
-
             return isDeleted;
         }
-
     }
 
 }
