@@ -36,7 +36,7 @@ namespace Bikewale.BindViewModels.Controls
             using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>()
-                    .RegisterType<IUsedBikeDetails, IUsedBikeDetailsRepository>()
+                    .RegisterType<IUsedBikeDetails, UsedBikeDetailsRepository>()
                     .RegisterType<ICacheManager, MemcacheManager>();
                 var objCache = container.Resolve<IUsedBikeDetailsCacheRepository>();
                 otherBikesinCity = objCache.GetOtherBikesByCityId(InquiryId, CityId, TopCount);

@@ -1,5 +1,6 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.Entities.Used;
+using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,20 +19,17 @@ namespace Bikewale.Mobile.Controls
         public BindOtherUsedBikesForCity viewModel;
         public ushort TopCount { get; set; }
         public ushort FetchedRecordsCount { get; set; }
-        public bool ShowOtherBikes { get; set; }
 
-        //
-        public string CityName { get; set; }
-        public string CityMaskingName { get; set; }
+        //public string CityName { get; set; }
+        //public string CityMaskingName { get; set; }
 
         public uint ModelId { get; set; }
-        public string ModelName { get; set; }
-        public string ModelMaskingName { get; set; }
+        //public string ModelName { get; set; }
+        //public string ModelMaskingName { get; set; }
 
-        public string MakeName { get; set; }
-        public string MakeMaskingName { get; set; }
+        //public string MakeName { get; set; }
+        //public string MakeMaskingName { get; set; }
 
-        //
         public uint CityId { get; set; }
         public uint InquiryId { get; set; }
         protected override void OnInit(EventArgs e)
@@ -57,7 +55,8 @@ namespace Bikewale.Mobile.Controls
             }
             catch (Exception ex)
             {
-
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " OtherUsedBikeByCity.BindSimilarBikes");
+                objErr.SendMail();
             }
         }
     }

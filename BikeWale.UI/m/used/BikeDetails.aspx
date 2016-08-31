@@ -142,8 +142,12 @@
                             <li data-tabs="#modelSpecs" class="active">Specifications</li>
                             <li data-tabs="#modelFeatures">Features</li>
                             <% } %>
+                            <% if(ctrlSimilarUsedBikes.FetchedRecordsCount >0){ %>
                             <li data-tabs="#modelSimilar">Similar bikes</li>
+                            <% } %>
+                            <% if(ctrlOtherUsedBikes.FetchedRecordsCount >0){ %>
                             <li data-tabs="#modelOtherBikes">Other bikes</li>
+                            <% } %>
                         </ul>
                     </div>
                 </div>
@@ -217,7 +221,6 @@
                             <a href="/m<%= moreBikeFeaturesUrl %>" title="">View full features<span class="bwmsprite blue-right-arrow-icon"></span></a>
                         </div>
                     </div>
-                
                 <% } %>
                 <!-- Similar used bikes starts -->
                 <BW:SimilarUsedBikes ID="ctrlSimilarUsedBikes" runat="server" />
@@ -225,140 +228,6 @@
                 <!-- Similar used bikes starts -->
                 <BW:OtherUsedBikes ID="ctrlOtherUsedBikes" runat="server" />
                 <!-- Similar used bikes ends -->
-
-                <div id="modelOtherBikes" class="bw-model-tabs-data padding-top20 padding-bottom15">
-                    <h2 class="margin-right20 margin-bottom15 margin-left20">Other used bikes in Mumbai</h2>
-                    <div id="other-bike-swiper" class="swiper-container padding-top5 padding-bottom5">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide swiper-shadow">
-                                <div class="model-swiper-image-preview">
-                                    <a href="">
-                                        <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com//310x174//bw/models/honda-dream-neo-self-start-drum-brake-alloy-451.jpg?20151209184804" title="" alt="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </a>
-                                </div>
-                                <div class="model-swiper-details font11">
-                                    <a href="" class="target-link font12 text-truncate margin-bottom5" title="Honda Dream Neo">Honda Dream Neo</a>
-                                    <div class="grid-6 alpha padding-right5">
-                                        <span class="bwmsprite model-date-icon-xs"></span>
-                                        <span class="model-details-label">2013 model</span>
-                                    </div>
-                                    <div class="grid-6 omega padding-left5">
-                                        <span class="bwmsprite kms-driven-icon-xs"></span>
-                                        <span class="model-details-label">1,45,000 kms</span>
-                                    </div>
-                                    <div class="grid-6 alpha padding-right5">
-                                        <span class="bwmsprite author-grey-icon-xs"></span>
-                                        <span class="model-details-label">2nd owner</span>
-                                    </div>
-                                    <div class="grid-6 omega padding-left5">
-                                        <span class="bwmsprite model-loc-icon-xs"></span>
-                                        <span class="model-details-label">Mumbai</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <p class="margin-top5"><span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-bold">1,22,000</span></p>
-                                    <a href="javascript:void(0)" class="btn btn-xs btn-full-width btn-white margin-top10 font14" rel="nofollow">Get seller details</a>
-                                </div>
-                            </div>
-
-                            <div class="swiper-slide swiper-shadow">
-                                <div class="model-swiper-image-preview">
-                                    <a href="">
-                                        <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com//310x174//bw/models/honda-dream-neo-self-start-drum-brake-alloy-451.jpg?20151209184804" title="" alt="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </a>
-                                </div>
-                                <div class="model-swiper-details font11">
-                                    <a href="" class="target-link font12 text-truncate margin-bottom5" title="Honda Dream Neo">Honda Dream Neo</a>
-                                    <div class="grid-6 alpha padding-right5">
-                                        <span class="bwmsprite model-date-icon-xs"></span>
-                                        <span class="model-details-label">2013 model</span>
-                                    </div>
-                                    <div class="grid-6 omega padding-left5">
-                                        <span class="bwmsprite kms-driven-icon-xs"></span>
-                                        <span class="model-details-label">1,45,000 kms</span>
-                                    </div>
-                                    <div class="grid-6 alpha padding-right5">
-                                        <span class="bwmsprite author-grey-icon-xs"></span>
-                                        <span class="model-details-label">2nd owner</span>
-                                    </div>
-                                    <div class="grid-6 omega padding-left5">
-                                        <span class="bwmsprite model-loc-icon-xs"></span>
-                                        <span class="model-details-label">Mumbai</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <p class="margin-top5"><span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-bold">1,22,000</span></p>
-                                    <a href="javascript:void(0)" class="btn btn-xs btn-full-width btn-white margin-top10 font14" rel="nofollow">Get seller details</a>
-                                </div>
-                            </div>
-
-                            <div class="swiper-slide swiper-shadow">
-                                <div class="model-swiper-image-preview">
-                                    <a href="">
-                                        <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com//310x174//bw/models/honda-dream-neo-self-start-drum-brake-alloy-451.jpg?20151209184804" title="" alt="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </a>
-                                </div>
-                                <div class="model-swiper-details font11">
-                                    <a href="" class="target-link font12 text-truncate margin-bottom5" title="Honda Dream Neo">Honda Dream Neo</a>
-                                    <div class="grid-6 alpha padding-right5">
-                                        <span class="bwmsprite model-date-icon-xs"></span>
-                                        <span class="model-details-label">2013 model</span>
-                                    </div>
-                                    <div class="grid-6 omega padding-left5">
-                                        <span class="bwmsprite kms-driven-icon-xs"></span>
-                                        <span class="model-details-label">1,45,000 kms</span>
-                                    </div>
-                                    <div class="grid-6 alpha padding-right5">
-                                        <span class="bwmsprite author-grey-icon-xs"></span>
-                                        <span class="model-details-label">2nd owner</span>
-                                    </div>
-                                    <div class="grid-6 omega padding-left5">
-                                        <span class="bwmsprite model-loc-icon-xs"></span>
-                                        <span class="model-details-label">Mumbai</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <p class="margin-top5"><span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-bold">1,22,000</span></p>
-                                    <a href="javascript:void(0)" class="btn btn-xs btn-full-width btn-white margin-top10 font14" rel="nofollow">Get seller details</a>
-                                </div>
-                            </div>
-
-                            <div class="swiper-slide swiper-shadow">
-                                <div class="model-swiper-image-preview">
-                                    <a href="">
-                                        <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com//310x174//bw/models/honda-dream-neo-self-start-drum-brake-alloy-451.jpg?20151209184804" title="" alt="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </a>
-                                </div>
-                                <div class="model-swiper-details font11">
-                                    <a href="" class="target-link font12 text-truncate margin-bottom5" title="Honda Dream Neo">Honda Dream Neo</a>
-                                    <div class="grid-6 alpha padding-right5">
-                                        <span class="bwmsprite model-date-icon-xs"></span>
-                                        <span class="model-details-label">2013 model</span>
-                                    </div>
-                                    <div class="grid-6 omega padding-left5">
-                                        <span class="bwmsprite kms-driven-icon-xs"></span>
-                                        <span class="model-details-label">1,45,000 kms</span>
-                                    </div>
-                                    <div class="grid-6 alpha padding-right5">
-                                        <span class="bwmsprite author-grey-icon-xs"></span>
-                                        <span class="model-details-label">2nd owner</span>
-                                    </div>
-                                    <div class="grid-6 omega padding-left5">
-                                        <span class="bwmsprite model-loc-icon-xs"></span>
-                                        <span class="model-details-label">Mumbai</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <p class="margin-top5"><span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-bold">1,22,000</span></p>
-                                    <a href="javascript:void(0)" class="btn btn-xs btn-full-width btn-white margin-top10 font14" rel="nofollow">Get seller details</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="margin-top10 margin-right20 margin-left20">
-                        <a href="" title="" class="font14">View all used bikes in Mumbai<span class="bwmsprite blue-right-arrow-icon"></span></a>
-                    </div>
-                </div>
             </div>
             <div id="modelSpecsFooter"></div>
         </section>
@@ -411,8 +280,7 @@
         </div>
     </div>
 </div>
-<!-- gallery end -->
-
+        <!-- gallery end -->
         <!-- get seller details pop up start  -->
         <div id="get-seller-details-popup" class="bw-popup bwm-fullscreen-popup">
             <div class="popup-inner-container text-center">

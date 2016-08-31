@@ -30,17 +30,17 @@ namespace Bikewale.BindViewModels.Controls
 
         public string BikeName { get; set; }
 
-        public IEnumerable<BikeDetailsMin> BindUsedSimilarBikes()
+        public IEnumerable<BikeDetailsMin> BindUsedSimilarBikes(uint InquiryId, uint CityId, uint ModelId, ushort TopCount)
         {
             IEnumerable<BikeDetailsMin> similarBikeList = default(IEnumerable<BikeDetailsMin>);
             using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>()
-                    .RegisterType<IUsedBikeDetails, IUsedBikeDetailsRepository>()
+                    .RegisterType<IUsedBikeDetails, UsedBikeDetailsRepository>()
                     .RegisterType<ICacheManager, MemcacheManager>();
 
                 var objCache = container.Resolve<IUsedBikeDetailsCacheRepository>();
-                similarBikeList = objCache.GetSimilarBikes(InquiryId, CityId, ModelId, TotalRecords);
+                similarBikeList = objCache.GetSimilarBikes(InquiryId, CityId, ModelId, TopCount);
             }
             return similarBikeList;
         }

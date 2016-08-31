@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="OtherUsedBikeByCity.ascx.cs" Inherits="Bikewale.Mobile.Controls.OtherUsedBikeByCity" %>
+<%@ Import Namespace="Bikewale.Entities.Used" %>
 <% if(FetchedRecordsCount> 0)
    {  %>
         <div id="modelSimilar" class="bw-model-tabs-data padding-top20 padding-bottom15">
@@ -7,20 +8,20 @@
             
             <div id="similar-bike-swiper" class="swiper-container padding-top5 padding-bottom5">
                 <div class="swiper-wrapper">
-                    <% foreach (var bike in otherBikesinCity)
+                    <% foreach (OtherUsedBikeDetails bike in otherBikesinCity)
                        { %>
                         <div class="swiper-slide swiper-shadow">
                         <div class="model-swiper-image-preview">
-                            <a href="/m/used/bikes-in-<%=bike.RegisteredAt %>/<%= bike.MakeMaskingName %>-<%= bike.ModelMaskingName %>-S<%= bike.ProfileId %>/">
+                            <a href="/m/used/bikes-in-<%=bike.RegisteredAt %>/<%= bike.MakeMaskingName %>-<%= bike.ModelMaskingName %>-<%= bike.ProfileId %>/">
                                 <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath,bike.Photo.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" title="" alt="" />
                                 <span class="swiper-lazy-preloader"></span>
                             </a>
                         </div>
                         <div class="model-swiper-details font11">
-                            <a href="/m/used/bikes-in-<%=bike.CityMaskingName %>/<%= bike.MakeMaskingName %>-<%= bike.ModelMaskingName %>-S<%= bike.ProfileId %>/" class="target-link font12 text-truncate margin-bottom5" title="<%= bike.BikeName %>"><%= bike.BikeName %></a>
+                            <a href="/m/used/bikes-in-<%=bike.CityMaskingName %>/<%= bike.MakeMaskingName %>-<%= bike.ModelMaskingName %>-<%= bike.ProfileId %>/" class="target-link font12 text-truncate margin-bottom5" title="<%= bike.BikeName %>"><%= bike.BikeName %></a>
                             <div class="grid-6 alpha padding-right5">
                                 <span class="bwmsprite model-date-icon-xs"></span>
-                                <span class="model-details-label"><%=bike.ModelYear %> model</span>
+                                <span class="model-details-label"><%=bike.ModelYear.Year %> model</span>
                             </div>
                             <div class="grid-6 omega padding-left5">
                                 <span class="bwmsprite kms-driven-icon-xs"></span>

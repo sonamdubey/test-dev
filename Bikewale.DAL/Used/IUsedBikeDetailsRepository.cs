@@ -178,7 +178,7 @@ namespace Bikewale.DAL.Used
                                 similarBikeDetails.Add(new BikeDetailsMin()
                                 {
                                     ProfileId = Convert.ToString(dr["ProfileId"]),
-                                    ModelYear = Convert.ToString(dr["makeyear"]),
+                                    ModelYear = Convert.ToDateTime(dr["makeyear"]),
                                     OwnerType = Convert.ToString(dr["Owner"]),
                                     KmsDriven = Convert.ToUInt32(dr["Kilometers"]),
                                     AskingPrice = Convert.ToUInt32(dr["Price"]),
@@ -234,7 +234,7 @@ namespace Bikewale.DAL.Used
                                 similarBikeDetails.Add(new OtherUsedBikeDetails()
                                 {
                                     ProfileId = Convert.ToString(dr["ProfileId"]),
-                                    ModelYear = Convert.ToString(dr["makeyear"]),
+                                    ModelYear = Convert.ToDateTime(dr["makeyear"]),
                                     OwnerType = Convert.ToString(dr["Owner"]),
                                     KmsDriven = Convert.ToUInt32(dr["Kilometers"]),
                                     AskingPrice = Convert.ToUInt32(dr["Price"]),

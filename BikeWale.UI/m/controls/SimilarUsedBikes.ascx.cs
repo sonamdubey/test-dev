@@ -1,5 +1,6 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.Entities.Used;
+using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Bikewale.Mobile.Controls
         public IEnumerable<BikeDetailsMin> similarBikeList = null;
         public BindSimilarUsedBikes usedBikeViewModel;
         public BindOtherUsedBikesForCity otherUsedBikeViewModel;
-        public uint TopCount { get; set; }
+        public ushort TopCount { get; set; }
         public ushort FetchedRecordsCount { get; set; }
         public bool ShowOtherBikes { get; set; }
 
@@ -44,27 +45,23 @@ namespace Bikewale.Mobile.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            BindSimilarBikes();
+            BindOtherUsedBikes();
         }
         /// <summary>
         /// Bind similar bikes widget
         /// </summary>
-        private void BindSimilarBikes()
+        private void BindOtherUsedBikes()
         {
             try
             {
                 usedBikeViewModel = new BindSimilarUsedBikes();
-                usedBikeViewModel.InquiryId = 42512;
-                usedBikeViewModel.CityId = 1;
-                usedBikeViewModel.ModelId = 197;
-                usedBikeViewModel.TotalRecords = 6;
-
-                similarBikeList = usedBikeViewModel.BindUsedSimilarBikes();
+                similarBikeList = usedBikeViewModel.BindUsedSimilarBikes(InquiryId, CityId, ModelId, TopCount);
                 FetchedRecordsCount = Convert.ToUInt16(similarBikeList.Count());
             }
             catch (Exception ex)
             {
-
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " SimilarUsedBikes.BindSimilarBikes");
+                objErr.SendMail();
             }
         }
     }
