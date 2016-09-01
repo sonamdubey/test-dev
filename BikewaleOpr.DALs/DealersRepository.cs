@@ -1,5 +1,4 @@
 ﻿using Bikewale.Notifications;
-using Bikewale.Utility.Terms;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Interface;
 using MySql.CoreDAL;
@@ -648,13 +647,12 @@ namespace BikewaleOpr.DAL
         /// <param name="offerText"></param>
         /// <param name="offerValue"></param>
         /// <param name="offerValidTill"></param>
-        public void UpdateDealerBikeOffers(uint offerId, uint userId, uint offerCategoryId, string offerText, uint? offerValue, DateTime offerValidTill, bool isPriceImpact, string terms)
+        public bool UpdateDealerBikeOffers(uint offerId, uint userId, uint offerCategoryId, string offerText, uint? offerValue, DateTime offerValidTill, bool isPriceImpact, string terms)
         {
-            TermsHtmlFormatting htmlFormatFunction = new TermsHtmlFormatting();
+            bool isUpdated = false;
 
             try
             {
-
                 using (DbCommand cmd = DbFactory.GetDBCommand("bw_updatedealeroffers_07012016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -670,8 +668,10 @@ namespace BikewaleOpr.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferValue", DbType.Int32, offerValue));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferValidTill", DbType.DateTime, offerValidTill));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isPriceImpact", DbType.Boolean, isPriceImpact));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_terms", DbType.String, htmlFormatFunction.MakeHtmlList(terms)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_terms", DbType.String, terms));
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+                    isUpdated = true;
+
                 }
             }
             catch (Exception ex)
@@ -680,6 +680,7 @@ namespace BikewaleOpr.DAL
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
+            return isUpdated;
         }
         /// <summary>
         /// Created By  : Suresh Prajapati on 04th Nov, 2014.

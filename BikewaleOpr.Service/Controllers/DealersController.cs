@@ -1,4 +1,5 @@
 ﻿using Bikewale.Notifications;
+using Bikewale.Utility.Terms;
 using BikewaleOpr.DAL;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Interface;
@@ -105,15 +106,27 @@ namespace BikewaleOpr.Service
         /// <param name="offerValidTill"></param>
         /// <returns></returns>
         [HttpPost]
-        public IHttpActionResult UpdateDealerBikeOffers(uint offerId, uint userId, uint offerCategoryId, string offerText, uint? offerValue, DateTime offerValidTill, bool isPriceImpact,string terms)
+        public IHttpActionResult UpdateDealerBikeOffers(uint offerId, uint userId, uint offerCategoryId, string offerText, uint? offerValue, DateTime offerValidTill, bool isPriceImpact, string terms)
         {
             try
             {
+                string _termsHtml = string.Empty;
+                bool isUpdated = false;
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IDealers, DealersRepository>();
                     IDealers objDealer = container.Resolve<DealersRepository>();
-                    objDealer.UpdateDealerBikeOffers(offerId, userId, offerCategoryId, offerText, offerValue, offerValidTill, isPriceImpact,terms);
+                    TermsHtmlFormatting htmlFormat = new TermsHtmlFormatting();
+                    _termsHtml = htmlFormat.MakeHtmlList(terms);
+                    isUpdated = objDealer.UpdateDealerBikeOffers(offerId, userId, offerCategoryId, offerText, offerValue, offerValidTill, isPriceImpact, _termsHtml);
+                    if (isUpdated)
+                    {
+                        return Ok("Dealer Bike Offers Updated."); 
+                    }
+                    else
+                    {
+                        return InternalServerError();
+                    }
                 }
             }
             catch (Exception ex)
@@ -124,8 +137,6 @@ namespace BikewaleOpr.Service
 
                 return InternalServerError();
             }
-
-            return Ok("Dealer Bike Offers Updated.");
         }
 
         /// <summary>
