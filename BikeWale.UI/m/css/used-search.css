@@ -1,15 +1,133 @@
-﻿#sort-filter-wrapper {
+﻿#used-bikes-list li {
+    margin-bottom: 20px;
+}
+
+#used-bikes-list li:first-child {
+    padding-top: 0;
+}
+
+#used-bikes-list li:before {
+    content: '';
+    display: block;
+    border-top: 1px solid #e2e2e2;
+    margin-right: 20px;
+    margin-left: 20px;
+    padding-bottom: 20px;
+}
+
+#used-bikes-list li:first-child:before {
+    content: none;
+}
+
+.model-thumbnail-image {
+    width: 100%; 
+    max-width: 476px;
+    margin: 0 auto;
+    height: 202px;
+    display: table;
+    position: relative;
+    text-align: center;
+    background-color: #f5f5f5;
+}
+
+.model-image-target {
+    width:100%;
+    display: table-cell;
+    vertical-align: middle;
+    line-height: 0;
+    background: url('http://imgd4.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif') no-repeat center center;
+}
+
+.model-thumbnail-image img {
+    max-height: 202px;
+}
+
+.model-media-details {
+    position: absolute;
+    right: 15px;
+    bottom: 10px;
+    font-size: 12px;
+}
+
+.model-media-item {
+    display:inline-block;
+    vertical-align: middle;
+    padding: 4px 5px;
+    color: #4d5057;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 2px;
+}
+
+.model-media-item:hover {
+    text-decoration:none;
+}
+
+.model-media-count { 
+    position: relative;
+    top: -1px;
+}
+
+.gallery-photo-icon {
+    width: 16px;
+    height: 12px;
+    background-position: 0 -486px;
+}
+
+/* bike details */
+.model-date-icon, .kms-driven-icon, .model-loc-icon { 
+    width:10px;
+    height:14px;
+    margin-right: 5px;
+    vertical-align:middle;
+}
+
+.model-date-icon {
+    background-position:-140px -484px;
+}
+
+.kms-driven-icon {
+    background-position:-159px -484px;
+}
+
+.model-loc-icon {
+    background-position:-177px -484px;
+}
+
+.author-grey-sm-icon {
+    height: 12px;
+    margin-right: 5px;
+    vertical-align:middle;
+}
+
+.model-details-label {
+    width:85%;
+    display: inline-block;
+    vertical-align: middle;
+    color: #82888b;
+    text-align:left;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow:hidden;
+}
+
+.btn.seller-details-btn {
+    font-size: 14px;
+    padding: 5px 31px;
+}
+
+/* sort-filter */
+#sort-filter-wrapper {
     width: 100%;
     position: fixed;
     left: 0;
     bottom: 0;
     background: #fff;
     z-index: 2;
-    -moz-box-shadow: 0 -3px 3px #dcdcdc;
-    -webkit-box-shadow: 0 -3px 3px #dcdcdc;
-    -o-box-shadow: 0 -3px 3px #dcdcdc;
-    -ms-box-shadow: 0 -3px 3px #dcdcdc;
-    box-shadow: 0 -3px 3px #dcdcdc;
+    -moz-box-shadow: 0 0 6px #999;
+    -webkit-box-shadow: 0 0 6px #999;
+    -o-box-shadow: 0 0 6px #999;
+    -ms-box-shadow: 0 0 6px #999;
+    box-shadow: 0 0 6px #999;
 }
 
 .sort-by-icon, .filter-icon {
@@ -26,15 +144,387 @@
     background-position: -49px -528px;
 }
 
+/* pagination */
+#pagination-list {
+    margin-right: 20px;
+    margin-left: 20px;
+    overflow: hidden;
+}
+
+#pagination-list li {
+    float: left;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+#pagination-list a {
+    color: #82888b;
+    font-size: 12px;
+    padding-right: 6px;
+    padding-left: 6px;
+    border: 1px solid #fff;
+    display: block;
+}
+
+#pagination-list a:hover {
+    text-decoration: none;
+}
+
+#pagination-list li.active a {
+    color: #4d5057;
+    font-weight: bold;
+    border: 1px solid #a2a2a2;
+    border-radius: 1px;
+}
+
+.pagination-control-prev, .pagination-control-next {
+    position: absolute;
+    top: 0;
+    height: 20px;
+}
+
+.pagination-control-prev {
+    left: 0;
+}
+
+.pagination-control-next {
+    right: 5px;
+}
+
 .prev-page-icon, .next-page-icon {
-    width: 8px;
-    height: 12px;
+    width: 18px;
+    height: 18px;
 }
 
 .prev-page-icon {
-    background-position: -170px -394px;
+    background-position: -164px -391px;
 }
 
 .next-page-icon {
-    background-position: -182px -394px;
+    background-position: -178px -391px;
+}
+
+.prev-page-icon.inactive, .next-page-icon.inactive {
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+/* filter */
+.filter-popup-container {
+    display: none;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    z-index:2;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.ui-corner-top {
+    width: 100%;
+    height: 50px;
+}
+
+.filter-back-arrow {
+    padding: 15px 15px 12px;
+    cursor: pointer;
+}
+
+.filter-popup-label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+#filter-selection-list {
+    padding: 25px 30px 80px;
+}
+
+.filter-option-key {
+    font-size: 12px;
+    color: #82888b;
+}
+
+.filter-option-value {
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #4d5057;
+    cursor: pointer;
+    position: relative;
+}
+
+.selected-filters {
+    width: 90%;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.grey-right-icon {
+    width: 7px;
+    height: 11px;
+    background-position: -69px -421px;
+    position: absolute;
+    right: 0;
+    top: 11px;
+}
+
+.margin-bottom35 { 
+    margin-bottom: 35px;
+}
+
+/* slider */
+.ui-widget-content { background: #bababa; height: 3px; margin: 18px 0 3px; width: 96%; border-radius: 0px; }
+.ui-slider .ui-slider-range { border: none; display: block; font-size: 0.7em; position: absolute; z-index: 1; border-radius: 0px; }
+.ui-widget-header { background: #ef3030; height: 3px; }
+.ui-slider { position: relative; text-align: left; }
+.ui-slider .ui-slider-handle { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/slider-handle.png) no-repeat; cursor:pointer; height:28px; width:28px; display:block; margin-left: -9px; position: absolute; outline:none; top: -13px; z-index: 2; background-position:3px 3px; }
+
+#previous-owners-list {
+    overflow: hidden;
+}
+
+#previous-owners-list li {
+    margin-left: 10px;
+    float: left;
+}
+
+#previous-owners-list li:first-child {
+    margin-left: 0
+}
+
+#previous-owners-list span {
+    display: block;
+    font-size: 16px;
+    padding: 8px 14px;
+    border: 1px solid #82888b;
+    position: relative;
+    border-radius: 1px;
+    cursor: pointer;
+}
+
+#previous-owners-list .prev-owner-last-item {
+    padding-right: 36px;
+    padding-left: 36px;
+}
+
+#previous-owners-list span:before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid #fff;
+}
+
+#previous-owners-list .active span, #previous-owners-list .active span:before {
+    border: 1px solid #4d5057;
+}
+
+#previous-owners-list .active span {
+    font-weight: bold;
+}
+
+.filter-type-seller {
+    font-size: 15px;
+    color: #82888b;
+}
+
+.filter-type-seller.checked {
+    font-weight: bold;
+    color: #4d5057;
+}
+
+.filter-container-footer {
+    width: 100%;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.7);
+    z-index: 2;
+}
+
+.filter-container-footer .btn {
+    font-size: 14px;
+    padding: 5px 0;
+}
+
+/* fixed */
+#filter-container.fixed #filter-container-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+#filter-container.fixed #filter-selection-list {
+    padding-top: 75px;
+}
+
+#filter-container.fixed #filter-container-footer, #filter-container.fixed.bikes-footer #filter-bike-container-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+#filter-city-container.city-header .filter-input-box {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+/* filter city */
+#filter-city-container {
+    background: #f5f5f5;
+}
+
+.filter-input-box {
+    width: 100%;
+}
+
+#filter-city-list li {
+    border-top: 1px solid #ccc;
+    font-size: 14px;
+    padding: 15px 20px;
+    color: #333;
+    cursor: pointer;
+}
+
+/* bike accordion */
+#filter-bike-container {
+    display: none;
+    z-index: 3;
+}
+
+#filter-bike-container .filter-container-footer {
+    z-index: 3;
+}
+
+.accordion-tab { 
+    padding:5px;
+    position: relative;
+    border-top: 1px solid #e2e2e2;
+}
+
+.accordion-tab .accordion-label-tab {
+    width: 85%;
+    padding: 11px 40px 11px 0;
+    cursor: pointer;
+}
+
+.accordion-tab ~ .bike-model-list {
+    display: none;
+}
+
+.accordion-tab .arrow-down {
+    position: absolute;
+    right: 20px;
+    top: 23px;
+    -moz-transition: transform .3s;
+    -webkit-transition: transform .3s;
+    -o-transition: transform .3s;
+    -ms-transition: transform .3s;
+    transition: transform .3s;
+}
+
+.accordion-tab .accordion-checkbox {
+    padding: 15px;
+    cursor: pointer;
+}
+
+.accordion-tab .accordion-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    max-width: 70%;
+    overflow: hidden;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.accordion-tab .accordion-count {
+    font-size: 12px;
+    color: #82888b;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: 2px;
+}
+
+.checked-box, .unchecked-box {
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+}
+
+.unchecked-box {
+    background-position: -174px -415px;
+}
+
+.checked-box {
+    background-position: -174px -430px;
+}
+
+.arrow-down {
+    width: 16px;
+    height: 11px;
+    background-position: -194px -421px;
+}
+
+.bike-model-list li {
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.bike-model-list li:first-child {
+    padding-top: 0;
+}
+
+.bike-model-list li.active .unchecked-box {
+    background-position: -174px -430px;
+}
+
+.bike-model-label {
+    font-size: 16px;
+    color: #82888b;
+    padding-left: 11px;
+}
+
+/* accordion active */
+.accordion-tab.active .arrow-down {
+    -moz-transform: rotateZ(180deg);
+    -webkit-transform: rotateZ(180deg);
+    -o-transform: rotateZ(180deg);
+    -ms-transform: rotateZ(180deg);
+    transform: rotateZ(180deg);
+}
+
+.accordion-tab.tab-checked .accordion-checkbox .unchecked-box {
+    background-position: -174px -430px;
+}
+
+* { 
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -moz-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+@media only screen and (max-width: 359px) {
+    #previous-owners-list span {
+        padding-right: 12px;
+        padding-left: 12px;
+    }
+
+    #previous-owners-list .prev-owner-last-item {
+        padding-right: 25px;
+        padding-left: 25px;
+    }
 }
