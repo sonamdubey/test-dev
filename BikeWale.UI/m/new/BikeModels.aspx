@@ -814,13 +814,13 @@
                             <div class="bw-blackbg-tooltip errorText"></div>
                         </div>
                         <div class="form-control-box margin-top20">
-                            <input type="text" class="form-control get-email-id" placeholder="Email address" id="getEmailID" data-bind="value: emailId" />
+                            <input type="email" class="form-control get-email-id" placeholder="Email address" id="getEmailID" data-bind="value: emailId" />
                             <span class="bwmsprite error-icon"></span>
                             <div class="bw-blackbg-tooltip errorText"></div>
                         </div>
                         <div class="form-control-box margin-top20">
                             <p class="mobile-prefix">+91</p>
-                            <input type="text" class="form-control get-mobile-no" maxlength="10" placeholder="Mobile no." id="getMobile" data-bind="value: mobileNo" />
+                            <input type="tel" class="form-control get-mobile-no" maxlength="10" placeholder="Mobile no." id="getMobile" data-bind="value: mobileNo" />
                             <span class="bwmsprite error-icon"></span>
                             <div class="bw-blackbg-tooltip errorText"></div>
                         </div>
@@ -851,7 +851,7 @@
                         </div>
                         <div class="otp-box lead-otp-box-container">
                             <div class="form-control-box margin-bottom10">
-                                <input type="text" class="form-control" placeholder="Enter your OTP" id="getOTP" maxlength="5" data-bind="value: otpCode" />
+                                <input type="tel" class="form-control" placeholder="Enter your OTP" id="getOTP" maxlength="5" data-bind="value: otpCode" />
                                 <span class="bwmsprite error-icon errorIcon"></span>
                                 <div class="bw-blackbg-tooltip errorText"></div>
                             </div>
@@ -864,7 +864,7 @@
                         <div class="update-mobile-box">
                             <div class="form-control-box text-left">
                                 <p class="mobile-prefix">+91</p>
-                                <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo" />
+                                <input type="tel" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo" />
                                 <span class="bwmsprite error-icon errorIcon"></span>
                                 <div class="bw-blackbg-tooltip errorText"></div>
                             </div>
