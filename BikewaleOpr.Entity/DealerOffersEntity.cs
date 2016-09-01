@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace BikewaleOpr.Entity
 {
+    /// Created by: Aditi Srivastava on 01 Sep 2016
+    /// Summary: To save and update dealer offers
     [Serializable, DataContract]
     public class DealerOffersEntity
     {
@@ -26,7 +28,5 @@ namespace BikewaleOpr.Entity
         public bool IsPriceImpact {get;set;}
         [DataMember]
         public string Terms { get; set; }
-
-
     }
 }
