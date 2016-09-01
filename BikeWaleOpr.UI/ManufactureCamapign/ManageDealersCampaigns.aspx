@@ -7,7 +7,7 @@
     <div id="mfgCampaigns">
         <h3> Manage Manufacturer's Campaigns</h3>      
         <div class="margin-top10">
-            <span>Select Manufacture : </span><span class="errorMessage">*</span>
+            <span>Select Manufacturer : </span><span class="errorMessage">*</span>
             <asp:DropDownList id="ddlManufacturers" runat="server" class="margin-left10" />
             <input type="button" data-bind="click: SearchCampaigns" id="SearchCampaigns" value="Search Campaigns" class="margin-left20"/>                
             <input type="button" data-bind="click: redirect" value="Add Campaigns" class="margin-left20"/>
@@ -59,7 +59,7 @@
            dealerId = ddlManufacturers.val();
            manufactureName = ddlManufacturers.find("option:selected").text();
             if (!isNaN(dealerId) && dealerId > 0) {
-                var url = BwOprHostUrl + '/campaign/ManageDealer.aspx?manufactureName=' + encodeURIComponent(manufactureName) + '&dealerid=' + dealerId;
+                var url = BwOprHostUrl + '/ManufactureCamapign/ManageDealer.aspx?manufactureName=' + encodeURIComponent(manufactureName) + '&dealerid=' + dealerId;
                 window.location.href = url;
             }
             else {

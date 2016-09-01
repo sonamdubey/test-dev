@@ -22,6 +22,7 @@ form { 	margin: 0; }
 input.search { width: 292px; border: 0;	background: #FFF url(../Images/input.gif) no-repeat;padding: 4px; color: #E0691A;font-weight: bold;}
 input.submit {background: #E0691A url(../Images/submit.gif) no-repeat;border: 0;padding: 4px 0;	width: 65px; margin: 0 15px 1px 0; color: #FFF;	font: bold 1em Arial, Sans-Serif;}
 input.login { width: 150px;	border: none; padding: 4px; }
+input.textbox { height:100px; width:300px; }
 
 .text-align-center {text-align:center;}
 .errorMessage{ font: bold 1em Arial, Sans-Serif; color:#FF0000 }
@@ -48,6 +49,14 @@ input.login { width: 150px;	border: none; padding: 4px; }
 .tableViwHeader td{ background-color:#6C757A; color:#FFFFFF; font-weight:bold; font-size:14px; height:20px; border-top:1px solid #6C757A;border-bottom:1px solid #6C757A;}
 .tableViwHeader a:link , .lstTableHeader a:visited , .tableViwHeader a:hover,
 .tableViwHeader a:active{color:#FFFFFF; text-decoration:none}
+
+.tblSimple {border:1px solid #000000; text-align:left;}
+.tblSimple td{  color:#000000; font-size:11px; height:20px; padding:4px 2px 4px 5px;}
+.tblSimple th A:link, th A:visited, th A.active {COLOR:#FFFFFF;font-family:"Arial", serif;TEXT-DECORATION:underline;FONT-WEIGHT:bold;font-size:11px}
+.tblSimple th A:hover { COLOR:#FFFFFF;font-family:"Arial", serif;Text-decoration:none;font-size:11px}
+.tblSimpleHeader td{ background-color:#6C757A; color:#FFFFFF; font-weight:bold; font-size:12px; height:20px; border-top:1px solid #6C757A;border-bottom:1px solid #6C757A;}
+.tblSimpleHeader a:link , .lstTableHeader a:visited , .lstTableHeader a:hover,.lstTableHeader a:active{color:#FFFFFF; text-decoration:none}
+
 .pointer {cursor:pointer;}
 
 .selectCol{width:40px; text-align:left;}
