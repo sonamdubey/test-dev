@@ -32,13 +32,15 @@
                 <div id="model-main-image">
                     <%if(inquiryDetails.PhotosCount > 0) { %>
                     <a href="javascript:void(0)" class="model-main-image-wrapper <%= inquiryDetails.PhotosCount > 1 ? "model-gallery-target " : string.Empty %>" rel="nofollow">
-                        <img src="<%= (firstImage!=null) ? Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImagePath,firstImage.HostUrl,Bikewale.Utility.ImageSize._360x202) : string.Empty %>" alt="<%= bikeName %>" title="<%= bikeName %>" />
+                        <img src="<%= (firstImage!=null) ? Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImagePath,firstImage.HostUrl,Bikewale.Utility.ImageSize._360x202) : string.Empty %>" alt="Used <%= modelYear %> <%= bikeName %>" title="Used <%= modelYear %> <%= bikeName %>" />
+                        <% if(inquiryDetails.PhotosCount >1){ %>
                         <div class="model-media-details">
                             <div class="model-media-item">
                                 <span class="bwmsprite gallery-photo-icon"></span>
                                 <span class="model-media-count"><%= inquiryDetails.PhotosCount %></span>
                             </div>
                         </div>
+                        <% } %>
                     </a>
                     <% } else  { %>
                     <div class=" no-image-content ">
@@ -247,7 +249,7 @@
 
             <div id="bike-gallery-popup">
                 <div class="font14 text-white margin-bottom15">
-                    <span class="leftfloat media-title"></span>
+                    <%--<span class="leftfloat media-title"></span>--%>
                     <span class="rightfloat gallery-count"></span>
                     <div class="clear"></div>
                 </div>
