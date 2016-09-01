@@ -77,7 +77,7 @@
             </tr>  
             <% if (isEdit) { %>                      
             <tr>
-                <td colspan="2"><a href="/ManufactureCamapign/ManufacturerCampaignRules.aspx?campaignid=<%=campaignId%>&dealerid=<%=dealerId%>">manage rules for the campaign</a></td>                         
+                <td colspan="2"><a href="/ManufactureCamapign/ManufacturerCampaignRules.aspx?campaignid=<%=campaignId%>&dealerid=<%=dealerId%>&manufactureName=<%=manufacturerName%>">manage rules for the campaign</a></td>                         
             </tr>  
              <%} %>                 
         </tbody>                                                                    
