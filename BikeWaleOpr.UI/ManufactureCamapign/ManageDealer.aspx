@@ -163,7 +163,7 @@
                        
                     <tr>
                         <td colspan="2"> 
-                            <input type="Button" onclick="window.location.href= '<%= BwOprHostUrl%>'+'/newbikebooking/ManufacturerCampaignRules.aspx?campaignid=' + '<%=campaignId%>' + '&dealerid=' + '<%=dealerId%>' "  value="Edit Rules" /> 
+                            <input type="Button" onclick="window.location.href= '<%= BwOprHostUrl%>    '+'/ManufactureCamapign/ManufacturerCampaignRules.aspx?campaignid=' + '<%=campaignId%>    ' + '&dealerid=' + '<%=dealerId%>    ' "  value="Edit Rules" /> 
                         </td>
                          
                     </tr>                    
