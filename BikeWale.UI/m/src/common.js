@@ -1624,3 +1624,9 @@ $('#area-menu-input').on('focus click', function (event) {
     event.stopPropagation();
     $("#city-area-popup").animate({ scrollTop: 190 });
 });
+
+$('.btn-white').on('touchstart', function () {
+    $(this).addClass('active');
+}).on('touchend', function () {
+    $(this).removeClass('active');
+})

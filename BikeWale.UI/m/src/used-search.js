@@ -221,7 +221,7 @@ var filters = {
 
         city: function () {
             $('#filter-type-city .selected-filters').text('All India');
-        },
+        }, 
 
         bike: function () {
             filterTypeBike.find('.selected-filters').text('All Bikes');
@@ -559,9 +559,3 @@ $(window).on('popstate', function (event) {
         sortBy.close();
     }
 });
-
-$('.btn-white').on('touchstart', function () {
-    $(this).addClass('active');
-}).on('touchend', function () {
-    $(this).removeClass('active');
-})
