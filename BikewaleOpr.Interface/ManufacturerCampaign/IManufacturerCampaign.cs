@@ -23,8 +23,8 @@ namespace BikewaleOpr.Interface.ManufacturerCampaign
         /// Description : This interface contains declaration of method used in Manufacturer Campaign ;
         /// </summary>
         int InsertBWDealerCampaign(string description, int isActive, string maskingNumber, int dealerId, int userId);
-        void UpdateBWDealerCampaign(string description, int isActive, string maskingNumber, int dealerId, int userId, int campaignId, string templateHtml1, int templateId1, string templateHtml2, int templateId2, string templateHtml3, int templateId3, string templateHtml4, int templateId4);
-        void SaveManufacturerCampaignTemplate(string templateHtml1, int templateId1, string templateHtml2, int templateId2, string templateHtml3, int templateId3, string templateHtml4, int templateId4, int userId, int campaignId);
+        void UpdateBWDealerCampaign(string description, int isActive, string maskingNumber, int dealerId, int userId, int campaignId, List<ManuCamEntityForTemplate> objList);
+        void SaveManufacturerCampaignTemplate(List<ManuCamEntityForTemplate> objList, int userId, int campaignId);
        List<BikewaleOpr.Entity.ManufacturerCampaign.ManufacturerCampaignEntity> FetchCampaignDetails(int campaignId);
          bool ReleaseCampaignMaskingNumber(int campaignId);
     }

@@ -37,61 +37,52 @@
                 </td>
             </tr>  
             <tr>
-                <th>Start / Stop Campaign :<b class='required'>*</b></th> 
+                <th>Start / Stop Campaign :</th> 
                 <td><asp:CheckBox runat="server" id="isActive" Checked="True" /></td>                  
             </tr>   
             <tr>
-                <th>Dealer Price Quote Page Desktop Template<b class='required'>*</b>                         
-                </th>
+                <th>Dealer Price Quote Page Desktop Template<span class="errorMessage">*</span></th>
                 <td>
                     <asp:textbox id="textBox1" textmode="multiline" multiline="true" height="100" width="300" runat="server" />                           
-                    <asp:CheckBox runat="server" id="CheckBox1" Checked="True" text ="Use Default Template" onclick="enableDisable(this.checked, 'textBox1')"/> 
+                    <asp:CheckBox runat="server" id="CheckBox1" Checked="True" text ="Use Default Template" onclick="enableDisableTextbox(this.checked, 'textBox1')"/> 
                     <asp:hiddenfield id="Hiddenfield1" runat="server" />
                 </td>
             </tr>   
             <tr>
-                <th>Dealer Price Quote Page Mobile Template<b class='required'>*</b></th>
+                <th>Dealer Price Quote Page Mobile Template<span class="errorMessage">*</span></th>
                 <td>
                     <asp:textbox id="textBox2" textmode="multiline" multiline="true" height="100" width="300" runat="server" />                        
-                    <asp:CheckBox runat="server" id="CheckBox2" Checked="True" text ="Use Default Template" onclick="enableDisable(this.checked, 'textBox2')"/> 
+                    <asp:CheckBox runat="server" id="CheckBox2" Checked="True" text ="Use Default Template" onclick="enableDisableTextbox(this.checked, 'textBox2')"/> 
                     <asp:hiddenfield id="Hiddenfield2" runat="server" />
                 </td>
             </tr> 
             <tr>
-                <th>Model Page Desktop Template<b class='required'>*</b>                         
-                </th>
+                <th>Model Page Desktop Template<span class="errorMessage">*</span></th>
                 <td>
                     <asp:textbox id="textBox3" textmode="multiline" multiline="true" height="100" width="300" runat="server"  />                           
-                    <asp:CheckBox runat="server" id="CheckBox3" Checked="True" text ="Use Default Template" onclick="enableDisable(this.checked, 'textBox3')"/> 
+                    <asp:CheckBox runat="server" id="CheckBox3" Checked="True" text ="Use Default Template" onclick="enableDisableTextbox(this.checked, 'textBox3')"/> 
                     <asp:hiddenfield id="Hiddenfield3" runat="server" />
                 </td>
             </tr>  
             <tr>
-                <th>Model Page Mobile Template<b class='required'>*</b>                         
-                </th>
+                <th>Model Page Mobile Template<span class="errorMessage">*</span></th>
                 <td>
                     <asp:textbox id="textBox4" textmode="multiline" multiline="true" height="100" width="300" runat="server" />                            
-                    <asp:CheckBox runat="server" id="CheckBox4" Checked="True" text ="Use Default Template" onclick="enableDisable(this.checked, 'textBox4')"/> 
+                    <asp:CheckBox runat="server" id="CheckBox4" Checked="True" text ="Use Default Template" onclick="enableDisableTextbox(this.checked, 'textBox4')"/> 
                     <asp:hiddenfield id="Hiddenfield4" runat="server" />
                 </td>
             </tr>             
             <tr>
-                <td colspan="2">
-                    <asp:button id="btnUpdate" onclientclick="return ValidateForm();"  runat="server" cssclass="padding10" />
-                </td>
-            </tr> 
-                       
+                <td colspan="2"><asp:button id="btnUpdate" onclientclick="return ValidateForm();"  runat="server" cssclass="padding10" /></td>
+            </tr>  
+            <% if (isEdit) { %>                      
             <tr>
-                <td colspan="2"> 
-                    <a href="/ManufactureCamapign/ManufacturerCampaignRules.aspx?campaignid=<%=campaignId%>&dealerid=<%=dealerId%>">manage rules for the campaign</a>
-                </td>
-                         
-            </tr>                    
+                <td colspan="2"><a href="/ManufactureCamapign/ManufacturerCampaignRules.aspx?campaignid=<%=campaignId%>&dealerid=<%=dealerId%>">manage rules for the campaign</a></td>                         
+            </tr>  
+             <%} %>                 
         </tbody>                                                                    
     </table>
             <asp:label class="errMessage margin-bottom10 margin-left10 required" id="lblErrorSummary" runat="server" />
-            <br />
-
 </div>
 
 <script type="text/javascript">
@@ -112,8 +103,8 @@
             
         }
 
-        //bindMaskingNumber(dealerId);
-        bindMaskingNumber(21079);
+        bindMaskingNumber(<%=dealerId%>);
+        //bindMaskingNumber(21079);
 
     });
 
@@ -130,7 +121,7 @@
         $('#hdnOldMaskingNumber').val($(this).find("option:selected").text());
     });
 
-    $("#releaseMaskingNumber").on("click", function () {
+    $("#releaseMaskingNumber").click(function () {
         var maskingNumber = $("#txtMaskingNumber").val();
         if (maskingNumber.length > 0) {
             releaseMaskingNumber(maskingNumber);
@@ -191,12 +182,7 @@
     }
 
 
-
-
-
-
-
-    function enableDisable(bEnable, textBoxID)
+    function enableDisableTextbox(bEnable, textBoxID)
     {
         $('#' + textBoxID).prop("disabled", bEnable);
         $('#lblGreenMessage').html('Please fill values');

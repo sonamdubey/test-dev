@@ -1,6 +1,7 @@
 ﻿using Bikewale.Notifications;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Entity.ContractCampaign;
+using BikewaleOpr.Entity.ManufacturerCampaign;
 using BikewaleOpr.Interface.ManufacturerCampaign;
 using MySql.CoreDAL;
 using System;
@@ -353,7 +354,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         /// <param name="templateId3"></param>
         /// <param name="templateHtml4"></param>
         /// <param name="templateId4"></param>
-        public void UpdateBWDealerCampaign(string description, int isActive, string maskingNumber, int dealerId, int userId, int campaignId, string templateHtml1, int templateId1, string templateHtml2, int templateId2, string templateHtml3, int templateId3, string templateHtml4, int templateId4)
+        public void UpdateBWDealerCampaign(string description, int isActive, string maskingNumber, int dealerId, int userId, int campaignId, List<ManuCamEntityForTemplate> objList)
         {
             try
             {
@@ -365,15 +366,15 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingNumber", DbType.String, 10, maskingNumber));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32, dealerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userId", DbType.Int32, userId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignId", DbType.Int32, campaignId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml1", DbType.String, 150, templateHtml1));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId1", DbType.Int32, templateId1));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml2", DbType.String, 150, templateHtml2));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId2", DbType.Int32, templateId2));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml3", DbType.String, 150, templateHtml3));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId3", DbType.Int32, templateId3));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml4", DbType.String, 150, templateHtml4));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId4", DbType.Int32, templateId4));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignId", DbType.Int32, campaignId));                  
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml1", DbType.String, 150, objList[0].TemplateHtml));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId1", DbType.Int32, objList[0].TemplateId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml2", DbType.String, 150, objList[1].TemplateHtml));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId2", DbType.Int32, objList[1].TemplateId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml3", DbType.String, 150, objList[2].TemplateHtml));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId3", DbType.Int32, objList[2].TemplateId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml4", DbType.String, 150, objList[3].TemplateHtml));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId4", DbType.Int32, objList[3].TemplateId));
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
@@ -398,21 +399,21 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         /// <param name="templateId4"></param>
         /// <param name="userId"></param>
         /// <param name="campaignId"></param>
-        public void SaveManufacturerCampaignTemplate(string templateHtml1, int templateId1, string templateHtml2, int templateId2, string templateHtml3, int templateId3, string templateHtml4, int templateId4, int userId, int campaignId)
+        public void SaveManufacturerCampaignTemplate(List<ManuCamEntityForTemplate> objList, int userId, int campaignId)
         {
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("savemanufacturecampaigntemplate"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml1", DbType.String, 150, templateHtml1));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId1", DbType.Int32, templateId1));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml2", DbType.String, 150, templateHtml2));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId2", DbType.Int32, templateId2));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml3", DbType.String, 150, templateHtml3));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId3", DbType.Int32, templateId3));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml4", DbType.String, 150, templateHtml4));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId4", DbType.Int32, templateId4));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml1", DbType.String, 150, objList[0].TemplateHtml));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId1", DbType.Int32, objList[0].TemplateId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml2", DbType.String, 150, objList[1].TemplateHtml));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId2", DbType.Int32, objList[1].TemplateId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml3", DbType.String, 150, objList[2].TemplateHtml));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId3", DbType.Int32, objList[2].TemplateId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml4", DbType.String, 150, objList[3].TemplateHtml));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId4", DbType.Int32, objList[3].TemplateId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userId", DbType.Int32, userId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignId", DbType.Int32, campaignId));
 
