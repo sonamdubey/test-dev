@@ -11,15 +11,11 @@
     background-color: #f5f5f5;
 }
 
-.model-gallery-target {
+.model-main-image-wrapper {
     width:100%;
     display: table-cell;
     vertical-align: middle;
     line-height: 0;
-}
-
-.model-gallery-target.hide {
-    display: none;
 }
 
 #model-main-image img {
@@ -258,15 +254,20 @@
 
 .model-swiper-image-preview {
     width: 100%;
-    height: 101px;
+    height: auto;
     padding: 5px 5px 0;
+    display: table;
+    text-align: center;
 }
 
 .model-swiper-image-preview a {
     width: 180px;
     height: 101px;
-    display: block;
     position: relative;
+    display: table-cell;
+    vertical-align: middle;
+    background: #f5f5f5;
+    line-height: 0;
 }
 
 .model-swiper-details {
@@ -292,6 +293,10 @@
 
 #similar-bike-swiper .btn-xs, #other-bike-swiper .btn-xs {
     padding: 6px 0;
+}
+
+.swiper-slide .model-swiper-image-preview img {    
+    height: 101px;
 }
 
 /* carousel icons */
@@ -408,6 +413,8 @@
     font-weight: bold;
 }
 
+.text-truncate { width:100%; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
+
 /* input field */
 input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow: none; }
 .input-box { height:60px; text-align: left; }
@@ -442,7 +449,7 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
     z-index:8;
 }
 
-#model-gallery-container h1 {
+#model-gallery-container .gallery-header {
     font-size: 16px;
     color: #fff;
     padding-right: 30px;
@@ -450,6 +457,7 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
     position: fixed;
     top: 15px;
     left: 20px;
+    font-weight: bold;    
 }
 #bike-gallery-popup {
     width: 100%;
@@ -500,6 +508,9 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
     height: auto;
     text-align: center;
 }
+.connected-carousels-photos .carousel-photos .swiper-slide img {
+    height: 200px;
+}
 /** Navigation carousel specific styles **/
 .connected-carousels-photos .carousel-navigation-photos {
     height: auto;
@@ -526,18 +537,23 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
     height: 50px;
     display: block;
     background: #2a2a2a;
-    opacity: 0.5;
+    opacity: 0.3;
 }
-.navigation-photos .carousel-navigation-photos .swiper-slide.swiper-slide-active:after {
+.navigation-photos .swiper-slide.swiper-slide-active:after {
     content: none;
 }
-.navigation-photos .carousel-navigation-photos .swiper-slide img {
+.navigation-photos .swiper-slide .navigation-image-wrapper {
     width: 90px;
     height: 50px;
     border: 1px solid #2a2a2a;
+    text-align:center;
 }
-.navigation-photos .carousel-navigation-photos .swiper-slide.swiper-slide-active img {
+.navigation-photos .swiper-slide.swiper-slide-active .navigation-image-wrapper {
     border: 1px solid #f5f5f5;
+}
+
+.navigation-photos .swiper-slide .navigation-image-wrapper img {
+    height: 50px;
 }
 /** Stage carousel controls **/
 
@@ -624,8 +640,23 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
     border: 0;
 }
 
-@media screen and (max-width: 320px) {
+@media only screen and (min-width: 361px) {
+    .connected-carousels-photos .carousel-photos .swiper-slide img {
+        height: 268px;
+    }
+    #bike-gallery-popup {
+        top: 20%;
+    }
+}
+
+@media screen and (max-width: 350px) {
     #bike-gallery-popup .stage-photos {
-        margin-bottom: 0;
+        margin-bottom: 10px;
+    }
+    #model-main-image {
+        height: 170px;
+    }
+    #model-main-image img {
+        height: 170px;
     }
 }
