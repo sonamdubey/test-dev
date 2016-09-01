@@ -129,6 +129,10 @@
       <DependentUpon>DealersRules.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="manufacturecampaign\ManageDealer.aspx.cs">
+      <DependentUpon>ManageDealer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="campaign\ManageDealers.aspx.cs">
       <DependentUpon>ManageDealers.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -457,8 +461,16 @@
       <DependentUpon>ManageDealerLoanAmounts.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="manufacturecampaign\SearchManufacturerCampaign.aspx.cs">
+      <DependentUpon>SearchManufacturerCampaign.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="newbikebooking\ManageOffers.aspx.cs">
       <DependentUpon>ManageOffers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manufacturecampaign\ManufacturerCampaignRules.aspx.cs">
+      <DependentUpon>ManufacturerCampaignRules.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pager\IPager.cs" />
@@ -1258,6 +1270,7 @@
     <Content Include="bin\System.Web.Http.dll" />
     <Content Include="bin\System.Web.Http.WebHost.dll" />
     <Content Include="campaign\DealersRules.aspx" />
+    <Content Include="manufacturecampaign\ManageDealer.aspx" />
     <Content Include="campaign\ManageDealers.aspx" />
     <Content Include="campaign\MapCampaign.aspx" />
     <Content Include="campaign\SearchDealerCampaigns.aspx" />
@@ -1311,6 +1324,7 @@
     <Content Include="controls\LinkPagerControl.ascx" />
     <Content Include="controls\RichTextEditor.ascx" />
     <Content Include="css\960_12_col.css" />
+    <Content Include="css\chosen.min.css" />
     <Content Include="css\Common.css" />
     <Content Include="Default.aspx" />
     <Content Include="editcms\AddPages.aspx" />
@@ -1854,13 +1868,16 @@
     <Content Include="newbikebooking\ManageDealerDisclaimer.aspx" />
     <Content Include="newbikebooking\ManageDealerFacilities.aspx" />
     <Content Include="newbikebooking\ManageDealerLoanAmounts.aspx" />
+    <Content Include="manufacturecampaign\SearchManufacturerCampaign.aspx" />
     <Content Include="newbikebooking\ManageOffers.aspx" />
+    <Content Include="manufacturecampaign\ManufacturerCampaignRules.aspx" />
     <Content Include="pagenotfound.aspx" />
     <Content Include="research\urlmapping\map_models.txt" />
     <Content Include="src\AjaxFunctions.js" />
     <Content Include="src\bt.js" />
     <Content Include="src\calender.js" />
     <Content Include="src\chains.js" />
+    <Content Include="src\chosen.jquery.min.js" />
     <Content Include="src\common\common.js" />
     <Content Include="src\graybox.js" />
     <Content Include="src\greybox.js" />
@@ -1889,6 +1906,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
+      <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>
+      <Name>Bikewale.Notifications</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
       <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
       <Name>Bikewale.Utility</Name>
