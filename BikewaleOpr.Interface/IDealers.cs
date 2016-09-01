@@ -38,7 +38,7 @@ namespace BikewaleOpr.Interface
         BookingAmountEntity GetDealerBookingAmount(uint versionId, uint dealerId);
         #endregion
         bool DeleteBookingAmount(uint bookingId);
-        void UpdateDealerBikeOffers(DealerOffersEntity dealerOffers);
+        bool UpdateDealerBikeOffers(DealerOffersEntity dealerOffers);
         bool SaveBikeAvailability(DataTable dtValue);
         bool DeleteBikeAvailabilityDays(DataTable dtValue);
         bool CopyOffersToCities(uint dealerId, string lstOfferIds, string lstCityId);

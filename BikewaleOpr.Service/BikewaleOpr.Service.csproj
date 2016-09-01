@@ -148,6 +148,10 @@
       <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>
       <Name>Bikewale.Notifications</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
+      <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
+      <Name>Bikewale.Utility</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BikewaleOpr.BAL\BikewaleOpr.BAL.csproj">
       <Project>{16f4a3eb-ab13-44c2-99cd-a942c05f3222}</Project>
       <Name>BikewaleOpr.BAL</Name>

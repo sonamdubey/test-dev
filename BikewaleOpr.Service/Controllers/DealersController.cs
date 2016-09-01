@@ -1,4 +1,5 @@
 ﻿using Bikewale.Notifications;
+using Bikewale.Utility.Terms;
 using BikewaleOpr.DAL;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Interface;
@@ -109,11 +110,24 @@ namespace BikewaleOpr.Service
         {
             try
             {
+               
+                bool isUpdated = false;
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IDealers, DealersRepository>();
                     IDealers objDealer = container.Resolve<DealersRepository>();
-                    objDealer.UpdateDealerBikeOffers(dealerOffer);
+                    TermsHtmlFormatting htmlFormat = new TermsHtmlFormatting();
+                    dealerOffer.Terms = htmlFormat.MakeHtmlList(dealerOffer.Terms);
+                    
+                    isUpdated = objDealer.UpdateDealerBikeOffers(dealerOffer);
+                    if (isUpdated)
+                    {
+                        return Ok("Dealer Bike Offers Updated."); 
+                    }
+                    else
+                    {
+                        return InternalServerError();
+                    }
                 }
             }
             catch (Exception ex)
@@ -124,8 +138,6 @@ namespace BikewaleOpr.Service
 
                 return InternalServerError();
             }
-
-            return Ok("Dealer Bike Offers Updated.");
         }
 
         /// <summary>

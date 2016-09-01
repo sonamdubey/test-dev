@@ -1,5 +1,4 @@
 ﻿using Bikewale.Notifications;
-using Bikewale.Utility.Terms;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Entity;
 using BikewaleOpr.Interface;
@@ -649,13 +648,12 @@ namespace BikewaleOpr.DAL
         /// <param name="offerText"></param>
         /// <param name="offerValue"></param>
         /// <param name="offerValidTill"></param>
-        public void UpdateDealerBikeOffers(DealerOffersEntity dealerOffers)
+        public bool UpdateDealerBikeOffers(DealerOffersEntity dealerOffers)
         {
-            TermsHtmlFormatting htmlFormatFunction = new TermsHtmlFormatting();
+            bool isUpdated = false;
 
             try
             {
-
                 using (DbCommand cmd = DbFactory.GetDBCommand("bw_updatedealeroffers_07012016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -671,8 +669,10 @@ namespace BikewaleOpr.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferValue", DbType.Int32, dealerOffers.OfferValue));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferValidTill", DbType.DateTime, dealerOffers.OfferValidTill));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isPriceImpact", DbType.Boolean, dealerOffers.IsPriceImpact));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_terms", DbType.String, htmlFormatFunction.MakeHtmlList(dealerOffers.Terms)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_terms", DbType.String, dealerOffers.Terms));
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+                    isUpdated = true;
+
                 }
             }
             catch (Exception ex)
@@ -681,6 +681,7 @@ namespace BikewaleOpr.DAL
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
+            return isUpdated;
         }
         /// <summary>
         /// Created By  : Suresh Prajapati on 04th Nov, 2014.

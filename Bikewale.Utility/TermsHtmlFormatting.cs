@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -20,24 +19,30 @@ namespace Bikewale.Utility.Terms
         /// <returns></returns>
         public string MakeHtmlList(string terms)
         {
-            StringBuilder termsFormatted = new StringBuilder();
-            string[] termsList = terms.Trim().Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+            string termsConditions = string.Empty;
 
-            if (termsList != null)
+            if (!string.IsNullOrEmpty(terms))
             {
-                termsFormatted.Append("<ol>");
-                foreach (var term in termsList)
-                {
-                    termsFormatted.Append("<li>");
-                    termsFormatted.Append(term);
-                    termsFormatted.Append("</li>");
+                StringBuilder termsFormatted = new StringBuilder();
+                string[] termsList = terms.Trim().Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
 
+
+                if (termsList != null)
+                {
+                    termsFormatted.Append("<ol>");
+                    foreach (var term in termsList)
+                    {
+                        termsFormatted.Append("<li>");
+                        termsFormatted.Append(term);
+                        termsFormatted.Append("</li>");
+
+                    }
+                    termsFormatted.Append("</ol>");
+                    termsConditions = termsFormatted.ToString();
                 }
-                termsFormatted.Append("</ol>");
-                return termsFormatted.ToString();
             }
-            else
-                return string.Empty;
+
+            return termsConditions;
         }
         /// <summary>
         ///  Created By: Aditi Srivastava on 8th Aug, 2016
