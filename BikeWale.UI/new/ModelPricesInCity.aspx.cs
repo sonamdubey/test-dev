@@ -94,7 +94,7 @@ namespace Bikewale.New
                 ctrlLeadCapture.CityId = cityId;
                 ctrlLeadCapture.ModelId = modelId;
                 ctrlLeadCapture.AreaId = 0;
-               
+
                 BindAlternativeBikeControl();
 
             }
@@ -323,6 +323,7 @@ namespace Bikewale.New
             ctrlAlternativeBikes.TopCount = 6;
             ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_Alternative;
             ctrlAlternativeBikes.WidgetTitle = bikeName;
+            ctrlAlternativeBikes.model = modelName;
             if (firstVersion != null)
                 ctrlAlternativeBikes.VersionId = (int)firstVersion.VersionId;
         }
