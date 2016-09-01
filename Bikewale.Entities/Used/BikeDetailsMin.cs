@@ -16,6 +16,7 @@ namespace Bikewale.Entities.Used
         public uint KmsDriven { get; set; }
         public string OwnerType { get; set; }
         public string RegisteredAt { get; set; }
+        public string BikeName { get; set; }
     }
 
     /// <summary>

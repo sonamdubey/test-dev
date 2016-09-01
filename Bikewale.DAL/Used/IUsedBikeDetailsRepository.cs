@@ -169,6 +169,7 @@ namespace Bikewale.DAL.Used
                                 similarBikeDetails.Add(new BikeDetailsMin()
                                 {
                                     ProfileId = Convert.ToString(dr["ProfileId"]),
+                                    BikeName = Convert.ToString(dr["bikename"]),
                                     ModelYear = Convert.ToDateTime(dr["makeyear"]),
                                     OwnerType = Convert.ToString(dr["Owner"]),
                                     KmsDriven = Convert.ToUInt32(dr["Kilometers"]),

@@ -18,7 +18,7 @@
                             </a>
                         </div>
                         <div class="model-swiper-details font11">
-                            <a href="/m/used/bikes-in-<%= CityMaskingName %>/<%= MakeMaskingName %>-<%= ModelMaskingName %>-<%= bike.ProfileId %>/" class="target-link font12 text-truncate margin-bottom5" title="<%= BikeName %>"><%= BikeName %></a>
+                            <a href="/m/used/bikes-in-<%= CityMaskingName %>/<%= MakeMaskingName %>-<%= ModelMaskingName %>-<%= bike.ProfileId %>/" class="target-link font12 text-truncate margin-bottom5" title="<%= bike.BikeName %>"><%= bike.BikeName %></a>
                             <div class="grid-6 alpha padding-right5">
                                 <span class="bwmsprite model-date-icon-xs"></span>
                                 <span class="model-details-label"><%=bike.ModelYear.Year %> model</span>
