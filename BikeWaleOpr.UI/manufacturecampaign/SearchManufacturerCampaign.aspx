@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikeWaleOpr.ManufactureCampaign.ManageDealersCampaigns" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikeWaleOpr.manufacturecampaign.SearchManufacturerCampaign" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
 <div>
 <!-- #Include file="/content/DealerMenu.aspx" -->
@@ -9,7 +9,7 @@
         <div class="margin-top10">
             <span>Select Manufacturer : </span><span class="errorMessage">*</span>
             <asp:DropDownList id="ddlManufacturers" runat="server" class="margin-left10" />
-            <input type="button" data-bind="click: SearchCampaigns" id="SearchCampaigns" value="Search Campaigns" class="margin-left20"/>                
+            <input type="button" data-bind="click: SearchCampaigns" id="btnSearchCampaigns" value="Search Campaigns" class="margin-left20"/>                
             <input type="button" data-bind="click: redirect" value="Add Campaigns" class="margin-left20"/>
         </div> 
     </div>    
@@ -35,9 +35,9 @@
         <td data-bind="text: id"></td>
         <td data-bind="text: description"></td>
         <td data-bind="text: isactive ? 'Active' : 'In-Acitve'"></td>
-        <td><a  data-bind="attr: { href: '/ManufactureCamapign/ManufacturerCampaignRules.aspx?campaignid=' + id + '&dealerid=' + dealerid }" target="_blank"><img src="http://opr.carwale.com/images/edit.jpg" alt="Edit"/></a></td>
+        <td><a  data-bind="attr: { href: '/manufacturecampaign/ManufacturerCampaignRules.aspx?campaignid=' + id + '&dealerid=' + dealerid }" target="_blank"><img src="http://opr.carwale.com/images/edit.jpg" alt="Edit"/></a></td>
         <td>
-            <a  data-bind="attr: { href: '/ManufactureCamapign/ManageDealer.aspx?campaignid=' + id + '&dealerid=' + dealerid + '&manufactureName='+encodeURIComponent(manufactureName)}"  target="_blank"><img src="http://opr.carwale.com/images/edit.jpg" alt="Edit"/></a>
+            <a  data-bind="attr: { href: '/manufacturecampaign/ManageDealer.aspx?campaignid=' + id + '&dealerid=' + dealerid + '&manufactureName=' + encodeURIComponent(manufactureName) }"  target="_blank"><img src="http://opr.carwale.com/images/edit.jpg" alt="Edit"/></a>
         </td>            
         <td><input  type="button"  data-bind="event: { click: function (data, event) { $parent.ChangeStatus(data, event); } }, value: (isactive ? 'Stop' : 'Start')" class="margin-left20"/></td>
              
@@ -59,7 +59,7 @@
            dealerId = ddlManufacturers.val();
            manufactureName = ddlManufacturers.find("option:selected").text();
             if (!isNaN(dealerId) && dealerId > 0) {
-                var url = BwOprHostUrl + '/ManufactureCamapign/ManageDealer.aspx?manufactureName=' + encodeURIComponent(manufactureName) + '&dealerid=' + dealerId;
+                var url = BwOprHostUrl + '/manufacturecampaign/ManageDealer.aspx?manufactureName=' + encodeURIComponent(manufactureName) + '&dealerid=' + dealerId;
                 window.location.href = url;
             }
             else {

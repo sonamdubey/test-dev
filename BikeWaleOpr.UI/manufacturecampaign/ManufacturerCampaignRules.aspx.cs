@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Web.UI.WebControls;
 
-namespace BikewaleOpr.newbikebooking
+namespace BikewaleOpr.manufacturecampaign
 {
     /// <summary>
     /// Written By: Aditi Srivastava on 29 Aug 2016

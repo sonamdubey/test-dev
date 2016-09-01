@@ -1,21 +1,17 @@
-﻿using AjaxPro;
-using Bikewale.Notifications;
-using BikewaleOpr.Common;
+﻿using Bikewale.Notifications;
 using BikewaleOpr.DALs.ManufactureCampaign;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Interface.ManufacturerCampaign;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace BikeWaleOpr.ManufactureCampaign
+namespace BikeWaleOpr.manufacturecampaign
 {
-    public class ManageDealersCampaigns : System.Web.UI.Page
+    public class SearchManufacturerCampaign : System.Web.UI.Page
     {
         protected DropDownList ddlManufacturers;
 

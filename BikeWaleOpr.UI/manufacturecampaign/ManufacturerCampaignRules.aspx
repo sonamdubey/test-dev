@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.newbikebooking.ManufacturerCampaignRules" enableEventValidation="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.manufacturecampaign.ManufacturerCampaignRules" enableEventValidation="false" %>
 
 <!DOCTYPE html>
 

@@ -14,7 +14,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace BikewaleOpr.Campaign
+namespace BikewaleOpr.manufacturecampaign
 {
     /// <summary>
     /// Created by: Sajal Gupta on 30/08/2016

@@ -129,7 +129,7 @@
       <DependentUpon>DealersRules.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ManufactureCamapign\ManageDealer.aspx.cs">
+    <Compile Include="manufacturecampaign\ManageDealer.aspx.cs">
       <DependentUpon>ManageDealer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -461,15 +461,15 @@
       <DependentUpon>ManageDealerLoanAmounts.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ManufactureCamapign\ManageDealersCampaigns.aspx.cs">
-      <DependentUpon>ManageDealersCampaigns.aspx</DependentUpon>
+    <Compile Include="manufacturecampaign\SearchManufacturerCampaign.aspx.cs">
+      <DependentUpon>SearchManufacturerCampaign.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="newbikebooking\ManageOffers.aspx.cs">
       <DependentUpon>ManageOffers.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ManufactureCamapign\ManufacturerCampaignRules.aspx.cs">
+    <Compile Include="manufacturecampaign\ManufacturerCampaignRules.aspx.cs">
       <DependentUpon>ManufacturerCampaignRules.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -1270,7 +1270,7 @@
     <Content Include="bin\System.Web.Http.dll" />
     <Content Include="bin\System.Web.Http.WebHost.dll" />
     <Content Include="campaign\DealersRules.aspx" />
-    <Content Include="ManufactureCamapign\ManageDealer.aspx" />
+    <Content Include="manufacturecampaign\ManageDealer.aspx" />
     <Content Include="campaign\ManageDealers.aspx" />
     <Content Include="campaign\MapCampaign.aspx" />
     <Content Include="campaign\SearchDealerCampaigns.aspx" />
@@ -1868,9 +1868,9 @@
     <Content Include="newbikebooking\ManageDealerDisclaimer.aspx" />
     <Content Include="newbikebooking\ManageDealerFacilities.aspx" />
     <Content Include="newbikebooking\ManageDealerLoanAmounts.aspx" />
-    <Content Include="ManufactureCamapign\ManageDealersCampaigns.aspx" />
+    <Content Include="manufacturecampaign\SearchManufacturerCampaign.aspx" />
     <Content Include="newbikebooking\ManageOffers.aspx" />
-    <Content Include="ManufactureCamapign\ManufacturerCampaignRules.aspx" />
+    <Content Include="manufacturecampaign\ManufacturerCampaignRules.aspx" />
     <Content Include="pagenotfound.aspx" />
     <Content Include="research\urlmapping\map_models.txt" />
     <Content Include="src\AjaxFunctions.js" />

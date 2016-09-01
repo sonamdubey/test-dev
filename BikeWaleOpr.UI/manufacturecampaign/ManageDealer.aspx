@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" validateRequest = "false" AutoEventWireup="false" Inherits="BikewaleOpr.Campaign.ManageDealer" AsyncTimeout="45" EnableEventValidation="false" Async="true" %>
+﻿<%@ Page Language="C#" validateRequest = "false" AutoEventWireup="false" Inherits="BikewaleOpr.manufacturecampaign.ManageDealer" AsyncTimeout="45" EnableEventValidation="false" Async="true" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
 <style type="text/css">
     .greenMessage {color: #6B8E23;font-size: 11px;}
