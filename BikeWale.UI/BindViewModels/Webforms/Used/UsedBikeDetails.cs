@@ -12,6 +12,10 @@ using System.Web;
 
 namespace Bikewale.BindViewModels.Webforms.Used
 {
+    /// <summary>
+    /// Created by  : Sushil Kumar on 30th August 2016
+    /// Description : Used bike details page for the used bike
+    /// </summary>
     public class UsedBikeDetailsPage
     {
         public uint InquiryId { get; set; }
