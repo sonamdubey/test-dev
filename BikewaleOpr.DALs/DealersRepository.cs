@@ -1,6 +1,7 @@
 ﻿using Bikewale.Notifications;
 using Bikewale.Utility.Terms;
 using BikewaleOpr.Entities;
+using BikewaleOpr.Entity;
 using BikewaleOpr.Interface;
 using MySql.CoreDAL;
 using System;
@@ -648,7 +649,7 @@ namespace BikewaleOpr.DAL
         /// <param name="offerText"></param>
         /// <param name="offerValue"></param>
         /// <param name="offerValidTill"></param>
-        public void UpdateDealerBikeOffers(uint offerId, uint userId, uint offerCategoryId, string offerText, uint? offerValue, DateTime offerValidTill, bool isPriceImpact, string terms)
+        public void UpdateDealerBikeOffers(DealerOffersEntity dealerOffers)
         {
             TermsHtmlFormatting htmlFormatFunction = new TermsHtmlFormatting();
 
@@ -659,18 +660,18 @@ namespace BikewaleOpr.DAL
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferId", DbType.Int32, offerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_UserId", DbType.Int64, userId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferCategoryId", DbType.Int32, offerCategoryId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferText", DbType.String, offerText));
-                    if (offerValue == null)
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferId", DbType.Int32, dealerOffers.OfferId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_UserId", DbType.Int64, dealerOffers.UserId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferCategoryId", DbType.Int32, dealerOffers.OfferCategoryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferText", DbType.String, dealerOffers.OfferText));
+                    if (dealerOffers.OfferValue == null)
                     {
-                        offerValue = 0;
+                        dealerOffers.OfferValue= 0;
                     }
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferValue", DbType.Int32, offerValue));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferValidTill", DbType.DateTime, offerValidTill));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isPriceImpact", DbType.Boolean, isPriceImpact));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_terms", DbType.String, htmlFormatFunction.MakeHtmlList(terms)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferValue", DbType.Int32, dealerOffers.OfferValue));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferValidTill", DbType.DateTime, dealerOffers.OfferValidTill));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isPriceImpact", DbType.Boolean, dealerOffers.IsPriceImpact));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_terms", DbType.String, htmlFormatFunction.MakeHtmlList(dealerOffers.Terms)));
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }

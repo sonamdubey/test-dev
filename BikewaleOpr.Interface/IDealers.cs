@@ -1,5 +1,6 @@
 ﻿
 using BikewaleOpr.Entities;
+using BikewaleOpr.Entity;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -37,7 +38,7 @@ namespace BikewaleOpr.Interface
         BookingAmountEntity GetDealerBookingAmount(uint versionId, uint dealerId);
         #endregion
         bool DeleteBookingAmount(uint bookingId);
-        void UpdateDealerBikeOffers(uint offerId, uint userId, uint offerCategoryId, string offerText, uint? offerValue, DateTime offerValidTill, bool isPriceImpact, string terms);
+        void UpdateDealerBikeOffers(DealerOffersEntity dealerOffers);
         bool SaveBikeAvailability(DataTable dtValue);
         bool DeleteBikeAvailabilityDays(DataTable dtValue);
         bool CopyOffersToCities(uint dealerId, string lstOfferIds, string lstCityId);

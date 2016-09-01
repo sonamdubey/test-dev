@@ -67,6 +67,7 @@
     <Compile Include="DealerCustDistanceMapping.cs" />
     <Compile Include="DealerDisclaimerEntity.cs" />
     <Compile Include="DealerLatLong.cs" />
+    <Compile Include="DealerOffersEntity.cs" />
     <Compile Include="DealerPackageTypes.cs" />
     <Compile Include="DealerPriceEntity.cs" />
     <Compile Include="DealerPriceQuoteDetailed.cs" />

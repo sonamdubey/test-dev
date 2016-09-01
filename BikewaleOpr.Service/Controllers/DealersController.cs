@@ -7,7 +7,7 @@ using System;
 using System.Data;
 using System.Web;
 using System.Web.Http;
-
+using BikewaleOpr.Entity;
 namespace BikewaleOpr.Service
 {
     /// <summary>
@@ -105,7 +105,7 @@ namespace BikewaleOpr.Service
         /// <param name="offerValidTill"></param>
         /// <returns></returns>
         [HttpPost]
-        public IHttpActionResult UpdateDealerBikeOffers(uint offerId, uint userId, uint offerCategoryId, string offerText, uint? offerValue, DateTime offerValidTill, bool isPriceImpact,string terms)
+        public IHttpActionResult UpdateDealerBikeOffers(DealerOffersEntity dealerOffer)
         {
             try
             {
@@ -113,7 +113,7 @@ namespace BikewaleOpr.Service
                 {
                     container.RegisterType<IDealers, DealersRepository>();
                     IDealers objDealer = container.Resolve<DealersRepository>();
-                    objDealer.UpdateDealerBikeOffers(offerId, userId, offerCategoryId, offerText, offerValue, offerValidTill, isPriceImpact,terms);
+                    objDealer.UpdateDealerBikeOffers(dealerOffer);
                 }
             }
             catch (Exception ex)
