@@ -1,4 +1,8 @@
-﻿#used-bikes-list li {
+﻿#used-bikes-list h2 a {
+    color: #2a2a2a;
+}
+
+#used-bikes-list li {
     margin-bottom: 20px;
 }
 

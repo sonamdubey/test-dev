@@ -45,7 +45,7 @@
                             </a>
                         </div>
                         <div class="margin-right20 margin-left20 padding-top10 font14">
-                            <h2 class="margin-bottom10">Royal Enfield Classic Desert Storm </h2>
+                            <h2 class="margin-bottom10"><a href="">Royal Enfield Classic Desert Storm</a></h2>
                             <div class="grid-6 alpha omega margin-bottom5">
                                 <span class="bwmsprite model-date-icon"></span>
                                 <span class="model-details-label">2013 model</span>
@@ -80,7 +80,7 @@
                             </a>
                         </div>
                         <div class="margin-right20 margin-left20 padding-top10 font14">
-                            <h2 class="margin-bottom10">Royal Enfield Classic Desert Storm </h2>
+                            <h2 class="margin-bottom10"><a href="">Royal Enfield Classic Desert Storm</a></h2>
                             <div class="grid-6 alpha omega margin-bottom5">
                                 <span class="bwmsprite model-date-icon"></span>
                                 <span class="model-details-label">2013 model</span>
@@ -115,7 +115,7 @@
                             </a>
                         </div>
                         <div class="margin-right20 margin-left20 padding-top10 font14">
-                            <h2 class="margin-bottom10">Royal Enfield Classic Desert Storm </h2>
+                            <h2 class="margin-bottom10"><a href="">Royal Enfield Classic Desert Storm</a></h2>
                             <div class="grid-6 alpha omega margin-bottom5">
                                 <span class="bwmsprite model-date-icon"></span>
                                 <span class="model-details-label">2013 model</span>
@@ -150,7 +150,7 @@
                             </a>
                         </div>
                         <div class="margin-right20 margin-left20 padding-top10 font14">
-                            <h2 class="margin-bottom10">Royal Enfield Classic Desert Storm </h2>
+                            <h2 class="margin-bottom10"><a href="">Royal Enfield Classic Desert Storm</a></h2>
                             <div class="grid-6 alpha omega margin-bottom5">
                                 <span class="bwmsprite model-date-icon"></span>
                                 <span class="model-details-label">2013 model</span>
@@ -185,7 +185,7 @@
                             </a>
                         </div>
                         <div class="margin-right20 margin-left20 padding-top10 font14">
-                            <h2 class="margin-bottom10">Royal Enfield Classic Desert Storm </h2>
+                            <h2 class="margin-bottom10"><a href="">Royal Enfield Classic Desert Storm</a></h2>
                             <div class="grid-6 alpha omega margin-bottom5">
                                 <span class="bwmsprite model-date-icon"></span>
                                 <span class="model-details-label">2013 model</span>
