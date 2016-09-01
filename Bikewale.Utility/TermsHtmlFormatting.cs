@@ -24,7 +24,7 @@ namespace Bikewale.Utility.Terms
             if (!string.IsNullOrEmpty(terms))
             {
                 StringBuilder termsFormatted = new StringBuilder();
-                string[] termsList = terms.Trim().Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+                string[] termsList = terms.Trim().Split(new string[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
 
                 if (termsList != null)
@@ -35,7 +35,6 @@ namespace Bikewale.Utility.Terms
                         termsFormatted.Append("<li>");
                         termsFormatted.Append(term);
                         termsFormatted.Append("</li>");
-
                     }
                     termsFormatted.Append("</ol>");
                     termsConditions = termsFormatted.ToString();

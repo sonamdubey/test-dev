@@ -1287,7 +1287,7 @@
                 window.location.href = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
             }
             $(function () {
-                if ($('.dealership-benefit-list li').length % 2 == 0) {
+                if ($('.dealership-benefit-list li').length <= 2) {
                     $('.dealership-benefit-list').addClass("dealer-two-offers");
                 }
             });
