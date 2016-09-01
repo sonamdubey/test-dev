@@ -10,6 +10,9 @@
 <body>
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
+
+        <div class="modal-background"></div>
+
         <section>
             <div class="container bg-white clearfix">
                 <h1 class="padding-top15 padding-right20 padding-bottom15 padding-left20 box-shadow">Used Royal Enfield Bullet bikes</h1>
@@ -213,23 +216,23 @@
                     <div class="grid-7 alpha omega position-rel">
                         <ul id="pagination-list">
                             <li>
-                                <a href="">1</a>
+                                <a href="">91</a>
                             </li>
                             <li>
-                                <a href="">2</a>
+                                <a href="">92</a>
                             </li>
                             <li class="active">
-                                <a href="">3</a>
+                                <a href="">93</a>
                             </li>
                             <li>
-                                <a href="">4</a>
+                                <a href="">94</a>
                             </li>
                             <li>
-                                <a href="">5</a>
+                                <a href="">95</a>
                             </li>
                         </ul>
-                        <span class="pagination-control-prev">
-                            <a href="" class="bwmsprite prev-page-icon inactive"></a>
+                        <span class="pagination-control-prev inactive">
+                            <a href="" class="bwmsprite prev-page-icon"></a>
                         </span>
                         <span class="pagination-control-next">
                             <a href="" class="bwmsprite next-page-icon"></a>
@@ -239,6 +242,47 @@
                 </div>
             </div>
         </section>
+
+        <!-- sort popup start -->
+        <div id="sort-by-container" class="sort-popup-container">
+            <div class="popup-header">Sort</div>
+            <div class="popup-body">
+                <ul id="sort-by-list" class="margin-bottom25">
+                    <li>
+                        <span class="bwmsprite radio-uncheck"></span>
+                        <span class="sort-list-label">Best match</span>
+                    </li>
+                    <li class="active">
+                        <span class="bwmsprite radio-uncheck"></span>
+                        <span class="sort-list-label">Most recent</span>
+                    </li>
+                    <li>
+                        <span class="bwmsprite radio-uncheck"></span>
+                        <span class="sort-list-label">Price - Low to High</span>
+                    </li>
+                    <li>
+                        <span class="bwmsprite radio-uncheck"></span>
+                        <span class="sort-list-label">Price - High to Low</span>
+                    </li>
+                    <li>
+                        <span class="bwmsprite radio-uncheck"></span>
+                        <span class="sort-list-label">Kms - Low to High</span>
+                    </li>
+                    <li>
+                        <span class="bwmsprite radio-uncheck"></span>
+                        <span class="sort-list-label">Kms - High to Low</span>
+                    </li>
+                </ul>
+                <div class="grid-6 alpha">
+                    <p id="cancel-sort-by" class="btn btn-white btn-full-width btn-size-0">Cancel</p>
+                </div>
+                <div class="grid-6 omega">
+                    <p id="apply-sort-by" class="btn btn-orange btn-full-width btn-size-0">Apply</p>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <!-- sort popup end -->
 
         <!-- filter popup start -->
         <div id="filter-container" class="filter-popup-container">
@@ -251,9 +295,9 @@
             </div>
             <div id="filter-selection-list">
                 <div id="filter-type-city" class="margin-bottom25">
-                    <p class="filter-option-key">City<sup>*</sup></p>
+                    <p class="filter-option-key">City</p>
                     <div class="filter-option-value">
-                        <p class="selected-filters">All India</p>
+                        <p class="selected-filters"></p>
                         <span class="bwmsprite grey-right-icon"></span>
                     </div>
                 </div>
@@ -312,10 +356,10 @@
 
             <div id="filter-container-footer" class="filter-container-footer">
                 <div class="grid-6">
-                    <p id="reset-filters" class="btn btn-white btn-full-width">Reset</p>
+                    <p id="reset-filters" class="btn btn-white btn-full-width btn-size-0">Reset</p>
                 </div>
                 <div class="grid-6">
-                    <p class="btn btn-orange btn-full-width">Apply filters</p>
+                    <p id="apply-filters" class="btn btn-orange btn-full-width btn-size-0">Apply filters</p>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -329,12 +373,17 @@
                         </span>
                         <input type="text" class="form-control padding-right40" placeholder="Type to select city" id="popupCityInput" autocomplete="off">
                     </div>
-                    <ul id="filter-city-list" class="padding-top40">
-                        <li>1</li>
-                        <li>2</li>
-                        <li>3</li>
-                        <li>4</li>
-                        <li>5</li>
+                    <ul id="filter-city-list">
+                        <li>Ahmedabad</li>
+                        <li>Bangalore</li>
+                        <li>Chennai</li>
+                        <li>Hyderabad</li>
+                        <li>Kolkata</li>
+                        <li>Mumbai</li>
+                        <li>Navi Mumbai</li>
+                        <li>New Delhi</li>
+                        <li>Pune</li>
+                        <li>Thane</li>
                     </ul>                    
                     <div class="margin-top30 font24 text-center margin-top60 "></div>
                 </div>
@@ -921,10 +970,10 @@
                 </ul>
                 <div id="filter-bike-container-footer" class="filter-container-footer">
                     <div class="grid-6 alpha">
-                        <p id="reset-bikes-filter" class="btn btn-white btn-full-width">Reset</p>
+                        <p id="reset-bikes-filter" class="btn btn-white btn-full-width btn-size-0">Reset</p>
                     </div>
                     <div class="grid-6 omega">
-                        <p id="set-bikes-filter" class="btn btn-orange btn-full-width">Done</p>
+                        <p id="set-bikes-filter" class="btn btn-orange btn-full-width btn-size-0">Done</p>
                     </div>
                     <div class="clear"></div>
                 </div>

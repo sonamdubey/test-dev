@@ -25,11 +25,7 @@ var filterContainer = $("#filter-container"),
     duration = 500;
 
 $('#filter-floating-btn').on('click', function () {
-    filterContainer.show(effect, options, duration, function () {
-        $('html, body').addClass('lock-browser-scroll');
-        filterContainer.addClass('fixed');
-    });
-
+    filters.open();
     appendState('filter');
 });
 
@@ -116,10 +112,22 @@ $('#reset-filters').on('click', function () {
     accordion.resetAll();
 });
 
+$('#apply-filters').on('click', function () {
+    filters.close();
+});
+
+
 var filterTypeBike = $('#filter-type-bike');
 
 /* set slider default values */
 var filters = {
+
+    open: function () {
+        filterContainer.show(effect, options, duration, function () {
+            $('html, body').addClass('lock-browser-scroll');
+            filterContainer.addClass('fixed');
+        });
+    },
 
     close: function () {
         filterContainer.removeClass('fixed');
@@ -202,15 +210,21 @@ var filters = {
     set: {
 
         all: function () {
+            filters.set.city();
             filters.set.bike();
             filters.set.budget();
             filters.set.kilometers();
             filters.set.bikeAge();
+            filters.set.previousOwners();
+            filters.set.sellerType();
+        },
+
+        city: function () {
+            $('#filter-type-city .selected-filters').text('All India');
         },
 
         bike: function () {
-            filterTypeBike.find('.filter-option-key').hide();
-            filterTypeBike.find('.selected-filters').text('Bike');
+            filterTypeBike.find('.selected-filters').text('All Bikes');
         },
 
         budget: function () {
@@ -240,24 +254,34 @@ var filters = {
             filters.bikeAgeAmount(ageSliderValue);
         },
 
+        previousOwners: function () {
+            $('#previous-owners-list li.active').removeClass('active');
+        },
+
+        sellerType: function () {
+            $('.filter-type-seller.checked').removeClass('checked');
+        }
+
     },
 
     reset: {
 
         all: function () {
+            filters.reset.city();
             filters.reset.bike();
             filters.reset.budget();
             filters.reset.kilometers();
             filters.reset.bikeAge();
-            $('#previous-owners-list li.active').removeClass('active');
-            $('.filter-type-seller.checked').removeClass('checked');
+            filters.reset.previousOwners();
+            filters.reset.sellerType();
         },
 
-        city: $('#filter-type-city .selected-filters').text('All India'),
+        city: function() {
+            $('#filter-type-city .selected-filters').text('All India');
+        },
 
         bike: function () {
-            filterTypeBike.find('.filter-option-key').hide();
-            filterTypeBike.find('.selected-filters').text('Bike');
+            filterTypeBike.find('.selected-filters').text('All Bikes');
         },
 
         budget: function () {
@@ -273,7 +297,15 @@ var filters = {
         bikeAge: function () {
             $('#bike-age-slider').slider('option', 'value', 8);
             $("#bike-age-amount").html('0 - ' + $("#bike-age-slider").slider("value") + '+ years');
-        }        
+        },
+
+        previousOwners: function () {
+            $('#previous-owners-list li.active').removeClass('active');
+        },
+
+        sellerType: function () {
+            $('.filter-type-seller.checked').removeClass('checked');
+        }
     }
 };
 
@@ -309,6 +341,13 @@ $('#filter-type-city').on('click', '.filter-option-value', function () {
 
 $('#close-city-filter').on('click', function () {
     filters.city.close();
+});
+
+$('#filter-city-list').on('click', 'li', function () {
+    var item = $(this);
+    
+    filters.city.close();
+    $('#filter-type-city .selected-filters').text(item.text());
 });
 
 
@@ -367,6 +406,7 @@ bikeFilterList.on('click', '.bike-model-list li', function () {
     }
 });
 
+/* accordion */
 var accordion = {
 
     tabs: $('#filter-bike-list .accordion-tab'),
@@ -454,6 +494,50 @@ var accordion = {
     }
 };
 
+/* sort by */
+var sortByList = $('#sort-by-list');
+
+sortByList.on('click', 'li', function () {
+    var item = $(this);
+
+    if (!item.hasClass('active')) {
+        sortByList.find('li.active').removeClass('active');
+        item.addClass('active');
+    }
+});
+
+$('#sort-floating-btn').on('click', function () {
+    sortBy.open();
+    appendState('sortBy');
+});
+
+$('#cancel-sort-by').on('click', function () {
+    history.back();
+    sortBy.close();
+});
+
+$('#apply-sort-by').on('click', function () {
+    history.back();
+    sortBy.close();
+});
+
+var sortBy = {
+    popup: $('#sort-by-container'),
+
+    open: function () {
+        sortBy.popup.show();
+        $('html, body').addClass('lock-browser-scroll');
+        $('.modal-background').show();
+    },
+
+    close: function () {
+        sortBy.popup.hide();
+        $('html, body').removeClass('lock-browser-scroll');
+        $('.modal-background').hide();
+    }    
+};
+
+/* popup state */
 var appendState = function (state) {
     window.history.pushState(state, '', '');   
 };
@@ -471,4 +555,13 @@ $(window).on('popstate', function (event) {
             filters.close();
         }
     }
+    if ($('#sort-by-container').is(':visible')) {
+        sortBy.close();
+    }
 });
+
+$('.btn-white').on('touchstart', function () {
+    $(this).addClass('active');
+}).on('touchend', function () {
+    $(this).removeClass('active');
+})

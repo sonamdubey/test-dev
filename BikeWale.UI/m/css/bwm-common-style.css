@@ -82,8 +82,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 .btn-orange:hover { background: #f44336; text-decoration: none; }
 .btn-orange:focus { background: #d42c2c; }
 .btn-white { background:#fff; color:#e42029; border:1px solid #e42029; }
-.btn-white:hover { background: #f44336; color: #fff; text-decoration: none; border:1px solid #f44336; }
-.btn-white:focus { background: #d42c2c; color: #fff; border: 1px solid #d42c2c; }
+.btn-white.active { background: #f44336; color: #fff; text-decoration: none; border:1px solid #f44336; }
 .btn-disable { cursor: not-allowed; opacity: .3; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)"; filter: alpha(opacity=30); -moz-opacity:0.3; -khtml-opacity: 0.3; }
 
 .btn-xs { padding: 8px; }
@@ -324,7 +323,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .navUL li a.sept-nav-list { padding: 15px 0 0 55px; color: #82888b; height: 36px; }
 .blackOut-window { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.5; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
 /* sprite classes */
-.bwmsprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v2.png?v1=30Aug2016) no-repeat; display: inline-block; }
+.bwmsprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v2.png?v1=1Sep2016) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
