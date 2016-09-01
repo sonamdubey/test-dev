@@ -21,13 +21,11 @@ namespace Bikewale.Utility.Terms
         public string MakeHtmlList(string terms)
         {
             StringBuilder termsFormatted = new StringBuilder();
-            terms = terms.Trim();
-            string[] termsList = terms.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
-            
-            string termsConditions;
+            string[] termsList = terms.Trim().Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+
             if (termsList != null)
             {
-                termsFormatted.Append("<ol class='termsList'>");
+                termsFormatted.Append("<ol>");
                 foreach (var term in termsList)
                 {
                     termsFormatted.Append("<li>");
@@ -36,12 +34,10 @@ namespace Bikewale.Utility.Terms
 
                 }
                 termsFormatted.Append("</ol>");
-                termsConditions = termsFormatted.ToString();
+                return termsFormatted.ToString();
             }
             else
-                termsConditions = "";
-
-            return termsConditions;
+                return string.Empty;
         }
         /// <summary>
         ///  Created By: Aditi Srivastava on 8th Aug, 2016
@@ -56,7 +52,7 @@ namespace Bikewale.Utility.Terms
                 terms = terms.Replace("</li>", "\n</li>");
                 return Regex.Replace(terms, @"<(.|\n)*?>", string.Empty);
             }
-            else return ("");
+            else return string.Empty;
         }
     }
 }
