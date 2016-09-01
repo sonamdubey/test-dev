@@ -8,6 +8,10 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Used
 {
+    /// <summary>
+    /// Created by  : Sushil Kumar on 29th August 2016
+    /// Description : Used Bikes Details page code behind
+    /// </summary>
     public class BikeDetails : System.Web.UI.Page
     {
         protected uint inquiryId;
@@ -29,11 +33,6 @@ namespace Bikewale.Mobile.Used
             InitializeComponent();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         protected void InitializeComponent()
         {
             base.Load += new EventHandler(Page_Load);
@@ -57,7 +56,7 @@ namespace Bikewale.Mobile.Used
         }
 
         /// <summary>
-        /// Created by  : Sushil Kumar on 04 Mar 2016
+        /// Created by  : Sushil Kumar on 29th August 2016
         /// Description : Bind used bikes photos for the used bike
         /// </summary>
         private void BindUsedBikePhotos()
@@ -71,7 +70,8 @@ namespace Bikewale.Mobile.Used
             }
         }
         /// <summary>
-        /// Bind similar and other bike widgets
+        /// Created by  : Sangram on 04 Mar 2016
+        /// Description : Bind similar and other bike widgets
         /// </summary>
         private void BindUserControls()
         {

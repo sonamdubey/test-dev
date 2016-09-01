@@ -1,8 +1,8 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="OtherUsedBikeByCity.ascx.cs" Inherits="Bikewale.Mobile.Controls.OtherUsedBikeByCity" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.OtherUsedBikeByCity" EnableViewState="false" %>
 <%@ Import Namespace="Bikewale.Entities.Used" %>
 <% if(FetchedRecordsCount> 0)
    {  %>
-        <div id="modelSimilar" class="bw-model-tabs-data padding-top20 padding-bottom15">
+        <div id="modelOtherBikes" class="bw-model-tabs-data padding-top20 padding-bottom15">
             
             <h2 class="margin-right20 margin-bottom15 margin-left20">Other used bikes in <%= viewModel.CityName %></h2>
             

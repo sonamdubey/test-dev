@@ -49,12 +49,15 @@ namespace Bikewale.Utility
 
 
         /// <summary>
-        /// 
+        /// Created by  : Sushil Kumar on 30th Aug 2016 
+        /// Description : Represent number in ordinals i.e 1st,2nd,3rd,11th 
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
         public static string AddNumberOrdinal(uint num)
         {
+            if (num <= 0) return num.ToString();
+
             switch (num % 100)
             {
                 case 11:
@@ -78,7 +81,8 @@ namespace Bikewale.Utility
         }
 
         /// <summary>
-        /// 
+        /// Created by  : Sushil Kumar on 30th Aug 2016 
+        /// Description : Represent number in ordinals i.e 1st,2nd,3rd,11th with upper limit value
         /// </summary>
         /// <param name="num"></param>
         /// <param name="upperLimit"></param>

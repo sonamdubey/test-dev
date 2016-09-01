@@ -58,7 +58,7 @@
             </div>
 
             <div id="specsFeaturesDetailsWrapper" class="padding-right20 padding-left20 font14">
-                <div id="modelSpecifications" class="bw-model-tabs-data padding-top15">
+                <div id="specs" class="bw-model-tabs-data padding-top15">
                     <h2 class="margin-bottom15">Specifications</h2>
                     <h3 class="margin-bottom20">Engine and Transmission</h3>
                     <ul class="specs-features-list margin-bottom5">
@@ -200,7 +200,7 @@
                 </div>
                 <div class="border-divider"></div>
 
-                <div id="modelFeatures" class="padding-top15 bw-model-tabs-data">
+                <div id="features" class="padding-top15 bw-model-tabs-data">
                     <h2 class="margin-bottom20">Features</h2>
                     <ul class="specs-features-list">
                     <li>

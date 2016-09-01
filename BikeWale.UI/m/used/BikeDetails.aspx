@@ -31,7 +31,7 @@
                 <h1 class="font16 padding-top15 padding-right20 padding-bottom15 padding-left20"><%= modelYear %>, <%= bikeName %></h1>
                 <div id="model-main-image">
                     <%if(inquiryDetails.PhotosCount > 0) { %>
-                    <a href="javascript:void(0)" class="<%= inquiryDetails.PhotosCount > 1 ? "model-gallery-target " : string.Empty %>" rel="nofollow">
+                    <a href="javascript:void(0)" class="model-main-image-wrapper <%= inquiryDetails.PhotosCount > 1 ? "model-gallery-target " : string.Empty %>" rel="nofollow">
                         <img src="<%= (firstImage!=null) ? Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImagePath,firstImage.HostUrl,Bikewale.Utility.ImageSize._360x202) : string.Empty %>" alt="<%= bikeName %>" title="<%= bikeName %>" />
                         <div class="model-media-details">
                             <div class="model-media-item">
@@ -59,7 +59,7 @@
                     </div>
                     <% } %>
                     <% if(inquiryDetails.MinDetails.KmsDriven > 0) { %>
-                    <div class="grid-6 omega margin-bottom5">
+                    <div class="grid-6 alpha omega margin-bottom5">
                         <span class="bwmsprite kms-driven-icon"></span>
                         <span class="model-details-label"><%= Bikewale.Utility.Format.FormatPrice(inquiryDetails.MinDetails.KmsDriven.ToString()) %> kms</span>
                     </div>
@@ -72,7 +72,7 @@
                     <% } %>
                      <% if (!string.IsNullOrEmpty(inquiryDetails.MinDetails.RegisteredAt))
                         { %>
-                    <div class="grid-6 omega margin-bottom5">
+                    <div class="grid-6 alpha omega margin-bottom5">
                         <span class="bwmsprite model-loc-icon"></span>
                         <span class="model-details-label"><%= inquiryDetails.MinDetails.RegisteredAt %></span>
                     </div>
@@ -242,52 +242,54 @@
         <% if(inquiryDetails.PhotosCount > 1) { %>
        <!-- gallery start -->
         <div id="model-gallery-container">
-    <p class="font16 text-white"><%=modelYear %>, <%= bikeName %> Photos</p>
-    <div class="gallery-close-btn position-abt pos-top15 pos-right15 bwmsprite cross-md-white cur-pointer"></div>
+            <p class="gallery-header"><%=modelYear %>, <%= bikeName %> Photos</p>
+            <div class="gallery-close-btn position-abt pos-top20 pos-right15 bwmsprite cross-md-white cur-pointer"></div>
 
-    <div id="bike-gallery-popup">
-        <div class="font14 text-white margin-bottom15">
-            <span class="leftfloat media-title"></span>
-            <span class="rightfloat gallery-count"></span>
-            <div class="clear"></div>
-        </div>
-        <div class="connected-carousels-photos">
-            <div class="stage-photos">
-                <div class="swiper-container noSwiper carousel-photos carousel-stage-photos">
-                    <div class="swiper-wrapper">
-                        <asp:Repeater ID="rptUsedBikePhotos" runat="server">
-                            <ItemTemplate>
-                                <div class="swiper-slide">
-                                    <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._360x202) %>" alt="<%= bikeName %>" title="<%= bikeName %>" />
-                                    <span class="swiper-lazy-preloader"></span>
-                                </div>
-                            </ItemTemplate>
-                        </asp:Repeater>
+            <div id="bike-gallery-popup">
+                <div class="font14 text-white margin-bottom15">
+                    <span class="leftfloat media-title"></span>
+                    <span class="rightfloat gallery-count"></span>
+                    <div class="clear"></div>
+                </div>
+                <div class="connected-carousels-photos">
+                    <div class="stage-photos">
+                        <div class="swiper-container noSwiper carousel-photos carousel-stage-photos">
+                            <div class="swiper-wrapper">
+                                <asp:Repeater ID="rptUsedBikePhotos" runat="server">
+                                    <ItemTemplate>
+                                        <div class="swiper-slide">
+                                            <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._360x202) %>" alt="<%= bikeName %>" title="<%= bikeName %>" />
+                                            <span class="swiper-lazy-preloader"></span>
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </div>
+                            <div class="bwmsprite swiper-button-next"></div>
+                            <div class="bwmsprite swiper-button-prev"></div>
+                        </div>
                     </div>
-                    <div class="bwmsprite swiper-button-next"></div>
-                    <div class="bwmsprite swiper-button-prev"></div>
+
+                    <div class="navigation-photos">
+                        <div class="swiper-container noSwiper carousel-navigation-photos">
+                            <div class="swiper-wrapper">
+                                <asp:Repeater ID="rptUsedBikeNavPhotos" runat="server">
+                                    <ItemTemplate>
+                                        <div class="swiper-slide">
+                                            <div class="navigation-image-wrapper">
+                                                <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>" alt="<%= bikeName %>" title="<%= bikeName %>" />
+                                                <span class="swiper-lazy-preloader"></span>
+                                            </div>
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </div>
+                            <div class="bwmsprite swiper-button-next hide"></div>
+                            <div class="bwmsprite swiper-button-prev hide"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <div class="navigation-photos">
-                <div class="swiper-container noSwiper carousel-navigation-photos">
-                    <div class="swiper-wrapper">
-                        <asp:Repeater ID="rptUsedBikeNavPhotos" runat="server">
-                            <ItemTemplate>
-                                <div class="swiper-slide">
-                                    <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>" alt="<%= bikeName %>" title="<%= bikeName %>" />
-                                    <span class="swiper-lazy-preloader"></span>
-                                </div>
-                            </ItemTemplate>
-                        </asp:Repeater>
-                    </div>
-                    <div class="bwmsprite swiper-button-next hide"></div>
-                    <div class="bwmsprite swiper-button-prev hide"></div>
-                </div>
-            </div>
         </div>
-    </div>
-</div>
         <!-- gallery end -->
         <% } %>
         <!-- get seller details pop up start  -->

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="SimilarUsedBikes.ascx.cs" Inherits="Bikewale.Mobile.Controls.SimilarUsedBikes" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Mobile.Controls.SimilarUsedBikes" EnableViewState="false" %>
 <%@ Import Namespace="Bikewale.Entities.Used" %>
 <% if(FetchedRecordsCount> 0)
    {  %>

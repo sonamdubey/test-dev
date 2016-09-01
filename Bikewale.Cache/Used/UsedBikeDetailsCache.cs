@@ -4,7 +4,6 @@ using Bikewale.Interfaces.Used;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace Bikewale.Cache.Used
 {
@@ -49,10 +48,11 @@ namespace Bikewale.Cache.Used
             }
             return objUsedBikes;
         }
-        
+
 
         /// <summary>
-        /// 
+        /// Created by  : Sangram on 29th August 2016
+        /// Description : Cache layer for similar used bikes for particular model
         /// </summary>
         /// <param name="inquiryId"></param>
         /// <param name="cityId"></param>
@@ -61,21 +61,22 @@ namespace Bikewale.Cache.Used
         public IEnumerable<BikeDetailsMin> GetSimilarBikes(uint inquiryId, uint cityId, uint modelId, ushort topCount)
         {
             IEnumerable<BikeDetailsMin> objUsedBikes = null;
-            string key = String.Format("BW_SimilarUsedBikesForProfile_{0}", inquiryId);
+            string key = String.Format("BW_SimilarUsedBikes_Inquiry_{0}_Cnt_{1}", inquiryId, topCount);
             try
             {
-                objUsedBikes = _cache.GetFromCache<IEnumerable<BikeDetailsMin>>(key, new TimeSpan(0, 30, 0), () => _objUsedBikes.GetSimilarBikes(inquiryId,cityId,modelId,topCount));
+                objUsedBikes = _cache.GetFromCache<IEnumerable<BikeDetailsMin>>(key, new TimeSpan(0, 30, 0), () => _objUsedBikes.GetSimilarBikes(inquiryId, cityId, modelId, topCount));
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, MethodBase.GetCurrentMethod().DeclaringType.Name + " -  " + System.Reflection.MethodInfo.GetCurrentMethod().Name);
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.Used.GetSimilarBikes");
                 objErr.SendMail();
             }
             return objUsedBikes;
         }
 
         /// <summary>
-        /// 
+        /// Created by  : Sangram on 29th August 2016
+        /// Description : Cache layer other used bikes by city id
         /// </summary>
         /// <param name="inquiryId"></param>
         /// <param name="cityId"></param>
@@ -83,14 +84,14 @@ namespace Bikewale.Cache.Used
         public IEnumerable<OtherUsedBikeDetails> GetOtherBikesByCityId(uint inquiryId, uint cityId, ushort topCount)
         {
             IEnumerable<OtherUsedBikeDetails> objUsedBikes = null;
-            string key = String.Format("BW_OtherUsedBikesInCityForProfile_{0}", inquiryId);
+            string key = String.Format("BW_OtherUsedBikes_Inquiry_{0}_Cnt_{1}", inquiryId, topCount);
             try
             {
                 objUsedBikes = _cache.GetFromCache<IEnumerable<OtherUsedBikeDetails>>(key, new TimeSpan(0, 30, 0), () => _objUsedBikes.GetOtherBikesByCityId(inquiryId, cityId, topCount));
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, MethodBase.GetCurrentMethod().DeclaringType.Name + " -  " + System.Reflection.MethodInfo.GetCurrentMethod().Name);
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.Used.GetOtherBikesByCityId");
                 objErr.SendMail();
             }
             return objUsedBikes;

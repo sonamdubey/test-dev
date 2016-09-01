@@ -7,6 +7,7 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Used;
 using Microsoft.Practices.Unity;
 using System.Collections.Generic;
+using System.Linq;
 namespace Bikewale.BindViewModels.Controls
 {
     /// <summary>
@@ -27,22 +28,49 @@ namespace Bikewale.BindViewModels.Controls
 
         public string MakeName { get; set; }
         public string MakeMaskingName { get; set; }
-
+        public int FetchedRecordsCount { get; set; }
         public string BikeName { get; set; }
 
-        public IEnumerable<BikeDetailsMin> BindUsedSimilarBikes(uint InquiryId, uint CityId, uint ModelId, ushort TopCount)
+        /// <summary>
+        /// Created by : Sangram Nandkhile on 30th Aug 2016
+        /// Summary: To get similar used bikes for particular model
+        /// </summary>
+        /// <param name="InquiryId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="modelId"></param>
+        /// <param name="topCount"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeDetailsMin> BindUsedSimilarBikes(uint inquiryId, uint cityId, uint modelId, ushort topCount)
         {
-            IEnumerable<BikeDetailsMin> similarBikeList = default(IEnumerable<BikeDetailsMin>);
-            using (IUnityContainer container = new UnityContainer())
+            IEnumerable<BikeDetailsMin> similarBikeList = null;
+            try
             {
-                container.RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>()
-                    .RegisterType<IUsedBikeDetails, UsedBikeDetailsRepository>()
-                    .RegisterType<ICacheManager, MemcacheManager>();
+                if (true)
+                {
+                    similarBikeList = default(IEnumerable<BikeDetailsMin>);
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>()
+                            .RegisterType<IUsedBikeDetails, UsedBikeDetailsRepository>()
+                            .RegisterType<ICacheManager, MemcacheManager>();
 
-                var objCache = container.Resolve<IUsedBikeDetailsCacheRepository>();
-                similarBikeList = objCache.GetSimilarBikes(InquiryId, CityId, ModelId, TopCount);
+                        var objCache = container.Resolve<IUsedBikeDetailsCacheRepository>();
+                        similarBikeList = objCache.GetSimilarBikes(inquiryId, cityId, modelId, topCount);
+                        if (similarBikeList != null)
+                        {
+                            FetchedRecordsCount = similarBikeList.Count();
+                        }
+                    } 
+                }
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
             }
             return similarBikeList;
         }
+
+
     }
 }

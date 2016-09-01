@@ -12,6 +12,10 @@ using System.Web;
 
 namespace Bikewale.BindViewModels.Webforms.Used
 {
+    /// <summary>
+    /// Created by  : Sushil Kumar on 30th August 2016
+    /// Description : Used bike details page for the used bike
+    /// </summary>
     public class UsedBikeDetailsPage
     {
         public uint InquiryId { get; set; }
@@ -22,7 +26,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
         public string CanonicalUrl { get; set; }
         public BikePhoto FirstImage { get; set; }
         public string ModelYear { get; set; }
-        public ClassifiedInquiryDetails InquiryDetails = null;
+        public ClassifiedInquiryDetails InquiryDetails { get; set; }
         public string MoreBikeSpecsUrl { get; set; }
         public string MoreBikeFeaturesUrl { get; set; }
         public bool IsPageNotFoundRedirection { get; set; }
@@ -39,7 +43,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.Used.UsedBikeDetailsPage.BindUsedBikeDetailsPage");
                 objErr.SendMail();
             }
 
