@@ -259,8 +259,11 @@
     <Compile Include="Used\BikePhoto.cs" />
     <Compile Include="Used\BikeSpecifications.cs" />
     <Compile Include="Used\ClassifiedInquiryDetails.cs" />
+    <Compile Include="Used\ClassifiedInquiryDetailsMin.cs" />
     <Compile Include="Used\MostRecentBikes.cs" />
+    <Compile Include="Used\PhotoRequest.cs" />
     <Compile Include="Used\PopularUsedBikesEntity.cs" />
+    <Compile Include="Used\UsedBikeSellerBase.cs" />
     <Compile Include="UserReviews\FilterBy.cs" />
     <Compile Include="UserReviews\ReviewDetailsEntity.cs" />
     <Compile Include="UserReviews\ReviewEntity.cs" />

@@ -1,6 +1,5 @@
 ﻿using RabbitMqPublishing.Common;
 using System;
-using System.Configuration;
 using System.Text.RegularExpressions;
 using System.Web;
 namespace Bikewale.Utility
@@ -12,6 +11,7 @@ namespace Bikewale.Utility
     /// </summary>
     public static class BWCookies
     {
+
         /// <summary>
         /// Created By : Lucky Rathroe
         /// Created On : 23 June 2016
@@ -42,7 +42,7 @@ namespace Bikewale.Utility
                     utmgclid = string.Empty,
                     utmcmd = string.Empty;
 
-                if(request.UrlReferrer != null) 
+                if (request.UrlReferrer != null)
                 {
                     httpReffer = request.UrlReferrer.OriginalString; //e.g. www.google.com, www.carwale.com
                 }
@@ -59,8 +59,8 @@ namespace Bikewale.Utility
                     Match match = null;
                     //step 1. Check if the URL contains utm_source, utm_medium in the URL. If yes then store utm_source in utmcsr, umt_medium in utmcmd and utm_campaign in utmccn
                     if (
-                        !(string.IsNullOrEmpty(request.QueryString["utm_source"]) 
-                        || string.IsNullOrEmpty(request.QueryString["utm_medium"]) 
+                        !(string.IsNullOrEmpty(request.QueryString["utm_source"])
+                        || string.IsNullOrEmpty(request.QueryString["utm_medium"])
                         || string.IsNullOrEmpty(request.QueryString["utm_campaign"]))
                         )
                     {
@@ -103,7 +103,7 @@ namespace Bikewale.Utility
                         {
                             if (match.Groups.Count > 0)
                             {
-                                utmcsr = match.Groups[1].Value; 
+                                utmcsr = match.Groups[1].Value;
                             }
                         }
                         utm = new Regex("utmccn=([()A-Za-z0-9.-_!@#$%^*]+)[|]*");
@@ -111,7 +111,7 @@ namespace Bikewale.Utility
                         {
                             if (match.Groups.Count > 0)
                             {
-                                utmccn = match.Groups[1].Value; 
+                                utmccn = match.Groups[1].Value;
                             }
                         }
                         utm = new Regex("utmcmd=([()A-Za-z0-9.-_!@#$%^*]+)[|]*");
@@ -119,7 +119,7 @@ namespace Bikewale.Utility
                         {
                             if (match.Groups.Count > 0)
                             {
-                                utmcmd = match.Groups[1].Value; 
+                                utmcmd = match.Groups[1].Value;
                             }
                         }
                         utm = new Regex("gclid=([()A-Za-z0-9.-_!@#$%^*]+)[|]*");
@@ -140,7 +140,7 @@ namespace Bikewale.Utility
                         {
                             if (match.Groups.Count > 0)
                             {
-                                utmcsr = match.Groups[1].Value; 
+                                utmcsr = match.Groups[1].Value;
                             }
                         }
 
@@ -149,7 +149,7 @@ namespace Bikewale.Utility
                         {
                             if (match.Groups.Count > 0)
                             {
-                                utmccn = match.Groups[1].Value; 
+                                utmccn = match.Groups[1].Value;
                             }
                         }
 
@@ -158,7 +158,7 @@ namespace Bikewale.Utility
                         {
                             if (match.Groups.Count > 0)
                             {
-                                utmcmd = match.Groups[1].Value; 
+                                utmcmd = match.Groups[1].Value;
                             }
                         }
 
@@ -180,10 +180,38 @@ namespace Bikewale.Utility
                     SetCookie("_bwutmz", 180, string.Format("utmcsr={0}|utmgclid={1}|utmccn={2}|utmcmd={3}", utmcsr, utmgclid, utmccn, utmcmd)); //step 8. Set the BW source cookie with utmcsr=<value>|utmgclid=gclid|utmccn=<value>|utmcmd=<value> with a 6 month expiry
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Utility.BWCookies.SetBWUtmz");
             }
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 01 Sep 2016
+        /// Description :   Sets buyer details from tempcurretnuser cookie for 1 day
+        /// </summary>
+        /// <param name="buyerDetails"></param>
+        /// <returns></returns>
+        public static bool SetBuyerDetailsCookie(string buyerDetails)
+        {
+            bool isDone = false;
+
+            try
+            {
+                // set buyer details to cookies
+                HttpCookie cookie = new HttpCookie("TempCurrentUser");
+                cookie.Value = buyerDetails;
+                cookie.Expires = DateTime.Now.AddHours(24);
+                HttpContext.Current.Response.Cookies.Add(cookie);
+
+                isDone = true;
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return isDone;
         }
 
         /// <summary>
@@ -211,12 +239,64 @@ namespace Bikewale.Utility
                 cookie.Expires = DateTime.Now.AddDays(lifeTime);
                 HttpContext.Current.Response.Cookies.Add(cookie);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Utility.BWCookies.SetCookie");
                 return false;
             }
             return true;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 01 Sep 2016
+        /// Description :   Gets the buyer details from TempCurrentUser cookie
+        /// </summary>
+        /// <param name="BuyerName"></param>
+        /// <param name="BuyerMobile"></param>
+        /// <param name="BuyerEmail"></param>
+        /// <param name="BuyerId"></param>
+        public static void GetBuyerDetailsFromCookie(out string BuyerName, out string BuyerMobile, out string BuyerEmail, out string BuyerId)
+        {
+            try
+            {
+                var request = HttpContext.Current.Request;
+                if (request.Cookies["TempCurrentUser"] != null && request.Cookies["TempCurrentUser"].Value.ToString() != "")
+                {
+                    string userData = request.Cookies["TempCurrentUser"].Value.ToString();
+
+                    if (userData.Length > 0 && userData.IndexOf(':') > 0)
+                    {
+                        string[] details = userData.Split(':');
+
+                        BuyerName = details[0];
+                        BuyerMobile = details[1];
+                        BuyerEmail = details[2] == "" ? CurrentUser.Email : details[2];
+                        BuyerId = BikewaleSecurity.DecryptUserId(Convert.ToInt64(details[3]));
+                    }
+                    else
+                    {
+                        BuyerName = "";
+                        BuyerMobile = "";
+                        BuyerEmail = "";
+                        BuyerId = "";
+
+                    }
+                }
+                else
+                {
+                    BuyerName = "";
+                    BuyerMobile = "";
+                    BuyerEmail = "";
+                    BuyerId = "";
+
+                }
+            }
+            catch (Exception)
+            {
+                BuyerName = "";
+                BuyerMobile = "";
+                BuyerEmail = "";
+                BuyerId = "";
+            }
         }
     }
 }
