@@ -845,7 +845,7 @@ namespace Bikewale.New
                         string api = string.Empty;
                         if (objPQOutput != null && objPQOutput.PQId > 0)
                         {
-                            bpqOutput = objPq.GetPriceQuoteById(objPQOutput.PQId);
+                            bpqOutput = objPq.GetPriceQuoteById(objPQOutput.PQId,LeadSourceEnum.Model_Desktop);
                             bpqOutput.Varients = objPq.GetOtherVersionsPrices(objPQOutput.PQId);
                             if (bpqOutput != null)
                             {

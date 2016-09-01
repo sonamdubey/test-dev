@@ -838,7 +838,7 @@ namespace Bikewale.Mobile.New
                         pqOnRoad.PriceQuote = objPQOutput;
                         if (objPQOutput != null && objPQOutput.PQId > 0)
                         {
-                            bpqOutput = objPq.GetPriceQuoteById(objPQOutput.PQId);
+                            bpqOutput = objPq.GetPriceQuoteById(objPQOutput.PQId, LeadSourceEnum.Model_Mobile);
                             bpqOutput.Varients = objPq.GetOtherVersionsPrices(objPQOutput.PQId);
                             if (bpqOutput != null)
                             {

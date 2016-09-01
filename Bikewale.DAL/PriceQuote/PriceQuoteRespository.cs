@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.PriceQuote;
+﻿using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using MySql.CoreDAL;
@@ -140,6 +141,66 @@ namespace Bikewale.DAL.PriceQuote
 
             return objQuotation;
         }
+
+        /// <summary>
+        /// Summary : Function to Get the price quote by price quote id.
+        /// Modified by :   Vivek Gupta on 29th Aug 2016
+        /// Description :   Created new SP to return manufacturere Ad value and created overload of the function
+        /// </summary>
+        /// <param name="pqId">price quote id. Only positive numbers are allowed</param>
+        /// <returns>Returns price quote object.</returns>
+        public BikeQuotationEntity GetPriceQuoteById(ulong pqId, LeadSourceEnum page)
+        {
+            BikeQuotationEntity objQuotation = null;
+            try
+            {
+                objQuotation = new BikeQuotationEntity();
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "getpricequote_new_29082016";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbType.Int64, pqId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pageid", DbType.Int32, Convert.ToInt32(page)));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            objQuotation.ExShowroomPrice = Convert.ToUInt64(dr["exshowroom"]);
+                            objQuotation.RTO = Convert.ToUInt32(dr["rto"]);
+                            objQuotation.Insurance = Convert.ToUInt32(dr["insurance"]);
+                            objQuotation.OnRoadPrice = Convert.ToUInt64(dr["onroad"]);
+                            objQuotation.MakeName = Convert.ToString(dr["make"]);
+                            objQuotation.ModelName = Convert.ToString(dr["model"]);
+                            objQuotation.VersionName = Convert.ToString(dr["version"]);
+                            objQuotation.City = Convert.ToString(dr["cityname"]);
+                            objQuotation.VersionId = Convert.ToUInt32(dr["versionid"]);
+                            objQuotation.CampaignId = Convert.ToUInt32(dr["campaignid"]);
+                            objQuotation.ManufacturerId = !Convert.IsDBNull(dr["manufacturerid"]) ? Convert.ToUInt32(dr["manufacturerid"]) : default(UInt32);
+                            objQuotation.State = Convert.ToString(dr["statename"]);
+                            objQuotation.ManufacturerAd = Convert.ToString(dr["manufacturerAd"]);
+                            objQuotation.PriceQuoteId = pqId;
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                HttpContext.Current.Trace.Warn("GetPriceQuote sql ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn("GetPriceQuote ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return objQuotation;
+        }
+
 
         /// <summary>
         /// Summary : function to get the price quote by providing all the necessory parameters to get the pq.

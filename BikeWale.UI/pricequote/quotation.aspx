@@ -185,28 +185,8 @@
                             <%} %>
                     </div>
                 </div>
-                <div class="grid-4 padding-right20 padding-left15">
-                    <%if (objQuotation.CampaignId == 0){ %>
+                <div class="grid-4 padding-right20 padding-left15">                  
                     <!-- #include file="/ads/Ad300x250.aspx" -->
-                    <%}
-                      else if ((objQuotation.CampaignId > 0)){ %>
-                    <div class="modelGetDetails padding-right20">
-                        <h3 class="padding-bottom10">                                                   
-                                Get following details from <%=objQuotation.MakeName %>:                     
-                        </h3>
-                        <ul>
-                            <li>Offers from the nearest dealers</li>
-                            <li>Waiting period on this bike at the dealership</li>
-                            <li>Nearest dealership from your place</li>
-                            <li>Finance options on this bike</li>
-                        </ul>
-                    </div>
-                    <div class="grid-3 leftfloat noOffers margin-top20">
-                        <input type="button" value="Get more details" class="btn btn-orange margin-right20 leftfloat" id="getMoreDetailsBtnCampaign">
-                    </div>
-                    <div class="blackOut-window"></div>
-                    <%} %>
-
                 </div>
                 <div class="clear"></div>
             </div>
@@ -265,7 +245,11 @@
             <!-- lead capture popup End-->
         <div class="clear"></div>
     </section>
-
+    <% if (objQuotation != null && !string.IsNullOrEmpty(objQuotation.ManufacturerAd)){ %>
+        <section>
+            <%=String.Format(objQuotation.ManufacturerAd, mmv.Make) %>
+        </section>
+    <%} %>
     <section class="margin-bottom20 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
         <div class="container">
         <div class="grid-12 alternative-section" id="alternative-bikes-section">

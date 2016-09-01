@@ -115,12 +115,10 @@
                                 </a>
                                
                                 <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/photos/#videos" class="model-media-item">
-                                     <span class="bwmsprite gallery-video-icon"></span>
+                                    <span class="bwmsprite gallery-video-icon"></span>
                                     <span class="model-media-count"><%=modelPage.ModelDetails.VideosCount%></span>
-                                </a>
-                              
-                            </div>
-                           
+                                </a>                              
+                            </div>                           
                         </div>
                     <% if (modelPage.ModelDetails.Futuristic)
                        { %>
@@ -324,6 +322,13 @@
                 <% } %>
             </div>
         </section>
+
+          <% if (pqOnRoad.BPQOutput != null && !string.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
+            { %>
+            <section>
+                <%=String.Format(pqOnRoad.BPQOutput.ManufacturerAd, modelPage.ModelDetails.MakeBase.MakeName) %>
+            </section>
+          <%} %> 
 
         <section>
             <div id="modelSpecsTabsContentWrapper" class="container bg-white clearfix box-shadow margin-top30 margin-bottom30">

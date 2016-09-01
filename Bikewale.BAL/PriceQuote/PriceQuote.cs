@@ -1,4 +1,5 @@
 ﻿using Bikewale.DAL.PriceQuote;
+using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.PriceQuote;
 using Microsoft.Practices.Unity;
@@ -51,6 +52,20 @@ namespace Bikewale.BAL.PriceQuote
             BikeQuotationEntity objQuotation = null;
 
             objQuotation = objPQ.GetPriceQuoteById(pqId);
+
+            return objQuotation;
+        }
+
+        /// <summary>
+        /// Function to get the price quote by price quote id.
+        /// </summary>
+        /// <param name="pqId">Price quote id. Only positive numbers are allowed.</param>
+        /// <returns>Returns price quote information in the PriceQuoteEntity object.</returns>
+        public BikeQuotationEntity GetPriceQuoteById(ulong pqId, LeadSourceEnum page)
+        {
+            BikeQuotationEntity objQuotation = null;
+
+            objQuotation = objPQ.GetPriceQuoteById(pqId, page);
 
             return objQuotation;
         }

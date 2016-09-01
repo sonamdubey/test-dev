@@ -237,6 +237,14 @@
 				<div class="margin-top10 padding5" style="background: #fef5e6;">Price for this bike is not available in this city.</div>
 				<%} %>
 			</div>
+
+             <% if (objExQuotation != null && !string.IsNullOrEmpty(objExQuotation.ManufacturerAd))
+                { %>
+                <section>
+                    <%=String.Format(objExQuotation.ManufacturerAd, objPriceQuote.objMake.MakeName) %>
+                </section>
+            <%} %>
+
 			<!--Price Breakup ends here-->
 
 			<!-- Dealer Widget starts here -->
@@ -674,7 +682,7 @@
 					'ClientIP': clientIP,
 					'SourceType': '<%=Bikewale.Utility.BWConfiguration.Instance.MobileSourceId  %>',
 					'VersionId': versionId,
-					'pQLeadId': eval("<%= Convert.ToInt16(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerPQ_Mobile) %>"),
+					'pQLeadId': eval("<%= Convert.ToInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation) %>"),
 					'deviceId': getCookie('BWC'),
 					'dealerId': secondaryDealerId,
 					'refPQId': pqId
