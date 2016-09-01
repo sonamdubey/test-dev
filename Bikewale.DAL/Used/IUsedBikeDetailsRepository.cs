@@ -131,8 +131,7 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetProfileDetails ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, string.Format("{0}_GetProfileDetails_InquiryId :  {1}", HttpContext.Current.Request.ServerVariables["URL"], inquiryId));
                 objErr.SendMail();
             }
 
@@ -140,7 +139,8 @@ namespace Bikewale.DAL.Used
         }
 
         /// <summary>
-        /// 
+        /// Created by  : Sangram on 29th August 2016
+        /// Description : To get similar used bikes by city id,modelid and inquiry id
         /// </summary>
         /// <param name="inquiryId"></param>
         /// <param name="cityId"></param>
@@ -148,7 +148,7 @@ namespace Bikewale.DAL.Used
         /// <returns></returns>
         public IEnumerable<BikeDetailsMin> GetSimilarBikes(uint inquiryId, uint cityId, uint modelId, ushort topCount)
         {
-            List<BikeDetailsMin> similarBikeDetails = null;
+            IList<BikeDetailsMin> similarBikeDetails = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("classified_similarbikes"))
@@ -169,10 +169,10 @@ namespace Bikewale.DAL.Used
                                 similarBikeDetails.Add(new BikeDetailsMin()
                                 {
                                     ProfileId = Convert.ToString(dr["ProfileId"]),
-                                    ModelYear = Convert.ToDateTime(dr["makeyear"]),
+                                    ModelYear = SqlReaderConvertor.ToDateTime(dr["makeyear"]),
                                     OwnerType = Convert.ToString(dr["Owner"]),
-                                    KmsDriven = Convert.ToUInt32(dr["Kilometers"]),
-                                    AskingPrice = Convert.ToUInt32(dr["Price"]),
+                                    KmsDriven = SqlReaderConvertor.ToUInt32(dr["Kilometers"]),
+                                    AskingPrice = SqlReaderConvertor.ToUInt32(dr["Price"]),
                                     RegisteredAt = Convert.ToString(dr["cityname"]),
                                     Photo = new BikePhoto()
                                     {
@@ -189,8 +189,7 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, string.Format("{0}_GetSimilarBikes_InquiryId_{1}_ModelId_{2}_CityId_{3}", HttpContext.Current.Request.ServerVariables["URL"], inquiryId, modelId, cityId));
                 objErr.SendMail();
             }
 
@@ -198,14 +197,15 @@ namespace Bikewale.DAL.Used
         }
 
         /// <summary>
-        /// 
+        /// Created by  : Sangram on 29th August 2016
+        /// Description : To get otehr used bikes by city id and inquiry id
         /// </summary>
         /// <param name="inquiryId"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
         public IEnumerable<OtherUsedBikeDetails> GetOtherBikesByCityId(uint inquiryId, uint cityId, ushort topCount)
         {
-            List<OtherUsedBikeDetails> similarBikeDetails = null;
+            IList<OtherUsedBikeDetails> similarBikeDetails = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("classified_otherbikesbycity"))
@@ -225,10 +225,10 @@ namespace Bikewale.DAL.Used
                                 similarBikeDetails.Add(new OtherUsedBikeDetails()
                                 {
                                     ProfileId = Convert.ToString(dr["ProfileId"]),
-                                    ModelYear = Convert.ToDateTime(dr["makeyear"]),
+                                    ModelYear = SqlReaderConvertor.ToDateTime(dr["makeyear"]),
                                     OwnerType = Convert.ToString(dr["Owner"]),
-                                    KmsDriven = Convert.ToUInt32(dr["Kilometers"]),
-                                    AskingPrice = Convert.ToUInt32(dr["Price"]),
+                                    KmsDriven = SqlReaderConvertor.ToUInt32(dr["Kilometers"]),
+                                    AskingPrice = SqlReaderConvertor.ToUInt32(dr["Price"]),
                                     RegisteredAt = Convert.ToString(dr["cityname"]),
                                     MakeName = Convert.ToString(dr["MakeName"]),
                                     ModelName = Convert.ToString(dr["ModelName"]),
@@ -251,8 +251,7 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, string.Format("{0}_GetOtherBikesByCityId_InquiryId_{1}_CityId_{2}", HttpContext.Current.Request.ServerVariables["URL"], inquiryId, cityId));
                 objErr.SendMail();
             }
             return similarBikeDetails;

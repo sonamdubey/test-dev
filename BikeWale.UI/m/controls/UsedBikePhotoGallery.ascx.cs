@@ -5,6 +5,10 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Controls
 {
+    /// <summary>
+    /// Created by  : Sushil Kumar on 29th August 2016
+    /// Description : Used bike photo gallery widget
+    /// </summary>
     public class UsedBikePhotoGallery : System.Web.UI.UserControl
     {
         protected Repeater rptUsedBikeNavPhotos, rptUsedBikePhotos;
@@ -27,9 +31,13 @@ namespace Bikewale.Mobile.Controls
             }
         }
 
+        /// <summary>
+        /// Created by  : Sushil Kumar on 29th August 2016
+        /// Description : Bind used bike photos gallery
+        /// </summary>
         private void BindUsedBikePhotosWidget()
         {
-            if (PhotosCount > 0)
+            if (PhotosCount > 0 && rptUsedBikePhotos != null && rptUsedBikeNavPhotos != null)
             {
                 rptUsedBikePhotos.DataSource = Photos;
                 rptUsedBikePhotos.DataBind();

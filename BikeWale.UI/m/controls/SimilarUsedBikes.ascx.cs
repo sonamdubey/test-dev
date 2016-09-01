@@ -3,7 +3,6 @@ using Bikewale.Entities.Used;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Controls
@@ -19,7 +18,7 @@ namespace Bikewale.Mobile.Controls
         public BindSimilarUsedBikes usedBikeViewModel;
         public BindOtherUsedBikesForCity otherUsedBikeViewModel;
         public ushort TopCount { get; set; }
-        public ushort FetchedRecordsCount { get; set; }
+        public int FetchedRecordsCount { get; set; }
         public bool ShowOtherBikes { get; set; }
 
         public string CityName { get; set; }
@@ -48,7 +47,8 @@ namespace Bikewale.Mobile.Controls
             BindOtherUsedBikes();
         }
         /// <summary>
-        /// Bind similar bikes widget
+        /// Created by : Sangram Nandkhile on 30th Aug 2016
+        /// Summary: User control for binding similar used bikes
         /// </summary>
         private void BindOtherUsedBikes()
         {
@@ -56,7 +56,7 @@ namespace Bikewale.Mobile.Controls
             {
                 usedBikeViewModel = new BindSimilarUsedBikes();
                 similarBikeList = usedBikeViewModel.BindUsedSimilarBikes(InquiryId, CityId, ModelId, TopCount);
-                FetchedRecordsCount = Convert.ToUInt16(similarBikeList.Count());
+                FetchedRecordsCount = usedBikeViewModel.FetchedRecordsCount;
             }
             catch (Exception ex)
             {

@@ -3,7 +3,6 @@ using Bikewale.Entities.Used;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Controls
@@ -18,18 +17,8 @@ namespace Bikewale.Mobile.Controls
         public IEnumerable<OtherUsedBikeDetails> otherBikesinCity = null;
         public BindOtherUsedBikesForCity viewModel;
         public ushort TopCount { get; set; }
-        public ushort FetchedRecordsCount { get; set; }
-
-        //public string CityName { get; set; }
-        //public string CityMaskingName { get; set; }
-
+        public int FetchedRecordsCount { get; set; }
         public uint ModelId { get; set; }
-        //public string ModelName { get; set; }
-        //public string ModelMaskingName { get; set; }
-
-        //public string MakeName { get; set; }
-        //public string MakeMaskingName { get; set; }
-
         public uint CityId { get; set; }
         public uint InquiryId { get; set; }
         protected override void OnInit(EventArgs e)
@@ -43,7 +32,8 @@ namespace Bikewale.Mobile.Controls
             BindSimilarBikes();
         }
         /// <summary>
-        /// Bind similar bikes widget
+        /// Created by : Sangram Nandkhile on 30th Aug 2016
+        /// Summary: Bind view model for binding similar used bikes
         /// </summary>
         private void BindSimilarBikes()
         {
@@ -51,7 +41,7 @@ namespace Bikewale.Mobile.Controls
             {
                 viewModel = new BindOtherUsedBikesForCity();
                 otherBikesinCity = viewModel.GetOtherBikesByCityId(InquiryId, CityId, TopCount);
-                FetchedRecordsCount = Convert.ToUInt16(otherBikesinCity.Count());
+                FetchedRecordsCount = viewModel.FetchedRecordsCount;
             }
             catch (Exception ex)
             {

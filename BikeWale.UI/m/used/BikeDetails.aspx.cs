@@ -71,7 +71,8 @@ namespace Bikewale.Mobile.Used
             }
         }
         /// <summary>
-        /// Bind similar and other bike widgets
+        /// Created by  : Sangram on 04 Mar 2016
+        /// Description : Bind similar and other bike widgets
         /// </summary>
         private void BindUserControls()
         {

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="OtherUsedBikeByCity.ascx.cs" Inherits="Bikewale.Mobile.Controls.OtherUsedBikeByCity" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.OtherUsedBikeByCity" EnableViewState="false" %>
 <%@ Import Namespace="Bikewale.Entities.Used" %>
 <% if(FetchedRecordsCount> 0)
    {  %>

@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.UsedBikePhotoGallery" %>
 <!-- gallery start -->
 <div id="model-gallery-container">
-    <p class="font16 text-white"><%=ModelYear %>, <%= BikeName %>> Photos</p>
+    <p class="font16 text-white"><%=ModelYear %>, <%= BikeName %> Photos</p>
     <div class="gallery-close-btn position-abt pos-top15 pos-right15 bwmsprite cross-md-white cur-pointer"></div>
 
     <div id="bike-gallery-popup">
