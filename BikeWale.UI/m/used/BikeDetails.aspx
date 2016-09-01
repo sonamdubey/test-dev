@@ -90,7 +90,7 @@
 
                 <% if(inquiryDetails.OtherDetails!=null) { %>
                 <div class="margin-right20 margin-left20 padding-top15 padding-bottom20 font14">
-                    <p class="text-bold margin-bottom15">Ad details</p>
+                    <p class="text-bold margin-bottom15">Bike details</p>
                     <ul class="specs-features-list">
                         <li>
                             <p class="specs-features-label">Profile ID</p>

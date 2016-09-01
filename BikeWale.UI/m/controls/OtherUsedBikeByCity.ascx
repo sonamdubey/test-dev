@@ -12,8 +12,12 @@
                        { %>
                         <div class="swiper-slide swiper-shadow">
                         <div class="model-swiper-image-preview">
-                            <a href="/m/used/bikes-in-<%=bike.RegisteredAt %>/<%= bike.MakeMaskingName %>-<%= bike.ModelMaskingName %>-<%= bike.ProfileId %>/">
-                                <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath,bike.Photo.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" title="" alt="" />
+                            <a href="/m/used/bikes-in-<%=bike.CityMaskingName %>/<%= bike.MakeMaskingName %>-<%= bike.ModelMaskingName %>-<%= bike.ProfileId %>/">
+                                <% if (String.IsNullOrEmpty(bike.Photo.OriginalImagePath)) { %>
+                                <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath,bike.Photo.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" />
+                                <% } else { %>
+                                <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath,bike.Photo.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" title="Used <%=bike.ModelYear.Year %> <%= bike.BikeName %>" alt="Used <%=bike.ModelYear.Year %> <%= bike.BikeName %>" />
+                                <% } %>
                                 <span class="swiper-lazy-preloader"></span>
                             </a>
                         </div>

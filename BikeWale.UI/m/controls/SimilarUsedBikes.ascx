@@ -1,7 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Mobile.Controls.SimilarUsedBikes" EnableViewState="false" %>
 <%@ Import Namespace="Bikewale.Entities.Used" %>
 <% if(FetchedRecordsCount> 0)
-   {  %>
+   {  
+       %>
         <div id="modelSimilar" class="bw-model-tabs-data padding-top20 padding-bottom15">
             
             <h2 class="margin-right20 margin-bottom15 margin-left20">Similar used <%= ModelName %> bikes</h2>
@@ -13,12 +14,16 @@
                         <div class="swiper-slide swiper-shadow">
                         <div class="model-swiper-image-preview">
                             <a href="/m/used/bikes-in-<%= CityMaskingName %>/<%= MakeMaskingName %>-<%= ModelMaskingName %>-<%= bike.ProfileId %>/">
-                                <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath,bike.Photo.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" title="" alt="" />
+                                <% if (String.IsNullOrEmpty(bike.Photo.OriginalImagePath)) { %>
+                                <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath,bike.Photo.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" />
+                                <% } else { %>
+                                <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath,bike.Photo.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" title="Used <%=bike.ModelYear.Year %> <%= bike.BikeName %>" alt="Used <%=bike.ModelYear.Year %> <%= bike.BikeName %>" />
+                                <% } %>
                                 <span class="swiper-lazy-preloader"></span>
                             </a>
                         </div>
                         <div class="model-swiper-details font11">
-                            <a href="/m/used/bikes-in-<%= CityMaskingName %>/<%= MakeMaskingName %>-<%= ModelMaskingName %>-<%= bike.ProfileId %>/" class="target-link font12 text-truncate margin-bottom5" title="<%= bike.BikeName %>"><%= bike.BikeName %></a>
+                            <a href="/m/used/bikes-in-<%= CityMaskingName %>/<%= MakeMaskingName %>-<%= ModelMaskingName %>-<%= bike.ProfileId %>/" class="target-link font12 text-truncate margin-bottom5" title="Used <%=bike.ModelYear.Year %> <%= bike.BikeName %>"><%= bike.BikeName %></a>
                             <div class="grid-6 alpha padding-right5">
                                 <span class="bwmsprite model-date-icon-xs"></span>
                                 <span class="model-details-label"><%=bike.ModelYear.Year %> model</span>

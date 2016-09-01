@@ -226,6 +226,7 @@ namespace Bikewale.DAL.Used
                                 similarBikeDetails.Add(new OtherUsedBikeDetails()
                                 {
                                     ProfileId = Convert.ToString(dr["ProfileId"]),
+                                    BikeName = Convert.ToString(dr["bikename"]),
                                     ModelYear = SqlReaderConvertor.ToDateTime(dr["makeyear"]),
                                     OwnerType = Convert.ToString(dr["Owner"]),
                                     KmsDriven = SqlReaderConvertor.ToUInt32(dr["Kilometers"]),
@@ -236,7 +237,6 @@ namespace Bikewale.DAL.Used
                                     MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
                                     ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
                                     CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
-                                    BikeName = string.Format("{0} {1}", Convert.ToString(dr["MakeName"]), Convert.ToString(dr["ModelName"])),
                                     Photo = new BikePhoto()
                                     {
                                         HostUrl = Convert.ToString(dr["HostUrl"]),

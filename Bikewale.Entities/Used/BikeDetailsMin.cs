@@ -32,7 +32,6 @@ namespace Bikewale.Entities.Used
         public string ModelMaskingName { get; set; }
         public string CityMaskingName { get; set; }
 
-        public string BikeName { get; set; }
     }
 
 }
