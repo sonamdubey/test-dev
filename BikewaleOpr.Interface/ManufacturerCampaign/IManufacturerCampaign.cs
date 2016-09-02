@@ -14,9 +14,9 @@ namespace BikewaleOpr.Interface.ManufacturerCampaign
         bool UpdateCampaignStatus(uint id, bool isactive);
         IEnumerable<ManufacturerEntity> GetManufacturersList();
         IEnumerable<ManufactureDealerCampaign> SearchManufactureCampaigns(uint dealerid);
-        List<MfgCityEntity> GetManufacturerCities();
-        List<MfgCampaignRulesEntity> FetchManufacturerCampaignRules(int campaignId);
-        bool SaveManufacturerCampaignRules(MfgNewRulesEntity MgfRules);
+        IEnumerable<MfgCityEntity> GetManufacturerCities();
+        IEnumerable<MfgCampaignRulesEntity> FetchManufacturerCampaignRules(int campaignId);
+        int SaveManufacturerCampaignRules(MfgNewRulesEntity MgfRules);
         bool DeleteManufacturerCampaignRules(int userId, string ruleIds);
         int InsertBWDealerCampaign(string description, int isActive, string maskingNumber, int dealerId, int userId);
         void UpdateBWDealerCampaign(string description, int isActive, string maskingNumber, int dealerId, int userId, int campaignId, List<ManuCamEntityForTemplate> objList);
