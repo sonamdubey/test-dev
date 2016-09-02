@@ -1,10 +1,11 @@
-﻿using System;
-using System.Web;
-using System.Data;
-using System.Data.SqlClient;
-using System.Configuration;
-using System.Data.Common;
+﻿using Bikewale.Entities.UrlShortner;
+using Bikewale.Utility;
 using MySql.CoreDAL;
+using System;
+using System.Configuration;
+using System.Data;
+using System.Data.Common;
+using System.Web;
 
 namespace Bikewale.Common
 {
@@ -44,7 +45,8 @@ namespace Bikewale.Common
 
                             // old template commented by Ashish on 15/9/2012
                             //string message = "New Enquiry on BikeWale for your " + makeYear + "-" + bikeModel + ": " + buyerName + " " + buyerMobile + ".";
-                            string message = "New inquiry on BikeWale for your " + bikeModel + ":" + buyerName + buyerMobile + ".";
+                            //string message = "New inquiry on BikeWale for your " + bikeModel + ":" + buyerName + buyerMobile + ".";
+                            string message = string.Format("New inquiry on BikeWale for your {0}. Buyer details: {1},{2}.", bikeModel, buyerName, buyerMobile);
 
                             if (isDealer == false)
                                 //message += " SMS 'REMOVE' to 56767767 to remove your advertisement from bikeWale.";
@@ -80,53 +82,24 @@ namespace Bikewale.Common
         }
 
         public void SMSToBuyer(string profileId, string buyerMobile, string sellerName,
-                                    string sellerContact, bool showDetails, string bikeModel, string makeYear, string pageUrl)
+                               string sellerContact, bool showDetails, string bikeModel, string makeYear, string detailPageUrl)
         {
             //check whether the seller is an individual or a dealer
             bool isDealer = CommonOpn.CheckIsDealerFromProfileNo(profileId);
-
             try
             {
-                string message = string.Format("For {0} you selected at BikeWale, call its seller {1} at {2}. Visit www.bikewale.com/MyBikeWale/ for more details.", bikeModel, sellerName, sellerContact);
-
-                ////if bike belongs to Mumbai & NCR
-                //if (CommonOpn.CheckForMumbai(profileId))
-                //{
-                //    //if (showDetails == true)
-                //    //{
-                //        //message = "For \"" + bikeModel + "\" you selected at BikeWale, call its seller "
-                //        //        + sellerName + " at " + sellerContact + ". Visit www.bikewale.com/MyBikeWale/ for more details.";
-
-                //        message = "For " + bikeModel + " you selected at BikeWale, call its seller "
-                //                + sellerName + " at " + sellerContact + ". Visit www.bikewale.com/MyBikeWale/ for more details.";
-
-                //        /*
-                //        + (isDealer == false ? " To get finance on this bike call Kshitij at 9821651116" : "");*/
-                //    //}
-                //}
-                //else//bike belongs to other cities.
-                //{
-                //    //if(showDetails == true)
-                //    //{
-                //    //message = "For \"" + bikeModel + "\" you selected at BikeWale, call its seller "
-                //    //        + sellerName + " at " + sellerContact + ". Visit www.BikeWale.com/MyBikeWale/ for more details";
-                //    message = "For " + bikeModel + " you selected at BikeWale, call its seller "
-                //                + sellerName + " at " + sellerContact + ". Visit www.bikewale.com/MyBikeWale/ for more details.";
-                //    /*}
-                //    else
-                //    {
-                //        message = "Get seller details for \"" + makeYear + "-" + bikeModel + "\" for just Rs.500.\n"
-                //                + "Pay online at www.bikeWale.com/MybikeWale/ or call 022-67398888 for help";  //32651254, 32651255
-						
-                //    }*/
-                //}
-
-
+                UrlShortnerResponse response = null;
+                if (!String.IsNullOrEmpty(detailPageUrl))
+                {
+                    response = new UrlShortner().GetShortUrl(detailPageUrl);
+                }
+                string shortUrl = response != null ? response.ShortUrl : string.Empty;
+                string message = string.Format("For {0} you selected at BikeWale, call its seller {1} at {2}. Visit {3} for more details.", bikeModel, sellerName, sellerContact, shortUrl);
                 EnumSMSServiceType esms = EnumSMSServiceType.UsedPurchaseInquiryIndividualBuyer;
 
                 HttpContext.Current.Trace.Warn("Sending SMS To Buyer : " + message);
                 SMSCommon sc = new SMSCommon();
-                sc.ProcessSMS(buyerMobile, message, esms, pageUrl, true);
+                sc.ProcessSMS(buyerMobile, message, esms, detailPageUrl, true);
             }
             catch (Exception err)
             {
