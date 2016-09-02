@@ -47,6 +47,52 @@ namespace Bikewale.Utility
             return formatted;
         }
 
+
+        /// <summary>
+        /// Created by  : Sushil Kumar on 30th Aug 2016 
+        /// Description : Represent number in ordinals i.e 1st,2nd,3rd,11th 
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static string AddNumberOrdinal(uint num)
+        {
+            if (num <= 0) return num.ToString();
+
+            switch (num % 100)
+            {
+                case 11:
+                case 12:
+                case 13:
+                    return string.Format("{0}th", num);
+            }
+
+            switch (num % 10)
+            {
+                case 1:
+                    return string.Format("{0}st", num);
+                case 2:
+                    return string.Format("{0}nd", num);
+                case 3:
+                    return string.Format("{0}rd", num);
+                default:
+                    return string.Format("{0}th", num);
+            }
+
+        }
+
+        /// <summary>
+        /// Created by  : Sushil Kumar on 30th Aug 2016 
+        /// Description : Represent number in ordinals i.e 1st,2nd,3rd,11th with upper limit value
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="upperLimit"></param>
+        /// <returns></returns>
+        public static string AddNumberOrdinal(ushort num, ushort upperLimit)
+        {
+            if (num > upperLimit) return string.Format("{0}+", num);
+            else return AddNumberOrdinal(num);
+        }
+
         /// <summary>
         /// Created By : Vivek Gupta
         /// Date : 23-05-2016
@@ -71,15 +117,15 @@ namespace Bikewale.Utility
                 {
                     case 4:
                     case 5:
-                    retValue = String.Format("{0}K", Convert.ToString(Math.Round(numeric / 1000, 1)));
+                        retValue = String.Format("{0}K", Convert.ToString(Math.Round(numeric / 1000, 1)));
                         break;
                     case 6:
                     case 7:
-                    retValue = String.Format("{0}L", Convert.ToString(Math.Round(numeric / 100000, 1)));
+                        retValue = String.Format("{0}L", Convert.ToString(Math.Round(numeric / 100000, 1)));
                         break;
                     case 8:
                     case 9:
-                    retValue = String.Format("{0}C", Convert.ToString(Math.Round(numeric / 10000000, 1)));
+                        retValue = String.Format("{0}C", Convert.ToString(Math.Round(numeric / 10000000, 1)));
                         break;
                     default:
                         retValue = FormatPrice(number);
@@ -124,7 +170,7 @@ namespace Bikewale.Utility
                         break;
                     case 6:
                     case 7:
-                        retValue = String.Format("{0} Lakhs", Convert.ToString(Math.Round(numeric / 100000,2)));
+                        retValue = String.Format("{0} Lakhs", Convert.ToString(Math.Round(numeric / 100000, 2)));
                         break;
                     case 8:
                     case 9:

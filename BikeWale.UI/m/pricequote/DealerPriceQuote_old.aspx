@@ -143,23 +143,11 @@
             border: 1px solid #666;
         }
 
-        .user-contact-details-icon {
-            width: 36px;
-            height: 44px;
-            background-position: -107px -227px;
-        }
+        .user-contact-details-icon{width:29px;height:30px;background-position:-109px -216px}
 
-        .otp-icon {
-            width: 30px;
-            height: 40px;
-            background-position: -107px -177px;
-        }
+        .otp-icon { width:29px; height:29px; background-position: -109px -177px; }
 
-        .edit-blue-icon {
-            width: 16px;
-            height: 16px;
-            background-position: -114px -123px;
-        }
+        .edit-blue-icon { width:19px; height:19px; background-position: -114px -122px; }
 
         #getMobile {
             padding: 9px 40px;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Bikewale.Mobile.controls
+namespace Bikewale.Mobile.Controls
 {
     public class MPopupWidget : System.Web.UI.UserControl
     {

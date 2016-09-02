@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.m.controls.ModelGallery" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.ModelGallery" %>
 <!-- model-gallery-container starts here -->
 <section class="model-gallery-container">
     <h1 class="font16 text-white"><%=bikeName %> Photos</h1>

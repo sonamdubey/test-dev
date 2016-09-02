@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.controls.MPopupWidgetOld" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.Controls.MPopupWidgetOld" %>
 
 <script type="text/javascript">
     lscache.flushExpired();  //remove expired
