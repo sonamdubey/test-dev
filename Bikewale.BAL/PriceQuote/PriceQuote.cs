@@ -1,4 +1,5 @@
 ﻿using Bikewale.DAL.PriceQuote;
+using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.PriceQuote;
 using Microsoft.Practices.Unity;
@@ -52,6 +53,21 @@ namespace Bikewale.BAL.PriceQuote
 
             objQuotation = objPQ.GetPriceQuoteById(pqId);
 
+            return objQuotation;
+        }
+
+        /// <summary>
+        /// Function to get the price quote by price quote id.
+        /// </summary>
+        /// <param name="pqId">Price quote id. Only positive numbers are allowed.</param>
+        /// <returns>Returns price quote information in the PriceQuoteEntity object.</returns>
+        public BikeQuotationEntity GetPriceQuoteById(ulong pqId, LeadSourceEnum page)
+        {
+            BikeQuotationEntity objQuotation = null;
+
+            objQuotation = objPQ.GetPriceQuoteById(pqId, page);
+            objQuotation.ManufacturerAd = @"<div class='grid-12 margin-bottom20'><div class='modelGetDetails padding-right20'><h3 class='padding-bottom10'>Get following details from {0}:</h3><ul><li>Offers from the nearest dealers</li><li>Waiting period on this bike at the dealership</li><li>Nearest dealership from your place</li><li>Finance options on this bike</li></ul></div><div class='grid-3 leftfloat noOffers margin-top20'><input type='button' value='Get more details' class='btn btn-orange margin-right20 leftfloat' id='getMoreDetailsBtnCampaign'></div><div class='blackOut-window'></div></div>'";
+                    
             return objQuotation;
         }
 

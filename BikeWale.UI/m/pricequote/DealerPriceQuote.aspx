@@ -19,7 +19,7 @@
 	<!-- #include file="/includes/headscript_mobile.aspx" -->
 	<link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/dealerpricequote.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
 	<script type="text/javascript">
-		var dealerId = '<%= dealerId%>';
+	    var dealerId = '<%= dealerId%>';
 		var pqId = '<%= pqId%>';
 		var ABHostUrl = '<%= System.Configuration.ConfigurationManager.AppSettings["ApiHostUrl"]%>';
 		var versionId = '<%= versionId%>';
@@ -73,6 +73,7 @@
 					<%= (!string.IsNullOrEmpty(currentArea) ? string.Format("{0}, {1}",currentArea.Replace('-', ' '),currentCity.Replace('-', ' ')) : currentCity.Replace('-', ' ')) %>
 					<a href="javascript:void(0)" rel="nofollow" data-pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation %>" data-modelId="<%= objPriceQuote.objModel.ModelId %>" class="getquotation" data-persistent="true"><span class="bwmsprite loc-change-blue-icon"></span></a>
 				</p>
+
 			</div>
 			<script type="text/javascript">                
 				var dropdown = {
@@ -237,6 +238,14 @@
 				<div class="margin-top10 padding5" style="background: #fef5e6;">Price for this bike is not available in this city.</div>
 				<%} %>
 			</div>
+
+             <% if (objExQuotation != null && !string.IsNullOrEmpty(objExQuotation.ManufacturerAd))
+                { %>
+                <section>
+                    <%=String.Format(objExQuotation.ManufacturerAd, objPriceQuote.objMake.MakeName) %>
+                </section>
+            <%} %>
+
 			<!--Price Breakup ends here-->
 
 			<!-- Dealer Widget starts here -->
@@ -689,7 +698,7 @@
 					'ClientIP': clientIP,
 					'SourceType': '<%=Bikewale.Utility.BWConfiguration.Instance.MobileSourceId  %>',
 					'VersionId': versionId,
-					'pQLeadId': eval("<%= Convert.ToInt16(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerPQ_Mobile) %>"),
+					'pQLeadId': eval("<%= Convert.ToInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation) %>"),
 					'deviceId': getCookie('BWC'),
 					'dealerId': secondaryDealerId,
 					'refPQId': pqId

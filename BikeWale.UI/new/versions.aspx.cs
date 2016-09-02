@@ -682,6 +682,10 @@ namespace Bikewale.New
                 if (cityId != 0)
                 {
                     pqOnRoad = GetOnRoadPrice();
+
+                    pqOnRoad.BPQOutput.ManufacturerAd = @"<div class='grid-12 margin-bottom20'><div class='modelGetDetails padding-right20'><h3 class='padding-bottom10'>Get following details from {0}:</h3><ul><li>Offers from the nearest dealers</li><li>Waiting period on this bike at the dealership</li><li>Nearest dealership from your place</li><li>Finance options on this bike</li></ul></div><div class='grid-3 leftfloat noOffers margin-top20'><input type='button' value='Get more details' class='btn btn-orange margin-right20 leftfloat' id='getMoreDetailsBtnCampaign'></div><div class='blackOut-window'></div></div>'";
+
+                    pqOnRoad.BPQOutput.ManufacturerAd = string.Format(pqOnRoad.BPQOutput.ManufacturerAd.ToString(), pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, pqOnRoad.PriceQuote.DealerId, pqOnRoad.BPQOutput.Area);
                     // Set Pricequote Cookie
                     if (pqOnRoad != null)
                     {
@@ -845,7 +849,7 @@ namespace Bikewale.New
                         string api = string.Empty;
                         if (objPQOutput != null && objPQOutput.PQId > 0)
                         {
-                            bpqOutput = objPq.GetPriceQuoteById(objPQOutput.PQId);
+                            bpqOutput = objPq.GetPriceQuoteById(objPQOutput.PQId, LeadSourceEnum.Model_Desktop);
                             bpqOutput.Varients = objPq.GetOtherVersionsPrices(objPQOutput.PQId);
                             if (bpqOutput != null)
                             {

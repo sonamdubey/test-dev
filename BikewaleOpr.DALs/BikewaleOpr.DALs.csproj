@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="DealerPriceQuoteRepository.cs" />
     <Compile Include="DealersRepository.cs" />
+    <Compile Include="ManufactureCampaign\ManufacturerCampaign.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

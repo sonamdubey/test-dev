@@ -149,11 +149,11 @@ namespace Bikewale.PriceQuote
         {
             try
             {
-                objQuotation = objPriceQuote.GetPriceQuoteById(Convert.ToUInt64(priceQuoteId));
+                objQuotation = objPriceQuote.GetPriceQuoteById(Convert.ToUInt64(priceQuoteId), LeadSourceEnum.DPQ_Desktop);
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("ShowPriceQuote ex : " + ex.Message + ex.Source);
+                //HttpContext.Current.Trace.Warn("ShowPriceQuote ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }

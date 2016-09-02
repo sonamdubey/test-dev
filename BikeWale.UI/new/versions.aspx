@@ -561,8 +561,13 @@
             </div>
             <!-- Terms and condition Popup Ends -->
         </section>
-        
-
+         <% if (pqOnRoad!=null && pqOnRoad.BPQOutput != null && !string.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
+            {
+                 %>
+            <div >
+            <%=String.Format(pqOnRoad.BPQOutput.ManufacturerAd, modelPageEntity.ModelDetails.MakeBase.MakeName) %>
+        </div>
+        <%} %>     
         <meta itemprop="manufacturer" name="manufacturer" content="<%= modelPageEntity.ModelDetails.MakeBase.MakeName %>">  
         <meta itemprop="model" content="<%= TargetedModel %>"/>
         <section id="modelDetailsFloatingCardContent" class="container">

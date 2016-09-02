@@ -123,12 +123,11 @@
                                <% if (modelPage.ModelDetails.VideosCount>0)
                                 { %>
                                 <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/photos/#videos" class="model-media-item">
-                                     <span class="bwmsprite gallery-video-icon"></span>
+                                    <span class="bwmsprite gallery-video-icon"></span>
                                     <span class="model-media-count"><%=modelPage.ModelDetails.VideosCount%></span>
-                                </a>
+                                </a>                              
                                <% } %>
-                            </div>
-                           
+                            </div>                           
                         </div>
                     <% if (modelPage.ModelDetails.Futuristic)
                        { %>
@@ -332,6 +331,15 @@
                 <% } %>
             </div>
         </section>
+
+          <% if (pqOnRoad!=null && pqOnRoad.BPQOutput != null && !string.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
+            { %>
+        <section>
+            <div class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom">
+            <%=String.Format(pqOnRoad.BPQOutput.ManufacturerAd,bikeMakeName) %>
+        </div>
+        </section>
+        <%} %>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 
