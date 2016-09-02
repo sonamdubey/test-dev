@@ -20,6 +20,7 @@
                 <td>Sr No.</td>
                 <td>Campaign Id</td>
                 <td>Campaign Description</td>
+                <td>Masking Number</td>
                 <td>Campaign  Status</td>
                 <td>Edit Rules</td>
                 <td>Edit Campaign</td>
@@ -34,6 +35,7 @@
         <td data-bind="text: $index() + 1"></td>
         <td data-bind="text: id"></td>
         <td data-bind="text: description"></td>
+        <td data-bind="text: maskingnumber"></td>
         <td data-bind="text: isactive ? 'Active' : 'In-Acitve'"></td>
         <td><a  data-bind="attr: { href: '/manufacturecampaign/ManufacturerCampaignRules.aspx?campaignid=' + id + '&manufactureName=' + encodeURIComponent(manufactureName) }" target="_blank"><img src="http://opr.carwale.com/images/edit.jpg" alt="Edit"/></a></td>
         <td>

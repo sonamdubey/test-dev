@@ -27,6 +27,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         /// <returns></returns>
         public IEnumerable<ManufactureDealerCampaign> SearchManufactureCampaigns(uint dealerId)
         {
+            
             IList<ManufactureDealerCampaign> dtManufactureCampaigns = null;
 
             try
@@ -52,7 +53,8 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                                         id = Convert.ToInt32(dr["id"]),
                                         dealerid = Convert.ToInt32(dr["dealerid"]),
                                         description = Convert.ToString(dr["description"]),
-                                        isactive = Convert.ToInt32(dr["isactive"])
+                                        isactive = Convert.ToInt32(dr["isactive"]),
+                                        maskingnumber = Convert.ToString(dr["maskingnumber"])
 
                                     });
                                 }
@@ -377,7 +379,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingNumber", DbType.String, 10, maskingNumber));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32, dealerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userId", DbType.Int32, userId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignId", DbType.Int32, campaignId));                  
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignId", DbType.Int32, campaignId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml1", DbType.String, 150, objList[0].TemplateHtml));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId1", DbType.Int32, objList[0].TemplateId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml2", DbType.String, 150, objList[1].TemplateHtml));
