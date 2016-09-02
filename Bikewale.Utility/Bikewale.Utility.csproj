@@ -66,6 +66,7 @@
     <Compile Include="CollectionHelper.cs" />
     <Compile Include="CommonValidators.cs" />
     <Compile Include="CommonApiOpn.cs" />
+    <Compile Include="Cookie.cs" />
     <Compile Include="CurrentUser.cs" />
     <Compile Include="DealerAssistance.cs" />
     <Compile Include="DealerOfferHelper.cs" />
