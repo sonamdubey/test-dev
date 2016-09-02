@@ -16,6 +16,9 @@ namespace Bikewale.Entities.PriceQuote
     public class BikeQuotationEntity
     {
         public ulong PriceQuoteId { get; set; }
+        public string ManufacturerName { get; set; }
+
+        public string MaskingNumber { get; set; }
 
         public ulong ExShowroomPrice { get; set; }
         public uint RTO { get; set; }

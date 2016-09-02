@@ -19,7 +19,7 @@
 	<!-- #include file="/includes/headscript_mobile.aspx" -->
 	<link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/dealerpricequote.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
 	<script type="text/javascript">
-		var dealerId = '<%= dealerId%>';
+	    var dealerId = '<%= dealerId%>';
 		var pqId = '<%= pqId%>';
 		var ABHostUrl = '<%= System.Configuration.ConfigurationManager.AppSettings["ApiHostUrl"]%>';
 		var versionId = '<%= versionId%>';
@@ -73,6 +73,7 @@
 					<%= (!string.IsNullOrEmpty(currentArea) ? string.Format("{0}, {1}",currentArea,currentCity) : currentCity) %>
 					<a href="javascript:void(0)" rel="nofollow" data-pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation %>" data-modelId="<%= objPriceQuote.objModel.ModelId %>" class="getquotation" data-persistent="true"><span class="bwmsprite loc-change-blue-icon"></span></a>
 				</p>
+
 			</div>
 			<script type="text/javascript">                
 				var dropdown = {

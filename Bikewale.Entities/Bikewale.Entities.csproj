@@ -209,6 +209,7 @@
     <Compile Include="Location\GlobalCityAreaEntity.cs" />
     <Compile Include="Location\StateEntityBase.cs" />
     <Compile Include="Location\StateMaskingResponse.cs" />
+    <Compile Include="manufacturecampaign\ManufactureCampaignInput.cs" />
     <Compile Include="MobileAppAlert\MobileAppNotificationBase.cs" />
     <Compile Include="MobileAppAlert\MobileAppNotifications.cs" />
     <Compile Include="MobileVerification\MobileVerificationEntity.cs" />

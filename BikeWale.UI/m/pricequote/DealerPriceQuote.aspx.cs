@@ -155,6 +155,8 @@ namespace Bikewale.Mobile.BikeBooking
                             container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
                             objIQuotation = container.Resolve<IPriceQuote>();
                             objExQuotation = objIQuotation.GetPriceQuoteById(Convert.ToUInt64(pqId), LeadSourceEnum.DPQ_Mobile);
+                            objExQuotation.ManufacturerAd = @"<div class='grid-12 padding-right20 padding-left15'><div class='modelGetDetails padding-right20'><h3 class='padding-bottom10'>Get following details from {0}:</h3><ul><li>Offers from the nearest dealers</li><li>Waiting period on this bike at the dealership</li><li>Nearest dealership from your place</li><li>Finance options on this bike</li></ul></div><div class='grid-3 leftfloat noOffers margin-top20'><input type='button' value='Get more details' class='btn btn-orange margin-right20 leftfloat' id='getMoreDetailsBtnCampaign'></div><div class='blackOut-window'></div></div>'";
+                    
                         }
 
                         if (objPriceQuote.PrimaryDealer != null)

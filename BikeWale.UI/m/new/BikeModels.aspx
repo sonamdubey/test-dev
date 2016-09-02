@@ -323,12 +323,14 @@
             </div>
         </section>
 
-          <% if (pqOnRoad.BPQOutput != null && !string.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
+          <% if (pqOnRoad!=null && pqOnRoad.BPQOutput != null && !string.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
             { %>
-            <section>
-                <%=String.Format(pqOnRoad.BPQOutput.ManufacturerAd, modelPage.ModelDetails.MakeBase.MakeName) %>
-            </section>
-          <%} %> 
+        <section>
+            <div class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom">
+            <%=String.Format(pqOnRoad.BPQOutput.ManufacturerAd,bikeMakeName) %>
+        </div>
+        </section>
+        <%} %>
 
         <section>
             <div id="modelSpecsTabsContentWrapper" class="container bg-white clearfix box-shadow margin-top30 margin-bottom30">
