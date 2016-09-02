@@ -63,7 +63,7 @@
             <div>
                 <% if (rptRules.DataSource != null)
                    { %>
-                <h3>Existing Rules for</h3>
+                <h3>Existing Rules for <%=manufactureName %></h3>
                 <asp:Button runat="server" OnClientClick="return deleteRules();" class="margin-bottom10 margin-top20" ID="btnDeleteRules" Text="Delete Rules" />                
                 <asp:Repeater ID="rptRules" runat="server">
                     <HeaderTemplate>                        
