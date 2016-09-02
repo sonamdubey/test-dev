@@ -168,13 +168,8 @@
                     <asp:Button ID="btnUpdate" Text="Update" runat="server" />
                 </div>
             </div>
-            <%--<asp:HiddenField id="hdn_cityId" runat="server"/>
-            <asp:HiddenField id="hdn_offerType" runat="server"/>--%>
+       
             <asp:HiddenField ID="hdn_modelId" runat="server" />
-            <%--<asp:HiddenField id="hdn_dtDate" runat="server"/>
-            <asp:HiddenField id="hdn_dtMonth" runat="server"/>
-            <asp:HiddenField id="hdn_ddlHours" runat="server"/>
-            <asp:HiddenField id="hdn_ddlMins" runat="server"/>--%>
             <asp:HiddenField ID="hdnCities" runat="server" />
             <asp:HiddenField ID="hdnOffersIds" runat="server" />
             <div id="AddedOffers">
@@ -477,9 +472,21 @@
                     isPrcImpct = true;
                 }
                 if (!isError) {
+                    var offerObject = new Object();
+                    offerObject.OfferId = offerId;
+                    offerObject.UserId = '<%=userId%>';
+                    offerObject.OfferCategoryId = $("#ddlUpdOffers option:selected").val();
+                    offerObject.OfferText = $("#txtUpdOffer").val();
+                    offerObject.OfferValue = $("#txtUpdOfferValue").val();
+                    offerObject.OfferValidTill = enteredYear + "-" + enteredmonth + "-" + enteredDay;
+                    offerObject.IsPriceImpact = isPrcImpct;
+                    offerObject.Terms = $("#txtTerms").val();
                     $.ajax({
                         type: "POST",
-                        url: host + "/api/Dealers/UpdateDealerBikeOffers/?offerId=" + offerId + "&userId=" + <%=userId%> + "&offerCategoryId=" + $("#ddlUpdOffers option:selected").val() + "&offertext=" + encodeURIComponent($("#txtUpdOffer").val()) + "&offerValue=" + $("#txtUpdOfferValue").val() + "&offerValidTill=" + enteredYear + "-" + enteredmonth + "-" + enteredDay + "&isPriceImpact=" + isPrcImpct + "&terms=" + encodeURIComponent($("#txtTerms").val()) ,
+                        url: host + "/api/Dealers/UpdateDealerBikeOffers/" ,
+                        data: JSON.stringify(offerObject),
+                        datatype: 'json',
+                        contentType: 'application/json',
                         success: function () {
                             $("#gb-content").html("Offers updated Successfully, Please Close this Box");
                         }

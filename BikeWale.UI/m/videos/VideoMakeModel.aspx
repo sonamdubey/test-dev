@@ -58,7 +58,7 @@
         <section>
             <div class="text-center">
                 <div id="loading">
-                    <img src="http://img2.aeplcdn.com/bikewaleimg/images/search-loading.gif"   />
+                    <img src="http://img2.aeplcdn.com/bikewaleimg/images/search-loading.gif"  />
                 </div>
             </div>
         </section>

@@ -701,25 +701,25 @@ namespace Bikewale.DAL.AutoBiz
             DbCommand cmd = null;
             try
             {
-                using (cmd = DbFactory.GetDBCommand("bw_getofferterms"))
+                using (cmd = DbFactory.GetDBCommand("bw_getofferterms_25082016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-
                     #region params
-
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingName", DbType.String, offerMaskingName));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_offerId", DbType.Int32, offerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isExpired", DbType.Boolean, ParameterDirection.InputOutput, false));
-                    #endregion
 
-
-                    termsHtml = Convert.ToString(MySqlDatabase.ExecuteScalar(cmd, ConnectionType.ReadOnly));
-                    if (!string.IsNullOrEmpty(termsHtml))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        offerTerms = new OfferHtmlEntity();
-                        offerTerms.Html = termsHtml;
-                        offerTerms.IsExpired = Convert.ToBoolean(cmd.Parameters["par_isExpired"].Value);
+                        if (dr != null)
+                        {
+                            offerTerms = new OfferHtmlEntity();
+                            while (dr.Read())
+                            {
+                                offerTerms.Html = Convert.ToString(dr["terms"]);
+                                offerTerms.IsExpired = Convert.ToBoolean(dr["IsExpired"]);
+                            }
+                        }
                     }
+                    #endregion
                 }
             }
             catch (Exception ex)
@@ -931,7 +931,8 @@ namespace Bikewale.DAL.AutoBiz
                                         OfferText = !Convert.IsDBNull(dr["OfferText"]) ? Convert.ToString(dr["OfferText"]) : default(string),
                                         OfferValue = !Convert.IsDBNull(dr["OfferValue"]) ? Convert.ToUInt32(dr["OfferValue"]) : default(UInt32),
                                         OffervalidTill = !Convert.IsDBNull(dr["OfferValidTill"]) ? Convert.ToDateTime(dr["OfferValidTill"]) : default(DateTime),
-                                        DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32)
+                                        DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32),
+                                        IsOfferTerms = !Convert.IsDBNull(dr["IsOfferTerms"]) ? Convert.ToBoolean(dr["IsOfferTerms"]) : default(Boolean),
                                     });
                                 }
                                 dealerQuotation.OfferList = OfferList;
@@ -1187,7 +1188,8 @@ namespace Bikewale.DAL.AutoBiz
                                         OfferText = !Convert.IsDBNull(dr["OfferText"]) ? Convert.ToString(dr["OfferText"]) : default(string),
                                         OfferValue = !Convert.IsDBNull(dr["OfferValue"]) ? Convert.ToUInt32(dr["OfferValue"]) : default(UInt32),
                                         OffervalidTill = !Convert.IsDBNull(dr["OfferValidTill"]) ? Convert.ToDateTime(dr["OfferValidTill"]) : default(DateTime),
-                                        DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32)
+                                        DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32),
+                                        IsOfferTerms = !Convert.IsDBNull(dr["IsOfferTerms"]) ? Convert.ToBoolean(dr["IsOfferTerms"]) : default(Boolean)
                                     });
                                 }
                                 dealerQuotation.OfferList = OfferList;

@@ -24,6 +24,7 @@ namespace BikeWaleOpr.BikeBooking
         protected DateControl dtDate;
         protected HiddenField hdn_modelId, hdnCities, hdnOffersIds; //hdn_cityId, , hdn_offerType, hdn_dtDate, hdn_dtMonth, hdn_ddlHours, hdn_ddlMins;
         protected string userId = "0";
+       
 
         TermsHtmlFormatting htmlFormatFunction = new TermsHtmlFormatting();
 
@@ -32,6 +33,7 @@ namespace BikeWaleOpr.BikeBooking
             base.Load += new EventHandler(Page_Load);
             btnAdd.Click += new EventHandler(SaveOffers);
             btnCopyOffers.Click += new EventHandler(btnCopyOffers_click);
+            
         }
 
         #region Pivotal Tracker #95410582
@@ -55,6 +57,7 @@ namespace BikeWaleOpr.BikeBooking
                 CopyOffersToCities(dealerId, offerIds, cities);
             }
         }
+     
 
         /// <summary>
         /// Author  :   Sumit Kate
@@ -127,8 +130,7 @@ namespace BikeWaleOpr.BikeBooking
             {
                 ManageCities objCities = new ManageCities();
                 DataSet ds = objCities.GetCWCities(0, "ALL");
-                //Trace.Warn("cities : " + ds.Tables[0].Rows.Count);
-                if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                 if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                 {
                     drpCity.DataSource = ds.Tables[0];
                     drpCity.DataTextField = "Text";
@@ -155,7 +157,6 @@ namespace BikeWaleOpr.BikeBooking
             {
                 ManageStates objStates = new ManageStates();
                 DataSet ds = objStates.GetAllStatesDetails();
-                //Trace.Warn("cities : " + ds.Tables[0].Rows.Count);
                 ddlState.DataSource = ds.Tables[0];
                 ddlState.DataTextField = "Name";
                 ddlState.DataValueField = "ID";
@@ -321,7 +322,7 @@ namespace BikeWaleOpr.BikeBooking
                     lblSaved.Text = "Offer added successfully";
 
                 GetDealerOffers();
-                //Response.Redirect("/newbikebooking/ManageOffers.aspx?dealerId=4", true);
+                
             }
             catch (Exception err)
             {

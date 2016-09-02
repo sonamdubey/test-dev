@@ -60,7 +60,6 @@ input:-ms-input-placeholder, .ui-autocomplete-input { color: #a8afb3; font-size:
 .form-control-box { position: relative; }
 .form-control { display: block; width: 100%; padding: 10px; line-height: 1.42857143; color: #4d5057; position: relative;
 	background-color: #fff; background-image: none; border: 1px solid #ccc; border-radius: 2px;
-	/*-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075); box-shadow: inset 0 1px 1px rgba(0,0,0,.075);*/
 	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
 	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
@@ -105,7 +104,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 
 /* layout properties */
 .lock-browser-scroll { position: fixed; overflow-y: scroll; width: 100%; }
-.home-getFinalPrice-banner { background:#161209 no-repeat center top;     background-size: cover; height: 373px; }
+.home-getFinalPrice-banner { background:#161209 no-repeat center top; background-size: cover; height: 373px; }
 
 /* global-search classes */
 .global-search { float: left; padding: 0 10px; position: relative; top: 2px; cursor: pointer; }
@@ -115,6 +114,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 .gl-default-stage span.cross-md-lgt-grey { position: relative; top: 2px; margin-left: 20px; }
 
 #errNewBikeSearch.ui-autocomplete { width:95.5%;position:relative;top:0;left:3px; color:#4d5057; }
+#errGlobalSearch.ui-autocomplete { display: none; width:100%; margin-left:0; }
 /* App Banner */
 #appBanner { background:#e2e2e2; padding:5px 5px 0; position:relative; overflow:hidden; }
 .app-banner-img-container { float:left; width:130px; height:95px; position:relative; margin-right:12px; }
@@ -133,8 +133,6 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 .bw-tabs-flex li { display: table-cell; white-space:nowrap; padding: 10px; text-align: center; width: 1%; color: #82888b; font-size: 14px; cursor: pointer; }
 .bw-tabs-flex li:hover { color: #4d5057; }
 .bw-tabs-flex li.active { border-bottom: 4px solid #ef3f30; padding-bottom:4px; color: #4d5057; cursor:default; font-weight: 600; }
-
-/* Let's get this party started */
 .bw-tabs::-webkit-scrollbar {width: 0;}
  
 /* Track & Handle */
@@ -734,6 +732,9 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 
 .viewterms{color: #ababab;text-decoration: none;font-size: 10px;cursor: pointer;}
 .viewterms:hover{text-decoration:underline;}
+
+.tnc {border-bottom: 1px solid #ababab;color: #ababab; text-decoration: none;}
+#terms li{list-style-type: square;margin-left: 10px;}
 /* AutoExpo classes */
 .ae-sprite {background: url("http://imgd3.aeplcdn.com/0x0/cw/static/sprites/ae-sprite.png") no-repeat;display:inline-block;}
 .ae-logo { background-color: #fff; background-position: -34px 2px; height: 27px; margin-top: -7px; position: relative; top: 4px; width: 45px; margin-left: -8px }
@@ -757,12 +758,6 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 .calender-grey-sm-icon {background-position: -48px -486px;}
 .author-grey-sm-icon {background-position: -66px -486px;}
 .views-grey-sm-icon {background-position: -84px -486px;}
-
-.lock-browser-scroll {
-    position: fixed;
-    overflow-y: scroll;
-    width: 100%;
-}
 
 @media all and (max-width: 350px) {
     .article-stats-content { width:72%; }
@@ -804,3 +799,6 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     height: 109px;
     background: #f5f5f5 url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/city-area-banner.png) repeat-x center bottom;
 }
+
+/* lead capture control */
+#leadCapturePopup .bw-blackbg-tooltip,#leadCapturePopup .error-icon,.dealer-brand-wrapper{display:none}#leadCapturePopup .leadCapture-close-btn{z-index:2}.btn-grey{background:#fff;color:#82888b;border:1px solid #82888b}.btn-grey:hover{background:#82888b;color:#fff;text-decoration:none;border:1px solid #82888b}#notifyAvailabilityContainer{min-height:320px;background:#fff;margin:0 auto;padding:10px;position:fixed;top:10%;right:5%;left:5%;z-index:10}#notify-form .grid-12{padding:10px 20px}.personal-info-notify-container input{margin:0 auto}.notify-offers-list{list-style:disc;margin-left:10px}#notifyAvailabilityContainer .notify-close-btn{z-index:2}.float-button{background-color:#f5f5f5;padding:10px}.float-button.float-fixed{position:fixed;bottom:0;z-index:8;left:0;right:0}#getMobile{padding:9px 40px}.mobile-prefix{position:absolute;padding:10px 13px 13px;color:#999;z-index:2}.thankyou-icon{width:50px;height:50px;background-position:-137px -404px}#brandSearchBar{padding:0;background:#f5f5f5;z-index:11;position:fixed;left:100%;top:0;overflow-y:scroll;width:100%;height:100%}#brandSearchBar li{text-align:left;border-top:1px solid #ccc;font-size:14px;padding:15px 10px;color:#333;cursor:pointer}#brandSearchBar li:hover{background:#ededed}.bwm-dealer-brand-box .back-arrow-box{height:30px;width:40px;top:5px;z-index:11;cursor:pointer}.bwm-dealer-brand-box span.back-long-arrow-left{position:absolute;top:7px;left:10px}.bwm-dealer-brand-box .back-arrow-box{position:absolute;left:5px}.bwm-dealer-brand-box .form-control{padding:10px 50px}.activeBrand{font-weight:700;background-color:#ddd}.dealer-search-brand-form{padding:10px 25px 10px 10px;cursor:pointer;background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png?v1=19082015) 96% 50% no-repeat #fff;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-radius:2px;border:1px solid #ccc}.dealer-search-brand{width:100%;height:40px}.border-red{border:1px solid red!important}#notify-response .icon-outer-container{width:72px;height:72px;}#notify-response .icon-inner-container{width:64px;height:64px;margin:3px auto;}

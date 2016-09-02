@@ -109,32 +109,22 @@
                     <p class="text-bold"><%= objCustomer.objCustomerBase.CustomerMobile %></p>
                 </div>
 
-                <%if(_objPQ!=null && _objPQ.objOffers!=null && _objPQ.objOffers.Count > 0) {%>
-                    <p class="font16 text-bold padding-top20">Availed exclusive Bikewale offers </p>
-                    <ul class="confirmation-offers">
-                        <asp:Repeater ID="rptOffers" runat="server">
-                            <ItemTemplate>
-                                <% if (IsInsuranceFree)
-                                   {%>
-                                <li class="font14 padding-bottom10">Free Insurance for 1 year worth Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(insuranceAmount.ToString()) %>  at the dealership</li>
-                                <%
-                               }
-                                   else
-                                   {%>
-                                <li class="font14 padding-bottom10"><%# DataBinder.Eval(Container.DataItem,"OfferText")%></li>
-                                <% 
-                               }
-                                %>
-                            </ItemTemplate>
-                        </asp:Repeater>
-                    </ul>
-                <%} %>
+                <%if (_objPQ != null && _objPQ.objOffers != null && _objPQ.objOffers.Count > 0)
+                  {%>
+                <p class="font16 text-bold padding-top20">Availed exclusive Bikewale offers </p>
 
-                
+                <ul class="confirmation-offers">
+                    <asp:Repeater ID="rptOffers" runat="server">
+                        <ItemTemplate>
+                            <li class="offertxt"><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
+                                <span class="tnc font9 <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsOfferTerms"))? string.Empty: "hide" %>" id="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferId")) %>">View terms</span>
+                            </li>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </ul>
+                <% }%>
             </div>
         </div>
-    
-    
     	<div class="grid-12">
             <div class="content-box-shadow content-inner-block-10 bg-white clearfix margin-top20">
             <div class="font18 text-bold text-black padding-bottom10"><%= organization %></div>
@@ -143,8 +133,6 @@
             <div id="divMap" class="hide border-solid margin-top10"></div>            
             </div>
         </div>
-       
-   
   <section><!--  What next code starts here -->
         <div class="container">
         	<div class="grid-12">
@@ -204,6 +192,22 @@
         </div>
         <!--Cancellation & refund policy popup ends here-->
 
+        <!-- Terms and condition Popup start -->
+            <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+                <div class="fixed-close-btn-wrapper">
+                    <div class="termsPopUpCloseBtn fixed-close-btn bwmsprite cross-lg-lgt-grey cur-pointer"></div>
+                </div>
+                <h3>Terms and conditions</h3>
+                <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
+                    <img class="lazy" data-original="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif"  src="" />
+                </div>
+                <div id="terms" class="breakup-text-container padding-bottom10 font14">
+                </div>
+                <div id='orig-terms' class='hide'>
+                </div>
+            </div>
+            <!-- Terms and condition Popup Ends -->
+
         <!--Documents popup starts here-->
         <div class="bwm-popup required-doc hide">
             <div class="popup-inner-container">
@@ -249,6 +253,7 @@
             </div>
         </div>
         <!--Documents popup ends here-->
+
    <!-- #include file="/includes/footerBW_Mobile.aspx" -->
    <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
@@ -308,6 +313,40 @@
                     unlockPopup();
                 });
 
+                $('.tnc').on('click', function (e) {
+                    LoadTerms($(this).attr("id"));
+                });
+
+                $(".termsPopUpCloseBtn").on('click', function (e) {
+                    $("div#termsPopUpContainer").hide();
+                    $(".blackOut-window").hide();
+                });
+
+                function LoadTerms(offerId) {
+                    $("div#termsPopUpContainer").show();
+                    $(".blackOut-window").show();
+                    if (offerId != 0 && offerId != null) {
+                        $('#termspinner').show();
+                        $('#terms').empty();
+                        $.ajax({
+                            type: "GET",
+                            url: "/api/Terms/?offerId=" + offerId,
+                            dataType: 'json',
+                            success: function (response) {
+                                if (response != null)
+                                    $('#terms').html(response);
+                            },
+                            error: function (request, status, error) {
+                                $("div#termsPopUpContainer").hide();
+                                $(".blackOut-window").hide();
+                            }
+                        });
+                    }
+                    else {
+                        $("#terms").load("/statichtml/tnc.html");
+                    }
+                    $('#termspinner').hide();
+                }
 
                 function unlockPopup() {
                     $('body').removeClass('lock-browser-scroll');
@@ -318,6 +357,11 @@
                     $(".cancellation-popup").hide();
                     $('.required-doc').hide();
                 });
+                $('.blackOut-window').on("click", function () {
+                    $(".blackOut-window").hide();
+                    $("div#termsPopUpContainer").hide()
+                });
+
             });            
         </script>
   </form>

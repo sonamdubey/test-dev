@@ -4,14 +4,16 @@
     <div class="blackOut-window-model"></div>
     <div class="modelgallery-close-btn position-abt pos-top20 pos-right20 bwsprite cross-lg-white cur-pointer hide"></div>
     <div class="bw-tabs-panel bike-gallery-popup hide" id="bike-gallery-popup">
+        <% if(videoCount > 0) { %>
         <div class="text-center photos-videos-tabs margin-bottom20">
-            <div class="bw-tabs home-tabs <%= videoCount == 0 ? "hide" : "" %>">
+            <div class="bw-tabs home-tabs">
                 <ul>
                     <li class="active" data-tabs="Photos" id="photos-tab">Photos</li>
                     <li data-tabs="Videos" id="videos-tab">Videos</li>
                 </ul>
             </div>
         </div>
+        <% } %>        
         <div class="bike-gallery-heading margin-bottom20 margin-left30 <%= videoCount == 0 ? "margin-top90" : "" %>">
             <p class="font18 text-bold text-white"><%= bikeName %></p>
         </div>
@@ -62,6 +64,7 @@
                 </div>
             </div>
         </div>
+        <% if(videoCount > 0) { %>
         <div class="bw-tabs-data hide" id="Videos">
             <div class="connected-carousels-videos">
                 <div class="stage-videos">
@@ -90,6 +93,7 @@
                 </div>
             </div>
         </div>
+        <% } %>
     </div>
 </section>
 <!-- End of Model Page Gallery -->

@@ -70,7 +70,7 @@
 				</div>
 				<p class="font12 text-light-grey padding-left15 padding-right15">Location:</p>
 				<p class="font16 text-bold padding-left15 padding-right15">
-					<%= (!string.IsNullOrEmpty(currentArea) ? string.Format("{0}, {1}",currentArea,currentCity) : currentCity) %>
+					<%= (!string.IsNullOrEmpty(currentArea) ? string.Format("{0}, {1}",currentArea.Replace('-', ' '),currentCity.Replace('-', ' ')) : currentCity.Replace('-', ' ')) %>
 					<a href="javascript:void(0)" rel="nofollow" data-pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation %>" data-modelId="<%= objPriceQuote.objModel.ModelId %>" class="getquotation" data-persistent="true"><span class="bwmsprite loc-change-blue-icon"></span></a>
 				</p>
 
@@ -276,7 +276,8 @@
 							<ItemTemplate>
 								<li>
 									<span class="offers-sprite offerIcon_<%# DataBinder.Eval(Container.DataItem,"OfferCategoryId") %>"></span>
-									<span class="pq-benefits-title padding-left10"><%# DataBinder.Eval(Container.DataItem,"OfferText") %></span>
+									<span class="pq-benefits-title padding-left10"><%# DataBinder.Eval(Container.DataItem,"OfferText") %><span class="margin-left10 tnc font9 <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsOfferTerms"))? string.Empty: "hide" %>" id="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferId")) %>">View terms</span></span>
+                                    
 								</li>
 							</ItemTemplate>
 						</asp:Repeater>
@@ -418,12 +419,12 @@
 		  <%if(isPrimaryDealer){ %>
 			<div id="pricequote-floating-button-wrapper" class="grid-12 alpha omega">
 				<div class="float-button float-fixed">                  
-					<div class="grid-<%= !String.IsNullOrEmpty(maskingNum) ? "7" : "12" %> alpha omega padding-right5">
+					<div class="grid-<%= !String.IsNullOrEmpty(maskingNum) ? "6" : "12" %> alpha omega padding-right5">
 						<input type="button" data-role="none" id="leadBtnBookNow" data-pqsourceid="<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation) %>" data-leadsourceid="17" leadsourceid="17" data-item-registerpq="false" data-item-id="<%= dealerId %>" data-item-name="<%= dealerName %>" data-item-area="<%= dealerArea %>" name="leadBtnBookNow" class="btn btn-full-width btn-orange leadcapturebtn" value="Get offers" />
 					</div>                  
 					<%if (!String.IsNullOrEmpty(maskingNum))
 					  { %>
-					<div class="<%= !string.IsNullOrEmpty(maskingNum) ? "grid-5 omega padding-left5" : "" %>">
+					<div class="<%= !string.IsNullOrEmpty(maskingNum) ? "grid-6 omega padding-left5" : "" %>">
 						<a id="calldealer" class="btn btn-full-width btn-green rightfloat" href="tel:<%= maskingNum %>">
 							<span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer
 						</a>
@@ -586,6 +587,21 @@
 		<!-- Lead Capture pop up start  -->               
 		<BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
 		 <!-- Lead Capture pop up end  -->
+        <!-- Terms and condition Popup start -->
+        <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+            <div class="fixed-close-btn-wrapper">
+                <div id="termsPopUpCloseBtn" class="termsPopUpCloseBtn bwmsprite fixed-close-btn cross-lg-lgt-grey cur-pointer"></div>
+            </div>
+            <h3>Terms and Conditions</h3>
+            <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
+                <img src="http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
+            </div>
+            <div id="terms" class="breakup-text-container padding-bottom10 font14">
+            </div>
+            <div id='orig-terms' class="hide">
+            </div>
+        </div>
+        <!-- Terms and condition Popup end -->
 		<!-- #include file="/includes/footerBW_Mobile.aspx" -->
 		<!-- #include file="/includes/footerscript_Mobile.aspx" -->
 		<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/dealerpricequote.js?<%= staticFileVersion %>"></script>
@@ -648,7 +664,7 @@
 					$('#termspinner').show();
 					$.ajax({
 						type: "GET",
-						url: "/api/Terms/?offerMaskingName=&offerId=" + offerId,
+						url: "/api/Terms/?offerId=" + offerId,
 						dataType: 'json',
 						success: function (response) {
 							if (response != null)
@@ -662,7 +678,6 @@
 				}
 				else {
 					$("#terms").load("/statichtml/tnc.html");
-				   
 				}
 				$('#termspinner').hide();
 			}

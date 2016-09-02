@@ -1,4 +1,5 @@
 ﻿using Bikewale.Notifications;
+using Bikewale.Utility.Terms;
 using BikewaleOpr.DAL;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Interface;
@@ -7,7 +8,7 @@ using System;
 using System.Data;
 using System.Web;
 using System.Web.Http;
-
+using BikewaleOpr.Entity;
 namespace BikewaleOpr.Service
 {
     /// <summary>
@@ -105,15 +106,28 @@ namespace BikewaleOpr.Service
         /// <param name="offerValidTill"></param>
         /// <returns></returns>
         [HttpPost]
-        public IHttpActionResult UpdateDealerBikeOffers(uint offerId, uint userId, uint offerCategoryId, string offerText, uint? offerValue, DateTime offerValidTill, bool isPriceImpact,string terms)
+        public IHttpActionResult UpdateDealerBikeOffers(DealerOffersEntity dealerOffer)
         {
             try
             {
+               
+                bool isUpdated = false;
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IDealers, DealersRepository>();
                     IDealers objDealer = container.Resolve<DealersRepository>();
-                    objDealer.UpdateDealerBikeOffers(offerId, userId, offerCategoryId, offerText, offerValue, offerValidTill, isPriceImpact,terms);
+                    TermsHtmlFormatting htmlFormat = new TermsHtmlFormatting();
+                    dealerOffer.Terms = htmlFormat.MakeHtmlList(dealerOffer.Terms);
+                    
+                    isUpdated = objDealer.UpdateDealerBikeOffers(dealerOffer);
+                    if (isUpdated)
+                    {
+                        return Ok("Dealer Bike Offers Updated."); 
+                    }
+                    else
+                    {
+                        return InternalServerError();
+                    }
                 }
             }
             catch (Exception ex)
@@ -124,8 +138,6 @@ namespace BikewaleOpr.Service
 
                 return InternalServerError();
             }
-
-            return Ok("Dealer Bike Offers Updated.");
         }
 
         /// <summary>

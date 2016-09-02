@@ -27,7 +27,7 @@ namespace Bikewale.Mobile
         protected NewExpertReviewsWidget ctrlExpertReviews;
         protected NewVideosWidget ctrlVideos;
         protected MMostPopularBikes ctrlMostPopularBikes;
-        protected Repeater rptMostPopularBikes, rptDiscontinued;
+        protected Repeater rptMostPopularBikes, rptDiscontinued, rptTop;
         protected DealersCard ctrlDealerCard;
         protected LeadCaptureControl ctrlLeadCapture;
         protected bool isDescription = false;
@@ -176,8 +176,10 @@ namespace Bikewale.Mobile
         {
             BindMakePage objMake = new BindMakePage();
             objMake.totalCount = 6;
+            objMake.TopCount = 3;
             objMake.makeId = Convert.ToInt32(makeId);
-            objMake.BindMostPopularBikes(rptMostPopularBikes);
+            //objMake.BindMostPopularBikes(rptMostPopularBikes);
+            objMake.BindMostPopularBikes(rptMostPopularBikes, rptTop);
             //fetchedRecordsCount = objMake.FetchedRecordsCount;
             _make = objMake.Make;
             _bikeDesc = objMake.BikeDesc;

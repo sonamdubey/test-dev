@@ -5,11 +5,12 @@
     <div class="gallery-close-btn position-abt pos-top15 pos-right15 bwmsprite cross-md-white cur-pointer"></div>
 
     <div class="bw-tabs-panel">
-        <ul class="bw-tabs horizontal-tabs-wrapper <%= videoCount == 0 ? "hide" : "" %>">
+        <% if(videoCount > 0) { %>
+        <ul class="bw-tabs horizontal-tabs-wrapper">
             <li class="active" data-tabs="photos" id="photos-tab">Photos</li>
             <li data-tabs="videos" id="videos-tab">Videos</li>
         </ul>
-
+        <% } %>>
         <div id="bike-gallery-popup">
             <div class="bw-tabs-data" id="photos">
                 <div class="font14 text-white margin-bottom15">
@@ -53,7 +54,7 @@
                     </div>
                 </div>
             </div>
-
+            <% if(videoCount > 0) { %>
             <div class="bw-tabs-data" id="videos">
                 <div class="connected-carousels-videos">
                     <div class="stage-videos">
@@ -78,6 +79,7 @@
                     </div>
                 </div>
             </div>
+            <% } %>>
         </div>
     </div>
 </section>

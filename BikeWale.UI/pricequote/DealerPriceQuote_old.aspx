@@ -591,7 +591,7 @@
                 </div>
 				<h3>Terms and Conditions</h3>
                 <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
-                    <img src="/images/search-loading.gif" />
+                    <img src="http:/img2.aeplcdn.com/bikewaleimg/images/search-loading.gif" />
                 </div>
                 <div id="terms" class="breakup-text-container padding-bottom10 font14">
                 </div>
@@ -1131,7 +1131,7 @@
                     $('#terms').empty();
                     $.ajax({
                         type: "GET",
-                        url: "/api/Terms/?offerMaskingName=&offerId=" + offerId,
+                        url: "/api/Terms/?offerId=" + offerId,
                         dataType: 'json',
                         success: function (response) {
                             $('#termspinner').hide();

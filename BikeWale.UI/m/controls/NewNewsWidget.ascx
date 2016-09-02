@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.NewNewsWidget" %>
 
  <div id="makeNewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
-    <h2><%= WidgetTitle %> News</h2>
+    <h2 class="text-bold"><%= WidgetTitle %> News</h2>
     <asp:Repeater ID="rptNews" runat="server">
         <ItemTemplate>
             <div class="margin-bottom20">

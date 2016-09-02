@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Entities
 {
@@ -10,6 +6,8 @@ namespace Bikewale.Entities
     /// Created By : Lucky Rathore
     /// Created on : 15 march 2016
     /// Summary : To get offers provided by Dealers.
+    /// Updated by:Sangram Nandkhile on 25 Aug 2016
+    /// Summary: added IsOfferTerms
     /// </summary>
     public class OfferEntityBase
     {
@@ -20,5 +18,6 @@ namespace Bikewale.Entities
         public UInt32 OfferValue { get; set; }
         public DateTime OffervalidTill { get; set; }
         public uint DealerId { get; set; }
+        public bool IsOfferTerms { get; set; }
     }
 }
