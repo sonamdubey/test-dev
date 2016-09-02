@@ -65,7 +65,7 @@
 .viewMoreOffersBtn { cursor: pointer; color: #0288d1; margin-left:25px; }
 .viewBreakupText { cursor: pointer; color: #0288d1; margin-top:3px; }
 .breakup-header { width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:left; }
-.offers-sprite {background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v23Aug2016) no-repeat; display: inline-block;}
+.offers-sprite {background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v2Sep2016) no-repeat; display: inline-block;}
 #otpPopup { display:none; }
 .user-contact-details-icon { width:36px; height:44px; background-position: -107px -227px; }
 .otp-icon { width:30px; height:40px; background-position: -107px -177px; }
@@ -682,5 +682,9 @@ a.btn:hover {
 
     .float-button .btn {
         font-size: 15px;
+    }
+
+    .campaign-offer-label {
+        width: 75%;
     }
 }

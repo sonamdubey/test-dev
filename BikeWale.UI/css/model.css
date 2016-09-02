@@ -306,4 +306,6 @@ li.offertxt:hover span {display:inline}
     .floating-card-area-details { padding-left:0; }
     .prices-by-cities-list .grid-7 { width: 70px; }
     .model-user-review-title-container { width: 265px; }
+    #campaign-offer-list li { width: 170px; }
+    .campaign-offer-label { width:70%; }
 }
