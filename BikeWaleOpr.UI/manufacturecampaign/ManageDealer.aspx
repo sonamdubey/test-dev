@@ -2,7 +2,6 @@
 <!-- #Include file="/includes/headerNew.aspx" -->
 <style type="text/css">
     .greenMessage {color: #6B8E23;font-size: 11px;}
-    .redmsg {color: #FFCECE;}
     .errMessage {color: #FF4A4A;}
     .valign {vertical-align: top;}
     .progress-bar {width: 0;display: none;height: 2px;background: #16A085;bottom: 0px;left: 0;border-radius: 2px;}
@@ -37,61 +36,52 @@
                 </td>
             </tr>  
             <tr>
-                <th>Start / Stop Campaign :<b class='required'>*</b></th> 
+                <th>Start / Stop Campaign :</th> 
                 <td><asp:CheckBox runat="server" id="isActive" Checked="True" /></td>                  
             </tr>   
             <tr>
-                <th>Dealer Price Quote Page Desktop Template<b class='required'>*</b>                         
-                </th>
+                <th>Dealer Price Quote Page Desktop Template<span class="errorMessage">*</span></th>
                 <td>
                     <asp:textbox id="textBox1" textmode="multiline" multiline="true" height="100" width="300" runat="server" />                           
-                    <asp:CheckBox runat="server" id="CheckBox1" Checked="True" text ="Use Default Template" onclick="enableDisable(this.checked, 'textBox1')"/> 
+                    <asp:CheckBox runat="server" id="CheckBox1" Checked="True" text ="Use Default Template" onclick="enableDisableTextbox(this.checked, 'textBox1')"/> 
                     <asp:hiddenfield id="Hiddenfield1" runat="server" />
                 </td>
             </tr>   
             <tr>
-                <th>Dealer Price Quote Page Mobile Template<b class='required'>*</b></th>
+                <th>Dealer Price Quote Page Mobile Template<span class="errorMessage">*</span></th>
                 <td>
                     <asp:textbox id="textBox2" textmode="multiline" multiline="true" height="100" width="300" runat="server" />                        
-                    <asp:CheckBox runat="server" id="CheckBox2" Checked="True" text ="Use Default Template" onclick="enableDisable(this.checked, 'textBox2')"/> 
+                    <asp:CheckBox runat="server" id="CheckBox2" Checked="True" text ="Use Default Template" onclick="enableDisableTextbox(this.checked, 'textBox2')"/> 
                     <asp:hiddenfield id="Hiddenfield2" runat="server" />
                 </td>
             </tr> 
             <tr>
-                <th>Model Page Desktop Template<b class='required'>*</b>                         
-                </th>
+                <th>Model Page Desktop Template<span class="errorMessage">*</span></th>
                 <td>
                     <asp:textbox id="textBox3" textmode="multiline" multiline="true" height="100" width="300" runat="server"  />                           
-                    <asp:CheckBox runat="server" id="CheckBox3" Checked="True" text ="Use Default Template" onclick="enableDisable(this.checked, 'textBox3')"/> 
+                    <asp:CheckBox runat="server" id="CheckBox3" Checked="True" text ="Use Default Template" onclick="enableDisableTextbox(this.checked, 'textBox3')"/> 
                     <asp:hiddenfield id="Hiddenfield3" runat="server" />
                 </td>
             </tr>  
             <tr>
-                <th>Model Page Mobile Template<b class='required'>*</b>                         
-                </th>
+                <th>Model Page Mobile Template<span class="errorMessage">*</span></th>
                 <td>
                     <asp:textbox id="textBox4" textmode="multiline" multiline="true" height="100" width="300" runat="server" />                            
-                    <asp:CheckBox runat="server" id="CheckBox4" Checked="True" text ="Use Default Template" onclick="enableDisable(this.checked, 'textBox4')"/> 
+                    <asp:CheckBox runat="server" id="CheckBox4" Checked="True" text ="Use Default Template" onclick="enableDisableTextbox(this.checked, 'textBox4')"/> 
                     <asp:hiddenfield id="Hiddenfield4" runat="server" />
                 </td>
             </tr>             
             <tr>
-                <td colspan="2">
-                    <asp:button id="btnUpdate" onclientclick="return ValidateForm();"  runat="server" cssclass="padding10" />
-                </td>
-            </tr> 
-                       
+                <td colspan="2"><asp:button id="btnUpdate" onclientclick="return ValidateForm();"  runat="server" cssclass="padding10" /></td>
+            </tr>  
+            <% if (isEdit) { %>                      
             <tr>
-                <td colspan="2"> 
-                    <a href="/ManufactureCamapign/ManufacturerCampaignRules.aspx?campaignid=<%=campaignId%>&dealerid=<%=dealerId%>">manage rules for the campaign</a>
-                </td>
-                         
-            </tr>                    
+                <td colspan="2"><a href="/ManufactureCamapign/ManufacturerCampaignRules.aspx?campaignid=<%=campaignId%>&dealerid=<%=dealerId%>&manufactureName=<%=manufacturerName%>">manage rules for the campaign</a></td>                         
+            </tr>  
+             <%} %>                 
         </tbody>                                                                    
     </table>
             <asp:label class="errMessage margin-bottom10 margin-left10 required" id="lblErrorSummary" runat="server" />
-            <br />
-
 </div>
 
 <script type="text/javascript">
@@ -112,8 +102,8 @@
             
         }
 
-        //bindMaskingNumber(dealerId);
-        bindMaskingNumber(21079);
+        bindMaskingNumber(<%=dealerId%>);
+        //bindMaskingNumber(21079);
 
     });
 
@@ -130,7 +120,7 @@
         $('#hdnOldMaskingNumber').val($(this).find("option:selected").text());
     });
 
-    $("#releaseMaskingNumber").on("click", function () {
+    $("#releaseMaskingNumber").click(function () {
         var maskingNumber = $("#txtMaskingNumber").val();
         if (maskingNumber.length > 0) {
             releaseMaskingNumber(maskingNumber);
@@ -191,20 +181,42 @@
     }
 
 
-
-
-
-
-
-    function enableDisable(bEnable, textBoxID)
+    function enableDisableTextbox(bEnable, textBoxID)
     {
         $('#' + textBoxID).prop("disabled", bEnable);
         $('#lblGreenMessage').html('Please fill values');
     }
 
+    function modifyHtmlTemplate(ele)
+    {
+        try {
+            if (ele) {
+                var el = $("<section></section>");
+                d = el.html(ele.val());
+                $(d).find("#mfg_name").text("{0}");
+                $(d).find("#mfg_number").text("{1}");
+                var leadBtn = $(d).find(".leadcapturebtn");
+                if(leadBtn)
+                {
+                    leadBtn.attr("data-item-id","{2}");
+                    leadBtn.attr("data-item-area","{3}");
+                    leadBtn.attr("data-leadsourceid","{4}");
+                    leadBtn.attr("data-pqsourceid","{5}");
+                    leadBtn.attr("a","{6}");
+                    leadBtn.attr("c","{7}");
+                    leadBtn.attr("l","{8}");
+                }
+                ele.val(el.html());
+            }
+            
+        } catch (e) {
+            
+        }
+    }
+
     function ValidateForm() {
         var isValid = true;
-        $('#lblErrorSummary').html('');
+        
         $('.req').each(function () {
             if ($.trim($(this).val()) == '') {
                 isValid = false;
@@ -217,7 +229,15 @@
 
         if (!isValid) {
             $('#lblErrorSummary').html('Please fill values');
+            
         }
+        
+        $("textarea").each(function(){
+            var ele = $(this);
+            if(!ele.next().prop("checked"))
+                modifyHtmlTemplate(ele);
+        })
+        
         
         return isValid;
         }

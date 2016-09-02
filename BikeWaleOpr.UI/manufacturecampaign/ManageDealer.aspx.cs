@@ -6,6 +6,7 @@ using BikewaleOpr.Interface.ManufacturerCampaign;
 using BikeWaleOpr.Common;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -35,22 +36,7 @@ namespace BikewaleOpr.manufacturecampaign
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.QueryString["campaignid"] == null)
-            {
-                isEdit = false;                
-            }
-            else
-            {
-                campaignId = Convert.ToInt32(Request.QueryString["campaignid"]);
-                if (!IsPostBack)
-                {
-                    ShowData(campaignId); 
-                }
-            }
-            dealerId = Convert.ToInt32(Request.QueryString["dealerid"]);
-            userId = Convert.ToInt32(CurrentUser.Id);
-
-            manufacturerName = Request.QueryString["manufactureName"];
+            IntializeCampaignDetails();   
         }
 
         protected override void OnInit(EventArgs e)
@@ -60,7 +46,30 @@ namespace BikewaleOpr.manufacturecampaign
            // dealerCampaign = new ManageDealerCampaign();
 
         }
-    
+        
+        /// <summary>
+        /// Created by : Sajal Gupta on 01/09/2016
+        /// Description : This will intialize variables.
+        /// </summary>
+        private void IntializeCampaignDetails()
+        {
+            if (Request.QueryString["campaignid"] == null)
+            {
+                isEdit = false;
+            }
+            else
+            {
+                campaignId = Convert.ToInt32(Request.QueryString["campaignid"]);
+                if (!IsPostBack)
+                {
+                    ShowData(campaignId);
+                }
+            }
+            dealerId = Convert.ToInt32(Request.QueryString["dealerid"]);
+            userId = Convert.ToInt32(CurrentUser.Id);
+            manufacturerName = Request.QueryString["manufactureName"];
+        }
+        
         /// <summary>
         /// Created by : SajalGupta on 30/08/2016
         /// Description : This function binds the data to the textboxes;
@@ -141,6 +150,7 @@ namespace BikewaleOpr.manufacturecampaign
         {
             string templateHtml1, templateHtml2, templateHtml3, templateHtml4;
             int templateId1 = 0, templateId2 = 0, templateId3 = 0, templateId4 = 0;
+            List<ManuCamEntityForTemplate> objList = new List<ManuCamEntityForTemplate>();
             try
             {
                 using (IUnityContainer container = new UnityContainer())
@@ -188,7 +198,13 @@ namespace BikewaleOpr.manufacturecampaign
                             templateId4 = 4;
                         }
 
-                        objMfgCampaign.SaveManufacturerCampaignTemplate(templateHtml1, templateId1, templateHtml2, templateId2, templateHtml3, templateId3, templateHtml4, templateId4, userId, campaignId);
+                        objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml1, TemplateId = templateId1 });
+                        objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml2, TemplateId = templateId2 });
+                        objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml3, TemplateId = templateId3 });
+                        objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml4, TemplateId = templateId4 });
+
+                        objMfgCampaign.SaveManufacturerCampaignTemplate(objList, userId, campaignId);        
+                        Response.Redirect("/ManufactureCamapign/ManageDealer.aspx?campaignid="+campaignId+"&dealerid="+dealerId+"&manufactureName="+manufacturerName);
 
                     }
                     else
@@ -233,7 +249,13 @@ namespace BikewaleOpr.manufacturecampaign
                             templateHtml4 = null;
                             templateId4 = 4;
                         }
-                        objMfgCampaign.UpdateBWDealerCampaign(campaignDescription.Text.Trim(), (isActive.Checked ? 1 : 0), hdnOldMaskingNumber.Value, dealerId, userId, campaignId, templateHtml1, templateId1, templateHtml2, templateId2, templateHtml3, templateId3, templateHtml4, templateId4);
+
+                        objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml1, TemplateId = templateId1 });
+                        objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml2, TemplateId = templateId2 });
+                        objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml3, TemplateId = templateId3 });
+                        objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml4, TemplateId = templateId4 });
+
+                        objMfgCampaign.UpdateBWDealerCampaign(campaignDescription.Text.Trim(), (isActive.Checked ? 1 : 0), hdnOldMaskingNumber.Value, dealerId, userId, campaignId, objList);
                         ShowData(campaignId);                       
                     }
 

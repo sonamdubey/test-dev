@@ -77,6 +77,7 @@
     <Compile Include="FacilityEntity.cs" />
     <Compile Include="GeoLocationDestinationEntity.cs" />
     <Compile Include="GeoLocationEntity.cs" />
+    <Compile Include="ManufacturerCampaign\ManuCamEntityForTemplate.cs" />
     <Compile Include="ManufacturerCampaign\ManufacturerCampaignEntity.cs" />
     <Compile Include="MfgNewRulesEntity.cs" />
     <Compile Include="MakeEntity.cs" />
