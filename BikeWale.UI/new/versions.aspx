@@ -952,7 +952,7 @@
                             <li>
                                 <div class="model-accordion-tab">
                                     <span class="model-sprite dimension-sm-icon margin-right10"></span>
-                                    <span class="inline-block">Dimensions & chasis</span>
+                                    <span class="inline-block">Dimensions & chassis</span>
                                     <span class="bwsprite accordion-angle-icon"></span>
                                 </div>
                                 <div class="specs-features-list">
@@ -992,7 +992,7 @@
                             <li>
                                 <div class="model-accordion-tab">
                                     <span class="model-sprite fuel-sm-icon margin-right10"></span>
-                                    <span class="inline-block">Fuel effeciency & performance</span>
+                                    <span class="inline-block">Fuel efficiency & performance</span>
                                     <span class="bwsprite accordion-angle-icon"></span>
                                 </div>
                                 <div class="specs-features-list">
