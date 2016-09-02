@@ -33,16 +33,20 @@ namespace Bikewale.Mobile.Controls
                 var cookies = this.Context.Request.Cookies;
                 if (cookies.AllKeys.Contains("location"))
                 {
-                    string cookieLocation = cookies["location"].Value;
+                    string cookieLocation = cookies["location"].Value.Replace('-',' ');
                     if (!String.IsNullOrEmpty(cookieLocation) && cookieLocation.IndexOf('_') != -1)
                     {
                         string[] locArray = cookieLocation.Split('_');
-
-                        if (Convert.ToUInt16(locArray[0]) > 0)
+                        if (locArray!=null && locArray.Length > 0)
                         {
-                            CityId = Convert.ToUInt32(locArray[0]);
-                            if (locArray.Length > 3)
-                                AreaId = Convert.ToUInt32(locArray[2]);
+                            uint _cityId;
+                            if (UInt32.TryParse(locArray[0], out _cityId) && _cityId > 0)
+                            {
+                                CityId = _cityId;
+                                uint _areaId;
+                                if (locArray.Length > 3 && UInt32.TryParse(locArray[2], out _areaId) && _areaId > 0)
+                                    AreaId = _areaId;
+                            } 
                         }
                     }
                 }
