@@ -1,6 +1,8 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Used.BikeDetails" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" EnableViewState="false" Inherits="Bikewale.Mobile.Used.BikeDetails" %>
+
 <%@ Register Src="~/m/controls/SimilarUsedBikes.ascx" TagPrefix="BW" TagName="SimilarUsedBikes" %>
 <%@ Register Src="~/m/controls/OtherUsedBikeByCity.ascx" TagPrefix="BW" TagName="OtherUsedBikes" %>
+<%@ Register Src="~/m/controls/UploadPhotoRequestPopup.ascx" TagPrefix="BW" TagName="UploadPhotoRequestPopup" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +32,8 @@
             <div class="container bg-white clearfix box-shadow margin-bottom10">
                 <h1 class="font16 padding-top15 padding-right20 padding-bottom15 padding-left20"><%= modelYear %>, <%= bikeName %></h1>
                 <div id="model-main-image">
-                    <%if(inquiryDetails.PhotosCount > 0) { %>
+                    <%if (inquiryDetails.PhotosCount > 0)
+                      { %>
                     <a href="javascript:void(0)" class="<%= inquiryDetails.PhotosCount > 1 ? "model-gallery-target " : string.Empty %>" rel="nofollow">
                         <img src="<%= (firstImage!=null) ? Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImagePath,firstImage.HostUrl,Bikewale.Utility.ImageSize._360x202) : string.Empty %>" alt="<%= bikeName %>" title="<%= bikeName %>" />
                         <div class="model-media-details">
@@ -40,16 +43,22 @@
                             </div>
                         </div>
                     </a>
-                    <% } else  { %>
+                    <% }
+                      else
+                      { %>
                     <div class=" no-image-content ">
                         <span class="bwmsprite no-image-icon"></span>
                         <p class="font12 text-bold text-light-grey margin-top5 margin-bottom15">Seller has not uploaded any photos</p>
+                        <% if (!isPhotoRequestDone)
+                           { %>
                         <a href="javascript:void(0)" id="request-media-btn" class="btn btn-inv-teal btn-sm font14 text-bold" rel="nofollow">Request photos</a>
+                        <% } %>
                     </div>
                     <% } %>
                 </div>
-                <% if (inquiryDetails.MinDetails!=null) { %>
-                
+                <% if (inquiryDetails.MinDetails != null)
+                   { %>
+
                 <div class="margin-right20 margin-left20 padding-top15 padding-bottom15 border-bottom-light font14">
                     <% if (!string.IsNullOrEmpty(modelYear))
                        { %>
@@ -58,20 +67,22 @@
                         <span class="model-details-label"><%= modelYear %> model</span>
                     </div>
                     <% } %>
-                    <% if(inquiryDetails.MinDetails.KmsDriven > 0) { %>
+                    <% if (inquiryDetails.MinDetails.KmsDriven > 0)
+                       { %>
                     <div class="grid-6 omega margin-bottom5">
                         <span class="bwmsprite kms-driven-icon"></span>
                         <span class="model-details-label"><%= Bikewale.Utility.Format.FormatPrice(inquiryDetails.MinDetails.KmsDriven.ToString()) %> kms</span>
                     </div>
                     <% } %>
-                    <% if(!string.IsNullOrEmpty(inquiryDetails.MinDetails.OwnerType)) { %>
+                    <% if (!string.IsNullOrEmpty(inquiryDetails.MinDetails.OwnerType))
+                       { %>
                     <div class="grid-6 alpha omega margin-bottom5">
                         <span class="bwmsprite author-grey-sm-icon"></span>
                         <span class="model-details-label"><%= Bikewale.Utility.Format.AddNumberOrdinal(Convert.ToUInt16(inquiryDetails.MinDetails.OwnerType),4) %> owner</span>
                     </div>
                     <% } %>
-                     <% if (!string.IsNullOrEmpty(inquiryDetails.MinDetails.RegisteredAt))
-                        { %>
+                    <% if (!string.IsNullOrEmpty(inquiryDetails.MinDetails.RegisteredAt))
+                       { %>
                     <div class="grid-6 omega margin-bottom5">
                         <span class="bwmsprite model-loc-icon"></span>
                         <span class="model-details-label"><%= inquiryDetails.MinDetails.RegisteredAt %></span>
@@ -88,7 +99,8 @@
                 </div>
                 <% } %>
 
-                <% if(inquiryDetails.OtherDetails!=null) { %>
+                <% if (inquiryDetails.OtherDetails != null)
+                   { %>
                 <div class="margin-right20 margin-left20 padding-top15 padding-bottom20 font14">
                     <p class="text-bold margin-bottom15">Ad details</p>
                     <ul class="specs-features-list">
@@ -108,13 +120,13 @@
                             <p class="specs-features-label">Manufacturing year</p>
                             <p class="specs-features-value"><%= Bikewale.Utility.FormatDate.GetFormatDate(inquiryDetails.MinDetails.ModelYear.ToString(),"MMM yyyy") %></p>
                         </li>
-                         <% if (!string.IsNullOrEmpty(inquiryDetails.OtherDetails.Color.ColorName))
-                            { %>
+                        <% if (!string.IsNullOrEmpty(inquiryDetails.OtherDetails.Color.ColorName))
+                           { %>
                         <li>
                             <p class="specs-features-label">Colour</p>
                             <p class="specs-features-value"><%= inquiryDetails.OtherDetails.Color.ColorName %></p>
                         </li>
-                         <%} %>
+                        <%} %>
                         <li>
                             <p class="specs-features-label">Bike registered at</p>
                             <p class="specs-features-value"><%= inquiryDetails.OtherDetails.RegisteredAt %></p>
@@ -129,8 +141,8 @@
                         </li>
                     </ul>
                     <div class="clear"></div>
-                      <% if (!string.IsNullOrEmpty(inquiryDetails.OtherDetails.Description))
-                            { %>
+                    <% if (!string.IsNullOrEmpty(inquiryDetails.OtherDetails.Description))
+                       { %>
                     <div class="margin-bottom15 padding-top15 border-bottom-light"></div>
                     <p class="text-bold margin-bottom15">Ad description</p>
                     <p class="text-light-grey"><%= inquiryDetails.OtherDetails.Description %></p>
@@ -145,89 +157,93 @@
                 <div id="model-overall-specs-wrapper">
                     <div id="overall-specs-tab" class="overall-specs-tabs-container">
                         <ul class="overall-specs-tabs-wrapper">
-                            <% if (inquiryDetails.SpecsFeatures!=null) { %>
+                            <% if (inquiryDetails.SpecsFeatures != null)
+                               { %>
                             <li data-tabs="#modelSpecs" class="active">Specifications</li>
                             <li data-tabs="#modelFeatures">Features</li>
                             <% } %>
-                            <% if(ctrlSimilarUsedBikes.FetchedRecordsCount >0){ %>
+                            <% if (ctrlSimilarUsedBikes.FetchedRecordsCount > 0)
+                               { %>
                             <li class="<%= (inquiryDetails.SpecsFeatures!=null)?string.Empty:"active" %>" data-tabs="#modelSimilar">Similar bikes</li>
                             <% } %>
-                            <% if(ctrlOtherUsedBikes.FetchedRecordsCount >0){ %>
+                            <% if (ctrlOtherUsedBikes.FetchedRecordsCount > 0)
+                               { %>
                             <li data-tabs="#modelOtherBikes">Other bikes</li>
                             <% } %>
                         </ul>
                     </div>
                 </div>
 
-               <% if (inquiryDetails.SpecsFeatures!=null) { %>
-                    <div id="modelSpecs" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 font14 border-solid-bottom">
-                        <h2 class="margin-bottom20">Specification summary</h2>
-                        <ul class="specs-features-list">
-                            <li>
-                                <p class="specs-features-label">Displacement</p>
-                                <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.Displacement,"cc") %></p>
-                            </li>
-                            <li>
-                                <p class="specs-features-label">Max Power</p>
-                                <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.MaxPower, "bhp",inquiryDetails.SpecsFeatures.MaxPowerRPM, "rpm") %></p>
-                            </li>
-                            <li>
-                                <p class="specs-features-label">Maximum Torque</p>
-                                <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.MaximumTorque, "Nm",inquiryDetails.SpecsFeatures.MaximumTorqueRPM, "rpm") %></p>
-                            </li>
-                            <li>
-                                <p class="specs-features-label">No. of gears</p>
-                                <p class="specs-features-value"><%= inquiryDetails.SpecsFeatures.NoOfGears %></p>
-                            </li>
-                            <li>
-                                <p class="specs-features-label">Mileage</p>
-                                <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.FuelEfficiencyOverall, "kmpl") %></p>
-                            </li>
-                            <li>
-                                <p class="specs-features-label">Brake Type</p>
-                                <p class="specs-features-value"> <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.BrakeType) %></p>
-                            </li>
-                        </ul>
-                        <div class="clear"></div>
+                <% if (inquiryDetails.SpecsFeatures != null)
+                   { %>
+                <div id="modelSpecs" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 font14 border-solid-bottom">
+                    <h2 class="margin-bottom20">Specification summary</h2>
+                    <ul class="specs-features-list">
+                        <li>
+                            <p class="specs-features-label">Displacement</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.Displacement,"cc") %></p>
+                        </li>
+                        <li>
+                            <p class="specs-features-label">Max Power</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.MaxPower, "bhp",inquiryDetails.SpecsFeatures.MaxPowerRPM, "rpm") %></p>
+                        </li>
+                        <li>
+                            <p class="specs-features-label">Maximum Torque</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.MaximumTorque, "Nm",inquiryDetails.SpecsFeatures.MaximumTorqueRPM, "rpm") %></p>
+                        </li>
+                        <li>
+                            <p class="specs-features-label">No. of gears</p>
+                            <p class="specs-features-value"><%= inquiryDetails.SpecsFeatures.NoOfGears %></p>
+                        </li>
+                        <li>
+                            <p class="specs-features-label">Mileage</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.FuelEfficiencyOverall, "kmpl") %></p>
+                        </li>
+                        <li>
+                            <p class="specs-features-label">Brake Type</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.BrakeType) %></p>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
 
-                        <div class="margin-top15">
-                            <a href="/m<%= moreBikeSpecsUrl %>" title="<%= string.Format("{0} Specifications",bikeName) %>">View full specifications<span class="bwmsprite blue-right-arrow-icon"></span></a>
-                        </div>
+                    <div class="margin-top15">
+                        <a href="/m<%= moreBikeSpecsUrl %>" title="<%= string.Format("{0} Specifications",bikeName) %>">View full specifications<span class="bwmsprite blue-right-arrow-icon"></span></a>
                     </div>
+                </div>
 
-                    <div id="modelFeatures" class="bw-model-tabs-data margin-right20 margin-left20 padding-top20 padding-bottom20 font14 border-solid-bottom">
-                        <h2 class="margin-bottom20">Features summary</h2>
-                        <ul class="specs-features-list">
-                            <li>
-                                <p class="specs-features-label">Speedometer</p>
-                                <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.Speedometer) %></p>
-                            </li>
-                            <li>
-                                <p class="specs-features-label">Fuel Guage</p>
-                                <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.FuelGauge) %></p>
-                            </li>
-                            <li>
-                                <p class="specs-features-label">Tachometer Type</p>
-                                <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.TachometerType) %></p>
-                            </li>
-                            <li>
-                                <p class="specs-features-label">Digital Fuel Guage</p>
-                                <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.DigitalFuelGauge) %></p>
-                            </li>
-                            <li>
-                                <p class="specs-features-label">Tripmeter</p>
-                                <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.Tripmeter) %></p>
-                            </li>
-                            <li>
-                                <p class="specs-features-label">Electric Start</p>
-                                <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.ElectricStart) %></p>
-                            </li>
-                        </ul>
-                        <div class="clear"></div>
-                        <div class="margin-top15">
-                            <a href="/m<%= moreBikeFeaturesUrl %>" title="<%= string.Format("{0} Features",bikeName) %>">View full features<span class="bwmsprite blue-right-arrow-icon"></span></a>
-                        </div>
+                <div id="modelFeatures" class="bw-model-tabs-data margin-right20 margin-left20 padding-top20 padding-bottom20 font14 border-solid-bottom">
+                    <h2 class="margin-bottom20">Features summary</h2>
+                    <ul class="specs-features-list">
+                        <li>
+                            <p class="specs-features-label">Speedometer</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.Speedometer) %></p>
+                        </li>
+                        <li>
+                            <p class="specs-features-label">Fuel Guage</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.FuelGauge) %></p>
+                        </li>
+                        <li>
+                            <p class="specs-features-label">Tachometer Type</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.TachometerType) %></p>
+                        </li>
+                        <li>
+                            <p class="specs-features-label">Digital Fuel Guage</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.DigitalFuelGauge) %></p>
+                        </li>
+                        <li>
+                            <p class="specs-features-label">Tripmeter</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.Tripmeter) %></p>
+                        </li>
+                        <li>
+                            <p class="specs-features-label">Electric Start</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.ElectricStart) %></p>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                    <div class="margin-top15">
+                        <a href="/m<%= moreBikeFeaturesUrl %>" title="<%= string.Format("{0} Features",bikeName) %>">View full features<span class="bwmsprite blue-right-arrow-icon"></span></a>
                     </div>
+                </div>
                 <% } %>
                 <!-- Similar used bikes starts -->
                 <BW:SimilarUsedBikes ID="ctrlSimilarUsedBikes" runat="server" />
@@ -239,55 +255,57 @@
             <div id="modelSpecsFooter"></div>
         </section>
 
-        <% if(inquiryDetails.PhotosCount > 1) { %>
-       <!-- gallery start -->
+        <% if (inquiryDetails.PhotosCount > 1)
+           { %>
+        <!-- gallery start -->
         <div id="model-gallery-container">
-    <p class="font16 text-white"><%=modelYear %>, <%= bikeName %> Photos</p>
-    <div class="gallery-close-btn position-abt pos-top15 pos-right15 bwmsprite cross-md-white cur-pointer"></div>
+            <p class="font16 text-white"><%=modelYear %>, <%= bikeName %> Photos</p>
+            <div class="gallery-close-btn position-abt pos-top15 pos-right15 bwmsprite cross-md-white cur-pointer"></div>
 
-    <div id="bike-gallery-popup">
-        <div class="font14 text-white margin-bottom15">
-            <span class="leftfloat media-title"></span>
-            <span class="rightfloat gallery-count"></span>
-            <div class="clear"></div>
-        </div>
-        <div class="connected-carousels-photos">
-            <div class="stage-photos">
-                <div class="swiper-container noSwiper carousel-photos carousel-stage-photos">
-                    <div class="swiper-wrapper">
-                        <asp:Repeater ID="rptUsedBikePhotos" runat="server">
-                            <ItemTemplate>
-                                <div class="swiper-slide">
-                                    <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._360x202) %>" alt="<%= bikeName %>" title="<%= bikeName %>" />
-                                    <span class="swiper-lazy-preloader"></span>
-                                </div>
-                            </ItemTemplate>
-                        </asp:Repeater>
+            <div id="bike-gallery-popup">
+                <div class="font14 text-white margin-bottom15">
+                    <span class="leftfloat media-title"></span>
+                    <span class="rightfloat gallery-count"></span>
+                    <div class="clear"></div>
+                </div>
+                <div class="connected-carousels-photos">
+                    <div class="stage-photos">
+                        <div class="swiper-container noSwiper carousel-photos carousel-stage-photos">
+                            <div class="swiper-wrapper">
+                                <asp:Repeater ID="rptUsedBikePhotos" runat="server">
+                                    <ItemTemplate>
+                                        <div class="swiper-slide">
+                                            <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._360x202) %>" alt="<%= bikeName %>" title="<%= bikeName %>" />
+                                            <span class="swiper-lazy-preloader"></span>
+                                        </div>
+                                        Request the seller to upload photos of this bike
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </div>
+                            <div class="bwmsprite swiper-button-next"></div>
+                            <div class="bwmsprite swiper-button-prev"></div>
+                        </div>
                     </div>
-                    <div class="bwmsprite swiper-button-next"></div>
-                    <div class="bwmsprite swiper-button-prev"></div>
+
+                    <div class="navigation-photos">
+                        <div class="swiper-container noSwiper carousel-navigation-photos">
+                            <div class="swiper-wrapper">
+                                <asp:Repeater ID="rptUsedBikeNavPhotos" runat="server">
+                                    <ItemTemplate>
+                                        <div class="swiper-slide">
+                                            <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>" alt="<%= bikeName %>" title="<%= bikeName %>" />
+                                            <span class="swiper-lazy-preloader"></span>
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </div>
+                            <div class="bwmsprite swiper-button-next hide"></div>
+                            <div class="bwmsprite swiper-button-prev hide"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <div class="navigation-photos">
-                <div class="swiper-container noSwiper carousel-navigation-photos">
-                    <div class="swiper-wrapper">
-                        <asp:Repeater ID="rptUsedBikeNavPhotos" runat="server">
-                            <ItemTemplate>
-                                <div class="swiper-slide">
-                                    <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>" alt="<%= bikeName %>" title="<%= bikeName %>" />
-                                    <span class="swiper-lazy-preloader"></span>
-                                </div>
-                            </ItemTemplate>
-                        </asp:Repeater>
-                    </div>
-                    <div class="bwmsprite swiper-button-next hide"></div>
-                    <div class="bwmsprite swiper-button-prev hide"></div>
-                </div>
-            </div>
         </div>
-    </div>
-</div>
         <!-- gallery end -->
         <% } %>
         <!-- get seller details pop up start  -->
@@ -402,63 +420,14 @@
             </div>
         </div>
         <!-- get seller details pop up end  -->
+        <%if (inquiryDetails.PhotosCount == 0)
+          { %>
 
-        <!-- request for image popup start -->
-        <div id="request-media-popup" class="bw-popup bwm-fullscreen-popup">
-            <div class="popup-inner-container text-center">
-                <div class="bwmsprite close-btn request-media-close position-abt pos-top20 pos-right20"></div>
-                <div id="requester-details-section">
-                    <div class="icon-outer-container rounded-corner50percent margin-bottom10">
-                        <div class="icon-inner-container rounded-corner50percent">
-                            <span class="bwmsprite request-media-icon margin-top15"></span>
-                        </div>
-                    </div>
-                    <p class="font18 text-bold margin-bottom10">Request photos</p>
-                    <p class="font14 text-light-grey margin-bottom25">Request the seller to upload photos of this bike</p>
-
-                    <div class="input-box form-control-box margin-bottom10">
-                        <input type="text" id="requesterName" />
-                        <label for="requesterName">Name<sup>*</sup></label>
-                        <span class="boundary"></span>
-                        <span class="error-text"></span>
-                    </div>
-                    <div class="input-box form-control-box margin-bottom10">
-                        <input type="email" id="requesterEmail" />
-                        <label for="requesterEmail">Email<sup>*</sup></label>
-                        <span class="boundary"></span>
-                        <span class="error-text"></span>
-                    </div>
-                    <div class="input-box input-number-box form-control-box margin-bottom15">
-                        <input type="tel" id="requesterMobile" maxlength="10" />
-                        <label for="requesterMobile">Mobile number<sup>*</sup></label>
-                        <span class="input-number-prefix">+91</span>
-                        <span class="boundary"></span>
-                        <span class="error-text"></span>
-                    </div>
-                    <a class="btn btn-orange btn-fixed-width" id="submit-requester-details-btn">Get details</a>
-                </div>
-
-                <div id="request-sent-section">
-                    <div class="icon-outer-container rounded-corner50percent margin-bottom10">
-                        <div class="icon-inner-container rounded-corner50percent">
-                            <span class="bwmsprite thankyou-icon margin-top15"></span>
-                        </div>
-                    </div>
-                    <p class="font18 text-bold margin-bottom10">Request sent!</p>
-                    <p class="font14 text-light-grey margin-bottom25">
-                        We have requested seller to upload photos.<br />
-                        We will let you know as soon as the seller uploads it.
-                    </p>
-
-                    <a class="btn btn-orange" id="submit-request-sent-btn">Done</a>
-                </div>
-            </div>
-        </div>
-        <!-- request for image popup ends -->
-
+        <BW:UploadPhotoRequestPopup runat="server" ID="widgetUploadPhotoRequest"></BW:UploadPhotoRequestPopup>
+        <%} %>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/used-details.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/used-details.js?<%= staticFileVersion%>"></script>
     </form>
 </body>
 </html>

@@ -1,4 +1,5 @@
 ﻿
+using Bikewale.Entities.Customer;
 using Bikewale.Entities.Used;
 namespace Bikewale.Interfaces.Used
 {
@@ -9,5 +10,6 @@ namespace Bikewale.Interfaces.Used
     public interface IUsedBikeBuyer
     {
         bool UploadPhotosRequest(PhotoRequest request);
+        BikeInterestDetails ShowInterestInBike(CustomerEntityBase buyer, string profileId, bool isDealer);
     }
 }

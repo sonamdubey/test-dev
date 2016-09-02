@@ -31,6 +31,7 @@ namespace Bikewale.DAL.Used
                 {
                     using (DbCommand cmd = DbFactory.GetDBCommand("classified_getsellerdetails"))
                     {
+                        cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, Convert.ToInt32(inquiryId)));
 
                         using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))

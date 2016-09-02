@@ -1,4 +1,5 @@
 ﻿
+using System;
 namespace Bikewale.Interfaces.Used
 {
     /// <summary>
@@ -8,7 +9,9 @@ namespace Bikewale.Interfaces.Used
     public interface IUsedBikeBuyerRepository
     {
         bool IsBuyerEligible(string mobile);
-        bool UploadPhotosRequest(string sellInquiryId, string buyerId, byte consumerType, string buyerMessage);
-        bool HasShownInterestInUsedBike(bool isDealer, string inquiryId, string customerId);
+        bool UploadPhotosRequest(string sellInquiryId, UInt64 buyerId, byte consumerType, string buyerMessage);
+        bool HasShownInterestInUsedBike(bool isDealer, string inquiryId, UInt64 buyerId);
+        bool IsPhotoRequestDone(string sellInquiryId, UInt64 buyerId, bool isDealer);
+
     }
 }

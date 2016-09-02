@@ -782,6 +782,10 @@
       <DependentUpon>MNewLaunchedBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\UploadPhotoRequestPopup.ascx.cs">
+      <DependentUpon>UploadPhotoRequestPopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\UsedBikePhotoGallery.ascx.cs">
       <DependentUpon>UsedBikePhotoGallery.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2204,6 +2208,7 @@
     <Content Include="m\controls\LocateDealer.ascx" />
     <Content Include="m\controls\MMostPopularBikes.ascx" />
     <Content Include="m\controls\MNewLaunchedBikes.ascx" />
+    <Content Include="m\controls\UploadPhotoRequestPopup.ascx" />
     <Content Include="m\controls\UsedBikePhotoGallery.ascx" />
     <Content Include="m\controls\ModelGallery.ascx" />
     <Content Include="m\controls\ModelPriceInNearestCities.ascx" />

@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.Customer;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Notifications.MailTemplates;
 using Bikewale.Notifications.MailTemplates.UsedBikes;
@@ -343,10 +344,10 @@ namespace Bikewale.Notifications
         /// <param name="buyerContact"></param>
         /// <param name="bikeName"></param>
         /// <param name="listingUrl"></param>
-        public static void UsedBikePhotoRequestEmailToIndividual(string sellerEmail, string sellerName, string buyerName, string buyerContact, string bikeName, string listingUrl)
+        public static void UsedBikePhotoRequestEmailToIndividual(CustomerEntityBase seller, CustomerEntityBase buyer, string bikeName, string listingUrl)
         {
-            ComposeEmailBase objEmail = new PhotoRequestEmailToIndividualSellerTemplate(sellerName, buyerName, buyerContact, bikeName, listingUrl);
-            objEmail.Send(sellerEmail, "Upload Bike Photos");
+            ComposeEmailBase objEmail = new PhotoRequestEmailToIndividualSellerTemplate(seller.CustomerName, buyer.CustomerName, buyer.CustomerMobile, bikeName, listingUrl);
+            objEmail.Send(seller.CustomerEmail, "Upload Bike Photos");
         }
 
     }

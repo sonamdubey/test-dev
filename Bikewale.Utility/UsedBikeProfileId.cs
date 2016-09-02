@@ -27,7 +27,7 @@ namespace Bikewale.Utility
         /// </summary>
         /// <param name="profileId"></param>
         /// <returns></returns>
-        public static void GetInquiryId(string profileId, out string inquiryId, out string consumerType)
+        public static void SplitProfileId(string profileId, out string inquiryId, out string consumerType)
         {
             if (IsValidProfileId(profileId))
             {

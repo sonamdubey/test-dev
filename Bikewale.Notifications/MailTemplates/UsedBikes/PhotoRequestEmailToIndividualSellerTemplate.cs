@@ -12,7 +12,7 @@ namespace Bikewale.Notifications.MailTemplates.UsedBikes
         public PhotoRequestEmailToIndividualSellerTemplate(string sellerName, string buyerName, string buyerContact, string bikeName, string listingUrl)
         {
             this.sellerName = sellerName;
-            this.buyerContact = buyerName;
+            this.buyerName = buyerName;
             this.buyerContact = buyerContact;
             this.bikeName = bikeName;
             this.listingUrl = listingUrl;
@@ -25,7 +25,7 @@ namespace Bikewale.Notifications.MailTemplates.UsedBikes
             {
                 sb.AppendFormat("Dear {0},", sellerName);
                 sb.AppendFormat("<p>{0} ({1}) has requested you to upload photos of your {2} on BikeWale. You can upload photos of your bike using the following link.</p>", buyerName, buyerContact, bikeName);
-                sb.AppendFormat("<p>{0}</p>", listingUrl);
+                sb.AppendFormat("<p><a target='_blank' href='{0}'>{0}</a></p>", listingUrl);
                 sb.Append("<p>A study done by us shows that bikes with photos sell 24% faster than without photos. It also helps buyers make a faster decision.</p>");
                 sb.Append("<p>If you have any difficulty, please feel free to contact us.</p>");
                 sb.Append("<p>Warm Regards,</p>");

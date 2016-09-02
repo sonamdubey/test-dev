@@ -55,7 +55,7 @@ namespace Bikewale.DAL.Used
         /// <param name="consumerType"></param>
         /// <param name="buyerMessage"></param>
         /// <returns></returns>
-        public bool UploadPhotosRequest(string sellInquiryId, string buyerId, byte consumerType, string buyerMessage)
+        public bool UploadPhotosRequest(string sellInquiryId, UInt64 buyerId, byte consumerType, string buyerMessage)
         {
             bool isDone = false;
             try
@@ -64,7 +64,7 @@ namespace Bikewale.DAL.Used
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_sellinquiryid", DbType.Int64, sellInquiryId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_buyerid", DbType.Int64, buyerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_buyerid", DbType.Int64, Convert.ToUInt64(buyerId)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_consumertype", DbType.Byte, consumerType));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_buyermessage", DbType.String, 200, buyerMessage));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CommonOpn.GetClientIP()));
@@ -86,9 +86,9 @@ namespace Bikewale.DAL.Used
         /// </summary>
         /// <param name="isDealer"></param>
         /// <param name="inquiryId"></param>
-        /// <param name="customerId"></param>
+        /// <param name="buyerId"></param>
         /// <returns></returns>
-        public bool HasShownInterestInUsedBike(bool isDealer, string inquiryId, string customerId)
+        public bool HasShownInterestInUsedBike(bool isDealer, string inquiryId, UInt64 buyerId)
         {
             bool shownInterest = false;
             string sql = "";
@@ -105,7 +105,7 @@ namespace Bikewale.DAL.Used
                     using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                     {
                         cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbType.Int64, inquiryId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("@customerid", DbType.Int64, customerId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("@customerid", DbType.Int64, buyerId));
 
                         using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                         {
@@ -120,10 +120,46 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, String.Format("HasShownInterestInUsedBike({0},{1},{2})", isDealer, inquiryId, customerId));
+                ErrorClass objErr = new ErrorClass(err, String.Format("HasShownInterestInUsedBike({0},{1},{2})", isDealer, inquiryId, buyerId));
                 objErr.SendMail();
             }
             return shownInterest;
+        }
+
+
+        public bool IsPhotoRequestDone(string sellInquiryId, UInt64 buyerId, bool isDealer)
+        {
+            bool isDone = false;
+
+            string sql = "";
+            sql = "select sellinquiryid from classified_uploadphotosrequest where sellinquiryid = @par_sellinquiryid and buyerid = @par_buyerid and consumertype = @par_consumertype ";
+
+            string consumerType = isDealer ? "1" : "2";
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
+                {
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@par_sellinquiryid", DbType.Int64, sellInquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@par_buyerid", DbType.Int64, buyerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@par_consumertype", DbType.Byte, consumerType));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            isDone = true;
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("IsPhotoRequestDone({0},{1},{2})", sellInquiryId, buyerId, isDealer));
+                objErr.SendMail();
+            }
+
+            return isDone;
         }
     }
 }

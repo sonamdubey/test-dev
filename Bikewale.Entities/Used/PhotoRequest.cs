@@ -8,7 +8,7 @@ namespace Bikewale.Entities.Used
     /// </summary>
     public class PhotoRequest
     {
-        public CustomerEntityBase Customer { get; set; }
+        public CustomerEntityBase Buyer { get; set; }
         public string Message { get; set; }
         public string ProfileId { get; set; }
         public string BikeName { get; set; }

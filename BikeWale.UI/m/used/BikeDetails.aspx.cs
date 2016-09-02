@@ -1,7 +1,12 @@
 ﻿using Bikewale.BindViewModels.Webforms.Used;
+using Bikewale.DAL.Used;
+using Bikewale.Entities.Customer;
 using Bikewale.Entities.Used;
+using Bikewale.Interfaces.Used;
 using Bikewale.Mobile.Controls;
 using Bikewale.Notifications;
+using Bikewale.Utility;
+using Microsoft.Practices.Unity;
 using System;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -19,8 +24,8 @@ namespace Bikewale.Mobile.Used
         protected ClassifiedInquiryDetails inquiryDetails = null;
         protected UsedBikePhotoGallery ctrlUsedBikeGallery;
         protected Repeater rptUsedBikeNavPhotos, rptUsedBikePhotos;
-        protected bool isPageNotFound;
-
+        protected bool isPageNotFound, isPhotoRequestDone;
+        protected UploadPhotoRequestPopup widgetUploadPhotoRequest;
         public SimilarUsedBikes ctrlSimilarUsedBikes;
         public OtherUsedBikeByCity ctrlOtherUsedBikes;
 
@@ -45,8 +50,35 @@ namespace Bikewale.Mobile.Used
 
             if (!isPageNotFound)
             {
+                widgetUploadPhotoRequest.ProfileId = profileId;
+                widgetUploadPhotoRequest.BikeName = bikeName;
                 BindUsedBikePhotos();
                 BindUserControls();
+
+                if (inquiryDetails.PhotosCount == 0)
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        bool isDealer;
+                        byte consumer = default(byte);
+                        string inquiryId = "", consumerType = "";
+                        CustomerEntityBase buyer = new CustomerEntityBase();
+
+                        BWCookies.GetBuyerDetailsFromCookie(ref buyer);
+
+                        if (buyer.CustomerId > 0)
+                        {
+                            container.RegisterType<IUsedBikeBuyerRepository, UsedBikeBuyerRepository>();
+                            IUsedBikeBuyerRepository _buyerRepo = container.Resolve<IUsedBikeBuyerRepository>();
+                            UsedBikeProfileId.SplitProfileId(profileId, out inquiryId, out consumerType);
+                            //set bool for dealer listing or individual
+                            isDealer = consumerType.Equals("D", StringComparison.CurrentCultureIgnoreCase);
+
+                            isPhotoRequestDone = _buyerRepo.IsPhotoRequestDone(inquiryId, buyer.CustomerId, isDealer);
+                        }
+
+                    }
+                }
             }
             else
             {
