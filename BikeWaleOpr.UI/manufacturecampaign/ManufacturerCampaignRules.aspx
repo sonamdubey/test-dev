@@ -1,23 +1,17 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.manufacturecampaign.ManufacturerCampaignRules" enableEventValidation="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.manufacturecampaign.ManufacturerCampaignRules" EnableEventValidation="false" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <!-- #Include file="/includes/headerWithoutForm.aspx" -->
-<head runat="server">
+<head>
     <title>Campaign Rules</title>
-      <style type="text/css">
-        .greenMessage {
-            color:#6B8E23;
-            font-size: 11px;
-        }
-        .redmsg{
-            color: #FFCECE;
-        }
-        .errMessage {color:#FF4A4A;}
-        .valign { vertical-align: top;}
+    <style type="text/css">
+        .greenMessage { color: #6B8E23; font-size: 11px; }
+        .redmsg { color: #FFCECE; }
+        .errMessage { color: #FF4A4A; }
+        .valign { vertical-align: top; }
     </style>
-    <script type="text/javascript" src="/BikeWale.UI/src/frameworks.js"></script>
+    <link rel="stylesheet" href="/css/chosen.min.css" />
     <script src="/src/chosen.jquery.min.js"></script>
     <script type="text/javascript">
         $(function () {
@@ -26,65 +20,53 @@
             });
         });
     </script>
-    <link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" /> 
-   <link rel="stylesheet" href="/css/chosen.min.css"/>
-
 </head>
-    
 <body>
-    
-   <form id="form1" runat="server">
-       <div class="margin-left20">
+    <form id="mfgRuleForm" runat="server">
+        <div class="margin-left20">
         <!-- #Include file="/content/DealerMenu.aspx" -->
-    </div>
-        <fieldset class="margin-left10" style="width:1100px">
-            <legend>Add a New Rule</legend>
-            <div id="box" class="box">
-                <table>
-                    <tr>
-                        <td class="valign margin-left20">Make:
-                            <asp:DropDownList ID="ddlMake" name="make" runat="server" Width="100%" />
-                        </td>
-                        <td class="valign margin-left20">Model:
-                            <asp:ListBox ID="ddlModel" SelectionMode="multiple" runat="server" style="width:100%;height: 100px;" />
-                            <asp:HiddenField ID="hdnSelectedModel" runat="server" />
-                        </td>
-                        <td class="valign margin-left20">All India:
-                            <asp:CheckBox ID="selAllIndia" runat="server"  Width="100%" />
-                        </td>
-                        <td class="valign margin-left20">City:
-                          <asp:DropDownList class="chosen-select" runat="server" multiple="true" name="cities" id="ddlCity" Width="100%"/>
-                              <asp:HiddenField ID="hdnSelectedCities" runat="server" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="margin-left20">
-                            <asp:Button runat="server" ID="btnSaveRule" OnClientClick="return ValidateForm();" Text="Save" />
-                        </td>
-                    </tr>
-                </table>
+        </div>
+        <div class="left min-height600"> 
+            <h1>Manage Campaign Rules For <%=manufactureName %></h1>           
+            <fieldset class="margin-top10">
+                <legend>Add New Campaign Rules</legend>
+                <div id="box" class="box">
+                    <table>
+                        <tr>
+                            <td class="valign margin-left20">Make:
+                                <asp:DropDownList ID="ddlMake" name="make" runat="server" Width="100%" />
+                            </td>
+                            <td class="valign margin-left20">Model:
+                                <asp:ListBox ID="ddlModel" SelectionMode="multiple" runat="server" Style="width: 100%; height: 100px;" />
+                                <asp:HiddenField ID="hdnSelectedModel" runat="server" />
+                            </td>
+                            <td class="valign margin-left20">All India:
+                                <asp:CheckBox ID="chkAllIndia" runat="server" Width="100%" />
+                            </td>
+                            <td class="valign margin-left20">City:
+                              <asp:DropDownList class="chosen-select" runat="server" multiple="true" name="cities" ID="ddlCity" Width="100%" />
+                                <asp:HiddenField ID="hdnSelectedCities" runat="server" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="margin-left20">
+                                <asp:Button runat="server" ID="btnSaveRule" OnClientClick="return validateMfgRuleForm();" Text="Save Rules" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </fieldset>
+            <div>
+                <asp:Label class="redmsg errMessage margin-bottom10 margin-left10 greenMessage" ID="lblErrorSummary" runat="server" />                
+                <asp:Label class="greenMessage margin-bottom10 margin-left10" ID="lblGreenMessage" runat="server" />                
             </div>
-        </fieldset>
-       <div style="margin-left:205px;margin-top:10px;margin-bottom:10px">
-        <asp:Label class="redmsg errMessage margin-bottom10 margin-left10 greenMessage" ID="lblErrorSummary" runat="server" />
-        <br />
-        <asp:Label class="greenMessage margin-bottom10 margin-left10" ID="lblGreenMessage" runat="server" />
-        <br />
-           </div>
-       <div style="margin-left:210px">
-        <% 
-            if(rptRules.DataSource!= null){ 
-        %>
-       
-        <asp:Button runat="server" OnClientClick="return deleteRules();" class="margin-bottom10 margin-left10" ID="btnDeleteRules" Text="Delete" />
-        <br />
-        <% 
-            } 
-        %>
-        <asp:Repeater ID="rptRules" runat="server">
-                    <HeaderTemplate>
-                        <h1 >Added Rule(s) :</h1>
-                        <br />
+            <div>
+                <% if (rptRules.DataSource != null)
+                   { %>
+                <h3>Existing Rules for</h3>
+                <asp:Button runat="server" OnClientClick="return deleteRules();" class="margin-bottom10 margin-top20" ID="btnDeleteRules" Text="Delete Rules" />                
+                <asp:Repeater ID="rptRules" runat="server">
+                    <HeaderTemplate>                        
                         <table border="1" style="border-collapse: collapse;" cellpadding="5">
                             <tr style="background-color: #D4CFCF;">
                                 <th>
@@ -93,45 +75,45 @@
                                         <input type="checkbox" runat="server" id="chkAll" />
                                     </div>
                                 </th>
-								<th>Make</th>
+                                <th>Make</th>
                                 <th>Model</th>
                                 <th>Location</th>
-                                
+
                             </tr>
                     </HeaderTemplate>
-            
                     <ItemTemplate>
-                    <tr>
-                           <td align="center">
-                                <input type="checkbox" class="checkboxAll" id="chkOffer_<%# DataBinder.Eval(Container.DataItem,"CampaignRuleId") %>" RuleId="<%# DataBinder.Eval(Container.DataItem,"CampaignRuleId") %>" />
-                           </td>
+                        <tr>
+                            <td align="center">
+                                <input type="checkbox" class="checkboxAll" id="chkOffer_<%# DataBinder.Eval(Container.DataItem,"CampaignRuleId") %>" ruleid="<%# DataBinder.Eval(Container.DataItem,"CampaignRuleId") %>" />
+                            </td>
                             <td><%# Eval("MakeName").ToString() %></td>
                             <td><%# Eval("ModelName").ToString() %></td>
                             <td><%# Eval("StateName").ToString()==""?Eval("CityName").ToString():string.Format("{0},{1}",Eval("CityName").ToString(),Eval("StateName").ToString()) %></td>
-                     </tr>
+                        </tr>
                     </ItemTemplate>
-            
                     <FooterTemplate>
                         </table>
                     </FooterTemplate>
                 </asp:Repeater>
-           </div>
-        <asp:HiddenField ID="hdnCheckedRules" runat="server" Value="" />
+                <% } %>
+            </div>
+            <asp:HiddenField ID="hdnCheckedRules" runat="server" Value="" />
+        </div>
+        
         <script type="text/javascript">
             $(document).ready(function () {
-             $("#ddlModel").append("<option value='0' title=''> -- Select Models --</option>");
-                      });
-           
-           
+              //  $("#ddlModel").append("<option value='0' title=''> -- Select Models --</option>");
+            });
+
             $("#ddlMake").change(function () {
                 $("#lblSaved").text("");
                 $("#ddlModel").val("0").attr("disabled", "disabled");
                 if ($("#ddlMake").val() > 0) {
                     GetModels(this);
-                      }
+                }
                 $('#hdnSelectedModel').val('');
             });
-         
+
 
             $("#ddlCity").change(function () {
                 $('#hdnSelectedCities').val($("#ddlCity").val());
@@ -146,17 +128,17 @@
                 }
             });
 
-            function ValidateForm() {
-                var isAllIndia = $("#selAllIndia").prop("checked");
-               
+            function validateMfgRuleForm() {
+                var isAllIndia = $("#chkAllIndia").prop("checked");
+
                 $('#lblErrorSummary').html('');
                 if (isAllIndia) {
                     if ($("#ddlModel").val() == null) {
-                        alert('Select values from List');
+                        alert('Please select bike models');
                         return false;
                     }
                     else if ($("#ddlMake").val() == 0 || $("#ddlModel").val() == 0) {
-                        alert('Select values from List')
+                        alert('Please select bike make')
                         return false;
                     }
                     else {
@@ -167,11 +149,11 @@
                 }
                 else {
                     if ($("#ddlCity").val() == null || $("#ddlModel").val() == null) {
-                        alert('Select values from List');
+                        alert('Please select cities');
                         return false;
                     }
                     else if ($("#ddlMake").val() == 0 || $("#ddlCity").val() == 0 || $("#ddlModel").val() == 0) {
-                        alert('Select values from List')
+                        alert('Please select make, model and city')
                         return false;
                     }
                     else {
@@ -181,7 +163,8 @@
                     }
                 }
             }
-            function deleteRules () {
+
+            function deleteRules() {
                 var isSuccess = false;
                 var ruleIds = '';
                 $('.checkboxAll').each(function () {
@@ -196,6 +179,7 @@
 
                 if (isSuccess) {
                     $('#hdnCheckedRules').val(ruleIds);
+                    $('.checkboxAll').prop("checked") = false;
                     return true;
                 }
                 else {
@@ -224,7 +208,7 @@
                     $("#ddlModel").val("0").attr("disabled", "disabled");
                 }
             }
-           
+
             function bindDropDownList(response, cmbToFill, viewStateId, selectString) {
                 if (response.Table != null) {
                     $(cmbToFill).empty();
@@ -241,12 +225,12 @@
                             hdnValues += "|" + response.Table[i].Text + "|" + response.Table[i].Value;
                     }
                     if (viewStateId) $("#" + viewStateId).val(hdnValues);
-                    
+
 
                 }
             }
         </script>
-    </form>  
-  
+    </form>
+
 </body>
 </html>

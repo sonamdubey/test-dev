@@ -146,7 +146,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         /// Description: Fetches a list of all cities and states
         /// </summary>
         /// <returns></returns>
-        public List<MfgCityEntity> GetManufacturerCities()
+        public IEnumerable<MfgCityEntity> GetManufacturerCities()
         {
             List<MfgCityEntity> AllMfgcities = null;
             try
@@ -191,7 +191,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         /// <param name="campaignId"></param>
         /// <param name="dealerId"></param>
         /// <returns></returns>
-        public List<MfgCampaignRulesEntity> FetchManufacturerCampaignRules(int campaignId)
+        public IEnumerable<MfgCampaignRulesEntity> FetchManufacturerCampaignRules(int campaignId)
         {
             List<MfgCampaignRulesEntity> dtManufacturerCampaignRules = null;
 
@@ -243,9 +243,9 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         /// </summary>
         /// <param name="MgfRules"></param>
         /// <returns></returns>
-        public bool SaveManufacturerCampaignRules(MfgNewRulesEntity MgfRules)
+        public int SaveManufacturerCampaignRules(MfgNewRulesEntity MgfRules)
         {
-            bool isSuccess = false;
+            int rowsInserted = 0;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("savemanufacturercampaignrules"))
@@ -256,17 +256,28 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, MgfRules.UserId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelids", DbType.String, MgfRules.ModelIds));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isallindia", DbType.Boolean, MgfRules.IsAllIndia));
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
 
-                    isSuccess = true;
+
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+
+                            dr.Read();
+                            rowsInserted = Convert.ToInt32(dr["rowsAffected"]);
+                            dr.Close();
+                        }
+                    }
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.SaveManufacturerCampaignRules");
                 objErr.SendMail();
+                rowsInserted = -1;
             }
-            return isSuccess;
+            return rowsInserted;
         }
 
         /// <summary>
@@ -466,7 +477,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         }
 
 
-      
+
         /// <summary>
         /// Created By : Sajal Gupta on 31/08/2016
         /// Description : THis method will relese masking number from db against given campaign id;

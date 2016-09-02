@@ -2,11 +2,10 @@
 using BikewaleOpr.DALs.ManufactureCampaign;
 using BikewaleOpr.Entities;
 using BikeWaleOpr.Common;
-using BikeWaleOpr.VO;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Web.UI.WebControls;
 
 namespace BikewaleOpr.manufacturecampaign
@@ -18,9 +17,10 @@ namespace BikewaleOpr.manufacturecampaign
     public class ManufacturerCampaignRules : System.Web.UI.Page
     {
         #region variable
+        public string manufactureName;
         public int campaignId, currentUserId, makeId;
         List<string> distinctModels = null;
-        public DropDownList ddlMake,ddlCity;
+        public DropDownList ddlMake, ddlCity;
         public ListBox ddlModel;
         public Button btnSaveRule, btnDeleteRules;
         public Repeater rptRules;
@@ -30,39 +30,41 @@ namespace BikewaleOpr.manufacturecampaign
         public ManageDealerCampaignRule campaign = null;
         public HiddenField hdnSelectedModel, hdnSelectedCities, hdnCheckedRules;
         public Label lblGreenMessage, lblErrorSummary;
-        public CheckBox selAllIndia;
+        public CheckBox chkAllIndia;
         #endregion
 
         #region events
 
         protected override void OnInit(EventArgs e)
         {
-            currentUserId = Convert.ToInt32(CurrentUser.Id);
             this.Load += new EventHandler(Page_Load);
-            btnSaveRule.Click += new EventHandler(SaveRules);
-            btnDeleteRules.Click += new EventHandler(DeleteRules);
-           
+            btnSaveRule.Click += new EventHandler(SaveMfgCampaignRules);
+            btnDeleteRules.Click += new EventHandler(DeleteMfgCampaignRules);
+
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            currentUserId = Convert.ToInt32(CurrentUser.Id);
+            ParseQueryString();
             SetPageVariables();
             if (!IsPostBack)
             {
-                selAllIndia.Checked = true;
+                chkAllIndia.Checked = true;
                 campaign = new ManageDealerCampaignRule();
             }
-            FillDropDowns();            
+            FillDropDowns();
             lblGreenMessage.Text = string.Empty;
             lblErrorSummary.Text = string.Empty;
         }
 
-        protected void SaveRules(object sender, EventArgs e)
+        protected void SaveMfgCampaignRules(object sender, EventArgs e)
         {
             MfgAddRules = new MfgNewRulesEntity();
+            int _rowsInserted;
             try
             {
-                MfgAddRules.IsAllIndia = selAllIndia.Checked;
+                MfgAddRules.IsAllIndia = chkAllIndia.Checked;
                 MfgAddRules.UserId = currentUserId;
                 MfgAddRules.CampaignId = campaignId;
                 MfgAddRules.ModelIds = hdnSelectedModel.Value;
@@ -70,13 +72,18 @@ namespace BikewaleOpr.manufacturecampaign
                     MfgAddRules.CityIds = "0";
                 else
                     MfgAddRules.CityIds = hdnSelectedCities.Value;
-                if (MfgCampaign.SaveManufacturerCampaignRules(MfgAddRules))
+                _rowsInserted = MfgCampaign.SaveManufacturerCampaignRules(MfgAddRules);
+                if (_rowsInserted > 0)
                 {
                     lblGreenMessage.Text = "Rule(s) have been added !";
                 }
+                else if (_rowsInserted < 0)
+                {
+                    lblErrorSummary.Text = "Some error occurred";
+                }
                 else
                 {
-                    lblErrorSummary.Text = "Some error has occurred !";
+                    lblErrorSummary.Text = "Rule(s) already exist";
                 }
 
                 BindRules();
@@ -92,44 +99,46 @@ namespace BikewaleOpr.manufacturecampaign
 
         #region functions
 
-       /// <summary>
-       /// Created By: Aditi Srivastava on 26 Aug 2016
-       /// Description: Set make id
-       /// </summary>
+        /// <summary>
+        /// Created By: Aditi Srivastava on 26 Aug 2016
+        /// Description: Set make id
+        /// </summary>
         private void SetPageVariables()
         {
-               if (!string.IsNullOrEmpty(ddlMake.SelectedValue))
+            if (!string.IsNullOrEmpty(ddlMake.SelectedValue))
                 makeId = Convert.ToInt32(ddlMake.SelectedValue);
-           }
+        }
         /// <summary>
         /// Created By: Aditi Srivastava on 30 Aug 2016
         /// Description: Set preselected make and models according to campaign id
         /// </summary>
         /// <param name="Rules"></param>
-        private void SetSelectedMakeModels(List<MfgCampaignRulesEntity> Rules)
+        private void SetSelectedMakeModels(IEnumerable<MfgCampaignRulesEntity> Rules)
         {
-            if (Rules != null)
-            {
-                try
-                {
 
+            try
+            {
+                if (Rules != null)
+                {
                     ddlMake.Items.FindByText(Rules.FirstOrDefault() != null ? Rules.FirstOrDefault().MakeName : string.Empty).Selected = true;
                     distinctModels = Rules.GroupBy(s => s.ModelName).Select(s => s.First().ModelName).ToList();
                     FillModels(ddlMake.SelectedItem.Value);
                     if (distinctModels != null)
-                    foreach (ListItem item in ddlModel.Items)
-                    {
-                        if (distinctModels.Contains(item.Text))
-                            item.Selected = true;
-                    }  
+                        foreach (ListItem item in ddlModel.Items)
+                        {
+                            if (distinctModels.Contains(item.Text))
+                                item.Selected = true;
+                        }
                 }
-                catch (Exception ex)
-                {
-                    Trace.Warn(ex.Message);
-                    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.ManufacturerCampaign.SetSelectedMakeModels");
-                    
-                }
-                }
+
+            }
+            catch (Exception ex)
+            {
+                Trace.Warn(ex.Message);
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.ManufacturerCampaign.SetSelectedMakeModels");
+
+            }
+
         }
         /// <summary>
         /// Created By: Aditi Srivastava on 26 Aug 2016
@@ -145,11 +154,12 @@ namespace BikewaleOpr.manufacturecampaign
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     ddlMake.DataSource = dt;
-                    ddlMake.DataTextField = "Text"; 
+                    ddlMake.DataTextField = "Text";
                     ddlMake.DataValueField = "Value";
                     ddlMake.DataBind();
+                    ddlMake.Items.Insert(0, new ListItem("-- Select Make --", "0"));
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -170,14 +180,14 @@ namespace BikewaleOpr.manufacturecampaign
             {
                 DataTable dt;
                 MakeModelVersion mmv = new MakeModelVersion();
-                dt = mmv.GetModels(makeId,"New");
+                dt = mmv.GetModels(makeId, "New");
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     ddlModel.DataSource = dt;
-                    ddlModel.DataTextField = "Text"; 
-                    ddlModel.DataValueField = "Value"; 
+                    ddlModel.DataTextField = "Text";
+                    ddlModel.DataValueField = "Value";
                     ddlModel.DataBind();
-                    }
+                }
             }
             catch (Exception ex)
             {
@@ -195,15 +205,15 @@ namespace BikewaleOpr.manufacturecampaign
         {
             try
             {
-                List<MfgCityEntity> cities = new List<MfgCityEntity>();
+                IEnumerable<MfgCityEntity> cities = new List<MfgCityEntity>();
                 cities = MfgCampaign.GetManufacturerCities();
-                if (cities != null && cities.Count > 0)
+                if (cities != null && cities.Count() > 0)
                 {
                     ddlCity.DataSource = cities;
                     ddlCity.DataTextField = "CityName";
                     ddlCity.DataValueField = "CityId";
                     ddlCity.DataBind();
-                    
+
                 }
             }
             catch (Exception ex)
@@ -216,7 +226,6 @@ namespace BikewaleOpr.manufacturecampaign
 
         private void FillDropDowns()
         {
-            ParseQueryString();
             FillMakes();
             FillCities();
             if (!IsPostBack)
@@ -231,7 +240,7 @@ namespace BikewaleOpr.manufacturecampaign
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void DeleteRules(object sender, EventArgs e)
+        private void DeleteMfgCampaignRules(object sender, EventArgs e)
         {
             try
             {
@@ -239,6 +248,7 @@ namespace BikewaleOpr.manufacturecampaign
                 {
                     MfgCampaign.DeleteManufacturerCampaignRules(currentUserId, hdnCheckedRules.Value);
                     BindRules();
+
                     lblErrorSummary.Text = "Selected rules have been deleted !";
                 }
             }
@@ -248,7 +258,7 @@ namespace BikewaleOpr.manufacturecampaign
                 objErr.SendMail();
             }
         }
-       
+
         private void ParseQueryString()
         {
             try
@@ -257,7 +267,15 @@ namespace BikewaleOpr.manufacturecampaign
                 {
                     campaignId = Convert.ToInt32(Request.QueryString["campaignId"]);
                 }
-                
+                if (campaignId == 0 || string.IsNullOrEmpty(Request.QueryString["campaignid"]))
+                {
+                    Response.Redirect("/manufacturecampaign/SearchManufacturerCampaign.aspx");
+                }
+                if (!string.IsNullOrEmpty(Request.QueryString["manufactureName"]))
+                {
+                    manufactureName = Request.QueryString["manufactureName"].ToString();
+                }
+
             }
             catch (Exception ex)
             {
@@ -266,19 +284,28 @@ namespace BikewaleOpr.manufacturecampaign
             }
         }
 
-        
+
         private void BindRules()
         {
             try
             {
                 rptRules.DataSource = null;
-                List<MfgCampaignRulesEntity> campaignRules = MfgCampaign.FetchManufacturerCampaignRules(campaignId);
-                if (campaignRules != null && campaignRules.Count > 0)
+                IEnumerable<MfgCampaignRulesEntity> campaignRules = MfgCampaign.FetchManufacturerCampaignRules(campaignId);
+                if (campaignRules != null && campaignRules.Count() > 0)
                 {
                     rptRules.DataSource = campaignRules;
+                    rptRules.DataBind();
+                    SetSelectedMakeModels(campaignRules);
                 }
-                rptRules.DataBind();
-                SetSelectedMakeModels(campaignRules);
+                else
+                {
+                    FillCities();
+                    FillMakes();
+                    ddlModel.Items.Clear();
+                    ddlModel.Items.Insert(0, "--Select Models--");
+
+
+                }
 
             }
             catch (Exception ex)
