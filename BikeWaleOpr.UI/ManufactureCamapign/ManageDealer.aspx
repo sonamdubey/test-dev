@@ -2,7 +2,6 @@
 <!-- #Include file="/includes/headerNew.aspx" -->
 <style type="text/css">
     .greenMessage {color: #6B8E23;font-size: 11px;}
-    .redmsg {color: #FFCECE;}
     .errMessage {color: #FF4A4A;}
     .valign {vertical-align: top;}
     .progress-bar {width: 0;display: none;height: 2px;background: #16A085;bottom: 0px;left: 0;border-radius: 2px;}
@@ -188,9 +187,36 @@
         $('#lblGreenMessage').html('Please fill values');
     }
 
+    function modifyHtmlTemplate(ele)
+    {
+        try {
+            if (ele) {
+                var el = $("<section></section>");
+                d = el.html(ele.val());
+                $(d).find("#mfg_name").text("{0}");
+                $(d).find("#mfg_number").text("{1}");
+                var leadBtn = $(d).find(".leadcapturebtn");
+                if(leadBtn)
+                {
+                    leadBtn.attr("data-item-id","{2}");
+                    leadBtn.attr("data-item-area","{3}");
+                    leadBtn.attr("data-leadsourceid","{4}");
+                    leadBtn.attr("data-pqsourceid","{5}");
+                    leadBtn.attr("a","{6}");
+                    leadBtn.attr("c","{7}");
+                    leadBtn.attr("l","{8}");
+                }
+                ele.val(el.html());
+            }
+            
+        } catch (e) {
+            
+        }
+    }
+
     function ValidateForm() {
         var isValid = true;
-        $('#lblErrorSummary').html('');
+        
         $('.req').each(function () {
             if ($.trim($(this).val()) == '') {
                 isValid = false;
@@ -203,7 +229,15 @@
 
         if (!isValid) {
             $('#lblErrorSummary').html('Please fill values');
+            
         }
+        
+        $("textarea").each(function(){
+            var ele = $(this);
+            if(!ele.next().prop("checked"))
+                modifyHtmlTemplate(ele);
+        })
+        
         
         return isValid;
         }

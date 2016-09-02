@@ -1906,6 +1906,14 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AppNotification.BAL\AppNotification.BAL.csproj">
+      <Project>{82f0b6f7-7ad4-454b-9a8c-86b60a19a3a8}</Project>
+      <Name>AppNotification.BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AppNotification.DAL\AppNotification.DAL.csproj">
+      <Project>{3ec7dae3-11b5-497b-bfe7-075bc7a8882e}</Project>
+      <Name>AppNotification.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
       <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>
       <Name>Bikewale.Notifications</Name>
