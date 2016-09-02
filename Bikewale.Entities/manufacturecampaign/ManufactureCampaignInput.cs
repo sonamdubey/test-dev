@@ -20,5 +20,7 @@ namespace Bikewale.Entities.manufacturecampaign
         public string GACategory { get; set; }
 
         public string GALabel { get; set; }
+
+        public bool IsMaskingNumner { get; set; }
     }
 }

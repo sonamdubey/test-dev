@@ -1,5 +1,6 @@
 ﻿using BikewaleOpr.Entities;
 using BikewaleOpr.Entity.ContractCampaign;
+using BikewaleOpr.Entity.ManufacturerCampaign;
 using System.Collections.Generic;
 
 namespace BikewaleOpr.Interface.ManufacturerCampaign

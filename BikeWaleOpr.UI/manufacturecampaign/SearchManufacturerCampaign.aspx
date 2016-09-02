@@ -37,7 +37,7 @@
         <td data-bind="text: isactive ? 'Active' : 'In-Acitve'"></td>
         <td><a  data-bind="attr: { href: '/manufacturecampaign/ManufacturerCampaignRules.aspx?campaignid=' + id + '&dealerid=' + dealerid }" target="_blank"><img src="http://opr.carwale.com/images/edit.jpg" alt="Edit"/></a></td>
         <td>
-            <a  data-bind="attr: { href: '/manufacturecampaign/ManageDealer.aspx?campaignid=' + id + '&dealerid=' + dealerid + '&manufactureName=' + encodeURIComponent(manufactureName) }"  target="_blank"><img src="http://opr.carwale.com/images/edit.jpg" alt="Edit"/></a>
+            <a  data-bind="attr: { href: '/manufacturecampaign/ManufacturerManageDealer.aspx?campaignid=' + id + '&dealerid=' + dealerid + '&manufactureName=' + encodeURIComponent(manufactureName) }"  target="_blank"><img src="http://opr.carwale.com/images/edit.jpg" alt="Edit"/></a>
         </td>            
         <td><input  type="button"  data-bind="event: { click: function (data, event) { $parent.ChangeStatus(data, event); } }, value: (isactive ? 'Stop' : 'Start')" class="margin-left20"/></td>
              
@@ -59,7 +59,7 @@
            dealerId = ddlManufacturers.val();
            manufactureName = ddlManufacturers.find("option:selected").text();
             if (!isNaN(dealerId) && dealerId > 0) {
-                var url = BwOprHostUrl + '/manufacturecampaign/ManageDealer.aspx?manufactureName=' + encodeURIComponent(manufactureName) + '&dealerid=' + dealerId;
+                var url = BwOprHostUrl + '/manufacturecampaign/ManufacturerManageDealer.aspx?manufactureName=' + encodeURIComponent(manufactureName) + '&dealerid=' + dealerId;
                 window.location.href = url;
             }
             else {

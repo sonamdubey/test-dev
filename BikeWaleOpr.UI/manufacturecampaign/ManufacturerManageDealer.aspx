@@ -76,7 +76,7 @@
             </tr>  
             <% if (isEdit) { %>                      
             <tr>
-                <td colspan="2"><a href="/ManufactureCamapign/ManufacturerCampaignRules.aspx?campaignid=<%=campaignId%>&dealerid=<%=dealerId%>&manufactureName=<%=manufacturerName%>">manage rules for the campaign</a></td>                         
+                <td colspan="2"><a href="/manufacturecampaign/ManufacturerCampaignRules.aspx?campaignid=<%=campaignId%>&dealerid=<%=dealerId%>&manufactureName=<%=manufacturerName%>">manage rules for the campaign</a></td>                         
             </tr>  
              <%} %>                 
         </tbody>                                                                    
@@ -194,7 +194,10 @@
                 var el = $("<section></section>");
                 d = el.html(ele.val());
                 $(d).find("#mfg_name").text("{0}");
-                $(d).find("#mfg_number").text("{1}");
+                var maskingNum = $(d).find("#mfg_number");
+                $(maskingNum).text("{1}").attr("class","{9}");
+                $(maskingNum).prev().attr("class","{9}");
+                $(d)
                 var leadBtn = $(d).find(".leadcapturebtn");
                 if(leadBtn)
                 {

@@ -1,18 +1,11 @@
 ﻿using BikewaleOpr.DALs.ManufactureCampaign;
-using BikewaleOpr.Entities;
-using BikewaleOpr.Entity;
 using BikewaleOpr.Entity.ManufacturerCampaign;
 using BikewaleOpr.Interface.ManufacturerCampaign;
 using BikeWaleOpr.Common;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace BikewaleOpr.manufacturecampaign
@@ -36,17 +29,17 @@ namespace BikewaleOpr.manufacturecampaign
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            IntializeCampaignDetails();   
+            IntializeCampaignDetails();
         }
 
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
             btnUpdate.Click += new EventHandler(InserOrUpdateDealerCampaign);
-           // dealerCampaign = new ManageDealerCampaign();
+            // dealerCampaign = new ManageDealerCampaign();
 
         }
-        
+
         /// <summary>
         /// Created by : Sajal Gupta on 01/09/2016
         /// Description : This will intialize variables.
@@ -69,7 +62,7 @@ namespace BikewaleOpr.manufacturecampaign
             userId = Convert.ToInt32(CurrentUser.Id);
             manufacturerName = Request.QueryString["manufactureName"];
         }
-        
+
         /// <summary>
         /// Created by : SajalGupta on 30/08/2016
         /// Description : This function binds the data to the textboxes;
@@ -88,13 +81,13 @@ namespace BikewaleOpr.manufacturecampaign
                     int count = 0;
                     int pageId, isDefault;
                     string templateHtml;
-                    foreach(var campaignDetails in dataReader)
+                    foreach (var campaignDetails in dataReader)
                     {
-                        if(count == 0)
+                        if (count == 0)
                         {
                             campaignDescription.Text = campaignDetails.CampaignDescription;
                             txtMaskingNumber.Text = campaignDetails.CampaignMaskingNumber;
-                            if(campaignDetails.IsActive == 1)
+                            if (campaignDetails.IsActive == 1)
                             {
                                 isActive.Checked = true;
                             }
@@ -111,9 +104,9 @@ namespace BikewaleOpr.manufacturecampaign
                         HiddenField control2 = FindControl("Hiddenfield" + pageId) as HiddenField;
                         control2.Value = campaignDetails.TemplateId.ToString();
 
-                        if(isDefault == 1)
+                        if (isDefault == 1)
                         {
-                            CheckBox control = FindControl("CheckBox"+pageId) as CheckBox;
+                            CheckBox control = FindControl("CheckBox" + pageId) as CheckBox;
                             control.Checked = true;
 
                             TextBox control1 = FindControl("TextBox" + pageId) as TextBox;
@@ -127,9 +120,9 @@ namespace BikewaleOpr.manufacturecampaign
                             TextBox control1 = FindControl("TextBox" + pageId) as TextBox;
                             control1.Text = campaignDetails.TemplateHtml;
                             control1.Enabled = true;
-                        }                        
+                        }
                         count++;
-                    }                    
+                    }
                 }
             }
             catch (Exception ex)
@@ -160,8 +153,8 @@ namespace BikewaleOpr.manufacturecampaign
                     if (!isEdit)
                     {
                         campaignId = objMfgCampaign.InsertBWDealerCampaign(campaignDescription.Text.Trim(), (isActive.Checked ? 1 : 0), hdnOldMaskingNumber.Value, dealerId, userId);
-                    
-                        if(!CheckBox1.Checked)
+
+                        if (!CheckBox1.Checked)
                         {
                             templateHtml1 = textBox1.Text.Trim();
                         }
@@ -181,7 +174,7 @@ namespace BikewaleOpr.manufacturecampaign
                         }
                         if (!CheckBox3.Checked)
                         {
-                            templateHtml3 = textBox3.Text.Trim();                            
+                            templateHtml3 = textBox3.Text.Trim();
                         }
                         else
                         {
@@ -203,8 +196,8 @@ namespace BikewaleOpr.manufacturecampaign
                         objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml3, TemplateId = templateId3 });
                         objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml4, TemplateId = templateId4 });
 
-                        objMfgCampaign.SaveManufacturerCampaignTemplate(objList, userId, campaignId);        
-                        Response.Redirect("/ManufactureCamapign/ManageDealer.aspx?campaignid="+campaignId+"&dealerid="+dealerId+"&manufactureName="+manufacturerName);
+                        objMfgCampaign.SaveManufacturerCampaignTemplate(objList, userId, campaignId);
+                        Response.Redirect("/manufacturecampaign/ManufacturerManageDealer.aspx?campaignid=" + campaignId + "&dealerid=" + dealerId + "&manufactureName=" + manufacturerName);
 
                     }
                     else
@@ -256,12 +249,12 @@ namespace BikewaleOpr.manufacturecampaign
                         objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml4, TemplateId = templateId4 });
 
                         objMfgCampaign.UpdateBWDealerCampaign(campaignDescription.Text.Trim(), (isActive.Checked ? 1 : 0), hdnOldMaskingNumber.Value, dealerId, userId, campaignId, objList);
-                        ShowData(campaignId);                       
+                        ShowData(campaignId);
                     }
 
                     lblGreenMessage.Text = "Data entered succesfully";
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -271,6 +264,6 @@ namespace BikewaleOpr.manufacturecampaign
 
         }
 
-        
+
     }
 }
