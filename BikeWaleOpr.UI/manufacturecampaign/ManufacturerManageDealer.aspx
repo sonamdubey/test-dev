@@ -230,10 +230,7 @@
             }
         });
 
-        if (!isValid) {
-            $('#lblErrorSummary').html('Please fill values');
-            
-        }
+        
         
         $("textarea").each(function(){
             var ele = $(this);
@@ -242,6 +239,24 @@
         })
         
         
+        $("textarea").each(function(){
+            var ele = $(this);
+            if(!ele.next().prop("checked") && $.trim($(this).val()) == ''){
+                $(this).addClass('redmsg');
+                isValid = false;
+            }
+            else {
+                $(this).removeClass('redmsg');
+            }
+
+                
+        })
+
+        if (!isValid) {
+            $('#lblErrorSummary').html('Please fill values');
+            
+        }
+
         return isValid;
         }
 
