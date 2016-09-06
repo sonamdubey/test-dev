@@ -168,6 +168,8 @@
     padding-left: 5px;
     border: 1px solid #fff;
     display: block;
+    min-width: 25px;
+    text-align: center;
 }
 
 #pagination-list a:hover {
@@ -617,6 +619,7 @@
         padding-right: 3px;
         padding-left: 3px;
         font-size: 12px;
+        min-width: 22px;
     }
 
     .sort-popup-container {
