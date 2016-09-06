@@ -1,7 +1,8 @@
-﻿using Bikewale.Notifications;
+﻿
 using BikewaleOpr.DALs.ManufactureCampaign;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Interface.ManufacturerCampaign;
+using BikeWaleOpr.Common;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;

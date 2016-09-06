@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using BikewaleOpr.Interface.ManufacturerCampaign;
 using Bikewale.Notifications;
-using BikewaleOpr.DALs.ManufactureCampaign;
 using Microsoft.Practices.Unity;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.BAL.ContractCampaign;
@@ -22,7 +21,7 @@ namespace BikewaleOpr.BAL
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IManufacturerCampaignRepository, ManufacturerCampaign>();
+                    container.RegisterType<IManufacturerCampaignRepository, BikewaleOpr.DALs.ManufactureCampaign.ManufacturerCampaign>();
                     container.RegisterType<IContractCampaign, BikewaleOpr.BAL.ContractCampaign.ContractCampaign>();
                     IManufacturerCampaignRepository objMfgCampaign = container.Resolve<IManufacturerCampaignRepository>();
                     IContractCampaign _objContractCampaign = container.Resolve<IContractCampaign>();
