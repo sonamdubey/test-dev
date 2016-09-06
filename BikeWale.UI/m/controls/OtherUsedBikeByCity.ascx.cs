@@ -40,12 +40,13 @@ namespace Bikewale.Mobile.Controls
             try
             {
                 viewModel = new BindOtherUsedBikesForCity();
+
                 otherBikesinCity = viewModel.GetOtherBikesByCityId(InquiryId, CityId, TopCount);
                 FetchedRecordsCount = viewModel.FetchedRecordsCount;
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " OtherUsedBikeByCity.BindSimilarBikes");
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " OtherUsedBikeByCity.BindSimilarBikes" + InquiryId + '-' + CityId + '-' + TopCount);
                 objErr.SendMail();
             }
         }
