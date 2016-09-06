@@ -87,6 +87,7 @@ namespace BikewaleOpr.manufacturecampaign
                         {
                             campaignDescription.Text = campaignDetails.CampaignDescription;
                             txtMaskingNumber.Text = campaignDetails.CampaignMaskingNumber;
+                            hdnOldMaskingNumber.Value = campaignDetails.CampaignMaskingNumber;
                             if (campaignDetails.IsActive == 1)
                             {
                                 isActive.Checked = true;
@@ -152,7 +153,7 @@ namespace BikewaleOpr.manufacturecampaign
                     IManufacturerCampaignRepository objMfgCampaign = container.Resolve<IManufacturerCampaignRepository>();
                     if (!isEdit)
                     {
-                        campaignId = objMfgCampaign.InsertBWDealerCampaign(campaignDescription.Text.Trim(), (isActive.Checked ? 1 : 0), hdnOldMaskingNumber.Value, dealerId, userId);
+                        campaignId = objMfgCampaign.InsertBWDealerCampaign(campaignDescription.Text.Trim(), (isActive.Checked ? 1 : 0), ((hdnOldMaskingNumber.Value == "") ? null : hdnOldMaskingNumber.Value), dealerId, userId);
 
                         if (!CheckBox1.Checked)
                         {
