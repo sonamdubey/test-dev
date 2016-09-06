@@ -33,7 +33,7 @@
                     <%if(inquiryDetails.PhotosCount > 0) { %>
                     <a href="javascript:void(0)" class="model-main-image-wrapper <%= inquiryDetails.PhotosCount > 1 ? "model-gallery-target " : string.Empty %>" rel="nofollow">
                         <img src="<%= (firstImage!=null) ? Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImagePath,firstImage.HostUrl,Bikewale.Utility.ImageSize._360x202) : string.Empty %>" alt="Used <%= modelYear %> <%= bikeName %>" title="Used <%= modelYear %> <%= bikeName %>" />
-                        <% if(inquiryDetails.PhotosCount >1){ %>
+                        <% if(inquiryDetails.PhotosCount > 1){ %>
                         <div class="model-media-details">
                             <div class="model-media-item">
                                 <span class="bwmsprite gallery-photo-icon"></span>
@@ -85,7 +85,7 @@
 
                 <div class="grid-12 float-button float-fixed clearfix">
                     <div class="grid-12 alpha omega padding-top10 padding-right5 padding-bottom10">
-                        <a id="get-seller-button" class="btn btn-orange btn-full-width rightfloat" href="javascript:void(0);" rel="nofollow">Get seller details</a>
+                      <%--  <a id="get-seller-button" class="btn btn-orange btn-full-width rightfloat" href="javascript:void(0);" rel="nofollow">Get seller details</a>--%>
                     </div>
                 </div>
                 <% } %>
@@ -294,7 +294,8 @@
         </div>
         <!-- gallery end -->
         <% } %>
-        <!-- get seller details pop up start  -->
+
+       <%-- <!-- get seller details pop up start  -->
         <div id="get-seller-details-popup" class="bw-popup bwm-fullscreen-popup">
             <div class="popup-inner-container text-center">
                 <div class="bwmsprite close-btn seller-details-close position-abt pos-top20 pos-right20"></div>
@@ -405,7 +406,7 @@
                 <!-- OTP Popup ends here -->
             </div>
         </div>
-        <!-- get seller details pop up end  -->
+        <!-- get seller details pop up end  -->--%>
 
         <!-- request for image popup start -->
         <div id="request-media-popup" class="bw-popup bwm-fullscreen-popup">
