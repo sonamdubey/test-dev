@@ -5,7 +5,6 @@
     .redMessage {color: #ff0000;font-size: 11px;}
     .errMessage {color: #FF4A4A;}
     .valign {vertical-align: top;}
-    .progress-bar {width: 0;display: none;height: 2px;background: #16A085;bottom: 0px;left: 0;border-radius: 2px;}
     .position-abt {position: absolute;}
     .position-rel {position: relative;}
     .required {color: red;}
@@ -107,7 +106,7 @@
         }
 
         bindMaskingNumber(dealerId);
-        //bindMaskingNumber(21079);
+       
 
     });
 

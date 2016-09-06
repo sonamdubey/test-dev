@@ -395,7 +395,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             }
             catch (Exception ex)
             {
-                isSuccess = false;
+
                 ErrorClass objErr = new ErrorClass(ex, "MaufacturerCampaign.UpdateBWDealerCampaign");
                 objErr.SendMail();
             }
@@ -441,7 +441,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             }
             catch (Exception ex)
             {
-                isSuccess = false;
+
                 ErrorClass objErr = new ErrorClass(ex, "MaufacturerCampaign.SaveManufacturerCampaignTemplate");
                 objErr.SendMail();
             }
