@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.OtherUsedBikeByCity" EnableViewState="false" %>
 <%@ Import Namespace="Bikewale.Entities.Used" %>
-<% if (FetchedRecordsCount > 0 && otherBikesinCity!=null)
+<% if (otherBikesinCity!=null && FetchedRecordsCount > 0)
    {  %>
         <div id="modelOtherBikes" class="bw-model-tabs-data padding-top20 padding-bottom15">
             
