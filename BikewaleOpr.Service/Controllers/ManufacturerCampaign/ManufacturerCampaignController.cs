@@ -5,12 +5,12 @@ using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Interface.ManufacturerCampaign;
 using Microsoft.Practices.Unity;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 
 namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
-{  
+{
     /// <summary>
     /// Created by Subodh Jain 29 aug 2016
     /// Description :For Manufacturer Campaign
@@ -18,13 +18,11 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
     public class ManufacturerCampaignController : ApiController
     {
         private readonly IManufacturerCampaignRepository _objManufacturerCampaign = null;
-       private readonly IContractCampaign _objContractCampaign =null;
-       private readonly IManufacturerReleaseMaskingNumber _objManufacturerReleaseMaskingNumber = null; 
-       
-        public ManufacturerCampaignController(IManufacturerCampaignRepository objManufacturerCampaign, IContractCampaign objContractCampaign, IManufacturerReleaseMaskingNumber objManufacturerReleaseMaskingNumber)
+        private readonly IManufacturerReleaseMaskingNumber _objManufacturerReleaseMaskingNumber = null;
+
+        public ManufacturerCampaignController(IManufacturerCampaignRepository objManufacturerCampaign, IManufacturerReleaseMaskingNumber objManufacturerReleaseMaskingNumber)
         {
             _objManufacturerCampaign = objManufacturerCampaign;
-            _objContractCampaign = objContractCampaign;
             _objManufacturerReleaseMaskingNumber = objManufacturerReleaseMaskingNumber;
         }
 
@@ -103,7 +101,7 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
                     if (numbersList != null && numbersList.Count() > 0)
                     {
                         return Ok(numbersList);
-                        
+
                     }
                 }
 
