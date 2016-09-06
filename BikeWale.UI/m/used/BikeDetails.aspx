@@ -19,8 +19,13 @@
     TargetedCity = (inquiryDetails.City != null) ? inquiryDetails.City.CityName : string.Empty;
     
     %>
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/used-details.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
+    <style type="text/css">
+        @charset "utf-8";.btn-inv-teal:hover,.model-media-item:hover{text-decoration:none}#model-main-image{width:100%;max-width:476px;margin:0 auto;height:200px;display:table;position:relative;text-align:center;background-color:#f5f5f5}.model-main-image-wrapper{width:100%;display:table-cell;vertical-align:middle;line-height:0}#model-main-image img{max-height:200px}.model-media-details{position:absolute;right:15px;bottom:10px;font-size:12px}.model-media-item{display:inline-block;vertical-align:middle;padding:4px 5px;color:#4d5057;background:rgba(255,255,255,.9);border-radius:2px}.model-media-count{position:relative;top:-1px}.gallery-photo-icon{width:16px;height:12px;background-position:0 -486px}.border-bottom-light{border-bottom:1px solid #eee}.btn-inv-teal{background:0 0;color:#3799a7;border:1px solid #3799a7}.btn-inv-teal:hover{background:#41b4c4;color:#fff;border:1px solid #41b4c4}.btn-inv-teal:focus{background:#37939f;border:1px solid #37939f}.btn-inv-teal.btn-sm{padding:6px 19px}.no-image-content{display:table-cell;vertical-align:middle}.kms-driven-icon,.model-date-icon,.model-loc-icon{width:10px;height:14px;margin-right:5px;vertical-align:middle}.model-date-icon{background-position:-140px -484px}.kms-driven-icon{background-position:-159px -484px}.model-loc-icon{background-position:-177px -484px}.author-grey-sm-icon{height:12px;margin-right:5px;vertical-align:middle}.model-details-label{width:85%;display:inline-block;vertical-align:middle;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.float-button{background-color:#f5f5f5}.float-button .btn{padding:8px 0;font-size:18px}.float-button.float-fixed{position:fixed;bottom:0;z-index:8;left:0;right:0;background:rgba(245,245,245,.9)}#model-overall-specs-wrapper{height:44px}.overall-specs-tabs-container{width:100%;display:block;background:#fff;overflow-x:auto;z-index:2;-webkit-overflow-scrolling:touch}.overall-specs-tabs-container.fixed-tab-nav{position:fixed;top:0;left:0}.overall-specs-tabs-wrapper{width:100%;display:table;border-bottom:1px solid #e2e2e2}.overall-specs-tabs-wrapper li{display:table-cell;width:1%;padding:10px 15px;text-align:center;white-space:nowrap;font-size:14px;color:#82888b;cursor:pointer}.overall-specs-tabs-container::-webkit-scrollbar{width:0;height:0}.overall-specs-tabs-container::-webkit-scrollbar-thumb,.overall-specs-tabs-container::-webkit-scrollbar-track{display:none}.overall-specs-tabs-wrapper li.active{border-bottom:3px solid #ef3f30;color:#4d5057;font-weight:700}.specs-features-list li{width:100%;margin-top:20px;float:left}.specs-features-list li:first-child{margin-top:0}.specs-features-list li p{float:left;padding-right:5px;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.specs-features-list .specs-features-label{width:45%;color:#82888b}.specs-features-list .specs-features-value{width:55%;font-weight:700}.blue-right-arrow-icon{width:6px;height:10px;background-position:-58px -437px;position:relative;top:1px;left:7px}.block{display:block}
+    </style>
+    <script type="text/javascript">
+        <!-- #include file="\includes\gacode_mobile.aspx" -->
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -462,8 +467,14 @@
         <!-- request for image popup ends -->
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
+        <!--[if lt IE 9]>
+            <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/html5.js"></script>
+        <![endif]-->
+        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/used-details-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/used-details.js?<%= staticFileVersion %>"></script>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
     </form>
 </body>
 </html>
