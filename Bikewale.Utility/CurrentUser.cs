@@ -24,10 +24,23 @@ namespace Bikewale.Utility
             {
                 //create the cwc cookie with a unique random value
                 string bwcCookieValue = RandomNoGenerator.GetUniqueKey(25);
-                HttpCookie bwcCookie = new HttpCookie("BWC");
+                
+                Cookie bwcCookie = new Cookie("BWC");
                 bwcCookie.Value = bwcCookieValue;
-                bwcCookie.Expires = DateTime.Now.AddYears(5);
-                HttpContext.Current.Response.Cookies.Add(bwcCookie);
+                bwcCookie.Expires = DateTime.Now.AddYears(2);
+                CookieManager.Add(bwcCookie);
+
+                //also add the cookie for cwv, to identify the session or the visit and also the number of times this visitor has come.
+                //Since this has been implemented later, hence add value for visit count only when cwc is being initialized
+                //the format for _cwv cookie is : cwcValue.random_key_for_cwv.visit_start_timestamp.visit_last_timestamp.visit_count
+                string bwvCookieValue = RandomNoGenerator.GetUniqueKey(10); //add 10 digit unique key for the cwv
+
+                Cookie bwvCookie = new Cookie("_cwv");
+                
+                long currServerTimeStamp = GetCurrentUnixTimeStamp();
+                bwvCookie.Value = bwcCookieValue + "." + bwvCookieValue + "." + currServerTimeStamp + "." + currServerTimeStamp + "." + currServerTimeStamp + ".1" + ".r";
+                bwvCookie.Expires = DateTime.Now.AddYears(2);
+                CookieManager.Add(bwvCookie);
             }
         }
 
