@@ -146,7 +146,7 @@
                             $("#txtMaskingNumber").val('');
                             //bindMaskingNumber(dealerId);                                
                             alert("Masking Number is released successful.");
-                            location.reload();
+                            
                         }
                         else {
                             alert("There was error while releasing masking number. Please contact System Administrator for more details.");

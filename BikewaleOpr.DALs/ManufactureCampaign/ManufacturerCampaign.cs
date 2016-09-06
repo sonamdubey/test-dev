@@ -504,9 +504,8 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignId", DbType.Int32, campaignId));
-
-                    if (Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase)))
-                        isSuccess = true;
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    isSuccess = true;
                 }
             }
             catch (Exception ex)

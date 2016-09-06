@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BikewaleOpr.Interface.ManufacturerCampaign;
-using Bikewale.Notifications;
-using Microsoft.Practices.Unity;
+﻿using Bikewale.Notifications;
 using BikewaleOpr.Interface.ContractCampaign;
-using BikewaleOpr.BAL.ContractCampaign;
+using BikewaleOpr.Interface.ManufacturerCampaign;
+using Microsoft.Practices.Unity;
+using System;
 
 namespace BikewaleOpr.BAL
 {
-  public  class ManufacturerReleaseMaskingNumber : IManufacturerReleaseMaskingNumber
+    public class ManufacturerReleaseMaskingNumber : IManufacturerReleaseMaskingNumber
     {
         public bool ReleaseNumber(uint dealerId, int campaignId, string maskingNumber, int userId)
         {
             bool isSuccess = false;
-            
+
             try
             {
                 using (IUnityContainer container = new UnityContainer())
@@ -25,10 +20,12 @@ namespace BikewaleOpr.BAL
                     container.RegisterType<IContractCampaign, BikewaleOpr.BAL.ContractCampaign.ContractCampaign>();
                     IManufacturerCampaignRepository objMfgCampaign = container.Resolve<IManufacturerCampaignRepository>();
                     IContractCampaign _objContractCampaign = container.Resolve<IContractCampaign>();
-                    if(objMfgCampaign.ReleaseCampaignMaskingNumber(campaignId))
+
+                    isSuccess = _objContractCampaign.RelaseMaskingNumbers(dealerId, userId, maskingNumber);
+
+                    if (isSuccess)
                     {
-                        _objContractCampaign.RelaseMaskingNumbers(dealerId, userId, maskingNumber);
-                        isSuccess = true;
+                        isSuccess = objMfgCampaign.ReleaseCampaignMaskingNumber(campaignId);
                     }
                 }
             }
