@@ -2,6 +2,7 @@
 <!-- #Include file="/includes/headerNew.aspx" -->
 <style type="text/css">
     .greenMessage {color: #6B8E23;font-size: 11px;}
+    .redMessage {color: #ff0000;font-size: 11px;}
     .errMessage {color: #FF4A4A;}
     .valign {vertical-align: top;}
     .progress-bar {width: 0;display: none;height: 2px;background: #16A085;bottom: 0px;left: 0;border-radius: 2px;}
@@ -9,7 +10,6 @@
     .position-rel {position: relative;}
     .required {color: red;}
     .redmsg {border: 1px solid red;background: #FFCECE;}
-    .greenMessage {color: #6B8E23;font-size: 11px;}
     .hide {display: none;}
     .show {display: block;}
     #pageloaddiv {position: fixed;left: 0px;top: 0px;width: 100%;height: 100%;z-index: 1000;background: rgb(250, 246, 246) url('http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;}
@@ -19,7 +19,8 @@
 </div>
 <div class="left min-height600">
     <h1><%= (isEdit ? "Edit" : "Add") %>&nbsp;<%= manufacturerName %> Campaign</h1>
-    <asp:label class="greenMessage margin-bottom10 margin-left10" id="lblGreenMessage" runat="server" />    
+    <asp:label class="greenMessage margin-bottom10 margin-left10" id="lblGreenMessage" runat="server" /> 
+    <asp:label class="redMessage margin-bottom10 margin-left10" id="lblRedMessage" runat="server" /> 
     <table class="margin-top10 margin-bottom10 tblSimple" rules="all" cellspacing="0" cellpadding="5">
         <tbody>
             <tr>
@@ -86,6 +87,9 @@
 
 <script type="text/javascript">
     var BwOprHostUrl = '<%= BwOprHostUrl%>';
+    var dealerId='<%=dealerId%>';
+    var userId = '<%= userId %>';
+    var campaignId = '<%= campaignId %>';
     $(document).ready(function () {
 
         if ('<%= isEdit %>' == 'False')
@@ -102,7 +106,7 @@
             
         }
 
-        bindMaskingNumber(<%=dealerId%>);
+        bindMaskingNumber(dealerId);
         //bindMaskingNumber(21079);
 
     });
@@ -135,7 +139,7 @@
                 $.ajax({
                     
                     type: "POST",
-                    url: BwOprHostUrl + "/api/ManufacturerCampaign/ReleaseNumber/?dealerId=" + <%= dealerId %> + "&campaignId=" + <%= campaignId %> + "&maskingNumber=" +  maskingNumber  + "&userId=" + <%= userId %>,
+                    url: BwOprHostUrl + "/api/ManufacturerCampaign/ReleaseNumber/?dealerId=" + dealerId + "&campaignId=" + campaignId + "&maskingNumber=" +  maskingNumber  + "&userId=" + userId,
                     datatype: "json",
 
                     success: function (response) {
@@ -162,7 +166,7 @@
 
             $.ajax({
                 type: "GET",
-                url: BwOprHostUrl + "/api/ManufacturerCampaign/GetDealerMaskingNumbers/?dealerId=" + <%= dealerId %>,
+                url: BwOprHostUrl + "/api/ManufacturerCampaign/GetDealerMaskingNumbers/?dealerId=" + dealerId,
                 datatype: "json",
                 success: function (response) {
                     var res = response;
