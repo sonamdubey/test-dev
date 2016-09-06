@@ -20,12 +20,12 @@ namespace BikewaleOpr.BAL
                     container.RegisterType<IContractCampaign, BikewaleOpr.BAL.ContractCampaign.ContractCampaign>();
                     IManufacturerCampaignRepository objMfgCampaign = container.Resolve<IManufacturerCampaignRepository>();
                     IContractCampaign _objContractCampaign = container.Resolve<IContractCampaign>();
-                    
-                        isSuccess = _objContractCampaign.RelaseMaskingNumbers(dealerId, userId, maskingNumber);
 
-                    if(isSuccess)
+                    isSuccess = _objContractCampaign.RelaseMaskingNumbers(dealerId, userId, maskingNumber);
+
+                    if (isSuccess)
                     {
-                        objMfgCampaign.ReleaseCampaignMaskingNumber(campaignId)
+                        isSuccess = objMfgCampaign.ReleaseCampaignMaskingNumber(campaignId);
                     }
                 }
             }
