@@ -27,7 +27,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         /// <returns></returns>
         public IEnumerable<ManufactureDealerCampaign> SearchManufactureCampaigns(uint dealerId)
         {
-            
+
             IList<ManufactureDealerCampaign> dtManufactureCampaigns = null;
 
             try
@@ -367,8 +367,9 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         /// <param name="templateId3"></param>
         /// <param name="templateHtml4"></param>
         /// <param name="templateId4"></param>
-        public void UpdateBWDealerCampaign(string description, int isActive, string maskingNumber, int dealerId, int userId, int campaignId, List<ManuCamEntityForTemplate> objList)
+        public bool UpdateBWDealerCampaign(string description, int isActive, string maskingNumber, int dealerId, int userId, int campaignId, List<ManuCamEntityForTemplate> objList)
         {
+            bool isSuccess = false;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("updatemanufacturercampaign"))
@@ -389,13 +390,16 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml4", DbType.String, 150, objList[3].TemplateHtml));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId4", DbType.Int32, objList[3].TemplateId));
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    isSuccess = true;
                 }
             }
             catch (Exception ex)
             {
+
                 ErrorClass objErr = new ErrorClass(ex, "MaufacturerCampaign.UpdateBWDealerCampaign");
                 objErr.SendMail();
             }
+            return isSuccess;
         }
 
         /// <summary>
@@ -412,8 +416,9 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         /// <param name="templateId4"></param>
         /// <param name="userId"></param>
         /// <param name="campaignId"></param>
-        public void SaveManufacturerCampaignTemplate(List<ManuCamEntityForTemplate> objList, int userId, int campaignId)
+        public bool SaveManufacturerCampaignTemplate(List<ManuCamEntityForTemplate> objList, int userId, int campaignId)
         {
+            bool isSuccess = false;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("savemanufacturecampaigntemplate"))
@@ -431,13 +436,16 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignId", DbType.Int32, campaignId));
 
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    isSuccess = true;
                 }
             }
             catch (Exception ex)
             {
+
                 ErrorClass objErr = new ErrorClass(ex, "MaufacturerCampaign.SaveManufacturerCampaignTemplate");
                 objErr.SendMail();
             }
+            return isSuccess;
         }
 
 

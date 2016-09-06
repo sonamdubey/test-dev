@@ -23,7 +23,7 @@ namespace BikewaleOpr.manufacturecampaign
         protected HiddenField Hiddenfield1, Hiddenfield2, Hiddenfield3, Hiddenfield4, hdnOldMaskingNumber;
         protected int dealerId, userId;
         protected int campaignId = 0;
-        protected Label lblGreenMessage;
+        protected Label lblGreenMessage, lblRedMessage;
         protected string manufacturerName;
         protected string BwOprHostUrl = ConfigurationManager.AppSettings["BwOprHostUrlForJs"];
 
@@ -197,8 +197,15 @@ namespace BikewaleOpr.manufacturecampaign
                         objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml3, TemplateId = templateId3 });
                         objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml4, TemplateId = templateId4 });
 
-                        objMfgCampaign.SaveManufacturerCampaignTemplate(objList, userId, campaignId);
-                        Response.Redirect("/manufacturecampaign/ManufacturerManageDealer.aspx?campaignid=" + campaignId + "&dealerid=" + dealerId + "&manufactureName=" + manufacturerName);
+                        if (objMfgCampaign.SaveManufacturerCampaignTemplate(objList, userId, campaignId))
+                        {
+                            lblGreenMessage.Text = "Campaign added succesfully";
+                            Response.Redirect("/manufacturecampaign/ManufacturerManageDealer.aspx?campaignid=" + campaignId + "&dealerid=" + dealerId + "&manufactureName=" + manufacturerName, false);
+                        }
+                        else
+                        {
+                            lblRedMessage.Text = "Error in adding campaign!";
+                        }
 
                     }
                     else
@@ -249,11 +256,19 @@ namespace BikewaleOpr.manufacturecampaign
                         objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml3, TemplateId = templateId3 });
                         objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml4, TemplateId = templateId4 });
 
-                        objMfgCampaign.UpdateBWDealerCampaign(campaignDescription.Text.Trim(), (isActive.Checked ? 1 : 0), hdnOldMaskingNumber.Value, dealerId, userId, campaignId, objList);
-                        ShowData(campaignId);
+                        if (objMfgCampaign.UpdateBWDealerCampaign(campaignDescription.Text.Trim(), (isActive.Checked ? 1 : 0), hdnOldMaskingNumber.Value, dealerId, userId, campaignId, objList))
+                        {
+                            ShowData(campaignId);
+                            lblGreenMessage.Text = "Campaign updated succesfully";
+                        }
+                        else
+                        {
+                            lblRedMessage.Text = "Error in updation!";
+                        }
+
                     }
 
-                    lblGreenMessage.Text = "Data entered succesfully";
+
                 }
 
             }
