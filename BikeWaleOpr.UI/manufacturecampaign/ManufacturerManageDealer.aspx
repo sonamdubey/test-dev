@@ -169,7 +169,7 @@
                     if (res) {
                         $('#ddlMaskingNumber').empty();
                         $.each(res, function (index, value) {
-                            $('#ddlMaskingNumber').append($('<option>').text(value.number).attr('value', value.isAssigned));
+                            $('#ddlMaskingNumber').append($('<option>').text(value.number).attr('disabled', value.isAssigned ? "true" : "false"));
                         });
                     }
                 }
