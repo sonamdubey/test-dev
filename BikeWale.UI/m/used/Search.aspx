@@ -399,6 +399,7 @@
                     <div class="filter-popup-label leftfloat">Select bikes</div>
                     <div class="clear"></div>
                 </div>
+                <div class="filter-bike-banner"></div>
                 <ul id="filter-bike-list">
                     <li>
                         <div class="accordion-tab">
