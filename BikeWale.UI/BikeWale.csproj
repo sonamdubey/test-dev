@@ -2241,6 +2241,8 @@
     <Content Include="m\css\new\bwm-search.css" />
     <Content Include="m\css\style.css" />
     <Content Include="m\css\used-details.css" />
+    <Content Include="m\css\used-search-atf.css" />
+    <Content Include="m\css\used-search-btf.css" />
     <Content Include="m\css\used-search.css" />
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
