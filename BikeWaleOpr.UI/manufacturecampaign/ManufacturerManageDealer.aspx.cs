@@ -1,4 +1,6 @@
-﻿using BikewaleOpr.DALs.ManufactureCampaign;
+﻿using BikewaleOpr.common.ContractCampaignAPI;
+using BikewaleOpr.DALs.ManufactureCampaign;
+using BikewaleOpr.Entity.ContractCampaign;
 using BikewaleOpr.Entity.ManufacturerCampaign;
 using BikewaleOpr.Interface.ManufacturerCampaign;
 using BikeWaleOpr.Common;
@@ -20,11 +22,11 @@ namespace BikewaleOpr.manufacturecampaign
         protected Button btnUpdate;
         protected TextBox campaignDescription, txtMaskingNumber, textBox1, textBox2, textBox3, textBox4;
         protected CheckBox isActive, CheckBox1, CheckBox2, CheckBox3, CheckBox4;
-        protected HiddenField Hiddenfield1, Hiddenfield2, Hiddenfield3, Hiddenfield4, hdnOldMaskingNumber;
+        protected HiddenField Hiddenfield1, Hiddenfield2, Hiddenfield3, Hiddenfield4, hdnOldMaskingNumber ;
         protected int dealerId, userId;
         protected int campaignId = 0;
         protected Label lblGreenMessage, lblRedMessage;
-        protected string manufacturerName;
+        protected string manufacturerName, fetchedMaskingNumber;
         protected string BwOprHostUrl = ConfigurationManager.AppSettings["BwOprHostUrlForJs"];
 
         protected void Page_Load(object sender, EventArgs e)
@@ -88,6 +90,7 @@ namespace BikewaleOpr.manufacturecampaign
                             campaignDescription.Text = campaignDetails.CampaignDescription;
                             txtMaskingNumber.Text = campaignDetails.CampaignMaskingNumber;
                             hdnOldMaskingNumber.Value = campaignDetails.CampaignMaskingNumber;
+                            fetchedMaskingNumber = campaignDetails.CampaignMaskingNumber;
                             if (campaignDetails.IsActive == 1)
                             {
                                 isActive.Checked = true;
@@ -144,11 +147,47 @@ namespace BikewaleOpr.manufacturecampaign
         {
             string templateHtml1, templateHtml2, templateHtml3, templateHtml4;
             int templateId1 = 0, templateId2 = 0, templateId3 = 0, templateId4 = 0;
+            bool isMaskingChanged = fetchedMaskingNumber == hdnOldMaskingNumber.Value ? false : true;
+            bool IsProd = Convert.ToBoolean(ConfigurationManager.AppSettings["isProduction"]);
+            string oldMaskingNumber = fetchedMaskingNumber;
+            string dealerMobile = null;
             List<ManuCamEntityForTemplate> objList = new List<ManuCamEntityForTemplate>();
+
             try
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
+                    ContractCampaignInputEntity ccInputs = new ContractCampaignInputEntity();
+                    ccInputs.ConsumerId = dealerId;
+                    ccInputs.DealerType = 7;
+                    ccInputs.LeadCampaignId = campaignId;
+                    ccInputs.LastUpdatedBy = userId;
+                    ccInputs.OldMaskingNumber = fetchedMaskingNumber;
+                    ccInputs.MaskingNumber = hdnOldMaskingNumber.Value;
+                    ccInputs.NCDBranchId = -1;
+                    ccInputs.ProductTypeId = 3;
+                    ccInputs.Mobile = dealerMobile;
+                    ccInputs.SellerMobileMaskingId = -1;
+
+                    CwWebserviceAPI CWWebservice = new CwWebserviceAPI();
+
+
+                    if (IsProd)
+                    {
+                        if (isMaskingChanged)
+                        {
+                            // Release previous number and add new number
+                            CWWebservice.ReleaseMaskingNumber(Convert.ToUInt32(dealerId), userId, oldMaskingNumber);
+                        }
+
+                        //callApp.pushDataToKnowlarity(false, "-1", dealerMobile, string.Empty, reqFormMaskingNumber);
+                        if (!String.IsNullOrEmpty(ccInputs.MaskingNumber))
+                        {
+                            CWWebservice.AddCampaignContractData(ccInputs);
+                        }
+
+                    }
+
                     container.RegisterType<IManufacturerCampaignRepository, ManufacturerCampaign>();
                     IManufacturerCampaignRepository objMfgCampaign = container.Resolve<IManufacturerCampaignRepository>();
                     if (!isEdit)
