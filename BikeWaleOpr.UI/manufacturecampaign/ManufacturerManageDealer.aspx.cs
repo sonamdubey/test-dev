@@ -22,11 +22,11 @@ namespace BikewaleOpr.manufacturecampaign
         protected Button btnUpdate;
         protected TextBox campaignDescription, txtMaskingNumber, textBox1, textBox2, textBox3, textBox4;
         protected CheckBox isActive, CheckBox1, CheckBox2, CheckBox3, CheckBox4;
-        protected HiddenField Hiddenfield1, Hiddenfield2, Hiddenfield3, Hiddenfield4, hdnOldMaskingNumber ;
+        protected HiddenField Hiddenfield1, Hiddenfield2, Hiddenfield3, Hiddenfield4, hdnOldMaskingNumber;
         protected int dealerId, userId;
         protected int campaignId = 0;
         protected Label lblGreenMessage, lblRedMessage;
-        protected string manufacturerName, fetchedMaskingNumber;
+        protected string manufacturerName, oldMaskingNumber;
         protected string BwOprHostUrl = ConfigurationManager.AppSettings["BwOprHostUrlForJs"];
 
         protected void Page_Load(object sender, EventArgs e)
@@ -90,7 +90,7 @@ namespace BikewaleOpr.manufacturecampaign
                             campaignDescription.Text = campaignDetails.CampaignDescription;
                             txtMaskingNumber.Text = campaignDetails.CampaignMaskingNumber;
                             hdnOldMaskingNumber.Value = campaignDetails.CampaignMaskingNumber;
-                            fetchedMaskingNumber = campaignDetails.CampaignMaskingNumber;
+                            oldMaskingNumber = campaignDetails.CampaignMaskingNumber;
                             if (campaignDetails.IsActive == 1)
                             {
                                 isActive.Checked = true;
@@ -139,7 +139,9 @@ namespace BikewaleOpr.manufacturecampaign
 
         /// <summary>
         /// Created By : Sajal Gupta on 30/08/2016
-        /// Description : This function update or inserts manufacturer campaign data. 
+        /// Description : This function update or inserts manufacturer campaign data.
+        /// Modified by : Sajal Gupta on 07/08/2016
+        /// Description : Masking number mapping using cw web service.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -147,33 +149,37 @@ namespace BikewaleOpr.manufacturecampaign
         {
             string templateHtml1, templateHtml2, templateHtml3, templateHtml4;
             int templateId1 = 0, templateId2 = 0, templateId3 = 0, templateId4 = 0;
-            bool isMaskingChanged = fetchedMaskingNumber == hdnOldMaskingNumber.Value ? false : true;
-            bool IsProd = Convert.ToBoolean(ConfigurationManager.AppSettings["isProduction"]);
-            string oldMaskingNumber = fetchedMaskingNumber;
+
+
             string dealerMobile = null;
-            List<ManuCamEntityForTemplate> objList = new List<ManuCamEntityForTemplate>();
+
 
             try
             {
+                List<ManuCamEntityForTemplate> objList = new List<ManuCamEntityForTemplate>();
+                bool IsProd = Convert.ToBoolean(ConfigurationManager.AppSettings["isProduction"]);
+                bool isMaskingChanged = !string.IsNullOrEmpty(oldMaskingNumber) && oldMaskingNumber != hdnOldMaskingNumber.Value ? true : false;
                 using (IUnityContainer container = new UnityContainer())
                 {
                     ContractCampaignInputEntity ccInputs = new ContractCampaignInputEntity();
                     ccInputs.ConsumerId = dealerId;
-                    ccInputs.DealerType = 7;
+                    ccInputs.DealerType = 2;
                     ccInputs.LeadCampaignId = campaignId;
                     ccInputs.LastUpdatedBy = userId;
-                    ccInputs.OldMaskingNumber = fetchedMaskingNumber;
+                    ccInputs.OldMaskingNumber = oldMaskingNumber;
                     ccInputs.MaskingNumber = hdnOldMaskingNumber.Value;
                     ccInputs.NCDBranchId = -1;
                     ccInputs.ProductTypeId = 3;
                     ccInputs.Mobile = dealerMobile;
                     ccInputs.SellerMobileMaskingId = -1;
 
-                    CwWebserviceAPI CWWebservice = new CwWebserviceAPI();
+
 
 
                     if (IsProd)
                     {
+                        CwWebserviceAPI CWWebservice = new CwWebserviceAPI();
+
                         if (isMaskingChanged)
                         {
                             // Release previous number and add new number
