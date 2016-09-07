@@ -382,13 +382,13 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32, dealerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userId", DbType.Int32, userId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignId", DbType.Int32, campaignId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml1", DbType.String, 150, objList[0].TemplateHtml));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml1", DbType.String, objList[0].TemplateHtml));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId1", DbType.Int32, objList[0].TemplateId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml2", DbType.String, 150, objList[1].TemplateHtml));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml2", DbType.String, objList[1].TemplateHtml));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId2", DbType.Int32, objList[1].TemplateId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml3", DbType.String, 150, objList[2].TemplateHtml));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml3", DbType.String, objList[2].TemplateHtml));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId3", DbType.Int32, objList[2].TemplateId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml4", DbType.String, 150, objList[3].TemplateHtml));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml4", DbType.String, objList[3].TemplateHtml));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId4", DbType.Int32, objList[3].TemplateId));
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                     isSuccess = true;
@@ -425,13 +425,13 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                 using (DbCommand cmd = DbFactory.GetDBCommand("savemanufacturecampaigntemplate"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml1", DbType.String, 150, objList[0].TemplateHtml));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml1", DbType.String, objList[0].TemplateHtml));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId1", DbType.Int32, objList[0].TemplateId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml2", DbType.String, 150, objList[1].TemplateHtml));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml2", DbType.String, objList[1].TemplateHtml));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId2", DbType.Int32, objList[1].TemplateId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml3", DbType.String, 150, objList[2].TemplateHtml));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml3", DbType.String, objList[2].TemplateHtml));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId3", DbType.Int32, objList[2].TemplateId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml4", DbType.String, 150, objList[3].TemplateHtml));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml4", DbType.String, objList[3].TemplateHtml));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId4", DbType.Int32, objList[3].TemplateId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userId", DbType.Int32, userId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignId", DbType.Int32, campaignId));

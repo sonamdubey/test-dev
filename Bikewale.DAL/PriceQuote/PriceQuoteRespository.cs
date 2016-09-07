@@ -167,6 +167,7 @@ namespace Bikewale.DAL.PriceQuote
                     {
                         if (dr != null && dr.Read())
                         {
+                            objQuotation.CampaignId = Convert.ToUInt32(dr["campaignId"]);
                             objQuotation.ManufacturerName = Convert.ToString(dr["organization"]);
                             objQuotation.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
                             objQuotation.ExShowroomPrice = Convert.ToUInt64(dr["exshowroom"]);

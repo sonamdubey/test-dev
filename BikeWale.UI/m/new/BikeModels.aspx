@@ -335,9 +335,9 @@
           <% if (pqOnRoad!=null && pqOnRoad.BPQOutput != null && !string.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
             { %>
         <section>
-            <div class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom">
-            <%=String.Format(pqOnRoad.BPQOutput.ManufacturerAd,bikeMakeName) %>
-        </div>
+            
+            <%=String.Format(pqOnRoad.BPQOutput.ManufacturerAd) %>
+       
         </section>
         <%} %>
         
@@ -345,39 +345,7 @@
             #campaign-container .tel-sm-icon{top:0}#campaign-offer-list li{width:50%;display:inline-block;vertical-align:middle;margin-bottom:20px}#campaign-offer-list li span{display:inline-block;vertical-align:middle}.campaign-offer-label{width:80%;font-size:13px;font-weight:bold;padding-right:5px}#campaign-button-container .btn{padding-right:0;padding-left:0}#campaign-button-container .grid-6.hide + .grid-6{width:100%;padding-right:0}.campaign-offer-1,.campaign-offer-2,.campaign-offer-3,.campaign-offer-4{width:22px;height:22px;margin-right:5px}.campaign-offer-1{background-position:0 -387px}.campaign-offer-2{background-position:0 -418px}.campaign-offer-3{background-position:-28px -387px}.campaign-offer-4{background-position:-56px -387px}
         </style>
 
-        <section>
-            <div id="campaign-container" class="container bg-white clearfix box-shadow margin-top20 margin-bottom20 content-inner-block-20">
-                <div class="margin-bottom15 padding-bottom15 border-light-bottom">
-                    <p class="font18 text-bold margin-bottom10">Bajaj Motors Pvt. Ltd.</p>
-                    <div class="font16 text-bold"><span class="bwmsprite tel-sm-icon"></span>0000000000</div>
-                </div>
-                <p class="font14 margin-bottom15">Get in touch for the best buying options from an authorised dealer</p>
-                <ul id="campaign-offer-list">
-                    <li>
-                        <span class="offers-sprite campaign-offer-1"></span>
-                        <span class="campaign-offer-label">Offers</span>
-                    </li><li>
-                        <span class="offers-sprite campaign-offer-2"></span>
-                        <span class="campaign-offer-label">Test Rides</span>
-                    </li><li>
-                        <span class="offers-sprite campaign-offer-3"></span>
-                        <span class="campaign-offer-label">EMI options</span>
-                    </li><li>
-                        <span class="offers-sprite campaign-offer-4"></span>
-                        <span class="campaign-offer-label">Exchange benefits</span>
-                    </li>
-                </ul>
-                <div id="campaign-button-container">
-                    <div class="grid-6 omega rightfloat">
-                        <a href="" class="btn btn-green btn-full-width" rel="nofollow"><span class="bwmsprite tel-white-icon margin-right5"></span>Call</a>
-                    </div>
-                    <div class="grid-6 alpha">
-                        <a href="" class="btn btn-orange btn-full-width" rel="nofollow">Get offers</a>
-                    </div>
-                    <div class="clear"></div>
-                </div>
-            </div>
-        </section>
+        
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 
@@ -1075,6 +1043,12 @@
             $("#viewprimarydealer, #dealername").on("click", function () {
                 var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId + "&IsDealerAvailable=true";
                 window.location.href = "/m/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
+            });
+
+            $("#btnManufacturer").on("click", function () {
+                leadSourceId = $(this).attr("leadSourceId");
+                $("#leadCapturePopup").show();
+             
             });
             
         </script>

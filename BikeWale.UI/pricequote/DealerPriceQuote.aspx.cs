@@ -55,7 +55,8 @@ namespace Bikewale.BikeBooking
         protected BikeQuotationEntity objQuotation = null;
         protected IEnumerable<PQ_Price> primaryPriceList = null;
         protected bool isSecondaryDealerAvailable = false;
-
+        protected string pq_leadsource = "34";
+        protected string pq_sourcepage = "58";
 
 
         protected override void OnInit(EventArgs e)
@@ -181,7 +182,8 @@ namespace Bikewale.BikeBooking
                             {
                                 container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
                                 objPriceQuote = container.Resolve<IPriceQuote>();
-                                objQuotation = objPriceQuote.GetPriceQuoteById(Convert.ToUInt64(pqId));
+                                objQuotation = objPriceQuote.GetPriceQuoteById(Convert.ToUInt64(pqId), LeadSourceEnum.DPQ_Desktop);
+
                             }
 
 

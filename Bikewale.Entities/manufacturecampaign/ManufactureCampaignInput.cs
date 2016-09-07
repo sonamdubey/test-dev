@@ -1,8 +1,14 @@
 ﻿
 namespace Bikewale.Entities.manufacturecampaign
 {
+    /// <summary>
+    /// Created by subodh Jain 29 Aug 2016
+    /// Description For manufacture Campaign 
+    /// </summary>
     class ManufactureCampaignInput
     {
+        public int CampaignId { get; set; }
+
         public string ManufacturerName { get; set; }
 
         public string MaskingNumber { get; set; }
