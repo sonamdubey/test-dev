@@ -413,7 +413,42 @@
                                     <div class="clear"></div>
                                 </div>
                             </div>
-                                        <!-- lead capture popup start-->
+                                </div>
+                            <% if(isBookingAvailable && bookingAmt > 0){ %>
+                            <div class="font14 text-light-grey content-inner-block-20">
+                                <p>The booking amount of <span class="bwsprite inr-sm-grey"></span><%=bookingAmt %> has to be paid online and balance amount of <span class="bwsprite inr-sm-grey"></span><%= price-bookingAmt  %> has to be paid at the dealership. <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>">Book now</a></p>
+                            </div>
+                            <% } %>
+                        </div>
+                        <% } %>
+                        <% if (viewModel != null && viewModel.SecondaryDealerCount > 0)
+                           { %>
+                        <ul id="moreDealersList">
+                            <asp:Repeater ID="rptSecondaryDealers" runat="server">
+                                <ItemTemplate>
+                                    <li>
+                                        <a href="javascript:void(0);" onclick="secondarydealer_Click(
+                                            <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "DealerId")) %>)" class="font18 text-bold text-darker-black margin-right20 secondary"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Name")) %>, <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Area")) %></a>
+                                        <span class="font16 text-bold"><span class="bwsprite phone-black-icon"></span><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "MaskingNumber")) %></span>
+                                    </li>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        <% } %>
+                        </ul>
+                        <% if (viewModel!=null && viewModel.SecondaryDealerCount > 0)
+                           { %>
+                        <div class="text-center margin-top20">
+                            <a href="javascript:void(0)" class="font14 more-dealers-link">Check price from <%=viewModel.SecondaryDealerCount %> more dealers <span class="font12"><span class="bwsprite chevron-down"></span></span></a>
+                            <a href="javascript:void(0)" class="font14 less-dealers-link">Show less dealers <span class="font12"><span class="bwsprite chevron-up"></span></span></a>
+                        </div>
+                        <%} %>
+                    </div>
+
+                </div>
+                <div class="clear"></div>
+            </div>
+
+                                                    <!-- lead capture popup start-->
                                 <div id="leadCapturePopup" class="text-center rounded-corner2">
                                     <div class="leadCapture-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
                                     <!-- contact details starts here -->
@@ -510,40 +545,6 @@
                                     <!-- otp ends here -->
                                 </div>
                                 <!-- lead capture popup End-->
-                                </div>
-                            <% if(isBookingAvailable && bookingAmt > 0){ %>
-                            <div class="font14 text-light-grey content-inner-block-20">
-                                <p>The booking amount of <span class="bwsprite inr-sm-grey"></span><%=bookingAmt %> has to be paid online and balance amount of <span class="bwsprite inr-sm-grey"></span><%= price-bookingAmt  %> has to be paid at the dealership. <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>">Book now</a></p>
-                            </div>
-                            <% } %>
-                        </div>
-                        <% } %>
-                        <% if (viewModel != null && viewModel.SecondaryDealerCount > 0)
-                           { %>
-                        <ul id="moreDealersList">
-                            <asp:Repeater ID="rptSecondaryDealers" runat="server">
-                                <ItemTemplate>
-                                    <li>
-                                        <a href="javascript:void(0);" onclick="secondarydealer_Click(
-                                            <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "DealerId")) %>)" class="font18 text-bold text-darker-black margin-right20 secondary"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Name")) %>, <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Area")) %></a>
-                                        <span class="font16 text-bold"><span class="bwsprite phone-black-icon"></span><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "MaskingNumber")) %></span>
-                                    </li>
-                                </ItemTemplate>
-                            </asp:Repeater>
-                        <% } %>
-                        </ul>
-                        <% if (viewModel!=null && viewModel.SecondaryDealerCount > 0)
-                           { %>
-                        <div class="text-center margin-top20">
-                            <a href="javascript:void(0)" class="font14 more-dealers-link">Check price from <%=viewModel.SecondaryDealerCount %> more dealers <span class="font12"><span class="bwsprite chevron-down"></span></span></a>
-                            <a href="javascript:void(0)" class="font14 less-dealers-link">Show less dealers <span class="font12"><span class="bwsprite chevron-up"></span></span></a>
-                        </div>
-                        <%} %>
-                    </div>
-
-                </div>
-                <div class="clear"></div>
-            </div>
            
             <!-- Terms and condition Popup start -->
             <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
@@ -560,14 +561,15 @@
                 </div>
             </div>
             <!-- Terms and condition Popup Ends -->
+
         </section>
          <% if (pqOnRoad!=null && pqOnRoad.BPQOutput != null && !string.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
             {
                  %>
         <section>
-            <div >
-            <%=String.Format(pqOnRoad.BPQOutput.ManufacturerAd, modelPageEntity.ModelDetails.MakeBase.MakeName) %>
-        </div>
+            
+            <%=String.Format(pqOnRoad.BPQOutput.ManufacturerAd) %>
+        
         </section>
         <%} %>     
         <meta itemprop="manufacturer" name="manufacturer" content="<%= modelPageEntity.ModelDetails.MakeBase.MakeName %>">  
@@ -578,38 +580,7 @@
         </style>
 
         <section>
-            <div id="campaign-container" class="container">
-                <div class="grid-12 margin-bottom20">
-                    <div class="padding-top20 padding-right20 padding-bottom10 padding-left20 content-box-shadow">
-                        <div class="margin-bottom10 padding-bottom20 border-light-bottom">
-                            <p class="font18 text-bold inline-block margin-right20">Bajaj Motors Pvt. Ltd.</p>
-                            <div class="font16 text-bold inline-block"><span class="bwsprite phone-black-icon"></span>0000000000</div>
-                        </div>
-                        <div class="campaign-left-col inline-block">
-                            <p class="font14">Get in touch for the best buying options from an authorised dealer</p>
-                            <ul id="campaign-offer-list">
-                                <li>
-                                    <span class="offer-benefit-sprite campaign-offer-1"></span>
-                                    <span class="campaign-offer-label">Offers</span>
-                                </li><li>
-                                    <span class="offer-benefit-sprite campaign-offer-2"></span>
-                                    <span class="campaign-offer-label">Test Rides</span>
-                                </li><li>
-                                    <span class="offer-benefit-sprite campaign-offer-3"></span>
-                                    <span class="campaign-offer-label">EMI options</span>
-                                </li><li>
-                                    <span class="offer-benefit-sprite campaign-offer-4"></span>
-                                    <span class="campaign-offer-label">Exchange benefits</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="campaign-right-col inline-block">
-                            <a href="javascript:void(0)" class="btn btn-orange btn-large" rel="nofollow">Get offers</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
+          
         </section>
 
         <section id="modelDetailsFloatingCardContent" class="container">
@@ -1337,6 +1308,13 @@
                 if ($('.dealership-benefit-list li').length <= 2) {
                     $('.dealership-benefit-list').addClass("dealer-two-offers");
                 }
+            });
+
+            $("#btnManufacturer").on("click", function () {
+                debugger;
+                leadSourceId = $(this).attr("data-leadsourceid");
+                $("#leadCapturePopup").show();
+                popup.lock();
             });
         </script>
     </form>

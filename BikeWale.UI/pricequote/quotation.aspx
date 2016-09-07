@@ -247,9 +247,16 @@
     </section>
     <% if (objQuotation != null && !string.IsNullOrEmpty(objQuotation.ManufacturerAd)){ %>
         <section>
-            <%=String.Format(objQuotation.ManufacturerAd, mmv.Make) %>
+            <%=String.Format(objQuotation.ManufacturerAd) %>
         </section>
     <%} %>
+    
+        <style type="text/css">
+            .phone-black-icon { width:11px; height:15px; position:relative; top:2px; margin-right:4px; background-position:-73px -444px; }
+            .offer-benefit-sprite {background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=2Sep2016v1) no-repeat;display: inline-block}#campaign-container .campaign-left-col{width:78%;padding-right:10px}#campaign-container .campaign-right-col{width:21%}.campaign-offer-label{width:75%;font-size:14px;font-weight:bold}.btn-large{padding:8px 56px}#campaign-offer-list li{width:175px;display:inline-block;vertical-align:middle;margin-top:15px;margin-bottom:10px;padding-right:5px}#campaign-offer-list li span{display:inline-block;vertical-align:middle}.campaign-offer-1,.campaign-offer-2,.campaign-offer-3,.campaign-offer-4{width:34px;height:28px;margin-right:5px}.campaign-offer-1{background-position:0 -356px}.campaign-offer-2{background-position:0 -390px}.campaign-offer-3{background-position:0 -425px}.campaign-offer-4{background-position:0 -463px}
+        </style>
+
+
     <section class="margin-bottom20 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
         <div class="container">
         <div class="grid-12 alternative-section" id="alternative-bikes-section">
@@ -576,6 +583,12 @@
             }
         };
     }
+    $("#btnManufacturer").on("click", function () {
+        leadSourceId = $(this).attr("data-leadsourceid");
+        $("#leadCapturePopup").show();
+        popup.lock();
+    });
+
 </script>
 </form>
 </body>

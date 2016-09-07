@@ -71,7 +71,9 @@ namespace Bikewale.Mobile.New
         protected Label defaultVariant;
         protected HiddenField hdnVariant;
         protected MPriceInTopCities ctrlTopCityPrices;
-
+        protected string pq_leadsource = "33";
+        protected string pq_sourcepage = "59";
+        protected string hide = "";
         #region Subscription model variables
         protected ModelPageVM viewModel = null;
 
@@ -137,7 +139,7 @@ namespace Bikewale.Mobile.New
                     Trace.Warn("Trace 19 : LoadVariants End");
                     #endregion
 
-                    
+
 
                     ////news,videos,revews, user reviews
                     ctrlNews.TotalRecords = 3;
@@ -167,7 +169,7 @@ namespace Bikewale.Mobile.New
                     ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                     ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
                     Trace.Warn("Trace 20 : Page Load ends");
-                    
+
                     if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
                     {
                         rptVarients.DataSource = modelPage.ModelVersions;
@@ -553,8 +555,10 @@ namespace Bikewale.Mobile.New
                 if (cityId != 0)
                 {
                     pqOnRoad = GetOnRoadPrice();
-                    
-                   
+                    if (string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber))
+                        hide = "hide";
+                    pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, "", "", "", hide);
+
                     // Set Pricequote Cookie
                     if (pqOnRoad != null)
                     {
@@ -843,8 +847,7 @@ namespace Bikewale.Mobile.New
                             {
                                 pqOnRoad.BPQOutput = bpqOutput;
                             }
-                            pqOnRoad.BPQOutput.ManufacturerAd = string.Format(pqOnRoad.BPQOutput.ManufacturerAd.ToString(), pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, pqOnRoad.PriceQuote.DealerId, pqOnRoad.BPQOutput.Area);
-                   
+
                             if (objPQOutput.DealerId != 0)
                             {
                                 // call another api

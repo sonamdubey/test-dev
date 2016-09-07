@@ -42,6 +42,9 @@ namespace Bikewale.PriceQuote
         protected DropDownList ddlVersion;
         IPriceQuote objPriceQuote = null;
         protected UInt32 versionId = 0;
+        protected string pq_leadsource = "34";
+        protected string pq_sourcepage = "58";
+        protected string hide = "";
         protected bool hasAlternateBikes = false, hasUpcomingBikes = false;
         protected override void OnInit(EventArgs e)
         {
@@ -150,6 +153,10 @@ namespace Bikewale.PriceQuote
             try
             {
                 objQuotation = objPriceQuote.GetPriceQuoteById(Convert.ToUInt64(priceQuoteId), LeadSourceEnum.DPQ_Desktop);
+                if (string.IsNullOrEmpty(objQuotation.MaskingNumber))
+                    hide = "hide";
+                objQuotation.ManufacturerAd = Format.FormatManufacturerAd(objQuotation.ManufacturerAd, objQuotation.ManufacturerName, objQuotation.MaskingNumber, Convert.ToString(objQuotation.ManufacturerId), objQuotation.Area, pq_leadsource, pq_sourcepage, "", "", "", hide);
+
             }
             catch (Exception ex)
             {

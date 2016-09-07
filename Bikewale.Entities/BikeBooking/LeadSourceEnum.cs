@@ -6,9 +6,9 @@ namespace Bikewale.Entities.BikeBooking
     /// </summary>
     public enum LeadSourceEnum
     {
-        DPQ_Desktop = 1, 
-        DPQ_Mobile=2, 
-        Model_Mobile=3,
-        Model_Desktop=4
+        DPQ_Desktop = 1,
+        DPQ_Mobile = 2,
+        Model_Mobile = 4,
+        Model_Desktop = 3
     }
 }
