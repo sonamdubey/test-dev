@@ -45,8 +45,7 @@ namespace Bikewale.BikeBooking
         {
             this.Load += new EventHandler(Page_Load);
             deliveryDetailsNextBtn.ServerClick += new EventHandler(btnMakePayment_click);
-            //generateNewOTP.ServerClick += new EventHandler(btnMakePayment_click);
-            //processOTP.ServerClick += new EventHandler(btnMakePayment_click);
+
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -85,7 +84,8 @@ namespace Bikewale.BikeBooking
                         }
                         else
                         {
-                            HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/pricequote/BikeDealerDetails.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
+                            // HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/pricequote/BikeDealerDetails.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
+                            HttpContext.Current.Response.Redirect("/", false);
                             HttpContext.Current.ApplicationInstance.CompleteRequest();
                             this.Page.Visible = false;
                             return;

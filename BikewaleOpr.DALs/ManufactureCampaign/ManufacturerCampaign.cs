@@ -1,4 +1,5 @@
 ﻿using Bikewale.Notifications;
+using Bikewale.Utility;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Entity.ContractCampaign;
 using BikewaleOpr.Entity.ManufacturerCampaign;
@@ -50,10 +51,10 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                                 {
                                     dtManufactureCampaigns.Add(new ManufactureDealerCampaign
                                     {
-                                        id = Convert.ToInt32(dr["id"]),
-                                        dealerid = Convert.ToInt32(dr["dealerid"]),
+                                        id = SqlReaderConvertor.ToInt32(dr["id"]),
+                                        dealerid = SqlReaderConvertor.ToInt32(dr["dealerid"]),
                                         description = Convert.ToString(dr["description"]),
-                                        isactive = Convert.ToInt32(dr["isactive"]),
+                                        isactive = SqlReaderConvertor.ToInt32(dr["isactive"]),
                                         maskingnumber = Convert.ToString(dr["maskingnumber"])
 
                                     });
@@ -126,7 +127,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                                 manufacturers.Add(
                                     new ManufacturerEntity()
                                     {
-                                        Id = Convert.ToInt32(reader["Id"]),
+                                        Id = SqlReaderConvertor.ToInt32(reader["Id"]),
                                         Name = Convert.ToString(reader["Name"]),
                                         Organization = Convert.ToString(reader["Organization"])
                                     }
@@ -168,7 +169,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                             {
                                 AllMfgcities.Add(new MfgCityEntity()
                                 {
-                                    CityId = Convert.ToInt32(dr["Id"]),
+                                    CityId = SqlReaderConvertor.ToInt32(dr["Id"]),
                                     CityName = dr["Name"].ToString(),
                                     StateName = dr["StateName"].ToString()
                                 });
@@ -218,7 +219,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                                 {
                                     dtManufacturerCampaignRules.Add(new MfgCampaignRulesEntity()
                                     {
-                                        CampaignRuleId = Convert.ToInt32(dr["campaignruleid"]),
+                                        CampaignRuleId = SqlReaderConvertor.ToInt32(dr["campaignruleid"]),
                                         ModelName = dr["modelname"].ToString(),
                                         MakeName = dr["makename"].ToString(),
                                         CityName = dr["cityname"].ToString(),
@@ -268,7 +269,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                         {
 
                             dr.Read();
-                            rowsInserted = Convert.ToInt32(dr["rowsAffected"]);
+                            rowsInserted = SqlReaderConvertor.ToInt32(dr["rowsAffected"]);
                             dr.Close();
                         }
                     }
@@ -471,7 +472,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                             objManufacturerCampaignDetails = new List<BikewaleOpr.Entity.ManufacturerCampaign.ManufacturerCampaignEntity>();
                             while (dr.Read())
                             {
-                                objManufacturerCampaignDetails.Add(new BikewaleOpr.Entity.ManufacturerCampaign.ManufacturerCampaignEntity() { CampaignDescription = dr["Description"].ToString(), CampaignMaskingNumber = dr["maskingnumber"].ToString(), IsActive = Convert.ToInt32(dr["isactive"]), IsDefault = Convert.ToInt32(dr["isdefault"]), PageId = Convert.ToInt32(dr["pageid"]), TemplateHtml = dr["templatehtml"].ToString(), TemplateId = Convert.ToInt32(dr["id"]) });
+                                objManufacturerCampaignDetails.Add(new BikewaleOpr.Entity.ManufacturerCampaign.ManufacturerCampaignEntity() { CampaignDescription = dr["Description"].ToString(), CampaignMaskingNumber = dr["maskingnumber"].ToString(), IsActive = SqlReaderConvertor.ToInt32(dr["isactive"]), IsDefault = SqlReaderConvertor.ToInt32(dr["isdefault"]), PageId = SqlReaderConvertor.ToInt32(dr["pageid"]), TemplateHtml = dr["templatehtml"].ToString(), TemplateId = SqlReaderConvertor.ToInt32(dr["id"]) });
                             }
                         }
                     }
