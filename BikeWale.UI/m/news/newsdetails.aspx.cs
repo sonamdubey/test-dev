@@ -37,7 +37,8 @@ namespace Bikewale.Mobile.Content
         {
             this.Load += new EventHandler(Page_Load);
         }
-
+        //Modified By: Aditi Srivastava on 7 Sep 2016
+        //SUmmary: Added request rawURL on form action
         protected void Page_Load(object sender, EventArgs e)
         {
 
