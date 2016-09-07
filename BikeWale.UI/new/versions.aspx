@@ -7,6 +7,7 @@
 <%@ Register Src="~/controls/NewUserReviewsList.ascx" TagPrefix="BW" TagName="UserReviews" %>
 <%@ Register Src="~/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
 <%@ Register Src="~/controls/PriceInTopCities.ascx" TagPrefix="BW" TagName="TopCityPrice" %>
+<%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <!doctype html>
 <html>
 <head>
@@ -308,9 +309,9 @@
                                 <% } %>
                             </div>
 
-                            <% if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ)
+                            <% if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ )
                                { %>
-                            <a href="javascript:void(0)" id="getassistance" leadSourceId="12" class="btn btn-orange margin-top10 margin-right10 leftfloat">Get offers from dealer</a>
+                            <a href="javascript:void(0)" class="btn btn-orange margin-top10 margin-right10 leftfloat leadcapturebtn"  data-leadsourceid="12"  data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>"  data-item-area="<%= viewModel.AreaName %> ">Get offers from dealer</a>
                             <div class="leftfloat margin-top10">
                                 <span class="font12 text-light-grey">Powered by</span><br />
                                 <span class="font14"><%= viewModel.Organization %></span>
@@ -318,12 +319,7 @@
                             <div class="clear"></div>
                              <%  }
                                 } %>
-                            <% if (!toShowOnRoadPriceButton && isBikeWalePQ && dealerId == 0)
-                               { %>
-                            <%--<div class="insurance-breakup-text text-bold padding-top10" >
-                                <a target="_blank" id="insuranceLink" href="/insurance/">Save up to 60% on insurance - PolicyBoss</a>
-                            </div>--%>
-                            <% } %>
+
                             <!-- upcoming start -->
                             <% if (modelPageEntity.ModelDetails.Futuristic && modelPageEntity.UpcomingBike != null)
                                { %>
@@ -389,8 +385,8 @@
                                 <div class="clear"></div>
                             </div>
                             <% } %>
-                            <div id="dealerAssistance">
-                            <div id="buyingAssistance" class="bg-light-grey font14 content-inner-block-20">
+                            <div id="dealerAssistance" class="bg-light-grey font14 content-inner-block-20">
+                            <div id="buyingAssistance" >
                                 <p class="text-bold margin-bottom20">Get assistance on buying this bike:</p>
                                 <div>
                                     <div class="form-control-box form-control-username leftfloat margin-right20">
@@ -409,10 +405,15 @@
                                         <span class="bwsprite error-icon errorIcon"></span>
                                         <div class="bw-blackbg-tooltip errorText"></div>
                                     </div>
-                                    <a class="btn btn-inv-grey leftfloat" leadSourceId="13" id="assistFormSubmit" data-bind="event: { click: submitLead }">Submit</a>
+                                    <a class="btn btn-inv-grey leftfloat" data-isleadpopup="false" data-leadsourceid="13"  data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %>" data-item-id="<%= dealerId %>"  data-bind="event: { click: HiddenSubmitLead }">Submit</a>
                                     <div class="clear"></div>
                                 </div>
                             </div>
+                                <div id="dealer-assist-msg" class="hide" >
+                                    <p class="font14 leftfloat">Thank you for your interest. <%= viewModel.Organization %> - <%= viewModel.AreaName %> will get in touch shortly</p>
+                                    <span class="assistance-response-close bwsprite cross-lg-lgt-grey cur-pointer rightfloat"></span>
+                                    <div class="clear"></div>
+                                </div>
                                 </div>
                             <% if(isBookingAvailable && bookingAmt > 0){ %>
                             <div class="font14 text-light-grey content-inner-block-20">
@@ -448,103 +449,6 @@
                 <div class="clear"></div>
             </div>
 
-                                                    <!-- lead capture popup start-->
-                                <div id="leadCapturePopup" class="text-center rounded-corner2">
-                                    <div class="leadCapture-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-                                    <!-- contact details starts here -->
-                                    <div id="contactDetailsPopup">
-                                        <div class="icon-outer-container rounded-corner50">
-                                            <div class="icon-inner-container rounded-corner50">
-                                                <span class="bwsprite user-contact-details-icon margin-top25"></span>
-                                            </div>
-                                        </div>
-                                        <p class="font20 margin-top25 margin-bottom10">Provide contact details</p>
-                                        <p class="text-light-grey margin-bottom20">Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!</p>
-                                        <div class="personal-info-form-container">
-                                            <div class="form-control-box personal-info-list">
-                                                <input type="text" class="form-control get-first-name" placeholder="Name (mandatory)"
-                                                    id="getFullName" data-bind="textInput: fullName">
-                                                <span class="bwsprite error-icon errorIcon"></span>
-                                                <div class="bw-blackbg-tooltip errorText"></div>
-                                            </div>
-                                            <div class="form-control-box personal-info-list">
-                                                <input type="text" class="form-control get-email-id" placeholder="Email address (mandatory)"
-                                                    id="getEmailID" data-bind="textInput: emailId">
-                                                <span class="bwsprite error-icon errorIcon"></span>
-                                                <div class="bw-blackbg-tooltip errorText"></div>
-                                            </div>
-                                            <div class="form-control-box personal-info-list">
-                                                <p class="mobile-prefix">+91</p>
-                                                <input type="text" class="form-control padding-left40 get-mobile-no" placeholder="Mobile no. (mandatory)"
-                                                    id="getMobile" maxlength="10" data-bind="textInput: mobileNo">
-                                                <span class="bwsprite error-icon errorIcon"></span>
-                                                <div class="bw-blackbg-tooltip errorText"></div>
-                                            </div>
-                                            <div class="clear"></div>
-                                            <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-                                        </div>                   
-                                    </div>
-                                    <!-- contact details ends here -->
-                                    <!-- thank you message starts here -->
-                                    <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
-                                        <div class="icon-outer-container rounded-corner50">
-                                            <div class="icon-inner-container rounded-corner50">
-                                                <span class="bwsprite user-contact-details-icon margin-top25"></span>
-                                            </div>
-                                        </div>
-                                        <p class="font18 text-bold margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
-                                        <% if(viewModel!=null){ %>
-                                        <p class="font16 margin-bottom40"><%=viewModel.Organization %>, <%=viewModel.AreaName %> will get in touch with you soon</p>
-                                        <% } %>
-                                        <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
-                                    </div>
-                                    <!-- thank you message ends here -->
-
-                                    <!-- otp starts here -->
-                                    <div id="otpPopup">
-                                        <div class="icon-outer-container rounded-corner50">
-                                            <div class="icon-inner-container rounded-corner50">
-                                                <span class="bwsprite otp-icon margin-top25"></span>
-                                            </div>
-                                        </div>
-                                        <p class="font18 margin-top25 margin-bottom20">Verify your mobile number</p>
-                                        <p class="font14 text-light-grey margin-bottom20">We have sent OTP on your mobile. Please enter that OTP in the box provided below:</p>
-                                        <div>
-                                            <div class="lead-mobile-box lead-otp-box-container font22">
-                                                <span class="bwsprite phone-black-icon"></span>
-                                                <span class="text-light-grey">+91</span>
-                                                <span class="lead-mobile"></span>
-                                                <span class="bwsprite edit-blue-icon edit-mobile-btn"></span>
-                                            </div>
-                                            <div class="otp-box lead-otp-box-container">
-                                                <div class="form-control-box margin-bottom10">
-                                                    <input type="text" class="form-control" maxlength="5" placeholder="Enter your OTP" id="getOTP" data-bind="value: otpCode">
-                                                    <span class="bwsprite error-icon errorIcon"></span>
-                                                    <div class="bw-blackbg-tooltip errorText"></div>
-                                                </div>
-                                                <a class="resend-otp-btn margin-left10 blue rightfloat resend-otp-btn" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP
-                                                </a>
-                                                <p class="otp-alert-text margin-left10 otp-notify-text text-light-grey font12 margin-top10" data-bind="visible: (NoOfAttempts() >= 2)">
-                                                    OTP has been already sent to your mobile
-                                                </p>
-                                                <div class="clear"></div>
-                                                <%--<p class="resend-otp-btn margin-bottom20" id="resendCwiCode">Resend OTP</p>--%>
-                                                <input type="button" class="btn btn-orange margin-top20" value="Confirm OTP" id="otp-submit-btn">
-                                            </div>
-                                            <div class="update-mobile-box">
-                                                <div class="form-control-box text-left">
-                                                    <p class="mobile-prefix">+91</p>
-                                                    <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo" />
-                                                    <span class="bwsprite error-icon errorIcon"></span>
-                                                    <div class="bw-blackbg-tooltip errorText"></div>
-                                                </div>
-                                                <input type="button" class="btn btn-orange" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- otp ends here -->
-                                </div>
-                                <!-- lead capture popup End-->
            
             <!-- Terms and condition Popup start -->
             <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
@@ -653,7 +557,7 @@
                             <%} else
                                     if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ && !isDiscontinued)
                                     {%>									 
-                                     <a href="javascript:void(0)" id="getOffersFromDealerFloating" leadSourceId="24" class="btn btn-orange font14 <%=(viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) ? "margin-top5" : "margin-top20" %> bw-ga" rel="nofollow" c="Model_Page" a="Floating_Card_Get_Offers_Clicked" v="myBikeName">Get offers from dealer</a>
+                                     <a href="javascript:void(0)" data-leadsourceid="24"  data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>"  data-item-area="<%= viewModel.AreaName %> " class="btn btn-orange leadcapturebtn font14 <%=(viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) ? "margin-top5" : "margin-top20" %> bw-ga" rel="nofollow" c="Model_Page" a="Floating_Card_Get_Offers_Clicked" v="myBikeName">Get offers from dealer</a>
                                     <%} %>
                             
                             <!-- if no 'powered by' text is present remove margin-top5 add margin-top20 in offers button -->
@@ -1275,6 +1179,7 @@
         </div>
 
         <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
+        <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
         <!-- #include file="/includes/footerBW.aspx" -->
         <!--[if lt IE 9]>
             <script src="/src/html5.js"></script>
@@ -1308,11 +1213,30 @@
                 }
             });
 
-            $("#btnManufacturer").on("click", function () {
-                debugger;
-                leadSourceId = $(this).attr("data-leadsourceid");
-                $("#leadCapturePopup").show();
-                popup.lock();
+            $(".leadcapturebtn").click(function (e) {
+
+                ele = $(this);
+                var leadOptions = {
+                    "dealerid": ele.attr('data-item-id'),
+                    "dealername": ele.attr('data-item-name'),
+                    "dealerarea": ele.attr('data-item-area'),
+                    "versionid": versionId,
+                    "leadsourceid": ele.attr('data-leadsourceid'),
+                    "pqsourceid": ele.attr('data-pqsourceid'),
+                    "isleadpopup": ele.attr('data-isleadpopup'),
+                    "mfgCampid": ele.attr('data-item-mfg-campid'),
+                    "pqid" : pqId,
+                    "pageurl": pageUrl,
+                    "clientip": clientIP
+                    <%--"gaobject": {
+                        cat: 'Price_in_City_Page',
+                        act: 'Lead_Submitted',
+                        lab: '<%= string.Format("{0}_", bikeName)%>' + CityArea
+                    }--%>
+                };
+
+                dleadvm.setOptions(leadOptions);
+
             });
         </script>
     </form>

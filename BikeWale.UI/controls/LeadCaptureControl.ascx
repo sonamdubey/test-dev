@@ -65,6 +65,7 @@
     var fullName = $("#getFullName");
     var emailid = $("#getEmailID");
     var mobile = $("#getMobile");
+    var assistanceGetName = $('#assistanceGetName'),    assistanceGetEmail = $('#assistanceGetEmail'),    assistanceGetMobile = $('#assistanceGetMobile');
     var detailsSubmitBtn = $("#user-details-submit-btn");
     var prevEmail = "";
     var prevMobile = "";
@@ -77,7 +78,7 @@
 
     $(function () {
         
-        leadBtnBookNow.on('click', function () {
+        $(document).on('click',".leadcapturebtn", function () {
             leadCapturePopup.show();
             $("#dealer-lead-msg").hide();
             $("div#contactDetailsPopup").show();
@@ -100,6 +101,10 @@
             }
         });
 
+        $("#dealer-assist-msg .assistance-response-close").on("click", function () {
+            $("#dealer-assist-msg").parent().slideUp();
+        });
+
         $("#getFullName").on("focus", function () {
             hideError($(this));
         });
@@ -117,7 +122,7 @@
         $("#getMobile").on("blur", function () {
            
             if (prevMobile != $(this).val().trim()) {
-                if (self.validateMobileNo($(this))) {
+                if (dleadvm.validateMobileNo($(this))) {
                     dleadvm.IsVerified(false);
                     otpText.val('');
                     otpContainer.removeClass("show").addClass("hide");
@@ -134,7 +139,7 @@
 
         $("#getEmailID").on("blur", function () {
             if (prevEmail != $(this).val().trim()) {
-                if (self.validateEmailId($(this))) {
+                if (dleadvm.validateEmailId($(this))) {
                     dleadvm.IsVerified(false);
                     otpText.val('');
                     otpContainer.removeClass("show").addClass("hide");
@@ -177,6 +182,8 @@
         self.selectedBike = ko.observable();
         self.campaignId = ko.observable();
         self.GAObject = ko.observable();
+        self.mfgCampaignId = ko.observable();
+        self.IsLeadPopup = ko.observable(true);
         
         self.setOptions = function(options)
         {
@@ -206,11 +213,22 @@
                 if(options.campid!=null)
                     self.campaignId(options.campid);
 
-                if(options.isdealerbikes!=null && options.isdealerbikes)
+                if (options.mfgCampid != null) {
+                    self.mfgCampaignId(options.mfgCampid);
+                }
+
+                if(options.isdealerbikes!=null)
                 {
                     self.isDealerBikes(options.isdealerbikes);
                     self.getDealerBikes();
                 }
+
+                if (options.isleadpopup != null)
+                    self.IsLeadPopup(options.isleadpopup);
+                else self.IsLeadPopup(true);
+
+                if (options.pqid != null)
+                    self.pqId(options.pqid);
 
                 if (options.gaobject != null)
                     self.GAObject(options.gaobject);
@@ -377,26 +395,117 @@
             }
         };
 
-        self.submitLead = function (data, event) {
-            self.IsVerified(false);
-            isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
+        self.submitCampaignLead = function (data, event) {
+            var isValidCustomer = self.validateUserInfo(fullName, emailid, mobile);
 
-            if (self.dealerId() && isValidDetails) {
-                self.verifyCustomer();
-                if (self.IsVerified()) {
+            if (isValidCustomer && self.mfgCampaignId() > 0) {
 
-                    $("#contactDetailsPopup").hide();
-                    $("#personalInfo").hide()
-                    $("#dealer-lead-msg").fadeIn();
+                if (self.isRegisterPQ())
+                    self.generatePQ(data, event);
 
+                $('#processing').show();
+                var objCust = {
+                    "dealerId": self.dealerId(),
+                    "pqId": self.pqId(),
+                    "name": self.fullName(),
+                    "mobile": self.mobileNo(),
+                    "email": self.emailId(),
+                    "versionId": self.versionId(),
+                    "cityId": self.cityId(),
+                    "leadSourceId": self.leadSourceId(),
+                    "deviceId": getCookie('BWC')
                 }
-                else {
-                    $("#leadCapturePopup").show();
-                    $('body').addClass('lock-browser-scroll');
-                    $(".blackOut-window").show();
-                }
+                $.ajax({
+                    type: "POST",
+                    url: "/api/ManufacturerLead/",
+                    data: ko.toJSON(objCust),
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('utma', getCookie('__utma'));
+                        xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
+                    },
+                    async: false,
+                    contentType: "application/json",
+                    dataType: 'json',
+                    success: function (response) {
+                        $("#personalInfo,#otpPopup").hide();
+                        $('#processing').hide();   
+                        $("#contactDetailsPopup").hide();
+                        $('#dealer-lead-msg .notify-leadUser').text(self.fullName());
+                        $('#dealer-lead-msg').show();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        $('#processing').hide();
+                        $("#contactDetailsPopup, #otpPopup").hide();
+                        var leadMobileVal = mobile.val();
+                        nameValTrue();
+                        hideError(self.mobileNo());
+                    }
+                });
+
                 setPQUserCookie();
             }
+        };
+
+        self.submitLead = function (data, event) {
+
+            if (self.mfgCampaignId() > 0) {
+                self.submitCampaignLead(data, event);
+            }
+            else {
+
+                self.IsVerified(false);
+                isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
+
+                if (self.dealerId() && isValidDetails) {
+                    self.verifyCustomer();
+                    if (self.IsVerified()) {
+
+                        if (self.IsLeadPopup()!="false") {
+                            $("#contactDetailsPopup").hide();
+                            $("#personalInfo").hide();
+                            $("#dealer-lead-msg").fadeIn();
+                        }
+                        else
+                        {
+                            $("#buyingAssistance").hide();
+                            $("#dealer-assist-msg").fadeIn();
+                        }
+                    }
+                    else {
+                        $("#leadCapturePopup").show();
+                        $('body').addClass('lock-browser-scroll');
+                        $(".blackOut-window").show();
+                    }
+                    setPQUserCookie();
+                }
+            }
+        };
+
+        self.HiddenSubmitLead = function (d, e) {
+            ele = $(e.target);
+            var leadOptions = {
+                "dealerid": ele.attr('data-item-id'),
+                "dealername": ele.attr('data-item-name'),
+                "dealerarea": ele.attr('data-item-area'),
+                "versionid": versionId,
+                "leadsourceid": ele.attr('data-leadsourceid'),
+                "pqsourceid": ele.attr('data-pqsourceid'),
+                "isleadpopup": ele.attr('data-isleadpopup'),
+                "mfgCampid": ele.attr('data-item-mfg-campid'),
+                "pqid": pqId,
+                "pageurl": pageUrl,
+                "clientip": clientIP
+                <%--"gaobject": {
+                        cat: 'Price_in_City_Page',
+                        act: 'Lead_Submitted',
+                        lab: '<%= string.Format("{0}_", bikeName)%>' + CityArea
+                    }--%>
+            };
+
+            self.setOptions(leadOptions);
+
+            self.submitLead(d, e);
+
         };
 
         self.validateUserInfo = function () {
@@ -501,6 +610,9 @@
 
     var dleadvm = new leadModel();
     ko.applyBindings(dleadvm, document.getElementById("leadCapturePopup"));
+
+    if ($("#dealerAssistance") && $("#dealerAssistance").length > 0)
+        ko.applyBindings(dleadvm, document.getElementById("dealerAssistance"));
 
 
     function setuserDetails() {

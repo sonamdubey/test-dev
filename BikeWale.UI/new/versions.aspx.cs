@@ -685,12 +685,12 @@ namespace Bikewale.New
                 if (cityId != 0)
                 {
                     pqOnRoad = GetOnRoadPrice();
-                    if (string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber))
-                        hide = "hide";
-                    pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, "", "", "", hide);
                     // Set Pricequote Cookie
                     if (pqOnRoad != null)
                     {
+                        if (pqOnRoad.BPQOutput != null)
+                            pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber) ? "hide" : string.Empty);
+
                         variantId = pqOnRoad.PriceQuote.VersionId;
                         if (pqOnRoad.PriceQuote != null)
                         {
@@ -1262,25 +1262,6 @@ namespace Bikewale.New
                 toShowOnRoadPriceButton = true;
             }
         }
-
-        ///// <summary>
-        ///// Creted By : Lucky Rathore
-        ///// Created on : 08 January 2016
-        ///// </summary>
-        ///// <param name="price">dicount price</param>
-        ///// <param name="CategoryId">category of specified discount</param>
-        ///// <returns>Price in string formate.</returns>
-        //protected string GetDiscountPrice(string price, UInt32 CategoryId)
-        //{
-        //    if (price.CompareTo("0") == 0)
-        //    {
-        //        foreach (var priceListIterator in priceList)
-        //        {
-        //            if (priceListIterator.CategoryId == CategoryId) return Bikewale.Utility.Format.FormatPrice(Convert.ToString(priceListIterator.Price));
-        //        }
-        //    }
-        //    return Bikewale.Utility.Format.FormatPrice(Convert.ToString(price));
-        //}
 
         /// <summary>
         /// Created By: Sangram Nandkhile on 16-Mar-2016

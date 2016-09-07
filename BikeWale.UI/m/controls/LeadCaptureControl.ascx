@@ -227,6 +227,7 @@
 
                 if(options.clientip!=null)
                     self.clientIP = options.clientip;
+
                 if (options.pqid != null)
                     self.pqId(options.pqid);
 
