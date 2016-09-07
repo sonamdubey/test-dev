@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Bikewale.Utility
@@ -25,7 +21,7 @@ namespace Bikewale.Utility
             {
                 //create the cwc cookie with a unique random value
                 string bwcCookieValue = RandomNoGenerator.GetUniqueKey(25);
-                
+
                 Cookie bwcCookie = new Cookie("BWC");
                 bwcCookie.Value = bwcCookieValue;
                 bwcCookie.Expires = DateTime.Now.AddYears(2);
@@ -37,7 +33,7 @@ namespace Bikewale.Utility
                 string bwvCookieValue = RandomNoGenerator.GetUniqueKey(10); //add 10 digit unique key for the cwv
 
                 Cookie bwvCookie = new Cookie("_cwv");
-                
+
                 long currServerTimeStamp = GetCurrentUnixTimeStamp();
                 bwvCookie.Value = bwcCookieValue + "." + bwvCookieValue + "." + currServerTimeStamp + "." + currServerTimeStamp + "." + currServerTimeStamp + ".1" + ".r";
                 bwvCookie.Expires = DateTime.Now.AddYears(2);
@@ -56,7 +52,7 @@ namespace Bikewale.Utility
                 bwvCookie.Value = bwc.Value + "." + bwvCookieValue + "." + currServerTimeStamp + "." + currServerTimeStamp + "." + currServerTimeStamp + ".1" + ".r";
                 bwvCookie.Expires = DateTime.Now.AddYears(2);
                 CookieManager.Add(bwvCookie);
-                
+
             }
         }
 

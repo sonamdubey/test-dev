@@ -148,13 +148,8 @@ namespace Bikewale.Used
                 if (objInquiry.Warranties == "--" && objInquiry.Modifications == "--")
                     addDetails.Visible = false;
 
-
-                // Format research base url id user want to view standard specs, features and colours
-                //researchBaseUrl = "/" + UrlRewrite.FormatSpecial(objInquiry.MakeName) + "-bikes/" + UrlRewrite.FormatSpecial(objInquiry.ModelName) + "/" + UrlRewrite.FormatSpecial(objInquiry.VersionName);
-                //bikeCanonical = "/used-bikes-in-" + UrlRewrite.FormatSpecial(objInquiry.CityName) + "/" + UrlRewrite.FormatSpecial(objInquiry.MakeName) + "-" + UrlRewrite.FormatSpecial(objInquiry.ModelName) + "-" + profileId + "/";
-
                 researchBaseUrl = "/" + objInquiry.MakeMaskingName + "-bikes/" + objInquiry.ModelMaskingName + "/";
-                bikeCanonical = "/used/bikes-in-" + objInquiry.CityMaskingName + "/" + objInquiry.MakeMaskingName + "-" + objInquiry.ModelMaskingName + "-" + profileId + "/";
+                bikeCanonical = string.Format("http://www.bikewale.com/used/bikes-in-{0}/{1}-{2}-{3}/", objInquiry.CityMaskingName, objInquiry.MakeMaskingName, objInquiry.ModelMaskingName, profileId);
 
 
             }

@@ -40,6 +40,9 @@ namespace Bikewale.Mobile.Content
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            Form.Action = Request.RawUrl;
+
             if (!IsPostBack)
             {
                 ProcessQS();
