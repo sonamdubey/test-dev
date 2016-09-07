@@ -361,6 +361,7 @@ namespace BikeWaleOpr.Content
 
                     // Removed memcached key which shows data on home page and new page
                     MemCachedUtil.Remove("BW_CompareBikes_Cnt_4");
+                    MemCachedUtil.Remove("BW_CompareBikes_Cnt_1");
                     if (!String.IsNullOrEmpty(filPhoto.Value))
                         UploadImage(cId);
                     ShowBikeComparision();

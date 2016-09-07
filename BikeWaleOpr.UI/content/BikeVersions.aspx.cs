@@ -1,4 +1,5 @@
 ﻿using Bikewale.Utility;
+using BikewaleOpr.common;
 using BikeWaleOpr.Common;
 using MySql.CoreDAL;
 using System;
@@ -280,6 +281,11 @@ namespace BikeWaleOpr.Content
                 nvc.Add("IsUsed", Convert.ToInt16(chkUsed1.Checked).ToString());
                 nvc.Add("IsFuturistic", Convert.ToInt16(chkFuturistic1.Checked).ToString());
                 SyncBWData.PushToQueue("BW_UpdateBikeVersions", DataBaseName.CW, nvc);
+
+                var makeId = Request.Form["cmbMakes"];
+
+                //Refresh memcache object for popularBikes change
+                MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_{0}", makeId));
             }
             catch (SqlException ex)
             {

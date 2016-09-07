@@ -1,3 +1,4 @@
+using BikewaleOpr.common;
 using BikeWaleOpr.Common;
 using FreeTextBoxControls;
 using MySql.CoreDAL;
@@ -94,6 +95,12 @@ namespace BikeWaleOpr.Content
                 lbl_success_msg.Visible = true;
             }
             FillExistingData(Request.QueryString["model"]);
+
+            //Refresh memcache object for ModelDescription change for app
+            MemCachedUtil.Remove(string.Format("BW_ModelDesc_{0}", Request.QueryString["model"]));
+
+            //Refresh memcache object for ModelDescription change for desktop site
+            MemCachedUtil.Remove(string.Format("BW_ModelDetails_{0}", Request.QueryString["model"]));
         }
 
         void FillRatings(DropDownList drpName)
