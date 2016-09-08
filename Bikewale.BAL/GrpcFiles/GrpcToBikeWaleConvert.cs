@@ -1,6 +1,8 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.DTO.Videos;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.Videos;
 using EditCMSWindowsService.Messages;
 using Google.Protobuf.Collections;
 using Grpc.CMS;
@@ -94,7 +96,7 @@ namespace Bikewale.BAL.GrpcFiles
                     MainImgCategoryId = (short)curGrpcModelImage.MainImgCategoryId,
                     MakeBase = ConvertFromGrpcToBikeWale(curGrpcModelImage.MakeBase),
                     ModelBase = ConvertFromGrpcToBikeWale(curGrpcModelImage.ModelBase),
-                    OriginalImgPath = curGrpcModelImage.OriginalImgPath                    
+                    OriginalImgPath = curGrpcModelImage.OriginalImgPath
                 };
 
 
@@ -127,7 +129,7 @@ namespace Bikewale.BAL.GrpcFiles
                 {
                     ModelId = grpcModel.ModelId,
                     ModelName = grpcModel.ModelName,
-                    MaskingName=grpcModel.MaskingName
+                    MaskingName = grpcModel.MaskingName
                 };
                 return bwModel;
             }
@@ -174,9 +176,9 @@ namespace Bikewale.BAL.GrpcFiles
                     OriginalImgUrl = artSummary.OriginalImgUrl,
                     Views = artSummary.Views,
                     AuthorMaskingName = artSummary.AuthorMaskingName,
-                    Content=grpcAtricleDet.Content,
+                    Content = grpcAtricleDet.Content,
                     PrevArticle = ConvertFromGrpcToBikeWale(grpcAtricleDet.PrevArticle),
-                    NextArticle=ConvertFromGrpcToBikeWale(grpcAtricleDet.NextArticle),
+                    NextArticle = ConvertFromGrpcToBikeWale(grpcAtricleDet.NextArticle),
                     TagsList = ConvertFromGrpcToBikeWale(grpcAtricleDet.TagsList),
                     VehiclTagsList = ConvertFromGrpcToBikeWale(grpcAtricleDet.VehiclTagsList)
                 };
@@ -208,9 +210,9 @@ namespace Bikewale.BAL.GrpcFiles
                     LargePicUrl = artSummary.LargePicUrl,
                     SmallPicUrl = artSummary.SmallPicUrl,
                     OriginalImgUrl = artSummary.OriginalImgUrl,
-                    Views = artSummary.Views,                
-                    MainImgCaption=grpcAtricleDet.MainImgCaption,
-                    IsMainImageSet=grpcAtricleDet.IsMainImageSet,
+                    Views = artSummary.Views,
+                    MainImgCaption = grpcAtricleDet.MainImgCaption,
+                    IsMainImageSet = grpcAtricleDet.IsMainImageSet,
                     PageList = ConvertFromGrpcToBikeWale(grpcAtricleDet.PageList),
                     TagsList = ConvertFromGrpcToBikeWale(grpcAtricleDet.TagsList),
                     VehiclTagsList = ConvertFromGrpcToBikeWale(grpcAtricleDet.VehiclTagsList)
@@ -248,10 +250,10 @@ namespace Bikewale.BAL.GrpcFiles
             {
                 curPage = new Page()
                 {
-                    Content=curGrpcPage.Content,
-                    pageId=curGrpcPage.PageId,
-                    PageName=curGrpcPage.PageName,
-                    Priority=(ushort)curGrpcPage.Priority
+                    Content = curGrpcPage.Content,
+                    pageId = curGrpcPage.PageId,
+                    PageName = curGrpcPage.PageName,
+                    Priority = (ushort)curGrpcPage.Priority
                 };
 
                 retData.Add(curPage);
@@ -266,7 +268,7 @@ namespace Bikewale.BAL.GrpcFiles
             {
                 ArticleBase bwArticleBase = new ArticleBase()
                 {
-                    ArticleUrl=grpcArtBase.ArticleUrl,
+                    ArticleUrl = grpcArtBase.ArticleUrl,
                     BasicId = grpcArtBase.BasicId,
                     Title = grpcArtBase.Title
                 };
@@ -281,9 +283,104 @@ namespace Bikewale.BAL.GrpcFiles
             List<string> retList = new List<string>();
             if (lstString != null)
             {
-                retList.AddRange(lstString);                
+                retList.AddRange(lstString);
             }
             return retList;
+        }
+
+        public static VideosList ConvertFromGrpcToBikeWale(GrpcVideosList data)
+        {
+            VideosList retData = new VideosList();
+
+            VideoBase curVid;
+
+            List<VideoBase> lstVideos = new List<VideoBase>();
+            foreach (var curGrpcVideo in data.LstGrpcVideos)
+            {
+                curVid = new VideoBase()
+                {
+                    BasicId = Convert.ToUInt32(curGrpcVideo.BasicId),
+                    Description = curGrpcVideo.Description,
+                    DisplayDate = curGrpcVideo.DisplayDate,
+                    Duration = Convert.ToUInt32(curGrpcVideo.Duration),
+                    ImagePath = curGrpcVideo.ImagePath,
+                    ImgHost = curGrpcVideo.ImgHost,
+                    Likes = Convert.ToUInt32(curGrpcVideo.Likes),
+                    MakeName = curGrpcVideo.MakeName,
+                    MaskingName = curGrpcVideo.MaskingName,
+                    ModelName = curGrpcVideo.ModelName,
+                    SubCatId = curGrpcVideo.SubCatId,
+                    SubCatName = curGrpcVideo.SubCatName,
+                    Tags = curGrpcVideo.Tags,
+                    ThumbnailPath = curGrpcVideo.ThumbnailPath,
+                    VideoId = curGrpcVideo.VideoId,
+                    VideoTitle = curGrpcVideo.VideoTitle,
+                    VideoTitleUrl = curGrpcVideo.VideoTitleUrl,
+                    VideoUrl = curGrpcVideo.VideoUrl,
+                    Views = Convert.ToUInt32(curGrpcVideo.Views)
+                };
+
+                lstVideos.Add(curVid);
+            }
+            retData.Videos = lstVideos;
+            return retData;
+        }
+
+        public static List<BikeVideoEntity> ConvertFromGrpcToBikeWale(RepeatedField<GrpcVideo> data)
+        {
+            List<BikeVideoEntity> lstVideos = new List<BikeVideoEntity>();
+            foreach (var curGrpcVideo in data)
+            {
+                lstVideos.Add(ConvertFromGrpcToBikeWale(curGrpcVideo));
+            }
+
+            return lstVideos;
+        }
+
+        public static BikeVideoEntity ConvertFromGrpcToBikeWale(GrpcVideo curGrpcVideo)
+        {
+            if (curGrpcVideo != null)
+            {
+                return new BikeVideoEntity()
+                {
+                    BasicId = Convert.ToUInt32(curGrpcVideo.BasicId),
+                    Description = curGrpcVideo.Description,
+                    DisplayDate = curGrpcVideo.DisplayDate,
+                    Duration = Convert.ToUInt32(curGrpcVideo.Duration),
+                    ImagePath = curGrpcVideo.ImagePath,
+                    ImgHost = curGrpcVideo.ImgHost,
+                    Likes = Convert.ToUInt32(curGrpcVideo.Likes),
+                    MakeName = curGrpcVideo.MakeName,
+                    MaskingName = curGrpcVideo.MaskingName,
+                    ModelName = curGrpcVideo.ModelName,
+                    SubCatId = curGrpcVideo.SubCatId,
+                    SubCatName = curGrpcVideo.SubCatName,
+                    Tags = curGrpcVideo.Tags,
+                    ThumbnailPath = curGrpcVideo.ThumbnailPath,
+                    VideoId = curGrpcVideo.VideoId,
+                    VideoTitle = curGrpcVideo.VideoTitle,
+                    VideoTitleUrl = curGrpcVideo.VideoTitleUrl,
+                    VideoUrl = curGrpcVideo.VideoUrl,
+                    Views = Convert.ToUInt32(curGrpcVideo.Views)
+                };
+            }
+            return null;
+        }
+
+        public static BikeVideosListEntity ConvertFromGrpcToBikeWale(GrpcVideoListEntity inp)
+        {
+
+            if (inp != null)
+            {
+                BikeVideosListEntity retVal = new BikeVideosListEntity();
+                retVal.NextPageUrl = inp.NextPageUrl;
+                retVal.PrevPageUrl = inp.PrevPageUrl;
+                retVal.TotalRecords = inp.TotalRecords;
+                retVal.Videos = ConvertFromGrpcToBikeWale(inp.Videos.LstGrpcVideos);
+
+                return retVal;
+            }
+            return null;
         }
     }
 }

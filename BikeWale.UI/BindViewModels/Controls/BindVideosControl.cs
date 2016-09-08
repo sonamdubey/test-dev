@@ -12,6 +12,10 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
+using log4net;
+using EditCMSWindowsService.Messages;
+using Grpc.CMS;
+using Bikewale.BAL.GrpcFiles;
 
 namespace Bikewale.BindViewModels.Controls
 {
@@ -26,6 +30,10 @@ namespace Bikewale.BindViewModels.Controls
         static string _requestType;
         static string _applicationid  ;
         uint pageNo = 1;
+
+        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
+        static readonly ILog _logger = LogManager.GetLogger(typeof(BindVideosControl));
+        static bool _useGrpc = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.UseGrpc);
 
         string cacheKey = "BW_Videos_JustLatest";
 
@@ -88,11 +96,57 @@ namespace Bikewale.BindViewModels.Controls
         /// <returns></returns>
         private List<BikeVideoEntity> GetVideosFromCWAPI()
         {
+            return GetVideosByMakeModelViaGrpc();          
+        }
+
+        private List<BikeVideoEntity> GetVideosByMakeModelViaGrpc()
+        {
+            List<BikeVideoEntity> videoDTOList = null;
+            try
+            {
+                if (_useGrpc)
+                {
+
+                    GrpcVideosList _objVideoList;
+
+                    if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
+                    {
+                        if (ModelId.HasValue && ModelId.Value > 0)
+                            _objVideoList = GrpcMethods.GetVideosByModelId(ModelId.Value);
+                        else
+                            _objVideoList = GrpcMethods.GetVideosByMakeId(MakeId.Value);
+                    }else
+                        _objVideoList = GrpcMethods.GetVideosBySubCategory((int)EnumVideosCategory.JustLatest);                                                  
+
+                    if (_objVideoList != null && _objVideoList.LstGrpcVideos.Count > 0)
+                    {
+                        videoDTOList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objVideoList.LstGrpcVideos);
+                    }
+                    else
+                    {
+                        videoDTOList = GetVideosByMakeModelOldWay();
+                    }
+                }
+                else
+                {
+                    videoDTOList = GetVideosByMakeModelOldWay();
+                }
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+                videoDTOList = GetVideosByMakeModelOldWay();
+            }
+
+            return videoDTOList;
+        }
+
+        public List<BikeVideoEntity> GetVideosByMakeModelOldWay()
+        {
             List<BikeVideoEntity> objVideosList = null;
 
             try
             {
-
                 string _apiUrl = String.Format("/api/v1/videos/category/{0}/?appId=2&pageNo={1}&pageSize={2}", (int)EnumVideosCategory.JustLatest, pageNo, TotalRecords);
 
                 if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
@@ -114,8 +168,7 @@ namespace Bikewale.BindViewModels.Controls
                 objErr.SendMail();
             }
 
-            return objVideosList;            
+            return objVideosList;  
         }
-
     }
 }

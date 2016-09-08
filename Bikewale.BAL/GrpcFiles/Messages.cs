@@ -93,25 +93,60 @@ namespace EditCMSWindowsService.Messages {
             "IAMoCzIpLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjQXJ0aWNsZVN1bW1h",
             "cnkiVgoSR3JwY01vZGVsSW1hZ2VMaXN0EkAKEUxzdEdycGNNb2RlbEltYWdl",
             "GAEgAygLMiUuRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNNb2RlbEltYWdl",
-            "MpwGChJFZGl0Q01TR3JwY1NlcnZpY2USdQoVR2V0TW9zdFJlY2VudEFydGlj",
-            "bGVzEisuRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNBcnRpY2xlUmVjZW50",
-            "VVJJGi0uRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNBcnRpY2xlU3VtbWFy",
-            "eUxpc3QiABJvChhHZXRDb250ZW50TGlzdEJ5Q2F0ZWdvcnkSKi5FZGl0Q01T",
-            "V2luZG93c1NlcnZpY2UuR3JwY0FydGljbGVCeUNhdFVSSRolLkVkaXRDTVNX",
-            "aW5kb3dzU2VydmljZS5HcnBjQ01TQ29udGVudCIAEm4KEUdldENvbnRlbnRE",
-            "ZXRhaWxzEiwuRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNBcnRpY2xlQ29u",
-            "dGVudFVSSRopLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjQXJ0aWNsZURl",
-            "dGFpbHMiABJwCg9HZXRDb250ZW50UGFnZXMSLC5FZGl0Q01TV2luZG93c1Nl",
-            "cnZpY2UuR3JwY0FydGljbGVDb250ZW50VVJJGi0uRWRpdENNU1dpbmRvd3NT",
-            "ZXJ2aWNlLkdycGNBcnRpY2xlUGFnZURldGFpbHMiABJrChJHZXRNb2RlbFBo",
-            "b3Rvc0xpc3QSKC5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY01vZGVsUGhv",
-            "dG9VUkkaKS5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY01vZGVsSW1hZ2VM",
-            "aXN0IgASbQoQR2V0QXJ0aWNsZVBob3RvcxIsLkVkaXRDTVNXaW5kb3dzU2Vy",
-            "dmljZS5HcnBjQXJ0aWNsZUNvbnRlbnRVUkkaKS5FZGl0Q01TV2luZG93c1Nl",
-            "cnZpY2UuR3JwY01vZGVsSW1hZ2VMaXN0IgASYAoSR3JwY0dldEZlYXR1cmVk",
-            "Q2FyEiguRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNGZWF0dXJlQ2FyVVJJ",
-            "Gh4uRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNJbnQiAEIhqgIeRWRpdENN",
-            "U1dpbmRvd3NTZXJ2aWNlLk1lc3NhZ2VzYgZwcm90bzM="));
+            "IoEDCglHcnBjVmlkZW8SEgoKVmlkZW9UaXRsZRgBIAEoCRIQCghWaWRlb1Vy",
+            "bBgCIAEoCRIPCgdWaWRlb0lkGAMgASgJEg0KBVZpZXdzGAQgASgFEg0KBUxp",
+            "a2VzGAUgASgFEhMKC0Rlc2NyaXB0aW9uGAYgASgJEg8KB0Jhc2ljSWQYByAB",
+            "KAUSDAoEVGFncxgIIAEoCRIQCghEdXJhdGlvbhgJIAEoBRIQCghNYWtlTmFt",
+            "ZRgLIAEoCRIRCglNb2RlbE5hbWUYDCABKAkSEwoLTWFza2luZ05hbWUYDSAB",
+            "KAkSEAoIU3ViQ2F0SWQYDiABKAkSEgoKU3ViQ2F0TmFtZRgPIAEoCRIVCg1W",
+            "aWRlb1RpdGxlVXJsGBAgASgJEg8KB0ltZ0hvc3QYESABKAkSFQoNVGh1bWJu",
+            "YWlsUGF0aBgSIAEoCRIRCglJbWFnZVBhdGgYEyABKAkSEwoLRGlzcGxheURh",
+            "dGUYFCABKAkSEgoKSXNGZWF0dXJlZBgVIAEoCCKMAQoTR3JwY1ZpZGVvTGlz",
+            "dEVudGl0eRI1CgZWaWRlb3MYASABKAsyJS5FZGl0Q01TV2luZG93c1NlcnZp",
+            "Y2UuR3JwY1ZpZGVvc0xpc3QSFAoMVG90YWxSZWNvcmRzGAIgASgFEhMKC1By",
+            "ZXZQYWdlVXJsGAMgASgJEhMKC05leHRQYWdlVXJsGAQgASgJIkkKDkdycGNW",
+            "aWRlb3NMaXN0EjcKDUxzdEdycGNWaWRlb3MYASADKAsyIC5FZGl0Q01TV2lu",
+            "ZG93c1NlcnZpY2UuR3JwY1ZpZGVvIkoKGkdycGNWaWRlb3NCeVN1YkNhdGVn",
+            "b3J5VVJJEhUKDVN1YkNhdGVnb3J5SWQYASABKA0SFQoNQXBwbGljYXRpb25J",
+            "ZBgCIAEoDSI2ChFHcnBjVmlkZW9zQnlJZFVSSRIKCgJJZBgBIAEoBRIVCg1B",
+            "cHBsaWNhdGlvbklkGAIgASgNIk0KHEdycGNWaWRlb3NCeVN1YkNhdGVnb3Jp",
+            "ZXNVUkkSFgoOU3ViQ2F0ZWdvcnlJZHMYASABKAkSFQoNQXBwbGljYXRpb25J",
+            "ZBgCIAEoDTL/CwoSRWRpdENNU0dycGNTZXJ2aWNlEnUKFUdldE1vc3RSZWNl",
+            "bnRBcnRpY2xlcxIrLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjQXJ0aWNs",
+            "ZVJlY2VudFVSSRotLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjQXJ0aWNs",
+            "ZVN1bW1hcnlMaXN0IgASbwoYR2V0Q29udGVudExpc3RCeUNhdGVnb3J5Eiou",
+            "RWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNBcnRpY2xlQnlDYXRVUkkaJS5F",
+            "ZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY0NNU0NvbnRlbnQiABJuChFHZXRD",
+            "b250ZW50RGV0YWlscxIsLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjQXJ0",
+            "aWNsZUNvbnRlbnRVUkkaKS5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY0Fy",
+            "dGljbGVEZXRhaWxzIgAScAoPR2V0Q29udGVudFBhZ2VzEiwuRWRpdENNU1dp",
+            "bmRvd3NTZXJ2aWNlLkdycGNBcnRpY2xlQ29udGVudFVSSRotLkVkaXRDTVNX",
+            "aW5kb3dzU2VydmljZS5HcnBjQXJ0aWNsZVBhZ2VEZXRhaWxzIgASawoSR2V0",
+            "TW9kZWxQaG90b3NMaXN0EiguRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNN",
+            "b2RlbFBob3RvVVJJGikuRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNNb2Rl",
+            "bEltYWdlTGlzdCIAEm0KEEdldEFydGljbGVQaG90b3MSLC5FZGl0Q01TV2lu",
+            "ZG93c1NlcnZpY2UuR3JwY0FydGljbGVDb250ZW50VVJJGikuRWRpdENNU1dp",
+            "bmRvd3NTZXJ2aWNlLkdycGNNb2RlbEltYWdlTGlzdCIAEmAKEkdycGNHZXRG",
+            "ZWF0dXJlZENhchIoLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjRmVhdHVy",
+            "ZUNhclVSSRoeLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjSW50IgASdAoW",
+            "R2V0VmlkZW9zQnlTdWJDYXRlZ29yeRIxLkVkaXRDTVNXaW5kb3dzU2Vydmlj",
+            "ZS5HcnBjVmlkZW9zQnlTdWJDYXRlZ29yeVVSSRolLkVkaXRDTVNXaW5kb3dz",
+            "U2VydmljZS5HcnBjVmlkZW9zTGlzdCIAEn0KGEdldFZpZGVvc0J5U3ViQ2F0",
+            "ZWdvcmllcxIzLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjVmlkZW9zQnlT",
+            "dWJDYXRlZ29yaWVzVVJJGiouRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNW",
+            "aWRlb0xpc3RFbnRpdHkiABJnChJHZXRWaWRlb3NCeU1vZGVsSWQSKC5FZGl0",
+            "Q01TV2luZG93c1NlcnZpY2UuR3JwY1ZpZGVvc0J5SWRVUkkaJS5FZGl0Q01T",
+            "V2luZG93c1NlcnZpY2UuR3JwY1ZpZGVvc0xpc3QiABJmChFHZXRWaWRlb3NC",
+            "eU1ha2VJZBIoLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjVmlkZW9zQnlJ",
+            "ZFVSSRolLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjVmlkZW9zTGlzdCIA",
+            "EmUKEEdldFNpbWlsYXJWaWRlb3MSKC5FZGl0Q01TV2luZG93c1NlcnZpY2Uu",
+            "R3JwY1ZpZGVvc0J5SWRVUkkaJS5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3Jw",
+            "Y1ZpZGVvc0xpc3QiABJhChFHZXRWaWRlb0J5QmFzaWNJZBIoLkVkaXRDTVNX",
+            "aW5kb3dzU2VydmljZS5HcnBjVmlkZW9zQnlJZFVSSRogLkVkaXRDTVNXaW5k",
+            "b3dzU2VydmljZS5HcnBjVmlkZW8iABJRCg1DaGVja0hlYXJ0Qml0Eh4uRWRp",
+            "dENNU1dpbmRvd3NTZXJ2aWNlLkdycGNJbnQaHi5FZGl0Q01TV2luZG93c1Nl",
+            "cnZpY2UuR3JwY0ludCIAQiGqAh5FZGl0Q01TV2luZG93c1NlcnZpY2UuTWVz",
+            "c2FnZXNiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -133,7 +168,13 @@ namespace EditCMSWindowsService.Messages {
             new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcModelPhotoURI), global::EditCMSWindowsService.Messages.GrpcModelPhotoURI.Parser, new[]{ "ApplicationId", "ModelId", "CategoryIdList", "PlatformId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcArticleRecentURI), global::EditCMSWindowsService.Messages.GrpcArticleRecentURI.Parser, new[]{ "ApplicationId", "ContentTypes", "TotalRecords", "MakeId", "ModelId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcArticleSummaryList), global::EditCMSWindowsService.Messages.GrpcArticleSummaryList.Parser, new[]{ "LstGrpcArticleSummary" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcModelImageList), global::EditCMSWindowsService.Messages.GrpcModelImageList.Parser, new[]{ "LstGrpcModelImage" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcModelImageList), global::EditCMSWindowsService.Messages.GrpcModelImageList.Parser, new[]{ "LstGrpcModelImage" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcVideo), global::EditCMSWindowsService.Messages.GrpcVideo.Parser, new[]{ "VideoTitle", "VideoUrl", "VideoId", "Views", "Likes", "Description", "BasicId", "Tags", "Duration", "MakeName", "ModelName", "MaskingName", "SubCatId", "SubCatName", "VideoTitleUrl", "ImgHost", "ThumbnailPath", "ImagePath", "DisplayDate", "IsFeatured" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcVideoListEntity), global::EditCMSWindowsService.Messages.GrpcVideoListEntity.Parser, new[]{ "Videos", "TotalRecords", "PrevPageUrl", "NextPageUrl" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcVideosList), global::EditCMSWindowsService.Messages.GrpcVideosList.Parser, new[]{ "LstGrpcVideos" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI), global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI.Parser, new[]{ "SubCategoryId", "ApplicationId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI), global::EditCMSWindowsService.Messages.GrpcVideosByIdURI.Parser, new[]{ "Id", "ApplicationId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI), global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI.Parser, new[]{ "SubCategoryIds", "ApplicationId" }, null, null, null)
           }));
     }
     #endregion
@@ -4136,6 +4177,1297 @@ namespace EditCMSWindowsService.Messages {
             break;
           case 10: {
             lstGrpcModelImage_.AddEntriesFrom(input, _repeated_lstGrpcModelImage_codec);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+  public sealed partial class GrpcVideo : pb::IMessage<GrpcVideo> {
+    private static readonly pb::MessageParser<GrpcVideo> _parser = new pb::MessageParser<GrpcVideo>(() => new GrpcVideo());
+    public static pb::MessageParser<GrpcVideo> Parser { get { return _parser; } }
+
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[19]; }
+    }
+
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    public GrpcVideo() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    public GrpcVideo(GrpcVideo other) : this() {
+      videoTitle_ = other.videoTitle_;
+      videoUrl_ = other.videoUrl_;
+      videoId_ = other.videoId_;
+      views_ = other.views_;
+      likes_ = other.likes_;
+      description_ = other.description_;
+      basicId_ = other.basicId_;
+      tags_ = other.tags_;
+      duration_ = other.duration_;
+      makeName_ = other.makeName_;
+      modelName_ = other.modelName_;
+      maskingName_ = other.maskingName_;
+      subCatId_ = other.subCatId_;
+      subCatName_ = other.subCatName_;
+      videoTitleUrl_ = other.videoTitleUrl_;
+      imgHost_ = other.imgHost_;
+      thumbnailPath_ = other.thumbnailPath_;
+      imagePath_ = other.imagePath_;
+      displayDate_ = other.displayDate_;
+      isFeatured_ = other.isFeatured_;
+    }
+
+    public GrpcVideo Clone() {
+      return new GrpcVideo(this);
+    }
+
+    /// <summary>Field number for the "VideoTitle" field.</summary>
+    public const int VideoTitleFieldNumber = 1;
+    private string videoTitle_ = "";
+    public string VideoTitle {
+      get { return videoTitle_; }
+      set {
+        videoTitle_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "VideoUrl" field.</summary>
+    public const int VideoUrlFieldNumber = 2;
+    private string videoUrl_ = "";
+    public string VideoUrl {
+      get { return videoUrl_; }
+      set {
+        videoUrl_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "VideoId" field.</summary>
+    public const int VideoIdFieldNumber = 3;
+    private string videoId_ = "";
+    public string VideoId {
+      get { return videoId_; }
+      set {
+        videoId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "Views" field.</summary>
+    public const int ViewsFieldNumber = 4;
+    private int views_;
+    public int Views {
+      get { return views_; }
+      set {
+        views_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Likes" field.</summary>
+    public const int LikesFieldNumber = 5;
+    private int likes_;
+    public int Likes {
+      get { return likes_; }
+      set {
+        likes_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Description" field.</summary>
+    public const int DescriptionFieldNumber = 6;
+    private string description_ = "";
+    public string Description {
+      get { return description_; }
+      set {
+        description_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "BasicId" field.</summary>
+    public const int BasicIdFieldNumber = 7;
+    private int basicId_;
+    public int BasicId {
+      get { return basicId_; }
+      set {
+        basicId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Tags" field.</summary>
+    public const int TagsFieldNumber = 8;
+    private string tags_ = "";
+    public string Tags {
+      get { return tags_; }
+      set {
+        tags_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "Duration" field.</summary>
+    public const int DurationFieldNumber = 9;
+    private int duration_;
+    public int Duration {
+      get { return duration_; }
+      set {
+        duration_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "MakeName" field.</summary>
+    public const int MakeNameFieldNumber = 11;
+    private string makeName_ = "";
+    public string MakeName {
+      get { return makeName_; }
+      set {
+        makeName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "ModelName" field.</summary>
+    public const int ModelNameFieldNumber = 12;
+    private string modelName_ = "";
+    public string ModelName {
+      get { return modelName_; }
+      set {
+        modelName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "MaskingName" field.</summary>
+    public const int MaskingNameFieldNumber = 13;
+    private string maskingName_ = "";
+    public string MaskingName {
+      get { return maskingName_; }
+      set {
+        maskingName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "SubCatId" field.</summary>
+    public const int SubCatIdFieldNumber = 14;
+    private string subCatId_ = "";
+    public string SubCatId {
+      get { return subCatId_; }
+      set {
+        subCatId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "SubCatName" field.</summary>
+    public const int SubCatNameFieldNumber = 15;
+    private string subCatName_ = "";
+    public string SubCatName {
+      get { return subCatName_; }
+      set {
+        subCatName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "VideoTitleUrl" field.</summary>
+    public const int VideoTitleUrlFieldNumber = 16;
+    private string videoTitleUrl_ = "";
+    public string VideoTitleUrl {
+      get { return videoTitleUrl_; }
+      set {
+        videoTitleUrl_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "ImgHost" field.</summary>
+    public const int ImgHostFieldNumber = 17;
+    private string imgHost_ = "";
+    public string ImgHost {
+      get { return imgHost_; }
+      set {
+        imgHost_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "ThumbnailPath" field.</summary>
+    public const int ThumbnailPathFieldNumber = 18;
+    private string thumbnailPath_ = "";
+    public string ThumbnailPath {
+      get { return thumbnailPath_; }
+      set {
+        thumbnailPath_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "ImagePath" field.</summary>
+    public const int ImagePathFieldNumber = 19;
+    private string imagePath_ = "";
+    public string ImagePath {
+      get { return imagePath_; }
+      set {
+        imagePath_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "DisplayDate" field.</summary>
+    public const int DisplayDateFieldNumber = 20;
+    private string displayDate_ = "";
+    public string DisplayDate {
+      get { return displayDate_; }
+      set {
+        displayDate_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "IsFeatured" field.</summary>
+    public const int IsFeaturedFieldNumber = 21;
+    private bool isFeatured_;
+    public bool IsFeatured {
+      get { return isFeatured_; }
+      set {
+        isFeatured_ = value;
+      }
+    }
+
+    public override bool Equals(object other) {
+      return Equals(other as GrpcVideo);
+    }
+
+    public bool Equals(GrpcVideo other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (VideoTitle != other.VideoTitle) return false;
+      if (VideoUrl != other.VideoUrl) return false;
+      if (VideoId != other.VideoId) return false;
+      if (Views != other.Views) return false;
+      if (Likes != other.Likes) return false;
+      if (Description != other.Description) return false;
+      if (BasicId != other.BasicId) return false;
+      if (Tags != other.Tags) return false;
+      if (Duration != other.Duration) return false;
+      if (MakeName != other.MakeName) return false;
+      if (ModelName != other.ModelName) return false;
+      if (MaskingName != other.MaskingName) return false;
+      if (SubCatId != other.SubCatId) return false;
+      if (SubCatName != other.SubCatName) return false;
+      if (VideoTitleUrl != other.VideoTitleUrl) return false;
+      if (ImgHost != other.ImgHost) return false;
+      if (ThumbnailPath != other.ThumbnailPath) return false;
+      if (ImagePath != other.ImagePath) return false;
+      if (DisplayDate != other.DisplayDate) return false;
+      if (IsFeatured != other.IsFeatured) return false;
+      return true;
+    }
+
+    public override int GetHashCode() {
+      int hash = 1;
+      if (VideoTitle.Length != 0) hash ^= VideoTitle.GetHashCode();
+      if (VideoUrl.Length != 0) hash ^= VideoUrl.GetHashCode();
+      if (VideoId.Length != 0) hash ^= VideoId.GetHashCode();
+      if (Views != 0) hash ^= Views.GetHashCode();
+      if (Likes != 0) hash ^= Likes.GetHashCode();
+      if (Description.Length != 0) hash ^= Description.GetHashCode();
+      if (BasicId != 0) hash ^= BasicId.GetHashCode();
+      if (Tags.Length != 0) hash ^= Tags.GetHashCode();
+      if (Duration != 0) hash ^= Duration.GetHashCode();
+      if (MakeName.Length != 0) hash ^= MakeName.GetHashCode();
+      if (ModelName.Length != 0) hash ^= ModelName.GetHashCode();
+      if (MaskingName.Length != 0) hash ^= MaskingName.GetHashCode();
+      if (SubCatId.Length != 0) hash ^= SubCatId.GetHashCode();
+      if (SubCatName.Length != 0) hash ^= SubCatName.GetHashCode();
+      if (VideoTitleUrl.Length != 0) hash ^= VideoTitleUrl.GetHashCode();
+      if (ImgHost.Length != 0) hash ^= ImgHost.GetHashCode();
+      if (ThumbnailPath.Length != 0) hash ^= ThumbnailPath.GetHashCode();
+      if (ImagePath.Length != 0) hash ^= ImagePath.GetHashCode();
+      if (DisplayDate.Length != 0) hash ^= DisplayDate.GetHashCode();
+      if (IsFeatured != false) hash ^= IsFeatured.GetHashCode();
+      return hash;
+    }
+
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (VideoTitle.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(VideoTitle);
+      }
+      if (VideoUrl.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(VideoUrl);
+      }
+      if (VideoId.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(VideoId);
+      }
+      if (Views != 0) {
+        output.WriteRawTag(32);
+        output.WriteInt32(Views);
+      }
+      if (Likes != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(Likes);
+      }
+      if (Description.Length != 0) {
+        output.WriteRawTag(50);
+        output.WriteString(Description);
+      }
+      if (BasicId != 0) {
+        output.WriteRawTag(56);
+        output.WriteInt32(BasicId);
+      }
+      if (Tags.Length != 0) {
+        output.WriteRawTag(66);
+        output.WriteString(Tags);
+      }
+      if (Duration != 0) {
+        output.WriteRawTag(72);
+        output.WriteInt32(Duration);
+      }
+      if (MakeName.Length != 0) {
+        output.WriteRawTag(90);
+        output.WriteString(MakeName);
+      }
+      if (ModelName.Length != 0) {
+        output.WriteRawTag(98);
+        output.WriteString(ModelName);
+      }
+      if (MaskingName.Length != 0) {
+        output.WriteRawTag(106);
+        output.WriteString(MaskingName);
+      }
+      if (SubCatId.Length != 0) {
+        output.WriteRawTag(114);
+        output.WriteString(SubCatId);
+      }
+      if (SubCatName.Length != 0) {
+        output.WriteRawTag(122);
+        output.WriteString(SubCatName);
+      }
+      if (VideoTitleUrl.Length != 0) {
+        output.WriteRawTag(130, 1);
+        output.WriteString(VideoTitleUrl);
+      }
+      if (ImgHost.Length != 0) {
+        output.WriteRawTag(138, 1);
+        output.WriteString(ImgHost);
+      }
+      if (ThumbnailPath.Length != 0) {
+        output.WriteRawTag(146, 1);
+        output.WriteString(ThumbnailPath);
+      }
+      if (ImagePath.Length != 0) {
+        output.WriteRawTag(154, 1);
+        output.WriteString(ImagePath);
+      }
+      if (DisplayDate.Length != 0) {
+        output.WriteRawTag(162, 1);
+        output.WriteString(DisplayDate);
+      }
+      if (IsFeatured != false) {
+        output.WriteRawTag(168, 1);
+        output.WriteBool(IsFeatured);
+      }
+    }
+
+    public int CalculateSize() {
+      int size = 0;
+      if (VideoTitle.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(VideoTitle);
+      }
+      if (VideoUrl.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(VideoUrl);
+      }
+      if (VideoId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(VideoId);
+      }
+      if (Views != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Views);
+      }
+      if (Likes != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Likes);
+      }
+      if (Description.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Description);
+      }
+      if (BasicId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(BasicId);
+      }
+      if (Tags.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Tags);
+      }
+      if (Duration != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Duration);
+      }
+      if (MakeName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(MakeName);
+      }
+      if (ModelName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ModelName);
+      }
+      if (MaskingName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(MaskingName);
+      }
+      if (SubCatId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(SubCatId);
+      }
+      if (SubCatName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(SubCatName);
+      }
+      if (VideoTitleUrl.Length != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeStringSize(VideoTitleUrl);
+      }
+      if (ImgHost.Length != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeStringSize(ImgHost);
+      }
+      if (ThumbnailPath.Length != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeStringSize(ThumbnailPath);
+      }
+      if (ImagePath.Length != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeStringSize(ImagePath);
+      }
+      if (DisplayDate.Length != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeStringSize(DisplayDate);
+      }
+      if (IsFeatured != false) {
+        size += 2 + 1;
+      }
+      return size;
+    }
+
+    public void MergeFrom(GrpcVideo other) {
+      if (other == null) {
+        return;
+      }
+      if (other.VideoTitle.Length != 0) {
+        VideoTitle = other.VideoTitle;
+      }
+      if (other.VideoUrl.Length != 0) {
+        VideoUrl = other.VideoUrl;
+      }
+      if (other.VideoId.Length != 0) {
+        VideoId = other.VideoId;
+      }
+      if (other.Views != 0) {
+        Views = other.Views;
+      }
+      if (other.Likes != 0) {
+        Likes = other.Likes;
+      }
+      if (other.Description.Length != 0) {
+        Description = other.Description;
+      }
+      if (other.BasicId != 0) {
+        BasicId = other.BasicId;
+      }
+      if (other.Tags.Length != 0) {
+        Tags = other.Tags;
+      }
+      if (other.Duration != 0) {
+        Duration = other.Duration;
+      }
+      if (other.MakeName.Length != 0) {
+        MakeName = other.MakeName;
+      }
+      if (other.ModelName.Length != 0) {
+        ModelName = other.ModelName;
+      }
+      if (other.MaskingName.Length != 0) {
+        MaskingName = other.MaskingName;
+      }
+      if (other.SubCatId.Length != 0) {
+        SubCatId = other.SubCatId;
+      }
+      if (other.SubCatName.Length != 0) {
+        SubCatName = other.SubCatName;
+      }
+      if (other.VideoTitleUrl.Length != 0) {
+        VideoTitleUrl = other.VideoTitleUrl;
+      }
+      if (other.ImgHost.Length != 0) {
+        ImgHost = other.ImgHost;
+      }
+      if (other.ThumbnailPath.Length != 0) {
+        ThumbnailPath = other.ThumbnailPath;
+      }
+      if (other.ImagePath.Length != 0) {
+        ImagePath = other.ImagePath;
+      }
+      if (other.DisplayDate.Length != 0) {
+        DisplayDate = other.DisplayDate;
+      }
+      if (other.IsFeatured != false) {
+        IsFeatured = other.IsFeatured;
+      }
+    }
+
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 10: {
+            VideoTitle = input.ReadString();
+            break;
+          }
+          case 18: {
+            VideoUrl = input.ReadString();
+            break;
+          }
+          case 26: {
+            VideoId = input.ReadString();
+            break;
+          }
+          case 32: {
+            Views = input.ReadInt32();
+            break;
+          }
+          case 40: {
+            Likes = input.ReadInt32();
+            break;
+          }
+          case 50: {
+            Description = input.ReadString();
+            break;
+          }
+          case 56: {
+            BasicId = input.ReadInt32();
+            break;
+          }
+          case 66: {
+            Tags = input.ReadString();
+            break;
+          }
+          case 72: {
+            Duration = input.ReadInt32();
+            break;
+          }
+          case 90: {
+            MakeName = input.ReadString();
+            break;
+          }
+          case 98: {
+            ModelName = input.ReadString();
+            break;
+          }
+          case 106: {
+            MaskingName = input.ReadString();
+            break;
+          }
+          case 114: {
+            SubCatId = input.ReadString();
+            break;
+          }
+          case 122: {
+            SubCatName = input.ReadString();
+            break;
+          }
+          case 130: {
+            VideoTitleUrl = input.ReadString();
+            break;
+          }
+          case 138: {
+            ImgHost = input.ReadString();
+            break;
+          }
+          case 146: {
+            ThumbnailPath = input.ReadString();
+            break;
+          }
+          case 154: {
+            ImagePath = input.ReadString();
+            break;
+          }
+          case 162: {
+            DisplayDate = input.ReadString();
+            break;
+          }
+          case 168: {
+            IsFeatured = input.ReadBool();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+  public sealed partial class GrpcVideoListEntity : pb::IMessage<GrpcVideoListEntity> {
+    private static readonly pb::MessageParser<GrpcVideoListEntity> _parser = new pb::MessageParser<GrpcVideoListEntity>(() => new GrpcVideoListEntity());
+    public static pb::MessageParser<GrpcVideoListEntity> Parser { get { return _parser; } }
+
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[20]; }
+    }
+
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    public GrpcVideoListEntity() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    public GrpcVideoListEntity(GrpcVideoListEntity other) : this() {
+      Videos = other.videos_ != null ? other.Videos.Clone() : null;
+      totalRecords_ = other.totalRecords_;
+      prevPageUrl_ = other.prevPageUrl_;
+      nextPageUrl_ = other.nextPageUrl_;
+    }
+
+    public GrpcVideoListEntity Clone() {
+      return new GrpcVideoListEntity(this);
+    }
+
+    /// <summary>Field number for the "Videos" field.</summary>
+    public const int VideosFieldNumber = 1;
+    private global::EditCMSWindowsService.Messages.GrpcVideosList videos_;
+    public global::EditCMSWindowsService.Messages.GrpcVideosList Videos {
+      get { return videos_; }
+      set {
+        videos_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "TotalRecords" field.</summary>
+    public const int TotalRecordsFieldNumber = 2;
+    private int totalRecords_;
+    public int TotalRecords {
+      get { return totalRecords_; }
+      set {
+        totalRecords_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "PrevPageUrl" field.</summary>
+    public const int PrevPageUrlFieldNumber = 3;
+    private string prevPageUrl_ = "";
+    public string PrevPageUrl {
+      get { return prevPageUrl_; }
+      set {
+        prevPageUrl_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "NextPageUrl" field.</summary>
+    public const int NextPageUrlFieldNumber = 4;
+    private string nextPageUrl_ = "";
+    public string NextPageUrl {
+      get { return nextPageUrl_; }
+      set {
+        nextPageUrl_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    public override bool Equals(object other) {
+      return Equals(other as GrpcVideoListEntity);
+    }
+
+    public bool Equals(GrpcVideoListEntity other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(Videos, other.Videos)) return false;
+      if (TotalRecords != other.TotalRecords) return false;
+      if (PrevPageUrl != other.PrevPageUrl) return false;
+      if (NextPageUrl != other.NextPageUrl) return false;
+      return true;
+    }
+
+    public override int GetHashCode() {
+      int hash = 1;
+      if (videos_ != null) hash ^= Videos.GetHashCode();
+      if (TotalRecords != 0) hash ^= TotalRecords.GetHashCode();
+      if (PrevPageUrl.Length != 0) hash ^= PrevPageUrl.GetHashCode();
+      if (NextPageUrl.Length != 0) hash ^= NextPageUrl.GetHashCode();
+      return hash;
+    }
+
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (videos_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Videos);
+      }
+      if (TotalRecords != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(TotalRecords);
+      }
+      if (PrevPageUrl.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(PrevPageUrl);
+      }
+      if (NextPageUrl.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(NextPageUrl);
+      }
+    }
+
+    public int CalculateSize() {
+      int size = 0;
+      if (videos_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Videos);
+      }
+      if (TotalRecords != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(TotalRecords);
+      }
+      if (PrevPageUrl.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(PrevPageUrl);
+      }
+      if (NextPageUrl.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(NextPageUrl);
+      }
+      return size;
+    }
+
+    public void MergeFrom(GrpcVideoListEntity other) {
+      if (other == null) {
+        return;
+      }
+      if (other.videos_ != null) {
+        if (videos_ == null) {
+          videos_ = new global::EditCMSWindowsService.Messages.GrpcVideosList();
+        }
+        Videos.MergeFrom(other.Videos);
+      }
+      if (other.TotalRecords != 0) {
+        TotalRecords = other.TotalRecords;
+      }
+      if (other.PrevPageUrl.Length != 0) {
+        PrevPageUrl = other.PrevPageUrl;
+      }
+      if (other.NextPageUrl.Length != 0) {
+        NextPageUrl = other.NextPageUrl;
+      }
+    }
+
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 10: {
+            if (videos_ == null) {
+              videos_ = new global::EditCMSWindowsService.Messages.GrpcVideosList();
+            }
+            input.ReadMessage(videos_);
+            break;
+          }
+          case 16: {
+            TotalRecords = input.ReadInt32();
+            break;
+          }
+          case 26: {
+            PrevPageUrl = input.ReadString();
+            break;
+          }
+          case 34: {
+            NextPageUrl = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+  public sealed partial class GrpcVideosList : pb::IMessage<GrpcVideosList> {
+    private static readonly pb::MessageParser<GrpcVideosList> _parser = new pb::MessageParser<GrpcVideosList>(() => new GrpcVideosList());
+    public static pb::MessageParser<GrpcVideosList> Parser { get { return _parser; } }
+
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[21]; }
+    }
+
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    public GrpcVideosList() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    public GrpcVideosList(GrpcVideosList other) : this() {
+      lstGrpcVideos_ = other.lstGrpcVideos_.Clone();
+    }
+
+    public GrpcVideosList Clone() {
+      return new GrpcVideosList(this);
+    }
+
+    /// <summary>Field number for the "LstGrpcVideos" field.</summary>
+    public const int LstGrpcVideosFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::EditCMSWindowsService.Messages.GrpcVideo> _repeated_lstGrpcVideos_codec
+        = pb::FieldCodec.ForMessage(10, global::EditCMSWindowsService.Messages.GrpcVideo.Parser);
+    private readonly pbc::RepeatedField<global::EditCMSWindowsService.Messages.GrpcVideo> lstGrpcVideos_ = new pbc::RepeatedField<global::EditCMSWindowsService.Messages.GrpcVideo>();
+    public pbc::RepeatedField<global::EditCMSWindowsService.Messages.GrpcVideo> LstGrpcVideos {
+      get { return lstGrpcVideos_; }
+    }
+
+    public override bool Equals(object other) {
+      return Equals(other as GrpcVideosList);
+    }
+
+    public bool Equals(GrpcVideosList other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!lstGrpcVideos_.Equals(other.lstGrpcVideos_)) return false;
+      return true;
+    }
+
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= lstGrpcVideos_.GetHashCode();
+      return hash;
+    }
+
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    public void WriteTo(pb::CodedOutputStream output) {
+      lstGrpcVideos_.WriteTo(output, _repeated_lstGrpcVideos_codec);
+    }
+
+    public int CalculateSize() {
+      int size = 0;
+      size += lstGrpcVideos_.CalculateSize(_repeated_lstGrpcVideos_codec);
+      return size;
+    }
+
+    public void MergeFrom(GrpcVideosList other) {
+      if (other == null) {
+        return;
+      }
+      lstGrpcVideos_.Add(other.lstGrpcVideos_);
+    }
+
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 10: {
+            lstGrpcVideos_.AddEntriesFrom(input, _repeated_lstGrpcVideos_codec);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+  public sealed partial class GrpcVideosBySubCategoryURI : pb::IMessage<GrpcVideosBySubCategoryURI> {
+    private static readonly pb::MessageParser<GrpcVideosBySubCategoryURI> _parser = new pb::MessageParser<GrpcVideosBySubCategoryURI>(() => new GrpcVideosBySubCategoryURI());
+    public static pb::MessageParser<GrpcVideosBySubCategoryURI> Parser { get { return _parser; } }
+
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[22]; }
+    }
+
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    public GrpcVideosBySubCategoryURI() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    public GrpcVideosBySubCategoryURI(GrpcVideosBySubCategoryURI other) : this() {
+      subCategoryId_ = other.subCategoryId_;
+      applicationId_ = other.applicationId_;
+    }
+
+    public GrpcVideosBySubCategoryURI Clone() {
+      return new GrpcVideosBySubCategoryURI(this);
+    }
+
+    /// <summary>Field number for the "SubCategoryId" field.</summary>
+    public const int SubCategoryIdFieldNumber = 1;
+    private uint subCategoryId_;
+    public uint SubCategoryId {
+      get { return subCategoryId_; }
+      set {
+        subCategoryId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "ApplicationId" field.</summary>
+    public const int ApplicationIdFieldNumber = 2;
+    private uint applicationId_;
+    public uint ApplicationId {
+      get { return applicationId_; }
+      set {
+        applicationId_ = value;
+      }
+    }
+
+    public override bool Equals(object other) {
+      return Equals(other as GrpcVideosBySubCategoryURI);
+    }
+
+    public bool Equals(GrpcVideosBySubCategoryURI other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (SubCategoryId != other.SubCategoryId) return false;
+      if (ApplicationId != other.ApplicationId) return false;
+      return true;
+    }
+
+    public override int GetHashCode() {
+      int hash = 1;
+      if (SubCategoryId != 0) hash ^= SubCategoryId.GetHashCode();
+      if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
+      return hash;
+    }
+
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (SubCategoryId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(SubCategoryId);
+      }
+      if (ApplicationId != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(ApplicationId);
+      }
+    }
+
+    public int CalculateSize() {
+      int size = 0;
+      if (SubCategoryId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(SubCategoryId);
+      }
+      if (ApplicationId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(ApplicationId);
+      }
+      return size;
+    }
+
+    public void MergeFrom(GrpcVideosBySubCategoryURI other) {
+      if (other == null) {
+        return;
+      }
+      if (other.SubCategoryId != 0) {
+        SubCategoryId = other.SubCategoryId;
+      }
+      if (other.ApplicationId != 0) {
+        ApplicationId = other.ApplicationId;
+      }
+    }
+
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            SubCategoryId = input.ReadUInt32();
+            break;
+          }
+          case 16: {
+            ApplicationId = input.ReadUInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+  public sealed partial class GrpcVideosByIdURI : pb::IMessage<GrpcVideosByIdURI> {
+    private static readonly pb::MessageParser<GrpcVideosByIdURI> _parser = new pb::MessageParser<GrpcVideosByIdURI>(() => new GrpcVideosByIdURI());
+    public static pb::MessageParser<GrpcVideosByIdURI> Parser { get { return _parser; } }
+
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[23]; }
+    }
+
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    public GrpcVideosByIdURI() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    public GrpcVideosByIdURI(GrpcVideosByIdURI other) : this() {
+      id_ = other.id_;
+      applicationId_ = other.applicationId_;
+    }
+
+    public GrpcVideosByIdURI Clone() {
+      return new GrpcVideosByIdURI(this);
+    }
+
+    /// <summary>Field number for the "Id" field.</summary>
+    public const int IdFieldNumber = 1;
+    private int id_;
+    public int Id {
+      get { return id_; }
+      set {
+        id_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "ApplicationId" field.</summary>
+    public const int ApplicationIdFieldNumber = 2;
+    private uint applicationId_;
+    public uint ApplicationId {
+      get { return applicationId_; }
+      set {
+        applicationId_ = value;
+      }
+    }
+
+    public override bool Equals(object other) {
+      return Equals(other as GrpcVideosByIdURI);
+    }
+
+    public bool Equals(GrpcVideosByIdURI other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Id != other.Id) return false;
+      if (ApplicationId != other.ApplicationId) return false;
+      return true;
+    }
+
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Id != 0) hash ^= Id.GetHashCode();
+      if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
+      return hash;
+    }
+
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Id != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Id);
+      }
+      if (ApplicationId != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(ApplicationId);
+      }
+    }
+
+    public int CalculateSize() {
+      int size = 0;
+      if (Id != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
+      }
+      if (ApplicationId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(ApplicationId);
+      }
+      return size;
+    }
+
+    public void MergeFrom(GrpcVideosByIdURI other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Id != 0) {
+        Id = other.Id;
+      }
+      if (other.ApplicationId != 0) {
+        ApplicationId = other.ApplicationId;
+      }
+    }
+
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            Id = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            ApplicationId = input.ReadUInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+  public sealed partial class GrpcVideosBySubCategoriesURI : pb::IMessage<GrpcVideosBySubCategoriesURI> {
+    private static readonly pb::MessageParser<GrpcVideosBySubCategoriesURI> _parser = new pb::MessageParser<GrpcVideosBySubCategoriesURI>(() => new GrpcVideosBySubCategoriesURI());
+    public static pb::MessageParser<GrpcVideosBySubCategoriesURI> Parser { get { return _parser; } }
+
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[24]; }
+    }
+
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    public GrpcVideosBySubCategoriesURI() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    public GrpcVideosBySubCategoriesURI(GrpcVideosBySubCategoriesURI other) : this() {
+      subCategoryIds_ = other.subCategoryIds_;
+      applicationId_ = other.applicationId_;
+    }
+
+    public GrpcVideosBySubCategoriesURI Clone() {
+      return new GrpcVideosBySubCategoriesURI(this);
+    }
+
+    /// <summary>Field number for the "SubCategoryIds" field.</summary>
+    public const int SubCategoryIdsFieldNumber = 1;
+    private string subCategoryIds_ = "";
+    public string SubCategoryIds {
+      get { return subCategoryIds_; }
+      set {
+        subCategoryIds_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "ApplicationId" field.</summary>
+    public const int ApplicationIdFieldNumber = 2;
+    private uint applicationId_;
+    public uint ApplicationId {
+      get { return applicationId_; }
+      set {
+        applicationId_ = value;
+      }
+    }
+
+    public override bool Equals(object other) {
+      return Equals(other as GrpcVideosBySubCategoriesURI);
+    }
+
+    public bool Equals(GrpcVideosBySubCategoriesURI other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (SubCategoryIds != other.SubCategoryIds) return false;
+      if (ApplicationId != other.ApplicationId) return false;
+      return true;
+    }
+
+    public override int GetHashCode() {
+      int hash = 1;
+      if (SubCategoryIds.Length != 0) hash ^= SubCategoryIds.GetHashCode();
+      if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
+      return hash;
+    }
+
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (SubCategoryIds.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(SubCategoryIds);
+      }
+      if (ApplicationId != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(ApplicationId);
+      }
+    }
+
+    public int CalculateSize() {
+      int size = 0;
+      if (SubCategoryIds.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(SubCategoryIds);
+      }
+      if (ApplicationId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(ApplicationId);
+      }
+      return size;
+    }
+
+    public void MergeFrom(GrpcVideosBySubCategoriesURI other) {
+      if (other == null) {
+        return;
+      }
+      if (other.SubCategoryIds.Length != 0) {
+        SubCategoryIds = other.SubCategoryIds;
+      }
+      if (other.ApplicationId != 0) {
+        ApplicationId = other.ApplicationId;
+      }
+    }
+
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 10: {
+            SubCategoryIds = input.ReadString();
+            break;
+          }
+          case 16: {
+            ApplicationId = input.ReadUInt32();
             break;
           }
         }

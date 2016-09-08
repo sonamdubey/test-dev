@@ -258,5 +258,202 @@ namespace Grpc.CMS
             return null;
         }
 
+        public static GrpcVideosList GetVideosByModelId(int modelId)
+        {
+            Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+
+            while (true)
+            {
+                if (ch != null)
+                {
+                    var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                    try
+                    {
+
+                        return client.GetVideosByModelId
+                            (new GrpcVideosByIdURI()
+                            {
+                                Id=modelId,
+                                ApplicationId=2
+                            },
+
+                             null, GetForwardTime(m_ChanelWaitTime));
+                    }
+                    catch (Exception e)
+                    {
+                        RpcException rpcEx = e as RpcException;
+                        ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                    }
+                }
+                else
+                    break;
+            }
+            return null;
+        }
+
+        public static GrpcVideosList GetVideosByMakeId(int makeId)
+        {
+            Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+
+            while (true)
+            {
+                if (ch != null)
+                {
+                    var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                    try
+                    {
+
+                        return client.GetVideosByMakeId
+                            (new GrpcVideosByIdURI()
+                            {
+                                Id = makeId,
+                                ApplicationId = 2
+                            },
+
+                             null, GetForwardTime(m_ChanelWaitTime));
+                    }
+                    catch (Exception e)
+                    {
+                        RpcException rpcEx = e as RpcException;
+                        ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                    }
+                }
+                else
+                    break;
+            }
+            return null;
+        }
+
+        public static GrpcVideosList GetVideosBySubCategory(uint catId)
+        {
+            Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+
+            while (true)
+            {
+                if (ch != null)
+                {
+                    var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                    try
+                    {
+
+                        return client.GetVideosBySubCategory
+                            (new GrpcVideosBySubCategoryURI()
+                            {
+                                ApplicationId=2,
+                                SubCategoryId=catId
+                            },
+
+                             null, GetForwardTime(m_ChanelWaitTime));
+                    }
+                    catch (Exception e)
+                    {
+                        RpcException rpcEx = e as RpcException;
+                        ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                    }
+                }
+                else
+                    break;
+            }
+            return null;
+        }
+
+        public static GrpcVideoListEntity GetVideosBySubCategories(string catIds)
+        {
+            Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+
+            while (true)
+            {
+                if (ch != null)
+                {
+                    var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                    try
+                    {
+
+                        return client.GetVideosBySubCategories
+                            (new GrpcVideosBySubCategoriesURI()
+                            {
+                                ApplicationId = 2,
+                                SubCategoryIds=catIds
+                            },
+
+                             null, GetForwardTime(m_ChanelWaitTime));
+                    }
+                    catch (Exception e)
+                    {
+                        RpcException rpcEx = e as RpcException;
+                        ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                    }
+                }
+                else
+                    break;
+            }
+            return null;
+        }
+
+        public static GrpcVideosList GetSimilarVideos(int  id)
+        {
+            Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+
+            while (true)
+            {
+                if (ch != null)
+                {
+                    var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                    try
+                    {
+
+                        return client.GetSimilarVideos
+                            (new GrpcVideosByIdURI()
+                            {
+                                ApplicationId = 2,
+                                Id = id
+                            },
+
+                             null, GetForwardTime(m_ChanelWaitTime));
+                    }
+                    catch (Exception e)
+                    {
+                        RpcException rpcEx = e as RpcException;
+                        ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                    }
+                }
+                else
+                    break;
+            }
+            return null;
+        }
+
+        public static GrpcVideo GetVideoByBasicId(int id)
+        {
+            Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+
+            while (true)
+            {
+                if (ch != null)
+                {
+                    var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                    try
+                    {
+
+                        return client.GetVideoByBasicId
+                            (new GrpcVideosByIdURI()
+                            {
+                                ApplicationId = 2,
+                                Id = id
+                            },
+
+                             null, GetForwardTime(m_ChanelWaitTime));
+                    }
+                    catch (Exception e)
+                    {
+                        RpcException rpcEx = e as RpcException;
+                        ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                    }
+                }
+                else
+                    break;
+            }
+            return null;
+        }
     }
 }
