@@ -607,7 +607,7 @@
 					"pageurl": pageUrl,
 					"clientip": clientIP,
 					"isregisterpq": ele.attr('data-item-registerpq') == "true" ? true : false,
-					"mfgCampid": ele.attr('data-item-mfg-campid'),
+					"mfgCampid": ele.attr('data-mfgcampid'),
 					"pqid": pqId,
 					"gaobject" : {
 						cat : ele.attr('data-ga-cat'),
