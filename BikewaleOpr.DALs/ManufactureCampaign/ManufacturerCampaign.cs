@@ -328,7 +328,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         {
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("savemanufacturercampaign"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("savemanufacturercampaign_08092016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_description", DbType.String, 45, description));
