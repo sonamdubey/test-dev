@@ -31,7 +31,8 @@
                 <td>
                     <asp:TextBox runat="server" id="txtMaskingNumber" maxlength="10" class="numeric"  disabled="disabled" />
                     <asp:dropdownlist id="ddlMaskingNumber" runat="server" />
-                    <asp:hiddenfield id="hdnOldMaskingNumber" runat="server" />                          
+                    <asp:hiddenfield id="hdnOldMaskingNumber" runat="server" />     
+                    <asp:hiddenfield id="hdnmaskingnumber" runat="server" />                     
                     <% if (isEdit) { %> <a id="releaseMaskingNumber" href="javascript:void(0)">Release Masking number</a><%} %>
                 </td>
             </tr>  
@@ -172,7 +173,7 @@
                     if (res) {
                         $('#ddlMaskingNumber').empty();
                         $.each(res, function (index, value) {
-                            $('#ddlMaskingNumber').append($('<option>').text(value.number).attr('disabled', value.isAssigned ? "true" : "false"));
+                            $('#ddlMaskingNumber').append($('<option>').text(value.number).prop('disabled', value.isAssigned ? true : false));
                         });
                     }
                 }
