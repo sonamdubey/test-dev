@@ -200,7 +200,7 @@
                 var maskingNum = $(d).find("#mfg_number");
                 $(maskingNum).text("{2}").addClass("{10}");
                 $(maskingNum).prev().addClass("{10}");
-                $("#btnCallDealer").attr("href", "tel:+91{2}");
+                $(d).find("#btnCallDealer").attr("href", "tel:+91{2}").parent(".grid-6").addClass("{10}");
                 var leadBtn = $(d).find(".leadcapturebtn");
                 if(leadBtn)
                 {
@@ -208,11 +208,11 @@
                     leadBtn.attr("data-item-id","{3}");
                     leadBtn.attr("data-item-area","{4}");
                     leadBtn.attr("data-leadsourceid","{5}");
-                    leadBtn.attr("data-pqsourceid","{6}");
+                    leadBtn.attr("data-pqsourceid","{6}");                                                                                                 
                     leadBtn.attr("a","{7}");
                     leadBtn.attr("c","{8}");
                     leadBtn.attr("l", "{9}");
-                    leadBtn.addClass("{10}");
+
                 }
                 ele.val(el.html());
             }

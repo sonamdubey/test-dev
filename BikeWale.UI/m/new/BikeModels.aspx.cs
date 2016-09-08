@@ -46,6 +46,7 @@ namespace Bikewale.Mobile.New
         protected NewUserReviewList ctrlUserReviews;
         protected BikeModelPageEntity modelPage;
         protected VersionSpecifications bikeSpecs;
+        protected LeadCaptureControl ctrlLeadCapture;
         protected PQOnRoadPrice pqOnRoad;
         protected Repeater rptNavigationPhoto, rptVarients, rptColors, rptOffers, rptNewOffers, rptSecondaryDealers;
         protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty, location = string.Empty, priceText = "Ex-showroom", detailedPriceLink = string.Empty, versionText = string.Empty;
@@ -192,7 +193,12 @@ namespace Bikewale.Mobile.New
                     ctrlTopCityPrices.IsDiscontinued = isDiscontinued;
                     ctrlTopCityPrices.TopCount = 8;
                 }
+
                 SetFlagsAtEnd();
+
+                ctrlLeadCapture.CityId = cityId;
+                ctrlLeadCapture.ModelId = modelId;
+                ctrlLeadCapture.AreaId = areaId;
             }
             catch (Exception ex)
             {
@@ -554,9 +560,8 @@ namespace Bikewale.Mobile.New
                 if (cityId != 0)
                 {
                     pqOnRoad = GetOnRoadPrice();
-                    if (string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber))
-                        hide = "hide";
-                    pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.CampaignId, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, "", "", "", hide);
+
+                    pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.CampaignId, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, "", "", "", string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber) ? "hide" : string.Empty);
 
                     // Set Pricequote Cookie
                     if (pqOnRoad != null)

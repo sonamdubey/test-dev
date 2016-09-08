@@ -562,9 +562,6 @@
                     error: function (xhr, ajaxOptions, thrownError) {
                         $('#processing').hide();
                         $("#contactDetailsPopup, #otpPopup").hide();
-                        var leadMobileVal = mobile.val();
-                        nameValTrue();
-                        hideError(self.mobileNo());
                     }
                 });
 
