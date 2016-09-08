@@ -5,6 +5,7 @@
 <%@ Register Src="~/m/controls/NewAlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
 <%@ Register Src="/m/controls/NewUserReviewList.ascx" TagPrefix="BW" TagName="UserReviews" %>
 <%@ Register Src="~/m/controls/MPriceInTopCities.ascx" TagPrefix="BW" TagName="TopCityPrice" %>
+<%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -165,10 +166,10 @@
                     <% if (modelPage.ModelDetails.New && viewModel != null && !isBikeWalePQ )
                         {   
                         %>
-                        <% if ( viewModel.IsPremiumDealer)
+                        <% if (viewModel!=null && viewModel.IsPremiumDealer)
                             { 
                         %>  <div class="grid-<%= String.IsNullOrEmpty(viewModel.MaskingNumber)? "12":"6" %> alpha omega padding-right5">
-                                <a id="getAssistance" leadSourceId="19" class="btn btn-orange btn-full-width rightfloat" href="javascript:void(0);">Get offers</a>
+                                <a  class="btn btn-orange btn-full-width rightfloat leadcapturebtn"  data-leadsourceid="19"  data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>"  data-item-area="<%= viewModel.AreaName %> " href="javascript:void(0);">Get offers</a>
                             </div>
                             <%  if(!string.IsNullOrEmpty(viewModel.MaskingNumber))
                                 { %>
@@ -822,87 +823,6 @@
             }
         %>       
 
-     
-        <!-- Terms and condition Popup Ends -->
-
-        <!-- Lead Capture pop up start  -->
-        <div id="leadCapturePopup" class="bw-popup bwm-fullscreen-popup contact-details hide">
-            <div class="popup-inner-container text-center">
-                <div class="bwmsprite close-btn leadCapture-close-btn rightfloat"></div>
-                <div id="contactDetailsPopup">
-                    <!-- Contact details Popup starts here -->
-                    <p class="font18 margin-bottom5">Provide contact details</p>
-                    <p class="text-light-grey margin-bottom5">Dealership will get back to you with offers</p>
-
-                    <div class="personal-info-form-container margin-top10">
-                        <div class="form-control-box">
-                            <input type="text" class="form-control get-first-name" placeholder="Your name" id="getFullName" data-bind="value: fullName" />
-                            <span class="bwmsprite error-icon "></span>
-                            <div class="bw-blackbg-tooltip errorText"></div>
-                        </div>
-                        <div class="form-control-box margin-top20">
-                            <input type="email" class="form-control get-email-id" placeholder="Email address" id="getEmailID" data-bind="value: emailId" />
-                            <span class="bwmsprite error-icon"></span>
-                            <div class="bw-blackbg-tooltip errorText"></div>
-                        </div>
-                        <div class="form-control-box margin-top20">
-                            <p class="mobile-prefix">+91</p>
-                            <input type="tel" class="form-control get-mobile-no" maxlength="10" placeholder="Mobile no." id="getMobile" data-bind="value: mobileNo" />
-                            <span class="bwmsprite error-icon"></span>
-                            <div class="bw-blackbg-tooltip errorText"></div>
-                        </div>
-                        <div class="clear"></div>
-                        <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-                    </div>                    
-                </div>
-                <!-- Contact details Popup ends here -->
-                 <!-- thank you message starts here -->
-                <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
-                        <p class="font18 text-bold margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
-                        <%if(viewModel != null){ %>
-                            <p class="font16 margin-bottom40"><%=viewModel.Organization %>, <%=viewModel.AreaName %> will get in touch with you soon</p>
-                        <%} %>
-                        <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
-                </div>
-                <!-- thank you message ends here -->
-                <div id="otpPopup">
-                    <p class="font18 margin-bottom5">Verify your mobile number</p>
-                    <p class="text-light-grey margin-bottom5">We have sent OTP on your mobile. Please enter that OTP in the box provided below:</p>
-                    <div>
-                        <div class="lead-mobile-box lead-otp-box-container margin-bottom10 font22">
-                            <span class="bwmsprite tel-grey-icon"></span>
-                            <span class="text-light-grey font24">+91</span>
-                            <span class="lead-mobile font24">9876543210</span>
-                            <span class="bwmsprite edit-blue-icon edit-mobile-btn"></span>
-                        </div>
-                        <div class="otp-box lead-otp-box-container">
-                            <div class="form-control-box margin-bottom10">
-                                <input type="tel" class="form-control" placeholder="Enter your OTP" id="getOTP" maxlength="5" data-bind="value: otpCode" />
-                                <span class="bwmsprite error-icon errorIcon"></span>
-                                <div class="bw-blackbg-tooltip errorText"></div>
-                            </div>
-                            <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP</a>
-                            <p class="margin-left10 margin-top10 otp-notify-text text-light-grey font12" data-bind="visible: (NoOfAttempts() >= 2)">
-                                OTP has been already sent to your mobile
-                            </p>
-                            <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
-                        </div>
-                        <div class="update-mobile-box">
-                            <div class="form-control-box text-left">
-                                <p class="mobile-prefix">+91</p>
-                                <input type="tel" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo" />
-                                <span class="bwmsprite error-icon errorIcon"></span>
-                                <div class="bw-blackbg-tooltip errorText"></div>
-                            </div>
-                            <input type="button" class="btn btn-orange margin-top20" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
-                        </div>
-                    </div>
-
-                </div>
-                <!-- OTP Popup ends here -->
-            </div>
-        </div>
-        <!-- Lead Capture pop up end  -->
         <!-- Terms and condition Popup start -->
         <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
             <div class="fixed-close-btn-wrapper">
@@ -985,6 +905,9 @@
             </ul>
         </div>
         <% } %>
+
+        <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
+
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!--[if lt IE 9]>
             <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/html5.js"></script>
@@ -1045,10 +968,30 @@
                 window.location.href = "/m/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
             });
 
-            $("#btnManufacturer").on("click", function () {
-                leadSourceId = $(this).attr("leadSourceId");
-                $("#leadCapturePopup").show();
-             
+            $(".leadcapturebtn").click(function (e) {
+
+                ele = $(this);
+                var leadOptions = {
+                    "dealerid": ele.attr('data-item-id'),
+                    "dealername": ele.attr('data-item-name'),
+                    "dealerarea": ele.attr('data-item-area'),
+                    "versionid": versionId,
+                    "leadsourceid": ele.attr('data-leadsourceid'),
+                    "pqsourceid": ele.attr('data-pqsourceid'),
+                    "isleadpopup": ele.attr('data-isleadpopup'),
+                    "mfgCampid": ele.attr('data-mfgcampid'),
+                    "pqid": pqId,
+                    "pageurl": pageUrl,
+                    "clientip": clientIP
+                    <%--"gaobject": {
+                        cat: 'Price_in_City_Page',
+                        act: 'Lead_Submitted',
+                        lab: '<%= string.Format("{0}_", bikeName)%>' + CityArea
+                    }--%>
+                };
+
+                dleadvm.setOptions(leadOptions);
+
             });
             
         </script>

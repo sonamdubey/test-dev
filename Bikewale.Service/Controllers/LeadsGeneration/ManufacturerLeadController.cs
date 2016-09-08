@@ -7,6 +7,7 @@ using Bikewale.Notifications;
 using Bikewale.Service.TCAPI;
 using Bikewale.Service.Utilities;
 using System;
+using System.Configuration;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -81,7 +82,8 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
                             if (_objIPQ.SaveCustomerDetail(entity))
                             {
                                 status = AutoBizAdaptor.PushInquiryInAB(Convert.ToString(objLead.DealerId), objLead.PQId, objLead.Name, objLead.Mobile, objLead.Email, Convert.ToString(objLead.VersionId), Convert.ToString(objLead.CityId));
-                                _objLead.PushLeadToGaadi(objLead);
+                                if (Convert.ToBoolean(ConfigurationManager.AppSettings["SendHondaMfgLeadToAPI"]) && objLead.DealerId == 21290)
+                                    _objLead.PushLeadToGaadi(objLead);
                             }
                         }
                         return Ok(status);

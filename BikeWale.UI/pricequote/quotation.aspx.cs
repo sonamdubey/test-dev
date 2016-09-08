@@ -32,6 +32,7 @@ namespace Bikewale.PriceQuote
         //protected Repeater rptAllVersions;
         protected UpcomingBikes_new ctrlUpcomingBikes;
         protected AlternativeBikes ctrlAlternativeBikes;
+        protected LeadCaptureControl ctrlLeadCapture;
         protected HtmlGenericControl divAllVersions, div_ShowPQ, divUserReviews;
 
         protected string city = string.Empty, priceQuoteId = string.Empty, make = string.Empty, imgPath = String.Empty, dealerId = string.Empty;
@@ -45,6 +46,7 @@ namespace Bikewale.PriceQuote
         protected string pq_leadsource = "34";
         protected string pq_sourcepage = "58";
         protected string hide = "";
+        protected String clientIP = CommonOpn.GetClientIP();
         protected bool hasAlternateBikes = false, hasUpcomingBikes = false;
         protected override void OnInit(EventArgs e)
         {
@@ -132,6 +134,9 @@ namespace Bikewale.PriceQuote
 
                     hasAlternateBikes = ctrlAlternativeBikes.FetchedRecordsCount > 0;
                     hasUpcomingBikes = ctrlUpcomingBikes.FetchedRecordsCount > 0;
+
+                    ctrlLeadCapture.AreaId = areaId;
+                    ctrlLeadCapture.CityId = cityId;
                 }
             }
             else
@@ -155,7 +160,7 @@ namespace Bikewale.PriceQuote
                 objQuotation = objPriceQuote.GetPriceQuoteById(Convert.ToUInt64(priceQuoteId), LeadSourceEnum.DPQ_Desktop);
                 if (string.IsNullOrEmpty(objQuotation.MaskingNumber))
                     hide = "hide";
-                objQuotation.ManufacturerAd = Format.FormatManufacturerAd(objQuotation.ManufacturerAd, objQuotation.ManufacturerName, objQuotation.MaskingNumber, Convert.ToString(objQuotation.ManufacturerId), objQuotation.Area, pq_leadsource, pq_sourcepage, "", "", "", hide);
+                objQuotation.ManufacturerAd = Format.FormatManufacturerAd(objQuotation.ManufacturerAd,objQuotation.CampaignId, objQuotation.ManufacturerName, objQuotation.MaskingNumber, Convert.ToString(objQuotation.ManufacturerId), objQuotation.Area, pq_leadsource, pq_sourcepage, "", "", "", hide);
 
             }
             catch (Exception ex)

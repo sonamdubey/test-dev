@@ -198,20 +198,21 @@
                 d = el.html(ele.val());
                 $(d).find("#mfg_name").text("{1}");
                 var maskingNum = $(d).find("#mfg_number");
-                $(maskingNum).text("{2}").attr("class","{10}");
-                $(maskingNum).prev().attr("class","{10}");
-                $(d)
+                $(maskingNum).text("{2}").addClass("{10}");
+                $(maskingNum).prev().addClass("{10}");
+                $("#btnCallDealer").attr("href", "tel:+91{2}");
                 var leadBtn = $(d).find(".leadcapturebtn");
                 if(leadBtn)
                 {
-                    leadBtn.attr("data-item-mfg-campid","{0}");
+                    leadBtn.attr("data-mfgcampid", "{0}");
                     leadBtn.attr("data-item-id","{3}");
                     leadBtn.attr("data-item-area","{4}");
                     leadBtn.attr("data-leadsourceid","{5}");
                     leadBtn.attr("data-pqsourceid","{6}");
                     leadBtn.attr("a","{7}");
                     leadBtn.attr("c","{8}");
-                    leadBtn.attr("l","{9}");
+                    leadBtn.attr("l", "{9}");
+                    leadBtn.addClass("{10}");
                 }
                 ele.val(el.html());
             }

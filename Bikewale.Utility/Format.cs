@@ -209,6 +209,7 @@ namespace Bikewale.Utility
         /// <param name="label"></param>
         /// <returns></returns>
         public static string FormatManufacturerAd(string textToReplace,
+            uint campaignId,
             string ManufacturerName,
             string MaskingNumber,
             string dealerid,
@@ -222,7 +223,7 @@ namespace Bikewale.Utility
             string retVal = string.Empty;
             try
             {
-                retVal = String.Format(textToReplace, ManufacturerName, MaskingNumber, dealerid, dealerArea, LeadSourceId, PqSourceId, action, category, label, hide);
+                retVal = String.Format(textToReplace, campaignId, ManufacturerName, MaskingNumber, dealerid, dealerArea, LeadSourceId, PqSourceId, action, category, label, hide);
             }
             catch (Exception ex)
             {

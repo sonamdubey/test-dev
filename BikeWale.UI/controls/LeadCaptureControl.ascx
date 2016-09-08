@@ -427,18 +427,14 @@
                     contentType: "application/json",
                     dataType: 'json',
                     success: function (response) {
-                        $("#personalInfo,#otpPopup").hide();
-                        $('#processing').hide();   
                         $("#contactDetailsPopup").hide();
-                        $('#dealer-lead-msg .notify-leadUser').text(self.fullName());
-                        $('#dealer-lead-msg').show();
+                        $("#personalInfo").hide();
+                        $("#dealer-lead-msg").fadeIn();
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        $('#processing').hide();
-                        $("#contactDetailsPopup, #otpPopup").hide();
-                        var leadMobileVal = mobile.val();
-                        nameValTrue();
-                        hideError(self.mobileNo());
+                        $("#leadCapturePopup").show();
+                        $('body').addClass('lock-browser-scroll');
+                        $(".blackOut-window").show();
                     }
                 });
 
@@ -491,7 +487,7 @@
                 "leadsourceid": ele.attr('data-leadsourceid'),
                 "pqsourceid": ele.attr('data-pqsourceid'),
                 "isleadpopup": ele.attr('data-isleadpopup'),
-                "mfgCampid": ele.attr('data-item-mfg-campid'),
+                "mfgCampid": ele.attr('data-mfgcampid'),
                 "pqid": pqId,
                 "pageurl": pageUrl,
                 "clientip": clientIP

@@ -57,6 +57,7 @@ namespace Bikewale.New
         protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true, isAreaAvailable, isDealerAssitance, isBookingAvailable, isOfferAvailable;
         protected bool isUserReviewActive, isExpertReviewActive, isNewsActive, isVideoActive;
         protected NewAlternativeBikes ctrlAlternativeBikes;
+        protected LeadCaptureControl ctrlLeadCapture;
         protected short reviewTabsCnt;
         //Variable to Assing ACTIVE class
 
@@ -235,6 +236,9 @@ namespace Bikewale.New
                     //calling _bwutmz cookie logic.
                     Trace.Warn("Trace 22 : Clear trailing Query");
                     Trace.Warn("Trace 23 : Page Load ends");
+                    ctrlLeadCapture.AreaId = areaId;
+                    ctrlLeadCapture.ModelId = modelId;
+                    ctrlLeadCapture.CityId = cityId;
                 }
             }
             catch (Exception ex)
@@ -689,7 +693,7 @@ namespace Bikewale.New
                     if (pqOnRoad != null)
                     {
                         if (pqOnRoad.BPQOutput != null)
-                            pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber) ? "hide" : string.Empty);
+                            pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.CampaignId, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber) ? "hide" : string.Empty);
 
                         variantId = pqOnRoad.PriceQuote.VersionId;
                         if (pqOnRoad.PriceQuote != null)

@@ -556,7 +556,7 @@ namespace Bikewale.Mobile.New
                     pqOnRoad = GetOnRoadPrice();
                     if (string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber))
                         hide = "hide";
-                    pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, "", "", "", hide);
+                    pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.CampaignId, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, "", "", "", hide);
 
                     // Set Pricequote Cookie
                     if (pqOnRoad != null)

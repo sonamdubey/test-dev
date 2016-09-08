@@ -159,7 +159,7 @@ namespace Bikewale.Mobile.BikeBooking
                             objExQuotation = objIQuotation.GetPriceQuoteById(Convert.ToUInt64(pqId), LeadSourceEnum.DPQ_Mobile);
                             if (string.IsNullOrEmpty(objExQuotation.MaskingNumber))
                                 hide = "hide";
-                            objExQuotation.ManufacturerAd = Format.FormatManufacturerAd(objExQuotation.ManufacturerAd, objExQuotation.ManufacturerName, objExQuotation.MaskingNumber, Convert.ToString(objExQuotation.ManufacturerId), objExQuotation.Area, pq_leadsource, pq_sourcepage, "", "", "", hide);
+                            objExQuotation.ManufacturerAd = Format.FormatManufacturerAd(objExQuotation.ManufacturerAd,objExQuotation.CampaignId, objExQuotation.ManufacturerName, objExQuotation.MaskingNumber, Convert.ToString(objExQuotation.ManufacturerId), objExQuotation.Area, pq_leadsource, pq_sourcepage, "", "", "", hide);
                         }
 
                         if (objPriceQuote.PrimaryDealer != null)

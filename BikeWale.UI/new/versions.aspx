@@ -1224,7 +1224,7 @@
                     "leadsourceid": ele.attr('data-leadsourceid'),
                     "pqsourceid": ele.attr('data-pqsourceid'),
                     "isleadpopup": ele.attr('data-isleadpopup'),
-                    "mfgCampid": ele.attr('data-item-mfg-campid'),
+                    "mfgCampid": ele.attr('data-mfgcampid'),
                     "pqid" : pqId,
                     "pageurl": pageUrl,
                     "clientip": clientIP

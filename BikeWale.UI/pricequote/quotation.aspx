@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.PriceQuote.Quotation" Trace="false" Debug="false" %>
 <%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 
 <%@ Import Namespace="Bikewale.Common" %>
 <!doctype html>
@@ -74,6 +75,8 @@
     var manufacturerId = "<%= objQuotation.ManufacturerId%>";
     var versionName = "<%= objQuotation.VersionName%>";
     var myBikeName = "<%=mmv.BikeName%>";
+    var clientIP = "<%= clientIP%>";
+    var pageUrl = window.location.href;
 
 </script>
 </head>
@@ -192,58 +195,6 @@
             </div>
         </div>
         <div class="clear"></div>
-        <!-- lead capture popup start-->    
-        <div id="leadCapturePopup" class="text-center rounded-corner2">
-            <div class="leadCapture-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-            <!-- contact details starts here -->
-            <div id="contactDetailsPopup">
-                <div class="icon-outer-container rounded-corner50">
-                    <div class="icon-inner-container rounded-corner50">
-                        <span class="bwsprite user-contact-details-icon margin-top25"></span>
-                    </div>
-                </div>
-                <p class="font20 margin-top25 margin-bottom10">Get more details on this bike</p>
-                <p class="text-light-grey margin-bottom20">Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!</p>
-                <div class="personal-info-form-container">
-                    <div class="form-control-box personal-info-list">
-                        <input type="text" class="form-control get-first-name" placeholder="Full name (mandatory)"
-                            id="getFullName" data-bind="value: fullName">
-                        <span class="bwsprite error-icon errorIcon"></span>
-                        <div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
-                    </div>
-                    <div class="form-control-box personal-info-list">
-                        <input type="text" class="form-control get-email-id" placeholder="Email address (mandatory)"
-                            id="getEmailID" data-bind="value: emailId">
-                        <span class="bwsprite error-icon errorIcon"></span>
-                        <div class="bw-blackbg-tooltip errorText">Please enter email address</div>
-                    </div>
-                    <div class="form-control-box personal-info-list">
-                        <p class="mobile-prefix">+91</p>
-                        <input type="text" class="form-control padding-left40 get-mobile-no" placeholder="Mobile no. (mandatory)"
-                            id="getMobile" maxlength="10" data-bind="value: mobileNo">
-                        <span class="bwsprite error-icon errorIcon"></span>
-                        <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
-                    </div>
-                    <div class="clear"></div>
-                    <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitCampaignLead }">Submit</a>                         
-                </div>                   				
-            </div>
-            <!-- contact details ends here -->
-            <!-- thank you message starts here -->
-            <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
-                    <div class="icon-outer-container rounded-corner50">
-                        <div class="icon-inner-container rounded-corner50">
-                            <span class="bwsprite user-contact-details-icon margin-top25"></span>
-                        </div>
-                    </div>
-                    <p class="font18 text-bold margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
-                    <p class="font16 margin-bottom40"><%=objQuotation.MakeName%> Company would get back to you shortly with additional information.</p>
-                    <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
-            </div>
-            <!-- thank you message ends here -->			
-        </div>
-            <!-- lead capture popup End-->
-        <div class="clear"></div>
     </section>
     <% if (objQuotation != null && !string.IsNullOrEmpty(objQuotation.ManufacturerAd)){ %>
         <section>
@@ -297,6 +248,9 @@
             <div class="clear"></div>
         </div>
     </section>
+
+    <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
+
     <!-- #include file="/includes/footerBW.aspx" -->
     <!-- #include file="/includes/footerscript.aspx" -->
     <script type="text/javascript">
@@ -332,262 +286,38 @@
     });
     </script>
     <script type="text/javascript">
+        var bikeVersionLocation = myBikeName + '_' + versionName + '_' + GetGlobalCityArea();
     $(document).ready(function () {
-
         makeMapName = '<%= mmv.MakeMappingName%>';
         modelMapName = '<%= mmv.ModelMappingName%>';
-        <%--$("#version_" + '<%= versionId%>').html("<b>this bike</b>");
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Make_Page', 'act': 'Get_On_Road_Price_Click', 'lab': selectedModel });--%>
     });
 
-    var fullName = $("#getFullName");
-    var emailid = $("#getEmailID");
-    var mobile = $("#getMobile");
-    var prevEmail = "";
-    var prevMobile = "";
+    $(".leadcapturebtn").click(function (e) {
 
-    $("#getMoreDetailsBtnCampaign").on("click", function () {
-        $("#leadCapturePopup").show();
-        $('body').addClass('lock-browser-scroll');
-        $(".blackOut-window").show();
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_More_Details_Clicked', 'lab': bikeVersionLocation });
-    });
-
-    $(".leadCapture-close-btn, .blackOut-window").on("click mouseup", function () {
-        $("#leadCapturePopup").hide();
-        $('body').removeClass('lock-browser-scroll');
-        $(".blackOut-window").hide();
-    });
-
-    $(".leadCapture-close-btn, .blackOut-window-model, #notifyOkayBtn").on("click", function () {
-        $("#leadCapturePopup").hide();
-        $('body').removeClass('lock-browser-scroll');
-        $(".blackOut-window").hide();
-        $("#contactDetailsPopup").show();
-        $("#notify-response").hide();
-    });
-
-    if (bikeVersionLocation == '') {
-        bikeVersionLocation = getBikeVersionLocation();
-    }
-
-    function getBikeVersionLocation() {        
-        var loctn = GetGlobalCityArea();
-        if (loctn != null) {
-            if (loctn != '')
-                loctn = '_' + loctn;
-        }
-        else {
-            loctn = '';
-        }
-        var bikeVersionLocation = myBikeName + '_' + versionName + loctn;
-        return bikeVersionLocation;
-    }
-
-    function setuserDetails() {
-        var cookieName = "_PQUser";
-        if (isCookieExists(cookieName)) {
-            var arr = getCookie(cookieName).split("&");
-            return arr;
-        }
-    }
-
-    function setPQUserCookie() {
-        var val = fullName.val() + '&' + emailid.val() + '&' + mobile.val();
-        SetCookie("_PQUser", val);
-    }
-
-    function hideError(ele) {
-        ele.removeClass("border-red");
-        ele.siblings("span, div").hide();
-    }
-
-
-    function nameValTrue() {
-        hideError(fullName)
-        fullName.siblings("div").text('');
-    };
-
-    function ValidateUserDetail() {
-        var isValid = true;
-        isValid = validateEmail();
-        isValid &= validateMobile();
-        isValid &= validateName();
-        return isValid;
-    };
-
-
-    /* Email validation */
-    function validateEmail() {
-        var isValid = true;
-        var emailID = emailid.val();
-        var reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
-
-        if (emailID == "") {
-            setError(emailid, 'Please enter email address');
-            isValid = false;
-        }
-        else if (!reEmail.test(emailID)) {
-            setError(emailid, 'Invalid Email');
-            isValid = false;
-        }
-        return isValid;
-    }
-
-    function validateMobile() {
-        var isValid = true;
-        var reMobile = /^[0-9]{10}$/;
-        var mobileNo = mobile.val();
-        if (mobileNo == "") {
-            isValid = false;
-            setError(mobile, "Please enter your Mobile Number");
-        }
-        else if (!reMobile.test(mobileNo) && isValid) {
-            isValid = false;
-            setError(mobile, "Mobile Number should be 10 digits");
-        }
-        else {
-            hideError(mobile)
-        }
-        return isValid;
-    }
-
-    function validateName() {
-        var isValid = true;
-        var a = fullName.val().length;
-        if ((/&/).test(fullName.val())) {
-            isValid = false;
-            setError(fullName, 'Invalid name');
-        }
-        else
-            if (a == 0) {
-                isValid = false;
-                setError(fullName, 'Please enter your first name');
-            }
-            else if (a >= 1) {
-                isValid = true;
-                nameValTrue()
-            }
-        return isValid;
-    }
-
-    function setError(ele, msg) {
-        ele.addClass("border-red");
-        ele.siblings("span, div").show();
-        ele.siblings("div").text(msg);
-    }
-
-
-    fullName.on("focus", function () {
-        hideError(fullName);
-    });
-
-    emailid.on("focus", function () {
-        hideError(emailid);
-        prevEmail = emailid.val().trim();
-    });
-
-    mobile.on("focus", function () {
-        hideError(mobile)
-        prevMobile = mobile.val().trim();
-
-    });
-
-    emailid.on("blur", function () {
-        if (prevEmail != emailid.val().trim()) {
-            if (validateEmail()) {               
-                hideError(emailid);
-            }
-        }
-    });
-
-    mobile.on("blur", function () {
-        if (mobile.val().length < 10) {
-            $("#user-details-submit-btn").show();            
-        }
-        if (prevMobile != mobile.val().trim()) {
-            if (validateMobile()) {
-                hideError(mobile);
-            }
-        }
-    });
-
-    var customerViewModel = new CustomerModel();    
-    ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);
-
-    function CustomerModel() {
-        var arr = setuserDetails();
-        var self = this;
-        if (arr != null && arr.length > 0) {
-            self.fullName = ko.observable(arr[0]);
-            self.emailId = ko.observable(arr[1]);
-            self.mobileNo = ko.observable(arr[2]);
-        }
-        else {
-            self.fullName = ko.observable();
-            self.emailId = ko.observable();
-            self.mobileNo = ko.observable();
-        }
-
-
-        self.submitCampaignLead = function () {
-
-            var isValidCustomer = ValidateUserDetail();
-
-            if (isValidCustomer && campaignId > 0) {
-
-                $('#processing').show();
-                var objCust = {
-                    "dealerId": manufacturerId,
-                    "pqId": pqId,
-                    "name": self.fullName(),
-                    "mobile": self.mobileNo(),
-                    "email": self.emailId(),
-                    "versionId": versionId,
-                    "cityId": cityId,
-                    "leadSourceId": 3,
-                    "deviceId": getCookie('BWC')
-                }
-                $.ajax({
-                    type: "POST",
-                    url: "/api/ManufacturerLead/",
-                    data: ko.toJSON(objCust),
-                    beforeSend: function (xhr) {
-                        xhr.setRequestHeader('utma', getCookie('__utma'));
-                        xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
-                    },
-                    async: false,
-                    contentType: "application/json",
-                    dataType: 'json',
-                    success: function (response) {
-                        //var obj = ko.toJS(response);
-                        $("#personalInfo,#otpPopup").hide();
-                        $('#processing').hide();
-
-                        //validationSuccess($(".get-lead-mobile"));
-                        $("#contactDetailsPopup").hide();
-                        $('#notify-response .notify-leadUser').text(self.fullName());
-                        $('#notify-response').show();
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        $('#processing').hide();
-                        $("#contactDetailsPopup, #otpPopup").hide();
-                        var leadMobileVal = mobile.val();
-                        nameValTrue();
-                        hideError(self.mobileNo());
+        ele = $(this);
+        var leadOptions = {
+            "dealerid": ele.attr('data-item-id'),
+            "dealername": ele.attr('data-item-name'),
+            "dealerarea": ele.attr('data-item-area'),
+            "versionid": versionId,
+            "leadsourceid": ele.attr('data-leadsourceid'),
+            "pqsourceid": ele.attr('data-pqsourceid'),
+            "isleadpopup": ele.attr('data-isleadpopup'),
+            "mfgCampid": ele.attr('data-mfgcampid'),
+            "pqid": pqId,
+            "pageurl": pageUrl,
+            "clientip": clientIP,
+            "gaobject": {
+                cat: 'BW_Quotation_Page_Desktop',
+                act: 'Get_Offers_Manufacturer_Clicked',
+                lab: bikeVersionLocation
                     }
-                });
-
-                setPQUserCookie();
-                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Lead_Submitted', 'lab': bikeVersionLocation });
-            }
         };
-    }
-    $("#btnManufacturer").on("click", function () {
-        leadSourceId = $(this).attr("data-leadsourceid");
-        $("#leadCapturePopup").show();
-        popup.lock();
+
+        dleadvm.setOptions(leadOptions);
+
     });
+
 
 </script>
 </form>
