@@ -333,7 +333,7 @@
             </div>
         </section>
 
-          <% if (pqOnRoad!=null && pqOnRoad.BPQOutput != null && !string.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
+          <% if (pqOnRoad != null && pqOnRoad.BPQOutput != null && viewModel!=null && viewModel.SecondaryDealerCount == 0 && !string.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
             { %>
         <section>
             

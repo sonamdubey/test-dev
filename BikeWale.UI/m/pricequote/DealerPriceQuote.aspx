@@ -239,7 +239,7 @@
 				<%} %>
 			</div>
 
-             <% if (objExQuotation != null &&objExQuotation.CampaignId > 0&& !string.IsNullOrEmpty(objExQuotation.ManufacturerAd))
+             <% if (objExQuotation != null && objExQuotation.CampaignId > 0 && objPriceQuote!=null && objPriceQuote.SecondaryDealerCount == 0 && !string.IsNullOrEmpty(objExQuotation.ManufacturerAd))
                 { %>
                 <section>
                     <%=String.Format(objExQuotation.ManufacturerAd) %>
