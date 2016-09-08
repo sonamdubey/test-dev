@@ -512,7 +512,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "ManufacturerCampaign.statuschangeCampaigns");
+                ErrorClass objErr = new ErrorClass(ex, "ManufacturerCampaign.ReleaseCampaignMaskingNumber");
                 objErr.SendMail();
             }
             return isSuccess;

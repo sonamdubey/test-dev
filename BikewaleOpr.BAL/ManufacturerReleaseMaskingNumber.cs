@@ -31,7 +31,6 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                isSuccess = false;
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BAL.ManufacturerReleaseMaskingNumber.ReleaseNumber");
                 objErr.SendMail();
             }

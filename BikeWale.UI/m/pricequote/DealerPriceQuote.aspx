@@ -239,7 +239,7 @@
 				<%} %>
 			</div>
 
-             <% if (objExQuotation != null && !string.IsNullOrEmpty(objExQuotation.ManufacturerAd))
+             <% if (objExQuotation != null &&objExQuotation.CampaignId > 0&& !string.IsNullOrEmpty(objExQuotation.ManufacturerAd))
                 { %>
                 <section>
                     <%=String.Format(objExQuotation.ManufacturerAd) %>
@@ -395,30 +395,7 @@
 			<!-- Dealer Widget ends here -->
 
 			<!--Dealer Campaign starts here -->
-			<%if (objExQuotation != null && objExQuotation.CampaignId > 0){ %>
-			<div class="city-unveil-offer-container">
-				<h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="bwmsprite disclaimer-icon margin-right5"></span>                   
-						Get following details from <%=objVersionDetails.MakeBase.MakeName %>:                   
-				</h4>
-				<ul class="bike-details-list-ul">
-					<li>
-						<span class="show">Offers from the nearest dealers</span>
-					</li>
-					<li>
-						<span class="show">Waiting period on this bike at the dealership</span>
-					</li>
-					<li> 
-						<span class="show">Nearest dealership from your place</span>
-					</li>
-					<li>
-						<span class="show">Finance options on this bike</span>
-					</li>
-				</ul>
-			</div>            
-			<div class="grid-12 alpha omega padding-right5 padding-top5">
-				<input type="button" value="Get more details" class="btn btn-full-width btn-sm margin-right10 leftfloat btn-orange bw-ga leadcapturebtn" id="getMoreDetailsBtnCampaign"  data-item-registerpq="false" data-leadsourceid="29" data-item-id="<%= objExQuotation != null ? objExQuotation.ManufacturerId : 0 %>" data-item-name="<%= objPriceQuote.objMake.MakeName %>" data-item-area="<%= dealerArea %>" data-pqsourceid="<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation) %>" data-mfgcampid="<%=objExQuotation != null ? objExQuotation.CampaignId : 0 %>" c="Dealer_PQ" a="Get_more_details_campaign_clicked" f="GetBikeVerLoc" data-ga-cat="Dealer_PQ" data-ga-act="Lead_Submitted" data-ga-lab="manufacturer_lead_List_<%=BikeName %>_<%= currentCity %>_<%= currentArea%>" />
-			</div>
-			<%}else { %>
+		
 			<!--Dealer Campaign ends here -->
 		  <%if(isPrimaryDealer){ %>
 			<div id="pricequote-floating-button-wrapper" class="grid-12 alpha omega">
@@ -437,7 +414,7 @@
 				</div>
 			</div>
 			<%} %>
-			<%} %>
+		
 			<div class="clear"></div>
 		</div>
 
@@ -630,13 +607,13 @@
 					"pageurl": pageUrl,
 					"clientip": clientIP,
 					"isregisterpq": ele.attr('data-item-registerpq') == "true" ? true : false,
-					"mfgCampid": ele.attr('data-mfgcampid'),
+					"mfgCampid": ele.attr('data-item-mfg-campid'),
 					"pqid": pqId,
 					"gaobject" : {
 						cat : ele.attr('data-ga-cat'),
 						act: ele.attr('data-ga-act'),
 						lab: ele.attr('data-ga-lab')
-					}
+								}
 				};
 
 				dleadvm.setOptions(leadOptions);
