@@ -83,13 +83,14 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .btn-orange { background: #f04031; color: #fff; }
 .btn-orange:hover { background: #f85649; text-decoration: none; }
 .btn-orange:focus { background: #df3828; }
+.btn-teal { background: #41b4c4; color: #fff; border:1px solid #41b4c4; }
+.btn-teal:hover { text-decoration: none; background: #58bdcb; border:1px solid #58bdcb; }
+.btn-teal:focus { background: #37939f; border: 1px solid #37939f; }
 
-.btn-white { background: #fff; color: #ef402f; border: 1px solid #f04130; }
-.btn-white:hover { background: #f04031; color: #fff; text-decoration: none; }
-.btn-white:focus { background: #df3828; color: #fff; border: 1px solid #f04130; }
+.btn-white, .btn-grey { background: #fff; color: #ef402f; border: 1px solid #f04130; }
+.btn-white:hover, .btn-grey:hover { background: #f04031; color: #fff; text-decoration: none; }
+.btn-white:focus, .btn-grey:focus { background: #df3828; color: #fff; border: 1px solid #f04130; }
 .btn-disable { cursor: not-allowed; opacity: .5; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
-.btn-grey { background: #fff; color: #4d5057; border:1px solid #4d5057; }
-.btn-grey:hover { background: #82888b; color: #fff; text-decoration: none; border:1px solid #82888b; }
 .btn-whiteFixedRed { background: #f04031; color: #fff; border: 1px solid #f04130; }
 .btn-xxs { padding: 5px 26px; }
 .btn-xs { padding: 8px; }
@@ -649,6 +650,19 @@ a.action-btn:hover{text-decoration:none;}
 
 
 /* Carousel Controls */
+.inner-content-carousel .jcarousel { width:940px; left:17px; padding:0; padding:0 3px 3px; }
+.inner-content-carousel .jcarousel li { width:292px; height:auto; margin-right:28px; }
+.inner-content-carousel h3 a.text-black { display:block; }
+.inner-content-carousel .jcarousel-control-left { left:0; top:14%; }
+.inner-content-carousel .jcarousel-control-right { right:0; top:14%; }
+.inner-content-carousel .jcarousel-control-prev, .inner-content-carousel .jcarousel-control-next {width: 36px;height: 68px;}
+.inner-content-carousel .jcarousel-control-prev:hover { background-position: -36px -134px}
+.inner-content-carousel .jcarousel-control-next:hover {background-position: -63px -134px}
+.inner-content-carousel .jcarousel-control-prev {background-position: -36px -79px;}
+.inner-content-carousel .jcarousel-control-next {background-position: -63px -79px;}
+.inner-content-carousel .jcarousel-control-prev.inactive {background-position: -36px -24px;}
+.inner-content-carousel .jcarousel-control-next.inactive {background-position: -63px -24px;}
+
 .jcarousel-control-left, .jcarousel-control-right {  position: absolute; top: 35%; z-index: 1; }
 .jcarousel-control-left:hover, .jcarousel-control-right:hover { cursor:pointer; }
 .jcarousel-control-left { left: -32px; }
@@ -662,6 +676,11 @@ a.action-btn:hover{text-decoration:none;}
 .jcarousel-control-prev.inactive { background-position:-34px -20px; cursor:not-allowed; }
 .jcarousel-control-next.inactive { background-position:-61px -20px; cursor:not-allowed; }
 /* carousel end */
+
+/* alternate bikes */
+.model-jcarousel-image-preview { width:100%; height:169px; display:table; text-align:center;}
+.model-jcarousel-image-preview a { width:100%; height:169px; display:table-cell; vertical-align:middle; background: #fff url('http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;}
+.model-jcarousel-image-preview a img { width:100%; height:164px; }
 
 /* Css for grey overlay box */
 .gb-content { color: #222222; }
@@ -708,10 +727,9 @@ a.action-btn:hover{text-decoration:none;}
     .jcarousel-control-left {left: -10px;}
     .jcarousel-control-right {right: -10px;}
     .inner-content-carousel .jcarousel { width:900px !important; }
-    .inner-content-carousel .jcarousel li { width: 292px !important; }
     .inner-content-carousel .jcarousel .imageWrapper { width: 100% !important; }
     .inner-content-card li {width: 283px !important;}
-    #makeUpcomingBikesContent .inner-content-carousel li, #modelAlternateBikeContent .inner-content-carousel li { width: 282px !important; margin-right: 20px !important; }
+    .inner-content-carousel li { width: 282px !important; margin-right: 20px !important; }
     .overall-floating-tabs { width: 940px !important; }
 }
 

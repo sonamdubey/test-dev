@@ -278,6 +278,37 @@
 .view-features-link:before { content: ''; width: 100%; height: 20px; position:absolute; top:-40px; left: 0; z-index: 1; background: -webkit-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%); background: -moz-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%); background: -o-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%); background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%);}
 .view-features-link.active:before { content: none; }
 
+/* comparison */
+#makeComparisonContent .swiper-slide { width:310px; min-height:220px; padding: 15px 0 20px; border:1px solid #e2e2e2\9; background:#fff; -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.2); -moz-box-shadow: 0 1px 4px rgba(0,0,0,0.2); -ms-box-shadow: 0 1px 4px rgba(0,0,0,0.2); box-shadow: 0 1px 4px rgba(0,0,0,0.2); -webkit-border-radius:2px; -moz-border-radius:2px; -ms-border-radius:2px; border-radius:2px; }
+#makeComparisonContent .swiper-slide a { width: 100%; height: 100%; }
+
+.model-img-content {
+    width: 126px;
+    height: 71px;
+    margin-bottom: 5px;
+}
+
+.model-comparison-list h3 + .grid-6 {
+    position: relative;
+    border-right: 1px solid #f5f5f5;
+}
+
+.model-comparison-list h3 + .grid-6:after {
+    content: '';
+    position: absolute;
+    right: -11px;
+    top: 45px;
+    width: 22px;
+    height: 21px;
+    background: url('http://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png') no-repeat;
+    display: block;
+}
+
+.btn-size-1 {
+    font-size: 14px;
+    padding: 6px 42px;
+}
+
 @media all and (max-width: 350px) {
     .summary-overview-box > div.odd{padding-left:0;}
     .summary-overview-box > div.even{padding-left:15px;}
@@ -682,5 +713,9 @@ a.btn:hover {
 
     .float-button .btn {
         font-size: 15px;
+    }
+
+    #makeComparisonContent .swiper-slide {
+        width: 280px;
     }
 }
