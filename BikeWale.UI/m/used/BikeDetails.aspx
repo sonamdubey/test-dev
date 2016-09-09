@@ -89,7 +89,7 @@
                 </div>
 
                 <div class="grid-12 float-button float-fixed clearfix">
-                    <div class="grid-12 alpha omega padding-top10 padding-right5 padding-bottom10">
+                    <div class="grid-12 alpha omega">
                       <%--  <a id="get-seller-button" class="btn btn-orange btn-full-width rightfloat" href="javascript:void(0);" rel="nofollow">Get seller details</a>--%>
                     </div>
                 </div>
@@ -146,6 +146,8 @@
                 <% } %>
             </div>
         </section>
+
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 
         <section>
             <div id="model-bottom-card-wrapper" class="container bg-white clearfix box-shadow margin-bottom30">

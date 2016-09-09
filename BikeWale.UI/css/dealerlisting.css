@@ -32,7 +32,7 @@ body { overflow-x:hidden; }
 #dealersList a { display:block; }
 #dealersList a:hover, #dealerDetailsSliderCard a:hover { text-decoration:none; }
 .featured-tag {position:relative;left:-20px;top:-5px;width:100px;display:block;background:#4d5057;z-index:1; line-height:28px; font-weight:400; }
-.featured-tag:after {content:'';width:12px; height:28px;background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=15Mar2016) no-repeat right top;position:absolute;left:98px;}
+.featured-tag:after {content:'';width:12px; height:28px;background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=9Sep2016) no-repeat right top;position:absolute;left:98px;}
 .tel-sm-grey-icon{width: 15px;height: 15px;background-position: 0 -435px;position: relative;top: 2px;}
 .btn-white-orange { background: transparent; color: #82888b; border: 1px solid #82888b;}
 .btn-white-orange:hover { background: #f04031; color: #fff; border: 1px solid #f04031; }
