@@ -337,6 +337,16 @@ namespace Bikewale.DAL.Compare
                                     VersionId1 = GetString(reader["VersionId1"]),
                                     VersionId2 = GetString(reader["VersionId2"]),
                                     Version1 = GetString(reader["Version1"]),
+                                    HostURL = GetString(reader["HostURL"]),
+                                    ModelMaskingName1 = GetString(reader["ModelMaskingName1"]),
+                                    ModelMaskingName2 = GetString(reader["ModelMaskingName2"]),
+                                    OriginalImagePath = GetString(reader["OriginalImagePath"]),
+                                    Price1 = GetInt16(reader["Price1"]),
+                                    Price2 = GetInt16(reader["Price2"]),
+                                    VersionImgUrl1 = GetString(reader["VersionImgUrl1"]),
+                                    VersionImgUrl2 = GetString(reader["VersionImgUrl2"]),
+                                    HostUrl1 = GetString(reader["HostUrl1"]),
+                                    HostUrl2 = GetString(reader["HostUrl2"])
                                 });
                             }
                             reader.Close();
