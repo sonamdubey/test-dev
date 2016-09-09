@@ -632,7 +632,7 @@
                                         <% } %>
                                         <%if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard)
                                           { %>
-                                        <a id="leadBtn" leadSourceId="9" class="btn btn-inv-grey btn-full-width font14 margin-top15">Get offers from this dealer</a>
+                                        <a id="leadBtn" leadSourceId="9" class="btn btn-teal btn-full-width font14 margin-top15">Get offers from this dealer</a>
                                         <% } %>
                                     </div>
                                     <% } %>
