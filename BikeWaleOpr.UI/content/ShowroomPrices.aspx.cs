@@ -271,7 +271,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetcorporaterto", DbType.Int64, mumMetCorpRTO.Length == 0 ? Convert.DBNull : mumMetCorpRTO));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int64, hdnSelectedCityId.Value));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_lastupdated", DbType.DateTime, DateTime.Now));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int64, CurrentUser.Id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int16, CurrentUser.Id));
                     //run the command
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                 }
