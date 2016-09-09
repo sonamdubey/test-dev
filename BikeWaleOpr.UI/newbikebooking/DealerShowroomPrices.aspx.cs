@@ -220,7 +220,7 @@ namespace BikeWaleOpr.NewBikeBooking
                             Label lblCategoryId = (Label)rptValues.Items[j].FindControl("lblCategoryId");
                             if (lbVersionId.Text.Length > 0 && txtValue.Text.Trim().Length > 0)
                             {
-                                table.Rows.Add(dealerId, lbVersionId.Text.Trim(), cityId, lblCategoryId.Text.Trim(), txtValue.Text.Trim());
+                                table.Rows.Add(dealerId, lbVersionId.Text.Trim(), cityId, lblCategoryId.Text.Trim(), txtValue.Text.Trim(), CurrentUser.Id);
                             }
                         }
                     }

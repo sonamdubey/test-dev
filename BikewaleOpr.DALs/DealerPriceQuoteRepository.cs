@@ -141,7 +141,7 @@ namespace BikewaleOpr.DALs
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_savedealerprices"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_savedealerprices_09092016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.UpdatedRowSource = UpdateRowSource.None;
@@ -151,7 +151,7 @@ namespace BikewaleOpr.DALs
                     cmd.Parameters.Add(DbFactory.GetDbParamWithColumnName("par_CityId", DbType.Int32, 4, dt.Columns[2].ColumnName));
                     cmd.Parameters.Add(DbFactory.GetDbParamWithColumnName("par_ItemId", DbType.Int16, 4, dt.Columns[3].ColumnName));
                     cmd.Parameters.Add(DbFactory.GetDbParamWithColumnName("par_Itemvalue", DbType.Int32, 8, dt.Columns[4].ColumnName));
-
+                    cmd.Parameters.Add(DbFactory.GetDbParamWithColumnName("par_updatedby", DbType.Int32, 11, dt.Columns[5].ColumnName));
                     //run the command
                     int recordsInserted = MySqlDatabase.InsertQueryViaAdaptor(cmd, dt, ConnectionType.MasterDatabase);
                     if (recordsInserted > 0)
