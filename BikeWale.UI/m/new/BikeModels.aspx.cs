@@ -94,7 +94,7 @@ namespace Bikewale.Mobile.New
         protected void Page_Load(object sender, EventArgs e)
         {
             //Set identification for m site
-            HttpContext.Current.Response.Cookies["IsMobileSite"].Value = "true";
+            // HttpContext.Current.Response.Cookies["IsMobileSite"].Value = "true";
             // Modified By :Ashish Kamble on 5 Feb 2016
             Form.Action = Request.RawUrl;
             // Do not change the sequence of the function calls
