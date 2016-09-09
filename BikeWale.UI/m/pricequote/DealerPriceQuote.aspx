@@ -239,7 +239,7 @@
 				<%} %>
 			</div>
 
-             <% if (objExQuotation != null &&objExQuotation.CampaignId > 0&& !string.IsNullOrEmpty(objExQuotation.ManufacturerAd))
+             <% if (objExQuotation != null && objExQuotation.CampaignId > 0 && objPriceQuote!=null && objPriceQuote.SecondaryDealerCount == 0 && !string.IsNullOrEmpty(objExQuotation.ManufacturerAd))
                 { %>
                 <section>
                     <%=String.Format(objExQuotation.ManufacturerAd) %>
@@ -607,7 +607,7 @@
 					"pageurl": pageUrl,
 					"clientip": clientIP,
 					"isregisterpq": ele.attr('data-item-registerpq') == "true" ? true : false,
-					"mfgCampid": ele.attr('data-item-mfg-campid'),
+					"mfgCampid": ele.attr('data-mfgcampid'),
 					"pqid": pqId,
 					"gaobject" : {
 						cat : ele.attr('data-ga-cat'),

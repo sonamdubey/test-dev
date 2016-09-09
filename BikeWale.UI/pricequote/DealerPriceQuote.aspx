@@ -667,7 +667,7 @@
             <div class="clear"></div>
         </section>
 
-        <% if (objQuotation!=null && !string.IsNullOrEmpty(objQuotation.ManufacturerAd))
+        <% if (objQuotation != null && detailedDealer != null && detailedDealer.SecondaryDealerCount == 0 && !string.IsNullOrEmpty(objQuotation.ManufacturerAd))
             {
                  %>
         <section>
