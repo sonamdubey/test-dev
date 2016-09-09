@@ -177,7 +177,7 @@ li.offertxt:hover span {display:inline}
 .model-user-review-rating-container p:first-child { width: 148px; }
 .model-user-review-container .model-user-review-title-container { width: auto; float: none; }
 .upcoming-text-label{background:#4c4c4c;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:-20px;}
-.upcoming-text-label:after{content: "";background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=10May2016v1) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px;}
+.upcoming-text-label:after{content: "";background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=9Sep2016) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px;}
 .discontinued-text-label { background:#A8AFB3;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:-20px; }
 .discontinued-text-label:after { content: "";background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/discontinued-ribbon.png?v=10May2016v1) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px; }
 .chosen-results::-webkit-scrollbar {width: 10px;border-radius: 5px;}
