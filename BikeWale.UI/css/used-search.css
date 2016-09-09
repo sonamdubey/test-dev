@@ -1,0 +1,371 @@
+﻿.padding-14-20 {
+    padding: 14px 20px;
+}
+
+.text-x-black {
+    color: #1a1a1a;
+}
+
+/* selected filters */
+#selected-filters li {
+    float: left;
+    margin-right: 15px;
+    margin-bottom: 8px;
+}
+
+/* used-bikes-list */
+#used-bikes-list li {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.model-thumbnail-image {
+    width: 300px;
+    height: 169px;
+    display: table;
+    text-align: center;
+    background: #f5f5f5;
+    float: left;
+    position: relative;
+    overflow: hidden;
+}
+
+.model-thumbnail-image a {
+    display: table-cell;
+    vertical-align: middle;
+    line-height: 0;
+    background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center center no-repeat;
+}
+
+.model-thumbnail-image img {
+    max-width: 300px;
+    width: auto;
+    height: 169px;
+}
+
+.model-details-content {
+    width: 320px;
+    padding-left: 20px;
+    float: left;
+}
+
+.model-details-content .grid-6 {
+    margin-bottom: 6px;
+}
+
+.text-truncate {
+    display: block;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.model-details-content .grid-6.omega {
+    padding-left: 30px;
+}
+
+.model-details-label {
+    width:84%;
+    display: inline-block;
+    vertical-align: middle;
+    color: #82888b;
+    text-align:left;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow:hidden;
+}
+
+.btn.seller-details-btn {
+    font-size: 14px;
+    padding: 5px 31px;
+}
+
+/* filters */
+#filters-head {
+    padding: 17px 20px;
+}
+
+#filters-head .text-bold {
+    position: relative;
+    top: 2px;
+}
+
+#reset-filters.btn {
+    padding: 4px 21px;
+}
+
+.filter-block {
+    padding: 17px 20px 20px;
+    border-top: 1px solid #f5f5f5;
+    background: #fff;
+    height: 100px;
+}
+
+.filter-block:first-child {
+    border-top: 0;
+}
+
+.filter-block .filter-label {
+    color: #82888b;
+    float: left;
+}
+
+#clear-all-bike {
+    color: #a2a2a2;
+    cursor: pointer;
+    position: relative;
+    top: 2px;
+}
+
+#clear-all-bike:hover {
+    color: #4d5057;
+}
+
+/* prev owners */
+#previous-owners-list {
+    overflow: hidden;
+}
+
+#previous-owners-list li {
+    margin-left: 10px;
+    float: left;
+}
+
+#previous-owners-list li:first-child {
+    margin-left: 0
+}
+
+#previous-owners-list span {
+    display: block;
+    font-size: 16px;
+    padding: 8px 14px;
+    border: 1px solid #a2a2a2;
+    position: relative;
+    border-radius: 1px;
+    cursor: pointer;
+}
+
+#previous-owners-list .prev-owner-last-item {
+    padding-right: 26px;
+    padding-left: 26px;
+}
+
+#previous-owners-list span:before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid #fff;
+}
+
+#previous-owners-list .active span, #previous-owners-list .active span:before {
+    border: 1px solid #4d5057;
+}
+
+#previous-owners-list .active span {
+    font-weight: bold;
+}
+
+/* seller type */
+.filter-type-seller {
+    font-size: 14px;
+    color: #82888b;
+}
+
+.filter-type-seller.checked {
+    font-size: 16px;
+    font-weight: bold;
+    color: #4d5057;
+}
+
+/* image count */
+.model-media-details {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 12px;
+}
+
+.model-media-item {
+    display:inline-block;
+    vertical-align: middle;
+    padding: 4px 5px;
+    color: #4d5057;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 2px;
+}
+
+.model-media-item:hover {
+    text-decoration:none;
+}
+
+.model-media-count { 
+    position: relative;
+    top: -1px;
+}
+
+.gallery-photo-icon {
+    width: 16px;
+    height: 12px;
+    background-position: -213px -207px;
+}
+
+/* icons */
+.inr-md-lg {
+    width: 12px;
+    height: 17px;
+    background-position: -64px -515px;
+    position: relative;
+    top: 1px;
+}
+.author-grey-sm-icon, .model-date-icon, .kms-driven-icon, .model-loc-icon { 
+    width:10px;
+    height:12px;
+    margin-right: 5px;
+    vertical-align:middle;
+}
+
+.model-date-icon {
+    background-position:-65px -543px;
+}
+
+.kms-driven-icon {
+    background-position:-65px -563px;
+}
+
+.model-loc-icon {
+    background-position:-82px -543px;
+}
+
+.cross-icon {
+    width: 8px;
+    height: 8px;
+    background-position: -82px -565px;
+}
+
+.unchecked-box {
+    width: 14px;
+    height: 14px;
+    background-position: -216px -120px;
+    /* checked background-position: -216px -135px; */
+}
+
+.search-icon {
+    width: 17px;
+    height: 17px;
+    background-position: -213px -160px;
+}
+
+.prev-page-icon, .next-page-icon {
+    width: 8px;
+    height: 12px;
+    position: relative;
+    left: 10px;
+    top: 5px;
+}
+
+.prev-page-icon {
+    background-position: -213px -187px;
+}
+
+.next-page-icon {
+    background-position: -222px -187px;
+}
+
+.inactive .prev-page-icon, .inactive .next-page-icon.inactive {
+    opacity: 0.2;
+}
+
+/* search-listing-footer */
+#search-listing-footer {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+#search-listing-footer .grid-5 {
+    position: relative;
+    top: 4px;
+}
+
+
+/* pagination */
+#pagination-list-content {
+    min-width: 185px;
+    width: auto;
+    max-width: 355px;
+    float: right;
+}
+
+#pagination-list {
+    margin-right: 35px;
+    margin-left: 35px;
+    overflow: hidden;
+}
+
+#pagination-list li {
+    float: left;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+#pagination-list a {
+    color: #82888b;
+    font-size: 12px;
+    padding: 5px;
+    border: 1px solid #fff;
+    display: block;
+    min-width: 30px;
+    text-align: center;
+}
+
+#pagination-list a:hover {
+    color: #4d5057;
+    text-decoration: none;
+}
+
+#pagination-list li.active a {
+    color: #4d5057;
+    font-weight: bold;
+    border: 1px solid #a2a2a2;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    -ms-border-radius: 1px;
+    border-radius: 1px;
+}
+
+.pagination-control-prev, .pagination-control-next {
+    position: absolute;
+    top: 0;
+    width: 30px;
+    height: 29px;
+}
+
+.pagination-control-prev {
+    left: 0;
+}
+
+.pagination-control-next {
+    right: 0;
+}
+
+.pagination-control-prev.inactive, .pagination-control-next.inactive {
+    pointer-events: none;
+}
+
+@media only screen and (max-width:1024px) {
+    .model-details-content {
+        width: 295px;
+    }
+
+    .model-details-label {
+        width: 82%;
+    }
+
+    #previous-owners-list .prev-owner-last-item {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+}
