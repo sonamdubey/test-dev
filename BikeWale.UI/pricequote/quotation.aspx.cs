@@ -158,9 +158,8 @@ namespace Bikewale.PriceQuote
             try
             {
                 objQuotation = objPriceQuote.GetPriceQuoteById(Convert.ToUInt64(priceQuoteId), LeadSourceEnum.DPQ_Desktop);
-                if (string.IsNullOrEmpty(objQuotation.MaskingNumber))
-                    hide = "hide";
-                objQuotation.ManufacturerAd = Format.FormatManufacturerAd(objQuotation.ManufacturerAd,objQuotation.CampaignId, objQuotation.ManufacturerName, objQuotation.MaskingNumber, Convert.ToString(objQuotation.ManufacturerId), objQuotation.Area, pq_leadsource, pq_sourcepage, "", "", "", hide);
+                if(objQuotation!=null)
+                    objQuotation.ManufacturerAd = Format.FormatManufacturerAd(objQuotation.ManufacturerAd, objQuotation.CampaignId, objQuotation.ManufacturerName, objQuotation.MaskingNumber, Convert.ToString(objQuotation.ManufacturerId), objQuotation.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objQuotation.MaskingNumber) ? "hide" : string.Empty);
 
             }
             catch (Exception ex)

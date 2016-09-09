@@ -22,7 +22,7 @@ namespace BikewaleOpr.manufacturecampaign
         protected Button btnUpdate;
         protected TextBox campaignDescription, txtMaskingNumber, textBox1, textBox2, textBox3, textBox4;
         protected CheckBox isActive, CheckBox1, CheckBox2, CheckBox3, CheckBox4;
-        protected HiddenField Hiddenfield1, Hiddenfield2, Hiddenfield3, Hiddenfield4, hdnOldMaskingNumber;
+        protected HiddenField Hiddenfield1, Hiddenfield2, Hiddenfield3, Hiddenfield4, hdnOldMaskingNumber, hdnmaskingnumber;
         protected int dealerId, userId;
         protected int campaignId = 0;
         protected Label lblGreenMessage, lblRedMessage;
@@ -90,7 +90,7 @@ namespace BikewaleOpr.manufacturecampaign
                             campaignDescription.Text = campaignDetails.CampaignDescription;
                             txtMaskingNumber.Text = campaignDetails.CampaignMaskingNumber;
                             hdnOldMaskingNumber.Value = campaignDetails.CampaignMaskingNumber;
-                            oldMaskingNumber = campaignDetails.CampaignMaskingNumber;
+                            hdnmaskingnumber.Value = campaignDetails.CampaignMaskingNumber;
                             if (campaignDetails.IsActive == 1)
                             {
                                 isActive.Checked = true;
@@ -158,6 +158,7 @@ namespace BikewaleOpr.manufacturecampaign
             {
                 List<ManuCamEntityForTemplate> objList = new List<ManuCamEntityForTemplate>();
                 bool IsProd = Convert.ToBoolean(ConfigurationManager.AppSettings["isProduction"]);
+                oldMaskingNumber = hdnmaskingnumber.Value;
                 bool isMaskingChanged = !string.IsNullOrEmpty(oldMaskingNumber) && oldMaskingNumber != hdnOldMaskingNumber.Value ? true : false;
                 using (IUnityContainer container = new UnityContainer())
                 {
@@ -183,7 +184,7 @@ namespace BikewaleOpr.manufacturecampaign
                         if (isMaskingChanged)
                         {
                             // Release previous number and add new number
-                            CWWebservice.ReleaseMaskingNumber(Convert.ToUInt32(dealerId), userId, oldMaskingNumber);
+                            CWWebservice.ReleaseMaskingNumber(Convert.ToUInt32(dealerId), userId, hdnOldMaskingNumber.Value);
                         }
 
                         //callApp.pushDataToKnowlarity(false, "-1", dealerMobile, string.Empty, reqFormMaskingNumber);

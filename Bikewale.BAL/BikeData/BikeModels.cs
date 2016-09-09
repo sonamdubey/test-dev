@@ -959,10 +959,11 @@ namespace Bikewale.BAL.BikeData
                 {
                     // Added by : Ashish G. Kamble on 15 Dec 2015
                     // Get model photo gallery
-                    if (HttpContext.Current.Response.Cookies["IsMobileSite"].Value == "true")
-                        objModelPage.Photos = null;               
-                    else
-                        objModelPage.Photos = GetBikeModelPhotoGallery(modelId);  
+                    //if (HttpContext.Current.Response.Cookies["IsMobileSite"].Value == "true")
+                    //    objModelPage.Photos = null;               
+                    //else
+                    //    objModelPage.Photos = GetBikeModelPhotoGallery(modelId);                      
+                    objModelPage.Photos = GetBikeModelPhotoGallery(modelId);  
 
                     if (objModelPage.Photos != null)
                     {
