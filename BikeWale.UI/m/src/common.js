@@ -1610,6 +1610,7 @@ $('#area-menu-input').on('focus click', function (event) {
     $("#city-area-popup").animate({ scrollTop: 190 });
 });
 
+
 function LoadTerms(offerId) {
     $("div#termsPopUpContainer").show();
     $(".blackOut-window").show();
