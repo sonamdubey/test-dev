@@ -54,7 +54,7 @@
                     </div>
                     <div id="search-listing-content">
                         <div class="grid-4 alpha font14 position-rel">
-                            <div id="filter-column" class="border-solid-right">
+                            <div id="filter-sidebar" class="border-solid-right">
                                 <div id="filters-head">
                                     <p class="font18 text-bold text-x-black leftfloat">Filters</p>
                                     <p id="reset-filters" class="btn btn-white font14 rightfloat">Reset</p>
@@ -74,20 +74,23 @@
 
                                 <div class="filter-block">
                                     <p class="filter-label">Budget</p>
-                                    <p id="budget-amount" class="font14 text-bold rightfloat">Rs. 40,000 - Rs. 20,00,000</p>
+                                    <p id="budget-amount" class="font14 text-bold rightfloat"></p>
                                     <div class="clear"></div>
+                                    <div id="budget-range-slider"></div>
                                 </div>
 
                                 <div class="filter-block">
                                     <p class="filter-label">Kms ridden</p>
-                                    <p id="kms-amount" class="font14 text-bold rightfloat">0 - 50,000 kms</p>
+                                    <p id="kms-amount" class="font14 text-bold rightfloat"></p>
                                     <div class="clear"></div>
+                                    <div id="kms-range-slider"></div>
                                 </div>
 
                                 <div class="filter-block">
                                     <p class="filter-label">Bike age</p>
-                                    <p id="bike-age-amount" class="font14 text-bold rightfloat">0 - 5 years</p>
+                                    <p id="bike-age-amount" class="font14 text-bold rightfloat"></p>
                                     <div class="clear"></div>
+                                    <div id="bike-age-slider"></div>
                                 </div>
 
                                 <div class="filter-block">
@@ -409,6 +412,7 @@
                         <div class="clear"></div>
                     </div>
                 </div>
+                <div id="listing-footer"></div>
             </div>
             <div class="clear"></div>
         </section>
