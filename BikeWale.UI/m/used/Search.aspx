@@ -32,42 +32,50 @@
                 </div>
 
                 <ul id="used-bikes-list">
-                    <li>
-                        <div class="model-thumbnail-image">
-                            <a href="javascript:void(0)" class="model-image-target">
-                                <img class="lazy" data-original="http://imgd3.aeplcdn.com//370x208//bw/used/S43685/43685_20160713013010469.jpg" alt="" title="" border="0" />
-                                <div class="model-media-details">
-                                    <div class="model-media-item">
-                                        <span class="bwmsprite gallery-photo-icon"></span>
-                                        <span class="model-media-count">55</span>
-                                    </div>
+                    <asp:Repeater ID="rptUsedListings" runat="server">
+                        <ItemTemplate>
+                            <li>
+                                <div class="model-thumbnail-image">
+                                    <a href="javascript:void(0)" class="model-image-target">
+                                        <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "Photo.OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "Photo.HostUrl").ToString(),Bikewale.Utility.ImageSize._370x208) %>" alt="" title="" border="0" />
+                                        <div class="model-media-details">
+                                            <div class="model-media-item">
+                                                <span class="bwmsprite gallery-photo-icon"></span>
+                                                <span class="model-media-count"><%# DataBinder.Eval(Container.DataItem, "TotalPhotos").ToString() %></span>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
-                        </div>
-                        <div class="margin-right20 margin-left20 padding-top10 font14">
-                            <h2 class="margin-bottom10"><a href="">Royal Enfield Classic Desert Storm</a></h2>
-                            <div class="grid-6 alpha omega margin-bottom5">
-                                <span class="bwmsprite model-date-icon"></span>
-                                <span class="model-details-label">2013 model</span>
-                            </div>
-                            <div class="grid-6 omega margin-bottom5">
-                                <span class="bwmsprite kms-driven-icon"></span>
-                                <span class="model-details-label">1,45,000 kms</span>
-                            </div>
-                            <div class="grid-6 alpha omega margin-bottom5">
-                                <span class="bwmsprite author-grey-sm-icon"></span>
-                                <span class="model-details-label">2nd owner</span>
-                            </div>
-                            <div class="grid-6 omega margin-bottom5">
-                                <span class="bwmsprite model-loc-icon"></span>
-                                <span class="model-details-label">Mumbai</span>
-                            </div>
-                            <div class="clear"></div>
-                            <p class="margin-bottom15"><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold">1,22,000</span></p>
-                            <a href="javascript:void(0)" class="btn btn-orange seller-details-btn" rel="nofollow">Get seller details</a>
-                        </div>
-                    </li>
-                    <li>
+                                <div class="margin-right20 margin-left20 padding-top10 font14">
+                                    <h2 class="margin-bottom10">
+                                        <a href="">
+                                            <%# DataBinder.Eval(Container.DataItem, "MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem, "ModelName").ToString() + " " + DataBinder.Eval(Container.DataItem, "VersionName").ToString() %>
+                                        </a>
+                                    </h2>
+                                    <div class="grid-6 alpha omega margin-bottom5">
+                                        <span class="bwmsprite model-date-icon"></span>
+                                        <span class="model-details-label"><%# DataBinder.Eval(Container.DataItem, "ModelYear").ToString() %> model</span>
+                                    </div>
+                                    <div class="grid-6 omega margin-bottom5">
+                                        <span class="bwmsprite kms-driven-icon"></span>
+                                        <span class="model-details-label"><%# Bikewale.Utility.Format.FormatNumeric(DataBinder.Eval(Container.DataItem, "KmsDriven").ToString()) %> kms</span>
+                                    </div>
+                                    <div class="grid-6 alpha omega margin-bottom5">
+                                        <span class="bwmsprite author-grey-sm-icon"></span>
+                                        <span class="model-details-label"><%# DataBinder.Eval(Container.DataItem, "NoOfOwners").ToString() %> owner</span>
+                                    </div>
+                                    <div class="grid-6 omega margin-bottom5">
+                                        <span class="bwmsprite model-loc-icon"></span>
+                                        <span class="model-details-label"><%# DataBinder.Eval(Container.DataItem, "CityName").ToString() %></span>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <p class="margin-bottom15"><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold"><%# Bikewale.Utility.Format.FormatNumeric(DataBinder.Eval(Container.DataItem, "AskingPrice").ToString()) %></span></p>
+                                    <a href="javascript:void(0)" class="btn btn-orange seller-details-btn" rel="nofollow">Get seller details</a>
+                                </div>
+                            </li>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                    <%--<li>
                         <div class="model-thumbnail-image">
                             <a href="javascript:void(0)" class="model-image-target">
                                 <img class="lazy" data-original="http://imgd4.aeplcdn.com/370x208//staging/bw/used/S42661/42661_20160721050709814.jpg" alt="" title="" border="0" />
@@ -206,7 +214,7 @@
                             <p class="margin-bottom15"><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold">1,22,000</span></p>
                             <a href="javascript:void(0)" class="btn btn-orange seller-details-btn" rel="nofollow">Get seller details</a>
                         </div>
-                    </li>
+                    </li>--%>
                 </ul>
 
                 <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">

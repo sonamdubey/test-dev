@@ -92,6 +92,18 @@ namespace Bikewale.Utility
         }
 
         /// <summary>
+        /// Created By : Sadhana Upadhyay on 31 Aug 2015
+        /// Summary : To validate Numeric Range
+        /// </summary>
+        /// <param name="strQSParam">122-567, 0-2</param>
+        /// <returns>boolean (True / False)</returns>
+        public static bool ValidateNumericRange(string strQSParam, char separater)
+        {
+            var reg = new Regex(string.Format(@"^([0-9]+)[{0}]([0-9]+)$", separater));
+            return reg.IsMatch(strQSParam);
+        }
+
+        /// <summary>
         /// Check whether the value passed is between the specified range
         /// </summary>
         /// <param name="val">Value to be checked</param>
