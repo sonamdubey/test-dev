@@ -72,13 +72,14 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .btn-orange { background: #f04031; color: #fff; }
 .btn-orange:hover { background: #f85649; text-decoration: none; }
 .btn-orange:focus { background: #df3828; }
+.btn-teal { background: #41b4c4; color: #fff; border:1px solid #41b4c4; }
+.btn-teal:hover { text-decoration: none; background: #58bdcb; border:1px solid #58bdcb; }
+.btn-teal:focus { background: #37939f;  border: 1px solid #37939f; }
 
-.btn-white { background: #fff; color: #ef402f; border: 1px solid #f04130; }
-.btn-white:hover { background: #f04031; color: #fff; text-decoration: none; }
-.btn-white:focus { background: #df3828; color: #fff; border: 1px solid #f04130; }
+.btn-white, .btn-grey { background: #fff; color: #ef402f; border: 1px solid #f04130; }
+.btn-white:hover, .btn-grey:hover { background: #f04031; color: #fff; text-decoration: none; }
+.btn-white:focus, .btn-grey:focus { background: #df3828; color: #fff; border: 1px solid #f04130; }
 .btn-disable { cursor: not-allowed; opacity: .5; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
-.btn-grey { background: #fff; color: #4d5057; border:1px solid #4d5057; }
-.btn-grey:hover { background: #82888b; color: #fff; text-decoration: none; border:1px solid #82888b; }
 .btn-whiteFixedRed { background: #f04031; color: #fff; border: 1px solid #f04130; }
 .btn-xxs { padding: 5px 26px; }
 .btn-xs { padding: 8px; }
@@ -286,6 +287,7 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 .padding-top10 { padding-top: 10px; }
 .padding-top15 { padding-top: 15px; }
 .padding-top20 { padding-top: 20px; }
+.padding-top25 { padding-top: 25px; }
 
 .padding-right5 { padding-right: 5px; }
 .padding-right10 { padding-right: 10px; }

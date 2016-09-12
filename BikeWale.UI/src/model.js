@@ -640,7 +640,7 @@ $(document).ready(function () {
         var target = $(this.hash);
         if (target.length == 0) target = $('a[name="' + this.hash.substr(1) + '"]');
         if (target.length == 0) target = $('html');
-        $('html, body').animate({ scrollTop: target.offset().top - topNavBar.height() }, 1000);
+        $('html, body').animate({ scrollTop: target.offset().top - topNavBar.height() + 1 }, 1000);
         return false;
     });
 
@@ -694,4 +694,22 @@ $('.view-features-link').on('click', function () {
         moreFeatures.slideUp();
         target.text('View all features');
     }
+});
+
+$(document).ready(function() {
+    var comparisonCarousel = $("#modelComparisonContent");
+    comparisonCarousel.find(".jcarousel").jcarousel();
+
+    comparisonCarousel.find(".jcarousel-control-prev").jcarouselControl({
+        target: '-=2'
+    });
+
+    comparisonCarousel.find(".jcarousel-control-next").jcarouselControl({
+        target: '+=2'
+    });
+});
+
+$('.navigation').on('click', '.all-photos-target', function () {
+    var target = $(this).find('a').attr('href');
+    window.location = target;
 });
