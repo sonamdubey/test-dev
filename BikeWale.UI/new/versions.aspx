@@ -8,6 +8,7 @@
 <%@ Register Src="~/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
 <%@ Register Src="~/controls/PriceInTopCities.ascx" TagPrefix="BW" TagName="TopCityPrice" %>
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
+<%@ Register Src="~/controls/PopularModelCompare.ascx" TagName="PopularCompare" TagPrefix="BW" %>
 <!doctype html>
 <html>
 <head>
@@ -1122,7 +1123,7 @@
                     <% } %>  
 
                     <!-- model comparison -->
-                    <div id="modelComparisonContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14">
+                    <%--<div id="modelComparisonContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14">
                         <h2 class="padding-left20 padding-right20 margin-bottom15">Popular comparisons for <%=bikeModelName%></h2>
                         <div class="jcarousel-wrapper inner-content-carousel margin-bottom20">
                             <div class="jcarousel">
@@ -1216,10 +1217,19 @@
                         <div class="margin-left20">
                             <a href="/comparebikes/">View more comparisons<span class="bwsprite blue-right-arrow-icon"></span></a>
                         </div>
-                    </div>
+                    </div>--%>
                     <div class="margin-right10 margin-left10 border-solid-top"></div>
                     <!-- model comparison -->
 
+                    <!-- Popular Comparision -->
+                     <% if (ctrlPopularCompare.fetchedCount > 0)
+                        { %>
+                    
+                <BW:PopularCompare ID="ctrlPopularCompare" runat="server" />
+            
+           
+                     <% } %>
+                 
                     <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
                     <!-- Alternative reviews ends -->
                     <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
