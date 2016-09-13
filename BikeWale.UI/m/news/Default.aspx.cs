@@ -88,9 +88,11 @@ namespace Bikewale.Mobile.News
                     ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
                     CMSContent objNews = _cache.GetArticlesByCategoryList(contentTypeList, _startIndex, _endIndex, 0, 0);
-
-                    BindNews(objNews);
-                    BindLinkPager(objPager, Convert.ToInt32(objNews.RecordCount));
+                    if (objNews != null && objNews.RecordCount > 0)
+                    {
+                        BindNews(objNews);
+                        BindLinkPager(objPager, Convert.ToInt32(objNews.RecordCount));
+                    }
                 }
             }
             catch (Exception ex)

@@ -58,7 +58,9 @@ namespace Bikewale.Mobile.BikeBooking
         IPriceQuote objIQuotation = null;
         protected BikeQuotationEntity objExQuotation = null;
         protected LeadCaptureControl ctrlLeadCapture;
-
+        protected string pq_leadsource = "35";
+        protected string pq_sourcepage = "56";
+        protected string hide = "";
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -154,7 +156,13 @@ namespace Bikewale.Mobile.BikeBooking
                         {
                             container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
                             objIQuotation = container.Resolve<IPriceQuote>();
-                            objExQuotation = objIQuotation.GetPriceQuoteById(Convert.ToUInt64(pqId));
+                            objExQuotation = objIQuotation.GetPriceQuoteById(Convert.ToUInt64(pqId), LeadSourceEnum.DPQ_Mobile);
+                            
+                            if (objExQuotation != null)
+                            {
+                                objExQuotation.ManufacturerAd = Format.FormatManufacturerAd(objExQuotation.ManufacturerAd, objExQuotation.CampaignId, objExQuotation.ManufacturerName, objExQuotation.MaskingNumber, Convert.ToString(objExQuotation.ManufacturerId), objExQuotation.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objExQuotation.MaskingNumber) ? "hide" : string.Empty);
+                            }
+                           
                         }
 
                         if (objPriceQuote.PrimaryDealer != null)

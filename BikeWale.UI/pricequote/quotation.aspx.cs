@@ -32,6 +32,7 @@ namespace Bikewale.PriceQuote
         //protected Repeater rptAllVersions;
         protected UpcomingBikes_new ctrlUpcomingBikes;
         protected AlternativeBikes ctrlAlternativeBikes;
+        protected LeadCaptureControl ctrlLeadCapture;
         protected HtmlGenericControl divAllVersions, div_ShowPQ, divUserReviews;
 
         protected string city = string.Empty, priceQuoteId = string.Empty, make = string.Empty, imgPath = String.Empty, dealerId = string.Empty;
@@ -42,6 +43,10 @@ namespace Bikewale.PriceQuote
         protected DropDownList ddlVersion;
         IPriceQuote objPriceQuote = null;
         protected UInt32 versionId = 0;
+        protected string pq_leadsource = "34";
+        protected string pq_sourcepage = "58";
+        protected string hide = "";
+        protected String clientIP = CommonOpn.GetClientIP();
         protected bool hasAlternateBikes = false, hasUpcomingBikes = false;
         protected override void OnInit(EventArgs e)
         {
@@ -129,6 +134,9 @@ namespace Bikewale.PriceQuote
 
                     hasAlternateBikes = ctrlAlternativeBikes.FetchedRecordsCount > 0;
                     hasUpcomingBikes = ctrlUpcomingBikes.FetchedRecordsCount > 0;
+
+                    ctrlLeadCapture.AreaId = areaId;
+                    ctrlLeadCapture.CityId = cityId;
                 }
             }
             else
@@ -149,11 +157,14 @@ namespace Bikewale.PriceQuote
         {
             try
             {
-                objQuotation = objPriceQuote.GetPriceQuoteById(Convert.ToUInt64(priceQuoteId));
+                objQuotation = objPriceQuote.GetPriceQuoteById(Convert.ToUInt64(priceQuoteId), LeadSourceEnum.DPQ_Desktop);
+                if(objQuotation!=null)
+                    objQuotation.ManufacturerAd = Format.FormatManufacturerAd(objQuotation.ManufacturerAd, objQuotation.CampaignId, objQuotation.ManufacturerName, objQuotation.MaskingNumber, Convert.ToString(objQuotation.ManufacturerId), objQuotation.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objQuotation.MaskingNumber) ? "hide" : string.Empty);
+
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("ShowPriceQuote ex : " + ex.Message + ex.Source);
+                //HttpContext.Current.Trace.Warn("ShowPriceQuote ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }

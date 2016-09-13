@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bikewale.Mobile.controls
+namespace Bikewale.Mobile.Controls
 {
     public class MPopupWidgetOld : System.Web.UI.UserControl
     {

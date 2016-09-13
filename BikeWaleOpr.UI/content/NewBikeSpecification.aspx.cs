@@ -1,3 +1,4 @@
+using BikewaleOpr.common;
 using BikeWaleOpr.Common;
 using MySql.CoreDAL;
 /*******************************************************************************************************
@@ -469,6 +470,19 @@ namespace BikeWaleOpr.Content
                     {
                         spnError.InnerText = "Problem occered while saving data";
                     }
+
+                    bool isNew1;
+                    if (Request.QueryString["isNew"].Equals("1"))
+                    {
+                        isNew1 = true;
+                    }
+                    else
+                    {
+                        isNew1 = false;
+                    }
+
+                    //Refresh memcache object for bikeVersionSpecs change
+                    MemCachedUtil.Remove(string.Format("BW_VersionMinSpecs_{0}_New_{1}", Request.QueryString["modelid"], isNew1));
                 }
             }
             catch (SqlException err)

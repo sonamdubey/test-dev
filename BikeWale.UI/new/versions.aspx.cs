@@ -57,6 +57,7 @@ namespace Bikewale.New
         protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true, isAreaAvailable, isDealerAssitance, isBookingAvailable, isOfferAvailable;
         protected bool isUserReviewActive, isExpertReviewActive, isNewsActive, isVideoActive;
         protected NewAlternativeBikes ctrlAlternativeBikes;
+        protected LeadCaptureControl ctrlLeadCapture;
         protected short reviewTabsCnt;
         //Variable to Assing ACTIVE class
 
@@ -70,6 +71,9 @@ namespace Bikewale.New
         protected OtherVersionInfoEntity objSelectedVariant = null;
         protected Label defaultVariant;
         protected HiddenField hdnVariant;
+        protected string pq_leadsource = "32";
+        protected string pq_sourcepage = "57";
+        protected string hide = "";
         //protected BikeModelPageEntity modelPg;
 
 
@@ -232,6 +236,9 @@ namespace Bikewale.New
                     //calling _bwutmz cookie logic.
                     Trace.Warn("Trace 22 : Clear trailing Query");
                     Trace.Warn("Trace 23 : Page Load ends");
+                    ctrlLeadCapture.AreaId = areaId;
+                    ctrlLeadCapture.ModelId = modelId;
+                    ctrlLeadCapture.CityId = cityId;
                 }
             }
             catch (Exception ex)
@@ -685,6 +692,9 @@ namespace Bikewale.New
                     // Set Pricequote Cookie
                     if (pqOnRoad != null)
                     {
+                        if (pqOnRoad.BPQOutput != null)
+                            pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.CampaignId, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber) ? "hide" : string.Empty);
+
                         variantId = pqOnRoad.PriceQuote.VersionId;
                         if (pqOnRoad.PriceQuote != null)
                         {
@@ -845,7 +855,7 @@ namespace Bikewale.New
                         string api = string.Empty;
                         if (objPQOutput != null && objPQOutput.PQId > 0)
                         {
-                            bpqOutput = objPq.GetPriceQuoteById(objPQOutput.PQId);
+                            bpqOutput = objPq.GetPriceQuoteById(objPQOutput.PQId, LeadSourceEnum.Model_Desktop);
                             bpqOutput.Varients = objPq.GetOtherVersionsPrices(objPQOutput.PQId);
                             if (bpqOutput != null)
                             {
@@ -1256,25 +1266,6 @@ namespace Bikewale.New
                 toShowOnRoadPriceButton = true;
             }
         }
-
-        ///// <summary>
-        ///// Creted By : Lucky Rathore
-        ///// Created on : 08 January 2016
-        ///// </summary>
-        ///// <param name="price">dicount price</param>
-        ///// <param name="CategoryId">category of specified discount</param>
-        ///// <returns>Price in string formate.</returns>
-        //protected string GetDiscountPrice(string price, UInt32 CategoryId)
-        //{
-        //    if (price.CompareTo("0") == 0)
-        //    {
-        //        foreach (var priceListIterator in priceList)
-        //        {
-        //            if (priceListIterator.CategoryId == CategoryId) return Bikewale.Utility.Format.FormatPrice(Convert.ToString(priceListIterator.Price));
-        //        }
-        //    }
-        //    return Bikewale.Utility.Format.FormatPrice(Convert.ToString(price));
-        //}
 
         /// <summary>
         /// Created By: Sangram Nandkhile on 16-Mar-2016

@@ -10,10 +10,15 @@ namespace Bikewale.Entities.PriceQuote
     /// Description : Added ismodelnew and isversion new data 
     /// Modified By :   Sumit Kate on 18 Aug 2016
     /// Description :   Added state
+    /// Modified By : Vivek Gupta on 29th aug, 2016
+    /// Description : added property ManufacturerAd
     /// </summary>
     public class BikeQuotationEntity
     {
         public ulong PriceQuoteId { get; set; }
+        public string ManufacturerName { get; set; }
+
+        public string MaskingNumber { get; set; }
 
         public ulong ExShowroomPrice { get; set; }
         public uint RTO { get; set; }
@@ -47,5 +52,6 @@ namespace Bikewale.Entities.PriceQuote
 
         public string State { get; set; }
 
+        public string ManufacturerAd { get; set; }
     }
 }

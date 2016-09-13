@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bikewale.m.controls
+namespace Bikewale.Mobile.Controls
 {
     public partial class MOnRoadPricequote : System.Web.UI.UserControl
     {

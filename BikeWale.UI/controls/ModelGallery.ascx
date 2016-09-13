@@ -27,7 +27,7 @@
                                     <li>
                                         <div class="gallery-photo-img-container">
                                             <span>
-                                                <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._640x348) %>"  src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
+                                                <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._640x348) %>"  src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif"  title="<%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %> ">
                                             </span>
                                         </div>
                                     </li>
@@ -53,7 +53,7 @@
                                     <li>
                                         <div class="gallery-photo-nav-img-container">
                                         <span>
-                                            <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._144x81) %>" src="http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
+                                            <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._144x81) %>" src="http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" title =" <%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>"/>
                                         </span>
                                         </div>
                                     </li>

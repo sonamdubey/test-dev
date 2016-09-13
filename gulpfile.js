@@ -26,7 +26,9 @@ gulp.task('minify-bw-css', ['clean'], function () {
 
 gulp.task('minify-bw-js', ['clean'], function () {
     return gulp.src(paths.bwJS, { base: 'BikeWale.UI/src/' })
-        .pipe(uglify())
+        .pipe(uglify().on('error', function(e){
+            console.log(e);
+         }))
         .pipe(gulp.dest(paths.destinationD_JS));
 });
 
@@ -38,7 +40,9 @@ gulp.task('minify-bwm-css', ['clean'], function() {
 
 gulp.task('minify-bwm-js', ['clean'], function() {
     return gulp.src(paths.bwmJS, { base: 'BikeWale.UI/m/src/' })
-        .pipe(uglify())
+        .pipe(uglify().on('error', function(e){
+            console.log(e);
+         }))
         .pipe(gulp.dest(paths.destinationM_JS));
 });
 

@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using FreeTextBoxControls;
 using BikeWaleOpr.Common;
+using BikewaleOpr.common;
 
 namespace BikeWaleOpr.content
 {
@@ -84,6 +85,9 @@ namespace BikeWaleOpr.content
             lblMessage.Visible = true;
 
             GetMakeSynopsis();
+
+            //Refresh memcache object for bikemake description change
+            MemCachedUtil.Remove(string.Format("BW_MakeDescription_{0}", makeId));
         }
 
         /// <summary>
@@ -102,6 +106,9 @@ namespace BikeWaleOpr.content
             lblMessage.Visible = true;
 
             GetMakeSynopsis();
+
+            //Refresh memcache object for bikemake description change
+            MemCachedUtil.Remove(string.Format("BW_MakeDescription_{0}", makeId));
         }
         
     }//End of class MakeSynopsis

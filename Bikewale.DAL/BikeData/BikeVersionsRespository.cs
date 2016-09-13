@@ -528,7 +528,7 @@ namespace Bikewale.DAL.BikeData
                         if (dr != null)
                         {
                             while (dr.Read())
-                                objColors.Add(new VersionColor() { ColorName = dr["Color"].ToString(), ColorCode = dr["HexCode"].ToString(), CompanyCode = dr["CompanyCode"].ToString(), ColorId = Convert.ToUInt32(dr["ColorId"]) });
+                                objColors.Add(new VersionColor() { ColorName = dr["Color"].ToString(), ColorCode = dr["HexCode"].ToString(), ColorId = Convert.ToUInt32(dr["ColorId"]) });
 
                             dr.Close();
                         }

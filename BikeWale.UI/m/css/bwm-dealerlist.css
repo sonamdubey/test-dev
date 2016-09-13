@@ -7,7 +7,7 @@
 .box-shadow { -webkit-box-shadow:0 0 1px #e2e2e2; -moz-box-shadow:0 0 1px #e2e2e2; box-shadow:0 0 1px #e2e2e2; }
 .text-pure-black { color:#000; }
 .featured-tag {position:relative;left:-20px;top:-5px;width:100px;background:#4d5057;z-index:1; line-height:28px; }
-.featured-tag:after {content:'';width:12px; height:28px;background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=15Mar2016) no-repeat right top;position:absolute;left:98px;}
+.featured-tag:after {content:'';width:12px; height:28px;background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=9Sep2016) no-repeat right top;position:absolute;left:98px;}
 #dealersList li { border-top:1px solid #e2e2e2; padding-top:18px; margin-top:20px;}
 #dealersList li:first-child { margin-top:0; }
 #dealersList a { display:block; }

@@ -536,11 +536,6 @@ namespace Bikewale.DAL.UserReviews
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, (versionId > 0) ? versionId : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_filter", DbType.Int32, filter));
 
-                    //if (versionId > 0)
-                    //    cmd.Parameters.Add("@versionid", SqlDbType.Int).Value = versionId;
-
-                    //cmd.Parameters.Add("@filter", SqlDbType.Int).Value = filter;
-
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
@@ -576,13 +571,11 @@ namespace Bikewale.DAL.UserReviews
             }
             catch (SqlException ex)
             {
-                HttpContext.Current.Trace.Warn("GetNewLaunchedBikesList sql ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetNewLaunchedBikesList ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }

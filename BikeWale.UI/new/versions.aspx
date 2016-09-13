@@ -7,6 +7,7 @@
 <%@ Register Src="~/controls/NewUserReviewsList.ascx" TagPrefix="BW" TagName="UserReviews" %>
 <%@ Register Src="~/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
 <%@ Register Src="~/controls/PriceInTopCities.ascx" TagPrefix="BW" TagName="TopCityPrice" %>
+<%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <!doctype html>
 <html>
 <head>
@@ -29,7 +30,7 @@
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <style type="text/css">
-        @charset "utf-8";.navigation .carousel-navigation li:hover,.sort-div,.viewBreakupText{cursor:pointer}#moreDealersList a:hover,.btn-inv-grey:hover{text-decoration:none}.header-not-fixed{background:rgba(51,51,51,.8);background:#333\9;padding:10px 20px;z-index:3}.sort-div,.sort-selection-div{background:#fff;border:1px solid #ccc}#modelDetailsContainer .model-details-wrapper{width:522px;margin-left:20px}#expectedPriceContainer{border-bottom:1px solid #ecedee}#variantDetailsContainer .variantText{float:left;font-size:14px;line-height:28px}#variantDetailsContainer .variantDropDown{float:left}#variantDetailsContainer .variantDropDown .form-control{padding:5px 25px 5px 5px}.variantList li{padding-right:20px;padding-left:20px;float:left;border-left:1px solid #ecedee;font-size:14px;text-align:center}.variantList li:first-child{border-left:none;text-align:left;padding-left:0}.city-area-name{margin-left:4px}.model-details-floating-card .city-area-name{width:140px}.exshowroom-area.exshowroom-area-name,.model-details-floating-card .exshowroom-area-name.city-area-name{width:120px}.sort-div{min-width:150px;width:110%;height:32px;padding:5px 9px;color:#555;position:relative}.sort-by-title{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left;width:90%}.sort-selection-div{min-width:150px;width:110%;position:absolute;z-index:2}.sort-selection-div ul li{margin-bottom:5px;margin-top:5px;font-size:14px}.sort-selection-div ul li.selected{font-weight:700}.sort-selection-div ul li input{background:#fff;color:#4d5057;padding:2px 0 2px 8px;font-family:'Open Sans',sans-serif,Arial}.sort-selection-div ul li:hover input{padding:2px 0 2px 8px;cursor:pointer;background:#82888b;color:#fff}#upDownArrow.fa-angle-down{transition:all .5s ease-in-out 0s;font-size:20px}.sort-div .fa-angle-down{transition:transform .3s;-moz-transition:transform .3s;-webkit-transition:transform .3s;-o-transition:transform .3s;-ms-transition:transform .3s}.sort-div.open .fa-angle-down{-moz-transform:rotateZ(180deg);-webkit-transform:rotateZ(180deg);-o-transform:rotateZ(180deg);-ms-transform:rotateZ(180deg);transform:rotateZ(180deg)}.viewBreakupText{color:#0288d1;margin-left:5px}.bike-discontinued-tag,.bike-upcoming-tag{z-index:2}.model-name-review-container:hover .write-review-text{display:block}.connected-carousels .stage{width:385px;margin:0 auto 20px;position:relative}.connected-carousels .navigation{width:385px;position:relative;margin-left:5px}.connected-carousels .carousel{overflow:hidden;position:relative}.connected-carousels .carousel ul{width:20000em;position:relative;list-style:none;margin:0;padding:0}.connected-carousels .carousel li{float:left;width:385px;height:220px}.connected-carousels .carousel li .carousel-img-container{display:table;width:385px;height:220px;text-align:center}.connected-carousels .carousel li .carousel-img-container span{display:table-cell;vertical-align:middle;width:385px;height:220px;background:url(http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center center no-repeat}.connected-carousels .carousel li .carousel-img-container span img{width:100%;height:220px}.connected-carousels .carousel-stage{height:220px}.connected-carousels .carousel-navigation{height:52px;width:325px;background:#fff;margin-left:24px}.navigation .carousel-navigation li{float:left;width:90px;height:50px;margin-right:10px}.navigation .carousel-navigation li img{width:100%;border:1px solid #ccc}.navigation .carousel-navigation li.active img{border:1px solid #555}.connected-carousels .carousel-navigation li.active img{border-color:#555}.navigation .carousel-navigation li .carousel-nav-img-container{display:table;width:90px;height:50px;text-align:center}.navigation .carousel-navigation li .carousel-nav-img-container span{display:table-cell;vertical-align:middle;width:90px}.connected-carousels .next-stage,.connected-carousels .prev-stage{display:block;position:absolute;top:40%;color:#fff}.connected-carousels .prev-stage{left:0}.connected-carousels .next-stage{right:0}.connected-carousels .next,.connected-carousels .prev{position:absolute;top:40%;z-index:1;width:26px;height:48px;text-indent:-9999px;border:1px solid #e2e2e2;background-color:#fff;padding:6px 3px}.connected-carousels .navigation .prev-navigation,.connected-carousels .prev-stage{background-position:-125px -355px}.connected-carousels .navigation .next-navigation,.connected-carousels .next-stage{background-position:-150px -355px}.connected-carousels .navigation .prev-navigation:hover,.connected-carousels .prev-stage:hover{background-position:-125px -386px}.connected-carousels .navigation .next-navigation.hover,.connected-carousels .next-stage:hover{background-position:-150px -386px}.connected-carousels .navigation .next-navigation.inactive,.connected-carousels .navigation .prev-navigation.inactive,.connected-carousels .next-stage.inactive,.connected-carousels .prev-stage.inactive{display:block}.dealership-benefit-list .benefit-list-image,.dealership-benefit-list .benefit-list-title,.dealership-benefit-list li{display:inline-block;vertical-align:middle}.connected-carousels .navigation .prev-navigation.inactive,.connected-carousels .prev-stage.inactive{background-position:-125px -325px;cursor:not-allowed}.connected-carousels .navigation .next-navigation.inactive,.connected-carousels .next-stage.inactive{background-position:-150px -325px;cursor:not-allowed}.connected-carousels .navigation .next-navigation,.connected-carousels .navigation .prev-navigation{width:26px;height:45px;text-indent:-9999;border:none;background-color:transparent;padding:6px 3px}.connected-carousels .navigation .prev-navigation{left:2px;top:2px}.connected-carousels .navigation .next-navigation{right:7px;top:2px}.dealership-benefit-list li{width:290px;color:#82888b;margin-top:10px}.dealership-benefit-list.dealer-two-offers li{width:440px}.dealership-benefit-list.f-two-offers .benefit-list-title{width:400px}.dealership-benefit-list .benefit-list-title{width:255px;padding-right:10px;padding-left:10px}.form-control-username{width:270px}.form-control-email-mobile{width:188px}.btn.btn-inv-grey{padding:8px 64px}.btn-inv-grey{background:#4d5057;color:#fff;border:1px solid #4d5057}.btn-inv-grey:hover{background:#82888b;border:1px solid #82888b}#buyingAssistance .errorIcon,#buyingAssistance .errorText,.less-dealers-link{display:none}#moreDealersList{display:none;padding-right:20px;padding-left:20px;overflow:hidden}#moreDealersList li{padding-top:15px;padding-bottom:15px;border-bottom:1px solid #f1f1f1}.model-sprite{background:url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/model-sprite-new.png?v=18Aug2016) no-repeat;display:inline-block}.loc-change-blue-icon{width:12px;height:16px;background-position:-205px -9px;cursor:pointer;position:relative;top:2px}.loc-change-blue-icon:hover{background-position:-205px -35px}.offer-benefit-sprite{background:url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat;display:inline-block}.benifitIcon_1,.benifitIcon_2,.benifitIcon_3,.benifitIcon_4,.benifitIcon_5,.offerIcon_1,.offerIcon_2,.offerIcon_3,.offerIcon_4,.offerIcon_5,.offerIcon_6,.offerIcon_7{width:30px}.benifitIcon_1{height:26px;background-position:0 -181px}.benifitIcon_2{height:30px;background-position:0 -141px}.benifitIcon_3{height:25px;background-position:0 -75px}.benifitIcon_4{height:18px;background-position:0 -293px}.offerIcon_1{height:25px;background-position:0 -40px}.offerIcon_2{height:25px;background-position:0 -321px}.offerIcon_3{height:30px;background-position:0 0}.offerIcon_4{height:26px;background-position:0 -257px}.benifitIcon_5,.offerIcon_5,.offerIcon_7{height:30px;background-position:0 -217px}.offerIcon_6{height:21px;background-position:0 -110px}.edit-blue-icon{width:16px;height:16px;background-position:-115px -249px;cursor:pointer}.margin-top35{margin-top:35px}.text-darker-black{color:#1a1a1a}.text-blue{color:#0288d1}.border-light{border:1px solid #e2e2e2}.border-light-bottom{border-bottom:1px solid #f1f1f1}.pos-top2{top:2px}#leadCapturePopup,#otpPopup{display:none}#modelSpecsTabsContentWrapper{min-height:300px}#modelDetailsFloatingCardContent{display:block;position:fixed;top:-500px;left:5%;right:5%;margin:0 auto;width:996px;z-index:5;-webkit-transition:all .2s ease 0s;-moz-transition:all .2s ease 0s;-o-transition:all .2s ease 0s;-ms-transition:all .2s ease 0s;transition:all .2s ease 0s}#modelDetailsFloatingCardContent .model-details-floating-card{width:976px}#modelDetailsFloatingCardContent.fixed-card{top:0}#modelDetailsFloatingCardContent .overall-specs-tabs-wrapper{display:none}#modelDetailsFloatingCardContent.activate-tabs .overall-specs-tabs-wrapper{display:block}.overall-specs-tabs-wrapper{display:table;background:#fff}.overall-specs-tabs-wrapper a{padding:10px 20px;display:table-cell;font-size:14px;color:#82888b}.overall-specs-tabs-wrapper a:hover{text-decoration:none;color:#4d5057}#modelSpecsTabsContentWrapper .overall-specs-tabs-wrapper a:first-child,.overall-specs-tabs-wrapper a.active{border-bottom:3px solid #ef3f30;font-weight:700;color:#4d5057}.content-inner-block-2010{padding:20px 10px}
+        @charset "utf-8";.navigation .carousel-navigation li:hover,.sort-div,.viewBreakupText{cursor:pointer}#moreDealersList a:hover,.btn-inv-grey:hover{text-decoration:none}.header-not-fixed{background:rgba(51,51,51,.8);background:#333\9;padding:10px 20px;z-index:3}.sort-div,.sort-selection-div{background:#fff;border:1px solid #ccc}#modelDetailsContainer .model-details-wrapper{width:522px;margin-left:20px}#expectedPriceContainer{border-bottom:1px solid #ecedee}#variantDetailsContainer .variantText{float:left;font-size:14px;line-height:28px}#variantDetailsContainer .variantDropDown{float:left}#variantDetailsContainer .variantDropDown .form-control{padding:5px 25px 5px 5px}.variantList li{padding-right:20px;padding-left:20px;float:left;border-left:1px solid #ecedee;font-size:14px;text-align:center}.variantList li:first-child{border-left:none;text-align:left;padding-left:0}.city-area-name{margin-left:4px}.model-details-floating-card .city-area-name{width:140px}.exshowroom-area.exshowroom-area-name,.model-details-floating-card .exshowroom-area-name.city-area-name{width:120px}.sort-div{min-width:150px;width:110%;height:32px;padding:5px 9px;color:#555;position:relative}.sort-by-title{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left;width:90%}.sort-selection-div{min-width:150px;width:110%;position:absolute;z-index:2}.sort-selection-div ul li{margin-bottom:5px;margin-top:5px;font-size:14px}.sort-selection-div ul li.selected{font-weight:700}.sort-selection-div ul li input{background:#fff;color:#4d5057;padding:2px 0 2px 8px;font-family:'Open Sans',sans-serif,Arial}.sort-selection-div ul li:hover input{padding:2px 0 2px 8px;cursor:pointer;background:#82888b;color:#fff}#upDownArrow.fa-angle-down{transition:all .5s ease-in-out 0s;font-size:20px}.sort-div .fa-angle-down{transition:transform .3s;-moz-transition:transform .3s;-webkit-transition:transform .3s;-o-transition:transform .3s;-ms-transition:transform .3s}.sort-div.open .fa-angle-down{-moz-transform:rotateZ(180deg);-webkit-transform:rotateZ(180deg);-o-transform:rotateZ(180deg);-ms-transform:rotateZ(180deg);transform:rotateZ(180deg)}.viewBreakupText{color:#0288d1;margin-left:5px}.bike-discontinued-tag,.bike-upcoming-tag{z-index:2}.model-name-review-container:hover .write-review-text{display:block}.connected-carousels .stage{width:385px;margin:0 auto 20px;position:relative}.connected-carousels .navigation{width:385px;position:relative;margin-left:5px}.connected-carousels .carousel{overflow:hidden;position:relative}.connected-carousels .carousel ul{width:20000em;position:relative;list-style:none;margin:0;padding:0}.connected-carousels .carousel li{float:left;width:385px;height:220px}.connected-carousels .carousel li .carousel-img-container{display:table;width:385px;height:220px;text-align:center}.connected-carousels .carousel li .carousel-img-container span{display:table-cell;vertical-align:middle;width:385px;height:220px;background:url(http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center center no-repeat}.connected-carousels .carousel li .carousel-img-container span img{width:100%;height:220px}.connected-carousels .carousel-stage{height:220px}.connected-carousels .carousel-navigation{height:52px;width:325px;background:#fff;margin-left:24px}.navigation .carousel-navigation li{float:left;width:90px;height:50px;margin-right:10px}.navigation .carousel-navigation li img{width:100%;border:1px solid #ccc}.navigation .carousel-navigation li.active img{border:1px solid #555}.connected-carousels .carousel-navigation li.active img{border-color:#555}.navigation .carousel-navigation li .carousel-nav-img-container{display:table;width:90px;height:50px;text-align:center}.navigation .carousel-navigation li .carousel-nav-img-container span{display:table-cell;vertical-align:middle;width:90px}.connected-carousels .next-stage,.connected-carousels .prev-stage{display:block;position:absolute;top:40%;color:#fff}.connected-carousels .prev-stage{left:0}.connected-carousels .next-stage{right:0}.connected-carousels .next,.connected-carousels .prev{position:absolute;top:40%;z-index:1;width:26px;height:48px;text-indent:-9999px;border:1px solid #e2e2e2;background-color:#fff;padding:6px 3px}.connected-carousels .navigation .prev-navigation,.connected-carousels .prev-stage{background-position:-125px -355px}.connected-carousels .navigation .next-navigation,.connected-carousels .next-stage{background-position:-150px -355px}.connected-carousels .navigation .prev-navigation:hover,.connected-carousels .prev-stage:hover{background-position:-125px -386px}.connected-carousels .navigation .next-navigation.hover,.connected-carousels .next-stage:hover{background-position:-150px -386px}.connected-carousels .navigation .next-navigation.inactive,.connected-carousels .navigation .prev-navigation.inactive,.connected-carousels .next-stage.inactive,.connected-carousels .prev-stage.inactive{display:block}.dealership-benefit-list .benefit-list-image,.dealership-benefit-list .benefit-list-title,.dealership-benefit-list li{display:inline-block;vertical-align:middle}.connected-carousels .navigation .prev-navigation.inactive,.connected-carousels .prev-stage.inactive{background-position:-125px -325px;cursor:not-allowed}.connected-carousels .navigation .next-navigation.inactive,.connected-carousels .next-stage.inactive{background-position:-150px -325px;cursor:not-allowed}.connected-carousels .navigation .next-navigation,.connected-carousels .navigation .prev-navigation{width:26px;height:45px;text-indent:-9999;border:none;background-color:transparent;padding:6px 3px}.connected-carousels .navigation .prev-navigation{left:2px;top:2px}.connected-carousels .navigation .next-navigation{right:7px;top:2px}.dealership-benefit-list li{width:290px;color:#82888b;margin-top:10px}.dealership-benefit-list.dealer-two-offers li{width:440px}.dealership-benefit-list.f-two-offers .benefit-list-title{width:400px}.dealership-benefit-list .benefit-list-title{width:255px;padding-right:10px;padding-left:10px}.form-control-username{width:270px}.form-control-email-mobile{width:188px}.btn.btn-inv-grey{padding:8px 64px}.btn-inv-grey{background:#4d5057;color:#fff;border:1px solid #4d5057}.btn-inv-grey:hover{background:#82888b;border:1px solid #82888b}#buyingAssistance .errorIcon,#buyingAssistance .errorText,.less-dealers-link{display:none}#moreDealersList{display:none;padding-right:20px;padding-left:20px;overflow:hidden}#moreDealersList li{padding-top:15px;padding-bottom:15px;border-bottom:1px solid #f1f1f1}.model-sprite{background:url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/model-sprite-new.png?v=18Aug2016) no-repeat;display:inline-block}.loc-change-blue-icon{width:12px;height:16px;background-position:-205px -9px;cursor:pointer;position:relative;top:2px}.loc-change-blue-icon:hover{background-position:-205px -35px}.offer-benefit-sprite{background:url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=2Sep2016v1) no-repeat;display:inline-block}.benifitIcon_1,.benifitIcon_2,.benifitIcon_3,.benifitIcon_4,.benifitIcon_5,.offerIcon_1,.offerIcon_2,.offerIcon_3,.offerIcon_4,.offerIcon_5,.offerIcon_6,.offerIcon_7{width:30px}.benifitIcon_1{height:26px;background-position:0 -181px}.benifitIcon_2{height:30px;background-position:0 -141px}.benifitIcon_3{height:25px;background-position:0 -75px}.benifitIcon_4{height:18px;background-position:0 -293px}.offerIcon_1{height:25px;background-position:0 -40px}.offerIcon_2{height:25px;background-position:0 -321px}.offerIcon_3{height:30px;background-position:0 0}.offerIcon_4{height:26px;background-position:0 -257px}.benifitIcon_5,.offerIcon_5,.offerIcon_7{height:30px;background-position:0 -217px}.offerIcon_6{height:21px;background-position:0 -110px}.edit-blue-icon{width:16px;height:16px;background-position:-115px -249px;cursor:pointer}.margin-top35{margin-top:35px}.text-darker-black{color:#1a1a1a}.text-blue{color:#0288d1}.border-light{border:1px solid #e2e2e2}.border-light-bottom{border-bottom:1px solid #f1f1f1}.pos-top2{top:2px}#leadCapturePopup,#otpPopup{display:none}#modelSpecsTabsContentWrapper{min-height:300px}#modelDetailsFloatingCardContent{display:block;position:fixed;top:-500px;left:5%;right:5%;margin:0 auto;width:996px;z-index:5;-webkit-transition:all .2s ease 0s;-moz-transition:all .2s ease 0s;-o-transition:all .2s ease 0s;-ms-transition:all .2s ease 0s;transition:all .2s ease 0s}#modelDetailsFloatingCardContent .model-details-floating-card{width:976px}#modelDetailsFloatingCardContent.fixed-card{top:0}#modelDetailsFloatingCardContent .overall-specs-tabs-wrapper{display:none}#modelDetailsFloatingCardContent.activate-tabs .overall-specs-tabs-wrapper{display:block}.overall-specs-tabs-wrapper{display:table;background:#fff}.overall-specs-tabs-wrapper a{padding:10px 20px;display:table-cell;font-size:14px;color:#82888b}.overall-specs-tabs-wrapper a:hover{text-decoration:none;color:#4d5057}#modelSpecsTabsContentWrapper .overall-specs-tabs-wrapper a:first-child,.overall-specs-tabs-wrapper a.active{border-bottom:3px solid #ef3f30;font-weight:700;color:#4d5057}.content-inner-block-2010{padding:20px 10px}
     </style>
 
     <script type="text/javascript">
@@ -308,9 +309,9 @@
                                 <% } %>
                             </div>
 
-                            <% if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ)
+                            <% if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ )
                                { %>
-                            <a href="javascript:void(0)" id="getassistance" leadSourceId="12" class="btn btn-orange margin-top10 margin-right10 leftfloat">Get offers from dealer</a>
+                            <a href="javascript:void(0)" class="btn btn-orange margin-top10 margin-right10 leftfloat leadcapturebtn"  data-leadsourceid="12"  data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>"  data-item-area="<%= viewModel.AreaName %> ">Get offers from dealer</a>
                             <div class="leftfloat margin-top10">
                                 <span class="font12 text-light-grey">Powered by</span><br />
                                 <span class="font14"><%= viewModel.Organization %></span>
@@ -318,12 +319,7 @@
                             <div class="clear"></div>
                              <%  }
                                 } %>
-                            <% if (!toShowOnRoadPriceButton && isBikeWalePQ && dealerId == 0)
-                               { %>
-                            <%--<div class="insurance-breakup-text text-bold padding-top10" >
-                                <a target="_blank" id="insuranceLink" href="/insurance/">Save up to 60% on insurance - PolicyBoss</a>
-                            </div>--%>
-                            <% } %>
+
                             <!-- upcoming start -->
                             <% if (modelPageEntity.ModelDetails.Futuristic && modelPageEntity.UpcomingBike != null)
                                { %>
@@ -389,8 +385,8 @@
                                 <div class="clear"></div>
                             </div>
                             <% } %>
-                            <div id="dealerAssistance">
-                            <div id="buyingAssistance" class="bg-light-grey font14 content-inner-block-20">
+                            <div id="dealerAssistance" class="bg-light-grey font14 content-inner-block-20">
+                            <div id="buyingAssistance" >
                                 <p class="text-bold margin-bottom20">Get assistance on buying this bike:</p>
                                 <div>
                                     <div class="form-control-box form-control-username leftfloat margin-right20">
@@ -409,107 +405,15 @@
                                         <span class="bwsprite error-icon errorIcon"></span>
                                         <div class="bw-blackbg-tooltip errorText"></div>
                                     </div>
-                                    <a class="btn btn-inv-grey leftfloat" leadSourceId="13" id="assistFormSubmit" data-bind="event: { click: submitLead }">Submit</a>
+                                    <a class="btn btn-inv-grey leftfloat" data-isleadpopup="false" data-leadsourceid="13"  data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %>" data-item-id="<%= dealerId %>"  data-bind="event: { click: HiddenSubmitLead }">Submit</a>
                                     <div class="clear"></div>
                                 </div>
                             </div>
-                                        <!-- lead capture popup start-->
-                                <div id="leadCapturePopup" class="text-center rounded-corner2">
-                                    <div class="leadCapture-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-                                    <!-- contact details starts here -->
-                                    <div id="contactDetailsPopup">
-                                        <div class="icon-outer-container rounded-corner50">
-                                            <div class="icon-inner-container rounded-corner50">
-                                                <span class="bwsprite user-contact-details-icon margin-top25"></span>
-                                            </div>
-                                        </div>
-                                        <p class="font20 margin-top25 margin-bottom10">Provide contact details</p>
-                                        <p class="text-light-grey margin-bottom20">Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!</p>
-                                        <div class="personal-info-form-container">
-                                            <div class="form-control-box personal-info-list">
-                                                <input type="text" class="form-control get-first-name" placeholder="Name (mandatory)"
-                                                    id="getFullName" data-bind="textInput: fullName">
-                                                <span class="bwsprite error-icon errorIcon"></span>
-                                                <div class="bw-blackbg-tooltip errorText"></div>
-                                            </div>
-                                            <div class="form-control-box personal-info-list">
-                                                <input type="text" class="form-control get-email-id" placeholder="Email address (mandatory)"
-                                                    id="getEmailID" data-bind="textInput: emailId">
-                                                <span class="bwsprite error-icon errorIcon"></span>
-                                                <div class="bw-blackbg-tooltip errorText"></div>
-                                            </div>
-                                            <div class="form-control-box personal-info-list">
-                                                <p class="mobile-prefix">+91</p>
-                                                <input type="text" class="form-control padding-left40 get-mobile-no" placeholder="Mobile no. (mandatory)"
-                                                    id="getMobile" maxlength="10" data-bind="textInput: mobileNo">
-                                                <span class="bwsprite error-icon errorIcon"></span>
-                                                <div class="bw-blackbg-tooltip errorText"></div>
-                                            </div>
-                                            <div class="clear"></div>
-                                            <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-                                        </div>                   
-                                    </div>
-                                    <!-- contact details ends here -->
-                                    <!-- thank you message starts here -->
-                                    <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
-                                        <div class="icon-outer-container rounded-corner50">
-                                            <div class="icon-inner-container rounded-corner50">
-                                                <span class="bwsprite user-contact-details-icon margin-top25"></span>
-                                            </div>
-                                        </div>
-                                        <p class="font18 text-bold margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
-                                        <% if(viewModel!=null){ %>
-                                        <p class="font16 margin-bottom40"><%=viewModel.Organization %>, <%=viewModel.AreaName %> will get in touch with you soon</p>
-                                        <% } %>
-                                        <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
-                                    </div>
-                                    <!-- thank you message ends here -->
-
-                                    <!-- otp starts here -->
-                                    <div id="otpPopup">
-                                        <div class="icon-outer-container rounded-corner50">
-                                            <div class="icon-inner-container rounded-corner50">
-                                                <span class="bwsprite otp-icon margin-top25"></span>
-                                            </div>
-                                        </div>
-                                        <p class="font18 margin-top25 margin-bottom20">Verify your mobile number</p>
-                                        <p class="font14 text-light-grey margin-bottom20">We have sent OTP on your mobile. Please enter that OTP in the box provided below:</p>
-                                        <div>
-                                            <div class="lead-mobile-box lead-otp-box-container font22">
-                                                <span class="bwsprite phone-black-icon"></span>
-                                                <span class="text-light-grey">+91</span>
-                                                <span class="lead-mobile"></span>
-                                                <span class="bwsprite edit-blue-icon edit-mobile-btn"></span>
-                                            </div>
-                                            <div class="otp-box lead-otp-box-container">
-                                                <div class="form-control-box margin-bottom10">
-                                                    <input type="text" class="form-control" maxlength="5" placeholder="Enter your OTP" id="getOTP" data-bind="value: otpCode">
-                                                    <span class="bwsprite error-icon errorIcon"></span>
-                                                    <div class="bw-blackbg-tooltip errorText"></div>
-                                                </div>
-                                                <a class="resend-otp-btn margin-left10 blue rightfloat resend-otp-btn" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP
-                                                </a>
-                                                <p class="otp-alert-text margin-left10 otp-notify-text text-light-grey font12 margin-top10" data-bind="visible: (NoOfAttempts() >= 2)">
-                                                    OTP has been already sent to your mobile
-                                                </p>
-                                                <div class="clear"></div>
-                                                <%--<p class="resend-otp-btn margin-bottom20" id="resendCwiCode">Resend OTP</p>--%>
-                                                <input type="button" class="btn btn-orange margin-top20" value="Confirm OTP" id="otp-submit-btn">
-                                            </div>
-                                            <div class="update-mobile-box">
-                                                <div class="form-control-box text-left">
-                                                    <p class="mobile-prefix">+91</p>
-                                                    <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo" />
-                                                    <span class="bwsprite error-icon errorIcon"></span>
-                                                    <div class="bw-blackbg-tooltip errorText"></div>
-                                                </div>
-                                                <input type="button" class="btn btn-orange" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- otp ends here -->
+                                <div id="dealer-assist-msg" class="hide" >
+                                    <p class="font14 leftfloat">Thank you for your interest. <%= viewModel.Organization %> - <%= viewModel.AreaName %> will get in touch shortly</p>
+                                    <span class="assistance-response-close bwsprite cross-lg-lgt-grey cur-pointer rightfloat"></span>
+                                    <div class="clear"></div>
                                 </div>
-                                <!-- lead capture popup End-->
                                 </div>
                             <% if(isBookingAvailable && bookingAmt > 0){ %>
                             <div class="font14 text-light-grey content-inner-block-20">
@@ -544,6 +448,7 @@
                 </div>
                 <div class="clear"></div>
             </div>
+
            
             <!-- Terms and condition Popup start -->
             <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
@@ -560,11 +465,26 @@
                 </div>
             </div>
             <!-- Terms and condition Popup Ends -->
-        </section>
-        
 
+        </section>
+         <% if (pqOnRoad != null && pqOnRoad.BPQOutput != null && viewModel == null && !string.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
+            {
+                 %>
+            
+            <%=String.Format(pqOnRoad.BPQOutput.ManufacturerAd) %>
+        
+        <%} %>     
         <meta itemprop="manufacturer" name="manufacturer" content="<%= modelPageEntity.ModelDetails.MakeBase.MakeName %>">  
         <meta itemprop="model" content="<%= TargetedModel %>"/>
+
+        <style type="text/css">
+            #campaign-container .campaign-left-col{width:78%;padding-right:10px}#campaign-container .campaign-right-col{width:21%}.campaign-offer-label{width:75%;font-size:14px;font-weight:bold}.btn-large{padding:8px 56px}#campaign-offer-list li{width:175px;display:inline-block;vertical-align:middle;margin-top:15px;margin-bottom:10px;padding-right:5px}#campaign-offer-list li span{display:inline-block;vertical-align:middle}.campaign-offer-1,.campaign-offer-2,.campaign-offer-3,.campaign-offer-4{width:34px;height:28px;margin-right:5px}.campaign-offer-1{background-position:0 -356px}.campaign-offer-2{background-position:0 -390px}.campaign-offer-3{background-position:0 -425px}.campaign-offer-4{background-position:0 -463px}
+        </style>
+
+        <section>
+          
+        </section>
+
         <section id="modelDetailsFloatingCardContent" class="container">
             <div class="grid-12">
                 <div class="model-details-floating-card">
@@ -637,7 +557,7 @@
                             <%} else
                                     if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ && !isDiscontinued)
                                     {%>									 
-                                     <a href="javascript:void(0)" id="getOffersFromDealerFloating" leadSourceId="24" class="btn btn-orange font14 <%=(viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) ? "margin-top5" : "margin-top20" %> bw-ga" rel="nofollow" c="Model_Page" a="Floating_Card_Get_Offers_Clicked" v="myBikeName">Get offers from dealer</a>
+                                     <a href="javascript:void(0)" data-leadsourceid="24"  data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>"  data-item-area="<%= viewModel.AreaName %> " class="btn btn-orange leadcapturebtn font14 <%=(viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) ? "margin-top5" : "margin-top20" %> bw-ga" rel="nofollow" c="Model_Page" a="Floating_Card_Get_Offers_Clicked" v="myBikeName">Get offers from dealer</a>
                                     <%} %>
                             
                             <!-- if no 'powered by' text is present remove margin-top5 add margin-top20 in offers button -->
@@ -1259,6 +1179,7 @@
         </div>
 
         <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
+        <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
         <!-- #include file="/includes/footerBW.aspx" -->
         <!--[if lt IE 9]>
             <script src="/src/html5.js"></script>
@@ -1290,6 +1211,32 @@
                 if ($('.dealership-benefit-list li').length <= 2) {
                     $('.dealership-benefit-list').addClass("dealer-two-offers");
                 }
+            });
+
+            $(".leadcapturebtn").click(function (e) {
+
+                ele = $(this);
+                var leadOptions = {
+                    "dealerid": ele.attr('data-item-id'),
+                    "dealername": ele.attr('data-item-name'),
+                    "dealerarea": ele.attr('data-item-area'),
+                    "versionid": versionId,
+                    "leadsourceid": ele.attr('data-leadsourceid'),
+                    "pqsourceid": ele.attr('data-pqsourceid'),
+                    "isleadpopup": ele.attr('data-isleadpopup'),
+                    "mfgCampid": ele.attr('data-mfgcampid'),
+                    "pqid" : pqId,
+                    "pageurl": pageUrl,
+                    "clientip": clientIP
+                    <%--"gaobject": {
+                        cat: 'Price_in_City_Page',
+                        act: 'Lead_Submitted',
+                        lab: '<%= string.Format("{0}_", bikeName)%>' + CityArea
+                    }--%>
+                };
+
+                dleadvm.setOptions(leadOptions);
+
             });
         </script>
     </form>

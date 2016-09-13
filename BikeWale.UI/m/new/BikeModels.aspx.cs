@@ -18,7 +18,6 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
-using Bikewale.Mobile.controls;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
@@ -47,6 +46,7 @@ namespace Bikewale.Mobile.New
         protected NewUserReviewList ctrlUserReviews;
         protected BikeModelPageEntity modelPage;
         protected VersionSpecifications bikeSpecs;
+        protected LeadCaptureControl ctrlLeadCapture;
         protected PQOnRoadPrice pqOnRoad;
         protected Repeater rptNavigationPhoto, rptVarients, rptColors, rptOffers, rptNewOffers, rptSecondaryDealers;
         protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty, location = string.Empty, priceText = "Ex-showroom", detailedPriceLink = string.Empty, versionText = string.Empty;
@@ -71,7 +71,9 @@ namespace Bikewale.Mobile.New
         protected Label defaultVariant;
         protected HiddenField hdnVariant;
         protected MPriceInTopCities ctrlTopCityPrices;
-
+        protected string pq_leadsource = "33";
+        protected string pq_sourcepage = "59";
+        protected string hide = "";
         #region Subscription model variables
         protected ModelPageVM viewModel = null;
 
@@ -92,7 +94,7 @@ namespace Bikewale.Mobile.New
         protected void Page_Load(object sender, EventArgs e)
         {
             //Set identification for m site
-            HttpContext.Current.Response.Cookies["IsMobileSite"].Value = "true";
+            // HttpContext.Current.Response.Cookies["IsMobileSite"].Value = "true";
             // Modified By :Ashish Kamble on 5 Feb 2016
             Form.Action = Request.RawUrl;
             // Do not change the sequence of the function calls
@@ -137,7 +139,7 @@ namespace Bikewale.Mobile.New
                     Trace.Warn("Trace 19 : LoadVariants End");
                     #endregion
 
-                    
+
 
                     ////news,videos,revews, user reviews
                     ctrlNews.TotalRecords = 3;
@@ -167,7 +169,7 @@ namespace Bikewale.Mobile.New
                     ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                     ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
                     Trace.Warn("Trace 20 : Page Load ends");
-                    
+
                     if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
                     {
                         rptVarients.DataSource = modelPage.ModelVersions;
@@ -191,7 +193,12 @@ namespace Bikewale.Mobile.New
                     ctrlTopCityPrices.IsDiscontinued = isDiscontinued;
                     ctrlTopCityPrices.TopCount = 8;
                 }
+
                 SetFlagsAtEnd();
+
+                ctrlLeadCapture.CityId = cityId;
+                ctrlLeadCapture.ModelId = modelId;
+                ctrlLeadCapture.AreaId = areaId;
             }
             catch (Exception ex)
             {
@@ -556,6 +563,9 @@ namespace Bikewale.Mobile.New
                     // Set Pricequote Cookie
                     if (pqOnRoad != null)
                     {
+                        if (pqOnRoad.BPQOutput != null)
+                            pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.CampaignId, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber) ? "hide" : string.Empty);
+
                         versionId = pqOnRoad.PriceQuote.VersionId;
                         if (pqOnRoad.PriceQuote != null)
                         {
@@ -835,12 +845,13 @@ namespace Bikewale.Mobile.New
                         pqOnRoad.PriceQuote = objPQOutput;
                         if (objPQOutput != null && objPQOutput.PQId > 0)
                         {
-                            bpqOutput = objPq.GetPriceQuoteById(objPQOutput.PQId);
+                            bpqOutput = objPq.GetPriceQuoteById(objPQOutput.PQId, LeadSourceEnum.Model_Mobile);
                             bpqOutput.Varients = objPq.GetOtherVersionsPrices(objPQOutput.PQId);
                             if (bpqOutput != null)
                             {
                                 pqOnRoad.BPQOutput = bpqOutput;
                             }
+
                             if (objPQOutput.DealerId != 0)
                             {
                                 // call another api

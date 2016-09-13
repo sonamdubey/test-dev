@@ -69,7 +69,7 @@ $(".gallery-close-btn").on('click', function () {
 
 var currentStagePhoto, currentStageActiveImage;
 function showImgTitle(swiper) {
-    imgTitle = $(galleryThumbs.slides[swiper.activeIndex]).find('img').attr('title');
+    imgTitle = $(galleryTop.slides[swiper.activeIndex]).find('img').attr('title');
     imgTotalCount = galleryThumbs.slides.length;
     $(".media-title").text(imgTitle);
     $(".gallery-count").text(swiper.activeIndex + 1 + " of " + imgTotalCount.toString());

@@ -2,7 +2,7 @@
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Videos;
 using Bikewale.Common;
-using Bikewale.m.controls;
+using Bikewale.Mobile.Controls;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Videos;

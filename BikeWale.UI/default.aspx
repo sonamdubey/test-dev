@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Default" EnableViewState="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Default" EnableViewState="false" Trace="false" %>
 
 <%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW" %>

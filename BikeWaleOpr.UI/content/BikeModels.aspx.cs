@@ -1,4 +1,5 @@
 ﻿using Bikewale.Utility;
+using BikewaleOpr.common;
 using BikeWaleOpr.Common;
 using Enyim.Caching;
 using MySql.CoreDAL;
@@ -294,6 +295,17 @@ namespace BikeWaleOpr.Content
                         errObj.SendMail();
                     }
                 }
+
+                
+                    //Refresh memcache object for discontinuedbikes
+                    MemCachedUtil.Remove(string.Format("BW_DiscontinuedBikes_Make_{0}", lblMakeId.Text));
+
+                    //Refresh memcache object for bikeModelDetails
+                    MemCachedUtil.Remove(string.Format("BW_ModelDetails_{0}", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString()));
+
+                    //Refresh memcache object for popularBikes change
+                    MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_{0}", lblMakeId.Text));
+               
 
             }
             catch (SqlException ex)

@@ -405,6 +405,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="manufacturecampaign\ManufacturerCampaignRules.aspx.cs">
+      <DependentUpon>ManufacturerCampaignRules.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manufacturecampaign\ManufacturerManageDealer.aspx.cs">
+      <DependentUpon>ManufacturerManageDealer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manufacturecampaign\SearchManufacturerCampaign.aspx.cs">
+      <DependentUpon>SearchManufacturerCampaign.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="MobileApp\AppVersioning.aspx.cs">
       <DependentUpon>AppVersioning.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1246,6 +1258,19 @@
     <Content Include="bikewaleimg\upcoming\HarleyDavidson-883Roadster-25us.jpg" />
     <Content Include="bin\Ajax.dll" />
     <Content Include="bin\AjaxPro.2.dll" />
+    <Content Include="bin\Bikewale.Notifications.dll" />
+    <Content Include="bin\Bikewale.Notifications.pdb" />
+    <Content Include="bin\Bikewale.Utility.dll" />
+    <Content Include="bin\BikewaleOpr.BAL.dll" />
+    <Content Include="bin\BikewaleOpr.BAL.pdb" />
+    <Content Include="bin\BikewaleOpr.DALs.dll" />
+    <Content Include="bin\BikewaleOpr.dll" />
+    <Content Include="bin\BikewaleOpr.Entity.dll" />
+    <Content Include="bin\BikewaleOpr.Entity.pdb" />
+    <Content Include="bin\BikewaleOpr.Interface.dll" />
+    <Content Include="bin\BikewaleOpr.Interface.pdb" />
+    <Content Include="bin\BikewaleOpr.Service.dll" />
+    <Content Include="bin\BikewaleOpr.Service.pdb" />
     <Content Include="bin\Carwale.WebServices.OprAuthentication.dll" />
     <Content Include="bin\Enyim.Caching.dll" />
     <Content Include="bin\FreeTextBox.dll" />
@@ -1841,6 +1866,9 @@
     <Content Include="includes\headerNew.aspx" />
     <Content Include="includes\HeaderUser.aspx" />
     <Content Include="includes\headerWithoutForm.aspx" />
+    <Content Include="manufacturecampaign\ManufacturerCampaignRules.aspx" />
+    <Content Include="manufacturecampaign\ManufacturerManageDealer.aspx" />
+    <Content Include="manufacturecampaign\SearchManufacturerCampaign.aspx" />
     <Content Include="MobileApp\AppVersioning.aspx" />
     <Content Include="newbikebooking\DealerDetailedPriceQuote.aspx" />
     <Content Include="newbikebooking\DealerShowroomPrices.aspx" />
@@ -1889,6 +1917,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.Cache.Core\Bikewale.Cache.Core.csproj">
+      <Project>{038bc901-9d7f-4a95-8ca6-117db3aa48cc}</Project>
+      <Name>Bikewale.Cache.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
       <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
       <Name>Bikewale.Utility</Name>

@@ -297,4 +297,8 @@
     .float-button .btn {
         font-size: 15px;
     }
+
+    .campaign-offer-label {
+        width: 75%;
+    }
 }

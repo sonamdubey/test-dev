@@ -85,8 +85,8 @@ zoom: 1; vertical-align:middle; margin-right:7px; }
 /*#otpPopup { display:none; background: #fff; margin: auto; padding:20px; overflow-y: auto; position: fixed; top: 25px; bottom: 25px; max-height: 410px; right: 5%; left: 5%; z-index: 10; }*/
 .icon-outer-container { width:102px; height:102px; margin:0 auto; background:#fff; border:1px solid #ccc; }
 .icon-inner-container { width:92px; height:92px; margin:4px auto; background:#fff; border:1px solid #666; }
-.otp-icon { width:30px; height:40px; background-position: -107px -177px; }
-.edit-blue-icon { width:16px; height:16px; background-position: -114px -123px; }
+.otp-icon { width:29px; height:29px; background-position: -109px -177px; }
+.edit-blue-icon { width:19px; height:19px; background-position: -114px -122px; }
 .mobile-prefix { position: absolute; padding: 10px 13px 13px; color: #999; z-index:2; }
 #otpPopup .errorIcon, #otpPopup .errorText { display:none; }
 #otpPopup .otp-box p.resend-otp-btn { color:#0288d1; cursor:pointer; font-size:14px; }

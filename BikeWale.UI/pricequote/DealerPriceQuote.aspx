@@ -667,6 +667,15 @@
             <div class="clear"></div>
         </section>
 
+        <% if (objQuotation != null && detailedDealer != null && detailedDealer.SecondaryDealerCount == 0 && !string.IsNullOrEmpty(objQuotation.ManufacturerAd))
+            {
+                 %>
+        <section>
+            
+            <%=objQuotation.ManufacturerAd %>
+            <%}%>
+        
+        </section>
         <section class="margin-bottom30 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
             <div class="container">
                 <div class="grid-12 alternative-section" id="alternative-bikes-section">

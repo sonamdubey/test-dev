@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.m.controls
+namespace Bikewale.Mobile.Controls
 {
     public class ModelGallery : System.Web.UI.UserControl
     {

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.m.controls.MOnRoadPricequote" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.MOnRoadPricequote" %>
 
 <div class="container" id="OnRoadContent">
     <div class="grid-12">

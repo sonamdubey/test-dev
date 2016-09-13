@@ -57,6 +57,7 @@
     <Compile Include="BookingAmountEntityBase.cs" />
     <Compile Include="ColorCodeBase.cs" />
     <Compile Include="ContractCampaign\ContractCampaignInputEntity.cs" />
+    <Compile Include="ContractCampaign\ManufactureDealerCampaign.cs" />
     <Compile Include="ContractCampaign\MaskingNumber.cs" />
     <Compile Include="DealerAreaDetails.cs" />
     <Compile Include="DealerBenefitEntity.cs" />
@@ -80,7 +81,12 @@
     <Compile Include="MakeEntity.cs" />
     <Compile Include="MakeEntityBase.cs" />
     <Compile Include="ManufacturerCampaignEntity.cs" />
+    <Compile Include="ManufacturerCampaign\ManuCamEntityForTemplate.cs" />
+    <Compile Include="ManufacturerCampaign\ManufacturerCampaignEntity.cs" />
     <Compile Include="ManufacturerEntity.cs" />
+    <Compile Include="MfgCampaignRulesEntity.cs" />
+    <Compile Include="MfgCityEntity.cs" />
+    <Compile Include="MfgNewRulesEntity.cs" />
     <Compile Include="ModelColorBase.cs" />
     <Compile Include="ModelEntityBase.cs" />
     <Compile Include="NewBikeDealers.cs" />

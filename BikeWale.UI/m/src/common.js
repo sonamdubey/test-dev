@@ -1211,7 +1211,7 @@ var hashChange = function (e) {
 
 var appendHash = function (state) {
     window.location.hash = state;
-};
+}
 
 var closePopUp = function (state) {
     switch (state) {
@@ -1256,6 +1256,12 @@ var closePopUp = function (state) {
             break;
         case "dealerOffers":
             popupDiv.close($('#dealer-offers-popup'));
+            break;
+        case "sellerDealers":
+            getSellerDetailsPopup.close();
+            break;
+        case "requestMedia":
+            requestMediaPopup.close();
             break;
         case "termsConditions":
             popupDiv.close($('#termsPopUpContainer'));

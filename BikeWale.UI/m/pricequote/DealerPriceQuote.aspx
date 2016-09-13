@@ -19,7 +19,7 @@
 	<!-- #include file="/includes/headscript_mobile.aspx" -->
 	<link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/dealerpricequote.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
 	<script type="text/javascript">
-		var dealerId = '<%= dealerId%>';
+	    var dealerId = '<%= dealerId%>';
 		var pqId = '<%= pqId%>';
 		var ABHostUrl = '<%= System.Configuration.ConfigurationManager.AppSettings["ApiHostUrl"]%>';
 		var versionId = '<%= versionId%>';
@@ -73,6 +73,7 @@
 					<%= (!string.IsNullOrEmpty(currentArea) ? string.Format("{0}, {1}",currentArea.Replace('-', ' '),currentCity.Replace('-', ' ')) : currentCity.Replace('-', ' ')) %>
 					<a href="javascript:void(0)" rel="nofollow" data-pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation %>" data-modelId="<%= objPriceQuote.objModel.ModelId %>" class="getquotation" data-persistent="true"><span class="bwmsprite loc-change-blue-icon"></span></a>
 				</p>
+
 			</div>
 			<script type="text/javascript">                
 				var dropdown = {
@@ -237,6 +238,18 @@
 				<div class="margin-top10 padding5" style="background: #fef5e6;">Price for this bike is not available in this city.</div>
 				<%} %>
 			</div>
+
+             <% if (objExQuotation != null && objExQuotation.CampaignId > 0 && objPriceQuote!=null && objPriceQuote.SecondaryDealerCount == 0 && !string.IsNullOrEmpty(objExQuotation.ManufacturerAd))
+                { %>
+                <section>
+                    <%=String.Format(objExQuotation.ManufacturerAd) %>
+                </section>
+            <%} %>
+            
+        <style type="text/css">
+            #campaign-container .tel-sm-icon{top:0}#campaign-offer-list li{width:50%;display:inline-block;vertical-align:middle;margin-bottom:20px}#campaign-offer-list li span{display:inline-block;vertical-align:middle}.campaign-offer-label{width:80%;font-size:13px;font-weight:bold;padding-right:5px}#campaign-button-container .btn{padding-right:0;padding-left:0}#campaign-button-container .grid-6.hide + .grid-6{width:100%;padding-right:0}.campaign-offer-1,.campaign-offer-2,.campaign-offer-3,.campaign-offer-4{width:22px;height:22px;margin-right:5px}.campaign-offer-1{background-position:0 -387px}.campaign-offer-2{background-position:0 -418px}.campaign-offer-3{background-position:-28px -387px}.campaign-offer-4{background-position:-56px -387px}
+        </style>
+
 			<!--Price Breakup ends here-->
 
 			<!-- Dealer Widget starts here -->
@@ -382,30 +395,7 @@
 			<!-- Dealer Widget ends here -->
 
 			<!--Dealer Campaign starts here -->
-			<%if (objExQuotation != null && objExQuotation.CampaignId > 0){ %>
-			<div class="city-unveil-offer-container">
-				<h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="bwmsprite disclaimer-icon margin-right5"></span>                   
-						Get following details from <%=objVersionDetails.MakeBase.MakeName %>:                   
-				</h4>
-				<ul class="bike-details-list-ul">
-					<li>
-						<span class="show">Offers from the nearest dealers</span>
-					</li>
-					<li>
-						<span class="show">Waiting period on this bike at the dealership</span>
-					</li>
-					<li> 
-						<span class="show">Nearest dealership from your place</span>
-					</li>
-					<li>
-						<span class="show">Finance options on this bike</span>
-					</li>
-				</ul>
-			</div>            
-			<div class="grid-12 alpha omega padding-right5 padding-top5">
-				<input type="button" value="Get more details" class="btn btn-full-width btn-sm margin-right10 leftfloat btn-orange bw-ga leadcapturebtn" id="getMoreDetailsBtnCampaign"  data-item-registerpq="false" data-leadsourceid="29" data-item-id="<%= objExQuotation != null ? objExQuotation.ManufacturerId : 0 %>" data-item-name="<%= objPriceQuote.objMake.MakeName %>" data-item-area="<%= dealerArea %>" data-pqsourceid="<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation) %>" data-item-mfg-campid="<%=objExQuotation != null ? objExQuotation.CampaignId : 0 %>" c="Dealer_PQ" a="Get_more_details_campaign_clicked" f="GetBikeVerLoc" data-ga-cat="Dealer_PQ" data-ga-act="Lead_Submitted" data-ga-lab="manufacturer_lead_List_<%=BikeName %>_<%= currentCity %>_<%= currentArea%>" />
-			</div>
-			<%}else { %>
+		
 			<!--Dealer Campaign ends here -->
 		  <%if(isPrimaryDealer){ %>
 			<div id="pricequote-floating-button-wrapper" class="grid-12 alpha omega">
@@ -424,7 +414,7 @@
 				</div>
 			</div>
 			<%} %>
-			<%} %>
+		
 			<div class="clear"></div>
 		</div>
 
@@ -617,7 +607,7 @@
 					"pageurl": pageUrl,
 					"clientip": clientIP,
 					"isregisterpq": ele.attr('data-item-registerpq') == "true" ? true : false,
-					"mfgCampid": ele.attr('data-item-mfg-campid'),
+					"mfgCampid": ele.attr('data-mfgcampid'),
 					"pqid": pqId,
 					"gaobject" : {
 						cat : ele.attr('data-ga-cat'),
@@ -689,7 +679,7 @@
 					'ClientIP': clientIP,
 					'SourceType': '<%=Bikewale.Utility.BWConfiguration.Instance.MobileSourceId  %>',
 					'VersionId': versionId,
-					'pQLeadId': eval("<%= Convert.ToInt16(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerPQ_Mobile) %>"),
+					'pQLeadId': eval("<%= Convert.ToInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation) %>"),
 					'deviceId': getCookie('BWC'),
 					'dealerId': secondaryDealerId,
 					'refPQId': pqId
