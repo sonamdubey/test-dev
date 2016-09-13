@@ -383,8 +383,11 @@
                              { %>
                                 <li data-tabs="#makeNewsContent">News</li>
                             <%} %>
-                            <li data-tabs="#makeComparisonContent">Comparisons</li>
-                             <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
+                            <% if(ctrlCompareBikes.fetchedCount > 0)
+                             { %>
+                                <li data-tabs="#makeComparisonContent">Comparisons</li>
+                             <% } %>
+                            <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
                               { %>
                                  <li data-tabs="#modelAlternateBikeContent">Alternatives</li>
                             <%} %>
