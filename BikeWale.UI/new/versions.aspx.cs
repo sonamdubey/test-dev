@@ -242,10 +242,9 @@ namespace Bikewale.New
                     ctrlLeadCapture.CityId = cityId;
 
                 }
-                if (variantId != 0)
+                if (!isDiscontinued)
                     ctrlPopularCompare.versionId = Convert.ToString(variantId);
-                else if (modelPageEntity != null && modelPageEntity.ModelVersions != null)
-                    ctrlPopularCompare.versionId = Convert.ToString(modelPageEntity.ModelVersions.FirstOrDefault().VersionId);
+
 
                 ctrlPopularCompare.TopCount = 6;
                 ctrlPopularCompare.ModelName = modelPageEntity.ModelDetails.ModelName;
@@ -378,6 +377,7 @@ namespace Bikewale.New
                     if (modelPg.ModelVersionSpecs != null && variantId <= 0)
                     {
                         variantId = modelPg.ModelVersionSpecs.BikeVersionId;
+
                     }
 
                     if (modelPg.ModelVersions != null && !modelPg.ModelDetails.Futuristic)
@@ -394,6 +394,7 @@ namespace Bikewale.New
                                     hdnVariant.Value = Convert.ToString(modelPg.ModelVersionSpecs.BikeVersionId);
                                 else
                                     hdnVariant.Value = Convert.ToString(variantId);
+
 
                             }
                             else if (modelPg.ModelVersions.Count > 1)

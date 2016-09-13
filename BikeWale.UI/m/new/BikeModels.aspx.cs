@@ -201,6 +201,7 @@ namespace Bikewale.Mobile.New
                 ctrlLeadCapture.CityId = cityId;
                 ctrlLeadCapture.ModelId = modelId;
                 ctrlLeadCapture.AreaId = areaId;
+            
             }
             catch (Exception ex)
             {
@@ -446,9 +447,6 @@ namespace Bikewale.Mobile.New
                     }
                     if (modelPage.ModelVersions != null && !modelPage.ModelDetails.Futuristic)
                     {
-                        if (modelPage.ModelVersions.Count == 1)
-                            versionId = Convert.ToUInt32(modelPage.ModelVersions[0].VersionId);
-
                         if (modelPage.ModelVersions.Count > 1)
                         {
                             if (modelPage.ModelVersionSpecs != null && modelPage.ModelVersionSpecs.BikeVersionId != 0)
@@ -474,6 +472,7 @@ namespace Bikewale.Mobile.New
                         }
                         else if (modelPage.ModelVersions.Count == 1)
                         {
+                            versionId = Convert.ToUInt32(modelPage.ModelVersions[0].VersionId);
                             var firstVer = modelPage.ModelVersions.FirstOrDefault();
                             if (firstVer != null)
                                 variantText = firstVer.VersionName;
