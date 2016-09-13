@@ -311,7 +311,7 @@ namespace Bikewale.DAL.Compare
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getsimilarcomparebikeslist";
+                    cmd.CommandText = "getsimilarcomparebikeslist_12092016";
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionidlist", DbType.String, 20, versionList));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
@@ -336,7 +336,17 @@ namespace Bikewale.DAL.Compare
                                     ModelMasking2 = GetString(reader["ModelMaskingName2"]),
                                     VersionId1 = GetString(reader["VersionId1"]),
                                     VersionId2 = GetString(reader["VersionId2"]),
-                                    Version1 = GetString(reader["Version1"]),
+                                    // Version1 = GetString(reader["Version1"]),
+                                    ModelMaskingName1 = GetString(reader["ModelMaskingName1"]),
+                                    ModelMaskingName2 = GetString(reader["ModelMaskingName2"]),
+                                    OriginalImagePath1 = GetString(reader["OriginalImagePath1"]),
+                                    OriginalImagePath2 = GetString(reader["OriginalImagePath2"]),
+                                    Price1 = GetInt32(reader["Price1"]),
+                                    Price2 = GetInt32(reader["Price2"]),
+                                    //VersionImgUrl1 = GetString(reader["VersionImgUrl1"]),
+                                    //VersionImgUrl2 = GetString(reader["VersionImgUrl2"]),
+                                    HostUrl1 = GetString(reader["HostUrl1"]),
+                                    HostUrl2 = GetString(reader["HostUrl2"])
                                 });
                             }
                             reader.Close();
