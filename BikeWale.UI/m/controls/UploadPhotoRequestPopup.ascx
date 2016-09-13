@@ -121,8 +121,7 @@
                         if (ds.buyer.customerEmail.length > 0)
                             requesterEmail.val(ds.buyer.customerEmail).closest(".input-box").addClass("not-empty");
                         if (ds.buyer.customerMobile.length > 0)
-                            requesterMobile.val(ds.buyer.customerMobile).closest(".input-box").addClass("not-empty");
-                        submitPhotoRequest();
+                            requesterMobile.val(ds.buyer.customerMobile).closest(".input-box").addClass("not-empty");                        
                     }
                 }
             },
