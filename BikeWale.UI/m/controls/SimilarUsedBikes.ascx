@@ -32,10 +32,12 @@
                                 <span class="bwmsprite kms-driven-icon-xs"></span>
                                 <span class="model-details-label"><%= Bikewale.Common.CommonOpn.FormatPrice(bike.KmsDriven.ToString())%> kms</span>
                             </div>
+                            <% if (!String.IsNullOrEmpty(bike.OwnerType)){ %>
                             <div class="grid-6 alpha padding-right5">
                                 <span class="bwmsprite author-grey-icon-xs"></span>
                                 <span class="model-details-label"><%= Bikewale.Utility.Ordinal.GetRank(Convert.ToUInt16(bike.OwnerType)) %> owner</span>
                             </div>
+                            <% } %>
                             <div class="grid-6 omega padding-left5">
                                 <span class="bwmsprite model-loc-icon-xs"></span>
                                 <span class="model-details-label"><%=bike.RegisteredAt %></span>
