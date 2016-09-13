@@ -598,7 +598,10 @@
                          <% if (ctrlNews.FetchedRecordsCount > 0)
                              { %>
                         <a href="#modelNewsContent" rel="nofollow">News</a><%} %>
+                         <% if ((ctrlPopularCompare.fetchedCount > 0))
+                             { %>
                         <a href="#modelComparisonContent" rel="nofollow">Comparisons</a>
+                         <%} %> 
                           <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
                         <a href="#modelAlternateBikeContent" rel="nofollow">Alternatives</a>  
                         <%} %>                   
@@ -637,7 +640,11 @@
                              { %>
                         <a href="#modelNewsContent" rel="nofollow">News</a>
                         <%} %>
+                          
+                        <% if ((ctrlPopularCompare.fetchedCount > 0) ){ %>
                         <a href="#modelComparisonContent" rel="nofollow">Comparisons</a>
+                        <%} %> 
+                       
                         <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
                         <a href="#modelAlternateBikeContent" rel="nofollow">Alternatives</a> 
                         <%} %>                      
@@ -1121,103 +1128,6 @@
                     <BW:LatestNews runat="server" ID="ctrlNews" />
                     <!-- News widget ends -->
                     <% } %>  
-
-                    <!-- model comparison -->
-                    <%--<div id="modelComparisonContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14">
-                        <h2 class="padding-left20 padding-right20 margin-bottom15">Popular comparisons for <%=bikeModelName%></h2>
-                        <div class="jcarousel-wrapper inner-content-carousel margin-bottom20">
-                            <div class="jcarousel">
-                                <ul class="model-comparison-list">
-                                    <li>
-                                        <a href="" title="model 1 vs model 2">
-                                            <h3 class="text-black text-center">Pulsar RS200 vs YZF R15 1</h3>
-                                            <div class="grid-6 alpha omega border-light-right">
-                                                <div class="imageWrapper margin-bottom10">
-                                                    <div class="comparison-image">
-                                                        <img class="lazy" data-original="http://imgd1.aeplcdn.com//160x89//bw/models/honda-cb-shine-electric-start/drum/alloy-112.jpg?20151209184344" alt="" border="0"/>
-                                                    </div>
-                                                </div>
-                                                <p class="text-light-grey margin-bottom5">Ex-showroom, Mumbai</p>
-                                                <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-default text-bold">1,22,000</span>
-                                            </div>
-                                            <div class="grid-6 padding-left30 omega">
-                                                <div class="imageWrapper margin-bottom10">
-                                                    <div class="comparison-image">
-                                                        <img class="lazy" data-original="http://imgd1.aeplcdn.com///160x89//bw/upcoming/bajaj-pulsarcs400-551.jpg?20151209053107" alt="" border="0"/>
-                                                    </div>
-                                                </div>
-                                                <p class="text-light-grey margin-bottom5">Ex-showroom, Mumbai</p>
-                                                <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-default text-bold">1,22,000</span>
-                                            </div>
-                                            <div class="clear"></div>
-                                            <div class="margin-top20 text-center">
-                                                <span class="btn btn-white btn-size-1">Compare now</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="" title="model 1 vs model 2">
-                                            <h3 class="text-black text-center">Pulsar RS200 vs YZF R15 2</h3>
-                                            <div class="grid-6 alpha omega border-light-right">
-                                                <div class="imageWrapper margin-bottom10">
-                                                    <div class="comparison-image">
-                                                        <img class="lazy" data-original="http://imgd1.aeplcdn.com//160x89//bw/models/honda-cb-shine-electric-start/drum/alloy-112.jpg?20151209184344" alt="" border="0"/>
-                                                    </div>
-                                                </div>
-                                                <p class="text-light-grey margin-bottom5">Ex-showroom, Mumbai</p>
-                                                <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-default text-bold">1,22,000</span>
-                                            </div>
-                                            <div class="grid-6 padding-left30 omega">
-                                                <div class="imageWrapper margin-bottom10">
-                                                    <div class="comparison-image">
-                                                        <img class="lazy" data-original="http://imgd1.aeplcdn.com///160x89//bw/upcoming/bajaj-pulsarcs400-551.jpg?20151209053107" alt="" border="0"/>
-                                                    </div>
-                                                </div>
-                                                <p class="text-light-grey margin-bottom5">Ex-showroom, Mumbai</p>
-                                                <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-default text-bold">1,22,000</span>
-                                            </div>
-                                            <div class="clear"></div>
-                                            <div class="margin-top20 text-center">
-                                                <span class="btn btn-white btn-size-1">Compare now</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="" title="model 1 vs model 2">
-                                            <h3 class="text-black text-center">Pulsar RS200 vs YZF R15 3</h3>
-                                            <div class="grid-6 alpha omega border-light-right">
-                                                <div class="imageWrapper margin-bottom10">
-                                                    <div class="comparison-image">
-                                                        <img class="lazy" data-original="http://imgd1.aeplcdn.com//160x89//bw/models/honda-cb-shine-electric-start/drum/alloy-112.jpg?20151209184344" alt="" border="0"/>
-                                                    </div>
-                                                </div>
-                                                <p class="text-light-grey margin-bottom5">Ex-showroom, Mumbai</p>
-                                                <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-default text-bold">1,22,000</span>
-                                            </div>
-                                            <div class="grid-6 padding-left30 omega">
-                                                <div class="imageWrapper margin-bottom10">
-                                                    <div class="comparison-image">
-                                                        <img class="lazy" data-original="http://imgd1.aeplcdn.com///160x89//bw/upcoming/bajaj-pulsarcs400-551.jpg?20151209053107" alt="" border="0"/>
-                                                    </div>
-                                                </div>
-                                                <p class="text-light-grey margin-bottom5">Ex-showroom, Mumbai</p>
-                                                <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-default text-bold">1,22,000</span>
-                                            </div>
-                                            <div class="clear"></div>
-                                            <div class="margin-top20 text-center">
-                                                <span class="btn btn-white btn-size-1">Compare now</span>
-                                            </div>
-                                        </a>
-                                    </li>                                    
-                                </ul>
-                            </div>
-                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow"></a></span>
-                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
-                        </div>
-                        <div class="margin-left20">
-                            <a href="/comparebikes/">View more comparisons<span class="bwsprite blue-right-arrow-icon"></span></a>
-                        </div>
-                    </div>--%>
                     <div class="margin-right10 margin-left10 border-solid-top"></div>
                     <!-- model comparison -->
 
