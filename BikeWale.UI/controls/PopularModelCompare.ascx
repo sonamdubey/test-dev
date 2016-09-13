@@ -13,7 +13,7 @@
                                 <div class="grid-6 alpha omega border-light-right">
                                     <div class="imageWrapper margin-bottom10">
                                         <div class="comparison-image">
-                                            <img src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath1").ToString(),DataBinder.Eval(Container.DataItem,"HostURL1").ToString(),Bikewale.Utility.ImageSize._210x118) %>" />
+                                            <img src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath1").ToString(),DataBinder.Eval(Container.DataItem,"HostURL1").ToString(),Bikewale.Utility.ImageSize._174x98) %>" />
                                             
                                         </div>
                                     </div>
@@ -23,7 +23,7 @@
                                 <div class="grid-6 padding-left30 omega">
                                     <div class="imageWrapper margin-bottom10">
                                         <div class="comparison-image">
-                                           <img src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath2").ToString(),DataBinder.Eval(Container.DataItem,"HostURL2").ToString(),Bikewale.Utility.ImageSize._210x118) %>" />
+                                           <img src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath2").ToString(),DataBinder.Eval(Container.DataItem,"HostURL2").ToString(),Bikewale.Utility.ImageSize._174x98) %>" />
                                         </div>
                                     </div>
                                     <p class="text-light-grey margin-bottom5">Ex-showroom, <%=Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
