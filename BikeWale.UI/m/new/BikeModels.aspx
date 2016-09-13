@@ -6,6 +6,7 @@
 <%@ Register Src="/m/controls/NewUserReviewList.ascx" TagPrefix="BW" TagName="UserReviews" %>
 <%@ Register Src="~/m/controls/MPriceInTopCities.ascx" TagPrefix="BW" TagName="TopCityPrice" %>
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
+<%@ Register Src="/m/controls/PopularModelComparison.ascx" TagName="SimilarBikesCompare" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -779,96 +780,10 @@
                  <BW:News runat="server" ID="ctrlNews" />
                 <% } %>      
 
-                <!-- model comparison -->
-                <div id="makeComparisonContent" class="bw-model-tabs-data padding-top15 padding-bottom20 font14">
-                    <h2 class="padding-left20 padding-right20 margin-bottom20">Popular comparisons for <%=bikeModelName%></h2>
-                    <div class="swiper-container padding-top5 padding-bottom5">
-                        <div class="swiper-wrapper model-comparison-list">
-                            <div class="swiper-slide">
-                                <a href="" title="model 1 vs model 2">
-                                    <h3 class="font12 text-black text-center">CBR1000R vs CB Unicorn</h3>
-                                    <div class="grid-6">
-                                        <div class="model-img-content">
-                                            <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com//144x81//bw/models/honda-dream-neo-self-start-drum-brake-alloy-451.jpg?20151209184804" alt="" />
-                                            <span class="swiper-lazy-preloader"></span>
-                                        </div>
-                                        <p class="font11 text-light-grey margin-bottom5">Ex-showroom New Delhi</p>
-                                        <span class="bwmsprite inr-dark-md-icon"></span>&nbsp;<span class="font16 text-default text-bold">92,000</span>
-                                    </div>
-                                    <div class="grid-6">
-                                        <div class="model-img-content">
-                                            <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com//144x81//bw/models/hero-splendor-pro-classic-standard-730.jpg?20151209182019" alt="" />
-                                            <span class="swiper-lazy-preloader"></span>
-                                        </div>
-                                        <p class="font11 text-light-grey margin-bottom5">Ex-showroom New Delhi</p>
-                                        <span class="bwmsprite inr-dark-md-icon"></span>&nbsp;<span class="font16 text-default text-bold">92,000</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <div class="margin-top10 text-center">
-                                        <span class="btn btn-white btn-size-1">Compare now</span>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div class="swiper-slide">
-                                <a href="">
-                                    <h3 class="font12 text-black text-center">CBR1000R vs CB Unicorn</h3>
-                                    <div class="grid-6">
-                                        <div class="model-img-content">
-                                            <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com//144x81//bw/models/honda-dream-neo-self-start-drum-brake-alloy-451.jpg?20151209184804" alt="" />
-                                            <span class="swiper-lazy-preloader"></span>
-                                        </div>
-                                        <p class="font11 text-light-grey margin-bottom5">Ex-showroom New Delhi</p>
-                                        <span class="bwmsprite inr-dark-md-icon"></span>&nbsp;<span class="font16 text-default text-bold">92,000</span>
-                                    </div>
-                                    <div class="grid-6">
-                                        <div class="model-img-content">
-                                            <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com//144x81//bw/models/hero-splendor-pro-classic-standard-730.jpg?20151209182019" alt="" />
-                                            <span class="swiper-lazy-preloader"></span>
-                                        </div>
-                                        <p class="font11 text-light-grey margin-bottom5">Ex-showroom New Delhi</p>
-                                        <span class="bwmsprite inr-dark-md-icon"></span>&nbsp;<span class="font16 text-default text-bold">92,000</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <div class="margin-top10 text-center">
-                                        <span class="btn btn-white btn-size-1">Compare now</span>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div class="swiper-slide">
-                                <a href="">
-                                    <h3 class="font12 text-black text-center">CBR1000R vs CB Unicorn</h3>
-                                    <div class="grid-6">
-                                        <div class="model-img-content">
-                                            <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com//144x81//bw/models/honda-dream-neo-self-start-drum-brake-alloy-451.jpg?20151209184804" alt="" />
-                                            <span class="swiper-lazy-preloader"></span>
-                                        </div>
-                                        <p class="font11 text-light-grey margin-bottom5">Ex-showroom New Delhi</p>
-                                        <span class="bwmsprite inr-dark-md-icon"></span>&nbsp;<span class="font16 text-default text-bold">92,000</span>
-                                    </div>
-                                    <div class="grid-6">
-                                        <div class="model-img-content">
-                                            <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com//144x81//bw/models/hero-splendor-pro-classic-standard-730.jpg?20151209182019" alt="" />
-                                            <span class="swiper-lazy-preloader"></span>
-                                        </div>
-                                        <p class="font11 text-light-grey margin-bottom5">Ex-showroom New Delhi</p>
-                                        <span class="bwmsprite inr-dark-md-icon"></span>&nbsp;<span class="font16 text-default text-bold">92,000</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <div class="margin-top10 text-center">
-                                        <span class="btn btn-white btn-size-1">Compare now</span>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="margin-top15 margin-left20">
-                        <a href="/comparebikes/">View more comparisons<span class="bwmsprite blue-right-arrow-icon"></span></a>
-                    </div>
-                </div>
-                <div class="margin-right20 margin-left20 border-solid-bottom"></div>
-                <!-- model comparison -->
+                <% if(ctrlCompareBikes.fetchedCount > 0)
+                   { %>
+                <BW:SimilarBikesCompare runat="server" ID="ctrlCompareBikes" />
+                <% } %>
 
                 <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
                    { %>

@@ -35,6 +35,11 @@ namespace Bikewale.Utility
             return String.Format("{0} vs {1} ", model1, model2);
         }
 
+        public static string CreateCompareTitle(string model1, string model2)
+        {
+            return String.Format("{0} vs {1}", model1, model2);
+        }
+
         /// <summary>
         /// Created By Vivek Gupta on 23-05-2016
         /// Desc : url format "/<make>-bikes/<model>/price-in-<city>/" for prices in city
