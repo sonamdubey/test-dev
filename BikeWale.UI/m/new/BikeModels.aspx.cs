@@ -446,6 +446,9 @@ namespace Bikewale.Mobile.New
                     }
                     if (modelPage.ModelVersions != null && !modelPage.ModelDetails.Futuristic)
                     {
+                        if (modelPage.ModelVersions != null)
+                        versionId =Convert.ToUInt32(modelPage.ModelVersions[0].VersionId);
+                        
                         if (modelPage.ModelVersions.Count > 1)
                         {
                             if (modelPage.ModelVersionSpecs != null && modelPage.ModelVersionSpecs.BikeVersionId != 0)

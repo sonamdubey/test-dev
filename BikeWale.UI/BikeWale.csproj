@@ -2207,7 +2207,6 @@
     <Content Include="m\controls\DealersCard.ascx" />
     <Content Include="m\controls\ExpertReviewsWidget.ascx" />
     <Content Include="m\controls\ExpertReviewsVideos.ascx" />
-    <Content Include="m\controls\HtmlPage1.html" />
     <Content Include="m\controls\LeadCaptureControl.ascx" />
     <Content Include="m\controls\ListPagerControl.ascx" />
     <Content Include="m\controls\LocateDealer.ascx" />
