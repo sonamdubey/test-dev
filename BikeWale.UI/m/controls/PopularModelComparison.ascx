@@ -11,7 +11,7 @@
                             <h3 class="font12 text-black text-center"><%# Bikewale.Utility.UrlFormatter.CreateCompareTitle(DataBinder.Eval(Container.DataItem, "Model1").ToString(),DataBinder.Eval(Container.DataItem, "Model2").ToString()) %></h3>
                             <div class="grid-6">
                                 <div class="model-img-content">
-                                    <img class="swiper-lazy" src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath1").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl1").ToString(),Bikewale.Utility.ImageSize._310x174) %>" alt="" />
+                                    <img class="swiper-lazy" src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath1").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl1").ToString(),Bikewale.Utility.ImageSize._310x174) %>" alt="<%# DataBinder.Eval(Container.DataItem,"Model1").ToString() %>" title="<%# DataBinder.Eval(Container.DataItem,"Model1").ToString() %>" />
                                     <span class="swiper-lazy-preloader"></span>
                                 </div>
                                 <p class="font11 text-light-grey margin-bottom5">Ex-showroom ,<%=Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
@@ -19,7 +19,7 @@
                             </div>
                             <div class="grid-6">
                                 <div class="model-img-content">
-                                    <img class="swiper-lazy" src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath2").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl2").ToString(),Bikewale.Utility.ImageSize._310x174) %>" alt="" />
+                                    <img class="swiper-lazy" src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath2").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl2").ToString(),Bikewale.Utility.ImageSize._310x174) %>" alt="<%# DataBinder.Eval(Container.DataItem,"Model2").ToString() %>" title="<%# DataBinder.Eval(Container.DataItem,"Model2").ToString() %>" />
                                     <span class="swiper-lazy-preloader"></span>
                                 </div>
                                 <p class="font11 text-light-grey margin-bottom5">Ex-showroom ,<%=Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
