@@ -7,7 +7,7 @@
 
     <script language="c#" runat="server">
         private bool EnableOG=false;
-        private string OGImage="";
+        private string OGImage=String.Empty;   
     </script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
     <%if(keywords != "") {%>

@@ -46,12 +46,15 @@ namespace Bikewale.New.PhotoGallery
                         IBikeModels<BikeModelEntity, int> objModel = container.Resolve<IBikeModels<BikeModelEntity, int>>();
                         //Get Model details
                         objModelEntity = objModel.GetById(Convert.ToInt32(modelId));
-                        modelName = objModelEntity.ModelName;
-                        makename = objModelEntity.MakeBase.MakeName;
-                        bikeName = string.Format("{0} {1}", objModelEntity.MakeBase.MakeName, objModelEntity.ModelName);
-                        photoGallary.modelId = objModelEntity.ModelId;
-                        photoGallary.ImageId = imageId;
-                        modelImage = Utility.Image.GetPathToShowImages(objModelEntity.OriginalImagePath, objModelEntity.HostUrl, Bikewale.Utility.ImageSize._476x268);
+                        if (objModelEntity != null)
+                        {
+                            modelName = objModelEntity.ModelName;
+                            makename = objModelEntity.MakeBase.MakeName;
+                            bikeName = string.Format("{0} {1}", objModelEntity.MakeBase.MakeName, objModelEntity.ModelName);
+                            photoGallary.modelId = objModelEntity.ModelId;
+                            photoGallary.ImageId = imageId;
+                            modelImage = Utility.Image.GetPathToShowImages(objModelEntity.OriginalImagePath, objModelEntity.HostUrl, Bikewale.Utility.ImageSize._476x268);
+                        }
                     }
                 }
             }
