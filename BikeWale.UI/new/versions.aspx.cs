@@ -244,7 +244,7 @@ namespace Bikewale.New
                 }
                 if (variantId != 0)
                     ctrlPopularCompare.versionsList = Convert.ToString(variantId);
-                else
+                else if (modelPageEntity != null && modelPageEntity.ModelVersions!=null)
                     ctrlPopularCompare.versionsList = Convert.ToString(modelPageEntity.ModelVersions[0].VersionId);
 
                 ctrlPopularCompare.TopCount = 6;
