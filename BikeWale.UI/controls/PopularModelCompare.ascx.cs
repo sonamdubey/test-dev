@@ -1,5 +1,4 @@
 ﻿using Bikewale.BindViewModels.Controls;
-using Bikewale.Utility;
 using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -40,7 +39,7 @@ namespace Bikewale.Controls
         private void BindPopularCompareBikes()
         {
             BindSimilarCompareBikesControl objAlt = new BindSimilarCompareBikesControl();
-            fetchedCount = objAlt.BindPopularCompareBikes(rptPopularCompareBikes, versionsList, TopCount);
+            fetchedCount = objAlt.BindPopularCompareBikes(rptPopularCompareBikes, versionId, TopCount);
         }
 
         public override void Dispose()
