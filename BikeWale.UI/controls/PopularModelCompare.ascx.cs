@@ -13,7 +13,7 @@ namespace Bikewale.Controls
     public class PopularModelCompare : UserControl
     {
         public Repeater rptPopularCompareBikes;
-        public string versionsList { get; set; }
+        public string versionId { get; set; }
         public string ModelName;
         private uint _topCount = 0;
         public uint fetchedCount { get; set; }
