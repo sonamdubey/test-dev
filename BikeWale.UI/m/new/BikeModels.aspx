@@ -6,6 +6,7 @@
 <%@ Register Src="/m/controls/NewUserReviewList.ascx" TagPrefix="BW" TagName="UserReviews" %>
 <%@ Register Src="~/m/controls/MPriceInTopCities.ascx" TagPrefix="BW" TagName="TopCityPrice" %>
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
+<%@ Register Src="/m/controls/PopularModelComparison.ascx" TagName="SimilarBikesCompare" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -382,7 +383,11 @@
                              { %>
                                 <li data-tabs="#makeNewsContent">News</li>
                             <%} %>
-                             <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
+                            <% if(ctrlCompareBikes.fetchedCount > 0)
+                             { %>
+                                <li data-tabs="#makeComparisonContent">Comparisons</li>
+                             <% } %>
+                            <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
                               { %>
                                  <li data-tabs="#modelAlternateBikeContent">Alternatives</li>
                             <%} %>
@@ -777,6 +782,11 @@
                  { %>
                  <BW:News runat="server" ID="ctrlNews" />
                 <% } %>      
+
+                <% if(ctrlCompareBikes.fetchedCount > 0)
+                   { %>
+                <BW:SimilarBikesCompare runat="server" ID="ctrlCompareBikes" />
+                <% } %>
 
                 <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
                    { %>

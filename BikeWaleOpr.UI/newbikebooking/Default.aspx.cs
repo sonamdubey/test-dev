@@ -125,7 +125,7 @@ namespace BikeWaleOpr.BikeBooking
                                     //3. populate newly created DataTable with Price Sheet data and with City list
                                     foreach (string dealerId in objDealerList)
                                     {
-                                        dtPriceSheet.Rows.Add(dealerId, lbVersionId.Text.Trim(), dealerCity, lblCategoryId.Text.Trim(), txtValue.Text.Trim().Equals("NA") ? null : txtValue.Text.Trim());
+                                        dtPriceSheet.Rows.Add(dealerId, lbVersionId.Text.Trim(), dealerCity, lblCategoryId.Text.Trim(), txtValue.Text.Trim().Equals("NA") ? null : txtValue.Text.Trim(), CurrentUser.Id);
                                     }
                                 }
                             }
@@ -228,7 +228,7 @@ namespace BikeWaleOpr.BikeBooking
                                     //3. populate newly created DataTable with Price Sheet data and with City list
                                     foreach (string cityId in lstCityId)
                                     {
-                                        dtPriceSheet.Rows.Add(dealerId, lbVersionId.Text.Trim(), cityId, lblCategoryId.Text.Trim(), txtValue.Text.Trim().Equals("NA") ? null : txtValue.Text.Trim());
+                                        dtPriceSheet.Rows.Add(dealerId, lbVersionId.Text.Trim(), cityId, lblCategoryId.Text.Trim(), txtValue.Text.Trim().Equals("NA") ? null : txtValue.Text.Trim(), CurrentUser.Id);
                                     }
                                 }
                             }
@@ -452,7 +452,7 @@ namespace BikeWaleOpr.BikeBooking
                             Label lblCategoryId = (Label)rptValues.Items[j].FindControl("lblCategoryId");
                             if (lbVersionId.Text.Length > 0 && txtValue.Text.Trim().Length > 0)
                             {
-                                table.Rows.Add(dealerId, lbVersionId.Text.Trim(), cityId, lblCategoryId.Text.Trim(), txtValue.Text.Trim());
+                                table.Rows.Add(dealerId, lbVersionId.Text.Trim(), cityId, lblCategoryId.Text.Trim(), txtValue.Text.Trim(), CurrentUser.Id);
                             }
                         }
                     }

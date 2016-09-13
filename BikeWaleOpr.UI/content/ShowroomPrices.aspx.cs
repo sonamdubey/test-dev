@@ -138,6 +138,7 @@ namespace BikeWaleOpr.Content
 
                 CheckBox chkUpdate = (CheckBox)rptPrices.Items[i].FindControl("chkUpdate");
 
+
                 if (chkUpdate.Checked)
                 {
                     Trace.Warn("Saving All Prices...");
@@ -154,6 +155,7 @@ namespace BikeWaleOpr.Content
                             txtMumbaiMetInsurance.Text.Trim(),
                             txtMumbaiMetRTO.Text.Trim(),
                             txtMumbaiMetCorporateRTO.Text.Trim()
+
                         );
                 }
             }
@@ -249,12 +251,13 @@ namespace BikeWaleOpr.Content
             string mumMetIns,
             string mumMetRTO,
             string mumMetCorpRTO
+
         )
         {
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("insertshowroomprices"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("insertshowroomprices_09092016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int64, versionId));
@@ -268,6 +271,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetcorporaterto", DbType.Int64, mumMetCorpRTO.Length == 0 ? Convert.DBNull : mumMetCorpRTO));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int64, hdnSelectedCityId.Value));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_lastupdated", DbType.DateTime, DateTime.Now));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int16, CurrentUser.Id));
                     //run the command
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                 }

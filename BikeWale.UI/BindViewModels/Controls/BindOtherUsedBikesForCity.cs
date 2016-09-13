@@ -57,7 +57,7 @@ namespace Bikewale.BindViewModels.Controls
                         var objCache = container.Resolve<IUsedBikeDetailsCacheRepository>();
                         otherBikesinCity = objCache.GetOtherBikesByCityId(inquiryId, cityId, topCount);
 
-                        if (otherBikesinCity != null)
+                        if (otherBikesinCity != null && otherBikesinCity.Count() > 0)
                         {
                             CityName = otherBikesinCity.FirstOrDefault().RegisteredAt;
                             CityMaskingName = otherBikesinCity.FirstOrDefault().CityMaskingName;

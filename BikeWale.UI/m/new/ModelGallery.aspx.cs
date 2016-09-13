@@ -18,7 +18,7 @@ namespace Bikewale.Mobile.New
     {
 
         protected ModelGallery ctrlModelGallery;
-        protected string bikeName = string.Empty, modelName = string.Empty, makeName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty;
+        protected string bikeName = string.Empty, modelName = string.Empty, makeName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty, modelImage = string.Empty;
         protected int modelId = 0, imgCount = 0;
         protected BikeModelPageEntity modelPage = default(BikeModelPageEntity);
 
@@ -54,7 +54,7 @@ namespace Bikewale.Mobile.New
                     makeName = bikemodelEnt.MakeBase.MakeName;
                     bikeName = string.Format("{0} {1}", makeName, modelName);
                 }
-               
+
                 List<ModelImage> objImageList = (List<ModelImage>)objCache.GetModelPhotos(modelId);
                 if (objImageList != null && objImageList.Count > 0)
                 {
@@ -63,7 +63,7 @@ namespace Bikewale.Mobile.New
                     ctrlModelGallery.modelId = Convert.ToInt32(modelId);
                     ctrlModelGallery.Photos = objImageList;
                     imgCount = objImageList.Count;
-                    
+                    modelImage = Utility.Image.GetPathToShowImages(objImageList[0].OriginalImgPath, objImageList[0].HostUrl, Bikewale.Utility.ImageSize._476x268);
                 }
             }
         }

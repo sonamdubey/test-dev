@@ -3,7 +3,7 @@
 <div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top15 font14 margin-bottom20">
     <h2 class="padding-left20 padding-right20 margin-bottom20">Alternative bikes for <%=modelName%></h2>
     <div class="swiper-container padding-top5 padding-bottom5">
-        <div class="swiper-wrapper font14"> 
+        <div class="swiper-wrapper">
           <asp:Repeater ID="rptAlternateBikes" runat="server">   
             <ItemTemplate>
                     <div class="swiper-slide">

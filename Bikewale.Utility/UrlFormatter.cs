@@ -30,6 +30,15 @@ namespace Bikewale.Utility
         {
             return String.Format("{0} {1} vs {2} {3}", make1, model1, make2, model2);
         }
+        public static string CreatePopularCompare(string model1, string model2)
+        {
+            return String.Format("{0} vs {1} ", model1, model2);
+        }
+
+        public static string CreateCompareTitle(string model1, string model2)
+        {
+            return String.Format("{0} vs {1}", model1, model2);
+        }
 
         /// <summary>
         /// Created By Vivek Gupta on 23-05-2016

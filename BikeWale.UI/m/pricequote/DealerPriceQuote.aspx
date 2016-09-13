@@ -19,7 +19,7 @@
 	<!-- #include file="/includes/headscript_mobile.aspx" -->
 	<link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/dealerpricequote.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
 	<script type="text/javascript">
-	    var dealerId = '<%= dealerId%>';
+		var dealerId = '<%= dealerId%>';
 		var pqId = '<%= pqId%>';
 		var ABHostUrl = '<%= System.Configuration.ConfigurationManager.AppSettings["ApiHostUrl"]%>';
 		var versionId = '<%= versionId%>';
@@ -239,16 +239,16 @@
 				<%} %>
 			</div>
 
-             <% if (objExQuotation != null && objExQuotation.CampaignId > 0 && objPriceQuote!=null && objPriceQuote.SecondaryDealerCount == 0 && !string.IsNullOrEmpty(objExQuotation.ManufacturerAd))
-                { %>
-                <section>
-                    <%=String.Format(objExQuotation.ManufacturerAd) %>
-                </section>
-            <%} %>
-            
-        <style type="text/css">
-            #campaign-container .tel-sm-icon{top:0}#campaign-offer-list li{width:50%;display:inline-block;vertical-align:middle;margin-bottom:20px}#campaign-offer-list li span{display:inline-block;vertical-align:middle}.campaign-offer-label{width:80%;font-size:13px;font-weight:bold;padding-right:5px}#campaign-button-container .btn{padding-right:0;padding-left:0}#campaign-button-container .grid-6.hide + .grid-6{width:100%;padding-right:0}.campaign-offer-1,.campaign-offer-2,.campaign-offer-3,.campaign-offer-4{width:22px;height:22px;margin-right:5px}.campaign-offer-1{background-position:0 -387px}.campaign-offer-2{background-position:0 -418px}.campaign-offer-3{background-position:-28px -387px}.campaign-offer-4{background-position:-56px -387px}
-        </style>
+			 <% if (objExQuotation != null && objExQuotation.CampaignId > 0 && objPriceQuote!=null && objPriceQuote.SecondaryDealerCount == 0 && !string.IsNullOrEmpty(objExQuotation.ManufacturerAd))
+				{ %>
+				<section>
+					<%=String.Format(objExQuotation.ManufacturerAd) %>
+				</section>
+			<%} %>
+			
+		<style type="text/css">
+			#campaign-container .tel-sm-icon{top:0}#campaign-offer-list li{width:50%;display:inline-block;vertical-align:middle;margin-bottom:20px}#campaign-offer-list li span{display:inline-block;vertical-align:middle}.campaign-offer-label{width:80%;font-size:13px;font-weight:bold;padding-right:5px}#campaign-button-container .btn{padding-right:0;padding-left:0}#campaign-button-container .grid-6.hide + .grid-6{width:100%;padding-right:0}.campaign-offer-1,.campaign-offer-2,.campaign-offer-3,.campaign-offer-4{width:22px;height:22px;margin-right:5px}.campaign-offer-1{background-position:0 -387px}.campaign-offer-2{background-position:0 -418px}.campaign-offer-3{background-position:-28px -387px}.campaign-offer-4{background-position:-56px -387px}
+		</style>
 
 			<!--Price Breakup ends here-->
 
@@ -281,7 +281,7 @@
 								<li>
 									<span class="offers-sprite offerIcon_<%# DataBinder.Eval(Container.DataItem,"OfferCategoryId") %>"></span>
 									<span class="pq-benefits-title padding-left10"><%# DataBinder.Eval(Container.DataItem,"OfferText") %><span class="margin-left10 tnc font9 <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsOfferTerms"))? string.Empty: "hide" %>" id="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferId")) %>">View terms</span></span>
-                                    
+									
 								</li>
 							</ItemTemplate>
 						</asp:Repeater>
@@ -310,10 +310,10 @@
 						<img src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
 					</div>
 					<script type="text/javascript">
-					    function initializeDealerMap() {
-					        var element = document.getElementById('dealerMap');
-					        var latitude = '<%= latitude %>';
-					        var longitude = '<%= longitude %>';
+						function initializeDealerMap() {
+							var element = document.getElementById('dealerMap');
+							var latitude = '<%= latitude %>';
+							var longitude = '<%= longitude %>';
 
 							try {
 								mapUrl = "http://maps.google.com/?q=" + latitude + "," + longitude;
@@ -568,21 +568,21 @@
 		<!-- Lead Capture pop up start  -->               
 		<BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
 		 <!-- Lead Capture pop up end  -->
-        <!-- Terms and condition Popup start -->
-        <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
-            <div class="fixed-close-btn-wrapper">
-                <div id="termsPopUpCloseBtn" class="termsPopUpCloseBtn bwmsprite fixed-close-btn cross-lg-lgt-grey cur-pointer"></div>
-            </div>
-            <h3>Terms and Conditions</h3>
-            <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
-                <img src="http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
-            </div>
-            <div id="terms" class="breakup-text-container padding-bottom10 font14">
-            </div>
-            <div id='orig-terms' class="hide">
-            </div>
-        </div>
-        <!-- Terms and condition Popup end -->
+		<!-- Terms and condition Popup start -->
+		<div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+			<div class="fixed-close-btn-wrapper">
+				<div id="termsPopUpCloseBtn" class="termsPopUpCloseBtn bwmsprite fixed-close-btn cross-lg-lgt-grey cur-pointer"></div>
+			</div>
+			<h3>Terms and Conditions</h3>
+			<div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
+				<img src="http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
+			</div>
+			<div id="terms" class="breakup-text-container padding-bottom10 font14">
+			</div>
+			<div id='orig-terms' class="hide">
+			</div>
+		</div>
+		<!-- Terms and condition Popup end -->
 		<!-- #include file="/includes/footerBW_Mobile.aspx" -->
 		<!-- #include file="/includes/footerscript_Mobile.aspx" -->
 		<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/dealerpricequote.js?<%= staticFileVersion %>"></script>
