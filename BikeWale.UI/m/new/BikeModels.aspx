@@ -383,7 +383,7 @@
                              { %>
                                 <li data-tabs="#makeNewsContent">News</li>
                             <%} %>
-                            <% if(ctrlCompareBikes.fetchedCount > 0)
+                            <% if (ctrlCompareBikes.fetchedCount > 0 && !isDiscontinued)
                              { %>
                                 <li data-tabs="#makeComparisonContent">Comparisons</li>
                              <% } %>
@@ -783,7 +783,7 @@
                  <BW:News runat="server" ID="ctrlNews" />
                 <% } %>      
 
-                <% if(ctrlCompareBikes.fetchedCount > 0)
+                <% if (ctrlCompareBikes.fetchedCount > 0 && !isDiscontinued)
                    { %>
                 <BW:SimilarBikesCompare runat="server" ID="ctrlCompareBikes" />
                 <% } %>
