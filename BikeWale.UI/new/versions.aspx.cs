@@ -244,7 +244,7 @@ namespace Bikewale.New
                 }
                 if (variantId != 0)
                     ctrlPopularCompare.versionId = Convert.ToString(variantId);
-                else if (modelPageEntity != null && modelPageEntity.ModelVersions != null)
+                else if (modelPageEntity != null && modelPageEntity.ModelVersions.Count > 0)
                     ctrlPopularCompare.versionId = Convert.ToString(modelPageEntity.ModelVersions.FirstOrDefault().VersionId);
 
                 ctrlPopularCompare.TopCount = 6;
@@ -378,6 +378,7 @@ namespace Bikewale.New
                     if (modelPg.ModelVersionSpecs != null && variantId <= 0)
                     {
                         variantId = modelPg.ModelVersionSpecs.BikeVersionId;
+                        ctrlPopularCompare.versionId = Convert.ToString(variantId);
                     }
 
                     if (modelPg.ModelVersions != null && !modelPg.ModelDetails.Futuristic)
@@ -394,6 +395,7 @@ namespace Bikewale.New
                                     hdnVariant.Value = Convert.ToString(modelPg.ModelVersionSpecs.BikeVersionId);
                                 else
                                     hdnVariant.Value = Convert.ToString(variantId);
+                                ctrlPopularCompare.versionId = Convert.ToString(variantId);
 
                             }
                             else if (modelPg.ModelVersions.Count > 1)
