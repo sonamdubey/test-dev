@@ -209,7 +209,7 @@ namespace Bikewale.BikeBooking
                 bookingRefNum = ConfigurationManager.AppSettings["OfferUniqueTransaction"] + Carwale.BL.PaymentGateway.PGCookie.PGTransId;
                 GetDetailedQuote();
                 getCustomerDetails();
-
+                //send sms to customer
                 Bikewale.Notifications.SendEmailSMSToDealerCustomer.BookingSMSToCustomer(objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerName,
                     bikeName, _objPQ.objDealer.Organization, _objPQ.objDealer.PhoneNo, address, bookingRefNum, insuranceAmount);
 
