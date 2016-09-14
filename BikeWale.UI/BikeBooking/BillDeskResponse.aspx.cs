@@ -211,7 +211,7 @@ namespace Bikewale.BikeBooking
                 getCustomerDetails();
 
                 Bikewale.Notifications.SendEmailSMSToDealerCustomer.BookingSMSToCustomer(objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerName,
-                    bikeName, _objPQ.objDealer.Organization, _objPQ.objDealer.MobileNo, address, bookingRefNum, insuranceAmount);
+                    bikeName, _objPQ.objDealer.Organization, _objPQ.objDealer.PhoneNo, address, bookingRefNum, insuranceAmount);
 
                 //send sms to dealer
                 Bikewale.Notifications.SendEmailSMSToDealerCustomer.BookingSMSToDealer(objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerName,
@@ -226,7 +226,7 @@ namespace Bikewale.BikeBooking
                 //send email to customer
                 Bikewale.Notifications.SendEmailSMSToDealerCustomer.BookingEmailToCustomer(objCustomer.objCustomerBase.CustomerEmail, objCustomer.objCustomerBase.CustomerName
                    , _objPQ.objQuotation.PriceList, _objPQ.objOffers, bookingRefNum, totalPrice, _objPQ.objBookingAmt.Amount, MakeModel, VersionName, bikeColor, imgPath,
-               _objPQ.objDealer.Organization, address, _objPQ.objDealer.MobileNo, _objPQ.objDealer.EmailId, _objPQ.objDealer.WorkingTime, _objPQ.objDealer.objArea.Latitude, _objPQ.objDealer.objArea.Longitude);
+               _objPQ.objDealer.Organization, address, _objPQ.objDealer.PhoneNo, _objPQ.objDealer.EmailId, _objPQ.objDealer.WorkingTime, _objPQ.objDealer.objArea.Latitude, _objPQ.objDealer.objArea.Longitude);
 
                 //send email to dealer
                 Bikewale.Notifications.SendEmailSMSToDealerCustomer.BookingEmailToDealer(_objPQ.objDealer.EmailId, ConfigurationManager.AppSettings["OfferClaimAlertEmail"],
