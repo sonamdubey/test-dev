@@ -46,6 +46,8 @@ namespace Bikewale.Mobile.Used
         private const int _pagerSlotSize = 5;
         #endregion
 
+        #region events
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -59,66 +61,10 @@ namespace Bikewale.Mobile.Used
             CreatePager();
         }
 
-        private void CreatePager()
-        {
-            IPager objPager = GetPager();
-            int _startIndex = 0, _endIndex = 0;
-            objPager.GetStartEndIndex(_pageSize, _pageNo, out _startIndex, out _endIndex);
-            BindLinkPager(objPager, 88, "XYZ", "vvv");
-        }
+        #endregion
 
-        private IPager GetPager()
-        {
-            IPager _objPager = null;
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IPager, Pager>();
-                _objPager = container.Resolve<IPager>();
-            }
-            return _objPager;
-        }
+        #region methods
 
-        private void BindLinkPager(IPager objPager, int recordCount, string makeName, string modelName)
-        {
-            PagerOutputEntity _pagerOutput = null;
-            PagerEntity _pagerEntity = null;
-            string _baseUrl = "/expert-reviews/";
-
-            try
-            {
-                if (!String.IsNullOrEmpty(modelName))
-                    _baseUrl = string.Format("/{0}-bikes/{1}/expert-reviews/", makeName, modelName);
-                else if (!String.IsNullOrEmpty(makeName))
-                    _baseUrl = string.Format("/{0}-bikes/expert-reviews/", makeName);
-
-                _pagerEntity = new PagerEntity();
-                _pagerEntity.BaseUrl = _baseUrl;
-                _pagerEntity.PageNo = _pageNo; //Current page number
-                _pagerEntity.PagerSlotSize = _pagerSlotSize; // 5 links on a page
-                _pagerEntity.PageUrlType = "page/";
-                _pagerEntity.TotalResults = recordCount; //total News count
-                _pagerEntity.PageSize = _pageSize;  //No. of news to be displayed on a page
-
-                _pagerOutput = objPager.GetPager<PagerOutputEntity>(_pagerEntity);
-
-                // for RepeaterPager
-                ctrlPager.PagerOutput = _pagerOutput;
-                ctrlPager.CurrentPageNo = _pageNo;
-                ctrlPager.TotalPages = objPager.GetTotalPages(recordCount, _pageSize);
-                ctrlPager.BindPagerList();
-
-                //For SEO
-                //CreatePrevNextUrl(ctrlPager.TotalPages,_baseUrl);
-                prevUrl = String.IsNullOrEmpty(_pagerOutput.PreviousPageUrl) ? string.Empty : "http://www.bikewale.com" + _pagerOutput.PreviousPageUrl;
-                nextUrl = String.IsNullOrEmpty(_pagerOutput.NextPageUrl) ? string.Empty : "http://www.bikewale.com" + _pagerOutput.NextPageUrl;
-            }
-            catch (Exception ex)
-            {
-                Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-        }
         /// <summary>
         /// Function to bind the search result to the repeater
         /// </summary>
@@ -127,10 +73,10 @@ namespace Bikewale.Mobile.Used
             try
             {
                 InputFilters objFilters = new InputFilters();
-                objFilters.CityId = 1;
-                objFilters.Makes = "1";
-                objFilters.Models = "39+59";
-                objFilters.Budget = "20000+50000";
+                objFilters.CityId = cityId;
+                objFilters.Makes = makeId.ToString();
+                objFilters.Models = modelId.ToString(); ;
+                //objFilters.Budget = "40000+70000";
 
                 using (IUnityContainer container = new UnityContainer())
                 {
@@ -160,7 +106,7 @@ namespace Bikewale.Mobile.Used
         } // End of BindSearchPageData
 
         /// <summary>
-        /// Parse query string and set 
+        /// Parse query string and set variables
         /// </summary>
         public void ParseQueryString()
         {
@@ -227,7 +173,7 @@ namespace Bikewale.Mobile.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : CreateMetas");
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : ParseQueryString");
                 objErr.SendMail();
             }
         }
@@ -258,17 +204,94 @@ namespace Bikewale.Mobile.Used
 
         public string CreateCanonical(string rawUrl)
         {
-            if (rawUrl.Contains("/page-"))
+            string returl = string.Empty;
+            try
             {
-                string[] urlArray = rawUrl.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
-                string canon = string.Join("/",urlArray.Take(urlArray.Length - 1).ToArray());
-                return string.Format("http://www.bikewale.com/{0}/page-1/", canon.Replace("/m/", string.Empty));
+                // Check if raw url already has page and if not, add page-1 for making cononical url
+                if (rawUrl.Contains("/page-"))
+                {
+                    string[] urlArray = rawUrl.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
+                    string canon = string.Join("/", urlArray.Take(urlArray.Length - 1).ToArray());
+                    returl = string.Format("http://www.bikewale.com/{0}/page-1/", canon.Replace("/m/", string.Empty));
+                }
+                else
+                {
+                    returl = string.Format("http://www.bikewale.com/{0}page-1/", Request.RawUrl.Replace("/m/", string.Empty));
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return string.Format("http://www.bikewale.com/{0}page-1/", Request.RawUrl.Replace("/m/", string.Empty));
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : CreateCanonical");
+                objErr.SendMail();
             }
-            
+            return returl;
         }
+
+        #endregion
+
+        #region pagination methods
+        private void CreatePager()
+        {
+            IPager objPager = GetPager();
+            int _startIndex = 0, _endIndex = 0;
+            objPager.GetStartEndIndex(_pageSize, _pageNo, out _startIndex, out _endIndex);
+            BindLinkPager(objPager, 88, "XYZ", "vvv");
+        }
+
+        private IPager GetPager()
+        {
+            IPager _objPager = null;
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IPager, Pager>();
+                _objPager = container.Resolve<IPager>();
+            }
+            return _objPager;
+        }
+
+        private void BindLinkPager(IPager objPager, int recordCount, string makeName, string modelName)
+        {
+            PagerOutputEntity _pagerOutput = null;
+            PagerEntity _pagerEntity = null;
+            string _baseUrl = "/expert-reviews/";
+
+            try
+            {
+                if (!String.IsNullOrEmpty(modelName))
+                    _baseUrl = string.Format("/{0}-bikes/{1}/expert-reviews/", makeName, modelName);
+                else if (!String.IsNullOrEmpty(makeName))
+                    _baseUrl = string.Format("/{0}-bikes/expert-reviews/", makeName);
+
+                _pagerEntity = new PagerEntity();
+                _pagerEntity.BaseUrl = _baseUrl;
+                _pagerEntity.PageNo = _pageNo; //Current page number
+                _pagerEntity.PagerSlotSize = _pagerSlotSize; // 5 links on a page
+                _pagerEntity.PageUrlType = "page/";
+                _pagerEntity.TotalResults = recordCount; //total News count
+                _pagerEntity.PageSize = _pageSize;  //No. of news to be displayed on a page
+
+                _pagerOutput = objPager.GetPager<PagerOutputEntity>(_pagerEntity);
+
+                // for RepeaterPager
+                ctrlPager.PagerOutput = _pagerOutput;
+                ctrlPager.CurrentPageNo = _pageNo;
+                ctrlPager.TotalPages = objPager.GetTotalPages(recordCount, _pageSize);
+                ctrlPager.BindPagerList();
+
+                //For SEO
+                //CreatePrevNextUrl(ctrlPager.TotalPages,_baseUrl);
+                prevUrl = String.IsNullOrEmpty(_pagerOutput.PreviousPageUrl) ? string.Empty : "http://www.bikewale.com" + _pagerOutput.PreviousPageUrl;
+                nextUrl = String.IsNullOrEmpty(_pagerOutput.NextPageUrl) ? string.Empty : "http://www.bikewale.com" + _pagerOutput.NextPageUrl;
+            }
+            catch (Exception ex)
+            {
+                Trace.Warn(ex.Message);
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+        }
+
+        #endregion
+
     } // class
 }   // namespace
