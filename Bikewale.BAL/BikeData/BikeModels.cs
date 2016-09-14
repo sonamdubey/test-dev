@@ -44,11 +44,10 @@ namespace Bikewale.BAL.BikeData
         private readonly IArticles _articles = null;
         private readonly ICMSCacheContent _cacheArticles = null;
 
-        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
-        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
+        static bool _useGrpc = Convert.ToBoolean(BWConfiguration.Instance.UseGrpc);
+        static bool _logGrpcErrors = Convert.ToBoolean(BWConfiguration.Instance.LogGrpcErrors);
         static readonly ILog _logger = LogManager.GetLogger(typeof(BikeModels<T, U>));
-
-        static uint _applicationid = Convert.ToUInt32(ConfigurationManager.AppSettings["applicationId"]);
+        static uint _applicationid = Convert.ToUInt32(BWConfiguration.Instance.ApplicationId);
 
 
         public BikeModels()
@@ -1155,7 +1154,10 @@ namespace Bikewale.BAL.BikeData
             return objModelArticles;
         }
 
-
+        /// <summary>
+        /// Author: Prasad Gawde
+        /// </summary>
+        /// <returns></returns>
         private IEnumerable<BikeVideoEntity> GetVideosByModelIdViaGrpc(int modelId)
         {
             IEnumerable<BikeVideoEntity> videoDTOList = null;

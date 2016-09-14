@@ -29,6 +29,8 @@ namespace EditCMSWindowsService.Messages {
     static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcVideoListEntity> __Marshaller_GrpcVideoListEntity = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcVideoListEntity.Parser.ParseFrom);
     static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcVideosByIdURI> __Marshaller_GrpcVideosByIdURI = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcVideosByIdURI.Parser.ParseFrom);
     static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcVideo> __Marshaller_GrpcVideo = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcVideo.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.EditCMSCategory> __Marshaller_EditCMSCategory = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.EditCMSCategory.Parser.ParseFrom);
+    static readonly Marshaller<global::EditCMSWindowsService.Messages.GrpcBool> __Marshaller_GrpcBool = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EditCMSWindowsService.Messages.GrpcBool.Parser.ParseFrom);
 
     static readonly Method<global::EditCMSWindowsService.Messages.GrpcArticleRecentURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList> __Method_GetMostRecentArticles = new Method<global::EditCMSWindowsService.Messages.GrpcArticleRecentURI, global::EditCMSWindowsService.Messages.GrpcArticleSummaryList>(
         MethodType.Unary,
@@ -128,6 +130,13 @@ namespace EditCMSWindowsService.Messages {
         __Marshaller_GrpcInt,
         __Marshaller_GrpcInt);
 
+    static readonly Method<global::EditCMSWindowsService.Messages.EditCMSCategory, global::EditCMSWindowsService.Messages.GrpcBool> __Method_ClearMemcachedKeys = new Method<global::EditCMSWindowsService.Messages.EditCMSCategory, global::EditCMSWindowsService.Messages.GrpcBool>(
+        MethodType.Unary,
+        __ServiceName,
+        "ClearMemcachedKeys",
+        __Marshaller_EditCMSCategory,
+        __Marshaller_GrpcBool);
+
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
     {
@@ -203,6 +212,11 @@ namespace EditCMSWindowsService.Messages {
       }
 
       public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcInt> CheckHeartBit(global::EditCMSWindowsService.Messages.GrpcInt request, ServerCallContext context)
+      {
+        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::EditCMSWindowsService.Messages.GrpcBool> ClearMemcachedKeys(global::EditCMSWindowsService.Messages.EditCMSCategory request, ServerCallContext context)
       {
         throw new RpcException(new Status(StatusCode.Unimplemented, ""));
       }
@@ -456,6 +470,22 @@ namespace EditCMSWindowsService.Messages {
       {
         return CallInvoker.AsyncUnaryCall(__Method_CheckHeartBit, null, options, request);
       }
+      public virtual global::EditCMSWindowsService.Messages.GrpcBool ClearMemcachedKeys(global::EditCMSWindowsService.Messages.EditCMSCategory request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return ClearMemcachedKeys(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::EditCMSWindowsService.Messages.GrpcBool ClearMemcachedKeys(global::EditCMSWindowsService.Messages.EditCMSCategory request, CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_ClearMemcachedKeys, null, options, request);
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcBool> ClearMemcachedKeysAsync(global::EditCMSWindowsService.Messages.EditCMSCategory request, Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return ClearMemcachedKeysAsync(request, new CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual AsyncUnaryCall<global::EditCMSWindowsService.Messages.GrpcBool> ClearMemcachedKeysAsync(global::EditCMSWindowsService.Messages.EditCMSCategory request, CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_ClearMemcachedKeys, null, options, request);
+      }
       protected override EditCMSGrpcServiceClient NewInstance(ClientBaseConfiguration configuration)
       {
         return new EditCMSGrpcServiceClient(configuration);
@@ -479,7 +509,8 @@ namespace EditCMSWindowsService.Messages {
           .AddMethod(__Method_GetVideosByMakeId, serviceImpl.GetVideosByMakeId)
           .AddMethod(__Method_GetSimilarVideos, serviceImpl.GetSimilarVideos)
           .AddMethod(__Method_GetVideoByBasicId, serviceImpl.GetVideoByBasicId)
-          .AddMethod(__Method_CheckHeartBit, serviceImpl.CheckHeartBit).Build();
+          .AddMethod(__Method_CheckHeartBit, serviceImpl.CheckHeartBit)
+          .AddMethod(__Method_ClearMemcachedKeys, serviceImpl.ClearMemcachedKeys).Build();
     }
 
   }

@@ -24,7 +24,7 @@ namespace Bikewale.BAL.Videos
         static string _requestType;
         static string _applicationid;
 
-        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
+        static bool _logGrpcErrors = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.LogGrpcErrors);
         static readonly ILog _logger = LogManager.GetLogger(typeof(Videos));
         static bool _useGrpc = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.UseGrpc);
 
@@ -49,7 +49,10 @@ namespace Bikewale.BAL.Videos
             return GetVideosByCategoryIdViaGrpc((int)categoryId, totalCount);
         }
 
-
+        /// <summary>
+        /// Author: Prasad Gawde
+        /// </summary>
+        /// <returns></returns>
         private IEnumerable<BikeVideoEntity> GetVideosByCategoryIdViaGrpc(int categoryId, ushort totalCount)
         {
             IEnumerable<BikeVideoEntity> videoDTOList = null;
@@ -118,35 +121,25 @@ namespace Bikewale.BAL.Videos
         {
             BikeVideosListEntity objVideosList = null;
             try
-            {               
-                    if (_useGrpc)
+            {
+                if (_useGrpc)
+                {
+
+                    var _objVideoList = GrpcMethods.GetVideosBySubCategories(categoryIdList);
+
+                    if (_objVideoList != null && _objVideoList.TotalRecords > 0)
                     {
-
-                        var _objVideoList = GrpcMethods.GetVideosBySubCategories(categoryIdList);
-
-                        if (_objVideoList != null && _objVideoList.TotalRecords> 0)
-                        {
-                            objVideosList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objVideoList);
-                        }
-                        else
-                        {
-                            objVideosList = GetVideosBySubCategoryOldWay(categoryIdList, pageNo, pageSize, sortOrder);
-                        }
+                        objVideosList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objVideoList);
                     }
                     else
                     {
                         objVideosList = GetVideosBySubCategoryOldWay(categoryIdList, pageNo, pageSize, sortOrder);
                     }
-                              
-                /*if (sortOrder.HasValue)
-                {
-                    _apiUrl = String.Format("/api/v1/videos/subcategory/{0}/?appId=2&pageNo={1}&pageSize={2}&sortCategory={3}", categoryIdList, pageNo, pageSize, sortOrder);
                 }
                 else
                 {
-                    _apiUrl = String.Format("/api/v1/videos/subcategory/{0}/?appId=2&pageNo={1}&pageSize={2}", categoryIdList, pageNo, pageSize);
+                    objVideosList = GetVideosBySubCategoryOldWay(categoryIdList, pageNo, pageSize, sortOrder);
                 }
-                */
             }
             catch (Exception err)
             {
@@ -201,6 +194,10 @@ namespace Bikewale.BAL.Videos
             return GetSimilarVideosViaGrpc(videoId, totalCount);
         }
 
+        /// <summary>
+        /// Author: Prasad Gawde
+        /// </summary>
+        /// <returns></returns>
         private IEnumerable<BikeVideoEntity> GetSimilarVideosViaGrpc(uint videoId, ushort totalCount)
         {
             IEnumerable<BikeVideoEntity> videoDTOList = null;
@@ -267,6 +264,10 @@ namespace Bikewale.BAL.Videos
             return GetVideoDetailsViaGrpc(videoBasicId);
         }
 
+        /// <summary>
+        /// Author: Prasad Gawde
+        /// </summary>
+        /// <returns></returns>
         private BikeVideoEntity GetVideoDetailsViaGrpc(uint videoId)
         {
             BikeVideoEntity videoDet = null;
@@ -335,6 +336,10 @@ namespace Bikewale.BAL.Videos
             return GetVideosByMakeModelViaGrpc(pageNo, pageSize, makeId, modelId);
         }
 
+        /// <summary>
+        /// Author: Prasad Gawde
+        /// </summary>
+        /// <returns></returns>
         private IEnumerable<BikeVideoEntity> GetVideosByMakeModelViaGrpc(ushort pageNo, ushort pageSize, uint makeId, uint? modelId = null)
         {
             IEnumerable<BikeVideoEntity> videoDTOList = null;

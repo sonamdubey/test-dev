@@ -25,7 +25,7 @@ namespace Bikewale.Service.Videos.Controllers
     {
         string _applicationid = Utility.BWConfiguration.Instance.ApplicationId;
 
-        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
+        static bool _logGrpcErrors = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.LogGrpcErrors);
         static readonly ILog _logger = LogManager.GetLogger(typeof(VideosController));
         static bool _useGrpc = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.UseGrpc);
 
@@ -63,6 +63,10 @@ namespace Bikewale.Service.Videos.Controllers
 
         }  //get  Categorized Videos 
 
+        /// <summary>
+        /// Author: Prasad Gawde
+        /// </summary>
+        /// <returns></returns>
         private VideosList GetVideosByCategoryIdViaGrpc(int categoryId, uint pageNo, uint pageSize)
         {
             VideosList videoDTOList = null;
@@ -173,7 +177,10 @@ namespace Bikewale.Service.Videos.Controllers
 
         }  //get  Model/Makes Videos 
 
-
+        /// <summary>
+        /// Author: Prasad Gawde
+        /// </summary>
+        /// <returns></returns>
         private VideosList GetVideosByMakeIdViaGrpc(uint pageNo, uint pageSize, int makeId)
         {
             VideosList videoDTOList = null;
@@ -283,6 +290,10 @@ namespace Bikewale.Service.Videos.Controllers
             }
         }
 
+        /// <summary>
+        /// Author: Prasad Gawde
+        /// </summary>
+        /// <returns></returns>
         private VideosList GetVideosByModelIdViaGrpc(uint pageNo, uint pageSize, int modelId)
         {
             VideosList videoDTOList = null;

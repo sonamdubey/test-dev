@@ -10,7 +10,6 @@ using scg = global::System.Collections.Generic;
 namespace EditCMSWindowsService.Messages {
 
   /// <summary>Holder for reflection information generated from Messages.proto</summary>
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public static partial class MessagesReflection {
 
     #region Descriptor
@@ -24,133 +23,140 @@ namespace EditCMSWindowsService.Messages {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "Cg5NZXNzYWdlcy5wcm90bxIVRWRpdENNU1dpbmRvd3NTZXJ2aWNlIhwKB0dy",
-            "cGNJbnQSEQoJaW50T3V0cHV0GAEgASgFIk8KEUdycGNGZWF0dXJlQ2FyVVJJ",
-            "EhIKCnZlcnNpb25JZHMYASABKAkSEgoKY2F0ZWdvcnlJZBgCIAEoBRISCgpw",
-            "bGF0Zm9ybUlkGAMgASgFImEKD0dycGNBcnRpY2xlQmFzZRIPCgdCYXNpY0lk",
-            "GAEgASgEEg0KBVRpdGxlGAIgASgJEhIKCkFydGljbGVVcmwYAyABKAkSGgoS",
-            "Q29tcGxldGVBcnRpY2xlVXJsGAQgASgJIu4DChJHcnBjQXJ0aWNsZVN1bW1h",
-            "cnkSOwoLQXJ0aWNsZUJhc2UYASABKAsyJi5FZGl0Q01TV2luZG93c1NlcnZp",
-            "Y2UuR3JwY0FydGljbGVCYXNlEhIKCkNhdGVnb3J5SWQYAiABKA0SDwoHSG9z",
-            "dFVybBgDIAEoCRITCgtMYXJnZVBpY1VybBgEIAEoCRITCgtTbWFsbFBpY1Vy",
-            "bBgFIAEoCRIWCg5PcmlnaW5hbEltZ1VybBgGIAEoCRITCgtEZXNjcmlwdGlv",
-            "bhgHIAEoCRISCgpBdXRob3JOYW1lGAggASgJEhMKC0Rpc3BsYXlEYXRlGAkg",
-            "ASgJEg0KBVZpZXdzGAogASgNEhAKCElzU3RpY2t5GAsgASgIEhwKFEZhY2Vi",
-            "b29rQ29tbWVudENvdW50GAwgASgNEhAKCE1ha2VOYW1lGA0gASgJEhMKC01h",
-            "c2tpbmdOYW1lGA4gASgJEhMKC1N1YkNhdGVnb3J5GA8gASgJEhEKCU1vZGVs",
-            "TmFtZRgQIAEoCRIcChRGb3JtYXR0ZWREaXNwbGF5RGF0ZRgRIAEoCRIZChFB",
-            "dXRob3JNYXNraW5nTmFtZRgSIAEoCRISCgpJc0ZlYXR1cmVkGBMgASgIEhsK",
-            "E0NhdGVnb3J5TWFza2luZ05hbWUYFCABKAkiZgoOR3JwY0NNU0NvbnRlbnQS",
-            "EwoLUmVjb3JkQ291bnQYASABKA0SPwoIQXJ0aWNsZXMYAiABKAsyLS5FZGl0",
-            "Q01TV2luZG93c1NlcnZpY2UuR3JwY0FydGljbGVTdW1tYXJ5TGlzdCJPCghH",
-            "cnBjUGFnZRIOCgZwYWdlSWQYASABKAQSEAoIUHJpb3JpdHkYAiABKA0SEAoI",
-            "UGFnZU5hbWUYAyABKAkSDwoHQ29udGVudBgEIAEoCSK0AwoWR3JwY0FydGlj",
-            "bGVQYWdlRGV0YWlscxJBCg5BcnRpY2xlU3VtbWFyeRgBIAEoCzIpLkVkaXRD",
-            "TVNXaW5kb3dzU2VydmljZS5HcnBjQXJ0aWNsZVN1bW1hcnkSMQoIUGFnZUxp",
-            "c3QYAiADKAsyHy5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY1BhZ2USEAoI",
-            "VGFnc0xpc3QYAyADKAkSPQoOVmVoaWNsVGFnc0xpc3QYBCADKAsyJS5FZGl0",
-            "Q01TV2luZG93c1NlcnZpY2UuR3JwY1ZlaGljbGVUYWcSOwoLTmV4dEFydGlj",
-            "bGUYBSABKAsyJi5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY0FydGljbGVC",
-            "YXNlEjsKC1ByZXZBcnRpY2xlGAYgASgLMiYuRWRpdENNU1dpbmRvd3NTZXJ2",
-            "aWNlLkdycGNBcnRpY2xlQmFzZRIWCg5NYWluSW1nQ2FwdGlvbhgHIAEoCRIW",
-            "Cg5Jc01haW5JbWFnZVNldBgIIAEoCBITCgtTaG93R2FsbGVyeRgJIAEoCBIU",
-            "CgxDYXRlZ29yeU5hbWUYCiABKAki4wIKEkdycGNBcnRpY2xlRGV0YWlscxIP",
-            "CgdDb250ZW50GAEgASgJEhAKCFRhZ3NMaXN0GAIgAygJEj0KDlZlaGljbFRh",
-            "Z3NMaXN0GAMgAygLMiUuRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNWZWhp",
-            "Y2xlVGFnEjsKC05leHRBcnRpY2xlGAQgASgLMiYuRWRpdENNU1dpbmRvd3NT",
-            "ZXJ2aWNlLkdycGNBcnRpY2xlQmFzZRI7CgtQcmV2QXJ0aWNsZRgFIAEoCzIm",
-            "LkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjQXJ0aWNsZUJhc2USFgoOTWFp",
-            "bkltZ0NhcHRpb24YBiABKAkSFgoOSXNNYWluSW1hZ2VTZXQYByABKAgSQQoO",
-            "QXJ0aWNsZVN1bW1hcnkYCCABKAsyKS5FZGl0Q01TV2luZG93c1NlcnZpY2Uu",
-            "R3JwY0FydGljbGVTdW1tYXJ5ItQBCg5HcnBjVmVoaWNsZVRhZxI+CghNYWtl",
-            "QmFzZRgBIAEoCzIsLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjQ2FyTWFr",
-            "ZUVudGl0eUJhc2USQAoJTW9kZWxCYXNlGAIgASgLMi0uRWRpdENNU1dpbmRv",
-            "d3NTZXJ2aWNlLkdycGNDYXJNb2RlbEVudGl0eUJhc2USQAoLVmVyc2lvbkJh",
-            "c2UYAyABKAsyKy5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY0NhclZlcnNp",
-            "b25FbnRpdHkiUQoWR3JwY0Nhck1vZGVsRW50aXR5QmFzZRIPCgdNb2RlbElk",
-            "GAEgASgFEhEKCU1vZGVsTmFtZRgCIAEoCRITCgtNYXNraW5nTmFtZRgDIAEo",
-            "CSIwChRHcnBjQ2FyVmVyc2lvbkVudGl0eRIKCgJJZBgBIAEoBRIMCgROYW1l",
-            "GAIgASgJIjkKFUdycGNDYXJNYWtlRW50aXR5QmFzZRIOCgZNYWtlSWQYASAB",
-            "KAUSEAoITWFrZU5hbWUYAiABKAkimwMKDkdycGNNb2RlbEltYWdlEg8KB0lt",
-            "YWdlSWQYASABKA0SDwoHSG9zdFVybBgCIAEoCRIaChJJbWFnZVBhdGhUaHVt",
-            "Ym5haWwYAyABKAkSFgoOSW1hZ2VQYXRoTGFyZ2UYBCABKAkSFwoPT3JpZ2lu",
-            "YWxJbWdQYXRoGAUgASgJEhkKEU1haW5JbWdDYXRlZ29yeUlkGAYgASgFEhUK",
-            "DUltYWdlQ2F0ZWdvcnkYByABKAkSDwoHQ2FwdGlvbhgIIAEoCRIRCglJbWFn",
-            "ZU5hbWUYCSABKAkSFAoMQWx0SW1hZ2VOYW1lGAogASgJEhIKCkltYWdlVGl0",
-            "bGUYCyABKAkSGAoQSW1hZ2VEZXNjcmlwdGlvbhgMIAEoCRI+CghNYWtlQmFz",
-            "ZRgNIAEoCzIsLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjQ2FyTWFrZUVu",
-            "dGl0eUJhc2USQAoJTW9kZWxCYXNlGA4gASgLMi0uRWRpdENNU1dpbmRvd3NT",
-            "ZXJ2aWNlLkdycGNDYXJNb2RlbEVudGl0eUJhc2UiiwEKE0dycGNBcnRpY2xl",
-            "QnlDYXRVUkkSFgoOQ2F0ZWdvcnlJZExpc3QYASABKAkSFQoNQXBwbGljYXRp",
-            "b25JZBgCIAEoDRISCgpTdGFydEluZGV4GAMgASgNEhAKCEVuZEluZGV4GAQg",
-            "ASgNEg4KBk1ha2VJZBgFIAEoBRIPCgdNb2RlbElkGAYgASgFIigKFUdycGNB",
-            "cnRpY2xlQ29udGVudFVSSRIPCgdCYXNpY0lkGAEgASgEImcKEUdycGNNb2Rl",
-            "bFBob3RvVVJJEhUKDUFwcGxpY2F0aW9uSWQYASABKA0SDwoHTW9kZWxJZBgC",
-            "IAEoBRIWCg5DYXRlZ29yeUlkTGlzdBgDIAEoCRISCgpQbGF0Zm9ybUlkGAQg",
-            "ASgJInoKFEdycGNBcnRpY2xlUmVjZW50VVJJEhUKDUFwcGxpY2F0aW9uSWQY",
-            "ASABKA0SFAoMQ29udGVudFR5cGVzGAIgASgJEhQKDFRvdGFsUmVjb3JkcxgD",
-            "IAEoDRIOCgZNYWtlSWQYBCABKAUSDwoHTW9kZWxJZBgFIAEoBSJiChZHcnBj",
-            "QXJ0aWNsZVN1bW1hcnlMaXN0EkgKFUxzdEdycGNBcnRpY2xlU3VtbWFyeRgB",
-            "IAMoCzIpLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjQXJ0aWNsZVN1bW1h",
-            "cnkiVgoSR3JwY01vZGVsSW1hZ2VMaXN0EkAKEUxzdEdycGNNb2RlbEltYWdl",
-            "GAEgAygLMiUuRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNNb2RlbEltYWdl",
-            "IoEDCglHcnBjVmlkZW8SEgoKVmlkZW9UaXRsZRgBIAEoCRIQCghWaWRlb1Vy",
-            "bBgCIAEoCRIPCgdWaWRlb0lkGAMgASgJEg0KBVZpZXdzGAQgASgFEg0KBUxp",
-            "a2VzGAUgASgFEhMKC0Rlc2NyaXB0aW9uGAYgASgJEg8KB0Jhc2ljSWQYByAB",
-            "KAUSDAoEVGFncxgIIAEoCRIQCghEdXJhdGlvbhgJIAEoBRIQCghNYWtlTmFt",
-            "ZRgLIAEoCRIRCglNb2RlbE5hbWUYDCABKAkSEwoLTWFza2luZ05hbWUYDSAB",
-            "KAkSEAoIU3ViQ2F0SWQYDiABKAkSEgoKU3ViQ2F0TmFtZRgPIAEoCRIVCg1W",
-            "aWRlb1RpdGxlVXJsGBAgASgJEg8KB0ltZ0hvc3QYESABKAkSFQoNVGh1bWJu",
-            "YWlsUGF0aBgSIAEoCRIRCglJbWFnZVBhdGgYEyABKAkSEwoLRGlzcGxheURh",
-            "dGUYFCABKAkSEgoKSXNGZWF0dXJlZBgVIAEoCCKMAQoTR3JwY1ZpZGVvTGlz",
-            "dEVudGl0eRI1CgZWaWRlb3MYASABKAsyJS5FZGl0Q01TV2luZG93c1NlcnZp",
-            "Y2UuR3JwY1ZpZGVvc0xpc3QSFAoMVG90YWxSZWNvcmRzGAIgASgFEhMKC1By",
-            "ZXZQYWdlVXJsGAMgASgJEhMKC05leHRQYWdlVXJsGAQgASgJIkkKDkdycGNW",
-            "aWRlb3NMaXN0EjcKDUxzdEdycGNWaWRlb3MYASADKAsyIC5FZGl0Q01TV2lu",
-            "ZG93c1NlcnZpY2UuR3JwY1ZpZGVvIkoKGkdycGNWaWRlb3NCeVN1YkNhdGVn",
-            "b3J5VVJJEhUKDVN1YkNhdGVnb3J5SWQYASABKA0SFQoNQXBwbGljYXRpb25J",
-            "ZBgCIAEoDSI2ChFHcnBjVmlkZW9zQnlJZFVSSRIKCgJJZBgBIAEoBRIVCg1B",
-            "cHBsaWNhdGlvbklkGAIgASgNIk0KHEdycGNWaWRlb3NCeVN1YkNhdGVnb3Jp",
-            "ZXNVUkkSFgoOU3ViQ2F0ZWdvcnlJZHMYASABKAkSFQoNQXBwbGljYXRpb25J",
-            "ZBgCIAEoDTL/CwoSRWRpdENNU0dycGNTZXJ2aWNlEnUKFUdldE1vc3RSZWNl",
-            "bnRBcnRpY2xlcxIrLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjQXJ0aWNs",
-            "ZVJlY2VudFVSSRotLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjQXJ0aWNs",
-            "ZVN1bW1hcnlMaXN0IgASbwoYR2V0Q29udGVudExpc3RCeUNhdGVnb3J5Eiou",
-            "RWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNBcnRpY2xlQnlDYXRVUkkaJS5F",
-            "ZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY0NNU0NvbnRlbnQiABJuChFHZXRD",
-            "b250ZW50RGV0YWlscxIsLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjQXJ0",
-            "aWNsZUNvbnRlbnRVUkkaKS5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY0Fy",
-            "dGljbGVEZXRhaWxzIgAScAoPR2V0Q29udGVudFBhZ2VzEiwuRWRpdENNU1dp",
-            "bmRvd3NTZXJ2aWNlLkdycGNBcnRpY2xlQ29udGVudFVSSRotLkVkaXRDTVNX",
-            "aW5kb3dzU2VydmljZS5HcnBjQXJ0aWNsZVBhZ2VEZXRhaWxzIgASawoSR2V0",
-            "TW9kZWxQaG90b3NMaXN0EiguRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNN",
-            "b2RlbFBob3RvVVJJGikuRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNNb2Rl",
-            "bEltYWdlTGlzdCIAEm0KEEdldEFydGljbGVQaG90b3MSLC5FZGl0Q01TV2lu",
-            "ZG93c1NlcnZpY2UuR3JwY0FydGljbGVDb250ZW50VVJJGikuRWRpdENNU1dp",
-            "bmRvd3NTZXJ2aWNlLkdycGNNb2RlbEltYWdlTGlzdCIAEmAKEkdycGNHZXRG",
-            "ZWF0dXJlZENhchIoLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjRmVhdHVy",
-            "ZUNhclVSSRoeLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjSW50IgASdAoW",
-            "R2V0VmlkZW9zQnlTdWJDYXRlZ29yeRIxLkVkaXRDTVNXaW5kb3dzU2Vydmlj",
-            "ZS5HcnBjVmlkZW9zQnlTdWJDYXRlZ29yeVVSSRolLkVkaXRDTVNXaW5kb3dz",
-            "U2VydmljZS5HcnBjVmlkZW9zTGlzdCIAEn0KGEdldFZpZGVvc0J5U3ViQ2F0",
-            "ZWdvcmllcxIzLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjVmlkZW9zQnlT",
-            "dWJDYXRlZ29yaWVzVVJJGiouRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNW",
-            "aWRlb0xpc3RFbnRpdHkiABJnChJHZXRWaWRlb3NCeU1vZGVsSWQSKC5FZGl0",
-            "Q01TV2luZG93c1NlcnZpY2UuR3JwY1ZpZGVvc0J5SWRVUkkaJS5FZGl0Q01T",
-            "V2luZG93c1NlcnZpY2UuR3JwY1ZpZGVvc0xpc3QiABJmChFHZXRWaWRlb3NC",
-            "eU1ha2VJZBIoLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjVmlkZW9zQnlJ",
-            "ZFVSSRolLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjVmlkZW9zTGlzdCIA",
-            "EmUKEEdldFNpbWlsYXJWaWRlb3MSKC5FZGl0Q01TV2luZG93c1NlcnZpY2Uu",
-            "R3JwY1ZpZGVvc0J5SWRVUkkaJS5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3Jw",
-            "Y1ZpZGVvc0xpc3QiABJhChFHZXRWaWRlb0J5QmFzaWNJZBIoLkVkaXRDTVNX",
-            "aW5kb3dzU2VydmljZS5HcnBjVmlkZW9zQnlJZFVSSRogLkVkaXRDTVNXaW5k",
-            "b3dzU2VydmljZS5HcnBjVmlkZW8iABJRCg1DaGVja0hlYXJ0Qml0Eh4uRWRp",
-            "dENNU1dpbmRvd3NTZXJ2aWNlLkdycGNJbnQaHi5FZGl0Q01TV2luZG93c1Nl",
-            "cnZpY2UuR3JwY0ludCIAQiGqAh5FZGl0Q01TV2luZG93c1NlcnZpY2UuTWVz",
-            "c2FnZXNiBnByb3RvMw=="));
+            "cGNJbnQSEQoJaW50T3V0cHV0GAEgASgFIh4KCEdycGNCb29sEhIKCmJvb2xP",
+            "dXRwdXQYASABKAgiTwoRR3JwY0ZlYXR1cmVDYXJVUkkSEgoKdmVyc2lvbklk",
+            "cxgBIAEoCRISCgpjYXRlZ29yeUlkGAIgASgFEhIKCnBsYXRmb3JtSWQYAyAB",
+            "KAUiYQoPR3JwY0FydGljbGVCYXNlEg8KB0Jhc2ljSWQYASABKAQSDQoFVGl0",
+            "bGUYAiABKAkSEgoKQXJ0aWNsZVVybBgDIAEoCRIaChJDb21wbGV0ZUFydGlj",
+            "bGVVcmwYBCABKAki7gMKEkdycGNBcnRpY2xlU3VtbWFyeRI7CgtBcnRpY2xl",
+            "QmFzZRgBIAEoCzImLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjQXJ0aWNs",
+            "ZUJhc2USEgoKQ2F0ZWdvcnlJZBgCIAEoDRIPCgdIb3N0VXJsGAMgASgJEhMK",
+            "C0xhcmdlUGljVXJsGAQgASgJEhMKC1NtYWxsUGljVXJsGAUgASgJEhYKDk9y",
+            "aWdpbmFsSW1nVXJsGAYgASgJEhMKC0Rlc2NyaXB0aW9uGAcgASgJEhIKCkF1",
+            "dGhvck5hbWUYCCABKAkSEwoLRGlzcGxheURhdGUYCSABKAkSDQoFVmlld3MY",
+            "CiABKA0SEAoISXNTdGlja3kYCyABKAgSHAoURmFjZWJvb2tDb21tZW50Q291",
+            "bnQYDCABKA0SEAoITWFrZU5hbWUYDSABKAkSEwoLTWFza2luZ05hbWUYDiAB",
+            "KAkSEwoLU3ViQ2F0ZWdvcnkYDyABKAkSEQoJTW9kZWxOYW1lGBAgASgJEhwK",
+            "FEZvcm1hdHRlZERpc3BsYXlEYXRlGBEgASgJEhkKEUF1dGhvck1hc2tpbmdO",
+            "YW1lGBIgASgJEhIKCklzRmVhdHVyZWQYEyABKAgSGwoTQ2F0ZWdvcnlNYXNr",
+            "aW5nTmFtZRgUIAEoCSJmCg5HcnBjQ01TQ29udGVudBITCgtSZWNvcmRDb3Vu",
+            "dBgBIAEoDRI/CghBcnRpY2xlcxgCIAEoCzItLkVkaXRDTVNXaW5kb3dzU2Vy",
+            "dmljZS5HcnBjQXJ0aWNsZVN1bW1hcnlMaXN0Ik8KCEdycGNQYWdlEg4KBnBh",
+            "Z2VJZBgBIAEoBBIQCghQcmlvcml0eRgCIAEoDRIQCghQYWdlTmFtZRgDIAEo",
+            "CRIPCgdDb250ZW50GAQgASgJIrQDChZHcnBjQXJ0aWNsZVBhZ2VEZXRhaWxz",
+            "EkEKDkFydGljbGVTdW1tYXJ5GAEgASgLMikuRWRpdENNU1dpbmRvd3NTZXJ2",
+            "aWNlLkdycGNBcnRpY2xlU3VtbWFyeRIxCghQYWdlTGlzdBgCIAMoCzIfLkVk",
+            "aXRDTVNXaW5kb3dzU2VydmljZS5HcnBjUGFnZRIQCghUYWdzTGlzdBgDIAMo",
+            "CRI9Cg5WZWhpY2xUYWdzTGlzdBgEIAMoCzIlLkVkaXRDTVNXaW5kb3dzU2Vy",
+            "dmljZS5HcnBjVmVoaWNsZVRhZxI7CgtOZXh0QXJ0aWNsZRgFIAEoCzImLkVk",
+            "aXRDTVNXaW5kb3dzU2VydmljZS5HcnBjQXJ0aWNsZUJhc2USOwoLUHJldkFy",
+            "dGljbGUYBiABKAsyJi5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY0FydGlj",
+            "bGVCYXNlEhYKDk1haW5JbWdDYXB0aW9uGAcgASgJEhYKDklzTWFpbkltYWdl",
+            "U2V0GAggASgIEhMKC1Nob3dHYWxsZXJ5GAkgASgIEhQKDENhdGVnb3J5TmFt",
+            "ZRgKIAEoCSLjAgoSR3JwY0FydGljbGVEZXRhaWxzEg8KB0NvbnRlbnQYASAB",
+            "KAkSEAoIVGFnc0xpc3QYAiADKAkSPQoOVmVoaWNsVGFnc0xpc3QYAyADKAsy",
+            "JS5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY1ZlaGljbGVUYWcSOwoLTmV4",
+            "dEFydGljbGUYBCABKAsyJi5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY0Fy",
+            "dGljbGVCYXNlEjsKC1ByZXZBcnRpY2xlGAUgASgLMiYuRWRpdENNU1dpbmRv",
+            "d3NTZXJ2aWNlLkdycGNBcnRpY2xlQmFzZRIWCg5NYWluSW1nQ2FwdGlvbhgG",
+            "IAEoCRIWCg5Jc01haW5JbWFnZVNldBgHIAEoCBJBCg5BcnRpY2xlU3VtbWFy",
+            "eRgIIAEoCzIpLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjQXJ0aWNsZVN1",
+            "bW1hcnki1AEKDkdycGNWZWhpY2xlVGFnEj4KCE1ha2VCYXNlGAEgASgLMiwu",
+            "RWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNDYXJNYWtlRW50aXR5QmFzZRJA",
+            "CglNb2RlbEJhc2UYAiABKAsyLS5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3Jw",
+            "Y0Nhck1vZGVsRW50aXR5QmFzZRJACgtWZXJzaW9uQmFzZRgDIAEoCzIrLkVk",
+            "aXRDTVNXaW5kb3dzU2VydmljZS5HcnBjQ2FyVmVyc2lvbkVudGl0eSJRChZH",
+            "cnBjQ2FyTW9kZWxFbnRpdHlCYXNlEg8KB01vZGVsSWQYASABKAUSEQoJTW9k",
+            "ZWxOYW1lGAIgASgJEhMKC01hc2tpbmdOYW1lGAMgASgJIjAKFEdycGNDYXJW",
+            "ZXJzaW9uRW50aXR5EgoKAklkGAEgASgFEgwKBE5hbWUYAiABKAkiOQoVR3Jw",
+            "Y0Nhck1ha2VFbnRpdHlCYXNlEg4KBk1ha2VJZBgBIAEoBRIQCghNYWtlTmFt",
+            "ZRgCIAEoCSKbAwoOR3JwY01vZGVsSW1hZ2USDwoHSW1hZ2VJZBgBIAEoDRIP",
+            "CgdIb3N0VXJsGAIgASgJEhoKEkltYWdlUGF0aFRodW1ibmFpbBgDIAEoCRIW",
+            "Cg5JbWFnZVBhdGhMYXJnZRgEIAEoCRIXCg9PcmlnaW5hbEltZ1BhdGgYBSAB",
+            "KAkSGQoRTWFpbkltZ0NhdGVnb3J5SWQYBiABKAUSFQoNSW1hZ2VDYXRlZ29y",
+            "eRgHIAEoCRIPCgdDYXB0aW9uGAggASgJEhEKCUltYWdlTmFtZRgJIAEoCRIU",
+            "CgxBbHRJbWFnZU5hbWUYCiABKAkSEgoKSW1hZ2VUaXRsZRgLIAEoCRIYChBJ",
+            "bWFnZURlc2NyaXB0aW9uGAwgASgJEj4KCE1ha2VCYXNlGA0gASgLMiwuRWRp",
+            "dENNU1dpbmRvd3NTZXJ2aWNlLkdycGNDYXJNYWtlRW50aXR5QmFzZRJACglN",
+            "b2RlbEJhc2UYDiABKAsyLS5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY0Nh",
+            "ck1vZGVsRW50aXR5QmFzZSKLAQoTR3JwY0FydGljbGVCeUNhdFVSSRIWCg5D",
+            "YXRlZ29yeUlkTGlzdBgBIAEoCRIVCg1BcHBsaWNhdGlvbklkGAIgASgNEhIK",
+            "ClN0YXJ0SW5kZXgYAyABKA0SEAoIRW5kSW5kZXgYBCABKA0SDgoGTWFrZUlk",
+            "GAUgASgFEg8KB01vZGVsSWQYBiABKAUiKAoVR3JwY0FydGljbGVDb250ZW50",
+            "VVJJEg8KB0Jhc2ljSWQYASABKAQiZwoRR3JwY01vZGVsUGhvdG9VUkkSFQoN",
+            "QXBwbGljYXRpb25JZBgBIAEoDRIPCgdNb2RlbElkGAIgASgFEhYKDkNhdGVn",
+            "b3J5SWRMaXN0GAMgASgJEhIKClBsYXRmb3JtSWQYBCABKAkiegoUR3JwY0Fy",
+            "dGljbGVSZWNlbnRVUkkSFQoNQXBwbGljYXRpb25JZBgBIAEoDRIUCgxDb250",
+            "ZW50VHlwZXMYAiABKAkSFAoMVG90YWxSZWNvcmRzGAMgASgNEg4KBk1ha2VJ",
+            "ZBgEIAEoBRIPCgdNb2RlbElkGAUgASgFImIKFkdycGNBcnRpY2xlU3VtbWFy",
+            "eUxpc3QSSAoVTHN0R3JwY0FydGljbGVTdW1tYXJ5GAEgAygLMikuRWRpdENN",
+            "U1dpbmRvd3NTZXJ2aWNlLkdycGNBcnRpY2xlU3VtbWFyeSJWChJHcnBjTW9k",
+            "ZWxJbWFnZUxpc3QSQAoRTHN0R3JwY01vZGVsSW1hZ2UYASADKAsyJS5FZGl0",
+            "Q01TV2luZG93c1NlcnZpY2UuR3JwY01vZGVsSW1hZ2UigQMKCUdycGNWaWRl",
+            "bxISCgpWaWRlb1RpdGxlGAEgASgJEhAKCFZpZGVvVXJsGAIgASgJEg8KB1Zp",
+            "ZGVvSWQYAyABKAkSDQoFVmlld3MYBCABKAUSDQoFTGlrZXMYBSABKAUSEwoL",
+            "RGVzY3JpcHRpb24YBiABKAkSDwoHQmFzaWNJZBgHIAEoBRIMCgRUYWdzGAgg",
+            "ASgJEhAKCER1cmF0aW9uGAkgASgFEhAKCE1ha2VOYW1lGAsgASgJEhEKCU1v",
+            "ZGVsTmFtZRgMIAEoCRITCgtNYXNraW5nTmFtZRgNIAEoCRIQCghTdWJDYXRJ",
+            "ZBgOIAEoCRISCgpTdWJDYXROYW1lGA8gASgJEhUKDVZpZGVvVGl0bGVVcmwY",
+            "ECABKAkSDwoHSW1nSG9zdBgRIAEoCRIVCg1UaHVtYm5haWxQYXRoGBIgASgJ",
+            "EhEKCUltYWdlUGF0aBgTIAEoCRITCgtEaXNwbGF5RGF0ZRgUIAEoCRISCgpJ",
+            "c0ZlYXR1cmVkGBUgASgIIowBChNHcnBjVmlkZW9MaXN0RW50aXR5EjUKBlZp",
+            "ZGVvcxgBIAEoCzIlLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjVmlkZW9z",
+            "TGlzdBIUCgxUb3RhbFJlY29yZHMYAiABKAUSEwoLUHJldlBhZ2VVcmwYAyAB",
+            "KAkSEwoLTmV4dFBhZ2VVcmwYBCABKAkiSQoOR3JwY1ZpZGVvc0xpc3QSNwoN",
+            "THN0R3JwY1ZpZGVvcxgBIAMoCzIgLkVkaXRDTVNXaW5kb3dzU2VydmljZS5H",
+            "cnBjVmlkZW8iSgoaR3JwY1ZpZGVvc0J5U3ViQ2F0ZWdvcnlVUkkSFQoNU3Vi",
+            "Q2F0ZWdvcnlJZBgBIAEoDRIVCg1BcHBsaWNhdGlvbklkGAIgASgNIjYKEUdy",
+            "cGNWaWRlb3NCeUlkVVJJEgoKAklkGAEgASgFEhUKDUFwcGxpY2F0aW9uSWQY",
+            "AiABKA0iTQocR3JwY1ZpZGVvc0J5U3ViQ2F0ZWdvcmllc1VSSRIWCg5TdWJD",
+            "YXRlZ29yeUlkcxgBIAEoCRIVCg1BcHBsaWNhdGlvbklkGAIgASgNIk8KD0Vk",
+            "aXRDTVNDYXRlZ29yeRI8CghDYXRlZ29yeRgBIAEoDjIqLkVkaXRDTVNXaW5k",
+            "b3dzU2VydmljZS5FZGl0Q01TQ2F0ZWdvcnlFbnVtKlUKE0VkaXRDTVNDYXRl",
+            "Z29yeUVudW0SCAoETmV3cxAAEhEKDUV4cGVydFJldmlld3MQARIMCghGZWF0",
+            "dXJlcxACEgoKBlZpZGVvcxADEgcKA0FsbBAEMuAMChJFZGl0Q01TR3JwY1Nl",
+            "cnZpY2USdQoVR2V0TW9zdFJlY2VudEFydGljbGVzEisuRWRpdENNU1dpbmRv",
+            "d3NTZXJ2aWNlLkdycGNBcnRpY2xlUmVjZW50VVJJGi0uRWRpdENNU1dpbmRv",
+            "d3NTZXJ2aWNlLkdycGNBcnRpY2xlU3VtbWFyeUxpc3QiABJvChhHZXRDb250",
+            "ZW50TGlzdEJ5Q2F0ZWdvcnkSKi5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3Jw",
+            "Y0FydGljbGVCeUNhdFVSSRolLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBj",
+            "Q01TQ29udGVudCIAEm4KEUdldENvbnRlbnREZXRhaWxzEiwuRWRpdENNU1dp",
+            "bmRvd3NTZXJ2aWNlLkdycGNBcnRpY2xlQ29udGVudFVSSRopLkVkaXRDTVNX",
+            "aW5kb3dzU2VydmljZS5HcnBjQXJ0aWNsZURldGFpbHMiABJwCg9HZXRDb250",
+            "ZW50UGFnZXMSLC5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY0FydGljbGVD",
+            "b250ZW50VVJJGi0uRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNBcnRpY2xl",
+            "UGFnZURldGFpbHMiABJrChJHZXRNb2RlbFBob3Rvc0xpc3QSKC5FZGl0Q01T",
+            "V2luZG93c1NlcnZpY2UuR3JwY01vZGVsUGhvdG9VUkkaKS5FZGl0Q01TV2lu",
+            "ZG93c1NlcnZpY2UuR3JwY01vZGVsSW1hZ2VMaXN0IgASbQoQR2V0QXJ0aWNs",
+            "ZVBob3RvcxIsLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjQXJ0aWNsZUNv",
+            "bnRlbnRVUkkaKS5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY01vZGVsSW1h",
+            "Z2VMaXN0IgASYAoSR3JwY0dldEZlYXR1cmVkQ2FyEiguRWRpdENNU1dpbmRv",
+            "d3NTZXJ2aWNlLkdycGNGZWF0dXJlQ2FyVVJJGh4uRWRpdENNU1dpbmRvd3NT",
+            "ZXJ2aWNlLkdycGNJbnQiABJ0ChZHZXRWaWRlb3NCeVN1YkNhdGVnb3J5EjEu",
+            "RWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNWaWRlb3NCeVN1YkNhdGVnb3J5",
+            "VVJJGiUuRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNWaWRlb3NMaXN0IgAS",
+            "fQoYR2V0VmlkZW9zQnlTdWJDYXRlZ29yaWVzEjMuRWRpdENNU1dpbmRvd3NT",
+            "ZXJ2aWNlLkdycGNWaWRlb3NCeVN1YkNhdGVnb3JpZXNVUkkaKi5FZGl0Q01T",
+            "V2luZG93c1NlcnZpY2UuR3JwY1ZpZGVvTGlzdEVudGl0eSIAEmcKEkdldFZp",
+            "ZGVvc0J5TW9kZWxJZBIoLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjVmlk",
+            "ZW9zQnlJZFVSSRolLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjVmlkZW9z",
+            "TGlzdCIAEmYKEUdldFZpZGVvc0J5TWFrZUlkEiguRWRpdENNU1dpbmRvd3NT",
+            "ZXJ2aWNlLkdycGNWaWRlb3NCeUlkVVJJGiUuRWRpdENNU1dpbmRvd3NTZXJ2",
+            "aWNlLkdycGNWaWRlb3NMaXN0IgASZQoQR2V0U2ltaWxhclZpZGVvcxIoLkVk",
+            "aXRDTVNXaW5kb3dzU2VydmljZS5HcnBjVmlkZW9zQnlJZFVSSRolLkVkaXRD",
+            "TVNXaW5kb3dzU2VydmljZS5HcnBjVmlkZW9zTGlzdCIAEmEKEUdldFZpZGVv",
+            "QnlCYXNpY0lkEiguRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNWaWRlb3NC",
+            "eUlkVVJJGiAuRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNWaWRlbyIAElEK",
+            "DUNoZWNrSGVhcnRCaXQSHi5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY0lu",
+            "dBoeLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjSW50IgASXwoSQ2xlYXJN",
+            "ZW1jYWNoZWRLZXlzEiYuRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkVkaXRDTVND",
+            "YXRlZ29yeRofLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjQm9vbCIAQiGq",
+            "Ah5FZGl0Q01TV2luZG93c1NlcnZpY2UuTWVzc2FnZXNiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::EditCMSWindowsService.Messages.EditCMSCategoryEnum), }, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcInt), global::EditCMSWindowsService.Messages.GrpcInt.Parser, new[]{ "IntOutput" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcBool), global::EditCMSWindowsService.Messages.GrpcBool.Parser, new[]{ "BoolOutput" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcFeatureCarURI), global::EditCMSWindowsService.Messages.GrpcFeatureCarURI.Parser, new[]{ "VersionIds", "CategoryId", "PlatformId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcArticleBase), global::EditCMSWindowsService.Messages.GrpcArticleBase.Parser, new[]{ "BasicId", "Title", "ArticleUrl", "CompleteArticleUrl" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcArticleSummary), global::EditCMSWindowsService.Messages.GrpcArticleSummary.Parser, new[]{ "ArticleBase", "CategoryId", "HostUrl", "LargePicUrl", "SmallPicUrl", "OriginalImgUrl", "Description", "AuthorName", "DisplayDate", "Views", "IsSticky", "FacebookCommentCount", "MakeName", "MaskingName", "SubCategory", "ModelName", "FormattedDisplayDate", "AuthorMaskingName", "IsFeatured", "CategoryMaskingName" }, null, null, null),
@@ -174,36 +180,53 @@ namespace EditCMSWindowsService.Messages {
             new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcVideosList), global::EditCMSWindowsService.Messages.GrpcVideosList.Parser, new[]{ "LstGrpcVideos" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI), global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI.Parser, new[]{ "SubCategoryId", "ApplicationId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI), global::EditCMSWindowsService.Messages.GrpcVideosByIdURI.Parser, new[]{ "Id", "ApplicationId" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI), global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI.Parser, new[]{ "SubCategoryIds", "ApplicationId" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI), global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI.Parser, new[]{ "SubCategoryIds", "ApplicationId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.EditCMSCategory), global::EditCMSWindowsService.Messages.EditCMSCategory.Parser, new[]{ "Category" }, null, null, null)
           }));
     }
     #endregion
 
   }
+  #region Enums
+  public enum EditCMSCategoryEnum {
+    [pbr::OriginalName("News")] News = 0,
+    [pbr::OriginalName("ExpertReviews")] ExpertReviews = 1,
+    [pbr::OriginalName("Features")] Features = 2,
+    [pbr::OriginalName("Videos")] Videos = 3,
+    [pbr::OriginalName("All")] All = 4,
+  }
+
+  #endregion
+
   #region Messages
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public sealed partial class GrpcInt : pb::IMessage<GrpcInt> {
     private static readonly pb::MessageParser<GrpcInt> _parser = new pb::MessageParser<GrpcInt>(() => new GrpcInt());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<GrpcInt> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
       get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[0]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcInt() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcInt(GrpcInt other) : this() {
       intOutput_ = other.intOutput_;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcInt Clone() {
       return new GrpcInt(this);
     }
@@ -211,6 +234,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "intOutput" field.</summary>
     public const int IntOutputFieldNumber = 1;
     private int intOutput_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int IntOutput {
       get { return intOutput_; }
       set {
@@ -218,10 +242,12 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcInt);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcInt other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -233,16 +259,19 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       if (IntOutput != 0) hash ^= IntOutput.GetHashCode();
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (IntOutput != 0) {
         output.WriteRawTag(8);
@@ -250,6 +279,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       if (IntOutput != 0) {
@@ -258,6 +288,7 @@ namespace EditCMSWindowsService.Messages {
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcInt other) {
       if (other == null) {
         return;
@@ -267,6 +298,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -284,31 +316,153 @@ namespace EditCMSWindowsService.Messages {
 
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-  public sealed partial class GrpcFeatureCarURI : pb::IMessage<GrpcFeatureCarURI> {
-    private static readonly pb::MessageParser<GrpcFeatureCarURI> _parser = new pb::MessageParser<GrpcFeatureCarURI>(() => new GrpcFeatureCarURI());
-    public static pb::MessageParser<GrpcFeatureCarURI> Parser { get { return _parser; } }
+  public sealed partial class GrpcBool : pb::IMessage<GrpcBool> {
+    private static readonly pb::MessageParser<GrpcBool> _parser = new pb::MessageParser<GrpcBool>(() => new GrpcBool());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<GrpcBool> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
       get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[1]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GrpcBool() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GrpcBool(GrpcBool other) : this() {
+      boolOutput_ = other.boolOutput_;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GrpcBool Clone() {
+      return new GrpcBool(this);
+    }
+
+    /// <summary>Field number for the "boolOutput" field.</summary>
+    public const int BoolOutputFieldNumber = 1;
+    private bool boolOutput_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool BoolOutput {
+      get { return boolOutput_; }
+      set {
+        boolOutput_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as GrpcBool);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(GrpcBool other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (BoolOutput != other.BoolOutput) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (BoolOutput != false) hash ^= BoolOutput.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (BoolOutput != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(BoolOutput);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (BoolOutput != false) {
+        size += 1 + 1;
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(GrpcBool other) {
+      if (other == null) {
+        return;
+      }
+      if (other.BoolOutput != false) {
+        BoolOutput = other.BoolOutput;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            BoolOutput = input.ReadBool();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class GrpcFeatureCarURI : pb::IMessage<GrpcFeatureCarURI> {
+    private static readonly pb::MessageParser<GrpcFeatureCarURI> _parser = new pb::MessageParser<GrpcFeatureCarURI>(() => new GrpcFeatureCarURI());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<GrpcFeatureCarURI> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcFeatureCarURI() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcFeatureCarURI(GrpcFeatureCarURI other) : this() {
       versionIds_ = other.versionIds_;
       categoryId_ = other.categoryId_;
       platformId_ = other.platformId_;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcFeatureCarURI Clone() {
       return new GrpcFeatureCarURI(this);
     }
@@ -316,6 +470,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "versionIds" field.</summary>
     public const int VersionIdsFieldNumber = 1;
     private string versionIds_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string VersionIds {
       get { return versionIds_; }
       set {
@@ -326,6 +481,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "categoryId" field.</summary>
     public const int CategoryIdFieldNumber = 2;
     private int categoryId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CategoryId {
       get { return categoryId_; }
       set {
@@ -336,6 +492,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "platformId" field.</summary>
     public const int PlatformIdFieldNumber = 3;
     private int platformId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int PlatformId {
       get { return platformId_; }
       set {
@@ -343,10 +500,12 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcFeatureCarURI);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcFeatureCarURI other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -360,6 +519,7 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       if (VersionIds.Length != 0) hash ^= VersionIds.GetHashCode();
@@ -368,10 +528,12 @@ namespace EditCMSWindowsService.Messages {
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (VersionIds.Length != 0) {
         output.WriteRawTag(10);
@@ -387,6 +549,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       if (VersionIds.Length != 0) {
@@ -401,6 +564,7 @@ namespace EditCMSWindowsService.Messages {
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcFeatureCarURI other) {
       if (other == null) {
         return;
@@ -416,6 +580,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -441,25 +606,29 @@ namespace EditCMSWindowsService.Messages {
 
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public sealed partial class GrpcArticleBase : pb::IMessage<GrpcArticleBase> {
     private static readonly pb::MessageParser<GrpcArticleBase> _parser = new pb::MessageParser<GrpcArticleBase>(() => new GrpcArticleBase());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<GrpcArticleBase> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[2]; }
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[3]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcArticleBase() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcArticleBase(GrpcArticleBase other) : this() {
       basicId_ = other.basicId_;
       title_ = other.title_;
@@ -467,6 +636,7 @@ namespace EditCMSWindowsService.Messages {
       completeArticleUrl_ = other.completeArticleUrl_;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcArticleBase Clone() {
       return new GrpcArticleBase(this);
     }
@@ -474,6 +644,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "BasicId" field.</summary>
     public const int BasicIdFieldNumber = 1;
     private ulong basicId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public ulong BasicId {
       get { return basicId_; }
       set {
@@ -484,6 +655,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "Title" field.</summary>
     public const int TitleFieldNumber = 2;
     private string title_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string Title {
       get { return title_; }
       set {
@@ -494,6 +666,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ArticleUrl" field.</summary>
     public const int ArticleUrlFieldNumber = 3;
     private string articleUrl_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string ArticleUrl {
       get { return articleUrl_; }
       set {
@@ -504,6 +677,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "CompleteArticleUrl" field.</summary>
     public const int CompleteArticleUrlFieldNumber = 4;
     private string completeArticleUrl_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string CompleteArticleUrl {
       get { return completeArticleUrl_; }
       set {
@@ -511,10 +685,12 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcArticleBase);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcArticleBase other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -529,6 +705,7 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       if (BasicId != 0UL) hash ^= BasicId.GetHashCode();
@@ -538,10 +715,12 @@ namespace EditCMSWindowsService.Messages {
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (BasicId != 0UL) {
         output.WriteRawTag(8);
@@ -561,6 +740,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       if (BasicId != 0UL) {
@@ -578,6 +758,7 @@ namespace EditCMSWindowsService.Messages {
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcArticleBase other) {
       if (other == null) {
         return;
@@ -596,6 +777,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -625,25 +807,29 @@ namespace EditCMSWindowsService.Messages {
 
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public sealed partial class GrpcArticleSummary : pb::IMessage<GrpcArticleSummary> {
     private static readonly pb::MessageParser<GrpcArticleSummary> _parser = new pb::MessageParser<GrpcArticleSummary>(() => new GrpcArticleSummary());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<GrpcArticleSummary> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[3]; }
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[4]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcArticleSummary() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcArticleSummary(GrpcArticleSummary other) : this() {
       ArticleBase = other.articleBase_ != null ? other.ArticleBase.Clone() : null;
       categoryId_ = other.categoryId_;
@@ -667,6 +853,7 @@ namespace EditCMSWindowsService.Messages {
       categoryMaskingName_ = other.categoryMaskingName_;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcArticleSummary Clone() {
       return new GrpcArticleSummary(this);
     }
@@ -674,6 +861,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ArticleBase" field.</summary>
     public const int ArticleBaseFieldNumber = 1;
     private global::EditCMSWindowsService.Messages.GrpcArticleBase articleBase_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::EditCMSWindowsService.Messages.GrpcArticleBase ArticleBase {
       get { return articleBase_; }
       set {
@@ -684,6 +872,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "CategoryId" field.</summary>
     public const int CategoryIdFieldNumber = 2;
     private uint categoryId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public uint CategoryId {
       get { return categoryId_; }
       set {
@@ -694,6 +883,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "HostUrl" field.</summary>
     public const int HostUrlFieldNumber = 3;
     private string hostUrl_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string HostUrl {
       get { return hostUrl_; }
       set {
@@ -704,6 +894,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "LargePicUrl" field.</summary>
     public const int LargePicUrlFieldNumber = 4;
     private string largePicUrl_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string LargePicUrl {
       get { return largePicUrl_; }
       set {
@@ -714,6 +905,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "SmallPicUrl" field.</summary>
     public const int SmallPicUrlFieldNumber = 5;
     private string smallPicUrl_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string SmallPicUrl {
       get { return smallPicUrl_; }
       set {
@@ -724,6 +916,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "OriginalImgUrl" field.</summary>
     public const int OriginalImgUrlFieldNumber = 6;
     private string originalImgUrl_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string OriginalImgUrl {
       get { return originalImgUrl_; }
       set {
@@ -734,6 +927,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "Description" field.</summary>
     public const int DescriptionFieldNumber = 7;
     private string description_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string Description {
       get { return description_; }
       set {
@@ -744,6 +938,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "AuthorName" field.</summary>
     public const int AuthorNameFieldNumber = 8;
     private string authorName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string AuthorName {
       get { return authorName_; }
       set {
@@ -754,6 +949,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "DisplayDate" field.</summary>
     public const int DisplayDateFieldNumber = 9;
     private string displayDate_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string DisplayDate {
       get { return displayDate_; }
       set {
@@ -764,6 +960,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "Views" field.</summary>
     public const int ViewsFieldNumber = 10;
     private uint views_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public uint Views {
       get { return views_; }
       set {
@@ -774,6 +971,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "IsSticky" field.</summary>
     public const int IsStickyFieldNumber = 11;
     private bool isSticky_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool IsSticky {
       get { return isSticky_; }
       set {
@@ -784,6 +982,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "FacebookCommentCount" field.</summary>
     public const int FacebookCommentCountFieldNumber = 12;
     private uint facebookCommentCount_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public uint FacebookCommentCount {
       get { return facebookCommentCount_; }
       set {
@@ -794,6 +993,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "MakeName" field.</summary>
     public const int MakeNameFieldNumber = 13;
     private string makeName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string MakeName {
       get { return makeName_; }
       set {
@@ -804,6 +1004,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "MaskingName" field.</summary>
     public const int MaskingNameFieldNumber = 14;
     private string maskingName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string MaskingName {
       get { return maskingName_; }
       set {
@@ -814,6 +1015,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "SubCategory" field.</summary>
     public const int SubCategoryFieldNumber = 15;
     private string subCategory_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string SubCategory {
       get { return subCategory_; }
       set {
@@ -824,6 +1026,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ModelName" field.</summary>
     public const int ModelNameFieldNumber = 16;
     private string modelName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string ModelName {
       get { return modelName_; }
       set {
@@ -834,6 +1037,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "FormattedDisplayDate" field.</summary>
     public const int FormattedDisplayDateFieldNumber = 17;
     private string formattedDisplayDate_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string FormattedDisplayDate {
       get { return formattedDisplayDate_; }
       set {
@@ -844,6 +1048,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "AuthorMaskingName" field.</summary>
     public const int AuthorMaskingNameFieldNumber = 18;
     private string authorMaskingName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string AuthorMaskingName {
       get { return authorMaskingName_; }
       set {
@@ -854,6 +1059,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "IsFeatured" field.</summary>
     public const int IsFeaturedFieldNumber = 19;
     private bool isFeatured_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool IsFeatured {
       get { return isFeatured_; }
       set {
@@ -864,6 +1070,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "CategoryMaskingName" field.</summary>
     public const int CategoryMaskingNameFieldNumber = 20;
     private string categoryMaskingName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string CategoryMaskingName {
       get { return categoryMaskingName_; }
       set {
@@ -871,10 +1078,12 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcArticleSummary);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcArticleSummary other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -905,6 +1114,7 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       if (articleBase_ != null) hash ^= ArticleBase.GetHashCode();
@@ -930,10 +1140,12 @@ namespace EditCMSWindowsService.Messages {
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (articleBase_ != null) {
         output.WriteRawTag(10);
@@ -1017,6 +1229,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       if (articleBase_ != null) {
@@ -1082,6 +1295,7 @@ namespace EditCMSWindowsService.Messages {
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcArticleSummary other) {
       if (other == null) {
         return;
@@ -1151,6 +1365,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -1247,30 +1462,35 @@ namespace EditCMSWindowsService.Messages {
 
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public sealed partial class GrpcCMSContent : pb::IMessage<GrpcCMSContent> {
     private static readonly pb::MessageParser<GrpcCMSContent> _parser = new pb::MessageParser<GrpcCMSContent>(() => new GrpcCMSContent());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<GrpcCMSContent> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[4]; }
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[5]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcCMSContent() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcCMSContent(GrpcCMSContent other) : this() {
       recordCount_ = other.recordCount_;
       Articles = other.articles_ != null ? other.Articles.Clone() : null;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcCMSContent Clone() {
       return new GrpcCMSContent(this);
     }
@@ -1278,6 +1498,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "RecordCount" field.</summary>
     public const int RecordCountFieldNumber = 1;
     private uint recordCount_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public uint RecordCount {
       get { return recordCount_; }
       set {
@@ -1288,6 +1509,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "Articles" field.</summary>
     public const int ArticlesFieldNumber = 2;
     private global::EditCMSWindowsService.Messages.GrpcArticleSummaryList articles_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::EditCMSWindowsService.Messages.GrpcArticleSummaryList Articles {
       get { return articles_; }
       set {
@@ -1295,10 +1517,12 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcCMSContent);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcCMSContent other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -1311,6 +1535,7 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       if (RecordCount != 0) hash ^= RecordCount.GetHashCode();
@@ -1318,10 +1543,12 @@ namespace EditCMSWindowsService.Messages {
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (RecordCount != 0) {
         output.WriteRawTag(8);
@@ -1333,6 +1560,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       if (RecordCount != 0) {
@@ -1344,6 +1572,7 @@ namespace EditCMSWindowsService.Messages {
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcCMSContent other) {
       if (other == null) {
         return;
@@ -1359,6 +1588,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -1383,25 +1613,29 @@ namespace EditCMSWindowsService.Messages {
 
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public sealed partial class GrpcPage : pb::IMessage<GrpcPage> {
     private static readonly pb::MessageParser<GrpcPage> _parser = new pb::MessageParser<GrpcPage>(() => new GrpcPage());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<GrpcPage> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[5]; }
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[6]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcPage() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcPage(GrpcPage other) : this() {
       pageId_ = other.pageId_;
       priority_ = other.priority_;
@@ -1409,6 +1643,7 @@ namespace EditCMSWindowsService.Messages {
       content_ = other.content_;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcPage Clone() {
       return new GrpcPage(this);
     }
@@ -1416,6 +1651,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "pageId" field.</summary>
     public const int PageIdFieldNumber = 1;
     private ulong pageId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public ulong PageId {
       get { return pageId_; }
       set {
@@ -1426,6 +1662,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "Priority" field.</summary>
     public const int PriorityFieldNumber = 2;
     private uint priority_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public uint Priority {
       get { return priority_; }
       set {
@@ -1436,6 +1673,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "PageName" field.</summary>
     public const int PageNameFieldNumber = 3;
     private string pageName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string PageName {
       get { return pageName_; }
       set {
@@ -1446,6 +1684,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "Content" field.</summary>
     public const int ContentFieldNumber = 4;
     private string content_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string Content {
       get { return content_; }
       set {
@@ -1453,10 +1692,12 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcPage);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcPage other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -1471,6 +1712,7 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       if (PageId != 0UL) hash ^= PageId.GetHashCode();
@@ -1480,10 +1722,12 @@ namespace EditCMSWindowsService.Messages {
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (PageId != 0UL) {
         output.WriteRawTag(8);
@@ -1503,6 +1747,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       if (PageId != 0UL) {
@@ -1520,6 +1765,7 @@ namespace EditCMSWindowsService.Messages {
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcPage other) {
       if (other == null) {
         return;
@@ -1538,6 +1784,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -1567,25 +1814,29 @@ namespace EditCMSWindowsService.Messages {
 
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public sealed partial class GrpcArticlePageDetails : pb::IMessage<GrpcArticlePageDetails> {
     private static readonly pb::MessageParser<GrpcArticlePageDetails> _parser = new pb::MessageParser<GrpcArticlePageDetails>(() => new GrpcArticlePageDetails());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<GrpcArticlePageDetails> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[6]; }
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[7]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcArticlePageDetails() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcArticlePageDetails(GrpcArticlePageDetails other) : this() {
       ArticleSummary = other.articleSummary_ != null ? other.ArticleSummary.Clone() : null;
       pageList_ = other.pageList_.Clone();
@@ -1599,6 +1850,7 @@ namespace EditCMSWindowsService.Messages {
       categoryName_ = other.categoryName_;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcArticlePageDetails Clone() {
       return new GrpcArticlePageDetails(this);
     }
@@ -1606,6 +1858,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ArticleSummary" field.</summary>
     public const int ArticleSummaryFieldNumber = 1;
     private global::EditCMSWindowsService.Messages.GrpcArticleSummary articleSummary_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::EditCMSWindowsService.Messages.GrpcArticleSummary ArticleSummary {
       get { return articleSummary_; }
       set {
@@ -1618,6 +1871,7 @@ namespace EditCMSWindowsService.Messages {
     private static readonly pb::FieldCodec<global::EditCMSWindowsService.Messages.GrpcPage> _repeated_pageList_codec
         = pb::FieldCodec.ForMessage(18, global::EditCMSWindowsService.Messages.GrpcPage.Parser);
     private readonly pbc::RepeatedField<global::EditCMSWindowsService.Messages.GrpcPage> pageList_ = new pbc::RepeatedField<global::EditCMSWindowsService.Messages.GrpcPage>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public pbc::RepeatedField<global::EditCMSWindowsService.Messages.GrpcPage> PageList {
       get { return pageList_; }
     }
@@ -1627,6 +1881,7 @@ namespace EditCMSWindowsService.Messages {
     private static readonly pb::FieldCodec<string> _repeated_tagsList_codec
         = pb::FieldCodec.ForString(26);
     private readonly pbc::RepeatedField<string> tagsList_ = new pbc::RepeatedField<string>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public pbc::RepeatedField<string> TagsList {
       get { return tagsList_; }
     }
@@ -1636,6 +1891,7 @@ namespace EditCMSWindowsService.Messages {
     private static readonly pb::FieldCodec<global::EditCMSWindowsService.Messages.GrpcVehicleTag> _repeated_vehiclTagsList_codec
         = pb::FieldCodec.ForMessage(34, global::EditCMSWindowsService.Messages.GrpcVehicleTag.Parser);
     private readonly pbc::RepeatedField<global::EditCMSWindowsService.Messages.GrpcVehicleTag> vehiclTagsList_ = new pbc::RepeatedField<global::EditCMSWindowsService.Messages.GrpcVehicleTag>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public pbc::RepeatedField<global::EditCMSWindowsService.Messages.GrpcVehicleTag> VehiclTagsList {
       get { return vehiclTagsList_; }
     }
@@ -1643,6 +1899,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "NextArticle" field.</summary>
     public const int NextArticleFieldNumber = 5;
     private global::EditCMSWindowsService.Messages.GrpcArticleBase nextArticle_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::EditCMSWindowsService.Messages.GrpcArticleBase NextArticle {
       get { return nextArticle_; }
       set {
@@ -1653,6 +1910,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "PrevArticle" field.</summary>
     public const int PrevArticleFieldNumber = 6;
     private global::EditCMSWindowsService.Messages.GrpcArticleBase prevArticle_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::EditCMSWindowsService.Messages.GrpcArticleBase PrevArticle {
       get { return prevArticle_; }
       set {
@@ -1663,6 +1921,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "MainImgCaption" field.</summary>
     public const int MainImgCaptionFieldNumber = 7;
     private string mainImgCaption_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string MainImgCaption {
       get { return mainImgCaption_; }
       set {
@@ -1673,6 +1932,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "IsMainImageSet" field.</summary>
     public const int IsMainImageSetFieldNumber = 8;
     private bool isMainImageSet_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool IsMainImageSet {
       get { return isMainImageSet_; }
       set {
@@ -1683,6 +1943,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ShowGallery" field.</summary>
     public const int ShowGalleryFieldNumber = 9;
     private bool showGallery_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool ShowGallery {
       get { return showGallery_; }
       set {
@@ -1693,6 +1954,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "CategoryName" field.</summary>
     public const int CategoryNameFieldNumber = 10;
     private string categoryName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string CategoryName {
       get { return categoryName_; }
       set {
@@ -1700,10 +1962,12 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcArticlePageDetails);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcArticlePageDetails other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -1724,6 +1988,7 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       if (articleSummary_ != null) hash ^= ArticleSummary.GetHashCode();
@@ -1739,10 +2004,12 @@ namespace EditCMSWindowsService.Messages {
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (articleSummary_ != null) {
         output.WriteRawTag(10);
@@ -1777,6 +2044,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       if (articleSummary_ != null) {
@@ -1806,6 +2074,7 @@ namespace EditCMSWindowsService.Messages {
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcArticlePageDetails other) {
       if (other == null) {
         return;
@@ -1845,6 +2114,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -1907,25 +2177,29 @@ namespace EditCMSWindowsService.Messages {
 
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public sealed partial class GrpcArticleDetails : pb::IMessage<GrpcArticleDetails> {
     private static readonly pb::MessageParser<GrpcArticleDetails> _parser = new pb::MessageParser<GrpcArticleDetails>(() => new GrpcArticleDetails());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<GrpcArticleDetails> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[7]; }
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[8]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcArticleDetails() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcArticleDetails(GrpcArticleDetails other) : this() {
       content_ = other.content_;
       tagsList_ = other.tagsList_.Clone();
@@ -1937,6 +2211,7 @@ namespace EditCMSWindowsService.Messages {
       ArticleSummary = other.articleSummary_ != null ? other.ArticleSummary.Clone() : null;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcArticleDetails Clone() {
       return new GrpcArticleDetails(this);
     }
@@ -1944,6 +2219,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "Content" field.</summary>
     public const int ContentFieldNumber = 1;
     private string content_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string Content {
       get { return content_; }
       set {
@@ -1956,6 +2232,7 @@ namespace EditCMSWindowsService.Messages {
     private static readonly pb::FieldCodec<string> _repeated_tagsList_codec
         = pb::FieldCodec.ForString(18);
     private readonly pbc::RepeatedField<string> tagsList_ = new pbc::RepeatedField<string>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public pbc::RepeatedField<string> TagsList {
       get { return tagsList_; }
     }
@@ -1965,6 +2242,7 @@ namespace EditCMSWindowsService.Messages {
     private static readonly pb::FieldCodec<global::EditCMSWindowsService.Messages.GrpcVehicleTag> _repeated_vehiclTagsList_codec
         = pb::FieldCodec.ForMessage(26, global::EditCMSWindowsService.Messages.GrpcVehicleTag.Parser);
     private readonly pbc::RepeatedField<global::EditCMSWindowsService.Messages.GrpcVehicleTag> vehiclTagsList_ = new pbc::RepeatedField<global::EditCMSWindowsService.Messages.GrpcVehicleTag>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public pbc::RepeatedField<global::EditCMSWindowsService.Messages.GrpcVehicleTag> VehiclTagsList {
       get { return vehiclTagsList_; }
     }
@@ -1972,6 +2250,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "NextArticle" field.</summary>
     public const int NextArticleFieldNumber = 4;
     private global::EditCMSWindowsService.Messages.GrpcArticleBase nextArticle_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::EditCMSWindowsService.Messages.GrpcArticleBase NextArticle {
       get { return nextArticle_; }
       set {
@@ -1982,6 +2261,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "PrevArticle" field.</summary>
     public const int PrevArticleFieldNumber = 5;
     private global::EditCMSWindowsService.Messages.GrpcArticleBase prevArticle_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::EditCMSWindowsService.Messages.GrpcArticleBase PrevArticle {
       get { return prevArticle_; }
       set {
@@ -1992,6 +2272,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "MainImgCaption" field.</summary>
     public const int MainImgCaptionFieldNumber = 6;
     private string mainImgCaption_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string MainImgCaption {
       get { return mainImgCaption_; }
       set {
@@ -2002,6 +2283,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "IsMainImageSet" field.</summary>
     public const int IsMainImageSetFieldNumber = 7;
     private bool isMainImageSet_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool IsMainImageSet {
       get { return isMainImageSet_; }
       set {
@@ -2012,6 +2294,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ArticleSummary" field.</summary>
     public const int ArticleSummaryFieldNumber = 8;
     private global::EditCMSWindowsService.Messages.GrpcArticleSummary articleSummary_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::EditCMSWindowsService.Messages.GrpcArticleSummary ArticleSummary {
       get { return articleSummary_; }
       set {
@@ -2019,10 +2302,12 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcArticleDetails);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcArticleDetails other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -2041,6 +2326,7 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       if (Content.Length != 0) hash ^= Content.GetHashCode();
@@ -2054,10 +2340,12 @@ namespace EditCMSWindowsService.Messages {
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (Content.Length != 0) {
         output.WriteRawTag(10);
@@ -2087,6 +2375,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       if (Content.Length != 0) {
@@ -2112,6 +2401,7 @@ namespace EditCMSWindowsService.Messages {
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcArticleDetails other) {
       if (other == null) {
         return;
@@ -2147,6 +2437,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -2201,31 +2492,36 @@ namespace EditCMSWindowsService.Messages {
 
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public sealed partial class GrpcVehicleTag : pb::IMessage<GrpcVehicleTag> {
     private static readonly pb::MessageParser<GrpcVehicleTag> _parser = new pb::MessageParser<GrpcVehicleTag>(() => new GrpcVehicleTag());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<GrpcVehicleTag> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[8]; }
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[9]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcVehicleTag() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcVehicleTag(GrpcVehicleTag other) : this() {
       MakeBase = other.makeBase_ != null ? other.MakeBase.Clone() : null;
       ModelBase = other.modelBase_ != null ? other.ModelBase.Clone() : null;
       VersionBase = other.versionBase_ != null ? other.VersionBase.Clone() : null;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcVehicleTag Clone() {
       return new GrpcVehicleTag(this);
     }
@@ -2233,6 +2529,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "MakeBase" field.</summary>
     public const int MakeBaseFieldNumber = 1;
     private global::EditCMSWindowsService.Messages.GrpcCarMakeEntityBase makeBase_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::EditCMSWindowsService.Messages.GrpcCarMakeEntityBase MakeBase {
       get { return makeBase_; }
       set {
@@ -2243,6 +2540,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ModelBase" field.</summary>
     public const int ModelBaseFieldNumber = 2;
     private global::EditCMSWindowsService.Messages.GrpcCarModelEntityBase modelBase_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::EditCMSWindowsService.Messages.GrpcCarModelEntityBase ModelBase {
       get { return modelBase_; }
       set {
@@ -2253,6 +2551,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "VersionBase" field.</summary>
     public const int VersionBaseFieldNumber = 3;
     private global::EditCMSWindowsService.Messages.GrpcCarVersionEntity versionBase_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::EditCMSWindowsService.Messages.GrpcCarVersionEntity VersionBase {
       get { return versionBase_; }
       set {
@@ -2260,10 +2559,12 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcVehicleTag);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcVehicleTag other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -2277,6 +2578,7 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       if (makeBase_ != null) hash ^= MakeBase.GetHashCode();
@@ -2285,10 +2587,12 @@ namespace EditCMSWindowsService.Messages {
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (makeBase_ != null) {
         output.WriteRawTag(10);
@@ -2304,6 +2608,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       if (makeBase_ != null) {
@@ -2318,6 +2623,7 @@ namespace EditCMSWindowsService.Messages {
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcVehicleTag other) {
       if (other == null) {
         return;
@@ -2342,6 +2648,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -2376,31 +2683,36 @@ namespace EditCMSWindowsService.Messages {
 
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public sealed partial class GrpcCarModelEntityBase : pb::IMessage<GrpcCarModelEntityBase> {
     private static readonly pb::MessageParser<GrpcCarModelEntityBase> _parser = new pb::MessageParser<GrpcCarModelEntityBase>(() => new GrpcCarModelEntityBase());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<GrpcCarModelEntityBase> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[9]; }
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[10]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcCarModelEntityBase() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcCarModelEntityBase(GrpcCarModelEntityBase other) : this() {
       modelId_ = other.modelId_;
       modelName_ = other.modelName_;
       maskingName_ = other.maskingName_;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcCarModelEntityBase Clone() {
       return new GrpcCarModelEntityBase(this);
     }
@@ -2408,6 +2720,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ModelId" field.</summary>
     public const int ModelIdFieldNumber = 1;
     private int modelId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int ModelId {
       get { return modelId_; }
       set {
@@ -2418,6 +2731,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ModelName" field.</summary>
     public const int ModelNameFieldNumber = 2;
     private string modelName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string ModelName {
       get { return modelName_; }
       set {
@@ -2428,6 +2742,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "MaskingName" field.</summary>
     public const int MaskingNameFieldNumber = 3;
     private string maskingName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string MaskingName {
       get { return maskingName_; }
       set {
@@ -2435,10 +2750,12 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcCarModelEntityBase);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcCarModelEntityBase other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -2452,6 +2769,7 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       if (ModelId != 0) hash ^= ModelId.GetHashCode();
@@ -2460,10 +2778,12 @@ namespace EditCMSWindowsService.Messages {
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (ModelId != 0) {
         output.WriteRawTag(8);
@@ -2479,6 +2799,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       if (ModelId != 0) {
@@ -2493,6 +2814,7 @@ namespace EditCMSWindowsService.Messages {
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcCarModelEntityBase other) {
       if (other == null) {
         return;
@@ -2508,6 +2830,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -2533,30 +2856,35 @@ namespace EditCMSWindowsService.Messages {
 
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public sealed partial class GrpcCarVersionEntity : pb::IMessage<GrpcCarVersionEntity> {
     private static readonly pb::MessageParser<GrpcCarVersionEntity> _parser = new pb::MessageParser<GrpcCarVersionEntity>(() => new GrpcCarVersionEntity());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<GrpcCarVersionEntity> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[10]; }
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[11]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcCarVersionEntity() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcCarVersionEntity(GrpcCarVersionEntity other) : this() {
       id_ = other.id_;
       name_ = other.name_;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcCarVersionEntity Clone() {
       return new GrpcCarVersionEntity(this);
     }
@@ -2564,6 +2892,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "Id" field.</summary>
     public const int IdFieldNumber = 1;
     private int id_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int Id {
       get { return id_; }
       set {
@@ -2574,6 +2903,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "Name" field.</summary>
     public const int NameFieldNumber = 2;
     private string name_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string Name {
       get { return name_; }
       set {
@@ -2581,10 +2911,12 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcCarVersionEntity);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcCarVersionEntity other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -2597,6 +2929,7 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       if (Id != 0) hash ^= Id.GetHashCode();
@@ -2604,10 +2937,12 @@ namespace EditCMSWindowsService.Messages {
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (Id != 0) {
         output.WriteRawTag(8);
@@ -2619,6 +2954,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       if (Id != 0) {
@@ -2630,6 +2966,7 @@ namespace EditCMSWindowsService.Messages {
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcCarVersionEntity other) {
       if (other == null) {
         return;
@@ -2642,6 +2979,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -2663,30 +3001,35 @@ namespace EditCMSWindowsService.Messages {
 
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public sealed partial class GrpcCarMakeEntityBase : pb::IMessage<GrpcCarMakeEntityBase> {
     private static readonly pb::MessageParser<GrpcCarMakeEntityBase> _parser = new pb::MessageParser<GrpcCarMakeEntityBase>(() => new GrpcCarMakeEntityBase());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<GrpcCarMakeEntityBase> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[11]; }
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[12]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcCarMakeEntityBase() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcCarMakeEntityBase(GrpcCarMakeEntityBase other) : this() {
       makeId_ = other.makeId_;
       makeName_ = other.makeName_;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcCarMakeEntityBase Clone() {
       return new GrpcCarMakeEntityBase(this);
     }
@@ -2694,6 +3037,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "MakeId" field.</summary>
     public const int MakeIdFieldNumber = 1;
     private int makeId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int MakeId {
       get { return makeId_; }
       set {
@@ -2704,6 +3048,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "MakeName" field.</summary>
     public const int MakeNameFieldNumber = 2;
     private string makeName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string MakeName {
       get { return makeName_; }
       set {
@@ -2711,10 +3056,12 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcCarMakeEntityBase);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcCarMakeEntityBase other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -2727,6 +3074,7 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       if (MakeId != 0) hash ^= MakeId.GetHashCode();
@@ -2734,10 +3082,12 @@ namespace EditCMSWindowsService.Messages {
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (MakeId != 0) {
         output.WriteRawTag(8);
@@ -2749,6 +3099,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       if (MakeId != 0) {
@@ -2760,6 +3111,7 @@ namespace EditCMSWindowsService.Messages {
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcCarMakeEntityBase other) {
       if (other == null) {
         return;
@@ -2772,6 +3124,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -2793,25 +3146,29 @@ namespace EditCMSWindowsService.Messages {
 
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public sealed partial class GrpcModelImage : pb::IMessage<GrpcModelImage> {
     private static readonly pb::MessageParser<GrpcModelImage> _parser = new pb::MessageParser<GrpcModelImage>(() => new GrpcModelImage());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<GrpcModelImage> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[12]; }
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[13]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcModelImage() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcModelImage(GrpcModelImage other) : this() {
       imageId_ = other.imageId_;
       hostUrl_ = other.hostUrl_;
@@ -2829,6 +3186,7 @@ namespace EditCMSWindowsService.Messages {
       ModelBase = other.modelBase_ != null ? other.ModelBase.Clone() : null;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcModelImage Clone() {
       return new GrpcModelImage(this);
     }
@@ -2836,6 +3194,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ImageId" field.</summary>
     public const int ImageIdFieldNumber = 1;
     private uint imageId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public uint ImageId {
       get { return imageId_; }
       set {
@@ -2846,6 +3205,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "HostUrl" field.</summary>
     public const int HostUrlFieldNumber = 2;
     private string hostUrl_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string HostUrl {
       get { return hostUrl_; }
       set {
@@ -2856,6 +3216,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ImagePathThumbnail" field.</summary>
     public const int ImagePathThumbnailFieldNumber = 3;
     private string imagePathThumbnail_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string ImagePathThumbnail {
       get { return imagePathThumbnail_; }
       set {
@@ -2866,6 +3227,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ImagePathLarge" field.</summary>
     public const int ImagePathLargeFieldNumber = 4;
     private string imagePathLarge_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string ImagePathLarge {
       get { return imagePathLarge_; }
       set {
@@ -2876,6 +3238,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "OriginalImgPath" field.</summary>
     public const int OriginalImgPathFieldNumber = 5;
     private string originalImgPath_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string OriginalImgPath {
       get { return originalImgPath_; }
       set {
@@ -2886,6 +3249,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "MainImgCategoryId" field.</summary>
     public const int MainImgCategoryIdFieldNumber = 6;
     private int mainImgCategoryId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int MainImgCategoryId {
       get { return mainImgCategoryId_; }
       set {
@@ -2896,6 +3260,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ImageCategory" field.</summary>
     public const int ImageCategoryFieldNumber = 7;
     private string imageCategory_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string ImageCategory {
       get { return imageCategory_; }
       set {
@@ -2906,6 +3271,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "Caption" field.</summary>
     public const int CaptionFieldNumber = 8;
     private string caption_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string Caption {
       get { return caption_; }
       set {
@@ -2916,6 +3282,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ImageName" field.</summary>
     public const int ImageNameFieldNumber = 9;
     private string imageName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string ImageName {
       get { return imageName_; }
       set {
@@ -2926,6 +3293,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "AltImageName" field.</summary>
     public const int AltImageNameFieldNumber = 10;
     private string altImageName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string AltImageName {
       get { return altImageName_; }
       set {
@@ -2936,6 +3304,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ImageTitle" field.</summary>
     public const int ImageTitleFieldNumber = 11;
     private string imageTitle_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string ImageTitle {
       get { return imageTitle_; }
       set {
@@ -2946,6 +3315,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ImageDescription" field.</summary>
     public const int ImageDescriptionFieldNumber = 12;
     private string imageDescription_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string ImageDescription {
       get { return imageDescription_; }
       set {
@@ -2956,6 +3326,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "MakeBase" field.</summary>
     public const int MakeBaseFieldNumber = 13;
     private global::EditCMSWindowsService.Messages.GrpcCarMakeEntityBase makeBase_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::EditCMSWindowsService.Messages.GrpcCarMakeEntityBase MakeBase {
       get { return makeBase_; }
       set {
@@ -2966,6 +3337,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ModelBase" field.</summary>
     public const int ModelBaseFieldNumber = 14;
     private global::EditCMSWindowsService.Messages.GrpcCarModelEntityBase modelBase_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::EditCMSWindowsService.Messages.GrpcCarModelEntityBase ModelBase {
       get { return modelBase_; }
       set {
@@ -2973,10 +3345,12 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcModelImage);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcModelImage other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -3001,6 +3375,7 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       if (ImageId != 0) hash ^= ImageId.GetHashCode();
@@ -3020,10 +3395,12 @@ namespace EditCMSWindowsService.Messages {
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (ImageId != 0) {
         output.WriteRawTag(8);
@@ -3083,6 +3460,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       if (ImageId != 0) {
@@ -3130,6 +3508,7 @@ namespace EditCMSWindowsService.Messages {
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcModelImage other) {
       if (other == null) {
         return;
@@ -3184,6 +3563,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -3259,25 +3639,29 @@ namespace EditCMSWindowsService.Messages {
 
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public sealed partial class GrpcArticleByCatURI : pb::IMessage<GrpcArticleByCatURI> {
     private static readonly pb::MessageParser<GrpcArticleByCatURI> _parser = new pb::MessageParser<GrpcArticleByCatURI>(() => new GrpcArticleByCatURI());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<GrpcArticleByCatURI> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[13]; }
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[14]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcArticleByCatURI() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcArticleByCatURI(GrpcArticleByCatURI other) : this() {
       categoryIdList_ = other.categoryIdList_;
       applicationId_ = other.applicationId_;
@@ -3287,6 +3671,7 @@ namespace EditCMSWindowsService.Messages {
       modelId_ = other.modelId_;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcArticleByCatURI Clone() {
       return new GrpcArticleByCatURI(this);
     }
@@ -3294,6 +3679,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "CategoryIdList" field.</summary>
     public const int CategoryIdListFieldNumber = 1;
     private string categoryIdList_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string CategoryIdList {
       get { return categoryIdList_; }
       set {
@@ -3304,6 +3690,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ApplicationId" field.</summary>
     public const int ApplicationIdFieldNumber = 2;
     private uint applicationId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public uint ApplicationId {
       get { return applicationId_; }
       set {
@@ -3314,6 +3701,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "StartIndex" field.</summary>
     public const int StartIndexFieldNumber = 3;
     private uint startIndex_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public uint StartIndex {
       get { return startIndex_; }
       set {
@@ -3324,6 +3712,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "EndIndex" field.</summary>
     public const int EndIndexFieldNumber = 4;
     private uint endIndex_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public uint EndIndex {
       get { return endIndex_; }
       set {
@@ -3334,6 +3723,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "MakeId" field.</summary>
     public const int MakeIdFieldNumber = 5;
     private int makeId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int MakeId {
       get { return makeId_; }
       set {
@@ -3344,6 +3734,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ModelId" field.</summary>
     public const int ModelIdFieldNumber = 6;
     private int modelId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int ModelId {
       get { return modelId_; }
       set {
@@ -3351,10 +3742,12 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcArticleByCatURI);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcArticleByCatURI other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -3371,6 +3764,7 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       if (CategoryIdList.Length != 0) hash ^= CategoryIdList.GetHashCode();
@@ -3382,10 +3776,12 @@ namespace EditCMSWindowsService.Messages {
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (CategoryIdList.Length != 0) {
         output.WriteRawTag(10);
@@ -3413,6 +3809,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       if (CategoryIdList.Length != 0) {
@@ -3436,6 +3833,7 @@ namespace EditCMSWindowsService.Messages {
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcArticleByCatURI other) {
       if (other == null) {
         return;
@@ -3460,6 +3858,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -3497,29 +3896,34 @@ namespace EditCMSWindowsService.Messages {
 
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public sealed partial class GrpcArticleContentURI : pb::IMessage<GrpcArticleContentURI> {
     private static readonly pb::MessageParser<GrpcArticleContentURI> _parser = new pb::MessageParser<GrpcArticleContentURI>(() => new GrpcArticleContentURI());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<GrpcArticleContentURI> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[14]; }
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[15]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcArticleContentURI() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcArticleContentURI(GrpcArticleContentURI other) : this() {
       basicId_ = other.basicId_;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcArticleContentURI Clone() {
       return new GrpcArticleContentURI(this);
     }
@@ -3527,6 +3931,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "BasicId" field.</summary>
     public const int BasicIdFieldNumber = 1;
     private ulong basicId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public ulong BasicId {
       get { return basicId_; }
       set {
@@ -3534,10 +3939,12 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcArticleContentURI);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcArticleContentURI other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -3549,16 +3956,19 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       if (BasicId != 0UL) hash ^= BasicId.GetHashCode();
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (BasicId != 0UL) {
         output.WriteRawTag(8);
@@ -3566,6 +3976,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       if (BasicId != 0UL) {
@@ -3574,6 +3985,7 @@ namespace EditCMSWindowsService.Messages {
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcArticleContentURI other) {
       if (other == null) {
         return;
@@ -3583,6 +3995,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -3600,25 +4013,29 @@ namespace EditCMSWindowsService.Messages {
 
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public sealed partial class GrpcModelPhotoURI : pb::IMessage<GrpcModelPhotoURI> {
     private static readonly pb::MessageParser<GrpcModelPhotoURI> _parser = new pb::MessageParser<GrpcModelPhotoURI>(() => new GrpcModelPhotoURI());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<GrpcModelPhotoURI> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[15]; }
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[16]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcModelPhotoURI() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcModelPhotoURI(GrpcModelPhotoURI other) : this() {
       applicationId_ = other.applicationId_;
       modelId_ = other.modelId_;
@@ -3626,6 +4043,7 @@ namespace EditCMSWindowsService.Messages {
       platformId_ = other.platformId_;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcModelPhotoURI Clone() {
       return new GrpcModelPhotoURI(this);
     }
@@ -3633,6 +4051,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ApplicationId" field.</summary>
     public const int ApplicationIdFieldNumber = 1;
     private uint applicationId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public uint ApplicationId {
       get { return applicationId_; }
       set {
@@ -3643,6 +4062,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ModelId" field.</summary>
     public const int ModelIdFieldNumber = 2;
     private int modelId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int ModelId {
       get { return modelId_; }
       set {
@@ -3653,6 +4073,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "CategoryIdList" field.</summary>
     public const int CategoryIdListFieldNumber = 3;
     private string categoryIdList_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string CategoryIdList {
       get { return categoryIdList_; }
       set {
@@ -3663,6 +4084,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "PlatformId" field.</summary>
     public const int PlatformIdFieldNumber = 4;
     private string platformId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string PlatformId {
       get { return platformId_; }
       set {
@@ -3670,10 +4092,12 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcModelPhotoURI);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcModelPhotoURI other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -3688,6 +4112,7 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
@@ -3697,10 +4122,12 @@ namespace EditCMSWindowsService.Messages {
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (ApplicationId != 0) {
         output.WriteRawTag(8);
@@ -3720,6 +4147,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       if (ApplicationId != 0) {
@@ -3737,6 +4165,7 @@ namespace EditCMSWindowsService.Messages {
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcModelPhotoURI other) {
       if (other == null) {
         return;
@@ -3755,6 +4184,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -3784,25 +4214,29 @@ namespace EditCMSWindowsService.Messages {
 
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public sealed partial class GrpcArticleRecentURI : pb::IMessage<GrpcArticleRecentURI> {
     private static readonly pb::MessageParser<GrpcArticleRecentURI> _parser = new pb::MessageParser<GrpcArticleRecentURI>(() => new GrpcArticleRecentURI());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<GrpcArticleRecentURI> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[16]; }
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[17]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcArticleRecentURI() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcArticleRecentURI(GrpcArticleRecentURI other) : this() {
       applicationId_ = other.applicationId_;
       contentTypes_ = other.contentTypes_;
@@ -3811,6 +4245,7 @@ namespace EditCMSWindowsService.Messages {
       modelId_ = other.modelId_;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcArticleRecentURI Clone() {
       return new GrpcArticleRecentURI(this);
     }
@@ -3818,6 +4253,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ApplicationId" field.</summary>
     public const int ApplicationIdFieldNumber = 1;
     private uint applicationId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public uint ApplicationId {
       get { return applicationId_; }
       set {
@@ -3828,6 +4264,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ContentTypes" field.</summary>
     public const int ContentTypesFieldNumber = 2;
     private string contentTypes_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string ContentTypes {
       get { return contentTypes_; }
       set {
@@ -3838,6 +4275,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "TotalRecords" field.</summary>
     public const int TotalRecordsFieldNumber = 3;
     private uint totalRecords_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public uint TotalRecords {
       get { return totalRecords_; }
       set {
@@ -3848,6 +4286,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "MakeId" field.</summary>
     public const int MakeIdFieldNumber = 4;
     private int makeId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int MakeId {
       get { return makeId_; }
       set {
@@ -3858,6 +4297,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ModelId" field.</summary>
     public const int ModelIdFieldNumber = 5;
     private int modelId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int ModelId {
       get { return modelId_; }
       set {
@@ -3865,10 +4305,12 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcArticleRecentURI);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcArticleRecentURI other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -3884,6 +4326,7 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
@@ -3894,10 +4337,12 @@ namespace EditCMSWindowsService.Messages {
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (ApplicationId != 0) {
         output.WriteRawTag(8);
@@ -3921,6 +4366,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       if (ApplicationId != 0) {
@@ -3941,6 +4387,7 @@ namespace EditCMSWindowsService.Messages {
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcArticleRecentURI other) {
       if (other == null) {
         return;
@@ -3962,6 +4409,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -3995,29 +4443,34 @@ namespace EditCMSWindowsService.Messages {
 
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public sealed partial class GrpcArticleSummaryList : pb::IMessage<GrpcArticleSummaryList> {
     private static readonly pb::MessageParser<GrpcArticleSummaryList> _parser = new pb::MessageParser<GrpcArticleSummaryList>(() => new GrpcArticleSummaryList());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<GrpcArticleSummaryList> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[17]; }
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[18]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcArticleSummaryList() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcArticleSummaryList(GrpcArticleSummaryList other) : this() {
       lstGrpcArticleSummary_ = other.lstGrpcArticleSummary_.Clone();
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcArticleSummaryList Clone() {
       return new GrpcArticleSummaryList(this);
     }
@@ -4027,14 +4480,17 @@ namespace EditCMSWindowsService.Messages {
     private static readonly pb::FieldCodec<global::EditCMSWindowsService.Messages.GrpcArticleSummary> _repeated_lstGrpcArticleSummary_codec
         = pb::FieldCodec.ForMessage(10, global::EditCMSWindowsService.Messages.GrpcArticleSummary.Parser);
     private readonly pbc::RepeatedField<global::EditCMSWindowsService.Messages.GrpcArticleSummary> lstGrpcArticleSummary_ = new pbc::RepeatedField<global::EditCMSWindowsService.Messages.GrpcArticleSummary>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public pbc::RepeatedField<global::EditCMSWindowsService.Messages.GrpcArticleSummary> LstGrpcArticleSummary {
       get { return lstGrpcArticleSummary_; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcArticleSummaryList);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcArticleSummaryList other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -4046,26 +4502,31 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       hash ^= lstGrpcArticleSummary_.GetHashCode();
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       lstGrpcArticleSummary_.WriteTo(output, _repeated_lstGrpcArticleSummary_codec);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       size += lstGrpcArticleSummary_.CalculateSize(_repeated_lstGrpcArticleSummary_codec);
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcArticleSummaryList other) {
       if (other == null) {
         return;
@@ -4073,6 +4534,7 @@ namespace EditCMSWindowsService.Messages {
       lstGrpcArticleSummary_.Add(other.lstGrpcArticleSummary_);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -4090,29 +4552,34 @@ namespace EditCMSWindowsService.Messages {
 
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public sealed partial class GrpcModelImageList : pb::IMessage<GrpcModelImageList> {
     private static readonly pb::MessageParser<GrpcModelImageList> _parser = new pb::MessageParser<GrpcModelImageList>(() => new GrpcModelImageList());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<GrpcModelImageList> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[18]; }
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[19]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcModelImageList() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcModelImageList(GrpcModelImageList other) : this() {
       lstGrpcModelImage_ = other.lstGrpcModelImage_.Clone();
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcModelImageList Clone() {
       return new GrpcModelImageList(this);
     }
@@ -4122,14 +4589,17 @@ namespace EditCMSWindowsService.Messages {
     private static readonly pb::FieldCodec<global::EditCMSWindowsService.Messages.GrpcModelImage> _repeated_lstGrpcModelImage_codec
         = pb::FieldCodec.ForMessage(10, global::EditCMSWindowsService.Messages.GrpcModelImage.Parser);
     private readonly pbc::RepeatedField<global::EditCMSWindowsService.Messages.GrpcModelImage> lstGrpcModelImage_ = new pbc::RepeatedField<global::EditCMSWindowsService.Messages.GrpcModelImage>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public pbc::RepeatedField<global::EditCMSWindowsService.Messages.GrpcModelImage> LstGrpcModelImage {
       get { return lstGrpcModelImage_; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcModelImageList);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcModelImageList other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -4141,26 +4611,31 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       hash ^= lstGrpcModelImage_.GetHashCode();
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       lstGrpcModelImage_.WriteTo(output, _repeated_lstGrpcModelImage_codec);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       size += lstGrpcModelImage_.CalculateSize(_repeated_lstGrpcModelImage_codec);
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcModelImageList other) {
       if (other == null) {
         return;
@@ -4168,6 +4643,7 @@ namespace EditCMSWindowsService.Messages {
       lstGrpcModelImage_.Add(other.lstGrpcModelImage_);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -4185,25 +4661,29 @@ namespace EditCMSWindowsService.Messages {
 
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public sealed partial class GrpcVideo : pb::IMessage<GrpcVideo> {
     private static readonly pb::MessageParser<GrpcVideo> _parser = new pb::MessageParser<GrpcVideo>(() => new GrpcVideo());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<GrpcVideo> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[19]; }
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[20]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcVideo() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcVideo(GrpcVideo other) : this() {
       videoTitle_ = other.videoTitle_;
       videoUrl_ = other.videoUrl_;
@@ -4227,6 +4707,7 @@ namespace EditCMSWindowsService.Messages {
       isFeatured_ = other.isFeatured_;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcVideo Clone() {
       return new GrpcVideo(this);
     }
@@ -4234,6 +4715,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "VideoTitle" field.</summary>
     public const int VideoTitleFieldNumber = 1;
     private string videoTitle_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string VideoTitle {
       get { return videoTitle_; }
       set {
@@ -4244,6 +4726,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "VideoUrl" field.</summary>
     public const int VideoUrlFieldNumber = 2;
     private string videoUrl_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string VideoUrl {
       get { return videoUrl_; }
       set {
@@ -4254,6 +4737,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "VideoId" field.</summary>
     public const int VideoIdFieldNumber = 3;
     private string videoId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string VideoId {
       get { return videoId_; }
       set {
@@ -4264,6 +4748,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "Views" field.</summary>
     public const int ViewsFieldNumber = 4;
     private int views_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int Views {
       get { return views_; }
       set {
@@ -4274,6 +4759,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "Likes" field.</summary>
     public const int LikesFieldNumber = 5;
     private int likes_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int Likes {
       get { return likes_; }
       set {
@@ -4284,6 +4770,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "Description" field.</summary>
     public const int DescriptionFieldNumber = 6;
     private string description_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string Description {
       get { return description_; }
       set {
@@ -4294,6 +4781,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "BasicId" field.</summary>
     public const int BasicIdFieldNumber = 7;
     private int basicId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int BasicId {
       get { return basicId_; }
       set {
@@ -4304,6 +4792,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "Tags" field.</summary>
     public const int TagsFieldNumber = 8;
     private string tags_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string Tags {
       get { return tags_; }
       set {
@@ -4314,6 +4803,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "Duration" field.</summary>
     public const int DurationFieldNumber = 9;
     private int duration_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int Duration {
       get { return duration_; }
       set {
@@ -4324,6 +4814,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "MakeName" field.</summary>
     public const int MakeNameFieldNumber = 11;
     private string makeName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string MakeName {
       get { return makeName_; }
       set {
@@ -4334,6 +4825,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ModelName" field.</summary>
     public const int ModelNameFieldNumber = 12;
     private string modelName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string ModelName {
       get { return modelName_; }
       set {
@@ -4344,6 +4836,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "MaskingName" field.</summary>
     public const int MaskingNameFieldNumber = 13;
     private string maskingName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string MaskingName {
       get { return maskingName_; }
       set {
@@ -4354,6 +4847,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "SubCatId" field.</summary>
     public const int SubCatIdFieldNumber = 14;
     private string subCatId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string SubCatId {
       get { return subCatId_; }
       set {
@@ -4364,6 +4858,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "SubCatName" field.</summary>
     public const int SubCatNameFieldNumber = 15;
     private string subCatName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string SubCatName {
       get { return subCatName_; }
       set {
@@ -4374,6 +4869,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "VideoTitleUrl" field.</summary>
     public const int VideoTitleUrlFieldNumber = 16;
     private string videoTitleUrl_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string VideoTitleUrl {
       get { return videoTitleUrl_; }
       set {
@@ -4384,6 +4880,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ImgHost" field.</summary>
     public const int ImgHostFieldNumber = 17;
     private string imgHost_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string ImgHost {
       get { return imgHost_; }
       set {
@@ -4394,6 +4891,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ThumbnailPath" field.</summary>
     public const int ThumbnailPathFieldNumber = 18;
     private string thumbnailPath_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string ThumbnailPath {
       get { return thumbnailPath_; }
       set {
@@ -4404,6 +4902,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ImagePath" field.</summary>
     public const int ImagePathFieldNumber = 19;
     private string imagePath_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string ImagePath {
       get { return imagePath_; }
       set {
@@ -4414,6 +4913,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "DisplayDate" field.</summary>
     public const int DisplayDateFieldNumber = 20;
     private string displayDate_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string DisplayDate {
       get { return displayDate_; }
       set {
@@ -4424,6 +4924,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "IsFeatured" field.</summary>
     public const int IsFeaturedFieldNumber = 21;
     private bool isFeatured_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool IsFeatured {
       get { return isFeatured_; }
       set {
@@ -4431,10 +4932,12 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcVideo);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcVideo other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -4465,6 +4968,7 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       if (VideoTitle.Length != 0) hash ^= VideoTitle.GetHashCode();
@@ -4490,10 +4994,12 @@ namespace EditCMSWindowsService.Messages {
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (VideoTitle.Length != 0) {
         output.WriteRawTag(10);
@@ -4577,6 +5083,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       if (VideoTitle.Length != 0) {
@@ -4642,6 +5149,7 @@ namespace EditCMSWindowsService.Messages {
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcVideo other) {
       if (other == null) {
         return;
@@ -4708,6 +5216,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -4801,25 +5310,29 @@ namespace EditCMSWindowsService.Messages {
 
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public sealed partial class GrpcVideoListEntity : pb::IMessage<GrpcVideoListEntity> {
     private static readonly pb::MessageParser<GrpcVideoListEntity> _parser = new pb::MessageParser<GrpcVideoListEntity>(() => new GrpcVideoListEntity());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<GrpcVideoListEntity> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[20]; }
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[21]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcVideoListEntity() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcVideoListEntity(GrpcVideoListEntity other) : this() {
       Videos = other.videos_ != null ? other.Videos.Clone() : null;
       totalRecords_ = other.totalRecords_;
@@ -4827,6 +5340,7 @@ namespace EditCMSWindowsService.Messages {
       nextPageUrl_ = other.nextPageUrl_;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcVideoListEntity Clone() {
       return new GrpcVideoListEntity(this);
     }
@@ -4834,6 +5348,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "Videos" field.</summary>
     public const int VideosFieldNumber = 1;
     private global::EditCMSWindowsService.Messages.GrpcVideosList videos_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::EditCMSWindowsService.Messages.GrpcVideosList Videos {
       get { return videos_; }
       set {
@@ -4844,6 +5359,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "TotalRecords" field.</summary>
     public const int TotalRecordsFieldNumber = 2;
     private int totalRecords_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int TotalRecords {
       get { return totalRecords_; }
       set {
@@ -4854,6 +5370,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "PrevPageUrl" field.</summary>
     public const int PrevPageUrlFieldNumber = 3;
     private string prevPageUrl_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string PrevPageUrl {
       get { return prevPageUrl_; }
       set {
@@ -4864,6 +5381,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "NextPageUrl" field.</summary>
     public const int NextPageUrlFieldNumber = 4;
     private string nextPageUrl_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string NextPageUrl {
       get { return nextPageUrl_; }
       set {
@@ -4871,10 +5389,12 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcVideoListEntity);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcVideoListEntity other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -4889,6 +5409,7 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       if (videos_ != null) hash ^= Videos.GetHashCode();
@@ -4898,10 +5419,12 @@ namespace EditCMSWindowsService.Messages {
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (videos_ != null) {
         output.WriteRawTag(10);
@@ -4921,6 +5444,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       if (videos_ != null) {
@@ -4938,6 +5462,7 @@ namespace EditCMSWindowsService.Messages {
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcVideoListEntity other) {
       if (other == null) {
         return;
@@ -4959,6 +5484,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -4991,29 +5517,34 @@ namespace EditCMSWindowsService.Messages {
 
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public sealed partial class GrpcVideosList : pb::IMessage<GrpcVideosList> {
     private static readonly pb::MessageParser<GrpcVideosList> _parser = new pb::MessageParser<GrpcVideosList>(() => new GrpcVideosList());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<GrpcVideosList> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[21]; }
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[22]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcVideosList() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcVideosList(GrpcVideosList other) : this() {
       lstGrpcVideos_ = other.lstGrpcVideos_.Clone();
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcVideosList Clone() {
       return new GrpcVideosList(this);
     }
@@ -5023,14 +5554,17 @@ namespace EditCMSWindowsService.Messages {
     private static readonly pb::FieldCodec<global::EditCMSWindowsService.Messages.GrpcVideo> _repeated_lstGrpcVideos_codec
         = pb::FieldCodec.ForMessage(10, global::EditCMSWindowsService.Messages.GrpcVideo.Parser);
     private readonly pbc::RepeatedField<global::EditCMSWindowsService.Messages.GrpcVideo> lstGrpcVideos_ = new pbc::RepeatedField<global::EditCMSWindowsService.Messages.GrpcVideo>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public pbc::RepeatedField<global::EditCMSWindowsService.Messages.GrpcVideo> LstGrpcVideos {
       get { return lstGrpcVideos_; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcVideosList);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcVideosList other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -5042,26 +5576,31 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       hash ^= lstGrpcVideos_.GetHashCode();
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       lstGrpcVideos_.WriteTo(output, _repeated_lstGrpcVideos_codec);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       size += lstGrpcVideos_.CalculateSize(_repeated_lstGrpcVideos_codec);
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcVideosList other) {
       if (other == null) {
         return;
@@ -5069,6 +5608,7 @@ namespace EditCMSWindowsService.Messages {
       lstGrpcVideos_.Add(other.lstGrpcVideos_);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -5086,30 +5626,35 @@ namespace EditCMSWindowsService.Messages {
 
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public sealed partial class GrpcVideosBySubCategoryURI : pb::IMessage<GrpcVideosBySubCategoryURI> {
     private static readonly pb::MessageParser<GrpcVideosBySubCategoryURI> _parser = new pb::MessageParser<GrpcVideosBySubCategoryURI>(() => new GrpcVideosBySubCategoryURI());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<GrpcVideosBySubCategoryURI> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[22]; }
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[23]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcVideosBySubCategoryURI() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcVideosBySubCategoryURI(GrpcVideosBySubCategoryURI other) : this() {
       subCategoryId_ = other.subCategoryId_;
       applicationId_ = other.applicationId_;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcVideosBySubCategoryURI Clone() {
       return new GrpcVideosBySubCategoryURI(this);
     }
@@ -5117,6 +5662,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "SubCategoryId" field.</summary>
     public const int SubCategoryIdFieldNumber = 1;
     private uint subCategoryId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public uint SubCategoryId {
       get { return subCategoryId_; }
       set {
@@ -5127,6 +5673,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ApplicationId" field.</summary>
     public const int ApplicationIdFieldNumber = 2;
     private uint applicationId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public uint ApplicationId {
       get { return applicationId_; }
       set {
@@ -5134,10 +5681,12 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcVideosBySubCategoryURI);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcVideosBySubCategoryURI other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -5150,6 +5699,7 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       if (SubCategoryId != 0) hash ^= SubCategoryId.GetHashCode();
@@ -5157,10 +5707,12 @@ namespace EditCMSWindowsService.Messages {
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (SubCategoryId != 0) {
         output.WriteRawTag(8);
@@ -5172,6 +5724,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       if (SubCategoryId != 0) {
@@ -5183,6 +5736,7 @@ namespace EditCMSWindowsService.Messages {
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcVideosBySubCategoryURI other) {
       if (other == null) {
         return;
@@ -5195,6 +5749,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -5216,30 +5771,35 @@ namespace EditCMSWindowsService.Messages {
 
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public sealed partial class GrpcVideosByIdURI : pb::IMessage<GrpcVideosByIdURI> {
     private static readonly pb::MessageParser<GrpcVideosByIdURI> _parser = new pb::MessageParser<GrpcVideosByIdURI>(() => new GrpcVideosByIdURI());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<GrpcVideosByIdURI> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[23]; }
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[24]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcVideosByIdURI() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcVideosByIdURI(GrpcVideosByIdURI other) : this() {
       id_ = other.id_;
       applicationId_ = other.applicationId_;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcVideosByIdURI Clone() {
       return new GrpcVideosByIdURI(this);
     }
@@ -5247,6 +5807,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "Id" field.</summary>
     public const int IdFieldNumber = 1;
     private int id_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int Id {
       get { return id_; }
       set {
@@ -5257,6 +5818,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ApplicationId" field.</summary>
     public const int ApplicationIdFieldNumber = 2;
     private uint applicationId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public uint ApplicationId {
       get { return applicationId_; }
       set {
@@ -5264,10 +5826,12 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcVideosByIdURI);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcVideosByIdURI other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -5280,6 +5844,7 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       if (Id != 0) hash ^= Id.GetHashCode();
@@ -5287,10 +5852,12 @@ namespace EditCMSWindowsService.Messages {
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (Id != 0) {
         output.WriteRawTag(8);
@@ -5302,6 +5869,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       if (Id != 0) {
@@ -5313,6 +5881,7 @@ namespace EditCMSWindowsService.Messages {
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcVideosByIdURI other) {
       if (other == null) {
         return;
@@ -5325,6 +5894,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -5346,30 +5916,35 @@ namespace EditCMSWindowsService.Messages {
 
   }
 
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   public sealed partial class GrpcVideosBySubCategoriesURI : pb::IMessage<GrpcVideosBySubCategoriesURI> {
     private static readonly pb::MessageParser<GrpcVideosBySubCategoriesURI> _parser = new pb::MessageParser<GrpcVideosBySubCategoriesURI>(() => new GrpcVideosBySubCategoriesURI());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<GrpcVideosBySubCategoriesURI> Parser { get { return _parser; } }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[24]; }
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[25]; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcVideosBySubCategoriesURI() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcVideosBySubCategoriesURI(GrpcVideosBySubCategoriesURI other) : this() {
       subCategoryIds_ = other.subCategoryIds_;
       applicationId_ = other.applicationId_;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GrpcVideosBySubCategoriesURI Clone() {
       return new GrpcVideosBySubCategoriesURI(this);
     }
@@ -5377,6 +5952,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "SubCategoryIds" field.</summary>
     public const int SubCategoryIdsFieldNumber = 1;
     private string subCategoryIds_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string SubCategoryIds {
       get { return subCategoryIds_; }
       set {
@@ -5387,6 +5963,7 @@ namespace EditCMSWindowsService.Messages {
     /// <summary>Field number for the "ApplicationId" field.</summary>
     public const int ApplicationIdFieldNumber = 2;
     private uint applicationId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public uint ApplicationId {
       get { return applicationId_; }
       set {
@@ -5394,10 +5971,12 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcVideosBySubCategoriesURI);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(GrpcVideosBySubCategoriesURI other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -5410,6 +5989,7 @@ namespace EditCMSWindowsService.Messages {
       return true;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       if (SubCategoryIds.Length != 0) hash ^= SubCategoryIds.GetHashCode();
@@ -5417,10 +5997,12 @@ namespace EditCMSWindowsService.Messages {
       return hash;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (SubCategoryIds.Length != 0) {
         output.WriteRawTag(10);
@@ -5432,6 +6014,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       if (SubCategoryIds.Length != 0) {
@@ -5443,6 +6026,7 @@ namespace EditCMSWindowsService.Messages {
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(GrpcVideosBySubCategoriesURI other) {
       if (other == null) {
         return;
@@ -5455,6 +6039,7 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -5468,6 +6053,123 @@ namespace EditCMSWindowsService.Messages {
           }
           case 16: {
             ApplicationId = input.ReadUInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class EditCMSCategory : pb::IMessage<EditCMSCategory> {
+    private static readonly pb::MessageParser<EditCMSCategory> _parser = new pb::MessageParser<EditCMSCategory>(() => new EditCMSCategory());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<EditCMSCategory> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::EditCMSWindowsService.Messages.MessagesReflection.Descriptor.MessageTypes[26]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public EditCMSCategory() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public EditCMSCategory(EditCMSCategory other) : this() {
+      category_ = other.category_;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public EditCMSCategory Clone() {
+      return new EditCMSCategory(this);
+    }
+
+    /// <summary>Field number for the "Category" field.</summary>
+    public const int CategoryFieldNumber = 1;
+    private global::EditCMSWindowsService.Messages.EditCMSCategoryEnum category_ = 0;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::EditCMSWindowsService.Messages.EditCMSCategoryEnum Category {
+      get { return category_; }
+      set {
+        category_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as EditCMSCategory);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(EditCMSCategory other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Category != other.Category) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Category != 0) hash ^= Category.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Category != 0) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) Category);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Category != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Category);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(EditCMSCategory other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Category != 0) {
+        Category = other.Category;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            category_ = (global::EditCMSWindowsService.Messages.EditCMSCategoryEnum) input.ReadEnum();
             break;
           }
         }

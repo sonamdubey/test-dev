@@ -1,20 +1,28 @@
+using Bikewale.Utility;
 using EditCMSWindowsService.Messages;
 using Grpc.Core;
 using GRPCLoadBalancer;
+using log4net;
 using System;
 using System.Configuration;
 using System.Diagnostics;
 
 namespace Grpc.CMS
 {
+    /// <summary>
+    /// Author: Prasad Gawde
+    /// Summary: This class is responsible to make the Grpc call for a specific function. Also it will retry the call for few times before failing in case one/all the servers are down
+    /// </summary>
     public static class GrpcMethods
     {
         static readonly int m_ChanelWaitTime;
-
+        static readonly int m_retryCount;
+        static readonly ILog log = LogManager.GetLogger(typeof(GrpcMethods));
 
         static GrpcMethods()
         {
-            m_ChanelWaitTime = Convert.ToInt32(ConfigurationManager.AppSettings["GrpcChannelWaitTime"]);//5000
+            m_ChanelWaitTime = Convert.ToInt32(BWConfiguration.Instance.GrpcChannelWaitTime);//2000
+            m_retryCount = Convert.ToInt32(BWConfiguration.Instance.GrpcRetryCount);
         }
 
         static DateTime GetForwardTime(int incrementMillisecond)
@@ -26,12 +34,11 @@ namespace Grpc.CMS
         {
 
             Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-
-            while (true)
+            int i = m_retryCount;
+            while (i-->=0)
             {
                 if (ch != null)
-                {
-                    Debug.WriteLine("Got channel for " + ch.ResolvedTarget);
+                {                    
                     var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
                     try
                     {
@@ -46,10 +53,17 @@ namespace Grpc.CMS
                         },
                         null, GetForwardTime(m_ChanelWaitTime));
                     }
-                    catch (Exception e)
+                    catch (RpcException e)
                     {
-                        RpcException rpcEx = e as RpcException;                        
-                        ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        log.Error(e);
+                        if (i > 0)
+                            ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        else
+                            break;
+                    }
+                    catch(Exception e)
+                    {
+                        log.Error(e);
                     }
                 }
                 else
@@ -65,11 +79,11 @@ namespace Grpc.CMS
         {
             Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-            while (true)
+            int i = m_retryCount;
+            while (i-- >= 0)
             {
                 if (ch != null)
-                {
-                    Debug.WriteLine("Got channel for " + ch.ResolvedTarget);
+                {                   
                     var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
                     try
                     {                        
@@ -86,10 +100,17 @@ namespace Grpc.CMS
                             },
                              null, GetForwardTime(m_ChanelWaitTime));
                     }
+                    catch (RpcException e)
+                    {
+                        log.Error(e);
+                        if (i > 0)
+                            ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        else
+                            break;
+                    }
                     catch (Exception e)
                     {
-                        RpcException rpcEx = e as RpcException;
-                        ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        log.Error(e);
                     }
                 }
                 else
@@ -103,7 +124,8 @@ namespace Grpc.CMS
         {
             Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-            while (true)
+            int i = m_retryCount;
+            while (i-- >= 0)
             {
                 if (ch != null)
                 {
@@ -118,10 +140,17 @@ namespace Grpc.CMS
                             },
                              null, GetForwardTime(m_ChanelWaitTime));
                     }
+                    catch (RpcException e)
+                    {
+                        log.Error(e);
+                        if (i > 0)
+                            ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        else
+                            break;
+                    }
                     catch (Exception e)
                     {
-                        RpcException rpcEx = e as RpcException;
-                        ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        log.Error(e);
                     }
                 }
                 else
@@ -134,7 +163,8 @@ namespace Grpc.CMS
         {
             Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-            while (true)
+            int i = m_retryCount;
+            while (i-- >= 0)
             {
                 if (ch != null)
                 {
@@ -151,10 +181,17 @@ namespace Grpc.CMS
                             },
                              null, GetForwardTime(m_ChanelWaitTime));
                     }
+                    catch (RpcException e)
+                    {
+                        log.Error(e);
+                        if (i > 0)
+                            ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        else
+                            break;
+                    }
                     catch (Exception e)
                     {
-                        RpcException rpcEx = e as RpcException;
-                        ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        log.Error(e);
                     }
                 }
                 else
@@ -167,7 +204,8 @@ namespace Grpc.CMS
         {
             Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-            while (true)
+            int i = m_retryCount;
+            while (i-- >= 0)
             {
                 if (ch != null)
                 {
@@ -184,10 +222,17 @@ namespace Grpc.CMS
                             },
                              null, GetForwardTime(m_ChanelWaitTime));
                     }
+                    catch (RpcException e)
+                    {
+                        log.Error(e);
+                        if (i > 0)
+                            ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        else
+                            break;
+                    }
                     catch (Exception e)
                     {
-                        RpcException rpcEx = e as RpcException;
-                        ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        log.Error(e);
                     }
                 }
                 else
@@ -200,7 +245,8 @@ namespace Grpc.CMS
         {
             Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-            while (true)
+            int i = m_retryCount;
+            while (i-- >= 0)
             {
                 if (ch != null)
                 {
@@ -215,10 +261,17 @@ namespace Grpc.CMS
                             },
                              null, GetForwardTime(m_ChanelWaitTime));
                     }
+                    catch (RpcException e)
+                    {
+                        log.Error(e);
+                        if (i > 0)
+                            ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        else
+                            break;
+                    }
                     catch (Exception e)
                     {
-                        RpcException rpcEx = e as RpcException;
-                        ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        log.Error(e);
                     }
                 }
                 else
@@ -231,7 +284,8 @@ namespace Grpc.CMS
         {
             Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-            while (true)
+            int i = m_retryCount;
+            while (i-- >= 0)
             {
                 if (ch != null)
                 {
@@ -246,10 +300,17 @@ namespace Grpc.CMS
                             },
                              null, GetForwardTime(m_ChanelWaitTime));
                     }
+                    catch (RpcException e)
+                    {
+                        log.Error(e);
+                        if (i > 0)
+                            ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        else
+                            break;
+                    }
                     catch (Exception e)
                     {
-                        RpcException rpcEx = e as RpcException;
-                        ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        log.Error(e);
                     }
                 }
                 else
@@ -262,7 +323,8 @@ namespace Grpc.CMS
         {
             Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-            while (true)
+            int i = m_retryCount;
+            while (i-- >= 0)
             {
                 if (ch != null)
                 {
@@ -279,10 +341,17 @@ namespace Grpc.CMS
 
                              null, GetForwardTime(m_ChanelWaitTime));
                     }
+                    catch (RpcException e)
+                    {
+                        log.Error(e);
+                        if (i > 0)
+                            ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        else
+                            break;
+                    }
                     catch (Exception e)
                     {
-                        RpcException rpcEx = e as RpcException;
-                        ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        log.Error(e);
                     }
                 }
                 else
@@ -295,7 +364,8 @@ namespace Grpc.CMS
         {
             Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-            while (true)
+            int i = m_retryCount;
+            while (i-- >= 0)
             {
                 if (ch != null)
                 {
@@ -312,10 +382,17 @@ namespace Grpc.CMS
 
                              null, GetForwardTime(m_ChanelWaitTime));
                     }
+                    catch (RpcException e)
+                    {
+                        log.Error(e);
+                        if (i > 0)
+                            ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        else
+                            break;
+                    }
                     catch (Exception e)
                     {
-                        RpcException rpcEx = e as RpcException;
-                        ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        log.Error(e);
                     }
                 }
                 else
@@ -328,7 +405,8 @@ namespace Grpc.CMS
         {
             Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-            while (true)
+            int i = m_retryCount;
+            while (i-- >= 0)
             {
                 if (ch != null)
                 {
@@ -345,10 +423,17 @@ namespace Grpc.CMS
 
                              null, GetForwardTime(m_ChanelWaitTime));
                     }
+                    catch (RpcException e)
+                    {
+                        log.Error(e);
+                        if (i > 0)
+                            ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        else
+                            break;
+                    }
                     catch (Exception e)
                     {
-                        RpcException rpcEx = e as RpcException;
-                        ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        log.Error(e);
                     }
                 }
                 else
@@ -361,7 +446,8 @@ namespace Grpc.CMS
         {
             Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-            while (true)
+            int i = m_retryCount;
+            while (i-- >= 0)
             {
                 if (ch != null)
                 {
@@ -378,10 +464,17 @@ namespace Grpc.CMS
 
                              null, GetForwardTime(m_ChanelWaitTime));
                     }
+                    catch (RpcException e)
+                    {
+                        log.Error(e);
+                        if (i > 0)
+                            ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        else
+                            break;
+                    }
                     catch (Exception e)
                     {
-                        RpcException rpcEx = e as RpcException;
-                        ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        log.Error(e);
                     }
                 }
                 else
@@ -394,7 +487,8 @@ namespace Grpc.CMS
         {
             Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-            while (true)
+            int i = m_retryCount;
+            while (i-- >= 0)
             {
                 if (ch != null)
                 {
@@ -411,10 +505,17 @@ namespace Grpc.CMS
 
                              null, GetForwardTime(m_ChanelWaitTime));
                     }
+                    catch (RpcException e)
+                    {
+                        log.Error(e);
+                        if (i > 0)
+                            ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        else
+                            break;
+                    }
                     catch (Exception e)
                     {
-                        RpcException rpcEx = e as RpcException;
-                        ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        log.Error(e);
                     }
                 }
                 else
@@ -427,7 +528,8 @@ namespace Grpc.CMS
         {
             Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-            while (true)
+            int i = m_retryCount;
+            while (i-- >= 0)
             {
                 if (ch != null)
                 {
@@ -444,10 +546,53 @@ namespace Grpc.CMS
 
                              null, GetForwardTime(m_ChanelWaitTime));
                     }
+                    catch (RpcException e)
+                    {
+                        log.Error(e);
+                        if (i > 0)
+                            ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        else
+                            break;
+                    }
                     catch (Exception e)
                     {
-                        RpcException rpcEx = e as RpcException;
-                        ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        log.Error(e);
+                    }
+                }
+                else
+                    break;
+            }
+            return null;
+        }
+
+        public static GrpcBool ClearMemCachedKEys(EditCMSCategoryEnum cat)
+        {
+            Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+
+            int i = m_retryCount;
+            while (i-- >= 0)
+            {
+                if (ch != null)
+                {
+                    var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                    try
+                    {
+
+                        return client.ClearMemcachedKeys
+                            (new EditCMSCategory(){Category= cat},
+                             null, GetForwardTime(m_ChanelWaitTime));
+                    }
+                    catch (RpcException e)
+                    {
+                        log.Error(e);
+                        if (i > 0)
+                            ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        else
+                            break;
+                    }
+                    catch (Exception e)
+                    {
+                        log.Error(e);
                     }
                 }
                 else

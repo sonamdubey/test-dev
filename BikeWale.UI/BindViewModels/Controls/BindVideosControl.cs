@@ -31,7 +31,7 @@ namespace Bikewale.BindViewModels.Controls
         static string _applicationid  ;
         uint pageNo = 1;
 
-        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
+        static bool _logGrpcErrors = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.LogGrpcErrors);
         static readonly ILog _logger = LogManager.GetLogger(typeof(BindVideosControl));
         static bool _useGrpc = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.UseGrpc);
 
@@ -99,6 +99,10 @@ namespace Bikewale.BindViewModels.Controls
             return GetVideosByMakeModelViaGrpc();          
         }
 
+        /// <summary>
+        /// Author: Prasad Gawde
+        /// </summary>
+        /// <returns></returns>
         private List<BikeVideoEntity> GetVideosByMakeModelViaGrpc()
         {
             List<BikeVideoEntity> videoDTOList = null;

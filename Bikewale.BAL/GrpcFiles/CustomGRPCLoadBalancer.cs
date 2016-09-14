@@ -1,3 +1,4 @@
+using Bikewale.Utility;
 using Grpc.Core;
 using System;
 using System.Collections.Generic;
@@ -5,21 +6,22 @@ using System.Configuration;
 
 namespace GRPCLoadBalancer
 {
+    /// <summary>
+    /// Author: Prasad Gawde
+    /// Summary: This class is responsible for doing Round Robin load balancing between various GRPC Servers based on BWConfiguration.Instance.GrpcArticleServerList
+    /// </summary>
     static class CustomGRPCLoadBalancerWithSingleton
     {
         private static Queue<Channel> m_WorkingQueue;
-        private static readonly int m_waitLimit;
         private static Channel m_currentChosenChannel = null;
         private static object m_reachableQueueLockObject = new object();
 
-        static string serverList = ConfigurationManager.AppSettings["GrpcArticleServerList"];
+        static string serverList = BWConfiguration.Instance.GrpcArticleServerList;
 
         static CustomGRPCLoadBalancerWithSingleton()
         {
 
-            m_WorkingQueue = new Queue<Channel>();
-
-            m_waitLimit = Convert.ToInt32(ConfigurationManager.AppSettings["GrpcArticleServerWaitLimitMilliSecond"]); //100           
+            m_WorkingQueue = new Queue<Channel>();     
 
             string[] allServers = serverList.Split(';');
             for (int i = 0, j = allServers.Length; i < j; i++)
@@ -62,7 +64,7 @@ namespace GRPCLoadBalancer
                     var client = new EditCMSWindowsService.Messages.EditCMSGrpcService.EditCMSGrpcServiceClient(serverChannel);
                     var output = client.CheckHeartBit
                                 (new EditCMSWindowsService.Messages.GrpcInt() { IntOutput = 2 },
-                                 null, GetForwardTime(1000));
+                                 null, GetForwardTime(100));
                     return output.IntOutput == 2;
 
                 }
