@@ -7,6 +7,7 @@
 <%@ Register Src="~/m/controls/MPriceInTopCities.ascx" TagPrefix="BW" TagName="TopCityPrice" %>
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/PopularModelComparison.ascx" TagName="SimilarBikesCompare" TagPrefix="BW" %>
+<%@ Register Src="~/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -391,6 +392,8 @@
                               { %>
                                  <li data-tabs="#modelAlternateBikeContent">Alternatives</li>
                             <%} %>
+                             <% if (ctrlRecentUsedBikes.showWidget)
+                                   {%> <a href="#makeUsedBikeContent" rel="nofollow">Used</a><%} %>
                         </ul>
                     </div>
                 </div>
@@ -792,6 +795,7 @@
                    { %>
                     <BW:AlternateBikes ID="ctrlAlternativeBikes" runat="server" />           
                 <%} %>
+                 <BW:MostRecentusedBikes runat="server" ID="ctrlRecentUsedBikes" />
                 <div id="modelSpecsFooter"></div>
             </div>
         </section>

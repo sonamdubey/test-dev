@@ -10,6 +10,6 @@ namespace Bikewale.Interfaces.UsedBikes
     /// </summary>
     public interface IUsedBikesCacheRepository
     {
-        IEnumerable<MostRecentBikes> GetMostRecentUsedBikes(uint makeId, uint topCount, int? cityId);
+        //IEnumerable<MostRecentBikes> GetMostRecentUsedBikes(uint makeId, uint topCount, int? cityId);
     }
 }

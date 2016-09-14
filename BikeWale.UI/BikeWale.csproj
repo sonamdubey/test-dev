@@ -870,6 +870,10 @@
       <DependentUpon>TopUserReviews.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\UsedBikes.ascx.cs">
+      <DependentUpon>UsedBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\UserReviewList.ascx.cs">
       <DependentUpon>UserReviewList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2238,6 +2242,7 @@
     <Content Include="m\controls\SimilarUsedBikes.ascx" />
     <Content Include="m\controls\SimilarVideos.ascx" />
     <Content Include="m\controls\TopUserReviews.ascx" />
+    <Content Include="m\controls\UsedBikes.ascx" />
     <Content Include="m\controls\UserReviewList.ascx" />
     <Content Include="m\controls\UsersTestimonials.ascx" />
     <Content Include="m\controls\VideosByCategory.ascx" />

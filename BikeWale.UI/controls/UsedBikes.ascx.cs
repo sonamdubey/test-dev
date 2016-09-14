@@ -25,8 +25,9 @@ namespace Bikewale.Controls
         protected Repeater rptUsedBikeNoCity, rptRecentUsedBikes;
 
         public uint MakeId { get; set; }
+        public uint ModelId { get; set; }
         public uint TopCount { get; set; }
-        public int CityId { get; set; }
+        public uint CityId { get; set; }
         public string makeName = string.Empty;
         public string cityName = string.Empty;
         public string makeMaskingName = string.Empty;
@@ -80,13 +81,13 @@ namespace Bikewale.Controls
 
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IUsedBikesCacheRepository, UsedBikesCacheRepository>();
+                    container.RegisterType<IUsedBikesCache, UsedBikesCache>();
                     container.RegisterType<ICacheManager, MemcacheManager>();
                     container.RegisterType<IUsedBikesRepository, UsedBikesRepository>();
 
-                    IUsedBikesCacheRepository _objUsedBikes = container.Resolve<IUsedBikesCacheRepository>();
+                    IUsedBikesCache _objUsedBikes = container.Resolve<IUsedBikesCache>();
 
-                    objMostRecentBikes = _objUsedBikes.GetMostRecentUsedBikes(MakeId, TopCount, CityId);
+                    objMostRecentBikes = _objUsedBikes.GetUsedBikes(MakeId, ModelId, TopCount, CityId);
 
                     if (objMostRecentBikes.Count() > 0)
                     {

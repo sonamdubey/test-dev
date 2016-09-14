@@ -44,5 +44,7 @@ namespace Bikewale.Entities.UsedBikes
         public string HostUrl { get; set; }
         [DataMember]
         public string MaskingName { get; set; }
+        [DataMember]
+        public uint owner { get; set; }
     }
 }

@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Bikewale.Cache.UsedBikes
 {
-    class UsedBikesCache : IUsedBikesCache
+    public class UsedBikesCache : IUsedBikesCache
     {
         private readonly ICacheManager _cache;
         private readonly IUsedBikes _objModels;

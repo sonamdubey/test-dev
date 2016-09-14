@@ -9,7 +9,7 @@
         <asp:Repeater runat="server" ID="rptUsedBikeNoCity">
             <ItemTemplate>
                 <div class="grid-4 margin-bottom20">
-                    <a href="<%# Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(Convert.ToString(DataBinder.Eval(Container.DataItem,"MakeMaskingName")), Convert.ToString(DataBinder.Eval(Container.DataItem,"CityMaskingName")), Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"CityId")), MakeId) %>"><%= makeName %> Used bikes in <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"CityName")) %></a>
+                    <a href="<%# Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(Convert.ToString(DataBinder.Eval(Container.DataItem,"MakeMaskingName")), Convert.ToString(DataBinder.Eval(Container.DataItem,"CityMaskingName")), Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"CityId")), MakeId) %>">Used <%= makeName %>  bikes in <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"CityName")) %></a>
                     <p class="margin-top10"><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem,"AvailableBikes"))) %> <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"AvailableBikes")) == "1" ? "bike" : "bikes" %> available</p>
                 </div>
             </ItemTemplate>

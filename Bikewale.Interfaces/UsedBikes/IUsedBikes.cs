@@ -10,10 +10,6 @@ namespace Bikewale.Interfaces.UsedBikes
     public interface IUsedBikes
     {
         IEnumerable<MostRecentBikes> GetPopularUsedBikes(uint makeId, uint modelId, uint cityId, uint totalCount);
-
-        IEnumerable<MostRecentBikes> GetUsedBikesbyMake(uint makeId, uint totalCount);
-        IEnumerable<MostRecentBikes> GetUsedBikesbyModel(uint modelId, uint totalCount);
-        IEnumerable<MostRecentBikes> GetUsedBikesbyModelCity(uint modelId, uint cityId, uint totalCount);
-        IEnumerable<MostRecentBikes> GetUsedBikesbyMakeCity(uint makeId, uint cityId, uint totalCount);
+      
     }
 }
