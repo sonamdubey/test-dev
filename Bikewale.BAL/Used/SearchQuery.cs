@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Entities.Used.Search;
+﻿using Bikewale.Entities.Used.Search;
 using Bikewale.Interfaces.Used.Search;
 using Bikewale.Notifications;
+using System;
 
 namespace Bikewale.BAL.Used.Search
 {
@@ -42,22 +38,12 @@ namespace Bikewale.BAL.Used.Search
 
             try
             {
-                searchQuery = string.Format(@" set @row_number:=0;
-                                        
-                                            drop temporary table if exists temp_used_bikes_searched;
-                                            create temporary table temp_used_bikes_searched
-                                            select @row_number:= @row_number+1 as rown, {0} 
-                                            from {1} 
-                                            {2}
-                                            order by {3} ;
-
-                                            select * 
-                                            from temp_used_bikes_searched 
-                                            where rown between {4} and {5}; 
+                searchQuery = string.Format(@" select sql_calc_found_rows {0}
+                                                from {1} 
+                                                {2}
+                                                order by {3} limit {4},{5};
                                             
-                                            select count(1) as RecordCount 
-                                            from temp_used_bikes_searched;  
-                                            drop temporary table if exists temp_used_bikes_searched; "
+                                                select found_rows() as RecordCount;"
                                             , GetSelectClause(), GetFromClause(), GetWhereClause(), GetOrderByClause(), filterInputs.StartIndex, filterInputs.EndIndex);
             }
             catch (Exception ex)
@@ -257,7 +243,7 @@ namespace Bikewale.BAL.Used.Search
                     owners = owners.Substring(0, owners.Length - 1);
 
                     whereClause += string.Format(" and ll.owner in ({0}) ", owners);
-                }                
+                }
             }
             catch (Exception ex)
             {
@@ -285,7 +271,7 @@ namespace Bikewale.BAL.Used.Search
                     sellers = sellers.Substring(0, sellers.Length - 1);
 
                     whereClause += string.Format(" and ll.sellertype in ({0}) ", sellers);
-                }                
+                }
             }
             catch (Exception ex)
             {
@@ -353,9 +339,9 @@ namespace Bikewale.BAL.Used.Search
         private string GetWhereClause()
         {
             if (!string.IsNullOrEmpty(whereClause))
-                whereClause = string.Format(" where {0} ", whereClause); 
+                whereClause = string.Format(" where {0} ", whereClause);
 
-            return  whereClause;
+            return whereClause;
         }
 
         /// <summary>
@@ -371,15 +357,15 @@ namespace Bikewale.BAL.Used.Search
                 switch (filterInputs.SortOrder)
                 {
                     case 1:
-                        orderBy = " ll.LastUpdated desc ";
+                        orderBy = " ll.LastUpdated desc "; //most recent
                         break;
 
                     case 2:
-                        orderBy = " ll.Price asc ";
+                        orderBy = " ll.Price asc "; //low to high
                         break;
 
                     case 3:
-                        orderBy = " ll.Price desc ";
+                        orderBy = " ll.Price desc "; //high to low
                         break;
 
                     case 4:

@@ -1,4 +1,129 @@
-﻿$(document).ready(function () {
+﻿//*****************************************************************************************************
+//f-128851519-uibinding-usedlisting-msite
+//parse query string
+var getQueryString = function () {
+    var qsColl = new Object();
+    var requestUrl = window.location.hash.substr(1); 
+    if (requestUrl && requestUrl != '') {
+        var kvPairs = requestUrl.split('&');
+        $.each(kvPairs, function (i, val) {
+            var kvPair = val.split('=');
+            qsColl[kvPair[0]] = kvPair[1];
+        });
+    }
+    return qsColl;
+}
+
+var usedBikes = function()
+{
+    var self = this;
+    self.Filters = ko.observable(getQueryString());
+    self.QueryString = ko.computed(function () {
+        var qs = "";
+        $.each(self.Filters(), function (i, val) {
+            if (val != null && val != "")
+                qs += "&" + i + "=" + val;
+        });
+
+        window.location.hash = qs;
+        console.log(qs);
+        return qs;
+    });     
+    self.OnInit = ko.observable(true);
+    self.PageHeading = ko.observable("");
+    self.TotalBikes = ko.observable();
+    self.BikeDetails = ko.observableArray();
+    self.PageUrl = ko.observable();
+    self.CurPageNo = ko.observable();
+    self.BikePhotos = function () {
+        var self = this;
+        self.hostUrl = ko.observable();
+        self.OriginalImgPath = ko.observable();
+        self.imgPath = ko.observable();
+    };
+    self.PrevPageUrl = ko.observable();
+    self.NextPageUrl = ko.observable();
+    self.Pagination = function () {
+
+    };
+
+    self.objSorts = ko.observableArray([{ id: 1, text: "Most recent" }, { id: 2, text: "Price - Low to High" }, { id: 3, text: "Price - High to Low" }, { id: 4, text: "Kms - Low to High" }, { id: 5, text: "Kms - High to Low" }]);
+    
+    self.applySort = function (d, e) {
+        var so = $("#sort-by-list li.active").attr("data-sortorder");
+        self.Filters()["so"] = so;
+        self.GetUsedBikes();
+    };
+
+    self.FilterCity = function (d, e) {
+        var so = $("#sort-by-list li.active").attr("data-sortorder");
+        self.Filters["so"] = so;
+        self.GetUsedBikes();
+    };
+
+    
+
+    self.setFilters = function () {
+
+    };
+
+    self.SelectSeller = function () {
+
+    };
+
+    self.GetUsedBikes = function () {
+        self.Filters.notifySubscribers();
+        var qs = self.QueryString();
+        $.ajax({
+            type: 'GET',
+            url: '/api/used/search/?' + qs,
+            dataType: 'json',
+            success: function (response) {
+                window.location.hash = qs;
+                self.OnInit(false);
+                self.TotalBikes(response.totalCount);
+                self.CurPageNo(response.currentPageNo);
+                self.PageUrl(response.pageUrl);
+                self.BikeDetails(ko.toJS(response.result));
+            },
+            complete: function (xhr) {
+                if (xhr != 200) {
+
+                }
+            }
+        });
+    };
+
+    
+}
+
+
+var vwUsedBikes = new usedBikes();
+ko.applyBindings(vwUsedBikes, document.getElementById("usedBikesSection"));
+
+var objFilters = vwUsedBikes.Filters();
+
+$(function () {
+    
+    setSortFilter();
+    //GetUsedBikes();
+});
+
+function setSortFilter()
+{
+    if(objFilters && objFilters["so"])
+    {
+        $("#sort-by-list li[data-sortorder=" + objFilters["so"] + "]").addClass("active").siblings().removeClass("active");
+    }
+
+}
+
+
+
+
+//*****************************************************************************************************
+
+$(document).ready(function () {
 
     var sortFilter = $('#sort-filter-wrapper'),
         bodyHeight = $('body').height(),
@@ -559,3 +684,71 @@ $(window).on('popstate', function (event) {
         sortBy.close();
     }
 });
+
+(function ($, ko) {
+    'use strict';
+    // TODO: Hook into image load event before loading others...
+    function KoLazyLoad() {
+        var self = this;
+
+        var updatebit = ko.observable(true).extend({ throttle: 50 });
+
+        var handlers = {
+            img: updateImage
+        };
+
+        function flagForLoadCheck() {
+            updatebit(!updatebit());
+        }
+
+        $(window).on('scroll', flagForLoadCheck);
+        $(window).on('resize', flagForLoadCheck);
+        $(window).on('load', flagForLoadCheck);
+
+        function isInViewport(element) {
+            var rect = element.getBoundingClientRect();
+            return rect.bottom > 0 && rect.right > 0 &&
+              rect.top < (window.innerHeight || document.documentElement.clientHeight) &&
+              rect.left < (window.innerWidth || document.documentElement.clientWidth);
+        }
+
+        function updateImage(element, valueAccessor, allBindings, viewModel, bindingContext) {
+            var value = ko.unwrap(valueAccessor());
+            if (isInViewport(element)) {
+                element.src = value;
+                $(element).data('kolazy', true);
+            }
+        }
+
+        function init(element, valueAccessor, allBindings, viewModel, bindingContext) {
+            var initArgs = arguments;
+            updatebit.subscribe(function () {
+                update.apply(self, initArgs);
+            });
+        }
+
+        function update(element, valueAccessor, allBindings, viewModel, bindingContext) {
+            var $element = $(element);
+
+            if ($element.is(':hidden') || $element.css('visibility') == 'hidden' || $element.data('kolazy')) {
+                return;
+            }
+
+            var handlerName = element.tagName.toLowerCase();
+            if (handlers.hasOwnProperty(handlerName)) {
+                return handlers[handlerName].apply(this, arguments);
+            } else {
+                throw new Error('No lazy handler defined for "' + handlerName + '"');
+            }
+        }
+
+        return {
+            handlers: handlers,
+            init: init,
+            update: update
+        }
+    }
+
+    ko.bindingHandlers.lazyload = new KoLazyLoad();
+
+})(jQuery, ko);

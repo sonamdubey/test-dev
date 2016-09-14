@@ -229,6 +229,9 @@
     <Compile Include="PriceQuote\Version\PQByCityArea.cs" />
     <Compile Include="PriceQuote\Version\v2\PQByCityAreaV2.cs" />
     <Compile Include="UsedBikes\PopularUsedBikesBase.cs" />
+    <Compile Include="Used\BikePhoto.cs" />
+    <Compile Include="Used\UsedBikeBase.cs" />
+    <Compile Include="Used\SearchResult.cs" />
     <Compile Include="Version\ModelVersionList.cs" />
     <Compile Include="PriceQuote\BikeQuotation\PQBikePriceQuoteInput.cs" />
     <Compile Include="PriceQuote\BikeQuotation\PQBikePriceQuoteOutput.cs" />

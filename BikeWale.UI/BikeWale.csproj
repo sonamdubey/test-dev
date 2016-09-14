@@ -978,10 +978,6 @@
       <DependentUpon>BikeDealerDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\pricequote\BookingSummary.aspx.cs">
-      <DependentUpon>BookingSummary.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="m\pricequote\BookingSummary_New.aspx.cs">
       <DependentUpon>BookingSummary_New.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1179,10 +1175,6 @@
     </Compile>
     <Compile Include="pricequote\BikeDealerDetails.aspx.cs">
       <DependentUpon>BikeDealerDetails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pricequote\BookingSummary.aspx.cs">
-      <DependentUpon>BookingSummary.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pricequote\BookingSummary_New.aspx.cs">
@@ -2326,7 +2318,6 @@
     <Content Include="m\new\upcomingbikes\Default.aspx" />
     <Content Include="m\pagenotfound.aspx" />
     <Content Include="m\pricequote\BikeDealerDetails.aspx" />
-    <Content Include="m\pricequote\BookingSummary.aspx" />
     <Content Include="m\pricequote\BookingSummary_New.aspx" />
     <Content Include="m\pricequote\DealerPriceQuote.aspx" />
     <Content Include="m\pricequote\DealerPriceQuote_old.aspx" />
@@ -2431,7 +2422,6 @@
     <Content Include="pagenotfound.aspx" />
     <Content Include="Partners.aspx" />
     <Content Include="PQCertificate.aspx" />
-    <Content Include="pricequote\BookingSummary.aspx" />
     <Content Include="pricequote\CancellationPolicy.aspx" />
     <Content Include="pricequote\DealerPriceQuote.aspx" />
     <Content Include="pricequote\default.aspx" />

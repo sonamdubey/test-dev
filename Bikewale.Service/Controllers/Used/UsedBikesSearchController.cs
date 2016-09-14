@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Description;
-using Bikewale.Entities.Used.Search;
+﻿using Bikewale.Entities.Used.Search;
 using Bikewale.Interfaces.Used.Search;
 using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.Used;
+using System;
+using System.Linq;
+using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.Used
 {
@@ -16,7 +14,7 @@ namespace Bikewale.Service.Controllers.Used
     /// Summary : Controller to get the used bikes search result
     /// </summary>
     public class UsedBikesSearchController : ApiController
-    {        
+    {
         private readonly ISearchFilters _searchFilters = null;
         private readonly ISearchQuery _searchQuery = null;
         private readonly ISearchRepository _searchRepo = null;
@@ -31,14 +29,14 @@ namespace Bikewale.Service.Controllers.Used
             _search = search;
         }
 
-        [ResponseType(typeof(SearchResult)), Route("api/used/search/")]
+        [ResponseType(typeof(Bikewale.DTO.Used.Search.SearchResult)), Route("api/used/search/")]
         public IHttpActionResult Get([FromUri]InputFilters inputFilters)
         {
             try
             {
-                SearchResult searchResult = _search.GetUsedBikesList(inputFilters);
+                Bikewale.Entities.Used.Search.SearchResult objSearchList = _search.GetUsedBikesList(inputFilters);
 
-                // searchResult = SearchOutputMapper.Convert(objSearchList);
+                Bikewale.DTO.Used.Search.SearchResult searchResult = UsedBikeSearchResult.Convert(objSearchList);
 
                 if (searchResult != null && searchResult.Result != null && searchResult.Result.Count() > 0)
                 {
@@ -53,7 +51,7 @@ namespace Bikewale.Service.Controllers.Used
                 objErr.SendMail();
                 return InternalServerError();
             }
-        } 
+        }
 
 
 
