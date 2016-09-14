@@ -77,6 +77,14 @@ namespace Bikewale.Mobile.Used
                 objFilters.Makes = makeId.ToString();
                 objFilters.Models = modelId.ToString(); ;
                 //objFilters.Budget = "40000+70000";
+            objFilters.Age = "2";
+            objFilters.Kms = "40000";
+            objFilters.Owners = "1,2,3";
+            objFilters.ST = "1,2";
+            objFilters.PN = 1;
+            objFilters.PS = 20;
+            objFilters.SO = 0;
+            
 
                 using (IUnityContainer container = new UnityContainer())
                 {

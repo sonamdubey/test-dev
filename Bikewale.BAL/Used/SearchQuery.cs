@@ -42,22 +42,12 @@ namespace Bikewale.BAL.Used.Search
 
             try
             {
-                searchQuery = string.Format(@" set @row_number:=0;
-                                        
-                                            drop temporary table if exists temp_used_bikes_searched;
-                                            create temporary table temp_used_bikes_searched
-                                            select @row_number:= @row_number+1 as rown, {0} 
-                                            from {1} 
-                                            {2}
-                                            order by {3} ;
-
-                                            select * 
-                                            from temp_used_bikes_searched 
-                                            where rown between {4} and {5}; 
-                                            
-                                            select count(1) as RecordCount 
-                                            from temp_used_bikes_searched;  
-                                            drop temporary table if exists temp_used_bikes_searched; "
+                searchQuery = string.Format(@" select sql_calc_found_rows {0}
+                                               from {1} 
+                                               {2}
+                                               order by {3} limit {4},{5};
+                                           
+                                               select found_rows() as RecordCount; "
                                             , GetSelectClause(), GetFromClause(), GetWhereClause(), GetOrderByClause(), filterInputs.StartIndex, filterInputs.EndIndex);
             }
             catch (Exception ex)
@@ -79,11 +69,10 @@ namespace Bikewale.BAL.Used.Search
             {
                 this.filterInputs = _searchFilters.ProcessFilters(inputFilters);
 
+                // Do not change the sequence
                 ApplyCityFilter();
 
-                ApplyMakeFilter();
-
-                ApplyModelFilter();
+                ApplyBikeFilter();                
 
                 ApplyBudgetFilter();
 
@@ -111,6 +100,8 @@ namespace Bikewale.BAL.Used.Search
             {
                 if (filterInputs.CityId > 0)
                     whereClause += " ll.cityid = " + filterInputs.CityId;
+                else
+                    whereClause += " ll.cityid is not null ";
             }
             catch (Exception ex)
             {
@@ -120,11 +111,11 @@ namespace Bikewale.BAL.Used.Search
         }
 
         /// <summary>
-        /// Function to get the make filter clause
+        /// Function to get the make  and model filter clause
         /// </summary>
-        private void ApplyMakeFilter()
+        private void ApplyBikeFilter()
         {
-            string makeList = string.Empty;
+            string makeList = string.Empty, modelList = string.Empty, makeFilter = string.Empty, modelFilter = string.Empty;
 
             try
             {
@@ -137,12 +128,32 @@ namespace Bikewale.BAL.Used.Search
 
                     makeList = makeList.Substring(0, makeList.Length - 1);
 
-                    whereClause += string.Format(" and ll.makeid in ({0}) ", makeList);
+                    makeFilter = string.Format(" ll.makeid in ({0}) ", makeList);
                 }
+
+                if (filterInputs.Model != null && filterInputs.Model.Length > 0)
+                {
+                    foreach (string str in filterInputs.Model)
+                    {
+                        modelList += str + ",";
+                    }
+
+                    modelList = modelList.Substring(0, modelList.Length - 1);
+
+                    modelFilter = string.Format(" ll.modelid in ({0}) ", modelList);
+                }
+
+                if (!String.IsNullOrEmpty(makeFilter) && !String.IsNullOrEmpty(modelFilter))
+                    whereClause += string.Format(" and ( {0} or {1} ) ", makeFilter, modelFilter);
+                else if (!String.IsNullOrEmpty(makeFilter))
+                    whereClause += string.Format(" and {0} ", makeFilter);
+                else if (!String.IsNullOrEmpty(modelFilter))
+                    whereClause += string.Format(" and {0} ", modelFilter);
+
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.ApplyMakeFilter");
+                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.ApplyBikeFilter");
                 objError.SendMail();
             }
         }
@@ -229,7 +240,7 @@ namespace Bikewale.BAL.Used.Search
             try
             {
                 if (!String.IsNullOrEmpty(filterInputs.Age))
-                    whereClause += string.Format(" and year (ll.makeyear) > year (now()) - {0} ", filterInputs.Age);
+                    whereClause += string.Format(" and  year (ll.makeyear) >= (year (now()) - {0}) ", filterInputs.Age);
             }
             catch (Exception ex)
             {
