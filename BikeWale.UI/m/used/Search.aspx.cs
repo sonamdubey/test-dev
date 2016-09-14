@@ -283,20 +283,14 @@ namespace Bikewale.Mobile.Used
 
             try
             {
-                //if (!String.IsNullOrEmpty(modelName))
-                //    _baseUrl = string.Format("/{0}-bikes/{1}/expert-reviews/", makeName, modelName);
-                //else if (!String.IsNullOrEmpty(makeName))
-                //    _baseUrl = string.Format("/{0}-bikes/expert-reviews/", makeName);
-
                 _pagerEntity = new PagerEntity();
-                _pagerEntity.BaseUrl = _baseUrl;
+                _pagerEntity.BaseUrl = string.Format("{0}page-", _baseUrl);
                 _pagerEntity.PageNo = _pageNo; //Current page number
                 _pagerEntity.PagerSlotSize = _pagerSlotSize; // 5 links on a page
-                _pagerEntity.PageUrlType = "page/";
+                // _pagerEntity.PageUrlType = "page-{0}/";
                 _pagerEntity.TotalResults = (int)recordCount; //total News count
                 _pagerEntity.PageSize = _pageSize;  //No. of news to be displayed on a page
-
-                _pagerOutput = objPager.GetPager<PagerOutputEntity>(_pagerEntity);
+                _pagerOutput = GetPager<PagerOutputEntity>(_pagerEntity);
 
                 // for RepeaterPager
                 ctrlPager.PagerOutput = _pagerOutput;
@@ -314,6 +308,113 @@ namespace Bikewale.Mobile.Used
                 Trace.Warn(ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
+            }
+        }
+
+        public T GetPager<T>(PagerEntity pagerDetails) where T : PagerOutputEntity, new()
+        {
+            var results = new List<PagerUrlList>();
+            T t = new T();
+
+            try
+            {
+                bool firstPage = false, lastPage = false;
+                string pageUrl;
+                int startIndex, endIndex;
+                int pageCount = (int)Math.Ceiling((double)pagerDetails.TotalResults / (double)pagerDetails.PageSize);// Total number of pages in the pager.
+
+                if (pageCount > 1)
+                {
+                    int totalSlots = (int)Math.Ceiling((double)pageCount / (double)pagerDetails.PagerSlotSize); // The total number of slots for the pager.
+                    int curSlot = ((int)Math.Floor((double)(pagerDetails.PageNo - 1) / (double)pagerDetails.PagerSlotSize)) + 1; // Current page slot.
+
+                    if (pagerDetails.PageNo == 1)// check for if the current page is the first page or the last page.
+                        firstPage = true;
+                    else if (pagerDetails.PageNo == pageCount)
+                        lastPage = true;
+
+                    // Get Start and End Index.
+                    GetStartEndIndex(pagerDetails, pageCount, curSlot, out startIndex, out endIndex);
+
+                    // Set the first and last page Urls.
+                    if (firstPage == false) t.FirstPageUrl = string.Format("{0}-1/", pagerDetails.BaseUrl);
+                    if (lastPage == false) t.LastPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, pageCount);
+
+                    //Get the list of page Urls.
+                    for (int i = startIndex; i <= endIndex; i++)
+                    {
+                        PagerUrlList pagerUrlList = new PagerUrlList();
+                        pageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, i);
+                        pagerUrlList.PageNo = i;
+                        pagerUrlList.PageUrl = pageUrl;
+                        results.Add(pagerUrlList);
+                    }
+
+                    //Set previous and next page Url.
+                    if (pagerDetails.PageNo == 1)
+                    {
+                        t.PreviousPageUrl = "";
+                        t.NextPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, (pagerDetails.PageNo + 1));
+                    }
+                    else if (endIndex == pagerDetails.PageNo)
+                    {
+                        t.NextPageUrl = "";
+                        t.PreviousPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, (pagerDetails.PageNo - 1));
+                    }
+                    else
+                    {
+                        t.NextPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, (pagerDetails.PageNo + 1));
+                        t.PreviousPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, (pagerDetails.PageNo - 1));
+                    }
+                }
+                else
+                {
+                    PagerUrlList pagerUrlList = new PagerUrlList();
+                    pagerUrlList.PageNo = -1;
+                    results.Add(pagerUrlList); //No pager created if the number of pages is equal to 1.
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Pager Class Error. GetPager");
+                objErr.SendMail();
+            }
+
+            t.PagesDetail = results;
+            return t;
+        }
+
+        private void GetStartEndIndex(PagerEntity pagerDetails, int pageCount, int curSlot, out int startIndex, out int endIndex)
+        {
+            bool isPagerSlotEven = false;
+
+            startIndex = (curSlot - 1) * pagerDetails.PagerSlotSize + 1;//Calculate the start index.
+            endIndex = curSlot * pagerDetails.PagerSlotSize;//Calculate the end Index.
+
+            if (pagerDetails.PagerSlotSize != pageCount)
+            {
+                if (pagerDetails.PagerSlotSize % 2 == 0)// Check if pager slot size is even or odd to calculate the start index and the end index.
+                {                                       // This is required to keep the selected page in the centre of the pager whilst the pager size is maintained.
+                    isPagerSlotEven = true;
+                }
+
+                int pagerSlotHalf = (int)Math.Floor((double)pagerDetails.PagerSlotSize / 2);
+
+                //This sets the start index and end index such that the current page is in always in the centre, whilst the pager slot size is maintained.
+                if (pagerSlotHalf < pagerDetails.PageNo)
+                {
+                    if (isPagerSlotEven)
+                    {
+                        startIndex = pagerDetails.PageNo - (pagerSlotHalf - 1);
+                        endIndex = pagerDetails.PageNo + (pagerSlotHalf);
+                    }
+                    else
+                    {
+                        startIndex = pagerDetails.PageNo - pagerSlotHalf;
+                        endIndex = pagerDetails.PageNo + pagerSlotHalf;
+                    }
+                }
+                endIndex = endIndex <= pageCount ? endIndex : pageCount;
             }
         }
 
