@@ -81,7 +81,7 @@ namespace Bikewale.DAL.Used.Search
 
                             if (dr.Read())
                             {
-                                objResult.TotalCount = Convert.ToUInt32(dr["RecordCount"]);
+                                objResult.TotalCount = Convert.ToInt32(dr["RecordCount"]);
                             }
 
                             if (dr != null)

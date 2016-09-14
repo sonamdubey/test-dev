@@ -36,13 +36,14 @@ namespace Bikewale.Mobile.Used
 
         protected LinkPagerControl ctrlPager;
         protected Repeater rptUsedListings;
-        protected uint cityId, makeid, modelId, totalListing;
+        protected uint cityId, makeid, modelId;
         protected ushort makeId;
         protected string makemasking = string.Empty, citymasking = string.Empty, modelmasking = string.Empty, pageno = string.Empty;
         protected string pageTitle = string.Empty, pageDescription = string.Empty, modelName = string.Empty, makeName = string.Empty, pageKeywords = string.Empty, cityName = "India", pageCanonical = string.Empty
             , heading = string.Empty, nextUrl = string.Empty, prevUrl = string.Empty;
-        private const int _pageSize = 10;
+        private const int _pageSize = 20;
         private int _pageNo = 1;
+        protected int _startIndex = 0, _endIndex = 0, totalListing;
         private const int _pagerSlotSize = 5;
         #endregion
 
@@ -77,14 +78,13 @@ namespace Bikewale.Mobile.Used
                 objFilters.Makes = makeId.ToString();
                 objFilters.Models = modelId.ToString(); ;
                 //objFilters.Budget = "40000+70000";
-            objFilters.Age = "2";
-            objFilters.Kms = "40000";
-            objFilters.Owners = "1,2,3";
-            objFilters.ST = "1,2";
-            objFilters.PN = 1;
-            objFilters.PS = 20;
-            objFilters.SO = 0;
-            
+                objFilters.Age = "2";
+                objFilters.Kms = "40000";
+                objFilters.Owners = "1,2,3";
+                objFilters.ST = "1,2";
+                objFilters.PN = _pageNo;
+                objFilters.PS = _pageSize;
+                objFilters.SO = 0;
 
                 using (IUnityContainer container = new UnityContainer())
                 {
@@ -94,9 +94,7 @@ namespace Bikewale.Mobile.Used
                     container.RegisterType<ISearchRepository, SearchRepository>();
 
                     ISearch searchRepo = container.Resolve<ISearch>();
-
                     SearchResult objResult = searchRepo.GetUsedBikesList(objFilters);
-
                     if (objResult != null && objResult.Result != null && objResult.Result.Count() > 0)
                     {
                         pageno = objResult.CurrentPageNo.ToString();
@@ -218,9 +216,8 @@ namespace Bikewale.Mobile.Used
                 // Check if raw url already has page and if not, add page-1 for making cononical url
                 if (rawUrl.Contains("/page-"))
                 {
-                    string[] urlArray = rawUrl.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
-                    string canon = string.Join("/", urlArray.Take(urlArray.Length - 1).ToArray());
-                    returl = string.Format("http://www.bikewale.com/{0}/page-1/", canon.Replace("/m/", string.Empty));
+                    returl = RemoveTrailingPage(rawUrl);
+                    returl = string.Format("http://www.bikewale.com/{0}/page-1/", returl.Replace("/m/", string.Empty));
                 }
                 else
                 {
@@ -235,15 +232,19 @@ namespace Bikewale.Mobile.Used
             return returl;
         }
 
+        public string RemoveTrailingPage(string rawUrl)
+        {
+            string[] urlArray = rawUrl.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
+            return string.Format("/{0}/", string.Join("/", urlArray.Take(urlArray.Length - 1).ToArray()));
+        }
         #endregion
 
         #region pagination methods
         private void CreatePager()
         {
             IPager objPager = GetPager();
-            int _startIndex = 0, _endIndex = 0;
-            objPager.GetStartEndIndex(_pageSize, _pageNo, out _startIndex, out _endIndex);
-            BindLinkPager(objPager, 88, "XYZ", "vvv");
+            GetStartEndIndex(_pageSize, _pageNo, out _startIndex, out _endIndex, totalListing);
+            BindLinkPager(objPager, totalListing);
         }
 
         private IPager GetPager()
@@ -257,25 +258,42 @@ namespace Bikewale.Mobile.Used
             return _objPager;
         }
 
-        private void BindLinkPager(IPager objPager, int recordCount, string makeName, string modelName)
+        /// <summary>
+        /// Function to the start and end index for the current page number.
+        /// </summary>
+        /// <param name="pageSize">Total number of records per page.</param>
+        /// <param name="currentPageNo">Current page number</param>
+        /// <param name="startIndex">start index for records</param>
+        /// <param name="endIndex">End index for records</param>
+        public void GetStartEndIndex(int pageSize, int currentPageNo, out int startIndex, out int endIndex, int totalCount)
+        {
+            startIndex = 0;
+            endIndex = 0;
+            endIndex = currentPageNo * pageSize;
+            startIndex = (endIndex - pageSize) + 1;
+            if (totalCount < endIndex)
+                endIndex = totalCount;
+        }
+
+        private void BindLinkPager(IPager objPager, int recordCount)
         {
             PagerOutputEntity _pagerOutput = null;
             PagerEntity _pagerEntity = null;
-            string _baseUrl = "/expert-reviews/";
+            string _baseUrl = RemoveTrailingPage(Request.RawUrl);
 
             try
             {
-                if (!String.IsNullOrEmpty(modelName))
-                    _baseUrl = string.Format("/{0}-bikes/{1}/expert-reviews/", makeName, modelName);
-                else if (!String.IsNullOrEmpty(makeName))
-                    _baseUrl = string.Format("/{0}-bikes/expert-reviews/", makeName);
+                //if (!String.IsNullOrEmpty(modelName))
+                //    _baseUrl = string.Format("/{0}-bikes/{1}/expert-reviews/", makeName, modelName);
+                //else if (!String.IsNullOrEmpty(makeName))
+                //    _baseUrl = string.Format("/{0}-bikes/expert-reviews/", makeName);
 
                 _pagerEntity = new PagerEntity();
                 _pagerEntity.BaseUrl = _baseUrl;
                 _pagerEntity.PageNo = _pageNo; //Current page number
                 _pagerEntity.PagerSlotSize = _pagerSlotSize; // 5 links on a page
                 _pagerEntity.PageUrlType = "page/";
-                _pagerEntity.TotalResults = recordCount; //total News count
+                _pagerEntity.TotalResults = (int)recordCount; //total News count
                 _pagerEntity.PageSize = _pageSize;  //No. of news to be displayed on a page
 
                 _pagerOutput = objPager.GetPager<PagerOutputEntity>(_pagerEntity);
@@ -283,7 +301,7 @@ namespace Bikewale.Mobile.Used
                 // for RepeaterPager
                 ctrlPager.PagerOutput = _pagerOutput;
                 ctrlPager.CurrentPageNo = _pageNo;
-                ctrlPager.TotalPages = objPager.GetTotalPages(recordCount, _pageSize);
+                ctrlPager.TotalPages = objPager.GetTotalPages((int)recordCount, _pageSize);
                 ctrlPager.BindPagerList();
 
                 //For SEO

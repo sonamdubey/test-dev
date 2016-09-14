@@ -25,7 +25,7 @@
             <div class="container bg-white clearfix">
                 <h1 class="padding-top15 padding-right20 padding-bottom15 padding-left20 box-shadow"><%=heading %></h1>
 
-                <div class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20">Showing <span class="text-bold">1-20</span> of <span class="text-bold"><%=totalListing %></span> bikes</div>
+                <div class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20">Showing <span class="text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-bold"><%=totalListing %></span> bikes</div>
 
                 <div id="sort-filter-wrapper" class="text-center border-solid-bottom">
                     <div id="sort-floating-btn" class="grid-6 padding-top10 padding-bottom10 border-solid-right cur-pointer">
@@ -88,7 +88,7 @@
 
                 <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
                     <div class="grid-5 omega text-light-grey">
-                        <span class="text-default text-bold">1-20</span> of <span class="text-default text-bold"><%=totalListing %></span> bikes
+                        <span class="text-default text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-default text-bold"><%=totalListing %></span> bikes
                     </div>
                 <BikeWale:Pager ID="ctrlPager" runat="server" />
                 </div>

@@ -16,7 +16,7 @@ namespace Bikewale.Entities.Used.Search
         public IEnumerable<UsedBikeBase> Result { get; set; }
 
         public PagingUrl PageUrl { get; set; }
-        public uint TotalCount { get; set; }
+        public int TotalCount { get; set; }
         public int CurrentPageNo { get; set; }
     }
 }

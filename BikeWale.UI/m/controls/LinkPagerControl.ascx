@@ -17,7 +17,7 @@
                     <%# Convert.ToInt16(DataBinder.Eval(Container.DataItem,"PageNo")) == CurrentPageNo ? DataBinder.Eval(Container.DataItem,"PageNo") : "<a href=" + DataBinder.Eval(Container.DataItem,"PageUrl").ToString() + ">" + DataBinder.Eval(Container.DataItem,"PageNo").ToString() + "</a>" %></li>
             </ItemTemplate>
         </asp:Repeater>
-        <span class="pagination-control-next <%= !String.IsNullOrEmpty(prevPageUrl) ? "inactive" : "active" %>">
+        <span class="pagination-control-next <%= !String.IsNullOrEmpty(nextPageUrl) ? "inactive" : "active" %>">
             <a href="<%=nextPageUrl %>" class="bwmsprite next-page-icon"></a>
          </span>
 
