@@ -161,7 +161,7 @@
     margin-left: 2px;
 }
 
-#pagination-list a {
+#pagination-list a,#pagination-list .active {
     color: #82888b;
     font-size: 12px;
     padding-right: 5px;
@@ -176,7 +176,7 @@
     text-decoration: none;
 }
 
-#pagination-list li.active a {
+#pagination-list li.active {
     color: #4d5057;
     font-weight: bold;
     border: 1px solid #a2a2a2;

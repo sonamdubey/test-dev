@@ -766,6 +766,10 @@
       <DependentUpon>LeadCaptureControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\LinkPagerControl.ascx.cs">
+      <DependentUpon>LinkPagerControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\ListPagerControl.ascx.cs">
       <DependentUpon>ListPagerControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2208,6 +2212,7 @@
     <Content Include="m\controls\ExpertReviewsWidget.ascx" />
     <Content Include="m\controls\ExpertReviewsVideos.ascx" />
     <Content Include="m\controls\LeadCaptureControl.ascx" />
+    <Content Include="m\controls\LinkPagerControl.ascx" />
     <Content Include="m\controls\ListPagerControl.ascx" />
     <Content Include="m\controls\LocateDealer.ascx" />
     <Content Include="m\controls\MMostPopularBikes.ascx" />
