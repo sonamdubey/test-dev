@@ -334,7 +334,7 @@
             </div>
         </section>
 
-          <% if (pqOnRoad != null && pqOnRoad.BPQOutput != null && viewModel == null && !string.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
+          <% if (pqOnRoad != null && pqOnRoad.BPQOutput != null && viewModel == null && !isOnRoadPrice && !string.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
             { %>
         <section>
             
