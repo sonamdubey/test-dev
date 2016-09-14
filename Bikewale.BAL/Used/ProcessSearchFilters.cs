@@ -130,7 +130,7 @@ namespace Bikewale.BAL.Used.Search
         {
             try
             {
-                if (CommonValidators.ValidateNumericRange(objInputFilters.Kms))
+                if (CommonValidators.IsValidNumber(objInputFilters.Kms))
                 {
                     objProcessedFilters.Kms = objInputFilters.Kms;
                 }
@@ -149,8 +149,8 @@ namespace Bikewale.BAL.Used.Search
         {
             try
             {
-                if (CommonValidators.ValidateNumericRange(objInputFilters.Age))
-                {
+                if (CommonValidators.IsValidNumber(objInputFilters.Age))
+                {                                         
                     objProcessedFilters.Age = objInputFilters.Age;
                 }
             }

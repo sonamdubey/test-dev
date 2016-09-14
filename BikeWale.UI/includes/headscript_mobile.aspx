@@ -13,7 +13,8 @@
 <meta name="description" content="<%=description%>" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
-<% if(!String.IsNullOrEmpty(keywords)) { %><meta name="keywords" content="<%= keywords %>" /><% } %>
+<% if(!String.IsNullOrEmpty(keywords)) { %>
+<meta name="keywords" content="<%= keywords %>" /><% } %>
 <%if (!String.IsNullOrEmpty(canonical))
   { %>
     <link rel="canonical" href="<%=canonical %>" />
@@ -24,11 +25,11 @@
 
 <%if (EnableOG)
   { %>
-    <meta property="og:title" content="<%=title %>" />
-    <meta property="og:type" content="website" />
-    <meta property="og:description" content="<%=description%>" />
+<meta property="og:title" content="<%=title %>" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="<%=description%>" />
     <%if(!String.IsNullOrEmpty(canonical)) { %><meta property="og:url" content="<%=canonical %>" /> <% } %>
-    <meta property="og:image" content="<%= string.IsNullOrEmpty(OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : OGImage %>" />
+<meta property="og:image" content="<%= string.IsNullOrEmpty(OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : OGImage %>" />
 <% } %>
 
 

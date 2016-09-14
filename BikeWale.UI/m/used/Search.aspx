@@ -1,24 +1,34 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Used.Search" %>
-
+<%@ Register TagPrefix="BikeWale" TagName="Pager" Src="/m/controls/LinkPagerControl.ascx" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Used search</title>
+        <%
+            title = pageTitle;
+            description = pageDescription;
+            canonical = "";
+            keywords = pageKeywords;
+            EnableOG = true;
+        %>
+
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/used-search-atf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+
 </head>
 <body>
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
-
+       
          <div class="modal-background"></div>
          <div id="usedBikesSection">
             <section>
                 <div class="container bg-white clearfix">
+                <h1 class="padding-top15 padding-right20 padding-bottom15 padding-left20 box-shadow"><%=heading %></h1>
                     <h1 class="padding-top15 padding-right20 padding-bottom15 padding-left20 box-shadow">Used 
                         <!-- ko if : BikeDetails() && BikeDetails().length > 0 --><span data-bind="text: PageHeading()"></span><!-- /ko --> bikes</h1>
                         
                     <div class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20">Showing <span class="text-bold">1-20</span> of <span class="text-bold">200</span> bikes</div>
+                <div class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20">Showing <span class="text-bold">1-20</span> of <span class="text-bold"><%=totalListing %></span> bikes</div>
 
                     <div id="sort-filter-wrapper" class="text-center border-solid-bottom">
                         <div id="sort-floating-btn" class="grid-6 padding-top10 padding-bottom10 border-solid-right cur-pointer">
@@ -42,6 +52,7 @@
                                         <a href="javascript:void(0)" class="model-image-target">
                                             <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "Photo.OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "Photo.HostUrl").ToString(),Bikewale.Utility.ImageSize._370x208) %>" 
                                                  alt="" title="" border="0" />
+                                        <div class="model-media-details <%# Convert.ToUInt16(DataBinder.Eval(Container.DataItem, "TotalPhotos")) > 1? "":"hide" %>">
                                             <div class="model-media-details">
                                                 <div class="model-media-item">
                                                     <span class="bwmsprite gallery-photo-icon"></span>
@@ -80,147 +91,8 @@
                             </ItemTemplate>
                         </asp:Repeater>
 
-                        <%--<li>
-                            <div class="model-thumbnail-image">
-                                <a href="javascript:void(0)" class="model-image-target">
-                                    <img class="lazy" data-original="http://imgd4.aeplcdn.com/370x208//staging/bw/used/S42661/42661_20160721050709814.jpg" alt="" title="" border="0" />
-                                    <div class="model-media-details">
-                                        <div class="model-media-item">
-                                            <span class="bwmsprite gallery-photo-icon"></span>
-                                            <span class="model-media-count">55</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="margin-right20 margin-left20 padding-top10 font14">
-                                <h2 class="margin-bottom10"><a href="">Royal Enfield Classic Desert Storm</a></h2>
-                                <div class="grid-6 alpha omega margin-bottom5">
-                                    <span class="bwmsprite model-date-icon"></span>
-                                    <span class="model-details-label">2013 model</span>
-                                </div>
-                                <div class="grid-6 omega margin-bottom5">
-                                    <span class="bwmsprite kms-driven-icon"></span>
-                                    <span class="model-details-label">1,45,000 kms</span>
-                                </div>
-                                <div class="grid-6 alpha omega margin-bottom5">
-                                    <span class="bwmsprite author-grey-sm-icon"></span>
-                                    <span class="model-details-label">2nd owner</span>
-                                </div>
-                                <div class="grid-6 omega margin-bottom5">
-                                    <span class="bwmsprite model-loc-icon"></span>
-                                    <span class="model-details-label">Mumbai</span>
-                                </div>
-                                <div class="clear"></div>
-                                <p class="margin-bottom15"><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold">1,22,000</span></p>
-                                <a href="javascript:void(0)" class="btn btn-orange seller-details-btn" rel="nofollow">Get seller details</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="model-thumbnail-image">
-                                <a href="javascript:void(0)" class="model-image-target">
-                                    <img class="lazy" data-original="http://imgd2.aeplcdn.com//370x208//bw/used/S42602/42602_20160613114137617.jpg" alt="" title="" border="0" />
-                                    <div class="model-media-details">
-                                        <div class="model-media-item">
-                                            <span class="bwmsprite gallery-photo-icon"></span>
-                                            <span class="model-media-count">55</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="margin-right20 margin-left20 padding-top10 font14">
-                                <h2 class="margin-bottom10"><a href="">Royal Enfield Classic Desert Storm</a></h2>
-                                <div class="grid-6 alpha omega margin-bottom5">
-                                    <span class="bwmsprite model-date-icon"></span>
-                                    <span class="model-details-label">2013 model</span>
-                                </div>
-                                <div class="grid-6 omega margin-bottom5">
-                                    <span class="bwmsprite kms-driven-icon"></span>
-                                    <span class="model-details-label">1,45,000 kms</span>
-                                </div>
-                                <div class="grid-6 alpha omega margin-bottom5">
-                                    <span class="bwmsprite author-grey-sm-icon"></span>
-                                    <span class="model-details-label">2nd owner</span>
-                                </div>
-                                <div class="grid-6 omega margin-bottom5">
-                                    <span class="bwmsprite model-loc-icon"></span>
-                                    <span class="model-details-label">Mumbai</span>
-                                </div>
-                                <div class="clear"></div>
-                                <p class="margin-bottom15"><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold">1,22,000</span></p>
-                                <a href="javascript:void(0)" class="btn btn-orange seller-details-btn" rel="nofollow">Get seller details</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="model-thumbnail-image">
-                                <a href="javascript:void(0)" class="model-image-target">
-                                    <img class="lazy" data-original="http://imgd3.aeplcdn.com//370x208//bw/used/S43685/43685_20160713013010469.jpg" alt="" title="" border="0" />
-                                    <div class="model-media-details">
-                                        <div class="model-media-item">
-                                            <span class="bwmsprite gallery-photo-icon"></span>
-                                            <span class="model-media-count">55</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="margin-right20 margin-left20 padding-top10 font14">
-                                <h2 class="margin-bottom10"><a href="">Royal Enfield Classic Desert Storm</a></h2>
-                                <div class="grid-6 alpha omega margin-bottom5">
-                                    <span class="bwmsprite model-date-icon"></span>
-                                    <span class="model-details-label">2013 model</span>
-                                </div>
-                                <div class="grid-6 omega margin-bottom5">
-                                    <span class="bwmsprite kms-driven-icon"></span>
-                                    <span class="model-details-label">1,45,000 kms</span>
-                                </div>
-                                <div class="grid-6 alpha omega margin-bottom5">
-                                    <span class="bwmsprite author-grey-sm-icon"></span>
-                                    <span class="model-details-label">2nd owner</span>
-                                </div>
-                                <div class="grid-6 omega margin-bottom5">
-                                    <span class="bwmsprite model-loc-icon"></span>
-                                    <span class="model-details-label">Mumbai</span>
-                                </div>
-                                <div class="clear"></div>
-                                <p class="margin-bottom15"><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold">1,22,000</span></p>
-                                <a href="javascript:void(0)" class="btn btn-orange seller-details-btn" rel="nofollow">Get seller details</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="model-thumbnail-image">
-                                <a href="javascript:void(0)" class="model-image-target">
-                                    <img class="lazy" data-original="http://imgd2.aeplcdn.com//370x208//bw/used/S42591/42591_20160613052511646.jpg" alt="" title="" border="0" />
-                                    <div class="model-media-details">
-                                        <div class="model-media-item">
-                                            <span class="bwmsprite gallery-photo-icon"></span>
-                                            <span class="model-media-count">55</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="margin-right20 margin-left20 padding-top10 font14">
-                                <h2 class="margin-bottom10"><a href="">Royal Enfield Classic Desert Storm</a></h2>
-                                <div class="grid-6 alpha omega margin-bottom5">
-                                    <span class="bwmsprite model-date-icon"></span>
-                                    <span class="model-details-label">2013 model</span>
-                                </div>
-                                <div class="grid-6 omega margin-bottom5">
-                                    <span class="bwmsprite kms-driven-icon"></span>
-                                    <span class="model-details-label">1,45,000 kms</span>
-                                </div>
-                                <div class="grid-6 alpha omega margin-bottom5">
-                                    <span class="bwmsprite author-grey-sm-icon"></span>
-                                    <span class="model-details-label">2nd owner</span>
-                                </div>
-                                <div class="grid-6 omega margin-bottom5">
-                                    <span class="bwmsprite model-loc-icon"></span>
-                                    <span class="model-details-label">Mumbai</span>
-                                </div>
-                                <div class="clear"></div>
-                                <p class="margin-bottom15"><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold">1,22,000</span></p>
-                                <a href="javascript:void(0)" class="btn btn-orange seller-details-btn" rel="nofollow">Get seller details</a>
-                            </div>
-                        </li>--%>
                     </ul>
+
 
                     <ul data-bind="visible: !OnInit() ,foreach : BikeDetails()">
                         <li>
@@ -263,7 +135,13 @@
 
                     <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
                         <div class="grid-5 omega text-light-grey">
-                            <span class="text-default text-bold">1-20</span> of <span class="text-default text-bold">200</span> bikes
+                        <span class="text-default text-bold">1-20</span> of <span class="text-default text-bold"><%=totalListing %></span> bikes
+                    </div>
+                <BikeWale:Pager ID="ctrlPager" runat="server" />
+                </div>
+                <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
+                    <div class="grid-5 omega text-light-grey">
+                        <span class="text-default text-bold">1-20</span> of <span class="text-default text-bold"><%=totalListing %></span> bikes
                         </div>
                         <div class="grid-7 alpha omega position-rel">
                             <ul id="pagination-list">

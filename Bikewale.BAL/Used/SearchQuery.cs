@@ -65,11 +65,10 @@ namespace Bikewale.BAL.Used.Search
             {
                 this.filterInputs = _searchFilters.ProcessFilters(inputFilters);
 
+                // Do not change the sequence
                 ApplyCityFilter();
 
-                ApplyMakeFilter();
-
-                ApplyModelFilter();
+                ApplyBikeFilter();                
 
                 ApplyBudgetFilter();
 
@@ -97,6 +96,8 @@ namespace Bikewale.BAL.Used.Search
             {
                 if (filterInputs.CityId > 0)
                     whereClause += " ll.cityid = " + filterInputs.CityId;
+                else
+                    whereClause += " ll.cityid is not null ";
             }
             catch (Exception ex)
             {
@@ -106,11 +107,11 @@ namespace Bikewale.BAL.Used.Search
         }
 
         /// <summary>
-        /// Function to get the make filter clause
+        /// Function to get the make  and model filter clause
         /// </summary>
-        private void ApplyMakeFilter()
+        private void ApplyBikeFilter()
         {
-            string makeList = string.Empty;
+            string makeList = string.Empty, modelList = string.Empty, makeFilter = string.Empty, modelFilter = string.Empty;
 
             try
             {
@@ -123,12 +124,32 @@ namespace Bikewale.BAL.Used.Search
 
                     makeList = makeList.Substring(0, makeList.Length - 1);
 
-                    whereClause += string.Format(" and ll.makeid in ({0}) ", makeList);
+                    makeFilter = string.Format(" ll.makeid in ({0}) ", makeList);
                 }
+
+                if (filterInputs.Model != null && filterInputs.Model.Length > 0)
+                {
+                    foreach (string str in filterInputs.Model)
+                    {
+                        modelList += str + ",";
+                    }
+
+                    modelList = modelList.Substring(0, modelList.Length - 1);
+
+                    modelFilter = string.Format(" ll.modelid in ({0}) ", modelList);
+                }
+
+                if (!String.IsNullOrEmpty(makeFilter) && !String.IsNullOrEmpty(modelFilter))
+                    whereClause += string.Format(" and ( {0} or {1} ) ", makeFilter, modelFilter);
+                else if (!String.IsNullOrEmpty(makeFilter))
+                    whereClause += string.Format(" and {0} ", makeFilter);
+                else if (!String.IsNullOrEmpty(modelFilter))
+                    whereClause += string.Format(" and {0} ", modelFilter);
+
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.ApplyMakeFilter");
+                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.Used.SearchQuery.ApplyBikeFilter");
                 objError.SendMail();
             }
         }
@@ -215,7 +236,7 @@ namespace Bikewale.BAL.Used.Search
             try
             {
                 if (!String.IsNullOrEmpty(filterInputs.Age))
-                    whereClause += string.Format(" and year (ll.makeyear) > year (now()) - {0} ", filterInputs.Age);
+                    whereClause += string.Format(" and  year (ll.makeyear) >= (year (now()) - {0}) ", filterInputs.Age);
             }
             catch (Exception ex)
             {

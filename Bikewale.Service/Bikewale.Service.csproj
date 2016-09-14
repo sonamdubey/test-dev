@@ -256,6 +256,7 @@
     <Compile Include="Controllers\BikeBooking\Make\BBMakeListController.cs" />
     <Compile Include="Controllers\BikeBooking\Model\BBModelListController.cs" />
     <Compile Include="Controllers\BikeData\FeaturedBikeController.cs" />
+    <Compile Include="Controllers\BikeData\MakeModelsController.cs" />
     <Compile Include="Controllers\BikeData\NewLaunchedBikeController.cs" />
     <Compile Include="Controllers\BikeData\SimilarBikeController.cs" />
     <Compile Include="Controllers\BikeData\UpcomingBikeController.cs" />
