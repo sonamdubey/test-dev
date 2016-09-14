@@ -1,5 +1,4 @@
-﻿using Bikewale.CoreDAL;
-using Bikewale.Entities.UsedBikes;
+﻿using Bikewale.Entities.UsedBikes;
 using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Notifications;
 using MySql.CoreDAL;
@@ -8,7 +7,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Reflection;
 using System.Web;
 
 namespace Bikewale.DAL.UsedBikes
@@ -76,80 +74,278 @@ namespace Bikewale.DAL.UsedBikes
         }   // End of GetPopularUsedBikes method
 
         /// <summary>
-        /// Author : Vivek gupta
-        /// Date : 21 june 2016
-        /// Desc :  Fetch most recent used bikes
+        /// Author : subodh jain on 21 june 2016
+        ///
+        /// Desc :  Fetch most recent used bikes by make only
         /// </summary>
         /// <param name="makeId"></param>
         /// <param name="totalCount"></param>
-        /// <param name="cityId"> cityId can be null in case when user does not select city</param>
-        /// <returns></returns>
-        public IEnumerable<MostRecentBikes> GetMostRecentUsedBikes(uint makeId, uint totalCount, int? cityId = null)
-        {
 
-            List<MostRecentBikes> objMostRecentUsedBikesList = null;
+        /// <returns></returns>
+
+        public IEnumerable<MostRecentBikes> GetUsedBikesbyMake(uint makeid, uint totalCount)
+        {
+            IList<MostRecentBikes> objUsedBikesList = null;
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikesbymake"))
                 {
-                    if (cityId.HasValue && cityId > 0)
-                        cmd.CommandText = "getusedbikesbymakecity";
-                    else cmd.CommandText = "getusedbikesbymake";
-
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.SByte, totalCount));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId ?? Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int16, makeid));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalCount));
 
-                    objMostRecentUsedBikesList = new List<MostRecentBikes>();
+
+                    objUsedBikesList = new List<MostRecentBikes>();
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        while (dr.Read())
+                        if (dr != null)
                         {
-                            if (cityId.HasValue && cityId > 0)
+                            while (dr.Read())
                             {
-                                objMostRecentUsedBikesList.Add(new MostRecentBikes
+                                objUsedBikesList.Add(new MostRecentBikes
                                 {
-                                    MakeYear = !Convert.IsDBNull(dr["BikeYear"]) ? Convert.ToUInt32(dr["BikeYear"]) : default(UInt32),
-                                    MakeName = !Convert.IsDBNull(dr["MakeName"]) ? Convert.ToString(dr["MakeName"]) : default(string),
-                                    ModelName = !Convert.IsDBNull(dr["ModelName"]) ? Convert.ToString(dr["ModelName"]) : default(string),
-                                    MakeMaskingName = !Convert.IsDBNull(dr["MakeMaskingName"]) ? Convert.ToString(dr["MakeMaskingName"]) : default(string),
-                                    ModelMaskingName = !Convert.IsDBNull(dr["ModelMaskingName"]) ? Convert.ToString(dr["ModelMaskingName"]) : default(string),
-                                    VersionName = !Convert.IsDBNull(dr["VersionName"]) ? Convert.ToString(dr["VersionName"]) : default(string),
-                                    BikePrice = !Convert.IsDBNull(dr["BikePrice"]) ? Convert.ToUInt32(dr["BikePrice"]) : default(UInt32),
-                                    CityName = !Convert.IsDBNull(dr["City"]) ? Convert.ToString(dr["City"]) : default(string),
-                                    CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(string),
-                                    ProfileId = !Convert.IsDBNull(dr["ProfileId"]) ? Convert.ToString(dr["ProfileId"]) : default(string),
-                                });
-                            }
+                                    MakeName = GetString(dr["makename"]),
+                                    MakeMaskingName = GetString(dr["makemaskingname"]),
+                                    CityName = GetString(dr["city"]),
+                                    AvailableBikes = GetUint32(dr["availablebikes"]),
+                                    CityMaskingName = GetString(dr["citymaskingname"]),
+                                    CityId = GetUint32(dr["cityid"])
 
-                            else
-                            {
-                                objMostRecentUsedBikesList.Add(new MostRecentBikes
-                                {
-                                    MakeName = !Convert.IsDBNull(dr["MakeName"]) ? Convert.ToString(dr["MakeName"]) : default(string),
-                                    MakeMaskingName = !Convert.IsDBNull(dr["MakeMaskingName"]) ? Convert.ToString(dr["MakeMaskingName"]) : default(string),
-                                    CityName = !Convert.IsDBNull(dr["City"]) ? Convert.ToString(dr["City"]) : default(string),
-                                    AvailableBikes = !Convert.IsDBNull(dr["AvailableBikes"]) ? Convert.ToUInt32(dr["AvailableBikes"]) : default(UInt32),
-                                    CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(string),
-                                    CityId = !Convert.IsDBNull(dr["CityId"]) ? Convert.ToUInt32(dr["CityId"]) : default(UInt32)
+
                                 });
                             }
+                            dr.Close();
                         }
-
-                        dr.Close();
                     }
                 }
             }
-
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("{0} - {1} - {2}", HttpContext.Current.Request.ServerVariables["URL"], MethodBase.GetCurrentMethod().DeclaringType.Name, System.Reflection.MethodInfo.GetCurrentMethod().Name));
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            return objMostRecentUsedBikesList;
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            return objUsedBikesList;
+        }//end of GetUsedBikesbyMake
+        /// <summary>
+        /// Author : subodh jain on 21 june 2016
+        ///
+        /// Desc :  Fetch most recent used bikes by model only
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="totalCount"></param>
+
+        /// <returns></returns>
+        public IEnumerable<MostRecentBikes> GetUsedBikesbyModel(uint modelId, uint totalCount)
+        {
+            IList<MostRecentBikes> objUsedBikesList = null;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikesbymodel"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int16, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalCount));
+
+
+                    objUsedBikesList = new List<MostRecentBikes>();
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                objUsedBikesList.Add(new MostRecentBikes
+                                {
+                                    MakeName = GetString(dr["makename"]),
+                                    MakeMaskingName = GetString(dr["makemaskingname"]),
+                                    CityName = GetString(dr["city"]),
+                                    AvailableBikes = GetUint32(dr["availablebikes"]),
+                                    CityMaskingName = GetString(dr["citymaskingname"]),
+                                    CityId = GetUint32(dr["cityid"])
+
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            return objUsedBikesList;
+        }//end of GetUsedBikesbyModel
+        /// <summary>
+        /// Created:- by Subodh Jain on 14 sep 2016
+        /// Description:- Fetch Most recent used bikes for particular model and city
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="totalCount"></param>
+        /// <returns></returns>
+        public IEnumerable<MostRecentBikes> GetUsedBikesbyModelCity(uint modelId, uint cityId, uint totalCount)
+        {
+            IList<MostRecentBikes> objUsedBikesList = null;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikesbymodelcity"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int16, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_totalCount", DbType.Int16, totalCount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, cityId));
+
+
+                    objUsedBikesList = new List<MostRecentBikes>();
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                objUsedBikesList.Add(new MostRecentBikes
+                                {
+                                    MakeName = GetString(dr["makename"]),
+                                    MakeMaskingName = GetString(dr["makemaskingname"]),
+                                    CityName = GetString(dr["city"]),
+                                    ModelMaskingName = GetString(dr["modelmaskingname"]),
+                                    CityMaskingName = GetString(dr["citymaskingname"]),
+
+                                    MakeYear = GetUint32(dr["bikeyear"]),
+
+                                    ModelName = GetString(dr["modelname"]),
+
+                                    VersionName = GetString(dr["versionname"]),
+                                    BikePrice = GetUint32(dr["bikeprice"]),
+
+                                    ProfileId = GetString(dr["ProfileId"]),
+                                    Kilometer = GetUint32(dr["Kilometers"]),
+                                    OriginalImagePath = GetString(dr["OriginalImagePath"]),
+                                    owner = GetUint32(dr["owner"]),
+                                    HostUrl = GetString(dr["HostURL"]),
+
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            return objUsedBikesList;
+        }//end of GetUsedBikesbyModelCity
+        /// <summary>
+        /// / Created:- by Subodh Jain on 14 sep 2016
+        /// Description:- Fetch Most recent used bikes for particular make and city
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="totalCount"></param>
+        /// <returns></returns>
+        public IEnumerable<MostRecentBikes> GetUsedBikesbyMakeCity(uint makeId, uint cityId, uint totalCount)
+        {
+            IList<MostRecentBikes> objUsedBikesList = null;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikesbymakecity"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int16, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_totalCount", DbType.Int16, totalCount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, cityId));
+
+
+                    objUsedBikesList = new List<MostRecentBikes>();
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                objUsedBikesList.Add(new MostRecentBikes
+                                {
+                                    MakeName = GetString(dr["makename"]),
+                                    MakeMaskingName = GetString(dr["makemaskingname"]),
+                                    CityName = GetString(dr["city"]),
+                                    ModelMaskingName = GetString(dr["modelmaskingname"]),
+                                    CityMaskingName = GetString(dr["citymaskingname"]),
+
+                                    MakeYear = GetUint32(dr["bikeyear"]),
+
+                                    ModelName = GetString(dr["modelname"]),
+
+                                    VersionName = GetString(dr["versionname"]),
+                                    BikePrice = GetUint32(dr["bikeprice"]),
+
+                                    ProfileId = GetString(dr["ProfileId"]),
+                                    Kilometer = GetUint32(dr["Kilometers"]),
+                                    OriginalImagePath = GetString(dr["OriginalImagePath"]),
+                                    owner = GetUint32(dr["owner"]),
+                                    HostUrl = GetString(dr["HostURL"]),
+
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            return objUsedBikesList;
+        }// end of GetUsedBikesbyMakeCity
+        private string GetString(object o)
+        {
+            return (DBNull.Value == o) ? string.Empty : o.ToString();
+        }
+        private uint GetUint32(object o)
+        {
+            return (DBNull.Value == o) ? 0 : Convert.ToUInt32(o);
         }
 
     }

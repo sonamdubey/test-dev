@@ -7,6 +7,7 @@ namespace Bikewale.Entities.UsedBikes
     /// Date : 21st june 2016
     /// Desc : carrier of most recent bike details
     /// </summary>
+    /// Modeified by:- Subodh jain 14 sep 2016
     [Serializable, DataContract]
     public class MostRecentBikes
     {
