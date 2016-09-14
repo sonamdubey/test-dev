@@ -10,14 +10,14 @@ namespace Bikewale.Cache.UsedBikes
     public class UsedBikesCacheRepository : IUsedBikesCacheRepository
     {
         private readonly ICacheManager _cache;
-        private readonly IUsedBikes _objModels;
+        private readonly IUsedBikesRepository _objModels;
 
         /// <summary>
         /// Intitalize the references for the cache and DL
         /// </summary>
         /// <param name="cache"></param>
         /// <param name="objModels"></param>
-        public UsedBikesCacheRepository(ICacheManager cache, IUsedBikes objModels)
+        public UsedBikesCacheRepository(ICacheManager cache, IUsedBikesRepository objModels)
         {
             _cache = cache;
             _objModels = objModels;
@@ -45,5 +45,6 @@ namespace Bikewale.Cache.UsedBikes
             }
             return objUsedBikes;
         }
+
     }
 }

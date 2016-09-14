@@ -11,7 +11,7 @@ using System.Web;
 
 namespace Bikewale.DAL.UsedBikes
 {
-    public class UsedBikesRepository : IUsedBikes
+    public class UsedBikesRepository : IUsedBikesRepository
     {
 
         /// <summary>
@@ -348,5 +348,26 @@ namespace Bikewale.DAL.UsedBikes
             return (DBNull.Value == o) ? 0 : Convert.ToUInt32(o);
         }
 
+
+
+        public IEnumerable<MostRecentBikes> GetUsedBikesbyMake(uint makeId, uint totalCount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<MostRecentBikes> GetUsedBikesbyModel(uint modelId, uint totalCount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<MostRecentBikes> GetUsedBikesbyModelCity(uint modelId, uint cityId, uint totalCount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<MostRecentBikes> GetUsedBikesbyMakeCity(uint makeId, uint cityId, uint totalCount)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

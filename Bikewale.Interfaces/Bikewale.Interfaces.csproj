@@ -107,6 +107,8 @@
     <Compile Include="PriceQuote\IPriceQuoteCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsedBikes\IUsedBikes.cs" />
+    <Compile Include="UsedBikes\IUsedBikesCache.cs" />
+    <Compile Include="UsedBikes\IUsedBikesRepository.cs" />
     <Compile Include="UsedBikes\IPopularUsedBikesCacheRepository.cs" />
     <Compile Include="UsedBikes\IUsedBikesCacheRepository.cs" />
     <Compile Include="Used\IUsedBikeDetails.cs" />
