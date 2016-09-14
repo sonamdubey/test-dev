@@ -8,8 +8,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Web;
-
 namespace Bikewale.DAL.BikeData
 {
     /// <summary>
@@ -441,6 +441,88 @@ namespace Bikewale.DAL.BikeData
 
             return bikeLinkList;
 
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 13 Sep 2016
+        /// Description :   Returns all makes and their models
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<BikeMakeModelBase> GetAllMakeModels()
+        {
+            IList<BikeMakeModelBase> makeModels = null;
+            try
+            {
+                using (DbCommand DbCommand = DbFactory.GetDBCommand("getallmakemodel"))
+                {
+                    DbCommand.CommandType = CommandType.StoredProcedure;
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(DbCommand, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            makeModels = new List<BikeMakeModelBase>();
+                            while (dr.Read())
+                            {
+                                makeModels.Add(new BikeMakeModelBase()
+                                {
+                                    Make = new BikeMakeEntityBase()
+                                    {
+                                        MakeId = !Convert.IsDBNull(dr["id"]) ? Convert.ToInt32(dr["id"]) : default(int),
+                                        MakeName = !Convert.IsDBNull(dr["name"]) ? Convert.ToString(dr["name"]) : default(string),
+                                        MaskingName = !Convert.IsDBNull(dr["maskingname"]) ? Convert.ToString(dr["maskingname"]) : default(string),
+                                        HostUrl = !Convert.IsDBNull(dr["hosturl"]) ? Convert.ToString(dr["hosturl"]) : default(string),
+                                        LogoUrl = !Convert.IsDBNull(dr["logourl"]) ? Convert.ToString(dr["logourl"]) : default(string),
+                                    }
+                                }
+                                );
+                            }
+
+                            if (dr.NextResult())
+                            {
+                                IList<BikeModelMake> Models = new List<BikeModelMake>();
+                                while (dr.Read())
+                                {
+                                    Models.Add(
+                                        new BikeModelMake()
+                                        {
+                                            MakeId = !Convert.IsDBNull(dr["bikemakeid"]) ? Convert.ToInt32(dr["bikemakeid"]) : default(int),
+                                            ModelId = !Convert.IsDBNull(dr["id"]) ? Convert.ToInt32(dr["id"]) : default(int),
+                                            ModelName = !Convert.IsDBNull(dr["name"]) ? Convert.ToString(dr["name"]) : default(string),
+                                            MaskingName = !Convert.IsDBNull(dr["maskingname"]) ? Convert.ToString(dr["maskingname"]) : default(string),
+                                        }
+                                        );
+                                }
+
+                                if (Models != null)
+                                {
+                                    foreach (var bikeMake in makeModels)
+                                    {
+                                        bikeMake.Models = from bike in Models
+                                                          where bike.MakeId == bikeMake.Make.MakeId
+                                                          select new BikeModelEntityBase()
+                                                          {
+                                                              ModelId = bike.ModelId,
+                                                              ModelName = bike.ModelName,
+                                                              MaskingName = bike.MaskingName
+                                                          };
+                                    }
+                                }
+                            }
+
+
+                        }
+
+                        dr.Close();
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "GetAllMakeModels");
+                objErr.SendMail();
+            }
+
+            return makeModels;
         }
     }
 }

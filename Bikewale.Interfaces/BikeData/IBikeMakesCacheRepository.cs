@@ -15,5 +15,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<BikeVersionEntity> GetDiscontinuedBikeModelsByMake(uint makeId);
         BikeDescriptionEntity GetMakeDescription(U makeId);
         BikeMakeEntityBase GetMakeDetails(uint makeId);
+        IEnumerable<BikeMakeModelBase> GetAllMakeModels();
     }
 }
