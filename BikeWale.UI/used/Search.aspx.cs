@@ -90,6 +90,8 @@ namespace Bikewale.Used
         /// <summary>
         /// Written By : Ashwini Todkar on 17 April 2014
         /// Summary    : method to form query string
+        /// Modified by :   Sumit Kate on 14 Sep 2016
+        /// Description :   if model is passed in QS get the model id
         /// </summary>
         /// <param name="_qs"> query string for loading the search result page</param>
         private void processQueryString(ref string _qs)
@@ -124,7 +126,26 @@ namespace Bikewale.Used
                     makeMaskingName = Request.QueryString["make"];
                 }
 
-                _qs = ((!String.IsNullOrEmpty(cityId)) ? "city=" + cityId + "&dist=50" : "") + ((String.IsNullOrEmpty(makeId) ? "" : "&make=" + makeId));
+                if (!String.IsNullOrEmpty(Request.QueryString["model"]))
+                {
+                    modelMaskingName = Request.QueryString["model"];
+                    ModelMaskingResponse objResponse = null;
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
+                                 .RegisterType<ICacheManager, MemcacheManager>()
+                                 .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                                ;
+                        var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
+                        objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
+                        if (objResponse != null && objResponse.StatusCode == 200)
+                        {
+                            modelId = objResponse.ModelId.ToString();
+                        }
+                    }
+                }
+
+                _qs = ((!String.IsNullOrEmpty(cityId)) ? "city=" + cityId + "&dist=50" : "") + ((String.IsNullOrEmpty(makeId) ? "" : "&make=" + makeId)) + ((!String.IsNullOrEmpty(modelId) ? "&model=" + modelId : ""));
 
 
                 if (!String.IsNullOrEmpty(_tempBudget))
