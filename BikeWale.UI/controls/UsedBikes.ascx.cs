@@ -82,7 +82,7 @@ namespace Bikewale.Controls
                 {
                     container.RegisterType<IUsedBikesCacheRepository, UsedBikesCacheRepository>();
                     container.RegisterType<ICacheManager, MemcacheManager>();
-                    container.RegisterType<IUsedBikes, UsedBikesRepository>();
+                    container.RegisterType<IUsedBikesRepository, UsedBikesRepository>();
 
                     IUsedBikesCacheRepository _objUsedBikes = container.Resolve<IUsedBikesCacheRepository>();
 
