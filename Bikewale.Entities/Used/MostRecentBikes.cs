@@ -34,5 +34,14 @@ namespace Bikewale.Entities.UsedBikes
         public string CityMaskingName { get; set; }
         [DataMember]
         public uint CityId { get; set; }
+
+        [DataMember]
+        public uint Kilometer { get; set; }
+        [DataMember]
+        public string OriginalImagePath { get; set; }
+        [DataMember]
+        public string HostUrl { get; set; }
+        [DataMember]
+        public string MaskingName { get; set; }
     }
 }
