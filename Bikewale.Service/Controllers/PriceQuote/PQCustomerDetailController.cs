@@ -28,6 +28,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
     /// Created On  :   21 Aug 2015
     /// Modified by :   Sumit Kate on 20 May 2016
     /// Description :   Serialize the input to error message for more details
+    /// Modified by :   Aditi Srivastava on 14 Sep 2016
+    /// Description :   Changed dealer masking no to dealer phone no in DPQSmsEntity
     /// </summary>
     public class PQCustomerDetailController : CompressionApiController//ApiController
     {

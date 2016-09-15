@@ -60,6 +60,8 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
         /// Description :   Send the notification immediately
         /// Modified by :   Lucky Rathore on 13 May 2016
         /// Description :   New Field VersionName Intialize and NotifyCustomer() signature updated.
+        /// Modified by :   Aditi Srivastava on 14 Sep 2016
+        /// Description :   Changed dealer masking no to dealer phone no in DPQSmsEntity
         /// </summary>
         /// <param name="input">Mobile Verification Input</param>
         /// <returns></returns>

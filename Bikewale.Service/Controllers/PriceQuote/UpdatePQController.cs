@@ -18,6 +18,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
     /// Controller to update the PQ details
     /// Modified by :   Sumit Kate on 18 May 2016
     /// Description :   Extend from CompressionApiController instead of ApiController 
+    /// Modified by :   Aditi Srivastava on 14 Sep 2016
+    /// Description :   Changed dealer masking no to dealer phone no in DPQSmsEntity
     /// </summary>
     public class UpdatePQController : CompressionApiController//ApiController
     {

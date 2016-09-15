@@ -200,6 +200,8 @@ namespace Bikewale.BikeBooking
         /// Desc : versionName added in SendEmailSMSToDealerCustomer.BookingEmailToDealer
         /// Modified By : Lucky Rathore on 11 May 2016.
         /// Summary : paramete to call BookingEmailToCustomer() updated.
+        /// Modified By: Aditi Srivastava on 14 Sep 2016
+        /// Description: Changed Dealer Mobile no(masking no.) to phone no(mobile no.) for sending sms and email to customer
         /// </summary>
         private void SentSuccessNotification()
         {
