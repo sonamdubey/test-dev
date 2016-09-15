@@ -1,5 +1,9 @@
 ﻿//*****************************************************************************************************
-//f-128851519-uibinding-usedlisting-msite
+
+/* budget slider */
+var budgetValue = [0, 10000, 20000, 35000, 50000, 80000, 125000, 200000],
+    budgetKey = [0, 1, 2, 3, 4, 5, 6, 7];
+
 //parse query string
 var getQueryString = function () {
     var qsColl = new Object();
@@ -14,6 +18,78 @@ var getQueryString = function () {
     return qsColl;
 }
 
+
+ko.bindingHandlers.CurrencyText = {
+    update: function (element, valueAccessor) {
+        var amount = valueAccessor();
+        var formattedAmount = ko.unwrap(amount) !== null ? formatPrice(amount) : 0;
+        $(element).text(formattedAmount);
+    }
+};
+
+ko.bindingHandlers.NumberOrdinal = {
+    update: function (element, valueAccessor) {
+        var num = valueAccessor();
+        var num = ko.unwrap(num) != null ? num : "";
+        num = parseInt(num, 10);
+        switch (num % 100) {
+            case 11:
+            case 12:
+            case 13:
+                suf = "th"; break;
+        }
+
+        switch (num % 10) {
+            case 1:
+                suf = "st"; break;
+            case 2:
+                suf = "nd"; break;
+            case 3:
+                suf = "rd"; break;
+            default:
+                suf = "th"; break;
+        }
+
+        $(element).text(num+suf);
+    }
+};
+
+ko.bindingHandlers.KOSlider = {
+    init: function (element, valueAccessor, allBindingsAccessor) {
+        var options = allBindingsAccessor().sliderOptions || {};
+        var observable = valueAccessor();
+
+        options.slide = function (e, ui) {
+            observable(ui.values ? ui.values : ui.value);
+        };
+
+        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+            $(element).slider("destroy");
+        });
+
+        $(element).slider(options);
+    },
+    update: function (element, valueAccessor) {
+        var value = ko.utils.unwrapObservable(valueAccessor());
+        if (value)
+        {
+            $(element).slider(value.length ? "values" : "value", value);
+            $(element).change();
+        }          
+
+    }
+};
+
+function formatPrice(price) {
+    price = price.toString();
+    var lastThree = price.substring(price.length - 3);
+    var otherNumbers = price.substring(0, price.length - 3);
+    if (otherNumbers != '')
+        lastThree = ',' + lastThree;
+    var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+    return price;
+}
+
 var usedBikes = function()
 {
     var self = this;
@@ -24,13 +100,12 @@ var usedBikes = function()
             if (val != null && val != "")
                 qs += "&" + i + "=" + val;
         });
-
+        qs = qs.substr(1);
         window.location.hash = qs;
-        console.log(qs);
         return qs;
     });     
     self.OnInit = ko.observable(true);
-    self.PageHeading = ko.observable("");
+    self.PageHeading = ko.observable();
     self.TotalBikes = ko.observable();
     self.BikeDetails = ko.observableArray();
     self.PageUrl = ko.observable();
@@ -46,6 +121,45 @@ var usedBikes = function()
     self.Pagination = function () {
 
     };
+    self.SelectedCity = ko.observable({ "id": 0, "name": "All India" });
+    self.BudgetValues = ko.observable([0, 7]);
+    self.ShowBudgetRange = ko.computed(function (d, e) {
+
+        if(self.BudgetValues())
+        {
+            var minBuget = self.BudgetValues()[0] ,maxBuget =self.BudgetValues()[1]; 
+            if (minBuget == 0 && maxBuget == 7) {
+                $("#budget-amount").html('<span class="bwmsprite inr-xxsm-icon"></span>0 - <span class="bwmsprite inr-xxsm-icon"></span>' + formatPrice(budgetValue[maxBuget]));
+            }
+            else {
+                $("#budget-amount").html('<span class="bwmsprite inr-xxsm-icon"></span>' + formatPrice(budgetValue[minBuget]) + ' - <span class="bwmsprite inr-xxsm-icon"></span>' + formatPrice(budgetValue[maxBuget]) + ((maxBuget == 7)?'+':''));
+            }
+        }
+    });
+    self.KmsDriven = ko.observable(10000);
+    self.BikeAge = ko.observable(2);
+
+    self.ApplyFilters = function () {
+        self.ResetFilters();
+        if (self.SelectedCity() && self.SelectedCity().id > 0) self.Filters()["cityid"] = self.SelectedCity().id;
+        if (self.KmsDriven() > 10000) self.Filters()["kms"] = self.KmsDriven();
+        if (self.BikeAge() > 0) self.Filters()["age"] = self.BikeAge();
+        if (self.BudgetValues())        {
+            var minBuget = self.BudgetValues()[0], maxBuget = self.BudgetValues()[1];
+            self.Filters()["budget"] = budgetValue[minBuget];
+            if (maxBuget != 7) self.Filters()["budget"] += "+" + budgetValue[maxBuget];
+        }
+
+        self.GetUsedBikes();
+
+    };
+
+    self.ResetFilters = function () {
+        self.Filters()["cityid"] = "";
+        self.Filters()["kms"] = "";
+        self.Filters()["age"] = "";
+        self.Filters()["budget"] = "";
+    };
 
     self.objSorts = ko.observableArray([{ id: 1, text: "Most recent" }, { id: 2, text: "Price - Low to High" }, { id: 3, text: "Price - High to Low" }, { id: 4, text: "Kms - Low to High" }, { id: 5, text: "Kms - High to Low" }]);
     
@@ -56,11 +170,16 @@ var usedBikes = function()
     };
 
     self.FilterCity = function (d, e) {
-        var so = $("#sort-by-list li.active").attr("data-sortorder");
-        self.Filters["so"] = so;
-        self.GetUsedBikes();
+        var ele = $(e.target);
+        if (!ele.hasClass("active")) {
+            ele.addClass("active").siblings().removeClass("active");
+            self.SelectedCity({ "id": ele.attr("data-cityid"), "name": ele.text() });
+        };
     };
 
+    self.ManageFilters = ko.computed(function () {
+
+    });
     
 
     self.setFilters = function () {
@@ -93,9 +212,8 @@ var usedBikes = function()
             }
         });
     };
-
-    
 }
+
 
 
 var vwUsedBikes = new usedBikes();
@@ -160,9 +278,7 @@ $('#close-filter').on('click', function () {
 });
 
 
-/* budget slider */
-var budgetValue = ['0', '10,000', '20,000', '35,000', '50,000', '80,000', '1,25,000', '2,00,000+'],
-    budgetKey = [0, 1, 2, 3, 4, 5, 6, 7];
+
 
 $('#budget-range-slider').slider({
     orientation: 'horizontal',
@@ -208,29 +324,7 @@ function getRealValue(sliderValue) {
     return 0;
 }
 
-/* kms slider */
-$("#kms-range-slider").slider({
-    range: 'min',
-    value: 80000,
-    min: 5000,
-    max: 80000,
-    step: 5000,
-    slide: function (event, ui) {
-        filters.kilometerAmount(ui.value);
-    }
-});
 
-/* bike age slider */
-$("#bike-age-slider").slider({
-    range: 'min',
-    value: 8,
-    min: 1,
-    max: 8,
-    step: 1,
-    slide: function (event, ui) {        
-        filters.bikeAgeAmount(ui.value);
-    }
-});
 
 $('#reset-filters').on('click', function () {
     filters.reset.all();
@@ -243,6 +337,8 @@ $('#apply-filters').on('click', function () {
 
 
 var filterTypeBike = $('#filter-type-bike');
+/* city filter */
+var cityFilter = $('#filter-city-container');
 
 /* set slider default values */
 var filters = {
@@ -272,41 +368,6 @@ var filters = {
         }
     },
 
-    kilometerAmount: function (unit) {
-        var kilometerValue = unit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-        if (unit == 80000) {
-            $("#kms-amount").html('0 - ' + kilometerValue + '+ kms');
-        }
-        else {
-            $("#kms-amount").html('0 - ' + kilometerValue + ' kms');
-        }
-    },
-
-    bikeAgeAmount: function (unit) {
-        if (unit == 8) {
-            $("#bike-age-amount").html('0 - ' + unit + '+ years');
-        }
-        else {
-            $("#bike-age-amount").html('0 - ' + unit + ' years');
-        }
-    },
-
-    city: {
-        
-        open: function () {
-            cityFilter.show(effect, options, duration, function () {
-                cityFilter.addClass('city-header');
-            });
-        },
-
-        close: function () {
-            cityFilter.hide(effect, options, duration, function () { });
-            cityFilter.removeClass('city-header');
-        }
-
-    },
-
     bike: {
 
         open: function () {
@@ -332,51 +393,31 @@ var filters = {
         }
     },
 
+    city: {
+
+        open: function () {
+            cityFilter.show(effect, options, duration, function () {
+                cityFilter.addClass('city-header');
+            });
+        },
+
+        close: function () {
+            cityFilter.hide(effect, options, duration, function () { });
+            cityFilter.removeClass('city-header');
+        }
+
+    },
+
     set: {
 
         all: function () {
-            filters.set.city();
             filters.set.bike();
-            filters.set.budget();
-            filters.set.kilometers();
-            filters.set.bikeAge();
             filters.set.previousOwners();
             filters.set.sellerType();
         },
 
-        city: function () {
-            $('#filter-type-city .selected-filters').text('All India');
-        }, 
-
         bike: function () {
             filterTypeBike.find('.selected-filters').text('All Bikes');
-        },
-
-        budget: function () {
-            var values = [3, 5];
-            $('#budget-range-slider').slider('option', 'values', values);
-            
-            filters.budgetAmount(values);
-        },
-
-        kilometers: function () {
-            var kilometerSlider = $('#kms-range-slider'),
-                kmSliderValue;
-
-            kilometerSlider.slider('option', 'value', 50000);
-            kmSliderValue = kilometerSlider.slider('value');
-
-            filters.kilometerAmount(kmSliderValue);
-        },
-        
-        bikeAge: function () {
-            var ageSlider = $('#bike-age-slider'),
-                ageSliderValue;
-
-            ageSlider.slider('option', 'value', 5);
-            ageSliderValue = ageSlider.slider('value');
-
-            filters.bikeAgeAmount(ageSliderValue);
         },
 
         previousOwners: function () {
@@ -392,36 +433,13 @@ var filters = {
     reset: {
 
         all: function () {
-            filters.reset.city();
             filters.reset.bike();
-            filters.reset.budget();
-            filters.reset.kilometers();
-            filters.reset.bikeAge();
             filters.reset.previousOwners();
             filters.reset.sellerType();
         },
 
-        city: function() {
-            $('#filter-type-city .selected-filters').text('All India');
-        },
-
         bike: function () {
             filterTypeBike.find('.selected-filters').text('All Bikes');
-        },
-
-        budget: function () {
-            $('#budget-range-slider').slider('option', 'values', [0, 7]);
-            $('#budget-amount').html('<span class="bwmsprite inr-xxsm-icon"></span>0 - <span class="bwmsprite inr-xxsm-icon"></span>2,00,000+');
-        },
-
-        kilometers: function () {
-            $('#kms-range-slider').slider('option', 'value', 80000);
-            $("#kms-amount").html('0 - ' + $("#kms-range-slider").slider("value").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' kms');
-        },
-
-        bikeAge: function () {
-            $('#bike-age-slider').slider('option', 'value', 8);
-            $("#bike-age-amount").html('0 - ' + $("#bike-age-slider").slider("value") + '+ years');
         },
 
         previousOwners: function () {
@@ -456,8 +474,7 @@ $('.filter-type-seller').on('click', function () {
     }
 });
 
-/* city filter */
-var cityFilter = $('#filter-city-container');
+
 
 $('#filter-type-city').on('click', '.filter-option-value', function () {
     filters.city.open();
@@ -468,11 +485,9 @@ $('#close-city-filter').on('click', function () {
     filters.city.close();
 });
 
-$('#filter-city-list').on('click', 'li', function () {
-    var item = $(this);
-    
+$('#filter-city-list').on('click', 'li', function () {    
     filters.city.close();
-    $('#filter-type-city .selected-filters').text(item.text());
+
 });
 
 

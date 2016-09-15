@@ -23,11 +23,9 @@
          <div id="usedBikesSection">
             <section>
                 <div class="container bg-white clearfix">
-                <h1 class="padding-top15 padding-right20 padding-bottom15 padding-left20 box-shadow"><%=heading %></h1>
-                    <h1 class="padding-top15 padding-right20 padding-bottom15 padding-left20 box-shadow">Used 
-                        <!-- ko if : BikeDetails() && BikeDetails().length > 0 --><span data-bind="text: PageHeading()"></span><!-- /ko --> bikes</h1>
-                        
-                    <div class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20">Showing <span class="text-bold">1-20</span> of <span class="text-bold">200</span> bikes</div>
+                    <h1 class="padding-top15 padding-right20 padding-bottom15 padding-left20 box-shadow">
+                        <span data-bind="text: PageHeading()"></span></h1>
+                
                 <div class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20">Showing <span class="text-bold">1-20</span> of <span class="text-bold"><%=totalListing %></span> bikes</div>
 
                     <div id="sort-filter-wrapper" class="text-center border-solid-bottom">
@@ -52,8 +50,7 @@
                                         <a href="javascript:void(0)" class="model-image-target">
                                             <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "Photo.OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "Photo.HostUrl").ToString(),Bikewale.Utility.ImageSize._370x208) %>" 
                                                  alt="" title="" border="0" />
-                                        <div class="model-media-details <%# Convert.ToUInt16(DataBinder.Eval(Container.DataItem, "TotalPhotos")) > 1? "":"hide" %>">
-                                            <div class="model-media-details">
+                                            <div class="model-media-details <%# Convert.ToUInt16(DataBinder.Eval(Container.DataItem, "TotalPhotos")) > 0? "":"hide" %>">
                                                 <div class="model-media-item">
                                                     <span class="bwmsprite gallery-photo-icon"></span>
                                                     <span class="model-media-count" ><%# DataBinder.Eval(Container.DataItem, "TotalPhotos").ToString() %></span>
@@ -63,7 +60,7 @@
                                     </div>
                                     <div class="margin-right20 margin-left20 padding-top10 font14">
                                         <h2 class="margin-bottom10">
-                                            <a href="">
+                                            <a href="">        
                                                 <%# DataBinder.Eval(Container.DataItem, "MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem, "ModelName").ToString() + " " + DataBinder.Eval(Container.DataItem, "VersionName").ToString() %>
                                             </a>
                                         </h2>
@@ -89,18 +86,17 @@
                                     </div>
                                 </li>
                             </ItemTemplate>
-                        </asp:Repeater>
-
+                        </asp:Repeater> 
                     </ul>
 
 
-                    <ul data-bind="visible: !OnInit() ,foreach : BikeDetails()">
+                    <ul id="used-bikes-list" data-bind="visible: !OnInit() ,foreach : BikeDetails()">
                         <li>
                             <div class="model-thumbnail-image">
-                                <a href="javascript:void(0)" class="model-image-target">
-                                    <img class="lazy" data-bind="attr: { 'data-original': photo.hostUrl + '/370x208/' + photo.originalImagePath, alt: bikeName, title: bikeName, src: 'http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif' }" alt="" title="" border="0" />
+                                <a data-bind=" attr: { 'href': '/m/used/bikes-in-' + cityMasking + '/' + makeMasking + '-' + modelMasking + '-' + profileId + '/' }" class="model-image-target">
+                                    <img data-bind="attr: { alt: bikeName, title: bikeName, src: 'http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif' }, lazyload: ((photo.originalImagePath != '') ? (photo.hostUrl + '/370x208/' + photo.originalImagePath) : 'http://imgd3.aeplcdn.com/174x98/bikewaleimg/images/noimage.png'), " alt="" title="" border="0" />
                                     <div class="model-media-details">
-                                        <div class="model-media-item">
+                                        <div class="model-media-item" data-bind="visible: totalPhotos > 0">
                                             <span class="bwmsprite gallery-photo-icon"></span>
                                             <span class="model-media-count" data-bind="text: totalPhotos"></span>
                                         </div>
@@ -109,29 +105,28 @@
                             </div>
                             <div class="margin-right20 margin-left20 padding-top10 font14">
                                 <h2 class="margin-bottom10"><a data-bind="text: bikeName, attr: { 'href': '/used/bikes-' + cityMasking + '/' + makeMasking + '-' + modelMasking + '-' + profileId + '/'}"></a></h2>
-                                <div class="grid-6 alpha omega margin-bottom5">
+                                <div class="grid-6 alpha omega margin-bottom5" data-bind="visible : modelYear > 0">
                                     <span class="bwmsprite model-date-icon"></span>
                                     <span class="model-details-label" data-bind="text: modelYear + ' model'"></span>
                                 </div>
-                                <div class="grid-6 omega margin-bottom5">
+                                <div class="grid-6 omega margin-bottom5" data-bind="visible: kmsDriven > 0">
                                     <span class="bwmsprite kms-driven-icon"></span>
-                                    <span class="model-details-label" data-bind="text: kmsDriven + ' kms'"></span>
+                                    <span class="model-details-label" ><span data-bind="CurrencyText: kmsDriven"></span> kms</span>
                                 </div>
-                                <div class="grid-6 alpha omega margin-bottom5">
+                                <div class="grid-6 alpha omega margin-bottom5" data-bind="visible: noOfOwners!=null">
                                     <span class="bwmsprite author-grey-sm-icon"></span>
-                                    <span class="model-details-label">2nd owner</span>
+                                    <span class="model-details-label"><span data-bind="NumberOrdinal: noOfOwners"></span> Owner</span>
                                 </div>
-                                <div class="grid-6 omega margin-bottom5">
+                                <div class="grid-6 omega margin-bottom5" data-bind="visible: city!=''">
                                     <span class="bwmsprite model-loc-icon"></span>
-                                    <span class="model-details-label" data-bind="text: city">Mumbai</span>
+                                    <span class="model-details-label" data-bind="text: city"></span>
                                 </div>
                                 <div class="clear"></div>
-                                <p class="margin-bottom15"><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold" data-bind="text: askingPrice">1,22,000</span></p>
+                                <p class="margin-bottom15" data-bind="visible: askingPrice > 0" ><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold" data-bind="CurrencyText:askingPrice"></span></p>
                                 <%--<a href="javascript:void(0)" class="btn btn-orange seller-details-btn" rel="nofollow">Get seller details</a>--%>
                             </div>
                         </li>
-                    </ul>
-                    
+                    </ul>                     
 
                     <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
                         <div class="grid-5 omega text-light-grey">
@@ -139,7 +134,8 @@
                     </div>
                 <BikeWale:Pager ID="ctrlPager" runat="server" />
                 </div>
-                <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
+
+                  <%--  <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
                     <div class="grid-5 omega text-light-grey">
                         <span class="text-default text-bold">1-20</span> of <span class="text-default text-bold"><%=totalListing %></span> bikes
                         </div>
@@ -169,11 +165,11 @@
                             </span>
                         </div>
                         <div class="clear"></div>
-                    </div>
+                    </div>--%>
                 </div>
             </section>
 
-            <div id="sortNFilters" >
+                <div id="sortNFilters" >
             <!-- sort popup start -->
             <div id="sort-by-container" class="sort-popup-container">
                 <div class="popup-header">Sort</div>
@@ -208,7 +204,7 @@
                     <div id="filter-type-city" class="margin-bottom25">
                         <p class="filter-option-key">City</p>
                         <div class="filter-option-value">
-                            <p class="selected-filters"></p>
+                            <p class="selected-filters" data-bind="text : SelectedCity().name"></p>
                             <span class="bwmsprite grey-right-icon"></span>
                         </div>
                     </div>
@@ -223,19 +219,19 @@
                         <p class="filter-option-key leftfloat">Budget</p>
                         <p id="budget-amount" class="font14 text-bold rightfloat"></p>
                         <div class="clear"></div>
-                        <div id="budget-range-slider"></div>
+                        <div  data-bind="KOSlider: BudgetValues, sliderOptions: { range: true, values: [0, 7], min: 0, max: 7, step: 1 }"></div>
                     </div>
                     <div class="margin-bottom35">
                         <p class="filter-option-key leftfloat">Kms ridden</p>
-                        <p id="kms-amount" class="font14 text-bold rightfloat"></p>
+                        <p  class="font14 text-bold rightfloat" data-bind="text: KmsDriven() + ' Kms'"></p>
                         <div class="clear"></div>
-                        <div id="kms-range-slider"></div>
+                        <div  data-bind="KOSlider: KmsDriven, sliderOptions: {range: 'min',value: 80000,min: 5000,max: 80000,step: 5000}"></div>
                     </div>
                     <div class="margin-bottom35">
                         <p class="filter-option-key leftfloat">Bike age</p>
-                        <p id="bike-age-amount" class="font14 text-bold rightfloat"></p>
+                        <p  class="font14 text-bold rightfloat" data-bind="text : BikeAge() + ' years'"></p>
                         <div class="clear"></div>
-                        <div id="bike-age-slider"></div>
+                        <div id="bike-age-slider" data-bind="KOSlider: BikeAge, sliderOptions: { range: 'min', value: 8, min: 1, max: 8, step: 1 }"></div>
                     </div>
                     <div class="margin-bottom25">
                         <p class="filter-option-key margin-bottom10">Previous owners</p>
@@ -270,7 +266,7 @@
                         <p id="reset-filters" class="btn btn-white btn-full-width btn-size-0">Reset</p>
                     </div>
                     <div class="grid-6">
-                        <p id="apply-filters" class="btn btn-orange btn-full-width btn-size-0">Apply filters</p>
+                        <p id="apply-filters" class="btn btn-orange btn-full-width btn-size-0" data-bind="click: ApplyFilters">Apply filters</p>
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -285,16 +281,16 @@
                             <input type="text" class="form-control padding-right40" placeholder="Type to select city" id="popupCityInput" autocomplete="off">
                         </div>
                         <ul id="filter-city-list">
-                            <li data-bind="click : FilterCity">Ahmedabad</li>
-                            <li data-bind="click: FilterCity">Bangalore</li>
-                            <li data-bind="click: FilterCity">Chennai</li>
-                            <li data-bind="click: FilterCity">Hyderabad</li>
-                            <li data-bind="click: FilterCity">Kolkata</li>
-                            <li data-bind="click: FilterCity">Mumbai</li>
-                            <li data-bind="click: FilterCity">Navi Mumbai</li>
-                            <li data-bind="click: FilterCity">New Delhi</li>
-                            <li data-bind="click: FilterCity">Pune</li>
-                            <li data-bind="click: FilterCity">Thane</li>
+                            <li data-cityid="4" data-bind="click : FilterCity">Ahmedabad</li>
+                            <li data-cityid="2" data-bind="click: FilterCity">Bangalore</li>
+                            <li data-cityid="1" data-bind="click: FilterCity">Chennai</li>
+                            <li data-cityid="1" data-bind="click: FilterCity">Hyderabad</li>
+                            <li data-cityid="1" data-bind="click: FilterCity">Kolkata</li>
+                            <li data-cityid="1" data-bind="click: FilterCity">Mumbai</li>
+                            <li data-cityid="13" data-bind="click: FilterCity">Navi Mumbai</li>
+                            <li data-cityid="1" data-bind="click: FilterCity">New Delhi</li>
+                            <li data-cityid="12" data-bind="click: FilterCity">Pune</li>
+                            <li data-cityid="20" data-bind="click: FilterCity">Thane</li>
                         </ul>                    
                         <div class="margin-top30 font24 text-center margin-top60 "></div>
                     </div>
@@ -896,10 +892,14 @@
             <!-- filter popup end -->
             </div>
         </div>
+
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/used-search-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/used-search.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript">
+            vwUsedBikes.PageHeading("<%= heading %>");
+        </script>
     </form>
 </body>
 </html>
