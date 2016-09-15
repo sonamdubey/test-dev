@@ -98,6 +98,14 @@ namespace Bikewale.Utility
         }
 
 
+        public static string UsedBikesUrlNoCity(string make, string model, string city)
+        {
+            if (!String.IsNullOrEmpty(model))
+                return String.Format("/used/{0}-{1}-bikes-in-{2}/", make, model, city);
+            else
+                return String.Format("/used/{0}-bikes-in-{1}/", make, city);
+        }
+
         /// <summary>
         /// Created By Vivek gupta
         /// Date : 22 june 2016
