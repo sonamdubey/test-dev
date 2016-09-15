@@ -208,27 +208,27 @@
                     <div class="margin-bottom25">
                         <p class="filter-option-key margin-bottom10">Previous owners</p>
                         <ul id="previous-owners-list">
-                            <li>
+                            <li data-ownerid="1">
                                 <span>1</span>
                             </li>
-                            <li>
+                            <li  data-ownerid="2">
                                 <span>2</span>
                             </li>
-                            <li>
+                            <li  data-ownerid="3">
                                 <span>3</span>
                             </li>
-                            <li>
+                            <li  data-ownerid="4">
                                 <span>4</span>
                             </li>
-                            <li>
+                            <li  data-ownerid="5">
                                 <span class="prev-owner-last-item">4 +</span>
                             </li>
                         </ul>
                     </div>
-                    <div>
+                    <div id="sellerTypes">
                         <p class="filter-option-key margin-bottom10">Seller type</p>
-                        <div class="filter-type-seller grid-6 unchecked padding-left25">Individual</div>
-                        <div class="filter-type-seller grid-6 unchecked padding-left25">Dealer</div>
+                        <div class="filter-type-seller grid-6 unchecked padding-left25" data-sellerid="1">Individual</div>
+                        <div class="filter-type-seller grid-6 unchecked padding-left25" data-sellerid="2">Dealer</div>
                         <div class="clear"></div>
                     </div>
                 </div>
@@ -255,7 +255,7 @@
                     
                         <ul id="filter-city-list">
                         <%foreach(var city in cities) {%>
-                        <li data-cityid="<%= city.CityId %>"><%=city.CityName %></li>
+                        <li data-cityid="<%= city.CityId %>" data-bind="click : FilterCity"><%=city.CityName %></li>
                         <%} %>
                         </ul>                    
 
@@ -295,7 +295,7 @@
                             <%foreach (var model in make.Models)
                               {%>
                                 <li>
-                                <span data-modelid="<%=model.ModelId %>" class="bwmsprite unchecked-box"></span>
+                                <span data-modelid="<%=model.ModelId %>"  class="bwmsprite unchecked-box"></span>
                                 <span class="bike-model-label"><%=model.ModelName %></span>
                                 </li>
                             <%} %>
