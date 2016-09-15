@@ -23,7 +23,6 @@ using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Used
@@ -67,29 +66,76 @@ namespace Bikewale.Mobile.Used
             CreateMetas(makeName, modelName, cityName, totalListing);
             CreatePager();
         }
-
+        /// <summary>
+        /// Creted by: Sangram Nandkhile on 15 Sep 2016
+        /// Summary: Check if hidden field has parameters and set the input query parameters
+        ///          Create a keyvalue pair to retrive hash values and process ahead
+        /// </summary>
+        /// <param name="input"></param>
         private void CheckHashUrlParams(InputFilters input)
         {
-            if (!string.IsNullOrEmpty(hdnHash.Value))
+            try
             {
-                string hash = hdnHash.Value;
-                string[] arrays = hash.Split(new string[] { "#" }, StringSplitOptions.RemoveEmptyEntries);
 
-                MatchCollection matchList = Regex.Matches(hash, "budget=[0-9]/+[0-9]");
-                var list = matchList.Cast<Match>().Select(match => match.Value).ToList();
+                //***************************** REMOVE THIS LINE *******************************************
+                hdnHash.Value = "city=2&make=1&model=59+349&budget=40000+50000&so=0&age=7";
+                //***************************** REMOVE THIS LINE *******************************************
 
-                // Check budgets
-
-                // Check make
-
-                // check model
-
-                //
-                Match matchBudget = Regex.Match(hash, "budget=[0-9]");
-                if (matchBudget.Success)
+                if (!string.IsNullOrEmpty(hdnHash.Value))
                 {
+                    string hash = hdnHash.Value;
+                    string[] arrHash = hash.Split(new string[] { "&" }, StringSplitOptions.RemoveEmptyEntries);
+                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                    foreach (var val in arrHash)
+                    {
+                        if (val.Contains('='))
+                        {
+                            string[] arr = val.Split('=');
+                            dictionary.Add(arr[0], arr[1]);
+                        }
+                    }
 
+                    if (dictionary.ContainsKey("city"))
+                    {
+                        input.CityId = Convert.ToUInt16(dictionary["city"]);
+                    }
+                    // Check budgets
+                    if (dictionary.ContainsKey("budget"))
+                    {
+                        input.Budget = dictionary["budget"];
+                    }
+                    // Check make
+                    if (dictionary.ContainsKey("make"))
+                    {
+                        input.Makes = dictionary["make"].Replace("+", ",");
+                    }
+                    // check model
+                    if (dictionary.ContainsKey("model"))
+                    {
+                        input.Models = dictionary["model"].Replace("+", ",");
+                    }
+                    // Age
+                    if (dictionary.ContainsKey("age"))
+                    {
+                        input.Age = dictionary["age"];
+                    }
+                    // SO sort order
+                    if (dictionary.ContainsKey("so"))
+                    {
+                        input.SO = Convert.ToUInt16(dictionary["so"]);
+                    }
+
+                    if (dictionary.ContainsKey("st"))
+                    {
+                        input.ST = dictionary["st"].Replace("+", ",");
+                    }
+                    dictionary = null;
                 }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : CreateMetas");
+                objErr.SendMail();
             }
         }
 
@@ -106,20 +152,23 @@ namespace Bikewale.Mobile.Used
             {
                 InputFilters objFilters = new InputFilters();
                 CheckHashUrlParams(objFilters);
-                if (cityId > 0)
+
+                // If inputs are set by hash, hash overrides the query string parameters
+                if (objFilters != null && objFilters.CityId == 0 && cityId > 0)
                     objFilters.CityId = cityId;
-                if (makeId > 0)
+                if (objFilters != null && objFilters.Makes.Length == 0 && makeId > 0)
                     objFilters.Makes = makeId.ToString();
-                if (modelId > 0)
+                if (objFilters != null && objFilters.Models.Length == 0 && modelId > 0)
                     objFilters.Models = modelId.ToString();
-                objFilters.Budget = "40000+70000";
-                objFilters.Age = "2";
-                objFilters.Kms = "40000";
-                objFilters.Owners = "1,2,3";
-                objFilters.ST = "1,2";
+                //objFilters.Budget = "40000+70000";
+                //objFilters.Age = "2";
+                // objFilters.Kms = "40000";
+                //objFilters.Owners = "1,2,3";
+                // objFilters.ST = "1,2";
+                //objFilters.SO = 0;
+
                 objFilters.PN = _pageNo;
                 objFilters.PS = _pageSize;
-                objFilters.SO = 0;
 
                 using (IUnityContainer container = new UnityContainer())
                 {
@@ -286,6 +335,14 @@ namespace Bikewale.Mobile.Used
         {
             try
             {
+                // Common title, h1 and canonical
+                string bikeName = string.Format("{0} {1} ", strMake, strModel).Trim();
+                if (bikeName.Length > 0)
+                    bikeName = string.Format("{0} ", bikeName);
+                heading = string.Format("Used {0}Bikes in {1}", bikeName, strCity);
+                pageTitle = string.Format("Used {0}Bikes in {1} - Verified Bike Listing For Sale | BikeWale", bikeName, strCity);
+                pageCanonical = CreateCanonical(Request.RawUrl);
+
                 // Make models specific
                 if (strModel.Length > 0)
                 {
@@ -302,14 +359,6 @@ namespace Bikewale.Mobile.Used
                     pageDescription = string.Format("There are {0} used bikes in {1} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand bikes for sale in {1}", count, strCity);
                     pageKeywords = string.Format("Used bikes in {0}, find used bikes in {0}, buy used bikes in {0}, search used bikes, find used bikes, used bike listing, bike used sale, bike sale in {0}, {0} bike search, Bajaj, Aprilia, BMW, Ducati, Harley Davidson, Hero, Honda, Hyosung, KTM, Mahindra, Royal Enfield, Suzuki, Yamaha, Yo, TVS, Vespa, Kawasaki", strCity);
                 }
-
-
-                string _bike = string.Format("{0} {1} ", strMake, strModel).Trim();
-                if (_bike.Length > 0)
-                    _bike = string.Format("{0} ", _bike);
-                heading = string.Format("Used {0}Bikes in {1}", _bike, strCity);
-                pageTitle = string.Format("Used {0}Bikes in {1} - Verified Bike Listing For Sale | BikeWale", _bike, strCity);
-                pageCanonical = CreateCanonical(Request.RawUrl);
             }
             catch (Exception ex)
             {
@@ -329,7 +378,6 @@ namespace Bikewale.Mobile.Used
                     returl = RemoveTrailingPage(rawUrl);
                 }
                 returl = string.Format("http://www.bikewale.com/{0}page-1/", returl.Replace("/m/", string.Empty));
-
             }
             catch (Exception ex)
             {
@@ -403,7 +451,7 @@ namespace Bikewale.Mobile.Used
                 // _pagerEntity.PageUrlType = "page-{0}/";
                 _pagerEntity.TotalResults = (int)recordCount; //total News count
                 _pagerEntity.PageSize = _pageSize;  //No. of news to be displayed on a page
-                _pagerOutput = GetPager<PagerOutputEntity>(_pagerEntity);
+                _pagerOutput = objPager.GetUsedBikePager<PagerOutputEntity>(_pagerEntity);
 
                 // for RepeaterPager
                 ctrlPager.PagerOutput = _pagerOutput;
@@ -424,112 +472,112 @@ namespace Bikewale.Mobile.Used
             }
         }
 
-        public T GetPager<T>(PagerEntity pagerDetails) where T : PagerOutputEntity, new()
-        {
-            var results = new List<PagerUrlList>();
-            T t = new T();
+        //public T GetUsedBikePager<T>(PagerEntity pagerDetails) where T : PagerOutputEntity, new()
+        //{
+        //    var results = new List<PagerUrlList>();
+        //    T t = new T();
 
-            try
-            {
-                bool firstPage = false, lastPage = false;
-                string pageUrl;
-                int startIndex, endIndex;
-                int pageCount = (int)Math.Ceiling((double)pagerDetails.TotalResults / (double)pagerDetails.PageSize);// Total number of pages in the pager.
+        //    try
+        //    {
+        //        bool firstPage = false, lastPage = false;
+        //        string pageUrl;
+        //        int startIndex, endIndex;
+        //        int pageCount = (int)Math.Ceiling((double)pagerDetails.TotalResults / (double)pagerDetails.PageSize);// Total number of pages in the pager.
 
-                if (pageCount > 1)
-                {
-                    int totalSlots = (int)Math.Ceiling((double)pageCount / (double)pagerDetails.PagerSlotSize); // The total number of slots for the pager.
-                    int curSlot = ((int)Math.Floor((double)(pagerDetails.PageNo - 1) / (double)pagerDetails.PagerSlotSize)) + 1; // Current page slot.
+        //        if (pageCount > 1)
+        //        {
+        //            int totalSlots = (int)Math.Ceiling((double)pageCount / (double)pagerDetails.PagerSlotSize); // The total number of slots for the pager.
+        //            int curSlot = ((int)Math.Floor((double)(pagerDetails.PageNo - 1) / (double)pagerDetails.PagerSlotSize)) + 1; // Current page slot.
 
-                    if (pagerDetails.PageNo == 1)// check for if the current page is the first page or the last page.
-                        firstPage = true;
-                    else if (pagerDetails.PageNo == pageCount)
-                        lastPage = true;
+        //            if (pagerDetails.PageNo == 1)// check for if the current page is the first page or the last page.
+        //                firstPage = true;
+        //            else if (pagerDetails.PageNo == pageCount)
+        //                lastPage = true;
 
-                    // Get Start and End Index.
-                    GetStartEndIndex(pagerDetails, pageCount, curSlot, out startIndex, out endIndex);
+        //            // Get Start and End Index.
+        //            GetStartEndIndex(pagerDetails, pageCount, curSlot, out startIndex, out endIndex);
 
-                    // Set the first and last page Urls.
-                    if (firstPage == false) t.FirstPageUrl = string.Format("{0}-1/", pagerDetails.BaseUrl);
-                    if (lastPage == false) t.LastPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, pageCount);
+        //            // Set the first and last page Urls.
+        //            if (firstPage == false) t.FirstPageUrl = string.Format("{0}-1/", pagerDetails.BaseUrl);
+        //            if (lastPage == false) t.LastPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, pageCount);
 
-                    //Get the list of page Urls.
-                    for (int i = startIndex; i <= endIndex; i++)
-                    {
-                        PagerUrlList pagerUrlList = new PagerUrlList();
-                        pageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, i);
-                        pagerUrlList.PageNo = i;
-                        pagerUrlList.PageUrl = pageUrl;
-                        results.Add(pagerUrlList);
-                    }
+        //            //Get the list of page Urls.
+        //            for (int i = startIndex; i <= endIndex; i++)
+        //            {
+        //                PagerUrlList pagerUrlList = new PagerUrlList();
+        //                pageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, i);
+        //                pagerUrlList.PageNo = i;
+        //                pagerUrlList.PageUrl = pageUrl;
+        //                results.Add(pagerUrlList);
+        //            }
 
-                    //Set previous and next page Url.
-                    if (pagerDetails.PageNo == 1)
-                    {
-                        t.PreviousPageUrl = "";
-                        t.NextPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, (pagerDetails.PageNo + 1));
-                    }
-                    else if (endIndex == pagerDetails.PageNo)
-                    {
-                        t.NextPageUrl = "";
-                        t.PreviousPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, (pagerDetails.PageNo - 1));
-                    }
-                    else
-                    {
-                        t.NextPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, (pagerDetails.PageNo + 1));
-                        t.PreviousPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, (pagerDetails.PageNo - 1));
-                    }
-                }
-                else
-                {
-                    PagerUrlList pagerUrlList = new PagerUrlList();
-                    pagerUrlList.PageNo = -1;
-                    results.Add(pagerUrlList); //No pager created if the number of pages is equal to 1.
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Pager Class Error. GetPager");
-                objErr.SendMail();
-            }
+        //            //Set previous and next page Url.
+        //            if (pagerDetails.PageNo == 1)
+        //            {
+        //                t.PreviousPageUrl = "";
+        //                t.NextPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, (pagerDetails.PageNo + 1));
+        //            }
+        //            else if (endIndex == pagerDetails.PageNo)
+        //            {
+        //                t.NextPageUrl = "";
+        //                t.PreviousPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, (pagerDetails.PageNo - 1));
+        //            }
+        //            else
+        //            {
+        //                t.NextPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, (pagerDetails.PageNo + 1));
+        //                t.PreviousPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, (pagerDetails.PageNo - 1));
+        //            }
+        //        }
+        //        else
+        //        {
+        //            PagerUrlList pagerUrlList = new PagerUrlList();
+        //            pagerUrlList.PageNo = -1;
+        //            results.Add(pagerUrlList); //No pager created if the number of pages is equal to 1.
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ErrorClass objErr = new ErrorClass(ex, "Pager Class Error. GetPager");
+        //        objErr.SendMail();
+        //    }
 
-            t.PagesDetail = results;
-            return t;
-        }
+        //    t.PagesDetail = results;
+        //    return t;
+        //}
 
-        private void GetStartEndIndex(PagerEntity pagerDetails, int pageCount, int curSlot, out int startIndex, out int endIndex)
-        {
-            bool isPagerSlotEven = false;
+        //private void GetStartEndIndex(PagerEntity pagerDetails, int pageCount, int curSlot, out int startIndex, out int endIndex)
+        //{
+        //    bool isPagerSlotEven = false;
 
-            startIndex = (curSlot - 1) * pagerDetails.PagerSlotSize + 1;//Calculate the start index.
-            endIndex = curSlot * pagerDetails.PagerSlotSize;//Calculate the end Index.
+        //    startIndex = (curSlot - 1) * pagerDetails.PagerSlotSize + 1;//Calculate the start index.
+        //    endIndex = curSlot * pagerDetails.PagerSlotSize;//Calculate the end Index.
 
-            if (pagerDetails.PagerSlotSize != pageCount)
-            {
-                if (pagerDetails.PagerSlotSize % 2 == 0)// Check if pager slot size is even or odd to calculate the start index and the end index.
-                {                                       // This is required to keep the selected page in the centre of the pager whilst the pager size is maintained.
-                    isPagerSlotEven = true;
-                }
+        //    if (pagerDetails.PagerSlotSize != pageCount)
+        //    {
+        //        if (pagerDetails.PagerSlotSize % 2 == 0)// Check if pager slot size is even or odd to calculate the start index and the end index.
+        //        {                                       // This is required to keep the selected page in the centre of the pager whilst the pager size is maintained.
+        //            isPagerSlotEven = true;
+        //        }
 
-                int pagerSlotHalf = (int)Math.Floor((double)pagerDetails.PagerSlotSize / 2);
+        //        int pagerSlotHalf = (int)Math.Floor((double)pagerDetails.PagerSlotSize / 2);
 
-                //This sets the start index and end index such that the current page is in always in the centre, whilst the pager slot size is maintained.
-                if (pagerSlotHalf < pagerDetails.PageNo)
-                {
-                    if (isPagerSlotEven)
-                    {
-                        startIndex = pagerDetails.PageNo - (pagerSlotHalf - 1);
-                        endIndex = pagerDetails.PageNo + (pagerSlotHalf);
-                    }
-                    else
-                    {
-                        startIndex = pagerDetails.PageNo - pagerSlotHalf;
-                        endIndex = pagerDetails.PageNo + pagerSlotHalf;
-                    }
-                }
-                endIndex = endIndex <= pageCount ? endIndex : pageCount;
-            }
-        }
+        //        //This sets the start index and end index such that the current page is in always in the centre, whilst the pager slot size is maintained.
+        //        if (pagerSlotHalf < pagerDetails.PageNo)
+        //        {
+        //            if (isPagerSlotEven)
+        //            {
+        //                startIndex = pagerDetails.PageNo - (pagerSlotHalf - 1);
+        //                endIndex = pagerDetails.PageNo + (pagerSlotHalf);
+        //            }
+        //            else
+        //            {
+        //                startIndex = pagerDetails.PageNo - pagerSlotHalf;
+        //                endIndex = pagerDetails.PageNo + pagerSlotHalf;
+        //            }
+        //        }
+        //        endIndex = endIndex <= pageCount ? endIndex : pageCount;
+        //    }
+        //}
 
         #endregion
 
