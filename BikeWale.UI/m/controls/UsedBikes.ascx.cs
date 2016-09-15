@@ -88,32 +88,38 @@ namespace Bikewale.Mobile.Controls
 
                     if (objMostRecentBikes != null && objMostRecentBikes.Count() > 0)
                     {
-                        makeName = objMostRecentBikes.FirstOrDefault().MakeName;
-                        if (ModelId > 0)
+                        MostRecentBikes ObjDetails = null;
+                        ObjDetails = objMostRecentBikes.FirstOrDefault();
+                        if (ObjDetails != null)
                         {
-                            modelName = objMostRecentBikes.FirstOrDefault().ModelName;
-                            modelMaskingName = objMostRecentBikes.FirstOrDefault().ModelMaskingName;
-                        }
+                            makeName = ObjDetails.MakeName;
+                            if (ModelId > 0)
+                            {
+                                modelName = ObjDetails.ModelName;
+                                modelMaskingName = ObjDetails.ModelMaskingName;
+                            }
 
-                        makeMaskingName = objMostRecentBikes.FirstOrDefault().MakeMaskingName;
-                        if (CityId > 0)
-                        {
-                            cityName = objMostRecentBikes.FirstOrDefault().CityName;
-                            cityMaskingName = objMostRecentBikes.FirstOrDefault().CityMaskingName;
-                        }
-                        pageHeading = makeName + modelName;
-                        if (CityId > 0)
-                        {
-                            rptRecentUsedBikes.DataSource = objMostRecentBikes;
-                            rptRecentUsedBikes.DataBind();
-                            showWidget = true;
-                        }
+                            makeMaskingName = ObjDetails.MakeMaskingName;
+                            if (CityId > 0)
+                            {
+                                cityName = ObjDetails.CityName;
+                                cityMaskingName = ObjDetails.CityMaskingName;
+                            }
 
-                        else if (CityId <= 0)
-                        {
-                            rptUsedBikeNoCity.DataSource = objMostRecentBikes;
-                            rptUsedBikeNoCity.DataBind();
-                            showWidget = true;
+                            pageHeading = String.Format("{0} {1}", makeName, modelName);
+                            if (CityId > 0)
+                            {
+                                rptRecentUsedBikes.DataSource = objMostRecentBikes;
+                                rptRecentUsedBikes.DataBind();
+                                showWidget = true;
+                            }
+
+                            else if (CityId <= 0)
+                            {
+                                rptUsedBikeNoCity.DataSource = objMostRecentBikes;
+                                rptUsedBikeNoCity.DataBind();
+                                showWidget = true;
+                            }
                         }
                     }
                 }
