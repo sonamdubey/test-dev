@@ -10,7 +10,9 @@
             keywords = pageKeywords;
             EnableOG = true;
             relPrevPageUrl = prevUrl.Replace("/m/", string.Empty);
-            relNextPageUrl = nextUrl.Replace("/m/", string.Empty); ;
+            relNextPageUrl = nextUrl.Replace("/m/", string.Empty);
+            Ad_320x50 = true;
+            Ad_Bot_320x50 = true;
         %>
 
     <!-- #include file="/includes/headscript_mobile.aspx" -->
@@ -84,7 +86,7 @@
                                         </div>
                                         <div class="clear"></div>
                                         <p class="margin-bottom15"><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold"><%# Bikewale.Utility.Format.FormatNumeric(DataBinder.Eval(Container.DataItem, "AskingPrice").ToString()) %></span></p>
-                                        <%--<a href="javascript:void(0)" class="btn btn-orange seller-details-btn" rel="nofollow">Get seller details</a>--%>
+                                    <%--<a href="javascript:void(0)" class="btn btn-orange seller-details-btn" rel="nofollow">Get seller details</a>--%>
                                     </div>
                                 </li>
                             </ItemTemplate>

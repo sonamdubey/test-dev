@@ -13,6 +13,7 @@ namespace Bikewale.Interfaces.Pager
     public interface IPager
     {
         T GetPager<T>(PagerEntity pagerDetails) where T : PagerOutputEntity, new();
+        T GetUsedBikePager<T>(PagerEntity pagerDetails) where T : PagerOutputEntity, new();
         void GetStartEndIndex(int pageSize, int currentPageNo, out int startIndex, out int endIndex);
         int GetTotalPages(int totalRecords, int pageSize);
     }
