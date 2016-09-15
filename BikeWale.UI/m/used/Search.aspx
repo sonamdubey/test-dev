@@ -6,9 +6,11 @@
         <%
             title = pageTitle;
             description = pageDescription;
-            canonical = "";
+            canonical = pageCanonical;
             keywords = pageKeywords;
             EnableOG = true;
+            relPrevPageUrl = prevUrl.Replace("/m/", string.Empty);
+            relNextPageUrl = nextUrl.Replace("/m/", string.Empty); ;
         %>
 
     <!-- #include file="/includes/headscript_mobile.aspx" -->
@@ -18,7 +20,7 @@
 <body>
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
-       
+       <asp:HiddenField runat="server" ID="hdnHash" Value="" />
          <div class="modal-background"></div>
          <div id="usedBikesSection">
             <section>
@@ -26,7 +28,7 @@
                     <h1 class="padding-top15 padding-right20 padding-bottom15 padding-left20 box-shadow">
                         <span data-bind="text: PageHeading()"></span></h1>
                 
-                <div class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20">Showing <span class="text-bold">1-20</span> of <span class="text-bold"><%=totalListing %></span> bikes</div>
+                <div class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20">Showing <span class="text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-bold"><%=totalListing %></span> bikes</div>
 
                     <div id="sort-filter-wrapper" class="text-center border-solid-bottom">
                         <div id="sort-floating-btn" class="grid-6 padding-top10 padding-bottom10 border-solid-right cur-pointer">
@@ -47,7 +49,7 @@
                             <ItemTemplate>
                                 <li <%--data-bind="with: BikeDetails()[<%# Container.ItemIndex %>]"--%>>
                                     <div class="model-thumbnail-image">
-                                        <a href="javascript:void(0)" class="model-image-target">
+                                    <a href="/m/used/bikes-in-<%# DataBinder.Eval(Container.DataItem, "CityMaskingName").ToString() %>/<%# DataBinder.Eval(Container.DataItem, "MakeMaskingName").ToString() %>-<%# DataBinder.Eval(Container.DataItem, "ModelMaskingName").ToString() %>-<%# DataBinder.Eval(Container.DataItem, "ProfileId").ToString() %>/" class="model-image-target">
                                             <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "Photo.OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "Photo.HostUrl").ToString(),Bikewale.Utility.ImageSize._370x208) %>" 
                                                  alt="" title="" border="0" />
                                             <div class="model-media-details <%# Convert.ToUInt16(DataBinder.Eval(Container.DataItem, "TotalPhotos")) > 0? "":"hide" %>">
@@ -60,7 +62,7 @@
                                     </div>
                                     <div class="margin-right20 margin-left20 padding-top10 font14">
                                         <h2 class="margin-bottom10">
-                                            <a href="">        
+                                        <a href="/m/used/bikes-in-<%# DataBinder.Eval(Container.DataItem, "CityMaskingName").ToString() %>/<%# DataBinder.Eval(Container.DataItem, "MakeMaskingName").ToString() %>-<%# DataBinder.Eval(Container.DataItem, "ModelMaskingName").ToString() %>-<%# DataBinder.Eval(Container.DataItem, "ProfileId").ToString() %>/">
                                                 <%# DataBinder.Eval(Container.DataItem, "MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem, "ModelName").ToString() + " " + DataBinder.Eval(Container.DataItem, "VersionName").ToString() %>
                                             </a>
                                         </h2>
@@ -130,41 +132,11 @@
 
                     <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
                         <div class="grid-5 omega text-light-grey">
-                        <span class="text-default text-bold">1-20</span> of <span class="text-default text-bold"><%=totalListing %></span> bikes
+                        <span class="text-default text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-default text-bold"><%=totalListing %></span> bikes
                     </div>
                 <BikeWale:Pager ID="ctrlPager" runat="server" />
                 </div>
-
                   <%--  <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
-                    <div class="grid-5 omega text-light-grey">
-                        <span class="text-default text-bold">1-20</span> of <span class="text-default text-bold"><%=totalListing %></span> bikes
-                        </div>
-                        <div class="grid-7 alpha omega position-rel">
-                            <ul id="pagination-list">
-                                <li>
-                                    <a href="">91</a>
-                                </li>
-                                <li>
-                                    <a href="">92</a>
-                                </li>
-                                <li class="active">
-                                    <a href="">93</a>
-                                </li>
-                                <li>
-                                    <a href="">94</a>
-                                </li>
-                                <li>
-                                    <a href="">95</a>
-                                </li>
-                            </ul>
-                            <span class="pagination-control-prev inactive">
-                                <a href="" class="bwmsprite prev-page-icon"></a>
-                            </span>
-                            <span class="pagination-control-next">
-                                <a href="" class="bwmsprite next-page-icon"></a>
-                            </span>
-                        </div>
-                        <div class="clear"></div>
                     </div>--%>
                 </div>
             </section>
@@ -280,18 +252,13 @@
                             </span>
                             <input type="text" class="form-control padding-right40" placeholder="Type to select city" id="popupCityInput" autocomplete="off">
                         </div>
+                    
                         <ul id="filter-city-list">
-                            <li data-cityid="4" data-bind="click : FilterCity">Ahmedabad</li>
-                            <li data-cityid="2" data-bind="click: FilterCity">Bangalore</li>
-                            <li data-cityid="1" data-bind="click: FilterCity">Chennai</li>
-                            <li data-cityid="1" data-bind="click: FilterCity">Hyderabad</li>
-                            <li data-cityid="1" data-bind="click: FilterCity">Kolkata</li>
-                            <li data-cityid="1" data-bind="click: FilterCity">Mumbai</li>
-                            <li data-cityid="13" data-bind="click: FilterCity">Navi Mumbai</li>
-                            <li data-cityid="1" data-bind="click: FilterCity">New Delhi</li>
-                            <li data-cityid="12" data-bind="click: FilterCity">Pune</li>
-                            <li data-cityid="20" data-bind="click: FilterCity">Thane</li>
+                        <%foreach(var city in cities) {%>
+                        <li data-cityid="<%= city.CityId %>"><%=city.CityName %></li>
+                        <%} %>
                         </ul>                    
+
                         <div class="margin-top30 font24 text-center margin-top60 "></div>
                     </div>
                 </div>
@@ -308,573 +275,33 @@
                     </div>
                     <div class="filter-bike-banner"></div>
                     <ul id="filter-bike-list">
+                    <%foreach (var make in makeModels)
+                      {%>
                         <li>
                             <div class="accordion-tab">
+
                                 <div class="accordion-checkbox leftfloat">
-                                    <span class="bwmsprite unchecked-box"></span>
+                                <span data-makeid="<%=make.Make.MakeId %>" class="bwmsprite unchecked-box"></span>
                                 </div>
-                                <div class="accordion-label-tab leftfloat">
-                                    <span class="accordion-label">Honda</span>
+
+                            <div class="accordion-label-tab leftfloat">
+                                <span class="accordion-label"><%=make.Make.MakeName %></span>
                                     <span class="accordion-count"></span>
                                     <span class="bwmsprite arrow-down"></span>
                                 </div>
                                 <div class="clear"></div>
                             </div>
                             <ul class="bike-model-list">
+                            <%foreach (var model in make.Models)
+                              {%>
                                 <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Navi</span>
+                                <span data-modelid="<%=model.ModelId %>" class="bwmsprite unchecked-box"></span>
+                                <span class="bike-model-label"><%=model.ModelName %></span>
                                 </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa-i</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CD 110 Dream</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dio</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dream Neo</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa 3G</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dream Yuga</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Livo</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa 125</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Aviator</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CB Shine</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CB Unicorn 150</span>
-                                </li>
+                            <%} %>
                             </ul>
                         </li>
-                        <li>
-                            <div class="accordion-tab">
-                                <div class="accordion-checkbox leftfloat">
-                                    <span class="bwmsprite unchecked-box"></span>
-                                </div>
-                                <div class="accordion-label-tab leftfloat">
-                                    <span class="accordion-label">Harley Davidson</span>
-                                    <span class="accordion-count"></span>
-                                    <span class="bwmsprite arrow-down"></span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <ul class="bike-model-list">
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Navi</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa-i</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CD 110 Dream</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dio</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dream Neo</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa 3G</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dream Yuga</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Livo</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa 125</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Aviator</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CB Shine</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CB Unicorn 150</span>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="accordion-tab">
-                                <div class="accordion-checkbox leftfloat">
-                                    <span class="bwmsprite unchecked-box"></span>
-                                </div>
-                                <div class="accordion-label-tab leftfloat">
-                                    <span class="accordion-label">MV Agusta</span>
-                                    <span class="accordion-count"></span>
-                                    <span class="bwmsprite arrow-down"></span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <ul class="bike-model-list">
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Navi</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa-i</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CD 110 Dream</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dio</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dream Neo</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa 3G</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dream Yuga</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Livo</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa 125</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Aviator</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CB Shine</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CB Unicorn 150</span>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="accordion-tab">
-                                <div class="accordion-checkbox leftfloat">
-                                    <span class="bwmsprite unchecked-box"></span>
-                                </div>
-                                <div class="accordion-label-tab leftfloat">
-                                    <span class="accordion-label">Aprilia</span>
-                                    <span class="accordion-count"></span>
-                                    <span class="bwmsprite arrow-down"></span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <ul class="bike-model-list">
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Navi</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa-i</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CD 110 Dream</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dio</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dream Neo</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa 3G</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dream Yuga</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Livo</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa 125</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Aviator</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CB Shine</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CB Unicorn 150</span>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="accordion-tab">
-                                <div class="accordion-checkbox leftfloat">
-                                    <span class="bwmsprite unchecked-box"></span>
-                                </div>
-                                <div class="accordion-label-tab leftfloat">
-                                    <span class="accordion-label">Hero</span>
-                                    <span class="accordion-count"></span>
-                                    <span class="bwmsprite arrow-down"></span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <ul class="bike-model-list">
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Navi</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa-i</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CD 110 Dream</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dio</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dream Neo</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa 3G</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dream Yuga</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Livo</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa 125</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Aviator</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CB Shine</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CB Unicorn 150</span>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="accordion-tab">
-                                <div class="accordion-checkbox leftfloat">
-                                    <span class="bwmsprite unchecked-box"></span>
-                                </div>
-                                <div class="accordion-label-tab leftfloat">
-                                    <span class="accordion-label">Honda</span>
-                                    <span class="accordion-count"></span>
-                                    <span class="bwmsprite arrow-down"></span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <ul class="bike-model-list">
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Navi</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa-i</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CD 110 Dream</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dio</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dream Neo</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa 3G</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dream Yuga</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Livo</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa 125</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Aviator</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CB Shine</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CB Unicorn 150</span>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="accordion-tab">
-                                <div class="accordion-checkbox leftfloat">
-                                    <span class="bwmsprite unchecked-box"></span>
-                                </div>
-                                <div class="accordion-label-tab leftfloat">
-                                    <span class="accordion-label">Harley Davidson</span>
-                                    <span class="accordion-count"></span>
-                                    <span class="bwmsprite arrow-down"></span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <ul class="bike-model-list">
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Navi</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa-i</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CD 110 Dream</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dio</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dream Neo</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa 3G</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dream Yuga</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Livo</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa 125</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Aviator</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CB Shine</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CB Unicorn 150</span>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="accordion-tab">
-                                <div class="accordion-checkbox leftfloat">
-                                    <span class="bwmsprite unchecked-box"></span>
-                                </div>
-                                <div class="accordion-label-tab leftfloat">
-                                    <span class="accordion-label">MV Agusta</span>
-                                    <span class="accordion-count"></span>
-                                    <span class="bwmsprite arrow-down"></span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <ul class="bike-model-list">
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Navi</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa-i</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CD 110 Dream</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dio</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dream Neo</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa 3G</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dream Yuga</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Livo</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa 125</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Aviator</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CB Shine</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CB Unicorn 150</span>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="accordion-tab">
-                                <div class="accordion-checkbox leftfloat">
-                                    <span class="bwmsprite unchecked-box"></span>
-                                </div>
-                                <div class="accordion-label-tab leftfloat">
-                                    <span class="accordion-label">Aprilia</span>
-                                    <span class="accordion-count"></span>
-                                    <span class="bwmsprite arrow-down"></span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <ul class="bike-model-list">
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Navi</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa-i</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CD 110 Dream</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dio</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dream Neo</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa 3G</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Dream Yuga</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Livo</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Activa 125</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">Aviator</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CB Shine</span>
-                                </li>
-                                <li>
-                                    <span class="bwmsprite unchecked-box"></span>
-                                    <span class="bike-model-label">CB Unicorn 150</span>
-                                </li>
-                            </ul>
-                        </li>
+                    <%} %>
                     </ul>
                     <div id="filter-bike-container-footer" class="filter-container-footer">
                         <div class="grid-6 alpha">

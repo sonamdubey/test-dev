@@ -1,6 +1,6 @@
 ﻿<meta charset="utf-8">
 <script language="c#" runat="server">
-    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", canonical = "", TargetedModel = "", TargetedMakes = "", TargetedModels = "", TargetedCity = ""
+    private string title = "", relPrevPageUrl = string.Empty, relNextPageUrl = string.Empty, description = "", keywords = "", AdId = "", AdPath = "", canonical = "", TargetedModel = "", TargetedMakes = "", TargetedModels = "", TargetedCity = ""
         , OGImage = "";
     private ushort feedbackTypeId = 0;
     string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
@@ -15,10 +15,12 @@
 <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
 <% if(!String.IsNullOrEmpty(keywords)) { %>
 <meta name="keywords" content="<%= keywords %>" /><% } %>
-<%if (!String.IsNullOrEmpty(canonical))
-  { %>
-    <link rel="canonical" href="<%=canonical %>" />
-<% } %>
+<%if (!String.IsNullOrEmpty(canonical)) { %>
+<link rel="canonical" href="<%=canonical %>" /><% } %>
+<%if(!String.IsNullOrEmpty(relPrevPageUrl)) { %>
+<link rel="prev" href="<%= relPrevPageUrl %>" /><% } %>
+ <%if(!String.IsNullOrEmpty(relNextPageUrl)){ %>
+<link rel="next" href="<%= relNextPageUrl %>" /><% }%>
 <link rel="SHORTCUT ICON" href="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png"  type="image/png"/>
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
 <link href="/m/css/bwm-common-style.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />

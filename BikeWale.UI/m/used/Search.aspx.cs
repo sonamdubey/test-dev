@@ -23,6 +23,7 @@ using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Used
@@ -36,14 +37,18 @@ namespace Bikewale.Mobile.Used
 
         protected LinkPagerControl ctrlPager;
         protected Repeater rptUsedListings;
-        protected uint cityId, makeid, modelId, totalListing;
+        protected uint cityId, modelId;
         protected ushort makeId;
         protected string makemasking = string.Empty, citymasking = string.Empty, modelmasking = string.Empty, pageno = string.Empty;
         protected string pageTitle = string.Empty, pageDescription = string.Empty, modelName = string.Empty, makeName = string.Empty, pageKeywords = string.Empty, cityName = "India", pageCanonical = string.Empty
-            , heading = string.Empty, nextUrl = string.Empty, prevUrl = string.Empty;
-        private const int _pageSize = 10;
+                  , heading = string.Empty, nextUrl = string.Empty, prevUrl = string.Empty;
+        private const int _pageSize = 20;
         private int _pageNo = 1;
+        protected int _startIndex = 0, _endIndex = 0, totalListing;
         private const int _pagerSlotSize = 5;
+        protected HiddenField hdnHash;
+        protected IEnumerable<CityEntityBase> cities = null;
+        protected IEnumerable<BikeMakeModelBase> makeModels = null;
         #endregion
 
         #region events
@@ -56,9 +61,36 @@ namespace Bikewale.Mobile.Used
         protected void Page_Load(object sender, EventArgs e)
         {
             ParseQueryString();
+            GetAllCities();
+            GetAllMakeModels();
             BindSearchPageData();
-            CreateMetas();
+            CreateMetas(makeName, modelName, cityName, totalListing);
             CreatePager();
+        }
+
+        private void CheckHashUrlParams(InputFilters input)
+        {
+            if (!string.IsNullOrEmpty(hdnHash.Value))
+            {
+                string hash = hdnHash.Value;
+                string[] arrays = hash.Split(new string[] { "#" }, StringSplitOptions.RemoveEmptyEntries);
+
+                MatchCollection matchList = Regex.Matches(hash, "budget=[0-9]/+[0-9]");
+                var list = matchList.Cast<Match>().Select(match => match.Value).ToList();
+
+                // Check budgets
+
+                // Check make
+
+                // check model
+
+                //
+                Match matchBudget = Regex.Match(hash, "budget=[0-9]");
+                if (matchBudget.Success)
+                {
+
+                }
+            }
         }
 
         #endregion
@@ -73,18 +105,21 @@ namespace Bikewale.Mobile.Used
             try
             {
                 InputFilters objFilters = new InputFilters();
-                objFilters.CityId = cityId;
-                objFilters.Makes = makeId.ToString();
-                objFilters.Models = modelId.ToString(); ;
-                //objFilters.Budget = "40000+70000";
-            objFilters.Age = "2";
-            objFilters.Kms = "40000";
-            objFilters.Owners = "1,2,3";
-            objFilters.ST = "1,2";
-            objFilters.PN = 1;
-            objFilters.PS = 20;
-            objFilters.SO = 0;
-            
+                CheckHashUrlParams(objFilters);
+                if (cityId > 0)
+                    objFilters.CityId = cityId;
+                if (makeId > 0)
+                    objFilters.Makes = makeId.ToString();
+                if (modelId > 0)
+                    objFilters.Models = modelId.ToString();
+                objFilters.Budget = "40000+70000";
+                objFilters.Age = "2";
+                objFilters.Kms = "40000";
+                objFilters.Owners = "1,2,3";
+                objFilters.ST = "1,2";
+                objFilters.PN = _pageNo;
+                objFilters.PS = _pageSize;
+                objFilters.SO = 0;
 
                 using (IUnityContainer container = new UnityContainer())
                 {
@@ -94,9 +129,7 @@ namespace Bikewale.Mobile.Used
                     container.RegisterType<ISearchRepository, SearchRepository>();
 
                     ISearch searchRepo = container.Resolve<ISearch>();
-
                     SearchResult objResult = searchRepo.GetUsedBikesList(objFilters);
-
                     if (objResult != null && objResult.Result != null && objResult.Result.Count() > 0)
                     {
                         pageno = objResult.CurrentPageNo.ToString();
@@ -187,20 +220,95 @@ namespace Bikewale.Mobile.Used
         }
 
         /// <summary>
+        /// Created By: Aditi Srivastava on 15 Sep 2016
+        /// Description: To fetch all cities
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<CityEntityBase> GetAllCities()
+        {
+            cities = new List<CityEntityBase>();
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+
+                    container.RegisterType<ICityCacheRepository, CityCacheRepository>()
+                                .RegisterType<ICity, CityRepository>()
+                                .RegisterType<ICacheManager, MemcacheManager>();
+
+                    var _objCitiesCache = container.Resolve<ICityCacheRepository>();
+                    cities = _objCitiesCache.GetAllCities(EnumBikeType.Used);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : GetAllCities");
+                objErr.SendMail();
+            }
+            return cities;
+        }
+
+        /// <summary>
+        /// Created By: Aditi Srivastava on 15 Sep 2016
+        /// Description: Gets all makes and models for filter binding
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<BikeMakeModelBase> GetAllMakeModels()
+        {
+            makeModels = new List<BikeMakeModelBase>();
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+
+                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                                .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                                .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                                .RegisterType<ICacheManager, MemcacheManager>();
+
+                    var _objMakeCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    makeModels = _objMakeCache.GetAllMakeModels();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : GetAllMakeModels");
+                objErr.SendMail();
+            }
+            return makeModels;
+        }
+
+        /// <summary>
         /// Created by: Sangram Nandkhile on 13 Sep 2016
         /// Summary: Create title, metas and description for SEO
         /// </summary>
-        public void CreateMetas()
+        public void CreateMetas(string strMake, string strModel, string strCity, int count)
         {
             try
             {
-                string _bike = string.Format("{0} {1} ", makeName, modelName).Trim();
+                // Make models specific
+                if (strModel.Length > 0)
+                {
+                    pageDescription = string.Format("There are {0} used {1} {2} bikes in {3} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand {2} bikes for sale in {3}", count, strMake, strModel, strCity);
+                    pageKeywords = string.Format("Used {1} bikes in {2}, used {1} bikes, find used {1} bikes in {2}, buy used {1} bikes in {2}, search used {0} {1} bikes, find used {0} {1} bikes, {1} bike sale in {2}, used {0} {1} bikes in {2}, used {0} {1} bikes", strMake, strModel, strCity);
+                }
+                else if (strMake.Length > 0)
+                {
+                    pageDescription = string.Format("There are {0} used {1} bikes in {2} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand {1} bikes for sale in {2}", count, strMake, strCity);
+                    pageKeywords = string.Format("Used {0} bikes in {1}, used {0} bikes, find used {0} bikes in {1}, buy used {0} bikes in {1}, search used {0} bikes, find used {0} bikes, bike sale, {0} bike sale in {1}", strMake, strCity);
+                }
+                else
+                {
+                    pageDescription = string.Format("There are {0} used bikes in {1} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand bikes for sale in {1}", count, strCity);
+                    pageKeywords = string.Format("Used bikes in {0}, find used bikes in {0}, buy used bikes in {0}, search used bikes, find used bikes, used bike listing, bike used sale, bike sale in {0}, {0} bike search, Bajaj, Aprilia, BMW, Ducati, Harley Davidson, Hero, Honda, Hyosung, KTM, Mahindra, Royal Enfield, Suzuki, Yamaha, Yo, TVS, Vespa, Kawasaki", strCity);
+                }
+
+
+                string _bike = string.Format("{0} {1} ", strMake, strModel).Trim();
                 if (_bike.Length > 0)
                     _bike = string.Format("{0} ", _bike);
-                heading = string.Format("Used {0}Bikes in {1}", _bike, cityName);
-                pageTitle = string.Format("Used {0}Bikes in {1} - Verified Bike Listing For Sale | BikeWale", _bike, cityName);
-                pageDescription = string.Format("There are {1} used {0}bikes in {2} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand {0}bikes for sale in {2}", _bike, totalListing, cityName);
-                pageKeywords = string.Format(@"Used {0}bikes in {1}, find {0}used {1} bikes in {0}, buy {0}used bikes in {0}, search {0}used bikes, find {0}used bikes, used bike listing, {0}bike used sale, {0}bike sale in {1}, {1} bike search, Bajaj, Aprilia, BMW, Ducati, Harley Davidson, Hero, Honda, Hyosung, KTM, Mahindra, Royal Enfield, Suzuki, Yamaha, Yo, TVS, Vespa, Kawasaki", _bike, cityName);
+                heading = string.Format("Used {0}Bikes in {1}", _bike, strCity);
+                pageTitle = string.Format("Used {0}Bikes in {1} - Verified Bike Listing For Sale | BikeWale", _bike, strCity);
                 pageCanonical = CreateCanonical(Request.RawUrl);
             }
             catch (Exception ex)
@@ -212,20 +320,16 @@ namespace Bikewale.Mobile.Used
 
         public string CreateCanonical(string rawUrl)
         {
-            string returl = string.Empty;
+            string returl = rawUrl;
             try
             {
                 // Check if raw url already has page and if not, add page-1 for making cononical url
                 if (rawUrl.Contains("/page-"))
                 {
-                    string[] urlArray = rawUrl.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
-                    string canon = string.Join("/", urlArray.Take(urlArray.Length - 1).ToArray());
-                    returl = string.Format("http://www.bikewale.com/{0}/page-1/", canon.Replace("/m/", string.Empty));
+                    returl = RemoveTrailingPage(rawUrl);
                 }
-                else
-                {
-                    returl = string.Format("http://www.bikewale.com/{0}page-1/", Request.RawUrl.Replace("/m/", string.Empty));
-                }
+                returl = string.Format("http://www.bikewale.com/{0}page-1/", returl.Replace("/m/", string.Empty));
+
             }
             catch (Exception ex)
             {
@@ -235,15 +339,24 @@ namespace Bikewale.Mobile.Used
             return returl;
         }
 
+        public string RemoveTrailingPage(string rawUrl)
+        {
+            string retUrl = rawUrl;
+            if (rawUrl.Contains("/page-"))
+            {
+                string[] urlArray = rawUrl.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
+                retUrl = string.Format("/{0}/", string.Join("/", urlArray.Take(urlArray.Length - 1).ToArray()));
+            }
+            return retUrl;
+        }
         #endregion
 
         #region pagination methods
         private void CreatePager()
         {
             IPager objPager = GetPager();
-            int _startIndex = 0, _endIndex = 0;
-            objPager.GetStartEndIndex(_pageSize, _pageNo, out _startIndex, out _endIndex);
-            BindLinkPager(objPager, 88, "XYZ", "vvv");
+            GetStartEndIndex(_pageSize, _pageNo, out _startIndex, out _endIndex, totalListing);
+            BindLinkPager(objPager, totalListing);
         }
 
         private IPager GetPager()
@@ -257,33 +370,45 @@ namespace Bikewale.Mobile.Used
             return _objPager;
         }
 
-        private void BindLinkPager(IPager objPager, int recordCount, string makeName, string modelName)
+        /// <summary>
+        /// Function to the start and end index for the current page number.
+        /// </summary>
+        /// <param name="pageSize">Total number of records per page.</param>
+        /// <param name="currentPageNo">Current page number</param>
+        /// <param name="startIndex">start index for records</param>
+        /// <param name="endIndex">End index for records</param>
+        public void GetStartEndIndex(int pageSize, int currentPageNo, out int startIndex, out int endIndex, int totalCount)
+        {
+            startIndex = 0;
+            endIndex = 0;
+            endIndex = currentPageNo * pageSize;
+            startIndex = (endIndex - pageSize) + 1;
+            if (totalCount < endIndex)
+                endIndex = totalCount;
+        }
+
+        private void BindLinkPager(IPager objPager, int recordCount)
         {
             PagerOutputEntity _pagerOutput = null;
             PagerEntity _pagerEntity = null;
-            string _baseUrl = "/expert-reviews/";
+
+            string _baseUrl = RemoveTrailingPage(Request.RawUrl);
 
             try
             {
-                if (!String.IsNullOrEmpty(modelName))
-                    _baseUrl = string.Format("/{0}-bikes/{1}/expert-reviews/", makeName, modelName);
-                else if (!String.IsNullOrEmpty(makeName))
-                    _baseUrl = string.Format("/{0}-bikes/expert-reviews/", makeName);
-
                 _pagerEntity = new PagerEntity();
-                _pagerEntity.BaseUrl = _baseUrl;
+                _pagerEntity.BaseUrl = string.Format("{0}page", _baseUrl);
                 _pagerEntity.PageNo = _pageNo; //Current page number
                 _pagerEntity.PagerSlotSize = _pagerSlotSize; // 5 links on a page
-                _pagerEntity.PageUrlType = "page/";
-                _pagerEntity.TotalResults = recordCount; //total News count
+                // _pagerEntity.PageUrlType = "page-{0}/";
+                _pagerEntity.TotalResults = (int)recordCount; //total News count
                 _pagerEntity.PageSize = _pageSize;  //No. of news to be displayed on a page
-
-                _pagerOutput = objPager.GetPager<PagerOutputEntity>(_pagerEntity);
+                _pagerOutput = GetPager<PagerOutputEntity>(_pagerEntity);
 
                 // for RepeaterPager
                 ctrlPager.PagerOutput = _pagerOutput;
                 ctrlPager.CurrentPageNo = _pageNo;
-                ctrlPager.TotalPages = objPager.GetTotalPages(recordCount, _pageSize);
+                ctrlPager.TotalPages = objPager.GetTotalPages((int)recordCount, _pageSize);
                 ctrlPager.BindPagerList();
 
                 //For SEO
@@ -296,6 +421,113 @@ namespace Bikewale.Mobile.Used
                 Trace.Warn(ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
+            }
+        }
+
+        public T GetPager<T>(PagerEntity pagerDetails) where T : PagerOutputEntity, new()
+        {
+            var results = new List<PagerUrlList>();
+            T t = new T();
+
+            try
+            {
+                bool firstPage = false, lastPage = false;
+                string pageUrl;
+                int startIndex, endIndex;
+                int pageCount = (int)Math.Ceiling((double)pagerDetails.TotalResults / (double)pagerDetails.PageSize);// Total number of pages in the pager.
+
+                if (pageCount > 1)
+                {
+                    int totalSlots = (int)Math.Ceiling((double)pageCount / (double)pagerDetails.PagerSlotSize); // The total number of slots for the pager.
+                    int curSlot = ((int)Math.Floor((double)(pagerDetails.PageNo - 1) / (double)pagerDetails.PagerSlotSize)) + 1; // Current page slot.
+
+                    if (pagerDetails.PageNo == 1)// check for if the current page is the first page or the last page.
+                        firstPage = true;
+                    else if (pagerDetails.PageNo == pageCount)
+                        lastPage = true;
+
+                    // Get Start and End Index.
+                    GetStartEndIndex(pagerDetails, pageCount, curSlot, out startIndex, out endIndex);
+
+                    // Set the first and last page Urls.
+                    if (firstPage == false) t.FirstPageUrl = string.Format("{0}-1/", pagerDetails.BaseUrl);
+                    if (lastPage == false) t.LastPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, pageCount);
+
+                    //Get the list of page Urls.
+                    for (int i = startIndex; i <= endIndex; i++)
+                    {
+                        PagerUrlList pagerUrlList = new PagerUrlList();
+                        pageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, i);
+                        pagerUrlList.PageNo = i;
+                        pagerUrlList.PageUrl = pageUrl;
+                        results.Add(pagerUrlList);
+                    }
+
+                    //Set previous and next page Url.
+                    if (pagerDetails.PageNo == 1)
+                    {
+                        t.PreviousPageUrl = "";
+                        t.NextPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, (pagerDetails.PageNo + 1));
+                    }
+                    else if (endIndex == pagerDetails.PageNo)
+                    {
+                        t.NextPageUrl = "";
+                        t.PreviousPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, (pagerDetails.PageNo - 1));
+                    }
+                    else
+                    {
+                        t.NextPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, (pagerDetails.PageNo + 1));
+                        t.PreviousPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, (pagerDetails.PageNo - 1));
+                    }
+                }
+                else
+                {
+                    PagerUrlList pagerUrlList = new PagerUrlList();
+                    pagerUrlList.PageNo = -1;
+                    results.Add(pagerUrlList); //No pager created if the number of pages is equal to 1.
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Pager Class Error. GetPager");
+                objErr.SendMail();
+            }
+
+            t.PagesDetail = results;
+            return t;
+        }
+
+        private void GetStartEndIndex(PagerEntity pagerDetails, int pageCount, int curSlot, out int startIndex, out int endIndex)
+        {
+            bool isPagerSlotEven = false;
+
+            startIndex = (curSlot - 1) * pagerDetails.PagerSlotSize + 1;//Calculate the start index.
+            endIndex = curSlot * pagerDetails.PagerSlotSize;//Calculate the end Index.
+
+            if (pagerDetails.PagerSlotSize != pageCount)
+            {
+                if (pagerDetails.PagerSlotSize % 2 == 0)// Check if pager slot size is even or odd to calculate the start index and the end index.
+                {                                       // This is required to keep the selected page in the centre of the pager whilst the pager size is maintained.
+                    isPagerSlotEven = true;
+                }
+
+                int pagerSlotHalf = (int)Math.Floor((double)pagerDetails.PagerSlotSize / 2);
+
+                //This sets the start index and end index such that the current page is in always in the centre, whilst the pager slot size is maintained.
+                if (pagerSlotHalf < pagerDetails.PageNo)
+                {
+                    if (isPagerSlotEven)
+                    {
+                        startIndex = pagerDetails.PageNo - (pagerSlotHalf - 1);
+                        endIndex = pagerDetails.PageNo + (pagerSlotHalf);
+                    }
+                    else
+                    {
+                        startIndex = pagerDetails.PageNo - pagerSlotHalf;
+                        endIndex = pagerDetails.PageNo + pagerSlotHalf;
+                    }
+                }
+                endIndex = endIndex <= pageCount ? endIndex : pageCount;
             }
         }
 

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Entities.Pager;
+﻿using Bikewale.Entities.Pager;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Notifications;
+using System;
+using System.Collections.Generic;
 
 namespace Bikewale.BAL.Pager
 {
@@ -24,7 +21,6 @@ namespace Bikewale.BAL.Pager
         {
             var results = new List<PagerUrlList>();
             T t = new T();
-
             try
             {
                 bool firstPage = false, lastPage = false;
@@ -149,9 +145,7 @@ namespace Bikewale.BAL.Pager
         {
             startIndex = 0;
             endIndex = 0;
-
             endIndex = currentPageNo * pageSize;
-
             startIndex = (endIndex - pageSize) + 1;
         }
 
