@@ -18,6 +18,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
     /// Controller to update the PQ details
     /// Modified by :   Sumit Kate on 18 May 2016
     /// Description :   Extend from CompressionApiController instead of ApiController 
+    /// Modified by :   Aditi Srivastava on 14 Sep 2016
+    /// Description :   Changed dealer masking no to dealer phone no in DPQSmsEntity
     /// </summary>
     public class UpdatePQController : CompressionApiController//ApiController
     {
@@ -138,7 +140,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                             DPQSmsEntity objDPQSmsEntity = new DPQSmsEntity();
                             objDPQSmsEntity.CustomerMobile = objCustomer.objCustomerBase.CustomerMobile;
                             objDPQSmsEntity.CustomerName = objCustomer.objCustomerBase.CustomerName;
-                            objDPQSmsEntity.DealerMobile = dealerDetailEntity.objDealer.MobileNo;
+                            objDPQSmsEntity.DealerMobile = dealerDetailEntity.objDealer.PhoneNo;
                             objDPQSmsEntity.DealerName = dealerDetailEntity.objDealer.Organization;
                             objDPQSmsEntity.Locality = dealerDetailEntity.objDealer.Address;
                             objDPQSmsEntity.BookingAmount = dealerDetailEntity.objBookingAmt != null ? dealerDetailEntity.objBookingAmt.Amount : 0;
@@ -149,7 +151,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                             objDPQSmsEntity.OrganisationName = dealerDetailEntity.objDealer.Organization;
 
                             _objLeadNofitication.NotifyCustomer(input.PQId, bikeName, imagePath, dealerDetailEntity.objDealer.Organization,
-                                dealerDetailEntity.objDealer.EmailId, dealerDetailEntity.objDealer.MobileNo, dealerDetailEntity.objDealer.Organization,
+                                dealerDetailEntity.objDealer.EmailId, dealerDetailEntity.objDealer.PhoneNo, dealerDetailEntity.objDealer.Organization,
                                 dealerDetailEntity.objDealer.Address, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerEmail,
                                 dealerDetailEntity.objQuotation.PriceList, dealerDetailEntity.objOffers, dealerDetailEntity.objDealer.objArea.PinCode,
                                 dealerDetailEntity.objDealer.objState.StateName, dealerDetailEntity.objDealer.objCity.CityName, TotalPrice, objDPQSmsEntity,
@@ -194,7 +196,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             {
                 objDPQSmsEntity.CustomerMobile = objCustomer.objCustomerBase.CustomerMobile;
                 objDPQSmsEntity.CustomerName = objCustomer.objCustomerBase.CustomerName;
-                objDPQSmsEntity.DealerMobile = dealerDetailEntity.objDealer.MobileNo;
+                objDPQSmsEntity.DealerMobile = dealerDetailEntity.objDealer.PhoneNo;
                 objDPQSmsEntity.DealerName = dealerDetailEntity.objDealer.Name;
                 objDPQSmsEntity.Locality = dealerDetailEntity.objDealer.Address;
                 objDPQSmsEntity.BookingAmount = dealerDetailEntity.objBookingAmt != null ? dealerDetailEntity.objBookingAmt.Amount : 0;
@@ -333,7 +335,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                             DPQSmsEntity objDPQSmsEntity = new DPQSmsEntity();
                             objDPQSmsEntity.CustomerMobile = objCustomer.objCustomerBase.CustomerMobile;
                             objDPQSmsEntity.CustomerName = objCustomer.objCustomerBase.CustomerName;
-                            objDPQSmsEntity.DealerMobile = dealerDetailEntity.objDealer.MobileNo;
+                            objDPQSmsEntity.DealerMobile = dealerDetailEntity.objDealer.PhoneNo;
                             objDPQSmsEntity.DealerName = dealerDetailEntity.objDealer.Organization;
                             objDPQSmsEntity.Locality = dealerDetailEntity.objDealer.Address;
                             objDPQSmsEntity.BookingAmount = dealerDetailEntity.objBookingAmt != null ? dealerDetailEntity.objBookingAmt.Amount : 0;
@@ -344,7 +346,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                             objDPQSmsEntity.OrganisationName = dealerDetailEntity.objDealer.Organization;
 
                             _objLeadNofitication.NotifyCustomer(input.PQId, bikeName, imagePath, dealerDetailEntity.objDealer.Organization,
-                                dealerDetailEntity.objDealer.EmailId, dealerDetailEntity.objDealer.MobileNo, dealerDetailEntity.objDealer.Organization,
+                                dealerDetailEntity.objDealer.EmailId, dealerDetailEntity.objDealer.PhoneNo, dealerDetailEntity.objDealer.Organization,
                                 dealerDetailEntity.objDealer.Address, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerEmail,
                                 dealerDetailEntity.objQuotation.PriceList, dealerDetailEntity.objOffers, dealerDetailEntity.objDealer.objArea.PinCode,
                                 dealerDetailEntity.objDealer.objState.StateName, dealerDetailEntity.objDealer.objCity.CityName, TotalPrice, objDPQSmsEntity,

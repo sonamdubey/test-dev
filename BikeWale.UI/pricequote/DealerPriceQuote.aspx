@@ -435,11 +435,11 @@
                                         </div>
                                         <div class="slider-range-points">
                                             <ul class="range-five-pointsUL range-pointsUL" data-bind="">
-                                                <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minDnPay())"></span></li>
+                                                <li class="range-points-bar"><span data-bind="text: formatPrice(Math.round($.valueFormatter(minDnPay())))"></span></li>
                                                 <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                                <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.minDnPay(), $parent.maxDnPay(), $parent.breakPoints(),1)"></span></li>
+                                                <li class="range-points-bar"><span data-bind="text: formatPrice(Math.round($.createSliderPoints($index() + 1, $parent.minDnPay(), $parent.maxDnPay(), $parent.breakPoints(),1)))"></span></li>
                                                 <!-- /ko -->
-                                                <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxDnPay())"></span></li>
+                                                <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text:formatPrice(Math.round($.valueFormatter(maxDnPay())))"></span></li>
 
                                             </ul>
                                         </div>
@@ -460,11 +460,11 @@
                                         </div>
                                         <div class="slider-range-points">
                                             <ul class="range-five-pointsUL range-pointsUL" data-bind="">
-                                                <li class="range-points-bar"><span data-bind="text: $.valueFormatter(bikePrice() - maxDnPay())"></span></li>
+                                                <li class="range-points-bar"><span data-bind="text:formatPrice(Math.round($.valueFormatter(bikePrice() - maxDnPay())))"></span></li>
                                                 <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                                <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.bikePrice() - $parent.maxDnPay(), $parent.bikePrice() - $parent.minDnPay(), $parent.breakPoints(),1)"></span></li>
+                                                <li class="range-points-bar"><span data-bind="text: formatPrice(Math.round($.createSliderPoints($index() + 1, $parent.bikePrice() - $parent.maxDnPay(), $parent.bikePrice() - $parent.minDnPay(), $parent.breakPoints(),1)))"></span></li>
                                                 <!-- /ko -->
-                                                <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(bikePrice() - minDnPay())"></span></li>
+                                                <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: formatPrice(Math.round($.valueFormatter(bikePrice() - minDnPay())))"></span></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -509,9 +509,9 @@
                                         </div>
                                         <div class="slider-range-points">
                                             <ul class="range-five-pointsUL range-pointsUL tenure-rate-interest.">
-                                                <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minROI())"></span></li>
+                                                <li class="range-points-bar"><span data-bind="text:$.valueFormatter(minROI())"></span></li>
                                                 <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                                <li class="range-points-bar"><span data-bind="text:  $.createSliderPoints($index() + 1, $parent.minROI(), $parent.maxROI() , $parent.breakPoints())"></span></li>
+                                                <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.minROI(), $parent.maxROI() , $parent.breakPoints())"></span></li>
                                                 <!-- /ko -->
                                                 <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxROI())"></span></li>
 
