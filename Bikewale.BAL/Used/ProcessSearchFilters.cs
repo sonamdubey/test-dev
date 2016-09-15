@@ -32,12 +32,12 @@ namespace Bikewale.BAL.Used.Search
 
             try
             {
-                objProcessedFilters.CityId = objInputFilters.CityId;
+                objProcessedFilters.CityId = objInputFilters.City;
 
-                if (!string.IsNullOrEmpty(objInputFilters.Makes))
+                if (!string.IsNullOrEmpty(objInputFilters.Make))
                     ProcessMakes();
 
-                if (!string.IsNullOrEmpty(objInputFilters.Models))
+                if (!string.IsNullOrEmpty(objInputFilters.Model))
                     ProcessModels();
 
                 if (!string.IsNullOrEmpty(objInputFilters.Budget))
@@ -49,7 +49,7 @@ namespace Bikewale.BAL.Used.Search
                 if (!string.IsNullOrEmpty(objInputFilters.Age))
                     ProcessBikeAge();
 
-                if (!string.IsNullOrEmpty(objInputFilters.Owners))
+                if (!string.IsNullOrEmpty(objInputFilters.Owner))
                     ProcessOwners();
 
                 if (!string.IsNullOrEmpty(objInputFilters.ST))
@@ -76,7 +76,7 @@ namespace Bikewale.BAL.Used.Search
         {
             try
             {
-                objProcessedFilters.Make = objInputFilters.Makes.Split('+');        
+                objProcessedFilters.Make = objInputFilters.Make.Split('+');        
             }
             catch (Exception ex)
             {
@@ -92,7 +92,7 @@ namespace Bikewale.BAL.Used.Search
         {
             try
             {
-                objProcessedFilters.Model = objInputFilters.Models.Split('+');
+                objProcessedFilters.Model = objInputFilters.Model.Split('+');
             }
             catch (Exception ex)
             {
@@ -168,7 +168,7 @@ namespace Bikewale.BAL.Used.Search
         {
             try
             {
-                objProcessedFilters.Owners = objInputFilters.Owners.Split('+');
+                objProcessedFilters.Owners = objInputFilters.Owner.Split('+');
             }
             catch (Exception ex)
             {

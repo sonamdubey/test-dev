@@ -7,13 +7,13 @@ namespace Bikewale.Entities.Used.Search
     /// </summary>
     public class InputFilters
     {
-        public uint CityId { get; set; }
-        public string Makes { get; set; }
-        public string Models { get; set; }
+        public uint City { get; set; }
+        public string Make { get; set; }
+        public string Model { get; set; }
         public string Budget { get; set; }
         public string Kms { get; set; }
         public string Age { get; set; }
-        public string Owners { get; set; }
+        public string Owner { get; set; }
         public string ST { get; set; }
         public ushort SO { get; set; }
         public int PN { get; set; }

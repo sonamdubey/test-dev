@@ -102,6 +102,7 @@ var usedBikes = function()
         });
         qs = qs.substr(1);
         window.location.hash = qs;
+        $('#hdnHash').val(qs);
         return qs;
     });     
     self.OnInit = ko.observable(true);
@@ -146,8 +147,8 @@ var usedBikes = function()
                 moList += "+" + ele.attr("data-modelid");
             });            
         });
-        self.Filters()["makes"] = mkList.substr(1);
-        self.Filters()["models"] = moList.substr(1);
+        self.Filters()["make"] = mkList.substr(1);
+        self.Filters()["model"] = moList.substr(1);
     };
 
     self.SelectedCity = ko.observable({ "id": 0, "name": "All India" });
@@ -174,7 +175,7 @@ var usedBikes = function()
             ownerList += "+" + $(this).attr("data-ownerid");
         });
 
-        self.Filters()["owners"] = ownerList.substr(1);
+        self.Filters()["owner"] = ownerList.substr(1);
     };
 
     self.FilterSellers = function () {
@@ -190,7 +191,7 @@ var usedBikes = function()
     self.ApplyFilters = function () {
         self.ResetFilters();
         self.ApplyBikeFilter();
-        if (self.SelectedCity() && self.SelectedCity().id > 0) self.Filters()["cityid"] = self.SelectedCity().id;
+        if (self.SelectedCity() && self.SelectedCity().id > 0) self.Filters()["city"] = self.SelectedCity().id;
         if (self.KmsDriven() > 10000) self.Filters()["kms"] = self.KmsDriven();
         if (self.BikeAge() > 0) self.Filters()["age"] = self.BikeAge();
         if (self.BudgetValues())        {
@@ -206,14 +207,14 @@ var usedBikes = function()
 
 
     self.ResetFilters = function () {
-        self.Filters()["cityid"] = "";
+        self.Filters()["city"] = "";
         self.Filters()["kms"] = "";
         self.Filters()["age"] = "";
         self.Filters()["budget"] = "";
-        self.Filters()["owners"] = "";
+        self.Filters()["owner"] = "";
         self.Filters()["st"] = "";
-        self.Filters()["makes"] = "";
-        self.Filters()["models"] = "";
+        self.Filters()["make"] = "";
+        self.Filters()["model"] = "";
     };
 
     self.objSorts = ko.observableArray([{ id: 1, text: "Most recent" }, { id: 2, text: "Price - Low to High" }, { id: 3, text: "Price - High to Low" }, { id: 4, text: "Kms - Low to High" }, { id: 5, text: "Kms - High to Low" }]);

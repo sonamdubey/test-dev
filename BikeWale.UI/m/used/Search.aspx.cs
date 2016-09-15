@@ -67,7 +67,7 @@ namespace Bikewale.Mobile.Used
                 CreateMetas(makeName, modelName, cityName, totalListing);
                 CreatePager();
             }
-            
+
         }
         /// <summary>
         /// Creted by: Sangram Nandkhile on 15 Sep 2016
@@ -128,6 +128,21 @@ namespace Bikewale.Mobile.Used
                     {
                         input.ST = dictionary["st"].Replace("+", ",");
                     }
+
+                    if (dictionary.ContainsKey("pn"))
+                    {
+                        _pageNo = Convert.ToUInt16(dictionary["pn"]);
+                    }
+
+                    if (dictionary.ContainsKey("owner"))
+                    {
+                        input.Owner = dictionary["owner"].Replace("+", ",");
+                    }
+
+                    //if (dictionary.ContainsKey("ps"))
+                    //{
+                    //    _pageSize = Convert.ToUInt16(dictionary["ps"]);
+                    //}
                     dictionary = null;
                 }
             }
@@ -153,9 +168,9 @@ namespace Bikewale.Mobile.Used
                 CheckHashUrlParams(objFilters);
 
                 // If inputs are set by hash, hash overrides the query string parameters
-                objFilters.CityId = cityId;
-                objFilters.Makes = makeId;
-                objFilters.Models = modelId;
+                objFilters.City = cityId;
+                objFilters.Make = makeId;
+                objFilters.Model = modelId;
                 objFilters.PN = _pageNo;
                 objFilters.PS = _pageSize;
 
@@ -398,7 +413,7 @@ namespace Bikewale.Mobile.Used
         #endregion
 
         #region pagination methods
-        private void CreatePager()
+        public void CreatePager()
         {
             IPager objPager = GetPager();
             GetStartEndIndex(_pageSize, _pageNo, out _startIndex, out _endIndex, totalListing);
