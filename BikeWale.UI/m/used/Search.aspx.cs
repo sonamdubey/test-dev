@@ -63,9 +63,12 @@ namespace Bikewale.Mobile.Used
             ParseQueryString();
             GetAllCities();
             GetAllMakeModels();
-            BindSearchPageData();
-            CreateMetas(makeName, modelName, cityName, totalListing);
-            CreatePager();
+            if (BindSearchPageData())
+            {
+                CreateMetas(makeName, modelName, cityName, totalListing);
+                CreatePager();
+            }
+            
         }
 
         private void CheckHashUrlParams(InputFilters input)
@@ -100,7 +103,7 @@ namespace Bikewale.Mobile.Used
         /// <summary>
         /// Function to bind the search result to the repeater
         /// </summary>
-        private void BindSearchPageData()
+        private bool BindSearchPageData()
         {
             try
             {
@@ -136,6 +139,12 @@ namespace Bikewale.Mobile.Used
                         totalListing = objResult.TotalCount;
                         rptUsedListings.DataSource = objResult.Result;
                         rptUsedListings.DataBind();
+                        return true;
+                    }
+                    else
+                    {
+                        Response.Redirect("/pagenotfound.aspx", false);
+                        return false;
                     }
                 }
             }
@@ -143,6 +152,7 @@ namespace Bikewale.Mobile.Used
             {
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : CreateMetas");
                 objErr.SendMail();
+                return false;
             }
         } // End of BindSearchPageData
 
