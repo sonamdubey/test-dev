@@ -45,7 +45,7 @@
         </ul>
     </div>
     <div class="clear"></div>
-    <a href="<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>" class="margin-left20">View all dealers<span class="bwsprite blue-right-arrow-icon"></span></a>
+    <a href="<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> Dealers" class="margin-left20">View all dealers<span class="bwsprite blue-right-arrow-icon"></span></a>
 </div>
 <% }
    else
@@ -72,7 +72,7 @@
         <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
     </div>
     <div class="padding-left20">
-        <a href="/new/<%= makeMaskingName %>-dealers/">View all dealers<span class="bwsprite blue-right-arrow-icon"></span></a>
+        <a href="/new/<%= makeMaskingName %>-dealers/" title="<%=makeName %> Dealers">View all dealers<span class="bwsprite blue-right-arrow-icon"></span></a>
     </div>
 </div>
 <% } %>
