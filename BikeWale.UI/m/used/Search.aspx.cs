@@ -78,7 +78,7 @@ namespace Bikewale.Mobile.Used
             {
 
                 //***************************** REMOVE THIS LINE *******************************************
-                hdnHash.Value = "city=2&make=1&model=59+349&budget=40000+50000&so=0&age=7";
+                // hdnHash.Value = "city=2&make=1&model=59+349&budget=40000+50000&so=0&age=7";
                 //***************************** REMOVE THIS LINE *******************************************
 
                 if (!string.IsNullOrEmpty(hdnHash.Value))
