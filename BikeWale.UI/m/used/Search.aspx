@@ -10,7 +10,9 @@
             keywords = pageKeywords;
             EnableOG = true;
             relPrevPageUrl = prevUrl.Replace("/m/", string.Empty);
-            relNextPageUrl = nextUrl.Replace("/m/", string.Empty); ;
+            relNextPageUrl = nextUrl.Replace("/m/", string.Empty);
+            Ad_320x50 = true;
+            Ad_Bot_320x50 = true;
         %>
 
     <!-- #include file="/includes/headscript_mobile.aspx" -->
