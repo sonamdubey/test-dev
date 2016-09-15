@@ -45,6 +45,8 @@ namespace Bikewale.Mobile.Used
         private int _pageNo = 1;
         protected int _startIndex = 0, _endIndex = 0, totalListing;
         private const int _pagerSlotSize = 5;
+        protected IEnumerable<CityEntityBase> cities = null;
+        protected IEnumerable<BikeMakeModelBase> makeModels = null;
         #endregion
 
         #region events
@@ -57,6 +59,8 @@ namespace Bikewale.Mobile.Used
         protected void Page_Load(object sender, EventArgs e)
         {
             ParseQueryString();
+            GetAllCities();
+            GetAllMakeModels();
             BindSearchPageData();
             CreateMetas();
             CreatePager();
@@ -182,6 +186,65 @@ namespace Bikewale.Mobile.Used
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : ParseQueryString");
                 objErr.SendMail();
             }
+        }
+
+        /// <summary>
+        /// Created By: Aditi Srivastava on 15 Sep 2016
+        /// Description: To fetch all cities
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<CityEntityBase> GetAllCities()
+        {
+            cities = new List<CityEntityBase>();
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+
+                    container.RegisterType<ICityCacheRepository, CityCacheRepository>()
+                                .RegisterType<ICity, CityRepository>()
+                                .RegisterType<ICacheManager, MemcacheManager>();
+
+                    var _objCitiesCache = container.Resolve<ICityCacheRepository>();
+                    cities = _objCitiesCache.GetAllCities(EnumBikeType.Used);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : GetAllCities");
+                objErr.SendMail();
+            }
+            return cities;
+        }
+
+        /// <summary>
+        /// Created By: Aditi Srivastava on 15 Sep 2016
+        /// Description: Gets all makes and models for filter binding
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<BikeMakeModelBase> GetAllMakeModels()
+        {
+            makeModels = new List<BikeMakeModelBase>();
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+
+                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                                .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                                .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                                .RegisterType<ICacheManager, MemcacheManager>();
+
+                    var _objMakeCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    makeModels = _objMakeCache.GetAllMakeModels();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : GetAllMakeModels");
+                objErr.SendMail();
+            }
+            return makeModels;
         }
 
         /// <summary>
