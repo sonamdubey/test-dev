@@ -404,6 +404,11 @@ namespace Bikewale.New
                         }
 
                     }
+                    if (modelPg.ModelVersions != null && modelPg.ModelVersions.Count > 0)
+                    {
+                        rptVarients.DataSource = modelPg.ModelVersions;
+                        rptVarients.DataBind();
+                    }
                 }
             }
             catch (Exception ex)
@@ -445,12 +450,6 @@ namespace Bikewale.New
                     ctrlModelGallery.bikeName = bikeName;
                     ctrlModelGallery.modelId = Convert.ToInt32(modelId);
                     ctrlModelGallery.Photos = photos;
-                }
-
-                if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
-                {
-                    rptVarients.DataSource = modelPage.ModelVersions;
-                    rptVarients.DataBind();
                 }
 
                 //bind model colors
@@ -692,7 +691,7 @@ namespace Bikewale.New
                     // Set Pricequote Cookie
                     if (pqOnRoad != null)
                     {
-                        if (pqOnRoad.BPQOutput != null)
+                        if (pqOnRoad.BPQOutput != null && !String.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
                             pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.CampaignId, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber) ? "hide" : string.Empty);
 
                         variantId = pqOnRoad.PriceQuote.VersionId;
@@ -766,12 +765,6 @@ namespace Bikewale.New
                                 isBikeWalePQ = true;
                                 #endregion
                             }
-                        }
-                        // If DPQ or BWPQ Found change Version Pricing as well
-                        if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
-                        {
-                            rptVarients.DataSource = modelPage.ModelVersions;
-                            rptVarients.DataBind();
                         }
                     }
                     else // On road PriceQuote is Null so get price from the modelpage variants
