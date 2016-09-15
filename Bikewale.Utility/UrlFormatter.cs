@@ -89,9 +89,12 @@ namespace Bikewale.Utility
         /// <param name="city"></param>
         /// <returns></returns>
 
-        public static string UsedBikesUrlNoCity(string make, string city, uint cityId, uint makeId)
+        public static string UsedBikesUrlNoCity(string make, string model, string city)
         {
-            return String.Format("/used/{0}-bikes-in-{1}/", make, city, cityId, makeId);
+            if (!String.IsNullOrEmpty(model))
+                return String.Format("/used/{0}-{1}-bikes-in-{2}/", make, model, city);
+            else
+                return String.Format("/used/{0}-bikes-in-{1}/", make, city);
         }
 
 

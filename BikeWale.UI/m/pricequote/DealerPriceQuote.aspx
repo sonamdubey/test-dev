@@ -36,7 +36,7 @@
 		var dealerName = '<%= dealerName%>';
 		var campaignId = "<%= objExQuotation != null ? objExQuotation.CampaignId : 0 %>";
 		var manufacturerId = "<%= objExQuotation != null ? objExQuotation.ManufacturerId : 0 %>";
-
+	    var dealerId = "<%= dealerId %>"; 
 		$(document).ready( function(){
 			if (dealerName != "") {
 				$("#header-dealername").text(dealerName);
@@ -239,7 +239,7 @@
 				<%} %>
 			</div>
 
-			 <% if (objExQuotation != null && objExQuotation.CampaignId > 0 && objPriceQuote!=null && objPriceQuote.SecondaryDealerCount == 0 && !string.IsNullOrEmpty(objExQuotation.ManufacturerAd))
+			 <% if (objExQuotation != null && objExQuotation.CampaignId > 0 && objPriceQuote != null && dealerId==0 && objPriceQuote.SecondaryDealerCount == 0 && !string.IsNullOrEmpty(objExQuotation.ManufacturerAd))
 				{ %>
 				<section>
 					<%=String.Format(objExQuotation.ManufacturerAd) %>

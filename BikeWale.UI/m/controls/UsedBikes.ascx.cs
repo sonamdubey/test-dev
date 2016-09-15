@@ -11,6 +11,10 @@ using System.Linq;
 using System.Web.UI.WebControls;
 namespace Bikewale.Mobile.Controls
 {
+    /// <summary>
+    /// Created by Subodh Jain on 15 sep 2016
+    /// Dec:- Used bike widget for model and make page mobile
+    /// </summary>
     public class UsedBikes : System.Web.UI.UserControl
     {
         protected Repeater rptUsedBikeNoCity, rptRecentUsedBikes;
@@ -46,7 +50,8 @@ namespace Bikewale.Mobile.Controls
         }
 
         /// <summary>
-        /// Function to validate the data passed to the widget
+        ///  Created by Subodh Jain on 15 sep 2016
+        /// Desc:-Function to validate the data passed to the widget
         /// </summary>
         /// <returns></returns>
         private bool isValidData()
@@ -81,7 +86,7 @@ namespace Bikewale.Mobile.Controls
 
                     objMostRecentBikes = _objUsedBikes.GetUsedBikes(MakeId, ModelId, CityId, TopCount);
 
-                    if (objMostRecentBikes.Count() > 0)
+                    if (objMostRecentBikes != null && objMostRecentBikes.Count() > 0)
                     {
                         makeName = objMostRecentBikes.FirstOrDefault().MakeName;
                         if (ModelId > 0)
