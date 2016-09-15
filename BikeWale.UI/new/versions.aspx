@@ -370,7 +370,7 @@
                             <div class="padding-top20 padding-right20 padding-left20">
                                 <div class="border-light-bottom padding-bottom20">
                                     <h3 class="font18 text-darker-black leftfloat margin-right20"><%= viewModel.Organization %>, <%=viewModel.AreaName %></h3>
-                                    <p class="leftfloat text-bold font16 position-rel pos-top2"><span class="bwsprite phone-black-icon"></span><%=viewModel.MaskingNumber %></p>
+                                    <p class="leftfloat text-bold font16 position-rel pos-top2"><span class="bwsprite phone-black-icon <%= !string.IsNullOrEmpty(viewModel.MaskingNumber)?"":"hide" %>"></span><%=viewModel.MaskingNumber %></p>
                                     <div class="clear"></div>
                                 </div>
                             </div>
