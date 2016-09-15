@@ -9,6 +9,7 @@
 <%@ Register Src="~/controls/PriceInTopCities.ascx" TagPrefix="BW" TagName="TopCityPrice" %>
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/controls/PopularModelCompare.ascx" TagName="PopularCompare" TagPrefix="BW" %>
+<%@ Register Src="~/controls/UsedBikes.ascx" TagName="UsedBikes" TagPrefix="BW" %>
 <!doctype html>
 <html>
 <head>
@@ -606,7 +607,11 @@
                          <%} %> 
                           <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
                         <a href="#modelAlternateBikeContent" rel="nofollow">Alternatives</a>  
-                        <%} %>                   
+                        <%} %> 
+                        <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
+                           { %>
+                         <a href="#makeUsedBikeContent" rel="nofollow">Used</a>  
+                        <%} %>                 
                     </div>
                 </div>
             </div>
@@ -645,11 +650,13 @@
                           
                         <% if ((ctrlPopularCompare.fetchedCount > 0) ){ %>
                         <a href="#modelComparisonContent" rel="nofollow">Comparisons</a>
-                        <%} %> 
-                       
-                        <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
+                        <%} %> <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
                         <a href="#modelAlternateBikeContent" rel="nofollow">Alternatives</a> 
-                        <%} %>                      
+                        <%} %>  
+                        <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
+                           { %>
+                         <a href="#makeUsedBikeContent" rel="nofollow">Used</a>  
+                        <%} %>                       
                     </div>
                     <div class="border-divider"></div>
 
@@ -1126,27 +1133,27 @@
 
                     <% if (ctrlNews.FetchedRecordsCount > 0)
                        { %>
-                    <!-- News widget starts -->                    
+                    <!-- News widget starts -->
                     <BW:LatestNews runat="server" ID="ctrlNews" />
                     <!-- News widget ends -->
-                    <% } %>  
+                    <% } %>
                     <div class="margin-right10 margin-left10 border-solid-top"></div>
                     <!-- model comparison -->
-
                     <!-- Popular Comparision -->
-                     <% if (ctrlPopularCompare.fetchedCount > 0)
-                        { %>
-                    
-                <BW:PopularCompare ID="ctrlPopularCompare" runat="server" />
-            
-           
-                     <% } %>
-                 
-                    <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
-                    <!-- Alternative reviews ends -->
-                    <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
-                    <!-- Alternative reviews ends -->
+                    <% if (ctrlPopularCompare.fetchedCount > 0)
+                       { %>
+                    <BW:PopularCompare ID="ctrlPopularCompare" runat="server" />
                     <% } %>
+                    <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
+                       { %>
+                    <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
+                    <% } %>
+                    <!-- Alternative reviews ends -->
+                     <!-- Used bikes widget -->
+                    <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
+                       { %>
+                    <BW:UsedBikes runat="server" ID="ctrlRecentUsedBikes" />
+                    <%} %>    
                     <div id="overallSpecsDetailsFooter"></div>
                 </div>
             </div>

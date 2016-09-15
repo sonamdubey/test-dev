@@ -111,6 +111,7 @@ namespace Bikewale.New
                 ctrlRecentUsedBikes.MakeId = Convert.ToUInt32(makeId);
                 ctrlRecentUsedBikes.CityId = cityId;
                 ctrlRecentUsedBikes.TopCount = 6;
+                ctrlRecentUsedBikes.ModelId = 0;
 
                 ctrlDealerCard.MakeId = Convert.ToUInt32(makeId);
                 ctrlDealerCard.makeName = _make.MakeName;
