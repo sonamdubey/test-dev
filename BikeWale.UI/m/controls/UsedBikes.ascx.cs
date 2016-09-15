@@ -23,6 +23,7 @@ namespace Bikewale.Mobile.Controls
         public string modelName = string.Empty;
         public string cityName = string.Empty;
         public string makeMaskingName = string.Empty;
+        public string modelMaskingName = string.Empty;
         public string cityMaskingName = string.Empty;
 
         IEnumerable<MostRecentBikes> objMostRecentBikes = null;
@@ -83,10 +84,15 @@ namespace Bikewale.Mobile.Controls
                     if (objMostRecentBikes.Count() > 0)
                     {
                         makeName = objMostRecentBikes.FirstOrDefault().MakeName;
-                        modelName = objMostRecentBikes.FirstOrDefault().ModelName;
+                        if (ModelId > 0)
+                        {
+                            modelName = objMostRecentBikes.FirstOrDefault().ModelName;
+                            modelMaskingName = objMostRecentBikes.FirstOrDefault().ModelMaskingName;
+                        }
                         cityName = objMostRecentBikes.FirstOrDefault().CityName;
                         makeMaskingName = objMostRecentBikes.FirstOrDefault().MakeMaskingName;
                         cityMaskingName = objMostRecentBikes.FirstOrDefault().CityMaskingName;
+
 
                         if (CityId > 0)
                         {

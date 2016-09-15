@@ -169,11 +169,12 @@ namespace Bikewale.DAL.UsedBikes
                                 {
                                     MakeName = GetString(dr["makename"]),
                                     ModelName = GetString(dr["Name"]),
-                                    MakeMaskingName = GetString(dr["makemaskingname"]),
+                                    ModelMaskingName = GetString(dr["modelmaskingname"]),
                                     CityName = GetString(dr["city"]),
                                     AvailableBikes = GetUint32(dr["availablebikes"]),
                                     CityMaskingName = GetString(dr["citymaskingname"]),
-                                    CityId = GetUint32(dr["cityid"])
+                                    CityId = GetUint32(dr["cityid"]),
+                                    MakeMaskingName = GetString(dr["makemaskingname"])
 
                                 });
                             }
