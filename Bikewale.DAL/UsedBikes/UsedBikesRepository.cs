@@ -174,7 +174,9 @@ namespace Bikewale.DAL.UsedBikes
                                     AvailableBikes = GetUint32(dr["availablebikes"]),
                                     CityMaskingName = GetString(dr["citymaskingname"]),
                                     CityId = GetUint32(dr["cityid"]),
-                                    MakeMaskingName = GetString(dr["makemaskingname"])
+
+                                    MakeMaskingName = GetString(dr["makemaskingname"]),
+
                                 });
                             }
                             dr.Close();
