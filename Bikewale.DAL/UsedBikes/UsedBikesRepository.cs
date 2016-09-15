@@ -168,12 +168,14 @@ namespace Bikewale.DAL.UsedBikes
                                 objUsedBikesList.Add(new MostRecentBikes
                                 {
                                     MakeName = GetString(dr["makename"]),
-                                    MakeMaskingName = GetString(dr["makemaskingname"]),
+                                    ModelName = GetString(dr["Name"]),
+                                    ModelMaskingName = GetString(dr["modelmaskingname"]),
                                     CityName = GetString(dr["city"]),
                                     AvailableBikes = GetUint32(dr["availablebikes"]),
                                     CityMaskingName = GetString(dr["citymaskingname"]),
                                     CityId = GetUint32(dr["cityid"]),
                                     ModelName = GetString(dr["name"]),
+                                    MakeMaskingName = GetString(dr["makemaskingname"])
                                     ModelMaskingName = GetString(dr["modelmaskingname"])
                                 });
                             }

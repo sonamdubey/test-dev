@@ -5,6 +5,7 @@
 <%@ Register Src="/m/controls/NewVideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/DealersCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentUsedBikes" TagPrefix="BW" %>
 <!doctype html>
 <html>
 <head>
@@ -156,6 +157,8 @@
                                { %>
                             <li data-tabs="#makeDealersContent">Dealers</li>
                             <%} %>
+                               <% if (ctrlRecentUsedBikes.showWidget)
+                                   {%><li data-tabs="#makeUsedBikeContent">Used</li> <%} %>
                         </ul>
                     </div>
                 </div>
@@ -206,6 +209,9 @@
                 <% if (ctrlDealerCard.showWidget) { %>
                     <BW:DealerCard runat="server" ID="ctrlDealerCard" />
                 <% }  %>
+                   <% if (ctrlRecentUsedBikes.showWidget)
+                                   {%>  <BW:MostRecentUsedBikes runat="server" ID="ctrlRecentUsedBikes" /><%} %>
+                
                 <div id="makeSpecsFooter"></div>
             </div>
         </section>
