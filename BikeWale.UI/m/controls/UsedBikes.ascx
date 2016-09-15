@@ -1,14 +1,20 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="UsedBikes.ascx.cs" Inherits="Bikewale.m.controls.UsedBikes" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Mobile.Controls.UsedBikes" %>
 <%if(showWidget) {%>
 <div id="makeUsedBikeContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 font14">
-    <h2 class="padding-left10 padding-right10">Recently uploaded Used <%= makeName %> bikes <%=CityId > 0 ? String.Format("in {0}", cityName) : "" %></h2>
+     <%if(modelName==null) {%> 
+    <h2 class="padding-left10 padding-right10">Recently uploaded Used <%= makeName %>  bikes <%=CityId > 0 ? String.Format("in {0}", cityName) : "" %></h2>
+   <%} %>
+   <%  else
+   {%> 
+     <h2 class="padding-left10 padding-right10">Recently uploaded Used <%= makeName %> <%=modelName%> bikes <%=CityId > 0 ? String.Format("in {0}", cityName) : "" %></h2>
+   <%} %>
     <!-- when city is not selected -->
     <div class="grid-12 alpha omega text-black">
     <%if(CityId <= 0) {%>    
         <asp:Repeater runat="server" ID="rptUsedBikeNoCity">
             <ItemTemplate>
                 <div class="grid-4 margin-bottom20">
-                    <a href="<%# Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(Convert.ToString(DataBinder.Eval(Container.DataItem,"MakeMaskingName")), Convert.ToString(DataBinder.Eval(Container.DataItem,"CityMaskingName")), Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"CityId")), MakeId) %>">Used <%= makeName %>  bikes in <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"CityName")) %></a>
+                    <a href="<%# Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(Convert.ToString(DataBinder.Eval(Container.DataItem,"MakeMaskingName")), Convert.ToString(DataBinder.Eval(Container.DataItem,"CityMaskingName")), Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"CityId")), MakeId) %>">Used <%=makeName %> <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ModelName")) %> bikes in <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"CityName")) %></a>
                     <p class="margin-top10"><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem,"AvailableBikes"))) %> <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"AvailableBikes")) == "1" ? "bike" : "bikes" %> available</p>
                 </div>
             </ItemTemplate>
@@ -23,7 +29,7 @@
                         <%# String.Format("{0}, {1} {2} {3}",Convert.ToString(DataBinder.Eval(Container.DataItem,"MakeYear")), Convert.ToString(DataBinder.Eval(Container.DataItem,"MakeName")), Convert.ToString(DataBinder.Eval(Container.DataItem,"ModelName")), Convert.ToString(DataBinder.Eval(Container.DataItem,"VersionName")))%>
                     </a>
                     <p class="margin-top10">
-                        <span class="bwsprite inr-sm-dark"></span> 
+                       <span class="bwmsprite inr-xsm-icon"></span>
                         <span><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem,"BikePrice"))) %></span>
                     </p>
                 </div>

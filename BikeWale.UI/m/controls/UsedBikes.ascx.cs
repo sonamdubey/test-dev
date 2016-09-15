@@ -9,10 +9,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
-
-namespace Bikewale.m.controls
+namespace Bikewale.Mobile.Controls
 {
-    public partial class UsedBikes : System.Web.UI.UserControl
+    public class UsedBikes : System.Web.UI.UserControl
     {
         protected Repeater rptUsedBikeNoCity, rptRecentUsedBikes;
 
@@ -21,6 +20,7 @@ namespace Bikewale.m.controls
         public uint TopCount { get; set; }
         public uint CityId { get; set; }
         public string makeName = string.Empty;
+        public string modelName = string.Empty;
         public string cityName = string.Empty;
         public string makeMaskingName = string.Empty;
         public string cityMaskingName = string.Empty;
@@ -73,16 +73,17 @@ namespace Bikewale.m.controls
 
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IUsedBikesCacheRepository, UsedBikesCacheRepository>();
+                    container.RegisterType<IUsedBikes, Bikewale.BAL.UsedBikes.UsedBikes>();
                     container.RegisterType<ICacheManager, MemcacheManager>();
-
+                    container.RegisterType<IUsedBikesCache, UsedBikesCache>();
                     IUsedBikesCache _objUsedBikes = container.Resolve<IUsedBikesCache>();
 
-                    objMostRecentBikes = _objUsedBikes.GetUsedBikes(MakeId, ModelId, TopCount, CityId);
+                    objMostRecentBikes = _objUsedBikes.GetUsedBikes(MakeId, ModelId, CityId, TopCount);
 
                     if (objMostRecentBikes.Count() > 0)
                     {
                         makeName = objMostRecentBikes.FirstOrDefault().MakeName;
+                        modelName = objMostRecentBikes.FirstOrDefault().ModelName;
                         cityName = objMostRecentBikes.FirstOrDefault().CityName;
                         makeMaskingName = objMostRecentBikes.FirstOrDefault().MakeMaskingName;
                         cityMaskingName = objMostRecentBikes.FirstOrDefault().CityMaskingName;

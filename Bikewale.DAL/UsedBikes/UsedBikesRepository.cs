@@ -168,6 +168,7 @@ namespace Bikewale.DAL.UsedBikes
                                 objUsedBikesList.Add(new MostRecentBikes
                                 {
                                     MakeName = GetString(dr["makename"]),
+                                    ModelName = GetString(dr["Name"]),
                                     MakeMaskingName = GetString(dr["makemaskingname"]),
                                     CityName = GetString(dr["city"]),
                                     AvailableBikes = GetUint32(dr["availablebikes"]),
@@ -213,7 +214,7 @@ namespace Bikewale.DAL.UsedBikes
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int16, modelId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_totalCount", DbType.Int16, totalCount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalCount));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, cityId));
 
 
@@ -284,8 +285,8 @@ namespace Bikewale.DAL.UsedBikes
                 using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikesbymakecity"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int16, makeId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_totalCount", DbType.Int16, totalCount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int16, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalCount));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, cityId));
 
 
