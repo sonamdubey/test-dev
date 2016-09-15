@@ -2,7 +2,7 @@
 <%if(showWidget) {%>
 <div id="makeUsedBikeContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 font14">
  
-    <h2 class="padding-left10 padding-right10">Recently uploaded Used <%= makeName %>  <%=ModelId > 0 ? String.Format("{0}", modelName) : ""%> bikes <%=CityId > 0 ? String.Format("in {0}", cityName) : "" %></h2>
+    <h2 class="padding-left10 padding-right10">Recently uploaded Used <%=pageHeading %> bikes <%=CityId > 0 ? String.Format("in {0}", cityName) : "" %></h2>
   
     <!-- when city is not selected -->
     <div class="grid-12 alpha omega text-black">
@@ -33,7 +33,7 @@
         </asp:Repeater>        
      <%} %>
          <div class="padding-left10">
-            <a href="/m<%= Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Convert.ToUInt32(CityId), makeMaskingName,modelMaskingName,cityMaskingName) %>">View all used bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
+            <a href="/m<%= Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Convert.ToUInt32(CityId), makeMaskingName,modelMaskingName,cityMaskingName) %>" title="Used <%=pageHeading %> bikes <%=CityId > 0 ? String.Format("in {0}", cityName) : "" %>">View all used bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
          </div>
        </div>
     <div class="clear"></div>   

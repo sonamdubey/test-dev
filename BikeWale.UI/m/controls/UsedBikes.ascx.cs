@@ -25,7 +25,7 @@ namespace Bikewale.Mobile.Controls
         public string makeMaskingName = string.Empty;
         public string modelMaskingName = string.Empty;
         public string cityMaskingName = string.Empty;
-
+        public string pageHeading = string.Empty;
         IEnumerable<MostRecentBikes> objMostRecentBikes = null;
 
         public bool showWidget = false;
@@ -89,11 +89,14 @@ namespace Bikewale.Mobile.Controls
                             modelName = objMostRecentBikes.FirstOrDefault().ModelName;
                             modelMaskingName = objMostRecentBikes.FirstOrDefault().ModelMaskingName;
                         }
-                        cityName = objMostRecentBikes.FirstOrDefault().CityName;
+
                         makeMaskingName = objMostRecentBikes.FirstOrDefault().MakeMaskingName;
-                        cityMaskingName = objMostRecentBikes.FirstOrDefault().CityMaskingName;
-
-
+                        if (CityId > 0)
+                        {
+                            cityName = objMostRecentBikes.FirstOrDefault().CityName;
+                            cityMaskingName = objMostRecentBikes.FirstOrDefault().CityMaskingName;
+                        }
+                        pageHeading = makeName + modelName;
                         if (CityId > 0)
                         {
                             rptRecentUsedBikes.DataSource = objMostRecentBikes;
