@@ -6,9 +6,11 @@
         <%
             title = pageTitle;
             description = pageDescription;
-            canonical = "";
+            canonical = pageCanonical;
             keywords = pageKeywords;
             EnableOG = true;
+            relPrevPageUrl = prevUrl.Replace("/m/", string.Empty);
+            relNextPageUrl = nextUrl.Replace("/m/", string.Empty); ;
         %>
 
     <!-- #include file="/includes/headscript_mobile.aspx" -->
@@ -18,7 +20,7 @@
 <body>
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
-       
+       <asp:HiddenField runat="server" ID="hdnHash" Value="" />
         <div class="modal-background"></div>
 
         <section>
@@ -44,7 +46,7 @@
                         <ItemTemplate>
                             <li>
                                 <div class="model-thumbnail-image">
-                                    <a href="javascript:void(0)" class="model-image-target">
+                                    <a href="/m/used/bikes-in-<%# DataBinder.Eval(Container.DataItem, "CityMaskingName").ToString() %>/<%# DataBinder.Eval(Container.DataItem, "MakeMaskingName").ToString() %>-<%# DataBinder.Eval(Container.DataItem, "ModelMaskingName").ToString() %>-<%# DataBinder.Eval(Container.DataItem, "ProfileId").ToString() %>/" class="model-image-target">
                                         <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "Photo.OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "Photo.HostUrl").ToString(),Bikewale.Utility.ImageSize._370x208) %>" alt="" title="" border="0" />
                                         <div class="model-media-details <%# Convert.ToUInt16(DataBinder.Eval(Container.DataItem, "TotalPhotos")) > 1? "":"hide" %>">
                                             <div class="model-media-item">
@@ -56,7 +58,7 @@
                                 </div>
                                 <div class="margin-right20 margin-left20 padding-top10 font14">
                                     <h2 class="margin-bottom10">
-                                        <a href="">
+                                        <a href="/m/used/bikes-in-<%# DataBinder.Eval(Container.DataItem, "CityMaskingName").ToString() %>/<%# DataBinder.Eval(Container.DataItem, "MakeMaskingName").ToString() %>-<%# DataBinder.Eval(Container.DataItem, "ModelMaskingName").ToString() %>-<%# DataBinder.Eval(Container.DataItem, "ProfileId").ToString() %>/">
                                             <%# DataBinder.Eval(Container.DataItem, "MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem, "ModelName").ToString() + " " + DataBinder.Eval(Container.DataItem, "VersionName").ToString() %>
                                         </a>
                                     </h2>
@@ -91,37 +93,6 @@
                         <span class="text-default text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-default text-bold"><%=totalListing %></span> bikes
                     </div>
                 <BikeWale:Pager ID="ctrlPager" runat="server" />
-                </div>
-                <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
-                    <div class="grid-5 omega text-light-grey">
-                        <span class="text-default text-bold">1-20</span> of <span class="text-default text-bold"><%=totalListing %></span> bikes
-                    </div>
-                    <div class="grid-7 alpha omega position-rel">
-                        <ul id="pagination-list">
-                            <li>
-                                <a href="">91</a>
-                            </li>
-                            <li>
-                                <a href="">92</a>
-                            </li>
-                            <li class="active">
-                                <a href="">93</a>
-                            </li>
-                            <li>
-                                <a href="">94</a>
-                            </li>
-                            <li>
-                                <a href="">95</a>
-                            </li>
-                        </ul>
-                        <span class="pagination-control-prev inactive">
-                            <a href="" class="bwmsprite prev-page-icon"></a>
-                        </span>
-                        <span class="pagination-control-next">
-                            <a href="" class="bwmsprite next-page-icon"></a>
-                        </span>
-                    </div>
-                    <div class="clear"></div>
                 </div>
             </div>
         </section>

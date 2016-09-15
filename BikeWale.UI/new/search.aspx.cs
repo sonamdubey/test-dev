@@ -9,8 +9,6 @@ using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.New
@@ -33,10 +31,8 @@ namespace Bikewale.New
             string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
             if (String.IsNullOrEmpty(originalUrl))
                 originalUrl = Request.ServerVariables["URL"];
-
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
-
             BindRepeaters();
         }
 

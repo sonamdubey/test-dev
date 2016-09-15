@@ -23,6 +23,7 @@ using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Used
@@ -36,15 +37,16 @@ namespace Bikewale.Mobile.Used
 
         protected LinkPagerControl ctrlPager;
         protected Repeater rptUsedListings;
-        protected uint cityId, makeid, modelId;
+        protected uint cityId, modelId;
         protected ushort makeId;
         protected string makemasking = string.Empty, citymasking = string.Empty, modelmasking = string.Empty, pageno = string.Empty;
         protected string pageTitle = string.Empty, pageDescription = string.Empty, modelName = string.Empty, makeName = string.Empty, pageKeywords = string.Empty, cityName = "India", pageCanonical = string.Empty
-            , heading = string.Empty, nextUrl = string.Empty, prevUrl = string.Empty;
+                  , heading = string.Empty, nextUrl = string.Empty, prevUrl = string.Empty;
         private const int _pageSize = 20;
         private int _pageNo = 1;
         protected int _startIndex = 0, _endIndex = 0, totalListing;
         private const int _pagerSlotSize = 5;
+        protected HiddenField hdnHash;
         #endregion
 
         #region events
@@ -58,8 +60,33 @@ namespace Bikewale.Mobile.Used
         {
             ParseQueryString();
             BindSearchPageData();
-            CreateMetas();
+            CreateMetas(makeName, modelName, cityName, totalListing);
             CreatePager();
+        }
+
+        private void CheckHashUrlParams(InputFilters input)
+        {
+            if (!string.IsNullOrEmpty(hdnHash.Value))
+            {
+                string hash = hdnHash.Value;
+                string[] arrays = hash.Split(new string[] { "#" }, StringSplitOptions.RemoveEmptyEntries);
+
+                MatchCollection matchList = Regex.Matches(hash, "budget=[0-9]/+[0-9]");
+                var list = matchList.Cast<Match>().Select(match => match.Value).ToList();
+
+                // Check budgets
+
+                // Check make
+
+                // check model
+
+                //
+                Match matchBudget = Regex.Match(hash, "budget=[0-9]");
+                if (matchBudget.Success)
+                {
+
+                }
+            }
         }
 
         #endregion
@@ -74,10 +101,14 @@ namespace Bikewale.Mobile.Used
             try
             {
                 InputFilters objFilters = new InputFilters();
-                objFilters.CityId = cityId;
-                objFilters.Makes = makeId.ToString();
-                objFilters.Models = modelId.ToString(); ;
-                //objFilters.Budget = "40000+70000";
+                CheckHashUrlParams(objFilters);
+                if (cityId > 0)
+                    objFilters.CityId = cityId;
+                if (makeId > 0)
+                    objFilters.Makes = makeId.ToString();
+                if (modelId > 0)
+                    objFilters.Models = modelId.ToString();
+                objFilters.Budget = "40000+70000";
                 objFilters.Age = "2";
                 objFilters.Kms = "40000";
                 objFilters.Owners = "1,2,3";
@@ -188,17 +219,33 @@ namespace Bikewale.Mobile.Used
         /// Created by: Sangram Nandkhile on 13 Sep 2016
         /// Summary: Create title, metas and description for SEO
         /// </summary>
-        public void CreateMetas()
+        public void CreateMetas(string strMake, string strModel, string strCity, int count)
         {
             try
             {
-                string _bike = string.Format("{0} {1} ", makeName, modelName).Trim();
+                // Make models specific
+                if (strModel.Length > 0)
+                {
+                    pageDescription = string.Format("There are {0} used {1} {2} bikes in {3} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand {2} bikes for sale in {3}", count, strMake, strModel, strCity);
+                    pageKeywords = string.Format("Used {1} bikes in {2}, used {1} bikes, find used {1} bikes in {2}, buy used {1} bikes in {2}, search used {0} {1} bikes, find used {0} {1} bikes, {1} bike sale in {2}, used {0} {1} bikes in {2}, used {0} {1} bikes", strMake, strModel, strCity);
+                }
+                else if (strMake.Length > 0)
+                {
+                    pageDescription = string.Format("There are {0} used {1} bikes in {2} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand {1} bikes for sale in {2}", count, strMake, strCity);
+                    pageKeywords = string.Format("Used {0} bikes in {1}, used {0} bikes, find used {0} bikes in {1}, buy used {0} bikes in {1}, search used {0} bikes, find used {0} bikes, bike sale, {0} bike sale in {1}", strMake, strCity);
+                }
+                else
+                {
+                    pageDescription = string.Format("There are {0} used bikes in {1} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand bikes for sale in {1}", count, strCity);
+                    pageKeywords = string.Format("Used bikes in {0}, find used bikes in {0}, buy used bikes in {0}, search used bikes, find used bikes, used bike listing, bike used sale, bike sale in {0}, {0} bike search, Bajaj, Aprilia, BMW, Ducati, Harley Davidson, Hero, Honda, Hyosung, KTM, Mahindra, Royal Enfield, Suzuki, Yamaha, Yo, TVS, Vespa, Kawasaki", strCity);
+                }
+
+
+                string _bike = string.Format("{0} {1} ", strMake, strModel).Trim();
                 if (_bike.Length > 0)
                     _bike = string.Format("{0} ", _bike);
-                heading = string.Format("Used {0}Bikes in {1}", _bike, cityName);
-                pageTitle = string.Format("Used {0}Bikes in {1} - Verified Bike Listing For Sale | BikeWale", _bike, cityName);
-                pageDescription = string.Format("There are {1} used {0}bikes in {2} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand {0}bikes for sale in {2}", _bike, totalListing, cityName);
-                pageKeywords = string.Format(@"Used {0}bikes in {1}, find {0}used {1} bikes in {0}, buy {0}used bikes in {0}, search {0}used bikes, find {0}used bikes, used bike listing, {0}bike used sale, {0}bike sale in {1}, {1} bike search, Bajaj, Aprilia, BMW, Ducati, Harley Davidson, Hero, Honda, Hyosung, KTM, Mahindra, Royal Enfield, Suzuki, Yamaha, Yo, TVS, Vespa, Kawasaki", _bike, cityName);
+                heading = string.Format("Used {0}Bikes in {1}", _bike, strCity);
+                pageTitle = string.Format("Used {0}Bikes in {1} - Verified Bike Listing For Sale | BikeWale", _bike, strCity);
                 pageCanonical = CreateCanonical(Request.RawUrl);
             }
             catch (Exception ex)
@@ -210,19 +257,16 @@ namespace Bikewale.Mobile.Used
 
         public string CreateCanonical(string rawUrl)
         {
-            string returl = string.Empty;
+            string returl = rawUrl;
             try
             {
                 // Check if raw url already has page and if not, add page-1 for making cononical url
                 if (rawUrl.Contains("/page-"))
                 {
                     returl = RemoveTrailingPage(rawUrl);
-                    returl = string.Format("http://www.bikewale.com/{0}/page-1/", returl.Replace("/m/", string.Empty));
                 }
-                else
-                {
-                    returl = string.Format("http://www.bikewale.com/{0}page-1/", Request.RawUrl.Replace("/m/", string.Empty));
-                }
+                returl = string.Format("http://www.bikewale.com/{0}page-1/", returl.Replace("/m/", string.Empty));
+
             }
             catch (Exception ex)
             {
@@ -234,8 +278,13 @@ namespace Bikewale.Mobile.Used
 
         public string RemoveTrailingPage(string rawUrl)
         {
-            string[] urlArray = rawUrl.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
-            return string.Format("/{0}/", string.Join("/", urlArray.Take(urlArray.Length - 1).ToArray()));
+            string retUrl = rawUrl;
+            if (rawUrl.Contains("/page-"))
+            {
+                string[] urlArray = rawUrl.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
+                retUrl = string.Format("/{0}/", string.Join("/", urlArray.Take(urlArray.Length - 1).ToArray()));
+            }
+            return retUrl;
         }
         #endregion
 
@@ -279,12 +328,13 @@ namespace Bikewale.Mobile.Used
         {
             PagerOutputEntity _pagerOutput = null;
             PagerEntity _pagerEntity = null;
+
             string _baseUrl = RemoveTrailingPage(Request.RawUrl);
 
             try
             {
                 _pagerEntity = new PagerEntity();
-                _pagerEntity.BaseUrl = string.Format("{0}page-", _baseUrl);
+                _pagerEntity.BaseUrl = string.Format("{0}page", _baseUrl);
                 _pagerEntity.PageNo = _pageNo; //Current page number
                 _pagerEntity.PagerSlotSize = _pagerSlotSize; // 5 links on a page
                 // _pagerEntity.PageUrlType = "page-{0}/";
