@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 using Bikewale.Entities.Used.Search;
 using Bikewale.Interfaces.Used.Search;
 using Bikewale.Notifications;
+using Bikewale.Entities.NewBikeSearch;
+using Bikewale.Utility;
+using Bikewale.BAL.Pager;
+using Bikewale.Interfaces.Pager;
+using Microsoft.Practices.Unity;
 
 namespace Bikewale.BAL.Used.Search
 {
@@ -34,6 +39,8 @@ namespace Bikewale.BAL.Used.Search
 
         /// <summary>
         /// Function to get the used bikes seach. This encapsulates all the business logic to get the search result.
+        /// Modified by: Aditi Srivastava on 16 Sep 2016
+        /// Description: Set the paging url and current page no for api response
         /// </summary>
         /// <param name="inputFilters">All input filters from the user</param>
         /// <returns></returns>
@@ -50,7 +57,18 @@ namespace Bikewale.BAL.Used.Search
                 if (!string.IsNullOrEmpty(searchQuery))
                     objResult = _searchRepo.GetUsedBikesList(searchQuery);
 
-                // Get pager entity and populate it in search result
+                // Set paging url and current page numbers
+                objResult.PageUrl = GetPrevNextUrl(inputFilters,objResult.TotalCount);
+                objResult.CurrentPageNo=inputFilters.PN;
+                if (!String.IsNullOrEmpty(objResult.PageUrl.PrevPageUrl))
+                {
+                   objResult.PageUrl.PrevPageUrl= objResult.PageUrl.PrevPageUrl.Replace("+", "%2b");
+                }
+                if (!String.IsNullOrEmpty(objResult.PageUrl.NextPageUrl))
+                {
+                   objResult.PageUrl.NextPageUrl= objResult.PageUrl.NextPageUrl.Replace("+", "%2b");
+                }
+
             }
             catch (Exception ex)
             {
@@ -59,6 +77,101 @@ namespace Bikewale.BAL.Used.Search
             }
 
             return objResult;
+        }
+        /// <summary>
+        /// Created By: Aditi Srivastava on 16 Sep 2016
+        /// Description: Set previous and next page urls for api result of used bikes
+        /// </summary>
+        /// <param name="filterInputs"></param>
+        /// <param name="totalRecordCount"></param>
+        /// <param name="fetchedCount"></param>
+        /// <returns></returns>
+        private PagingUrl GetPrevNextUrl(InputFilters objFilters, int totalRecordCount)
+        {
+            IPager Pager = GetPager();
+            PagingUrl objPager = null;
+            int totalPageCount = 0;
+            int currentPageNo = 0;
+            try
+            {
+                objPager = new PagingUrl();
+                string apiUrlStr = GetApiUrl(objFilters);
+                totalPageCount = Pager.GetTotalPages(totalRecordCount, Convert.ToInt32(objFilters.PS));
+
+                if (totalPageCount > 0)
+                {
+                    string controllerurl = "/api/used/search/?";
+
+                    currentPageNo = (objFilters.PN == 0) ? 1 : objFilters.PN;
+                    if (currentPageNo == totalPageCount)
+                        objPager.NextPageUrl = string.Empty;
+                    else
+                    {
+                        objPager.NextPageUrl = controllerurl + apiUrlStr;
+                    }
+
+                    if (objFilters.PN == 1 || objFilters.PN == 0)
+                        objPager.PrevPageUrl = string.Empty;
+                    else
+                        objPager.PrevPageUrl = controllerurl +  apiUrlStr;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.Used.GetPrevNextUrl");
+                objErr.SendMail();
+            }
+            return objPager;
+        }
+        /// <summary>
+        /// Created By: Aditi Srivastava on 16 Sep 2016
+        /// Description: Set api url parameters according to filters for used bikes
+        /// </summary>
+        /// <param name="objFilters"></param>
+        /// <returns></returns>
+        private string GetApiUrl(InputFilters objFilters)
+        {
+            string apiUrlstr = string.Empty;
+            try
+            {
+                    
+                if (!String.IsNullOrEmpty(objFilters.Make))
+                    apiUrlstr += "&make=" + objFilters.Make.Replace(" ", "+");
+                if (!String.IsNullOrEmpty(objFilters.Make))
+                    apiUrlstr += "&model=" + objFilters.Model.Replace(" ", "+");
+                 if (!String.IsNullOrEmpty(objFilters.Budget))
+                    apiUrlstr += "&budget=" + objFilters.Budget.Replace(" ", "+");
+                 if (!String.IsNullOrEmpty(objFilters.Kms))
+                     apiUrlstr += "&kms=" + objFilters.Kms.Replace(" ", "+");
+                 if (!String.IsNullOrEmpty(objFilters.Age))
+                     apiUrlstr += "&age=" + objFilters.Age.Replace(" ", "+");
+                 if (!String.IsNullOrEmpty(objFilters.Owner))
+                     apiUrlstr += "&owner=" + objFilters.Owner.Replace(" ", "+");
+                     apiUrlstr += "&ps=" + objFilters.PS;
+                     apiUrlstr += "&pn=" + objFilters.PN;
+                 
+                 if (!String.IsNullOrEmpty(objFilters.ST))
+                     apiUrlstr += "&st=" + objFilters.ST;
+                 
+                     apiUrlstr += "&so=" + objFilters.SO;
+
+               }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.Used.GetApiUrl");
+                objErr.SendMail();
+            }
+            return apiUrlstr;
+        }
+        private IPager GetPager()
+        {
+            IPager _objPager = null;
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IPager, Bikewale.BAL.Pager.Pager>();
+                _objPager = container.Resolve<IPager>();
+            }
+            return _objPager;
         }
     }
 }
