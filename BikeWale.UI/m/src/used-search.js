@@ -18,10 +18,10 @@ var getQueryString = function () {
     return qsColl;
 }
 
-var vmPagination = function (curPgNum,pgSize,totalRecords) {
+var vmPagination = function (curPgNum, pgSize, totalRecords) {
     var self = this;
     self.totalData = ko.observable(totalRecords);
-    self.pageNumber = ko.observable(curPgNum > 0 ? curPgNum : 1);
+    self.pageNumber = ko.observable(curPgNum);
     self.pageSize = ko.observable(pgSize);
     self.pageSlot = ko.observable(5);
     self.totalPages = ko.computed(function () {
@@ -29,7 +29,6 @@ var vmPagination = function (curPgNum,pgSize,totalRecords) {
         div += self.totalData() % self.pageSize() > 0 ? 1 : 0;
         return div - 1;
     });
-
     self.paginated = ko.computed(function () {
         var pgSlot = self.pageNumber() + self.pageSlot();
         if (pgSlot > self.totalPages()) pgSlot = self.totalPages();
@@ -43,7 +42,7 @@ var vmPagination = function (curPgNum,pgSize,totalRecords) {
     });
     self.next = function () {
         if (self.pageNumber() < self.totalPages())
-            return self.pageNumber()+1;
+            return self.pageNumber() + 1;
         return self.pageNumber();
     }
     self.previous = function () {
@@ -52,8 +51,7 @@ var vmPagination = function (curPgNum,pgSize,totalRecords) {
         }
         return self.pageNumber();
     }
-}
-
+};
 
 ko.bindingHandlers.CurrencyText = {
     update: function (element, valueAccessor) {
@@ -117,12 +115,16 @@ ko.bindingHandlers.KOSlider = {
 };
 
 function formatPrice(price) {
-    price = price.toString();
-    var lastThree = price.substring(price.length - 3);
-    var otherNumbers = price.substring(0, price.length - 3);
-    if (otherNumbers != '')
-        lastThree = ',' + lastThree;
-    var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+    if (price != null)
+    {
+        price = price.toString();
+        var lastThree = price.substring(price.length - 3);
+        var otherNumbers = price.substring(0, price.length - 3);
+        if (otherNumbers != '')
+            lastThree = ',' + lastThree;
+        var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+    }
+    
     return price;
 }
 
@@ -147,7 +149,7 @@ var usedBikes = function()
     self.TotalBikes = ko.observable();
     self.BikeDetails = ko.observableArray();
     self.PageUrl = ko.observable();
-    self.CurPageNo = ko.observable();
+    self.CurPageNo = ko.observable(0);
     self.BikePhotos = function () {
         var self = this;
         self.hostUrl = ko.observable();
@@ -292,7 +294,7 @@ var usedBikes = function()
         var qs = self.QueryString();
         $.ajax({
             type: 'GET',
-            url: '/api/used/search/?' + qs.replace("+","%2B"),
+            url: '/api/used/search/?' + qs.replace(/[\+]+/g, "%2B"),
             dataType: 'json',
             success: function (response) {
                 window.location.hash = qs;
@@ -323,6 +325,27 @@ var usedBikes = function()
         e.preventDefault();
         return false;
     };
+
+    self.SetPageFilters = function () {
+        //set sort filter
+        if (self.Filters()["so"]) {
+            $("#sort-by-list li[data-sortorder=" + objFilters["so"] + "]").addClass("active").siblings().removeClass("active");
+        }
+        //set city filter
+        if (self.Filters()["so"]) {
+            $("#sort-by-list li[data-sortorder=" + objFilters["so"] + "]").addClass("active").siblings().removeClass("active");
+        }
+        if (self.Filters()["so"]) {
+            $("#sort-by-list li[data-sortorder=" + objFilters["so"] + "]").addClass("active").siblings().removeClass("active");
+        }
+        if (self.Filters()["so"]) {
+            $("#sort-by-list li[data-sortorder=" + objFilters["so"] + "]").addClass("active").siblings().removeClass("active");
+        }
+        if (self.Filters()["so"]) {
+            $("#sort-by-list li[data-sortorder=" + objFilters["so"] + "]").addClass("active").siblings().removeClass("active");
+        }
+    };
+
 }
 
 $(document).on("click", "#pagination-list li a,span.pagination-control-prev a,span.pagination-control-next a", function (d,e) {
