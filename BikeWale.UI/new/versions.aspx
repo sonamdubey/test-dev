@@ -650,7 +650,8 @@
                           
                         <% if ((ctrlPopularCompare.fetchedCount > 0) ){ %>
                         <a href="#modelComparisonContent" rel="nofollow">Comparisons</a>
-                        <%} %> <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
+                        <%} %>
+                         <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
                         <a href="#modelAlternateBikeContent" rel="nofollow">Alternatives</a> 
                         <%} %>  
                         <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)

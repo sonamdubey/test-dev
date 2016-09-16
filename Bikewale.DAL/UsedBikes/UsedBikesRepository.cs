@@ -1,6 +1,7 @@
 ﻿using Bikewale.Entities.UsedBikes;
 using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
@@ -96,22 +97,22 @@ namespace Bikewale.DAL.UsedBikes
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalCount));
 
 
-                    objUsedBikesList = new List<MostRecentBikes>();
+                   
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
-                        {
+                        { objUsedBikesList = new List<MostRecentBikes>();
                             while (dr.Read())
                             {
                                 objUsedBikesList.Add(new MostRecentBikes
                                 {
-                                    MakeName = GetString(dr["makename"]),
-                                    MakeMaskingName = GetString(dr["makemaskingname"]),
-                                    CityName = GetString(dr["city"]),
-                                    AvailableBikes = GetUint32(dr["availablebikes"]),
-                                    CityMaskingName = GetString(dr["citymaskingname"]),
-                                    CityId = GetUint32(dr["cityid"])
+                                    MakeName = Convert.ToString(dr["makename"]),
+                                    MakeMaskingName = Convert.ToString(dr["makemaskingname"]),
+                                    CityName = Convert.ToString(dr["city"]),
+                                    AvailableBikes = SqlReaderConvertor.ParseToUInt32(dr["availablebikes"]),
+                                    CityMaskingName = Convert.ToString(dr["citymaskingname"]),
+                                    CityId = SqlReaderConvertor.ParseToUInt32(dr["cityid"])
 
 
                                 });

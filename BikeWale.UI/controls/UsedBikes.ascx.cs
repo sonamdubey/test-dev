@@ -36,6 +36,7 @@ namespace Bikewale.Controls
         public uint FetchedRecordsCount;
         public string headingName;
         IEnumerable<MostRecentBikes> objMostRecentBikes;
+        MostRecentBikes objFirstListObject;
 
         protected override void OnInit(EventArgs e)
         {
@@ -83,8 +84,11 @@ namespace Bikewale.Controls
                     container.RegisterType<ICacheManager, MemcacheManager>();
                     container.RegisterType<IUsedBikes, Bikewale.BAL.UsedBikes.UsedBikes>();
                     container.RegisterType<IUsedBikesCache, UsedBikesCache>();
+
                     IUsedBikesCache _objUsedBikes = container.Resolve<IUsedBikesCache>();
+
                     objMostRecentBikes = _objUsedBikes.GetUsedBikes(MakeId, ModelId, CityId, TopCount);
+
                     FetchedRecordsCount = Convert.ToUInt32(objMostRecentBikes.Count());
                     if (FetchedRecordsCount > 0)
                     {
@@ -112,8 +116,7 @@ namespace Bikewale.Controls
                             rptRecentUsedBikes.DataBind();
                             showWidget = true;
                         }
-
-                        else if (CityId <= 0) //City-not-present
+                        else  //City-not-present
                         {
                             rptUsedBikeNoCity.DataSource = objMostRecentBikes;
                             rptUsedBikeNoCity.DataBind();

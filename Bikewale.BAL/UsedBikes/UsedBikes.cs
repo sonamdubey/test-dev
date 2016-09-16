@@ -1,7 +1,9 @@
 ﻿using Bikewale.DAL.UsedBikes;
 using Bikewale.Entities.UsedBikes;
 using Bikewale.Interfaces.UsedBikes;
+using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
 
 namespace Bikewale.BAL.UsedBikes
@@ -12,30 +14,42 @@ namespace Bikewale.BAL.UsedBikes
     /// </summary>
     public class UsedBikes : IUsedBikes
     {
+        /// <summary>
+        /// Created By : Sajal Gupta on 14/09/2016
+        /// Description : Logic to get used bikes for model/make page.
+        /// </summary>
         public IEnumerable<MostRecentBikes> GetPopularUsedBikes(uint makeId, uint modelId, uint cityId, uint totalCount)
         {
-            IUsedBikesRepository _usedBikesRepository = null;
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IUsedBikesRepository, UsedBikesRepository>();
-                _usedBikesRepository = container.Resolve<IUsedBikesRepository>();
-            }
+            IUsedBikesRepository usedBikesRepository = null;
 
-            if (modelId != 0 && cityId != 0)
+            try
             {
-                return _usedBikesRepository.GetUsedBikesbyModelCity(modelId, cityId, totalCount);
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IUsedBikesRepository, UsedBikesRepository>();
+                    usedBikesRepository = container.Resolve<IUsedBikesRepository>();
+                }
+
+                if (modelId != 0)
+                {
+                    if (cityId != 0)
+                        return usedBikesRepository.GetUsedBikesbyModelCity(modelId, cityId, totalCount);
+                    else
+                        return usedBikesRepository.GetUsedBikesbyModel(modelId, totalCount);
+                }
+                else
+                {
+                    if (cityId != 0)
+                        return usedBikesRepository.GetUsedBikesbyMakeCity(makeId, cityId, totalCount);
+                    else
+                        return usedBikesRepository.GetUsedBikesbyMake(makeId, totalCount);
+                }
             }
-            else if (modelId != 0 && cityId == 0)
+            catch (Exception ex)
             {
-                return _usedBikesRepository.GetUsedBikesbyModel(modelId, totalCount);
-            }
-            else if (cityId != 0)
-            {
-                return _usedBikesRepository.GetUsedBikesbyMakeCity(makeId, cityId, totalCount);
-            }
-            else
-            {
-                return _usedBikesRepository.GetUsedBikesbyMake(makeId, totalCount);
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception in Bikewale.BAL.UsedBikes.UsedBikes.GetPopularUsedBikes parametres makeId : {0}, modelId : {1}, cityId : {2}, totalCount : {3}", makeId, modelId, cityId, totalCount));
+                objErr.SendMail();
+                return null;
             }
         }
     }

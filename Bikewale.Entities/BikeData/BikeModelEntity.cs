@@ -7,7 +7,7 @@ namespace Bikewale.Entities.BikeData
     public class BikeModelEntity : BikeModelEntityBase
     {
         [DataMember]
-        public BikeMakeEntityBase objmakeBase = new BikeMakeEntityBase();
+        private BikeMakeEntityBase objmakeBase = new BikeMakeEntityBase();
         [DataMember]
         public BikeMakeEntityBase MakeBase { get { return objmakeBase; } set { objmakeBase = value; } }
         [DataMember]
