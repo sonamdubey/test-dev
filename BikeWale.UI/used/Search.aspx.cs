@@ -120,8 +120,56 @@ namespace Bikewale.Used
 
                 if (!String.IsNullOrEmpty(Request.QueryString["make"]))
                 {
-                    makeId = MakeMapping.GetMakeId(Request.QueryString["make"]);
                     makeMaskingName = Request.QueryString["make"];
+                    MakeMaskingResponse objResponse = null;
+
+                    try
+                    {
+                        using (IUnityContainer container = new UnityContainer())
+                        {
+                            container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                                  .RegisterType<ICacheManager, MemcacheManager>()
+                                  .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                                 ;
+                            var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+
+                            objResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
+                        objErr.SendMail();
+                        Response.Redirect("pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
+                    finally
+                    {
+                        if (objResponse != null)
+                        {
+                            if (objResponse.StatusCode == 200)
+                            {
+                                makeId = Convert.ToString(objResponse.MakeId);
+                            }
+                            else if (objResponse.StatusCode == 301)
+                            {
+                                CommonOpn.RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName));
+                            }
+                            else
+                            {
+                                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                                this.Page.Visible = false;
+                            }
+                        }
+                        else
+                        {
+                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
+                        }
+                    }
                 }
 
                 _qs = ((!String.IsNullOrEmpty(cityId)) ? "city=" + cityId + "&dist=50" : "") + ((String.IsNullOrEmpty(makeId) ? "" : "&make=" + makeId));
