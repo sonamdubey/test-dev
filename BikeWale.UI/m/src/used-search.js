@@ -25,13 +25,13 @@ var vmPagination = function (curPgNum, pgSize, totalRecords) {
     self.pageSize = ko.observable(pgSize);
     self.pageSlot = ko.observable(5);
     self.totalPages = ko.computed(function () {
-        var div = Math.floor(self.totalData() / self.pageSize());
+        var div = Math.ceil(self.totalData() / self.pageSize());
         div += self.totalData() % self.pageSize() > 0 ? 1 : 0;
         return div - 1;
     });
     self.paginated = ko.computed(function () {
         var pgSlot = self.pageNumber() + self.pageSlot();
-        if (pgSlot > self.totalPages()) pgSlot = self.totalPages();
+        if (pgSlot > self.totalPages()) pgSlot = self.totalPages()+1;
         return pgSlot;
     });
     self.hasPrevious = ko.computed(function () {
@@ -332,11 +332,13 @@ var usedBikes = function()
             $("#sort-by-list li[data-sortorder=" + objFilters["so"] + "]").addClass("active").siblings().removeClass("active");
         }
         //set city filter
-        if (self.Filters()["so"]) {
-            $("#sort-by-list li[data-sortorder=" + objFilters["so"] + "]").addClass("active").siblings().removeClass("active");
+        if (self.Filters()["city"]) {
+            var ele = $("#filter-city-list li[data-cityid=" + objFilters["cityid"] + "]");
+            ele.addClass("active").siblings().removeClass("active");
+            self.SelectedCity({ "id": ele.attr("data-cityid"), "name": ele.text() });
         }
         if (self.Filters()["so"]) {
-            $("#sort-by-list li[data-sortorder=" + objFilters["so"] + "]").addClass("active").siblings().removeClass("active");
+            $("#filter-city-list li[data-cityid=" + objFilters["cityid"] + "]").addClass("active").siblings().removeClass("active");
         }
         if (self.Filters()["so"]) {
             $("#sort-by-list li[data-sortorder=" + objFilters["so"] + "]").addClass("active").siblings().removeClass("active");
