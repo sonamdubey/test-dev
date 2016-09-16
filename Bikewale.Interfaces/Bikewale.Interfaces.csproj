@@ -113,8 +113,11 @@
     <Compile Include="UsedBikes\IPopularUsedBikesCacheRepository.cs" />
     <Compile Include="UsedBikes\IUsedBikesCacheRepository.cs" />
     <Compile Include="Used\ISearchRepository.cs" />
+    <Compile Include="Used\IUsedBikeBuyer.cs" />
+    <Compile Include="Used\IUsedBikeBuyerRepository.cs" />
     <Compile Include="Used\IUsedBikeDetails.cs" />
     <Compile Include="Used\IUsedBikeDetailsCacheRepository.cs" />
+    <Compile Include="Used\IUsedBikeSellerRepository.cs" />
     <Compile Include="UserReviews\IUserReviews.cs" />
     <Compile Include="UserReviews\IUserReviewsCache.cs" />
     <Compile Include="UsersTestimonial\IUsersTestimonial.cs" />

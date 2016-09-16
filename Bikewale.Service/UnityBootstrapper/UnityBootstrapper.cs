@@ -25,6 +25,7 @@ using Bikewale.DAL.Dealer;
 using Bikewale.DAL.Feedback;
 using Bikewale.DAL.Location;
 using Bikewale.DAL.NewBikeSearch;
+using Bikewale.DAL.Used;
 using Bikewale.DAL.UsedBikes;
 using Bikewale.DAL.UserReviews;
 using Bikewale.Entities.BikeData;
@@ -47,6 +48,7 @@ using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Interfaces.UserReviews;
 using Microsoft.Practices.Unity;
@@ -131,6 +133,9 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<Bikewale.Interfaces.Used.Search.ISearchQuery, Bikewale.BAL.Used.Search.SearchQuery>();
             container.RegisterType<ISearchRepository, Bikewale.DAL.Used.Search.SearchRepository>();
 
+            container.RegisterType<IUsedBikeBuyer, Bikewale.BAL.Used.UsedBikeBuyer>();
+            container.RegisterType<IUsedBikeBuyerRepository, UsedBikeBuyerRepository>();
+            container.RegisterType<IUsedBikeSellerRepository, UsedBikeSellerRepository>();
             return container;
         }
     }
