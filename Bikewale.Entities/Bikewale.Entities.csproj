@@ -115,6 +115,7 @@
     <Compile Include="BikeData\EnumUpcomingBikesFilter.cs" />
     <Compile Include="BikeData\FeaturedBikeEntity.cs" />
     <Compile Include="BikeData\Features.cs" />
+    <Compile Include="BikeData\MakeMaskingResponse.cs" />
     <Compile Include="BikeData\MinSpecs.cs" />
     <Compile Include="BikeData\ModelMaskingResponse.cs" />
     <Compile Include="BikeData\MostPopularBikesBase.cs" />

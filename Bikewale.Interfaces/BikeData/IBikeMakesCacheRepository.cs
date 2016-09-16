@@ -8,6 +8,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description :   Bike Makes Cache Repository
     /// Modified By : Sangram Nandkhile on 20 Jun 2016
     /// Summary :   Added new function GetDiscontinuedBikeModelsByMake
+    /// Modified by :   Sumit Kate on 16 Sep 2016
+    /// Description :   Added new function GetMakeMaskingResponse
     /// </summary>
     public interface IBikeMakesCacheRepository<U>
     {
@@ -15,5 +17,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<BikeVersionEntity> GetDiscontinuedBikeModelsByMake(uint makeId);
         BikeDescriptionEntity GetMakeDescription(U makeId);
         BikeMakeEntityBase GetMakeDetails(uint makeId);
+        MakeMaskingResponse GetMakeMaskingResponse(string maskingName);
     }
 }

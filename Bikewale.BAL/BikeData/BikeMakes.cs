@@ -100,5 +100,15 @@ namespace Bikewale.BAL.BikeData
         {
             return makesRepository.GetDiscontinuedBikeModelsByMake(makeId);
         }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 16 Sep 2016
+        /// Description :   Calls make repository
+        /// </summary>
+        /// <returns></returns>
+        public System.Collections.Hashtable GetOldMaskingNames()
+        {
+            return makesRepository.GetOldMaskingNames();
+        }        
     }   // Class
 }   //Namespace
