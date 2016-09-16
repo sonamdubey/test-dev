@@ -27,11 +27,6 @@ namespace Bikewale.Controls
         public string cityMaskingName = string.Empty;
         public string pageHeading = string.Empty;
         public bool showWidget;
-        //IEnumerable<MostRecentBikes> objMostRecentBikes;
-
-
-
-
 
         protected override void OnInit(EventArgs e)
         {
