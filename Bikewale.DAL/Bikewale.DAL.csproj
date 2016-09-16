@@ -88,6 +88,7 @@
     <Compile Include="UsedBikes\UsedBikesRepository.cs" />
     <Compile Include="Used\UsedBikeBuyerRepository.cs" />
     <Compile Include="Used\SearchRepository.cs" />
+    <Compile Include="Used\UsedBikeDetailsRepository.cs" />
     <Compile Include="Used\UsedBikeSellerRepository.cs" />
     <Compile Include="UserReviews\UserReviewsRepository.cs" />
     <Compile Include="UsersTestimonial\UsersTestimonialRepository.cs" />
