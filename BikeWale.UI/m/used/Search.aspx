@@ -30,7 +30,7 @@
                     <h1 class="padding-top15 padding-right20 padding-bottom15 padding-left20 box-shadow">
                         <span data-bind="text: PageHeading()"></span></h1>
                 
-                <div class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20" data-bind="visible: TotalBikes() > 0">Showing <span class="text-bold"><span data-bind="    text: Pagination().pageNumber()"><%=_startIndex %></span>-<span data-bind="    text: Pagination().pageNumber() * Pagination().pageSize() "><%=_endIndex %></span> of <span class="text-bold"><%=totalListing %></span> bikes</div>
+                <div class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20" data-bind="visible: TotalBikes() > 0">Showing <span class="text-bold"><span data-bind="    text: (Pagination().previous() + 1) * Pagination().pageSize() + 1 "><%=_startIndex %></span>-<span data-bind="    text: (Pagination().pageNumber() + 1) * Pagination().pageSize() "><%=_endIndex %></span> of <span class="text-bold"><%=totalListing %></span> bikes</div>
 
                     <div id="sort-filter-wrapper" class="text-center border-solid-bottom">
                         <div id="sort-floating-btn" class="grid-6 padding-top10 padding-bottom10 border-solid-right cur-pointer">
@@ -140,13 +140,13 @@
 
                     <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
                         <div class="grid-5 omega text-light-grey" data-bind="visible: TotalBikes() > 0">
-                        <span data-bind="visible: TotalBikes() > 0"><span class="text-default text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-default text-bold"><%=totalListing %></span> bikes </span>
+                                        <div class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20" data-bind="visible: TotalBikes() > 0">Showing <span class="text-bold"><span data-bind="    text: (Pagination().previous() + 1) * Pagination().pageSize() + 1"><%=_startIndex %></span>-<span data-bind="    text: (Pagination().pageNumber() + 1) * Pagination().pageSize() "><%=_endIndex %></span> of <span class="text-bold"><%=totalListing %></span> bikes</div>
                     </div>
                 <%--<BikeWale:Pager ID="ctrlPager" runat="server" />--%>
                      <div class="grid-7 alpha omega position-rel">
                                 <ul id="pagination-list" data-bind="html : PagesListHtml"></ul>
-                        <span class="pagination-control-prev inactive" data-bind="html: PrevPageHtml"></span>
-                        <span class="pagination-control-next inactive" data-bind="html: NextPageHtml"></span>
+                        <span class="pagination-control-prev  " data-bind="html: PrevPageHtml, css: Pagination().hasPrevious() ? 'active' : 'inactive' "></span>
+                        <span class="pagination-control-next " data-bind="html: NextPageHtml,css: Pagination().hasNext()?'active':'inactive'"></span>
                     </div>
                     <div class="clear"></div>
                 </div>
