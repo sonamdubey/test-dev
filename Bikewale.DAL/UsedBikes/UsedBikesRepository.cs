@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Web;
 
 namespace Bikewale.DAL.UsedBikes
 {
@@ -59,8 +58,7 @@ namespace Bikewale.DAL.UsedBikes
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in getPopularBikes parametres totalCount : {0}, cityId : {1}", totalCount, cityId));
                 objErr.SendMail();
             }
             return objUsedBikesList;
@@ -112,8 +110,7 @@ namespace Bikewale.DAL.UsedBikes
             }
             catch (Exception ex)
             {
-
-                ErrorClass objErr = new ErrorClass(ex, "UsedBikesRepository.GetUsedBikesbyMake");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in UsedBikesRepository.GetUsedBikesbyMake Parametres makeId : {0}, totalCount : {1}", makeid, totalCount));
                 objErr.SendMail();
             }
             return objUsedBikesList;
@@ -167,11 +164,12 @@ namespace Bikewale.DAL.UsedBikes
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "UsedBikesRepository.GetUsedBikesbyModel");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in UsedBikesRepository.GetUsedBikesbyModel Parametres modelId : {0}, totalCount : {1}", modelId, totalCount));
                 objErr.SendMail();
             }
             return objUsedBikesList;
         }//end of GetUsedBikesbyModel
+
         /// <summary>
         /// Created:- by Subodh Jain on 14 sep 2016
         /// Description:- Fetch Most recent used bikes for particular model and city
@@ -227,8 +225,7 @@ namespace Bikewale.DAL.UsedBikes
             }
             catch (Exception ex)
             {
-
-                ErrorClass objErr = new ErrorClass(ex, "UsedBikesRepository.GetUsedBikesbyModelCity");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in UsedBikesRepository.GetUsedBikesbyModelCity Parametres modelId : {0}, totalCount : {1}, cityId {2}", modelId, totalCount, cityId));
                 objErr.SendMail();
             }
             return objUsedBikesList;
@@ -288,8 +285,7 @@ namespace Bikewale.DAL.UsedBikes
             }
             catch (Exception ex)
             {
-
-                ErrorClass objErr = new ErrorClass(ex, "UsedBikesRepository.GetUsedBikesbyMakeCity");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in UsedBikesRepository.GetUsedBikesbyMakeCity Parametres makeId : {0}, totalCount : {1}, cityId {2}", makeId, totalCount, cityId));
                 objErr.SendMail();
             }
             return objUsedBikesList;
