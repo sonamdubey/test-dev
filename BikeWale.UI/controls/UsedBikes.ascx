@@ -1,16 +1,16 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.UsedBikes" %> 
    
-<%if(showWidget) {%>
+
 <div id="makeUsedBikeContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 font14">
   
-    <h2 class="padding-left10 padding-right10">Recently uploaded Used <%= headingName %> bikes <%=CityId > 0 ? String.Format("in {0}", cityName) : "" %></h2>
+    <h2 class="padding-left10 padding-right10">Recently uploaded Used <%= pageHeading %> bikes <%=CityId > 0 ? String.Format("in {0}", cityName) : "" %></h2>
     <!-- when city is not selected -->
     <div class="grid-12 alpha omega text-black">
     <%if(CityId <= 0) {%>    
         <asp:Repeater runat="server" ID="rptUsedBikeNoCity">
             <ItemTemplate>
                 <div class="grid-4 margin-bottom20">
-                    <a title = "Used <%# headingName %>  bikes in <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"CityName")) %>"  href= "<%# Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(Convert.ToString(DataBinder.Eval(Container.DataItem,"MakeMaskingName")), modelMaskingName , Convert.ToString(DataBinder.Eval(Container.DataItem,"CityMaskingName"))) %>">  Used <%= headingName %>  bikes in <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"CityName")) %></a>
+                    <a title = "Used <%= pageHeading %> bikes in <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"CityName")) %>"  href= "<%# Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(Convert.ToString(DataBinder.Eval(Container.DataItem,"MakeMaskingName")), Convert.ToString(DataBinder.Eval(Container.DataItem,"ModelMaskingName")), Convert.ToString(DataBinder.Eval(Container.DataItem,"CityMaskingName"))) %>">  Used <%= pageHeading %>  bikes in <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"CityName")) %></a>
                     <p class="margin-top10"><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem,"AvailableBikes"))) %> <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"AvailableBikes")) == "1" ? "bike" : "bikes" %> available</p>
                 </div>
             </ItemTemplate>
@@ -18,7 +18,7 @@
 
 
         <div class="padding-left10">
-            <a title ="View all used <%= headingName %> bikes" href="<%= Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Convert.ToUInt32(CityId), makeMaskingName, modelMaskingName, cityMaskingName) %>">View all used bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
+            <a title ="View all used <%= pageHeading %> bikes" href="<%= Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Convert.ToUInt32(CityId), cityMaskingName, makeMaskingName, modelMaskingName) %>">View all used bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
          </div>
        </div>
     <div class="clear"></div>  
@@ -42,11 +42,10 @@
         </asp:Repeater>        
     
          <div class="padding-left10">
-            <a title ="View all used <%= headingName %> bikes in <%= cityName %>" href="<%= Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Convert.ToUInt32(CityId), makeMaskingName, modelMaskingName, cityMaskingName) %>">View all used bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
+            <a title ="View all used <%= pageHeading %> bikes in <%= cityName %>" href="<%= Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Convert.ToUInt32(CityId), cityMaskingName, makeMaskingName, modelMaskingName) %>">View all used bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
          </div>
        </div>
     <div class="clear"></div>        
      <%} %>
 
 </div>
-<%} %>

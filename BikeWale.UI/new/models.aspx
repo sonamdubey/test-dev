@@ -193,8 +193,9 @@
                                    { %>
                                 <a href="#makeDealersContent" rel="nofollow">Dealers</a>
                                 <%} %>
-                                <% if (ctrlRecentUsedBikes.fetchedCount > 0)
-                                   {%> <a href="#makeUsedBikeContent" rel="nofollow">Used</a><%} %>
+                                <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
+                                   {%> <a href="#makeUsedBikeContent" rel="nofollow">Used</a>
+                                <%} %>
                             </div>
                         </div>
                     </div>
@@ -248,7 +249,11 @@
 
                     <BW:DealerCard runat="server" ID="ctrlDealerCard" />
 
+                    <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
+                       {%> 
                     <BW:MostRecentBikes runat="server" ID="ctrlRecentUsedBikes" />
+                     <%} %>
+                    
 
                     <div id="overallMakeDetailsFooter"></div>
                 </div>
