@@ -78,7 +78,7 @@ namespace Bikewale.Controls
             makeMaskingName = objUsed.makeMaskingName;
             modelMaskingName = objUsed.modelMaskingName;
             cityMaskingName = objUsed.cityMaskingName;
-            pageHeading = objUsed.pageHeading;
+            pageHeading = objUsed.pageHeading.Trim();
 
         }
     }

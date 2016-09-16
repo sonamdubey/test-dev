@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
 using System.Web;
 
 namespace Bikewale.DAL.UsedBikes
@@ -34,7 +33,6 @@ namespace Bikewale.DAL.UsedBikes
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalCount));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, (cityId.HasValue && cityId.Value > 0) ? cityId.Value : Convert.DBNull));
 
-
                     objUsedBikesList = new List<PopularUsedBikesEntity>();
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
@@ -58,12 +56,6 @@ namespace Bikewale.DAL.UsedBikes
                         }
                     }
                 }
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
             catch (Exception ex)
             {
@@ -95,13 +87,10 @@ namespace Bikewale.DAL.UsedBikes
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int16, makeid));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalCount));
 
-
-
-
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
-                        { objUsedBikesList = new List<MostRecentBikes>();
+                        {
                             objUsedBikesList = new List<MostRecentBikes>();
                             while (dr.Read())
                             {
@@ -114,7 +103,6 @@ namespace Bikewale.DAL.UsedBikes
                                     AvailableBikes = SqlReaderConvertor.ParseToUInt32(dr["availablebikes"]),
                                     CityMaskingName = Convert.ToString(dr["citymaskingname"]),
                                     CityId = SqlReaderConvertor.ParseToUInt32(dr["cityid"])
-
                                 });
                             }
                             dr.Close();
@@ -122,7 +110,6 @@ namespace Bikewale.DAL.UsedBikes
                     }
                 }
             }
-
             catch (Exception ex)
             {
 
@@ -131,7 +118,7 @@ namespace Bikewale.DAL.UsedBikes
             }
             return objUsedBikesList;
         }//end of GetUsedBikesbyMake
-        
+
         /// <summary>
         /// Author : subodh jain on 21 june 2016
         /// Desc :  Fetch most recent used bikes by model only
@@ -150,9 +137,6 @@ namespace Bikewale.DAL.UsedBikes
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int16, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalCount));
-
-
-
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -180,7 +164,6 @@ namespace Bikewale.DAL.UsedBikes
                     }
                 }
             }
-
             catch (Exception ex)
             {
 
@@ -242,7 +225,6 @@ namespace Bikewale.DAL.UsedBikes
                     }
                 }
             }
-
             catch (Exception ex)
             {
 
@@ -251,6 +233,7 @@ namespace Bikewale.DAL.UsedBikes
             }
             return objUsedBikesList;
         }//end of GetUsedBikesbyModelCity
+
         /// <summary>
         /// / Created:- by Subodh Jain on 14 sep 2016
         /// Description:- Fetch Most recent used bikes for particular make and city
@@ -272,9 +255,6 @@ namespace Bikewale.DAL.UsedBikes
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalCount));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, cityId));
 
-
-
-
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
@@ -284,7 +264,7 @@ namespace Bikewale.DAL.UsedBikes
                             {
                                 objUsedBikesList.Add(new MostRecentBikes
                                 {
-                                      MakeName = Convert.ToString(dr["makename"]),
+                                    MakeName = Convert.ToString(dr["makename"]),
                                     MakeMaskingName = Convert.ToString(dr["makemaskingname"]),
                                     CityName = Convert.ToString(dr["city"]),
                                     ModelMaskingName = Convert.ToString(dr["modelmaskingname"]),
@@ -306,7 +286,6 @@ namespace Bikewale.DAL.UsedBikes
                     }
                 }
             }
-
             catch (Exception ex)
             {
 
@@ -315,7 +294,7 @@ namespace Bikewale.DAL.UsedBikes
             }
             return objUsedBikesList;
         }// end of GetUsedBikesbyMakeCity
-    
+
 
     }
 }

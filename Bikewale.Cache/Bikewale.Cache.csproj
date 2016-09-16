@@ -63,7 +63,6 @@
     <Compile Include="PriceQuote\PriceQuoteCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsedBikes\UsedBikesCache.cs" />
-    <Compile Include="UsedBikes\UsedBikesCacheRepository.cs" />
     <Compile Include="UsedBikes\PopularUsedBikesCacheRepository.cs" />
     <Compile Include="Used\UsedBikeDetailsCache.cs" />
     <Compile Include="UserReviews\UserReviewsCacheRepository.cs" />

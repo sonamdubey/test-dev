@@ -110,7 +110,6 @@
     <Compile Include="UsedBikes\IUsedBikesCache.cs" />
     <Compile Include="UsedBikes\IUsedBikesRepository.cs" />
     <Compile Include="UsedBikes\IPopularUsedBikesCacheRepository.cs" />
-    <Compile Include="UsedBikes\IUsedBikesCacheRepository.cs" />
     <Compile Include="Used\IUsedBikeDetails.cs" />
     <Compile Include="Used\IUsedBikeDetailsCacheRepository.cs" />
     <Compile Include="UserReviews\IUserReviews.cs" />
