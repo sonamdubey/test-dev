@@ -285,7 +285,7 @@
             <!--  Discover bikes section code starts here -->
             <div class="grid-12">
                 <h2 class="text-bold text-center margin-top40 margin-bottom20 font22">Featured bikes</h2>
-                <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow">
+                <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow padding-bottom15">
                     <div class="bw-tabs bw-tabs-flex">
                         <ul>
                             <li class="active" style="<%= (ctrlMostPopularBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlMostPopularBikes"><h3>Most Popular</h3></li>

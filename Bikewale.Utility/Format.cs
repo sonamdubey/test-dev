@@ -223,7 +223,10 @@ namespace Bikewale.Utility
             string retVal = string.Empty;
             try
             {
-                retVal = String.Format(textToReplace, campaignId, ManufacturerName, MaskingNumber, dealerid, dealerArea, LeadSourceId, PqSourceId, action, category, label, hide);
+                if (!String.IsNullOrEmpty(textToReplace))
+                {
+                    retVal = String.Format(textToReplace, campaignId, ManufacturerName, MaskingNumber, dealerid, dealerArea, LeadSourceId, PqSourceId, action, category, label, hide);
+                }
             }
             catch (Exception ex)
             {

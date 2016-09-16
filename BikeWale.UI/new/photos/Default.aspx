@@ -1,4 +1,4 @@
-﻿﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.PhotoGallery.BikePhotos" Trace="false" Debug="true" Async="true" %>
+﻿﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.PhotoGallery.BikePhotos" Trace="false" Debug="true" Async="true" EnableViewState="false" %>
 
 <%@ Register TagPrefix="PG" TagName="PhotoGallary" Src="/controls/PhotoGallaryMin.ascx" %>
 <%
@@ -11,12 +11,16 @@
     AdPath = "/1017752/BikeWale_New_";
     ShowTargeting = "1";
     TargetedModel = objModelEntity.ModelName;
+    EnableOG = true;
+    OGImage = modelImage;
     //modified by SajalGupta for unfilled impression of ads on 04 Aug 2016.
     isAd300x250_BTFShown = false;
 %>
 <!-- #include file="/includes/headNew.aspx" -->
+
 <script runat="server">	
     string staticUrl1 = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
+    
 </script>
 <link rel="stylesheet" type="text/css" href="<%= !String.IsNullOrEmpty(staticUrl1) ? "http://st2.aeplcdn.com" + staticUrl1 : "" %>/css/jquery.ad-gallery.css" />
 <link type="text/css" href="<%= !String.IsNullOrEmpty(staticUrl1) ? "http://st2.aeplcdn.com" + staticUrl1 : "" %>/css/css-research-photos.css" rel="Stylesheet" />
@@ -27,10 +31,11 @@
         color: #333 !important;
     }
 </style>
+
+
 <!--[if IE 7]><style type="text/css">#galleryHolder{width:600px;height:400px;*height:475px;margin-bottom:10px;}.ad-gallery{margin: 0;*margin: 10px 0 0 0;padding:0;}</style><![endif]-->
 <script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl1) ? "http://st2.aeplcdn.com" + staticUrl1 : "" %>/src/new/photogallery/jquery.ad-gallery.js"></script>
 <script type="text/javascript">
-
     var MakeId = '<%= objModelEntity.MakeBase.MakeId%>';
     var ModelId = '<%= objModelEntity.ModelId%>';
     var MakeName = '<%=objModelEntity.MakeBase.MakeName %>';

@@ -381,7 +381,7 @@
                                                 
                                                 <p>Now book your bike online at <span class="text-default text-bold"><span class="bwsprite inr-sm"></span>&nbsp;<span data-bind="text: bookingAmount"></span></span></p>
                                                 </div>
-                                                <input type="button" class="book-now btn btn-grey-orange btn-full-width margin-top15" value="Book Now" data-bind="click: function () { registerPQ($data); }" />
+                                                <input type="button" class="book-now btn btn-white margin-top15" value="Book Now" data-bind="click: function () { registerPQ($data); }" />
                                             </div>
                                             <div id="offersPopup" class="text-center rounded-corner2">
                                                 <div class="offers-popup-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
