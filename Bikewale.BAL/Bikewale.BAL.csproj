@@ -132,6 +132,7 @@
     <Compile Include="PriceQuote\PriceQuote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Used\ProcessSearchFilters.cs" />
+    <Compile Include="Used\UsedBikeBuyer.cs" />
     <Compile Include="Used\SearchBikes.cs" />
     <Compile Include="Used\SearchQuery.cs" />
     <Compile Include="UserReviews\UserReviews.cs" />

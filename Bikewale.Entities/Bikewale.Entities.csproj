@@ -258,13 +258,17 @@
     <Compile Include="UrlShortner\UrlShortnerResponse.cs" />
     <Compile Include="Used\BikeDetails.cs" />
     <Compile Include="Used\BikeDetailsMin.cs" />
+    <Compile Include="Used\BikeInterestDetails.cs" />
     <Compile Include="Used\BikePhoto.cs" />
     <Compile Include="Used\BikeSpecifications.cs" />
     <Compile Include="Used\ClassifiedInquiryDetails.cs" />
     <Compile Include="Used\InputFilters.cs" />
+    <Compile Include="Used\ClassifiedInquiryDetailsMin.cs" />
     <Compile Include="Used\MostRecentBikes.cs" />
+    <Compile Include="Used\PhotoRequest.cs" />
     <Compile Include="Used\PopularUsedBikesEntity.cs" />
     <Compile Include="Used\ProcessedInputFilters.cs" />
+    <Compile Include="Used\UsedBikeSellerBase.cs" />
     <Compile Include="Used\SearchResult.cs" />
     <Compile Include="Used\UsedBikeBase.cs" />
     <Compile Include="UserReviews\FilterBy.cs" />

@@ -45,13 +45,13 @@
         </ul>
     </div>
     <div class="clear"></div>
-    <a href="<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>" class="margin-left20">View all dealers<span class="bwsprite blue-right-arrow-icon"></span></a>
+    <a href="<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> Dealers" class="margin-left20">View all dealers<span class="bwsprite blue-right-arrow-icon"></span></a>
 </div>
 <% }
    else
    { %>
-<div id="makeDealersContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
-    <h2 class="padding-left10 padding-right10"><%= makeName %> Dealers in India</h2>
+<div id="makeDealersContent" class="bw-model-tabs-data padding-top20 padding-bottom20 border-solid-bottom font14">
+    <h2 class="padding-left20 padding-right20"><%= makeName %> Dealers in India</h2>
     <div class="jcarousel-wrapper inner-content-carousel margin-bottom15">
         <div class="jcarousel">
             <ul>
@@ -71,8 +71,8 @@
         <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
         <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
     </div>
-    <div class="padding-left10">
-        <a href="/new/<%= makeMaskingName %>-dealers/">View all dealers<span class="bwsprite blue-right-arrow-icon"></span></a>
+    <div class="padding-left20">
+        <a href="/new/<%= makeMaskingName %>-dealers/" title="<%=makeName %> Dealers">View all dealers<span class="bwsprite blue-right-arrow-icon"></span></a>
     </div>
 </div>
 <% } %>

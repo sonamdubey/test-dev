@@ -1,10 +1,11 @@
 ﻿@charset "utf-8";
 /* CSS Document */
 .filter-container { height:65px; }
-.search-bike-list ul li { float:left; width: 324px; min-height: 420px; margin:0; }
-.search-bike-list ul li .bikeDescWrapper { min-height: 260px; padding:0 20px; }
+.search-bike-list ul li { float:left; width: 324px; min-height: 380px; margin:0; }
+.search-bike-list ul li .bikeDescWrapper { min-height: 210px; padding:0 20px; }
 .search-bike-list ul li .booking-list-item-details { min-height:155px; }
-.search-bike-list ul li .bike-desc-details-wrapper { min-height:131px; }
+.booking-list-item-details .btn { padding: 8px 52px; }
+.search-bike-list ul li .bike-desc-details-wrapper { min-height:90px; }
 .search-bike-list li .bike-book-now-wrapper:hover .btn-grey-orange { background: #df3828; color: #fff; text-decoration: none; border:1px solid #f04130; }
 .offers-tag-wrapper { width:110px; height:28px; background:#4d5057; color:#fff; font-size:14px; line-height:28px; padding:0 20px; }
 .offers-left-tag { width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-right: 10px solid #fff; position:relative; top:-5px; left:24px; font-size: 0; line-height: 0; z-index:1; }
@@ -84,8 +85,6 @@
 .text-default { color:#4d5057; }
 .text-link { color:#0288d1; cursor:pointer; }
 .text-link:hover { text-decoration:underline; }
-.btn-grey-orange { background: #fff; color: #82888b; border:1px solid #82888b; }
-.btn-grey-orange:hover { background: #df3828; color: #fff; text-decoration: none; border:1px solid #f04130; }
 
 #offersPopup, #listingLocationPopup { display: none; width: 450px; min-height: 400px; background: #fff; margin: 0 auto; position: fixed; top: 12%; right: 5%; left: 5%; z-index: 10; padding: 30px; }
 .offers-box-icon { width:44px; height:48px; background-position:0 -444px; }

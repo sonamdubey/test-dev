@@ -104,7 +104,7 @@ namespace BikeWaleOpr.Content
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("insertshowroomprices"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("insertshowroomprices_09092016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int64, bikeId));
@@ -118,7 +118,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetcorporaterto", DbType.Int64, Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int64, cityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_lastupdated", DbType.DateTime, DateTime.Now));
-
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int16, -1));
                     //run the command
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                 }
