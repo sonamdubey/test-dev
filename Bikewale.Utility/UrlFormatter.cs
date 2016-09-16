@@ -84,6 +84,8 @@ namespace Bikewale.Utility
         /// Created By Vivek gupta
         /// Date : 22 june 2016        
         //  Desc : used/bajaj-bikes-in-mumbai/#city=10&make=1&dist=0
+        //  Modified By Sajal Gupta on 16/09/2016
+        //  Desc: create links like used/bajaj-bikes-in-mumbai/  or used/bajaj-pulsar-bikes-in-mumbai/
         /// </summary>
         /// <param name="make"></param>
         /// <param name="city"></param>
@@ -96,6 +98,7 @@ namespace Bikewale.Utility
             else
                 return String.Format("/used/{0}-bikes-in-{1}/", make, city);
         }
+
 
 
         /// <summary>

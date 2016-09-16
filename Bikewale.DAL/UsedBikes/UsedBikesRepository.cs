@@ -101,7 +101,7 @@ namespace Bikewale.DAL.UsedBikes
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
-                        {
+                        { objUsedBikesList = new List<MostRecentBikes>();
                             objUsedBikesList = new List<MostRecentBikes>();
                             while (dr.Read())
                             {

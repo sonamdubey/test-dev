@@ -4,16 +4,20 @@ using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Bikewale.Cache.UsedBikes
 {
+    /// <summary>
+    /// Written By : Sajal Gupta on 14/09/2016
+    /// Description : Get bikes based on model/ make/city .
+    /// </summary>
     public class UsedBikesCache : IUsedBikesCache
     {
         private readonly ICacheManager _cache;
         private readonly IUsedBikes _objModels;
 
         /// <summary>
+        /// Written by : Sajal Gupta on 14/09/2016
         /// Intitalize the references for the cache and DL
         /// </summary>
         /// <param name="cache"></param>
@@ -31,10 +35,10 @@ namespace Bikewale.Cache.UsedBikes
         public IEnumerable<MostRecentBikes> GetUsedBikes(uint makeId, uint modelId, uint cityId, uint totalCount)
         {
             IEnumerable<MostRecentBikes> objUsedBikes = null;
-            StringBuilder key = new StringBuilder("");
-            key = (modelId == 0) ? key.AppendFormat("BW_MostRecentUsedBikes_Make_{0}", makeId) : key.AppendFormat("BW_MostRecentUsedBikes_Model_{0}", modelId);
+
+            string key = (modelId == 0) ? String.Format("BW_MostRecentUsedBikes_Make_{0}", makeId) : String.Format("BW_MostRecentUsedBikes_Model_{0}", modelId);
             if (cityId != 0)
-                key.AppendFormat("_CityId_{0}", cityId);
+                key = String.Format("{1}_CityId_{0}", key, cityId);
 
             try
             {
@@ -42,7 +46,7 @@ namespace Bikewale.Cache.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.UsedBikes.GetUsedBikes");
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception in Bikewale.Cache.UsedBikes.GetUsedBikes parametres makeId : {0}, modelId : {1}, cityId : {2}, totalCount : {3}", makeId, modelId, cityId, totalCount));
                 objErr.SendMail();
             }
             return objUsedBikes;
