@@ -152,7 +152,7 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, String.Format("UsedBikeControl.BindUsedBikes({0},{1},modelId,cityId.Value)"));
+                ErrorClass objErr = new ErrorClass(err, String.Format("UsedBikeControl.BindUsedBikes({0},{1},modelId,CityId.HasValue ? CityId.Value : 0)"));
                 objErr.SendMail();
             }
 
