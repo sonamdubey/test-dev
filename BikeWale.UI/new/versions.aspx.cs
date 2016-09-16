@@ -245,7 +245,7 @@ namespace Bikewale.New
                     ctrlLeadCapture.ModelId = modelId;
                     ctrlLeadCapture.CityId = cityId;
 
-                    ctrlRecentUsedBikes.CityId = cityId;
+                    ctrlRecentUsedBikes.CityId = (int?)cityId;
                     ctrlRecentUsedBikes.TopCount = 6;
                     ctrlRecentUsedBikes.ModelId = Convert.ToUInt32(modelId);
 
