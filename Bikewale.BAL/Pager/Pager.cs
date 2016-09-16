@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Entities.Pager;
+﻿using Bikewale.Entities.Pager;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Notifications;
+using System;
+using System.Collections.Generic;
 
 namespace Bikewale.BAL.Pager
 {
@@ -24,7 +21,6 @@ namespace Bikewale.BAL.Pager
         {
             var results = new List<PagerUrlList>();
             T t = new T();
-
             try
             {
                 bool firstPage = false, lastPage = false;
@@ -78,6 +74,85 @@ namespace Bikewale.BAL.Pager
                         t.PreviousPageUrl = pagerDetails.BaseUrl + pagerDetails.PageUrlType + (pagerDetails.PageNo - 1) + "/";
                     }
 
+                }
+                else
+                {
+                    PagerUrlList pagerUrlList = new PagerUrlList();
+                    pagerUrlList.PageNo = -1;
+                    results.Add(pagerUrlList); //No pager created if the number of pages is equal to 1.
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Pager Class Error. GetPager");
+                objErr.SendMail();
+            }
+
+            t.PagesDetail = results;
+            return t;
+        }
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 15 Sep 2016
+        /// Summary: Fetch used bike pagers
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="pagerDetails"></param>
+        /// <returns></returns>
+        public T GetUsedBikePager<T>(PagerEntity pagerDetails) where T : PagerOutputEntity, new()
+        {
+            var results = new List<PagerUrlList>();
+            T t = new T();
+
+            try
+            {
+                bool firstPage = false, lastPage = false;
+                string pageUrl;
+                int startIndex, endIndex;
+                int pageCount = (int)Math.Ceiling((double)pagerDetails.TotalResults / (double)pagerDetails.PageSize);// Total number of pages in the pager.
+
+                if (pageCount > 1)
+                {
+                    int totalSlots = (int)Math.Ceiling((double)pageCount / (double)pagerDetails.PagerSlotSize); // The total number of slots for the pager.
+                    int curSlot = ((int)Math.Floor((double)(pagerDetails.PageNo - 1) / (double)pagerDetails.PagerSlotSize)) + 1; // Current page slot.
+
+                    if (pagerDetails.PageNo == 1)// check for if the current page is the first page or the last page.
+                        firstPage = true;
+                    else if (pagerDetails.PageNo == pageCount)
+                        lastPage = true;
+
+                    // Get Start and End Index.
+                    GetStartEndIndex(pagerDetails, pageCount, curSlot, out startIndex, out endIndex);
+
+                    // Set the first and last page Urls.
+                    if (firstPage == false) t.FirstPageUrl = string.Format("{0}-1/", pagerDetails.BaseUrl);
+                    if (lastPage == false) t.LastPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, pageCount);
+
+                    //Get the list of page Urls.
+                    for (int i = startIndex; i <= endIndex; i++)
+                    {
+                        PagerUrlList pagerUrlList = new PagerUrlList();
+                        pageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, i);
+                        pagerUrlList.PageNo = i;
+                        pagerUrlList.PageUrl = pageUrl;
+                        results.Add(pagerUrlList);
+                    }
+
+                    //Set previous and next page Url.
+                    if (pagerDetails.PageNo == 1)
+                    {
+                        t.PreviousPageUrl = "";
+                        t.NextPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, (pagerDetails.PageNo + 1));
+                    }
+                    else if (endIndex == pagerDetails.PageNo)
+                    {
+                        t.NextPageUrl = "";
+                        t.PreviousPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, (pagerDetails.PageNo - 1));
+                    }
+                    else
+                    {
+                        t.NextPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, (pagerDetails.PageNo + 1));
+                        t.PreviousPageUrl = string.Format("{0}-{1}/", pagerDetails.BaseUrl, (pagerDetails.PageNo - 1));
+                    }
                 }
                 else
                 {
@@ -149,9 +224,7 @@ namespace Bikewale.BAL.Pager
         {
             startIndex = 0;
             endIndex = 0;
-
             endIndex = currentPageNo * pageSize;
-
             startIndex = (endIndex - pageSize) + 1;
         }
 

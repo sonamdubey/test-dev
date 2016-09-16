@@ -88,6 +88,7 @@
     <Compile Include="BikeBooking\PQ_Price.cs" />
     <Compile Include="BikeBooking\PQ_QuotationEntity.cs" />
     <Compile Include="BikeBooking\RSAOfferClaimEntity.cs" />
+    <Compile Include="BikeData\BikeMakeModelBase.cs" />
     <Compile Include="BikeData\BikeMakeModelEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntityBase.cs" />
     <Compile Include="BikeData\BikeModelColor.cs" />
@@ -260,8 +261,12 @@
     <Compile Include="Used\BikePhoto.cs" />
     <Compile Include="Used\BikeSpecifications.cs" />
     <Compile Include="Used\ClassifiedInquiryDetails.cs" />
+    <Compile Include="Used\InputFilters.cs" />
     <Compile Include="Used\MostRecentBikes.cs" />
     <Compile Include="Used\PopularUsedBikesEntity.cs" />
+    <Compile Include="Used\ProcessedInputFilters.cs" />
+    <Compile Include="Used\SearchResult.cs" />
+    <Compile Include="Used\UsedBikeBase.cs" />
     <Compile Include="UserReviews\FilterBy.cs" />
     <Compile Include="UserReviews\ReviewDetailsEntity.cs" />
     <Compile Include="UserReviews\ReviewEntity.cs" />

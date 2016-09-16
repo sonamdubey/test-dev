@@ -51,6 +51,8 @@ using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Interfaces.UserReviews;
 using Microsoft.Practices.Unity;
 using System;
+using Bikewale.Interfaces.Used.Search;
+using Bikewale.BAL.Used.Search;
 
 namespace Bikewale.Service.UnityConfiguration
 {
@@ -124,6 +126,10 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>();
             container.RegisterType<ICMSCacheContent, CMSCacheRepository>();
             container.RegisterType<IArticles, Articles>();
+            container.RegisterType<ISearch, SearchBikes>();
+            container.RegisterType<ISearchFilters, ProcessSearchFilters>();
+            container.RegisterType<Bikewale.Interfaces.Used.Search.ISearchQuery, Bikewale.BAL.Used.Search.SearchQuery>();
+            container.RegisterType<ISearchRepository, Bikewale.DAL.Used.Search.SearchRepository>();
 
             return container;
         }

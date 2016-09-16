@@ -766,6 +766,10 @@
       <DependentUpon>LeadCaptureControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\LinkPagerControl.ascx.cs">
+      <DependentUpon>LinkPagerControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\ListPagerControl.ascx.cs">
       <DependentUpon>ListPagerControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -978,10 +982,6 @@
       <DependentUpon>BikeDealerDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\pricequote\BookingSummary.aspx.cs">
-      <DependentUpon>BookingSummary.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="m\pricequote\BookingSummary_New.aspx.cs">
       <DependentUpon>BookingSummary_New.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1027,6 +1027,10 @@
     </Compile>
     <Compile Include="m\used\BikeDetails.aspx.cs">
       <DependentUpon>BikeDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\used\Search.aspx.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\videos\video.aspx.cs">
@@ -1175,10 +1179,6 @@
     </Compile>
     <Compile Include="pricequote\BikeDealerDetails.aspx.cs">
       <DependentUpon>BikeDealerDetails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pricequote\BookingSummary.aspx.cs">
-      <DependentUpon>BookingSummary.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pricequote\BookingSummary_New.aspx.cs">
@@ -2204,6 +2204,7 @@
     <Content Include="m\controls\ExpertReviewsWidget.ascx" />
     <Content Include="m\controls\ExpertReviewsVideos.ascx" />
     <Content Include="m\controls\LeadCaptureControl.ascx" />
+    <Content Include="m\controls\LinkPagerControl.ascx" />
     <Content Include="m\controls\ListPagerControl.ascx" />
     <Content Include="m\controls\LocateDealer.ascx" />
     <Content Include="m\controls\MMostPopularBikes.ascx" />
@@ -2264,6 +2265,9 @@
     <Content Include="m\css\used-details-atf.css" />
     <Content Include="m\css\used-details-btf.css" />
     <Content Include="m\css\used-details.css" />
+    <Content Include="m\css\used-search-atf.css" />
+    <Content Include="m\css\used-search-btf.css" />
+    <Content Include="m\css\used-search.css" />
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
     <Content Include="m\new\dealersinstate.aspx" />
@@ -2319,7 +2323,6 @@
     <Content Include="m\new\upcomingbikes\Default.aspx" />
     <Content Include="m\pagenotfound.aspx" />
     <Content Include="m\pricequote\BikeDealerDetails.aspx" />
-    <Content Include="m\pricequote\BookingSummary.aspx" />
     <Content Include="m\pricequote\BookingSummary_New.aspx" />
     <Content Include="m\pricequote\DealerPriceQuote.aspx" />
     <Content Include="m\pricequote\DealerPriceQuote_old.aspx" />
@@ -2361,10 +2364,12 @@
     <Content Include="m\src\new\search.js" />
     <Content Include="m\src\Plugins.js" />
     <Content Include="m\src\used-details.js" />
+    <Content Include="m\src\used-search.js" />
     <Content Include="m\src\video\videoByCategory.js" />
     <Content Include="m\src\zebra_datepicker.js" />
     <Content Include="BikeBooking\BookingListing.aspx" />
     <Content Include="m\used\BikeDetails.aspx" />
+    <Content Include="m\used\Search.aspx" />
     <Content Include="m\videos\video.aspx" />
     <Content Include="m\videos\VideoCategories.aspx" />
     <Content Include="m\videos\default.aspx" />
@@ -2422,7 +2427,6 @@
     <Content Include="pagenotfound.aspx" />
     <Content Include="Partners.aspx" />
     <Content Include="PQCertificate.aspx" />
-    <Content Include="pricequote\BookingSummary.aspx" />
     <Content Include="pricequote\CancellationPolicy.aspx" />
     <Content Include="pricequote\DealerPriceQuote.aspx" />
     <Content Include="pricequote\default.aspx" />
