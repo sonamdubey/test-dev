@@ -202,9 +202,9 @@ namespace Bikewale.Mobile.New
                 ctrlLeadCapture.CityId = cityId;
                 ctrlLeadCapture.ModelId = modelId;
                 ctrlLeadCapture.AreaId = areaId;
-                ctrlRecentUsedBikes.MakeId = Convert.ToUInt32(modelPage.ModelDetails.objmakeBase.MakeId);
+                ctrlRecentUsedBikes.MakeId = Convert.ToUInt32(modelPage.ModelDetails.MakeBase.MakeId);
                 ctrlRecentUsedBikes.ModelId = Convert.ToUInt32(modelId);
-                ctrlRecentUsedBikes.CityId = cityId;
+                ctrlRecentUsedBikes.CityId = (int?)cityId;
                 ctrlRecentUsedBikes.TopCount = 6;
 
             }

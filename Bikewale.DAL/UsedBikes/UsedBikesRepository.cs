@@ -1,6 +1,7 @@
 ﻿using Bikewale.Entities.UsedBikes;
 using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
@@ -75,7 +76,6 @@ namespace Bikewale.DAL.UsedBikes
 
         /// <summary>
         /// Author : subodh jain on 21 june 2016
-        ///
         /// Desc :  Fetch most recent used bikes by make only
         /// </summary>
         /// <param name="makeId"></param>
@@ -96,23 +96,24 @@ namespace Bikewale.DAL.UsedBikes
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalCount));
 
 
-                    objUsedBikesList = new List<MostRecentBikes>();
+
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
+                            objUsedBikesList = new List<MostRecentBikes>();
                             while (dr.Read())
                             {
+
                                 objUsedBikesList.Add(new MostRecentBikes
                                 {
-                                    MakeName = GetString(dr["makename"]),
-                                    MakeMaskingName = GetString(dr["makemaskingname"]),
-                                    CityName = GetString(dr["city"]),
-                                    AvailableBikes = GetUint32(dr["availablebikes"]),
-                                    CityMaskingName = GetString(dr["citymaskingname"]),
-                                    CityId = GetUint32(dr["cityid"])
-
+                                    MakeName = Convert.ToString(dr["makename"]),
+                                    MakeMaskingName = Convert.ToString(dr["makemaskingname"]),
+                                    CityName = Convert.ToString(dr["city"]),
+                                    AvailableBikes = SqlReaderConvertor.ParseToUInt32(dr["availablebikes"]),
+                                    CityMaskingName = Convert.ToString(dr["citymaskingname"]),
+                                    CityId = SqlReaderConvertor.ParseToUInt32(dr["cityid"])
 
                                 });
                             }
@@ -121,28 +122,22 @@ namespace Bikewale.DAL.UsedBikes
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+
+                ErrorClass objErr = new ErrorClass(ex, "UsedBikesRepository.GetUsedBikesbyMake");
                 objErr.SendMail();
             }
             return objUsedBikesList;
         }//end of GetUsedBikesbyMake
+        
         /// <summary>
         /// Author : subodh jain on 21 june 2016
-        ///
         /// Desc :  Fetch most recent used bikes by model only
         /// </summary>
         /// <param name="makeId"></param>
         /// <param name="totalCount"></param>
-
         /// <returns></returns>
         public IEnumerable<MostRecentBikes> GetUsedBikesbyModel(uint modelId, uint totalCount)
         {
@@ -157,25 +152,26 @@ namespace Bikewale.DAL.UsedBikes
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalCount));
 
 
-                    objUsedBikesList = new List<MostRecentBikes>();
+
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
+                            objUsedBikesList = new List<MostRecentBikes>();
                             while (dr.Read())
                             {
                                 objUsedBikesList.Add(new MostRecentBikes
                                 {
-                                    MakeName = GetString(dr["makename"]),
-                                    ModelName = GetString(dr["Name"]),
-                                    ModelMaskingName = GetString(dr["modelmaskingname"]),
-                                    CityName = GetString(dr["city"]),
-                                    AvailableBikes = GetUint32(dr["availablebikes"]),
-                                    CityMaskingName = GetString(dr["citymaskingname"]),
-                                    CityId = GetUint32(dr["cityid"]),
 
-                                    MakeMaskingName = GetString(dr["makemaskingname"]),
+                                    ModelName = Convert.ToString(dr["Name"]),
+                                    ModelMaskingName = Convert.ToString(dr["modelmaskingname"]),
+                                    MakeName = Convert.ToString(dr["makename"]),
+                                    MakeMaskingName = Convert.ToString(dr["makemaskingname"]),
+                                    CityName = Convert.ToString(dr["city"]),
+                                    AvailableBikes = SqlReaderConvertor.ParseToUInt32(dr["availablebikes"]),
+                                    CityMaskingName = Convert.ToString(dr["citymaskingname"]),
+                                    CityId = SqlReaderConvertor.ParseToUInt32(dr["cityid"])
 
                                 });
                             }
@@ -184,16 +180,11 @@ namespace Bikewale.DAL.UsedBikes
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+
+                ErrorClass objErr = new ErrorClass(ex, "UsedBikesRepository.GetUsedBikesbyModel");
                 objErr.SendMail();
             }
             return objUsedBikesList;
@@ -219,35 +210,30 @@ namespace Bikewale.DAL.UsedBikes
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalCount));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, cityId));
 
-
-                    objUsedBikesList = new List<MostRecentBikes>();
-
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
+                            objUsedBikesList = new List<MostRecentBikes>();
+
                             while (dr.Read())
                             {
                                 objUsedBikesList.Add(new MostRecentBikes
                                 {
-                                    MakeName = GetString(dr["makename"]),
-                                    MakeMaskingName = GetString(dr["makemaskingname"]),
-                                    CityName = GetString(dr["city"]),
-                                    ModelMaskingName = GetString(dr["modelmaskingname"]),
-                                    CityMaskingName = GetString(dr["citymaskingname"]),
-
-                                    MakeYear = GetUint32(dr["bikeyear"]),
-
-                                    ModelName = GetString(dr["modelname"]),
-
-                                    VersionName = GetString(dr["versionname"]),
-                                    BikePrice = GetUint32(dr["bikeprice"]),
-
-                                    ProfileId = GetString(dr["ProfileId"]),
-                                    Kilometer = GetUint32(dr["Kilometers"]),
-                                    OriginalImagePath = GetString(dr["OriginalImagePath"]),
-                                    owner = GetUint32(dr["owner"]),
-                                    HostUrl = GetString(dr["HostURL"]),
+                                    MakeName = Convert.ToString(dr["makename"]),
+                                    MakeMaskingName = Convert.ToString(dr["makemaskingname"]),
+                                    CityName = Convert.ToString(dr["city"]),
+                                    ModelMaskingName = Convert.ToString(dr["modelmaskingname"]),
+                                    CityMaskingName = Convert.ToString(dr["citymaskingname"]),
+                                    MakeYear = SqlReaderConvertor.ParseToUInt32(dr["bikeyear"]),
+                                    ModelName = Convert.ToString(dr["modelname"]),
+                                    VersionName = Convert.ToString(dr["versionname"]),
+                                    BikePrice = SqlReaderConvertor.ParseToUInt32(dr["bikeprice"]),
+                                    ProfileId = Convert.ToString(dr["ProfileId"]),
+                                    Kilometer = SqlReaderConvertor.ParseToUInt32(dr["Kilometers"]),
+                                    OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
+                                    owner = SqlReaderConvertor.ParseToUInt32(dr["owner"]),
+                                    HostUrl = Convert.ToString(dr["HostURL"])
 
                                 });
                             }
@@ -256,16 +242,11 @@ namespace Bikewale.DAL.UsedBikes
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+
+                ErrorClass objErr = new ErrorClass(ex, "UsedBikesRepository.GetUsedBikesbyModelCity");
                 objErr.SendMail();
             }
             return objUsedBikesList;
@@ -292,34 +273,31 @@ namespace Bikewale.DAL.UsedBikes
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, cityId));
 
 
-                    objUsedBikesList = new List<MostRecentBikes>();
+
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
+                            objUsedBikesList = new List<MostRecentBikes>();
                             while (dr.Read())
                             {
                                 objUsedBikesList.Add(new MostRecentBikes
                                 {
-                                    MakeName = GetString(dr["makename"]),
-                                    MakeMaskingName = GetString(dr["makemaskingname"]),
-                                    CityName = GetString(dr["city"]),
-                                    ModelMaskingName = GetString(dr["modelmaskingname"]),
-                                    CityMaskingName = GetString(dr["citymaskingname"]),
-
-                                    MakeYear = GetUint32(dr["bikeyear"]),
-
-                                    ModelName = GetString(dr["modelname"]),
-
-                                    VersionName = GetString(dr["versionname"]),
-                                    BikePrice = GetUint32(dr["bikeprice"]),
-
-                                    ProfileId = GetString(dr["ProfileId"]),
-                                    Kilometer = GetUint32(dr["Kilometers"]),
-                                    OriginalImagePath = GetString(dr["OriginalImagePath"]),
-                                    owner = GetUint32(dr["owner"]),
-                                    HostUrl = GetString(dr["HostURL"]),
+                                      MakeName = Convert.ToString(dr["makename"]),
+                                    MakeMaskingName = Convert.ToString(dr["makemaskingname"]),
+                                    CityName = Convert.ToString(dr["city"]),
+                                    ModelMaskingName = Convert.ToString(dr["modelmaskingname"]),
+                                    CityMaskingName = Convert.ToString(dr["citymaskingname"]),
+                                    MakeYear = SqlReaderConvertor.ParseToUInt32(dr["bikeyear"]),
+                                    ModelName = Convert.ToString(dr["modelname"]),
+                                    VersionName = Convert.ToString(dr["versionname"]),
+                                    BikePrice = SqlReaderConvertor.ParseToUInt32(dr["bikeprice"]),
+                                    ProfileId = Convert.ToString(dr["ProfileId"]),
+                                    Kilometer = SqlReaderConvertor.ParseToUInt32(dr["Kilometers"]),
+                                    OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
+                                    owner = SqlReaderConvertor.ParseToUInt32(dr["owner"]),
+                                    HostUrl = Convert.ToString(dr["HostURL"])
 
                                 });
                             }
@@ -328,29 +306,16 @@ namespace Bikewale.DAL.UsedBikes
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+
+                ErrorClass objErr = new ErrorClass(ex, "UsedBikesRepository.GetUsedBikesbyMakeCity");
                 objErr.SendMail();
             }
             return objUsedBikesList;
         }// end of GetUsedBikesbyMakeCity
-        private string GetString(object o)
-        {
-            return (DBNull.Value == o) ? string.Empty : o.ToString();
-        }
-        private uint GetUint32(object o)
-        {
-            return (DBNull.Value == o) ? 0 : Convert.ToUInt32(o);
-        }
-
+    
 
     }
 }

@@ -193,7 +193,7 @@
                                    { %>
                                 <a href="#makeDealersContent" rel="nofollow">Dealers</a>
                                 <%} %>
-                                <% if (ctrlRecentUsedBikes.showWidget)
+                                <% if (ctrlRecentUsedBikes.fetchedCount > 0)
                                    {%> <a href="#makeUsedBikeContent" rel="nofollow">Used</a><%} %>
                             </div>
                         </div>

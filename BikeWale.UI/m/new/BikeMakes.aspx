@@ -157,7 +157,7 @@
                                { %>
                             <li data-tabs="#makeDealersContent">Dealers</li>
                             <%} %>
-                               <% if (ctrlRecentUsedBikes.showWidget)
+                               <% if (ctrlRecentUsedBikes.fetchedCount>0)
                                    {%><li data-tabs="#makeUsedBikeContent">Used</li> <%} %>
                         </ul>
                     </div>
@@ -209,7 +209,7 @@
                 <% if (ctrlDealerCard.showWidget) { %>
                     <BW:DealerCard runat="server" ID="ctrlDealerCard" />
                 <% }  %>
-                   <% if (ctrlRecentUsedBikes.showWidget)
+                   <% if (ctrlRecentUsedBikes.fetchedCount>0)
                                    {%>  <BW:MostRecentUsedBikes runat="server" ID="ctrlRecentUsedBikes" /><%} %>
                 
                 <div id="makeSpecsFooter"></div>

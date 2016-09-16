@@ -8,7 +8,6 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.m.controls;
 using Bikewale.Memcache;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
@@ -97,8 +96,9 @@ namespace Bikewale.Mobile
                 ctrlDealerCard.LeadSourceId = 30;
 
                 ctrlLeadCapture.CityId = cityId;
-                ctrlRecentUsedBikes.MakeId= Convert.ToUInt32(makeId);
-                ctrlRecentUsedBikes.CityId = cityId;
+                ctrlRecentUsedBikes.MakeId = Convert.ToUInt32(makeId);
+
+                ctrlRecentUsedBikes.CityId = (int?)cityId;
                 ctrlRecentUsedBikes.TopCount = 6;
 
                 BindDiscountinuedBikes();

@@ -8,6 +8,7 @@ namespace Bikewale.Entities.UsedBikes
     /// Desc : carrier of most recent bike details
     /// </summary>
     /// Modeified by:- Subodh jain 14 sep 2016
+    /// Added CityId ,kilometer,OriginalImagePath,HostUrl,owner
     [Serializable, DataContract]
     public class MostRecentBikes
     {

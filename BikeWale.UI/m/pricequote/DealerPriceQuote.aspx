@@ -36,7 +36,6 @@
 		var dealerName = '<%= dealerName%>';
 		var campaignId = "<%= objExQuotation != null ? objExQuotation.CampaignId : 0 %>";
 		var manufacturerId = "<%= objExQuotation != null ? objExQuotation.ManufacturerId : 0 %>";
-	    var dealerId = "<%= dealerId %>"; 
 		$(document).ready( function(){
 			if (dealerName != "") {
 				$("#header-dealername").text(dealerName);

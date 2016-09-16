@@ -335,7 +335,7 @@
             </div>
         </section>
 
-          <% if (pqOnRoad != null && pqOnRoad.BPQOutput != null && viewModel == null&&isOnRoadPrice && !string.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
+          <% if (pqOnRoad != null && pqOnRoad.BPQOutput != null && viewModel == null&& isOnRoadPrice && !string.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
             { %>
         <section>
             
@@ -392,7 +392,7 @@
                               { %>
                                  <li data-tabs="#modelAlternateBikeContent">Alternatives</li>
                             <%} %>
-                              <% if (ctrlRecentUsedBikes.showWidget)
+                              <% if (ctrlRecentUsedBikes.fetchedCount>0)
                                    {%><li data-tabs="#makeUsedBikeContent">Used</li> <%} %>
                         </ul>
                     </div>
@@ -795,7 +795,7 @@
                    { %>
                     <BW:AlternateBikes ID="ctrlAlternativeBikes" runat="server" />           
                 <%} %>
-                    <% if (ctrlRecentUsedBikes.showWidget)
+                    <% if (ctrlRecentUsedBikes.fetchedCount > 0)
                                    {%>  <BW:MostRecentUsedBikes runat="server" ID="ctrlRecentUsedBikes" /><%} %>
                 <div id="modelSpecsFooter"></div>
             </div>

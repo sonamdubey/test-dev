@@ -123,7 +123,7 @@ namespace Bikewale.Utility
         /// <param name="city"></param>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        public static string ViewMoreUsedBikes(uint cityId, string make, string model, string city)
+        public static string ViewMoreUsedBikes(uint cityId, string city, string make, string model)
         {
             if (cityId > 0)
             {
