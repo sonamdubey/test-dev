@@ -37,7 +37,7 @@
                         </div>
                         <div id="filter-floating-btn" class="grid-6 padding-top10 padding-bottom10 cur-pointer">
                             <span class="bwmsprite filter-icon"></span>
-                            <span class="font14 text-bold" data-bind="click : function(d,e){ QueryString();SetPageFilters();}">Filter</span>
+                            <span class="font14 text-bold" id="filterStart" data-bind="click : function(d,e){ QueryString();SetPageFilters();}">Filter</span>
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -69,7 +69,7 @@
                                             <span class="model-details-label"><%# DataBinder.Eval(Container.DataItem, "ModelYear").ToString() %> model</span>
                                         </div>
 
-                                        <div class="grid-6 omega margin-bottom5 <%# DataBinder.Eval(Container.DataItem, "KmsDriven").ToString() == "0"? "hide" : string.Empty %>">
+                                        <div class="grid-6 alpha omega margin-bottom5 <%# DataBinder.Eval(Container.DataItem, "KmsDriven").ToString() == "0"? "hide" : string.Empty %>">
                                             <span class="bwmsprite kms-driven-icon"></span>
                                             <span class="model-details-label"><%# Bikewale.Utility.Format.FormatNumeric(DataBinder.Eval(Container.DataItem, "KmsDriven").ToString()) %> kms</span>
                                         </div>
@@ -77,7 +77,7 @@
                                             <span class="bwmsprite author-grey-sm-icon"></span>
                                             <span class="model-details-label"><%# DataBinder.Eval(Container.DataItem, "NoOfOwners").ToString() %> owner</span>
                                         </div>
-                                        <div class="grid-6 omega margin-bottom5 <%# string.IsNullOrEmpty(Convert.ToString(DataBinder.Eval(Container.DataItem, "CityName")))? "hide" : string.Empty %>">
+                                        <div class="grid-6 alpha omega margin-bottom5 <%# string.IsNullOrEmpty(Convert.ToString(DataBinder.Eval(Container.DataItem, "CityName")))? "hide" : string.Empty %>">
                                             <span class="bwmsprite model-loc-icon"></span>
                                             <span class="model-details-label"><%# DataBinder.Eval(Container.DataItem, "CityName").ToString() %></span>
                                         </div>
@@ -89,7 +89,8 @@
                             </ItemTemplate>
                         </asp:Repeater> 
                     </ul>
-                    <ul id="used-bikes-list" style="display:none" data-bind="visible: !OnInit() ,foreach : BikeDetails()">
+
+                    <ul id="used-bikes-list" style="display:none" data-bind="visible: !OnInit() && !noBikes() ,foreach : BikeDetails()">
                         <li>
                             <div class="model-thumbnail-image">
                                 <a data-bind=" attr: { 'href': '/m/used/bikes-in-' + cityMasking + '/' + makeMasking + '-' + modelMasking + '-' + profileId + '/' }" class="model-image-target">
@@ -131,7 +132,7 @@
                         </li>
                     </ul>
                     <div style="text-align: center;">
-                        <div id="nobike"  data-bind="visible : !OnInit() && noBikes()">
+                        <div id="nobike"  data-bind="visible : noBikes()">
                             <img src="/images/no_result_m.png">
                         </div>
                     </div>                     
@@ -143,7 +144,7 @@
                         <div data-bind="visible: OnInit()">
                             <BikeWale:Pager ID="ctrlPager" runat="server" />
                         </div>
-                    <div data-bind="visible: !OnInit()">
+                    <div data-bind="visible: !OnInit() && Pagination().paginated > 0">
                         <div class="grid-7 alpha omega position-rel">
                             <ul id="pagination-list" data-bind="html: PagesListHtml"></ul>
                             <span class="pagination-control-prev" data-bind="html: PrevPageHtml, css: Pagination().hasPrevious() ? 'active' : 'inactive' "></span>
@@ -225,13 +226,13 @@
                     </div>
                     <div class="margin-bottom35">
                         <p class="filter-option-key leftfloat">Kms ridden</p>
-                        <p  class="font14 text-bold rightfloat" data-bind="visible : KmsDriven() > 0">0 - <span data-bind="    CurrencyText: KmsDriven() + ' Kms'"></span></p>
+                        <p  class="font14 text-bold rightfloat" data-bind="visible : KmsDriven() > 0">0 - <span data-bind="    CurrencyText: KmsDriven()"></span><span data-bind="    text : KmsDriven() == 200000 ? '+ Kms':' Kms' "></span></p>
                         <div class="clear"></div>
-                        <div  data-bind="KOSlider: KmsDriven, sliderOptions: {range: 'min',value: 80000,min: 5000,max: 80000,step: 5000}"></div>
+                        <div  data-bind="KOSlider: KmsDriven, sliderOptions: {range: 'min',value: 80000,min: 5000,max: 200000,step: 5000}"></div>
                     </div>
                     <div class="margin-bottom35">
                         <p class="filter-option-key leftfloat">Bike age</p>
-                        <p  class="font14 text-bold rightfloat" data-bind="visible: BikeAge() > 0" >0 - <span data-bind="text: BikeAge() + ' years'"></span></p>
+                        <p  class="font14 text-bold rightfloat" data-bind="visible: BikeAge() > 0" >0 - <span data-bind="    text: BikeAge() "></span><span data-bind="    text : BikeAge() == 8 ? '+ years':' years' "></span></p>
                         <div class="clear"></div>
                         <div id="bike-age-slider" data-bind="KOSlider: BikeAge, sliderOptions: { range: 'min', value: 8, min: 1, max: 8, step: 1 }"></div>
                     </div>
@@ -280,14 +281,16 @@
                             <span id="close-city-filter" class="back-arrow-box">
                                 <span class="bwmsprite back-long-arrow-left"></span>
                             </span>
-                            <input type="text" class="form-control padding-right40" placeholder="Type to select city" id="popupCityInput" autocomplete="off">
+                            <input type="text" class="form-control padding-right40" placeholder="Type to select city" id="popupCityInput" data-bind="textInput: Cities().cityFilter" autocomplete="off">
                         </div>
                     
-                        <ul id="filter-city-list">
+                        <ul id="filter-city-list" >
                              <li data-cityid="0" data-bind="click: FilterCity">All India</li>
-                        <%foreach(var city in cities) {%>
-                        <li data-cityid="<%= city.CityId %>" data-bind="click : FilterCity"><%=city.CityName %></li>
-                        <%} %>
+                          
+                            <%foreach(var city in cities) {%>
+                            <li data-cityid="<%= city.CityId %>" data-bind="click : $root.FilterCity"><%=city.CityName %></li>
+                            <%} %>
+                          
                         </ul>                    
 
                         <div class="margin-top30 font24 text-center margin-top60 "></div>

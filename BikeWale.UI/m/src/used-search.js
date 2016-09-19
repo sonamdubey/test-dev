@@ -124,29 +124,28 @@ var vmCities = function()
     var self = this;
     self.SelectedCity = ko.observable({ "id": 0, "name": "All India" });
 
-    self.FilterCity = function (d, e) {
-        var ele = $(e.target);
-        if (!ele.hasClass("active")) {
-            ele.addClass("active").siblings().removeClass("active");
-            self.SelectedCity({ "id": ele.attr("data-cityid"), "name": ele.text() });
-        };
-    };
+    self.cityFilter = ko.observable();
 
-    self.FilterData = function (filter) {
+    //self.FilterCity = function (d, e) {
+    //    var ele = $(e.target);
+    //    if (!ele.hasClass("active")) {
+    //        ele.addClass("active").siblings().removeClass("active");
+    //        self.SelectedCity({ "id": ele.attr("data-cityid"), "name": ele.text() });
+    //    };
+    //};
+
+    self.visibleCities = ko.computed(function () {
+        filter = self.cityFilter();
         filterObj = citiesList;
         if (filter && filter.length > 0) {
             var pat = new RegExp(filter, "i");
             citiesList.filter(function (place) {
-                if (pat.test($(this).text())) return place;
+                if (pat.test($(this).text())) $(this).show(); else $(this).hide();
             });
 
         }
-        return filterObj;
-    };
-
-    //self.visibleCities = ko.computed(function () {
-    //    return self.FilterData(self.BookingCities(), self.cityFilter());
-    //});
+        citiesList.first().show();
+    });
 }
 
 
@@ -221,7 +220,7 @@ var usedBikes = function()
         {
             var minBuget = self.BudgetValues()[0] ,maxBuget =self.BudgetValues()[1]; 
             if (minBuget == 0 && maxBuget == 7) {
-                $("#budget-amount").html('<span class="bwmsprite inr-xxsm-icon"></span>0 - <span class="bwmsprite inr-xxsm-icon"></span>' + formatPrice(budgetValue[maxBuget]));
+                $("#budget-amount").html('<span class="bwmsprite inr-xxsm-icon"></span>0 - <span class="bwmsprite inr-xxsm-icon"></span>' + formatPrice(budgetValue[maxBuget]) + ((maxBuget == 7) ? '+' : ''));
             }
             else {
                 $("#budget-amount").html('<span class="bwmsprite inr-xxsm-icon"></span>' + formatPrice(budgetValue[minBuget]) + ' - <span class="bwmsprite inr-xxsm-icon"></span>' + formatPrice(budgetValue[maxBuget]) + ((maxBuget == 7)?'+':''));
@@ -354,6 +353,7 @@ var usedBikes = function()
                             self.TotalBikes(0);
                             self.CurPageNo(1);
                         }
+                        debugger;
                         if (self.TotalBikes() > 0) self.noBikes(false); else self.noBikes(true);
                         self.OnInit(false);
                         self.IsReset(false);
@@ -441,7 +441,8 @@ var usedBikes = function()
                 });
             }
             $('#set-bikes-filter').trigger('click');
-            if (window.location.hash && window.location.hash != "") self.GetUsedBikes();
+            if (event.target.id == "filterStart") return false;
+            else if (window.location.hash && window.location.hash != "") self.GetUsedBikes();
         } catch (e) {
             console.warn("Unable to set page filters");
         }
