@@ -29,7 +29,7 @@
                 <div class="container bg-white clearfix">
                     <h1 class="padding-top15 padding-right20 padding-bottom15 padding-left20 box-shadow"><%= heading %></h1>
                 <div class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20" style="display:none" data-bind="visible: !OnInit() && TotalBikes() > 0">Showing <span class="text-bold"><span data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"></span>-<span data-bind="CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())""></span> of <span class="text-bold" data-bind="CurrencyText: TotalBikes()"></span> bikes</div>
-                <div data-bind="visible: OnInit()" class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20">Showing <span class="text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-bold"><%=totalListing %></span> bikes</div>
+                <div data-bind="visible: OnInit()" class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20">Showing <span class="text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-bold"><%= Bikewale.Utility.Format.FormatPrice(strTotal) %></span> bikes</div>
                     <div id="sort-filter-wrapper" class="text-center border-solid-bottom">
                         <div id="sort-floating-btn" class="grid-6 padding-top10 padding-bottom10 border-solid-right cur-pointer">
                             <span class="bwmsprite sort-by-icon"></span>
@@ -64,32 +64,31 @@
                                                 <%# DataBinder.Eval(Container.DataItem, "MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem, "ModelName").ToString() + " " + DataBinder.Eval(Container.DataItem, "VersionName").ToString() %>
                                             </a>
                                         </h2>
-                                        <div class="grid-6 alpha omega margin-bottom5">
+                                        <div class="grid-6 alpha omega margin-bottom5 <%# DataBinder.Eval(Container.DataItem, "ModelYear").ToString() == "0"? "hide" : string.Empty %>">
                                             <span class="bwmsprite model-date-icon"></span>
                                             <span class="model-details-label"><%# DataBinder.Eval(Container.DataItem, "ModelYear").ToString() %> model</span>
                                         </div>
-                                        <div class="grid-6 omega margin-bottom5">
+
+                                        <div class="grid-6 omega margin-bottom5 <%# DataBinder.Eval(Container.DataItem, "KmsDriven").ToString() == "0"? "hide" : string.Empty %>">
                                             <span class="bwmsprite kms-driven-icon"></span>
                                             <span class="model-details-label"><%# Bikewale.Utility.Format.FormatNumeric(DataBinder.Eval(Container.DataItem, "KmsDriven").ToString()) %> kms</span>
                                         </div>
-                                        <div class="grid-6 alpha omega margin-bottom5">
+                                        <div class="grid-6 alpha omega margin-bottom5<%# string.IsNullOrEmpty(Convert.ToString(DataBinder.Eval(Container.DataItem, "NoOfOwners")))? "hide" : string.Empty %>">
                                             <span class="bwmsprite author-grey-sm-icon"></span>
                                             <span class="model-details-label"><%# DataBinder.Eval(Container.DataItem, "NoOfOwners").ToString() %> owner</span>
                                         </div>
-                                        <div class="grid-6 omega margin-bottom5">
+                                        <div class="grid-6 omega margin-bottom5 <%# string.IsNullOrEmpty(Convert.ToString(DataBinder.Eval(Container.DataItem, "CityName")))? "hide" : string.Empty %>">
                                             <span class="bwmsprite model-loc-icon"></span>
                                             <span class="model-details-label"><%# DataBinder.Eval(Container.DataItem, "CityName").ToString() %></span>
                                         </div>
                                         <div class="clear"></div>
-                                        <p class="margin-bottom15"><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold"><%# Bikewale.Utility.Format.FormatNumeric(DataBinder.Eval(Container.DataItem, "AskingPrice").ToString()) %></span></p>
+                                        <p class="margin-bottom15"><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem, "AskingPrice").ToString()) %></span></p>
                                     <%--<a href="javascript:void(0)" class="btn btn-orange seller-details-btn" rel="nofollow">Get seller details</a>--%>
                                     </div>
                                 </li>
                             </ItemTemplate>
                         </asp:Repeater> 
                     </ul>
-
-
                     <ul id="used-bikes-list" style="display:none" data-bind="visible: !OnInit() ,foreach : BikeDetails()">
                         <li>
                             <div class="model-thumbnail-image">
@@ -131,17 +130,15 @@
                             </div>
                         </li>
                     </ul>
-                    
                     <div style="text-align: center;">
                         <div id="nobike"  data-bind="visible : !OnInit() && noBikes()">
                             <img src="/images/no_result_m.png">
                         </div>
                     </div>                     
-
                     <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
                         <div class="grid-5 omega text-light-grey" data-bind="visible: TotalBikes() > 0">
                     <div class="font14 " style="display:none" data-bind="visible: !OnInit() && TotalBikes() > 0"><span class="text-bold" data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"></span>-<span class="text-bold" data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())"></span> of <span class="text-bold" data-bind="    CurrencyText: TotalBikes()"></span> bikes</div>
-                    <div data-bind="visible: OnInit()" class="font14 "><span class="text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-bold"><%=totalListing %></span>  bikes</div>
+                    <div data-bind="visible: OnInit()" class="font14 "><span class="text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-bold"><%=Bikewale.Utility.Format.FormatPrice(strTotal) %></span>  bikes</div>
                     </div>
                         <div data-bind="visible: OnInit()">
                             <BikeWale:Pager ID="ctrlPager" runat="server" />
@@ -149,8 +146,8 @@
                     <div data-bind="visible: !OnInit()">
                         <div class="grid-7 alpha omega position-rel">
                             <ul id="pagination-list" data-bind="html: PagesListHtml"></ul>
-                            <span class="pagination-control-prev  " data-bind="html: PrevPageHtml, css: Pagination().hasPrevious() ? 'active' : 'inactive' "></span>
-                            <span class="pagination-control-next " data-bind="html: NextPageHtml, css: Pagination().hasNext() ? 'active' : 'inactive'"></span>
+                            <span class="pagination-control-prev" data-bind="html: PrevPageHtml, css: Pagination().hasPrevious() ? 'active' : 'inactive' "></span>
+                            <span class="pagination-control-next" data-bind="html: NextPageHtml, css: Pagination().hasNext() ? 'active' : 'inactive'"></span>
                         </div>
                     </div>
                     <div class="clear"></div>

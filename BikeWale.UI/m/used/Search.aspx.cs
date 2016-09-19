@@ -38,7 +38,7 @@ namespace Bikewale.Mobile.Used
         protected Repeater rptUsedListings;
         protected uint cityId;
         protected string makeId, modelId = string.Empty;
-        protected string makemasking = string.Empty, citymasking = string.Empty, modelmasking = string.Empty, pageno = string.Empty;
+        protected string makemasking = string.Empty, citymasking = string.Empty, strTotal = string.Empty;// modelmasking = string.Empty, pageno = string.Empty;
         protected string pageTitle = string.Empty, pageDescription = string.Empty, modelName = string.Empty, makeName = string.Empty, pageKeywords = string.Empty, cityName = "India", pageCanonical = string.Empty
                   , heading = string.Empty, nextUrl = string.Empty, prevUrl = string.Empty;
         private const int _pageSize = 20;
@@ -79,7 +79,6 @@ namespace Bikewale.Mobile.Used
         {
             try
             {
-
                 if (!string.IsNullOrEmpty(hdnHash.Value))
                 {
                     string hash = hdnHash.Value;
@@ -190,8 +189,9 @@ namespace Bikewale.Mobile.Used
                     SearchResult objResult = searchRepo.GetUsedBikesList(objFilters);
                     if (objResult != null && objResult.Result != null && objResult.Result.Count() > 0)
                     {
-                        pageno = objResult.CurrentPageNo.ToString();
+                        //pageno = objResult.CurrentPageNo.ToString();
                         totalListing = objResult.TotalCount;
+                        strTotal = totalListing.ToString();
                         rptUsedListings.DataSource = objResult.Result;
                         rptUsedListings.DataBind();
                         return true;
@@ -264,8 +264,7 @@ namespace Bikewale.Mobile.Used
                         objResponse = objCache.GetModelMaskingResponse(Request.QueryString["model"]);
                         if (objResponse != null)
                         {
-                            uint mdId = objResponse.ModelId;
-                            modelId = mdId.ToString();
+                            modelId = objResponse.ModelId.ToString();
                             var objCachenew = container.Resolve<IBikeModels<BikeModelEntity, int>>();
                             BikeModelEntity modelEntity = objCachenew.GetById(Convert.ToInt32(modelId));
                             modelName = modelEntity.ModelName;
@@ -327,7 +326,6 @@ namespace Bikewale.Mobile.Used
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-
                     container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
                                 .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
                                 .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
@@ -355,10 +353,14 @@ namespace Bikewale.Mobile.Used
             {
                 // Common title, h1 and canonical
                 string bikeName = string.Format("{0} {1} ", strMake, strModel).Trim();
+
                 if (bikeName.Length > 0)
                     bikeName = string.Format("{0} ", bikeName);
+
                 heading = string.Format("Used {0}Bikes in {1}", bikeName, strCity);
+
                 pageTitle = string.Format("Used {0}Bikes in {1} - Verified Bike Listing For Sale | BikeWale", bikeName, strCity);
+
                 pageCanonical = string.Format("http://www.bikewale.com/{0}", Request.RawUrl.Replace("/m/", string.Empty));
 
                 // Make models specific
@@ -384,8 +386,6 @@ namespace Bikewale.Mobile.Used
                 objErr.SendMail();
             }
         }
-
-
 
         public string RemoveTrailingPage(string rawUrl)
         {
