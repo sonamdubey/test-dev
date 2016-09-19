@@ -34,16 +34,25 @@ namespace Bikewale.Service.Controllers.Used
         {
             try
             {
-                Bikewale.Entities.Used.Search.SearchResult objSearchList = _search.GetUsedBikesList(inputFilters);
 
-                Bikewale.DTO.Used.Search.SearchResult searchResult = UsedBikeSearchResult.Convert(objSearchList);
-
-                if (searchResult != null && searchResult.Result != null && searchResult.Result.Count() > 0)
+                if (inputFilters != null)
                 {
-                    return Ok(searchResult);
+                    inputFilters.PS = inputFilters.PS > 0 ? inputFilters.PS : 20;
+                    Bikewale.Entities.Used.Search.SearchResult objSearchList = _search.GetUsedBikesList(inputFilters);
+
+                    Bikewale.DTO.Used.Search.SearchResult searchResult = UsedBikeSearchResult.Convert(objSearchList);
+
+                    if (searchResult != null && searchResult.Result != null && searchResult.Result.Count() > 0)
+                    {
+                        return Ok(searchResult);
+                    }
+                    else
+                        return NotFound();
                 }
                 else
-                    return NotFound();
+                {
+                    BadRequest();
+                }
             }
             catch (Exception ex)
             {
@@ -51,6 +60,7 @@ namespace Bikewale.Service.Controllers.Used
                 objErr.SendMail();
                 return InternalServerError();
             }
+            return NotFound();
         }
 
 

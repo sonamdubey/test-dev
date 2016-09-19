@@ -7,32 +7,35 @@ var bikesList = $("#filter-bike-list");
 //parse query string
 var getQueryString = function () {
     var qsColl = new Object();
-    var requestUrl = window.location.hash.substr(1); 
-    if (requestUrl && requestUrl != '') {
-        var kvPairs = requestUrl.split('&');
-        $.each(kvPairs, function (i, val) {
-            var kvPair = val.split('=');
-            qsColl[kvPair[0]] = kvPair[1];
-        });
+    try {
+        var requestUrl = window.location.hash.substr(1);
+        if (requestUrl && requestUrl != '') {
+            var kvPairs = requestUrl.split('&');
+            $.each(kvPairs, function (i, val) {
+                var kvPair = val.split('=');
+                qsColl[kvPair[0]] = kvPair[1];
+            });
+        }
+    } catch (e) {
+        console.warn("Unable to get query string");
     }
     return qsColl;
 }
 
-var vmPagination = function (curPgNum,pgSize,totalRecords) {
+var vmPagination = function (curPgNum, pgSize, totalRecords) {
     var self = this;
     self.totalData = ko.observable(totalRecords);
-    self.pageNumber = ko.observable(curPgNum > 0 ? curPgNum : 1);
+    self.pageNumber = ko.observable(curPgNum);
     self.pageSize = ko.observable(pgSize);
     self.pageSlot = ko.observable(5);
     self.totalPages = ko.computed(function () {
-        var div = Math.floor(self.totalData() / self.pageSize());
+        var div = Math.ceil(self.totalData() / self.pageSize());
         div += self.totalData() % self.pageSize() > 0 ? 1 : 0;
         return div - 1;
     });
-
     self.paginated = ko.computed(function () {
         var pgSlot = self.pageNumber() + self.pageSlot();
-        if (pgSlot > self.totalPages()) pgSlot = self.totalPages();
+        if (pgSlot > self.totalPages()) pgSlot = self.totalPages()+1;
         return pgSlot;
     });
     self.hasPrevious = ko.computed(function () {
@@ -43,7 +46,7 @@ var vmPagination = function (curPgNum,pgSize,totalRecords) {
     });
     self.next = function () {
         if (self.pageNumber() < self.totalPages())
-            return self.pageNumber()+1;
+            return self.pageNumber() + 1;
         return self.pageNumber();
     }
     self.previous = function () {
@@ -52,8 +55,7 @@ var vmPagination = function (curPgNum,pgSize,totalRecords) {
         }
         return self.pageNumber();
     }
-}
-
+};
 
 ko.bindingHandlers.CurrencyText = {
     update: function (element, valueAccessor) {
@@ -117,12 +119,16 @@ ko.bindingHandlers.KOSlider = {
 };
 
 function formatPrice(price) {
-    price = price.toString();
-    var lastThree = price.substring(price.length - 3);
-    var otherNumbers = price.substring(0, price.length - 3);
-    if (otherNumbers != '')
-        lastThree = ',' + lastThree;
-    var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+    if (price != null)
+    {
+        price = price.toString();
+        var lastThree = price.substring(price.length - 3);
+        var otherNumbers = price.substring(0, price.length - 3);
+        if (otherNumbers != '')
+            lastThree = ',' + lastThree;
+        var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+    }
+    
     return price;
 }
 
@@ -143,7 +149,6 @@ var usedBikes = function()
     });     
     self.OnInit = ko.observable(true);
     self.noBikes = ko.observable(false);
-    self.PageHeading = ko.observable();
     self.TotalBikes = ko.observable();
     self.BikeDetails = ko.observableArray();
     self.PageUrl = ko.observable();
@@ -156,7 +161,7 @@ var usedBikes = function()
     };
     self.PrevPageUrl = ko.observable();
     self.NextPageUrl = ko.observable();
-    self.Pagination = ko.observable(new vmPagination(self.CurPageNo(), 20, self.TotalBikes()));
+    self.Pagination = ko.observable(new vmPagination());
 
     self.FilterCity = function (d, e) {
         var ele = $(e.target);
@@ -166,25 +171,29 @@ var usedBikes = function()
         };
     };
     self.ApplyBikeFilter = function () {
-        var selMakes = bikesList.find("div.accordion-tab.tab-checked span.unchecked-box");
-        var selModels = bikesList.find("div.accordion-tab:not(.tab-checked)");
-        var mkList = "", moList = "";
-        selMakes.each(function () {
-            var ele = $(this);
-            mkList += "+"+ele.attr("data-makeid");
-        });
-        selModels.each(function () {
-            var eleList = $(this).parents("li").find(".bike-model-list  li.active span.unchecked-box");
-            eleList.each(function () {
+        try {
+            var selMakes = bikesList.find("div.accordion-tab.tab-checked span.unchecked-box");
+            var selModels = bikesList.find("div.accordion-tab:not(.tab-checked)");
+            var mkList = "", moList = "";
+            selMakes.each(function () {
                 var ele = $(this);
-                moList += "+" + ele.attr("data-modelid");
-            });            
-        });
-        self.Filters()["make"] = mkList.substr(1);
-        self.Filters()["model"] = moList.substr(1);
+                mkList += "+" + ele.attr("data-makeid");
+            });
+            selModels.each(function () {
+                var eleList = $(this).parents("li").find(".bike-model-list  li.active span.unchecked-box");
+                eleList.each(function () {
+                    var ele = $(this);
+                    moList += "+" + ele.attr("data-modelid");
+                });
+            });
+            self.Filters()["make"] = mkList.substr(1);
+            self.Filters()["model"] = moList.substr(1);
+        } catch (e) {
+            console.warn("Unable to set apply bikes filter");
+        }
     };  
     self.SelectedCity = ko.observable({ "id": 0, "name": "All India" });
-    self.BudgetValues = ko.observable([0, 7]);
+    self.BudgetValues = ko.observable();
     self.ShowBudgetRange = ko.computed(function (d, e) {
 
         if(self.BudgetValues())
@@ -198,8 +207,8 @@ var usedBikes = function()
             }
         }
     });
-    self.KmsDriven = ko.observable(10000);
-    self.BikeAge = ko.observable(2);
+    self.KmsDriven = ko.observable();
+    self.BikeAge = ko.observable();
     self.FilterOwners = function () {
         var owners = $("#previous-owners-list li.active"),ownerList="";
         owners.each(function () {
@@ -209,27 +218,31 @@ var usedBikes = function()
         self.Filters()["owner"] = ownerList.substr(1);
     }; 
     self.FilterSellers = function () {
-        var owners = $("#sellerTypes .filter-type-seller.checked"), sellerList = "";  
-        owners.each(function () {
+        var sellers = $("#sellerTypes .filter-type-seller.checked"), sellerList = "";  
+        sellers.each(function () {
             sellerList += "+" + $(this).attr("data-sellerid");
         });
 
         self.Filters()["st"] = sellerList.substr(1);
     };
     self.ApplyFilters = function () {
-        self.ResetFilters();
-        self.ApplyBikeFilter();
-        if (self.SelectedCity() && self.SelectedCity().id > 0) self.Filters()["city"] = self.SelectedCity().id;
-        if (self.KmsDriven() > 10000) self.Filters()["kms"] = self.KmsDriven();
-        if (self.BikeAge() > 0) self.Filters()["age"] = self.BikeAge();
-        if (self.BudgetValues())        {
-            var minBuget = self.BudgetValues()[0], maxBuget = self.BudgetValues()[1];
-            self.Filters()["budget"] = budgetValue[minBuget];
-            if (maxBuget != 7) self.Filters()["budget"] += "+" + budgetValue[maxBuget];
+        try {
+            self.ResetFilters();
+            self.ApplyBikeFilter();
+            if (self.SelectedCity() && self.SelectedCity().id > 0) self.Filters()["city"] = self.SelectedCity().id;
+            if (self.KmsDriven() != 200000) self.Filters()["kms"] = self.KmsDriven();
+            if (self.BikeAge() != 8) self.Filters()["age"] = self.BikeAge();
+            if (self.BudgetValues()) {
+                var minBuget = self.BudgetValues()[0], maxBuget = self.BudgetValues()[1];
+                self.Filters()["budget"] = budgetValue[minBuget];
+                if (maxBuget != 7) self.Filters()["budget"] += "+" + budgetValue[maxBuget];
+            }
+            self.FilterOwners();
+            self.FilterSellers();
+            self.GetUsedBikes();
+        } catch (e) {
+            console.warn("Unable to apply current filters");
         }
-        self.FilterOwners();
-        self.FilterSellers();  
-        self.GetUsedBikes(); 
     };
     self.ResetFilters = function () {
         self.Filters()["city"] = "";
@@ -242,11 +255,30 @@ var usedBikes = function()
         self.Filters()["model"] = "";
         self.Filters()["pn"] = "";
     };
+
+    self.SetDefaultFilters = function () {
+        try {
+            self.SelectedCity({ "id": 0, "name": "All India" });
+            self.KmsDriven(200000);
+            self.BikeAge(8);
+            self.BudgetValues([0, 7]);
+            self.CurPageNo(1);
+            self.ApplyPagination();
+            $("#previous-owners-list li").removeClass("active");
+            $("#sellerTypes .filter-type-seller").removeClass("checked");
+            $("sort-by-list li").first().addClass("active");
+            $('#filter-type-bike').find('.selected-filters').text('All Bikes');
+        } catch (e) {
+            console.warn("Unable to set default records");
+        }
+    };
+
     self.objSorts = ko.observableArray([{ id: 1, text: "Most recent" }, { id: 2, text: "Price - Low to High" }, { id: 3, text: "Price - High to Low" }, { id: 4, text: "Kms - Low to High" }, { id: 5, text: "Kms - High to Low" }]);
     
     self.applySort = function (d, e) {
         var so = $("#sort-by-list li.active").attr("data-sortorder");
         self.Filters()["so"] = so;
+        self.ResetFilters();
         self.GetUsedBikes();
     };
 
@@ -255,65 +287,69 @@ var usedBikes = function()
     self.NextPageHtml = ko.observable("");
 
     self.ApplyPagination = function() {
-        var pag = new vmPagination(self.CurPageNo(), 20, self.TotalBikes());
-        self.Pagination(pag);
-        if (self.Pagination())
-        {
-            var n = self.Pagination().paginated(), pages = '',prevpg='',nextpg='';
-            var qs = window.location.pathname + window.location.hash;
-            var rstr = qs.match(/page-[0-9]+/i);
-            for (var i = self.Pagination().pageNumber() ; i < n; i++) {
-                var pageUrl = qs.replace(rstr, "page-" + i);
-                pages += ' <li class="page-url"><a  data-bind="click : ChangePageNumber" data-pagenum="' + i + '" href="' + pageUrl + '">' + i + '</a></li>';
-            }
-            self.PagesListHtml(pages);
+        try {
+            var pag = new vmPagination(self.CurPageNo(), 20, self.TotalBikes());
+            self.Pagination(pag);
+            if (self.Pagination()) {
+                var n = self.Pagination().paginated(), pages = '', prevpg = '', nextpg = '';
+                var qs = window.location.pathname + window.location.hash;
+                var rstr = qs.match(/page-[0-9]+/i);
+                for (var i = self.Pagination().pageNumber() ; i < n; i++) {
+                    var pageUrl = qs.replace(rstr, "page-" + i);
+                    pages += ' <li class="page-url"><a  data-bind="click : ChangePageNumber" data-pagenum="' + i + '" href="' + pageUrl + '">' + i + '</a></li>';
+                }
+                self.PagesListHtml(pages);
 
-            if (self.Pagination().hasPrevious()) {
-                prevpg = "<a  data-bind='click : ChangePageNumber' data-pagenum='" + self.Pagination().previous() + "' href='" + qs.replace(rstr, "page-" + self.Pagination().previous()) + "' class='bwmsprite prev-page-icon'/>"; 
-            } else
-            {
-                prevpg = "<a href='javascript:void(0)' class='bwmsprite prev-page-icon'/>";
+                if (self.Pagination().hasPrevious()) {
+                    prevpg = "<a  data-bind='click : ChangePageNumber' data-pagenum='" + self.Pagination().previous() + "' href='" + qs.replace(rstr, "page-" + self.Pagination().previous()) + "' class='bwmsprite prev-page-icon'/>";
+                } else {
+                    prevpg = "<a href='javascript:void(0)' class='bwmsprite prev-page-icon'/>";
+                }
+                self.PrevPageHtml(prevpg);
+                if (self.Pagination().hasNext()) {
+                    nextpg = "<a  data-bind='click : ChangePageNumber' data-pagenum='" + self.Pagination().next() + "' href='" + qs.replace(rstr, "page-" + self.Pagination().next()) + "' class='bwmsprite next-page-icon'/>";
+                } else {
+                    nextpg = "<a href='javascript:void(0)' class='bwmsprite next-page-icon'/>";
+                }
+                self.NextPageHtml(nextpg);
+                $("#pagination-list li[data-pagenum=" + self.Pagination().pageNumber() + "]").addClass("active");
             }
-            self.PrevPageHtml(prevpg);
-            if (self.Pagination().hasNext()) {
-                nextpg="<a  data-bind='click : ChangePageNumber' data-pagenum='" + self.Pagination().next() + "' href='" + qs.replace(rstr, "page-" + self.Pagination().next()) + "' class='bwmsprite next-page-icon'/>";
-            } else {
-                nextpg="<a href='javascript:void(0)' class='bwmsprite next-page-icon'/>";
-            }
-            self.NextPageHtml(nextpg);
-            $("#pagination-list li[data-pagenum=" + self.Pagination().pageNumber() + "]").addClass("active");
-        }
-       
+        } catch (e) {
+            console.warn("Unable to apply pagination.");
+        }       
         
     };
 
     self.GetUsedBikes = function () {
-        self.Filters.notifySubscribers();
-        var qs = self.QueryString();
-        $.ajax({
-            type: 'GET',
-            url: '/api/used/search/?' + qs.replace("+","%2B"),
-            dataType: 'json',
-            success: function (response) {
-                window.location.hash = qs;
-                self.OnInit(false);
-                self.TotalBikes(response.totalCount);
-                self.CurPageNo(response.currentPageNo);
-                self.PageUrl(response.pageUrl);
-                self.BikeDetails(ko.toJS(response.result));
-                if (!self.TotalBikes()) self.noBikes(true);
-            },
-            complete: function (xhr) {
-                if (xhr && xhr.status!= 200) {
-                    self.noBikes(true);
-                    self.TotalBikes(0);
-                    self.CurPageNo(0);
-                }
+        try {
+            self.Filters.notifySubscribers();
+            var qs = self.QueryString();
+            $.ajax({
+                type: 'GET',
+                url: '/api/used/search/?' + qs.replace(/[\+]+/g, "%2B"),
+                dataType: 'json',
+                success: function (response) {
+                    window.location.hash = qs;
+                    self.OnInit(false);
+                    self.TotalBikes(response.totalCount);
+                    self.CurPageNo(response.currentPageNo);
+                    self.BikeDetails(ko.toJS(response.result));
+                    if (!self.TotalBikes()) self.noBikes(true);
+                },
+                complete: function (xhr) {
+                    if (xhr && xhr.status != 200) {
+                        self.noBikes(true);
+                        self.TotalBikes(0);
+                        self.CurPageNo(0);
+                    }
 
-                self.ApplyPagination();
-                
-            }
-        });
+                    self.ApplyPagination();
+
+                }
+            });
+        } catch (e) {
+            console.warn("Unable to set fetch used bike records");
+        }
     };
 
     self.ChangePageNumber = function (e) {
@@ -323,6 +359,69 @@ var usedBikes = function()
         e.preventDefault();
         return false;
     };
+
+    self.SetPageFilters = function () {
+
+        try {
+
+            if (self.Filters()["so"]) {
+                $("#sort-by-list li[data-sortorder=" + self.Filters()["so"] + "]").addClass("active").siblings().removeClass("active");
+            }
+
+            if (self.Filters()["city"]) {
+                var ele = $("#filter-city-list li[data-cityid=" + self.Filters()["city"] + "]");
+                ele.addClass("active").siblings().removeClass("active");
+                self.SelectedCity({ "id": ele.attr("data-cityid"), "name": ele.text() });
+            }
+            if (self.Filters()["kms"]) {
+                self.KmsDriven(parseInt(self.Filters()["kms"], 10));
+            }
+
+            if (self.Filters()["age"]) {
+                self.BikeAge(self.Filters()["age"]);
+            }
+            if (self.Filters()["pn"]) {
+                self.CurPageNo(self.Filters()["pn"]);
+            }
+
+            if (self.Filters()["owner"]) {
+                var arr = self.Filters()["owner"].split("+");
+                $.each(arr, function (i, val) {
+                    $("#previous-owners-list li[data-ownerid=" + val + "]").click();
+                });
+            }
+
+            if (self.Filters()["st"]) {
+                var arr = self.Filters()["st"].split("+");
+                $.each(arr, function (i, val) {
+                    $("#sellerTypes div[data-sellerid=" + val + "]").addClass("checked");
+                });
+            }
+
+            if (self.Filters()["model"]) {
+                var arr = self.Filters()["model"].split("+");
+                $.each(arr, function (i, val) {
+                    var ele = bikesList.find("ul.bike-model-list span[data-modelid=" + val + "]");
+                    ele.parents("ul.bike-model-list li").addClass("active");
+                });
+            }
+
+            if (self.Filters()["make"]) {
+                var arr = self.Filters()["make"].split("+");
+                $.each(arr, function (i, val) {
+                    var ele = bikesList.find("span[data-makeid=" + val + "]");
+                    ele.parents("div.accordion-tab").addClass("tab-checked");
+                    ele.parent().click();
+                });
+            }
+
+            if (window.location.hash && window.location.hash != "") self.GetUsedBikes();
+        } catch (e) {
+            console.warn("Unable to set page filters");
+        }
+        
+    };
+
 }
 
 $(document).on("click", "#pagination-list li a,span.pagination-control-prev a,span.pagination-control-next a", function (d,e) {
@@ -335,19 +434,11 @@ ko.applyBindings(vwUsedBikes, document.getElementById("usedBikesSection"));
 var objFilters = vwUsedBikes.Filters();
 
 $(function () {
-    
-    setSortFilter();
+    vwUsedBikes.SetDefaultFilters();
+    vwUsedBikes.SetPageFilters();
     //GetUsedBikes();
 });
 
-function setSortFilter()
-{
-    if(objFilters && objFilters["so"])
-    {
-        $("#sort-by-list li[data-sortorder=" + objFilters["so"] + "]").addClass("active").siblings().removeClass("active");
-    }
-
-}
 
 
 
@@ -370,9 +461,6 @@ $(document).ready(function () {
             sortFilter.show();
         }
     });
-
-    //set filters
-    filters.set.all();
 });
 
 var filterContainer = $("#filter-container"),
@@ -391,7 +479,7 @@ $('#close-filter').on('click', function () {
 });
 
 $('#reset-filters').on('click', function () {
-    filters.reset.all();
+    //filters.reset.all();
     accordion.resetAll();
 });
 
@@ -440,7 +528,7 @@ var filters = {
                 filterTypeBike.find('.selected-filters').text(selection);
             }
             else {
-                filters.reset.bike();
+                //filters.reset.bike();
             }
         }
     },
@@ -480,27 +568,6 @@ var filters = {
             $('.filter-type-seller.checked').removeClass('checked');
         }
 
-    },
-
-    reset: {
-
-        all: function () {
-            filters.reset.bike();
-            filters.reset.previousOwners();
-            filters.reset.sellerType();
-        },
-
-        bike: function () {
-            filterTypeBike.find('.selected-filters').text('All Bikes');
-        },
-
-        previousOwners: function () {
-            $('#previous-owners-list li.active').removeClass('active');
-        },
-
-        sellerType: function () {
-            $('.filter-type-seller.checked').removeClass('checked');
-        }
     }
 };
 

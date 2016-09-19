@@ -27,10 +27,9 @@
          <div id="usedBikesSection">
             <section>
                 <div class="container bg-white clearfix">
-                    <h1 class="padding-top15 padding-right20 padding-bottom15 padding-left20 box-shadow">
-                        <span data-bind="text: PageHeading()"></span></h1>
+                    <h1 class="padding-top15 padding-right20 padding-bottom15 padding-left20 box-shadow"><%= heading %></h1>
                 
-                <div class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20" data-bind="visible: TotalBikes() > 0">Showing <span class="text-bold"><span data-bind="    text: Pagination().pageNumber()"><%=_startIndex %></span>-<span data-bind="    text: Pagination().pageNumber() * Pagination().pageSize() "><%=_endIndex %></span> of <span class="text-bold"><%=totalListing %></span> bikes</div>
+                <div class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20" data-bind="visible: TotalBikes() > 0">Showing <span class="text-bold"><span data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"></span>-<span data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())""></span> of <span class="text-bold" data-bind="    CurrencyText: TotalBikes()"></span> bikes</div>
 
                     <div id="sort-filter-wrapper" class="text-center border-solid-bottom">
                         <div id="sort-floating-btn" class="grid-6 padding-top10 padding-bottom10 border-solid-right cur-pointer">
@@ -108,7 +107,7 @@
                                 </a>
                             </div>
                             <div class="margin-right20 margin-left20 padding-top10 font14">
-                                <h2 class="margin-bottom10"><a data-bind="text: bikeName, attr: { 'href': '/used/bikes-' + cityMasking + '/' + makeMasking + '-' + modelMasking + '-' + profileId + '/'}"></a></h2>
+                                <h2 class="margin-bottom10"><a data-bind="text: bikeName, attr: { 'href': '/m/used/bikes-in-' + cityMasking + '/' + makeMasking + '-' + modelMasking + '-' + profileId + '/' }"></a></h2>
                                 <div class="grid-6 alpha omega margin-bottom5" data-bind="visible : modelYear > 0">
                                     <span class="bwmsprite model-date-icon"></span>
                                     <span class="model-details-label" data-bind="text: modelYear + ' model'"></span>
@@ -140,13 +139,13 @@
 
                     <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
                         <div class="grid-5 omega text-light-grey" data-bind="visible: TotalBikes() > 0">
-                        <span data-bind="visible: TotalBikes() > 0"><span class="text-default text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-default text-bold"><%=totalListing %></span> bikes </span>
+                    <div class="font14 " data-bind="visible: TotalBikes() > 0"><span class="text-bold" data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"></span>-<span class="text-bold" data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())"></span> of <span class="text-bold" data-bind="CurrencyText: TotalBikes()"></span> bikes</div>
                     </div>
                 <%--<BikeWale:Pager ID="ctrlPager" runat="server" />--%>
                      <div class="grid-7 alpha omega position-rel">
                                 <ul id="pagination-list" data-bind="html : PagesListHtml"></ul>
-                        <span class="pagination-control-prev inactive" data-bind="html: PrevPageHtml"></span>
-                        <span class="pagination-control-next inactive" data-bind="html: NextPageHtml"></span>
+                        <span class="pagination-control-prev  " data-bind="html: PrevPageHtml, css: Pagination().hasPrevious() ? 'active' : 'inactive' "></span>
+                        <span class="pagination-control-next " data-bind="html: NextPageHtml,css: Pagination().hasNext()?'active':'inactive'"></span>
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -159,7 +158,7 @@
                 <div class="popup-header">Sort</div>
                 <div class="popup-body">
                     <ul id="sort-by-list" class="margin-bottom25" data-bind="foreach : objSorts">
-                        <li data-bind="attr: {'data-sortorder': id}">
+                        <li data-bind="attr: { 'data-sortorder': id }, css: $index==1?'active':''">
                             <span class="bwmsprite radio-uncheck"></span>
                             <span class="sort-list-label" data-bind="text : text"></span>
                         </li>                        
@@ -266,6 +265,7 @@
                         </div>
                     
                         <ul id="filter-city-list">
+                             <li data-cityid="0" data-bind="click: FilterCity">All India</li>
                         <%foreach(var city in cities) {%>
                         <li data-cityid="<%= city.CityId %>" data-bind="click : FilterCity"><%=city.CityName %></li>
                         <%} %>
@@ -337,7 +337,6 @@
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/used-search-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/used-search.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
-            vwUsedBikes.PageHeading("<%= heading %>");
             vwUsedBikes.TotalBikes(<%= totalListing %>);
         </script>
     </form>
