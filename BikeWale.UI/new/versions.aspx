@@ -516,11 +516,11 @@
                                 <% } %>
                                 <% else if (!isOnRoadPrice)
                                    {%>
-                                <p class="font14 text-light-grey leftfloat exshowroom-area"><span class="leftfloat">Ex-showroom price in </span><span class="leftfloat text-truncate exshowroom-area-name city-area-name margin-right5"><%= String.Format("{0}{1}{2}",areaName,(!string.IsNullOrEmpty(areaName) ? ", " : ""),cityName) %></span></p>
+                                <p class="font14 text-light-grey leftfloat exshowroom-area"><span class="leftfloat">Ex-showroom price in </span><span class="leftfloat text-truncate exshowroom-area-name city-area-name margin-right5"><%= String.Format("{0}{1}{2}",areaName,(!string.IsNullOrEmpty(areaName) ? ", " : string.Empty),cityName) %></span></p>
                                 <% } %>
                                 <% else
                                    {%>
-                                <p class="font14 text-light-grey leftfloat"><span class="leftfloat">On-road price in </span><span class="leftfloat text-truncate city-area-name margin-right5"><%= String.Format("{0}{1}{2}",areaName,(!string.IsNullOrEmpty(areaName) ? ", " : ""),cityName) %></span></p>
+                                <p class="font14 text-light-grey leftfloat"><span class="leftfloat">On-road price in </span><span class="leftfloat text-truncate city-area-name margin-right5"><%= String.Format("{0}{1}{2}",areaName,(!string.IsNullOrEmpty(areaName) ? ", " : string.Empty),cityName) %></span></p>
 
                                 <% } %>                          
                             <div class="clear"></div>
