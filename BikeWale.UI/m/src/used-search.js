@@ -323,6 +323,7 @@ var usedBikes = function()
     self.GetUsedBikes = function () {
         try {
             self.Filters.notifySubscribers();
+            filters.loader.open();
             var qs = self.QueryString();
             $.ajax({
                 type: 'GET',
@@ -342,9 +343,8 @@ var usedBikes = function()
                         self.TotalBikes(0);
                         self.CurPageNo(0);
                     }
-
+                    filters.loader.close();
                     self.ApplyPagination();
-
                 }
             });
         } catch (e) {
@@ -357,6 +357,7 @@ var usedBikes = function()
         self.Filters()["pn"] = pnum;
         self.GetUsedBikes();
         e.preventDefault();
+        $('html, body').scrollTop(0);
         return false;
     };
 
@@ -568,6 +569,18 @@ var filters = {
             $('.filter-type-seller.checked').removeClass('checked');
         }
 
+    },
+
+    loader: {
+        open: function () {
+            $('html, body').addClass('lock-browser-scroll');
+            $('#sort-filters-loader').show();
+        },
+
+        close: function () {
+            $('html, body').removeClass('lock-browser-scroll');
+            $('#sort-filters-loader').hide();
+        }
     }
 };
 

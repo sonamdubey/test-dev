@@ -147,7 +147,7 @@
 
         .otp-icon { width:29px; height:29px; background-position: -109px -177px; }
 
-        .edit-blue-icon { width:19px; height:19px; background-position: -114px -122px; }
+        .edit-blue-icon { width:20px; height:20px; background-position: -114px -122px; }
 
         #getMobile {
             padding: 9px 40px;
