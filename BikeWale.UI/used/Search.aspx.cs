@@ -31,7 +31,7 @@ namespace Bikewale.Used
         protected HtmlGenericControl searchRes;
         protected string city = string.Empty, cityId = string.Empty, prevUrl = string.Empty, nextUrl = string.Empty, makeId = string.Empty, queryString = String.Empty;
         protected string makeMaskingName = String.Empty, modelMaskingName = String.Empty, cityMaskingName = String.Empty, make = String.Empty, model = String.Empty, modelId = String.Empty, pageNumber = String.Empty, nextPrevBaseUrl = String.Empty;
-        protected string pageCanonical = String.Empty, pageKeywords = String.Empty, pageDescription = String.Empty, pageTitle = String.Empty;
+        protected string pageCanonical = String.Empty, pageKeywords = String.Empty, altUrl = string.Empty, pageDescription = String.Empty, pageTitle = String.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -360,7 +360,7 @@ namespace Bikewale.Used
             pageCanonical = objKeywords.Canonical;
             pageKeywords = objKeywords.PageKeywords;
             pageDescription = objKeywords.PageDescription;
-
+            altUrl = objKeywords.altUrL;
             nextPrevBaseUrl = objKeywords.BaseURL;
 
         }// End of GetMetaKeywords method

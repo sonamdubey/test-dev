@@ -465,6 +465,7 @@ $(function () {
     vwUsedBikes.SetPageFilters();
     if (selectedCityId)
         $("#filter-city-list li[data-cityid=" + selectedCityId + "]").click();
+    vwUsedBikes.TotalBikes() > 0 ? vwUsedBikes.OnInit(true) : vwUsedBikes.OnInit(false);
     //GetUsedBikes();
 });
 
