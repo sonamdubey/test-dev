@@ -42,12 +42,10 @@
                         <div class="clear"></div>
                     </div>
 
-                    <%--<div data-bind="name: usedbikes-template, foreach: BikeDetails"></div>--%>
-
                     <ul id="used-bikes-list" data-bind="visible: OnInit() && !noBikes()">
                         <asp:Repeater ID="rptUsedListings" runat="server">
                             <ItemTemplate>
-                                <li <%--data-bind="with: BikeDetails()[<%# Container.ItemIndex %>]"--%>>
+                                <li >
                                     <div class="model-thumbnail-image">
                                     <a href="/m/used/bikes-in-<%# DataBinder.Eval(Container.DataItem, "CityMaskingName").ToString() %>/<%# DataBinder.Eval(Container.DataItem, "MakeMaskingName").ToString() %>-<%# DataBinder.Eval(Container.DataItem, "ModelMaskingName").ToString() %>-<%# DataBinder.Eval(Container.DataItem, "ProfileId").ToString() %>/" class="model-image-target">
                                             <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "Photo.OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "Photo.HostUrl").ToString(),Bikewale.Utility.ImageSize._370x208) %>" 
@@ -95,7 +93,11 @@
                         <li>
                             <div class="model-thumbnail-image">
                                 <a data-bind=" attr: { 'href': '/m/used/bikes-in-' + cityMasking + '/' + makeMasking + '-' + modelMasking + '-' + profileId + '/' }" class="model-image-target">
+                                    <!-- ko if : $index() < 3 -->
+                                    <img data-bind="attr: { alt: bikeName, title: bikeName, src: (photo.originalImagePath != '') ? (photo.hostUrl + '/370x208/' + photo.originalImagePath) : 'http://imgd3.aeplcdn.com/174x98/bikewaleimg/images/noimage.png'} " alt="" title="" border="0" />
+                                    <!-- /ko --><!-- ko if : $index() > 2 -->
                                     <img data-bind="attr: { alt: bikeName, title: bikeName, src: 'http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif' }, lazyload: ((photo.originalImagePath != '') ? (photo.hostUrl + '/370x208/' + photo.originalImagePath) : 'http://imgd3.aeplcdn.com/174x98/bikewaleimg/images/noimage.png'), " alt="" title="" border="0" />
+                                    <!-- /ko -->
                                     <div class="model-media-details">
                                         <div class="model-media-item" data-bind="visible: totalPhotos > 0">
                                             <span class="bwmsprite gallery-photo-icon"></span>
@@ -129,7 +131,7 @@
                         </li>
                     </ul>
                     <div style="text-align: center;">
-                        <div id="nobike"  data-bind="visible : noBikes()">
+                        <div id="nobike"  data-bind="visible : !OnInit() && noBikes()">
                             <img src="/images/no_result_m.png">
                         </div>
                     </div>                     
@@ -158,11 +160,27 @@
             <div id="sort-by-container" class="sort-popup-container">
                 <div class="popup-header">Sort</div>
                 <div class="popup-body">
-                    <ul id="sort-by-list" class="margin-bottom25" data-bind="foreach : objSorts">
-                        <li data-bind="attr: { 'data-sortorder': id }, css: $index==1?'active':''">
+                    <ul id="sort-by-list" class="margin-bottom25" >
+                        <li data-sortorder="1">
                             <span class="bwmsprite radio-uncheck"></span>
-                            <span class="sort-list-label" data-bind="text : text"></span>
-                        </li>                        
+                            <span class="sort-list-label" >Most recent</span>
+                        </li>
+                         <li data-sortorder="2">
+                            <span class="bwmsprite radio-uncheck"></span>
+                            <span class="sort-list-label" >Price - Low to High</span>
+                        </li>  
+                         <li data-sortorder="3">
+                            <span class="bwmsprite radio-uncheck"></span>
+                            <span class="sort-list-label" >Price - High to Low</span>
+                        </li>  
+                         <li data-sortorder="4">
+                            <span class="bwmsprite radio-uncheck"></span>
+                            <span class="sort-list-label" >Kms - Low to High</span>
+                        </li> 
+                         <li data-sortorder="4">
+                            <span class="bwmsprite radio-uncheck"></span>
+                            <span class="sort-list-label" >Kms - High to Low</span>
+                        </li>                          
                     </ul>
                     <div class="grid-6 alpha">
                         <p id="cancel-sort-by" class="btn btn-white btn-full-width btn-size-0">Cancel</p>
@@ -207,13 +225,13 @@
                     </div>
                     <div class="margin-bottom35">
                         <p class="filter-option-key leftfloat">Kms ridden</p>
-                        <p  class="font14 text-bold rightfloat" data-bind="text: KmsDriven() + ' Kms'"></p>
+                        <p  class="font14 text-bold rightfloat" data-bind="visible : KmsDriven() > 0">0 - <span data-bind="    CurrencyText: KmsDriven() + ' Kms'"></span></p>
                         <div class="clear"></div>
                         <div  data-bind="KOSlider: KmsDriven, sliderOptions: {range: 'min',value: 80000,min: 5000,max: 80000,step: 5000}"></div>
                     </div>
                     <div class="margin-bottom35">
                         <p class="filter-option-key leftfloat">Bike age</p>
-                        <p  class="font14 text-bold rightfloat" data-bind="text : BikeAge() + ' years'"></p>
+                        <p  class="font14 text-bold rightfloat" data-bind="visible: BikeAge() > 0" >0 - <span data-bind="text: BikeAge() + ' years'"></span></p>
                         <div class="clear"></div>
                         <div id="bike-age-slider" data-bind="KOSlider: BikeAge, sliderOptions: { range: 'min', value: 8, min: 1, max: 8, step: 1 }"></div>
                     </div>
@@ -247,7 +265,7 @@
 
                 <div id="filter-container-footer" class="filter-container-footer">
                     <div class="grid-6">
-                        <p id="reset-filters" class="btn btn-white btn-full-width btn-size-0">Reset</p>
+                        <p id="reset-filters" class="btn btn-white btn-full-width btn-size-0" data-bind="click: function (d, e) { SetDefaultFilters(); IsReset(true);}" >Reset</p>
                     </div>
                     <div class="grid-6">
                         <p id="apply-filters" class="btn btn-orange btn-full-width btn-size-0" data-bind="click: ApplyFilters">Apply filters</p>
@@ -336,10 +354,11 @@
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/used-search-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/used-search.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
-            vwUsedBikes.TotalBikes(<%= totalListing %>);
+                    var OnInitTotalBikes = <%= totalListing %>; 
+                    var selectedCityId = <%= cityId %>; 
         </script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/used-search.js?<%= staticFileVersion %>"></script>
     </form>
 </body>
 </html>
