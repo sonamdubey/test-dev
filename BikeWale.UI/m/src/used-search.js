@@ -3,6 +3,7 @@
 /* budget slider */
 var budgetValue = [0, 10000, 20000, 35000, 50000, 80000, 125000, 200000];
 var bikesList = $("#filter-bike-list");
+var citiesList = $("#filter-city-list li");
 
 //parse query string
 var getQueryString = function () {
@@ -131,12 +132,12 @@ var vmCities = function()
         };
     };
 
-    self.FilterData = function (data, filter) {
-        filterObj = data;
+    self.FilterData = function (filter) {
+        filterObj = citiesList;
         if (filter && filter.length > 0) {
             var pat = new RegExp(filter, "i");
-            filterObj = data.filter(function (place) {
-                if (pat.test(place.name)) return place;
+            citiesList.filter(function (place) {
+                if (pat.test($(this).text())) return place;
             });
 
         }
@@ -162,11 +163,10 @@ var usedBikes = function()
         });
         qs = qs.substr(1);
         window.location.hash = qs;
-        $('#hdnHash').val(qs);
-        return (!self.IsReset()?qs:"reset=1");
+        return qs;
     });
 
-    //self.Cities = ko.observable(new vmCities());
+    self.Cities = ko.observable(new vmCities());
 
     self.OnInit = ko.observable(true);
     self.noBikes = ko.observable(false);
@@ -337,10 +337,9 @@ var usedBikes = function()
         try {
             self.Filters.notifySubscribers();
             var qs = self.QueryString();
-            if (qs!=null && qs!="" && (/[A-z]=[A-z0-9]/g).test(qs)) {
                 $.ajax({
                     type: 'GET',
-                    url: '/api/used/search/?' + qs.replace(/[\+]/g, "%2B"),
+                    url: '/api/used/search/?bikes=1&' + qs.replace(/[\+]/g, "%2B"),
                     dataType: 'json',
                     success: function (response) {                     
                         
@@ -362,7 +361,6 @@ var usedBikes = function()
 
                     }
                 });
-            }
         } catch (e) {
             console.warn("Unable to set fetch used bike records");
         }
@@ -373,6 +371,7 @@ var usedBikes = function()
         self.Filters()["pn"] = pnum;
         self.GetUsedBikes();
         e.preventDefault();
+        $('html, body').scrollTop(0);
         return false;
     };
 

@@ -28,7 +28,7 @@
             <section>
                 <div class="container bg-white clearfix">
                     <h1 class="padding-top15 padding-right20 padding-bottom15 padding-left20 box-shadow"><%= heading %></h1>
-                <div class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20" data-bind="visible: !OnInit() && TotalBikes() > 0">Showing <span class="text-bold"><span data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"></span>-<span data-bind="CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())""></span> of <span class="text-bold" data-bind="CurrencyText: TotalBikes()"></span> bikes</div>
+                <div class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20" style="display:none" data-bind="visible: !OnInit() && TotalBikes() > 0">Showing <span class="text-bold"><span data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"></span>-<span data-bind="CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())""></span> of <span class="text-bold" data-bind="CurrencyText: TotalBikes()"></span> bikes</div>
                 <div data-bind="visible: OnInit()" class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20">Showing <span class="text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-bold"><%=totalListing %></span> bikes</div>
                     <div id="sort-filter-wrapper" class="text-center border-solid-bottom">
                         <div id="sort-floating-btn" class="grid-6 padding-top10 padding-bottom10 border-solid-right cur-pointer">
@@ -37,7 +37,7 @@
                         </div>
                         <div id="filter-floating-btn" class="grid-6 padding-top10 padding-bottom10 cur-pointer">
                             <span class="bwmsprite filter-icon"></span>
-                            <span class="font14 text-bold">Filter</span>
+                            <span class="font14 text-bold" data-bind="click : function(d,e){ QueryString();SetPageFilters();}">Filter</span>
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -90,7 +90,7 @@
                     </ul>
 
 
-                    <ul id="used-bikes-list" data-bind="visible: !OnInit() ,foreach : BikeDetails()">
+                    <ul id="used-bikes-list" style="display:none" data-bind="visible: !OnInit() ,foreach : BikeDetails()">
                         <li>
                             <div class="model-thumbnail-image">
                                 <a data-bind=" attr: { 'href': '/m/used/bikes-in-' + cityMasking + '/' + makeMasking + '-' + modelMasking + '-' + profileId + '/' }" class="model-image-target">
@@ -113,7 +113,7 @@
                                     <span class="bwmsprite model-date-icon"></span>
                                     <span class="model-details-label" data-bind="text: modelYear + ' model'"></span>
                                 </div>
-                                <div class="grid-6 omega margin-bottom5" data-bind="visible: kmsDriven > 0">
+                                <div class="grid-6 alpha omega margin-bottom5" data-bind="visible: kmsDriven > 0">
                                     <span class="bwmsprite kms-driven-icon"></span>
                                     <span class="model-details-label" ><span data-bind="CurrencyText: kmsDriven"></span> kms</span>
                                 </div>
@@ -121,7 +121,7 @@
                                     <span class="bwmsprite author-grey-sm-icon"></span>
                                     <span class="model-details-label"><span data-bind="NumberOrdinal: noOfOwners"></span> Owner</span>
                                 </div>
-                                <div class="grid-6 omega margin-bottom5" data-bind="visible: city!=''">
+                                <div class="grid-6 alpha omega margin-bottom5" data-bind="visible: city!=''">
                                     <span class="bwmsprite model-loc-icon"></span>
                                     <span class="model-details-label" data-bind="text: city"></span>
                                 </div>
@@ -140,7 +140,7 @@
 
                     <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
                         <div class="grid-5 omega text-light-grey" data-bind="visible: TotalBikes() > 0">
-                    <div class="font14 " data-bind="visible: !OnInit() && TotalBikes() > 0"><span class="text-bold" data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"></span>-<span class="text-bold" data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())"></span> of <span class="text-bold" data-bind="    CurrencyText: TotalBikes()"></span> bikes</div>
+                    <div class="font14 " style="display:none" data-bind="visible: !OnInit() && TotalBikes() > 0"><span class="text-bold" data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"></span>-<span class="text-bold" data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())"></span> of <span class="text-bold" data-bind="    CurrencyText: TotalBikes()"></span> bikes</div>
                     <div data-bind="visible: OnInit()" class="font14 "><span class="text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-bold"><%=totalListing %></span>  bikes</div>
                     </div>
                         <div data-bind="visible: OnInit()">
@@ -260,8 +260,8 @@
                     </div>
                     <div id="sellerTypes">
                         <p class="filter-option-key margin-bottom10">Seller type</p>
-                        <div class="filter-type-seller grid-6 unchecked padding-left25" data-sellerid="1">Individual</div>
-                        <div class="filter-type-seller grid-6 unchecked padding-left25" data-sellerid="2">Dealer</div>
+                        <div class="filter-type-seller grid-6 unchecked padding-left25" data-sellerid="2">Individual</div>
+                        <div class="filter-type-seller grid-6 unchecked padding-left25" data-sellerid="1">Dealer</div>
                         <div class="clear"></div>
                     </div>
                 </div>

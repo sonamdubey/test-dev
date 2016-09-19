@@ -44,7 +44,7 @@ namespace Bikewale.BAL.Used.Search
                                                 order by {3} limit {4},{5};
                                             
                                                 select found_rows() as RecordCount;"
-                                            , GetSelectClause(), GetFromClause(), GetWhereClause(), GetOrderByClause(), filterInputs.StartIndex-1, filterInputs.PageSize);
+                                            , GetSelectClause(), GetFromClause(), GetWhereClause(), GetOrderByClause(), filterInputs.StartIndex - 1, filterInputs.PageSize);
             }
             catch (Exception ex)
             {
@@ -68,7 +68,7 @@ namespace Bikewale.BAL.Used.Search
                 // Do not change the sequence
                 ApplyCityFilter();
 
-                ApplyBikeFilter();                
+                ApplyBikeFilter();
 
                 ApplyBudgetFilter();
 
@@ -282,9 +282,9 @@ namespace Bikewale.BAL.Used.Search
 
             try
             {
-                if (filterInputs.SellerTypes != null && filterInputs.SellerTypes.Length > 0 && filterInputs.Owners != null)
+                if (filterInputs.SellerTypes != null && filterInputs.SellerTypes.Length > 0)
                 {
-                    foreach (string str in filterInputs.Owners)
+                    foreach (string str in filterInputs.SellerTypes)
                     {
                         sellers += str + ",";
                     }

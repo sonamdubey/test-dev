@@ -176,7 +176,6 @@ namespace Bikewale.Mobile.Used
                     objFilters.Make = makeId;
                 }
                 objFilters.Model = modelId;
-                objFilters.ST = "1";
                 objFilters.PN = _pageNo;
                 objFilters.PS = _pageSize;
 
