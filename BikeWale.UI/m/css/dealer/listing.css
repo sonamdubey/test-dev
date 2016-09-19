@@ -1,4 +1,25 @@
-﻿.padding-15-20 {
+﻿#listingHeader{
+    background:#313131;
+    color:#fff;
+    width:100%;
+    height:48px;
+    position:fixed;
+    overflow:hidden;
+    z-index:2;
+}
+
+.listing-back-btn {
+    padding:12px 15px;
+    cursor:pointer;
+}
+
+.fa-arrow-back{
+    width:12px;
+    height:20px;
+    background-position:-63px -162px;
+}
+
+.padding-15-20 {
     padding: 15px 20px;
 }
 
@@ -135,9 +156,3 @@
     white-space:nowrap;
     overflow:hidden;
 }
-
-#listingHeader{background:#313131;color:#fff;width:100%;height:48px;position:fixed;overflow:hidden;z-index:2;}
-.listing-back-btn, .listing-filter-btn, #dealersFilterWrapper .filterBackArrow {padding:12px 15px;cursor:pointer;}
-#dealersFilterWrapper .filterTitle { margin-top:10px; }
-.fa-arrow-back{width:12px;height:20px;background-position:-63px -162px;}
-.filter-icon{width: 20px;height: 20px;background-position: -158px -144px;}

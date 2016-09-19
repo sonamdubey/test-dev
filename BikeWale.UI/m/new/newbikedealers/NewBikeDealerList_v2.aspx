@@ -12,7 +12,9 @@
     %>
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/dealer/listing.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .swiper-card,.swiper-slide:first-child{margin-left:5px}#dealersList a:hover,.swiper-card a:hover{text-decoration:none}#listingHeader{background:#313131;color:#fff;width:100%;height:48px;position:fixed;overflow:hidden;z-index:2}.listing-back-btn{padding:12px 15px;cursor:pointer}.fa-arrow-back{width:12px;height:20px;background-position:-63px -162px}.padding-15-20{padding:15px 20px}#dealersList{padding:0 20px 20px}#dealersList li{border-top:1px solid #e2e2e2;padding-top:15px;margin-top:20px;font-size:14px}#dealersList li:first-child{border-top:0;margin-top:0}#dealersList a{display:block}.featured-tag{width:74px;text-align:center;background:#3799a7;margin-bottom:5px;z-index:1;font-size:12px;color:#fff;line-height:20px;-webkit-border-radius:2px;-moz-border-radius:2px;-o-border-radius:2px;border-radius:2px}.vertical-top{display:inline-block;vertical-align:top}.dealership-details{width:92%}.get-assistance-btn.btn{font-size:14px;padding:9px 21px}.dealership-loc-icon{width:10px;height:14px;background-position:-40px -436px;position:relative;top:4px;margin-right:3px}.star-white{width:8px;height:8px;background-position:-174px -447px;margin-right:4px}.tel-sm-grey-icon{width:10px;height:10px;background-position:0 -437px;position:relative;top:5px;margin-right:3px}.card-container{padding-top:5px;padding-bottom:5px}.card-container .swiper-slide{width:200px}.swiper-card{width:200px;min-height:210px;border:1px solid #e2e2e2\9;background:#fff;-webkit-box-shadow:0 1px 4px rgba(0,0,0,.2);-moz-box-shadow:0 1px 4px rgba(0,0,0,.2);-ms-box-shadow:0 1px 4px rgba(0,0,0,.2);box-shadow:0 1px 4px rgba(0,0,0,.2);-webkit-border-radius:2px;-moz-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.swiper-image-preview{height:95px;padding:5px 5px 0}.swiper-image-preview img{height:90px}.btn-card{padding:6px}.text-truncate{width:100%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}
+    </style>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
 
@@ -36,9 +38,6 @@
                 <a href="javascript:history.back()"><span class="bwmsprite fa-arrow-back"></span></a>
             </div>
             <span class="leftfloat margin-top10 font18">Dealer locator</span>
-            <div class="rightfloat listing-filter-btn margin-right5">
-                <span class="bwmsprite filter-icon"></span>
-            </div>
             <div class="clear"></div>
         </header>
 
@@ -179,6 +178,7 @@
                 <div class="padding-top20 padding-bottom20 text-center">
                     <!-- Ad -->
                 </div>
+                <div class="margin-right10 margin-left10 border-solid-bottom"></div>
             </div>
         </section>
 
@@ -192,74 +192,6 @@
                 <div class="clear"></div>
             </div>
         </section>
-
-        <div id="dealersFilterWrapper">
-            <div class="ui-corner-top">
-                <div id="hideDealerFilter" class="filterBackArrow">
-                    <span class="bwmsprite fa-arrow-back"></span>
-                </div>
-                <div class="filterTitle">Locate dealers</div>
-                <div id="dealerFilterReset" class="resetrTitle">Reset</div>
-                <div class="clear"></div>
-            </div>
-            <div class="user-selected-brand-city-container content-inner-block-20" id="divMakeCity">
-                <div id="selectBrand" class="form-control text-left input-sm position-rel margin-bottom20">
-                    <span class="position-abt progress-bar"></span>
-                    <div class="user-selected" data-bind="text: makeName"></div>
-                    <span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span>
-                    <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>                  
-                    <span class="bwsprite error-icon errorIcon hide" ></span>
-                    <div class="bw-blackbg-tooltip errorText hide" ></div>
-                </div>
-                <div id="selectCity" class="form-control text-left input-sm position-rel margin-bottom20">
-                    <span class="position-abt progress-bar"></span>
-                    <div class="user-selected" data-bind="text: cityName"></div>
-                    <span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span>
-                    <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
-                    <span class="bwsprite error-icon errorIcon hide" ></span>
-                    <div class="bw-blackbg-tooltip errorText hide" ></div>
-                </div>
-                <div class="text-center position-rel">
-                    <span class="position-abt progress-bar btn-loader"></span>
-                    <a id="applyDealerFilter" class="btn btn-orange">Apply filter</a>
-                </div>
-            </div>
-            <div id="dealerFilterContent" class="dealers-brand-city-wrapper">
-                <div class="dealers-brand-popup-box bwm-brand-city-box bike-brand-list-container form-control-box text-left">
-                    <div class="user-input-box">
-                        <span class="dealers-back-arrow-box">
-                            <span class="bwmsprite back-long-arrow-left"></span>
-                        </span>
-                        <input class="form-control" type="text" id="dealersBrandInput" autocomplete="on" placeholder="Select a bike" />
-                    </div>
-                    <ul id="filterBrandList" class="filter-brand-city-ul margin-top40" data-filter-type="brand-filter">
-                        <asp:Repeater ID="rptMakes" runat="server">
-                            <ItemTemplate>
-                                <li maskingName="<%# DataBinder.Eval(Container.DataItem,"MaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"MakeId") %>"><%# DataBinder.Eval(Container.DataItem,"MakeName") %></li>                                 
-                             </ItemTemplate>
-                        </asp:Repeater>                      
-                    </ul>                    
-                    <span class="bwsprite error-icon errorIcon hide" ></span>
-                    <div class="bw-blackbg-tooltip errorText hide" ></div>
-                </div>
-
-                <div class="dealers-city-popup-box bwm-brand-city-box bike-city-list-container form-control-box text-left">
-                    <div class="user-input-box">
-                        <span class="dealers-back-arrow-box">
-                            <span class="bwmsprite back-long-arrow-left"></span>
-                        </span>
-                        <input class="form-control" type="text" id="dealersCityInput" autocomplete="on" placeholder="Select city" />
-                    </div>
-                    <ul id="filterCityList" class="filter-brand-city-ul margin-top40" data-filter-type="city-filter">
-                         <asp:Repeater ID="rptCities" runat="server">
-                            <ItemTemplate>
-                                <li maskingName="<%# DataBinder.Eval(Container.DataItem,"CityMaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"CityId") %>"><%# DataBinder.Eval(Container.DataItem,"CityName") %></li>                                
-                            </ItemTemplate>
-                        </asp:Repeater>                         
-                    </ul>                    
-                </div>
-            </div>
-        </div>
 
         <!-- Lead Capture pop up start  -->
         <div id="leadCapturePopup" class="bw-popup bwm-fullscreen-popup contact-details hide">
