@@ -47,6 +47,12 @@ namespace Bikewale.Used
         {
             // Modified By :Lucky Rathore on 12 July 2016.
             Form.Action = Request.RawUrl;
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
+
+            DeviceDetection dd = new DeviceDetection(originalUrl);
+            dd.DetectDevice();
             //Get pageNumber to form next and prvious page urls
             if (Request["pn"] != null && Request.QueryString["pn"] != "")
             {

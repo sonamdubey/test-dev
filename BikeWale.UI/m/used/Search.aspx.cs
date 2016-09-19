@@ -37,7 +37,7 @@ namespace Bikewale.Mobile.Used
         protected LinkPagerControl ctrlPager;
         protected Repeater rptUsedListings;
         protected uint cityId;
-        protected string makeId, modelId;
+        protected string makeId, modelId = string.Empty;
         protected string makemasking = string.Empty, citymasking = string.Empty, modelmasking = string.Empty, pageno = string.Empty;
         protected string pageTitle = string.Empty, pageDescription = string.Empty, modelName = string.Empty, makeName = string.Empty, pageKeywords = string.Empty, cityName = "India", pageCanonical = string.Empty
                   , heading = string.Empty, nextUrl = string.Empty, prevUrl = string.Empty;
@@ -165,12 +165,18 @@ namespace Bikewale.Mobile.Used
             try
             {
                 InputFilters objFilters = new InputFilters();
-                CheckHashUrlParams(objFilters);
+                //CheckHashUrlParams(objFilters);
 
                 // If inputs are set by hash, hash overrides the query string parameters
                 objFilters.City = cityId;
-                objFilters.Make = makeId;
+
+                // Don't pass the make ids when modelid is fetched through Query string 
+                if (modelId == string.Empty)
+                {
+                    objFilters.Make = makeId;
+                }
                 objFilters.Model = modelId;
+                objFilters.ST = "1";
                 objFilters.PN = _pageNo;
                 objFilters.PS = _pageSize;
 
@@ -354,7 +360,7 @@ namespace Bikewale.Mobile.Used
                     bikeName = string.Format("{0} ", bikeName);
                 heading = string.Format("Used {0}Bikes in {1}", bikeName, strCity);
                 pageTitle = string.Format("Used {0}Bikes in {1} - Verified Bike Listing For Sale | BikeWale", bikeName, strCity);
-                pageCanonical = CreateCanonical(Request.RawUrl);
+                pageCanonical = string.Format("http://www.bikewale.com/{0}", Request.RawUrl.Replace("/m/", string.Empty));
 
                 // Make models specific
                 if (strModel.Length > 0)
@@ -380,25 +386,7 @@ namespace Bikewale.Mobile.Used
             }
         }
 
-        public string CreateCanonical(string rawUrl)
-        {
-            string returl = rawUrl;
-            try
-            {
-                // Check if raw url already has page and if not, add page-1 for making cononical url
-                if (rawUrl.Contains("/page-"))
-                {
-                    returl = RemoveTrailingPage(rawUrl);
-                }
-                returl = string.Format("http://www.bikewale.com/{0}page-1/", returl.Replace("/m/", string.Empty));
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : CreateCanonical");
-                objErr.SendMail();
-            }
-            return returl;
-        }
+
 
         public string RemoveTrailingPage(string rawUrl)
         {

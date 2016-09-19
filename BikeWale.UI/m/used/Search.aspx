@@ -9,8 +9,8 @@
             canonical = pageCanonical;
             keywords = pageKeywords;
             EnableOG = true;
-            relPrevPageUrl = prevUrl.Replace("/m/", string.Empty);
-            relNextPageUrl = nextUrl.Replace("/m/", string.Empty);
+            relPrevPageUrl = prevUrl.Replace("/m/", "/");
+            relNextPageUrl = nextUrl.Replace("/m/", "/");
             Ad_320x50 = true;
             Ad_Bot_320x50 = true;
         %>
@@ -28,9 +28,8 @@
             <section>
                 <div class="container bg-white clearfix">
                     <h1 class="padding-top15 padding-right20 padding-bottom15 padding-left20 box-shadow"><%= heading %></h1>
-                
-                <div class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20" data-bind="visible: TotalBikes() > 0">Showing <span class="text-bold"><span data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"></span>-<span data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())""></span> of <span class="text-bold" data-bind="    CurrencyText: TotalBikes()"></span> bikes</div>
-
+                <div class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20" data-bind="visible: !OnInit() && TotalBikes() > 0">Showing <span class="text-bold"><span data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"></span>-<span data-bind="CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())""></span> of <span class="text-bold" data-bind="CurrencyText: TotalBikes()"></span> bikes</div>
+                <div data-bind="visible: OnInit()" class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20">Showing <span class="text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-bold"><%=totalListing %></span> bikes</div>
                     <div id="sort-filter-wrapper" class="text-center border-solid-bottom">
                         <div id="sort-floating-btn" class="grid-6 padding-top10 padding-bottom10 border-solid-right cur-pointer">
                             <span class="bwmsprite sort-by-icon"></span>
@@ -139,13 +138,18 @@
 
                     <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
                         <div class="grid-5 omega text-light-grey" data-bind="visible: TotalBikes() > 0">
-                    <div class="font14 " data-bind="visible: TotalBikes() > 0"><span class="text-bold" data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"></span>-<span class="text-bold" data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())"></span> of <span class="text-bold" data-bind="CurrencyText: TotalBikes()"></span> bikes</div>
+                    <div class="font14 " data-bind="visible: !OnInit() && TotalBikes() > 0"><span class="text-bold" data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"></span>-<span class="text-bold" data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())"></span> of <span class="text-bold" data-bind="    CurrencyText: TotalBikes()"></span> bikes</div>
+                    <div data-bind="visible: OnInit()" class="font14 "><span class="text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-bold"><%=totalListing %></span>  bikes</div>
                     </div>
-                <%--<BikeWale:Pager ID="ctrlPager" runat="server" />--%>
-                     <div class="grid-7 alpha omega position-rel">
-                                <ul id="pagination-list" data-bind="html : PagesListHtml"></ul>
-                        <span class="pagination-control-prev  " data-bind="html: PrevPageHtml, css: Pagination().hasPrevious() ? 'active' : 'inactive' "></span>
-                        <span class="pagination-control-next " data-bind="html: NextPageHtml,css: Pagination().hasNext()?'active':'inactive'"></span>
+                        <div data-bind="visible: OnInit()">
+                            <BikeWale:Pager ID="ctrlPager" runat="server" />
+                        </div>
+                    <div data-bind="visible: !OnInit()">
+                        <div class="grid-7 alpha omega position-rel">
+                            <ul id="pagination-list" data-bind="html: PagesListHtml"></ul>
+                            <span class="pagination-control-prev  " data-bind="html: PrevPageHtml, css: Pagination().hasPrevious() ? 'active' : 'inactive' "></span>
+                            <span class="pagination-control-next " data-bind="html: NextPageHtml, css: Pagination().hasNext() ? 'active' : 'inactive'"></span>
+                        </div>
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -330,7 +334,7 @@
             </div>
             <!-- filter popup end -->
             </div>
-        </div>
+        </div> 
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->

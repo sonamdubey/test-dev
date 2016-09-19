@@ -282,7 +282,7 @@ namespace Bikewale.BAL.Used.Search
 
             try
             {
-                if (filterInputs.SellerTypes != null && filterInputs.SellerTypes.Length > 0)
+                if (filterInputs.SellerTypes != null && filterInputs.SellerTypes.Length > 0 && filterInputs.Owners != null)
                 {
                     foreach (string str in filterInputs.Owners)
                     {
