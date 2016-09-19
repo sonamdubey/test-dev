@@ -291,9 +291,9 @@ namespace Bikewale.BAL.Used.Search
 
             try
             {
-                if (filterInputs.SellerTypes != null && filterInputs.SellerTypes.Length > 0 && filterInputs.Owners != null)
+                if (filterInputs.SellerTypes != null && filterInputs.SellerTypes.Length > 0)
                 {
-                    foreach (string str in filterInputs.Owners)
+                    foreach (string str in filterInputs.SellerTypes)
                     {
                         sellers += str + ",";
                     }
