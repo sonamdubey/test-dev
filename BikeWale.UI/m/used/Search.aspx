@@ -29,7 +29,9 @@
                 <div class="container bg-white clearfix">
                     <h1 class="padding-top15 padding-right20 padding-bottom15 padding-left20 box-shadow"><%= heading %></h1>
                 <div class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20" data-bind="visible: !OnInit() && TotalBikes() > 0">Showing <span class="text-bold"><span data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"></span>-<span data-bind="CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())""></span> of <span class="text-bold" data-bind="CurrencyText: TotalBikes()"></span> bikes</div>
-                <div data-bind="visible: OnInit()" class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20">Showing <span class="text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-bold"><%= Bikewale.Utility.Format.FormatPrice(strTotal) %></span> bikes</div>
+                <% if(totalListing > 0){ %>
+                    <div data-bind="visible: OnInit()" class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20">Showing <span class="text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-bold"><%= Bikewale.Utility.Format.FormatPrice(strTotal) %></span> bikes</div>
+                    <% } %>
                     <div id="sort-filter-wrapper" class="text-center border-solid-bottom">
                         <div id="sort-floating-btn" class="grid-6 padding-top10 padding-bottom10 border-solid-right cur-pointer">
                             <span class="bwmsprite sort-by-icon"></span>
@@ -125,20 +127,23 @@
                                     <span class="model-details-label" data-bind="text: city"></span>
                                 </div>
                                 <div class="clear"></div>
-                                <p class="margin-bottom15" data-bind="visible: askingPrice > 0" ><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold" data-bind="CurrencyText:askingPrice"></span></p>
+                                <p class="margin-bottom15" data-bind="visible : askingPrice == 0" ><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold" >N/A</span></p>
+                                <p class="margin-bottom15" data-bind="visible : askingPrice > 0" ><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold" data-bind="    CurrencyText:askingPrice"></span></p>
                                 <%--<a href="javascript:void(0)" class="btn btn-orange seller-details-btn" rel="nofollow">Get seller details</a>--%>
                             </div>
                         </li>
                     </ul>
                     <div style="text-align: center;">
-                        <div id="nobike"  data-bind="visible : !OnInit() && noBikes()">
+                        <div id="nobike"  data-bind="visible : !OnInit() || noBikes()">
                             <img src="/images/no_result_m.png">
                         </div>
                     </div>                     
                     <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
                         <div class="grid-5 omega text-light-grey" data-bind="visible: TotalBikes() > 0">
                     <div class="font14 " data-bind="visible: !OnInit() && TotalBikes() > 0"><span class="text-bold" data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"></span>-<span class="text-bold" data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())"></span> of <span class="text-bold" data-bind="    CurrencyText: TotalBikes()"></span> bikes</div>
-                    <div data-bind="visible: OnInit()" class="font14 "><span class="text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-bold"><%=Bikewale.Utility.Format.FormatPrice(strTotal) %></span>  bikes</div>
+                    <% if(totalListing >0){ %>
+                            <div data-bind="visible: OnInit()" class="font14 "><span class="text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-bold"><%=Bikewale.Utility.Format.FormatPrice(strTotal) %></span>  bikes</div>
+                            <% } %>
                     </div>
                         <div data-bind="visible: OnInit()">
                             <BikeWale:Pager ID="ctrlPager" runat="server" />

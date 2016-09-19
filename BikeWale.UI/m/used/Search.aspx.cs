@@ -4,6 +4,7 @@ using Bikewale.BAL.Used.Search;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
+using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Location;
 using Bikewale.DAL.Used.Search;
@@ -18,11 +19,11 @@ using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.Used.Search;
 using Bikewale.Memcache;
 using Bikewale.Mobile.Controls;
-using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Used
@@ -37,10 +38,11 @@ namespace Bikewale.Mobile.Used
         protected LinkPagerControl ctrlPager;
         protected Repeater rptUsedListings;
         protected uint cityId;
+        bool redirectPermanent, redirectToPageNotFound;
         protected string makeId, modelId = string.Empty;
         protected string makemasking = string.Empty, citymasking = string.Empty, strTotal = string.Empty;// modelmasking = string.Empty, pageno = string.Empty;
         protected string pageTitle = string.Empty, pageDescription = string.Empty, modelName = string.Empty, makeName = string.Empty, pageKeywords = string.Empty, cityName = "India", pageCanonical = string.Empty
-                  , heading = string.Empty, nextUrl = string.Empty, prevUrl = string.Empty;
+                  , heading = string.Empty, nextUrl = string.Empty, prevUrl = string.Empty, redirectUrl = string.Empty;
         private const int _pageSize = 20;
         private int _pageNo = 1;
         protected int _startIndex = 0, _endIndex = 0, totalListing;
@@ -59,7 +61,7 @@ namespace Bikewale.Mobile.Used
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            ParseQueryString();
+            ProcessQueryString();
             GetAllCities();
             GetAllMakeModels();
             if (BindSearchPageData())
@@ -147,7 +149,7 @@ namespace Bikewale.Mobile.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : CreateMetas");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + " : CreateMetas");
                 objErr.SendMail();
             }
         }
@@ -195,94 +197,230 @@ namespace Bikewale.Mobile.Used
                         strTotal = totalListing.ToString();
                         rptUsedListings.DataSource = objResult.Result;
                         rptUsedListings.DataBind();
-                        return true;
+                        //return true;
                     }
-                    else
-                    {
-                        Response.Redirect("/pagenotfound.aspx", false);
-                        return false;
-                    }
+                    //else
+                    //{
+                    //    Response.Redirect("/pagenotfound.aspx", false);
+                    //    return false;
+                    //}
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : CreateMetas");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + " : CreateMetas");
                 objErr.SendMail();
-                return false;
             }
+            return true;
         } // End of BindSearchPageData
 
         /// <summary>
         /// Parse query string and set variables
         /// </summary>
-        public void ParseQueryString()
+        //public void ParseQueryString()
+        //{
+        //    try
+        //    {
+        //        ModelMaskingResponse objResponse = null;
+        //        CityMaskingResponse objCityResponse = null;
+        //        using (IUnityContainer container = new UnityContainer())
+        //        {
+        //            container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
+        //                     .RegisterType<ICacheManager, MemcacheManager>()
+        //                     .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+        //                     .RegisterType<ICityCacheRepository, CityCacheRepository>()
+        //                     .RegisterType<ICityMaskingCacheRepository, CityMaskingCache>()
+        //                     .RegisterType<ICity, CityRepository>()
+        //                     .RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+        //                     .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+        //                     .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
+
+        //            if (!string.IsNullOrEmpty(Request.QueryString["city"]))
+        //            {
+        //                citymasking = Request.QueryString["city"];
+        //                var objCache = container.Resolve<ICityMaskingCacheRepository>();
+        //                objCityResponse = objCache.GetCityMaskingResponse(citymasking);
+
+        //                //IEnumerable<CityEntityBase> GetCityDetails = objCache.GetAllCities(EnumBikeType.All);
+        //                //CityEntityBase cityBase = (from c in GetCityDetails
+        //                //                           where c.CityMaskingName == citymasking
+        //                //                           select c).FirstOrDefault();
+        //                //if (cityBase != null)
+        //                //{
+        //                //    cityName = cityBase.CityName;
+        //                //    cityId = cityBase.CityId;
+        //                //}
+        //            }
+
+        //            if (!string.IsNullOrEmpty(Request.QueryString["make"]))
+        //            {
+        //                makemasking = Request.QueryString["make"];
+        //                var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+        //                uint mkId = Convert.ToUInt16(MakeMapping.GetMakeId(Request.QueryString["make"]));
+        //                makeId = mkId.ToString();
+        //                BikeMakeEntityBase makeDetails = objCache.GetMakeDetails(mkId);
+        //                if (makeDetails != null)
+        //                {
+        //                    makeName = makeDetails.MakeName;
+        //                }
+
+        //            }
+
+        //            if (!string.IsNullOrEmpty(Request.QueryString["model"]))
+        //            {
+        //                var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
+        //                objResponse = objCache.GetModelMaskingResponse(Request.QueryString["model"]);
+        //                if (objResponse != null)
+        //                {
+        //                    modelId = objResponse.ModelId.ToString();
+        //                    var objCachenew = container.Resolve<IBikeModels<BikeModelEntity, int>>();
+        //                    BikeModelEntity modelEntity = objCachenew.GetById(Convert.ToInt32(modelId));
+        //                    modelName = modelEntity.ModelName;
+        //                }
+        //            }
+        //            if (!String.IsNullOrEmpty(Request.QueryString["pn"]))
+        //            {
+        //                int result;
+        //                int.TryParse(Request.QueryString["pn"], out result);
+        //                _pageNo = result;
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + " : ParseQueryString");
+        //        objErr.SendMail();
+        //    }
+        //    finally
+        //    {
+
+        //    }
+        //}
+
+        private void ProcessQueryString()
         {
+            ModelMaskingResponse objModelResponse = null;
+            CityMaskingResponse objCityResponse = null;
+            string model = string.Empty, city = string.Empty, _make = string.Empty;
+            IUnityContainer container = null;
+            using (container = new UnityContainer())
+            {
+                container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
+                                          .RegisterType<ICacheManager, MemcacheManager>()
+                                          .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                                          .RegisterType<ICityCacheRepository, CityCacheRepository>()
+                                          .RegisterType<ICityMaskingCacheRepository, CityMaskingCache>()
+                                          .RegisterType<ICity, CityRepository>()
+                                          .RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                                          .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                                          .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
+            }
             try
             {
-                ModelMaskingResponse objResponse = null;
-                using (IUnityContainer container = new UnityContainer())
+                city = Request.QueryString["city"];
+                if (!string.IsNullOrEmpty(city))
                 {
-                    container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
-                             .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                             .RegisterType<ICityCacheRepository, CityCacheRepository>()
-                             .RegisterType<ICity, CityRepository>()
-                             .RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
-                             .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
-                             .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
+                    var objCache = container.Resolve<ICityMaskingCacheRepository>();
+                    objCityResponse = objCache.GetCityMaskingResponse(city);
+                }
 
-                    if (!string.IsNullOrEmpty(Request.QueryString["city"]))
+                if (!string.IsNullOrEmpty(Request.QueryString["make"]))
+                {
+                    string makeMaskingName = Request.QueryString["make"];
+                    makeId = MakeMapping.GetMakeId(makeMaskingName);
+                    //verify the id as passed in the url
+                    if (CommonOpn.CheckId(makeId) == false)
                     {
-                        citymasking = Request.QueryString["city"];
-                        var objCache = container.Resolve<ICityCacheRepository>();
-                        IEnumerable<CityEntityBase> GetCityDetails = objCache.GetAllCities(EnumBikeType.All);
-                        CityEntityBase cityBase = (from c in GetCityDetails
-                                                   where c.CityMaskingName == citymasking
-                                                   select c).FirstOrDefault();
-                        if (cityBase != null)
-                        {
-                            cityName = cityBase.CityName;
-                            cityId = cityBase.CityId;
-                        }
+                        redirectToPageNotFound = true;
                     }
-
-                    if (!string.IsNullOrEmpty(Request.QueryString["make"]))
+                    else
                     {
-                        makemasking = Request.QueryString["make"];
                         var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
-                        uint mkId = Convert.ToUInt16(MakeMapping.GetMakeId(Request.QueryString["make"]));
-                        makeId = mkId.ToString();
-                        var makeDetails = objCache.GetMakeDetails(mkId);
+                        BikeMakeEntityBase makeDetails = objCache.GetMakeDetails(Convert.ToUInt16(makeId));
                         if (makeDetails != null)
                         {
                             makeName = makeDetails.MakeName;
                         }
                     }
-
-                    if (!string.IsNullOrEmpty(Request.QueryString["model"]))
-                    {
-                        var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-                        objResponse = objCache.GetModelMaskingResponse(Request.QueryString["model"]);
-                        if (objResponse != null)
-                        {
-                            modelId = objResponse.ModelId.ToString();
-                            var objCachenew = container.Resolve<IBikeModels<BikeModelEntity, int>>();
-                            BikeModelEntity modelEntity = objCachenew.GetById(Convert.ToInt32(modelId));
-                            modelName = modelEntity.ModelName;
-                        }
-                    }
-                    if (!String.IsNullOrEmpty(Request.QueryString["pn"]))
-                    {
-                        int result;
-                        int.TryParse(Request.QueryString["pn"], out result);
-                        _pageNo = result;
-                    }
                 }
+
+                model = Request.QueryString["model"];
+                if (!string.IsNullOrEmpty(model))
+                {
+                    var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
+                    objModelResponse = objCache.GetModelMaskingResponse(model);
+                }
+
+                if (!String.IsNullOrEmpty(Request.QueryString["pn"]))
+                {
+                    int result;
+                    int.TryParse(Request.QueryString["pn"], out result);
+                    _pageNo = result;
+                }
+
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : ParseQueryString");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
                 objErr.SendMail();
+
+                Response.Redirect("/customerror.aspx", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
+            }
+            finally
+            {
+                if (objCityResponse != null)
+                {
+                    var objCache = container.Resolve<ICityMaskingCacheRepository>();
+                    IEnumerable<CityEntityBase> GetCityDetails = GetAllCities();
+                    CityEntityBase cityBase = (from c in GetCityDetails
+                                               where c.CityMaskingName == city
+                                               select c).FirstOrDefault();
+                    if (cityBase != null)
+                    {
+                        cityName = cityBase.CityName;
+                    }
+                    // Get cityId
+                    // Code to check whether masking name is changed or not. If changed redirect to appropriate url
+                    if (objCityResponse.StatusCode == 200)
+                    {
+                        cityId = objCityResponse.CityId;
+                    }
+                    else if (objCityResponse.StatusCode == 301)
+                    {
+                        //redirect permanent to new page                         
+                        redirectUrl = Request.RawUrl.Replace(city, objCityResponse.MaskingName);
+                        redirectPermanent = true;
+                    }
+                    else
+                    {
+                        redirectToPageNotFound = true;
+                    }
+                }
+                if (objModelResponse != null)
+                {
+                    // Get ModelId
+                    // Code to check whether masking name is changed or not. If changed redirect to appropriate url
+                    if (objModelResponse.StatusCode == 200)
+                    {
+                        modelId = objModelResponse.ModelId.ToString();
+                    }
+                    else if (objModelResponse.StatusCode == 301)
+                    {
+                        //redirect permanent to new page                         
+                        redirectUrl = Request.RawUrl.Replace(model, objModelResponse.MaskingName);
+                        redirectPermanent = true;
+                    }
+                    else
+                    {
+                        redirectToPageNotFound = true;
+                    }
+                }
+                //else
+                //{
+                //    redirectToPageNotFound = true;
+                //}
             }
         }
 
@@ -309,7 +447,7 @@ namespace Bikewale.Mobile.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : GetAllCities");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + " : GetAllCities");
                 objErr.SendMail();
             }
             return cities;
@@ -338,7 +476,7 @@ namespace Bikewale.Mobile.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : GetAllMakeModels");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + " : GetAllMakeModels");
                 objErr.SendMail();
             }
             return makeModels;
@@ -383,7 +521,7 @@ namespace Bikewale.Mobile.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : CreateMetas");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + " : CreateMetas");
                 objErr.SendMail();
             }
         }
@@ -468,7 +606,7 @@ namespace Bikewale.Mobile.Used
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
         }

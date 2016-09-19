@@ -44,7 +44,7 @@ namespace Bikewale.BAL.Used.Search
                                                 order by {3} limit {4},{5};
                                             
                                                 select found_rows() as RecordCount;"
-                                            , GetSelectClause(), GetFromClause(), GetWhereClause(), GetOrderByClause(), filterInputs.StartIndex-1, filterInputs.PageSize);
+                                            , GetSelectClause(), GetFromClause(), GetWhereClause(), GetOrderByClause(), filterInputs.StartIndex - 1, filterInputs.PageSize);
             }
             catch (Exception ex)
             {
@@ -68,7 +68,7 @@ namespace Bikewale.BAL.Used.Search
                 // Do not change the sequence
                 ApplyCityFilter();
 
-                ApplyBikeFilter();                
+                ApplyBikeFilter();
 
                 ApplyBudgetFilter();
 
@@ -199,7 +199,16 @@ namespace Bikewale.BAL.Used.Search
                 if (!String.IsNullOrEmpty(filterInputs.MaxBudget) && !String.IsNullOrEmpty(filterInputs.MaxBudget))
                 {
                     if (filterInputs.MaxBudget == "0")
-                        whereClause += string.Format(" and ll.price > {0} ", filterInputs.MinBudget);
+                    {
+                        if (filterInputs.MaxBudget != "0")
+                        {
+                            whereClause += string.Format(" and ll.price > {0} ", filterInputs.MinBudget);
+                        }
+                        else
+                        {
+                            whereClause += string.Format(" and ll.price between {0} and {1} ", filterInputs.MinBudget, filterInputs.MaxBudget);
+                        }
+                    }
                     else
                         whereClause += string.Format(" and ll.price between {0} and {1} ", filterInputs.MinBudget, filterInputs.MaxBudget);
                 }

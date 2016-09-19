@@ -137,7 +137,7 @@ namespace Bikewale.BAL.Used.Search
                     
                 if (!String.IsNullOrEmpty(objFilters.Make))
                     apiUrlstr += "&make=" + objFilters.Make.Replace(" ", "+");
-                if (!String.IsNullOrEmpty(objFilters.Make))
+                if (!String.IsNullOrEmpty(objFilters.Model))
                     apiUrlstr += "&model=" + objFilters.Model.Replace(" ", "+");
                  if (!String.IsNullOrEmpty(objFilters.Budget))
                     apiUrlstr += "&budget=" + objFilters.Budget.Replace(" ", "+");
