@@ -287,7 +287,7 @@
                                             <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._360x202) %>" alt="<%= bikeName %>" title="<%= bikeName %>" />
                                             <span class="swiper-lazy-preloader"></span>
                                         </div>
-                                        Request the seller to upload photos of this bike
+                                        
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </div>
