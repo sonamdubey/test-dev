@@ -2,6 +2,7 @@
 using Bikewale.Interfaces.Used.Search;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Used;
+using Bikewale.Service.Utilities;
 using System;
 using System.Linq;
 using System.Web.Http;
@@ -13,7 +14,7 @@ namespace Bikewale.Service.Controllers.Used
     /// Created by : Ashish G. Kamble on 11 Sept 2016
     /// Summary : Controller to get the used bikes search result
     /// </summary>
-    public class UsedBikesSearchController : ApiController
+    public class UsedBikesSearchController : CompressionApiController
     {
         private readonly ISearchFilters _searchFilters = null;
         private readonly ISearchQuery _searchQuery = null;
