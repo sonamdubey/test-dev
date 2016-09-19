@@ -118,24 +118,42 @@ ko.bindingHandlers.KOSlider = {
     }
 };
 
-function formatPrice(price) {
-    if (price != null)
-    {
-        price = price.toString();
-        var lastThree = price.substring(price.length - 3);
-        var otherNumbers = price.substring(0, price.length - 3);
-        if (otherNumbers != '')
-            lastThree = ',' + lastThree;
-        var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
-    }
-    
-    return price;
+var vmCities = function()
+{
+    var self = this;
+    self.SelectedCity = ko.observable({ "id": 0, "name": "All India" });
+
+    self.FilterCity = function (d, e) {
+        var ele = $(e.target);
+        if (!ele.hasClass("active")) {
+            ele.addClass("active").siblings().removeClass("active");
+            self.SelectedCity({ "id": ele.attr("data-cityid"), "name": ele.text() });
+        };
+    };
+
+    self.FilterData = function (data, filter) {
+        filterObj = data;
+        if (filter && filter.length > 0) {
+            var pat = new RegExp(filter, "i");
+            filterObj = data.filter(function (place) {
+                if (pat.test(place.name)) return place;
+            });
+
+        }
+        return filterObj;
+    };
+
+    //self.visibleCities = ko.computed(function () {
+    //    return self.FilterData(self.BookingCities(), self.cityFilter());
+    //});
 }
+
 
 var usedBikes = function()
 {
     var self = this;
     self.Filters = ko.observable(getQueryString());
+    self.IsReset = ko.observable(false);
     self.QueryString = ko.computed(function () {
         var qs = "";
         $.each(self.Filters(), function (i, val) {
@@ -145,11 +163,14 @@ var usedBikes = function()
         qs = qs.substr(1);
         window.location.hash = qs;
         $('#hdnHash').val(qs);
-        return qs;
-    });     
+        return (!self.IsReset()?qs:"reset=1");
+    });
+
+    //self.Cities = ko.observable(new vmCities());
+
     self.OnInit = ko.observable(true);
     self.noBikes = ko.observable(false);
-    self.TotalBikes = ko.observable();
+    self.TotalBikes = ko.observable(OnInitTotalBikes);
     self.BikeDetails = ko.observableArray();
     self.PageUrl = ko.observable();
     self.CurPageNo = ko.observable();
@@ -245,15 +266,9 @@ var usedBikes = function()
         }
     };
     self.ResetFilters = function () {
-        self.Filters()["city"] = "";
-        self.Filters()["kms"] = "";
-        self.Filters()["age"] = "";
-        self.Filters()["budget"] = "";
-        self.Filters()["owner"] = "";
-        self.Filters()["st"] = "";
-        self.Filters()["make"] = "";
-        self.Filters()["model"] = "";
-        self.Filters()["pn"] = "";
+        var so = self.Filters()["so"];
+        self.Filters(new Object());
+        self.Filters()["so"] = so;
     };
 
     self.SetDefaultFilters = function () {
@@ -266,19 +281,17 @@ var usedBikes = function()
             self.ApplyPagination();
             $("#previous-owners-list li").removeClass("active");
             $("#sellerTypes .filter-type-seller").removeClass("checked");
-            $("sort-by-list li").first().addClass("active");
+            $("#sort-by-list li").first().addClass("active");
             $('#filter-type-bike').find('.selected-filters').text('All Bikes');
         } catch (e) {
             console.warn("Unable to set default records");
         }
     };
 
-    self.objSorts = ko.observableArray([{ id: 1, text: "Most recent" }, { id: 2, text: "Price - Low to High" }, { id: 3, text: "Price - High to Low" }, { id: 4, text: "Kms - Low to High" }, { id: 5, text: "Kms - High to Low" }]);
-    
     self.applySort = function (d, e) {
         var so = $("#sort-by-list li.active").attr("data-sortorder");
         self.Filters()["so"] = so;
-        self.ResetFilters();
+        self.Filters()["pn"] = "";
         self.GetUsedBikes();
     };
 
@@ -324,29 +337,32 @@ var usedBikes = function()
         try {
             self.Filters.notifySubscribers();
             var qs = self.QueryString();
-            $.ajax({
-                type: 'GET',
-                url: '/api/used/search/?' + qs.replace(/[\+]+/g, "%2B"),
-                dataType: 'json',
-                success: function (response) {
-                    window.location.hash = qs;
-                    self.OnInit(false);
-                    self.TotalBikes(response.totalCount);
-                    self.CurPageNo(response.currentPageNo);
-                    self.BikeDetails(ko.toJS(response.result));
-                    if (!self.TotalBikes()) self.noBikes(true);
-                },
-                complete: function (xhr) {
-                    if (xhr && xhr.status != 200) {
-                        self.noBikes(true);
-                        self.TotalBikes(0);
-                        self.CurPageNo(0);
+            if (qs!=null && qs!="" && (/[A-z]=[A-z0-9]/g).test(qs)) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/used/search/?' + qs.replace(/[\+]/g, "%2B"),
+                    dataType: 'json',
+                    success: function (response) {                     
+                        
+                        self.TotalBikes(response.totalCount);
+                        self.CurPageNo(response.currentPageNo);
+                        self.BikeDetails(ko.toJS(response.result));
+                        window.location.hash = qs;
+                    },
+                    complete: function (xhr) {
+                        if (xhr && xhr.status != 200) {
+                            self.noBikes(true);
+                            self.TotalBikes(0);
+                            self.CurPageNo(1);
+                        }
+                        if (self.TotalBikes() > 0) self.noBikes(false); else self.noBikes(true);
+                        self.OnInit(false);
+                        self.IsReset(false);
+                        self.ApplyPagination();
+
                     }
-
-                    self.ApplyPagination();
-
-                }
-            });
+                });
+            }
         } catch (e) {
             console.warn("Unable to set fetch used bike records");
         }
@@ -378,7 +394,7 @@ var usedBikes = function()
             }
 
             if (self.Filters()["age"]) {
-                self.BikeAge(self.Filters()["age"]);
+                self.BikeAge(parseInt(self.Filters()["age"],10));
             }
             if (self.Filters()["pn"]) {
                 self.CurPageNo(self.Filters()["pn"]);
@@ -398,11 +414,22 @@ var usedBikes = function()
                 });
             }
 
+            if (self.Filters()["budget"]) {
+                var arr = self.Filters()["budget"].split("+");
+               
+                if (arr.length > 0)
+                {
+                    self.BudgetValues([$.inArray(parseInt(arr[0], 10), budgetValue), 7]);
+                    if (arr.length > 1) self.BudgetValues([$.inArray(parseInt(arr[0], 10), budgetValue), $.inArray(parseInt(arr[1], 10), budgetValue)]);
+                }
+                    
+            }
+
             if (self.Filters()["model"]) {
                 var arr = self.Filters()["model"].split("+");
                 $.each(arr, function (i, val) {
                     var ele = bikesList.find("ul.bike-model-list span[data-modelid=" + val + "]");
-                    ele.parents("ul.bike-model-list li").addClass("active");
+                    ele.closest("ul.bike-model-list li").addClass("active");
                 });
             }
 
@@ -410,11 +437,11 @@ var usedBikes = function()
                 var arr = self.Filters()["make"].split("+");
                 $.each(arr, function (i, val) {
                     var ele = bikesList.find("span[data-makeid=" + val + "]");
-                    ele.parents("div.accordion-tab").addClass("tab-checked");
-                    ele.parent().click();
+                    ele.closest(".accordion-tab").trigger("click");
+                    ele.closest(".accordion-checkbox").trigger("click");
                 });
             }
-
+            $('#set-bikes-filter').trigger('click');
             if (window.location.hash && window.location.hash != "") self.GetUsedBikes();
         } catch (e) {
             console.warn("Unable to set page filters");
@@ -436,11 +463,25 @@ var objFilters = vwUsedBikes.Filters();
 $(function () {
     vwUsedBikes.SetDefaultFilters();
     vwUsedBikes.SetPageFilters();
+    if (selectedCityId)
+        $("#filter-city-list li[data-cityid=" + selectedCityId + "]").click();
     //GetUsedBikes();
 });
 
 
-
+function formatPrice(price) {
+    if (price != null)
+    {
+        price = price.toString();
+        var lastThree = price.substring(price.length - 3);
+        var otherNumbers = price.substring(0, price.length - 3);
+        if (otherNumbers != '')
+            lastThree = ',' + lastThree;
+        var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+    }
+    
+    return price;
+}
 
 
 //*****************************************************************************************************
@@ -479,7 +520,6 @@ $('#close-filter').on('click', function () {
 });
 
 $('#reset-filters').on('click', function () {
-    //filters.reset.all();
     accordion.resetAll();
 });
 
@@ -721,25 +761,25 @@ var accordion = {
     },
 
     selectedItems: function () {
-        var list = $('#filter-bike-list .bike-model-list li.active'),
-            listLength = list.length,
-            selection = '';
+        var selection = '',
+            tabs = $('#filter-bike-list .accordion-tab');
 
-        list.each(function (index) {
-            if (index == 7) {
-                return false;
+        tabs.each(function(index) {
+            if ($(this).hasClass('tab-checked')) {
+                selection += ', ' + $(this).find('.accordion-label').text();
+                
             }
             else {
-                if (!index == 0) {
+                var list = $(this).siblings('ul.bike-model-list').find('li.active');
+                
+                list.each(function (index) {
                     selection += ', ' + $(this).find('.bike-model-label').text();
-                }
-                else {
-                    selection = $(this).find('.bike-model-label').text();
-                }
+                });
             }
-        })
+        });
 
-        return selection;
+        return selection.substr(1);       
+            
     },
 
     resetAll: function () {
