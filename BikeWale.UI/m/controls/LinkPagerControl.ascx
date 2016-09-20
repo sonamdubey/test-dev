@@ -11,10 +11,10 @@
         </asp:Repeater>
     </ul>
     <span class="pagination-control-prev <%= String.IsNullOrEmpty(prevPageUrl) ? "inactive" : "" %>">
-        <a href="<%=prevPageUrl %>" class="bwmsprite prev-page-icon" data-hash="<% string.Format("city={0}&make={1}&model={2}", CityId, MakeId, ModelId); %>" data-pagenum="<%= CurrentPageNo >1? CurrentPageNo - 1: 1 %>"></a>
+        <a href="<%=prevPageUrl %>" class="bwmsprite prev-page-icon" data-hash="<%= string.Format("city={0}&make={1}&model={2}", CityId, MakeId, ModelId) %>" data-pagenum="<%= CurrentPageNo >1? CurrentPageNo - 1: 1 %>"></a>
     </span>
     <span class="pagination-control-next <%= String.IsNullOrEmpty(nextPageUrl) ? "inactive" : "" %>">
-        <a href="<%=nextPageUrl %>" class="bwmsprite next-page-icon" data-hash="<% string.Format("city={0}&make={1}&model={2}", CityId, MakeId,ModelId); %>" data-pagenum="<%= CurrentPageNo < TotalPages? CurrentPageNo + 1: TotalPages %>"></a>
+        <a href="<%=nextPageUrl %>" class="bwmsprite next-page-icon" data-hash="<%= string.Format("city={0}&make={1}&model={2}", CityId, MakeId,ModelId) %>" data-pagenum="<%= CurrentPageNo < TotalPages? CurrentPageNo + 1: TotalPages %>"></a>
     </span>
 </div>
 <div class="clear"></div>
