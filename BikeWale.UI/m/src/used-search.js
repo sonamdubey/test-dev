@@ -268,8 +268,9 @@ var usedBikes = function()
             self.ApplyPagination();
             $("#previous-owners-list li").removeClass("active");
             $("#sellerTypes .filter-type-seller").removeClass("checked");
-            $("#sort-by-list li").first().addClass("active");
+            $("#sort-by-list li").first().addClass("active").siblings().removeClass("active");
             $('#filter-type-bike').find('.selected-filters').text('All Bikes');
+            
         } catch (e) {
             console.warn("Unable to set default records");
         }
@@ -277,6 +278,8 @@ var usedBikes = function()
 
     self.applySort = function (d, e) {
         var so = $("#sort-by-list li.active").attr("data-sortorder");
+        self.ApplyBikeFilter();
+        if (self.SelectedCity() && self.SelectedCity().id > 0) self.Filters()["city"] = self.SelectedCity().id;
         self.Filters()["so"] = so;
         self.Filters()["pn"] = "";
         self.GetUsedBikes();
