@@ -29,7 +29,7 @@ namespace Bikewale.Used
         public bool isDealer = false;
 
         public string oem = "", bodyType = "", subSegment = "";
-        protected string customerId = "", bikeCanonical = string.Empty;
+        protected string customerId = "", bikeCanonical = string.Empty, alternateUrl = string.Empty;
 
         /// <summary>
         ///     selected Bikes list and compareCaption variables are used for add or remove the Bike in Bikes compare list
@@ -150,6 +150,7 @@ namespace Bikewale.Used
 
                 researchBaseUrl = "/" + objInquiry.MakeMaskingName + "-bikes/" + objInquiry.ModelMaskingName + "/";
                 bikeCanonical = string.Format("http://www.bikewale.com/used/bikes-in-{0}/{1}-{2}-{3}/", objInquiry.CityMaskingName, objInquiry.MakeMaskingName, objInquiry.ModelMaskingName, profileId);
+                alternateUrl = string.Format("http://www.bikewale.com/m/used/bikes-in-{0}/{1}-{2}-{3}/", objInquiry.CityMaskingName, objInquiry.MakeMaskingName, objInquiry.ModelMaskingName, profileId);
 
 
             }

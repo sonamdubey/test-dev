@@ -1,15 +1,5 @@
-﻿using Bikewale.Cache.Core;
-using Bikewale.Cache.UsedBikes;
-using Bikewale.Common;
-using Bikewale.DAL.UsedBikes;
-using Bikewale.Entities.UsedBikes;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.UsedBikes;
-using Microsoft.Practices.Unity;
-using Org.BouncyCastle.Asn1.Ocsp;
+﻿using Bikewale.BindViewModels.Controls;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -25,16 +15,18 @@ namespace Bikewale.Controls
         protected Repeater rptUsedBikeNoCity, rptRecentUsedBikes;
 
         public uint MakeId { get; set; }
+        public uint ModelId { get; set; }
         public uint TopCount { get; set; }
-        public int CityId { get; set; }
+        public int? CityId { get; set; }
+        public uint FetchedRecordsCount;
         public string makeName = string.Empty;
+        public string modelName = string.Empty;
         public string cityName = string.Empty;
         public string makeMaskingName = string.Empty;
+        public string modelMaskingName = string.Empty;
         public string cityMaskingName = string.Empty;
-
-        IEnumerable<MostRecentBikes> objMostRecentBikes = null;
-
-        public bool showWidget = false;
+        public string pageHeading = string.Empty;
+        public bool showWidget;
 
         protected override void OnInit(EventArgs e)
         {
@@ -44,6 +36,7 @@ namespace Bikewale.Controls
         void InitializeComponents()
         {
             this.Load += new EventHandler(Page_Load);
+            showWidget = false;
         }
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -59,7 +52,7 @@ namespace Bikewale.Controls
         {
             bool isValid = true;
 
-            if (MakeId <= 0)
+            if (MakeId < 0 || ModelId < 0)
             {
                 isValid = false;
             }
@@ -68,54 +61,25 @@ namespace Bikewale.Controls
         }
 
         /// <summary>
-        /// Created By : Vivek Gupta on 20-05-2016
-        /// Description : Function to bind used bikes for the makes          
+        /// Created By : Sajal Gupta on 15/09/2016
+        /// Description : Function to bind used bikes for the makes/models.          
         /// </summary>
         protected void BindUsedBikes()
         {
-            try
-            {
-                if (TopCount <= 0) { TopCount = 6; }
+            BindUsedBikesControl objUsed = new BindUsedBikesControl();
+            objUsed.MakeId = MakeId;
+            objUsed.ModelId = ModelId;
+            objUsed.TopCount = TopCount;
+            objUsed.CityId = CityId;
+            FetchedRecordsCount = Convert.ToUInt32(objUsed.BindRecentUsedBikes(rptRecentUsedBikes, rptUsedBikeNoCity));
+            makeName = objUsed.makeName;
+            modelName = objUsed.modelName;
+            cityName = objUsed.cityName;
+            makeMaskingName = objUsed.makeMaskingName;
+            modelMaskingName = objUsed.modelMaskingName;
+            cityMaskingName = objUsed.cityMaskingName;
+            pageHeading = objUsed.pageHeading.Trim();
 
-
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IUsedBikesCacheRepository, UsedBikesCacheRepository>();
-                    container.RegisterType<ICacheManager, MemcacheManager>();
-                    container.RegisterType<IUsedBikes, UsedBikesRepository>();
-
-                    IUsedBikesCacheRepository _objUsedBikes = container.Resolve<IUsedBikesCacheRepository>();
-
-                    objMostRecentBikes = _objUsedBikes.GetMostRecentUsedBikes(MakeId, TopCount, CityId);
-
-                    if (objMostRecentBikes.Count() > 0)
-                    {
-                        makeName = objMostRecentBikes.FirstOrDefault().MakeName;
-                        cityName = objMostRecentBikes.FirstOrDefault().CityName;
-                        makeMaskingName = objMostRecentBikes.FirstOrDefault().MakeMaskingName;
-                        cityMaskingName = objMostRecentBikes.FirstOrDefault().CityMaskingName;
-
-                        if (CityId > 0)
-                        {
-                            rptRecentUsedBikes.DataSource = objMostRecentBikes;
-                            rptRecentUsedBikes.DataBind();
-                            showWidget = true;
-                        }
-
-                        else if (CityId <= 0)
-                        {
-                            rptUsedBikeNoCity.DataSource = objMostRecentBikes;
-                            rptUsedBikeNoCity.DataBind();
-                            showWidget = true;
-                        }
-                    }
-                }
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"] + " : BindUsedBikes");
-                objErr.SendMail();
-            }
         }
     }
 }

@@ -8,7 +8,6 @@ using System.Data.Common;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
-
 /// <summary>
 /// Summary description for ParseSearchCriteria
 /// </summary>
@@ -215,7 +214,12 @@ namespace Bikewale.Used
             }
         }
 
-        //Add all search criteria to sql query
+
+        /// <summary>
+        /// Add all search criteria to sql query
+        /// Modified by :   Sumit Kate on 14 Sep 2016
+        /// Description :   Handle used/make-model-bikes url
+        /// </summary>
         void Init_SearchCriterias()
         {
             // All search criterias will be added to this StringBuilder in the form of sql query
@@ -245,7 +249,7 @@ namespace Bikewale.Used
                     make_str = "," + make_str + ",";
 
                     // Get all the model ids in form of comma seperated string from NameValueCollection
-                    ///model_str = qsColl.Get("model");
+                    //model_str = qsColl.Get("model");
 
                     // Get all the models and assign to an array
                     // These models are in a form like  '10.36'. Where part before dot(.) is a make id and other part is modelId 
@@ -258,8 +262,11 @@ namespace Bikewale.Used
                         string makeId = modelArray[i].Split('.')[0];
 
                         // remove this make id from model because its no more needed
-                        ///model_str = model_str.Replace(makeId + ".", "");
-                        model_str += modelArray[i].Split('.')[1] + ",";
+                        //model_str = model_str.Replace(makeId + ".", "");
+                        if (modelArray.Length > 1)
+                            model_str += modelArray[i].Split('.')[1] + ",";
+                        else
+                            model_str += modelArray[i].Split('.')[0];
 
                         // if extracted make id exists in 'make_str', remove it, because user opted for particular model 
                         // make id no more needed
@@ -267,8 +274,10 @@ namespace Bikewale.Used
                         make_str = reg.Replace(make_str, ",");
                     }// for
 
-                    if (model_str.Length > 0)
+                    if (model_str.Length > 0 && model_str.LastIndexOf(",") > 0)
+                    {
                         model_str = model_str.Substring(0, model_str.Length - 1);
+                    }
 
                     //remove the leading and the ending ','	
                     if (make_str.Length > 1)
@@ -302,6 +311,9 @@ namespace Bikewale.Used
                 if (make_str != "" && isValidMakeStr)
                     applied_cond = " OR ";
 
+                //if only one make is present
+                if (!String.IsNullOrEmpty(make_str) && make_str.LastIndexOf(",") == -1 && !String.IsNullOrEmpty(model_str) && model_str.IndexOf(",") == -1)
+                    applied_cond = " AND ";
                 // Append sql query to the StringBuilder object for selected models. Also make the IN clause value parameterized to avoid Sql Injection
                 sbClause.Append(applied_cond + "ModelId IN (" + db.GetInClauseValue(model_str, "ModelId", sqlCmdParams) + ") ");
 

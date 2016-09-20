@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Bikewale.DTO.Customer
 {
@@ -19,6 +14,6 @@ namespace Bikewale.DTO.Customer
         public string CustomerEmail { get; set; }
 
         [JsonProperty("customerMobile")]
-        public string CustomerMobile { get; set; }   
+        public string CustomerMobile { get; set; }
     }
 }

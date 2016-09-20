@@ -40,13 +40,14 @@
 #otpPopup { display:none; }
 .user-contact-details-icon { width:36px; height:44px; background-position: -107px -227px; }
 .otp-icon { width:30px; height:40px; background-position: -107px -177px; }
-.edit-blue-icon { width:14px; height:16px; background-position: -114px -121px; }
+.edit-blue-icon { width:20px; height:20px; background-position: -114px -121px; }
 #getMobile { padding:9px 40px; }
 .mobile-prefix { position: absolute; padding: 10px 13px 13px; color: #999; z-index:2; }
 #otpPopup .errorIcon, #otpPopup .errorText { display:none; }
 #otpPopup .otp-box p.resend-otp-btn { color:#0288d1; cursor:pointer; font-size:14px; }
 #otpPopup .update-mobile-box { display:none; }
 #otpPopup .edit-mobile-btn { cursor:pointer; }
+.thankyou-icon{width:24px;height:28px;background-position:-138px -394px}
 
 .offer-list-container ul { list-style-type:disc; }
 .offer-list-container ul li { /*margin-left:20px;*/ position:relative; margin-top:5px; padding-bottom:5px; font-size: 14px;}

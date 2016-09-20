@@ -23,9 +23,9 @@ namespace Bikewale.Service.Controllers.UsedBikes
     /// </summary>
     public class PopularUsedBikesController : ApiController
     { 
-        private readonly  IUsedBikes _usedBikesRepo = null;
+        private readonly  IUsedBikesRepository _usedBikesRepo = null;
         private readonly IPopularUsedBikesCacheRepository _cache = null;
-        public PopularUsedBikesController(IUsedBikes usedBikesRepo, IPopularUsedBikesCacheRepository cache)
+        public PopularUsedBikesController(IUsedBikesRepository usedBikesRepo, IPopularUsedBikesCacheRepository cache)
         {
             _usedBikesRepo = usedBikesRepo;
             _cache = cache;

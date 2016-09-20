@@ -100,5 +100,15 @@ namespace Bikewale.BAL.BikeData
         {
             return makesRepository.GetDiscontinuedBikeModelsByMake(makeId);
         }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 13 Sep 2016
+        /// Description :   Gets Makes and their models by calling DAL
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<BikeMakeModelBase> GetAllMakeModels()
+        {
+            return makesRepository.GetAllMakeModels();
+        }
     }   // Class
 }   //Namespace
