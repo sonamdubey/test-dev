@@ -726,16 +726,10 @@
                         <div class="grid-8 alpha margin-bottom20">
                             <h2>About <%=bikeName %></h2>
                             <h3>Preview</h3>
-                            <p class="font14 text-light-grey line-height17">
-                                <span class="model-preview-main-content">
-                                    <%= modelPageEntity.ModelDesc.SmallDescription %>
-                                </span>
-                                <span class="model-preview-more-content hide" style="display: none;">
+                            <p class="font14 text-light-grey line-height17">                                
+                                <span class="model-preview-more-content" style="display: block !important;">
                                     <%= modelPageEntity.ModelDesc.FullDescription %>
-                                </span>
-                                <%if (!string.IsNullOrEmpty(modelPageEntity.ModelDesc.SmallDescription)) { %>
-                                <a href="javascript:void(0)" class="read-more-model-preview" rel="nofollow">Read more</a>
-                                <% } %>
+                                </span>                                
                             </p>
                         </div>
                         <div class="grid-4 text-center alpha omega margin-bottom20">

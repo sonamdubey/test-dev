@@ -405,18 +405,10 @@
                       { %>
                     <h2>About <%=bikeName %></h2>
                     <h3>Preview</h3>
-                    <p class="font14 text-light-grey line-height17">
-                        <span class="model-preview-main-content">
-                            <%= modelPage.ModelDesc.SmallDescription %>   
-                        </span>
-                        <span class="model-preview-more-content">
+                    <p class="font14 text-light-grey line-height17">                        
+                        <span class="model-preview-more-content" style="display: block !important">
                             <%= modelPage.ModelDesc.FullDescription %>
                         </span>
-
-                        <%if (!string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription))
-                          { %>
-                        <a href="javascript:void(0)" class="read-more-model-preview font14" rel="nofollow">Read more</a>
-                        <% } %>
                     </p>
                     <% } %>
                     <% if (modelPage.ModelVersionSpecs != null)
