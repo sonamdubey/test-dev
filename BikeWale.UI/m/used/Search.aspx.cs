@@ -592,6 +592,9 @@ namespace Bikewale.Mobile.Used
                 _pagerOutput = objPager.GetUsedBikePager<PagerOutputEntity>(_pagerEntity);
 
                 // for RepeaterPager
+                ctrlPager.MakeId = makeId;
+                ctrlPager.CityId = cityId;
+                ctrlPager.ModelId = modelId;
                 ctrlPager.PagerOutput = _pagerOutput;
                 ctrlPager.CurrentPageNo = _pageNo;
                 ctrlPager.TotalPages = objPager.GetTotalPages((int)recordCount, _pageSize);

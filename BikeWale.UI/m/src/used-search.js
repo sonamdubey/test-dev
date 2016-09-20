@@ -354,11 +354,25 @@ var usedBikes = function()
     };
 
     self.ChangePageNumber = function (e) {
-        var pnum = $(e.target).attr("data-pagenum");
-        self.Filters()["pn"] = pnum;
-        self.GetUsedBikes();
-        e.preventDefault();
-        $('html, body').scrollTop(0);
+        try {
+            var pnum = $(e.target).attr("data-pagenum");
+            var selHash = $(e.target).attr("data-hash");
+            self.Filters()["pn"] = pnum;
+
+            if (selHash) {
+                var arr = selHash.split('&');
+                var curcityId = arr[0].split("=")[1], curmakeId = arr[1].split("=")[1], curmodelId =  arr[2].split("=")[1];
+                if (curcityId && curcityId != "0") self.Filters()["city"] = curcityId;
+                if (curmakeId && curmakeId != "0") self.Filters()["make"] = curmakeId;
+                if (curmodelId && curmodelId != "0") { self.Filters()["make"]=""; self.Filters()["model"] = curmodelId; }
+            }
+
+            self.GetUsedBikes();
+            e.preventDefault();
+            $('html, body').scrollTop(0);
+        } catch (e) {
+            console.warn("Unable to change page number");
+        }
         return false;
     };
 
@@ -454,12 +468,17 @@ $(function () {
         $("#filter-city-list li[data-cityid=" + selectedCityId + "]").click();
     vwUsedBikes.TotalBikes() > 0 ? vwUsedBikes.OnInit(true) : vwUsedBikes.OnInit(false);
 
-    if (selectedMakeId && selectedMakeId!="0") {
+
+    if (selectedModelId && selectedModelId!="" && selectedModelId != "0") {
+        var ele = bikesList.find("ul.bike-model-list span[data-modelid=" + selectedModelId + "]");
+        ele.closest("ul.bike-model-list li").addClass("active");
+    }
+    else if (selectedMakeId && selectedMakeId != "0") {
         var ele = bikesList.find("span[data-makeid=" + selectedMakeId + "]");
         ele.closest(".accordion-tab").trigger("click");
         ele.closest(".accordion-checkbox").trigger("click");
-        $('#set-bikes-filter').trigger('click');
     }
+    $('#set-bikes-filter').trigger('click');
    
 
 });

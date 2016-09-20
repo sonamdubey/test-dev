@@ -364,8 +364,8 @@
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/used-search-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript">
                     var OnInitTotalBikes = <%= totalListing %>; 
-            var selectedCityId = <%= cityId %>; 
-            var selectedMakeId = "<%= makeId %>";
+            var selectedCityId = <%= cityId %>,selectedMakeId = "<%= makeId %>",selectedModelId = "<%= modelId %>";
+            var 
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/used-search.js?<%= staticFileVersion %>"></script>
     </form>
