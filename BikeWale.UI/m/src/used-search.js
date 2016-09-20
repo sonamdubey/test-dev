@@ -408,7 +408,7 @@ var usedBikes = function()
             if (self.Filters()["owner"]) {
                 var arr = self.Filters()["owner"].split("+");
                 $.each(arr, function (i, val) {
-                    $("#previous-owners-list li[data-ownerid=" + val + "]").trigger("click");
+                    $("#previous-owners-list li[data-ownerid=" + val + "]").addClass("active");
                 });
             }
 
