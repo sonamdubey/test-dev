@@ -348,6 +348,12 @@ namespace Bikewale.Mobile.Used
                 {
                     var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
                     objModelResponse = objCache.GetModelMaskingResponse(model);
+                    if (objModelResponse != null && objModelResponse.ModelId > 0)
+                    {
+                        var objCachenew = container.Resolve<IBikeModels<BikeModelEntity, int>>();
+                        BikeModelEntity modelEntity = objCachenew.GetById(Convert.ToInt32(objModelResponse.ModelId));
+                        modelName = modelEntity.ModelName;
+                    }
                 }
 
                 if (!String.IsNullOrEmpty(Request.QueryString["pn"]))
