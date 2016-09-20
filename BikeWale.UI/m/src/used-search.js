@@ -1,11 +1,7 @@
-﻿//*****************************************************************************************************
-
-/* budget slider */
-var budgetValue = [0, 10000, 20000, 35000, 50000, 80000, 125000, 200000];
+﻿var budgetValue = [0, 10000, 20000, 35000, 50000, 80000, 125000, 200000];
 var bikesList = $("#filter-bike-list");
 var citiesList = $("#filter-city-list li");
 
-//parse query string
 var getQueryString = function () {
     var qsColl = new Object();
     try {
@@ -125,14 +121,6 @@ var vmCities = function()
     self.SelectedCity = ko.observable({ "id": 0, "name": "All India" });
 
     self.cityFilter = ko.observable();
-
-    //self.FilterCity = function (d, e) {
-    //    var ele = $(e.target);
-    //    if (!ele.hasClass("active")) {
-    //        ele.addClass("active").siblings().removeClass("active");
-    //        self.SelectedCity({ "id": ele.attr("data-cityid"), "name": ele.text() });
-    //    };
-    //};
 
     self.visibleCities = ko.computed(function () {
         filter = self.cityFilter();
@@ -353,7 +341,6 @@ var usedBikes = function()
                             self.TotalBikes(0);
                             self.CurPageNo(1);
                         }
-                        debugger;
                         if (self.TotalBikes() > 0) self.noBikes(false); else self.noBikes(true);
                         self.OnInit(false);
                         self.IsReset(false);
@@ -466,7 +453,7 @@ $(function () {
     if (selectedCityId)
         $("#filter-city-list li[data-cityid=" + selectedCityId + "]").click();
     vwUsedBikes.TotalBikes() > 0 ? vwUsedBikes.OnInit(true) : vwUsedBikes.OnInit(false);
-    //GetUsedBikes();
+
 });
 
 
@@ -483,9 +470,6 @@ function formatPrice(price) {
     
     return price;
 }
-
-
-//*****************************************************************************************************
 
 $(document).ready(function () {
 
@@ -567,9 +551,6 @@ var filters = {
             if (!selection.length == 0) {
                 filterTypeBike.find('.filter-option-key').show();
                 filterTypeBike.find('.selected-filters').text(selection);
-            }
-            else {
-                //filters.reset.bike();
             }
         }
     },

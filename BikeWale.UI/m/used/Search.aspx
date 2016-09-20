@@ -149,7 +149,7 @@
                         <div data-bind="visible: OnInit()">
                             <BikeWale:Pager ID="ctrlPager" runat="server" />
                         </div>
-                    <div data-bind="visible: !OnInit() && Pagination().paginated > 0">
+                    <div data-bind="visible: !OnInit() && Pagination().paginated() > 0">
                         <div class="grid-7 alpha omega position-rel">
                             <ul id="pagination-list" data-bind="html: PagesListHtml"></ul>
                             <span class="pagination-control-prev" data-bind="html: PrevPageHtml, css: Pagination().hasPrevious() ? 'active' : 'inactive' "></span>
@@ -183,7 +183,7 @@
                             <span class="bwmsprite radio-uncheck"></span>
                             <span class="sort-list-label" >Kms - Low to High</span>
                         </li> 
-                         <li data-sortorder="4">
+                         <li data-sortorder="5">
                             <span class="bwmsprite radio-uncheck"></span>
                             <span class="sort-list-label" >Kms - High to Low</span>
                         </li>                          
