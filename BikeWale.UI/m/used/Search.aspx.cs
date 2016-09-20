@@ -503,7 +503,7 @@ namespace Bikewale.Mobile.Used
 
                 heading = string.Format("Used {0}Bikes in {1}", bikeName, strCity);
 
-                pageTitle = string.Format("Used {0}Bikes in {1} - Verified Bike Listing For Sale | BikeWale", bikeName, strCity);
+                pageTitle = string.Format("Used {0}Bikes in {1} - {2} Verified Bike Listing For Sale | BikeWale", bikeName, strCity, totalListing);
 
                 pageCanonical = string.Format("http://www.bikewale.com/{0}", Request.RawUrl.ToLower().Replace("/m/", string.Empty));
 
