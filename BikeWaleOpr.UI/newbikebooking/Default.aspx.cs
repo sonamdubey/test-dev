@@ -104,6 +104,7 @@ namespace BikeWaleOpr.BikeBooking
                 dtPriceSheet.Columns.Add("CityId", typeof(int));
                 dtPriceSheet.Columns.Add("ItemId", typeof(Int16));
                 dtPriceSheet.Columns.Add("Itemvalue", typeof(object));
+                dtPriceSheet.Columns.Add("UpdatedBy", typeof(int));
                 uint dealerCity = Convert.ToUInt32(hdnDealerCity.Value);
 
                 if (rptModels != null && rptModels.Items != null && rptModels.Items.Count > 0)
@@ -206,6 +207,7 @@ namespace BikeWaleOpr.BikeBooking
                 dtPriceSheet.Columns.Add("CityId", typeof(int));
                 dtPriceSheet.Columns.Add("ItemId", typeof(Int16));
                 dtPriceSheet.Columns.Add("Itemvalue", typeof(object));
+                dtPriceSheet.Columns.Add("UpdatedBy", typeof(object));
                 dealerId = Convert.ToUInt32(hdnDealerId.Value);
 
                 //2. Read the price sheet repeater for Price Quote Data
@@ -435,6 +437,7 @@ namespace BikeWaleOpr.BikeBooking
             table.Columns.Add("CityId", typeof(int));
             table.Columns.Add("ItemId", typeof(Int16));
             table.Columns.Add("Itemvalue", typeof(int));
+            table.Columns.Add("UpdatedBy", typeof(int));
 
             for (int i = 0; i < rptModels.Items.Count; i++)
             {
