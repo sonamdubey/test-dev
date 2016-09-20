@@ -241,7 +241,7 @@
 
 #similar-bike-swiper .swiper-slide, #other-bike-swiper .swiper-slide {
     width: 200px;
-    min-height: 240px;
+    min-height: 190px;
     background: #fff;    
 }
 
