@@ -454,6 +454,14 @@ $(function () {
         $("#filter-city-list li[data-cityid=" + selectedCityId + "]").click();
     vwUsedBikes.TotalBikes() > 0 ? vwUsedBikes.OnInit(true) : vwUsedBikes.OnInit(false);
 
+    if (selectedMakeId && selectedMakeId!="0") {
+        var ele = bikesList.find("span[data-makeid=" + selectedMakeId + "]");
+        ele.closest(".accordion-tab").trigger("click");
+        ele.closest(".accordion-checkbox").trigger("click");
+        $('#set-bikes-filter').trigger('click');
+    }
+   
+
 });
 
 
