@@ -145,8 +145,13 @@
     height: 90px;
 }
 
+.padding-10-15 {
+    padding: 10px 15px;
+}
+
 .btn-card {
     padding: 6px;
+    overflow: hidden;
 }
 
 .text-truncate {
