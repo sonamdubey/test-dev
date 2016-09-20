@@ -196,11 +196,11 @@ namespace Bikewale.BAL.Used.Search
 
             try
             {
-                if (!String.IsNullOrEmpty(filterInputs.MaxBudget) && !String.IsNullOrEmpty(filterInputs.MaxBudget))
+                if (!String.IsNullOrEmpty(filterInputs.MaxBudget) && !String.IsNullOrEmpty(filterInputs.MinBudget))
                 {
                     if (filterInputs.MaxBudget == "0")
                     {
-                        if (filterInputs.MaxBudget != "0")
+                        if (filterInputs.MinBudget != "0")
                         {
                             whereClause += string.Format(" and ll.price > {0} ", filterInputs.MinBudget);
                         }
