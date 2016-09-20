@@ -389,7 +389,7 @@ var usedBikes = function()
             if (self.Filters()["owner"]) {
                 var arr = self.Filters()["owner"].split("+");
                 $.each(arr, function (i, val) {
-                    $("#previous-owners-list li[data-ownerid=" + val + "]").click();
+                    $("#previous-owners-list li[data-ownerid=" + val + "]").trigger("click");
                 });
             }
 
@@ -451,7 +451,7 @@ $(function () {
     vwUsedBikes.SetDefaultFilters();
     vwUsedBikes.SetPageFilters();
     if (selectedCityId)
-        $("#filter-city-list li[data-cityid=" + selectedCityId + "]").click();
+        $("#filter-city-list li[data-cityid=" + selectedCityId + "]").trigger("click");
     vwUsedBikes.TotalBikes() > 0 ? vwUsedBikes.OnInit(true) : vwUsedBikes.OnInit(false);
 
     if (selectedMakeId && selectedMakeId!="0") {
