@@ -464,10 +464,6 @@ var objFilters = vwUsedBikes.Filters();
 $(function () {
     vwUsedBikes.SetDefaultFilters();
     vwUsedBikes.SetPageFilters();
-    if (selectedCityId)
-        $("#filter-city-list li[data-cityid=" + selectedCityId + "]").click();
-    vwUsedBikes.TotalBikes() > 0 ? vwUsedBikes.OnInit(true) : vwUsedBikes.OnInit(false);
-
 
     if (selectedModelId && selectedModelId!="" && selectedModelId != "0") {
         var ele = bikesList.find("ul.bike-model-list span[data-modelid=" + selectedModelId + "]");
@@ -479,6 +475,10 @@ $(function () {
         ele.closest(".accordion-checkbox").trigger("click");
     }
     $('#set-bikes-filter').trigger('click');
+
+    if (selectedCityId)
+        $("#filter-city-list li[data-cityid=" + selectedCityId + "]").click();
+    vwUsedBikes.TotalBikes() > 0 ? vwUsedBikes.OnInit(true) : vwUsedBikes.OnInit(false);
    
 
 });
