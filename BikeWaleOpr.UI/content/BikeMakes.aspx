@@ -38,7 +38,7 @@
 			</div>     
 			<div class="clear"></div>
 			<div  class="floatLeft margin10" >
-				<span class="greenMsg">[Masking Name will be used for url formation.Only lowercase letters,- and digits are allowed.]</span>
+				<span class="greenMsg">[Masking Name will be used for url formation. Only lowercase letters and digits are allowed.]</span>
 			</div>
 			<div class="clear"></div>
 			<div>
@@ -184,22 +184,20 @@
 			return false;
 	}
 
+	$("#txtMaskingName").blur(function(){
+	    var make = jQuery.trim($(this).val());
+	    make = make.trim();	    
+	    make = make.replace(/[^A-z0-9]+/g, '');
+	    $('#txtMaskingName').val(make.toLowerCase());
+	});
+
 	$('#txtMake').blur(function () {
 		var make = jQuery.trim($('#txtMake').val());
 		make = make.trim();
-		make = make.replace(/\s+/g, "-");
-		make = make.replace(/[^a-zA-Z0-9\-]+/g, '');
-		make = removeHyphens(make);
+		make = make.replace(/\s+/g, "");
+		make = make.replace(/[^a-zA-Z0-9]+/g, '');		
 		$('#txtMaskingName').val(make.toLowerCase());
 	});
-
-	function removeHyphens(str) {
-		// if( str.indexOf("-")==0)
-		//   str=str.substr(1);//for removing starting hyphen...	        
-		str = str.replace(/(-)+/g, '-');//for replacing multiple consecutive hyphens with one hyphen...
-		str = str.replace(/^\-+|\-+$/g, '');
-		return str;
-	}
 
 	updBy = <%= BikeWaleOpr.Common.CurrentUser.Id %>
 	$("a[id^='editId_']").bt({
@@ -257,8 +255,7 @@
 				}
 				else {
 					maskName = maskName.trim();
-					maskName = maskName.replace(/\s+/g, "-");
-					maskName = removeHyphens(maskName);
+					maskName = maskName.replace(/\s+/g, "").replace(/[^a-zA-Z0-9]+/g, '');					
 					//$('#txtUpdMaskName').val(maskName);
 					//alert(maskName + updBy + makeId);
 					$.ajax({

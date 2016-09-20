@@ -29,6 +29,8 @@ namespace Bikewale.BAL.AppDeepLinking
         /// Description : New rules for upcoming bike detail and landing page added. Regular Expression added to consider url with '/m/' msite url.
         /// Modified By : Lucky Rathore on 10 May 2016
         /// Description : New rules for series page URL is added with make page url responce.
+        /// Modified by :   Sumit Kate on 20 Sep 2016
+        /// Description :   Handle make and model rename for 301 scenarios
         /// </summary>
         /// <param name="url">Bikewale.com's URL</param>
         /// <returns>DeepLinkingEntity</returns>
@@ -123,7 +125,7 @@ namespace Bikewale.BAL.AppDeepLinking
             }
             finally
             {
-                if (objResponse != null && objResponse.StatusCode == 200)
+                if (objResponse != null && (objResponse.StatusCode == 200 || objResponse.StatusCode == 301))
                 {
                     modelId = Convert.ToString(objResponse.ModelId);
                 }
@@ -160,7 +162,7 @@ namespace Bikewale.BAL.AppDeepLinking
             {
                 if (objResponse != null)
                 {
-                    if (objResponse.StatusCode == 200)
+                    if (objResponse.StatusCode == 200 || objResponse.StatusCode == 301)
                     {
                         makeId = Convert.ToString(objResponse.MakeId);
                     }
