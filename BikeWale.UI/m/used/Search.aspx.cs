@@ -389,7 +389,7 @@ namespace Bikewale.Mobile.Used
                     else if (objCityResponse.StatusCode == 301)
                     {
                         //redirect permanent to new page                         
-                        redirectUrl = Request.RawUrl.Replace(city, objCityResponse.MaskingName);
+                        redirectUrl = Request.RawUrl.ToLower().Replace(city, objCityResponse.MaskingName);
                         redirectPermanent = true;
                     }
                     else
@@ -408,7 +408,7 @@ namespace Bikewale.Mobile.Used
                     else if (objModelResponse.StatusCode == 301)
                     {
                         //redirect permanent to new page                         
-                        redirectUrl = Request.RawUrl.Replace(model, objModelResponse.MaskingName);
+                        redirectUrl = Request.RawUrl.ToLower().Replace(model, objModelResponse.MaskingName);
                         redirectPermanent = true;
                     }
                     else
@@ -499,7 +499,7 @@ namespace Bikewale.Mobile.Used
 
                 pageTitle = string.Format("Used {0}Bikes in {1} - Verified Bike Listing For Sale | BikeWale", bikeName, strCity);
 
-                pageCanonical = string.Format("http://www.bikewale.com/{0}", Request.RawUrl.Replace("/m/", string.Empty));
+                pageCanonical = string.Format("http://www.bikewale.com/{0}", Request.RawUrl.ToLower().Replace("/m/", string.Empty));
 
                 // Make models specific
                 if (strModel.Length > 0)
@@ -578,7 +578,7 @@ namespace Bikewale.Mobile.Used
             PagerOutputEntity _pagerOutput = null;
             PagerEntity _pagerEntity = null;
 
-            string _baseUrl = RemoveTrailingPage(Request.RawUrl);
+            string _baseUrl = RemoveTrailingPage(Request.RawUrl.ToLower());
 
             try
             {
