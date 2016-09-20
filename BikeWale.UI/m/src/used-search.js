@@ -326,10 +326,12 @@ var usedBikes = function()
     self.GetUsedBikes = function () {
         try {
             self.Filters.notifySubscribers();
+            
             var qs = self.QueryString();
                 $.ajax({
                     type: 'GET',
                     url: '/api/used/search/?bikes=1&' + qs.replace(/[\+]/g, "%2B"),
+                    beforeSend : function(){filters.loader.open();},
                     dataType: 'json',
                     success: function (response) {                     
                         
@@ -345,10 +347,10 @@ var usedBikes = function()
                             self.CurPageNo(1);
                         }
                         if (self.TotalBikes() > 0) self.noBikes(false); else self.noBikes(true);
+                    filters.loader.close();
                         self.OnInit(false);
                         self.IsReset(false);
                         self.ApplyPagination();
-
                     }
                 });
         } catch (e) {
@@ -372,7 +374,7 @@ var usedBikes = function()
 
             self.GetUsedBikes();
             e.preventDefault();
-            $('html, body').scrollTop(0);
+        $('html, body').scrollTop(0);
         } catch (e) {
             console.warn("Unable to change page number");
         }
@@ -620,6 +622,18 @@ var filters = {
             $('.filter-type-seller.checked').removeClass('checked');
         }
 
+    },
+
+    loader: {
+        open: function () {
+            $('html, body').addClass('lock-browser-scroll');
+            $('#sort-filters-loader').show();
+        },
+
+        close: function () {
+            $('html, body').removeClass('lock-browser-scroll');
+            $('#sort-filters-loader').hide();
+        }
     }
 };
 
