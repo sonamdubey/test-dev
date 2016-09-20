@@ -10,14 +10,14 @@ namespace Bikewale.Cache.UsedBikes
     public class PopularUsedBikesCacheRepository : IPopularUsedBikesCacheRepository
     {
         private readonly ICacheManager _cache;
-        private readonly IUsedBikes _objModels;
+        private readonly IUsedBikesRepository _objModels;
 
         /// <summary>
         /// Intitalize the references for the cache and BL
         /// </summary>
         /// <param name="cache"></param>
         /// <param name="objModels"></param>
-        public PopularUsedBikesCacheRepository(ICacheManager cache, IUsedBikes objModels)
+        public PopularUsedBikesCacheRepository(ICacheManager cache, IUsedBikesRepository objModels)
         {
             _cache = cache;
             _objModels = objModels;

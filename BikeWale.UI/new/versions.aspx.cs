@@ -76,6 +76,8 @@ namespace Bikewale.New
         protected string hide = "";
         //protected BikeModelPageEntity modelPg;
 
+        protected UsedBikes ctrlRecentUsedBikes;
+
 
         #region Subscription model variables
 
@@ -184,6 +186,8 @@ namespace Bikewale.New
         /// Description : set make masking name, model Making Name and model ID for video controller
         /// Modified By : Lucky Rathore on 04 July 2016.
         /// Description : function "SetBWUtmz" called.
+        /// Modified By : Sajal Gupta on 15/09/2016
+        /// Description : Added details for usedBikes.ascx usert control.
         /// </summary>
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -241,6 +245,11 @@ namespace Bikewale.New
                     ctrlLeadCapture.ModelId = modelId;
                     ctrlLeadCapture.CityId = cityId;
 
+                    ctrlRecentUsedBikes.CityId = (int?)cityId;
+                    ctrlRecentUsedBikes.TopCount = 6;
+                    ctrlRecentUsedBikes.ModelId = Convert.ToUInt32(modelId);
+
+
                 }
                 if (!isDiscontinued)
                     ctrlPopularCompare.versionId = Convert.ToString(variantId);
@@ -281,6 +290,8 @@ namespace Bikewale.New
                 ctrlVideos.WidgetTitle = bikeName;
                 ctrlVideos.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
                 ctrlVideos.ModelName = modelPage.ModelDetails.ModelName;
+
+                ctrlRecentUsedBikes.MakeId = Convert.ToUInt32(modelPage.ModelDetails.MakeBase.MakeId);
 
                 ctrlUserReviews.ReviewCount = 3;
                 ctrlUserReviews.PageNo = 1;

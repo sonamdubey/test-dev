@@ -103,7 +103,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IFeedback, FeedbackRepository>();
             container.RegisterType<IBikeSeries<BikeSeriesEntity, int>>();
             container.RegisterType<IState, StateRepository>();
-            container.RegisterType<IUsedBikes, UsedBikesRepository>();
+            container.RegisterType<IUsedBikesRepository, UsedBikesRepository>();
             container.RegisterType<IUserReviews, UserReviewsRepository>();
             container.RegisterType<IUserReviewsCache, UserReviewsCacheRepository>();
             container.RegisterType<ISearchResult, SearchResult>();

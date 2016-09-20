@@ -1,24 +1,20 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using System;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-
-namespace Bikewale.Controls
+namespace Bikewale.Mobile.Controls
 {
     /// <summary>
-    /// Author : Vivek Gupta
-    /// Created Date : 21st june 2016
-    /// Desc : recently uploaded used bikes control
+    /// Created by Subodh Jain on 15 sep 2016
+    /// Dec:- Used bike widget for model and make page mobile
     /// </summary>
-    public class UsedBikes : UserControl
+    public class UsedBikes : System.Web.UI.UserControl
     {
         protected Repeater rptUsedBikeNoCity, rptRecentUsedBikes;
-
         public uint MakeId { get; set; }
         public uint ModelId { get; set; }
         public uint TopCount { get; set; }
         public int? CityId { get; set; }
-        public uint FetchedRecordsCount;
+        public int fetchedCount;
         public string makeName = string.Empty;
         public string modelName = string.Empty;
         public string cityName = string.Empty;
@@ -26,8 +22,6 @@ namespace Bikewale.Controls
         public string modelMaskingName = string.Empty;
         public string cityMaskingName = string.Empty;
         public string pageHeading = string.Empty;
-        public bool showWidget;
-
         protected override void OnInit(EventArgs e)
         {
             InitializeComponents();
@@ -36,7 +30,6 @@ namespace Bikewale.Controls
         void InitializeComponents()
         {
             this.Load += new EventHandler(Page_Load);
-            showWidget = false;
         }
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -45,24 +38,19 @@ namespace Bikewale.Controls
         }
 
         /// <summary>
-        /// Function to validate the data passed to the widget
+        ///  Created by Subodh Jain on 15 sep 2016
+        /// Desc:-Function to validate the data passed to the widget
         /// </summary>
         /// <returns></returns>
         private bool isValidData()
         {
-            bool isValid = true;
 
-            if (MakeId < 0 || ModelId < 0)
-            {
-                isValid = false;
-            }
-
-            return isValid;
+            return MakeId > 0 ? true : false;
         }
 
         /// <summary>
-        /// Created By : Sajal Gupta on 15/09/2016
-        /// Description : Function to bind used bikes for the makes/models.          
+        /// Created By :subodh jain on 14 sep 2016
+        /// Description : Function to bind used bikes for the makes          
         /// </summary>
         protected void BindUsedBikes()
         {
@@ -71,14 +59,14 @@ namespace Bikewale.Controls
             objUsed.ModelId = ModelId;
             objUsed.TopCount = TopCount;
             objUsed.CityId = CityId;
-            FetchedRecordsCount = Convert.ToUInt32(objUsed.BindRecentUsedBikes(rptRecentUsedBikes, rptUsedBikeNoCity));
+            fetchedCount = objUsed.BindRecentUsedBikes(rptRecentUsedBikes, rptUsedBikeNoCity);
             makeName = objUsed.makeName;
             modelName = objUsed.modelName;
             cityName = objUsed.cityName;
             makeMaskingName = objUsed.makeMaskingName;
             modelMaskingName = objUsed.modelMaskingName;
             cityMaskingName = objUsed.cityMaskingName;
-            pageHeading = objUsed.pageHeading.Trim();
+            pageHeading = objUsed.pageHeading;
 
         }
     }
