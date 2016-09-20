@@ -625,9 +625,10 @@ var filters = {
     },
 
     loader: {
-        open: function () {
+        open: function (event) {
             $('html, body').addClass('lock-browser-scroll');
             $('#sort-filters-loader').show();
+            event.preventDefault();
         },
 
         close: function () {
