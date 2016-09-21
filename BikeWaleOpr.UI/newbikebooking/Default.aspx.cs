@@ -104,6 +104,7 @@ namespace BikeWaleOpr.BikeBooking
                 dtPriceSheet.Columns.Add("CityId", typeof(int));
                 dtPriceSheet.Columns.Add("ItemId", typeof(Int16));
                 dtPriceSheet.Columns.Add("Itemvalue", typeof(object));
+                dtPriceSheet.Columns.Add("UpdatedBy", typeof(int));
                 uint dealerCity = Convert.ToUInt32(hdnDealerCity.Value);
 
                 if (rptModels != null && rptModels.Items != null && rptModels.Items.Count > 0)
@@ -125,7 +126,7 @@ namespace BikeWaleOpr.BikeBooking
                                     //3. populate newly created DataTable with Price Sheet data and with City list
                                     foreach (string dealerId in objDealerList)
                                     {
-                                        dtPriceSheet.Rows.Add(dealerId, lbVersionId.Text.Trim(), dealerCity, lblCategoryId.Text.Trim(), txtValue.Text.Trim().Equals("NA") ? null : txtValue.Text.Trim());
+                                        dtPriceSheet.Rows.Add(dealerId, lbVersionId.Text.Trim(), dealerCity, lblCategoryId.Text.Trim(), txtValue.Text.Trim().Equals("NA") ? null : txtValue.Text.Trim(), CurrentUser.Id);
                                     }
                                 }
                             }
@@ -206,6 +207,7 @@ namespace BikeWaleOpr.BikeBooking
                 dtPriceSheet.Columns.Add("CityId", typeof(int));
                 dtPriceSheet.Columns.Add("ItemId", typeof(Int16));
                 dtPriceSheet.Columns.Add("Itemvalue", typeof(object));
+                dtPriceSheet.Columns.Add("UpdatedBy", typeof(object));
                 dealerId = Convert.ToUInt32(hdnDealerId.Value);
 
                 //2. Read the price sheet repeater for Price Quote Data
@@ -228,7 +230,7 @@ namespace BikeWaleOpr.BikeBooking
                                     //3. populate newly created DataTable with Price Sheet data and with City list
                                     foreach (string cityId in lstCityId)
                                     {
-                                        dtPriceSheet.Rows.Add(dealerId, lbVersionId.Text.Trim(), cityId, lblCategoryId.Text.Trim(), txtValue.Text.Trim().Equals("NA") ? null : txtValue.Text.Trim());
+                                        dtPriceSheet.Rows.Add(dealerId, lbVersionId.Text.Trim(), cityId, lblCategoryId.Text.Trim(), txtValue.Text.Trim().Equals("NA") ? null : txtValue.Text.Trim(), CurrentUser.Id);
                                     }
                                 }
                             }
@@ -435,6 +437,7 @@ namespace BikeWaleOpr.BikeBooking
             table.Columns.Add("CityId", typeof(int));
             table.Columns.Add("ItemId", typeof(Int16));
             table.Columns.Add("Itemvalue", typeof(int));
+            table.Columns.Add("UpdatedBy", typeof(int));
 
             for (int i = 0; i < rptModels.Items.Count; i++)
             {
@@ -452,7 +455,7 @@ namespace BikeWaleOpr.BikeBooking
                             Label lblCategoryId = (Label)rptValues.Items[j].FindControl("lblCategoryId");
                             if (lbVersionId.Text.Length > 0 && txtValue.Text.Trim().Length > 0)
                             {
-                                table.Rows.Add(dealerId, lbVersionId.Text.Trim(), cityId, lblCategoryId.Text.Trim(), txtValue.Text.Trim());
+                                table.Rows.Add(dealerId, lbVersionId.Text.Trim(), cityId, lblCategoryId.Text.Trim(), txtValue.Text.Trim(), CurrentUser.Id);
                             }
                         }
                     }

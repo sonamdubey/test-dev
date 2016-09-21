@@ -255,7 +255,6 @@ namespace Bikewale.DAL.Compare
                                 {
                                     Bike1 = GetString(reader["Bike1"]),
                                     Bike2 = GetString(reader["Bike2"]),
-                                    HostURL = GetString(reader["HostURL"]),
                                     ID = GetInt32(reader["ID"]),
                                     MakeMaskingName2 = GetString(reader["MakeMakingName2"]),
                                     MakeMaskingName1 = GetString(reader["MakeMaskingName1"]),
@@ -263,19 +262,15 @@ namespace Bikewale.DAL.Compare
                                     ModelId2 = GetUInt16(reader["ModelId2"]),
                                     ModelMaskingName1 = GetString(reader["ModelMaskingName1"]),
                                     ModelMaskingName2 = GetString(reader["ModelMaskingName2"]),
-                                    OriginalImagePath = GetString(reader["OriginalImagePath"]),
+
                                     Price1 = GetUint32(reader["Price1"]),
                                     Price2 = GetUint32(reader["Price2"]),
-                                    Review1 = GetUInt16(reader["Review1"]),
-                                    Review2 = GetUInt16(reader["Review2"]),
-                                    ReviewCount1 = GetUInt16(reader["ReviewCount1"]),
-                                    ReviewCount2 = GetUInt16(reader["ReviewCount2"]),
-                                    VersionId1 = GetUInt16(reader["VersionId1"]),
-                                    VersionId2 = GetUInt16(reader["VersionId2"]),
-                                    VersionImgUrl1 = GetString(reader["VersionImgUrl1"]),
-                                    VersionImgUrl2 = GetString(reader["VersionImgUrl2"]),
-                                    HostUrl1 = GetString(reader["HostUrl1"]),
-                                    HostUrl2 = GetString(reader["HostUrl2"])
+                                    //VersionId1 = GetUInt16(reader["VersionId1"]),
+                                    //VersionId2 = GetUInt16(reader["VersionId2"]),
+                                    //VersionImgUrl1 = GetString(reader["VersionImgUrl1"]),
+                                    //VersionImgUrl2 = GetString(reader["VersionImgUrl2"]),
+                                    //HostUrl1 = GetString(reader["HostUrl1"]),
+                                    //HostUrl2 = GetString(reader["HostUrl2"])
                                 });
                             }
 
@@ -311,7 +306,7 @@ namespace Bikewale.DAL.Compare
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getsimilarcomparebikeslist";
+                    cmd.CommandText = "getsimilarcomparebikeslist_12092016";
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionidlist", DbType.String, 20, versionList));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
@@ -336,7 +331,14 @@ namespace Bikewale.DAL.Compare
                                     ModelMasking2 = GetString(reader["ModelMaskingName2"]),
                                     VersionId1 = GetString(reader["VersionId1"]),
                                     VersionId2 = GetString(reader["VersionId2"]),
-                                    Version1 = GetString(reader["Version1"]),
+                                    ModelMaskingName1 = GetString(reader["ModelMaskingName1"]),
+                                    ModelMaskingName2 = GetString(reader["ModelMaskingName2"]),
+                                    OriginalImagePath1 = GetString(reader["OriginalImagePath1"]),
+                                    OriginalImagePath2 = GetString(reader["OriginalImagePath2"]),
+                                    Price1 = GetInt32(reader["Price1"]),
+                                    Price2 = GetInt32(reader["Price2"]),
+                                    HostUrl1 = GetString(reader["HostUrl1"]),
+                                    HostUrl2 = GetString(reader["HostUrl2"])
                                 });
                             }
                             reader.Close();

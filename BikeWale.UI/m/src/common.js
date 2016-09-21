@@ -1187,13 +1187,13 @@ $(function () {
 
 $("#btnCrossApp").click(function () {
     $("#appBanner").slideUp();
-    SetCookieInDays("AppBanner", false, 30);
+    SetCookieInDays("AppBanner", "false", 30);
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'Close_Clicked_App_Download_Banner' });
 });
 
 $("#btnInstallApp").click(function () {
     $("#appBanner").slideUp();
-    SetCookieInDays("AppBanner", false, 30);
+    SetCookieInDays("AppBanner", "false", 30);
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'InstallApp_Clicked_App_Download_Banner' });
 });
 $(window).on('hashchange', function (e) {
@@ -1609,6 +1609,7 @@ $('#area-menu-input').on('focus click', function (event) {
     event.stopPropagation();
     $("#city-area-popup").animate({ scrollTop: 190 });
 });
+
 
 function LoadTerms(offerId) {
     $("div#termsPopUpContainer").show();

@@ -18,6 +18,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.m.controls;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
@@ -27,7 +28,6 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.New
@@ -40,6 +40,7 @@ namespace Bikewale.Mobile.New
     public class NewBikeModels : PageBase //inherited page base class to move viewstate from top of the html page to the end
     {
         // Register controls
+        protected PopularModelComparison ctrlCompareBikes;
         protected NewNewsWidget ctrlNews;
         protected NewExpertReviewsWidget ctrlExpertReviews;
         protected NewVideosWidget ctrlVideos;
@@ -48,6 +49,7 @@ namespace Bikewale.Mobile.New
         protected VersionSpecifications bikeSpecs;
         protected LeadCaptureControl ctrlLeadCapture;
         protected PQOnRoadPrice pqOnRoad;
+        protected UsedBikes ctrlRecentUsedBikes;
         protected Repeater rptNavigationPhoto, rptVarients, rptColors, rptOffers, rptNewOffers, rptSecondaryDealers;
         protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty, location = string.Empty, priceText = "Ex-showroom", detailedPriceLink = string.Empty, versionText = string.Empty;
         protected String clientIP = CommonOpn.GetClientIP();
@@ -140,7 +142,8 @@ namespace Bikewale.Mobile.New
                     #endregion
 
 
-
+                    ctrlCompareBikes.versionId = versionId;
+                    ctrlCompareBikes.versionName = bikeModelName;
                     ////news,videos,revews, user reviews
                     ctrlNews.TotalRecords = 3;
                     ctrlNews.ModelId = Convert.ToInt32(modelId);
@@ -199,6 +202,11 @@ namespace Bikewale.Mobile.New
                 ctrlLeadCapture.CityId = cityId;
                 ctrlLeadCapture.ModelId = modelId;
                 ctrlLeadCapture.AreaId = areaId;
+                ctrlRecentUsedBikes.MakeId = Convert.ToUInt32(modelPage.ModelDetails.MakeBase.MakeId);
+                ctrlRecentUsedBikes.ModelId = Convert.ToUInt32(modelId);
+                ctrlRecentUsedBikes.CityId = (int?)cityId;
+                ctrlRecentUsedBikes.TopCount = 6;
+
             }
             catch (Exception ex)
             {
@@ -469,6 +477,7 @@ namespace Bikewale.Mobile.New
                         }
                         else if (modelPage.ModelVersions.Count == 1)
                         {
+                            versionId = Convert.ToUInt32(modelPage.ModelVersions[0].VersionId);
                             var firstVer = modelPage.ModelVersions.FirstOrDefault();
                             if (firstVer != null)
                                 variantText = firstVer.VersionName;

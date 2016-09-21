@@ -1,9 +1,11 @@
-﻿using Bikewale.Entities.Location;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.Cache.Location
 {
@@ -32,21 +34,69 @@ namespace Bikewale.Cache.Location
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public IEnumerable<Entities.Location.CityEntityBase> GetPriceQuoteCities(uint modelId)
+        public IEnumerable<CityEntityBase> GetPriceQuoteCities(uint modelId)
         {
-            IEnumerable<Entities.Location.CityEntityBase> topBikeComapareBase = null;
+            IEnumerable<CityEntityBase> topBikeComapareBase = null;
             string key = string.Empty;
             try
             {
                 key = String.Format("BW_PQCity_{0}", modelId);
-                topBikeComapareBase = _cache.GetFromCache<IEnumerable<Entities.Location.CityEntityBase>>(key, new TimeSpan(1, 0, 0), () => _objCity.GetPriceQuoteCities(modelId));
+                topBikeComapareBase = _cache.GetFromCache<IEnumerable<CityEntityBase>>(key, new TimeSpan(1, 0, 0), () => _objCity.GetPriceQuoteCities(modelId));
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeCompareCacheRepository.CompareList");
+                ErrorClass objErr = new ErrorClass(ex, "CityCacheRepository.GetPriceQuoteCities");
                 objErr.SendMail();
             }
             return topBikeComapareBase;
+        }
+
+        /// <summary>
+        /// Created by : Sangram Nandkhile on 13 Sep 2016
+        /// Summary: Cache layer for caching cities
+        /// </summary>
+        /// <param name="requestType"></param>
+        /// <returns></returns>
+        public IEnumerable<CityEntityBase> GetAllCities(EnumBikeType requestType)
+        {
+            IEnumerable<CityEntityBase> topBikeComapareBase = null;
+            string key = string.Empty;
+            try
+            {
+                key = string.Format("BW_AllCities_{0}", requestType);
+                topBikeComapareBase = _cache.GetFromCache<IEnumerable<Entities.Location.CityEntityBase>>(key, new TimeSpan(1, 0, 0), () => _objCity.GetAllCities(requestType));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "CityCacheRepository.GetAllCities");
+                objErr.SendMail();
+            }
+            return topBikeComapareBase;
+        }
+
+        /// <summary>
+        /// Created by : Sangram Nandkhile on 13 Sep 2016
+        /// Summary: Fetch city details from city masking name
+        /// </summary>
+        /// <param name="cityMasking"></param>
+        /// <returns></returns>
+        public CityEntityBase GetCityDetails(string cityMasking)
+        {
+            CityEntityBase city = null;
+            string key = string.Empty;
+            try
+            {
+                IEnumerable<CityEntityBase> cityList = GetAllCities(EnumBikeType.All);
+                city = (from c in cityList
+                        where c.CityMaskingName == cityMasking
+                        select c).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "CityCacheRepository.GetCityDetails");
+                objErr.SendMail();
+            }
+            return city;
         }
 
         /// <summary>
@@ -68,7 +118,7 @@ namespace Bikewale.Cache.Location
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeCompareCacheRepository.GetDealerStateCities");
+                ErrorClass objErr = new ErrorClass(ex, "CityCacheRepository.GetDealerStateCities");
                 objErr.SendMail();
             }
             return objStateCities;

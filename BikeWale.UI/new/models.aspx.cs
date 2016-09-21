@@ -109,8 +109,9 @@ namespace Bikewale.New
                 ctrlExpertReviews.MakeMaskingName = makeMaskingName;
 
                 ctrlRecentUsedBikes.MakeId = Convert.ToUInt32(makeId);
-                ctrlRecentUsedBikes.CityId = Convert.ToInt32(cityId);
+                ctrlRecentUsedBikes.CityId = (int?)cityId;
                 ctrlRecentUsedBikes.TopCount = 6;
+                ctrlRecentUsedBikes.ModelId = 0;
 
                 ctrlDealerCard.MakeId = Convert.ToUInt32(makeId);
                 ctrlDealerCard.makeName = _make.MakeName;

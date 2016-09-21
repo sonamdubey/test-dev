@@ -60,12 +60,12 @@ namespace Bikewale.BindViewModels.Controls
                         {
                             FetchedRecordsCount = similarBikeList.Count();
                         }
-                    } 
+                    }
                 }
             }
             catch (System.Exception)
             {
-                
+
                 throw;
             }
             return similarBikeList;

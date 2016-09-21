@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="APIHost.cs" />
     <Compile Include="BikeBookingCookie.cs" />
+    <Compile Include="BikewaleSecurity.cs" />
     <Compile Include="BWConfiguration.cs" />
     <Compile Include="BWCookies.cs" />
     <Compile Include="BWHttpClient.cs" />
@@ -77,7 +78,6 @@
     <Compile Include="FormatDate.cs" />
     <Compile Include="FormatMinSpecs.cs" />
     <Compile Include="GlobalCityArea.cs" />
-    <Compile Include="Ordinal.cs" />
     <Compile Include="TermsHtmlFormatting.cs" />
     <Compile Include="Image.cs" />
     <Compile Include="OfferHelper.cs" />
@@ -98,6 +98,7 @@
     <Compile Include="StringHelper.cs" />
     <Compile Include="UrlFormatter.cs" />
     <Compile Include="UrlShortner.cs" />
+    <Compile Include="UsedBikeProfileId.cs" />
     <Compile Include="VideoTitleDescription.cs" />
   </ItemGroup>
   <ItemGroup>

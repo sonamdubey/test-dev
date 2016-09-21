@@ -22,13 +22,7 @@
 </head>
 <body class="bg-light-grey">
     <!-- #include file="/includes/Navigation_Mobile.aspx" -->
-    <section>            
-        <div class="container">
-            <div>
-                 <!-- #include file="/ads/Ad320x50_mobile.aspx" -->
-            </div>
-        </div>     
-    </section>
+    
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/new/bwm-search.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
    
@@ -79,6 +73,14 @@
         <div class="clear"></div>
 
     </header>
+
+    <section>            
+        <div class="container">
+            <div>
+                 <!-- #include file="/ads/Ad320x50_mobile.aspx" -->
+            </div>
+        </div>     
+    </section>
 
     <section>
         <!--  Used Search code starts here -->

@@ -6,11 +6,13 @@
 <%@ Register Src="/m/controls/NewUserReviewList.ascx" TagPrefix="BW" TagName="UserReviews" %>
 <%@ Register Src="~/m/controls/MPriceInTopCities.ascx" TagPrefix="BW" TagName="TopCityPrice" %>
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
+<%@ Register Src="/m/controls/PopularModelComparison.ascx" TagName="SimilarBikesCompare" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
     <%
-        description = String.Format("{0} Price in India - Rs. {1}. Find {2} Reviews, Specs, Features, Mileage, On Road Price. See {0} Colours, Images at Bikewale.", bikeName, Bikewale.Utility.Format.FormatPriceLong(price.ToString()), bikeModelName);
+        description = String.Format("{0} Price in India - Rs. {1}. Find {2} Reviews, Specs, Features, Mileage, On Road Price. See {0} Colours, Images at Bikewale.", bikeName, Bikewale.Utility.Format.FormatNumeric(price.ToString()), bikeModelName);
         title = String.Format("{0} Price, Reviews, Spec, Photos, Mileage | Bikewale", bikeName);
         canonical = String.Format("http://www.bikewale.com/{0}-bikes/{1}/", modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName);
         AdPath = "/1017752/Bikewale_Mobile_Model";
@@ -333,7 +335,7 @@
             </div>
         </section>
 
-          <% if (pqOnRoad != null && pqOnRoad.BPQOutput != null && viewModel == null && !string.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
+          <% if (pqOnRoad != null && pqOnRoad.BPQOutput != null && viewModel == null&& isOnRoadPrice && !string.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
             { %>
         <section>
             
@@ -382,10 +384,16 @@
                              { %>
                                 <li data-tabs="#makeNewsContent">News</li>
                             <%} %>
-                             <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
+                            <% if (ctrlCompareBikes.fetchedCount > 0 && !isDiscontinued)
+                             { %>
+                                <li data-tabs="#makeComparisonContent">Comparisons</li>
+                             <% } %>
+                            <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
                               { %>
                                  <li data-tabs="#modelAlternateBikeContent">Alternatives</li>
                             <%} %>
+                              <% if (ctrlRecentUsedBikes.fetchedCount>0)
+                                   {%><li data-tabs="#makeUsedBikeContent">Used</li> <%} %>
                         </ul>
                     </div>
                 </div>
@@ -397,18 +405,10 @@
                       { %>
                     <h2>About <%=bikeName %></h2>
                     <h3>Preview</h3>
-                    <p class="font14 text-light-grey line-height17">
-                        <span class="model-preview-main-content">
-                            <%= modelPage.ModelDesc.SmallDescription %>   
-                        </span>
-                        <span class="model-preview-more-content">
+                    <p class="font14 text-light-grey line-height17">                        
+                        <span class="model-preview-more-content" style="display: block !important">
                             <%= modelPage.ModelDesc.FullDescription %>
                         </span>
-
-                        <%if (!string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription))
-                          { %>
-                        <a href="javascript:void(0)" class="read-more-model-preview font14" rel="nofollow">Read more</a>
-                        <% } %>
                     </p>
                     <% } %>
                     <% if (modelPage.ModelVersionSpecs != null)
@@ -778,10 +778,17 @@
                  <BW:News runat="server" ID="ctrlNews" />
                 <% } %>      
 
+                <% if (ctrlCompareBikes.fetchedCount > 0 && !isDiscontinued)
+                   { %>
+                <BW:SimilarBikesCompare runat="server" ID="ctrlCompareBikes" />
+                <% } %>
+
                 <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
                    { %>
                     <BW:AlternateBikes ID="ctrlAlternativeBikes" runat="server" />           
                 <%} %>
+                    <% if (ctrlRecentUsedBikes.fetchedCount > 0)
+                                   {%>  <BW:MostRecentUsedBikes runat="server" ID="ctrlRecentUsedBikes" /><%} %>
                 <div id="modelSpecsFooter"></div>
             </div>
         </section>

@@ -69,13 +69,14 @@
 #otpPopup { display:none; }
 .user-contact-details-icon{width:29px;height:30px;background-position:-109px -216px}
 .otp-icon { width:29px; height:29px; background-position: -109px -177px; }
-.edit-blue-icon { width:19px; height:19px; background-position: -114px -122px; }
+.edit-blue-icon { width:20px; height:20px; background-position: -114px -122px; }
 #getMobile { padding:9px 40px; }
 .mobile-prefix { position: absolute; padding: 10px 13px 13px; color: #999; z-index:2; }
 #otpPopup .errorIcon, #otpPopup .errorText { display:none; }
 #otpPopup .otp-box p.resend-otp-btn { color:#0288d1; cursor:pointer; font-size:14px; }
 #otpPopup .update-mobile-box { display:none; }
 #otpPopup .edit-mobile-btn { cursor:pointer; }
+.thankyou-icon{width:24px;height:28px;background-position:-138px -394px}
 
 .offer-list-container ul { list-style-type:disc; }
 .offer-list-container ul li { /*margin-left:20px;*/ position:relative; margin-top:5px; padding-bottom:5px; font-size: 14px;}
@@ -277,6 +278,37 @@
 .view-features-link { position: relative; display:block; }
 .view-features-link:before { content: ''; width: 100%; height: 20px; position:absolute; top:-40px; left: 0; z-index: 1; background: -webkit-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%); background: -moz-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%); background: -o-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%); background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%);}
 .view-features-link.active:before { content: none; }
+
+/* comparison */
+#makeComparisonContent .swiper-slide { width:310px; min-height:220px; padding: 15px 0 20px; border:1px solid #e2e2e2\9; background:#fff; -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.2); -moz-box-shadow: 0 1px 4px rgba(0,0,0,0.2); -ms-box-shadow: 0 1px 4px rgba(0,0,0,0.2); box-shadow: 0 1px 4px rgba(0,0,0,0.2); -webkit-border-radius:2px; -moz-border-radius:2px; -ms-border-radius:2px; border-radius:2px; }
+#makeComparisonContent .swiper-slide a { width: 100%; height: 100%; }
+
+.model-img-content {
+    width: 126px;
+    height: 71px;
+    margin-bottom: 5px;
+}
+
+.model-comparison-list h3 + .grid-6 {
+    position: relative;
+    border-right: 1px solid #f5f5f5;
+}
+
+.model-comparison-list h3 + .grid-6:after {
+    content: '';
+    position: absolute;
+    right: -11px;
+    top: 45px;
+    width: 22px;
+    height: 21px;
+    background: url('http://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png') no-repeat;
+    display: block;
+}
+
+.btn-size-1 {
+    font-size: 14px;
+    padding: 6px 42px;
+}
 
 @media all and (max-width: 350px) {
     .summary-overview-box > div.odd{padding-left:0;}
@@ -686,5 +718,7 @@ a.btn:hover {
 
     .campaign-offer-label {
         width: 75%;
+    #makeComparisonContent .swiper-slide {
+        width: 280px;
     }
 }
