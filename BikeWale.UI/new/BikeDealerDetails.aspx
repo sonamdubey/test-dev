@@ -67,7 +67,7 @@
                             <div class="grid-7 alpha omega font14">
                                 <div class="margin-bottom10">
                                     <span class="featured-tag inline-block margin-right10"><span class="bwsprite star-white"></span>Featured</span>
-                                    <span class="text-black text-bold inline-block">Authorized Bajaj dealer in Thane</span>
+                                    <h2 class="font14 text-black text-bold inline-block">Authorized Bajaj dealer in Thane</h2>
                                 </div>
                                 <div class="margin-bottom10">
                                     <span class="bwsprite dealership-loc-icon vertical-top"></span>

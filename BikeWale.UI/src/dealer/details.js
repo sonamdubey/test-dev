@@ -80,7 +80,7 @@ var dropdown = {
         $('.dropdown-select-wrapper').find('.dropdown-menu').removeClass('dropdown-active');
         label.closest('.dropdown-menu').addClass('dropdown-active');
         if (label.closest('.dropdown-select-wrapper').hasClass('invalid')) {
-            validate.bike.hideError(label);
+            validate.dropdown.hideError(label);
         }
     },
 
@@ -232,11 +232,11 @@ var validateMobileNo = function (leadMobileNo) {
 
 var validateBike = function (bike) {
     if (assistGetModel.val().length == 0) {
-        validate.bike.setError(bike, 'Select a bike');
+        validate.dropdown.setError(bike, 'Select a bike');
         return true;
     }
     else {
-        validate.bike.hideError(bike);
+        validate.dropdown.hideError(bike);
         return false;
     }
 
@@ -278,7 +278,7 @@ var validate = {
         }
     },
 
-    bike: {
+    dropdown: {
         setError: function (element, message) {
             var dropdownWrapper = element.closest('.dropdown-select-wrapper'),
                 errorTag = dropdownWrapper.find('.error-text');
