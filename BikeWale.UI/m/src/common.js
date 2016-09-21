@@ -1636,3 +1636,9 @@ function LoadTerms(offerId) {
     }
     $('#termspinner').hide();
 }
+
+$('.btn-white').on('touchstart', function () {
+    $(this).addClass('active');
+}).on('touchend', function () {
+    $(this).removeClass('active');
+})
