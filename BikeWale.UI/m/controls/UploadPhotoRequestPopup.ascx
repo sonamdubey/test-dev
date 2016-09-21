@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.UploadPhotoRequestPopup" %>
 <!-- request for image popup start -->
 <div id="request-media-popup" class="bw-popup bwm-fullscreen-popup">
-    <div class="popup-inner-container text-center">
+    <div class="popup-inner-container text-center size-small">
         <div class="bwmsprite close-btn request-media-close position-abt pos-top20 pos-right20"></div>
         <div id="requester-details-section">
             <div class="icon-outer-container rounded-corner50percent margin-bottom10">
