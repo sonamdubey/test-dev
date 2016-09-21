@@ -79,53 +79,55 @@ namespace BikewaleOpr.manufacturecampaign
                     container.RegisterType<IManufacturerCampaignRepository, ManufacturerCampaign>();
                     IManufacturerCampaignRepository objMfgCampaign = container.Resolve<IManufacturerCampaignRepository>();
                     List<BikewaleOpr.Entity.ManufacturerCampaign.ManufacturerCampaignEntity> dataReader = objMfgCampaign.FetchCampaignDetails(campaignId);
-
-                    int count = 0;
-                    int pageId, isDefault;
-                    string templateHtml;
-                    foreach (var campaignDetails in dataReader)
+                    if (dataReader != null)
                     {
-                        if (count == 0)
+                        int count = 0;
+                        int pageId, isDefault;
+                        string templateHtml;
+                        foreach (var campaignDetails in dataReader)
                         {
-                            campaignDescription.Text = campaignDetails.CampaignDescription;
-                            txtMaskingNumber.Text = campaignDetails.CampaignMaskingNumber;
-                            hdnOldMaskingNumber.Value = campaignDetails.CampaignMaskingNumber;
-                            hdnmaskingnumber.Value = campaignDetails.CampaignMaskingNumber;
-                            if (campaignDetails.IsActive == 1)
+                            if (count == 0)
                             {
-                                isActive.Checked = true;
+                                campaignDescription.Text = campaignDetails.CampaignDescription;
+                                txtMaskingNumber.Text = campaignDetails.CampaignMaskingNumber;
+                                hdnOldMaskingNumber.Value = campaignDetails.CampaignMaskingNumber;
+                                hdnmaskingnumber.Value = campaignDetails.CampaignMaskingNumber;
+                                if (campaignDetails.IsActive == 1)
+                                {
+                                    isActive.Checked = true;
+                                }
+                                else
+                                {
+                                    isActive.Checked = false;
+                                }
+                            }
+
+                            pageId = campaignDetails.PageId;
+                            isDefault = campaignDetails.IsDefault;
+                            templateHtml = campaignDetails.TemplateHtml;
+
+                            HiddenField control2 = FindControl("Hiddenfield" + pageId) as HiddenField;
+                            control2.Value = campaignDetails.TemplateId.ToString();
+
+                            if (isDefault == 1)
+                            {
+                                CheckBox control = FindControl("CheckBox" + pageId) as CheckBox;
+                                control.Checked = true;
+
+                                TextBox control1 = FindControl("TextBox" + pageId) as TextBox;
+                                control1.Enabled = false;
                             }
                             else
                             {
-                                isActive.Checked = false;
+                                CheckBox control = FindControl("CheckBox" + pageId) as CheckBox;
+                                control.Checked = false;
+
+                                TextBox control1 = FindControl("TextBox" + pageId) as TextBox;
+                                control1.Text = campaignDetails.TemplateHtml;
+                                control1.Enabled = true;
                             }
+                            count++;
                         }
-
-                        pageId = campaignDetails.PageId;
-                        isDefault = campaignDetails.IsDefault;
-                        templateHtml = campaignDetails.TemplateHtml;
-
-                        HiddenField control2 = FindControl("Hiddenfield" + pageId) as HiddenField;
-                        control2.Value = campaignDetails.TemplateId.ToString();
-
-                        if (isDefault == 1)
-                        {
-                            CheckBox control = FindControl("CheckBox" + pageId) as CheckBox;
-                            control.Checked = true;
-
-                            TextBox control1 = FindControl("TextBox" + pageId) as TextBox;
-                            control1.Enabled = false;
-                        }
-                        else
-                        {
-                            CheckBox control = FindControl("CheckBox" + pageId) as CheckBox;
-                            control.Checked = false;
-
-                            TextBox control1 = FindControl("TextBox" + pageId) as TextBox;
-                            control1.Text = campaignDetails.TemplateHtml;
-                            control1.Enabled = true;
-                        }
-                        count++;
                     }
                 }
             }
