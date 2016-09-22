@@ -13,10 +13,13 @@ namespace Bikewale.Controls
         public string PageId { get; set; }
         public int PQSourceId { get; set; }
         public int? cityId { get; set; }
+        public string cityname = string.Empty;
+        public string cityMaskingName = string.Empty;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
         }
+
 
         protected void Page_Load(object sender, EventArgs e)
         {

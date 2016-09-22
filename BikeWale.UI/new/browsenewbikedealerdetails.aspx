@@ -1,6 +1,9 @@
 ﻿<%@ Page Language="C#" Inherits="Bikewale.New.BrowseNewBikeDealerDetails" AutoEventWireup="false" EnableViewState="false" %>
+
 <%@ Register Src="~/controls/UsedBikeWidget.ascx" TagName="UsedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikesMake" TagPrefix="BW" %>
 <!DOCTYPE html>
+r
 <html>
 <head>
     <%      
@@ -19,13 +22,132 @@
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <style type="text/css">
-        @charset "utf-8";.padding-14-20{padding:14px 20px}.padding-18-20{padding:18px 20px}#listing-left-column.grid-4{padding-right:20px;padding-left:20px;width:32.333333%;box-shadow:0 0 8px #ddd;z-index:1}#listing-right-column.grid-8{width:67.666667%}#dealersList li{padding-bottom:20px;border-top:1px solid #eee}#dealersList li:first-child{border-top:0}#dealersList h3{padding-top:18px}.dealer-card-target .dealer-name{display:block;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.dealer-card-target:hover{text-decoration:none}.featured-tag{width:74px;display:block;text-align:center;line-height:20px;background:#3799a7;z-index:1;font-weight:400;font-size:12px;color:#fff;border-radius:2px;position:relative;top:-4px}.vertical-top{display:inline-block;vertical-align:top}.dealership-card-details{width:92%}.dealer-map-wrapper{width:100%;height:530px;display:block;position:relative}#used-bikes-content .grid-6{display:inline-block;vertical-align:top;width:49%;float:none}.dealership-loc-icon{width:9px;height:12px;background-position:-52px -469px;position:relative;top:4px}.phone-black-icon{width:10px;height:10px;background-position:-73px -444px;position:relative;top:5px}.star-white{width:8px;height:8px;background-position:-222px -107px;margin-right:4px}.blue-right-arrow-icon{width:6px;height:10px;background-position:-74px -469px;position:relative;top:1px;left:7px}.btn.btn-size-2{padding:9px 20px}
+        @charset "utf-8";
+
+        .padding-14-20 {
+            padding: 14px 20px;
+        }
+
+        .padding-18-20 {
+            padding: 18px 20px;
+        }
+
+        #listing-left-column.grid-4 {
+            padding-right: 20px;
+            padding-left: 20px;
+            width: 32.333333%;
+            box-shadow: 0 0 8px #ddd;
+            z-index: 1;
+        }
+
+        #listing-right-column.grid-8 {
+            width: 67.666667%;
+        }
+
+        #dealersList li {
+            padding-bottom: 20px;
+            border-top: 1px solid #eee;
+        }
+
+            #dealersList li:first-child {
+                border-top: 0;
+            }
+
+        #dealersList h3 {
+            padding-top: 18px;
+        }
+
+        .dealer-card-target .dealer-name {
+            display: block;
+            text-align: left;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .dealer-card-target:hover {
+            text-decoration: none;
+        }
+
+        .featured-tag {
+            width: 74px;
+            display: block;
+            text-align: center;
+            line-height: 20px;
+            background: #3799a7;
+            z-index: 1;
+            font-weight: 400;
+            font-size: 12px;
+            color: #fff;
+            border-radius: 2px;
+            position: relative;
+            top: -4px;
+        }
+
+        .vertical-top {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .dealership-card-details {
+            width: 92%;
+        }
+
+        .dealer-map-wrapper {
+            width: 100%;
+            height: 530px;
+            display: block;
+            position: relative;
+        }
+
+        #used-bikes-content .grid-6 {
+            display: inline-block;
+            vertical-align: top;
+            width: 49%;
+            float: none;
+        }
+
+        .dealership-loc-icon {
+            width: 9px;
+            height: 12px;
+            background-position: -52px -469px;
+            position: relative;
+            top: 4px;
+        }
+
+        .phone-black-icon {
+            width: 10px;
+            height: 10px;
+            background-position: -73px -444px;
+            position: relative;
+            top: 5px;
+        }
+
+        .star-white {
+            width: 8px;
+            height: 8px;
+            background-position: -222px -107px;
+            margin-right: 4px;
+        }
+
+        .blue-right-arrow-icon {
+            width: 6px;
+            height: 10px;
+            background-position: -74px -469px;
+            position: relative;
+            top: 1px;
+            left: 7px;
+        }
+
+        .btn.btn-size-2 {
+            padding: 9px 20px;
+        }
     </style>
     <script src="http://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>
-    
+
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -76,7 +198,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-        
+
         <section>
             <div class="container margin-bottom20">
                 <div class="grid-12">
@@ -104,8 +226,8 @@
                                                 </p>
                                             </a>
                                             <div class="<%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "margin-top20" : "hide" %>">
-                                                <a data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" href="Javascript:void(0)" leadSourceId="14" 
-                                                    pqSourceId="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton %>" class="btn btn-white btn-full-width font14 get-assistance-btn">Get offers from dealer</a>
+                                                <a data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" href="Javascript:void(0)" leadsourceid="14"
+                                                    pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton %>" class="btn btn-white btn-full-width font14 get-assistance-btn">Get offers from dealer</a>
                                             </div>
                                         </li>
                                     </ItemTemplate>
@@ -131,115 +253,17 @@
             <div class="container margin-bottom10">
                 <div class="grid-12">
                     <div class="content-box-shadow">
-                        <h2 class="font18 padding-18-20">Popular Bajaj bikes in Mumbai</h2>
-                        <div class="jcarousel-wrapper inner-content-carousel padding-bottom20">
-                            <div class="jcarousel">
-                                <ul>                
-                                    <li>
-                                        <a href="" title="Hero Splendor Pro Classic" class="jcarousel-card">
-                                            <div class="model-jcarousel-image-preview">
-                                                <span class="card-image-block">
-                                                    <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/hero-splendor-pro-classic-standard-730.jpg?20151209182019" alt="Hero Splendor Pro Classic" src="" border="0">
-                                                </span>
-                                            </div>
-                                            <div class="card-desc-block">
-                                                <p class="bikeTitle">Hero Splendor Pro Classic</p>
-                                                <p class="text-xt-light-grey margin-bottom10">200 cc, 45 kmpl, 24 bhp, 150 kgs</p>
-                                                <p class="text-light-grey margin-bottom5">Ex-showroom, Mumbai</p>
-                                                <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">1,22,000</span>
-                                            </div>
-                                        </a>
-                                        <div class="margin-left20 margin-bottom20">
-                                            <a href="javascript:void(0)" class="btn btn-white font14 btn-size-2" rel="nofollow">View price in Mumbai</a>
-                                        </div>                                        
-                                    </li>
-
-                                    <li>
-                                        <a href="" title="Hero Passion X Pro" class="jcarousel-card">
-                                            <div class="model-jcarousel-image-preview">
-                                                <span class="card-image-block">
-                                                    <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/hero-passion-x-pro-drum-self-spoke-254.jpg?20151209181806" alt="Hero Splendor Pro Classic" src="" border="0">
-                                                </span>
-                                            </div>
-                                            <div class="card-desc-block">
-                                                <p class="bikeTitle">Hero Passion X Pro</p>
-                                                <p class="text-xt-light-grey margin-bottom10">200 cc, 45 kmpl, 24 bhp, 150 kgs</p>
-                                                <p class="text-light-grey margin-bottom5">Ex-showroom, Mumbai</p>
-                                                <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">1,22,000</span>
-                                            </div>
-                                        </a>
-                                        <div class="margin-left20 margin-bottom20">
-                                            <a href="javascript:void(0)" class="btn btn-white font14 btn-size-2" rel="nofollow">View price in Mumbai</a>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <a href="" title="TVS Victor" class="jcarousel-card">
-                                            <div class="model-jcarousel-image-preview">
-                                                <span class="card-image-block">
-                                                    <img class="lazy" data-original="http://imgd3.aeplcdn.com//310x174//bw/models/tvs-victor.jpg?20162001153247" alt="TVS Victor" src="" border="0">
-                                                </span>
-                                            </div>
-                                            <div class="card-desc-block">
-                                                <p class="bikeTitle">TVS Victor</p>
-                                                <p class="text-xt-light-grey margin-bottom10">200 cc, 45 kmpl, 24 bhp, 150 kgs</p>
-                                                <p class="text-light-grey margin-bottom5">Ex-showroom, Mumbai</p>
-                                                <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">1,22,000</span>
-                                            </div>
-                                        </a>
-                                        <div class="margin-left20 margin-bottom20">
-                                            <a href="javascript:void(0)" class="btn btn-white font14 btn-size-2" rel="nofollow">View price in Mumbai</a>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <a href="" title="Hero Passion X Pro" class="jcarousel-card">
-                                            <div class="model-jcarousel-image-preview">
-                                                <span class="card-image-block">
-                                                    <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/hero-passion-x-pro-drum-self-spoke-254.jpg?20151209181806" alt="Hero Passion X Pro" src="" border="0">
-                                                </span>
-                                            </div>
-                                            <div class="card-desc-block">
-                                                <p class="bikeTitle">Hero Passion X Pro</p>
-                                                <p class="text-xt-light-grey margin-bottom10">200 cc, 45 kmpl, 24 bhp, 150 kgs</p>
-                                                <p class="text-light-grey margin-bottom5">Ex-showroom, Mumbai</p>
-                                                <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">1,22,000</span>
-                                            </div>
-                                        </a>
-                                        <div class="margin-left20 margin-bottom20">
-                                            <a href="javascript:void(0)" class="btn btn-white font14 btn-size-2" rel="nofollow">View price in Mumbai</a>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <a href="" title="Hero Splendor Pro Classic" class="jcarousel-card">
-                                            <div class="model-jcarousel-image-preview">
-                                                <span class="card-image-block">
-                                                    <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/hero-splendor-pro-classic-standard-730.jpg?20151209182019" alt="Hero Splendor Pro Classic" src="" border="0">
-                                                </span>
-                                            </div>
-                                            <div class="card-desc-block">
-                                                <p class="bikeTitle">Hero Splendor Pro Classic</p>
-                                                <p class="text-xt-light-grey margin-bottom10">200 cc, 45 kmpl, 24 bhp, 150 kgs</p>
-                                                <p class="text-light-grey margin-bottom5">Ex-showroom, Mumbai</p>
-                                                <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold">1,22,000</span>
-                                            </div>
-                                        </a>
-                                        <div class="margin-left20 margin-bottom20">
-                                            <a href="javascript:void(0)" class="btn btn-white font14 btn-size-2" rel="nofollow">View price in Mumbai</a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow"></a></span>
-                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
-                        </div>
+                        <% if (rptPopoularBikeMake.FetchedRecordsCount > 0)
+                           { %>
+                        <BW:MostPopularBikesMake runat="server" ID="rptPopoularBikeMake" />
+                        <%} %>
+                        
 
                         <div class="margin-left10 margin-right10 border-solid-bottom"></div>
                         <!-- Used bikes widget -->
                         <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
                            { %>
-                            <BW:UsedBikes runat="server" ID="ctrlRecentUsedBikes" />
+                        <BW:UsedBikes runat="server" ID="ctrlRecentUsedBikes" />
                         <%} %>
 
                         <div class="clear"></div>
@@ -261,9 +285,9 @@
         </section>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
-        <!-- #include file="/includes/footerBW.aspx" -->        
+        <!-- #include file="/includes/footerBW.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>        
+        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealer/listing.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
         <!--[if lt IE 9]>

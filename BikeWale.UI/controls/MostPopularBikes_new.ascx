@@ -28,9 +28,7 @@
     </ItemTemplate>
 </asp:Repeater>
 <!--- Most Popular Bikes Ends Here-->
-<div class="container margin-bottom10">
-    <div class="grid-12">
-        <div class="content-box-shadow">
+
             <h2 class="font18 padding-18-20">Popular Bajaj bikes in Mumbai</h2>
 
             <div class="jcarousel-wrapper inner-content-carousel padding-bottom20">
@@ -40,25 +38,25 @@
                         <asp:Repeater ID="rptPopoularBikeMake" runat="server">
                             <ItemTemplate>
                                 <li>
-                                    <a href="" title="Hero Splendor Pro Classic" class="jcarousel-card">
+                                    <a href="<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>" title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objMake.MakeName"))+" "+Convert.ToString( DataBinder.Eval(Container.DataItem, "objModel.ModelName"))%>" class="jcarousel-card">
                                         <div class="model-jcarousel-image-preview">
                                             <span class="card-image-block">
                                                 <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>" alt="<%# DataBinder.Eval(Container.DataItem, "objMake.MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem, "objModel.ModelName").ToString() %>" src="" border="0">
                                             </span>
                                         </div>
                                         <div class="card-desc-block">
-                                            <h3 class="bikeTitle"><%# DataBinder.Eval(Container.DataItem, "objMake.MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem, "objModel.ModelName").ToString() %></h3>
+                                            <h3 class="bikeTitle"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objMake.MakeName"))+" "+Convert.ToString( DataBinder.Eval(Container.DataItem, "objModel.ModelName"))%></h3>
                                             <p class="text-xt-light-grey font14 margin-bottom10">
-                                                <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower"))) %>
+                                                <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.KerbWeight"))) %>
                                             </p>
-                                            <p class="font14 text-light-grey margin-bottom5">Ex-showroom, <%=ConfigurationManager.AppSettings["defaultName"].ToString() %></p>
+                                            <p class="font14 text-light-grey margin-bottom5">Ex-showroom, <%=cityname %></p>
                                             <p class="text-bold text-default">
                                                 <%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %>
                                             </p>
                                         </div>
                                     </a>
                                     <div class="margin-left20 margin-bottom20">
-                                        <a href="javascript:void(0)" class="btn btn-white font14 btn-size-2" rel="nofollow">View price in Mumbai</a>
+                                        <a href="<%# Bikewale.Utility.UrlFormatter.PriceInCityUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName")),cityMaskingName) %>" class="btn btn-white font14 btn-size-2 text-truncate" >On-road price in <%=cityname %></a>
                                     </div>
                                 </li>
                             </ItemTemplate>
@@ -72,6 +70,4 @@
             </div>
 
             
-        </div>
-    </div>
-    </div>
+       
