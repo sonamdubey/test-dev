@@ -62,14 +62,14 @@
                 <div class="grid-12">
                     <div class="content-box-shadow">
                         <div class="content-box-shadow padding-14-20">
-                            <h1>Bajaj dealers in Mumbai</h1>
+                            <h1><%=makeName%> dealers in <%=cityName%></h1>
                         </div>
                         <p class="font14 text-light-grey content-inner-block-20">
-                            Honda has 10 authorized dealers in Mumbai. Apart from the authorized dealerships, 
-                            Honda bikes are also available at unauthorized showrooms and broker outlets. 
-                            BikeWale recommends buying bikes only from authorized Honda dealer outlets in Mumbai. 
+                            <%=makeName%> has 10 authorized dealers in <%=cityName%>. Apart from the authorized dealerships, 
+                            <%=makeName%> bikes are also available at unauthorized showrooms and broker outlets. 
+                            BikeWale recommends buying bikes only from authorized <%=makeName%> dealer outlets in <%=cityName%>. 
                             For information on test rides, price, offers, etc. you may get in touch with any of 
-                            the below mentioned authorized Honda dealers in Mumbai.
+                            the below mentioned authorized <%=makeName%> dealers in <%=cityName%>.
                         </p>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow">
-                        <p class="font18 text-black text-bold bg-white padding-18-20">24 Bajaj dealers in Mumbai</p>
+                        <p class="font18 text-black text-bold bg-white padding-18-20">24 Bajaj dealers in <%=cityName%></p>
                         <div id="listing-left-column" class="grid-4">
                             <ul id="dealersList">
                                 <asp:Repeater ID="rptDealers" runat="server">
@@ -276,8 +276,8 @@
         <section>
             <div class="container margin-bottom30">
                 <div class="grid-12 font12">
-                    <span class="font14"><strong>Disclaimer</strong>:</span> The above mentioned information about Honda dealership showrooms in Mumbai is furnished to the best of our knowledge.                         All Honda bike models and colour options may not be available at each of the Honda dealers. 
-                        We recommend that you call and check with your nearest Honda dealer before scheduling a showroom visit.
+                    <span class="font14"><strong>Disclaimer</strong>:</span> The above mentioned information about <%=makeName%> dealership showrooms in <%=cityName%> is furnished to the best of our knowledge.                         All <%=makeName%> bike models and colour options may not be available at each of the <%=makeName%> dealers. 
+                        We recommend that you call and check with your nearest <%=makeName%> dealer before scheduling a showroom visit.
                 </div>
                 <div class="clear"></div>
             </div>
