@@ -24,25 +24,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI.WebControls;
 namespace Bikewale.BindViewModels.Webforms.Used
 {
     public class SearchUsedBikes
     {
-        protected Repeater rptUsedListings;
-        protected uint cityId;
-        bool redirectPermanent, redirectToPageNotFound;
-        protected string makeId, modelId = string.Empty;
-        protected string makemasking = string.Empty, citymasking = string.Empty, strTotal = string.Empty;// modelmasking = string.Empty, pageno = string.Empty;
-        protected string pageTitle = string.Empty, pageDescription = string.Empty, modelName = string.Empty, makeName = string.Empty, pageKeywords = string.Empty, cityName = "India", pageCanonical = string.Empty
-                  , heading = string.Empty, nextUrl = string.Empty, prevUrl = string.Empty, redirectUrl = string.Empty;
+
+        protected string makemasking = string.Empty, citymasking = string.Empty, strTotal = string.Empty;
+        public string pageTitle = string.Empty, pageDescription = string.Empty, pageKeywords = string.Empty, pageCanonical = string.Empty
+                  , heading = string.Empty, nextUrl = string.Empty, prevUrl = string.Empty, redirectUrl = string.Empty, alternateUrl = string.Empty;
         private const int _pageSize = 20;
         private int _pageNo = 1;
-        protected int _startIndex = 0, _endIndex = 0, totalListing;
+        protected int _startIndex = 0, _endIndex = 0;
         private const int _pagerSlotSize = 5;
+        public LinkPagerControl ctrlPager;
 
-        protected IEnumerable<CityEntityBase> cities = null;
-        protected IEnumerable<BikeMakeModelBase> makeModels = null;
 
 
         private ICityMaskingCacheRepository objCityCache = null;
@@ -55,10 +50,19 @@ namespace Bikewale.BindViewModels.Webforms.Used
         public ushort MakeId { get; set; }
         public uint ModelId { get; set; }
         public uint CityId { get; set; }
+        public uint TotalBikes { get; set; }
         public bool IsPageNotFound { get; set; }
         public bool IsPermanentRedirection { get; set; }
         public string RedirectionUrl { get; set; }
-        public Bikewale.Entities.Used.Search.SearchResult objUsedBikes = null;
+        public string City { get; set; }
+        public string Model { get; set; }
+        public string Make { get; set; }
+        public string BikeName { get; set; }
+        public Bikewale.Entities.Used.Search.SearchResult UsedBikes = null;
+        public IEnumerable<CityEntityBase> Cities = null;
+        public IEnumerable<BikeMakeModelBase> MakeModels = null;
+
+        private string _modelMaskingName = string.Empty, _cityMaskingName = string.Empty, _makeMaskingName = string.Empty;
 
 
 
@@ -85,9 +89,15 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 objCityCache = container.Resolve<ICityMaskingCacheRepository>();
                 objMakeCache = container.Resolve<IBikeMakesCacheRepository<int>>();
                 objCitiesCache = container.Resolve<ICityCacheRepository>();
+                objModels = container.Resolve<IBikeModels<BikeModelEntity, int>>();
+                objModelsCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
                 objPager = container.Resolve<IPager>();
                 objSearch = container.Resolve<ISearch>();
             }
+
+            City = "India";
+            ProcessQueryString();
+
         }
 
         /// <summary>
@@ -95,19 +105,25 @@ namespace Bikewale.BindViewModels.Webforms.Used
         /// Description: To fetch all cities
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<CityEntityBase> GetAllCities()
+        public void GetAllCities()
         {
-            cities = new List<CityEntityBase>();
             try
             {
-                cities = objCitiesCache.GetAllCities(EnumBikeType.Used);
+                Cities = objCitiesCache.GetAllCities(EnumBikeType.Used);
+
+                var cityBase = (from c in Cities
+                                where c.CityMaskingName == _cityMaskingName
+                                select c).FirstOrDefault();
+                if (cityBase != null)
+                {
+                    City = cityBase.CityName;
+                }
             }
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : GetAllCities");
                 objErr.SendMail();
             }
-            return cities;
         }
 
         /// <summary>
@@ -115,53 +131,51 @@ namespace Bikewale.BindViewModels.Webforms.Used
         /// Description: Gets all makes and models for filter binding
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<BikeMakeModelBase> GetAllMakeModels()
+        private void GetAllMakeModels()
         {
-            makeModels = new List<BikeMakeModelBase>();
             try
             {
-
-                makeModels = objMakeCache.GetAllMakeModels();
+                MakeModels = objMakeCache.GetAllMakeModels();
             }
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : GetAllMakeModels");
                 objErr.SendMail();
             }
-            return makeModels;
         }
 
         /// <summary>
         /// Function to bind the search result to the repeater
         /// </summary>
-        private bool BindSearchPageData()
+        public bool BindSearchPageData()
         {
             try
             {
+                GetAllCities();
+                GetAllMakeModels();
                 InputFilters objFilters = new InputFilters();
 
                 // If inputs are set by hash, hash overrides the query string parameters
-                objFilters.City = cityId;
+                if (CityId > 0)
+                    objFilters.City = CityId;
 
                 // Don't pass the make ids when modelid is fetched through Query string 
-                if (modelId == string.Empty)
+                if (ModelId == 0 && MakeId > 0)
                 {
-                    objFilters.Make = makeId;
+                    objFilters.Make = Convert.ToString(MakeId);
                 }
-                objFilters.Model = modelId;
+
+                if (ModelId > 0)
+                    objFilters.Model = Convert.ToString(ModelId);
+
                 objFilters.PN = _pageNo;
                 objFilters.PS = _pageSize;
 
 
-                objUsedBikes = objSearch.GetUsedBikesList(objFilters);
-                if (objUsedBikes != null && objUsedBikes.Result != null && objUsedBikes.Result.Count() > 0)
+                UsedBikes = objSearch.GetUsedBikesList(objFilters);
+                if (UsedBikes != null && UsedBikes.Result != null && UsedBikes.Result.Count() > 0)
                 {
-                    //pageno = objResult.CurrentPageNo.ToString();
-                    totalListing = objUsedBikes.TotalCount;
-                    strTotal = totalListing.ToString();
-                    rptUsedListings.DataSource = objUsedBikes.Result;
-                    rptUsedListings.DataBind();
-                    //return true;
+                    TotalBikes = Convert.ToUInt32(UsedBikes.TotalCount);
                 }
             }
             catch (Exception ex)
@@ -177,37 +191,36 @@ namespace Bikewale.BindViewModels.Webforms.Used
         /// Created by: Sangram Nandkhile on 13 Sep 2016
         /// Summary: Create title, metas and description for SEO
         /// </summary>
-        public void CreateMetas(string strMake, string strModel, string strCity, int count)
+        public void CreateMetas()
         {
             try
             {
                 // Common title, h1 and canonical
-                string bikeName = string.Format("{0} {1} ", strMake, strModel).Trim();
+                BikeName = string.Format("{0} {1}", Make, Model);
 
-                if (bikeName.Length > 0)
-                    bikeName = string.Format("{0} ", bikeName);
+                heading = string.Format("Used {0} Bikes in {1}", BikeName, City);
 
-                heading = string.Format("Used {0}Bikes in {1}", bikeName, strCity);
+                pageTitle = string.Format("Used {0} Bikes in {1} - {2} Verified Bike Listing For Sale | BikeWale", BikeName, City, TotalBikes);
 
-                pageTitle = string.Format("Used {0}Bikes in {1} - {2} Verified Bike Listing For Sale | BikeWale", bikeName, strCity, totalListing);
+                pageCanonical = string.Format("http://www.bikewale.com/{0}", HttpContext.Current.Request.RawUrl.ToLower());
 
-                pageCanonical = string.Format("http://www.bikewale.com/{0}", HttpContext.Current.Request.RawUrl.ToLower().Replace("/m/", string.Empty));
+                alternateUrl = string.Format("http://www.bikewale.com/m/{0}", HttpContext.Current.Request.RawUrl.ToLower());
 
                 // Make models specific
-                if (strModel.Length > 0)
+                if (!string.IsNullOrEmpty(Model))
                 {
-                    pageDescription = string.Format("There are {0} used {1} {2} bikes in {3} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand {2} bikes for sale in {3}", count, strMake, strModel, strCity);
-                    pageKeywords = string.Format("Used {1} bikes in {2}, used {1} bikes, find used {1} bikes in {2}, buy used {1} bikes in {2}, search used {0} {1} bikes, find used {0} {1} bikes, {1} bike sale in {2}, used {0} {1} bikes in {2}, used {0} {1} bikes", strMake, strModel, strCity);
+                    pageDescription = string.Format("There are {0} used {1} {2} bikes in {3} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand {2} bikes for sale in {3}", TotalBikes, Make, Model, City);
+                    pageKeywords = string.Format("Used {1} bikes in {2}, used {1} bikes, find used {1} bikes in {2}, buy used {1} bikes in {2}, search used {0} {1} bikes, find used {0} {1} bikes, {1} bike sale in {2}, used {0} {1} bikes in {2}, used {0} {1} bikes", Make, Model, City);
                 }
-                else if (strMake.Length > 0)
+                else if (!string.IsNullOrEmpty(Make))
                 {
-                    pageDescription = string.Format("There are {0} used {1} bikes in {2} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand {1} bikes for sale in {2}", count, strMake, strCity);
-                    pageKeywords = string.Format("Used {0} bikes in {1}, used {0} bikes, find used {0} bikes in {1}, buy used {0} bikes in {1}, search used {0} bikes, find used {0} bikes, bike sale, {0} bike sale in {1}", strMake, strCity);
+                    pageDescription = string.Format("There are {0} used {1} bikes in {2} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand {1} bikes for sale in {2}", TotalBikes, Make, City);
+                    pageKeywords = string.Format("Used {0} bikes in {1}, used {0} bikes, find used {0} bikes in {1}, buy used {0} bikes in {1}, search used {0} bikes, find used {0} bikes, bike sale, {0} bike sale in {1}", Make, City);
                 }
                 else
                 {
-                    pageDescription = string.Format("There are {0} used bikes in {1} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand bikes for sale in {1}", count, strCity);
-                    pageKeywords = string.Format("Used bikes in {0}, find used bikes in {0}, buy used bikes in {0}, search used bikes, find used bikes, used bike listing, bike used sale, bike sale in {0}, {0} bike search, Bajaj, Aprilia, BMW, Ducati, Harley Davidson, Hero, Honda, Hyosung, KTM, Mahindra, Royal Enfield, Suzuki, Yamaha, Yo, TVS, Vespa, Kawasaki", strCity);
+                    pageDescription = string.Format("There are {0} used bikes in {1} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand bikes for sale in {1}", TotalBikes, City);
+                    pageKeywords = string.Format("Used bikes in {0}, find used bikes in {0}, buy used bikes in {0}, search used bikes, find used bikes, used bike listing, bike used sale, bike sale in {0}, {0} bike search, Bajaj, Aprilia, BMW, Ducati, Harley Davidson, Hero, Honda, Hyosung, KTM, Mahindra, Royal Enfield, Suzuki, Yamaha, Yo, TVS, Vespa, Kawasaki", City);
                 }
             }
             catch (Exception ex)
@@ -247,16 +260,16 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 endIndex = totalCount;
         }
 
-        private void BindLinkPager(LinkPagerControl ctrlPager, IPager objPager, int recordCount)
+        public void BindLinkPager()
         {
             PagerOutputEntity _pagerOutput = null;
             PagerEntity _pagerEntity = null;
-
+            int recordCount = Convert.ToInt32(TotalBikes);
             string _baseUrl = RemoveTrailingPage(HttpContext.Current.Request.RawUrl.ToLower());
 
             try
             {
-                GetStartEndIndex(_pageSize, _pageNo, out _startIndex, out _endIndex, totalListing);
+                GetStartEndIndex(_pageSize, _pageNo, out _startIndex, out _endIndex, recordCount);
 
                 _pagerEntity = new PagerEntity();
                 _pagerEntity.BaseUrl = string.Format("{0}page", _baseUrl);
@@ -268,9 +281,9 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 _pagerOutput = objPager.GetUsedBikePager<PagerOutputEntity>(_pagerEntity);
 
                 // for RepeaterPager
-                ctrlPager.MakeId = makeId;
-                ctrlPager.CityId = cityId;
-                ctrlPager.ModelId = modelId;
+                ctrlPager.MakeId = Convert.ToString(MakeId);
+                ctrlPager.CityId = CityId;
+                ctrlPager.ModelId = Convert.ToString(ModelId);
                 ctrlPager.PagerOutput = _pagerOutput;
                 ctrlPager.CurrentPageNo = _pageNo;
                 ctrlPager.TotalPages = objPager.GetTotalPages((int)recordCount, _pageSize);
@@ -295,29 +308,26 @@ namespace Bikewale.BindViewModels.Webforms.Used
             HttpContext page = HttpContext.Current;
             ModelMaskingResponse objModelResponse = null;
             CityMaskingResponse objCityResponse = null;
-            string model = string.Empty, city = string.Empty, _make = string.Empty;
+            //, _make = string.Empty;
             try
             {
-                city = page.Request.QueryString["city"];
-                if (!string.IsNullOrEmpty(city))
+                _cityMaskingName = page.Request.QueryString["city"];
+                if (!string.IsNullOrEmpty(_cityMaskingName))
                 {
-                    objCityResponse = objCityCache.GetCityMaskingResponse(city);
+                    objCityResponse = objCityCache.GetCityMaskingResponse(_cityMaskingName);
                 }
 
-                if (!string.IsNullOrEmpty(page.Request.QueryString["make"]))
+                _makeMaskingName = page.Request.QueryString["make"];
+                if (!string.IsNullOrEmpty(_makeMaskingName))
                 {
-                    string makeMaskingName = page.Request.QueryString["make"];
-                    makeId = MakeMapping.GetMakeId(makeMaskingName);
+                    string _strMakeId = MakeMapping.GetMakeId(_makeMaskingName);
                     ushort _makeId = default(ushort);
                     //verify the id as passed in the url
-                    if (ushort.TryParse(makeId, out _makeId))
+                    if (ushort.TryParse(_strMakeId, out _makeId))
                     {
-
-                        BikeMakeEntityBase makeDetails = objMakeCache.GetMakeDetails(_makeId);
-                        if (makeDetails != null)
-                        {
-                            makeName = makeDetails.MakeName;
-                        }
+                        MakeId = _makeId;
+                        BikeMakeEntityBase makeDetails = objMakeCache.GetMakeDetails(MakeId);
+                        Make = makeDetails != null ? makeDetails.MakeName : string.Empty;
                     }
                     else
                     {
@@ -325,14 +335,14 @@ namespace Bikewale.BindViewModels.Webforms.Used
                     }
                 }
 
-                model = page.Request.QueryString["model"];
-                if (!string.IsNullOrEmpty(model))
+                _modelMaskingName = page.Request.QueryString["model"];
+                if (!string.IsNullOrEmpty(_modelMaskingName))
                 {
-                    objModelResponse = objModelsCache.GetModelMaskingResponse(model);
+                    objModelResponse = objModelsCache.GetModelMaskingResponse(_modelMaskingName);
                     if (objModelResponse != null && objModelResponse.ModelId > 0)
                     {
                         BikeModelEntity modelEntity = objModels.GetById(Convert.ToInt32(objModelResponse.ModelId));
-                        modelName = modelEntity.ModelName;
+                        Model = modelEntity != null ? modelEntity.ModelName : string.Empty;
                     }
                 }
 
@@ -353,24 +363,16 @@ namespace Bikewale.BindViewModels.Webforms.Used
             {
                 if (objCityResponse != null)
                 {
-                    IEnumerable<CityEntityBase> GetCityDetails = GetAllCities();
-                    CityEntityBase cityBase = (from c in GetCityDetails
-                                               where c.CityMaskingName == city
-                                               select c).FirstOrDefault();
-                    if (cityBase != null)
-                    {
-                        cityName = cityBase.CityName;
-                    }
                     // Get cityId
                     // Code to check whether masking name is changed or not. If changed redirect to appropriate url
                     if (objCityResponse.StatusCode == 200)
                     {
-                        cityId = objCityResponse.CityId;
+                        CityId = objCityResponse.CityId;
                     }
                     else if (objCityResponse.StatusCode == 301)
                     {
                         //redirect permanent to new page                         
-                        RedirectionUrl = page.Request.RawUrl.ToLower().Replace(city, objCityResponse.MaskingName);
+                        RedirectionUrl = page.Request.RawUrl.ToLower().Replace(_cityMaskingName, objCityResponse.MaskingName);
                         IsPermanentRedirection = true;
                     }
                     else
@@ -384,12 +386,12 @@ namespace Bikewale.BindViewModels.Webforms.Used
                     // Code to check whether masking name is changed or not. If changed redirect to appropriate url
                     if (objModelResponse.StatusCode == 200)
                     {
-                        modelId = objModelResponse.ModelId.ToString();
+                        ModelId = objModelResponse.ModelId;
                     }
                     else if (objModelResponse.StatusCode == 301)
                     {
                         //redirect permanent to new page                         
-                        RedirectionUrl = page.Request.RawUrl.ToLower().Replace(model, objModelResponse.MaskingName);
+                        RedirectionUrl = page.Request.RawUrl.ToLower().Replace(_modelMaskingName, objModelResponse.MaskingName);
                         IsPermanentRedirection = true;
                     }
                     else

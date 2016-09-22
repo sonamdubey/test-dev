@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Used.BikeDetails" Trace="false" Debug="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Used.BikeDetails"  %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%
     title = "Used " + objInquiry.ModelYearOnly + " " + objInquiry.BikeName + " (" + profileId.ToUpper() + ") for sale in " + objInquiry.CityName;
