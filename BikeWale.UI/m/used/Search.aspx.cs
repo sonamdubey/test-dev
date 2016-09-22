@@ -114,11 +114,6 @@ namespace Bikewale.Mobile.Used
                         rptUsedListings.DataBind();
                         //return true;
                     }
-                    //else
-                    //{
-                    //    Response.Redirect("/pagenotfound.aspx", false);
-                    //    return false;
-                    //}
                 }
             }
             catch (Exception ex)
