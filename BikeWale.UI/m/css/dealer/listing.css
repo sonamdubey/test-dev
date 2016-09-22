@@ -1,25 +1,4 @@
-﻿#listingHeader{
-    background:#313131;
-    color:#fff;
-    width:100%;
-    height:48px;
-    position:fixed;
-    overflow:hidden;
-    z-index:2;
-}
-
-.listing-back-btn {
-    padding:12px 15px;
-    cursor:pointer;
-}
-
-.fa-arrow-back{
-    width:12px;
-    height:20px;
-    background-position:-63px -162px;
-}
-
-.padding-15-20 {
+﻿.padding-15-20 {
     padding: 15px 20px;
 }
 
