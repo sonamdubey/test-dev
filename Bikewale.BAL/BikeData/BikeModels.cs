@@ -173,6 +173,16 @@ namespace Bikewale.BAL.BikeData
 
             return objNewLaunchedBikeList;
         }
+        public IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId)
+        {
+            IEnumerable<MostPopularBikesBase> objList = null;
+            if (cityId > 0)
+                objList = modelRepository.GetMostPopularBikesbyMakeCity(topCount, makeId, cityId);
+            else
+                objList = modelRepository.GetMostPopularBikesByMake((int)makeId);
+            return objList;
+
+        }
 
 
         public Hashtable GetMaskingNames()
@@ -204,18 +214,45 @@ namespace Bikewale.BAL.BikeData
             {
                 modelPhotos = GetBikeModelPhotoGallery(modelId);
                 modelPhotoInfo = modelRepository.GetModelPhotoInfo(modelId);
-                if(modelPhotoInfo!=null){
-                    modelPhotoInfo.ImageCategory = "Model Image";
-                if (modelPhotos != null)
+                if (modelPhotoInfo != null)
                 {
-                    modelPhotos.Insert(0,
-                        new ModelImage()
+                    modelPhotoInfo.ImageCategory = "Model Image";
+                    if (modelPhotos != null)
+                    {
+                        modelPhotos.Insert(0,
+                            new ModelImage()
+                            {
+                                HostUrl = modelPhotoInfo.HostURL,
+                                OriginalImgPath = modelPhotoInfo.OriginalImgPath,
+                                ImageCategory = modelPhotoInfo.ImageCategory,
+                                MakeBase = new BikeMakeEntityBase()
+                                {
+                                    MakeName = modelPhotoInfo.MakeName
+                                },
+                                ModelBase = new BikeModelEntityBase()
+                                {
+                                    ModelName = modelPhotoInfo.ModelName
+                                },
+                                Caption = "",
+                                ImageTitle = "",
+                                ImageName = modelPhotoInfo.ModelName,
+                                AltImageName = "",
+                                ImageDescription = "",
+                                ImagePathThumbnail = "",
+                                ImagePathLarge = ""
+                            });
+                    }
+                    else
+                    {
+                        modelPhotos = new List<ModelImage>();
+                        modelPhotos.Add(new ModelImage()
                         {
                             HostUrl = modelPhotoInfo.HostURL,
                             OriginalImgPath = modelPhotoInfo.OriginalImgPath,
                             ImageCategory = modelPhotoInfo.ImageCategory,
-                            MakeBase = new BikeMakeEntityBase(){
-                                MakeName=modelPhotoInfo.MakeName
+                            MakeBase = new BikeMakeEntityBase()
+                            {
+                                MakeName = modelPhotoInfo.MakeName
                             },
                             ModelBase = new BikeModelEntityBase()
                             {
@@ -229,35 +266,10 @@ namespace Bikewale.BAL.BikeData
                             ImagePathThumbnail = "",
                             ImagePathLarge = ""
                         });
+                    }
                 }
-                else
-                {
-                    modelPhotos = new List<ModelImage>();
-                    modelPhotos.Add(new ModelImage()
-                    {
-                        HostUrl = modelPhotoInfo.HostURL,
-                        OriginalImgPath = modelPhotoInfo.OriginalImgPath,
-                        ImageCategory = modelPhotoInfo.ImageCategory,
-                        MakeBase = new BikeMakeEntityBase()
-                        {
-                            MakeName = modelPhotoInfo.MakeName
-                        },
-                        ModelBase = new BikeModelEntityBase()
-                        {
-                            ModelName = modelPhotoInfo.ModelName
-                        },
-                        Caption = "",
-                        ImageTitle = "",
-                        ImageName = modelPhotoInfo.ModelName,
-                        AltImageName = "",
-                        ImageDescription = "",
-                        ImagePathThumbnail = "",
-                        ImagePathLarge = ""
-                    });
-                }
-              }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetModelPhotos");
                 objErr.SendMail();
@@ -963,7 +975,7 @@ namespace Bikewale.BAL.BikeData
                     //    objModelPage.Photos = null;               
                     //else
                     //    objModelPage.Photos = GetBikeModelPhotoGallery(modelId);                      
-                    objModelPage.Photos = GetBikeModelPhotoGallery(modelId);  
+                    objModelPage.Photos = GetBikeModelPhotoGallery(modelId);
 
                     if (objModelPage.Photos != null)
                     {

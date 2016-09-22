@@ -27,7 +27,7 @@ namespace Bikewale.Interfaces.BikeData
 
         BikeModelPageEntity GetModelPage(U modelId);
         BikeSpecificationEntity MVSpecsFeatures(int versionId);
-
+        IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId);
         /// <summary>
         /// To Get Overall Most Popular Bikes
         /// </summary>
@@ -41,7 +41,7 @@ namespace Bikewale.Interfaces.BikeData
         /// <param name="makeId"></param>
         /// <returns></returns>
         List<MostPopularBikesBase> GetMostPopularBikesByMake(int makeId);
-        
+
         Hashtable GetMaskingNames();
         Hashtable GetOldMaskingNames();
 

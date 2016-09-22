@@ -16,13 +16,7 @@ namespace Bikewale.BindViewModels.Controls
 {
     public class BindUsedBikesControl
     {
-        /// <summary>
-        /// Total records requested
-        /// </summary>
         public uint TotalRecords { get; set; }
-        /// <summary>
-        /// Total Fetched records
-        /// </summary>
         public int FetchedRecordsCount { get; set; }
         public int? CityId { get; set; }
         public string makeName = string.Empty;
@@ -70,9 +64,7 @@ namespace Bikewale.BindViewModels.Controls
                     container.RegisterType<IPopularUsedBikesCacheRepository, PopularUsedBikesCacheRepository>();
                     container.RegisterType<ICacheManager, MemcacheManager>();
                     container.RegisterType<IUsedBikesRepository, UsedBikesRepository>();
-
                     IPopularUsedBikesCacheRepository _objUsedBikes = container.Resolve<IPopularUsedBikesCacheRepository>();
-
                     popularUsedBikes = _objUsedBikes.GetPopularUsedBikes(topCount, cityId);
                 }
 
@@ -158,6 +150,39 @@ namespace Bikewale.BindViewModels.Controls
 
             return FetchedRecordsCount;
 
+        }
+        /// <summary>
+        /// Fetch recent
+        /// </summary>
+        /// <param name="topCount"></param>
+        /// <param name="makeID"></param>
+        /// <param name="modelID"></param>
+        /// <param name="cityID"></param>
+        /// <returns></returns>
+        public IEnumerable<MostRecentBikes> FetchUsedBikes(uint topCount, uint makeID, uint modelID, int? cityID)
+        {
+            try
+            {
+                uint curCity = 0;
+                if (topCount == 0) { topCount = 6; }
+                if (cityID != null) { curCity = Convert.ToUInt32(cityID); }
+
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IUsedBikes, Bikewale.BAL.UsedBikes.UsedBikes>();
+                    container.RegisterType<ICacheManager, MemcacheManager>();
+                    container.RegisterType<IUsedBikesCache, UsedBikesCache>();
+                    IUsedBikesCache objUsedBikes = container.Resolve<IUsedBikesCache>();
+                    objMostRecentBikes = objUsedBikes.GetUsedBikes(makeID, modelID, curCity, TopCount);
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, ":- FetchUsedBikes");
+                objErr.SendMail();
+            }
+
+            return objMostRecentBikes;
         }
     }
 }

@@ -638,6 +638,10 @@
       <DependentUpon>UsedBikeSearch.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\UsedBikeWidget.ascx.cs">
+      <DependentUpon>UsedBikeWidget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\UserFeedBack.ascx.cs">
       <DependentUpon>UserFeedBack.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1757,6 +1761,7 @@
     <Content Include="controls\UpcomingBikes_new.ascx" />
     <Content Include="controls\UsedBikes.ascx" />
     <Content Include="controls\UsedBikeSearch.ascx" />
+    <Content Include="controls\UsedBikeWidget.ascx" />
     <Content Include="controls\UserFeedBack.ascx" />
     <Content Include="controls\UserReviewsList.ascx" />
     <Content Include="controls\UsersTestimonials.ascx" />
@@ -1781,6 +1786,7 @@
     <Content Include="css\dealerlisting.css" />
     <Content Include="css\dealerpricequote.css" />
     <Content Include="css\dealersbylocation.css" />
+    <Content Include="css\dealer\listing.css" />
     <Content Include="css\global.css" />
     <Content Include="css\home.css" />
     <Content Include="css\images\animated-overlay.gif" />
@@ -2417,6 +2423,7 @@
     <Content Include="src\dealerlisting.js" />
     <Content Include="src\dealerpricequote.js" />
     <Content Include="src\dealersbylocation.js" />
+    <Content Include="src\dealer\listing.js" />
     <Content Include="src\frameworks.js" />
     <Content Include="src\framework\knockout.js" />
     <Content Include="m\src\loadPhotos.js" />

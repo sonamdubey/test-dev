@@ -118,6 +118,25 @@ namespace Bikewale.Cache.BikeData
 
             return objBikes;
         }
+        public IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId)
+        {
+            IEnumerable<MostPopularBikesBase> objBikes = null;
+            string key = "BW_PopularBikesByMake_" + makeId;
+            if (cityId > 0)
+                key = key + "_City_" + cityId;
+
+            try
+            {
+                objBikes = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => _objModels.GetMostPopularBikesbyMakeCity(topCount, makeId, cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
+                objErr.SendMail();
+            }
+
+            return objBikes;
+        }
 
         /// <summary>
         /// Written By : Sushil Kumar on 30th June 2016

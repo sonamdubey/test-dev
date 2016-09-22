@@ -1,27 +1,25 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
 {
     public partial class MostPopularBikes_new : System.Web.UI.UserControl
     {
-        public Repeater rptMostPopularBikes;
-
+        public Repeater rptMostPopularBikes, rptPopoularBikeMake;
         public int? totalCount { get; set; }
         public int? makeId { get; set; }
         public int FetchedRecordsCount { get; set; }
         public string PageId { get; set; }
         public int PQSourceId { get; set; }
-
+        public int? cityId { get; set; }
+        public string cityname = string.Empty;
+        public string cityMaskingName = string.Empty;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
         }
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -33,7 +31,12 @@ namespace Bikewale.Controls
             BindMostPopularBikesControl objPop = new BindMostPopularBikesControl();
             objPop.totalCount = this.totalCount;
             objPop.makeId = this.makeId;
-            objPop.BindMostPopularBikes(rptMostPopularBikes);
+            objPop.cityId = this.cityId;
+            if (makeId.HasValue && makeId > 0)
+                objPop.BindMostPopularBikesMakeCity(rptPopoularBikeMake);
+
+            else
+                objPop.BindMostPopularBikes(rptMostPopularBikes);
             this.FetchedRecordsCount = objPop.FetchedRecordsCount;
         }
 
@@ -45,7 +48,7 @@ namespace Bikewale.Controls
             }
             else
             {
-                return "<span class='font14'>Price Unavailable</span>";  
+                return "<span class='font14'>Price Unavailable</span>";
             }
         }
 
