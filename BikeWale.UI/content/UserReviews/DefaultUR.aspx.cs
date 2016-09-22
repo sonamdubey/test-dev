@@ -18,8 +18,6 @@ namespace Bikewale.Content
 
         private DataSet dsMain;
 
-        CommonOpn op = new CommonOpn();
-
         public string SelectedModel
         {
             get

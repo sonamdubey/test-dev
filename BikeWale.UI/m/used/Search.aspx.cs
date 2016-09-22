@@ -4,7 +4,6 @@ using Bikewale.BAL.Used.Search;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
-using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Location;
 using Bikewale.DAL.Used.Search;
@@ -213,89 +212,6 @@ namespace Bikewale.Mobile.Used
             return true;
         } // End of BindSearchPageData
 
-        /// <summary>
-        /// Parse query string and set variables
-        /// </summary>
-        //public void ParseQueryString()
-        //{
-        //    try
-        //    {
-        //        ModelMaskingResponse objResponse = null;
-        //        CityMaskingResponse objCityResponse = null;
-        //        using (IUnityContainer container = new UnityContainer())
-        //        {
-        //            container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
-        //                     .RegisterType<ICacheManager, MemcacheManager>()
-        //                     .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-        //                     .RegisterType<ICityCacheRepository, CityCacheRepository>()
-        //                     .RegisterType<ICityMaskingCacheRepository, CityMaskingCache>()
-        //                     .RegisterType<ICity, CityRepository>()
-        //                     .RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
-        //                     .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
-        //                     .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
-
-        //            if (!string.IsNullOrEmpty(Request.QueryString["city"]))
-        //            {
-        //                citymasking = Request.QueryString["city"];
-        //                var objCache = container.Resolve<ICityMaskingCacheRepository>();
-        //                objCityResponse = objCache.GetCityMaskingResponse(citymasking);
-
-        //                //IEnumerable<CityEntityBase> GetCityDetails = objCache.GetAllCities(EnumBikeType.All);
-        //                //CityEntityBase cityBase = (from c in GetCityDetails
-        //                //                           where c.CityMaskingName == citymasking
-        //                //                           select c).FirstOrDefault();
-        //                //if (cityBase != null)
-        //                //{
-        //                //    cityName = cityBase.CityName;
-        //                //    cityId = cityBase.CityId;
-        //                //}
-        //            }
-
-        //            if (!string.IsNullOrEmpty(Request.QueryString["make"]))
-        //            {
-        //                makemasking = Request.QueryString["make"];
-        //                var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
-        //                uint mkId = Convert.ToUInt16(MakeMapping.GetMakeId(Request.QueryString["make"]));
-        //                makeId = mkId.ToString();
-        //                BikeMakeEntityBase makeDetails = objCache.GetMakeDetails(mkId);
-        //                if (makeDetails != null)
-        //                {
-        //                    makeName = makeDetails.MakeName;
-        //                }
-
-        //            }
-
-        //            if (!string.IsNullOrEmpty(Request.QueryString["model"]))
-        //            {
-        //                var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-        //                objResponse = objCache.GetModelMaskingResponse(Request.QueryString["model"]);
-        //                if (objResponse != null)
-        //                {
-        //                    modelId = objResponse.ModelId.ToString();
-        //                    var objCachenew = container.Resolve<IBikeModels<BikeModelEntity, int>>();
-        //                    BikeModelEntity modelEntity = objCachenew.GetById(Convert.ToInt32(modelId));
-        //                    modelName = modelEntity.ModelName;
-        //                }
-        //            }
-        //            if (!String.IsNullOrEmpty(Request.QueryString["pn"]))
-        //            {
-        //                int result;
-        //                int.TryParse(Request.QueryString["pn"], out result);
-        //                _pageNo = result;
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + " : ParseQueryString");
-        //        objErr.SendMail();
-        //    }
-        //    finally
-        //    {
-
-        //    }
-        //}
-
         private void ProcessQueryString()
         {
             ModelMaskingResponse objModelResponse = null;
@@ -327,19 +243,20 @@ namespace Bikewale.Mobile.Used
                 {
                     string makeMaskingName = Request.QueryString["make"];
                     makeId = MakeMapping.GetMakeId(makeMaskingName);
+                    ushort _makeId = default(ushort);
                     //verify the id as passed in the url
-                    if (CommonOpn.CheckId(makeId) == false)
-                    {
-                        redirectToPageNotFound = true;
-                    }
-                    else
+                    if (ushort.TryParse(makeId, out _makeId))
                     {
                         var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
-                        BikeMakeEntityBase makeDetails = objCache.GetMakeDetails(Convert.ToUInt16(makeId));
+                        BikeMakeEntityBase makeDetails = objCache.GetMakeDetails(_makeId);
                         if (makeDetails != null)
                         {
                             makeName = makeDetails.MakeName;
                         }
+                    }
+                    else
+                    {
+                        redirectToPageNotFound = true;
                     }
                 }
 
@@ -422,10 +339,6 @@ namespace Bikewale.Mobile.Used
                         redirectToPageNotFound = true;
                     }
                 }
-                //else
-                //{
-                //    redirectToPageNotFound = true;
-                //}
             }
         }
 
