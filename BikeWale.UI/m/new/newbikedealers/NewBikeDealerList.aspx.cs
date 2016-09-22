@@ -35,7 +35,7 @@ namespace Bikewale.Mobile.New
         protected Repeater rptMakes, rptCities, rptDealers;
         protected string clientIP = string.Empty, pageUrl = string.Empty;
         protected UsedBikes ctrlRecentUsedBikes;
-
+        protected MMostPopularBikes ctrlPopoularBikeMake;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -64,6 +64,11 @@ namespace Bikewale.Mobile.New
                 BindDealerList();
                 BindUserControls();
             }
+            ctrlPopoularBikeMake.makeId = (int)makeId;
+            ctrlPopoularBikeMake.cityId = (int)cityId;
+            ctrlPopoularBikeMake.totalCount = 4;
+            ctrlPopoularBikeMake.cityname = cityName;
+            ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
 
         }
 

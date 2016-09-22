@@ -253,7 +253,7 @@ r
             <div class="container margin-bottom10">
                 <div class="grid-12">
                     <div class="content-box-shadow">
-                        <% if (rptPopoularBikeMake.FetchedRecordsCount > 0)
+                        <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0)
                            { %>
                         <BW:MostPopularBikesMake runat="server" ID="rptPopoularBikeMake" />
                         <%} %>

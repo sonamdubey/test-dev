@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.NewBikeDealerList" EnableViewState="false" %>
 <%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="PopularBikeMake" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,94 +81,11 @@
 
         <section>
             <div class="container bg-white box-shadow margin-bottom15">
-                <h2 class="padding-15-20">Popular Bajaj bikes in Mumbai</h2>
-                <div class="swiper-container card-container">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="Honda Dream Neo">
-                                    <div class="swiper-image-preview position-rel">
-                                        <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com//160x89//bw/models/honda-dream-neo-self-start-drum-brake-alloy-451.jpg?20151209184804" alt="Honda Dream Neo" src="">
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="swiper-details-block padding-right15 padding-left15">
-                                        <p class="target-link font12 text-truncate margin-bottom5">Honda Dream Neo</p>
-                                        <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
-                                        <p>
-                                            <span class="bwmsprite inr-xsm-icon"></span>
-                                            <span class="font16 text-default text-bold">50,437</span>
-                                        </p>
-                                    </div>
-                                </a>
-                                <div class="padding-10-15">
-                                    <a href="javascript:void(0)" class="btn btn-card btn-full-width btn-white font14" rel="nofollow">View price in Mumbai</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="Honda Dream Neo">
-                                    <div class="swiper-image-preview position-rel">
-                                        <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com//160x89//bw/models/honda-dream-neo-self-start-drum-brake-alloy-451.jpg?20151209184804" alt="Honda Dream Neo" src="">
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="swiper-details-block padding-right15 padding-left15">
-                                        <p class="target-link font12 text-truncate margin-bottom5">Honda Dream Neo</p>
-                                        <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
-                                        <p>
-                                            <span class="bwmsprite inr-xsm-icon"></span>
-                                            <span class="font16 text-default text-bold">50,437</span>
-                                        </p>
-                                    </div>
-                                </a>
-                                <div class="padding-10-15">
-                                    <a href="javascript:void(0)" class="btn btn-card btn-full-width btn-white font14" rel="nofollow">View price in Mumbai</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="Honda Dream Neo">
-                                    <div class="swiper-image-preview position-rel">
-                                        <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com//160x89//bw/models/honda-dream-neo-self-start-drum-brake-alloy-451.jpg?20151209184804" alt="Honda Dream Neo" src="">
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="swiper-details-block padding-right15 padding-left15">
-                                        <p class="target-link font12 text-truncate margin-bottom5">Honda Dream Neo</p>
-                                        <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
-                                        <p>
-                                            <span class="bwmsprite inr-xsm-icon"></span>
-                                            <span class="font16 text-default text-bold">50,437</span>
-                                        </p>
-                                    </div>
-                                </a>
-                                <div class="padding-10-15">
-                                    <a href="javascript:void(0)" class="btn btn-card btn-full-width btn-white font14" rel="nofollow">View price in Mumbai</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="Honda Dream Neo">
-                                    <div class="swiper-image-preview position-rel">
-                                        <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com//160x89//bw/models/honda-dream-neo-self-start-drum-brake-alloy-451.jpg?20151209184804" alt="Honda Dream Neo" src="">
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="swiper-details-block padding-right15 padding-left15">
-                                        <p class="target-link font12 text-truncate margin-bottom5">Honda Dream Neo</p>
-                                        <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
-                                        <p>
-                                            <span class="bwmsprite inr-xsm-icon"></span>
-                                            <span class="font16 text-default text-bold">50,437</span>
-                                        </p>
-                                    </div>
-                                </a>
-                                <div class="padding-10-15">
-                                    <a href="javascript:void(0)" class="btn btn-card btn-full-width btn-white font14" rel="nofollow">View price in Mumbai</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0)
+                                   {%> 
+                 <BW:PopularBikeMake runat="server" ID="rptPopoularBikeMake" />
+                <%} %>
+                    
                 </div>
                 <div class="padding-top20 padding-bottom20 text-center">
                     <!-- Ad -->

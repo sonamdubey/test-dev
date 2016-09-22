@@ -35,7 +35,7 @@ namespace Bikewale.New
         protected string clientIP = string.Empty, pageUrl = string.Empty;
         protected bool areDealersPremium = false;
         protected UsedBikeWidget ctrlRecentUsedBikes;
-        protected MostPopularBikes_new rptPopoularBikeMake;
+        protected MostPopularBikes_new ctrlPopoularBikeMake;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -74,11 +74,11 @@ namespace Bikewale.New
                     this.Page.Visible = false;
                 }
             }
-            rptPopoularBikeMake.makeId = (int)makeId;
-            rptPopoularBikeMake.cityId = (int)cityId;
-            rptPopoularBikeMake.totalCount = 9;
-            rptPopoularBikeMake.cityname = cityName;
-            rptPopoularBikeMake.cityMaskingName = cityMaskingName;
+            ctrlPopoularBikeMake.makeId = (int)makeId;
+            ctrlPopoularBikeMake.cityId = (int)cityId;
+            ctrlPopoularBikeMake.totalCount = 9;
+            ctrlPopoularBikeMake.cityname = cityName;
+            ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
             BindUserControls();
 
         }
