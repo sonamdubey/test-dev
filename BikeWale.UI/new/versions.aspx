@@ -1191,7 +1191,6 @@
                     <BW:LatestNews runat="server" ID="ctrlNews" />
                     <!-- News widget ends -->
                     <% } %>
-                    <div class="margin-right10 margin-left10 border-solid-top"></div>
                     <!-- model comparison -->
                     <!-- Popular Comparision -->
                     <% if (ctrlPopularCompare.fetchedCount > 0)
@@ -1200,6 +1199,7 @@
                     <% } %>
                     <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
                        { %>
+                    <div class="margin-right10 margin-left10 border-solid-top"></div>
                     <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
                     <% } %>
                     <!-- Alternative reviews ends -->

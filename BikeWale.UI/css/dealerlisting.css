@@ -69,14 +69,14 @@ a.text-black:hover { text-decoration:none; }
 .margin-bottom7 { margin-bottom:7px; }
 #modelsAvailable .bikeDescWrapper { padding:20px 0 10px; }
 .hide-scroll { overflow:hidden; }
-.phone-grey-icon, .phone-black-icon { width:11px; height:15px; position:relative; top:2px; margin-right:5px; }
-.phone-grey-icon { background-position:-53px -444px; }
-.phone-black-icon { background-position:-73px -444px; }
+.phone-grey-icon, .phone-black-icon { width:11px; height:15px; position:relative; margin-right:5px; }
+.phone-grey-icon { top: 2px; background-position:-53px -444px; }
+.phone-black-icon { top: 5px; background-position:-73px -444px; }
 .mail-grey-icon { width:12px; height:10px; background-position:-92px -446px; margin-right:5px; }
 .get-direction-icon, .sendto-phone-icon { width:10px; height:10px; margin-right:3px; }
 .get-direction-icon { background-position:-113px -446px; }
 .sendto-phone-icon { background-position:-132px -446px; }
-.dealership-loc-icon { width:8px; height:12px; background-position:-53px -469px; position:relative;top:4px; }
+.dealership-loc-icon { width:9px; height:12px; background-position:-52px -469px; position:relative;top:4px; }
 .dealership-card-details { width:92%; }
 #dealersList .mail-grey-icon { position:relative; top:6px; }
 .vertical-top { display:inline-block;vertical-align:top; }
