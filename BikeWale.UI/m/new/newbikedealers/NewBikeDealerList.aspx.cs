@@ -26,7 +26,7 @@ namespace Bikewale.Mobile.New
     /// Created By : Sushil Kumar on 19th March 2016
     /// Class to show the bike dealers details
     /// </summary>
-    public class NewBikeDealerList : PageBase
+    public class NewBikeDealerList_v2 : PageBase
     {
         protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, urlCityMaskingName = string.Empty;
         protected uint cityId, makeId;

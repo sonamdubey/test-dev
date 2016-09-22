@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.NewBikeDealerList" EnableViewState="false" %>
-<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.NewBikeDealerList_v2" EnableViewState="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,9 +10,13 @@
         canonical = String.Format("http://www.bikewale.com/{0}-bikes/dealers-in-{1}/", makeMaskingName, cityMaskingName);              
     %>
 
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-dealerlist.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
+    <style type="text/css">
+        .swiper-card,.swiper-slide:first-child{margin-left:5px}#dealersList a:hover,.swiper-card a:hover{text-decoration:none}.padding-15-20{padding:15px 20px}#dealersList{padding:0 20px 20px}#dealersList li{border-top:1px solid #e2e2e2;padding-top:15px;margin-top:20px;font-size:14px}#dealersList li:first-child{border-top:0;margin-top:0}#dealersList a{display:block}.featured-tag{width:74px;text-align:center;background:#3799a7;margin-bottom:5px;z-index:1;font-size:12px;color:#fff;line-height:20px;-webkit-border-radius:2px;-moz-border-radius:2px;-o-border-radius:2px;border-radius:2px}.vertical-top{display:inline-block;vertical-align:top}.dealership-details{width:92%}.get-assistance-btn.btn{font-size:14px;padding:9px 21px}.dealership-loc-icon{width:10px;height:14px;background-position:-40px -436px;position:relative;top:4px;margin-right:3px}.star-white{width:8px;height:8px;background-position:-174px -447px;margin-right:4px}.tel-sm-grey-icon{width:10px;height:10px;background-position:0 -437px;position:relative;top:5px;margin-right:3px}.card-container{padding-top:5px;padding-bottom:5px}.card-container .swiper-slide{width:200px}.swiper-card{width:200px;min-height:210px;border:1px solid #e2e2e2\9;background:#fff;-webkit-box-shadow:0 1px 4px rgba(0,0,0,.2);-moz-box-shadow:0 1px 4px rgba(0,0,0,.2);-ms-box-shadow:0 1px 4px rgba(0,0,0,.2);box-shadow:0 1px 4px rgba(0,0,0,.2);-webkit-border-radius:2px;-moz-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.swiper-image-preview{height:95px;padding:5px 5px 0}.swiper-image-preview img{height:90px}.padding-10-15{padding:10px 15px}.btn-card{padding:6px;overflow:hidden}.text-truncate{width:100%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}
+    </style>
     <script type="text/javascript">
+        <!-- #include file="\includes\gacode_mobile.aspx" -->
+
         var makeName = "<%=makeName%>";
         var makeMaskingName = "<%=makeMaskingName%>";
         var makeId = "<%=makeId%>";
@@ -29,112 +32,159 @@
 </head>
 <body class="bg-light-grey">
     <form runat="server">
-        <header id="listingHeader">
-            <div class="leftfloat listing-back-btn">
-                <a href="javascript:history.back()"><span class="bwmsprite fa-arrow-back"></span></a>
-            </div>
-            <span class="leftfloat margin-top10 font18">Dealer locator</span>
-            <div class="rightfloat listing-filter-btn margin-right5">
-                <span class="bwmsprite filter-icon"></span>
-            </div>
-            <div class="clear"></div>
-        </header>
+        <!-- #include file="/includes/headBW_Mobile.aspx" -->
 
-        <section class="container padding-top60 margin-bottom10">
-            <div class="grid-12">
-                <div class="bg-white content-inner-block-1520 box-shadow">
-                    <h1 class="font16 text-pure-black margin-bottom15"><%=makeName %> dealers in <%=cityName %> <span class="font14 text-light-grey">(<%=totalDealers %>)</span></h1>
-                    <ul id="dealersList">
-                        <asp:Repeater ID="rptDealers" runat="server">
-                            <ItemTemplate>
-                                <li>
-                                    <div class="<%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %> featured-tag text-white text-center font14 margin-bottom5">
-                                        Featured
-                                    </div>
-                                    <div class="font14">
-                                        <h2 class="font16 text-default margin-bottom10"><%# GetDealerDetailLink(DataBinder.Eval(Container.DataItem,"DealerType").ToString(), DataBinder.Eval(Container.DataItem,"DealerId").ToString(), DataBinder.Eval(Container.DataItem,"CampaignId").ToString(), DataBinder.Eval(Container.DataItem,"Name").ToString()) %></h2>
-                                        <p class="margin-bottom10"><span class="bwmsprite dealership-loc-icon vertical-top margin-right5"></span><span class="vertical-top dealership-details text-light-grey"><%# DataBinder.Eval(Container.DataItem,"Address") %></span></p>
-                                        <%--<p class="text-light-grey margin-bottom5"><%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"objArea.AreaName").ToString()))?"":DataBinder.Eval(Container.DataItem,"objArea.AreaName") + "," %> <%# DataBinder.Eval(Container.DataItem,"City") %></p>--%>
-                                        <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":"margin-bottom10" %>"><a href="tel:<%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %>" class="text-default text-bold margin-bottom5 maskingNumber"><span class="vertical-top bwmsprite tel-sm-icon"></span><span class="vertical-top dealership-details"><%# DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %></span></a></div>
-                                        <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Email").ToString()))?"hide":"margin-bottom10" %>"><a href="mailto:<%# DataBinder.Eval(Container.DataItem,"Email") %>"><span class="vertical-top bwmsprite mail-grey-icon"></span><span class="vertical-top dealership-details text-light-grey"><%# DataBinder.Eval(Container.DataItem,"Email") %></span></a></div>
-                                        <input leadSourceId="20" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" campId="<%# (DataBinder.Eval(Container.DataItem,"CampaignId")) %>" type="button" class="btn btn-white-orange btn-full-width margin-top15 get-assistance-btn <%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>" value="Get offers from dealer">
-                                    </div>
-                                </li>
-                            </ItemTemplate>
-                        </asp:Repeater>
-                    </ul>
+        <section>
+            <div class="container margin-bottom10">
+                <div class="bg-white">
+                    <h1 class="box-shadow padding-15-20">Bajaj dealers in Mumbai</h1>
+                    <div class="box-shadow font14 text-light-grey padding-15-20">
+                        Honda has 10 authorized dealers in Mumbai. Apart from the authorized dealerships, Honda bikes are also available at unauthorized showrooms and broker outlets.
+                    </div>
                 </div>
             </div>
-            <div class="clear"></div>
         </section>
 
-        <div id="dealersFilterWrapper">
-            <div class="ui-corner-top">
-                <div id="hideDealerFilter" class="filterBackArrow">
-                    <span class="bwmsprite fa-arrow-back"></span>
+        <section>
+            <div class="container bg-white box-shadow margin-bottom10">
+                <p class="font16 text-black text-bold padding-15-20 border-solid-bottom"><%=totalDealers %> <%=makeName %> dealers in <%= cityName %></p>
+                <ul id="dealersList">
+                    <asp:Repeater ID="rptDealers" runat="server">
+                        <ItemTemplate>
+                            <li>
+                                
+                                <div class="<%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %> featured-tag">
+                                    <span class="bwmsprite star-white"></span>Featured
+                                </div>
+                                <h3 class="text-truncate margin-bottom5">
+                                    <%# GetDealerDetailLink(DataBinder.Eval(Container.DataItem,"DealerType").ToString(), DataBinder.Eval(Container.DataItem,"DealerId").ToString(), DataBinder.Eval(Container.DataItem,"CampaignId").ToString(), DataBinder.Eval(Container.DataItem,"Name").ToString()) %>
+                                </h3>
+                                <p class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Address").ToString()))?"hide":"margin-bottom5" %>">
+                                    <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                    <span class="vertical-top dealership-details text-light-grey"><%# DataBinder.Eval(Container.DataItem,"Address") %></span>
+                                </p>                                
+                                <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":"" %>">
+                                    <a href="tel:<%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %>" class="text-default text-bold maskingNumber">
+                                        <span class="vertical-top bwmsprite tel-sm-grey-icon"></span>
+                                        <span class="vertical-top dealership-details"><%# DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %></span>
+                                    </a>
+                                </div>
+                                <input leadSourceId="20" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" campId="<%# (DataBinder.Eval(Container.DataItem,"CampaignId")) %>" type="button" class="btn btn-white margin-top10 get-assistance-btn <%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>" value="Get offers from dealer">
+                            </li>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <div class="container bg-white box-shadow margin-bottom15">
+                <h2 class="padding-15-20">Popular Bajaj bikes in Mumbai</h2>
+                <div class="swiper-container card-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="Honda Dream Neo">
+                                    <div class="swiper-image-preview position-rel">
+                                        <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com//160x89//bw/models/honda-dream-neo-self-start-drum-brake-alloy-451.jpg?20151209184804" alt="Honda Dream Neo" src="">
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="swiper-details-block padding-right15 padding-left15">
+                                        <p class="target-link font12 text-truncate margin-bottom5">Honda Dream Neo</p>
+                                        <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
+                                        <p>
+                                            <span class="bwmsprite inr-xsm-icon"></span>
+                                            <span class="font16 text-default text-bold">50,437</span>
+                                        </p>
+                                    </div>
+                                </a>
+                                <div class="padding-10-15">
+                                    <a href="javascript:void(0)" class="btn btn-card btn-full-width btn-white font14" rel="nofollow">View price in Mumbai</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="Honda Dream Neo">
+                                    <div class="swiper-image-preview position-rel">
+                                        <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com//160x89//bw/models/honda-dream-neo-self-start-drum-brake-alloy-451.jpg?20151209184804" alt="Honda Dream Neo" src="">
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="swiper-details-block padding-right15 padding-left15">
+                                        <p class="target-link font12 text-truncate margin-bottom5">Honda Dream Neo</p>
+                                        <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
+                                        <p>
+                                            <span class="bwmsprite inr-xsm-icon"></span>
+                                            <span class="font16 text-default text-bold">50,437</span>
+                                        </p>
+                                    </div>
+                                </a>
+                                <div class="padding-10-15">
+                                    <a href="javascript:void(0)" class="btn btn-card btn-full-width btn-white font14" rel="nofollow">View price in Mumbai</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="Honda Dream Neo">
+                                    <div class="swiper-image-preview position-rel">
+                                        <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com//160x89//bw/models/honda-dream-neo-self-start-drum-brake-alloy-451.jpg?20151209184804" alt="Honda Dream Neo" src="">
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="swiper-details-block padding-right15 padding-left15">
+                                        <p class="target-link font12 text-truncate margin-bottom5">Honda Dream Neo</p>
+                                        <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
+                                        <p>
+                                            <span class="bwmsprite inr-xsm-icon"></span>
+                                            <span class="font16 text-default text-bold">50,437</span>
+                                        </p>
+                                    </div>
+                                </a>
+                                <div class="padding-10-15">
+                                    <a href="javascript:void(0)" class="btn btn-card btn-full-width btn-white font14" rel="nofollow">View price in Mumbai</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="Honda Dream Neo">
+                                    <div class="swiper-image-preview position-rel">
+                                        <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com//160x89//bw/models/honda-dream-neo-self-start-drum-brake-alloy-451.jpg?20151209184804" alt="Honda Dream Neo" src="">
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="swiper-details-block padding-right15 padding-left15">
+                                        <p class="target-link font12 text-truncate margin-bottom5">Honda Dream Neo</p>
+                                        <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
+                                        <p>
+                                            <span class="bwmsprite inr-xsm-icon"></span>
+                                            <span class="font16 text-default text-bold">50,437</span>
+                                        </p>
+                                    </div>
+                                </a>
+                                <div class="padding-10-15">
+                                    <a href="javascript:void(0)" class="btn btn-card btn-full-width btn-white font14" rel="nofollow">View price in Mumbai</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="filterTitle">Locate dealers</div>
-                <div id="dealerFilterReset" class="resetrTitle">Reset</div>
+                <div class="padding-top20 padding-bottom20 text-center">
+                    <!-- Ad -->
+                </div>
+                <div class="margin-right10 margin-left10 border-solid-bottom"></div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container margin-bottom30">
+                <div class="grid-12 font12">
+                    <span class="font14"><strong>Disclaimer:</strong></span> The above mentioned information about Honda dealership showrooms in Mumbai is furnished to the best of our knowledge. 
+                        All Honda bike models and colour options may not be available at each of the Honda dealers. 
+                        We recommend that you call and check with your nearest Honda dealer before scheduling a showroom visit.
+                </div>
                 <div class="clear"></div>
             </div>
-            <div class="user-selected-brand-city-container content-inner-block-20" id="divMakeCity">
-                <div id="selectBrand" class="form-control text-left input-sm position-rel margin-bottom20">
-                    <span class="position-abt progress-bar"></span>
-                    <div class="user-selected" data-bind="text: makeName"></div>
-                    <span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span>
-                    <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>                  
-                    <span class="bwsprite error-icon errorIcon hide" ></span>
-                    <div class="bw-blackbg-tooltip errorText hide" ></div>
-                </div>
-                <div id="selectCity" class="form-control text-left input-sm position-rel margin-bottom20">
-                    <span class="position-abt progress-bar"></span>
-                    <div class="user-selected" data-bind="text: cityName"></div>
-                    <span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span>
-                    <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
-                    <span class="bwsprite error-icon errorIcon hide" ></span>
-                    <div class="bw-blackbg-tooltip errorText hide" ></div>
-                </div>
-                <div class="text-center position-rel">
-                    <span class="position-abt progress-bar btn-loader"></span>
-                    <a id="applyDealerFilter" class="btn btn-orange">Apply filter</a>
-                </div>
-            </div>
-            <div id="dealerFilterContent" class="dealers-brand-city-wrapper">
-                <div class="dealers-brand-popup-box bwm-brand-city-box bike-brand-list-container form-control-box text-left">
-                    <div class="user-input-box">
-                        <span class="dealers-back-arrow-box">
-                            <span class="bwmsprite back-long-arrow-left"></span>
-                        </span>
-                        <input class="form-control" type="text" id="dealersBrandInput" autocomplete="on" placeholder="Select a bike" />
-                    </div>
-                    <ul id="filterBrandList" class="filter-brand-city-ul margin-top40" data-filter-type="brand-filter">
-                        <asp:Repeater ID="rptMakes" runat="server">
-                            <ItemTemplate>
-                                <li maskingName="<%# DataBinder.Eval(Container.DataItem,"MaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"MakeId") %>"><%# DataBinder.Eval(Container.DataItem,"MakeName") %></li>                                 
-                             </ItemTemplate>
-                        </asp:Repeater>                      
-                    </ul>                    
-                    <span class="bwsprite error-icon errorIcon hide" ></span>
-                    <div class="bw-blackbg-tooltip errorText hide" ></div>
-                </div>
-
-                <div class="dealers-city-popup-box bwm-brand-city-box bike-city-list-container form-control-box text-left">
-                    <div class="user-input-box">
-                        <span class="dealers-back-arrow-box">
-                            <span class="bwmsprite back-long-arrow-left"></span>
-                        </span>
-                        <input class="form-control" type="text" id="dealersCityInput" autocomplete="on" placeholder="Select city" />
-                    </div>
-                    <ul id="filterCityList" class="filter-brand-city-ul margin-top40" data-filter-type="city-filter">
-                         <asp:Repeater ID="rptCities" runat="server">
-                            <ItemTemplate>
-                                <li maskingName="<%# DataBinder.Eval(Container.DataItem,"CityMaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"CityId") %>"><%# DataBinder.Eval(Container.DataItem,"CityName") %></li>                                
-                            </ItemTemplate>
-                        </asp:Repeater>                         
-                    </ul>                    
-                </div>
-            </div>
-        </div>
+        </section>
 
         <!-- Lead Capture pop up start  -->
         <div id="leadCapturePopup" class="bw-popup bwm-fullscreen-popup contact-details hide">
@@ -232,10 +282,13 @@
         </div>
         <!-- Lead Capture pop up end  -->
     
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/dealerlisting.js?<%= staticFileVersion %>"></script>
+        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/dealer/listing.js?<%= staticFileVersion %>"></script>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        
     </form>
 </body>
 </html>
