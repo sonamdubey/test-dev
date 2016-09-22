@@ -87,6 +87,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikewaleOpr.BAL", "Bikewale
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.DealerAreaCommuteDistance", "Bikewale.DealerAreaCommuteDistance\Bikewale.DealerAreaCommuteDistance.csproj", "{21C81630-557F-4744-80CC-7E1F91B73D1F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteMapUsedBikes", "SiteMapUsedBikes\SiteMapUsedBikes.csproj", "{86942D61-0DBE-43BD-8467-436B96B5A14A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -221,6 +223,10 @@ Global
 		{21C81630-557F-4744-80CC-7E1F91B73D1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21C81630-557F-4744-80CC-7E1F91B73D1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21C81630-557F-4744-80CC-7E1F91B73D1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86942D61-0DBE-43BD-8467-436B96B5A14A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86942D61-0DBE-43BD-8467-436B96B5A14A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86942D61-0DBE-43BD-8467-436B96B5A14A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86942D61-0DBE-43BD-8467-436B96B5A14A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -259,5 +265,6 @@ Global
 		{CAF758ED-4954-4BE3-BE15-345DBC891970} = {7056EFC6-5A25-483F-85CF-686413A705D4}
 		{16F4A3EB-AB13-44C2-99CD-A942C05F3222} = {D2AE1DE5-22CC-4CA0-AD06-E5B85E93F6E9}
 		{21C81630-557F-4744-80CC-7E1F91B73D1F} = {B11DD9B4-6451-432B-B918-C2F42563C1B2}
+		{86942D61-0DBE-43BD-8467-436B96B5A14A} = {B11DD9B4-6451-432B-B918-C2F42563C1B2}
 	EndGlobalSection
 EndGlobal
