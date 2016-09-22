@@ -4,13 +4,12 @@ using System.Collections.Generic;
 namespace Bikewale.Interfaces.UsedBikes
 {
     /// <summary>
-    /// Author : Vivek Gupta
-    /// Date : 21 june 2016
-    /// Desc : reference added for used bike repository
+    /// Created By Sajal Gupta On 14/09/2016
+    /// Description : Function to getBikes based on model/city/make.
     /// </summary>
     public interface IUsedBikes
     {
-        IEnumerable<PopularUsedBikesEntity> GetPopularUsedBikes(uint totalCount, int? city = null);
-        IEnumerable<MostRecentBikes> GetMostRecentUsedBikes(uint makeId, uint totalCount, int? cityId = null);
+        IEnumerable<MostRecentBikes> GetPopularUsedBikes(uint makeId, uint modelId, uint cityId, uint totalCount);
+      
     }
 }

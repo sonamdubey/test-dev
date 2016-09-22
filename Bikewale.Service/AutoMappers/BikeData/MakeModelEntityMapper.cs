@@ -3,10 +3,7 @@ using Bikewale.DTO.BikeData;
 using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
 using Bikewale.Entities.BikeData;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Service.AutoMappers.BikeData
 {
@@ -18,6 +15,18 @@ namespace Bikewale.Service.AutoMappers.BikeData
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
             Mapper.CreateMap<BikeMakeModelEntity, BikeMakeModel>();
             return Mapper.Map<List<BikeMakeModelEntity>, List<BikeMakeModel>>(entity);
+        }
+
+        internal static IEnumerable<MakeModelBase> Convert(IEnumerable<BikeMakeModelBase> enumerable)
+        {
+            if (enumerable != null)
+            {
+                Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+                Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+                Mapper.CreateMap<BikeMakeModelBase, MakeModelBase>();
+                return Mapper.Map<IEnumerable<BikeMakeModelBase>, IEnumerable<MakeModelBase>>(enumerable);
+            }
+            return null;
         }
     }
 }

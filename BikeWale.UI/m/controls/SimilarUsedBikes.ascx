@@ -59,9 +59,10 @@
                     <% } %>
                 </div>
             </div>
-            <%--<div class="margin-top10 margin-right20 margin-left20">
-                <a href="/m/used/bikes-in-<%= CityMaskingName %>/<%= MakeMaskingName %>-<%= ModelMaskingName %>/" title="" class="font14">View all <%= ModelName %> in <%= CityName %><span class="bwmsprite blue-right-arrow-icon"></span></a>
-            </div>--%>
+            <div class="margin-top10 margin-right20 margin-left20">
+                <a href="/m/used/<%= MakeMaskingName %>-<%= ModelMaskingName %>-bikes-in-<%= CityMaskingName %>/" title="Used <%= ModelName %> bikes in <%= CityName %>" class="font14">View all <%= ModelName %> in <%= CityName %><span class="bwmsprite blue-right-arrow-icon"></span></a>
+            </div>
         </div>
         <div class="margin-right20 margin-left20 border-solid-bottom"></div>
 <% } %>
+

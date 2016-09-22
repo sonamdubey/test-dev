@@ -200,6 +200,8 @@ namespace Bikewale.BikeBooking
         /// Desc : versionName added in SendEmailSMSToDealerCustomer.BookingEmailToDealer
         /// Modified By : Lucky Rathore on 11 May 2016.
         /// Summary : paramete to call BookingEmailToCustomer() updated.
+        /// Modified By: Aditi Srivastava on 14 Sep 2016
+        /// Description: Changed Dealer Mobile no(masking no.) to phone no(mobile no.) for sending sms and email to customer
         /// </summary>
         private void SentSuccessNotification()
         {
@@ -209,9 +211,9 @@ namespace Bikewale.BikeBooking
                 bookingRefNum = ConfigurationManager.AppSettings["OfferUniqueTransaction"] + Carwale.BL.PaymentGateway.PGCookie.PGTransId;
                 GetDetailedQuote();
                 getCustomerDetails();
-
+                //send sms to customer
                 Bikewale.Notifications.SendEmailSMSToDealerCustomer.BookingSMSToCustomer(objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerName,
-                    bikeName, _objPQ.objDealer.Organization, _objPQ.objDealer.MobileNo, address, bookingRefNum, insuranceAmount);
+                    bikeName, _objPQ.objDealer.Organization, _objPQ.objDealer.PhoneNo, address, bookingRefNum, insuranceAmount);
 
                 //send sms to dealer
                 Bikewale.Notifications.SendEmailSMSToDealerCustomer.BookingSMSToDealer(objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerName,
@@ -226,7 +228,7 @@ namespace Bikewale.BikeBooking
                 //send email to customer
                 Bikewale.Notifications.SendEmailSMSToDealerCustomer.BookingEmailToCustomer(objCustomer.objCustomerBase.CustomerEmail, objCustomer.objCustomerBase.CustomerName
                    , _objPQ.objQuotation.PriceList, _objPQ.objOffers, bookingRefNum, totalPrice, _objPQ.objBookingAmt.Amount, MakeModel, VersionName, bikeColor, imgPath,
-               _objPQ.objDealer.Organization, address, _objPQ.objDealer.MobileNo, _objPQ.objDealer.EmailId, _objPQ.objDealer.WorkingTime, _objPQ.objDealer.objArea.Latitude, _objPQ.objDealer.objArea.Longitude);
+               _objPQ.objDealer.Organization, address, _objPQ.objDealer.PhoneNo, _objPQ.objDealer.EmailId, _objPQ.objDealer.WorkingTime, _objPQ.objDealer.objArea.Latitude, _objPQ.objDealer.objArea.Longitude);
 
                 //send email to dealer
                 Bikewale.Notifications.SendEmailSMSToDealerCustomer.BookingEmailToDealer(_objPQ.objDealer.EmailId, ConfigurationManager.AppSettings["OfferClaimAlertEmail"],

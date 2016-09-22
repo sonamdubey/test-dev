@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.Location;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.Location
@@ -8,7 +9,8 @@ namespace Bikewale.Interfaces.Location
     /// </summary>
     public interface ICityCacheRepository
     {
-        IEnumerable<Entities.Location.CityEntityBase> GetPriceQuoteCities(uint modelId);
+        IEnumerable<CityEntityBase> GetPriceQuoteCities(uint modelId);
+        IEnumerable<CityEntityBase> GetAllCities(EnumBikeType requestType);
         DealerStateCities GetDealerStateCities(uint makeId, uint stateId);
     }
 }

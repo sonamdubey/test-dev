@@ -76,6 +76,8 @@ namespace Bikewale.New
         protected string hide = "";
         //protected BikeModelPageEntity modelPg;
 
+        protected UsedBikes ctrlRecentUsedBikes;
+
 
         #region Subscription model variables
 
@@ -184,6 +186,8 @@ namespace Bikewale.New
         /// Description : set make masking name, model Making Name and model ID for video controller
         /// Modified By : Lucky Rathore on 04 July 2016.
         /// Description : function "SetBWUtmz" called.
+        /// Modified By : Sajal Gupta on 15/09/2016
+        /// Description : Added details for usedBikes.ascx usert control.
         /// </summary>
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -241,6 +245,11 @@ namespace Bikewale.New
                     ctrlLeadCapture.ModelId = modelId;
                     ctrlLeadCapture.CityId = cityId;
 
+                    ctrlRecentUsedBikes.CityId = (int?)cityId;
+                    ctrlRecentUsedBikes.TopCount = 6;
+                    ctrlRecentUsedBikes.ModelId = Convert.ToUInt32(modelId);
+
+
                 }
                 if (!isDiscontinued)
                     ctrlPopularCompare.versionId = Convert.ToString(variantId);
@@ -281,6 +290,8 @@ namespace Bikewale.New
                 ctrlVideos.WidgetTitle = bikeName;
                 ctrlVideos.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
                 ctrlVideos.ModelName = modelPage.ModelDetails.ModelName;
+
+                ctrlRecentUsedBikes.MakeId = Convert.ToUInt32(modelPage.ModelDetails.MakeBase.MakeId);
 
                 ctrlUserReviews.ReviewCount = 3;
                 ctrlUserReviews.PageNo = 1;
@@ -419,6 +430,11 @@ namespace Bikewale.New
                         }
 
                     }
+                    if (modelPg.ModelVersions != null && modelPg.ModelVersions.Count > 0)
+                    {
+                        rptVarients.DataSource = modelPg.ModelVersions;
+                        rptVarients.DataBind();
+                    }
                 }
             }
             catch (Exception ex)
@@ -460,12 +476,6 @@ namespace Bikewale.New
                     ctrlModelGallery.bikeName = bikeName;
                     ctrlModelGallery.modelId = Convert.ToInt32(modelId);
                     ctrlModelGallery.Photos = photos;
-                }
-
-                if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
-                {
-                    rptVarients.DataSource = modelPage.ModelVersions;
-                    rptVarients.DataBind();
                 }
 
                 //bind model colors
@@ -708,7 +718,7 @@ namespace Bikewale.New
                     // Set Pricequote Cookie
                     if (pqOnRoad != null)
                     {
-                        if (pqOnRoad.BPQOutput != null)
+                        if (pqOnRoad.BPQOutput != null && !String.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
                             pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.CampaignId, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber) ? "hide" : string.Empty);
 
                         variantId = pqOnRoad.PriceQuote.VersionId;
@@ -784,12 +794,6 @@ namespace Bikewale.New
                                 isBikeWalePQ = true;
                                 #endregion
                             }
-                        }
-                        // If DPQ or BWPQ Found change Version Pricing as well
-                        if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
-                        {
-                            rptVarients.DataSource = modelPage.ModelVersions;
-                            rptVarients.DataBind();
                         }
                     }
                     else // On road PriceQuote is Null so get price from the modelpage variants
