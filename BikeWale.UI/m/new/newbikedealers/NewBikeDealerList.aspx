@@ -39,9 +39,9 @@
         <section>
             <div class="container margin-bottom10">
                 <div class="bg-white">
-                    <h1 class="box-shadow padding-15-20">Bajaj dealers in Mumbai</h1>
+                    <h1 class="box-shadow padding-15-20"><%=makeName %> dealers in <%= cityName %></h1>
                     <div class="box-shadow font14 text-light-grey padding-15-20">
-                        Honda has 10 authorized dealers in Mumbai. Apart from the authorized dealerships, Honda bikes are also available at unauthorized showrooms and broker outlets.
+                        <%=makeName %> has <%=totalDealers %> authorized dealers in <%= cityName %>. Apart from the authorized dealerships, <%= makeName %> bikes are also available at unauthorized showrooms and broker outlets.
                     </div>
                 </div>
             </div>
@@ -102,9 +102,9 @@
         <section>
             <div class="container margin-bottom30">
                 <div class="grid-12 font12">
-                    <span class="font14"><strong>Disclaimer:</strong></span> The above mentioned information about Honda dealership showrooms in Mumbai is furnished to the best of our knowledge. 
-                        All Honda bike models and colour options may not be available at each of the Honda dealers. 
-                        We recommend that you call and check with your nearest Honda dealer before scheduling a showroom visit.
+                    <span class="font14"><strong>Disclaimer:</strong></span> The above mentioned information about <%=makeName %> dealership showrooms in <%=cityName %> is furnished to the best of our knowledge. 
+                        All <%=makeName %> bike models and colour options may not be available at each of the <%=makeName %> dealers. 
+                        We recommend that you call and check with your nearest <%=makeName %> dealer before scheduling a showroom visit.
                 </div>
                 <div class="clear"></div>
             </div>

@@ -32,7 +32,7 @@ namespace Bikewale.Mobile.New
         protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, urlCityMaskingName = string.Empty;
         protected uint cityId, makeId;
         protected ushort totalDealers;
-        protected Repeater rptMakes, rptCities, rptDealers;
+        protected Repeater rptDealers; //rptMakes, rptCities, ;
         protected string clientIP = string.Empty, pageUrl = string.Empty;
         protected UsedBikes ctrlRecentUsedBikes;
         protected MMostPopularBikes ctrlPopoularBikeMake;
@@ -137,8 +137,8 @@ namespace Bikewale.Mobile.New
                     _makes = objCache.GetMakesByType(EnumBikeType.Dealer);
                     if (_makes != null && _makes.Count() > 0)
                     {
-                        rptMakes.DataSource = _makes;
-                        rptMakes.DataBind();
+                        //rptMakes.DataSource = _makes;
+                        //rptMakes.DataBind();
                         makeName = _makes.Where(x => x.MakeId == makeId).FirstOrDefault().MakeName;
                     }
                 }
@@ -170,8 +170,8 @@ namespace Bikewale.Mobile.New
                     _cities = objCities.FetchDealerCitiesByMake(makeId);
                     if (_cities != null && _cities.Count() > 0)
                     {
-                        rptCities.DataSource = _cities;
-                        rptCities.DataBind();
+                        //rptCities.DataSource = _cities;
+                        //rptCities.DataBind();
 
                         var _city = _cities.FirstOrDefault(x => x.CityId == cityId);
                         if (_city != null)
