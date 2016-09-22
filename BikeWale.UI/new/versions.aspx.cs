@@ -216,7 +216,7 @@ namespace Bikewale.New
                     Trace.Warn("Trace 5 : CheckCityCookie Start");
                     CheckCityCookie();
                     Trace.Warn("Trace 6 : CheckCityCookie End");
-                    if (hdnVariant.Value != "0")
+                    if (hdnVariant != null && hdnVariant.Value != "0")
                         variantId = Convert.ToUInt32(hdnVariant.Value);
                     Trace.Warn("Trace 7 : FetchModelPageDetails Start");
                     modelPageEntity = FetchModelPageDetails(modelId);

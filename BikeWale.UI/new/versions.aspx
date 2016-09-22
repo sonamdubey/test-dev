@@ -417,7 +417,7 @@
                                             <span class="bwsprite error-icon errorIcon"></span>
                                             <div class="bw-blackbg-tooltip errorText"></div>
                                         </div>
-                                        <a class="btn btn-teal leftfloat" leadsourceid="13" id="assistFormSubmit" data-bind="event: { click: submitLead }">Submit</a>
+                                        <a class="btn btn-teal leftfloat " data-leadsourceid="13" data-item-id="<%= dealerId %>" data-item-name="<%= (viewModel!=null) ? viewModel.Organization : string.Empty %>" data-item-area="<%= (viewModel!=null) ? viewModel.AreaName : string.Empty %> " data-isleadpopup="false" id="assistFormSubmit" data-bind="event: { click: HiddenSubmitLead }">Submit</a>
                                         <div class="clear"></div>
                                     </div>
                                 </div>
@@ -1313,12 +1313,12 @@
                     "mfgCampid": ele.attr('data-mfgcampid'),
                     "pqid": pqId,
                     "pageurl": pageUrl,
-                    "clientip": clientIP
-                    <%--"gaobject": {
-                        cat: 'Price_in_City_Page',
-                        act: 'Lead_Submitted',
-                        lab: '<%= string.Format("{0}_", bikeName)%>' + CityArea
-                    }--%>
+                    "clientip": clientIP,
+                    "gaobject": {
+                        cat: ele.attr("c"),
+                        act: ele.attr("a"),
+                        lab: ele.attr("v")
+                    }
                 };
 
                 dleadvm.setOptions(leadOptions);

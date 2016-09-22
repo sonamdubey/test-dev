@@ -303,7 +303,7 @@
                         { %>
                     <div class="margin-bottom20">
                         <div class="vertical-top">
-                            <a id="requestcallback" c="Model_Page" a="Request_Callback_Details_Clicked" v="bikeVersionLocation" leadSourceId="30" href="javascript:void(0)" class="btn btn-white callback-btn btn-sm-0 bw-ga">Request callback</a>
+                            <a id="requestcallback" c="Model_Page" a="Request_Callback_Details_Clicked" v="bikeVersionLocation" data-leadsourceid="30"  data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>"  data-item-area="<%= viewModel.AreaName %>" href="javascript:void(0)" class="btn btn-white callback-btn btn-sm-0 bw-ga leadcapturebtn">Request callback</a>
                         </div>
                         <p class="callback-label font11 line-height-1-7 text-xx-light vertical-top">Get EMI options, test rides other services from dealer</p>
                     </div>
@@ -870,7 +870,7 @@
                 </li>
             </ul>
             <div class="text-center">
-                <a id="getofferspopup" leadSourceId="31"  href="javascript:void(0);" class="btn btn-orange text-bold">Get offers from dealer</a>
+                <a  data-leadsourceid="31"  data-item-id="<%= dealerId %>" data-item-name="<%= (viewModel!=null) ? viewModel.Organization : string.Empty %>"  data-item-area="<%= (viewModel!=null) ? viewModel.AreaName : string.Empty %> " href="javascript:void(0);" class="btn btn-orange text-bold leadcapturebtn">Get offers from dealer</a>
             </div>
         </div>
         <% if(viewModel != null){ %>
@@ -942,9 +942,7 @@
             }
             var getCityArea = GetGlobalCityArea();
             $(document).ready(function (e) {
-                $(".leadcapturesubmit").on('click', function () {
-                    openLeadPopup($(this));
-                });
+
                 $("#templist input").on("click", function () {
                     if ($(this).attr('data-option-value') == $('#hdnVariant').val()) {
                         return false;
@@ -976,28 +974,31 @@
             });
 
             $(".leadcapturebtn").click(function (e) {
-
                 ele = $(this);
-                var leadOptions = {
-                    "dealerid": ele.attr('data-item-id'),
-                    "dealername": ele.attr('data-item-name'),
-                    "dealerarea": ele.attr('data-item-area'),
-                    "versionid": versionId,
-                    "leadsourceid": ele.attr('data-leadsourceid'),
-                    "pqsourceid": ele.attr('data-pqsourceid'),
-                    "isleadpopup": ele.attr('data-isleadpopup'),
-                    "mfgCampid": ele.attr('data-mfgcampid'),
-                    "pqid": pqId,
-                    "pageurl": pageUrl,
-                    "clientip": clientIP
-                    <%--"gaobject": {
-                        cat: 'Price_in_City_Page',
-                        act: 'Lead_Submitted',
-                        lab: '<%= string.Format("{0}_", bikeName)%>' + CityArea
-                    }--%>
-                };
+                try {                    
+                    var leadOptions = {
+                        "dealerid": ele.attr('data-item-id'),
+                        "dealername": ele.attr('data-item-name'),
+                        "dealerarea": ele.attr('data-item-area'),
+                        "versionid": versionId,
+                        "leadsourceid": ele.attr('data-leadsourceid'),
+                        "pqsourceid": ele.attr('data-pqsourceid'),
+                        "isleadpopup": ele.attr('data-isleadpopup'),
+                        "mfgCampid": ele.attr('data-mfgcampid'),
+                        "pqid": pqId,
+                        "pageurl": pageUrl,
+                        "clientip": clientIP,
+                        "gaobject": {
+                            cat: ele.attr("c"),
+                            act: ele.attr("a"),
+                            lab: ele.attr("v")
+                        }
+                    };
 
-                dleadvm.setOptions(leadOptions);
+                    dleadvm.setOptions(leadOptions);
+                } catch (e) {
+                    console.warn("Unable to get submit details : " + e.message);
+                }
 
             });
             

@@ -102,12 +102,12 @@
         });
 
         $(document).on('click', '#notifyOkayBtn', function () {
-            $(".leadCapture-close-btn").click();
+            $(".leadCapture-close-btn").trigger("click");
         });
 
         $(document).on('keydown', function (e) {
             if (e.keyCode === 27) {
-                $("#leadCapturePopup .leadCapture-close-btn").click();
+                $("#leadCapturePopup .leadCapture-close-btn").trigger("click");
             }
         });
 
