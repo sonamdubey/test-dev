@@ -638,6 +638,10 @@
       <DependentUpon>UsedBikeSearch.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\UsedBikeWidget.ascx.cs">
+      <DependentUpon>UsedBikeWidget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\UserFeedBack.ascx.cs">
       <DependentUpon>UserFeedBack.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1093,8 +1097,8 @@
       <DependentUpon>BookingListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\browsenewbikedealerdetails_v2.aspx.cs">
-      <DependentUpon>browsenewbikedealerdetails_v2.aspx</DependentUpon>
+    <Compile Include="new\browsenewbikedealerdetails.aspx.cs">
+      <DependentUpon>browsenewbikedealerdetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\listnewbikedealersbycity.aspx.cs">
@@ -1123,10 +1127,6 @@
     </Compile>
     <Compile Include="new\versions.aspx.cs">
       <DependentUpon>versions.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="new\browsenewbikedealerdetails.aspx.cs">
-      <DependentUpon>browsenewbikedealerdetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\common\CompareBikes.cs" />
@@ -1765,6 +1765,7 @@
     <Content Include="controls\UpcomingBikes_new.ascx" />
     <Content Include="controls\UsedBikes.ascx" />
     <Content Include="controls\UsedBikeSearch.ascx" />
+    <Content Include="controls\UsedBikeWidget.ascx" />
     <Content Include="controls\UserFeedBack.ascx" />
     <Content Include="controls\UserReviewsList.ascx" />
     <Content Include="controls\UsersTestimonials.ascx" />
@@ -2400,7 +2401,7 @@
     <Content Include="m\videos\default.aspx" />
     <Content Include="m\videos\VideoMakeModel.aspx" />
     <Content Include="News\RepeaterPagerNews.ascx" />
-    <Content Include="new\browsenewbikedealerdetails_v2.aspx" />
+    <Content Include="new\browsenewbikedealerdetails.aspx" />
     <Content Include="new\dealersinstate.aspx" />
     <Content Include="new\locatenewbikedealers_old.aspx" />
     <Content Include="new\listnewbikedealersbycity.aspx" />
@@ -2437,7 +2438,6 @@
     <Content Include="News\news.aspx" />
     <Content Include="News\newsfeed.aspx" />
     <Content Include="News\Sitemap.aspx" />
-    <Content Include="new\browsenewbikedealerdetails.aspx" />
     <Content Include="new\compare\CompareBikes.aspx" />
     <Content Include="new\compare\default.aspx" />
     <Content Include="new\default.aspx" />
