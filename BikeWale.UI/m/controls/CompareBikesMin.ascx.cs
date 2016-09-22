@@ -1,11 +1,6 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.Entities.Compare;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Controls
 {
@@ -37,7 +32,7 @@ namespace Bikewale.Mobile.Controls
             this.TopRecord = objComp.FetchTopRecord();
             this.FetchedRecordsCount = objComp.FetchedRecordCount;
 
-            this.TopCompareImage = Bikewale.Utility.Image.GetPathToShowImages(TopRecord.OriginalImagePath, TopRecord.HostURL, Bikewale.Utility.ImageSize._640x348);
+            this.TopCompareImage = Bikewale.Utility.Image.GetPathToShowImages(TopRecord.OriginalImagePath, TopRecord.HostURL, Bikewale.Utility.ImageSize._360x202);
 
             if (this.TopRecord.ReviewCount1 > 0)
             {

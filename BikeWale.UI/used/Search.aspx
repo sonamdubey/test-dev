@@ -3,6 +3,7 @@
 <%
     title = pageTitle;
     description = pageDescription;
+    alternate = altUrl;
     keywords = pageKeywords;
     canonical = pageCanonical;
     prevPageUrl = prevUrl;

@@ -58,7 +58,7 @@
         <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
             <div class="icon-outer-container rounded-corner50percent">
                 <div class="icon-inner-container rounded-corner50percent">
-                    <span class="bwmsprite thankyou-icon margin-top10"></span>
+                    <span class="bwmsprite thankyou-icon margin-top15"></span>
                 </div>
             </div>
             <p class="font18 text-bold margin-top20 margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
@@ -102,12 +102,12 @@
         });
 
         $(document).on('click', '#notifyOkayBtn', function () {
-            $(".leadCapture-close-btn").click();
+            $(".leadCapture-close-btn").trigger("click");
         });
 
         $(document).on('keydown', function (e) {
             if (e.keyCode === 27) {
-                $("#leadCapturePopup .leadCapture-close-btn").click();
+                $("#leadCapturePopup .leadCapture-close-btn").trigger("click");
             }
         });
 

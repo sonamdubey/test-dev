@@ -1020,8 +1020,11 @@ function SetCookieInDays(cookieName, cookieValue, nDays) {
     var today = new Date();
     var expire = new Date();
     expire.setTime(today.getTime() + 3600000 * 24 * nDays);
-    cookieValue = cookieValue.replace(/\s+/g, '-');
-    document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + '; path =/';
+    if (cookieValue && cookieValue != "")
+    {
+        cookieValue = cookieValue.toString().replace(/\s+/g, '-');
+        document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + '; path =/';
+    }    
 }
 
 function getCookie(key) {
@@ -1187,13 +1190,13 @@ $(function () {
 
 $("#btnCrossApp").click(function () {
     $("#appBanner").slideUp();
-    SetCookieInDays("AppBanner", "false", 30);
+    SetCookieInDays("AppBanner", false, 30);
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'Close_Clicked_App_Download_Banner' });
 });
 
 $("#btnInstallApp").click(function () {
     $("#appBanner").slideUp();
-    SetCookieInDays("AppBanner", "false", 30);
+    SetCookieInDays("AppBanner", false, 30);
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'InstallApp_Clicked_App_Download_Banner' });
 });
 $(window).on('hashchange', function (e) {
@@ -1610,6 +1613,7 @@ $('#area-menu-input').on('focus click', function (event) {
     $("#city-area-popup").animate({ scrollTop: 190 });
 });
 
+
 function LoadTerms(offerId) {
     $("div#termsPopUpContainer").show();
     $(".blackOut-window").show();
@@ -1635,3 +1639,9 @@ function LoadTerms(offerId) {
     }
     $('#termspinner').hide();
 }
+
+$('.btn-white').on('touchstart', function () {
+    $(this).addClass('active');
+}).on('touchend', function () {
+    $(this).removeClass('active');
+})

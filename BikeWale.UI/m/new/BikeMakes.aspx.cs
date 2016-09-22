@@ -1,4 +1,5 @@
-﻿using Bikewale.BindViewModels.Controls;
+﻿
+using Bikewale.BindViewModels.Controls;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
@@ -8,7 +9,6 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Memcache;
-using Bikewale.Mobile.Controls;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
@@ -39,7 +39,7 @@ namespace Bikewale.Mobile
         protected BikeDescriptionEntity _bikeDesc = null;
         protected int uCount = 0;
         protected short reviewTabsCnt = 0;
-
+        protected UsedBikes ctrlRecentUsedBikes;
         //Variable to Assing ACTIVE .css class
         protected bool isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
         //Varible to Hide or show controlers
@@ -96,6 +96,10 @@ namespace Bikewale.Mobile
                 ctrlDealerCard.LeadSourceId = 30;
 
                 ctrlLeadCapture.CityId = cityId;
+                ctrlRecentUsedBikes.MakeId = Convert.ToUInt32(makeId);
+
+                ctrlRecentUsedBikes.CityId = (int?)cityId;
+                ctrlRecentUsedBikes.TopCount = 6;
 
                 BindDiscountinuedBikes();
             }

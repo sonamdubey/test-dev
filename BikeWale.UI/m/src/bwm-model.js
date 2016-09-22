@@ -34,10 +34,6 @@ $("#viewBreakupText").on('click', function (e) {
     triggerGA('Model_Page', 'View_Detailed_Price_Clicked', bikeVersionLocation);
     secondarydealer_Click(dealerId);
 });
-$(".breakupCloseBtn, #notifyOkayBtn").on('click', function (e) {
-    viewBreakUpClosePopup();
-    window.history.back();
-});
 
 var viewBreakUpClosePopup = function () {
     $("div#breakupPopUpContainer").hide();
@@ -84,16 +80,6 @@ $('#bookNowBtn').on('click', function (e) {
     var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
     window.location.href = "/m/pricequote/bookingSummary_new.aspx?MPQ=" + Base64.encode(cookieValue);
 });
-
-$('#requestcallback').on('click', function (e) {
-    openLeadPopup($(this));
-});
-
-$('#getofferspopup').on('click', function (e) {
-    $('#dealer-offers-popup').hide();
-    openLeadPopup($(this));
-});
-
 
 
 $("#btnShowOffers").on("click", function () {

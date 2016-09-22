@@ -1843,50 +1843,50 @@ namespace Bikewale.Common
         //}
 
         //Supportive function of above function
-//        static bool GetBikeCity(string bikeProfileNo, bool isDealer)
-//        {
-//            string sql = "";
-//            bool isCity = false;
+        //        static bool GetBikeCity(string bikeProfileNo, bool isDealer)
+        //        {
+        //            string sql = "";
+        //            bool isCity = false;
 
-//            //dealer
-//            if (isDealer)
-//            {
-//                sql = @"select si.id from sellinquiries as si, dealers as d  
-//                    where d.dealerid = si.dealerid and d.cityid in(1,6,8,13,40)
-//                    and si.id = @bikeprofileno";
-//            }
-//            //Individual
-//            else
-//            {
-//                sql = "select id from classifiedindividualsellinquiries  where cityid in(1,6,8,13,40) and id = @bikeprofileno";
-//            }
-//            try
-//            {
+        //            //dealer
+        //            if (isDealer)
+        //            {
+        //                sql = @"select si.id from sellinquiries as si, dealers as d  
+        //                    where d.dealerid = si.dealerid and d.cityid in(1,6,8,13,40)
+        //                    and si.id = @bikeprofileno";
+        //            }
+        //            //Individual
+        //            else
+        //            {
+        //                sql = "select id from classifiedindividualsellinquiries  where cityid in(1,6,8,13,40) and id = @bikeprofileno";
+        //            }
+        //            try
+        //            {
 
-//                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
-//                {
-//                    cmd.Parameters.Add(DbFactory.GetDbParam("@bikeprofileno", DbType.Int32, bikeProfileNo));
+        //                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
+        //                {
+        //                    cmd.Parameters.Add(DbFactory.GetDbParam("@bikeprofileno", DbType.Int32, bikeProfileNo));
 
-//                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
-//                    {
-//                        if (dr != null && dr.Read())
-//                        {
-//                            isCity = true;
-//                            dr.Close();
-//                        }
-//                    }
-//                }
+        //                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+        //                    {
+        //                        if (dr != null && dr.Read())
+        //                        {
+        //                            isCity = true;
+        //                            dr.Close();
+        //                        }
+        //                    }
+        //                }
 
-//            }
-//            catch (Exception err)
-//            {
-//                HttpContext.Current.Trace.Warn("Common.SMSCommon : " + err.Message);
-//                ErrorClass objErr = new ErrorClass(err, "Common.GetBikeCity");
-//                objErr.SendMail();
-//            }
+        //            }
+        //            catch (Exception err)
+        //            {
+        //                HttpContext.Current.Trace.Warn("Common.SMSCommon : " + err.Message);
+        //                ErrorClass objErr = new ErrorClass(err, "Common.GetBikeCity");
+        //                objErr.SendMail();
+        //            }
 
-//            return isCity;
-//        }
+        //            return isCity;
+        //        }
 
         //this function returns the city id as selected by the user and is as set in
         //the cookie
@@ -2156,67 +2156,6 @@ namespace Bikewale.Common
 
         } //End of GetContentTypes
 
-        /// <summary>
-        /// Written By : Ashwini Todkar on 30 Oct 2014
-        /// </summary>
-        /// <param name="eMI">Tenure,LoanAmount and ROI</param>
-        /// <param name="exShowroom">Bike Price</param>
-        /// <returns></returns>
-        //public static CalculatedEMI GetCalculatedReducingEmi(EMI eMI, UInt32 exShowroom, UInt32 totalOnroadPrice)
-        //{
-        //    CalculatedEMI objEMI = new CalculatedEMI();
-        //    objEMI.objEMI = eMI;
-
-        //    // Calculate min down payment
-        //    UInt32 loanAmount = exShowroom * eMI.LoanToValue / 100;
-        //    objEMI.LoanAmount = loanAmount;
-        //    // Calculate loan amount
-        //    uint downPayment = totalOnroadPrice - loanAmount;
-        //    objEMI.DownPayment = downPayment;
-        //    // Calculate monthly interest
-        //    float interest = ((float)eMI.RateOfInterest / (12 * 100));
-
-        //    // Calculate Emi
-        //    double finalEmi = (loanAmount * interest * Math.Pow(1 + interest, eMI.Tenure - 1)) / (Math.Pow(1 + interest, eMI.Tenure) - 1);
-
-        //    objEMI.EMI = finalEmi;
-
-        //    return objEMI;
-        //}
-
-        /// <summary>
-        /// Written By : Ashwini Todkar on 4 dec 2014
-        /// </summary>
-        /// <param name="eMI">Tenure,LoanAmount and ROI</param>
-        /// <param name="totalOnroadPrice">Bike Price</param>
-        /// <returns></returns>
-        //public static CalculatedEMI GetCalculatedFlatEmi(EMI eMI, UInt32 totalOnroadPrice)
-        //{
-        //    CalculatedEMI objEMI = new CalculatedEMI();
-        //    objEMI.objEMI = eMI;
-
-        //    // Calculate min down payment
-        //    UInt32 loanAmount = totalOnroadPrice * eMI.LoanToValue / 100;
-
-        //    objEMI.LoanAmount = loanAmount;
-        //    // Calculate loan amount
-        //    uint downPayment = totalOnroadPrice - loanAmount;
-
-        //    objEMI.DownPayment = downPayment;
-
-        //    // Calculate total simple interest (P*N*R)
-        //    float interest = (loanAmount * (((float)eMI.Tenure) / 12) * (eMI.RateOfInterest / 100));
-
-
-        //    float totalRepayment = loanAmount + interest;
-
-        //    // Calculate Emi
-        //    double finalEmi = Math.Round((totalRepayment / (eMI.Tenure))); //(loanAmount * interest * Math.Pow(1 + interest, eMI.Tenure - 1)) / (Math.Pow(1 + interest, eMI.Tenure) - 1);
-
-        //    objEMI.EMI = finalEmi;
-
-        //    return objEMI;
-        //}
 
         /// <summary>
         /// Created By : Sadhana Upadhyay on 5 Nov 2014

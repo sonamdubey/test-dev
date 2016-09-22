@@ -49,6 +49,7 @@ namespace Bikewale.Mobile.New
         protected VersionSpecifications bikeSpecs;
         protected LeadCaptureControl ctrlLeadCapture;
         protected PQOnRoadPrice pqOnRoad;
+        protected UsedBikes ctrlRecentUsedBikes;
         protected Repeater rptNavigationPhoto, rptVarients, rptColors, rptOffers, rptNewOffers, rptSecondaryDealers;
         protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty, location = string.Empty, priceText = "Ex-showroom", detailedPriceLink = string.Empty, versionText = string.Empty;
         protected String clientIP = CommonOpn.GetClientIP();
@@ -201,7 +202,11 @@ namespace Bikewale.Mobile.New
                 ctrlLeadCapture.CityId = cityId;
                 ctrlLeadCapture.ModelId = modelId;
                 ctrlLeadCapture.AreaId = areaId;
-            
+                ctrlRecentUsedBikes.MakeId = Convert.ToUInt32(modelPage.ModelDetails.MakeBase.MakeId);
+                ctrlRecentUsedBikes.ModelId = Convert.ToUInt32(modelId);
+                ctrlRecentUsedBikes.CityId = (int?)cityId;
+                ctrlRecentUsedBikes.TopCount = 6;
+
             }
             catch (Exception ex)
             {

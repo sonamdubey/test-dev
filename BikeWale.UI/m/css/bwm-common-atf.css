@@ -71,8 +71,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 .btn-orange:hover { background: #f44336; text-decoration: none; }
 .btn-orange:focus { background: #d42c2c; }
 .btn-white { background:#fff; color:#e42029; border:1px solid #e42029; }
-.btn-white:hover { background: #f44336; color: #fff; text-decoration: none; border:1px solid #f44336; }
-.btn-white:focus { background: #d42c2c; color: #fff; border: 1px solid #d42c2c; }
+.btn-white.active { background: #f44336; color: #fff; text-decoration: none; border:1px solid #f44336; }
 .btn-disable { cursor: not-allowed; opacity: .3; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)"; filter: alpha(opacity=30); -moz-opacity:0.3; -khtml-opacity: 0.3; }
 
 .btn-xs { padding: 8px; }
