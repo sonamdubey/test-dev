@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" Inherits="Bikewale.New.BrowseNewBikeDealerDetails_v2" AutoEventWireup="false" EnableViewState="false" %>
-
+<%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikesMake" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -126,13 +126,11 @@
             </div>
             <div id="listing-footer"></div>
         </section>
-
+        
+                   
         <section>
-            <div class="container margin-bottom10">
-                <div class="grid-12">
-                    <div class="content-box-shadow">
-                        <h2 class="font18 padding-18-20">Popular Bajaj bikes in Mumbai</h2>
-                        <div class="jcarousel-wrapper inner-content-carousel padding-bottom20">
+           
+                        <%--<div class="jcarousel-wrapper inner-content-carousel padding-bottom20">
                             <div class="jcarousel">
                                 <ul>                
                                     <li>
@@ -233,7 +231,11 @@
                             </div>
                             <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow"></a></span>
                             <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
-                        </div>
+                        </div>--%>
+                        <% if (rptPopoularBikeMake.FetchedRecordsCount > 0)
+                       { %>
+                    <BW:MostPopularBikesMake runat="server" ID="rptPopoularBikeMake" />
+                    <%} %>
 
                         <div class="margin-left10 margin-right10 border-solid-bottom"></div>
 
@@ -266,9 +268,7 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        <div class="clear"></div>
-                    </div>
-                </div>
+                       
                 <div class="clear"></div>
             </div>
         </section>

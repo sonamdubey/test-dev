@@ -1,6 +1,7 @@
 ﻿using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
+using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
 using Bikewale.Entities.BikeData;
@@ -33,7 +34,7 @@ namespace Bikewale.New
         protected Repeater rptMakes, rptCities, rptDealers;
         protected string clientIP = string.Empty, pageUrl = string.Empty;
         protected bool areDealersPremium = false;
-
+        protected MostPopularBikes_new rptPopoularBikeMake;
 
         protected override void OnInit(EventArgs e)
         {
@@ -72,6 +73,9 @@ namespace Bikewale.New
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
+                rptPopoularBikeMake.makeId = (int)makeId;
+                rptPopoularBikeMake.cityId = (int)cityId;
+                rptPopoularBikeMake.totalCount = 9;
             }
 
         }

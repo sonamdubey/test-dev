@@ -25,5 +25,6 @@ namespace Bikewale.Interfaces.BikeData
         BikeDescriptionEntity GetModelSynopsis(U modelId);
         List<ModelImage> GetModelPhotoGallery(U modelId);
         IEnumerable<ModelImage> GetModelPhotos(U modelId);
+        IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId);
     }
 }

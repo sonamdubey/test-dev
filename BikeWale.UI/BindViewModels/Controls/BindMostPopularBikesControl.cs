@@ -20,7 +20,7 @@ namespace Bikewale.BindViewModels.Controls
         public int? totalCount { get; set; }
         public int? makeId { get; set; }
         public int FetchedRecordsCount { get; set; }
-
+        public int? cityId { get; set; }
         /// <summary>
         ///  Modified by    :   Sumit Kate on 01 Jul 2016
         ///  Description    :   Call the Cache Layer to get the Data
@@ -56,6 +56,43 @@ namespace Bikewale.BindViewModels.Controls
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rptr"></param>
+        public void BindMostPopularBikesMakeCity(Repeater rptr)
+        {
+            FetchedRecordsCount = 0;
+            IEnumerable<MostPopularBikesBase> popularBikes = null;
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                        .RegisterType<ICacheManager, MemcacheManager>()
+                        .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                        .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
+
+
+                    IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
+                    popularBikes = modelCache.GetMostPopularBikesbyMakeCity((uint)totalCount, (uint)makeId, (uint)cityId);
+                }
+                if (popularBikes != null)
+                {
+                    if (popularBikes.Count() > 0)
+                    {
+                        FetchedRecordsCount = popularBikes.Count();
+                        rptr.DataSource = popularBikes;
+                        rptr.DataBind();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BindMostPopularBikesControl.BindMostPopularBikesMakeCity");
                 objErr.SendMail();
             }
         }
