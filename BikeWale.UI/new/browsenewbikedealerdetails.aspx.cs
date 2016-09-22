@@ -1,6 +1,7 @@
 ﻿using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
+using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
 using Bikewale.Entities.BikeData;
@@ -30,10 +31,10 @@ namespace Bikewale.New
         protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, urlCityMaskingName = string.Empty;
         protected uint cityId, makeId;
         protected ushort totalDealers;
-        protected Repeater rptMakes, rptCities, rptDealers;
+        protected Repeater rptDealers; //rptMakes, rptCities ;
         protected string clientIP = string.Empty, pageUrl = string.Empty;
         protected bool areDealersPremium = false;
-
+        protected UsedBikeWidget ctrlRecentUsedBikes;
 
         protected override void OnInit(EventArgs e)
         {
@@ -74,6 +75,18 @@ namespace Bikewale.New
                 }
             }
 
+            BindUserControls();
+
+        }
+
+        private void BindUserControls()
+        {
+            ctrlRecentUsedBikes.CityId = (int?)cityId;
+            ctrlRecentUsedBikes.MakeId = makeId;
+            ctrlRecentUsedBikes.TopCount = 4;
+            ctrlRecentUsedBikes.isAd = true;
+            ctrlRecentUsedBikes.cityName = cityName;
+            ctrlRecentUsedBikes.cityMaskingName = cityMaskingName;
         }
 
         /// <summary>
@@ -150,8 +163,8 @@ namespace Bikewale.New
                     _makes = objCache.GetMakesByType(EnumBikeType.Dealer);
                     if (_makes != null && _makes.Count() > 0)
                     {
-                        rptMakes.DataSource = _makes;
-                        rptMakes.DataBind();
+                        //rptMakes.DataSource = _makes;
+                        //rptMakes.DataBind();
                         var firstMake = _makes.FirstOrDefault(x => x.MakeId == makeId);
                         if (firstMake != null)
                         {
@@ -188,8 +201,8 @@ namespace Bikewale.New
                     _cities = objCities.FetchDealerCitiesByMake(makeId);
                     if (_cities != null && _cities.Count() > 0)
                     {
-                        rptCities.DataSource = _cities;
-                        rptCities.DataBind();
+                        //rptCities.DataSource = _cities;
+                        //rptCities.DataBind();
                         var firstCity = _cities.FirstOrDefault(x => x.CityId == cityId);
                         if (firstCity != null)
                         {
@@ -241,8 +254,6 @@ namespace Bikewale.New
                 objErr.SendMail();
             }
         }
-
-
 
         #region Private Method to process querystring
         /// <summary>
