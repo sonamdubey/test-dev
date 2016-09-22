@@ -580,11 +580,6 @@ var assistFormSubmit = $('#assistFormSubmit'),
     assistGetEmail = $('#assistGetEmail'),
     assistGetMobile = $('#assistGetMobile');
 
-assistFormSubmit.on('click', function () {
-    leadSourceId = $(this).attr("leadSourceId");
-    ValidateUserDetail(assistGetName, assistGetEmail, assistGetMobile);    
-});
-
 
 //
 $(document).ready(function () {
