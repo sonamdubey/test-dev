@@ -10,6 +10,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Memcache;
+using Bikewale.Mobile.Controls;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
@@ -26,13 +27,14 @@ namespace Bikewale.Mobile.New
     /// Created By : Sushil Kumar on 19th March 2016
     /// Class to show the bike dealers details
     /// </summary>
-    public class NewBikeDealerList_v2 : PageBase
+    public class NewBikeDealerList : PageBase
     {
         protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, urlCityMaskingName = string.Empty;
         protected uint cityId, makeId;
         protected ushort totalDealers;
         protected Repeater rptMakes, rptCities, rptDealers;
         protected string clientIP = string.Empty, pageUrl = string.Empty;
+        protected UsedBikes ctrlRecentUsedBikes;
 
         protected override void OnInit(EventArgs e)
         {
@@ -59,10 +61,18 @@ namespace Bikewale.Mobile.New
             {
                 BindMakesDropdown();
                 BindCitiesDropdown();
-
                 BindDealerList();
+                BindUserControls();
             }
 
+        }
+
+        private void BindUserControls()
+        {
+            ctrlRecentUsedBikes.MakeId = makeId;
+            //ctrlRecentUsedBikes.ModelId = modelid
+            ctrlRecentUsedBikes.CityId = (int?)cityId;
+            ctrlRecentUsedBikes.TopCount = 4;
         }
 
         /// <summary>
