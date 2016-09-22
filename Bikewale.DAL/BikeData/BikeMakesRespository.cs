@@ -4,12 +4,13 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using MySql.CoreDAL;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Web;
+
 namespace Bikewale.DAL.BikeData
 {
     /// <summary>
@@ -442,7 +443,8 @@ namespace Bikewale.DAL.BikeData
             return bikeLinkList;
 
         }
-
+        
+        
         /// <summary>
         /// Created by  :   Sumit Kate on 13 Sep 2016
         /// Description :   Returns all makes and their models
@@ -523,6 +525,49 @@ namespace Bikewale.DAL.BikeData
             }
 
             return makeModels;
+        }
+
+        /// <summary>
+        /// Created By : sumit kate on 19 Sep-2016
+        /// Summary : To create Hash table for old masking names
+        /// </summary>
+        /// <returns></returns>
+        public Hashtable GetOldMaskingNames()
+        {
+            Hashtable ht = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "getoldmakemaskingnameslist";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            ht = new Hashtable();
+
+                            if (dr != null)
+                            {
+                                while (dr.Read())
+                                {
+                                    if (!ht.ContainsKey(dr["OldMaskingName"]))
+                                        ht.Add(dr["OldMaskingName"], dr["NewMaskingName"]);
+                                }
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.BikeData.BikeMakesRepository.GetOldMaskingNames");
+                objErr.SendMail();
+            }
+
+            return ht;
         }
     }
 }

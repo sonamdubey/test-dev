@@ -70,7 +70,7 @@
                                         <li>
                                             <a href="/<%# DataBinder.Eval(Container.DataItem, "MaskingName").ToString() %>-bikes/">
                                                 <span class="brand-type">
-                                                    <span class="brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName").ToString() %>"></span>
+                                                    <span class="brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MakeId").ToString() %>"></span>
                                                 </span>
                                                 <span class="brand-type-title"><%# DataBinder.Eval(Container.DataItem, "MakeName").ToString() %></span>
                                             </a>
@@ -87,7 +87,7 @@
                                         <li>
                                             <a href="/<%# DataBinder.Eval(Container.DataItem, "MaskingName").ToString() %>-bikes/">
                                                 <span class="brand-type">
-                                                    <span class="brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName").ToString() %>"></span>
+                                                    <span class="brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MakeId").ToString() %>"></span>
                                                 </span>
                                                 <span class="brand-type-title"><%# DataBinder.Eval(Container.DataItem, "MakeName").ToString() %></span>
                                             </a>

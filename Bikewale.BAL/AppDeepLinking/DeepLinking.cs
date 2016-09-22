@@ -1,6 +1,5 @@
 ﻿using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
-using Bikewale.Cache.Memcache;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.AppDeepLinking;
 using Bikewale.Entities.BikeData;
@@ -30,6 +29,8 @@ namespace Bikewale.BAL.AppDeepLinking
         /// Description : New rules for upcoming bike detail and landing page added. Regular Expression added to consider url with '/m/' msite url.
         /// Modified By : Lucky Rathore on 10 May 2016
         /// Description : New rules for series page URL is added with make page url responce.
+        /// Modified by :   Sumit Kate on 20 Sep 2016
+        /// Description :   Handle make and model rename for 301 scenarios
         /// </summary>
         /// <param name="url">Bikewale.com's URL</param>
         /// <returns>DeepLinkingEntity</returns>
@@ -42,7 +43,7 @@ namespace Bikewale.BAL.AppDeepLinking
             {
                 if (((match = Regex.Match(url, @"\/([A-Za-z0-9\-]+)-bikes\/upcoming\/?$")) != null) && match.Success) //for Upcoming Bikes Detail
                 {
-                    string makeId = MakeMapping.GetMakeId(match.Groups[1].Value);
+                    string makeId = GetMakeId(match.Groups[1].Value);
                     if (!string.IsNullOrEmpty(makeId))
                     {
                         deepLinking = new DeepLinkingEntity();
@@ -50,7 +51,7 @@ namespace Bikewale.BAL.AppDeepLinking
                         deepLinking.Params = new Dictionary<string, string>();
                         deepLinking.Params.Add("makeId", makeId);
                     }
-                }                    
+                }
                 else if (((match = Regex.Match(url, @"\/upcoming-bikes\/?$")) != null) && match.Success) //for Upcoming Bikes Landing.
                 {
                     deepLinking = new DeepLinkingEntity();
@@ -61,7 +62,7 @@ namespace Bikewale.BAL.AppDeepLinking
                 || (((match = Regex.Match(url, @"([A-Za-z0-9\-]+)-bikes\/?$")) != null) && match.Success)
                 ) //for series page and make page url MakeScreenId.
                 {
-                    string makeId = MakeMapping.GetMakeId(match.Groups[1].Value);
+                    string makeId = GetMakeId(match.Groups[1].Value);
                     if (!(string.IsNullOrEmpty(makeId)))
                     {
                         deepLinking = new DeepLinkingEntity();
@@ -70,9 +71,9 @@ namespace Bikewale.BAL.AppDeepLinking
                         deepLinking.Params.Add("makeId", makeId);
                     }
                 }
-                else if ( ((match = Regex.Match(url, @"([A-Za-z0-9\-]+)-bikes\/([A-Za-z0-9\-]+)\/?$")) != null) && match.Success) //for  ModelScreenId.
+                else if (((match = Regex.Match(url, @"([A-Za-z0-9\-]+)-bikes\/([A-Za-z0-9\-]+)\/?$")) != null) && match.Success) //for  ModelScreenId.
                 {
-                    string makeId = MakeMapping.GetMakeId(match.Groups[1].Value), 
+                    string makeId = GetMakeId(match.Groups[1].Value),
                         modelId = GetModelId(match.Groups[2].Value);
                     if (!(string.IsNullOrEmpty(makeId) || string.IsNullOrEmpty(modelId)))
                     {
@@ -82,7 +83,7 @@ namespace Bikewale.BAL.AppDeepLinking
                         deepLinking.Params.Add("makeId", makeId);
                         deepLinking.Params.Add("modelId", modelId);
                     }
-                }                
+                }
             }
             catch (Exception ex)
             {
@@ -103,7 +104,7 @@ namespace Bikewale.BAL.AppDeepLinking
         private string GetModelId(string modelName)
         {
             ModelMaskingResponse objResponse = null;
-            string modelId = string.Empty; 
+            string modelId = string.Empty;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
@@ -124,7 +125,7 @@ namespace Bikewale.BAL.AppDeepLinking
             }
             finally
             {
-                if (objResponse != null && objResponse.StatusCode == 200)
+                if (objResponse != null && (objResponse.StatusCode == 200 || objResponse.StatusCode == 301))
                 {
                     modelId = Convert.ToString(objResponse.ModelId);
                 }
@@ -132,6 +133,42 @@ namespace Bikewale.BAL.AppDeepLinking
             }
 
             return modelId;
+        }
+
+
+        private string GetMakeId(string makeMaskingName)
+        {
+            MakeMaskingResponse objResponse = null;
+            string makeId = string.Empty;
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                          .RegisterType<ICacheManager, MemcacheManager>()
+                          .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                         ;
+                    var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+
+                    objResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("GetMakeId({0})", makeMaskingName));
+                objErr.SendMail();
+            }
+            finally
+            {
+                if (objResponse != null)
+                {
+                    if (objResponse.StatusCode == 200 || objResponse.StatusCode == 301)
+                    {
+                        makeId = Convert.ToString(objResponse.MakeId);
+                    }
+                }
+            }
+            return makeId;
         }
 
     }
