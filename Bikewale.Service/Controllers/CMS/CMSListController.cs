@@ -6,6 +6,8 @@ using Bikewale.Interfaces.Pager;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.CMS;
 using Bikewale.Service.Utilities;
+using EditCMSWindowsService.Messages;
+using Grpc.CMS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -212,5 +214,30 @@ namespace Bikewale.Service.Controllers.CMS
             return NotFound();
         }  //get 
         #endregion
+
+        #region Clear Memcache Keys EditCMS
+        /// <summary>
+        /// Created By : Sajal Gupta on 22/09/2016
+        /// Description: Clear memcached buckets of Grpc editCms of respective category Ids.
+        /// </summary>
+        [Route("/api/cms/category/{catId}/refreshcache/")]
+        public IHttpActionResult ClearEditCMSCacheKeys(EditCMSCategoryEnum catId)
+        {
+            try
+            {
+                GrpcMethods.ClearMemCachedKEys(catId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception at Bikewale.Service.CMS.CMSController.ClearEditCMSCacheKeys for parameter catId : {0}", catId));
+                objErr.SendMail();
+                return InternalServerError();
+            }
+        }
+        #endregion
+
     }   // class
 }   // namespace
+
+
