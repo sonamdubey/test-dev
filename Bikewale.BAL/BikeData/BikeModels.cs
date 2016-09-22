@@ -44,11 +44,10 @@ namespace Bikewale.BAL.BikeData
         private readonly IArticles _articles = null;
         private readonly ICMSCacheContent _cacheArticles = null;
 
-        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
-        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
+        static bool _useGrpc = Convert.ToBoolean(BWConfiguration.Instance.UseGrpc);
+        static bool _logGrpcErrors = Convert.ToBoolean(BWConfiguration.Instance.LogGrpcErrors);
         static readonly ILog _logger = LogManager.GetLogger(typeof(BikeModels<T, U>));
-
-        static uint _applicationid = Convert.ToUInt32(ConfigurationManager.AppSettings["applicationId"]);
+        static uint _applicationid = Convert.ToUInt32(BWConfiguration.Instance.ApplicationId);
 
 
         public BikeModels()
@@ -1129,8 +1128,7 @@ namespace Bikewale.BAL.BikeData
             IEnumerable<ArticleSummary> objExpertReview = null;
             IEnumerable<BikeVideoEntity> objVideos = null;
 
-            string _apiVideoUrl = String.Format("/api/v1/videos/model/{0}/?appId=2&pageNo={1}&pageSize={2}", modelId, 1, 2);
-
+            
             try
             {
 
@@ -1138,12 +1136,9 @@ namespace Bikewale.BAL.BikeData
                 var reviewTask = Task.Factory.StartNew(() => objReview = _userReviewCache.GetBikeReviewsList(1, 2, Convert.ToUInt32(modelId), 0, FilterBy.MostRecent).ReviewList);
                 var newsTask = Task.Factory.StartNew(() => objRecentNews = _cacheArticles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), 2, 0, Convert.ToUInt32(modelId)));
                 var expReviewTask = Task.Factory.StartNew(() => objExpertReview = _cacheArticles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.RoadTest), 2, 0, Convert.ToUInt32(modelId)));
+                var videosTask = Task.Factory.StartNew(() => objVideos = GetVideosByModelIdViaGrpc(Convert.ToInt32(modelId)));
 
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    var videosTask = Task.Factory.StartNew(() => objVideos = objClient.GetApiResponseSync<IEnumerable<BikeVideoEntity>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiVideoUrl, objVideos));
-                    Task.WaitAll(reviewTask, newsTask, expReviewTask, videosTask); //calling tasks asynchronously, this will wait untill all tasks are completed
-                }
+                Task.WaitAll(reviewTask, newsTask, expReviewTask, videosTask); //calling tasks asynchronously, this will wait untill all tasks are completed
 
                 objModelArticles.ReviewDetails = objReview;
                 objModelArticles.News = objRecentNews;
@@ -1160,7 +1155,61 @@ namespace Bikewale.BAL.BikeData
             return objModelArticles;
         }
 
+        /// <summary>
+        /// Author: Prasad Gawde
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<BikeVideoEntity> GetVideosByModelIdViaGrpc(int modelId)
+        {
+            IEnumerable<BikeVideoEntity> videoDTOList = null;
+            try
+            {
+                if (_useGrpc)
+                {
+                    var _objVideoList = GrpcMethods.GetVideosByModelId(modelId);
 
+                    if (_objVideoList != null && _objVideoList.LstGrpcVideos.Count > 0)
+                    {
+                        videoDTOList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objVideoList.LstGrpcVideos);
+                    }
+                    else
+                    {
+                        videoDTOList = GetVideosByModelIdOldWay(modelId);
+                    }
+                }
+                else
+                {
+                    videoDTOList = GetVideosByModelIdOldWay(modelId);
+                }
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+                videoDTOList = GetVideosByModelIdOldWay(modelId);
+            }
 
+            return videoDTOList;
+        }
+
+        private IEnumerable<BikeVideoEntity> GetVideosByModelIdOldWay(int modelId)
+        {
+            string _apiUrl = string.Empty;
+            IEnumerable<BikeVideoEntity> objVideos = null;
+            try
+            {
+                _apiUrl = String.Format("/api/v1/videos/model/{0}/?appId=2&pageNo=1&pageSize=2", modelId);
+
+                using (BWHttpClient objClient = new BWHttpClient())
+                {
+                    objVideos = objClient.GetApiResponseSync<IEnumerable<BikeVideoEntity>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objVideos);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BindModelGallery.GetVideos");
+                objErr.SendMail();
+            }
+            return objVideos;
+        }
     }   // Class
 }   // namespace
