@@ -224,7 +224,7 @@
                 }
 
                 if (options.isleadpopup != null)
-                    self.IsLeadPopup(options.isleadpopup);
+                    self.IsLeadPopup(options.isleadpopup!="false" ? true : false);
                 else self.IsLeadPopup(true);
 
                 if (options.pqid != null)
@@ -456,7 +456,7 @@
                     self.verifyCustomer();
                     if (self.IsVerified()) {
 
-                        if (self.IsLeadPopup()!="false") {
+                        if (self.IsLeadPopup()) {
                             $("#contactDetailsPopup").hide();
                             $("#personalInfo").hide();
                             $("#dealer-lead-msg").fadeIn();

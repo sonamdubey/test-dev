@@ -1,4 +1,5 @@
-﻿using Bikewale.Cache.Core;
+﻿using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
@@ -10,7 +11,6 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
-using Bikewale.Memcache;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
@@ -97,7 +97,58 @@ namespace Bikewale.Mobile.New
             if (!string.IsNullOrEmpty(Request["make"]) && !string.IsNullOrEmpty(Request["state"]))
             {
                 makeMaskingName = Request["make"].ToString();
-                string _makeId = MakeMapping.GetMakeId(makeMaskingName);
+                string _makeId = string.Empty;
+
+                MakeMaskingResponse objMakeResponse = null;
+
+                try
+                {
+                    using (IUnityContainer containerInner = new UnityContainer())
+                    {
+                        containerInner.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                              .RegisterType<ICacheManager, MemcacheManager>()
+                              .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                             ;
+                        var objCache = containerInner.Resolve<IBikeMakesCacheRepository<int>>();
+
+                        objMakeResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
+                    objErr.SendMail();
+                    Response.Redirect("pageNotFound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
+                finally
+                {
+                    if (objMakeResponse != null)
+                    {
+                        if (objMakeResponse.StatusCode == 200)
+                        {
+                            _makeId = Convert.ToString(objMakeResponse.MakeId);
+                        }
+                        else if (objMakeResponse.StatusCode == 301)
+                        {
+                            CommonOpn.RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objMakeResponse.MaskingName));
+                        }
+                        else
+                        {
+                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
+                        }
+                    }
+                    else
+                    {
+                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
+                }
+
                 makeId = Convert.ToUInt16(_makeId);
                 //verify the id as passed in the url
                 if (CommonOpn.CheckId(_makeId) == false)

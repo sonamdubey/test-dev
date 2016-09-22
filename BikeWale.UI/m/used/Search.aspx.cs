@@ -46,7 +46,6 @@ namespace Bikewale.Mobile.Used
         private int _pageNo = 1;
         protected int _startIndex = 0, _endIndex = 0, totalListing;
         private const int _pagerSlotSize = 5;
-        protected HiddenField hdnHash;
         protected IEnumerable<CityEntityBase> cities = null;
         protected IEnumerable<BikeMakeModelBase> makeModels = null;
         #endregion
@@ -69,88 +68,6 @@ namespace Bikewale.Mobile.Used
                 CreatePager();
             }
 
-        }
-        /// <summary>
-        /// Creted by: Sangram Nandkhile on 15 Sep 2016
-        /// Summary: Check if hidden field has parameters and set the input query parameters
-        ///          Create a keyvalue pair to retrive hash values and process ahead
-        /// </summary>
-        /// <param name="input"></param>
-        private void CheckHashUrlParams(InputFilters input)
-        {
-            try
-            {
-                if (!string.IsNullOrEmpty(hdnHash.Value))
-                {
-                    string hash = hdnHash.Value;
-                    string[] arrHash = hash.Split(new string[] { "&" }, StringSplitOptions.RemoveEmptyEntries);
-                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
-                    foreach (var val in arrHash)
-                    {
-                        if (val.Contains('='))
-                        {
-                            string[] arr = val.Split('=');
-                            dictionary.Add(arr[0], arr[1]);
-                        }
-                    }
-
-                    if (dictionary.ContainsKey("city"))
-                    {
-                        cityId = Convert.ToUInt16(dictionary["city"]);
-                    }
-                    // Check budgets
-                    if (dictionary.ContainsKey("budget"))
-                    {
-                        input.Budget = dictionary["budget"];
-                    }
-                    // Check make
-                    if (dictionary.ContainsKey("make"))
-                    {
-                        makeId = dictionary["make"].Replace("+", ",");
-                    }
-                    // check model
-                    if (dictionary.ContainsKey("model"))
-                    {
-                        modelId = dictionary["model"].Replace("+", ",");
-                    }
-                    // Age
-                    if (dictionary.ContainsKey("age"))
-                    {
-                        input.Age = dictionary["age"];
-                    }
-                    // SO sort order
-                    if (dictionary.ContainsKey("so"))
-                    {
-                        input.SO = Convert.ToUInt16(dictionary["so"]);
-                    }
-
-                    if (dictionary.ContainsKey("st"))
-                    {
-                        input.ST = dictionary["st"].Replace("+", ",");
-                    }
-
-                    if (dictionary.ContainsKey("pn"))
-                    {
-                        _pageNo = Convert.ToUInt16(dictionary["pn"]);
-                    }
-
-                    if (dictionary.ContainsKey("owner"))
-                    {
-                        input.Owner = dictionary["owner"].Replace("+", ",");
-                    }
-
-                    //if (dictionary.ContainsKey("ps"))
-                    //{
-                    //    _pageSize = Convert.ToUInt16(dictionary["ps"]);
-                    //}
-                    dictionary = null;
-                }
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + " : CreateMetas");
-                objErr.SendMail();
-            }
         }
 
         #endregion
@@ -212,6 +129,8 @@ namespace Bikewale.Mobile.Used
             return true;
         } // End of BindSearchPageData
 
+        /// Creted by: Sangram Nandkhile on 15 Sep 2016
+        /// Summary: Processed query string parameters
         private void ProcessQueryString()
         {
             ModelMaskingResponse objModelResponse = null;

@@ -369,7 +369,10 @@ namespace BikeWaleOpr.Common
                     SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
 
                     if (_mc != null)
+                    {
+                        _mc.Remove("BW_OldMakeMaskingNames");
                         _mc.Remove("BW_MakeMapping");
+                    }
                     isSuccess = true;
                 }
             }
