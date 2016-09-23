@@ -5,7 +5,6 @@ using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.Videos;
 using EditCMSWindowsService.Messages;
 using Google.Protobuf.Collections;
-using Grpc.CMS;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -236,7 +235,7 @@ namespace Bikewale.BAL.GrpcFiles
 
         public static ArticlePageDetails ConvertFromGrpcToBikeWale(GrpcArticlePageDetails grpcAtricleDet)
         {
-            if (grpcAtricleDet != null)
+            if (grpcAtricleDet != null && grpcAtricleDet.ArticleSummary != null)
             {
                 try
                 {

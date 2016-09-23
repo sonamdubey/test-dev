@@ -220,12 +220,42 @@ namespace Bikewale.Service.Controllers.CMS
         /// Created By : Sajal Gupta on 22/09/2016
         /// Description: Clear memcached buckets of Grpc editCms of respective category Ids.
         /// </summary>
-        [Route("/api/cms/category/{catId}/refreshcache/")]
-        public IHttpActionResult ClearEditCMSCacheKeys(EditCMSCategoryEnum catId)
+        [HttpGet, Route("api/cms/category/{catId}/refreshcache/")]
+        public IHttpActionResult ClearEditCMSCacheKeys(int catId)
         {
             try
             {
-                GrpcMethods.ClearMemCachedKEys(catId);
+                switch (catId)
+                {
+                    case 6:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News);
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.Features);
+                        break;
+                    case 8:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News);
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.ExpertReviews);
+                        break;
+                    case 2:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News);
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.ExpertReviews);
+                        break;
+                    case 19:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News);
+                        break;
+                    case 1:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News);
+                        break;
+                    case 18:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.Features);
+                        break;
+                    case 11:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.Videos);
+                        break;
+                    default:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.All);
+                        break;
+                }
+
                 return Ok();
             }
             catch (Exception ex)
