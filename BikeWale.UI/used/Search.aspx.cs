@@ -10,6 +10,10 @@ using System.Web.UI;
 
 namespace Bikewale.Used
 {
+    /// <summary>
+    /// Modified By : Sushil Kumar on 22nd Sep 2016
+    /// Description : Moved all code behind to common logic and removed unused older codes related to the same
+    /// </summary>
     public class Search : Page
     {
 
@@ -40,6 +44,10 @@ namespace Bikewale.Used
 
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 23rd Sep 2016 
+        /// Description : Bind Used bikes search page with listing,cities and makemodels
+        /// </summary>
         private void LoadUsedBikesList()
         {
             objUsedBikesPage = new SearchUsedBikes();
@@ -72,7 +80,7 @@ namespace Bikewale.Used
                 // Redirection
                 if (objUsedBikesPage.IsPermanentRedirection)
                 {
-                    CommonOpn.RedirectPermanent(redirectUrl);
+                    CommonOpn.RedirectPermanent(objUsedBikesPage.redirectUrl);
                 }
                 else if (objUsedBikesPage.IsPageNotFound)
                 {

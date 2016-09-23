@@ -29,7 +29,6 @@ namespace Bikewale.BindViewModels.Webforms.Used
     public class SearchUsedBikes
     {
 
-        protected string makemasking = string.Empty, citymasking = string.Empty, strTotal = string.Empty;
         public string pageTitle = string.Empty, pageDescription = string.Empty, pageKeywords = string.Empty, pageCanonical = string.Empty
                   , heading = string.Empty, nextUrl = string.Empty, prevUrl = string.Empty, redirectUrl = string.Empty, alternateUrl = string.Empty;
         private const int _pageSize = 20;
@@ -66,7 +65,10 @@ namespace Bikewale.BindViewModels.Webforms.Used
 
 
 
-
+        /// <summary>
+        /// Created By : Sushil Kumar on 23rd Sep 2016 
+        /// Description : Parse Query String  and resolve containers on initialization
+        /// </summary>
         public SearchUsedBikes()
         {
             using (IUnityContainer container = new UnityContainer())
@@ -277,6 +279,11 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 endIndex = totalCount;
         }
 
+        /// <summary>
+        /// Modified By : Sushil Kumar on 22nd Sep 2016
+        /// Description : Bind pagination for the page according to common logic
+        /// </summary>
+        /// <param name="_ctrlPager"></param>
         public void BindLinkPager(LinkPagerControl _ctrlPager)
         {
             PagerOutputEntity _pagerOutput = null;
@@ -292,7 +299,6 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 _pagerEntity.BaseUrl = string.Format("{0}page", _baseUrl);
                 _pagerEntity.PageNo = _pageNo; //Current page number
                 _pagerEntity.PagerSlotSize = _pagerSlotSize; // 5 links on a page
-                // _pagerEntity.PageUrlType = "page-{0}/";
                 _pagerEntity.TotalResults = (int)recordCount; //total News count
                 _pagerEntity.PageSize = _pageSize;  //No. of news to be displayed on a page
                 _pagerOutput = objPager.GetUsedBikePager<PagerOutputEntity>(_pagerEntity);
@@ -307,7 +313,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 _ctrlPager.BindPagerList();
 
                 //For SEO
-                //CreatePrevNextUrl(ctrlPager.TotalPages,_baseUrl);
+
                 prevUrl = String.IsNullOrEmpty(_pagerOutput.PreviousPageUrl) ? string.Empty : "http://www.bikewale.com" + _pagerOutput.PreviousPageUrl;
                 nextUrl = String.IsNullOrEmpty(_pagerOutput.NextPageUrl) ? string.Empty : "http://www.bikewale.com" + _pagerOutput.NextPageUrl;
             }
@@ -319,13 +325,15 @@ namespace Bikewale.BindViewModels.Webforms.Used
         }
         #endregion
 
-
+        /// <summary>
+        /// Modified By : Sushil Kumar on 22nd Sep 2016
+        /// Description : Removed unnecessary fetch logic for make,model and cities for their respective names.
+        /// </summary>
         private void ProcessQueryString()
         {
             HttpContext page = HttpContext.Current;
             ModelMaskingResponse objModelResponse = null;
             CityMaskingResponse objCityResponse = null;
-            //, _make = string.Empty;
             try
             {
                 _cityMaskingName = page.Request.QueryString["city"];
@@ -343,8 +351,6 @@ namespace Bikewale.BindViewModels.Webforms.Used
                     if (ushort.TryParse(_strMakeId, out _makeId))
                     {
                         MakeId = _makeId;
-                        //BikeMakeEntityBase makeDetails = objMakeCache.GetMakeDetails(MakeId);
-                        //Make = makeDetails != null ? makeDetails.MakeName : string.Empty;
                     }
                     else
                     {
@@ -356,11 +362,6 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 if (!string.IsNullOrEmpty(_modelMaskingName))
                 {
                     objModelResponse = objModelsCache.GetModelMaskingResponse(_modelMaskingName);
-                    //if (objModelResponse != null && objModelResponse.ModelId > 0)
-                    //{
-                    //    BikeModelEntity modelEntity = objModels.GetById(Convert.ToInt32(objModelResponse.ModelId));
-                    //    Model = modelEntity != null ? modelEntity.ModelName : string.Empty;
-                    //}
                 }
 
                 if (!String.IsNullOrEmpty(page.Request.QueryString["pn"]))
