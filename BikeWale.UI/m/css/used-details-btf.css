@@ -105,12 +105,12 @@
     padding: 8px 67px
 }
 
-.icon-outer-container {
+.size-small .icon-outer-container {
     width: 72px;
     height: 72px;
 }
 
-.icon-inner-container {
+.size-small .icon-inner-container {
     width: 64px;
     height: 64px;
     margin: 3px auto;

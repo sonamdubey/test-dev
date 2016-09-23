@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Used.Search" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" EnableViewState="false" Inherits="Bikewale.Mobile.Used.Search" %>
 <%@ Register TagPrefix="BikeWale" TagName="Pager" Src="/m/controls/LinkPagerControl.ascx" %>
 <!DOCTYPE html>
 <html>
@@ -27,7 +27,6 @@
 <body>
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
-       <asp:HiddenField runat="server" ID="hdnHash" Value="" />
          <div class="modal-background"></div>
          <div id="usedBikesSection">
             <section>

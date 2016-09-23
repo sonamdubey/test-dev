@@ -103,6 +103,23 @@ namespace Bikewale.Mobile.Content
                     if (objResponse != null && objResponse.StatusCode == 200)
                     {
                         model = objResponse.ModelId.ToString();
+
+                        if (!String.IsNullOrEmpty(model))
+                        {
+                            if (!Int32.TryParse(model, out modelId))
+                                isSucess = false;
+                        }
+                        else
+                        {
+                            isSucess = false;
+                        }
+
+                        if (!String.IsNullOrEmpty(Request.QueryString["pn"]))
+                        {
+                            if (!Int32.TryParse(Request.QueryString["pn"], out curPageNo))
+                                isSucess = false;
+                        }
+
                     }
                     else
                     {
@@ -110,6 +127,7 @@ namespace Bikewale.Mobile.Content
                         {
                             //redirect permanent to new page 
                             CommonOpn.RedirectPermanent(Request.RawUrl.Replace(Request.QueryString["bikem"], objResponse.MaskingName));
+                            isSucess = false;
 
                         }
                         else
@@ -117,24 +135,9 @@ namespace Bikewale.Mobile.Content
                             Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                             HttpContext.Current.ApplicationInstance.CompleteRequest();
                             this.Page.Visible = false;
+                            isSucess = false;
                         }
                     }
-                }
-
-                if (!String.IsNullOrEmpty(model))
-                {
-                    if (!Int32.TryParse(model, out modelId))
-                        isSucess = false;
-                }
-                else
-                {
-                    isSucess = false;
-                }
-
-                if (!String.IsNullOrEmpty(Request.QueryString["pn"]))
-                {
-                    if (!Int32.TryParse(Request.QueryString["pn"], out curPageNo))
-                        isSucess = false;
                 }
             }
             else
