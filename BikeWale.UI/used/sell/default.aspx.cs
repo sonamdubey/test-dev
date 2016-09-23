@@ -436,6 +436,8 @@ namespace Bikewale.Used
         ///     Function will set inquiryId for the customer
         ///     Modified By : Sadhana Upadhyay on 2nd April 2014
         ///     Summary : To capture Client IP.
+        ///     Modified by :   Sumit Kate on 22 Sep 2016
+        ///     Description :   Corrected insurance expiry date parsing
         /// </summary>
         protected void SaveSellBikeInfo()
         {
@@ -449,7 +451,7 @@ namespace Bikewale.Used
 
                 DateTime _bikemkyear = new DateTime(), _insexpiry = new DateTime();
                 DateTime.TryParse(calMakeYear.Value.ToString(), out _bikemkyear);
-                DateTime.TryParse(InsExp, out _bikemkyear);
+                DateTime.TryParse(InsExp, out _insexpiry);
 
                 if (!objCust.IsFakeCustomer(Convert.ToInt32(customerId)))
                 {
@@ -509,7 +511,14 @@ namespace Bikewale.Used
             }
         }
 
-        // Validate the input by the user - Bike and User Details
+
+        /// <summary>
+        /// Created by  :   Bikewale Dev
+        /// Description :   Validate the input by the user - Bike and User Details
+        /// Modified by :   Sumit Kate on 22 Sep 2016
+        /// Description :   Enabled Make Year and Insurance valid date server side validation
+        /// </summary>
+        /// <returns></returns>
         bool ValidateBikeUserDetails()
         {
             bool isError = false;
@@ -521,14 +530,14 @@ namespace Bikewale.Used
             }
             else { msgYourBike.InnerText = string.Empty; }
 
-            ////Make Year
-            //DateTime makeYear=(DateTime)calMakeYear.Value;
-            //DateTime dt = DateTime.Now;
-            //if (DateTime.Compare(makeYear, dt) >0)
-            //{
-            //    msgMakeYear.InnerText = "Enter Correct Make Year.";
-            //}
-            //else { msgMakeYear.InnerText = string.Empty; }
+            //Make Year
+            DateTime makeYear = calMakeYear.Value;
+            DateTime dt = DateTime.Now;
+            if (DateTime.Compare(makeYear, dt) > 0)
+            {
+                msgMakeYear.InnerText = "Enter Correct Make Year.";
+            }
+            else { msgMakeYear.InnerText = string.Empty; }
 
             // Owner			
             if (drpOwner.SelectedIndex == 0)
@@ -597,13 +606,17 @@ namespace Bikewale.Used
             }
             else { msgBikeIns.InnerText = string.Empty; }
 
-            ////Insurance Valid Till
-            //DateTime validTill = (DateTime)calValidTill.Value;
-            //if (DateTime.Compare(makeYear, validTill) > 0)
-            //{
-            //    msgValidTill.InnerText = "Enter Correct Insurance Validity Date.";
-            //}
-            //else { msgValidTill.InnerText = string.Empty; }
+            //Insurance Valid Till
+            if (!rdoNoInsurance.Checked && (rdoThirdParty.Checked || rdoComprehensive.Checked))
+            {
+                DateTime validTill = calValidTill.Value;
+                if (DateTime.Compare(calMakeYear.Value, validTill) > 0)
+                {
+                    msgValidTill.InnerText = "Enter Correct Insurance Validity Date.";
+                }
+                else { msgValidTill.InnerText = string.Empty; }
+            }
+            else { msgValidTill.InnerText = string.Empty; }
 
             // Price
             if (txtPrice.Text.Trim() == string.Empty)
