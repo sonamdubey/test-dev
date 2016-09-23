@@ -15,6 +15,7 @@ namespace Bikewale.Controls
         public int? cityId { get; set; }
         public string cityname = string.Empty;
         public string cityMaskingName = string.Empty;
+        public string makeName = string.Empty;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);

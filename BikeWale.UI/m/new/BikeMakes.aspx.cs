@@ -97,7 +97,7 @@ namespace Bikewale.Mobile
 
                 ctrlLeadCapture.CityId = cityId;
                 ctrlRecentUsedBikes.MakeId = Convert.ToUInt32(makeId);
-
+                ctrlRecentUsedBikes.header = "Recently uploaded Used " + _make.MakeName + " bikes " + (cityId > 0 ? String.Format("in {0}", cityName) : string.Empty);
                 ctrlRecentUsedBikes.CityId = (int?)cityId;
                 ctrlRecentUsedBikes.TopCount = 6;
 

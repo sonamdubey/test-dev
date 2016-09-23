@@ -16,6 +16,8 @@ namespace Bikewale.Mobile.Controls
         public int? cityId { get; set; }
         public string cityname = string.Empty;
         public string cityMaskingName = string.Empty;
+        public string makeName = string.Empty;
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -32,6 +34,7 @@ namespace Bikewale.Mobile.Controls
             objPop.totalCount = this.totalCount;
             objPop.makeId = this.makeId;
             objPop.cityId = this.cityId;
+
             if (makeId.HasValue && makeId > 0)
                 objPop.BindMostPopularBikesMakeCity(rptPopoularBikeMake);
 

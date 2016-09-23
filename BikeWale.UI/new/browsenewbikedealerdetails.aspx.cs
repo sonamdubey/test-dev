@@ -79,6 +79,7 @@ namespace Bikewale.New
             ctrlPopoularBikeMake.totalCount = 9;
             ctrlPopoularBikeMake.cityname = cityName;
             ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
+            ctrlPopoularBikeMake.makeName = makeName;
             BindUserControls();
 
         }

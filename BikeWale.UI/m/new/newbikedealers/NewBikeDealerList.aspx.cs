@@ -64,20 +64,24 @@ namespace Bikewale.Mobile.New
                 BindDealerList();
                 BindUserControls();
             }
-            ctrlPopoularBikeMake.makeId = (int)makeId;
-            ctrlPopoularBikeMake.cityId = (int)cityId;
-            ctrlPopoularBikeMake.totalCount = 4;
-            ctrlPopoularBikeMake.cityname = cityName;
-            ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
+
 
         }
 
         private void BindUserControls()
         {
             ctrlRecentUsedBikes.MakeId = makeId;
-            //ctrlRecentUsedBikes.ModelId = modelid
+            //ctrlRecentUsedBikes.ModelId = modelid 
             ctrlRecentUsedBikes.CityId = (int?)cityId;
+            ctrlRecentUsedBikes.header = "Used " + makeName + " bikes in " + cityName;
             ctrlRecentUsedBikes.TopCount = 4;
+            ctrlPopoularBikeMake.makeId = (int)makeId;
+            ctrlPopoularBikeMake.cityId = (int)cityId;
+            ctrlPopoularBikeMake.totalCount = 9;
+            ctrlPopoularBikeMake.cityname = cityName;
+            ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
+            ctrlPopoularBikeMake.makeName = makeName;
+
         }
 
         /// <summary>

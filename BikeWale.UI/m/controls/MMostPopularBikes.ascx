@@ -31,8 +31,7 @@
     </asp:Repeater>
 <!--- Most Popular Bikes Ends Here-->
 
- <div class="container bg-white box-shadow margin-bottom15">
-                <h2 class="padding-15-20">Popular Bajaj bikes in <%=cityname %></h2>
+                <h2 class="padding-15-20">Popular <%=makeName %> bikes in <%=cityname %></h2>
                 <div class="swiper-container card-container">
                     <div class="swiper-wrapper">
                          <asp:Repeater ID="rptPopoularBikeMake" runat="server">
@@ -48,13 +47,13 @@
                                         <p class="target-link font12 text-truncate margin-bottom5"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objMake.MakeName"))+" "+Convert.ToString( DataBinder.Eval(Container.DataItem, "objModel.ModelName"))%></p>
                                         <p class="text-truncate text-light-grey font11">Ex-showroom, <%=cityname %></p>
                                         <p>
-                                            <span class="bwmsprite inr-xsm-icon"></span>
-                                            <span><%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %></span>
+                                           
+                                            <span class="font16 text-default text-bold"><%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %></span>
                                         </p>
                                     </div>
                                 </a>
                                 <div class="padding-10-15">
-                                    <a href="/m<%# Bikewale.Utility.UrlFormatter.PriceInCityUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName")),cityMaskingName) %>" class="btn btn-card btn-full-width btn-white font14" rel="nofollow">View price in <%=cityname %></a>
+                                    <a href="/m<%# Bikewale.Utility.UrlFormatter.PriceInCityUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName")),cityMaskingName) %>" class="btn btn-card btn-full-width btn-white font14 text truncate" rel="nofollow">View price in <%=cityname %></a>
                                 </div>
                             </div>
                         </div>
@@ -62,4 +61,4 @@
                         </asp:Repeater>
                         </div>
                         </div>
-     </div>
+   

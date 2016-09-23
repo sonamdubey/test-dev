@@ -165,12 +165,12 @@ r
                                 <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/new/"><span itemprop="title">New Bikes</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/new/locate-dealers/"><span itemprop="title">New Bike Dealer</span></a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/new/locate-dealers/"><span itemprop="title">Dealer Showroom</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/new/<%=makeMaskingName %>-dealers/"><span itemprop="title"><%=makeName%> Bikes Dealers</span></a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/new/<%=makeMaskingName %>-dealers/"><span itemprop="title"><%=makeName%> Dealer Showrooms</span></a>
                             </li>
-                            <li class="current"><span class="bwsprite fa-angle-right margin-right10"></span><%=makeName%> Bikes Dealers in <%=cityName %></li>
+                            <li class="current"><span class="bwsprite fa-angle-right margin-right10"></span><%=makeName%> Bikes Dealer Showroom in <%=cityName %></li>
                         </ul>
                         <div class="clear"></div>
                     </div>
@@ -184,14 +184,12 @@ r
                 <div class="grid-12">
                     <div class="content-box-shadow">
                         <div class="content-box-shadow padding-14-20">
-                            <h1><%=makeName%> dealers in <%=cityName%></h1>
+                            <h1><%=makeName%> Dealer Showrooms in <%=cityName%></h1>
                         </div>
                         <p class="font14 text-light-grey content-inner-block-20">
-                            <%=makeName%> has <%=totalDealers %> authorized dealers in <%=cityName%>. Apart from the authorized dealerships, 
-                            <%=makeName%> bikes are also available at unauthorized showrooms and broker outlets. 
-                            BikeWale recommends buying bikes only from authorized <%=makeName%> dealer outlets in <%=cityName%>. 
-                            For information on test rides, price, offers, etc. you may get in touch with any of 
-                            the below mentioned authorized <%=makeName%> dealers in <%=cityName%>.
+                            <%=makeName%> has <%=totalDealers %> authorized dealers in <%=cityName%>. BikeWale recommends buying bikes only from authorized <%=makeName%> showroom in <%=cityName%>. 
+                            For information on prices, offers, EMI options , test rides etc. you may get in touch with any of the below mentioned authorized <%=makeName%> dealers in <%=cityName%>.
+
                         </p>
                     </div>
                 </div>
@@ -203,19 +201,19 @@ r
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow">
-                        <p class="font18 text-black text-bold bg-white padding-18-20"><%=totalDealers %> <%=makeName%> dealers in <%=cityName%></p>
+                        <h2 class="font18 text-black text-bold bg-white padding-18-20"> </h2>
                         <div id="listing-left-column" class="grid-4">
                             <ul id="dealersList">
                                 <asp:Repeater ID="rptDealers" runat="server">
                                     <ItemTemplate>
                                         <li data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-inquired="false" data-item-number="<%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %>" data-lat="<%# DataBinder.Eval(Container.DataItem,"objArea.Latitude") %>" data-log="<%# DataBinder.Eval(Container.DataItem,"objArea.Longitude") %>" data-address="<%# DataBinder.Eval(Container.DataItem,"Address") %>" data-campid="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>">
                                             <a href="" title="<%# DataBinder.Eval(Container.DataItem,"Name") %>" class="dealer-card-target font14">
-                                                <h3 class="margin-bottom5">
+                                                <p class="margin-bottom5">
                                                     <div class="<%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>">
                                                         <span class="featured-tag margin-bottom5"><span class="bwsprite star-white"></span>Featured</span>
                                                     </div>
-                                                    <p class="dealer-name text-black text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></p>
-                                                </h3>
+                                                    <h3 class="dealer-name text-black text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></h3>
+                                                </p>
                                                 <p class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Address").ToString()))?"hide":"text-light-grey margin-bottom5" %>">
                                                     <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
                                                     <span class="vertical-top dealership-card-details"><%# DataBinder.Eval(Container.DataItem,"Address") %></span>
@@ -255,7 +253,7 @@ r
                     <div class="content-box-shadow">
                         <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0)
                            { %>
-                        <BW:MostPopularBikesMake runat="server" ID="rptPopoularBikeMake" />
+                        <BW:MostPopularBikesMake runat="server" ID="ctrlPopoularBikeMake" />
                         <%} %>
                         
 
