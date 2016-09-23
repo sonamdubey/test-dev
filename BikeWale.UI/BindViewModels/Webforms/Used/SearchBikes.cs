@@ -61,6 +61,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
         public IEnumerable<CityEntityBase> Cities = null;
         public IEnumerable<BikeMakeModelBase> MakeModels = null;
         public CityEntityBase SelectedCity = null;
+        public BikeMakeEntityBase SelectedMake = null;
 
         private string _modelMaskingName = string.Empty, _cityMaskingName = string.Empty, _makeMaskingName = string.Empty;
 
@@ -143,9 +144,10 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 if (MakeModels != null)
                 {
                     var _objMake = MakeModels.Where(m => m.Make.MaskingName == _makeMaskingName).FirstOrDefault();
-                    if (_objMake != null)
+                    if (_objMake != null && _objMake.Make!=null)
                     {
                         Make = _objMake.Make.MakeName;
+                        SelectedMake = _objMake.Make; 
                         if (_objMake.Models != null)
                         {
                             var _objModel = _objMake.Models.Where(m => m.MaskingName == _modelMaskingName).FirstOrDefault();

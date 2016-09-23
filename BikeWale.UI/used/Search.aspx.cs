@@ -28,6 +28,7 @@ namespace Bikewale.Used
         protected ushort makeId;
         protected uint modelId, cityId, totalListing;
         protected CityEntityBase objCity = null;
+        protected BikeMakeEntityBase objMake = null;
         protected int _startIndex = 0, _endIndex = 0;
 
 
@@ -73,6 +74,7 @@ namespace Bikewale.Used
                 _startIndex = objUsedBikesPage.startIndex;
                 _endIndex = objUsedBikesPage.endIndex;
                 objCity = objUsedBikesPage.SelectedCity;
+                objMake = objUsedBikesPage.SelectedMake;
                 makeModelsList = objUsedBikesPage.MakeModels;
                 usedBikesList = objUsedBikesPage.UsedBikes.Result;
 

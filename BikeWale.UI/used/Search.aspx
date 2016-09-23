@@ -15,8 +15,7 @@
         AdId = "1395992162974";
         AdPath = "/1017752/BikeWale_UsedBikes_Search_Results_";
         isAd300x250BTFShown = false;
-        isAd300x250Shown=false;
-        
+        isAd300x250Shown=false;         
 
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
@@ -46,8 +45,12 @@
                                { %>
                             <li itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span>
                               <a href="/used/bikes-in-<%= objCity!=null ? objCity.CityMaskingName : "india" %>/" itemprop="url"><span><%= cityName %></span></a>
-                            </li>
-                            <%} %>
+                            </li> 
+                             <% if(objMake!=null && modelId > 0) { %>
+                                   <li itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span>
+                              <a href="/used/<%= objMake.MaskingName %>-bikes-in-<%= objCity!=null ? objCity.CityMaskingName : "india" %>/" itemprop="url"><span><%= string.Format("{0} Bikes",objMake.MakeName) %></span></a>
+                            </li> 
+                            <% } } %>
                             <% if (!string.IsNullOrEmpty(heading))
                                { %>
                             <li><span class="bwsprite fa-angle-right margin-right10"></span>
