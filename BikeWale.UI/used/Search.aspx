@@ -14,7 +14,6 @@
         relNextPageUrl = nextUrl;
         AdId = "1395992162974";
         AdPath = "/1017752/BikeWale_UsedBikes_Search_Results_";
-
         isAd300x250BTFShown = false;
         isAd300x250Shown=false;
         

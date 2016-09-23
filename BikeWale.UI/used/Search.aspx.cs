@@ -57,6 +57,8 @@ namespace Bikewale.Used
                 objUsedBikesPage.CreateMetas();
                 objUsedBikesPage.BindLinkPager(ctrlPager);
                 totalListing = objUsedBikesPage.TotalBikes;
+                prevUrl = objUsedBikesPage.prevUrl;
+                nextUrl = objUsedBikesPage.nextUrl;
                 pageTitle = objUsedBikesPage.pageTitle;
                 pageDescription = objUsedBikesPage.pageDescription;
                 pageKeywords = objUsedBikesPage.pageKeywords;
