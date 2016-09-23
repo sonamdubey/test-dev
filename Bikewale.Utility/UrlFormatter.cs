@@ -84,15 +84,21 @@ namespace Bikewale.Utility
         /// Created By Vivek gupta
         /// Date : 22 june 2016        
         //  Desc : used/bajaj-bikes-in-mumbai/#city=10&make=1&dist=0
+        //  Modified By Sajal Gupta on 16/09/2016
+        //  Desc: create links like used/bajaj-bikes-in-mumbai/  or used/bajaj-pulsar-bikes-in-mumbai/
         /// </summary>
         /// <param name="make"></param>
         /// <param name="city"></param>
         /// <returns></returns>
 
-        public static string UsedBikesUrlNoCity(string make, string city, uint cityId, uint makeId)
+        public static string UsedBikesUrlNoCity(string make, string model, string city)
         {
-            return String.Format("/used/{0}-bikes-in-{1}/#city={2}&make={3}&dist=0", make, city, cityId, makeId);
+            if (!String.IsNullOrEmpty(model))
+                return String.Format("/used/{0}-{1}-bikes-in-{2}/", make, model, city);
+            else
+                return String.Format("/used/{0}-bikes-in-{1}/", make, city);
         }
+
 
 
         /// <summary>
@@ -120,15 +126,21 @@ namespace Bikewale.Utility
         /// <param name="city"></param>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        public static string ViewMoreUsedBikes(uint cityId, string make, string city, uint makeId)
+        public static string ViewMoreUsedBikes(uint cityId, string city, string make, string model)
         {
             if (cityId > 0)
             {
-                return String.Format("/used/{0}-bikes-in-{1}/#city={2}&make={3}&dist=0", make, city, cityId, makeId);
+                if (!String.IsNullOrEmpty(model))
+                    return String.Format("/used/{0}-{1}-bikes-in-{2}/", make, model, city);
+                else
+                    return String.Format("/used/{0}-bikes-in-{1}/", make, city);
             }
             else
             {
-                return String.Format("/used/{0}-bikes-in-india/", make);
+                if (!String.IsNullOrEmpty(model))
+                    return String.Format("/used/{0}-{1}-bikes-in-india/", make, model);
+                else
+                    return String.Format("/used/{0}-bikes-in-india/", make);
             }
         }
 

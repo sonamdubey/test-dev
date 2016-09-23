@@ -1,6 +1,8 @@
 ﻿using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.Customer;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Notifications.MailTemplates;
+using Bikewale.Notifications.MailTemplates.UsedBikes;
 using Bikewale.Notifications.NotificationDAL;
 using System;
 using System.Collections.Generic;
@@ -40,8 +42,8 @@ namespace Bikewale.Notifications
 
                 foreach (string email in arrDealerEmail)
                 {
-                    ComposeEmailBase objEmail = new NewBikePriceQuoteMailToDealerTemplate(makeName + " "+ modelName, versionName, dealerName, customerName, 
-                        customerEmail, customerMobile, areaName, cityName, 
+                    ComposeEmailBase objEmail = new NewBikePriceQuoteMailToDealerTemplate(makeName + " " + modelName, versionName, dealerName, customerName,
+                        customerEmail, customerMobile, areaName, cityName,
                         priceList, totalPrice, offerList, imagePath);
                     objEmail.Send(email, "BikeWale Purchase Inquiry - " + makeName + " " + modelName + " " + versionName, customerEmail);
                 }
@@ -315,6 +317,38 @@ namespace Bikewale.Notifications
         }
 
         #endregion
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 01 Sep 2016
+        /// Description :   Send Photo Upload Request Email to Dealer
+        /// </summary>
+        /// <param name="dealerEmail"></param>
+        /// <param name="sellerName"></param>
+        /// <param name="buyerName"></param>
+        /// <param name="buyerContact"></param>
+        /// <param name="bikeName"></param>
+        /// <param name="profileId"></param>
+        public static void UsedBikePhotoRequestEmailToDealer(string dealerEmail, string sellerName, string buyerName, string buyerContact, string bikeName, string profileId)
+        {
+            ComposeEmailBase objEmail = new PhotoRequestEmailToDealerSellerTemplate(sellerName, buyerName, buyerContact, bikeName, profileId);
+            objEmail.Send(dealerEmail, "Upload Bike Photos");
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 01 Sep 2016
+        /// Description :   Used Bike Photo Request Email To Individual
+        /// </summary>
+        /// <param name="sellerEmail"></param>
+        /// <param name="sellerName"></param>
+        /// <param name="buyerName"></param>
+        /// <param name="buyerContact"></param>
+        /// <param name="bikeName"></param>
+        /// <param name="listingUrl"></param>
+        public static void UsedBikePhotoRequestEmailToIndividual(CustomerEntityBase seller, CustomerEntityBase buyer, string bikeName, string listingUrl)
+        {
+            ComposeEmailBase objEmail = new PhotoRequestEmailToIndividualSellerTemplate(seller.CustomerName, buyer.CustomerName, buyer.CustomerMobile, bikeName, listingUrl);
+            objEmail.Send(seller.CustomerEmail, "Upload Bike Photos");
+        }
 
     }
 }
