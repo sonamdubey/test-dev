@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" Inherits="Bikewale.New.BrowseNewBikeDealerDetails" AutoEventWireup="false" EnableViewState="false" %>
 <%@ Register Src="~/controls/UsedBikeWidget.ascx" TagName="UsedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikesMake" TagPrefix="BW" %>
+<%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <!DOCTYPE html>
 
 <html>
@@ -26,6 +27,9 @@
     <script src="http://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
+        var currentCityName = '<%= cityName %>';
+        var pageUrl = '<%= pageUrl %>';
+        var clientip = '<%= clientIP %>';
     </script>
 
 </head>
@@ -88,12 +92,12 @@
                                     <ItemTemplate>
                                         <li data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-inquired="false" data-item-number="<%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %>" data-lat="<%# DataBinder.Eval(Container.DataItem,"objArea.Latitude") %>" data-log="<%# DataBinder.Eval(Container.DataItem,"objArea.Longitude") %>" data-address="<%# DataBinder.Eval(Container.DataItem,"Address") %>" data-campid="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>">
                                             <a href="" title="<%# DataBinder.Eval(Container.DataItem,"Name") %>" class="dealer-card-target font14">
-                                                <p class="margin-bottom5">
+                                                <div class="margin-bottom5">
                                                     <div class="<%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>">
                                                         <span class="featured-tag margin-bottom5"><span class="bwsprite star-white"></span>Featured</span>
                                                     </div>
                                                     <h3 class="dealer-name text-black text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></h3>
-                                                </p>
+                                                </div>
                                                 <p class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Address").ToString()))?"hide":"text-light-grey margin-bottom5" %>">
                                                     <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
                                                     <span class="vertical-top dealership-card-details"><%# DataBinder.Eval(Container.DataItem,"Address") %></span>
@@ -104,8 +108,8 @@
                                                 </p>
                                             </a>
                                             <div class="<%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "margin-top20" : "hide" %>">
-                                                <a data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" href="Javascript:void(0)" leadsourceid="14"
-                                                    pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton %>" class="btn btn-white btn-full-width font14 get-assistance-btn">Get offers from dealer</a>
+                                                <a data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" href="Javascript:void(0)" data-leadsourceid="14"
+                                                    data-item-name="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-item-area="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-campid="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton %>" class="btn btn-white btn-full-width font14 leadcapturebtn">Get offers from dealer</a>
                                             </div>
                                         </li>
                                     </ItemTemplate>
@@ -164,6 +168,7 @@
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW.aspx" -->
+        <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealer/listing.js?<%= staticFileVersion %>"></script>
@@ -171,6 +176,31 @@
         <!--[if lt IE 9]>
             <script src="/src/html5.js"></script>
         <![endif]-->
+        <script type="text/javascript">
+            $(".leadcapturebtn").click(function (e) {
+                ele = $(this);
+                var leadOptions = {
+                    "dealerid": ele.attr('data-item-id'),
+                    "dealername": ele.attr('data-item-name'),
+                    "dealerarea": ele.attr('data-item-area'),
+                    "campid": ele.attr('data-campid'),
+                    "leadsourceid": ele.attr('data-leadsourceid'),
+                    "pqsourceid": ele.attr('data-pqsourceid'),
+                    "isdealerbikes": true,
+                    "pageurl": window.location.href,
+                    "isregisterpq": true,
+                    "clientip": clientip
+                   <%-- "gaobject": {
+                        cat: 'Price_in_City_Page',
+                        act: 'Lead_Submitted',
+                        lab: '<%= string.Format("{0}_", bikeName)%>' + CityArea
+                    }--%>
+                };
+
+                dleadvm.setOptions(leadOptions);
+
+            });
+        </script>
     </form>
 </body>
 </html>

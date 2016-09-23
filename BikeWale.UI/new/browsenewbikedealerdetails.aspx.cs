@@ -36,6 +36,8 @@ namespace Bikewale.New
         protected bool areDealersPremium = false;
         protected UsedBikeWidget ctrlRecentUsedBikes;
         protected MostPopularBikes_new ctrlPopoularBikeMake;
+        protected LeadCaptureControl ctrlLeadCapture;
+
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -74,24 +76,31 @@ namespace Bikewale.New
                     this.Page.Visible = false;
                 }
             }
-            ctrlPopoularBikeMake.makeId = (int)makeId;
-            ctrlPopoularBikeMake.cityId = (int)cityId;
-            ctrlPopoularBikeMake.totalCount = 9;
-            ctrlPopoularBikeMake.cityname = cityName;
-            ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
-            ctrlPopoularBikeMake.makeName = makeName;
+            
             BindUserControls();
 
         }
 
         private void BindUserControls()
         {
+            ctrlPopoularBikeMake.makeId = (int)makeId;
+            ctrlPopoularBikeMake.cityId = (int)cityId;
+            ctrlPopoularBikeMake.totalCount = 9;
+            ctrlPopoularBikeMake.cityname = cityName;
+            ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
+            ctrlPopoularBikeMake.makeName = makeName;
+
             ctrlRecentUsedBikes.CityId = (int?)cityId;
             ctrlRecentUsedBikes.MakeId = makeId;
             ctrlRecentUsedBikes.TopCount = 4;
             ctrlRecentUsedBikes.isAd = true;
             ctrlRecentUsedBikes.cityName = cityName;
             ctrlRecentUsedBikes.cityMaskingName = cityMaskingName;
+
+
+            ctrlLeadCapture.CityId = cityId;
+            //ctrlLeadCapture.ModelId = modelId;
+            //ctrlLeadCapture.AreaId = 0;
         }
 
         /// <summary>

@@ -242,7 +242,6 @@
         };
 
         self.getDealerBikes = function (data,event) {
-
             if (!isNaN(self.dealerId()) && self.dealerId() > 0 && self.campaignId() > 0) {
                 var dealerKey = "dealerDetails_" + self.dealerId() + "_camp_" + self.campaignId();
                 var dealerInfo = lscache.get(dealerKey);
@@ -365,8 +364,8 @@
                     "customerName": self.fullName(),
                     "customerMobile": self.mobileNo(),
                     "customerEmail": self.emailId(),
-                    "clientIP": clientIP,
-                    "PageUrl": pageUrl,
+                    "clientIP": self.clientIP,
+                    "PageUrl": self.pageUrl,
                     "leadSourceId": self.leadSourceId(),
                     "deviceId": getCookie('BWC')
                 }
@@ -437,7 +436,6 @@
                         $(".blackOut-window").show();
                     }
                 });
-
                 setPQUserCookie();
             }
         };
