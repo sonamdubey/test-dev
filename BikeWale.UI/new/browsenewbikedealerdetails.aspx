@@ -82,7 +82,7 @@
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow">
-                        <h2 class="font18 text-black text-bold bg-white padding-18-20"> </h2>
+                        <h2 class="font18 text-black text-bold bg-white padding-18-20"><%=totalDealers %> <%=makeName %> showrooms in <%=cityName %> </h2>
                         <div id="listing-left-column" class="grid-4">
                             <ul id="dealersList">
                                 <asp:Repeater ID="rptDealers" runat="server">
