@@ -270,11 +270,11 @@ namespace Bikewale.DAL.Compare
                                     OriginalImagePath = GetString(reader["OriginalImagePath"]),
 
                                     VersionId1 = GetUInt16(reader["VersionId1"]),
-                                    VersionId2 = GetUInt16(reader["VersionId2"])
-                                    //VersionImgUrl1 = GetString(reader["VersionImgUrl1"]),
-                                    //VersionImgUrl2 = GetString(reader["VersionImgUrl2"]),
-                                    //HostUrl1 = GetString(reader["HostUrl1"]),
-                                    //HostUrl2 = GetString(reader["HostUrl2"])
+                                    VersionId2 = GetUInt16(reader["VersionId2"]),
+                                    VersionImgUrl1 = GetString(reader["VersionImgUrl1"]),
+                                    VersionImgUrl2 = GetString(reader["VersionImgUrl2"]),
+                                    HostUrl1 = GetString(reader["HostUrl1"]),
+                                    HostUrl2 = GetString(reader["HostUrl2"])
                                 });
                             }
 
