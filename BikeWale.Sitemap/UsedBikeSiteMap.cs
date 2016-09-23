@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using MoreLinq;
 
 namespace BikeWale.Sitemap
 {
@@ -109,8 +108,9 @@ namespace BikeWale.Sitemap
                 }
 
                 //used makes in cities
-                IEnumerable<UsedBikeEntity> makecity = SitemapList.DistinctBy(m => new { m.MakeName, m.CityName });
-                
+               var makecity = (from make in SitemapList.GroupBy(item => new { item.MakeName, item.CityName }).Select(grp => grp.Key)
+                                select new UsedBikeEntity() { MakeName = make.MakeName, CityName = make.CityName });
+                               
                 if (makecity != null)
                 foreach (var item in makecity)
                 {
@@ -120,8 +120,9 @@ namespace BikeWale.Sitemap
                 }
 
                 //used make models in india
-                IEnumerable<UsedBikeEntity> makemodels = SitemapList.DistinctBy(m => new { m.MakeName, m.ModelName });
-                
+                var makemodels = (from model in SitemapList.GroupBy(item => new { item.MakeName, item.ModelName }).Select(grp => grp.Key)
+                                  select new UsedBikeEntity() { MakeName = model.MakeName, ModelName = model.ModelName });
+                 
                 if(makemodels!=null)
                 foreach (var item in makemodels)
                 {
