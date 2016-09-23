@@ -56,7 +56,7 @@
                                         </div>
                                     </a>
                                     <div class="margin-left20 margin-bottom20">
-                                        <a href="<%# Bikewale.Utility.UrlFormatter.PriceInCityUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName")),cityMaskingName) %>" class="btn btn-white font14 btn-size-2 btn-truncate" >On-road price in <%=cityname %></a>
+                                        <a href="<%# Bikewale.Utility.UrlFormatter.PriceInCityUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName")),cityMaskingName) %>" class="btn btn-white font14 btn-size-2" >On-road price in <%=cityname %></a>
                                     </div>
                                 </li>
                             </ItemTemplate>
