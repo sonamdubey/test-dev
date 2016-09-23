@@ -41,7 +41,8 @@
                 <div class="bg-white">
                     <h1 class="box-shadow padding-15-20"><%=makeName%> Dealer Showrooms in <%=cityName%></h1>
                     <div class="box-shadow font14 text-light-grey padding-15-20">
-                        <%=makeName %> has <%=totalDealers %> authorized dealers in <%= cityName %>. Apart from the authorized dealerships, <%= makeName %> bikes are also available at unauthorized showrooms and broker outlets.
+                       <%=makeName%> has <%=totalDealers %> authorized dealers in <%=cityName%>. BikeWale recommends buying bikes only from authorized <%=makeName%> showroom in <%=cityName%>. 
+                            For information on prices, offers, EMI options , test rides etc. you may get in touch with any of the below mentioned authorized <%=makeName%> dealers in <%=cityName%>.
                     </div>
                 </div>
             </div>
