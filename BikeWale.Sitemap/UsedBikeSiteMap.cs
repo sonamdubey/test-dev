@@ -22,8 +22,8 @@ namespace BikeWale.Sitemap
         public void GenerateSiteMap()
         {
             string domain = ConfigurationManager.AppSettings["UsedSiteMapDomain"];
-
-            IEnumerable<UsedBikeEntity> SitemapList = new List<UsedBikeEntity>();
+            string usedSitemapLoc = ConfigurationManager.AppSettings["UsedSitemapLoc"];
+            IEnumerable<UsedBikeEntity> SitemapList = null;
             
             if(domain!=null)
             try
@@ -33,9 +33,7 @@ namespace BikeWale.Sitemap
                 SitemapList=urlObj.GetUsedBikeUrls();
 
                 // create directory if not exists
-                string usedSitemapLoc = ConfigurationManager.AppSettings["UsedSitemapLoc"];
-                
-                if (usedSitemapLoc != null)
+                 if (usedSitemapLoc != null)
                 {
                     System.IO.Directory.CreateDirectory(usedSitemapLoc);
 
@@ -87,8 +85,9 @@ namespace BikeWale.Sitemap
                 urlList.Add("bikes-in-india/");
 
                 //used in cities
-                List<string> cities =SitemapList.GroupBy(obj => obj.CityName).Select(g => g.First().CityName).ToList();
-               
+                 var cities = (from city in SitemapList
+                              select city.CityName).Distinct();
+
                 if(cities!=null) 
                 foreach(var city in cities)
                 {
@@ -98,7 +97,8 @@ namespace BikeWale.Sitemap
                 }
 
                 //used makes in india
-                List<string> makes =SitemapList.GroupBy(obj => obj.MakeName).Select(g => g.First().MakeName).ToList();
+                var makes = (from make in SitemapList
+                             select make.MakeName).Distinct();
                 
                 if (makes != null)
                 foreach(var make in makes)
@@ -109,7 +109,7 @@ namespace BikeWale.Sitemap
                 }
 
                 //used makes in cities
-                List<UsedBikeEntity> makecity = SitemapList.DistinctBy(m => new { m.MakeName, m.CityName }).ToList();
+                IEnumerable<UsedBikeEntity> makecity = SitemapList.DistinctBy(m => new { m.MakeName, m.CityName });
                 
                 if (makecity != null)
                 foreach (var item in makecity)
@@ -120,7 +120,7 @@ namespace BikeWale.Sitemap
                 }
 
                 //used make models in india
-                List<UsedBikeEntity> makemodels = SitemapList.DistinctBy(m => new { m.MakeName, m.ModelName }).ToList();
+                IEnumerable<UsedBikeEntity> makemodels = SitemapList.DistinctBy(m => new { m.MakeName, m.ModelName });
                 
                 if(makemodels!=null)
                 foreach (var item in makemodels)
