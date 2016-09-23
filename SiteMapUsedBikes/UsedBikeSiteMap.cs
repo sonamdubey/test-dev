@@ -37,7 +37,6 @@ namespace SiteMapUsedBikes
                         {
                             writer.WriteStartElement("url");
                             writer.WriteElementString("loc",String.Format("{0}{1}",domain,url));
-                            writer.WriteElementString("changefreq", "weekly");
                             writer.WriteEndElement();
                         }
                      }
@@ -58,7 +57,6 @@ namespace SiteMapUsedBikes
                         {
                             writer.WriteStartElement("url");
                             writer.WriteElementString("loc", String.Format("{0}{1}",domain, url));
-                            writer.WriteElementString("changefreq", "weekly");
                             writer.WriteEndElement();
                         }
                     }
