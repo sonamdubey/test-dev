@@ -429,7 +429,7 @@
                             </div>
                             <% if(isBookingAvailable && bookingAmt > 0){ %>
                             <div class="font14 text-light-grey content-inner-block-20">
-                                <p>The booking amount of <span class="bwsprite inr-sm-grey"></span><%=bookingAmt %> has to be paid online and balance amount of <span class="bwsprite inr-sm-grey"></span><%= price-bookingAmt  %> has to be paid at the dealership. <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>">Book now</a></p>
+                                <p>The booking amount of <span class="bwsprite inr-sm-grey"></span><%= Bikewale.Utility.Format.FormatPrice(bookingAmt.ToString()) %> has to be paid online and balance amount of <span class="bwsprite inr-sm-grey"></span><%= Bikewale.Utility.Format.FormatPrice((price-bookingAmt).ToString())  %> has to be paid at the dealership. <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>">Book now</a></p>
                             </div>
                             <% } %>
                         </div>
