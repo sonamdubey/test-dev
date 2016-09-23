@@ -2,8 +2,8 @@
 
 <div id="makeUsedBikeContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 font14">
  
-    <h2 class="padding-left10 padding-right10">Recently uploaded Used <%=ModelId > 0 ? String.Format("{0}", modelName) : makeName%> bikes <%=CityId > 0 ? String.Format("in {0}", cityName) : "" %></h2>
-  
+    <%--<h2 class="padding-left10 padding-right10"><%=header %> Recently uploaded Used <%=ModelId > 0 ? String.Format("{0}", modelName) : makeName%> bikes <%=CityId > 0 ? String.Format("in {0}", cityName) : "" %></h2>--%>
+  <h2 class="padding-left10 padding-right10"><%=header%></h2>
     <!-- when city is not selected -->
     <div class="grid-12 alpha omega text-black">
     <%if(CityId <= 0) {%>    

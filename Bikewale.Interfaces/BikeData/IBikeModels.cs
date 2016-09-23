@@ -11,7 +11,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Added defimition of BikeModelContent GetRecentModelArticles(U modelId);
     /// Modified by: Aditi Srivastava on 16th Aug,2016
     /// Description: added new method  IEnumerable<ModelImage> GetModelPhotos() 
-    /// </summary>
+    /// Modified by: Subodh Jain on 22 sep 2016
+    /// Description: added new method GetMostPopularBikesbyMakeCity
     /// <typeparam name="T">Generic type (need to specify type while implementing this interface)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this interface)</typeparam>
     public interface IBikeModels<T, U> : IRepository<T, U>

@@ -118,6 +118,14 @@ namespace Bikewale.Cache.BikeData
 
             return objBikes;
         }
+        /// <summary>
+        /// Created by :Subodh Jain 22 sep 2013
+        /// Des: method to get popular bike by make and city
+        /// </summary>
+        /// <param name="topCount"></param>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
         public IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId)
         {
             IEnumerable<MostPopularBikesBase> objBikes = null;

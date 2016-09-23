@@ -29,7 +29,7 @@
 </asp:Repeater>
 <!--- Most Popular Bikes Ends Here-->
 
-            <h2 class="font18 padding-18-20">Popular Bajaj bikes in Mumbai</h2>
+            <h2 class="font18 padding-18-20">Popular <%=makeName %> bikes in <%=cityname %></h2>
 
             <div class="jcarousel-wrapper inner-content-carousel padding-bottom20">
                 <div class="jcarousel">

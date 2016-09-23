@@ -13,6 +13,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description :   Added New Launched Bike List method
     /// Modified by :   Aditi Srivastava on 17th Aug 2016
     /// Description :   Added GetModelPhotos method
+    /// Modeified by : Subodh Jain on 22 sep 2016
+    /// Description : added GetMostPopularBikesbyMakeCity method
     /// </summary>
     /// <typeparam name="U"></typeparam>
     public interface IBikeModelsCacheRepository<U>

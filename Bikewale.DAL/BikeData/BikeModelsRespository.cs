@@ -1080,6 +1080,14 @@ namespace Bikewale.DAL.BikeData
             }
             return modelPhotos;
         }
+        /// <summary>
+        /// Created by Subodh Jain on 22 sep 2016
+        /// Des:- To fetch most popular bikes on make and city
+        /// </summary>
+        /// <param name="topCount"></param>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
         public IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId)
         {
             List<MostPopularBikesBase> objList = null;

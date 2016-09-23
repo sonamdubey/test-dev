@@ -12,6 +12,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Added defimition of BikeModelContent GetRecentModelArticles(U modelId);
     /// Modified By: Aditi Srivastava on 17th Aug, 2016
     /// Description: Added GetModelPhotos(int modelId) for getting imageurl and original path;
+    /// Modified by : Subodh Jain 22 sep 2016
+    /// Description by : Added GetMostPopularBikesbyMakeCity method
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>

@@ -173,6 +173,14 @@ namespace Bikewale.BAL.BikeData
 
             return objNewLaunchedBikeList;
         }
+        /// <summary>
+        /// Created by Subodh jain 22 sep 2016
+        /// des: to deicide to fetch by makecity or only make
+        /// </summary>
+        /// <param name="topCount"></param>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
         public IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId)
         {
             IEnumerable<MostPopularBikesBase> objList = null;
