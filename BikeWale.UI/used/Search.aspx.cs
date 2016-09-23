@@ -1,30 +1,30 @@
 ﻿using Bikewale.BindViewModels.Webforms.Used;
+using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Used;
 using Bikewale.Mobile.Controls;
 using System;
 using System.Collections.Generic;
-using System.Web;
 using System.Web.UI;
 
 namespace Bikewale.Used
 {
-    /// <summary>
-    ///     Created By : Ashish G. Kamble on 9/8/2012
-    /// </summary>
     public class Search : Page
     {
 
         SearchUsedBikes objUsedBikesPage = null;
         protected string pageTitle = string.Empty, pageDescription = string.Empty, pageKeywords = string.Empty, pageCanonical = string.Empty
-                 , heading = string.Empty, nextUrl = string.Empty, prevUrl = string.Empty, redirectUrl = string.Empty, alternateUrl = string.Empty;
+                 , heading = string.Empty, nextUrl = string.Empty, prevUrl = string.Empty, redirectUrl = string.Empty, alternateUrl = string.Empty,
+                 cityName = string.Empty;
         protected IEnumerable<UsedBikeBase> usedBikesList = null;
         protected IEnumerable<CityEntityBase> citiesList = null;
         protected IEnumerable<BikeMakeModelBase> makeModelsList = null;
-        protected LinkPagerControl ctrlPager;
+        public LinkPagerControl ctrlPager;
         protected ushort makeId;
-        protected uint modelId, cityId;
+        protected uint modelId, cityId, totalListing;
+        protected CityEntityBase objCity = null;
+        protected int _startIndex = 0, _endIndex = 0;
 
 
         #region events
@@ -43,45 +43,46 @@ namespace Bikewale.Used
         private void LoadUsedBikesList()
         {
             objUsedBikesPage = new SearchUsedBikes();
-            if (!objUsedBikesPage.IsPageNotFound)
+            if (!objUsedBikesPage.IsPageNotFound && !objUsedBikesPage.IsPermanentRedirection)
             {
                 objUsedBikesPage.BindSearchPageData();
                 objUsedBikesPage.CreateMetas();
+                objUsedBikesPage.BindLinkPager(ctrlPager);
+                totalListing = objUsedBikesPage.TotalBikes;
                 pageTitle = objUsedBikesPage.pageTitle;
                 pageDescription = objUsedBikesPage.pageDescription;
                 pageKeywords = objUsedBikesPage.pageKeywords;
                 pageCanonical = objUsedBikesPage.pageCanonical;
                 alternateUrl = objUsedBikesPage.alternateUrl;
+                heading = objUsedBikesPage.heading;
                 citiesList = objUsedBikesPage.Cities;
                 makeId = objUsedBikesPage.MakeId;
                 modelId = objUsedBikesPage.ModelId;
                 cityId = objUsedBikesPage.CityId;
+                cityName = objUsedBikesPage.City;
+                _startIndex = objUsedBikesPage.startIndex;
+                _endIndex = objUsedBikesPage.endIndex;
+                objCity = objUsedBikesPage.SelectedCity;
                 makeModelsList = objUsedBikesPage.MakeModels;
                 usedBikesList = objUsedBikesPage.UsedBikes.Result;
 
-                BindPagination();
             }
             else
             {
-                Response.Redirect("/pagenotfound.aspx", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
+                // Redirection
+                if (objUsedBikesPage.IsPermanentRedirection)
+                {
+                    CommonOpn.RedirectPermanent(redirectUrl);
+                }
+                else if (objUsedBikesPage.IsPageNotFound)
+                {
+                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                }
+
+
             }
 
         }
-
-        private void BindPagination()
-        {
-            // for RepeaterPager
-            ctrlPager.MakeId = Convert.ToString(makeId);
-            ctrlPager.CityId = cityId;
-            ctrlPager.ModelId = Convert.ToString(modelId);
-            //ctrlPager.PagerOutput = _pagerOutput;
-            //ctrlPager.CurrentPageNo = _pageNo;
-            //ctrlPager.TotalPages = objPager.GetTotalPages((int)objUsedBikesPage.TotalBikes, objUsedBikesPage._pa);
-            //ctrlPager.BindPagerList();
-        }
-
         #endregion
     }   // End of class
 }   // End of namespace

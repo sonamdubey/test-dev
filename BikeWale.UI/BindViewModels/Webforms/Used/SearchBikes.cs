@@ -34,9 +34,8 @@ namespace Bikewale.BindViewModels.Webforms.Used
                   , heading = string.Empty, nextUrl = string.Empty, prevUrl = string.Empty, redirectUrl = string.Empty, alternateUrl = string.Empty;
         private const int _pageSize = 20;
         private int _pageNo = 1;
-        protected int _startIndex = 0, _endIndex = 0;
+        public int startIndex = 0, endIndex = 0;
         private const int _pagerSlotSize = 5;
-        public LinkPagerControl ctrlPager;
 
 
 
@@ -61,6 +60,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
         public Bikewale.Entities.Used.Search.SearchResult UsedBikes = null;
         public IEnumerable<CityEntityBase> Cities = null;
         public IEnumerable<BikeMakeModelBase> MakeModels = null;
+        public CityEntityBase SelectedCity = null;
 
         private string _modelMaskingName = string.Empty, _cityMaskingName = string.Empty, _makeMaskingName = string.Empty;
 
@@ -111,12 +111,12 @@ namespace Bikewale.BindViewModels.Webforms.Used
             {
                 Cities = objCitiesCache.GetAllCities(EnumBikeType.Used);
 
-                var cityBase = (from c in Cities
+                SelectedCity = (from c in Cities
                                 where c.CityMaskingName == _cityMaskingName
                                 select c).FirstOrDefault();
-                if (cityBase != null)
+                if (SelectedCity != null)
                 {
-                    City = cityBase.CityName;
+                    City = SelectedCity.CityName;
                 }
             }
             catch (Exception ex)
@@ -136,6 +136,23 @@ namespace Bikewale.BindViewModels.Webforms.Used
             try
             {
                 MakeModels = objMakeCache.GetAllMakeModels();
+
+                if (MakeModels != null)
+                {
+                    var _objMake = MakeModels.Where(m => m.Make.MaskingName == _makeMaskingName).FirstOrDefault();
+                    if (_objMake != null)
+                    {
+                        Make = _objMake.Make.MakeName;
+                        if (_objMake.Models != null)
+                        {
+                            var _objModel = _objMake.Models.Where(m => m.MaskingName == _modelMaskingName).FirstOrDefault();
+                            if (_objModel != null)
+                                Model = _objModel.ModelName;
+                        }
+
+                    }
+
+                }
             }
             catch (Exception ex)
             {
@@ -260,7 +277,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 endIndex = totalCount;
         }
 
-        public void BindLinkPager()
+        public void BindLinkPager(LinkPagerControl _ctrlPager)
         {
             PagerOutputEntity _pagerOutput = null;
             PagerEntity _pagerEntity = null;
@@ -269,7 +286,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
 
             try
             {
-                GetStartEndIndex(_pageSize, _pageNo, out _startIndex, out _endIndex, recordCount);
+                GetStartEndIndex(_pageSize, _pageNo, out startIndex, out endIndex, recordCount);
 
                 _pagerEntity = new PagerEntity();
                 _pagerEntity.BaseUrl = string.Format("{0}page", _baseUrl);
@@ -281,13 +298,13 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 _pagerOutput = objPager.GetUsedBikePager<PagerOutputEntity>(_pagerEntity);
 
                 // for RepeaterPager
-                ctrlPager.MakeId = Convert.ToString(MakeId);
-                ctrlPager.CityId = CityId;
-                ctrlPager.ModelId = Convert.ToString(ModelId);
-                ctrlPager.PagerOutput = _pagerOutput;
-                ctrlPager.CurrentPageNo = _pageNo;
-                ctrlPager.TotalPages = objPager.GetTotalPages((int)recordCount, _pageSize);
-                ctrlPager.BindPagerList();
+                _ctrlPager.MakeId = Convert.ToString(MakeId);
+                _ctrlPager.CityId = CityId;
+                _ctrlPager.ModelId = Convert.ToString(ModelId);
+                _ctrlPager.PagerOutput = _pagerOutput;
+                _ctrlPager.CurrentPageNo = _pageNo;
+                _ctrlPager.TotalPages = objPager.GetTotalPages((int)recordCount, _pageSize);
+                _ctrlPager.BindPagerList();
 
                 //For SEO
                 //CreatePrevNextUrl(ctrlPager.TotalPages,_baseUrl);
@@ -326,8 +343,8 @@ namespace Bikewale.BindViewModels.Webforms.Used
                     if (ushort.TryParse(_strMakeId, out _makeId))
                     {
                         MakeId = _makeId;
-                        BikeMakeEntityBase makeDetails = objMakeCache.GetMakeDetails(MakeId);
-                        Make = makeDetails != null ? makeDetails.MakeName : string.Empty;
+                        //BikeMakeEntityBase makeDetails = objMakeCache.GetMakeDetails(MakeId);
+                        //Make = makeDetails != null ? makeDetails.MakeName : string.Empty;
                     }
                     else
                     {
@@ -339,11 +356,11 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 if (!string.IsNullOrEmpty(_modelMaskingName))
                 {
                     objModelResponse = objModelsCache.GetModelMaskingResponse(_modelMaskingName);
-                    if (objModelResponse != null && objModelResponse.ModelId > 0)
-                    {
-                        BikeModelEntity modelEntity = objModels.GetById(Convert.ToInt32(objModelResponse.ModelId));
-                        Model = modelEntity != null ? modelEntity.ModelName : string.Empty;
-                    }
+                    //if (objModelResponse != null && objModelResponse.ModelId > 0)
+                    //{
+                    //    BikeModelEntity modelEntity = objModels.GetById(Convert.ToInt32(objModelResponse.ModelId));
+                    //    Model = modelEntity != null ? modelEntity.ModelName : string.Empty;
+                    //}
                 }
 
                 if (!String.IsNullOrEmpty(page.Request.QueryString["pn"]))
@@ -377,7 +394,8 @@ namespace Bikewale.BindViewModels.Webforms.Used
                     }
                     else
                     {
-                        IsPageNotFound = true;
+                        if (!_cityMaskingName.ToLower().Equals("india"))
+                            IsPageNotFound = true;
                     }
                 }
                 if (objModelResponse != null)
