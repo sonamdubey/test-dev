@@ -7,9 +7,9 @@
 <html>
 <head>
     <%      
-        keywords = String.Format("{0} dealers city, {0} showrooms {1}, {1} bike dealers, {0} dealers, {1} bike showrooms, bike dealers, bike showrooms, dealerships", makeName, cityName);
-        description = String.Format("{0} bike dealers/showrooms in {1}. Find {0} bike dealer information for more than 200 cities. Dealer information includes full address, phone numbers, email, pin code etc", makeName, cityName);
-        title = String.Format("{0} Dealers in {1} city | {0} New bike Showrooms in {1} - BikeWale", makeName, cityName);
+        keywords = String.Format("{0} showroom {1}, {0} dealers {1}, {1} bike showroom, {1} bike dealers,{1} dealers, {1} bike showroom, bike dealers, bike showroom, dealerships", makeName, cityName);
+        description = String.Format("There are {2} {0} dealer showrooms in {1}. Get in touch with {0} showroom for prices, availability, test rides, EMI options and more!", makeName, cityName, totalDealers);
+        title = String.Format("{0} Showrooms in {1} | {2} {0} Bike Dealers  - BikeWale", makeName, cityName, totalDealers);
         canonical = String.Format("http://www.bikewale.com/{0}-bikes/dealers-in-{1}/", makeMaskingName, cityMaskingName);
         alternate = String.Format("http://www.bikewale.com/m/{0}-bikes/dealers-in-{1}/", makeMaskingName, cityMaskingName);
         AdId = "1395986297721";
@@ -85,7 +85,7 @@
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow">
-                        <h2 class="font18 text-black text-bold bg-white padding-18-20"> </h2>
+                        <h2 class="font18 text-black text-bold bg-white padding-18-20"><%=totalDealers %> <%=makeName %> showrooms in <%=cityName %> </h2>
                         <div id="listing-left-column" class="grid-4">
                             <ul id="dealersList">
                                 <asp:Repeater ID="rptDealers" runat="server">
