@@ -232,6 +232,8 @@
     <Compile Include="UsedBikes\BikeInterestDetailsDTO.cs" />
     <Compile Include="UsedBikes\PhotoRequestDTO.cs" />
     <Compile Include="UsedBikes\PopularUsedBikesBase.cs" />
+    <Compile Include="UsedBikes\PurchaseInquiryResultDTO.cs" />
+    <Compile Include="UsedBikes\PurchaseInquiryStatusdto.cs" />
     <Compile Include="UsedBikes\UsedBikeSellerBaseDTO.cs" />
     <Compile Include="Used\BikePhoto.cs" />
     <Compile Include="Used\UsedBikeBase.cs" />

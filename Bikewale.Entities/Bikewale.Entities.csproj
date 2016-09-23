@@ -268,6 +268,9 @@
     <Compile Include="Used\PhotoRequest.cs" />
     <Compile Include="Used\PopularUsedBikesEntity.cs" />
     <Compile Include="Used\ProcessedInputFilters.cs" />
+    <Compile Include="Used\PurchaseInquiryResultEntity.cs" />
+    <Compile Include="Used\PurchaseInquiryStatusCode.cs" />
+    <Compile Include="Used\PurchaseInquiryStatusEntity.cs" />
     <Compile Include="Used\UsedBikeSellerBase.cs" />
     <Compile Include="Used\SearchResult.cs" />
     <Compile Include="Used\UsedBikeBase.cs" />

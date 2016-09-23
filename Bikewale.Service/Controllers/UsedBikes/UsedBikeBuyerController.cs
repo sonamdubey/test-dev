@@ -6,9 +6,9 @@ using Bikewale.Service.AutoMappers.UsedBikes;
 using Bikewale.Service.Utilities;
 using Bikewale.Utility;
 using System;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
-
 namespace Bikewale.Service.Controllers.UsedBikes
 {
     /// <summary>
@@ -96,6 +96,42 @@ namespace Bikewale.Service.Controllers.UsedBikes
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("ShownInterestInThisBike({0},{1})", profileId, isDealer));
+                objErr.SendMail();
+                return InternalServerError();
+            }
+        }
+
+        [HttpPost, Route("api/bikebuyer/purchaseinquiry/")]
+        public IHttpActionResult PurchaseInquiry(string profileId, string pageUrl, [FromBody] DTO.Customer.CustomerBase buyer)
+        {
+            try
+            {
+                // If android, IOS client sanitize the article content 
+                string platformId = "";
+
+                if (Request.Headers.Contains("platformId"))
+                {
+                    platformId = Request.Headers.GetValues("platformId").First().ToString();
+                }
+                if (UsedBikeProfileId.IsValidProfileId(profileId) && !String.IsNullOrEmpty(platformId))
+                {
+                    Entities.Customer.CustomerEntityBase buyerEntity = null;
+                    if (buyer != null)
+                    {
+                        buyerEntity = UsedBikeBuyerMapper.Convert(buyer);
+                    }
+                    PurchaseInquiryResultEntity inquiryresult = _objUsedBikeBuyerBL.SubmitPurchaseInquiry(buyerEntity, profileId, pageUrl, Convert.ToUInt16(platformId));
+                    PurchaseInquiryResultDTO dto = UsedBikeBuyerMapper.Convert(inquiryresult);
+                    return Ok(dto);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("PurchaseInquiry({0},{1})", profileId, pageUrl));
                 objErr.SendMail();
                 return InternalServerError();
             }
