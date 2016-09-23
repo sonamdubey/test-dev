@@ -77,6 +77,22 @@
     position: relative;
 }
 
+.dealer-info-tooltip {
+    max-width:350px;
+}
+
+#dealersMap .dealership-card-details {
+    width: 80%;
+}
+
+.dealer-info-tooltip a:hover {
+    text-decoration: none;
+}
+
+.dealer-info-tooltip a:hover p {
+    text-decoration: underline;
+}
+
 /* used */
 #used-bikes-content .grid-6 {
     display:inline-block;
