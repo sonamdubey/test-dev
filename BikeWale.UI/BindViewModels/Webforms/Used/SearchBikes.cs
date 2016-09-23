@@ -19,6 +19,7 @@ using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.Used.Search;
 using Bikewale.Memcache;
 using Bikewale.Mobile.Controls;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -212,6 +213,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
         /// </summary>
         public void CreateMetas()
         {
+            string _totalBikes = Format.FormatPrice(TotalBikes.ToString());
             try
             {
                 // Common title, h1 and canonical
@@ -219,7 +221,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
 
                 heading = string.Format("Used {0} Bikes in {1}", BikeName, City);
 
-                pageTitle = string.Format("Used {0} Bikes in {1} - {2} Verified Bike Listing For Sale | BikeWale", BikeName, City, TotalBikes);
+                pageTitle = string.Format("Used {0} Bikes in {1} - {2} Verified Bike Listing For Sale | BikeWale", BikeName, City, _totalBikes);
 
                 pageCanonical = string.Format("http://www.bikewale.com/{0}", HttpContext.Current.Request.RawUrl.ToLower());
 
@@ -228,17 +230,17 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 // Make models specific
                 if (!string.IsNullOrEmpty(Model))
                 {
-                    pageDescription = string.Format("There are {0} used {1} {2} bikes in {3} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand {2} bikes for sale in {3}", TotalBikes, Make, Model, City);
+                    pageDescription = string.Format("There are {0} used {1} {2} bikes in {3} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand {2} bikes for sale in {3}", _totalBikes, Make, Model, City);
                     pageKeywords = string.Format("Used {1} bikes in {2}, used {1} bikes, find used {1} bikes in {2}, buy used {1} bikes in {2}, search used {0} {1} bikes, find used {0} {1} bikes, {1} bike sale in {2}, used {0} {1} bikes in {2}, used {0} {1} bikes", Make, Model, City);
                 }
                 else if (!string.IsNullOrEmpty(Make))
                 {
-                    pageDescription = string.Format("There are {0} used {1} bikes in {2} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand {1} bikes for sale in {2}", TotalBikes, Make, City);
+                    pageDescription = string.Format("There are {0} used {1} bikes in {2} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand {1} bikes for sale in {2}", _totalBikes, Make, City);
                     pageKeywords = string.Format("Used {0} bikes in {1}, used {0} bikes, find used {0} bikes in {1}, buy used {0} bikes in {1}, search used {0} bikes, find used {0} bikes, bike sale, {0} bike sale in {1}", Make, City);
                 }
                 else
                 {
-                    pageDescription = string.Format("There are {0} used bikes in {1} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand bikes for sale in {1}", TotalBikes, City);
+                    pageDescription = string.Format("There are {0} used bikes in {1} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand bikes for sale in {1}", _totalBikes, City);
                     pageKeywords = string.Format("Used bikes in {0}, find used bikes in {0}, buy used bikes in {0}, search used bikes, find used bikes, used bike listing, bike used sale, bike sale in {0}, {0} bike search, Bajaj, Aprilia, BMW, Ducati, Harley Davidson, Hero, Honda, Hyosung, KTM, Mahindra, Royal Enfield, Suzuki, Yamaha, Yo, TVS, Vespa, Kawasaki", City);
                 }
             }
