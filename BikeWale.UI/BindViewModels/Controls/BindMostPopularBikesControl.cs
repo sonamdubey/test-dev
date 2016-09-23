@@ -60,7 +60,8 @@ namespace Bikewale.BindViewModels.Controls
             }
         }
         /// <summary>
-        /// 
+        /// created by Subodh Jain on 22 sep 2016
+        /// des :- to fetch details for popular bikes widget 
         /// </summary>
         /// <param name="rptr"></param>
         public void BindMostPopularBikesMakeCity(Repeater rptr)
