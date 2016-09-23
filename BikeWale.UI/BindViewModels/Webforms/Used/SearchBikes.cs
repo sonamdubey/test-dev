@@ -144,10 +144,10 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 if (MakeModels != null)
                 {
                     var _objMake = MakeModels.Where(m => m.Make.MaskingName == _makeMaskingName).FirstOrDefault();
-                    if (_objMake != null && _objMake.Make!=null)
+                    if (_objMake != null && _objMake.Make != null)
                     {
                         Make = _objMake.Make.MakeName;
-                        SelectedMake = _objMake.Make; 
+                        SelectedMake = _objMake.Make;
                         if (_objMake.Models != null)
                         {
                             var _objModel = _objMake.Models.Where(m => m.MaskingName == _modelMaskingName).FirstOrDefault();
@@ -219,26 +219,22 @@ namespace Bikewale.BindViewModels.Webforms.Used
             try
             {
                 // Common title, h1 and canonical
-                BikeName = string.Format("{0} {1}", Make, Model);
+                BikeName = MakeId > 0 ? string.Format("{0} {1}", Make, Model).Trim() : string.Empty;
+
 
                 heading = string.Format("Used {0} Bikes in {1}", BikeName, City);
 
                 pageTitle = string.Format("Used {0} Bikes in {1} - {2} Verified Bike Listing For Sale | BikeWale", BikeName, City, _totalBikes);
 
-                pageCanonical = string.Format("http://www.bikewale.com/{0}", HttpContext.Current.Request.RawUrl.ToLower());
+                pageCanonical = string.Format("http://www.bikewale.com/{0}", HttpContext.Current.Request.RawUrl.ToLower().Substring(1));
 
-                alternateUrl = string.Format("http://www.bikewale.com/m/{0}", HttpContext.Current.Request.RawUrl.ToLower());
+                alternateUrl = string.Format("http://www.bikewale.com/m/{0}", HttpContext.Current.Request.RawUrl.ToLower().Substring(1));
 
-                // Make models specific
-                if (!string.IsNullOrEmpty(Model))
+
+                if (MakeId > 0)
                 {
-                    pageDescription = string.Format("There are {0} used {1} {2} bikes in {3} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand {2} bikes for sale in {3}", _totalBikes, Make, Model, City);
-                    pageKeywords = string.Format("Used {1} bikes in {2}, used {1} bikes, find used {1} bikes in {2}, buy used {1} bikes in {2}, search used {0} {1} bikes, find used {0} {1} bikes, {1} bike sale in {2}, used {0} {1} bikes in {2}, used {0} {1} bikes", Make, Model, City);
-                }
-                else if (!string.IsNullOrEmpty(Make))
-                {
-                    pageDescription = string.Format("There are {0} used {1} bikes in {2} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand {1} bikes for sale in {2}", _totalBikes, Make, City);
-                    pageKeywords = string.Format("Used {0} bikes in {1}, used {0} bikes, find used {0} bikes in {1}, buy used {0} bikes in {1}, search used {0} bikes, find used {0} bikes, bike sale, {0} bike sale in {1}", Make, City);
+                    pageDescription = string.Format("There are {0} used {1} bikes in {2} on BikeWale. Find largest stock of genuine, good condition, well maintained second-hand {1} bikes for sale in {2}", _totalBikes, BikeName, City);
+                    pageKeywords = string.Format("Used {0} bikes in {1}, used {0} bikes, find used {0} bikes in {1}, buy used {0} bikes in {1}, search used {0} bikes, find used {0} bikes, bike sale, {0} bike sale in {1}", BikeName, City);
                 }
                 else
                 {

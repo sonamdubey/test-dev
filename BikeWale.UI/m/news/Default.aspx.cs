@@ -75,6 +75,7 @@ namespace Bikewale.Mobile.News
                 categorList.Add(EnumCMSContentType.Features);
                 categorList.Add(EnumCMSContentType.RoadTest);
                 categorList.Add(EnumCMSContentType.ComparisonTests);
+                categorList.Add(EnumCMSContentType.SpecialFeature);
                 string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
 
                 categorList.Clear();
