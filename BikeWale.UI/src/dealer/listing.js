@@ -153,7 +153,6 @@ function mapDealersArray() {
         _dealer.address = _self.attr("data-address");
         _dealer.name = _self.find(".dealer-name").text();
         _dealer.maskingNumber = _self.attr("data-item-number");
-        _dealer.isPremium = '';
         dealerArr.push(_dealer);
     });
 }
