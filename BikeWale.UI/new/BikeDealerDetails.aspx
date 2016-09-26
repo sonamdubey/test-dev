@@ -6,9 +6,9 @@
 <head>
     <%
        
-        keywords = String.Format("{0} dealers city, {0} showrooms {1}, {1} bike dealers, {0} dealers, {1} bike showrooms, bike dealers, bike showrooms, dealerships", makeName, cityName);
-        description = String.Format("{0} bike dealers/showrooms in {1}. Find {0} bike dealer information for more than 200 cities. Dealer information includes full address, phone numbers, email, pin code etc", makeName, cityName);
-        title = String.Format("{0} Dealers in {1} city | {0} New bike Showrooms in {1} - BikeWale", makeName, cityName);
+        keywords = String.Format("{0}, {0} dealer,  {0} Showroom, {0} {1}", dealername, cityName);
+        description = String.Format("{2} is dealer of {0} bikes in {1}. Get best offers on {0} bikes at {2} showroom", makeName, cityName,dealername);
+        title = String.Format("{0}  {1} - {0} Showroom in {1} - BikeWale", makeName, cityName);
         canonical = String.Format("http://www.bikewale.com/{0}-bikes/dealers-in-{1}/", makeMaskingName, cityMaskingName);
         alternate = String.Format("http://www.bikewale.com/m/{0}-bikes/dealers-in-{1}/", makeMaskingName, cityMaskingName);
         AdId = "1395986297721";
@@ -35,6 +35,8 @@
                 <div class="grid-12">
                     <div class="breadcrumb margin-bottom15">
                         <!-- breadcrumb code starts here -->
+
+<%--                        Home > New Bikes > Dealer Showroom >  <Brand> Dealer Showrooms > <Brand> Dealer Showroom in <City> > <Dealer Name>--%>
                         <ul>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <a itemprop="url" href="/"><span itemprop="title">Home</span></a>
@@ -43,12 +45,15 @@
                                 <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/new/"><span itemprop="title">New Bikes</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/new/locate-dealers/"><span itemprop="title">New Bike Dealer</span></a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/new/locate-dealers/"><span itemprop="title">Dealer Showroom</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/new/<%=makeMaskingName %>-dealers/"><span itemprop="title"><%=makeName%> Bikes Dealers</span></a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/new/<%=makeMaskingName %>-dealers/"><span itemprop="title"><%=makeName%> Dealer showrooms</span></a>
                             </li>
-                            <li class="current"><span class="bwsprite fa-angle-right margin-right10"></span><%=makeName%> Bikes dealers in <%=cityName%></li>
+                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/new/<%=makeMaskingName %>-dealers/"><span itemprop="title"><%=makeName%> Dealer Showroom in <%=cityName%></span></a>
+                            </li>
+                            <li class="current"><span class="bwsprite fa-angle-right margin-right10"></span><%=dealername %></li>
                         </ul>
                         <div class="clear"></div>
                     </div>

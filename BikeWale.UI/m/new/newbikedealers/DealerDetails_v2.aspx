@@ -4,11 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <%
-        title = string.Format("{0} in {1} {2} - BikeWale", dealerName, dealerArea, dealerCity);
-        description = string.Format("{0} is a {1} dealer in {2} {3}. Check out the on road price, offers and benefits of buying bike from {0}.",
-            dealerName, makeName, dealerArea, dealerCity);
-        keywords = string.Format("{0}, {0} in {1} {2}, {3} dealer in {1} {2}", dealerName, dealerArea, dealerCity, makeName);
+    <% keywords = String.Format("{0}, {0} dealer,  {0} Showroom, {0} {1}", dealername, cityName);
+       description = String.Format("{2} is dealer of {0} bikes in {1}. Get best offers on {0} bikes at {2} showroom", makeName, cityName, dealername);
+       title = String.Format("{0}  {1} - {0} Showroom in {1} - BikeWale", makeName, cityName);
     %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <style type="text/css">
