@@ -31,7 +31,7 @@ namespace Bikewale.Used
         protected HtmlGenericControl searchRes;
         protected string city = string.Empty, cityId = string.Empty, prevUrl = string.Empty, nextUrl = string.Empty, makeId = string.Empty, queryString = String.Empty;
         protected string makeMaskingName = String.Empty, modelMaskingName = String.Empty, cityMaskingName = String.Empty, make = String.Empty, model = String.Empty, modelId = String.Empty, pageNumber = String.Empty, nextPrevBaseUrl = String.Empty;
-        protected string pageCanonical = String.Empty, pageKeywords = String.Empty, pageDescription = String.Empty, pageTitle = String.Empty;
+        protected string pageCanonical = String.Empty, pageKeywords = String.Empty, altUrl = string.Empty, pageDescription = String.Empty, pageTitle = String.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -47,6 +47,12 @@ namespace Bikewale.Used
         {
             // Modified By :Lucky Rathore on 12 July 2016.
             Form.Action = Request.RawUrl;
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
+
+            DeviceDetection dd = new DeviceDetection(originalUrl);
+            dd.DetectDevice();
             //Get pageNumber to form next and prvious page urls
             if (Request["pn"] != null && Request.QueryString["pn"] != "")
             {
@@ -90,6 +96,8 @@ namespace Bikewale.Used
         /// <summary>
         /// Written By : Ashwini Todkar on 17 April 2014
         /// Summary    : method to form query string
+        /// Modified by :   Sumit Kate on 14 Sep 2016
+        /// Description :   if model is passed in QS get the model id
         /// </summary>
         /// <param name="_qs"> query string for loading the search result page</param>
         private void processQueryString(ref string _qs)
@@ -124,7 +132,26 @@ namespace Bikewale.Used
                     makeMaskingName = Request.QueryString["make"];
                 }
 
-                _qs = ((!String.IsNullOrEmpty(cityId)) ? "city=" + cityId + "&dist=50" : "") + ((String.IsNullOrEmpty(makeId) ? "" : "&make=" + makeId));
+                if (!String.IsNullOrEmpty(Request.QueryString["model"]))
+                {
+                    modelMaskingName = Request.QueryString["model"];
+                    ModelMaskingResponse objResponse = null;
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
+                                 .RegisterType<ICacheManager, MemcacheManager>()
+                                 .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                                ;
+                        var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
+                        objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
+                        if (objResponse != null && objResponse.StatusCode == 200)
+                        {
+                            modelId = objResponse.ModelId.ToString();
+                        }
+                    }
+                }
+
+                _qs = ((!String.IsNullOrEmpty(cityId)) ? "city=" + cityId + "&dist=50" : "") + ((String.IsNullOrEmpty(makeId) ? "" : "&make=" + makeId)) + ((!String.IsNullOrEmpty(modelId) ? "&model=" + modelId : ""));
 
 
                 if (!String.IsNullOrEmpty(_tempBudget))
@@ -354,7 +381,7 @@ namespace Bikewale.Used
             pageCanonical = objKeywords.Canonical;
             pageKeywords = objKeywords.PageKeywords;
             pageDescription = objKeywords.PageDescription;
-
+            altUrl = objKeywords.altUrL;
             nextPrevBaseUrl = objKeywords.BaseURL;
 
         }// End of GetMetaKeywords method

@@ -115,6 +115,27 @@ namespace Bikewale.Cache.BikeData
             }
             return objMakeDetails;
         }
-        
+
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 13 Sep 2016
+        /// Description :   Gets All make and models from Cache if available else calls DAL
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<BikeMakeModelBase> GetAllMakeModels()
+        {
+            IEnumerable<BikeMakeModelBase> makeModels = null;
+            string key = String.Format("BW_All_MakeModel");
+            try
+            {
+                makeModels = _cache.GetFromCache<IEnumerable<BikeMakeModelBase>>(key, new TimeSpan(1, 0, 0), () => _objMakes.GetAllMakeModels());
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetMakeDetails");
+                objErr.SendMail();
+            }
+            return makeModels;
+        }
     }
 }

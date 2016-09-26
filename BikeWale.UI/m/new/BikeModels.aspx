@@ -7,11 +7,12 @@
 <%@ Register Src="~/m/controls/MPriceInTopCities.ascx" TagPrefix="BW" TagName="TopCityPrice" %>
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/PopularModelComparison.ascx" TagName="SimilarBikesCompare" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
     <%
-        description = String.Format("{0} Price in India - Rs. {1}. Find {2} Reviews, Specs, Features, Mileage, On Road Price. See {0} Colours, Images at Bikewale.", bikeName, Bikewale.Utility.Format.FormatPriceLong(price.ToString()), bikeModelName);
+        description = String.Format("{0} Price in India - Rs. {1}. Find {2} Reviews, Specs, Features, Mileage, On Road Price. See {0} Colours, Images at Bikewale.", bikeName, Bikewale.Utility.Format.FormatNumeric(price.ToString()), bikeModelName);
         title = String.Format("{0} Price, Reviews, Spec, Photos, Mileage | Bikewale", bikeName);
         canonical = String.Format("http://www.bikewale.com/{0}-bikes/{1}/", modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName);
         AdPath = "/1017752/Bikewale_Mobile_Model";
@@ -27,7 +28,7 @@
     %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <style type="text/css">
-        @charset "utf-8";.single-version-label,.text-truncate{text-overflow:ellipsis;overflow:hidden;white-space:nowrap}.btn-grey:hover,.model-media-item:hover,a.btn:hover{text-decoration:none}.reviews-rating{width:45%}.container img{max-width:100%}.rating-wrap img{width:18px}.line-Ht22{line-height:22px}.line-Ht18{line-height:18px}.btn-grey{background:#fff;color:#f04031;border:1px solid #f04031}.btn-grey:focus,.btn-grey:hover{background:#f04031;color:#fff;border:1px solid #f04031}.text-blue{color:#0288d1}.text-darker-black{color:#1a1a1a}.grid-3.version-label-text{width:60px}.grid-9.variantDropDown{width:70%;max-width:320px}.border-light-top{border-top:1px solid #f1f1f1}.tel-grey-icon{position:relative;top:2px}#model-image-wrapper .model-main-image{background-color:#fff;max-width:476px;margin:0 auto;min-height:180px;max-height:268px;position:relative;text-align:center}#model-image-wrapper .model-media-details{position:absolute;right:15px;bottom:10px;font-size:12px}.model-media-item{display:inline-block;vertical-align:middle;padding:5px 5px 3px;color:#82888b;background:rgba(240,240,240,.8);border-radius:2px}.model-media-count{position:relative;top:-1px}.gallery-photo-icon,.gallery-video-icon{height:12px}.gallery-photo-icon{width:16px;background-position:0 -486px}.gallery-video-icon{width:12px;background-position:-26px -486px}.text-xt-light-grey{color:#a8afb3}.block{display:block;width:100%}.border-light-right{border-right:1px solid #e2e2e2}.offers-sprite{background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v2Sep2016) no-repeat;display:inline-block}.loc-change-blue-icon{width:16px;height:16px;background-position:-195px -395px;position:relative;top:2px}.loc-change-blue-icon:hover{background-position:-84px -278px}.upcoming-text-label{background:#4c4c4c;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:-10px}.upcoming-text-label:after{content:"";background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=9Sep2016) right top no-repeat;width:12px;position:absolute;height:28px;top:0;padding:0 0 0 35px}.float-button{background-color:#f5f5f5}.float-button.float-fixed{position:fixed;bottom:0;z-index:8;left:0;right:0;background:rgba(245,245,245,.9)}.call-icon,.contact-icon,.disclaimer-icon,.offers-icon{width:14px;height:16px}.disclaimer-icon{background-position:-135px -308px}.offers-icon{background-position:-135px -280px}.contact-icon{background-position:-107px -280px}.call-icon{background-position:-107px -135px}.inr-dark-grey-xsm-icon{width:9px;height:12px;background-position:0 -459px;position:relative;top:1px}.inr-dark-md-icon{width:11px;height:14px;background-position:-19px -459px}.specs-capacity-icon,.specs-maxpower-icon,.specs-mileage-icon,.specs-weight-icon{width:30px}.specs-capacity-icon{height:20px;background-position:-46px 0}.specs-mileage-icon{height:24px;background-position:-46px -30px}.specs-maxpower-icon{height:30px;background-position:-46px -62px}.specs-weight-icon{height:30px;background-position:-46px -102px}.margin-bottom13{margin-bottom:13px}.text-truncate{width:100%;text-align:left}.elevated-shadow{position:relative;top:1px;-moz-box-shadow:0 0 7px #ccc;-webkit-box-shadow:0 0 7px #ccc;-o-box-shadow:0 0 7px #ccc;-ms-box-shadow:0 0 7px #ccc;box-shadow:0 0 7px #ccc}.dropdown-select{display:none}.dropdown-menu{width:100%;height:20px;min-width:125px;font-size:14px;position:relative;display:inline-block;vertical-align:middle;color:#4d5057}.single-version-label{padding:5px 30px 5px 9px;font-weight:700;width:100%}.dropdown-menu .dropdown-label,.dropdown-menu .dropdown-selected-item{width:100%;font-weight:700;background:url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 94% no-repeat;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dropdown-menu .dropdown-label{padding-right:30px;padding-left:9px;cursor:pointer;display:inline-block;z-index:0}.dropdown-menu .dropdown-selected-item{border-bottom:1px solid #e2e2e2;padding:5px 30px 5px 9px}.dropdown-menu .dropdown-list-wrapper{display:none;min-width:170px;overflow:hidden;position:absolute;top:3px;left:0;background:#fff;z-index:1;-webkit-border-radius:2px;-moz-border-radius:2px;-o-border-radius:2px;-ms-border-radius:2px;border-radius:2px;border:1px solid #e2e2e2\9;-webkit-box-shadow:-3px 3px 15px 1px #ddd;-moz-box-shadow:-3px 3px 15px 1px #ddd;-ms-box-shadow:-3px 3px 15px 1px #ddd;-o-box-shadow:-3px 3px 15px 1px #ddd;box-shadow:-3px 3px 15px 1px #ddd}#dealer-offers-list,.dropdown-menu.dropdown-active .dropdown-list-wrapper,.vertical-top{display:inline-block}.dropdown-menu .dropdown-menu-list{padding-top:10px;padding-bottom:10px}.dropdown-menu .dropdown-menu-list li{padding:5px 10px;cursor:pointer;white-space:nowrap}.dropdown-menu .dropdown-with-select li:hover{background:#eee}.selected-location-label.text-truncate{width:84%}.padding-10-20{padding:10px 20px}#model-dealer-card{padding-top:15px;margin-right:20px;margin-left:20px;border-top:1px solid #eee}#model-dealer-card .offers-content-label{width:64px;font-size:14px;display:inline-block;vertical-align:middle;position:relative;top:-5px}#dealer-offers-list{width:78%;vertical-align:middle}#dealer-offers-list li{width:76px;height:70px;text-align:center;margin-bottom:10px;margin-left:10px;padding-top:7px;padding-bottom:7px;float:left;cursor:pointer;font-size:11px;border:1px solid #f5f5f5;-webkit-border-radius:2px;-moz-border-radius:2px;-o-border-radius:2px;-ms-border-radius:2px;border-radius:2px;border:1px solid #e2e2e2\9;-webkit-box-shadow:1px 1px 1px #ddd;-moz-box-shadow:1px 1px 1px #ddd;-ms-box-shadow:1px 1px 1px #ddd;-o-box-shadow:1px 1px 1px #ddd;box-shadow:1px 1px 1px #ddd}#dealer-offers-list li:first-child{margin-left:0}#dealer-offers-list .more-offers-card{background-color:#f9f9f9}.vertical-top{vertical-align:top}.inr-grey-xxxsm-icon{width:7px;height:10px;background-position:-94px -136px}.btn-sm-0{padding:5px 21px;font-size:14px}.btn-teal{background:#41b4c4;color:#fff;border:1px solid #41b4c4}.float-button .btn{padding:8px 0;font-size:18px}.btn-green{background:#1b9618;color:#fff;border:1px solid #1b9618}.btn-green:focus{background:#008b08;border:1px solid #008b08}.line-height-1-7{line-height:1.7}.booknow-label{width:64%;padding-left:10px;position:relative;top:-3px}.callback-btn.btn-sm-0{padding:5px 28px}.callback-label{width:46%;padding-left:10px;position:relative;top:-3px}.nearby-partner-left-col{width:45%;max-width:260px;margin-right:5px}.nearby-partner-label{width:73%}#dealer-offers-popup.bwm-fullscreen-popup,#more-dealers-popup.bwm-fullscreen-popup{padding:30px 25px;display:none}.margin-top12{margin-top:12px}.offers-sm-box-icon{width:16px;height:16px;background-position:-183px -460px;position:relative;top:1px}.tel-sm-icon{width:15px;height:12px;background-position:-88px -324px;position:relative;top:2px}.offers-box-icon{width:34px;height:37px;background-position:0 0}.emi-calc-icon{width:34px;height:35px;background-position:0 -47px}.dealership-icon-wrapper{height:22px}.dealership-icon{width:29px;height:22px;background-position:0 -356px}.margin-bottom7{margin-bottom:7px}.offerIcon_1_sm,.offerIcon_2_sm,.offerIcon_3_sm,.offerIcon_4_sm,.offerIcon_5_sm,.offerIcon_6_sm,.offerIcon_7_sm{width:30px;height:29px}.offerIcon_1_sm{background-position:0 -93px}.offerIcon_2_sm{background-position:0 -132px}.offerIcon_3_sm{background-position:0 -166px}.offerIcon_4_sm{background-position:0 -207px}.offerIcon_5_sm{background-position:0 -246px}.offerIcon_6_sm{background-position:0 -283px}.offerIcon_7_sm{background-position:0 -317px}#dealer-offers-popup .btn{padding:8px 19px}.dealer-offers-list .dealer-offer-image,.dealer-offers-list .dealer-offer-label{display:inline-block;vertical-align:middle}.dealer-offers-list .dealer-offer-label{width:85%;font-size:14px;text-align:left;padding-left:10px}.dealer-offers-list li{padding-top:20px}.dealer-offers-list li:first-child{padding-top:0}.fullwidth{width:100%;text-align:left;background-color:transparent;cursor:pointer}.bw-horz-tabs{width:372px;border-bottom:1px solid #ccc;border-left:1px solid #ccc;border-top:1px solid #ccc}.bw-horz-tabs li{padding:25px 0 25px 50px;background:#f5f5f5;border-top:1px solid #ccc;font-size:16px;cursor:pointer;border-left:3px solid transparent}.bw-horz-tabs li.active{background:#fff;border-left:3px solid #ef3f30}.bw-horz-tabs li:first-child{border-top:none}.bw-horz-tabs-data{width:100%}.bw-horz-tabs-data .bw-tabs-data li{float:left;margin-bottom:20px;width:100%}.bw-horz-tabs-data .bw-tabs-data li div{float:left;width:60%;padding-right:15px}.bw-horz-tabs-data .bw-tabs-data li div:last-child{width:40%;padding-left:15px;padding-right:0}.overall-specs-tabs-container{width:100%;display:block;background:#fff;overflow-x:auto;z-index:2;-webkit-overflow-scrolling:touch}.overall-specs-tabs-container.fixed-tab-nav{position:fixed;top:0;left:0}.overall-specs-tabs-wrapper{width:100%;display:table;border-bottom:1px solid #e2e2e2}.overall-specs-tabs-wrapper li{display:table-cell;width:1%;padding:10px 15px;text-align:center;white-space:nowrap;font-size:14px;color:#82888b;cursor:pointer}.overall-specs-tabs-container::-webkit-scrollbar{width:0;height:0}.overall-specs-tabs-container::-webkit-scrollbar-thumb,.overall-specs-tabs-container::-webkit-scrollbar-track{display:none}.overall-specs-tabs-wrapper li.active{border-bottom:3px solid #ef3f30;color:#4d5057;font-weight:700}
+        @charset "utf-8";.single-version-label,.text-truncate{text-overflow:ellipsis;overflow:hidden;white-space:nowrap}.btn-grey:hover,.model-media-item:hover,a.btn:hover{text-decoration:none}.reviews-rating{width:45%}.container img{max-width:100%}.rating-wrap img{width:18px}.line-Ht22{line-height:22px}.line-Ht18{line-height:18px}.btn-grey{background:#fff;color:#f04031;border:1px solid #f04031}.btn-grey:focus,.btn-grey:hover{background:#f04031;color:#fff;border:1px solid #f04031}.text-blue{color:#0288d1}.text-darker-black{color:#1a1a1a}.grid-3.version-label-text{width:60px}.grid-9.variantDropDown{width:70%;max-width:320px}.border-light-top{border-top:1px solid #f1f1f1}.tel-grey-icon{position:relative;top:2px}#model-image-wrapper .model-main-image{background-color:#fff;max-width:476px;margin:0 auto;min-height:180px;max-height:268px;position:relative;text-align:center}#model-image-wrapper .model-media-details{position:absolute;right:15px;bottom:10px;font-size:12px}.model-media-item{display:inline-block;vertical-align:middle;padding:5px 5px 3px;color:#82888b;background:rgba(240,240,240,.8);border-radius:2px}.model-media-count{position:relative;top:-1px}.gallery-photo-icon,.gallery-video-icon{height:12px}.gallery-photo-icon{width:16px;background-position:0 -486px}.gallery-video-icon{width:12px;background-position:-26px -486px}.text-xt-light-grey{color:#a8afb3}.block{display:block;width:100%}.border-light-right{border-right:1px solid #e2e2e2}.offers-sprite{background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v2Sep2016) no-repeat;display:inline-block}.loc-change-blue-icon{width:16px;height:16px;background-position:-195px -395px;position:relative;top:2px}.loc-change-blue-icon:hover{background-position:-84px -278px}.upcoming-text-label{background:#4c4c4c;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:-10px}.upcoming-text-label:after{content:"";background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=9Sep2016) right top no-repeat;width:12px;position:absolute;height:28px;top:0;padding:0 0 0 35px}.float-button{background-color:#f5f5f5}.float-button.float-fixed{position:fixed;bottom:0;z-index:8;left:0;right:0;background:rgba(245,245,245,.9)}.call-icon,.contact-icon,.disclaimer-icon,.offers-icon{width:14px;height:16px}.disclaimer-icon{background-position:-135px -308px}.offers-icon{background-position:-135px -280px}.contact-icon{background-position:-107px -280px}.call-icon{background-position:-107px -135px}.inr-dark-grey-xsm-icon{width:9px;height:12px;background-position:0 -459px;position:relative;top:1px}.inr-dark-md-icon{width:11px;height:14px;background-position:-19px -459px}.specs-capacity-icon,.specs-maxpower-icon,.specs-mileage-icon,.specs-weight-icon{width:30px}.specs-capacity-icon{height:20px;background-position:-46px 0}.specs-mileage-icon{height:24px;background-position:-46px -30px}.specs-maxpower-icon{height:30px;background-position:-46px -62px}.specs-weight-icon{height:30px;background-position:-46px -102px}.margin-bottom13{margin-bottom:13px}.text-truncate{width:100%;text-align:left}.elevated-shadow{position:relative;top:1px;-moz-box-shadow:0 0 7px #ccc;-webkit-box-shadow:0 0 7px #ccc;-o-box-shadow:0 0 7px #ccc;-ms-box-shadow:0 0 7px #ccc;box-shadow:0 0 7px #ccc}.dropdown-select{display:none}.dropdown-menu{width:100%;height:20px;min-width:125px;font-size:14px;position:relative;display:inline-block;vertical-align:middle;color:#4d5057}.single-version-label{padding:5px 30px 5px 9px;font-weight:700;width:100%}.dropdown-menu .dropdown-label,.dropdown-menu .dropdown-selected-item{width:100%;font-weight:700;background:url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 94% no-repeat;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dropdown-menu .dropdown-label{padding-right:30px;padding-left:9px;cursor:pointer;display:inline-block;z-index:0}.dropdown-menu .dropdown-selected-item{border-bottom:1px solid #e2e2e2;padding:5px 30px 5px 9px}.dropdown-menu .dropdown-list-wrapper{display:none;min-width:170px;overflow:hidden;position:absolute;top:3px;left:0;background:#fff;z-index:1;-webkit-border-radius:2px;-moz-border-radius:2px;-o-border-radius:2px;-ms-border-radius:2px;border-radius:2px;border:1px solid #e2e2e2\9;-webkit-box-shadow:-3px 3px 15px 1px #ddd;-moz-box-shadow:-3px 3px 15px 1px #ddd;-ms-box-shadow:-3px 3px 15px 1px #ddd;-o-box-shadow:-3px 3px 15px 1px #ddd;box-shadow:-3px 3px 15px 1px #ddd}#dealer-offers-list,.dropdown-menu.dropdown-active .dropdown-list-wrapper,.vertical-top{display:inline-block}.dropdown-menu .dropdown-menu-list{padding-top:10px;padding-bottom:10px}.dropdown-menu .dropdown-menu-list li{padding:5px 10px;cursor:pointer;white-space:nowrap}.dropdown-menu .dropdown-with-select li:hover{background:#eee}.selected-location-label.text-truncate{width:84%}.padding-10-20{padding:10px 20px}#model-dealer-card{padding-top:15px;margin-right:20px;margin-left:20px;border-top:1px solid #eee}#model-dealer-card .offers-content-label{width:64px;font-size:14px;display:inline-block;vertical-align:middle;position:relative;top:-5px}#dealer-offers-list{width:78%;vertical-align:middle}#dealer-offers-list li{width:76px;height:70px;text-align:center;margin-bottom:10px;margin-left:10px;padding-top:7px;padding-bottom:7px;float:left;cursor:pointer;font-size:11px;border:1px solid #f5f5f5;-webkit-border-radius:2px;-moz-border-radius:2px;-o-border-radius:2px;-ms-border-radius:2px;border-radius:2px;border:1px solid #e2e2e2\9;-webkit-box-shadow:1px 1px 1px #ddd;-moz-box-shadow:1px 1px 1px #ddd;-ms-box-shadow:1px 1px 1px #ddd;-o-box-shadow:1px 1px 1px #ddd;box-shadow:1px 1px 1px #ddd}#dealer-offers-list li:first-child{margin-left:0}#dealer-offers-list .more-offers-card{background-color:#f9f9f9}.vertical-top{vertical-align:top}.inr-grey-xxxsm-icon{width:7px;height:10px;background-position:-94px -136px}.btn-sm-0{padding:5px 21px;font-size:14px}.btn-teal{background:#41b4c4;color:#fff;border:1px solid #41b4c4}.float-button .btn{padding:8px 0;font-size:18px}.btn-green{background:#1b9618;color:#fff;border:1px solid #1b9618}.btn-green:focus{background:#008b08;border:1px solid #008b08}.line-height-1-7{line-height:1.7}.booknow-label{width:64%;padding-left:10px;position:relative;top:-3px}.callback-btn.btn-sm-0{padding:5px 28px}.callback-label{width:46%;padding-left:10px;position:relative;top:-3px}.nearby-partner-left-col{width:45%;max-width:260px;margin-right:5px}.nearby-partner-label{width:73%}#dealer-offers-popup.bwm-fullscreen-popup,#more-dealers-popup.bwm-fullscreen-popup{padding:30px 25px;display:none}.margin-top12{margin-top:12px}.offers-sm-box-icon{width:16px;height:16px;background-position:-183px -460px;position:relative;top:1px}.tel-sm-icon{width:15px;height:12px;background-position:-88px -324px;position:relative;top:2px}.offers-box-icon{width:34px;height:37px;background-position:0 0}.emi-calc-icon{width:34px;height:35px;background-position:0 -47px}.dealership-icon-wrapper{height:22px}.dealership-icon{width:29px;height:22px;background-position:0 -356px}.margin-bottom7{margin-bottom:7px}.offerIcon_1_sm,.offerIcon_2_sm,.offerIcon_3_sm,.offerIcon_4_sm,.offerIcon_5_sm,.offerIcon_6_sm,.offerIcon_7_sm{width:30px;height:29px}.offerIcon_1_sm{background-position:0 -93px}.offerIcon_2_sm{background-position:0 -132px}.offerIcon_3_sm{background-position:0 -166px}.offerIcon_4_sm{background-position:0 -207px}.offerIcon_5_sm{background-position:0 -246px}.offerIcon_6_sm{background-position:0 -283px}.offerIcon_7_sm{background-position:0 -317px}#dealer-offers-popup .btn{padding:8px 19px}.dealer-offers-list .dealer-offer-image,.dealer-offers-list .dealer-offer-label{display:inline-block;vertical-align:middle}.dealer-offers-list .dealer-offer-label{width:85%;font-size:14px;text-align:left;padding-left:10px}.dealer-offers-list li{padding-top:20px}.dealer-offers-list li:first-child{padding-top:0}.fullwidth{width:100%;text-align:left;background-color:transparent;cursor:pointer}.bw-horz-tabs{width:372px;border-bottom:1px solid #ccc;border-left:1px solid #ccc;border-top:1px solid #ccc}.bw-horz-tabs li{padding:25px 0 25px 50px;background:#f5f5f5;border-top:1px solid #ccc;font-size:16px;cursor:pointer;border-left:3px solid transparent}.bw-horz-tabs li.active{background:#fff;border-left:3px solid #ef3f30}.bw-horz-tabs li:first-child{border-top:none}.bw-horz-tabs-data{width:100%}.bw-horz-tabs-data .bw-tabs-data li{float:left;margin-bottom:20px;width:100%}.bw-horz-tabs-data .bw-tabs-data li div{float:left;width:60%;padding-right:15px}.bw-horz-tabs-data .bw-tabs-data li div:last-child{width:40%;padding-left:15px;padding-right:0}.overall-specs-tabs-container{width:100%;display:block;background:#fff;overflow-x:auto;z-index:2;-webkit-overflow-scrolling:touch}.overall-specs-tabs-container.fixed-tab-nav{position:fixed;top:0;left:0}.overall-specs-tabs-wrapper{width:100%;display:table;border-bottom:1px solid #e2e2e2}.overall-specs-tabs-wrapper li{display:table-cell;width:1%;padding:10px 15px;text-align:center;white-space:nowrap;font-size:14px;color:#82888b;cursor:pointer}.overall-specs-tabs-container::-webkit-scrollbar{width:0;height:0}.overall-specs-tabs-container::-webkit-scrollbar-thumb,.overall-specs-tabs-container::-webkit-scrollbar-track{display:none}.overall-specs-tabs-wrapper li.active{border-bottom:3px solid #ef3f30;color:#4d5057;font-weight:700}.thankyou-icon{width:24px;height:28px;background-position:-138px -394px}
     </style>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
@@ -302,7 +303,7 @@
                         { %>
                     <div class="margin-bottom20">
                         <div class="vertical-top">
-                            <a id="requestcallback" c="Model_Page" a="Request_Callback_Details_Clicked" v="bikeVersionLocation" leadSourceId="30" href="javascript:void(0)" class="btn btn-white callback-btn btn-sm-0 bw-ga">Request callback</a>
+                            <a id="requestcallback" c="Model_Page" a="Request_Callback_Details_Clicked" v="bikeVersionLocation" data-leadsourceid="30"  data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>"  data-item-area="<%= viewModel.AreaName %>" href="javascript:void(0)" class="btn btn-white callback-btn btn-sm-0 bw-ga leadcapturebtn">Request callback</a>
                         </div>
                         <p class="callback-label font11 line-height-1-7 text-xx-light vertical-top">Get EMI options, test rides other services from dealer</p>
                     </div>
@@ -334,7 +335,7 @@
             </div>
         </section>
 
-          <% if (pqOnRoad != null && pqOnRoad.BPQOutput != null && viewModel == null && !string.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
+          <% if (pqOnRoad != null && pqOnRoad.BPQOutput != null && viewModel == null&& isOnRoadPrice && !string.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
             { %>
         <section>
             
@@ -391,6 +392,8 @@
                               { %>
                                  <li data-tabs="#modelAlternateBikeContent">Alternatives</li>
                             <%} %>
+                              <% if (ctrlRecentUsedBikes.fetchedCount>0)
+                                   {%><li data-tabs="#makeUsedBikeContent">Used</li> <%} %>
                         </ul>
                     </div>
                 </div>
@@ -402,18 +405,10 @@
                       { %>
                     <h2>About <%=bikeName %></h2>
                     <h3>Preview</h3>
-                    <p class="font14 text-light-grey line-height17">
-                        <span class="model-preview-main-content">
-                            <%= modelPage.ModelDesc.SmallDescription %>   
-                        </span>
-                        <span class="model-preview-more-content">
+                    <p class="font14 text-light-grey line-height17">                        
+                        <span class="model-preview-more-content" style="display: block !important">
                             <%= modelPage.ModelDesc.FullDescription %>
                         </span>
-
-                        <%if (!string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription))
-                          { %>
-                        <a href="javascript:void(0)" class="read-more-model-preview font14" rel="nofollow">Read more</a>
-                        <% } %>
                     </p>
                     <% } %>
                     <% if (modelPage.ModelVersionSpecs != null)
@@ -792,6 +787,8 @@
                    { %>
                     <BW:AlternateBikes ID="ctrlAlternativeBikes" runat="server" />           
                 <%} %>
+                    <% if (ctrlRecentUsedBikes.fetchedCount > 0)
+                                   {%>  <BW:MostRecentUsedBikes runat="server" ID="ctrlRecentUsedBikes" /><%} %>
                 <div id="modelSpecsFooter"></div>
             </div>
         </section>
@@ -873,7 +870,7 @@
                 </li>
             </ul>
             <div class="text-center">
-                <a id="getofferspopup" leadSourceId="31"  href="javascript:void(0);" class="btn btn-orange text-bold">Get offers from dealer</a>
+                <a  data-leadsourceid="31"  data-item-id="<%= dealerId %>" data-item-name="<%= (viewModel!=null) ? viewModel.Organization : string.Empty %>"  data-item-area="<%= (viewModel!=null) ? viewModel.AreaName : string.Empty %> " href="javascript:void(0);" class="btn btn-orange text-bold leadcapturebtn">Get offers from dealer</a>
             </div>
         </div>
         <% if(viewModel != null){ %>
@@ -945,9 +942,7 @@
             }
             var getCityArea = GetGlobalCityArea();
             $(document).ready(function (e) {
-                $(".leadcapturesubmit").on('click', function () {
-                    openLeadPopup($(this));
-                });
+
                 $("#templist input").on("click", function () {
                     if ($(this).attr('data-option-value') == $('#hdnVariant').val()) {
                         return false;
@@ -979,28 +974,31 @@
             });
 
             $(".leadcapturebtn").click(function (e) {
-
                 ele = $(this);
-                var leadOptions = {
-                    "dealerid": ele.attr('data-item-id'),
-                    "dealername": ele.attr('data-item-name'),
-                    "dealerarea": ele.attr('data-item-area'),
-                    "versionid": versionId,
-                    "leadsourceid": ele.attr('data-leadsourceid'),
-                    "pqsourceid": ele.attr('data-pqsourceid'),
-                    "isleadpopup": ele.attr('data-isleadpopup'),
-                    "mfgCampid": ele.attr('data-mfgcampid'),
-                    "pqid": pqId,
-                    "pageurl": pageUrl,
-                    "clientip": clientIP
-                    <%--"gaobject": {
-                        cat: 'Price_in_City_Page',
-                        act: 'Lead_Submitted',
-                        lab: '<%= string.Format("{0}_", bikeName)%>' + CityArea
-                    }--%>
-                };
+                try {                    
+                    var leadOptions = {
+                        "dealerid": ele.attr('data-item-id'),
+                        "dealername": ele.attr('data-item-name'),
+                        "dealerarea": ele.attr('data-item-area'),
+                        "versionid": versionId,
+                        "leadsourceid": ele.attr('data-leadsourceid'),
+                        "pqsourceid": ele.attr('data-pqsourceid'),
+                        "isleadpopup": ele.attr('data-isleadpopup'),
+                        "mfgCampid": ele.attr('data-mfgcampid'),
+                        "pqid": pqId,
+                        "pageurl": pageUrl,
+                        "clientip": clientIP,
+                        "gaobject": {
+                            cat: ele.attr("c"),
+                            act: ele.attr("a"),
+                            lab: ele.attr("v")
+                        }
+                    };
 
-                dleadvm.setOptions(leadOptions);
+                    dleadvm.setOptions(leadOptions);
+                } catch (e) {
+                    console.warn("Unable to get submit details : " + e.message);
+                }
 
             });
             

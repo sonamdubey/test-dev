@@ -65,16 +65,13 @@
                 }
             }
         }
-
-        $(window).scroll(function () {
-            bodHt = $('body').height();
-            footerHt = $('footer').height();
-            scrollPosition = $(this).scrollTop();
-            if (scrollPosition + $(window).height() > (bodHt - footerHt))
-                $('.float-button').hide().removeClass('float-fixed');
-            else
-                $('.float-button').show().addClass('float-fixed');
-        });
+        bodHt = $('body').height();
+        footerHt = $('footer').height();
+        scrollPosition = $(this).scrollTop();
+        if (scrollPosition + $(window).height() > (bodHt - footerHt))
+            $('.float-button').hide().removeClass('float-fixed');
+        else
+            $('.float-button').show().addClass('float-fixed');
 
     });
 
@@ -106,89 +103,6 @@
     $('.carousel-navigation-photos .swiper-slide').first().addClass('swiper-slide-active');
 
 });
-
-var requesterName = $('#requesterName'),
-    requesterEmail = $('#requesterEmail'),
-    requesterMobile = $('#requesterMobile');
-
-$('#request-media-btn').on('click', function () {
-    requestMediaPopup.open();
-    appendHash("requestMedia");
-    $('body, html').addClass('lock-browser-scroll');
-});
-
-$('#submit-requester-details-btn').on('click', function () {
-    if (ValidateUserDetail(requesterName, requesterEmail, requesterMobile)) {
-        requestMediaPopup.acknowledgmentSection();
-        $('#request-media-btn').hide();
-    }
-});
-
-$('#submit-request-sent-btn, .request-media-close').on('click', function () {
-    requestMediaPopup.close();
-    window.history.back();
-    $('body, html').removeClass('lock-browser-scroll');
-});
-
-var requestMediaPopup = {
-    popup: $('#request-media-popup'),
-
-    userDetails: $('#requester-details-section'),
-
-    acknowledgment: $('#request-sent-section'),
-
-    open: function () {
-        requestMediaPopup.popup.show();
-    },
-
-    close: function () {
-        requestMediaPopup.popup.hide();
-        requestMediaPopup.userDetailsSection();
-    },
-
-    userDetailsSection: function () {
-        requestMediaPopup.acknowledgment.hide();
-        requestMediaPopup.userDetails.show();
-    },
-
-    acknowledgmentSection: function () {
-        requestMediaPopup.userDetails.hide();
-        requestMediaPopup.acknowledgment.show();
-    },
-}
-
-$('#submit-requester-details-btn').on('click', function () {
-    if (ValidateUserDetail(requesterName, requesterEmail, requesterMobile)) {
-        
-    }
-});
-
-/* input focus */
-requesterName.on("focus", function () {
-    validate.onFocus(requesterName);
-});
-
-requesterEmail.on("focus", function () {
-    validate.onFocus(requesterEmail);
-});
-
-requesterMobile.on("focus", function () {
-    validate.onFocus(requesterMobile);
-});
-
-/* input blur */
-requesterName.on("blur", function () {
-    validate.onBlur(requesterName);
-});
-
-requesterEmail.on("blur", function () {
-    validate.onBlur(requesterEmail);
-});
-
-requesterMobile.on("blur", function () {
-    validate.onBlur(requesterMobile);
-});
-
 
 var getUserName = $('#getUserName'),
     getUserEmailID = $('#getUserEmailID'),
@@ -334,7 +248,7 @@ function validateEmail(email) {
         validate.setError(email, 'Invalid Email');
         isValid = false;
     }
-    
+
     return isValid;
 }
 
@@ -354,7 +268,7 @@ function validateMobile(mobile) {
     else {
         validate.hideError(mobile)
     }
-    
+
     return isValid;
 }
 
@@ -425,7 +339,7 @@ getUserOTP.on("blur", function () {
 var validate = {
     setError: function (element, message) {
         var elementLength = element.val().length;
-            errorTag = element.siblings('span.error-text');
+        errorTag = element.siblings('span.error-text');
 
         errorTag.show().text(message);
         if (!elementLength) {

@@ -38,7 +38,7 @@
                         <li><a href="http://www.bikewale.com/honda-bikes/">Honda</a></li>
                         <li><a href="http://www.bikewale.com/hyosung-bikes/">Hyosung</a></li>
                         <li><a href="http://www.bikewale.com/motoguzzi-bikes/">Moto Guzzi</a></li>
-                        <li><a href="http://www.bikewale.com/mv-agusta-bikes/">MV Agusta</a></li>
+                        <li><a href="http://www.bikewale.com/mvagusta-bikes/">MV Agusta</a></li>
                         <li><a href="http://www.bikewale.com/yo-bikes/">Yo</a></li>
                     </ul>
                     <ul class="grid_2 alpha omega">

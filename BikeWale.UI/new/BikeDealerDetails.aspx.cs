@@ -33,7 +33,7 @@ namespace Bikewale.New
         protected Repeater rptMakes, rptCities, rptDealers;
         protected string clientIP = string.Empty, pageUrl = string.Empty;
         protected bool areDealersPremium = false;
-
+        protected int dealerId;
 
         protected override void OnInit(EventArgs e)
         {
@@ -60,7 +60,7 @@ namespace Bikewale.New
             {
                 GetMakeIdByMakeMaskingName(makeMaskingName);
 
-                if (makeId > 0 && cityId > 0)
+                if (dealerId> 0)
                 {
                     BindMakesDropdown();
                     BindCitiesDropdown();
@@ -259,8 +259,10 @@ namespace Bikewale.New
                 if (currentReq.QueryString != null && currentReq.QueryString.HasKeys())
                 {
                     makeMaskingName = currentReq.QueryString["make"];
-                    urlCityMaskingName = currentReq.QueryString["city"];
-                    if (!String.IsNullOrEmpty(urlCityMaskingName) && !String.IsNullOrEmpty(makeMaskingName))
+                   urlCityMaskingName = currentReq.QueryString["city"];
+                    dealerId = Convert.ToInt32(currentReq.QueryString["dealerid"]);
+                    //if (!String.IsNullOrEmpty(urlCityMaskingName) && !String.IsNullOrEmpty(makeMaskingName))
+                    if (dealerId > 0 && !String.IsNullOrEmpty(urlCityMaskingName) && !String.IsNullOrEmpty(makeMaskingName))
                     {
                         cityId = CitiMapping.GetCityId(urlCityMaskingName);
                         isValidQueryString = true;

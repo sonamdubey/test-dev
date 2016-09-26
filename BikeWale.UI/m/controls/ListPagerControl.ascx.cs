@@ -1,7 +1,4 @@
 ﻿using Bikewale.Entities.Pager;
-using System;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Controls
@@ -18,23 +15,6 @@ namespace Bikewale.Mobile.Controls
         public PagerOutputEntity PagerOutput { get; set; }
         public int TotalPages { get; set; }
         public int CurrentPageNo { get; set; }
-
-        //protected override void OnInit(EventArgs e)
-        //{
-        //    this.Load += new EventHandler(Page_Load);
-        //}
-        //protected void Page_Load(object sender, EventArgs e)
-        //{
-        //    if (!IsPostBack)
-        //    {
-        //        if (TotalPages > 1)
-        //        {
-        //            BindPageNumbers();
-        //            prevPageUrl = PagerOutput.PreviousPageUrl;
-        //            nextPageUrl = PagerOutput.NextPageUrl;
-        //        }
-        //    }
-        //}
 
         /// <summary>
         /// Created By : Sadhana Upadhyay on 21th may 2014
