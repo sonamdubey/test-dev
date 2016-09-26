@@ -250,8 +250,8 @@ namespace Bikewale.Mobile.New
             {
                 if (currentReq.QueryString != null && currentReq.QueryString.HasKeys())
                 {
-                    makeMaskingName = currentReq.QueryString["make"];
-                    urlCityMaskingName = currentReq.QueryString["city"];
+                    makeMaskingName = currentReq.QueryString["make"].ToLower();
+                    urlCityMaskingName = currentReq.QueryString["city"].ToLower();
                     if (!String.IsNullOrEmpty(urlCityMaskingName) && !String.IsNullOrEmpty(makeMaskingName))
                     {
                         cityId = CitiMapping.GetCityId(urlCityMaskingName);
