@@ -919,10 +919,6 @@
       <DependentUpon>ModelSpecsFeatures.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\new\newbikedealers\DealerDetails_v2.aspx.cs">
-      <DependentUpon>DealerDetails_v2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="m\new\newbikedealers\DealerDetails.aspx.cs">
       <DependentUpon>DealerDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2306,7 +2302,6 @@
     <Content Include="m\new\ModelGallery.aspx" />
     <Content Include="m\new\ModelPricesInCity.aspx" />
     <Content Include="m\new\ModelSpecsFeatures.aspx" />
-    <Content Include="m\new\newbikedealers\DealerDetails_v2.aspx" />
     <Content Include="m\new\newbikedealers\DealerDetails.aspx" />
     <Content Include="m\Default.aspx" />
     <Content Include="m\faq.aspx" />

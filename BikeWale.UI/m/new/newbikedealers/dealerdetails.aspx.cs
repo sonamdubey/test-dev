@@ -22,7 +22,7 @@ namespace Bikewale.Mobile
     /// Modified By : Lucky Rathore on 30 March 2016
     /// Description : dealerLat, dealerLong, dealerName, dealerArea, dealerCity added and _dealerQuery removed.
     /// </summary>
-    public class DealerDetails : System.Web.UI.Page
+    public class DealerDetails_v2 : System.Web.UI.Page
     {
         protected Repeater rptModels, rptModelList;
         protected uint dealerId, campaignId, cityId;
@@ -55,6 +55,8 @@ namespace Bikewale.Mobile
         /// Description : To get dealer details and bikes available at dealership
         /// Modified By : Lucky Rathore on 30 March 2016
         /// Description : dealerLat, dealerLong, dealerName, dealerArea, dealerCity Intialize, renamed dealer from _dealer.
+        /// Modified By : Sajal Gupta on 26-09-2016
+        /// Description : Changed method to get details only on basis of dealerId.
         /// </summary>
         private void GetDealerDetails()
         {
@@ -68,13 +70,13 @@ namespace Bikewale.Mobile
                              .RegisterType<IDealer, DealersRepository>()
                             ;
                     var objCache = container.Resolve<IDealerCacheRepository>();
-                    dealer = objCache.GetDealerDetailsAndBikes(dealerId, campaignId);
+                    dealer = objCache.GetDealerDetailsAndBikes(13151);
 
                     if (dealer != null && dealer.DealerDetails != null)
                     {
                         dealerDetails = dealer.DealerDetails;
                         isDealerDetail = true;
-                        
+
                         dealerName = dealerDetails.Name;
                         dealerArea = dealerDetails.Area.AreaName;
                         dealerCity = dealerDetails.City;
@@ -82,7 +84,7 @@ namespace Bikewale.Mobile
                         dealerLat = dealerDetails.Area.Latitude;
                         dealerLong = dealerDetails.Area.Longitude;
 
-                        
+
                         if (dealer.Models != null && dealer.Models.Count() > 0)
                         {
                             makeName = dealer.Models.FirstOrDefault().objMake.MakeName;
