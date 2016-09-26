@@ -215,6 +215,19 @@ namespace Bikewale.BAL.Dealer
             }
         }
 
+        public DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId)
+        {
+            try
+            {
+                return dealerRepository.GetDealerDetailsAndBikes(dealerId);
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetDealerDetailsAndBikes");
+                objErr.SendMail();
+                return null;
+            }
+        }
         /// <summary>
         /// Craeted by  :   Sumit Kate on 21 Jun 2016
         /// Description :   Get Popular City Dealer Count

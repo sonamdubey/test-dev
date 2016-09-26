@@ -76,6 +76,21 @@ namespace Bikewale.Cache.DealersLocator
             }
             return models;
         }
+        public DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId)
+        {
+            DealerBikesEntity models = null;
+            string key = String.Format("BW_DealerBikeModel_{0}", dealerId);
+            try
+            {
+                models = _cache.GetFromCache<DealerBikesEntity>(key, new TimeSpan(0, 30, 0), () => _objDealers.GetDealerDetailsAndBikes(dealerId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "DealerCacheRepository.GetDealerDetailsAndBikes");
+                objErr.SendMail();
+            }
+            return models;
+        }
 
         /// <summary>
         /// Craeted by  :   Sumit Kate on 21 Jun 2016
