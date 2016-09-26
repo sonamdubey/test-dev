@@ -64,14 +64,11 @@ namespace Bikewale.Mobile.New
                 BindDealerList();
                 BindUserControls();
             }
-
-
         }
 
         private void BindUserControls()
         {
             ctrlRecentUsedBikes.MakeId = makeId;
-            //ctrlRecentUsedBikes.ModelId = modelid 
             ctrlRecentUsedBikes.CityId = (int?)cityId;
             ctrlRecentUsedBikes.header = "Used " + makeName + " bikes in " + cityName;
             ctrlRecentUsedBikes.TopCount = 4;
@@ -272,19 +269,6 @@ namespace Bikewale.Mobile.New
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
-                //if (currentReq.QueryString != null && currentReq.QueryString.HasKeys())
-                //{
-                //    makeMaskingName = currentReq.QueryString["make"];
-                //    uint.TryParse(currentReq.QueryString["city"], out cityId);
-                //    clientIP = Bikewale.Common.CommonOpn.GetClientIP();
-                //    pageUrl = currentReq.ServerVariables["URL"];
-                //}
-                //else
-                //{
-                //    Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
-                //    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                //    this.Page.Visible = false;
-                //}
             }
             catch (Exception ex)
             {
