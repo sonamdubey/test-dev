@@ -18,7 +18,7 @@
        { %>
     <div class="grid-4 alpha">
         <div class="rightfloat">
-            <!-- Ad -->
+            <!-- #include file="/ads/Ad300x250.aspx" -->
         </div>
     </div>
     <% } %>

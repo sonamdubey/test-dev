@@ -130,7 +130,7 @@
             </div>
             <div id="listing-footer"></div>
         </section>
-
+        <% if(ctrlPopoularBikeMake.FetchedRecordsCount > 0 && ctrlRecentUsedBikes.FetchedRecordsCount >0){ %>
         <section>
             <div class="container">
                 <div class="grid-12">
@@ -139,8 +139,6 @@
                            { %>
                         <BW:MostPopularBikesMake runat="server" ID="ctrlPopoularBikeMake" />
                         <%} %>
-                        
-
                         <div class="margin-left10 margin-right10 border-solid-bottom"></div>
                         <!-- Used bikes widget -->
                         <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
@@ -154,7 +152,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-
+        <% } %>
         <section>
             <div class="container margin-top10 margin-bottom30">
                 <div class="grid-12 font12">
@@ -190,11 +188,6 @@
                     "pageurl": window.location.href,
                     "isregisterpq": true,
                     "clientip": clientip
-                   <%-- "gaobject": {
-                        cat: 'Price_in_City_Page',
-                        act: 'Lead_Submitted',
-                        lab: '<%= string.Format("{0}_", bikeName)%>' + CityArea
-                    }--%>
                 };
 
                 dleadvm.setOptions(leadOptions);
