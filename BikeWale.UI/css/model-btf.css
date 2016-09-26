@@ -49,13 +49,12 @@
 .connected-carousels-photos .photos-next-stage, .connected-carousels-videos .videos-next-stage { right: -20px; }
 .connected-carousels-photos .prev, .connected-carousels-photos .next, .connected-carousels-videos .prev, .connected-carousels-videos .next { position: absolute; top: 40%; z-index: 1; }
 .connected-carousels-photos .prev, .connected-carousels-photos .next, .connected-carousels-videos .prev, .connected-carousels-videos .next { width: 40px; height: 80px; text-indent: -9999px ;border: 1px solid #e2e2e2; background-color: #fff; padding:10px 5px; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
-.connected-carousels-photos .photos-prev-stage, .connected-carousels-videos .videos-prev-stage { background-position: -34px -75px; }
-.connected-carousels-photos .photos-next-stage, .connected-carousels-videos .videos-next-stage { background-position: -61px -75px; }
-.connected-carousels-photos .photos-prev-stage:hover, .connected-carousels-videos .videos-prev-stage:hover { background-position: -34px -130px; }
-.connected-carousels-photos .photos-next-stage:hover, .connected-carousels-videos .videos-next-stage:hover { background-position: -61px -130px;}
-.connected-carousels-photos .photos-prev-stage.inactive, .connected-carousels-photos .photos-next-stage.inactive, .connected-carousels-videos .videos-prev-stage.inactive, .connected-carousels-videos .videos-next-stage.inactive {}
-.connected-carousels-photos .photos-prev-stage.inactive, .connected-carousels-videos .videos-prev-stage.inactive { background-position:-34px -20px; cursor:not-allowed; }
-.connected-carousels-photos .photos-next-stage.inactive, .connected-carousels-videos .videos-next-stage.inactive { background-position:-61px -20px; cursor:not-allowed; }
+.connected-carousels-photos .photos-prev-stage, .connected-carousels-videos .videos-prev-stage { background-position: -32px -73px; }
+.connected-carousels-photos .photos-next-stage, .connected-carousels-videos .videos-next-stage { background-position: -63px -73px; }
+.connected-carousels-photos .photos-prev-stage:hover, .connected-carousels-videos .videos-prev-stage:hover { background-position: -32px -128px; }
+.connected-carousels-photos .photos-next-stage:hover, .connected-carousels-videos .videos-next-stage:hover { background-position: -63px -128px;}
+.connected-carousels-photos .photos-prev-stage.inactive, .connected-carousels-videos .videos-prev-stage.inactive { background-position:-32px -18px; cursor:not-allowed; }
+.connected-carousels-photos .photos-next-stage.inactive, .connected-carousels-videos .videos-next-stage.inactive { background-position:-63px -18px; cursor:not-allowed; }
 /** Navigation carousel controls **/
 .connected-carousels-photos .photos-prev-navigation, .connected-carousels-videos .videos-prev-navigation { left: 18px; }
 .connected-carousels-photos .photos-next-navigation, .connected-carousels-videos .videos-next-navigation { right: -42px; }
@@ -64,8 +63,8 @@
 .connected-carousels-photos .photos-next-navigation, .connected-carousels-videos .videos-next-navigation { background-position: -150px -355px; }
 .connected-carousels-photos .photos-prev-navigation:hover, .connected-carousels-videos .videos-prev-navigation:hover { background-position: -125px -386px; }
 .connected-carousels-photos .photos-next-navigation:hover, .connected-carousels-videos .videos-next-navigation:hover { background-position: -150px -386px;}
-.connected-carousels-photos .photos-prev-navigation.inactive, .connected-carousels-videos .videos-prev-navigation.inactive { background-position:-125px -324px; cursor:not-allowed; }
-.connected-carousels-photos .photos-next-navigation.inactive, .connected-carousels-videos .videos-next-navigation.inactive { background-position:-150px -324px; cursor:not-allowed; }
+.connected-carousels-photos .photos-prev-navigation.inactive, .connected-carousels-videos .videos-prev-navigation.inactive { background-position:-125px -325px; cursor:not-allowed; }
+.connected-carousels-photos .photos-next-navigation.inactive, .connected-carousels-videos .videos-next-navigation.inactive { background-position:-150px -325px; cursor:not-allowed; }
 .connected-carousels-photos:hover { /*cursor:pointer;*/ }
 .carousel-stage ul li { cursor:pointer; }
 .carousel-stage-videos .yt-iframe-container iframe { width:100%; height:360px; }

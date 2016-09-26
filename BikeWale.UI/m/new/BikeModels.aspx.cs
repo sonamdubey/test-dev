@@ -206,6 +206,7 @@ namespace Bikewale.Mobile.New
                 ctrlRecentUsedBikes.ModelId = Convert.ToUInt32(modelId);
                 ctrlRecentUsedBikes.CityId = (int?)cityId;
                 ctrlRecentUsedBikes.TopCount = 6;
+                ctrlRecentUsedBikes.header = "Recently uploaded Used " + modelPage.ModelDetails.ModelName + " bikes " + (cityId > 0 ? String.Format("in {0}", cityName) : string.Empty);
 
             }
             catch (Exception ex)

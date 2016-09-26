@@ -14,13 +14,13 @@
 .btn-xxlg { padding: 8px 62px; }
 .text-x-black { color:#1a1a1a; }
 .dealer-details-item a:hover { text-decoration:none; }
-.phone-black-icon { width:11px; height:15px; position:relative; top:3px; margin-right:3px; background-position:-73px -444px; }
+.phone-black-icon { width:11px; height:15px; position:relative; top:5px; margin-right:3px; background-position:-73px -444px; }
 .mail-grey-icon { width:12px; height:10px; margin-right:3px; background-position:-92px -446px; position:relative;top:6px; }
 #modelPriceInNearbyCities li { width:200px; display:inline-block; vertical-align:top; margin-right:30px; margin-bottom:10px; }
 #modelPriceInNearbyCities li a { width:135px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:5px; display:inline-block; vertical-align:top; }
 #modelPriceInNearbyCities .nearby-city-price { width:60px; color:#2a2a2a; text-align:right; display:inline-block; vertical-align:top; }
 .blue-right-arrow-icon { width:6px; height:10px; background-position:-74px -469px; position:relative; top:1px; left:7px; }
-.dealership-loc-icon { width:8px; height:12px; background-position:-53px -469px; position:relative;top:4px; }
+.dealership-loc-icon { width:9px; height:12px; background-position:-52px -469px; position:relative;top:4px; }
 .dealership-card-details { width:92%; }
 .vertical-top { display:inline-block;vertical-align:top; }
 .inr-sm, .inr-sm-grey, .inr-sm-dark { width:8px; height:12px; }
@@ -34,7 +34,23 @@
 .dealership-address, .dealership-email {width: 87%;}
 .tel-sm-grey-icon { width: 15px; height: 15px;background-position: 0 -435px; position: relative;top: 2px;}
 .dealer-no-city a { width:184px; min-height:210px; display:block; padding:20px; }
+.text-truncate { width:100%; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
+#city-dealer-list {
+    margin-left:10px;
+}
+#city-dealer-list li {
+    width:292px; min-height:140px; margin-right:23px; border: 1px solid #f6f6f6; -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.2); -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.2); -ms-box-shadow: 0 1px 2px rgba(0,0,0,0.2); -o-box-shadow: 0 1px 2px rgba(0,0,0,0.2); box-shadow: 0 1px 2px rgba(0,0,0,0.2); float: left;
+}
+#city-dealer-list a {
+    display: block;
+    min-height:142px; 
+    padding: 15px 20px 12px;
+}
+#city-dealer-list a:hover {
+    text-decoration: none
+}
 @media only screen and (max-width:1024px) {
     #modelPriceInNearbyCities li { width:190px; }
     #modelPriceInNearbyCities li a{ width:123px; }
+    #city-dealer-list li { width: 280px; }
 }

@@ -6,7 +6,7 @@
                 <div class="front">
                 <div class="contentWrapper">
                     <div class="imageWrapper">
-                        <a href='/m<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>'>
+                        <a href='/m<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>' >
                             <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>" title="<%# DataBinder.Eval(Container.DataItem, "objMake.MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem, "objModel.ModelName").ToString() %>"  alt="<%# DataBinder.Eval(Container.DataItem, "objMake.MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem, "objModel.ModelName").ToString() %>">
                             <span class="swiper-lazy-preloader"></span>
                         </a>
@@ -30,3 +30,35 @@
         </ItemTemplate>
     </asp:Repeater>
 <!--- Most Popular Bikes Ends Here-->
+
+                <h2 class="padding-15-20">Popular <%=makeName %> bikes in <%=cityname %></h2>
+                <div class="swiper-container card-container">
+                    <div class="swiper-wrapper">
+                         <asp:Repeater ID="rptPopoularBikeMake" runat="server">
+                            <ItemTemplate>
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href='/m<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>' title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objMake.MakeName"))+" "+Convert.ToString( DataBinder.Eval(Container.DataItem, "objModel.ModelName"))%>">
+                             <div class="swiper-image-preview position-rel">
+                                       <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>" title="<%# DataBinder.Eval(Container.DataItem, "objMake.MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem, "objModel.ModelName").ToString() %>"  alt="<%# DataBinder.Eval(Container.DataItem, "objMake.MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem, "objModel.ModelName").ToString() %>">
+                            <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="swiper-details-block padding-right15 padding-left15">
+                                        <p class="target-link font12 text-truncate margin-bottom5"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objMake.MakeName"))+" "+Convert.ToString( DataBinder.Eval(Container.DataItem, "objModel.ModelName"))%></p>
+                                        <p class="text-truncate text-light-grey font11">Ex-showroom, <%=cityname %></p>
+                                        <p>
+                                           
+                                            <span class="font16 text-default text-bold"><%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %></span>
+                                        </p>
+                                    </div>
+                                </a>
+                                <div class="padding-10-15">
+                                    <a href="/m<%# Bikewale.Utility.UrlFormatter.PriceInCityUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName")),cityMaskingName) %>" class="btn btn-card btn-full-width btn-white font14 text-truncate" >On-road price in <%=cityname %></a>
+                                </div>
+                            </div>
+                        </div>
+                                      </ItemTemplate>
+                        </asp:Repeater>
+                        </div>
+                        </div>
+   
