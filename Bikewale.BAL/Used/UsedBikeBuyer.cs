@@ -270,17 +270,26 @@ namespace Bikewale.BAL.Used
         }
         #endregion
 
-
+        /// <summary>
+        /// Created by  :   Sumit Kate on 23 Sep 2016
+        /// Description :   Used Bike Purchase Inquiry Business Logic
+        /// </summary>
+        /// <param name="buyer"></param>
+        /// <param name="profileId"></param>
+        /// <param name="pageUrl"></param>
+        /// <param name="sourceId"></param>
+        /// <returns></returns>
         public PurchaseInquiryResultEntity SubmitPurchaseInquiry(CustomerEntityBase buyer, string profileId, string pageUrl, ushort sourceId)
         {
             PurchaseInquiryResultEntity result = new PurchaseInquiryResultEntity();
             result.InquiryStatus = new PurchaseInquiryStatusEntity();
             ClassifiedInquiryDetailsMin inquiryDetails = null;
-            bool isDealer = false;
+            bool isDealer = false, isNewInquiry = false;
             string inquiryId = "", consumerType = "";
 
             try
             {
+                //Check for valid used bike inquiry id
                 if (UsedBikeProfileId.IsValidProfileId(profileId))
                 {
                     if (buyer != null)
@@ -291,31 +300,43 @@ namespace Bikewale.BAL.Used
                         isDealer = consumerType.Equals("D", StringComparison.CurrentCultureIgnoreCase);
                         //Get buyer details from cookie if bwcookie exists else registers the customer and creates the bwcookie for further use
                         buyer = ProcessUserCookie(buyer);
-
+                        //Is customer valid
                         if (buyer.CustomerId > 0)
                         {
+                            //check if custoemrs mobile is verified
                             if (_mobileVerRespo.IsMobileVerified(buyer.CustomerMobile, buyer.CustomerEmail))
                             {
+                                //Check if buyer has crossed the daily lead limiy
                                 if (_objBuyerRepository.IsBuyerEligible(buyer.CustomerMobile))
                                 {
                                     if (!isDealer)
                                     {
-                                        if (_objSellerRepository.SaveCustomerInquiry(inquiryId, buyer.CustomerId, sourceId) > 0)
+                                        //Save the customer inquiry
+                                        if (_objSellerRepository.SaveCustomerInquiry(inquiryId, buyer.CustomerId, sourceId, out isNewInquiry) > 0)
                                         {
-                                            result.InquiryStatus.Message = "Process completed successfully!!!";
-                                            result.InquiryStatus.Code = PurchaseInquiryStatusCode.Success;
+                                            //get inquiry details for notification
                                             inquiryDetails = _objSellerRepository.GetInquiryDetails(inquiryId);
+                                            //get seller details
                                             UsedBikeSellerBase seller = _objSellerRepository.GetSellerDetails(inquiryId, false);
                                             result.Seller = seller.Details;
 
-                                            NotifyPurchaseInquiryIndividualSeller(inquiryDetails.BikeName, pageUrl, profileId, inquiryDetails.Price, seller.Details, buyer);
-                                            NotifyPurchaseInquiryBuyer(inquiryDetails.BikeName, pageUrl, profileId, buyer, seller, inquiryDetails);
+                                            if (isNewInquiry)
+                                            {
+                                                result.InquiryStatus.Code = PurchaseInquiryStatusCode.Success;
+                                                //Notify individual seller
+                                                NotifyPurchaseInquiryIndividualSeller(inquiryDetails.BikeName, pageUrl, profileId, inquiryDetails.Price, seller.Details, buyer);
+                                                //Notify buyer
+                                                NotifyPurchaseInquiryBuyer(inquiryDetails.BikeName, pageUrl, profileId, buyer, seller, inquiryDetails);
+                                            }
+                                            else
+                                            {
+                                                result.InquiryStatus.Code = PurchaseInquiryStatusCode.DuplicateUsedBikeInquiry;
+                                            }
                                         }
                                     }
                                 }
                                 else
                                 {
-                                    result.InquiryStatus.Message = "Oops! You have reached the maximum limit for viewing inquiry details in a day.";
                                     result.InquiryStatus.Code = PurchaseInquiryStatusCode.MaxLimitReached;
                                 }
                             }
@@ -326,20 +347,17 @@ namespace Bikewale.BAL.Used
 
                                 SMSTypes st = new SMSTypes();
                                 st.SMSMobileVerification(buyer.CustomerMobile, buyer.CustomerName, mobileVer.CWICode, pageUrl);
-                                result.InquiryStatus.Message = "Buyer mobile is not verified.";
                                 result.InquiryStatus.Code = PurchaseInquiryStatusCode.MobileNotVerified;
                             }
                         }
                     }
                     else
                     {
-                        result.InquiryStatus.Message = "Information you provided was invalid. Please provide valid information.";
                         result.InquiryStatus.Code = PurchaseInquiryStatusCode.InvalidCustomerInfo;
                     }
                 }
                 else
                 {
-                    result.InquiryStatus.Message = "Invalid purchase inquiry request.";
                     result.InquiryStatus.Code = PurchaseInquiryStatusCode.InvalidRequest;
                 }
             }
@@ -351,6 +369,16 @@ namespace Bikewale.BAL.Used
             return result;
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 23 Sep 2016
+        /// Description :   Sends sms and email to used bike listing individual seller
+        /// </summary>
+        /// <param name="bike"></param>
+        /// <param name="pageUrl"></param>
+        /// <param name="profileId"></param>
+        /// <param name="formattedPrice"></param>
+        /// <param name="seller"></param>
+        /// <param name="buyer"></param>
         private void NotifyPurchaseInquiryIndividualSeller(string bike, string pageUrl, string profileId, uint formattedPrice, CustomerEntityBase seller, CustomerEntityBase buyer)
         {
             string msg = String.Format("New inquiry on BikeWale for your {0}. Buyer details: {1},{2}.", bike, buyer.CustomerName, buyer.CustomerMobile);
@@ -360,15 +388,26 @@ namespace Bikewale.BAL.Used
             SendEmailSMSToDealerCustomer.UsedBikePurchaseInquiryEmailToIndividual(seller, buyer, profileId, bike, Bikewale.Utility.Format.FormatNumeric(formattedPrice.ToString()));
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 23 Sep 2016
+        /// Description :   Sends sms and email to used bike inquiry buyer
+        /// </summary>
+        /// <param name="bike"></param>
+        /// <param name="pageUrl"></param>
+        /// <param name="profileId"></param>
+        /// <param name="buyer"></param>
+        /// <param name="seller"></param>
+        /// <param name="inquiryDetails"></param>
         private void NotifyPurchaseInquiryBuyer(string bike, string pageUrl, string profileId, CustomerEntityBase buyer, UsedBikeSellerBase seller, ClassifiedInquiryDetailsMin inquiryDetails)
         {
 
             UrlShortnerResponse response = null;
-            if (!String.IsNullOrEmpty(pageUrl))
+            string listingUrl = String.Format("{0}/Used/BikeDetails.aspx?bike={1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, profileId);
+            if (!String.IsNullOrEmpty(listingUrl))
             {
-                response = new UrlShortner().GetShortUrl(pageUrl);
+                response = new UrlShortner().GetShortUrl(listingUrl);
             }
-            string shortUrl = response != null ? response.ShortUrl : string.Empty;
+            string shortUrl = response != null ? response.ShortUrl : listingUrl;
             string msg = string.Format("For {0} you selected at BikeWale, call its seller {1} at {2}. Visit {3} for more details.", bike, seller.Details.CustomerName, seller.Details.CustomerMobile, shortUrl);
             SMSTypes st = new SMSTypes();
             st.UsedPurchaseInquirySMS(EnumSMSServiceType.UsedPurchaseInquiryIndividualBuyer, buyer.CustomerMobile, msg, pageUrl);

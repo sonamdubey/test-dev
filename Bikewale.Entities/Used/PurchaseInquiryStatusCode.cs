@@ -11,7 +11,7 @@ namespace Bikewale.Entities.Used
         Success = 1,
         InvalidCustomerInfo = 2,
         MobileNotVerified = 3,
-        Unused = 4,
+        DuplicateUsedBikeInquiry = 4,
         MaxLimitReached = 5
     }
 }

@@ -64,11 +64,12 @@ namespace Bikewale.DAL.Used
         /// Description :   Saves used bike customer inquiry request
         /// Modified by :   Sumit Kate on 23 Sep 2016
         /// Description :   save sourceid(1-Desktop/2-Mobile/3-Android) for tracking the source of the lead
+        /// added isnew parameter
         /// </summary>
         /// <param name="inquiryId"></param>
         /// <param name="customerId"></param>
         /// <returns></returns>
-        public int SaveCustomerInquiry(string inquiryId, ulong customerId, UInt16 sourceId)
+        public int SaveCustomerInquiry(string inquiryId, ulong customerId, UInt16 sourceId, out bool isNew)
         {
             int inqId = 0;
             try
@@ -84,12 +85,15 @@ namespace Bikewale.DAL.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 500, ""));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CommonOpn.GetClientIP()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbType.Boolean, ParameterDirection.Output));
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                     inqId = Utility.SqlReaderConvertor.ToInt32(cmd.Parameters["par_inquiryid"].Value);
+                    isNew = Utility.SqlReaderConvertor.ToBoolean(cmd.Parameters["par_isnew"].Value);
                 }
             }
             catch (Exception err)
             {
+                isNew = false;
                 ErrorClass objErr = new ErrorClass(err, String.Format("SubmitInquiry({0}{1})", inquiryId, customerId));
                 objErr.SendMail();
             }

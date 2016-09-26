@@ -101,33 +101,45 @@ namespace Bikewale.Service.Controllers.UsedBikes
             }
         }
 
-        [HttpPost, Route("api/bikebuyer/purchaseinquiry/")]
+        /// <summary>
+        /// Created by  :   Sumit Kate on 26 Sep 2016
+        /// Description :   Used bike purchase inquiry API
+        /// </summary>
+        /// <param name="profileId"></param>
+        /// <param name="pageUrl"></param>
+        /// <param name="buyer"></param>
+        /// <returns></returns>
+        [HttpPost, Route("api/usedbike/purchaseinquiry/"), ResponseType(typeof(PurchaseInquiryResultDTO))]
         public IHttpActionResult PurchaseInquiry(string profileId, string pageUrl, [FromBody] DTO.Customer.CustomerBase buyer)
         {
             try
             {
-                // If android, IOS client sanitize the article content 
                 string platformId = "";
 
                 if (Request.Headers.Contains("platformId"))
                 {
                     platformId = Request.Headers.GetValues("platformId").First().ToString();
-                }
-                if (UsedBikeProfileId.IsValidProfileId(profileId) && !String.IsNullOrEmpty(platformId))
-                {
-                    Entities.Customer.CustomerEntityBase buyerEntity = null;
-                    if (buyer != null)
+                    if (!String.IsNullOrEmpty(platformId) && Utility.CommonValidators.IsValidNumber(platformId))
                     {
-                        buyerEntity = UsedBikeBuyerMapper.Convert(buyer);
+                        Entities.Customer.CustomerEntityBase buyerEntity = null;
+                        if (buyer != null)
+                        {
+                            buyerEntity = UsedBikeBuyerMapper.Convert(buyer);
+                        }
+                        PurchaseInquiryResultEntity inquiryresult = _objUsedBikeBuyerBL.SubmitPurchaseInquiry(buyerEntity, profileId, pageUrl, Convert.ToUInt16(platformId));
+                        PurchaseInquiryResultDTO dto = UsedBikeBuyerMapper.Convert(inquiryresult);
+                        return Ok(dto);
                     }
-                    PurchaseInquiryResultEntity inquiryresult = _objUsedBikeBuyerBL.SubmitPurchaseInquiry(buyerEntity, profileId, pageUrl, Convert.ToUInt16(platformId));
-                    PurchaseInquiryResultDTO dto = UsedBikeBuyerMapper.Convert(inquiryresult);
-                    return Ok(dto);
+                    else
+                    {
+                        return BadRequest();
+                    }
                 }
                 else
                 {
                     return BadRequest();
                 }
+
             }
             catch (Exception ex)
             {

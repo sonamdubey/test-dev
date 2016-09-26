@@ -17,6 +17,28 @@ namespace Bikewale.Entities.Used
             }
         }
         public PurchaseInquiryStatusCode Code { get; set; }
-        public string Message { get; set; }
+        public string Message
+        {
+            get
+            {
+                switch (this.Code)
+                {
+                    case PurchaseInquiryStatusCode.InvalidRequest:
+                        return "Invalid purchase inquiry request.";
+                    case PurchaseInquiryStatusCode.Success:
+                        return "Process completed successfully!!!";
+                    case PurchaseInquiryStatusCode.InvalidCustomerInfo:
+                        return "Information you provided was invalid. Please provide valid information.";
+                    case PurchaseInquiryStatusCode.MobileNotVerified:
+                        return "Buyer mobile is not verified.";
+                    case PurchaseInquiryStatusCode.DuplicateUsedBikeInquiry:
+                        return "Inquiry already submitted.";
+                    case PurchaseInquiryStatusCode.MaxLimitReached:
+                        return "Oops! You have reached the maximum limit for viewing inquiry details in a day.";
+                    default:
+                        return "";
+                }
+            }
+        }
     }
 }

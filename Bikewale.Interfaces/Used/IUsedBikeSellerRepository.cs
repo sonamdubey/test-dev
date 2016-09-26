@@ -12,7 +12,7 @@ namespace Bikewale.Interfaces.Used
     public interface IUsedBikeSellerRepository
     {
         UsedBikeSellerBase GetSellerDetails(string inquiryId, bool isDealer);
-        int SaveCustomerInquiry(string inquiryId, ulong customerId, UInt16 sourceId);
+        int SaveCustomerInquiry(string inquiryId, ulong customerId, UInt16 sourceId, out bool isNew);
         ClassifiedInquiryDetailsMin GetInquiryDetails(string inquiryId);
     }
 }
