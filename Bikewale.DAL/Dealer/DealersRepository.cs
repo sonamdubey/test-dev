@@ -632,7 +632,7 @@ namespace Bikewale.DAL.Dealer
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("getdelardetails_26092016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerdetails"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
