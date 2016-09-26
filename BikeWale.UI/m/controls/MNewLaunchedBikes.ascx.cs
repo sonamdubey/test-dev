@@ -41,11 +41,11 @@ namespace Bikewale.Mobile.Controls
         {
             if (estimatedPrice != null && Convert.ToInt32(estimatedPrice) > 0)
             {
-                return String.Format("<span class='bwmsprite inr-sm-icon'></span> <span class='text-bold font18'>{0}</span><span class='font16'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(estimatedPrice)));
+                return String.Format("<span class='bwmsprite inr-xsm-icon'></span><span class='font16'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(estimatedPrice)));
             }
             else
             {
-                return "<span class='font18'>Price Unavailable</span>";
+                return "<span class='font14'>Price Unavailable</span>";
             }
         }
     }

@@ -2270,6 +2270,7 @@
     <Content Include="m\css\bwm-newbikes.css" />
     <Content Include="m\css\dealerpricequote.css" />
     <Content Include="m\css\dealerpricequote-old.css" />
+    <Content Include="m\css\dealer\location.css" />
     <Content Include="m\css\design.css" />
     <Content Include="m\css\home.css" />
     <Content Include="m\css\insurance.css" />
@@ -2370,6 +2371,7 @@
     <Content Include="m\src\dealerpricequote.js" />
     <Content Include="m\src\dealerpricequote-old.js" />
     <Content Include="m\src\dealersbylocation.js" />
+    <Content Include="m\src\dealer\location.js" />
     <Content Include="m\src\frameworks.js" />
     <Content Include="m\src\home.js" />
     <Content Include="m\src\html5.js" />
