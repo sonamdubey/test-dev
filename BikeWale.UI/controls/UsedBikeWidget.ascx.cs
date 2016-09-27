@@ -35,6 +35,7 @@ namespace Bikewale.Controls
         protected IEnumerable<MostRecentBikes> objUsedBikes = null;
         public string cityName { get; set; }
         public string makeMaskingName { get; set; }
+        public string AdId { get; set; }
         protected override void OnInit(EventArgs e)
         {
             InitializeComponents();

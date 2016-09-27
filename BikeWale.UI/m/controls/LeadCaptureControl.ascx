@@ -331,11 +331,9 @@
                             isSuccess = false;
                             stopLoading($("#user-details-submit-btn").parent());
                         }
-
                     }
                 });
             }
-
             return isSuccess;
 
         }

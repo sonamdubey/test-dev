@@ -36,6 +36,8 @@ namespace Bikewale.Mobile.New
         protected string clientIP = string.Empty, pageUrl = string.Empty;
         protected UsedBikes ctrlRecentUsedBikes;
         protected MMostPopularBikes ctrlPopoularBikeMake;
+        protected LeadCaptureControl ctrlLeadCapture;
+
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -78,7 +80,7 @@ namespace Bikewale.Mobile.New
             ctrlPopoularBikeMake.cityname = cityName;
             ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
             ctrlPopoularBikeMake.makeName = makeName;
-
+            ctrlLeadCapture.CityId = cityId;
         }
 
         /// <summary>
