@@ -175,7 +175,6 @@ namespace Bikewale.Mobile.New
                     {
                         //rptCities.DataSource = _cities;
                         //rptCities.DataBind();
-
                         var _city = _cities.FirstOrDefault(x => x.CityId == cityId);
                         if (_city != null)
                         {
@@ -301,7 +300,6 @@ namespace Bikewale.Mobile.New
             {
                 retString = dealerName;
             }
-
             return retString;
         }
 
