@@ -632,7 +632,7 @@ namespace Bikewale.DAL.Dealer
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("getdelardetails_26092016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerdetails"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
@@ -698,6 +698,7 @@ namespace Bikewale.DAL.Dealer
                                     specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
                                     specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
                                     specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaxPowerRPM"]);
+                                    specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
 
                                     bikes.objMake = objMake;
                                     bikes.objModel = objModel;

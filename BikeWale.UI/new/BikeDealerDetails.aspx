@@ -1,16 +1,16 @@
 ﻿<%@ Page Language="C#" Inherits="Bikewale.New.BikeDealerDetails" AutoEventWireup="false" EnableViewState="false" %>
 <%@ Register Src="~/controls/DealerCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
-
+<%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
+    
     <%
-       
         keywords = String.Format("{0} dealers city, {0} showrooms {1}, {1} bike dealers, {0} dealers, {1} bike showrooms, bike dealers, bike showrooms, dealerships", makeName, cityName);
         description = String.Format("{0} bike dealers/showrooms in {1}. Find {0} bike dealer information for more than 200 cities. Dealer information includes full address, phone numbers, email, pin code etc", makeName, cityName);
         title = String.Format("{0} Dealers in {1} city | {0} New bike Showrooms in {1} - BikeWale", makeName, cityName);
-        canonical = String.Format("http://www.bikewale.com/{0}-bikes/dealers-in-{1}/", makeMaskingName, cityMaskingName);
-        alternate = String.Format("http://www.bikewale.com/m/{0}-bikes/dealers-in-{1}/", makeMaskingName, cityMaskingName);
+        canonical = String.Format("http://www.bikewale.com/{0}-dealer-showrooms-in-{1}/{2}-{3}/", makeMaskingName, cityMaskingName, dealerMaskingName,dealerId);
+        alternate = String.Format("http://www.bikewale.com/m/{0}-dealer-showrooms-in-{1}/{2}-{3}/", makeMaskingName, cityMaskingName, dealerMaskingName,dealerId);
         AdId = "1395986297721";
         AdPath = "/1017752/BikeWale_New_";
         isAd970x90Shown = false;
@@ -62,32 +62,43 @@
                 <div class="grid-12">
                     <div class="content-box-shadow">
                         <div class="content-box-shadow padding-14-20">
-                            <h1>Suryoday Bajaj Motors Pvt. Ltd, Mira Road (E)</h1>
+                            <h1><%=dealerName %></h1>
                         </div>
                         <div class="content-inner-block-20">
                             <div class="grid-7 alpha omega font14">
+                                <%if (dealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || dealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe))
+                                  { %>
                                 <div class="margin-bottom10">
                                     <span class="featured-tag inline-block margin-right10"><span class="bwsprite star-white"></span>Featured</span>
-                                    <h2 class="font14 text-black text-bold inline-block">Authorized Bajaj dealer in Thane</h2>
+                                    <h2 class="font14 text-black text-bold inline-block">Authorized <%=makeName %> dealer in <%=areaName %></h2>
                                 </div>
+                                <%} %>
+                                <% if (!string.IsNullOrEmpty(dealerDetails.DealerDetails.Address)){%>
                                 <div class="margin-bottom10">
                                     <span class="bwsprite dealership-loc-icon vertical-top"></span>
-                                    <span class="vertical-top text-light-grey dealership-card-details">M/s. Suryoday Motors Private Limited, Mahesh Indl Estate, Opposite Silver Park, Mira Bhyandar Road, Thane, Miraroad ( E )</span>
+                                    <span class="vertical-top text-light-grey dealership-card-details"><%=address %></span>
                                 </div>
+                                <%} %>
+                                <% if (!string.IsNullOrEmpty(dealerDetails.DealerDetails.MaskingNumber)){%>
                                 <div class="margin-bottom10">
                                     <span class="bwsprite phone-black-icon vertical-top"></span>
-                                    <span class="vertical-top text-bold dealership-card-details">(022)68888702, 32128980, 9004497233</span>
+                                    <span class="vertical-top text-bold dealership-card-details"><%=maskingNumber %></span>
                                 </div>
+                                <%} %>
+                                <% if (!string.IsNullOrEmpty(dealerDetails.DealerDetails.EMail)){%>
                                 <div class="margin-bottom10">
                                     <span class="bwsprite mail-grey-icon vertical-top"></span>
                                     <a href="mailto:krishnaautomobilespune@gmail.com" target="_blank" class="vertical-top text-light-grey" rel="nofollow">
-                                        <span class="dealership-card-details">krishnaautomobilespune@gmail.com</span>
+                                        <span class="dealership-card-details"><%=eMail %></span>
                                     </a>
                                 </div>
+                                <%} %>
+                                <% if (!string.IsNullOrEmpty(dealerDetails.DealerDetails.WorkingHours)){%>
                                 <div class="margin-bottom10">
                                     <span class="bwsprite clock-icon vertical-top"></span>
-                                    <span class="vertical-top text-light-grey dealership-card-details">Working hours: 9.00 am- 6.00 pm</span>
+                                    <span class="vertical-top text-light-grey dealership-card-details">Working hours: <%=workingHours %></span>
                                 </div>
+                                <%} %>
                                 <div id="commute-distance-form" class="margin-top20">
                                     <p class="text-bold margin-bottom15">Get commute distance and time:</p>
                                     <div class="leftfloat form-control-box margin-right15">
@@ -115,13 +126,13 @@
                 <div class="clear"></div>
             </div>
         </section>
-
+       
         <section>
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow content-inner-block-20">
-                        <h2 class="font18 margin-bottom20">Complete buying assistance from Suryoday Bajaj</h2>
-                        <p class="font14 text-light-grey margin-bottom25">Get in touch with Suryoday Bajaj for best offers, test rides, EMI options, exchange benefits and much more...</p>
+                        <h2 class="font18 margin-bottom20">Complete buying assistance from <%=dealerName %></h2>
+                        <p class="font14 text-light-grey margin-bottom25">Get in touch with <%=dealerName %> for best offers, test rides, EMI options, exchange benefits and much more...</p>
                         <div class="input-box form-control-box type-user-details margin-right20">
                             <input type="text" id="assistanceGetName" />
                             <label for="assistanceGetName">Name</label>
@@ -146,10 +157,12 @@
                             <div class="dropdown-select-wrapper">
                                 <select id="assistGetModel" class="dropdown-select">
                                     <option value>Select a bike</option>
-                                    <option value="1">Bajaj Pulsar RS200</option>
-                                    <option value="2">Bajaj Discover 125</option>
+                                    <%foreach(var model in dealerDetails.Models){ %>
+                                    <option><%=model.BikeName %></option>
+                                    <%} %>
+                                   <%-- <option value="2">Bajaj Discover 125</option>
                                     <option value="3">Bajaj Pulsar 220F</option>
-                                    <option value="4">Bajaj V15</option>
+                                    <option value="4">Bajaj V15</option>--%>
                                 </select>
                                 <span class="boundary"></span>
                                 <span class="error-text"></span>
@@ -168,111 +181,49 @@
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow padding-left5 padding-right5">
-                        <h2 class="font18 margin-bottom20 padding-top20 padding-left15">Models available at Suryoday Bajaj</h2>
+                        <h2 class="font18 margin-bottom20 padding-top20 padding-left15">Models available at <%=dealerDetails.DealerDetails.Name %></h2>
                         <ul id="modelsAvailable">
-                            <li>
+                            <%foreach(var model in dealerDetails.Models){ %>
+                             <li>
                                 <div class="image-block">
                                     <div>
-                                        <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/royal-enfield-bullet-electra-twinspark-disc/electric-start-138.jpg" alt="" title="Royal Enfield Bullet Electra Twinspark" src="" />
+                                        <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(model.OriginalImagePath, model.HostURL, Bikewale.Utility.ImageSize._476x268)%>" alt="" title="<%=model.objMake.MakeName %> <%=model.objModel.ModelName %>" src="" />
                                     </div>
                                 </div>
                                 <div class="details-block">
-                                    <h3 class="text-black text-truncate margin-bottom10" title="Royal Enfield Bullet Electra Twinspark">Royal Enfield Bullet Electra Twinspark</h3>
+                                    <h3 class="text-black text-truncate margin-bottom10" title="<%=model.objMake.MakeName %> <%=model.objModel.ModelName %>"><%=model.objMake.MakeName %> <%=model.objModel.ModelName %></h3>
                                     <div class="font14 text-xt-light-grey margin-bottom5">
-                                        <span>200 cc, 45 kmpl, 24 bhp, 150 kgs</span>
+                                        <span><%=model.Specs.Displacement %> cc, <%=model.Specs.FuelEfficiencyOverall%> kmpl, <%=model.Specs.MaxPower %> bhp, <%=model.Specs.KerbWeight%> kgs</span>
                                     </div>
                                     <div>
                                         <span class="bwsprite inr-md-lg"></span>
-                                        <span class="font22 text-bold">58,454</span><span class="font14 text-light-grey">&nbsp;onwards</span>
+                                        <span class="font22 text-bold"><%=Bikewale.Common.CommonOpn.FormatPrice(model.VersionPrice.ToString()) %></span><span class="font14 text-light-grey">&nbsp;onwards</span>
                                     </div>
                                 </div>
                             </li>
-                            <li>
-                                <div class="image-block">
-                                    <div>
-                                        <img class="lazy" data-original="http://imgd3.aeplcdn.com//310x174//bw/models/honda-cd110dream.jpg?20162203125402" alt="" title="Honda CD 110 Dream" src="" />
-                                    </div>
-                                </div>
-                                <div class="details-block">
-                                    <h3 class="text-black text-truncate margin-bottom10" title="Honda CD 110 Dream">Honda CD 110 Dream</h3>
-                                    <div class="font14 text-xt-light-grey margin-bottom5">
-                                        <span>200 cc, 45 kmpl, 24 bhp, 150 kgs</span>
-                                    </div>
-                                    <div>
-                                        <span class="bwsprite inr-md-lg"></span>
-                                        <span class="font22 text-bold">48,000</span><span class="font14 text-light-grey">&nbsp;onwards</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="image-block">
-                                    <div>
-                                        <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/honda-activa-i-standard-465.jpg?20151209184259" alt="" title="Honda Activa-i" src="" />
-                                    </div>
-                                </div>
-                                <div class="details-block">
-                                    <h3 class="text-black text-truncate margin-bottom10" title="Honda Activa-i">Honda Activa-i</h3>
-                                    <div class="font14 text-xt-light-grey margin-bottom5">
-                                        <span>200 cc, 45 kmpl, 24 bhp, 150 kgs</span>
-                                    </div>
-                                    <div>
-                                        <span class="bwsprite inr-md-lg"></span>
-                                        <span class="font22 text-bold">48,897</span><span class="font14 text-light-grey">&nbsp;onwards</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="image-block">
-                                    <div>
-                                        <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/honda-dio-old-dio-382.jpg?20151209184742" alt="" title="Honda Dio" src="" />
-                                    </div>
-                                </div>
-                                <div class="details-block">
-                                    <h3 class="text-black text-truncate margin-bottom10" title="Honda Dio">Honda Dio</h3>
-                                    <div class="font14 text-xt-light-grey margin-bottom5">
-                                        <span>200 cc, 45 kmpl, 24 bhp, 150 kgs</span>
-                                    </div>
-                                    <div>
-                                        <span class="bwsprite inr-md-lg"></span>
-                                        <span class="font22 text-bold">50,000</span><span class="font14 text-light-grey">&nbsp;onwards</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="image-block">
-                                    <div>
-                                        <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/honda-dream-neo-self-start-drum-brake-alloy-451.jpg?20151209184804" alt="" title="Honda Dream Neo" src="" />
-                                    </div>
-                                </div>
-                                <div class="details-block">
-                                    <h3 class="text-black text-truncate margin-bottom10" title="Honda Dream Neo">Honda Dream Neo</h3>
-                                    <div class="font14 text-xt-light-grey margin-bottom5">
-                                        <span>200 cc, 45 kmpl, 24 bhp, 150 kgs</span>
-                                    </div>
-                                    <div>
-                                        <span class="bwsprite inr-md-lg"></span>
-                                        <span class="font22 text-bold">50,000</span><span class="font14 text-light-grey">&nbsp;onwards</span>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                            <%} %>
+                          </ul>
                     </div>
-                </div>
+                 </div>
                 <div class="clear"></div>
             </div>
+            
         </section>
+        
 
         <section>
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow">
-                        <!-- dealers -->
+                        
+                          <BW:DealerCard runat="server" ID="ctrlDealerCard" />
+                         
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
-                
+                <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />

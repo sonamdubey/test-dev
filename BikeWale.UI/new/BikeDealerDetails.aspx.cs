@@ -15,9 +15,13 @@ using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Bikewale.Utility;
+using Bikewale.Controls;
+using Bikewale.Entities.PriceQuote;
 
 namespace Bikewale.New
 {
@@ -28,12 +32,16 @@ namespace Bikewale.New
     public class BikeDealerDetails : Page
     {
         protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, urlCityMaskingName = string.Empty;
-        protected uint cityId, makeId;
+        protected string address = string.Empty, maskingNumber = string.Empty, eMail = string.Empty, workingHours = string.Empty, modelImage = string.Empty, dealerName = string.Empty, dealerMaskingName = string.Empty;
+        protected uint cityId, makeId,cost;
         protected ushort totalDealers;
         protected Repeater rptMakes, rptCities, rptDealers;
         protected string clientIP = string.Empty, pageUrl = string.Empty;
         protected bool areDealersPremium = false;
-        protected int dealerId;
+        protected uint dealerId;
+        protected DealerBikesEntity dealerDetails=null;
+        protected DealerCard ctrlDealerCard;
+        protected LeadCaptureControl ctrlLeadCapture;
 
         protected override void OnInit(EventArgs e)
         {
@@ -47,7 +55,7 @@ namespace Bikewale.New
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Modified By :Lucky Rathore on 12 July 2016.
+          
             Form.Action = Request.RawUrl;
             string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
             if (String.IsNullOrEmpty(originalUrl))
@@ -62,9 +70,19 @@ namespace Bikewale.New
 
                 if (dealerId> 0)
                 {
+                
+                    GetDealerDetails(dealerId);
                     BindMakesDropdown();
-                    BindCitiesDropdown();
-                    BindDealerList();
+                    ctrlDealerCard.MakeId = Convert.ToUInt32(makeId);
+                    ctrlDealerCard.makeName = makeName;
+                    ctrlDealerCard.makeMaskingName = makeMaskingName;
+                    ctrlDealerCard.CityId = cityId;
+                    ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Desktop_DealerLocator_Detail_GetOfferButton;
+                    ctrlDealerCard.LeadSourceId = 38;
+                    ctrlDealerCard.TopCount = Convert.ToUInt16(cityId > 0 ? 3 : 6);
+                    ctrlDealerCard.pageName = "DealerDetail_Page_Desktop";
+                    ctrlLeadCapture.CityId = cityId;
+                    ctrlLeadCapture.AreaId = 0;
                 }
                 else
                 {
@@ -75,6 +93,8 @@ namespace Bikewale.New
             }
 
         }
+
+
 
         /// <summary>
         /// Created By  : Sushil Kumar
@@ -150,8 +170,8 @@ namespace Bikewale.New
                     _makes = objCache.GetMakesByType(EnumBikeType.Dealer);
                     if (_makes != null && _makes.Count() > 0)
                     {
-                        rptMakes.DataSource = _makes;
-                        rptMakes.DataBind();
+                       // rptMakes.DataSource = _makes;
+                      //  rptMakes.DataBind();
                         var firstMake = _makes.FirstOrDefault(x => x.MakeId == makeId);
                         if (firstMake != null)
                         {
@@ -243,6 +263,47 @@ namespace Bikewale.New
         }
 
 
+        private void GetDealerDetails(uint dealerid)
+        {
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IDealerCacheRepository, DealerCacheRepository>()
+                             .RegisterType<ICacheManager, MemcacheManager>()
+                             .RegisterType<IDealer, DealersRepository>()
+                            ;
+                    var objCache = container.Resolve<IDealerCacheRepository>();
+                    dealerDetails = objCache.GetDealerDetailsAndBikes(dealerId);
+
+                    if (dealerDetails != null )
+                    {
+                        
+                        dealerName = dealerDetails.DealerDetails.Name;
+                        dealerMaskingName = UrlFormatter.RemoveSpecialCharUrl(dealerName);
+                        cityName = dealerDetails.DealerDetails.City;
+                        areaName = dealerDetails.DealerDetails.Area.AreaName;
+                        address = dealerDetails.DealerDetails.Address;
+                        maskingNumber = dealerDetails.DealerDetails.MaskingNumber;
+                        eMail = dealerDetails.DealerDetails.EMail;
+                        workingHours = dealerDetails.DealerDetails.WorkingHours;
+                        
+                          }
+                    else
+                    {
+                        Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.Warn(ex.Message);
+                ErrorClass objErr = new ErrorClass(ex, "BindDealerList");
+                objErr.SendMail();
+            }
+        }
 
         #region Private Method to process querystring
         /// <summary>
@@ -260,9 +321,8 @@ namespace Bikewale.New
                 {
                     makeMaskingName = currentReq.QueryString["make"];
                    urlCityMaskingName = currentReq.QueryString["city"];
-                    dealerId = Convert.ToInt32(currentReq.QueryString["dealerid"]);
-                    //if (!String.IsNullOrEmpty(urlCityMaskingName) && !String.IsNullOrEmpty(makeMaskingName))
-                    if (dealerId > 0 && !String.IsNullOrEmpty(urlCityMaskingName) && !String.IsNullOrEmpty(makeMaskingName))
+                    dealerId = Convert.ToUInt32(currentReq.QueryString["dealerid"]);
+                      if (dealerId > 0 && !String.IsNullOrEmpty(urlCityMaskingName) && !String.IsNullOrEmpty(makeMaskingName))
                     {
                         cityId = CitiMapping.GetCityId(urlCityMaskingName);
                         isValidQueryString = true;
@@ -291,6 +351,7 @@ namespace Bikewale.New
             }
             return isValidQueryString;
         }
+        
         #endregion
     }   // End of class
 }   // End of namespace

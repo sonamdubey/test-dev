@@ -76,6 +76,11 @@ namespace Bikewale.Cache.DealersLocator
             }
             return models;
         }
+        /// <summary>
+        /// Created By: Subodh Jain on 26 Sep 2016
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
         public DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId)
         {
             DealerBikesEntity models = null;

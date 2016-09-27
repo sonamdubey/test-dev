@@ -114,6 +114,11 @@ namespace Bikewale.Service.Controllers.DealerLocator
                 return InternalServerError();
             }
         }
+        /// <summary>
+        /// Created By: Subodh Jain on 26 Sep 2016
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
         public IHttpActionResult Get(UInt16 dealerId)
         {
             try
