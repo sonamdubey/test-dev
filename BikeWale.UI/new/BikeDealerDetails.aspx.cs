@@ -262,7 +262,10 @@ namespace Bikewale.New
             }
         }
 
-
+        /// <summary>
+        /// Created by: Aditi Srivastava on 27 Sep 2016
+        /// </summary>
+        /// <param name="dealerid"></param>
         private void GetDealerDetails(uint dealerid)
         {
             try
