@@ -180,5 +180,31 @@ namespace Bikewale.Utility
             }
             return _articleUrl;
         }
+
+        /// <summary>
+        ///  Created By : Sajal Gupta 
+        ///  Created On  : 26th sep 2016
+        ///  Description : To get url for dealer.
+        /// </summary>
+        public static string GetDealerUrl(string makeMaskingName, string cityMaskingName, string dealerName, int dealerId)
+        {
+            string dealerUrl = string.Empty;
+            dealerUrl = string.Format("/{0}-bikes/dealer-showrooms-in-{1}/{2}-{3}.html", makeMaskingName, cityMaskingName, RemoveSpecialCharUrl(dealerName), dealerId);
+            return dealerUrl;
+        }
+
+        /// <summary>
+        /// Created by: Aditi Srivastava on 27 Sep 2016
+        /// Description: Replace special characters in url with hyphen and convert to lower case
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string RemoveSpecialCharUrl(string url)
+        {
+            url = (Regex.Replace(url, "[^0-9a-zA-Z]+", "-")).ToLower();
+            url = Regex.Replace(url, @"\-+", "-");
+            return url;
+        }
     }
 }
+

@@ -1,11 +1,13 @@
 ﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
 using Bikewale.DAL.Dealer;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Mobile.Controls;
 using Bikewale.Notifications;
-using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Linq;
@@ -22,16 +24,18 @@ namespace Bikewale.Mobile
     /// Modified By : Lucky Rathore on 30 March 2016
     /// Description : dealerLat, dealerLong, dealerName, dealerArea, dealerCity added and _dealerQuery removed.
     /// </summary>
-    public class DealerDetails_v2 : System.Web.UI.Page
+    public class DealerDetails : System.Web.UI.Page
     {
         protected Repeater rptModels, rptModelList;
-        protected uint dealerId, campaignId, cityId;
+        protected uint dealerId, campaignId = 0, cityId;
         protected int dealerBikesCount = 0;
         protected DealerDetailEntity dealerDetails;
+        protected MostPopularBikesBase modelDetails;
         protected bool isDealerDetail;
         private string cityName = string.Empty;
         protected string makeName = string.Empty, dealerName = string.Empty, dealerArea = string.Empty, dealerCity = string.Empty;
         protected double dealerLat, dealerLong;
+        protected DealersCard ctrlDealerCard;
 
         protected override void OnInit(EventArgs e)
         {
@@ -41,12 +45,16 @@ namespace Bikewale.Mobile
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            if (ProcessQueryString() && dealerId > 0 && campaignId > 0)
+            if (ProcessQueryString() && dealerId > 0)
             {
                 GetDealerDetails();
             }
 
         }
+
+
+
+
 
         #region Get Dealer Details
         /// <summary>
@@ -56,7 +64,7 @@ namespace Bikewale.Mobile
         /// Modified By : Lucky Rathore on 30 March 2016
         /// Description : dealerLat, dealerLong, dealerName, dealerArea, dealerCity Intialize, renamed dealer from _dealer.
         /// Modified By : Sajal Gupta on 26-09-2016
-        /// Description : Changed method to get details only on basis of dealerId.
+        /// Description : Changed method to get details only on basis of dealerId and added details of dealer to the controller.
         /// </summary>
         private void GetDealerDetails()
         {
@@ -70,11 +78,13 @@ namespace Bikewale.Mobile
                              .RegisterType<IDealer, DealersRepository>()
                             ;
                     var objCache = container.Resolve<IDealerCacheRepository>();
-                    dealer = objCache.GetDealerDetailsAndBikes(13151);
+                    dealer = objCache.GetDealerDetailsAndBikes(dealerId);
 
                     if (dealer != null && dealer.DealerDetails != null)
                     {
                         dealerDetails = dealer.DealerDetails;
+                        modelDetails = dealer.Models.FirstOrDefault();
+
                         isDealerDetail = true;
 
                         dealerName = dealerDetails.Name;
@@ -84,6 +94,18 @@ namespace Bikewale.Mobile
                         dealerLat = dealerDetails.Area.Latitude;
                         dealerLong = dealerDetails.Area.Longitude;
 
+                        ctrlDealerCard.CityId = (uint)dealerDetails.CityId;
+                        ctrlDealerCard.MakeId = (uint)modelDetails.MakeId;
+                        ctrlDealerCard.makeMaskingName = modelDetails.MakeMaskingName;
+                        ctrlDealerCard.makeName = modelDetails.MakeName;
+                        ctrlDealerCard.cityName = dealerCity;
+                        ctrlDealerCard.PageName = "Dealer_Details";
+                        ctrlDealerCard.TopCount = 6;
+                        ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_MakePage_GetOffersFromDealer;
+                        ctrlDealerCard.LeadSourceId = 30;
+
+                        campaignId = dealerDetails.CampaignId;
+                        ctrlDealerCard.DealerId = (int)dealerId;
 
                         if (dealer.Models != null && dealer.Models.Count() > 0)
                         {
@@ -129,15 +151,8 @@ namespace Bikewale.Mobile
 
                 if (currentReq.QueryString != null && currentReq.QueryString.HasKeys())
                 {
-                    string dealerQuery = currentReq.QueryString["query"];
-                    if (!String.IsNullOrEmpty(dealerQuery))
-                    {
-                        dealerQuery = EncodingDecodingHelper.DecodeFrom64(dealerQuery);
-                        uint.TryParse(HttpUtility.ParseQueryString(dealerQuery).Get("dealerId"), out dealerId);
-                        uint.TryParse(HttpUtility.ParseQueryString(dealerQuery).Get("campId"), out campaignId);
-                        uint.TryParse(HttpUtility.ParseQueryString(dealerQuery).Get("cityId"), out cityId);
-                        return true;
-                    }
+                    uint.TryParse(currentReq.QueryString["dealerId"], out dealerId);
+                    return true;
                 }
                 else
                 {
