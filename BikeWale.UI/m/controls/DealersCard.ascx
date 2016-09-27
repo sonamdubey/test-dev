@@ -13,13 +13,16 @@
         <div class="swiper-wrapper">
             <asp:Repeater ID="rptDealers" runat="server">
                 <ItemTemplate>
-                    <div class="swiper-slide bike-carousel-swiper dealer-by-city">
+                    
+                    <div class="swiper-slide bike-carousel-swiper dealer-by-city" >
+                        <a href = "/m"+"<%# Bikewale.Utility.UrlFormatter.GetDealerUrl(makeMaskingName, cityMaskingName, DataBinder.Eval(Container.DataItem,"Name").ToString(),Convert.ToInt32(DataBinder.Eval(Container.DataItem,"DealerId"))) %>">
                         <%# GetDealerDetailLink(DataBinder.Eval(Container.DataItem,"DealerType").ToString(), DataBinder.Eval(Container.DataItem,"DealerId").ToString(), DataBinder.Eval(Container.DataItem,"CampaignId").ToString(), DataBinder.Eval(Container.DataItem,"Name").ToString()) %>
                         <p class="margin-bottom5 text-light-grey <%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Address").ToString()))?"hide":string.Empty %>">
                             <span class="bwmsprite dealership-loc-icon vertical-top"></span>
                             <span class="vertical-top dealership-address dealer-details-main-content"><%# Bikewale.Utility.FormatDescription.TruncateDescription(Convert.ToString(DataBinder.Eval(Container.DataItem,"Address")), 60) %></span>
                             <span class="vertical-top dealership-address dealer-details-more-content" style="display:none"><%# Convert.ToString(DataBinder.Eval(Container.DataItem,"Address")) %></span>
                         </p>
+                        </a>
                         <a href="tel:<%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %>" class="margin-bottom5 text-default text-bold text-truncate <%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":"block" %>"><span class="bwmsprite tel-sm-grey-icon"></span><%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %></a>
                         <a href="mailto:<%# DataBinder.Eval(Container.DataItem,"Email") %>" class="text-light-grey <%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Email").ToString()))?"hide":"block" %>"><span class="bwmsprite mail-grey-icon vertical-top"></span><span class="text-truncate vertical-top dealership-email"><%# DataBinder.Eval(Container.DataItem,"Email") %></span></a>
                         <% if (!IsDiscontinued)
@@ -27,7 +30,9 @@
                         <input type="button" c="<%=PageName %>" a="Get_Offers_Clicked" l="<%= string.Format("{0}_{1}", makeName, cityName)%>" data-ga-cat="<%=PageName %>" data-ga-act="Lead_Submitted" data-ga-lab="lead_label" data-leadsourceid="<%= LeadSourceId %>" data-pqsourceid="<%= PQSourceId %>" data-item-name="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-item-area="<%# (DataBinder.Eval(Container.DataItem,"objArea")!=null) ? DataBinder.Eval(Container.DataItem,"objArea.AreaName") : "" %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>"
                             data-camp-id="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>" class="bw-ga margin-top15 btn btn-white font14 leadcapturebtn <%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>" value="Get offers" />
                         <%} %>
+                        
                     </div>
+                        
                 </ItemTemplate>
             </asp:Repeater>
         </div>

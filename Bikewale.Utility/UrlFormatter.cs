@@ -59,18 +59,6 @@ namespace Bikewale.Utility
         {
             return String.Format("/{0}-bikes/{1}/specifications-features/?vid={3}#{2}", make, model, hash, versionId);
         }
-        /// <summary>
-        /// Created By: Aditi Srivastava on 26 Sep 2016
-        /// Desc: 
-        /// </summary>
-        /// <param name="makeMaskingName"></param>
-        /// <param name="cityMaskingName"></param>
-        /// <param name="hash"></param>
-        /// <returns></returns>
-        public static string DealerLocatorUrl(string makeMaskingName, string cityMaskingName, string dealerName,uint dealerId)
-        {
-            return String.Format("/{0}-bikes/dealers-in-{1}/{2}-{3}", makeMaskingName, cityMaskingName, dealerId,dealerName);
-        }
 
         /// <summary>
         /// Created By Vivek Gupta on 31-05-2016
@@ -218,5 +206,31 @@ namespace Bikewale.Utility
             url = (Regex.Replace(url, @"\-+", "-")).TrimEnd('-');
             return url;
         }
+
+        /// <summary>
+        ///  Created By : Sajal Gupta 
+        ///  Created On  : 26th sep 2016
+        ///  Description : To get url for dealer.
+        /// </summary>
+        public static string GetDealerUrl(string makeMaskingName, string cityMaskingName, string dealerName, int dealerId)
+        {
+            string dealerUrl = string.Empty;
+            dealerUrl = string.Format("/{0}-bikes/dealer-showrooms-in-{1}/{2}-{3}.html", makeMaskingName, cityMaskingName, RemoveSpecialCharUrl(dealerName), dealerId);
+            return dealerUrl;
+        }
+
+        /// <summary>
+        /// Created by: Aditi Srivastava on 27 Sep 2016
+        /// Description: Replace special characters in url with hyphen and convert to lower case
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string RemoveSpecialCharUrl(string url)
+        {
+            url = (Regex.Replace(url, "[^0-9a-zA-Z]+", "-")).ToLower();
+            url = Regex.Replace(url, @"\-+", "-");
+            return url;
+        }
     }
 }
+

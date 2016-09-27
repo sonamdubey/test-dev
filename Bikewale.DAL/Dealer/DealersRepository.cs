@@ -660,7 +660,7 @@ namespace Bikewale.DAL.Dealer
                                 dealers.DealerDetails.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
                                 dealers.DealerDetails.DealerId = dealerId;
                                 dealers.DealerDetails.WorkingHours = Convert.ToString(dr["WorkingHours"]);
-
+                                dealers.DealerDetails.CampaignId = Convert.ToUInt32(dr["id"]);
                             }
                             if (dr.NextResult())
                             {
@@ -704,6 +704,11 @@ namespace Bikewale.DAL.Dealer
                                     bikes.objModel = objModel;
                                     bikes.objVersion = objVersion;
                                     bikes.Specs = specs;
+                                    bikes.MakeId = !Convert.IsDBNull(dr["MakeId"]) ? Convert.ToUInt16(dr["MakeId"]) : default(int);
+                                    bikes.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                    bikes.MakeName = Convert.ToString(dr["make"]);
+
+                                    dealers.DealerDetails.CityId = Convert.ToInt32(dr["cityid"]);
 
                                     models.Add(bikes);
                                 }

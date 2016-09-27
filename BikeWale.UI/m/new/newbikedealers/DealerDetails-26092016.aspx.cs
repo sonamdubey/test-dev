@@ -22,7 +22,7 @@ namespace Bikewale.Mobile
     /// Modified By : Lucky Rathore on 30 March 2016
     /// Description : dealerLat, dealerLong, dealerName, dealerArea, dealerCity added and _dealerQuery removed.
     /// </summary>
-    public class DealerDetails_v2 : System.Web.UI.Page
+    public class DealerDetails : System.Web.UI.Page
     {
         protected Repeater rptModels, rptModelList;
         protected uint dealerId, campaignId, cityId;
