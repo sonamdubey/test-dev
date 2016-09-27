@@ -605,11 +605,12 @@ $(function () {
     vwUsedBikes.SetDefaultFilters();
     vwUsedBikes.TotalBikes() > 0 ? vwUsedBikes.OnInit(true) : vwUsedBikes.OnInit(false);
 
-    vwUsedBikes.SetPageFilters();
-
     if (selectedModelId && selectedModelId != "" && selectedModelId != "0") {
         var ele = bikesList.find("ul.bike-model-list span[data-modelid=" + selectedModelId + "]");
         ele.closest("ul.bike-model-list li").addClass("active");
+        if (vwUsedBikes.Filters()["model"])
+            vwUsedBikes.Filters()["model"] += "+" + selectedModelId;
+        else vwUsedBikes.Filters()["model"] = selectedModelId;
     }
     else if (selectedMakeId && selectedMakeId != "0") {
         var ele = bikesList.find("span[data-makeid=" + selectedMakeId + "]"),
@@ -624,6 +625,8 @@ $(function () {
             selectedBikeFilters.append('<p data-id="mk-' + ele.attr("data-makeid") + '" data-type="make">' + tab.find('.category-label').text() + '<span class="bwsprite cross-icon"></span></p>');
         }
     }
+
+    vwUsedBikes.SetPageFilters();
 
     filters.set.bike();
 
