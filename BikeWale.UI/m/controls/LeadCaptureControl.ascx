@@ -127,10 +127,9 @@
 
         $("#getMobile").on("blur", function () {
             if (prevMobile != $(this).val().trim()) {
-                if (validateMobileNo($(this))) {
+                if (dleadvm.validateMobileNo($(this))) {
                     dleadvm.IsVerified(false);
-                    otpText.val('');
-                    otpContainer.removeClass("show").addClass("hide");
+                  
                     hideError($(this));
                 }
             }
@@ -138,10 +137,9 @@
 
         $("#getEmailID").on("blur", function () {
             if (prevEmail != $(this).val().trim()) {
-                if (validateEmailId($(this))) {
+                if (dleadvm.validateEmailId($(this))) {
                     dleadvm.IsVerified(false);
-                    otpText.val('');
-                    otpContainer.removeClass("show").addClass("hide");
+                  
                     hideError($(this));
                 }
             }
@@ -395,7 +393,7 @@
         };
 
         self.submitLead = function (data, event) {
-          
+            debugger;
             if (self.mfgCampaignId() > 0) {
                 self.submitCampaignLead(data, event);
             }
@@ -424,6 +422,7 @@
 
         self.validateUserInfo = function () {
             var isValid = true;
+            debugger;
             isValid =  self.validateUserName();
             isValid &= self.validateEmailId();
             isValid &= self.validateMobileNo();
