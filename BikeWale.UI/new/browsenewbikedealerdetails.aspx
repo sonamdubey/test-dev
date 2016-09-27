@@ -130,7 +130,7 @@
             </div>
             <div id="listing-footer"></div>
         </section>
-        <% if(ctrlPopoularBikeMake.FetchedRecordsCount > 0 && ctrlRecentUsedBikes.FetchedRecordsCount >0){ %>
+        <% if(ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlRecentUsedBikes.FetchedRecordsCount >0){ %>
         <section>
             <div class="container">
                 <div class="grid-12">

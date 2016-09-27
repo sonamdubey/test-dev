@@ -82,11 +82,11 @@
             </div>
         </section>
 
-        <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 && ctrlRecentUsedBikes.fetchedCount > 0) {%>
+        <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlRecentUsedBikes.fetchedCount > 0) {%>
         <section>
             <div class="container bg-white box-shadow margin-bottom15">
                 
- <div class="container bg-white box-shadow margin-bottom15">
+             <div class="container bg-white box-shadow margin-bottom15">
                 <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0)
                  {%> 
                  <BW:PopularBikeMake runat="server" ID="ctrlPopoularBikeMake" />
