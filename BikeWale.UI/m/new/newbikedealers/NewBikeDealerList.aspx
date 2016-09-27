@@ -11,7 +11,8 @@
         description = String.Format("There are {2} {0} dealer showrooms in {1}. Get in touch with {0} showroom for prices, availability, test rides, EMI options and more!", makeName, cityName,totalDealers);
         title = String.Format("{0} Showrooms in {1} | {2} {0} Bike Dealers  - BikeWale", makeName, cityName,totalDealers);
         canonical = String.Format("http://www.bikewale.com/{0}-bikes/dealer-showrooms-in-{1}/", makeMaskingName, cityMaskingName);
-        Ad_300x250 = true;
+        Ad_320x50 = true;
+        Ad_Bot_320x50 = true;
     %>
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->

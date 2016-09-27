@@ -28,7 +28,8 @@
     border-top: 0;
 }
 
-#dealersList h3 {
+.dealer-card-target {
+    display: block;
     padding-top: 18px;
 }
 
