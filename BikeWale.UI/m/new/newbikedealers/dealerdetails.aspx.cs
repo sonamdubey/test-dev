@@ -114,8 +114,8 @@ namespace Bikewale.Mobile
                             rptModels.DataSource = dealer.Models;
                             rptModels.DataBind();
                             dealerBikesCount = dealer.Models.Count();
-                            rptModelList.DataSource = dealer.Models;
-                            rptModelList.DataBind();
+                            //rptModelList.DataSource = dealer.Models;
+                            //rptModelList.DataBind();
                         }
                     }
                     else

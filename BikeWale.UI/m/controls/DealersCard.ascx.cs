@@ -107,9 +107,10 @@ namespace Bikewale.Mobile.Controls
                             cityMaskingName = _dealers.CityMaskingName;
                             makeMaskingName = _dealers.MakeMaskingName;
 
-                            if (DealerId != 0)
+                            if (DealerId > 0)
                             {
-                                _dealers.Dealers = _dealers.Dealers.SkipWhile(x => x.DealerId == DealerId);
+                                //_dealers.Dealers = _dealers.Dealers.SkipWhile(x => x.DealerId == DealerId);
+                                _dealers.Dealers = (from dealer in _dealers.Dealers where dealer.DealerId != DealerId select dealer).ToList();
                             }
 
                             rptDealers.DataSource = _dealers.Dealers.Take(TopCount);

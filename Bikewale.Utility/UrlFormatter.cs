@@ -202,7 +202,7 @@ namespace Bikewale.Utility
         public static string RemoveSpecialCharUrl(string url)
         {
             url = (Regex.Replace(url, "[^0-9a-zA-Z]+", "-")).ToLower();
-            url = Regex.Replace(url, @"\-+", "-");
+            url = (Regex.Replace(url, @"\-+", "-")).TrimEnd('-');
             return url;
         }
     }
