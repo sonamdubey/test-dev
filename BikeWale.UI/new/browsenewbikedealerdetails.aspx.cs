@@ -96,9 +96,10 @@ namespace Bikewale.New
             ctrlRecentUsedBikes.isAd = true;
             ctrlRecentUsedBikes.cityName = cityName;
             ctrlRecentUsedBikes.cityMaskingName = cityMaskingName;
-
+            ctrlRecentUsedBikes.AdId = "1395986297721";
 
             ctrlLeadCapture.CityId = cityId;
+           
             //ctrlLeadCapture.ModelId = modelId;
             //ctrlLeadCapture.AreaId = 0;
         }

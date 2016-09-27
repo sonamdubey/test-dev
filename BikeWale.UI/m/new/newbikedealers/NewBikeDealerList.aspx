@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.NewBikeDealerList" EnableViewState="false" %>
 <%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="PopularBikeMake" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,8 @@
         keywords = String.Format("{0} showroom {1}, {0} dealers {1}, {1} bike showroom, {1} bike dealers,{1} dealers, {1} bike showroom, bike dealers, bike showroom, dealerships", makeName, cityName);
         description = String.Format("There are {2} {0} dealer showrooms in {1}. Get in touch with {0} showroom for prices, availability, test rides, EMI options and more!", makeName, cityName,totalDealers);
         title = String.Format("{0} Showrooms in {1} | {2} {0} Bike Dealers  - BikeWale", makeName, cityName,totalDealers);
-        canonical = String.Format("http://www.bikewale.com/{0}-bikes/dealers-in-{1}/", makeMaskingName, cityMaskingName);              
+        canonical = String.Format("http://www.bikewale.com/{0}-bikes/dealer-showrooms-in-{1}/", makeMaskingName, cityMaskingName);
+        Ad_300x250 = true;
     %>
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
@@ -72,7 +74,7 @@
                                         <span class="vertical-top dealership-details"><%# DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %></span>
                                     </a>
                                 </div>
-                                <input leadSourceId="20" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" campId="<%# (DataBinder.Eval(Container.DataItem,"CampaignId")) %>" type="button" class="btn btn-white margin-top10 get-assistance-btn <%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>" value="Get offers from dealer">
+                                <input data-leadsourceid="20" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" data-item-name="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-item-area="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-campid="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton %>" type="button" class="btn btn-white margin-top10 leadcapturebtn <%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>" value="Get offers from dealer">
                             </li>
                         </ItemTemplate>
                     </asp:Repeater>
@@ -80,30 +82,30 @@
             </div>
         </section>
 
+        <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 && ctrlRecentUsedBikes.fetchedCount > 0) {%>
         <section>
             <div class="container bg-white box-shadow margin-bottom15">
                 
  <div class="container bg-white box-shadow margin-bottom15">
                 <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0)
-                                   {%> 
+                 {%> 
                  <BW:PopularBikeMake runat="server" ID="ctrlPopoularBikeMake" />
                 <%} %>
-                    
-                
+
                 <div class="padding-top20 padding-bottom20 text-center">
-                    <!-- Ad -->
+                    <!-- #include file="/ads/Ad300x250_mobile.aspx" -->
                 </div>
                 <div class="margin-right10 margin-left10 border-solid-bottom"></div>
 
                 <% if (ctrlRecentUsedBikes.fetchedCount > 0)
-                                   {%> 
+                {%> 
                  <BW:MostRecentUsedBikes runat="server" ID="ctrlRecentUsedBikes" />
                 <%} %>
             </div>
                 </div>
             
         </section>
-
+        <% } %>
         <section>
             <div class="container margin-bottom30">
                 <div class="grid-12 font12">
@@ -115,109 +117,32 @@
             </div>
         </section>
 
-        <!-- Lead Capture pop up start  -->
-        <div id="leadCapturePopup" class="bw-popup bwm-fullscreen-popup contact-details hide">
-            <div class="popup-inner-container text-center">
-                <div class="bwmsprite close-btn leadCapture-close-btn rightfloat"></div>
-                <div id="contactDetailsPopup">
-                    <h2 class="margin-top10 margin-bottom10">Provide contact details</h2>
-                    <p class="text-light-grey margin-bottom10">Dealership will get back to you with offers</p>
-
-                    <div class="personal-info-form-container">
-                        <div class="dealer-search-brand form-control-box">
-                            <div class="dealer-search-brand-form"><span>Select a bike</span></div>
-                            <span class="bwmsprite error-icon errorIcon"></span>
-                            <div class="bw-blackbg-tooltip errorText"></div>
-                        </div>
-                        <div class="form-control-box margin-top20">
-                            <input type="text" class="form-control get-first-name" placeholder="Your name" id="getFullName" data-bind="textInput: fullName">
-                            <span class="bwmsprite error-icon errorIcon"></span>
-                            <div class="bw-blackbg-tooltip errorText"></div>
-                        </div>
-                        <div class="form-control-box margin-top20">
-                            <input type="text" class="form-control get-email-id" placeholder="Email address" id="getEmailID" data-bind="textInput: emailId">
-                            <span class="bwmsprite error-icon errorIcon"></span>
-                            <div class="bw-blackbg-tooltip errorText"></div>
-                        </div>
-                        <div class="form-control-box margin-top20">
-                            <p class="mobile-prefix">+91</p>
-                            <input type="text" class="form-control get-mobile-no" maxlength="10" placeholder="Mobile no." id="getMobile" data-bind="textInput: mobileNo">
-                            <span class="bwmsprite error-icon errorIcon"></span>
-                            <div class="bw-blackbg-tooltip errorText"></div>
-                        </div>                        
-                        <div class="clear"></div>
-                        <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-                    </div>
-
-                    <div id="brandSearchBar">
-                        <div class="dealer-brand-wrapper bwm-dealer-brand-box form-control-box text-left">
-                            <div class="user-input-box">
-                                <span class="back-arrow-box"><span class="bwmsprite back-long-arrow-left"></span></span>
-                                <input class="form-control" type="text" id="assistanceBrandInput" placeholder="Select a bike" />
-                            </div>
-                            <ul id="sliderBrandList" class="slider-brand-list margin-top40"  data-bind="foreach: bikes">
-                               <li data-bind="text: bike, click: function () { customerViewModel.versionId(this.version.versionId); customerViewModel.modelId(this.model.modelId); customerViewModel.selectedBikeName(this.make.makeName + ' ' + this.model.modelName + '_' + this.version.versionName);  }"></li>
-                            </ul>
-                         </div>
-                    </div>
-
-                </div>
-                 <!-- thank you message starts here -->
-                <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
-                    <div class="icon-outer-container rounded-corner50percent">
-                        <div class="icon-inner-container rounded-corner50percent">
-                            <span class="bwmsprite thankyou-icon margin-top15"></span>
-                        </div>
-                    </div>
-                    <p class="font18 text-bold margin-top20 margin-bottom20">Thank you</p>
-                    <p class="font16 margin-bottom40"><span class="notify-dealerName"></span> would get back to you shortly with additional information.</p>
-                    <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
-                </div>
-				<!-- thank you message ends here -->
-                <div id="otpPopup">
-                    <p class="font18 margin-bottom5">Verify your mobile number</p>
-                    <p class="text-light-grey margin-bottom5">We have sent OTP on your mobile. Please enter that OTP in the box provided below:</p>
-                    <div>
-                        <div class="lead-mobile-box lead-otp-box-container margin-bottom10 font22">
-                            <span class="bwmsprite tel-grey-icon"></span>
-                            <span class="text-light-grey font24">+91</span>
-                            <span class="lead-mobile font24"></span>
-                            <span class="bwmsprite edit-blue-icon edit-mobile-btn"></span>
-                        </div>
-                        <div class="otp-box lead-otp-box-container">
-                            <div class="form-control-box margin-bottom10">
-                                <input type="text" class="form-control" placeholder="Enter your OTP" id="getOTP" maxlength="5" data-bind="value: otpCode"/>
-                                <span class="bwmsprite error-icon errorIcon"></span>
-                                <div class="bw-blackbg-tooltip errorText"></div>
-                            </div>
-                            <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP</a>
-                            <p class="margin-left10 margin-top10 otp-notify-text text-light-grey font12" data-bind="visible: (NoOfAttempts() >= 2)">
-                                OTP has been already sent to your mobile
-                            </p>
-                            <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
-                        </div>
-                        <div class="update-mobile-box">
-                            <div class="form-control-box text-left">
-                                <p class="mobile-prefix">+91</p>
-                                <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo"  />
-                                <span class="bwmsprite error-icon errorIcon"></span>
-                                <div class="bw-blackbg-tooltip errorText"></div>
-                            </div>
-                            <input type="button" class="btn btn-orange margin-top20" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Lead Capture pop up end  -->
-    
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/dealer/listing.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
-        
+        <script type="text/javascript">
+            $(".leadcapturebtn").click(function (e) {
+                ele = $(this);
+                debugger;
+                var leadOptions = {
+                    "dealerid": ele.attr('data-item-id'),
+                    "dealername": ele.attr('data-item-name'),
+                    "dealerarea": ele.attr('data-item-area'),
+                    "campid": ele.attr('data-campid'),
+                    "leadsourceid": ele.attr('data-leadsourceid'),
+                    "pqsourceid": ele.attr('data-pqsourceid'),
+                    "isdealerbikes": true,
+                    "pageurl": window.location.href,
+                    "isregisterpq": true,
+                    "clientip": clientIP
+                };
+                dleadvm.setOptions(leadOptions);
+            });
+        </script>
     </form>
 </body>
 </html>

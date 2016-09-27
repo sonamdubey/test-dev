@@ -1,4 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.UsedBikeWidget" %>
+    <% 
+    %>
 <% if (FetchedRecordsCount > 0)
    {        %>
 <div id="used-bikes-content" class="grid-12 padding-top20 padding-bottom20">
@@ -18,7 +20,9 @@
        { %>
     <div class="grid-4 alpha">
         <div class="rightfloat">
-            <!-- #include file="/ads/Ad300x250.aspx" -->
+            <script type='text/javascript'>
+                googletag.cmd.push(function () { googletag.display('div-gpt-ad-<%= AdId %>-1'); });
+            </script>
         </div>
     </div>
     <% } %>
