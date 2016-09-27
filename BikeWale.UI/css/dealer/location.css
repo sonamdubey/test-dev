@@ -52,7 +52,7 @@
     border-top:0;
 }
 
-#location-list a {
+#location-list a, #location-list .type-state {
     color:#4d5057;
     font-size:14px;
     display:block;

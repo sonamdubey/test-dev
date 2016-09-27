@@ -44,6 +44,7 @@ namespace Bikewale.BAL.BikeData
         private readonly IArticles _articles = null;
         private readonly ICMSCacheContent _cacheArticles = null;
 
+
         static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
         static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
         static readonly ILog _logger = LogManager.GetLogger(typeof(BikeModels<T, U>));
@@ -62,11 +63,13 @@ namespace Bikewale.BAL.BikeData
                 container.RegisterType<ICacheManager, MemcacheManager>();
                 container.RegisterType<IUserReviews, UserReviewsRepository>();
                 container.RegisterType<ICMSCacheContent, CMSCacheRepository>();
+
                 modelRepository = container.Resolve<IBikeModelsRepository<T, U>>();
                 _objPager = container.Resolve<IPager>();
                 _articles = container.Resolve<IArticles>();
                 _cacheArticles = container.Resolve<ICMSCacheContent>();
                 _userReviewCache = container.Resolve<IUserReviewsCache>();
+
             }
         }
 
@@ -165,12 +168,11 @@ namespace Bikewale.BAL.BikeData
         /// <param name="endIndex">End Index</param>
         /// <param name="recordCount">Record Count</param>
         /// <returns></returns>
-        public NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex)
+        public NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex, int? makeid = null)
         {
             NewLaunchedBikesBase objNewLaunchedBikeList = null;
 
             objNewLaunchedBikeList = modelRepository.GetNewLaunchedBikesList(startIndex, endIndex);
-
             return objNewLaunchedBikeList;
         }
 
@@ -204,18 +206,45 @@ namespace Bikewale.BAL.BikeData
             {
                 modelPhotos = GetBikeModelPhotoGallery(modelId);
                 modelPhotoInfo = modelRepository.GetModelPhotoInfo(modelId);
-                if(modelPhotoInfo!=null){
-                    modelPhotoInfo.ImageCategory = "Model Image";
-                if (modelPhotos != null)
+                if (modelPhotoInfo != null)
                 {
-                    modelPhotos.Insert(0,
-                        new ModelImage()
+                    modelPhotoInfo.ImageCategory = "Model Image";
+                    if (modelPhotos != null)
+                    {
+                        modelPhotos.Insert(0,
+                            new ModelImage()
+                            {
+                                HostUrl = modelPhotoInfo.HostURL,
+                                OriginalImgPath = modelPhotoInfo.OriginalImgPath,
+                                ImageCategory = modelPhotoInfo.ImageCategory,
+                                MakeBase = new BikeMakeEntityBase()
+                                {
+                                    MakeName = modelPhotoInfo.MakeName
+                                },
+                                ModelBase = new BikeModelEntityBase()
+                                {
+                                    ModelName = modelPhotoInfo.ModelName
+                                },
+                                Caption = "",
+                                ImageTitle = "",
+                                ImageName = modelPhotoInfo.ModelName,
+                                AltImageName = "",
+                                ImageDescription = "",
+                                ImagePathThumbnail = "",
+                                ImagePathLarge = ""
+                            });
+                    }
+                    else
+                    {
+                        modelPhotos = new List<ModelImage>();
+                        modelPhotos.Add(new ModelImage()
                         {
                             HostUrl = modelPhotoInfo.HostURL,
                             OriginalImgPath = modelPhotoInfo.OriginalImgPath,
                             ImageCategory = modelPhotoInfo.ImageCategory,
-                            MakeBase = new BikeMakeEntityBase(){
-                                MakeName=modelPhotoInfo.MakeName
+                            MakeBase = new BikeMakeEntityBase()
+                            {
+                                MakeName = modelPhotoInfo.MakeName
                             },
                             ModelBase = new BikeModelEntityBase()
                             {
@@ -229,35 +258,10 @@ namespace Bikewale.BAL.BikeData
                             ImagePathThumbnail = "",
                             ImagePathLarge = ""
                         });
+                    }
                 }
-                else
-                {
-                    modelPhotos = new List<ModelImage>();
-                    modelPhotos.Add(new ModelImage()
-                    {
-                        HostUrl = modelPhotoInfo.HostURL,
-                        OriginalImgPath = modelPhotoInfo.OriginalImgPath,
-                        ImageCategory = modelPhotoInfo.ImageCategory,
-                        MakeBase = new BikeMakeEntityBase()
-                        {
-                            MakeName = modelPhotoInfo.MakeName
-                        },
-                        ModelBase = new BikeModelEntityBase()
-                        {
-                            ModelName = modelPhotoInfo.ModelName
-                        },
-                        Caption = "",
-                        ImageTitle = "",
-                        ImageName = modelPhotoInfo.ModelName,
-                        AltImageName = "",
-                        ImageDescription = "",
-                        ImagePathThumbnail = "",
-                        ImagePathLarge = ""
-                    });
-                }
-              }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetModelPhotos");
                 objErr.SendMail();
@@ -963,7 +967,7 @@ namespace Bikewale.BAL.BikeData
                     //    objModelPage.Photos = null;               
                     //else
                     //    objModelPage.Photos = GetBikeModelPhotoGallery(modelId);                      
-                    objModelPage.Photos = GetBikeModelPhotoGallery(modelId);  
+                    objModelPage.Photos = GetBikeModelPhotoGallery(modelId);
 
                     if (objModelPage.Photos != null)
                     {

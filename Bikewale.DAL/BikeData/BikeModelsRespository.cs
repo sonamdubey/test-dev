@@ -1,8 +1,8 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Utility;
-using Bikewale.Entities.CMS.Photos;
 using MySql.CoreDAL;
 using System;
 using System.Collections;
@@ -95,7 +95,7 @@ namespace Bikewale.DAL.BikeData
 
             try
             {
-                
+
                 modelPage.ModelDetails = GetById(modelId);
                 modelPage.ModelDesc = GetModelSynopsis(modelId);
                 modelPage.ModelVersions = GetVersionMinSpecs(modelId, isNew);
@@ -330,7 +330,7 @@ namespace Bikewale.DAL.BikeData
                     {
                         if (dr != null)
                         {
-                                     
+
                             while (dr.Read())
                             {
                                 t = new T();
@@ -370,7 +370,7 @@ namespace Bikewale.DAL.BikeData
             }
             return t;
 
-                   }
+        }
 
 
         /// <summary>
@@ -617,6 +617,77 @@ namespace Bikewale.DAL.BikeData
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbType.Int32, startIndex));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbType.Int32, endIndex));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objModelList = new List<NewLaunchedBikeEntity>();
+
+                            while (dr.Read())
+                            {
+                                NewLaunchedBikeEntity objModels = new NewLaunchedBikeEntity();
+                                objModels.Specs = new MinSpecsEntity();
+                                objModels.BikeLaunchId = Convert.ToUInt16(dr["BikeLaunchId"]);
+                                objModels.MakeBase.MakeId = Convert.ToInt32(dr["BikeMakeId"]);
+                                objModels.MakeBase.MakeName = dr["Make"].ToString();
+                                objModels.MakeBase.MaskingName = dr["MakeMaskingName"].ToString();
+                                objModels.ModelId = Convert.ToInt32(dr["ModelId"]);
+                                objModels.ModelName = dr["Model"].ToString();
+                                objModels.MaskingName = dr["ModelMaskingName"].ToString();
+                                objModels.HostUrl = dr["HostURL"].ToString();
+                                objModels.LargePicUrl = dr["LargePic"].ToString();
+                                objModels.SmallPicUrl = dr["SmallPic"].ToString();
+                                objModels.ReviewCount = Convert.ToInt16(dr["ReviewCount"]);
+                                objModels.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
+                                objModels.MinPrice = Convert.ToInt64(dr["MinPrice"]);
+                                objModels.MaxPrice = Convert.ToInt64(dr["MaxPrice"]);
+                                objModels.LaunchDate = Convert.ToDateTime(dr["LaunchDate"]);
+                                objModels.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                                objModels.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
+                                objModels.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
+                                objModels.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
+                                objModels.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["kerbweight"]);
+                                objModels.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
+                                objModelList.Add(objModels);
+
+                            }
+                            if (dr.NextResult())
+                            {
+                                if (dr.Read())
+                                {
+                                    recordCount = Convert.ToInt32(dr["RecordCount"]);
+                                }
+                            }
+                            dr.Close();
+                            newLaunchedBikes.Models = objModelList;
+                            newLaunchedBikes.RecordCount = recordCount;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn("GetNewLaunchedBikesList ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            return newLaunchedBikes;
+        }
+        public NewLaunchedBikesBase GetNewLaunchedBikesListByMake(int startIndex, int endIndex, int? makeid = null)
+        {
+            NewLaunchedBikesBase newLaunchedBikes = new NewLaunchedBikesBase();
+            List<NewLaunchedBikeEntity> objModelList = null;
+            int recordCount = 0;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getnewlaunchedbikes_23092016"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbType.Int32, startIndex));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbType.Int32, endIndex));
+                    if (makeid.HasValue && makeid > 0)
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeId", DbType.Int32, makeid));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -1080,5 +1151,5 @@ namespace Bikewale.DAL.BikeData
             }
             return modelPhotos;
         }
-        }   // class
+    }   // class
 }   // namespace
