@@ -149,7 +149,7 @@ namespace Bikewale.Mobile.Controls
         public string GetDealerDetailLink(string dealerType, string dealerId, string campId, string dealerName)
         {
             string retString = string.Empty;
-            retString = String.Format("<div class=\"target-link margin-bottom5 text-truncate font16\" >{0}</div>", dealerName);
+            retString = String.Format("<div class=\"target-link margin-bottom5 text-truncate font14\" >{0}</div>", dealerName);
             return retString;
         }
 
