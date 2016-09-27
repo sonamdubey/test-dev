@@ -135,7 +135,7 @@
         <%} %>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <section class="container bg-white margin-bottom10">
-            <div class="box-shadow padding-15-20">
+            <div class="box-shadow">
                 <!-- dealer card -->
                 <% if (ctrlDealerCard.showWidget) { %>
                     <BW:DealerCard runat="server" ID="ctrlDealerCard" />
