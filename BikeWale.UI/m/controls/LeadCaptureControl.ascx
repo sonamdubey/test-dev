@@ -13,7 +13,7 @@
                 <!-- ko if : isDealerBikes() -->
                 <div id="getLeadBike" class="margin-top10 form-control-box">
                     <div class="dealer-search-brand form-control-box">
-                        <span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span>
+                        
                         <div class="dealer-search-brand-form"><span>Select a bike</span></div>
                         <span class="bwmsprite error-icon errorIcon"></span>
                         <div class="bw-blackbg-tooltip errorText"></div>
@@ -393,7 +393,7 @@
         };
 
         self.submitLead = function (data, event) {
-            debugger;
+           
             if (self.mfgCampaignId() > 0) {
                 self.submitCampaignLead(data, event);
             }
@@ -422,7 +422,7 @@
 
         self.validateUserInfo = function () {
             var isValid = true;
-            debugger;
+            
             isValid =  self.validateUserName();
             isValid &= self.validateEmailId();
             isValid &= self.validateMobileNo();

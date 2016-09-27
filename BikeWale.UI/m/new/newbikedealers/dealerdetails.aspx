@@ -287,7 +287,7 @@
             
            $(".leadcapturebtn").click(function(e){
                ele = $(this);
-               debugger;
+               
                var leadOptions = {
                    "dealerid" : dealerId,                    
                    "leadsourceid" : ele.attr('data-leadsourceid'),
