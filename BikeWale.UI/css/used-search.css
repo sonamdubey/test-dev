@@ -14,6 +14,7 @@
 
 #listing-right-column {
     margin-left: 323px;
+    min-height:1250px;
 }
 
 /* sort by */
@@ -89,10 +90,6 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-}
-
-.model-details-content .grid-6.omega {
-    padding-left: 30px;
 }
 
 .model-details-label {

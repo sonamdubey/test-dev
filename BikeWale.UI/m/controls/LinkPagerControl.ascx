@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" Inherits="Bikewale.Mobile.Controls.LinkPagerControl" %>
 <%if(TotalPages > 1 ) { %>
 
-    <div class="grid-7 alpha omega position-rel">
+    <div id="pagination-list-content" class="grid-7 alpha omega position-rel">
     <ul id="pagination-list">
         <asp:Repeater ID="rptPager" runat="server">
             <ItemTemplate>
