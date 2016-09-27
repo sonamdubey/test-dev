@@ -34,7 +34,7 @@ namespace Bikewale.DAL.Used
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, Convert.ToInt32(inquiryId)));
 
-                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                         {
                             if (dr != null && dr.Read())
                             {
@@ -117,7 +117,7 @@ namespace Bikewale.DAL.Used
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
                         if (dr != null && dr.Read())
                         {

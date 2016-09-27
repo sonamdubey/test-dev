@@ -9,5 +9,6 @@ namespace Bikewale.Entities.Used
     {
         public PurchaseInquiryStatusEntity InquiryStatus { get; set; }
         public Customer.CustomerEntityBase Seller { get; set; }
+        public string SellerAddress { get; set; }
     }
 }

@@ -13,5 +13,8 @@ namespace Bikewale.DTO.UsedBikes
 
         [JsonProperty("seller")]
         public DTO.Customer.CustomerBase Seller { get; set; }
+
+        [JsonProperty("sellerAddress")]
+        public string SellerAddress { get; set; }
     }
 }

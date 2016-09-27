@@ -107,7 +107,7 @@ namespace Bikewale.DAL.Used
                         cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbType.Int64, inquiryId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("@customerid", DbType.Int64, buyerId));
 
-                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                         {
                             if (dr != null && dr.Read())
                             {
@@ -126,7 +126,14 @@ namespace Bikewale.DAL.Used
             return shownInterest;
         }
 
-
+        /// <summary>
+        /// Created by  :   Sumit Kate on 27 Sep 2016
+        /// Description :   Checks if photo request is done
+        /// </summary>
+        /// <param name="sellInquiryId"></param>
+        /// <param name="buyerId"></param>
+        /// <param name="isDealer"></param>
+        /// <returns></returns>
         public bool IsPhotoRequestDone(string sellInquiryId, UInt64 buyerId, bool isDealer)
         {
             bool isDone = false;
@@ -143,7 +150,7 @@ namespace Bikewale.DAL.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("@par_buyerid", DbType.Int64, buyerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("@par_consumertype", DbType.Byte, consumerType));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
                         if (dr != null && dr.Read())
                         {

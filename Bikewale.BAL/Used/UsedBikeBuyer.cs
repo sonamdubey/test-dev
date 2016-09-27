@@ -319,7 +319,7 @@ namespace Bikewale.BAL.Used
                                             //get seller details
                                             UsedBikeSellerBase seller = _objSellerRepository.GetSellerDetails(inquiryId, false);
                                             result.Seller = seller.Details;
-
+                                            result.SellerAddress = seller.Address;
                                             if (isNewInquiry)
                                             {
                                                 result.InquiryStatus.Code = PurchaseInquiryStatusCode.Success;

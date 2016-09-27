@@ -1266,6 +1266,9 @@ var closePopUp = function (state) {
         case "termsConditions":
             popupDiv.close($('#termsPopUpContainer'));
             break;
+        case "sellerDealers":
+            getSellerDetailsPopup.close();
+            break;
         default:
             return true;
     }
