@@ -455,7 +455,6 @@ var usedBikes = function () {
                 $.ajax({
                     type: 'GET',
                     url: '/api/used/search/?bikes=1&' + qs.replace(/[\+]/g, "%2B"),
-                    beforeSend: function () { /*filters.loader.open();*/ },
                     dataType: 'json',
                     success: function (response) {
 
@@ -471,7 +470,6 @@ var usedBikes = function () {
                             self.CurPageNo(1);
                         }
                         if (self.TotalBikes() > 0) self.noBikes(false); else self.noBikes(true);
-                        //filters.loader.close();
                         self.OnInit(false);
                         self.IsReset(false);
                         self.ApplyPagination();
@@ -606,11 +604,6 @@ var objFilters = vwUsedBikes.Filters();
 $(function () {
     vwUsedBikes.SetDefaultFilters();
     vwUsedBikes.TotalBikes() > 0 ? vwUsedBikes.OnInit(true) : vwUsedBikes.OnInit(false);
-    
-    /*
-    if (selectedCityId)
-        $("#filter-city-list li[data-cityid=" + selectedCityId + "]").click();
-    */
 
     vwUsedBikes.SetPageFilters();
 
@@ -788,16 +781,6 @@ var filters = {
     },
 
     reset: {
-
-        all: function () {
-            //filters.reset.city();
-            //filters.reset.bike();
-            //filters.reset.budget();
-            //filters.reset.kilometers();
-            //filters.reset.bikeAge();
-            //filters.reset.previousOwners();
-            //filters.reset.sellerType();
-        },
 
         city: function () {
             $('#filter-type-city .selected-filters').text('All India');
@@ -1145,18 +1128,6 @@ sortByDiv.on('click', function () {
         sortBy.close();
 });
 
-//$('#sort-listing').on('click', 'li', function () {
-//    var item = $(this);
-
-//    if (!item.hasClass('selected')) {
-//        $('#sort-listing li.selected').removeClass('selected');
-//        item.addClass('selected');
-//        sortBy.selection(item);
-//    }
-//    else {
-//        sortBy.close();
-//    }
-//});
 
 var sortBy = {
     open: function () {
