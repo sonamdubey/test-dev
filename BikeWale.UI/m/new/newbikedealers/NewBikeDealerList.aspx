@@ -127,7 +127,6 @@
         <script type="text/javascript">
             $(".leadcapturebtn").click(function (e) {
                 ele = $(this);
-                debugger;
                 var leadOptions = {
                     "dealerid": ele.attr('data-item-id'),
                     "dealername": ele.attr('data-item-name'),
