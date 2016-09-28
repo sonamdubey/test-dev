@@ -1,4 +1,5 @@
-﻿.padding-14-20 {
+﻿@charset "utf-8";
+.padding-14-20 {
     padding: 14px 20px;
 }
 
@@ -593,6 +594,122 @@
 
 .pagination-control-prev.inactive, .pagination-control-next.inactive {
     pointer-events: none;
+}
+
+/* lead capture popup */
+#get-seller-details-popup.bwm-fullscreen-popup {
+    padding: 30px 60px 50px;
+    display: none;
+}
+
+#get-seller-details-popup.bw-popup {
+    width: 480px;
+    top: 33%;
+}
+
+#mobile-verification-section, #update-mobile-content, #seller-details-section {
+    display: none;
+}
+
+.btn-fixed-width {
+    padding-right: 0;
+    padding-left: 0;
+    width: 205px;
+}
+
+.size-small .icon-outer-container {
+    width: 92px;
+    height: 92px;
+}
+
+.size-small .icon-inner-container {
+    width: 84px;
+    height: 84px;
+    margin: 3px auto;
+}
+
+.otp-icon {
+    width: 29px;
+    height: 29px;
+    background-position: -109px -177px;
+}
+
+.edit-blue-icon {
+    position: relative;
+    top: 13px;
+    cursor: pointer;
+}
+
+.margin-bottom35 { 
+    margin-bottom: 35px;
+}
+
+.dealer-details-list li {
+    margin-bottom: 25px;
+}
+
+.dealer-details-list .data-key {
+    font-size: 12px;
+    color: #82888b;
+}
+
+.dealer-details-list .data-value {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.text-truncate { width:100%; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
+
+/* input field */
+input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow: none; }
+.input-box { height:60px; text-align: left; }
+.input-box input { font-size: 16px; width: 100%; display:block; padding: 7px 0; border-bottom:1px solid #82888b; font-weight: bold; color: #4d5057; }
+.input-box label { position: absolute; top: 4px; left: 0; font-size:16px; color: #82888b; -webkit-transition:0.2s ease all; -moz-transition:0.2s ease all; -o-transition:0.2s ease all; transition:0.2s ease all; }
+.input-number-box input { padding-left: 30px; }
+.input-number-prefix { display:none; font-size: 16px; position: absolute; top: 4px; font-weight: bold; color: #82888b; }
+.boundary { position: relative; width: 100%; display: block; }
+.boundary:before, .boundary:after { content: ''; position: absolute; bottom: 0; width: 0; height: 2px; background-color: #41b4c4; -webkit-transition:0.2s ease all; -moz-transition:0.2s ease all; -o-transition:0.2s ease all; transition:0.2s ease all; }
+.boundary:before { left:50%; }
+.boundary:after { right:50%; }
+.error-text { display:none; font-size:12px; position: relative; top: 4px; left: 0; color: #d9534f; }
+/* on focus */
+.input-box input:focus ~ label, .input-box.not-empty label { top:-16px; font-size:12px; }
+.input-box.input-number-box input:focus ~ .input-number-prefix, .input-box.input-number-box.not-empty .input-number-prefix { display:inline-block; }
+.input-box input:focus ~ .boundary:before, .input-box input:focus ~ .boundary:after { width: 50%; } 
+/* validation */
+.input-box.invalid .boundary:before, .input-box.invalid .boundary:after { background-color: #d9534f; width:50%; }
+.input-box.invalid .error-text { display:inline-block; }
+
+/* loader */
+#ub-ajax-loader {
+    display: none;
+}
+
+#modal-window {
+    background: #000;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 9;
+    opacity: .5;
+    display: none;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: alpha(opacity=50);
+    -moz-opacity: 0.5;
+    -khtml-opacity: 0.5;
+}
+
+#popup-loader {
+    height: 50px;
+    background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/loader-red.gif) no-repeat center center;
+    position: fixed;
+    top: 45%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    z-index: 11;
 }
 
 @media only screen and (max-width:1024px) {

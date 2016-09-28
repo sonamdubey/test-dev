@@ -1,16 +1,16 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.UsedBikeLeadCaptureControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.UsedBikeLeadCaptureControl" %>
 <!-- get seller details pop up start  -->
 <div id="get-seller-details-popup" class="bw-popup bwm-fullscreen-popup size-small">
-    <div class="popup-inner-container text-center">
-        <div class="bwmsprite close-btn seller-details-close position-abt pos-top20 pos-right20"></div>
+    <div class="text-center">
+        <div class="bwsprite cross-lg-lgt-grey seller-details-close position-abt pos-top10 pos-right10 cur-pointer"></div>
         <div id="user-details-section">
-            <div class="icon-outer-container rounded-corner50percent margin-bottom10">
-                <div class="icon-inner-container rounded-corner50percent">
-                    <span class="bwmsprite user-contact-details-icon margin-top15"></span>
+            <div class="icon-outer-container rounded-corner50">
+                <div class="icon-inner-container rounded-corner50">
+                    <span class="bwsprite user-contact-details-icon margin-top20"></span>
                 </div>
             </div>
-            <p class="font18 text-bold margin-bottom10">Get seller details</p>
-            <p class="font14 text-light-grey margin-bottom25">For privacy concerns, we hide owner details. Please fill this form to get owner's details.</p>
+            <p class="font18 text-bold margin-top10 margin-bottom10">Get seller details</p>
+            <p class="font14 text-light-grey margin-bottom40">For privacy concerns, we hide owner details.<br />Please fill this form to get owner's details.</p>
 
             <div class="input-box form-control-box margin-bottom10">
                 <input type="text" id="getUserName" data-bind="textInput: buyer().userName" />
@@ -38,12 +38,12 @@
         </div>
 
         <div id="mobile-verification-section">
-            <div class="icon-outer-container rounded-corner50percent margin-bottom10">
-                <div class="icon-inner-container rounded-corner50percent">
-                    <span class="bwmsprite otp-icon margin-top15"></span>
+            <div class="icon-outer-container rounded-corner50">
+                <div class="icon-inner-container rounded-corner50">
+                    <span class="bwsprite otp-icon margin-top25"></span>
                 </div>
             </div>
-            <p class="font18 text-bold margin-bottom10">Mobile verification</p>
+            <p class="font18 text-bold margin-top10 margin-bottom10">Mobile verification</p>
             <p class="font14 text-light-grey margin-bottom25">We have just sent a 5-digit verification code on your mobile number.</p>
 
 
@@ -56,7 +56,7 @@
                             <span class="user-submitted-mobile" data-bind="text: buyer().mobileNo"></span>
                         </div>
                     </div>
-                    <div class="rightfloat bwmsprite edit-blue-icon" id="edit-mobile-btn"></div>
+                    <div class="rightfloat bwsprite edit-blue-icon" id="edit-mobile-btn"></div>
                     <div class="clear"></div>
                 </div>
 
@@ -85,12 +85,12 @@
         </div>
 
         <div id="seller-details-section">
-            <div class="icon-outer-container rounded-corner50percent margin-bottom10">
-                <div class="icon-inner-container rounded-corner50percent">
-                    <span class="bwmsprite user-contact-details-icon margin-top15"></span>
+            <div class="icon-outer-container rounded-corner50">
+                <div class="icon-inner-container rounded-corner50">
+                    <span class="bwsprite user-contact-details-icon margin-top20"></span>
                 </div>
             </div>
-            <p class="font18 text-bold margin-bottom10">Seller details</p>
+            <p class="font18 text-bold margin-top10 margin-bottom10">Seller details</p>
             <p class="font14 text-light-grey margin-bottom20">We have also sent you these details through SMS and e-mail.</p>
 
             <ul class="dealer-details-list text-left">
@@ -120,6 +120,9 @@
 <div id="ub-ajax-loader">
     <div id="popup-loader"></div>
 </div>
+
+<div id="modal-window"></div>
+
 <script type="text/javascript">
     var getUserName = $('#getUserName'),
     getUserEmailID = $('#getUserEmailID'),
@@ -138,12 +141,15 @@
         ubLeadVM.profileId(ele.attr('data-profile-id'));
         ubLeadVM.pushInitGAObject();
         getSellerDetailsPopup.open();
-        appendHash("sellerDealers");
+        /* blackout-window */
+        popup.lock();
+        $(".blackOut-window").hide();
     });
 
     $('.seller-details-close').on('click', function () {
         getSellerDetailsPopup.close();
-        window.history.back();
+        /* blackout-window */
+        popup.unlock();
     });
 
     $('#submit-user-details-btn').on('click', function () {
@@ -198,12 +204,14 @@
 
         open: function () {
             getSellerDetailsPopup.popup.show();
+            $('#modal-window').show();
         },
 
         close: function () {
             ubLeadVM.reset();
             getSellerDetailsPopup.popup.hide();
             getSellerDetailsPopup.userDetailsSection();
+            $('#modal-window').hide();
         },
 
         userDetailsSection: function () {
@@ -417,7 +425,7 @@
         self.otp = ko.observable();
         self.pageUrl = ko.observable(location.href);
         self.leadInitGAObject = ko.observable();
-        self.platformId = ko.observable(2);
+        self.platformId = ko.observable(1);
         self.userCookieName = ko.observable("TempCurrentUser");
         self.widgetName = ko.observable('');
         self.pushInitGAObject = function () {
@@ -454,7 +462,7 @@
                     complete: function (xhr, ajaxOptions, thrownError) {
                         getSellerDetailsPopup.loader.close();
                         if (xhr.status == 200) {
-                            var resp = xhr.responseJSON;
+                            var resp = JSON.parse(xhr.responseText);
                             if (resp) {
                                 switch (resp.inquiryStatus.status) {
                                     case 1:
@@ -516,9 +524,10 @@
                     complete: function (xhr, ajaxOptions, thrownError) {
                         getSellerDetailsPopup.loader.close();
                         if(xhr.status == 200){
-                            if (xhr.responseJSON) {
-                                if (xhr.responseJSON.shownInterest) {
-                                    self.setSeller(xhr.responseJSON.seller.details, xhr.responseJSON.seller.address);
+                            var res = JSON.parse(xhr.responseText);
+                            if (res) {
+                                if (res.shownInterest) {
+                                    self.setSeller(res.seller.details, res.seller.address);
                                     getSellerDetailsPopup.sellerDetails();
                                     getSellerDetailsPopup.userDetails.hide();
                                     getSellerDetailsPopup.seller.show();
@@ -554,7 +563,7 @@
                     complete: function (xhr, ajaxOptions, thrownError) {
                         getSellerDetailsPopup.loader.close();
                         if(xhr.status == 200){
-                            if (xhr.responseJSON) {
+                            if (JSON.parse(xhr.responseText)) {
                                 self.isVerified(true);
                                 self.submitPurchaseRequest();
                             }
@@ -639,6 +648,20 @@
         self.mobileNo = ko.observable();
         self.location = ko.observable();
     }
+
+    $(document).keydown(function (e) {
+        if (e.keyCode == 27) {
+            if ($('#get-seller-details-popup').is(':visible')) {
+                getSellerDetailsPopup.close();
+                popup.unlock();
+            }
+        }
+    });
+
+    $('#modal-window').on('click', function (e) {
+        getSellerDetailsPopup.close();
+        popup.unlock();
+    });
 
     var ubLeadVM = new usedBikeLead();
     ubLeadVM.init();
