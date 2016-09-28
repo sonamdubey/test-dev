@@ -550,9 +550,6 @@
     float: left;
     margin-right: 5px;
     margin-left: 5px;
-}
-
-#pagination-list a {
     color: #82888b;
     font-size: 12px;
     padding: 5px;
@@ -562,12 +559,16 @@
     text-align: center;
 }
 
+#pagination-list a {
+    color: #82888b;
+}
+
 #pagination-list a:hover {
     color: #4d5057;
     text-decoration: none;
 }
 
-#pagination-list li.active a {
+#pagination-list .active {
     color: #4d5057;
     font-weight: bold;
     border: 1px solid #a2a2a2;

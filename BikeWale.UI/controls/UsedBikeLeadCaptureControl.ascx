@@ -241,13 +241,11 @@
             getSellerDetailsPopup.seller.show();
         },
         loader: {
-            open: function () {
-                $('html, body').addClass('lock-browser-scroll');
+            open: function () {                
                 $('#ub-ajax-loader').show();
             },
 
-            close: function () {
-                $('html, body').removeClass('lock-browser-scroll');
+            close: function () {                
                 $('#ub-ajax-loader').hide();
             }
         }
@@ -500,6 +498,7 @@
             }
         }
         self.shownInterest = function () {
+            self.message('');
             if (self.profileId()) {
                 var objBuyer = {
                     "customerName": self.buyer().userName(),

@@ -492,6 +492,7 @@
             }
         }
         self.shownInterest = function () {
+            self.message('');
             if (self.profileId()) {
                 var objBuyer = {
                     "customerName": self.buyer().userName(),
