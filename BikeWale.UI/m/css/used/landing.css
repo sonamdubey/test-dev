@@ -1,0 +1,171 @@
+﻿@charset "utf-8";
+.used-bikes-banner {
+    background:#7f7d74 url(http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/m/new-bike-banner.jpg) no-repeat left top;
+    background-size: cover;
+    height:130px;
+}
+
+/* section margin */
+.section-container {
+    margin-bottom: 25px;
+}
+
+h2.section-heading {
+    margin-bottom: 15px;
+}
+
+/* search box */
+#search-used-bikes .content-box-shadow {
+    margin-top: -25px;
+    -moz-box-shadow: 2px 2px 2px rgba(0,0,0,0.20);
+    -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,0.20);
+    -o-box-shadow: 2px 2px 2px rgba(0,0,0,0.20);
+    -ms-box-shadow: 2px 2px 2px rgba(0,0,0,0.20);
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.20);
+}
+
+.form-selection-box {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #e2e2e2;
+    border-radius: 2px;
+    position: relative;
+    text-align: left;
+    color: #a8afb3;
+}
+
+.text-truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fa-angle-down {
+    background: #fff url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat;
+    background-position: 96% 50% !important;
+}
+
+.text-underline {
+    text-decoration: underline;
+}
+
+.margin-bottom30 {
+    margin-bottom: 30px;
+}
+
+/* city selection */
+#city-slider {
+    display: none;
+    background: #f5f5f5;
+}
+
+#city-slider.bwm-fullscreen-popup {
+    padding: 0;
+    padding-bottom: 40px;
+    bottom: 0;
+}
+
+.city-slider-input {
+    width: 100%;
+}
+
+.city-slider-input input {
+    padding: 10px 50px;
+}
+
+.slider-back-arrow {
+    height: 30px;
+    width: 40px;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    z-index: 11;
+    cursor: pointer;
+}
+
+.back-long-arrow-left {
+    position: absolute;
+    top: 7px;
+    left: 10px;
+}
+
+.slider-list li {
+    border-top: 1px solid #e2e2e2;
+    font-size: 14px;
+    padding: 15px 20px;
+    color: #333;
+    cursor: pointer;
+}
+
+.slider-list li:first-child {
+    border-top: 0;
+}
+
+.slider-list li:hover {
+    background: #ededed;
+}
+
+.noResult {
+    font-size: 14px;
+    padding: 15px 20px;
+    color: #333;
+}
+
+/*fixed*/
+#city-slider.input-fixed {
+    padding-top: 41px;
+}
+
+#city-slider.input-fixed .city-slider-input {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.btn-teal {
+    background: #41b4c4;
+    color: #fff;
+    border: 1px solid #41b4c4;
+}
+
+.btn-teal:hover {
+    background: #58bdcb;
+    border: 1px solid #58bdcb;
+    text-decoration: none;
+}
+
+/* sprite */
+.used-sprite { background: url(/m/images/used-sprite.png?v1=28Sep2016) no-repeat; display: inline-block; }
+.free-cost, .buyer, .listing-time, .contact-buyer { width: 20px; height: 20px; margin-right: 10px; vertical-align: middle; }
+.free-cost { background-position: 0 -35px; }
+.buyer { background-position: 0 -60px; }
+.listing-time { background-position: 0 -83px; }
+.contact-buyer { background-position: 0 -108px; }
+.profile-id-icon { width: 30px; height: 30px; background-position: 0 0; }
+
+#sell-benefit-list li {
+    font-size: 14px;
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+/* brand */
+.brand-type-container ul li { display: inline-block; *display:inline; *zoom:1; vertical-align: top; width: 90px; height: 65px; margin-bottom: 15px; }
+.brand-type-title { display: block; text-transform: capitalize; }
+.brand-type-container li a { text-decoration: none; color: #565a5c; display: inline-block; }
+.brand-type-container ul li:hover span.brand-type-title { font-weight: bold; }
+.brandlogosprite { background:url('http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?v=19May2016') no-repeat; display: inline-block; }
+.brand-aprilia, .brand-bajaj, .brand-benelli, .brand-bmw, .brand-ducati, .brand-royalenfield, .brand-motoguzzi, .brand-harleydavidson, .brand-heroelectric, .brand-hero, .brand-honda, .brand-hyosung, .brand-indian, .brand-kawasaki, .brand-ktm, .brand-lml, .brand-mahindra, .brand-suzuki, .brand-triumph, .brand-tvs, .brand-vespa, .brand-yamaha, .brand-yo, .brand-mv-agusta, .brand-mvagusta, .brand-um, .brand-eider { height:30px; }
+.brand-aprilia { width: 52px; background-position: 0 0; }.brand-honda { width: 34px; background-position: -58px 0; }
+.brand-bajaj { width: 53px; background-position: -97px 0; }.brand-hyosung { width: 60px; background-position: -156px 0; }
+.brand-suzuki { width: 40px; background-position: -222px 0; }.brand-benelli { width: 75px; background-position: -268px 0; }
+.brand-indian { width: 73px; background-position: -349px 0; }.brand-triumph { width: 73px; background-position: -428px 0; }
+.brand-bmw { width: 26px; background-position: -507px 0; }.brand-kawasaki { width: 52px; background-position: -539px 0; }
+.brand-tvs { width: 71px; background-position: -597px 0; }.brand-ducati { width: 26px; background-position: -674px 0; }
+.brand-ktm { width: 59px; background-position: -706px 0; }.brand-vespa { width: 70px; background-position: -771px 0; }
+.brand-harleydavidson { width: 35px; background-position: -847px 0; }.brand-lml { width: 73px; background-position: -889px 0; }
+.brand-yamaha { width: 73px; background-position: -968px 0; }.brand-hero { width: 38px; background-position: -1047px 0; }
+.brand-mahindra { width: 61px; background-position: -1091px 0; }.brand-yo { width: 76px; background-position: -1159px 0; }
+.brand-heroelectric { width: 53px; background-position: -1242px 0; }.brand-motoguzzi { width: 49px; background-position: -1300px 0; }
+.brand-royalenfield { width: 74px; background-position: -1354px 0; }.brand-mv-agusta, .brand-mvagusta { width: 40px; background-position: -1432px 0; }
+.brand-um { width: 38px; background-position: -1481px 0; }.brand-eider { width:38px; background-position:-1529px 0; }
