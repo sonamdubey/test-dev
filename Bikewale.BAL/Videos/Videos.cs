@@ -60,7 +60,7 @@ namespace Bikewale.BAL.Videos
             {
                 if (_useGrpc)
                 {
-                    var _objVideoList = GrpcMethods.GetVideosBySubCategory((uint)categoryId);
+                    var _objVideoList = GrpcMethods.GetVideosBySubCategory((uint)categoryId,1,totalCount);
 
                     if (_objVideoList != null)
                     {
@@ -124,11 +124,24 @@ namespace Bikewale.BAL.Videos
             {
                 if (_useGrpc)
                 {
+                    if (!sortOrder.HasValue)
+                        sortOrder = VideosSortOrder.MostPopular;
+                    
+                    int startIndex, endIndex;
+                    Bikewale.Utility.Paging.GetStartEndIndex(pageSize, pageNo, out startIndex, out endIndex);
 
-                    var _objVideoList = GrpcMethods.GetVideosBySubCategories(categoryIdList);
+                    var _objVideoList = GrpcMethods.GetVideosBySubCategories(categoryIdList,(uint)startIndex,(uint)endIndex,sortOrder.Value);
 
                     if (_objVideoList != null && _objVideoList.TotalRecords > 0)
                     {
+                        var pageCount = (int)Math.Ceiling((double)_objVideoList.TotalRecords / (double)pageSize);
+                       
+                        if (pageNo < pageCount)
+                            _objVideoList.NextPageUrl = String.Format("api/v1/videos/subcategory/{0}/?appId={1}&pageNo={2}&pageSize={3}&sortCategory={4}", categoryIdList, 2, pageNo + 1, pageSize, sortOrder.ToString());
+
+                        if (pageNo > 1 && pageNo <= pageCount)
+                            _objVideoList.PrevPageUrl = String.Format("api/v1/videos/subcategory/{0}/?appId={1}&pageNo={2}&pageSize={3}&sortCategory={4}", categoryIdList, 2, pageNo - 1, pageSize, sortOrder.ToString());
+
                         objVideosList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objVideoList);
                     }
                     else
@@ -207,7 +220,7 @@ namespace Bikewale.BAL.Videos
                 {
                     GrpcVideosList _objVideoList;
 
-                    _objVideoList = GrpcMethods.GetSimilarVideos((int)videoId);                  
+                    _objVideoList = GrpcMethods.GetSimilarVideos((int)videoId, totalCount);              
 
                     if (_objVideoList != null && _objVideoList.LstGrpcVideos.Count > 0)
                     {
@@ -348,13 +361,17 @@ namespace Bikewale.BAL.Videos
                 if (_useGrpc)
                 {
                     GrpcVideosList _objVideoList;
+                    
+                    int startIndex, endIndex;
+                    Bikewale.Utility.Paging.GetStartEndIndex((int)pageSize, (int)pageNo, out startIndex, out endIndex);    
+
                     if (modelId.HasValue)
                     {
-                        _objVideoList = GrpcMethods.GetVideosByModelId((int)modelId.Value);
+                        _objVideoList = GrpcMethods.GetVideosByModelId((int)modelId.Value,(uint)startIndex,(uint)endIndex);
                     }
                     else
                     {
-                        _objVideoList = GrpcMethods.GetVideosByMakeId((int)makeId);
+                        _objVideoList = GrpcMethods.GetVideosByMakeId((int)makeId, (uint)startIndex, (uint)endIndex);
                     }
 
 

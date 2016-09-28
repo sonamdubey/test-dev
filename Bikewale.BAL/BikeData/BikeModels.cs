@@ -1166,7 +1166,7 @@ namespace Bikewale.BAL.BikeData
             {
                 if (_useGrpc)
                 {
-                    var _objVideoList = GrpcMethods.GetVideosByModelId(modelId);
+                    var _objVideoList = GrpcMethods.GetVideosByModelId(modelId,1,UInt32.MaxValue);
 
                     if (_objVideoList != null && _objVideoList.LstGrpcVideos.Count > 0)
                     {
