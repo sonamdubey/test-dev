@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.DealersInState_v2" EnableViewState="false" Trace="false" Debug="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.DealersInCountry" EnableViewState="false" Trace="false" Debug="false" %>
 <%@ Register Src="~/controls/NewLaunchedBikes_new.ascx" TagName="NewLaunchedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
 
@@ -155,25 +155,23 @@
                                     <span itemprop="title">Home</span>
                                 </a>
                             </li>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <%--<li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
                                  <a href="/" itemprop="url">
                                     <span itemprop="title">New Bikes</span>
                                 </a>
-                            </li>
+                            </li>--%>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
-                                 <a href="/" itemprop="url">
-                                    <span itemprop="title">Dealer Showroom</span>
+                                 <a href="/dealer-showroom-locator/" itemprop="url">
+                                    <span itemprop="title">Dealer Showroom locator</span>
                                 </a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
-                                <a href="/<%=makeMaskingName%>-bikes/" itemprop="url">
                                     <span itemprop="title"><%=objMMV.MakeName %> Dealer Showrooms</span>
-                                </a>
                             </li>
-                            <li><span class="bwsprite fa fa-angle-right margin-right10"></span>Dealer Locator</li>
+                            <%--<li><span class="bwsprite fa fa-angle-right margin-right10"></span>Dealer Locator</li>--%>
                         </ul>
                         <div class="clear"></div>
                     </div>
@@ -212,59 +210,23 @@
                                 <div class="bw-blackbg-tooltip errorText"></div>
                             </div>
                             <ul id="location-list">
-                                <li class="item-state">
-                                    <p href="" class="type-state" data-item-id="1">Andhra Pradesh</p>
-                                    <ul class="location-list-city">
+                                  <% foreach (Bikewale.Entities.DealerLocator.StateCityEntity st in stateList)
+                       { %>
+                                <li  class="item-state">
+                                    <p data-item-id="<%=st.Id %>" data-item-name="<%=st.Name %>" data-lat="<%=st.Lat %>" data-long ="<%=st.Long %>" data-dealercount="<%=st.DealerCountState%>"  href="" class="type-state" data-item-id="<%=st.Id %>"><%=st.Name %></p>
+                                                 <ul class="location-list-city">
+                                                     <% foreach (Bikewale.Entities.Location.DealerCityEntity stcity in st.Cities)
+                       { %>
+                                    
                                         <li>
-                                            <a href="" data-item-id="51">Amalapuram (1)</a>
+                                            <a data-item-id="<%=stcity.Id %>" data-item-name="<%=stcity.CityName %>" data-lat="<%=stcity.Lattitude %>" data-long ="<%=stcity.Longitude %>" data-link="<%=stcity.Link %>" data-dealercount="<%=stcity.DealersCount%>" href="/<%=makeMaskingName %>-dealer-showrooms-in-<%=stcity.CityMaskingName %>/"><%=stcity.CityName %> (<%=stcity.DealersCount %>)</a>
                                         </li>
-                                        <li>
-                                            <a href="" data-item-id="52">Anantapur (1)</a>
-                                        </li>
-                                        <li>
-                                            <a href="" data-item-id="53">Bhimavaram (1)</a>
-                                        </li>
-                                        <li>
-                                            <a href="" data-item-id="54">Chirala (1)</a>
-                                        </li>
-                                        <li>
-                                            <a href="" data-item-id="55">Chittoor (1)</a>
-                                        </li>
+                                      <%}%>
                                     </ul>
+                                   
                                 </li>
-                                <li class="item-state">
-                                    <p href="" class="type-state" data-item-id="2">Assam</p>
-                                    <ul class="location-list-city">
-                                        <li>
-                                            <a href="">Barpeta (1)</a>
-                                        </li>
-                                        <li>
-                                            <a href="">Bongaigaon (1)</a>
-                                        </li>
-                                        <li>
-                                            <a href="">Dibrugarh (1)</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="item-state">
-                                    <p href="" class="type-state" data-item-id="3">Delhi</p>
-                                    <ul class="location-list-city">
-                                        <li>
-                                            <a href="">New Delhi (11)</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="item-state">
-                                    <p href="" class="type-state" data-item-id="4">Goa</p>
-                                    <ul class="location-list-city">
-                                        <li>
-                                            <a href="">Margao (1)</a>
-                                        </li>
-                                        <li>
-                                            <a href="">Panjim (1)</a>
-                                        </li>
-                                    </ul>
-                                </li>
+                              <%}%>
+                                
                             </ul>
                             <div id="no-result"></div>
                         </div>
@@ -313,7 +275,7 @@
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             var dealersByCity = true;
-            var cityArr = JSON.parse('<%= cityArr %>');
+          <%--  var cityArr = JSON.parse('<%= cityArr %>');--%>
             var stateLat = '<%= (dealerCity != null && dealerCity.dealerStates != null) ? dealerCity.dealerStates.StateLatitude : string.Empty %>';
             var stateLong = '<%= (dealerCity != null && dealerCity.dealerStates != null) ? dealerCity.dealerStates.StateLongitude : string.Empty %>';
         </script>

@@ -1,8 +1,9 @@
 
-﻿using Bikewale.CoreDAL;
+using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using MySql.CoreDAL;
 using System;
 using System.Collections;
@@ -151,6 +152,55 @@ namespace Bikewale.DAL.Location
                 objErr.SendMail();
             }
             return objStateList;
+        }
+        public IEnumerable<DealerListIndia> GetDealerStatesCities(uint makeId)
+        {
+            List<DealerListIndia> objStateCityList = null;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getstatecitybymake"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+
+                    objStateCityList = new List<DealerListIndia>();
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                objStateCityList.Add(new DealerListIndia
+                                {
+                                    cityid = SqlReaderConvertor.ToUInt16(dr["cityid"]),
+                                    cityName = Convert.ToString(dr["name"]),
+                                    cityMaskingName = Convert.ToString(dr["citymaskingname"]),
+                                    cityLattitude = Convert.ToString(dr["lattitude"]),
+                                    cityLongitude = Convert.ToString(dr["longitude"]),
+                                    stateId = SqlReaderConvertor.ToUInt16(dr["StateId"]),
+                                    stateName = Convert.ToString(dr["StateName"]),
+                                    stateMaskingName = Convert.ToString(dr["StateMaskingName"]),
+                                    stateLattitude = Convert.ToString(dr["StateLattitude"]),
+                                    stateLongitude = Convert.ToString(dr["StateLongitude"]),
+                                    dealerCountCity = SqlReaderConvertor.ToInt32(dr["dealerscnt"])
+
+                                });
+                            }
+
+                            dr.Close();
+                        }
+
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + String.Format(" :GetDealerStates, makeId = {0} ", makeId));
+                objErr.SendMail();
+            }
+            return objStateCityList;
         }
     }
 }

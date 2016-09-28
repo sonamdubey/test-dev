@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.Location;
+﻿using Bikewale.Entities.DealerLocator;
+using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
@@ -10,7 +11,7 @@ namespace Bikewale.Cache.Location
 {
     public class StateCacheRepository : IStateCacheRepository
     {
-        private readonly IState _objState = null;
+        private readonly IState _objState = null,_objStateCity=null;
         private readonly ICacheManager _cache = null;
 
         /// <summary>
@@ -21,6 +22,7 @@ namespace Bikewale.Cache.Location
         public StateCacheRepository(IState objState, ICacheManager cache)
         {
             _objState = objState;
+            _objStateCity = objState;
             _cache = cache;
         }
 
@@ -45,6 +47,22 @@ namespace Bikewale.Cache.Location
                 objErr.SendMail();
             }
             return objStates;
+        }
+        public IEnumerable<DealerListIndia> GetDealerStatesCities(uint makeId)
+        {
+            IEnumerable<DealerListIndia> objStatesCity = null;
+            string key = string.Empty;
+            try
+            {
+                key = String.Format("BW_StatewiseDealersCnt_Make_{0}", makeId);
+                objStatesCity = _cache.GetFromCache<IEnumerable<DealerListIndia>>(key, new TimeSpan(1, 0, 0), () => _objStateCity.GetDealerStatesCities(makeId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeCompareCacheRepository.GetDealerStatesCities");
+                objErr.SendMail();
+            }
+            return objStatesCity;
         }
 
         public StateMaskingResponse GetStateMaskingResponse(string maskingName)

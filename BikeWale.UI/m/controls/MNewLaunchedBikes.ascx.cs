@@ -1,9 +1,5 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Controls
@@ -17,7 +13,7 @@ namespace Bikewale.Mobile.Controls
         public int FetchedRecordsCount { get; set; }
         public string PageId { get; set; }
         public int PQSourceId { get; set; }
-
+        public int makeid { get; set; }
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -33,6 +29,7 @@ namespace Bikewale.Mobile.Controls
             BindNewLaunchedBikesControl objNewLaunch = new BindNewLaunchedBikesControl();
             objNewLaunch.pageSize = this.pageSize;
             objNewLaunch.currentPageNo = this.curPageNo;
+            objNewLaunch.makeid = this.makeid;
             objNewLaunch.BindNewlyLaunchedBikes(rptNewLaunchedBikes);
             this.FetchedRecordsCount = objNewLaunch.FetchedRecordsCount;
         }

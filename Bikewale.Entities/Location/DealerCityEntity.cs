@@ -20,7 +20,19 @@ namespace Bikewale.Entities.Location
         [JsonProperty("dealerCount"), DataMember]
         public uint DealersCount { get; set; }
 
+        [JsonProperty("id"), DataMember]
+        public uint Id { get; set; }
+
         [JsonProperty("link"), DataMember]
         public string Link { get; set; }
+
+        [JsonProperty("cityname"), DataMember]
+        public string CityName { get; set; }
+
+        [JsonProperty("citymasking"), DataMember]
+        public string CityMaskingName { get; set; }
+
+
+
     }
 }

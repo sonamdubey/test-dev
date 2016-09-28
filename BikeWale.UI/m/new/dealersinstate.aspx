@@ -1,11 +1,13 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.DealersInState" EnableViewState="false" %>
+<%@ Register Src="~/m/controls/MUpcomingBikes.ascx" TagName="MUpcomingBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/MNewLaunchedBikes.ascx" TagName="MNewLaunchedBikes" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
      <% 
-        description = string.Format("{0} bike dealers/showrooms in {1}. Find dealer information for more than {2} dealers in {3} cities. Dealer information includes full address, phone numbers, email, pin code etc.", objMMV.MakeName, stateName, DealerCount, citiesCount);
-        keywords = string.Format("{0} bike dealers, {0} bike showrooms, {0} dealers, {0} showrooms, {0} dealerships, dealerships, test drive, {0} dealer contact number", objMMV.MakeName);
-        title = string.Format("{0} Bike Dealers in {1} | {0} Bike Showrooms in {1} - BikeWale", objMMV.MakeName, stateName);
+         title = string.Format("{0} Bike Showrooms in India | {0} Bike Dealers in India - BikeWale - BikeWale", objMMV.MakeName, stateName);
+         keywords = string.Format("{0} bike dealers, {0} bike showrooms, {0} dealers, {0} showrooms, {0} dealerships, dealerships, test drive, {0} dealer contact number", objMMV.MakeName);
+         description = string.Format("{0} bike dealers showrooms in India. Find {0} dealer showroom information for more than {1} dealers in {2} cities", objMMV.MakeName, DealerCount, citiesCount);
         canonical = string.Format("http://www.bikewale.com/{0}-bikes/dealers-in-{1}-state/", objMMV.MaskingName, stateMaskingName);
         AdPath = "/1017752/Bikewale_Mobile_Model";
         AdId = "1444028976556";
@@ -37,7 +39,7 @@
                 <div class="bg-white">
                     <h1 class="box-shadow padding-15-20">Bajaj dealer showrooms in India</h1>
                     <div class="box-shadow font14 text-light-grey padding-15-20">
-                        Honda sells bikes through a vast network of dealer showrooms. The network consists of 102 authorized Honda showrooms spread across 11 cities in India. The Honda dealer showroom locator will help you find the nearest authorized dealer in your city. In case, there are no Honda showrooms in your city, you can get in touch with an authorized dealer in your nearby city.
+                       <%=objMMV.MakeName %> sells bikes through a vast network of dealer showrooms.The network consists of <%=DealerCount%> authorized <%=objMMV.MakeName %> showrooms spread across <%=citiesCount%> cities in India. The <%=objMMV.MakeName%> dealer showroom locator will help you find the nearest authorized dealer in your city. In case, there are no <%=objMMV.MakeName %> showrooms in your city, you can get in touch with an authorized dealer in your nearby city.
                     </div>
                 </div>
             </div>
@@ -45,7 +47,7 @@
 
         <section>
             <div class="container bg-white margin-bottom10 box-shadow">
-                <h2 class="padding-15-20 border-solid-bottom">577 Bajaj dealer showrooms in 401 cities</h2>
+                <h2 class="padding-15-20 border-solid-bottom"><%=DealerCount%> <%=objMMV.MakeName %> dealer showrooms in <%=citiesCount%> cities</h2>
                 <div class="content-inner-block-20">
                     <div class="form-control-box">
                         <span class="bwmsprite search-icon-grey"></span>
@@ -53,118 +55,21 @@
                         <span class="fa fa-spinner fa-spin position-abt text-black"></span>
                     </div>
                     <ul id="location-list">
-                        <li class="item-state">
-                            <a href="" class="type-state" rel="nofollow">Andhra Pradesh</a>
-                            <ul class="location-list-city">
-                                <li>
-                                    <a href="">Amalapuram (1)</a>
+                                <% foreach (Bikewale.Entities.DealerLocator.StateCityEntity st in stateList)
+                       { %>
+                                <li  class="item-state">
+                                    <a data-item-id="<%=st.Id %>" data-item-name="<%=st.Name %>" data-lat="<%=st.Lat %>" data-long ="<%=st.Long %>" data-dealercount="<%=st.DealerCountState%>"  href="" class="type-state" data-item-id="<%=st.Id %>"><%=st.Name %></a>
+                                                 <% foreach (Bikewale.Entities.Location.DealerCityEntity stcity in st.Cities)
+                       { %>
+                                    <ul class="location-list-city">
+                                        <li>
+                                            <a data-item-id="<%=stcity.Id %>" data-item-name="<%=stcity.CityName %>" data-lat="<%=stcity.Lattitude %>" data-long ="<%=stcity.Longitude %>" data-dealercount="<%=stcity.DealersCount%>" href="/ <%=makeMaskingName %>-dealer-showrooms-in-<%=stcity.CityMaskingName %>/" "><%=stcity.CityName %> (<%=stcity.DealersCount %>)</a>
+                                        </li>
+                                     
+                                    </ul>
+                                    <%}%>
                                 </li>
-                                <li>
-                                    <a href="">Anantapur (1)</a>
-                                </li>
-                                <li>
-                                    <a href="">Bhimavaram (1)</a>
-                                </li>
-                                <li>
-                                    <a href="">Chirala (1)</a>
-                                </li>
-                                <li>
-                                    <a href="">Chittoor (1)</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="item-state">
-                            <a href="" class="type-state" rel="nofollow">Assam</a>
-                            <ul class="location-list-city">
-                                <li>
-                                    <a href="">Barpeta (1)</a>
-                                </li>
-                                <li>
-                                    <a href="">Bongaigaon (1)</a>
-                                </li>
-                                <li>
-                                    <a href="">Dibrugarh (1)</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="item-state">
-                            <a href="" class="type-state" rel="nofollow">Delhi</a>
-                            <ul class="location-list-city">
-                                <li>
-                                    <a href="">New Delhi (11)</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="item-state">
-                            <a href="" class="type-state" rel="nofollow">Goa</a>
-                            <ul class="location-list-city">
-                                <li>
-                                    <a href="">Margao (1)</a>
-                                </li>
-                                <li>
-                                    <a href="">Panjim (1)</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="item-state">
-                            <a href="" class="type-state" rel="nofollow">Gujarat</a>
-                            <ul class="location-list-city">
-                                <li>
-                                    <a href="">Amalapuram (1)</a>
-                                </li>
-                                <li>
-                                    <a href="">Anantapur (1)</a>
-                                </li>
-                                <li>
-                                    <a href="">Bhimavaram (1)</a>
-                                </li>
-                                <li>
-                                    <a href="">Chirala (1)</a>
-                                </li>
-                                <li>
-                                    <a href="">Chittoor (1)</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="item-state">
-                            <a href="" class="type-state" rel="nofollow">Haryana</a>
-                            <ul class="location-list-city">
-                                <li>
-                                    <a href="">Margao (1)</a>
-                                </li>
-                                <li>
-                                    <a href="">Panjim (1)</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="item-state">
-                            <a href="" class="type-state" rel="nofollow">Himachal Pradesh</a>
-                            <ul class="location-list-city">
-                                <li>
-                                    <a href="">Amalapuram (1)</a>
-                                </li>
-                                <li>
-                                    <a href="">Chirala (1)</a>
-                                </li>
-                                <li>
-                                    <a href="">Chittoor (1)</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="item-state">
-                            <a href="" class="type-state" rel="nofollow">Maharashtra</a>
-                            <ul class="location-list-city">
-                                <li>
-                                    <a href="">Amalapuram (1)</a>
-                                </li>
-                                <li>
-                                    <a href="">Anantapur (1)</a>
-                                </li>
-                                <li>
-                                    <a href="">Chittoor (1)</a>
-                                </li>
-                            </ul>
-                        </li>
+                              <%}%>
                     </ul>
                     <div id="no-result"></div>
                 </div>
@@ -173,10 +78,17 @@
 
         <section>
             <div class="container bg-white margin-bottom10 box-shadow">
-                <h2 class="padding-15-20">Newly launched Bajaj bikes</h2>
+               <% if (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)
+                           { %>
+                          <h2 class="font18 padding-18-20">Newly launched <%=objMMV.MakeName %> bikes</h2>
+                        <BW:MNewLaunchedBikes runat="server" ID="ctrlNewLaunchedBikes" />
+                        <%} %>
 
                 <div class="margin-right20 margin-left20 border-solid-bottom"></div>
-                <h2 class="padding-15-20">Upcoming Bajaj bikes</h2>
+                 <% if (ctrlUpcomingBikes.FetchedRecordsCount > 0)
+           { %> <h2 class="font18 padding-18-20">Upcoming <%=objMMV.MakeName %> bikes</h2>
+        <BW:MUpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
+        <%} %>
             </div>
         </section>
         
