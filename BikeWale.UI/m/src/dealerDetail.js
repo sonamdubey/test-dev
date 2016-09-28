@@ -10,7 +10,7 @@
 
 $("#calldealer").on("click", function () {
     triggerGA("Dealer_Locator_Detail", "Call_Dealer_Clicked", makeName + "_" + cityArea);
-});
+}); 
 
 $(".maskingNumber").on("click", function () {
     triggerGA("Dealer_Locator_Detail", "Dealer_Number_Clicked", makeName + "_" + cityArea);

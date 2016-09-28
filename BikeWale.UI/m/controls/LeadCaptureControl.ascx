@@ -13,7 +13,7 @@
                 <!-- ko if : isDealerBikes() -->
                 <div id="getLeadBike" class="margin-top10 form-control-box">
                     <div class="dealer-search-brand form-control-box">
-                        <span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span>
+                        
                         <div class="dealer-search-brand-form"><span>Select a bike</span></div>
                         <span class="bwmsprite error-icon errorIcon"></span>
                         <div class="bw-blackbg-tooltip errorText"></div>
@@ -127,10 +127,9 @@
 
         $("#getMobile").on("blur", function () {
             if (prevMobile != $(this).val().trim()) {
-                if (validateMobileNo($(this))) {
+                if (dleadvm.validateMobileNo($(this))) {
                     dleadvm.IsVerified(false);
-                    otpText.val('');
-                    otpContainer.removeClass("show").addClass("hide");
+                  
                     hideError($(this));
                 }
             }
@@ -138,10 +137,9 @@
 
         $("#getEmailID").on("blur", function () {
             if (prevEmail != $(this).val().trim()) {
-                if (validateEmailId($(this))) {
+                if (dleadvm.validateEmailId($(this))) {
                     dleadvm.IsVerified(false);
-                    otpText.val('');
-                    otpContainer.removeClass("show").addClass("hide");
+                  
                     hideError($(this));
                 }
             }
@@ -393,7 +391,7 @@
         };
 
         self.submitLead = function (data, event) {
-          
+           
             if (self.mfgCampaignId() > 0) {
                 self.submitCampaignLead(data, event);
             }
@@ -422,6 +420,7 @@
 
         self.validateUserInfo = function () {
             var isValid = true;
+            
             isValid =  self.validateUserName();
             isValid &= self.validateEmailId();
             isValid &= self.validateMobileNo();

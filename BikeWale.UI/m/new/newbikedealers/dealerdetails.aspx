@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.DealerDetails" EnableViewState="false" %>
 <%@ Register Src="~/m/controls/DealersCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
-
+<%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,7 +84,7 @@
                    { %>
                 <div class="grid-12 float-button clearfix float-fixed">
                     <div class="grid-6 alpha omega padding-right5">
-                        <a id="getAssistance" leadSourceId="21" class="btn btn-orange btn-full-width rightfloat" href="javascript:void(0);">Get offers</a>
+                        <a data-leadsourceid="21" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn" href="javascript:void(0);">Get offers</a>
                     </div>
                     <div class="grid-6 alpha omega padding-left5">
                         <a id="calldealer" class="btn btn-green btn-full-width rightfloat" href="tel:<%= dealerDetails.MaskingNumber %>">
@@ -135,7 +135,7 @@
         <%} %>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <section class="container bg-white margin-bottom10">
-            <div class="box-shadow padding-15-20">
+            <div class="box-shadow">
                 <!-- dealer card -->
                 <% if (ctrlDealerCard.showWidget) { %>
                     <BW:DealerCard runat="server" ID="ctrlDealerCard" />
@@ -143,7 +143,7 @@
             </div>
         </section>
         
-        <!-- Lead Capture pop up start  -->
+       <%-- <!-- Lead Capture pop up start  -->
         <div id="leadCapturePopup" class="bw-popup bwm-fullscreen-popup contact-details hide">
             <div class="popup-inner-container text-center">
                 <div class="bwmsprite close-btn leadCapture-close-btn position-abt pos-top20 pos-right20"></div>
@@ -250,18 +250,26 @@
         </div>
         <!-- Lead Capture pop up end  -->
         
-        
+        --%>
+
+         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
+
+
+       
+
+
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
-             var versionId, dealerId = "<%= dealerId %>", cityId = "<%= cityId %>", clientIP = "<%= Bikewale.Common.CommonOpn.GetClientIP()%>";                                              
+            var versionId, dealerId = "<%= dealerId %>", cityId = "<%= cityId %>", clientIP = "<%= Bikewale.Common.CommonOpn.GetClientIP()%>",campaignId = "<%= campaignId %>";                                              
              var dealerLat = "<%= dealerLat %>", dealerLong = "<%= dealerLong%>";
              var pqSource = "<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DealerLocator_Detail) %>";
              var bodHt, footerHt, scrollPosition, leadSourceId;                         
              var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey%>";
              var makeName = "<%= makeName%>";
-             var cityArea = "<%= dealerCity + "_" + dealerArea%>";
+            var cityArea = "<%= dealerCity + "_" + dealerArea%>";
+            var pageUrl = window.location.href;
 
             $(window).scroll(function () {
                 bodHt = $('body').height();
@@ -275,123 +283,30 @@
                     $('.float-button').addClass('float-fixed').show();
             });
            
-            $("#getAssistance").on('click', function () {
-                leadSourceId = $(this).attr("leadSourceId");
-                $("#leadCapturePopup").show();
-                appendHash("assistancePopup");
-                $("div#contactDetailsPopup").show();
-                $("#otpPopup").hide();
-                triggerGA("Dealer_Locator_Detail", "Get_Offers_Clicked", makeName + "_" + cityArea);
-            });
 
-            /*need needmodification*/   
-            var assistancePopupClose = function () {
-                $("#leadCapturePopup").hide();
-                $("#notify-response").hide();
-            };
+            
+           $(".leadcapturebtn").click(function(e){
+               ele = $(this);
+               
+               var leadOptions = {
+                   "dealerid" : dealerId,                    
+                   "leadsourceid" : ele.attr('data-leadsourceid'),
+                   "pqsourceid" : ele.attr('data-pqsourceid'),
+                   "pageurl" : pageUrl,
+                   "clientip" : clientIP,
+                   "isregisterpq": true,
+                   "isdealerbikes": true,
+                   "campid": campaignId
+                    
+               };
 
-            $("#user-details-submit-btn").on("click", function () {
-                if (validateUserDetail()) {
-                    $("#contactDetailsPopup").hide();
-                    $("#otpPopup").show();
-                    $(".lead-mobile").text($("#getMobile").val());
-                }
-            });
+               dleadvm.setOptions(leadOptions);
 
-            var validateModel = function () {
-                var isValid = true,
-                    model = $('.dealer-search-brand-form');
-
-                if (!model.hasClass('selection-done')) {
-                    setError(model, 'Please select a bike');
-                    isValid = false;
-                }
-                else if (model.hasClass('selection-done')) {
-                    hideError(model);
-                    isValid = true;
-                }
-                return isValid;
-            };
-            //otp form
-            $("#otpPopup .edit-mobile-btn").on("click", function () {
-                var prevMobile = $(this).prev("span.lead-mobile").text();
-                $(".lead-otp-box-container").hide();
-                $(".update-mobile-box").show();
-                $("#getUpdatedMobile").val(prevMobile).focus();
-            });
-            $("#generateNewOTP").on("click", function () {
-                if (validateUpdatedMobile()) {
-                    var updatedNumber = $(".update-mobile-box").find("#getUpdatedMobile").val();
-                    $(".update-mobile-box").hide();
-                    $(".lead-otp-box-container").show();
-                    $(".lead-mobile-box").find(".lead-mobile").text(updatedNumber);
-                }
-            });
-
-            var validateUpdatedMobile = function () {
-                var isValid = true,
-                    mobileNo = $("#getUpdatedMobile"),
-                    mobileVal = mobileNo.val(),
-                    reMobile = /^[0-9]{10}$/;
-                if (mobileVal == "") {
-                    setError(mobileNo, "Please enter your Mobile number");
-                    isValid = false;
-                }
-                else if (!reMobile.test(mobileVal) && isValid) {
-                    setError(mobileNo, "Mobile number should be 10 digits");
-                    isValid = false;
-                }
-                else
-                    hideError(mobileNo)
-                return isValid;
-            };
-            var otpText = $("#getOTP"),
-                otpBtn = $("#otp-submit-btn");
-            var otpVal = function (msg) {
-                otpText.addClass("border-red");
-                otpText.siblings("span, div").show();
-                otpText.siblings("div").text(msg);
-            };
-            function validateOTP() {
-                var retVal = true;
-                var isNumber = /^[0-9]{5}$/;
-                var cwiCode = otpText.val();
-                if (cwiCode == "") {
-                    retVal = false;
-                    otpVal("Please enter your Verification Code");
-                }
-                else {
-                    if (isNaN(cwiCode)) {
-                        retVal = false;
-                        otpVal("Verification code should be numeric");
-                    }
-                    else if (cwiCode.length != 5) {
-                        retVal = false;
-                        otpVal("Verification code should be of 5 digits");
-                    }
-                }
-                return retVal;
-            }
-            var brandSearchBar = $("#brandSearchBar"),
-                dealerSearchBrand = $(".dealer-search-brand"),
-                dealerSearchBrandForm = $(".dealer-search-brand-form");
-            dealerSearchBrand.on('click', function () {
-                $('.dealer-brand-wrapper').show();
-                brandSearchBar.addClass('open').animate({ 'left': '0px' }, 500);
-                brandSearchBar.find(".user-input-box").animate({ 'left': '0px' }, 500);
-                $("#assistanceBrandInput").focus();
-            });
-            function setSelectedElement(_self, selectedElement) {
-                _self.parent().prev("input[type='text']").val(selectedElement);
-                brandSearchBar.addClass('open').animate({ 'left': '100%' }, 500);
-            };
-            $(".dealer-brand-wrapper .back-arrow-box").on("click", function () {
-                brandSearchBar.removeClass("open").animate({ 'left': '100%' }, 500);
-                brandSearchBar.find(".user-input-box").animate({ 'left': '100%' }, 500);
-            });
+           });
+          
 
         </script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/dealer/details.js?<%= staticFileVersion %>"></script>
+        
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
     </form>
 </body>

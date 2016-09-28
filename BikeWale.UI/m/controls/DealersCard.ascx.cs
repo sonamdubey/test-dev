@@ -107,9 +107,10 @@ namespace Bikewale.Mobile.Controls
                             cityMaskingName = _dealers.CityMaskingName;
                             makeMaskingName = _dealers.MakeMaskingName;
 
-                            if (DealerId != 0)
+                            if (DealerId > 0)
                             {
-                                _dealers.Dealers = _dealers.Dealers.SkipWhile(x => x.DealerId == DealerId);
+                                //_dealers.Dealers = _dealers.Dealers.SkipWhile(x => x.DealerId == DealerId);
+                                _dealers.Dealers = (from dealer in _dealers.Dealers where dealer.DealerId != DealerId select dealer).ToList();
                             }
 
                             rptDealers.DataSource = _dealers.Dealers.Take(TopCount);
@@ -149,7 +150,7 @@ namespace Bikewale.Mobile.Controls
         public string GetDealerDetailLink(string dealerType, string dealerId, string campId, string dealerName)
         {
             string retString = string.Empty;
-            retString = String.Format("<div class=\"target-link margin-bottom5 text-truncate font16\" >{0}</div>", dealerName);
+            retString = String.Format("<div class=\"target-link margin-bottom5 text-truncate font14\" >{0}</div>", dealerName);
             return retString;
         }
 

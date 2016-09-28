@@ -1,5 +1,6 @@
 ﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
+using Bikewale.CoreDAL;
 using Bikewale.DAL.Dealer;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
@@ -36,6 +37,8 @@ namespace Bikewale.Mobile
         protected string makeName = string.Empty, dealerName = string.Empty, dealerArea = string.Empty, dealerCity = string.Empty;
         protected double dealerLat, dealerLong;
         protected DealersCard ctrlDealerCard;
+        protected LeadCaptureControl ctrlLeadCapture;
+        protected String clientIP = CommonOpn.GetClientIP();
 
         protected override void OnInit(EventArgs e)
         {
@@ -51,10 +54,6 @@ namespace Bikewale.Mobile
             }
 
         }
-
-
-
-
 
         #region Get Dealer Details
         /// <summary>
@@ -101,11 +100,13 @@ namespace Bikewale.Mobile
                         ctrlDealerCard.cityName = dealerCity;
                         ctrlDealerCard.PageName = "Dealer_Details";
                         ctrlDealerCard.TopCount = 6;
-                        ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_MakePage_GetOffersFromDealer;
+                        ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_DealerDetails;
                         ctrlDealerCard.LeadSourceId = 30;
 
                         campaignId = dealerDetails.CampaignId;
                         ctrlDealerCard.DealerId = (int)dealerId;
+
+                        ctrlLeadCapture.CityId = (uint)dealerDetails.CityId;
 
                         if (dealer.Models != null && dealer.Models.Count() > 0)
                         {
@@ -113,8 +114,8 @@ namespace Bikewale.Mobile
                             rptModels.DataSource = dealer.Models;
                             rptModels.DataBind();
                             dealerBikesCount = dealer.Models.Count();
-                            rptModelList.DataSource = dealer.Models;
-                            rptModelList.DataBind();
+                            //rptModelList.DataSource = dealer.Models;
+                            //rptModelList.DataBind();
                         }
                     }
                     else
