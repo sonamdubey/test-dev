@@ -112,15 +112,20 @@ namespace Bikewale.BindViewModels.Controls
                 {
 
                     GrpcVideosList _objVideoList;
+                    int startIndex, endIndex;
+                    Bikewale.Utility.Paging.GetStartEndIndex((int)TotalRecords, (int)pageNo, out startIndex, out endIndex);    
 
                     if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
                     {
                         if (ModelId.HasValue && ModelId.Value > 0)
-                            _objVideoList = GrpcMethods.GetVideosByModelId(ModelId.Value);
+                            _objVideoList = GrpcMethods.GetVideosByModelId(ModelId.Value, (uint)startIndex, (uint)endIndex);
                         else
-                            _objVideoList = GrpcMethods.GetVideosByMakeId(MakeId.Value);
-                    }else
-                        _objVideoList = GrpcMethods.GetVideosBySubCategory((int)EnumVideosCategory.JustLatest);                                                  
+                            _objVideoList = GrpcMethods.GetVideosByMakeId(MakeId.Value, (uint)startIndex, (uint)endIndex);
+                    }
+                    else
+                    {                                           
+                        _objVideoList = GrpcMethods.GetVideosBySubCategory((int)EnumVideosCategory.JustLatest,(uint)startIndex, (uint)endIndex);
+                    }
 
                     if (_objVideoList != null && _objVideoList.LstGrpcVideos.Count > 0)
                     {

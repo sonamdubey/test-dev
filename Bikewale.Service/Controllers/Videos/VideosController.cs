@@ -74,7 +74,10 @@ namespace Bikewale.Service.Videos.Controllers
             {
                 if (_useGrpc)
                 {
-                    var _objVideoList = GrpcMethods.GetVideosBySubCategory((uint)categoryId);
+                    int startIndex, endIndex;
+                    Bikewale.Utility.Paging.GetStartEndIndex((int)pageSize, (int)pageNo, out startIndex, out endIndex);
+
+                    var _objVideoList = GrpcMethods.GetVideosBySubCategory((uint)categoryId,(uint)startIndex,(uint)endIndex);
 
                     if (_objVideoList != null)
                     {
@@ -188,7 +191,10 @@ namespace Bikewale.Service.Videos.Controllers
             {
                 if (_useGrpc)
                 {
-                    var _objVideoList = GrpcMethods.GetVideosByMakeId(makeId);
+                    int startIndex, endIndex;
+                    Bikewale.Utility.Paging.GetStartEndIndex((int)pageSize, (int)pageNo, out startIndex, out endIndex);  
+
+                    var _objVideoList = GrpcMethods.GetVideosByMakeId(makeId,(uint)startIndex,(uint)endIndex);
 
                     if (_objVideoList != null)
                     {
@@ -301,7 +307,10 @@ namespace Bikewale.Service.Videos.Controllers
             {
                 if (_useGrpc)
                 {
-                    var _objVideoList = GrpcMethods.GetVideosByModelId(modelId);
+                    int startIndex, endIndex;
+                    Bikewale.Utility.Paging.GetStartEndIndex((int)pageSize, (int)pageNo, out startIndex, out endIndex); 
+
+                    var _objVideoList = GrpcMethods.GetVideosByModelId(modelId,(uint)startIndex,(uint)endIndex);
 
                     if (_objVideoList != null)
                     {

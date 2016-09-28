@@ -64,7 +64,7 @@ namespace GRPCLoadBalancer
                     var client = new EditCMSWindowsService.Messages.EditCMSGrpcService.EditCMSGrpcServiceClient(serverChannel);
                     var output = client.CheckHeartBit
                                 (new EditCMSWindowsService.Messages.GrpcInt() { IntOutput = 2 },
-                                 null, GetForwardTime(100));
+                                 null, GetForwardTime(500));
                     return output.IntOutput == 2;
 
                 }
