@@ -1,7 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.NewLaunchedBikes_new" %>
 <!-- New Launched Bikes Starts here-->    
+ <div class="jcarousel-wrapper inner-content-carousel margin-bottom20">
+        <div class="jcarousel">
+                 <ul>
     <asp:Repeater ID="rptNewLaunchedBikes" runat="server">
         <ItemTemplate>
+        
             <li class="front">
                 <div class="contentWrapper">
                     <div class="imageWrapper">
@@ -18,11 +22,16 @@
                         <div class="text-bold">
                             <%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "MinPrice")) %>  
                         </div>
-                        <a href="#" makeName="<%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName").ToString() %>" modelName="<%# DataBinder.Eval(Container.DataItem,"ModelName") %>" pagecatid="<%= PageId %>" pqSourceId="<%= PQSourceId %>" modelId="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelId")) %>" class="btn btn-grey btn-sm font14 margin-top15 <%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "MinPrice"))!="0")?"":"hide" %> fillPopupData">Check on-road price</a>
+                        <a href="javascript:void(0)" makeName="<%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName").ToString() %>" modelName="<%# DataBinder.Eval(Container.DataItem,"ModelName") %>" pagecatid="<%= PageId %>" pqSourceId="<%= PQSourceId %>" modelId="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelId")) %>" class="btn btn-grey btn-sm font14 margin-top15 <%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "MinPrice"))!="0")?"":"hide" %> fillPopupData">Check on-road price</a>
                     </div>
                 </div>
             </li>
         </ItemTemplate>
     </asp:Repeater>
+         </ul>   
+            </div>
+     <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow"></a></span>
+        <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+     </div>
 <!--- New Launched Bikes Ends Here-->
 
