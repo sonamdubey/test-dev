@@ -34,7 +34,7 @@ namespace Bikewale.DAL.Used
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, Convert.ToInt32(inquiryId)));
 
-                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                         {
                             if (dr != null && dr.Read())
                             {
@@ -62,30 +62,38 @@ namespace Bikewale.DAL.Used
         /// <summary>
         /// Created by  :   Sumit Kate on 01 Sep 2016
         /// Description :   Saves used bike customer inquiry request
+        /// Modified by :   Sumit Kate on 23 Sep 2016
+        /// Description :   save sourceid(1-Desktop/2-Mobile/3-Android) for tracking the source of the lead
+        /// added isnew parameter
         /// </summary>
         /// <param name="inquiryId"></param>
         /// <param name="customerId"></param>
         /// <returns></returns>
-        public string SaveCustomerInquiry(string inquiryId, string customerId)
+        public int SaveCustomerInquiry(string inquiryId, ulong customerId, UInt16 sourceId, out bool isNew)
         {
-            string inqId = "-1";
+            int inqId = 0;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("insertclassifiedrequests"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("insertclassifiedrequests_23092016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbType.SByte, sourceId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_sellinquiryid", DbType.Int64, inquiryId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requestdatetime", DbType.DateTime, DateTime.Now));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 500, ""));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CommonOpn.GetClientIP()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbType.Boolean, ParameterDirection.Output));
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
-                    inqId = cmd.Parameters["par_inquiryid"].Value.ToString();
+                    inqId = Utility.SqlReaderConvertor.ToInt32(cmd.Parameters["par_inquiryid"].Value);
+                    isNew = Utility.SqlReaderConvertor.ToBoolean(cmd.Parameters["par_isnew"].Value);
                 }
             }
             catch (Exception err)
             {
+                isNew = false;
                 ErrorClass objErr = new ErrorClass(err, String.Format("SubmitInquiry({0}{1})", inquiryId, customerId));
                 objErr.SendMail();
             }
@@ -106,9 +114,10 @@ namespace Bikewale.DAL.Used
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("classified_getminprofiledetails"))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
                         if (dr != null && dr.Read())
                         {

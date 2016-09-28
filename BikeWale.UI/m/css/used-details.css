@@ -437,6 +437,17 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
 .input-box.invalid .boundary:before, .input-box.invalid .boundary:after { background-color: #d9534f; width:50%; }
 .input-box.invalid .error-text { display:inline-block; }
 
+.size-small .icon-outer-container {
+    width: 72px;
+    height: 72px;
+}
+
+.size-small .icon-inner-container {
+    width: 64px;
+    height: 64px;
+    margin: 3px auto;
+}
+
 /* gallery popup */
 #model-gallery-container {
     display:none;

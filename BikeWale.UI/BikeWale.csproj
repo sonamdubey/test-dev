@@ -793,6 +793,10 @@
       <DependentUpon>PopularModelComparison.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\UsedBikeLeadCaptureControl.ascx.cs">
+      <DependentUpon>UsedBikeLeadCaptureControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\UsedBikePhotoGallery.ascx.cs">
       <DependentUpon>UsedBikePhotoGallery.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2222,6 +2226,7 @@
     <Content Include="m\controls\MNewLaunchedBikes.ascx" />
     <Content Include="m\controls\UploadPhotoRequestPopup.ascx" />
     <Content Include="m\controls\PopularModelComparison.ascx" />
+    <Content Include="m\controls\UsedBikeLeadCaptureControl.ascx" />
     <Content Include="m\controls\UsedBikePhotoGallery.ascx" />
     <Content Include="m\controls\ModelGallery.ascx" />
     <Content Include="m\controls\ModelPriceInNearestCities.ascx" />
@@ -2276,11 +2281,7 @@
     <Content Include="m\css\new\bwm-modelprice-in-city.css" />
     <Content Include="m\css\new\bwm-search.css" />
     <Content Include="m\css\style.css" />
-    <Content Include="m\css\used-details-atf.css" />
-    <Content Include="m\css\used-details-btf.css" />
     <Content Include="m\css\used-details.css" />
-    <Content Include="m\css\used-search-atf.css" />
-    <Content Include="m\css\used-search-btf.css" />
     <Content Include="m\css\used-search.css" />
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
