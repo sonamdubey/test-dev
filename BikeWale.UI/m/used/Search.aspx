@@ -6,7 +6,7 @@
         <%
             title = pageTitle;
             description = pageDescription;
-            canonical = pageCanonical;
+            canonical = pageCanonical.Replace("/m/", "/");
             keywords = pageKeywords;
             EnableOG = true;
             relPrevPageUrl = prevUrl.Replace("/m/", "/");
