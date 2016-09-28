@@ -38,7 +38,7 @@ namespace Bikewale.New
         protected Repeater rptMakes, rptCities, rptDealers;
         protected string clientIP = string.Empty, pageUrl = string.Empty;
         protected bool areDealersPremium = false;
-        protected uint dealerId;
+        protected int dealerId;
         protected DealerBikesEntity dealerDetails=null;
         protected DealerCard ctrlDealerCard;
         protected LeadCaptureControl ctrlLeadCapture;
@@ -81,8 +81,10 @@ namespace Bikewale.New
                     ctrlDealerCard.LeadSourceId = 38;
                     ctrlDealerCard.TopCount = Convert.ToUInt16(cityId > 0 ? 3 : 6);
                     ctrlDealerCard.pageName = "DealerDetail_Page_Desktop";
+                    ctrlDealerCard.DealerId = (uint)dealerId;
                     ctrlLeadCapture.CityId = cityId;
                     ctrlLeadCapture.AreaId = 0;
+
                 }
                 else
                 {
@@ -266,7 +268,7 @@ namespace Bikewale.New
         /// Created by: Aditi Srivastava on 27 Sep 2016
         /// </summary>
         /// <param name="dealerid"></param>
-        private void GetDealerDetails(uint dealerid)
+        private void GetDealerDetails(int dealerid)
         {
             try
             {
@@ -324,7 +326,7 @@ namespace Bikewale.New
                 {
                     makeMaskingName = currentReq.QueryString["make"];
                    urlCityMaskingName = currentReq.QueryString["city"];
-                    dealerId = Convert.ToUInt32(currentReq.QueryString["dealerid"]);
+                    dealerId = Convert.ToInt32(currentReq.QueryString["dealerid"]);
                       if (dealerId > 0 && !String.IsNullOrEmpty(urlCityMaskingName) && !String.IsNullOrEmpty(makeMaskingName))
                     {
                         cityId = CitiMapping.GetCityId(urlCityMaskingName);

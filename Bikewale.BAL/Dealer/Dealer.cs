@@ -215,7 +215,7 @@ namespace Bikewale.BAL.Dealer
             }
         }
 
-        public DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId)
+        public DealerBikesEntity GetDealerDetailsAndBikes(int dealerId)
         {
             try
             {

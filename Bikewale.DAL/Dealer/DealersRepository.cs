@@ -625,7 +625,7 @@ namespace Bikewale.DAL.Dealer
             return dealers;
         }
 
-        public DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId)
+        public DealerBikesEntity GetDealerDetailsAndBikes(int dealerId)
         {
             DealerBikesEntity dealers = new DealerBikesEntity();
 
@@ -658,7 +658,7 @@ namespace Bikewale.DAL.Dealer
                                 dealers.DealerDetails.DealerType = SqlReaderConvertor.ParseToInt16(dr["DealerType"]);
                                 dealers.DealerDetails.EMail = Convert.ToString(dr["EMail"]);
                                 dealers.DealerDetails.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
-                                dealers.DealerDetails.DealerId = dealerId;
+                                dealers.DealerDetails.DealerId = Convert.ToUInt16(dealerId);
                                 dealers.DealerDetails.WorkingHours = Convert.ToString(dr["WorkingHours"]);
                                 dealers.DealerDetails.CampaignId = Convert.ToUInt32(dr["id"]);
                             }

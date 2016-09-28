@@ -193,7 +193,7 @@ namespace Bikewale.Utility
         public static string GetDealerUrl(string makeMaskingName, string cityMaskingName, string dealerName, int dealerId)
         {
             string dealerUrl = string.Empty;
-            dealerUrl = string.Format("/{0}-dealer-showrooms-in-{1}/{2}-{3}/", makeMaskingName, cityMaskingName, RemoveSpecialCharUrl(dealerName), dealerId);
+            dealerUrl = string.Format("/{0}-dealer-showrooms-in-{1}/{2}-{3}/", makeMaskingName, cityMaskingName, dealerId,RemoveSpecialCharUrl(dealerName) );
             return dealerUrl;
         }
         /// <summary>

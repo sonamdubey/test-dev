@@ -81,7 +81,7 @@ namespace Bikewale.Cache.DealersLocator
         /// </summary>
         /// <param name="dealerId"></param>
         /// <returns></returns>
-        public DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId)
+        public DealerBikesEntity GetDealerDetailsAndBikes(int dealerId)
         {
             DealerBikesEntity models = null;
             string key = String.Format("BW_DealerBikeModel_{0}", dealerId);

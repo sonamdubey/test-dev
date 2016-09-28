@@ -9,8 +9,8 @@
         keywords = String.Format("{0}, {0} dealer,  {0} Showroom, {0} {1}", dealerName, cityName);
         description = String.Format("{2} is dealer of {0} bikes in {1}. Get best offers on {0} bikes at {2} showroom", makeName, cityName,dealerName);
         title = String.Format("{0}  {1} - {0} Showroom in {1} - BikeWale", makeName, cityName);
-        canonical = String.Format("http://www.bikewale.com/{0}-dealer-showrooms-in-{1}/{2}-{3}/", makeMaskingName, cityMaskingName, dealerMaskingName,dealerId);
-        alternate = String.Format("http://www.bikewale.com/m/{0}-dealer-showrooms-in-{1}/{2}-{3}/", makeMaskingName, cityMaskingName, dealerMaskingName,dealerId);
+        canonical = String.Format("http://www.bikewale.com/{0}-dealer-showrooms-in-{1}/{2}-{3}/", makeMaskingName, cityMaskingName,dealerId, dealerMaskingName);
+        alternate = String.Format("http://www.bikewale.com/m/{0}-dealer-showrooms-in-{1}/{2}-{3}/", makeMaskingName, cityMaskingName,dealerId, dealerMaskingName);
         AdId = "1395986297721";
         AdPath = "/1017752/BikeWale_New_";
         isAd970x90Shown = false;
