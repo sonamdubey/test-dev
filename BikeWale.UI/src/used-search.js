@@ -203,6 +203,7 @@ var usedBikes = function () {
             self.SelectedCity({ "id": ele.attr("data-cityid"), "name": ele.text() });
         };
         if (self.SelectedCity() && self.SelectedCity().id > 0) self.Filters()["city"] = self.SelectedCity().id;
+        else self.Filters()["city"] = "";
         self.GetUsedBikes();
     };
     self.ApplyBikeFilter = function (d,e) {
@@ -313,7 +314,7 @@ var usedBikes = function () {
     self.BudgetValues.subscribe(function (value) {
         var minBuget = self.BudgetValues()[0], maxBuget = self.BudgetValues()[1];
         self.Filters()["budget"] = budgetValue[minBuget];
-        if (maxBuget != 7) {
+        if (minBuget != 0 || maxBuget != 7) {
             self.Filters()["budget"] += "+" + budgetValue[maxBuget];
             filters.budgetAmount(self.BudgetValues());
             filters.selection.set.slider('budget-amount');
@@ -445,8 +446,11 @@ var usedBikes = function () {
 
     };
 
-    self.GetUsedBikes = function () {
+    self.GetUsedBikes = function (e) {
         try {
+            if (self.Filters()["pn"] && e == null) {
+                self.Filters()["pn"] = "";
+            }
             self.Filters.notifySubscribers();
 
             var qs = self.QueryString();
@@ -469,6 +473,7 @@ var usedBikes = function () {
                             self.TotalBikes(0);
                             self.CurPageNo(1);
                         }
+                        $('html, body').scrollTop(0);
                         if (self.TotalBikes() > 0) self.noBikes(false); else self.noBikes(true);
                         self.OnInit(false);
                         self.IsReset(false);
@@ -495,9 +500,8 @@ var usedBikes = function () {
                 if (curmodelId && curmodelId != "0") { self.Filters()["make"] = ""; self.Filters()["model"] = curmodelId; }
             }
 
-            self.GetUsedBikes();
-            e.preventDefault();
-            $('html, body').scrollTop(0);
+            self.GetUsedBikes(e);
+            e.preventDefault();            
         } catch (e) {
             console.warn("Unable to change page number");
         }

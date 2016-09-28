@@ -17,7 +17,6 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.Used.Search;
-using Bikewale.Memcache;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
@@ -328,12 +327,15 @@ namespace Bikewale.BindViewModels.Webforms.Used
         /// <summary>
         /// Modified By : Sushil Kumar on 22nd Sep 2016
         /// Description : Removed unnecessary fetch logic for make,model and cities for their respective names.
+        /// Modified by :   Sumit Kate on 28 Sep 2016
+        /// Description :   Handle rename make masking with 301 redirect
         /// </summary>
         private void ProcessQueryString()
         {
             HttpContext page = HttpContext.Current;
             ModelMaskingResponse objModelResponse = null;
             CityMaskingResponse objCityResponse = null;
+            MakeMaskingResponse objMakeResponse = null;
             try
             {
                 _cityMaskingName = page.Request.QueryString["city"];
@@ -345,17 +347,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 _makeMaskingName = page.Request.QueryString["make"];
                 if (!string.IsNullOrEmpty(_makeMaskingName))
                 {
-                    string _strMakeId = MakeMapping.GetMakeId(_makeMaskingName);
-                    ushort _makeId = default(ushort);
-                    //verify the id as passed in the url
-                    if (ushort.TryParse(_strMakeId, out _makeId))
-                    {
-                        MakeId = _makeId;
-                    }
-                    else
-                    {
-                        IsPageNotFound = true;
-                    }
+                    objMakeResponse = objMakeCache.GetMakeMaskingResponse(_makeMaskingName);
                 }
 
                 _modelMaskingName = page.Request.QueryString["model"];
@@ -379,6 +371,22 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
             finally
             {
+                if (objMakeResponse != null)
+                {
+                    if (objMakeResponse.StatusCode == 200)
+                    {
+                        MakeId = Convert.ToUInt16(objMakeResponse.MakeId);
+                    }
+                    else if (objMakeResponse.StatusCode == 301)
+                    {
+                        RedirectionUrl = page.Request.RawUrl.ToLower().Replace(_makeMaskingName, objMakeResponse.MaskingName);
+                        IsPermanentRedirection = true;
+                    }
+                    else
+                    {
+                        IsPageNotFound = true;
+                    }
+                }
                 if (objCityResponse != null)
                 {
                     // Get cityId

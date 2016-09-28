@@ -48,6 +48,8 @@ namespace Bikewale.Used
         /// <summary>
         /// Created By : Sushil Kumar on 23rd Sep 2016 
         /// Description : Bind Used bikes search page with listing,cities and makemodels
+        /// Modified by :   Sumit Kate on 28 Sep 2016
+        /// Description :   Use property RedirectionUrl
         /// </summary>
         private void LoadUsedBikesList()
         {
@@ -84,7 +86,7 @@ namespace Bikewale.Used
                 // Redirection
                 if (objUsedBikesPage.IsPermanentRedirection)
                 {
-                    CommonOpn.RedirectPermanent(objUsedBikesPage.redirectUrl);
+                    CommonOpn.RedirectPermanent(objUsedBikesPage.RedirectionUrl);
                 }
                 else if (objUsedBikesPage.IsPageNotFound)
                 {

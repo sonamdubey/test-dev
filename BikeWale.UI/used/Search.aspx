@@ -223,7 +223,7 @@
                                     </ul>
 
                                     <div style="text-align: center;">
-                                        <div id="nobike"  data-bind="visible : noBikes()">
+                                        <div id="nobike" style="display: none;"  data-bind="visible : noBikes()">
                                             <img src="/images/no_result_m.png">
                                         </div>
                                     </div>  
@@ -237,10 +237,10 @@
                                         <% } %>
                                     </div>
                                    
-                                    <div data-bind="visible: OnInit()">
+                                    <div data-bind="visible: OnInit() && Pagination().totalPages() > 1">
                                         <BikeWale:Pager ID="ctrlPager" runat="server" />
                                     </div>
-                                <div data-bind="visible: !OnInit() && Pagination().paginated() > 0">
+                                <div data-bind="visible: !OnInit() && Pagination().paginated() > 0 && Pagination().totalPages() > 1">
                                     <div id="pagination-list-content" class="grid-7 alpha omega position-rel">
                                         <ul id="pagination-list" data-bind="html: PagesListHtml"></ul>
                                         <span class="pagination-control-prev" data-bind="html: PrevPageHtml, css: Pagination().hasPrevious() ? 'active' : 'inactive' "></span>
