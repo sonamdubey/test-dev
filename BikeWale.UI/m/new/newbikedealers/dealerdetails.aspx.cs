@@ -100,7 +100,7 @@ namespace Bikewale.Mobile
                         ctrlDealerCard.cityName = dealerCity;
                         ctrlDealerCard.PageName = "Dealer_Details";
                         ctrlDealerCard.TopCount = 6;
-                        ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_MakePage_GetOffersFromDealer;
+                        ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_DealerDetails;
                         ctrlDealerCard.LeadSourceId = 30;
 
                         campaignId = dealerDetails.CampaignId;
