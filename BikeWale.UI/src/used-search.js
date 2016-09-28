@@ -382,7 +382,14 @@ var usedBikes = function () {
             $("#previous-owners-list li").removeClass("active");
             $("#seller-type-list li").removeClass("checked");
             $("#sort-by-list li").first().addClass("active").siblings().removeClass("active");
-            $('#filter-type-bike').find('.selected-filters').text('All Bikes');
+            $('#filter-type-bike').find('.accordion-tab.active').removeClass('active');
+            var checkedTabs = $('#filter-type-bike').find('.accordion-tab');
+            checkedTabs.each(function () {
+                $(this).find('.accordion-count').text('');
+                $(this).removeClass('tab-checked active');
+                $(this).closest('li').find('.bike-model-list li').removeClass('active');
+            });
+            $('#bike').empty();
 
         } catch (e) {
             console.warn("Unable to set default records");
@@ -501,7 +508,8 @@ var usedBikes = function () {
             }
 
             self.GetUsedBikes(e);
-            e.preventDefault();            
+            e.preventDefault();
+            
         } catch (e) {
             console.warn("Unable to change page number");
         }
@@ -563,12 +571,11 @@ var usedBikes = function () {
                 var arr = self.Filters()["model"].split("+");
                 $.each(arr, function (i, val) {
                     var ele = bikesList.find("ul.bike-model-list span[data-modelid=" + val + "]"),
-                        tab = ele.closest(".accordion-tab");
+                        tab = ele.closest("li"),
+                        selectedBikeFilters = $('#bike');
+                    ele.closest("li").addClass("active");
 
-                    if (tab.hasClass("tab-checked")) {
-                        ele.closest(".bike-model-list").find("li").addClass("active");
-                    }
-
+                    selectedBikeFilters.append('<p data-id="md-' + ele.attr("data-modelid") + '" data-type="model">' + tab.find('.category-label').text() + '<span class="bwsprite cross-icon"></span></p>');
                 });
             }
 
@@ -652,8 +659,8 @@ function formatPrice(price) {
 
 
 $('#reset-bikes-filter').on('click', function () {
-    //accordion.resetall();
-    filters.set.clearbutton();
+    accordion.resetAll();
+    filters.set.clearButton();
     $('#bike').empty();
 });
 
