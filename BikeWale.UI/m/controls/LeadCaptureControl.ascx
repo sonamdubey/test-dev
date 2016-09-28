@@ -13,8 +13,8 @@
                 <!-- ko if : isDealerBikes() -->
                 <div id="getLeadBike" class="margin-top10 form-control-box">
                     <div class="dealer-search-brand form-control-box">
-                        <span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span>
-                        <div class="dealer-search-brand-form"><span>Select a bike</span></div>
+                        <span class="fa fa-spin position-abt text-black btnSpinner"></span>
+                        <div class="dealer-search-brand-form"><span id="selectedbike">Select a bike</span></div>
                         <span class="bwmsprite error-icon errorIcon"></span>
                         <div class="bw-blackbg-tooltip errorText"></div>
                         <span class="position-abt progress-bar"></span>
@@ -88,6 +88,8 @@
     $(function () {
 
         leadBtnBookNow.on('click', function () {
+            $('#selectedbike').text('Select a bike');
+            dleadvm.selectedBike(null);
             leadCapturePopup.show();
             $("#notify-response").hide();
             $("div#contactDetailsPopup").show();
@@ -393,7 +395,7 @@
         };
 
         self.submitLead = function (data, event) {
-          
+            debugger;
             if (self.mfgCampaignId() > 0) {
                 self.submitCampaignLead(data, event);
             }

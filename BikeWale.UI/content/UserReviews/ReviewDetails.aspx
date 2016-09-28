@@ -50,7 +50,7 @@
     <div class="grid_8 margin-top10">
         <h1><%= _title %></h1>
         <div>
-            A user review on <a href="/<%= MakeMaskingName%>-Bikes/<%= ModelMaskingName%>/"><%= BikeMake %> <%= BikeModel %></a>. Written by
+            A user review on <a href="/<%= MakeMaskingName%>-bikes/<%= ModelMaskingName%>/"><%= BikeMake %> <%= BikeModel %></a>. Written by
         <%if (handleName != "")
           {%>
             <%=handleName%>
@@ -66,7 +66,7 @@
             <img src="<%= Bikewale.Common.MakeModelVersion.GetModelImage(HostUrl,OriginalImagePath,Bikewale.Utility.ImageSize._210x118) %>" title="<%=BikeMake%> <%=BikeModel%>" />
             <div class="margin-top10">
                 <span class="text-highlight"><%=!IsNew && IsUsed ? "Last Recorded Price Rs: " : "Start at Rs: " %> <%= CommonOpn.FormatPrice( ModelStartPrice ) %></span><br />
-                <span><a title="<%= BikeMake %> <%= BikeModel %> details" href='/<%= MakeMaskingName%>-Bikes/<%= ModelMaskingName %>/'><%=BikeModel%> Details</a><% if (IsNew && IsUsed)
+                <span><a title="<%= BikeMake %> <%= BikeModel %> details" href='/<%= MakeMaskingName%>-bikes/<%= ModelMaskingName %>/'><%=BikeModel%> Details</a><% if (IsNew && IsUsed)
                                                                                                                                                                     { %><span class="text-grey"> | </span><a href="/pricequote/default.aspx?model=<%= ModelId %>" class="fillPopupData" pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_UserReview_ModelPage %>" modelid="<%= ModelId %>">Check On-Road Price</a><% } %></span>
             </div>
         </div>
@@ -148,11 +148,11 @@
 			    <itemtemplate>
 				    <div class="mar-top-5 hr-dotted" style="padding-bottom:5px;">
 					    <span style="display:none;"><%# CommonOpn.GetRateImage( Convert.ToDouble( DataBinder.Eval(Container.DataItem, "OverallR") ) ) %><br /></span>
-					    <a href="/<%# MakeMaskingName%>-Bikes/<%# ModelMaskingName%>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId") %>.html"><%# DataBinder.Eval(Container.DataItem, "Title") %></a> <span class="text-grey">by <%# DataBinder.Eval(Container.DataItem, "CustomerName") %> on <%# Convert.ToDateTime(DataBinder.Eval(Container.DataItem, "EntryDateTime")).ToString("dd MMM, yyyy") %></span>					
+					    <a href="/<%# MakeMaskingName%>-bikes/<%# ModelMaskingName%>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId") %>.html"><%# DataBinder.Eval(Container.DataItem, "Title") %></a> <span class="text-grey">by <%# DataBinder.Eval(Container.DataItem, "CustomerName") %> on <%# Convert.ToDateTime(DataBinder.Eval(Container.DataItem, "EntryDateTime")).ToString("dd MMM, yyyy") %></span>					
 				    </div>
 			    </itemtemplate>
 		    </asp:repeater>
-            <a href="/<%= MakeMaskingName%>-Bikes/<%= ModelMaskingName%>/user-reviews/">All <%= BikeMake %> <%= BikeModel %> user reviews</a>
+            <a href="/<%= MakeMaskingName%>-bikes/<%= ModelMaskingName%>/user-reviews/">All <%= BikeMake %> <%= BikeModel %> user reviews</a>
             <span class="icon-sheet more-link"></span>
             <div class="clear"></div>
         </div>
