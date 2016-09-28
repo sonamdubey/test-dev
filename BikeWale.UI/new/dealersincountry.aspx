@@ -260,7 +260,15 @@
                         <div class="margin-right10 margin-left10 border-solid-top"></div>
                         <% if (ctrlUpcomingBikes.FetchedRecordsCount > 0)
            { %> <h2 class="font18 padding-18-20">Upcoming <%=objMMV.MakeName %> bikes</h2>
-        <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
+                         <div class="jcarousel-wrapper inner-content-carousel">
+                            <div class="jcarousel">
+                                <ul>
+                                    <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
+                                </ul>
+                            </div>
+                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow"></a></span>
+                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+                        </div>
         <%} %>
                        
                     </div>

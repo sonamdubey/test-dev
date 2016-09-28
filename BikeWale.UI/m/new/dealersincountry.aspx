@@ -39,7 +39,7 @@
                 <div class="bg-white">
                     <h1 class="box-shadow padding-15-20">Bajaj dealer showrooms in India</h1>
                     <div class="box-shadow font14 text-light-grey padding-15-20">
-                       <%=objMMV.MakeName %> sells bikes through a vast network of dealer showrooms.The network consists of <%=DealerCount%> authorized <%=objMMV.MakeName %> showrooms spread across <%=citiesCount%> cities in India. The <%=objMMV.MakeName%> dealer showroom locator will help you find the nearest authorized dealer in your city. In case, there are no <%=objMMV.MakeName %> showrooms in your city, you can get in touch with an authorized dealer in your nearby city.
+                       <%=objMMV.MakeName %> sells bikesthrough a vast network of dealer showrooms.The network consists of <%=DealerCount%> authorized <%=objMMV.MakeName %> showrooms spread across <%=citiesCount%> cities in India. The <%=objMMV.MakeName%> dealer showroom locator will help you find the nearest authorized dealer in your city. In case, there are no <%=objMMV.MakeName %> showrooms in your city, you can get in touch with an authorized dealer in your nearby city.
                     </div>
                 </div>
             </div>
@@ -55,22 +55,24 @@
                         <span class="fa fa-spinner fa-spin position-abt text-black"></span>
                     </div>
                     <ul id="location-list">
-                                <% foreach (Bikewale.Entities.DealerLocator.StateCityEntity st in stateList)
+                                  <% foreach (Bikewale.Entities.DealerLocator.StateCityEntity st in stateList)
                        { %>
                                 <li  class="item-state">
                                     <a data-item-id="<%=st.Id %>" data-item-name="<%=st.Name %>" data-lat="<%=st.Lat %>" data-long ="<%=st.Long %>" data-dealercount="<%=st.DealerCountState%>"  href="" class="type-state" data-item-id="<%=st.Id %>"><%=st.Name %></a>
-                                                 <% foreach (Bikewale.Entities.Location.DealerCityEntity stcity in st.Cities)
+                                                 <ul class="location-list-city">
+                                                     <% foreach (Bikewale.Entities.Location.DealerCityEntity stcity in st.Cities)
                        { %>
-                                    <ul class="location-list-city">
+                                    
                                         <li>
-                                            <a data-item-id="<%=stcity.Id %>" data-item-name="<%=stcity.CityName %>" data-lat="<%=stcity.Lattitude %>" data-long ="<%=stcity.Longitude %>" data-dealercount="<%=stcity.DealersCount%>" href="/ <%=makeMaskingName %>-dealer-showrooms-in-<%=stcity.CityMaskingName %>/" "><%=stcity.CityName %> (<%=stcity.DealersCount %>)</a>
+                                            <a data-item-id="<%=stcity.Id %>" data-item-name="<%=stcity.CityName %>" data-lat="<%=stcity.Lattitude %>" data-long ="<%=stcity.Longitude %>" data-link="<%=stcity.Link %>" data-dealercount="<%=stcity.DealersCount%>" href="/m/<%=makeMaskingName %>-dealer-showrooms-in-<%=stcity.CityMaskingName %>/"><%=stcity.CityName %> (<%=stcity.DealersCount %>)</a>
                                         </li>
-                                     
+                                      <%}%>
                                     </ul>
-                                    <%}%>
+                                   
                                 </li>
                               <%}%>
-                    </ul>
+                                
+                            </ul>
                     <div id="no-result"></div>
                 </div>
             </div>
@@ -80,14 +82,22 @@
             <div class="container bg-white margin-bottom10 box-shadow">
                <% if (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)
                            { %>
-                          <h2 class="font18 padding-18-20">Newly launched <%=objMMV.MakeName %> bikes</h2>
+                          <h2 class="font18 padding-15-20">Newly launched <%=objMMV.MakeName %> bikes</h2>
+                <div class="swiper-container card-container">
+                    <div class="swiper-wrapper">
                         <BW:MNewLaunchedBikes runat="server" ID="ctrlNewLaunchedBikes" />
+                    </div>
+                </div>
                         <%} %>
 
-                <div class="margin-right20 margin-left20 border-solid-bottom"></div>
+                <div class="margin-top20 margin-right20 margin-left20 border-solid-bottom"></div>
                  <% if (ctrlUpcomingBikes.FetchedRecordsCount > 0)
-           { %> <h2 class="font18 padding-18-20">Upcoming <%=objMMV.MakeName %> bikes</h2>
-        <BW:MUpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
+           { %> <h2 class="font18 padding-15-20">Upcoming <%=objMMV.MakeName %> bikes</h2>
+                <div class="swiper-container card-container">
+                    <div class="swiper-wrapper">
+                        <BW:MUpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
+                    </div>
+                </div>
         <%} %>
             </div>
         </section>

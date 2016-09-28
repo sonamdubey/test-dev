@@ -105,7 +105,7 @@ function initializeMap(arrList, latPos, longPos, zoomLevel) {
 	for (i = 0; i < arrList.length; i++) {
 		element = arrList[i];
 		markerPosition = new google.maps.LatLng(element.latitude, element.longitude);
-		debugger
+
 		marker = new MarkerWithLabel({
 
 			id: element.id,
@@ -118,7 +118,7 @@ function initializeMap(arrList, latPos, longPos, zoomLevel) {
 
 		markerArr.push(marker);
 		marker.setMap(map);
-      debugger
+
       content = '<div class="dealer-location-tooltip"><a href=' + element.link + ' class="tooltip-marker font16 text-default" data-id="' + element.id + '">' + element.name + '</a></div>';
 
 		google.maps.event.addListener(marker, 'mouseover', (function (marker, content, infowindow) {
