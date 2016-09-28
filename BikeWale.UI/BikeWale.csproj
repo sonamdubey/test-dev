@@ -898,8 +898,8 @@
       <DependentUpon>VideosWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\new\dealersinstate.aspx.cs">
-      <DependentUpon>dealersinstate.aspx</DependentUpon>
+    <Compile Include="m\new\dealersincountry.aspx.cs">
+      <DependentUpon>dealersincountry.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\new\dealersinindia.aspx.cs">
@@ -2296,7 +2296,7 @@
     <Content Include="m\css\used-search.css" />
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
-    <Content Include="m\new\dealersinstate.aspx" />
+    <Content Include="m\new\dealersincountry.aspx" />
     <Content Include="m\new\dealersinindia.aspx" />
     <Content Include="m\new\ModelGallery.aspx" />
     <Content Include="m\new\ModelPricesInCity.aspx" />

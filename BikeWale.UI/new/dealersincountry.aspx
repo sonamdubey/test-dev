@@ -11,12 +11,12 @@
         title = string.Format("{0} Bike Showrooms in India | {0} Bike Dealers in India - BikeWale - BikeWale", objMMV.MakeName, stateName);
         keywords = string.Format("{0} bike dealers, {0} bike showrooms, {0} dealers, {0} showrooms, {0} dealerships, dealerships, test drive, {0} dealer contact number", objMMV.MakeName);
         description = string.Format("{0} bike dealers showrooms in India. Find {0} dealer showroom information for more than {1} dealers in {2} cities", objMMV.MakeName, DealerCount, citiesCount);
-        canonical = string.Format("http://www.bikewale.com/{0}-bikes/dealers-in-{1}-state/", objMMV.MaskingName, stateMaskingName);
+        canonical = string.Format("http://www.bikewale.com/{0}-dealer-showrooms-in-india/", objMMV.MaskingName);
+        alternate = string.Format("http://www.bikewale.com/m/{0}-dealer-showrooms-in-india/", objMMV.MaskingName);
         isAd970x90Shown = false;
         isAd300x250Shown = false;
         isAd300x250BTFShown = false;
         isAd970x90BottomShown = false;
-        alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/dealers-in-{1}-state/", objMMV.MaskingName, stateMaskingName);
         isHeaderFix = false;
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
@@ -155,12 +155,12 @@
                                     <span itemprop="title">Home</span>
                                 </a>
                             </li>
-                            <%--<li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
-                                 <a href="/" itemprop="url">
+                                 <a href="/new/" itemprop="url">
                                     <span itemprop="title">New Bikes</span>
                                 </a>
-                            </li>--%>
+                            </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
                                  <a href="/dealer-showroom-locator/" itemprop="url">

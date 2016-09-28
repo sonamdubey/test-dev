@@ -1,15 +1,11 @@
 ﻿using Bikewale.BAL.Location;
-using Bikewale.Cache.Core;
-using Bikewale.Cache.Location;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
-using Bikewale.DAL.Location;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Memcache;
@@ -30,7 +26,7 @@ namespace Bikewale.Mobile.New
     /// Created by : Vivek Gupta on 28th jun 2016
     /// Summary: To show dealers in State and list of cities
     /// </summary>
-    public class DealersInState : Page
+    public class DealerInCountry : Page
     {
         protected Repeater rptCity;
         protected DataList dlCity;
@@ -146,7 +142,7 @@ namespace Bikewale.Mobile.New
         protected bool ProcessQS()
         {
             bool isSuccess = true;
-            if (!string.IsNullOrEmpty(Request["make"]) && !string.IsNullOrEmpty(Request["state"]))
+            if (!string.IsNullOrEmpty(Request["make"]))
             {
                 makeMaskingName = Request["make"].ToString();
                 string _makeId = MakeMapping.GetMakeId(makeMaskingName);
@@ -159,20 +155,8 @@ namespace Bikewale.Mobile.New
                     this.Page.Visible = false;
                     isSuccess = false;
                 }
-                stateMaskingName = Request.QueryString["state"];
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IState, StateRepository>()
-                             .RegisterType<IStateCacheRepository, StateCacheRepository>()
-                            ;
-                    var objCache = container.Resolve<IStateCacheRepository>();
-                    var objResponse = objCache.GetStateMaskingResponse(stateMaskingName);
-                    if (objResponse != null)
-                    {
-                        stateId = objResponse.StateId;
-                    }
-                }
+
+
             }
             else
             {
