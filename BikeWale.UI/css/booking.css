@@ -67,13 +67,13 @@ zoom: 1; vertical-align:middle; }
 .query-number-container p { line-height:40px; }
 .query-number-container .btn { padding:8px 62px; }
 
-.contact-icon, .offers-icon, .disclaimer-icon, .call-icon, .personal-details-icon, .edit-blue-icon { width:16px; height:16px; }
+.contact-icon, .offers-icon, .disclaimer-icon, .call-icon, .personal-details-icon { width:16px; height:16px; }
 .contact-icon { background-position:-115px -120px; }
 .offers-icon { background-position:-115px -146px; }
 .disclaimer-icon { background-position:-115px -175px; }
 .call-icon { background-position:-115px -201px; }
 .personal-details-icon { background-position:-115px -225px; }
-.edit-blue-icon { background-position:-115px -250px; }
+.edit-blue-icon{width: 19px; height: 19px; background-position: -114px -247px;}
 
 /* delivery-details */
 #deliveryDetails .person-details-form-wrapper { width:440px; }
