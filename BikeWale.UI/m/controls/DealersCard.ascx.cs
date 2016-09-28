@@ -109,7 +109,6 @@ namespace Bikewale.Mobile.Controls
 
                             if (DealerId > 0)
                             {
-                                //_dealers.Dealers = _dealers.Dealers.SkipWhile(x => x.DealerId == DealerId);
                                 _dealers.Dealers = (from dealer in _dealers.Dealers where dealer.DealerId != DealerId select dealer).ToList();
                             }
 
@@ -141,6 +140,8 @@ namespace Bikewale.Mobile.Controls
         /// <summary>
         /// Created By : Sushil Kumar on 3rd June 2016 
         /// Description : link URL changed.
+        /// Modified by : Sajal Gupta on 28-09-2016
+        /// Description : Deletede dealer type condition.
         /// </summary>
         /// <param name="dealerType"></param>
         /// <param name="dealerId"></param>

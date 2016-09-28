@@ -39,6 +39,7 @@ namespace Bikewale.Mobile
         protected DealersCard ctrlDealerCard;
         protected LeadCaptureControl ctrlLeadCapture;
         protected String clientIP = CommonOpn.GetClientIP();
+        protected string maskingNumber;
 
         protected override void OnInit(EventArgs e)
         {
@@ -107,6 +108,8 @@ namespace Bikewale.Mobile
                         ctrlDealerCard.DealerId = (int)dealerId;
 
                         ctrlLeadCapture.CityId = (uint)dealerDetails.CityId;
+
+                        maskingNumber = dealerDetails.MaskingNumber;
 
                         if (dealer.Models != null && dealer.Models.Count() > 0)
                         {
