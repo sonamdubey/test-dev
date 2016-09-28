@@ -10,6 +10,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Memcache;
+using Bikewale.Mobile.Controls;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
@@ -31,8 +32,11 @@ namespace Bikewale.Mobile.New
         protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, urlCityMaskingName = string.Empty;
         protected uint cityId, makeId;
         protected ushort totalDealers;
-        protected Repeater rptMakes, rptCities, rptDealers;
+        protected Repeater rptDealers; //rptMakes, rptCities, ;
         protected string clientIP = string.Empty, pageUrl = string.Empty;
+        protected UsedBikes ctrlRecentUsedBikes;
+        protected MMostPopularBikes ctrlPopoularBikeMake;
+        protected LeadCaptureControl ctrlLeadCapture;
 
         protected override void OnInit(EventArgs e)
         {
@@ -59,10 +63,24 @@ namespace Bikewale.Mobile.New
             {
                 BindMakesDropdown();
                 BindCitiesDropdown();
-
                 BindDealerList();
+                BindUserControls();
             }
+        }
 
+        private void BindUserControls()
+        {
+            ctrlRecentUsedBikes.MakeId = makeId;
+            ctrlRecentUsedBikes.CityId = (int?)cityId;
+            ctrlRecentUsedBikes.header = "Used " + makeName + " bikes in " + cityName;
+            ctrlRecentUsedBikes.TopCount = 4;
+            ctrlPopoularBikeMake.makeId = (int)makeId;
+            ctrlPopoularBikeMake.cityId = (int)cityId;
+            ctrlPopoularBikeMake.totalCount = 9;
+            ctrlPopoularBikeMake.cityname = cityName;
+            ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
+            ctrlPopoularBikeMake.makeName = makeName;
+            ctrlLeadCapture.CityId = cityId;
         }
 
         /// <summary>
@@ -122,8 +140,8 @@ namespace Bikewale.Mobile.New
                     _makes = objCache.GetMakesByType(EnumBikeType.Dealer);
                     if (_makes != null && _makes.Count() > 0)
                     {
-                        rptMakes.DataSource = _makes;
-                        rptMakes.DataBind();
+                        //rptMakes.DataSource = _makes;
+                        //rptMakes.DataBind();
                         makeName = _makes.Where(x => x.MakeId == makeId).FirstOrDefault().MakeName;
                     }
                 }
@@ -155,9 +173,8 @@ namespace Bikewale.Mobile.New
                     _cities = objCities.FetchDealerCitiesByMake(makeId);
                     if (_cities != null && _cities.Count() > 0)
                     {
-                        rptCities.DataSource = _cities;
-                        rptCities.DataBind();
-
+                        //rptCities.DataSource = _cities;
+                        //rptCities.DataBind();
                         var _city = _cities.FirstOrDefault(x => x.CityId == cityId);
                         if (_city != null)
                         {
@@ -231,8 +248,8 @@ namespace Bikewale.Mobile.New
             {
                 if (currentReq.QueryString != null && currentReq.QueryString.HasKeys())
                 {
-                    makeMaskingName = currentReq.QueryString["make"];
-                    urlCityMaskingName = currentReq.QueryString["city"];
+                    makeMaskingName = currentReq.QueryString["make"].ToLower();
+                    urlCityMaskingName = currentReq.QueryString["city"].ToLower();
                     if (!String.IsNullOrEmpty(urlCityMaskingName) && !String.IsNullOrEmpty(makeMaskingName))
                     {
                         cityId = CitiMapping.GetCityId(urlCityMaskingName);
@@ -253,19 +270,6 @@ namespace Bikewale.Mobile.New
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
-                //if (currentReq.QueryString != null && currentReq.QueryString.HasKeys())
-                //{
-                //    makeMaskingName = currentReq.QueryString["make"];
-                //    uint.TryParse(currentReq.QueryString["city"], out cityId);
-                //    clientIP = Bikewale.Common.CommonOpn.GetClientIP();
-                //    pageUrl = currentReq.ServerVariables["URL"];
-                //}
-                //else
-                //{
-                //    Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
-                //    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                //    this.Page.Visible = false;
-                //}
             }
             catch (Exception ex)
             {
@@ -296,7 +300,6 @@ namespace Bikewale.Mobile.New
             {
                 retString = dealerName;
             }
-
             return retString;
         }
 

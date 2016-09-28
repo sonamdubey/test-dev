@@ -1,8 +1,8 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Utility;
-using Bikewale.Entities.CMS.Photos;
 using MySql.CoreDAL;
 using System;
 using System.Collections;
@@ -95,7 +95,7 @@ namespace Bikewale.DAL.BikeData
 
             try
             {
-                
+
                 modelPage.ModelDetails = GetById(modelId);
                 modelPage.ModelDesc = GetModelSynopsis(modelId);
                 modelPage.ModelVersions = GetVersionMinSpecs(modelId, isNew);
@@ -330,7 +330,7 @@ namespace Bikewale.DAL.BikeData
                     {
                         if (dr != null)
                         {
-                                     
+
                             while (dr.Read())
                             {
                                 t = new T();
@@ -370,7 +370,7 @@ namespace Bikewale.DAL.BikeData
             }
             return t;
 
-                   }
+        }
 
 
         /// <summary>
@@ -1080,5 +1080,72 @@ namespace Bikewale.DAL.BikeData
             }
             return modelPhotos;
         }
-        }   // class
+        /// <summary>
+        /// Created by Subodh Jain on 22 sep 2016
+        /// Des:- To fetch most popular bikes on make and city
+        /// </summary>
+        /// <param name="topCount"></param>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId)
+        {
+            List<MostPopularBikesBase> objList = null;
+            MostPopularBikesBase objData = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularbikesbymakecity"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objList = new List<MostPopularBikesBase>();
+
+                            while (dr.Read())
+                            {
+                                objData = new MostPopularBikesBase();
+                                objData.objMake = new BikeMakeEntityBase();
+                                objData.objModel = new BikeModelEntityBase();
+                                objData.objVersion = new BikeVersionsListEntity();
+                                objData.Specs = new MinSpecsEntity();
+                                objData.objMake.MakeName = Convert.ToString(dr["Make"]);
+                                objData.objModel.ModelName = Convert.ToString(dr["Model"]);
+                                objData.objMake.MakeId = Convert.ToInt32(dr["MakeId"]);
+                                objData.objModel.ModelId = Convert.ToInt32(dr["ModelId"]);
+                                objData.objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                objData.objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
+                                objData.objVersion.VersionId = Convert.ToInt32(dr["VersionId"]);
+                                objData.ModelRating = Convert.ToDouble(dr["ReviewRate"]);
+                                objData.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
+                                objData.BikeName = Convert.ToString(dr["BikeName"]);
+                                objData.HostURL = Convert.ToString(dr["HostUrl"]);
+                                objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                                objData.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
+                                objData.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
+                                objData.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
+                                objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
+                                objData.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
+                                objData.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
+                                objList.Add(objData);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeModelsRepository.GetMostPopularBikesbymakecity");
+                objErr.SendMail();
+            }
+            return objList;
+        }
+    }   // class
 }   // namespace

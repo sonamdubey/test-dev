@@ -88,6 +88,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .btn-lg { padding: 10px 20px 8px 20px; }
 .btn-xlg { padding: 12px 52px; }
 .btn-full-width { display: block; width: 100%; }
+.btn-truncate { max-width: 230px; text-align: center; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
 
 .lock-browser-scroll { position: fixed; overflow-y: scroll; width: 100%; }
 

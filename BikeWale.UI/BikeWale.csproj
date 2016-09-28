@@ -639,6 +639,10 @@
       <DependentUpon>UsedBikeSearch.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\UsedBikeWidget.ascx.cs">
+      <DependentUpon>UsedBikeWidget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\UserFeedBack.ascx.cs">
       <DependentUpon>UserFeedBack.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -965,10 +969,6 @@
     </Compile>
     <Compile Include="m\new\newbikedealers\NewBikeDealerList.aspx.cs">
       <DependentUpon>NewBikeDealerList.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\new\newbikedealers\NewBikeDealerList_old.aspx.cs">
-      <DependentUpon>NewBikeDealerList_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\new\newbikelaunch\Default.aspx.cs">
@@ -1766,6 +1766,7 @@
     <Content Include="controls\UpcomingBikes_new.ascx" />
     <Content Include="controls\UsedBikes.ascx" />
     <Content Include="controls\UsedBikeSearch.ascx" />
+    <Content Include="controls\UsedBikeWidget.ascx" />
     <Content Include="controls\UserFeedBack.ascx" />
     <Content Include="controls\UserReviewsList.ascx" />
     <Content Include="controls\UsersTestimonials.ascx" />
@@ -1791,6 +1792,7 @@
     <Content Include="css\dealerpricequote.css" />
     <Content Include="css\dealersbylocation.css" />
     <Content Include="css\dealer\details.css" />
+    <Content Include="css\dealer\listing.css" />
     <Content Include="css\global.css" />
     <Content Include="css\home.css" />
     <Content Include="css\images\animated-overlay.gif" />
@@ -2276,6 +2278,7 @@
     <Content Include="m\css\bwm-newbikes.css" />
     <Content Include="m\css\dealerpricequote.css" />
     <Content Include="m\css\dealerpricequote-old.css" />
+    <Content Include="m\css\dealer\listing.css" />
     <Content Include="m\css\design.css" />
     <Content Include="m\css\home.css" />
     <Content Include="m\css\insurance.css" />
@@ -2341,7 +2344,6 @@
     <Content Include="m\new\Default.aspx" />
     <Content Include="m\new\newbikedealers\Default.aspx" />
     <Content Include="m\new\newbikedealers\NewBikeDealerList.aspx" />
-    <Content Include="m\new\newbikedealers\NewBikeDealerList_old.aspx" />
     <Content Include="m\new\newbikelaunch\Default.aspx" />
     <Content Include="m\bikebooking\BookingListing.aspx" />
     <Content Include="m\new\search_new.aspx" />
@@ -2378,6 +2380,7 @@
     <Content Include="m\src\dealerpricequote-old.js" />
     <Content Include="m\src\dealersbylocation.js" />
     <Content Include="m\src\dealer\details.js" />
+    <Content Include="m\src\dealer\listing.js" />
     <Content Include="m\src\frameworks.js" />
     <Content Include="m\src\home.js" />
     <Content Include="m\src\html5.js" />
@@ -2430,6 +2433,7 @@
     <Content Include="src\dealerpricequote.js" />
     <Content Include="src\dealersbylocation.js" />
     <Content Include="src\dealer\details.js" />
+    <Content Include="src\dealer\listing.js" />
     <Content Include="src\frameworks.js" />
     <Content Include="src\framework\knockout.js" />
     <Content Include="m\src\loadPhotos.js" />

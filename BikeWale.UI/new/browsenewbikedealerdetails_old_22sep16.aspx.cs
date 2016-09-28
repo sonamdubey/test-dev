@@ -31,12 +31,10 @@ namespace Bikewale.New
         protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, urlCityMaskingName = string.Empty;
         protected uint cityId, makeId;
         protected ushort totalDealers;
-        protected Repeater rptDealers; //rptMakes, rptCities ;
+        protected Repeater rptMakes, rptCities, rptDealers;
         protected string clientIP = string.Empty, pageUrl = string.Empty;
         protected bool areDealersPremium = false;
-        protected UsedBikeWidget ctrlRecentUsedBikes;
-        protected MostPopularBikes_new ctrlPopoularBikeMake;
-        protected LeadCaptureControl ctrlLeadCapture;
+        protected MostPopularBikes_new rptPopoularBikeMake;
 
         protected override void OnInit(EventArgs e)
         {
@@ -75,33 +73,11 @@ namespace Bikewale.New
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
+                rptPopoularBikeMake.makeId = (int)makeId;
+                rptPopoularBikeMake.cityId = (int)cityId;
+                rptPopoularBikeMake.totalCount = 9;
             }
 
-            BindUserControls();
-
-        }
-
-        private void BindUserControls()
-        {
-            ctrlPopoularBikeMake.makeId = (int)makeId;
-            ctrlPopoularBikeMake.cityId = (int)cityId;
-            ctrlPopoularBikeMake.totalCount = 9;
-            ctrlPopoularBikeMake.cityname = cityName;
-            ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
-            ctrlPopoularBikeMake.makeName = makeName;
-
-            ctrlRecentUsedBikes.CityId = (int?)cityId;
-            ctrlRecentUsedBikes.MakeId = makeId;
-            ctrlRecentUsedBikes.TopCount = 4;
-            ctrlRecentUsedBikes.isAd = true;
-            ctrlRecentUsedBikes.cityName = cityName;
-            ctrlRecentUsedBikes.cityMaskingName = cityMaskingName;
-            ctrlRecentUsedBikes.AdId = "1395986297721";
-
-            ctrlLeadCapture.CityId = cityId;
-           
-            //ctrlLeadCapture.ModelId = modelId;
-            //ctrlLeadCapture.AreaId = 0;
         }
 
         /// <summary>
@@ -178,8 +154,8 @@ namespace Bikewale.New
                     _makes = objCache.GetMakesByType(EnumBikeType.Dealer);
                     if (_makes != null && _makes.Count() > 0)
                     {
-                        //rptMakes.DataSource = _makes;
-                        //rptMakes.DataBind();
+                        rptMakes.DataSource = _makes;
+                        rptMakes.DataBind();
                         var firstMake = _makes.FirstOrDefault(x => x.MakeId == makeId);
                         if (firstMake != null)
                         {
@@ -216,8 +192,8 @@ namespace Bikewale.New
                     _cities = objCities.FetchDealerCitiesByMake(makeId);
                     if (_cities != null && _cities.Count() > 0)
                     {
-                        //rptCities.DataSource = _cities;
-                        //rptCities.DataBind();
+                        rptCities.DataSource = _cities;
+                        rptCities.DataBind();
                         var firstCity = _cities.FirstOrDefault(x => x.CityId == cityId);
                         if (firstCity != null)
                         {
@@ -270,6 +246,8 @@ namespace Bikewale.New
             }
         }
 
+
+
         #region Private Method to process querystring
         /// <summary>
         /// Created By : Sushil Kumar
@@ -284,8 +262,8 @@ namespace Bikewale.New
             {
                 if (currentReq.QueryString != null && currentReq.QueryString.HasKeys())
                 {
-                    makeMaskingName = currentReq.QueryString["make"].ToLower();
-                    urlCityMaskingName = currentReq.QueryString["city"].ToLower();
+                    makeMaskingName = currentReq.QueryString["make"];
+                    urlCityMaskingName = currentReq.QueryString["city"];
                     if (!String.IsNullOrEmpty(urlCityMaskingName) && !String.IsNullOrEmpty(makeMaskingName))
                     {
                         cityId = CitiMapping.GetCityId(urlCityMaskingName);
