@@ -84,6 +84,8 @@
     <Compile Include="MailTemplates\PreBookingConfirmationToCustomer.cs" />
     <Compile Include="MailTemplates\UsedBikes\PhotoRequestEmailToDealerSellerTemplate.cs" />
     <Compile Include="MailTemplates\UsedBikes\PhotoRequestEmailToIndividualSellerTemplate.cs" />
+    <Compile Include="MailTemplates\UsedBikes\PurchaseInquiryEmailToBuyerTemplate.cs" />
+    <Compile Include="MailTemplates\UsedBikes\PurchaseInquiryEmailToIndividualSellerTemplate.cs" />
     <Compile Include="MySqlDbUtilities.cs" />
     <Compile Include="NotificationDAL\SavePQNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

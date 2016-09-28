@@ -1,13 +1,7 @@
 ﻿using Bikewale.Entities.BikeBooking;
-using Bikewale.Entities.PriceQuote;
 using Bikewale.Notifications.NotificationDAL;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Bikewale.Notifications
@@ -181,7 +175,7 @@ namespace Bikewale.Notifications
                 EnumSMSServiceType esms = EnumSMSServiceType.NewBikePriceQuoteSMSToCustomer;
 
                 string message = NewBikePQCustomerSMSTemplate(BikeName, dealerName, dealerContactNo, dealerAddress, bookingAmount, insuranceAmount, hasBumperDealerOffer, isFlipkartOffer, isAccessories);
-                
+
                 SMSCommon sc = new SMSCommon();
                 sc.ProcessSMS(customerMobile, message, esms, pageUrl);
             }
@@ -281,7 +275,7 @@ namespace Bikewale.Notifications
 
         public void ClaimedOfferSMSToCustomer(string customerMobile, string pageUrl)
         {
-            try 
+            try
             {
                 EnumSMSServiceType esms = EnumSMSServiceType.ClaimedOffer;
                 string message = "Thank you for providing your bike details. After verifying, we will ship the gifts to you within 30 days. Write to contact@bikewale.com in case of any concerns.";
@@ -317,7 +311,7 @@ namespace Bikewale.Notifications
                 string message = NewBikePQDealerSMSTemplate(customerName, customerMobile, BikeName, areaName, cityName, dealerArea);
 
                 SavePQNotification obj = new SavePQNotification();
-                obj.SaveDealerPQSMSTemplate(pqId,message, (int)esms, dealerMobileNo, pageUrl);
+                obj.SaveDealerPQSMSTemplate(pqId, message, (int)esms, dealerMobileNo, pageUrl);
             }
             catch (Exception err)
             {
@@ -345,7 +339,7 @@ namespace Bikewale.Notifications
                 // To check if user has accepted offer with respect to Flipkart vouchers
                 bool isFlipkartOffer = false;
                 bool isAccessories = false;
-                
+
                 if (dealerEntity.objOffers != null && dealerEntity.objOffers.Count > 0)
                 {
                     foreach (var offer in dealerEntity.objOffers)
@@ -359,7 +353,7 @@ namespace Bikewale.Notifications
                         {
                             isAccessories = true;
                             break;
-                       }
+                        }
                     }
                 }
                 EnumSMSServiceType esms = EnumSMSServiceType.NewBikePriceQuoteSMSToCustomer;
@@ -403,7 +397,7 @@ namespace Bikewale.Notifications
                         //message = String.Format("Pay Rs. {0} on BikeWale to book your bike, pay balance amount at {1} {2} ({3}), and claim Free Rs. 1,000 Flipkart vouchers & 1-year RSA from BikeWale.", bookingAmount, dealerName, dealerAddress, dealerContactNo);
                         message = String.Format("Pay Rs. {0} on BikeWale to book your bike, pay balance amount at {1} {2} ({3}), and claim Free Rs. 1,000 Flipkart vouchers.", bookingAmount, dealerName, dealerAddress, dealerContactNo);
                     }
-                    else if(isAccessories)
+                    else if (isAccessories)
                     {
                         message = String.Format("Pay Rs. {0} on BikeWale to book your bike, pay balance amount at {1} {2} ({3}), and claim Free Accessories at the dealership.", bookingAmount, dealerName, dealerAddress, dealerContactNo);
                     }
@@ -451,7 +445,7 @@ namespace Bikewale.Notifications
 
         public void SaveNewBikePriceQuoteSMSToCustomer(uint pqId, string message, string customerMobile, string requestUrl)
         {
-            try                
+            try
             {
                 EnumSMSServiceType esms = EnumSMSServiceType.NewBikePriceQuoteSMSToCustomer;
                 SavePQNotification obj = new SavePQNotification();
@@ -503,6 +497,28 @@ namespace Bikewale.Notifications
             {
                 HttpContext.Current.Trace.Warn("Notifications.SMSBikeBookingCancellation : " + err.Message);
                 ErrorClass objErr = new ErrorClass(err, "Notifications.SMSBikeBookingCancellation");
+                objErr.SendMail();
+            }
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 23 Sep 2016
+        /// Description :   Sends the Used bike purchase inquiry sms
+        /// </summary>
+        /// <param name="smsType"></param>
+        /// <param name="number"></param>
+        /// <param name="message"></param>
+        /// <param name="pageurl"></param>
+        public void UsedPurchaseInquirySMS(EnumSMSServiceType smsType, string number, string message, string pageurl)
+        {
+            try
+            {
+                SMSCommon sc = new SMSCommon();
+                sc.ProcessSMS(number, message, smsType, pageurl);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.UsedPurchaseInquirySMSToSeller({0},{1},{2})", number, message, pageurl));
                 objErr.SendMail();
             }
         }
