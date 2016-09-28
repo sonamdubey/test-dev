@@ -193,6 +193,10 @@ namespace BikeWaleOpr.Content
             rabbitmqPublish.PublishToQueue(ConfigurationManager.AppSettings["ImageQueueName"], nvc);
         }
 
+        /// <summary>
+        /// Modified by :   Sumit Kate on 28 Sep 2016
+        /// Description :   Changed from ReadOnly to MasterDatabase
+        /// </summary>
         void BindRepeater()
         {
             string sql = "";
@@ -210,7 +214,7 @@ namespace BikeWaleOpr.Content
 
                 if (!string.IsNullOrEmpty(sql))
                 {
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.MasterDatabase))
                     {
                         if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                         {
