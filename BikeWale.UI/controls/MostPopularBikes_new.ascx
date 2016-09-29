@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="False" Inherits="Bikewale.Controls.MostPopularBikes_new" %>
-
+<% if (mostPopular==true)
+                           { %>
 <!-- Most Popular Bikes Starts here-->
 <asp:Repeater ID="rptMostPopularBikes" runat="server">
     <ItemTemplate>
@@ -22,15 +23,16 @@
                 </div>
             </a>
             <div class="margin-left20 margin-bottom20">
-                <a href="javascript:void(0);" pagecatid="<%= PageId %>" pqsourceid="<%= PQSourceId%>" makename="<%# Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MakeName")) %>" modelname="<%# Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.ModelName")) %>" modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelId")) %>" class="btn grey btn-sm font14 <%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))!="0")?"":"hide" %> fillPopupData" rel="nofollow">Check on-road price</a>
+                <a href="javascript:void(0);" pagecatid="<%= PageId %>" pqsourceid="<%= PQSourceId%>" makename="<%# Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MakeName")) %>" modelname="<%# Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.ModelName")) %>" modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelId")) %>" class="btn btn-grey btn-sm font14 <%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))!="0")?"":"hide" %> fillPopupData" rel="nofollow">Check on-road price</a>
             </div>
         </li>
     </ItemTemplate>
 </asp:Repeater>
+<%} %>
 <!--- Most Popular Bikes Ends Here-->
 
-            <h2 class="font18 padding-18-20">Popular <%=makeName %> bikes in <%=cityname %></h2>
-
+          <% if (mostPopularByMake==true)
+                           { %>
             <div class="jcarousel-wrapper inner-content-carousel padding-bottom20">
                 <div class="jcarousel">
 
@@ -69,5 +71,5 @@
             <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
             </div>
 
-            
+            <%} %>
        

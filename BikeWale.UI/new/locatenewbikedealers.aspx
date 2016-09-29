@@ -1,4 +1,6 @@
 <%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.DealerLocator.LocateNewBikeDealers" EnableViewState="false" %>
+<%@ Register Src="~/controls/NewLaunchedBikes_new.ascx" TagName="NewLaunchedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
 
 <%@ Import Namespace="Bikewale.Common" %>
 <!doctype html>
@@ -132,6 +134,11 @@
                             <div class="jcarousel">
                                 <ul>
                                     <!-- New Launched Bikes Control-->
+                          
+                                   <%if (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)
+                           { %>
+                       <BW:NewLaunchedBikes runat="server" ID="ctrlNewLaunchedBikes" />
+                        <%} %>
                                 </ul>
                             </div>
                             <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
@@ -152,6 +159,14 @@
                             <div class="jcarousel">
                                 <ul>
                                     <!-- Upcoming bikes Control-->
+                                   
+                                    
+                                   <%if (ctrlUpcomingBikes.FetchedRecordsCount > 0)
+                           { %>
+                      <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
+                        <%} %>
+                                
+                                    
                                 </ul>
                             </div>
                             <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>

@@ -281,7 +281,7 @@
             <!-- #include file="/ads/Ad976x400_First.aspx" -->
         </section>
         <%} %>
-        <section class="container <%= ((ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount) > 0 )?"":"hide" %> ">
+        <section class="container <%= ((ctrlMostPopularBikes.FetchedRecordsCount + ctrlNewLaunchedBikes.FetchedRecordsCount + ctrlUpcomingBikes.FetchedRecordsCount) > 0 )?"":"hide" %> ">
             <!--  Discover bikes section code starts here -->
             <div class="grid-12">
                 <h2 class="text-bold text-center margin-top40 margin-bottom20 font22">Featured bikes</h2>

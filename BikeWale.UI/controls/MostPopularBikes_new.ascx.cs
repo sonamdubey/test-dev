@@ -16,6 +16,7 @@ namespace Bikewale.Controls
         public string cityname = string.Empty;
         public string cityMaskingName = string.Empty;
         public string makeName = string.Empty;
+        public bool mostPopular = false, mostPopularByMake = false;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -34,10 +35,16 @@ namespace Bikewale.Controls
             objPop.makeId = this.makeId;
             objPop.cityId = this.cityId;
             if (makeId.HasValue && makeId > 0)
+            {
                 objPop.BindMostPopularBikesMakeCity(rptPopoularBikeMake);
+                mostPopularByMake = true;
+            }
 
             else
+            {
                 objPop.BindMostPopularBikes(rptMostPopularBikes);
+                mostPopular = true;
+            }
             this.FetchedRecordsCount = objPop.FetchedRecordsCount;
         }
 
