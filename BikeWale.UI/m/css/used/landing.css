@@ -32,6 +32,7 @@ h2.section-heading {
     position: relative;
     text-align: left;
     color: #a8afb3;
+    cursor: pointer;
 }
 
 .text-truncate {
@@ -53,6 +54,81 @@ h2.section-heading {
     margin-bottom: 30px;
 }
 
+/* budget */
+#budget-list-box {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 0 0 2px 2px;
+    margin-top: 13px;
+}
+
+#user-budget-input .amount-box {
+    border: 1px solid #e2e2e2;
+    display: inline-block;
+    margin: 10px;
+    padding: 5px 8px;
+    width: 43%;
+    font-size: 14px;
+    color: #4d5057;
+}
+
+#max-budget-list {
+    display: none;
+}
+
+#search-form-budget li {
+    display: block;
+    padding: 5px 20px;
+    color: #82888b;
+    cursor: pointer;
+    background: none;
+}
+
+#search-form-budget li:hover {
+    background: #f5f5f5;
+}
+
+#budget-list-box::before {
+    border-bottom: 10px solid #e2e2e2;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    content: "";
+    left: 46.5%;
+    position: absolute;
+    top: -11px;
+    z-index: 1;
+}
+
+#budget-list-box::after {
+    border-bottom: 10px solid #f5f5f5;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    content: "";
+    left: 46.5%;
+    position: absolute;
+    top: -10px;
+    z-index: 1;
+}
+
+#min-max-budget-box.open .fa-angle-down {
+    -moz-transform: rotateZ(180deg);
+    -webkit-transform: rotateZ(180deg);
+    -o-transform: rotateZ(180deg);
+    -ms-transform: rotateZ(180deg);
+    transform: rotateZ(180deg);
+}
+
+/* input focus */
+input[type=text].input-teal:focus {
+    border-color: #41b4c4 !important;
+    box-shadow: none;
+}
+
 /* city selection */
 #city-slider {
     display: none;
@@ -61,7 +137,6 @@ h2.section-heading {
 
 #city-slider.bwm-fullscreen-popup {
     padding: 0;
-    padding-bottom: 40px;
     bottom: 0;
 }
 
@@ -87,6 +162,10 @@ h2.section-heading {
     position: absolute;
     top: 7px;
     left: 10px;
+}
+
+.slider-list {
+    padding-bottom: 40px;
 }
 
 .slider-list li {
@@ -134,6 +213,26 @@ h2.section-heading {
     text-decoration: none;
 }
 
+.btn-inv-teal {
+    background: transparent;
+    color: #3799a7;
+    border: 1px solid #3799a7;
+}
+
+.btn-inv-teal.active {
+    background: #3799a7;
+    color: #fff;
+}
+
+.btn-inv-teal:hover {
+    text-decoration: none
+}
+
+.inv-teal-sm {
+    font-size: 14px;
+    padding: 6px 19px;
+}
+
 /* sprite */
 .used-sprite { background: url(/m/images/used-sprite.png?v1=28Sep2016) no-repeat; display: inline-block; }
 .free-cost, .buyer, .listing-time, .contact-buyer { width: 20px; height: 20px; margin-right: 10px; vertical-align: middle; }
@@ -150,6 +249,8 @@ h2.section-heading {
 }
 
 /* brand */
+#more-brand-nav { display: none }
+#more-brand-tab:hover { text-decoration: none }
 .brand-type-container ul li { display: inline-block; *display:inline; *zoom:1; vertical-align: top; width: 90px; height: 65px; margin-bottom: 15px; }
 .brand-type-title { display: block; text-transform: capitalize; }
 .brand-type-container li a { text-decoration: none; color: #565a5c; display: inline-block; }

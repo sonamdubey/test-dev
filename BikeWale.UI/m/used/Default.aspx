@@ -33,9 +33,21 @@
                             <div id="search-form-city" class="form-selection-box margin-bottom20">
                                 <p class="text-truncate">Select city</p>
                             </div>
-                            <div id="search-form-budget" class="form-selection-box margin-bottom30">
-                                <p class="text-truncate padding-right20">Select budget</p>
-                                <span id="upDownArrow" class="fa fa-angle-down position-abt pos-top15 pos-right10"></span>
+                            <div id="search-form-budget" class="position-rel margin-bottom30">
+                                <div id="min-max-budget-box" class="form-selection-box">
+                                    <span id="budget-default-label">Select budget</span>
+                                    <span id="min-amount"></span>
+                                    <span id="max-amount"></span>
+                                    <span id="upDownArrow" class="fa fa-angle-down position-abt pos-top15 pos-right10"></span>
+                                    <div class="clear"></div>
+                                </div>
+                                <div id="budget-list-box">
+                                    <div id="user-budget-input" class="bg-light-grey">
+                                        <input type="text" id="min-input-box" class="amount-box input-teal" maxlength="9" placeholder="Min"><input type="text" id="max-input-box" class="amount-box input-teal" maxlength="9" placeholder="Max">
+                                    </div>
+                                    <ul id="min-budget-list" class="text-left"></ul>
+                                    <ul id="max-budget-list" class="text-right"></ul>
+                                </div>                                
                             </div>
                             <a href="" class="btn btn-orange text-bold">Search</a>
                         </div>
@@ -77,9 +89,9 @@
             <div class="container text-center section-container">
                 <h2 class="font18 section-heading">Search used bikes by brands</h2>
                 <div class="bg-white box-shadow brand-type-container content-inner-block-20">
-                    <ul>    
+                    <ul id="main-brand-list">    
                         <li>
-                            <a href="/m/honda-bikes/">
+                            <a href="">
                                 <span class="brand-type">
                                     <span class="brandlogosprite brand-honda"></span>
                                 </span>
@@ -88,7 +100,7 @@
                         </li>
                                 
                         <li>
-                            <a href="/m/bajaj-bikes/">
+                            <a href="">
                                 <span class="brand-type">
                                     <span class="brandlogosprite brand-bajaj"></span>
                                 </span>
@@ -97,7 +109,7 @@
                         </li>
                                 
                         <li>
-                            <a href="/m/hero-bikes/">
+                            <a href="">
                                 <span class="brand-type">
                                     <span class="brandlogosprite brand-hero"></span>
                                 </span>
@@ -106,7 +118,7 @@
                         </li>
                                 
                         <li>
-                            <a href="/m/tvs-bikes/">
+                            <a href="">
                                 <span class="brand-type">
                                     <span class="brandlogosprite brand-tvs"></span>
                                 </span>
@@ -115,7 +127,7 @@
                         </li>
                                 
                         <li>
-                            <a href="/m/royalenfield-bikes/">
+                            <a href="">
                                 <span class="brand-type">
                                     <span class="brandlogosprite brand-royalenfield"></span>
                                 </span>
@@ -124,7 +136,63 @@
                         </li>
                                 
                         <li>
-                            <a href="/m/yamaha-bikes/">
+                            <a href="">
+                                <span class="brand-type">
+                                    <span class="brandlogosprite brand-yamaha"></span>
+                                </span>
+                                <span class="brand-type-title">Yamaha</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul id="more-brand-nav" class="brand-style-moreBtn brandTypeMore border-top1 padding-top25 text-center">    
+                        <li>
+                            <a href="">
+                                <span class="brand-type">
+                                    <span class="brandlogosprite brand-honda"></span>
+                                </span>
+                                <span class="brand-type-title">Honda</span>
+                            </a>
+                        </li>
+                                
+                        <li>
+                            <a href="">
+                                <span class="brand-type">
+                                    <span class="brandlogosprite brand-bajaj"></span>
+                                </span>
+                                <span class="brand-type-title">Bajaj</span>
+                            </a>
+                        </li>
+                                
+                        <li>
+                            <a href="">
+                                <span class="brand-type">
+                                    <span class="brandlogosprite brand-hero"></span>
+                                </span>
+                                <span class="brand-type-title">Hero</span>
+                            </a>
+                        </li>
+                                
+                        <li>
+                            <a href="">
+                                <span class="brand-type">
+                                    <span class="brandlogosprite brand-tvs"></span>
+                                </span>
+                                <span class="brand-type-title">TVS</span>
+                            </a>
+                        </li>
+                                
+                        <li>
+                            <a href="">
+                                <span class="brand-type">
+                                    <span class="brandlogosprite brand-royalenfield"></span>
+                                </span>
+                                <span class="brand-type-title">Royal Enfield</span>
+                            </a>
+                        </li>
+                                
+                        <li>
+                            <a href="">
                                 <span class="brand-type">
                                     <span class="brandlogosprite brand-yamaha"></span>
                                 </span>
@@ -134,13 +202,31 @@
                     </ul>
 
                     <div class="text-center">
-                        <a href="javascript:void(0)" id="more-brand-tab" class="font14" rel="nofollow">View <span>more</span> brands</a>
+                        <a href="javascript:void(0)" id="more-brand-tab" class="font14" rel="nofollow">View more brands</a>
                     </div>
                 </div>
             </div>
         </section>
 
+        <section>
+            <div class="container text-center section-container">
+                <h2 class="font18 section-heading">Search used bikes by cities</h2>
+                <div class="bg-white box-shadow padding-top20 padding-bottom20">
 
+                    <a href="" class="btn btn-inv-teal inv-teal-sm">View all cities&nbsp;<span class="">></span></a>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container text-center section-container">
+                <h2 class="font18 section-heading">Recently uploaded used bikes</h2>
+                <div class="bg-white box-shadow padding-top20 padding-bottom20">
+
+                    <a href="" class="btn btn-inv-teal inv-teal-sm">View all bikes&nbsp;<span class="">></span></a>
+                </div>
+            </div>
+        </section>
 
 
 
