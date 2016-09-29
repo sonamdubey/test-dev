@@ -625,7 +625,7 @@ namespace Bikewale.DAL.Dealer
             return dealers;
         }
 
-        public DealerBikesEntity GetDealerDetailsAndBikes(int dealerId)
+        public DealerBikesEntity GetDealerDetailsAndBikesByDealerAndMake(uint dealerId, int makeId)
         {
             DealerBikesEntity dealers = new DealerBikesEntity();
 
@@ -636,7 +636,7 @@ namespace Bikewale.DAL.Dealer
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
-
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -647,6 +647,9 @@ namespace Bikewale.DAL.Dealer
                                 dealers.DealerDetails = new DealerDetailEntity();
                                 dealers.DealerDetails.Name = Convert.ToString(dr["DealerName"]);
                                 dealers.DealerDetails.Address = Convert.ToString(dr["Address"]);
+                                dealers.DealerDetails.MakeName = Convert.ToString(dr["makename"]);
+                                dealers.DealerDetails.MakeMaskingName = Convert.ToString(dr["makemaskingname"]);
+                                dealers.DealerDetails.MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]);
                                 dealers.DealerDetails.Area = new AreaEntityBase
                                 {
                                     AreaName = Convert.ToString(dr["Area"]),
@@ -654,13 +657,14 @@ namespace Bikewale.DAL.Dealer
                                     Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"])
 
                                 };
+                                dealers.DealerDetails.CityMaskingName = Convert.ToString(dr["citymaskingname"]);
                                 dealers.DealerDetails.City = Convert.ToString(dr["City"]);
                                 dealers.DealerDetails.DealerType = SqlReaderConvertor.ParseToInt16(dr["DealerType"]);
                                 dealers.DealerDetails.EMail = Convert.ToString(dr["EMail"]);
                                 dealers.DealerDetails.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
                                 dealers.DealerDetails.DealerId = Convert.ToUInt16(dealerId);
                                 dealers.DealerDetails.WorkingHours = Convert.ToString(dr["WorkingHours"]);
-                                dealers.DealerDetails.CampaignId = Convert.ToUInt32(dr["id"]);
+                                dealers.DealerDetails.CampaignId = SqlReaderConvertor.ToUInt32(dr["id"]);
                             }
                             if (dr.NextResult())
                             {

@@ -76,18 +76,13 @@ namespace Bikewale.Cache.DealersLocator
             }
             return models;
         }
-        /// <summary>
-        /// Created By: Subodh Jain on 26 Sep 2016
-        /// </summary>
-        /// <param name="dealerId"></param>
-        /// <returns></returns>
-        public DealerBikesEntity GetDealerDetailsAndBikes(int dealerId)
+        public DealerBikesEntity GetDealerDetailsAndBikesByDealerAndMake(uint dealerId, int makeId)
         {
             DealerBikesEntity models = null;
             string key = String.Format("BW_DealerBikeModel_{0}", dealerId);
             try
             {
-                models = _cache.GetFromCache<DealerBikesEntity>(key, new TimeSpan(0, 30, 0), () => _objDealers.GetDealerDetailsAndBikes(dealerId));
+                models = _cache.GetFromCache<DealerBikesEntity>(key, new TimeSpan(0, 30, 0), () => _objDealers.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId));
             }
             catch (Exception ex)
             {

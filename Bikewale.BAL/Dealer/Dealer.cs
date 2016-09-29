@@ -215,11 +215,11 @@ namespace Bikewale.BAL.Dealer
             }
         }
 
-        public DealerBikesEntity GetDealerDetailsAndBikes(int dealerId)
+        public DealerBikesEntity GetDealerDetailsAndBikesByDealerAndMake(uint dealerId, int makeId)
         {
             try
             {
-                return dealerRepository.GetDealerDetailsAndBikes(dealerId);
+                return dealerRepository.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId);
             }
             catch (Exception ex)
             {
