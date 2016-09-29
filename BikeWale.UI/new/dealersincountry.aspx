@@ -21,120 +21,7 @@
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <style type="text/css">
-        .padding-14-20 {
-            padding: 14px 20px;
-        }
-
-        .padding-18-20 {
-            padding: 18px 20px;
-        }
-
-        #listing-left-column.grid-4 {
-            padding-right: 20px;
-            padding-left: 20px;
-            width: 32.333333%;
-            box-shadow: 0 0 8px #ddd;
-            z-index: 1;
-        }
-
-        #listing-right-column.grid-8 {
-            width: 67.666667%;
-            overflow: hidden;
-        }
-
-        #filter-input {
-            margin-top: 20px;
-            background: #fff;
-        }
-
-            #filter-input .search-icon-grey {
-                position: absolute;
-                right: 10px;
-                top: 10px;
-                cursor: pointer;
-                z-index: 2;
-            }
-
-            #filter-input .fa-spinner {
-                display: none;
-                right: 14px;
-                top: 12px;
-            }
-
-            #filter-input .errorIcon, #filter-input .errorText {
-                display: none;
-            }
-
-        #location-list .item-state {
-            border-top: 1px solid #f1f1f1;
-        }
-
-            #location-list .item-state:first-child {
-                border-top: 0;
-            }
-
-        #location-list a, #location-list .type-state {
-            cursor: pointer;
-            color: #4d5057;
-            font-size: 14px;
-            display: block;
-            padding-top: 13px;
-            padding-bottom: 13px;
-        }
-
-        #location-list .type-state, #no-result {
-            font-size: 16px;
-        }
-
-        #no-result, .gm-style-iw + div, .location-list-city {
-            display: none;
-        }
-
-        #location-list li .type-state:hover, .dealer-location-tooltip .type-state:hover, .dealer-location-tooltip a:hover {
-            color: #2a2a2a;
-            text-decoration: none;
-        }
-
-        #location-list .location-list-city a {
-            color: #82888b;
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
-
-            #location-list .location-list-city a:hover {
-                color: #4d5057;
-                text-decoration: none;
-            }
-
-        #no-result {
-            padding: 13px 0;
-            color: #82888b;
-        }
-
-        .labels {
-            top: -14px;
-            left: -12px;
-        }
-
-            .labels a {
-                color: #4d5057;
-                background-color: #fff;
-                font-size: 10px;
-                font-weight: 700;
-                text-align: center;
-                width: 24px;
-                height: 24px;
-                display: block;
-                border-radius: 50%;
-                white-space: nowrap;
-                padding-top: 4px;
-                border: 2px solid #82888b;
-            }
-
-                .labels a:hover {
-                    border: 2px solid #ef3f30;
-                    text-decoration: none;
-                }
+        @charset "utf-8";.padding-14-20{padding:14px 20px}.padding-18-20{padding:18px 20px}#listing-left-column.grid-4{padding-right:20px;padding-left:20px;width:32.333333%;box-shadow:0 0 8px #ddd;z-index:1}#listing-right-column.grid-8{width:67.666667%;overflow:hidden}#filter-input{margin-top:20px;background:#fff}#filter-input .search-icon-grey{position:absolute;right:10px;top:10px;cursor:pointer;z-index:2}#filter-input .fa-spinner{display:none;right:14px;top:12px}#filter-input .errorIcon,#filter-input .errorText{display:none}#location-list .item-state{border-top:1px solid #f1f1f1}#location-list .item-state:first-child{border-top:0}#location-list .type-state,#location-list a{color:#4d5057;font-size:14px;display:block;padding-top:13px;padding-bottom:13px}#location-list .type-state,#no-result{font-size:16px}#no-result,.gm-style-iw+div,.location-list-city{display:none}#location-list li .type-state:hover,.dealer-location-tooltip .type-state:hover,.dealer-location-tooltip a:hover{color:#2a2a2a;text-decoration:none}#location-list .location-list-city a{color:#82888b;padding-top:10px;padding-bottom:10px}#location-list .location-list-city a:hover{color:#4d5057;text-decoration:none}#no-result{padding:13px 0;color:#82888b}.labels{top:-14px;left:-12px}.labels a{color:#4d5057;background-color:#fff;font-size:10px;font-weight:700;text-align:center;width:24px;height:24px;display:block;border-radius:50%;white-space:nowrap;padding-top:4px;border:2px solid #82888b}.labels a:hover{border:2px solid #ef3f30;text-decoration:none}
     </style>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
@@ -213,7 +100,7 @@
                                   <% foreach (Bikewale.Entities.DealerLocator.StateCityEntity st in stateList)
                        { %>
                                 <li  class="item-state">
-                                    <p data-item-id="<%=st.Id %>" data-item-name="<%=st.Name %>" data-lat="<%=st.Lat %>" data-long ="<%=st.Long %>" data-dealercount="<%=st.DealerCountState%>"  href="javascript:void(0)" class="type-state" data-item-id="<%=st.Id %>"><%=st.Name %></p>
+                                    <p data-item-id="<%=st.Id %>" data-item-name="<%=st.Name %>" data-lat="<%=st.Lat %>" data-long ="<%=st.Long %>" data-dealercount="<%=st.DealerCountState%>" class="type-state" data-item-id="<%=st.Id %>"><%=st.Name %></p>
                                                  <ul class="location-list-city">
                                                      <% foreach (Bikewale.Entities.Location.DealerCityEntity stcity in st.Cities)
                        { %>

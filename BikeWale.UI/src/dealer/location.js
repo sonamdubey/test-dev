@@ -107,12 +107,11 @@ function initializeMap(arrList, latPos, longPos, zoomLevel) {
 		markerPosition = new google.maps.LatLng(element.latitude, element.longitude);
 
 		marker = new MarkerWithLabel({
-
 			id: element.id,
 			name: element.name,
 			position: markerPosition,
 			icon: markerIcon,
-			labelText: element.isstate ? '<a href="javascript:void(0);" class="tooltip-marker" data-id="' + element.id + '">' + element.dealerCount + '</a>' : '<a href="' + element.link + '" class="tooltip-marker" data-id="' + element.id + '">' + element.dealerCount + '</a>',
+			labelText: element.isstate ? '<a href="javascript:void(0);" rel="nofollow" class="tooltip-marker" data-id="' + element.id + '">' + element.dealerCount + '</a>' : '<a href="' + element.link + '" class="tooltip-marker" data-id="' + element.id + '">' + element.dealerCount + '</a>',
 			labelClass: 'labels label-' + element.id
 		});
 
@@ -139,13 +138,13 @@ var initialLat = 23.2134079,
 	initialZoom = 5,
 	locationArr = [];
 
-$('#location-list').on('mouseover', '.item-state a', function () {
+$('#location-list').on('mouseover', '.item-state p, .location-list-city a', function () {
 	var currentLI = $(this),
 		currentElementId = currentLI.attr('data-item-id');
 	mapsInfoWindow.open(currentElementId);
 });
 
-$('#location-list').on('mouseout', '.item-state a', function () {
+$('#location-list').on('mouseout', '.item-state p, .location-list-city a', function () {
 	var currentLI = $(this),
 		currentElementId = currentLI.attr('data-item-id');
 	mapsInfoWindow.close(currentElementId);
