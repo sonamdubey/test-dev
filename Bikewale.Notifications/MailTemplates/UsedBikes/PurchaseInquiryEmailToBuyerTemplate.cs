@@ -5,10 +5,12 @@ namespace Bikewale.Notifications.MailTemplates.UsedBikes
     /// <summary>
     /// Created by  :   Sumit Kate on 23 Sep 2016
     /// Description :   Purchase Inquiry Buyer Email Template
+    /// Modified by :   Sumit Kate on 29 Sep 2016
+    /// Description :   Added Used bike listing page url
     /// </summary>
     public class PurchaseInquiryEmailToBuyerTemplate : ComposeEmailBase
     {
-        private string sellerEmail, sellerName, sellerContactNo, sellerAddress, profileNo, buyerId, bikeName, kilometers, bikeYear, bikePrice, buyerName;
+        private string sellerEmail, sellerName, sellerContactNo, sellerAddress, profileNo, buyerId, bikeName, kilometers, bikeYear, bikePrice, buyerName, listingUrl;
         /// <summary>
         /// Initialize the member variables values
         /// </summary>
@@ -27,7 +29,7 @@ namespace Bikewale.Notifications.MailTemplates.UsedBikes
                                                     string sellerContactNo, string sellerAddress,
                                                     string profileNo, string buyerId,
                                                     string bikeName, string kilometers,
-                                                    string bikeYear, string bikePrice, string buyerName)
+                                                    string bikeYear, string bikePrice, string buyerName, string listingUrl)
         {
             this.sellerEmail = sellerEmail;
             this.sellerName = sellerName;
@@ -40,6 +42,7 @@ namespace Bikewale.Notifications.MailTemplates.UsedBikes
             this.bikeYear = bikeYear;
             this.bikePrice = bikePrice;
             this.buyerName = buyerName;
+            this.listingUrl = listingUrl;
         }
 
         /// <summary>
@@ -53,7 +56,7 @@ namespace Bikewale.Notifications.MailTemplates.UsedBikes
             sb.AppendFormat("Dear {0},", buyerName);
             sb.AppendFormat("<p>You short listed a bike to buy. Congratulations!</p>");
             sb.AppendFormat("<p>The bike you have shown interest in is {0} (#{1}), done {2} KM listed for Rs. {3}/-. </p>", bikeName, profileNo, kilometers, bikePrice);
-            sb.AppendFormat("<p><a href=\"{0}/Used/BikeDetails.aspx?bike={1}\">Please click here to view complete details of the bike.</a></p>", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, profileNo);
+            sb.AppendFormat("<p><a href=\"{0}\">Please click here to view complete details of the bike.</a></p>", listingUrl);
             sb.AppendFormat("<p>You may contact the seller directly, details as below:<br>");
             sb.AppendFormat("Name: {0}<br />Phone(s): {1}<br />Address: {2}<br />", sellerName, sellerContactNo, sellerAddress);
             sb.AppendFormat("<p>Feel free to contact for any other assistance.</p>");

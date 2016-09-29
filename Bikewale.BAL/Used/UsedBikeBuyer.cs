@@ -381,11 +381,19 @@ namespace Bikewale.BAL.Used
         /// <param name="buyer"></param>
         private void NotifyPurchaseInquiryIndividualSeller(string bike, string pageUrl, string profileId, uint formattedPrice, CustomerEntityBase seller, CustomerEntityBase buyer)
         {
-            string msg = String.Format("New inquiry on BikeWale for your {0}. Buyer details: {1},{2}.", bike, buyer.CustomerName, buyer.CustomerMobile);
-            SMSTypes st = new SMSTypes();
-            st.UsedPurchaseInquirySMS(EnumSMSServiceType.UsedPurchaseInquiryIndividualSeller, seller.CustomerMobile, msg, pageUrl);
+            try
+            {
+                string msg = String.Format("New inquiry on BikeWale for your {0}. Buyer details: {1},{2}.", bike, buyer.CustomerName, buyer.CustomerMobile);
+                SMSTypes st = new SMSTypes();
+                st.UsedPurchaseInquirySMS(EnumSMSServiceType.UsedPurchaseInquiryIndividualSeller, seller.CustomerMobile, msg, pageUrl);
 
-            SendEmailSMSToDealerCustomer.UsedBikePurchaseInquiryEmailToIndividual(seller, buyer, profileId, bike, Bikewale.Utility.Format.FormatNumeric(formattedPrice.ToString()));
+                SendEmailSMSToDealerCustomer.UsedBikePurchaseInquiryEmailToIndividual(seller, buyer, profileId, bike, Bikewale.Utility.Format.FormatNumeric(formattedPrice.ToString()));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("NotifyPurchaseInquiryIndividualSeller({0},{1},{2},{3},{4},{5})", bike, pageUrl, profileId, formattedPrice, Newtonsoft.Json.JsonConvert.SerializeObject(seller), Newtonsoft.Json.JsonConvert.SerializeObject(buyer)));
+                objErr.SendMail();
+            }
         }
 
         /// <summary>
@@ -401,18 +409,30 @@ namespace Bikewale.BAL.Used
         private void NotifyPurchaseInquiryBuyer(string bike, string pageUrl, string profileId, CustomerEntityBase buyer, UsedBikeSellerBase seller, ClassifiedInquiryDetailsMin inquiryDetails)
         {
 
-            UrlShortnerResponse response = null;
-            string listingUrl = String.Format("{0}/Used/BikeDetails.aspx?bike={1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, profileId);
-            if (!String.IsNullOrEmpty(listingUrl))
+            try
             {
-                response = new UrlShortner().GetShortUrl(listingUrl);
-            }
-            string shortUrl = response != null ? response.ShortUrl : listingUrl;
-            string msg = string.Format("For {0} you selected at BikeWale, call its seller {1} at {2}. Visit {3} for more details.", bike, seller.Details.CustomerName, seller.Details.CustomerMobile, shortUrl);
-            SMSTypes st = new SMSTypes();
-            st.UsedPurchaseInquirySMS(EnumSMSServiceType.UsedPurchaseInquiryIndividualBuyer, buyer.CustomerMobile, msg, pageUrl);
+                UrlShortnerResponse response = null;
+                string listingUrl = String.Format("{0}/used/bikes-in-{1}/{2}-{3}-{4}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, inquiryDetails.CityMaskingName, inquiryDetails.MakeMaskingName, inquiryDetails.ModelMaskingName, profileId);
+                if (!String.IsNullOrEmpty(listingUrl))
+                {
+                    response = new UrlShortner().GetShortUrl(listingUrl);
+                }
+                string shortUrl = response != null ? response.ShortUrl : listingUrl;
+                string msg = string.Format("For {0} you selected at BikeWale, call its seller {1} at {2}. Visit {3} for more details.", bike, seller.Details.CustomerName, seller.Details.CustomerMobile, shortUrl);
+                SMSTypes st = new SMSTypes();
+                st.UsedPurchaseInquirySMS(EnumSMSServiceType.UsedPurchaseInquiryIndividualBuyer, buyer.CustomerMobile, msg, pageUrl);
 
-            SendEmailSMSToDealerCustomer.UsedBikePurchaseInquiryEmailToBuyer(seller.Details, buyer, seller.Address, profileId, bike, inquiryDetails.KmsDriven.ToString(), "", Bikewale.Utility.Format.FormatNumeric(inquiryDetails.Price.ToString()));
+                SendEmailSMSToDealerCustomer.UsedBikePurchaseInquiryEmailToBuyer(seller.Details, buyer, seller.Address, profileId, bike, inquiryDetails.KmsDriven.ToString(), "", Bikewale.Utility.Format.FormatNumeric(inquiryDetails.Price.ToString()), listingUrl);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("NotifyPurchaseInquiryBuyer({0},{1},{2},{3},{4},{5})", bike, pageUrl, profileId,
+                    Newtonsoft.Json.JsonConvert.SerializeObject(buyer),
+                    Newtonsoft.Json.JsonConvert.SerializeObject(seller),
+                    Newtonsoft.Json.JsonConvert.SerializeObject(inquiryDetails)
+                    ));
+                objErr.SendMail();
+            }
         }
     }
 }

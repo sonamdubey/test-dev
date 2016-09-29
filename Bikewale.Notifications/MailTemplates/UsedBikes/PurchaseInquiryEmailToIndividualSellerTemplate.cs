@@ -42,6 +42,8 @@ namespace Bikewale.Notifications.MailTemplates.UsedBikes
         /// <summary>
         /// Created by  :   Sumit Kate on 23 Sep 2016
         /// Description :   Prepares the Email Body
+        /// Modified by :   Sumit Kate on 29 Sep 2016
+        /// Description :   Removed the SMS SOLD text from the email
         /// </summary>
         /// <returns></returns>
         public override string ComposeBody()
@@ -57,7 +59,6 @@ namespace Bikewale.Notifications.MailTemplates.UsedBikes
             sb.AppendFormat("<p>Please remove your bike if it has been sold already, so that ever growing number of ");
             sb.AppendFormat("prospective buyers do not cause inconvenience to you. ");
             sb.AppendFormat("<a href='http://www.bikewale.com/MyBikewale/'>Click here to remove your bike now.</a></p>");
-            sb.AppendFormat("<p>Alternatively you can also remove your bike by sending SMS 'SOLD' to 56767767.</p>");
             sb.AppendFormat("<p>We are committed to deliver value by bringing genuine buyers for your bike.</p>");
             sb.AppendFormat("<p>We gauge that with the sale of {0}, you would be interested buying a new bike. Want to ", bikeName);
             sb.AppendFormat("know about a new bike’s price? BikeWale’s <a href='http://www.bikewale.com/pricequote/'>Instant Price Quote</a> is a helpful tool which will ");
