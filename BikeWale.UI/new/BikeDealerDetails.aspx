@@ -25,7 +25,7 @@
     <script src="http://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
-    </script>
+           </script>
 </head>
 <body class="bg-light-grey padding-top50">
     <form runat="server">
@@ -63,7 +63,7 @@
         </section>
 
         <section>
-            <div class="container margin-bottom20">
+            <div class="container margin-bottom20" id="dealerInfo">
                 <div class="grid-12">
                     <div class="content-box-shadow">
                         <div class="content-box-shadow padding-14-20">
@@ -71,6 +71,7 @@
                         </div>
                         <div class="content-inner-block-20">
                             <div class="grid-7 alpha omega font14">
+                                <%if(dealerDetails.DealerDetails!=null){ %>
                                 <%if (dealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || dealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe))
                                   { %>
                                 <div class="margin-bottom10">
@@ -104,6 +105,7 @@
                                     <span class="vertical-top text-light-grey dealership-card-details">Working hours: <%=workingHours %></span>
                                 </div>
                                 <%} %>
+                                <%} %>
                                 <div id="commute-distance-form" class="margin-top20">
                                     <p class="text-bold margin-bottom15">Get commute distance and time:</p>
                                     <div class="leftfloat form-control-box margin-right15">
@@ -111,8 +113,8 @@
                                         <span id="getUserLocation" class="crosshair-icon font12 position-abt pos-right10 pos-top10 cur-pointer"></span>
                                     </div>
                                     <div class="location-details padding-top10 padding-bottom10 leftfloat">
-                                        Distance: <span id="commuteDistance" class="margin-right10">999.99 kms</span>
-                                        Time: <span id="commuteDuration">23 hrs 50 mins</span>
+                                        Distance: <span id="commuteDistance" class="margin-right10"></span>
+                                        Time: <span id="commuteDuration"></span>
                                     </div>
                                     <div class="clear"></div>
                                     <div id="commuteResults"></div>
@@ -131,27 +133,28 @@
                 <div class="clear"></div>
             </div>
         </section>
-       <%if(dealerDetails.DealerDetails.CampaignId>0){ %>
+       <%if (dealerDetails.DealerDetails!=null && dealerDetails.DealerDetails.CampaignId > 0)
+         { %>
         <section>
-            <div class="container margin-bottom20">
+            <div class="container margin-bottom20" id="leadForm">
                 <div class="grid-12">
-                    <div class="content-box-shadow content-inner-block-20">
+                    <div id="buyingAssistanceForm" class="content-box-shadow content-inner-block-20">
                         <h2 class="font18 margin-bottom20">Complete buying assistance from <%=dealerName %></h2>
                         <p class="font14 text-light-grey margin-bottom25">Get in touch with <%=dealerName %> for best offers, test rides, EMI options, exchange benefits and much more...</p>
                         <div class="input-box form-control-box type-user-details margin-right20">
-                            <input type="text" id="assistanceGetName" />
+                            <input type="text" id="assistanceGetName" data-bind="textInput: fullName"/>
                             <label for="assistanceGetName">Name</label>
                             <span class="boundary"></span>
                             <span class="error-text"></span>
                         </div>
                         <div class="input-box form-control-box type-user-details margin-right20">
-                            <input type="email" id="assistanceGetEmail" />
+                            <input type="email" id="assistanceGetEmail" data-bind="textInput: emailId"/>
                             <label for="assistanceGetEmail">Email</label>
                             <span class="boundary"></span>
                             <span class="error-text"></span>
                         </div>
                         <div class="input-box input-number-box form-control-box type-user-details">
-                            <input type="tel" id="assistanceGetMobile" maxlength="10" />
+                            <input type="tel" id="assistanceGetMobile" maxlength="10" data-bind="textInput: mobileNo" />
                             <label for="assistanceGetMobile">Mobile number</label>
                             <span class="input-number-prefix">+91</span>
                             <span class="boundary"></span>
@@ -160,23 +163,28 @@
                         <div class="type-dropdown margin-bottom5">
                             <p class="font12 text-light-grey">Bike</p>
                             <div class="dropdown-select-wrapper">
-                                <select id="assistGetModel" class="dropdown-select">
+                                <select id="assistGetModel" class="dropdown-select" class="form-control chosen-select">
                                     <option value>Select a bike</option>
                                     <%foreach(var model in dealerDetails.Models){ %>
-                                    <option><%=model.BikeName %></option>
+                                    <option id="selectedBike" data-make-name="<%=model.MakeName %>" data-model-name="<%=model.objModel.ModelName %>" data-version-id="<%=model.objVersion.VersionId %>" data-item-id="<%=model.objModel.ModelId %>" data-bind="value: selectedBikeName"><%=model.BikeName %></option>
                                     <%} %>
-                                   <%-- <option value="2">Bajaj Discover 125</option>
-                                    <option value="3">Bajaj Pulsar 220F</option>
-                                    <option value="4">Bajaj V15</option>--%>
                                 </select>
                                 <span class="boundary"></span>
                                 <span class="error-text"></span>
                             </div>
                         </div>
                         <div class="type-sumit-button">
-                            <input type="button" id="submitAssistanceFormBtn" class="btn btn-orange margin-bottom5" value="Get offers" />
+
+<input type="button"  data-leadsourceid="15" class="btn btn-orange margin-bottom5 leadcapturebtn" data-isleadpopup="false" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_SubmitButton %>" 
+    data-item-id="<%= dealerId %>" data-bind="event: { click: HiddenSubmitLead }" value="Get offers" />
+
                         </div>
                     </div>
+                    <div id="dealer-assist-msg" class="hide">
+                                <p class="leftfloat font14">Thank you for your interest. <span data-bind="text: dealerName()"></span>&nbsp;will get in touch shortly</p>
+                                <span class="rightfloat bwsprite cross-lg-lgt-grey cur-pointer"></span>
+                                <div class="clear"></div>
+                            </div>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -228,13 +236,144 @@
                 <div class="clear"></div>
             </div>
         </section>
-                <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
+                
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW.aspx" -->
+        <script type="text/javascript">
+            var dealerDetailsBind='<%=dealerDetails.DealerDetails%>'
+            //var $ddlCities = $("#ddlCities"), $ddlMakes = $("#ddlMakes");
+            var $ddlModels = $("#assistGetModel");
+            var currentCityName = '<%=cityName%>';
+            var bikeCityId = '<%=cityId%>';
+            var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>";
+            var pageUrl = window.location.href;
+            var clientIP = '<%= clientIP %>';
+            //var key = "dealerCities_";
+           // lscache.setBucket('DLPage');
+            var leadSourceId, pqSourceId;
+            var pageSrcId = eval("<%= Bikewale.Utility.BWConfiguration.Instance.SourceId %>");
+            var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>";
+            var makeName = "<%= makeName%>";
+          
+
+           // lscache.flushExpired();
+            //$("#applyFiltersBtn").click(function () {
+            //    ddlmakemasking = $("#ddlMakes option:selected").attr("maskingName");
+            //    ddlcityId = $("#ddlCities option:selected").val();
+            //    if (!isNaN(ddlcityId) && ddlcityId != "0") {
+            //        ddlcityMasking = $("#ddlCities option:selected").attr("maskingName");
+            //        window.location.href = "/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
+            //    }
+            //    else {
+            //        if ($ddlCities.find("option").length < 2)
+            //            toggleErrorMsg($ddlCities, true, "No cities available. Choose another brand !");
+            //        else
+            //            toggleErrorMsg($ddlCities, true, "Choose a city");
+            //    }
+
+
+            //});
+
+            //$ddlCities.chosen({ no_results_text: "No matches found!!" });
+            //$ddlMakes.chosen({ no_results_text: "No matches found!!" });
+           
+            //$('div.chosen-container').attr('style', 'width:100%;border:0');
+            //$("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");
+
+
+
+            //$ddlMakes.change(function () {
+            //    selMakeId = $ddlMakes.val();
+            //    $ddlCities.empty();
+            //    if (!isNaN(selMakeId) && selMakeId != "0") {
+            //        if (!checkCacheCityAreas(selMakeId)) {
+            //            $.ajax({
+            //                type: "GET",
+            //                url: "/api/v2/DealerCity/?makeId=" + selMakeId,
+            //                contentType: "application/json",
+            //                dataType: 'json',
+            //                success: function (data) {
+            //                    lscache.set(key + selMakeId, data.City, 30);
+            //                    setOptions(data.City);
+            //                },
+            //                complete: function (xhr) {
+            //                    if (xhr.status == 404 || xhr.status == 204) {
+            //                        lscache.set(key + selMakeId, null, 30);
+            //                        setOptions(null);
+            //                    }
+            //                }
+            //            });
+            //        }
+            //        else {
+            //            data = lscache.get(key + selMakeId.toString());
+            //            setOptions(data);
+            //        }
+            //    }
+            //    else {
+            //        setOptions(null);
+            //    }
+            //});
+
+            //$ddlCities.change(function () {
+            //    toggleErrorMsg($ddlCities, false);
+            //});
+
+            //function checkCacheCityAreas(cityId) {
+            //    bKey = key + cityId;
+            //    if (lscache.get(bKey)) return true;
+            //    else return false;
+            //}
+
+            //function setOptions(optList) {
+            //    toggleErrorMsg($ddlCities, false);
+            //    if (optList != null) {
+            //        $ddlCities.append($('<option>').text(" Select City ").attr({ 'value': "0" }));
+            //        $.each(optList, function (i, value) {
+            //            $ddlCities.append($('<option>').text(value.cityName).attr({ 'value': value.cityId, 'maskingName': value.cityMaskingName }));
+            //        });
+            //    }
+
+            //    $ddlCities.trigger('chosen:updated');
+            //    $("#ddlCities_chosen .chosen-single.chosen-default span").text("No cities available");
+            //}
+
+            $(document).on("change", $ddlModels, function () {
+                hideError($ddlModels);
+            });
+
+        </script>
+        <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
+        
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealer/details.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        <script type="text/javascript">
+            $(".leadcapturebtn").click(function (e) {
+
+                ele = $(this);
+                debugger;
+                var leadOptions = {
+                    "dealerid": ele.attr('data-item-id'),
+                    "dealername": ele.attr('data-item-name'),
+                    "dealerarea": ele.attr('data-item-area'),
+                    "leadsourceid": ele.attr('data-leadsourceid'),
+                    "pqsourceid": ele.attr('data-pqsourceid'),
+                    "isleadpopup": ele.attr('data-isleadpopup'),
+                    "pageurl": pageUrl,
+                    "isregisterpq"  :true,
+                    "clientip": clientIP,
+                    "gaobject": {
+                        cat: ele.attr("c"),
+                        act: ele.attr("a"),
+                        lab: ele.attr("v")
+                    }
+                };
+
+                dleadvm.setOptions(leadOptions);
+
+            });
+        </script>
         <!--[if lt IE 9]>
             <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/html5.js"></script>
         <![endif]-->
