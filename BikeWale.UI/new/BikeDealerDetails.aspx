@@ -6,17 +6,17 @@
 <head>
     
     <%
-        keywords = String.Format("{0}, {0} dealer,  {0} Showroom, {0} {1}", dealerName, cityName);
+        keywords = String.Format("{0}, {0} dealer, {0} Showroom, {0} {1}", dealerName, cityName);
         description = String.Format("{2} is dealer of {0} bikes in {1}. Get best offers on {0} bikes at {2} showroom", makeName, cityName,dealerName);
         title = String.Format("{0} {1} - {0} Showroom in {1} - BikeWale", dealerName, cityName);
         canonical = String.Format("http://www.bikewale.com/{0}-dealer-showrooms-in-{1}/{2}-{3}/", makeMaskingName, cityMaskingName,dealerId, dealerMaskingName);
         alternate = String.Format("http://www.bikewale.com/m/{0}-dealer-showrooms-in-{1}/{2}-{3}/", makeMaskingName, cityMaskingName,dealerId, dealerMaskingName);
         AdId = "1395986297721";
         AdPath = "/1017752/BikeWale_New_";
-        isAd970x90Shown = false;
+        isAd970x90Shown = true;
+        isAd970x90BottomShown = true;
         isAd300x250Shown = false;
         isAd300x250BTFShown = false;
-        isAd970x90BottomShown = false;
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <style type="text/css">
@@ -36,7 +36,6 @@
                     <div class="breadcrumb margin-bottom15">
                         <!-- breadcrumb code starts here -->
 
-<%--                        Home > New Bikes > Dealer Showroom >  <Brand> Dealer Showrooms > <Brand> Dealer Showroom in <City> > <Dealer Name>--%>
                         <ul>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <a itemprop="url" href="/"><span itemprop="title">Home</span></a>
@@ -45,13 +44,13 @@
                                 <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/new/"><span itemprop="title">New Bikes</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/new/locate-dealers/"><span itemprop="title">Dealer Showroom</span></a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/dealer-showroom-locator/"><span itemprop="title">Dealer Showroom Locator</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/new/<%=makeMaskingName %>-dealers/"><span itemprop="title"><%=makeName%> Dealer showrooms</span></a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/<%=makeMaskingName %>-dealer-showrooms-in-india/"><span itemprop="title"><%=makeName%> Dealer showrooms</span></a>
                             </li>
                              <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/new/<%=makeMaskingName %>-dealers/"><span itemprop="title"><%=makeName%> Dealer Showroom in <%=cityName%></span></a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/<%=makeMaskingName %>-dealer-showrooms-in-<%=cityMaskingName %>/"><span itemprop="title"><%=makeName%> Dealer Showroom in <%=cityName%></span></a>
                             </li>
                             <li class="current"><span class="bwsprite fa-angle-right margin-right10"></span><%=dealerName %></li>
                         </ul>
@@ -71,35 +70,38 @@
                         </div>
                         <div class="content-inner-block-20">
                             <div class="grid-7 alpha omega font14">
-                                <%if(dealerDetails.DealerDetails!=null){ %>
-                                <%if (dealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || dealerDetails.DealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe))
-                                  { %>
+                                <%if(dealerObj!=null){ %>
+                                
                                 <div class="margin-bottom10">
                                     <span class="featured-tag inline-block margin-right10"><span class="bwsprite star-white"></span>Featured</span>
-                                    <h2 class="font14 text-black text-bold inline-block">Authorized <%=makeName %> dealer in <%=areaName %></h2>
+                                    <h2 class="font14 text-black text-bold inline-block">Authorized <%=makeName %> dealer in <%=cityName %></h2>
                                 </div>
-                                <%} %>
-                                <% if (!string.IsNullOrEmpty(dealerDetails.DealerDetails.Address)){%>
+                            
+                                <% if (!string.IsNullOrEmpty(address))
+                                   {%>
                                 <div class="margin-bottom10">
                                     <span class="bwsprite dealership-loc-icon vertical-top"></span>
                                     <span class="vertical-top text-light-grey dealership-card-details"><%=address %></span>
                                 </div>
                                 <%} %>
-                                <% if (!string.IsNullOrEmpty(dealerDetails.DealerDetails.MaskingNumber)){%>
+                                <% if (!string.IsNullOrEmpty(maskingNumber))
+                                   {%>
                                 <div class="margin-bottom10">
                                     <span class="bwsprite phone-black-icon vertical-top"></span>
                                     <span class="vertical-top text-bold dealership-card-details"><%=maskingNumber %></span>
                                 </div>
                                 <%} %>
-                                <% if (!string.IsNullOrEmpty(dealerDetails.DealerDetails.EMail)){%>
+                                <% if (!string.IsNullOrEmpty(eMail))
+                                   {%>
                                 <div class="margin-bottom10">
                                     <span class="bwsprite mail-grey-icon vertical-top"></span>
-                                    <a href="mailto:krishnaautomobilespune@gmail.com" target="_blank" class="vertical-top text-light-grey" rel="nofollow">
+                                    <a href="mailto:<%=eMail %>" target="_blank" class="vertical-top text-light-grey" rel="nofollow">
                                         <span class="dealership-card-details"><%=eMail %></span>
                                     </a>
                                 </div>
                                 <%} %>
-                                <% if (!string.IsNullOrEmpty(dealerDetails.DealerDetails.WorkingHours)){%>
+                                <% if (!string.IsNullOrEmpty(workingHours))
+                                   {%>
                                 <div class="margin-bottom10">
                                     <span class="bwsprite clock-icon vertical-top"></span>
                                     <span class="vertical-top text-light-grey dealership-card-details">Working hours: <%=workingHours %></span>
@@ -133,7 +135,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-       <%if (dealerDetails.DealerDetails!=null && dealerDetails.DealerDetails.CampaignId > 0)
+       <%if (dealerObj!=null && dealerObj.CampaignId > 0)
          { %>
         <section id="dealerAssistance">
             <div class="container margin-bottom20" id="leadForm">
@@ -163,8 +165,8 @@
                         <div class="type-dropdown margin-bottom5">
                             <p class="font12 text-light-grey">Bike</p>
                             <div class="dropdown-select-wrapper">
-                                <select id="getLeadBike" class="dropdown-select" class="form-control chosen-select">
-                                    <option value>Select a bike</option>
+                                <select id="getLeadBike" class="dropdown-select form-control chosen-select">
+                                    <option value="">Select a bike</option>
                                     <%foreach(var model in dealerDetails.Models){ %>
                                     <option  value="<%=model.objVersion.VersionId %>"><%=model.BikeName %></option>
                                     <%} %>
@@ -175,7 +177,7 @@
                         </div>
                         <div class="type-sumit-button">
 
-<input type="button" data-isregisterpq="true" data-item-name="<%=DealerDetails.Name %>" data-item-area="<%=DealerDetails.Area%>" data-leadsourceid="15" class="btn btn-orange margin-bottom5 " data-isleadpopup="false" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_SubmitButton %>" 
+<input type="button" data-isregisterpq="true" data-item-name="<%=dealerObj.Name %>" data-item-area="<%=dealerObj.Area%>" data-leadsourceid="15" class="btn btn-orange margin-bottom5 " data-isleadpopup="false" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_SubmitButton %>" 
     data-item-id="<%= dealerId %>" data-bind="click: function (d, e) { validateBikeData(); HiddenSubmitLead(d, e) }" value="Get offers" />
 
                         </div>
@@ -194,7 +196,7 @@
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow padding-left5 padding-right5">
-                        <h2 class="font18 margin-bottom20 padding-top20 padding-left15">Models available at <%=dealerDetails.DealerDetails.Name %></h2>
+                        <h2 class="font18 margin-bottom20 padding-top20 padding-left15">Models available at <%=dealerName%></h2>
                         <ul id="modelsAvailable">
                             <%foreach(var model in dealerDetails.Models){ %>
                              <li>
@@ -206,8 +208,8 @@
                                 <div class="details-block">
                                     <h3 class="text-black text-truncate margin-bottom10" title="<%=model.objMake.MakeName %> <%=model.objModel.ModelName %>"><%=model.objMake.MakeName %> <%=model.objModel.ModelName %></h3>
                                     <div class="font14 text-xt-light-grey margin-bottom5">
-                                        <span><%=model.Specs.Displacement %> cc, <%=model.Specs.FuelEfficiencyOverall%> kmpl, <%=model.Specs.MaxPower %> bhp, <%=model.Specs.KerbWeight%> kgs</span>
-                                    </div>
+                                    <%= Bikewale.Utility.FormatMinSpecs.GetMinSpecs(model.Specs.Displacement.ToString(),model.Specs.FuelEfficiencyOverall.ToString(),model.Specs.MaxPower.ToString(),model.Specs.KerbWeight.ToString())%>
+                                  </div>
                                     <div>
                                         <span class="bwsprite inr-md-lg"></span>
                                         <span class="font22 text-bold"><%=Bikewale.Common.CommonOpn.FormatPrice(model.VersionPrice.ToString()) %></span><span class="font14 text-light-grey">&nbsp;onwards</span>
@@ -249,8 +251,8 @@
                 }
             });
  
-            var dealerLat = '<%=dealerDetails.DealerDetails.Area.Latitude%>';
-            var dealerLng = '<%=dealerDetails.DealerDetails.Area.Longitude%>';
+            var dealerLat = '<%=dealerObj.Area.Latitude%>';
+            var dealerLng = '<%=dealerObj.Area.Longitude%>';
             var $ddlModels = $("#assistGetModel");
             var pqId = null;
             var currentCityName = '<%=cityName%>';
@@ -263,10 +265,6 @@
             var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>";
             var makeName = "<%= makeName%>";
           
-           //dealername data-item-name'),
-           // "dealerarea": ele.attr('data-item-area'),
-           
-
             $(document).on("change", $ddlModels, function () {
                 hideError($ddlModels);
             });

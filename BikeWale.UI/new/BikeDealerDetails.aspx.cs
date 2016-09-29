@@ -31,18 +31,18 @@ namespace Bikewale.New
     /// </summary>
     public class BikeDealerDetails : Page
     {
-        protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, urlCityMaskingName = string.Empty;
-        protected string address = string.Empty, maskingNumber = string.Empty, eMail = string.Empty, workingHours = string.Empty, modelImage = string.Empty, dealerName = string.Empty, dealerMaskingName = string.Empty;
-        protected uint cityId, cost, dealerId;
+        protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, urlCityMaskingName = string.Empty,
+        address = string.Empty, maskingNumber = string.Empty, eMail = string.Empty, workingHours = string.Empty, modelImage = string.Empty, dealerName = string.Empty, dealerMaskingName = string.Empty,
+        clientIP = string.Empty, pageUrl = string.Empty;
+        protected int makeId;
+        protected uint cityId,dealerId;
         protected ushort totalDealers;
         protected Repeater rptMakes, rptCities, rptDealers;
-        protected string clientIP = string.Empty, pageUrl = string.Empty;
         protected bool areDealersPremium = false;
-        protected int makeId;
         protected DealerBikesEntity dealerDetails=null;
         protected DealerCard ctrlDealerCard;
         protected LeadCaptureControl ctrlLeadCapture;
-        protected DealerDetailEntity DealerDetails;
+        protected DealerDetailEntity dealerObj;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -96,6 +96,7 @@ namespace Bikewale.New
 
         /// <summary>
         /// Created by: Aditi Srivastava on 27 Sep 2016
+        /// Summary: Get dealer details by dealer id and make id
         /// </summary>
         /// <param name="dealerid"></param>
         private void GetDealerDetails(uint dealerid)
@@ -113,18 +114,19 @@ namespace Bikewale.New
 
                     if (dealerDetails != null )
                     {
-                        DealerDetails = dealerDetails.DealerDetails;
-                        dealerName = DealerDetails.Name;
+                        dealerObj = dealerDetails.DealerDetails;
+                        dealerName = dealerObj.Name;
                         dealerMaskingName = UrlFormatter.RemoveSpecialCharUrl(dealerName);
-                        cityName = DealerDetails.City;
-                        areaName = DealerDetails.Area.AreaName;
-                        address = DealerDetails.Address;
-                        maskingNumber = DealerDetails.MaskingNumber;
-                        eMail = DealerDetails.EMail;
-                        workingHours = DealerDetails.WorkingHours;
-                        makeName = DealerDetails.MakeName;
-                        cityMaskingName = DealerDetails.CityMaskingName;
-                        cityId = (uint)DealerDetails.CityId;
+                        cityName = dealerObj.City;
+                        if (dealerObj.Area != null)
+                        areaName = dealerObj.Area.AreaName;
+                        address = dealerObj.Address;
+                        maskingNumber = dealerObj.MaskingNumber;
+                        eMail = dealerObj.EMail;
+                        workingHours = dealerObj.WorkingHours;
+                        makeName = dealerObj.MakeName;
+                        cityMaskingName = dealerObj.CityMaskingName;
+                        cityId = (uint)dealerObj.CityId;
                           }
                     else
                     {

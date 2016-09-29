@@ -109,7 +109,7 @@ namespace Bikewale.Controls
                             if (DealerId > 0)
                             {
 
-                                _dealers.Dealers = (from dealer in _dealers.Dealers where dealer.DealerId != DealerId select dealer).ToList();
+                                _dealers.Dealers = _dealers.Dealers.Where(m=>m.DealerId!= DealerId);
                             }
                             rptDealers.DataSource = _dealers.Dealers.Take(TopCount);
                             rptDealers.DataBind();
