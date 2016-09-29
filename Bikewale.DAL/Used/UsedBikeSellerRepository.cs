@@ -104,6 +104,8 @@ namespace Bikewale.DAL.Used
         /// <summary>
         /// Created by  :   Sumit Kate on 01 Sep 2016
         /// Description :   Returns the Min Inquiry Details
+        /// Modified by :   Sumit Kate on 29 Sep 2016
+        /// Description :   Populate citymaskingname, makemaskingname and modelmaskingname
         /// </summary>
         /// <param name="inquiryId"></param>
         /// <returns></returns>
@@ -133,6 +135,9 @@ namespace Bikewale.DAL.Used
                                 CustomerEmail = Convert.ToString(dr["selleremail"]),
                                 CustomerMobile = Convert.ToString(dr["sellermobile"])
                             };
+                            objInquiry.CityMaskingName = Convert.ToString(dr["citymaskingname"]);
+                            objInquiry.MakeMaskingName = Convert.ToString(dr["makemaskingname"]);
+                            objInquiry.ModelMaskingName = Convert.ToString(dr["modelmaskingname"]);
                         }
                     }
                 }

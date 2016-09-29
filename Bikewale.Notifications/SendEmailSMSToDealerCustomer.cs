@@ -353,6 +353,8 @@ namespace Bikewale.Notifications
         /// <summary>
         /// Created by  :   Sumit Kate on 23 Sep 2016
         /// Description :   Send EMail to buyer about seller details
+        /// Modified by :   Sumit Kate on 29 Sep 2016
+        /// Description :   Added listing page url
         /// </summary>
         /// <param name="seller"></param>
         /// <param name="buyer"></param>
@@ -362,7 +364,7 @@ namespace Bikewale.Notifications
         /// <param name="kilometers"></param>
         /// <param name="makeYear"></param>
         /// <param name="formattedPrice"></param>
-        public static void UsedBikePurchaseInquiryEmailToBuyer(CustomerEntityBase seller, CustomerEntityBase buyer, string sellerAddress, string profileId, string bikeName, string kilometers, string makeYear, string formattedPrice)
+        public static void UsedBikePurchaseInquiryEmailToBuyer(CustomerEntityBase seller, CustomerEntityBase buyer, string sellerAddress, string profileId, string bikeName, string kilometers, string makeYear, string formattedPrice, string listingUrl)
         {
             ComposeEmailBase objEmail = new PurchaseInquiryEmailToBuyerTemplate(
                 seller.CustomerEmail,
@@ -376,6 +378,7 @@ namespace Bikewale.Notifications
                 makeYear,
                 formattedPrice,
                 buyer.CustomerName
+                , listingUrl
                 );
             objEmail.Send(buyer.CustomerEmail, String.Format("Seller Details of Bike #{0}", profileId));
         }
