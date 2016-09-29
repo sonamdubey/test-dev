@@ -372,8 +372,10 @@ var usedBikes = function () {
 
     self.ResetFilters = function () {
         var so = self.Filters()["so"];
+        var ct = self.Filters()["city"];
         self.Filters(new Object());
         self.Filters()["so"] = so;
+        self.Filters()["city"] = ct;
         self.SetDefaultFilters();
         self.GetUsedBikes();
     };
