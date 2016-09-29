@@ -1,4 +1,6 @@
 <%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.DealerLocator.LocateNewBikeDealers" EnableViewState="false" %>
+<%@ Register Src="~/controls/NewLaunchedBikes_new.ascx" TagName="NewLaunchedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
 
 <%@ Import Namespace="Bikewale.Common" %>
 <!doctype html>
@@ -7,7 +9,7 @@
     <%
         title = "New Bike Dealer Showrooms in India | Locate Authorized Bike Showrooms - BikeWale";
         keywords = "new bike dealers, new bike showrooms, bike dealers, bike showrooms, showrooms, dealerships";
-        description = "Locate new bike showrooms and authorized bike dealers in India. Find new bike dealer information for more than 200 cities in India.";
+        description = "Locate new bike showrooms and authorized bike dealers in India. Find new bike dealer information for more than 200 cities in India. ";
         canonical = "http://www.bikewale.com/dealer-showroom-locator/";
         alternate = "http://www.bikewale.com/m/dealer-showroom-locator/";
         isHeaderFix = false;
@@ -32,7 +34,7 @@
             <div id="dealer-locator-box" class="container">
                 <div class="welcome-box">
                     <h1 class="font30 text-uppercase margin-bottom30">Showroom Locator</h1>
-                    <h2 class="font20 margin-bottom50">Find new bike dealers across 200+ cities</h2>
+                    <h2 class="font20 text-white margin-bottom50">Find new bike dealers across 200+ cities</h2>
                 </div>
             </div>
         </header>
@@ -132,6 +134,11 @@
                             <div class="jcarousel">
                                 <ul>
                                     <!-- New Launched Bikes Control-->
+                          
+                                   <%if (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)
+                           { %>
+                       <BW:NewLaunchedBikes runat="server" ID="ctrlNewLaunchedBikes" />
+                        <%} %>
                                 </ul>
                             </div>
                             <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
@@ -152,6 +159,14 @@
                             <div class="jcarousel">
                                 <ul>
                                     <!-- Upcoming bikes Control-->
+                                   
+                                    
+                                   <%if (ctrlUpcomingBikes.FetchedRecordsCount > 0)
+                           { %>
+                      <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
+                        <%} %>
+                                
+                                    
                                 </ul>
                             </div>
                             <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>

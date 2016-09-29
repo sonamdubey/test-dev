@@ -1,13 +1,15 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.DealerLocator.LocateNewBikesDealers" EnableViewState="false" %>
+<%@ Register Src="~/m/controls/MUpcomingBikes.ascx" TagName="MUpcomingBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/MNewLaunchedBikes.ascx" TagName="MNewLaunchedBikes" TagPrefix="BW" %>
 
 <!DOCTYPE html>
 <html>
 <head>
     <%
-        title = "New Bike Dealers in India - Locate Authorized Showrooms - BikeWale";
-        keywords = "new bike dealers, new bike showrooms, bike dealers, bike showrooms, showrooms, dealerships, price quote";
-        description = "Locate New bike dealers and authorized bike showrooms in India. Find new bike dealer information for more than 200 cities. Authorized company showroom information includes full address, phone numbers, email address, pin code etc.";
-        canonical = "http://www.bikewale.com/new/locate-dealers/";
+        title = "New Bike Dealer Showrooms in India | Locate Authorized Bike Showrooms - BikeWale";
+        keywords = "new bike dealers, new bike showrooms, bike dealers, bike showrooms, showrooms, dealerships";
+        description = "Locate new bike showrooms and authorized bike dealers in India. Find new bike dealer information for more than 200 cities in India. ";
+        canonical = "http://www.bikewale.com/dealer-showroom-locator/";
         AdPath = "/1017752/Bikewale_Mobile_NewBikes";
         AdId = "1398766302464";
         Ad_320x50 = false;
@@ -104,6 +106,11 @@
                     <div class="swiper-container card-container">
                         <div class="swiper-wrapper discover-bike-carousel">
                             <!-- control -->
+                                   <%if (mctrlNewLaunchedBikes.FetchedRecordsCount > 0)
+                           { %>
+                    <BW:MNewLaunchedBikes runat="server" ID="mctrlNewLaunchedBikes" />
+                        <%} %>
+                            
                         </div>
                     </div>
                 </div>
@@ -117,6 +124,11 @@
                     <div class="swiper-container card-container">
                         <div class="swiper-wrapper discover-bike-carousel">
                             <!-- control -->
+                                   <%if (mctrlUpcomingBikes.FetchedRecordsCount > 0)
+                           { %>
+                      <BW:MUpcomingBikes runat="server" ID="mctrlUpcomingBikes" />
+                        <%} %>
+                              
                         </div>
                     </div>
                 </div>
