@@ -1787,6 +1787,7 @@
     <Content Include="css\dealerlisting.css" />
     <Content Include="css\dealerpricequote.css" />
     <Content Include="css\dealersbylocation.css" />
+    <Content Include="css\dealer\landing.css" />
     <Content Include="css\dealer\listing.css" />
     <Content Include="css\global.css" />
     <Content Include="css\home.css" />
