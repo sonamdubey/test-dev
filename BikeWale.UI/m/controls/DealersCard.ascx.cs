@@ -35,7 +35,7 @@ namespace Bikewale.Mobile.Controls
         public int PQSourceId { get; set; }
         public bool IsDiscontinued { get; set; }
         public string PageName { get; set; }
-       
+
 
         public bool showWidget = false;
         protected bool isCitySelected { get { return CityId > 0; } }
@@ -147,7 +147,7 @@ namespace Bikewale.Mobile.Controls
             }
             else
             {
-                retString = String.Format("<a class=\"target-link margin-bottom5 text-truncate font16\" href=\"/m/{0}-bikes/dealers-in-{1}/\">{2}</a>", makeMaskingName, cityMaskingName, dealerName);
+                retString = String.Format("<a class=\"target-link margin-bottom5 text-truncate font16\" href=\"/m/{0}-dealer-showrooms-in-{1}/\">{2}</a>", makeMaskingName, cityMaskingName, dealerName);
             }
 
             return retString;

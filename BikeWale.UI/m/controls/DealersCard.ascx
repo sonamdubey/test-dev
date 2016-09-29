@@ -52,7 +52,7 @@
             <asp:Repeater ID="rptPopularCityDealers" runat="server">
                 <ItemTemplate>
                     <div class="swiper-slide bike-carousel-swiper dealer-no-city">
-                        <a href="<%# String.Format("/m/{0}-bikes/dealers-in-{1}/", makeMaskingName ,DataBinder.Eval(Container.DataItem,"CityBase.CityMaskingName")) %>">
+                        <a href="<%# String.Format("/m/{0}-dealer-showrooms-in-{1}/", makeMaskingName ,DataBinder.Eval(Container.DataItem,"CityBase.CityMaskingName")) %>">
                             <span class="dealer-city-image-preview">
                                 <span class="city-sprite <%# DataBinder.Eval(Container.DataItem,"CityBase.CityMaskingName") %>-icon"></span>
                             </span>

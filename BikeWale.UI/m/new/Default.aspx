@@ -177,7 +177,7 @@
                             </a>
                         </li>
                         <li class="bg-white content-inner-block-20 content-box-shadow margin-bottom20">
-                            <a href="/m/new/locate-dealers/">
+                            <a href="/m/dealer-showroom-locator/">
                                 <span class="tools-need-logo">
                                     <span class="bwm-circle-icon locatedealer-icon"></span>
                                 </span>
