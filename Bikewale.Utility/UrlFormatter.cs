@@ -180,5 +180,18 @@ namespace Bikewale.Utility
             }
             return _articleUrl;
         }
+
+        /// <summary>
+        /// Created by: Aditi Srivastava on 27 Sep 2016
+        /// Description: Replace special characters in url with hyphen and convert to lower case
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string RemoveSpecialCharUrl(string url)
+        {
+            url = (Regex.Replace(url, "[^0-9a-zA-Z]+", "-")).ToLower();
+            url = (Regex.Replace(url, @"\-+", "-")).TrimEnd('-');
+            return url;
+        }
     }
 }

@@ -5,13 +5,11 @@
 <html>
 <head>
     <%
-        title = "New Bike Dealers in India - Locate Authorized Showrooms - BikeWale";
-        keywords = "new bike dealers, new bike showrooms, bike dealers, bike showrooms, showrooms, dealerships, price quote";
-        description = "Locate New bike dealers and authorized bike showrooms in India. Find new bike dealer information for more than 200 cities. Authorized company showroom information includes full address, phone numbers, email address, pin code etc.";
-        canonical = "http://www.bikewale.com/new/locate-dealers/";
-        alternate = "http://www.bikewale.com/m/new/locate-dealers/";
-        //AdId = "1395986297721";
-        //AdPath = "/1017752/BikeWale_New_";
+        title = "New Bike Dealer Showrooms in India | Locate Authorized Bike Showrooms - BikeWale";
+        keywords = "new bike dealers, new bike showrooms, bike dealers, bike showrooms, showrooms, dealerships";
+        description = "Locate new bike showrooms and authorized bike dealers in India. Find new bike dealer information for more than 200 cities in India.";
+        canonical = "http://www.bikewale.com/dealer-showroom-locator/";
+        alternate = "http://www.bikewale.com/m/dealer-showroom-locator/";
         isHeaderFix = false;
         isAd970x90Shown = false;
         isTransparentHeader = true;
@@ -31,8 +29,8 @@
         <header class="dealerlocator-banner">
             <div class="container">
                 <div class="welcome-box">
-                    <h1 class="font30 text-uppercase margin-bottom30">Dealer locator</h1>
-                    <p class="font20 margin-bottom50">Locate dealers near you</p>
+                    <h1 class="font30 text-uppercase margin-bottom30">Showroom Locator</h1>
+                    <h2 class="font20 margin-bottom50">Find new bike dealers across 200+ cities</h2>
                     <div class="locator-search-container">
                         <div class="locator-search-brand form-control-box">
                             <select id="ddlMakes" class="form-control  chosen-select">
@@ -69,7 +67,7 @@
 
         <section class="container">
             <div class="grid-12">
-                <h2 class="text-bold text-center margin-top40 margin-bottom30 font28">Locate dealers by brand</h2>
+                <h2 class="text-bold text-center margin-top40 margin-bottom30 font28">Dealer showroom by brands</h2>
                 <div class="brand-type-container">
                     <ul class="text-center">
                         <asp:Repeater ID="rptPopularBrands" runat="server">
