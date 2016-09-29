@@ -169,8 +169,8 @@
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
             <div class="container locator-landing-banner content-inner-block-20 text-center text-white">
-                <h1 class="text-uppercase text-white padding-top40 padding-bottom15">Dealer locator</h1>
-                <p class="margin-bottom25 font14">Locate dealers near you</p>
+                <h1 class="text-uppercase text-white padding-top40 padding-bottom15">Showroom Locator</h1>
+                <h2 class="margin-bottom25 font14">Find new bike dealers across 200+ cities</h2>
                 <div class="locator-search-container">
                     <div class="locator-search-brand form-control-box margin-bottom10">
                         <div class="locator-search-brand-form"><span>Select brand</span></div>
@@ -218,7 +218,7 @@
 
         <section>
             <div class="container text-center">
-                <h2 class="margin-top25 margin-bottom20">Locate dealers by brand</h2>
+                <h2 class="margin-top25 margin-bottom20">Dealer showroom by brands</h2>
                 <div class="brand-type-container">
                     <ul class="text-center">
                         <asp:Repeater ID="rptPopularBrands" runat="server">
@@ -262,7 +262,7 @@
                 $ddlMakes = $("#sliderBrandList"),
                 searchBrandDiv = $(".locator-search-brand"),
                 searchCityDiv = $(".locator-search-city");
-            searchBrandDiv.on('click', function () {
+                searchBrandDiv.on('click', function () {
                 $('.locator-city-slider-wrapper').hide();
                 $('.locator-brand-slider-wrapper').show();
                 locatorSearchBar.addClass('open').animate({ 'left': '0px' }, 500);
@@ -284,9 +284,7 @@
                 else {
                     setError($("div.locator-search-brand-form"), "Please select brand!");
                 }
-
             });
-
             var key = "dealerCitiesByMake_";
             lscache.flushExpired();
             lscache.setBucket('DLPage');
@@ -296,8 +294,6 @@
             if (($ddlCities.find("li.activeCity")).length > 0) {
                 $("div.locator-search-city-form span").text($ddlCities.find("li.activeCity:first").text());
             }
-
-
             $ddlMakes.on("click", "li", function () {
                 var _self = $(this),
                         selectedElement = _self.text();
@@ -391,7 +387,8 @@
                 if (!isNaN(selMakeId) && selMakeId != "0") {
                     if (!isNaN(selCityId) && selCityId != "0") {
                         ddlcityMasking = $ddlCities.find("li.activeCity").attr("cityMaskingName");
-                        window.location.href = "/m/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
+                        //window.location.href = "/m/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
+                        window.location.href = "/m/" + ddlmakemasking + "-dealer-showrooms-in-" + ddlcityMasking + "/";
                     }
                     else {
                         setError($("div.locator-search-city-form"), "Please select city !");
@@ -429,9 +426,7 @@
                 element.removeClass("border-red").siblings("span.errorIcon, div.errorText").hide();
             };
 
-
         </script>
-
     </form>
 </body>
 </html>
