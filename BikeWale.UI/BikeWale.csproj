@@ -2276,6 +2276,7 @@
     <Content Include="m\css\bwm-newbikes.css" />
     <Content Include="m\css\dealerpricequote.css" />
     <Content Include="m\css\dealerpricequote-old.css" />
+    <Content Include="m\css\dealer\landing.css" />
     <Content Include="m\css\dealer\listing.css" />
     <Content Include="m\css\design.css" />
     <Content Include="m\css\home.css" />

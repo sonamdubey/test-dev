@@ -14,175 +14,111 @@
         Ad_Bot_320x50 = false;
         //menu = "10";
     %>
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/home.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <style type="text/css">
-        .locator-landing-banner {
-            background: #8d8c8a url(http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/m/dealer-locator-banner.jpg) no-repeat center bottom;
-            background-size: cover;
-            height: 330px;
-            padding-top: 1px;
-        }
-
-        .locator-search-container {
-            margin-bottom: 20px;
-            width: 100%;
-        }
-
-            .locator-search-container .form-control {
-                padding: 8px;
-            }
-
-        .locator-search-brand, .locator-search-city {
-            width: 100%;
-            height: 40px;
-        }
-
-            .locator-search-brand select, .locator-search-city select, .locator-search-brand-form, .locator-search-city-form {
-                width: 100%;
-                height: 38px;
-                color: #555;
-                background: #fff;
-            }
-
-        .locator-search-brand-form, .locator-search-city-form {
-            padding: 8px 25px 8px 8px;
-            text-align: left;
-            cursor: pointer;
-            background: #fff url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png?v1=19082015) no-repeat 96% 50%;
-            text-align: left;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            border-radius: 2px;
-        }
-
-        .locator-search-brand select, .locator-search-city select {
-            border: none;
-            display: none;
-        }
-
-        .locator-search-city select {
-            border: 1px solid #ccc;
-        }
-
-        .locator-submit-btn {
-            width: 41%;
-        }
-
-            .locator-submit-btn.btn-lg {
-                padding: 8px 24px;
-            }
-
-        .locator-search-container .errorIcon, .locator-search-container .errorText {
-            display: none;
-        }
-
-        .brandlogosprite {
-            background-image: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?22Mar2016v1);
-            background-repeat: no-repeat;
-            display: inline-block;
-        }
-
-        .brand-type-container li {
-            display: inline-block;
-            vertical-align: top;
-            width: 96px;
-            height: 70px;
-            margin-bottom: 8px;
-            text-align: center;
-            font-size: 12px;
-        }
-
-        .brand-type-container a {
-            text-decoration: none;
-            color: #1a1a1a;
-            display: inline-block;
-        }
-
-        .brand-type-title {
-            display: block;
-            text-transform: capitalize;
-        }
-
-        #locatorSearchBar.bwm-fullscreen-popup {
-            padding: 0;
-            background: #f5f5f5;
-            z-index: 11;
-            position: fixed;
-            left: 100%;
-            top: 0;
-            overflow-y: scroll;
-            width: 100%;
-            height: 100%;
-        }
-
-        #locatorSearchBar li {
-            border-top: 1px solid #ccc;
-            font-size: 14px;
-            padding: 15px 10px;
-            color: #333333;
-            cursor: pointer;
-        }
-
-            #locatorSearchBar li:hover {
-                background: #ededed;
-            }
-
-        .booking-area-slider-wrapper {
-            display: none;
-        }
-
-        .bwm-brand-city-box .back-arrow-box, .bwm-brand-city-box .cross-box {
-            height: 30px;
-            width: 40px;
-            position: absolute;
-            top: 5px;
-            z-index: 11;
-            cursor: pointer;
-        }
-
-        .bwm-brand-city-box span.back-long-arrow-left {
-            position: absolute;
-            top: 7px;
-            left: 10px;
-        }
-
-        .bwm-brand-city-box .back-arrow-box {
-            position: absolute;
-            left: 5px;
-        }
-
-        .bwm-brand-city-box .form-control {
-            padding: 10px 50px;
-        }
-
-        .activeBrand, .activeCity {
-            font-weight: bold;
-            background-color: #ddd;
-        }
-                
+        @charset "utf-8";.locator-landing-banner{background:url(http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/m/dealer-locator-banner.jpg) center bottom no-repeat #8d8c8a;background-size:cover;height:130px;padding-top:1px}.section-container{margin-bottom:25px}h2.section-heading{font-size:18px;text-align:center;margin-bottom:15px}.banner-box-shadow{background:#fff;margin-top:-25px;-moz-box-shadow:2px 2px 2px rgba(0,0,0,.2);-webkit-box-shadow:2px 2px 2px rgba(0,0,0,.2);-o-box-shadow:2px 2px 2px rgba(0,0,0,.2);-ms-box-shadow:2px 2px 2px rgba(0,0,0,.2);box-shadow:2px 2px 2px rgba(0,0,0,.2);border-radius:2px}.locator-search-container .form-control{padding:8px}.locator-search-brand,.locator-search-city{width:100%;height:40px}.locator-search-city{margin-bottom:30px}.locator-search-form{padding:9px 25px 9px 8px;cursor:pointer;background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png?v1=19082015) 96% 50% no-repeat #fff;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-radius:2px;width:100%;height:38px;color:#4d5057;border:1px solid #e2e2e2}.locator-search-brand select,.locator-search-city select{border:none;display:none}.locator-search-city select{border:1px solid #ccc}.locator-submit-btn{width:41%}.locator-submit-btn.btn-lg{padding:8px 24px}.locator-search-container .errorIcon,.locator-search-container .errorText{display:none}.brandlogosprite{background-image:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?22Mar2016v1);background-repeat:no-repeat;display:inline-block}.brand-type-container li{display:inline-block;vertical-align:top;width:90px;height:70px;margin-bottom:10px;text-align:center}.brand-type-container li:hover .brand-type-title{font-weight:700}.brand-type-container a{text-decoration:none;color:#565a5c;display:inline-block}.brand-type-title{display:block;text-transform:capitalize}#locatorSearchBar.bwm-fullscreen-popup{padding:0;background:#f5f5f5;z-index:11;position:fixed;left:100%;top:0;overflow-y:scroll;width:100%;height:100%}#locatorSearchBar li{border-top:1px solid #ccc;font-size:14px;padding:15px 10px;color:#333;cursor:pointer}#locatorSearchBar li:hover{background:#ededed}.booking-area-slider-wrapper{display:none}.bwm-brand-city-box .back-arrow-box,.bwm-brand-city-box .cross-box{height:30px;width:40px;position:absolute;top:5px;z-index:11;cursor:pointer}.bwm-brand-city-box span.back-long-arrow-left{position:absolute;top:7px;left:10px}.bwm-brand-city-box .back-arrow-box{position:absolute;left:5px}.bwm-brand-city-box .form-control{padding:10px 50px}.activeBrand,.activeCity{font-weight:700;background-color:#ddd}.brand-1,.brand-10,.brand-11,.brand-12,.brand-13,.brand-14,.brand-15,.brand-16,.brand-17,.brand-19,.brand-2,.brand-20,.brand-22,.brand-3,.brand-34,.brand-39,.brand-4,.brand-40,.brand-41,.brand-42,.brand-5,.brand-6,.brand-7,.brand-8,.brand-81,.brand-9{height:30px}.brand-2{width:52px;background-position:0 0}.brand-7{width:34px;background-position:-58px 0}.brand-1{width:53px;background-position:-97px 0}.brand-8{width:60px;background-position:-156px 0}.brand-12{width:40px;background-position:-222px 0}.brand-40{width:75px;background-position:-268px 0}.brand-34{width:73px;background-position:-349px 0}.brand-22{width:73px;background-position:-428px 0}.brand-3{width:26px;background-position:-507px 0}.brand-17{width:52px;background-position:-539px 0}.brand-15{width:71px;background-position:-597px 0}.brand-4{width:26px;background-position:-674px 0}.brand-9{width:59px;background-position:-706px 0}.brand-16{width:70px;background-position:-771px 0}.brand-5{width:35px;background-position:-847px 0}.brand-19{width:73px;background-position:-889px 0}.brand-13{width:73px;background-position:-968px 0}.brand-6{width:38px;background-position:-1047px 0}.brand-10{width:61px;background-position:-1091px 0}.brand-14{width:76px;background-position:-1159px 0}.brand-39{width:53px;background-position:-1242px 0}.brand-20{width:49px;background-position:-1300px 0}.brand-11{width:74px;background-position:-1354px 0}.brand-41{width:40px;background-position:-1432px 0}.brand-42{width:38px;background-position:-1481px 0}.brand-81{width:38px;background-position:-1529px 0}
     </style>
+    <script type="text/javascript">
+        <!-- #include file="\includes\gacode_mobile.aspx" -->
+    </script>
 </head>
-<body class="bg-white">
+<body class="bg-light-grey">
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
-            <div class="container locator-landing-banner content-inner-block-20 text-center text-white">
-                <h1 class="text-uppercase text-white padding-top40 padding-bottom15">Dealer locator</h1>
-                <p class="margin-bottom25 font14">Locate dealers near you</p>
-                <div class="locator-search-container">
-                    <div class="locator-search-brand form-control-box margin-bottom10">
-                        <div class="locator-search-brand-form"><span>Select brand</span></div>
-                        <span class="bwmsprite error-icon errorIcon"></span>
-                        <div class="bw-blackbg-tooltip errorText"></div>
+            <div class="container locator-landing-banner text-center">
+                <h1 class="font24 text-uppercase text-white padding-top20 padding-bottom10">Bike dealer locator</h1>
+                <p class="font14 text-white">Find new bike dealers across 200 cities</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="container section-container">
+                <div class="grid-12">
+                    <div class="banner-box-shadow content-inner-block-20">
+                        <h2 class="section-heading">Search dealers</h2>
+                        <div class="locator-search-container margin-bottom10 text-center">
+                            <div class="locator-search-brand form-control-box margin-bottom20">
+                                <div class="locator-search-brand-form locator-search-form"><span>Select brand</span></div>
+                                <span class="bwmsprite error-icon errorIcon"></span>
+                                <div class="bw-blackbg-tooltip errorText"></div>
+                            </div>
+                            <div class="locator-search-city form-control-box">
+                                <div class="locator-search-city-form locator-search-form border-solid-left"><span>Select city</span></div>
+                                <span class="bwmsprite error-icon errorIcon"></span>
+                                <div class="bw-blackbg-tooltip errorText"></div>
+                            </div>
+                            <input type="button" class="btn btn-orange btn-lg locator-submit-btn" value="Search" />
+                        </div>
                     </div>
-                    <div class="locator-search-city form-control-box">
-                        <div class="locator-search-city-form border-solid-left"><span>Select city</span></div>
-                        <span class="bwmsprite error-icon errorIcon"></span>
-                        <div class="bw-blackbg-tooltip errorText"></div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container section-container">
+                <h2 class="section-heading">Locate dealers by brands</h2>
+                <div class="content-box-shadow padding-top25 padding-bottom20">
+                    <div class="brand-type-container">
+                        <ul class="text-center">
+                            <asp:Repeater ID="rptPopularBrands" runat="server">
+                                <ItemTemplate>
+                                    <li>
+                                        <a href="/m/new/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-dealers/">
+                                            <span class="brand-type">
+                                                <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MakeId") %>"></span>
+                                            </span>
+                                            <span class="brand-type-title"><%# DataBinder.Eval(Container.DataItem, "MakeName") %></span>
+                                        </a>
+                                    </li>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        </ul>
+                        <ul class="brand-style-moreBtn brandTypeMore border-top1 padding-top25 text-center hide">
+                            <asp:Repeater ID="rptOtherBrands" runat="server">
+                                <ItemTemplate>
+                                    <li>
+                                        <a href="/m/new/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-dealers/">
+                                            <span class="brand-type">
+                                                <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MakeId") %>"></span>
+                                            </span>
+                                            <span class="brand-type-title"><%# DataBinder.Eval(Container.DataItem, "MakeName") %></span>
+                                        </a>
+                                    </li>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        </ul>
                     </div>
-                    <input type="button" class="btn btn-orange btn-lg font16 locator-submit-btn margin-top20" value="Submit" />
+                    <div class="view-brandType text-center">
+                        <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font14">View more brands</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container section-container">
+                <h2 class="section-heading">Newly launched bikes</h2>
+                <div class="content-box-shadow padding-top15 padding-bottom15">
+                    <div class="swiper-container card-container">
+                        <div class="swiper-wrapper discover-bike-carousel">
+                            <!-- control -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container section-container">
+                <h2 class="section-heading">Upcoming bikes</h2>
+                <div class="content-box-shadow padding-top15 padding-bottom15">
+                    <div class="swiper-container card-container">
+                        <div class="swiper-wrapper discover-bike-carousel">
+                            <!-- control -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -216,46 +152,12 @@
             </div>
         </div>
 
-        <section>
-            <div class="container text-center">
-                <h2 class="margin-top25 margin-bottom20">Locate dealers by brand</h2>
-                <div class="brand-type-container">
-                    <ul class="text-center">
-                        <asp:Repeater ID="rptPopularBrands" runat="server">
-                            <ItemTemplate>
-                                <li>
-                                    <a href="/m/new/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-dealers/">
-                                        <span class="brand-type">
-                                            <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MakeId") %>"></span>
-                                        </span>
-                                        <span class="brand-type-title"><%# DataBinder.Eval(Container.DataItem, "MakeName") %></span>
-                                    </a>
-                                </li>
-                            </ItemTemplate>
-                        </asp:Repeater>
-                    </ul>
-                    <ul class="brand-style-moreBtn brandTypeMore border-top1 padding-top25 text-center hide">
-                        <asp:Repeater ID="rptOtherBrands" runat="server">
-                            <ItemTemplate>
-                                <li>
-                                    <a href="/m/new/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-dealers/">
-                                        <span class="brand-type">
-                                            <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MakeId") %>"></span>
-                                        </span>
-                                        <span class="brand-type-title"><%# DataBinder.Eval(Container.DataItem, "MakeName") %></span>
-                                    </a>
-                                </li>
-                            </ItemTemplate>
-                        </asp:Repeater>
-                    </ul>
-                </div>
-                <div class="view-brandType text-center padding-bottom30">
-                    <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16">View more brands</a>
-                </div>
-            </div>
-        </section>
+        
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
+        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
         <script type="text/javascript">
             var locatorSearchBar = $("#locatorSearchBar"),
                 $ddlCities = $("#sliderCityList"),
