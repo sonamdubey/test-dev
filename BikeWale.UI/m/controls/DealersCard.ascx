@@ -38,8 +38,7 @@
     </div>
 </div>
 <script>
-    $('.dealer-details-main-content').on('click', function () { $(this).hide(); $(this).next('.dealer-details-more-content').show(); });
-    
+    $('.dealer-details-main-content').on('click', function () { $(this).hide(); $(this).next('.dealer-details-more-content').show(); });      
 </script>
 <% }
        else

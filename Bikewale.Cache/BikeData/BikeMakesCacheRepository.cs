@@ -3,6 +3,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Notifications;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Bikewale.Cache.BikeData
@@ -115,8 +116,7 @@ namespace Bikewale.Cache.BikeData
             }
             return objMakeDetails;
         }
-
-
+        
         /// <summary>
         /// Created by  :   Sumit Kate on 13 Sep 2016
         /// Description :   Gets All make and models from Cache if available else calls DAL
@@ -137,5 +137,58 @@ namespace Bikewale.Cache.BikeData
             }
             return makeModels;
         }
+
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 16 Sep 2016
+        /// Description :   Checks valid make masking name
+        /// </summary>
+        /// <param name="maskingName"></param>
+        /// <returns></returns>
+        public MakeMaskingResponse GetMakeMaskingResponse(string maskingName)
+        {
+            MakeMaskingResponse response = new MakeMaskingResponse();
+            Bikewale.Cache.Memcache.BWMemcache objMemcache = null;
+            try
+            {
+                // Get MaskingNames from Memcache
+                objMemcache = new Memcache.BWMemcache();
+                var htNewMaskingNames = _cache.GetFromCache<Hashtable>("BW_MakeMapping", new TimeSpan(1, 0, 0), () => objMemcache.GetHashTable("BW_MakeMapping"));
+
+                if (htNewMaskingNames != null && htNewMaskingNames.Contains(maskingName))
+                {
+                    response.MakeId = Convert.ToUInt32(htNewMaskingNames[maskingName]);
+                }
+
+                // If modelId is not null 
+                if (response.MakeId > 0)
+                {
+                    response.MaskingName = maskingName;
+                    response.StatusCode = 200;
+
+                    return response;
+                }
+                else
+                {
+                    // Get old MaskingNames from memcache
+                    var htOldMaskingNames = _cache.GetFromCache<Hashtable>("BW_OldMakeMaskingNames", new TimeSpan(1, 0, 0), () => _objMakes.GetOldMaskingNames());
+
+                    // new masking name found for given masking name. Its renamed so 301 permanant redirect.
+                    if (htOldMaskingNames != null && htOldMaskingNames[maskingName] != null)
+                    {
+                        response.MaskingName = htOldMaskingNames[maskingName].ToString();
+                        response.StatusCode = 301;
+                    }
+                    else
+                        response.StatusCode = 404;                // Not found. The given masking name does not exist on bikewale.
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("GetMakeMaskingResponse({0})", maskingName));
+                objErr.SendMail();
+            }
+            return response;
+        }        
     }
 }

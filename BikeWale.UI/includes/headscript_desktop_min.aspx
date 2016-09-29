@@ -1,9 +1,8 @@
 ﻿<script language="c#" runat="server">	
     private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
     private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
-    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", ShowTargeting = "", TargetedModel = "", TargetedSeries = "", TargetedMake = "", TargetedModels = "", canonical = "", TargetedCity = ""
-        , fbTitle = "", fbImage,
-        ogImage = "";
+    private string title = string.Empty, description = string.Empty, keywords = string.Empty, relPrevPageUrl = string.Empty, relNextPageUrl = string.Empty, AdId = string.Empty, AdPath = string.Empty, alternate = string.Empty, ShowTargeting = string.Empty, TargetedModel = string.Empty, TargetedSeries = string.Empty, TargetedMake = string.Empty, TargetedModels = string.Empty, canonical = string.Empty, TargetedCity = string.Empty
+        , fbTitle = string.Empty, fbImage = string.Empty, ogImage = string.Empty;
     private ushort feedbackTypeId = 0;
     private bool isHeaderFix = true,
         isAd970x90Shown = true,
@@ -29,6 +28,11 @@
 <%if(!String.IsNullOrEmpty(canonical)) { %>
 <link rel="canonical" href="<%=canonical %>" /> 
 <% } %>
+ <%if (!String.IsNullOrEmpty(relPrevPageUrl))
+   { %>
+<link rel="prev" href="<%= relPrevPageUrl %>" /><% } %>
+ <%if(!String.IsNullOrEmpty(relNextPageUrl)){ %>
+<link rel="next" href="<%= relNextPageUrl %>" /><% }%>
 <%if(enableOG) { %>
 <meta property="og:title" content="<%= title %>" />
 <meta property="og:type" content="website" />

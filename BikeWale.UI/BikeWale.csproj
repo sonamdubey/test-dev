@@ -268,6 +268,7 @@
     <Compile Include="BindViewModels\Webforms\CommonModel.cs" />
     <Compile Include="BindViewModels\Webforms\FeedbackCancellationModel.cs" />
     <Compile Include="BindViewModels\Webforms\ModelPageVM.cs" />
+    <Compile Include="BindViewModels\Webforms\Used\SearchBikes.cs" />
     <Compile Include="BindViewModels\Webforms\Used\UsedBikeDetails.cs" />
     <Compile Include="common\Ajax\AjaxBikeBooking.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedBuyer.cs" />
@@ -285,7 +286,9 @@
     <Compile Include="common\BWSecurity\ScreenInput.cs" />
     <Compile Include="common\Cities.cs" />
     <Compile Include="common\Classified.cs" />
-    <Compile Include="common\CommonOpn.cs" />
+    <Compile Include="common\CommonOpn.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="common\Configuration.cs" />
     <Compile Include="common\CookiesCustomers.cs" />
     <Compile Include="common\CookiesUserReviews.cs" />
@@ -318,10 +321,6 @@
     <Compile Include="common\StateCity.cs" />
     <Compile Include="common\UrlRewrite.cs" />
     <Compile Include="common\Validations.cs" />
-    <Compile Include="content\ComparisonTest\ViewCT.aspx.cs">
-      <DependentUpon>ViewCT.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="content\Features\DefaultF.aspx.cs">
       <DependentUpon>DefaultF.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -614,10 +613,6 @@
       <DependentUpon>UpcomingBikeHome.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\UpcomingBikes.ascx.cs">
-      <DependentUpon>UpcomingBikes.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="controls\UpcomingBikeSearch.ascx.cs">
       <DependentUpon>UpcomingBikeSearch.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -800,6 +795,14 @@
     </Compile>
     <Compile Include="m\controls\PopularModelComparison.ascx.cs">
       <DependentUpon>PopularModelComparison.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\UsedBikeLeadCaptureControl.ascx.cs">
+      <DependentUpon>UsedBikeLeadCaptureControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\UsedBikeLeadCaptureControl.ascx.cs">
+      <DependentUpon>UsedBikeLeadCaptureControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\UsedBikePhotoGallery.ascx.cs">
@@ -1101,10 +1104,6 @@
       <DependentUpon>dealersinstate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\locatenewbikedealers_old.aspx.cs">
-      <DependentUpon>locatenewbikedealers_old.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="new\ModelPricesInCity.aspx.cs">
       <DependentUpon>ModelPricesInCity.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1281,6 +1280,10 @@
     </Compile>
     <Compile Include="used\SearchResult.aspx.cs">
       <DependentUpon>SearchResult.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="used\Search_v2.aspx.cs">
+      <DependentUpon>Search_v2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="used\sell\confirmation.aspx.cs">
@@ -1675,7 +1678,6 @@
     <Content Include="bin\Newtonsoft.Json.dll" />
     <!--     <Content Include="bin\Newtonsoft.Json.xml" /> -->
     <Content Include="contactus.aspx" />
-    <Content Include="content\ComparisonTest\ViewCT.aspx" />
     <Content Include="content\Features\DefaultF.aspx" />
     <Content Include="content\Features\ViewF.aspx" />
     <Content Include="content\RepeaterPager.ascx" />
@@ -1755,7 +1757,6 @@
     <Content Include="controls\TipsAdvicesMin.ascx" />
     <Content Include="controls\TopUsedListedBike.ascx" />
     <Content Include="controls\UpcomingBikeHome.ascx" />
-    <Content Include="controls\UpcomingBikes.ascx" />
     <Content Include="controls\UpcomingBikeSearch.ascx" />
     <Content Include="controls\UpcomingBikesMin.ascx" />
     <Content Include="controls\UpcomingBikes_new.ascx" />
@@ -1821,6 +1822,7 @@
     <Content Include="css\style.css" />
     <Content Include="css\style_carousal.css" />
     <Content Include="css\used-cd.css" />
+    <Content Include="css\used-search.css" />
     <Content Include="default.aspx" />
     <Content Include="editor\css\content.css" />
     <Content Include="editor\css\content_old.css" />
@@ -2230,6 +2232,8 @@
     <Content Include="m\controls\MNewLaunchedBikes.ascx" />
     <Content Include="m\controls\UploadPhotoRequestPopup.ascx" />
     <Content Include="m\controls\PopularModelComparison.ascx" />
+    <Content Include="controls\UsedBikeLeadCaptureControl.ascx" />
+    <Content Include="m\controls\UsedBikeLeadCaptureControl.ascx" />
     <Content Include="m\controls\UsedBikePhotoGallery.ascx" />
     <Content Include="m\controls\ModelGallery.ascx" />
     <Content Include="m\controls\ModelPriceInNearestCities.ascx" />
@@ -2285,11 +2289,7 @@
     <Content Include="m\css\new\bwm-modelprice-in-city.css" />
     <Content Include="m\css\new\bwm-search.css" />
     <Content Include="m\css\style.css" />
-    <Content Include="m\css\used-details-atf.css" />
-    <Content Include="m\css\used-details-btf.css" />
     <Content Include="m\css\used-details.css" />
-    <Content Include="m\css\used-search-atf.css" />
-    <Content Include="m\css\used-search-btf.css" />
     <Content Include="m\css\used-search.css" />
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
@@ -2399,7 +2399,6 @@
     <Content Include="m\videos\VideoMakeModel.aspx" />
     <Content Include="News\RepeaterPagerNews.ascx" />
     <Content Include="new\dealersinstate.aspx" />
-    <Content Include="new\locatenewbikedealers_old.aspx" />
     <Content Include="new\listnewbikedealersbycity.aspx" />
     <Content Include="new\ModelPricesInCity.aspx" />
     <Content Include="new\modelSpecsFeatures.aspx" />
@@ -2503,6 +2502,7 @@
     <!--     <Content Include="src\Research\photogallery\image-gallery.js" />
     <Content Include="src\Research\photogallery\jquery.ad-gallery.js" /> -->
     <Content Include="src\Research\write_reviews.js" />
+    <Content Include="src\used-search.js" />
     <Content Include="src\Used\search.js" />
     <Content Include="src\Videos\videoByCategory.js" />
     <Content Include="staticHtml\premium.html" />
@@ -2531,6 +2531,7 @@
     <Content Include="used\Default.aspx" />
     <Content Include="used\Search.aspx" />
     <Content Include="used\SearchResult.aspx" />
+    <Content Include="used\Search_v2.aspx" />
     <Content Include="used\sell\confirmation.aspx" />
     <Content Include="used\sell\default.aspx" />
     <Content Include="used\sell\UploadBasic.aspx" />
@@ -2606,6 +2607,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="community\pms\" />
+    <Folder Include="content\ComparisonTest\" />
     <Folder Include="msmq\" />
     <Folder Include="m\dealerlocator\" />
     <Folder Include="obj\Debug\TempPE\" />

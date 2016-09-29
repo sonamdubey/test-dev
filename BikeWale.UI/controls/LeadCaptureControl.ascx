@@ -124,8 +124,8 @@
             if (prevMobile != $(this).val().trim()) {
                 if (dleadvm.validateMobileNo($(this))) {
                     dleadvm.IsVerified(false);
-                    otpText.val('');
-                    otpContainer.removeClass("show").addClass("hide");
+                    //otpText.val('');
+                    //otpContainer.removeClass("show").addClass("hide");
                     hideError($(this));
                 }
             }
@@ -141,8 +141,8 @@
             if (prevEmail != $(this).val().trim()) {
                 if (dleadvm.validateEmailId($(this))) {
                     dleadvm.IsVerified(false);
-                    otpText.val('');
-                    otpContainer.removeClass("show").addClass("hide");
+                    //otpText.val('');
+                    //otpContainer.removeClass("show").addClass("hide");
                     hideError($(this));
                 }
             }

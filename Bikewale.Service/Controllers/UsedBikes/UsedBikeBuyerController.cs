@@ -6,9 +6,9 @@ using Bikewale.Service.AutoMappers.UsedBikes;
 using Bikewale.Service.Utilities;
 using Bikewale.Utility;
 using System;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
-
 namespace Bikewale.Service.Controllers.UsedBikes
 {
     /// <summary>
@@ -96,6 +96,54 @@ namespace Bikewale.Service.Controllers.UsedBikes
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("ShownInterestInThisBike({0},{1})", profileId, isDealer));
+                objErr.SendMail();
+                return InternalServerError();
+            }
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 26 Sep 2016
+        /// Description :   Used bike purchase inquiry API
+        /// </summary>
+        /// <param name="profileId"></param>
+        /// <param name="pageUrl"></param>
+        /// <param name="buyer"></param>
+        /// <returns></returns>
+        [HttpPost, Route("api/usedbike/purchaseinquiry/"), ResponseType(typeof(PurchaseInquiryResultDTO))]
+        public IHttpActionResult PurchaseInquiry(string profileId, string pageUrl, [FromBody] DTO.Customer.CustomerBase buyer)
+        {
+            try
+            {
+                string platformId = "";
+
+                if (Request.Headers.Contains("platformId"))
+                {
+                    platformId = Request.Headers.GetValues("platformId").First().ToString();
+                    if (!String.IsNullOrEmpty(platformId) && Utility.CommonValidators.IsValidNumber(platformId))
+                    {
+                        Entities.Customer.CustomerEntityBase buyerEntity = null;
+                        if (buyer != null)
+                        {
+                            buyerEntity = UsedBikeBuyerMapper.Convert(buyer);
+                        }
+                        PurchaseInquiryResultEntity inquiryresult = _objUsedBikeBuyerBL.SubmitPurchaseInquiry(buyerEntity, profileId, pageUrl, Convert.ToUInt16(platformId));
+                        PurchaseInquiryResultDTO dto = UsedBikeBuyerMapper.Convert(inquiryresult);
+                        return Ok(dto);
+                    }
+                    else
+                    {
+                        return BadRequest();
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("PurchaseInquiry({0},{1})", profileId, pageUrl));
                 objErr.SendMail();
                 return InternalServerError();
             }

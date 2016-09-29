@@ -2,6 +2,7 @@
 using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
 using Bikewale.Controls;
+using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
 using Bikewale.Entities.BikeData;
@@ -11,7 +12,6 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Memcache;
-using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -150,7 +150,7 @@ namespace Bikewale.New
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, "BindDealerList");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindDealerList");
                 objErr.SendMail();
             }
         }
@@ -192,7 +192,7 @@ namespace Bikewale.New
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, "BindMakesDropdown");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindMakesDropdown");
                 objErr.SendMail();
             }
         }
@@ -229,8 +229,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, "BindCitiesDropdown");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindCitiesDropdown");
                 objErr.SendMail();
             }
         }
@@ -247,7 +246,58 @@ namespace Bikewale.New
             {
                 if (!string.IsNullOrEmpty(maskingName))
                 {
-                    string _makeId = MakeMapping.GetMakeId(maskingName);
+                    string _makeId = string.Empty;
+
+                    MakeMaskingResponse objMakeResponse = null;
+
+                    try
+                    {
+                        using (IUnityContainer containerInner = new UnityContainer())
+                        {
+                            containerInner.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                                  .RegisterType<ICacheManager, MemcacheManager>()
+                                  .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                                 ;
+                            var objCache = containerInner.Resolve<IBikeMakesCacheRepository<int>>();
+
+                            objMakeResponse = objCache.GetMakeMaskingResponse(maskingName);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
+                        objErr.SendMail();
+                        Response.Redirect("pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
+                    finally
+                    {
+                        if (objMakeResponse != null)
+                        {
+                            if (objMakeResponse.StatusCode == 200)
+                            {
+                                _makeId = Convert.ToString(objMakeResponse.MakeId);
+                            }
+                            else if (objMakeResponse.StatusCode == 301)
+                            {
+                                CommonOpn.RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objMakeResponse.MaskingName));
+                            }
+                            else
+                            {
+                                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                                this.Page.Visible = false;
+                            }
+                        }
+                        else
+                        {
+                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
+                        }
+                    }
+
                     if (string.IsNullOrEmpty(_makeId) || !uint.TryParse(_makeId, out makeId))
                     {
                         Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
@@ -264,8 +314,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, "GetMakeIdByMakeMaskingName");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetMakeIdByMakeMaskingName");
                 objErr.SendMail();
             }
         }
@@ -310,7 +359,7 @@ namespace Bikewale.New
             catch (Exception ex)
             {
                 Trace.Warn("ProcessQueryString Ex: ", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, currentReq.ServerVariables["URL"]);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, currentReq.ServerVariables["URL"]);
                 objErr.SendMail();
             }
             return isValidQueryString;

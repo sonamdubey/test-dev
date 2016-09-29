@@ -1,7 +1,13 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
+using Bikewale.Common;
 using Bikewale.Controls;
+using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
-using Bikewale.Memcache;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
+using Microsoft.Practices.Unity;
 using MySql.CoreDAL;
 using System;
 using System.Data;
@@ -68,7 +74,59 @@ namespace Bikewale.New
                 }
                 if (!String.IsNullOrEmpty(Request.QueryString["make"]))
                 {
-                    makeId = MakeMapping.GetMakeId(Request.QueryString["make"]);
+                    string makeMaskingName = Request.QueryString["make"];
+
+
+                    MakeMaskingResponse objMakeResponse = null;
+
+                    try
+                    {
+                        using (IUnityContainer containerInner = new UnityContainer())
+                        {
+                            containerInner.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                                  .RegisterType<ICacheManager, MemcacheManager>()
+                                  .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                                 ;
+                            var objCache = containerInner.Resolve<IBikeMakesCacheRepository<int>>();
+
+                            objMakeResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
+                        objErr.SendMail();
+                        Response.Redirect("pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
+                    finally
+                    {
+                        if (objMakeResponse != null)
+                        {
+                            if (objMakeResponse.StatusCode == 200)
+                            {
+                                makeId = Convert.ToString(objMakeResponse.MakeId);
+                            }
+                            else if (objMakeResponse.StatusCode == 301)
+                            {
+                                CommonOpn.RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objMakeResponse.MaskingName));
+                            }
+                            else
+                            {
+                                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                                this.Page.Visible = false;
+                            }
+                        }
+                        else
+                        {
+                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
+                        }
+                    }
+
                     if (!string.IsNullOrEmpty(makeId))
                     {
                         makeName = Request.QueryString["make"].ToString();

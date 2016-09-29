@@ -95,8 +95,18 @@ ko.bindingHandlers.KOSlider = {
         var observable = valueAccessor();
 
         options.slide = function (e, ui) {
-            observable(ui.values ? ui.values : ui.value);
+            if (ui.values && ui.values.length > 0) {
+                if (ui.values[0] != ui.values[1])
+                    observable(ui.values);
+            }
+            else observable(ui.value);
         };
+
+        ko.utils.registerEventHandler(element, "slide", function (event, ui) {
+            if (ui.values && ui.values.length > 0 && ui.values[0] == ui.values[1]) {
+                return false;
+            }
+        });
 
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
             $(element).slider("destroy");
@@ -299,7 +309,7 @@ var usedBikes = function()
                 var rstr = qs.match(/page-[0-9]+/i);
                 for (var i = self.Pagination().pageNumber() ; i < n; i++) {
                     var pageUrl = qs.replace(rstr, "page-" + i);
-                    pages += ' <li class="page-url"><a  data-bind="click : ChangePageNumber" data-pagenum="' + i + '" href="' + pageUrl + '">' + i + '</a></li>';
+                    pages += ' <li class="page-url ' +(i == self.CurPageNo() ? 'active' : '') + ' "><a  data-bind="click : ChangePageNumber" data-pagenum="' + i + '" href="' + pageUrl + '">' + i + '</a></li>';
                 }
                 self.PagesListHtml(pages);
 
