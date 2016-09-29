@@ -61,7 +61,7 @@ namespace BikeWaleOpr.Classified
                     ClassifiedCommon cc = new ClassifiedCommon();
                     if (IsPostBack)                    
                     {
-                        startIndex = 0;
+                        startIndex = 1;
                         endIndex = 20;
                         inquiryId = txtProfileId.Text;
                     }
