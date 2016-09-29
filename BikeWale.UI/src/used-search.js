@@ -372,8 +372,10 @@ var usedBikes = function () {
 
     self.ResetFilters = function () {
         var so = self.Filters()["so"];
+        var ct = self.Filters()["city"];
         self.Filters(new Object());
         self.Filters()["so"] = so;
+        self.Filters()["city"] = ct;
         self.SetDefaultFilters();
         self.GetUsedBikes();
     };
@@ -634,7 +636,7 @@ $(function () {
     vwUsedBikes.SetDefaultFilters();
     vwUsedBikes.TotalBikes() > 0 ? vwUsedBikes.OnInit(true) : vwUsedBikes.OnInit(false);
 
-    vwUsedBikes.SetPageFilters();
+    
 
     if (selectedModelId && selectedModelId != "" && selectedModelId != "0") {
         var ele = bikesList.find("ul.bike-model-list span[data-modelid=" + selectedModelId + "]");
@@ -669,7 +671,10 @@ $(function () {
         vwUsedBikes.Filters()["city"] = selectedCityId;
     }
 
+
     filters.set.bike();
+
+    vwUsedBikes.SetPageFilters();
 
 });
 
