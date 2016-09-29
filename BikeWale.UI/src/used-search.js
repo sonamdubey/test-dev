@@ -628,7 +628,7 @@ $(function () {
     vwUsedBikes.SetDefaultFilters();
     vwUsedBikes.TotalBikes() > 0 ? vwUsedBikes.OnInit(true) : vwUsedBikes.OnInit(false);
 
-    vwUsedBikes.SetPageFilters();
+    
 
     if (selectedModelId && selectedModelId != "" && selectedModelId != "0") {
         var ele = bikesList.find("ul.bike-model-list span[data-modelid=" + selectedModelId + "]");
@@ -663,7 +663,10 @@ $(function () {
         vwUsedBikes.Filters()["city"] = selectedCityId;
     }
 
+
     filters.set.bike();
+
+    vwUsedBikes.SetPageFilters();
 
 });
 
