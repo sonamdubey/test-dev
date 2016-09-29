@@ -32,7 +32,7 @@ namespace Bikewale.Mobile
         protected int dealerBikesCount = 0;
         protected DealerDetailEntity dealerDetails;
         protected bool isDealerDetail;
-        private string cityName = string.Empty;
+        protected string cityName = string.Empty;
         protected string makeName = string.Empty, dealerName = string.Empty, dealerArea = string.Empty, dealerCity = string.Empty;
         protected double dealerLat, dealerLong;
         protected DealersCard ctrlDealerCard;
@@ -86,7 +86,6 @@ namespace Bikewale.Mobile
                     {
                         dealerDetails = dealer.DealerDetails;
 
-
                         isDealerDetail = true;
 
                         cityMaskingName = dealerDetails.CityMaskingName;
@@ -108,6 +107,7 @@ namespace Bikewale.Mobile
                         ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_DealerDetails;
                         ctrlDealerCard.LeadSourceId = 30;
 
+                        makeName = dealerDetails.MakeName;
                         campaignId = dealerDetails.CampaignId;
                         ctrlDealerCard.DealerId = (int)dealerId;
 
@@ -117,12 +117,9 @@ namespace Bikewale.Mobile
 
                         if (dealer.Models != null && dealer.Models.Count() > 0)
                         {
-                            makeName = dealer.Models.FirstOrDefault().objMake.MakeName;
                             rptModels.DataSource = dealer.Models;
                             rptModels.DataBind();
                             dealerBikesCount = dealer.Models.Count();
-                            //rptModelList.DataSource = dealer.Models;
-                            //rptModelList.DataBind();
                         }
                     }
                     else
@@ -175,7 +172,6 @@ namespace Bikewale.Mobile
             }
             catch (Exception ex)
             {
-
                 Trace.Warn("ProcessQueryString Ex: ", ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, currentReq.ServerVariables["URL"]);
                 objErr.SendMail();

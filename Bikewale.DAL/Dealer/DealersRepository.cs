@@ -625,6 +625,10 @@ namespace Bikewale.DAL.Dealer
             return dealers;
         }
 
+        /// <summary>
+        /// Created By : Sajal Gupta on 26/09/2016
+        /// Description: DAL method to get dealer's bikes and details on the basis of dealerId and makeId.
+        /// </summary>
         public DealerBikesEntity GetDealerDetailsAndBikesByDealerAndMake(uint dealerId, int makeId)
         {
             DealerBikesEntity dealers = new DealerBikesEntity();
@@ -712,8 +716,6 @@ namespace Bikewale.DAL.Dealer
                                     bikes.MakeId = !Convert.IsDBNull(dr["MakeId"]) ? Convert.ToUInt16(dr["MakeId"]) : default(int);
                                     bikes.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                     bikes.MakeName = Convert.ToString(dr["make"]);
-
-                                    
 
                                     models.Add(bikes);
                                 }
