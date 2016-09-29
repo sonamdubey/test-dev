@@ -165,7 +165,10 @@ namespace Bikewale.BindViewModels.Controls
             {
                 if (_useGrpc)
                 {
-                    var _objVideoList = GrpcMethods.GetVideosByModelId(ModelId);
+                    int startIndex, endIndex;
+                    Bikewale.Utility.Paging.GetStartEndIndex(1000, 1, out startIndex, out endIndex); 
+
+                    var _objVideoList = GrpcMethods.GetVideosByModelId(ModelId,(uint)startIndex,(uint)endIndex);
 
                     if (_objVideoList != null && _objVideoList.LstGrpcVideos.Count>0)
                     {
