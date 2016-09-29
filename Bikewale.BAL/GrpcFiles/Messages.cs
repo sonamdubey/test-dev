@@ -106,55 +106,61 @@ namespace EditCMSWindowsService.Messages {
             "TGlzdBIUCgxUb3RhbFJlY29yZHMYAiABKAUSEwoLUHJldlBhZ2VVcmwYAyAB",
             "KAkSEwoLTmV4dFBhZ2VVcmwYBCABKAkiSQoOR3JwY1ZpZGVvc0xpc3QSNwoN",
             "THN0R3JwY1ZpZGVvcxgBIAMoCzIgLkVkaXRDTVNXaW5kb3dzU2VydmljZS5H",
-            "cnBjVmlkZW8iSgoaR3JwY1ZpZGVvc0J5U3ViQ2F0ZWdvcnlVUkkSFQoNU3Vi",
-            "Q2F0ZWdvcnlJZBgBIAEoDRIVCg1BcHBsaWNhdGlvbklkGAIgASgNIjYKEUdy",
-            "cGNWaWRlb3NCeUlkVVJJEgoKAklkGAEgASgFEhUKDUFwcGxpY2F0aW9uSWQY",
-            "AiABKA0iTQocR3JwY1ZpZGVvc0J5U3ViQ2F0ZWdvcmllc1VSSRIWCg5TdWJD",
-            "YXRlZ29yeUlkcxgBIAEoCRIVCg1BcHBsaWNhdGlvbklkGAIgASgNIk8KD0Vk",
-            "aXRDTVNDYXRlZ29yeRI8CghDYXRlZ29yeRgBIAEoDjIqLkVkaXRDTVNXaW5k",
-            "b3dzU2VydmljZS5FZGl0Q01TQ2F0ZWdvcnlFbnVtKlUKE0VkaXRDTVNDYXRl",
-            "Z29yeUVudW0SCAoETmV3cxAAEhEKDUV4cGVydFJldmlld3MQARIMCghGZWF0",
-            "dXJlcxACEgoKBlZpZGVvcxADEgcKA0FsbBAEMuAMChJFZGl0Q01TR3JwY1Nl",
-            "cnZpY2USdQoVR2V0TW9zdFJlY2VudEFydGljbGVzEisuRWRpdENNU1dpbmRv",
-            "d3NTZXJ2aWNlLkdycGNBcnRpY2xlUmVjZW50VVJJGi0uRWRpdENNU1dpbmRv",
-            "d3NTZXJ2aWNlLkdycGNBcnRpY2xlU3VtbWFyeUxpc3QiABJvChhHZXRDb250",
-            "ZW50TGlzdEJ5Q2F0ZWdvcnkSKi5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3Jw",
-            "Y0FydGljbGVCeUNhdFVSSRolLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBj",
-            "Q01TQ29udGVudCIAEm4KEUdldENvbnRlbnREZXRhaWxzEiwuRWRpdENNU1dp",
-            "bmRvd3NTZXJ2aWNlLkdycGNBcnRpY2xlQ29udGVudFVSSRopLkVkaXRDTVNX",
-            "aW5kb3dzU2VydmljZS5HcnBjQXJ0aWNsZURldGFpbHMiABJwCg9HZXRDb250",
-            "ZW50UGFnZXMSLC5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY0FydGljbGVD",
-            "b250ZW50VVJJGi0uRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNBcnRpY2xl",
-            "UGFnZURldGFpbHMiABJrChJHZXRNb2RlbFBob3Rvc0xpc3QSKC5FZGl0Q01T",
-            "V2luZG93c1NlcnZpY2UuR3JwY01vZGVsUGhvdG9VUkkaKS5FZGl0Q01TV2lu",
-            "ZG93c1NlcnZpY2UuR3JwY01vZGVsSW1hZ2VMaXN0IgASbQoQR2V0QXJ0aWNs",
-            "ZVBob3RvcxIsLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjQXJ0aWNsZUNv",
-            "bnRlbnRVUkkaKS5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY01vZGVsSW1h",
-            "Z2VMaXN0IgASYAoSR3JwY0dldEZlYXR1cmVkQ2FyEiguRWRpdENNU1dpbmRv",
-            "d3NTZXJ2aWNlLkdycGNGZWF0dXJlQ2FyVVJJGh4uRWRpdENNU1dpbmRvd3NT",
-            "ZXJ2aWNlLkdycGNJbnQiABJ0ChZHZXRWaWRlb3NCeVN1YkNhdGVnb3J5EjEu",
-            "RWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNWaWRlb3NCeVN1YkNhdGVnb3J5",
-            "VVJJGiUuRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNWaWRlb3NMaXN0IgAS",
-            "fQoYR2V0VmlkZW9zQnlTdWJDYXRlZ29yaWVzEjMuRWRpdENNU1dpbmRvd3NT",
-            "ZXJ2aWNlLkdycGNWaWRlb3NCeVN1YkNhdGVnb3JpZXNVUkkaKi5FZGl0Q01T",
-            "V2luZG93c1NlcnZpY2UuR3JwY1ZpZGVvTGlzdEVudGl0eSIAEmcKEkdldFZp",
-            "ZGVvc0J5TW9kZWxJZBIoLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjVmlk",
-            "ZW9zQnlJZFVSSRolLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjVmlkZW9z",
-            "TGlzdCIAEmYKEUdldFZpZGVvc0J5TWFrZUlkEiguRWRpdENNU1dpbmRvd3NT",
-            "ZXJ2aWNlLkdycGNWaWRlb3NCeUlkVVJJGiUuRWRpdENNU1dpbmRvd3NTZXJ2",
-            "aWNlLkdycGNWaWRlb3NMaXN0IgASZQoQR2V0U2ltaWxhclZpZGVvcxIoLkVk",
-            "aXRDTVNXaW5kb3dzU2VydmljZS5HcnBjVmlkZW9zQnlJZFVSSRolLkVkaXRD",
-            "TVNXaW5kb3dzU2VydmljZS5HcnBjVmlkZW9zTGlzdCIAEmEKEUdldFZpZGVv",
-            "QnlCYXNpY0lkEiguRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNWaWRlb3NC",
-            "eUlkVVJJGiAuRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNWaWRlbyIAElEK",
-            "DUNoZWNrSGVhcnRCaXQSHi5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY0lu",
-            "dBoeLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjSW50IgASXwoSQ2xlYXJN",
-            "ZW1jYWNoZWRLZXlzEiYuRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkVkaXRDTVND",
-            "YXRlZ29yeRofLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjQm9vbCIAQiGq",
-            "Ah5FZGl0Q01TV2luZG93c1NlcnZpY2UuTWVzc2FnZXNiBnByb3RvMw=="));
+            "cnBjVmlkZW8icAoaR3JwY1ZpZGVvc0J5U3ViQ2F0ZWdvcnlVUkkSFQoNU3Vi",
+            "Q2F0ZWdvcnlJZBgBIAEoDRIVCg1BcHBsaWNhdGlvbklkGAIgASgNEhIKClN0",
+            "YXJ0SW5kZXgYAyABKA0SEAoIRW5kSW5kZXgYBCABKA0iXAoRR3JwY1ZpZGVv",
+            "c0J5SWRVUkkSCgoCSWQYASABKAUSFQoNQXBwbGljYXRpb25JZBgCIAEoDRIS",
+            "CgpTdGFydEluZGV4GAMgASgNEhAKCEVuZEluZGV4GAQgASgNIrwBChxHcnBj",
+            "VmlkZW9zQnlTdWJDYXRlZ29yaWVzVVJJEhYKDlN1YkNhdGVnb3J5SWRzGAEg",
+            "ASgJEhUKDUFwcGxpY2F0aW9uSWQYAiABKA0SEgoKU3RhcnRJbmRleBgDIAEo",
+            "DRIQCghFbmRJbmRleBgEIAEoDRJHCgxTb3J0Q2F0ZWdvcnkYBSABKA4yMS5F",
+            "ZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY1ZpZGVvU29ydE9yZGVyQ2F0ZWdv",
+            "cnkiTwoPRWRpdENNU0NhdGVnb3J5EjwKCENhdGVnb3J5GAEgASgOMiouRWRp",
+            "dENNU1dpbmRvd3NTZXJ2aWNlLkVkaXRDTVNDYXRlZ29yeUVudW0qVQoTRWRp",
+            "dENNU0NhdGVnb3J5RW51bRIICgROZXdzEAASEQoNRXhwZXJ0UmV2aWV3cxAB",
+            "EgwKCEZlYXR1cmVzEAISCgoGVmlkZW9zEAMSBwoDQWxsEAQqVAoaR3JwY1Zp",
+            "ZGVvU29ydE9yZGVyQ2F0ZWdvcnkSFQoRRmVhdHVyZWRBbmRMYXRlc3QQABIP",
+            "CgtNb3N0UG9wdWxhchABEg4KCkp1c3RMYXRlc3QQAjLgDAoSRWRpdENNU0dy",
+            "cGNTZXJ2aWNlEnUKFUdldE1vc3RSZWNlbnRBcnRpY2xlcxIrLkVkaXRDTVNX",
+            "aW5kb3dzU2VydmljZS5HcnBjQXJ0aWNsZVJlY2VudFVSSRotLkVkaXRDTVNX",
+            "aW5kb3dzU2VydmljZS5HcnBjQXJ0aWNsZVN1bW1hcnlMaXN0IgASbwoYR2V0",
+            "Q29udGVudExpc3RCeUNhdGVnb3J5EiouRWRpdENNU1dpbmRvd3NTZXJ2aWNl",
+            "LkdycGNBcnRpY2xlQnlDYXRVUkkaJS5FZGl0Q01TV2luZG93c1NlcnZpY2Uu",
+            "R3JwY0NNU0NvbnRlbnQiABJuChFHZXRDb250ZW50RGV0YWlscxIsLkVkaXRD",
+            "TVNXaW5kb3dzU2VydmljZS5HcnBjQXJ0aWNsZUNvbnRlbnRVUkkaKS5FZGl0",
+            "Q01TV2luZG93c1NlcnZpY2UuR3JwY0FydGljbGVEZXRhaWxzIgAScAoPR2V0",
+            "Q29udGVudFBhZ2VzEiwuRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNBcnRp",
+            "Y2xlQ29udGVudFVSSRotLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjQXJ0",
+            "aWNsZVBhZ2VEZXRhaWxzIgASawoSR2V0TW9kZWxQaG90b3NMaXN0EiguRWRp",
+            "dENNU1dpbmRvd3NTZXJ2aWNlLkdycGNNb2RlbFBob3RvVVJJGikuRWRpdENN",
+            "U1dpbmRvd3NTZXJ2aWNlLkdycGNNb2RlbEltYWdlTGlzdCIAEm0KEEdldEFy",
+            "dGljbGVQaG90b3MSLC5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY0FydGlj",
+            "bGVDb250ZW50VVJJGikuRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdycGNNb2Rl",
+            "bEltYWdlTGlzdCIAEmAKEkdycGNHZXRGZWF0dXJlZENhchIoLkVkaXRDTVNX",
+            "aW5kb3dzU2VydmljZS5HcnBjRmVhdHVyZUNhclVSSRoeLkVkaXRDTVNXaW5k",
+            "b3dzU2VydmljZS5HcnBjSW50IgASdAoWR2V0VmlkZW9zQnlTdWJDYXRlZ29y",
+            "eRIxLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjVmlkZW9zQnlTdWJDYXRl",
+            "Z29yeVVSSRolLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjVmlkZW9zTGlz",
+            "dCIAEn0KGEdldFZpZGVvc0J5U3ViQ2F0ZWdvcmllcxIzLkVkaXRDTVNXaW5k",
+            "b3dzU2VydmljZS5HcnBjVmlkZW9zQnlTdWJDYXRlZ29yaWVzVVJJGiouRWRp",
+            "dENNU1dpbmRvd3NTZXJ2aWNlLkdycGNWaWRlb0xpc3RFbnRpdHkiABJnChJH",
+            "ZXRWaWRlb3NCeU1vZGVsSWQSKC5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3Jw",
+            "Y1ZpZGVvc0J5SWRVUkkaJS5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY1Zp",
+            "ZGVvc0xpc3QiABJmChFHZXRWaWRlb3NCeU1ha2VJZBIoLkVkaXRDTVNXaW5k",
+            "b3dzU2VydmljZS5HcnBjVmlkZW9zQnlJZFVSSRolLkVkaXRDTVNXaW5kb3dz",
+            "U2VydmljZS5HcnBjVmlkZW9zTGlzdCIAEmUKEEdldFNpbWlsYXJWaWRlb3MS",
+            "KC5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY1ZpZGVvc0J5SWRVUkkaJS5F",
+            "ZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY1ZpZGVvc0xpc3QiABJhChFHZXRW",
+            "aWRlb0J5QmFzaWNJZBIoLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjVmlk",
+            "ZW9zQnlJZFVSSRogLkVkaXRDTVNXaW5kb3dzU2VydmljZS5HcnBjVmlkZW8i",
+            "ABJRCg1DaGVja0hlYXJ0Qml0Eh4uRWRpdENNU1dpbmRvd3NTZXJ2aWNlLkdy",
+            "cGNJbnQaHi5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY0ludCIAEl8KEkNs",
+            "ZWFyTWVtY2FjaGVkS2V5cxImLkVkaXRDTVNXaW5kb3dzU2VydmljZS5FZGl0",
+            "Q01TQ2F0ZWdvcnkaHy5FZGl0Q01TV2luZG93c1NlcnZpY2UuR3JwY0Jvb2wi",
+            "AEIhqgIeRWRpdENNU1dpbmRvd3NTZXJ2aWNlLk1lc3NhZ2VzYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::EditCMSWindowsService.Messages.EditCMSCategoryEnum), }, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::EditCMSWindowsService.Messages.EditCMSCategoryEnum), typeof(global::EditCMSWindowsService.Messages.GrpcVideoSortOrderCategory), }, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcInt), global::EditCMSWindowsService.Messages.GrpcInt.Parser, new[]{ "IntOutput" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcBool), global::EditCMSWindowsService.Messages.GrpcBool.Parser, new[]{ "BoolOutput" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcFeatureCarURI), global::EditCMSWindowsService.Messages.GrpcFeatureCarURI.Parser, new[]{ "VersionIds", "CategoryId", "PlatformId" }, null, null, null),
@@ -178,9 +184,9 @@ namespace EditCMSWindowsService.Messages {
             new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcVideo), global::EditCMSWindowsService.Messages.GrpcVideo.Parser, new[]{ "VideoTitle", "VideoUrl", "VideoId", "Views", "Likes", "Description", "BasicId", "Tags", "Duration", "MakeName", "ModelName", "MaskingName", "SubCatId", "SubCatName", "VideoTitleUrl", "ImgHost", "ThumbnailPath", "ImagePath", "DisplayDate", "IsFeatured" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcVideoListEntity), global::EditCMSWindowsService.Messages.GrpcVideoListEntity.Parser, new[]{ "Videos", "TotalRecords", "PrevPageUrl", "NextPageUrl" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcVideosList), global::EditCMSWindowsService.Messages.GrpcVideosList.Parser, new[]{ "LstGrpcVideos" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI), global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI.Parser, new[]{ "SubCategoryId", "ApplicationId" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI), global::EditCMSWindowsService.Messages.GrpcVideosByIdURI.Parser, new[]{ "Id", "ApplicationId" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI), global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI.Parser, new[]{ "SubCategoryIds", "ApplicationId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI), global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoryURI.Parser, new[]{ "SubCategoryId", "ApplicationId", "StartIndex", "EndIndex" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcVideosByIdURI), global::EditCMSWindowsService.Messages.GrpcVideosByIdURI.Parser, new[]{ "Id", "ApplicationId", "StartIndex", "EndIndex" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI), global::EditCMSWindowsService.Messages.GrpcVideosBySubCategoriesURI.Parser, new[]{ "SubCategoryIds", "ApplicationId", "StartIndex", "EndIndex", "SortCategory" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::EditCMSWindowsService.Messages.EditCMSCategory), global::EditCMSWindowsService.Messages.EditCMSCategory.Parser, new[]{ "Category" }, null, null, null)
           }));
     }
@@ -194,6 +200,12 @@ namespace EditCMSWindowsService.Messages {
     [pbr::OriginalName("Features")] Features = 2,
     [pbr::OriginalName("Videos")] Videos = 3,
     [pbr::OriginalName("All")] All = 4,
+  }
+
+  public enum GrpcVideoSortOrderCategory {
+    [pbr::OriginalName("FeaturedAndLatest")] FeaturedAndLatest = 0,
+    [pbr::OriginalName("MostPopular")] MostPopular = 1,
+    [pbr::OriginalName("JustLatest")] JustLatest = 2,
   }
 
   #endregion
@@ -5652,6 +5664,8 @@ namespace EditCMSWindowsService.Messages {
     public GrpcVideosBySubCategoryURI(GrpcVideosBySubCategoryURI other) : this() {
       subCategoryId_ = other.subCategoryId_;
       applicationId_ = other.applicationId_;
+      startIndex_ = other.startIndex_;
+      endIndex_ = other.endIndex_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5681,6 +5695,28 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    /// <summary>Field number for the "StartIndex" field.</summary>
+    public const int StartIndexFieldNumber = 3;
+    private uint startIndex_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint StartIndex {
+      get { return startIndex_; }
+      set {
+        startIndex_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "EndIndex" field.</summary>
+    public const int EndIndexFieldNumber = 4;
+    private uint endIndex_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint EndIndex {
+      get { return endIndex_; }
+      set {
+        endIndex_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcVideosBySubCategoryURI);
@@ -5696,6 +5732,8 @@ namespace EditCMSWindowsService.Messages {
       }
       if (SubCategoryId != other.SubCategoryId) return false;
       if (ApplicationId != other.ApplicationId) return false;
+      if (StartIndex != other.StartIndex) return false;
+      if (EndIndex != other.EndIndex) return false;
       return true;
     }
 
@@ -5704,6 +5742,8 @@ namespace EditCMSWindowsService.Messages {
       int hash = 1;
       if (SubCategoryId != 0) hash ^= SubCategoryId.GetHashCode();
       if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
+      if (StartIndex != 0) hash ^= StartIndex.GetHashCode();
+      if (EndIndex != 0) hash ^= EndIndex.GetHashCode();
       return hash;
     }
 
@@ -5722,6 +5762,14 @@ namespace EditCMSWindowsService.Messages {
         output.WriteRawTag(16);
         output.WriteUInt32(ApplicationId);
       }
+      if (StartIndex != 0) {
+        output.WriteRawTag(24);
+        output.WriteUInt32(StartIndex);
+      }
+      if (EndIndex != 0) {
+        output.WriteRawTag(32);
+        output.WriteUInt32(EndIndex);
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5732,6 +5780,12 @@ namespace EditCMSWindowsService.Messages {
       }
       if (ApplicationId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(ApplicationId);
+      }
+      if (StartIndex != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(StartIndex);
+      }
+      if (EndIndex != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(EndIndex);
       }
       return size;
     }
@@ -5746,6 +5800,12 @@ namespace EditCMSWindowsService.Messages {
       }
       if (other.ApplicationId != 0) {
         ApplicationId = other.ApplicationId;
+      }
+      if (other.StartIndex != 0) {
+        StartIndex = other.StartIndex;
+      }
+      if (other.EndIndex != 0) {
+        EndIndex = other.EndIndex;
       }
     }
 
@@ -5763,6 +5823,14 @@ namespace EditCMSWindowsService.Messages {
           }
           case 16: {
             ApplicationId = input.ReadUInt32();
+            break;
+          }
+          case 24: {
+            StartIndex = input.ReadUInt32();
+            break;
+          }
+          case 32: {
+            EndIndex = input.ReadUInt32();
             break;
           }
         }
@@ -5797,6 +5865,8 @@ namespace EditCMSWindowsService.Messages {
     public GrpcVideosByIdURI(GrpcVideosByIdURI other) : this() {
       id_ = other.id_;
       applicationId_ = other.applicationId_;
+      startIndex_ = other.startIndex_;
+      endIndex_ = other.endIndex_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5826,6 +5896,28 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    /// <summary>Field number for the "StartIndex" field.</summary>
+    public const int StartIndexFieldNumber = 3;
+    private uint startIndex_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint StartIndex {
+      get { return startIndex_; }
+      set {
+        startIndex_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "EndIndex" field.</summary>
+    public const int EndIndexFieldNumber = 4;
+    private uint endIndex_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint EndIndex {
+      get { return endIndex_; }
+      set {
+        endIndex_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcVideosByIdURI);
@@ -5841,6 +5933,8 @@ namespace EditCMSWindowsService.Messages {
       }
       if (Id != other.Id) return false;
       if (ApplicationId != other.ApplicationId) return false;
+      if (StartIndex != other.StartIndex) return false;
+      if (EndIndex != other.EndIndex) return false;
       return true;
     }
 
@@ -5849,6 +5943,8 @@ namespace EditCMSWindowsService.Messages {
       int hash = 1;
       if (Id != 0) hash ^= Id.GetHashCode();
       if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
+      if (StartIndex != 0) hash ^= StartIndex.GetHashCode();
+      if (EndIndex != 0) hash ^= EndIndex.GetHashCode();
       return hash;
     }
 
@@ -5867,6 +5963,14 @@ namespace EditCMSWindowsService.Messages {
         output.WriteRawTag(16);
         output.WriteUInt32(ApplicationId);
       }
+      if (StartIndex != 0) {
+        output.WriteRawTag(24);
+        output.WriteUInt32(StartIndex);
+      }
+      if (EndIndex != 0) {
+        output.WriteRawTag(32);
+        output.WriteUInt32(EndIndex);
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5877,6 +5981,12 @@ namespace EditCMSWindowsService.Messages {
       }
       if (ApplicationId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(ApplicationId);
+      }
+      if (StartIndex != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(StartIndex);
+      }
+      if (EndIndex != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(EndIndex);
       }
       return size;
     }
@@ -5891,6 +6001,12 @@ namespace EditCMSWindowsService.Messages {
       }
       if (other.ApplicationId != 0) {
         ApplicationId = other.ApplicationId;
+      }
+      if (other.StartIndex != 0) {
+        StartIndex = other.StartIndex;
+      }
+      if (other.EndIndex != 0) {
+        EndIndex = other.EndIndex;
       }
     }
 
@@ -5908,6 +6024,14 @@ namespace EditCMSWindowsService.Messages {
           }
           case 16: {
             ApplicationId = input.ReadUInt32();
+            break;
+          }
+          case 24: {
+            StartIndex = input.ReadUInt32();
+            break;
+          }
+          case 32: {
+            EndIndex = input.ReadUInt32();
             break;
           }
         }
@@ -5942,6 +6066,9 @@ namespace EditCMSWindowsService.Messages {
     public GrpcVideosBySubCategoriesURI(GrpcVideosBySubCategoriesURI other) : this() {
       subCategoryIds_ = other.subCategoryIds_;
       applicationId_ = other.applicationId_;
+      startIndex_ = other.startIndex_;
+      endIndex_ = other.endIndex_;
+      sortCategory_ = other.sortCategory_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5971,6 +6098,39 @@ namespace EditCMSWindowsService.Messages {
       }
     }
 
+    /// <summary>Field number for the "StartIndex" field.</summary>
+    public const int StartIndexFieldNumber = 3;
+    private uint startIndex_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint StartIndex {
+      get { return startIndex_; }
+      set {
+        startIndex_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "EndIndex" field.</summary>
+    public const int EndIndexFieldNumber = 4;
+    private uint endIndex_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint EndIndex {
+      get { return endIndex_; }
+      set {
+        endIndex_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "SortCategory" field.</summary>
+    public const int SortCategoryFieldNumber = 5;
+    private global::EditCMSWindowsService.Messages.GrpcVideoSortOrderCategory sortCategory_ = 0;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::EditCMSWindowsService.Messages.GrpcVideoSortOrderCategory SortCategory {
+      get { return sortCategory_; }
+      set {
+        sortCategory_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GrpcVideosBySubCategoriesURI);
@@ -5986,6 +6146,9 @@ namespace EditCMSWindowsService.Messages {
       }
       if (SubCategoryIds != other.SubCategoryIds) return false;
       if (ApplicationId != other.ApplicationId) return false;
+      if (StartIndex != other.StartIndex) return false;
+      if (EndIndex != other.EndIndex) return false;
+      if (SortCategory != other.SortCategory) return false;
       return true;
     }
 
@@ -5994,6 +6157,9 @@ namespace EditCMSWindowsService.Messages {
       int hash = 1;
       if (SubCategoryIds.Length != 0) hash ^= SubCategoryIds.GetHashCode();
       if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
+      if (StartIndex != 0) hash ^= StartIndex.GetHashCode();
+      if (EndIndex != 0) hash ^= EndIndex.GetHashCode();
+      if (SortCategory != 0) hash ^= SortCategory.GetHashCode();
       return hash;
     }
 
@@ -6012,6 +6178,18 @@ namespace EditCMSWindowsService.Messages {
         output.WriteRawTag(16);
         output.WriteUInt32(ApplicationId);
       }
+      if (StartIndex != 0) {
+        output.WriteRawTag(24);
+        output.WriteUInt32(StartIndex);
+      }
+      if (EndIndex != 0) {
+        output.WriteRawTag(32);
+        output.WriteUInt32(EndIndex);
+      }
+      if (SortCategory != 0) {
+        output.WriteRawTag(40);
+        output.WriteEnum((int) SortCategory);
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -6022,6 +6200,15 @@ namespace EditCMSWindowsService.Messages {
       }
       if (ApplicationId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(ApplicationId);
+      }
+      if (StartIndex != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(StartIndex);
+      }
+      if (EndIndex != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(EndIndex);
+      }
+      if (SortCategory != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) SortCategory);
       }
       return size;
     }
@@ -6036,6 +6223,15 @@ namespace EditCMSWindowsService.Messages {
       }
       if (other.ApplicationId != 0) {
         ApplicationId = other.ApplicationId;
+      }
+      if (other.StartIndex != 0) {
+        StartIndex = other.StartIndex;
+      }
+      if (other.EndIndex != 0) {
+        EndIndex = other.EndIndex;
+      }
+      if (other.SortCategory != 0) {
+        SortCategory = other.SortCategory;
       }
     }
 
@@ -6053,6 +6249,18 @@ namespace EditCMSWindowsService.Messages {
           }
           case 16: {
             ApplicationId = input.ReadUInt32();
+            break;
+          }
+          case 24: {
+            StartIndex = input.ReadUInt32();
+            break;
+          }
+          case 32: {
+            EndIndex = input.ReadUInt32();
+            break;
+          }
+          case 40: {
+            sortCategory_ = (global::EditCMSWindowsService.Messages.GrpcVideoSortOrderCategory) input.ReadEnum();
             break;
           }
         }

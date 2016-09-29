@@ -8,6 +8,7 @@ using Google.Protobuf.Collections;
 using log4net;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Bikewale.BAL.GrpcFiles
 {
@@ -39,7 +40,7 @@ namespace Bikewale.BAL.GrpcFiles
                     curArt.AuthorName = item.AuthorName;
                     curArt.CategoryId = (ushort)item.CategoryId;
                     curArt.Description = item.Description;
-                    curArt.DisplayDate = Convert.ToDateTime(item.DisplayDate);
+                    curArt.DisplayDate = ParseDateObject(item.DisplayDate);
                     curArt.FacebookCommentCount = item.FacebookCommentCount;
                     curArt.HostUrl = item.HostUrl;
                     curArt.IsFeatured = false;
@@ -77,10 +78,10 @@ namespace Bikewale.BAL.GrpcFiles
                         BasicId = curGrpcArticleSummary.ArticleBase.BasicId,
                         CategoryId = (ushort)curGrpcArticleSummary.CategoryId,
                         Description = curGrpcArticleSummary.Description,
-                        DisplayDate = Convert.ToDateTime(curGrpcArticleSummary.DisplayDate),
+                        DisplayDate = ParseDateObject(curGrpcArticleSummary.DisplayDate),
                         FacebookCommentCount = curGrpcArticleSummary.FacebookCommentCount,
                         HostUrl = curGrpcArticleSummary.HostUrl,
-                        //IsFeatured=curGrpcArticleSummary.fe
+                        //IsFeatured=curGrpcArticleSummary.fedate
                         IsSticky = curGrpcArticleSummary.IsSticky,
                         LargePicUrl = curGrpcArticleSummary.LargePicUrl,
                         OriginalImgUrl = curGrpcArticleSummary.OriginalImgUrl,
@@ -101,6 +102,20 @@ namespace Bikewale.BAL.GrpcFiles
                 throw e;
             }
         }
+
+        public static DateTime ParseDateObject(string strDateValue)
+        {
+            DateTime outValue;
+
+            if (DateTime.TryParse(strDateValue, new CultureInfo("en-IN"), DateTimeStyles.AssumeLocal, out outValue))
+                return outValue;
+            else
+            {
+                DateTime.TryParse(Convert.ToString(strDateValue), out outValue);
+                return outValue;
+            }
+        }
+
 
         public static List<ModelImage> ConvertFromGrpcToBikeWale(GrpcModelImageList data)
         {
@@ -206,7 +221,7 @@ namespace Bikewale.BAL.GrpcFiles
                         CategoryId = (ushort)artSummary.CategoryId,
                         AuthorName = artSummary.AuthorName,
                         Description = artSummary.Description,
-                        DisplayDate = Convert.ToDateTime(artSummary.DisplayDate),
+                        DisplayDate = ParseDateObject(artSummary.DisplayDate),
                         FacebookCommentCount = artSummary.FacebookCommentCount,
                         HostUrl = artSummary.HostUrl,
                         IsSticky = artSummary.IsSticky,
@@ -250,7 +265,7 @@ namespace Bikewale.BAL.GrpcFiles
                         CategoryId = (ushort)artSummary.CategoryId,
                         AuthorName = artSummary.AuthorName,
                         Description = artSummary.Description,
-                        DisplayDate = Convert.ToDateTime(artSummary.DisplayDate),
+                        DisplayDate = ParseDateObject(artSummary.DisplayDate),
                         FacebookCommentCount = artSummary.FacebookCommentCount,
                         HostUrl = artSummary.HostUrl,
                         IsSticky = artSummary.IsSticky,

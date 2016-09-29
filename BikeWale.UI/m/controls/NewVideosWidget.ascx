@@ -19,7 +19,7 @@
                     class="font14 target-link"><%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem,"VideoTitle").ToString(), 44) %></a>
                 <div class="grid-7 alpha padding-right5">
                     <span class="bwmsprite calender-grey-sm-icon"></span>
-                    <span class="article-stats-content"><%# Convert.ToDateTime (DataBinder.Eval(Container.DataItem,"DisplayDate")).ToString("MMM dd, yyyy")%></span>
+                    <span class="article-stats-content"><%# Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(DataBinder.Eval(Container.DataItem,"DisplayDate")), string.Format("MMM dd, yyyy")) %></span>
                 </div>
                 <div class="grid-5 alpha omega">
                     <span class="bwmsprite views-grey-sm-icon"></span>
