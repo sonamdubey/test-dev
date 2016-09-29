@@ -261,7 +261,7 @@
 
     function validateName(name) {
         var isValid = true;
-        var a = name.val().length;
+        var a = name.val().trim().length;
         if (a == 0) {
             isValid = false;
             validate.setError(name, 'Please enter your name');
@@ -278,7 +278,7 @@
 
     function validateEmail(email) {
         var isValid = true;
-        var emailID = email.val();
+        var emailID = email.val().trim();
         var reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
 
         if (emailID == "") {
@@ -296,7 +296,7 @@
     function validateMobile(mobile) {
         var isValid = true;
         var reMobile = /^[0-9]{10}$/;
-        var mobileNo = mobile.val();
+        var mobileNo = mobile.val().trim();
         if (mobileNo == "") {
             isValid = false;
             validate.setError(mobile, "Please enter your mobile number");
@@ -315,7 +315,7 @@
     function validateOTP() {
         var retVal = true;
         var isNumber = /^[0-9]{5}$/;
-        var cwiCode = getUserOTP.val();
+        var cwiCode = getUserOTP.val().trim();
         if (cwiCode == "") {
             retVal = false;
             validate.setError(getUserOTP, "Please enter your Verification Code");
