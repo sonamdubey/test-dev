@@ -86,8 +86,7 @@
                                 </div>
                                 <div class="sort-selection-div sort-list-items hide">
                                     <ul id="sort-listing">
-                                        <li class="sort-label">Sort by</li>
-                                        <li data-sortorder="1" data-bind="click : ApplySort" >Most recent</li>
+                                        <li data-sortorder="1" data-bind="click : ApplySort">Most recent</li>
                                         <li data-sortorder="2" data-bind="click : ApplySort">Price - Low to High</li>
                                         <li data-sortorder="3" data-bind="click : ApplySort">Price - High to Low</li>
                                         <li data-sortorder="4" data-bind="click : ApplySort">Kms - Low to High</li>
@@ -110,7 +109,7 @@
                                     </ul>
                                     <div class="clear"></div>
                                 </div>
-                                <div class="padding-top15 padding-bottom15 text-light-grey font14 border-solid-bottom">
+                                <div class="padding-top15 padding-bottom15 text-light-grey font14 border-solid-bottom" data-bind="visible: TotalBikes() > 0">
                                     <p style="display:none" data-bind="visible: !OnInit() && TotalBikes() > 0">Showing <span class="text-default text-bold"><span data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"><%=_startIndex %></span>-<span data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())""><%=_endIndex %></span></span> of <span class="text-default text-bold" data-bind="    CurrencyText: TotalBikes()"><%= Bikewale.Utility.Format.FormatPrice(totalListing.ToString()) %></span> bikes</p>
                                     <% if(totalListing > 0){ %>
                                         <p data-bind="visible: OnInit()">Showing <span class="text-default text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-default text-bold" data-bind="    CurrencyText: TotalBikes()"><%= Bikewale.Utility.Format.FormatPrice(totalListing.ToString()) %></span> bikes</p>
@@ -262,7 +261,7 @@
                                     <div id="filter-type-city" class="filter-block">
                                         <p class="filter-label margin-bottom5">City</p>
                                         <div class="clear"></div>
-                                        <select class="city-chosen-select hide" data-bind="chosen:{},value : SelectedCity,event: { change: FilterCity }">
+                                        <select class="city-chosen-select hide" data-bind="chosen:{},event: { change: FilterCity }">
                                              <option data-cityid="0" >All India</option>
                                              <% if (citiesList != null)
                                                 { %>
@@ -275,7 +274,7 @@
 
                                     <div id="filter-type-bike" class="filter-block">
                                         <p class="filter-label">Bike</p>
-                                        <p id="reset-bikes-filter" class="font12 padding-right20 rightfloat">Clear all</p>
+                                        <p  class="font12 padding-right20 rightfloat" data-bind="click : ResetBikeFilters">Clear all</p>
                                         <div class="clear"></div>
                                         <ul id="filter-bike-list">
                                             <% if (makeModelsList != null)
