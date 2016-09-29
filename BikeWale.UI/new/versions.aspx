@@ -141,7 +141,7 @@
                                             </asp:Repeater>
                                             <%if(modelPageEntity!=null && modelPageEntity.Photos!=null && modelPageEntity.Photos.Count>4){ %>
                                             <li class="all-photos-target">
-                                                <a href="photos/" title="<%= bikeName %> Photos">All Photos</a>
+                                                <a href="/<%= modelPageEntity.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPageEntity.ModelDetails.MaskingName %>/photos/" title="<%= bikeName %> Photos">All Photos</a>
                                             </li>
                                             <%} %>
                                         </ul>
