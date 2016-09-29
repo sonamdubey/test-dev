@@ -3,7 +3,7 @@ var originPlace, userLocation = { "latitude": "", "longitude": "" }, userAddress
 var customerViewModel, dealerDetailsViewModel;
 $(document).ready(function () {
     dropdown.setDropdown();
-    bindDealerDetails();
+   // bindDealerDetails();
 });
 
 function initializeMap() {
@@ -66,27 +66,8 @@ function initializeMap() {
     });
 }
 
-
 initializeMap();
 
-
-function getLocation() {
-    if (userAddress != "") {
-        $("#locationSearch").val("").val(userAddress);
-        google.maps.event.trigger(originPlace, 'place_changed');
-    }
-    else {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                savePosition,
-                showError,
-                { enableHighAccuracy: true, maximumAge: 600000 }
-            );
-        }
-    }
-}
-
-$(document).on("click", "#getUserLocation", function () { getLocation(); })
 
 function savePosition(position) {
     userLocation = {
@@ -236,10 +217,10 @@ $(document).on('click', function (event) {
     }
 });
 
-var assistanceGetName = $('#assistanceGetName'),
-    assistanceGetEmail = $('#assistanceGetEmail'),
-    assistanceGetMobile = $('#assistanceGetMobile'),
-    assistGetModel = $('#assistGetModel');
+var assistanceGetName = $('#assistGetName'),
+    assistanceGetEmail = $('#assistGetEmail'),
+    assistanceGetMobile = $('#assistGetMobile'),
+    assistGetModel = $('#getLeadBike');
 
 /* input focus */
 assistanceGetName.on("focus", function () {
@@ -277,10 +258,22 @@ $('#submitAssistanceFormBtn').on('click', function () {
     }
 });
 
+function validateBikeData() {
+    if ($('#getLeadBike').val().length == 0) {
+        validate.dropdown.setError($('#getLeadBike'), 'Select a bike');
+        return true;
+    }
+    else {
+        validate.dropdown.hideError($('#getLeadBike'));
+        return false;
+    }
+}
+
+$(document).on('click', '#assistance-response-close-btn', function () {
+    $("#dealer-assist-msg").slideUp();
+});
 
 
-
-///////////////////////////
 function hideFormErrors() {
 
     hideError(fullName);
@@ -291,24 +284,6 @@ function hideFormErrors() {
     hideError(assistanceGetName);
     hideError(assistGetModel);
 };
-
-function ValidateUserDetail(fullName, emailid, mobile) {
-    return validateUserInfo(fullName, emailid, mobile);
-};
-
-function setuserDetails() {
-    var cookieName = "_PQUser";
-    if (isCookieExists(cookieName)) {
-        var arr = getCookie(cookieName).split("&");
-        return arr;
-    }
-};
-
-function setPQUserCookie() {
-    var val = customerViewModel.fullName() + '&' + customerViewModel.emailId() + '&' + customerViewModel.mobileNo();
-    SetCookie("_PQUser", val);
-};
-
 
 /* form validation */
 var validate = {
@@ -383,33 +358,11 @@ function getLocation() {
 
 $(document).on("click", "#getUserLocation", function () { getLocation(); })
 
-function savePosition(position) {
-    userLocation = {
-        "latitude": position.coords.latitude,
-        "longitude": position.coords.longitude
-    }
-    if (dealerDetailsViewModel && dealerDetailsViewModel.CustomerDetails())
-        dealerDetailsViewModel.CustomerDetails().userSrcLocation(userLocation.latitude + "," + userLocation.longitude);
-    if (userAddress == "") {
-        $.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + userLocation.latitude + "," + userLocation.longitude + "&key=" + googleMapAPIKey, function (data) {
-            if (data.status == "OK" && data.results.length > 0) {
-                userAddress = data.results[0].formatted_address;
-            }
-            else {
-                userAddress = "Your location";
-            }
-            $("#locationSearch").val("").val(userAddress);
-            google.maps.event.trigger(originPlace, 'place_changed');
-        });
-    }
-
-}
-
 function route(origin_place_id, travel_mode, directionsService, directionsDisplay) {
 
-    activeItem = $("ul#dealersList li.active");
-    _lat = activeItem.attr("data-lat");
-    _lng = activeItem.attr("data-log");
+
+    _lat = dealerLat;
+    _lng = dealerLng;
     destination_place_id = new google.maps.LatLng(_lat, _lng);
 
     if (!origin_place_id || !destination_place_id) {
@@ -440,4 +393,16 @@ function getCommuteInfo(result) {
     $('#commuteDistance').text((totalDistance / 1000).toFixed(2) + " kms");
     $('#commuteDuration').text(totalDuration.toString().toHHMMSS());
 
+}
+
+String.prototype.toHHMMSS = function () {
+    var e = parseInt(this, 10)
+      , a = Math.floor(e / 3600)
+      , t = Math.floor((e - 3600 * a) / 60)
+      , i = e - 3600 * a - 60 * t;
+    a < 10 && (a = "0" + a),
+    t < 10 && (t = "0" + t),
+    i < 10 && (i = "0" + i);
+    var o = a + " hrs " + t + " mins ";
+    return o
 }

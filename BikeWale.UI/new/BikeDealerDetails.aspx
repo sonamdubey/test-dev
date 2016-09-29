@@ -8,7 +8,7 @@
     <%
         keywords = String.Format("{0}, {0} dealer,  {0} Showroom, {0} {1}", dealerName, cityName);
         description = String.Format("{2} is dealer of {0} bikes in {1}. Get best offers on {0} bikes at {2} showroom", makeName, cityName,dealerName);
-        title = String.Format("{0}  {1} - {0} Showroom in {1} - BikeWale", makeName, cityName);
+        title = String.Format("{0} {1} - {0} Showroom in {1} - BikeWale", dealerName, cityName);
         canonical = String.Format("http://www.bikewale.com/{0}-dealer-showrooms-in-{1}/{2}-{3}/", makeMaskingName, cityMaskingName,dealerId, dealerMaskingName);
         alternate = String.Format("http://www.bikewale.com/m/{0}-dealer-showrooms-in-{1}/{2}-{3}/", makeMaskingName, cityMaskingName,dealerId, dealerMaskingName);
         AdId = "1395986297721";
@@ -135,27 +135,27 @@
         </section>
        <%if (dealerDetails.DealerDetails!=null && dealerDetails.DealerDetails.CampaignId > 0)
          { %>
-        <section>
+        <section id="dealerAssistance">
             <div class="container margin-bottom20" id="leadForm">
                 <div class="grid-12">
-                    <div id="buyingAssistanceForm" class="content-box-shadow content-inner-block-20">
+                    <div id="buyingAssistance" class="content-box-shadow content-inner-block-20">
                         <h2 class="font18 margin-bottom20">Complete buying assistance from <%=dealerName %></h2>
                         <p class="font14 text-light-grey margin-bottom25">Get in touch with <%=dealerName %> for best offers, test rides, EMI options, exchange benefits and much more...</p>
                         <div class="input-box form-control-box type-user-details margin-right20">
-                            <input type="text" id="assistanceGetName" data-bind="textInput: fullName"/>
-                            <label for="assistanceGetName">Name</label>
+                            <input type="text" id="assistGetName" data-bind="textInput: fullName"/>
+                            <label for="assistGetName">Name</label>
                             <span class="boundary"></span>
                             <span class="error-text"></span>
                         </div>
                         <div class="input-box form-control-box type-user-details margin-right20">
-                            <input type="email" id="assistanceGetEmail" data-bind="textInput: emailId"/>
-                            <label for="assistanceGetEmail">Email</label>
+                            <input type="email" id="assistGetEmail" data-bind="textInput: emailId"/>
+                            <label for="assistGetEmail">Email</label>
                             <span class="boundary"></span>
                             <span class="error-text"></span>
                         </div>
                         <div class="input-box input-number-box form-control-box type-user-details">
-                            <input type="tel" id="assistanceGetMobile" maxlength="10" data-bind="textInput: mobileNo" />
-                            <label for="assistanceGetMobile">Mobile number</label>
+                            <input type="tel" id="assistGetMobile" maxlength="10" data-bind="textInput: mobileNo" />
+                            <label for="assistGetMobile">Mobile number</label>
                             <span class="input-number-prefix">+91</span>
                             <span class="boundary"></span>
                             <span class="error-text"></span>
@@ -163,10 +163,10 @@
                         <div class="type-dropdown margin-bottom5">
                             <p class="font12 text-light-grey">Bike</p>
                             <div class="dropdown-select-wrapper">
-                                <select id="assistGetModel" class="dropdown-select" class="form-control chosen-select">
+                                <select id="getLeadBike" class="dropdown-select" class="form-control chosen-select">
                                     <option value>Select a bike</option>
                                     <%foreach(var model in dealerDetails.Models){ %>
-                                    <option id="selectedBike" data-make-name="<%=model.MakeName %>" data-model-name="<%=model.objModel.ModelName %>" data-version-id="<%=model.objVersion.VersionId %>" data-item-id="<%=model.objModel.ModelId %>" data-bind="value: selectedBikeName"><%=model.BikeName %></option>
+                                    <option  value="<%=model.objVersion.VersionId %>"><%=model.BikeName %></option>
                                     <%} %>
                                 </select>
                                 <span class="boundary"></span>
@@ -175,14 +175,14 @@
                         </div>
                         <div class="type-sumit-button">
 
-<input type="button"  data-leadsourceid="15" class="btn btn-orange margin-bottom5 leadcapturebtn" data-isleadpopup="false" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_SubmitButton %>" 
-    data-item-id="<%= dealerId %>" data-bind="event: { click: HiddenSubmitLead }" value="Get offers" />
+<input type="button" data-isregisterpq="true" data-item-name="<%=DealerDetails.Name %>" data-item-area="<%=DealerDetails.Area%>" data-leadsourceid="15" class="btn btn-orange margin-bottom5 " data-isleadpopup="false" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_SubmitButton %>" 
+    data-item-id="<%= dealerId %>" data-bind="click: function (d, e) { validateBikeData(); HiddenSubmitLead(d, e) }" value="Get offers" />
 
                         </div>
                     </div>
                     <div id="dealer-assist-msg" class="hide">
                                 <p class="leftfloat font14">Thank you for your interest. <span data-bind="text: dealerName()"></span>&nbsp;will get in touch shortly</p>
-                                <span class="rightfloat bwsprite cross-lg-lgt-grey cur-pointer"></span>
+                                <span id="assistance-response-close-btn" class="rightfloat bwsprite cross-lg-lgt-grey cur-pointer"></span>
                                 <div class="clear"></div>
                             </div>
                 </div>
@@ -240,106 +240,91 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW.aspx" -->
         <script type="text/javascript">
-            var dealerDetailsBind='<%=dealerDetails.DealerDetails%>'
-            //var $ddlCities = $("#ddlCities"), $ddlMakes = $("#ddlMakes");
+            var versionId = "";
+            $("#getLeadBike").change(function () {
+                var val = $(this).val();
+                if( val && val!="" && val!="0" )
+                {
+                    versionId = val;
+                }
+            });
+ 
+            var dealerLat = '<%=dealerDetails.DealerDetails.Area.Latitude%>';
+            var dealerLng = '<%=dealerDetails.DealerDetails.Area.Longitude%>';
             var $ddlModels = $("#assistGetModel");
+            var pqId = null;
             var currentCityName = '<%=cityName%>';
             var bikeCityId = '<%=cityId%>';
             var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>";
             var pageUrl = window.location.href;
             var clientIP = '<%= clientIP %>';
-            //var key = "dealerCities_";
-           // lscache.setBucket('DLPage');
             var leadSourceId, pqSourceId;
             var pageSrcId = eval("<%= Bikewale.Utility.BWConfiguration.Instance.SourceId %>");
             var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>";
             var makeName = "<%= makeName%>";
           
-
-           // lscache.flushExpired();
-            //$("#applyFiltersBtn").click(function () {
-            //    ddlmakemasking = $("#ddlMakes option:selected").attr("maskingName");
-            //    ddlcityId = $("#ddlCities option:selected").val();
-            //    if (!isNaN(ddlcityId) && ddlcityId != "0") {
-            //        ddlcityMasking = $("#ddlCities option:selected").attr("maskingName");
-            //        window.location.href = "/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
-            //    }
-            //    else {
-            //        if ($ddlCities.find("option").length < 2)
-            //            toggleErrorMsg($ddlCities, true, "No cities available. Choose another brand !");
-            //        else
-            //            toggleErrorMsg($ddlCities, true, "Choose a city");
-            //    }
-
-
-            //});
-
-            //$ddlCities.chosen({ no_results_text: "No matches found!!" });
-            //$ddlMakes.chosen({ no_results_text: "No matches found!!" });
+           //dealername data-item-name'),
+           // "dealerarea": ele.attr('data-item-area'),
            
-            //$('div.chosen-container').attr('style', 'width:100%;border:0');
-            //$("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");
-
-
-
-            //$ddlMakes.change(function () {
-            //    selMakeId = $ddlMakes.val();
-            //    $ddlCities.empty();
-            //    if (!isNaN(selMakeId) && selMakeId != "0") {
-            //        if (!checkCacheCityAreas(selMakeId)) {
-            //            $.ajax({
-            //                type: "GET",
-            //                url: "/api/v2/DealerCity/?makeId=" + selMakeId,
-            //                contentType: "application/json",
-            //                dataType: 'json',
-            //                success: function (data) {
-            //                    lscache.set(key + selMakeId, data.City, 30);
-            //                    setOptions(data.City);
-            //                },
-            //                complete: function (xhr) {
-            //                    if (xhr.status == 404 || xhr.status == 204) {
-            //                        lscache.set(key + selMakeId, null, 30);
-            //                        setOptions(null);
-            //                    }
-            //                }
-            //            });
-            //        }
-            //        else {
-            //            data = lscache.get(key + selMakeId.toString());
-            //            setOptions(data);
-            //        }
-            //    }
-            //    else {
-            //        setOptions(null);
-            //    }
-            //});
-
-            //$ddlCities.change(function () {
-            //    toggleErrorMsg($ddlCities, false);
-            //});
-
-            //function checkCacheCityAreas(cityId) {
-            //    bKey = key + cityId;
-            //    if (lscache.get(bKey)) return true;
-            //    else return false;
-            //}
-
-            //function setOptions(optList) {
-            //    toggleErrorMsg($ddlCities, false);
-            //    if (optList != null) {
-            //        $ddlCities.append($('<option>').text(" Select City ").attr({ 'value': "0" }));
-            //        $.each(optList, function (i, value) {
-            //            $ddlCities.append($('<option>').text(value.cityName).attr({ 'value': value.cityId, 'maskingName': value.cityMaskingName }));
-            //        });
-            //    }
-
-            //    $ddlCities.trigger('chosen:updated');
-            //    $("#ddlCities_chosen .chosen-single.chosen-default span").text("No cities available");
-            //}
 
             $(document).on("change", $ddlModels, function () {
                 hideError($ddlModels);
             });
+
+            /* form validation */
+            var validate = {
+                setError: function (element, message) {
+                    var elementLength = element.val().length;
+                    errorTag = element.siblings('span.error-text');
+
+                    errorTag.show().text(message);
+                    if (!elementLength) {
+                        element.closest('.input-box').removeClass('not-empty').addClass('invalid');
+                    }
+                    else {
+                        element.closest('.input-box').addClass('not-empty invalid');
+                    }
+                },
+
+                hideError: function (element) {
+                    element.closest('.input-box').removeClass('invalid').addClass('not-empty');
+                    element.siblings('span.error-text').text('');
+                },
+
+                onFocus: function (inputField) {
+                    if (inputField.closest('.input-box').hasClass('invalid')) {
+                        validate.hideError(inputField);
+                    }
+                },
+
+                onBlur: function (inputField) {
+                    var inputLength = inputField.val().length;
+                    if (!inputLength) {
+                        inputField.closest('.input-box').removeClass('not-empty');
+                    }
+                    else {
+                        inputField.closest('.input-box').addClass('not-empty');
+                    }
+                },
+
+                dropdown: {
+                    setError: function (element, message) {
+                        var dropdownWrapper = element.closest('.dropdown-select-wrapper'),
+                            errorTag = dropdownWrapper.find('.error-text');
+
+                        dropdownWrapper.addClass('invalid');
+                        errorTag.show().text(message);
+                    },
+
+                    hideError: function (element) {
+                        var dropdownWrapper = element.closest('.dropdown-select-wrapper'),
+                            errorTag = dropdownWrapper.find('.error-text');
+
+                        dropdownWrapper.removeClass('invalid');
+                        errorTag.text('');
+                    }
+                }
+            }
 
         </script>
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
@@ -348,32 +333,7 @@
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealer/details.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
-        <script type="text/javascript">
-            $(".leadcapturebtn").click(function (e) {
 
-                ele = $(this);
-                debugger;
-                var leadOptions = {
-                    "dealerid": ele.attr('data-item-id'),
-                    "dealername": ele.attr('data-item-name'),
-                    "dealerarea": ele.attr('data-item-area'),
-                    "leadsourceid": ele.attr('data-leadsourceid'),
-                    "pqsourceid": ele.attr('data-pqsourceid'),
-                    "isleadpopup": ele.attr('data-isleadpopup'),
-                    "pageurl": pageUrl,
-                    "isregisterpq"  :true,
-                    "clientip": clientIP,
-                    "gaobject": {
-                        cat: ele.attr("c"),
-                        act: ele.attr("a"),
-                        lab: ele.attr("v")
-                    }
-                };
-
-                dleadvm.setOptions(leadOptions);
-
-            });
-        </script>
         <!--[if lt IE 9]>
             <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/html5.js"></script>
         <![endif]-->

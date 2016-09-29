@@ -33,12 +33,12 @@ namespace Bikewale.New
     {
         protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, urlCityMaskingName = string.Empty;
         protected string address = string.Empty, maskingNumber = string.Empty, eMail = string.Empty, workingHours = string.Empty, modelImage = string.Empty, dealerName = string.Empty, dealerMaskingName = string.Empty;
-        protected uint cityId, makeId,cost;
+        protected uint cityId, cost, dealerId;
         protected ushort totalDealers;
         protected Repeater rptMakes, rptCities, rptDealers;
         protected string clientIP = string.Empty, pageUrl = string.Empty;
         protected bool areDealersPremium = false;
-        protected int dealerId;
+        protected int makeId;
         protected DealerBikesEntity dealerDetails=null;
         protected DealerCard ctrlDealerCard;
         protected LeadCaptureControl ctrlLeadCapture;
@@ -98,7 +98,7 @@ namespace Bikewale.New
         /// Created by: Aditi Srivastava on 27 Sep 2016
         /// </summary>
         /// <param name="dealerid"></param>
-        private void GetDealerDetails(int dealerid)
+        private void GetDealerDetails(uint dealerid)
         {
             try
             {
@@ -109,7 +109,7 @@ namespace Bikewale.New
                              .RegisterType<IDealer, DealersRepository>()
                             ;
                     var objCache = container.Resolve<IDealerCacheRepository>();
-                    dealerDetails = objCache.GetDealerDetailsAndBikes(dealerId);
+                    dealerDetails = objCache.GetDealerDetailsAndBikesByDealerAndMake(dealerId,makeId);
 
                     if (dealerDetails != null )
                     {
@@ -122,9 +122,7 @@ namespace Bikewale.New
                         maskingNumber = DealerDetails.MaskingNumber;
                         eMail = DealerDetails.EMail;
                         workingHours = DealerDetails.WorkingHours;
-                        makeName=dealerDetails.Models.FirstOrDefault().MakeName;
-                       // makeMaskingName = dealerDetails.Models.FirstOrDefault().MakeMaskingName;
-                       //makeId = (uint)dealerDetails.Models.FirstOrDefault().MakeId;
+                        makeName = DealerDetails.MakeName;
                         cityMaskingName = DealerDetails.CityMaskingName;
                         cityId = (uint)DealerDetails.CityId;
                           }
@@ -144,7 +142,8 @@ namespace Bikewale.New
             }
         }
         /// <summary>
-        /// 
+        /// Created By: Aditi Srivastava on 29 Sep 2016
+        /// Summary: Get make id by make masking name
         /// </summary>
         /// <param name="maskingName"></param>
          private void GetMakeIdByMakeMaskingName(string maskingName)
@@ -154,7 +153,7 @@ namespace Bikewale.New
                 if (!string.IsNullOrEmpty(maskingName))
                 {
                     string _makeId = MakeMapping.GetMakeId(maskingName);
-                    if (string.IsNullOrEmpty(_makeId) || !uint.TryParse(_makeId, out makeId))
+                    if (string.IsNullOrEmpty(_makeId) || !int.TryParse(_makeId, out makeId))
                     {
                         Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
@@ -193,7 +192,7 @@ namespace Bikewale.New
                 {
                       makeMaskingName = currentReq.QueryString["make"];
 
-                      dealerId = Convert.ToInt32(currentReq.QueryString["dealerid"]);
+                      dealerId = Convert.ToUInt32(currentReq.QueryString["dealerid"]);
                       if (dealerId > 0 && !string.IsNullOrEmpty(makeMaskingName))
                     {
                        

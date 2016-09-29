@@ -42,7 +42,7 @@
                 <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
             </div>
             <div class="clear"></div>
-            <a class="btn btn-orange margin-top10 "  id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
+            <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
         </div>
     </div>
     <div id="dealer-lead-msg" class="hide">
@@ -157,6 +157,7 @@
             self.fullName = ko.observable(arr[0]);
             self.emailId = ko.observable(arr[1]);
             self.mobileNo = ko.observable(arr[2]);
+            $('.input-box').addClass('not-empty');
         }
         else {
             self.fullName = ko.observable();
@@ -466,9 +467,11 @@
                         }
                     }
                     else {
-                        $("#leadCapturePopup").show();
-                        $('body').addClass('lock-browser-scroll');
-                        $(".blackOut-window").show();
+                        if (self.IsLeadPopup()) {
+                            $("#leadCapturePopup").show();
+                            $('body').addClass('lock-browser-scroll');
+                            $(".blackOut-window").show();
+                        }
                     }
                     setPQUserCookie();
                 }
@@ -481,12 +484,13 @@
                 "dealerid": ele.attr('data-item-id'),
                 "dealername": ele.attr('data-item-name'),
                 "dealerarea": ele.attr('data-item-area'),
-                "versionid": versionId,
+                "versionid": versionId ,
                 "leadsourceid": ele.attr('data-leadsourceid'),
                 "pqsourceid": ele.attr('data-pqsourceid'),
                 "isleadpopup": ele.attr('data-isleadpopup'),
                 "mfgCampid": ele.attr('data-mfgcampid'),
                 "pqid": pqId,
+                "isregisterpq": ele.attr('data-isregisterpq'),
                 "pageurl": pageUrl,
                 "clientip": clientIP
                 <%--"gaobject": {

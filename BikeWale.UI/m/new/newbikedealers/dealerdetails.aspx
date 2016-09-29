@@ -5,10 +5,10 @@
 <html>
 <head>
     <%
-        keywords = String.Format("{0}, {0} dealer,  {0} Showroom, {0} {1}", dealerName, dealerCity);
+        keywords = String.Format("{0}, {0} dealer, {0} Showroom, {0} {1}", dealerName, dealerCity);
         description = String.Format("{2} is dealer of {0} bikes in {1}. Get best offers on {0} bikes at {2} showroom", makeName, dealerCity, dealerName);
-        title = String.Format("{0}  {1} - {0} Showroom in {1} - BikeWale", makeName, dealerCity);
-        canonical =  String.Format("http://www.bikewale.com/m"+Bikewale.Utility.UrlFormatter.GetDealerUrl(makeMaskingName, cityMaskingName, dealerName, (int)dealerId));
+        title = String.Format("{0} {1} - {0} Showroom in {1} - BikeWale", dealerName, dealerCity);
+        canonical =  String.Format("http://www.bikewale.com"+Bikewale.Utility.UrlFormatter.GetDealerUrl(makeMaskingName, cityMaskingName, dealerName, (int)dealerId));
     %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <style type="text/css">
