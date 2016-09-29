@@ -20,8 +20,8 @@
        { %>
     <div class="grid-4 alpha">
         <div class="rightfloat">
-            <script type='text/javascript'>
-                googletag.cmd.push(function () { googletag.display('div-gpt-ad-<%= AdId %>-1'); });
+            <script type='text/javascript' src='https://www.googletagservices.com/tag/js/gpt.js'>
+                              googletag.pubads().definePassback('/1017752/Bikewale_PQ_300x250', [300, 250]).display();
             </script>
         </div>
     </div>

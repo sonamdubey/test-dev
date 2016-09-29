@@ -14,7 +14,10 @@
         alternate = String.Format("http://www.bikewale.com/m/{0}-dealer-showrooms-in-{1}/", makeMaskingName, cityMaskingName);
         AdId = "1395986297721";
         AdPath = "/1017752/BikeWale_New_";
-        isAd970x90BottomShown = false;
+        isAd970x90Shown = true;
+        isAd970x90BottomShown = true;
+        isAd300x250Shown = false;
+        isAd300x250BTFShown = false;
         isHeaderFix = false;
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
