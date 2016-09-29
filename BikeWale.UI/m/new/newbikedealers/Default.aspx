@@ -1,13 +1,15 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.DealerLocator.LocateNewBikesDealers" EnableViewState="false" %>
+<%@ Register Src="~/m/controls/MUpcomingBikes.ascx" TagName="MUpcomingBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/MNewLaunchedBikes.ascx" TagName="MNewLaunchedBikes" TagPrefix="BW" %>
 
 <!DOCTYPE html>
 <html>
 <head>
     <%
-        title = "New Bike Dealers in India - Locate Authorized Showrooms - BikeWale";
-        keywords = "new bike dealers, new bike showrooms, bike dealers, bike showrooms, showrooms, dealerships, price quote";
-        description = "Locate New bike dealers and authorized bike showrooms in India. Find new bike dealer information for more than 200 cities. Authorized company showroom information includes full address, phone numbers, email address, pin code etc.";
-        canonical = "http://www.bikewale.com/new/locate-dealers/";
+        title = "New Bike Dealer Showrooms in India | Locate Authorized Bike Showrooms - BikeWale";
+        keywords = "new bike dealers, new bike showrooms, bike dealers, bike showrooms, showrooms, dealerships";
+        description = "Locate new bike showrooms and authorized bike dealers in India. Find new bike dealer information for more than 200 cities in India. ";
+        canonical = "http://www.bikewale.com/dealer-showroom-locator/";
         AdPath = "/1017752/Bikewale_Mobile_NewBikes";
         AdId = "1398766302464";
         Ad_320x50 = false;
@@ -27,8 +29,8 @@
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
             <div class="container locator-landing-banner text-center">
-                <h1 class="font24 text-uppercase text-white padding-top20 padding-bottom10">Bike dealer locator</h1>
-                <p class="font14 text-white">Find new bike dealers across 200 cities</p>
+                <h1 class="font24 text-uppercase text-white padding-top20 padding-bottom10">Showroom Locator</h1>
+                <h2 class="font14 text-white">Find new bike dealers across 200 cities</h2>
             </div>
         </section>
 
@@ -58,7 +60,7 @@
 
         <section>
             <div class="container section-container">
-                <h2 class="section-heading">Locate dealers by brands</h2>
+                <h2 class="section-heading">Dealer showroom by brands</h2>
                 <div class="content-box-shadow padding-top25 padding-bottom20">
                     <div class="brand-type-container">
                         <ul class="text-center">
@@ -104,6 +106,11 @@
                     <div class="swiper-container card-container">
                         <div class="swiper-wrapper discover-bike-carousel">
                             <!-- control -->
+                                   <%if (mctrlNewLaunchedBikes.FetchedRecordsCount > 0)
+                           { %>
+                    <BW:MNewLaunchedBikes runat="server" ID="mctrlNewLaunchedBikes" />
+                        <%} %>
+                            
                         </div>
                     </div>
                 </div>
@@ -117,6 +124,11 @@
                     <div class="swiper-container card-container">
                         <div class="swiper-wrapper discover-bike-carousel">
                             <!-- control -->
+                                   <%if (mctrlUpcomingBikes.FetchedRecordsCount > 0)
+                           { %>
+                      <BW:MUpcomingBikes runat="server" ID="mctrlUpcomingBikes" />
+                        <%} %>
+                              
                         </div>
                     </div>
                 </div>
@@ -164,7 +176,7 @@
                 $ddlMakes = $("#sliderBrandList"),
                 searchBrandDiv = $(".locator-search-brand"),
                 searchCityDiv = $(".locator-search-city");
-            searchBrandDiv.on('click', function () {
+                searchBrandDiv.on('click', function () {
                 $('.locator-city-slider-wrapper').hide();
                 $('.locator-brand-slider-wrapper').show();
                 locatorSearchBar.addClass('open').animate({ 'left': '0px' }, 500);
@@ -186,9 +198,7 @@
                 else {
                     setError($("div.locator-search-brand-form"), "Please select brand!");
                 }
-
             });
-
             var key = "dealerCitiesByMake_";
             lscache.flushExpired();
             lscache.setBucket('DLPage');
@@ -198,8 +208,6 @@
             if (($ddlCities.find("li.activeCity")).length > 0) {
                 $("div.locator-search-city-form span").text($ddlCities.find("li.activeCity:first").text());
             }
-
-
             $ddlMakes.on("click", "li", function () {
                 var _self = $(this),
                         selectedElement = _self.text();
@@ -293,7 +301,8 @@
                 if (!isNaN(selMakeId) && selMakeId != "0") {
                     if (!isNaN(selCityId) && selCityId != "0") {
                         ddlcityMasking = $ddlCities.find("li.activeCity").attr("cityMaskingName");
-                        window.location.href = "/m/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
+                        //window.location.href = "/m/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
+                        window.location.href = "/m/" + ddlmakemasking + "-dealer-showrooms-in-" + ddlcityMasking + "/";
                     }
                     else {
                         setError($("div.locator-search-city-form"), "Please select city !");
@@ -331,9 +340,7 @@
                 element.removeClass("border-red").siblings("span.errorIcon, div.errorText").hide();
             };
 
-
         </script>
-
     </form>
 </body>
 </html>
