@@ -114,36 +114,7 @@ namespace Bikewale.Service.Controllers.DealerLocator
                 return InternalServerError();
             }
         }
-        public IHttpActionResult Get(UInt16 dealerId)
-        {
-            try
-            {
-                if (dealerId > 0)
-                {
-                    DealerBikesEntity dealerBikes = _cache.GetDealerDetailsAndBikes(dealerId);
-                    Bikewale.DTO.DealerLocator.DealerBikes bikes;
-                    if (dealerBikes != null)
-                    {
-                        bikes = DealerBikesEntityMapper.Convert(dealerBikes);
-                        return Ok(bikes);
-                    }
-                    else
-                    {
-                        return NotFound();
-                    }
-                }
-                else
-                {
-                    return BadRequest();
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Service.Controllers.DealerLocator.DealerBikesController.Get");
-                objErr.SendMail();
-                return InternalServerError();
-            }
-        }
+
 
     }
 }

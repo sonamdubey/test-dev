@@ -7,5 +7,6 @@ namespace Bikewale.BindViewModels.Webforms.DealerDetails
 {
     public class BikeDealerDetails
     {
+
     }
 }

@@ -1,7 +1,9 @@
 ﻿var redMarkerImage = 'http://imgd3.aeplcdn.com/0x0/bw/static/design15/map-marker-red.png';
-
+var originPlace, userLocation = { "latitude": "", "longitude": "" }, userAddress = "";
+var customerViewModel, dealerDetailsViewModel;
 $(document).ready(function () {
     dropdown.setDropdown();
+   // bindDealerDetails();
 });
 
 function initializeMap() {
@@ -24,9 +26,100 @@ function initializeMap() {
     });
 
     marker.setMap(map);
+
+    var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay = new google.maps.DirectionsRenderer;
+    directionsDisplay.setMap(map);
+
+    originPlace = new google.maps.places.Autocomplete(
+      (document.getElementById('locationSearch')),
+      {
+          types: ['geocode'],
+          componentRestrictions: { country: "in" }
+      });
+
+    google.maps.event.addListener(originPlace, 'place_changed', function () {
+        var place = originPlace.getPlace();
+        if (!(place && place.geometry)) {
+            origin_place_id = new google.maps.LatLng(userLocation.latitude, userLocation.longitude);
+        }
+        else {
+
+            origin_place_id = place.geometry.location
+            userLocation.latitude = place.geometry.location.lat();
+            userLocation.longitude = place.geometry.location.lng();
+            userAddress = place.formatted_address;
+        };
+
+        travel_mode = google.maps.TravelMode.DRIVING;
+
+        route(origin_place_id, travel_mode, directionsService, directionsDisplay);
+        $('.location-details').show();
+    });
+
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ 'address': currentCityName }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+            map.fitBounds(results[0].geometry.viewport);
+        }
+    });
 }
 
 initializeMap();
+
+
+function savePosition(position) {
+    userLocation = {
+        "latitude": position.coords.latitude,
+        "longitude": position.coords.longitude
+    }
+    if (dealerDetailsViewModel && dealerDetailsViewModel.CustomerDetails())
+        dealerDetailsViewModel.CustomerDetails().userSrcLocation(userLocation.latitude + "," + userLocation.longitude);
+    if (userAddress == "") {
+        $.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + userLocation.latitude + "," + userLocation.longitude + "&key=" + googleMapAPIKey, function (data) {
+            if (data.status == "OK" && data.results.length > 0) {
+                userAddress = data.results[0].formatted_address;
+            }
+            else {
+                userAddress = "Your location";
+            }
+            $("#locationSearch").val("").val(userAddress);
+            google.maps.event.trigger(originPlace, 'place_changed');
+        });
+    }
+
+}
+
+
+
+
+var dealerDetails = function (dealerDetailsBind) {
+    var self = this;
+    var dealerObj=ko.toJSON(dealerDetailsBind)
+    self.name = ko.observable(dealerObj.Name);
+    self.mobile = ko.observable(dealerObj.MaskingNumber);
+    self.address = ko.observable(dealerObj.Address);
+    self.city = ko.observable(dealerObj.City);
+    self.workingHours = ko.observable(dealerObj.WorkingHours);
+    self.email = ko.observable(dealerObj.Email);
+    self.dealerType = ko.observable(dealerObj.DealerPackageType);
+    self.dealerId = ko.observable(dealerObj.DealerId);
+
+
+    if (dealerObj.Area) {
+        self.area = ko.observable(dealerObj.Area.AreaName);
+        self.lat = ko.observable(dealerObj.Area.Latitude);
+        self.lng = ko.observable(dealerObj.Area.Longitude);
+    }
+    else {
+        self.area = ko.observable();
+        self.lat = ko.observable();
+        self.lng = ko.observable();
+    }
+
+}
+
 
 $('.dropdown-select-wrapper').on('click', '.dropdown-label', function () {
     dropdown.active($(this));
@@ -124,10 +217,10 @@ $(document).on('click', function (event) {
     }
 });
 
-var assistanceGetName = $('#assistanceGetName'),
-    assistanceGetEmail = $('#assistanceGetEmail'),
-    assistanceGetMobile = $('#assistanceGetMobile'),
-    assistGetModel = $('#assistGetModel');
+var assistanceGetName = $('#assistGetName'),
+    assistanceGetEmail = $('#assistGetEmail'),
+    assistanceGetMobile = $('#assistGetMobile'),
+    assistGetModel = $('#getLeadBike');
 
 /* input focus */
 assistanceGetName.on("focus", function () {
@@ -155,92 +248,42 @@ assistanceGetMobile.on("blur", function () {
     validate.onBlur(assistanceGetMobile);
 });
 
+
 $('#submitAssistanceFormBtn').on('click', function () {
     var isValidDetails = false;
     isValidDetails &= validateBike(assistGetModel);
     isValidDetails = ValidateUserDetail(assistanceGetName, assistanceGetEmail, assistanceGetMobile);
     if (isValidDetails) {
-        // valid
+        return true;
     }
 });
 
-function ValidateUserDetail(fullName, emailid, mobile) {
-    return validateUserInfo(fullName, emailid, mobile);
-};
-
-var validateUserInfo = function (leadUsername, leadEmailId, leadMobileNo) {
-    var isValid = true;
-    isValid = validateUserName(leadUsername);
-    isValid &= validateEmailId(leadEmailId);
-    isValid &= validateMobileNo(leadMobileNo);
-    return isValid;
-};
-
-var validateUserName = function (leadUsername) {
-    var isValid = true,
-		nameLength = leadUsername.val().length;
-    if (leadUsername.val().indexOf('&') != -1) {
-        validate.setError(leadUsername, 'Invalid name');
-        isValid = false;
-    }
-    else if (nameLength == 0) {
-        validate.setError(leadUsername, 'Please enter your name');
-        isValid = false;
-    }
-    else if (nameLength >= 1) {
-        validate.hideError(leadUsername);
-        isValid = true;
-    }
-    return isValid;
-};
-
-var validateEmailId = function (leadEmailId) {
-    var isValid = true,
-		emailVal = leadEmailId.val(),
-		reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
-    if (emailVal == "") {
-        validate.setError(leadEmailId, 'Please enter email id');
-        isValid = false;
-    }
-    else if (!reEmail.test(emailVal)) {
-        validate.setError(leadEmailId, 'Invalid Email');
-        isValid = false;
-    }
-    return isValid;
-};
-
-var validateMobileNo = function (leadMobileNo) {
-    var isValid = true,
-		mobileVal = leadMobileNo.val(),
-		reMobile = /^[1-9][0-9]{9}$/;
-    if (mobileVal == "") {
-        validate.setError(leadMobileNo, "Please enter your mobile no.");
-        isValid = false;
-    }
-    else if (mobileVal[0] == "0") {
-        validate.setError(leadMobileNo, "Mobile no. should not start with zero");
-        isValid = false;
-    }
-    else if (!reMobile.test(mobileVal) && isValid) {
-        validate.setError(leadMobileNo, "Mobile no. should be 10 digits only");
-        isValid = false;
-    }
-    else
-        validate.hideError(leadMobileNo)
-    return isValid;
-};
-
-var validateBike = function (bike) {
-    if (assistGetModel.val().length == 0) {
-        validate.dropdown.setError(bike, 'Select a bike');
+function validateBikeData() {
+    if ($('#getLeadBike').val().length == 0) {
+        validate.dropdown.setError($('#getLeadBike'), 'Select a bike');
         return true;
     }
     else {
-        validate.dropdown.hideError(bike);
+        validate.dropdown.hideError($('#getLeadBike'));
         return false;
     }
-
 }
+
+$(document).on('click', '#assistance-response-close-btn', function () {
+    $("#dealer-assist-msg").slideUp();
+});
+
+
+function hideFormErrors() {
+
+    hideError(fullName);
+    hideError(emailid);
+    hideError(mobile);
+    hideError(assistanceGetEmail);
+    hideError(assistanceGetMobile);
+    hideError(assistanceGetName);
+    hideError(assistGetModel);
+};
 
 /* form validation */
 var validate = {
@@ -295,4 +338,71 @@ var validate = {
             errorTag.text('');
         }
     }
+}
+
+function getLocation() {
+    if (userAddress != "") {
+        $("#locationSearch").val("").val(userAddress);
+        google.maps.event.trigger(originPlace, 'place_changed');
+    }
+    else {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                savePosition,
+                showError,
+                { enableHighAccuracy: true, maximumAge: 600000 }
+            );
+        }
+    }
+}
+
+$(document).on("click", "#getUserLocation", function () { getLocation(); })
+
+function route(origin_place_id, travel_mode, directionsService, directionsDisplay) {
+
+
+    _lat = dealerLat;
+    _lng = dealerLng;
+    destination_place_id = new google.maps.LatLng(_lat, _lng);
+
+    if (!origin_place_id || !destination_place_id) {
+        return;
+    }
+
+    directionsService.route({
+        origin: origin_place_id,
+        destination: destination_place_id,
+        travelMode: travel_mode
+    }, function (response, status) {
+        if (status === google.maps.DirectionsStatus.OK) {
+            getCommuteInfo(response);
+            directionsDisplay.setDirections(response);
+        }
+    });
+
+}
+
+function getCommuteInfo(result) {
+    var totalDistance = 0;
+    var totalDuration = 0;
+    var legs = result.routes[0].legs;
+    for (var i = 0; i < legs.length; ++i) {
+        totalDistance += legs[i].distance.value;
+        totalDuration += legs[i].duration.value;
+    }
+    $('#commuteDistance').text((totalDistance / 1000).toFixed(2) + " kms");
+    $('#commuteDuration').text(totalDuration.toString().toHHMMSS());
+
+}
+
+String.prototype.toHHMMSS = function () {
+    var e = parseInt(this, 10)
+      , a = Math.floor(e / 3600)
+      , t = Math.floor((e - 3600 * a) / 60)
+      , i = e - 3600 * a - 60 * t;
+    a < 10 && (a = "0" + a),
+    t < 10 && (t = "0" + t),
+    i < 10 && (i = "0" + i);
+    var o = a + " hrs " + t + " mins ";
+    return o
 }

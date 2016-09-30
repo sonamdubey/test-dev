@@ -181,7 +181,6 @@ namespace Bikewale.Utility
             return _articleUrl;
         }
 
-        /// <summary>
         /// Created by: Aditi Srivastava on 27 Sep 2016
         /// Description: Replace special characters in url with hyphen and convert to lower case
         /// </summary>

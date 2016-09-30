@@ -15,26 +15,34 @@ using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Bikewale.Utility;
+using Bikewale.Controls;
+using Bikewale.Entities.PriceQuote;
 
 namespace Bikewale.New
 {
     /// <summary>
-    /// Created By : Sushil Kumar on 19th March 2016
+    /// Created By : Aditi Srivastava on 26 Sep 2016
     /// Class to show the bike dealers details
     /// </summary>
     public class BikeDealerDetails : Page
     {
-        protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, urlCityMaskingName = string.Empty;
-        protected uint cityId, makeId;
+        protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, urlCityMaskingName = string.Empty,
+        address = string.Empty, maskingNumber = string.Empty, eMail = string.Empty, workingHours = string.Empty, modelImage = string.Empty, dealerName = string.Empty, dealerMaskingName = string.Empty,
+        clientIP = string.Empty, pageUrl = string.Empty;
+        protected int makeId;
+        protected uint cityId,dealerId;
         protected ushort totalDealers;
         protected Repeater rptMakes, rptCities, rptDealers;
-        protected string clientIP = string.Empty, pageUrl = string.Empty;
         protected bool areDealersPremium = false;
-        protected int dealerId;
-
+        protected DealerBikesEntity dealerDetails=null;
+        protected DealerCard ctrlDealerCard;
+        protected LeadCaptureControl ctrlLeadCapture;
+        protected DealerDetailEntity dealerObj;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -47,7 +55,7 @@ namespace Bikewale.New
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Modified By :Lucky Rathore on 12 July 2016.
+          
             Form.Action = Request.RawUrl;
             string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
             if (String.IsNullOrEmpty(originalUrl))
@@ -62,10 +70,19 @@ namespace Bikewale.New
 
                 if (dealerId> 0)
                 {
-                    BindMakesDropdown();
-                    BindCitiesDropdown();
-                    BindDealerList();
-                }
+                    GetDealerDetails(dealerId);
+                    ctrlDealerCard.MakeId = Convert.ToUInt32(makeId);
+                    ctrlDealerCard.makeName = makeName;
+                    ctrlDealerCard.makeMaskingName = makeMaskingName;
+                    ctrlDealerCard.CityId = cityId;
+                    ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Desktop_DealerLocator_Detail_GetOfferButton;
+                    ctrlDealerCard.LeadSourceId = 38;
+                    ctrlDealerCard.TopCount = Convert.ToUInt16(cityId > 0 ? 3 : 6);
+                    ctrlDealerCard.pageName = "DealerDetail_Page_Desktop";
+                    ctrlDealerCard.DealerId = (uint)dealerId;
+                    ctrlLeadCapture.CityId = cityId;
+                    ctrlLeadCapture.AreaId = 0;
+                    }
                 else
                 {
                     Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
@@ -76,14 +93,14 @@ namespace Bikewale.New
 
         }
 
+
         /// <summary>
-        /// Created By  : Sushil Kumar
-        /// Created On  : 20th March 2016
-        /// Description : To bind dealerlist
+        /// Created by: Aditi Srivastava on 27 Sep 2016
+        /// Summary: Get dealer details by dealer id and make id
         /// </summary>
-        private void BindDealerList()
+        /// <param name="dealerid"></param>
+        private void GetDealerDetails(uint dealerid)
         {
-            DealersEntity _dealers = null;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
@@ -93,24 +110,24 @@ namespace Bikewale.New
                              .RegisterType<IDealer, DealersRepository>()
                             ;
                     var objCache = container.Resolve<IDealerCacheRepository>();
-                    _dealers = objCache.GetDealerByMakeCity(cityId, makeId);
+                    dealerDetails = objCache.GetDealerDetailsAndBikesByDealerAndMake(dealerId,makeId);
 
-                    if (_dealers != null && _dealers.TotalCount > 0)
+                    if (dealerDetails != null )
                     {
-                        rptDealers.DataSource = _dealers.Dealers;
-                        rptDealers.DataBind();
-                        totalDealers = _dealers.TotalCount;
-
-                        if (totalDealers > 0)
-                        {
-                            int _countStdDealers = _dealers.Dealers.Count(m => m.DealerType < 2);// counting only standard or invalid dealers
-                            int _countPreDel = _dealers.Dealers.Count(m => m.DealerType > 1);// counting only deluxe or premium dealers
-                            if (_countStdDealers < 3 && _countPreDel > 0)
-                            {
-                                areDealersPremium = true;
-                            }
-                        }
-                    }
+                        dealerObj = dealerDetails.DealerDetails;
+                        dealerName = dealerObj.Name;
+                        dealerMaskingName = UrlFormatter.RemoveSpecialCharUrl(dealerName);
+                        cityName = dealerObj.City;
+                        if (dealerObj.Area != null)
+                        areaName = dealerObj.Area.AreaName;
+                        address = dealerObj.Address;
+                        maskingNumber = dealerObj.MaskingNumber;
+                        eMail = dealerObj.EMail;
+                        workingHours = dealerObj.WorkingHours;
+                        makeName = dealerObj.MakeName;
+                        cityMaskingName = dealerObj.CityMaskingName;
+                        cityId = (uint)dealerObj.CityId;
+                          }
                     else
                     {
                         Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
@@ -122,105 +139,23 @@ namespace Bikewale.New
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, "BindDealerList");
+                ErrorClass objErr = new ErrorClass(ex, "GetDealerDetails");
                 objErr.SendMail();
             }
         }
-
-
         /// <summary>
-        /// Created By  : Sushil Kumar
-        /// Created On  : 20th March 2016
-        /// Description : To bind makes list to dropdown
-        /// Modified by :   Sumit Kate on 29 Mar 2016
-        /// Description :   Get the makes list of BW and AB dealers
+        /// Created By: Aditi Srivastava on 29 Sep 2016
+        /// Summary: Get make id by make masking name
         /// </summary>
-        private void BindMakesDropdown()
-        {
-            IEnumerable<BikeMakeEntityBase> _makes = null;
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
-                             .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
-                            ;
-                    var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
-                    _makes = objCache.GetMakesByType(EnumBikeType.Dealer);
-                    if (_makes != null && _makes.Count() > 0)
-                    {
-                        rptMakes.DataSource = _makes;
-                        rptMakes.DataBind();
-                        var firstMake = _makes.FirstOrDefault(x => x.MakeId == makeId);
-                        if (firstMake != null)
-                        {
-                            makeName = firstMake.MakeName;
-                            makeMaskingName = firstMake.MaskingName;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, "BindMakesDropdown");
-                objErr.SendMail();
-            }
-        }
-
-
-        /// <summary>
-        /// Created By  : Sushil Kumar
-        /// Created On  : 20th March 2016
-        /// Description : To bind cities list to dropdown
-        /// </summary>
-        private void BindCitiesDropdown()
-        {
-            IEnumerable<CityEntityBase> _cities = null;
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IDealer, DealersRepository>();
-
-                    var objCities = container.Resolve<IDealer>();
-                    _cities = objCities.FetchDealerCitiesByMake(makeId);
-                    if (_cities != null && _cities.Count() > 0)
-                    {
-                        rptCities.DataSource = _cities;
-                        rptCities.DataBind();
-                        var firstCity = _cities.FirstOrDefault(x => x.CityId == cityId);
-                        if (firstCity != null)
-                        {
-                            cityName = firstCity.CityName;
-                            cityMaskingName = firstCity.CityMaskingName;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, "BindCitiesDropdown");
-                objErr.SendMail();
-            }
-        }
-
-
-        /// <summary>
-        /// Created By  : Sushil Kumar
-        /// Created On  : 20th March 2016
-        /// Description : To get makeId from make masking name
-        /// </summary>
-        private void GetMakeIdByMakeMaskingName(string maskingName)
+        /// <param name="maskingName"></param>
+         private void GetMakeIdByMakeMaskingName(string maskingName)
         {
             try
             {
                 if (!string.IsNullOrEmpty(maskingName))
                 {
                     string _makeId = MakeMapping.GetMakeId(maskingName);
-                    if (string.IsNullOrEmpty(_makeId) || !uint.TryParse(_makeId, out makeId))
+                    if (string.IsNullOrEmpty(_makeId) || !int.TryParse(_makeId, out makeId))
                     {
                         Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
@@ -243,12 +178,11 @@ namespace Bikewale.New
         }
 
 
-
         #region Private Method to process querystring
         /// <summary>
-        /// Created By : Sushil Kumar
-        /// Created On : 16th March 2016 
-        /// Description : Private Method to query string fro make masking name and cityId
+        /// Created By : Aditi Srivastava
+        /// Created On : 26th Sep 2016 
+        /// Description : Private Method to validate query string based on dealer id
         /// </summary>
         private bool ProcessQueryString()
         {
@@ -258,13 +192,12 @@ namespace Bikewale.New
             {
                 if (currentReq.QueryString != null && currentReq.QueryString.HasKeys())
                 {
-                    makeMaskingName = currentReq.QueryString["make"];
-                   urlCityMaskingName = currentReq.QueryString["city"];
-                    dealerId = Convert.ToInt32(currentReq.QueryString["dealerid"]);
-                    //if (!String.IsNullOrEmpty(urlCityMaskingName) && !String.IsNullOrEmpty(makeMaskingName))
-                    if (dealerId > 0 && !String.IsNullOrEmpty(urlCityMaskingName) && !String.IsNullOrEmpty(makeMaskingName))
+                      makeMaskingName = currentReq.QueryString["make"];
+
+                      dealerId = Convert.ToUInt32(currentReq.QueryString["dealerid"]);
+                      if (dealerId > 0 && !string.IsNullOrEmpty(makeMaskingName))
                     {
-                        cityId = CitiMapping.GetCityId(urlCityMaskingName);
+                       
                         isValidQueryString = true;
                     }
                     else
@@ -291,6 +224,7 @@ namespace Bikewale.New
             }
             return isValidQueryString;
         }
+        
         #endregion
     }   // End of class
 }   // End of namespace

@@ -625,7 +625,11 @@ namespace Bikewale.DAL.Dealer
             return dealers;
         }
 
-        public DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId)
+        /// <summary>
+        /// Created By : Sajal Gupta on 26/09/2016
+        /// Description: DAL method to get dealer's bikes and details on the basis of dealerId and makeId.
+        /// </summary>
+        public DealerBikesEntity GetDealerDetailsAndBikesByDealerAndMake(uint dealerId, int makeId)
         {
             DealerBikesEntity dealers = new DealerBikesEntity();
 
@@ -636,7 +640,7 @@ namespace Bikewale.DAL.Dealer
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
-
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -647,6 +651,9 @@ namespace Bikewale.DAL.Dealer
                                 dealers.DealerDetails = new DealerDetailEntity();
                                 dealers.DealerDetails.Name = Convert.ToString(dr["DealerName"]);
                                 dealers.DealerDetails.Address = Convert.ToString(dr["Address"]);
+                                dealers.DealerDetails.MakeName = Convert.ToString(dr["makename"]);
+                                dealers.DealerDetails.MakeMaskingName = Convert.ToString(dr["makemaskingname"]);
+                                dealers.DealerDetails.MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]);
                                 dealers.DealerDetails.Area = new AreaEntityBase
                                 {
                                     AreaName = Convert.ToString(dr["Area"]),
@@ -654,13 +661,15 @@ namespace Bikewale.DAL.Dealer
                                     Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"])
 
                                 };
+                                dealers.DealerDetails.CityMaskingName = Convert.ToString(dr["citymaskingname"]);
                                 dealers.DealerDetails.City = Convert.ToString(dr["City"]);
                                 dealers.DealerDetails.DealerType = SqlReaderConvertor.ParseToInt16(dr["DealerType"]);
                                 dealers.DealerDetails.EMail = Convert.ToString(dr["EMail"]);
                                 dealers.DealerDetails.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
-                                dealers.DealerDetails.DealerId = dealerId;
+                                dealers.DealerDetails.DealerId = Convert.ToUInt16(dealerId);
                                 dealers.DealerDetails.WorkingHours = Convert.ToString(dr["WorkingHours"]);
-                                dealers.DealerDetails.CampaignId = Convert.ToUInt32(dr["id"]);
+                                dealers.DealerDetails.CampaignId = SqlReaderConvertor.ToUInt32(dr["id"]);
+                                dealers.DealerDetails.CityId = Convert.ToInt32(dr["cityid"]);
                             }
                             if (dr.NextResult())
                             {
@@ -698,6 +707,7 @@ namespace Bikewale.DAL.Dealer
                                     specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
                                     specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
                                     specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaxPowerRPM"]);
+                                    specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
 
                                     bikes.objMake = objMake;
                                     bikes.objModel = objModel;
@@ -706,8 +716,6 @@ namespace Bikewale.DAL.Dealer
                                     bikes.MakeId = !Convert.IsDBNull(dr["MakeId"]) ? Convert.ToUInt16(dr["MakeId"]) : default(int);
                                     bikes.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                     bikes.MakeName = Convert.ToString(dr["make"]);
-
-                                    dealers.DealerDetails.CityId = Convert.ToInt32(dr["cityid"]);
 
                                     models.Add(bikes);
                                 }
