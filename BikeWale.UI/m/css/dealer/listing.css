@@ -1,4 +1,5 @@
-﻿.padding-15-20 {
+﻿@charset "utf-8";
+.padding-15-20 {
     padding: 15px 20px;
 }
 
@@ -51,7 +52,7 @@
     width:92%;
 }
 
-.get-assistance-btn.btn {
+.leadcapturebtn.btn {
     font-size: 14px;
     padding: 9px 21px;
 }

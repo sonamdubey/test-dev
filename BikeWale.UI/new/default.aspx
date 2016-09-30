@@ -45,7 +45,7 @@
             <div class="container">
                 <div class="welcome-box">
                     <h1 class="text-uppercase margin-bottom10">NEW BIKES</h1>
-                    <p class="font20">View all bikes under one roof</p>
+                    <h2 class="font20 text-unbold">View all bikes under one roof</h2>
                 </div>
             </div>
         </header>
