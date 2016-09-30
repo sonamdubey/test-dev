@@ -321,7 +321,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .navUL li a.sept-nav-list { padding: 15px 0 0 55px; color: #82888b; height: 36px; }
 .blackOut-window { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.5; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
 /* sprite classes */
-.bwmsprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v2.png?v1=19Sep2016) no-repeat; display: inline-block; }
+.bwmsprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v2.png?v1=30Sep2016) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
@@ -499,7 +499,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .bg-light-grey-with-alpha { background: rgba(242, 242, 243, 0.9); }
 .bg-grey { background: #e1e1e1; }
 .bg-dark-grey { background: #333333; }
-.bg-footer { background: #323434 url(http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/m/bg-footer.jpg) no-repeat center top; background-size:cover; }
+.bg-footer { background: #323434; }
 
 .margin-left5 { margin-left: 5px; }
 .margin-left10 { margin-left: 10px; }
@@ -711,6 +711,34 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .popup_content div.ui-content li a:hover { background-color: #ededed; text-shadow: 0 1px 0 #f3f3f3; }
 .thankYouForm  .fa-envelope-o { font-size: 70px; color: #ccc; }
 fieldset { border: 0; border-collapse:collapse; }
+
+.cw-logo-label {
+    font-size: 8px;
+    color: #cfcfcf;
+    margin-left: 13px;
+    position: relative;
+    top: -5px;
+}
+
+.bw-footer-icon {
+    width: 73px;
+    height: 20px;
+    background-position: 0 -547px;
+    position: relative;
+    top: 2px;
+}
+.cw-footer-icon {
+    width: 69px;
+    height: 12px;
+    background-position: -78px -520px;
+}
+.ct-footer-icon {
+    width: 93px;
+    height: 17px;
+    background-position: -78px -538px;
+    position: relative;
+    top: 4px;
+}
 
 /******* 27/-8/2015 ********/
 .border-left1{border-left:1px solid #e2e2e2;}
