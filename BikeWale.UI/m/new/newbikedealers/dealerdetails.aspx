@@ -88,7 +88,7 @@
                     <a id="anchorGetDir" href="http://maps.google.com/maps?z=12&t=m&q=loc:<%= dealerLat %>,<%= dealerLong %>" target="_blank"><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
                 </div>
 
-                <% if (campaignId != 0)
+                <% if (campaignId > 0)
                    { %>
                 <div class="grid-12 float-button clearfix float-fixed">
                     <% if (!string.IsNullOrEmpty(maskingNumber))
@@ -122,6 +122,7 @@
                 <ul id="model-available-list">
                     <asp:Repeater ID="rptModels" runat="server">
                         <ItemTemplate>
+                            <a class="modelurl" href='/m<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>'>
                             <li>
                                 <div class="image-block">
                                     <div class="image-content">
@@ -143,6 +144,7 @@
                                     </div>                                    
                                 </div>                                
                             </li>
+                            </a>
                         </ItemTemplate>
                     </asp:Repeater>
                 </ul>

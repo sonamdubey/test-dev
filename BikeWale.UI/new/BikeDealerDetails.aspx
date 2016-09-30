@@ -73,7 +73,10 @@
                                 <%if(dealerObj!=null){ %>
                                 
                                 <div class="margin-bottom10">
+                                    <%if (dealerObj.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || dealerObj.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe))
+                                  { %>
                                     <span class="featured-tag inline-block margin-right10"><span class="bwsprite star-white"></span>Featured</span>
+                                    <%} %>
                                     <h2 class="font14 text-black text-bold inline-block">Authorized <%=makeName %> dealer in <%=cityName %></h2>
                                 </div>
                             
@@ -199,6 +202,8 @@
                         <h2 class="font18 margin-bottom20 padding-top20 padding-left15">Models available at <%=dealerName%></h2>
                         <ul id="modelsAvailable">
                             <%foreach(var model in dealerDetails.Models){ %>
+                            <a class="modelurl" href='<%= Bikewale.Utility.UrlFormatter.BikePageUrl(model.MakeMaskingName , model.objModel.MaskingName) %>'>
+
                              <li>
                                 <div class="image-block">
                                     <div>
@@ -216,6 +221,7 @@
                                     </div>
                                 </div>
                             </li>
+                            </a>
                             <%} %>
                           </ul>
                     </div>
