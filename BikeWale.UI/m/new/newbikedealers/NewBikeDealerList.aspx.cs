@@ -56,15 +56,23 @@ namespace Bikewale.Mobile.New
             if (String.IsNullOrEmpty(originalUrl))
                 originalUrl = Request.ServerVariables["URL"];
 
-            ProcessQueryString();
-            GetMakeIdByMakeMaskingName(makeMaskingName);
-
-            if (makeId > 0 && cityId > 0)
+            if (ProcessQueryString())
             {
-                BindMakesDropdown();
-                BindCitiesDropdown();
-                BindDealerList();
-                BindUserControls();
+                GetMakeIdByMakeMaskingName(makeMaskingName);
+
+                if (makeId > 0 && cityId > 0)
+                {
+                    BindMakesDropdown();
+                    BindCitiesDropdown();
+                    BindDealerList();
+                    BindUserControls();
+                }
+                else
+                {
+                    Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
         }
 
@@ -183,6 +191,7 @@ namespace Bikewale.Mobile.New
                         }
                         else
                         {
+
                             Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
                             HttpContext.Current.ApplicationInstance.CompleteRequest();
                             this.Page.Visible = false;
@@ -292,9 +301,10 @@ namespace Bikewale.Mobile.New
         /// Created On : 16th March 2016 
         /// Description : Private Method to query string fro make masking name and cityId
         /// </summary>
-        private void ProcessQueryString()
+        private bool ProcessQueryString()
         {
             var currentReq = HttpContext.Current.Request;
+            bool isValidQueryString = false;
             try
             {
                 if (currentReq.QueryString != null && currentReq.QueryString.HasKeys())
@@ -304,7 +314,7 @@ namespace Bikewale.Mobile.New
                     if (!String.IsNullOrEmpty(urlCityMaskingName) && !String.IsNullOrEmpty(makeMaskingName))
                     {
                         cityId = CitiMapping.GetCityId(urlCityMaskingName);
-                        //isValidQueryString = true;
+                        isValidQueryString = true;
                     }
                     else
                     {
@@ -327,7 +337,7 @@ namespace Bikewale.Mobile.New
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, " : ProcessQueryString ");
                 objErr.SendMail();
             }
-
+            return isValidQueryString;
         }
 
         /// <summary>
