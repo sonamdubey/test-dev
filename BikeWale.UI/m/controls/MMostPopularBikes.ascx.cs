@@ -51,7 +51,7 @@ namespace Bikewale.Mobile.Controls
             }
             else
             {
-                return "<span class='font16'>Price Unavailable</span>";
+                return "<span class='font14 text-bold'>Price Unavailable</span>";
             }
         }
 

@@ -906,8 +906,8 @@
       <DependentUpon>VideosWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\new\dealersinstate.aspx.cs">
-      <DependentUpon>dealersinstate.aspx</DependentUpon>
+    <Compile Include="m\new\dealersincountry.aspx.cs">
+      <DependentUpon>dealersincountry.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\new\dealersinindia.aspx.cs">
@@ -1101,6 +1101,10 @@
       <DependentUpon>BookingListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="new\dealersincountry.aspx.cs">
+      <DependentUpon>dealersincountry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="new\BikeDealerDetails.aspx.cs">
       <DependentUpon>BikeDealerDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1153,8 +1157,8 @@
       <DependentUpon>EMILoan.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\dealersinindia.aspx.cs">
-      <DependentUpon>dealersinindia.aspx</DependentUpon>
+    <Compile Include="new\dealersinindia_280916.aspx.cs">
+      <DependentUpon>dealersinindia_280916.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\locatenewbikedealers.aspx.cs">
@@ -1797,6 +1801,7 @@
     <Content Include="css\dealerpricequote.css" />
     <Content Include="css\dealersbylocation.css" />
     <Content Include="css\dealer\landing.css" />
+    <Content Include="css\dealer\location.css" />
     <Content Include="css\dealer\details.css" />
     <Content Include="css\dealer\listing.css" />
     <Content Include="css\global.css" />
@@ -2288,6 +2293,7 @@
     <Content Include="m\css\dealerpricequote.css" />
     <Content Include="m\css\dealerpricequote-old.css" />
     <Content Include="m\css\dealer\landing.css" />
+    <Content Include="m\css\dealer\location.css" />
     <Content Include="m\css\design.css" />
     <Content Include="m\css\home.css" />
     <Content Include="m\css\insurance.css" />
@@ -2305,7 +2311,7 @@
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
     <Content Include="m\css\dealer\details.css" />
-    <Content Include="m\new\dealersinstate.aspx" />
+    <Content Include="m\new\dealersincountry.aspx" />
     <Content Include="m\new\dealersinindia.aspx" />
     <Content Include="m\new\ModelGallery.aspx" />
     <Content Include="m\new\ModelPricesInCity.aspx" />
@@ -2386,6 +2392,7 @@
     <Content Include="m\src\dealerpricequote-old.js" />
     <Content Include="m\src\dealersbylocation.js" />
     <Content Include="m\src\dealer\details.js" />
+    <Content Include="m\src\dealer\location.js" />
     <Content Include="m\src\frameworks.js" />
     <Content Include="m\src\home.js" />
     <Content Include="m\src\html5.js" />
@@ -2412,6 +2419,7 @@
     <Content Include="m\videos\VideoMakeModel.aspx" />
     <Content Include="News\RepeaterPagerNews.ascx" />
     <Content Include="new\BikeDealerDetails.aspx" />
+    <Content Include="new\dealersincountry.aspx" />
     <Content Include="new\browsenewbikedealerdetails.aspx" />
     <Content Include="new\dealersinstate.aspx" />
     <Content Include="new\listnewbikedealersbycity.aspx" />
@@ -2438,6 +2446,7 @@
     <Content Include="src\dealerpricequote.js" />
     <Content Include="src\dealersbylocation.js" />
     <Content Include="src\dealer\details.js" />
+    <Content Include="src\dealer\location.js" />
     <Content Include="src\dealer\listing.js" />
     <Content Include="src\frameworks.js" />
     <Content Include="src\framework\knockout.js" />
@@ -2453,7 +2462,7 @@
     <Content Include="new\compare\default.aspx" />
     <Content Include="new\default.aspx" />
     <Content Include="new\EMILoan.aspx" />
-    <Content Include="new\dealersinindia.aspx" />
+    <Content Include="new\dealersinindia_280916.aspx" />
     <Content Include="new\locatenewbikedealers.aspx" />
     <Content Include="new\models.aspx" />
     <Content Include="new\newbikelaunch\Default.aspx" />

@@ -41,11 +41,11 @@ namespace Bikewale.Mobile.Controls
         {
             if (estimatedPrice != null && Convert.ToInt32(estimatedPrice) > 0)
             {
-                return String.Format("<span class='bwmsprite inr-sm-icon'></span> <span class='text-bold font18'>{0}</span><span class='font16'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(estimatedPrice)));
+                return String.Format("<span class='bwmsprite inr-xsm-icon'></span> <span class='text-bold font16'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(estimatedPrice)));
             }
             else
             {
-                return "<span class='font18'>Price Unavailable</span>";
+                return "<span class='font14'>Price Unavailable</span>";
             }
         }
 
@@ -53,11 +53,11 @@ namespace Bikewale.Mobile.Controls
         {
             if (launchDate != null && !String.IsNullOrEmpty(Convert.ToString(launchDate)))
             {
-                return String.Format("<div class='padding-top5 clear border-top1'><span class='font16 text-grey'>{0} <span class='font14 text-light-grey'> (Expected launch)</span></span></div>", Convert.ToString(launchDate));
+                return String.Format("<p class='font11 text-light-grey'>Expected launch</p><p class='font16 text-bold text-default'>{0}</p>", Convert.ToString(launchDate));
             }
             else
             {
-                return "<div class='padding-top5 clear border-top1 margin-top30'><span class='font16 text-grey'>Launch date unavailable</span></div>";
+                return "<p class='font14 text-default'>Launch date unavailable</p>";
             }
         }
 

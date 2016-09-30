@@ -1,25 +1,24 @@
 ﻿using Bikewale.Cache.BikeData;
-using Bikewale.Cache.Core;
-using Bikewale.Cache.Location;
+using Bikewale.BAL.Location;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
-using Bikewale.DAL.Location;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
+using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Cache.Core;
 
 namespace Bikewale.Mobile.New
 {
@@ -27,19 +26,19 @@ namespace Bikewale.Mobile.New
     /// Created by : Vivek Gupta on 28th jun 2016
     /// Summary: To show dealers in State and list of cities
     /// </summary>
-    public class DealersInState : Page
+    public class DealerInCountry : Page
     {
-        protected Repeater rptCity;
-        protected DataList dlCity;
-
-        protected DataSet dsStateCity = null;
         protected BikeMakeEntityBase objMMV;
-
+        protected MNewLaunchedBikes ctrlNewLaunchedBikes;
+        protected MUpcomingBikes ctrlUpcomingBikes;
         public ushort makeId;
-        public string cityArr = string.Empty, makeMaskingName = string.Empty, stateMaskingName = string.Empty, stateName = string.Empty;
-        public int citiesCount = 0;
-        public uint cityId = 0, DealerCount = 0, stateId = 0;
+        public string cityArr = string.Empty, makeMaskingName = string.Empty, stateMaskingName = string.Empty, stateName = string.Empty, stateArray = string.Empty;
+        public uint stateCount = 0, DealerCount = 0;
+        protected uint countryCount = 0;
+        public uint citiesCount = 0, stateCountDealers = 0;
+        public uint cityId = 0, DealerCountCity, stateId = 0;
         public DealerStateCities dealerCity;
+        public DealerLocatorList states = null;
 
         protected override void OnInit(EventArgs e)
         {
@@ -64,37 +63,34 @@ namespace Bikewale.Mobile.New
                     objMMV = makesRepository.GetMakeDetails(makeId.ToString());
 
                 }
-
-                BindCities();
+                ctrlNewLaunchedBikes.pageSize = 6;
+                ctrlNewLaunchedBikes.makeid = makeId;
+                ctrlUpcomingBikes.pageSize = 6;
+                ctrlUpcomingBikes.MakeId = makeId;
+                BindStatesCities();
             }
         }
 
 
-        private void BindCities()
+        private void BindStatesCities()
         {
-            ICity objCities = null;
+
+            IState objStatesCity = null;
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<ICity, Bikewale.BAL.Location.Cities>();
-                objCities = container.Resolve<ICity>();
-                dealerCity = objCities.GetDealerStateCities(makeId, stateId);
-                if (dealerCity != null && dealerCity.dealerCities != null && dealerCity.dealerCities.Count() > 0)
-                {
-                    rptCity.DataSource = dealerCity.dealerCities;
-                    rptCity.DataBind();
-                    cityArr = Newtonsoft.Json.JsonConvert.SerializeObject(dealerCity.dealerCities);
-                    cityArr = cityArr.Replace("cityId", "id").Replace("cityName", "name");
-                    DealerCount = dealerCity.dealerCities.Select(o => o.DealersCount).Aggregate((x, y) => x + y);
-                    citiesCount = dealerCity.dealerCities.Count();
-                    stateName = dealerCity.dealerStates.StateName;
-                }
+                container.RegisterType<IState, States>();
+                objStatesCity = container.Resolve<IState>();
+                states = objStatesCity.GetDealerStatesCities(Convert.ToUInt32(makeId));
+                DealerCount = states.totalDealers;
+                citiesCount = states.totalCities;
+
             }
         }
 
         protected bool ProcessQS()
         {
             bool isSuccess = true;
-            if (!string.IsNullOrEmpty(Request["make"]) && !string.IsNullOrEmpty(Request["state"]))
+            if (!string.IsNullOrEmpty(Request["make"]))
             {
                 makeMaskingName = Request["make"].ToString();
                 string _makeId = string.Empty;
@@ -158,20 +154,8 @@ namespace Bikewale.Mobile.New
                     this.Page.Visible = false;
                     isSuccess = false;
                 }
-                stateMaskingName = Request.QueryString["state"];
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IState, StateRepository>()
-                             .RegisterType<IStateCacheRepository, StateCacheRepository>()
-                            ;
-                    var objCache = container.Resolve<IStateCacheRepository>();
-                    var objResponse = objCache.GetStateMaskingResponse(stateMaskingName);
-                    if (objResponse != null)
-                    {
-                        stateId = objResponse.StateId;
-                    }
-                }
+
+
             }
             else
             {

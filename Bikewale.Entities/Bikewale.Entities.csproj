@@ -173,6 +173,8 @@
     <Compile Include="DealerBenefitEntity.cs" />
     <Compile Include="DealerLocator\DealerBikesEntity.cs" />
     <Compile Include="DealerLocator\DealerDetailEntity.cs" />
+    <Compile Include="DealerLocator\DealerListIndia.cs" />
+    <Compile Include="DealerLocator\DealerLocatorList.cs" />
     <Compile Include="DealerLocator\Dealers.cs" />
     <Compile Include="DealerLocator\DealersList.cs" />
     <Compile Include="Dealer\CityWiseDealersCountEntity.cs" />

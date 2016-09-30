@@ -61,11 +61,13 @@ namespace Bikewale.BAL.BikeData
                 container.RegisterType<ICacheManager, MemcacheManager>();
                 container.RegisterType<IUserReviews, UserReviewsRepository>();
                 container.RegisterType<ICMSCacheContent, CMSCacheRepository>();
+
                 modelRepository = container.Resolve<IBikeModelsRepository<T, U>>();
                 _objPager = container.Resolve<IPager>();
                 _articles = container.Resolve<IArticles>();
                 _cacheArticles = container.Resolve<ICMSCacheContent>();
                 _userReviewCache = container.Resolve<IUserReviewsCache>();
+
             }
         }
 
@@ -164,12 +166,11 @@ namespace Bikewale.BAL.BikeData
         /// <param name="endIndex">End Index</param>
         /// <param name="recordCount">Record Count</param>
         /// <returns></returns>
-        public NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex)
+        public NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex, int? makeid = null)
         {
             NewLaunchedBikesBase objNewLaunchedBikeList = null;
 
             objNewLaunchedBikeList = modelRepository.GetNewLaunchedBikesList(startIndex, endIndex);
-
             return objNewLaunchedBikeList;
         }
         /// <summary>

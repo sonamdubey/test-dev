@@ -4,20 +4,19 @@
 <% if (isCitySelected)
    { %>
 <div id="makeDealersContent" class="bw-model-tabs-data padding-top20 padding-bottom20 border-solid-bottom font14">
-    <h2 class="font15 text-bold text-x-black padding-right20 padding-left20"><%=makeName %> dealers in <%=cityName %></h2>
+    <h2 class="font15 text-bold text-x-black padding-right20 padding-left20 margin-bottom15"><%=makeName %> dealers in <%=cityName %></h2>
     <div class="grid-12">
         <ul id="city-dealer-list">
             <asp:Repeater ID="rptDealers" runat="server">
                 <ItemTemplate>
                     <li class="dealer-details-item margin-bottom20">
-                        <a href="<%# Bikewale.Utility.UrlFormatter.GetDealerUrl(makeMaskingName, cityMaskingName,DataBinder.Eval(Container.DataItem,"Name").ToString(), Convert.ToInt32(DataBinder.Eval(Container.DataItem,"DealerId"))) %>" class="article-target-link font14"><%# DataBinder.Eval(Container.DataItem,"Name") %></a>
-                            <div class="margin-top10">
+                        <a href="<%# Bikewale.Utility.UrlFormatter.GetDealerUrl(makeMaskingName, cityMaskingName,DataBinder.Eval(Container.DataItem,"Name").ToString(), Convert.ToInt32(DataBinder.Eval(Container.DataItem,"DealerId"))) %>" title="<%# DataBinder.Eval(Container.DataItem,"Name") %>" class="font14">
                             <p class="text-black text-bold text-truncate margin-bottom5"><%# DataBinder.Eval(Container.DataItem,"Name") %></p>
                             <p class="<%# (String.IsNullOrEmpty(Convert.ToString(DataBinder.Eval(Container.DataItem,"Address"))))?"hide": "text-light-grey margin-bottom5" %>">
                                 <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
                                 <span class="vertical-top dealership-card-details"><%# Bikewale.Utility.FormatDescription.TruncateDescription(Convert.ToString(DataBinder.Eval(Container.DataItem,"Address")), 95) %></span>
                             </p>
-                            <p class="<%# (String.IsNullOrEmpty(Convert.ToString(DataBinder.Eval(Container.DataItem,"MaskingNumber"))))?"hide":string.Empty %>">
+                            <p class="<%# (String.IsNullOrEmpty(Convert.ToString(DataBinder.Eval(Container.DataItem,"MaskingNumber"))))?"hide": "text-default" %>">
                                 <span class="bwsprite phone-black-icon vertical-top"></span>
                                 <span class="text-bold vertical-top dealership-card-details"><%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %></span>
                             </p>

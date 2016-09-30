@@ -22,6 +22,7 @@ namespace Bikewale.BindViewModels.Controls
         public int pageSize { get; set; }
         public int? currentPageNo { get; set; }
         public int FetchedRecordsCount { get; set; }
+        public int? makeid { get; set; }
 
         public void BindNewlyLaunchedBikes(Repeater rptr)
         {
@@ -46,7 +47,7 @@ namespace Bikewale.BindViewModels.Controls
 
                     _objPager.GetStartEndIndex(pageSize, curPageNo, out startIndex, out endIndex);
 
-                    objBikeList = _objModel.GetNewLaunchedBikesList(startIndex, endIndex).Models;
+                    objBikeList = _objModel.GetNewLaunchedBikesList(startIndex, endIndex, makeid).Models;
 
                     if (objBikeList != null && objBikeList.Count() > 0)
                     {

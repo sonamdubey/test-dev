@@ -130,18 +130,11 @@
                 <div class="grid-12">
                     <h2 class="section-header">Newly launched bikes</h2>
                     <div class="content-box-shadow padding-top20 padding-bottom20">
-                        <div class="jcarousel-wrapper inner-content-carousel">
-                            <div class="jcarousel">
-                                <ul>
-                                   <%if (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)
-                                     { %>
-                                        <BW:NewLaunchedBikes runat="server" ID="ctrlNewLaunchedBikes" />
-                                    <%} %>
-                                </ul>
-                            </div>
-                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
-                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
-                        </div>
+                        
+                        <%if (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)
+                            { %>
+                            <BW:NewLaunchedBikes runat="server" ID="ctrlNewLaunchedBikes" />
+                        <%} %>
                     </div>
                 </div>
                 <div class="clear"></div>
