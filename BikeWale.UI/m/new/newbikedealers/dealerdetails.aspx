@@ -88,7 +88,7 @@
                     <a id="anchorGetDir" href="http://maps.google.com/maps?z=12&t=m&q=loc:<%= dealerLat %>,<%= dealerLong %>" target="_blank"><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
                 </div>
 
-                <% if (campaignId > 0)
+                <% if (campaignId > 0 && dealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard))
                    { %>
                 <div class="grid-12 float-button clearfix float-fixed">
                     <% if (!string.IsNullOrEmpty(maskingNumber))
@@ -114,7 +114,7 @@
             <% } %>
         </section>
 
-        <%if (dealerBikesCount > 0 && campaignId > 0)
+        <%if (dealerBikesCount > 0 && campaignId > 0 && dealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard))
           { %>
         <section class="container bg-white margin-bottom10">
             <div class="box-shadow padding-top15 padding-right20 padding-bottom5 padding-left20">
