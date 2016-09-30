@@ -101,7 +101,6 @@ namespace Bikewale.Controls
 
                         if (_dealers != null && _dealers.Dealers.Count() > 0)
                         {
-                            
                             makeName = _dealers.MakeName;
                             cityName = _dealers.CityName;
                             cityMaskingName = _dealers.CityMaskingName;
@@ -111,10 +110,12 @@ namespace Bikewale.Controls
 
                                 _dealers.Dealers = _dealers.Dealers.Where(m=>m.DealerId!= DealerId);
                             }
+                            if (_dealers.Dealers.Count() > 0)
+                            {
+                                showWidget = true;
+                            }
                             rptDealers.DataSource = _dealers.Dealers.Take(TopCount);
                             rptDealers.DataBind();
-                            
-                            showWidget = true;
                         }
                     }
                     else

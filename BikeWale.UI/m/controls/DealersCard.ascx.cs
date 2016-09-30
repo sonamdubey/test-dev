@@ -111,11 +111,14 @@ namespace Bikewale.Mobile.Controls
                             {
                                 _dealers.Dealers = _dealers.Dealers.Where(d => d.DealerId != DealerId);
                             }
-
+                            if (_dealers.Dealers.Count() > 0)
+                            {
+                                showWidget = true;
+                            }
                             rptDealers.DataSource = _dealers.Dealers.Take(TopCount);
                             rptDealers.DataBind();
 
-                            showWidget = true;
+
                         }
                     }
                     else

@@ -61,7 +61,6 @@
                 <div class="clear"></div>
             </div>
         </section>
-
         <section>
             <div class="container margin-bottom20" id="dealerInfo">
                 <div class="grid-12">
@@ -177,7 +176,6 @@
                             </div>
                         </div>
                         <div class="type-sumit-button">
-
 <input type="button" data-isregisterpq="true" data-item-name="<%=dealerObj.Name %>" data-item-area="<%=dealerObj.Area%>" data-leadsourceid="15" class="btn btn-orange margin-bottom5 " data-isleadpopup="false" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_SubmitButton %>" 
     data-item-id="<%= dealerId %>" data-bind="click: function (d, e) { validateBikeData(); HiddenSubmitLead(d, e) }" value="Get offers" />
 
@@ -192,7 +190,6 @@
                 <div class="clear"></div>
             </div>
         </section>
-
         <section>
             <div class="container margin-bottom20">
                 <div class="grid-12">
@@ -223,23 +220,20 @@
                  </div>
                 <div class="clear"></div>
             </div>
-            
         </section>
         <%} %>
-
+        <% if(ctrlDealerCard.showWidget){ %>
         <section>
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow">
-                        
                           <BW:DealerCard runat="server" ID="ctrlDealerCard" />
-                         
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
-                
+        <% } %>      
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW.aspx" -->
         <script type="text/javascript">

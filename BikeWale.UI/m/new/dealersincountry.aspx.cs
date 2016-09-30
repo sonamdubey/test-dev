@@ -1,5 +1,6 @@
-﻿using Bikewale.Cache.BikeData;
-using Bikewale.BAL.Location;
+﻿using Bikewale.BAL.Location;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
@@ -7,6 +8,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Mobile.Controls;
@@ -17,8 +19,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Cache.Core;
 
 namespace Bikewale.Mobile.New
 {
@@ -191,7 +191,7 @@ namespace Bikewale.Mobile.New
                             var _city = _cities.FirstOrDefault(x => x.CityId == cityId);
                             if (_city != null)
                             {
-                                string _redirectUrl = String.Format("/m/{0}-bikes/dealers-in-{1}/", makeMaskingName, _city.CityMaskingName);
+                                string _redirectUrl = String.Format("/m/{0}-dealer-showrooms-in-{1}/", makeMaskingName, _city.CityMaskingName);
                                 Response.Redirect(_redirectUrl, false);
                                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                                 this.Page.Visible = false;
