@@ -54,10 +54,20 @@
 
 <footer class="bg-footer padding-top30 padding-bottom15"><!-- Footer section code starts here -->
     <div class="container">
-        <div class="grid-12 text-center">
-            <div>
-                <a href="/m/" class="bwmsprite bw-logo"></a>              
+        <div class="text-center padding-bottom15">
+            <div class="grid-4">
+                <a href="/" class="bwmsprite bw-footer-icon" title="Bikewale"></a>
             </div>
+            <div class="grid-4">
+                <a href="http://www.carwale.com/" target="_blank" class="bwmsprite cw-footer-icon" title="CarWale"></a>
+                <p class="cw-logo-label">ask the experts</p>
+            </div>
+            <div class="grid-4 omega">
+                <a href="https://www.cartrade.com/" target="_blank" class="bwmsprite ct-footer-icon" title="CarTrade"></a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="border-solid-top text-center">
             <div class="margin-top15">
                 <ul>
                     <li><a href="/m/contactus.aspx" rel="nofollow">Contact Us</a></li>
@@ -76,10 +86,9 @@
             </div>
                 
         </div>
-        <div class="clear"></div>
     </div>
     <div class="border-solid-top text-white font11 margin-top5 padding-top10 grid-12">
-        <div class="grid-4 alpha text-left opacity50">&copy; BikeWale India</div>
+        <div class="grid-4 alpha text-left">&copy; BikeWale India</div>
         <div class="grid-8 omega text-right">
             <a href="http://www.bikewale.com/visitoragreement.aspx" class="text-white" rel="nofollow">Visitor Agreement </a>&
             <a href="http://www.bikewale.com/privacypolicy.aspx" class="text-white" rel="nofollow">Privacy Policy</a>
