@@ -609,11 +609,16 @@ var usedBikes = function () {
 
                 $.each(arr, function (i, val) {
                     var ele = bikesList.find("span[data-makeid=" + val + "]"),
-                        tab = ele.closest(".accordion-tab");
+                        tab = ele.closest(".accordion-tab"),
+                        selectedBikeFilters = $('#bike'),
+                        selectedMakeLength = selectedBikeFilters.find("p[data-id='mk-" + selectedMakeId + "'").length;
                     
                     tab.addClass("tab-checked").find(".accordion-count").text('(All models)');
-                    tab.closest("li").find(".bike-model-list li").addClass("active");                    
-                    selectedBikeFilters.append('<p data-id="mk-'+ ele.attr("data-makeid") +'" data-type="make">' + tab.find('.category-label').text() +'<span class="bwsprite cross-icon"></span></p>');
+                    tab.closest("li").find(".bike-model-list li").addClass("active");
+
+                    if (selectedMakeLength == 0) {
+                        selectedBikeFilters.append('<p data-id="mk-'+ ele.attr("data-makeid") +'" data-type="make">' + tab.find('.category-label').text() +'<span class="bwsprite cross-icon"></span></p>');
+                    }
                 });
             }
 
