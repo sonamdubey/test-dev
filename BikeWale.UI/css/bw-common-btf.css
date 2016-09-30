@@ -76,6 +76,29 @@
 noindex:-o-prefocus, .findBtn .btn-md { padding: 10px 20px; }
 
 /* footer classes */
+.cw-logo-label {
+    color: #cfcfcf;
+    margin-left: 62px;
+}
+
+.bw-footer-icon {
+    width: 142px;
+    height: 41px;
+    background-position: 0 -592px;
+}
+
+.cw-footer-icon {
+    width: 154px;
+    height: 23px;
+    background-position: 0 -640px;
+}
+
+.ct-footer-icon {
+    width: 182px;
+    height: 35px;
+    background-position: 0 -670px;
+}
+
 footer ul li { display: block; }
 footer ul li a { display: block; color: #cfcfcf; padding: 10px 0; font-size: 16px; }
 footer ul li a:hover { text-decoration: underline; }
@@ -257,7 +280,7 @@ a.action-btn:hover{text-decoration:none;}
 #popupWrapper .form-control, #popupWrapper .chosen-container { border:none; }
 #divCityLoader, #divAreaLoader { border:1px solid #ccc; border-radius:4px; }
 
-.bg-footer { background: #323434 url(http://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/d/footer.jpg) repeat-x center top; }
+.bg-footer { background: #323434; }
 .margin-left-1 { margin-left:-1px;}
 
 .margin-left25 { margin-left: 25px; }

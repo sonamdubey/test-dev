@@ -295,7 +295,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .footer-social-icons .fa-gp:hover { background: #db4c3f; }
 
 /* sprite classes */
-.bwsprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v2.png?v1=28Sep2016v02) no-repeat; display: inline-block; }
+.bwsprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v2.png?v1=30Sep2016v02) no-repeat; display: inline-block; }
 .bw-circle-icon { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-circle-icon.png) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
 .nav-icon:hover { background-position: 0 -29px; }
@@ -499,7 +499,7 @@ a.action-btn:hover{text-decoration:none;}
 .bg-light-grey-with-alpha { background: rgba(242, 242, 243, 0.9); }
 .bg-grey { background: #e1e1e1; }
 .bg-dark-grey { background: #333333; }
-.bg-footer { background: #323434 url(http://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/d/footer.jpg) repeat-x center top; }
+.bg-footer { background: #323434; }
 .margin-left-1 { margin-left:-1px;}
 .margin-left5 { margin-left: 5px; }
 .margin-left10 { margin-left: 10px; }
@@ -643,11 +643,34 @@ a.action-btn:hover{text-decoration:none;}
 .border-solid-bottom { border-bottom: 1px solid #e2e2e2; }
 .border-no { border: none; }
 
+/* footer icons */
+.cw-logo-label {
+    color: #cfcfcf;
+    margin-left: 62px;
+}
+
+.bw-footer-icon {
+    width: 142px;
+    height: 41px;
+    background-position: 0 -592px;
+}
+
+.cw-footer-icon {
+    width: 154px;
+    height: 23px;
+    background-position: 0 -640px;
+}
+
+.ct-footer-icon {
+    width: 182px;
+    height: 35px;
+    background-position: 0 -670px;
+}
+
 .cur-pointer { cursor: pointer; }
 .cur-default { cursor: default; }
 .bw-blackbg-tooltip { background:#4d5057; color:#fff; font-size:12px; padding:3px 5px; position:absolute; right:0px; top:37px; z-index: 2;}
 .bw-blackbg-tooltip:before { border-bottom: 5px solid #4d5057; border-left: 5px solid transparent; border-right: 5px solid transparent; content:""; position:absolute; right:14px; top:-5px; z-index:999; }
-
 
 /* Carousel Controls */
 .inner-content-carousel .jcarousel { width:940px; left:17px; padding:0 3px 3px; }

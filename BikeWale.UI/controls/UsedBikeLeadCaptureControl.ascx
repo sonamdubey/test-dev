@@ -140,6 +140,7 @@
         ubLeadVM.widgetName(ele.attr('data-ga-widgetname'));
         ubLeadVM.profileId(ele.attr('data-profile-id'));
         ubLeadVM.pushInitGAObject();
+        ubLeadVM.shownInterest();
         getSellerDetailsPopup.open();
         /* blackout-window */
         popup.lock();
@@ -155,7 +156,7 @@
     $('#submit-user-details-btn').on('click', function () {
         if (ValidateUserDetail(getUserName, getUserEmailID, getUserMobile)) {
             ubLeadVM.removeUserCookie();
-            ubLeadVM.shownInterest();
+            ubLeadVM.submitPurchaseRequest();
         }
     });
 
@@ -203,7 +204,8 @@
         seller: $('#seller-details-section'),
 
         open: function () {
-            getSellerDetailsPopup.popup.show();
+            getSellerDetailsPopup.userDetails.hide();
+            getSellerDetailsPopup.popup.show();            
             $('#modal-window').show();
         },
 
@@ -532,9 +534,15 @@
                                     getSellerDetailsPopup.seller.show();
                                 }
                                 else {
-                                    self.submitPurchaseRequest();
+                                    getSellerDetailsPopup.userDetails.show();
                                 }
                             }
+                            else {
+                                getSellerDetailsPopup.userDetails.show();
+                            }
+                        }
+                        else {
+                            getSellerDetailsPopup.userDetails.show();
                         }
                         if (xhr.status != 200)
                             self.message("Some error occured");
