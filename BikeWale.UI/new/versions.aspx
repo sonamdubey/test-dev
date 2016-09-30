@@ -434,7 +434,7 @@
                             <% } %>
                         </div>
                         <% } %>
-                        <% if (viewModel != null && viewModel.SecondaryDealerCount > 0)
+                        <% if (viewModel != null && viewModel.IsPremiumDealer == true && viewModel.SecondaryDealerCount > 0)
                            { %>
                         <ul id="moreDealersList">
                             <asp:Repeater ID="rptSecondaryDealers" runat="server">
@@ -449,7 +449,7 @@
                             </asp:Repeater>
                             <% } %>
                         </ul>
-                        <% if (viewModel!=null && viewModel.SecondaryDealerCount > 0)
+                        <% if (viewModel != null && viewModel.IsPremiumDealer == true && viewModel.SecondaryDealerCount > 0)
                            { %>
                         <div class="text-center margin-top20">
                             <a href="javascript:void(0)" class="font14 more-dealers-link">Check price from <%=viewModel.SecondaryDealerCount %> more dealers <span class="font12"><span class="bwsprite chevron-down"></span></span></a>
