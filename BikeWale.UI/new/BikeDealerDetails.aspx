@@ -138,7 +138,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-       <%if (dealerObj!=null && dealerObj.CampaignId > 0)
+       <%if (dealerObj != null && dealerObj.CampaignId > 0 && dealerObj.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard))
          { %>
         <section id="dealerAssistance">
             <div class="container margin-bottom20" id="leadForm">
@@ -181,7 +181,7 @@
                         <div class="type-sumit-button">
 
 <input type="button" data-isregisterpq="true" data-item-name="<%=dealerObj.Name %>" data-item-area="<%=dealerObj.Area%>" data-leadsourceid="15" class="btn btn-orange margin-bottom5 " data-isleadpopup="false" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_SubmitButton %>" 
-    data-item-id="<%= dealerId %>" data-bind="click: function (d, e) { validateBikeData(); HiddenSubmitLead(d, e) }" value="Get offers" />
+    data-item-id="<%= dealerId %>" data-bind="click: function (d, e) { validateBikeData(); validateUserLeadDetails(); HiddenSubmitLead(d, e) }" value="Get offers" />
 
                         </div>
                     </div>

@@ -269,6 +269,79 @@ function validateBikeData() {
     }
 }
 
+function validateUserLeadDetails() {
+    var isValidUser = false;
+    isValidUser = validateName();
+    isValidUser &= validatePhone();
+    isValidUser &= validateEMail();
+    return isValidUser;
+}
+function validateName() {
+    var assistGetName = $('#assistGetName');
+    leadFullname = assistGetName.val();
+    var isValid = false;
+    if (leadFullname != null && leadFullname.trim() != "") {
+        nameLength = leadFullname.length;
+
+        if (leadFullname.indexOf('&') != -1) {
+            validate.setError(assistGetName, 'Invalid name');
+            isValid = false;
+        }
+        else if (nameLength == 0) {
+            validate.setError(assistGetName, 'Please enter your name');
+            isValid = false;
+        }
+        else if (nameLength >= 1) {
+            validate.hideError(assistGetName);
+            isValid = true;
+        }
+    }
+    else {
+        validate.setError(assistGetName, 'Please enter your name');
+        isValid = false;
+    }
+    return isValid;
+}
+
+function validateEMail() {
+    var assistGetEmail = $('#assistGetEmail');
+    var isValid = true,
+        emailVal = assistGetEmail.val(),
+        reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
+    if (emailVal == "") {
+        validate.setError(assistGetEmail, 'Please enter email id');
+        isValid = false;
+    }
+    else if (!reEmail.test(emailVal)) {
+        validate.setError(assistGetEmail, 'Invalid Email');
+        isValid = false;
+    }
+ return isValid;
+}
+
+function validatePhone() {
+    var assistGetMobile = $('#assistGetMobile');
+    leadMobileNo = assistGetMobile.val();
+     var isValid = true,
+       reMobile = /^[1-9][0-9]{9}$/;
+     if (leadMobileNo == "") {
+         validate.setError(assistGetMobile, "Please enter your mobile no.");
+        isValid = false;
+    }
+     else if (leadMobileNo[0] == "0") {
+         validate.setError(assistGetMobile, "Mobile no. should not start with zero");
+        isValid = false;
+    }
+     else if (!reMobile.test(leadMobileNo) && isValid) {
+         validate.setError(assistGetMobile, "Mobile no. should be 10 digits only");
+        isValid = false;
+    }
+    else
+         validate.hideError(assistGetMobile)
+     return isValid;
+}
+
+
 $(document).on('click', '#assistance-response-close-btn', function () {
     $("#dealer-assist-msg").slideUp();
 });
