@@ -3,7 +3,6 @@ var originPlace, userLocation = { "latitude": "", "longitude": "" }, userAddress
 var customerViewModel, dealerDetailsViewModel;
 $(document).ready(function () {
     dropdown.setDropdown();
-   // bindDealerDetails();
 });
 
 function initializeMap() {
@@ -12,7 +11,7 @@ function initializeMap() {
         scrollwheel: false,
         streetViewControl: false,
         mapTypeControl: false,
-        center: new google.maps.LatLng(19.0720625, 72.8550991),
+        center: new google.maps.LatLng(dealerLat, dealerLong),
         zoom: 15,
         disableDefaultUI: true,
         mapTypeId: google.maps.MapTypeId.ROADMAP,

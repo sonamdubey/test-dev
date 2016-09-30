@@ -123,10 +123,14 @@
                                 </div>
                             </div>
                             <div class="grid-5 omega position-rel">
+                                <% if(dealerObj!= null && dealerObj.Area!= null){ %>
                                 <div id="dealer-map" style="width:378px;height:254px;border:1px solid #eee;"></div>
                                 <div id="get-direction-button" title="Get directions">
-                                    <span class="bwsprite get-direction-icon"></span>
+                                    <a href="https://maps.google.com/?saddr=&amp;daddr=<%=dealerObj.Area.Latitude %>,<%=dealerObj.Area.Longitude %>" target="_blank">
+                                        <span class="bwsprite get-direction-icon"></span>
+                                    </a>
                                 </div>
+                                <% } %>
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -246,8 +250,8 @@
                 }
             });
  
-            var dealerLat = '<%=dealerObj.Area.Latitude%>';
-            var dealerLng = '<%=dealerObj.Area.Longitude%>';
+            var dealerLat = '<%= dealerObj!= null && dealerObj.Area!= null ? dealerObj.Area.Latitude.ToString() : string.Empty %>';
+            var dealerLong = '<%= dealerObj!= null && dealerObj.Area!= null ? dealerObj.Area.Longitude.ToString() : string.Empty %>';
             var $ddlModels = $("#assistGetModel");
             var pqId = null;
             var currentCityName = '<%=cityName%>';
