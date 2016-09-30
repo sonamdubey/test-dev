@@ -193,5 +193,19 @@ namespace Bikewale.Utility
             url = (Regex.Replace(url, @"\-+", "-")).TrimEnd('-');
             return url;
         }
+
+        /// <summary>
+        ///  Created By : Sajal Gupta 
+        ///  Created On  : 26th sep 2016
+        ///  Description : To get url for dealer.
+        /// </summary>
+        public static string GetDealerUrl(string makeMaskingName, string cityMaskingName, string dealerName, int dealerId)
+        {
+            string dealerUrl = string.Empty;
+            dealerUrl = string.Format("/{0}-dealer-showrooms-in-{1}/{2}-{3}/", makeMaskingName, cityMaskingName, dealerId, RemoveSpecialCharUrl(dealerName));
+            return dealerUrl;
+        }
+
     }
 }
+

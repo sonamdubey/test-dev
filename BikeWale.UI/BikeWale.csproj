@@ -266,6 +266,7 @@
     <Compile Include="BindViewModels\Controls\BindVideosSectionCatwise.cs" />
     <Compile Include="BindViewModels\Controls\BindVideosSectionSubCatwise.cs" />
     <Compile Include="BindViewModels\Webforms\CommonModel.cs" />
+    <Compile Include="BindViewModels\Webforms\DealerDetails\BikeDealerDetails.cs" />
     <Compile Include="BindViewModels\Webforms\FeedbackCancellationModel.cs" />
     <Compile Include="BindViewModels\Webforms\ModelPageVM.cs" />
     <Compile Include="BindViewModels\Webforms\Used\SearchBikes.cs" />
@@ -1096,6 +1097,10 @@
       <DependentUpon>BookingListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="new\BikeDealerDetails.aspx.cs">
+      <DependentUpon>BikeDealerDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="new\listnewbikedealersbycity.aspx.cs">
       <DependentUpon>listnewbikedealersbycity.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1788,6 +1793,7 @@
     <Content Include="css\dealerpricequote.css" />
     <Content Include="css\dealersbylocation.css" />
     <Content Include="css\dealer\landing.css" />
+    <Content Include="css\dealer\details.css" />
     <Content Include="css\dealer\listing.css" />
     <Content Include="css\global.css" />
     <Content Include="css\home.css" />
@@ -2295,6 +2301,7 @@
     <Content Include="m\css\used-search.css" />
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
+    <Content Include="m\css\dealer\details.css" />
     <Content Include="m\new\dealersinstate.aspx" />
     <Content Include="m\new\dealersinindia.aspx" />
     <Content Include="m\new\ModelGallery.aspx" />
@@ -2375,6 +2382,7 @@
     <Content Include="m\src\dealerpricequote-old.js" />
     <Content Include="m\src\dealersbylocation.js" />
     <Content Include="m\src\dealer\listing.js" />
+    <Content Include="m\src\dealer\details.js" />
     <Content Include="m\src\frameworks.js" />
     <Content Include="m\src\home.js" />
     <Content Include="m\src\html5.js" />
@@ -2400,6 +2408,7 @@
     <Content Include="m\videos\default.aspx" />
     <Content Include="m\videos\VideoMakeModel.aspx" />
     <Content Include="News\RepeaterPagerNews.ascx" />
+    <Content Include="new\BikeDealerDetails.aspx" />
     <Content Include="new\dealersinstate.aspx" />
     <Content Include="new\listnewbikedealersbycity.aspx" />
     <Content Include="new\ModelPricesInCity.aspx" />
@@ -2425,6 +2434,7 @@
     <Content Include="src\dealerpricequote.js" />
     <Content Include="src\dealersbylocation.js" />
     <Content Include="src\dealer\listing.js" />
+    <Content Include="src\dealer\details.js" />
     <Content Include="src\frameworks.js" />
     <Content Include="src\framework\knockout.js" />
     <Content Include="m\src\loadPhotos.js" />

@@ -16,6 +16,7 @@ namespace Bikewale.Interfaces.Dealer
     {
         DealersEntity GetDealerByMakeCity(uint cityId, uint makeId, uint modelid = 0);
         DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId, uint campaignId);
+        DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId);
         IEnumerable<PopularCityDealerEntity> GetPopularCityDealer(uint makeId, uint topCount);
         IEnumerable<NewBikeDealersMakeEntity> GetDealersMakesList();
     }

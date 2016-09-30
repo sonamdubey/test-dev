@@ -1,4 +1,14 @@
-﻿$(".get-assistance-btn").on('click', function () {
+﻿$(document).ready(function () {
+    var inputBox = $('.input-box').find('input');
+
+    inputBox.each(function () {
+        if ($(this).val().length > 0) {
+            $(this).closest('.input-box').addClass('not-empty');
+        }
+    });
+});
+
+$(".get-assistance-btn").on('click', function () {
     $("#leadCapturePopup").show();
     appendHash("assistancePopup");
     $("div#contactDetailsPopup").show();
@@ -10,14 +20,22 @@
 
 $("#calldealer").on("click", function () {
     triggerGA("Dealer_Locator_Detail", "Call_Dealer_Clicked", makeName + "_" + cityArea);
-}); 
+});
 
 $(".maskingNumber").on("click", function () {
     triggerGA("Dealer_Locator_Detail", "Dealer_Number_Clicked", makeName + "_" + cityArea);
 });
 
 var customerViewModel;
-var leadBtnBookNow = $("a.get-assistance-btn"), leadCapturePopup = $("#leadCapturePopup"), fullName = $("#getFullName"), emailid = $("#getEmailID"), mobile = $("#getMobile"), otpContainer = $(".mobile-verification-container"), getModelName = $("#getModelName");
+var leadBtnBookNow = $("a.get-assistance-btn"),
+    leadCapturePopup = $("#leadCapturePopup"),
+    fullName = $("#getFullName"),
+    emailid = $("#getEmailID"),
+    mobile = $("#getMobile"),
+    getUpdatedMobile = $("#getUpdatedMobile"),
+    otpContainer = $(".mobile-verification-container"),
+    getModelName = $("#getModelName");
+
 var getCityArea = GetGlobalCityArea();
 
 var originPlace, userLocation = { "latitude": "", "longitude": "" }, userAddress = "";
@@ -34,7 +52,7 @@ function setuserDetails() {
     }
 }
 
-function CustomerModel() {  
+function CustomerModel() {
     var arr = setuserDetails();
     var self = this;
     if (arr != null && arr.length > 0) {
@@ -51,7 +69,7 @@ function CustomerModel() {
     self.dealerId = ko.observable(dealerId);
     self.versionId = ko.observable(0);
     self.IsVerified = ko.observable(false);
-    self.NoOfAttempts = ko.observable(0); 
+    self.NoOfAttempts = ko.observable(0);
     self.IsValid = ko.computed(function () { return self.IsVerified(); }, this);
     self.otpCode = ko.observable();
     self.pqId = ko.observable();
@@ -259,11 +277,11 @@ function CustomerModel() {
                 $("#dealer-lead-msg").fadeIn();
                 $(".notify-leadUser").text(self.fullName());
                 $("#notify-response").show();
-                
+
             }
             else {
                 $('#processing').hide();
-                otpVal("Please enter a valid OTP.");               
+                validate.setError(otpText, "Please enter a valid OTP.");
             }
         }
     });
@@ -276,6 +294,49 @@ var assistancePopupClose = function () {
     $("#leadCapturePopup").hide();
     $("#notify-response").hide();
 };
+
+/* input focus */
+fullName.on("focus", function () {
+    validate.onFocus(fullName);
+});
+
+emailid.on("focus", function () {
+    validate.onFocus(emailid);
+});
+
+mobile.on("focus", function () {
+    validate.onFocus(mobile);
+});
+
+getUpdatedMobile.on("focus", function () {
+    validate.onFocus(getUpdatedMobile);
+});
+
+otpText.on("focus", function () {
+    validate.onFocus(otpText);
+});
+
+/* input blur */
+fullName.on("blur", function () {
+    validate.onBlur(fullName);
+});
+
+emailid.on("blur", function () {
+    validate.onBlur(emailid);
+});
+
+mobile.on("blur", function () {
+    validate.onBlur(mobile);
+});
+
+getUpdatedMobile.on("blur", function () {
+    validate.onBlur(getUpdatedMobile);
+});
+
+otpText.on("blur", function () {
+    validate.onBlur(otpText);
+});
+
 function validateUserDetail() {
     var isValid = true;
     isValid = validateName();
@@ -289,15 +350,15 @@ var validateName = function () {
         name = $("#getFullName"),
         nameLength = name.val().length;
     if (name.val().indexOf('&') != -1) {
-        setError(name, 'Invalid name');
+        validate.setError(name, 'Invalid name');
         isValid = false;
     }
     else if (nameLength == 0) {
-        setError(name, 'Please enter your name');
+        validate.setError(name, 'Please enter your name');
         isValid = false;
     }
     else if (nameLength >= 1) {
-        hideError(name);
+        validate.hideError(name);
         isValid = true;
     }
     return isValid;
@@ -308,11 +369,11 @@ var validateEmail = function () {
         emailVal = emailId.val(),
         reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
     if (emailVal == "") {
-        setError(emailId, 'Please enter email address');
+        validate.setError(emailId, 'Please enter email address');
         isValid = false;
     }
     else if (!reEmail.test(emailVal)) {
-        setError(emailId, 'Invalid Email');
+        validate.setError(emailId, 'Invalid Email');
         isValid = false;
     }
     return isValid;
@@ -323,11 +384,11 @@ var validateMobile = function () {
         mobileVal = mobileNo.val(),
         reMobile = /^[0-9]{10}$/;
     if (mobileVal == "") {
-        setError(mobileNo, "Please enter your Mobile Number");
+        validate.setError(mobileNo, "Please enter your Mobile Number");
         isValid = false;
     }
     else if (!reMobile.test(mobileVal) && isValid) {
-        setError(mobileNo, "Mobile number should be 10 digits");
+        validate.setError(mobileNo, "Mobile number should be 10 digits");
         isValid = false;
     }
     else
@@ -340,11 +401,11 @@ var validateModel = function () {
         model = $('.dealer-search-brand-form');
 
     if (!model.hasClass('selection-done')) {
-        setError(model, 'Please select a bike');
+        validate.selectBox.setError(model, 'Please select a bike');
         isValid = false;
     }
     else if (model.hasClass('selection-done')) {
-        hideError(model);
+        validate.selectBox.hideError(model);
         isValid = true;
     }
     return isValid;
@@ -358,6 +419,58 @@ var setError = function (element, msg) {
 var hideError = function (element) {
     element.removeClass("border-red").siblings("span.errorIcon, div.errorText").hide();
 };
+
+var validate = {
+    setError: function (element, message) {
+        var elementLength = element.val().length;
+        errorTag = element.siblings('span.error-text');
+
+        errorTag.show().text(message);
+        if (!elementLength) {
+            element.closest('.input-box').removeClass('not-empty').addClass('invalid');
+        }
+        else {
+            element.closest('.input-box').addClass('not-empty invalid');
+        }
+    },
+
+    hideError: function (element) {
+        element.closest('.input-box').removeClass('invalid').addClass('not-empty');
+        element.siblings('span.error-text').text('');
+    },
+
+    onFocus: function (inputField) {
+        if (inputField.closest('.input-box').hasClass('invalid')) {
+            validate.hideError(inputField);
+        }
+    },
+
+    onBlur: function (inputField) {
+        var inputLength = inputField.val().length;
+        if (!inputLength) {
+            inputField.closest('.input-box').removeClass('not-empty');
+        }
+        else {
+            inputField.closest('.input-box').addClass('not-empty');
+        }
+    },
+
+    selectBox: {
+        setError: function (element, message) {
+            if (!element.hasClass('selection-done')) {
+                var selectBox = element.closest('.select-box');
+                selectBox.addClass('invalid');
+                selectBox.find('.error-text').text(message).show();
+            }
+        },
+
+        hideError: function (element) {
+            var selectBox = element.closest('.select-box');
+            selectBox.removeClass('invalid');
+            selectBox.find('.error-text').text('');
+        },
+    }
+}
 
 $("#getMobile, #getFullName, #getEmailID, #getModelName, #getUpdatedMobile, #getOTP").on("focus", function () {
     hideError($(this));
@@ -385,15 +498,15 @@ var validateUpdatedMobile = function () {
         mobileVal = mobileNo.val(),
         reMobile = /^[0-9]{10}$/;
     if (mobileVal == "") {
-        setError(mobileNo, "Please enter your Mobile number");
+        validate.setError(mobileNo, "Please enter your Mobile number");
         isValid = false;
     }
     else if (!reMobile.test(mobileVal) && isValid) {
-        setError(mobileNo, "Mobile number should be 10 digits");
+        validate.setError(mobileNo, "Mobile number should be 10 digits");
         isValid = false;
     }
     else
-        hideError(mobileNo)
+        validate.hideError(mobileNo)
     return isValid;
 };
 
@@ -406,28 +519,22 @@ otpBtn.on("click", function () {
     }
 });
 
-var otpVal = function (msg) {
-    otpText.addClass("border-red");
-    otpText.siblings("span, div").show();
-    otpText.siblings("div").text(msg);
-};
-
 function validateOTP() {
     var retVal = true;
     var isNumber = /^[0-9]{5}$/;
     var cwiCode = otpText.val();
     if (cwiCode == "") {
         retVal = false;
-        otpVal("Please enter your Verification Code");
+        validate.setError(otpText, "Please enter your Verification Code");
     }
     else {
         if (isNaN(cwiCode)) {
             retVal = false;
-            otpVal("Verification code should be numeric");
+            validate.setError(otpText, "Verification code should be numeric");
         }
         else if (cwiCode.length != 5) {
             retVal = false;
-            otpVal("Verification code should be of 5 digits");
+            validate.setError(otpText, "Verification code should be of 5 digits");
         }
     }
     return retVal;
@@ -454,6 +561,9 @@ dealerSearchBrand.on('click', function () {
     brandSearchBar.addClass('open').animate({ 'left': '0px' }, 500);
     brandSearchBar.find(".user-input-box").animate({ 'left': '0px' }, 500);
     $("#assistanceBrandInput").focus();
+    if (dealerSearchBrand.hasClass('invalid')) {
+        validate.selectBox.hideError(dealerSearchBrandForm);
+    }
 });
 $("#sliderBrandList").on("click", "li", function () {
     var _self = $(this),
@@ -477,13 +587,13 @@ $(".dealer-brand-wrapper .back-arrow-box").on("click", function () {
 });
 
 function getLocation() {
-    if (navigator.geolocation) {        
+    if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             savePosition,
             showError,
             { enableHighAccuracy: true, maximumAge: 600000 }
         );
-    }    
+    }
 }
 
 $(document).on("click", "#getUserLocation", function () { getLocation(); });
@@ -492,11 +602,11 @@ function savePosition(position) {
     userLocation = {
         "latitude": position.coords.latitude,
         "longitude": position.coords.longitude
-    }   
+    }
     if (userAddress == "") {
         $.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + userLocation.latitude + "," + userLocation.longitude + "&key=" + googleMapAPIKey, function (data) {
             if (data.status == "OK" && data.results.length > 0) {
-                userAddress = data.results[0].formatted_address;                
+                userAddress = data.results[0].formatted_address;
             }
             else {
                 userAddress = "Your Location";
@@ -544,12 +654,12 @@ function initializeMap() {
 
         route(origin_place_id, travel_mode, directionsService);
         $('.location-details').show();
-    });        
+    });
 }
 
 
 function route(origin_place_id, travel_mode, directionsService) {
-   
+
     _lat = dealerLat;
     _lng = dealerLong;
     destination_place_id = new google.maps.LatLng(_lat, _lng);
