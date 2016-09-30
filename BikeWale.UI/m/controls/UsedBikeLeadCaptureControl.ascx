@@ -68,7 +68,7 @@
                 </div>
                 <!-- ko ifnot : isVerified -->
                 <p class="font14 error-text margin-bottom10" data-bind="text: message, style: { display: message ? 'block' : 'none' }"></p>
-                <!-- /ko -->                
+                <!-- /ko -->
                 <a class="btn btn-orange btn-fixed-width" id="submit-user-otp-btn" rel="nofollow">Verify</a>
             </div>
 
@@ -137,6 +137,7 @@
         ubLeadVM.widgetName(ele.attr('data-ga-widgetname'));
         ubLeadVM.profileId(ele.attr('data-profile-id'));
         ubLeadVM.pushInitGAObject();
+        ubLeadVM.shownInterest();
         getSellerDetailsPopup.open();
         appendHash("sellerDealers");
     });
@@ -149,7 +150,7 @@
     $('#submit-user-details-btn').on('click', function () {
         if (ValidateUserDetail(getUserName, getUserEmailID, getUserMobile)) {
             ubLeadVM.removeUserCookie();
-            ubLeadVM.shownInterest();
+            ubLeadVM.submitPurchaseRequest();
         }
     });
 
@@ -197,6 +198,7 @@
         seller: $('#seller-details-section'),
 
         open: function () {
+            getSellerDetailsPopup.userDetails.hide();
             getSellerDetailsPopup.popup.show();
         },
 
@@ -449,7 +451,7 @@
                         getSellerDetailsPopup.loader.open();
                     },
                     success: function (resp) {
-                        
+
                     },
                     complete: function (xhr, ajaxOptions, thrownError) {
                         getSellerDetailsPopup.loader.close();
@@ -512,11 +514,11 @@
                         getSellerDetailsPopup.loader.open();
                     },
                     success: function (resp) {
-                        
+
                     },
                     complete: function (xhr, ajaxOptions, thrownError) {
                         getSellerDetailsPopup.loader.close();
-                        if(xhr.status == 200){
+                        if (xhr.status == 200) {
                             if (xhr.responseJSON) {
                                 if (xhr.responseJSON.shownInterest) {
                                     self.setSeller(xhr.responseJSON.seller.details, xhr.responseJSON.seller.address);
@@ -525,9 +527,15 @@
                                     getSellerDetailsPopup.seller.show();
                                 }
                                 else {
-                                    self.submitPurchaseRequest();
+                                    getSellerDetailsPopup.userDetails.show();
                                 }
                             }
+                            else {
+                                getSellerDetailsPopup.userDetails.show();
+                            }
+                        }
+                        else {
+                            getSellerDetailsPopup.userDetails.show();
                         }
                         if (xhr.status != 200)
                             self.message("Some error occured");
@@ -550,11 +558,11 @@
                         getSellerDetailsPopup.loader.open();
                     },
                     success: function (resp) {
-                        
+
                     },
                     complete: function (xhr, ajaxOptions, thrownError) {
                         getSellerDetailsPopup.loader.close();
-                        if(xhr.status == 200){
+                        if (xhr.status == 200) {
                             if (xhr.responseJSON) {
                                 self.isVerified(true);
                                 self.submitPurchaseRequest();
