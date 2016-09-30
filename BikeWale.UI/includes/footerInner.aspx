@@ -66,13 +66,13 @@
             <p class="font18 text-white margin-bottom20">Company</p>
             <ul>
                 <li><a href="/sitemap.aspx">Sitemap</a></li>
-                <li><a target="_blank" href="http://www.carwale.com">CarWale.com</a></li>
                 <li><a href="/contactus.aspx">Contact Us</a></li>
+                <li><a href="/advertisewithus.aspx">Advertise with us</a></li>
             </ul>
         </div>
         <div class="grid-3">
             <ul class="margin-top45">
-                <li><a href="/advertisewithus.aspx">Advertise with us</a></li>
+                
                 <li><a href="/aboutus.aspx">About Us</a></li>
                 <li><a href="http://www.bikewale.com/m/">View Mobile Version</a></li>
             </ul>

@@ -56,14 +56,14 @@
     <div class="container">
         <div class="text-center padding-bottom15">
             <div class="grid-4">
-                <a href="/" class="bwmsprite bw-footer-icon" title="Bikewale"></a>
+                <a href="/m/" class="bwmsprite bw-footer-icon" title="Bikewale"></a>
             </div>
             <div class="grid-4">
-                <a href="http://www.carwale.com/" target="_blank" class="bwmsprite cw-footer-icon" title="CarWale"></a>
+                <a href="http://www.carwale.com/m/" target="_blank" class="bwmsprite cw-footer-icon" title="CarWale"></a>
                 <p class="cw-logo-label">ask the experts</p>
             </div>
             <div class="grid-4 omega">
-                <a href="https://www.cartrade.com/" target="_blank" class="bwmsprite ct-footer-icon" title="CarTrade"></a>
+                <a href="https://m.cartrade.com/" target="_blank" class="bwmsprite ct-footer-icon" title="CarTrade"></a>
             </div>
             <div class="clear"></div>
         </div>
@@ -72,7 +72,7 @@
                 <ul>
                     <li><a href="/m/contactus.aspx" rel="nofollow">Contact Us</a></li>
                     <li><a href="/m/advertisewithus.aspx" rel="nofollow">Advertise with Us</a></li>
-                    <li><a target="_blank" href="http://www.carwale.com/m/">CarWale.com</a></li>
+                    
                 </ul>
                 <p class="font13 text-white margin-bottom10">Download Mobile App</p>
                     
