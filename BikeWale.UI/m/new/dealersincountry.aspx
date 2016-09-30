@@ -55,7 +55,7 @@
                         <span class="fa fa-spinner fa-spin position-abt text-black"></span>
                     </div>
                     <ul id="location-list">
-                                  <% foreach (Bikewale.Entities.DealerLocator.StateCityEntity st in stateList)
+                                  <% foreach (Bikewale.Entities.DealerLocator.StateCityEntity st in states.stateCityList)
                        { %>
                                 <li  class="item-state">
                                     <a data-item-id="<%=st.Id %>" data-item-name="<%=st.Name %>" data-lat="<%=st.Lat %>" data-long ="<%=st.Long %>" data-dealercount="<%=st.DealerCountState%>"  href="javascript:void(0)" rel="nofollow" class="type-state" data-item-id="<%=st.Id %>"><%=st.Name %></a>

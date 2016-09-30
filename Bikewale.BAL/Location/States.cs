@@ -44,7 +44,13 @@ namespace Bikewale.BAL.Location
         {
             return _objStates.GetDealerStates(makeId);
         }
-        public IEnumerable<DealerListIndia> GetDealerStatesCities(uint makeId)
+        /// <summary>
+        /// Created By:- Subodh Jain 29 may 2016
+        /// Description :- Fetch Dealers for make in all states with cities
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public DealerLocatorList GetDealerStatesCities(uint makeId)
         {
             return _objStatesCity.GetDealerStatesCities(makeId);
         }

@@ -10,7 +10,7 @@ namespace Bikewale.Interfaces.Location
     public interface IStateCacheRepository
     {
         IEnumerable<DealerStateEntity> GetDealerStates(uint makeId);
-        IEnumerable<DealerListIndia> GetDealerStatesCities(uint makeId);
+        DealerLocatorList GetDealerStatesCities(uint makeId);
         StateMaskingResponse GetStateMaskingResponse(string maskingName);
     }
 }

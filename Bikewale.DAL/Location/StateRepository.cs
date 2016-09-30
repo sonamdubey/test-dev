@@ -11,8 +11,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Web;
-
 namespace Bikewale.DAL.Location
 {
     public class StateRepository : IState
@@ -153,10 +153,18 @@ namespace Bikewale.DAL.Location
             }
             return objStateList;
         }
-        public IEnumerable<DealerListIndia> GetDealerStatesCities(uint makeId)
+        /// <summary>
+        /// Created By:- Subodh Jain 29 may 2016
+        /// Description :- Fetch Dealers for make in all states with cities
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public DealerLocatorList GetDealerStatesCities(uint makeId)
         {
-            List<DealerListIndia> objStateCityList = null;
-
+            IList<DealerCityEntity> objCityList = null;
+            IList<StateCityEntity> objStateList = null;
+            DealerLocatorList objStateCityList = null;
+            string makeMaskingname = string.Empty;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getstatecitybymake"))
@@ -164,40 +172,85 @@ namespace Bikewale.DAL.Location
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
 
-                    objStateCityList = new List<DealerListIndia>();
+
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
-                            while (dr.Read())
+                            objCityList = new List<DealerCityEntity>();
+                            if (dr.Read())
                             {
-                                objStateCityList.Add(new DealerListIndia
-                                {
-                                    cityid = SqlReaderConvertor.ToUInt16(dr["cityid"]),
-                                    cityName = Convert.ToString(dr["name"]),
-                                    cityMaskingName = Convert.ToString(dr["citymaskingname"]),
-                                    cityLattitude = Convert.ToString(dr["lattitude"]),
-                                    cityLongitude = Convert.ToString(dr["longitude"]),
-                                    stateId = SqlReaderConvertor.ToUInt16(dr["StateId"]),
-                                    stateName = Convert.ToString(dr["StateName"]),
-                                    stateMaskingName = Convert.ToString(dr["StateMaskingName"]),
-                                    stateLattitude = Convert.ToString(dr["StateLattitude"]),
-                                    stateLongitude = Convert.ToString(dr["StateLongitude"]),
-                                    dealerCountCity = SqlReaderConvertor.ToInt32(dr["dealerscnt"])
-
-                                });
+                                makeMaskingname = Convert.ToString(dr["maskingname"]);
                             }
 
+                            if (dr.NextResult())
+                            {
+                                while (dr.Read())
+                                {
+                                    objCityList.Add(new DealerCityEntity
+                                    {
+                                        CityId = SqlReaderConvertor.ToUInt16(dr["cityid"]),
+                                        CityName = Convert.ToString(dr["name"]),
+                                        CityMaskingName = Convert.ToString(dr["citymaskingname"]),
+                                        Lattitude = Convert.ToString(dr["lattitude"]),
+                                        Longitude = Convert.ToString(dr["longitude"]),
+                                        DealersCount = SqlReaderConvertor.ToUInt16(dr["dealerscnt"]),
+                                        stateId = SqlReaderConvertor.ToUInt16(dr["stateid"]),
+                                        Link = string.Format("{0}/{1}-dealer-showrooms-in-{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, makeMaskingname, Convert.ToString(dr["citymaskingname"]))
+                                    });
+                                }
+                            }
+
+                            if (dr.NextResult())
+                            {
+                                objStateList = new List<StateCityEntity>();
+                                while (dr.Read())
+                                {
+                                    objStateList.Add(new StateCityEntity
+                                    {
+                                        Id = SqlReaderConvertor.ToUInt16(dr["Id"]),
+                                        Lat = Convert.ToString(dr["statelattitude"]),
+                                        Long = Convert.ToString(dr["statelongitude"]),
+                                        Name = Convert.ToString(dr["name"]),
+                                        stateMaskingName = Convert.ToString(dr["statemaskingname"]),
+                                        DealerCountState = SqlReaderConvertor.ToUInt16(dr["statedealercnt"])
+                                    });
+
+                                }
+
+                            }
+
+                            // Now statelist and city list is ready
+                            // Now iterate on states and find cities for that state
+                            // Add the cities for that state
+                            if (objStateList != null)
+                            {
+                                objStateCityList = new DealerLocatorList();
+                                objStateCityList.stateCityList = objStateList;
+                                foreach (var st in objStateCityList.stateCityList)
+                                {
+                                    var curStateCityList = from curCity in objCityList
+                                                           where curCity.stateId == st.Id
+                                                           select curCity;
+                                    st.Cities = curStateCityList;
+                                }
+
+                                objStateCityList.totalCities = Convert.ToUInt32(objStateCityList.stateCityList.Sum(m => m.Cities.Count()));
+                                objStateCityList.totalDealers = Convert.ToUInt32(objStateCityList.stateCityList.Sum(m => m.DealerCountState));
+                            }
                             dr.Close();
                         }
 
                     }
                 }
+
+
             }
+
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + String.Format(" :GetDealerStates, makeId = {0} ", makeId));
+                ErrorClass objErr = new ErrorClass(ex, String.Format(" :GetDealerStates, makeId = {0} ", makeId));
                 objErr.SendMail();
             }
             return objStateCityList;

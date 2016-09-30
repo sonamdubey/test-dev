@@ -11,7 +11,7 @@ namespace Bikewale.Cache.Location
 {
     public class StateCacheRepository : IStateCacheRepository
     {
-        private readonly IState _objState = null,_objStateCity=null;
+        private readonly IState _objState = null, _objStateCity = null;
         private readonly ICacheManager _cache = null;
 
         /// <summary>
@@ -48,14 +48,20 @@ namespace Bikewale.Cache.Location
             }
             return objStates;
         }
-        public IEnumerable<DealerListIndia> GetDealerStatesCities(uint makeId)
+        /// <summary>
+        /// Created By:- Subodh Jain 29 may 2016
+        /// Description :- Fetch Dealers for make in all states with cities
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public DealerLocatorList GetDealerStatesCities(uint makeId)
         {
-            IEnumerable<DealerListIndia> objStatesCity = null;
+            DealerLocatorList objStatesCity = null;
             string key = string.Empty;
             try
             {
                 key = String.Format("BW_StatewiseDealersCnt_Make_{0}", makeId);
-                objStatesCity = _cache.GetFromCache<IEnumerable<DealerListIndia>>(key, new TimeSpan(1, 0, 0), () => _objStateCity.GetDealerStatesCities(makeId));
+                objStatesCity = _cache.GetFromCache<DealerLocatorList>(key, new TimeSpan(1, 0, 0), () => _objStateCity.GetDealerStatesCities(makeId));
             }
             catch (Exception ex)
             {

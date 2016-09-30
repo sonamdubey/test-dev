@@ -14,7 +14,7 @@ namespace Bikewale.Interfaces.Location
     {
         List<StateEntityBase> GetStates();
         IEnumerable<DealerStateEntity> GetDealerStates(uint makeId);
-        IEnumerable<DealerListIndia> GetDealerStatesCities(uint makeId);
+        DealerLocatorList GetDealerStatesCities(uint makeId);
         Hashtable GetMaskingNames();
     }
 }
