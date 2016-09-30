@@ -37,7 +37,7 @@
         <section>
             <div class="container margin-bottom10">
                 <div class="bg-white">
-                    <h1 class="box-shadow padding-15-20">Bajaj dealer showrooms in India</h1>
+                    <h1 class="box-shadow padding-15-20"><%=objMMV.MakeName %> dealer showrooms in India</h1>
                     <div class="box-shadow font14 text-light-grey padding-15-20">
                        <%=objMMV.MakeName %> sells bikesthrough a vast network of dealer showrooms.The network consists of <%=DealerCount%> authorized <%=objMMV.MakeName %> showrooms spread across <%=citiesCount%> cities in India. The <%=objMMV.MakeName%> dealer showroom locator will help you find the nearest authorized dealer in your city. In case, there are no <%=objMMV.MakeName %> showrooms in your city, you can get in touch with an authorized dealer in your nearby city.
                     </div>
