@@ -46,9 +46,8 @@
                                     <div class="swiper-details-block padding-right15 padding-left15">
                                         <p class="target-link font12 text-truncate margin-bottom5"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objMake.MakeName"))+" "+Convert.ToString( DataBinder.Eval(Container.DataItem, "objModel.ModelName"))%></p>
                                         <p class="text-truncate text-light-grey font11">Ex-showroom, <%=cityname %></p>
-                                        <p>
-                                           
-                                            <span class="font16 text-default text-bold"><%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %></span>
+                                        <p class="text-default">
+                                            <%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %></span>
                                         </p>
                                     </div>
                                 </a>

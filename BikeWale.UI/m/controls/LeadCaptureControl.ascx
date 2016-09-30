@@ -55,7 +55,7 @@
         </div>
 
         <!-- thank you message starts here -->
-        <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
+        <div id="notify-response" class="hide content-inner-block-20 text-center">
             <div class="icon-outer-container rounded-corner50percent">
                 <div class="icon-inner-container rounded-corner50percent">
                     <span class="bwmsprite thankyou-icon margin-top15"></span>

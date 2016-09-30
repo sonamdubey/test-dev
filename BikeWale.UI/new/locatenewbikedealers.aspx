@@ -34,7 +34,7 @@
             <div id="dealer-locator-box" class="container">
                 <div class="welcome-box">
                     <h1 class="font30 text-uppercase margin-bottom30">Showroom Locator</h1>
-                    <h2 class="font20 text-white margin-bottom50">Find new bike dealers across 200+ cities</h2>
+                    <h2 class="font20 text-unbold text-white margin-bottom50">Find new bike dealers across 200+ cities</h2>
                 </div>
             </div>
         </header>
@@ -129,16 +129,14 @@
             <div class="container section-container">
                 <div class="grid-12">
                     <h2 class="section-header">Newly launched bikes</h2>
-                    <div class="content-box-shadow padding-top20">
+                    <div class="content-box-shadow padding-top20 padding-bottom20">
                         <div class="jcarousel-wrapper inner-content-carousel">
                             <div class="jcarousel">
                                 <ul>
-                                    <!-- New Launched Bikes Control-->
-                          
                                    <%if (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)
-                           { %>
-                       <BW:NewLaunchedBikes runat="server" ID="ctrlNewLaunchedBikes" />
-                        <%} %>
+                                     { %>
+                                        <BW:NewLaunchedBikes runat="server" ID="ctrlNewLaunchedBikes" />
+                                    <%} %>
                                 </ul>
                             </div>
                             <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
@@ -154,19 +152,14 @@
             <div class="container section-container">
                 <div class="grid-12">
                     <h2 class="section-header">Upcoming bikes</h2>
-                    <div class="content-box-shadow padding-top20">
+                    <div class="content-box-shadow padding-top20 padding-bottom20">
                         <div class="jcarousel-wrapper inner-content-carousel">
                             <div class="jcarousel">
                                 <ul>
-                                    <!-- Upcoming bikes Control-->
-                                   
-                                    
                                    <%if (ctrlUpcomingBikes.FetchedRecordsCount > 0)
-                           { %>
-                      <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
-                        <%} %>
-                                
-                                    
+                                    { %>
+                                        <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
+                                    <%} %>
                                 </ul>
                             </div>
                             <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
