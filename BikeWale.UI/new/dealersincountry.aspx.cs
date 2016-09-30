@@ -88,7 +88,7 @@ namespace Bikewale.New
                 states = objStatesCity.GetDealerStatesCities(Convert.ToUInt32(makeId));
                 DealerCount = states.totalDealers;
                 citiesCount = states.totalCities;
-             
+
             }
         }
 
@@ -152,7 +152,7 @@ namespace Bikewale.New
                             var _city = _cities.FirstOrDefault(x => x.CityId == cityId);
                             if (_city != null)
                             {
-                                string _redirectUrl = String.Format("/{0}-bikes/dealers-in-{1}/", makeMaskingName, _city.CityMaskingName);
+                                string _redirectUrl = String.Format("/{0}-dealer-showrooms-in-{1}/", makeMaskingName, _city.CityMaskingName);
                                 Response.Redirect(_redirectUrl, false);
                                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                                 this.Page.Visible = false;
