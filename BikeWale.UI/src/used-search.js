@@ -16,7 +16,8 @@ var bikesList = $("#filter-bike-list");
 var citiesList = $("#filter-type-city select option");
 var listingStartPoint = $('#listing-start-point'),
     spinnerBackground = $('#loader-bg-window'),
-    bwSpinner = $('#ub-ajax-loader');
+    bwSpinner = $('#ub-ajax-loader'),
+    loaderColumn = $('#loader-right-column');
 
 var getQueryString = function () {
     var qsColl = new Object();
@@ -483,7 +484,9 @@ var usedBikes = function () {
 
             var qs = self.QueryString();
             if (self.PreviousQS() != qs) {
+                $('body').addClass('loader-active');
                 spinnerBackground.show();
+                loaderColumn.show();
                 bwSpinner.show();
                 self.PreviousQS(qs);
                 $.ajax({
@@ -508,7 +511,9 @@ var usedBikes = function () {
                         self.OnInit(false);
                         self.IsReset(false);
                         self.ApplyPagination();
+                        $('body').removeClass('loader-active');
                         spinnerBackground.hide();
+                        loaderColumn.hide();
                         bwSpinner.hide();
                     }
                 });
