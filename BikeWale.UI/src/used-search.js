@@ -14,6 +14,9 @@ $('#listing-left-column').stick_in_parent();
 var budgetValue = [0, 10000, 20000, 35000, 50000, 80000, 125000, 200000];
 var bikesList = $("#filter-bike-list");
 var citiesList = $("#filter-type-city select option");
+var listingStartPoint = $('#listing-start-point'),
+    spinnerBackground = $('#loader-bg-window'),
+    bwSpinner = $('#ub-ajax-loader');
 
 var getQueryString = function () {
     var qsColl = new Object();
@@ -231,9 +234,11 @@ var usedBikes = function () {
     };
 
     self.ResetBikeFilters = function () {
-        bikesList.find(".accordion-tab").removeClass("tab-checked").removeClass("active");
+        bikesList.find(".accordion-tab").removeClass("tab-checked");
+        bikesList.find('.accordion-tab.active').removeClass('active');
         bikesList.find(".accordion-count").empty();
-        $("ul.bike-model-list li").removeClass("active");
+        $('.bike-model-list-content').hide();
+        $('.bike-model-list li').removeClass("active");
         self.ApplyBikeFilter();
     };
 
@@ -382,15 +387,11 @@ var usedBikes = function () {
 
     self.SetDefaultFilters = function () {
         try {
-            bikesList.find(".accordion-tab").removeClass("tab-checked").removeClass("active");
-            bikesList.find(".accordion-count").empty();
-            $("ul.bike-model-list li").removeClass("active");
-
             self.KmsDriven(200000);
             self.BikeAge(8);
             self.BudgetValues([0, 7]);
             self.CurPageNo(1);
-            //self.ResetBikeFilters();
+            self.ResetBikeFilters();
             self.ApplyPagination();
 
             $("#previous-owners-list li").removeClass("active");
@@ -399,14 +400,14 @@ var usedBikes = function () {
             $("#sort-listing li").first().addClass("selected").siblings().removeClass("selected");
             $('#sort-by-container .sort-select-btn').text($("#sort-listing li.selected").text());
 
-            $('#filter-type-bike').find('.accordion-tab.active').removeClass('active');
+            
             var checkedTabs = $('#filter-type-bike').find('.accordion-tab');
             checkedTabs.each(function () {
                 $(this).find('.accordion-count').text('');
                 $(this).removeClass('tab-checked active');
                 $(this).closest('li').find('.bike-model-list li').removeClass('active');
             });
-            $('#bike').empty();
+            $('#bike, #owners, .type-slider').empty();
 
         } catch (e) {
             console.warn("Unable to set default records : " + e.message);
@@ -482,6 +483,8 @@ var usedBikes = function () {
 
             var qs = self.QueryString();
             if (self.PreviousQS() != qs) {
+                spinnerBackground.show();
+                bwSpinner.show();
                 self.PreviousQS(qs);
                 $.ajax({
                     type: 'GET',
@@ -500,12 +503,13 @@ var usedBikes = function () {
                             self.TotalBikes(0);
                             self.CurPageNo(1);
                         }
-                        $('html, body').scrollTop(0);
+                        $('html, body').scrollTop(listingStartPoint.offset().top - 50);
                         if (self.TotalBikes() > 0) self.noBikes(false); else self.noBikes(true);
                         self.OnInit(false);
                         self.IsReset(false);
                         self.ApplyPagination();
-
+                        spinnerBackground.hide();
+                        bwSpinner.hide();
                     }
                 });
             }

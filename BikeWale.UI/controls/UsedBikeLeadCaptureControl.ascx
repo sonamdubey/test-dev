@@ -118,7 +118,11 @@
 </div>
 <!-- get seller details pop up end  -->
 <div id="ub-ajax-loader">
-    <div id="popup-loader"></div>
+    <div id="spinner-content">
+        <svg class="bw-spinner" width="50px" height="50px" viewBox="0 0 50 50">
+           <circle class="circle-path" fill="none" stroke-width="4" stroke-linecap="round" cx="25" cy="25" r="22"></circle>
+        </svg>
+    </div>
 </div>
 
 <div id="modal-window"></div>
