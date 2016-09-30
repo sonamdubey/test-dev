@@ -84,7 +84,7 @@ namespace Bikewale.Cache.DealersLocator
         public DealerBikesEntity GetDealerDetailsAndBikesByDealerAndMake(uint dealerId, int makeId)
         {
             DealerBikesEntity models = null;
-            string key = String.Format("BW_DealerBikeModel_{0}", dealerId);
+            string key = String.Format("BW_DealerBikeModel_{0}_{1}", dealerId, makeId);
             try
             {
                 models = _cache.GetFromCache<DealerBikesEntity>(key, new TimeSpan(0, 30, 0), () => _objDealers.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId));
