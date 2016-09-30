@@ -114,7 +114,7 @@
             <% } %>
         </section>
 
-        <%if (dealerBikesCount > 0)
+        <%if (dealerBikesCount > 0 && campaignId > 0)
           { %>
         <section class="container bg-white margin-bottom10">
             <div class="box-shadow padding-top15 padding-right20 padding-bottom5 padding-left20">
@@ -122,29 +122,29 @@
                 <ul id="model-available-list">
                     <asp:Repeater ID="rptModels" runat="server">
                         <ItemTemplate>
-                            <a class="modelurl" href='/m<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>'>
                             <li>
-                                <div class="image-block">
-                                    <div class="image-content">
-                                        <img class="lazy"
-                                            data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>"
-                                            alt="<%# DataBinder.Eval(Container.DataItem, "BikeName") %>" src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif">
+                                <a class="modelurl" href='/m<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>'>
+                                    <div class="image-block">
+                                        <div class="image-content">
+                                            <img class="lazy"
+                                                data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>"
+                                                alt="<%# DataBinder.Eval(Container.DataItem, "BikeName") %>" src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif">
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="details-block">
-                                    <h3 class="font16 margin-bottom10 text-black text-truncate"><%# DataBinder.Eval(Container.DataItem, "BikeName") %></h3>
-                                    <div class="font14 text-x-light margin-bottom10">
-                                        <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower"))) %>
-                                    </div>
-                                    <div>
-                                        <span class="bwmsprite inr-sm-icon"></span>
-                                        <span class="font18 text-bold"><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))) %></span>
-                                        <span class="font14 text-light-grey"> onwards</span>
-                                    </div>                                    
-                                </div>                                
+                                    <div class="details-block">
+                                        <h3 class="font16 margin-bottom10 text-black text-truncate"><%# DataBinder.Eval(Container.DataItem, "BikeName") %></h3>
+                                        <div class="font14 text-x-light margin-bottom10">
+                                            <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower"))) %>
+                                        </div>
+                                        <div class="text-default">
+                                            <span class="bwmsprite inr-sm-icon"></span>
+                                            <span class="font18 text-bold"><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))) %></span>
+                                            <span class="font14 text-light-grey"> onwards</span>
+                                        </div>                                    
+                                    </div>                                
+                                </a>
                             </li>
-                            </a>
                         </ItemTemplate>
                     </asp:Repeater>
                 </ul>

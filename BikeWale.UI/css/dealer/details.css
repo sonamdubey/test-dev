@@ -314,3 +314,5 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus { o
         width: 275px;
     }
 }
+
+#modelsAvailable a:hover{text-decoration:none}
