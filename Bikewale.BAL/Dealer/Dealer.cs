@@ -215,6 +215,10 @@ namespace Bikewale.BAL.Dealer
             }
         }
 
+        /// <summary>
+        /// Created By : Sajal Gupta on 26/09/2016
+        /// Description : Calls DAL method to get dealer's bikes and details on the basis of dealerId and makeId.
+        /// </summary>
         public DealerBikesEntity GetDealerDetailsAndBikesByDealerAndMake(uint dealerId, int makeId)
         {
             try

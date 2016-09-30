@@ -8,7 +8,7 @@
         keywords = String.Format("{0}, {0} dealer, {0} Showroom, {0} {1}", dealerName, dealerCity);
         description = String.Format("{2} is dealer of {0} bikes in {1}. Get best offers on {0} bikes at {2} showroom", makeName, dealerCity, dealerName);
         title = String.Format("{0} {1} - {0} Showroom in {1} - BikeWale", dealerName, dealerCity);
-        canonical =  String.Format("http://www.bikewale.com"+Bikewale.Utility.UrlFormatter.GetDealerUrl(makeMaskingName, cityMaskingName, dealerName, (int)dealerId));
+        canonical =  String.Format("http://www.bikewale.com{0}",Bikewale.Utility.UrlFormatter.GetDealerUrl(makeMaskingName, cityMaskingName, dealerName, (int)dealerId));
     %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <style type="text/css">
@@ -34,13 +34,20 @@
                     { %>
                     <div class="margin-bottom20">
                         <span class="featured-tag inline-block margin-right10"><span class="bwmsprite star-white"></span>Featured</span>
-                        <h2 class="font14 text-bold inline-block">Authorized Bajaj dealer in Thane</h2>
+                        <h2 class="font14 text-bold inline-block"><%= string.Format("Authorized {0} dealer in {1}", makeName, dealerCity) %></h2>
                     </div>
-                    <%} %>
+                    <%} else { %>
+                    <div class="margin-bottom20">
+                        <h2 class="font14 text-bold inline-block"><%= string.Format("Authorized {0} dealer in {1}", makeName, dealerCity) %></h2>
+                    </div>
+                    <% } %>
+                    <%if (!string.IsNullOrEmpty(dealerDetails.Address))
+                     { %>
                     <p class="margin-bottom10">
                         <span class="bwmsprite dealership-loc-icon vertical-top"></span>
                         <span class="vertical-top dealership-details text-light-grey"><%= dealerDetails.Address %></span>
                     </p>
+                    <% } %>
                     <% if (!string.IsNullOrEmpty(dealerDetails.MaskingNumber))
                     { %>
                     <div class="margin-bottom10">
@@ -160,10 +167,8 @@
         <script type="text/javascript">
             var versionId, dealerId = "<%= dealerId %>", cityId = "<%= cityId %>", clientIP = "<%= Bikewale.Common.CommonOpn.GetClientIP()%>",campaignId = "<%= campaignId %>";                                              
              var dealerLat = "<%= dealerLat %>", dealerLong = "<%= dealerLong%>";
-             var pqSource = "<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DealerLocator_Detail) %>";
              var bodHt, footerHt, scrollPosition, leadSourceId;                         
              var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey%>";
-             var makeName = "<%= makeName%>";
             var cityArea = "<%= dealerCity + "_" + dealerArea%>";
             var pageUrl = window.location.href;
 

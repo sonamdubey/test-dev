@@ -100,7 +100,7 @@ namespace Bikewale.Mobile.Controls
                     {
                         _dealers = objCache.GetDealerByMakeCity(CityId, MakeId, ModelId);
 
-                        if (_dealers != null && _dealers.Dealers.Count() > 0)
+                        if (_dealers != null && _dealers.Dealers != null && _dealers.Dealers.Count() > 0)
                         {
                             makeName = _dealers.MakeName;
                             cityName = _dealers.CityName;
@@ -109,7 +109,7 @@ namespace Bikewale.Mobile.Controls
 
                             if (DealerId > 0)
                             {
-                                _dealers.Dealers = (from dealer in _dealers.Dealers where dealer.DealerId != DealerId select dealer).ToList();
+                                _dealers.Dealers = _dealers.Dealers.Where(d => d.DealerId != DealerId);
                             }
 
                             rptDealers.DataSource = _dealers.Dealers.Take(TopCount);
