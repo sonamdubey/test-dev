@@ -4,8 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    
-    <%
+        <%
         keywords = String.Format("{0}, {0} dealer, {0} Showroom, {0} {1}", dealerName, cityName);
         description = String.Format("{2} is dealer of {0} bikes in {1}. Get best offers on {0} bikes at {2} showroom", makeName, cityName,dealerName);
         title = String.Format("{0} {1} - {0} Showroom in {1} - BikeWale", dealerName, cityName);
@@ -46,10 +45,10 @@
                                 <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/new/"><span itemprop="title">New Bikes</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/dealer-showroom-locator/"><span itemprop="title">Dealer Showroom Locator</span></a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/dealer-showroom-locator/"><span itemprop="title">Dealer Showroom</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/<%=makeMaskingName %>-dealer-showrooms-in-india/"><span itemprop="title"><%=makeName%> Dealer showrooms</span></a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/<%=makeMaskingName %>-dealer-showrooms-in-india/"><span itemprop="title"><%=makeName%> Dealer Showrooms</span></a>
                             </li>
                              <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/<%=makeMaskingName %>-dealer-showrooms-in-<%=cityMaskingName %>/"><span itemprop="title"><%=makeName%> Dealer Showroom in <%=cityName%></span></a>
@@ -143,7 +142,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-       <%if (dealerObj != null && dealerObj.CampaignId > 0 && dealerObj.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard))
+       <%if (dealerObj != null && dealerObj.CampaignId > 0 && (dealerObj.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || dealerObj.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)))
          { %>
         <section id="dealerAssistance">
             <div class="container margin-bottom20" id="leadForm">
