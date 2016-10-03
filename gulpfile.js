@@ -1,8 +1,7 @@
 var gulp = require('gulp'),
   cleanCss = require('gulp-clean-css'),
   uglify = require('gulp-uglify'),
-  del = require('del'),
-  browserSync = require('browser-sync').create();
+  del = require('del');
 
 var paths = {
     bwCSS: 'BikeWale.UI/css/**',
