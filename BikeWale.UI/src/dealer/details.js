@@ -3,7 +3,6 @@ var originPlace, userLocation = { "latitude": "", "longitude": "" }, userAddress
 var customerViewModel, dealerDetailsViewModel;
 $(document).ready(function () {
     dropdown.setDropdown();
-   // bindDealerDetails();
 });
 
 function initializeMap() {
@@ -39,7 +38,7 @@ function initializeMap() {
       });
 
     google.maps.event.addListener(originPlace, 'place_changed', function () {
-        var place = originPlace.getPlace().trim();
+        var place = originPlace.getPlace();
         if (!(place && place.geometry)) {
             origin_place_id = new google.maps.LatLng(userLocation.latitude, userLocation.longitude);
         }
@@ -48,12 +47,13 @@ function initializeMap() {
             origin_place_id = place.geometry.location
             userLocation.latitude = place.geometry.location.lat();
             userLocation.longitude = place.geometry.location.lng();
-            userAddress = place.formatted_address;
+            userAddress = place.formatted_address.trim();
         };
 
         travel_mode = google.maps.TravelMode.DRIVING;
 
         route(origin_place_id, travel_mode, directionsService, directionsDisplay);
+        if(userAddress!="")
         $('.location-details').show();
     });
 
@@ -466,6 +466,23 @@ function getCommuteInfo(result) {
     $('#commuteDistance').text((totalDistance / 1000).toFixed(2) + " kms");
     $('#commuteDuration').text(totalDuration.toString().toHHMMSS());
 
+}
+
+function showError(error) {
+    switch (error.code) {
+        case error.PERMISSION_DENIED:
+            console.log("User denied the request for Geolocation.");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            console.log("Location information is unavailable.");
+            break;
+        case error.TIMEOUT:
+            console.log("The request to get user location timed out.");
+            break;
+        case error.UNKNOWN_ERROR:
+            console.log("An unknown error occurred.");
+            break;
+    }
 }
 
 String.prototype.toHHMMSS = function () {
