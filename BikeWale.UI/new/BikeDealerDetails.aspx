@@ -108,6 +108,8 @@
                                 </div>
                                 <%} %>
                                 <%} %>
+                                <% if (dealerObj != null && dealerObj.Area != null && dealerObj.Area.Latitude > 0 && dealerObj.Area.Longitude >0)
+                                   { %>
                                 <div id="commute-distance-form" class="margin-top20">
                                     <p class="text-bold margin-bottom15">Get commute distance and time:</p>
                                     <div class="leftfloat form-control-box margin-right15">
@@ -121,9 +123,11 @@
                                     <div class="clear"></div>
                                     <div id="commuteResults"></div>
                                 </div>
+                                <% } %>
                             </div>
                             <div class="grid-5 omega position-rel">
-                                <% if(dealerObj!= null && dealerObj.Area!= null){ %>
+                                <% if (dealerObj != null && dealerObj.Area != null && dealerObj.Area.Latitude > 0 && dealerObj.Area.Longitude >0)
+                                   { %>
                                 <div id="dealer-map" style="width:378px;height:254px;border:1px solid #eee;"></div>
                                 <div id="get-direction-button" title="Get directions">
                                     <a href="https://maps.google.com/?saddr=&amp;daddr=<%=dealerObj.Area.Latitude %>,<%=dealerObj.Area.Longitude %>" target="_blank">
