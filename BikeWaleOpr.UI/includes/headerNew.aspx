@@ -3,13 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
-<%--<link href="http://st2.aeplcdn.com/bikewale/css/chosen.min.css?v15416" rel="stylesheet" />--%>
-    <link rel="stylesheet" href="/css/chosen.min.css" />
+<link rel="stylesheet" href="/css/common.css?03102016" type="text/css" />
+<link rel="stylesheet" href="/css/chosen.min.css?03102016" />
 <script src="/src/jquery-1.6.min.js" type="text/javascript"></script>
-<script src="/src/AjaxFunctions.js" type="text/javascript"></script>
-<script src="/src/knockout.js" type="text/javascript"></script>
-<script type="text/javascript" src="/src/common/common.js?V1.1"></script>
+<script src="/src/AjaxFunctions.js?03102016" type="text/javascript"></script>
+<script src="/src/knockout.js?03102016" type="text/javascript"></script>
+<script type="text/javascript" src="/src/common/common.js?03102016"></script>
 <script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/common/chosen.jquery.min.js?v15416"></script>
 <title>BikeWale Operations</title>
 <style type="text/css">
