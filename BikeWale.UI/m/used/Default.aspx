@@ -42,8 +42,8 @@
                                     <div class="clear"></div>
                                 </div>
                                 <div id="budget-list-box">
-                                    <div id="user-budget-input" class="bg-light-grey">
-                                        <input type="text" id="min-input-box" class="amount-box input-teal" maxlength="9" placeholder="Min"><input type="text" id="max-input-box" class="amount-box input-teal" maxlength="9" placeholder="Max">
+                                    <div id="user-budget-input" class="bg-light-grey text-light-grey">
+                                        <div id="min-input-label" class="input-label-box border-solid-right">Min</div><div id="max-input-label" class="input-label-box">Max</div>
                                     </div>
                                     <ul id="min-budget-list" class="text-left"></ul>
                                     <ul id="max-budget-list" class="text-right"></ul>
@@ -213,7 +213,7 @@
                 <h2 class="font18 section-heading">Search used bikes by cities</h2>
                 <div class="bg-white box-shadow padding-top20 padding-bottom20">
 
-                    <a href="" class="btn btn-inv-teal inv-teal-sm">View all cities&nbsp;<span class="">></span></a>
+                    <a href="" class="btn btn-inv-teal inv-teal-sm">View all cities<span class="bwmsprite teal-next"></span></a>
                 </div>
             </div>
         </section>
@@ -222,8 +222,29 @@
             <div class="container text-center section-container">
                 <h2 class="font18 section-heading">Recently uploaded used bikes</h2>
                 <div class="bg-white box-shadow padding-top20 padding-bottom20">
-
-                    <a href="" class="btn btn-inv-teal inv-teal-sm">View all bikes&nbsp;<span class="">></span></a>
+                    <div class="swiper-container card-container swiper-200">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="swiper-card">
+                                    <a href="" title="Bajaj Pulsar CS400">
+                                        <div class="swiper-image-preview">
+                                            <img class="swiper-lazy" alt="Bajaj Pulsar CS400" data-src="http://imgd1.aeplcdn.com///310x174//bw/upcoming/bajaj-pulsarcs400-551.jpg?20151209053107" />
+                                            <span class="swiper-lazy-preloader"></span>
+                                        </div>
+                                        <div class="swiper-details-block">
+                                            <h3 class="target-link font12 margin-bottom5">Bajaj Pulsar CS400</h3>
+                                            <div class="text-light-grey margin-bottom10"><p class="font11 text-light-grey">Expected launch</p><p class="font16 text-bold text-default">Jun 2016</p></div>
+                                            <div>
+                                                <div class=" font11 text-light-grey">Expected Price</div>
+                                                <div class="text-default"><span class="bwmsprite inr-xsm-icon"></span> <span class="text-bold font16">1,60,000</span><span class="font14"> onwards</span></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="" class="btn btn-inv-teal inv-teal-sm">View all bikes<span class="bwmsprite teal-next"></span></a>
                 </div>
             </div>
         </section>
