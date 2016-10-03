@@ -10,26 +10,22 @@ using System.Data.SqlClient;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using Microsoft.Practices.Unity;
+using BikewaleOpr.DALs.BikePricing;
+using BikewaleOpr.Interface.BikePricing;
+using System.Collections;
+using BikewaleOpr.Entity.BikePricing;
+using System.Collections.Generic;
 
 namespace BikeWaleOpr.Content
 {
     public class ShowroomPrices : Page
     {
-        protected HtmlGenericControl spnError;
-        protected Button btnSave, btnShow, btnRemove;
+        protected Button btnSearch, btnSavePrices;
+        protected DropDownList ddlMakes, ddlStates, ddlCities, ddlPriceCities, ddlPriceStates;
+        protected HiddenField hdnSelectedCity, hdnSelectedCities;
         protected Repeater rptPrices;
-        protected DropDownList cmbMake, ddlStates, cmbModel;
-        protected RadioButton optNew, optUsed;
-        protected DropDownList drpCity;
-
-        protected HiddenField hdnSelectedCityId;
-
-        public string qryStrMake = "";
-        public string qryStrModel = "";
-        public string qryStrVersion = "";
-        public string qryStrCity = "";
-
-        protected string drpCity_Id = string.Empty;
+        protected string qryStrVersion;
 
         protected override void OnInit(EventArgs e)
         {
@@ -39,320 +35,46 @@ namespace BikeWaleOpr.Content
         void InitializeComponent()
         {
             base.Load += new EventHandler(Page_Load);
-            btnSave.Click += new EventHandler(btnSave_Click);
-            btnShow.Click += new EventHandler(btnShow_Click);
-            btnRemove.Click += new EventHandler(btnRemove_Click);
+            btnSearch.Click += new EventHandler(ShowPrices);
+            btnSavePrices.Click += new EventHandler(SaveBikePrices);
         }
 
         void Page_Load(object Sender, EventArgs e)
         {
-            CommonOpn op = new CommonOpn();
-            string sql;
-
-            if (Request.QueryString["make"] != null && Request.QueryString["make"].ToString() != "")
-            {
-                if (Request.QueryString["model"] != null && Request.QueryString["model"].ToString() != "")
-                {
-                    if (Request.QueryString["version"] != null && Request.QueryString["version"].ToString() != "")
-                    {
-                        if (Request.QueryString["city"] != null && Request.QueryString["city"].ToString() != "")
-                        {
-                            qryStrMake = Request.QueryString["make"].ToString();
-                            qryStrModel = Request.QueryString["model"].ToString();
-                            qryStrVersion = Request.QueryString["version"].ToString();
-                            qryStrCity = Request.QueryString["city"].ToString();
-
-                            Trace.Warn("make : ", qryStrMake);
-                            Trace.Warn("qryStrModel : ", qryStrModel);
-                            Trace.Warn("qryStrVersion : ", qryStrVersion);
-                            Trace.Warn("qryStrCity : ", qryStrCity);
-
-                            if (!CommonOpn.CheckId(qryStrMake) && !CommonOpn.CheckId(qryStrModel) && !CommonOpn.CheckId(qryStrVersion) && !CommonOpn.CheckId(qryStrCity))
-                            {
-                                return;
-                            }
-                        }
-                    }
-                }
-            }
-
-
-            //register the ajax library and emits corresponding javascript code
-            //for this page
-            Ajax.Utility.RegisterTypeForAjax(typeof(AjaxFunctions));
-            AjaxFunctions aj = new AjaxFunctions();
-
             if (!IsPostBack)
             {
-                getStates();
+                BindMakes();
+                BindStates();
 
-                sql = "SELECT ID, Name FROM bikemakes where isdeleted <> 1 and new=1 order by name";
-                op.FillDropDown(sql, cmbMake, "Name", "ID");
-                ListItem item = new ListItem("--Select--", "0");
-                cmbMake.Items.Insert(0, item);
-
-            }
-
-            sql = "SELECT ID, Name, BikeMakeId FROM bikemodels WHERE IsDeleted <> 1 ORDER BY Name";
-            string Script = op.GenerateChainScript("cmbMake", "cmbModel", sql, Request["cmbModel"]);
-            //RegisterStartupScript( "ChainScript", Script );
-            ClientScript.RegisterStartupScript(this.GetType(), "ChainScript", Script);
-
-            Trace.Warn("make : ", qryStrMake);
-            Trace.Warn("qryStrModel : ", qryStrModel);
-            Trace.Warn("qryStrVersion : ", qryStrVersion);
-            Trace.Warn("qryStrCity : ", qryStrCity);
-
-
-            if (qryStrMake != "" && qryStrModel != "" && qryStrCity != "")
-            {
-                if (!IsPostBack)
-                {
-                    BindRepeater(qryStrCity, qryStrModel);
-                }
-            }
-        } // Page_Load
-
-        void btnShow_Click(object Sender, EventArgs e)
-        {
-            BindRepeater("", "");
-            BindCityDropDown();
-        }
-
-        void btnSave_Click(object Sender, EventArgs e)
-        {
-            BindCityDropDown();
-            for (int i = 0; i < rptPrices.Items.Count; i++)
-            {
-                Label ltId = (Label)rptPrices.Items[i].FindControl("lblVersionId");
-
-                TextBox txtMumbaiPrice = (TextBox)rptPrices.Items[i].FindControl("txtMumbaiPrice");
-                TextBox txtMumbaiInsurance = (TextBox)rptPrices.Items[i].FindControl("txtMumbaiInsurance");
-                TextBox txtMumbaiRTO = (TextBox)rptPrices.Items[i].FindControl("txtMumbaiRTO");
-                TextBox txtMumbaiCorporateRTO = (TextBox)rptPrices.Items[i].FindControl("txtMumbaiCorporateRTO");
-
-                TextBox txtMumbaiMetPrice = (TextBox)rptPrices.Items[i].FindControl("txtMumbaiMetPrice");
-                TextBox txtMumbaiMetInsurance = (TextBox)rptPrices.Items[i].FindControl("txtMumbaiMetInsurance");
-                TextBox txtMumbaiMetRTO = (TextBox)rptPrices.Items[i].FindControl("txtMumbaiMetRTO");
-                TextBox txtMumbaiMetCorporateRTO = (TextBox)rptPrices.Items[i].FindControl("txtMumbaiMetCorporateRTO");
-
-                CheckBox chkUpdate = (CheckBox)rptPrices.Items[i].FindControl("chkUpdate");
-
-
-                if (chkUpdate.Checked)
-                {
-                    Trace.Warn("Saving All Prices...");
-                    if (ltId.Text.Length > 0 && txtMumbaiPrice.Text.Trim().Length > 0)
-                        SavePricing(
-                            ltId.Text.Trim(),
-
-                            txtMumbaiPrice.Text.Trim(),
-                            txtMumbaiInsurance.Text.Trim(),
-                            txtMumbaiRTO.Text.Trim(),
-                            txtMumbaiCorporateRTO.Text.Trim(),
-
-                            txtMumbaiMetPrice.Text.Trim(),
-                            txtMumbaiMetInsurance.Text.Trim(),
-                            txtMumbaiMetRTO.Text.Trim(),
-                            txtMumbaiMetCorporateRTO.Text.Trim()
-
-                        );
-                }
-            }
-
-            spnError.InnerHtml = "Data saved successfully...";
-            BindRepeater("", "");
-        }
-
-
-        void btnRemove_Click(object sender, EventArgs e)
-        {
-            BindCityDropDown();
-            string sql = "";
-            string verIds = PrepareList();
-
-            if (verIds != "")
-            {
-                //remove all the prices for this city and this model
-                try
-                {
-                    sql = " delete from newbikeshowroomprices where cityid= " + hdnSelectedCityId.Value + " and  bikeversionid in(" + verIds + ")";
-
-                    MySqlDatabase.ExecuteNonQuery(sql, ConnectionType.MasterDatabase);
-
-                }
-                catch (Exception err)
-                {
-                    Trace.Warn(err.Message);
-                    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                } // catch Exception
-            }
-            BindRepeater("", "");
-        }
-
-        protected void BindCityDropDown()
-        {
-            DataSet ds = null;
-            try
-            {
-                ManageCities objMC = new ManageCities();
-                ds = objMC.GetCities(Convert.ToInt32(ddlStates.SelectedValue), "7");
-                drpCity.DataSource = ds;
-                drpCity.DataTextField = "Text";
-                drpCity.DataValueField = "Value";
-                drpCity.DataBind();
-                drpCity.Items.Insert(0, new ListItem("--Select City--", "0"));
-                drpCity.SelectedValue = hdnSelectedCityId.Value;
-            }
-            catch (Exception ex)
-            {
-                Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-        }
-        //this function adds the selected ids as comma separated values,
-        //and returns it to the calling function 
-        private string PrepareList()
-        {
-            string strRet;		//the concated values to be returned
-            strRet = "";		//initializes to blank
-            CheckBox objChkControl;
-
-            foreach (RepeaterItem item in rptPrices.Items)
-            {
-                objChkControl = (CheckBox)item.FindControl("chkUpdate");
-                Label lblVersionId = (Label)item.FindControl("lblVersionId");
-
-                if (objChkControl.Checked == true)
-                {
-                    string id = lblVersionId.Text;
-
-                    //concat the id
-                    if (strRet == "")
-                        strRet = id;
-                    else
-                        strRet += "," + id;
-                }
-            }
-            return strRet;
-        }
-
-        void SavePricing(
-            string versionId,
-
-            string mumPrice,
-            string mumIns,
-            string mumRTO,
-            string mumCorpRTO,
-
-            string mumMetPrice,
-            string mumMetIns,
-            string mumMetRTO,
-            string mumMetCorpRTO
-
-        )
-        {
-
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand("insertshowroomprices_09092016"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int64, versionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaiprice", DbType.Int64, mumPrice.Length == 0 ? Convert.DBNull : mumPrice));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaiinsurance", DbType.Int64, mumIns.Length == 0 ? Convert.DBNull : mumIns));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbairto", DbType.Int64, mumRTO.Length == 0 ? Convert.DBNull : mumRTO));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaicorporaterto", DbType.Int64, mumCorpRTO.Length == 0 ? Convert.DBNull : mumCorpRTO));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetprice", DbType.Int64, mumMetPrice.Length == 0 ? Convert.DBNull : mumMetPrice));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetinsurance", DbType.Int64, mumMetIns.Length == 0 ? Convert.DBNull : mumMetIns));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetrto", DbType.Int64, mumMetRTO.Length == 0 ? Convert.DBNull : mumMetRTO));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetcorporaterto", DbType.Int64, mumMetCorpRTO.Length == 0 ? Convert.DBNull : mumMetCorpRTO));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int64, hdnSelectedCityId.Value));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lastupdated", DbType.DateTime, DateTime.Now));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int16, CurrentUser.Id));
-                    //run the command
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
-                }
-            }
-            catch (SqlException err)
-            {
-                //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
-                Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-
-
-            } // catch SqlException
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            } // catch Exception
-        } // SavePricing
-
-        ///<summary>
-        ///This function gets the list of the sell inquiries made according to the 
-        ///model
-        ///</summary>
-        void BindRepeater(string qryCity, string qryModel)
-        {
-            string sql = "";
-            string modelId = "";
-            string cityId = hdnSelectedCityId.Value == "0" ? "" : hdnSelectedCityId.Value;
-
-            Trace.Warn("cityId", cityId);
-            //drpCity.SelectedValue = cityId;
-            //drpCity.Items.FindByValue(cityId).Selected = true;
-
-            Trace.Warn("hidden city id :", hdnSelectedCityId.Value);
-
-            if (qryCity != "" && qryModel != "")
-            {
-                cityId = qryCity;
-                modelId = qryModel;
-            }
-            else
-            {
-                //cityId = drpCity.SelectedItem.Value;
-                modelId = Request["cmbModel"];
-            }
-
-
-            //Trace.Warn("city " + cityId + "modelId" + modelId);
-
-            if (modelId != null && modelId.Trim() != string.Empty && modelId.Length != 0 && modelId.Trim() != "")
-            {
-                sql = @" select ve.ID, ve.Name,
-					ncs.price AS MumPrice, ncs.insurance AS MumInsurance, ncs.rto AS MumRTO, ncs.corporaterto AS MumCorporateRTO, 
-					ncs.metprice AS MumMetPrice, ncs.metinsurance AS MumMetInsurance, ncs.metrto AS MumMetRTO, ncs.metcorporaterto as MumMetCorporateRTO	
-					from (bikeversions ve left join newbikeshowroomprices ncs on ve.id = ncs.bikeversionid and ncs.cityid= " + cityId + ") where ve.isdeleted=0 and ve.bikemodelid=" + modelId;
-
-                if (optNew.Checked) sql += " and ve.new=1";
-                else sql += " and ve.new=0";
-
-                sql += " order by ve.name";
-
-                Trace.Warn(sql);
-
-                CommonOpn op = new CommonOpn();
-
-                try
-                {
-                    op.BindRepeaterReader(sql, rptPrices);
-                }
-                catch (Exception err)
-                {
-                    Trace.Warn(err.Message + err.Source);
-                    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"] + sql);
-                    objErr.SendMail();
-                }
+                hdnSelectedCity.Value = "0";
+                ddlCities.Enabled = false;
+                ddlPriceCities.Enabled = false;
             }
         }
 
-        protected void getStates()
+        /// <summary>
+        /// Function to bind the makes drop down list
+        /// </summary>
+        private void BindMakes()
+        {
+            MakeModelVersion mmv = new MakeModelVersion();
+            DataTable dt = mmv.GetMakes("NEW");
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                ddlMakes.DataSource = dt;
+                ddlMakes.DataTextField = "Text";
+                ddlMakes.DataValueField = "Value";
+                ddlMakes.DataBind();
+
+                ddlMakes.Items.Insert(0, new ListItem("--Select Make--", "0"));
+            }
+        } // Page_Load        
+
+        /// <summary>
+        /// Function to bind the states drop down list
+        /// </summary>
+        private void BindStates()
         {
             try
             {
@@ -366,6 +88,13 @@ namespace BikeWaleOpr.Content
                     ddlStates.DataBind();
 
                     ddlStates.Items.Insert(0, new ListItem("--Select State--", "0"));
+
+                    ddlPriceStates.DataSource = dt;
+                    ddlPriceStates.DataTextField = "Text";
+                    ddlPriceStates.DataValueField = "Value";
+                    ddlPriceStates.DataBind();
+
+                    ddlPriceStates.Items.Insert(0, new ListItem("--Select State--", "0"));                    
                 }
             }
             catch (Exception ex)
@@ -376,22 +105,164 @@ namespace BikeWaleOpr.Content
             }
         }
 
-        protected void BindModelDropDown()
+        /// <summary>
+        /// Function to bind the cities drop down list
+        /// </summary>
+        private void BindCities()
         {
-            DataTable dt = null;
-            string makeId = cmbMake.SelectedValue;
             try
             {
-                MakeModelVersion objMMV = new MakeModelVersion();
-                dt = objMMV.GetModels(makeId, "USED");
+                ManageCities objMC = new ManageCities();
+                DataSet ds = objMC.GetCities(Convert.ToInt32(ddlStates.SelectedValue), "7");
 
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
+                {
+                    ddlCities.DataSource = ds.Tables[0];
+                    ddlCities.DataTextField = "Text";
+                    ddlCities.DataValueField = "Value";
+                    ddlCities.DataBind();
+                    ddlCities.Items.Insert(0, new ListItem("--Select City--", "0"));
+
+                    ddlPriceCities.DataSource = ds.Tables[0];
+                    ddlPriceCities.DataTextField = "Text";
+                    ddlPriceCities.DataValueField = "Value";
+                    ddlPriceCities.DataBind();                    
+                }
             }
             catch (Exception ex)
             {
-                Trace.Warn("ShowroomPrices.BindModelDropDown  ex : " + ex.Message + ex.Source);
+                Trace.Warn(ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
+        }       
+
+        /// <summary>
+        /// Function to bind the make pricing for given cities with repeater
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ShowPrices(object sender, EventArgs e)
+        {
+            ShowBikePrices();
         }
+
+        private void ShowBikePrices()
+        {
+            uint makeId = !String.IsNullOrEmpty(ddlMakes.SelectedValue) ? Convert.ToUInt32(ddlMakes.SelectedValue) : 0;
+            uint cityId = !String.IsNullOrEmpty(hdnSelectedCity.Value) ? Convert.ToUInt32(hdnSelectedCity.Value) : 0;
+
+            BindPrices(makeId, cityId);
+
+            BindCities();
+
+            ddlCities.SelectedValue = cityId.ToString();
+            ddlCities.Enabled = true;
+
+            ddlPriceStates.SelectedValue = ddlStates.SelectedValue;
+            ddlPriceCities.Enabled = true;
+        }
+
+        /// <summary>
+        /// Function to bind the make pricing for given cities with repeater
+        /// </summary>
+        private void BindPrices(uint makeId, uint cityId)
+        {
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IShowroomPricesRepository, BikeShowroomPrices>();
+                IShowroomPricesRepository pricesRepo = container.Resolve<IShowroomPricesRepository>();
+
+                IEnumerable<BikePrice> objPriceList = pricesRepo.GetBikePrices(makeId, cityId);
+
+                if (objPriceList != null)
+                {
+                    rptPrices.DataSource = objPriceList;
+                    rptPrices.DataBind();
+                }
+            }
+        }
+
+        private void SaveBikePrices(object sender, EventArgs e)
+        {
+            SavePrices();        
+        }
+
+
+        private void SavePrices()
+        {
+            string priceData = string.Empty, citiesList = string.Empty;
+            bool isUpdated = false;
+
+            priceData = ParsePriceData();
+            citiesList = ParseCitiesList();
+
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IShowroomPricesRepository, BikeShowroomPrices>();
+                IShowroomPricesRepository pricesRepo = container.Resolve<IShowroomPricesRepository>();
+
+                isUpdated = pricesRepo.SaveBikePrices(priceData, citiesList, Convert.ToInt32(CurrentUser.Id));
+            }
+            
+            ShowBikePrices();
+        }
+
+        /// <summary>
+        /// Function to retrieve the prices from the table and populate them in the string
+        /// e.g. 900#c0l#150000#c0l#3213#c0l#1500|r0w|902#c0l#175000#c0l#3683#c0l#1500
+        /// where |r0w| represents row split string and #c0l# represents column split string
+        /// </summary>
+        /// <returns>Returns prices in the form of the string e.g. </returns>
+        private string ParsePriceData()
+        {
+            string priceData = string.Empty;
+
+            try
+            {
+                // Parsing the price data
+                for (int i = 0; i < rptPrices.Items.Count; i++)
+                {
+                    TextBox txtPrice = (TextBox)rptPrices.Items[i].FindControl("txtPrice");
+                    TextBox txtInsurance = (TextBox)rptPrices.Items[i].FindControl("txtInsurance");
+                    TextBox txtRTO = (TextBox)rptPrices.Items[i].FindControl("txtRTO");
+                    CheckBox chkUpdate = (CheckBox)rptPrices.Items[i].FindControl("chkUpdate");
+
+                    string versionid = txtPrice.Attributes["VersionId"];
+                    string price = txtPrice.Text;
+                    string insurance = txtInsurance.Text;
+                    string rto = txtRTO.Text;
+
+                    if (chkUpdate.Checked)
+                    {
+                        Trace.Warn("Saving Prices...");
+
+                        if (!String.IsNullOrEmpty(price) && !String.IsNullOrEmpty(insurance) && !String.IsNullOrEmpty(rto))
+                        {
+                            priceData += String.Format("{0}#c0l#{1}#c0l#{2}#c0l#{3}|r0w|", versionid, price, insurance, rto);
+                        }
+                    }
+                }
+
+                priceData = priceData.Substring(0, priceData.LastIndexOf("|r0w|"));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return priceData;
+        }
+
+        private string ParseCitiesList()
+        {
+            string citiesList = string.Empty;
+
+            citiesList = hdnSelectedCities.Value.Replace(",", "|r0w|");
+
+            return citiesList;
+        }
+
     } // class
 } // namespace

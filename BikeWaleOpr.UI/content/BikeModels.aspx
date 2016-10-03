@@ -141,7 +141,8 @@
 			width="100%"
 			AllowPaging="false"
 			AllowSorting="true" 
-			AutoGenerateColumns="false">
+			AutoGenerateColumns="false"
+            CssClass="table-bordered">
 		<itemstyle CssClass="dtItem"></itemstyle>
 		<headerstyle CssClass="dtHeader"></headerstyle>
 		<alternatingitemstyle CssClass="dtAlternateRow"></alternatingitemstyle>
@@ -250,12 +251,16 @@
 			</asp:TemplateColumn>
 			<asp:TemplateColumn HeaderText="Update Photo" ItemStyle-Width="350">
 				<itemtemplate>
-					<input type="button" value="Upload" onclick="javascript:window.open('versionphotos.aspx?model=<%# DataBinder.Eval( Container.DataItem, "ID" ) %>','','left=200,width=900,height=600,scrollbars=yes')" />
+                    <div class="text-align-center">
+					    <input type="button" value="Upload" onclick="javascript:window.open('versionphotos.aspx?model=<%# DataBinder.Eval( Container.DataItem, "ID" ) %>','','left=200,width=900,height=600,scrollbars=yes')" />
+                    </div>
 				</itemtemplate>
 			</asp:TemplateColumn>
 			<asp:TemplateColumn HeaderText="Synopsis" ItemStyle-Width="350">
 				<itemtemplate>
-					<input type="button" value="Add" onclick="javascript:window.open('bikesynopsis.aspx?model=<%# DataBinder.Eval( Container.DataItem, "ID" ) %>','','left=200,width=900,height=600,scrollbars=yes')" />
+                    <div class="text-align-center">
+					    <input type="button" value="Add" onclick="javascript:window.open('bikesynopsis.aspx?model=<%# DataBinder.Eval( Container.DataItem, "ID" ) %>','','left=200,width=900,height=600,scrollbars=yes')" />
+                    </div>
 				</itemtemplate>
 			</asp:TemplateColumn>
 		</columns>

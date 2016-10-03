@@ -324,6 +324,10 @@
       <DependentUpon>ShowroomPrices.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="content\ShowroomPrices_old.aspx.cs">
+      <DependentUpon>ShowroomPrices_old.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="content\UpdateExpLaunches.aspx.cs">
       <DependentUpon>UpdateExpLaunches.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1328,6 +1332,7 @@
     <Content Include="content\NewBikeVersionColors.aspx" />
     <Content Include="content\PriceMonitoring.aspx" />
     <Content Include="content\ShowroomPrices.aspx" />
+    <Content Include="content\ShowroomPrices_old.aspx" />
     <Content Include="content\UpdateExpLaunches.aspx" />
     <Content Include="content\VersionPhotos.aspx" />
     <Content Include="content\ViewReview.aspx" />
@@ -1336,6 +1341,7 @@
     <Content Include="controls\LinkPagerControl.ascx" />
     <Content Include="controls\RichTextEditor.ascx" />
     <Content Include="css\960_12_col.css" />
+    <Content Include="css\chosen.min.css" />
     <Content Include="css\Common.css" />
     <Content Include="Default.aspx" />
     <Content Include="editcms\AddPages.aspx" />
