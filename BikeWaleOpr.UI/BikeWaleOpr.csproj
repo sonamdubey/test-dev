@@ -323,11 +323,7 @@
     <Compile Include="content\ShowroomPrices.aspx.cs">
       <DependentUpon>ShowroomPrices.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="content\ShowroomPrices_old.aspx.cs">
-      <DependentUpon>ShowroomPrices_old.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
+    </Compile>    
     <Compile Include="content\UpdateExpLaunches.aspx.cs">
       <DependentUpon>UpdateExpLaunches.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1331,8 +1327,7 @@
     <Content Include="content\NewBikeStandardFeaturesStep2.aspx" />
     <Content Include="content\NewBikeVersionColors.aspx" />
     <Content Include="content\PriceMonitoring.aspx" />
-    <Content Include="content\ShowroomPrices.aspx" />
-    <Content Include="content\ShowroomPrices_old.aspx" />
+    <Content Include="content\ShowroomPrices.aspx" />    
     <Content Include="content\UpdateExpLaunches.aspx" />
     <Content Include="content\VersionPhotos.aspx" />
     <Content Include="content\ViewReview.aspx" />
