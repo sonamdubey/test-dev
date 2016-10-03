@@ -4,8 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    
-    <%
+        <%
         keywords = String.Format("{0}, {0} dealer, {0} Showroom, {0} {1}", dealerName, cityName);
         description = String.Format("{2} is dealer of {0} bikes in {1}. Get best offers on {0} bikes at {2} showroom", makeName, cityName,dealerName);
         title = String.Format("{0} {1} - {0} Showroom in {1} - BikeWale", dealerName, cityName);
@@ -22,6 +21,7 @@
     <style type="text/css">
         .dropdown-menu,.input-box input{border-bottom:1px solid #82888b}.padding-14-20{padding:14px 20px}.padding-top50{padding-top:50px}.featured-tag{width:74px;text-align:center;line-height:20px;background:#3799a7;z-index:1;font-weight:400;font-size:12px;color:#fff;border-radius:2px}.vertical-top{display:inline-block;vertical-align:top}.dealership-card-details{width:92%}#get-direction-button{width:50px;height:50px;background:#f9f9f9;position:absolute;right:20px;bottom:20px;-webkit-border-radius:50%;-moz-border-radius:50%;-o-border-radius:50%;border-radius:50%;text-align:center;cursor:pointer;-webkit-box-shadow:1px 5px 15px #aaa;-moz-box-shadow:1px 5px 15px #aaa;-o-box-shadow:1px 5px 15px #aaa;box-shadow:1px 5px 15px #aaa}#get-direction-button:hover{-webkit-box-shadow:1px 5px 15px #999;-moz-box-shadow:1px 5px 15px #999;-o-box-shadow:1px 5px 15px #999;box-shadow:1px 5px 15px #999}#commute-distance-form .form-control{width:225px;padding-right:35px}.location-details{display:none}#submitAssistanceFormBtn.btn{padding:8px 56px}input{font-family:'Open Sans',sans-serif,Arial}input[type=text]:focus,input[type=email]:focus,input[type=tel]:focus{outline:0;box-shadow:none}.input-box{height:60px;text-align:left;display:inline-block;vertical-align:top}.input-box input{width:100%;display:block;padding:6px 0;font-size:16px;font-weight:700;color:#4d5057}.input-box label,.input-number-prefix{font-size:16px;position:absolute;color:#82888b}.input-box label{top:5px;left:0;pointer-events:none;-webkit-transition:.2s ease all;-moz-transition:.2s ease all;-o-transition:.2s ease all;transition:.2s ease all}.input-number-box input{padding-left:30px}.input-number-prefix{display:none;top:6px;font-weight:700}.boundary{position:relative;width:100%;display:block}.boundary:after,.boundary:before{content:'';position:absolute;bottom:0;width:0;height:2px;background-color:#41b4c4;-webkit-transition:.2s ease all;-moz-transition:.2s ease all;-o-transition:.2s ease all;transition:.2s ease all}.boundary:before{left:50%}.boundary:after{right:50%}.error-text{display:none;font-size:12px;position:relative;top:0;left:0;color:#d9534f}.dropdown-select-wrapper.invalid .error-text,.input-box.input-number-box input:focus~.input-number-prefix,.input-box.input-number-box.not-empty .input-number-prefix,.input-box.invalid .error-text{display:inline-block}.input-box input:focus~label,.input-box.not-empty label{top:-14px;font-size:12px}.input-box input:focus~.boundary:after,.input-box input:focus~.boundary:before{width:50%}.dropdown-select-wrapper.invalid .boundary:after,.dropdown-select-wrapper.invalid .boundary:before,.input-box.invalid .boundary:after,.input-box.invalid .boundary:before{background-color:#d9534f;width:50%}.type-user-details.form-control-box{width:292px}.type-dropdown{width:462px}.type-dropdown,.type-sumit-button{display:inline-block;vertical-align:bottom;height:60px}.type-sumit-button{margin-left:35px}.dropdown-select{display:none}.dropdown-menu{width:100%;min-width:125px;font-size:16px;position:relative;display:inline-block;vertical-align:middle;color:#4d5057}.dropdown-menu .dropdown-label,.dropdown-menu .dropdown-selected-item{width:100%;font-weight:700;background:url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% no-repeat;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dropdown-menu .dropdown-selected-item{background-position:98%;border-bottom:1px solid #e2e2e2;padding:8px 30px 8px 10px}.dropdown-menu .dropdown-label{cursor:pointer;display:inline-block;z-index:0}.dropdown-menu .dropdown-list-wrapper{display:none;width:100%;overflow:hidden;position:absolute;top:3px;left:0;background:#fff;z-index:1;-webkit-border-radius:2px;-moz-border-radius:2px;-o-border-radius:2px;-ms-border-radius:2px;border-radius:2px;border:1px solid #e2e2e2\9;-webkit-box-shadow:-3px 3px 15px 1px #ddd;-moz-box-shadow:-3px 3px 15px 1px #ddd;-ms-box-shadow:-3px 3px 15px 1px #ddd;-o-box-shadow:-3px 3px 15px 1px #ddd;box-shadow:-3px 3px 15px 1px #ddd}#modelsAvailable li,.dropdown-menu.dropdown-active .dropdown-list-wrapper{display:inline-block}.dropdown-menu .dropdown-menu-list{padding-top:10px;padding-bottom:10px}.dropdown-menu .dropdown-menu-list li{padding:5px 10px;cursor:pointer;white-space:nowrap}.dropdown-menu .dropdown-menu-list li[data-option-value=""]:hover{background:0 0;cursor:default}.dropdown-menu .dropdown-with-select li:hover{background:#eee}#modelsAvailable li{width:290px;min-height:260px;margin:0 15px 25px 14px;vertical-align:top}.image-block{width:290px;height:163px;line-height:0}.image-block div{background:url(http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center center no-repeat}.image-block img{max-width:100%;height:163px}.details-block{padding:12px 20px 10px}.text-truncate{width:100%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.dealership-loc-icon,.phone-black-icon{width:10px;position:relative;margin-right:5px}.dealership-loc-icon{height:12px;background-position:-52px -469px;top:4px}.phone-black-icon{height:10px;background-position:-73px -444px;top:5px}.star-white{width:8px;height:8px;background-position:-222px -107px;margin-right:4px}.clock-icon,.mail-grey-icon{width:12px;margin-right:5px;position:relative}.mail-grey-icon{height:10px;background-position:-92px -446px;top:5px}.clock-icon{height:12px;background-position:-213px -224px;top:4px}.get-direction-icon{width:20px;height:20px;background-position:-112px -441px;margin-top:15px}.crosshair-icon{width:20px;height:20px;background:url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/detect-location-icon.png) no-repeat}.inr-md-lg{width:12px;height:17px;background-position:-64px -515px;position:relative;top:1px}.gm-style-cc{display:none}@media only screen and (max-width:1024px){.location-details{font-size:13px}#dealer-map{width:365px!important}#modelsAvailable li{margin:0 8px 25px}.type-user-details.form-control-box{width:275px}#city-dealer-list li{width:280px}}
         #city-dealer-list{margin-left:10px}#city-dealer-list li{width:292px;min-height:140px;margin-right:23px;border:1px solid #f6f6f6;-webkit-box-shadow:0 1px 2px rgba(0,0,0,.2);-moz-box-shadow:0 1px 2px rgba(0,0,0,.2);-ms-box-shadow:0 1px 2px rgba(0,0,0,.2);-o-box-shadow:0 1px 2px rgba(0,0,0,.2);box-shadow:0 1px 2px rgba(0,0,0,.2);float:left}#city-dealer-list a{display:block;min-height:142px;padding:15px 20px 12px}#city-dealer-list a:hover{text-decoration:none}
+        #modelsAvailable a:hover{text-decoration:none}
     </style>
     <script src="http://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
     <script type="text/javascript">
@@ -29,7 +29,7 @@
            </script>
 </head>
 <body class="bg-light-grey padding-top50">
-    <form runat="server">
+    <form id="Form1" runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <section>
             <div class="container padding-top10">
@@ -45,10 +45,10 @@
                                 <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/new/"><span itemprop="title">New Bikes</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/dealer-showroom-locator/"><span itemprop="title">Dealer Showroom Locator</span></a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/dealer-showroom-locator/"><span itemprop="title">Dealer Showroom</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/<%=makeMaskingName %>-dealer-showrooms-in-india/"><span itemprop="title"><%=makeName%> Dealer showrooms</span></a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/<%=makeMaskingName %>-dealer-showrooms-in-india/"><span itemprop="title"><%=makeName%> Dealer Showrooms</span></a>
                             </li>
                              <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/<%=makeMaskingName %>-dealer-showrooms-in-<%=cityMaskingName %>/"><span itemprop="title"><%=makeName%> Dealer Showroom in <%=cityName%></span></a>
@@ -73,7 +73,10 @@
                                 <%if(dealerObj!=null){ %>
                                 
                                 <div class="margin-bottom10">
+                                    <%if (dealerObj.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || dealerObj.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe))
+                                  { %>
                                     <span class="featured-tag inline-block margin-right10"><span class="bwsprite star-white"></span>Featured</span>
+                                    <%} %>
                                     <h2 class="font14 text-black text-bold inline-block">Authorized <%=makeName %> dealer in <%=cityName %></h2>
                                 </div>
                             
@@ -143,7 +146,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-       <%if (dealerObj!=null && dealerObj.CampaignId > 0)
+       <%if (dealerObj != null && dealerObj.CampaignId > 0 && (dealerObj.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || dealerObj.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)))
          { %>
         <section id="dealerAssistance">
             <div class="container margin-bottom20" id="leadForm">
@@ -185,7 +188,7 @@
                         </div>
                         <div class="type-sumit-button">
 <input type="button" data-isregisterpq="true" data-item-name="<%=dealerObj.Name %>" data-item-area="<%=dealerObj.Area%>" data-leadsourceid="15" class="btn btn-orange margin-bottom5 " data-isleadpopup="false" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_SubmitButton %>" 
-    data-item-id="<%= dealerId %>" data-bind="click: function (d, e) { validateBikeData(); HiddenSubmitLead(d, e) }" value="Get offers" />
+    data-item-id="<%= dealerId %>" data-bind="click: function (d, e) { validateBikeData(); validateUserLeadDetails(); HiddenSubmitLead(d, e) }" value="Get offers" />
 
                         </div>
                     </div>
@@ -206,21 +209,23 @@
                         <ul id="modelsAvailable">
                             <%foreach(var model in dealerDetails.Models){ %>
                              <li>
-                                <div class="image-block">
-                                    <div>
-                                        <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(model.OriginalImagePath, model.HostURL, Bikewale.Utility.ImageSize._476x268)%>" alt="" title="<%=model.objMake.MakeName %> <%=model.objModel.ModelName %>" src="" />
+                                <a  href='<%= Bikewale.Utility.UrlFormatter.BikePageUrl(model.MakeMaskingName , model.objModel.MaskingName) %>'>
+                                    <div class="image-block">
+                                        <div>
+                                            <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(model.OriginalImagePath, model.HostURL, Bikewale.Utility.ImageSize._476x268)%>" alt="" title="<%=model.objMake.MakeName %> <%=model.objModel.ModelName %>" src="" />
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="details-block">
-                                    <h3 class="text-black text-truncate margin-bottom10" title="<%=model.objMake.MakeName %> <%=model.objModel.ModelName %>"><%=model.objMake.MakeName %> <%=model.objModel.ModelName %></h3>
-                                    <div class="font14 text-xt-light-grey margin-bottom5">
-                                    <%= Bikewale.Utility.FormatMinSpecs.GetMinSpecs(model.Specs.Displacement.ToString(),model.Specs.FuelEfficiencyOverall.ToString(),model.Specs.MaxPower.ToString(),model.Specs.KerbWeight.ToString())%>
-                                  </div>
-                                    <div>
-                                        <span class="bwsprite inr-md-lg"></span>
-                                        <span class="font22 text-bold"><%=Bikewale.Common.CommonOpn.FormatPrice(model.VersionPrice.ToString()) %></span><span class="font14 text-light-grey">&nbsp;onwards</span>
+                                    <div class="details-block">
+                                        <h3 class="text-black text-truncate margin-bottom10" title="<%=model.objMake.MakeName %> <%=model.objModel.ModelName %>"><%=model.objMake.MakeName %> <%=model.objModel.ModelName %></h3>
+                                        <div class="font14 text-xt-light-grey margin-bottom5">
+                                        <%= Bikewale.Utility.FormatMinSpecs.GetMinSpecs(model.Specs.Displacement.ToString(),model.Specs.FuelEfficiencyOverall.ToString(),model.Specs.MaxPower.ToString(),model.Specs.KerbWeight.ToString())%>
+                                      </div>
+                                        <div class="text-default">
+                                            <span class="bwsprite inr-md-lg"></span>
+                                            <span class="font22 text-bold"><%=Bikewale.Common.CommonOpn.FormatPrice(model.VersionPrice.ToString()) %></span><span class="font14 text-light-grey">&nbsp;onwards</span>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             </li>
                             <%} %>
                           </ul>
@@ -248,12 +253,11 @@
             var versionId = "";
             $("#getLeadBike").change(function () {
                 var val = $(this).val();
-                if( val && val!="" && val!="0" )
-                {
+                if (val && val != "" && val != "0") {
                     versionId = val;
                 }
             });
- 
+
             var dealerLat = '<%= dealerObj!= null && dealerObj.Area!= null ? dealerObj.Area.Latitude.ToString() : string.Empty %>';
             var dealerLong = '<%= dealerObj!= null && dealerObj.Area!= null ? dealerObj.Area.Longitude.ToString() : string.Empty %>';
             var $ddlModels = $("#assistGetModel");
@@ -267,7 +271,7 @@
             var pageSrcId = eval("<%= Bikewale.Utility.BWConfiguration.Instance.SourceId %>");
             var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>";
             var makeName = "<%= makeName%>";
-          
+
             $(document).on("change", $ddlModels, function () {
                 hideError($ddlModels);
             });

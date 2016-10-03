@@ -32,7 +32,7 @@
     </div>
 
     <div class="padding-right20 padding-left20">
-        <a href="/m<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> Dealers">View all dealers<span class="bwmsprite blue-right-arrow-icon font14"></span></a>
+        <a href="/m<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> Dealer showrooms in <%= cityName %>">View all <%=makeName %> dealer showrooms <span class="bwmsprite blue-right-arrow-icon font14"></span></a>
     </div>
 </div>
 <script>

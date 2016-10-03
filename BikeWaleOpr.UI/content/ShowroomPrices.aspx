@@ -1,439 +1,298 @@
-<%@ Page Inherits="BikeWaleOpr.Content.ShowroomPrices" AutoEventWireUp="false" Language="C#" trace="false" Debug="false" EnableEventValidation="false" %>
-<!-- #Include file="/includes/headerNew.aspx" -->
+<%@ Page Inherits="BikeWaleOpr.Content.ShowroomPrices" AutoEventWireup="false" Language="C#" Trace="false" Debug="false" EnableEventValidation="false" EnableViewState="true" %>
 
-<style type="text/css">
-	<!--
-	#prices { border-collapse:collapse; border-color:#cccccc; }
-	#prices td { text-align:center; }
-	#prices th { padding:4px; background-color:#DDEEFF; }
-	#prices input { background-color:#f3f3f3; border:1px solid #dddddd; }
-	.vasi { background-color:#DDEEFF; }
-	.met{background-color:#FFFF66;}
-	-->
-</style>
-<div class="urh">
-	You are here &raquo; <a href="/content/default.aspx">Contents</a> &raquo; Showroom Prices
-</div>
+<!-- #Include file="/includes/headerNew.aspx" -->
 <div>
     <!-- #Include file="contentsMenu.aspx" -->
 </div>
-<script language="javascript" src="/src/AjaxFunctions.js"></script>
-<div class="left">
-	<h3>Add Showroom Prices</h3>
-	
-		<span id="spnError"  style="color:#FF3300; font-weight:bold;" runat="server"></span>
-		
-		<fieldset style="white-space:nowrap;">
-			<legend>Search Vehicle</legend>
-			<label>Make</label>
-			<asp:DropDownList ID="cmbMake" runat="server" tabindex="1"></asp:DropDownList>
-			<asp:DropDownList ID="cmbModel" Enabled="false" runat="server" tabindex="2">
-				<asp:ListItem Value="0" Text="--Select--" />
-			</asp:DropDownList>
-			<span  style="color:#FF3300; font-weight:bold;" id="selectModel"></span>
-			<asp:RadioButton ID="optNew" runat="server" GroupName="Type" Text="New" Checked="true" tabindex="3"/>
-			<asp:RadioButton ID="optUsed" runat="server" GroupName="Type" Text="Used" />
-            <asp:DropDownList ID="ddlStates" runat="server" tabindex="4"/>
-			<asp:DropDownList ID="drpCity" runat="server" tabindex="5" >
-                	<asp:ListItem Value="0" Text="--Select City--" />
-			</asp:DropDownList>
-            <span  style="color:#FF3300; font-weight:bold;" id="spnCity"></span>
-            <input type="hidden" id="hdn_ddlCities" runat="server" />
-			<asp:Button ID="btnShow" Text="Search" runat="server" tabindex="6"></asp:Button>
-		</fieldset>
-		<br>
-		<asp:Button ID="btnRemove" Text="Remove Price" runat="server"></asp:Button>
-		<br>
-		<br>
-		<strong>Non-Metalic Prices</strong>
-		<asp:Repeater ID="rptPrices" runat="server" >
-			<headertemplate><br>
-				<table width="100%" align="center" border="1" id="prices" cellpadding="2" cellspacing="0">
-					<tr>
-						<th rowspan="2">UP</th>
-						<th rowspan="2">Version</th>
-						<th colspan="4">Non-Metalic price</th>
-						<td class="met" colspan="4"><strong>Metalic price</strong></td>
-					</tr>
-					<tr>
+<div class="left min-height600" id="divManagePrices">
+    <h1>Manage Showroom Prices</h1>
+    <fieldset>
+        <legend>Search Bike Prices</legend>
+        <div class="form-control-box margin-right10 floatLeft">
+            <asp:dropdownlist id="ddlMakes" runat="server" tabindex="1" />
+            <span class="bwsprite error-icon hide"></span>
+            <div class="bw-blackbg-tooltip hide">Please Select Make</div>
+        </div>
+        <div class="form-control-box margin-right10 floatLeft">
+            <asp:dropdownlist id="ddlStates" runat="server" tabindex="2" />
+        </div>
+        <div class="form-control-box margin-right10 floatLeft">
+            <asp:dropdownlist id="ddlCities" runat="server" tabindex="3" data-bind="value: selectedCity"><asp:ListItem Value="0" Text="--Select City--"/></asp:dropdownlist>
+            <span class="bwsprite error-icon hide"></span>
+            <div class="bw-blackbg-tooltip hide">Please Select City</div>
+        </div>
+        <asp:button id="btnSearch" text="Search" runat="server" tabindex="4" />
+        <asp:hiddenfield id="hdnSelectedCity" runat="server" />
+    </fieldset>
+    <div class="margin-top10 floatLeft" style="width: 850px; display: inline-block;">
+        <asp:repeater id="rptPrices" runat="server">
+			<headertemplate>
+				<table class="table-bordered" cellspacing="0" cellpadding="5">
+					<tr class="dtHeader">
+						<th></th>
+						<th>Make</th>
+						<th>Model</th>
+                        <th>Version</th>                        
 						<th>Ex-Showroom</th>
 						<th>Insurance</th>
-						<th>RTO</th>
-						<th>RTO-Corporate</th>
-						
-						<td class="met"><strong>Ex-Showroom</strong></td>
-						<td class="met"><strong>Insurance</strong></td>
-						<td class="met"><strong>RTO</strong></td>
-						<td class="met"><strong>RTO-Corporate</strong></td>
-					</tr>
-		
+						<th>RTO</th>						
+                        <th>Last Updated Date</th>
+						<th>Last Updated By</th>
+					</tr>					
 			</headertemplate>
-			<itemtemplate>
-					<asp:Label ID="lblVersionId" style="display:none;" Text='<%# DataBinder.Eval( Container.DataItem, "Id" ) %>' runat="server" />
-					<tr>
-						<td>
-							<asp:CheckBox Checked='<%# qryStrVersion == DataBinder.Eval( Container.DataItem, "Id" ).ToString() ? true : false%>' ID="chkUpdate" runat="server"></asp:CheckBox>
-						</td>
-						<th nowrap="nowrap" align="right"><%# DataBinder.Eval( Container.DataItem, "Name" ) %></th>
-						<td>
-							<asp:TextBox ID="txtMumbaiPrice" Text='<%# DataBinder.Eval( Container.DataItem, "MumPrice" ).ToString() %>' Columns="10" MaxLength="9" runat="server" />
-							
-						</td>
-						<td>
-							<asp:TextBox ID="txtMumbaiInsurance" Text='<%# DataBinder.Eval( Container.DataItem, "MumInsurance" ).ToString() %>' Columns="10" MaxLength="9" runat="server" />
-							
-						</td>
-						<td>
-							<asp:TextBox ID="txtMumbaiRTO" Text='<%# DataBinder.Eval( Container.DataItem, "MumRTO" ).ToString() %>' Columns="10" MaxLength="9" runat="server" />
-							
-						</td>
-						<td>
-							<asp:TextBox ID="txtMumbaiCorporateRTO" Text='<%# DataBinder.Eval( Container.DataItem, "MumCorporateRTO" ).ToString() %>' Columns="10" MaxLength="9" runat="server" />
-							
-						</td>
-						
-						<td class="met">
-							<asp:TextBox ID="txtMumbaiMetPrice" Text='<%# DataBinder.Eval( Container.DataItem, "MumMetPrice" ).ToString() %>' Columns="10" MaxLength="9" runat="server" />
-							
-						</td>
-						<td class="met">
-							<asp:TextBox ID="txtMumbaiMetInsurance" Text='<%# DataBinder.Eval( Container.DataItem, "MumMetInsurance" ).ToString() %>' Columns="10" MaxLength="9" runat="server" />
-							
-						</td>
-						<td class="met">
-							<asp:TextBox ID="txtMumbaiMetRTO" Text='<%# DataBinder.Eval( Container.DataItem, "MumMetRTO" ).ToString() %>' Columns="10" MaxLength="9" runat="server" />
-							
-						</td>
-						<td class="met">
-							<asp:TextBox ID="txtMumbaiMetCorporateRTO" Text='<%# DataBinder.Eval( Container.DataItem, "MumMetCorporateRTO" ).ToString() %>' Columns="10" MaxLength="9" runat="server" />
-							
-						</td>
-					</tr>
+			<itemtemplate>				
+				<tr>
+					<td>
+						<asp:CheckBox ID="chkUpdate" runat="server" name="chkVersions"/>
+					</td>
+					<td><%# DataBinder.Eval( Container.DataItem, "MakeName" ) %></td>
+                    <td>
+						<%# DataBinder.Eval( Container.DataItem, "ModelName" ) %>
+					</td>
+					<td>
+						<%# DataBinder.Eval( Container.DataItem, "VersionName" ) %>
+					</td>						
+					<td>
+						<asp:TextBox ID="txtPrice" Index='<%# Container.ItemIndex %>' VersionId='<%# DataBinder.Eval( Container.DataItem, "VersionId" ) %>' Text='<%# DataBinder.Eval( Container.DataItem, "Price" ).ToString() %>' onblur="calculatePrices(this)" Columns="10" MaxLength="9" runat="server" />							
+					</td>
+					<td>
+						<asp:TextBox ID="txtInsurance" Text='<%# DataBinder.Eval( Container.DataItem, "Insurance" ).ToString() %>' Columns="10" MaxLength="9" runat="server" />						
+					</td>
+					<td>
+						<asp:TextBox ID="txtRTO" Text='<%# DataBinder.Eval( Container.DataItem, "RTO" ).ToString() %>' Columns="10" MaxLength="9" runat="server" />							
+					</td>
+                    <td class="text-align-center">
+						<%# DataBinder.Eval( Container.DataItem, "LastUpdatedDate" ).ToString() %>
+					</td>
+                    <td class="text-align-center">
+						<%# DataBinder.Eval( Container.DataItem, "LastUpdatedBy" ).ToString() %>
+					</td>						
+				</tr>
 			</itemtemplate>
 			<footertemplate>
 				</table>
 			</footertemplate>
-		</asp:Repeater>
-		<br />
-		<div align="Left">
-			Select <a href="javascript:selectAll('all','chkUpdate')"><strong>All</strong></a> 
-			<a href="javascript:selectAll('none','chkUpdate')"><strong>None</strong></a>
-			<asp:Button ID="btnSave" Text="Save All Prices" runat="server" />
-		</div>
-        <asp:HiddenField Id="hdnSelectedCityId" runat="server" />
-	
+		</asp:repeater>
+    </div>
+    <div class="margin-top10" style="position: fixed; right: 100px;">
+        <fieldset class="floatLeft">
+            <legend><b>Select Cities to Upload Prices</b></legend>
+            <div class="margin-top10">
+                Select Versions
+                <a class="margin-left5" href="javascript:selectAll('all','chkUpdate')"><strong>All</strong></a>
+                <a class="margin-left5" href="javascript:selectAll('none','chkUpdate')"><strong>None</strong></a>
+            </div>
+            <div class="margin-top10">
+                <asp:dropdownlist id="ddlPriceStates" runat="server" />
+            </div>
+            <div class="margin-top10">
+                <input type="checkbox" id="chkAllCities" /><label for="chkAllCities" class="pointer">Select All Cities</label></div>
+            <div class="margin-top10">
+                <asp:dropdownlist id="ddlPriceCities" multiple="true" runat="server" data-bind="selectedOptions: selectedCities"></asp:dropdownlist>
+            </div>
+            <asp:hiddenfield id="hdnSelectedCities" runat="server" />            
+            <asp:button id="btnSavePrices" text="Save All Prices" runat="server" class="margin-top10" />
+            <div id="errSavePrices" class="margin-top10 errorMessage"></div>
+        </fieldset>
+    </div>
+    <div class="clear"></div>
 </div>
-  <script language="javascript">
-	document.getElementById('btnShow').onclick = checkFind;
-	document.getElementById('btnRemove').onclick = checkRemove;
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#ddlMakes").chosen({ width: "180px", no_results_text: "No matches found!!", search_contains: true });
+        $("#ddlStates").chosen({ width: "180px", no_results_text: "No matches found!!", search_contains: true });
+        $("#ddlCities").chosen({ width: "180px", no_results_text: "No matches found!!", search_contains: true });
+        $("#ddlPriceStates").chosen({ width: "180px", no_results_text: "No matches found!!", search_contains: true });
+        $("#ddlPriceCities").chosen({ placeholder_text_multiple: "Select Cities" });
 
-	$("#ddlStates").click(function () {
-        if($(this).val() > 0)
-	        $("#drpCity").prop("disabled", false); 
-	});
+        viewModel = { selectedCity: ko.observable($("#hdnSelectedCity").val()), selectedCities: ko.observableArray([]) };
+        ko.applyBindings(viewModel, document.getElementById("divManagePrices"));
+    });
 
-	$("#ddlStates").change(function () {
-	    
-	    var requestType = "7";
-	    var stateId = $(this).val();
-	    //alert(stateId);
-	    //$("#" + hdnSelectedModel_Id).val("");
-	    //$("#" + hdnSelectedVersion_Id).val("");
-	    //makeId = makeId.split('_')[0];
 
-	    $("#hdnSelectedCityId").val("0");
+    $("#ddlStates").change(function () {
+        var ddlCities = $("#ddlCities");
+        var requestType = "7";
+        selectString = "--Select City--";
+        var stateId = $(this).val();
+        if (stateId > 0) {
+            $.ajax({
+                type: "POST",
+                url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
+                data: '{"requestType":"' + requestType + '", "stateId":"' + stateId + '"}',
+                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetCities"); },
+                success: function (response) {
+                    var responseJSON = eval('(' + response + ')');
+                    var resObj = eval('(' + responseJSON.value + ')');
+                    var dependentCmbs = new Array();
+                    bindDropDownList(resObj, ddlCities, "", "--Select City--");
+                    ddlCities.trigger('chosen:updated');
+                }
+            });
+        }
+        else {
+            ddlCities.empty().attr("disabled", "disabled").append("<option value=\"0\">" + selectString + "</option>").removeAttr("enabled");
+            ddlCities.trigger('chosen:updated');
+        }
+    });
 
-	    if (stateId > 0) {
-	       $.ajax({
-	            type: "POST",
-	            url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
-	            data: '{"requestType":"' + requestType + '", "stateId":"' + stateId + '"}',
-	            beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetCities"); },
-	            success: function (response) {
-	                var responseJSON = eval('(' + response + ')');
-	                var resObj = eval('(' + responseJSON.value + ')');
-	                var dependentCmbs = new Array();
-	                bindDropDownList(resObj, $("#drpCity"), "hdn_ddlCities", dependentCmbs, "--Select City--");
-	            }
-	        });
-	    } else {
-	        $("#drpCity").val("0").attr("disabled", true);
-	    }
-	});
+    $("#ddlPriceStates").change(function () {
+        var ddlPriceCities = $("#ddlPriceCities");
+        var requestType = "7";
+        var stateId = $(this).val();
+        viewModel.selectedCities([]);
 
-	$("#drpCity").change(function () {
-	    if ($("#ddlStates").val() > 0) {
-	        $("#hdnSelectedCityId").val($(this).val());
-	    }
-	    else {
-	        $("#hdnSelectedCityId").val("0");
-	    }
-	   //alert($("#hdnSelectedCityId").val());
-	});
-	
-	qryStrMake = '<%=qryStrMake%>' ;
-	qryStrModel = '<%=qryStrModel%>' ;
-	qryStrCity = '<%=qryStrCity%>' ;
-	
-	make = document.getElementById('cmbMake');
-	model = document.getElementById('cmbModel');
-	city = document.getElementById('drpCity');
-	
-	<% if ( IsPostBack ) 
-	{ %>
-      qryStrMake = '<%=cmbMake.SelectedValue%>';
-		qryStrModel = '<%=Request.Form["cmbModel"]%>';
-		qryStrCity = '<%=drpCity.SelectedValue%>'
-	<%}%>
-	
-	for ( var i = 0; i < make.options.length; i++ )
-	{
-		if ( make.options[ i ].value == qryStrMake ) make.options[ i ].selected = true;
-	}
-	for ( var i = 0; i < model.options.length; i++ )
-	{
-	    //alert(qryStrModel + " " + model.options.length);
-		if ( model.options[ i ].value == qryStrModel ) model.options[ i ].selected = true;
-	}
-	
-	for ( var i = 0; i < city.options.length; i++ )
-	{
-		if ( city.options[ i ].value == qryStrCity ) city.options[ i ].selected = true;
-	}
-	
-	function checkFind( e )
-	{
-		if ( document.getElementById('cmbModel').options[0].selected ) 
-		{
-			document.getElementById('selectModel').innerHTML = "Select Model First"; 
-			document.getElementById('cmbModel').focus();
-			return false;
-		}
-		else document.getElementById('selectModel').innerHTML = "";
+        if (stateId > 0) {
+            $.ajax({
+                type: "POST",
+                url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
+                data: '{"requestType":"' + requestType + '", "stateId":"' + stateId + '"}',
+                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetCities"); },
+                success: function (response) {
+                    var responseJSON = eval('(' + response + ')');
+                    var resObj = eval('(' + responseJSON.value + ')');
+                    var dependentCmbs = new Array();
+                    bindDropDownList(resObj, ddlPriceCities, "", "--Select City--");
+                    ddlPriceCities.find("option[value='0']").remove();
+                    ddlPriceCities.trigger('chosen:updated');
 
-		if ($("#drpCity").val() <= 0)
-		{
-		    $("#spnCity").text("Select City");
-		    return false;
-		}
-		else
-		    $("#spnCity").text("");
+                }
+            });
+        }
+        else {
+            ddlPriceCities.empty().attr("disabled", "disabled").removeAttr("enabled");
+            ddlPriceCities.trigger('chosen:updated');
+        }
+    });
 
-		if ($("#ddlStates").val() <= 0) {
-		    $("#spnCity").text("Select state");
+    function selectAll(type, chkId) {
+        var obj = document.getElementsByTagName("input");
+
+        if (type == "all") {
+            bolVal = true;
+        }
+        else {
+            bolVal = false;
+        }
+        for (var i = 0 ; i < obj.length ; i++) {
+            if (obj[i].type == "checkbox" && obj[i].id.indexOf(chkId) != -1) {
+                obj[i].checked = bolVal;
+            }
+        }
+    }
+
+    function calculatePrices(e) {
+        var objTxtInsurance = $(e);
+
+        var versionId = objTxtInsurance.attr("versionId");
+        var itemIndex = objTxtInsurance.attr("index");
+        var price = objTxtInsurance.val();
+        viewModel.selectedCity(1);
+
+        if (price != "") {
+            calculateInsurancePremium(versionId, price, $("#rptPrices_txtInsurance_" + itemIndex));
+            calculateRegistrationCharges(versionId, price, $("#rptPrices_txtRTO_" + itemIndex));
+        }
+    }
+
+    function calculateInsurancePremium(versionId, price, objTxtIns) {
+        $.ajax({
+            type: "POST",
+            url: "/ajaxpro/BikeWaleOpr.AjaxFunctions,BikewaleOpr.ashx",
+            data: '{"bikeVersionId":"' + versionId + '", "cityId":"' + viewModel.selectedCity() + '", "price":' + price + '}',
+            beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "CalculateInsurancePremium"); },
+            success: function (response) {
+                var responseJSON = eval('(' + response + ')');
+                var resObj = eval('(' + responseJSON.value + ')');
+                objTxtIns.val(Math.round(resObj));
+            }
+        });
+    }
+
+    function calculateRegistrationCharges(versionId, price, objTxtRTO) {
+        $.ajax({
+            type: "POST",
+            url: "/ajaxpro/BikeWaleOpr.AjaxFunctions,BikewaleOpr.ashx",
+            data: '{"bikeVersionId":"' + versionId + '", "cityId":"' + viewModel.selectedCity() + '", "price":' + price + '}',
+            beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "CalculateRegistrationCharges"); },
+            success: function (response) {
+                var responseJSON = eval('(' + response + ')');
+                var resObj = eval('(' + responseJSON.value + ')');
+                objTxtRTO.val(Math.round(resObj));
+            }
+        });
+    }
+
+    $("#btnSearch").click(function () {
+        $("#hdnSelectedCity").val(viewModel.selectedCity());
+        
+        if (!validateShowPrices())
             return false;
-       }
-       else
-		    $("#spnCity").text("");
+    });
 
-		return true;
-	}
-	
-	function checkRemove( e )
-	{
-		if ( document.getElementById('cmbModel').options[0].selected ) 
-		{
-			document.getElementById('selectModel').innerHTML = "Select Model First"; 
-			document.getElementById('cmbModel').focus();
-			return false;
-		}
-		else document.getElementById('selectModel').innerHTML = ""; 
-		
-		return confirm("Do you really want to remove prices of all selected verisons for selected city?");
-			
-	}
-	
-	var txts = document.getElementsByTagName("input");
-	var ids = "";
-	
-	for ( var i = 0; i<txts.length; i++ )
-	{
-		if ( txts[i].id.indexOf("txtMumbaiPrice") > 0 )
-		{
-			txts[i].onblur = calculatePrices;
-			txts[i].onchange = enableCheckboxtxtMumbaiPrice;
-		}
-		
-		if ( txts[i].id.indexOf("txtMumbaiInsurance") > 0 )
-		{
-			txts[i].onchange = enableCheckboxtxtMumbaiInsurance;
-		}
-		
-		if ( txts[i].id.indexOf("txtMumbaiRTO") > 0 )
-		{
-			txts[i].onchange = enableCheckboxtxtMumbaiRTO;
-		}
-		
-		if ( txts[i].id.indexOf("txtMumbaiCorporateRTO") > 0 )
-		{
-			txts[i].onchange = enableCheckboxtxtMumbaiCorporateRTO;
-		}
-		
-		//---------------------------------------------------------------
-		
-		if ( txts[i].id.indexOf("txtMumbaiMetPrice") > 0 )
-		{
-			txts[i].onblur = calculateMetPrices;
-			txts[i].onchange = enableCheckboxtxtMumbaiMetPrice;
-		}
-		
-		if ( txts[i].id.indexOf("txtMumbaiMetInsurance") > 0 )
-		{
-			txts[i].onchange = enableCheckboxtxtMumbaiMetInsurance;
-		}
-		
-		if ( txts[i].id.indexOf("txtMumbaiMetRTO") > 0 )
-		{
-			txts[i].onchange = enableCheckboxtxtMumbaiMetRTO;
-		}
-		
-		if ( txts[i].id.indexOf("txtMumbaiMetCorporateRTO") > 0 )
-		{
-			txts[i].onchange = enableCheckboxtxtMumbaiMetCorporateRTO;
-		}
-	}
-	
-	function enableCheckboxtxtMumbaiPrice(e)
-	{
-		var eSrc = e ? e.target : event.eventSrc;
+    function validateShowPrices() {
+        var isValid = true;
+        var ddlMakes = $("#ddlMakes");
+        var ddlCities = $("#ddlCities");
+        showHideMatchError(ddlMakes, false);
+        showHideMatchError(ddlCities, false);
 
-		var idPart = eSrc.id.substring(0, eSrc.id.indexOf("txtMumbaiPrice"));
-		var idPartIndex = eSrc.id.split('_')[2];
-		
-		document.getElementById(idPart + "chkUpdate" + "_" + idPartIndex).checked = true;
-	}
-	
-	function enableCheckboxtxtMumbaiInsurance(e)
-	{
-		var eSrc = e ? e.target : event.eventSrc;
+        if (ddlMakes.val() <= 0) {
+            isValid = false;
+            showHideMatchError(ddlMakes, true);
+        }
 
-		var idPart = eSrc.id.substring(0, eSrc.id.indexOf("txtMumbaiInsurance"));
-		var idPartIndex = eSrc.id.split('_')[2];
-		
-		document.getElementById(idPart + "chkUpdate" + "_" + idPartIndex).checked = true;
-	}
-	
-	function enableCheckboxtxtMumbaiRTO(e)
-	{
-		var eSrc = e ? e.target : event.eventSrc;
+        if (viewModel.selectedCity() <= 0)
+        {
+            isValid = false;
+            showHideMatchError(ddlCities, true);
+        }            
 
-		var idPart = eSrc.id.substring(0, eSrc.id.indexOf("txtMumbaiRTO"));
-		var idPartIndex = eSrc.id.split('_')[2];
+        return isValid;
+    }
 
-		document.getElementById(idPart + "chkUpdate" + "_" + idPartIndex).checked = true;
-	}
-	
-	function enableCheckboxtxtMumbaiCorporateRTO(e)
-	{
-		var eSrc = e ? e.target : event.eventSrc;
+    $("#chkAllCities").click(function () {
+        viewModel.selectedCities([]);
+        $("#ddlPriceCities").trigger('chosen:updated');
+        if ($(this).is(":checked")) {
+            $("#ddlPriceCities option").each(function () { $(this).prop('selected', true); viewModel.selectedCities.push($(this).val()); });
+        }
+    });
 
-		var idPart = eSrc.id.substring(0, eSrc.id.indexOf("txtMumbaiCorporateRTO"));
-		var idPartIndex = eSrc.id.split('_')[2];
+    $("#btnSavePrices").click(function () {
+        $("#hdnSelectedCity").val(viewModel.selectedCity());
+        $("#hdnSelectedCities").val(viewModel.selectedCities());
 
-		document.getElementById(idPart + "chkUpdate" + "_" + idPartIndex).checked = true;
-	}
-	
-	//----------------------------------------------
-	function enableCheckboxtxtMumbaiMetPrice(e)
-	{
-		var eSrc = e ? e.target : event.eventSrc;
+        if (!validateUploadPrices())
+            return false;
+    });
 
-		var idPart = eSrc.id.substring(0, eSrc.id.indexOf("txtMumbaiMetPrice"));
-		var idPartIndex = eSrc.id.split('_')[2];
+    function validateUploadPrices() {
+        var isValid = true;
+        var errSaveMsg = "Plese select";
+        var errCityMsg = "";
+        var errSavePrices = $("#errSavePrices");
+        errSavePrices.text("");
 
-		document.getElementById(idPart + "chkUpdate" + "_" + idPartIndex).checked = true;
-	}
-	
-	function enableCheckboxtxtMumbaiMetInsurance(e)
-	{
-		var eSrc = e ? e.target : event.eventSrc;
+        if (viewModel.selectedCities().length <= 0) {
+            isValid = false;
+            errCityMsg = " cities ";
+            errSaveMsg += errCityMsg;
+        }
 
-		var idPart = eSrc.id.substring(0, eSrc.id.indexOf("txtMumbaiMetInsurance"));
-		var idPartIndex = eSrc.id.split('_')[2];
+        if ($("span[name='chkVersions'] :checkbox:checked").length <= 0) {
+            isValid = false;
+            if (errCityMsg != "") { errSaveMsg += " and"; }
+            errSaveMsg += " versions "
+        }
 
-		document.getElementById(idPart + "chkUpdate" + "_" + idPartIndex).checked = true;
-	}
-	
-	function enableCheckboxtxtMumbaiMetRTO(e)
-	{
-		var eSrc = e ? e.target : event.eventSrc;
+        if (!isValid) {
+            errSaveMsg += " to upload prices";
+            errSavePrices.text(errSaveMsg);
+        }
 
-		var idPart = eSrc.id.substring(0, eSrc.id.indexOf("txtMumbaiMetRTO"));
-		var idPartIndex = eSrc.id.split('_')[2];
+        return isValid;
+    }
 
-		document.getElementById(idPart + "chkUpdate" + "_" + idPartIndex).checked = true;
-	}
-	
-	function enableCheckboxtxtMumbaiMetCorporateRTO(e)
-	{
-		var eSrc = e ? e.target : event.eventSrc;
-
-		var idPart = eSrc.id.substring(0, eSrc.id.indexOf("txtMumbaiMetCorporateRTO"));
-		var idPartIndex = eSrc.id.split('_')[2];
-
-		document.getElementById(idPart + "chkUpdate" + "_" + idPartIndex).checked = true;
-	}
-	
-	function calculatePrices( e )
-	{	    
-	    var eSrc = e ? e.target : event.eventSrc;
-
-		var idPart = eSrc.id.substring(0, eSrc.id.indexOf("txtMumbaiPrice")); 
-		var idPartIndex = eSrc.id.split('_')[2];
-
-		var insId = idPart + "txtMumbaiInsurance" + "_" + idPartIndex;
-		var rtoId = idPart + "txtMumbaiRTO" + "_" + idPartIndex;
-		
-		var verId = document.getElementById(idPart + "lblVersionId" + "_" + idPartIndex).innerHTML;
-		
-		var cityId = document.getElementById( "drpCity" ).value;
-		
-		//alert( verId + " " + cityId );
-		
-		//document.getElementById(insId).value = AjaxFunctions.GetInsurancePremium( verId, cityId, eSrc.value ); 
-		
-		document.getElementById(insId).value = Math.round(AjaxFunctions.CalculateInsurancePremium( verId, cityId, eSrc.value ).value,0);
-		document.getElementById(rtoId).value = Math.round(AjaxFunctions.CalculateRegistrationCharges( verId, cityId, eSrc.value ).value,0);
-	} 
-	
-	function calculateMetPrices( e )
-	{
-		var eSrc = e ? e.target : event.eventSrc;
-
-		var idPart = eSrc.id.substring(0, eSrc.id.indexOf("txtMumbaiMetPrice")); 
-		var idPartIndex = eSrc.id.split('_')[2];
-
-		var insId = idPart + "txtMumbaiMetInsurance";
-		var rtoId = idPart + "txtMumbaiMetRTO";
-		
-		var verId = document.getElementById(idPart + "lblVersionId" + "_" + idPartIndex).innerHTML;
-		var cityId = document.getElementById( "drpCity" ).value;
-	
-		//alert( verId + " " + cityId );
-		
-		//document.getElementById(insId).value = AjaxFunctions.GetInsurancePremium( verId, cityId, eSrc.value ); 
-		
-		document.getElementById(insId).value = Math.round(AjaxFunctions.CalculateInsurancePremium( verId, cityId, eSrc.value ).value,0);
-		document.getElementById(rtoId).value = Math.round(AjaxFunctions.CalculateRegistrationCharges( verId, cityId, eSrc.value ).value,0);
-	} 
-	
-	function selectAll(type,chkId)
-	{
-		var obj = document.getElementsByTagName("input");
-		
-		if(type == "all"){
-			bolVal = true;
-		}
-		else{
-			bolVal = false;
-		}
-		for ( var i = 0 ; i < obj.length ; i++ )
-		{
-			if ( obj[i].type == "checkbox" && obj[i].id.indexOf(chkId) != -1 )
-			{
-				obj[i].checked = bolVal;
-			}
-		}
-	}
 </script>
 <!-- #Include file="/includes/footerNew.aspx" -->

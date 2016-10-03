@@ -31,7 +31,7 @@
 <%} %>
 <!--- Most Popular Bikes Ends Here-->
 
-          <% if (mostPopularByMake==true)
+          <% if (mostPopularByMake)
                            { %>
             <div class="jcarousel-wrapper inner-content-carousel padding-bottom20">
                 <div class="jcarousel">

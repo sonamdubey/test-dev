@@ -77,7 +77,7 @@
                 </div>
             </div>
         </section>
-
+         <% if(ctrlNewLaunchedBikes.FetchedRecordsCount > 0 ||ctrlUpcomingBikes.FetchedRecordsCount  >0){ %>
         <section>
             <div class="container bg-white margin-bottom10 box-shadow">
                <% if (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)
@@ -101,6 +101,7 @@
         <%} %>
             </div>
         </section>
+        <%} %>
         
         <!--
         <ul id="listingUL" class="city-listing">

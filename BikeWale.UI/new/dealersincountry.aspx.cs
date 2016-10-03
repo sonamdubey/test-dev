@@ -1,4 +1,6 @@
 ﻿using Bikewale.BAL.Location;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
@@ -7,9 +9,9 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
-using Bikewale.Memcache;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
@@ -94,28 +96,70 @@ namespace Bikewale.New
 
 
 
-
+        /// <summary>
+        /// Modified by :   Sumit Kate on 03 Oct 2016
+        /// Description :   Handle Make masking name rename 301 redirection
+        /// </summary>
+        /// <returns></returns>
         protected bool ProcessQS()
         {
             bool isSuccess = true;
-
+            MakeMaskingResponse objResponse = null;
 
             if (!string.IsNullOrEmpty(Request["make"]))
             {
                 makeMaskingName = Request["make"].ToString();
-                string _makeId = MakeMapping.GetMakeId(makeMaskingName);
-                makeId = Convert.ToUInt16(_makeId);
-                //verify the id as passed in the url
-                if (CommonOpn.CheckId(_makeId) == false)
+                try
                 {
-                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                              .RegisterType<ICacheManager, MemcacheManager>()
+                              .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                             ;
+                        var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+
+                        objResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Trace.Warn("ProcessQueryString Ex: ", ex.Message);
+                    ErrorClass objErr = new ErrorClass(ex, "");
+                    objErr.SendMail();
                     isSuccess = false;
                 }
-
-
-
+                finally
+                {
+                    if (objResponse != null)
+                    {
+                        if (objResponse.StatusCode == 200)
+                        {
+                            makeId = Convert.ToUInt16(objResponse.MakeId);
+                            isSuccess = true;
+                        }
+                        else if (objResponse.StatusCode == 301)
+                        {
+                            CommonOpn.RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName));
+                            isSuccess = false;
+                        }
+                        else
+                        {
+                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
+                            isSuccess = false;
+                        }
+                    }
+                    else
+                    {
+                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                        isSuccess = false;
+                    }
+                }
             }
             else
             {
