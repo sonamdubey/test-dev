@@ -18,7 +18,7 @@ function savePosition(position) {
         "latitude": position.coords.latitude,
         "longitude": position.coords.longitude
     }   
-    if (userAddress == "") {
+    if (userAddress.trim() == "") {
         $.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + userLocation.latitude + "," + userLocation.longitude + "&key=" + googleMapAPIKey, function (data) {
             if (data.status == "OK" && data.results.length > 0) {
                 userAddress = data.results[0].formatted_address;                
@@ -51,7 +51,7 @@ function initializeMap() {
 
     google.maps.event.addListener(originPlace, 'place_changed', function () {
 
-        var place = originPlace.getPlace();
+        var place = originPlace.getPlace().trim();
         if (!(place && place.geometry)) {
             origin_place_id = new google.maps.LatLng(userLocation.latitude, userLocation.longitude);
         }
