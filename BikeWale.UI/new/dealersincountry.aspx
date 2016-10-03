@@ -131,7 +131,7 @@
             </div>
             <div id="listing-footer"></div>
         </section>
-
+           <% if(ctrlNewLaunchedBikes.FetchedRecordsCount > 0 ||ctrlUpcomingBikes.FetchedRecordsCount  >0){ %>
         <section>
             <div class="container margin-bottom20">
                 <div class="grid-12">
@@ -162,6 +162,7 @@
                 </div>
                 <div class="clear"></div>
             </div>
+            <%} %>
         </section>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>

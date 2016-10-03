@@ -111,13 +111,13 @@ function initializeMap(arrList, latPos, longPos, zoomLevel) {
 			name: element.name,
 			position: markerPosition,   
 			icon: markerIcon,
-			labelText: element.isstate ? '<a href="javascript:void(0);" rel="nofollow" class="tooltip-marker" data-id="' + element.id + '">' + element.dealerCount + '</a>' : '<a href="' + element.link + '" class="tooltip-marker" data-id="' + element.id + '">' + element.dealerCount + '</a>',
+			labelText: element.isstate ? '<a href="javascript:void(0);" rel="nofollow" class="tooltip-marker" data-id="' + element.id + '">' + element.dealerCount + '</a>' : '<a href="' + element.link + '"  data-id="' + element.id + '">' + element.dealerCount + '</a>',
 			labelClass: 'labels label-' + element.id
 		});
 
 		markerArr.push(marker);
 		marker.setMap(map);
-        content = element.isstate ? '<a href="javascript:void(0);" rel="nofollow" class="tooltip-marker" data-id="' + element.id + '">' + element.name+ '</a>' : '<div class="dealer-location-tooltip"><a href="' + element.link + '" class="tooltip-marker font16 text-default" data-id="' + element.id + '">' + element.name + '</a></div>';
+        content = element.isstate ? '<a href="javascript:void(0);" rel="nofollow" class="tooltip-marker" data-id="' + element.id + '">' + element.name+ '</a>' : '<div class="dealer-location-tooltip"><a href="' + element.link + '" class=" font16 text-default" data-id="' + element.id + '">' + element.name + '</a></div>';
 
 		google.maps.event.addListener(marker, 'mouseover', (function (marker, content, infowindow) {
 			return function () {
