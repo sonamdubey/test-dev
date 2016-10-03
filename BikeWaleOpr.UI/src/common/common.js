@@ -10,3 +10,16 @@ function removeHyphens(str) {
     str = str.replace(/^\-+|\-+$/g, '');
     return str;
 }
+
+function showHideMatchError(element, error) {
+    if (error) {
+        element.parent().find('.error-icon').removeClass('hide');
+        element.parent().find('.bw-blackbg-tooltip').removeClass('hide');
+        element.addClass('border-red')
+    }
+    else {
+        element.parent().find('.error-icon').addClass('hide');
+        element.parent().find('.bw-blackbg-tooltip').addClass('hide');
+        element.removeClass('border-red');
+    }
+}

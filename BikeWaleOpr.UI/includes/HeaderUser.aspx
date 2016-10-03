@@ -10,9 +10,12 @@
 <body>
     <form runat="server">
 	<div>
-		<div class="header" style="height:70px;border-bottom: solid 1px rgb(200,200,200); display:block;" >
-			<div class="logo" style="float : left" >
+		<div class="header" style="border-bottom:1px solid #0288d1;">
+			<%--<div class="logo" style="float : left" >
 				<h1><span class="dark">BikeWale</span><span style="color:#E0691A">Operations</span></h1>
+			</div>--%>
+            <div class="logo floatLeft">
+				<h1><a href="/default.aspx" title="Centralized Internet Services"><span class="dark">BikeWale</span>Operations</a></h1>
 			</div>				
 			<div class="top_info_right" style="float:right;">
 						<p align="right" style="padding-right:10px;vertical-align:top; font-size: 14px;margin-top:10px" >

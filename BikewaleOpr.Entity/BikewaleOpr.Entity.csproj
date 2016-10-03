@@ -52,6 +52,7 @@
     <Compile Include="BikeColorAvailability.cs" />
     <Compile Include="BikeMakeEntityBase.cs" />
     <Compile Include="BikeModelEntityBase.cs" />
+    <Compile Include="BikePricing\BikePrice.cs" />
     <Compile Include="BikeVersionEntityBase.cs" />
     <Compile Include="BookingAmountEntity.cs" />
     <Compile Include="BookingAmountEntityBase.cs" />
