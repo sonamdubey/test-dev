@@ -96,10 +96,11 @@ namespace Bikewale.Mobile
                         dealerName = dealerDetails.Name;
                         dealerArea = dealerDetails.Area.AreaName;
                         dealerCity = dealerDetails.City;
-
-                        dealerLat = dealerDetails.Area.Latitude;
-                        dealerLong = dealerDetails.Area.Longitude;
-
+                        if (dealerDetails.Area != null)
+                        {
+                            dealerLat = dealerDetails.Area.Latitude;
+                            dealerLong = dealerDetails.Area.Longitude;
+                        }
                         ctrlDealerCard.MakeId = (uint)dealerDetails.MakeId;
                         ctrlDealerCard.makeMaskingName = dealerDetails.MakeMaskingName;
                         ctrlDealerCard.makeName = dealerDetails.MakeName;

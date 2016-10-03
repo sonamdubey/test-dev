@@ -73,8 +73,9 @@
                         <span class="vertical-top dealership-details text-light-grey">Working hours: <%= dealerDetails.WorkingHours %></span>
                     </div>
                     <%} %>
+                    <% if(dealerLat> 0 && dealerLong>0) { %>
                     <div class="border-solid-bottom margin-bottom15 padding-top10"></div>
-
+                    
                     <h2 class="font14 text-default margin-bottom15">Get commute distance and time:</h2>
                     <div class="form-control-box margin-bottom15">
                         <input id="locationSearch" type="text" class="form-control padding-right40" placeholder="Enter your location" />
@@ -86,6 +87,7 @@
                     </div>
                     <div id="commuteResults"></div>
                     <a id="anchorGetDir" href="http://maps.google.com/maps?z=12&t=m&q=loc:<%= dealerLat %>,<%= dealerLong %>" target="_blank"><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
+                    <% } %>
                 </div>
 
                 <% if (campaignId > 0 && dealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard))
