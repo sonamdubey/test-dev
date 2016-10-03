@@ -1,12 +1,16 @@
-﻿using Bikewale.Cache.Core;
+﻿using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
 using Bikewale.Controls;
+using Bikewale.CoreDAL;
+using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
-using Bikewale.Memcache;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
@@ -58,8 +62,6 @@ namespace Bikewale.New
 
             if (ProcessQueryString())
             {
-                GetMakeIdByMakeMaskingName(makeMaskingName);
-
                 if (dealerId > 0)
                 {
                     GetDealerDetails(dealerId);
@@ -135,39 +137,6 @@ namespace Bikewale.New
                 objErr.SendMail();
             }
         }
-        /// <summary>
-        /// Created By: Aditi Srivastava on 29 Sep 2016
-        /// Summary: Get make id by make masking name
-        /// </summary>
-        /// <param name="maskingName"></param>
-        private void GetMakeIdByMakeMaskingName(string maskingName)
-        {
-            try
-            {
-                if (!string.IsNullOrEmpty(maskingName))
-                {
-                    string _makeId = MakeMapping.GetMakeId(maskingName);
-                    if (string.IsNullOrEmpty(_makeId) || !int.TryParse(_makeId, out makeId))
-                    {
-                        Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                    }
-                }
-                else
-                {
-                    Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
-                }
-            }
-            catch (Exception ex)
-            {
-                Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, "GetMakeIdByMakeMaskingName");
-                objErr.SendMail();
-            }
-        }
 
 
         #region Private Method to process querystring
@@ -175,11 +144,14 @@ namespace Bikewale.New
         /// Created By : Aditi Srivastava
         /// Created On : 26th Sep 2016 
         /// Description : Private Method to validate query string based on dealer id
+        /// Modified by :   Sumit Kate on 03 Oct 2016
+        /// Description :   Handle Make masking name rename 301 redirection
         /// </summary>
         private bool ProcessQueryString()
         {
             var currentReq = HttpContext.Current.Request;
             bool isValidQueryString = false;
+            MakeMaskingResponse objResponse = null;
             try
             {
                 if (currentReq.QueryString != null && currentReq.QueryString.HasKeys())
@@ -189,8 +161,26 @@ namespace Bikewale.New
                     dealerId = Convert.ToUInt32(currentReq.QueryString["dealerid"]);
                     if (dealerId > 0 && !string.IsNullOrEmpty(makeMaskingName))
                     {
+                        if (!String.IsNullOrEmpty(makeMaskingName))
+                        {
 
-                        isValidQueryString = true;
+                            using (IUnityContainer container = new UnityContainer())
+                            {
+                                container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                                      .RegisterType<ICacheManager, MemcacheManager>()
+                                      .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                                     ;
+                                var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+
+                                objResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
+                            }
+                        }
+                        else
+                        {
+                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
+                        }
                     }
                     else
                     {
@@ -213,6 +203,36 @@ namespace Bikewale.New
                 Trace.Warn("ProcessQueryString Ex: ", ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, currentReq.ServerVariables["URL"]);
                 objErr.SendMail();
+            }
+            finally
+            {
+                if (objResponse != null)
+                {
+                    if (objResponse.StatusCode == 200)
+                    {
+                        makeId = Convert.ToInt32(objResponse.MakeId);
+                        isValidQueryString = true;
+                    }
+                    else if (objResponse.StatusCode == 301)
+                    {
+                        CommonOpn.RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName));
+                        isValidQueryString = false;
+                    }
+                    else
+                    {
+                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                        isValidQueryString = false;
+                    }
+                }
+                else
+                {
+                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                    isValidQueryString = false;
+                }
             }
             return isValidQueryString;
         }
