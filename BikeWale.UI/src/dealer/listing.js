@@ -1,6 +1,7 @@
 var markerArr = [],dealerArr = [], map, infowindow;
 var blackMarkerImage = 'http://imgd2.aeplcdn.com/0x0/bw/static/design15/map-marker-black.png';
 var redMarkerImage = 'http://imgd3.aeplcdn.com/0x0/bw/static/design15/map-marker-red.png';
+var dealerMaskingName ;
 
 $(document).ready(function () {
     var windowHeight = window.innerHeight,
@@ -12,6 +13,7 @@ $(document).ready(function () {
         'min-height': windowHeight
     });
 
+    
     mapDimension();
     $(window).on('scroll', function () {
         var windowTop = $(window).scrollTop(),
@@ -44,6 +46,15 @@ $(document).ready(function () {
     });    
 
 });
+
+var RemovespecialChar = function (name) {
+    if (name != null) {
+        name = name.Replace("[^0-9a-zA-Z]+", '-').toLowerCase();
+        name = name.replace(/\-$/, '');
+        return name;
+    }
+};
+
 
 $(window).resize(function () {
     mapDimension();
@@ -104,10 +115,11 @@ function initializeMap(dealerArr) {
 
         markerArr.push(marker);
         marker.setMap(map);
+        dealerMaskingName = RemovespecialChar(dealer.name);
         if (dealer.maskingNumber == '')
-            content = '<div class="dealer-info-tooltip"><a href="'+ dealer.id + '-'+ dealer.dealermaskingname + '/" class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div></div></a></div>';
+            content = '<div class="dealer-info-tooltip"><a href= "/' + dealer. + '-dealer-showrooms-in-' + dealer.cityMaskingName + '/' + dealer.dealerId + '-' + dealerMaskingName + '/ " class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div></div></a></div>';
         else
-            content = '<div class="dealer-info-tooltip"><a href="' + dealer.id + '-' + dealer.dealermaskingname + '/" class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div><div><span class="bwsprite phone-black-icon vertical-top margin-right5"></span><span class="vertical-top dealership-card-details">' + dealer.maskingNumber + '</span></div></div></a></div>';
+            content = '<div class="dealer-info-tooltip"><a href= "/' + dealer.makeMaskingName + '-dealer-showrooms-in-' + dealer.cityMaskingName + '/' + dealer.dealerId + '-' + dealerMaskingName + '/ "  class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div><div><span class="bwsprite phone-black-icon vertical-top margin-right5"></span><span class="vertical-top dealership-card-details">' + dealer.maskingNumber + '</span></div></div></a></div>';
         google.maps.event.addListener(marker, 'mouseover', (function (marker, content, infowindow) {
             return function () {
                 infowindow.setContent(content);

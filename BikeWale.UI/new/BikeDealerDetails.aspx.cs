@@ -1,27 +1,19 @@
-﻿using Bikewale.Cache.BikeData;
-using Bikewale.Cache.Core;
+﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
-using Bikewale.DAL.BikeData;
+using Bikewale.Controls;
 using Bikewale.DAL.Dealer;
-using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
-using Bikewale.Entities.Location;
-using Bikewale.Interfaces.BikeData;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Memcache;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Bikewale.Utility;
-using Bikewale.Controls;
-using Bikewale.Entities.PriceQuote;
 
 namespace Bikewale.New
 {
@@ -112,7 +104,7 @@ namespace Bikewale.New
                     var objCache = container.Resolve<IDealerCacheRepository>();
                     dealerDetails = objCache.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId);
 
-                    if (dealerDetails != null)
+                    if (dealerDetails != null && dealerDetails.DealerDetails != null)
                     {
                         dealerObj = dealerDetails.DealerDetails;
                         dealerName = dealerObj.Name;
