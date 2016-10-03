@@ -73,8 +73,9 @@
                         <span class="vertical-top dealership-details text-light-grey">Working hours: <%= dealerDetails.WorkingHours %></span>
                     </div>
                     <%} %>
+                    <% if(dealerLat> 0 && dealerLong>0) { %>
                     <div class="border-solid-bottom margin-bottom15 padding-top10"></div>
-
+                    
                     <h2 class="font14 text-default margin-bottom15">Get commute distance and time:</h2>
                     <div class="form-control-box margin-bottom15">
                         <input id="locationSearch" type="text" class="form-control padding-right40" placeholder="Enter your location" />
@@ -86,15 +87,16 @@
                     </div>
                     <div id="commuteResults"></div>
                     <a id="anchorGetDir" href="http://maps.google.com/maps?z=12&t=m&q=loc:<%= dealerLat %>,<%= dealerLong %>" target="_blank"><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
+                    <% } %>
                 </div>
 
-                <% if (campaignId > 0 && dealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard))
+                <% if (campaignId > 0 && dealerDetails.DealerType != (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard))
                    { %>
                 <div class="grid-12 float-button clearfix float-fixed">
                     <% if (!string.IsNullOrEmpty(maskingNumber))
                        { %>
                     <div class="grid-6 alpha omega padding-right5">
-                        <a data-leadsourceid="21" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn" href="javascript:void(0);">Get offers</a>
+                        <a data-leadsourceid="15" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn" href="javascript:void(0);">Get offers</a>
                     </div>
                     <div class="grid-6 alpha omega padding-left5">
                         <a id="calldealer" class="btn btn-green btn-full-width rightfloat" href="tel:<%= dealerDetails.MaskingNumber %>">
@@ -103,7 +105,7 @@
                     <% } else 
                       { %>
                     <div class="grid-12 alpha omega padding-right5">
-                        <a data-leadsourceid="21" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn" href="javascript:void(0);">Get offers</a>
+                        <a data-leadsourceid="15" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn" href="javascript:void(0);">Get offers</a>
                     </div>
                     <% } %>
                     <div class="clear"></div>

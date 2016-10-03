@@ -69,7 +69,7 @@ namespace Bikewale.New
                     ctrlDealerCard.makeName = makeName;
                     ctrlDealerCard.makeMaskingName = makeMaskingName;
                     ctrlDealerCard.CityId = cityId;
-                    ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Desktop_DealerLocator_Detail_GetOfferButton;
+                    ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Desktop_dealer_details_Get_offers;
                     ctrlDealerCard.LeadSourceId = 38;
                     ctrlDealerCard.TopCount = Convert.ToUInt16(cityId > 0 ? 3 : 6);
                     ctrlDealerCard.pageName = "DealerDetail_Page_Desktop";
