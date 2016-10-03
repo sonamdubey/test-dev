@@ -51,7 +51,7 @@ function initializeMap() {
 
     google.maps.event.addListener(originPlace, 'place_changed', function () {
 
-        var place = originPlace.getPlace().trim();
+        var place = originPlace.getPlace();
         if (!(place && place.geometry)) {
             origin_place_id = new google.maps.LatLng(userLocation.latitude, userLocation.longitude);
         }
@@ -60,7 +60,7 @@ function initializeMap() {
             origin_place_id = place.geometry.location
             userLocation.latitude = place.geometry.location.lat();
             userLocation.longitude = place.geometry.location.lng();
-            userAddress = place.formatted_address;
+            userAddress = place.formatted_address.trim();
         };
 
         travel_mode = google.maps.TravelMode.DRIVING;
