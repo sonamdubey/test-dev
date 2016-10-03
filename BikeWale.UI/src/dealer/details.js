@@ -12,7 +12,7 @@ function initializeMap() {
         scrollwheel: false,
         streetViewControl: false,
         mapTypeControl: false,
-        center: new google.maps.LatLng(19.0720625, 72.8550991),
+        center: new google.maps.LatLng(dealerLat, dealerLong),
         zoom: 15,
         disableDefaultUI: true,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -435,7 +435,7 @@ function route(origin_place_id, travel_mode, directionsService, directionsDispla
 
 
     _lat = dealerLat;
-    _lng = dealerLng;
+    _lng = dealerLong;
     destination_place_id = new google.maps.LatLng(_lat, _lng);
 
     if (!origin_place_id || !destination_place_id) {
