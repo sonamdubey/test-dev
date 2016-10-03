@@ -88,13 +88,13 @@
                     <a id="anchorGetDir" href="http://maps.google.com/maps?z=12&t=m&q=loc:<%= dealerLat %>,<%= dealerLong %>" target="_blank"><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
                 </div>
 
-                <% if (campaignId > 0 && dealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard))
+                <% if (campaignId > 0 && dealerDetails.DealerType != (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard))
                    { %>
                 <div class="grid-12 float-button clearfix float-fixed">
                     <% if (!string.IsNullOrEmpty(maskingNumber))
                        { %>
                     <div class="grid-6 alpha omega padding-right5">
-                        <a data-leadsourceid="21" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn" href="javascript:void(0);">Get offers</a>
+                        <a data-leadsourceid="15" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn" href="javascript:void(0);">Get offers</a>
                     </div>
                     <div class="grid-6 alpha omega padding-left5">
                         <a id="calldealer" class="btn btn-green btn-full-width rightfloat" href="tel:<%= dealerDetails.MaskingNumber %>">
@@ -103,7 +103,7 @@
                     <% } else 
                       { %>
                     <div class="grid-12 alpha omega padding-right5">
-                        <a data-leadsourceid="21" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn" href="javascript:void(0);">Get offers</a>
+                        <a data-leadsourceid="15" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn" href="javascript:void(0);">Get offers</a>
                     </div>
                     <% } %>
                     <div class="clear"></div>
