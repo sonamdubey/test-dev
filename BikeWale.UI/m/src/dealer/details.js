@@ -24,7 +24,7 @@ function savePosition(position) {
                 userAddress = data.results[0].formatted_address;                
             }
             else {
-                userAddress = "Your Location";
+                userAddress = "";
             }
             $("#locationSearch").val("").val(userAddress);
             google.maps.event.trigger(originPlace, 'place_changed');
