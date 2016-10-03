@@ -1,12 +1,15 @@
-﻿using Bikewale.Cache.Core;
+﻿using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
 using Bikewale.CoreDAL;
+using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
-using Bikewale.Memcache;
 using Bikewale.Mobile.Controls;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
@@ -149,10 +152,14 @@ namespace Bikewale.Mobile
         /// Description : Renamed dealerQuery from _dealerQuery.
         /// Modified By : Sajal Gupta on 29-09-2016
         /// Description : Changed query string parametres.
+        /// Modified by :   Sumit Kate on 03 Oct 2016
+        /// Description :   Handle Make masking name rename 301 redirection
         /// </summary>
         private bool ProcessQueryString()
         {
             var currentReq = HttpContext.Current.Request;
+            MakeMaskingResponse objResponse = null;
+            bool isSucess = true;
             try
             {
 
@@ -160,7 +167,28 @@ namespace Bikewale.Mobile
                 {
                     uint.TryParse(currentReq.QueryString["dealerId"], out dealerId);
                     makeMaskingName = currentReq.QueryString["makemaskingname"];
-                    int.TryParse(MakeMapping.GetMakeId(makeMaskingName), out makeId);
+
+                    if (!String.IsNullOrEmpty(makeMaskingName))
+                    {
+
+                        using (IUnityContainer container = new UnityContainer())
+                        {
+                            container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                                  .RegisterType<ICacheManager, MemcacheManager>()
+                                  .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                                 ;
+                            var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+
+                            objResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
+                        }
+                    }
+                    else
+                    {
+                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                        isSucess = false;
+                    }
                     return true;
                 }
                 else
@@ -168,6 +196,7 @@ namespace Bikewale.Mobile
                     Response.Redirect("/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
+                    isSucess = false;
                 }
             }
             catch (Exception ex)
@@ -175,9 +204,39 @@ namespace Bikewale.Mobile
                 Trace.Warn("ProcessQueryString Ex: ", ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, currentReq.ServerVariables["URL"]);
                 objErr.SendMail();
+                isSucess = false;
             }
-
-            return false;
+            finally
+            {
+                if (objResponse != null)
+                {
+                    if (objResponse.StatusCode == 200)
+                    {
+                        makeId = Convert.ToInt32(objResponse.MakeId);
+                        isSucess = true;
+                    }
+                    else if (objResponse.StatusCode == 301)
+                    {
+                        CommonOpn.RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName));
+                        isSucess = false;
+                    }
+                    else
+                    {
+                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                        isSucess = false;
+                    }
+                }
+                else
+                {
+                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                    isSucess = false;
+                }
+            }
+            return isSucess;
         }
         #endregion
     }
