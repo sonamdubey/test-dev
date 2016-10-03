@@ -51,7 +51,7 @@ function initializeMap() {
 
     google.maps.event.addListener(originPlace, 'place_changed', function () {
 
-        var place = originPlace.getPlace().trim();
+        var place = originPlace.getPlace();
         if (!(place && place.geometry)) {
             origin_place_id = new google.maps.LatLng(userLocation.latitude, userLocation.longitude);
         }
@@ -67,8 +67,12 @@ function initializeMap() {
 
         var directionsService = new google.maps.DirectionsService;
 
-        route(origin_place_id, travel_mode, directionsService);
-        $('.location-details').show();
+        if (originPlace != null && originPlace.getPlace() != null && originPlace.getPlace().name != null && originPlace.getPlace().name.trim() != "") {
+            route(origin_place_id, travel_mode, directionsService);
+            $('.location-details').show();
+        }
+
+       
     });        
 }
 
