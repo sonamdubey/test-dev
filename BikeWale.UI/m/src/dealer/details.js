@@ -51,7 +51,7 @@ function initializeMap() {
 
     google.maps.event.addListener(originPlace, 'place_changed', function () {
 
-        var place = originPlace.getPlace();
+        var place = originPlace.getPlace().trim();
         if (!(place && place.geometry)) {
             origin_place_id = new google.maps.LatLng(userLocation.latitude, userLocation.longitude);
         }
