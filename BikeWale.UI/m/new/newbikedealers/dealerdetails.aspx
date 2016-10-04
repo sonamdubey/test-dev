@@ -116,7 +116,8 @@
             <% } %>
         </section>
 
-        <%if (dealerBikesCount > 0 && campaignId > 0 && dealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard))
+        <%if (dealerBikesCount > 0 && campaignId > 0 && (dealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || dealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)))
+              
           { %>
         <section class="container bg-white margin-bottom10">
             <div class="box-shadow padding-top15 padding-right20 padding-bottom5 padding-left20">

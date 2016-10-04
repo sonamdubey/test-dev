@@ -123,7 +123,7 @@ h2.section-header {
     overflow: hidden
 }
 .brandlogosprite {
-    background: url('http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?v=19May2016') no-repeat;
+    background: url('http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?v=04Oct2016') no-repeat;
     display: inline-block;
 }
 .brand-2,
@@ -157,7 +157,8 @@ h2.section-header {
 .brand-16,
 .brand-13,
 .brand-14,
-.brand-81 {
+.brand-81,
+.brand-71 {
     height: 50px;
 }
 .brand-2 {
@@ -263,6 +264,10 @@ h2.section-header {
 .brand-81 {
     width: 71px;
     background-position: -2535px 0;
+}
+.brand-71 {
+    width: 39px;
+    background-position: -2616px 0;
 }
 @media only screen and (max-width: 1024px) {
     .brand-type-container li,
