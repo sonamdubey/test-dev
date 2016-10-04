@@ -8,7 +8,6 @@ using Google.Protobuf.Collections;
 using log4net;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 
 namespace Bikewale.BAL.GrpcFiles
 {
@@ -105,15 +104,17 @@ namespace Bikewale.BAL.GrpcFiles
 
         public static DateTime ParseDateObject(string strDateValue)
         {
-            DateTime outValue;
+            return Convert.ToDateTime(strDateValue);
+            //DateTime outValue;
 
-            if (DateTime.TryParse(strDateValue, new CultureInfo("en-IN"), DateTimeStyles.AssumeLocal, out outValue))
-                return outValue;
-            else
-            {
-                DateTime.TryParse(Convert.ToString(strDateValue), out outValue);
-                return outValue;
-            }
+            //if
+            //    (DateTime.TryParse(Convert.ToString(strDateValue), out outValue))
+            //    return outValue;
+            //else
+            //{
+            //    DateTime.TryParse(strDateValue, new CultureInfo("en-IN"), DateTimeStyles.AssumeLocal, out outValue);
+            //    return outValue;
+            //}
         }
 
 
