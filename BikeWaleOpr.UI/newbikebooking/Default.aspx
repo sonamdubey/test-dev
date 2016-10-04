@@ -154,29 +154,29 @@
                 </AlternatingItemTemplate>
                 <ItemTemplate>
                     <tr id='<%#DataBinder.Eval(Container.DataItem, "VersionId")%>'>
-                        <%--<td>
+                        <%--<td>i
                             <asp:Label style="display:none;" id="lblVersionId" Text='<%# DataBinder.Eval( Container.DataItem, "VersionId" ) %>' runat="server"></asp:Label>
                             <input type="checkbox" versionid='<%#Eval("VersionId") %>' class="checkbox" runat="server" id="chkUpdate" />
                         </td>--%>
                         <td style="text-align: center;">
-                            <asp:Label style="display:none;" id="Label1" Text='<%# DataBinder.Eval( Container.DataItem, "VersionId" ) %>' runat="server"></asp:Label>
-                            <input type="checkbox" versionid='<%#Eval("VersionId") %>'  id="Checkbox1" class="checkboxAll" runat="server" />
+                            <asp:Label style="display:none;" id="lblVersionId" Text='<%# DataBinder.Eval( Container.DataItem, "VersionId" ) %>' runat="server"></asp:Label>
+                            <input type="checkbox" versionid='<%#Eval("VersionId") %>'  id="chkUpdate" class="checkboxAll" runat="server" />
                         </td>
                         <td><%# Eval("Make") %></td>
                         <td><%# Eval("Model") %></td>
                         <td><%# Eval("VersionName") %></td>
-                        <asp:Repeater ID="Repeater1" DataSource="<%# GetPQCommonAttrs() %>"  runat="server" >
+                        <asp:Repeater ID="rptValues" DataSource="<%# GetPQCommonAttrs() %>"  runat="server" >
                             <ItemTemplate>
                                 <td style="width:90px;text-align:center">
-                                    <asp:Label style="display:none;" id="Label2" Text='<%# DataBinder.Eval( Container.DataItem, "ItemCategoryId" ) %>' runat="server"></asp:Label>
+                                    <asp:Label style="display:none;" id="lblCategoryId" Text='<%# DataBinder.Eval( Container.DataItem, "ItemCategoryId" ) %>' runat="server"></asp:Label>
                                     <span class="spnPrices"><%# GetItemValue(DataBinder.Eval(((RepeaterItem)Container.Parent.Parent).DataItem,"VersionId").ToString(), Eval("ItemCategoryId").ToString()) %></span>
-                                    <asp:Textbox ID="Textbox1" class="hide" style="width:60px;" MaxLength="9" Text='<%# GetItemValue(DataBinder.Eval(((RepeaterItem)Container.Parent.Parent).DataItem,"VersionId").ToString(), Eval("ItemCategoryId").ToString()) %>' runat="server" categoryid='<%# DataBinder.Eval( Container.DataItem, "ItemCategoryId" ) %>' ></asp:Textbox>
+                                    <asp:Textbox ID="txtValue" class="hide" style="width:60px;" MaxLength="9" Text='<%# GetItemValue(DataBinder.Eval(((RepeaterItem)Container.Parent.Parent).DataItem,"VersionId").ToString(), Eval("ItemCategoryId").ToString()) %>' runat="server" categoryid='<%# DataBinder.Eval( Container.DataItem, "ItemCategoryId" ) %>' ></asp:Textbox>
                                 </td>
                             </ItemTemplate>
                         </asp:Repeater>
                         <td>
                             <span class="spnDays"><%# String.IsNullOrEmpty(Eval("NumOfDays").ToString())?"NA":Eval("NumOfDays") %></span>
-                            <asp:Textbox class="metAvailableWhite hide"  id="Textbox2" runat="server" style="width:60px;" Text='<%# String.IsNullOrEmpty(Eval("NumOfDays").ToString())?"NA":Eval("NumOfDays") %>'></asp:Textbox>
+                            <asp:Textbox class="metAvailableWhite hide"  id="lblAvailableDays" runat="server" style="width:60px;" Text='<%# String.IsNullOrEmpty(Eval("NumOfDays").ToString())?"NA":Eval("NumOfDays") %>'></asp:Textbox>
                         </td>
                         <td>
                             <a class="availabilityByColor text-blue" NoOfDays="<%# String.IsNullOrEmpty(Eval("NumOfDays").ToString())?"NA":Eval("NumOfDays") %>" href="Javascript:void(0)" >View Colors</a> 
