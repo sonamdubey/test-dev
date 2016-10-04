@@ -9,6 +9,9 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
+using log4net;
+using Grpc.CMS;
+using Bikewale.BAL.GrpcFiles;
 
 namespace Bikewale.BindViewModels.Controls
 {
@@ -34,6 +37,12 @@ namespace Bikewale.BindViewModels.Controls
 
         string _cwHostUrl = string.Empty;
         string _requestType = string.Empty;
+
+        static bool _logGrpcErrors = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.LogGrpcErrors);
+        static readonly ILog _logger = LogManager.GetLogger(typeof(BindModelGallery));
+        static bool _useGrpc = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.UseGrpc);
+
+
         public BindModelGallery()
         {
             _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
@@ -142,6 +151,50 @@ namespace Bikewale.BindViewModels.Controls
         /// <returns></returns>
         private List<BikeVideoEntity> GetVideos()
         {
+            return GetVideosByModelIdViaGrpc();
+        }
+
+        /// <summary>
+        /// Author: Prasad Gawde
+        /// </summary>
+        /// <returns></returns>
+        private List<BikeVideoEntity> GetVideosByModelIdViaGrpc()
+        {
+            List<BikeVideoEntity> videoDTOList = null;
+            try
+            {
+                if (_useGrpc)
+                {
+                    int startIndex, endIndex;
+                    Bikewale.Utility.Paging.GetStartEndIndex(1000, 1, out startIndex, out endIndex); 
+
+                    var _objVideoList = GrpcMethods.GetVideosByModelId(ModelId,(uint)startIndex,(uint)endIndex);
+
+                    if (_objVideoList != null && _objVideoList.LstGrpcVideos.Count>0)
+                    {
+                        videoDTOList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objVideoList.LstGrpcVideos);
+                    }
+                    else
+                    {
+                        videoDTOList = GetVideosByModelIdOldWay();
+                    }
+                }
+                else
+                {
+                    videoDTOList = GetVideosByModelIdOldWay();
+                }
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+                videoDTOList = GetVideosByModelIdOldWay();
+            }
+
+            return videoDTOList;
+        }
+
+        private List<BikeVideoEntity> GetVideosByModelIdOldWay()
+        {
             string _apiUrl = string.Empty;
             List<BikeVideoEntity> objVideosList = null;
             try
@@ -160,5 +213,6 @@ namespace Bikewale.BindViewModels.Controls
             }
             return objVideosList;
         }
+
     }
 }

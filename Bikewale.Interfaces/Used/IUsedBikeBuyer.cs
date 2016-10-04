@@ -11,5 +11,6 @@ namespace Bikewale.Interfaces.Used
     {
         bool UploadPhotosRequest(PhotoRequest request);
         BikeInterestDetails ShowInterestInBike(CustomerEntityBase buyer, string profileId, bool isDealer);
+        PurchaseInquiryResultEntity SubmitPurchaseInquiry(CustomerEntityBase buyer, string profileId, string pageUrl, ushort sourceId);
     }
 }

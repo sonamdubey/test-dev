@@ -1,13 +1,15 @@
 ﻿using Bikewale.BAL.Location;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
-using Bikewale.Memcache;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
@@ -95,6 +97,8 @@ namespace Bikewale.Mobile.New
 
         /// <summary>
         /// Process query string and fetch make id
+        /// Modified by :   Sumit Kate on 20 Sep 2016
+        /// Description :   Check make masking name is valid and get make id from maskingname
         /// </summary>
         /// <returns></returns>
         protected bool ProcessQS()
@@ -103,7 +107,55 @@ namespace Bikewale.Mobile.New
             if (!string.IsNullOrEmpty(Request["make"]))
             {
                 makeMaskingName = Request["make"].ToString();
-                strMakeId = MakeMapping.GetMakeId(Request.QueryString["make"].ToLower());
+                MakeMaskingResponse objMakeResponse = null;
+                try
+                {
+                    using (IUnityContainer containerInner = new UnityContainer())
+                    {
+                        containerInner.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                              .RegisterType<ICacheManager, MemcacheManager>()
+                              .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                             ;
+                        var objCache = containerInner.Resolve<IBikeMakesCacheRepository<int>>();
+
+                        objMakeResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
+                    objErr.SendMail();
+                    Response.Redirect("pageNotFound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
+                finally
+                {
+                    if (objMakeResponse != null)
+                    {
+                        if (objMakeResponse.StatusCode == 200)
+                        {
+                            strMakeId = Convert.ToString(objMakeResponse.MakeId);
+                        }
+                        else if (objMakeResponse.StatusCode == 301)
+                        {
+                            CommonOpn.RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objMakeResponse.MaskingName));
+                        }
+                        else
+                        {
+                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
+                        }
+                    }
+                    else
+                    {
+                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
+                }
+
                 makeId = Convert.ToUInt16(strMakeId);
                 if (CommonOpn.CheckId(strMakeId) == false)
                 {
@@ -148,7 +200,7 @@ namespace Bikewale.Mobile.New
                             var _city = _cities.FirstOrDefault(x => x.CityId == cityId);
                             if (_city != null)
                             {
-                                string _redirectUrl = String.Format("/m/{0}-bikes/dealers-in-{1}/", makeMaskingName, _city.CityMaskingName);
+                                string _redirectUrl = String.Format("/m/{0}-dealer-showrooms-in-{1}/", makeMaskingName, _city.CityMaskingName);
                                 Response.Redirect(_redirectUrl, false);
                                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                                 this.Page.Visible = false;

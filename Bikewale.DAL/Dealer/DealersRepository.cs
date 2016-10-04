@@ -625,7 +625,114 @@ namespace Bikewale.DAL.Dealer
             return dealers;
         }
 
+        /// <summary>
+        /// Created By : Sajal Gupta on 26/09/2016
+        /// Description: DAL method to get dealer's bikes and details on the basis of dealerId and makeId.
+        /// </summary>
+        public DealerBikesEntity GetDealerDetailsAndBikesByDealerAndMake(uint dealerId, int makeId)
+        {
+            DealerBikesEntity dealers = new DealerBikesEntity();
 
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerdetails"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            if (dr.Read())
+                            {
+                                dealers.DealerDetails = new DealerDetailEntity();
+                                dealers.DealerDetails.Name = Convert.ToString(dr["DealerName"]);
+                                dealers.DealerDetails.Address = Convert.ToString(dr["Address"]);
+                                dealers.DealerDetails.MakeName = Convert.ToString(dr["makename"]);
+                                dealers.DealerDetails.MakeMaskingName = Convert.ToString(dr["makemaskingname"]);
+                                dealers.DealerDetails.MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]);
+                                dealers.DealerDetails.Area = new AreaEntityBase
+                                {
+                                    AreaName = Convert.ToString(dr["Area"]),
+                                    Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]),
+                                    Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"])
+
+                                };
+                                dealers.DealerDetails.CityMaskingName = Convert.ToString(dr["citymaskingname"]);
+                                dealers.DealerDetails.City = Convert.ToString(dr["City"]);
+                                dealers.DealerDetails.DealerType = SqlReaderConvertor.ParseToInt16(dr["DealerType"]);
+                                dealers.DealerDetails.EMail = Convert.ToString(dr["EMail"]);
+                                dealers.DealerDetails.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
+                                dealers.DealerDetails.DealerId = Convert.ToUInt16(dealerId);
+                                dealers.DealerDetails.WorkingHours = Convert.ToString(dr["WorkingHours"]);
+                                dealers.DealerDetails.CampaignId = SqlReaderConvertor.ToUInt32(dr["id"]);
+                                dealers.DealerDetails.CityId = Convert.ToInt32(dr["cityid"]);
+                            }
+                            if (dr.NextResult())
+                            {
+                                IList<MostPopularBikesBase> models = new List<MostPopularBikesBase>();
+                                MostPopularBikesBase bikes = new MostPopularBikesBase();
+                                BikeMakeEntityBase objMake;
+                                BikeModelEntityBase objModel;
+                                BikeVersionsListEntity objVersion;
+                                MinSpecsEntity specs;
+                                while (dr.Read())
+                                {
+                                    bikes = new MostPopularBikesBase();
+                                    bikes.BikeName = Convert.ToString(dr["Bike"]);
+                                    bikes.HostURL = Convert.ToString(dr["HostURL"]);
+                                    bikes.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                                    bikes.VersionPrice = SqlReaderConvertor.ToInt64(dr["OnRoadPrice"]);
+
+                                    objMake = new BikeMakeEntityBase();
+                                    objModel = new BikeModelEntityBase();
+                                    objVersion = new BikeVersionsListEntity();
+                                    specs = new MinSpecsEntity();
+
+                                    objMake.MakeId = !Convert.IsDBNull(dr["MakeId"]) ? Convert.ToUInt16(dr["MakeId"]) : default(int);
+                                    objMake.MakeName = Convert.ToString(dr["Make"]);
+                                    objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
+
+                                    objModel.ModelId = !Convert.IsDBNull(dr["ModelId"]) ? Convert.ToUInt16(dr["ModelId"]) : default(int);
+                                    objModel.ModelName = Convert.ToString(dr["Model"]);
+                                    objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
+
+                                    objVersion.VersionId = !Convert.IsDBNull(dr["VersionId"]) ? Convert.ToUInt16(dr["VersionId"]) : default(int);
+                                    objVersion.VersionName = Convert.ToString(dr["Version"]);
+
+                                    specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
+                                    specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
+                                    specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
+                                    specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaxPowerRPM"]);
+                                    specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
+
+                                    bikes.objMake = objMake;
+                                    bikes.objModel = objModel;
+                                    bikes.objVersion = objVersion;
+                                    bikes.Specs = specs;
+                                    bikes.MakeId = !Convert.IsDBNull(dr["MakeId"]) ? Convert.ToUInt16(dr["MakeId"]) : default(int);
+                                    bikes.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                    bikes.MakeName = Convert.ToString(dr["make"]);
+
+                                    models.Add(bikes);
+                                }
+                                dealers.Models = models;
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "DealersRepository.GetDealerDetailsAndBikes");
+                objErr.SendMail();
+            }
+            return dealers;
+        }
         /// <summary>
         /// Created by  :   Sumit Kate on 22 Mar 2016
         /// Description :   FetchDealerCitiesByMake. It Includes BW Dealer Cities and AB Dealer Cities

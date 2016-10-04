@@ -71,7 +71,12 @@ namespace Bikewale.Utility
             _useGrpc = string.Empty,
             _bikeWaleLogo = string.Empty,
             _CWSAPiHostUrl = string.Empty,
-            _WebsiteDomain = string.Empty;        
+            _WebsiteDomain = string.Empty,
+            _grpcChannelWaitTime=string.Empty,     
+            _grpcArticleServerList=string.Empty,
+            _grpcRetryCount = string.Empty,
+            _logGrpcErrors=string.Empty;            
+           
 
 
         // Private constructor, so no outsiders have access.
@@ -129,7 +134,11 @@ namespace Bikewale.Utility
             _useGrpc = ConfigurationManager.AppSettings["UseGrpc"];
             _bikeWaleLogo = "http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-logo.png";
             _CWSAPiHostUrl = ConfigurationManager.AppSettings["CwWebServiceHostUrl"];
-            _WebsiteDomain = ConfigurationManager.AppSettings["WebsiteDomain"];            
+            _WebsiteDomain = ConfigurationManager.AppSettings["WebsiteDomain"];
+            _grpcChannelWaitTime = ConfigurationManager.AppSettings["GrpcChannelWaitTime"];
+            _grpcArticleServerList = ConfigurationManager.AppSettings["GrpcArticleServerList"];
+            _grpcRetryCount = ConfigurationManager.AppSettings["GrpcRetryCount"];
+            _logGrpcErrors = ConfigurationManager.AppSettings["LogGrpcErrors"];
         }
 
         // Static method to provide access to instance
@@ -235,6 +244,12 @@ namespace Bikewale.Utility
         public int ApiMaxWaitTime { get { return string.IsNullOrEmpty(_apiMaxWaitTime) ? 0 : Convert.ToInt32(_apiMaxWaitTime); } }
         public string UseGrpc { get { return _useGrpc; } }
         public string CWSApiHostUrl { get { return _CWSAPiHostUrl; } }
-        public string WebsiteDomain { get { return _WebsiteDomain; } }        
+        public string WebsiteDomain { get { return _WebsiteDomain; } }
+        public string GrpcChannelWaitTime { get { return _grpcChannelWaitTime; } }
+        public string GrpcArticleServerList { get { return _grpcArticleServerList; } }
+        public string GrpcRetryCount { get { return _grpcRetryCount; } }
+        public string LogGrpcErrors { get { return _logGrpcErrors; } }
+        
+        
     }   // class
 }   // namespace

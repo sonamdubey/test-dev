@@ -116,6 +116,7 @@
     <Compile Include="BikeData\EnumUpcomingBikesFilter.cs" />
     <Compile Include="BikeData\FeaturedBikeEntity.cs" />
     <Compile Include="BikeData\Features.cs" />
+    <Compile Include="BikeData\MakeMaskingResponse.cs" />
     <Compile Include="BikeData\MinSpecs.cs" />
     <Compile Include="BikeData\ModelMaskingResponse.cs" />
     <Compile Include="BikeData\MostPopularBikesBase.cs" />
@@ -172,6 +173,8 @@
     <Compile Include="DealerBenefitEntity.cs" />
     <Compile Include="DealerLocator\DealerBikesEntity.cs" />
     <Compile Include="DealerLocator\DealerDetailEntity.cs" />
+    <Compile Include="DealerLocator\DealerListIndia.cs" />
+    <Compile Include="DealerLocator\DealerLocatorList.cs" />
     <Compile Include="DealerLocator\Dealers.cs" />
     <Compile Include="DealerLocator\DealersList.cs" />
     <Compile Include="Dealer\CityWiseDealersCountEntity.cs" />
@@ -268,6 +271,9 @@
     <Compile Include="Used\PhotoRequest.cs" />
     <Compile Include="Used\PopularUsedBikesEntity.cs" />
     <Compile Include="Used\ProcessedInputFilters.cs" />
+    <Compile Include="Used\PurchaseInquiryResultEntity.cs" />
+    <Compile Include="Used\PurchaseInquiryStatusCode.cs" />
+    <Compile Include="Used\PurchaseInquiryStatusEntity.cs" />
     <Compile Include="Used\UsedBikeSellerBase.cs" />
     <Compile Include="Used\SearchResult.cs" />
     <Compile Include="Used\UsedBikeBase.cs" />

@@ -12,6 +12,7 @@ $(document).ready(function () {
         'min-height': windowHeight
     });
 
+    
     mapDimension();
     $(window).on('scroll', function () {
         var windowTop = $(window).scrollTop(),
@@ -104,11 +105,10 @@ function initializeMap(dealerArr) {
 
         markerArr.push(marker);
         marker.setMap(map);
-
         if (dealer.maskingNumber == '')
-            content = '<div class="dealer-info-tooltip"><a href="" class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div></div></a></div>';
+            content = '<div class="dealer-info-tooltip"><a href="' + dealer.id + '-' + dealer.dealermaskingname + '/" class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div></div></a></div>';
         else
-            content = '<div class="dealer-info-tooltip"><a href="" class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div><div><span class="bwsprite phone-black-icon vertical-top margin-right5"></span><span class="vertical-top dealership-card-details">' + dealer.maskingNumber + '</span></div></div></a></div>';
+            content = '<div class="dealer-info-tooltip"><a href="' + dealer.id + '-' + dealer.dealermaskingname + '/" class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div><div><span class="bwsprite phone-black-icon vertical-top margin-right5"></span><span class="vertical-top dealership-card-details">' + dealer.maskingNumber + '</span></div></div></a></div>';
         google.maps.event.addListener(marker, 'mouseover', (function (marker, content, infowindow) {
             return function () {
                 infowindow.setContent(content);
@@ -153,6 +153,7 @@ function mapDealersArray() {
         _dealer.address = _self.attr("data-address");
         _dealer.name = _self.find(".dealer-name").text();
         _dealer.maskingNumber = _self.attr("data-item-number");
+        _dealer.dealermaskingname = _self.attr("data-item-url");
         dealerArr.push(_dealer);
     });
 }

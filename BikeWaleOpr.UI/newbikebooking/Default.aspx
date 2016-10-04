@@ -9,19 +9,19 @@
         background-color: #fff;
     }
 </style>
-<div>
-    You are here &raquo; New Bike Booking
-</div>
     <div>
+        
     <!-- #Include file="/content/DealerMenu.aspx" -->
     </div>
-    <div style="border: 1px solid black; margin-left: 200px;" class="padding10">
+    <div class="left">
+        <h1>Manage New Bike Dealers</h1>
+    <div>
         <table width="100%" border="0" cellpadding="2" cellspacing="0">
             <tr id="city">
                 Dealer's City : <font color="red">* &nbsp</font>
                 <asp:dropdownlist id="drpCity" enabled="True" cssclass="drpClass" runat="server">
 					<asp:ListItem Text="--Select City--" Value="-1"/>
-					</asp:dropdownlist>
+				</asp:dropdownlist>
                 <span style="font-weight: bold; color: red;" id="spndrpCity" class="error" />&nbsp&nbsp
             </tr>
             <tr>
@@ -29,8 +29,7 @@
                 <asp:dropdownlist id="drpDealer" enabled="True" cssclass="drpClass" runat="server">
 				<asp:ListItem Text="--Select Dealer--" Value="-1" />
 				</asp:dropdownlist>
-            </tr>
-            <br></br>
+            </tr>            
             <tr>
                 <td>
                     <input type="button" value="Manage Offers" id="btnManageoffer" />&nbsp;&nbsp;
@@ -44,8 +43,7 @@
                 </td>
             </tr>
         </table>
-    </div>
-    <br />
+    </div>    
     <div id="selectCityPriceHead" runat="server" class="hide">
         <hr />
         <table width="100%" border="0" cellpadding="2" cellspacing="0">
@@ -65,7 +63,7 @@
                             <asp:listbox id="drpPriceHead" runat="server" selectionmode="Multiple" style="height: 134px; vertical-align: text-top;">
                                 <asp:ListItem Value="0" Text="--Select--" />
                             </asp:listbox>
-                            <asp:button id="btnAddCat" text="Add Cateogry to Price Sheet" runat="server"></asp:button>
+                            <asp:button id="btnAddCat" text="Add Cateogry to Price Sheet" runat="server"></asp:button>                            
                         </div>                        
                     </fieldset>
                 </td>
@@ -156,7 +154,7 @@
                 </AlternatingItemTemplate>
                 <ItemTemplate>
                     <tr id='<%#DataBinder.Eval(Container.DataItem, "VersionId")%>'>
-                        <%--<td>
+                        <%--<td>i
                             <asp:Label style="display:none;" id="lblVersionId" Text='<%# DataBinder.Eval( Container.DataItem, "VersionId" ) %>' runat="server"></asp:Label>
                             <input type="checkbox" versionid='<%#Eval("VersionId") %>' class="checkbox" runat="server" id="chkUpdate" />
                         </td>--%>
@@ -215,6 +213,8 @@
     <input type="hidden" id="hdnCities" runat="server">
     <input type="hidden" id="hdnDealerList" runat="server" />
     <input type="hidden" id="hdnDealerCity" runat="server" />
+    </div>
+    
 
 
 <script type="text/javascript">

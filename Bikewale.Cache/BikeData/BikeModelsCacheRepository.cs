@@ -178,14 +178,36 @@ namespace Bikewale.Cache.BikeData
         /// <param name="endIndex"></param>
         /// <param name="recordCount"></param>
         /// <returns></returns>
-        public NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex)
+        public NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex,int? makeid=null)
         {
             NewLaunchedBikesBase objBikes = null;
             string key = String.Format("BW_NewLaunchedBikes_SI_{0}_EI_{1}", startIndex, endIndex);
+            if(makeid.HasValue && makeid>0)
+                key = key + String.Format("_MKID_{0}", makeid);
 
             try
             {
-                objBikes = _cache.GetFromCache<NewLaunchedBikesBase>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetNewLaunchedBikesList(startIndex, endIndex));
+                if (makeid.HasValue && makeid > 0)
+                    objBikes = _cache.GetFromCache<NewLaunchedBikesBase>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetNewLaunchedBikesListByMake(startIndex, endIndex,makeid));
+                else
+                objBikes = _cache.GetFromCache<NewLaunchedBikesBase>(key, new TimeSpan(1, 0, 0), () =>  _modelRepository.GetNewLaunchedBikesList(startIndex, endIndex));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
+                objErr.SendMail();
+            }
+
+            return objBikes;
+        }
+        public NewLaunchedBikesBase GetNewLaunchedBikesListByMake(int startIndex, int endIndex, int? makeid = null)
+        {
+            NewLaunchedBikesBase objBikes = null;
+            string key = String.Format("BW_NewLaunchedBikes_SI_{0}_EI_{1}_MKID_{2}", startIndex, endIndex,makeid);
+
+            try
+            {
+                objBikes = _cache.GetFromCache<NewLaunchedBikesBase>(key, new TimeSpan(1, 0, 0), () =>  _modelRepository.GetNewLaunchedBikesListByMake(startIndex, endIndex,makeid));
             }
             catch (Exception ex)
             {

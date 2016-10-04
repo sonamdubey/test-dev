@@ -3,32 +3,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
+<link rel="stylesheet" href="/css/common.css?03102016" type="text/css" />
+<link rel="stylesheet" href="/css/chosen.min.css?03102016" />
 <script src="/src/jquery-1.6.min.js" type="text/javascript"></script>
-<script src="/src/AjaxFunctions.js" type="text/javascript"></script>
-    <script src="/src/knockout.js" type="text/javascript"></script>
+<script src="/src/AjaxFunctions.js?03102016" type="text/javascript"></script>
+<script src="/src/knockout.js?03102016" type="text/javascript"></script>
+<script type="text/javascript" src="/src/common/common.js?03102016"></script>
+<script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/common/chosen.jquery.min.js?v15416"></script>
 <title>BikeWale Operations</title>
+<style type="text/css">
+    .chosen-container {padding: 8px;}
+</style>
 </head>
 <body>
     <form runat="server">
 	<div class="content">
-		<div class="header">
-			<div class="top_info_right">
-				<p align="right" style="padding-right:10px;vertical-align:top" >						
-					<a href="/common/logout.aspx?logout=logout">Logout</a>
-				</p>
-			</div>				
-			<div class="logo">
+		<div class="header">				
+			<div class="logo floatLeft">
 				<h1><a href="/default.aspx" title="Centralized Internet Services"><span class="dark">BikeWale</span>Operations</a></h1>
 			</div>					
-			<div class="top_info_left">
-				&nbsp;&nbsp;&nbsp;Welcome <%= CurrentUser.UserName %><br />
-			</div>				
-			<div class="top_info_right">
-						<p align="right" style="padding-right:10px;vertical-align:top" >
-						<b><%=DateTime.Today.ToString("dd MMMM yyyy")%></b> - <%=DateTime.Today.ToString("dddd")%>
-						</p>
-			</div>
+			
+            <div class="floatRight">
+                <span class="font13 text-bold margin-right20 verical-middle">
+				    Welcome <%= CurrentUser.UserName %>
+                </span>
+                <a href="/common/logout.aspx?logout=logout" class="btn btn-default verical-middle">Logout</a>
+            </div>
+            <div class="clear"></div>
+            <div class=""></div>			
 		</div>
 			
 		<div class="bar" style="width:100%;">

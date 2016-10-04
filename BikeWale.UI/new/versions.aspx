@@ -141,7 +141,7 @@
                                             </asp:Repeater>
                                             <%if(modelPageEntity!=null && modelPageEntity.Photos!=null && modelPageEntity.Photos.Count>4){ %>
                                             <li class="all-photos-target">
-                                                <a href="photos/" title="<%= bikeName %> Photos">All Photos</a>
+                                                <a href="/<%= modelPageEntity.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPageEntity.ModelDetails.MaskingName %>/photos/" title="<%= bikeName %> Photos">All Photos</a>
                                             </li>
                                             <%} %>
                                         </ul>
@@ -429,12 +429,12 @@
                             </div>
                             <% if(isBookingAvailable && bookingAmt > 0){ %>
                             <div class="font14 text-light-grey content-inner-block-20">
-                                <p>The booking amount of <span class="bwsprite inr-sm-grey"></span><%=bookingAmt %> has to be paid online and balance amount of <span class="bwsprite inr-sm-grey"></span><%= price-bookingAmt  %> has to be paid at the dealership. <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>">Book now</a></p>
+                                <p>The booking amount of <span class="bwsprite inr-sm-grey"></span><%= Bikewale.Utility.Format.FormatPrice(bookingAmt.ToString()) %> has to be paid online and balance amount of <span class="bwsprite inr-sm-grey"></span><%= Bikewale.Utility.Format.FormatPrice((price-bookingAmt).ToString())  %> has to be paid at the dealership. <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>">Book now</a></p>
                             </div>
                             <% } %>
                         </div>
                         <% } %>
-                        <% if (viewModel != null && viewModel.SecondaryDealerCount > 0)
+                        <% if (viewModel != null && viewModel.IsPremiumDealer == true && viewModel.SecondaryDealerCount > 0)
                            { %>
                         <ul id="moreDealersList">
                             <asp:Repeater ID="rptSecondaryDealers" runat="server">
@@ -449,7 +449,7 @@
                             </asp:Repeater>
                             <% } %>
                         </ul>
-                        <% if (viewModel!=null && viewModel.SecondaryDealerCount > 0)
+                        <% if (viewModel != null && viewModel.IsPremiumDealer == true && viewModel.SecondaryDealerCount > 0)
                            { %>
                         <div class="text-center margin-top20">
                             <a href="javascript:void(0)" class="font14 more-dealers-link">Check price from <%=viewModel.SecondaryDealerCount %> more dealers <span class="font12"><span class="bwsprite chevron-down"></span></span></a>

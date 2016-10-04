@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
 
 namespace Bikewale.Utility
 {
@@ -42,7 +39,7 @@ namespace Bikewale.Utility
             string retVal = "";
 
             TimeSpan timeSpan = DateTime.Now.Subtract(Convert.ToDateTime(displayDate));
-            
+
             retVal = FormateDate(timeSpan);
 
             return retVal;
@@ -125,12 +122,17 @@ namespace Bikewale.Utility
         /// <returns>formeted date.</returns>
         public static string GetFormatDate(string date, string format)
         {
+            DateTime ouput;
             if (string.IsNullOrEmpty(date) || string.IsNullOrEmpty(format))
             {
                 return string.Empty;
             }
-            return Convert.ToDateTime(date).ToString(format);
+            CultureInfo culture;
+            DateTimeStyles styles = DateTimeStyles.None;
+            // Parse a date and time with no styles.
+            culture = CultureInfo.CreateSpecificCulture("en-US");
+            return DateTime.TryParse(date, culture, styles, out ouput) ? ouput.ToString(format) : "";
         }
-    
+
     }
 }

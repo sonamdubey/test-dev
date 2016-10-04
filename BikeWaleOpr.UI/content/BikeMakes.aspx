@@ -2,9 +2,6 @@
 <!-- #Include file="/includes/headerNew.aspx" -->
 <script type="text/javascript" src="/src/common/common.js?V1.1"></script>
 <script src="/src/bt.js"></script>
-<div class="urh">
-		You are here &raquo; Contents &raquo; Add Bike Makes
-</div>
 <div>
 	<!-- #Include file="contentsMenu.aspx" -->
 </div>
@@ -38,25 +35,25 @@
 			</div>     
 			<div class="clear"></div>
 			<div  class="floatLeft margin10" >
-				<span class="greenMsg">[Masking Name will be used for url formation.Only lowercase letters,- and digits are allowed.]</span>
+				<span class="greenMsg">[Masking Name will be used for url formation. Only lowercase letters and digits are allowed.]</span>
 			</div>
 			<div class="clear"></div>
 			<div>
 			<asp:Button ID="btnSave" Text="Add Make" runat="server" />
 			</div>
 		</div>
-	</fieldset>	<br /><br />
+	</fieldset>
 	<asp:Label ID="lblStatus" runat="server" class="errorMessage" />
 	<asp:DataGrid ID="dtgrdMembers" runat="server" 
 			DataKeyField="ID" 
 			CellPadding="5" 
 			BorderWidth="1" 
 			AllowPaging="true" 
-			width="1000"
+			width="1100"
 			PagerStyle-Mode="NumericPages" 
 			PageSize="25" 
 			AllowSorting="true" 
-			AutoGenerateColumns="false" CssClass="margin-top10">
+			AutoGenerateColumns="false" CssClass="margin-top10 table-bordered">
 		<itemstyle CssClass="dtItem"></itemstyle>
 		<headerstyle CssClass="dtHeader"></headerstyle>
 		<alternatingitemstyle CssClass="dtAlternateRow"></alternatingitemstyle>
@@ -102,12 +99,14 @@
 			</asp:TemplateColumn>	
 			<asp:TemplateColumn HeaderText="Synopsis" ItemStyle-Width="100">
 				<itemtemplate>
-					<input type="button" value="Add" onclick="javascript:window.open('MakeSynopsis.aspx?make=<%# DataBinder.Eval( Container.DataItem, "ID" ) %>','','left=350,top=80,width=600,height=500,scrollbars=yes')" />
+                    <div class="text-align-center">
+					    <input type="button" value="Add" onclick="javascript:window.open('MakeSynopsis.aspx?make=<%# DataBinder.Eval( Container.DataItem, "ID" ) %>','','left=350,top=80,width=600,height=500,scrollbars=yes')" />
+                    </div>
 				</itemtemplate>
 			</asp:TemplateColumn>
 			<asp:EditCommandColumn EditText="Edit" CancelText="Cancel" UpdateText="Update" />
 
-<%--			<asp:ButtonColumn ButtonType="LinkButton" CommandName="Delete" class="deleteBike" Text="Delete" />--%>
+            <%--<asp:ButtonColumn ButtonType="LinkButton" CommandName="Delete" class="deleteBike" Text="Delete" />--%>
 			<asp:TemplateColumn>
 			  <itemtemplate>
 					<div class="alignCenter">
@@ -184,22 +183,20 @@
 			return false;
 	}
 
+	$("#txtMaskingName").blur(function(){
+	    var make = jQuery.trim($(this).val());
+	    make = make.trim();	    
+	    make = make.replace(/[^A-z0-9]+/g, '');
+	    $('#txtMaskingName').val(make.toLowerCase());
+	});
+
 	$('#txtMake').blur(function () {
 		var make = jQuery.trim($('#txtMake').val());
 		make = make.trim();
-		make = make.replace(/\s+/g, "-");
-		make = make.replace(/[^a-zA-Z0-9\-]+/g, '');
-		make = removeHyphens(make);
+		make = make.replace(/\s+/g, "");
+		make = make.replace(/[^a-zA-Z0-9]+/g, '');		
 		$('#txtMaskingName').val(make.toLowerCase());
 	});
-
-	function removeHyphens(str) {
-		// if( str.indexOf("-")==0)
-		//   str=str.substr(1);//for removing starting hyphen...	        
-		str = str.replace(/(-)+/g, '-');//for replacing multiple consecutive hyphens with one hyphen...
-		str = str.replace(/^\-+|\-+$/g, '');
-		return str;
-	}
 
 	updBy = <%= BikeWaleOpr.Common.CurrentUser.Id %>
 	$("a[id^='editId_']").bt({
@@ -257,8 +254,7 @@
 				}
 				else {
 					maskName = maskName.trim();
-					maskName = maskName.replace(/\s+/g, "-");
-					maskName = removeHyphens(maskName);
+					maskName = maskName.replace(/\s+/g, "").replace(/[^a-zA-Z0-9]+/g, '');					
 					//$('#txtUpdMaskName').val(maskName);
 					//alert(maskName + updBy + makeId);
 					$.ajax({

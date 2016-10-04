@@ -14,7 +14,10 @@
         alternate = String.Format("http://www.bikewale.com/m/{0}-dealer-showrooms-in-{1}/", makeMaskingName, cityMaskingName);
         AdId = "1395986297721";
         AdPath = "/1017752/BikeWale_New_";
-        isAd970x90BottomShown = false;
+        isAd970x90Shown = true;
+        isAd970x90BottomShown = true;
+        isAd300x250Shown = false;
+        isAd300x250BTFShown = false;
         isHeaderFix = false;
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
@@ -46,10 +49,10 @@
                                 <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/new/"><span itemprop="title">New Bikes</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/new/locate-dealers/"><span itemprop="title">Dealer Showroom</span></a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/dealer-showroom-locator/"><span itemprop="title">Dealer Showroom Locator</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/new/<%=makeMaskingName %>-dealers/"><span itemprop="title"><%=makeName%> Dealer Showrooms</span></a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/<%=makeMaskingName %>-dealer-showrooms-in-india/"><span itemprop="title"><%=makeName%> Dealer Showrooms</span></a>
                             </li>
                             <li class="current"><span class="bwsprite fa-angle-right margin-right10"></span><%=makeName%> Bikes Dealer Showroom in <%=cityName %></li>
                         </ul>
@@ -87,8 +90,10 @@
                             <ul id="dealersList">
                                 <asp:Repeater ID="rptDealers" runat="server">
                                     <ItemTemplate>
-                                        <li data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-inquired="false" data-item-number="<%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %>" data-lat="<%# DataBinder.Eval(Container.DataItem,"objArea.Latitude") %>" data-log="<%# DataBinder.Eval(Container.DataItem,"objArea.Longitude") %>" data-address="<%# DataBinder.Eval(Container.DataItem,"Address") %>" data-campid="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>">
-                                            <a href="" title="<%# DataBinder.Eval(Container.DataItem,"Name") %>" class="dealer-card-target font14">
+                                     <a href="<%# Bikewale.Utility.UrlFormatter.GetDealerUrl(makeMaskingName, cityMaskingName,DataBinder.Eval(Container.DataItem,"Name").ToString(),Convert.ToInt32(DataBinder.Eval(Container.DataItem,"DealerId"))) %>"">
+                                        <li data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-inquired="false" data-item-number="<%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %>" data-lat="<%# DataBinder.Eval(Container.DataItem,"objArea.Latitude") %>" data-log="<%# DataBinder.Eval(Container.DataItem,"objArea.Longitude") %>" data-address="<%# DataBinder.Eval(Container.DataItem,"Address") %>" 
+                                            data-campid="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>" data-item-url="<%# Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(DataBinder.Eval(Container.DataItem,"Name").ToString()) %>" >
+                                            <a href="/<%=makeMaskingName %>-dealer-showrooms-in-<%=cityMaskingName %>/<%# DataBinder.Eval(Container.DataItem,"DealerId") %>-<%# Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(DataBinder.Eval(Container.DataItem,"Name").ToString()) %>/" title="<%# DataBinder.Eval(Container.DataItem,"Name") %>" class="dealer-card-target font14">
                                                 <div class="margin-bottom5">
                                                     <div class="<%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>">
                                                         <span class="featured-tag margin-bottom5"><span class="bwsprite star-white"></span>Featured</span>
@@ -106,9 +111,10 @@
                                             </a>
                                             <div class="<%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "margin-top20" : "hide" %>">
                                                 <a data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" href="Javascript:void(0)" data-leadsourceid="14"
-                                                    data-item-name="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-item-area="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-campid="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton %>" class="btn btn-white btn-full-width font14 leadcapturebtn">Get offers from dealer</a>
+                                                    data-item-name="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-item-area="" data-campid="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton %>" class="btn btn-white btn-full-width font14 leadcapturebtn">Get offers from dealer</a>
                                             </div>
                                         </li>
+                                    </a>
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </ul>
@@ -134,6 +140,7 @@
                     <div class="content-box-shadow">
                         <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0)
                            { %>
+                          <h2 class="font18 padding-18-20">Popular <%=makeName %> bikes in <%=cityName %></h2>
                         <BW:MostPopularBikesMake runat="server" ID="ctrlPopoularBikeMake" />
                         <%} %>
                         <div class="margin-left10 margin-right10 border-solid-bottom"></div>

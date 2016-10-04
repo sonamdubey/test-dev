@@ -4,6 +4,10 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
 {
+    /// <summary>
+    /// Modified by Subodh Jain on 3 oct 2016
+    /// Added popular bike widget
+    /// </summary>
     public partial class MostPopularBikes_new : System.Web.UI.UserControl
     {
         public Repeater rptMostPopularBikes, rptPopoularBikeMake;
@@ -16,6 +20,7 @@ namespace Bikewale.Controls
         public string cityname = string.Empty;
         public string cityMaskingName = string.Empty;
         public string makeName = string.Empty;
+        public bool mostPopular = false, mostPopularByMake = false;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -34,10 +39,16 @@ namespace Bikewale.Controls
             objPop.makeId = this.makeId;
             objPop.cityId = this.cityId;
             if (makeId.HasValue && makeId > 0)
+            {
                 objPop.BindMostPopularBikesMakeCity(rptPopoularBikeMake);
+                mostPopularByMake = true;
+            }
 
             else
+            {
                 objPop.BindMostPopularBikes(rptMostPopularBikes);
+                mostPopular = true;
+            }
             this.FetchedRecordsCount = objPop.FetchedRecordsCount;
         }
 

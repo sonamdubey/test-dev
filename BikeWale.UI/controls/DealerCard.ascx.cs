@@ -40,6 +40,7 @@ namespace Bikewale.Controls
         protected bool isCitySelected { get { return CityId > 0; } }
         public string pageName { get; set; }
         public bool showWidget = false;
+        public uint DealerId { get; set; }
 
         protected override void OnInit(EventArgs e)
         {
@@ -86,7 +87,7 @@ namespace Bikewale.Controls
             {
                 if (TopCount <= 0) { TopCount = 3; }
                 DealersEntity _dealers = null;
-
+                
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IDealerCacheRepository, DealerCacheRepository>()
@@ -104,11 +105,17 @@ namespace Bikewale.Controls
                             cityName = _dealers.CityName;
                             cityMaskingName = _dealers.CityMaskingName;
                             makeMaskingName = _dealers.MakeMaskingName;
+                            if (DealerId > 0)
+                            {
 
+                                _dealers.Dealers = _dealers.Dealers.Where(m=>m.DealerId!= DealerId);
+                            }
+                            if (_dealers.Dealers.Count() > 0)
+                            {
+                                showWidget = true;
+                            }
                             rptDealers.DataSource = _dealers.Dealers.Take(TopCount);
                             rptDealers.DataBind();
-
-                            showWidget = true;
                         }
                     }
                     else

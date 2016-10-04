@@ -88,6 +88,7 @@
     <Compile Include="Insurance\IInsuranceDetail.cs" />
     <Compile Include="Insurance\IInsuranceRepository.cs" />
     <Compile Include="IRepository.cs" />
+    <Compile Include="Location\DealersInIndia.cs" />
     <Compile Include="Location\IArea.cs" />
     <Compile Include="Location\IAreaCacheRepository.cs" />
     <Compile Include="Location\ICity.cs" />

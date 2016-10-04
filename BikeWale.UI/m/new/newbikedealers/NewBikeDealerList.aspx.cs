@@ -1,6 +1,7 @@
 ﻿using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
+using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
 using Bikewale.Entities.BikeData;
@@ -11,7 +12,6 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Memcache;
 using Bikewale.Mobile.Controls;
-using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
@@ -56,15 +56,23 @@ namespace Bikewale.Mobile.New
             if (String.IsNullOrEmpty(originalUrl))
                 originalUrl = Request.ServerVariables["URL"];
 
-            ProcessQueryString();
-            GetMakeIdByMakeMaskingName(makeMaskingName);
-
-            if (makeId > 0 && cityId > 0)
+            if (ProcessQueryString())
             {
-                BindMakesDropdown();
-                BindCitiesDropdown();
-                BindDealerList();
-                BindUserControls();
+                GetMakeIdByMakeMaskingName(makeMaskingName);
+
+                if (makeId > 0 && cityId > 0)
+                {
+                    BindMakesDropdown();
+                    BindCitiesDropdown();
+                    BindDealerList();
+                    BindUserControls();
+                }
+                else
+                {
+                    Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
         }
 
@@ -112,7 +120,7 @@ namespace Bikewale.Mobile.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BindDealerList : ");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindDealerList : ");
                 objErr.SendMail();
             }
         }
@@ -149,7 +157,7 @@ namespace Bikewale.Mobile.New
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "BindMakesDropdown : ");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindMakesDropdown : ");
                 objErr.SendMail();
             }
         }
@@ -183,6 +191,7 @@ namespace Bikewale.Mobile.New
                         }
                         else
                         {
+
                             Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
                             HttpContext.Current.ApplicationInstance.CompleteRequest();
                             this.Page.Visible = false;
@@ -193,7 +202,7 @@ namespace Bikewale.Mobile.New
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, "BindCitiesDropdown");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindCitiesDropdown");
                 objErr.SendMail();
             }
         }
@@ -204,32 +213,78 @@ namespace Bikewale.Mobile.New
         /// Created By  : Sushil Kumar
         /// Created On  : 20th March 2016
         /// Description : To get makeId from make masking name
+        /// Modified by :   Sumit Kate on 03 Oct 2016
+        /// Description :   Handle Make masking name rename 301 redirection
         /// </summary>
         private void GetMakeIdByMakeMaskingName(string maskingName)
         {
-            try
+
+            if (!string.IsNullOrEmpty(maskingName))
             {
-                if (!string.IsNullOrEmpty(maskingName))
+                string _makeId = string.Empty;
+
+                MakeMaskingResponse objMakeResponse = null;
+
+                try
                 {
-                    string _makeId = MakeMapping.GetMakeId(maskingName);
-                    if (string.IsNullOrEmpty(_makeId) || !uint.TryParse(_makeId, out makeId))
+                    using (IUnityContainer containerInner = new UnityContainer())
                     {
-                        Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        containerInner.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                              .RegisterType<ICacheManager, MemcacheManager>()
+                              .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                             ;
+                        var objCache = containerInner.Resolve<IBikeMakesCacheRepository<int>>();
+
+                        objMakeResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
+                    objErr.SendMail();
+                    Response.Redirect("pageNotFound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
+                finally
+                {
+                    if (objMakeResponse != null)
+                    {
+                        if (objMakeResponse.StatusCode == 200)
+                        {
+                            _makeId = Convert.ToString(objMakeResponse.MakeId);
+                        }
+                        else if (objMakeResponse.StatusCode == 301)
+                        {
+                            CommonOpn.RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objMakeResponse.MaskingName));
+                        }
+                        else
+                        {
+                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
+                        }
+                    }
+                    else
+                    {
+                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
                 }
-                else
+
+                if (string.IsNullOrEmpty(_makeId) || !uint.TryParse(_makeId, out makeId))
                 {
                     Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
             }
-            catch (Exception ex)
+            else
             {
-                ErrorClass objErr = new ErrorClass(ex, "BindCitiesDropdown ");
-                objErr.SendMail();
+                Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
             }
         }
 
@@ -241,9 +296,10 @@ namespace Bikewale.Mobile.New
         /// Created On : 16th March 2016 
         /// Description : Private Method to query string fro make masking name and cityId
         /// </summary>
-        private void ProcessQueryString()
+        private bool ProcessQueryString()
         {
             var currentReq = HttpContext.Current.Request;
+            bool isValidQueryString = false;
             try
             {
                 if (currentReq.QueryString != null && currentReq.QueryString.HasKeys())
@@ -253,7 +309,7 @@ namespace Bikewale.Mobile.New
                     if (!String.IsNullOrEmpty(urlCityMaskingName) && !String.IsNullOrEmpty(makeMaskingName))
                     {
                         cityId = CitiMapping.GetCityId(urlCityMaskingName);
-                        //isValidQueryString = true;
+                        isValidQueryString = true;
                     }
                     else
                     {
@@ -273,10 +329,10 @@ namespace Bikewale.Mobile.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, " : ProcessQueryString ");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, " : ProcessQueryString ");
                 objErr.SendMail();
             }
-
+            return isValidQueryString;
         }
 
         /// <summary>

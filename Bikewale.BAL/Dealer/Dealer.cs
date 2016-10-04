@@ -216,6 +216,23 @@ namespace Bikewale.BAL.Dealer
         }
 
         /// <summary>
+        /// Created By : Sajal Gupta on 26/09/2016
+        /// Description : Calls DAL method to get dealer's bikes and details on the basis of dealerId and makeId.
+        /// </summary>
+        public DealerBikesEntity GetDealerDetailsAndBikesByDealerAndMake(uint dealerId, int makeId)
+        {
+            try
+            {
+                return dealerRepository.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId);
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetDealerDetailsAndBikes");
+                objErr.SendMail();
+                return null;
+            }
+        }
+        /// <summary>
         /// Craeted by  :   Sumit Kate on 21 Jun 2016
         /// Description :   Get Popular City Dealer Count
         /// </summary>

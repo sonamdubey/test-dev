@@ -6,6 +6,8 @@ using Bikewale.Interfaces.Pager;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.CMS;
 using Bikewale.Service.Utilities;
+using EditCMSWindowsService.Messages;
+using Grpc.CMS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -212,5 +214,60 @@ namespace Bikewale.Service.Controllers.CMS
             return NotFound();
         }  //get 
         #endregion
+
+        #region Clear Memcache Keys EditCMS
+        /// <summary>
+        /// Created By : Sajal Gupta on 22/09/2016
+        /// Description: Clear memcached buckets of Grpc editCms of respective category Ids.
+        /// </summary>
+        [HttpGet, Route("api/cms/category/{catId}/refreshcache/")]
+        public IHttpActionResult ClearEditCMSCacheKeys(int catId)
+        {
+            try
+            {
+                switch (catId)
+                {
+                    case 6:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News);
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.Features);
+                        break;
+                    case 8:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News);
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.ExpertReviews);
+                        break;
+                    case 2:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News);
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.ExpertReviews);
+                        break;
+                    case 19:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News);
+                        break;
+                    case 1:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.News);
+                        break;
+                    case 18:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.Features);
+                        break;
+                    case 11:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.Videos);
+                        break;
+                    default:
+                        GrpcMethods.ClearMemCachedKEys(EditCMSCategoryEnum.All);
+                        break;
+                }
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception at Bikewale.Service.CMS.CMSController.ClearEditCMSCacheKeys for parameter catId : {0}", catId));
+                objErr.SendMail();
+                return InternalServerError();
+            }
+        }
+        #endregion
+
     }   // class
 }   // namespace
+
+

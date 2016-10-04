@@ -26,7 +26,7 @@ namespace Bikewale.Interfaces.BikeData
         UpcomingBikeEntity GetUpcomingBikeDetails(U modelId);
         List<UpcomingBikeEntity> GetUpcomingBikesList(UpcomingBikesListInputEntity inputParams, EnumUpcomingBikesFilter sortBy, out int recordCount);
         NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex);
-
+        NewLaunchedBikesBase GetNewLaunchedBikesListByMake(int startIndex, int endIndex, int? makeid = null);
         BikeModelPageEntity GetModelPage(U modelId);
         BikeSpecificationEntity MVSpecsFeatures(int versionId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId);

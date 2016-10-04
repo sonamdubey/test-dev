@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Entities.Used.Search;
+using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.Used.Search;
 using Bikewale.Notifications;
-using Bikewale.Entities.NewBikeSearch;
-using Bikewale.Utility;
-using Bikewale.BAL.Pager;
-using Bikewale.Interfaces.Pager;
 using Microsoft.Practices.Unity;
+using System;
 
 namespace Bikewale.BAL.Used.Search
 {
@@ -41,6 +35,8 @@ namespace Bikewale.BAL.Used.Search
         /// Function to get the used bikes seach. This encapsulates all the business logic to get the search result.
         /// Modified by: Aditi Srivastava on 16 Sep 2016
         /// Description: Set the paging url and current page no for api response
+        /// Modified by: Sushil Kumar on 22 Sep 2016
+        /// Description: Add null check for objResult
         /// </summary>
         /// <param name="inputFilters">All input filters from the user</param>
         /// <returns></returns>
@@ -54,19 +50,21 @@ namespace Bikewale.BAL.Used.Search
                 string searchQuery = _searchQuery.GetSearchResultQuery(inputFilters);
 
                 // Get search result from database
-                if (!string.IsNullOrEmpty(searchQuery))
-                    objResult = _searchRepo.GetUsedBikesList(searchQuery);
+                objResult = _searchRepo.GetUsedBikesList(searchQuery);
 
-                // Set paging url and current page numbers
-                objResult.PageUrl = GetPrevNextUrl(inputFilters,objResult.TotalCount);
-                objResult.CurrentPageNo=inputFilters.PN;
-                if (!String.IsNullOrEmpty(objResult.PageUrl.PrevPageUrl))
+                if (objResult != null)
                 {
-                   objResult.PageUrl.PrevPageUrl= objResult.PageUrl.PrevPageUrl.Replace("+", "%2b");
-                }
-                if (!String.IsNullOrEmpty(objResult.PageUrl.NextPageUrl))
-                {
-                   objResult.PageUrl.NextPageUrl= objResult.PageUrl.NextPageUrl.Replace("+", "%2b");
+                    // Set paging url and current page numbers
+                    objResult.PageUrl = GetPrevNextUrl(inputFilters, objResult.TotalCount);
+                    objResult.CurrentPageNo = inputFilters.PN;
+                    if (!String.IsNullOrEmpty(objResult.PageUrl.PrevPageUrl))
+                    {
+                        objResult.PageUrl.PrevPageUrl = objResult.PageUrl.PrevPageUrl.Replace("+", "%2b");
+                    }
+                    if (!String.IsNullOrEmpty(objResult.PageUrl.NextPageUrl))
+                    {
+                        objResult.PageUrl.NextPageUrl = objResult.PageUrl.NextPageUrl.Replace("+", "%2b");
+                    }
                 }
 
             }
@@ -113,7 +111,7 @@ namespace Bikewale.BAL.Used.Search
                     if (objFilters.PN == 1 || objFilters.PN == 0)
                         objPager.PrevPageUrl = string.Empty;
                     else
-                        objPager.PrevPageUrl = controllerurl +  apiUrlStr;
+                        objPager.PrevPageUrl = controllerurl + apiUrlStr;
                 }
             }
             catch (Exception ex)
@@ -134,28 +132,28 @@ namespace Bikewale.BAL.Used.Search
             string apiUrlstr = string.Empty;
             try
             {
-                    
+
                 if (!String.IsNullOrEmpty(objFilters.Make))
                     apiUrlstr += "&make=" + objFilters.Make.Replace(" ", "+");
                 if (!String.IsNullOrEmpty(objFilters.Model))
                     apiUrlstr += "&model=" + objFilters.Model.Replace(" ", "+");
-                 if (!String.IsNullOrEmpty(objFilters.Budget))
+                if (!String.IsNullOrEmpty(objFilters.Budget))
                     apiUrlstr += "&budget=" + objFilters.Budget.Replace(" ", "+");
-                 if (!String.IsNullOrEmpty(objFilters.Kms))
-                     apiUrlstr += "&kms=" + objFilters.Kms.Replace(" ", "+");
-                 if (!String.IsNullOrEmpty(objFilters.Age))
-                     apiUrlstr += "&age=" + objFilters.Age.Replace(" ", "+");
-                 if (!String.IsNullOrEmpty(objFilters.Owner))
-                     apiUrlstr += "&owner=" + objFilters.Owner.Replace(" ", "+");
-                     apiUrlstr += "&ps=" + objFilters.PS;
-                     apiUrlstr += "&pn=" + objFilters.PN;
-                 
-                 if (!String.IsNullOrEmpty(objFilters.ST))
-                     apiUrlstr += "&st=" + objFilters.ST;
-                 
-                     apiUrlstr += "&so=" + objFilters.SO;
+                if (!String.IsNullOrEmpty(objFilters.Kms))
+                    apiUrlstr += "&kms=" + objFilters.Kms.Replace(" ", "+");
+                if (!String.IsNullOrEmpty(objFilters.Age))
+                    apiUrlstr += "&age=" + objFilters.Age.Replace(" ", "+");
+                if (!String.IsNullOrEmpty(objFilters.Owner))
+                    apiUrlstr += "&owner=" + objFilters.Owner.Replace(" ", "+");
+                apiUrlstr += "&ps=" + objFilters.PS;
+                apiUrlstr += "&pn=" + objFilters.PN;
 
-               }
+                if (!String.IsNullOrEmpty(objFilters.ST))
+                    apiUrlstr += "&st=" + objFilters.ST;
+
+                apiUrlstr += "&so=" + objFilters.SO;
+
+            }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.Used.GetApiUrl");

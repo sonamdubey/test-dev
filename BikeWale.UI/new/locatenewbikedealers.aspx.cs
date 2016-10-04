@@ -6,7 +6,6 @@ using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
-using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
@@ -31,8 +30,9 @@ namespace Bikewale.New.DealerLocator
         protected ushort totalDealers;
         protected Repeater rptMakes, rptCities, rptPopularBrands, rptOtherBrands;
         protected string clientIP = String.Empty, pageUrl = String.Empty;
-        
 
+        protected NewLaunchedBikes_new ctrlNewLaunchedBikes;
+        protected UpcomingBikes_new ctrlUpcomingBikes;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -52,11 +52,14 @@ namespace Bikewale.New.DealerLocator
                 originalUrl = Request.ServerVariables["URL"];
 
             Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(originalUrl);
-            dd.DetectDevice();            
+            dd.DetectDevice();
             BindMakes();
 
             if (makeId > 0)
                 BindCitiesDropdown();
+            ctrlNewLaunchedBikes.pageSize = 6;
+            ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+            ctrlUpcomingBikes.pageSize = 6;
 
 
         }
