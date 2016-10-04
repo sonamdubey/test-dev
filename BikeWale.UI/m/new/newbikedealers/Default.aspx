@@ -81,7 +81,7 @@
                             <asp:Repeater ID="rptOtherBrands" runat="server">
                                 <ItemTemplate>
                                     <li>
-                                        <a href="/m/new/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-dealer-showrooms-in-india/">
+                                        <a href="/m/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-dealer-showrooms-in-india/">
                                             <span class="brand-type">
                                                 <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MakeId") %>"></span>
                                             </span>
