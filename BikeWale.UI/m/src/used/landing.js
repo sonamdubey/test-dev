@@ -85,7 +85,7 @@ var citySlider = {
 
     selection: function (element) {
         var elementText = element.text();
-        $('#search-form-city p').addClass('text-default').text(elementText);
+        $('#search-form-city p').text(elementText);
     }
 };
 
@@ -256,6 +256,93 @@ var budgetForm = {
     }
 }
 
+/* profile id */
+var listingProfileId = $('#listingProfileId');
+
+listingProfileId.on("focus", function () {
+    validate.onFocus(listingProfileId);
+});
+
+/* input blur */
+listingProfileId.on("blur", function () {
+    validate.onBlur(listingProfileId);
+});
+
+$('#profile-id-popup-target').on('click', function () {
+    profileID.open();
+    appendState('profileId');    
+});
+
+$('#profile-id-popup').on('click', '.close-btn', function () {
+    profileID.close();
+});
+
+$('#search-profile-id-btn').on('click', function () {
+    if (validateProfileId(listingProfileId)) {
+        // valid
+    }
+});
+
+function validateProfileId(inputBox) {
+    var isValid = true;
+    var profileId = inputBox.val();
+    if (profileId == '') {
+        isValid = false;
+        validate.setError(inputBox, 'Please enter profile id');
+    }
+
+    return isValid;
+}
+
+var validate = {
+    setError: function (element, message) {
+        var elementLength = element.val().length;
+        errorTag = element.siblings('span.error-text');
+
+        errorTag.show().text(message);
+        if (!elementLength) {
+            element.closest('.input-box').removeClass('not-empty').addClass('invalid');
+        }
+        else {
+            element.closest('.input-box').addClass('not-empty invalid');
+        }
+    },
+
+    hideError: function (element) {
+        element.closest('.input-box').removeClass('invalid').addClass('not-empty');
+        element.siblings('span.error-text').text('');
+    },
+
+    onFocus: function (inputField) {
+        if (inputField.closest('.input-box').hasClass('invalid')) {
+            validate.hideError(inputField);
+        }
+    },
+
+    onBlur: function (inputField) {
+        var inputLength = inputField.val().length;
+        if (!inputLength) {
+            inputField.closest('.input-box').removeClass('not-empty');
+        }
+        else {
+            inputField.closest('.input-box').addClass('not-empty');
+        }
+    }
+}
+
+var profileID = {
+    popup: $('#profile-id-popup'),
+
+    open: function () {
+        profileID.popup.show();
+        $('html, body').addClass('lock-browser-scroll');
+    },
+
+    close: function () {
+        $('html, body').removeClass('lock-browser-scroll');
+        profileID.popup.hide();
+    }
+};
 
 /* popup state */
 var appendState = function (state) {
@@ -265,6 +352,9 @@ var appendState = function (state) {
 $(window).on('popstate', function (event) {
     if ($('#city-slider').is(':visible')) {
         citySlider.close();
+    }
+    if ($('#profile-id-popup').is(':visible')) {
+        profileID.close();
     }
 });
 

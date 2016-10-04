@@ -51,7 +51,7 @@
                             </div>
                             <a href="" class="btn btn-orange text-bold">Search</a>
                         </div>
-                        <a href="" id="profile-id-popup-target" class="font14 text-underline">Search by Profile ID</a>
+                        <a href="javascript:void(0)" id="profile-id-popup-target" class="font14 text-underline" rel="nofollow">Search by Profile ID</a>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -212,8 +212,24 @@
             <div class="container text-center section-container">
                 <h2 class="font18 section-heading">Search used bikes by cities</h2>
                 <div class="bg-white box-shadow padding-top20 padding-bottom20">
-
-                    <a href="" class="btn btn-inv-teal inv-teal-sm">View all cities<span class="bwmsprite teal-next"></span></a>
+                    <div class="swiper-container card-container swiper-city">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="swiper-card">
+                                    <a href="" title="">
+                                        <div class="swiper-image-preview">
+                                            <span class="city-sprite mumbai-icon"></span>
+                                        </div>
+                                        <div class="swiper-details-block">
+                                            <h3 class="font14 margin-bottom5">Mumbai</h3>
+                                            <p class="font14 text-light-grey">132 Used bikes</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="" class="btn btn-inv-teal inv-teal-sm margin-top10">View all cities<span class="bwmsprite teal-next"></span></a>
                 </div>
             </div>
         </section>
@@ -222,35 +238,86 @@
             <div class="container text-center section-container">
                 <h2 class="font18 section-heading">Recently uploaded used bikes</h2>
                 <div class="bg-white box-shadow padding-top20 padding-bottom20">
-                    <div class="swiper-container card-container swiper-200">
+                    <div class="swiper-container card-container used-swiper">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
                                 <div class="swiper-card">
                                     <a href="" title="Bajaj Pulsar CS400">
                                         <div class="swiper-image-preview">
-                                            <img class="swiper-lazy" alt="Bajaj Pulsar CS400" data-src="http://imgd1.aeplcdn.com///310x174//bw/upcoming/bajaj-pulsarcs400-551.jpg?20151209053107" />
-                                            <span class="swiper-lazy-preloader"></span>
+                                            <div class="image-thumbnail">
+                                                <img class="swiper-lazy" alt="Bajaj Pulsar CS400" data-src="http://imgd4.aeplcdn.com//210x118//bw/used/S42611/42611_20160614111649006.jpg" />
+                                                <span class="swiper-lazy-preloader"></span>
+                                            </div>
                                         </div>
                                         <div class="swiper-details-block">
-                                            <h3 class="target-link font12 margin-bottom5">Bajaj Pulsar CS400</h3>
-                                            <div class="text-light-grey margin-bottom10"><p class="font11 text-light-grey">Expected launch</p><p class="font16 text-bold text-default">Jun 2016</p></div>
-                                            <div>
-                                                <div class=" font11 text-light-grey">Expected Price</div>
-                                                <div class="text-default"><span class="bwmsprite inr-xsm-icon"></span> <span class="text-bold font16">1,60,000</span><span class="font14"> onwards</span></div>
+                                            <h3 class="target-link font12 margin-bottom5 text-truncate">Bajaj Pulsar CS400 Bajaj Pulsar CS400</h3>
+                                            <div class="grid-6 alpha omega">
+                                                <span class="bwmsprite model-date-icon-xs"></span>
+                                                <span class="model-details-label">2012 model</span>
                                             </div>
+                            
+                                            <div class="grid-6 alpha omega">
+                                                <span class="bwmsprite author-grey-icon-xs"></span>
+                                                <span class="model-details-label">1st owner</span>
+                                            </div>
+                            
+                                            <div class="grid-6 alpha omega">
+                                                <span class="bwmsprite model-loc-icon-xs"></span>
+                                                <span class="model-details-label">Ahmedabad</span>
+                                            </div>
+                            
+                                            <div class="clear"></div>
+                                            <p class="margin-top5 text-default"><span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-bold">40,000</span></p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="swiper-slide">
+                                <div class="swiper-card">
+                                    <a href="" title="Bajaj Pulsar CS400">
+                                        <div class="swiper-image-preview">
+                                            <div class="image-thumbnail">
+                                                <img class="swiper-lazy" alt="Bajaj Pulsar CS400" data-src="http://imgd4.aeplcdn.com//210x118//bw/used/S42598/42598_20160613081003622.jpg" />
+                                                <span class="swiper-lazy-preloader"></span>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-details-block">
+                                            <h3 class="target-link font12 margin-bottom5 text-truncate">Bajaj Pulsar CS400</h3>
+                                            <div class="grid-6 alpha omega">
+                                                <span class="bwmsprite model-date-icon-xs"></span>
+                                                <span class="model-details-label">2012 model</span>
+                                            </div>
+                            
+                                            <div class="grid-6 alpha omega">
+                                                <span class="bwmsprite kms-driven-icon-xs"></span>
+                                                <span class="model-details-label">49,990 kms</span>
+                                            </div>
+                            
+                                            <div class="grid-6 alpha omega">
+                                                <span class="bwmsprite author-grey-icon-xs"></span>
+                                                <span class="model-details-label">1st owner</span>
+                                            </div>
+                            
+                                            <div class="grid-6 alpha omega">
+                                                <span class="bwmsprite model-loc-icon-xs"></span>
+                                                <span class="model-details-label">Ahmedabad</span>
+                                            </div>
+                            
+                                            <div class="clear"></div>
+                                            <p class="margin-top5 text-default"><span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-bold">40,000</span></p>
                                         </div>
                                     </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <a href="" class="btn btn-inv-teal inv-teal-sm">View all bikes<span class="bwmsprite teal-next"></span></a>
+                    <a href="" class="btn btn-inv-teal inv-teal-sm margin-top15">View all bikes<span class="bwmsprite teal-next"></span></a>
                 </div>
             </div>
         </section>
-
-
-
+        
+        <!-- city slider -->
         <div id="city-slider" class="bwm-fullscreen-popup">  
             <div class="city-slider-input position-rel">
                 <span id="close-city-slider" class="slider-back-arrow back-arrow-box">
@@ -279,9 +346,28 @@
                 <li>Panvel</li>
             </ul>
         </div>
-
+                
+        <!-- profile-id -->
+        <div id="profile-id-popup" class="bwm-fullscreen-popup text-center size-small">
+            <div class="bwmsprite close-btn position-abt pos-top20 pos-right20"></div>
+            <div class="icon-outer-container rounded-corner50percent">
+                <div class="icon-inner-container rounded-corner50percent">
+                    <span class="used-sprite profile-id-icon margin-top15"></span>
+                </div>
+            </div>
+            <p class="font18 text-bold margin-top10 margin-bottom10">Search by Profile ID</p>
+            <p class="font14 text-light-grey margin-bottom30">If you like a certain listing you can search it by its Profile ID. The unique Profile ID is mentioned in the Ad details.</p>
+            <div class="input-box form-control-box margin-bottom15">
+                <input type="text" id="listingProfileId">
+                <label for="listingProfileId">Profile ID</label>
+                <span class="boundary"></span>
+                <span class="error-text"></span>
+            </div>
+            <a class="btn btn-orange btn-fixed-width" id="search-profile-id-btn">Search</a>
+        </div>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/used/landing.js?<%= staticFileVersion %>"></script>
