@@ -74,7 +74,7 @@
 			</footertemplate>
 		</asp:repeater>
     </div>
-    <div class="margin-top10" style="position: fixed; right: 100px;">
+    <div class="margin-top10" style="position: fixed; right: 20px;">
         <fieldset class="floatLeft">
             <legend><b>Select Cities to Upload Prices</b></legend>
             <div class="margin-top10">
@@ -115,6 +115,7 @@
         var requestType = "7";
         selectString = "--Select City--";
         var stateId = $(this).val();
+        viewModel.selectedCity(0);
         if (stateId > 0) {
             $.ajax({
                 type: "POST",
@@ -186,8 +187,7 @@
 
         var versionId = objTxtInsurance.attr("versionId");
         var itemIndex = objTxtInsurance.attr("index");
-        var price = objTxtInsurance.val();
-        viewModel.selectedCity(1);
+        var price = objTxtInsurance.val();        
 
         if (price != "") {
             calculateInsurancePremium(versionId, price, $("#rptPrices_txtInsurance_" + itemIndex));

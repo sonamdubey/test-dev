@@ -24,7 +24,7 @@ function savePosition(position) {
                 userAddress = data.results[0].formatted_address;                
             }
             else {
-                userAddress = "Your Location";
+                userAddress = "";
             }
             $("#locationSearch").val("").val(userAddress);
             google.maps.event.trigger(originPlace, 'place_changed');
@@ -67,8 +67,12 @@ function initializeMap() {
 
         var directionsService = new google.maps.DirectionsService;
 
-        route(origin_place_id, travel_mode, directionsService);
-        $('.location-details').show();
+        if (originPlace != null && originPlace.getPlace() != null && originPlace.getPlace().name != null && originPlace.getPlace().name.trim() != "") {
+            route(origin_place_id, travel_mode, directionsService);
+            $('.location-details').show();
+        }
+
+       
     });        
 }
 
