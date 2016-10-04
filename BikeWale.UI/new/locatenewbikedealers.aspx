@@ -90,7 +90,7 @@
                                 <asp:Repeater ID="rptPopularBrands" runat="server">
                                     <ItemTemplate>
                                         <li>
-                                            <a href="/new/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-dealers/">
+                                            <a href="/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-dealer-showrooms-in-india/">
                                                 <span class="brand-type">
                                                     <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MakeId") %>"></span>
                                                 </span>
@@ -105,7 +105,7 @@
                                 <asp:Repeater ID="rptOtherBrands" runat="server">
                                     <ItemTemplate>
                                         <li>
-                                            <a href="/new/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-dealers/">
+                                            <a href="/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-dealer-showrooms-in-india/">
                                                 <span class="brand-type">
                                                     <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MakeId") %>"></span>
                                                 </span>
