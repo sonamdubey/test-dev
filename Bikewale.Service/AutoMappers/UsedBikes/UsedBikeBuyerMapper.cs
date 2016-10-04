@@ -26,5 +26,13 @@ namespace Bikewale.Service.AutoMappers.UsedBikes
             AutoMapper.Mapper.CreateMap<DTO.Customer.CustomerBase, CustomerEntityBase>();
             return AutoMapper.Mapper.Map<DTO.Customer.CustomerBase, CustomerEntityBase>(buyer);
         }
+
+        internal static PurchaseInquiryResultDTO Convert(PurchaseInquiryResultEntity inquiryresult)
+        {
+            AutoMapper.Mapper.CreateMap<Entities.Used.PurchaseInquiryStatusEntity, DTO.UsedBikes.PurchaseInquiryStatusDTO>();
+            AutoMapper.Mapper.CreateMap<CustomerEntityBase, DTO.Customer.CustomerBase>();
+            AutoMapper.Mapper.CreateMap<Entities.Used.PurchaseInquiryResultEntity, DTO.UsedBikes.PurchaseInquiryResultDTO>();
+            return AutoMapper.Mapper.Map<Entities.Used.PurchaseInquiryResultEntity, DTO.UsedBikes.PurchaseInquiryResultDTO>(inquiryresult);
+        }
     }
 }

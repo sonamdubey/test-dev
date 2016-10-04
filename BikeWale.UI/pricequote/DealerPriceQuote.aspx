@@ -390,7 +390,7 @@
                           { %>
                         <!--  Booking availability starts-->
                         <div class="grid-12 padding-left20 padding-right20 padding-bottom20 font14">
-                            <p class="text-bold padding-top20 margin-bottom5 border-light-top">Pay <span class="bwsprite inr-sm"></span>&nbsp;<%= CommonOpn.FormatPrice(bookingAmount.ToString()) %> online and book this bike:</p>
+                            <p class="text-bold padding-top20 margin-bottom5 border-light-top">Pay <span class="bwsprite inr-sm"></span>&nbsp;<%= Bikewale.Utility.Format.FormatPrice(bookingAmount.ToString()) %> online and book this bike:</p>
                             <ul class="pricequote-benefits-list pq-benefits-booking-list text-light-grey">
                                 <li class="bullet-point">
                                     <p>Save on dealer visits</p>
@@ -405,7 +405,7 @@
                             <div class="clear"></div>
                             <div class="grid-12 alpha omega margin-top10">
                                 <div class="grid-9 alpha">
-                                    <p class="font14 text-light-grey">The booking amount of <span class="bwsprite inr-sm-grey"></span>&nbsp;<%= CommonOpn.FormatPrice(bookingAmount.ToString()) %> has to be paid online and balance amount of <span class="bwsprite inr-sm-grey"></span>&nbsp;<%= CommonOpn.FormatPrice((totalPrice - bookingAmount).ToString()) %> has to be paid at the dealership.</p>
+                                    <p class="font14 text-light-grey">The booking amount of <span class="bwsprite inr-sm-grey"></span>&nbsp;<%= Bikewale.Utility.Format.FormatPrice(bookingAmount.ToString()) %> has to be paid online and balance amount of <span class="bwsprite inr-sm-grey"></span>&nbsp;<%= Bikewale.Utility.Format.FormatPrice((totalPrice - bookingAmount).ToString()) %> has to be paid at the dealership.</p>
                                 </div>
                                 <div class="grid-3 omega text-right">
                                     <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey btn-sm font14">Book now</a>

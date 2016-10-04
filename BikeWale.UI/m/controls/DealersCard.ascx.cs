@@ -35,9 +35,11 @@ namespace Bikewale.Mobile.Controls
         public int PQSourceId { get; set; }
         public bool IsDiscontinued { get; set; }
         public string PageName { get; set; }
-       
+        public int DealerId { get; set; }
+
 
         public bool showWidget = false;
+        public string dealerUrl = string.Empty;
         protected bool isCitySelected { get { return CityId > 0; } }
         protected override void OnInit(EventArgs e)
         {
@@ -77,6 +79,8 @@ namespace Bikewale.Mobile.Controls
         /// Description :   Pass ModelId to get the dealers for Price in city page
         /// Modified by :   Sumit Kate on 22 Jun 2016
         /// Description :   If City Id is not passed Get the popular city dealer count
+        /// Modified By : Sajal Gupta on 27-09-2016
+        /// Description : Skipped particular dealer if dealer id present.
         /// </summary>
         protected void BindDealers()
         {
@@ -96,17 +100,25 @@ namespace Bikewale.Mobile.Controls
                     {
                         _dealers = objCache.GetDealerByMakeCity(CityId, MakeId, ModelId);
 
-                        if (_dealers != null && _dealers.Dealers.Count() > 0)
+                        if (_dealers != null && _dealers.Dealers != null && _dealers.Dealers.Count() > 0)
                         {
                             makeName = _dealers.MakeName;
                             cityName = _dealers.CityName;
                             cityMaskingName = _dealers.CityMaskingName;
                             makeMaskingName = _dealers.MakeMaskingName;
 
+                            if (DealerId > 0)
+                            {
+                                _dealers.Dealers = _dealers.Dealers.Where(d => d.DealerId != DealerId);
+                            }
+                            if (_dealers.Dealers.Count() > 0)
+                            {
+                                showWidget = true;
+                            }
                             rptDealers.DataSource = _dealers.Dealers.Take(TopCount);
                             rptDealers.DataBind();
 
-                            showWidget = true;
+
                         }
                     }
                     else
@@ -131,6 +143,8 @@ namespace Bikewale.Mobile.Controls
         /// <summary>
         /// Created By : Sushil Kumar on 3rd June 2016 
         /// Description : link URL changed.
+        /// Modified by : Sajal Gupta on 28-09-2016
+        /// Description : Deletede dealer type condition.
         /// </summary>
         /// <param name="dealerType"></param>
         /// <param name="dealerId"></param>
@@ -140,16 +154,7 @@ namespace Bikewale.Mobile.Controls
         public string GetDealerDetailLink(string dealerType, string dealerId, string campId, string dealerName)
         {
             string retString = string.Empty;
-            if (dealerType == "2" || dealerType == "3")
-            {
-                string link = "/m/new/newbikedealers/dealerdetails.aspx/?query=" + Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(String.Format("dealerId={0}&campId={1}&cityId={2}", dealerId, campId, CityId));
-                retString = String.Format("<a class=\"target-link margin-bottom5 text-truncate font16\" href=\"{0}\">{1}</a>", link, dealerName);
-            }
-            else
-            {
-                retString = String.Format("<a class=\"target-link margin-bottom5 text-truncate font16\" href=\"/m/{0}-bikes/dealers-in-{1}/\">{2}</a>", makeMaskingName, cityMaskingName, dealerName);
-            }
-
+            retString = String.Format("<div class=\"target-link margin-bottom5 text-truncate font14\" >{0}</div>", dealerName);
             return retString;
         }
 

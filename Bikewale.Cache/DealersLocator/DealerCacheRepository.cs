@@ -78,6 +78,26 @@ namespace Bikewale.Cache.DealersLocator
         }
 
         /// <summary>
+        /// Created By : Sajal Gupta on 26/09/2016
+        /// Description : Calls BAL method to get dealer's bikes and details on the basis of dealerId and makeId.
+        /// </summary>
+        public DealerBikesEntity GetDealerDetailsAndBikesByDealerAndMake(uint dealerId, int makeId)
+        {
+            DealerBikesEntity models = null;
+            string key = String.Format("BW_DealerBikeModel_{0}_{1}", dealerId, makeId);
+            try
+            {
+                models = _cache.GetFromCache<DealerBikesEntity>(key, new TimeSpan(0, 30, 0), () => _objDealers.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "DealerCacheRepository.GetDealerDetailsAndBikes");
+                objErr.SendMail();
+            }
+            return models;
+        }
+
+        /// <summary>
         /// Craeted by  :   Sumit Kate on 21 Jun 2016
         /// Description :   Get Cached Popular City Dealer Count
         /// </summary>

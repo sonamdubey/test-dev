@@ -57,7 +57,7 @@
                     </ul><div class="clear"></div>
                 </li>
                 <li>
-                    <a class="grid_4 alpha black-text" href="http://www.bikewale.com/new/locate-dealers/"><b>Locate New Bike Dealers</b></a>
+                    <a class="grid_4 alpha black-text" href="http://www.bikewale.com/dealer-showroom-locator/"><b>Locate New Bike Dealers</b></a>
                     <ul class="grid_2 alpha">
                         <li><a href="http://www.bikewale.com/new/aprilia-dealers/">Aprilia</a></li>
                         <li><a href="http://www.bikewale.com/new/bajaj-dealers/">Bajaj</a></li>

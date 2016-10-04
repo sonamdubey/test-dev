@@ -35,9 +35,21 @@
 <footer class="bg-footer padding-top40 padding-bottom20">
     <!-- Footer section code starts here -->
     <div class="container">
+        <div class="text-center border-solid-bottom margin-bottom25 padding-bottom20">
+            <div class="grid-4">
+                <a href="/" class="bwsprite bw-footer-icon" title="Bikewale"></a>
+            </div>
+            <div class="grid-4">
+                <a href="http://www.carwale.com/" target="_blank" class="bwsprite cw-footer-icon" title="CarWale"></a>
+                <p class="cw-logo-label">ask the experts</p>
+            </div>
+            <div class="grid-4">
+                <a href="https://www.cartrade.com/" target="_blank" class="bwsprite ct-footer-icon" title="CarTrade"></a>
+            </div>
+            <div class="clear"></div>
+        </div>
         <div class="grid-4">
-            <a href="/" class="bwsprite bw-logo"></a>
-            <p class="font18 text-white margin-top50 margin-bottom20">Join us on</p>
+            <p class="font18 text-white margin-bottom20">Join us on</p>
             <div class="footer-social-icons">
                 <a href="https://www.facebook.com/Bikewale.Official" target="_blank" title="Facebook" class="margin-right30 fa-fb" rel="nofollow">
                     <span class="bwsprite fa-facebook"></span>
@@ -54,13 +66,13 @@
             <p class="font18 text-white margin-bottom20">Company</p>
             <ul>
                 <li><a href="/sitemap.aspx">Sitemap</a></li>
-                <li><a target="_blank" href="http://www.carwale.com">CarWale.com</a></li>
                 <li><a href="/contactus.aspx">Contact Us</a></li>
+                <li><a href="/advertisewithus.aspx">Advertise with us</a></li>
             </ul>
         </div>
         <div class="grid-3">
             <ul class="margin-top45">
-                <li><a href="/advertisewithus.aspx">Advertise with us</a></li>
+                
                 <li><a href="/aboutus.aspx">About Us</a></li>
                 <li><a href="http://www.bikewale.com/m/">View Mobile Version</a></li>
             </ul>

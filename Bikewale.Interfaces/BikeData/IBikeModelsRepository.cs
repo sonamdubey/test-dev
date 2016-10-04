@@ -12,6 +12,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Added defimition of BikeModelContent GetRecentModelArticles(U modelId);
     /// Modified By: Aditi Srivastava on 17th Aug, 2016
     /// Description: Added GetModelPhotos(int modelId) for getting imageurl and original path;
+    /// Modified by : Subodh Jain 22 sep 2016
+    /// Description by : Added GetMostPopularBikesbyMakeCity method
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -24,10 +26,10 @@ namespace Bikewale.Interfaces.BikeData
         UpcomingBikeEntity GetUpcomingBikeDetails(U modelId);
         List<UpcomingBikeEntity> GetUpcomingBikesList(UpcomingBikesListInputEntity inputParams, EnumUpcomingBikesFilter sortBy, out int recordCount);
         NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex);
-
+        NewLaunchedBikesBase GetNewLaunchedBikesListByMake(int startIndex, int endIndex, int? makeid = null);
         BikeModelPageEntity GetModelPage(U modelId);
         BikeSpecificationEntity MVSpecsFeatures(int versionId);
-
+        IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId);
         /// <summary>
         /// To Get Overall Most Popular Bikes
         /// </summary>
@@ -41,7 +43,7 @@ namespace Bikewale.Interfaces.BikeData
         /// <param name="makeId"></param>
         /// <returns></returns>
         List<MostPopularBikesBase> GetMostPopularBikesByMake(int makeId);
-        
+
         Hashtable GetMaskingNames();
         Hashtable GetOldMaskingNames();
 

@@ -17,7 +17,7 @@
                 <li><a href="/m/new/">Find New Bikes</a></li>
                 <li><a href="/m/comparebikes/">Compare Bikes</a></li>
                 <li><a href="/m/pricequote/">Check On-Road Price</a></li>
-                <li><a href="/m/new/locate-dealers/">Locate Dealer</a></li>
+                <li><a href="/m/dealer-showroom-locator/">Locate Dealer</a></li>
                 <li><a href="/m/upcoming-bikes/">Upcoming Bikes</a></li>
                 <li><a href="/m/new-bikes-launches/">New Launches</a></li>
                 <li><a href="/m/bikebooking/">Book Your Bike</a></li>

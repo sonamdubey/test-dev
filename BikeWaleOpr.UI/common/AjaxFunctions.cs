@@ -13,6 +13,7 @@ using BikeWaleOpr.Common;
 using System.Text.RegularExpressions;
 using System.Configuration;
 using MySql.CoreDAL;
+using AjaxPro;
 
 namespace BikeWaleOpr
 {
@@ -298,7 +299,7 @@ namespace BikeWaleOpr
         /// <param name="cityId"></param>
         /// <param name="price"></param>
         /// <returns></returns>
-        [Ajax.AjaxMethod()]
+        [Ajax.AjaxMethod(),AjaxPro.AjaxMethod()]
         public string CalculateInsurancePremium(string bikeVersionId, string cityId, double price)
         {
             return CommonOpn.GetInsurancePremium(bikeVersionId, cityId, price).ToString();
@@ -313,7 +314,7 @@ namespace BikeWaleOpr
         /// <param name="cityId"></param>
         /// <param name="price"></param>
         /// <returns></returns>
-        [Ajax.AjaxMethod()]
+        [Ajax.AjaxMethod(),AjaxPro.AjaxMethod()]
         public string CalculateRegistrationCharges(string bikeVersionId, string cityId, double price)
         {
             return CommonOpn.GetRegistrationCharges(bikeVersionId, cityId, price).ToString();

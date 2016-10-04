@@ -8,6 +8,7 @@ using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Mobile.Controls;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -27,8 +28,8 @@ namespace Bikewale.Mobile.New.DealerLocator
         protected uint cityId, makeId;
         protected ushort totalDealers;
         protected Repeater rptMakes, rptCities, rptPopularBrands, rptOtherBrands;
-
-
+        protected MNewLaunchedBikes mctrlNewLaunchedBikes;
+        protected MUpcomingBikes mctrlUpcomingBikes;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -48,7 +49,10 @@ namespace Bikewale.Mobile.New.DealerLocator
                 originalUrl = Request.ServerVariables["URL"];
 
             BindMakes();
-
+            mctrlNewLaunchedBikes.pageSize = 6;
+            mctrlNewLaunchedBikes.curPageNo = null;
+            mctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+            mctrlUpcomingBikes.pageSize = 6;
             if (makeId > 0)
                 BindCitiesDropdown();
 

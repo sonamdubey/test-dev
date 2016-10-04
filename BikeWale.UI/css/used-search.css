@@ -1,0 +1,845 @@
+﻿@charset "utf-8";
+.padding-14-20 {
+    padding: 14px 20px;
+}
+
+.text-x-black {
+    color: #1a1a1a;
+}
+
+/* columns */
+#listing-left-column {
+    height: 1230px;
+    z-index: 1;
+}
+
+#listing-right-column {
+    margin-left: 323px;
+    min-height:1250px;
+}
+
+/* sort by */
+.sort-div,.sort-selection-div{background:#fff;border:1px solid #e2e2e2;}
+.sort-div{width:220px;height:36px;padding:7px;position:relative;cursor:pointer;float:right}
+.sort-by-title{width:200px}
+.sort-select-btn.text-truncate { color: #82888b; width:90%; }
+.sort-selection-div{width:220px;position:absolute;z-index:2;top:45px;right:0;}
+.sort-list-items ul::after,.sort-list-items ul::before{border-left:10px solid transparent;border-right:10px solid transparent;content:"";left:50%;position:absolute;z-index:1}
+.sort-selection-div ul li{padding:5px 8px;transition: background .1s linear;}
+.sort-label { color: #82888b; pointer-events: none; }
+.sort-selection-div ul li:hover{cursor:pointer;background:#eee;}
+.sort-selection-div ul li.selected{font-weight:700}
+.sort-list-items ul::before{border-bottom:10px solid #e2e2e2;top:-11px}
+.sort-list-items ul::after{border-bottom:10px solid #fff;top:-10px}
+#upDownArrow.fa-angle-down{transition:all .5s ease-in-out 0s;font-size:20px}
+.sort-div .fa-angle-down{transition:transform .3s;-moz-transition:transform .3s;-webkit-transition:transform .3s;-o-transition:transform .3s;-ms-transition:transform .3s}
+.sort-div.open .fa-angle-down{-moz-transform:rotateZ(180deg);-webkit-transform:rotateZ(180deg);-o-transform:rotateZ(180deg);-ms-transform:rotateZ(180deg);transform:rotateZ(180deg)}
+.sort-by-text p{height:35px;line-height:35px}
+
+/* selected filters */
+#selected-filters li p {
+    float: left;
+    margin-right: 15px;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+/* used-bikes-list */
+#used-bikes-list li {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.model-thumbnail-image {
+    width: 300px;
+    height: 169px;
+    display: table;
+    text-align: center;
+    background: #f5f5f5;
+    float: left;
+    position: relative;
+    overflow: hidden;
+}
+
+.model-thumbnail-image a {
+    display: table-cell;
+    vertical-align: middle;
+    line-height: 0;
+    background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center center no-repeat;
+}
+
+.model-thumbnail-image img {
+    max-width: 300px;
+    width: auto;
+    height: 169px;
+}
+
+.model-details-content {
+    width: 318px;
+    padding-left: 20px;
+    float: left;
+}
+
+.model-details-content .grid-6 {
+    margin-bottom: 6px;
+}
+
+.text-truncate {
+    display: block;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.model-details-label {
+    width:84%;
+    display: inline-block;
+    vertical-align: middle;
+    color: #82888b;
+    text-align:left;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow:hidden;
+}
+
+.btn.seller-details-btn {
+    font-size: 14px;
+    padding: 5px 31px;
+}
+
+/* filters */
+#filters-head {
+    padding: 17px 20px;
+}
+
+#filters-head .text-bold {
+    position: relative;
+    top: 2px;
+}
+
+#reset-filters.btn {
+    padding: 4px 21px;
+}
+
+.filter-block {
+    padding: 17px 20px 20px;
+    border-top: 1px solid #f5f5f5;
+    background: #fff;
+}
+
+.filter-block:first-child {
+    border-top: 0;
+}
+
+.filter-block .filter-label {
+    color: #82888b;
+    float: left;
+}
+
+.filter-position-default {
+    top: 0 !important;
+}
+
+.position-fix {
+    position: fixed;
+}
+
+/* city */
+#filter-type-city {
+    min-height: 91px;
+}
+
+#filter-type-city .chosen-container {
+    padding: 0;
+    padding-bottom: 5px;
+    border: 0;
+    border-bottom: 1px solid #4d5057;
+    border-radius: 0;
+}
+
+#filter-type-city .chosen-container-single .chosen-single {
+    font-size: 16px;
+    font-weight: bold;
+    color: #4d5057;
+    background: none;
+}
+
+#filter-type-city .chosen-container-single .chosen-search input[type=text] {
+    border: 0;
+    padding: 6px 10px;
+    font-size: 16px;
+}
+
+#filter-type-city .chosen-container-single .chosen-search {
+    padding: 0;
+    border-bottom: 1px solid #41b4c4;
+}
+
+#filter-type-city .chosen-container .chosen-results {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+}
+
+#filter-type-city .chosen-container .chosen-drop {
+    top: 2px;
+    border: 1px solid #e2e2e2;
+    box-shadow: 0 2px 3px rgba(0,0,0,.15);
+}
+
+#filter-type-city .chosen-container-single .chosen-drop {
+    border-radius: 2px;
+}
+
+#filter-type-city .chosen-container .chosen-results li {
+    padding: 8px 10px 7px;
+    transition: background .1s linear;
+}
+
+/* bike */
+#filter-type-bike.filter-block {
+    padding-right: 5px;
+}
+
+#filter-bike-list {
+    width: 100%;
+    height: 520px;
+    overflow-y: scroll;
+}
+
+#filter-bike-list li {
+    padding-right: 12px;
+}
+
+/* accordion */
+.accordion-tab { 
+    position: relative;
+    border-top: 1px solid #e2e2e2;
+}
+
+#filter-bike-list li:first-child .accordion-tab {
+    border-top: 0;
+}
+
+.accordion-tab .accordion-label-tab {
+    width: 90%;
+    padding: 16px 30px 16px 0;
+    cursor: pointer;
+}
+
+.accordion-tab ~ .bike-model-list-content {
+    display: none;
+}
+
+.accordion-tab .arrow-down {
+    width: 16px;
+    height: 10px;
+    background-position: -205px -517px;
+    position: absolute;
+    right: 0;
+    top: 22px;
+    -moz-transition: transform .3s;
+    -webkit-transition: transform .3s;
+    -o-transition: transform .3s;
+    -ms-transition: transform .3s;
+    transition: transform .3s;
+}
+
+.accordion-tab .accordion-checkbox {
+    position: relative;
+    top: 19px;
+    cursor: pointer;
+}
+
+.accordion-tab .category-label {
+    font-size: 16px;
+    font-weight: bold;
+    max-width: 70%;
+    overflow: hidden;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.accordion-tab .accordion-count {
+    font-size: 12px;
+    color: #82888b;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: 2px;
+}
+
+.bike-model-list li {
+    font-size: 14px;
+    color: #82888b;
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+.bike-model-list .unchecked-box {
+    position: relative;
+    top: 2px;
+    margin-right: 6px;
+}
+
+.bike-model-list li.active {
+    font-weight: bold;
+    color: #4d5057;
+}
+
+.bike-model-list li.active .unchecked-box {
+    background-position: -216px -135px;
+}
+
+#filter-bike-list .form-control {
+    border-radius: 0;    
+}
+
+#filter-bike-list .search-icon {
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    cursor: pointer;
+    z-index: 2;
+}
+
+#filter-type-bike.active-clear #reset-bikes-filter {
+    display: block;
+}
+
+#reset-bikes-filter {
+    display: none;
+    color: #a2a2a2;
+    cursor: pointer;
+    position: relative;
+    top: 2px;
+}
+
+#reset-bikes-filter:hover {
+    color: #4d5057;
+}
+
+/* accordion active */
+.accordion-tab.active .arrow-down {
+    -moz-transform: rotateZ(180deg);
+    -webkit-transform: rotateZ(180deg);
+    -o-transform: rotateZ(180deg);
+    -ms-transform: rotateZ(180deg);
+    transform: rotateZ(180deg);
+}
+
+.accordion-tab.tab-checked .accordion-checkbox .unchecked-box {
+    background-position: -216px -135px;
+}
+
+/* scrollbar */
+#filter-bike-list::-webkit-scrollbar, #filter-type-city .chosen-container .chosen-results::-webkit-scrollbar {width: 5px;}
+#filter-bike-list::-webkit-scrollbar-track, #filter-type-city .chosen-container .chosen-results::-webkit-scrollbar-track {background: #fff;}
+#filter-bike-list::-webkit-scrollbar-thumb, #filter-type-city .chosen-container .chosen-results::-webkit-scrollbar-thumb {background: #ddd;}
+#filter-bike-list::-webkit-scrollbar-thumb:hover, #filter-type-city .chosen-container .chosen-results::-webkit-scrollbar-thumb:hover {background: #bbb;}
+
+/* slider */
+.ui-widget-content { background: #bababa; height: 3px; margin: 18px 0 3px; width: 96%; border-radius: 0px; cursor: pointer; }
+.ui-slider .ui-slider-range { border: none; display: block; font-size: 0.7em; position: absolute; z-index: 1; border-radius: 0px; }
+.ui-widget-header { background: #ef3030; height: 3px; }
+.ui-slider { position: relative; text-align: left; }
+.ui-slider .ui-slider-handle { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/slider-handle.png) no-repeat; cursor:pointer; height:28px; width:28px; display:block; margin-left: -9px; position: absolute; outline:none; top: -13px; z-index: 2; background-position:3px 3px; }
+
+/* prev owners */
+#previous-owners-list {
+    overflow: hidden;
+}
+
+#previous-owners-list li {
+    margin-left: 10px;
+    float: left;
+}
+
+#previous-owners-list li:first-child {
+    margin-left: 0
+}
+
+#previous-owners-list span {
+    display: block;
+    font-size: 16px;
+    padding: 8px 14px;
+    border: 1px solid #a2a2a2;
+    position: relative;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+#previous-owners-list .last-item {
+    padding-right: 26px;
+    padding-left: 26px;
+}
+
+#previous-owners-list span:before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid #fff;
+}
+
+#previous-owners-list .active span, #previous-owners-list .active span:before {
+    border: 1px solid #4d5057;
+}
+
+#previous-owners-list .active span {
+    font-weight: bold;
+}
+
+/* seller type */
+#filter-type-seller.filter-block {
+    padding-bottom: 10px;
+}
+
+#seller-type-list li {
+    font-size: 16px;
+    color: #82888b;
+    cursor: pointer;
+}
+
+#seller-type-list li:first-child {
+    margin-bottom: 15px;
+}
+
+#seller-type-list li.checked {
+    font-weight: bold;
+    color: #4d5057;
+}
+
+#seller-type-list li.checked .unchecked-box {
+    background-position: -216px -135px;
+}
+
+/* image count */
+.model-media-details {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 12px;
+}
+
+.model-media-item {
+    display:inline-block;
+    vertical-align: middle;
+    padding: 4px 5px;
+    color: #4d5057;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 2px;
+}
+
+.model-media-item:hover {
+    text-decoration:none;
+}
+
+.model-media-count { 
+    position: relative;
+    top: -1px;
+}
+
+.gallery-photo-icon {
+    width: 16px;
+    height: 12px;
+    background-position: -213px -207px;
+}
+
+/* icons */
+.inr-md-lg {
+    width: 12px;
+    height: 17px;
+    background-position: -64px -515px;
+    position: relative;
+    top: 1px;
+}
+.author-grey-sm-icon, .model-date-icon, .kms-driven-icon, .model-loc-icon { 
+    width:10px;
+    height:12px;
+    margin-right: 5px;
+    vertical-align:middle;
+}
+
+.model-date-icon {
+    background-position:-65px -543px;
+}
+
+.kms-driven-icon {
+    background-position:-65px -563px;
+}
+
+.model-loc-icon {
+    background-position:-82px -543px;
+}
+
+.cross-icon {
+    width: 8px;
+    height: 8px;
+    background-position: -82px -565px;
+    margin-left: 6px;
+}
+
+.unchecked-box {
+    width: 14px;
+    height: 14px;
+    background-position: -216px -120px;
+    margin-right: 10px;
+    /* checked background-position: -216px -135px; */
+}
+
+.search-icon {
+    width: 17px;
+    height: 17px;
+    background-position: -213px -160px;
+}
+
+.prev-page-icon, .next-page-icon {
+    width: 8px;
+    height: 12px;
+    position: relative;
+    left: 10px;
+    top: 5px;
+}
+
+.prev-page-icon {
+    background-position: -213px -187px;
+}
+
+.next-page-icon {
+    background-position: -222px -187px;
+}
+
+.inactive .prev-page-icon, .inactive .next-page-icon.inactive {
+    opacity: 0.2;
+}
+
+/* search-listing-footer */
+#search-listing-footer {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+#search-listing-footer .grid-5 {
+    position: relative;
+    top: 4px;
+}
+
+
+/* pagination */
+#pagination-list-content {
+    min-width: 185px;
+    width: auto;
+    max-width: 355px;
+    float: right;
+}
+
+#pagination-list {
+    margin-right: 35px;
+    margin-left: 35px;
+    overflow: hidden;
+}
+
+#pagination-list li {
+    float: left;
+    margin-right: 5px;
+    margin-left: 5px;
+    color: #82888b;
+    font-size: 12px;
+    padding: 5px;
+    border: 1px solid #fff;
+    display: block;
+    min-width: 30px;
+    text-align: center;
+}
+
+#pagination-list a {
+    color: #82888b;
+}
+
+#pagination-list a:hover {
+    color: #4d5057;
+    text-decoration: none;
+}
+
+#pagination-list .active {
+    color: #4d5057;
+    font-weight: bold;
+    border: 1px solid #a2a2a2;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    -ms-border-radius: 1px;
+    border-radius: 1px;
+}
+
+.pagination-control-prev, .pagination-control-next {
+    position: absolute;
+    top: 0;
+    width: 30px;
+    height: 29px;
+}
+
+.pagination-control-prev {
+    left: 0;
+}
+
+.pagination-control-next {
+    right: 0;
+}
+
+.pagination-control-prev.inactive, .pagination-control-next.inactive {
+    pointer-events: none;
+}
+
+/* lead capture popup */
+#get-seller-details-popup.bwm-fullscreen-popup {
+    padding: 30px 60px 50px;
+    display: none;
+}
+
+#get-seller-details-popup.bw-popup {
+    width: 480px;
+    top: 33%;
+}
+
+#mobile-verification-section, #update-mobile-content, #seller-details-section {
+    display: none;
+}
+
+.btn-fixed-width {
+    padding-right: 0;
+    padding-left: 0;
+    width: 205px;
+}
+
+.size-small .icon-outer-container {
+    width: 92px;
+    height: 92px;
+}
+
+.size-small .icon-inner-container {
+    width: 84px;
+    height: 84px;
+    margin: 3px auto;
+}
+
+.otp-icon {
+    width: 29px;
+    height: 29px;
+    background-position: -109px -177px;
+}
+
+.edit-blue-icon {
+    position: relative;
+    top: 13px;
+    cursor: pointer;
+}
+
+.margin-bottom35 { 
+    margin-bottom: 35px;
+}
+
+.dealer-details-list li {
+    margin-bottom: 25px;
+}
+
+.dealer-details-list .data-key {
+    font-size: 12px;
+    color: #82888b;
+}
+
+.dealer-details-list .data-value {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.text-truncate { width:100%; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
+
+/* input field */
+input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow: none; }
+.input-box { height:60px; text-align: left; }
+.input-box input { font-size: 16px; width: 100%; display:block; padding: 7px 0; border-bottom:1px solid #82888b; font-weight: bold; color: #4d5057; }
+.input-box label { position: absolute; top: 4px; left: 0; font-size:16px; color: #82888b; -webkit-transition:0.2s ease all; -moz-transition:0.2s ease all; -o-transition:0.2s ease all; transition:0.2s ease all; }
+.input-number-box input { padding-left: 30px; }
+.input-number-prefix { display:none; font-size: 16px; position: absolute; top: 4px; font-weight: bold; color: #82888b; }
+.boundary { position: relative; width: 100%; display: block; }
+.boundary:before, .boundary:after { content: ''; position: absolute; bottom: 0; width: 0; height: 2px; background-color: #41b4c4; -webkit-transition:0.2s ease all; -moz-transition:0.2s ease all; -o-transition:0.2s ease all; transition:0.2s ease all; }
+.boundary:before { left:50%; }
+.boundary:after { right:50%; }
+.error-text { display:none; font-size:12px; position: relative; top: 4px; left: 0; color: #d9534f; }
+/* on focus */
+.input-box input:focus ~ label, .input-box.not-empty label { top:-16px; font-size:12px; }
+.input-box.input-number-box input:focus ~ .input-number-prefix, .input-box.input-number-box.not-empty .input-number-prefix { display:inline-block; }
+.input-box input:focus ~ .boundary:before, .input-box input:focus ~ .boundary:after { width: 50%; } 
+/* validation */
+.input-box.invalid .boundary:before, .input-box.invalid .boundary:after { background-color: #d9534f; width:50%; }
+.input-box.invalid .error-text { display:inline-block; }
+
+/* loader */
+#ub-ajax-loader {
+    display: none;
+}
+
+#modal-window {
+    background: #000;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 9;
+    opacity: .5;
+    display: none;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: alpha(opacity=50);
+    -moz-opacity: 0.5;
+    -khtml-opacity: 0.5;
+}
+/* loader */
+#spinner-content {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    top: 45%;
+    left: 10%;
+    right: 0;
+    margin: 0 auto;
+    z-index: 999;
+}
+
+.bw-spinner {
+  -webkit-animation: rotator 1.4s linear infinite;
+          animation: rotator 1.4s linear infinite;
+}
+
+@-webkit-keyframes rotator {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
+  }
+}
+
+@keyframes rotator {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
+  }
+}
+.circle-path {
+  stroke-dasharray: 187;
+  stroke-dashoffset: 0;
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  -webkit-animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+          animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+}
+
+@-webkit-keyframes colors {
+  0% {
+    stroke: #ef3f30;
+  }
+  100% {
+    stroke: #ef3f30;
+  }
+}
+
+@keyframes colors {
+  0% {
+    stroke: #ef3f30;
+  }
+  100% {
+    stroke: #ef3f30;
+  }
+}
+@-webkit-keyframes dash {
+  0% {
+    stroke-dashoffset: 187;
+  }
+  50% {
+    stroke-dashoffset: 46.75;
+    -webkit-transform: rotate(135deg);
+            transform: rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: 187;
+    -webkit-transform: rotate(450deg);
+            transform: rotate(450deg);
+  }
+}
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 187;
+  }
+  50% {
+    stroke-dashoffset: 46.75;
+    -webkit-transform: rotate(135deg);
+            transform: rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: 187;
+    -webkit-transform: rotate(450deg);
+            transform: rotate(450deg);
+  }
+}
+
+.model-details-content .text-truncate{
+    width:100% !important
+}
+
+#search-listing-content {
+    top: 2px;
+    min-height: 1250px
+}
+
+#loader-bg-window {
+    background: #f5f5f5;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    opacity: 0;
+    display: none;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    -moz-opacity: 0;
+    -khtml-opacity: 0;
+}
+
+#loader-right-column{position:absolute;left:0;top:0;background:#f5f5f5;width:100%;min-height:1250px;height:100%;z-index:2;opacity:0.8;display:none;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity:0.8;}
+.loader-active #spinner-content{left:25%}
+#get-seller-details-popup{min-height:550px}
+
+@media only screen and (max-width:1024px) {
+    #listing-right-column {
+        margin-left: 313px;
+    }
+
+    .model-details-content {
+        width: 293px;
+    }
+
+    .model-details-label {
+        width: 82%;
+    }
+
+    #previous-owners-list .last-item {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+}

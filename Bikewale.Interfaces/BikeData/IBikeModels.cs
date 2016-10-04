@@ -11,7 +11,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Added defimition of BikeModelContent GetRecentModelArticles(U modelId);
     /// Modified by: Aditi Srivastava on 16th Aug,2016
     /// Description: added new method  IEnumerable<ModelImage> GetModelPhotos() 
-    /// </summary>
+    /// Modified by: Subodh Jain on 22 sep 2016
+    /// Description: added new method GetMostPopularBikesbyMakeCity
     /// <typeparam name="T">Generic type (need to specify type while implementing this interface)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this interface)</typeparam>
     public interface IBikeModels<T, U> : IRepository<T, U>
@@ -23,11 +24,12 @@ namespace Bikewale.Interfaces.BikeData
         UpcomingBikeEntity GetUpcomingBikeDetails(U modelId);
         List<UpcomingBikeEntity> GetUpcomingBikesList(UpcomingBikesListInputEntity inputParams, EnumUpcomingBikesFilter sortBy, out int recordCount);
         List<UpcomingBikeEntity> GetUpcomingBikesList(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo = null);
-        NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex);
+        NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex, int? makeid = null);
         //List<NewLaunchedBikeEntity> GetNewLaunchedBikesList(int pageSize, out int recordCount, int? currentPageNo = null);
         BikeModelPageEntity GetModelPageDetails(U modelId);
         List<ModelImage> GetBikeModelPhotoGallery(U modelId);
         BikeModelContent GetRecentModelArticles(U modelId);
         IEnumerable<ModelImage> GetModelPhotos(U modelId);
+        IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId);
     }
 }

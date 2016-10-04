@@ -14,6 +14,7 @@ namespace Bikewale.Mobile.Controls
         public uint ModelId { get; set; }
         public uint TopCount { get; set; }
         public int? CityId { get; set; }
+        public string header { get; set; }
         public int fetchedCount;
         public string makeName = string.Empty;
         public string modelName = string.Empty;
@@ -22,6 +23,9 @@ namespace Bikewale.Mobile.Controls
         public string modelMaskingName = string.Empty;
         public string cityMaskingName = string.Empty;
         public string pageHeading = string.Empty;
+
+
+
         protected override void OnInit(EventArgs e)
         {
             InitializeComponents();

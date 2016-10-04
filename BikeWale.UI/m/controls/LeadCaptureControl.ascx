@@ -13,8 +13,8 @@
                 <!-- ko if : isDealerBikes() -->
                 <div id="getLeadBike" class="margin-top10 form-control-box">
                     <div class="dealer-search-brand form-control-box">
-                        <span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span>
-                        <div class="dealer-search-brand-form"><span>Select a bike</span></div>
+                        
+                        <div class="dealer-search-brand-form"><span id="selectedbike">Select a bike</span></div>
                         <span class="bwmsprite error-icon errorIcon"></span>
                         <div class="bw-blackbg-tooltip errorText"></div>
                         <span class="position-abt progress-bar"></span>
@@ -55,7 +55,7 @@
         </div>
 
         <!-- thank you message starts here -->
-        <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
+        <div id="notify-response" class="hide content-inner-block-20 text-center">
             <div class="icon-outer-container rounded-corner50percent">
                 <div class="icon-inner-container rounded-corner50percent">
                     <span class="bwmsprite thankyou-icon margin-top15"></span>
@@ -88,6 +88,8 @@
     $(function () {
 
         leadBtnBookNow.on('click', function () {
+            $('#selectedbike').text('Select a bike');
+            dleadvm.selectedBike(null);
             leadCapturePopup.show();
             $("#notify-response").hide();
             $("div#contactDetailsPopup").show();
@@ -127,10 +129,9 @@
 
         $("#getMobile").on("blur", function () {
             if (prevMobile != $(this).val().trim()) {
-                if (validateMobileNo($(this))) {
+                if (dleadvm.validateMobileNo($(this))) {
                     dleadvm.IsVerified(false);
-                    otpText.val('');
-                    otpContainer.removeClass("show").addClass("hide");
+                  
                     hideError($(this));
                 }
             }
@@ -138,10 +139,9 @@
 
         $("#getEmailID").on("blur", function () {
             if (prevEmail != $(this).val().trim()) {
-                if (validateEmailId($(this))) {
+                if (dleadvm.validateEmailId($(this))) {
                     dleadvm.IsVerified(false);
-                    otpText.val('');
-                    otpContainer.removeClass("show").addClass("hide");
+                  
                     hideError($(this));
                 }
             }
@@ -331,11 +331,9 @@
                             isSuccess = false;
                             stopLoading($("#user-details-submit-btn").parent());
                         }
-
                     }
                 });
             }
-
             return isSuccess;
 
         }
@@ -395,7 +393,7 @@
         };
 
         self.submitLead = function (data, event) {
-          
+           
             if (self.mfgCampaignId() > 0) {
                 self.submitCampaignLead(data, event);
             }
@@ -424,6 +422,7 @@
 
         self.validateUserInfo = function () {
             var isValid = true;
+            
             isValid =  self.validateUserName();
             isValid &= self.validateEmailId();
             isValid &= self.validateMobileNo();

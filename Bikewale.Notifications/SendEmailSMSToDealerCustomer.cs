@@ -350,5 +350,54 @@ namespace Bikewale.Notifications
             objEmail.Send(seller.CustomerEmail, "Upload Bike Photos");
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 23 Sep 2016
+        /// Description :   Send EMail to buyer about seller details
+        /// Modified by :   Sumit Kate on 29 Sep 2016
+        /// Description :   Added listing page url
+        /// </summary>
+        /// <param name="seller"></param>
+        /// <param name="buyer"></param>
+        /// <param name="sellerAddress"></param>
+        /// <param name="profileId"></param>
+        /// <param name="bikeName"></param>
+        /// <param name="kilometers"></param>
+        /// <param name="makeYear"></param>
+        /// <param name="formattedPrice"></param>
+        public static void UsedBikePurchaseInquiryEmailToBuyer(CustomerEntityBase seller, CustomerEntityBase buyer, string sellerAddress, string profileId, string bikeName, string kilometers, string makeYear, string formattedPrice, string listingUrl)
+        {
+            ComposeEmailBase objEmail = new PurchaseInquiryEmailToBuyerTemplate(
+                seller.CustomerEmail,
+                seller.CustomerName,
+                seller.CustomerMobile,
+                sellerAddress,
+                profileId,
+                buyer.CustomerId.ToString(),
+                bikeName,
+                kilometers,
+                makeYear,
+                formattedPrice,
+                buyer.CustomerName
+                , listingUrl
+                );
+            objEmail.Send(buyer.CustomerEmail, String.Format("Seller Details of Bike #{0}", profileId));
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 23 Sep 2016
+        /// Description :   Send Email to individual seller about buyer details about it's listing
+        /// </summary>
+        /// <param name="seller"></param>
+        /// <param name="buyer"></param>
+        /// <param name="profileId"></param>
+        /// <param name="bikeName"></param>
+        /// <param name="kilometers"></param>
+        /// <param name="makeYear"></param>
+        /// <param name="formattedPrice"></param>
+        public static void UsedBikePurchaseInquiryEmailToIndividual(CustomerEntityBase seller, CustomerEntityBase buyer, string profileId, string bikeName, string formattedPrice)
+        {
+            ComposeEmailBase objEmail = new PurchaseInquiryEmailToIndividualSellerTemplate(seller.CustomerEmail, seller.CustomerName, buyer.CustomerName, buyer.CustomerEmail, buyer.CustomerMobile, profileId, bikeName, formattedPrice);
+            objEmail.Send(seller.CustomerEmail, "Someone is interested in your bike!");
+        }
     }
 }

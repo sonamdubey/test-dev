@@ -38,9 +38,9 @@ namespace Bikewale.Content
         protected ArticlePageDetails objRoadtest;
         private bool _isContentFound = true;
 
-        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
+        static bool _useGrpc = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.UseGrpc);
         static readonly ILog _logger = LogManager.GetLogger(typeof(ViewRT));
-        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
+        static bool _logGrpcErrors = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.LogGrpcErrors);
 
         protected override void OnInit(EventArgs e)
         {

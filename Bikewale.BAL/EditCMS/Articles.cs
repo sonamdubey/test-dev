@@ -29,7 +29,7 @@ namespace Bikewale.BAL.EditCMS
         public int FetchedRecordsCount { get; set; }
 
 
-        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
+        static bool _logGrpcErrors = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.LogGrpcErrors);
         static readonly ILog _logger = LogManager.GetLogger(typeof(Articles));
         static bool _useGrpc = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.UseGrpc);
 

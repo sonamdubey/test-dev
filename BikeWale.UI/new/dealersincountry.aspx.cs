@@ -1,43 +1,43 @@
 ﻿using Bikewale.BAL.Location;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
+using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
-using Bikewale.Memcache;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.New
 {
     /// <summary>
     /// Created by : Sangram Nandkhile on 27 Jun 2016
-    /// Summary: To show dealers in India and list of states
+    /// Summary: To show dealers in State and list of cities
     /// </summary>
-    public class DealersInIndia : Page
+    public class DealersInCountry : Page
     {
-        protected Repeater rptState;
-        protected DataList dlCity;
-
-        protected DataSet dsStateCity = null;
         protected BikeMakeEntityBase objMMV;
-
-        public string strMakeId = string.Empty, stateArray = string.Empty, makeMaskingName = string.Empty;
-        public int stateCount = 0, DealerCount = 0; protected uint countryCount = 0;
-        protected uint cityId = 0;
-        protected ushort makeId = 0;
-        protected bool cityDetected;
-
+        protected NewLaunchedBikes_new ctrlNewLaunchedBikes;
+        protected UpcomingBikes_new ctrlUpcomingBikes;
+        public ushort makeId;
+        public string cityArr = string.Empty, makeMaskingName = string.Empty, stateMaskingName = string.Empty, stateName = string.Empty, stateArray = string.Empty;
+        public uint stateCount = 0, DealerCount = 0;
+        protected uint countryCount = 0;
+        public uint citiesCount = 0, stateCountDealers = 0;
+        public uint cityId = 0, DealerCountCity, stateId = 0;
+        public DealerLocatorList states = null;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -72,64 +72,98 @@ namespace Bikewale.New
                     objMMV = makesRepository.GetMakeDetails(makeId.ToString());
 
                 }
+                ctrlNewLaunchedBikes.pageSize = 6;
+                ctrlNewLaunchedBikes.makeid = makeId;
+                ctrlUpcomingBikes.pageSize = 6;
+                ctrlUpcomingBikes.MakeId = makeId;
+                BindStatesCities();
 
-                BindStates();
             }
         }
-
-
-        /// <summary>
-        /// Modified by: Sangram Nandkhile on 24th Jun 2016
-        /// </summary>
-        private void BindStates()
+        private void BindStatesCities()
         {
-            IEnumerable<DealerStateEntity> states = null;
-            IState objStates = null;
+            IState objStatesCity = null;
             using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<IState, States>();
-                objStates = container.Resolve<IState>();
-                states = objStates.GetDealerStates(Convert.ToUInt32(strMakeId));
-                if (objMMV != null && states != null && states.Count() > 0)
-                {
-                    foreach (var state in states)
-                    {
-                        state.Link = string.Format("/{0}-bikes/dealers-in-{1}-state/", objMMV.MaskingName, state.StateMaskingName);
-                    }
-                    rptState.DataSource = states;
-                    rptState.DataBind();
-                    stateArray = Newtonsoft.Json.JsonConvert.SerializeObject(states);
-                    // To set correct properties in json array
-                    stateArray = stateArray.Replace("stateId", "id").Replace("stateName", "name");
-                    countryCount = states.Select(o => o.StateCount).Aggregate((x, y) => x + y);
-                    stateCount = states.Count();
-                }
+                objStatesCity = container.Resolve<IState>();
+                states = objStatesCity.GetDealerStatesCities(Convert.ToUInt32(makeId));
+                DealerCount = states.totalDealers;
+                citiesCount = states.totalCities;
+
             }
         }
 
 
+
         /// <summary>
-        /// Process query string and fetch make id
+        /// Modified by :   Sumit Kate on 03 Oct 2016
+        /// Description :   Handle Make masking name rename 301 redirection
         /// </summary>
         /// <returns></returns>
         protected bool ProcessQS()
         {
             bool isSuccess = true;
+            MakeMaskingResponse objResponse = null;
+
             if (!string.IsNullOrEmpty(Request["make"]))
             {
                 makeMaskingName = Request["make"].ToString();
-                strMakeId = MakeMapping.GetMakeId(Request.QueryString["make"].ToLower());
-                makeId = Convert.ToUInt16(strMakeId);
-                if (CommonOpn.CheckId(strMakeId) == false)
+                try
                 {
-                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                              .RegisterType<ICacheManager, MemcacheManager>()
+                              .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                             ;
+                        var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+
+                        objResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Trace.Warn("ProcessQueryString Ex: ", ex.Message);
+                    ErrorClass objErr = new ErrorClass(ex, "");
+                    objErr.SendMail();
                     isSuccess = false;
+                }
+                finally
+                {
+                    if (objResponse != null)
+                    {
+                        if (objResponse.StatusCode == 200)
+                        {
+                            makeId = Convert.ToUInt16(objResponse.MakeId);
+                            isSuccess = true;
+                        }
+                        else if (objResponse.StatusCode == 301)
+                        {
+                            CommonOpn.RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName));
+                            isSuccess = false;
+                        }
+                        else
+                        {
+                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
+                            isSuccess = false;
+                        }
+                    }
+                    else
+                    {
+                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                        isSuccess = false;
+                    }
                 }
             }
             else
             {
+                Trace.Warn("make id : ", Request.QueryString["make"]);
                 Response.Redirect("/new/", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
@@ -137,7 +171,6 @@ namespace Bikewale.New
             }
             return isSuccess;
         }
-
 
         /// <summary>
         /// Created By : Sushil Kumar bon 31st March 2016
@@ -163,7 +196,7 @@ namespace Bikewale.New
                             var _city = _cities.FirstOrDefault(x => x.CityId == cityId);
                             if (_city != null)
                             {
-                                string _redirectUrl = String.Format("/{0}-bikes/dealers-in-{1}/", makeMaskingName, _city.CityMaskingName);
+                                string _redirectUrl = String.Format("/{0}-dealer-showrooms-in-{1}/", makeMaskingName, _city.CityMaskingName);
                                 Response.Redirect(_redirectUrl, false);
                                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                                 this.Page.Visible = false;
@@ -181,5 +214,6 @@ namespace Bikewale.New
             }
             return false;
         }
+
     }   // End of class
 }   // End of namespace

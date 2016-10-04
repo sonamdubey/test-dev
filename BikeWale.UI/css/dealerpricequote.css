@@ -88,8 +88,6 @@ a.text-darker-black:hover { text-decoration:none; }
 .newBikes-latest-updates-container .grid-4{padding-left:10px}
 .available-colors{display:inline-block;width:150px;text-align:center;margin-bottom:20px;padding:0 5px;vertical-align:top}
 .available-colors .color-box{width:60px;height:60px;margin:0 auto 15px;border-radius:3px;background:#f00;border:1px solid #ccc}
-.edit-blue-icon{width:16px;height:16px}
-.edit-blue-icon{background-position:-115px -250px}
 #leadCapturePopup{display:none;width:450px;min-height:470px;background:#fff;margin:0 auto;position:fixed;top:10%;right:5%;left:5%;z-index:10;padding:30px 40px}
 .personal-info-form-container{margin:10px auto;width:300px;min-height:100px}
 .personal-info-form-container .personal-info-list{margin:0 auto;width:280px;float:left;margin-bottom:20px;border-radius:0}
@@ -108,10 +106,10 @@ a.text-darker-black:hover { text-decoration:none; }
 #otpPopup .errorIcon,#otpPopup .errorText{display:none}
 .input-border-bottom{border-bottom:1px solid #ccc}
 .assistance-response-close.cross-lg-lgt-grey:hover { background-position: -36px -252px; }
-.phone-grey-icon, .phone-black-icon { width:11px; height:15px; position:relative; top:2px; margin-right:3px; }
-.phone-grey-icon { background-position:-53px -444px; top:0; }
-.phone-black-icon { background-position:-73px -444px; }
-.dealership-loc-icon { width:8px; height:12px; background-position:-53px -469px; position:relative;top:4px; }
+.phone-grey-icon, .phone-black-icon { width:11px; height:15px; position:relative; margin-right:3px; }
+.phone-grey-icon { top:0; background-position:-53px -444px; }
+.phone-black-icon { top:5px; background-position:-73px -444px; }
+.dealership-loc-icon { width:9px; height:12px; background-position:-52px -469px; position:relative;top:4px; }
 .dealership-address { width:92%; }
 .vertical-top { display:inline-block;vertical-align:top; }
 .disclaimer {list-style-type: disc; padding-left:20px;}

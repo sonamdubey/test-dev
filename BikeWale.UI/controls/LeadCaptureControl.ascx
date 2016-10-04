@@ -42,7 +42,7 @@
                 <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
             </div>
             <div class="clear"></div>
-            <a class="btn btn-orange margin-top10 "  id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
+            <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
         </div>
     </div>
     <div id="dealer-lead-msg" class="hide">
@@ -124,8 +124,8 @@
             if (prevMobile != $(this).val().trim()) {
                 if (dleadvm.validateMobileNo($(this))) {
                     dleadvm.IsVerified(false);
-                    otpText.val('');
-                    otpContainer.removeClass("show").addClass("hide");
+                    //otpText.val('');
+                    //otpContainer.removeClass("show").addClass("hide");
                     hideError($(this));
                 }
             }
@@ -141,8 +141,8 @@
             if (prevEmail != $(this).val().trim()) {
                 if (dleadvm.validateEmailId($(this))) {
                     dleadvm.IsVerified(false);
-                    otpText.val('');
-                    otpContainer.removeClass("show").addClass("hide");
+                    //otpText.val('');
+                    //otpContainer.removeClass("show").addClass("hide");
                     hideError($(this));
                 }
             }
@@ -157,6 +157,7 @@
             self.fullName = ko.observable(arr[0]);
             self.emailId = ko.observable(arr[1]);
             self.mobileNo = ko.observable(arr[2]);
+            $('.input-box').addClass('not-empty');
         }
         else {
             self.fullName = ko.observable();
@@ -242,7 +243,6 @@
         };
 
         self.getDealerBikes = function (data,event) {
-
             if (!isNaN(self.dealerId()) && self.dealerId() > 0 && self.campaignId() > 0) {
                 var dealerKey = "dealerDetails_" + self.dealerId() + "_camp_" + self.campaignId();
                 var dealerInfo = lscache.get(dealerKey);
@@ -365,8 +365,8 @@
                     "customerName": self.fullName(),
                     "customerMobile": self.mobileNo(),
                     "customerEmail": self.emailId(),
-                    "clientIP": clientIP,
-                    "PageUrl": pageUrl,
+                    "clientIP": self.clientIP,
+                    "PageUrl": self.pageUrl,
                     "leadSourceId": self.leadSourceId(),
                     "deviceId": getCookie('BWC')
                 }
@@ -437,7 +437,6 @@
                         $(".blackOut-window").show();
                     }
                 });
-
                 setPQUserCookie();
             }
         };
@@ -468,9 +467,11 @@
                         }
                     }
                     else {
-                        $("#leadCapturePopup").show();
-                        $('body').addClass('lock-browser-scroll');
-                        $(".blackOut-window").show();
+                        if (self.IsLeadPopup()) {
+                            $("#leadCapturePopup").show();
+                            $('body').addClass('lock-browser-scroll');
+                            $(".blackOut-window").show();
+                        }
                     }
                     setPQUserCookie();
                 }
@@ -483,12 +484,13 @@
                 "dealerid": ele.attr('data-item-id'),
                 "dealername": ele.attr('data-item-name'),
                 "dealerarea": ele.attr('data-item-area'),
-                "versionid": versionId,
+                "versionid": versionId ,
                 "leadsourceid": ele.attr('data-leadsourceid'),
                 "pqsourceid": ele.attr('data-pqsourceid'),
                 "isleadpopup": ele.attr('data-isleadpopup'),
                 "mfgCampid": ele.attr('data-mfgcampid'),
                 "pqid": pqId,
+                "isregisterpq": ele.attr('data-isregisterpq'),
                 "pageurl": pageUrl,
                 "clientip": clientIP
                 <%--"gaobject": {

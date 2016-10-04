@@ -8,7 +8,6 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Memcache;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
@@ -97,7 +96,7 @@ namespace Bikewale.Mobile
 
                 ctrlLeadCapture.CityId = cityId;
                 ctrlRecentUsedBikes.MakeId = Convert.ToUInt32(makeId);
-
+                ctrlRecentUsedBikes.header = "Recently uploaded Used " + _make.MakeName + " bikes " + (cityId > 0 ? String.Format("in {0}", cityName) : string.Empty);
                 ctrlRecentUsedBikes.CityId = (int?)cityId;
                 ctrlRecentUsedBikes.TopCount = 6;
 
@@ -154,9 +153,58 @@ namespace Bikewale.Mobile
             if (!String.IsNullOrEmpty(Request.QueryString["make"]))
             {
                 makeMaskingName = Request.QueryString["make"];
-                makeId = MakeMapping.GetMakeId(makeMaskingName);
-                //verify the id as passed in the url
-                if (CommonOpn.CheckId(makeId) == false)
+                if (!String.IsNullOrEmpty(makeMaskingName))
+                {
+                    MakeMaskingResponse objResponse = null;
+                    try
+                    {
+                        using (IUnityContainer container = new UnityContainer())
+                        {
+                            container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                                  .RegisterType<ICacheManager, MemcacheManager>()
+                                  .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                                 ;
+                            var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+
+                            objResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
+                        }
+                    }
+                    catch (Exception ex)
+                    {                        
+                        Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
+                        objErr.SendMail();
+                        Response.Redirect("/new/", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
+                    finally
+                    {
+                        if (objResponse != null)
+                        {
+                            if (objResponse.StatusCode == 200)
+                            {
+                                makeId = Convert.ToString(objResponse.MakeId);
+                            }
+                            else if (objResponse.StatusCode == 301)
+                            {
+                                CommonOpn.RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName));
+                            }
+                            else
+                            {
+                                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                                this.Page.Visible = false;                     
+                            }
+                        }
+                        else
+                        {
+                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;                            
+                        }
+                    }
+                }
+                else
                 {
                     Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();

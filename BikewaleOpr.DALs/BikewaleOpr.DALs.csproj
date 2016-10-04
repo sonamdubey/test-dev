@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BikePricing\BikeShowroomPrices.cs" />
     <Compile Include="DealerPriceQuoteRepository.cs" />
     <Compile Include="DealersRepository.cs" />
     <Compile Include="ManufactureCampaign\ManufacturerCampaign.cs" />

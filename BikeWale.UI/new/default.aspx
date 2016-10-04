@@ -45,7 +45,7 @@
             <div class="container">
                 <div class="welcome-box">
                     <h1 class="text-uppercase margin-bottom10">NEW BIKES</h1>
-                    <p class="font20">View all bikes under one roof</p>
+                    <h2 class="font20 text-unbold">View all bikes under one roof</h2>
                 </div>
             </div>
         </header>
@@ -56,10 +56,18 @@
                 <div class="bw-tabs-panel brand-budget-mileage-style-wrapper content-box-shadow margin-minus50">
                     <div class="bw-tabs bw-tabs-flex">
                         <ul class="brand-budget-mileage-style-UL">
-                            <li class="active" data-tabs="discoverBrand"><h3>Brand</h3></li>
-                            <li data-tabs="discoverBudget"><h3>Budget</h3></li>
-                            <li data-tabs="discoverMileage"><h3>Mileage</h3></li>
-                            <li data-tabs="discoverStyle"><h3>Style</h3></li>
+                            <li class="active" data-tabs="discoverBrand">
+                                <h3>Brand</h3>
+                            </li>
+                            <li data-tabs="discoverBudget">
+                                <h3>Budget</h3>
+                            </li>
+                            <li data-tabs="discoverMileage">
+                                <h3>Mileage</h3>
+                            </li>
+                            <li data-tabs="discoverStyle">
+                                <h3>Style</h3>
+                            </li>
                         </ul>
                     </div>
                     <div class="bw-tabs-data" id="discoverBrand">
@@ -70,7 +78,7 @@
                                         <li>
                                             <a href="/<%# DataBinder.Eval(Container.DataItem, "MaskingName").ToString() %>-bikes/">
                                                 <span class="brand-type">
-                                                    <span class="brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName").ToString() %>"></span>
+                                                    <span class="brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MakeId").ToString() %>"></span>
                                                 </span>
                                                 <span class="brand-type-title"><%# DataBinder.Eval(Container.DataItem, "MakeName").ToString() %></span>
                                             </a>
@@ -87,7 +95,7 @@
                                         <li>
                                             <a href="/<%# DataBinder.Eval(Container.DataItem, "MaskingName").ToString() %>-bikes/">
                                                 <span class="brand-type">
-                                                    <span class="brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName").ToString() %>"></span>
+                                                    <span class="brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MakeId").ToString() %>"></span>
                                                 </span>
                                                 <span class="brand-type-title"><%# DataBinder.Eval(Container.DataItem, "MakeName").ToString() %></span>
                                             </a>
@@ -281,16 +289,22 @@
             <!-- #include file="/ads/Ad976x400_First.aspx" -->
         </section>
         <%} %>
-        <section class="container <%= ((ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount) > 0 )?"":"hide" %> ">
+        <section class="container <%= ((ctrlMostPopularBikes.FetchedRecordsCount + ctrlNewLaunchedBikes.FetchedRecordsCount + ctrlUpcomingBikes.FetchedRecordsCount) > 0 )?"":"hide" %> ">
             <!--  Discover bikes section code starts here -->
             <div class="grid-12">
                 <h2 class="text-bold text-center margin-top40 margin-bottom20 font22">Featured bikes</h2>
                 <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow padding-bottom15">
                     <div class="bw-tabs bw-tabs-flex">
                         <ul>
-                            <li class="active" style="<%= (ctrlMostPopularBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlMostPopularBikes"><h3>Most Popular</h3></li>
-                            <li style="<%= (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlNewLaunchedBikes"><h3>New launches</h3></li>
-                            <li style="<%= (ctrlUpcomingBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlUpcomingBikes"><h3>Upcoming</h3></li>
+                            <li class="active" style="<%= (ctrlMostPopularBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlMostPopularBikes">
+                                <h3>Most Popular</h3>
+                            </li>
+                            <li style="<%= (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlNewLaunchedBikes">
+                                <h3>New launches</h3>
+                            </li>
+                            <li style="<%= (ctrlUpcomingBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlUpcomingBikes">
+                                <h3>Upcoming</h3>
+                            </li>
                         </ul>
                     </div>
                     <div class="bw-tabs-data <%= (ctrlMostPopularBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlMostPopularBikes">
@@ -307,16 +321,8 @@
                     </div>
 
                     <div class="bw-tabs-data hide <%= (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlNewLaunchedBikes">
-                        <div class="jcarousel-wrapper inner-content-carousel">
-                            <div class="jcarousel">
-                                <ul>
-                                    <BW:NewLaunchedBikes PageId="5" runat="server" ID="ctrlNewLaunchedBikes" />
-                                    <!-- New Launched Bikes Control-->
-                                </ul>
-                            </div>
-                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
-                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
-                        </div>
+                        <BW:NewLaunchedBikes PageId="5" runat="server" ID="ctrlNewLaunchedBikes" />
+                        <!-- New Launched Bikes Control-->
                     </div>
 
                     <div class="bw-tabs-data hide <%= (ctrlUpcomingBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlUpcomingBikes">
@@ -360,9 +366,15 @@
                 <div class="bw-tabs-panel tools-may-need-wrapper content-box-shadow">
                     <div class="bw-tabs bw-tabs-flex">
                         <ul class="tools-may-need-UL">
-                            <li data-tabs="getFinal-price" class="active"><h3>On-road price</h3></li>
-                            <li data-tabs="locate-dealer" class=""><h3>Locate a dealer</h3></li>
-                            <li data-tabs="calculate-emi" class=""><h3>Calculate EMI's</h3></li>
+                            <li data-tabs="getFinal-price" class="active">
+                                <h3>On-road price</h3>
+                            </li>
+                            <li data-tabs="locate-dealer" class="">
+                                <h3>Locate a dealer</h3>
+                            </li>
+                            <li data-tabs="calculate-emi" class="">
+                                <h3>Calculate EMI's</h3>
+                            </li>
                         </ul>
                     </div>
                     <div class="bw-tabs-data padding-bottom30" id="getFinal-price">
@@ -421,9 +433,15 @@
                         <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
                             <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
                                 <ul>
-                                    <li class="<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews"><h3>News</h3></li>
-                                    <li class="<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews"><h3>Expert Reviews</h3></li>
-                                    <li class="<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos"><h3>Videos</h3></li>
+                                    <li class="<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">
+                                        <h3>News</h3>
+                                    </li>
+                                    <li class="<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">
+                                        <h3>Expert Reviews</h3>
+                                    </li>
+                                    <li class="<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">
+                                        <h3>Videos</h3>
+                                    </li>
                                 </ul>
                             </div>
                         </div>

@@ -29,8 +29,8 @@ namespace Bikewale.Mobile.Content
         private ArticleDetails objNews = null;
         private bool _isContentFound = true;
 
-        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
-        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
+        static bool _useGrpc = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.UseGrpc);
+        static bool _logGrpcErrors = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.LogGrpcErrors);
         static readonly ILog _logger = LogManager.GetLogger(typeof(newsdetails));
 
         protected override void OnInit(EventArgs e)

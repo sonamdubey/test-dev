@@ -49,7 +49,7 @@
                                     <li>
                                         <a href="/m/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-bikes/">
                                             <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>"></span>
+                                                <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MakeId") %>"></span>
                                             </span>
                                             <span class="brand-type-title"><%# DataBinder.Eval(Container.DataItem, "MakeName") %></span>
                                         </a>
@@ -63,7 +63,7 @@
                                     <li>
                                         <a href="/m/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-bikes/">
                                             <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>"></span>
+                                                <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MakeId") %>"></span>
                                             </span>
                                             <span class="brand-type-title"><%# DataBinder.Eval(Container.DataItem, "MakeName") %></span>
                                         </a>
@@ -99,42 +99,33 @@
                                 <li style="<%= (mctrlUpcomingBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="mctrlUpcomingBikes">Upcoming </li>
                             </ul>
                         </div>
-                        <div class="grid-12">
-                            <div class="bw-tabs-data " id="mctrlMostPopularBikes">
-                                <div class="swiper-container padding-bottom60">
+                        <div class="grid-12 alpha omega">
+                            <div class="bw-tabs-data features-bikes-container" id="mctrlMostPopularBikes">
+                                <div class="swiper-container card-container">
                                     <div class="swiper-wrapper discover-bike-carousel">
                                         <BW:MMostPopularBikes PageId="4" runat="server" ID="mctrlMostPopularBikes" />
                                     </div>
                                     <!-- Add Pagination -->
                                     <div class="swiper-pagination"></div>
-                                    <!-- Navigation -->
-                                    <div class="bwmsprite swiper-button-next hide"></div>
-                                    <div class="bwmsprite swiper-button-prev hide"></div>
                                 </div>
                             </div>
-                            <div class="bw-tabs-data hide" id="mctrlNewLaunchedBikes">
-                                <div class="swiper-container padding-bottom60">
+                            <div class="bw-tabs-data hide features-bikes-container" id="mctrlNewLaunchedBikes">
+                                <div class="swiper-container card-container">
                                     <div class="swiper-wrapper discover-bike-carousel">
                                         <BW:MNewLaunchedBikes PageId="4" runat="server" ID="mctrlNewLaunchedBikes" />
                                     </div>
                                     <!-- Add Pagination -->
                                     <div class="swiper-pagination"></div>
-                                    <!-- Navigation -->
-                                    <div class="bwmsprite swiper-button-next hide"></div>
-                                    <div class="bwmsprite swiper-button-prev hide"></div>
                                 </div>
                             </div>
-                            <div class="bw-tabs-data hide" id="mctrlUpcomingBikes">
-                                <div class="swiper-container padding-bottom60">
+                            <div class="bw-tabs-data hide features-bikes-container" id="mctrlUpcomingBikes">
+                                <div class="swiper-container card-container">
                                     <div class="swiper-wrapper discover-bike-carousel">
                                         <BW:MUpcomingBikes runat="server" ID="mctrlUpcomingBikes" />
                                         <!-- Upcoming Bikes Control-->
                                     </div>
                                     <!-- Add Pagination -->
                                     <div class="swiper-pagination"></div>
-                                    <!-- Navigation -->
-                                    <div class="bwmsprite swiper-button-next hide"></div>
-                                    <div class="bwmsprite swiper-button-prev hide"></div>
                                 </div>
                             </div>
                         </div>
@@ -177,7 +168,7 @@
                             </a>
                         </li>
                         <li class="bg-white content-inner-block-20 content-box-shadow margin-bottom20">
-                            <a href="/m/new/locate-dealers/">
+                            <a href="/m/dealer-showroom-locator/">
                                 <span class="tools-need-logo">
                                     <span class="bwm-circle-icon locatedealer-icon"></span>
                                 </span>
