@@ -341,16 +341,16 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
 .brand-royalenfield { width: 74px; background-position: -1354px 0; }.brand-mv-agusta, .brand-mvagusta { width: 40px; background-position: -1432px 0; }
 .brand-um { width: 38px; background-position: -1481px 0; }.brand-eider { width:38px; background-position:-1529px 0; }
 
-.city-sprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite-v2.png) no-repeat; display: inline-block; }
-.mumbai-icon, .pune-icon, .bangalore-icon, .delhi-icon, .chennai-icon, .hyderabad-icon, .kolkata-icon, .lucknow-icon { height: 36px; }
-.mumbai-icon { width: 54px; background-position: 0 0; }
-.pune-icon { width: 76px; background-position: -60px 0; }
-.bangalore-icon { width: 56px; background-position: -142px 0; }
-.delhi-icon { width: 25px; background-position: -204px 0; }
-.chennai-icon { width: 23px; background-position: -235px 0; }
-.hyderabad-icon { width: 24px; background-position: -264px 0; }
-.kolkata-icon { width: 74px; background-position: -294px 0; }
-.lucknow-icon { width: 72px; background-position: -374px 0; }
+.city-sprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite-v2.png?v05Oct2016) no-repeat; display: inline-block; }
+.mumbai-icon, .pune-icon, .bangalore-icon, .delhi-icon, .chennai-icon, .hyderabad-icon, .kolkata-icon, .lucknow-icon { height: 48px; }
+.mumbai-icon { width: 78px; background-position: 0 0; }
+.pune-icon { width: 112px; background-position: -84px 0; }
+.bangalore-icon { width: 82px; background-position: -202px 0; }
+.delhi-icon { width: 38px; background-position: -290px 0; }
+.chennai-icon { width: 33px; background-position: -334px 0; }
+.hyderabad-icon { width: 34px; background-position: -373px 0; }
+.kolkata-icon { width: 110px; background-position: -413px 0; }
+.lucknow-icon { width: 106px; background-position: -529px 0; }
 
 .card-container {
     padding-top: 5px;
@@ -363,22 +363,22 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
 
 .swiper-city .swiper-slide {
     width: 185px;
-    height: 178px;
+    height: 155px;
     background: #fff;
 }
 
 .swiper-city .swiper-card {
     width: 185px;
-    min-height: 178px;
+    min-height: 155px;
 }
 
 .swiper-city .swiper-image-preview {
-    height: 100px;
+    height: 80px;
     padding-top: 20px;
 }
 
 .swiper-city .swiper-details-block {
-    padding: 0 20px;
+    padding: 10px 20px 20px;
 }
 
 /* swiper */

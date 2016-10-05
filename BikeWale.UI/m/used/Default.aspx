@@ -227,6 +227,34 @@
                                     </a>
                                 </div>
                             </div>
+
+                            <div class="swiper-slide">
+                                <div class="swiper-card">
+                                    <a href="" title="">
+                                        <div class="swiper-image-preview">
+                                            <span class="city-sprite chennai-icon"></span>
+                                        </div>
+                                        <div class="swiper-details-block">
+                                            <h3 class="font14 margin-bottom5">Chennai</h3>
+                                            <p class="font14 text-light-grey">132 Used bikes</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="swiper-slide">
+                                <div class="swiper-card">
+                                    <a href="" title="">
+                                        <div class="swiper-image-preview">
+                                            <span class="city-sprite pune-icon"></span>
+                                        </div>
+                                        <div class="swiper-details-block">
+                                            <h3 class="font14 margin-bottom5">Pune</h3>
+                                            <p class="font14 text-light-grey">132 Used bikes</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <a href="" class="btn btn-inv-teal inv-teal-sm margin-top10">View all cities<span class="bwmsprite teal-next"></span></a>

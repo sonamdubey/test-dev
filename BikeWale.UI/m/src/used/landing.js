@@ -344,6 +344,16 @@ var profileID = {
     }
 };
 
+$(document).on('click', function (e) {
+    var container = $('#search-form-budget');
+
+    if (container.find('#min-max-budget-box').hasClass('open') && $('#budget-list-box').is(':visible')) {
+        if (!container.is(e.target) && container.has(e.target).length === 0) {
+            $('#min-max-budget-box').trigger('click');
+        }
+    }
+});
+
 /* popup state */
 var appendState = function (state) {
     window.history.pushState(state, '', '');
