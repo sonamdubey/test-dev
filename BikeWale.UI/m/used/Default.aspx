@@ -177,9 +177,9 @@
         </section>
 
         <section>
-                <!-- Similar used bikes starts -->
-                <BW:RecentUsedBikes ID="ctrlRecentUsedBikes" runat="server" />
-                <!-- Similar used bikes ends -->
+            <!-- Similar used bikes starts -->
+            <BW:RecentUsedBikes ID="ctrlRecentUsedBikes" runat="server" />
+            <!-- Similar used bikes ends -->
         </section>
         
         <!-- city slider -->
