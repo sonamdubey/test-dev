@@ -1256,6 +1256,10 @@
       <DependentUpon>bikedetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="used\BikeDetails_v2.aspx.cs">
+      <DependentUpon>BikeDetails_v2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="used\BikesByMake.aspx.cs">
       <DependentUpon>BikesByMake.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1839,6 +1843,7 @@
     <Content Include="css\style_carousal.css" />
     <Content Include="css\used-cd.css" />
     <Content Include="css\used-search.css" />
+    <Content Include="css\used\details.css" />
     <Content Include="default.aspx" />
     <Content Include="editor\css\content.css" />
     <Content Include="editor\css\content_old.css" />
@@ -2527,6 +2532,7 @@
     <!--     <Content Include="src\Research\photogallery\image-gallery.js" />
     <Content Include="src\Research\photogallery\jquery.ad-gallery.js" /> -->
     <Content Include="src\Research\write_reviews.js" />
+    <Content Include="src\used-details.js" />
     <Content Include="src\used-search.js" />
     <Content Include="src\Used\search.js" />
     <Content Include="src\Videos\videoByCategory.js" />
@@ -2549,6 +2555,7 @@
     <Content Include="url_mapping\map_makes.txt" />
     <Content Include="url_mapping\map_models.txt" />
     <Content Include="used\bikedetails.aspx" />
+    <Content Include="used\BikeDetails_v2.aspx" />
     <Content Include="used\BikesByMake.aspx" />
     <Content Include="used\BikesByModel.aspx" />
     <Content Include="used\BikesInCity.aspx" />
