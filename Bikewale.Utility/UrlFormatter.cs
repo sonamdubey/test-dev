@@ -115,17 +115,7 @@ namespace Bikewale.Utility
         {
             return String.Format("/used/bikes-in-{0}/{1}-{2}-{3}/", city, make, model.Replace(" ", "-"), profileId);
         }
-        /// <summary>
-        /// Created By:-Subodh Jain 06 oct 2016
-        /// Desc:- used/bikes-in-{cityName}/#city={cityId}
-        /// </summary>
-        /// <param name="cityname"></param>
-        /// <param name="cityId"></param>
-        /// <returns></returns>
-        public static string UsedBikeUrlInCity(string cityname, uint cityId)
-        {
-            return String.Format("/used/bikes-in-{0}/#city{1}/", cityname, cityId);
-        }
+
 
         /// <summary>
         /// Created By Vivek gupta
