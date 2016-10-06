@@ -4,8 +4,9 @@
     title = "Sell Bike | Sell Used Bike in India - BikeWale";
     description = "Sell Your Used / pre-owned bike at bikewale.com. Selling at bikewale.com is easy, quick, effective and guaranteed.";
     keywords = "sell bike, bike sale, used bike sell, second-hand bike sell, sell bike India, list your bike";
-    AdId = "1395995407638";
-    AdPath = "/1017752/BikeWale_SellBikes_HomePage_";
+    AdId = "1475577527140";
+    AdPath = "/1017752/BikeWale_UsedSellBikes_";
+    isAd300x250Shown= true;
     isAd300x250BTFShown = false;
 %>
 <!-- #include file="/includes/headSell.aspx" -->

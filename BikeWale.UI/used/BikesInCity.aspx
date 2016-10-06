@@ -3,8 +3,11 @@
     title = "city wise used bikes listing - BikeWale";
     keywords = "city wise used bikes listing,used bikes for sale, second hand bikes, buy used bike";
     description = "bikewale.com city wise used bikes listing.";
+    AdId = "1475576036058";
+    AdPath = "/1017752/BikeWale_UsedBikes_Search_Results_";
      is300x250BTFShown = false;
     is300x250Shown = false;
+    isAd970x90BottomShown = true;
 %>
 <!-- #include file="/includes/headUsed.aspx" -->
     <div  class="container_12">

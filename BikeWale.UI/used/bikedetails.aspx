@@ -5,9 +5,11 @@
     description = "BikeWale - Used " + objInquiry.BikeName + " for sale in " + objInquiry.CityName + ". The bikes is of " + objInquiry.ModelYearOnly + " model year and its profile id is #" + profileId.ToUpper() + ". Get phone number of the seller and call directly to inspect and test drive the bike.";
     keywords = "used " + objInquiry.BikeName + ", used " + objInquiry.BikeName + " for sale, used " + objInquiry.BikeName + " in " + objInquiry.CityName;
     canonical = bikeCanonical;
-    AdId = "1395992162974";
+    AdId = "1475576441273";
     AdPath = "/1017752/BikeWale_UsedBikes_Details_";
    is300x250BTFShown=false;
+   is300x250Shown = true;
+   isAd970x90BottomShown = true;
    alternate = alternateUrl; 
 
 %>

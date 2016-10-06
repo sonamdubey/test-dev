@@ -12,7 +12,8 @@
             EnableOG = true;
             relPrevPageUrl = prevUrl.Replace("/m/", "/");
             relNextPageUrl = nextUrl.Replace("/m/", "/");
-            Ad_320x50 = true;
+            AdId = "/1017752/BikeWale_Mobile_UsedBikes_Search_Results_";
+            Ad_320x50 = false;
             Ad_Bot_320x50 = true;
         %>
 
