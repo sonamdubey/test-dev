@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Used.Default" %>
-
+<%@ Register Src="~/m/controls/UsedRecentBikes.ascx" TagPrefix="BW" TagName="RecentUsedBikes" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -177,86 +177,9 @@
         </section>
 
         <section>
-            <div class="container text-center section-container">
-                <h2 class="font18 section-heading">Recently uploaded used bikes</h2>
-                <div class="bg-white box-shadow padding-top20 padding-bottom20">
-                    <div class="swiper-container card-container used-swiper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="swiper-card">
-                                    <a href="" title="Bajaj Pulsar CS400">
-                                        <div class="swiper-image-preview">
-                                            <div class="image-thumbnail">
-                                                <img class="swiper-lazy" alt="Bajaj Pulsar CS400" data-src="http://imgd4.aeplcdn.com//210x118//bw/used/S42611/42611_20160614111649006.jpg" />
-                                                <span class="swiper-lazy-preloader"></span>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-details-block">
-                                            <h3 class="target-link font12 margin-bottom5 text-truncate">Bajaj Pulsar CS400 Bajaj Pulsar CS400</h3>
-                                            <div class="grid-6 alpha omega">
-                                                <span class="bwmsprite model-date-icon-xs"></span>
-                                                <span class="model-details-label">2012 model</span>
-                                            </div>
-                            
-                                            <div class="grid-6 alpha omega">
-                                                <span class="bwmsprite author-grey-icon-xs"></span>
-                                                <span class="model-details-label">1st owner</span>
-                                            </div>
-                            
-                                            <div class="grid-6 alpha omega">
-                                                <span class="bwmsprite model-loc-icon-xs"></span>
-                                                <span class="model-details-label">Ahmedabad</span>
-                                            </div>
-                            
-                                            <div class="clear"></div>
-                                            <p class="margin-top5 text-default"><span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-bold">40,000</span></p>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="swiper-slide">
-                                <div class="swiper-card">
-                                    <a href="" title="Bajaj Pulsar CS400">
-                                        <div class="swiper-image-preview">
-                                            <div class="image-thumbnail">
-                                                <img class="swiper-lazy" alt="Bajaj Pulsar CS400" data-src="http://imgd4.aeplcdn.com//210x118//bw/used/S42598/42598_20160613081003622.jpg" />
-                                                <span class="swiper-lazy-preloader"></span>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-details-block">
-                                            <h3 class="target-link font12 margin-bottom5 text-truncate">Bajaj Pulsar CS400</h3>
-                                            <div class="grid-6 alpha omega">
-                                                <span class="bwmsprite model-date-icon-xs"></span>
-                                                <span class="model-details-label">2012 model</span>
-                                            </div>
-                            
-                                            <div class="grid-6 alpha omega">
-                                                <span class="bwmsprite kms-driven-icon-xs"></span>
-                                                <span class="model-details-label">49,990 kms</span>
-                                            </div>
-                            
-                                            <div class="grid-6 alpha omega">
-                                                <span class="bwmsprite author-grey-icon-xs"></span>
-                                                <span class="model-details-label">1st owner</span>
-                                            </div>
-                            
-                                            <div class="grid-6 alpha omega">
-                                                <span class="bwmsprite model-loc-icon-xs"></span>
-                                                <span class="model-details-label">Ahmedabad</span>
-                                            </div>
-                            
-                                            <div class="clear"></div>
-                                            <p class="margin-top5 text-default"><span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-bold">40,000</span></p>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="" class="btn btn-inv-teal inv-teal-sm margin-top15">View all bikes<span class="bwmsprite teal-next"></span></a>
-                </div>
-            </div>
+                <!-- Similar used bikes starts -->
+                <BW:RecentUsedBikes ID="ctrlRecentUsedBikes" runat="server" />
+                <!-- Similar used bikes ends -->
         </section>
         
         <!-- city slider -->

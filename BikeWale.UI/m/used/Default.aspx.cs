@@ -1,4 +1,5 @@
 ﻿using Bikewale.BindViewModels.Webforms.Used;
+using Bikewale.Mobile.Controls;
 using System;
 using System.Web;
 
@@ -10,6 +11,8 @@ namespace Bikewale.Mobile.Used
     public class Default : System.Web.UI.Page
     {
         protected UsedBikeLandingPage viewModel;
+        protected UsedRecentBikes ctrlRecentUsedBikes;
+
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -22,12 +25,12 @@ namespace Bikewale.Mobile.Used
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
             viewModel = new UsedBikeLandingPage();
             if (viewModel == null)
             {
                 RedirectToPageNotFound();
             }
+            RenderUserControls();
         }
 
         private void RedirectToPageNotFound()
@@ -35,6 +38,12 @@ namespace Bikewale.Mobile.Used
             Response.Redirect("/pageNotFound.aspx", false);
             HttpContext.Current.ApplicationInstance.CompleteRequest();
             this.Page.Visible = false;
+        }
+
+        private void RenderUserControls()
+        {
+            ctrlRecentUsedBikes.WidgetTitle = "Recently uploaded used bikes";
+            ctrlRecentUsedBikes.TopCount = 6;
         }
     }
 }

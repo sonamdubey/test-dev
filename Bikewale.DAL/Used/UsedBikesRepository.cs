@@ -316,8 +316,7 @@ namespace Bikewale.DAL.UsedBikes
                                 {
                                     MakeId = Convert.ToInt16(dr["makeid"]),
                                     MakeName = Convert.ToString(dr["makename"]),
-                                    MaskingName = Convert.ToString(dr["makemaskingname"]),
-                                    Count = Convert.ToUInt32(dr["makecount"])
+                                    MaskingName = Convert.ToString(dr["makemaskingname"])
                                 });
                             }
                             dr.Close();
