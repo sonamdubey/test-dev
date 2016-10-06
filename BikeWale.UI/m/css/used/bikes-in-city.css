@@ -1,0 +1,92 @@
+﻿@charset "utf-8";
+.form-control-box .search-icon-grey {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    z-index: 2;
+    background-position: -34px -275px;
+}
+
+.filter-active #popular-city-content, .filter-active #other-cities-label {
+    display: none;
+}
+
+#used-popular-cities {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+#used-popular-cities li {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.popular-city-target {
+    width: 150px;
+    height: 145px;
+    display: block;
+    padding-top: 10px;
+    border: 1px solid #e2e2e2;
+    text-align: left;
+    color: #4d5057;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    overflow: hidden;
+}
+
+#other-cities-list a {
+    display: block;
+    font-size: 16px;
+    color: #82888b;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+#other-cities-list a:first-child {
+    padding-top: 16px;
+}
+
+#other-cities-list a:hover {
+    color: #4d5057;
+    text-decoration: none;
+}
+
+.noResult {
+    font-size: 16px;
+    color: #82888b;
+    padding-top: 16px;
+}
+
+.city-sprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite.png) no-repeat; display: inline-block; }
+.mumbai-icon, .pune-icon, .bangalore-icon, .delhi-icon, .chennai-icon, .hyderabad-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon { height: 70px; }
+.mumbai-icon { width: 98px; background-position: 0 0; }
+.pune-icon { width: 140px; background-position: -108px 0; }
+.bangalore-icon { width: 102px; background-position: -258px 0; }
+.delhi-icon { width: 54px; background-position: -370px 0; }
+.chennai-icon { width: 41px; background-position: -434px 0; }
+.hyderabad-icon { width: 49px; background-position: -485px 0; }
+.kolkata-icon { width: 138px; background-position: -544px 0; }
+.lucknow-icon { width: 132px; background-position: -692px 0; }
+.ahmedabad-icon { width: 0px; background-position: 0 0; }
+.chandigarh-icon { width: 0px; background-position: 0 0; }
+
+@media only screen and (max-width: 360px) {
+    .popular-city-target {
+        margin-right: 8px;
+        margin-left: 8px;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .popular-city-target {
+        width: 135px;
+        margin-right: 5px;
+        margin-left: 5px;
+        margin-bottom: 15px;
+    }
+}
