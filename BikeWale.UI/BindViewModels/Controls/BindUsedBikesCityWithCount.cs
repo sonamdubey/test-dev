@@ -18,7 +18,8 @@ namespace Bikewale.BindViewModels.Controls
     public class BindUsedBikesCityWithCount
     {
         /// <summary>
-        /// Created By: Su
+        /// Created By: Subodh Jain 6 oct 2016
+        /// Desc:-Bind view model for binding  used bikes in a city with count
         /// </summary>
         /// <returns></returns>
         public IEnumerable<UsedBikeCities> GetUsedBikeByCityWithCount()

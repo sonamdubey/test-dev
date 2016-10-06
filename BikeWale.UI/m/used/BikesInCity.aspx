@@ -29,72 +29,22 @@
                 <div id="popular-city-content" class="margin-top20 margin-bottom15 font14">
                     <p class="text-bold margin-left20 margin-bottom20">Popular cities</p>
                     <ul id="used-popular-cities">
-                        <li>
-                            <a href="" title="" class="popular-city-target">
+                         <%foreach ( Bikewale.Entities.Used.UsedBikeCities objCity in  objBikeCityCountTop) {%>
+                        <%if(objCity.bikesCount>0){ %>                       
+                         <li>
+                            <a href="/m/used/bikes-in-<%=objCity.cityMaskingName %>/" title="Used bikes in <%=objCity.cityName %>" class="popular-city-target">
                                 <div class="text-center margin-bottom5">
-                                    <span class="city-sprite mumbai-icon"></span>
+                                    <span class="city-sprite <%=objCity.cityMaskingName %>-icon"></span>
                                 </div>
                                 <div class="padding-right10 padding-left10">
-                                    <p class="text-bold">Mumbai</p>
-                                    <p class="text-light-grey">180 Used bikes</p>
+                                    <p class="text-bold"><%=objCity.cityName %></p>
+                                    <p class="text-light-grey"><%=objCity.bikesCount %> Used bikes</p>
                                 </div>
                             </a>
                         </li>
-                        <li>
-                            <a href="" title="" class="popular-city-target">
-                                <div class="text-center margin-bottom5">
-                                    <span class="city-sprite pune-icon"></span>
-                                </div>
-                                <div class="padding-right10 padding-left10">
-                                    <p class="text-bold">Pune</p>
-                                    <p class="text-light-grey">54 Used bikes</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" title="" class="popular-city-target">
-                                <div class="text-center margin-bottom5">
-                                    <span class="city-sprite bangalore-icon"></span>
-                                </div>
-                                <div class="padding-right10 padding-left10">
-                                    <p class="text-bold">Bangalore</p>
-                                    <p class="text-light-grey">77 Used bikes</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" title="" class="popular-city-target">
-                                <div class="text-center margin-bottom5">
-                                    <span class="city-sprite delhi-icon"></span>
-                                </div>
-                                <div class="padding-right10 padding-left10">
-                                    <p class="text-bold">Delhi</p>
-                                    <p class="text-light-grey">62 Used bikes</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" title="" class="popular-city-target">
-                                <div class="text-center margin-bottom5">
-                                    <span class="city-sprite chennai-icon"></span>
-                                </div>
-                                <div class="padding-right10 padding-left10">
-                                    <p class="text-bold">Chennai</p>
-                                    <p class="text-light-grey">77 Used bikes</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" title="" class="popular-city-target">
-                                <div class="text-center margin-bottom5">
-                                    <span class="city-sprite hyderabad-icon"></span>
-                                </div>
-                                <div class="padding-right10 padding-left10">
-                                    <p class="text-bold">Hyderabad</p>
-                                    <p class="text-light-grey">62 Used bikes</p>
-                                </div>
-                            </a>
-                        </li>
+                        <%} %>
+                        <%} %>
+                       
                     </ul>
                     <div class="clear"></div>
                     <div class="margin-right20 margin-left20 border-solid-bottom"></div>
@@ -103,33 +53,10 @@
                 <div class="padding-right20 padding-left20">
                     <p id="other-cities-label" class="font14 text-bold">Other cities</p>
                     <ul id="other-cities-list">
+                        <%foreach ( Bikewale.Entities.Used.UsedBikeCities objCity in  objBikeCityCountRest) {%>
                         <li>
-                            <a href="" title="">Thiruvananthapuram (42)</a>
-                        </li>                        <li>
-                            <a href="" title="">Aurangabad (96)</a>
-                        </li>                        <li>
-                            <a href="" title="">Dhanbad (57)</a>
-                        </li>                        <li>
-                            <a href="" title="">Amritsar (23)</a>
-                        </li>                        <li>
-                            <a href="" title="">Navi Mumbai (89)</a>
-                        </li>                        <li>
-                            <a href="" title="">Tirupati (64)</a>
-                        </li>                        <li>
-                            <a href="" title="">Indore (82)</a>
-                        </li>                        <li>
-                            <a href="" title="">Bhopal (12)</a>
-                        </li>                        <li>
-                            <a href="" title="">Noida (32)</a>
-                        </li>                        <li>
-                            <a href="" title="">Nashik (200)</a>
-                        </li>                        <li>
-                            <a href="" title="">Vijayawada (24)</a>
-                        </li>                        <li>
-                            <a href="" title="">Faridabad (18)</a>
-                        </li>                        <li>
-                            <a href="" title="">Meerut (25)</a>
-                        </li>
+                            <a href="/m/used/bikes-in-<%=objCity.cityMaskingName %>/" title="Used bikes in <%=objCity.cityName %>"><%=objCity.cityName %> (<%=objCity.bikesCount %>)</a>
+                        </li>                       <%} %>
                     </ul>
                 </div>
 
