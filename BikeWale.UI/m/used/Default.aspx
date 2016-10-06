@@ -58,7 +58,7 @@
             </div>
         </section>
 
-        <section>
+      <%--  <section>
             <div class="container text-center section-container">
                 <h2 class="font18 section-heading">Best way to sell your bike</h2>
                 <div class="bg-white box-shadow content-inner-block-20">
@@ -83,7 +83,7 @@
                     <a href="" class="btn btn-teal margin-top5">Sell now</a>
                 </div>
             </div>
-        </section>
+        </section> --%>
         
         <section>
             <div class="container text-center section-container">
