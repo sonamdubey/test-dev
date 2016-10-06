@@ -269,8 +269,7 @@ var usedBikes = function()
     };
 
     self.SetDefaultFilters = function () {
-        try {
-            self.SelectedCity({ "id": 0, "name": "All India" });
+        try {            
             self.KmsDriven(200000);
             self.BikeAge(8);
             self.BudgetValues([0, 7]);
