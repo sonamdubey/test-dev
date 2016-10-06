@@ -107,7 +107,7 @@ namespace Bikewale.Cache.Used
             string key = String.Format("BW_BikeInCity");
             try
             {
-                objUsedBikesCity = _cache.GetFromCache<IEnumerable<UsedBikeCities>>(key, new TimeSpan(0, 30, 0), () => _objUsedBikes.GetUsedBikeByCityWithCount());
+                objUsedBikesCity = _cache.GetFromCache<IEnumerable<UsedBikeCities>>(key, new TimeSpan(1, 0, 0), () => _objUsedBikes.GetUsedBikeByCityWithCount());
             }
             catch (Exception ex)
             {
