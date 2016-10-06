@@ -9,7 +9,7 @@ namespace Bikewale.Mobile.Used
     /// </summary>
     public class Default : System.Web.UI.Page
     {
-        public UsedBikeLandingPage viewModel;
+        protected UsedBikeLandingPage viewModel;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -22,13 +22,11 @@ namespace Bikewale.Mobile.Used
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+
+            viewModel = new UsedBikeLandingPage();
+            if (viewModel == null)
             {
-                viewModel = new UsedBikeLandingPage();
-                if (viewModel == null)
-                {
-                    RedirectToPageNotFound();
-                }
+                RedirectToPageNotFound();
             }
         }
 
