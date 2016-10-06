@@ -1057,6 +1057,10 @@
       <DependentUpon>BikesInCity.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\used\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\used\Search.aspx.cs">
       <DependentUpon>Search.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1289,6 +1293,10 @@
     <Compile Include="used\common\SellBikeCommon.cs" />
     <Compile Include="used\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="used\Default_v2.aspx.cs">
+      <DependentUpon>Default_v2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="used\Search.aspx.cs">
@@ -1843,6 +1851,7 @@
     <Content Include="css\style_carousal.css" />
     <Content Include="css\used-cd.css" />
     <Content Include="css\used-search.css" />
+    <Content Include="css\used\landing.css" />
     <Content Include="default.aspx" />
     <Content Include="editor\css\content.css" />
     <Content Include="editor\css\content_old.css" />
@@ -2304,6 +2313,7 @@
     <Content Include="m\css\insurance.css" />
     <Content Include="m\css\jqm-demos.css" />
     <Content Include="m\css\jquery.mobile-1.4.2.min.css" />
+    <Content Include="m\css\used\landing.css" />
     <Content Include="m\css\mobile-rsa.css" />
     <Content Include="m\css\model-gallery.css" />
     <Content Include="m\css\new.css" />
@@ -2415,11 +2425,13 @@
     <Content Include="m\src\used-details.js" />
     <Content Include="m\src\used-search.js" />
     <Content Include="m\src\used\bikes-in-city.js" />
+    <Content Include="m\src\used\landing.js" />
     <Content Include="m\src\video\videoByCategory.js" />
     <Content Include="m\src\zebra_datepicker.js" />
     <Content Include="BikeBooking\BookingListing.aspx" />
     <Content Include="m\used\BikeDetails.aspx" />
     <Content Include="m\used\BikesInCity.aspx" />
+    <Content Include="m\used\Default.aspx" />
     <Content Include="m\used\Search.aspx" />
     <Content Include="m\videos\video.aspx" />
     <Content Include="m\videos\VideoCategories.aspx" />
@@ -2534,6 +2546,7 @@
     <!--     <Content Include="src\Research\photogallery\image-gallery.js" />
     <Content Include="src\Research\photogallery\jquery.ad-gallery.js" /> -->
     <Content Include="src\Research\write_reviews.js" />
+    <Content Include="src\used-landing.js" />
     <Content Include="src\used-search.js" />
     <Content Include="src\Used\search.js" />
     <Content Include="src\Videos\videoByCategory.js" />
@@ -2561,6 +2574,7 @@
     <Content Include="used\BikesInCity.aspx" />
     <Content Include="used\bikesold.aspx" />
     <Content Include="used\Default.aspx" />
+    <Content Include="used\Default_v2.aspx" />
     <Content Include="used\Search.aspx" />
     <Content Include="used\SearchResult.aspx" />
     <Content Include="used\Search_v2.aspx" />
