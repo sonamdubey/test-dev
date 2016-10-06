@@ -1291,6 +1291,10 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="used\Default_v2.aspx.cs">
+      <DependentUpon>Default_v2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="used\Search.aspx.cs">
       <DependentUpon>Search.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1843,6 +1847,7 @@
     <Content Include="css\style_carousal.css" />
     <Content Include="css\used-cd.css" />
     <Content Include="css\used-search.css" />
+    <Content Include="css\used\landing.css" />
     <Content Include="default.aspx" />
     <Content Include="editor\css\content.css" />
     <Content Include="editor\css\content_old.css" />
@@ -2534,6 +2539,7 @@
     <!--     <Content Include="src\Research\photogallery\image-gallery.js" />
     <Content Include="src\Research\photogallery\jquery.ad-gallery.js" /> -->
     <Content Include="src\Research\write_reviews.js" />
+    <Content Include="src\used-landing.js" />
     <Content Include="src\used-search.js" />
     <Content Include="src\Used\search.js" />
     <Content Include="src\Videos\videoByCategory.js" />
@@ -2561,6 +2567,7 @@
     <Content Include="used\BikesInCity.aspx" />
     <Content Include="used\bikesold.aspx" />
     <Content Include="used\Default.aspx" />
+    <Content Include="used\Default_v2.aspx" />
     <Content Include="used\Search.aspx" />
     <Content Include="used\SearchResult.aspx" />
     <Content Include="used\Search_v2.aspx" />
