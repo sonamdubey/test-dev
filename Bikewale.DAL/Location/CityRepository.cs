@@ -345,7 +345,6 @@ namespace Bikewale.DAL.Location
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)

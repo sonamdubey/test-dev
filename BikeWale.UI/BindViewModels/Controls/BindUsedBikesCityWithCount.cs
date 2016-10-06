@@ -1,13 +1,10 @@
 ﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
-using Bikewale.Cache.Used;
 using Bikewale.Common;
 using Bikewale.DAL.Location;
-using Bikewale.DAL.Used;
 using Bikewale.Entities.Used;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
-using Bikewale.Interfaces.Used;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -30,15 +27,12 @@ namespace Bikewale.BindViewModels.Controls
             IEnumerable<UsedBikeCities> objBikeCity = null;
             try
             {
-
-
-
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<ICityCacheRepository, CityCacheRepository>()
                     .RegisterType<ICity, CityRepository>()
                     .RegisterType<ICacheManager, MemcacheManager>();
-                   var  objCities = container.Resolve<ICityCacheRepository>();
+                    var objCities = container.Resolve<ICityCacheRepository>();
                     objBikeCity = objCities.GetUsedBikeByCityWithCount();
 
 

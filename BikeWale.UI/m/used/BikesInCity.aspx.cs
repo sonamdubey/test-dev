@@ -1,4 +1,5 @@
 ﻿using Bikewale.BindViewModels.Controls;
+using Bikewale.Common;
 using Bikewale.Entities.Used;
 using System;
 using System.Collections.Generic;
@@ -31,11 +32,18 @@ namespace Bikewale.Mobile.Used
         }
         private void BindCities()
         {
-            BindUsedBikesCityWithCount objBikeCity = new BindUsedBikesCityWithCount();
-            objBikeCityCount = objBikeCity.GetUsedBikeByCityWithCount();
-            objBikeCityCountTop = objBikeCityCount.Take(6);
-            objBikeCityCount.OrderBy(c => c.CityName);
-
+            try
+            {
+                BindUsedBikesCityWithCount objBikeCity = new BindUsedBikesCityWithCount();
+                objBikeCityCount = objBikeCity.GetUsedBikeByCityWithCount();
+                objBikeCityCountTop = objBikeCityCount.Take(6);
+                objBikeCityCount = objBikeCityCount.OrderBy(c => c.CityName);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikesInCity.BindCities");
+                objErr.SendMail();
+            }
         }
     }
 }

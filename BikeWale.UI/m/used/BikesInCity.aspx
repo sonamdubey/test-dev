@@ -17,7 +17,7 @@
     %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <style type="text/css">
-        @charset "utf-8";.form-control-box .search-icon-grey{position:absolute;right:10px;top:10px;cursor:pointer;z-index:2;background-position:-34px -275px}.filter-active #other-cities-label,.filter-active #popular-city-content{display:none}#used-popular-cities{max-width:680px;margin:0 auto;text-align:center;padding-right:10px;padding-left:10px}#used-popular-cities li{display:inline-block;vertical-align:top}.popular-city-target{width:150px;height:145px;display:block;padding-top:10px;border:1px solid #e2e2e2;text-align:left;color:#4d5057;margin-right:10px;margin-bottom:20px;margin-left:10px;overflow:hidden}#other-cities-list a{display:block;font-size:16px;color:#82888b;padding-top:8px;padding-bottom:8px}#other-cities-list a:first-child,.noResult{padding-top:16px}#other-cities-list a:hover{color:#4d5057;text-decoration:none}.noResult{font-size:16px;color:#82888b}.city-sprite{background:url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite.png) no-repeat;display:inline-block}.ahmedabad-icon,.bangalore-icon,.chandigarh-icon,.chennai-icon,.delhi-icon,.hyderabad-icon,.kolkata-icon,.lucknow-icon,.mumbai-icon,.pune-icon{height:70px}.mumbai-icon{width:98px;background-position:0 0}.pune-icon{width:140px;background-position:-108px 0}.bangalore-icon{width:102px;background-position:-258px 0}.delhi-icon{width:54px;background-position:-370px 0}.chennai-icon{width:41px;background-position:-434px 0}.hyderabad-icon{width:49px;background-position:-485px 0}.kolkata-icon{width:138px;background-position:-544px 0}.lucknow-icon{width:132px;background-position:-692px 0}.ahmedabad-icon,.chandigarh-icon{width:0;background-position:0 0}@media only screen and (max-width:360px){.popular-city-target{margin-right:8px;margin-left:8px}}@media only screen and (max-width:320px){.popular-city-target{width:135px;margin-right:5px;margin-left:5px;margin-bottom:15px}}
+        @charset "utf-8";.form-control-box .search-icon-grey{position:absolute;right:10px;top:10px;cursor:pointer;z-index:2;background-position:-34px -275px}.filter-active #other-cities-label,.filter-active #popular-city-content{display:none}#used-popular-cities{max-width:680px;margin:0 auto;text-align:center;padding-right:10px;padding-left:10px}#used-popular-cities li{display:inline-block;vertical-align:top}.popular-city-target{width:150px;height:145px;display:block;padding-top:10px;border:1px solid #e2e2e2;text-align:left;color:#4d5057;margin-right:10px;margin-bottom:20px;margin-left:10px;overflow:hidden}#other-cities-list a{display:block;font-size:16px;color:#82888b;padding-top:8px;padding-bottom:8px}#other-cities-list a:first-child,.noResult{padding-top:16px}#other-cities-list a:hover{color:#4d5057;text-decoration:none}.noResult{font-size:16px;color:#82888b}.city-sprite{background:url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite.png) no-repeat;display:inline-block}.c1-icon,.c10-icon,.c105-icon,.c12-icon,.c128-icon,.c176-icon,.c198-icon,.c2-icon,.c220-icon,.c244-icon{height:70px}.c1-icon{width:98px;background-position:0 0}.c12-icon{width:140px;background-position:-108px 0}.c2-icon{width:102px;background-position:-258px 0}.c10-icon{width:54px;background-position:-370px 0}.c176-icon{width:41px;background-position:-434px 0}.c105-icon{width:49px;background-position:-485px 0}.c198-icon{width:138px;background-position:-544px 0}.c220-icon{width:132px;background-position:-692px 0}.c128-icon,.c244-icon{width:0;background-position:0 0}@media only screen and (max-width:360px){.popular-city-target{margin-right:8px;margin-left:8px}}@media only screen and (max-width:320px){.popular-city-target{width:135px;margin-right:5px;margin-left:5px;margin-bottom:15px}}
     </style>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
@@ -30,7 +30,7 @@
         <section>
             <div class="container bg-white clearfix box-shadow padding-bottom15 margin-bottom10">
                 <div class="padding-top20 padding-right20 padding-left20">
-                    <h1 class="margin-bottom15">Find used bikes in India</h1>
+                    <h1 class="margin-bottom15">Browse used bike by cities</h1>
                     <div class="form-control-box">
                         <span class="bwmsprite search-icon-grey"></span>
                         <input type="text" id="cityInput" class="form-control padding-right40" placeholder="Type to select city" />
@@ -45,7 +45,7 @@
                              <li>
                                 <a href="/m/used/bikes-in-<%=objCity.CityMaskingName %>/" title="Used bikes in <%=objCity.CityName %>" class="popular-city-target">
                                     <div class="text-center margin-bottom5">
-                                        <span class="city-sprite <%=objCity.CityMaskingName %>-icon"></span>
+                                        <span class="city-sprite c<%=objCity.CityId %>-icon"></span>
                                     </div>
                                     <div class="padding-right10 padding-left10">
                                         <p class="text-bold"><%=objCity.CityName %></p>
@@ -67,7 +67,7 @@
                         <%foreach (Bikewale.Entities.Used.UsedBikeCities objCity in objBikeCityCount)
                           {%>
                         <li>
-                            <a href="/m/used/bikes-in-<%=objCity.CityMaskingName %>/" title="Used bikes in <%=objCity.CityName %>"><%=objCity.CityName %> (<%=objCity.bikesCount %>)</a>
+                            <a href="/m/used/bikes-in-<%=objCity.CityMaskingName %>/" title="Used bikes in <%=objCity.CityName %>"><%=string.Format("{0} ({1})",objCity.CityName ,objCity.bikesCount )%></a>
                         </li>                       <%} %>
                     </ul>
                 </div>

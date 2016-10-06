@@ -132,14 +132,14 @@ namespace Bikewale.Cache.Location
         public IEnumerable<UsedBikeCities> GetUsedBikeByCityWithCount()
         {
             IEnumerable<UsedBikeCities> objUsedBikesCity = null;
-            string key = String.Format("BW_BikeInCity");
+            string key = "BW_UsedBikeInCityWithCount";
             try
             {
                 objUsedBikesCity = _cache.GetFromCache<IEnumerable<UsedBikeCities>>(key, new TimeSpan(1, 0, 0), () => _objCity.GetUsedBikeByCityWithCount());
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.Used.GetUsedBikeByCityWithCount");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.CityCacheRepository.GetUsedBikeByCityWithCount");
                 objErr.SendMail();
             }
             return objUsedBikesCity;
