@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Bikewale.Mobile.Used.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Used.Default" %>
 
 <!DOCTYPE html>
 <html>
@@ -57,7 +57,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-
+        <%--
         <section>
             <div class="container text-center section-container">
                 <h2 class="font18 section-heading">Best way to sell your bike</h2>
@@ -84,121 +84,35 @@
                 </div>
             </div>
         </section>
-        
+        --%>
         <section>
             <div class="container text-center section-container">
                 <h2 class="font18 section-heading">Search used bikes by brands</h2>
                 <div class="bg-white box-shadow brand-type-container content-inner-block-20">
-                    <ul id="main-brand-list">    
+                    <ul id="main-brand-list">
+                        <% foreach(var bike in viewModel.TopMakeList){ %>    
                         <li>
-                            <a href="">
+                            <a href="/m/used/<%=bike.MaskingName %>-bikes-in-india/">
                                 <span class="brand-type">
-                                    <span class="brandlogosprite brand-honda"></span>
+                                    <span class="brandlogosprite brand-<%=bike.MakeId %>"></span>
                                 </span>
-                                <span class="brand-type-title">Honda</span>
+                                <span class="brand-type-title"><%=bike.MakeName %></span>
                             </a>
                         </li>
-                                
-                        <li>
-                            <a href="">
-                                <span class="brand-type">
-                                    <span class="brandlogosprite brand-bajaj"></span>
-                                </span>
-                                <span class="brand-type-title">Bajaj</span>
-                            </a>
-                        </li>
-                                
-                        <li>
-                            <a href="">
-                                <span class="brand-type">
-                                    <span class="brandlogosprite brand-hero"></span>
-                                </span>
-                                <span class="brand-type-title">Hero</span>
-                            </a>
-                        </li>
-                                
-                        <li>
-                            <a href="">
-                                <span class="brand-type">
-                                    <span class="brandlogosprite brand-tvs"></span>
-                                </span>
-                                <span class="brand-type-title">TVS</span>
-                            </a>
-                        </li>
-                                
-                        <li>
-                            <a href="">
-                                <span class="brand-type">
-                                    <span class="brandlogosprite brand-royalenfield"></span>
-                                </span>
-                                <span class="brand-type-title">Royal Enfield</span>
-                            </a>
-                        </li>
-                                
-                        <li>
-                            <a href="">
-                                <span class="brand-type">
-                                    <span class="brandlogosprite brand-yamaha"></span>
-                                </span>
-                                <span class="brand-type-title">Yamaha</span>
-                            </a>
-                        </li>
+                        <% } %>
                     </ul>
 
-                    <ul id="more-brand-nav" class="brand-style-moreBtn brandTypeMore border-top1 padding-top25 text-center">    
+                    <ul id="more-brand-nav" class="brand-style-moreBtn brandTypeMore border-top1 padding-top25 text-center">
+                        <% foreach(var bike in viewModel.OtherMakeList){ %> 
                         <li>
-                            <a href="">
+                            <a href="/m/used/<%=bike.MaskingName %>-bikes-in-india/">
                                 <span class="brand-type">
-                                    <span class="brandlogosprite brand-honda"></span>
+                                    <span class="brandlogosprite brand-<%=bike.MakeId %>"></span>
                                 </span>
-                                <span class="brand-type-title">Honda</span>
+                                <span class="brand-type-title"><%=bike.MakeName %></span>
                             </a>
                         </li>
-                                
-                        <li>
-                            <a href="">
-                                <span class="brand-type">
-                                    <span class="brandlogosprite brand-bajaj"></span>
-                                </span>
-                                <span class="brand-type-title">Bajaj</span>
-                            </a>
-                        </li>
-                                
-                        <li>
-                            <a href="">
-                                <span class="brand-type">
-                                    <span class="brandlogosprite brand-hero"></span>
-                                </span>
-                                <span class="brand-type-title">Hero</span>
-                            </a>
-                        </li>
-                                
-                        <li>
-                            <a href="">
-                                <span class="brand-type">
-                                    <span class="brandlogosprite brand-tvs"></span>
-                                </span>
-                                <span class="brand-type-title">TVS</span>
-                            </a>
-                        </li>
-                                
-                        <li>
-                            <a href="">
-                                <span class="brand-type">
-                                    <span class="brandlogosprite brand-royalenfield"></span>
-                                </span>
-                                <span class="brand-type-title">Royal Enfield</span>
-                            </a>
-                        </li>
-                                
-                        <li>
-                            <a href="">
-                                <span class="brand-type">
-                                    <span class="brandlogosprite brand-yamaha"></span>
-                                </span>
-                                <span class="brand-type-title">Yamaha</span>
-                            </a>
-                        </li>
+                        <% } %>
                     </ul>
 
                     <div class="text-center">
