@@ -8,6 +8,7 @@
      is300x250BTFShown = false;
     is300x250Shown = false;
     isAd970x90BottomShown = true;
+    isAd970x90Shown = true;
 %>
 <!-- #include file="/includes/headUsed.aspx" -->
     <div  class="container_12">

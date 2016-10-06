@@ -9,6 +9,7 @@
     AdPath = "/1017752/BikeWale_UsedBikes_Details_";
    is300x250BTFShown=false;
    is300x250Shown = true;
+   isAd970x90Shown = true;
    isAd970x90BottomShown = true;
    alternate = alternateUrl; 
 

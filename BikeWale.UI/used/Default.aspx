@@ -13,7 +13,7 @@
     AdPath = " /1017752/BikeWale_UsedBikes_HomePage_";
     
      is300x250Shown = true;
-     isAd970x90Shown = false;
+     isAd970x90Shown = true;
      isAd970x90BottomShown = true;
 %>
 <!-- #include file="/includes/headUsed.aspx" -->

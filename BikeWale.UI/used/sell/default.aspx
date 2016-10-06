@@ -8,6 +8,7 @@
     AdPath = "/1017752/BikeWale_UsedSellBikes_";
     isAd300x250Shown= true;
     isAd300x250BTFShown = false;
+    isAd970x90Shown = true;
 %>
 <!-- #include file="/includes/headSell.aspx" -->
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/classified/sellbike.js?<%= staticFileVersion %>"></script>
