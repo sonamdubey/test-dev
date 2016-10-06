@@ -45,5 +45,11 @@ namespace Bikewale.BAL.Location
         {
             return objCities.GetDealerStateCities(makeId, stateId);
         }
+
+
+        public IEnumerable<Entities.Used.UsedBikeCities> GetUsedBikeByCityWithCount()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

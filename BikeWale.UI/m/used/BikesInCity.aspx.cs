@@ -9,24 +9,33 @@ namespace Bikewale.Mobile.Used
     /// Created by : Subodh Jain 6 oct 2016
     /// Summary: Bind used bikes in a city with count.
     /// </summary>
-    public partial class BikesInCity : System.Web.UI.Page
+    public class BikesInCity : System.Web.UI.Page
     {
 
-        public IEnumerable<UsedBikeCities> objBikeCityCountTop = null;
-        public IEnumerable<UsedBikeCities> objBikeCityCountRest = null;
+        protected IEnumerable<UsedBikeCities> objBikeCityCountTop = null;
+        protected IEnumerable<UsedBikeCities> objBikeCityCount = null;
+        protected override void OnInit(EventArgs e)
+        {
+            InitializeComponent();
+        }
+        protected void InitializeComponent()
+        {
+            base.Load += new EventHandler(Page_Load);
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                BindCities();
-            }
+
+
+            BindCities();
+
         }
         private void BindCities()
         {
             BindUsedBikesCityWithCount objBikeCity = new BindUsedBikesCityWithCount();
-            IEnumerable<UsedBikeCities> objBikeCityCount = objBikeCity.GetUsedBikeByCityWithCount();
+            objBikeCityCount = objBikeCity.GetUsedBikeByCityWithCount();
             objBikeCityCountTop = objBikeCityCount.Take(6);
-            objBikeCityCountRest = objBikeCityCount.Skip(6);
+            objBikeCityCount.OrderBy(c => c.CityName);
+
         }
     }
 }

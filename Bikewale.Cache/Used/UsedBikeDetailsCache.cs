@@ -96,25 +96,6 @@ namespace Bikewale.Cache.Used
             }
             return objUsedBikes;
         }
-        /// <summary>
-        /// Created by Subodh jain 60 oct 2016
-        /// Describtion To get Top 6 cities order by poplarity and remaining by alphabetic order
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<UsedBikeCities> GetUsedBikeByCityWithCount()
-        {
-            IEnumerable<UsedBikeCities> objUsedBikesCity = null;
-            string key = String.Format("BW_BikeInCity");
-            try
-            {
-                objUsedBikesCity = _cache.GetFromCache<IEnumerable<UsedBikeCities>>(key, new TimeSpan(1, 0, 0), () => _objUsedBikes.GetUsedBikeByCityWithCount());
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.Used.GetUsedBikeByCityWithCount");
-                objErr.SendMail();
-            }
-            return objUsedBikesCity;
-        }
+
     }
 }

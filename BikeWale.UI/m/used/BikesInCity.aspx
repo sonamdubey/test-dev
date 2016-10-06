@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="BikesInCity.aspx.cs" Inherits="Bikewale.Mobile.Used.BikesInCity" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" EnableViewState="false"  Inherits="Bikewale.Mobile.Used.BikesInCity" %>
 
 <!DOCTYPE html>
 <html>
@@ -29,20 +29,20 @@
                 <div id="popular-city-content" class="margin-top20 margin-bottom15 font14">
                     <p class="text-bold margin-left20 margin-bottom20">Popular cities</p>
                     <ul id="used-popular-cities">
-                         <%foreach ( Bikewale.Entities.Used.UsedBikeCities objCity in  objBikeCityCountTop) {%>
-                        <%if(objCity.bikesCount>0){ %>                       
-                         <li>
-                            <a href="/m/used/bikes-in-<%=objCity.cityMaskingName %>/" title="Used bikes in <%=objCity.cityName %>" class="popular-city-target">
-                                <div class="text-center margin-bottom5">
-                                    <span class="city-sprite <%=objCity.cityMaskingName %>-icon"></span>
-                                </div>
-                                <div class="padding-right10 padding-left10">
-                                    <p class="text-bold"><%=objCity.cityName %></p>
-                                    <p class="text-light-grey"><%=objCity.bikesCount %> Used bikes</p>
-                                </div>
-                            </a>
-                        </li>
-                        <%} %>
+                        <%foreach ( Bikewale.Entities.Used.UsedBikeCities objCity in  objBikeCityCountTop) {%>
+                                        
+                             <li>
+                                <a href="/m/used/bikes-in-<%=objCity.CityMaskingName %>/" title="Used bikes in <%=objCity.CityName %>" class="popular-city-target">
+                                    <div class="text-center margin-bottom5">
+                                        <span class="city-sprite <%=objCity.CityMaskingName %>-icon"></span>
+                                    </div>
+                                    <div class="padding-right10 padding-left10">
+                                        <p class="text-bold"><%=objCity.CityName %></p>
+                                        <p class="text-light-grey"><%=objCity.bikesCount %> Used bikes</p>
+                                    </div>
+                                </a>
+                            </li>
+                       
                         <%} %>
                        
                     </ul>
@@ -53,9 +53,10 @@
                 <div class="padding-right20 padding-left20">
                     <p id="other-cities-label" class="font14 text-bold">Other cities</p>
                     <ul id="other-cities-list">
-                        <%foreach ( Bikewale.Entities.Used.UsedBikeCities objCity in  objBikeCityCountRest) {%>
+                        <%foreach (Bikewale.Entities.Used.UsedBikeCities objCity in objBikeCityCount)
+                          {%>
                         <li>
-                            <a href="/m/used/bikes-in-<%=objCity.cityMaskingName %>/" title="Used bikes in <%=objCity.cityName %>"><%=objCity.cityName %> (<%=objCity.bikesCount %>)</a>
+                            <a href="/m/used/bikes-in-<%=objCity.CityMaskingName %>/" title="Used bikes in <%=objCity.CityName %>"><%=objCity.CityName %> (<%=objCity.bikesCount %>)</a>
                         </li>                       <%} %>
                     </ul>
                 </div>

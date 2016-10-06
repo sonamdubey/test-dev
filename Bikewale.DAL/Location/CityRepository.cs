@@ -1,7 +1,9 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Used;
 using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using MySql.CoreDAL;
 using System;
 using System.Collections;
@@ -328,6 +330,50 @@ namespace Bikewale.DAL.Location
                 objErr.SendMail();
             }
             return objStateCities;
+        }
+        /// <summary>
+        /// Created by Subodh jain 6 oct 2016
+        /// Describtion To get Top 6 cities order by poplarity and remaining by alphabetic order
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<UsedBikeCities> GetUsedBikeByCityWithCount()
+        {
+            IList<UsedBikeCities> usedBikeCities = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikebycitywithcount_06102016"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            usedBikeCities = new List<UsedBikeCities>();
+                            while (dr.Read())
+                            {
+                                usedBikeCities.Add(new UsedBikeCities
+                                {
+                                    bikesCount = SqlReaderConvertor.ToUInt32(dr["bikecount"]),
+                                    CityMaskingName = Convert.ToString(dr["citymaskingname"]),
+                                    CityName = Convert.ToString(dr["city"]),
+                                    CityId = SqlReaderConvertor.ToUInt32(dr["cityid"]),
+                                    priority = SqlReaderConvertor.ToUInt32(dr["priority"]),
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, String.Format("GetUsedBikeByCityWithCount"));
+                objErr.SendMail();
+            }
+
+            return usedBikeCities;
         }
     }
 }
