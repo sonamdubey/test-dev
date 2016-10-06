@@ -31,7 +31,7 @@
                         <h2 class="font18 section-heading">Search used bikes</h2>
                         <div id="search-form-control-box" class="margin-top5 margin-bottom20">
                             <div id="search-form-city" class="form-selection-box margin-bottom20">
-                                <p class="text-truncate">Select city</p>
+                                <p class="text-truncate" data-item-id="" data-bind="attr: {'data-citymaskingname': cityMaskingName,'data-item-id':cityId}" >Select city</p>
                             </div>
                             <div id="search-form-budget" class="position-rel margin-bottom30">
                                 <div id="min-max-budget-box" class="form-selection-box">
@@ -49,7 +49,7 @@
                                     <ul id="max-budget-list" class="text-right"></ul>
                                 </div>                                
                             </div>
-                            <a href="" class="btn btn-orange text-bold">Search</a>
+                            <a data-bind="attr: {href:redirectUrl}" id="searchCityBudget" class="btn btn-orange text-bold">Search</a>
                         </div>
                         <a href="javascript:void(0)" id="profile-id-popup-target" class="font14 text-underline" rel="nofollow">Search by Profile ID</a>
                     </div>
@@ -58,7 +58,7 @@
             </div>
         </section>
 
-        <section>
+       <%-- <section>
             <div class="container text-center section-container">
                 <h2 class="font18 section-heading">Best way to sell your bike</h2>
                 <div class="bg-white box-shadow content-inner-block-20">
@@ -84,7 +84,7 @@
                 </div>
             </div>
         </section>
-        
+        --%>
         <section>
             <div class="container text-center section-container">
                 <h2 class="font18 section-heading">Search used bikes by brands</h2>
@@ -354,25 +354,10 @@
                 <input class="form-control border-solid" type="text" id="getCityInput" placeholder="Select City" />
             </div>
             <ul id="city-slider-list" class="slider-list">
-                <li>Mumbai</li>
-                <li>Bangalore</li>
-                <li>Navi Mumbai</li>
-                <li>Pune</li>
-                <li>Thane</li>
-                <li>Panvel</li>
-                <li>Mumbai</li>
-                <li>Bangalore</li>
-                <li>Navi Mumbai</li>
-                <li>Pune</li>
-                <li>Thane</li>
-                <li>Panvel</li>
-                <li>Mumbai</li>
-                <li>Bangalore</li>
-                <li>Navi Mumbai</li>
-                <li>Pune</li>
-                <li>Thane</li>
-                <li>Panvel</li>
-            </ul>
+                <%foreach(var city in cities){ %>
+                <li id="selectedCity" data-item-id="<%=city.CityId%>" data-citymaskingname="<%=city.CityMaskingName%>"><%=city.CityName %></li>
+                <%} %>
+                </ul>
         </div>
                 
         <!-- profile-id -->
@@ -393,7 +378,6 @@
             </div>
             <a class="btn btn-orange btn-fixed-width" id="search-profile-id-btn">Search</a>
         </div>
-
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
