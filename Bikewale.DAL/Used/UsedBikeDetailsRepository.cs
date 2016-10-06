@@ -257,5 +257,49 @@ namespace Bikewale.DAL.Used
             }
             return similarBikeDetails;
         }
+        /// <summary>
+        /// Created by Subodh jain 6 oct 2016
+        /// Describtion To get Top 6 cities order by poplarity and remaining by alphabetic order
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<UsedBikeCities> GetUsedBikeByCityWithCount()
+        {
+            IList<UsedBikeCities> objBikeCityCount = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikebycitywithcount_06102016"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null)
+                        {
+                            objBikeCityCount = new List<UsedBikeCities>();
+                            while (dr.Read())
+                            {
+                                objBikeCityCount.Add(new UsedBikeCities
+                                {
+                                    bikesCount = SqlReaderConvertor.ToUInt32(dr["bikecount"]),
+                                    cityMaskingName = Convert.ToString(dr["citymaskingname"]),
+                                    cityName = Convert.ToString(dr["city"]),
+                                    cityId = SqlReaderConvertor.ToUInt32(dr["cityid"]),
+                                    priority = SqlReaderConvertor.ToUInt32(dr["priority"]),
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, String.Format("GetUsedBikeByCityWithCount"));
+                objErr.SendMail();
+            }
+
+            return objBikeCityCount;
+        }
     }
 }

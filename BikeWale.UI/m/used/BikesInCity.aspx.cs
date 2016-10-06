@@ -1,9 +1,7 @@
-﻿using System;
+﻿using Bikewale.BindViewModels.Controls;
+using Bikewale.Entities.Used;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Used
 {
@@ -11,7 +9,15 @@ namespace Bikewale.Mobile.Used
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                BindCities();
+            }
+        }
+        private void BindCities()
+        {
+            BindUsedBikesCityWithCount objBikeCity = new BindUsedBikesCityWithCount();
+            IEnumerable<UsedBikeCities> objBikeCityCount = objBikeCity.GetUsedBikeByCityWithCount();
         }
     }
 }
