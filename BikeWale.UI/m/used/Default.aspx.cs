@@ -1,20 +1,20 @@
-﻿using Bikewale.Common;
-using Bikewale.DAL.Location;
+﻿using Bikewale.BindViewModels.Webforms.Used;
+using Bikewale.Mobile.Controls;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Location;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Used
 {
+    /// <summary>
+    /// Created by: Sangram Nandkhile on 06 oct 2016
+    /// </summary>
     public class Default : System.Web.UI.Page
     {
-        public IEnumerable<CityEntityBase> cities = null;
+        protected UsedBikeLandingPage viewModel;
+        protected UsedRecentBikes ctrlRecentUsedBikes;
 
         protected override void OnInit(EventArgs e)
         {
@@ -28,22 +28,25 @@ namespace Bikewale.Mobile.Used
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            GetAllCities();
+            viewModel = new UsedBikeLandingPage();
+            if (viewModel == null)
+            {
+                RedirectToPageNotFound();
+            }
+            RenderUserControls();
         }
 
-        private void GetAllCities()
+        private void RedirectToPageNotFound()
         {
-            ICity _city = new CityRepository();
-            try
-            {
-                cities = _city.GetAllCities(EnumBikeType.Used);
-            }
-            catch(Exception ex)
-            {
+            Response.Redirect("/pageNotFound.aspx", false);
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
+            this.Page.Visible = false;
+        }
 
-                ErrorClass objErr = new ErrorClass(ex, "Exception : GetAllCities - used-Default");
-                objErr.SendMail();
-            }
+        private void RenderUserControls()
+        {
+            ctrlRecentUsedBikes.WidgetTitle = "Recently uploaded used bikes";
+            ctrlRecentUsedBikes.TopCount = 6;
         }
 
     }

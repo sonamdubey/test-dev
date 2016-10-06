@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.UsedBikes;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.UsedBikes;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.UsedBikes
@@ -17,5 +18,6 @@ namespace Bikewale.Interfaces.UsedBikes
         IEnumerable<MostRecentBikes> GetUsedBikesbyModel(uint modelId, uint totalCount);
         IEnumerable<MostRecentBikes> GetUsedBikesbyModelCity(uint modelId, uint cityId, uint totalCount);
         IEnumerable<MostRecentBikes> GetUsedBikesbyMakeCity(uint makeId, uint cityId, uint totalCount);
+        IEnumerable<UsedBikeMakeEntity> GetUsedBikeMakesWithCount();
     }
 }

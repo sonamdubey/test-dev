@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.UsedBikes;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.UsedBikes;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.UsedBikes
@@ -11,5 +12,6 @@ namespace Bikewale.Interfaces.UsedBikes
     public interface IUsedBikesCache
     {
         IEnumerable<MostRecentBikes> GetUsedBikes(uint makeId, uint modelId, uint cityId, uint totalCount);
+        IEnumerable<UsedBikeMakeEntity> GetUsedBikeMakesWithCount();
     }
 }

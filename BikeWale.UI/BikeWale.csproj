@@ -260,6 +260,7 @@
     <Compile Include="BindViewModels\Controls\BindSimilarVideos.cs" />
     <Compile Include="BindViewModels\Controls\BindUpcomingBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUsedBikesControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindUsedRecentBikes.cs" />
     <Compile Include="BindViewModels\Controls\BindUserReviewControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUsersTestimonialControl.cs" />
     <Compile Include="BindViewModels\Controls\BindVideosControl.cs" />
@@ -271,6 +272,7 @@
     <Compile Include="BindViewModels\Webforms\ModelPageVM.cs" />
     <Compile Include="BindViewModels\Webforms\Used\SearchBikes.cs" />
     <Compile Include="BindViewModels\Webforms\Used\UsedBikeDetails.cs" />
+    <Compile Include="BindViewModels\Webforms\Used\UsedBikeLanding.cs" />
     <Compile Include="common\Ajax\AjaxBikeBooking.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedBuyer.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedSearch.cs" />
@@ -858,8 +860,8 @@
       <DependentUpon>NewVideosWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\controls\OtherUsedBikeByCity.ascx.cs">
-      <DependentUpon>OtherUsedBikeByCity.ascx</DependentUpon>
+    <Compile Include="m\controls\UsedOtherBikeByCity.ascx.cs">
+      <DependentUpon>UsedOtherBikeByCity.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\PopularUsedBikes.ascx.cs">
@@ -888,6 +890,10 @@
     </Compile>
     <Compile Include="m\controls\UsedBikes.ascx.cs">
       <DependentUpon>UsedBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\UsedRecentBikes.ascx.cs">
+      <DependentUpon>UsedRecentBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\UserReviewList.ascx.cs">
@@ -2272,7 +2278,7 @@
     <Content Include="m\controls\NewsWidget.ascx" />
     <Content Include="m\controls\NewUserReviewList.ascx" />
     <Content Include="m\controls\NewVideosWidget.ascx" />
-    <Content Include="m\controls\OtherUsedBikeByCity.ascx" />
+    <Content Include="m\controls\UsedOtherBikeByCity.ascx" />
     <Content Include="m\controls\PopularUsedBikes.ascx" />
     <Content Include="m\controls\SimilarCompareBikes.ascx" />
     <Content Include="m\controls\MPriceInTopCities.ascx" />
@@ -2280,6 +2286,7 @@
     <Content Include="m\controls\SimilarVideos.ascx" />
     <Content Include="m\controls\TopUserReviews.ascx" />
     <Content Include="m\controls\UsedBikes.ascx" />
+    <Content Include="m\controls\UsedRecentBikes.ascx" />
     <Content Include="m\controls\UserReviewList.ascx" />
     <Content Include="m\controls\UsersTestimonials.ascx" />
     <Content Include="m\controls\VideosByCategory.ascx" />
