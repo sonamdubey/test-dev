@@ -34,8 +34,6 @@ namespace Bikewale.BindViewModels.Controls
                     .RegisterType<ICacheManager, MemcacheManager>();
                     var objCities = container.Resolve<ICityCacheRepository>();
                     objBikeCity = objCities.GetUsedBikeByCityWithCount();
-
-
                 }
 
             }
