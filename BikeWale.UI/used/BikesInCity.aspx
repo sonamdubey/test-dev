@@ -5,6 +5,7 @@
     description = "bikewale.com city wise used bikes listing.";
      is300x250BTFShown = false;
     is300x250Shown = false;
+    alternate = "http://www.bikewale.com/m/used/browse-bikes-by-cities/";
 %>
 <!-- #include file="/includes/headUsed.aspx" -->
     <div  class="container_12">

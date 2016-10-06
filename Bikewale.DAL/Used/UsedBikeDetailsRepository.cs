@@ -257,5 +257,6 @@ namespace Bikewale.DAL.Used
             }
             return similarBikeDetails;
         }
+       
     }
 }

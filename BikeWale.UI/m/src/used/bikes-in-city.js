@@ -21,12 +21,12 @@ $('#cityInput').on('keyup', function () {
 
 /* cw_fastFilter for popup search box code starts here */
 jQuery.fn.fastLiveFilter = function (list, options) {
-    // Options: input, list, timeout, callback
+  
     options = options || {};
     list = jQuery(list);
     var input = this;
     var lastFilter = '', noResultLen = 0;
-    var noResult = '<div class="noResult">No search found!</div>';
+    var noResult = '<div class="noResult">No city found!</div>';
     var timeout = options.timeout || 100;
     var callback = options.callback || function (total) {
         noResultLen = list.siblings(".noResult").length;
@@ -46,7 +46,6 @@ jQuery.fn.fastLiveFilter = function (list, options) {
     callback(len); // do a one-time callback on initialization to make sure everything's in sync
 
     input.change(function () {
-        // var startTime = new Date().getTime();
         var filter = input.val().toLowerCase();
         var li, innerText;
         var numShown = 0;

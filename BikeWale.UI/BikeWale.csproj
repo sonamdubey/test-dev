@@ -259,6 +259,7 @@
     <Compile Include="BindViewModels\Controls\BindSimilarUsedBikes.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarVideos.cs" />
     <Compile Include="BindViewModels\Controls\BindUpcomingBikesControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindUsedBikesCityWithCount.cs" />
     <Compile Include="BindViewModels\Controls\BindUsedBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUserReviewControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUsersTestimonialControl.cs" />
