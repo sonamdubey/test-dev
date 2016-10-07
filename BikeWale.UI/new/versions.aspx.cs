@@ -294,7 +294,8 @@ namespace Bikewale.New
                     if (modelId > 0)
                         objFilters.Model = Convert.ToString(modelId);
                     UsedBikes = objSearch.GetUsedBikesList(objFilters);
-                    totalUsedBikes = (uint)UsedBikes.TotalCount;
+                    if (UsedBikes != null)
+                        totalUsedBikes = (uint)UsedBikes.TotalCount;
                 }
             }
             catch (Exception ex)
