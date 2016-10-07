@@ -1,5 +1,6 @@
 ﻿using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
+using Bikewale.BAL.Used.Search;
 using Bikewale.BindViewModels.Webforms;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
@@ -9,16 +10,19 @@ using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Location;
+using Bikewale.DAL.Used.Search;
 using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Used.Search;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Interfaces.Used.Search;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
@@ -75,9 +79,10 @@ namespace Bikewale.New
         protected string pq_sourcepage = "57";
         protected string hide = "";
         //protected BikeModelPageEntity modelPg;
-
+        protected string pgDescription = string.Empty;
         protected UsedBikes ctrlRecentUsedBikes;
-
+        public Bikewale.Entities.Used.Search.SearchResult UsedBikes = null;
+        protected uint totalUsedBikes;
 
         #region Subscription model variables
 
@@ -241,28 +246,103 @@ namespace Bikewale.New
                     //calling _bwutmz cookie logic.
                     Trace.Warn("Trace 22 : Clear trailing Query");
                     Trace.Warn("Trace 23 : Page Load ends");
-                    ctrlLeadCapture.AreaId = areaId;
-                    ctrlLeadCapture.ModelId = modelId;
-                    ctrlLeadCapture.CityId = cityId;
+                    BindControls();
 
-                    ctrlRecentUsedBikes.CityId = (int?)cityId;
-                    ctrlRecentUsedBikes.TopCount = 6;
-                    ctrlRecentUsedBikes.ModelId = Convert.ToUInt32(modelId);
 
 
                 }
-                if (!isDiscontinued)
-                    ctrlPopularCompare.versionId = Convert.ToString(variantId);
 
 
-                ctrlPopularCompare.TopCount = 6;
-                ctrlPopularCompare.ModelName = modelPageEntity.ModelDetails.ModelName;
+
+                TotalUsedBikes();
+                CreateMetas();
 
             }
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"].ToString());
                 objErr.SendMail();
+            }
+        }
+        /// <summary>
+        /// Created By :-Subodh Jain 07 oct 2016
+        /// Desc:- To get total number of used bikes
+        /// </summary>
+        private void TotalUsedBikes()
+        {
+            try
+            {
+                ISearch objSearch = null;
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<ISearchFilters, ProcessSearchFilters>()
+                    .RegisterType<ISearchQuery, SearchQuery>()
+                        .RegisterType<ISearchRepository, SearchRepository>()
+                        .RegisterType<ISearch, SearchBikes>();
+                    objSearch = container.Resolve<ISearch>();
+                    InputFilters objFilters = new InputFilters();
+                    // If inputs are set by hash, hash overrides the query string parameters
+                    if (cityId > 0)
+                        objFilters.City = cityId;
+
+                    // Don't pass the make ids when modelid is fetched through Query string 
+                    if (modelId == 0 && modelPageEntity.ModelDetails.MakeBase.MakeId > 0)
+                    {
+                        objFilters.Make = Convert.ToString(modelPageEntity.ModelDetails.MakeBase.MakeId);
+                    }
+
+                    if (modelId > 0)
+                        objFilters.Model = Convert.ToString(modelId);
+                    UsedBikes = objSearch.GetUsedBikesList(objFilters);
+                    totalUsedBikes = (uint)UsedBikes.TotalCount;
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "bikeModel.TotalUsedBikes");
+                objErr.SendMail();
+            }
+
+        }
+        /// <summary>
+        /// Created By :-Subodh Jain 07 oct 2016
+        /// Desc:- values to controls field
+        /// </summary>
+        private void BindControls()
+        {
+            ctrlLeadCapture.AreaId = areaId;
+            ctrlLeadCapture.ModelId = modelId;
+            ctrlLeadCapture.CityId = cityId;
+
+            ctrlRecentUsedBikes.CityId = (int?)cityId;
+            ctrlRecentUsedBikes.TopCount = 6;
+            ctrlRecentUsedBikes.ModelId = Convert.ToUInt32(modelId);
+
+
+            ctrlPopularCompare.TopCount = 6;
+            ctrlPopularCompare.ModelName = modelPageEntity.ModelDetails.ModelName;
+
+            if (!isDiscontinued)
+                ctrlPopularCompare.versionId = Convert.ToString(variantId);
+        }
+        /// <summary>
+        /// Created By :-Subodh Jain 07 oct 2016
+        /// Desc:- Metas description according to discountinue,upcoming,continue bikes
+        /// </summary>
+        private void CreateMetas()
+        {
+            if (modelPageEntity.ModelDetails.Futuristic)
+            {
+                pgDescription = string.Format("{0} {1} Price in India is expected between Rs. {2} and Rs. {3}. Check out {0} {1}  specifications, reviews, mileage, versions, news & photos at BikeWale.com. Launch date of {1} is around {4}", modelPageEntity.ModelDetails.MakeBase.MakeName, modelPageEntity.ModelDetails.ModelName, modelPageEntity.ModelDetails.MinPrice, modelPageEntity.ModelDetails.MaxPrice, modelPageEntity.UpcomingBike.ExpectedLaunchDate);
+            }
+            else if (!modelPageEntity.ModelDetails.New)
+            {
+                pgDescription = string.Format("{0} {1} Price in India - Rs. {2}. It has been discontinued in India. There are {3} used {1} bikes for sale. Check out {1} specifications, reviews, mileage, versions, news & photos at BikeWale.com", modelPageEntity.ModelDetails.MakeBase.MakeName, modelPageEntity.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric(price.ToString()), totalUsedBikes);
+            }
+            else
+            {
+                pgDescription = String.Format("{0} Price in India - Rs. {1}. Find {0} Reviews, Specs, Features, Mileage, On Road Price. See {2} Colors, Images at Bikewale.", bikeName, Bikewale.Utility.Format.FormatNumeric(price.ToString()), bikeModelName);
+
             }
         }
 
