@@ -23,8 +23,17 @@ $(document).ready(function () {
         else
             $('#header').removeClass("header-fixed").addClass("header-landing");
     });
+
 });
 
+$("a.view-more-btn").click(function (e) {
+    var moreBrandList = $("ul.brand-style-moreBtn"),
+        moreText = $(this).find("span"),
+        borderDivider = $(".brand-bottom-border");
+    moreBrandList.slideToggle();
+    moreText.text(moreText.text() === "more" ? "less" : "more");
+    borderDivider.slideToggle();
+});
 
 /* budget */
 $('#min-max-budget-box').on('click', function () {
@@ -202,3 +211,93 @@ $(document).mouseup(function (e) {
         }
     }
 });
+
+
+/* profile id */
+var listingProfileId = $('#listingProfileId');
+
+listingProfileId.on("focus", function () {
+    validate.onFocus(listingProfileId);
+});
+
+/* input blur */
+listingProfileId.on("blur", function () {
+    validate.onBlur(listingProfileId);
+});
+
+$('#profile-id-popup-target').on('click', function () {
+    profileID.open();
+});
+
+$('#profile-id-popup').on('click', '.close-btn', function () {
+    profileID.close();
+});
+
+$('#search-profile-id-btn').on('click', function () {
+    if (validateProfileId(listingProfileId)) {
+        // valid
+    }
+});
+
+function validateProfileId(inputBox) {
+    var isValid = true;
+    var profileId = inputBox.val();
+    if (profileId == '') {
+        isValid = false;
+        validate.setError(inputBox, 'Please enter profile id');
+    }
+
+    return isValid;
+}
+
+var validate = {
+    setError: function (element, message) {
+        var elementLength = element.val().length;
+        errorTag = element.siblings('span.error-text');
+
+        errorTag.show().text(message);
+        if (!elementLength) {
+            element.closest('.input-box').removeClass('not-empty').addClass('invalid');
+        }
+        else {
+            element.closest('.input-box').addClass('not-empty invalid');
+        }
+    },
+
+    hideError: function (element) {
+        element.closest('.input-box').removeClass('invalid').addClass('not-empty');
+        element.siblings('span.error-text').text('');
+    },
+
+    onFocus: function (inputField) {
+        if (inputField.closest('.input-box').hasClass('invalid')) {
+            validate.hideError(inputField);
+        }
+    },
+
+    onBlur: function (inputField) {
+        var inputLength = inputField.val().length;
+        if (!inputLength) {
+            inputField.closest('.input-box').removeClass('not-empty');
+        }
+        else {
+            inputField.closest('.input-box').addClass('not-empty');
+        }
+    }
+}
+
+var profileID = {
+    popup: $('#profile-id-popup'),
+
+    open: function () {
+        profileID.popup.show();
+        $('.blackOut-window').show();
+        $('body').addClass('lock-browser-scroll');
+    },
+
+    close: function () {
+        $('body').removeClass('lock-browser-scroll');
+        $('.blackOut-window').hide();
+        profileID.popup.hide();
+    }
+};
