@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Used;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.Location
@@ -12,5 +13,6 @@ namespace Bikewale.Interfaces.Location
         IEnumerable<CityEntityBase> GetPriceQuoteCities(uint modelId);
         IEnumerable<CityEntityBase> GetAllCities(EnumBikeType requestType);
         DealerStateCities GetDealerStateCities(uint makeId, uint stateId);
+        IEnumerable<UsedBikeCities> GetUsedBikeByCityWithCount();
     }
 }

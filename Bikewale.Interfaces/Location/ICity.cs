@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Used;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -19,5 +20,6 @@ namespace Bikewale.Interfaces.Location
         Hashtable GetMaskingNames();
         Hashtable GetOldMaskingNames();
         DealerStateCities GetDealerStateCities(uint makeId, uint stateId);
+        IEnumerable<UsedBikeCities> GetUsedBikeByCityWithCount();
     }
 }

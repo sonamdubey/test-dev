@@ -88,8 +88,7 @@
                     <a href="" class="btn btn-teal margin-top5">Sell now</a>
                 </div>
             </div>
-        </section>
-        --%>
+        </section> --%>
         <section>
             <div class="container text-center section-container">
                 <h2 class="font18 section-heading">Search used bikes by brands</h2>
@@ -133,50 +132,25 @@
                 <div class="bg-white box-shadow padding-top20 padding-bottom20">
                     <div class="swiper-container card-container swiper-city">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide">
+                                   <%foreach (Bikewale.Entities.Used.UsedBikeCities objCity in viewModel.objCitiesWithCount)
+                                     {%>
+                             <div class="swiper-slide">
                                 <div class="swiper-card">
-                                    <a href="" title="">
+                                    <a href="/m/used/bikes-in-<%=objCity.CityMaskingName %>/" title="Used bikes in <%=objCity.CityName %>">
                                         <div class="swiper-image-preview">
-                                            <span class="city-sprite mumbai-icon"></span>
+                                            <span class="city-sprite c<%=objCity.CityId %>-icon"></span>
                                         </div>
                                         <div class="swiper-details-block">
-                                            <h3 class="font14 margin-bottom5">Mumbai</h3>
-                                            <p class="font14 text-light-grey">132 Used bikes</p>
+                                            <h3 class="font14 margin-bottom5"><%=objCity.CityName %></h3>
+                                            <p class="font14 text-light-grey"><%=objCity.bikesCount %> Used bikes</p>
                                         </div>
                                     </a>
                                 </div>
                             </div>
-
-                            <div class="swiper-slide">
-                                <div class="swiper-card">
-                                    <a href="" title="">
-                                        <div class="swiper-image-preview">
-                                            <span class="city-sprite chennai-icon"></span>
-                                        </div>
-                                        <div class="swiper-details-block">
-                                            <h3 class="font14 margin-bottom5">Chennai</h3>
-                                            <p class="font14 text-light-grey">132 Used bikes</p>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="swiper-slide">
-                                <div class="swiper-card">
-                                    <a href="" title="">
-                                        <div class="swiper-image-preview">
-                                            <span class="city-sprite pune-icon"></span>
-                                        </div>
-                                        <div class="swiper-details-block">
-                                            <h3 class="font14 margin-bottom5">Pune</h3>
-                                            <p class="font14 text-light-grey">132 Used bikes</p>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                            <%} %>
+                         </div>
                     </div>
-                    <a href="" class="btn btn-inv-teal inv-teal-sm margin-top10">View all cities<span class="bwmsprite teal-next"></span></a>
+                    <a href="/m/used/browse-bikes-by-cities/" class="btn btn-inv-teal inv-teal-sm margin-top10">View all cities<span class="bwmsprite teal-next"></span></a>
                 </div>
             </div>
         </section>

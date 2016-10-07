@@ -342,15 +342,15 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
 .brand-um { width: 38px; background-position: -1481px 0; }.brand-eider { width:38px; background-position:-1529px 0; }
 
 .city-sprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite-v2.png?v05Oct2016) no-repeat; display: inline-block; }
-.mumbai-icon, .pune-icon, .bangalore-icon, .delhi-icon, .chennai-icon, .hyderabad-icon, .kolkata-icon, .lucknow-icon { height: 48px; }
-.mumbai-icon { width: 78px; background-position: 0 0; }
-.pune-icon { width: 112px; background-position: -84px 0; }
-.bangalore-icon { width: 82px; background-position: -202px 0; }
-.delhi-icon { width: 38px; background-position: -290px 0; }
-.chennai-icon { width: 33px; background-position: -334px 0; }
-.hyderabad-icon { width: 34px; background-position: -373px 0; }
-.kolkata-icon { width: 110px; background-position: -413px 0; }
-.lucknow-icon { width: 106px; background-position: -529px 0; }
+.c1-icon, .c12-icon, .c2-icon, .c10-icon, .c176-icon, .c105-icon, .c198-icon, .c220-icon { height: 48px; }
+.c1-icon { width: 78px; background-position: 0 0; }
+.c12-icon { width: 112px; background-position: -84px 0; }
+.c2-icon { width: 82px; background-position: -202px 0; }
+.c10-icon { width: 38px; background-position: -290px 0; }
+.c176-icon { width: 33px; background-position: -334px 0; }
+.c105-icon { width: 34px; background-position: -373px 0; }
+.c198-icon { width: 110px; background-position: -413px 0; }
+.c220-icon { width: 106px; background-position: -529px 0; }
 
 .card-container {
     padding-top: 5px;
