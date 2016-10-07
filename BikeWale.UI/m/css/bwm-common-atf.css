@@ -112,7 +112,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .header-fixed-inner { padding-top: 65px; }
 
 /* sprite classes */
-.bwmsprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v2.png?v1=30Sep2016) no-repeat; display: inline-block; }
+.bwmsprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v2.png?v1=07Oct2016) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
