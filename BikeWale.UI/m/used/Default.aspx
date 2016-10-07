@@ -3,7 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Used bikes in India</title>
+<%
+    title="Used Bikes in India - Buy & Sell Second Hand Bikes";
+    description="With more than 10,000 used bikes listed for sale, BikeWale is India's largest source of used bikes in India. Find a second hand bike or list your bike for sale.";
+    keywords="Used bikes, used bike, used bikes for sale, second hand bikes, buy used bike";        
+    canonical="http://www.bikewale.com/used/";
+%>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <link href="/m/css/used/landing.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
