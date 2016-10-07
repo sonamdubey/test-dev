@@ -279,13 +279,6 @@ namespace Bikewale.New
                     // If inputs are set by hash, hash overrides the query string parameters
                     if (cityId > 0)
                         objFilters.City = cityId;
-
-                    // Don't pass the make ids when modelid is fetched through Query string 
-                    if (modelId == 0 && modelPageEntity.ModelDetails.MakeBase.MakeId > 0)
-                    {
-                        objFilters.Make = Convert.ToString(modelPageEntity.ModelDetails.MakeBase.MakeId);
-                    }
-
                     if (modelId > 0)
                         objFilters.Model = Convert.ToString(modelId);
                     UsedBikes = objSearch.GetUsedBikesList(objFilters);

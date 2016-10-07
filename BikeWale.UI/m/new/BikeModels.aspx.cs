@@ -200,12 +200,6 @@ namespace Bikewale.Mobile.New
                     if (cityId > 0)
                         objFilters.City = cityId;
 
-                    // Don't pass the make ids when modelid is fetched through Query string 
-                    if (modelId == 0 && modelPage.ModelDetails.MakeBase.MakeId > 0)
-                    {
-                        objFilters.Make = Convert.ToString(modelPage.ModelDetails.MakeBase.MakeId);
-                    }
-
                     if (modelId > 0)
                         objFilters.Model = Convert.ToString(modelId);
                     UsedBikes = objSearch.GetUsedBikesList(objFilters);
