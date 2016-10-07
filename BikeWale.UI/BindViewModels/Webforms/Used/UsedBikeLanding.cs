@@ -31,12 +31,13 @@ namespace Bikewale.BindViewModels.Webforms.Used
             {
                 using (container = new UnityContainer())
                 {
-                    ICityCacheRepository objCitiesCache = null;
+                    container.RegisterType<ICity, CityRepository>();
                     container.RegisterType<IUsedBikes, Bikewale.BAL.UsedBikes.UsedBikes>();
                     container.RegisterType<ICacheManager, MemcacheManager>();
                     container.RegisterType<IUsedBikesCache, UsedBikesCache>();
                     container.RegisterType<ICityCacheRepository, CityCacheRepository>();
                     IUsedBikesCache objUsedBikes = container.Resolve<IUsedBikesCache>();
+                    ICityCacheRepository objCitiesCache = container.Resolve<ICityCacheRepository>();
                     var totalList = objUsedBikes.GetUsedBikeMakesWithCount();
                     if (totalList != null && totalList.Count() > 0)
                     {
@@ -60,10 +61,9 @@ namespace Bikewale.BindViewModels.Webforms.Used
         /// <param name="objCitiesCache"></param>
         private void GetAllCities(ICityCacheRepository objCitiesCache)
         {
-            ICity _city = new CityRepository();
             try
             {
-                Cities = _city.GetAllCities(EnumBikeType.Used);
+                 Cities = objCitiesCache.GetAllCities(EnumBikeType.Used);
             }
             catch (Exception ex)
             {
