@@ -169,7 +169,6 @@ namespace Bikewale.Mobile.New
                 }
 
                 SetFlagsAtEnd();
-
                 TotalUsedBikes();
                 CreateMetas();
             }

@@ -247,12 +247,7 @@ namespace Bikewale.New
                     Trace.Warn("Trace 22 : Clear trailing Query");
                     Trace.Warn("Trace 23 : Page Load ends");
                     BindControls();
-
-
-
                 }
-
-
 
                 TotalUsedBikes();
                 CreateMetas();
