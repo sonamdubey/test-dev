@@ -31,18 +31,15 @@ namespace Bikewale.BindViewModels.Webforms.Used
             {
                 using (container = new UnityContainer())
                 {
-                    ICityCacheRepository objCitiesCache = null;
+                    ICity objCitiesCache = null;
+                    IUsedBikesCache objUsedBikes = null;
                     container.RegisterType<IUsedBikes, Bikewale.BAL.UsedBikes.UsedBikes>();
                     container.RegisterType<ICacheManager, MemcacheManager>();
                     container.RegisterType<IUsedBikesCache, UsedBikesCache>();
                     container.RegisterType<ICityCacheRepository, CityCacheRepository>();
-                    IUsedBikesCache objUsedBikes = container.Resolve<IUsedBikesCache>();
-                    var totalList = objUsedBikes.GetUsedBikeMakesWithCount();
-                    if (totalList != null && totalList.Count() > 0)
-                    {
-                        TopMakeList = totalList.Take(6);
-                        OtherMakeList = totalList.Skip(6);
-                    }
+                    container.RegisterType<ICity, CityRepository>();
+
+                    GetAllMakes(objUsedBikes);
                     GetAllCities(objCitiesCache);
                 }
             }
@@ -52,22 +49,45 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 objErr.SendMail();
             }
         }
+        /// <summary>
+        /// Created By: Sangram Nandkhile 06 Oct, 2016
+        /// Description: get top 6 makes and remaining makes
+        /// </summary>
+        /// <param name="objUsedBikes"></param>
+        private void GetAllMakes(IUsedBikesCache objUsedBikes)
+        {
+            try
+            {
+                objUsedBikes = container.Resolve<IUsedBikesCache>();
+                var totalList = objUsedBikes.GetUsedBikeMakesWithCount();
+                if (totalList != null && totalList.Count() > 0)
+                {
+                    TopMakeList = totalList.Take(6);
+                    OtherMakeList = totalList.Skip(6);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : UsedBikeLandingPage.GetAllMakes");
+                objErr.SendMail();
+            }
+        }
 
         /// <summary>
         /// Created By: Aditi Srivastava on 10 Oct, 2016
         /// Description: Get all cities for used bikes
         /// </summary>
         /// <param name="objCitiesCache"></param>
-        private void GetAllCities(ICityCacheRepository objCitiesCache)
+        private void GetAllCities(ICity objCitiesCache)
         {
-            ICity _city = new CityRepository();
+            objCitiesCache = container.Resolve<ICity>();
             try
             {
-                Cities = _city.GetAllCities(EnumBikeType.Used);
+                Cities = objCitiesCache.GetAllCities(EnumBikeType.Used);
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : GetAllCities - used-Default");
+                ErrorClass objErr = new ErrorClass(ex, "Exception : UsedBikeLandingPage.GetAllCities - used-Default");
                 objErr.SendMail();
             }
         }
