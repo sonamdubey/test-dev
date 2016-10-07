@@ -444,6 +444,7 @@ var usedBikes = function()
                 $.each(arr, function (i, val) {
                     var ele = bikesList.find("ul.bike-model-list span[data-modelid=" + val + "]");
                     ele.closest("ul.bike-model-list li").addClass("active");
+                    accordion.setCount(ele);
                 });
             }
 
