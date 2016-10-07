@@ -6,6 +6,8 @@ namespace Bikewale.Interfaces.Used
     /// <summary>
     /// Created By : Sushil Kumar on 27th August 2016
     /// Description : Cache Interface for used bikes
+    /// Modified by : Sajal Gupta on 07/10/2016
+    /// Description : Added GetInquiryDetailsByProfileId function.
     /// </summary>
     public interface IUsedBikeDetailsCacheRepository
     {

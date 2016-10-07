@@ -78,8 +78,6 @@ namespace Bikewale.BAL.UsedBikes
 
                 using (IUnityContainer container = new UnityContainer())
                 {
-
-
                     container.RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>()
                              .RegisterType<ICacheManager, MemcacheManager>()
                              .RegisterType<IUsedBikeDetails, UsedBikeDetailsRepository>();

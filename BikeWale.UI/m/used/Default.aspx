@@ -394,13 +394,6 @@
             <a class="btn btn-orange btn-fixed-width" id="search-profile-id-btn">Search</a>
         </div>
 
-
-        <%--<script type="text/javascript">
-       
-    var dealerId = '<%= dealerId%>';
-            
-    </script>--%>
-
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
