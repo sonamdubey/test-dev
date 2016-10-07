@@ -392,7 +392,6 @@ var usedBikes = function () {
             self.BikeAge(8);
             self.BudgetValues([0, 7]);
             self.CurPageNo(1);
-            self.ResetBikeFilters();
             self.ApplyPagination();
 
             $("#previous-owners-list li").removeClass("active");
