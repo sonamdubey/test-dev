@@ -1,7 +1,14 @@
-﻿using Bikewale.DAL.UsedBikes;
+﻿using Bikewale.Cache.Core;
+using Bikewale.Cache.Used;
+using Bikewale.DAL.Used;
+using Bikewale.DAL.UsedBikes;
+using Bikewale.Entities.Used;
 using Bikewale.Entities.UsedBikes;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -52,7 +59,43 @@ namespace Bikewale.BAL.UsedBikes
                 return null;
             }
         }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 06-10-2016
+        /// Description : Getting used bike details  by profileId
+        /// </summary>
+        /// <param name="profileId"></param>
+        /// <returns></returns>
+        public InquiryDetails GetInquiryDetailsByProfileId(string profileId)
+        {
+            InquiryDetails objInquiryDetailsByProfileId = null;
+            try
+            {
+                if (!UsedBikeProfileId.IsValidProfileId(profileId))
+                    return null;
+
+                profileId = profileId.Substring(1);
+
+                using (IUnityContainer container = new UnityContainer())
+                {
+
+
+                    container.RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>()
+                             .RegisterType<ICacheManager, MemcacheManager>()
+                             .RegisterType<IUsedBikeDetails, UsedBikeDetailsRepository>();
+                    UsedBikeDetailsCache obj = container.Resolve<UsedBikeDetailsCache>();
+                    objInquiryDetailsByProfileId = obj.GetInquiryDetailsByProfileId(profileId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in BAL Layer function GetInquiryDetailsByProfileId for profileId : {0}", profileId));
+                objErr.SendMail();
+            }
+            return objInquiryDetailsByProfileId;
+        }
     }
+
 }
 
 

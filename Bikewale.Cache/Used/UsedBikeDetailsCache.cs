@@ -96,5 +96,28 @@ namespace Bikewale.Cache.Used
             }
             return objUsedBikes;
         }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 06-10-2016
+        /// Description : Getting used bike details  by profileId
+        /// </summary>
+        /// <param name="profileId"></param>
+        /// <returns></returns>
+        public InquiryDetails GetInquiryDetailsByProfileId(string profileId)
+        {
+            InquiryDetails objInquiryDetailsByProfileId = null;
+            string key = String.Format("BW_Inquiry_Details_profile_{0}", profileId);
+            try
+            {
+                objInquiryDetailsByProfileId = _cache.GetFromCache<InquiryDetails>(key, new TimeSpan(1, 0, 0), () => _objUsedBikes.GetInquiryDetailsByProfileId(profileId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in Cache Layer function GetInquiryDetailsByProfileId for profileId : {0}", profileId));
+                objErr.SendMail();
+            }
+            return objInquiryDetailsByProfileId;
+        }
     }
 }
+ 

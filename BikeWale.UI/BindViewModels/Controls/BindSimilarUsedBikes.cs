@@ -45,21 +45,18 @@ namespace Bikewale.BindViewModels.Controls
             IEnumerable<BikeDetailsMin> similarBikeList = null;
             try
             {
-                if (true)
+                similarBikeList = default(IEnumerable<BikeDetailsMin>);
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    similarBikeList = default(IEnumerable<BikeDetailsMin>);
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>()
-                            .RegisterType<IUsedBikeDetails, UsedBikeDetailsRepository>()
-                            .RegisterType<ICacheManager, MemcacheManager>();
+                    container.RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>()
+                        .RegisterType<IUsedBikeDetails, UsedBikeDetailsRepository>()
+                        .RegisterType<ICacheManager, MemcacheManager>();
 
-                        var objCache = container.Resolve<IUsedBikeDetailsCacheRepository>();
-                        similarBikeList = objCache.GetSimilarBikes(inquiryId, cityId, modelId, topCount);
-                        if (similarBikeList != null)
-                        {
-                            FetchedRecordsCount = similarBikeList.Count();
-                        }
+                    var objCache = container.Resolve<IUsedBikeDetailsCacheRepository>();
+                    similarBikeList = objCache.GetSimilarBikes(inquiryId, cityId, modelId, topCount);
+                    if (similarBikeList != null)
+                    {
+                        FetchedRecordsCount = similarBikeList.Count();
                     }
                 }
             }

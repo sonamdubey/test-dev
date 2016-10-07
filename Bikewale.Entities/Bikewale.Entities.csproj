@@ -267,6 +267,7 @@
     <Compile Include="Used\ClassifiedInquiryDetails.cs" />
     <Compile Include="Used\InputFilters.cs" />
     <Compile Include="Used\ClassifiedInquiryDetailsMin.cs" />
+    <Compile Include="Used\InquiryDetailsByProfileId.cs" />
     <Compile Include="Used\MostRecentBikes.cs" />
     <Compile Include="Used\PhotoRequest.cs" />
     <Compile Include="Used\PopularUsedBikesEntity.cs" />
