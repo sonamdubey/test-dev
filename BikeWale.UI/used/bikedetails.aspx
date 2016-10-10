@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Used.BikeDetails" EnableViewState="false" %>
+
 <%@ Register Src="/controls/UsedBikeLeadCaptureControl.ascx" TagPrefix="BW" TagName="UBLeadCapturePopup" %>
 <%@ Register Src="~/controls/SimilarUsedBikes.ascx" TagPrefix="BW" TagName="SimilarUsedBikes" %>
 <%@ Register Src="~/m/controls/UploadPhotoRequestPopup.ascx" TagPrefix="BW" TagName="UploadPhotoRequestPopup" %>
@@ -11,7 +12,7 @@
         title = "Used bike details";
         isHeaderFix = false;
     %>
-    
+
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link type="text/css" href="/css/used/details.css" rel="stylesheet" />
 
@@ -102,26 +103,26 @@
                         </div>
                         <div id="ad-summary" class="grid-7 padding-left30 omega font14">
                             <h2 class="text-default ad-summary-label margin-bottom10">Ad summary</h2>
-                            <div class="grid-4 alpha margin-bottom10"> 
+                            <div class="grid-4 alpha margin-bottom10">
                                 <span class="bwsprite model-date-icon"></span>
                                 <span class="model-details-label">2011 model</span>
                             </div>
-                                                
+
                             <div class="grid-4 alpha omega margin-bottom10">
                                 <span class="bwsprite kms-driven-icon"></span>
                                 <span class="model-details-label">18,000 kms</span>
                             </div>
                             <div class="clear"></div>
-                                                
+
                             <div class="grid-4 alpha margin-bottom10">
                                 <span class="bwsprite author-grey-sm-icon"></span>
                                 <span class="model-details-label">1st Owner</span>
                             </div>
-                                                
+
                             <div class="grid-4 alpha omega margin-bottom10">
                                 <span class="bwsprite model-loc-icon"></span>
                                 <span class="model-details-label">Kayamkulam</span>
-                            </div>                                                
+                            </div>
                             <div class="clear"></div>
 
                             <div class="margin-top5 margin-bottom10">
@@ -195,10 +196,19 @@
                         <div id="makeOverallTabsWrapper">
                             <div id="makeOverallTabs" class="overall-floating-tabs">
                                 <div class="overall-specs-tabs-wrapper">
+                                    <% if (inquiryDetails.SpecsFeatures != null)
+                                       { %>
                                     <a href="#specsContent" rel="nofollow">Specs & Features</a>
+                                    <% } %>
+                                    <% if (ctrlSimilarUsedBikes.FetchedRecordsCount > 0)
+                                       { %>
                                     <a href="#similarContent" rel="nofollow">Similar bikes</a>
+                                    <% } %>
+                                    <% if (ctrlOtherUsedBikes.FetchedRecordsCount > 0)
+                                       { %>
                                     <a href="#usedContent" rel="nofollow">Used Bajaj bikes</a>
                                 </div>
+                                <% } %>
                             </div>
                         </div>
                         <div id="specsContent" class="bw-model-tabs-data specs-features-list font14">
@@ -323,7 +333,8 @@
                         <div class="stage">
                             <div class="carousel carousel-stage">
                                 <ul>
-                                    <% foreach(var photo in inquiryDetails.Photo) { %>
+                                    <% foreach (var photo in inquiryDetails.Photo)
+                                       { %>
                                     <li>
                                         <div class="stage-slide">
                                             <div class="stage-image-placeholder">
@@ -346,7 +357,8 @@
                             <a href="#" class="next photos-next-navigation bwsprite" rel="nofollow"></a>
                             <div class="carousel carousel-navigation">
                                 <ul>
-                                     <% foreach(var photo in inquiryDetails.Photo) { %>
+                                    <% foreach (var photo in inquiryDetails.Photo)
+                                       { %>
                                     <li>
                                         <div class="navigation-slide">
                                             <div class="navigation-image-placeholder">
@@ -354,7 +366,7 @@
                                             </div>
                                         </div>
                                     </li>
-                                      <% } %>
+                                    <% } %>
                                 </ul>
                             </div>
                         </div>
@@ -363,14 +375,14 @@
                 </div>
             </div>
         </section>
-         <% } %>
+        <% } %>
 
-         <%if (inquiryDetails.PhotosCount == 0)
+        <%if (inquiryDetails.PhotosCount == 0)
           { %>
 
         <BW:UploadPhotoRequestPopup runat="server" ID="widgetUploadPhotoRequest"></BW:UploadPhotoRequestPopup>
         <%} %>
-        
+
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 
         <BW:UBLeadCapturePopup runat="server" ID="ctrlUBLeadCapturePopup"></BW:UBLeadCapturePopup>
