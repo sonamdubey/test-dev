@@ -124,7 +124,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Default.BindCities");
+                ErrorClass objErr = new ErrorClass(ex, "Default.BindCityWidgetWithCount");
                 objErr.SendMail();
             }
         }
