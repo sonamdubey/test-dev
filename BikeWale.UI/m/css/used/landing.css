@@ -1,6 +1,6 @@
 ﻿@charset "utf-8";
 .used-bikes-banner {
-    background:#7f7d74 url(http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/m/new-bike-banner.jpg) no-repeat left top;
+    background:#53442a url(http://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/used-landing-banner.jpg?v1=07Oct2016) no-repeat center;
     background-size: cover;
     height:130px;
 }
@@ -341,7 +341,7 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
 .brand-royalenfield { width: 74px; background-position: -1354px 0; }.brand-mv-agusta, .brand-mvagusta { width: 40px; background-position: -1432px 0; }
 .brand-um { width: 38px; background-position: -1481px 0; }.brand-eider { width:38px; background-position:-1529px 0; }
 
-.city-sprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite-v2.png?v05Oct2016) no-repeat; display: inline-block; }
+.city-sprite { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite-v2.png?v07Oct2016) no-repeat; display: inline-block; }
 .c1-icon, .c12-icon, .c2-icon, .c10-icon, .c176-icon, .c105-icon, .c198-icon, .c220-icon { height: 48px; }
 .c1-icon { width: 78px; background-position: 0 0; }
 .c12-icon { width: 112px; background-position: -84px 0; }

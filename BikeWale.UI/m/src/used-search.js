@@ -269,8 +269,7 @@ var usedBikes = function()
     };
 
     self.SetDefaultFilters = function () {
-        try {
-            self.SelectedCity({ "id": 0, "name": "All India" });
+        try {            
             self.KmsDriven(200000);
             self.BikeAge(8);
             self.BudgetValues([0, 7]);
@@ -445,6 +444,7 @@ var usedBikes = function()
                 $.each(arr, function (i, val) {
                     var ele = bikesList.find("ul.bike-model-list span[data-modelid=" + val + "]");
                     ele.closest("ul.bike-model-list li").addClass("active");
+                    accordion.setCount(ele);
                 });
             }
 
