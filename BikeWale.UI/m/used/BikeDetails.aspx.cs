@@ -59,7 +59,6 @@ namespace Bikewale.Mobile.Used
                     using (IUnityContainer container = new UnityContainer())
                     {
                         bool isDealer;
-                        byte consumer = default(byte);
                         string inquiryId = "", consumerType = "";
                         CustomerEntityBase buyer = new CustomerEntityBase();
 
