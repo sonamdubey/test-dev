@@ -1,13 +1,17 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
+using Bikewale.Cache.Used;
 using Bikewale.Cache.UsedBikes;
 using Bikewale.DAL.Location;
+using Bikewale.DAL.Used;
+using Bikewale.DAL.UsedBikes;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Used;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
+using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.UsedBikes;
 using Carwale.Notifications;
 using Microsoft.Practices.Unity;
@@ -46,6 +50,9 @@ namespace Bikewale.BindViewModels.Webforms.Used
                     container.RegisterType<IUsedBikesCache, UsedBikesCache>();
                     container.RegisterType<ICityCacheRepository, CityCacheRepository>();
                     container.RegisterType<ICity, CityRepository>();
+                    container.RegisterType<IUsedBikeDetails, UsedBikeDetailsRepository>();
+                    container.RegisterType<IUsedBikesRepository, UsedBikesRepository>();
+                    container.RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>();
                     objCitiesCache = container.Resolve<ICity>();
                     objUsedBikes = container.Resolve<IUsedBikesCache>();
 
