@@ -19,6 +19,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <% if(viewModel!= null){ %>
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
 
         <section>
@@ -64,7 +65,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-       <%-- <section>
+        <%-- <section>
             <div class="container text-center section-container">
                 <h2 class="font18 section-heading">Best way to sell your bike</h2>
                 <div class="bg-white box-shadow content-inner-block-20">
@@ -90,6 +91,7 @@
                 </div>
             </div>
         </section> --%>
+        <% if( viewModel.TopMakeList!= null && viewModel.OtherMakeList!= null){  %>
         <section>
             <div class="container text-center section-container">
                 <h2 class="font18 section-heading">Search used bikes by brands</h2>
@@ -126,7 +128,8 @@
                 </div>
             </div>
         </section>
-
+        <% } %>
+        <% if(viewModel.objCitiesWithCount != null) { %>
         <section>
             <div class="container text-center section-container">
                 <h2 class="font18 section-heading">Search used bikes by cities</h2>
@@ -135,7 +138,7 @@
                         <div class="swiper-wrapper">
                                    <%foreach (Bikewale.Entities.Used.UsedBikeCities objCity in viewModel.objCitiesWithCount)
                                      {%>
-                             <div class="swiper-slide">
+                                        <div class="swiper-slide">
                                 <div class="swiper-card">
                                     <a href="/m/used/bikes-in-<%=objCity.CityMaskingName %>/" title="Used bikes in <%=objCity.CityName %>">
                                         <div class="swiper-image-preview">
@@ -148,14 +151,14 @@
                                     </a>
                                 </div>
                             </div>
-                            <%} %>
+                                    <%} %>
                          </div>
                     </div>
                     <a href="/m/used/browse-bikes-by-cities/" class="btn btn-inv-teal inv-teal-sm margin-top10">View all cities<span class="bwmsprite teal-next"></span></a>
                 </div>
             </div>
         </section>
-
+        <% } %>
         <section>
             <!-- Similar used bikes starts -->
             <BW:RecentUsedBikes ID="ctrlRecentUsedBikes" runat="server" />
@@ -201,6 +204,7 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/used/landing.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        <% } %>
     </form>
 </body>
 </html>

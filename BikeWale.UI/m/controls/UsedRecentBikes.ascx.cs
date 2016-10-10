@@ -31,7 +31,7 @@ namespace Bikewale.Mobile.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BindRecentUsedBikes");
+                ErrorClass objErr = new ErrorClass(ex, "Page_Load");
                 objErr.SendMail();
             }
         }
