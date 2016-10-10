@@ -316,7 +316,8 @@ listingProfileId.on("blur", function () {
 
 $('#profile-id-popup-target').on('click', function () {
     profileID.open();
-    appendState('profileId');    
+    appendState('profileId');
+    $('#listingProfileId').val("");
 });
 
 $('#profile-id-popup').on('click', '.close-btn', function () {
