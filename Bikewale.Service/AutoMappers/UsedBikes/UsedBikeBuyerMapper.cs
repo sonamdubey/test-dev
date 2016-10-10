@@ -1,4 +1,5 @@
 ﻿
+using Bikewale.DTO.Used;
 using Bikewale.DTO.UsedBikes;
 using Bikewale.Entities.Customer;
 using Bikewale.Entities.Used;
@@ -33,6 +34,12 @@ namespace Bikewale.Service.AutoMappers.UsedBikes
             AutoMapper.Mapper.CreateMap<CustomerEntityBase, DTO.Customer.CustomerBase>();
             AutoMapper.Mapper.CreateMap<Entities.Used.PurchaseInquiryResultEntity, DTO.UsedBikes.PurchaseInquiryResultDTO>();
             return AutoMapper.Mapper.Map<Entities.Used.PurchaseInquiryResultEntity, DTO.UsedBikes.PurchaseInquiryResultDTO>(inquiryresult);
+        }
+
+        internal static InquiryDetailsDTO Convert(InquiryDetails objInquiryDetails)
+        {
+            AutoMapper.Mapper.CreateMap<InquiryDetails, InquiryDetailsDTO>();
+            return AutoMapper.Mapper.Map<InquiryDetailsDTO>(objInquiryDetails);
         }
     }
 }

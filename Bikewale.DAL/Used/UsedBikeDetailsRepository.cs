@@ -257,6 +257,43 @@ namespace Bikewale.DAL.Used
             }
             return similarBikeDetails;
         }
-       
+
+        /// <summary>
+        /// Written By : Sajal Gupta on 06-10-2016
+        /// Summary : Getting used bike details  by profileId
+        /// </summary>
+        /// <param name="profileId"></param>
+        /// <returns>city, make and model name</returns>
+        public InquiryDetails GetInquiryDetailsByProfileId(string profileId)
+        {
+            InquiryDetails objInquiryDetails = null;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getinquirydetailsbyprofileid"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_profileid", DbType.String, 50, profileId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr.Read())
+                        {
+                            objInquiryDetails = new InquiryDetails();
+                            objInquiryDetails.StatusId = SqlReaderConvertor.ToUInt32(dr["StatusId"]);
+                            objInquiryDetails.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
+                            objInquiryDetails.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                            objInquiryDetails.ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in DAL function GetInquiryDetailsByProfileId for profileId : {0}", profileId));
+                objErr.SendMail();
+            }
+            return objInquiryDetails;
+        }
     }
 }
+ 

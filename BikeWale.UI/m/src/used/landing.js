@@ -279,7 +279,19 @@ $('#profile-id-popup').on('click', '.close-btn', function () {
 
 $('#search-profile-id-btn').on('click', function () {
     if (validateProfileId(listingProfileId)) {
-        // valid
+        $.ajax({
+            type: "GET",
+            url: "/api/used/inquiry/url/" + listingProfileId.val() + "/",
+            dataType: 'json',
+            success: function (data) {
+                window.location = "/m" + data.url;
+            },
+            complete: function (xhr) {
+                if (xhr.status == 400 || xhr.status == 500) {
+                    validate.setError(listingProfileId, 'Please enter correct profile id');
+                }
+            }
+        });
     }
 });
 
@@ -290,7 +302,10 @@ function validateProfileId(inputBox) {
         isValid = false;
         validate.setError(inputBox, 'Please enter profile id');
     }
-
+    else if (!(profileId.charAt(0).toLowerCase() == 's' || profileId.charAt(0).toLowerCase() == 'd')) {
+        isValid = false;
+        validate.setError(inputBox, 'Please enter correct profile id');
+    }
     return isValid;
 }
 
