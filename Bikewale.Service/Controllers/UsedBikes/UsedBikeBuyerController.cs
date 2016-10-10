@@ -7,7 +7,6 @@ using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.UsedBikes;
 using Bikewale.Service.Utilities;
 using Bikewale.Utility;
-using Microsoft.Practices.Unity;
 using System;
 using System.Linq;
 using System.Web.Http;
@@ -22,14 +21,16 @@ namespace Bikewale.Service.Controllers.UsedBikes
     public class UsedBikeBuyerController : CompressionApiController
     {
         private readonly IUsedBikeBuyer _objUsedBikeBuyerBL = null;
+        private readonly IUsedBikes _objUsedBikes = null;
         /// <summary>
         /// Created by  :   Sumit Kate on 03 Sep 2016
         /// Description :   Constructor to initialize the member variables
         /// </summary>
         /// <param name="objUsedBikeBuyerBL"></param>
-        public UsedBikeBuyerController(IUsedBikeBuyer objUsedBikeBuyerBL)
+        public UsedBikeBuyerController(IUsedBikeBuyer objUsedBikeBuyerBL, IUsedBikes objUsedBikes)
         {
             _objUsedBikeBuyerBL = objUsedBikeBuyerBL;
+            _objUsedBikes = objUsedBikes;
         }
 
         /// <summary>
@@ -166,26 +167,19 @@ namespace Bikewale.Service.Controllers.UsedBikes
             InquiryDetailsDTO objInquiryDetailsDTO = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IUsedBikes, Bikewale.BAL.UsedBikes.UsedBikes>();
-                    Bikewale.BAL.UsedBikes.UsedBikes obj = container.Resolve<Bikewale.BAL.UsedBikes.UsedBikes>();
-                    objInquiryDetailsByProfileId = obj.GetInquiryDetailsByProfileId(profileId);
+                objInquiryDetailsByProfileId = _objUsedBikes.GetInquiryDetailsByProfileId(profileId);
 
-                    if (objInquiryDetailsByProfileId == null)
-                        return BadRequest();
-                    else
-                    {
-                        objInquiryDetailsDTO = new InquiryDetailsDTO();
-                        objInquiryDetailsDTO.ProfileId = profileId;
-                        objInquiryDetailsDTO.MakeMaskingName = objInquiryDetailsByProfileId.MakeMaskingName;
-                        objInquiryDetailsDTO.ModelMaskingName = objInquiryDetailsByProfileId.ModelMaskingName;
-                        objInquiryDetailsDTO.StatusId = objInquiryDetailsByProfileId.StatusId;
-                        objInquiryDetailsDTO.CityMaskingName = objInquiryDetailsByProfileId.CityMaskingName;
-                        objInquiryDetailsDTO.Url = string.Format("/used/bikes-in-{0}/{1}-{2}-{3}/", objInquiryDetailsDTO.CityMaskingName, objInquiryDetailsDTO.MakeMaskingName, objInquiryDetailsDTO.ModelMaskingName, profileId);
+                if (objInquiryDetailsByProfileId != null)
+                {
+                    objInquiryDetailsDTO = UsedBikeBuyerMapper.Convert(objInquiryDetailsByProfileId);
+                    if (objInquiryDetailsDTO != null)
                         return Ok(objInquiryDetailsDTO);
-                    }
+                    else
+                        return NotFound();
                 }
+                else
+                    return BadRequest();
+
             }
             catch (Exception ex)
             {

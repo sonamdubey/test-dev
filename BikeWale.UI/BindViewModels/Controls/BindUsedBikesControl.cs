@@ -1,8 +1,10 @@
 ﻿using Bikewale.Cache.Core;
+using Bikewale.Cache.Used;
 using Bikewale.Cache.UsedBikes;
 using Bikewale.DAL.UsedBikes;
 using Bikewale.Entities.UsedBikes;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
@@ -32,7 +34,7 @@ namespace Bikewale.BindViewModels.Controls
 
         public uint TopCount { get; set; }
 
-        IEnumerable<PopularUsedBikesEntity> popularUsedBikes = null;
+        private IEnumerable<PopularUsedBikesEntity> popularUsedBikes = null;
 
         public void BindRepeater(Repeater repeater)
         {
@@ -62,8 +64,8 @@ namespace Bikewale.BindViewModels.Controls
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IPopularUsedBikesCacheRepository, PopularUsedBikesCacheRepository>();
-                    container.RegisterType<ICacheManager, MemcacheManager>();
                     container.RegisterType<IUsedBikesRepository, UsedBikesRepository>();
+                    container.RegisterType<ICacheManager, MemcacheManager>();
                     IPopularUsedBikesCacheRepository _objUsedBikes = container.Resolve<IPopularUsedBikesCacheRepository>();
                     popularUsedBikes = _objUsedBikes.GetPopularUsedBikes(topCount, cityId);
                 }
@@ -100,6 +102,8 @@ namespace Bikewale.BindViewModels.Controls
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IUsedBikes, Bikewale.BAL.UsedBikes.UsedBikes>();
+                    container.RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>();
+                    container.RegisterType<IUsedBikesRepository, UsedBikesRepository>();
                     container.RegisterType<ICacheManager, MemcacheManager>();
                     container.RegisterType<IUsedBikesCache, UsedBikesCache>();
                     IUsedBikesCache objUsedBikes = container.Resolve<IUsedBikesCache>();
@@ -169,9 +173,11 @@ namespace Bikewale.BindViewModels.Controls
 
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IUsedBikes, Bikewale.BAL.UsedBikes.UsedBikes>();
-                    container.RegisterType<ICacheManager, MemcacheManager>();
-                    container.RegisterType<IUsedBikesCache, UsedBikesCache>();
+                    container.RegisterType<IUsedBikes, Bikewale.BAL.UsedBikes.UsedBikes>()
+                        .RegisterType<IUsedBikesRepository, UsedBikesRepository>()
+                        .RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>()
+                        .RegisterType<ICacheManager, MemcacheManager>()
+                        .RegisterType<IUsedBikesCache, UsedBikesCache>();
                     IUsedBikesCache objUsedBikes = container.Resolve<IUsedBikesCache>();
                     objMostRecentBikes = objUsedBikes.GetUsedBikes(makeID, modelID, curCity, TopCount);
                 }

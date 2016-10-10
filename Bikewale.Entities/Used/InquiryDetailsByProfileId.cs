@@ -9,6 +9,7 @@ namespace Bikewale.Entities.Used
     [Serializable]
     public class InquiryDetails
     {
+        public string ProfileId { get; set; }
         public uint StatusId { get; set; }
         public string CityMaskingName { get; set; }
         public string MakeMaskingName { get; set; }

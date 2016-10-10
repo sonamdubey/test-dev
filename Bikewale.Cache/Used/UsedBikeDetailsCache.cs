@@ -106,10 +106,10 @@ namespace Bikewale.Cache.Used
         public InquiryDetails GetInquiryDetailsByProfileId(string profileId)
         {
             InquiryDetails objInquiryDetailsByProfileId = null;
-            string key = String.Format("BW_Inquiry_Details_profile_{0}", profileId);
+            string key = String.Format("BW_Used_Profile_{0}", profileId);
             try
             {
-                objInquiryDetailsByProfileId = _cache.GetFromCache<InquiryDetails>(key, new TimeSpan(1, 0, 0), () => _objUsedBikes.GetInquiryDetailsByProfileId(profileId));
+                objInquiryDetailsByProfileId = _cache.GetFromCache<InquiryDetails>(key, new TimeSpan(1, 0, 0, 0), () => _objUsedBikes.GetInquiryDetailsByProfileId(profileId));
             }
             catch (Exception ex)
             {
@@ -120,4 +120,3 @@ namespace Bikewale.Cache.Used
         }
     }
 }
- 

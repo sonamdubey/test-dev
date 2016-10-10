@@ -18,6 +18,6 @@ namespace Bikewale.DTO.Used
         [JsonProperty("profileId")]
         public string ProfileId { get; set; }
         [JsonProperty("url")]
-        public string Url { get; set; }
+        public string Url { get { return string.Format("/used/bikes-in-{0}/{1}-{2}-{3}/", CityMaskingName, MakeMaskingName, ModelMaskingName, ProfileId); } }
     }
 }

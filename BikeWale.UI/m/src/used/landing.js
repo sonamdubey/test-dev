@@ -288,7 +288,7 @@ $('#search-profile-id-btn').on('click', function () {
             },
             complete: function (xhr) {
                 if (xhr.status == 400 || xhr.status == 500) {
-                    validate.setError($('.boundary'), 'Please enter correct profile id');
+                    validate.setError(listingProfileId, 'Please enter correct profile id');
                 }
             }
         });
