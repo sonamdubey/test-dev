@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.Used;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UsedBikes;
 using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.UsedBikes;
@@ -48,6 +49,33 @@ namespace Bikewale.BAL.UsedBikes
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("Exception in Bikewale.BAL.UsedBikes.UsedBikes.GetPopularUsedBikes parametres makeId : {0}, modelId : {1}, cityId : {2}, totalCount : {3}", makeId, modelId, cityId, totalCount));
+                objErr.SendMail();
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 06th oct 2016
+        /// Summary: Fetch used bikes make from DAL
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<UsedBikeMakeEntity> GetUsedBikeMakesWithCount()
+        {
+            IUsedBikesRepository usedBikesRepository = null;
+            IEnumerable<UsedBikeMakeEntity> usedBikeMakes = null;
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IUsedBikesRepository, UsedBikesRepository>();
+                    usedBikesRepository = container.Resolve<IUsedBikesRepository>();
+                }
+                usedBikeMakes = usedBikesRepository.GetUsedBikeMakesWithCount();
+                return usedBikeMakes;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception in Bikewale.BAL.UsedBikes.UsedBikes.GetUsedBikeMakesWithCount");
                 objErr.SendMail();
                 return null;
             }

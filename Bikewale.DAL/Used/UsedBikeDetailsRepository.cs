@@ -168,7 +168,7 @@ namespace Bikewale.DAL.Used
                             {
                                 similarBikeDetails.Add(new BikeDetailsMin()
                                 {
-                                    ProfileId = Convert.ToString(dr["ProfileId"]),
+                                    ProfileId = Convert.ToString(dr["ProfileId"]).ToLower(),
                                     BikeName = Convert.ToString(dr["bikename"]),
                                     ModelYear = SqlReaderConvertor.ToDateTime(dr["makeyear"]),
                                     OwnerType = Convert.ToString(dr["Owner"]),
@@ -199,7 +199,7 @@ namespace Bikewale.DAL.Used
 
         /// <summary>
         /// Created by  : Sangram on 29th August 2016
-        /// Description : To get otehr used bikes by city id and inquiry id
+        /// Description : To get other used bikes by city id and inquiry id
         /// </summary>
         /// <param name="inquiryId"></param>
         /// <param name="cityId"></param>
@@ -225,7 +225,7 @@ namespace Bikewale.DAL.Used
                             {
                                 similarBikeDetails.Add(new OtherUsedBikeDetails()
                                 {
-                                    ProfileId = Convert.ToString(dr["ProfileId"]),
+                                    ProfileId = Convert.ToString(dr["ProfileId"]).ToLower(),
                                     BikeName = Convert.ToString(dr["bikename"]),
                                     ModelYear = SqlReaderConvertor.ToDateTime(dr["makeyear"]),
                                     OwnerType = Convert.ToString(dr["Owner"]),
@@ -259,6 +259,63 @@ namespace Bikewale.DAL.Used
         }
 
         /// <summary>
+        /// Created by  : Sangram on 06th oct 2016
+        /// Description : To get recent used bikes , if not count is given 6 bikes will be fetched
+        /// </summary>
+        /// <param name="inquiryId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<OtherUsedBikeDetails> GetRecentUsedBikesInIndia(ushort topCount)
+        {
+            IList<OtherUsedBikeDetails> recentBikes = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("classified_recentusedbikesinindia"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.UInt16, topCount));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            recentBikes = new List<OtherUsedBikeDetails>();
+                            while (dr.Read())
+                            {
+                                recentBikes.Add(new OtherUsedBikeDetails()
+                                {
+                                    ProfileId = Convert.ToString(dr["ProfileId"]).ToLower(),
+                                    BikeName = Convert.ToString(dr["bikename"]),
+                                    ModelYear = SqlReaderConvertor.ToDateTime(dr["makeyear"]),
+                                    OwnerType = Convert.ToString(dr["Owner"]),
+                                    KmsDriven = SqlReaderConvertor.ToUInt32(dr["Kilometers"]),
+                                    AskingPrice = SqlReaderConvertor.ToUInt32(dr["Price"]),
+                                    RegisteredAt = Convert.ToString(dr["cityname"]),
+                                    MakeName = Convert.ToString(dr["MakeName"]),
+                                    ModelName = Convert.ToString(dr["ModelName"]),
+                                    MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
+                                    ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
+                                    CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
+                                    Photo = new BikePhoto()
+                                    {
+                                        HostUrl = Convert.ToString(dr["HostUrl"]),
+                                        OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
+                                        IsMain = true
+                                    }
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "GetRecentUsedBikesInIndia");
+                objErr.SendMail();
+            }
+            return recentBikes;
+        }
+	/// <summary>
         /// Written By : Sajal Gupta on 06-10-2016
         /// Summary : Getting used bike details  by profileId
         /// </summary>
@@ -296,4 +353,3 @@ namespace Bikewale.DAL.Used
         }
     }
 }
- 

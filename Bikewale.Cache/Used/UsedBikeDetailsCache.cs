@@ -97,6 +97,28 @@ namespace Bikewale.Cache.Used
             return objUsedBikes;
         }
 
+
+        /// <summary>
+        /// Created by  : Sangram on 06th Oct 2016
+        /// Description : Cache layer for recent bikes in India
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<OtherUsedBikeDetails> GetRecentUsedBikesInIndia(ushort topCount)
+        {
+            IEnumerable<OtherUsedBikeDetails> objUsedBikes = null;
+            string key = String.Format("BW_RecentUsedBikes_Cnt_{0}", topCount);
+            try
+            {
+                objUsedBikes = _cache.GetFromCache<IEnumerable<OtherUsedBikeDetails>>(key, new TimeSpan(0, 30, 0), () => _objUsedBikes.GetRecentUsedBikesInIndia(topCount));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.Used.GetOtherBikesByCityId");
+                objErr.SendMail();
+            }
+            return objUsedBikes;
+        }
+        
         /// <summary>
         /// Created by : Sajal Gupta on 06-10-2016
         /// Description : Getting used bike details  by profileId

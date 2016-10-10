@@ -151,6 +151,7 @@ var usedBikes = function()
 {
     var self = this;
     self.Filters = ko.observable(getQueryString());
+    self.PreviousQS = ko.observable("");
     self.IsReset = ko.observable(false);
     self.QueryString = ko.computed(function () {
         var qs = "";
@@ -269,8 +270,7 @@ var usedBikes = function()
     };
 
     self.SetDefaultFilters = function () {
-        try {
-            self.SelectedCity({ "id": 0, "name": "All India" });
+        try {            
             self.KmsDriven(200000);
             self.BikeAge(8);
             self.BudgetValues([0, 7]);
@@ -288,8 +288,6 @@ var usedBikes = function()
 
     self.applySort = function (d, e) {
         var so = $("#sort-by-list li.active").attr("data-sortorder");
-        self.ApplyBikeFilter();
-        if (self.SelectedCity() && self.SelectedCity().id > 0) self.Filters()["city"] = self.SelectedCity().id;
         self.Filters()["so"] = so;
         self.Filters()["pn"] = "";
         self.GetUsedBikes();
@@ -333,18 +331,24 @@ var usedBikes = function()
         
     };
 
-    self.GetUsedBikes = function () {
+    self.GetUsedBikes = function (e) {
         try {
+            if (self.Filters()["pn"] && e == null) {
+                self.Filters()["pn"] = "";
+            }
+
             self.Filters.notifySubscribers();
             
             var qs = self.QueryString();
+            if (self.PreviousQS() != qs) {
+                self.PreviousQS(qs);
                 $.ajax({
                     type: 'GET',
                     url: '/api/used/search/?bikes=1&' + qs.replace(/[\+]/g, "%2B"),
-                    beforeSend : function(){filters.loader.open();},
+                    beforeSend: function () { filters.loader.open(); },
                     dataType: 'json',
-                    success: function (response) {                     
-                        
+                    success: function (response) {
+
                         self.TotalBikes(response.totalCount);
                         self.CurPageNo(response.currentPageNo);
                         self.BikeDetails(ko.toJS(response.result));
@@ -357,12 +361,13 @@ var usedBikes = function()
                             self.CurPageNo(1);
                         }
                         if (self.TotalBikes() > 0) self.noBikes(false); else self.noBikes(true);
-                    filters.loader.close();
+                        filters.loader.close();
                         self.OnInit(false);
                         self.IsReset(false);
                         self.ApplyPagination();
                     }
                 });
+            }
         } catch (e) {
             console.warn("Unable to set fetch used bike records");
         }
@@ -382,7 +387,7 @@ var usedBikes = function()
                 if (curmodelId && curmodelId != "0") { self.Filters()["make"]=""; self.Filters()["model"] = curmodelId; }
             }
 
-            self.GetUsedBikes();
+            self.GetUsedBikes(e);
             e.preventDefault();
         $('html, body').scrollTop(0);
         } catch (e) {
@@ -445,6 +450,7 @@ var usedBikes = function()
                 $.each(arr, function (i, val) {
                     var ele = bikesList.find("ul.bike-model-list span[data-modelid=" + val + "]");
                     ele.closest("ul.bike-model-list li").addClass("active");
+                    accordion.setCount(ele);
                 });
             }
 
@@ -457,8 +463,11 @@ var usedBikes = function()
                 });
             }
             $('#set-bikes-filter').trigger('click');
+
             if (event.target.id == "filterStart") return false;
-            else if (window.location.hash && window.location.hash != "") self.GetUsedBikes();
+
+            self.GetUsedBikes();
+
         } catch (e) {
             console.warn("Unable to set page filters");
         }
@@ -478,22 +487,39 @@ var objFilters = vwUsedBikes.Filters();
 
 $(function () {
     vwUsedBikes.SetDefaultFilters();
-    vwUsedBikes.SetPageFilters();
+    vwUsedBikes.TotalBikes() > 0 ? vwUsedBikes.OnInit(true) : vwUsedBikes.OnInit(false);
 
     if (selectedModelId && selectedModelId!="" && selectedModelId != "0") {
         var ele = bikesList.find("ul.bike-model-list span[data-modelid=" + selectedModelId + "]");
         ele.closest("ul.bike-model-list li").addClass("active");
+
+        if (vwUsedBikes.Filters()["model"])
+            vwUsedBikes.Filters()["model"] += "+" + selectedModelId;
+        else vwUsedBikes.Filters()["model"] = selectedModelId;
+
     }
     else if (selectedMakeId && selectedMakeId != "0") {
         var ele = bikesList.find("span[data-makeid=" + selectedMakeId + "]");
         ele.closest(".accordion-tab").trigger("click");
         ele.closest(".accordion-checkbox").trigger("click");
+
+        if (vwUsedBikes.Filters()["make"])
+            vwUsedBikes.Filters()["make"] += "+" + selectedMakeId;
+        else vwUsedBikes.Filters()["make"] = selectedMakeId;
+
     }
-    $('#set-bikes-filter').trigger('click');
+   
 
     if (selectedCityId)
+    {
         $("#filter-city-list li[data-cityid=" + selectedCityId + "]").click();
-    vwUsedBikes.TotalBikes() > 0 ? vwUsedBikes.OnInit(true) : vwUsedBikes.OnInit(false);
+        vwUsedBikes.Filters()["city"] = selectedCityId;
+    }
+
+
+    $('#set-bikes-filter').trigger('click');
+    vwUsedBikes.SetPageFilters();
+
    
 
 });
@@ -897,7 +923,6 @@ $(window).on('popstate', function (event) {
 
 (function ($, ko) {
     'use strict';
-    // TODO: Hook into image load event before loading others...
     function KoLazyLoad() {
         var self = this;
 

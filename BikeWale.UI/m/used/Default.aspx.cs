@@ -1,36 +1,51 @@
-﻿using Bikewale.BindViewModels.Controls;
-using Bikewale.Common;
-using Bikewale.Entities.Used;
+﻿using Bikewale.BindViewModels.Webforms.Used;
+using Bikewale.Mobile.Controls;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Web;
 
 namespace Bikewale.Mobile.Used
 {
-    public partial class Default : System.Web.UI.Page
+    /// <summary>
+    /// Created by: Sangram Nandkhile on 06 oct 2016
+    /// Summary: Landing page for Used msite
+    /// </summary>
+    public class Default : System.Web.UI.Page
     {
-        protected IEnumerable<UsedBikeCities> objBikeCityCount = null;
+        protected UsedBikeLandingPage viewModel;
+        protected UsedRecentBikes ctrlRecentUsedBikes;
+
+        protected override void OnInit(EventArgs e)
+        {
+            InitializeComponent();
+        }
+
+        protected void InitializeComponent()
+        {
+            base.Load += new EventHandler(Page_Load);
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-
-
-            BindCities();
-
+            viewModel = new UsedBikeLandingPage();
+            if (viewModel == null)
+            {
+                RedirectToPageNotFound();
+            }
+            RenderUserControls();
         }
-        private void BindCities()
+
+        private void RedirectToPageNotFound()
         {
-            try
-            {
-                BindUsedBikesCityWithCount objBikeCity = new BindUsedBikesCityWithCount();
-                objBikeCityCount = objBikeCity.GetUsedBikeByCityWithCount();
-                objBikeCityCount = objBikeCityCount.Take(6);
-
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Default.BindCities");
-                objErr.SendMail();
-            }
+            Response.Redirect("/pageNotFound.aspx", false);
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
+            this.Page.Visible = false;
         }
+
+        private void RenderUserControls()
+        {
+            ctrlRecentUsedBikes.WidgetTitle = "Recently uploaded used bikes";
+            ctrlRecentUsedBikes.TopCount = 6;
+        }
+
     }
 }

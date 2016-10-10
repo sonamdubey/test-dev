@@ -131,6 +131,7 @@
     <Compile Include="BikeData\SpecsCategory.cs" />
     <Compile Include="BikeData\UpcomingBikeEntity.cs" />
     <Compile Include="BikeData\UpcomingBikesListInputEntity.cs" />
+    <Compile Include="BikeData\UsedBikeMakeEntity.cs" />
     <Compile Include="BikeData\VersionColor.cs" />
     <Compile Include="BikeBooking\FeedBackEntity.cs" />
     <Compile Include="CMS\Articles\ArticleBase.cs" />
