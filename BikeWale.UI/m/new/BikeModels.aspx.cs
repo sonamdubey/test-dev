@@ -1,5 +1,6 @@
 ﻿using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
+using Bikewale.BAL.Used.Search;
 using Bikewale.BindViewModels.Webforms;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
@@ -8,16 +9,19 @@ using Bikewale.common;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Location;
+using Bikewale.DAL.Used.Search;
 using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Used.Search;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Interfaces.Used.Search;
 using Bikewale.m.controls;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
@@ -61,7 +65,7 @@ namespace Bikewale.Mobile.New
         protected ushort reviewTabsCnt, moreOffersCount, versionCount = 1;
         public DropDownList ddlNewVersionList;
         //Variable to Assing ACTIVE class
-
+        public uint totalUsedBikes;
         static readonly string _PageNotFoundPath;
         static readonly string _bwHostUrl;
         protected static bool isManufacturer;
@@ -75,12 +79,13 @@ namespace Bikewale.Mobile.New
         protected MPriceInTopCities ctrlTopCityPrices;
         protected string pq_leadsource = "33";
         protected string pq_sourcepage = "59";
+        public Bikewale.Entities.Used.Search.SearchResult UsedBikes = null;
         protected string hide = "";
         #region Subscription model variables
         protected ModelPageVM viewModel = null;
 
         #endregion Subscription model ends
-
+        protected string pgDescription = string.Empty;
         #region Events
         protected override void OnInit(EventArgs e)
         {
@@ -141,36 +146,8 @@ namespace Bikewale.Mobile.New
                     Trace.Warn("Trace 19 : LoadVariants End");
                     #endregion
 
+                    BindControls();
 
-                    ctrlCompareBikes.versionId = versionId;
-                    ctrlCompareBikes.versionName = bikeModelName;
-                    ////news,videos,revews, user reviews
-                    ctrlNews.TotalRecords = 3;
-                    ctrlNews.ModelId = Convert.ToInt32(modelId);
-                    ctrlNews.WidgetTitle = bikeName;
-
-                    ctrlExpertReviews.TotalRecords = 3;
-                    ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);
-                    ctrlExpertReviews.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
-                    ctrlExpertReviews.ModelName = modelPage.ModelDetails.ModelName;
-
-                    ctrlVideos.TotalRecords = 3;
-                    ctrlVideos.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
-                    ctrlVideos.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
-                    ctrlVideos.ModelId = Convert.ToInt32(modelId);
-                    ctrlVideos.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
-                    ctrlVideos.ModelName = modelPage.ModelDetails.ModelName;
-
-                    ctrlUserReviews.ReviewCount = 3;
-                    ctrlUserReviews.PageNo = 1;
-                    ctrlUserReviews.PageSize = 3;
-                    ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
-                    ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
-                    ctrlUserReviews.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
-                    ctrlUserReviews.ModelName = modelPage.ModelDetails.ModelName;
-
-                    ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
-                    ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
                     Trace.Warn("Trace 20 : Page Load ends");
 
                     if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
@@ -189,25 +166,11 @@ namespace Bikewale.Mobile.New
 
                     }
 
-                    if (!modelPage.ModelDetails.Futuristic || modelPage.ModelDetails.New)
-                        ctrlTopCityPrices.ModelId = Convert.ToUInt32(modelId);
-                    else ctrlTopCityPrices.ModelId = 0;
-
-                    ctrlTopCityPrices.IsDiscontinued = isDiscontinued;
-                    ctrlTopCityPrices.TopCount = 8;
                 }
 
                 SetFlagsAtEnd();
-
-                ctrlLeadCapture.CityId = cityId;
-                ctrlLeadCapture.ModelId = modelId;
-                ctrlLeadCapture.AreaId = areaId;
-                ctrlRecentUsedBikes.MakeId = Convert.ToUInt32(modelPage.ModelDetails.MakeBase.MakeId);
-                ctrlRecentUsedBikes.ModelId = Convert.ToUInt32(modelId);
-                ctrlRecentUsedBikes.CityId = (int?)cityId;
-                ctrlRecentUsedBikes.TopCount = 6;
-                ctrlRecentUsedBikes.header = "Recently uploaded Used " + modelPage.ModelDetails.ModelName + " bikes " + (cityId > 0 ? String.Format("in {0}", cityName) : string.Empty);
-
+                TotalUsedBikes();
+                CreateMetas();
             }
             catch (Exception ex)
             {
@@ -215,6 +178,113 @@ namespace Bikewale.Mobile.New
                 objErr.SendMail();
             }
 
+        }
+        /// <summary>
+        /// Created By :-Subodh Jain 07 oct 2016
+        /// Desc:- To get total number of used bikes
+        /// </summary>
+        private void TotalUsedBikes()
+        {
+            try
+            {
+                ISearch objSearch = null;
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<ISearchFilters, ProcessSearchFilters>()
+                    .RegisterType<ISearchQuery, SearchQuery>()
+                        .RegisterType<ISearchRepository, SearchRepository>()
+                        .RegisterType<ISearch, SearchBikes>();
+                    objSearch = container.Resolve<ISearch>();
+                    InputFilters objFilters = new InputFilters();
+                    // If inputs are set by hash, hash overrides the query string parameters
+                    if (cityId > 0)
+                        objFilters.City = cityId;
+
+                    if (modelId > 0)
+                        objFilters.Model = Convert.ToString(modelId);
+                    UsedBikes = objSearch.GetUsedBikesList(objFilters);
+                    if (UsedBikes != null)
+                        totalUsedBikes = (uint)UsedBikes.TotalCount;
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "NewBikeModels.TotalUsedBikes");
+                objErr.SendMail();
+            }
+
+        }
+        /// <summary>
+        /// Created By :-Subodh Jain 07 oct 2016
+        /// Desc:- values to controls field
+        /// </summary>
+        private void BindControls()
+        {
+            ctrlCompareBikes.versionId = versionId;
+            ctrlCompareBikes.versionName = bikeModelName;
+            ////news,videos,revews, user reviews
+            ctrlNews.TotalRecords = 3;
+            ctrlNews.ModelId = Convert.ToInt32(modelId);
+            ctrlNews.WidgetTitle = bikeName;
+
+            ctrlExpertReviews.TotalRecords = 3;
+            ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);
+            ctrlExpertReviews.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
+            ctrlExpertReviews.ModelName = modelPage.ModelDetails.ModelName;
+
+            ctrlVideos.TotalRecords = 3;
+            ctrlVideos.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
+            ctrlVideos.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
+            ctrlVideos.ModelId = Convert.ToInt32(modelId);
+            ctrlVideos.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
+            ctrlVideos.ModelName = modelPage.ModelDetails.ModelName;
+
+            ctrlUserReviews.ReviewCount = 3;
+            ctrlUserReviews.PageNo = 1;
+            ctrlUserReviews.PageSize = 3;
+            ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
+            ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
+            ctrlUserReviews.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
+            ctrlUserReviews.ModelName = modelPage.ModelDetails.ModelName;
+
+            ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
+            ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
+
+            if (!modelPage.ModelDetails.Futuristic || modelPage.ModelDetails.New)
+                ctrlTopCityPrices.ModelId = Convert.ToUInt32(modelId);
+            else ctrlTopCityPrices.ModelId = 0;
+
+            ctrlTopCityPrices.IsDiscontinued = isDiscontinued;
+            ctrlTopCityPrices.TopCount = 8;
+
+            ctrlLeadCapture.CityId = cityId;
+            ctrlLeadCapture.ModelId = modelId;
+            ctrlLeadCapture.AreaId = areaId;
+            ctrlRecentUsedBikes.MakeId = Convert.ToUInt32(modelPage.ModelDetails.MakeBase.MakeId);
+            ctrlRecentUsedBikes.ModelId = Convert.ToUInt32(modelId);
+            ctrlRecentUsedBikes.CityId = (int?)cityId;
+            ctrlRecentUsedBikes.TopCount = 6;
+            ctrlRecentUsedBikes.header = "Recently uploaded Used " + modelPage.ModelDetails.ModelName + " bikes " + (cityId > 0 ? String.Format("in {0}", cityName) : string.Empty);
+        }
+        /// <summary>
+        /// Created By :-Subodh Jain 07 oct 2016
+        /// Desc:- Metas description according to discountinue,upcoming,continue bikes
+        /// </summary>
+        private void CreateMetas()
+        {
+            if (modelPage.ModelDetails.Futuristic)
+            {
+                pgDescription = string.Format("{0} {1} Price in India is expected between Rs. {2} and Rs. {3}. Check out {0} {1}  specifications, reviews, mileage, versions, news & photos at BikeWale.com. Launch date of {1} is around {4}", modelPage.ModelDetails.MakeBase.MakeName, modelPage.ModelDetails.ModelName, modelPage.ModelDetails.MinPrice, modelPage.ModelDetails.MaxPrice, modelPage.UpcomingBike.ExpectedLaunchDate);
+            }
+            else if (!modelPage.ModelDetails.New)
+            {
+                pgDescription = string.Format("{0} {1} Price in India - Rs. {2}. It has been discontinued in India. There are {3} used {1} bikes for sale. Check out {1} specifications, reviews, mileage, versions, news & photos at BikeWale.com", modelPage.ModelDetails.MakeBase.MakeName, modelPage.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric(price.ToString()), totalUsedBikes);
+            }
+            else
+            {
+                pgDescription = String.Format("{0} Price in India - Rs. {1}. Find {0} Reviews, Specs, Features, Mileage, On Road Price. See {2} Colors, Images at Bikewale.", bikeName, Bikewale.Utility.Format.FormatNumeric(price.ToString()), bikeModelName);
+
+            }
         }
 
 
