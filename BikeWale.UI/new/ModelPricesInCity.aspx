@@ -4,6 +4,7 @@
 <%@ Register Src="~/controls/NewAlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/DealerCard.ascx" TagName="Dealers" TagPrefix="BW" %>
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
+<%@ Register Src="~/controls/UsedBikes.ascx" TagName="UsedBikes" TagPrefix="BW" %>s
 <%@ Import Namespace="Bikewale.Common" %>
 <!doctype html>
 <html>
@@ -70,12 +71,7 @@
             <div class="grid-12 font14">
                 <div class="content-box-shadow">
                     <p class="padding-top20 padding-right20 padding-bottom5 padding-left20 text-light-grey">
-                        <%=bikeName %> <% if(!isDiscontinued) { %> on-road <% } else { %> ex-showroom <% } %> price in <%=cityName %>&nbsp;<span class="bwsprite inr-sm-grey"></span><% if (firstVersion != null && !isDiscontinued)
-                        { %>&nbsp;<%=CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()) %> <% } else if (firstVersion != null) %>  <%=CommonOpn.FormatPrice(firstVersion.ExShowroomPrice.ToString())   %> onwards. 
-                       <% if (versionCount > 1)
-                          { %> This bike comes in <%=versionCount %> versions.<br />
-                        Click on any version name to know <% if(!isDiscontinued) { %> on-road <% } %> price in <%= cityName %>:
-                    <% } %></p>
+                       <%=string.Format("The on-road price of {0} {1} in {2} is Rs. {4} onwards. It is available in {3} versions and colours. {1} is sold by {5} dealerships in {2}. All the colour and versions of {1} might not be available at all the dealerships in {2}. Click on a {1} version name to know on-road price in {2}.",makeName,modelName,cityName,versionCount,CommonOpn.FormatPrice(firstVersion.ExShowroomPrice.ToString()),dealerCount) %></p>
                     <div id='versions' class="model-versions-tabs-wrapper">
                         <asp:Repeater ID="rpVersioNames" runat="server">
                             <ItemTemplate>
@@ -174,9 +170,9 @@
                     <div class="margin-left10 margin-right10 border-solid-bottom"></div>
 
                     <BW:Dealers ID="ctrlDealers" runat="server" />
-
+                    <%if (ctrlTopCityPrices.showWidget) {%>
                     <BW:ModelPriceInNearestCities ID="ctrlTopCityPrices" runat="server" />
-
+                    <%} %>
                 </div>
             </div>
             <div class="clear"></div>
@@ -193,10 +189,31 @@
                     <% } %>
                 </div>
             </div>
+            <div id="makeTabsContentWrapper" class="grid-12 margin-bottom20">
+                <div class="content-box-shadow">
+                    <div id="makeOverallTabsWrapper">
+                        <div id="makeOverallTabs" class="overall-floating-tabs">
+              <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
+                       { %>
+                    <BW:UsedBikes runat="server" ID="ctrlRecentUsedBikes" />
+                    <%} %>
+                         </div>
+            </div>
+                    </div>
+                </div>
             <div class="clear"></div>
         </section>
 
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
+         <section>
+            <div class="container margin-top10 margin-bottom30">
+                <div class="grid-12 font12">
+                    <span class="font14"><strong>Disclaimer</strong>:</span><p> BikeWale takes utmost care in gathering precise and accurate information about <%=makeName %> <%=modelName %> price in <%=CommonOpn.FormatPrice(firstVersion.ExShowroomPrice.ToString()) %>.  However, this information is only indicative and may not reflect the final price you may pay. For more information please read terms and conditions, visitor agreement and privacy policy. </p>
+                      <p>(Link Terms and Conditions and Privacy Policy to the respective pages)</p>				   
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
 
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->

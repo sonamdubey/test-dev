@@ -1,6 +1,5 @@
 ﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.PriceQuote;
-using Bikewale.Common;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.PriceQuote;
@@ -23,11 +22,11 @@ namespace Bikewale.Controls
         public uint ModelId { get; set; }
         public uint CityId { get; set; }
         public ushort TopCount { get; set; }
-        protected bool showWidget = false;
-        protected string make = string.Empty;
-        protected string model = string.Empty;
+        public bool showWidget = false;
+        public string make = string.Empty;
+        public string model = string.Empty;
         public bool IsDiscontinued { get; set; }
-
+        public string cityName { get; set; }
 
         protected override void OnInit(EventArgs e)
         {

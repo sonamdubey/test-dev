@@ -1,16 +1,20 @@
 ﻿using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
+using Bikewale.Cache.DealersLocator;
 using Bikewale.Cache.Location;
 using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
+using Bikewale.DAL.Dealer;
 using Bikewale.DAL.Location;
 using Bikewale.DAL.PriceQuote;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
 using Microsoft.Practices.Unity;
@@ -38,14 +42,15 @@ namespace Bikewale.New
         protected NewAlternativeBikes ctrlAlternativeBikes;
         protected LeadCaptureControl ctrlLeadCapture;
         public Repeater rprVersionPrices, rpVersioNames;
-        protected uint modelId = 0, cityId = 0, versionId, makeId;
+        protected uint modelId = 0, cityId = 0, versionId, makeId, dealerCount;
         public int versionCount;
         public string makeName = string.Empty, makeMaskingName = string.Empty, modelName = string.Empty, modelMaskingName = string.Empty, bikeName = string.Empty, modelImage = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty;
         string redirectUrl = string.Empty;
         private bool redirectToPageNotFound = false, redirectPermanent = false;
         protected bool isAreaAvailable, isDiscontinued;
         protected String clientIP = CommonOpn.GetClientIP();
-
+        protected UsedBikes ctrlRecentUsedBikes;
+        public DealerLocatorList states = null;
 
         protected override void OnInit(EventArgs e)
         {
@@ -81,7 +86,7 @@ namespace Bikewale.New
                 ctrlTopCityPrices.CityId = cityId;
                 ctrlTopCityPrices.IsDiscontinued = isDiscontinued;
                 ctrlTopCityPrices.TopCount = 8;
-
+                ctrlTopCityPrices.cityName = cityName;
                 ctrlDealers.MakeId = makeId;
                 ctrlDealers.CityId = cityId;
                 ctrlDealers.IsDiscontinued = isDiscontinued;
@@ -95,8 +100,48 @@ namespace Bikewale.New
                 ctrlLeadCapture.ModelId = modelId;
                 ctrlLeadCapture.AreaId = 0;
 
+                ctrlRecentUsedBikes.CityId = (int?)cityId;
+                ctrlRecentUsedBikes.TopCount = 6;
+                ctrlRecentUsedBikes.ModelId = Convert.ToUInt32(modelId);
                 BindAlternativeBikeControl();
+                BindDealers();
 
+            }
+        }
+        /// <summary>
+        /// Created By Subodh Jain 10 oct 2016
+        /// Desc:- for count of dealers
+        /// </summary>
+        protected void BindDealers()
+        {
+            DealersEntity _dealers = null;
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IDealerCacheRepository, DealerCacheRepository>()
+                             .RegisterType<ICacheManager, MemcacheManager>()
+                             .RegisterType<IDealer, DealersRepository>()
+                            ;
+                    var objCache = container.Resolve<IDealerCacheRepository>();
+                    _dealers = objCache.GetDealerByMakeCity(cityId, makeId);
+
+                    if (_dealers != null)
+                    {
+                        dealerCount = _dealers.TotalCount;
+                    }
+
+
+                }
+
+
+
+
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
         }
         /// <summary>
@@ -324,6 +369,7 @@ namespace Bikewale.New
             ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_Alternative;
             ctrlAlternativeBikes.WidgetTitle = bikeName;
             ctrlAlternativeBikes.model = modelName;
+            ctrlAlternativeBikes.cityName = cityName;
             if (firstVersion != null)
                 ctrlAlternativeBikes.VersionId = (int)firstVersion.VersionId;
         }

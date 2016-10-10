@@ -11,7 +11,7 @@
                 </div>
                 <div class="grid-5 alpha omega text-right">
                     <span class="bwsprite inr-sm-dark"></span>
-                    <span><%# Bikewale.Utility.Format.FormatPriceShort(DataBinder.Eval(Container.DataItem,"OnRoadPrice").ToString()) %></span>
+                    <span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"OnRoadPrice").ToString()) %></span>
                 </div>
                 <div class="clear"></div>
             </li>
