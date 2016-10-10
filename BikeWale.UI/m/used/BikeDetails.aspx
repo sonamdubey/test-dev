@@ -258,9 +258,9 @@
                 <!-- Similar used bikes starts -->
                 <BW:SimilarUsedBikes ID="ctrlSimilarUsedBikes" runat="server" />
                 <!-- Similar used bikes ends -->
-                <!-- Similar used bikes starts -->
+                <!-- other used bikes starts -->
                 <BW:OtherUsedBikes ID="ctrlOtherUsedBikes" runat="server" />
-                <!-- Similar used bikes ends -->
+                <!-- other used bikes ends -->
             </div>
             <div id="modelSpecsFooter"></div>
         </section>
