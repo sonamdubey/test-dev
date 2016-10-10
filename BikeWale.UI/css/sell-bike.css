@@ -1,0 +1,138 @@
+﻿@charset "utf-8";
+.padding-14-20 {
+    padding: 14px 20px
+}
+
+#sell-bike-content {
+    position: relative;
+    top: 2px;
+}
+
+#sell-bike-left-col {
+    padding: 40px 25px 40px 30px;
+}
+
+/* panel */
+.panel {
+    margin-bottom: 40px;
+}
+
+.panel-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    margin-left: 15px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.panel-body {
+    width: 465px;
+    float: right;
+}
+
+/* chosen select */
+.chosen-select-label {
+    font-size: 12px;
+    color: #82888b;
+}
+
+.select-box .chosen-container {
+    padding: 0;
+    padding-bottom: 5px;
+    border: 0;
+    border-bottom: 1px solid #4d5057;
+    border-radius: 0;
+}
+
+.select-box .chosen-container-single .chosen-single {
+    font-size: 16px;
+    font-weight: bold;
+    color: #4d5057;
+    background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 99% 50% no-repeat #fff;
+}
+
+.select-box .chosen-container-single .chosen-search input[type=text] {
+    border: 0;
+    padding: 6px 10px;
+    font-size: 16px;
+}
+
+.select-box .chosen-container-single .chosen-search {
+    padding: 0;
+    border-bottom: 1px solid #41b4c4;
+}
+
+.select-box .chosen-container .chosen-results {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+}
+
+.select-box .chosen-container .chosen-drop {
+    top: 2px;
+    border: 1px solid #e2e2e2;
+    box-shadow: 0 2px 3px rgba(0,0,0,.15);
+}
+
+.select-box .chosen-container-single .chosen-drop {
+    border-radius: 2px;
+}
+
+.select-box .chosen-container .chosen-results li {
+    padding: 8px 10px 7px;
+    transition: background .1s linear;
+}
+
+/* boundary */
+.boundary { position: relative; width: 100%; display: block; }
+.boundary:before, .boundary:after { content: ''; position: absolute; bottom: 0; width: 0; height: 2px; background-color: #41b4c4; -webkit-transition:0.2s ease all; -moz-transition:0.2s ease all; -o-transition:0.2s ease all; transition:0.2s ease all; }
+.boundary:before { left:50%; }
+.boundary:after { right:50%; }
+.error-text { display:none; font-size:12px; position: relative; top: 4px; left: 0; color: #d9534f; }
+/* validation */
+.select-box.invalid .boundary:before, .select-box.invalid .boundary:after { background-color: #d9534f; width:50%; }
+.select-box.invalid .error-text { display:inline-block; }
+
+/* scrollbar */
+.select-box .chosen-results::-webkit-scrollbar {width: 5px;}
+.select-box .chosen-results::-webkit-scrollbar-track {background: #fff;}
+.select-box .chosen-results::-webkit-scrollbar-thumb {background: #ddd;}
+.select-box .chosen-results::-webkit-scrollbar-thumb:hover {background: #bbb;}
+
+/* sprite */
+.sell-bike-sprite {
+    background: url('../images/sell-bike-sprite.png') no-repeat;
+    display: inline-block;
+}
+
+.step-1-active, .step-2-active, .step-3-active, .step-2-inactive, .step-3-inactive, .edit-step {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.step-1-active {
+    background-position: 0 0;
+}
+
+.step-2-active {
+    background-position: -35px 0;
+}
+
+.step-3-active {
+    background-position: -70px 0;
+}
+
+.step-2-inactive {
+    background-position: -140px 0;
+}
+
+.step-3-inactive {
+    background-position: -175px 0;
+}
+
+.edit-step {
+    background-position: -105px 0;
+}

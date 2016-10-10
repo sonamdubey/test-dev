@@ -1307,6 +1307,10 @@
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="used\sell\Default_v2.aspx.cs">
+      <DependentUpon>Default_v2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="used\sell\UploadBasic.aspx.cs">
       <DependentUpon>UploadBasic.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1833,6 +1837,7 @@
     <Content Include="css\rsa.css" />
     <Content Include="css\new\bookinglisting.css" />
     <Content Include="css\search.css" />
+    <Content Include="css\sell-bike.css" />
     <Content Include="css\slideshow.css" />
     <Content Include="css\specsandfeature.css" />
     <Content Include="css\style.css" />
@@ -2507,6 +2512,7 @@
     <!-- <Content Include="src\knockout.js" /> -->
     <Content Include="src\jquery.floating-social-share.js" />
     <Content Include="src\jquery.floating-social-share.min.js" />
+    <Content Include="src\knockout.validation.js" />
     <Content Include="src\login\login.js" />
     <!-- <Content Include="src\markerwithlabel.js" /> -->
     <Content Include="src\model.js" />
@@ -2527,6 +2533,7 @@
     <!--     <Content Include="src\Research\photogallery\image-gallery.js" />
     <Content Include="src\Research\photogallery\jquery.ad-gallery.js" /> -->
     <Content Include="src\Research\write_reviews.js" />
+    <Content Include="src\sell-bike.js" />
     <Content Include="src\used-search.js" />
     <Content Include="src\Used\search.js" />
     <Content Include="src\Videos\videoByCategory.js" />
@@ -2559,6 +2566,7 @@
     <Content Include="used\Search_v2.aspx" />
     <Content Include="used\sell\confirmation.aspx" />
     <Content Include="used\sell\default.aspx" />
+    <Content Include="used\sell\Default_v2.aspx" />
     <Content Include="used\sell\UploadBasic.aspx" />
     <Content Include="used\sell\UploadPhotos.aspx" />
     <Content Include="used\sell\UploadPreview.aspx" />
