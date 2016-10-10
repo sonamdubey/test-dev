@@ -1,6 +1,7 @@
 ﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.Used;
 using Bikewale.Cache.UsedBikes;
+using Bikewale.DAL.Used;
 using Bikewale.DAL.UsedBikes;
 using Bikewale.Entities.UsedBikes;
 using Bikewale.Interfaces.Cache.Core;
@@ -106,6 +107,7 @@ namespace Bikewale.BindViewModels.Controls
                     container.RegisterType<IUsedBikesRepository, UsedBikesRepository>();
                     container.RegisterType<ICacheManager, MemcacheManager>();
                     container.RegisterType<IUsedBikesCache, UsedBikesCache>();
+                    container.RegisterType<IUsedBikeDetails, UsedBikeDetailsRepository>();
                     IUsedBikesCache objUsedBikes = container.Resolve<IUsedBikesCache>();
 
                     objMostRecentBikes = objUsedBikes.GetUsedBikes(MakeId, ModelId, Convert.ToUInt32(CityId.HasValue ? CityId.Value : 0), TopCount);
