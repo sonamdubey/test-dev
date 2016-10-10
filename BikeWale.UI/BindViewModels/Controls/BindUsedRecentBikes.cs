@@ -15,7 +15,6 @@ namespace Bikewale.BindViewModels.Controls
 {
     /// Created by : Sangram Nandkhile on 30th Aug 2016
     /// Summary: To get recent used bikes
-    ///
 
     public class BindUsedRecentBikes
     {
@@ -32,17 +31,11 @@ namespace Bikewale.BindViewModels.Controls
         /// <summary>
         /// Created by : Sangram Nandkhile on 30th Aug 2016
         /// Summary: To get recent used bikes
-        /// </summary>
-        /// <param name="InquiryId"></param>
-        /// <param name="cityId"></param>
-        /// <param name="topCount"></param>
-        /// <returns></returns>
         public IEnumerable<OtherUsedBikeDetails> GetRecentUsedBikes(ushort topCount)
         {
             IEnumerable<OtherUsedBikeDetails> usedRecentBikes = null;
             try
             {
-                usedRecentBikes = default(IEnumerable<OtherUsedBikeDetails>);
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>()

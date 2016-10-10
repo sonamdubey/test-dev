@@ -14,20 +14,25 @@ using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+
 namespace Bikewale.BindViewModels.Webforms.Used
 {
     /// <summary>
     /// Created by: Sangram Nandkhile on 06 Oct 2016
+    /// Summary: Summary for viewmodel used landing
     /// </summary>
     public class UsedBikeLandingPage
     {
-        IUnityContainer container;
+        private IUnityContainer container;
         public IEnumerable<UsedBikeMakeEntity> TopMakeList;
         public IEnumerable<UsedBikeMakeEntity> OtherMakeList;
         public IEnumerable<CityEntityBase> Cities = null;
         public IEnumerable<UsedBikeCities> objCitiesWithCount = null;
 
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 06 Oct 2016
+        /// Summary: Constructor for viewmodel to initialize container and fetch values
+        /// </summary>
         public UsedBikeLandingPage()
         {
             try
@@ -41,6 +46,8 @@ namespace Bikewale.BindViewModels.Webforms.Used
                     container.RegisterType<IUsedBikesCache, UsedBikesCache>();
                     container.RegisterType<ICityCacheRepository, CityCacheRepository>();
                     container.RegisterType<ICity, CityRepository>();
+                    objCitiesCache = container.Resolve<ICity>();
+                    objUsedBikes = container.Resolve<IUsedBikesCache>();
 
                     GetAllMakes(objUsedBikes);
                     GetAllCities(objCitiesCache);
@@ -49,10 +56,11 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.Used.UsedBikeLandingPage.constructor");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Used.UsedBikeLandingPage.constructor");
                 objErr.SendMail();
             }
         }
+
         /// <summary>
         /// Created By: Sangram Nandkhile 06 Oct, 2016
         /// Description: get top 6 makes and remaining makes
@@ -62,7 +70,6 @@ namespace Bikewale.BindViewModels.Webforms.Used
         {
             try
             {
-                objUsedBikes = container.Resolve<IUsedBikesCache>();
                 var totalList = objUsedBikes.GetUsedBikeMakesWithCount();
                 if (totalList != null && totalList.Count() > 0)
                 {
@@ -84,7 +91,6 @@ namespace Bikewale.BindViewModels.Webforms.Used
         /// <param name="objCitiesCache"></param>
         private void GetAllCities(ICity objCitiesCache)
         {
-            objCitiesCache = container.Resolve<ICity>();
             try
             {
                 Cities = objCitiesCache.GetAllCities(EnumBikeType.Used);
@@ -108,7 +114,6 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 BindUsedBikesCityWithCount objBikeCity = new BindUsedBikesCityWithCount();
                 objCitiesWithCount = objBikeCity.GetUsedBikeByCityWithCount();
                 objCitiesWithCount = objCitiesWithCount.Take(6);
-
             }
             catch (Exception ex)
             {

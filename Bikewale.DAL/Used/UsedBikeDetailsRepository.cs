@@ -310,11 +310,11 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetRecentUsedBikesInIndia" + HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "GetRecentUsedBikesInIndia");
                 objErr.SendMail();
             }
             return recentBikes;
         }
-       
+
     }
 }

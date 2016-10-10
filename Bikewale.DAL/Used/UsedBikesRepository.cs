@@ -293,7 +293,8 @@ namespace Bikewale.DAL.UsedBikes
         }// end of GetUsedBikesbyMakeCity
 
         /// <summary>
-        /// Fetch make id, name and list of used bike counts for makepage
+        /// Created by: Sangram Nandkhile on 10 oct 2016
+        /// Summary: Fetch make id, name and list of used bike counts for makepage
         /// </summary>
         /// <returns></returns>
         public IEnumerable<UsedBikeMakeEntity> GetUsedBikeMakesWithCount()

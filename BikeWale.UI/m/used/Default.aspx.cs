@@ -1,8 +1,5 @@
 ﻿using Bikewale.BindViewModels.Webforms.Used;
 using Bikewale.Mobile.Controls;
-using Bikewale.Entities.BikeData;
-using Bikewale.Entities.Location;
-using Bikewale.Interfaces.Location;
 using System;
 using System.Web;
 
@@ -10,6 +7,7 @@ namespace Bikewale.Mobile.Used
 {
     /// <summary>
     /// Created by: Sangram Nandkhile on 06 oct 2016
+    /// Summary: Landing page for Used msite
     /// </summary>
     public class Default : System.Web.UI.Page
     {

@@ -90,8 +90,7 @@ var citySlider = {
         searchUsedVM.cityMaskingName(cityMasking);
         searchUsedVM.cityId(cityId);
         $('#search-form-city p').text(elementText);
-        //$('#search-form-city p').attr('data-item-id', cityId);
-          }
+    }
 };
 
 /* budget */
