@@ -9,7 +9,6 @@ y),b(document.body).on("sticky_kit:recalc",y),a.on("sticky_kit:detach",H),setTim
 
 
 $('#listing-left-column').stick_in_parent();
-//$('.city-chosen-select').chosen();
 
 var budgetValue = [0, 10000, 20000, 35000, 50000, 80000, 125000, 200000];
 var bikesList = $("#filter-bike-list");
@@ -72,7 +71,6 @@ var vmPagination = function (curPgNum, pgSize, totalRecords) {
 };
 
 
-//for jquery chosen 
 ko.bindingHandlers.chosen = {
     init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
         var $element = $(element);
@@ -811,11 +809,6 @@ var filters = {
     },
 
     set: {
-
-        
-        //city: function () {
-        //    $('#filter-type-city .selected-filters').text('All India');
-        //},
 
         bike: function () {
             var inputBoxes = $('.getModelInput');
