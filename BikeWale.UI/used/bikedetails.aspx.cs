@@ -8,7 +8,6 @@ using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Web;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Used
 {
@@ -25,7 +24,7 @@ namespace Bikewale.Used
             moreBikeSpecsUrl = string.Empty, moreBikeFeaturesUrl = string.Empty, profileId = string.Empty;
         protected BikePhoto firstImage = null;
         protected Bikewale.Entities.Used.ClassifiedInquiryDetails inquiryDetails = null;
-        protected Repeater rptUsedBikeNavPhotos, rptUsedBikePhotos;
+        //protected Repeater rptUsedBikeNavPhotos, rptUsedBikePhotos;
         protected bool isPageNotFound, isPhotoRequestDone;
         protected Bikewale.Mobile.Controls.UploadPhotoRequestPopup widgetUploadPhotoRequest = new Bikewale.Mobile.Controls.UploadPhotoRequestPopup();
         public Bikewale.Controls.SimilarUsedBikes ctrlSimilarUsedBikes;
@@ -84,20 +83,20 @@ namespace Bikewale.Used
             }
         }
 
-        /// <summary>
-        /// Created by  : Sushil Kumar on 10th Oct 2016
-        /// Description : Bind used bikes photos for the used bike
-        /// </summary>
-        private void BindUsedBikePhotos()
-        {
-            if (inquiryDetails != null && inquiryDetails.PhotosCount > 0)
-            {
-                rptUsedBikePhotos.DataSource = inquiryDetails.Photo;
-                rptUsedBikePhotos.DataBind();
-                rptUsedBikeNavPhotos.DataSource = inquiryDetails.Photo;
-                rptUsedBikeNavPhotos.DataBind();
-            }
-        }
+        ///// <summary>
+        ///// Created by  : Sushil Kumar on 10th Oct 2016
+        ///// Description : Bind used bikes photos for the used bike
+        ///// </summary>
+        //private void BindUsedBikePhotos()
+        //{
+        //    if (inquiryDetails != null && inquiryDetails.PhotosCount > 0)
+        //    {
+        //        rptUsedBikePhotos.DataSource = inquiryDetails.Photo;
+        //        rptUsedBikePhotos.DataBind();
+        //        rptUsedBikeNavPhotos.DataSource = inquiryDetails.Photo;
+        //        rptUsedBikeNavPhotos.DataBind();
+        //    }
+        //}
         /// <summary>
         /// Created by  : Sushil Kumar on 10th Oct 2016
         /// Description : Bind similar and other bike widgets

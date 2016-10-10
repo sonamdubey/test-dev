@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Used.BikeDetails" EnableViewState="false" %>
 <%@ Register Src="/controls/UsedBikeLeadCaptureControl.ascx" TagPrefix="BW" TagName="UBLeadCapturePopup" %>
 <%@ Register Src="~/controls/SimilarUsedBikes.ascx" TagPrefix="BW" TagName="SimilarUsedBikes" %>
+<%@ Register Src="~/m/controls/UploadPhotoRequestPopup.ascx" TagPrefix="BW" TagName="UploadPhotoRequestPopup" %>
 <%@ Register Src="~/controls/OtherUsedBikeByCity.ascx" TagPrefix="BW" TagName="OtherUsedBikes" %>
 
 <!DOCTYPE html>
@@ -296,10 +297,10 @@
                             <div class="margin-right10 margin-left10 border-solid-bottom"></div>
                         </div>
 
-                <BW:SimilarUsedBikes runat="server" ID="ctrlSimilarUsedBikes"></BW:SimilarUsedBikes>
-                <!-- other used bikes starts -->
-                <BW:OtherUsedBikes ID="ctrlOtherUsedBikes" runat="server" />
-                <!-- other used bikes ends -->
+                        <BW:SimilarUsedBikes runat="server" ID="ctrlSimilarUsedBikes"></BW:SimilarUsedBikes>
+                        <!-- other used bikes starts -->
+                        <BW:OtherUsedBikes ID="ctrlOtherUsedBikes" runat="server" />
+                        <!-- other used bikes ends -->
 
                         <div id="overallMakeDetailsFooter"></div>
                     </div>
@@ -308,46 +309,29 @@
             </div>
         </section>
 
+        <% if (inquiryDetails.PhotosCount > 1)
+           { %>
         <!-- gallery -->
         <section>
             <div class="blackOut-window-model"></div>
             <div class="bike-gallery-popup" id="bike-gallery-popup">
                 <div class="modelgallery-close-btn bwsprite cross-lg-white cur-pointer"></div>
                 <div class="bike-gallery-heading">
-                    <p class="font18 text-bold margin-left30 text-white margin-bottom20">Royal Enfield Classic Desert Storm</p>
+                    <p class="font18 text-bold margin-left30 text-white margin-bottom20"><%=modelYear %>, <%= bikeName %> Photos</p>
 
                     <div class="connected-carousels">
                         <div class="stage">
                             <div class="carousel carousel-stage">
                                 <ul>
+                                    <% foreach(var photo in inquiryDetails.Photo) { %>
                                     <li>
                                         <div class="stage-slide">
                                             <div class="stage-image-placeholder">
-                                                <img class="lazy" data-original="http://imgd4.aeplcdn.com/642x361//staging/bw/used/S42661/42661_20160721050709814.jpg" alt="" src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
+                                                <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(photo.OriginalImagePath,photo.HostUrl,Bikewale.Utility.ImageSize._642x361) %>" alt="<%= bikeName %>" title="<%= bikeName %>" src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
                                             </div>
                                         </div>
                                     </li>
-                                    <li>
-                                        <div class="stage-slide">
-                                            <div class="stage-image-placeholder">
-                                                <img class="lazy" data-original="http://imgd4.aeplcdn.com/642x361//staging/bw/used/S42670/42670_20160722042837543.jpg" alt="" src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="stage-slide">
-                                            <div class="stage-image-placeholder">
-                                                <img class="lazy" data-original="http://imgd2.aeplcdn.com//642x361//bw/used/S42602/42602_20160613114137617.jpg" alt="" src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="stage-slide">
-                                            <div class="stage-image-placeholder">
-                                                <img class="lazy" data-original="http://imgd2.aeplcdn.com//642x361//bw/used/S42598/42598_20160613081003622.jpg" alt="" src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
-                                            </div>
-                                        </div>
-                                    </li>
+                                    <% } %>
                                 </ul>
                             </div>
                             <div class="bike-gallery-details">
@@ -362,34 +346,15 @@
                             <a href="#" class="next photos-next-navigation bwsprite" rel="nofollow"></a>
                             <div class="carousel carousel-navigation">
                                 <ul>
+                                     <% foreach(var photo in inquiryDetails.Photo) { %>
                                     <li>
                                         <div class="navigation-slide">
                                             <div class="navigation-image-placeholder">
-                                                <img class="lazy" data-original="http://imgd4.aeplcdn.com/144x81//staging/bw/used/S42661/42661_20160721050709814.jpg" alt="" src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
+                                                <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(photo.OriginalImagePath,photo.HostUrl,Bikewale.Utility.ImageSize._642x361) %>" alt="<%= bikeName %>" src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
                                             </div>
                                         </div>
                                     </li>
-                                    <li>
-                                        <div class="navigation-slide">
-                                            <div class="navigation-image-placeholder">
-                                                <img class="lazy" data-original="http://imgd4.aeplcdn.com/144x81//staging/bw/used/S42670/42670_20160722042837543.jpg" alt="" src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="navigation-slide">
-                                            <div class="navigation-image-placeholder">
-                                                <img class="lazy" data-original="http://imgd2.aeplcdn.com//144x81//bw/used/S42602/42602_20160613114137617.jpg" alt="" src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="navigation-slide">
-                                            <div class="navigation-image-placeholder">
-                                                <img class="lazy" data-original="http://imgd2.aeplcdn.com//144x81//bw/used/S42598/42598_20160613081003622.jpg" alt="" src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
-                                            </div>
-                                        </div>
-                                    </li>
+                                      <% } %>
                                 </ul>
                             </div>
                         </div>
@@ -398,6 +363,13 @@
                 </div>
             </div>
         </section>
+         <% } %>
+
+         <%if (inquiryDetails.PhotosCount == 0)
+          { %>
+
+        <BW:UploadPhotoRequestPopup runat="server" ID="widgetUploadPhotoRequest"></BW:UploadPhotoRequestPopup>
+        <%} %>
         
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 
