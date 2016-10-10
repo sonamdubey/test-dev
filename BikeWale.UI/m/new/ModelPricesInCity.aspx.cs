@@ -65,6 +65,8 @@ namespace Bikewale.Mobile.New
                 ctrlTopCityPrices.CityId = cityId;
                 ctrlTopCityPrices.IsDiscontinued = isDiscontinued;
                 ctrlTopCityPrices.TopCount = 8;
+                ctrlTopCityPrices.ModelName = modelName;
+                ctrlTopCityPrices.CityName = cityName;
 
                 ctrlDealers.MakeId = makeId;
                 ctrlDealers.CityId = cityId;
