@@ -322,7 +322,7 @@ namespace Bikewale.New
         {
             if (modelPageEntity.ModelDetails.Futuristic)
             {
-                pgDescription = string.Format("{0} {1} Price in India is expected between Rs. {2} and Rs. {3}. Check out {0} {1}  specifications, reviews, mileage, versions, news & photos at BikeWale.com. Launch date of {1} is around {4}", modelPageEntity.ModelDetails.MakeBase.MakeName, modelPageEntity.ModelDetails.ModelName, modelPageEntity.ModelDetails.MinPrice, modelPageEntity.ModelDetails.MaxPrice, modelPageEntity.UpcomingBike.ExpectedLaunchDate);
+                pgDescription = string.Format("{0} {1} Price in India is expected between Rs. {2} and Rs. {3}. Check out {0} {1}  specifications, reviews, mileage, versions, news & photos at BikeWale.com. Launch date of {1} is around {4}", modelPageEntity.ModelDetails.MakeBase.MakeName, modelPageEntity.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMin)), Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMax)), modelPageEntity.UpcomingBike.ExpectedLaunchDate);
             }
             else if (!modelPageEntity.ModelDetails.New)
             {
