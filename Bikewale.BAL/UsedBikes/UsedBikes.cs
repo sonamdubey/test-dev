@@ -89,9 +89,7 @@ namespace Bikewale.BAL.UsedBikes
                 if (!UsedBikeProfileId.IsValidProfileId(profileId))
                     return null;
 
-                string argProfileId = profileId.Substring(1);
-
-                objInquiryDetailsByProfileId = _usedBikeDetailsCacheRepository.GetInquiryDetailsByProfileId(argProfileId);
+                objInquiryDetailsByProfileId = _usedBikeDetailsCacheRepository.GetInquiryDetailsByProfileId(profileId);
 
                 if (objInquiryDetailsByProfileId != null)
                     objInquiryDetailsByProfileId.ProfileId = profileId;
