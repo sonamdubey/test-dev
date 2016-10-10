@@ -1,5 +1,5 @@
-﻿using Bikewale.Entities.Used;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Used;
 using Bikewale.Entities.UsedBikes;
 using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.UsedBikes;
@@ -61,16 +61,10 @@ namespace Bikewale.BAL.UsedBikes
         /// <returns></returns>
         public IEnumerable<UsedBikeMakeEntity> GetUsedBikeMakesWithCount()
         {
-            IUsedBikesRepository usedBikesRepository = null;
             IEnumerable<UsedBikeMakeEntity> usedBikeMakes = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IUsedBikesRepository, UsedBikesRepository>();
-                    usedBikesRepository = container.Resolve<IUsedBikesRepository>();
-                }
-                usedBikeMakes = usedBikesRepository.GetUsedBikeMakesWithCount();
+                usedBikeMakes = _usedBikesRepository.GetUsedBikeMakesWithCount();
                 return usedBikeMakes;
             }
             catch (Exception ex)
