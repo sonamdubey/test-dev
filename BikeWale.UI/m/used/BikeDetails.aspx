@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" EnableViewState="false" Inherits="Bikewale.Mobile.Used.BikeDetails" %>
 
 <%@ Register Src="~/m/controls/SimilarUsedBikes.ascx" TagPrefix="BW" TagName="SimilarUsedBikes" %>
-<%@ Register Src="~/m/controls/OtherUsedBikeByCity.ascx" TagPrefix="BW" TagName="OtherUsedBikes" %>
+<%@ Register Src="~/m/controls/UsedOtherBikeByCity.ascx" TagPrefix="BW" TagName="OtherUsedBikes" %>
 <%@ Register Src="~/m/controls/UploadPhotoRequestPopup.ascx" TagPrefix="BW" TagName="UploadPhotoRequestPopup" %>
 <%@ Register Src="~/m/controls/UsedBikeLeadCaptureControl.ascx" TagPrefix="BW" TagName="UBLeadCapturePopup" %>
 <!DOCTYPE html>
@@ -258,9 +258,9 @@
                 <!-- Similar used bikes starts -->
                 <BW:SimilarUsedBikes ID="ctrlSimilarUsedBikes" runat="server" />
                 <!-- Similar used bikes ends -->
-                <!-- Similar used bikes starts -->
+                <!-- Other used bikes starts -->
                 <BW:OtherUsedBikes ID="ctrlOtherUsedBikes" runat="server" />
-                <!-- Similar used bikes ends -->
+                <!-- Other used bikes ends -->
             </div>
             <div id="modelSpecsFooter"></div>
         </section>

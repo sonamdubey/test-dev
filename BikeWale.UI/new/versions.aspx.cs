@@ -261,7 +261,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"].ToString());
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.RawUrl + " : Page_load");
                 objErr.SendMail();
             }
         }
@@ -308,9 +308,6 @@ namespace Bikewale.New
                 ctrlTopCityPrices.IsDiscontinued = isDiscontinued;
                 ctrlTopCityPrices.TopCount = 8;
                 ctrlPopularCompare.ModelName = modelPageEntity.ModelDetails.ModelName;
-
-
-
             }
         }
 

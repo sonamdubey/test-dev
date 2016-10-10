@@ -85,6 +85,10 @@ var citySlider = {
 
     selection: function (element) {
         var elementText = element.text();
+        var cityMasking = element.attr('data-citymaskingname');
+        var cityId = element.attr('data-item-id');
+        searchUsedVM.cityMaskingName(cityMasking);
+        searchUsedVM.cityId(cityId);
         $('#search-form-city p').text(elementText);
     }
 };
@@ -122,7 +126,6 @@ $('#max-budget-list').on('click', 'li', function () {
     budgetForm.listItemClick.maxList(element);
 });
 
-
 var budgetForm = {
 
     content: $('#min-max-budget-box'),
@@ -148,7 +151,7 @@ var budgetForm = {
             var i;
             for (i in budgetArr) {
                 if (counter < listItemCount) {
-                    budgetForm.minBudgetList.append("<li data-value=" + budgetArr[i].value + ">" + budgetArr[i].amount + "</li>");
+                    budgetForm.minBudgetList.append("<li id='selectedMin' data-value=" + budgetArr[i].value + ">" + budgetArr[i].amount + "</li>");
                     counter++;
                 }
             }
@@ -188,7 +191,7 @@ var budgetForm = {
             budgetForm.minInputBox.attr('data-value', dataValue);
 
             budgetForm.inputBoxAmount.minAmount(element);
-
+            searchUsedVM.minAmount(dataValue);
             budgetForm.generateMaxList(dataValue);
 
             budgetForm.minBudgetList.hide();
@@ -206,7 +209,7 @@ var budgetForm = {
             var dataValue = element.attr("data-value");
 
             budgetForm.maxInputBox.attr('data-value', dataValue);
-
+            searchUsedVM.maxAmount(dataValue);
             if (typeof (budgetForm.minInputBox.attr('data-value')) == 'undefined') {
                 budgetForm.minInputBox.attr('data-value', 0);
                 budgetForm.dropdown.selectedMinAmount.html('0');
@@ -249,13 +252,56 @@ var budgetForm = {
         for (i in budgetArr) {
             var indexValue = budgetArr[i].value;
             if (dataValue < indexValue && counter < listItemCount) {
-                budgetForm.maxBudgetList.append("<li data-value=" + budgetArr[i].value + ">" + budgetArr[i].amount + "</li>");
+                budgetForm.maxBudgetList.append("<li id='selectedMax' data-value=" + budgetArr[i].value + ">" + budgetArr[i].amount + "</li>");
                 counter++;
             }
         }
     }
 }
+function searchModel() {
+    var self = this;
+    self.baseUrl = ko.observable(''),
+    self.cityMaskingName = ko.observable(''),
+    self.cityId = ko.observable(''),
+    self.minAmount= ko.observable(''),
+    self.maxAmount= ko.observable(''),
+    self.createUrl = function () {
+        if (self.minAmount() == "" && self.maxAmount() == "")
+            return self.baseUrl();
+        else {
+            if (self.cityMaskingName() == "") {
+                if (self.minAmount() == "")
+                    return self.baseUrl() + "#budget=0+" + self.maxAmount() 
+                else if (self.maxAmount() == "")
+                    return self.baseUrl() + "#budget=" + self.minAmount() + "+200000";
+                else
+                    return self.baseUrl() + "#budget=" + self.minAmount() + "+" + self.maxAmount();
+            }
+            else {
+                if (self.minAmount() == "")
+                    return self.baseUrl() + "&budget=0+" + self.maxAmount();
+                else if (self.maxAmount() == "")
+                    return self.baseUrl() + "&budget=" + self.minAmount() + "+200000";
+                else
+                    return self.baseUrl() + "&budget=" + self.minAmount() + "+" + self.maxAmount();
+            }
+            
+        }
+    },
+    self.redirectUrl=ko.computed(function () {
+        if (self.cityMaskingName() == "") {
+            self.baseUrl("bikes-in-india/");
+             } 
+        else {
+            self.baseUrl("bikes-in-" + self.cityMaskingName()+"/#city="+self.cityId());
+        }
+        return self.createUrl();
+    })
+    
 
+};
+var searchUsedVM = new searchModel();
+ko.applyBindings(searchUsedVM, document.getElementById("search-used-bikes"));
 /* profile id */
 var listingProfileId = $('#listingProfileId');
 

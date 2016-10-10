@@ -61,6 +61,7 @@
             <li class="current"><strong>Photos</strong></li>
         </ul>
         <div class="clear"></div>
+        <h1><%= makename %> <%= modelName %> Photos</h1>
     </div>
     <div class="grid_12">
         <PG:PhotoGallary ID="photoGallary" runat="server"></PG:PhotoGallary>
