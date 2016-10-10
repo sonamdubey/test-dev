@@ -64,7 +64,6 @@
                 <div class="clear"></div>
             </div>
         </section>
-        <%--
        <%-- <section>
             <div class="container text-center section-container">
                 <h2 class="font18 section-heading">Best way to sell your bike</h2>
