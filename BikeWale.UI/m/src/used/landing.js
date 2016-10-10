@@ -225,11 +225,11 @@ var budgetForm = {
 
     inputBoxAmount: {
         minAmount: function (element) {
-            var elementValue = element.text();
-                        
+            var elementValue = element.text();      
             budgetForm.dropdown.selectedMinAmount.text(elementValue);
             budgetForm.dropdown.defaultLabel.hide();
-
+            budgetForm.maxInputBox.attr('data-value', null);
+            searchUsedVM.maxAmount('');
             if (typeof (budgetForm.maxInputBox.attr('data-value')) == 'undefined') {
                 budgetForm.dropdown.selectedMaxAmount.html("- MAX");
             }
@@ -271,7 +271,7 @@ function searchModel() {
         else {
             if (self.cityMaskingName() == "") {
                 if (self.minAmount() == "")
-                    return self.baseUrl() + "#budget=0+" + self.maxAmount() 
+                    return self.baseUrl() + "#budget=0+" + self.maxAmount()
                 else if (self.maxAmount() == "")
                     return self.baseUrl() + "#budget=" + self.minAmount() + "+200000";
                 else
@@ -285,8 +285,9 @@ function searchModel() {
                 else
                     return self.baseUrl() + "&budget=" + self.minAmount() + "+" + self.maxAmount();
             }
-            
+
         }
+        return '';
     },
     self.redirectUrl=ko.computed(function () {
         if (self.cityMaskingName() == "") {
@@ -295,7 +296,7 @@ function searchModel() {
         else {
             self.baseUrl("bikes-in-" + self.cityMaskingName()+"/#city="+self.cityId());
         }
-        return self.createUrl();
+        return self.createUrl();        
     })
     
 
