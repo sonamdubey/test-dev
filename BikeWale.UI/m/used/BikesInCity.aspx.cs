@@ -36,7 +36,7 @@ namespace Bikewale.Mobile.Used
             {
                 BindUsedBikesCityWithCount objBikeCity = new BindUsedBikesCityWithCount();
                 objBikeCityCount = objBikeCity.GetUsedBikeByCityWithCount();
-                objBikeCityCountTop = objBikeCityCount.Take(6);
+                objBikeCityCountTop = objBikeCityCount.Where(x => x.priority > 0); ;
                 objBikeCityCount = objBikeCityCount.OrderBy(c => c.CityName);
             }
             catch (Exception ex)
