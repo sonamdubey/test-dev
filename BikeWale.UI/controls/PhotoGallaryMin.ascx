@@ -5,10 +5,10 @@
 <div id="imageContent">            
     <div class="clear"></div>
     <div id="gallery" class="ad-gallery" style="float:left; padding-top:10px;">  
-        <div id="galleryHolder"  title="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + selectedImageCategory %> Photos" >              
+        <div id="galleryHolder"   >              
             <div class="ad-image-wrapper" >
                 <div class="ad-image" >
-                    <img border="0" id="first" src="<%=selectedImagePath %>" itemprop="contentURL" />
+                    <img border="0" title="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + selectedImageCategoryName %> Photos" src="<%=selectedImagePath %>" itemprop="contentURL" />
                     <p class="ad-image-description" style="width: 600px;">
                         <strong class="ad-description-title" itemprop="description">
                             <%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + selectedImageCategory %> Photos
