@@ -5,11 +5,9 @@ using Bikewale.DAL.Used;
 using Bikewale.Entities.Used;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Used;
-using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 namespace Bikewale.BindViewModels.Controls
 {
     /// <summary>
@@ -62,10 +60,10 @@ namespace Bikewale.BindViewModels.Controls
                     }
                 }
             }
-            catch (System.Exception ex)
+            catch (System.Exception)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+
+                throw;
             }
             return similarBikeList;
         }

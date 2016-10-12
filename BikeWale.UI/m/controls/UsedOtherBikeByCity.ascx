@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.OtherUsedBikeByCity" EnableViewState="false" %>
+<%@ Import Namespace="Bikewale.Entities.Used" %>
 <% if (otherBikesinCity!=null && FetchedRecordsCount > 0)
    {  %>
         <div id="modelOtherBikes" class="bw-model-tabs-data padding-top20 padding-bottom15">
@@ -7,7 +8,7 @@
             
             <div id="similar-bike-swiper" class="swiper-container padding-top5 padding-bottom5">
                 <div class="swiper-wrapper">
-                    <% foreach (var bike in otherBikesinCity)
+                    <% foreach (OtherUsedBikeDetails bike in otherBikesinCity)
                        { %>
                         <div class="swiper-slide swiper-shadow">
                         <div class="model-swiper-image-preview">

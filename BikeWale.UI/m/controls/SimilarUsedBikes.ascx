@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Mobile.Controls.SimilarUsedBikes" EnableViewState="false" %>
+<%@ Import Namespace="Bikewale.Entities.Used" %>
 <% if(FetchedRecordsCount> 0)
    {  
        %>
@@ -8,7 +9,7 @@
             
             <div id="similar-bike-swiper" class="swiper-container padding-top5 padding-bottom5">
                 <div class="swiper-wrapper">
-                    <% foreach (var bike in similarBikeList)
+                    <% foreach (BikeDetailsMin bike in similarBikeList)
                        { %>
                         <div class="swiper-slide swiper-shadow">
                         <div class="model-swiper-image-preview">
