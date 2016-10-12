@@ -110,7 +110,7 @@ namespace Bikewale.Mobile.New
             Trace.Warn("Trace 4 : ParseQueryString End");
             try
             {
-                if (!string.IsNullOrEmpty(modelId.ToString()))
+                if (modelId > 0)
                 {
                     Trace.Warn("Trace 5 : CheckCityCookie Start");
                     CheckCityCookie();
@@ -165,16 +165,14 @@ namespace Bikewale.Mobile.New
                         }
 
                     }
-
+                    SetFlagsAtEnd();
+                    TotalUsedBikes();
+                    CreateMetas();
                 }
-
-                SetFlagsAtEnd();
-                TotalUsedBikes();
-                CreateMetas();
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"]);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("PageLoad({0})", Request.QueryString["model"]));
                 objErr.SendMail();
             }
 

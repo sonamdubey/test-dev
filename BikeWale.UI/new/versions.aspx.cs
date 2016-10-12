@@ -247,15 +247,13 @@ namespace Bikewale.New
                     Trace.Warn("Trace 22 : Clear trailing Query");
                     Trace.Warn("Trace 23 : Page Load ends");
                     BindControls();
+                    TotalUsedBikes();
+                    CreateMetas();
                 }
-
-                TotalUsedBikes();
-                CreateMetas();
-
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.RawUrl + " : Page_load");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("Page_load({0})", Request.QueryString["model"]));
                 objErr.SendMail();
             }
         }
