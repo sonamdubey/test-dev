@@ -1,15 +1,19 @@
 ﻿using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
+using Bikewale.Cache.DealersLocator;
 using Bikewale.Cache.Location;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
+using Bikewale.DAL.Dealer;
 using Bikewale.DAL.Location;
 using Bikewale.DAL.PriceQuote;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Mobile.Controls;
@@ -38,7 +42,9 @@ namespace Bikewale.Mobile.New
         private bool redirectToPageNotFound = false, redirectPermanent = false;
         protected bool isAreaAvailable, isDiscontinued;
         protected String clientIP = CommonOpn.GetClientIP();
-
+        protected UsedBikes ctrlRecentUsedBikes;
+        protected DealersEntity _dealers = null;
+        protected int dealerCount = 0;
 
         protected override void OnInit(EventArgs e)
         {
@@ -81,6 +87,24 @@ namespace Bikewale.Mobile.New
                 ctrlLeadCapture.AreaId = 0;
 
                 BindAlternativeBikeControl();
+
+                ctrlRecentUsedBikes.MakeId = makeId;
+                ctrlRecentUsedBikes.ModelId = modelId;
+                ctrlRecentUsedBikes.CityId = (int?)cityId;
+                ctrlRecentUsedBikes.TopCount = 6;
+                ctrlRecentUsedBikes.header = "Recently uploaded Used " + modelName + " bikes " + (cityId > 0 ? String.Format("in {0}", cityName) : string.Empty);
+
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IDealerCacheRepository, DealerCacheRepository>()
+                             .RegisterType<ICacheManager, MemcacheManager>()
+                             .RegisterType<IDealer, DealersRepository>()
+                            ;
+                    var objCache = container.Resolve<IDealerCacheRepository>();
+                    _dealers = objCache.GetDealerByMakeCity(cityId, makeId);
+
+                    dealerCount = _dealers.TotalCount;
+                }
 
             }
         }

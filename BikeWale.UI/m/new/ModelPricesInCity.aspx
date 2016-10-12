@@ -4,6 +4,7 @@
 <%@ Register Src="~/m/controls/DealersCard.ascx" TagName="Dealers" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/NewAlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
 
 <%@ Import Namespace="Bikewale.Common" %>
 
@@ -30,6 +31,7 @@
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/new/bwm-modelprice-in-city.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 </head>
+
 <body class="bg-light-grey">
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
@@ -44,14 +46,21 @@
                     price in <%=cityName %></h1>
             </div>
             <p class="font14 text-light-grey padding-right20 padding-left20 margin-bottom10">
-                <%=bikeName %> <% if(!isDiscontinued) { %> on-road <% } else { %> ex-showroom <% } %> price in <%=cityName %>&nbsp;<span class="bwmsprite inr-grey-xxsm-icon"></span>
-                <% if (firstVersion != null && !isDiscontinued)
-                   { %><%=CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()) %> <% }
-                   else if (firstVersion != null)
-                   { %> <%=CommonOpn.FormatPrice(firstVersion.ExShowroomPrice.ToString())   %> <%} %> onwards. 
-                       <% if (versionCount > 1)
-                          { %> This bike comes in <%=versionCount %> versions.<br />
-                Click on any version name to know <% if(!isDiscontinued) { %> on-road <% } %> price in <%= cityName %>:
+                <% if(!isDiscontinued) { %>
+                The on-road price of <%= makeName %> <%= modelName %> in <%= cityName %> is Rs. 
+                <% if(firstVersion != null) { %>
+                <%=CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()) %> onwards.
+                <% } %>
+                It is available in  <%=versionCount %> versions and 'y' colours. <%= modelName %> is sold by <%= dealerCount %> dealerships in <%= cityName %>. 
+                All the colour and versions of <%= modelName %> might not be available at all the dealerships in <%= cityName %>. 
+                Click on a <%= modelName %> version name to know on-road price in <%= cityName %>.
+                <% } else
+                   { %>
+                The last known ex-showroom price of <%= makeName %> <%= modelName %>  in <%= cityName %> was Rs. 
+                <% if(firstVersion != null) { %>
+                <%=CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()) %> onwards. 
+                <% } %>
+                This bike has now been discontinued. It was available in <%=versionCount %> versions and 'y' colours. Click on a <%= modelName %> version name to know the last known ex-showroom price in <%= cityName %>.
                 <% } %>
             </p>
 
@@ -128,10 +137,21 @@
             </div>
         </section>
 
+
         <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
             <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
         </section>
 
+        <% if (ctrlRecentUsedBikes.fetchedCount > 0)
+           {%>  <BW:MostRecentUsedBikes runat="server" ID="ctrlRecentUsedBikes" /><%} %>
+
+        <span class="font14 text-light-grey padding-right20 padding-left20 margin-bottom10"><strong>Disclaimer</strong>:</span>
+    <p class="font14 text-light-grey padding-right20 padding-left20 margin-bottom10"> 
+        BikeWale takes utmost care in gathering precise and accurate information about <%=makeName %> <%=modelName %> 
+        price in <%= cityName %>
+        However, this information is only indicative and may not reflect the final price you may pay. For more information please read <a href="/termsconditions.aspx" target="_blank">terms and conditions</a>,<a href="/visitoragreement.aspx" target="_blank"> visitor agreement </a> and  <a href="/privacypolicy.aspx" target="_blank">privacy policy</a>.
+    </p>
+        
 
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
 
@@ -202,5 +222,6 @@
             });
         </script>
     </form>
+
 </body>
 </html>
