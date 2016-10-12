@@ -583,7 +583,7 @@
                 var context = this;
                 var image = this.images[index];
                 var img_container = $(document.createElement('div')).addClass('ad-image');
-                var img = $(new Image()).attr('src', image.image).attr('alt', image.alt).attr('class', 'lazy').attr('itemprop', 'contentURL'); //added attr class for late loading
+                var img = $(new Image()).attr('src', image.image).attr('title',image.title).attr('alt', image.alt).attr('class', 'lazy').attr('itemprop', 'contentURL'); //added attr class for late loading
                 if (image.link) {
                     var link = $('<a href="' + image.link + '" target="_blank"></a>');
                     link.append(img);
