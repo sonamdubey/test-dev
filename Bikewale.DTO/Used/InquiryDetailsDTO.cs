@@ -7,17 +7,21 @@ namespace Bikewale.DTO.Used
     /// </summary>
     public class InquiryDetailsDTO
     {
-        [JsonProperty("statusId")]
+        [JsonIgnore]
         public uint StatusId { get; set; }
-        [JsonProperty("cityMaskingName")]
+        [JsonIgnore]
         public string CityMaskingName { get; set; }
-        [JsonProperty("makeMaskingName")]
+        [JsonIgnore]
         public string MakeMaskingName { get; set; }
-        [JsonProperty("modelMaskingName")]
+        [JsonIgnore]
         public string ModelMaskingName { get; set; }
-        [JsonProperty("profileId")]
+        [JsonIgnore]
         public string ProfileId { get; set; }
         [JsonProperty("url")]
         public string Url { get { return string.Format("/used/bikes-in-{0}/{1}-{2}-{3}/", CityMaskingName, MakeMaskingName, ModelMaskingName, ProfileId); } }
+        [JsonProperty("isRedirect")]
+        public bool IsRedirect { get; set; }
+        [JsonProperty("message")]
+        public string Message { get; set; }
     }
 }

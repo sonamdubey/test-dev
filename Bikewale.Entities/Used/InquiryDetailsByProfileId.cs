@@ -14,6 +14,8 @@ namespace Bikewale.Entities.Used
         public string CityMaskingName { get; set; }
         public string MakeMaskingName { get; set; }
         public string ModelMaskingName { get; set; }
+        public bool IsRedirect { get; set; }
+        public string Message { get; set; }
     }
 }
 

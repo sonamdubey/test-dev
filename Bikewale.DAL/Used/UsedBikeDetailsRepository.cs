@@ -323,16 +323,16 @@ namespace Bikewale.DAL.Used
         /// </summary>
         /// <param name="profileId"></param>
         /// <returns>city, make and model name</returns>
-        public InquiryDetails GetInquiryDetailsByProfileId(string profileId)
+        public InquiryDetails GetInquiryDetailsByProfileId(string profileId, string customerId)
         {
             InquiryDetails objInquiryDetails = null;
-
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getinquirydetailsbyprofileid_12102016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_profileid", DbType.String, 50, profileId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerId", DbType.String, 50, customerId));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr.Read())
@@ -342,13 +342,14 @@ namespace Bikewale.DAL.Used
                             objInquiryDetails.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
                             objInquiryDetails.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
                             objInquiryDetails.ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]);
+                            objInquiryDetails.IsRedirect = SqlReaderConvertor.ToBoolean(dr["IsRedirect"]);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in DAL function GetInquiryDetailsByProfileId for profileId : {0}", profileId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in DAL function GetInquiryDetailsByProfileId for profileId : {0}, customerId : {1}", profileId, customerId));
                 objErr.SendMail();
             }
             return objInquiryDetails;

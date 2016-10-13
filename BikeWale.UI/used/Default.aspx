@@ -198,43 +198,7 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#ddlCity option[value='-1']").attr("disabled", "disabled");
-        // Function added by Ashish G. Kamble on 13/3/2012
-        // Function to show or hide the car and budget drop-down box
-
-        //$("#ddlCity").change(function () {
-        //    var ddlMakeModel = $("#ddlMake");   //var ddlMakeModel = $("#ddlMakeModel");
-        //    var ddlPriceRange = $("#ddlPriceRange");
-
-        //    if ($(this).find("option:selected").text() != "-- Your City --") {
-        //        ddlMakeModel.removeAttr('disabled');
-        //        ddlPriceRange.removeAttr('disabled');
-        //    }
-        //    else {
-        //        ddlMakeModel.attr('disabled', 'disabled');
-        //        ddlMakeModel.find('option:selected').removeAttr('selected');
-        //        ddlMakeModel.find('option[value="0.0"]').attr('selected', 'selected');
-
-        //        ddlPriceRange.attr('disabled', 'disabled');
-        //        ddlPriceRange.find('option:selected').removeAttr('selected');
-        //        ddlPriceRange.find('option[value="-1"]').attr('selected', 'selected');
-        //    }
-        //});
-
-
-        //$("#ddlCity").find("option[value=-1], option[value=0]").attr('disabled', 'disabled'); // disable particular options in the select menu
-
-        //if ($("#ddlCity").val() > 0) {
-        //    $("#ddlPriceRange").attr("disabled", false);
-        //    $("#ddlMake").attr("disabled", false);  // $("#ddlMakeModel").attr("disabled", false);
-        //}
-
-        //$('#txtProfileId').keypress(function (e) {
-        //    if (e.which == 13) {
-        //        e.preventDefault();
-        //        $('#btnSearchProfileId').click();
-        //    }
-        //});
+        $("#ddlCity option[value='-1']").attr("disabled", "disabled");        
     });
 
 
@@ -247,6 +211,7 @@
         $("#spn_txtProfile").text("Processing Please wait..");
         var profileId = $.trim($("#txtProfileId").val());
         profileId = profileId.replace(" ", "");
+        var customerId = <%=customerId%>;
 
         if (profileId != "" && profileId != "ProfileId") {
             var profileType = profileId.substring(0, 1);
@@ -256,39 +221,22 @@
 
             if (re.test(profileIdVal) && profileEx.test(profileType)) {
                 $.ajax({
-                    type: "POST",
-                    url: "/ajaxpro/Bikewale.Ajax.AjaxClassifiedSearch,Bikewale.ashx",
-                    data: '{"profileId":"' + profileId + '"}',
-                    beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetInquiryDetailsByProfileId"); },
-                    success: function (response) {
-                        var objResponse = eval('(' + response + ')');
-
-                        if (objResponse.value != "") {
-                            var resObj = eval('(' + objResponse.value + ')');
-
-                            switch (resObj.Table[0].StatusId) {
-                                case '1':
-                                    var profilePageUrl = "/used-bikes-in-" + resObj.Table[0].CityMaskingName + '/' + resObj.Table[0].MakeMaskingName + '-' + resObj.Table[0].ModelMaskingName + '-' + profileId + "/";
-                                    $("#spn_txtProfile").text("");
-                                    location.href = profilePageUrl;
-                                    break;
-                                case '2':
-                                    $("#spn_txtProfile").text("Invalid Profile Id !!");
-                                    break;
-                                case '3':
-                                    $("#spn_txtProfile").text("Bike Sold Out !!");
-                                    break;
-                                default:
-                                    $("#spn_txtProfile").text("Invalid Profile Id");
-                                    break;
-                            }
-                        }
-                        else {
-                            $("#spn_txtProfile").text("Invalid Profile Id");
+                    type: "GET",
+                    url: "/api/used/inquiry/url/" + profileId + "/" + customerId,
+                    headers: { "platformId": 1 },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.isRedirect == false)                           
+                            $("#spn_txtProfile").text(data.message);
+                        else
+                            location.href = data.url;
+                    },
+                    complete: function (xhr) {
+                        if (xhr.status == 400 || xhr.status == 500) {
+                            $("#spn_txtProfile").text('Please enter correct profile id');
                         }
                     }
                 });
-                //location.href = "/used/bikedetails.aspx?bike=" + profileId;
             } else {
                 $("#spn_txtProfile").text("Invalid Profile Id");
                 $("#txtProfileId").focus();

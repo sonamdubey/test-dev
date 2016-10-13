@@ -329,23 +329,14 @@ $('#search-profile-id-btn').on('click', function () {
     if (validateProfileId(listingProfileId)) {
         $.ajax({
             type: "GET",
-            url: "/api/used/inquiry/url/" + listingProfileId.val() + "/",
+            url: "/api/used/inquiry/url/" + listingProfileId.val() + "/-1",
+            headers: {"platformId": 2},
             dataType: 'json',
             success: function (data) {
-                switch (data.statusId) {
-                    case 1:
-                        window.location = "/m" + data.url;
-                        break;
-                    case 2:
-                        validate.setError(listingProfileId, 'Please enter correct profile id');
-                        break;
-                    case 3:
-                        validate.setError(listingProfileId, 'Bike sold out');
-                        break;
-                    default:
-                        validate.setError(listingProfileId, 'Please enter correct profile id');
-                        break;
-                }
+                if (data.isRedirect == false)
+                    validate.setError(listingProfileId, data.message);
+                else
+                    window.location = "/m" + data.url;                                
             },
             complete: function (xhr) {
                 if (xhr.status == 400 || xhr.status == 500) {

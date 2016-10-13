@@ -14,7 +14,7 @@ namespace Bikewale.Interfaces.Used
         ClassifiedInquiryDetails GetProfileDetails(uint inquiryId);
         IEnumerable<BikeDetailsMin> GetSimilarBikes(uint inquiryId, uint cityId, uint modelId, ushort topCount);
         IEnumerable<OtherUsedBikeDetails> GetOtherBikesByCityId(uint inquiryId, uint cityId, ushort topCount);
-        InquiryDetails GetInquiryDetailsByProfileId(string profileId);
+        InquiryDetails GetInquiryDetailsByProfileId(string profileId, string customerId);
         IEnumerable<OtherUsedBikeDetails> GetRecentUsedBikesInIndia(ushort topCount);
     }
 }
