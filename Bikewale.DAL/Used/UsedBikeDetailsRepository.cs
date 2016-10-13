@@ -315,9 +315,11 @@ namespace Bikewale.DAL.Used
             }
             return recentBikes;
         }
-	/// <summary>
+        /// <summary>
         /// Written By : Sajal Gupta on 06-10-2016
         /// Summary : Getting used bike details  by profileId
+        /// Modified by : Sajal Gupta on 13-10-2016
+        /// Summary : Changed status id for approval pending.
         /// </summary>
         /// <param name="profileId"></param>
         /// <returns>city, make and model name</returns>
@@ -327,7 +329,7 @@ namespace Bikewale.DAL.Used
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getinquirydetailsbyprofileid"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getinquirydetailsbyprofileid_12102016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_profileid", DbType.String, 50, profileId));
