@@ -2,11 +2,11 @@
 <!-- request for image popup start -->
 <div id="request-media-popup" class="bw-popup bwm-fullscreen-popup size-small">
     <div class="popup-inner-container text-center size-small">
-        <div class="bwmsprite close-btn request-media-close position-abt pos-top20 pos-right20"></div>
+        <div class="bwsprite bwmsprite close-btn request-media-close cross-lg-lgt-grey position-abt pos-top20 pos-right20 cur-pointer"></div>
         <div id="requester-details-section">
-            <div class="icon-outer-container rounded-corner50percent margin-bottom10">
-                <div class="icon-inner-container rounded-corner50percent">
-                    <span class="bwmsprite request-media-icon margin-top15"></span>
+            <div class="icon-outer-container rounded-corner50percent rounded-corner50 margin-bottom10">
+                <div class="icon-inner-container rounded-corner50percent rounded-corner50">
+                    <span class="bwsprite bwmsprite request-media-icon margin-top15"></span>
                 </div>
             </div>
             <p class="font18 text-bold margin-bottom10">Request photos</p>
@@ -35,9 +35,9 @@
         </div>
 
         <div id="request-sent-section">
-            <div class="icon-outer-container rounded-corner50percent margin-bottom10">
-                <div class="icon-inner-container rounded-corner50percent">
-                    <span class="bwmsprite thankyou-icon margin-top15"></span>
+            <div class="icon-outer-container rounded-corner50percent rounded-corner50 margin-bottom10">
+                <div class="icon-inner-container rounded-corner50percent rounded-corner50">
+                    <span class="bwsprite bwmsprite thankyou-icon margin-top15"></span>
                 </div>
             </div>
             <p class="font18 text-bold margin-bottom10">Request sent!</p>
