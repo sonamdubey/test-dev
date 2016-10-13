@@ -16,6 +16,7 @@
         target: '+=1'
     });
 
+
     $(window).scroll(function () {
         var windowScrollTop = $(window).scrollTop(),
             makeOverallTabsOffsetTop = makeOverallTabs.offset().top,
@@ -137,10 +138,14 @@
     });
 })(jQuery);
 
-
+var photosCount = $("#bike-main-carousel ul li").length;
 $('#bike-main-carousel').on('click', 'li', function () {
-    var imgIndex = $(this).index();
-    gallery.open(imgIndex);
+    if (photosCount > 1)
+    {
+        var imgIndex = $(this).index();
+        gallery.open(imgIndex);
+    }
+       
 });
 
 $('.model-media-details').on('click', function () {
@@ -221,3 +226,22 @@ var setImageDetails = function (imgIndex) {
         $(".bike-gallery-count").text(imgIndex.toString() + "/" + imgTotalCount.toString());
     }
 }
+
+$('#request-media-btn').on('click', function () {
+    $('html').removeClass('lock-browser-scroll');
+    $('.blackOut-window').show();
+});
+
+$('#submit-request-sent-btn, .request-media-close').on('click', function () {
+    $('.blackOut-window').hide();
+});
+
+$('.blackOut-window').on('click', function () {
+    if ($('#request-media-popup').is(':visible')) {
+        requestMediaPopup.close();
+    }
+});
+
+var appendHash = function (state) {
+    window.location.hash = state;
+};

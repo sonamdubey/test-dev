@@ -24,6 +24,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
         public string Description { get; set; }
         public string Keywords { get; set; }
         public string CanonicalUrl { get; set; }
+        public string AlternateUrl { get; set; }
         public BikePhoto FirstImage { get; set; }
         public string ModelYear { get; set; }
         public ClassifiedInquiryDetails InquiryDetails { get; set; }
@@ -76,6 +77,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
                         MoreBikeSpecsUrl = string.Format("/{0}-bikes/{1}/specifications-features/?vid={2}#specs", InquiryDetails.Make.MaskingName, InquiryDetails.Model.MaskingName, InquiryDetails.Version.VersionId);
                         MoreBikeFeaturesUrl = string.Format("/{0}-bikes/{1}/specifications-features/?vid={2}#features", InquiryDetails.Make.MaskingName, InquiryDetails.Model.MaskingName, InquiryDetails.Version.VersionId);
                         CanonicalUrl = string.Format("http://www.bikewale.com/used/bikes-in-{0}/{1}-{2}-S{3}/", InquiryDetails.City.CityMaskingName, InquiryDetails.Make.MaskingName, InquiryDetails.Model.MaskingName, InquiryId);
+                        AlternateUrl = string.Format("http://www.bikewale.com/m/used/bikes-in-{0}/{1}-{2}-S{3}/", InquiryDetails.City.CityMaskingName, InquiryDetails.Make.MaskingName, InquiryDetails.Model.MaskingName, InquiryId);
                         FirstImage = (InquiryDetails.PhotosCount > 0) ? InquiryDetails.Photo.FirstOrDefault() : null;
 
                     }

@@ -19,6 +19,14 @@ namespace Bikewale.Entities.Used
         public ushort FuelEfficiencyOverall { get; set; }
         public ushort NoOfGears { get; set; }
         public string BrakeType { get; set; }
+
+        public bool FrontDisc { get; set; }
+        public bool RearDisc { get; set; }
+        public bool AlloyWheels { get; set; }
+        public float TopSpeed { get; set; }
+        public float FuelTankCapacity { get; set; }
+        public UInt16 KerbWeight { get; set; }
+
         #endregion
 
         #region Features

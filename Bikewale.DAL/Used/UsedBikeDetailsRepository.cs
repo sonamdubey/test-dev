@@ -30,7 +30,7 @@ namespace Bikewale.DAL.Used
             ClassifiedInquiryDetails _objInquiryDetails = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("classified_getprofiledetails"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("classified_getprofiledetails_12102016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -98,6 +98,14 @@ namespace Bikewale.DAL.Used
                                 _objInquiryDetails.SpecsFeatures.MaximumTorqueRPM = SqlReaderConvertor.ToFloat(dr["MaximumTorqueRPM"]);
                                 _objInquiryDetails.SpecsFeatures.FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["FuelEfficiencyOverall"]);
                                 _objInquiryDetails.SpecsFeatures.BrakeType = Convert.ToString(dr["BrakeType"]);
+
+                                _objInquiryDetails.SpecsFeatures.FuelTankCapacity = SqlReaderConvertor.ToFloat(dr["FuelTankCapacity"]);
+                                _objInquiryDetails.SpecsFeatures.AlloyWheels = SqlReaderConvertor.ToBoolean(dr["AlloyWheels"]);
+                                _objInquiryDetails.SpecsFeatures.TopSpeed = SqlReaderConvertor.ToFloat(dr["TopSpeed"]);
+                                _objInquiryDetails.SpecsFeatures.FrontDisc = SqlReaderConvertor.ToBoolean(dr["FrontDisc"]);
+                                _objInquiryDetails.SpecsFeatures.RearDisc = SqlReaderConvertor.ToBoolean(dr["RearDisc"]);
+                                _objInquiryDetails.SpecsFeatures.KerbWeight = SqlReaderConvertor.ToUInt16(dr["KerbWeight"]);
+
                                 #endregion
 
                                 #region Features
