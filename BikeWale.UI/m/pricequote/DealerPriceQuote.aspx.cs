@@ -450,10 +450,13 @@ namespace Bikewale.Mobile.BikeBooking
                                      .RegisterType<ICityCacheRepository, CityCacheRepository>();
                         ICityCacheRepository objcity = container.Resolve<ICityCacheRepository>();
                         IEnumerable<CityEntityBase> cityList = objcity.GetPriceQuoteCities(modelId);
-                        CityEntityBase selectedCity = cityList.FirstOrDefault(m => m.CityId == cityId);
-                        if (selectedCity != null)
+                        if (cityList != null)
                         {
-                            currentCity = selectedCity.CityName;
+                            CityEntityBase selectedCity = cityList.FirstOrDefault(m => m.CityId == cityId);
+                            if (selectedCity != null)
+                            {
+                                currentCity = selectedCity.CityName;
+                            }
                         }
                     }
                 }
@@ -486,11 +489,14 @@ namespace Bikewale.Mobile.BikeBooking
 
                         IEnumerable<Bikewale.Entities.Location.AreaEntityBase> areaList = objArea.GetAreaList(modelId, cityId);
 
-                        Bikewale.Entities.Location.AreaEntityBase area = areaList.FirstOrDefault(m => m.AreaId == areaId);
-
-                        if (area != null)
+                        if (areaList != null)
                         {
-                            currentArea = area.AreaName;
+                            Bikewale.Entities.Location.AreaEntityBase area = areaList.FirstOrDefault(m => m.AreaId == areaId);
+
+                            if (area != null)
+                            {
+                                currentArea = area.AreaName;
+                            }
                         }
                     }
                 }
