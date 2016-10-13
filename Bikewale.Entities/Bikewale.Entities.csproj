@@ -276,6 +276,7 @@
     <Compile Include="Used\PurchaseInquiryResultEntity.cs" />
     <Compile Include="Used\PurchaseInquiryStatusCode.cs" />
     <Compile Include="Used\PurchaseInquiryStatusEntity.cs" />
+    <Compile Include="Used\SellBikes.cs" />
     <Compile Include="Used\UsedBikeCities.cs" />
     <Compile Include="Used\UsedBikeSellerBase.cs" />
     <Compile Include="Used\SearchResult.cs" />
