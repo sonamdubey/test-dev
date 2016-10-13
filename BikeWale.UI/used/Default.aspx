@@ -226,10 +226,13 @@
                     headers: { "platformId": 1 },
                     dataType: 'json',
                     success: function (data) {
-                        if (data.isRedirect == false)                           
-                            $("#spn_txtProfile").text(data.message);
-                        else
-                            location.href = data.url;
+                        if(data != null)
+                        {
+                            if (data.isRedirect == false)                           
+                                $("#spn_txtProfile").text(data.message);
+                            else
+                                location.href = data.url;
+                        }
                     },
                     complete: function (xhr) {
                         if (xhr.status == 400 || xhr.status == 500) {

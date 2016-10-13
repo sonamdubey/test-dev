@@ -86,27 +86,27 @@ namespace Bikewale.BAL.UsedBikes
             InquiryDetails objInquiryDetailsByProfileId = null;
             try
             {
-                if (!UsedBikeProfileId.IsValidProfileId(profileId))
-                    return null;
-
-                objInquiryDetailsByProfileId = _usedBikeDetailsCacheRepository.GetInquiryDetailsByProfileId(profileId, customerId);
-
-                if (objInquiryDetailsByProfileId != null)
+                if (UsedBikeProfileId.IsValidProfileId(profileId))
                 {
-                    objInquiryDetailsByProfileId.ProfileId = profileId;
-                    if (Convert.ToInt32(platformId) == 1)  //desktop
+                    objInquiryDetailsByProfileId = _usedBikeDetailsCacheRepository.GetInquiryDetailsByProfileId(profileId, customerId);
+
+                    if (objInquiryDetailsByProfileId != null)
                     {
-                        if (objInquiryDetailsByProfileId.StatusId == 2 || objInquiryDetailsByProfileId.StatusId == 4 || (objInquiryDetailsByProfileId.StatusId == 5 && objInquiryDetailsByProfileId.IsRedirect == false))
-                            objInquiryDetailsByProfileId.Message = "Please enter correct profile id";
-                        if (objInquiryDetailsByProfileId.StatusId == 3)
-                            objInquiryDetailsByProfileId.Message = "Bike sold out";
-                    }
-                    else if (Convert.ToInt32(platformId) == 2) //mobile
-                    {
-                        if (objInquiryDetailsByProfileId.StatusId == 2 || objInquiryDetailsByProfileId.StatusId == 4 || objInquiryDetailsByProfileId.StatusId == 5)
-                            objInquiryDetailsByProfileId.Message = "Please enter correct profile id";
-                        if (objInquiryDetailsByProfileId.StatusId == 3)
-                            objInquiryDetailsByProfileId.Message = "Bike sold out";
+                        objInquiryDetailsByProfileId.ProfileId = profileId;
+                        if (Convert.ToInt32(platformId) == 1)  //desktop
+                        {
+                            if (objInquiryDetailsByProfileId.StatusId == 2 || objInquiryDetailsByProfileId.StatusId == 4 || (objInquiryDetailsByProfileId.StatusId == 5 && objInquiryDetailsByProfileId.IsRedirect == false))
+                                objInquiryDetailsByProfileId.Message = "Please enter correct profile id";
+                            if (objInquiryDetailsByProfileId.StatusId == 3)
+                                objInquiryDetailsByProfileId.Message = "Bike sold out";
+                        }
+                        else if (Convert.ToInt32(platformId) == 2) //mobile
+                        {
+                            if (objInquiryDetailsByProfileId.StatusId == 2 || objInquiryDetailsByProfileId.StatusId == 4 || objInquiryDetailsByProfileId.StatusId == 5)
+                                objInquiryDetailsByProfileId.Message = "Please enter correct profile id";
+                            if (objInquiryDetailsByProfileId.StatusId == 3)
+                                objInquiryDetailsByProfileId.Message = "Bike sold out";
+                        }
                     }
                 }
             }

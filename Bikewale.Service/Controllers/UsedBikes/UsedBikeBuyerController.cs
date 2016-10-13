@@ -159,18 +159,19 @@ namespace Bikewale.Service.Controllers.UsedBikes
         /// Description : Getting used bike details by profileId
         /// </summary>
         /// <param name="profileId"></param>
+        /// <param name="customerId"></param>
         /// <returns></returns>
         [HttpGet, Route("api/used/inquiry/url/{profileId}/{customerId}"), ResponseType(typeof(InquiryDetailsDTO))]
         public IHttpActionResult GetInquiryDetailsByProfileId(string profileId, string customerId)
         {
             InquiryDetails objInquiryDetailsByProfileId = null;
             InquiryDetailsDTO objInquiryDetailsDTO = null;
-            string platformId = "";
+            string platformId = string.Empty;
             try
             {
-                if (Request.Headers.Contains("platformId"))
+                if (Request.Headers.Contains("platformId") && Request.Headers.GetValues("platformId").FirstOrDefault() != null)
                 {
-                    platformId = Request.Headers.GetValues("platformId").First().ToString();
+                    platformId = Request.Headers.GetValues("platformId").FirstOrDefault().ToString();
 
                     objInquiryDetailsByProfileId = _objUsedBikes.GetInquiryDetailsByProfileId(profileId, customerId, platformId);
 

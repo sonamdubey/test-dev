@@ -333,13 +333,15 @@ $('#search-profile-id-btn').on('click', function () {
             headers: {"platformId": 2},
             dataType: 'json',
             success: function (data) {
-                if (data.isRedirect == false)
-                    validate.setError(listingProfileId, data.message);
-                else
-                    window.location = "/m" + data.url;                                
+                if (data != null) {
+                    if (!data.isRedirect)
+                        validate.setError(listingProfileId, data.message);
+                    else
+                        window.location = "/m" + data.url;
+                }
             },
             complete: function (xhr) {
-                if (xhr.status == 400 || xhr.status == 500) {
+                if (xhr.status != 200) {
                     validate.setError(listingProfileId, 'Please enter correct profile id');
                 }
             }
