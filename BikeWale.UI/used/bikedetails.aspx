@@ -79,6 +79,7 @@
                     <div class="content-box-shadow content-inner-block-20">
                         <h1 class="margin-bottom20"><%=modelYear %>, <%= bikeName %></h1>
                         <div id="bike-main-carousel" class="grid-5 alpha">
+                            <!--
                             <div class="jcarousel-wrapper">
                                 <div class="jcarousel">
                                     <ul>
@@ -109,6 +110,17 @@
                                  <% } %>
                                
                             </div>
+                            -->
+
+                            <div id="bike-no-image">
+                                <div class=" no-image-content ">
+                                    <span class="bwsprite no-image-icon"></span>
+                                    <p class="font12 text-bold text-light-grey margin-top5 margin-bottom15">Seller has not uploaded any photos</p>
+                        
+                                    <a href="javascript:void(0)" id="request-media-btn" class="btn btn-inv-teal btn-sm font14 text-bold" rel="nofollow">Request photos</a>
+                                </div>
+                            </div>
+
                         </div>
                     <% if (inquiryDetails.MinDetails != null) { %> 
                         <div id="ad-summary" class="grid-7 padding-left30 omega font14">
@@ -403,13 +415,12 @@
         </section>
         <% } %>
 
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+
         <%if (inquiryDetails.PhotosCount == 0)
           { %>
-
         <BW:UploadPhotoRequestPopup runat="server" ID="widgetUploadPhotoRequest"></BW:UploadPhotoRequestPopup>
         <%} %>
-
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 
         <BW:UBLeadCapturePopup runat="server" ID="ctrlUBLeadCapturePopup"></BW:UBLeadCapturePopup>
         <!-- #include file="/includes/footerBW.aspx" -->

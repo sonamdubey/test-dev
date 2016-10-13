@@ -47,8 +47,8 @@ namespace Bikewale.Used
 
             if (!isPageNotFound)
             {
-                // widgetUploadPhotoRequest.ProfileId = profileId;
-                //widgetUploadPhotoRequest.BikeName = bikeName;
+                widgetUploadPhotoRequest.ProfileId = profileId;
+                widgetUploadPhotoRequest.BikeName = bikeName;
                 // BindUsedBikePhotos();
                 BindUserControls();
 
