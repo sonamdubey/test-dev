@@ -98,7 +98,6 @@ namespace Bikewale.Mobile
                                     price = Convert.ToUInt32(selectedVersion.Price);
                                     versionName = selectedVersion.VersionName;
                                 }
-                                //versionName = modelPg.ModelVersions.Find(item => item.VersionId == versionId).VersionName;
                             }
                             if (!modelPg.ModelDetails.New)
                                 isDiscontinued = true;

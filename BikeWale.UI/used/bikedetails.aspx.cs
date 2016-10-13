@@ -97,7 +97,7 @@ namespace Bikewale.Used
                 ctrlSimilarUsedBikes.CityMaskingName = inquiryDetails.City.CityMaskingName;
                 ctrlSimilarUsedBikes.CityName = inquiryDetails.City.CityName;
                 ctrlSimilarUsedBikes.ModelId = (uint)inquiryDetails.Model.ModelId;
-                ctrlSimilarUsedBikes.TopCount = 4;
+                ctrlSimilarUsedBikes.TopCount = 6;
                 ctrlSimilarUsedBikes.ModelName = inquiryDetails.Model.ModelName;
                 ctrlSimilarUsedBikes.ModelMaskingName = inquiryDetails.Model.MaskingName;
                 ctrlSimilarUsedBikes.MakeName = inquiryDetails.Make.MakeName;
@@ -107,7 +107,7 @@ namespace Bikewale.Used
                 ctrlOtherUsedBikes.InquiryId = inquiryId;
                 ctrlOtherUsedBikes.CityId = inquiryDetails.City.CityId;
                 ctrlOtherUsedBikes.ModelId = (uint)inquiryDetails.Model.ModelId;
-                ctrlOtherUsedBikes.TopCount = 4;
+                ctrlOtherUsedBikes.TopCount = 6;
             }
             catch (Exception ex)
             {

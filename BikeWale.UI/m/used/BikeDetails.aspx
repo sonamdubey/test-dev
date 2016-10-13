@@ -89,11 +89,11 @@
                         <span class="model-details-label"><%= Bikewale.Utility.Format.AddNumberOrdinal(Convert.ToUInt16(inquiryDetails.MinDetails.OwnerType),4) %> owner</span>
                     </div>
                     <% } %>
-                    <% if (!string.IsNullOrEmpty(inquiryDetails.MinDetails.RegisteredAt))
+                    <% if (inquiryDetails.City != null && !string.IsNullOrEmpty(inquiryDetails.City.CityName))
                        { %>
                     <div class="grid-6 alpha omega margin-bottom5">
                         <span class="bwmsprite model-loc-icon"></span>
-                        <span class="model-details-label"><%= inquiryDetails.MinDetails.RegisteredAt %></span>
+                        <span class="model-details-label"><%= inquiryDetails.City.CityName %></span>
                     </div>
                     <%} %>
                     <div class="clear"></div>

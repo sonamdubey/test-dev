@@ -17,8 +17,8 @@
         ogImage = (firstImage != null) ? Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImagePath, firstImage.HostUrl, Bikewale.Utility.ImageSize._360x202) : string.Empty;
         AdId = "1395992162974";
         AdPath = "/1017752/BikeWale_UsedBikes_Details_";
+        isAd300x250Shown = false;
         isAd970x90BTFShown = false;
-        isAd970x90Shown = true;
         alternate = pgAlternateUrl; 
         TargetedModel = (inquiryDetails.Model != null) ? inquiryDetails.Model.ModelName : string.Empty;
         TargetedCity = (inquiryDetails.City != null) ? inquiryDetails.City.CityName : string.Empty;
@@ -134,14 +134,14 @@
                        { %>
                             <div class="grid-4 alpha margin-bottom10">
                                 <span class="bwsprite model-date-icon"></span>
-                                <span class="model-details-label">2011 model</span>
+                                <span class="model-details-label"><%= modelYear %> model</span>
                             </div>
                                 <% } %>
                     <% if (inquiryDetails.MinDetails.KmsDriven > 0)
                        { %>
                             <div class="grid-4 alpha omega margin-bottom10">
                                 <span class="bwsprite kms-driven-icon"></span>
-                                <span class="model-details-label">18,000 kms</span>
+                                <span class="model-details-label"><%= Bikewale.Utility.Format.FormatPrice(inquiryDetails.MinDetails.KmsDriven.ToString()) %> kms</span>
                             </div>
                             <div class="clear"></div>
                              <% } %>
@@ -149,14 +149,14 @@
                        { %>
                             <div class="grid-4 alpha margin-bottom10">
                                 <span class="bwsprite author-grey-sm-icon"></span>
-                                <span class="model-details-label">1st Owner</span>
+                                <span class="model-details-label"><%= Bikewale.Utility.Format.AddNumberOrdinal(Convert.ToUInt16(inquiryDetails.MinDetails.OwnerType),4) %> owner</span>
                             </div>
                             <% } %>
-                    <% if (!string.IsNullOrEmpty(inquiryDetails.MinDetails.RegisteredAt))
+                    <% if (inquiryDetails.City != null && !string.IsNullOrEmpty(inquiryDetails.City.CityName))
                        { %>
                             <div class="grid-4 alpha omega margin-bottom10">
                                 <span class="bwsprite model-loc-icon"></span>
-                                <span class="model-details-label">Kayamkulam</span>
+                                <span class="model-details-label"><%= inquiryDetails.City.CityName %></span>
                             </div>
                             <div class="clear"></div>
                             <% } %>
@@ -231,7 +231,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-
+        <% if (inquiryDetails.SpecsFeatures != null || ctrlOtherUsedBikes.FetchedRecordsCount > 0 || ctrlSimilarUsedBikes.FetchedRecordsCount > 0) { %>
         <section>
             <div class="container">
                 <div id="makeTabsContentWrapper" class="grid-12 margin-bottom20">
@@ -249,12 +249,12 @@
                                     <% } %>
                                     <% if (ctrlOtherUsedBikes.FetchedRecordsCount > 0)
                                        { %>
-                                    <a href="#usedContent" rel="nofollow">Used Bajaj bikes</a>
+                                    <a href="#usedContent" rel="nofollow">Other used bikes</a>
+                                    <% } %>
                                 </div>
-                                <% } %>
                             </div>
                         </div>
-                                        <% if (inquiryDetails.SpecsFeatures != null)
+                <% if (inquiryDetails.SpecsFeatures != null)
                    { %>
                         <div id="specsContent" class="bw-model-tabs-data specs-features-list font14">
                             <h2 class="content-inner-block-20">Specifications summary</h2>
@@ -350,17 +350,17 @@
                             <div class="margin-right10 margin-left10 border-solid-bottom"></div>
                         </div>
                             <% } %>
-                        <BW:SimilarUsedBikes runat="server" ID="ctrlSimilarUsedBikes"></BW:SimilarUsedBikes>
-                        <!-- other used bikes starts -->
-                        <BW:OtherUsedBikes ID="ctrlOtherUsedBikes" runat="server" />
-                        <!-- other used bikes ends -->
 
+                        <BW:SimilarUsedBikes runat="server" ID="ctrlSimilarUsedBikes"></BW:SimilarUsedBikes>
+                        <BW:OtherUsedBikes ID="ctrlOtherUsedBikes" runat="server" />
+                                                  
                         <div id="overallMakeDetailsFooter"></div>
-                    </div>
+                    </div> 
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
+        <% } %>
 
         <% if (inquiryDetails.PhotosCount > 1)
            { %>

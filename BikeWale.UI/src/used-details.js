@@ -18,34 +18,38 @@
 
 
     $(window).scroll(function () {
-        var windowScrollTop = $(window).scrollTop(),
-            makeOverallTabsOffsetTop = makeOverallTabs.offset().top,
-            makeDetailsFooterOffsetTop = overallMakeDetailsFooter.offset().top,
-            makeTabsContentWrapperOffsetTop = makeTabsContentWrapper.offset().top;
+        try {
+            var windowScrollTop = $(window).scrollTop(),
+                    makeOverallTabsOffsetTop = makeOverallTabs.offset().top,
+                    makeDetailsFooterOffsetTop = overallMakeDetailsFooter.offset().top,
+                    makeTabsContentWrapperOffsetTop = makeTabsContentWrapper.offset().top;
 
-        if (windowScrollTop > makeOverallTabsOffsetTop) {
-            makeOverallTabs.addClass('fixed-tab');
-        }
-
-        else if (windowScrollTop < makeTabsContentWrapperOffsetTop) {
-            makeOverallTabs.removeClass('fixed-tab');
-        }
-
-        if (windowScrollTop > makeDetailsFooterOffsetTop - 44) { //44 height of top nav bar
-            makeOverallTabs.removeClass('fixed-tab');
-        }
-
-        $('#makeTabsContentWrapper .bw-model-tabs-data').each(function () {
-            var top = $(this).offset().top - makeOverallTabs.height(),
-            bottom = top + $(this).outerHeight();
-            if (windowScrollTop >= top && windowScrollTop <= bottom) {
-                makeOverallTabs.find('a').removeClass('active');
-                $('#makeTabsContentWrapper .bw-mode-tabs-data').removeClass('active');
-
-                $(this).addClass('active');
-                makeOverallTabs.find('a[href="#' + $(this).attr('id') + '"]').addClass('active');
+            if (windowScrollTop > makeOverallTabsOffsetTop) {
+                makeOverallTabs.addClass('fixed-tab');
             }
-        });
+
+            else if (windowScrollTop < makeTabsContentWrapperOffsetTop) {
+                makeOverallTabs.removeClass('fixed-tab');
+            }
+
+            if (windowScrollTop > makeDetailsFooterOffsetTop - 44) { //44 height of top nav bar
+                makeOverallTabs.removeClass('fixed-tab');
+            }
+
+            $('#makeTabsContentWrapper .bw-model-tabs-data').each(function () {
+                var top = $(this).offset().top - makeOverallTabs.height(),
+                bottom = top + $(this).outerHeight();
+                if (windowScrollTop >= top && windowScrollTop <= bottom) {
+                    makeOverallTabs.find('a').removeClass('active');
+                    $('#makeTabsContentWrapper .bw-mode-tabs-data').removeClass('active');
+
+                    $(this).addClass('active');
+                    makeOverallTabs.find('a[href="#' + $(this).attr('id') + '"]').addClass('active');
+                }
+            });
+        } catch (e) {
+
+        }
 
     });
 
