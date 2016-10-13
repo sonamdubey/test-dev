@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.UsedBikes;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.UsedBikes;
 using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -291,6 +292,46 @@ namespace Bikewale.DAL.UsedBikes
             return objUsedBikesList;
         }// end of GetUsedBikesbyMakeCity
 
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 10 oct 2016
+        /// Summary: Fetch make id, name and list of used bike counts for makepage
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<UsedBikeMakeEntity> GetUsedBikeMakesWithCount()
+        {
+            IList<UsedBikeMakeEntity> usedMakeList = null;
 
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikemakeswithcount_06102016"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            usedMakeList = new List<UsedBikeMakeEntity>();
+                            while (dr.Read())
+                            {
+                                usedMakeList.Add(new UsedBikeMakeEntity
+                                {
+                                    MakeId = Convert.ToInt16(dr["makeid"]),
+                                    MakeName = Convert.ToString(dr["makename"]),
+                                    MaskingName = Convert.ToString(dr["makemaskingname"])
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception in UsedRepository.GetUsedBikeMakesWithCount");
+                objErr.SendMail();
+            }
+            return usedMakeList;
+
+        }
     }
 }

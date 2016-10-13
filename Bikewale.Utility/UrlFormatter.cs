@@ -116,6 +116,7 @@ namespace Bikewale.Utility
             return String.Format("/used/bikes-in-{0}/{1}-{2}-{3}/", city, make, model.Replace(" ", "-"), profileId);
         }
 
+
         /// <summary>
         /// Created By Vivek gupta
         /// Date : 22 june 2016
