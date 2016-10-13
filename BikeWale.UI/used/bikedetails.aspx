@@ -121,8 +121,9 @@
                                 <div class=" no-image-content ">
                                     <span class="bwsprite no-image-icon"></span>
                                     <p class="font12 text-bold text-light-grey margin-top5 margin-bottom15">Seller has not uploaded any photos</p>
-                        
+                                     <% if (!isPhotoRequestDone) { %>
                                     <a href="javascript:void(0)" id="request-media-btn" class="btn btn-inv-teal btn-sm font14 text-bold" rel="nofollow">Request photos</a>
+                                    <% } %>
                                 </div>
                             </div>
                            <% } %>
