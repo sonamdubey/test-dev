@@ -8,7 +8,7 @@
 
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
 
-    <link href="/css/sell-bike.css" rel="stylesheet" type="text/css" />
+    <link href="/min/css/sell-bike.css" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
@@ -32,7 +32,7 @@
                             </li>
                             <li itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span>
                               <span>Sell Your Bike</span>
-                            </li>                            
+                            </li>
                         </ul>
                         <div class="clear"></div>
                     </div>
@@ -45,8 +45,8 @@
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow">
-                        <div class="content-box-shadow padding-14-20">
-                            <h1 class="font24 text-x-black">Sell your bike</h1>
+                        <div class="content-box-shadow card-header">
+                            <h1>Sell your bike</h1>
                         </div>
                         <div id="sell-bike-content">
                             <div id="sell-bike-left-col" class="grid-7 panel-group">
@@ -56,11 +56,11 @@
                                         <span class="panel-title">Bike details</span>
                                     </div>
                                     <div class="panel-body">
-                                        <div class="panel-row margin-bottom20 bike-select-box">
+                                        <div class="panel-row margin-bottom10">
                                             <div class="grid-4 alpha select-box">
-                                                <p class="element-label margin-bottom5">Brand<sup>*</sup></p>
-                                                <select class="chosen-select" data-bind="chosen: {}, value: bikeDetails().make, validationElement: bikeDetails().make">
-                                                    <option value>Select Make</option>
+                                                <p class="select-label">Make<sup>*</sup></p>
+                                                <select class="chosen-select" data-placeholder="Select make" data-bind="chosen: {}, value: bikeDetails().make, validationElement: bikeDetails().make">
+                                                    <option value></option>
                                                     <option value="10">Honda</option>
                                                     <option value="11">Bajaj</option>
                                                     <option value="12">Hero</option>
@@ -75,7 +75,84 @@
                                                 <span class="boundary"></span>
                                                 <span class="error-text" data-bind="validationMessage: bikeDetails().make"></span>
                                             </div>
+                                            <div class="grid-4 select-box">
+                                                <p class="select-label">Model<sup>*</sup></p>
+                                                <select class="chosen-select" data-placeholder="Select model" data-bind="chosen: {}, value: bikeDetails().model, validationElement: bikeDetails().model">
+                                                    <option value></option>
+                                                    <option value="50">125 Scooter</option>
+                                                    <option value="51">Activa</option>
+                                                    <option value="52">CB Hornet 160R</option>
+                                                    <option value="53">CB Shine</option>
+                                                    <option value="54">Avenger 220 Cruise</option>
+                                                    <option value="55">Avenger 220 Street</option>
+                                                </select>
+                                                <span class="boundary"></span>
+                                                <span class="error-text" data-bind="validationMessage: bikeDetails().model"></span>
+                                            </div>
+                                            <div class="grid-4 select-box">
+                                                <p class="select-label">Version<sup>*</sup></p>
+                                                <select class="chosen-select" data-placeholder="Select version" data-bind="chosen: {}, value: bikeDetails().version, validationElement: bikeDetails().version">
+                                                    <option value></option>
+                                                    <option value="80">Kick/Drum/Spokes</option>
+                                                    <option value="81">Electric Start/Drum/Alloy</option>
+                                                    <option value="82">CBS</option>
+                                                </select>
+                                                <span class="boundary"></span>
+                                                <span class="error-text" data-bind="validationMessage: bikeDetails().version"></span>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
 
+                                        <div class="panel-row margin-bottom20">
+                                            <div class="input-box form-control-box" data-bind="css: bikeDetails().kmsRidden().length > 0 ? 'not-empty' : ''">
+                                                <input type="number" id="kmsRidden" 
+                                                    data-bind="textInput: bikeDetails().kmsRidden, validationElement: bikeDetails().kmsRidden" />
+                                                <label for="kmsRidden">Kms ridden<sup>*</sup></label>
+                                                <span class="boundary"></span>
+                                                <span class="error-text" data-bind="validationMessage: bikeDetails().kmsRidden"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel-row margin-bottom20">
+                                            <div class="select-box select-box-no-input">
+                                                <p class="select-label">Owner<sup>*</sup></p>
+                                                <select class="owner-chosen-select chosen-select" data-bind="chosen: {}, value: bikeDetails().owner, validationElement: bikeDetails().owner">
+                                                    <option value></option>
+                                                    <option value="1">I bought it new</option>
+                                                    <option value="2">I'm the second owner</option>
+                                                    <option value="3">I'm the third owner</option>
+                                                    <option value="4">I'm the fourth owner</option>
+                                                    <option value="5">Four or more previous owners</option>
+                                                </select>
+                                                <span class="boundary"></span>
+                                                <span class="error-text" data-bind="validationMessage: bikeDetails().owner"></span>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="panel-row margin-top20">
+                                            <input type="button" class="btn btn-orange" value="Save and Continue" data-bind="click: bikeDetails().saveBikeDetails" />
+                                        </div>
+
+                                                <%--<p class="element-label margin-bottom5">Brand<sup>*</sup></p>
+                                                <select class="chosen-select" data-bind="chosen: {}, value: bikeDetails().make, validationElement: bikeDetails().make">
+                                                    <option value>Select Make</option>
+                                                    <option value="10">Honda</option>
+                                                    <option value="11">Bajaj</option>
+                                                    <option value="12">Hero</option>
+                                                    <option value="13">TVS</option>
+                                                    <option value="14">Royal Enfield</option>
+                                                    <option value="15">Harley Davidson</option>
+                                                    <option value="16">KTM</option>
+                                                    <option value="17">Aprilia</option>
+                                                    <option value="18">Benelli</option>
+                                                    <option value="19">Yamaha</option>
+                                                </select>
+                                                <span class="boundary"></span>
+                                                <span class="error-text" data-bind="validationMessage: bikeDetails().make"></span>--%>
+
+
+                                            <%--
                                             <div class="grid-4 select-box">
                                                 <p class="element-label margin-bottom5">Model<sup>*</sup></p>
                                                 <select class="chosen-select" data-bind="chosen: {}, value: bikeDetails().model, validationElement: bikeDetails().model">
@@ -101,11 +178,10 @@
                                                 </select>
                                                 <span class="boundary"></span>
                                                 <span class="error-text" data-bind="validationMessage: bikeDetails().version"></span>
-                                            </div>
+                                            </div>--%>
 
-                                            <div class="clear"></div>
-                                        </div>
-
+                                            
+                                        <!--
                                         <div class="panel-row">
                                             <div class="input-box form-control-box" data-bind="css: bikeDetails().kmsRidden().length > 0 ? 'not-empty' : ''">
                                                 <input type="number" id="kmsRidden" data-bind="textInput: bikeDetails().kmsRidden, validationElement: bikeDetails().kmsRidden" />
@@ -212,6 +288,7 @@
                                         <div class="panel-row margin-top20">
                                             <input type="button" class="btn btn-orange" value="Save and Continue" data-bind="click: bikeDetails().saveBikeDetails" />
                                         </div>
+                                        -->
                                     </div>
                                     <div class="clear"></div>
                                 </div>

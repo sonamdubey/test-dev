@@ -12,10 +12,12 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "del": "^2.2.2",
     "gulp": "^3.9.1",
-    "gulp-clean-css": "^2.0.12",
-    "gulp-uglify": "^2.0.0"
+    "gulp-clean-css": "^2.0.13",
+    "gulp-sass": "^2.3.2",
+    "gulp-uglify": "^2.0.0",
+    "gulp-watch": "^4.3.10"
   }
 }

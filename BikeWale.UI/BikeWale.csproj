@@ -2626,6 +2626,15 @@
     <Content Include="rewriterules.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="sass\sell-bike.sass" />
+    <None Include="sass\components\_card-header.sass" />
+    <Content Include="sass\components\_variables.sass" />
+    <Content Include="sass\sell-bike\_style.sass" />
+    <Content Include="sass\components\_typography.sass" />
+    <Content Include="sass\components\_select-box.sass" />
+    <Content Include="sass\components\_mixins.sass" />
+    <None Include="sass\components\_box-boundary.sass" />
+    <Content Include="sass\components\_input-box.sass" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

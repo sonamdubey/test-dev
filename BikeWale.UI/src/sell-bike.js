@@ -7,7 +7,7 @@ ko.validation.init({
     insertMessages: false
 }, true);
 
-//for jquery chosen 
+//for jquery chosen
 ko.bindingHandlers.chosen = {
     init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
         var $element = $(element);
@@ -31,8 +31,8 @@ ko.bindingHandlers.chosen = {
 var sellBike = function () {
     var self = this;
 
-    self.bikeDetails = ko.observable(new bikeDetails);   
-    
+    self.bikeDetails = ko.observable(new bikeDetails);
+
 };
 
 var bikeDetails = function () {
@@ -158,6 +158,20 @@ var bikeDetails = function () {
 
 };
 
+$(document).ready(function () {
+    var chosenSelectBox = $('.chosen-select');
+
+    chosenSelectBox.each(function () {
+        var text = $(this).attr('data-placeholder');
+
+        $(this).siblings('.chosen-container').find('input[type=text]').attr('placeholder', text);
+    });
+
+    var ownerSearchBox = $('.select-box-no-input').find('.chosen-search');
+    ownerSearchBox.empty().append('<p class="no-input-label">Owner</p>');
+
+});
+
 // color box
 selectColorBox.on('click', '.color-box-default', function () {
     if (!selectColorBox.hasClass('open')) {
@@ -178,7 +192,7 @@ var colorBox = {
     close: function () {
         selectColorBox.removeClass('open');
     },
-    
+
     active: function (element) {
         colorBox.dropdown.find('li.active').removeClass('active');
         element.addClass('active');
@@ -204,13 +218,17 @@ ko.applyBindings(vmSellBike, document.getElementById('sell-bike-content'));
 // close color dropdown
 $(document).mouseup(function (event) {
     event.stopPropagation();
-    
+
     if (selectColorBox.hasClass('open') && $('.color-dropdown').is(':visible')) {
         if (!selectColorBox.is(event.target) && selectColorBox.has(event.target).length === 0) {
             colorBox.close();
         }
     }
 
+});
+
+$('.select-box select').on('change', function () {
+    $(this).closest('.select-box').addClass('done');
 });
 
 // Disable Mouse scrolling

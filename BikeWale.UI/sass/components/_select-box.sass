@@ -1,0 +1,98 @@
+﻿.select-box
+	height: 60px
+	position: relative
+
+	.select-label
+		position: absolute
+		top: 0
+		color: $text-light
+		font-size: $font-size-medium
+
+	.chosen-container
+		height: 30px
+		position: relative
+		top: 0
+		padding: 0
+		border: 0
+		cursor: pointer
+		border-bottom: 1px solid $text-light
+		background: transparent url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat
+		@include border-radius(0)
+
+		.chosen-single
+			@extend .text-truncate
+			color: $text-primary
+			font-size: $font-size-medium
+			font-weight: $font-bold
+			background: transparent
+
+		.chosen-default
+			display: none
+
+		.chosen-search
+			padding: 0
+			border-bottom: 1px solid $input-box-teal
+
+			input[type=text]
+			    border: 0
+			    padding: 12px 10px
+			    font-size: $font-size-medium
+
+		.chosen-results
+			margin: 0
+			padding: 0
+			font-size: $font-size-base
+
+			&::-webkit-scrollbar
+				width: 5px
+
+			&::-webkit-scrollbar-track
+				background: #fff
+
+			&::-webkit-scrollbar-thumb
+				background: #ddd
+
+			&::-webkit-scrollbar-thumb:hover
+				background: #bbb
+
+			li
+				padding: 8px 10px
+				transition: background .1s linear
+
+			.highlighted
+				background-color: $border-x-light
+
+			.result-selected
+				font-weight: $font-bold
+
+		.chosen-drop
+			width: 300px
+			z-index: 1
+			top: -15px
+			border: 1px solid $border-light
+			@include box-shadow(0, 2px, 10px, 1px, #ccc)
+			@include border-radius(2px)
+
+
+.select-box.select-box-no-input
+	.chosen-search
+		border-bottom: 1px solid $border-light
+
+	.chosen-results
+		li
+			padding-right: 20px
+			padding-left: 20px
+	
+	.no-input-label
+		font-size: $font-size-medium
+		color: $text-primary
+		padding: 11px 20px
+		cursor: text
+
+
+
+// selection done
+.done
+	.select-label
+		font-size: $font-size-small
+		top: -20px
