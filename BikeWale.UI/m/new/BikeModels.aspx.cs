@@ -272,7 +272,7 @@ namespace Bikewale.Mobile.New
         {
             if (modelPage.ModelDetails.Futuristic)
             {
-                pgDescription = string.Format("{0} {1} Price in India is expected between Rs. {2} and Rs. {3}. Check out {0} {1}  specifications, reviews, mileage, versions, news & photos at BikeWale.com. Launch date of {1} is around {4}", modelPage.ModelDetails.MakeBase.MakeName, modelPage.ModelDetails.ModelName, modelPage.ModelDetails.MinPrice, modelPage.ModelDetails.MaxPrice, modelPage.UpcomingBike.ExpectedLaunchDate);
+                pgDescription = string.Format("{0} {1} Price in India is expected between Rs. {2} and Rs. {3}. Check out {0} {1}  specifications, reviews, mileage, versions, news & photos at BikeWale.com. Launch date of {1} is around {4}", modelPage.ModelDetails.MakeBase.MakeName, modelPage.ModelDetails.ModelName, modelPage.UpcomingBike.EstimatedPriceMin, modelPage.UpcomingBike.EstimatedPriceMax, modelPage.UpcomingBike.ExpectedLaunchDate);
             }
             else if (!modelPage.ModelDetails.New)
             {
