@@ -16,6 +16,7 @@
         target: '+=1'
     });
 
+
     $(window).scroll(function () {
         var windowScrollTop = $(window).scrollTop(),
             makeOverallTabsOffsetTop = makeOverallTabs.offset().top,
@@ -137,9 +138,9 @@
     });
 })(jQuery);
 
-
+var photosCount = $("#bike-main-carousel ul li").length;
 $('#bike-main-carousel').on('click', 'li', function () {
-    if ($(this).siblings().length > 1)
+    if (photosCount > 1)
     {
         var imgIndex = $(this).index();
         gallery.open(imgIndex);

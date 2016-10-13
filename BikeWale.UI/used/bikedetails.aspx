@@ -84,11 +84,15 @@
                             <div class="jcarousel-wrapper">
                                 <div class="jcarousel">
                                     <ul>
-                                        <% foreach(var photo in inquiryDetails.Photo) { %>
+                                        <% for(int i=0;i<inquiryDetails.PhotosCount;i++) { var photo = inquiryDetails.Photo[i];  %>
                                         <li>
                                             <div class="carousel-img-container">
                                                 <span>
+                                                    <% if(i<4){ %>
                                                     <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(photo.OriginalImagePath,photo.HostUrl,Bikewale.Utility.ImageSize._642x361) %>" title="<%= bikeName %>" alt="<%= bikeName %>" border="0">
+                                                    <% } else { %>
+                                                    <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(photo.OriginalImagePath,photo.HostUrl,Bikewale.Utility.ImageSize._642x361) %>" border="0" alt="<%= bikeName %>" title="<%= bikeName %>" src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
+                                                    <% } %>
                                                 </span>
                                             </div>
                                         </li>
