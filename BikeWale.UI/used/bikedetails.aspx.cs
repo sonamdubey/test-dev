@@ -29,6 +29,7 @@ namespace Bikewale.Used
         protected Bikewale.Mobile.Controls.UploadPhotoRequestPopup widgetUploadPhotoRequest = new Bikewale.Mobile.Controls.UploadPhotoRequestPopup();
         public Bikewale.Controls.SimilarUsedBikes ctrlSimilarUsedBikes;
         public Bikewale.Controls.OtherUsedBikeByCity ctrlOtherUsedBikes;
+        protected string pgAlternateUrl = string.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -150,6 +151,7 @@ namespace Bikewale.Used
                         pgDescription = usedBikeDetails.Description;
                         pgKeywords = usedBikeDetails.Keywords;
                         pgCanonicalUrl = usedBikeDetails.CanonicalUrl;
+                        pgAlternateUrl = usedBikeDetails.AlternateUrl;
                         inquiryDetails = usedBikeDetails.InquiryDetails;
                         firstImage = usedBikeDetails.FirstImage;
                         bikeName = usedBikeDetails.BikeName;

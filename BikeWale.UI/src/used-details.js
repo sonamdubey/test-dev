@@ -139,8 +139,12 @@
 
 
 $('#bike-main-carousel').on('click', 'li', function () {
-    var imgIndex = $(this).index();
-    gallery.open(imgIndex);
+    if ($(this).siblings().length > 1)
+    {
+        var imgIndex = $(this).index();
+        gallery.open(imgIndex);
+    }
+       
 });
 
 $('.model-media-details').on('click', function () {

@@ -7,12 +7,22 @@
 
 <!DOCTYPE html>
 <html>
-<head runat="server">
+<head >
     <%  
-        title = "Used bike details";
         isHeaderFix = false;
+        title = pgTitle;
+        keywords = pgKeywords;
+        description = pgDescription;
+        canonical = pgCanonicalUrl;
+        ogImage = (firstImage != null) ? Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImagePath, firstImage.HostUrl, Bikewale.Utility.ImageSize._360x202) : string.Empty;
+        AdId = "1395992162974";
+        AdPath = "/1017752/BikeWale_UsedBikes_Details_";
+        isAd970x90BTFShown = false;
+        isAd970x90Shown = true;
+        alternate = pgAlternateUrl; 
+        TargetedModel = (inquiryDetails.Model != null) ? inquiryDetails.Model.ModelName : string.Empty;
+        TargetedCity = (inquiryDetails.City != null) ? inquiryDetails.City.CityName : string.Empty;
     %>
-
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link type="text/css" href="/css/used/details.css" rel="stylesheet" />
 
@@ -34,12 +44,27 @@
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
-                                <a href="/" itemprop="url">
+                                <a href="/used/" itemprop="url">
                                     <span itemprop="title">Used Bikes</span>
-                                </a></li>
-                            <li><span class="bwsprite fa-angle-right margin-right10"></span>
-                                <span>Royal Enfield Classic Desert Storm</span>
+                                </a>
                             </li>
+                            <% if (inquiryDetails!=null && inquiryDetails.City!=null ) { %>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                                <span class="bwsprite fa-angle-right margin-right10"></span>
+                                <a href="/used/bikes-in-<%= inquiryDetails.City.CityMaskingName %>/" itemprop="url">
+                                    <span itemprop="title"><%= inquiryDetails.City.CityName %></span>
+                                </a>
+                            </li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                                <span class="bwsprite fa-angle-right margin-right10"></span>
+                                <a href="<%= string.Format("/used/{0}-{1}-bikes-in-{2}/", inquiryDetails.Make.MaskingName, inquiryDetails.Model.MaskingName, inquiryDetails.City.CityMaskingName) %>" itemprop="url">
+                                    <span itemprop="title"><%= inquiryDetails.Model.ModelName %></span>
+                                </a>
+                            </li>   
+                            <% } %>
+                            <li><span class="bwsprite fa-angle-right margin-right10"></span>
+                                <span><%= string.Format("{0} {1} in {2}",modelYear,bikeName,(inquiryDetails!=null && inquiryDetails.City!=null ) ? inquiryDetails.City.CityName:string.Empty) %></span>
+                            </li>                           
                         </ul>
                         <div class="clear"></div>
                     </div>
@@ -52,137 +77,138 @@
             <div class="container">
                 <div class="grid-12 margin-bottom20">
                     <div class="content-box-shadow content-inner-block-20">
-                        <h1 class="margin-bottom20">2013, Royal Enfield Classic Desert Storm</h1>
+                        <h1 class="margin-bottom20"><%=modelYear %>, <%= bikeName %></h1>
                         <div id="bike-main-carousel" class="grid-5 alpha">
                             <div class="jcarousel-wrapper">
                                 <div class="jcarousel">
                                     <ul>
+                                        <% foreach(var photo in inquiryDetails.Photo) { %>
                                         <li>
                                             <div class="carousel-img-container">
                                                 <span>
-                                                    <img src="http://imgd4.aeplcdn.com/476x268//staging/bw/used/S42661/42661_20160721050709814.jpg" title="Bajaj Pulsar RS200 Tail lamp" alt="Bajaj Pulsar RS200 Tail lamp" border="0">
+                                                    <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(photo.OriginalImagePath,photo.HostUrl,Bikewale.Utility.ImageSize._642x361) %>" title="<%= bikeName %>" alt="<%= bikeName %>" border="0">
                                                 </span>
                                             </div>
                                         </li>
-                                        <li>
-                                            <div class="carousel-img-container">
-                                                <span>
-                                                    <img src="http://imgd4.aeplcdn.com/476x268//staging/bw/used/S42670/42670_20160722042837543.jpg" title="Bajaj Pulsar RS200 Tail lamp" alt="Bajaj Pulsar RS200 Tail lamp" border="0">
-                                                </span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="carousel-img-container">
-                                                <span>
-                                                    <img src="http://imgd2.aeplcdn.com//476x268//bw/used/S42602/42602_20160613114137617.jpg" title="Bajaj Pulsar RS200 Tail lamp" alt="Bajaj Pulsar RS200 Tail lamp" border="0">
-                                                </span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="carousel-img-container">
-                                                <span>
-                                                    <img src="http://imgd2.aeplcdn.com//476x268//bw/used/S42598/42598_20160613081003622.jpg" title="Bajaj Pulsar RS200 Tail lamp" alt="Bajaj Pulsar RS200 Tail lamp" border="0">
-                                                </span>
-                                            </div>
-                                        </li>
+                                        <% } %>                                         
                                     </ul>
                                 </div>
+                                 <% if(inquiryDetails.PhotosCount > 1){ %>
                                 <div class="model-media-details">
                                     <div class="model-media-item">
                                         <span class="bwsprite gallery-photo-icon"></span>
-                                        <span class="model-media-count">4</span>
+                                        <span class="model-media-count"><%= inquiryDetails.PhotosCount %></span>
                                     </div>
                                 </div>
-                                <span class="jcarousel-control-left">
-                                    <a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow" data-jcarouselcontrol="true"></a>
+                                 <span class="jcarousel-control-left">
+                                    <a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow" ></a>
                                 </span>
                                 <span class="jcarousel-control-right">
-                                    <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow" data-jcarouselcontrol="true"></a>
+                                    <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow" ></a>
                                 </span>
+                                 <% } %>
+                               
                             </div>
                         </div>
+                    <% if (inquiryDetails.MinDetails != null) { %> 
                         <div id="ad-summary" class="grid-7 padding-left30 omega font14">
                             <h2 class="text-default ad-summary-label margin-bottom10">Ad summary</h2>
+                               <% if (!string.IsNullOrEmpty(modelYear))
+                       { %>
                             <div class="grid-4 alpha margin-bottom10">
                                 <span class="bwsprite model-date-icon"></span>
                                 <span class="model-details-label">2011 model</span>
                             </div>
-
+                                <% } %>
+                    <% if (inquiryDetails.MinDetails.KmsDriven > 0)
+                       { %>
                             <div class="grid-4 alpha omega margin-bottom10">
                                 <span class="bwsprite kms-driven-icon"></span>
                                 <span class="model-details-label">18,000 kms</span>
                             </div>
                             <div class="clear"></div>
-
+                             <% } %>
+                    <% if (!string.IsNullOrEmpty(inquiryDetails.MinDetails.OwnerType))
+                       { %>
                             <div class="grid-4 alpha margin-bottom10">
                                 <span class="bwsprite author-grey-sm-icon"></span>
                                 <span class="model-details-label">1st Owner</span>
                             </div>
-
+                            <% } %>
+                    <% if (!string.IsNullOrEmpty(inquiryDetails.MinDetails.RegisteredAt))
+                       { %>
                             <div class="grid-4 alpha omega margin-bottom10">
                                 <span class="bwsprite model-loc-icon"></span>
                                 <span class="model-details-label">Kayamkulam</span>
                             </div>
                             <div class="clear"></div>
-
+                            <% } %>
                             <div class="margin-top5 margin-bottom10">
                                 <span class="bwsprite inr-md-lg"></span>
-                                <span class="font24 text-bold">1,22,000</span>
+                                <span class="font24 text-bold"><%= Bikewale.Utility.Format.FormatPrice(inquiryDetails.MinDetails.AskingPrice.ToString()) %></span>
                             </div>
-
-                            <a href="javascript:void(0)" class="btn btn-orange ad-summary-btn" rel="nofollow">Get seller details</a>
+                            <a href="javascript:void(0)" class="btn btn-orange ad-summary-btn font14 used-bike-lead" rel="nofollow" data-profile-id="<%= profileId %>" data-ga-cat="Used_Bike_Detail" data-ga-act="Get_Seller_Details_Clicked" data-ga-lab="<%= profileId %>">Get seller details</a>
                         </div>
+                    <% } %>
                         <div class="clear"></div>
 
                         <div class="margin-bottom20 border-solid-bottom"></div>
-
+                    <% if (inquiryDetails.OtherDetails != null)
+                   { %>
                         <h2 class="text-default margin-bottom15">Bike details</h2>
                         <div class="grid-6 alpha border-solid-right margin-bottom20">
                             <ul class="key-value-list font14">
                                 <li>
                                     <p class="bike-details-key">Profile ID</p>
-                                    <p class="bike-details-value">1348762</p>
+                                    <p class="bike-details-value">S<%= inquiryDetails.OtherDetails.Id %></p>
                                 </li>
                                 <li>
                                     <p class="bike-details-key">Date updated</p>
-                                    <p class="bike-details-value">02 Nov 2015</p>
+                                    <p class="bike-details-value"><%= Bikewale.Utility.FormatDate.GetDDMMYYYY(inquiryDetails.OtherDetails.LastUpdatedOn.ToString()) %></p>
                                 </li>
                                 <li>
                                     <p class="bike-details-key">Seller</p>
-                                    <p class="bike-details-value">Individual</p>
+                                    <p class="bike-details-value"><%= inquiryDetails.OtherDetails.Seller %></p>
                                 </li>
                                 <li>
                                     <p class="bike-details-key">Registration year</p>
-                                    <p class="bike-details-value">Aug 2013</p>
+                                    <p class="bike-details-value"><%= Bikewale.Utility.FormatDate.GetFormatDate(inquiryDetails.MinDetails.ModelYear.ToString(),"MMM yyyy") %></p>
                                 </li>
                             </ul>
                         </div>
                         <div class="grid-6 padding-left40 omega margin-bottom20">
                             <ul class="key-value-list font14">
+                                <% if (!string.IsNullOrEmpty(inquiryDetails.OtherDetails.Color.ColorName))
+                           { %>
                                 <li>
                                     <p class="bike-details-key">Colour</p>
-                                    <p class="bike-details-value">Yellow</p>
+                                    <p class="bike-details-value"><%= inquiryDetails.OtherDetails.Color.ColorName %></p>
                                 </li>
+                                     <%} %>
                                 <li>
                                     <p class="bike-details-key">Bike registered at</p>
-                                    <p class="bike-details-value">Thane</p>
+                                    <p class="bike-details-value"><%= inquiryDetails.OtherDetails.RegisteredAt %></p>
                                 </li>
                                 <li>
                                     <p class="bike-details-key">Insurance</p>
-                                    <p class="bike-details-value">Comprehensive</p>
+                                    <p class="bike-details-value"><%= inquiryDetails.OtherDetails.Insurance %></p>
                                 </li>
                                 <li>
                                     <p class="bike-details-key">Registration no.</p>
-                                    <p class="bike-details-value">MH-02-BN-9011</p>
+                                    <p class="bike-details-value"><%= inquiryDetails.OtherDetails.RegistrationNo %></p>
                                 </li>
                             </ul>
                         </div>
                         <div class="clear"></div>
 
+                         <% if (!string.IsNullOrEmpty(inquiryDetails.OtherDetails.Description))
+                       { %>
+
                         <div class="margin-bottom20 border-solid-bottom"></div>
 
                         <h2 class="text-default margin-bottom15">Ad description</h2>
-                        <p class="font14 text-light-grey">This used Honda Dio comes in a shade of inviting grey. The age of this bike is roughly 3 years. The original registration certificate is present</p>
+                        <p class="font14 text-light-grey"><%= inquiryDetails.OtherDetails.Description %></p>
+                    <%  } } %>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -211,6 +237,8 @@
                                 <% } %>
                             </div>
                         </div>
+                                        <% if (inquiryDetails.SpecsFeatures != null)
+                   { %>
                         <div id="specsContent" class="bw-model-tabs-data specs-features-list font14">
                             <h2 class="content-inner-block-20">Specifications summary</h2>
                             <div class="grid-4 omega">
@@ -221,92 +249,90 @@
                                     <p>No. of gears</p>
                                 </div>
                                 <div class="grid-6 omega text-bold">
-                                    <p>199.50 cc</p>
-                                    <p title="24.50 bhp @ 9,750 rpm">24.50 bhp @ 9,750 rpm</p>
-                                    <p title="18.60 Nm @ 8,000 rpm">18.60 Nm @ 8,000 rpm</p>
-                                    <p>6</p>
+                                    <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.Displacement,"cc") %></p>
+                                    <p title="<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.MaxPower, "bhp",inquiryDetails.SpecsFeatures.MaxPowerRPM, "rpm") %>"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.MaxPower, "bhp",inquiryDetails.SpecsFeatures.MaxPowerRPM, "rpm") %></p>
+                                    <p title="<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.MaximumTorque, "Nm",inquiryDetails.SpecsFeatures.MaximumTorqueRPM, "rpm") %>"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.MaximumTorque, "Nm",inquiryDetails.SpecsFeatures.MaximumTorqueRPM, "rpm") %></p>
+                                    <p><%= inquiryDetails.SpecsFeatures.NoOfGears %></p>
                                 </div>
                                 <div class="clear"></div>
                             </div>
                             <div class="grid-4 omega">
                                 <div class="grid-6 text-light-grey">
+                                   <p>Mileage</p>
                                     <p>Brake Type</p>
                                     <p>Front Disc</p>
                                     <p>Rear Disc</p>
-                                    <p>Front Disc/Drum Size</p>
                                 </div>
                                 <div class="grid-6 omega text-bold">
-                                    <p>Disc</p>
-                                    <p>Yes</p>
-                                    <p>Yes</p>
-                                    <p>300 mm</p>
+                                   <p><%=  Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.FuelEfficiencyOverall,"kmpl") %></p>
+                                    <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.BrakeType) %></p>
+                                    <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.FrontDisc) %></p>
+                                    <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.RearDisc) %></p>
+                                
                                 </div>
                                 <div class="clear"></div>
                             </div>
                             <div class="grid-4">
                                 <div class="grid-6 text-light-grey">
                                     <p>Alloy Wheels</p>
-                                    <p>Front Suspension</p>
-                                    <p>Rear Tyre</p>
-                                    <p>Tubeless Tyres</p>
+                                    <p>Kerb Weight</p>
+                                    <p>Top Speed</p>
+                                    <p>Fuel Tank Capacity</p>
                                 </div>
                                 <div class="grid-6 alpha text-bold">
-                                    <p>Yes</p>
-                                    <p title="Telescopic Front Fork with Antifriction Bush">Telescopic Front Fork with Antifriction Bush</p>
-                                    <p title="130/70 – 17, 62 P Tubeless">130/70 – 17, 62 P Tubeless</p>
-                                    <p>Yes</p>
+                                    <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.AlloyWheels) %></p>
+                                    <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.KerbWeight,"kg") %></p>
+                                    <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.TopSpeed, "kmph") %></p>
+                                    <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.FuelTankCapacity, "litres") %></p>
+                                
                                 </div>
                                 <div class="clear"></div>
                             </div>
                             <div class="clear"></div>
                             <div class="padding-left20 margin-bottom10">
-                                <a href="javascript:void(0)" class="" title="Royal Enfield Classic Desert Storm specifications" rel="nofollow">View full specifications <span class="bwsprite blue-right-arrow-icon"></span></a>
+                                <a href="<%= moreBikeSpecsUrl %>" title="<%= string.Format("{0} Specifications",bikeName) %>">View full specifications<span class="bwsprite blue-right-arrow-icon"></span></a>
                             </div>
 
                             <div class="grid-8 alpha margin-bottom25">
                                 <h2 class="content-inner-block-20">Features summary</h2>
                                 <div class="grid-6 omega">
                                     <div class="grid-6 text-light-grey">
-                                        <p>Brake Type</p>
-                                        <p>Front Disc</p>
-                                        <p>Rear Disc</p>
-                                        <p>Front Disc/Drum Size</p>
+                                       <p>Speedometer</p>
+                                        <p>Fuel Guage</p>
+                                        <p>Tachometer Type</p>
                                     </div>
                                     <div class="grid-6 omega text-bold">
-                                        <p>Disc</p>
-                                        <p>Yes</p>
-                                        <p>Yes</p>
-                                        <p>300 mm</p>
+                                        <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.Speedometer) %></p>
+                                        <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.FuelGauge) %></p>
+                                        <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.DigitalFuelGauge) %></p>                                    
                                     </div>
                                     <div class="clear"></div>
                                 </div>
                                 <div class="grid-6 padding-left15">
                                     <div class="grid-6 omega text-light-grey">
-                                        <p>Alloy Wheels</p>
-                                        <p>Front Suspension</p>
-                                        <p>Rear Tyre</p>
-                                        <p>Tubeless Tyres</p>
+                                      <p>Digital Fuel Guage</p>
+                                        <p>Tripmeter</p>
+                                        <p>Electric Start</p>
                                     </div>
                                     <div class="grid-6 padding-left20 omega text-bold">
-                                        <p>Yes</p>
-                                        <p title="Telescopic Front Fork with Antifriction Bush">Telescopic Front Fork with Antifriction Bush</p>
-                                        <p title="130/70 – 17, 62 P Tubeless">130/70 – 17, 62 P Tubeless</p>
-                                        <p>Yes</p>
+                                        <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.DigitalFuelGauge) %></p>
+                                        <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.Tripmeter) %></p>
+                                        <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.ElectricStart) %></p>                                    
                                     </div>
                                     <div class="clear"></div>
                                 </div>
                                 <div class="clear"></div>
                                 <div class="padding-left20">
-                                    <a href="javascript:void(0)" class="" title="Royal Enfield Classic Desert Storm features" rel="nofollow">View all features <span class="bwsprite blue-right-arrow-icon"></span></a>
+                                    <a href="<%= moreBikeFeaturesUrl %>" title="<%= string.Format("{0} Features",bikeName) %>">View all features <span class="bwsprite blue-right-arrow-icon"></span></a>
                                 </div>
                             </div>
                             <div class="grid-4 text-center alpha margin-bottom25">
-                                <!-- ad -->
+                               <!-- #include file="/ads/Ad300x250BTF.aspx" -->
                             </div>
                             <div class="clear"></div>
                             <div class="margin-right10 margin-left10 border-solid-bottom"></div>
                         </div>
-
+                            <% } %>
                         <BW:SimilarUsedBikes runat="server" ID="ctrlSimilarUsedBikes"></BW:SimilarUsedBikes>
                         <!-- other used bikes starts -->
                         <BW:OtherUsedBikes ID="ctrlOtherUsedBikes" runat="server" />
