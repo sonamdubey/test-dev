@@ -6,6 +6,8 @@ namespace Bikewale.Utility
     {
         /// <summary>
         /// To validate profile id
+        /// Modified by : Sajal Gupta on 07/10/2016
+        /// Description : Changed condition to check length
         /// </summary>
         /// <param name="profileId"></param>
         /// <returns>boolean</returns>
@@ -13,10 +15,13 @@ namespace Bikewale.Utility
         {
             bool isValid = true;
 
-            if (profileId == "")
+            if (string.IsNullOrEmpty(profileId))
                 isValid = false;
 
             if (!Regex.IsMatch(profileId, @"^((d|D)|(s|S))[0-9]*$"))
+                isValid = false;
+
+            if (!string.IsNullOrEmpty(profileId) && profileId.Length > 10)
                 isValid = false;
 
             return isValid;

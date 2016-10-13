@@ -1,9 +1,12 @@
 ﻿using Bikewale.BAL.BikeData;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Controls;
+using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.Memcache;
+using Bikewale.Interfaces.Cache.Core;
 using Microsoft.Practices.Unity;
 using System;
 using System.Web;
@@ -66,40 +69,84 @@ namespace Bikewale.New.PhotoGallery
         /// <returns></returns>
         private bool ProcessQueryString()
         {
-            bool isSuccess = true;
-
-            if (!String.IsNullOrEmpty(Request.QueryString["model"]))
+            ModelMaskingResponse objResponse = null;
+            string modelQuerystring = Request.QueryString["model"];
+            string VersionIdStr = Request.QueryString["vid"];
+            bool success = false;
+            Trace.Warn("modelQuerystring 1 : ", modelQuerystring);
+            try
             {
-                ModelMapping objMapping = new ModelMapping();
-
-                string _tmpModelId = objMapping.GetModelId(Request.QueryString["model"].ToLower());
-
-                if (String.IsNullOrEmpty(_tmpModelId))
+                if (!string.IsNullOrEmpty(modelQuerystring))
                 {
-                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
-                    isSuccess = false;
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
+                                 .RegisterType<ICacheManager, MemcacheManager>()
+                                 .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                                ;
+                        var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
+                        objResponse = objCache.GetModelMaskingResponse(modelQuerystring);
+                        success = true;
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Trace.Warn("exception 1 : ");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
+                objErr.SendMail();
+
+                Response.Redirect("/new/", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
+            }
+            finally
+            {
+                Trace.Warn("finally");
+                if (!string.IsNullOrEmpty(modelQuerystring))
+                {
+                    if (objResponse != null)
+                    {
+                        Trace.Warn(" objResponse.StatusCode : ", objResponse.StatusCode.ToString());
+                        Trace.Warn(" objResponse.ModelId : ", objResponse.ModelId.ToString());
+                        //Trace.Warn(" objResponse.MaskingName : ", objResponse.MaskingName.ToString());
+                        if (objResponse.StatusCode == 200)
+                        {
+                            modelId = Convert.ToString(objResponse.ModelId);
+                        }
+                        else if (objResponse.StatusCode == 301)
+                        {
+                            //redirect permanent to new page 
+                            CommonOpn.RedirectPermanent(Request.RawUrl.Replace(modelQuerystring, objResponse.MaskingName));
+                        }
+                        else
+                        {
+                            Trace.Warn("pageNotFound.aspx 1");
+                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
+                        }
+                    }
+                    else
+                    {
+                        Trace.Warn("pageNotFound.aspx 2");
+                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
                 }
                 else
                 {
-                    modelId = _tmpModelId;
+                    Trace.Warn("pageNotFound.aspx 3");
+                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
                 }
-            }
-            else
-            {
-                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
-                isSuccess = false;
-            }
 
-            if (!String.IsNullOrEmpty(Request.QueryString["imgid"]))
-            {
-                imageId = Request.QueryString["imgid"];
             }
-
-            return isSuccess;
+            return success;
         }   //End of ProcessQueryString
     }   //End of class
 }   //End of namespace
