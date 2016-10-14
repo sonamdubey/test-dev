@@ -439,53 +439,54 @@ namespace Bikewale.DAL.BikeData
         /// </summary>
         /// <param name="versionId"></param>
         /// <param name="topCount"></param>
-        /// <param name="percentDeviation"></param>
+        /// <param name="cityid"></param>
         /// <returns></returns>
-        public List<SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint percentDeviation)
+        public IEnumerable<SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint cityid)
         {
-            List<SimilarBikeEntity> objSimilarBikes = null;
+            IList<SimilarBikeEntity> objSimilarBikes = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getsimilarbikeslist_04082016";
+                    cmd.CommandText = "getsimilarbikeslist_13102016";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, topCount));
+
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int32, versionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_percentdeviation", DbType.Int32, (percentDeviation > 0) ? percentDeviation : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, topCount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityid));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        objSimilarBikes = new List<SimilarBikeEntity>();
+
 
                         if (dr != null)
                         {
+                            objSimilarBikes = new List<SimilarBikeEntity>();
                             while (dr.Read())
                             {
                                 SimilarBikeEntity objBike = new SimilarBikeEntity();
-
-                                objBike.MakeBase.MakeId = Convert.ToInt32(dr["MakeId"]);
-                                objBike.MakeBase.MakeName = dr["MakeName"].ToString();
-                                objBike.MakeBase.MaskingName = dr["MakeMaskingName"].ToString();
-                                objBike.ModelBase.ModelId = Convert.ToInt32(dr["ModelId"]);
-                                objBike.ModelBase.ModelName = dr["ModelName"].ToString();
-                                objBike.ModelBase.MaskingName = dr["ModelMaskingName"].ToString();
-                                objBike.VersionBase.VersionId = Convert.ToInt32(dr["VersionId"]);
-                                objBike.HostUrl = dr["HostUrl"].ToString();
-                                objBike.LargePicUrl = "/bikewaleimg/models/" + dr["LargePic"].ToString();
-                                objBike.SmallPicUrl = "/bikewaleimg/models/" + dr["SmallPic"].ToString();
-                                objBike.MinPrice = Convert.ToInt32(dr["MinPrice"]);
-                                objBike.MaxPrice = Convert.ToInt32(dr["MaxPrice"]);
-                                objBike.VersionPrice = Convert.ToInt32(dr["VersionPrice"]);
+                                objBike.MakeBase.MakeId = Convert.ToInt32(dr["BikeMakeId"]);
+                                objBike.MakeBase.MakeName = Convert.ToString(dr["MakeName"]);
+                                objBike.MakeBase.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                objBike.ModelBase.ModelId = Convert.ToInt32(dr["similarModelId"]);
+                                objBike.ModelBase.ModelName = Convert.ToString(dr["ModelName"]);
+                                objBike.ModelBase.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
+                                objBike.VersionBase.VersionId = Convert.ToInt32(dr["BikeVersionId"]);
+                                objBike.HostUrl = Convert.ToString(dr["HostUrl"]);
+                                objBike.MinPrice = Convert.ToInt32(dr["VersionPrice"]);
+                                objBike.VersionPrice = SqlReaderConvertor.ToInt32(dr["Onroadprice"]);
                                 objBike.OriginalImagePath = dr["OriginalImagePath"].ToString();
                                 objBike.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
                                 objBike.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
                                 objBike.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
                                 objBike.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
                                 objBike.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
-                                objBike.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
-                                objBike.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
+                                objBike.ReviewCount = Convert.ToUInt16(dr["ModelReviewCount"]);
+                                objBike.ReviewRate = Convert.ToDouble(dr["ModelReviewRate"]);
+                                objBike.LargePicUrl = "/bikewaleimg/models/" + Convert.ToString(dr["largePic"]);
+                                objBike.SmallPicUrl = "/bikewaleimg/models/" + Convert.ToString(dr["smallPic"]);
+                                objBike.CityName = Convert.ToString(dr["cityname"]);
                                 objSimilarBikes.Add(objBike);
                             }
                             dr.Close();
@@ -496,12 +497,14 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "GetSimilarBikesListByCity");
+                objErr.SendMail();
                 objErr.SendMail();
             }
 
             return objSimilarBikes;
         }   // End of GetSimilarBikesList
+
 
         /// <summary>
         /// Created By : Sadhana Upadhyay on 4 Dec 2014

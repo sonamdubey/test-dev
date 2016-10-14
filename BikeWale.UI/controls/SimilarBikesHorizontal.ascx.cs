@@ -23,7 +23,7 @@ namespace Bikewale.Controls
         protected List<SimilarBikeEntity> objSimilarBikes;
 
         protected int recordCount = 0;
-
+        public int cityid { get; set; }
         private string _topCount = "3";
         public string TopCount
         {
@@ -86,7 +86,7 @@ namespace Bikewale.Controls
                     container.RegisterType<IBikeVersions<BikeVersionEntity, int>, BikeVersions<BikeVersionEntity, int>>();
                     IBikeVersions<BikeVersionEntity, int> objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, int>>();
 
-                    objSimilarBikes = objVersion.GetSimilarBikesList(Convert.ToInt32(VersionId), Convert.ToUInt32(TopCount), PercentDeviation);
+                    objSimilarBikes = (List<SimilarBikeEntity>)objVersion.GetSimilarBikesList(Convert.ToInt32(VersionId), Convert.ToUInt32(TopCount), Convert.ToUInt32(cityid));
 
                     recordCount = objSimilarBikes.Count;
 

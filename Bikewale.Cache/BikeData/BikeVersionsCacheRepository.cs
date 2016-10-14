@@ -35,13 +35,13 @@ namespace Bikewale.Cache.BikeData
         /// </summary>
         /// <param name="makeType">Type of make</param>
         /// <returns></returns>
-        public IEnumerable<Entities.BikeData.SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint percentDeviation)
+        public IEnumerable<Entities.BikeData.SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint cityid)
         {
             IEnumerable<Entities.BikeData.SimilarBikeEntity> versions = null;
             string key = String.Format("BW_SimilarBikes_{0}_Cnt_{1}", versionId, topCount);
             try
             {
-                versions = _cache.GetFromCache<IEnumerable<Entities.BikeData.SimilarBikeEntity>>(key, new TimeSpan(1, 0, 0), () => _objVersions.GetSimilarBikesList(versionId, topCount, percentDeviation));
+                versions = _cache.GetFromCache<IEnumerable<Entities.BikeData.SimilarBikeEntity>>(key, new TimeSpan(1, 0, 0), () => _objVersions.GetSimilarBikesList(versionId, topCount, cityid));
             }
             catch (Exception ex)
             {
@@ -51,6 +51,7 @@ namespace Bikewale.Cache.BikeData
             return versions;
         }
 
+     
         /// <summary>
         /// Created by  :    Sushil Kumar on 28th June 2016
         /// Summary     :   Gets the versions by type and modelid and cityId

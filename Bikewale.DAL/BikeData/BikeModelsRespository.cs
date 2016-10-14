@@ -176,7 +176,7 @@ namespace Bikewale.DAL.BikeData
 
         }
 
-        private IEnumerable<NewBikeModelColor> GetModelColor(U modelId)
+        public IEnumerable<NewBikeModelColor> GetModelColor(U modelId)
         {
             List<BikeModelColor> colors = null;
             List<NewBikeModelColor> objMultiToneColor = null;
