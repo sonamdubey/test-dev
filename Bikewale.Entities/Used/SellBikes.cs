@@ -9,7 +9,9 @@ namespace Bikewale.Entities.Used
     public class SellBikeAd
     {
         public uint InquiryId { get; set; }
-        public ushort VersionId { get; set; }
+        public BikeData.BikeMakeEntityBase Make { get; set; }
+        public BikeData.BikeModelEntityBase Model { get; set; }
+        public BikeData.BikeVersionEntityBase Version { get; set; }
         public DateTime ManufacturingYear { get; set; }
         public uint KiloMeters { get; set; }
         public uint CityId { get; set; }
@@ -17,20 +19,17 @@ namespace Bikewale.Entities.Used
         public ushort Owner { get; set; }
         public string RegistrationPlace { get; set; }
         public string Color { get; set; }
-        public bool SellerType { get; set; }
-        public string Name { get; set; }
-        public string EmailId { get; set; }
-        public string Mobile { get; set; }
-
-
+        public uint ColorId { get; set; }
         public ushort SourceId { get; set; }
         public string ClientIp { get; set; }
-        public string CustomerId { get; set; }
-        public ushort StatusId { get; set; }
-
+        public SellAdStatus Status { get; set; }
+        public SellerEntity Seller { get; set; }
         public SellBikeAdOtherInformation OtherInfo { get; set; }
     }
-
+    /// <summary>
+    /// Created by  :   Sumit Kate on 14 Oct 2016
+    /// Description :   Sell Bike Ad Other Information entity
+    /// </summary>
     public class SellBikeAdOtherInformation
     {
         public string RegistrationNo { get; set; }
@@ -39,4 +38,12 @@ namespace Bikewale.Entities.Used
 
     }
 
+    /// <summary>
+    /// Created by  :   Sumit Kate on 14 COt 2016
+    /// Description :   Seller Entity
+    /// </summary>
+    public class SellerEntity : Customer.CustomerEntityBase
+    {
+        public SellerType SellerType { get; set; }
+    }
 }
