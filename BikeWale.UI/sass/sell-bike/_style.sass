@@ -27,6 +27,31 @@
 	width: 465px
 	float: right
 
+// seller type
+#seller-type-list
+	li
+		float: left
+		cursor: pointer
+		margin-right: 10px
+
+		span
+			display: inline-block
+			vertical-align: middle
+
+	.seller-label
+		width: 145px
+		font-size: $font-size-medium
+
+	.checked
+		.seller-label
+			font-weight: $font-bold
+
+// terms
+.terms-content
+	p
+		font-size: $font-size-small
+		color: $text-light
+
 /* sprite */
 .sell-bike-sprite
     background: url('/images/sell-bike-sprite.png') no-repeat
@@ -38,10 +63,10 @@
 .step-2-inactive,
 .step-3-inactive,
 .edit-step
-    width: 30px
-    height: 30px
-    vertical-align: middle
-    cursor: pointer
+	width: 30px
+	height: 30px
+	vertical-align: middle
+	cursor: pointer
 
 .step-1-active
     background-position: 0 0
@@ -65,6 +90,24 @@
     width: 12px
     height: 10px
     background-position: -210px 0
+
+.radio-icon
+	width: 18px
+	height: 18px
+	margin-right: 5px
+	background-position: -177px -94px
+
+.checked
+	.radio-icon
+		background-position: -177px -65px
+
+.step-2-inactive,
+.step-3-inactive
+	cursor: not-allowed
+
+.step-2-inactive ~ .panel-title,
+.step-3-inactive ~ .panel-title
+	color: $text-light
 
 
 // common classes

@@ -2635,6 +2635,7 @@
     <Content Include="sass\components\_mixins.sass" />
     <None Include="sass\components\_box-boundary.sass" />
     <Content Include="sass\components\_input-box.sass" />
+    <Content Include="sass\sell-bike\_color-box.sass" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

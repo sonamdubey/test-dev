@@ -28,10 +28,34 @@ ko.bindingHandlers.chosen = {
     }
 }
 
+// custom validation function
+var greaterThanOne = function (val) {
+    if (val < 1) {
+        return false;
+    }
+    return true;
+};
+
 var sellBike = function () {
     var self = this;
 
+    self.formStep = ko.observable(1);
+
     self.bikeDetails = ko.observable(new bikeDetails);
+
+    self.personalDetails = ko.observable(new personalDetails);
+
+    self.gotoStep1 = function () {
+        if (self.formStep() > 1) {
+            self.formStep(1);
+        };
+    };
+
+    self.gotoStep2 = function () {
+        if (self.formStep() > 1) {
+            self.formStep(2);
+        }
+    }
 
 };
 
@@ -39,6 +63,7 @@ var bikeDetails = function () {
     var self = this;
 
     self.validate = ko.observable(false);
+    self.validateOtherColor = ko.observable(false);
 
     self.make = ko.observable().extend({
         required: {
@@ -72,26 +97,54 @@ var bikeDetails = function () {
     });
 
     self.kmsRidden = ko.observable('').extend({
-        required: {
-            params: true,
+        validation: [{
+            validator: function (val) {
+                return !ko.validation.utils.isEmptyVal(val);
+            },
             message: 'Please enter kms ridden',
             onlyIf: function () {
                 return self.validate();
             }
-        }
+        },
+        {
+            validator: greaterThanOne,
+            message: 'Please enter kms value greater than 1',
+            onlyIf: function () {
+                return self.validate();
+            }
+        }]
     });
 
     self.expectedPrice = ko.observable('').extend({
+        validation: [{
+            validator: function (val) {
+                return !ko.validation.utils.isEmptyVal(val);
+            },
+            message: 'Please enter expected price',
+            onlyIf: function () {
+                return self.validate();
+            }
+        },
+        {
+            validator: greaterThanOne,
+            message: 'Please enter expected price greater than 1',
+            onlyIf: function () {
+                return self.validate();
+            }
+        }]
+    });
+
+    self.city = ko.observable().extend({
         required: {
             params: true,
-            message: 'Please enter amount',
+            message: 'Please select city',
             onlyIf: function () {
                 return self.validate();
             }
         }
     });
 
-    self.city = ko.observable().extend({
+    self.registeredCity = ko.observable().extend({
         required: {
             params: true,
             message: 'Please select city',
@@ -113,13 +166,11 @@ var bikeDetails = function () {
 
     self.color = ko.observable().extend({
         required: {
+            params: true,
+            message: 'Please select a colour',
             onlyIf: function () {
                 return self.validate();
             }
-        },
-        pattern: {
-            params: '[A-Za-z\s]',
-            message: 'Please select a colour',
         }
     });
 
@@ -129,6 +180,7 @@ var bikeDetails = function () {
         if (!element.hasClass('active')) {
             var selection = element.find('.color-box-label').text();
             self.color(selection);
+            self.otherColor('');
             colorBox.active(element);
         }
         else {
@@ -136,26 +188,69 @@ var bikeDetails = function () {
         }
     };
 
-    self.otherColor = ko.observable('');
+    self.otherColor = ko.observable('').extend({
+        pattern: {
+            params: '[A-Za-z\s]',
+            message: 'Please enter valid color',
+            onlyIf: function () {
+                return self.validateOtherColor();
+            }
+        }
+    });
 
     self.submitOtherColor = function (data, event) {
-        self.color(self.otherColor());
-        colorBox.userInput();
-    };
+        self.validateOtherColor(true);
 
+        if (self.colorError().length === 0) {
+            colorBox.userInput();
+            self.color(self.otherColor());
+        } else {
+            self.colorError.showAllMessages();
+        }
+    };
 
     self.saveBikeDetails = function (data, event) {
         self.validate(true);
 
         if (self.errors().length === 0) {
-            alert('Thank you.');
+            vmSellBike.formStep(2);
+            scrollToForm.activate();
         } else {
             self.errors.showAllMessages();
         }
+        /*
+        vmSellBike.formStep(2);
+        scrollToForm.activate();
+        */
     };
 
     self.errors = ko.validation.group(self);
+    self.colorError = ko.validation.group(self.otherColor);
 
+};
+
+var personalDetails = function () {
+    var self = this;
+
+    self.sellerType = function (data, event) {
+        var element = $(event.currentTarget);
+
+        if (!element.hasClass('checked')) {
+            sellerType.check(element);
+        }
+    };
+
+    //self.sellerName = ko.observable('');
+
+    self.savePersonalDetails = function () {
+        vmSellBike.formStep(3);
+        scrollToForm.activate();
+    };
+
+    self.backToBikeDetails = function () {
+        vmSellBike.formStep(1);
+        scrollToForm.activate();
+    };
 };
 
 $(document).ready(function () {
@@ -171,6 +266,10 @@ $(document).ready(function () {
     ownerSearchBox.empty().append('<p class="no-input-label">Owner</p>');
 
 });
+
+var vmSellBike = new sellBike();
+
+ko.applyBindings(vmSellBike, document.getElementById('sell-bike-content'));
 
 // color box
 selectColorBox.on('click', '.color-box-default', function () {
@@ -211,10 +310,6 @@ var colorBox = {
     }
 };
 
-var vmSellBike = new sellBike();
-
-ko.applyBindings(vmSellBike, document.getElementById('sell-bike-content'));
-
 // close color dropdown
 $(document).mouseup(function (event) {
     event.stopPropagation();
@@ -226,6 +321,15 @@ $(document).mouseup(function (event) {
     }
 
 });
+
+// seller type
+var sellerType = {
+
+    check: function (element) {
+        element.siblings('.checked').removeClass('checked');
+        element.addClass('checked');
+    }
+}
 
 $('.select-box select').on('change', function () {
     $(this).closest('.select-box').addClass('done');
@@ -243,3 +347,16 @@ $('input[type=number]').on('keydown', function (e) {
         return;
     }
 });
+
+var scrollToForm = {
+    container: $('#sell-bike-content'),
+
+    activate: function () {
+        var position = scrollToForm.container.offset();
+
+        $('html, body').animate({
+            scrollTop: position.top - 51
+        }, 200);
+        // 51: navbar height
+    }
+};
