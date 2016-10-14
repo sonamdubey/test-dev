@@ -26,7 +26,7 @@ namespace BikeWaleOpr.Classified
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getcustomerlistingdetails";
+                    cmd.CommandText = "getcustomerlistingdetails_14102016";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbType.Int32, startIndex));
