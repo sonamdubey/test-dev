@@ -39,9 +39,9 @@ namespace Bikewale.Service.Controllers.BikeData
             try
             {
 
-                uint percentDeviation = deviation.HasValue ? deviation.Value : 15;
+                uint cityid = 1;
 
-                List<SimilarBikeEntity> objSimilarBikes = _objVersion.GetSimilarBikesList(versionId, topCount, percentDeviation);
+                List<SimilarBikeEntity> objSimilarBikes = (List<SimilarBikeEntity>)_objVersion.GetSimilarBikesList(versionId, topCount, cityid);
 
                 objSimilar.SimilarBike = SimilarBikeListMapper.Convert(objSimilarBikes);
 

@@ -18,6 +18,7 @@ namespace Bikewale.Controls
         private int _topCount = 6;
         protected string heading = string.Empty;
         public string cityName { get; set; }
+        public int cityId { get; set; }
         public int TopCount
         {
             get { return _topCount; }

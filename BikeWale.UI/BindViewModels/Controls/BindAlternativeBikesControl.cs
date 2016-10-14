@@ -20,6 +20,8 @@ namespace Bikewale.BindViewModels.Controls
         public int TopCount { get; set; }
         public int? Deviation { get; set; }
         public int FetchedRecordsCount { get; set; }
+        public int PQSourceId { get; set; }
+        public int? cityId { get; set; }
 
         public void BindAlternativeBikes(Repeater rptAlternativeBikes)
         {
@@ -34,8 +36,8 @@ namespace Bikewale.BindViewModels.Controls
                               .RegisterType<ICacheManager, MemcacheManager>()
                              ;
                     var objCache = container.Resolve<IBikeVersionCacheRepository<BikeVersionEntity, int>>();
+                    IEnumerable<SimilarBikeEntity> objSimilarBikes  = objCache.GetSimilarBikesList(Convert.ToInt32(VersionId), Convert.ToUInt32(TopCount), Convert.ToUInt32(cityId));
 
-                    IEnumerable<SimilarBikeEntity> objSimilarBikes = objCache.GetSimilarBikesList(Convert.ToInt32(VersionId), Convert.ToUInt32(TopCount), Convert.ToUInt32(Deviation));
 
                     if (objSimilarBikes != null && objSimilarBikes.Count() > 0)
                     {

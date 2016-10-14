@@ -15,7 +15,9 @@
                                 <div class="card-desc-block">
                                     <p class="bikeTitle"><%# DataBinder.Eval(Container.DataItem, "makeBase.MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem, "modelBase.ModelName").ToString() %></p>
                                     <p class="text-xt-light-grey margin-bottom10"><%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "MaxPower")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Kerbweight"))) %></p>
-                                    <p class="text-light-grey margin-bottom5">Ex-showroom, Mumbai</p>
+                                    <p class="text-light-grey margin-bottom5">
+                                        <%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))!="0")?"On Road Price "+DataBinder.Eval(Container.DataItem, "VersionPrice"):"Ex Showroom Mumbai" %>
+                                    </p>
                                     <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem, "VersionPrice").ToString()) %></span>
                                 </div>
                             </a>

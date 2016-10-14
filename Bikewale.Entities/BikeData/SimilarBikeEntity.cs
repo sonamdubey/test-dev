@@ -20,6 +20,8 @@ namespace Bikewale.Entities.BikeData
         [DataMember]
         public string SmallPicUrl { get; set; }
         [DataMember]
+        public string CityName { get; set; }
+        [DataMember]
         public string LargePicUrl { get; set; }
         [DataMember]
         public string OriginalImagePath { get; set; }
