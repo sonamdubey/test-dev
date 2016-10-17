@@ -9,10 +9,10 @@ using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
 
 namespace Bikewale.Controls
 {
@@ -20,7 +20,7 @@ namespace Bikewale.Controls
     {
         protected Repeater rptSimilarBikes;
         protected BikeVersionEntity bikeVersionEntity;
-        protected List<SimilarBikeEntity> objSimilarBikes;
+        protected IEnumerable<SimilarBikeEntity> objSimilarBikes;
 
         protected int recordCount = 0;
         public int cityid { get; set; }
@@ -85,11 +85,9 @@ namespace Bikewale.Controls
                     container.RegisterType<IBikeVersions<BikeVersionEntity, int>, BikeVersions<BikeVersionEntity, int>>();
                     IBikeVersions<BikeVersionEntity, int> objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, int>>();
 
-                    objSimilarBikes = (List<SimilarBikeEntity>)objVersion.GetSimilarBikesList(Convert.ToInt32(VersionId), Convert.ToUInt32(TopCount), Convert.ToUInt32(cityid));
+                    objSimilarBikes = objVersion.GetSimilarBikesList(Convert.ToInt32(VersionId), Convert.ToUInt32(TopCount), Convert.ToUInt32(cityid));
 
-                    recordCount = objSimilarBikes.Count;
-
-                    if (objSimilarBikes.Count > 0)
+                    if (objSimilarBikes.Count() > 0)
                     {
                         rptSimilarBikes.DataSource = objSimilarBikes;
                         rptSimilarBikes.DataBind();

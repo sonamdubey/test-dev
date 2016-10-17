@@ -436,6 +436,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created By : Sadhana Upadhyay on 5th Aug 2014
         /// Summary : To get list of similar bikes by version id
+        /// modified by:- Subodh Jain
+        /// Summary :- To get list of similar bikes by version id and cityid
         /// </summary>
         /// <param name="versionId"></param>
         /// <param name="topCount"></param>

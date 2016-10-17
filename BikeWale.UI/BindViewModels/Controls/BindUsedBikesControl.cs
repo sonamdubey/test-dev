@@ -178,6 +178,7 @@ namespace Bikewale.BindViewModels.Controls
                     container.RegisterType<IUsedBikes, Bikewale.BAL.UsedBikes.UsedBikes>()
                         .RegisterType<IUsedBikesRepository, UsedBikesRepository>()
                         .RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>()
+                        .RegisterType<IUsedBikeDetails, UsedBikeDetailsRepository>()
                         .RegisterType<ICacheManager, MemcacheManager>()
                         .RegisterType<IUsedBikesCache, UsedBikesCache>();
                     IUsedBikesCache objUsedBikes = container.Resolve<IUsedBikesCache>();

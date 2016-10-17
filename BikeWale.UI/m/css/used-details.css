@@ -672,3 +672,10 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
         height: 170px;
     }
 }
+
+.used-sprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/used-sprite.png?v1=14Oct2016) no-repeat; display: inline-block; }
+.sold-icon {
+   width: 62px;
+   height: 46px;
+   background-position: 0 -133px;
+}

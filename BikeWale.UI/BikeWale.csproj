@@ -381,6 +381,10 @@
       <DependentUpon>NewsMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\OtherUsedBikeByCity.ascx.cs">
+      <DependentUpon>OtherUsedBikeByCity.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\PopularModelCompare.ascx.cs">
       <DependentUpon>PopularModelCompare.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -599,6 +603,10 @@
     </Compile>
     <Compile Include="controls\SimilarBikesHorizontal.ascx.cs">
       <DependentUpon>SimilarBikesHorizontal.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\SimilarUsedBikes.ascx.cs">
+      <DependentUpon>SimilarUsedBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\SimilarVideos.ascx.cs">
@@ -1271,6 +1279,10 @@
       <DependentUpon>bikedetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="used\BikeDetails_v2.aspx.cs">
+      <DependentUpon>BikeDetails_v2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="used\BikesByMake.aspx.cs">
       <DependentUpon>BikesByMake.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1308,14 +1320,6 @@
     </Compile>
     <Compile Include="used\Search.aspx.cs">
       <DependentUpon>Search.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="used\SearchResult.aspx.cs">
-      <DependentUpon>SearchResult.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="used\Search_v2.aspx.cs">
-      <DependentUpon>Search_v2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="used\sell\confirmation.aspx.cs">
@@ -1725,6 +1729,7 @@
     <Content Include="controls\DealerCard.ascx" />
     <Content Include="controls\LeadCaptureControl.ascx" />
     <Content Include="controls\NewsMin.ascx" />
+    <Content Include="controls\OtherUsedBikeByCity.ascx" />
     <Content Include="controls\PopularModelCompare.ascx" />
     <Content Include="controls\AddBikeToCompare.ascx" />
     <Content Include="controls\AlternativeBikes.ascx" />
@@ -1785,6 +1790,7 @@
     <Content Include="controls\SimilarBikes.ascx" />
     <Content Include="controls\SimilarCompareBikes.ascx" />
     <Content Include="controls\SimilarBikesHorizontal.ascx" />
+    <Content Include="controls\SimilarUsedBikes.ascx" />
     <Content Include="controls\SimilarVideos.ascx" />
     <Content Include="controls\TipsAdvicesMin.ascx" />
     <Content Include="controls\TopUsedListedBike.ascx" />
@@ -1859,6 +1865,7 @@
     <Content Include="css\used-cd.css" />
     <Content Include="css\used-search.css" />
     <Content Include="css\used\landing.css" />
+    <Content Include="css\used\details.css" />
     <Content Include="default.aspx" />
     <Content Include="editor\css\content.css" />
     <Content Include="editor\css\content_old.css" />
@@ -2555,6 +2562,7 @@
     <Content Include="src\Research\photogallery\jquery.ad-gallery.js" /> -->
     <Content Include="src\Research\write_reviews.js" />
     <Content Include="src\used-landing.js" />
+    <Content Include="src\used-details.js" />
     <Content Include="src\used-search.js" />
     <Content Include="src\Used\search.js" />
     <Content Include="src\Videos\videoByCategory.js" />
@@ -2577,6 +2585,7 @@
     <Content Include="url_mapping\map_makes.txt" />
     <Content Include="url_mapping\map_models.txt" />
     <Content Include="used\bikedetails.aspx" />
+    <Content Include="used\BikeDetails_v2.aspx" />
     <Content Include="used\BikesByMake.aspx" />
     <Content Include="used\BikesByModel.aspx" />
     <Content Include="used\BikesInCity.aspx" />
@@ -2584,8 +2593,6 @@
     <Content Include="used\Default.aspx" />
     <Content Include="used\Default_v2.aspx" />
     <Content Include="used\Search.aspx" />
-    <Content Include="used\SearchResult.aspx" />
-    <Content Include="used\Search_v2.aspx" />
     <Content Include="used\sell\confirmation.aspx" />
     <Content Include="used\sell\default.aspx" />
     <Content Include="used\sell\UploadBasic.aspx" />

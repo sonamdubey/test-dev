@@ -247,15 +247,13 @@ namespace Bikewale.New
                     Trace.Warn("Trace 22 : Clear trailing Query");
                     Trace.Warn("Trace 23 : Page Load ends");
                     BindControls();
+                    TotalUsedBikes();
+                    CreateMetas();
                 }
-
-                TotalUsedBikes();
-                CreateMetas();
-
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.RawUrl + " : Page_load");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("Page_load({0})", Request.QueryString["model"]));
                 objErr.SendMail();
             }
         }
@@ -310,7 +308,7 @@ namespace Bikewale.New
 
             ctrlPopularCompare.TopCount = 6;
             ctrlPopularCompare.ModelName = modelPageEntity.ModelDetails.ModelName;
-            ctrlPopularCompare.cityid = cityId;
+            ctrlPopularCompare.cityid = (int?)cityId;
 
             if (!isDiscontinued)
                 ctrlPopularCompare.versionId = Convert.ToString(variantId);
@@ -323,7 +321,7 @@ namespace Bikewale.New
         {
             if (modelPageEntity.ModelDetails.Futuristic)
             {
-                pgDescription = string.Format("{0} {1} Price in India is expected between Rs. {2} and Rs. {3}. Check out {0} {1}  specifications, reviews, mileage, versions, news & photos at BikeWale.com. Launch date of {1} is around {4}", modelPageEntity.ModelDetails.MakeBase.MakeName, modelPageEntity.ModelDetails.ModelName, modelPageEntity.ModelDetails.MinPrice, modelPageEntity.ModelDetails.MaxPrice, modelPageEntity.UpcomingBike.ExpectedLaunchDate);
+                pgDescription = string.Format("{0} {1} Price in India is expected between Rs. {2} and Rs. {3}. Check out {0} {1}  specifications, reviews, mileage, versions, news & photos at BikeWale.com. Launch date of {1} is around {4}", modelPageEntity.ModelDetails.MakeBase.MakeName, modelPageEntity.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMin)), Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMax)), modelPageEntity.UpcomingBike.ExpectedLaunchDate);
             }
             else if (!modelPageEntity.ModelDetails.New)
             {

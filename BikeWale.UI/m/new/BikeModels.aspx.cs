@@ -110,7 +110,7 @@ namespace Bikewale.Mobile.New
             Trace.Warn("Trace 4 : ParseQueryString End");
             try
             {
-                if (!string.IsNullOrEmpty(modelId.ToString()))
+                if (modelId > 0)
                 {
                     Trace.Warn("Trace 5 : CheckCityCookie Start");
                     CheckCityCookie();
@@ -165,18 +165,16 @@ namespace Bikewale.Mobile.New
                         }
 
                     }
-
-                }
-
-                SetFlagsAtEnd();
-                TotalUsedBikes();
-                CreateMetas();
+                    SetFlagsAtEnd();
+                    TotalUsedBikes();
+                    CreateMetas();
 
                 ctrlTopCityPrices.TopCount = 4;
+                }
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"]);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("PageLoad({0})", Request.QueryString["model"]));
                 objErr.SendMail();
             }
 
@@ -276,7 +274,7 @@ namespace Bikewale.Mobile.New
         {
             if (modelPage.ModelDetails.Futuristic)
             {
-                pgDescription = string.Format("{0} {1} Price in India is expected between Rs. {2} and Rs. {3}. Check out {0} {1}  specifications, reviews, mileage, versions, news & photos at BikeWale.com. Launch date of {1} is around {4}", modelPage.ModelDetails.MakeBase.MakeName, modelPage.ModelDetails.ModelName, modelPage.ModelDetails.MinPrice, modelPage.ModelDetails.MaxPrice, modelPage.UpcomingBike.ExpectedLaunchDate);
+                pgDescription = string.Format("{0} {1} Price in India is expected between Rs. {2} and Rs. {3}. Check out {0} {1}  specifications, reviews, mileage, versions, news & photos at BikeWale.com. Launch date of {1} is around {4}", modelPage.ModelDetails.MakeBase.MakeName, modelPage.ModelDetails.ModelName, modelPage.UpcomingBike.EstimatedPriceMin, modelPage.UpcomingBike.EstimatedPriceMax, modelPage.UpcomingBike.ExpectedLaunchDate);
             }
             else if (!modelPage.ModelDetails.New)
             {

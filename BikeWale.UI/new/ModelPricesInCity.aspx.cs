@@ -43,8 +43,8 @@ namespace Bikewale.New
         protected NewAlternativeBikes ctrlAlternativeBikes;
         protected LeadCaptureControl ctrlLeadCapture;
         public Repeater rprVersionPrices, rpVersioNames;
-        protected uint modelId = 0, cityId = 0, versionId, makeId, dealerCount, colourCount;
-        public int versionCount;
+        protected uint modelId = 0, cityId = 0, versionId, makeId, dealerCount;
+        public int versionCount, colourCount;
         public string makeName = string.Empty, makeMaskingName = string.Empty, modelName = string.Empty, modelMaskingName = string.Empty, bikeName = string.Empty, modelImage = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty, pageDescription = string.Empty;
         string redirectUrl = string.Empty;
         private bool redirectToPageNotFound = false, redirectPermanent = false;
@@ -139,7 +139,7 @@ namespace Bikewale.New
                                 .RegisterType<ICacheManager, MemcacheManager>();
                         var objModelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
                         objModelColours = objModelCache.GetModelColor(Convert.ToInt16(modelId));
-                        colourCount = (uint)objModelColours.Count();
+                        colourCount = objModelColours.Count();
 
                     }
                 }

@@ -31,14 +31,14 @@ namespace Bikewale.Service.Controllers.BikeData
         /// </summary>
         /// <param name="versionId">Version Id</param>
         /// <param name="topCount">Top Count (Optional)</param>
-        /// <param name="deviation">Deviation (Optional)</param>
+        /// <param name="deviation">cityid (Optional)</param>
         /// <returns></returns>
         public IHttpActionResult Get(int versionId, uint topCount)
         {
             SimilarBikeList objSimilar = new SimilarBikeList();
             try
             {
-                IEnumerable<SimilarBikeEntity> objSimilarBikes = _objVersion.GetSimilarBikesList(versionId, topCount, 0);
+                IEnumerable<SimilarBikeEntity> objSimilarBikes = _objVersion.GetSimilarBikesList(versionId, topCount, 1);
 
                 objSimilar.SimilarBike = SimilarBikeListMapper.Convert(objSimilarBikes);
 
