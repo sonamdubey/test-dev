@@ -51,7 +51,7 @@
                 <% if(firstVersion != null) { %>
                 <%=CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()) %> onwards.
                 <% } %>
-                It is available in  <%=versionCount %> versions and 'y' colours. <%= modelName %> is sold by <%= dealerCount %> dealerships in <%= cityName %>. 
+                It is available in  <%=versionCount %> versions and <%= colourCount %> colours. <%= modelName %> is sold by <%= dealerCount %> dealerships in <%= cityName %>. 
                 All the colour and versions of <%= modelName %> might not be available at all the dealerships in <%= cityName %>. 
                 Click on a <%= modelName %> version name to know on-road price in <%= cityName %>.
                 <% } else
@@ -60,7 +60,7 @@
                 <% if(firstVersion != null) { %>
                 <%=CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()) %> onwards. 
                 <% } %>
-                This bike has now been discontinued. It was available in <%=versionCount %> versions and 'y' colours. Click on a <%= modelName %> version name to know the last known ex-showroom price in <%= cityName %>.
+                This bike has now been discontinued. It was available in <%=versionCount %> versions and <%= colourCount %> colours. Click on a <%= modelName %> version name to know the last known ex-showroom price in <%= cityName %>.
                 <% } %>
             </p>
 

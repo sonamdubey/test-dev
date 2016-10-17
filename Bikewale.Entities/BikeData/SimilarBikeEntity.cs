@@ -39,5 +39,7 @@ namespace Bikewale.Entities.BikeData
         private BikeVersionEntityBase objDesc = new BikeVersionEntityBase();
         [DataMember]
         public BikeVersionEntityBase VersionBase { get { return objDesc; } set { objDesc = value; } }
+        [DataMember]
+        public string CityMaskingName { get; set; }
     }
 }

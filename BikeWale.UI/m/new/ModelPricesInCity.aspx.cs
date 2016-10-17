@@ -1,4 +1,5 @@
-﻿using Bikewale.Cache.BikeData;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
 using Bikewale.Cache.Location;
@@ -45,6 +46,7 @@ namespace Bikewale.Mobile.New
         protected UsedBikes ctrlRecentUsedBikes;
         protected DealersEntity _dealers = null;
         protected int dealerCount = 0;
+        protected int colourCount = 0;
 
         protected override void OnInit(EventArgs e)
         {
@@ -106,6 +108,8 @@ namespace Bikewale.Mobile.New
                     dealerCount = _dealers.TotalCount;
                 }
 
+                ColorCount();
+
             }
         }
         /// <summary>
@@ -155,6 +159,41 @@ namespace Bikewale.Mobile.New
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "-FetchVersionPrices");
                 objErr.SendMail();
+            }
+
+        }
+
+        /// <summary>
+        /// Created By Subodh Jain 10 oct 2016
+        /// Desc:- for count of Colors in bike model
+        /// </summary>
+        protected void ColorCount()
+        {
+            if (modelId > 0)
+            {
+                IEnumerable<NewBikeModelColor> objModelColours = null;
+                try
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+
+                        container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                                .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                                .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                                .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                                .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                                .RegisterType<ICacheManager, MemcacheManager>();
+                        var objModelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
+                        objModelColours = objModelCache.GetModelColor(Convert.ToInt16(modelId));
+                        colourCount = (int)objModelColours.Count();
+
+                    }
+                }
+                catch (Exception err)
+                {
+                    ErrorClass objErr = new ErrorClass(err, "ModelPricesInCity.ColorCount");
+                    objErr.SendMail();
+                }
             }
 
         }
@@ -336,6 +375,10 @@ namespace Bikewale.Mobile.New
             ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_PriceInCity_AlternateBikes;
             ctrlAlternateBikes.WidgetTitle = bikeName;
             ctrlAlternateBikes.modelName = modelName;
+            ctrlAlternateBikes.IsPriceInCity = true;
+            ctrlAlternateBikes.CityName = cityName;
+            ctrlAlternateBikes.CityId = (int)cityId;
+
             if (firstVersion != null)
                 ctrlAlternateBikes.VersionId = (int)firstVersion.VersionId;
         }

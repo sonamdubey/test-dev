@@ -487,6 +487,7 @@ namespace Bikewale.DAL.BikeData
                                 objBike.LargePicUrl = "/bikewaleimg/models/" + Convert.ToString(dr["largePic"]);
                                 objBike.SmallPicUrl = "/bikewaleimg/models/" + Convert.ToString(dr["smallPic"]);
                                 objBike.CityName = Convert.ToString(dr["cityname"]);
+                                objBike.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
                                 objSimilarBikes.Add(objBike);
                             }
                             dr.Close();
