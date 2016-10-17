@@ -242,10 +242,10 @@
                                         <span class="sell-bike-sprite" data-bind="click: gotoStep2, css: (formStep() == 2) ? 'step-2-active' : (formStep() > 1) ? 'edit-step' : 'step-2-inactive'"></span>
                                         <span class="panel-title">Personal details</span>
                                     </div>
-                                    <div class="panel-body" data-bind="visible: formStep() == 2">
-                                        <div class="panel-row margin-bottom20">
+                                    <div class="panel-body" data-bind="visible: formStep() == 2 && !verificationDetails().status()">
+                                        <div class="panel-row margin-bottom30">
                                             <ul id="seller-type-list">
-                                                <li data-bind="click: personalDetails().sellerType">
+                                                <li data-bind="click: personalDetails().sellerType" class="checked">
                                                     <span class="bwsprite radio-icon"></span>
                                                     <span class="seller-label">I am an Individual</span>
                                                 </li>
@@ -265,7 +265,7 @@
                                                 <span class="error-text" data-bind="validationMessage: personalDetails().sellerName"></span>
                                             </div>
                                         </div>
-
+                                        
                                         <div class="panel-row margin-bottom20">
                                             <div class="input-box form-control-box" data-bind="css: personalDetails().sellerEmail().length > 0 ? 'not-empty' : ''">
                                                 <input type="text" id="sellerEmail" data-bind="textInput: personalDetails().sellerEmail, validationElement: personalDetails().sellerEmail" />
@@ -274,35 +274,74 @@
                                                 <span class="error-text" data-bind="validationMessage: personalDetails().sellerEmail"></span>
                                             </div>
                                         </div>
-
+                                        
                                         <div class="panel-row margin-bottom20">
-                                            <div class="input-box form-control-box" data-bind="css: personalDetails().sellerMobile().length > 0 ? 'not-empty' : ''">
-                                                <input type="text" id="sellerMobile" data-bind="textInput: personalDetails().sellerMobile, validationElement: personalDetails().sellerMobile" />
+                                            <div class="input-box input-number-box form-control-box" data-bind="css: personalDetails().sellerMobile().length > 0 ? 'not-empty' : ''">
+                                                <input type="tel" maxlength="10" id="sellerMobile" data-bind="textInput: personalDetails().sellerMobile, validationElement: personalDetails().sellerMobile" />
                                                 <label for="sellerMobile">Mobile number<sup>*</sup></label>
+                                                <span class="input-number-prefix">+91</span>
                                                 <span class="boundary"></span>
+                                                <span class="input-number-label" data-bind="visible: personalDetails().mobileLabel">Responses from buyers will be sent to this number</span>
                                                 <span class="error-text" data-bind="validationMessage: personalDetails().sellerMobile"></span>
                                             </div>
                                         </div>
-
-                                        <%--<div class="panel-row margin-bottom20">
-                                            <div class="input-box form-control-box" data-bind="css: bikeDetails().kmsRidden().length > 0 ? 'not-empty' : ''">
-                                                <input type="number" id="sellerName" min="1" data-bind="textInput: bikeDetails().kmsRidden, validationElement: bikeDetails().kmsRidden" />
-                                                <label for="kmsRidden">Kms ridden<sup>*</sup></label>
-                                                <span class="boundary"></span>
-                                                <span class="error-text" data-bind="validationMessage: bikeDetails().kmsRidden"></span>
-                                            </div>
-                                        </div>--%>
-
+                                        
                                         <div class="panel-row margin-bottom20">
-                                            <div class="terms-content">
-                                                <span></span>
+                                            <div id="terms-content">
+                                                <span class="bwsprite unchecked-box" data-bind="click: personalDetails().terms, css: personalDetails().termsCheckbox ? 'checked': ''"></span>
                                                 <p>I agree with BikeWale sell bike <a href="" target="_blank">Terms & Conditions</a>, visitor agreement and privacy policy *. I agree that by clicking 'List your bike’ button, I am permitting buyers to contact me on my Mobile number.</p>
                                             </div>
                                         </div>
-
+                                        
                                         <div class="panel-row">
-                                            <input type="button" class="btn btn-orange margin-right20" value="List your bike" data-bind="click: personalDetails().savePersonalDetails" />
+                                            <input type="button" class="btn btn-orange margin-right20" value="List your bike" data-bind="click: personalDetails().listYourBike" />
                                             <input type="button" class="btn btn-white" value="Previous" data-bind="click: personalDetails().backToBikeDetails" />
+                                        </div>
+
+                                    </div>
+
+                                    <div class="panel-body" data-bind="visible: formStep() == 2 && verificationDetails().status()">
+                                        <p class="verify-title">Verification</p>
+                                        <p class="verify-desc">We have just sent a 5 digit verification code on your mobile number.</p>
+
+                                        <div data-bind="visible: !verificationDetails().updateMobileStatus()">
+                                            <div class="panel-row margin-bottom35">
+                                                <div class="leftfloat">
+                                                    <p class="font12 text-light-grey">Mobile number</p>
+                                                    <p class="font16 text-bold" data-bind="text: personalDetails().sellerMobile"></p>
+                                                </div>
+                                                <div class="rightfloat bwsprite edit-blue-icon" data-bind="click: verificationDetails().updateSellerMobile"></div>
+                                                <div class="clear"></div>
+                                            </div>
+
+                                            <div class="panel-row margin-bottom10">
+                                                <div class="input-box form-control-box" data-bind="css: verificationDetails().otpCode().length > 0 ? 'not-empty' : ''">
+                                                    <input type="tel" id="otpCode" maxlength="5" data-bind="textInput: verificationDetails().otpCode, validationElement: verificationDetails().otpCode" />
+                                                    <label for="otpCode">One-time password<sup>*</sup></label>
+                                                    <span class="boundary"></span>
+                                                    <span class="error-text" data-bind="validationMessage: verificationDetails().otpCode"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="panel-row">
+                                                <input type="button" class="btn btn-orange margin-right20" value="Verify" data-bind="click: verificationDetails().verifySeller" />
+                                            </div>
+                                        </div>
+
+                                        <div data-bind="visible: verificationDetails().updateMobileStatus()">
+                                            <div class="panel-row margin-bottom20">
+                                                <div class="input-box input-number-box form-control-box" data-bind="css: verificationDetails().updatedMobile().length > 0 ? 'not-empty' : ''">
+                                                    <input type="tel" maxlength="10" id="updatedMobile" data-bind="textInput: verificationDetails().updatedMobile, validationElement: verificationDetails().updatedMobile" />
+                                                    <label for="updatedMobile">Mobile number<sup>*</sup></label>
+                                                    <span class="input-number-prefix">+91</span>
+                                                    <span class="boundary"></span>
+                                                    <span class="error-text" data-bind="validationMessage: verificationDetails().updatedMobile"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="panel-row">
+                                                <input type="button" class="btn btn-orange margin-right20" value="Verify" data-bind="click: verificationDetails().submitUpdatedMobile" />
+                                            </div>
                                         </div>
 
                                     </div>

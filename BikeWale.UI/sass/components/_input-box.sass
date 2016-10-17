@@ -28,20 +28,29 @@ input[type="number"]:focus
 
 .input-number-box
 	input
-		padding-left: 25px
+		padding-left: 30px
 
 	.input-number-prefix
 		display: none
+		font-size: $font-size-medium
 		position: absolute
-		top: 7px
+		top: 4px
 		font-weight: $font-bold
 		color: $text-light
+
+	.input-number-label
+		position: relative
+		top: 4px
+		color: $text-x-light
 
 // on focus
 
 .input-box input:focus ~ label
 		top: -16px
 		font-size: 12px
+
+.input-box input:focus ~ .input-number-prefix
+	display: inline-block
 
 .input-box.not-empty
 	label

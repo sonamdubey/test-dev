@@ -47,10 +47,25 @@
 			font-weight: $font-bold
 
 // terms
-.terms-content
+#terms-content
 	p
+		width: 95%
 		font-size: $font-size-small
 		color: $text-light
+		display: inline-block
+		vertical-align: top
+		position: relative
+		top: -2px
+
+// verification
+.verify-title
+	font-size: $font-size-medium
+	color: $text-black
+	margin-bottom: 20px
+
+.verify-desc
+	font-size: $font-size-base
+	margin-bottom: 25px
 
 /* sprite */
 .sell-bike-sprite
@@ -100,6 +115,23 @@
 .checked
 	.radio-icon
 		background-position: -177px -65px
+
+.unchecked-box
+	width: 14px
+	height: 14px
+	background-position: -216px -120px
+	margin-right: 3px
+	vertical-align: top
+	cursor: pointer
+
+.unchecked-box.checked
+	background-position: -216px -135px
+
+.panel-row
+	.edit-blue-icon
+		position: relative
+		top: 10px
+		cursor: pointer
 
 .step-2-inactive,
 .step-3-inactive

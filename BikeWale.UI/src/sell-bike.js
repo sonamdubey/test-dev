@@ -53,6 +53,30 @@ var validation = {
             return false;
         }
         return true;
+    },
+
+    userMobile: function (val) {
+        var regexMobile = /^[1-9][0-9]{9}$/;
+        
+        if (val[0] == "0" || !regexMobile.test(val)) {
+            vmSellBike.personalDetails().mobileLabel(false);
+            return false;
+        }
+        return true;
+    },
+
+    userOTP: function (val) {
+        if (isNaN(val)) {
+            return false;
+        }
+        return true;
+    },
+
+    otpLength: function (val) {
+        if (val.length != 5) {
+            return false;
+        }
+        return true;
     }
 
 }
@@ -60,21 +84,25 @@ var validation = {
 var sellBike = function () {
     var self = this;
 
-    self.formStep = ko.observable(2);
+    self.formStep = ko.observable(1);
 
     self.bikeDetails = ko.observable(new bikeDetails);
+
+    self.verificationDetails = ko.observable(new verificationDetails);
 
     self.personalDetails = ko.observable(new personalDetails);
 
     self.gotoStep1 = function () {
         if (self.formStep() > 1) {
             self.formStep(1);
+            self.verificationDetails().status(false);
         };
     };
 
     self.gotoStep2 = function () {
-        if (self.formStep() > 1) {
+        if (self.formStep() > 2) {
             self.formStep(2);
+            self.verificationDetails().status(false);
         }
     }
 
@@ -231,7 +259,6 @@ var bikeDetails = function () {
     };
 
     self.saveBikeDetails = function (data, event) {
-        /*
         self.validate(true);
 
         if (self.errors().length === 0) {
@@ -240,9 +267,9 @@ var bikeDetails = function () {
         } else {
             self.errors.showAllMessages();
         }
-        */
-        vmSellBike.formStep(2);
-        scrollToForm.activate();
+        
+        //vmSellBike.formStep(2);
+        //scrollToForm.activate();
     };
 
     self.errors = ko.validation.group(self);
@@ -254,6 +281,8 @@ var personalDetails = function () {
     var self = this;
 
     self.validate = ko.observable(false);
+    self.mobileLabel = ko.observable(true);
+    self.termsCheckbox = ko.observable(true);
 
     self.sellerType = function (data, event) {
         var element = $(event.currentTarget);
@@ -301,25 +330,161 @@ var personalDetails = function () {
         }]
     });
 
-    self.sellerMobile = ko.observable('');
+    self.sellerMobile = ko.observable('').extend({
+        validation: [{
+            validator: function (val) {
+                return !ko.validation.utils.isEmptyVal(val);
+            },
+            message: 'Please enter mobile number',
+            onlyIf: function () {
+                return self.validate();
+            }
+        },
+        {
+            validator: validation.userMobile,
+            message: 'Please enter valid mobile number',
+            onlyIf: function () {
+                return self.validate();
+            }
+        }]
+    });
 
-    self.savePersonalDetails = function () {
+    self.terms = function (data, event) {
+        var element = $(event.currentTarget);
+
+        if (!element.hasClass('checked')) {
+            element.addClass('checked');
+            self.termsCheckbox(true);
+        }
+        else {
+            element.removeClass('checked');
+            self.termsCheckbox(false);
+        }
+    };
+
+    self.listYourBike = function () {
         self.validate(true);
 
         if (self.errors().length === 0) {
-            vmSellBike.formStep(3);
+            if (true) { // if user is not verified
+                vmSellBike.verificationDetails().status(true);
+                $('#otpCode').focus();
+            }
+            else {
+                vmSellBike.formStep(3);
+            }
+
             scrollToForm.activate();
-        } else {
+        }
+        else {
             self.errors.showAllMessages();
+        }
+
+        if (self.mobileError().length != 0) {
+            self.mobileLabel(false);
         }
     };
 
     self.backToBikeDetails = function () {
         vmSellBike.formStep(1);
         scrollToForm.activate();
-    };
+        vmSellBike.verificationDetails().status(false);
+    };    
 
     self.errors = ko.validation.group(self);
+    self.mobileError = ko.validation.group(self.sellerMobile);
+};
+
+var verificationDetails = function () {
+    var self = this;
+
+    self.status = ko.observable(false);
+    self.updateMobileStatus = ko.observable(false);
+
+    self.validateOTP = ko.observable(false);
+    self.validateMobile = ko.observable(false);
+
+    self.otpCode = ko.observable('').extend({
+        validation: [{
+            validator: function (val) {
+                return !ko.validation.utils.isEmptyVal(val);
+            },
+            message: 'Please enter your verification code',
+            onlyIf: function () {
+                return self.validateOTP();
+            }
+        },
+        {
+            validator: validation.userOTP,
+            message: 'Verification code should be numeric',
+            onlyIf: function () {
+                return self.validateOTP();
+            }
+        },
+        {
+            validator: validation.otpLength,
+            message: 'Verification code should be of 5 digits',
+            onlyIf: function () {
+                return self.validateOTP();
+            }
+        }]
+    });
+
+    self.updateSellerMobile = function () {
+        self.updateMobileStatus(true);
+        self.updatedMobile(vmSellBike && vmSellBike.personalDetails() ? vmSellBike.personalDetails().sellerMobile() : '');
+        $('#updatedMobile').focus();
+    };
+
+    self.updatedMobile = ko.observable('').extend({
+        validation: [{
+            validator: function (val) {
+                return !ko.validation.utils.isEmptyVal(val);
+            },
+            message: 'Please enter mobile number',
+            onlyIf: function () {
+                return self.validateMobile();
+            }
+        },
+        {
+            validator: validation.userMobile,
+            message: 'Please enter valid mobile number',
+            onlyIf: function () {
+                return self.validateMobile();
+            }
+        }]
+    });
+
+    self.submitUpdatedMobile = function () {
+        self.validateMobile(true);
+
+        if (self.errorMobile().length === 0) {
+            self.updateMobileStatus(false);
+            vmSellBike.personalDetails().sellerMobile(self.updatedMobile());
+            self.otpCode('');
+            $('#otpCode').focus();
+            self.validateOTP(false);
+            scrollToForm.activate();
+        }
+        else {
+            self.errorMobile.showAllMessages();
+        }
+    };
+
+    self.verifySeller = function () {
+        self.validateOTP(true);
+
+        if (self.errorOTP().length === 0) {
+            vmSellBike.formStep(3);
+            scrollToForm.activate();
+        }
+        else {
+            self.errorOTP.showAllMessages();
+        }
+    };
+
+    self.errorOTP = ko.validation.group(self.otpCode);
+    self.errorMobile = ko.validation.group(self.updatedMobile);
 };
 
 $(document).ready(function () {
@@ -329,7 +494,7 @@ $(document).ready(function () {
         var text = $(this).attr('data-placeholder');
 
         $(this).siblings('.chosen-container').find('input[type=text]').attr('placeholder', text);
-    });
+});
 
     var ownerSearchBox = $('.select-box-no-input').find('.chosen-search');
     ownerSearchBox.empty().append('<p class="no-input-label">Owner</p>');
@@ -340,8 +505,8 @@ var vmSellBike = new sellBike();
 
 ko.applyBindings(vmSellBike, document.getElementById('sell-bike-content'));
 
-// color box
-selectColorBox.on('click', '.color-box-default', function () {
+    // color box
+    selectColorBox.on('click', '.color-box-default', function () {
     if (!selectColorBox.hasClass('open')) {
         colorBox.open();
     }
@@ -351,50 +516,50 @@ selectColorBox.on('click', '.color-box-default', function () {
 });
 
 var colorBox = {
-    dropdown: $('.color-dropdown'),
+        dropdown: $('.color-dropdown'),
 
-    open: function () {
+        open: function () {
         selectColorBox.addClass('open');
-    },
+},
 
-    close: function () {
+        close: function () {
         selectColorBox.removeClass('open');
-    },
+},
 
-    active: function (element) {
+        active: function (element) {
         colorBox.dropdown.find('li.active').removeClass('active');
         element.addClass('active');
         selectColorBox.addClass('selection-done');
         colorBox.close();
-    },
+},
 
-    inactive: function (element) {
+        inactive: function (element) {
         element.removeClass('active');
-    },
+},
 
-    userInput: function () {
+        userInput: function () {
         colorBox.dropdown.find('li.active').removeClass('active');
         selectColorBox.addClass('selection-done');
         colorBox.close();
-    }
+}
 };
 
-// close color dropdown
-$(document).mouseup(function (event) {
+    // close color dropdown
+    $(document).mouseup(function (event) {
     event.stopPropagation();
 
     if (selectColorBox.hasClass('open') && $('.color-dropdown').is(':visible')) {
         if (!selectColorBox.is(event.target) && selectColorBox.has(event.target).length === 0) {
             colorBox.close();
-        }
+    }
     }
 
 });
 
-// seller type
-var sellerType = {
+    // seller type
+    var sellerType = {
 
-    check: function (element) {
+            check: function (element) {
         element.siblings('.checked').removeClass('checked');
         element.addClass('checked');
     }
@@ -404,12 +569,13 @@ $('.select-box select').on('change', function () {
     $(this).closest('.select-box').addClass('done');
 });
 
-// Disable Mouse scrolling
-$('input[type=number]').on('mousewheel', function (e) { $(this).blur(); });
-// Disable keyboard scrolling
-$('input[type=number]').on('keydown', function (e) {
+    // Disable Mouse scrolling
+    $('input[type=number]').on('mousewheel', function (e) { $(this).blur();
+});
+    // Disable keyboard scrolling
+    $('input[type=number]').on('keydown', function (e) {
     var key = e.charCode || e.keyCode;
-    // Disable Up and Down Arrows on Keyboard
+        // Disable Up and Down Arrows on Keyboard
     if (key == 38 || key == 40) {
         e.preventDefault();
     } else {
@@ -418,14 +584,14 @@ $('input[type=number]').on('keydown', function (e) {
 });
 
 var scrollToForm = {
-    container: $('#sell-bike-content'),
+        container: $('#sell-bike-content'),
 
-    activate: function () {
+        activate: function () {
         var position = scrollToForm.container.offset();
 
         $('html, body').animate({
-            scrollTop: position.top - 51
+                scrollTop: position.top -51
         }, 200);
-        // 51: navbar height
-    }
+            // 51: navbar height
+}
 };
