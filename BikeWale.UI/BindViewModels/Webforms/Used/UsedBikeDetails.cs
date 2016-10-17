@@ -66,7 +66,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
         /// Created by  : Sushil Kumar on 29th August 2016
         /// Description : Bind profile details for the used bike
         /// Modified By : Sushil Kumar on 17th August 2016
-        /// Description : Redirect to pageNOt found if listing is not approved and not sold and not an ad user
+        /// Description : Redirect to pageNOt found if listing is not approved and not sold and not an ad user (IsPageNotFoundRedirection = (InquiryDetails.AdStatus != 1 && !IsBikeSold) && !IsAdUserLoggedIn)
         /// </summary>
         private void GetProfileDetails()
         {
@@ -84,7 +84,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
                     if (InquiryDetails != null && InquiryDetails.MinDetails != null)
                     {
 
-                        IsAdUserLoggedIn = _customerId != "-1" && _customerId == InquiryDetails.CustomerId.ToString();
+                        IsAdUserLoggedIn = _customerId == InquiryDetails.CustomerId.ToString();
                         BikeName = string.Format("{0} {1} {2}", InquiryDetails.Make.MakeName, InquiryDetails.Model.ModelName, InquiryDetails.Version.VersionName);
                         ModelYear = (InquiryDetails.MinDetails.ModelYear != null) ? InquiryDetails.MinDetails.ModelYear.Year.ToString() : string.Empty;
                         Title = string.Format("Used {0} {1} (S{2}) for sale in {3} | BikeWale", ModelYear, BikeName, InquiryDetails.OtherDetails.Id, InquiryDetails.City.CityName);
@@ -92,11 +92,11 @@ namespace Bikewale.BindViewModels.Webforms.Used
                         Description = string.Format("BikeWale - Used {0} {1} for sale in {2}. This second hand bike is of {3} model and its profile id is S{4}. Get phone number of the seller and call directly to inspect and test ride the bike.", InquiryDetails.Make.MakeName, InquiryDetails.Model.ModelName, InquiryDetails.City.CityName, ModelYear, InquiryDetails.OtherDetails.Id);
                         MoreBikeSpecsUrl = string.Format("/{0}-bikes/{1}/specifications-features/?vid={2}#specs", InquiryDetails.Make.MaskingName, InquiryDetails.Model.MaskingName, InquiryDetails.Version.VersionId);
                         MoreBikeFeaturesUrl = string.Format("/{0}-bikes/{1}/specifications-features/?vid={2}#features", InquiryDetails.Make.MaskingName, InquiryDetails.Model.MaskingName, InquiryDetails.Version.VersionId);
-                        CanonicalUrl = string.Format("http://www.bikewale.com/used/bikes-in-{0}/{1}-{2}-S{3}/", InquiryDetails.City.CityMaskingName, InquiryDetails.Make.MaskingName, InquiryDetails.Model.MaskingName, InquiryId);
-                        AlternateUrl = string.Format("http://www.bikewale.com/m/used/bikes-in-{0}/{1}-{2}-S{3}/", InquiryDetails.City.CityMaskingName, InquiryDetails.Make.MaskingName, InquiryDetails.Model.MaskingName, InquiryId);
+                        CanonicalUrl = string.Format("http://www.bikewale.com/used/bikes-in-{0}/{1}-{2}-s{3}/", InquiryDetails.City.CityMaskingName, InquiryDetails.Make.MaskingName, InquiryDetails.Model.MaskingName, InquiryId);
+                        AlternateUrl = string.Format("http://www.bikewale.com/m/used/bikes-in-{0}/{1}-{2}-s{3}/", InquiryDetails.City.CityMaskingName, InquiryDetails.Make.MaskingName, InquiryDetails.Model.MaskingName, InquiryId);
                         FirstImage = (InquiryDetails.PhotosCount > 0) ? InquiryDetails.Photo.FirstOrDefault() : null;
                         IsBikeSold = (InquiryDetails.AdStatus == 3);
-                        IsPageNotFoundRedirection = (InquiryDetails.AdStatus != 1 && !IsBikeSold) && !IsAdUserLoggedIn;
+                        IsPageNotFoundRedirection = !IsAdUserLoggedIn && (InquiryDetails.AdStatus != 1 && !IsBikeSold);
                     }
                     else
                         IsPageNotFoundRedirection = true;

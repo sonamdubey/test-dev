@@ -100,7 +100,7 @@
                                                     <% }
                                                        else
                                                        { %>
-                                                    <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(photo.OriginalImagePath,photo.HostUrl,Bikewale.Utility.ImageSize._642x361) %>" border="0" alt="<%= bikeName %>" title="<%= bikeName %>" src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
+                                                    <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(photo.OriginalImagePath,photo.HostUrl,Bikewale.Utility.ImageSize._642x361) %>" border="0" alt="<%= bikeName %>" title="<%= bikeName %>" src="">
                                                     <% } %>
                                                 </span>
                                             </div>
@@ -412,7 +412,7 @@
                                     <li>
                                         <div class="stage-slide">
                                             <div class="stage-image-placeholder">
-                                                <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(photo.OriginalImagePath,photo.HostUrl,Bikewale.Utility.ImageSize._642x361) %>" alt="<%= bikeName %>" title="<%= bikeName %>" src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
+                                                <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(photo.OriginalImagePath,photo.HostUrl,Bikewale.Utility.ImageSize._642x361) %>" alt="<%= bikeName %>" title="<%= bikeName %>" src="">
                                             </div>
                                         </div>
                                     </li>
@@ -436,7 +436,7 @@
                                     <li>
                                         <div class="navigation-slide">
                                             <div class="navigation-image-placeholder">
-                                                <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(photo.OriginalImagePath,photo.HostUrl,Bikewale.Utility.ImageSize._642x361) %>" alt="<%= bikeName %>" src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
+                                                <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(photo.OriginalImagePath,photo.HostUrl,Bikewale.Utility.ImageSize._642x361) %>" alt="<%= bikeName %>" src="">
                                             </div>
                                         </div>
                                     </li>
