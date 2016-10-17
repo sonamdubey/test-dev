@@ -28,7 +28,7 @@ namespace Bikewale.BindViewModels.Controls
                     IEnumerable<SimilarCompareBikeEntity> objSimilarBikes = new List<SimilarCompareBikeEntity>();
                     container.RegisterType<IBikeCompare, BikeCompareRepository>();
                     IBikeCompare objCompare = container.Resolve<IBikeCompare>();
-                    objSimilarBikes = objCompare.GetSimilarCompareBikes(versionList, count, cityid);
+                    objSimilarBikes = objCompare.GetSimilarCompareBikes(versionList, count);
                     if (objSimilarBikes != null)
                         FetchedRecordsCount = (uint)objSimilarBikes.Count();
 
@@ -64,7 +64,7 @@ namespace Bikewale.BindViewModels.Controls
                     IEnumerable<SimilarCompareBikeEntity> objSimilarBikes = new List<SimilarCompareBikeEntity>();
                     container.RegisterType<IBikeCompare, BikeCompareRepository>();
                     IBikeCompare objCompare = container.Resolve<IBikeCompare>();
-                    objSimilarBikes = objCompare.GetSimilarCompareBikes(versionList, count, cityid);
+                    objSimilarBikes = objCompare.GetSimilarCompareBikes(versionList, count);
                     if (objSimilarBikes != null)
                         FetchedRecordsCount = (uint)objSimilarBikes.Count();
 
@@ -101,7 +101,7 @@ namespace Bikewale.BindViewModels.Controls
                 {
                     container.RegisterType<IBikeCompare, BikeCompareRepository>();
                     IBikeCompare objCompare = container.Resolve<IBikeCompare>();
-                    objSimilarBikes = objCompare.GetSimilarCompareBikes(versionList, count, cityid);
+                    objSimilarBikes = objCompare.GetSimilarCompareBikes(versionList, count);
                     if (objSimilarBikes != null)
                         FetchedRecordsCount = (uint)objSimilarBikes.Count();
                 }

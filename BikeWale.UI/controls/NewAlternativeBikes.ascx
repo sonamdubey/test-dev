@@ -18,10 +18,10 @@
                                     <p class="bikeTitle"><%# DataBinder.Eval(Container.DataItem, "MakeBase.MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem, "ModelBase.ModelName").ToString() %></p>
                                     <p class="text-xt-light-grey margin-bottom10"><%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "MaxPower")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Kerbweight"))) %></p>
                                     <p class="text-light-grey margin-bottom5"><%#"Ex Showroom,"+DataBinder.Eval(Container.DataItem, "CityName") %></p>
-                                </div>
-                              </a>   
                                     <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-default text-bold"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem, "VersionPrice").ToString())%></span>
-                             <div class="margin-left20 margin-bottom20">
+                                </div>
+                              </a>  
+                                 <div class="margin-left20 margin-bottom20">
                                         <a href="<%# Bikewale.Utility.UrlFormatter.PriceInCityUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"MakeBase.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"ModelBase.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"CityMaskingName"))) %>" class="btn btn-white btn-truncate font14 btn-size-2" title="<%# DataBinder.Eval(Container.DataItem, "MakeBase.MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem, "ModelBase.ModelName").ToString() %> On-road price in <%#Convert.ToString(DataBinder.Eval(Container.DataItem, "CityName")) %>" >On-road price in <%#Convert.ToString(DataBinder.Eval(Container.DataItem, "CityName")) %></a>
                                     </div>
 									   
