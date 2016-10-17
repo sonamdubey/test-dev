@@ -14,5 +14,6 @@ namespace Bikewale.Interfaces.BikeData
         List<BikeVersionsListEntity> GetVersionsByType(EnumBikeType requestType, int modelId, int? cityId = null);
         T GetById(U versionId);
         List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew);
+        IEnumerable<BikeColorsbyVersion> GetColorsbyVersionId(uint versionId);
     }
 }

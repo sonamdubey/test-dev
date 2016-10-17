@@ -9,6 +9,8 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
+using System.Linq;
+
 
 namespace Bikewale.DAL.BikeData
 {
@@ -549,7 +551,69 @@ namespace Bikewale.DAL.BikeData
 
             return objColors;
         }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 17 Oct 2016
+        /// Description: get colors by version id for used bikes
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<BikeColorsbyVersion> GetColorsbyVersionId(uint versionId)
+        {
+            List<BikeColorsbyVersion> objVersionColors = null;
+            List<VersionColor> versionColors = null;
 
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikecolorsbyversion"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
 
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        versionColors = new List<VersionColor>();
+
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                VersionColor objColor = new VersionColor();
+                                objColor.ColorId = Convert.ToUInt32(dr["colorid"]);
+                                objColor.ColorName = Convert.ToString(dr["colorname"]);
+                                objColor.ColorCode = Convert.ToString(dr["hexcode"]);
+                                versionColors.Add(objColor);
+                            }
+                            dr.Close();
+                        }
+                    }
+                   }
+                objVersionColors = new List<BikeColorsbyVersion>();
+                                 var colorGroups = from color in versionColors
+                                  group color by color.ColorId into newgroup
+                                  orderby newgroup.Key
+                                  select newgroup;
+                foreach (var color in colorGroups)
+                {
+                BikeColorsbyVersion objSingleColor = new BikeColorsbyVersion();
+                objSingleColor.ColorId = color.Key;
+                
+                IList<string> HexCodeList = new List<string>();
+                   foreach (var colorList in color)
+                  {
+                    objSingleColor.ColorName = colorList.ColorName;
+                    objSingleColor.ColorId = colorList.ColorId;
+                    HexCodeList.Add(colorList.ColorCode.Trim());
+                  }
+                objSingleColor.HexCode = HexCodeList;
+                objVersionColors.Add(objSingleColor);
+                   
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            return objVersionColors;
+        }
     }   // class
 }   // namespace

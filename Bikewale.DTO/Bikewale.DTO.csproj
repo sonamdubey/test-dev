@@ -93,6 +93,8 @@
     <Compile Include="BikeBooking\BikeBookingOfferDTO.cs" />
     <Compile Include="BikeBooking\BookingListingFilterDTO.cs" />
     <Compile Include="BikeBooking\PageUrl.cs" />
+    <Compile Include="BikeData\BikeColorsbyVersion.cs" />
+    <Compile Include="BikeData\BikeColorsbyVersionDTO.cs" />
     <Compile Include="BikeData\MakeModelBase.cs" />
     <Compile Include="BikeData\v2\MinSpecs.cs" />
     <Compile Include="Compare\BikeColorDTO.cs" />

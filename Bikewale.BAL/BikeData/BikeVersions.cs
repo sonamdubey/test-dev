@@ -119,5 +119,17 @@ namespace Bikewale.BAL.BikeData
 
             return objColors;
         }
+        /// <summary>
+        /// Created By: Aditi Srivastava 17 Oct 2016
+        /// Description: Get version colors and group hexcodes by color id
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeColorsbyVersion> GetColorsbyVersionId(uint versionId)
+        {
+            IEnumerable<BikeColorsbyVersion> objVersionColors = null;
+            objVersionColors = versionRepository.GetColorsbyVersionId(versionId);
+            return objVersionColors;
+        }
     }   // Class
 }   // namespace
