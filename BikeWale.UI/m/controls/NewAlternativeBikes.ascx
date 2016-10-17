@@ -35,7 +35,7 @@
                                  <span class="bwmsprite inr-xsm-icon"></span>
                                  <span> <%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem, "MinPrice").ToString()) %> </span>
                              </p>
-                            <a href='/m/<%#Convert.ToString(DataBinder.Eval(Container.DataItem,"MakeBase.MaskingName"))%>-bikes/<%#Convert.ToString(DataBinder.Eval(Container.DataItem,"ModelBase.MaskingName"))%>/price-in-<%#Convert.ToString(DataBinder.Eval(Container.DataItem,"CityMaskingName"))%>' data-pqSourceId="<%= PQSourceId %>" data-modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelBase.ModelId")) %>" class="<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))!="0")?"":"hide" %> btn btn-xs btn-full-width btn-white margin-top10 getquotation font12" rel="nofollow">On-road price in <%= CityName %></a>
+                            <a href='/m/<%#Convert.ToString(DataBinder.Eval(Container.DataItem,"MakeBase.MaskingName"))%>-bikes/<%#Convert.ToString(DataBinder.Eval(Container.DataItem,"ModelBase.MaskingName"))%>/price-in-<%#Convert.ToString(DataBinder.Eval(Container.DataItem,"CityMaskingName"))%>' class="<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))!="0")?"":"hide" %> btn btn-xs btn-full-width btn-white margin-top10 getquotation font12" rel="nofollow">On-road price in <%= CityName %></a>
                                  <% } %>                           
                         </div>
                     </div>         

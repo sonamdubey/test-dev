@@ -474,7 +474,7 @@ namespace Bikewale.DAL.BikeData
                                 objBike.ModelBase.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
                                 objBike.VersionBase.VersionId = Convert.ToInt32(dr["BikeVersionId"]);
                                 objBike.HostUrl = Convert.ToString(dr["HostUrl"]);
-                                objBike.MinPrice = Convert.ToInt32(dr["VersionPrice"]);
+                                objBike.MinPrice = SqlReaderConvertor.ToInt32(dr["VersionPrice"]);
                                 objBike.VersionPrice = SqlReaderConvertor.ToInt32(dr["Onroadprice"]);
                                 objBike.OriginalImagePath = dr["OriginalImagePath"].ToString();
                                 objBike.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
