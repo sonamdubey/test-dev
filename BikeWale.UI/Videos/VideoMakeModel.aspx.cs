@@ -164,7 +164,7 @@ namespace Bikewale.Videos
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "ParseQueryString()");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.RawUrl + "ParseQueryString()");
                 objErr.SendMail();
             }
             finally
@@ -177,14 +177,11 @@ namespace Bikewale.Videos
                 {
                     CommonOpn.RedirectPermanent(Request.RawUrl.Replace(modelMaskingName, objModelResponse.MaskingName));
                 }
-                else
+                else if (isPageNotFound)
                 {
-                    if (isPageNotFound)
-                    {
-                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                    }
+                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
                 }
             }
         }
@@ -245,7 +242,7 @@ namespace Bikewale.Videos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "BindVideos()");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.RawUrl + "BindVideos()");
                 objErr.SendMail();
             }
         }
