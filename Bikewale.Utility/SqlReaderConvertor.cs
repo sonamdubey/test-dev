@@ -65,6 +65,12 @@ namespace Bikewale.Utility
             return ((DBNull.Value != reader) ? Convert.ToUInt16(reader) : retVal);
         }
 
+        public static Int16 ToInt16(object reader)
+        {
+            Int16 retVal = default(Int16);
+            return ((DBNull.Value != reader) ? Convert.ToInt16(reader) : retVal);
+        }
+
         public static DateTime ToDateTime(object reader)
         {
             DateTime retVal = default(DateTime);
@@ -75,25 +81,6 @@ namespace Bikewale.Utility
         {
             Boolean retVal = default(Boolean);
             return ((DBNull.Value != reader) ? Convert.ToBoolean(reader) : retVal);
-        }
-
-
-
-        /// <summary>
-        ///  Created By : Sushil Kumar on 26th March 2016
-        ///  Description : Check for Dbnull and parse value to uint16 
-        /// </summary>
-        /// <param name="reader"></param>
-        /// <returns></returns>
-        public static UInt16 ParseToInt16(object reader)
-        {
-            UInt16 retVal = default(UInt16);
-            if (DBNull.Value != reader)
-            {
-                UInt16.TryParse(reader.ToString(), out retVal);
-            }
-            return retVal;
-
         }
 
         /// <summary>

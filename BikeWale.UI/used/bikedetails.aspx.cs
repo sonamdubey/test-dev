@@ -24,6 +24,7 @@ namespace Bikewale.Used
             pgCanonicalUrl = string.Empty, modelYear = string.Empty,
             moreBikeSpecsUrl = string.Empty, moreBikeFeaturesUrl = string.Empty, profileId = string.Empty;
         protected BikePhoto firstImage = null;
+        protected bool isBikeSold;
         protected Bikewale.Entities.Used.ClassifiedInquiryDetails inquiryDetails = null;
         protected bool isPageNotFound, isPhotoRequestDone;
         protected Bikewale.Mobile.Controls.UploadPhotoRequestPopup widgetUploadPhotoRequest;
@@ -54,13 +55,14 @@ namespace Bikewale.Used
 
             if (!isPageNotFound)
             {
-                widgetUploadPhotoRequest.ProfileId = profileId;
-                widgetUploadPhotoRequest.BikeName = bikeName;
-
-                BindUserControls();
 
                 if (inquiryDetails != null && inquiryDetails.PhotosCount == 0)
                 {
+                    widgetUploadPhotoRequest.ProfileId = profileId;
+                    widgetUploadPhotoRequest.BikeName = bikeName;
+
+                    BindUserControls();
+
                     using (IUnityContainer container = new UnityContainer())
                     {
                         bool isDealer;
@@ -153,6 +155,7 @@ namespace Bikewale.Used
                         moreBikeFeaturesUrl = usedBikeDetails.MoreBikeFeaturesUrl;
                         profileId = string.Format("S{0}", inquiryId);
                         isPageNotFound = usedBikeDetails.IsPageNotFoundRedirection;
+                        isBikeSold = usedBikeDetails.IsBikeSold;
                     }
                 }
             }

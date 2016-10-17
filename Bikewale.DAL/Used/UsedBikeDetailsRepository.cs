@@ -22,6 +22,8 @@ namespace Bikewale.DAL.Used
         /// <summary>
         /// Created by  : Sushil Kumar on 29th August 2016
         /// Description : To get profile details for the specified inquiry id
+        /// Modified By : Sushil Kumar on 17th August 2016
+        /// Description : Added AdStatus and CustomerId for sold bikes scenario
         /// </summary>
         /// <param name="inquiryId"></param>
         /// <returns></returns>
@@ -42,6 +44,8 @@ namespace Bikewale.DAL.Used
                         //used bike details make,model,version
                         if (dr.Read())
                         {
+                            _objInquiryDetails.AdStatus = SqlReaderConvertor.ToInt16(dr["adstatus"]);
+                            _objInquiryDetails.CustomerId = SqlReaderConvertor.ParseToUInt32(dr["customerid"]);
                             _objInquiryDetails.Make = new BikeMakeEntityBase();
                             _objInquiryDetails.Make.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
                             _objInquiryDetails.Make.MakeName = Convert.ToString(dr["Make"]);

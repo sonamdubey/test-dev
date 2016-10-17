@@ -114,9 +114,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             {
                 Cities = objCitiesCache.GetAllCities(EnumBikeType.Used);
 
-                SelectedCity = (from c in Cities
-                                where c.CityMaskingName == _cityMaskingName
-                                select c).FirstOrDefault();
+                SelectedCity = Cities.FirstOrDefault(c => c.CityMaskingName == _cityMaskingName);
                 if (SelectedCity != null)
                 {
                     City = SelectedCity.CityName;
@@ -142,14 +140,14 @@ namespace Bikewale.BindViewModels.Webforms.Used
 
                 if (MakeModels != null)
                 {
-                    var _objMake = MakeModels.Where(m => m.Make.MaskingName == _makeMaskingName).FirstOrDefault();
+                    var _objMake = MakeModels.FirstOrDefault(m => m.Make.MaskingName == _makeMaskingName);
                     if (_objMake != null && _objMake.Make != null)
                     {
                         Make = _objMake.Make.MakeName;
                         SelectedMake = _objMake.Make;
                         if (_objMake.Models != null)
                         {
-                            var _objModel = _objMake.Models.Where(m => m.MaskingName == _modelMaskingName).FirstOrDefault();
+                            var _objModel = _objMake.Models.FirstOrDefault(m => m.MaskingName == _modelMaskingName);
                             if (_objModel != null)
                                 Model = _objModel.ModelName;
                         }
@@ -201,7 +199,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : CreateMetas");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : BindSearchPageData");
                 objErr.SendMail();
             }
             return true;
