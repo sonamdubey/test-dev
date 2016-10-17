@@ -13,6 +13,10 @@ namespace Bikewale.Mobile.Controls
         public Repeater rptAlternateBikes;
         public int VersionId { get; set; }
         public string modelName { get; set; }
+        public bool IsPriceInCity { get; set; }
+        public string CityName { get; set; }
+        public int CityId { get; set; }
+
         private int _topCount = 6;
         public int TopCount
         {
@@ -41,6 +45,7 @@ namespace Bikewale.Mobile.Controls
             objAlt.VersionId = VersionId;
             objAlt.TopCount = TopCount;
             objAlt.Deviation = Deviation;
+            objAlt.cityId = CityId != 0 ? CityId : Convert.ToInt16(Bikewale.Utility.BWConfiguration.Instance.DefaultCity);
             objAlt.BindAlternativeBikes(rptAlternateBikes);
 
             FetchedRecordsCount = objAlt.FetchedRecordsCount;

@@ -168,6 +168,8 @@ namespace Bikewale.Mobile.New
                     SetFlagsAtEnd();
                     TotalUsedBikes();
                     CreateMetas();
+
+                ctrlTopCityPrices.TopCount = 4;
                 }
             }
             catch (Exception ex)
