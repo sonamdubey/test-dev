@@ -257,6 +257,7 @@
                         <div class="bike-sold-msg text-grey ">The <%= bikeName %> bike you are looking for has been sold. You might want to consider other used bikes shown below.</div>
                     </div>
                 </div>
+                <div class="clear"></div>
             </div>
         </section>
         <% } %>

@@ -172,7 +172,8 @@
         <% } %>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
-
+                <% if ((inquiryDetails.SpecsFeatures != null && !isBikeSold) || ctrlOtherUsedBikes.FetchedRecordsCount > 0 || ctrlSimilarUsedBikes.FetchedRecordsCount > 0)
+           { %>
         <section>
             <div id="model-bottom-card-wrapper" class="container bg-white clearfix box-shadow margin-bottom30">
                 <div id="model-overall-specs-wrapper">
@@ -275,7 +276,7 @@
             </div>
             <div id="modelSpecsFooter"></div>
         </section>
-
+        <% } %>
         <% if (inquiryDetails.PhotosCount > 1)
            { %>
         <!-- gallery start -->
