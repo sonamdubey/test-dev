@@ -466,15 +466,15 @@ namespace Bikewale.DAL.BikeData
                             while (dr.Read())
                             {
                                 SimilarBikeEntity objBike = new SimilarBikeEntity();
-                                objBike.MakeBase.MakeId = Convert.ToInt32(dr["BikeMakeId"]);
+                                objBike.MakeBase.MakeId = SqlReaderConvertor.ToInt32(dr["BikeMakeId"]);
                                 objBike.MakeBase.MakeName = Convert.ToString(dr["MakeName"]);
                                 objBike.MakeBase.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
-                                objBike.ModelBase.ModelId = Convert.ToInt32(dr["similarModelId"]);
+                                objBike.ModelBase.ModelId = SqlReaderConvertor.ToInt32(dr["similarModelId"]);
                                 objBike.ModelBase.ModelName = Convert.ToString(dr["ModelName"]);
                                 objBike.ModelBase.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
-                                objBike.VersionBase.VersionId = Convert.ToInt32(dr["BikeVersionId"]);
+                                objBike.VersionBase.VersionId = SqlReaderConvertor.ToInt32(dr["BikeVersionId"]);
                                 objBike.HostUrl = Convert.ToString(dr["HostUrl"]);
-                                objBike.MinPrice = Convert.ToInt32(dr["VersionPrice"]);
+                                objBike.MinPrice = SqlReaderConvertor.ToInt32(dr["VersionPrice"]);
                                 objBike.VersionPrice = SqlReaderConvertor.ToInt32(dr["Onroadprice"]);
                                 objBike.OriginalImagePath = dr["OriginalImagePath"].ToString();
                                 objBike.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
@@ -487,6 +487,7 @@ namespace Bikewale.DAL.BikeData
                                 objBike.LargePicUrl = "/bikewaleimg/models/" + Convert.ToString(dr["largePic"]);
                                 objBike.SmallPicUrl = "/bikewaleimg/models/" + Convert.ToString(dr["smallPic"]);
                                 objBike.CityName = Convert.ToString(dr["cityname"]);
+                                objBike.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
                                 objSimilarBikes.Add(objBike);
                             }
                             dr.Close();
@@ -498,7 +499,6 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "GetSimilarBikesListByCity");
-                objErr.SendMail();
                 objErr.SendMail();
             }
 

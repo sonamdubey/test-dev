@@ -303,18 +303,18 @@ namespace Bikewale.DAL.Compare
         /// <param name="versionList"></param>
         /// <param name="topCount"></param>
         /// <returns></returns>
-        public IEnumerable<SimilarCompareBikeEntity> GetSimilarCompareBikes(string versionList, uint topCount)
+        public IEnumerable<SimilarCompareBikeEntity> GetSimilarCompareBikes(string versionList, uint topCount, uint cityid)
         {
             List<SimilarCompareBikeEntity> similarBikeList = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getsimilarcomparebikeslist_12092016";
+                    cmd.CommandText = "getsimilarcomparebikeslist_13102016";
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionidlist", DbType.String, 20, versionList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.String, 20, versionList));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_percentdeviation", DbType.Int16, Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, cityid));
                     // LogLiveSps.LogSpInGrayLog(command);
                     using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {

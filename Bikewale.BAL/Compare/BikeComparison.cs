@@ -824,7 +824,7 @@ namespace Bikewale.BAL.Compare
             return _objCompare.CompareList(topCount);
         }
 
-        public IEnumerable<SimilarCompareBikeEntity> GetSimilarCompareBikes(string versionList, uint topCount)
+        public IEnumerable<SimilarCompareBikeEntity> GetSimilarCompareBikes(string versionList, uint topCount, uint cityid)
         {
             return null;
         }

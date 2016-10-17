@@ -26,6 +26,8 @@ namespace Bikewale.Entities.BikeData
         [DataMember]
         public string OriginalImagePath { get; set; }
         [DataMember]
+        public string CityMaskingName { get; set; }
+        [DataMember]
         public Double ReviewRate { get; set; }
         [DataMember]
         public UInt16 ReviewCount { get; set; }

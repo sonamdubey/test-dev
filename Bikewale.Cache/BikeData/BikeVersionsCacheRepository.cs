@@ -38,7 +38,7 @@ namespace Bikewale.Cache.BikeData
         public IEnumerable<Entities.BikeData.SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint cityid)
         {
             IEnumerable<Entities.BikeData.SimilarBikeEntity> versions = null;
-            string key = String.Format("BW_SimilarBikes_{0}_Cnt_{1}", versionId, topCount);
+            string key = String.Format("BW_SimilarBikes_{0}_Cnt_{1}_{2}", versionId, topCount, cityid);
             try
             {
                 versions = _cache.GetFromCache<IEnumerable<Entities.BikeData.SimilarBikeEntity>>(key, new TimeSpan(1, 0, 0), () => _objVersions.GetSimilarBikesList(versionId, topCount, cityid));
@@ -51,7 +51,7 @@ namespace Bikewale.Cache.BikeData
             return versions;
         }
 
-     
+
         /// <summary>
         /// Created by  :    Sushil Kumar on 28th June 2016
         /// Summary     :   Gets the versions by type and modelid and cityId
