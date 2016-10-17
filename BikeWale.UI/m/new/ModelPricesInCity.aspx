@@ -36,7 +36,7 @@
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
 
-        <section class="bg-white box-shadow padding-top10 margin-bottom25">
+        <section class="bg-white box-shadow padding-top10 margin-bottom10">
               <%if(isDiscontinued) { %> <div class="discont-text-label font14 text-white text-center">Discontinued</div>     <% } %>
             <div id="modelCityPriceDetails">
                 <div class="bike-image">
@@ -78,24 +78,28 @@
                     <ItemTemplate>
                         <% if (!isDiscontinued)
                            { %>
-                        <div class="content-inner-block-20 margin-top5 font14 priceTable <%# (Convert.ToUInt32(DataBinder.Eval(Container.DataItem, "VersionId")) != versionId)?"hide":string.Empty %>" id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>">
-                            <div class="version-details-row margin-bottom15">
-                                <p class="details-left-column text-light-grey vertical-top">Ex-showroom</p>
-                                <p class="details-right-column vertical-top"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold">&nbsp;<%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"ExShowroomPrice").ToString()) %></span></p>
-                            </div>
-                            <div class="version-details-row margin-bottom15">
-                                <p class="details-left-column text-light-grey vertical-top">RTO</p>
-                                <p class="details-right-column vertical-top"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold">&nbsp;<%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"RTO").ToString()) %></span></p>
-                            </div>
-                            <div class="version-details-row margin-bottom15">
-                                <p class="details-left-column text-light-grey vertical-top">Insurance (comprehensive)</p>
-                                <p class="details-right-column vertical-top"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold">&nbsp; <%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Insurance").ToString()) %></span></p>
-                            </div>
-                            <div class="border-divider margin-bottom15"></div>
-                            <div class="version-details-row">
-                                <p class="details-left-column text-bold vertical-top">On-road price in <%= cityName %></p>
-                                <p class="details-right-column vertical-top"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold">&nbsp;<%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"OnRoadPrice").ToString()) %></span></p>
-                            </div>
+                        <div class="content-inner-block-20 font14 priceTable <%# (Convert.ToUInt32(DataBinder.Eval(Container.DataItem, "VersionId")) != versionId)?"hide":string.Empty %>" id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>">
+                            <table cellspacing="0" cellpadding="0" width="100%" border="0">
+                                <tr>
+                                    <td width="65%" class="padding-bottom15 text-light-grey">Ex-showroom</td>
+                                    <td width="45%" align="right" class="padding-bottom15"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold"><%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"ExShowroomPrice").ToString()) %></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="padding-bottom15 text-light-grey">RTO</td>
+                                    <td align="right" class="padding-bottom15"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold"><%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"RTO").ToString()) %></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="padding-bottom15 text-light-grey">Insurance (comprehensive)</td>
+                                    <td align="right" class="padding-bottom15"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold"><%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Insurance").ToString()) %></span></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="padding-bottom15 border-divider"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold">On-road price in <%= cityName %></td>
+                                    <td align="right"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold"><%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"OnRoadPrice").ToString()) %></span></td>
+                                </tr>
+                            </table>
                         </div>
                         <%}
                            else
@@ -142,9 +146,13 @@
             <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
         </section>
 
-        <% if (ctrlRecentUsedBikes.fetchedCount > 0)
-           {%>  <BW:MostRecentUsedBikes runat="server" ID="ctrlRecentUsedBikes" /><%} %>
-
+        <% if (ctrlRecentUsedBikes.fetchedCount > 0) { %>
+           <section>
+               <div class="box-shadow bg-white margin-bottom10">
+                    <BW:MostRecentUsedBikes runat="server" ID="ctrlRecentUsedBikes" />
+                </div>
+           </section>
+        <%} %>
         <span class="font14 text-light-grey padding-right20 padding-left20 margin-bottom10"><strong>Disclaimer</strong>:</span>
     <p class="font14 text-light-grey padding-right20 padding-left20 margin-bottom10"> 
         BikeWale takes utmost care in gathering precise and accurate information about <%=makeName %> <%=modelName %> 
