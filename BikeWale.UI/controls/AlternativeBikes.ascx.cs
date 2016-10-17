@@ -1,9 +1,7 @@
 ﻿using Bikewale.BindViewModels.Controls;
+using Bikewale.Entities.BikeData;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
@@ -14,9 +12,10 @@ namespace Bikewale.Controls
         public int VersionId { get; set; }
         public int FetchedRecordsCount { get; set; }
         public int PQSourceId { get; set; }
-
+        public int cityId { get; set; }
         private int _topCount = 6;
-        public int TopCount 
+    
+        public int TopCount
         {
             get { return _topCount; }
             set { _topCount = value; }
@@ -41,7 +40,8 @@ namespace Bikewale.Controls
             objAlt.VersionId = VersionId;
             objAlt.TopCount = TopCount;
             objAlt.Deviation = Deviation;
-            objAlt.BindAlternativeBikes(rptAlternateBikes);
+            objAlt.cityId = cityId > 0 ? cityId : Convert.ToInt16(Bikewale.Utility.BWConfiguration.Instance.DefaultCity);
+             objAlt.BindAlternativeBikes(rptAlternateBikes);
 
             FetchedRecordsCount = objAlt.FetchedRecordsCount;
         }

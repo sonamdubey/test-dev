@@ -314,7 +314,7 @@ namespace Bikewale.DAL.Compare
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionidlist", DbType.String, 20, versionList));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_percentdeviation", DbType.Int16, Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_percentdeviation", DbType.Int16, DBNull.Value));
                     // LogLiveSps.LogSpInGrayLog(command);
                     using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {

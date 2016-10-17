@@ -84,7 +84,7 @@ namespace Bikewale.Controls
                         .RegisterType<ICacheManager, MemcacheManager>();
 
                     var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
-                    List<ModelImage> _objImageList =(List<ModelImage>)objCache.GetModelPhotos(modelId);
+                    List<ModelImage> _objImageList = (List<ModelImage>)objCache.GetModelPhotos(modelId);
 
                     if (_objImageList != null && _objImageList.Count > 0)
                         FetchedCount = _objImageList.Count;

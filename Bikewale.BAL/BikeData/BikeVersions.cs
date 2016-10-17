@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Practices.Unity;
-using Bikewale.Interfaces.BikeData;
+﻿using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
-using Bikewale.DAL.BikeData;
+using Bikewale.Interfaces.BikeData;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
 
 namespace Bikewale.BAL.BikeData
 {
@@ -16,7 +13,7 @@ namespace Bikewale.BAL.BikeData
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
-    public class BikeVersions<T,U> : IBikeVersions<T,U> where T : BikeVersionEntity, new()
+    public class BikeVersions<T, U> : IBikeVersions<T, U> where T : BikeVersionEntity, new()
     {
         private IBikeVersions<T, U> versionRepository = null;
 
@@ -54,7 +51,7 @@ namespace Bikewale.BAL.BikeData
             return objVersion;
         }
 
-        public List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId,bool isNew)
+        public List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew)
         {
             List<BikeVersionMinSpecs> objMVSpecsMin = null;
             objMVSpecsMin = versionRepository.GetVersionMinSpecs(modelId, isNew);
@@ -94,15 +91,12 @@ namespace Bikewale.BAL.BikeData
         /// </summary>
         /// <param name="versionId"></param>
         /// <param name="topCount"></param>
-        /// <param name="percentDeviation"></param>
+        /// <param name="cityid"></param>
         /// <returns></returns>
-        public List<SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint percentDeviation)
+        public IEnumerable<SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint cityid)
         {
-            List<SimilarBikeEntity> objSimilarBikes = null;
 
-            objSimilarBikes = versionRepository.GetSimilarBikesList(versionId, topCount, percentDeviation);
-
-            return objSimilarBikes;
+            return versionRepository.GetSimilarBikesList(versionId, topCount, cityid);
         }
 
         /// <summary>
