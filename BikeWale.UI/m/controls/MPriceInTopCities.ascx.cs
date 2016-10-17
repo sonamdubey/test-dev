@@ -20,8 +20,6 @@ namespace Bikewale.Mobile.Controls
     public class MPriceInTopCities : UserControl
     {
         protected Repeater rptTopCityPrices;
-        //public string CityName { get; set; }
-        //public string ModelName { get; set; }
         public uint ModelId { get; set; }
         public uint TopCount { get; set; }
         public bool IsDiscontinued { get; set; }
