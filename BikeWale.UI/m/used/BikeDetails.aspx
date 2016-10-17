@@ -178,7 +178,7 @@
                 <div id="model-overall-specs-wrapper">
                     <div id="overall-specs-tab" class="overall-specs-tabs-container">
                         <ul class="overall-specs-tabs-wrapper">
-                            <% if (inquiryDetails.SpecsFeatures != null)
+                            <% if (inquiryDetails.SpecsFeatures != null && !isBikeSold)
                                { %>
                             <li data-tabs="#modelSpecs" class="active">Specifications</li>
                             <li data-tabs="#modelFeatures">Features</li>
@@ -195,7 +195,7 @@
                     </div>
                 </div>
 
-                <% if (inquiryDetails.SpecsFeatures != null)
+                <% if (inquiryDetails.SpecsFeatures != null && !isBikeSold)
                    { %>
                 <div id="modelSpecs" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 font14 border-solid-bottom">
                     <h2 class="margin-bottom20">Specification summary</h2>
