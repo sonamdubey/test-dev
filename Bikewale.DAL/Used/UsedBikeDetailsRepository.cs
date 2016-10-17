@@ -22,6 +22,8 @@ namespace Bikewale.DAL.Used
         /// <summary>
         /// Created by  : Sushil Kumar on 29th August 2016
         /// Description : To get profile details for the specified inquiry id
+        /// Modified By : Sushil Kumar on 17th August 2016
+        /// Description : Added AdStatus and CustomerId for sold bikes scenario
         /// </summary>
         /// <param name="inquiryId"></param>
         /// <returns></returns>

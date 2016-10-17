@@ -35,6 +35,10 @@ namespace Bikewale.BindViewModels.Webforms.Used
         public bool IsAdUserLoggedIn { get; set; }
         private string _customerId = string.Empty;
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 17th August 2016
+        /// Description : Fetch CustomerId from cookie on initialization
+        /// </summary>
         public UsedBikeDetailsPage()
         {
             _customerId = Bikewale.Common.CurrentUser.Id;
@@ -61,6 +65,8 @@ namespace Bikewale.BindViewModels.Webforms.Used
         /// <summary>
         /// Created by  : Sushil Kumar on 29th August 2016
         /// Description : Bind profile details for the used bike
+        /// Modified By : Sushil Kumar on 17th August 2016
+        /// Description : Redirect to pageNOt found if listing is not approved and not sold and not an ad user
         /// </summary>
         private void GetProfileDetails()
         {

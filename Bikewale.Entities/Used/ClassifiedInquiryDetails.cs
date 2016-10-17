@@ -8,6 +8,8 @@ namespace Bikewale.Entities.Used
     /// <summary>
     /// Created By : Sushil Kumar on 27th August 2016
     /// Description : Bike ClassifiedInquiryDetails entity for used bikes
+    /// Modified By : Sushil Kumar on 17th August 2016
+    /// Description : Added AdStatus and CustomerId for sold bikes scenario
     /// </summary>
     [Serializable]
     public class ClassifiedInquiryDetails
