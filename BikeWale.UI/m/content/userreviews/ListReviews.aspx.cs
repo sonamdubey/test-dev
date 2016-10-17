@@ -53,9 +53,9 @@ namespace Bikewale.Mobile.Content
             Form.Action = Request.RawUrl;
             if (!IsPostBack)
             {
-                try
+                if (ProcessQS())
                 {
-                    if (ProcessQS())
+                    try
                     {
                         RegistorContainer();
 
@@ -66,84 +66,100 @@ namespace Bikewale.Mobile.Content
                             GetReviewList();
                         }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        Response.Redirect("/m/pagenotfound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
+                        ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                        objErr.SendMail();
                     }
                 }
-                catch (Exception ex)
+                else
                 {
-                    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                    objErr.SendMail();
+                    Response.Redirect("/m/pagenotfound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
                 }
             }
         }
 
-
+        /// <summary>
+        /// Modified by :   Sumit Kate on 17 Oct 2016
+        /// Description :   Added try-catch and 301 redirection
+        /// </summary>
+        /// <returns></returns>
         private bool ProcessQS()
         {
             bool isSucess = true;
-
-            if (!String.IsNullOrEmpty(Request.QueryString["bikem"]))
+            string modelMaskingName = Request.QueryString["bikem"];
+            string model = String.Empty;
+            ModelMaskingResponse objResponse = null;
+            try
             {
-                string model = String.Empty;
-                ModelMaskingResponse objResponse = null;
-
-                using (IUnityContainer container = new UnityContainer())
+                if (!String.IsNullOrEmpty(modelMaskingName))
                 {
-                    container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
-                             .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
-                    var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-
-                    objResponse = objCache.GetModelMaskingResponse(Request.QueryString["bikem"]);
-
-                    if (objResponse != null && objResponse.StatusCode == 200)
+                    using (IUnityContainer container = new UnityContainer())
                     {
-                        model = objResponse.ModelId.ToString();
+                        container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
+                                 .RegisterType<ICacheManager, MemcacheManager>()
+                                 .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
+                        var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
 
-                        if (!String.IsNullOrEmpty(model))
-                        {
-                            if (!Int32.TryParse(model, out modelId))
-                                isSucess = false;
-                        }
-                        else
-                        {
+                        objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
+                    }
+                }
+                else
+                {
+                    isSucess = false;
+                }
+            }
+            catch (Exception)
+            {
+                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
+                isSucess = false;
+            }
+            finally
+            {
+                if (objResponse != null && objResponse.StatusCode == 200)
+                {
+                    model = objResponse.ModelId.ToString();
+
+                    if (!String.IsNullOrEmpty(model))
+                    {
+                        if (!Int32.TryParse(model, out modelId))
                             isSucess = false;
-                        }
+                    }
+                    else
+                    {
+                        isSucess = false;
+                    }
 
-                        if (!String.IsNullOrEmpty(Request.QueryString["pn"]))
-                        {
-                            if (!Int32.TryParse(Request.QueryString["pn"], out curPageNo))
-                                isSucess = false;
-                        }
+                    if (!String.IsNullOrEmpty(Request.QueryString["pn"]))
+                    {
+                        if (!Int32.TryParse(Request.QueryString["pn"], out curPageNo))
+                            isSucess = false;
+                    }
+
+                }
+                else
+                {
+                    if (objResponse.StatusCode == 301)
+                    {
+                        //redirect permanent to new page 
+                        CommonOpn.RedirectPermanent(Request.RawUrl.Replace(modelMaskingName, objResponse.MaskingName));
+                        isSucess = false;
 
                     }
                     else
                     {
-                        if (objResponse.StatusCode == 301)
-                        {
-                            //redirect permanent to new page 
-                            CommonOpn.RedirectPermanent(Request.RawUrl.Replace(Request.QueryString["bikem"], objResponse.MaskingName));
-                            isSucess = false;
-
-                        }
-                        else
-                        {
-                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                            HttpContext.Current.ApplicationInstance.CompleteRequest();
-                            this.Page.Visible = false;
-                            isSucess = false;
-                        }
+                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                        isSucess = false;
                     }
                 }
             }
-            else
-            {
-                isSucess = false;
-            }
+
 
             return isSucess;
         }
