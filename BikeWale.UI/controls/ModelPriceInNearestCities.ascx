@@ -7,7 +7,7 @@
                 <li>
                     <a href="/<%# DataBinder.Eval(Container.DataItem, "MakeMaskingName").ToString() %>-bikes/<%# DataBinder.Eval(Container.DataItem, "ModelMaskingName").ToString() %>/price-in-<%# DataBinder.Eval(Container.DataItem, "CityMaskingName").ToString() %>/" 
                         title="<%# String.Format("{0} {1}",DataBinder.Eval(Container.DataItem, "Make").ToString(),DataBinder.Eval(Container.DataItem, "Model").ToString()) %> Price in <%# DataBinder.Eval(Container.DataItem, "CityName").ToString() %>"><%# DataBinder.Eval(Container.DataItem, "CityName").ToString() %></a>
-                    <span class="nearby-city-price"><span class="bwsprite inr-sm-dark"></span>&nbsp;
+                    <span class="nearby-city-price"><span class="bwsprite inr-sm-dark"></span>
                         <%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem, "OnRoadPrice").ToString()) %></span>
                 </li>
             </ItemTemplate>

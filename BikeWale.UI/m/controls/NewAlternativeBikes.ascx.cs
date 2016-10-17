@@ -45,8 +45,8 @@ namespace Bikewale.Mobile.Controls
             objAlt.VersionId = VersionId;
             objAlt.TopCount = TopCount;
             objAlt.Deviation = Deviation;
-            objAlt.cityId = CityId;
-            objAlt.BindAlternativeBikes(rptAlternateBikes);            
+            objAlt.cityId = CityId != 0 ? CityId : Convert.ToInt16(Bikewale.Utility.BWConfiguration.Instance.DefaultCity);
+            objAlt.BindAlternativeBikes(rptAlternateBikes);
 
             FetchedRecordsCount = objAlt.FetchedRecordsCount;
         }

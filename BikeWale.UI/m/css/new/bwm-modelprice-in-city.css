@@ -64,3 +64,10 @@
 #makeUsedBikeContent h2 {
     margin-bottom: 20px;
 }
+#modelAlternateBikeContent .btn-xs {
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 6px;
+}

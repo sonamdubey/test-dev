@@ -29,6 +29,7 @@ namespace Bikewale.Mobile.Controls
         protected bool showWidget = false;
         protected string make = string.Empty;
         protected string model = string.Empty;
+        public string MakeName { get; set; }
 
 
         protected override void OnInit(EventArgs e)

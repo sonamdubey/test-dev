@@ -68,7 +68,7 @@ namespace Bikewale.Mobile.Controls
         {
             try
             {
-                if (TopCount <= 0) { TopCount = 8; }
+                if (TopCount <= 0) { TopCount = 4; }
 
                 IEnumerable<PriceQuoteOfTopCities> prices = null;
 

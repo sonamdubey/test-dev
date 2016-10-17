@@ -448,7 +448,7 @@ namespace Bikewale.DAL.BikeData
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getsimilarbikeslist_13102016";
+                    cmd.CommandText = "getsimilarbikeslist_17102016";
                     cmd.CommandType = CommandType.StoredProcedure;
 
 
@@ -466,24 +466,24 @@ namespace Bikewale.DAL.BikeData
                             while (dr.Read())
                             {
                                 SimilarBikeEntity objBike = new SimilarBikeEntity();
-                                objBike.MakeBase.MakeId = Convert.ToInt32(dr["BikeMakeId"]);
-                                objBike.MakeBase.MakeName = Convert.ToString(dr["MakeName"]);
-                                objBike.MakeBase.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
-                                objBike.ModelBase.ModelId = Convert.ToInt32(dr["similarModelId"]);
-                                objBike.ModelBase.ModelName = Convert.ToString(dr["ModelName"]);
-                                objBike.ModelBase.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
-                                objBike.VersionBase.VersionId = Convert.ToInt32(dr["BikeVersionId"]);
-                                objBike.HostUrl = Convert.ToString(dr["HostUrl"]);
-                                objBike.MinPrice = SqlReaderConvertor.ToInt32(dr["VersionPrice"]);
-                                objBike.VersionPrice = SqlReaderConvertor.ToInt32(dr["Onroadprice"]);
-                                objBike.OriginalImagePath = dr["OriginalImagePath"].ToString();
-                                objBike.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
-                                objBike.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
-                                objBike.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
-                                objBike.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
-                                objBike.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
-                                objBike.ReviewCount = Convert.ToUInt16(dr["ModelReviewCount"]);
-                                objBike.ReviewRate = Convert.ToDouble(dr["ModelReviewRate"]);
+                                objBike.MakeBase.MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]);
+                                objBike.MakeBase.MakeName = Convert.ToString(dr["makename"]);
+                                objBike.MakeBase.MaskingName = Convert.ToString(dr["makemaskingname"]);
+                                objBike.ModelBase.ModelId = SqlReaderConvertor.ToInt32(dr["modelid"]);
+                                objBike.ModelBase.ModelName = Convert.ToString(dr["modelname"]);
+                                objBike.ModelBase.MaskingName = Convert.ToString(dr["modelmaskingname"]);
+                                objBike.VersionBase.VersionId = SqlReaderConvertor.ToInt32(dr["versionid"]);
+                                objBike.HostUrl = Convert.ToString(dr["hosturl"]);
+                                objBike.MinPrice = SqlReaderConvertor.ToInt32(dr["minprice"]);
+                                objBike.VersionPrice = SqlReaderConvertor.ToInt32(dr["versionprice"]);
+                                objBike.OriginalImagePath = dr["originalimagepath"].ToString();
+                                objBike.Displacement = SqlReaderConvertor.ToNullableFloat(dr["displacement"]);
+                                objBike.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["fuelefficiencyoverall"]);
+                                objBike.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["maximumTorque"]);
+                                objBike.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["kerbweight"]);
+                                objBike.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["maxpower"]);
+                                objBike.ReviewCount = Convert.ToUInt16(dr["reviewcount"]);
+                                objBike.ReviewRate = Convert.ToDouble(dr["reviewrate"]);
                                 objBike.LargePicUrl = "/bikewaleimg/models/" + Convert.ToString(dr["largePic"]);
                                 objBike.SmallPicUrl = "/bikewaleimg/models/" + Convert.ToString(dr["smallPic"]);
                                 objBike.CityName = Convert.ToString(dr["cityname"]);
@@ -499,7 +499,6 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "GetSimilarBikesListByCity");
-                objErr.SendMail();
                 objErr.SendMail();
             }
 
