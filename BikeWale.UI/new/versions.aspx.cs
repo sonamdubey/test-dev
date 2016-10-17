@@ -310,7 +310,7 @@ namespace Bikewale.New
 
             ctrlPopularCompare.TopCount = 6;
             ctrlPopularCompare.ModelName = modelPageEntity.ModelDetails.ModelName;
-            ctrlPopularCompare.cityid = cityId;
+            ctrlPopularCompare.cityid = (int?)cityId;
 
             if (!isDiscontinued)
                 ctrlPopularCompare.versionId = Convert.ToString(variantId);

@@ -1,26 +1,24 @@
-﻿using System;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
+using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Notifications;
+using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using Bikewale.BAL.BikeData;
-using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Notifications;
-using Microsoft.Practices.Unity;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Cache.Core;
-using Bikewale.Cache.BikeData;
-
 namespace Bikewale.Controls
 {
     public class SimilarBikesHorizontal : System.Web.UI.UserControl
     {
         protected Repeater rptSimilarBikes;
         protected BikeVersionEntity bikeVersionEntity;
-        protected List<SimilarBikeEntity> objSimilarBikes;
+        protected IEnumerable<SimilarBikeEntity> objSimilarBikes;
 
         protected int recordCount = 0;
         public int cityid { get; set; }
@@ -88,9 +86,8 @@ namespace Bikewale.Controls
 
                     objSimilarBikes = (List<SimilarBikeEntity>)objVersion.GetSimilarBikesList(Convert.ToInt32(VersionId), Convert.ToUInt32(TopCount), Convert.ToUInt32(cityid));
 
-                    recordCount = objSimilarBikes.Count;
 
-                    if (objSimilarBikes.Count > 0)
+                    if (objSimilarBikes.Count() > 0)
                     {
                         rptSimilarBikes.DataSource = objSimilarBikes;
                         rptSimilarBikes.DataBind();

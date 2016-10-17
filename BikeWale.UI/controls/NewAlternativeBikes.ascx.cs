@@ -45,7 +45,7 @@ namespace Bikewale.Controls
             objAlt.VersionId = VersionId;
             objAlt.TopCount = TopCount;
             objAlt.Deviation = Deviation;
-            objAlt.cityId = cityId.HasValue ? cityId.Value : 1;
+            objAlt.cityId = cityId.HasValue ? cityId.Value : Convert.ToInt16(Bikewale.Utility.BWConfiguration.Instance.DefaultCity);
             objAlt.BindAlternativeBikes(rptAlternateBikes);
             if (PQSourceId == 47)
             {

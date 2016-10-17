@@ -16,7 +16,7 @@ namespace Bikewale.Controls
         public string ModelName;
         private uint _topCount = 0;
         public uint fetchedCount { get; set; }
-        public uint? cityid { get; set; }
+        public int? cityid { get; set; }
         public uint TopCount
         {
             get { return _topCount; }
@@ -40,7 +40,7 @@ namespace Bikewale.Controls
         private void BindPopularCompareBikes()
         {
             BindSimilarCompareBikesControl objAlt = new BindSimilarCompareBikesControl();
-            objAlt.cityid = cityid.HasValue ? cityid.Value : 1;
+            objAlt.cityid = cityid.HasValue ? cityid.Value : Convert.ToInt16(Bikewale.Utility.BWConfiguration.Instance.DefaultCity);
             fetchedCount = objAlt.BindPopularCompareBikes(rptPopularCompareBikes, versionId, TopCount);
         }
 
