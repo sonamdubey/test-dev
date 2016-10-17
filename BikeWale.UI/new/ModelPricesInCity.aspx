@@ -67,8 +67,9 @@
 			</div>
 		</section>
 
-		<section id="versionPriceInCityWrapper" class="container margin-bottom25">
-			<div class="grid-12 font14">
+		<section>
+            <div id="versionPriceInCityWrapper" class="container margin-bottom25">
+			    <div class="grid-12 font14">
 				<div class="content-box-shadow">
 					<p class="padding-top20 padding-right20 padding-bottom5 padding-left20 text-light-grey">
 					   <%=pageDescription %></p>
@@ -174,11 +175,13 @@
 					<BW:ModelPriceInNearestCities ID="ctrlTopCityPrices" runat="server" />
 					<%} %>
 				</div>
-			</div>
-			<div class="clear"></div>
+			    </div>
+			    <div class="clear"></div>
+            </div>
 		</section>
 
-		<section class="container margin-bottom30">
+		<section>
+            <div class="container margin-bottom20">
 			<div class="grid-12">
 				<div class="content-box-shadow padding-bottom20">
 					<% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
@@ -188,20 +191,21 @@
 					<!-- Alternative reviews ends -->
 					<% } %>
 				</div>
-			</div>
-			<div id="makeTabsContentWrapper" class="grid-12 margin-bottom20">
-				<div class="content-box-shadow">
-					<div id="makeOverallTabsWrapper">
-						<div id="makeOverallTabs" class="overall-floating-tabs">
-			  <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
-					   { %>
-					<BW:UsedBikes runat="server" ID="ctrlRecentUsedBikes" />
-					<%} %>
-						 </div>
-			</div>
-					</div>
-				</div>
-			<div class="clear"></div>
+			    </div>
+			    <div id="makeTabsContentWrapper" class="grid-12 margin-bottom20">
+				    <div class="content-box-shadow">
+					    <div id="makeOverallTabsWrapper">
+						    <div id="makeOverallTabs" class="overall-floating-tabs">
+			      <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
+					       { %>
+					    <BW:UsedBikes runat="server" ID="ctrlRecentUsedBikes" />
+					    <%} %>
+						     </div>
+			    </div>
+					    </div>
+				    </div>
+			    <div class="clear"></div>
+            </div>
 		</section>
 
 		<BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
