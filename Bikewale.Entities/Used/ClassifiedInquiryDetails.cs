@@ -22,5 +22,7 @@ namespace Bikewale.Entities.Used
         public BikeSpecifications SpecsFeatures { get; set; }
         public IList<BikePhoto> Photo { get; set; }
         public ushort PhotosCount { get { if (Photo != null) { return Convert.ToUInt16(Photo.Count); } return 0; } }
+        public short AdStatus { get; set; }
+        public uint CustomerId { get; set; }
     }
 }

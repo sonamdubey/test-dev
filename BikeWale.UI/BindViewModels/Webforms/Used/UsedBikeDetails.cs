@@ -31,6 +31,14 @@ namespace Bikewale.BindViewModels.Webforms.Used
         public string MoreBikeSpecsUrl { get; set; }
         public string MoreBikeFeaturesUrl { get; set; }
         public bool IsPageNotFoundRedirection { get; set; }
+        public bool IsBikeSold { get; set; }
+        public bool IsAdUserLoggedIn { get; set; }
+        private string _customerId = string.Empty;
+
+        public UsedBikeDetailsPage()
+        {
+            _customerId = Bikewale.Common.CurrentUser.Id;
+        }
 
         /// <summary>
         /// Created by  : Sushil Kumar on 29th August 2016
@@ -69,6 +77,8 @@ namespace Bikewale.BindViewModels.Webforms.Used
                     InquiryDetails = objCache.GetProfileDetails(InquiryId);
                     if (InquiryDetails != null && InquiryDetails.MinDetails != null)
                     {
+
+                        IsAdUserLoggedIn = _customerId != "-1" && _customerId == InquiryDetails.CustomerId.ToString();
                         BikeName = string.Format("{0} {1} {2}", InquiryDetails.Make.MakeName, InquiryDetails.Model.ModelName, InquiryDetails.Version.VersionName);
                         ModelYear = (InquiryDetails.MinDetails.ModelYear != null) ? InquiryDetails.MinDetails.ModelYear.Year.ToString() : string.Empty;
                         Title = string.Format("Used {0} {1} (S{2}) for sale in {3} | BikeWale", ModelYear, BikeName, InquiryDetails.OtherDetails.Id, InquiryDetails.City.CityName);
@@ -79,7 +89,8 @@ namespace Bikewale.BindViewModels.Webforms.Used
                         CanonicalUrl = string.Format("http://www.bikewale.com/used/bikes-in-{0}/{1}-{2}-S{3}/", InquiryDetails.City.CityMaskingName, InquiryDetails.Make.MaskingName, InquiryDetails.Model.MaskingName, InquiryId);
                         AlternateUrl = string.Format("http://www.bikewale.com/m/used/bikes-in-{0}/{1}-{2}-S{3}/", InquiryDetails.City.CityMaskingName, InquiryDetails.Make.MaskingName, InquiryDetails.Model.MaskingName, InquiryId);
                         FirstImage = (InquiryDetails.PhotosCount > 0) ? InquiryDetails.Photo.FirstOrDefault() : null;
-
+                        IsBikeSold = (InquiryDetails.AdStatus == 3);
+                        IsPageNotFoundRedirection = (InquiryDetails.AdStatus != 1 && !IsBikeSold) && !IsAdUserLoggedIn;
                     }
                     else
                         IsPageNotFoundRedirection = true;
