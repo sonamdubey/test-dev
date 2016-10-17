@@ -29,17 +29,38 @@ ko.bindingHandlers.chosen = {
 }
 
 // custom validation function
-var greaterThanOne = function (val) {
-    if (val < 1) {
-        return false;
+var validation = {
+    greaterThanOne: function (val) {
+        if (val < 1) {
+            return false;
+        }
+        return true;
+    },
+
+    userName: function (val) {
+        var regexName = /([A-Za-z])\w+/;
+
+        if (!regexName.test(val)) {
+            return false;
+        }
+        return true;
+    },
+
+    userEmail: function (val) {
+        var regexEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
+
+        if (!regexEmail.test(val)) {
+            return false;
+        }
+        return true;
     }
-    return true;
-};
+
+}
 
 var sellBike = function () {
     var self = this;
 
-    self.formStep = ko.observable(1);
+    self.formStep = ko.observable(2);
 
     self.bikeDetails = ko.observable(new bikeDetails);
 
@@ -107,7 +128,7 @@ var bikeDetails = function () {
             }
         },
         {
-            validator: greaterThanOne,
+            validator: validation.greaterThanOne,
             message: 'Please enter kms value greater than 1',
             onlyIf: function () {
                 return self.validate();
@@ -126,7 +147,7 @@ var bikeDetails = function () {
             }
         },
         {
-            validator: greaterThanOne,
+            validator: validation.greaterThanOne,
             message: 'Please enter expected price greater than 1',
             onlyIf: function () {
                 return self.validate();
@@ -210,6 +231,7 @@ var bikeDetails = function () {
     };
 
     self.saveBikeDetails = function (data, event) {
+        /*
         self.validate(true);
 
         if (self.errors().length === 0) {
@@ -218,10 +240,9 @@ var bikeDetails = function () {
         } else {
             self.errors.showAllMessages();
         }
-        /*
+        */
         vmSellBike.formStep(2);
         scrollToForm.activate();
-        */
     };
 
     self.errors = ko.validation.group(self);
@@ -232,6 +253,8 @@ var bikeDetails = function () {
 var personalDetails = function () {
     var self = this;
 
+    self.validate = ko.observable(false);
+
     self.sellerType = function (data, event) {
         var element = $(event.currentTarget);
 
@@ -240,17 +263,63 @@ var personalDetails = function () {
         }
     };
 
-    //self.sellerName = ko.observable('');
+    self.sellerName = ko.observable('').extend({
+        validation: [{
+            validator: function (val) {
+                return !ko.validation.utils.isEmptyVal(val);
+            },
+            message: 'Please enter name',
+            onlyIf: function () {
+                return self.validate();
+            }
+        },
+        {
+            validator: validation.userName,
+            message: 'Please enter valid name',
+            onlyIf: function () {
+                return self.validate();
+            }
+        }]
+    });
+
+    self.sellerEmail = ko.observable('').extend({
+        validation: [{
+            validator: function (val) {
+                return !ko.validation.utils.isEmptyVal(val);
+            },
+            message: 'Please enter email',
+            onlyIf: function () {
+                return self.validate();
+            }
+        },
+        {
+            validator: validation.userEmail,
+            message: 'Please enter valid email',
+            onlyIf: function () {
+                return self.validate();
+            }
+        }]
+    });
+
+    self.sellerMobile = ko.observable('');
 
     self.savePersonalDetails = function () {
-        vmSellBike.formStep(3);
-        scrollToForm.activate();
+        self.validate(true);
+
+        if (self.errors().length === 0) {
+            vmSellBike.formStep(3);
+            scrollToForm.activate();
+        } else {
+            self.errors.showAllMessages();
+        }
     };
 
     self.backToBikeDetails = function () {
         vmSellBike.formStep(1);
         scrollToForm.activate();
     };
+
+    self.errors = ko.validation.group(self);
 };
 
 $(document).ready(function () {

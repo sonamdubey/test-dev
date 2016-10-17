@@ -257,6 +257,33 @@
                                             <div class="clear"></div>
                                         </div>
 
+                                        <div class="panel-row margin-bottom20">
+                                            <div class="input-box form-control-box" data-bind="css: personalDetails().sellerName().length > 0 ? 'not-empty' : ''">
+                                                <input type="text" id="sellerName" data-bind="textInput: personalDetails().sellerName, validationElement: personalDetails().sellerName" />
+                                                <label for="sellerName">Name<sup>*</sup></label>
+                                                <span class="boundary"></span>
+                                                <span class="error-text" data-bind="validationMessage: personalDetails().sellerName"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel-row margin-bottom20">
+                                            <div class="input-box form-control-box" data-bind="css: personalDetails().sellerEmail().length > 0 ? 'not-empty' : ''">
+                                                <input type="text" id="sellerEmail" data-bind="textInput: personalDetails().sellerEmail, validationElement: personalDetails().sellerEmail" />
+                                                <label for="sellerEmail">Email<sup>*</sup></label>
+                                                <span class="boundary"></span>
+                                                <span class="error-text" data-bind="validationMessage: personalDetails().sellerEmail"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel-row margin-bottom20">
+                                            <div class="input-box form-control-box" data-bind="css: personalDetails().sellerMobile().length > 0 ? 'not-empty' : ''">
+                                                <input type="text" id="sellerMobile" data-bind="textInput: personalDetails().sellerMobile, validationElement: personalDetails().sellerMobile" />
+                                                <label for="sellerMobile">Mobile number<sup>*</sup></label>
+                                                <span class="boundary"></span>
+                                                <span class="error-text" data-bind="validationMessage: personalDetails().sellerMobile"></span>
+                                            </div>
+                                        </div>
+
                                         <%--<div class="panel-row margin-bottom20">
                                             <div class="input-box form-control-box" data-bind="css: bikeDetails().kmsRidden().length > 0 ? 'not-empty' : ''">
                                                 <input type="number" id="sellerName" min="1" data-bind="textInput: bikeDetails().kmsRidden, validationElement: bikeDetails().kmsRidden" />
