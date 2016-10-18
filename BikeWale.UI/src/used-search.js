@@ -386,13 +386,13 @@ var usedBikes = function () {
 
     self.SetDefaultFilters = function () {
         try {
-            if (self.Filters()["kms"] == "")
+            if (!self.Filters()["kms"])
                 self.KmsDriven(200000);
-            if (self.Filters()["age"] == "")
+            if (!self.Filters()["age"])
                 self.BikeAge(8);
-            if (self.Filters()["budget"] == "")
+            if (!self.Filters()["budget"])
                 self.BudgetValues([0, 7]);
-            if (self.Filters()["pn"] == "")
+            if (!self.Filters()["pn"])
                 self.CurPageNo(1);
             self.ApplyPagination();
 
