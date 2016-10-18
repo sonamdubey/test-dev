@@ -30,6 +30,7 @@ namespace Bikewale.Used
         protected CityEntityBase objCity = null;
         protected BikeMakeEntityBase objMake = null;
         protected int _startIndex = 0, _endIndex = 0;
+        protected string currentQueryString = string.Empty;
 
 
         #region events
@@ -79,6 +80,7 @@ namespace Bikewale.Used
                 objMake = objUsedBikesPage.SelectedMake;
                 makeModelsList = objUsedBikesPage.MakeModels;
                 usedBikesList = objUsedBikesPage.UsedBikes.Result;
+                currentQueryString = objUsedBikesPage.CurrentQS;
 
             }
             else
