@@ -8,7 +8,6 @@ using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -21,7 +20,8 @@ namespace Bikewale.Mobile.Controls
     public class ModelPriceInNearestCities : UserControl
     {
         protected Repeater rptTopCityPrices;
-
+        public string ModelName { get; set; }
+        public string CityName { get; set; }
         public uint ModelId { get; set; }
         public uint CityId { get; set; }
         public ushort TopCount { get; set; }
@@ -29,6 +29,7 @@ namespace Bikewale.Mobile.Controls
         protected bool showWidget = false;
         protected string make = string.Empty;
         protected string model = string.Empty;
+        public string MakeName { get; set; }
 
 
         protected override void OnInit(EventArgs e)

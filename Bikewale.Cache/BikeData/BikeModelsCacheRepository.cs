@@ -54,6 +54,29 @@ namespace Bikewale.Cache.BikeData
 
             return objModelPage;
         }
+        /// <summary>
+        /// Created by Subodh Jain 12 oct 2016
+        /// Desc For getting colour count
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public IEnumerable<NewBikeModelColor> GetModelColor(U modelId)
+        {
+            IEnumerable<NewBikeModelColor> objModelPage = null;
+            string key = "BW_ModelColor_" + modelId;
+            try
+            {
+                objModelPage = _cache.GetFromCache<IEnumerable<NewBikeModelColor>>(key, new TimeSpan(1, 0, 0), () => _objModels.GetModelColor(modelId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetModelColor");
+                objErr.SendMail();
+            }
+
+            return objModelPage;
+
+        }
 
 
         /// <summary>
@@ -178,19 +201,19 @@ namespace Bikewale.Cache.BikeData
         /// <param name="endIndex"></param>
         /// <param name="recordCount"></param>
         /// <returns></returns>
-        public NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex,int? makeid=null)
+        public NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex, int? makeid = null)
         {
             NewLaunchedBikesBase objBikes = null;
             string key = String.Format("BW_NewLaunchedBikes_SI_{0}_EI_{1}", startIndex, endIndex);
-            if(makeid.HasValue && makeid>0)
+            if (makeid.HasValue && makeid > 0)
                 key = key + String.Format("_MKID_{0}", makeid);
 
             try
             {
                 if (makeid.HasValue && makeid > 0)
-                    objBikes = _cache.GetFromCache<NewLaunchedBikesBase>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetNewLaunchedBikesListByMake(startIndex, endIndex,makeid));
+                    objBikes = _cache.GetFromCache<NewLaunchedBikesBase>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetNewLaunchedBikesListByMake(startIndex, endIndex, makeid));
                 else
-                objBikes = _cache.GetFromCache<NewLaunchedBikesBase>(key, new TimeSpan(1, 0, 0), () =>  _modelRepository.GetNewLaunchedBikesList(startIndex, endIndex));
+                    objBikes = _cache.GetFromCache<NewLaunchedBikesBase>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetNewLaunchedBikesList(startIndex, endIndex));
             }
             catch (Exception ex)
             {
@@ -203,11 +226,11 @@ namespace Bikewale.Cache.BikeData
         public NewLaunchedBikesBase GetNewLaunchedBikesListByMake(int startIndex, int endIndex, int? makeid = null)
         {
             NewLaunchedBikesBase objBikes = null;
-            string key = String.Format("BW_NewLaunchedBikes_SI_{0}_EI_{1}_MKID_{2}", startIndex, endIndex,makeid);
+            string key = String.Format("BW_NewLaunchedBikes_SI_{0}_EI_{1}_MKID_{2}", startIndex, endIndex, makeid);
 
             try
             {
-                objBikes = _cache.GetFromCache<NewLaunchedBikesBase>(key, new TimeSpan(1, 0, 0), () =>  _modelRepository.GetNewLaunchedBikesListByMake(startIndex, endIndex,makeid));
+                objBikes = _cache.GetFromCache<NewLaunchedBikesBase>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetNewLaunchedBikesListByMake(startIndex, endIndex, makeid));
             }
             catch (Exception ex)
             {

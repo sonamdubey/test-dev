@@ -76,7 +76,6 @@ namespace Bikewale.BAL.BikeData
             List<BikeModelEntityBase> objModelList = null;
 
             objModelList = modelRepository.GetModelsByType(requestType, makeId);
-
             return objModelList;
         }
 
@@ -1017,6 +1016,16 @@ namespace Bikewale.BAL.BikeData
 
             return objModelPage;
         }
+        /// <summary>
+        /// Created by Subodh Jain 12 oct 2016
+        /// Desc For getting colour count
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public IEnumerable<NewBikeModelColor> GetModelColor(U modelId)
+        {
+            return (modelRepository.GetModelColor(modelId));
+        }
 
         private List<ModelImage> GetBikeModelPhotoGalleryOldWay(U modelId)
         {
@@ -1149,7 +1158,7 @@ namespace Bikewale.BAL.BikeData
             IEnumerable<ArticleSummary> objExpertReview = null;
             IEnumerable<BikeVideoEntity> objVideos = null;
 
-            
+
             try
             {
 
@@ -1187,7 +1196,7 @@ namespace Bikewale.BAL.BikeData
             {
                 if (_useGrpc)
                 {
-                    var _objVideoList = GrpcMethods.GetVideosByModelId(modelId,1,UInt32.MaxValue);
+                    var _objVideoList = GrpcMethods.GetVideosByModelId(modelId, 1, UInt32.MaxValue);
 
                     if (_objVideoList != null && _objVideoList.LstGrpcVideos.Count > 0)
                     {

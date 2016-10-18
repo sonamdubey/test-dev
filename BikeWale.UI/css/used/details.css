@@ -748,8 +748,6 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
   }
 }
 
-
-
 @media only screen and (max-width: 1024px) {
     #bike-main-carousel .jcarousel li {
         width: 365px;
@@ -761,11 +759,11 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
 }
 
 .bike-sold-msg {
-  display:inline-block;
-  vertical-align:bottom;
-  width:820px;
+  width:89%;
   padding: 10px 20px;
   font-size: 14px;
+  display:inline-block;
+  vertical-align: middle;
 }
 
 .used-sprite { 
@@ -776,4 +774,5 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
    width: 87px;
    height: 64px;
    background-position: 0 -209px;
+   vertical-align: middle;
 }
