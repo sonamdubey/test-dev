@@ -69,3 +69,7 @@
     overflow: hidden;
     padding: 6px;
 }
+
+#modelAlternateBikeContent .btn-xs:hover {
+    text-decoration: none;
+}
