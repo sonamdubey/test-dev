@@ -183,7 +183,7 @@
 		<section>
             <div class="container margin-bottom20">
 			<div class="grid-12">
-				<div class="content-box-shadow padding-bottom20">
+				<div class="content-box-shadow">
 					<% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
 					   { %>
 					<!-- Alternative reviews ends -->
@@ -198,12 +198,13 @@
 						    <div id="makeOverallTabs" class="overall-floating-tabs">
 			      <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
 					       { %>
+                        <div class="border-solid-top margin-right10 margin-left10"></div>
 					    <BW:UsedBikes runat="server" ID="ctrlRecentUsedBikes" />
 					    <%} %>
 						     </div>
-			    </div>
-					    </div>
-				    </div>
+			            </div>
+					</div>
+				</div>
 			    <div class="clear"></div>
             </div>
 		</section>
