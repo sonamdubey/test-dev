@@ -489,26 +489,31 @@ $(function () {
     vwUsedBikes.SetDefaultFilters();
     vwUsedBikes.TotalBikes() > 0 ? vwUsedBikes.OnInit(true) : vwUsedBikes.OnInit(false);
 
+    vwUsedBikes.PreviousQS(pageQS);
+
     if (selectedModelId && selectedModelId!="" && selectedModelId != "0") {
         var ele = bikesList.find("ul.bike-model-list span[data-modelid=" + selectedModelId + "]");
         ele.closest("ul.bike-model-list li").addClass("active");
-
-        if (vwUsedBikes.Filters()["model"])
-            vwUsedBikes.Filters()["model"] += "+" + selectedModelId;
+        var moIds = (vwUsedBikes.Filters()["model"]) ? vwUsedBikes.Filters()["model"].split("+") : null;
+        if (moIds != null && moIds.length > 0) {
+            if ($.inArray(selectedModelId, moIds) == -1)
+                vwUsedBikes.Filters()["model"] += "+" + selectedModelId;
+        }
         else vwUsedBikes.Filters()["model"] = selectedModelId;
 
     }
     else if (selectedMakeId && selectedMakeId != "0") {
         var ele = bikesList.find("span[data-makeid=" + selectedMakeId + "]");
         ele.closest(".accordion-tab").trigger("click");
-        ele.closest(".accordion-checkbox").trigger("click");
-
-        if (vwUsedBikes.Filters()["make"])
-            vwUsedBikes.Filters()["make"] += "+" + selectedMakeId;
+        ele.closest(".accordion-checkbox").trigger("click"); 
+        var mkIds = (vwUsedBikes.Filters()["make"]) ? vwUsedBikes.Filters()["make"].split("+") : null;
+        if (mkIds != null && mkIds.length > 0) {
+            if ($.inArray(selectedMakeId, mkIds) == -1)
+                vwUsedBikes.Filters()["make"] += "+" + selectedMakeId;
+        }
         else vwUsedBikes.Filters()["make"] = selectedMakeId;
 
-    }
-   
+    }   
 
     if (selectedCityId)
     {
