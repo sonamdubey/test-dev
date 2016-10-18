@@ -10,9 +10,16 @@
 
 <script type="text/javascript">
     $("#<%=btnGo.ClientID.ToString() %>").click(function () {       
-        if ($("#<%=ddlMake.ClientID.ToString() %>").val() ==  "0") {
-           alert("Please select make");
-            return false;
-        }        
+        if ($("#<%=ddlMake.ClientID.ToString() %>").val() == "0") {
+            alert("Please select make");
+            
+        }
+        else {
+            var makevalue = ($("[id$='ddlMake']").val());
+            makevalue = makevalue.split("_")[1];
+            window.location.href ="/" + makevalue + "-dealer-showrooms-in-india/";
+
+        }
+        return false;
     });
 </script>

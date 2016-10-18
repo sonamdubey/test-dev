@@ -117,21 +117,33 @@ namespace Bikewale.New
         /// </summary>
         public void BindDescription()
         {
-            char multiColor = '\0', multiVersion = '\0', multiDealer = '\0';
-            if (colourCount > 1)
-                multiColor = 's';
+            char multiVersion = '\0', multiDealer = '\0';
+
             if (versionCount > 1)
                 multiVersion = 's';
+
             if (dealerCount > 1)
                 multiDealer = 's';
-            string newBikeDescription = string.Format("The on-road price of {0} {1} in {2} is Rs. {3} onwards. It is available in {4} version{5} and {6} colour{7}.", makeName, modelName, cityName, CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()), versionCount, multiVersion, colourCount, multiColor);
+
+            string multiColour = ".";
+
+            if (colourCount > 1)
+                multiColour = string.Format(" and {0} colours.", colourCount);
+            else if (colourCount == 1)
+                multiColour = string.Format(" and 1 colour.");
+
+            string newBikeDescription = string.Format("The on-road price of {0} {1} in {2} is Rs. {3} onwards. It is available in {4} version{5}{6}", makeName, modelName, cityName, CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()), versionCount, multiVersion, multiColour);
+
             if (dealerCount > 0)
                 newBikeDescription = string.Format("{0} {1} is sold by {2} dealership{3} in {4}.", newBikeDescription, modelName, dealerCount, multiDealer, cityName);
+
             newBikeDescription = string.Format("{0} All the colour options and versions of {1} might not be available at all the dealerships in {2}. Click on a {1} version name to know on-road price in {2}.", newBikeDescription, modelName, cityName);
+
             string discontinuedDescription = string.Format("The last known ex-showroom price of {0} {1} in {2} was Rs. {3} onwards." +
             " This bike has now been discontinued." +
-            " It was available in {4} version{5} and {6} colour{7}." +
-            " Click on a {1} version name to know the last known ex-showroom price in {2}.", makeName, modelName, cityName, CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()), versionCount, multiVersion, colourCount, multiColor);
+            " It was available in {4} version{5} {6}" +
+            " Click on a {1} version name to know the last known ex-showroom price in {2}.", makeName, modelName, cityName, CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()), versionCount, multiVersion, multiColour);
+
             if (!isDiscontinued)
                 pageDescription = newBikeDescription;
             else
