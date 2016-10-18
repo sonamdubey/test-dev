@@ -24,8 +24,8 @@ namespace Bikewale.Service.Controllers.Version
     {
 
         private readonly IBikeVersions<BikeVersionEntity, uint> _versionRepository = null;
-        private readonly IBikeVersionCacheRepository<BikeVersionsCacheRepository<Bikewale.Entities.BikeData.BikeColorsbyVersion,uint>, uint> _objVersionColorCache = null;
-        public VersionController(IBikeVersions<BikeVersionEntity, uint> versionRepository, IBikeVersionCacheRepository<BikeVersionsCacheRepository<Bikewale.Entities.BikeData.BikeColorsbyVersion, uint>, uint> objVersionColorCache)
+        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionColorCache = null;
+        public VersionController(IBikeVersions<BikeVersionEntity, uint> versionRepository, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionColorCache)
         {
             _versionRepository = versionRepository;
             _objVersionColorCache = objVersionColorCache;
