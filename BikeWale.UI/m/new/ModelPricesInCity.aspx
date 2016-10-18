@@ -46,22 +46,7 @@
                     price in <%=cityName %></h1>
             </div>
             <p class="font14 text-light-grey padding-right20 padding-left20 margin-bottom10">
-                <% if(!isDiscontinued) { %>
-                The on-road price of <%= makeName %> <%= modelName %> in <%= cityName %> is Rs. 
-                <% if(firstVersion != null) { %>
-                <%=CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()) %> onwards.
-                <% } %>
-                It is available in  <%=versionCount %> versions and <%= colourCount %> colours. <%= modelName %> is sold by <%= dealerCount %> dealerships in <%= cityName %>. 
-                All the colour and versions of <%= modelName %> might not be available at all the dealerships in <%= cityName %>. 
-                Click on a <%= modelName %> version name to know on-road price in <%= cityName %>.
-                <% } else
-                   { %>
-                The last known ex-showroom price of <%= makeName %> <%= modelName %>  in <%= cityName %> was Rs. 
-                <% if(firstVersion != null) { %>
-                <%=CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()) %> onwards. 
-                <% } %>
-                This bike has now been discontinued. It was available in <%=versionCount %> versions and <%= colourCount %> colours. Click on a <%= modelName %> version name to know the last known ex-showroom price in <%= cityName %>.
-                <% } %>
+                <%= pageDescription %>
             </p>
 
             <div>
