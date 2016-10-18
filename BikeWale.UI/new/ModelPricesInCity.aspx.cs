@@ -107,14 +107,46 @@ namespace Bikewale.New
                 BindAlternativeBikeControl();
                 BindDealers();
                 ColorCount();
+                BindDescription();
 
-                if (isDiscontinued)
-                    pageDescription = string.Format("The last known ex-showroom price of {0} {1} in {2} is Rs. {3} onwards. This bike has now been discontinued. It was available in {4} versions and {5} colours. Click on a {1} version name to know the last known ex-showroom price in {2}.", makeName, modelName, cityName, CommonOpn.FormatPrice(firstVersion.ExShowroomPrice.ToString()), versionCount, colourCount);
-                else if (firstVersion.OnRoadPrice > 0)
-                    pageDescription = string.Format("The on-road price of {0} {1} in {2} is Rs. {4} onwards. It is available in {3} versions and {6} colours. {1} is sold by {5} dealerships in {2}. All the colour and versions of {1} might not be available at all the dealerships in {2}. Click on a {1} version name to know on-road price in {2}.", makeName, modelName, cityName, versionCount, CommonOpn.FormatPrice(Convert.ToString(firstVersion.OnRoadPrice)), dealerCount, colourCount);
+            }
+        }
+        /// <summary>
+        /// Created By Subodh Jain 18 oct 2016
+        /// Desc:- for Bind descri[tion
+        /// </summary>
+        public void BindDescription()
+        {
+            char multiVersion = '\0', multiDealer = '\0';
+
+            if (versionCount > 1)
+                multiVersion = 's';
+
+            if (dealerCount > 1)
+                multiDealer = 's';
+
+            string multiColour = ".";
+
+            if (colourCount > 1)
+                multiColour = string.Format(" and {0} colours.", colourCount);
+            else if (colourCount == 1)
+                multiColour = string.Format(" and 1 colour.");
+
+            if (firstVersion != null)
+            {
+                string newBikeDescription = string.Format("The on-road price of {0} {1} in {2} is Rs. {3} onwards. It is available in {4} version{5}{6}", makeName, modelName, cityName, CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()), versionCount, multiVersion, multiColour);
+
+                if (dealerCount > 0)
+                    newBikeDescription = string.Format("{0} {1} is sold by {2} dealership{3} in {4}.", newBikeDescription, modelName, dealerCount, multiDealer, cityName);
+
+                newBikeDescription = string.Format("{0} All the colour options and versions of {1} might not be available at all the dealerships in {2}. Click on a {1} version name to know on-road price in {2}.", newBikeDescription, modelName, cityName);
+
+                string discontinuedDescription = string.Format("The last known ex-showroom price of {0} {1} in {2} was Rs. {3} onwards. This bike has now been discontinued. It was available in {4} version{5} {6}. Click on a {1} version name to know the last known ex-showroom price in {2}.", makeName, modelName, cityName, CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()), versionCount, multiVersion, multiColour);
+
+                if (!isDiscontinued)
+                    pageDescription = newBikeDescription;
                 else
-                    pageDescription = string.Format("The ex showroom of {0} {1} in {2} is Rs. {4} onwards. It is available in {3} versions and {6} colours. {1} is sold by {5} dealerships in {2}. All the colour and versions of {1} might not be available at all the dealerships in {2}. Click on a {1} version name to know on-road price in {2}.", makeName, modelName, cityName, versionCount, CommonOpn.FormatPrice(Convert.ToString(firstVersion.ExShowroomPrice)), dealerCount, colourCount);
-
+                    pageDescription = discontinuedDescription;
             }
         }
         /// <summary>

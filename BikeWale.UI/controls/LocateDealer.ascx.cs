@@ -32,7 +32,6 @@ namespace Bikewale.Controls
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
-            btnGo.ServerClick += new EventHandler(btnGo_ServerClick);
         }
 
 
@@ -77,18 +76,6 @@ namespace Bikewale.Controls
             }
         }
 
-        private void btnGo_ServerClick(object sender, EventArgs e)
-        {
-            string redirectUrl = string.Empty;
 
-            if (ddlMake.SelectedValue != "-1")
-            {
-                string makeVal = string.Empty;
-                makeVal = ddlMake.SelectedItem.Value.Split('_')[1];
-                //redirectUrl =  "/new/" + UrlRewrite.FormatURL(ddlMake.SelectedItem.Text) + "-dealers/";
-                redirectUrl = "/new/" + makeVal + "-dealers/";
-                Response.Redirect(redirectUrl);
-            }
-        }
     }
 }
