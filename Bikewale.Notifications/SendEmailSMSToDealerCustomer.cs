@@ -411,7 +411,7 @@ namespace Bikewale.Notifications
         public static void UsedBikeAdEmailToIndividual(CustomerEntityBase seller, CustomerEntityBase buyer, string profileId, string bikeName, string formattedPrice)
         {
             ComposeEmailBase objEmail = new ListingEmailtoIndividualTemplate(seller.CustomerEmail, seller.CustomerName, profileId, bikeName, formattedPrice);
-            objEmail.Send(seller.CustomerEmail, "Your bike has been listed.");
+            objEmail.Send(seller.CustomerEmail, String.Format("You have successfully listed your {0} bike on BikeWale.",bikeName));
         }
 
     }
