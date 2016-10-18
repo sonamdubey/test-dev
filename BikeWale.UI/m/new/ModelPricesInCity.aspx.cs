@@ -1,15 +1,20 @@
-﻿using Bikewale.Cache.BikeData;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
+using Bikewale.Cache.DealersLocator;
 using Bikewale.Cache.Location;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
+using Bikewale.DAL.Dealer;
 using Bikewale.DAL.Location;
 using Bikewale.DAL.PriceQuote;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Mobile.Controls;
@@ -38,7 +43,11 @@ namespace Bikewale.Mobile.New
         private bool redirectToPageNotFound = false, redirectPermanent = false;
         protected bool isAreaAvailable, isDiscontinued;
         protected String clientIP = CommonOpn.GetClientIP();
-
+        protected UsedBikes ctrlRecentUsedBikes;
+        protected DealersEntity _dealers = null;
+        protected int dealerCount = 0;
+        protected int colourCount = 0;
+        protected string pageDescription;
 
         protected override void OnInit(EventArgs e)
         {
@@ -64,7 +73,10 @@ namespace Bikewale.Mobile.New
                 ctrlTopCityPrices.ModelId = modelId;
                 ctrlTopCityPrices.CityId = cityId;
                 ctrlTopCityPrices.IsDiscontinued = isDiscontinued;
-                ctrlTopCityPrices.TopCount = 8;
+                ctrlTopCityPrices.TopCount = 4;
+                ctrlTopCityPrices.ModelName = modelName;
+                ctrlTopCityPrices.CityName = cityName;
+                ctrlTopCityPrices.MakeName = makeName;
 
                 ctrlDealers.MakeId = makeId;
                 ctrlDealers.CityId = cityId;
@@ -79,6 +91,27 @@ namespace Bikewale.Mobile.New
                 ctrlLeadCapture.AreaId = 0;
 
                 BindAlternativeBikeControl();
+
+                ctrlRecentUsedBikes.MakeId = makeId;
+                ctrlRecentUsedBikes.ModelId = modelId;
+                ctrlRecentUsedBikes.CityId = (int?)cityId;
+                ctrlRecentUsedBikes.TopCount = 6;
+                ctrlRecentUsedBikes.header = "Recently uploaded Used " + modelName + " bikes " + (cityId > 0 ? String.Format("in {0}", cityName) : string.Empty);
+
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IDealerCacheRepository, DealerCacheRepository>()
+                             .RegisterType<ICacheManager, MemcacheManager>()
+                             .RegisterType<IDealer, DealersRepository>()
+                            ;
+                    var objCache = container.Resolve<IDealerCacheRepository>();
+                    _dealers = objCache.GetDealerByMakeCity(cityId, makeId);
+
+                    dealerCount = _dealers.TotalCount;
+                }
+
+                ColorCount();
+                BindDescription();
 
             }
         }
@@ -129,6 +162,41 @@ namespace Bikewale.Mobile.New
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "-FetchVersionPrices");
                 objErr.SendMail();
+            }
+
+        }
+
+        /// <summary>
+        /// Created By Subodh Jain 10 oct 2016
+        /// Desc:- for count of Colors in bike model
+        /// </summary>
+        protected void ColorCount()
+        {
+            if (modelId > 0)
+            {
+                IEnumerable<NewBikeModelColor> objModelColours = null;
+                try
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+
+                        container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                                .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                                .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                                .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                                .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                                .RegisterType<ICacheManager, MemcacheManager>();
+                        var objModelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
+                        objModelColours = objModelCache.GetModelColor(Convert.ToInt16(modelId));
+                        colourCount = (int)objModelColours.Count();
+
+                    }
+                }
+                catch (Exception err)
+                {
+                    ErrorClass objErr = new ErrorClass(err, "ModelPricesInCity.ColorCount");
+                    objErr.SendMail();
+                }
             }
 
         }
@@ -310,8 +378,48 @@ namespace Bikewale.Mobile.New
             ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_PriceInCity_AlternateBikes;
             ctrlAlternateBikes.WidgetTitle = bikeName;
             ctrlAlternateBikes.modelName = modelName;
+            ctrlAlternateBikes.IsPriceInCity = true;
+            ctrlAlternateBikes.CityName = cityName;
+            ctrlAlternateBikes.CityId = (int)cityId;
+
             if (firstVersion != null)
                 ctrlAlternateBikes.VersionId = (int)firstVersion.VersionId;
         }
+
+        public void BindDescription()
+        {
+            char multiVersion = '\0', multiDealer = '\0';
+
+            if (versionCount > 1)
+                multiVersion = 's';
+
+            if (dealerCount > 1)
+                multiDealer = 's';
+
+            string multiColour = ".";
+
+            if (colourCount > 1)
+                multiColour = string.Format(" and {0} colours.", colourCount);
+            else if (colourCount == 1)
+                multiColour = string.Format(" and 1 colour.");
+
+            if (firstVersion != null)
+            {
+                string newBikeDescription = string.Format("The on-road price of {0} {1} in {2} is Rs. {3} onwards. It is available in {4} version{5}{6}", makeName, modelName, cityName, CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()), versionCount, multiVersion, multiColour);
+
+                if (dealerCount > 0)
+                    newBikeDescription = string.Format("{0} {1} is sold by {2} dealership{3} in {4}.", newBikeDescription, modelName, dealerCount, multiDealer, cityName);
+
+                newBikeDescription = string.Format("{0} All the colour options and versions of {1} might not be available at all the dealerships in {2}. Click on a {1} version name to know on-road price in {2}.", newBikeDescription, modelName, cityName);
+
+                string discontinuedDescription = string.Format("The last known ex-showroom price of {0} {1} in {2} was Rs. {3} onwards. This bike has now been discontinued. It was available in {4} version{5}{6} Click on a {1} version name to know the last known ex-showroom price in {2}.", makeName, modelName, cityName, CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()), versionCount, multiVersion, multiColour);
+
+                if (!isDiscontinued)
+                    pageDescription = newBikeDescription;
+                else
+                    pageDescription = discontinuedDescription;
+            }
+        }
+
     }   // class
 }

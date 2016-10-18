@@ -382,6 +382,7 @@
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
          <script type="text/javascript">
              var OnInitTotalBikes = <%= totalListing %>; 
+             var pageQS = "<%= currentQueryString %>";
              var selectedCityId = <%= cityId %>;selectedMakeId = "<%= makeId %>",selectedModelId = "<%= modelId %>";
         </script>
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/used-search.js?<%= staticFileVersion %>"></script>

@@ -23,8 +23,9 @@ namespace Bikewale.Mobile.Used
         protected string bikeName = string.Empty, pgTitle = string.Empty,
             pgDescription = string.Empty, pgKeywords = string.Empty,
             pgCanonicalUrl = string.Empty, modelYear = string.Empty,
-            moreBikeSpecsUrl = string.Empty, moreBikeFeaturesUrl = string.Empty, profileId = string.Empty;
+            moreBikeSpecsUrl = string.Empty, moreBikeFeaturesUrl = string.Empty, profileId = string.Empty, adStatus = string.Empty;
         protected BikePhoto firstImage = null;
+        protected bool isBikeSold;
         protected ClassifiedInquiryDetails inquiryDetails = null;
         protected UsedBikePhotoGallery ctrlUsedBikeGallery;
         protected Repeater rptUsedBikeNavPhotos, rptUsedBikePhotos;
@@ -59,7 +60,6 @@ namespace Bikewale.Mobile.Used
                     using (IUnityContainer container = new UnityContainer())
                     {
                         bool isDealer;
-                        byte consumer = default(byte);
                         string inquiryId = "", consumerType = "";
                         CustomerEntityBase buyer = new CustomerEntityBase();
 
@@ -162,6 +162,7 @@ namespace Bikewale.Mobile.Used
                         moreBikeFeaturesUrl = usedBikeDetails.MoreBikeFeaturesUrl;
                         profileId = string.Format("S{0}", inquiryId);
                         isPageNotFound = usedBikeDetails.IsPageNotFoundRedirection;
+                        isBikeSold = usedBikeDetails.IsBikeSold;
                     }
                 }
             }

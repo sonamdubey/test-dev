@@ -81,22 +81,38 @@ namespace Bikewale.BAL.UsedBikes
         /// </summary>
         /// <param name="profileId"></param>
         /// <returns></returns>
-        public InquiryDetails GetInquiryDetailsByProfileId(string profileId)
+        public InquiryDetails GetInquiryDetailsByProfileId(string profileId, string customerId, string platformId)
         {
             InquiryDetails objInquiryDetailsByProfileId = null;
             try
             {
-                if (!UsedBikeProfileId.IsValidProfileId(profileId))
-                    return null;
+                if (UsedBikeProfileId.IsValidProfileId(profileId))
+                {
+                    objInquiryDetailsByProfileId = _usedBikeDetailsCacheRepository.GetInquiryDetailsByProfileId(profileId, customerId);
 
-                objInquiryDetailsByProfileId = _usedBikeDetailsCacheRepository.GetInquiryDetailsByProfileId(profileId);
-
-                if (objInquiryDetailsByProfileId != null)
-                    objInquiryDetailsByProfileId.ProfileId = profileId;
+                    if (objInquiryDetailsByProfileId != null)
+                    {
+                        objInquiryDetailsByProfileId.ProfileId = profileId;
+                        if (Convert.ToInt32(platformId) == 1)  //desktop
+                        {
+                            if (objInquiryDetailsByProfileId.StatusId == 2 || objInquiryDetailsByProfileId.StatusId == 4 || (objInquiryDetailsByProfileId.StatusId == 5 && objInquiryDetailsByProfileId.IsRedirect == false))
+                                objInquiryDetailsByProfileId.Message = "Please enter correct profile id";
+                            if (objInquiryDetailsByProfileId.StatusId == 3)
+                                objInquiryDetailsByProfileId.Message = "Bike sold out";
+                        }
+                        else if (Convert.ToInt32(platformId) == 2) //mobile
+                        {
+                            if (objInquiryDetailsByProfileId.StatusId == 2 || objInquiryDetailsByProfileId.StatusId == 4 || objInquiryDetailsByProfileId.StatusId == 5)
+                                objInquiryDetailsByProfileId.Message = "Please enter correct profile id";
+                            if (objInquiryDetailsByProfileId.StatusId == 3)
+                                objInquiryDetailsByProfileId.Message = "Bike sold out";
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in BAL Layer function GetInquiryDetailsByProfileId for profileId : {0}", profileId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in BAL Layer function GetInquiryDetailsByProfileId for profileId : {0}, customerId : {1}, platformId : {2} ", profileId, customerId, platformId));
                 objErr.SendMail();
             }
             return objInquiryDetailsByProfileId;

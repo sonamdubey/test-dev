@@ -14,7 +14,7 @@ namespace Bikewale.Used
     public class Default : Page
     {
         protected DropDownList ddlMakeModel, ddlCity, ddlMake;
-
+        protected string customerId;
 
         protected override void OnInit(EventArgs e)
         {
@@ -28,6 +28,7 @@ namespace Bikewale.Used
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            customerId = CurrentUser.Id;
             if (!IsPostBack)
             {
                 FillCity();

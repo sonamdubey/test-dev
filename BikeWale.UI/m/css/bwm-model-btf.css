@@ -149,12 +149,7 @@
 
 .swiper-wrapper .swiper-slide:first-child { margin-left:10px; }
 .model-gallery-container .swiper-wrapper .swiper-slide:first-child { margin-left:0; }
-.prices-by-cities-list { margin:0 20px; }
-.prices-by-cities-list li { width:50%; float:left; padding-right:10px; margin-bottom:20px; }
-.prices-by-cities-list li a, .prices-by-cities-list li .price-in-city-price { display:inline-block; vertical-align:top; }
-.prices-by-cities-list li a { width:50%; }
-.prices-by-cities-list li .price-in-city-price { width:45%; color:#2a2a2a; }
-.prices-by-cities-list, #modelSpecsFeaturesContent ul { overflow:hidden;}
+#modelSpecsFeaturesContent ul { overflow:hidden;}
 /* model specs and features */
 .model-accordion-tab { padding:10px 20px; position: relative; border-bottom: 1px solid #e2e2e2; cursor: pointer; }
 #model-specs-list > li:first-child .model-accordion-tab { border-top: 1px solid #e2e2e2; }
@@ -277,6 +272,12 @@
     max-width: 310px;
     margin: 0 auto;
 }
+
+#prices-top-cities table a {
+    
+    font-weight: 400
+}
+
 
 @media all and (max-width: 350px) {
     .summary-overview-box > div.odd{padding-left:0;}

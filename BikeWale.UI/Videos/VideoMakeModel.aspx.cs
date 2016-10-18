@@ -76,105 +76,113 @@ namespace Bikewale.Videos
         /// Modified By  : Sushil Kumar on 4th March 2016
         /// Description : Added try catch for parseString function
         ///               Make check for null objects
+        /// Modified by :   Sumit Kate on 17 Oct 2016
+        /// Description :   Added 301 condition for model masking name
         /// </summary>
         private void ParseQueryString()
         {
+            string _makeId = String.Empty;
+            ModelMaskingResponse objModelResponse = null;
+            MakeMaskingResponse objMakeResponse = null;
+            bool isMake301 = false, isModel301 = false, isPageNotFound = false;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
+                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                        .RegisterType<ICacheManager, MemcacheManager>()
+                        .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                        .RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
+                        .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
                     makeMaskingName = Request.QueryString["make"];
+                    modelMaskingName = Request.QueryString["model"];
                     if (!String.IsNullOrEmpty(makeMaskingName))
                     {
-                        string _makeId = String.Empty;
 
-                        MakeMaskingResponse objMakeResponse = null;
+                        var objMakeCache = container.Resolve<IBikeMakesCacheRepository<int>>();
 
-                        try
+                        objMakeResponse = objMakeCache.GetMakeMaskingResponse(makeMaskingName);
+
+                        if (objMakeResponse != null)
                         {
-                            using (IUnityContainer containerInner = new UnityContainer())
+                            if (objMakeResponse.StatusCode == 200)
                             {
-                                containerInner.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
-                                      .RegisterType<ICacheManager, MemcacheManager>()
-                                      .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
-                                     ;
-                                var objCache = containerInner.Resolve<IBikeMakesCacheRepository<int>>();
-
-                                objMakeResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
+                                _makeId = Convert.ToString(objMakeResponse.MakeId);
                             }
-                        }
-                        catch (Exception ex)
-                        {
-                            Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
-                            objErr.SendMail();
-                            Response.Redirect("pageNotFound.aspx", false);
-                            HttpContext.Current.ApplicationInstance.CompleteRequest();
-                            this.Page.Visible = false;
-                        }
-                        finally
-                        {
-                            if (objMakeResponse != null)
+                            else if (objMakeResponse.StatusCode == 301)
                             {
-                                if (objMakeResponse.StatusCode == 200)
-                                {
-                                    _makeId = Convert.ToString(objMakeResponse.MakeId);
-                                }
-                                else if (objMakeResponse.StatusCode == 301)
-                                {
-                                    CommonOpn.RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objMakeResponse.MaskingName));
-                                }
-                                else
-                                {
-                                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                                    this.Page.Visible = false;
-                                }
+                                isMake301 = true;
                             }
                             else
                             {
-                                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                                this.Page.Visible = false;
+                                isPageNotFound = true;
                             }
+                        }
+                        else
+                        {
+                            isPageNotFound = true;
                         }
 
                         if (!string.IsNullOrEmpty(_makeId) && ushort.TryParse(_makeId, out makeId))
                         {
-                            modelMaskingName = Request.QueryString["model"];
                             if (!string.IsNullOrEmpty(modelMaskingName))
                                 isModel = true;
 
                             if (makeId > 0 && isModel)
                             {
-                                container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
-                                         .RegisterType<ICacheManager, MemcacheManager>()
-                                         .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
+
                                 var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-                                ModelMaskingResponse objResponse = null;
-                                objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
-                                modelId = objResponse.ModelId;
+                                objModelResponse = objCache.GetModelMaskingResponse(modelMaskingName);
+                                if (objModelResponse != null)
+                                {
+                                    if (objModelResponse.StatusCode == 200)
+                                    {
+                                        modelId = objModelResponse.ModelId;
+                                    }
+                                    else if (objModelResponse.StatusCode == 301)
+                                    {
+                                        isModel301 = true;
+                                    }
+                                    else
+                                    {
+                                        isPageNotFound = true;
+                                    }
+                                }
                             }
                         }
                         else
                         {
-                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                            HttpContext.Current.ApplicationInstance.CompleteRequest();
-                            this.Page.Visible = false;
+                            isPageNotFound = true;
                         }
                     }
                     else
                     {
-                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
+                        isPageNotFound = true;
                     }
                 }
             }
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "ParseQueryString()");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.RawUrl + "ParseQueryString()");
                 objErr.SendMail();
+            }
+            finally
+            {
+                if (isMake301)
+                {
+                    CommonOpn.RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objMakeResponse.MaskingName));
+                }
+                else if (isModel301)
+                {
+                    CommonOpn.RedirectPermanent(Request.RawUrl.Replace(modelMaskingName, objModelResponse.MaskingName));
+                }
+                else if (isPageNotFound)
+                {
+                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
         }
 
@@ -184,6 +192,8 @@ namespace Bikewale.Videos
         ///           Initially 9 records are binded.
         /// Modified By : Sushil Kumar on 4th March 2016
         /// Description : Made check for makeId for unnecessary call  if query string is wrong or invalid
+        /// Modified by :   Sumit Kate on 17 Oct 2016
+        /// Description :   Added condition to check modelid > 0
         /// </summary>
         private void BindVideos()
         {
@@ -199,7 +209,7 @@ namespace Bikewale.Videos
                                  .RegisterType<ICacheManager, MemcacheManager>();
 
                         var objCache = container.Resolve<IVideosCacheRepository>();
-                        if (modelId.HasValue)
+                        if (modelId.HasValue && modelId.Value > 0)
                         {
                             objVideosList = objCache.GetVideosByMakeModel(1, 9, makeId, modelId);
                         }
@@ -232,7 +242,7 @@ namespace Bikewale.Videos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "BindVideos()");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.RawUrl + "BindVideos()");
                 objErr.SendMail();
             }
         }
