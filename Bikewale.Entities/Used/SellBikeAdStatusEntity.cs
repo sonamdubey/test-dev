@@ -1,37 +1,13 @@
-﻿
-using System;
-using System.ComponentModel.DataAnnotations;
-namespace Bikewale.DTO.UsedBikes
+﻿using System;
+
+namespace Bikewale.Entities.Used
 {
-    /// <summary>
-    /// Created by  :   Sumit Kate on 14 Oct 2016
-    /// Description :   Sell Bike Ad Seller DTO
-    /// </summary>
-    public class SellerDTO : Customer.CustomerBase
-    {
-        [Required]
-        public SellerType SellerType { get; set; }
-
-        public string Otp { get; set; }
-
-    }
-
-    public enum SellerType { Dealer = 1, Individual = 2 }
-    public enum SellAdStatus
-    {
-        Approved = 1, // live and approved
-        Fake = 2,
-        Sold = 3,
-        MobileUnverified = 4,
-        MobileVerified = 5 // Mobile is verified but listing is yet to be approved
-    }
-
     /// <summary>
     /// Created by  :   Sangram Nandkhile on 14 oct 2016
     /// Description :   Sell bike Status Entity.
     /// It describes the seller ad result status
     /// </summary>
-    public class SellBikeAdStatusDTO
+    public class SellBikeAdStatusEntity
     {
         public UInt16 Status
         {
@@ -64,8 +40,9 @@ namespace Bikewale.DTO.UsedBikes
         }
     }
 
-    public class SellBikeInquiryResultDTO
+    public class SellBikeInquiryResultEntity
     {
-        public SellBikeAdStatusDTO Status { get; set; }
+        public SellBikeAdStatusEntity Status { get; set; }
+        public uint InquiryId { get; set; }
     }
 }

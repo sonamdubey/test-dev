@@ -22,6 +22,7 @@ namespace Bikewale.Entities.Used
         public uint ColorId { get; set; }
         public ushort SourceId { get; set; }
         public string ClientIp { get; set; }
+        public string PageUrl { get; set; }
         public SellAdStatus Status { get; set; }
         public SellerEntity Seller { get; set; }
         public SellBikeAdOtherInformation OtherInfo { get; set; }
@@ -45,5 +46,6 @@ namespace Bikewale.Entities.Used
     public class SellerEntity : Customer.CustomerEntityBase
     {
         public SellerType SellerType { get; set; }
+        public string Otp { get; set; }
     }
 }

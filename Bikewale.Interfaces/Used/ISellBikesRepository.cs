@@ -9,7 +9,9 @@ namespace Bikewale.Interfaces.Used
     /// </summary>
     public interface ISellBikesRepository<T, U> : IRepository<T, U>
     {
+        new int Add(T ad);
         T GetById(U inquiryId, UInt64 customerId);
         bool UpdateOtherInformation(SellBikeAdOtherInformation otherInfo, U inquiryId, UInt64 customerId);
+        bool IsFakeCustomer(ulong customerId);
     }
 }

@@ -1,4 +1,5 @@
 ﻿
+using Bikewale.Entities.Used;
 namespace Bikewale.Interfaces.Used
 {
     /// <summary>
@@ -7,9 +8,10 @@ namespace Bikewale.Interfaces.Used
     /// </summary>
     public interface ISellBikes
     {
-        uint SaveSellBikeAd();
-        bool SaveSellBikeAd(uint inquryId);
-        bool UpdateOtherInformation();
-        bool VerifyMobile();
+        SellBikeInquiryResultEntity SaveSellBikeAd(SellBikeAd ad);
+        bool UpdateOtherInformation(SellBikeAdOtherInformation adInformation, int inquiryAd, ulong customerId);
+        SellBikeAd GetById(int inquiryId, ulong customerId);
+        bool VerifyMobile(SellerEntity seller);
+        bool IsFakeCustomer(ulong customerId);
     }
 }

@@ -21,9 +21,9 @@ namespace Bikewale.DAL.Used
         /// </summary>
         /// <param name="ad"></param>
         /// <returns></returns>
-        public U Add(T ad)
+        public int Add(T ad)
         {
-            U inquiryId = default(U);
+            int inquiryId = default(int);
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
@@ -51,7 +51,7 @@ namespace Bikewale.DAL.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, ParameterDirection.InputOutput));
 
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
-                    inquiryId = (U)cmd.Parameters["par_inquiryid"].Value;
+                    inquiryId = Utility.SqlReaderConvertor.ToInt32(cmd.Parameters["par_inquiryid"].Value);
                 }
             }
             catch (Exception ex)
@@ -85,15 +85,16 @@ namespace Bikewale.DAL.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikecolorid", DbType.String, 100, ad.ColorId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_kilometers", DbType.Int32, ad.KiloMeters));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, ad.CityId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_registrationno", DbType.String, 50, ad.OtherInfo.RegistrationNo));
+                    //cmd.Parameters.Add(DbFactory.GetDbParam("par_registrationno", DbType.String, 50, ad.OtherInfo.RegistrationNo));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_registrationplace", DbType.String, 50, ad.RegistrationPlace));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_insurancetype", DbType.String, 20, ad.OtherInfo.InsuranceType));
+                    //cmd.Parameters.Add(DbFactory.GetDbParam("par_insurancetype", DbType.String, 20, ad.OtherInfo.InsuranceType));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_expectedprice", DbType.Int64, ad.Expectedprice));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 250, ad.OtherInfo.AdDescription));
+                    //cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 250, ad.OtherInfo.AdDescription));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbType.Byte, ad.SourceId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50, ad.Seller.CustomerName));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 100, ad.Seller.CustomerEmail));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 20, ad.Seller.CustomerMobile));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sellertype", DbType.Byte, Convert.ToByte(ad.Seller.SellerType)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customername", DbType.String, 50, ad.Seller.CustomerName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbType.String, 100, ad.Seller.CustomerEmail));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, 20, ad.Seller.CustomerMobile));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, ad.Seller.CustomerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CommonOpn.GetClientIP()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_statusid", DbType.Byte, Convert.ToByte(ad.Status)));
@@ -240,5 +241,49 @@ namespace Bikewale.DAL.Used
             throw new NotImplementedException();
         }
         #endregion
+
+
+        /// <summary>
+        /// Created By : Sangram Nandkhile Upadhyay on 13 Oct 2014
+        /// Summary : To get isfake flag by customer id
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        public bool IsFakeCustomer(ulong customerId)
+        {
+            bool isFake = false;
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "checkfakecustomerbyid";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.UInt64, customerId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            isFake = Convert.ToBoolean(dr["IsFake"]);
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("bikeWale.DAL.Used.SellBikesRepository.IsFakeCustomer({0})", customerId));
+                objErr.SendMail();
+            }
+
+            return isFake;
+        }
+
+        U Interfaces.IRepository<T, U>.Add(T t)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
