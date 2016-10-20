@@ -1808,6 +1808,7 @@
     <Content Include="css\dealer\location.css" />
     <Content Include="css\dealer\details.css" />
     <Content Include="css\dealer\listing.css" />
+    <Content Include="css\dropzone.css" />
     <Content Include="css\global.css" />
     <Content Include="css\home.css" />
     <Content Include="css\images\animated-overlay.gif" />
@@ -2510,6 +2511,7 @@
     <Content Include="src\insurance.js" />
     <Content Include="src\jquery-ui-1.10.4.custom.min.js" />
     <!-- <Content Include="src\knockout.js" /> -->
+    <Content Include="src\dropzone.js" />
     <Content Include="src\jquery.floating-social-share.js" />
     <Content Include="src\jquery.floating-social-share.min.js" />
     <Content Include="src\knockout.validation.js" />
@@ -2636,6 +2638,8 @@
     <None Include="sass\components\_box-boundary.sass" />
     <Content Include="sass\components\_input-box.sass" />
     <Content Include="sass\sell-bike\_color-box.sass" />
+    <Content Include="sass\components\_textarea-box.sass" />
+    <Content Include="sass\sell-bike\_sidebar-banner.sass" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

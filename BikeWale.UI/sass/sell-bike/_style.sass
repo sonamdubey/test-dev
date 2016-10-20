@@ -67,9 +67,51 @@
 	font-size: $font-size-base
 	margin-bottom: 25px
 
+// form-success
+#form-success
+	.success-text
+		width: 75%
+		padding-left: 15px
+
+#form-success-btn-group
+	margin-top: 10px
+	margin-left: 120px
+
+// calender
+#year-content
+	width: 360px
+	position: relative
+
+	.year-control
+		position: absolute
+		top: 0
+		background: $white
+
+	.year-prev
+		left: 0
+
+	.year-next
+		right: 0
+
+#year-list
+	width: 100%
+	margin: 0 auto
+	white-space: nowrap
+	overflow-x: scroll
+
+	li
+		display: inline-block
+
+		span
+			width: 72px
+			text-align: center
+			display: inline-block
+
+
+
 /* sprite */
 .sell-bike-sprite
-    background: url('/images/sell-bike-sprite.png') no-repeat
+    background: url('http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/sell-bike-sprite.png?v1=20Oct2016') no-repeat
     display: inline-block
 
 .step-1-active,
@@ -84,27 +126,27 @@
 	cursor: pointer
 
 .step-1-active
-    background-position: 0 0
+    background-position: -283px 0
 
 .step-2-active
-    background-position: -35px 0
+    background-position: -283px -35px
 
 .step-3-active
-    background-position: -70px 0
+    background-position: -283px -70px
 
 .step-2-inactive
-    background-position: -140px 0
+    background-position: -320px 0
 
 .step-3-inactive
-    background-position: -175px 0
+    background-position: -320px -35px
 
 .edit-step
-    background-position: -105px 0
+    background-position: -283px -105px
 
 .selected
     width: 12px
     height: 10px
-    background-position: -210px 0
+    background-position: -320px -70px
 
 .radio-icon
 	width: 18px
@@ -133,6 +175,11 @@
 		top: 10px
 		cursor: pointer
 
+.thankyou-icon
+	width: 51px
+	height: 58px
+	background-position: -165px -436px
+
 .step-2-inactive,
 .step-3-inactive
 	cursor: not-allowed
@@ -141,7 +188,6 @@
 .step-3-inactive ~ .panel-title
 	color: $text-light
 
-
 // common classes
 .text-truncate
 	width: 100%
@@ -149,3 +195,19 @@
 	white-space: nowrap
 	text-overflow: ellipsis
 	overflow: hidden
+
+.btn-primary-big
+	width: 200px
+	padding: 8px 0
+
+.btn-primary-small
+	width: 120px
+	padding: 8px 0
+
+.btn-secondary-big
+	width: 200px
+	padding: 4px 0
+
+.btn-secondary-small
+	width: 120px
+	padding: 4px 0

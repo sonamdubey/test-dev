@@ -37,6 +37,20 @@ var validation = {
         return true;
     },
 
+    kmsMaxValue: function (val) {
+        if (val > 999999) {
+            return false;
+        }
+        return true;
+    },
+
+    priceMaxValue: function (val) {
+        if (val > 6000000) {
+            return false;
+        }
+        return true;
+    },
+
     userName: function (val) {
         var regexName = /([A-Za-z])\w+/;
 
@@ -91,6 +105,8 @@ var sellBike = function () {
     self.verificationDetails = ko.observable(new verificationDetails);
 
     self.personalDetails = ko.observable(new personalDetails);
+
+    self.moreDetails = ko.observable(new moreDetails);
 
     self.gotoStep1 = function () {
         if (self.formStep() > 1) {
@@ -161,6 +177,13 @@ var bikeDetails = function () {
             onlyIf: function () {
                 return self.validate();
             }
+        },
+        {
+            validator: validation.kmsMaxValue,
+            message: 'Please enter kms value less than 10,00,000',
+            onlyIf: function () {
+                return self.validate();
+            }
         }]
     });
 
@@ -177,6 +200,13 @@ var bikeDetails = function () {
         {
             validator: validation.greaterThanOne,
             message: 'Please enter expected price greater than 1',
+            onlyIf: function () {
+                return self.validate();
+            }
+        },
+        {
+            validator: validation.priceMaxValue,
+            message: 'Please enter expected price less than 60,00,000',
             onlyIf: function () {
                 return self.validate();
             }
@@ -263,13 +293,12 @@ var bikeDetails = function () {
 
         if (self.errors().length === 0) {
             vmSellBike.formStep(2);
-            scrollToForm.activate();
-        } else {
+        }
+        else {
             self.errors.showAllMessages();
         }
-        
-        //vmSellBike.formStep(2);
-        //scrollToForm.activate();
+
+        scrollToForm.activate();
     };
 
     self.errors = ko.validation.group(self);
@@ -487,6 +516,22 @@ var verificationDetails = function () {
     self.errorMobile = ko.validation.group(self.updatedMobile);
 };
 
+var moreDetails = function () {
+    var self = this;
+
+    self.registrationNumber = ko.observable('');
+
+    self.updateAd = function () {
+        vmSellBike.formStep(4);
+        scrollToForm.activate();
+    };
+    
+    self.noThanks = function () {
+        vmSellBike.formStep(4);
+        scrollToForm.activate();
+    };
+};
+
 $(document).ready(function () {
     var chosenSelectBox = $('.chosen-select');
 
@@ -494,10 +539,22 @@ $(document).ready(function () {
         var text = $(this).attr('data-placeholder');
 
         $(this).siblings('.chosen-container').find('input[type=text]').attr('placeholder', text);
-});
+    });
 
-    var ownerSearchBox = $('.select-box-no-input').find('.chosen-search');
-    ownerSearchBox.empty().append('<p class="no-input-label">Owner</p>');
+    var selectDropdownBox = $('.select-box-no-input');
+
+    selectDropdownBox.each(function () {
+        var text = $(this).find('.chosen-select').attr('data-title'),
+            searchBox = $(this).find('.chosen-search')
+
+        searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
+    });
+
+    Dropzone.autoDiscover = false;
+    var myDropzone = new Dropzone("#add-photos-dropzone", { url: "/file/post" });
+
+    //set year
+    //calender.year.set(1980);
 
 });
 
@@ -505,8 +562,8 @@ var vmSellBike = new sellBike();
 
 ko.applyBindings(vmSellBike, document.getElementById('sell-bike-content'));
 
-    // color box
-    selectColorBox.on('click', '.color-box-default', function () {
+// color box
+selectColorBox.on('click', '.color-box-default', function () {
     if (!selectColorBox.hasClass('open')) {
         colorBox.open();
     }
@@ -516,50 +573,50 @@ ko.applyBindings(vmSellBike, document.getElementById('sell-bike-content'));
 });
 
 var colorBox = {
-        dropdown: $('.color-dropdown'),
+    dropdown: $('.color-dropdown'),
 
-        open: function () {
+    open: function () {
         selectColorBox.addClass('open');
-},
+    },
 
-        close: function () {
+    close: function () {
         selectColorBox.removeClass('open');
-},
+    },
 
-        active: function (element) {
+    active: function (element) {
         colorBox.dropdown.find('li.active').removeClass('active');
         element.addClass('active');
         selectColorBox.addClass('selection-done');
         colorBox.close();
-},
+    },
 
-        inactive: function (element) {
+    inactive: function (element) {
         element.removeClass('active');
-},
+    },
 
-        userInput: function () {
+    userInput: function () {
         colorBox.dropdown.find('li.active').removeClass('active');
         selectColorBox.addClass('selection-done');
         colorBox.close();
-}
+    }
 };
 
-    // close color dropdown
-    $(document).mouseup(function (event) {
+// close color dropdown
+$(document).mouseup(function (event) {
     event.stopPropagation();
 
     if (selectColorBox.hasClass('open') && $('.color-dropdown').is(':visible')) {
         if (!selectColorBox.is(event.target) && selectColorBox.has(event.target).length === 0) {
             colorBox.close();
-    }
+        }
     }
 
 });
 
-    // seller type
-    var sellerType = {
+// seller type
+var sellerType = {
 
-            check: function (element) {
+    check: function (element) {
         element.siblings('.checked').removeClass('checked');
         element.addClass('checked');
     }
@@ -569,29 +626,78 @@ $('.select-box select').on('change', function () {
     $(this).closest('.select-box').addClass('done');
 });
 
-    // Disable Mouse scrolling
-    $('input[type=number]').on('mousewheel', function (e) { $(this).blur();
-});
-    // Disable keyboard scrolling
-    $('input[type=number]').on('keydown', function (e) {
-    var key = e.charCode || e.keyCode;
-        // Disable Up and Down Arrows on Keyboard
-    if (key == 38 || key == 40) {
-        e.preventDefault();
-    } else {
-        return;
-    }
+// Disable Mouse scrolling
+$('input[type=number]').on('mousewheel', function (e) { $(this).blur();});
+// Disable keyboard scrolling
+$('input[type=number]').on('keydown', function (e) {
+var key = e.charCode || e.keyCode;
+    // Disable Up and Down Arrows on Keyboard
+if (key == 38 || key == 40) {
+    e.preventDefault();
+} else {
+    return;
+}
 });
 
 var scrollToForm = {
-        container: $('#sell-bike-content'),
+    container: $('#sell-bike-content'),
 
-        activate: function () {
+    activate: function () {
         var position = scrollToForm.container.offset();
 
         $('html, body').animate({
-                scrollTop: position.top -51
+            scrollTop: position.top - 51
         }, 200);
-            // 51: navbar height
-}
+        // 51: navbar height
+    }
 };
+
+// year
+var calender = {
+
+    year: {
+        container: $('#year-list'),
+
+        set: function (startYear) {
+            var endYear = new Date().getFullYear(),
+                totalWidth = 0,
+                count = 0,
+                i = startYear,
+                totalYear = endYear - startYear + 1,
+                item = '';
+
+            for (i; i <= endYear; i++) {
+                item += '<span>' + i + '</span>';
+                count += 1;
+                
+                if (count == 5) {
+                    calender.year.container.append('<li>'+ item +'</li>');
+                    item = '';
+                    count = 0;
+                }
+            }
+
+            console.log(totalYear);
+
+            // arr slice
+            //totalWidth = count * 72;
+            //calender.year.scrollPosition(totalWidth);
+        },
+
+        scrollPosition: function (position) {
+            calender.year.container.animate({
+                scrollLeft: position20
+            });
+        }
+    }
+};
+
+$('.year-prev').on('click', function () {
+    var currentPosition = calender.year.container.scrollLeft();
+    calender.year.scrollPosition(currentPosition - 298);
+});
+
+$('.year-next').on('click', function () {
+    var currentPosition = calender.year.container.scrollLeft();
+    calender.year.scrollPosition(currentPosition + 298);
+});
