@@ -75,7 +75,7 @@ $('#searchCityBudget').on('click', function () {
     searchUsedVM.cityMaskingName(cityMasking);
     searchUsedVM.cityId(cityId);
     $('#search-form-city p').text(elementText);
-    console.log($('#search-form-city select').val());
+   
 });
 
 
