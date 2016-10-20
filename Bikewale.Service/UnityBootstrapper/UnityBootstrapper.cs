@@ -145,7 +145,7 @@ namespace Bikewale.Service.UnityConfiguration
 
             container.RegisterType<IUsedBikeBuyer, Bikewale.BAL.Used.UsedBikeBuyer>();
             container.RegisterType<IUsedBikeBuyerRepository, UsedBikeBuyerRepository>();
-            container.RegisterType<IUsedBikeSellerRepository, UsedBikeSellerRepository>();
+            container.RegisterType<IUsedBikeSellerRepository, UsedBikeSellerRepository>();           
 
             container.RegisterType<ISellBikes, SellBikes>();
             container.RegisterType<ISellBikesRepository<SellBikeAd, int>, SellBikesRepository<SellBikeAd, int>>();

@@ -16,7 +16,7 @@ namespace Bikewale.BAL.BikeData
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
-    public class BikeVersions<T,U> : IBikeVersions<T,U> where T : BikeVersionEntity, new()
+    public class BikeVersions<T, U> : IBikeVersions<T, U> where T : BikeVersionEntity, new()
     {
         private IBikeVersions<T, U> versionRepository = null;
 
@@ -54,7 +54,7 @@ namespace Bikewale.BAL.BikeData
             return objVersion;
         }
 
-        public List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId,bool isNew)
+        public List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew)
         {
             List<BikeVersionMinSpecs> objMVSpecsMin = null;
             objMVSpecsMin = versionRepository.GetVersionMinSpecs(modelId, isNew);
@@ -118,6 +118,16 @@ namespace Bikewale.BAL.BikeData
             objColors = versionRepository.GetColorByVersion(versionId);
 
             return objColors;
+        }
+        /// <summary>
+        /// Created By: Aditi Srivastava 17 Oct 2016
+        /// Description: Get version colors and group hexcodes by color id
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeColorsbyVersion> GetColorsbyVersionId(uint versionId)
+        {
+            return versionRepository.GetColorsbyVersionId(versionId);
         }
     }   // Class
 }   // namespace
