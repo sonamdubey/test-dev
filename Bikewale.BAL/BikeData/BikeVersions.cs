@@ -16,7 +16,7 @@ namespace Bikewale.BAL.BikeData
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
-    public class BikeVersions<T,U> : IBikeVersions<T,U> where T : BikeVersionEntity, new()
+    public class BikeVersions<T, U> : IBikeVersions<T, U> where T : BikeVersionEntity, new()
     {
         private IBikeVersions<T, U> versionRepository = null;
 
@@ -54,7 +54,7 @@ namespace Bikewale.BAL.BikeData
             return objVersion;
         }
 
-        public List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId,bool isNew)
+        public List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew)
         {
             List<BikeVersionMinSpecs> objMVSpecsMin = null;
             objMVSpecsMin = versionRepository.GetVersionMinSpecs(modelId, isNew);
@@ -127,9 +127,7 @@ namespace Bikewale.BAL.BikeData
         /// <returns></returns>
         public IEnumerable<BikeColorsbyVersion> GetColorsbyVersionId(uint versionId)
         {
-            IEnumerable<BikeColorsbyVersion> objVersionColors = null;
-            objVersionColors = versionRepository.GetColorsbyVersionId(versionId);
-            return objVersionColors;
+            return versionRepository.GetColorsbyVersionId(versionId);
         }
     }   // Class
 }   // namespace

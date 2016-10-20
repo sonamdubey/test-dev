@@ -132,7 +132,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetColorsbyVersionId");
+                ErrorClass objErr = new ErrorClass(ex, String.Format("BikeMakesCacheRepository.GetColorsbyVersionId: +{0}",versionId));
                 objErr.SendMail();
             }
             return versionColors;

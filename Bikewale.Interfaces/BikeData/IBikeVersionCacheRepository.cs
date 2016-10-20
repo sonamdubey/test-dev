@@ -7,6 +7,8 @@ namespace Bikewale.Interfaces.BikeData
     /// <summary>
     /// Created by  :   Sushil Kumar on 28th June 2016
     /// Description :   Bike Versions  Cache Repository
+    /// Modified by :   Aditi Srivastava on 20 Oct 2016
+    /// Description :   Added method to get versions colors by version id
     /// </summary>
     public interface IBikeVersionCacheRepository<T, U>
     {

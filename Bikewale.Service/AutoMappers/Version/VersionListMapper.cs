@@ -53,6 +53,12 @@ namespace Bikewale.Service.AutoMappers.Version
             return Mapper.Map<BikeVersionEntity, DTO.Version.v2.VersionDetails>(objVersion);
         }
 
+        /// <summary>
+        /// Created by  : Aditi srivastava on 20 Oct 2016
+        /// Description : Mapping for Version Colors
+        /// </summary>
+        /// <param name="objVersionColors"></param>
+        /// <returns></returns>
         internal static DTO.BikeData.BikeColorsbyVersionDTO Convert(IEnumerable<Bikewale.Entities.BikeData.BikeColorsbyVersion> objVersionColors)
         {
             Mapper.CreateMap<Bikewale.Entities.BikeData.BikeColorsbyVersion, Bikewale.DTO.BikeData.BikeColorsbyVersion>();

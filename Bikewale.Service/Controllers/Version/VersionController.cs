@@ -19,6 +19,8 @@ namespace Bikewale.Service.Controllers.Version
     /// Created On : 24th August 2015
     /// Modified by :   Sumit Kate on 18 May 2016
     /// Description :   Extend from CompressionApiController instead of ApiController 
+    /// Modified by :   Aditi Srivastava on 20 Oct 2016
+    /// Description :   New api to get version colors by version id
     /// </summary>
     public class VersionController : CompressionApiController//ApiController
     {
@@ -179,7 +181,7 @@ namespace Bikewale.Service.Controllers.Version
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Version.VersionController");
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Service.Version.VersionController.GetVersionColor(VersionId={0}",versionId));
                 objErr.SendMail();
                 return InternalServerError();
             }
