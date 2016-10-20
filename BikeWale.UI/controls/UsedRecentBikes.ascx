@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.UsedRecentBikes" EnableViewState="false" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.UsedRecentBikes" EnableViewState="false" %>
 <%@ Import Namespace="Bikewale.Entities.Used" %>
 <% if (viewModel != null && viewModel.RecentUsedBikes != null && viewModel.FetchedRecordsCount>0)
    {  %>

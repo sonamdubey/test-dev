@@ -1,10 +1,14 @@
 ﻿
 using Bikewale.BindViewModels.Controls;
-using Carwale.Notifications;
+using Bikewale.Notifications;
 using System;
 using System.Web.UI.WebControls;
-namespace Bikewale.controls
+namespace Bikewale.Controls
 {
+    /// <summary>
+    /// Created by : Subodh Jain on 20 oct 2016
+    /// Summary: Bind view model for bind recently uploaded bikes
+    /// </summary>
     public class UsedRecentBikes : System.Web.UI.UserControl
     {
         public Repeater rptUsedBikes;

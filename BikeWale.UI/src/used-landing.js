@@ -68,14 +68,11 @@ $('#max-budget-list').on('click', 'li', function () {
     budgetForm.listItemClick.maxList(element);
 });
 $('#searchCityBudget').on('click', function () {
-    var element = $(this);
-    var elementText = element.text();
-    var cityMasking = $('#drpCities option:selected').attr("data-citymaskingname")!=null? $('#drpCities option:selected').attr("data-citymaskingname"):"";
-    var cityId = $('#drpCities option:selected').attr("data-item-id") != null ? $('#drpCities option:selected').attr("data-item-id") : "";
+    var drpCities = $('#drpCities option:selected');
+    var cityMasking = drpCities.attr("data-citymaskingname") != null ? drpCities.attr("data-citymaskingname") : "";
+    var cityId = drpCities.attr("data-item-id") != null ? drpCities.attr("data-item-id") : "";
     searchUsedVM.cityMaskingName(cityMasking);
-    searchUsedVM.cityId(cityId);
-    $('#search-form-city p').text(elementText);
-   
+    searchUsedVM.cityId(cityId); 
 });
 
 
@@ -285,7 +282,7 @@ listingProfileId.on("blur", function () {
 
 $('#profile-id-popup-target').on('click', function () {
     profileID.open();
-    appendState('profileId');
+   
     $('#listingProfileId').val("");
 });
 
@@ -294,19 +291,18 @@ $('#profile-id-popup').on('click', '.close-btn', function () {
 });
 
 $('#search-profile-id-btn').on('click', function () {
-    
-        if (validateProfileId(listingProfileId)) {
+if (validateProfileId(listingProfileId)) {
             $.ajax({
                 type: "GET",
-                url: "/api/used/inquiry/url/" + listingProfileId.val() + "/-1",
-                headers: {"platformId": 2},
+                url: "/api/used/inquiry/url/" + listingProfileId.val() + "/" + CustomerId,
+                headers: {"platformId": 1},
                 dataType: 'json',
                 success: function (data) {
                     if (data != null) {
                         if (!data.isRedirect)
                             validate.setError(listingProfileId, data.message);
                         else
-                            window.location.href =  data.url;
+                            window.location.href = data.url;
                     }
                 },
                 complete: function (xhr) {

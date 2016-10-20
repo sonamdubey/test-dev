@@ -1,5 +1,6 @@
 ﻿using Bikewale.BindViewModels.Webforms.Used;
-using Bikewale.controls;
+using Bikewale.Common;
+using Bikewale.Controls;
 using System;
 using System.Web;
 
@@ -14,6 +15,7 @@ namespace Bikewale.Used
         protected UsedBikeLandingPage viewModel;
         protected UsedRecentBikes ctrlRecentUsedBikes;
         protected int topCount = 10;
+        protected string currentUser = string.Empty;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -27,6 +29,7 @@ namespace Bikewale.Used
         protected void Page_Load(object sender, EventArgs e)
         {
             viewModel = new UsedBikeLandingPage(topCount);//topcount=number of icons to be displayed on page
+            currentUser = CurrentUser.Id;
             if (viewModel == null)
             {
                 RedirectToPageNotFound();
