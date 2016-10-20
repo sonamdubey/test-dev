@@ -44,12 +44,12 @@ namespace Bikewale.Notifications.MailTemplates.UsedBikes
             sb.AppendFormat("<p>Thank you for listing your {0} bike (profile id: {1}) on BikeWale.", bikeName, profileNo);
             sb.AppendFormat("We will verify the listing to check for any discrepancies.<br> Once the bike listing ");
             sb.AppendFormat("is verified and approved by the BikeWale team, it will be available for potential buyers to contact you.</p>");
-            sb.AppendFormat("<p>You can view, edit, delete your listing and check replies to all your listings by logging into <a href='www.bikewale.com/mybikewale/'>My BikeWale</a> account.</p>");
+            sb.AppendFormat("<p>You can view, edit, delete your listing and check replies to all your listings by logging into <a href='http://www.bikewale.com/mybikewale/'>My BikeWale</a> account.</p>");
             sb.AppendFormat("<p>Thank you for using BikeWale and good luck with your listing!</p>");
-            sb.AppendFormat("<p>In case you have any queries, feel free to write at <a href='contact@bikewale.com'>contact@bikewale.com</a></p>");
+            sb.AppendFormat("<p>In case you have any queries, feel free to write at <a href='mailto:contact@bikewale.com'>contact@bikewale.com</a></p>");
             sb.AppendFormat("<p>Thanks<br>");
             sb.AppendFormat("Team BikeWale<br>");
-            sb.AppendFormat("<a href='www.bikewale.com'>www.bikewale.com</a><br></p>");
+            sb.AppendFormat("<a href='http://www.bikewale.com/'>www.bikewale.com</a><br></p>");
             return sb.ToString();
         }
     }
