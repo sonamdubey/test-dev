@@ -410,6 +410,8 @@ namespace BikeWaleOpr.Common
         /// <summary>
         /// Craeted By : Sanjay Soni on 6th Oct 2014
         /// Description : To Approve Classified Sell Inquiry Listings
+        /// Modified By : Aditi Srivastava on 20 Oct 2016
+        /// Description : changed input parameters to inquiry id, bike name and profile id
         /// </summary>
         /// <param name="profileId"></param>
         [AjaxPro.AjaxMethod()]

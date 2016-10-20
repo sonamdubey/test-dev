@@ -131,6 +131,8 @@ namespace BikeWaleOpr.Classified
         /// <summary>
         /// Created By : Sanjay Soni ON 30/9/2014
         /// Description : To Approve listing
+        /// Modified By : Aditi Srivastava on 20 Oct 2016
+        /// Description : changed parameters to inquiry Id (cust id), bikename and profile id
         /// </summary>
         /// <param name="custid"></param>
         protected void ApproveListing(int custid,string bikeName,string profileId)

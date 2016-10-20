@@ -180,7 +180,6 @@
     });
 
     $(".approveList").click(function(){
-        debugger;
         var profileId = $(this).attr("profileId");
         var bikeName=$(this).attr("bikeName");
         var inquiryId=$(this).attr("inquiryId");
