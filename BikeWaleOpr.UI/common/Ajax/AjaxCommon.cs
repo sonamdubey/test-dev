@@ -435,16 +435,18 @@ namespace BikeWaleOpr.Common
         /// <summary>
         /// Craeted By : Sanjay Soni on 6th Oct 2014
         /// Description : To Discard Classified Sell Inquiry Listings
+        /// Modified By : Aditi Srivastava on 20 Oct 2016
+        /// Description : changed input parameters to inquiry id, bike name and profile id
         /// </summary>
         /// <param name="profileId"></param>
         [AjaxPro.AjaxMethod()]
-        public bool DiscardListing(int profileId)
+        public bool DiscardListing(int inquiryId, string bikeName, string profileId)
         {
             bool isSuccess = false;
             try
             {
                 ClassifiedCommon listing = new ClassifiedCommon();
-                isSuccess = listing.DiscardListing(profileId);
+                isSuccess = listing.DiscardListing(inquiryId, bikeName, profileId);
             }
             catch (Exception err)
             {

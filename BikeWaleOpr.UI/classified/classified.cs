@@ -16,8 +16,7 @@ namespace BikeWaleOpr.Classified
 {
     public class ClassifiedCommon
     {
-        private ISellerRepository _objSellerRepository = null;
-       
+        private ISellerRepository _objSellerRepository = new SellerRepository();
         #region CustomerListingDetail
         /// <summary>
         /// Created By : Sanjay Soni ON 30/9/2014
@@ -352,7 +351,7 @@ namespace BikeWaleOpr.Classified
 
                     MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
                     isSuccess = true;
-                   _objSellerRepository = new SellerRepository();
+                   
                     UsedBikeSellerBase seller = _objSellerRepository.GetSellerDetails(inquiryId, false);
                     SendEmailSMSToDealerCustomer.UsedBikeApprovalEmailToIndividual(seller.Details, profileId, bikeName);
                 }
@@ -379,9 +378,11 @@ namespace BikeWaleOpr.Classified
         /// <summary>
         /// Craeted By : Sanjay Soni on 3rd Oct 2014
         /// Description : To Discard Fake Inquiry Listing
+        /// Modified by : Aditi Srivastava on 20 Oct 2016
+        /// Description : Added function to send email to seller when listing is rejected
         /// </summary>
         /// <param name="profileId"></param>
-        public bool DiscardListing(int profileId)
+        public bool DiscardListing(int inquiryId, string bikeName, string profileId)
         {
             bool isSuccess = false;
 
@@ -392,11 +393,13 @@ namespace BikeWaleOpr.Classified
                     cmd.CommandText = "classified_inquiry_fake";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, profileId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId));
 
 
                     MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
                     isSuccess = true;
+                    UsedBikeSellerBase seller = _objSellerRepository.GetSellerDetails(inquiryId, false);
+                    SendEmailSMSToDealerCustomer.UsedBikeRejectionEmailToSeller(seller.Details, profileId, bikeName);
                 }
             }
             catch (SqlException ex)

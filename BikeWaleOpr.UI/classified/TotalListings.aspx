@@ -198,12 +198,14 @@
     });
 
     $(".discardList").click(function(){
-        var inquiryId = $(this).attr("inquiryId");
+        var profileId = $(this).attr("profileId");
+        var bikeName=$(this).attr("bikeName");
+        var inquiryId=$(this).attr("inquiryId");
         if (confirm("Are you sure you want to discard Inquiry?") == true) {
             $.ajax({
                 type: "POST",
                 url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
-                data: '{"profileId":"' + inquiryId + '"}',
+                data: '{"profileId":"' + profileId + '", "bikeName":"' + bikeName + '", "inquiryId":"' + inquiryId + '"}',
                 beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "DiscardListing"); },
                 success: function (response) {
                     alert("Inquiry Discarded Successfully!");

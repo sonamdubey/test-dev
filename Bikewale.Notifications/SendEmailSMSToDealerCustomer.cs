@@ -400,7 +400,7 @@ namespace Bikewale.Notifications
             objEmail.Send(seller.CustomerEmail, "Someone is interested in your bike!");
         }
 
-       /// <summary>
+        /// <summary>
         /// Created by  :   Aditi Srivastava on 18 Oct 2016
         /// Description :   Send Email to individual seller when their listed bike is approved
         /// </summary>
@@ -414,5 +414,20 @@ namespace Bikewale.Notifications
             ComposeEmailBase objEmail = new ListingApprovalEmailToSeller(seller.CustomerName, profileId, bikeName);
             objEmail.Send(seller.CustomerEmail, String.Format("Your {0} bike listing has been approved on BikeWale.", bikeName));
        }
+
+        /// <summary>
+        /// Created by  :   Aditi Srivastava on 20 Oct 2016
+        /// Description :   Send Email to individual seller when their listed bike is rejected
+        /// </summary>
+        /// <param name="seller"></param>
+        /// <param name="buyer"></param>
+        /// <param name="profileId"></param>
+        /// <param name="bikeName"></param>
+        /// <param name="formattedPrice"></param>
+        public static void UsedBikeRejectionEmailToSeller(CustomerEntityBase seller, string profileId, string bikeName)
+        {
+            ComposeEmailBase objEmail = new ListingRejectionEmailToSeller(seller.CustomerName, profileId, bikeName);
+            objEmail.Send(seller.CustomerEmail, String.Format(" Your {0} listing has not been approved on BikeWale", bikeName));
+        }
     }
 }
