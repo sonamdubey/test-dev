@@ -13,6 +13,7 @@ namespace Bikewale.Mobile.Used
     {
         protected UsedBikeLandingPage viewModel;
         protected UsedRecentBikes ctrlRecentUsedBikes;
+        protected int topCount = 6;
 
         protected override void OnInit(EventArgs e)
         {
@@ -26,7 +27,7 @@ namespace Bikewale.Mobile.Used
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            viewModel = new UsedBikeLandingPage();
+            viewModel = new UsedBikeLandingPage(topCount);
             if (viewModel == null)
             {
                 RedirectToPageNotFound();

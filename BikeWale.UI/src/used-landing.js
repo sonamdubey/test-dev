@@ -12,7 +12,7 @@ var budgetArr = [
 
 $(document).ready(function () {
 
-    $('.chosen-select').chosen();
+    $('#drpCities.chosen-select').chosen();
 
     // set min budget list
     budgetForm.set.minList();
@@ -66,6 +66,16 @@ $('#max-budget-list').on('click', 'li', function () {
     var element = $(this);
 
     budgetForm.listItemClick.maxList(element);
+});
+$('#searchCityBudget').on('click', function () {
+    var element = $(this);
+    var elementText = element.text();
+    var cityMasking = $('#drpCities option:selected').attr("data-citymaskingname")!=null? $('#drpCities option:selected').attr("data-citymaskingname"):"";
+    var cityId = $('#drpCities option:selected').attr("data-item-id") != null ? $('#drpCities option:selected').attr("data-item-id") : "";
+    searchUsedVM.cityMaskingName(cityMasking);
+    searchUsedVM.cityId(cityId);
+    $('#search-form-city p').text(elementText);
+    console.log($('#search-form-city select').val());
 });
 
 
@@ -136,7 +146,7 @@ var budgetForm = {
             budgetForm.inputBoxAmount.minAmount(element);
 
             budgetForm.generateMaxList(dataValue);
-
+            searchUsedVM.minAmount(dataValue);
             budgetForm.minBudgetList.hide();
             if (dataValue != '125000') { // second last element of budget list
                 budgetForm.maxBudgetList.show().addClass('refere-min-list');
@@ -152,6 +162,7 @@ var budgetForm = {
             var dataValue = element.attr("data-value");
 
             budgetForm.maxInputBox.attr('data-value', dataValue);
+            searchUsedVM.maxAmount(dataValue);
 
             if (typeof (budgetForm.minInputBox.attr('data-value')) == 'undefined') {
                 budgetForm.minInputBox.attr('data-value', 0);
@@ -171,6 +182,7 @@ var budgetForm = {
             var elementValue = element.text();
 
             budgetForm.dropdown.selectedMinAmount.text(elementValue);
+            searchUsedVM.maxAmount('');
             budgetForm.dropdown.defaultLabel.hide();
 
             if (typeof (budgetForm.maxInputBox.attr('data-value')) == 'undefined') {
@@ -213,6 +225,52 @@ $(document).mouseup(function (e) {
 });
 
 
+function searchModel() {
+    var self = this;
+    self.baseUrl = ko.observable(''),
+    self.cityMaskingName = ko.observable(''),
+    self.cityId = ko.observable(''),
+    self.minAmount = ko.observable(''),
+    self.maxAmount = ko.observable(''),
+    self.createUrl = function () {
+        if (self.minAmount() == "" && self.maxAmount() == "")
+            return self.baseUrl();
+        else {
+            if (self.cityMaskingName() == "") {
+                if (self.minAmount() == "")
+                    return self.baseUrl() + "#budget=0+" + self.maxAmount()
+                else if (self.maxAmount() == "")
+                    return self.baseUrl() + "#budget=" + self.minAmount() + "+200000";
+                else
+                    return self.baseUrl() + "#budget=" + self.minAmount() + "+" + self.maxAmount();
+            }
+            else {
+                if (self.minAmount() == "")
+                    return self.baseUrl() + "&budget=0+" + self.maxAmount();
+                else if (self.maxAmount() == "")
+                    return self.baseUrl() + "&budget=" + self.minAmount() + "+200000";
+                else
+                    return self.baseUrl() + "&budget=" + self.minAmount() + "+" + self.maxAmount();
+            }
+
+        }
+        return '';
+    },
+    self.redirectUrl = ko.computed(function () {
+        
+        if (self.cityMaskingName() == "") {
+            self.baseUrl("bikes-in-india/");
+        }
+        else {
+            self.baseUrl("bikes-in-" + self.cityMaskingName() + "/#city=" + self.cityId());
+        }
+        return self.createUrl();
+    })
+
+
+};
+var searchUsedVM = new searchModel();
+ko.applyBindings(searchUsedVM, document.getElementById("search-used-bikes"));
 /* profile id */
 var listingProfileId = $('#listingProfileId');
 
@@ -227,6 +285,8 @@ listingProfileId.on("blur", function () {
 
 $('#profile-id-popup-target').on('click', function () {
     profileID.open();
+    appendState('profileId');
+    $('#listingProfileId').val("");
 });
 
 $('#profile-id-popup').on('click', '.close-btn', function () {
@@ -234,19 +294,39 @@ $('#profile-id-popup').on('click', '.close-btn', function () {
 });
 
 $('#search-profile-id-btn').on('click', function () {
-    if (validateProfileId(listingProfileId)) {
-        // valid
-    }
-});
+    
+        if (validateProfileId(listingProfileId)) {
+            $.ajax({
+                type: "GET",
+                url: "/api/used/inquiry/url/" + listingProfileId.val() + "/-1",
+                headers: {"platformId": 2},
+                dataType: 'json',
+                success: function (data) {
+                    if (data != null) {
+                        if (!data.isRedirect)
+                            validate.setError(listingProfileId, data.message);
+                        else
+                            window.location.href =  data.url;
+                    }
+                },
+                complete: function (xhr) {
+                    if (xhr.status != 200) {
+                        validate.setError(listingProfileId, 'Please enter correct profile id');
+                    }
+                }
+            });
+        }
+    });
+
 
 function validateProfileId(inputBox) {
     var isValid = true;
     var profileId = inputBox.val();
-    if (profileId == '') {
+    if (profileId == ''||!(profileId.charAt(0).toLowerCase() == 's' || profileId.charAt(0).toLowerCase() == 'd')) {
         isValid = false;
         validate.setError(inputBox, 'Please enter profile id');
     }
-
+ 
     return isValid;
 }
 
