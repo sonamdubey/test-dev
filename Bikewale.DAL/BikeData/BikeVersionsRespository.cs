@@ -585,20 +585,23 @@ namespace Bikewale.DAL.BikeData
                         }
                     }
                 }
-                objVersionColors = versionColors
-                    .GroupBy(grp => new { grp.ColorId, grp.ColorName })
-                    .Select(
-                    vc => new BikeColorsbyVersion()
-                    {
-                        ColorId = vc.Key.ColorId,
-                        ColorName = vc.Key.ColorName,
-                        HexCode = vc.Select(hc => hc.ColorCode)
-                    }
-                    );
+                if (versionColors != null)
+                {
+                    objVersionColors = versionColors
+                        .GroupBy(grp => new { grp.ColorId, grp.ColorName })
+                        .Select(
+                        vc => new BikeColorsbyVersion()
+                        {
+                            ColorId = vc.Key.ColorId,
+                            ColorName = vc.Key.ColorName,
+                            HexCode = vc.Select(hc => hc.ColorCode)
+                        }
+                        );
+                }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, String.Format("BikeVersionsRepository.GetColorsbyVersionId: {0}", versionId));
                 objErr.SendMail();
             }
             return objVersionColors;
