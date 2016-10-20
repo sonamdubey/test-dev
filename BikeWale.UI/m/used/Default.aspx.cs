@@ -27,7 +27,7 @@ namespace Bikewale.Mobile.Used
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            viewModel = new UsedBikeLandingPage(topCount);
+            viewModel = new UsedBikeLandingPage(topCount);//topcount=number of icons to be displayed on page
             if (viewModel == null)
             {
                 RedirectToPageNotFound();

@@ -5,6 +5,10 @@ using System.Web;
 
 namespace Bikewale.Used
 {
+    /// <summary>
+    /// Created by: Subodh Jain on 20 oct 2016
+    /// Summary: Landing page for Used desktop site
+    /// </summary>
     public class Default : System.Web.UI.Page
     {
         protected UsedBikeLandingPage viewModel;
@@ -22,7 +26,7 @@ namespace Bikewale.Used
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            viewModel = new UsedBikeLandingPage(topCount);
+            viewModel = new UsedBikeLandingPage(topCount);//topcount=number of icons to be displayed on page
             if (viewModel == null)
             {
                 RedirectToPageNotFound();

@@ -36,6 +36,8 @@ namespace Bikewale.BindViewModels.Webforms.Used
         /// <summary>
         /// Created by: Sangram Nandkhile on 06 Oct 2016
         /// Summary: Constructor for viewmodel to initialize container and fetch values
+        /// modified by:-subodh jain
+        /// summary :- passed topcount as parameter count of number of icon of make 
         /// </summary>
         public UsedBikeLandingPage(int topCount)
         {
