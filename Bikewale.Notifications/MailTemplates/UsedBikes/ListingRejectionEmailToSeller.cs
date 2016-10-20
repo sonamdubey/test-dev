@@ -37,7 +37,7 @@ namespace Bikewale.Notifications.MailTemplates.UsedBikes
         public override string ComposeBody()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("<p>Hi {0}</p>", sellerName);
+            sb.AppendFormat("<p>Hi {0},</p>", sellerName);
             sb.AppendFormat("<p>Your {0} listing on BikeWale (profile id: {1}) has not been approved by the BikeWale team.</p>", bikeName, profileNo);
             sb.AppendFormat("<p>Following could be the reasons why the listings get rejected on BikeWale:");
             sb.AppendFormat("<ol><li> Inaccurate price</li><li> Inappropriate photos</li><li> Invalid manufacturing year</li></ol></p>");
