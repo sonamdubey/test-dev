@@ -413,13 +413,13 @@ namespace BikeWaleOpr.Common
         /// </summary>
         /// <param name="profileId"></param>
         [AjaxPro.AjaxMethod()]
-        public bool ApproveListing(int profileId)
+        public bool ApproveListing(int inquiryId,string bikeName,string profileId)
         {
             bool isSuccess = false;
             try
             {
                 ClassifiedCommon listing = new ClassifiedCommon();
-                isSuccess = listing.ApproveListing(profileId);
+                isSuccess = listing.ApproveListing(inquiryId, bikeName, profileId);
             }
             catch (Exception err)
             {

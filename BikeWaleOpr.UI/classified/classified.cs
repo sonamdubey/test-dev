@@ -1,12 +1,14 @@
-﻿using BikeWaleOpr.Common;
-using BikeWaleOPR.Utilities;
+﻿using BikeWaleOPR.Utilities;
 using MySql.CoreDAL;
 using System;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
-
+using Bikewale.Notifications;
+using BikewaleOpr.Interface.Used;
+using Bikewale.Entities.Used;
+using BikewaleOpr.Used;
 /// <summary>
 /// Created By Sanjay Soni ON 1/10/2014
 /// </summary>
@@ -14,6 +16,8 @@ namespace BikeWaleOpr.Classified
 {
     public class ClassifiedCommon
     {
+        private ISellerRepository _objSellerRepository = null;
+       
         #region CustomerListingDetail
         /// <summary>
         /// Created By : Sanjay Soni ON 30/9/2014
@@ -328,12 +332,14 @@ namespace BikeWaleOpr.Classified
         /// <summary>
         /// Craeted By : Sanjay Soni on 3rd Oct 2014
         /// Description : To Approve Inquiry Listing
+        /// Modified by: Aditi Srivastava on 18 Oct 2016
+        /// Description: Added function to send email to seller when listing is approved
         /// </summary>
         /// <param name="profileId"></param>
-        public bool ApproveListing(int profileId)
+        public bool ApproveListing(int inquiryId,string bikeName, string profileId)
         {
             bool isSuccess = false;
-
+            
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
@@ -341,11 +347,14 @@ namespace BikeWaleOpr.Classified
                     cmd.CommandText = "classified_inquiry_approve";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, profileId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId));
 
 
                     MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
                     isSuccess = true;
+                   _objSellerRepository = new SellerRepository();
+                    UsedBikeSellerBase seller = _objSellerRepository.GetSellerDetails(inquiryId, false);
+                    SendEmailSMSToDealerCustomer.UsedBikeApprovalEmailToIndividual(seller.Details, profileId, bikeName);
                 }
             }
             catch (SqlException ex)

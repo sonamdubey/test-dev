@@ -133,10 +133,10 @@ namespace BikeWaleOpr.Classified
         /// Description : To Approve listing
         /// </summary>
         /// <param name="custid"></param>
-        protected void ApproveListing(int custid)
+        protected void ApproveListing(int custid,string bikeName,string profileId)
         {
             ClassifiedCommon cc = new ClassifiedCommon();
-            cc.ApproveListing(custid);
+            cc.ApproveListing(custid, bikeName, profileId);
         }
 
         /// <summary>

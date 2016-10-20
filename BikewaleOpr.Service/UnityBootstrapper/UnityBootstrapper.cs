@@ -4,6 +4,8 @@ using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Interface.ManufacturerCampaign;
 using Microsoft.Practices.Unity;
 using BikewaleOpr.BAL;
+using BikewaleOpr.Interface.Used;
+using BikewaleOpr.Used;
 
 
 namespace BikewaleOpr.Service.UnityConfiguration
@@ -24,7 +26,7 @@ namespace BikewaleOpr.Service.UnityConfiguration
             
             container.RegisterType<IContractCampaign, ContractCampaign>();
             container.RegisterType<IManufacturerReleaseMaskingNumber, ManufacturerReleaseMaskingNumber>();
-           
+            container.RegisterType<ISellerRepository,SellerRepository>();
             return container;
         }
     }
