@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Bikewale.Cache.BikeData;
 
 namespace Bikewale.Service.Controllers.Version
 {
@@ -167,21 +166,21 @@ namespace Bikewale.Service.Controllers.Version
         public IHttpActionResult GetVersionColor(uint versionId)
         {
             IEnumerable<Bikewale.Entities.BikeData.BikeColorsbyVersion> objVersionColors = null;
-            BikeColorsbyVersionDTO objDTOVersionColors = null;
+            BikeColorsbyVersionDTO objDTOVersionColors = new BikeColorsbyVersionDTO();
             try
             {
                 objVersionColors = _objVersionColorCache.GetColorsbyVersionId(versionId);
 
                 if (objVersionColors != null)
-                {   
-                    objDTOVersionColors = VersionListMapper.Convert(objVersionColors);
+                {
+                    objDTOVersionColors.VersionColors = VersionListMapper.Convert(objVersionColors);
 
-                    return Ok(objVersionColors);
+                    return Ok(objDTOVersionColors);
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Service.Version.VersionController.GetVersionColor(VersionId={0}",versionId));
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Service.Version.VersionController.GetVersionColor(VersionId={0}", versionId));
                 objErr.SendMail();
                 return InternalServerError();
             }

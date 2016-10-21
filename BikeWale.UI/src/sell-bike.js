@@ -183,13 +183,12 @@ var bikeDetails = function () {
 
         $.ajax({
             type: "Get",
-            url: "/api/Version/?versionId=" + self.version() +"&specs=true",
+            url: "/api/version/" + self.version() + "/color/",
             contentType: "application/json",
             dataType: 'json',
             success: function (response) {
                 if (response) {
-                    
-                    
+                    self.colorArray(response.colors);
                 }
             },
             complete: function (xhr, ajaxOptions, thrownError) {
@@ -197,7 +196,7 @@ var bikeDetails = function () {
             }
         });
 
-        debugger;
+        
     };
 
  

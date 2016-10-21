@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.DTO.BikeData
 {
@@ -11,12 +7,12 @@ namespace Bikewale.DTO.BikeData
     /// Created by: Aditi Srivastava on 17 Oct 2016
     /// Summary: To get colors by version id
     /// </summary>
-   
-    public class BikeColorsbyVersion
+
+    public class BikeColorsbyVersionsDTO
     {
         [JsonProperty("colorId")]
         public uint ColorId { get; set; }
-        
+
         [JsonProperty("colorName")]
         public string ColorName { get; set; }
 

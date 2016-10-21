@@ -108,16 +108,13 @@
                                                     <p class="select-label">City<sup>*</sup></p>
                                                     <select class="chosen-select" data-placeholder="Select city" data-bind="chosen: {}, value: city, validationElement: city">
                                                         <option value></option>
-                                                        <option value="14">Ahmednagar</option>
-                                                        <option value="361">Alibag</option>
-                                                        <option value="1">Mumbai</option>
-                                                        <option value="13">Navi Mumbai</option>
-                                                        <option value="8">Panvel</option>
-                                                        <option value="15">Ahmednagar</option>
-                                                        <option value="362">Alibag</option>
-                                                        <option value="2">Mumbai</option>
-                                                        <option value="15">Navi Mumbai</option>
-                                                        <option value="9">Panvel</option>
+                                                        <% if (objCityList != null)
+                                                                { %>
+                                                                 <% foreach (var city in objCityList)
+                                                                { %>
+                                                                    <option value="<%= city.CityId %>" ><%=city.CityName %></option>
+                                                             <% } %>
+                                                             <% } %>
                                                     </select>
                                                     <span class="boundary"></span>
                                                     <span class="error-text" data-bind="validationMessage: city"></span>
@@ -154,16 +151,13 @@
                                                     <p class="select-label">Bike registered at<sup>*</sup></p>
                                                     <select class="chosen-select" data-placeholder="Select city" data-bind="chosen: {}, value: registeredCity, validationElement: registeredCity">
                                                         <option value></option>
-                                                        <option value="14">Ahmednagar</option>
-                                                        <option value="361">Alibag</option>
-                                                        <option value="1">Mumbai</option>
-                                                        <option value="13">Navi Mumbai</option>
-                                                        <option value="8">Panvel</option>
-                                                        <option value="15">Ahmednagar</option>
-                                                        <option value="362">Alibag</option>
-                                                        <option value="2">Mumbai</option>
-                                                        <option value="15">Navi Mumbai</option>
-                                                        <option value="9">Panvel</option>
+                                                        <% if (objCityList != null)
+                                                                { %>
+                                                                 <% foreach (var city in objCityList)
+                                                                { %>
+                                                                    <option value="<%= city.CityId %>" ><%=city.CityName %></option>
+                                                             <% } %>
+                                                             <% } %>
                                                     </select>
                                                     <span class="boundary"></span>
                                                     <span class="error-text" data-bind="validationMessage: registeredCity"></span>
@@ -180,46 +174,18 @@
 
                                                         <div class="color-dropdown">
                                                             <p class="dropdown-label">Colour</p>
-                                                            
+                                                            <ul data-bind="foreach: colorArray" >
+                                                             <li class="color-list-item" data-bind="click: $parent.colorSelection">                                                                
+                                                                    <div class="color-box " data-bind="foreach: hexCode, css: (hexCode.length >= 3) ? 'color-count-three' : (hexCode.length == 2) ? 'color-count-two' : 'color-count-one' ">
+                                                                    <span data-bind="style: { 'background-color': '#' + $data }"></span>
+                                                                    </div>
 
-
-
-
-                                                            <ul data-bind="foreach: versionArray">
-                                                            <li class="color-list-item" data-bind="click: colorSelection">
-                                                                <div class="color-box color-count-one">
-                                                                <%--<span style="background-color:" data-bind="text: $data"></span>--%>
-                                                                 </div>
-                                                                  <p class="color-box-label">data-bind="text: $data"</p>      
+                                                                 <p class="color-box-label" data-bind="text: colorName, attr : {value : colorId} "></p>      
     
                                                             </li>
                                                             </ul>
-
-
-
-                                                             <ul>
-                                                                <%--<li class="color-list-item" data-bind="click: colorSelection">
-                                                                    <div class="color-box color-count-one">
-                                                                        <span style="background-color:#c83333"></span>
-                                                                    </div>
-                                                                    <p class="color-box-label">Red</p>
-                                                                </li>
-                                                                <li class="color-list-item" data-bind="click: colorSelection">
-                                                                    <div class="color-box color-count-two">
-                                                                        <span style="background-color:#c83333"></span>
-                                                                        <span style="background-color:#1b1a1a"></span>
-                                                                    </div>
-                                                                    <p class="color-box-label">Black and Red</p>
-                                                                </li>
-                                                                <li class="color-list-item" data-bind="click: colorSelection">
-                                                                    <div class="color-box color-count-three">
-                                                                        <span style="background-color:#c83333"></span>
-                                                                        <span style="background-color:#1b1a1a"></span>
-                                                                        <span style="background-color:#3a5cee"></span>
-                                                                    </div>
-                                                                    <p class="color-box-label">Black, Red and Blue</p>
-                                                                </li>--%>
-                                                                <li class="other-color-item">
+                                                            <ul>
+                                                            <li class="other-color-item">
                                                                     <div class="color-box">
                                                                         <span></span>
                                                                     </div>
@@ -229,8 +195,9 @@
                                                                         <span class="boundary"></span>
                                                                         <span class="error-text" data-bind="validationMessage: otherColor"></span>
                                                                     </div>
-                                                                </li>
+                                                              </li>
                                                             </ul>
+
                                                             <div class="text-center padding-bottom20" data-bind="visible: otherColor().length > 0">
                                                                 <button type="button" class="btn btn-orange btn-secondary-small" data-bind="click: submitOtherColor">Done</button>
                                                             </div>

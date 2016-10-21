@@ -2,18 +2,15 @@
 using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
-using Bikewale.DTO.Make;
+using Bikewale.DAL.Location;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entity.BikeData;
+using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Location;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Used.Sell
 {
@@ -21,6 +18,7 @@ namespace Bikewale.Used.Sell
     {
         protected IEnumerable<Bikewale.Entities.BikeData.BikeMakeEntityBase> objMakeList = null;
         private IBikeMakesCacheRepository<int> _makesRepository;
+        protected List<CityEntityBase> objCityList = null;
 
         protected override void OnInit(EventArgs e)
         {
@@ -30,6 +28,7 @@ namespace Bikewale.Used.Sell
         protected void Page_Load(object sender, EventArgs e)
         {
             BindMakes();
+            BindCities();
         }
 
         /// <summary>
@@ -48,11 +47,25 @@ namespace Bikewale.Used.Sell
                             ;
                     _makesRepository = container.Resolve<IBikeMakesCacheRepository<int>>();
                     objMakeList = _makesRepository.GetMakesByType(EnumBikeType.Used);
-                }   
+                }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.sell.default");
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.sell.default.BindMakes()");
+                objErr.SendMail();
+            }
+        }
+
+        protected void BindCities()
+        {
+            ICity _city = new CityRepository();
+            try
+            {
+                objCityList = _city.GetAllCities(EnumBikeType.All);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.sell.default.BindCities()");
                 objErr.SendMail();
             }
         }

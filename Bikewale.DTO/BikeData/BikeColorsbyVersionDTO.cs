@@ -9,11 +9,12 @@ namespace Bikewale.DTO.BikeData
     /// Created By: Aditi Srivastava on 17 Oct 2016
     /// Description: list of all colors by version
     /// </summary>
+    /// BikeColorsbyVersionsDTO
     
     public class BikeColorsbyVersionDTO
     {
         [JsonProperty("colors")]
-        public IEnumerable<BikeColorsbyVersion> VersionColors { get; set; }
+        public IEnumerable<BikeColorsbyVersionsDTO> VersionColors { get; set; }
 
     }
 }
