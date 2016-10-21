@@ -65,7 +65,7 @@
                         </div>
 
                         <div class="text-center margin-top15">
-                            <a href="/used/bikes-in-india/" class="btn btn-inv-teal inv-teal-sm">View all bikes<span class="bwsprite teal-next"></span></a>
+                            <a href="/used/bikes-in-india/" title="Used Bikes in India" class="btn btn-inv-teal inv-teal-sm">View all bikes<span class="bwsprite teal-next"></span></a>
                         </div>
                     </div>
                 </div>

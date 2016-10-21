@@ -107,7 +107,7 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        <a href="/used/sell/" id="sell-btn" class="btn btn-teal">Sell</a>
+                        <a href="/used/sell/" title="Sell your bike" id="sell-btn" class="btn btn-teal">Sell</a>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -182,7 +182,7 @@
                                     <%} %>
                          </div>
                     </div>
-                    <a href="/used/browse-bikes-by-cities/" class="btn btn-inv-teal inv-teal-sm margin-top10">View all cities<span class="bwmsprite teal-next"></span></a>
+                    <a href="/used/browse-bikes-by-cities/" title="Browse used bike by cities" class="btn btn-inv-teal inv-teal-sm margin-top10">View all cities<span class="bwmsprite teal-next"></span></a>
                 </div>
             </div>
         </section>
