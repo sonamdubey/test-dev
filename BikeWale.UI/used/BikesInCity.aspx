@@ -4,9 +4,10 @@
 <html>
 <head>
     <%
-        title = "city wise used bikes listing - BikeWale";
+        title = "Browse used bikes by cities";
+        description = "Browse used bike by cities in India";
+        canonical = "http://www.bikewale.com/used/browse-bikes-by-cities/";
         keywords = "city wise used bikes listing,used bikes for sale, second hand bikes, buy used bike";
-        description = "bikewale.com city wise used bikes listing.";
         AdId = "1475576036058";
         AdPath = "/1017752/BikeWale_UsedBikes_Search_Results_";
         isAd300x250BTFShown = false;
@@ -58,7 +59,7 @@
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow">
-                        <h1 class="content-inner-block-20">Used bikes in India</h1>
+                        <h1 class="content-inner-block-20">Browse used bike by cities</h1>
                         <p class="font16 text-default text-bold padding-left20 margin-bottom10">Popular cities</p>
                         <ul id="popular-city-list">
                              <%foreach ( Bikewale.Entities.Used.UsedBikeCities objCity in  objBikeCityCountTop) {%>
