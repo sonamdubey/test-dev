@@ -14,6 +14,8 @@ namespace Bikewale.BindViewModels.Controls
     /// <summary>
     /// Created by : Sangram Nandkhile on 12 May 2016
     /// Desc       : View Model to bind and pass repeater data to control
+    /// Modified by :Subodh Jain on 21 oct 2016
+    /// Desc : Added cityid as parameter
     /// </summary>
     public class BindSimilarCompareBikesControl
     {

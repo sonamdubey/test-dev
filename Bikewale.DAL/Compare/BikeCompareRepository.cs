@@ -299,7 +299,8 @@ namespace Bikewale.DAL.Compare
 
         /// <summary>
         /// Created by: Sangram Nandkhile on 11 May 2016
-        /// </summary>
+        /// Modified by :Subodh Jain on 21 oct 2016
+        /// Desc : Added cityid as parameter
         /// <param name="versionList"></param>
         /// <param name="topCount"></param>
         /// <returns></returns>
