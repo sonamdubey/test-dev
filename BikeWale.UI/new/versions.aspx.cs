@@ -308,7 +308,7 @@ namespace Bikewale.New
 
             ctrlPopularCompare.TopCount = 6;
             ctrlPopularCompare.ModelName = modelPageEntity.ModelDetails.ModelName;
-            ctrlPopularCompare.cityid = (int?)cityId;
+            ctrlPopularCompare.cityid = Convert.ToInt32(cityId);
 
             if (!isDiscontinued)
                 ctrlPopularCompare.versionId = Convert.ToString(variantId);
@@ -515,6 +515,7 @@ namespace Bikewale.New
             ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_ModelPage_Alternative;
             ctrlAlternativeBikes.WidgetTitle = bikeName;
             ctrlAlternativeBikes.model = modelPage.ModelDetails.ModelName;
+            ctrlAlternativeBikes.cityId = Convert.ToInt32(cityId);
             if (modelPage != null)
             {
                 var modelVersions = modelPage.ModelVersions;

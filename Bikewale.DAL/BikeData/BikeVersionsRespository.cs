@@ -450,7 +450,7 @@ namespace Bikewale.DAL.BikeData
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getsimilarbikeslist_17102016";
+                    cmd.CommandText = "getsimilarbikeslist_13102016";
                     cmd.CommandType = CommandType.StoredProcedure;
 
 
@@ -476,7 +476,7 @@ namespace Bikewale.DAL.BikeData
                                 objBike.ModelBase.MaskingName = Convert.ToString(dr["modelmaskingname"]);
                                 objBike.VersionBase.VersionId = SqlReaderConvertor.ToInt32(dr["versionid"]);
                                 objBike.HostUrl = Convert.ToString(dr["hosturl"]);
-                                objBike.MinPrice = SqlReaderConvertor.ToInt32(dr["minprice"]);
+                                objBike.MinPrice = SqlReaderConvertor.ToInt32(dr["versionprice"]);
                                 objBike.VersionPrice = SqlReaderConvertor.ToInt32(dr["versionprice"]);
                                 objBike.OriginalImagePath = dr["originalimagepath"].ToString();
                                 objBike.Displacement = SqlReaderConvertor.ToNullableFloat(dr["displacement"]);
