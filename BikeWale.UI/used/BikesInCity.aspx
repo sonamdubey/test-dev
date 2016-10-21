@@ -18,7 +18,7 @@
 
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <style type="text/css">
-        @charset "utf-8";#popular-city-list{margin-right:10px;margin-left:10px;padding-bottom:15px;border-bottom:1px solid #e2e2e2}#popular-city-list li{margin:12px;display:inline-block;vertical-align:top}#popular-city-list a{width:292px;height:201px;border:1px solid #f6f6f6;-webkit-box-shadow:0 1px 2px rgba(0,0,0,.2);-moz-box-shadow:0 1px 2px rgba(0,0,0,.2);-ms-box-shadow:0 1px 2px rgba(0,0,0,.2);-o-box-shadow:0 1px 2px rgba(0,0,0,.2);box-shadow:0 1px 2px rgba(0,0,0,.2)}.city-card-target{display:block}.city-card-target:hover{text-decoration:none}#other-city-list li{font-size:16px;margin-bottom:20px}#other-city-list a{color:#82888b}.city-bike-count{color:#a2a2a2}.city-image-preview{width:292px;height:114px;display:block;margin-bottom:15px;text-align:center;padding-top:10px}.city-sprite{background:url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?24062016) no-repeat;display:inline-block}.ahmedabad-icon,.bangalore-icon,.chandigarh-icon,.chennai-icon,.delhi-icon,.hyderabad-icon,.kolkata-icon,.lucknow-icon,.mumbai-icon,.pune-icon{height:92px}.mumbai-icon{width:130px;background-position:0 0}.pune-icon{width:186px;background-position:-140px 0}.bangalore-icon{width:136px;background-position:-336px 0}.delhi-icon{width:70px;background-position:-482px 0}.chennai-icon{width:53px;background-position:-562px 0}.hyderabad-icon{width:65px;background-position:-625px 0}.kolkata-icon{width:182px;background-position:-700px 0}.lucknow-icon{width:174px;background-position:-892px 0}.ahmedabad-icon,.chandigarh-icon{width:0;background-position:0 0}@media only screen and (max-width:1024px){#popular-city-list li{margin:6px}}
+        @charset "utf-8";#popular-city-list{margin-right:10px;margin-left:10px;padding-bottom:15px;border-bottom:1px solid #e2e2e2}#popular-city-list li{margin:12px;display:inline-block;vertical-align:top}#popular-city-list a{width:292px;height:201px;border:1px solid #f6f6f6;-webkit-box-shadow:0 1px 2px rgba(0,0,0,.2);-moz-box-shadow:0 1px 2px rgba(0,0,0,.2);-ms-box-shadow:0 1px 2px rgba(0,0,0,.2);-o-box-shadow:0 1px 2px rgba(0,0,0,.2);box-shadow:0 1px 2px rgba(0,0,0,.2)}.city-card-target{display:block}.city-card-target:hover{text-decoration:none}#other-city-list li{font-size:16px;margin-bottom:20px}#other-city-list a{color:#82888b}.city-bike-count{color:#a2a2a2}.city-image-preview{width:292px;height:114px;display:block;margin-bottom:15px;text-align:center;padding-top:10px}.city-sprite{background:url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?24062016) no-repeat;display:inline-block}.c128-icon,.c2-icon,.c239-icon,.c176-icon,.c10-icon,.c105-icon,.c198-icon,.c220-icon,.c1-icon,.c12-icon{height:92px}.c1-icon{width:130px;background-position:0 0}.c12-icon{width:186px;background-position:-140px 0}.c2-icon{width:136px;background-position:-336px 0}.c10-icon{width:70px;background-position:-482px 0}.c176-icon{width:53px;background-position:-562px 0}.c105-icon{width:65px;background-position:-625px 0}.c198-icon{width:182px;background-position:-700px 0}.c220-icon{width:174px;background-position:-892px 0}.c128-icon,.c239-icon{width:0;background-position:0 0}@media only screen and (max-width:1024px){#popular-city-list li{margin:6px}}
     </style>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
@@ -61,89 +61,28 @@
                         <h1 class="content-inner-block-20">Used bikes in India</h1>
                         <p class="font16 text-default text-bold padding-left20 margin-bottom10">Popular cities</p>
                         <ul id="popular-city-list">
+                             <%foreach ( Bikewale.Entities.Used.UsedBikeCities objCity in  objBikeCityCountTop) {%>
                             <li>
-                                <a href="" title="Mumbai" class="city-card-target">
+                                <a href="/used/bikes-in-<%=objCity.CityMaskingName %>/" title="Used bikes in <%=objCity.CityName %>" class="city-card-target">
                                     <div class="city-image-preview">
-                                        <span class="city-sprite mumbai-icon"></span>
+                                        <span class="city-sprite c<%=objCity.CityId %>-icon"></span>
                                     </div>
                                     <div class="font14 padding-left20 padding-right20">
-                                        <p class="text-default text-bold margin-bottom5">Mumbai</p>
-                                        <p class="text-light-grey">200 Used bikes</p>
+                                        <p class="text-default text-bold margin-bottom5"><%=objCity.CityName %></p>
+                                        <p class="text-light-grey"><%=objCity.bikesCount %> Used bikes</p>
                                     </div>
                                 </a>
                             </li>
-                            <li>
-                                <a href="" title="Pune" class="city-card-target">
-                                    <div class="city-image-preview">
-                                        <span class="city-sprite pune-icon"></span>
-                                    </div>
-                                    <div class="font14 padding-left20 padding-right20">
-                                        <p class="text-default text-bold margin-bottom5">Pune</p>
-                                        <p class="text-light-grey">168 Used bikes</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" title="Bengaluru" class="city-card-target">
-                                    <div class="city-image-preview">
-                                        <span class="city-sprite bangalore-icon"></span>
-                                    </div>
-                                    <div class="font14 padding-left20 padding-right20">
-                                        <p class="text-default text-bold margin-bottom5">Bengaluru</p>
-                                        <p class="text-light-grey">168 Used bikes</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" title="Chennai" class="city-card-target">
-                                    <div class="city-image-preview">
-                                        <span class="city-sprite chennai-icon"></span>
-                                    </div>
-                                    <div class="font14 padding-left20 padding-right20">
-                                        <p class="text-default text-bold margin-bottom5">Chennai</p>
-                                        <p class="text-light-grey">168 Used bikes</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" title="Hyderabad" class="city-card-target">
-                                    <div class="city-image-preview">
-                                        <span class="city-sprite hyderabad-icon"></span>
-                                    </div>
-                                    <div class="font14 padding-left20 padding-right20">
-                                        <p class="text-default text-bold margin-bottom5">Hyderabad</p>
-                                        <p class="text-light-grey">168 Used bikes</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" title="Delhi" class="city-card-target">
-                                    <div class="city-image-preview">
-                                        <span class="city-sprite delhi-icon"></span>
-                                    </div>
-                                    <div class="font14 padding-left20 padding-right20">
-                                        <p class="text-default text-bold margin-bottom5">Delhi</p>
-                                        <p class="text-light-grey">168 Used bikes</p>
-                                    </div>
-                                </a>
-                            </li>
+                                 <%} %> 
                         </ul>
                         <div class="padding-top20 padding-right10 padding-bottom10 padding-left10">
                             <p class="font16 text-default text-bold padding-left10 margin-bottom20">Other cities</p>
-                            <asp:repeater id="rptCity" runat="server">
-                                <headerTemplate>
-                                    <ul id="other-city-list">
-                                </HeaderTemplate>
-                                    <itemTemplate>
-                                        <li class="grid-4">
-                                            <a class="href-grey" href="/used/bikes-in-<%#DataBinder.Eval( Container.DataItem, "CityMaskingName") %>/"><%#DataBinder.Eval( Container.DataItem, "City")%>&nbsp;<span class="city-bike-count">(<%#DataBinder.Eval( Container.DataItem, "BikeCount")%>)</span>
+                                           <%foreach (Bikewale.Entities.Used.UsedBikeCities objCity in objBikeCityCount)
+                          {%> <li class="grid-4">
+                                            <a class="href-grey" href="/used/bikes-in-<%=objCity.CityMaskingName %>/" title="Used bikes in <%=objCity.CityName %>"><%=string.Format("{0} ({1})",objCity.CityName ,objCity.bikesCount )%>
                                             </a>
                                         </li>
-                                    </itemTemplate>
-                                <footerTemplate>
-                                    </ul>
-                                </FooterTemplate>
-                            </asp:repeater>
+                            <%} %>
                             <div class="clear"></div>
                         </div>
                     </div>
