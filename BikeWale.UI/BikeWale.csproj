@@ -649,6 +649,10 @@
       <DependentUpon>UsedBikeWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\UsedRecentBikes.ascx.cs">
+      <DependentUpon>UsedRecentBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\UserFeedBack.ascx.cs">
       <DependentUpon>UserFeedBack.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1310,12 +1314,12 @@
     <Compile Include="used\common\ParseSearchCriteria.cs" />
     <Compile Include="used\common\SearchCommon.cs" />
     <Compile Include="used\common\SellBikeCommon.cs" />
-    <Compile Include="used\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="used\Default20102016.aspx.cs">
+      <DependentUpon>Default20102016.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="used\Default_v2.aspx.cs">
-      <DependentUpon>Default_v2.aspx</DependentUpon>
+    <Compile Include="used\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="used\Search.aspx.cs">
@@ -1801,6 +1805,7 @@
     <Content Include="controls\UsedBikes.ascx" />
     <Content Include="controls\UsedBikeSearch.ascx" />
     <Content Include="controls\UsedBikeWidget.ascx" />
+    <Content Include="controls\UsedRecentBikes.ascx" />
     <Content Include="controls\UserFeedBack.ascx" />
     <Content Include="controls\UserReviewsList.ascx" />
     <Content Include="controls\UsersTestimonials.ascx" />
@@ -2590,8 +2595,8 @@
     <Content Include="used\BikesByModel.aspx" />
     <Content Include="used\BikesInCity.aspx" />
     <Content Include="used\bikesold.aspx" />
+    <Content Include="used\Default20102016.aspx" />
     <Content Include="used\Default.aspx" />
-    <Content Include="used\Default_v2.aspx" />
     <Content Include="used\Search.aspx" />
     <Content Include="used\sell\confirmation.aspx" />
     <Content Include="used\sell\default.aspx" />

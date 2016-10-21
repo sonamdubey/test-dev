@@ -4,7 +4,7 @@
 }
 
 .used-landing-banner {
-    background: #393a3e url(http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/dealer-locator-banner.jpg?v1=29Sep2016) no-repeat center top;
+    background: #53442a url(http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/used-landing-banner.jpg?v1=06Oct2016) no-repeat center;
     height: 268px;
     padding-top: 1px
 }
@@ -160,4 +160,391 @@ h2.section-header {
 .search-bikes-btn.btn-lg {
     margin-top: 35px;
     padding: 8px 64px;
+}
+
+.text-underline {
+    text-decoration: underline;
+}
+
+/* sprite */
+.used-sprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/used-sprite.png?v1=06Oct2016) no-repeat; display: inline-block; }
+.free-cost, .buyer, .listing-time, .contact-buyer { width: 36px; height: 36px; margin-bottom: 18px; }
+.free-cost { background-position: 0 0; }
+.buyer { background-position: 0 -41px; }
+.listing-time { background-position: 0 -82px; }
+.contact-buyer { background-position: 0 -123px; }
+.profile-id-icon { width: 36px; height: 36px; background-position: 0 -164px; }
+
+#sell-btn.btn {
+    padding: 8px 77px;
+}
+
+#profile-id-popup.bw-popup {
+    display: none;
+    width: 480px;
+    top: 33%;
+    padding: 30px 50px;
+    min-height: 420px;
+}
+
+.size-small .icon-outer-container {
+    width: 92px;
+    height: 92px;
+}
+
+.size-small .icon-inner-container {
+    width: 84px;
+    height: 84px;
+    margin: 3px auto;
+}
+
+/* input field */
+input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow: none; }
+.input-box { height:60px; text-align: left; }
+.input-box input { font-size: 16px; width: 100%; display:block; padding: 7px 0; border-bottom:1px solid #82888b; font-weight: bold; color: #4d5057; }
+.input-box label { position: absolute; top: 4px; left: 0; font-size:16px; color: #82888b; -webkit-transition:0.2s ease all; -moz-transition:0.2s ease all; -o-transition:0.2s ease all; transition:0.2s ease all; }
+.input-number-box input { padding-left: 30px; }
+.input-number-prefix { display:none; font-size: 16px; position: absolute; top: 4px; font-weight: bold; color: #82888b; }
+.boundary { position: relative; width: 100%; display: block; }
+.boundary:before, .boundary:after { content: ''; position: absolute; bottom: 0; width: 0; height: 2px; background-color: #41b4c4; -webkit-transition:0.2s ease all; -moz-transition:0.2s ease all; -o-transition:0.2s ease all; transition:0.2s ease all; }
+.boundary:before { left:50%; }
+.boundary:after { right:50%; }
+.error-text { display:none; font-size:12px; position: relative; top: 4px; left: 0; color: #d9534f; }
+/* on focus */
+.input-box input:focus ~ label, .input-box.not-empty label { top:-16px; font-size:12px; }
+.input-box.input-number-box input:focus ~ .input-number-prefix, .input-box.input-number-box.not-empty .input-number-prefix { display:inline-block; }
+.input-box input:focus ~ .boundary:before, .input-box input:focus ~ .boundary:after { width: 50%; } 
+/* validation */
+.input-box.invalid .boundary:before, .input-box.invalid .boundary:after { background-color: #d9534f; width:50%; }
+.input-box.invalid .error-text { display:inline-block; }
+
+/* brand */
+.brand-type-container li {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    vertical-align: top;
+    width: 180px;
+    height: 85px;
+    margin: 0 5px 30px;
+    text-align: center;
+    font-size: 18px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -o-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px
+}
+.brand-type {
+    width: 180px;
+    height: 50px;
+    display: block;
+    margin: 0 auto
+}
+.brand-type-title {
+    margin-top: 10px;
+    display: block
+}
+.brand-type-container a {
+    text-decoration: none;
+    color: #82888b;
+    display: inline-block
+}
+.brand-type-container li:hover span.brand-type-title {
+    color: #4d5057;
+    font-weight: 700
+}
+.brand-bottom-border {
+    overflow: hidden
+}
+.brandlogosprite {
+    background: url('http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?v=04Oct2016') no-repeat;
+    display: inline-block;
+}
+.brand-2,
+.brand-1,
+.brand-40,
+.brand-3,
+.brand-4,
+.brand-24,
+.brand-5,
+.brand-6,
+.brand-39,
+.brand-37,
+.brand-7,
+.brand-23,
+.brand-8,
+.brand-34,
+.brand-17,
+.brand-18,
+.brand-9,
+.brand-19,
+.brand-10,
+.brand-20,
+.brand-41,
+.brand-38,
+.brand-11,
+.brand-12,
+.brand-22,
+.brand-15,
+.brand-42,
+.brand-16,
+.brand-16,
+.brand-13,
+.brand-14,
+.brand-81,
+.brand-71 {
+    height: 50px;
+}
+.brand-2 {
+    width: 87px;
+    background-position: 0 0;
+}
+.brand-7 {
+    width: 56px;
+    background-position: -96px 0;
+}
+.brand-1 {
+    width: 88px;
+    background-position: -162px 0;
+}
+.brand-8 {
+    width: 100px;
+    background-position: -260px 0;
+}
+.brand-12 {
+    width: 67px;
+    background-position: -370px 0;
+}
+.brand-40 {
+    width: 125px;
+    background-position: -447px 0;
+}
+.brand-34 {
+    width: 122px;
+    background-position: -582px 0;
+}
+.brand-22 {
+    width: 121px;
+    background-position: -714px 0;
+}
+.brand-3 {
+    width: 44px;
+    background-position: -845px 0;
+}
+.brand-17 {
+    width: 86px;
+    background-position: -899px 0;
+}
+.brand-15 {
+    width: 118px;
+    background-position: -995px 0;
+}
+.brand-4 {
+    width: 43px;
+    background-position: -1123px 0;
+}
+.brand-9 {
+    width: 99px;
+    background-position: -1176px 0;
+}
+.brand-16 {
+    width: 117px;
+    background-position: -1285px 0;
+}
+.brand-5 {
+    width: 59px;
+    background-position: -1412px 0;
+}
+.brand-19 {
+    width: 122px;
+    background-position: -1481px 0;
+}
+.brand-13 {
+    width: 122px;
+    background-position: -1613px 0;
+}
+.brand-6 {
+    width: 63px;
+    background-position: -1745px 0;
+}
+.brand-10 {
+    width: 102px;
+    background-position: -1818px 0;
+}
+.brand-14 {
+    width: 127px;
+    background-position: -1930px 0;
+}
+.brand-39 {
+    width: 89px;
+    background-position: -2067px 0;
+}
+.brand-20 {
+    width: 82px;
+    background-position: -2166px 0;
+}
+.brand-11 {
+    width: 121px;
+    background-position: -2258px 0;
+}
+.brand-41 {
+    width: 63px;
+    background-position: -2389px 0;
+}
+.brand-42 {
+    width: 64px;
+    background-position: -2461px 0;
+}
+.brand-81 {
+    width: 71px;
+    background-position: -2535px 0;
+}
+.brand-71 {
+    width: 39px;
+    background-position: -2616px 0;
+}
+
+.dealer-card-target {
+    display: block;
+}
+.dealer-card-target:hover {
+    text-decoration: none;
+}
+.dealer-jcarousel-image-preview {
+    width:292px;
+    height:114px;
+    display:block;
+    margin-bottom:15px;
+    text-align:center;
+    padding-top:10px;
+}
+
+/* city sprite */
+.city-sprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?24062016) no-repeat; display: inline-block; }
+.mumbai-icon, .pune-icon, .bangalore-icon, .delhi-icon, .chennai-icon, .hyderabad-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon { height: 92px; }
+.mumbai-icon { width: 130px; background-position: 0 0; }
+.pune-icon { width: 186px; background-position: -140px 0; }
+.bangalore-icon { width: 136px; background-position: -336px 0; }
+.delhi-icon { width: 70px; background-position: -482px 0; }
+.chennai-icon { width: 53px; background-position: -562px 0; }
+.hyderabad-icon { width: 65px; background-position: -625px 0; }
+.kolkata-icon { width: 182px; background-position: -700px 0; }
+.lucknow-icon { width: 174px; background-position: -892px 0; }
+.ahmedabad-icon { width: 0px; background-position: 0 0; }
+.chandigarh-icon { width: 0px; background-position: 0 0; }
+
+.btn-inv-teal {
+    background: transparent;
+    color: #3799a7;
+    border: 1px solid #3799a7;
+}
+
+.btn-inv-teal:hover {
+    color: #fff;
+    background: #41b4c4;
+    border-color: #41b4c4;
+    text-decoration: none
+}
+
+.btn-inv-teal:focus {
+    color: #fff;
+    background: #3799a7;
+    text-decoration: none
+}
+
+.inv-teal-sm {
+    font-size: 14px;
+    padding: 6px 19px;
+}
+
+.teal-next {
+    width: 6px;
+    height: 10px;
+    background-position: -82px -469px;
+    margin-left: 6px;
+}
+
+/* recent-uploads */
+#recent-uploads li {
+    height: 305px;
+}
+
+.used-carousel .model-jcarousel-image-preview, .used-carousel .card-image-block {
+    height: 160px;
+    background-color: #f5f5f5;
+    line-height: 0;
+}
+
+.used-carousel .card-desc-block {
+    padding-top: 15px;
+}
+
+.model-media-details {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 12px;
+}
+
+.model-media-item {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 4px 5px;
+    color: #4d5057;
+    background: rgba(255,255,255,.8);
+    border-radius: 2px;
+}
+
+.gallery-photo-icon {
+    width: 16px;
+    height: 12px;
+    background-position: -213px -207px;
+}
+
+.model-media-count {
+    position: relative;
+    top: -1px;
+}
+
+.model-details-label {
+    width: 84%;
+    display: inline-block;
+    vertical-align: middle;
+    color: #82888b;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.author-grey-sm-icon, .kms-driven-icon, .model-date-icon, .model-loc-icon {
+    width: 10px;
+    height: 12px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.model-date-icon {
+    background-position: -65px -543px;
+}
+
+.kms-driven-icon {
+    background-position: -65px -563px;
+}
+
+.author-grey-sm-icon {
+    height: 10px;
+    margin-right: 4px;
+}
+
+.model-loc-icon {
+    background-position: -82px -543px;
+}
+
+@media only screen and (max-width: 1024px) {
+    .brand-type-container li,
+    .brand-type {
+        width: 170px;
+    }
 }
