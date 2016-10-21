@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default_v2.aspx.cs" Inherits="Bikewale.Used.Sell.Default_v2" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="Default_v2.aspx.cs" Inherits="Bikewale.Used.Sell.Default_v2" %>
 
 <!DOCTYPE html>
 
@@ -58,67 +58,55 @@
                                             <span class="sell-bike-sprite" data-bind="click: gotoStep1, css: formStep() == 1 ? 'step-1-active' : 'edit-step'"></span>
                                             <span class="panel-title">Bike details</span>
                                         </div>
-                                        <div class="panel-body" data-bind="visible: formStep() == 1">
+                                        <div class="panel-body" data-bind="visible: formStep() == 1, with: bikeDetails ">
                                             <div class="panel-row margin-bottom10">
                                                 <div class="grid-4 alpha select-box">
                                                     <p class="select-label">Make<sup>*</sup></p>
-                                                    <select class="chosen-select" data-placeholder="Select make" data-bind="chosen: {}, value: bikeDetails().make, validationElement: bikeDetails().make">
-                                                        <option value></option>
-                                                        <option value="10">Honda</option>
-                                                        <option value="11">Bajaj</option>
-                                                        <option value="12">Hero</option>
-                                                        <option value="13">TVS</option>
-                                                        <option value="14">Royal Enfield</option>
-                                                        <option value="15">Harley Davidson</option>
-                                                        <option value="16">KTM</option>
-                                                        <option value="17">Aprilia</option>
-                                                        <option value="18">Benelli</option>
-                                                        <option value="19">Yamaha</option>
+                                                    <select class="chosen-select" data-placeholder="Select make" data-bind="chosen: {}, value: make, validationElement: make, event: { change: makeChanged }">
+                                                         <option value="0"></option>
+                                                            <% if (objMakeList != null)
+                                                                { %>
+                                                                 <% foreach (var make in objMakeList)
+                                                                { %>
+                                                                    <option value="<%= make.MakeId %>" ><%=make.MakeName %></option>
+                                                             <% } %>
+                                                             <% } %>
                                                     </select>
                                                     <span class="boundary"></span>
-                                                    <span class="error-text" data-bind="validationMessage: bikeDetails().make"></span>
+                                                    <span class="error-text" data-bind="validationMessage: make"></span>
                                                 </div>
                                                 <div class="grid-4 select-box">
                                                     <p class="select-label">Model<sup>*</sup></p>
-                                                    <select class="chosen-select" data-placeholder="Select model" data-bind="chosen: {}, value: bikeDetails().model, validationElement: bikeDetails().model">
-                                                        <option value></option>
-                                                        <option value="50">125 Scooter</option>
-                                                        <option value="51">Activa</option>
-                                                        <option value="52">CB Hornet 160R</option>
-                                                        <option value="53">CB Shine</option>
-                                                        <option value="54">Avenger 220 Cruise</option>
-                                                        <option value="55">Avenger 220 Street</option>
+                                                    <select class="chosen-select" data-placeholder="Select model" data-bind="options: modelArray(), chosen: {}, value: model, optionsText: 'modelName', optionsValue: 'modelId', validationElement: model, event: { change: modelChanged }">
+                                                       
                                                     </select>
                                                     <span class="boundary"></span>
-                                                    <span class="error-text" data-bind="validationMessage: bikeDetails().model"></span>
+                                                    <span class="error-text" data-bind="validationMessage: model"></span>
                                                 </div>
                                                 <div class="grid-4 omega select-box">
                                                     <p class="select-label">Version<sup>*</sup></p>
-                                                    <select class="chosen-select" data-placeholder="Select version" data-bind="chosen: {}, value: bikeDetails().version, validationElement: bikeDetails().version">
-                                                        <option value></option>
-                                                        <option value="80">Kick/Drum/Spokes</option>
-                                                        <option value="81">Electric Start/Drum/Alloy</option>
-                                                        <option value="82">CBS</option>
+                                                    <select class="chosen-select" data-placeholder="Select version" data-bind="options: versionArray(), chosen: {}, value: version, optionsText: 'versionName', optionsValue: 'versionId', validationElement: version, event: { change: versionChanged }">
+                                                      
                                                     </select>
                                                     <span class="boundary"></span>
-                                                    <span class="error-text" data-bind="validationMessage: bikeDetails().version"></span>
+                                                    <span class="error-text" data-bind="validationMessage: version"></span>
                                                 </div>
                                                 <div class="clear"></div>
                                             </div>
 
                                             <div class="panel-row margin-bottom20">
-                                                <div class="input-box form-control-box" data-bind="css: bikeDetails().kmsRidden().length > 0 ? 'not-empty' : ''">
-                                                    <input type="number" id="kmsRidden" min="1" data-bind="textInput: bikeDetails().kmsRidden, validationElement: bikeDetails().kmsRidden" />
+                                                <div class="input-box form-control-box" data-bind="css: kmsRidden().length > 0 ? 'not-empty' : ''">
+                                                    <input type="number" id="kmsRidden" min="1" data-bind="textInput: kmsRidden, validationElement: kmsRidden" />
                                                     <label for="kmsRidden">Kms ridden<sup>*</sup></label>
                                                     <span class="boundary"></span>
-                                                    <span class="error-text" data-bind="validationMessage: bikeDetails().kmsRidden"></span>
+                                                    <span class="error-text" data-bind="validationMessage: kmsRidden"></span>
                                                 </div>
                                             </div>
 
                                             <div class="panel-row margin-bottom20">
                                                 <div class="select-box">
                                                     <p class="select-label">City<sup>*</sup></p>
-                                                    <select class="chosen-select" data-placeholder="Select city" data-bind="chosen: {}, value: bikeDetails().city, validationElement: bikeDetails().city">
+                                                    <select class="chosen-select" data-placeholder="Select city" data-bind="chosen: {}, value: city, validationElement: city">
                                                         <option value></option>
                                                         <option value="14">Ahmednagar</option>
                                                         <option value="361">Alibag</option>
@@ -132,23 +120,23 @@
                                                         <option value="9">Panvel</option>
                                                     </select>
                                                     <span class="boundary"></span>
-                                                    <span class="error-text" data-bind="validationMessage: bikeDetails().city"></span>
+                                                    <span class="error-text" data-bind="validationMessage: city"></span>
                                                 </div>
                                             </div>
 
                                             <div class="panel-row margin-bottom20">
-                                                <div class="input-box form-control-box" data-bind="css: bikeDetails().expectedPrice().length > 0 ? 'not-empty' : ''">
-                                                    <input type="number" id="expectedPrice" min="1" data-bind="textInput: bikeDetails().expectedPrice, validationElement: bikeDetails().expectedPrice" />
+                                                <div class="input-box form-control-box" data-bind="css: expectedPrice().length > 0 ? 'not-empty' : ''">
+                                                    <input type="number" id="expectedPrice" min="1" data-bind="textInput: expectedPrice, validationElement: expectedPrice" />
                                                     <label for="expectedPrice">Expected price<sup>*</sup></label>
                                                     <span class="boundary"></span>
-                                                    <span class="error-text" data-bind="validationMessage: bikeDetails().expectedPrice"></span>
+                                                    <span class="error-text" data-bind="validationMessage: expectedPrice"></span>
                                                 </div>
                                             </div>
 
                                             <div class="panel-row margin-bottom20">
                                                 <div class="select-box select-box-no-input">
                                                     <p class="select-label">Owner<sup>*</sup></p>
-                                                    <select class="chosen-select" data-bind="chosen: {}, value: bikeDetails().owner, validationElement: bikeDetails().owner" data-title="Owner">
+                                                    <select class="chosen-select" data-bind="chosen: {}, value: owner, validationElement: owner" data-title="Owner">
                                                         <option value></option>
                                                         <option value="1">I bought it new</option>
                                                         <option value="2">I'm the second owner</option>
@@ -157,14 +145,14 @@
                                                         <option value="5">Four or more previous owners</option>
                                                     </select>
                                                     <span class="boundary"></span>
-                                                    <span class="error-text" data-bind="validationMessage: bikeDetails().owner"></span>
+                                                    <span class="error-text" data-bind="validationMessage: owner"></span>
                                                 </div>
                                             </div>
 
                                             <div class="panel-row margin-bottom20">
                                                 <div class="select-box">
                                                     <p class="select-label">Bike registered at<sup>*</sup></p>
-                                                    <select class="chosen-select" data-placeholder="Select city" data-bind="chosen: {}, value: bikeDetails().registeredCity, validationElement: bikeDetails().registeredCity">
+                                                    <select class="chosen-select" data-placeholder="Select city" data-bind="chosen: {}, value: registeredCity, validationElement: registeredCity">
                                                         <option value></option>
                                                         <option value="14">Ahmednagar</option>
                                                         <option value="361">Alibag</option>
@@ -178,7 +166,7 @@
                                                         <option value="9">Panvel</option>
                                                     </select>
                                                     <span class="boundary"></span>
-                                                    <span class="error-text" data-bind="validationMessage: bikeDetails().registeredCity"></span>
+                                                    <span class="error-text" data-bind="validationMessage: registeredCity"></span>
                                                 </div>
                                             </div>
 
@@ -186,48 +174,65 @@
                                                 <div class="color-box-content">
                                                     <div id="select-color-box" class="select-color-box">
                                                         <p class="select-color-label color-box-default">Colour<sup>*</sup></p>
-                                                        <p id="selected-color" class="color-box-default" data-bind="text: bikeDetails().color, validationElement: bikeDetails().color"></p>
+                                                        <p id="selected-color" class="color-box-default" data-bind="text: color, validationElement: color"></p>
                                                         <span class="boundary"></span>
-                                                        <span class="error-text" data-bind="validationMessage: bikeDetails().color"></span>
+                                                        <span class="error-text" data-bind="validationMessage: color"></span>
 
                                                         <div class="color-dropdown">
                                                             <p class="dropdown-label">Colour</p>
-                                                            <ul>
-                                                                <li class="color-list-item" data-bind="click: bikeDetails().colorSelection">
+                                                            
+
+
+
+
+                                                            <ul data-bind="foreach: versionArray">
+                                                            <li class="color-list-item" data-bind="click: colorSelection">
+                                                                <div class="color-box color-count-one">
+                                                                <%--<span style="background-color:" data-bind="text: $data"></span>--%>
+                                                                 </div>
+                                                                  <p class="color-box-label">data-bind="text: $data"</p>      
+    
+                                                            </li>
+                                                            </ul>
+
+
+
+                                                             <ul>
+                                                                <%--<li class="color-list-item" data-bind="click: colorSelection">
                                                                     <div class="color-box color-count-one">
                                                                         <span style="background-color:#c83333"></span>
                                                                     </div>
                                                                     <p class="color-box-label">Red</p>
                                                                 </li>
-                                                                <li class="color-list-item" data-bind="click: bikeDetails().colorSelection">
+                                                                <li class="color-list-item" data-bind="click: colorSelection">
                                                                     <div class="color-box color-count-two">
                                                                         <span style="background-color:#c83333"></span>
                                                                         <span style="background-color:#1b1a1a"></span>
                                                                     </div>
                                                                     <p class="color-box-label">Black and Red</p>
                                                                 </li>
-                                                                <li class="color-list-item" data-bind="click: bikeDetails().colorSelection">
+                                                                <li class="color-list-item" data-bind="click: colorSelection">
                                                                     <div class="color-box color-count-three">
                                                                         <span style="background-color:#c83333"></span>
                                                                         <span style="background-color:#1b1a1a"></span>
                                                                         <span style="background-color:#3a5cee"></span>
                                                                     </div>
                                                                     <p class="color-box-label">Black, Red and Blue</p>
-                                                                </li>
+                                                                </li>--%>
                                                                 <li class="other-color-item">
                                                                     <div class="color-box">
                                                                         <span></span>
                                                                     </div>
-                                                                    <div class="input-box input-color-box form-control-box" data-bind="css: bikeDetails().otherColor().length > 0 ? 'not-empty' : '', validationElement: bikeDetails().otherColor">
-                                                                        <input type="text" id="otherColor" data-bind="textInput: bikeDetails().otherColor" />
+                                                                    <div class="input-box input-color-box form-control-box" data-bind="css: otherColor().length > 0 ? 'not-empty' : '', validationElement: otherColor">
+                                                                        <input type="text" id="otherColor" data-bind="textInput: otherColor" />
                                                                         <label for="otherColor">Other, please specify</label>
                                                                         <span class="boundary"></span>
-                                                                        <span class="error-text" data-bind="validationMessage: bikeDetails().otherColor"></span>
+                                                                        <span class="error-text" data-bind="validationMessage: otherColor"></span>
                                                                     </div>
                                                                 </li>
                                                             </ul>
-                                                            <div class="text-center padding-bottom20" data-bind="visible: bikeDetails().otherColor().length > 0">
-                                                                <button type="button" class="btn btn-orange btn-secondary-small" data-bind="click: bikeDetails().submitOtherColor">Done</button>
+                                                            <div class="text-center padding-bottom20" data-bind="visible: otherColor().length > 0">
+                                                                <button type="button" class="btn btn-orange btn-secondary-small" data-bind="click: submitOtherColor">Done</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -235,7 +240,7 @@
                                             </div>
 
                                             <div class="panel-row">
-                                                <input type="button" class="btn btn-orange btn-primary-big" value="Save and Continue" data-bind="click: bikeDetails().saveBikeDetails" />
+                                                <input type="button" class="btn btn-orange btn-primary-big" value="Save and Continue" data-bind="click: saveBikeDetails" />
                                             </div>
                                         </div>
                                         <div class="clear"></div>

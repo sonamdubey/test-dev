@@ -127,8 +127,80 @@ var sellBike = function () {
 var bikeDetails = function () {
     var self = this;
 
+    self.modelArray = ko.observableArray();
+    self.versionArray = ko.observableArray();
+    self.colorArray = ko.observableArray();
+
     self.validate = ko.observable(false);
     self.validateOtherColor = ko.observable(false);
+
+    self.makeChanged = function (data, event) {
+        self.modelArray([]);
+        self.versionArray([]);
+       
+       
+        $.ajax({
+            type: "Get",
+            url: "/api/modellist/?requestType=3&makeId="+ self.make(),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (response) {
+                if (response)
+                self.modelArray(response.modelList);
+            },
+            complete: function (xhr, ajaxOptions, thrownError) {
+               
+            }
+        });
+
+    };
+
+    self.modelChanged = function (data, event) {
+
+        self.versionArray([]);
+
+
+        $.ajax({
+            type: "Get",
+            url: "/api/versionList/?requestType=3&modelId=" + self.model(),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (response) {
+                if (response) {
+                    self.versionArray(response.Version);
+                }
+            },
+            complete: function (xhr, ajaxOptions, thrownError) {
+
+            }
+        });
+    };
+
+    self.versionChanged = function (data, event) {
+        
+
+        self.colorArray([]);
+
+        $.ajax({
+            type: "Get",
+            url: "/api/Version/?versionId=" + self.version() +"&specs=true",
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (response) {
+                if (response) {
+                    
+                    
+                }
+            },
+            complete: function (xhr, ajaxOptions, thrownError) {
+
+            }
+        });
+
+        debugger;
+    };
+
+ 
 
     self.make = ko.observable().extend({
         required: {
