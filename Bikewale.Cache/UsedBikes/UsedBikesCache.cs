@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.UsedBikes;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.UsedBikes;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Notifications;
@@ -52,7 +53,26 @@ namespace Bikewale.Cache.UsedBikes
             return objUsedBikes;
 
         }
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 06 oct 2016
+        /// Summary: Cache the make and used bike counts for make in India
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<UsedBikeMakeEntity> GetUsedBikeMakesWithCount()
+        {
+            IEnumerable<UsedBikeMakeEntity> objUsedBikes = null;
 
-
+            string key = "BW_UsedBikesMakeWithCount";
+            try
+            {
+                objUsedBikes = _cache.GetFromCache<IEnumerable<UsedBikeMakeEntity>>(Convert.ToString(key), new TimeSpan(1, 0, 0), () => _objModels.GetUsedBikeMakesWithCount());
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception in Bikewale.Cache.UsedBikes.GetUsedBikeMakesWithCount");
+                objErr.SendMail();
+            }
+            return objUsedBikes;
+        }
     }
 }

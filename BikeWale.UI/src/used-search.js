@@ -9,7 +9,6 @@ y),b(document.body).on("sticky_kit:recalc",y),a.on("sticky_kit:detach",H),setTim
 
 
 $('#listing-left-column').stick_in_parent();
-//$('.city-chosen-select').chosen();
 
 var budgetValue = [0, 10000, 20000, 35000, 50000, 80000, 125000, 200000];
 var bikesList = $("#filter-bike-list");
@@ -72,7 +71,6 @@ var vmPagination = function (curPgNum, pgSize, totalRecords) {
 };
 
 
-//for jquery chosen 
 ko.bindingHandlers.chosen = {
     init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
         var $element = $(element);
@@ -392,7 +390,6 @@ var usedBikes = function () {
             self.BikeAge(8);
             self.BudgetValues([0, 7]);
             self.CurPageNo(1);
-            self.ResetBikeFilters();
             self.ApplyPagination();
 
             $("#previous-owners-list li").removeClass("active");
@@ -602,10 +599,10 @@ var usedBikes = function () {
                     var ele = bikesList.find("ul.bike-model-list span[data-modelid=" + val + "]"),
                         tab = ele.closest("li"),
                         selectedBikeFilters = $('#bike');
-                    ele.closest("li").addClass("active");
-
+                    ele.closest("li").addClass("active");                    
+                    accordion.setCount(ele);
                     selectedBikeFilters.append('<p data-id="md-' + ele.attr("data-modelid") + '" data-type="model">' + tab.find('.category-label').text() + '<span class="bwsprite cross-icon"></span></p>');
-                });
+                });                
             }
 
             if (self.Filters()["make"]) {
@@ -812,11 +809,6 @@ var filters = {
     },
 
     set: {
-
-        
-        //city: function () {
-        //    $('#filter-type-city .selected-filters').text('All India');
-        //},
 
         bike: function () {
             var inputBoxes = $('.getModelInput');

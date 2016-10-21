@@ -88,6 +88,7 @@
     <Compile Include="BikeBooking\PQ_Price.cs" />
     <Compile Include="BikeBooking\PQ_QuotationEntity.cs" />
     <Compile Include="BikeBooking\RSAOfferClaimEntity.cs" />
+    <Compile Include="BikeData\BikeColorsbyVersion.cs" />
     <Compile Include="BikeData\BikeMakeModelBase.cs" />
     <Compile Include="BikeData\BikeMakeModelEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntityBase.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="BikeData\SpecsCategory.cs" />
     <Compile Include="BikeData\UpcomingBikeEntity.cs" />
     <Compile Include="BikeData\UpcomingBikesListInputEntity.cs" />
+    <Compile Include="BikeData\UsedBikeMakeEntity.cs" />
     <Compile Include="BikeData\VersionColor.cs" />
     <Compile Include="BikeBooking\FeedBackEntity.cs" />
     <Compile Include="CMS\Articles\ArticleBase.cs" />
@@ -267,6 +269,7 @@
     <Compile Include="Used\ClassifiedInquiryDetails.cs" />
     <Compile Include="Used\InputFilters.cs" />
     <Compile Include="Used\ClassifiedInquiryDetailsMin.cs" />
+    <Compile Include="Used\InquiryDetailsByProfileId.cs" />
     <Compile Include="Used\MostRecentBikes.cs" />
     <Compile Include="Used\PhotoRequest.cs" />
     <Compile Include="Used\PopularUsedBikesEntity.cs" />
@@ -274,6 +277,10 @@
     <Compile Include="Used\PurchaseInquiryResultEntity.cs" />
     <Compile Include="Used\PurchaseInquiryStatusCode.cs" />
     <Compile Include="Used\PurchaseInquiryStatusEntity.cs" />
+    <Compile Include="Used\SellAdStatus.cs" />
+    <Compile Include="Used\SellBikeAdStatusEntity.cs" />
+    <Compile Include="Used\SellBikes.cs" />
+    <Compile Include="Used\UsedBikeCities.cs" />
     <Compile Include="Used\UsedBikeSellerBase.cs" />
     <Compile Include="Used\SearchResult.cs" />
     <Compile Include="Used\UsedBikeBase.cs" />

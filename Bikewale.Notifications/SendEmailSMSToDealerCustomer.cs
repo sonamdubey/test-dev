@@ -399,5 +399,20 @@ namespace Bikewale.Notifications
             ComposeEmailBase objEmail = new PurchaseInquiryEmailToIndividualSellerTemplate(seller.CustomerEmail, seller.CustomerName, buyer.CustomerName, buyer.CustomerEmail, buyer.CustomerMobile, profileId, bikeName, formattedPrice);
             objEmail.Send(seller.CustomerEmail, "Someone is interested in your bike!");
         }
+        /// <summary>
+        /// Created by  :   Aditi Srivastava on 14 Oct 2016
+        /// Description :   Send Email to individual seller about listing their bike details
+        /// </summary>
+        /// <param name="seller"></param>
+        /// <param name="buyer"></param>
+        /// <param name="profileId"></param>
+        /// <param name="bikeName"></param>
+        /// <param name="formattedPrice"></param>
+        public static void UsedBikeAdEmailToIndividual(CustomerEntityBase seller, CustomerEntityBase buyer, string profileId, string bikeName, string formattedPrice)
+        {
+            ComposeEmailBase objEmail = new ListingEmailtoIndividualTemplate(seller.CustomerEmail, seller.CustomerName, profileId, bikeName, formattedPrice);
+            objEmail.Send(seller.CustomerEmail, String.Format("You have successfully listed your {0} bike on BikeWale.",bikeName));
+        }
+
     }
 }

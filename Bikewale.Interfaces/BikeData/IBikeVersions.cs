@@ -18,6 +18,8 @@ namespace Bikewale.Interfaces.BikeData
         /// <summary>
         /// Modified By : Sadhana Upadhyay on 25 Aug 2014
         /// Summary : Changed return type to get price
+        /// Modified By : Aditi Srivastava on 17 Oct 2016
+        /// Summary : Added function to get version colors by version id
         /// </summary>
         /// <param name="requestType"></param>
         /// <param name="modelId"></param>
@@ -27,5 +29,6 @@ namespace Bikewale.Interfaces.BikeData
         List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew);
         List<SimilarBikeEntity> GetSimilarBikesList(U versionId,uint topCount,uint percentDeviation);
         List<VersionColor> GetColorByVersion(U versionId);
+        IEnumerable<BikeColorsbyVersion> GetColorsbyVersionId(uint versionId);
     }
 }

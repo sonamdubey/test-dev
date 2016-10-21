@@ -115,6 +115,8 @@
     <Compile Include="UsedBikes\IUsedBikesRepository.cs" />
     <Compile Include="UsedBikes\IPopularUsedBikesCacheRepository.cs" />
     <Compile Include="Used\ISearchRepository.cs" />
+    <Compile Include="Used\ISellBikes.cs" />
+    <Compile Include="Used\ISellBikesRepository.cs" />
     <Compile Include="Used\IUsedBikeBuyer.cs" />
     <Compile Include="Used\IUsedBikeBuyerRepository.cs" />
     <Compile Include="Used\IUsedBikeDetails.cs" />

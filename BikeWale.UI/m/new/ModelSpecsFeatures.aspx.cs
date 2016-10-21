@@ -150,6 +150,8 @@ namespace Bikewale.Mobile
         /// </summary>
         private void ProcessQueryString()
         {
+            bool isRedirect = false;
+            ModelMaskingResponse objResponse = null;
             try
             {
                 if (HttpContext.Current.Request.QueryString != null && HttpContext.Current.Request.QueryString.HasKeys())
@@ -166,15 +168,14 @@ namespace Bikewale.Mobile
                                      .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                                     ;
                             var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-                            ModelMaskingResponse objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
+                            objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
                             if (objResponse != null && objResponse.StatusCode == 200)
                             {
                                 modelId = objResponse.ModelId;
                             }
                             else if (objResponse != null && objResponse.StatusCode == 301)
                             {
-                                //redirect permanent to new page 
-                                CommonOpn.RedirectPermanent(Request.RawUrl.Replace(modelMaskingName, objResponse.MaskingName));
+                                isRedirect = true;
                             }
                             else
                             {
@@ -193,7 +194,11 @@ namespace Bikewale.Mobile
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "ProcessQueryString");
                 objErr.SendMail();
             }
-
+            finally
+            {
+                if (isRedirect)
+                    CommonOpn.RedirectPermanent(Request.RawUrl.Replace(modelMaskingName, objResponse.MaskingName));
+            }
         }
 
     }

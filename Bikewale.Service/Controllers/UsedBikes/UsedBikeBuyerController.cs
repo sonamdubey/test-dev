@@ -1,6 +1,8 @@
-﻿using Bikewale.DTO.UsedBikes;
+﻿using Bikewale.DTO.Used;
+using Bikewale.DTO.UsedBikes;
 using Bikewale.Entities.Used;
 using Bikewale.Interfaces.Used;
+using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.UsedBikes;
 using Bikewale.Service.Utilities;
@@ -9,6 +11,7 @@ using System;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
+
 namespace Bikewale.Service.Controllers.UsedBikes
 {
     /// <summary>
@@ -18,14 +21,16 @@ namespace Bikewale.Service.Controllers.UsedBikes
     public class UsedBikeBuyerController : CompressionApiController
     {
         private readonly IUsedBikeBuyer _objUsedBikeBuyerBL = null;
+        private readonly IUsedBikes _objUsedBikes = null;
         /// <summary>
         /// Created by  :   Sumit Kate on 03 Sep 2016
         /// Description :   Constructor to initialize the member variables
         /// </summary>
         /// <param name="objUsedBikeBuyerBL"></param>
-        public UsedBikeBuyerController(IUsedBikeBuyer objUsedBikeBuyerBL)
+        public UsedBikeBuyerController(IUsedBikeBuyer objUsedBikeBuyerBL, IUsedBikes objUsedBikes)
         {
             _objUsedBikeBuyerBL = objUsedBikeBuyerBL;
+            _objUsedBikes = objUsedBikes;
         }
 
         /// <summary>
@@ -148,5 +153,41 @@ namespace Bikewale.Service.Controllers.UsedBikes
                 return InternalServerError();
             }
         }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 06-10-2016
+        /// Description : Getting used bike details by profileId
+        /// </summary>
+        /// <param name="profileId"></param>
+        /// <returns></returns>
+        [HttpGet, Route("api/used/inquiry/url/{profileId}/"), ResponseType(typeof(InquiryDetailsDTO))]
+        public IHttpActionResult GetInquiryDetailsByProfileId(string profileId)
+        {
+            InquiryDetails objInquiryDetailsByProfileId = null;
+            InquiryDetailsDTO objInquiryDetailsDTO = null;
+            try
+            {
+                objInquiryDetailsByProfileId = _objUsedBikes.GetInquiryDetailsByProfileId(profileId);
+
+                if (objInquiryDetailsByProfileId != null)
+                {
+                    objInquiryDetailsDTO = UsedBikeBuyerMapper.Convert(objInquiryDetailsByProfileId);
+                    if (objInquiryDetailsDTO != null)
+                        return Ok(objInquiryDetailsDTO);
+                    else
+                        return NotFound();
+                }
+                else
+                    return BadRequest();
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in API function GetInquiryDetailsByProfileId for profileId : {0}", profileId));
+                objErr.SendMail();
+                return InternalServerError();
+            }
+        }
     }
 }
+

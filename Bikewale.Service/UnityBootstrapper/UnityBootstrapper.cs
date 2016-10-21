@@ -8,12 +8,15 @@ using Bikewale.BAL.Dealer;
 using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.Pager;
 using Bikewale.BAL.PriceQuote;
+using Bikewale.BAL.Used.Search;
+using Bikewale.BAL.UsedBikes;
 using Bikewale.Cache.App;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Compare;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
+using Bikewale.Cache.Used;
 using Bikewale.Cache.UsedBikes;
 using Bikewale.Cache.UserReviews;
 using Bikewale.DAL.App;
@@ -30,6 +33,7 @@ using Bikewale.DAL.UsedBikes;
 using Bikewale.DAL.UserReviews;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Customer;
+using Bikewale.Entities.Used;
 using Bikewale.Interfaces.App;
 using Bikewale.Interfaces.AppAlert;
 using Bikewale.Interfaces.AppDeepLinking;
@@ -49,12 +53,11 @@ using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.Used;
+using Bikewale.Interfaces.Used.Search;
 using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Interfaces.UserReviews;
 using Microsoft.Practices.Unity;
 using System;
-using Bikewale.Interfaces.Used.Search;
-using Bikewale.BAL.Used.Search;
 
 namespace Bikewale.Service.UnityConfiguration
 {
@@ -76,6 +79,8 @@ namespace Bikewale.Service.UnityConfiguration
         /// Description :   Register IDealerCacheRepository, DealerCacheRepository
         /// Modified By :   Sumit Kate on 20 July 2016
         /// Description :   Register Road Test/Feature/Article BAL classes for CMS Controller constructor resolution
+        /// Modified By :   Sajal Gupta on 10-10-2016
+        /// Description :   Register usedBikeDetailsRepository, usedBikeDetails
         /// </summary>
         /// <returns></returns>
         public static IUnityContainer Initialize()
@@ -133,9 +138,17 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<Bikewale.Interfaces.Used.Search.ISearchQuery, Bikewale.BAL.Used.Search.SearchQuery>();
             container.RegisterType<ISearchRepository, Bikewale.DAL.Used.Search.SearchRepository>();
 
+            container.RegisterType<IUsedBikeDetails, UsedBikeDetailsRepository>();
+            container.RegisterType<IUsedBikesRepository, UsedBikesRepository>();
+            container.RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>();
+            container.RegisterType<IUsedBikes, Bikewale.BAL.UsedBikes.UsedBikes>();
+
             container.RegisterType<IUsedBikeBuyer, Bikewale.BAL.Used.UsedBikeBuyer>();
             container.RegisterType<IUsedBikeBuyerRepository, UsedBikeBuyerRepository>();
-            container.RegisterType<IUsedBikeSellerRepository, UsedBikeSellerRepository>();
+            container.RegisterType<IUsedBikeSellerRepository, UsedBikeSellerRepository>();           
+
+            container.RegisterType<ISellBikes, SellBikes>();
+            container.RegisterType<ISellBikesRepository<SellBikeAd, int>, SellBikesRepository<SellBikeAd, int>>();
             return container;
         }
     }

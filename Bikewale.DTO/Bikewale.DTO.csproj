@@ -35,6 +35,7 @@
       <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -92,6 +93,8 @@
     <Compile Include="BikeBooking\BikeBookingOfferDTO.cs" />
     <Compile Include="BikeBooking\BookingListingFilterDTO.cs" />
     <Compile Include="BikeBooking\PageUrl.cs" />
+    <Compile Include="BikeData\BikeColorsbyVersion.cs" />
+    <Compile Include="BikeData\BikeColorsbyVersionDTO.cs" />
     <Compile Include="BikeData\MakeModelBase.cs" />
     <Compile Include="BikeData\v2\MinSpecs.cs" />
     <Compile Include="Compare\BikeColorDTO.cs" />
@@ -234,8 +237,11 @@
     <Compile Include="UsedBikes\PopularUsedBikesBase.cs" />
     <Compile Include="UsedBikes\PurchaseInquiryResultDTO.cs" />
     <Compile Include="UsedBikes\PurchaseInquiryStatusdto.cs" />
+    <Compile Include="UsedBikes\SellBikeAdDTO.cs" />
+    <Compile Include="UsedBikes\SellBikeAdSellerDTO.cs" />
     <Compile Include="UsedBikes\UsedBikeSellerBaseDTO.cs" />
     <Compile Include="Used\BikePhoto.cs" />
+    <Compile Include="Used\InquiryDetailsDTO.cs" />
     <Compile Include="Used\UsedBikeBase.cs" />
     <Compile Include="Used\SearchResult.cs" />
     <Compile Include="Version\ModelVersionList.cs" />
