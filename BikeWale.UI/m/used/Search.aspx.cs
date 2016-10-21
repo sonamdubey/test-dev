@@ -18,7 +18,7 @@ namespace Bikewale.Mobile.Used
         SearchUsedBikes objUsedBikesPage = null;
         protected string pageTitle = string.Empty, pageDescription = string.Empty, pageKeywords = string.Empty, pageCanonical = string.Empty
                  , heading = string.Empty, nextUrl = string.Empty, prevUrl = string.Empty, redirectUrl = string.Empty, alternateUrl = string.Empty,
-                 cityName = string.Empty;
+                 cityName = string.Empty, currentQueryString = string.Empty;
         protected IEnumerable<UsedBikeBase> usedBikesList = null;
         protected IEnumerable<CityEntityBase> citiesList = null;
         protected IEnumerable<BikeMakeModelBase> makeModelsList = null;
@@ -78,6 +78,7 @@ namespace Bikewale.Mobile.Used
                 objCity = objUsedBikesPage.SelectedCity;
                 makeModelsList = objUsedBikesPage.MakeModels;
                 usedBikesList = objUsedBikesPage.UsedBikes.Result;
+                currentQueryString = objUsedBikesPage.CurrentQS;
 
             }
             else

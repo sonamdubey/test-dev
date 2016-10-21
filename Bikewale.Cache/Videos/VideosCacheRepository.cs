@@ -27,6 +27,8 @@ namespace Bikewale.Cache.Videos
         /// Created By : Sushil Kumar K
         /// Created On : 18th February 2016
         /// Description : Cache Layer for Get Bike Videos by category earlier version 
+        /// Modified by :   Sumit Kate on 17 Oct 2016
+        /// Description :   Removed the caching
         /// </summary>
         /// <param name="categoryId"></param>
         /// <param name="totalCount"></param>
@@ -34,35 +36,9 @@ namespace Bikewale.Cache.Videos
         public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, ushort totalCount)
         {
             IEnumerable<BikeVideoEntity> videosList = null;
-            string key = string.Empty;
             try
             {
-                switch ((int)categoryId)
-                {
-                    case 1:
-                        key = String.Format("BW_Videos_FeaturedAndLatest_{0}", totalCount);
-                        break;
-                    case 2:
-                        key = String.Format("BW_Videos_Popular_{0}", totalCount);
-                        break;
-                    case 3:
-                        key = String.Format("BW_Videos_ExpertReviews_{0}", totalCount);
-                        break;
-                    case 4:
-                        key = String.Format("BW_Videos_Miscelleneous_{0}", totalCount);
-                        break;
-                    case 5:
-                        key = String.Format("BW_Videos_InteriorShow_{0}", totalCount);
-                        break;
-                    case 6:
-                        key = String.Format("BW_Videos_Recent_{0}", totalCount);
-                        break;
-                    default:
-                        key = String.Format("BW_Videos_CatId_{0}_{1}", categoryId, totalCount);
-                        break;
-                }
-
-                videosList = _cache.GetFromCache<IEnumerable<BikeVideoEntity>>(key, new TimeSpan(1, 0, 0), () => _VideosRepository.GetVideosByCategory(categoryId, totalCount));
+                videosList = _VideosRepository.GetVideosByCategory(categoryId, totalCount);
             }
             catch (Exception ex)
             {
@@ -79,6 +55,8 @@ namespace Bikewale.Cache.Videos
         /// Created By : Sushil Kumar K
         /// Created On : 18th February 2016
         /// Description : Cache Layer for Get Videos by Sub Categories according to new methodology
+        /// Modified by :   Sumit Kate on 17 Oct 2016
+        /// Description :   Removed the caching
         /// </summary>
         /// <param name="categoryIdList"></param>
         /// <param name="pageSize"></param>
@@ -87,11 +65,9 @@ namespace Bikewale.Cache.Videos
         public BikeVideosListEntity GetVideosBySubCategory(string categoryIdList, ushort pageNo, ushort pageSize, VideosSortOrder? sortOrder = null)
         {
             BikeVideosListEntity videosList = null;
-            string key = string.Empty;
             try
             {
-                key = String.Format("BW_Videos_SubCat_{0}_Cnt_{1}", categoryIdList.Replace(",", "_"), pageSize);
-                videosList = _cache.GetFromCache<BikeVideosListEntity>(key, new TimeSpan(1, 0, 0), () => _VideosRepository.GetVideosBySubCategory(categoryIdList, pageNo, pageSize, sortOrder));
+                videosList = _VideosRepository.GetVideosBySubCategory(categoryIdList, pageNo, pageSize, sortOrder);
             }
             catch (Exception ex)
             {
@@ -107,6 +83,8 @@ namespace Bikewale.Cache.Videos
         /// Created By : Sushil Kumar K
         /// Created On : 18th February 2016
         /// Description : Cache Layer for GetSimilar Videos
+        /// Modified by :   Sumit Kate on 17 Oct 2016
+        /// Description :   Removed the caching
         /// </summary>
         /// <param name="videoBasicId"></param>
         /// <param name="totalCount"></param>
@@ -114,11 +92,9 @@ namespace Bikewale.Cache.Videos
         public IEnumerable<BikeVideoEntity> GetSimilarVideos(uint videoBasicId, ushort totalCount)
         {
             IEnumerable<BikeVideoEntity> videosList = null;
-            string key = string.Empty;
             try
             {
-                key = String.Format("BW_Videos_Similar_{0}", videoBasicId);
-                videosList = _cache.GetFromCache<IEnumerable<BikeVideoEntity>>(key, new TimeSpan(1, 0, 0), () => _VideosRepository.GetSimilarVideos(videoBasicId, totalCount));
+                videosList = _VideosRepository.GetSimilarVideos(videoBasicId, totalCount);
             }
             catch (Exception ex)
             {
@@ -134,17 +110,17 @@ namespace Bikewale.Cache.Videos
         /// Created By : Sushil Kumar K
         /// Created On : 18th February 2016
         /// Description : Cache Layer for Videos Details page
+        /// Modified by :   Sumit Kate on 17 Oct 2016
+        /// Description :   Removed the caching
         /// </summary>
         /// <param name="videoBasicId"></param>
         /// <returns></returns>
         public BikeVideoEntity GetVideoDetails(uint videoBasicId)
         {
             BikeVideoEntity video = null;
-            string key = string.Empty;
             try
             {
-                key = String.Format("BW_Videos_{0}", videoBasicId);
-                video = _cache.GetFromCache<BikeVideoEntity>(key, new TimeSpan(1, 0, 0), () => _VideosRepository.GetVideoDetails(videoBasicId));
+                video = _VideosRepository.GetVideoDetails(videoBasicId);
             }
             catch (Exception ex)
             {
@@ -160,6 +136,8 @@ namespace Bikewale.Cache.Videos
         /// Created By : Lucky Rathore
         /// Created On : 1st March 2016
         /// Description : Cache Layer for Get Bike Videos by Make. 
+        /// Modified by :   Sumit Kate on 17 Oct 2016
+        /// Description :   Removed the caching
         /// </summary>
         /// <param name="categoryId"></param>
         /// <param name="totalCount"></param>
@@ -167,18 +145,9 @@ namespace Bikewale.Cache.Videos
         public IEnumerable<BikeVideoEntity> GetVideosByMakeModel(ushort pageNo, ushort pageSize, uint makeId, uint? modelId = null)
         {
             IEnumerable<BikeVideoEntity> videosList = null;
-            string key = string.Empty;
             try
             {
-                if (modelId.HasValue)
-                {
-                    key = string.Format("BW_Videos_Model_{0}_pageNo_{1}_pageSize_{2}", modelId, pageNo, pageSize);
-                }
-                else
-                {
-                    key = string.Format("BW_Videos_Make_{0}_pageNo_{1}_pageSize_{2}", makeId, pageNo, pageSize);
-                }
-                videosList = _cache.GetFromCache<IEnumerable<BikeVideoEntity>>(key, new TimeSpan(1, 0, 0), () => _VideosRepository.GetVideosByMakeModel(pageNo, pageSize, makeId, modelId));
+                videosList = _VideosRepository.GetVideosByMakeModel(pageNo, pageSize, makeId, modelId);
 
             }
             catch (Exception ex)

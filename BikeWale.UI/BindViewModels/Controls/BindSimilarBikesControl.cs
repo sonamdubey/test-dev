@@ -14,10 +14,13 @@ namespace Bikewale.BindViewModels.Controls
     /// <summary>
     /// Created by : Sangram Nandkhile on 12 May 2016
     /// Desc       : View Model to bind and pass repeater data to control
+    /// Modified by :Subodh Jain on 21 oct 2016
+    /// Desc : Added cityid as parameter
     /// </summary>
     public class BindSimilarCompareBikesControl
     {
         public uint FetchedRecordsCount { get; set; }
+        public int cityid { get; set; }
         public uint BindAlternativeBikes(Repeater rptSimlarCompareBikes, string versionList, uint count)
         {
             try
@@ -27,7 +30,7 @@ namespace Bikewale.BindViewModels.Controls
                     IEnumerable<SimilarCompareBikeEntity> objSimilarBikes = new List<SimilarCompareBikeEntity>();
                     container.RegisterType<IBikeCompare, BikeCompareRepository>();
                     IBikeCompare objCompare = container.Resolve<IBikeCompare>();
-                    objSimilarBikes = objCompare.GetSimilarCompareBikes(versionList, count);
+                    objSimilarBikes = objCompare.GetSimilarCompareBikes(versionList, count, cityid);
                     if (objSimilarBikes != null)
                         FetchedRecordsCount = (uint)objSimilarBikes.Count();
 
@@ -63,7 +66,7 @@ namespace Bikewale.BindViewModels.Controls
                     IEnumerable<SimilarCompareBikeEntity> objSimilarBikes = new List<SimilarCompareBikeEntity>();
                     container.RegisterType<IBikeCompare, BikeCompareRepository>();
                     IBikeCompare objCompare = container.Resolve<IBikeCompare>();
-                    objSimilarBikes = objCompare.GetSimilarCompareBikes(versionList, count);
+                    objSimilarBikes = objCompare.GetSimilarCompareBikes(versionList, count, cityid);
                     if (objSimilarBikes != null)
                         FetchedRecordsCount = (uint)objSimilarBikes.Count();
 
@@ -100,7 +103,7 @@ namespace Bikewale.BindViewModels.Controls
                 {
                     container.RegisterType<IBikeCompare, BikeCompareRepository>();
                     IBikeCompare objCompare = container.Resolve<IBikeCompare>();
-                    objSimilarBikes = objCompare.GetSimilarCompareBikes(versionList, count);
+                    objSimilarBikes = objCompare.GetSimilarCompareBikes(versionList, count, cityid);
                     if (objSimilarBikes != null)
                         FetchedRecordsCount = (uint)objSimilarBikes.Count();
                 }

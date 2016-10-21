@@ -1,9 +1,5 @@
-﻿using System;
+﻿using Bikewale.Entities.BikeData;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Entities.BikeData;
 
 namespace Bikewale.Interfaces.BikeData
 {
@@ -25,7 +21,8 @@ namespace Bikewale.Interfaces.BikeData
         List<BikeVersionsListEntity> GetVersionsByType(EnumBikeType requestType, int modelId, int? cityId = null);
         BikeSpecificationEntity GetSpecifications(U versionId);
         List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew);
-        List<SimilarBikeEntity> GetSimilarBikesList(U versionId,uint topCount,uint percentDeviation);
+        IEnumerable<SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint cityId);
+
         List<VersionColor> GetColorByVersion(U versionId);
     }
 }

@@ -14,6 +14,9 @@ namespace Bikewale.Entities.Used
         public string CityMaskingName { get; set; }
         public string MakeMaskingName { get; set; }
         public string ModelMaskingName { get; set; }
+        public bool IsRedirect { get; set; }
+        public string Message { get; set; }
+        public string Url { get { return string.Format("/used/bikes-in-{0}/{1}-{2}-{3}/", CityMaskingName, MakeMaskingName, ModelMaskingName, ProfileId); } }
     }
 }
 

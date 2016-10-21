@@ -36,8 +36,10 @@ namespace Bikewale.BindViewModels.Webforms.Used
         /// <summary>
         /// Created by: Sangram Nandkhile on 06 Oct 2016
         /// Summary: Constructor for viewmodel to initialize container and fetch values
+        /// modified by:-subodh jain
+        /// summary :- passed topcount as parameter count of number of icon of make 
         /// </summary>
-        public UsedBikeLandingPage()
+        public UsedBikeLandingPage(int topCount)
         {
             try
             {
@@ -56,7 +58,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
                     objCitiesCache = container.Resolve<ICity>();
                     objUsedBikes = container.Resolve<IUsedBikesCache>();
 
-                    GetAllMakes(objUsedBikes);
+                    GetAllMakes(objUsedBikes, topCount);
                     GetAllCities(objCitiesCache);
                     BindCityWidgetWithCount();
                 }
@@ -73,15 +75,15 @@ namespace Bikewale.BindViewModels.Webforms.Used
         /// Description: get top 6 makes and remaining makes
         /// </summary>
         /// <param name="objUsedBikes"></param>
-        private void GetAllMakes(IUsedBikesCache objUsedBikes)
+        private void GetAllMakes(IUsedBikesCache objUsedBikes, int topcount)
         {
             try
             {
                 var totalList = objUsedBikes.GetUsedBikeMakesWithCount();
                 if (totalList != null && totalList.Count() > 0)
                 {
-                    TopMakeList = totalList.Take(6);
-                    OtherMakeList = totalList.Skip(6);
+                    TopMakeList = totalList.Take(topcount);
+                    OtherMakeList = totalList.Skip(topcount);
                 }
             }
             catch (Exception ex)

@@ -16,6 +16,10 @@ namespace Bikewale.Controls
         public int PQSourceId { get; set; }
         public string model { get; set; }
         private int _topCount = 6;
+        protected string heading = string.Empty;
+        public string cityName { get; set; }
+        public int? cityId { get; set; }
+        public bool priceincitypage = false;
         public int TopCount
         {
             get { return _topCount; }
@@ -41,8 +45,15 @@ namespace Bikewale.Controls
             objAlt.VersionId = VersionId;
             objAlt.TopCount = TopCount;
             objAlt.Deviation = Deviation;
+            objAlt.cityId = cityId.HasValue && cityId > 0 ? cityId.Value : Convert.ToInt16(Bikewale.Utility.BWConfiguration.Instance.DefaultCity);
             objAlt.BindAlternativeBikes(rptAlternateBikes);
-
+            if (PQSourceId == 47)
+            {
+                heading = string.Format("Prices of alternative bikes for {0} in {1}", model, cityName);
+                priceincitypage = true;
+            }
+            else
+                heading = string.Format("Alternative Bikes for {0}", model);
             FetchedRecordsCount = objAlt.FetchedRecordsCount;
         }
 

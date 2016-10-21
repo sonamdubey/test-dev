@@ -31,26 +31,16 @@ namespace Bikewale.Service.Controllers.BikeData
         /// </summary>
         /// <param name="versionId">Version Id</param>
         /// <param name="topCount">Top Count (Optional)</param>
-        /// <param name="deviation">Deviation (Optional)</param>
+        /// <param name="deviation">cityid (Optional)</param>
         /// <returns></returns>
-        public IHttpActionResult Get(int versionId, uint topCount, uint? deviation = null)
+        public IHttpActionResult Get(int versionId, uint topCount)
         {
             SimilarBikeList objSimilar = new SimilarBikeList();
             try
             {
-
-                uint percentDeviation = deviation.HasValue ? deviation.Value : 15;
-
-                List<SimilarBikeEntity> objSimilarBikes = _objVersion.GetSimilarBikesList(versionId, topCount, percentDeviation);
+                IEnumerable<SimilarBikeEntity> objSimilarBikes = _objVersion.GetSimilarBikesList(versionId, topCount, 1);
 
                 objSimilar.SimilarBike = SimilarBikeListMapper.Convert(objSimilarBikes);
-
-
-                if (objSimilarBikes != null)
-                {
-                    objSimilarBikes.Clear();
-                    objSimilarBikes = null;
-                }
 
                 if (objSimilar != null && objSimilar.SimilarBike != null && objSimilar.SimilarBike.Count() > 0)
                     return Ok(objSimilar);

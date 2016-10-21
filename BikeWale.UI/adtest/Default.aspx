@@ -110,13 +110,13 @@
                 <p class="black-text">Sell your bike in a faster and easiest way</p>
                 <div class="dotted-line margin-top5"></div>
                 <div id="sybh-list" class="padding-top10">                      
-                    <div><a class="person pointer" title="BikeWale team works with you to get you best price for your bike">Get Expert Help</a></div>
+                    <div><p class="person pointer" title="BikeWale team works with you to get you best price for your bike">Get Expert Help</p></div>
                     <div class="sep"></div>                        
-                    <div><a class="timer pointer" title="Your bike is listed for sale until it is sold">Unlimited Time Period</a></div>
+                    <div><p class="timer pointer" title="Your bike is listed for sale until it is sold">Unlimited Time Period</p></div>
                     <div class="sep"></div>
-                    <div><a class="watch pointer" title="BikeWale is committed to give your bike maximum exposure">Maximum Visibility</a></div>
+                    <div><p class="watch pointer" title="BikeWale is committed to give your bike maximum exposure">Maximum Visibility</p></div>
                     <div class="sep"></div>
-                    <div><a class="award pointer" title="Buyers' mobile numbers are verified before they are sent to you">Genuine Buyers</a></div>
+                    <div><p class="award pointer" title="Buyers' mobile numbers are verified before they are sent to you">Genuine Buyers</p></div>
                     <div class="sep"></div>              
                 </div>
                 <div class="action-btn margin-top10 center-align"><a href="/used/sell/">Sell My Bike Now</a></div>
