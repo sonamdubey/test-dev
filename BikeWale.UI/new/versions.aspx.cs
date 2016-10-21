@@ -515,6 +515,7 @@ namespace Bikewale.New
             ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_ModelPage_Alternative;
             ctrlAlternativeBikes.WidgetTitle = bikeName;
             ctrlAlternativeBikes.model = modelPage.ModelDetails.ModelName;
+            ctrlAlternativeBikes.cityId = (int)cityId;
             if (modelPage != null)
             {
                 var modelVersions = modelPage.ModelVersions;
