@@ -438,7 +438,7 @@ namespace Bikewale.New
             ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_Alternative;
             ctrlAlternativeBikes.WidgetTitle = bikeName;
             ctrlAlternativeBikes.model = modelName;
-            ctrlAlternativeBikes.cityId = (int)cityId;
+            ctrlAlternativeBikes.cityId = Convert.ToInt32(cityId);
             ctrlAlternativeBikes.cityName = cityName;
             if (firstVersion != null)
                 ctrlAlternativeBikes.VersionId = (int)firstVersion.VersionId;
