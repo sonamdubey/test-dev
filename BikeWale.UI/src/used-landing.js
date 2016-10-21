@@ -14,7 +14,7 @@ $(document).ready(function () {
 
     $('#drpCities.chosen-select').chosen();
 
-    // set min budget listf-132728801-UsedBike-Citypage
+    // set min budget
     budgetForm.set.minList();
 
     $(window).on("scroll", function () {
