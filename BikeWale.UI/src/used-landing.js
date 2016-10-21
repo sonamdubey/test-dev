@@ -14,7 +14,7 @@ $(document).ready(function () {
 
     $('#drpCities.chosen-select').chosen();
 
-    // set min budget list
+    // set min budget
     budgetForm.set.minList();
 
     $(window).on("scroll", function () {
@@ -208,6 +208,7 @@ var budgetForm = {
                 counter++;
             }
         }
+        budgetForm.dropdown.selectedMaxAmount.html("- MAX");
     }
 }
 
