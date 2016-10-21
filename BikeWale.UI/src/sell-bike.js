@@ -655,49 +655,63 @@ var scrollToForm = {
 // year
 var calender = {
 
+    width: 360,
+
     year: {
         container: $('#year-list'),
 
         set: function (startYear) {
             var endYear = new Date().getFullYear(),
-                totalWidth = 0,
-                count = 0,
-                i = startYear,
-                totalYear = endYear - startYear + 1,
-                item = '';
-
-            for (i; i <= endYear; i++) {
-                item += '<span>' + i + '</span>';
-                count += 1;
-                
-                if (count == 5) {
-                    calender.year.container.append('<li>'+ item +'</li>');
-                    item = '';
-                    count = 0;
+                yearCount = endYear - startYear,
+                years = [],
+                limit = 5;
+            
+            for (var i = endYear; i >= startYear; i--) {
+                years.push(i);
+            }
+            
+            for (var i = 0; i < yearCount; i += 5) {
+                if (i != 0) {
+                    limit = i + 5;
                 }
+                else {
+                    limit = 5;
+                }
+
+                var item = '';
+                for (var j = i; j < limit; j++) {
+                    if (years[j] !== undefined) {
+                        item += '<span>' + years[j] + '</span>';
+                    }
+                }
+                calender.year.container.append('<li>' + item + '</li>');
             }
 
-            console.log(totalYear);
-
-            // arr slice
-            //totalWidth = count * 72;
-            //calender.year.scrollPosition(totalWidth);
+            var lastElement = calender.year.container.find('li').last();
+            calender.year.scrollPosition(lastElement);
+            
         },
 
-        scrollPosition: function (position) {
+        scrollPosition: function (element) {
+            calender.year.container.find('.active').removeClass('active');
+            element.addClass('active');
             calender.year.container.animate({
-                scrollLeft: position20
+                scrollLeft: element.index() * calender.width
             });
         }
     }
 };
 
 $('.year-prev').on('click', function () {
-    var currentPosition = calender.year.container.scrollLeft();
-    calender.year.scrollPosition(currentPosition - 298);
+    var activeElement = calender.year.container.find('.active'),
+        prevElement = activeElement.prev();
+
+    calender.year.scrollPosition(prevElement);
 });
 
 $('.year-next').on('click', function () {
-    var currentPosition = calender.year.container.scrollLeft();
-    calender.year.scrollPosition(currentPosition + 298);
+    var activeElement = calender.year.container.find('.active'),
+        nextElement = activeElement.next();
+
+    calender.year.scrollPosition(nextElement);
 });
