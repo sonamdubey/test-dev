@@ -62,7 +62,7 @@
                         <h1 class="content-inner-block-20">Browse used bike by cities</h1>
                         <p class="font16 text-default text-bold padding-left20 margin-bottom10">Popular cities</p>
                         <ul id="popular-city-list">
-                             <%foreach ( Bikewale.Entities.Used.UsedBikeCities objCity in  objBikeCityCountTop) {%>
+                       <%foreach (var objCity in  objBikeCityCountTop) {%>
                             <li>
                                 <a href="/used/bikes-in-<%=objCity.CityMaskingName %>/" title="Used bikes in <%=objCity.CityName %>" class="city-card-target">
                                     <div class="city-image-preview">
@@ -74,16 +74,20 @@
                                     </div>
                                 </a>
                             </li>
-                                 <%} %> 
+                       <%} %> 
                         </ul>
                         <div class="padding-top20 padding-right10 padding-bottom10 padding-left10">
                             <p class="font16 text-default text-bold padding-left10 margin-bottom20">Other cities</p>
-                                           <%foreach (Bikewale.Entities.Used.UsedBikeCities objCity in objBikeCityCount)
-                          {%> <li class="grid-4">
-                                            <a class="href-grey" href="/used/bikes-in-<%=objCity.CityMaskingName %>/" title="Used bikes in <%=objCity.CityName %>"><%=string.Format("{0} ({1})",objCity.CityName ,objCity.bikesCount )%>
-                                            </a>
-                                        </li>
-                            <%} %>
+                            <ul id="other-city-list">
+                                <%foreach (var objCity in objBikeCityCount)
+                                    {%>
+                                    <li class="grid-4">
+                                        <a href="/used/bikes-in-<%=objCity.CityMaskingName %>/" title="Used bikes in <%=objCity.CityName %>">
+                                            <%=string.Format("{0} ({1})",objCity.CityName ,objCity.bikesCount )%>
+                                        </a>
+                                    </li>
+                                <%} %>
+                            </ul>
                             <div class="clear"></div>
                         </div>
                     </div>
