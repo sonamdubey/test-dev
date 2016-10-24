@@ -8,6 +8,7 @@
     .tdStyle { background-color:#d4d4d4; text-align:left;height:30px;}
     #totalListing th {color:black;}
 </style>
+<link rel="stylesheet" href="/css/common.css?03102016" type="text/css" />
 <div style="padding:5px;">
     <table id=totalListing border="1" class="tableViw"  style="border-width:1px;text-align:center;border-style:solid;border-collapse:collapse;border-spacing:0;">
         <tbody>

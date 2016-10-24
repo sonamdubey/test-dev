@@ -6,6 +6,7 @@ using Microsoft.Practices.Unity;
 using BikewaleOpr.BAL;
 using BikewaleOpr.Interface.Used;
 using BikewaleOpr.Used;
+using BikewaleOpr.BAL.Used;
 
 
 namespace BikewaleOpr.Service.UnityConfiguration
@@ -21,12 +22,11 @@ namespace BikewaleOpr.Service.UnityConfiguration
         public static IUnityContainer Initialize()
         {
             IUnityContainer container = new UnityContainer();
-
             container.RegisterType<IManufacturerCampaignRepository, ManufacturerCampaign>();
-            
             container.RegisterType<IContractCampaign, ContractCampaign>();
             container.RegisterType<IManufacturerReleaseMaskingNumber, ManufacturerReleaseMaskingNumber>();
             container.RegisterType<ISellerRepository,SellerRepository>();
+            container.RegisterType<ISellBikes,SellBikes>();
             return container;
         }
     }

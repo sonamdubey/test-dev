@@ -159,6 +159,10 @@
       <DependentUpon>VerifyCustomerListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="classified\verifyeditedlisting.aspx.cs">
+      <DependentUpon>verifyeditedlisting.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="common\AjaxAppVersion.cs" />
     <Compile Include="common\AjaxCompareFeaturedBike.cs" />
     <Compile Include="common\AjaxFunctions.cs" />
@@ -1291,6 +1295,7 @@
     <Content Include="classified\ListingPhotos.aspx" />
     <Content Include="classified\TotalListings.aspx" />
     <Content Include="classified\VerifyCustomerListing.aspx" />
+    <Content Include="classified\verifyeditedlisting.aspx" />
     <Content Include="common\autobild_watermark.png" />
     <Content Include="common\bw_watermark.png" />
     <Content Include="common\logout.aspx" />

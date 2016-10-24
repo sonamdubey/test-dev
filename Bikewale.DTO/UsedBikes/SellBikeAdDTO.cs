@@ -43,6 +43,8 @@ namespace Bikewale.DTO.UsedBikes
         public SellBikeAdSellerDTO Seller { get; set; }
         [JsonProperty("otherInfo")]
         public SellBikeAdOtherInformationDTO OtherInfo { get; set; }
+        [JsonProperty("photoCount")]
+        public ushort PhotoCount { get; set; }
     }
 
     /// <summary>

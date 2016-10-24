@@ -14,5 +14,6 @@ namespace BikewaleOpr.Interface.Used
     public interface ISellerRepository
     {
         UsedBikeSellerBase GetSellerDetails(int inquiryId, bool isDealer);
+        IEnumerable<SellBikeAd> GetClassifiedPendingInquiries();
     }
 }

@@ -1,15 +1,13 @@
-﻿using Bikewale.Entities.Used;
-using Bikewale.Entities.Customer;
+﻿using Bikewale.Entities.Customer;
+using Bikewale.Entities.Used;
+using Bikewale.Notifications;
+using Bikewale.Utility;
 using BikewaleOpr.Interface.Used;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Notifications;
 
 namespace BikewaleOpr.Used
 {
@@ -62,5 +60,47 @@ namespace BikewaleOpr.Used
             }
             return seller;
         }
+        /// <summary>
+        /// Created by:Sangram Nandkhile on 24 Oct 2016
+        /// Desc: Get used bikes edited inquiries
+        /// </summary>
+        public IEnumerable<SellBikeAd> GetClassifiedPendingInquiries()
+        {
+            List<SellBikeAd> sellerListing = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getclassifiedpendinginquiries"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    //cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        sellerListing = new List<SellBikeAd>();
+                        if (dr != null && dr.Read())
+                        {
+                            SellBikeAd ad = new SellBikeAd();
+
+                            ad.InquiryId = SqlReaderConvertor.ToUInt32(cmd.Parameters["inquiryid"].Value);
+                            ad.Version.VersionName = Convert.ToString(cmd.Parameters["versionname"].Value);
+                            ad.KiloMeters = SqlReaderConvertor.ToUInt32(cmd.Parameters["kilometers"].Value);
+                            ad.Expectedprice = SqlReaderConvertor.ToUInt64(cmd.Parameters["Price"].Value);
+                            ad.ManufacturingYear = SqlReaderConvertor.ToDateTime(cmd.Parameters["MakeYear"].Value);
+                            ad.PhotoCount = SqlReaderConvertor.ToUInt16(cmd.Parameters["PhotosCount"].Value);
+                            dr.Close();
+                            sellerListing.Add(ad);
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "GetClassifiedPendingInquiries");
+                objErr.SendMail();
+            }
+            return sellerListing;
+        }
+
     }
 }
