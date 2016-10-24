@@ -54,13 +54,13 @@ namespace BikewaleOpr.Service.Controllers.Used
         /// <param name="isApproved"></param>
         /// <param name="approvedBy"></param>
         /// <returns></returns>
-        [HttpPost, Route("api/used/sell/pendinginquiries/{inquiryId}/{isApproved}/{approvedBy}")]
-        public IHttpActionResult SaveEditedInquiry(uint inquiryId, short isApproved, int approvedBy)
+        [HttpPost, Route("api/used/sell/pendinginquiries/{inquiryId}/{isApproved}/{approvedBy}/{profileId}/{bikeName}")]
+        public IHttpActionResult SaveEditedInquiry(uint inquiryId, short isApproved, int approvedBy,string profileId,string bikeName)
         {
             bool isSuccess = false;
             try
             {
-                isSuccess = _objSellBikes.SaveEditedInquiry(inquiryId,isApproved,approvedBy);
+                isSuccess = _objSellBikes.SaveEditedInquiry(inquiryId, isApproved, approvedBy, profileId, bikeName);
             }
             catch (Exception ex)
             {
