@@ -21,5 +21,10 @@ namespace BikewaleOpr.BAL.Used
         {
             return _sellerRepo.GetClassifiedPendingInquiries();
         }
+
+        public bool SaveEditedInquiry(uint inquiryId, short isApproved, int approvedBy)
+        {
+            return _sellerRepo.SaveEditedInquiry(inquiryId, isApproved, approvedBy);
+        }
     }
 }

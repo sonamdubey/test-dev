@@ -15,5 +15,6 @@ namespace BikewaleOpr.Interface.Used
     {
         UsedBikeSellerBase GetSellerDetails(int inquiryId, bool isDealer);
         IEnumerable<SellBikeAd> GetClassifiedPendingInquiries();
+        bool SaveEditedInquiry(uint inquiryId, short isApproved, int approvedBy);
     }
 }

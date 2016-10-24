@@ -77,18 +77,22 @@ namespace BikewaleOpr.Used
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
                         sellerListing = new List<SellBikeAd>();
-                        if (dr != null && dr.Read())
+                        if (dr != null)
                         {
-                            SellBikeAd ad = new SellBikeAd();
+                            while (dr.Read()) 
+                            {
+                                SellBikeAd ad = new SellBikeAd();
 
-                            ad.InquiryId = SqlReaderConvertor.ToUInt32(cmd.Parameters["inquiryid"].Value);
-                            ad.Version.VersionName = Convert.ToString(cmd.Parameters["versionname"].Value);
-                            ad.KiloMeters = SqlReaderConvertor.ToUInt32(cmd.Parameters["kilometers"].Value);
-                            ad.Expectedprice = SqlReaderConvertor.ToUInt64(cmd.Parameters["Price"].Value);
-                            ad.ManufacturingYear = SqlReaderConvertor.ToDateTime(cmd.Parameters["MakeYear"].Value);
-                            ad.PhotoCount = SqlReaderConvertor.ToUInt16(cmd.Parameters["PhotosCount"].Value);
+                                ad.InquiryId = SqlReaderConvertor.ToUInt32(dr["InquiryId"]);
+                                ad.Version = new Bikewale.Entities.BikeData.BikeVersionEntityBase();
+                                ad.Version.VersionName=Convert.ToString(dr["BikeName"]);
+                                ad.KiloMeters = SqlReaderConvertor.ToUInt32(dr["Kilometers"]);
+                                ad.Expectedprice = SqlReaderConvertor.ToUInt64(dr["Price"]);
+                                ad.ManufacturingYear = SqlReaderConvertor.ToDateTime(dr["MakeYear"]);
+                                ad.PhotoCount = SqlReaderConvertor.ToUInt16(dr["PhotoCount"]);
+                                sellerListing.Add(ad);
+                            }
                             dr.Close();
-                            sellerListing.Add(ad);
                         }
                     }
                 }
@@ -100,6 +104,37 @@ namespace BikewaleOpr.Used
                 objErr.SendMail();
             }
             return sellerListing;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inquiryId"></param>
+        /// <param name="isApproved"></param>
+        /// <param name="approvedBy"></param>
+        /// <returns></returns>
+        public bool SaveEditedInquiry(uint inquiryId, short isApproved, int approvedBy)
+        {
+            bool isSuccess = false;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("saveapprovallog"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isapproved", DbType.Int32, isApproved));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_approvedby", DbType.Int32, approvedBy));
+                    if (Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase)))
+                    {
+                        isSuccess = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("SaveEditedInquiry: InquiryId:{0}, IsApproved:{1}, Approvedby{2}",inquiryId,isApproved,approvedBy));
+                objErr.SendMail();
+            }
+            return isSuccess;
         }
 
     }

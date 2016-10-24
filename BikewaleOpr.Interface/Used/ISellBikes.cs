@@ -10,5 +10,6 @@ namespace BikewaleOpr.Interface.Used
     public interface ISellBikes
     {
         IEnumerable<SellBikeAd> GetClassifiedPendingInquiries();
+        bool SaveEditedInquiry(uint inquiryId, short isApproved, int approvedBy);
     }
 }

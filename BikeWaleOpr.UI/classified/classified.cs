@@ -16,7 +16,13 @@ namespace BikeWaleOpr.Classified
 {
     public class ClassifiedCommon
     {
-        private ISellerRepository _objSellerRepository = new SellerRepository();
+        private ISellerRepository _objSellerRepository;
+
+        public ClassifiedCommon()
+        {
+            _objSellerRepository = new SellerRepository();
+        }
+
         #region CustomerListingDetail
         /// <summary>
         /// Created By : Sanjay Soni ON 30/9/2014
