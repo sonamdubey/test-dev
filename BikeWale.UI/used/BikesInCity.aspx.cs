@@ -39,11 +39,7 @@ namespace Bikewale.Used
                 originalUrl = Request.ServerVariables["URL"];
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
-
-            if (!IsPostBack)
-            {
-                BindCities();
-            }
+            BindCities();
         }
         /// <summary>
         /// Created By Subodh Jain on 20 oct 2016
