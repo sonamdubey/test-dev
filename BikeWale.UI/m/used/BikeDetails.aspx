@@ -118,10 +118,10 @@
                             <p class="specs-features-label">Profile ID</p>
                             <p class="specs-features-value">S<%= inquiryDetails.OtherDetails.Id %></p>
                         </li>
-                        <li>
+                        <%--<li>
                             <p class="specs-features-label">Date updated</p>
                             <p class="specs-features-value"><%= Bikewale.Utility.FormatDate.GetDDMMYYYY(inquiryDetails.OtherDetails.LastUpdatedOn.ToString()) %></p>
-                        </li>
+                        </li>--%>
                         <li>
                             <p class="specs-features-label">Seller</p>
                             <p class="specs-features-value"><%= inquiryDetails.OtherDetails.Seller %></p>
