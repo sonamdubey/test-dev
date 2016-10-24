@@ -195,10 +195,10 @@
                                     <p class="bike-details-key">Profile ID</p>
                                     <p class="bike-details-value">S<%= inquiryDetails.OtherDetails.Id %></p>
                                 </li>
-                                <li>
+                                <%--<li>
                                     <p class="bike-details-key">Date updated</p>
                                     <p class="bike-details-value"><%= Bikewale.Utility.FormatDate.GetDDMMYYYY(inquiryDetails.OtherDetails.LastUpdatedOn.ToString()) %></p>
-                                </li>
+                                </li>--%>
                                 <li>
                                     <p class="bike-details-key">Seller</p>
                                     <p class="bike-details-value"><%= inquiryDetails.OtherDetails.Seller %></p>
