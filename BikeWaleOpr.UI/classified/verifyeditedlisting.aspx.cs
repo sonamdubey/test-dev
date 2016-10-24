@@ -2,6 +2,7 @@
 using Bikewale.Notifications;
 using BikewaleOpr.BAL.Used;
 using BikewaleOpr.Interface.Used;
+using BikewaleOpr.Used;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,7 @@ namespace BikewaleOpr.classified
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<ISellBikes, SellBikes>();
+                    container.RegisterType<ISellerRepository, SellerRepository>();
                     ISellBikes objSellBikes = container.Resolve<ISellBikes>();
                     IEnumerable<SellBikeAd> sellListing = objSellBikes.GetClassifiedPendingInquiries();
                 }
