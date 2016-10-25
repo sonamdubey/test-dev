@@ -532,6 +532,8 @@ var moreDetails = function () {
     };
 };
 
+Dropzone.autoDiscover = false;
+
 $(document).ready(function () {
     var chosenSelectBox = $('.chosen-select');
 
@@ -549,14 +551,56 @@ $(document).ready(function () {
 
         searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
     });
+    
+    $('#add-photos-dropzone').dropzone({
+        maxFilesize: 4,
+        maxFiles: 10,
+        addRemoveLinks: true,
+        acceptedFiles: ".png, .jpg",
+        url: "/target",
+        init: function () {
+            var myDropzone = this;
+            
+            this.on("sending", function (file) {
+                $(file.previewElement).find('#spinner-content').hide();
+            });
 
-    Dropzone.autoDiscover = false;
-    var myDropzone = new Dropzone("#add-photos-dropzone", { url: "/file/post" });
+            this.on("removedfile", function (file) {
+                setProfilePhoto();
+            });
+
+            this.on("success", function (file) {
+                setProfilePhoto();
+            });
+
+            this.on("error", function (file, response) {
+                $(file.previewElement).find('#spinner-content').hide();
+                $(file.previewElement).find('.dz-error-message').text('Failed to upload');
+                $(file.previewElement).find('.dz-error-mark').on('click', function () {
+                    myDropzone.removeFile(file);
+                    myDropzone.addFile(file);
+                });
+            });
+
+            this.on("maxfilesexceeded", function (file) {
+                alert("You can upload maximum 10 photos!");
+                myDropzone.removeFile(file);
+            });
+        }
+    });
 
     //set year
     //calender.year.set(1980);
 
 });
+
+var setProfilePhoto = function () {
+    var container = $('#add-photos-dropzone .dz-preview.dz-success').first();
+    if (!container.hasClass('dz-profile-photo')) {
+        container.addClass('dz-profile-photo');
+        container.append('<div id="profile-photo-content"><span class="sell-bike-sprite ribbon-icon"></span><span class="ribbon-label">Profile photo</span></div>')
+    }
+};
 
 var vmSellBike = new sellBike();
 
@@ -661,12 +705,12 @@ var calender = {
         container: $('#year-list'),
 
         set: function (startYear) {
-            var endYear = new Date().getFullYear(),
+            var endYear = new Date().getFullYear() + 1,
                 yearCount = endYear - startYear,
                 years = [],
                 limit = 5;
             
-            for (var i = endYear; i >= startYear; i--) {
+            for (var i = startYear; i < endYear; i++) {
                 years.push(i);
             }
             

@@ -1,4 +1,5 @@
-﻿.card-header {
+﻿@charset "utf-8";
+.card-header {
   padding: 14px 20px; }
   .card-header h1 {
     font-size: 24px; }
@@ -361,7 +362,17 @@ textarea {
   padding: 40px 25px 40px 30px; }
 
 .panel {
-  margin-bottom: 40px; }
+  margin-bottom: 40px;
+  position: relative; }
+
+.panel-divider:before {
+  content: "";
+  width: 1px;
+  height: 98%;
+  background: #ededed;
+  position: absolute;
+  top: 36px;
+  left: 15px; }
 
 .panel-row .chosen-select {
   display: none; }
@@ -378,6 +389,9 @@ textarea {
   margin-top: 25px;
   width: 465px;
   float: right; }
+
+.panel-body-3 {
+  margin-top: 15px; }
 
 #seller-type-list li {
   float: left;
@@ -444,9 +458,12 @@ textarea {
       text-align: center;
       display: inline-block; }
 
+.text-black {
+  color: #000; }
+
 /* sprite */
 .sell-bike-sprite {
-  background: url("http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/sell-bike-sprite.png?v1=20Oct2016") no-repeat;
+  background: url("http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/sell-bike-sprite.png?v1=25Oct2016") no-repeat;
   display: inline-block; }
 
 .step-1-active,
@@ -512,6 +529,11 @@ textarea {
   width: 51px;
   height: 58px;
   background-position: -165px -436px; }
+
+.add-photo-icon {
+  width: 43px;
+  height: 39px;
+  background-position: -320px -87px; }
 
 .step-2-inactive,
 .step-3-inactive {
