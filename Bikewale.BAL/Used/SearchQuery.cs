@@ -376,6 +376,8 @@ namespace Bikewale.BAL.Used.Search
 
         /// <summary>
         /// Function to get the order by clause
+        /// Modified by :   Sumit Kate on 25 Oct 2016
+        /// Description :   For Default sort, show listing with images of that day first followed by listing without image
         /// </summary>
         /// <returns></returns>
         private string GetOrderByClause()
@@ -405,7 +407,7 @@ namespace Bikewale.BAL.Used.Search
                         orderBy = " ll.kilometers desc ";
                         break;
                     default:
-                        orderBy = " date(ll.LastUpdated) desc, ifnull(ll.photocount, 0) desc "; //most recent                    
+                        orderBy = " date(ll.LastUpdated) desc, ifnull(ll.photocount, 0) desc ";
                         break;
                 }
             }
