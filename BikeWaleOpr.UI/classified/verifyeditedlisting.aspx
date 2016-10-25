@@ -27,7 +27,10 @@
                     <td><%=listing.KiloMeters %></td>
                     <td><%=listing.Expectedprice %></td>
                     <td><%=listing.ManufacturingYear.Year %></td>
-                    <td><input id="btnLView" onclick ="<%= string.Format("javascript:window.open('/classified/listingphotos.aspx?profileid={0}','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')", listing.InquiryId) %>" <%= listing.PhotoCount > 0 ? "" : "style='display:none;'" %> type="button" value ="View Photos"  /></td>
+                    <td>
+                        <%if( listing.PhotoCount > 0 ) { %>
+                        <input id="btnLView" onclick ="<%= string.Format("javascript:window.open('/classified/listingphotos.aspx?profileid={0}','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')", listing.InquiryId) %>"  type="button" value ="View Photos"  /></td>
+                    <% } %>
                     <td>
                         <input data-attr-id="<%=listing.InquiryId %>" data-attr-profileid="<%=listing.ProfileId %>" data-attr-bikename="<%=listing.Version.VersionName %>" id="btnApprove" type="button" value="Approve" /><input id="btnDiscard" type="button" value="Discard" data-attr-id="<%=listing.InquiryId %>" data-attr-profileid="<%=listing.ProfileId %>" data-attr-bikename="<%=listing.Version.VersionName %>" />
                     </td>
