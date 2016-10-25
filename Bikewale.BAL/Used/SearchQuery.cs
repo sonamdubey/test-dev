@@ -328,7 +328,7 @@ namespace Bikewale.BAL.Used.Search
 	                            year(ll.makeyear) bikeyear, monthname(ll.makeyear) bikemonth,
 	                            ifnull(ll.photocount, 0) as photocount , 
 	                            ll.hosturl, ll.originalimagepath,
-                                ll.color ";
+                                ll.color, ll.LastUpdated ";
             }
             catch (Exception ex)
             {
@@ -407,7 +407,7 @@ namespace Bikewale.BAL.Used.Search
                         orderBy = " ll.kilometers desc ";
                         break;
                     default:
-                        orderBy = " date(ll.LastUpdated) desc, ifnull(ll.photocount, 0) desc ";
+                        orderBy = " date(ll.LastUpdated) desc, LastUpdated desc, ifnull(ll.photocount, 0) desc ";
                         break;
                 }
             }

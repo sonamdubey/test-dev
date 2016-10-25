@@ -32,7 +32,7 @@ namespace Bikewale.DAL.Used
             ClassifiedInquiryDetails _objInquiryDetails = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("classified_getprofiledetails_12102016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("classified_getprofiledetails_25102016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
