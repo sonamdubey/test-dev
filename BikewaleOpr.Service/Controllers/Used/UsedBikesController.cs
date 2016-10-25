@@ -47,16 +47,16 @@ namespace BikewaleOpr.Service.Controllers.Used
         /// <param name="approvedBy"></param>
         /// <returns></returns>
         [HttpPost, Route("api/used/sell/pendinginquiries/{inquiryId}/")]
-        public IHttpActionResult SaveEditedInquiry(uint inquiryId, short isApproved, int approvedBy, string profileid, string bikeName)
+        public IHttpActionResult SaveEditedInquiry(uint inquiryId, short isApproved, int approvedBy, string profileId, string bikeName)
         {
             bool isSuccess = false;
             try
             {
-                isSuccess = _objSellBikes.SaveEditedInquiry(inquiryId, isApproved, approvedBy);
+                isSuccess = _objSellBikes.SaveEditedInquiry(inquiryId, isApproved, approvedBy, profileId, bikeName);
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("UsedBikesController.SaveEditedInquiry: InquiryId:{0}, IsApproved:{1}, Approvedby{2}, profileid {3}", inquiryId, isApproved, approvedBy, profileid));
+                ErrorClass objErr = new ErrorClass(ex, String.Format("UsedBikesController.SaveEditedInquiry: InquiryId:{0}, IsApproved:{1}, Approvedby{2}, profileid {3}", inquiryId, isApproved, approvedBy, profileId));
                 objErr.SendMail();
                 return InternalServerError();
             }
