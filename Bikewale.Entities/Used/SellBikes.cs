@@ -9,6 +9,7 @@ namespace Bikewale.Entities.Used
     public class SellBikeAd
     {
         public uint InquiryId { get; set; }
+        public string ProfileId { get; set; }
         public BikeData.BikeMakeEntityBase Make { get; set; }
         public BikeData.BikeModelEntityBase Model { get; set; }
         public BikeData.BikeVersionEntityBase Version { get; set; }

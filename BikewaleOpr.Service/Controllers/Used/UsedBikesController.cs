@@ -1,11 +1,7 @@
 ﻿using Bikewale.Notifications;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
-using Bikewale.Entities.Used;
 using BikewaleOpr.Interface.Used;
+using System;
+using System.Web.Http;
 
 namespace BikewaleOpr.Service.Controllers.Used
 {
@@ -26,26 +22,22 @@ namespace BikewaleOpr.Service.Controllers.Used
         ///  Summary    : To get all edited used sell inquiries pending approval
         /// </summary>
         /// <returns></returns>
-        [HttpGet, Route("api/used/sell/pendinginquiries/")]
-        public IHttpActionResult GetClassifiedPendingInquiries()
-        {
-            IEnumerable<SellBikeAd> objPending = null;
-            try
-            {
-
-                objPending = _objSellBikes.GetClassifiedPendingInquiries();
-
-                return Ok(objPending);
-                
-                
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "UsedBikesController.GetClassifiedPendingInquiries");
-                objErr.SendMail();
-                return InternalServerError();
-            }
-        }
+        //[HttpGet, Route("api/used/sell/pendinginquiries/")]
+        //public IHttpActionResult GetClassifiedPendingInquiries()
+        //{
+        //    IEnumerable<SellBikeAd> objPending = null;
+        //    try
+        //    {
+        //        objPending = _objSellBikes.GetClassifiedPendingInquiries();
+        //        return Ok(objPending);                
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ErrorClass objErr = new ErrorClass(ex, "UsedBikesController.GetClassifiedPendingInquiries");
+        //        objErr.SendMail();
+        //        return InternalServerError();
+        //    }
+        //}
         /// <summary>
         ///  Created by : Aditi Srivastava on 24 Oct 2016
         ///  Summary    : To update edited entries
@@ -54,17 +46,17 @@ namespace BikewaleOpr.Service.Controllers.Used
         /// <param name="isApproved"></param>
         /// <param name="approvedBy"></param>
         /// <returns></returns>
-        [HttpPost, Route("api/used/sell/pendinginquiries/{inquiryId}/{isApproved}/{approvedBy}")]
-        public IHttpActionResult SaveEditedInquiry(uint inquiryId, short isApproved, int approvedBy)
+        [HttpPost, Route("api/used/sell/pendinginquiries/{inquiryId}/")]
+        public IHttpActionResult SaveEditedInquiry(uint inquiryId, short isApproved, int approvedBy, string profileid, string bikeName)
         {
             bool isSuccess = false;
             try
             {
-                isSuccess = _objSellBikes.SaveEditedInquiry(inquiryId,isApproved,approvedBy);
+                isSuccess = _objSellBikes.SaveEditedInquiry(inquiryId, isApproved, approvedBy);
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex,  String.Format("UsedBikesController.SaveEditedInquiry: InquiryId:{0}, IsApproved:{1}, Approvedby{2}",inquiryId,isApproved,approvedBy));
+                ErrorClass objErr = new ErrorClass(ex, String.Format("UsedBikesController.SaveEditedInquiry: InquiryId:{0}, IsApproved:{1}, Approvedby{2}, profileid {3}", inquiryId, isApproved, approvedBy, profileid));
                 objErr.SendMail();
                 return InternalServerError();
             }

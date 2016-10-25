@@ -13,6 +13,7 @@ namespace BikewaleOpr.classified
     public class VerifyEditedListing : System.Web.UI.Page
     {
         protected Repeater rptPendingEditedListing;
+        protected IEnumerable<SellBikeAd> sellListing;
 
         protected override void OnInit(EventArgs e)
         {
@@ -33,7 +34,7 @@ namespace BikewaleOpr.classified
                     container.RegisterType<ISellBikes, SellBikes>();
                     container.RegisterType<ISellerRepository, SellerRepository>();
                     ISellBikes objSellBikes = container.Resolve<ISellBikes>();
-                    IEnumerable<SellBikeAd> sellListing = objSellBikes.GetClassifiedPendingInquiries();
+                    sellListing = objSellBikes.GetClassifiedPendingInquiries();
                 }
             }
             catch (Exception ex)

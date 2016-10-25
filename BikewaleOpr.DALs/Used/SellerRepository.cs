@@ -82,10 +82,11 @@ namespace BikewaleOpr.Used
                             while (dr.Read()) 
                             {
                                 SellBikeAd ad = new SellBikeAd();
-
-                                ad.InquiryId = SqlReaderConvertor.ToUInt32(dr["InquiryId"]);
                                 ad.Version = new Bikewale.Entities.BikeData.BikeVersionEntityBase();
-                                ad.Version.VersionName=Convert.ToString(dr["BikeName"]);
+                                ad.InquiryId = SqlReaderConvertor.ToUInt32(dr["InquiryId"]);
+                                ad.ProfileId = Convert.ToString(dr["ProfileId"]);
+                                ad.Version = new Bikewale.Entities.BikeData.BikeVersionEntityBase();
+                                ad.Version.VersionName = Convert.ToString(dr["BikeName"]);
                                 ad.KiloMeters = SqlReaderConvertor.ToUInt32(dr["Kilometers"]);
                                 ad.Expectedprice = SqlReaderConvertor.ToUInt64(dr["Price"]);
                                 ad.ManufacturingYear = SqlReaderConvertor.ToDateTime(dr["MakeYear"]);

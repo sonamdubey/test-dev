@@ -9,6 +9,8 @@ namespace Bikewale.DTO.UsedBikes
     /// </summary>
     public class SellBikeAdDTO
     {
+        [JsonProperty("profileId")]
+        public string ProfileId { get; set; }
         [Required]
         [JsonProperty("versionId")]
         public ushort? VersionId { get; set; }
