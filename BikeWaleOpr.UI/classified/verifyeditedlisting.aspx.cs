@@ -8,8 +8,12 @@ using System;
 using System.Collections.Generic;
 using System.Web.UI.WebControls;
 
-namespace BikewaleOpr.classified
+namespace BikewaleOpr.Classified
 {
+    /// <summary>
+    /// Created by: Sangram Nandkhile on 25 Oct 2016
+    /// Summary: Webpage to approve/reject edited listings
+    /// </summary>
     public class VerifyEditedListing : System.Web.UI.Page
     {
         protected Repeater rptPendingEditedListing;

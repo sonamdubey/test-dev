@@ -1,4 +1,6 @@
-﻿using Enyim.Caching;
+﻿using Bikewale.Notifications;
+using Enyim.Caching;
+using System;
 
 namespace BikewaleOpr.BAL
 {
@@ -20,9 +22,10 @@ namespace BikewaleOpr.BAL
                 }
                 _mc.Remove(key);
             }
-            catch
+            catch(Exception ex)
             {
-
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.BAL.MemCachedUtil");
+                objErr.SendMail();
             }
         }
     }

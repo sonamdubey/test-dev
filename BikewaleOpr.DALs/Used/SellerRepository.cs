@@ -66,7 +66,7 @@ namespace BikewaleOpr.Used
         /// </summary>
         public IEnumerable<SellBikeAd> GetClassifiedPendingInquiries()
         {
-            List<SellBikeAd> sellerListing = null;
+            IList<SellBikeAd> sellerListing = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getclassifiedpendinginquiries"))
@@ -79,7 +79,7 @@ namespace BikewaleOpr.Used
                         sellerListing = new List<SellBikeAd>();
                         if (dr != null)
                         {
-                            while (dr.Read()) 
+                            while (dr.Read())
                             {
                                 SellBikeAd ad = new SellBikeAd();
                                 ad.Version = new Bikewale.Entities.BikeData.BikeVersionEntityBase();
@@ -107,7 +107,8 @@ namespace BikewaleOpr.Used
             return sellerListing;
         }
         /// <summary>
-        /// 
+        /// Created by : Aditi S on 25 Oct 2016
+        /// Summary: To approve/ reject listing
         /// </summary>
         /// <param name="inquiryId"></param>
         /// <param name="isApproved"></param>
@@ -132,7 +133,7 @@ namespace BikewaleOpr.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("SaveEditedInquiry: InquiryId:{0}, IsApproved:{1}, Approvedby{2}",inquiryId,isApproved,approvedBy));
+                ErrorClass objErr = new ErrorClass(ex, String.Format("SaveEditedInquiry: InquiryId:{0}, IsApproved:{1}, Approvedby{2}", inquiryId, isApproved, approvedBy));
                 objErr.SendMail();
             }
             return isSuccess;

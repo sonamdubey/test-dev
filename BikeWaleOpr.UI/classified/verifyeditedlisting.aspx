@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.classified.VerifyEditedListing" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" EnableViewState="false" Inherits="BikewaleOpr.Classified.VerifyEditedListing" %>
 <%@ Import Namespace="BikeWaleOpr.Common" %>
 
 <!-- #Include file="/includes/headerNew.aspx" -->

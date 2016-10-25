@@ -1,14 +1,13 @@
-﻿using BikeWaleOPR.Utilities;
+﻿using Bikewale.Entities.Used;
+using Bikewale.Notifications;
+using BikewaleOpr.Interface.Used;
+using BikewaleOpr.Used;
 using MySql.CoreDAL;
 using System;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
-using Bikewale.Notifications;
-using BikewaleOpr.Interface.Used;
-using Bikewale.Entities.Used;
-using BikewaleOpr.Used;
 /// <summary>
 /// Created By Sanjay Soni ON 1/10/2014
 /// </summary>
@@ -341,10 +340,10 @@ namespace BikeWaleOpr.Classified
         /// Description: Added function to send email to seller when listing is approved
         /// </summary>
         /// <param name="profileId"></param>
-        public bool ApproveListing(int inquiryId,string bikeName, string profileId)
+        public bool ApproveListing(int inquiryId, string bikeName, string profileId)
         {
             bool isSuccess = false;
-            
+
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
@@ -355,11 +354,12 @@ namespace BikeWaleOpr.Classified
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId));
 
 
-                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                     isSuccess = true;
-                   
+
                     UsedBikeSellerBase seller = _objSellerRepository.GetSellerDetails(inquiryId, false);
-                    SendEmailSMSToDealerCustomer.UsedBikeApprovalEmailToIndividual(seller.Details, profileId, bikeName);
+                    if (seller != null)
+                        SendEmailSMSToDealerCustomer.UsedBikeApprovalEmailToIndividual(seller.Details, profileId, bikeName);
                 }
             }
             catch (SqlException ex)
@@ -402,10 +402,11 @@ namespace BikeWaleOpr.Classified
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId));
 
 
-                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                     isSuccess = true;
                     UsedBikeSellerBase seller = _objSellerRepository.GetSellerDetails(inquiryId, false);
-                    SendEmailSMSToDealerCustomer.UsedBikeRejectionEmailToSeller(seller.Details, profileId, bikeName);
+                    if (seller != null)
+                        SendEmailSMSToDealerCustomer.UsedBikeRejectionEmailToSeller(seller.Details, profileId, bikeName);
                 }
             }
             catch (SqlException ex)
@@ -445,7 +446,7 @@ namespace BikeWaleOpr.Classified
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_photoidlist", DbType.String, photoIdList));
 
 
-                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException ex)
@@ -482,7 +483,7 @@ namespace BikeWaleOpr.Classified
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_photoidlist", DbType.String, photoIdList));
 
 
-                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException ex)
@@ -519,7 +520,7 @@ namespace BikeWaleOpr.Classified
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_custidlist", DbType.String, CustIdList));
 
 
-                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException ex)

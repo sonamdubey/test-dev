@@ -17,27 +17,7 @@ namespace BikewaleOpr.Service.Controllers.Used
         {
             _objSellBikes = objSellBikes;
         }
-        /// <summary>
-        ///  Created by : Aditi Srivastava on 24 Oct 2016
-        ///  Summary    : To get all edited used sell inquiries pending approval
-        /// </summary>
-        /// <returns></returns>
-        //[HttpGet, Route("api/used/sell/pendinginquiries/")]
-        //public IHttpActionResult GetClassifiedPendingInquiries()
-        //{
-        //    IEnumerable<SellBikeAd> objPending = null;
-        //    try
-        //    {
-        //        objPending = _objSellBikes.GetClassifiedPendingInquiries();
-        //        return Ok(objPending);                
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ErrorClass objErr = new ErrorClass(ex, "UsedBikesController.GetClassifiedPendingInquiries");
-        //        objErr.SendMail();
-        //        return InternalServerError();
-        //    }
-        //}
+
         /// <summary>
         ///  Created by : Aditi Srivastava on 24 Oct 2016
         ///  Summary    : To update edited entries
