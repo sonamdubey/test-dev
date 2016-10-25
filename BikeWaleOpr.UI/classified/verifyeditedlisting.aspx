@@ -45,7 +45,7 @@ var userid = '<%= CurrentUser.Id %>';
       $('#detailed_edit_row').html('<td colspan=7 class="greenMsg">This listing has been approved</td>').animate({ left: '250px' });
   });
     $('td #btnDiscard').click(function () {
-        debugger;
+        //debugger;
       acceptReject($(this), 0);
       $('#detailed_edit_row').html('<td colspan=7 class="redMsg">This listing has been discarded </td>').animate({ left: '250px' });
   });
@@ -54,7 +54,7 @@ var userid = '<%= CurrentUser.Id %>';
       var selInquiry = (btn).attr('data-attr-id');
       var profileId = (btn).attr('data-attr-profileid');
       var bikename = (btn).attr('data-attr-bikename');
-      var uri = BwOprHostUrl + "/api/used/sell/pendinginquiries/" + selInquiry + "/?isApproved=" + status + "&approvedBy=" + userid + "&profileid=" + profileId + "&bikeName=" + bikename;
+      var uri = BwOprHostUrl + "/api/used/sell/pendinginquiries/" + selInquiry + "/?isApproved=" + status + "&approvedBy=" + userid + "&profileId=" + profileId + "&bikeName=" + bikename;
       console.log(uri);
         $.ajax({
             type: "POST",
