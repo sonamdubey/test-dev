@@ -312,6 +312,8 @@ namespace Bikewale.BAL.Used.Search
 
         /// <summary>
         /// Function to get the select clause for the search query
+        /// Modified by :   Sumit Kate on 25 Oct 2016
+        /// Description :   Added LastUpdated in select clause
         /// </summary>
         /// <returns></returns>
         private string GetSelectClause()
@@ -328,7 +330,7 @@ namespace Bikewale.BAL.Used.Search
 	                            year(ll.makeyear) bikeyear, monthname(ll.makeyear) bikemonth,
 	                            ifnull(ll.photocount, 0) as photocount , 
 	                            ll.hosturl, ll.originalimagepath,
-                                ll.color ";
+                                ll.color, ll.LastUpdated ";
             }
             catch (Exception ex)
             {
@@ -407,7 +409,7 @@ namespace Bikewale.BAL.Used.Search
                         orderBy = " ll.kilometers desc ";
                         break;
                     default:
-                        orderBy = " date(ll.LastUpdated) desc, ifnull(ll.photocount, 0) desc ";
+                        orderBy = " date(ll.LastUpdated) desc, LastUpdated desc, ifnull(ll.photocount, 0) desc ";
                         break;
                 }
             }
