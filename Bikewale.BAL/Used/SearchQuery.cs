@@ -389,7 +389,6 @@ namespace Bikewale.BAL.Used.Search
                     case 1:
                         orderBy = " ll.LastUpdated desc "; //most recent
                         break;
-
                     case 2:
                         orderBy = " ll.Price asc "; //low to high
                         break;
@@ -405,9 +404,8 @@ namespace Bikewale.BAL.Used.Search
                     case 5:
                         orderBy = " ll.kilometers desc ";
                         break;
-
                     default:
-                        orderBy = " ll.LastUpdated desc ";
+                        orderBy = " date(ll.LastUpdated) desc, ifnull(ll.photocount, 0) desc "; //most recent                    
                         break;
                 }
             }
