@@ -409,7 +409,7 @@ namespace Bikewale.BAL.Used.Search
                         orderBy = " ll.kilometers desc ";
                         break;
                     default:
-                        orderBy = " date(ll.LastUpdated) desc, LastUpdated desc, ifnull(ll.photocount, 0) desc ";
+                        orderBy = " date(ll.LastUpdated) desc, case when photocount > 0 then photocount end desc ";
                         break;
                 }
             }
