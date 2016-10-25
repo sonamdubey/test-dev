@@ -123,7 +123,5 @@ namespace BikewaleOpr.BAL.ContractCampaign
             }
             return isCampaignContractAdded;
         }
-
-
     }
 }

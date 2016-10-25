@@ -18,7 +18,7 @@
                     <th style="font-size: 13px">Price</th>
                     <th style="font-size: 13px">Manufacturing Year</th>
                     <th style="font-size: 13px;">Photos</th>
-                    <th colspan="2" style="font-size: 13px">Listing Status</th>
+                    <th colspan="3" style="width:200px;font-size: 13px">Listing Status</th>
                 </tr>
                 <% foreach(var listing in sellListing) { %>
                 <tr class="dtItem" id="detailed_edit_row">
@@ -29,7 +29,7 @@
                     <td><%=listing.ManufacturingYear.Year %></td>
                     <td><input id="btnLView" onclick ="<%= string.Format("javascript:window.open('/classified/listingphotos.aspx?profileid={0}','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')", listing.InquiryId) %>" <%= listing.PhotoCount > 0 ? "" : "style='display:none;'" %> type="button" value ="View Photos"  /></td>
                     <td>
-                        <input data-attr-id="<%=listing.InquiryId %>" data-attr-profileid="<%=listing.ProfileId %>" data-attr-bikename="<%=listing.Version.VersionName %>" id="btnApprove" type="button" value="Approve" /><input id="btnDiscard" type="button" value="Discard" />
+                        <input data-attr-id="<%=listing.InquiryId %>" data-attr-profileid="<%=listing.ProfileId %>" data-attr-bikename="<%=listing.Version.VersionName %>" id="btnApprove" type="button" value="Approve" /><input id="btnDiscard" type="button" value="Discard" data-attr-id="<%=listing.InquiryId %>" data-attr-profileid="<%=listing.ProfileId %>" data-attr-bikename="<%=listing.Version.VersionName %>" />
                     </td>
                 </tr>
                    <% } %>
