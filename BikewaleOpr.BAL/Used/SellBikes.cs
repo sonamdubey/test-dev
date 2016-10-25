@@ -39,7 +39,10 @@ namespace BikewaleOpr.BAL.Used
                 UsedBikeSellerBase seller = _sellerRepo.GetSellerDetails((int)inquiryId, false);
                 if (seller != null)
                 {
+                    if(isApproved==0)
                     SendEmailSMSToDealerCustomer.UsedBikeRejectionEmailToSeller(seller.Details, profileId, bikeName);
+                    else
+                    SendEmailSMSToDealerCustomer.UsedBikeApprovalEmailToIndividual(seller.Details, profileId, bikeName);
                 }
             }
             return isSuccess;

@@ -29,7 +29,7 @@
                     <td><%=listing.ManufacturingYear.Year %></td>
                     <td><input id="btnLView" onclick ="<%= string.Format("javascript:window.open('/classified/listingphotos.aspx?profileid={0}','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')", listing.InquiryId) %>" <%= listing.PhotoCount > 0 ? "" : "style='display:none;'" %> type="button" value ="View Photos"  /></td>
                     <td>
-                        <input data-attr-id="<%=listing.InquiryId %>" data-attr-profileid="<%=listing.ProfileId %>" data-attr-bikename="<%=listing.Version.VersionName %>" id="btnApprove" type="button" value="Approve" /><input id="btnDiscard" type="button" value="Discard" />
+                        <input data-attr-id="<%=listing.InquiryId %>" data-attr-profileid="<%=listing.ProfileId %>" data-attr-bikename="<%=listing.Version.VersionName %>" id="btnApprove" type="button" value="Approve" /><input data-attr-id="<%=listing.InquiryId %>" data-attr-profileid="<%=listing.ProfileId %>" data-attr-bikename="<%=listing.Version.VersionName %>" id="btnDiscard" type="button" value="Discard" />
                     </td>
                 </tr>
                    <% } %>
@@ -45,7 +45,7 @@ var userid = '<%= CurrentUser.Id %>';
       $('#detailed_edit_row').html('<td colspan=7 class="greenMsg">This listing has been approved</td>').animate({ left: '250px' });
   });
     $('td #btnDiscard').click(function () {
-        debugger;
+        //debugger;
       acceptReject($(this), 0);
       $('#detailed_edit_row').html('<td colspan=7 class="redMsg">This listing has been discarded </td>').animate({ left: '250px' });
   });
@@ -54,7 +54,7 @@ var userid = '<%= CurrentUser.Id %>';
       var selInquiry = (btn).attr('data-attr-id');
       var profileId = (btn).attr('data-attr-profileid');
       var bikename = (btn).attr('data-attr-bikename');
-      var uri = BwOprHostUrl + "/api/used/sell/pendinginquiries/" + selInquiry + "/?isApproved=" + status + "&approvedBy=" + userid + "&profileid=" + profileId + "&bikeName=" + bikename;
+      var uri = BwOprHostUrl + "/api/used/sell/pendinginquiries/" + selInquiry + "/?isApproved=" + status + "&approvedBy=" + userid + "&profileId=" + profileId + "&bikeName=" + bikename;
       console.log(uri);
         $.ajax({
             type: "POST",
