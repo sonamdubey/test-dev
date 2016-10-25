@@ -312,6 +312,8 @@ namespace Bikewale.BAL.Used.Search
 
         /// <summary>
         /// Function to get the select clause for the search query
+        /// Modified by :   Sumit Kate on 25 Oct 2016
+        /// Description :   Added LastUpdated in select clause
         /// </summary>
         /// <returns></returns>
         private string GetSelectClause()
