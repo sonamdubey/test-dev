@@ -131,23 +131,27 @@ namespace BikeWaleOpr.Classified
         /// <summary>
         /// Created By : Sanjay Soni ON 30/9/2014
         /// Description : To Approve listing
+        /// Modified By : Aditi Srivastava on 20 Oct 2016
+        /// Description : changed parameters to inquiry Id (cust id), bikename and profile id
         /// </summary>
         /// <param name="custid"></param>
-        protected void ApproveListing(int custid)
+        protected void ApproveListing(int inquiryId, string bikeName, string profileId)
         {
             ClassifiedCommon cc = new ClassifiedCommon();
-            cc.ApproveListing(custid);
+            cc.ApproveListing(inquiryId, bikeName, profileId);
         }
 
         /// <summary>
         /// Created By : Sanjay Soni ON 30/9/2014
         /// Description : To Discard listing
+        /// Modified By : Aditi Srivastava on 20 Oct 2016
+        /// Description : changed parameters to inquiry Id , bikename and profile id
         /// </summary>
         /// <param name="custid"></param>
-        protected void DiscardListing(int custid)
+        protected void DiscardListing(int inquiryId, string bikeName, string profileId)
         {
             ClassifiedCommon cc = new ClassifiedCommon();
-            cc.DiscardListing(custid);
+            cc.DiscardListing(inquiryId, bikeName, profileId);
         }
     } // END CLASS
 } // END NAMESPACE

@@ -8,6 +8,7 @@
     .tdStyle { background-color:#d4d4d4; text-align:left;height:30px;}
     #totalListing th {color:black;}
 </style>
+<link rel="stylesheet" href="/css/common.css?03102016" type="text/css" />
 <div style="padding:5px;">
     <table id=totalListing border="1" class="tableViw"  style="border-width:1px;text-align:center;border-style:solid;border-collapse:collapse;border-spacing:0;">
         <tbody>
@@ -49,8 +50,8 @@
                         <td><%# DataBinder.Eval(Container.DataItem,"InsuranceExpiryDate","{0:MMM-yyyy}")%></td>
                         <td><%# DataBinder.Eval(Container.DataItem,"LifetimeTax")%></td>
                         <td><%# DataBinder.Eval(Container.DataItem,"EntryDate","{0:dd-MMM-yyyy}")%></td>
-                        <td><input id="btnLView" onclick ="<%# string.Format("javascript:window.open('/classified/listingphotos.aspx?profileid={0}','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')",DataBinder.Eval(Container.DataItem,"ProfileId").ToString()) %>"  <%# (Convert.ToInt32(DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0) ? "" : "style='display:none;'" %> type="button" value ="View Photos"  /></td>
-                        <td><input class="discardList" id="btnLDiscard" type="button" value ="Discard" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" /></td>
+                        <td><input id="btnLView" onclick ="<%# string.Format("javascript:window.open('/classified/listingphotos.aspx?profileid={0}','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')",DataBinder.Eval(Container.DataItem,"InquiryId").ToString()) %>"  <%# (Convert.ToInt32(DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0) ? "" : "style='display:none;'" %> type="button" value ="View Photos"  /></td>
+                        <td><input class="discardList" id="btnLDiscard" type="button" value ="Discard" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/></td>
                     </tr>
                 </ItemTemplate>
             </asp:Repeater>
@@ -73,9 +74,9 @@
                         <td><%# DataBinder.Eval(Container.DataItem,"InsuranceExpiryDate","{0:MMM-yyyy}")%></td>
                         <td><%# DataBinder.Eval(Container.DataItem,"LifetimeTax")%></td>
                         <td><%# DataBinder.Eval(Container.DataItem,"EntryDate","{0:dd-MMM-yyyy}")%></td>
-                        <td><input id="btnPView" onclick ="javascript:window.open('/classified/listingphotos.aspx?profileid=<%# DataBinder.Eval(Container.DataItem,"ProfileId")%>    ','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')" type="button" value ="View Photos" <%# (Convert.ToInt32(DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0) ? "" : "style='display:none;'" %> /></td>
-                        <td><input class="approveList" id="btnPApprove" type="button" value ="Approve" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" />
-                       <input class="discardList" id="btnPDiscard" type="button" value ="Discard" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" /></td>
+                        <td><input id="btnPView" onclick ="javascript:window.open('/classified/listingphotos.aspx?profileid=<%# DataBinder.Eval(Container.DataItem,"InquiryId")%>    ','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')" type="button" value ="View Photos" <%# (Convert.ToInt32(DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0) ? "" : "style='display:none;'" %> /></td>
+                        <td><input class="approveList" id="btnPApprove" type="button" value ="Approve" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>" />
+                       <input class="discardList" id="btnPDiscard" type="button" value ="Discard" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/></td>
                     </tr>
                 </ItemTemplate>
             </asp:Repeater>
@@ -98,8 +99,8 @@
                         <td><%# DataBinder.Eval(Container.DataItem,"InsuranceExpiryDate","{0:MMM-yyyy}")%></td>
                         <td><%# DataBinder.Eval(Container.DataItem,"LifetimeTax")%></td>
                         <td><%# DataBinder.Eval(Container.DataItem,"EntryDate","{0:dd-MMM-yyyy}")%></td>
-                        <td><input id="btnFView" type="button" onclick ="javascript:window.open('/classified/listingphotos.aspx?profileid=<%# DataBinder.Eval(Container.DataItem,"ProfileId")%>    ','','left=0,top=0,width=1350,height=660,resizable=0,scrollbars=yes')" value ="View Photos" <%# (Convert.ToInt32(DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0) ? "" : "style='display:none;'" %> /></td>
-                        <td><input class="approveList" id="btnFApprove" type="button" value ="Approve" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" /></td>
+                        <td><input id="btnFView" type="button" onclick ="javascript:window.open('/classified/listingphotos.aspx?profileid=<%# DataBinder.Eval(Container.DataItem,"InquiryId")%>    ','','left=0,top=0,width=1350,height=660,resizable=0,scrollbars=yes')" value ="View Photos" <%# (Convert.ToInt32(DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0) ? "" : "style='display:none;'" %> /></td>
+                        <td><input class="approveList" id="btnFApprove" type="button" value ="Approve" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/></td>
                     </tr>
                 </ItemTemplate>
             </asp:Repeater>
@@ -122,9 +123,9 @@
                         <td><%# DataBinder.Eval(Container.DataItem,"InsuranceExpiryDate","{0:MMM-yyyy}")%></td>
                         <td><%# DataBinder.Eval(Container.DataItem,"LifetimeTax")%></td>
                         <td><%# DataBinder.Eval(Container.DataItem,"EntryDate","{0:dd-MMM-yyyy}")%></td>
-                        <td><input id="btnUView" type="button" onclick ="javascript:window.open('/classified/listingphotos.aspx?profileid=<%# DataBinder.Eval(Container.DataItem,"ProfileId")%>    ','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')" value ="View Photos" <%# (Convert.ToInt32(DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0) ? "" : "style='display:none;'" %> /></td>
-                        <td><input class="approveList" id="btnUApprove" type="button" value ="Approve" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" />
-                        <input class="discardList" id="btnUDiscard" type="button" value ="Discard" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" /></td>
+                        <td><input id="btnUView" type="button" onclick ="javascript:window.open('/classified/listingphotos.aspx?profileid=<%# DataBinder.Eval(Container.DataItem,"InquiryId")%>    ','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')" value ="View Photos" <%# (Convert.ToInt32(DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0) ? "" : "style='display:none;'" %> /></td>
+                        <td><input class="approveList" id="btnUApprove" type="button" value ="Approve" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>"inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>" />
+                        <input class="discardList" id="btnUDiscard" type="button" value ="Discard" bikeName="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" inquiryId="<%# DataBinder.Eval( Container.DataItem, "InquiryId")%>"/></td>
                     </tr>
                 </ItemTemplate>
             </asp:Repeater>
@@ -147,7 +148,7 @@
                         <td><%# DataBinder.Eval(Container.DataItem,"InsuranceExpiryDate","{0:MMM-yyyy}")%></td>
                         <td><%# DataBinder.Eval(Container.DataItem,"LifetimeTax")%></td>
                         <td><%# DataBinder.Eval(Container.DataItem,"EntryDate","{0:dd-MMM-yyyy}")%></td>
-                        <td><input id="btnSView" type="button" onclick ="javascript:window.open('/classified/listingphotos.aspx?profileid=<%# DataBinder.Eval(Container.DataItem,"ProfileId")%>    ','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')" value ="View Photos"<%# (Convert.ToInt32(DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0) ? "" : "style='display:none;'" %> /></td>
+                        <td><input id="btnSView" type="button" onclick ="javascript:window.open('/classified/listingphotos.aspx?profileid=<%# DataBinder.Eval(Container.DataItem,"InquiryId")%>    ','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')" value ="View Photos"<%# (Convert.ToInt32(DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0) ? "" : "style='display:none;'" %> /></td>
                         <td></td>
                     </tr>
                 </ItemTemplate>
@@ -181,11 +182,13 @@
 
     $(".approveList").click(function(){
         var profileId = $(this).attr("profileId");
+        var bikeName=$(this).attr("bikeName");
+        var inquiryId=$(this).attr("inquiryId");
         if (confirm("Are you sure you want to approve Inquiry?") == true) {
             $.ajax({
                 type: "POST",
                 url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
-                data: '{"profileId":"' + profileId + '"}',
+                data: '{"profileId":"' + profileId + '", "bikeName":"' + bikeName + '", "inquiryId":"' + inquiryId + '"}',
                 beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ApproveListing"); },
                 success: function (response) {
                     alert("Enquiry Approved Successfully!");
@@ -197,11 +200,13 @@
 
     $(".discardList").click(function(){
         var profileId = $(this).attr("profileId");
+        var bikeName=$(this).attr("bikeName");
+        var inquiryId=$(this).attr("inquiryId");
         if (confirm("Are you sure you want to discard Inquiry?") == true) {
             $.ajax({
                 type: "POST",
                 url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
-                data: '{"profileId":"' + profileId + '"}',
+                data: '{"profileId":"' + profileId + '", "bikeName":"' + bikeName + '", "inquiryId":"' + inquiryId + '"}',
                 beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "DiscardListing"); },
                 success: function (response) {
                     alert("Inquiry Discarded Successfully!");
