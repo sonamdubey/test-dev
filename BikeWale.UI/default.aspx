@@ -29,7 +29,6 @@
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css">
-
     <%  isTransparentHeader = true;
     %>
 </head>
@@ -281,7 +280,7 @@
         <section class="margin-bottom50">
             <!--  Compare section code starts here -->
             <div class="container">
-                <h2 class="text-bold text-center margin-top40 margin-bottom20 font22">Compare bikes</h2>
+                <h2 class="text-bold text-center margin-top40 margin-bottom30 font22">Compare bikes</h2>
                 <BW:CompareBikes ID="ctrlCompareBikes" runat="server" />
             </div>
         </section>
