@@ -13,6 +13,7 @@ namespace Bikewale.Entities.Used
         public BikeData.BikeMakeEntityBase Make { get; set; }
         public BikeData.BikeModelEntityBase Model { get; set; }
         public BikeData.BikeVersionEntityBase Version { get; set; }
+        public BikeData.BikeVersionEntityBase NewVersion { get; set; }
         public DateTime ManufacturingYear { get; set; }
         public uint KiloMeters { get; set; }
         public uint CityId { get; set; }

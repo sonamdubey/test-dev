@@ -86,7 +86,9 @@ namespace BikewaleOpr.Used
                                 ad.InquiryId = SqlReaderConvertor.ToUInt32(dr["InquiryId"]);
                                 ad.ProfileId = Convert.ToString(dr["ProfileId"]);
                                 ad.Version = new Bikewale.Entities.BikeData.BikeVersionEntityBase();
-                                ad.Version.VersionName = Convert.ToString(dr["BikeName"]);
+                                ad.Version.VersionName = Convert.ToString(dr["LiveBikeName"]);
+                                ad.NewVersion = new Bikewale.Entities.BikeData.BikeVersionEntityBase();
+                                ad.NewVersion.VersionName = Convert.ToString(dr["NewVersion"]);
                                 ad.KiloMeters = SqlReaderConvertor.ToUInt32(dr["Kilometers"]);
                                 ad.Expectedprice = SqlReaderConvertor.ToUInt64(dr["Price"]);
                                 ad.ManufacturingYear = SqlReaderConvertor.ToDateTime(dr["MakeYear"]);
@@ -119,7 +121,7 @@ namespace BikewaleOpr.Used
             bool isSuccess = false;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("saveapprovallog"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("saveclassifiedapprovallog"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId));

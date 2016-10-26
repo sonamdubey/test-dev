@@ -6,33 +6,35 @@
         <!-- #Include file="classifiedMenu.aspx" -->
 </div>
 <div class="left min-height600" id="divManagePrices">
-    <h1>Verify Edited Listing</h1>
+    <h1>Verify Edited Used Bikes Listings</h1>
 
     <div class="margin-top10 floatLeft" style="width: 850px; display: inline-block;">
         <table class="table-bordered" cellspacing="0" cellpadding="5">
             <tbody>
                 <tr class="dtHeader">
                     <th style="font-size: 13px">Profile Id</th>
-                    <th style="font-size: 13px">Version</th>
+                    <th style="font-size: 13px">Live Bike Name</th>
+                    <th style="font-size: 13px">Edited Version</th>
                     <th style="font-size: 13px">Kms ridden</th>
                     <th style="font-size: 13px">Price</th>
                     <th style="font-size: 13px">Manufacturing Year</th>
                     <th style="font-size: 13px;">Photos</th>
-                    <th colspan="3" style="width:200px;font-size: 13px">Listing Status</th>
+                    <th colspan="3" style="width:210px;font-size: 13px">Listing Status</th>
                 </tr>
                 <% foreach(var listing in sellListing) { %>
-                <tr class="dtItem" id="detailed_edit_row">
+                <tr class="dtItem text-align-center" id="detailed_edit_row">
                     <td><%=listing.InquiryId %></td>
-                    <td><%=listing.Version.VersionName %></td>
-                    <td><%=listing.KiloMeters %></td>
-                    <td><%=listing.Expectedprice %></td>
-                    <td><%=listing.ManufacturingYear.Year %></td>
+                    <td><%=String.IsNullOrEmpty(listing.Version.VersionName)?"-":listing.Version.VersionName %></td>
+                    <td><%=String.IsNullOrEmpty(listing.NewVersion.VersionName)?"-":listing.NewVersion.VersionName %></td>
+                    <td><%=(listing.KiloMeters==0)?"-":listing.KiloMeters.ToString() %></td>
+                    <td><%=(listing.Expectedprice==0)?"-": listing.Expectedprice.ToString()%></td>
+                    <td><%=listing.ManufacturingYear.Equals(default(DateTime)) ? "-" : String.Format("{0} {1}",listing.ManufacturingYear.ToString("MMMM"), listing.ManufacturingYear.Year.ToString()) %></td>
                     <td>
                         <%if( listing.PhotoCount > 0 ) { %>
                         <input id="btnLView" onclick ="<%= string.Format("javascript:window.open('/classified/listingphotos.aspx?profileid={0}','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')", listing.InquiryId) %>"  type="button" value ="View Photos"  /></td>
                     <% } %>
-                    <td>
-                        <input data-attr-id="<%=listing.InquiryId %>" data-attr-profileid="<%=listing.ProfileId %>" data-attr-bikename="<%=listing.Version.VersionName %>" id="btnApprove" type="button" value="Approve" /><input id="btnDiscard" type="button" value="Discard" data-attr-id="<%=listing.InquiryId %>" data-attr-profileid="<%=listing.ProfileId %>" data-attr-bikename="<%=listing.Version.VersionName %>" />
+                    <td class="text-align-center">
+                        <input data-attr-id="<%=listing.InquiryId %>" data-attr-profileid="<%=listing.ProfileId %>" data-attr-bikename="<%=listing.Version.VersionName %>" id="btnApprove" type="button" value="Approve" /><input id="btnDiscard" class="margin-left5" type="button" value="Discard" data-attr-id="<%=listing.InquiryId %>" data-attr-profileid="<%=listing.ProfileId %>" data-attr-bikename="<%=listing.Version.VersionName %>" />
                     </td>
                 </tr>
                    <% } %>
