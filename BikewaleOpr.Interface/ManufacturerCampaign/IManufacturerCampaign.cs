@@ -1,6 +1,6 @@
 ﻿using BikewaleOpr.Entities;
-using BikewaleOpr.Entity.ContractCampaign;
-using BikewaleOpr.Entity.ManufacturerCampaign;
+using BikewaleOpr.Entities.ContractCampaign;
+using BikewaleOpr.Entities.ManufacturerCampaign;
 using System.Collections.Generic;
 
 namespace BikewaleOpr.Interface.ManufacturerCampaign
@@ -21,7 +21,7 @@ namespace BikewaleOpr.Interface.ManufacturerCampaign
         int InsertBWDealerCampaign(string description, int isActive, string maskingNumber, int dealerId, int userId);
         bool UpdateBWDealerCampaign(string description, int isActive, string maskingNumber, int dealerId, int userId, int campaignId, List<ManuCamEntityForTemplate> objList);
         bool SaveManufacturerCampaignTemplate(List<ManuCamEntityForTemplate> objList, int userId, int campaignId);
-        List<BikewaleOpr.Entity.ManufacturerCampaign.ManufacturerCampaignEntity> FetchCampaignDetails(int campaignId);
+        List<BikewaleOpr.Entities.ManufacturerCampaign.ManufacturerCampaignEntity> FetchCampaignDetails(int campaignId);
         bool ReleaseCampaignMaskingNumber(int campaignId);
     }
 }

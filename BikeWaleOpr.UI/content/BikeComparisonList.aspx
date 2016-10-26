@@ -1,395 +1,367 @@
 ﻿<%@ Page Language="C#" Inherits="BikeWaleOpr.Content.BikeComparisonList" AutoEventWireup="false" Trace="false" Debug="false" EnableEventValidation="false" %>
 
 <!-- #Include file="/includes/headerNew.aspx" -->
-<div class="urh">
-		You are here &raquo; <a href="/content/default.aspx">Contents</a> &raquo; Bike Comparison List
-</div>
 <div>
     <!-- #Include file="contentsMenu.aspx" -->
 </div>
-<style>
-    .Font_11 { font-size :11px;}
-    .txtWidth { width:30px;}
-    #imgCompPhoto { border:1px solid #000000; padding:5px; float:left; margin-top:5px;}
-    .ddlWidth { width:145px;}
-    .border { border: 1px solid #000000;}
-    .topMargin { margin-top:20px;}
-    .centreAlign { text-align:center;}
-</style>
-<%--<script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/AjaxFunctions.js"></script>--%>
-    <div class="left">
-	<h3>Bike Comparison List</h3><br />
+ <style>
+    #comparision-bike-selection{position: fixed; right: 20px;}
+     .model-img-content {
+    width: 110px;
+    height: 61px;
+    padding: 5px;
+    display:inline-block
+}
+     
+    
 
-            <fieldset style="white-space:nowrap;width:634px; float:left;">
-			<legend>Add Bikes to Compare</legend>
-		<table style="height:180px;">
-			<tr>
-				<td>Select Bike 1 <font color="red">*</font></td>
-				<td>
-					<asp:DropDownList class="ddlWidth" ID="drpMake1" runat="server"></asp:DropDownList>
-					<span style="font-weight:bold;color:red;" id="spndrpMake1" class="error" />
-			    </td>
-                <td>
-					<asp:DropDownList ID="drpModel1" Enabled="false" CssClass="drpClass ddlWidth" runat="server">
-						<asp:ListItem Text="--Select Model--" Value="-1" />
-					</asp:DropDownList>
-					<input type="hidden" id="hdn_drpModel1" runat="server" />
-                    <span style="font-weight:bold;color:red;" id="spndrpModel1" class="error" />
-			    </td>
-                <td>
-					<asp:DropDownList ID="drpVersion1" Enabled="false" CssClass="drpClass ddlWidth" runat="server">
+    table#tblBikeList tr td img:nth-child(even) {
+    border-right: 1px solid #ccc;
+}
+
+    .image_wrapper{
+        width:250px;
+        position:relative
+    }
+     .image_wrapper .vs-image{
+         position:absolute;
+         left: 112px;
+        top: 25px;
+    }
+
+
+    @media screen and (max-width: 600px) {
+    div#comparision-bike-selection{
+        position:static;
+    }
+
+}
+ </style>
+<div class="left">
+    <h1>Bike Comparison List</h1>
+
+    <div id="comparision-bike-selection" class="margin-top10">
+        <fieldset >
+            <legend><b>Add Bikes to Compare</b></legend>
+            <div class="margin-top10 text-bold">
+                Select Bike 1 <span style="color: red">*</span>
+            </div>
+            <div class="margin-top10 margin-bottom10 form-control-box">
+                <asp:dropdownlist class="ddlWidth" id="drpMake1" runat="server"></asp:dropdownlist>
+                <span class="bwsprite error-icon hide"></span>
+                <div class="bw-blackbg-tooltip hide">Please Select Make</div>
+            </div>
+            <div class="margin-top10 margin-bottom10 form-control-box">
+                <asp:dropdownlist id="drpModel1" enabled="false"  runat="server">
+                    <asp:ListItem Text="--Select Model--" Value="-1" />
+                </asp:dropdownlist>
+                <input type="hidden" id="hdn_drpModel1" runat="server" />
+                <span class="bwsprite error-icon hide"></span>
+                <div class="bw-blackbg-tooltip hide">Please Select Model</div>
+            </div>
+            <div class="margin-top10 margin-bottom10 form-control-box">
+                <asp:dropdownlist id="drpVersion1" enabled="false"  runat="server">
 						<asp:ListItem Text="--Select Version--" Value="-1" />
-					</asp:DropDownList>
-					<input type="hidden" id="hdn_drpVersion1" runat="server" />
-                    <span style="font-weight:bold;color:red;" id="spndrpVersion1" class="error" />
-			    </td>
-            </tr>
-            <tr>
-				<td>Select Bike 2 <font color="red">*</font></td>
-				<td>
-					<asp:DropDownList class="ddlWidth" ID="drpMake2" runat="server"></asp:DropDownList>
-					<span style="font-weight:bold;color:red;" id="spndrpMake2" class="error" />
-			    </td>
-                <td>
-					<asp:DropDownList ID="drpModel2" Enabled="false" CssClass="drpClass ddlWidth" runat="server">
+					</asp:dropdownlist>
+                <input type="hidden" id="hdn_drpVersion1" runat="server" />
+                <span class="bwsprite error-icon hide"></span>
+                <div class="bw-blackbg-tooltip hide">Please Select Version</div>
+            </div>
+            <hr />
+            <div class="margin-top10 text-bold">
+                Select Bike 2 <span style="color: red">*</span>
+            </div>
+            <div class="margin-top10 margin-bottom10 form-control-box">
+                <asp:dropdownlist class="ddlWidth" id="drpMake2" runat="server"></asp:dropdownlist>
+                <span class="bwsprite error-icon hide"></span>
+                <div class="bw-blackbg-tooltip hide">Please Select Make</div>
+            </div>
+            <div class="margin-top10 margin-bottom10 form-control-box">
+                <asp:dropdownlist id="drpModel2" enabled="false"  runat="server">
 						<asp:ListItem Text="--Select Model--" Value="-1" />
-					</asp:DropDownList>
-					<input type="hidden" id="hdn_drpModel2" runat="server" />
-                    <span style="font-weight:bold;color:red;" id="spndrpModel2" class="error" />
-			    </td>
-                <td>
-					<asp:DropDownList ID="drpVersion2" Enabled="false" CssClass="drpClass ddlWidth" runat="server">
+					</asp:dropdownlist>
+                <input type="hidden" id="hdn_drpModel2" runat="server" />
+                <span class="bwsprite error-icon hide"></span>
+                <div class="bw-blackbg-tooltip hide">Please Select Model</div>
+            </div>
+            <div class="margin-top10 margin-bottom10 form-control-box">
+                <asp:dropdownlist id="drpVersion2" enabled="false"  runat="server">
 						<asp:ListItem Text="--Select Version--" Value="-1" />
-					</asp:DropDownList>
-					<input type="hidden" id="hdn_drpVersion2" runat="server" />
-                    <span style="font-weight:bold;color:red;" id="spndrpVersion2" class="error" />
-			    </td>
+					</asp:dropdownlist>
+                <input type="hidden" id="hdn_drpVersion2" runat="server" />
+                <span class="bwsprite error-icon hide"></span>
+                <div class="bw-blackbg-tooltip hide">Please Select Version</div>
+            </div>
+            <hr />
+            <div class="margin-top10 margin-bottom10">
+                <div class="margin-top10 margin-bottom10">
+                    <input type="checkbox" id="chkIsActive" text="IsActive" checked="checked" runat="server" /> IsActive
+                </div>
+
+                    <asp:button id="btnSave" text="Save" runat="server" /> 
+
+                    <asp:button class="cancel" id="btnCancel" text="Cancel" runat="server" visible="false" />
+                
+
+                <div><span style="font-weight: bold; color: red;" id="spnbtnErr" class="error" />
+            </div>
+        </fieldset>
+    </div>
+     
+    <div class="margin-top10 floatLeft" style="width: 850px; display: inline-block;">
+        <table id="tblBikeList" class="table-bordered" cellspacing="0" cellpadding="5">
+            <tr class="dtHeader">
+                <th>S.No.</th>
+                <th>Image</th>
+                <th>Bike1</th>
+                <th>Bike2</th>
+                <th>Entry Date</th>
+                <th>Edit</th>
+                <th>Priority<br />
+                    <a id="lnkPriorities" style="cursor: pointer; text-decoration: underline;color:orange">Update</a></th>
+                <th>IsActive</th>
+                <th>Delete</th>
             </tr>
-            <tr>
-                <td></td>
-                <td><input class="Font_11" type="checkbox" id="chkIsActive" text="IsActive" checked="true" runat="server" /> IsActive</td>
-            </tr>
-            <tr>
-                <td><asp:button ID="btnSave"  text="Save" runat="server" /></td>
-                <td><asp:button ID="btnCancel" text="Cancel" runat="server" visible="false"/></td>
-                <td><span style="font-weight:bold;color:red;" id="spnbtnErr" class="error" /></td>
-			</tr>
-        </table></fieldset>
-            <fieldset>
-                <legend>Upload Compare Bike Photo</legend>
-                <table>
-                    <tr>
-                        <td colspan="2">
-                            <img id="imgCompPhoto" src="<%= BikeWaleOpr.ImagingOperations.GetPathToShowImages(hostUrl,"310X174",originalImgPath)%>" height="110px"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Upload Image : </td>
-                        <td ><input type="file" id="filPhoto" runat="server" /></td>
-                    </tr>
-                    <tr>
-                        <td ">
-                            Maximum Image Size : 
-                        </td>
-                        <td style="color:red;">
-                            300 x 100 px
-                        </td>
-                    </tr>
-                </table>
-            </fieldset>
-        <br /><br />
-        <div class="clear"></div>
-        <asp:Repeater id="MyRepeater" runat="server">       
-    <HeaderTemplate>
-        <table id="tblBikeList" border="1" style="border-collapse:collapse;" cellpadding ="5">
-               <tr style="background-color:#D4CFCF;">
-                    <th>S.No.</th>  
-                    <th>Image</th>                                         
-                    <th>Bike1</th>                                            
-                    <th>Bike2</th>                                            
-                    <th>Entry Date</th>                                            
-                    <th>Edit</th>  
-                   <th>Priority<br /><a id="lnkPriorities" style="cursor:pointer;text-decoration:underline;">Update</a></th>
-                   <th>IsActive</th>   
-                   <th>Delete</th>                                       
-               </tr>
-    </HeaderTemplate>
-    <ItemTemplate>
-               <tr class="Font_11" id="delete_<%#DataBinder.Eval(Container.DataItem,"ID") %>">
-                    <td height="20px"><%--<%# DataBinder.Eval(Container.DataItem,"ID") %>--%><%#Container.ItemIndex+1 %></td>   
-                    <td><img id="imgPhoto" image-id='<%#DataBinder.Eval(Container.DataItem,"ID") %>' class='<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsReplicated")) ? "": "checkImage" %>' src='<%# BikeWaleOpr.ImagingOperations.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"HostURL").ToString(),"310X174",DataBinder.Eval(Container.DataItem,"OriginalImagePath").ToString()) %>' runat="server" /> </td>                                         
-                    <td><%# DataBinder.Eval(Container.DataItem,"Bike1") %></td>                
-                    <td><%# DataBinder.Eval(Container.DataItem,"Bike2") %></td>                                          
-                    <td><%# DataBinder.Eval(Container.DataItem,"EntryDate") %></td>                                                         
-                    <td class="centreAlign"><a href='bikecomparisonlist.aspx?id=<%# DataBinder.Eval(Container.DataItem,"ID")%>'><img border=0 src=http://opr.carwale.com/images/edit.jpg /></a></td> 
-                   <td><input class="txtWidth priority" type="text" id="txtPriority" value='<%# DataBinder.Eval(Container.DataItem,"DisplayPriority") %>' compId='<%# DataBinder.Eval(Container.DataItem,"ID") %>' runat="server" /></td>
-                   <td class="centreAlign"><span id="status"><%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsActive")) ? "Active" : "Inactive" %></span></td>
-                   <td class="centreAlign"><a class="delete" Id='<%# DataBinder.Eval( Container.DataItem, "ID" ) %>' style="cursor:pointer;" ><img src="http://opr.carwale.com/images/icons/delete.ico" border="0"/></a></td>                              
+            <% ushort index = 0; foreach (var bike in objBikeComps) { %>
+               <tr style="text-align:center" class="Font_11" id="delete_<%= bike.ComparisionId %>">
+                    <td><%= ++index %></td>   
+                    <td >
+                        <div class="image_wrapper">
+                            <img class="vs-image" src="http://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png" /> 
+                            <img class="model-img-content" src="<%= BikeWaleOpr.ImagingOperations.GetPathToShowImages(bike.HostUrl1,"110x61",bike.OriginalImagePath1) %>" /> 
+                            <img class="model-img-content"  src="<%= BikeWaleOpr.ImagingOperations.GetPathToShowImages(bike.HostUrl2,"110x61",bike.OriginalImagePath2) %>" /> 
+                        </div>
+                    </td>                                         
+                    <td><%= bike.Bike1 %></td>                
+                    <td><%= bike.Bike2 %></td>                                          
+                    <td><%= bike.EntryDate %></td>                                                         
+                    <td class="centreAlign"><a href='bikecomparisonlist.aspx?id=<%= bike.ComparisionId %>'><img border=0 src=http://opr.carwale.com/images/edit.jpg /></a></td> 
+                   <td><input class="txtWidth priority" type="text" style="width:25px" id="txtPriority" value="<%= (bike.PriorityOrder > 0) ? bike.PriorityOrder.ToString() : string.Empty %>" compId='<%= bike.ComparisionId %>' /></td>
+                   <td class="centreAlign"><span id="status"><%= bike.IsActive ? "Active" : "Inactive" %></span></td>
+                   <td class="centreAlign"><a class="delete" Id='<%= bike.ComparisionId %>' style="cursor:pointer;" ><img src="http://opr.carwale.com/images/icons/delete.ico" border="0"/></a></td>                              
               </tr> 
-    </ItemTemplate>
-    <FooterTemplate>
-         </Table>
-    </FooterTemplate>
-    </asp:Repeater>
+        <% } %>
+        </table>
+    </div>
+
 </div>
 <script type="text/javascript">
-    var refreshTime = 2000;
 
-        if (document.getElementById('btnSave'))
-            document.getElementById('btnSave').onclick = btnSave_Click;
-        if (document.getElementById('drpMake1'))
-            document.getElementById('drpMake1').onchange = drpMake1_Change;
-        if (document.getElementById('drpModel1'))
-            document.getElementById('drpModel1').onchange = drpModel1_Change;
-        if (document.getElementById('drpMake2'))
-            document.getElementById('drpMake2').onchange = drpMake2_Change;
-        if (document.getElementById('drpModel2'))
-            document.getElementById('drpModel2').onchange = drpModel2_Change;
+    var ddlMake1 = $("#drpMake1"), ddlMake2 = $("#drpMake2");
+    var ddlModel1 = $("#drpModel1"), ddlModel2 = $("#drpModel2");
+    var ddlVersion1 = $("#drpVersion1"), ddlVersion2 = $("#drpVersion2");
 
-        function btnSave_Click() {
-            document.getElementById('spndrpMake1').innerHTML = "";
-            document.getElementById('spndrpModel1').innerHTML = "";
-            document.getElementById('spndrpVersion1').innerHTML = "";
-            document.getElementById('spndrpMake2').innerHTML = "";
-            document.getElementById('spndrpModel2').innerHTML = "";
-            document.getElementById('spndrpVersion2').innerHTML = "";
-            $("#spnbtnErr").text("");
+    $('select').each(function () {
+        $(this).chosen({ width: "180px", no_results_text: "No matches found!!", search_contains: true });
+    })
 
-            if (document.getElementById('drpMake1').value == "-1") {
-                document.getElementById('spndrpMake1').innerHTML = "Select Make";
-                return false;
-            }
-            if (document.getElementById('drpModel1').value == "-1") {
-                document.getElementById('spndrpModel1').innerHTML = "Select Model";
-                return false;
-            }
-            if (document.getElementById('drpVersion1').value == "-1") {
-                document.getElementById('spndrpVersion1').innerHTML = "Select Version";
-                return false;
-            }
-            if (document.getElementById('drpMake2').value == "-1") {
-                document.getElementById('spndrpMake2').innerHTML = "Select Make";
-                return false;
-            }
-            if (document.getElementById('drpModel2').value == "-1") {
-                document.getElementById('spndrpModel2').innerHTML = "Select Model";
-                return false;
-            }
-            if (document.getElementById('drpVersion2').value == "-1") {
-                document.getElementById('spndrpVersion2').innerHTML = "Select Version";
-                return false;
-            }
-            if ($("#drpVersion2").val() == $("#drpVersion1").val())
-            {
-                $("#spnbtnErr").text("Select Different Versions");
-                return false;
-            }
+    if (document.getElementById('btnSave'))
+        document.getElementById('btnSave').onclick = btnSave_Click;
+    if (document.getElementById('drpMake1'))
+        document.getElementById('drpMake1').onchange = drpMake1_Change;
+    if (document.getElementById('drpModel1'))
+        document.getElementById('drpModel1').onchange = drpModel1_Change;
+    if (document.getElementById('drpMake2'))
+        document.getElementById('drpMake2').onchange = drpMake2_Change;
+    if (document.getElementById('drpModel2'))
+        document.getElementById('drpModel2').onchange = drpModel2_Change;
+
+    function btnSave_Click() {
+
+        var isValid = true;
+
+        showHideMatchError(ddlMake1, false); showHideMatchError(ddlMake2, false);
+        showHideMatchError(ddlModel1, false); showHideMatchError(ddlModel2, false);
+        showHideMatchError(ddlVersion1, false); showHideMatchError(ddlVersion2, false);
+
+        $("#spnbtnErr").text("");
+
+        if (ddlMake1.val() <= 0) {
+            isValid = false;
+            showHideMatchError(ddlMake1, true);
+        }
+        else if (ddlModel1.val() <= 0) {
+            isValid = false;
+            showHideMatchError(ddlModel1, true);
+        }
+        else if (ddlVersion1.val() <= 0) {
+            isValid = false;
+            showHideMatchError(ddlVersion1, true);
         }
 
-        function drpMake1_Change(e) {
-            var makeId1 = document.getElementById("drpMake1").value;
-            var requestType = 'NEW';
-            if (makeId1 > 0) {
-                $.ajax({
-                    type: "POST",
-                    url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
-                    data: '{"requestType":"' + requestType + '", "makeId":"' + makeId1 + '"}',
-                    beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetModels"); },
-                    success: function (response) {
-                        var responseJSON = eval('(' + response + ')');
-                        var resObj = eval('(' + responseJSON.value + ')');
-                        bindDropDownList(resObj, $("#drpModel1"), "hdn_drpModel1", "--Select Model--");
-                    }
-                });
-            }
-            else {
-                $("#drpModel1").val("-1").attr("disabled", true);
-                $("#drpVersion1").val("-1").attr("disabled", true);
-            }
+        if (ddlMake2.val() <= 0) {
+            isValid = false;
+            showHideMatchError(ddlMake2, true);
+        }
+        else if (ddlModel2.val() <= 0) {
+            isValid = false;
+            showHideMatchError(ddlModel2, true);
+        }
+        else if (ddlVersion2.val() <= 0) {
+            isValid = false;
+            showHideMatchError(ddlVersion2, true);
         }
 
-        function drpModel1_Change(e) {
-            var requestType = 'NEW';
-            var modelId1 = document.getElementById("drpModel1").value;
-            if (modelId1 > 0) {
-                $.ajax({
-                    type: "POST",
-                    url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
-                    data: '{"requestType":"' + requestType + '", "modelId":"' + modelId1 + '"}',
-                    beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetVersions"); },
-                    success: function (response) {
-                        var responseJSON = eval('(' + response + ')');
-                        var resObj = eval('(' + responseJSON.value + ')');
-                        bindDropDownList(resObj, $("#drpVersion1"), "hdn_drpVersion1", "--Select Version--");
-                    }
-                });
-            }
-            else {
-                $("#drpVersion1").val("-1").attr("disabled", true);
-            }
+        if (ddlVersion1.val()>=0 && ddlVersion1.val() == ddlVersion2.val()) {
+            $("#spnbtnErr").text("Select Different Versions");
+            isValid =  false;
         }
 
-        function drpMake2_Change(e) {
-            var requestType = 'NEW';
-            var makeId2 = document.getElementById("drpMake2").value;
-            if (makeId2 > 0) {
-                $.ajax({
-                    type: "POST",
-                    url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
-                    data: '{"requestType":"' + requestType + '", "makeId":"' + makeId2 + '"}',
-                    beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetModels"); },
-                    success: function (response) {
-                        var responseJSON = eval('(' + response + ')');
-                        var resObj = eval('(' + responseJSON.value + ')');
-                        bindDropDownList(resObj, $("#drpModel2"), "hdn_drpModel2", "--Select Model--");
-                    }
-                });
-            }
-            else {
-                $("#drpModel2").val("-1").attr("disabled", true);
-                $("#drpVersion2").val("-1").attr("disabled", true);
-            }
-        }
+        return isValid;
+    }
 
-        function drpModel2_Change(e) {
-            var requestType = 'NEW';
-            var modelId2 = document.getElementById("drpModel2").value;
-            if (modelId2 > 0) {
-                $.ajax({
-                    type: "POST",
-                    url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
-                    data: '{"requestType":"' + requestType + '", "modelId":"' + modelId2 + '"}',
-                    beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetVersions"); },
-                    success: function (response) {
-                        var responseJSON = eval('(' + response + ')');
-                        var resObj = eval('(' + responseJSON.value + ')');
-                        bindDropDownList(resObj, $("#drpVersion2"), "hdn_drpVersion2", "--Select Version--");
-                    }
-                });
-            }
-            else {
-                $("#drpVersion2").val("-1").attr("disabled", true);
-            }
-        }
-        
-        var deleteId;
-        $(document).ready(function () {
-            $(".delete").click(function () {
-                deleteId = $(this).attr("Id");
-                confirmDelete();
-            });            
-
-            $("#lnkPriorities").click(function () {
-                var isNull = CheckNullText();
-                var status = checkDuplicate();
-
-                if (!status && !isNull)
-                    updatePriorities();
-            });
-
-            setInterval(UpdatePendingMainImage, refreshTime)
-        });
-    
-        function confirmDelete() {
-            var conf = confirm("Are you ready to delete this Record ?");
-            if (conf == true)
-            {
-                $.ajax({
-                    type: "POST",
-                    url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
-                    data: '{"deleteId":"' + deleteId + '"}',
-                    beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "DeleteCompBikeData"); },
-                    success: function (response) {
-                        $("#delete_" + deleteId).html("<td colspan='9'>This Record is Deleted Successfully.</td>").addClass("yellow");;
-                    }
-                });
-                alert("Record Deleted Sucessfully...");
-            }
-        }
-
-        function updatePriorities()
-        {
-            var priorityList = "";
-
-            $(":text.priority").each(function () {
-                    priorityList += $(this).attr("compid") + ":" + $.trim($(this).val()) + ",";
-            });
-            updatePrioritiesInDb(priorityList);
-        }
-
-        function checkDuplicate() {
-            var status = false;
-            $(":text.priority").each(function () {
-                var text = $(this).val();
-                $(":text.priority").not($(this)).each(function () {
-                    if (text == $(this).val()) {
-                        status = true;
-                    }
-                });
-            });
-            if (status == true)
-            alert("Priorities are same for more than one record.");
-            return status;
-        }
-
-        function CheckNullText() {
-            var IsNull = false;
-            $(":text.priority").each(function () {
-                if ($(this).val() == '' || $(this).val() == 0) {
-                    IsNull = true;
-                }
-            });
-            if (IsNull)
-            {
-                alert("Please enter valid priority.");
-            }
-            return IsNull;
-        }
-
-        function updatePrioritiesInDb(priorityList)
-        {
+    function drpMakeChange(drpMake,drpModel,drpVersion,hdnModelSpan)
+    {
+        showHideMatchError(drpMake, false);
+        var makeId = drpMake.val();
+        var requestType = 'NEW';
+        if (makeId > 0) {
             $.ajax({
                 type: "POST",
                 url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
-                data: '{"prioritiesList":"' + priorityList + '"}',
-                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "UpdatePriorities"); },
+                data: '{"requestType":"' + requestType + '", "makeId":"' + makeId + '"}',
+                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetModels"); },
                 success: function (response) {
-                    alert("Priorities updated Succcessfully...");
-                    window.location.replace("/content/bikecomparisonlist.aspx");
+                    var responseJSON = eval('(' + response + ')');
+                    var resObj = eval('(' + responseJSON.value + ')');
+                    bindDropDownList(resObj, drpModel, hdnModelSpan, "--Select Model--");
+                    drpVersion.val("-1").attr("disabled", true);
+                    drpModel.trigger('chosen:updated');
+                    drpVersion.trigger('chosen:updated');
                 }
             });
         }
-
-        function UpdatePendingMainImage() {
-            var event = $(".checkImage");
-            var id = event.attr('image-id');
-            //alert(id);
-            CheckMainImageStatus(event, id);
+        else {
+            drpModel.val("-1").attr("disabled", true);
+            drpVersion.val("-1").attr("disabled", true);
+            drpModel.trigger('chosen:updated');
+            drpVersion.trigger('chosen:updated');
         }
+    }
 
-        function CheckMainImageStatus(event, mainImageId) {
-            var category = 'BIKECOMPARISIONLIST';
-            if (mainImageId != undefined) {
-                $.ajax({
-                    type: "POST", url: "/AjaxPro/BikeWaleOpr.Common.Ajax.ImageReplication,BikewaleOpr.ashx",
-                    data: '{"imageId":"' + mainImageId + '","Category":"' + category + '"}',
-                    beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "CheckImageStatusByCategory"); },
-                    success: function (response) {
-                        var ret_response = eval('(' + response + ')');
-                        //alert(ret_response.value);
-                        var obj_response = eval('(' + ret_response.value + ')');
-                        if (obj_response.Table.length > 0) {
-                            for (var i = 0; i < obj_response.Table.length; i++) {
-                                var imgUrlLarge = obj_response.Table[i].HostUrl + "/310X174/" + obj_response.Table[i].OriginalImagePath;
+    function drpMake1_Change(e) {
+        drpMakeChange(ddlMake1, ddlModel1, ddlVersion1, "hdn_drpModel1");
+    }
+    function drpMake2_Change(e) {
 
-                                event.attr('src', imgUrlLarge);
-                            }
+        drpMakeChange(ddlMake2, ddlModel2, ddlVersion2, "hdn_drpModel2");
+    }
 
-                        }
-                    }
-                });
+    function drpModelChange(drpModel,drpVersion,hdnVersionSpan)
+    {
+        showHideMatchError(drpModel, false);
+        var requestType = 'NEW';
+        var modelId = drpModel.val();
+        if (modelId > 0) {
+            $.ajax({
+                type: "POST",
+                url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
+                data: '{"requestType":"' + requestType + '", "modelId":"' + modelId + '"}',
+                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetVersions"); },
+                success: function (response) {
+                    var responseJSON = eval('(' + response + ')');
+                    var resObj = eval('(' + responseJSON.value + ')');
+                    bindDropDownList(resObj, drpVersion, hdnVersionSpan, "--Select Version--");
+                    drpVersion.trigger('chosen:updated');
+                }
+            });
+        }
+        else {
+            drpVersion.val("-1").attr("disabled", true);
+            drpVersion.trigger('chosen:updated');
+        }
+    }
+
+    function drpModel1_Change(e) {
+        drpModelChange(ddlModel1, ddlVersion1, "hdn_drpVersion1");
+    }
+
+    
+
+    function drpModel2_Change(e) {
+        drpModelChange(ddlModel2, ddlVersion2, "hdn_drpVersion2");
+    }
+
+    var deleteId;
+    $(document).ready(function () {
+        $(".delete").click(function () {
+            deleteId = $(this).attr("Id");
+            confirmDelete();
+        });
+
+        $("#lnkPriorities").click(function () {
+            var isNull = CheckNullText();
+            var status = checkDuplicate();
+
+            if (!status && !isNull)
+                updatePriorities();
+        });
+    });
+
+    function confirmDelete() {
+        var conf = confirm("Are you ready to delete this Record ?");
+        if (conf == true) {
+            $.ajax({
+                type: "POST",
+                url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
+                data: '{"deleteId":"' + deleteId + '"}',
+                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "DeleteCompBikeData"); },
+                success: function (response) {
+                    $("#delete_" + deleteId).html("<td colspan='9'>This Record is Deleted Successfully.</td>").addClass("yellow");;
+                }
+            });
+            alert("Record Deleted Sucessfully...");
+        }
+    }
+
+    function updatePriorities() {
+        var priorityList = "";
+
+        $(":text.priority").each(function () {
+            priorityList += $(this).attr("compid") + ":" + $.trim($(this).val()) + ",";
+        });
+        updatePrioritiesInDb(priorityList);
+    }
+
+    function checkDuplicate() {
+        var objPriorities = {};
+        var status = false;
+        $(":text.priority").each(function () {
+            var text = $(this).val(); 
+            if (objPriorities[text])
+                status = true;
+            else objPriorities[text] = true;
+
+        });
+        if (status)
+            alert("Priorities are same for more than one record.");
+        return status;
+    }
+
+    function CheckNullText() {
+        var IsNull = false;
+        $(":text.priority").each(function () {
+            if ($(this).val() == '' || $(this).val() == 0) {
+                IsNull = true;
             }
-
+        });
+        if (IsNull) {
+            alert("Please enter valid priority.");
         }
+        return IsNull;
+    }
+
+    function updatePrioritiesInDb(priorityList) {
+        $.ajax({
+            type: "POST",
+            url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
+            data: '{"prioritiesList":"' + priorityList + '"}',
+            beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "UpdatePriorities"); },
+            success: function (response) {
+                alert("Priorities updated Succcessfully...");
+                window.location.replace("/content/bikecomparisonlist.aspx");
+            }
+        });
+    }
 </script>
 <!-- #Include file="/includes/footerNew.aspx" -->

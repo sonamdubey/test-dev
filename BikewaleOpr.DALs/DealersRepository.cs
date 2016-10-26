@@ -1,6 +1,6 @@
 ﻿using Bikewale.Notifications;
 using BikewaleOpr.Entities;
-using BikewaleOpr.Entity;
+using BikewaleOpr.Entities;
 using BikewaleOpr.Interface;
 using MySql.CoreDAL;
 using System;

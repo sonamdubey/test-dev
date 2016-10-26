@@ -2,7 +2,7 @@
 using BikewaleOpr.common.ContractCampaignAPI;
 using BikewaleOpr.Common;
 using BikewaleOpr.DALs.ManufactureCampaign;
-using BikewaleOpr.Entity.ContractCampaign;
+using BikewaleOpr.Entities.ContractCampaign;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Interface.ManufacturerCampaign;
 using BikeWaleOpr.Classified;
