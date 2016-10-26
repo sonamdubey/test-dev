@@ -2325,6 +2325,7 @@
     <Content Include="m\css\bwm-model-btf.css" />
     <Content Include="m\css\bwm-model.css" />
     <Content Include="m\css\bwm-newbikes.css" />
+    <Content Include="m\css\components\compare-bikes.css" />
     <Content Include="m\css\dealerpricequote.css" />
     <Content Include="m\css\dealerpricequote-old.css" />
     <Content Include="m\css\dealer\landing.css" />
