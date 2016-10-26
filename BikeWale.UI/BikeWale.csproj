@@ -2676,6 +2676,7 @@
     <Content Include="sass\sell-bike\_color-box.sass" />
     <Content Include="sass\components\_textarea-box.sass" />
     <Content Include="sass\sell-bike\_sidebar-banner.sass" />
+    <Content Include="sass\sell-bike\_calendar.sass" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
