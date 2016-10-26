@@ -1,4 +1,6 @@
-﻿var selectColorBox = $('#select-color-box');
+﻿var selectColorBox = $('#select-color-box'),
+    selectCalendarBox = $('#select-calendar-box'),
+    calendarErrorBox = $('#calendar-error');
 
 $('.chosen-select').chosen();
 
@@ -303,7 +305,38 @@ var bikeDetails = function () {
 
     self.errors = ko.validation.group(self);
     self.colorError = ko.validation.group(self.otherColor);
+    
+    self.manufactureYear = ko.observable('');
+    self.manufactureMonth = ko.observable('');
+    self.manufactureMonthName = ko.observable('');
 
+    self.manufacturingDate = ko.computed(function () {
+        return self.manufactureMonthName() + ' ' + self.manufactureYear();
+    }).extend({
+        required: {
+            params: true,
+            message: 'Please select year of manufacturing',
+            onlyIf: function () {
+                return self.validate();
+            }
+        }
+    });
+
+    self.submitManufacturingDate = function (data, event) {
+        if (self.manufactureYear() != '') {
+            if (self.manufactureMonth() != '') {
+                selectCalendarBox.addClass('selection-done');
+                calender.close();
+                calendarErrorBox.text('');
+            }
+            else {
+                calendarErrorBox.text('Please select month');
+            }
+        }
+        else {
+            calendarErrorBox.text('Please select year');
+        }
+    };
 };
 
 var personalDetails = function () {
@@ -590,8 +623,8 @@ $(document).ready(function () {
     });
 
     //set year
-    //calender.year.set(1980);
-
+    calender.year.set(1980);
+    calender.month.set();
 });
 
 var setProfilePhoto = function () {
@@ -655,6 +688,23 @@ $(document).mouseup(function (event) {
         }
     }
 
+    if (selectCalendarBox.hasClass('open') && $('#calendar-content').is(':visible')) {
+        if (!selectCalendarBox.is(event.target) && selectCalendarBox.has(event.target).length === 0) {
+            if (vmSellBike.bikeDetails().manufactureYear() == '' && vmSellBike.bikeDetails().manufactureMonth() != '') {
+                calendarErrorBox.text('Please select year');
+            }
+            if (vmSellBike.bikeDetails().manufactureYear() != '' && vmSellBike.bikeDetails().manufactureMonth() == '') {
+                calendarErrorBox.text('Please select month');
+            }
+            if (vmSellBike.bikeDetails().manufactureYear() == '' && vmSellBike.bikeDetails().manufactureMonth() == '') {
+                calender.close();
+            }
+            else {
+                $('#submit-calendar-btn').trigger('click');
+            }
+        }
+    }
+
 });
 
 // seller type
@@ -696,66 +746,175 @@ var scrollToForm = {
     }
 };
 
-// year
+selectCalendarBox.on('click', '.calendar-box-default', function () {
+    if (!selectCalendarBox.hasClass('open')) {
+        calender.open();
+    }
+    else {
+        calender.close();
+    }
+});
+
+$('.year-prev').on('click', function () {
+    var activeElement = calender.year.list.find('.active'),
+        prevElement = activeElement.prev();
+
+    if (prevElement.length !== 0) {
+        calender.year.scrollPosition(prevElement);
+    }
+});
+
+$('.year-next').on('click', function () {
+    var activeElement = calender.year.list.find('.active'),
+        nextElement = activeElement.next();
+
+    if (nextElement.length !== 0) {
+        calender.year.scrollPosition(nextElement);
+    }
+});
+
+$('#year-list').on('click', 'span', function () {
+    var element = $(this);
+    calender.year.selection(element);
+});
+
+$('#month-list').on('click', 'li', function () {
+    var element = $(this);
+    calender.month.selection(element);
+});
+
+// calender
 var calender = {
 
     width: 360,
 
     year: {
-        container: $('#year-list'),
+        list: $('#year-list'),
 
         set: function (startYear) {
-            var endYear = new Date().getFullYear() + 1,
+            var endYear = new Date().getFullYear(),
                 yearCount = endYear - startYear,
                 years = [],
                 limit = 5;
             
-            for (var i = startYear; i < endYear; i++) {
+            for (var i = endYear; i >= startYear; i--) {
                 years.push(i);
             }
-            
+
             for (var i = 0; i < yearCount; i += 5) {
                 if (i != 0) {
                     limit = i + 5;
                 }
-                else {
-                    limit = 5;
+
+                var bundle = [];
+                for (var j = i; j < limit; j++) {
+                    if (years[j] !== undefined) {
+                        bundle.push(years[j]);
+                        bundle.sort();
+                    }
                 }
 
                 var item = '';
-                for (var j = i; j < limit; j++) {
-                    if (years[j] !== undefined) {
-                        item += '<span>' + years[j] + '</span>';
+                for(var x = 0; x < bundle.length; x++) {
+                    item += '<span data-value="' + bundle[x] + '">' + bundle[x] + '</span>';
+                };
+
+                var listItems = calender.year.list.find('li');
+                if (listItems.length == 0) {
+                    calender.year.list.append('<li>' + item + '</li>');
+                }
+                else {
+                    $('<li>' + item + '</li>').insertBefore(listItems.first());
+                }
+            }
+                        
+        },
+
+        selection: function (element) {
+            if (!element.hasClass('selected')) {
+                calender.year.list.find('.selected').removeClass('selected');
+                element.addClass('selected')
+                elementValue = element.attr('data-value');
+                vmSellBike.bikeDetails().manufactureYear(elementValue);
+                calendarErrorBox.text('');
+
+                var currentYear = new Date().getFullYear();
+                if (elementValue == currentYear) {
+                    var currentMonth = new Date().getMonth() + 1,
+                        monthList = calender.month.list.find('li');
+
+                    for (var i = 0; i < 12; i++) {
+                        var item = monthList[i];
+                        if ($(item).attr('data-value') > currentMonth) {
+                            $(item).removeClass('selected').addClass('not-allowed');
+                        }
+                    }
+                    if (vmSellBike.bikeDetails().manufactureMonth() > currentMonth) {
+                        vmSellBike.bikeDetails().manufactureMonth('');
+                        vmSellBike.bikeDetails().manufactureMonthName('');
                     }
                 }
-                calender.year.container.append('<li>' + item + '</li>');
+                else {
+                    calender.month.list.find('.not-allowed').removeClass('not-allowed');
+                }
             }
-
-            var lastElement = calender.year.container.find('li').last();
-            calender.year.scrollPosition(lastElement);
-            
         },
 
         scrollPosition: function (element) {
-            calender.year.container.find('.active').removeClass('active');
+            var containerOffset = calender.year.list.offset().left - 70;
+
+            calender.year.list.find('.active').removeClass('active');
             element.addClass('active');
-            calender.year.container.animate({
-                scrollLeft: element.index() * calender.width
+            calender.year.list.animate({
+                scrollLeft: element.index() * element.width() - containerOffset
             });
+        },
+
+        initScroll: function (element) {
+            var containerOffset = calender.year.list.offset().left - 100;
+
+            element.addClass('active');
+            calender.year.list.scrollLeft(element.index() * element.width() - containerOffset);
         }
+    },
+
+    month: {
+        list: $('#month-list'),
+
+        set: function () {
+            var monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+            for (var i = 0; i < 12; i++) {
+                calender.month.list.append('<li data-value="' + (i + 1) + '">' + monthArr[i] + '</li>');
+            }
+
+            var currentMonth = new Date().getMonth() + 1;
+            
+        },
+
+        selection: function (element) {
+            if (!element.hasClass('selected')) {
+                var elementValue = element.attr('data-value'),
+                    elementText = element.text();
+
+                calender.month.list.find('.selected').removeClass('selected');
+                element.addClass('selected')
+                calendarErrorBox.text('');
+
+                vmSellBike.bikeDetails().manufactureMonth(elementValue);
+                vmSellBike.bikeDetails().manufactureMonthName(elementText);
+            }
+        },
+    },
+
+    open: function () {
+        var lastElement = calender.year.list.find('li').last();
+
+        selectCalendarBox.addClass('open');
+        calender.year.initScroll(lastElement);
+    },
+
+    close: function () {
+        selectCalendarBox.removeClass('open');
     }
 };
-
-$('.year-prev').on('click', function () {
-    var activeElement = calender.year.container.find('.active'),
-        prevElement = activeElement.prev();
-
-    calender.year.scrollPosition(prevElement);
-});
-
-$('.year-next').on('click', function () {
-    var activeElement = calender.year.container.find('.active'),
-        nextElement = activeElement.next();
-
-    calender.year.scrollPosition(nextElement);
-});

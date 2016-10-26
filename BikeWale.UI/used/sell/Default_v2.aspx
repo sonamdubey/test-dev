@@ -106,6 +106,31 @@
                                                 <div class="clear"></div>
                                             </div>
 
+                                            <div class="panel-row margin-bottom10">
+                                                <div class="calendar-box-content">
+                                                    <div id="select-calendar-box" class="select-calendar-box">
+                                                        <p class="select-calendar-label calendar-box-default">Year of manufacturing<sup>*</sup></p>
+                                                        <p id="selected-calendar-date" class="calendar-box-default" data-bind="text: bikeDetails().manufacturingDate, validationElement: bikeDetails().manufacturingDate"></p>
+                                                        <span class="boundary"></span>
+                                                        <span class="error-text" data-bind="validationMessage: bikeDetails().manufacturingDate"></span>
+                                                        <div id="calendar-content">
+                                                            <p class="dropdown-label">Year of manufacturing</p>
+                                                            <div id="year-content">
+                                                                <ul id="year-list"></ul>
+                                                                <span class="year-control bwsprite year-prev"></span>
+                                                                <span class="year-control bwsprite year-next"></span>
+                                                            </div>
+                                                            <ul id="month-list"></ul>
+                                                            <div class="clear"></div>
+                                                            <div id="calendar-error" class="error-text"></div>
+                                                            <div class="text-center padding-bottom25">
+                                                                <input type="button" id="submit-calendar-btn" class="btn btn-orange btn-primary-big" value="Select" data-bind="click: bikeDetails().submitManufacturingDate" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div class="panel-row margin-bottom20">
                                                 <div class="input-box form-control-box" data-bind="css: bikeDetails().kmsRidden().length > 0 ? 'not-empty' : ''">
                                                     <input type="number" id="kmsRidden" min="1" data-bind="textInput: bikeDetails().kmsRidden, validationElement: bikeDetails().kmsRidden" />
@@ -483,6 +508,9 @@
 
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript">
+            
+        </script>
         <!-- #include file="/includes/footerBW.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
