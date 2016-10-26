@@ -46,7 +46,7 @@ namespace Bikewale.DAL.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbType.String, 100, ad.Seller.CustomerEmail));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, 20, ad.Seller.CustomerMobile));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, ad.Seller.CustomerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, ad.ClientIp));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CommonOpn.GetClientIP()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_statusid", DbType.Byte, Convert.ToByte(ad.Status)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, ParameterDirection.InputOutput));
 

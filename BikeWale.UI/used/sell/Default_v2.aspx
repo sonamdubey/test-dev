@@ -50,6 +50,7 @@
                             <h1>Sell your bike</h1>
                         </div>
                         <div id="sell-bike-content">
+                            <section data-bind="if: !isFakeCustomer()">
                             <div id="sell-bike-left-col" class="grid-7 panel-group">
                                 <!-- start of form steps -->
                                 <div data-bind="visible: formStep() < 4">
@@ -63,31 +64,29 @@
                                                 <div class="grid-4 alpha select-box">
                                                     <p class="select-label">Make<sup>*</sup></p>
                                                     <select class="chosen-select" data-placeholder="Select make" data-bind="chosen: {}, value: make, validationElement: make, event: { change: makeChanged }">
-                                                         <option value="0"></option>
+                                                         <option value></option>
                                                             <% if (objMakeList != null)
                                                                 { %>
                                                                  <% foreach (var make in objMakeList)
                                                                 { %>
-                                                                    <option value="<%= make.MakeId %>" ><%=make.MakeName %></option>
+                                                                    <option value="<%= make.MakeId %>" data-masking="<%= make.MaskingName %>"><%=make.MakeName %></option>
                                                              <% } %>
                                                              <% } %>
                                                     </select>
                                                     <span class="boundary"></span>
                                                     <span class="error-text" data-bind="validationMessage: make"></span>
                                                 </div>
-                                                <div class="grid-4 select-box">
+                                                <div id="model-select-element" class="grid-4 select-box">
                                                     <p class="select-label">Model<sup>*</sup></p>
-                                                    <select class="chosen-select" data-placeholder="Select model" data-bind="options: modelArray(), chosen: {}, value: model, optionsText: 'modelName', optionsValue: 'modelId', validationElement: model, event: { change: modelChanged }">
-                                                       
+                                                    <select class="chosen-select" data-placeholder="Select model" data-bind="options: modelArray(), chosen: {}, value: model, optionsText: 'modelName', optionsValue: 'modelId', validationElement: model, event: { change: modelChanged }">                                                       
                                                     </select>
                                                     <span class="boundary"></span>
                                                     <span class="error-text" data-bind="validationMessage: model"></span>
                                                 </div>
-                                                <div class="grid-4 omega select-box">
-                                                    <p class="select-label">Version<sup>*</sup></p>
-                                                    <select class="chosen-select" data-placeholder="Select version" data-bind="options: versionArray(), chosen: {}, value: version, optionsText: 'versionName', optionsValue: 'versionId', validationElement: version, event: { change: versionChanged }">
-                                                      
-                                                    </select>
+                                                <div id="version-select-element" class="grid-4 omega select-box">
+                                                    <p class="select-label">Version<sup>*</sup></p>                                                                                                 
+                                                    <select class="chosen-select" data-placeholder="Select version" data-bind="options: versionArray(), chosen: {}, value: version, optionsText: 'versionName', optionsValue: 'versionId', validationElement: version, event: { change: versionChanged }">  
+                                                    </select>                                                   
                                                     <span class="boundary"></span>
                                                     <span class="error-text" data-bind="validationMessage: version"></span>
                                                 </div>
@@ -155,7 +154,7 @@
                                                                 { %>
                                                                  <% foreach (var city in objCityList)
                                                                 { %>
-                                                                    <option value="<%= city.CityId %>" ><%=city.CityName %></option>
+                                                                    <option value="<%= city.CityName %>" ><%=city.CityName %></option>
                                                              <% } %>
                                                              <% } %>
                                                     </select>
@@ -168,7 +167,7 @@
                                                 <div class="color-box-content">
                                                     <div id="select-color-box" class="select-color-box">
                                                         <p class="select-color-label color-box-default">Colour<sup>*</sup></p>
-                                                        <p id="selected-color" class="color-box-default" data-bind="text: color, validationElement: color"></p>
+                                                        <p id="selected-color" class="color-box-default" data-bind="text: color, validationElement: color "></p>
                                                         <span class="boundary"></span>
                                                         <span class="error-text" data-bind="validationMessage: color"></span>
 
@@ -180,7 +179,7 @@
                                                                     <span data-bind="style: { 'background-color': '#' + $data }"></span>
                                                                     </div>
 
-                                                                 <p class="color-box-label" data-bind="text: colorName, attr : {value : colorId} "></p>      
+                                                                 <p class="color-box-label" data-bind="text: colorName , attr: {value: colorId}"></p>      
     
                                                             </li>
                                                             </ul>
@@ -220,11 +219,11 @@
                                         <div class="panel-body" data-bind="visible: formStep() == 2 && !verificationDetails().status()">
                                             <div class="panel-row margin-bottom30">
                                                 <ul id="seller-type-list">
-                                                    <li data-bind="click: personalDetails().sellerType" class="checked">
+                                                    <li data-bind="click: personalDetails().sellerType, attr: {value: 2}" class="checked">
                                                         <span class="bwsprite radio-icon"></span>
                                                         <span class="seller-label">I am an Individual</span>
                                                     </li>
-                                                    <li data-bind="click: personalDetails().sellerType">
+                                                    <li data-bind="click: personalDetails().sellerType, attr: { value: 1 }">
                                                         <span class="bwsprite radio-icon"></span>
                                                         <span class="seller-label">I am a dealer</span>
                                                     </li>
@@ -294,7 +293,7 @@
                                                         <input type="tel" id="otpCode" maxlength="5" data-bind="textInput: verificationDetails().otpCode, validationElement: verificationDetails().otpCode" />
                                                         <label for="otpCode">One-time password<sup>*</sup></label>
                                                         <span class="boundary"></span>
-                                                        <span class="error-text" data-bind="validationMessage: verificationDetails().otpCode"></span>
+                                                        <span id="otpErrorText" class="error-text" data-bind="validationMessage: verificationDetails().otpCode"></span>
                                                     </div>
                                                 </div>
 
@@ -354,7 +353,7 @@
                                             <div class="panel-row">
                                                 <div class="select-box select-box-no-input">
                                                     <p class="select-label">Insurance<sup>*</sup></p>
-                                                    <select class="chosen-select" data-bind="chosen: {}" data-title="Insurance">
+                                                    <select class="chosen-select" data-bind="chosen: {}, value: moreDetails().insuranceType" data-title="Insurance">
                                                         <option value></option>
                                                         <option value="1">Comprehensive</option>
                                                         <option value="2">Third Party</option>
@@ -367,7 +366,7 @@
                                             <div class="panel-row margin-bottom30">
                                                 <div class="textarea-box form-control-box">
                                                     <p class="textarea-label">Ad description</p>
-                                                    <textarea rows="2" cols="20"></textarea>
+                                                    <textarea rows="2" cols="20" data-bind=" value: moreDetails().adDescription "></textarea>
                                                     <span class="boundary"></span>
                                                 </div>
                                             </div>
@@ -401,7 +400,7 @@
                                     </div>
                                     <div class="success-text inline-block">
                                         <p class="font18 text-bold margin-bottom10">Congratulations!</p>
-                                        <p class="font14">Your profile ID is 138462384. You can find and edit your ad later using this id. Your bike ad will be live after verification.</p>
+                                        <p class="font14">Your profile ID is <span data-bind="text: inquiryId"></span>. You can find and edit your ad later using this id. Your bike ad will be live after verification.</p>
                                     </div>
                                     <div id="form-success-btn-group">
                                         <input type="button" class="btn btn-orange btn-primary-small margin-right20" value="Done" />
@@ -449,13 +448,26 @@
                                 </div>
                             </div>
                             <div class="clear"></div>
+                             </section>
+                            <section data-bind="if: isFakeCustomer()">
+                                <div id="sell-bike-left-col" class="grid-7 panel-group">
+                                    <h2> Sorry, you are not authorized. </h2>
+                                    </div>
+                                </section>
                         </div>
+                        
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
 
+
+        <script type="text/javascript"> 
+            var userId = '<%= userId%>';    
+            var isEdit = '<%= isEdit %>';
+            var inquiryId = '<%= inquiryId %>';
+        </script>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW.aspx" -->

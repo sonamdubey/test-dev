@@ -94,6 +94,7 @@ namespace Bikewale.Service.AutoMappers.UsedBikes
         internal static SellBikeInquiryResultDTO Convert(SellBikeInquiryResultEntity inquiry)
         {
             AutoMapper.Mapper.CreateMap<SellBikeInquiryResultEntity, SellBikeInquiryResultDTO>();
+            AutoMapper.Mapper.CreateMap<SellBikeAdStatusEntity, SellBikeAdStatusDTO>();
             return AutoMapper.Mapper.Map<SellBikeInquiryResultDTO>(inquiry);
         }
 

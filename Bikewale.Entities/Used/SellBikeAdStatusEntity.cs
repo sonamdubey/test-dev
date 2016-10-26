@@ -44,5 +44,6 @@ namespace Bikewale.Entities.Used
     {
         public SellBikeAdStatusEntity Status { get; set; }
         public uint InquiryId { get; set; }
+        public ulong CustomerId { get; set; }
     }
 }

@@ -68,7 +68,7 @@ namespace Bikewale.Service.Controllers.UsedBikes
             }
         }
 
-        [HttpPost, Route("api/used/sell/listing/otherinfo/{inquiryId}/{customerId}/")]
+        [HttpPost, Route("api/used/sell/listing/otherinfo/")]
         public IHttpActionResult Post(SellBikeAdOtherInformationDTO otherInfo, int inquiryId, ulong customerId)
         {
             SellBikeAdOtherInformation sellOtherEntity = null;

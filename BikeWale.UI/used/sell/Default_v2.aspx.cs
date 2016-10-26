@@ -19,6 +19,10 @@ namespace Bikewale.Used.Sell
         protected IEnumerable<Bikewale.Entities.BikeData.BikeMakeEntityBase> objMakeList = null;
         private IBikeMakesCacheRepository<int> _makesRepository;
         protected List<CityEntityBase> objCityList = null;
+        protected string userId = null;
+        protected bool isEdit = false;
+        protected ulong inquiryId = 0;
+        protected bool isAuthorized = false;
 
         protected override void OnInit(EventArgs e)
         {
@@ -29,6 +33,28 @@ namespace Bikewale.Used.Sell
         {
             BindMakes();
             BindCities();
+            BindUserId();
+            CheckIsEdit();
+        }
+
+        /// <summary>
+        /// Created By : Sajal Gupta on 20/10/2016
+        /// Description : Function to bind userId.
+        /// </summary>
+        protected void BindUserId()
+        {
+            try
+            {
+                if (CurrentUser.Id != null)
+                {
+                    userId = CurrentUser.Id;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.sell.default.BindUserId()");
+                objErr.SendMail();
+            }
         }
 
         /// <summary>
@@ -56,6 +82,10 @@ namespace Bikewale.Used.Sell
             }
         }
 
+        /// <summary>
+        /// Created By : Sajal Gupta on 20/10/2016
+        /// Description : Function to bind Cities (both registered at and current city).
+        /// </summary>
         protected void BindCities()
         {
             ICity _city = new CityRepository();
@@ -68,6 +98,29 @@ namespace Bikewale.Used.Sell
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.sell.default.BindCities()");
                 objErr.SendMail();
             }
+        }
+
+        protected void CheckIsEdit()
+        {
+            try
+            {
+                if (Request.QueryString["id"] != null)
+                {
+                    isEdit = true;
+                    inquiryId = Convert.ToUInt64(Request.QueryString["id"]);
+                    CheckIsCustomerAuthorized();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.sell.default.BindCities()");
+                objErr.SendMail();
+            }
+        }
+
+        protected void CheckIsCustomerAuthorized()
+        {
+
         }
     }
 }

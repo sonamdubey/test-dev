@@ -97,7 +97,9 @@ var validation = {
 
 var sellBike = function () {
     var self = this;
-
+    self.inquiryId = ko.observable();
+    self.customerId = ko.observable();
+    self.isFakeCustomer = ko.observable(false);
     self.formStep = ko.observable(1);
 
     self.bikeDetails = ko.observable(new bikeDetails);
@@ -130,6 +132,16 @@ var bikeDetails = function () {
     self.modelArray = ko.observableArray();
     self.versionArray = ko.observableArray();
     self.colorArray = ko.observableArray();
+    self.makeId = ko.observable();
+    self.makeName = ko.observable();
+    self.makeMaskingName = ko.observable();
+    self.modelId = ko.observable();
+    self.modelName = ko.observable();
+    self.modelMaskingName = ko.observable();
+    self.versionId = ko.observable();
+    self.versionName = ko.observable();
+    self.versionMaskingName = ko.observable();
+    self.colorId = ko.observable();
 
     self.validate = ko.observable(false);
     self.validateOtherColor = ko.observable(false);
@@ -138,20 +150,31 @@ var bikeDetails = function () {
         self.modelArray([]);
         self.versionArray([]);
        
-       
-        $.ajax({
-            type: "Get",
-            url: "/api/modellist/?requestType=3&makeId="+ self.make(),
-            contentType: "application/json",
-            dataType: 'json',
-            success: function (response) {
-                if (response)
-                self.modelArray(response.modelList);
-            },
-            complete: function (xhr, ajaxOptions, thrownError) {
-               
-            }
-        });
+        self.makeId = $(event.target).val();
+        self.makeName = $(event.target).find(':selected').text();
+        self.makeMaskingName = $(event.target).find(':selected').attr("data-masking");
+        var blankEntry = { "modelId": -1, "modelName": "", "maskingName": "" };
+        
+        if (self.make()!=null) {
+            $.ajax({
+                type: "Get",
+                url: "/api/modellist/?requestType=3&makeId=" + self.make(),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    if (response) {
+                        var tempArr = [];
+                        tempArr.push(blankEntry);
+                        tempArr = tempArr.concat(response.modelList);
+                        self.modelArray(tempArr);
+                    }
+                },
+                complete: function (xhr, ajaxOptions, thrownError) {
+                    $('#model-select-element.select-box').removeClass('done');
+                    $('#version-select-element.select-box').removeClass('done');
+                }
+            });
+        }
 
     };
 
@@ -159,49 +182,61 @@ var bikeDetails = function () {
 
         self.versionArray([]);
 
+        self.modelId = $(event.target).val();
+        self.modelName = $(event.target).find(':selected').text();
 
-        $.ajax({
-            type: "Get",
-            url: "/api/versionList/?requestType=3&modelId=" + self.model(),
-            contentType: "application/json",
-            dataType: 'json',
-            success: function (response) {
-                if (response) {
-                    self.versionArray(response.Version);
+        var blankEntry = { "versionId": -1, "versionName": "" };
+
+        if (self.model() != null && self.model() != -1) {
+            $.ajax({
+                type: "Get",
+                url: "/api/versionList/?requestType=3&modelId=" + self.model(),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    if (response) {
+                        var tempArr = [];
+                        tempArr.push(blankEntry);
+                        tempArr = tempArr.concat(response.Version);
+                        self.versionArray(tempArr);
+                    }
+                },
+                complete: function (xhr, ajaxOptions, thrownError) {
+                    $('#version-select-element.select-box').removeClass('done');
                 }
-            },
-            complete: function (xhr, ajaxOptions, thrownError) {
-
-            }
-        });
+            });
+        }
+       
+        
+        
     };
 
     self.versionChanged = function (data, event) {
-        
 
         self.colorArray([]);
 
-        $.ajax({
-            type: "Get",
-            url: "/api/version/" + self.version() + "/color/",
-            contentType: "application/json",
-            dataType: 'json',
-            success: function (response) {
-                if (response) {
-                    self.colorArray(response.colors);
+        self.versionId = $(event.target).val();
+        self.versionName = $(event.target).find(':selected').text();
+
+        if (self.version() != null && self.version() != -1) {
+            $.ajax({
+                type: "Get",
+                url: "/api/version/" + self.version() + "/color/",
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    if (response) {
+                        self.colorArray(response.colors);
+                    }
+                },
+                complete: function (xhr, ajaxOptions, thrownError) {
                 }
-            },
-            complete: function (xhr, ajaxOptions, thrownError) {
-
-            }
-        });
-
+            });
+        }
         
     };
 
- 
-
-    self.make = ko.observable().extend({
+   self.make = ko.observable().extend({
         required: {
             params: true,
             message: 'Please select brand',
@@ -324,9 +359,10 @@ var bikeDetails = function () {
         }
     });
 
+    
     self.colorSelection = function (data, event) {
         var element = $(event.currentTarget);
-
+        colorId = data.colorId;
         if (!element.hasClass('active')) {
             var selection = element.find('.color-box-label').text();
             self.color(selection);
@@ -361,7 +397,7 @@ var bikeDetails = function () {
 
     self.saveBikeDetails = function (data, event) {
         self.validate(true);
-
+        
         if (self.errors().length === 0) {
             vmSellBike.formStep(2);
         }
@@ -465,16 +501,88 @@ var personalDetails = function () {
     self.listYourBike = function () {
         self.validate(true);
 
-        if (self.errors().length === 0) {
-            if (true) { // if user is not verified
-                vmSellBike.verificationDetails().status(true);
-                $('#otpCode').focus();
-            }
-            else {
-                vmSellBike.formStep(3);
-            }
+        if (!("colorId" in window))
+            colorId = 0;
 
-            scrollToForm.activate();
+        var sellerType = $('#seller-type-list .checked').attr("value");
+
+        var km = vmSellBike.bikeDetails().kmsRidden();
+
+        if (self.errors().length === 0) {
+
+            var bdetails = vmSellBike.bikeDetails();
+            var pdetails = vmSellBike.personalDetails();
+
+          var inquiryData = {
+               "InquiryId": 0,
+                "make": {
+                    "makeId": bdetails.makeId,
+                    "makeName": bdetails.makeName,
+                    "maskingName": bdetails.makeMaskingName
+                },
+                "model": { 
+                    "modelId": bdetails.modelId,
+                    "modelName": bdetails.modelName,
+                    "maskingName": null
+                },
+                "version": { 
+                    "versionId": bdetails.versionId,
+                    "versionName": bdetails.versionName,
+                    "modelName": bdetails.modelName,
+                    "price": 0,
+                    "maskingName": null
+                },
+                "manufacturingYear": "2015-01-11T00:00:00",
+                "kiloMeters": bdetails.kmsRidden(),
+                "cityId": bdetails.city(),
+                "expectedprice": bdetails.expectedPrice(),
+                "owner": bdetails.owner(),
+                "registrationPlace": bdetails.registeredCity(),
+                "color": bdetails.color(),
+                "colorId": colorId,
+                "sourceId": 1,
+                "status": 1,
+                "pageUrl": "used/sell",
+                "seller": {
+                    "sellerType": sellerType,
+                    "customerId": userId > 0 ? userId : 0,
+                    "customerName": pdetails.sellerName(),
+                    "customerEmail": pdetails.sellerEmail(),
+                    "customerMobile": pdetails.sellerMobile()
+                },
+                "otherInfo": {
+                    "registrationNo": "",
+                    "insuranceType": "",
+                    "adDescription": ""
+                }
+           }        
+
+          $.ajax({
+                type: "POST",
+                url: "/api/used/sell/listing/",                
+                contentType: "application/json",
+                data: ko.toJSON(inquiryData),
+                success: function (response) {
+                    var res = JSON.parse(response);                    
+                    if (res != null && res.Status != null && res.Status.Code == 4) {      // if user is not verified
+                        vmSellBike.verificationDetails().status(true);                     
+                        vmSellBike.inquiryId(res.InquiryId);
+                        vmSellBike.customerId(res.CustomerId);
+                        }
+                    else if (res != null && res.Status != null && res.Status.Code == 5) {
+                        vmSellBike.formStep(3);
+                    }
+                    else 
+                    {
+                        vmSellBike.isFakeCustomer(true);
+                    }
+                },
+                complete: function (xhr, ajaxOptions, thrownError) {
+
+                }
+            });
+            
+            //scrollToForm.activate();
         }
         else {
             self.errors.showAllMessages();
@@ -575,8 +683,33 @@ var verificationDetails = function () {
         self.validateOTP(true);
 
         if (self.errorOTP().length === 0) {
-            vmSellBike.formStep(3);
+            
             scrollToForm.activate();
+            
+            var otp = vmSellBike.verificationDetails().otpCode();
+            var mobile = vmSellBike.personalDetails().sellerMobile();
+
+            $.ajax({
+                type: "Post",
+                url: "/api/mobileverification/validateotp/?mobile=" + mobile + "&otp=" + otp ,
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {                    
+                    if (!response) {
+                        $("#otpErrorText").show().text("Please enter correct otp");
+                        $('#otpCode').focus();
+                    }
+                    else {
+                        $("#otpErrorText").text("");
+                        vmSellBike.formStep(3);
+                    }
+                },
+                complete: function (xhr, ajaxOptions, thrownError) {
+
+                }
+            });
+
+
         }
         else {
             self.errorOTP.showAllMessages();
@@ -590,9 +723,34 @@ var verificationDetails = function () {
 var moreDetails = function () {
     var self = this;
 
-    self.registrationNumber = ko.observable('');
+    self.insuranceType = ko.observable();
+    self.adDescription = ko.observable();
 
+    self.registrationNumber = ko.observable('');
     self.updateAd = function () {
+
+        var moreDetailsData = {
+            "registrationNo" : vmSellBike.moreDetails().registrationNumber(),
+            "insuranceType" :  vmSellBike.moreDetails().insuranceType(),
+            "adDescription" : vmSellBike.moreDetails().adDescription()
+        }
+
+        $.ajax({
+            type: "Post",
+            url: "/api/used/sell/listing/otherinfo/?inquiryId=" + vmSellBike.inquiryId() + "&customerId=" + vmSellBike.customerId(),
+            contentType: "application/json",
+            dataType: 'json',
+            data: ko.toJSON(moreDetailsData),
+            success: function (response) {
+                
+               
+            }
+           ,
+            complete: function (xhr, ajaxOptions, thrownError) {
+
+            }
+        });
+
         vmSellBike.formStep(4);
         scrollToForm.activate();
     };

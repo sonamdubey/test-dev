@@ -1,4 +1,5 @@
 ﻿
+using Newtonsoft.Json;
 using System;
 using System.ComponentModel.DataAnnotations;
 namespace Bikewale.DTO.UsedBikes
@@ -10,8 +11,9 @@ namespace Bikewale.DTO.UsedBikes
     public class SellerDTO : Customer.CustomerBase
     {
         [Required]
+        [JsonProperty("sellerType")]
         public SellerType SellerType { get; set; }
-
+        [JsonProperty("otp")]
         public string Otp { get; set; }
 
     }
@@ -67,5 +69,7 @@ namespace Bikewale.DTO.UsedBikes
     public class SellBikeInquiryResultDTO
     {
         public SellBikeAdStatusDTO Status { get; set; }
+        public uint InquiryId { get; set; }
+        public ulong CustomerId { get; set; }
     }
 }

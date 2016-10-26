@@ -33,6 +33,7 @@ namespace Bikewale.BAL.UsedBikes
             _objCustomerRepo = objCustomerRepo;
             _objBuyerRepository = objBuyerRepository;
             _mobileVerRespo = mobileVerRespo;
+            _mobileVerification = mobileVerification;
         }
 
 
@@ -73,6 +74,9 @@ namespace Bikewale.BAL.UsedBikes
                 //Register user
                 AddOrUpdateAd(ad);
             }
+
+            result.CustomerId = ad.Seller.CustomerId;
+
             return result;
         }
 
