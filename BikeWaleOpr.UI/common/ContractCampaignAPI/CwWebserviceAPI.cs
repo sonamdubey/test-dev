@@ -1,6 +1,6 @@
 ﻿
 using BikewaleOpr.BAL.ContractCampaign;
-using BikewaleOpr.Entity.ContractCampaign;
+using BikewaleOpr.Entities.ContractCampaign;
 using BikewaleOpr.Interface.ContractCampaign;
 using Microsoft.Practices.Unity;
 using System.Collections.Generic;

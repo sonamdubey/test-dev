@@ -2,7 +2,7 @@
 using BikewaleOpr.common.ContractCampaignAPI;
 using BikewaleOpr.Common;
 using BikewaleOpr.CommuteDistance;
-using BikewaleOpr.Entity.ContractCampaign;
+using BikewaleOpr.Entities.ContractCampaign;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikeWaleOpr.Common;
 using Microsoft.Practices.Unity;

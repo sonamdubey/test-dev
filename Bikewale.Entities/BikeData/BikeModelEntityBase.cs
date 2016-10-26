@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.BikeData
 {
-    [Serializable,DataContract]
+    [Serializable, DataContract]
     public class BikeModelEntityBase
     {
         [DataMember]

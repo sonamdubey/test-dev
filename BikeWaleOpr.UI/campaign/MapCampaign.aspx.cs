@@ -1,5 +1,5 @@
 ﻿using BikewaleOpr.Common;
-using BikewaleOpr.Entity;
+using BikewaleOpr.Entities;
 using BikeWaleOpr.Common;
 using System;
 using System.Linq;

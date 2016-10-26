@@ -14,7 +14,7 @@ using Microsoft.Practices.Unity;
 using BikewaleOpr.DALs.BikePricing;
 using BikewaleOpr.Interface.BikePricing;
 using System.Collections;
-using BikewaleOpr.Entity.BikePricing;
+using BikewaleOpr.Entities.BikePricing;
 using System.Collections.Generic;
 
 namespace BikeWaleOpr.Content

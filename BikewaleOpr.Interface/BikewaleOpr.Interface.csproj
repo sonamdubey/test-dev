@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BikeData\IBikeMakes.cs" />
+    <Compile Include="BikeData\IBikeModels.cs" />
+    <Compile Include="BikeData\IBikeVersions.cs" />
     <Compile Include="BikePricing\IShowroomPricesRepository.cs" />
     <Compile Include="ContractCampaign\IContractCampaign.cs" />
     <Compile Include="IDealerPriceQuote.cs" />
@@ -50,6 +53,7 @@
     <Compile Include="ManufacturerCampaign\IManufacturerReleaseMaskingNumber.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Popular Comparisions\IPopularBikeComparisions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
