@@ -152,6 +152,8 @@ var bikeDetails = function () {
         self.modelArray([]);
         self.versionArray([]);
        
+        
+
         self.makeId = $(event.target).val();
         self.makeName = $(event.target).find(':selected').text();
         self.makeMaskingName = $(event.target).find(':selected').attr("data-masking");
@@ -174,6 +176,11 @@ var bikeDetails = function () {
                 complete: function (xhr, ajaxOptions, thrownError) {
                     $('#model-select-element.select-box').removeClass('done');
                     $('#version-select-element.select-box').removeClass('done');
+
+                    if (isEdit == "True") {
+                        debugger;
+                        vmSellBike.bikeDetails().model(inquiryDetails.model.modelId);
+                    }
                 }
             });
         }
@@ -181,7 +188,6 @@ var bikeDetails = function () {
     };
 
     self.modelChanged = function (data, event) {
-
         self.versionArray([]);
 
         self.modelId = $(event.target).val();
@@ -204,7 +210,7 @@ var bikeDetails = function () {
                     }
                 },
                 complete: function (xhr, ajaxOptions, thrownError) {
-                    $('#version-select-element.select-box').removeClass('done');
+                    $('#version-select-element.select-box').removeClass('done');                    
                 }
             });
         }
@@ -429,6 +435,10 @@ var bikeDetails = function () {
         }
     });
 
+    self.manufacturingTime = ko.computed(function () {
+        return self.manufactureYear() + '-' + self.manufactureMonth() + '-01';
+    });
+
     self.submitManufacturingDate = function (data, event) {
         if (self.manufactureYear() != '') {
             if (self.manufactureMonth() != '') {
@@ -565,7 +575,7 @@ var personalDetails = function () {
                     "price": 0,
                     "maskingName": null
                 },
-                "manufacturingYear": "2015-01-11T00:00:00",
+                "manufacturingYear": bdetails.manufacturingTime(),
                 "kiloMeters": bdetails.kmsRidden(),
                 "cityId": bdetails.city(),
                 "expectedprice": bdetails.expectedPrice(),
@@ -803,6 +813,78 @@ $(document).ready(function () {
         var text = $(this).attr('data-placeholder');
 
         $(this).siblings('.chosen-container').find('input[type=text]').attr('placeholder', text);
+
+
+
+        
+
+        //var inquiryData = {
+        //    "InquiryId": 0,
+        //    "make": {
+        //        "makeId": bdetails.makeId,
+        //        "makeName": bdetails.makeName,
+        //        "maskingName": bdetails.makeMaskingName
+        //    },
+        //    "model": {
+        //        "modelId": bdetails.modelId,
+        //        "modelName": bdetails.modelName,
+        //        "maskingName": null
+        //    },
+        //    "version": {
+        //        "versionId": bdetails.versionId,
+        //        "versionName": bdetails.versionName,
+        //        "modelName": bdetails.modelName,
+        //        "price": 0,
+        //        "maskingName": null
+        //    },
+        //    "manufacturingYear": bdetails.manufacturingTime(),
+        //    "kiloMeters": bdetails.kmsRidden(),
+        //    "cityId": bdetails.city(),
+        //    "expectedprice": bdetails.expectedPrice(),
+        //    "owner": bdetails.owner(),
+        //    "registrationPlace": bdetails.registeredCity(),
+        //    "color": bdetails.color(),
+        //    "colorId": colorId,
+        //    "sourceId": 1,
+        //    "status": 1,
+        //    "pageUrl": "used/sell",
+        //    "seller": {
+        //        "sellerType": sellerType,
+        //        "customerId": userId > 0 ? userId : 0,
+        //        "customerName": pdetails.sellerName(),
+        //        "customerEmail": pdetails.sellerEmail(),
+        //        "customerMobile": pdetails.sellerMobile()
+        //    },
+        //    "otherInfo": {
+        //        "registrationNo": "",
+        //        "insuranceType": "",
+        //        "adDescription": ""
+        //    }
+        //}
+
+
+        
+
+        if(isEdit == "True")
+        {
+            inquiryDetails = JSON.parse(inquiryDetails);
+            var bdetails = vmSellBike.bikeDetails();
+            var pdetails = vmSellBike.personalDetails();
+            debugger;
+            bdetails.make(inquiryDetails.make.makeId);
+            //bdetails.model(inquiryDetails.model.modleId);
+            bdetails.version(inquiryDetails.version.versionId);
+            bdetails.kmsRidden(inquiryDetails.kiloMeters);
+            //$('#div-kmsRidden').addClass('done');
+            bdetails.city(inquiryDetails.cityId);
+            bdetails.owner(inquiryDetails.owner);
+            bdetails.registeredCity(inquiryDetails.registrationPlace);
+            bdetails.expectedPrice(inquiryDetails.expectedprice);
+            debugger;
+            
+
+        }
+
     });
 
     var selectDropdownBox = $('.select-box-no-input');
@@ -1016,7 +1098,7 @@ $('#month-list').on('click', 'li', function () {
 var calender = {
 
     width: 360,
-
+    
     year: {
         list: $('#year-list'),
 

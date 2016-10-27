@@ -97,9 +97,9 @@
                                                 <div class="calendar-box-content">
                                                     <div id="select-calendar-box" class="select-calendar-box">
                                                         <p class="select-calendar-label calendar-box-default">Year of manufacturing<sup>*</sup></p>
-                                                        <p id="selected-calendar-date" class="calendar-box-default" data-bind="text: bikeDetails().manufacturingDate, validationElement: bikeDetails().manufacturingDate"></p>
+                                                        <p id="selected-calendar-date" class="calendar-box-default" data-bind="text: manufacturingDate, validationElement: manufacturingDate"></p>
                                                         <span class="boundary"></span>
-                                                        <span class="error-text" data-bind="validationMessage: bikeDetails().manufacturingDate"></span>
+                                                        <span class="error-text" data-bind="validationMessage: manufacturingDate"></span>
                                                         <div id="calendar-content">
                                                             <p class="dropdown-label">Year of manufacturing</p>
                                                             <div id="year-content">
@@ -111,7 +111,7 @@
                                                             <div class="clear"></div>
                                                             <div id="calendar-error" class="error-text"></div>
                                                             <div class="text-center padding-bottom25">
-                                                                <input type="button" id="submit-calendar-btn" class="btn btn-orange btn-primary-big" value="Select" data-bind="click: bikeDetails().submitManufacturingDate" />
+                                                                <input type="button" id="submit-calendar-btn" class="btn btn-orange btn-primary-big" value="Select" data-bind="click: submitManufacturingDate" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -119,7 +119,7 @@
                                             </div>
 
                                             <div class="panel-row margin-bottom20">
-                                                <div class="input-box form-control-box" data-bind="css: kmsRidden().length > 0 ? 'not-empty' : ''">
+                                                <div id="div-kmsRidden" class="input-box form-control-box" data-bind="css: kmsRidden().length > 0 ? 'not-empty' : ''">
                                                     <input type="number" id="kmsRidden" min="1" data-bind="textInput: kmsRidden, validationElement: kmsRidden" />
                                                     <label for="kmsRidden">Kms ridden<sup>*</sup></label>
                                                     <span class="boundary"></span>
@@ -484,11 +484,12 @@
             </div>
         </section>
 
-
         <script type="text/javascript"> 
             var userId = '<%= userId%>';    
             var isEdit = '<%= isEdit %>';
             var inquiryId = '<%= inquiryId %>';
+            var isAuthorized = '<%= isAuthorized%>';
+            var inquiryDetails = '<%= Newtonsoft.Json.JsonConvert.SerializeObject(inquiryDTO) %>';
         </script>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>

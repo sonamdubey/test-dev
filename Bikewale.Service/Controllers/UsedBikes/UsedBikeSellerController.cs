@@ -35,7 +35,7 @@ namespace Bikewale.Service.Controllers.UsedBikes
             }
         }
 
-        [HttpGet, Route("api/used/sell/listing/{inquiryId}/{customerId}/"), ResponseType(typeof(SellBikeAdDTO))]
+        [HttpGet, Route("api/used/sell/listing/"), ResponseType(typeof(SellBikeAdDTO))]
         public IHttpActionResult Get(int inquiryId, ulong customerId)
         {
             SellBikeAd adEntity = null;

@@ -63,6 +63,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\AjaxPro.2.dll</HintPath>
     </Reference>
+    <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Carwale.BL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Carwale.BL.dll</HintPath>

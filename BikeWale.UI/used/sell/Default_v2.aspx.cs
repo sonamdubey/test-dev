@@ -1,13 +1,29 @@
-﻿using Bikewale.Cache.BikeData;
+﻿using Bikewale.BAL.Customer;
+using Bikewale.BAL.MobileVerification;
+using Bikewale.BAL.UsedBikes;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
+using Bikewale.DAL.Customer;
 using Bikewale.DAL.Location;
+using Bikewale.DAL.MobileVerification;
+using Bikewale.DAL.Used;
+using Bikewale.DTO.BikeBooking.Make;
+using Bikewale.DTO.BikeBooking.Model;
+using Bikewale.DTO.BikeBooking.Version;
+using Bikewale.DTO.Customer;
+using Bikewale.DTO.UsedBikes;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Customer;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Used;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.Location;
+using Bikewale.Interfaces.MobileVerification;
+using Bikewale.Interfaces.Used;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -23,6 +39,8 @@ namespace Bikewale.Used.Sell
         protected bool isEdit = false;
         protected ulong inquiryId = 0;
         protected bool isAuthorized = false;
+        protected SellBikeAd inquiryDetailsObject = null;
+        protected SellBikeAdDTO inquiryDTO;
 
         protected override void OnInit(EventArgs e)
         {
@@ -108,19 +126,65 @@ namespace Bikewale.Used.Sell
                 {
                     isEdit = true;
                     inquiryId = Convert.ToUInt64(Request.QueryString["id"]);
-                    CheckIsCustomerAuthorized();
+                    GetInquiryDetails();
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.sell.default.BindCities()");
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.sell.default.CheckIsEdit()");
                 objErr.SendMail();
             }
         }
 
-        protected void CheckIsCustomerAuthorized()
+        protected void GetInquiryDetails()
         {
+            try
+            {
+                ISellBikes obj;
+                
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<ICustomerRepository<CustomerEntity, UInt32>, CustomerRepository<CustomerEntity, UInt32>>();
+                    container.RegisterType<ICustomer<CustomerEntity, UInt32>, Customer<CustomerEntity, UInt32>>();
+                    container.RegisterType<IMobileVerificationRepository, MobileVerificationRepository>();
+                    container.RegisterType<IMobileVerification, MobileVerification>();                    
+                    container.RegisterType<IUsedBikeBuyerRepository, UsedBikeBuyerRepository>();
+                    container.RegisterType<ISellBikesRepository<SellBikeAd, int>, SellBikesRepository<SellBikeAd, int>>();
+                    container.RegisterType<ISellBikes, SellBikes>();
+                    obj = container.Resolve<ISellBikes>();
+                }
 
+                SellBikeAd inquiryDetailsObject = obj.GetById((int)inquiryId, Convert.ToUInt64(userId));
+                inquiryDTO = ConvertToDto(inquiryDetailsObject);
+
+                if (inquiryDetailsObject == null)
+                {
+                    isAuthorized = false;
+                }
+                else
+                {
+                    isAuthorized = true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.sell.default.CheckIsCustomerAuthorized()");
+                objErr.SendMail();
+            }
+
+        }
+
+        private SellBikeAdDTO ConvertToDto(SellBikeAd inquiryDetailsObject)
+        {
+            AutoMapper.Mapper.CreateMap<Bikewale.Entities.BikeData.BikeMakeEntityBase, BBMakeBase>();
+            AutoMapper.Mapper.CreateMap<Bikewale.Entities.BikeData.BikeModelEntityBase, BBModelBase>();
+            AutoMapper.Mapper.CreateMap<BikeVersionEntityBase, BBVersionBase>();
+            AutoMapper.Mapper.CreateMap<Bikewale.Entities.Used.SellAdStatus, Bikewale.DTO.UsedBikes.SellAdStatus>();
+            AutoMapper.Mapper.CreateMap<SellBikeAdOtherInformation, SellBikeAdOtherInformationDTO>();
+            AutoMapper.Mapper.CreateMap<SellerEntity, SellerDTO>();
+            AutoMapper.Mapper.CreateMap<SellBikeAd, SellBikeAdDTO>();
+            return AutoMapper.Mapper.Map<SellBikeAdDTO>(inquiryDetailsObject);
         }
     }
 }
