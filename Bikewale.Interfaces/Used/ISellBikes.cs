@@ -5,6 +5,8 @@ namespace Bikewale.Interfaces.Used
     /// <summary>
     /// Created by: Sangram Nandkhile on 13 Oct 2016
     /// Summary: Interface for Sell bikes - BAL
+    /// Modified By : Aditi Srivastava on 27 Oct 2016
+    /// Description : Added function to remove bike photos
     /// </summary>
     public interface ISellBikes
     {
@@ -13,5 +15,6 @@ namespace Bikewale.Interfaces.Used
         SellBikeAd GetById(int inquiryId, ulong customerId);
         bool VerifyMobile(SellerEntity seller);
         bool IsFakeCustomer(ulong customerId);
+        bool RemoveBikePhotos(ulong customerId, string profileId, string photoId);
     }
 }

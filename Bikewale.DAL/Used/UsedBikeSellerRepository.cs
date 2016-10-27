@@ -6,6 +6,7 @@ using MySql.CoreDAL;
 using System;
 using System.Data;
 using System.Data.Common;
+using System.Web;
 
 namespace Bikewale.DAL.Used
 {
@@ -150,5 +151,37 @@ namespace Bikewale.DAL.Used
 
             return objInquiry;
         }
+        /// <summary>
+        /// Created By  : Aditi Srivastava on 27 Oct 2016
+        /// Description : Function to delete used bikes photos
+        /// </summary>
+        /// <param name="inquiryId"></param>
+        /// <param name="photoId"></param>
+        /// <returns></returns>
+        public bool RemoveBikePhotos(int inquiryId, string photoId)
+        {
+            bool isRemoved = false;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("classified_bikephotos_remove"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, inquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbType.Int64, photoId));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    
+                    isRemoved = true;
+                }
+            }
+            catch (Exception err)
+            {
+                HttpContext.Current.Trace.Warn(err.Message);
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            return isRemoved;
+        }   
     }
 }

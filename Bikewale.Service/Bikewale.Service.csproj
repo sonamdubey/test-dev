@@ -322,6 +322,7 @@
     <Compile Include="Controllers\Model\ModelController.cs" />
     <Compile Include="Controllers\Model\ModelListController.cs" />
     <Compile Include="Controllers\State\StateListController.cs" />
+    <Compile Include="Controllers\UsedBikes\UsedBikePhotosController.cs" />
     <Compile Include="Controllers\UsedBikes\UsedBikeSellerController.cs" />
     <Compile Include="Controllers\Used\PopularUsedBikesController.cs" />
     <Compile Include="Controllers\Used\UsedBikesSearchController.cs" />
