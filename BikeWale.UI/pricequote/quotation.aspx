@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.PriceQuote.Quotation" Trace="false" Debug="false" %>
-<%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/NewAlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 
@@ -208,23 +208,23 @@
         </style>
 
 
-    <section class="margin-bottom20 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
-        <div class="container">
-        <div class="grid-12 alternative-section" id="alternative-bikes-section">
-            <h2 class="text-bold text-center margin-top20 margin-bottom30 font22"><%= mmv.Make + " " + mmv.Model %> alternatives</h2>
-            <div class="content-box-shadow">
-                <div class="jcarousel-wrapper alternatives-carousel margin-top20">
-                    <div class="jcarousel">
-                        <ul>
-                            <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
-                        </ul>
+    <section>
+        <div class="container margin-bottom20 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
+            <div class="grid-12 alternative-section" id="alternative-bikes-section">
+                <h2 class="text-bold text-center margin-top20 margin-bottom30 font22"><%= mmv.Make + " " + mmv.Model %> alternatives</h2>
+                <div class="content-box-shadow">
+                    <div class="jcarousel-wrapper alternatives-carousel margin-top20">
+                        <div class="jcarousel">
+                            <ul>
+                                <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
+                            </ul>
+                        </div>
+                        <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
+                        <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
                     </div>
-                    <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
-                    <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
                 </div>
             </div>
-        </div>
-        <div class="clear"></div>
+            <div class="clear"></div>
         </div>
     </section>
 
