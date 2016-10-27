@@ -54,7 +54,7 @@
                             <div id="sell-bike-left-col" class="grid-7 panel-group">
                                 <!-- start of form steps -->
                                 <div data-bind="visible: formStep() < 4">
-                                    <div class="panel">
+                                    <div class="panel panel-divider">
                                         <div class="panel-head">
                                             <span class="sell-bike-sprite" data-bind="click: gotoStep1, css: formStep() == 1 ? 'step-1-active' : 'edit-step'"></span>
                                             <span class="panel-title">Bike details</span>
@@ -93,8 +93,33 @@
                                                 <div class="clear"></div>
                                             </div>
 
+                                            <div class="panel-row margin-bottom10">
+                                                <div class="calendar-box-content">
+                                                    <div id="select-calendar-box" class="select-calendar-box">
+                                                        <p class="select-calendar-label calendar-box-default">Year of manufacturing<sup>*</sup></p>
+                                                        <p id="selected-calendar-date" class="calendar-box-default" data-bind="text: manufacturingDate, validationElement: manufacturingDate"></p>
+                                                        <span class="boundary"></span>
+                                                        <span class="error-text" data-bind="validationMessage: manufacturingDate"></span>
+                                                        <div id="calendar-content">
+                                                            <p class="dropdown-label">Year of manufacturing</p>
+                                                            <div id="year-content">
+                                                                <ul id="year-list"></ul>
+                                                                <span class="year-control bwsprite year-prev"></span>
+                                                                <span class="year-control bwsprite year-next"></span>
+                                                            </div>
+                                                            <ul id="month-list"></ul>
+                                                            <div class="clear"></div>
+                                                            <div id="calendar-error" class="error-text"></div>
+                                                            <div class="text-center padding-bottom25">
+                                                                <input type="button" id="submit-calendar-btn" class="btn btn-orange btn-primary-big" value="Select" data-bind="click: submitManufacturingDate" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div class="panel-row margin-bottom20">
-                                                <div class="input-box form-control-box" data-bind="css: kmsRidden().length > 0 ? 'not-empty' : ''">
+                                                <div id="div-kmsRidden" class="input-box form-control-box" data-bind="css: kmsRidden().length > 0 ? 'not-empty' : ''">
                                                     <input type="number" id="kmsRidden" min="1" data-bind="textInput: kmsRidden, validationElement: kmsRidden" />
                                                     <label for="kmsRidden">Kms ridden<sup>*</sup></label>
                                                     <span class="boundary"></span>
@@ -211,7 +236,7 @@
                                         </div>
                                         <div class="clear"></div>
                                     </div>
-                                    <div class="panel">
+                                    <div class="panel panel-divider">
                                         <div class="panel-head">
                                             <span class="sell-bike-sprite" data-bind="click: gotoStep2, css: (formStep() == 2) ? 'step-2-active' : (formStep() > 1) ? 'edit-step' : 'step-2-inactive'"></span>
                                             <span class="panel-title">Personal details</span>
@@ -326,17 +351,26 @@
                                             <span class="sell-bike-sprite" data-bind="css: (formStep() == 3) ? 'step-3-active' : 'step-3-inactive'"></span>
                                             <span class="panel-title">More details</span>
                                         </div>
-                                        <div class="panel-body" data-bind="visible: formStep() == 3">
-                                            <div class="panel-row margin-bottom20">
+                                        <div class="panel-body panel-body-3" data-bind="visible: formStep() == 3">
+                                            <div class="panel-row margin-bottom40">
+                                                <p class="font16 margin-bottom5 text-black">Add Photos</p>
+                                                <p class="font14 text-light-grey margin-bottom20">Listings with photos are likely to get 3x more responses! The first photo will be made profile photo of your listing.<br />(Supported formats: .jpg, .png; Image Size < 4 MB and Image Count < 10).
+                                                </p>
                                                 <div id="add-photos-dropzone" class="dropzone dz-clickable">
-                                                    <div class="dz-message" data-dz-message>
-                                                        <div class="leftfloat">
-                                                            <p class="font16 text-bold">Add photos</p>
-                                                            <p class="font12 text-light-grey">First image in the list will be the cover photo for the ad.<br />Supported format: .jpg, .png; Image size < 4 MB</p>
+                                                    <div class="dz-message">
+                                                        <div id="dz-custom-message">
+                                                            <span class="sell-bike-sprite add-photo-icon"></span><br />
+                                                            <button type="button" class="btn btn-primary-big btn-orange margin-top20 margin-bottom15">Add photos</button>
+                                                            <p class="font14 text-light-grey">Select images to upload. You can also drag and drop images</p>
                                                         </div>
-                                                        <div class="rightfloat">
-                                                            <span></span>
-                                                        </div>
+                                                        <ul id="dz-image-placeholder" class="margin-top10">
+                                                            <li></li>
+                                                            <li></li>
+                                                            <li></li>
+                                                            <li></li>
+                                                            <li></li>
+                                                            <li></li>
+                                                        </ul>
                                                         <div class="clear"></div>
                                                     </div>
                                                 </div>
@@ -375,18 +409,6 @@
                                                 <input type="button" class="btn btn-orange btn-primary-big margin-right20" value="Update my Ad" data-bind="click: moreDetails().updateAd" />
                                                 <input type="button" class="btn btn-white btn-primary-small" value="No Thanks" data-bind="click: moreDetails().noThanks" />
                                             </div>
-                                            
-                                            <!--
-                                            <div class="panel-row">
-                                                <div id="calender-content">
-                                                    <div id="year-content">
-                                                        <ul id="year-list"></ul>
-                                                        <span class="year-control year-prev">Prev</span>
-                                                        <span class="year-control year-next">Next</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            -->
 
                                         </div>
                                     </div>
@@ -462,14 +484,18 @@
             </div>
         </section>
 
-
         <script type="text/javascript"> 
             var userId = '<%= userId%>';    
             var isEdit = '<%= isEdit %>';
             var inquiryId = '<%= inquiryId %>';
+            var isAuthorized = '<%= isAuthorized%>';
+            var inquiryDetails = '<%= Newtonsoft.Json.JsonConvert.SerializeObject(inquiryDTO) %>';
         </script>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript">
+            
+        </script>
         <!-- #include file="/includes/footerBW.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
