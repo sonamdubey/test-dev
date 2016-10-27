@@ -28,6 +28,7 @@ namespace Bikewale.Entities.Used
         public SellerEntity Seller { get; set; }
         public SellBikeAdOtherInformation OtherInfo { get; set; }
         public ushort PhotoCount { get; set; }
+        public bool IsBikeDataEdited { get; set; }
     }
     /// <summary>
     /// Created by  :   Sumit Kate on 14 Oct 2016

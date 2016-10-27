@@ -34,7 +34,9 @@
                         <input id="btnLView" onclick ="<%= string.Format("javascript:window.open('/classified/listingphotos.aspx?profileid={0}','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')", listing.InquiryId) %>"  type="button" value ="View Photos"  /></td>
                     <% } %>
                     <td class="text-align-center">
+                        <% if(listing.IsBikeDataEdited) { %>
                         <input data-attr-id="<%=listing.InquiryId %>" data-attr-profileid="<%=listing.ProfileId %>" data-attr-bikename="<%=listing.Version.VersionName %>" id="btnApprove" type="button" value="Approve" /><input id="btnDiscard" class="margin-left5" type="button" value="Discard" data-attr-id="<%=listing.InquiryId %>" data-attr-profileid="<%=listing.ProfileId %>" data-attr-bikename="<%=listing.Version.VersionName %>" />
+                        <% } %>
                     </td>
                 </tr>
                    <% } %>

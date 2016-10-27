@@ -93,6 +93,7 @@ namespace BikewaleOpr.Used
                                 ad.Expectedprice = SqlReaderConvertor.ToUInt64(dr["Price"]);
                                 ad.ManufacturingYear = SqlReaderConvertor.ToDateTime(dr["MakeYear"]);
                                 ad.PhotoCount = SqlReaderConvertor.ToUInt16(dr["PhotoCount"]);
+                                ad.IsBikeDataEdited = SqlReaderConvertor.ToBoolean(dr["isbikedataedited"]);
                                 sellerListing.Add(ad);
                             }
                             dr.Close();
