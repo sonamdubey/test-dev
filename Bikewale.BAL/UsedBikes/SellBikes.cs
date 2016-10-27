@@ -5,8 +5,13 @@ using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Interfaces.Used;
 using Bikewale.Notifications;
+using RabbitMqPublishing;
 using System;
-
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.IO;
+using System.Reflection;
+using System.Web;
 namespace Bikewale.BAL.UsedBikes
 {
     /// <summary>
@@ -142,5 +147,131 @@ namespace Bikewale.BAL.UsedBikes
             return _sellBikeRepository.IsFakeCustomer(custId);
         }
 
+        public SellBikeImageUploadResultEntity UploadBikeImage(bool isMain, ulong customerId, string profileId, string description, HttpFileCollection imageFiles)
+        {
+            SellBikeImageUploadResultEntity result = new SellBikeImageUploadResultEntity();
+            try
+            {
+                string inquiryId = String.Empty;
+                string inquiryType = String.Empty;
+                Utility.UsedBikeProfileId.SplitProfileId(profileId, out inquiryId, out inquiryType);
+                if (null != _sellBikeRepository.GetById(Convert.ToInt32(inquiryId), customerId))
+                {
+                    foreach (string file in imageFiles)
+                    {
+                        int index = 0;
+                        var imageFile = imageFiles[file];
+                        if (imageFile != null && !String.IsNullOrEmpty(imageFile.FileName))
+                        {
+                            string imageFileName = imageFile.FileName;
+                            string fileExtension = String.Empty;
+
+                            if (Utility.Image.IsValidFileExtension(imageFileName, out fileExtension))
+                            {
+                                string folderpath = CreateImageFileDirectory(profileId);
+                                string fileName = String.Format("{0}_{1}{2}", Utility.UsedBikeProfileId.GetProfileNo(profileId), DateTime.Now.ToString("yyyyMMddhhmmssfff"), fileExtension);
+                                string fileSaveLocation = String.Format("{0}{1}", folderpath, fileName);
+                                imageFile.SaveAs(fileSaveLocation);
+
+                                string originalImagePath = String.Format("/bw/used/{0}/", profileId);
+
+                                //call DAL to save
+                                string photoId = _sellBikeRepository.SaveBikePhotos(
+                                     index == 0,
+                                     inquiryType.Equals("D", StringComparison.CurrentCultureIgnoreCase),
+                                     Convert.ToInt32(inquiryId),
+                                     originalImagePath + fileName,
+                                     description
+                                     );
+                                if (!String.IsNullOrEmpty(photoId))
+                                {
+                                    string imgUrl = _sellBikeRepository.UploadImageToCommonDatabase(photoId, fileName, ImageCategories.BIKEWALESELLER, originalImagePath);
+                                    if (Uri.IsWellFormedUriString(imgUrl, UriKind.RelativeOrAbsolute))
+                                    {
+                                        //RabbitMq Publish code here
+                                        RabbitMqPublish rabbitmqPublish = new RabbitMqPublish();
+                                        NameValueCollection nvc = new NameValueCollection();
+                                        nvc.Add(GetDescription(ImageKeys.ID).ToLower(), photoId);
+                                        nvc.Add(GetDescription(ImageKeys.CATEGORY).ToLower(), "BikeWaleSeller");
+                                        nvc.Add(GetDescription(ImageKeys.LOCATION).ToLower(), imgUrl);
+                                        nvc.Add(GetDescription(ImageKeys.CUSTOMSIZEWIDTH).ToLower(), "-1");
+                                        nvc.Add(GetDescription(ImageKeys.CUSTOMSIZEHEIGHT).ToLower(), "-1");
+                                        nvc.Add(GetDescription(ImageKeys.ISWATERMARK).ToLower(), Convert.ToString(false));
+                                        nvc.Add(GetDescription(ImageKeys.ISCROP).ToLower(), Convert.ToString(false));
+                                        nvc.Add(GetDescription(ImageKeys.ISMAIN).ToLower(), Convert.ToString(false));
+                                        nvc.Add(GetDescription(ImageKeys.SAVEORIGINAL).ToLower(), Convert.ToString(true));
+                                        nvc.Add(GetDescription(ImageKeys.ISMASTER).ToLower(), "1");
+                                        rabbitmqPublish.PublishToQueue(Utility.BWConfiguration.Instance.ImageQueueName, nvc);
+                                        result.Status = ImageUploadStatus.Success;
+                                        result.PhotoId = photoId;
+                                    }
+                                    else
+                                    {
+                                        result.Status = ImageUploadStatus.UrlNotWellFormed;
+                                    }
+                                }
+                                else
+                                {
+                                    result.Status = ImageUploadStatus.ErrorPhotoIdGeneration;
+                                }
+                            }
+                            else
+                            {
+                                result.Status = ImageUploadStatus.InvalidImageFileExtension;
+                            }
+                        }
+                        else
+                        {
+                            result.Status = ImageUploadStatus.NoFile;
+                        }
+                        index++;
+                    }
+                }
+                else
+                {
+                    result.Status = ImageUploadStatus.UnauthorizedAccess;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("UploadBikeImage({0},{1},{2},{3},{4})", isMain, customerId, profileId, description, (imageFiles != null ? Newtonsoft.Json.JsonConvert.SerializeObject(imageFiles.AllKeys) : "")));
+                objErr.SendMail();
+
+            }
+
+            return result;
+        }
+
+        private string CreateImageFileDirectory(string profileId)
+        {
+            string folderpath = Utility.Image.GetPathToSaveImages(String.Format(@"\\bw\\used\\{0}\\", profileId));
+
+            if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf("localhost") < 0)
+            {
+                if (folderpath.IndexOf("bikewale") >= 0)
+                    folderpath = folderpath.Replace(@"\\bikewale\\", @"\\carwale\\");
+            }
+
+            if (!Directory.Exists(folderpath))
+            {
+                Directory.CreateDirectory(folderpath);
+            }
+            return folderpath;
+        }
+
+        private string GetDescription(Enum value)
+        {
+            FieldInfo fi = value.GetType().GetField(value.ToString());
+            DescriptionAttribute[] attributes =
+                (DescriptionAttribute[])fi.GetCustomAttributes(
+                typeof(DescriptionAttribute),
+                false);
+
+            if (attributes != null &&
+                attributes.Length > 0)
+                return attributes[0].Description;
+            else
+                return value.ToString();
+        }
     }
 }

@@ -79,6 +79,10 @@
     <Reference Include="PasswordHashingLib">
       <HintPath>..\Libs\PasswordHashingLib.dll</HintPath>
     </Reference>
+    <Reference Include="RabbitMqPublishing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\RabbitMqPublishing.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />

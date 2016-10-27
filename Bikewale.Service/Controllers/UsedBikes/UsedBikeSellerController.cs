@@ -1,12 +1,15 @@
 ﻿using Bikewale.DTO.UsedBikes;
 using Bikewale.Entities.Used;
 using Bikewale.Interfaces.Used;
+using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.UsedBikes;
 using Bikewale.Service.Utilities;
+using System;
+using System.Linq;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.ModelBinding;
-
 namespace Bikewale.Service.Controllers.UsedBikes
 {
     public class UsedBikeSellerController : CompressionApiController
@@ -101,6 +104,42 @@ namespace Bikewale.Service.Controllers.UsedBikes
             {
                 return BadRequest(ModelState);
             }
+        }
+
+        [HttpPost, Route("api/used/{profileId}/image/upload/")]
+        public IHttpActionResult Post(string profileId, bool? isMain, string description)
+        {
+            try
+            {
+                string strCustomerId = Request.Headers.Contains("customerId") ? Request.Headers.GetValues("customerId").FirstOrDefault() : string.Empty;
+
+                var request = HttpContext.Current.Request;
+
+                if (!string.IsNullOrEmpty(strCustomerId) && request.Files != null && request.Files.Count > 0)
+                {
+                    UInt64 customerId = Convert.ToUInt64(strCustomerId);
+
+                    SellBikeImageUploadResultEntity uploadResult = _usedBikesRepo.UploadBikeImage(
+                    isMain.HasValue ? isMain.Value : false,
+                    customerId,
+                    profileId,
+                    description,
+                    request.Files
+                    );
+                    return Ok(uploadResult);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("api/used/{0}/image/upload/?isMain={1}&description={2},{3}", profileId, isMain, description, Newtonsoft.Json.JsonConvert.SerializeObject(HttpContext.Current.Request.Files.AllKeys)));
+                objErr.SendMail();
+                return InternalServerError();
+            }
+
         }
     }
 }
