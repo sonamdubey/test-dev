@@ -6,7 +6,6 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Mobile.Controls;
-using Bikewale.Mobile.Controls;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -34,12 +33,18 @@ namespace Bikewale.Mobile
             this.Load += new EventHandler(Page_Load);
         }
 
+        /// <summary>
+        /// MOdified By : Sushil Kumar on 27th Oct 2016
+        /// Description : Fetch 4 comparisions list obj
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
             ctrlNews.TotalRecords = 3;
             ctrlExpertReviews.TotalRecords = 3;
             ctrlVideos.TotalRecords = 3;
-            ctrlCompareBikes.TotalRecords = 1;
+            ctrlCompareBikes.TotalRecords = 4;
             MOnRoadPricequote.PQSourceId = (int)PQSourceEnum.Mobile_HP_PQ_Widget;
 
             BindBrandsRepeaters();

@@ -1,0 +1,36 @@
+﻿#main-compare-bikes-target {
+    width: 100%;
+    min-height: 200px;
+    margin-bottom: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: block;
+    border: 1px solid #e2e2e2;
+    border-radius: 1px;
+    background: #fff;
+    overflow: hidden;
+}
+
+#main-compare-bikes-target .comparison-image {
+    width: 120px;
+    height: 67px;
+    margin: 0 auto 15px;
+    overflow: hidden;
+    display: block;
+    text-align: center;
+}
+
+#main-compare-bikes-target img {
+    height: 67px;
+}
+
+#main-compare-bikes-target .grid-6:first-child:after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 55px;
+    width: 22px;
+    height: 21px;
+    background: url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png) no-repeat;
+    display: block;
+}

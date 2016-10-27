@@ -108,13 +108,7 @@
             </div>
             <div class="clear"></div>
         </div>
-        <div class="margin-top15">
-            <div class="grid_12 alpha " style="border: 1px solid #E2E2E2;">
-                <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Compare Now</h2>
-                <BW:CompareBikes ID="ctrlCompareBikes" runat="server" ShowCompButton="false" />
-            </div>
-            <div class="clear"></div>
-        </div>
+        
 
     </div>
     <!--    Left Container ends here -->
@@ -134,6 +128,14 @@
         </div>
     </div>
     <!--    Right Container ends here -->
+</div>
+
+<div class="container">
+    <div class="grid-12 margin-bottom20 content-box-shadow padding-bottom20">
+        <h2 class="text-bold text-center margin-top30 margin-bottom30 font28">Compare Now</h2>
+        <BW:CompareBikes ID="ctrlCompareBikes" runat="server" ShowCompButton="false" />
+    </div>
+    <div class="clear"></div>
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -246,4 +248,16 @@
             return false;
     }
 </script>
+<style type="text/css">
+    .sidebar-image-label {
+        width: 115px;
+    }
+    .inr-md-lg {
+        width: 12px;
+        height: 17px;
+        background-position: -64px -515px;
+        position: relative;
+        top: 1px;
+    }
+</style>
 <!-- #include file="/includes/footerInner.aspx" -->

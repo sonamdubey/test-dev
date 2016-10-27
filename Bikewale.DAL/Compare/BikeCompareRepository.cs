@@ -231,6 +231,8 @@ namespace Bikewale.DAL.Compare
         /// <summary>
         /// Modified by :   Sumit Kate on 29 Jan 2016
         /// Description :   Populate Versions image related entity properties.
+        /// Modified By : Sushil Kumar on 27th Oct 2016
+        /// Description : Removed unused properties binding image
         /// </summary>
         /// <param name="topCount"></param>
         /// <returns></returns>
@@ -239,7 +241,7 @@ namespace Bikewale.DAL.Compare
             List<TopBikeCompareBase> topBikeList = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikecomparisonmin_29012016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikecomparisonmin_27102016"))
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
@@ -265,9 +267,6 @@ namespace Bikewale.DAL.Compare
 
                                     Price1 = GetUint32(reader["Price1"]),
                                     Price2 = GetUint32(reader["Price2"]),
-
-                                    HostURL = GetString(reader["HostUrl"]),
-                                    OriginalImagePath = GetString(reader["OriginalImagePath"]),
 
                                     VersionId1 = GetUInt16(reader["VersionId1"]),
                                     VersionId2 = GetUInt16(reader["VersionId2"]),
