@@ -433,16 +433,8 @@
       <DependentUpon>BrowseUserReviews.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\CompareBikesMin.ascx.cs">
-      <DependentUpon>CompareBikesMin.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="controls\ComparisonMin.ascx.cs">
       <DependentUpon>ComparisonMin.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\ComparisonMin_old.ascx.cs">
-      <DependentUpon>ComparisonMin_old.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\DateControl.ascx.cs">
@@ -759,10 +751,6 @@
     </Compile>
     <Compile Include="m\controls\CompareBikeMin.ascx.cs">
       <DependentUpon>CompareBikeMin.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\controls\CompareBikeMin_old.ascx.cs">
-      <DependentUpon>CompareBikeMin_old.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\CompareBikesMin.ascx.cs">
@@ -1748,10 +1736,8 @@
     <Content Include="controls\BrowseBikes.ascx" />
     <Content Include="controls\BrowseUserReviews.ascx" />
     <Content Include="controls\CalculateEMIMin.ascx" />
-    <Content Include="controls\CompareBikesMin.ascx" />
     <Content Include="controls\ComparisonMin.ascx" />
     <Content Include="controls\ComparisonMinInner.ascx" />
-    <Content Include="controls\ComparisonMin_old.ascx" />
     <Content Include="controls\DateControl.ascx" />
     <Content Include="controls\DiscussIt.ascx" />
     <Content Include="controls\EMICalculatorMin.ascx" />
@@ -2269,7 +2255,6 @@
     <Content Include="m\controls\AlternativeBikes.ascx" />
     <Content Include="m\controls\BookBikeSlug.ascx" />
     <Content Include="m\controls\CompareBikeMin.ascx" />
-    <Content Include="m\controls\CompareBikeMin_old.ascx" />
     <Content Include="m\controls\CompareBikesMin.ascx" />
     <Content Include="m\controls\DealersCard.ascx" />
     <Content Include="m\controls\ExpertReviewsWidget.ascx" />

@@ -29,6 +29,7 @@
 }
 
 #compare-sidebar-list li {
+    display: block;
     margin-bottom: 20px;
 }
 
