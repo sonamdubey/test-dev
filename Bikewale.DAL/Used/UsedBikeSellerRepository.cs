@@ -177,8 +177,7 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception err)
             {
-                HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(err, String.Format("RemoveBikePhotos({0},{1})", inquiryId, photoId));
                 objErr.SendMail();
             }
             return isRemoved;

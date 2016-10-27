@@ -9,6 +9,10 @@ using System.Web.Http;
 
 namespace Bikewale.Service.Controllers.UsedBikes
 {
+    /// <summary>
+    /// Created By  : Aditi Srivastava on 27 Oct 2016
+    /// Description : API for adding and deleting photos
+    /// </summary>
     public class UsedBikePhotosController : CompressionApiController
     {
          private readonly ISellBikes _usedBikesRepo = null;
@@ -17,7 +21,13 @@ namespace Bikewale.Service.Controllers.UsedBikes
         {
             _usedBikesRepo = UsedBikesRepo;
         }
-
+        /// <summary>
+        /// Created By: Aditi Srivastava on 27 Oct 2016
+        /// Description : Function to remove bike photos
+        /// </summary>
+        /// <param name="profileId"></param>
+        /// <param name="photoId"></param>
+        /// <returns></returns>
          [HttpPost, Route("api/used/{profileId}/image/{photoId}/delete/")]
          public IHttpActionResult RemoveBikePhotos(string profileId, string photoId)
          {
@@ -26,16 +36,14 @@ namespace Bikewale.Service.Controllers.UsedBikes
              string platformId = "";
              try
              {
-                 if (Request.Headers.Contains("platformId"))
+                 if (Request.Headers.Contains("platformId") && Request.Headers.Contains("customerId"))
                  {
                      platformId = Request.Headers.GetValues("platformId").First().ToString();
-                     if (!String.IsNullOrEmpty(platformId) && Utility.CommonValidators.IsValidNumber(platformId))
-                     {
-                         customerId = Convert.ToUInt64(Request.Headers.GetValues("customerId").First());
-                         if (customerId > 0)
-                         {
+                     customerId = Convert.ToUInt64(Request.Headers.GetValues("customerId").First());
+                     if (!String.IsNullOrEmpty(platformId) && Utility.CommonValidators.IsValidNumber(platformId) && Utility.UsedBikeProfileId.IsValidProfileId(profileId))
+                     {                    
                              isSuccess = _usedBikesRepo.RemoveBikePhotos(customerId, profileId, photoId);
-                         }
+                         
                      }
                      return Ok(isSuccess);
                  }

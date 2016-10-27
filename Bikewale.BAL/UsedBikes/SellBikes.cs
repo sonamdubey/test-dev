@@ -155,11 +155,20 @@ namespace Bikewale.BAL.UsedBikes
         public bool RemoveBikePhotos(ulong customerId, string profileId, string photoId)
         {
             bool isSuccess = false;
-            int inquiryId = Convert.ToInt32(profileId.Substring(1));
-
-            if(_sellBikeRepository.GetById(inquiryId, customerId)!=null)
-            isSuccess=_sellerRepository.RemoveBikePhotos(inquiryId,photoId);
-
+            try
+            {
+                int inquiryId = Convert.ToInt32(profileId.Substring(1));
+                if (customerId > 0 && _sellBikeRepository.GetById(inquiryId, customerId) != null)
+                {
+                    isSuccess = _sellerRepository.RemoveBikePhotos(inquiryId, photoId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("RemoveBikePhotos: ProfileId {0}, CustomerId {1}, photoId {2}", profileId, customerId,photoId));
+                objErr.SendMail();
+            }
+           
             return isSuccess;
         }
 
