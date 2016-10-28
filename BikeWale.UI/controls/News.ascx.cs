@@ -19,6 +19,8 @@ namespace Bikewale.Controls
         public int FetchedRecordsCount { get; set; }
         public ArticleSummary firstPost;
         public string WidgetTitle { get; set; }
+        private bool _showWidget = true;
+        public bool ShowWidgetTitle { get { return _showWidget; } set { _showWidget = value; } }
 
         protected override void OnInit(EventArgs e)
         {

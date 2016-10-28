@@ -21,9 +21,9 @@ namespace Bikewale
     /// </summary>
     public class Default : System.Web.UI.Page
     {
-        protected News_new ctrlNews;
-        protected ExpertReviews ctrlExpertReviews;
-        protected VideosControl ctrlVideos;
+        protected News_Widget ctrlNews;
+        protected NewExpertReviews ctrlExpertReviews;
+        protected NewVideosControl ctrlVideos;
         protected ComparisonMin ctrlCompareBikes;
         protected PopularUsedBikes ctrlPopularUsedBikes;
         protected OnRoadPricequote ctrlOnRoadPriceQuote;
@@ -53,8 +53,13 @@ namespace Bikewale
             BindBikesWidgets();
 
             ctrlNews.TotalRecords = 3;
+            ctrlNews.ShowWidgetTitle = false;
+
             ctrlExpertReviews.TotalRecords = 3;
+            ctrlExpertReviews.ShowWidgetTitle = false;
+
             ctrlVideos.TotalRecords = 3;
+            ctrlVideos.ShowWidgetTitle = false;
             ctrlCompareBikes.TotalRecords = 4;
             ctrlPopularUsedBikes.TotalRecords = 6;
             ctrlOnRoadPriceQuote.PQSourceId = (int)PQSourceEnum.Desktop_HP_PQ_Widget;

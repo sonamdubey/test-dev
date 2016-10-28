@@ -21,6 +21,8 @@ namespace Bikewale.Controls
         public string ModelName { get; set; }
         public string MoreExpertReviewUrl { get; set; }
         protected string linkTitle = string.Empty;
+        private bool _showWidget = true;
+        public bool ShowWidgetTitle { get { return _showWidget; } set { _showWidget = value; } }
 
         protected override void OnInit(EventArgs e)
         {

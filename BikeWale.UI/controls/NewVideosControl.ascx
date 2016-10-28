@@ -1,5 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.NewVideosControl" %>
+<% if (ShowWidgetTitle)
+   { %>
 <h2 class="padding-right10 padding-left10"><%= WidgetTitle %> Videos</h2>
+<% } %>
 <div class="model-updates-videos-container" id="ctrlVideos">
     <!-- Videos data code starts here-->
     <asp:Repeater ID="rptVideos" runat="server">
@@ -27,7 +30,7 @@
                     </div>
                     <p class="margin-top12 line-height17">
                         <!-- desc -->
-                          <%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Description").ToString(),200) %>
+                        <%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Description").ToString(),200) %>
                     </p>
                 </div>
                 <div class="clear"></div>
@@ -35,7 +38,7 @@
         </ItemTemplate>
     </asp:Repeater>
     <div class="padding-left10">
-        <a title="<%= linkTitle %>" href="<%=MoreVideoUrl%>"  class="bw-ga" c="Model_Page" a="View_all_videos_link_cliked" v="myBikeName">View all videos<span class="bwsprite blue-right-arrow-icon"></span></a>        
+        <a title="<%= linkTitle %>" href="<%=MoreVideoUrl%>" class="bw-ga" c="Model_Page" a="View_all_videos_link_cliked" v="myBikeName">View all videos<span class="bwsprite blue-right-arrow-icon"></span></a>
     </div>
 </div>
 <!-- Ends here-->
