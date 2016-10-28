@@ -346,7 +346,7 @@
             <!--  Compare section code starts here -->
             <h2 class="text-bold text-center margin-top40 margin-bottom20 font22">Compare bikes</h2>
             <div class="grid-12">
-                <div class="content-box-shadow">
+                <div class="content-box-shadow padding-top20 padding-bottom20">
                     <BW:CompareBikes ID="ctrlCompareBikes" runat="server" />
                 </div>
             </div>
@@ -424,9 +424,9 @@
                 }
             }
         %>
-        <section class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
+        <section>
             <!--  News Bikes latest updates code starts here -->
-            <div class="newBikes-latest-updates-container">
+            <div class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
                 <div class="grid-12">
                     <h2 class="text-bold text-center margin-top40 margin-bottom20 font22">Latest updates from the bike industry</h2>
                     <div class="bw-tabs-panel content-box-shadow margin-bottom30">

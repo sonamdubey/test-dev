@@ -2,8 +2,8 @@
 <div class="bw-tabs-data news-expert-video-content" id="ctrlVideos"><!-- Videos data code starts here-->
     <asp:Repeater ID="rptVideos" runat="server">
         <ItemTemplate>
-            <div class="padding-bottom30">
-                <div class="grid-4 alpha">
+            <div class="padding-bottom20">
+                <div class="grid-4">
                     <div class="img-preview rounded-corner2">
                         <a href="<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>">
                             <img class="lazy" data-original="<%#String.Format("http://img.youtube.com/vi/{0}/mqdefault.jpg",DataBinder.Eval(Container.DataItem,"VideoId")) %>"
@@ -11,7 +11,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="grid-8 omega padding-top5 font14 text-light-grey">
+                <div class="grid-8 padding-top5 font14 text-light-grey">
                     <a href="<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>" class="article-target-link margin-bottom10"><%# DataBinder.Eval(Container.DataItem,"VideoTitle").ToString() %></a>
                     <p class="margin-bottom15">Updated on <%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString(),"MMMM dd, yyyy") %></p>
                     <div class="grid-3 alpha omega border-solid-right font14">

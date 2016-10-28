@@ -35,7 +35,7 @@
     <%  isTransparentHeader = true;
     %>
 </head>
-<body class="bg-white">
+<body>
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <header class="home-top-banner">
@@ -66,18 +66,19 @@
                 </div>
             </div>
         </header>
+        <!--  Ends here -->
         <% if (isAd976x400FirstShown)
            { %>
         <section>
             <!-- #include file="/ads/Ad976x400_First.aspx" -->
         </section>
         <% } %>
-        <section class="bg-white">
+        <section>
             <!--  Discover your bike code starts here -->
             <div class="container">
                 <div class="grid-12">
-                    <h2 class="text-bold text-center margin-top40 margin-bottom20 font22">Discover your bike</h2>
-                    <div class="bw-tabs-panel brand-budget-mileage-style-wrapper">
+                    <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Discover your bike</h2>
+                    <div class="bw-tabs-panel content-box-shadow brand-budget-mileage-style-wrapper">
                         <div class="bw-tabs bw-tabs-flex">
                             <ul class="brand-budget-mileage-style-UL">
                                 <li class="active" data-tabs="discoverBrand"><h3>Brand</h3></li>
@@ -270,59 +271,60 @@
                 <div class="clear"></div>
             </div>
         </section>
-        <!--  Ends here -->
-
-        <section class="container <%= ((ctrlMostPopularBikes.FetchedRecordsCount + ctrlNewLaunchedBikes.FetchedRecordsCount + ctrlUpcomingBikes.FetchedRecordsCount) > 0 )?"":"hide" %> ">
-            <!--  Discover bikes section code starts here -->
-            <div class="grid-12">
-                <h2 class="text-bold text-center margin-top40 margin-bottom20 font22">Featured bikes</h2>
-                <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow padding-bottom15">
-                    <div class="bw-tabs bw-tabs-flex">
-                        <ul>
-                            <li class="active" style="<%= (ctrlMostPopularBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlMostPopularBikes">
-                                <h3>Most Popular</h3>
-                            </li>
-                            <li style="<%= (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlNewLaunchedBikes">
-                                <h3>New launches</h3>
-                            </li>
-                            <li style="<%= (ctrlUpcomingBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlUpcomingBikes">
-                                <h3>Upcoming</h3>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="bw-tabs-data <%= (ctrlMostPopularBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlMostPopularBikes">
-                        <div class="jcarousel-wrapper inner-content-carousel">
-                            <div class="jcarousel">
-                                <ul>
-                                    <BW:MostPopularBikes PageId="5" runat="server" ID="ctrlMostPopularBikes" />
-                                    <!-- Most Popular Bikes Control-->
-                                </ul>
-                            </div>
-                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
-                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+        
+        <section>
+            <div class="container <%= ((ctrlMostPopularBikes.FetchedRecordsCount + ctrlNewLaunchedBikes.FetchedRecordsCount + ctrlUpcomingBikes.FetchedRecordsCount) > 0 )?" margin-bottom30":"hide" %> ">
+                <!--  Discover bikes section code starts here -->
+                <div class="grid-12">
+                    <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Featured bikes</h2>
+                    <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow padding-bottom15">
+                        <div class="bw-tabs bw-tabs-flex">
+                            <ul>
+                                <li class="active" style="<%= (ctrlMostPopularBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlMostPopularBikes">
+                                    <h3>Most Popular</h3>
+                                </li>
+                                <li style="<%= (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlNewLaunchedBikes">
+                                    <h3>New launches</h3>
+                                </li>
+                                <li style="<%= (ctrlUpcomingBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlUpcomingBikes">
+                                    <h3>Upcoming</h3>
+                                </li>
+                            </ul>
                         </div>
-                    </div>
-
-                    <div class="bw-tabs-data hide <%= (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlNewLaunchedBikes">
-                        <BW:NewLaunchedBikes PageId="5" runat="server" ID="ctrlNewLaunchedBikes" />
-                        <!-- New Launched Bikes Control-->
-                    </div>
-
-                    <div class="bw-tabs-data hide <%= (ctrlUpcomingBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlUpcomingBikes">
-                        <div class="jcarousel-wrapper inner-content-carousel">
-                            <div class="jcarousel">
-                                <ul>
-                                    <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
-                                    <!-- Upcoming Bikes Control-->
-                                </ul>
+                        <div class="bw-tabs-data <%= (ctrlMostPopularBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlMostPopularBikes">
+                            <div class="jcarousel-wrapper inner-content-carousel">
+                                <div class="jcarousel">
+                                    <ul>
+                                        <BW:MostPopularBikes PageId="5" runat="server" ID="ctrlMostPopularBikes" />
+                                        <!-- Most Popular Bikes Control-->
+                                    </ul>
+                                </div>
+                                <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
+                                <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
                             </div>
-                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
-                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+                        </div>
+
+                        <div class="bw-tabs-data hide <%= (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlNewLaunchedBikes">
+                            <BW:NewLaunchedBikes PageId="5" runat="server" ID="ctrlNewLaunchedBikes" />
+                            <!-- New Launched Bikes Control-->
+                        </div>
+
+                        <div class="bw-tabs-data hide <%= (ctrlUpcomingBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlUpcomingBikes">
+                            <div class="jcarousel-wrapper inner-content-carousel">
+                                <div class="jcarousel">
+                                    <ul>
+                                        <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
+                                        <!-- Upcoming Bikes Control-->
+                                    </ul>
+                                </div>
+                                <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
+                                <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="clear"></div>
             </div>
-            <div class="clear"></div>
         </section>
 
         <section class="lazy home-getFinalPrice-banner" data-original="http://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/d/get-final-price-banner.jpg">
@@ -334,17 +336,23 @@
             <!-- #include file="/ads/Ad976x400_Second.aspx" -->
         </section>
         <%} %>
-        <section class="margin-bottom50">
+        <section>
             <!--  Compare section code starts here -->
             <div class="container">
-                <h2 class="text-bold text-center margin-top40 margin-bottom30 font22">Compare bikes</h2>
-                <BW:CompareBikes ID="ctrlCompareBikes" runat="server" />
+                <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Compare bikes</h2>
+                <div class="grid-12">
+                    <div class="content-box-shadow padding-top20 padding-bottom20">
+                        <BW:CompareBikes ID="ctrlCompareBikes" runat="server" />
+                    </div>
+                </div>
+                <div class="clear"></div>
             </div>
         </section>
         <!-- Ends here -->
-        <section class="bg-light-grey <%= (ctrlPopularUsedBikes.FetchedRecordsCount > 0)?"":"hide" %>">
-            <!--  Used Bikes code starts here -->
-            <BW:PopularUsedBikes runat="server" ID="ctrlPopularUsedBikes" />
+        <section>
+            <div class="<%= (ctrlPopularUsedBikes.FetchedRecordsCount > 0)?"":"hide" %>">
+                <BW:PopularUsedBikes runat="server" ID="ctrlPopularUsedBikes" />
+            </div>
         </section>
 
         <!-- Ends here -->
@@ -374,12 +382,12 @@
                 }
             }
         %>
-        <section class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
+        <section>
             <!--  News Bikes latest updates code starts here -->
-            <div class="newBikes-latest-updates-container">
+            <div class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
                 <div class="grid-12">
                     <h2 class="text-bold text-center margin-top40 margin-bottom20 font22">Latest updates from the bike industry</h2>
-                    <div class="bw-tabs-panel margin-bottom30 ">
+                    <div class="bw-tabs-panel margin-bottom30 content-box-shadow">
                         <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
                             <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
                                 <ul>
