@@ -8,6 +8,7 @@
 <%@ Register Src="~/m/controls/MUpcomingBikes.ascx" TagName="MUpcomingBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MNewLaunchedBikes.ascx" TagName="MNewLaunchedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="MMostPopularBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/PopularUsedBikes.ascx" TagName="PopularUsedBikes" TagPrefix="BW" %>
 <!doctype html>
 <html>
 <head>
@@ -313,6 +314,10 @@
             <BW:CompareBike ID="ctrlCompareBikes" runat="server" />
         </section>
         <!-- Compare code Ends here -->
+
+        <section>
+            <BW:PopularUsedBikes runat="server" ID="ctrlPopularUsedBikes" />
+        </section>
 
         <%
             if (ctrlNews.FetchedRecordsCount > 0)

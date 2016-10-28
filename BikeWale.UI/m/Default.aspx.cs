@@ -28,6 +28,7 @@ namespace Bikewale.Mobile
         protected MUpcomingBikes mctrlUpcomingBikes;
         protected MNewLaunchedBikes mctrlNewLaunchedBikes;
         protected MMostPopularBikes mctrlMostPopularBikes;
+        protected PopularUsedBikes ctrlPopularUsedBikes;
         protected short reviewTabsCnt = 0;
         //Variable to Assing ACTIVE .css class
         protected bool isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
@@ -83,6 +84,8 @@ namespace Bikewale.Mobile
                 //To get Upcoming Bike List Details 
                 mctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 mctrlUpcomingBikes.pageSize = 9;
+
+                ctrlPopularUsedBikes.TotalRecords = 6;
             }
             catch (Exception ex)
             {
