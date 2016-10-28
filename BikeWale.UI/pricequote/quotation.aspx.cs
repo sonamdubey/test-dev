@@ -300,9 +300,9 @@ namespace Bikewale.PriceQuote
 
             if (!String.IsNullOrEmpty(versionId) && versionId != "0")
             {
-                ctrlAlternativeBikes.VersionId = Convert.ToInt32(versionId);
+                ctrlAlternativeBikes.VersionId = Convert.ToUInt32(versionId);
                 ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_PQ_Alternative;
-                ctrlAlternativeBikes.cityId = Convert.ToInt32(cityId);
+                ctrlAlternativeBikes.cityId = cityId;
             }
         }
     }   // End of class

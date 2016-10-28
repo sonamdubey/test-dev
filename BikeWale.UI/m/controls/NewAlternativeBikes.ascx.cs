@@ -11,14 +11,14 @@ namespace Bikewale.Mobile.Controls
     public class NewAlternativeBikes : System.Web.UI.UserControl
     {
         public Repeater rptAlternateBikes;
-        public int VersionId { get; set; }
+        public uint VersionId { get; set; }
         public string modelName { get; set; }
         public bool IsPriceInCity { get; set; }
         public string CityName { get; set; }
-        public int CityId { get; set; }
+        public uint CityId { get; set; }
 
-        private int _topCount = 6;
-        public int TopCount
+        private ushort _topCount = 6;
+        public ushort TopCount
         {
             get { return _topCount; }
             set { _topCount = value; }
@@ -45,7 +45,7 @@ namespace Bikewale.Mobile.Controls
             objAlt.VersionId = VersionId;
             objAlt.TopCount = TopCount;
             objAlt.Deviation = Deviation;
-            objAlt.cityId = CityId != 0 ? CityId : Convert.ToInt16(Bikewale.Utility.BWConfiguration.Instance.DefaultCity);
+            objAlt.cityId = CityId != 0 ? CityId : Convert.ToUInt32(Bikewale.Utility.BWConfiguration.Instance.DefaultCity);
             objAlt.BindAlternativeBikes(rptAlternateBikes);
 
             FetchedRecordsCount = objAlt.FetchedRecordsCount;

@@ -515,13 +515,13 @@ namespace Bikewale.New
             ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_ModelPage_Alternative;
             ctrlAlternativeBikes.WidgetTitle = bikeName;
             ctrlAlternativeBikes.model = modelPage.ModelDetails.ModelName;
-            ctrlAlternativeBikes.cityId = Convert.ToInt32(cityId);
+            ctrlAlternativeBikes.cityId = cityId;
             if (modelPage != null)
             {
                 var modelVersions = modelPage.ModelVersions;
                 if (modelVersions != null && modelVersions.Count > 0)
                 {
-                    ctrlAlternativeBikes.VersionId = modelVersions[0].VersionId;
+                    ctrlAlternativeBikes.VersionId = Convert.ToUInt32(modelVersions[0].VersionId);
                 }
             }
         }
