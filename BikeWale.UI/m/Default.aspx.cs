@@ -14,6 +14,10 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile
 {
+    /// <summary>
+    /// Created By : Sushil Kumar on 28th Oct 2016
+    /// Description : Added new launched,upcoming and poular bikes widget 
+    /// </summary>
     public class Default : System.Web.UI.Page
     {
         protected NewsWidget ctrlNews;
@@ -56,21 +60,32 @@ namespace Bikewale.Mobile
 
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 28th Oct 2016
+        /// Description : Added new launched,upcoming and poular bikes binding 
+        /// </summary>
         private void BindBikesWidgets()
         {
+            try
+            {
+                //to get Most Popular Bikes
+                mctrlMostPopularBikes.totalCount = 6;
+                mctrlMostPopularBikes.PQSourceId = (int)PQSourceEnum.Mobile_HP_MostPopular;
 
-            //to get Most Popular Bikes
-            mctrlMostPopularBikes.totalCount = 6;
-            mctrlMostPopularBikes.PQSourceId = (int)PQSourceEnum.Mobile_New_MostPopular;
+                //To get Upcoming Bike List Details 
+                mctrlNewLaunchedBikes.pageSize = 6;
+                mctrlNewLaunchedBikes.curPageNo = null;
+                mctrlNewLaunchedBikes.PQSourceId = (int)PQSourceEnum.Mobile_HP_NewLaunches;
 
-            //To get Upcoming Bike List Details 
-            mctrlNewLaunchedBikes.pageSize = 6;
-            mctrlNewLaunchedBikes.curPageNo = null;
-            mctrlNewLaunchedBikes.PQSourceId = (int)PQSourceEnum.Mobile_New_NewLaunches;
-
-            //To get Upcoming Bike List Details 
-            mctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            mctrlUpcomingBikes.pageSize = 6;
+                //To get Upcoming Bike List Details 
+                mctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                mctrlUpcomingBikes.pageSize = 6;
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindBikesWidgets");
+                objErr.SendMail();
+            }
         }
 
         /// <summary>
