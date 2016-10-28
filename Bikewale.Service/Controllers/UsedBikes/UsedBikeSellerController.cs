@@ -107,23 +107,25 @@ namespace Bikewale.Service.Controllers.UsedBikes
         }
 
         [HttpPost, Route("api/used/{profileId}/image/upload/")]
-        public IHttpActionResult Post(string profileId, bool? isMain, string description)
+        public IHttpActionResult Post(string profileId, bool? isMain)
         {
             try
             {
-                string strCustomerId = Request.Headers.Contains("customerId") ? Request.Headers.GetValues("customerId").FirstOrDefault() : string.Empty;
-
+                string strCustomerId = Request.Headers.Contains("customerId") ? Request.Headers.GetValues("customerId").FirstOrDefault() : "";
                 var request = HttpContext.Current.Request;
-
-                if (!string.IsNullOrEmpty(strCustomerId) && request.Files != null && request.Files.Count > 0)
+                UInt64 customerId = 0;
+                if (!string.IsNullOrEmpty(strCustomerId)
+                    && request.Files != null
+                    && request.Files.Count > 0
+                    && Utility.UsedBikeProfileId.IsValidProfileId(profileId)
+                    && UInt64.TryParse(strCustomerId, out customerId)
+                    && customerId > 0)
                 {
-                    UInt64 customerId = Convert.ToUInt64(strCustomerId);
-
                     SellBikeImageUploadResultEntity uploadResult = _usedBikesRepo.UploadBikeImage(
                     isMain.HasValue ? isMain.Value : false,
                     customerId,
                     profileId,
-                    description,
+                    "",
                     request.Files
                     );
                     return Ok(uploadResult);
@@ -135,7 +137,7 @@ namespace Bikewale.Service.Controllers.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("api/used/{0}/image/upload/?isMain={1}&description={2},{3}", profileId, isMain, description, Newtonsoft.Json.JsonConvert.SerializeObject(HttpContext.Current.Request.Files.AllKeys)));
+                ErrorClass objErr = new ErrorClass(ex, String.Format("api/used/{0}/image/upload/?isMain={1},FileUploadCount={2},contentType={3}", profileId, isMain, HttpContext.Current.Request.Files.Count, HttpContext.Current.Request.ContentType));
                 objErr.SendMail();
                 return InternalServerError();
             }
