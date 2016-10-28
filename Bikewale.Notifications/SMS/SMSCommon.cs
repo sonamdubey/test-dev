@@ -40,7 +40,10 @@ namespace Bikewale.Notifications
         LimitedBikeBookedOffer = 26,
         ClaimedOffer = 27,
         BookingCancellationOTP = 28,
-        BookingCancellationToCustomer = 29
+        BookingCancellationToCustomer = 29,
+        SuccessfulUsedSelllistingToSeller=30,
+        ApprovalUsedSellListingToSeller=31,
+        RejectionUsedSellListingToSeller=32
     }
 
     public class SMSCommon

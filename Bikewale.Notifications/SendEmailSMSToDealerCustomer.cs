@@ -408,7 +408,7 @@ namespace Bikewale.Notifications
         /// <param name="profileId"></param>
         /// <param name="bikeName"></param>
         /// <param name="formattedPrice"></param>
-        public static void UsedBikeAdEmailToIndividual(CustomerEntityBase seller, CustomerEntityBase buyer, string profileId, string bikeName, string formattedPrice)
+        public static void UsedBikeAdEmailToIndividual(CustomerEntityBase seller, string profileId, string bikeName, string formattedPrice)
         {
             ComposeEmailBase objEmail = new ListingEmailtoIndividualTemplate(seller.CustomerEmail, seller.CustomerName, profileId, bikeName, formattedPrice);
             objEmail.Send(seller.CustomerEmail, String.Format("You have successfully listed your {0} bike on BikeWale.",bikeName));

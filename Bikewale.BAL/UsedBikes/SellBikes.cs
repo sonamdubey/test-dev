@@ -6,6 +6,7 @@ using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Interfaces.Used;
 using Bikewale.Notifications;
 using System;
+using System.Web;
 
 namespace Bikewale.BAL.UsedBikes
 {
@@ -85,14 +86,37 @@ namespace Bikewale.BAL.UsedBikes
 
         private void AddOrUpdateAd(SellBikeAd ad)
         {
+           
             if (ad.InquiryId > 0)
             {
                 _sellBikeRepository.Update(ad);
+
             }
             else
             {
                 int inquiryId = _sellBikeRepository.Add(ad);
                 ad.InquiryId = (uint)inquiryId;
+                string bikeName = String.Format("{0} {1} {2}", ad.Make.MakeName, ad.Model.ModelName, ad.Version.VersionName);
+                string profileId = null;
+                
+                 if (ad.Seller.SellerType == SellerType.Individual)
+                {
+                    profileId = String.Format("S{0}", ad.InquiryId);
+                }
+
+                else if (ad.Seller.SellerType == SellerType.Dealer)
+                {
+                    profileId = String.Format("D{0}", ad.InquiryId);
+                } 
+                //send sms and email to seller on successful listing
+                
+                SendEmailSMSToDealerCustomer.UsedBikeAdEmailToIndividual(ad.Seller, profileId, bikeName, ad.Expectedprice.ToString());
+                SMSTypes smsType = new SMSTypes();
+                smsType.UsedSellSuccessfulListingSMS(
+                    EnumSMSServiceType.SuccessfulUsedSelllistingToSeller,
+                    ad.Seller.CustomerMobile,
+                    profileId,
+                    HttpContext.Current.Request.ServerVariables["URL"].ToString());
             }
         }
 

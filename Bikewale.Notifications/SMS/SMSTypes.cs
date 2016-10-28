@@ -522,5 +522,27 @@ namespace Bikewale.Notifications
                 objErr.SendMail();
             }
         }
+        /// <summary>
+        /// Created by  : Aditi Srivastava on 28 Oct 2016
+        /// Description : Send sms to used bike seller on succesfully listing their bike
+        /// </summary>
+        /// <param name="smsType"></param>
+        /// <param name="number"></param>
+        /// <param name="profileid"></param>
+        /// <param name="pageurl"></param>
+        public void UsedSellSuccessfulListingSMS(EnumSMSServiceType smsType, string number,string profileid,string pageurl)
+        {
+            string message = String.Format("Congratulations! You have successfully posted a bike listing (profile id -{0}) on BikeWale. It will be verified by us before it is made available to buyers.", profileid);
+            try
+            {
+                SMSCommon sc = new SMSCommon();
+                sc.ProcessSMS(number, message, smsType, pageurl);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.UsedSellSuccessfulListingSMSToSeller({0},{1},{2})", number, message, pageurl));
+                objErr.SendMail();
+            }
+        }
     }   //End of class
 }   //End of namespace
