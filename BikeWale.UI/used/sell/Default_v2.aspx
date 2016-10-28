@@ -42,7 +42,7 @@
             </div>
         </section>
 
-        <section>
+        <div>
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow">
@@ -50,10 +50,13 @@
                             <h1>Sell your bike</h1>
                         </div>
                         <div id="sell-bike-content">
-                        <% if(isAuthorized) { %>
-                            <section data-bind="if: !isFakeCustomer()">
+                        
                             <div id="sell-bike-left-col" class="grid-7 panel-group">
                                 <!-- start of form steps -->
+
+                                <% if(isAuthorized) { %>
+                            <div data-bind="if: !isFakeCustomer()">
+
                                 <div data-bind="visible: formStep() < 4">
                                     <div class="panel panel-divider">
                                         <div class="panel-head">
@@ -430,6 +433,32 @@
                                         <input  type="button" class="btn btn-white btn-primary-small" value="Edit my Ad " data-bind="click: editMyAd" />
                                     </div>
                                 </div>
+
+                            </div>
+                            <div data-bind="if: isFakeCustomer()">
+                                <div class="icon-outer-container rounded-corner50 text-center inline-block">
+                                    <div class="icon-inner-container rounded-corner50">
+                                        <span class="sell-bike-sprite no-auth-edit-icon margin-top20"></span>
+                                    </div>
+                                </div>
+                                <div class="margin-left20 inline-block">
+                                    <p class="font18 text-bold margin-bottom10">Sorry!</p>
+                                    <p class="font14">You are not authorised to edit this listing</p>
+                                </div>
+                            </div>
+                        <%} else { %>
+                            <div data-bind="if: isFakeCustomer()">
+                                <div class="icon-outer-container rounded-corner50 text-center inline-block">
+                                    <div class="icon-inner-container rounded-corner50">
+                                        <span class="sell-bike-sprite no-auth-icon margin-top20"></span>
+                                    </div>
+                                </div>
+                                <div class="margin-left20 inline-block">
+                                    <p class="font18 text-bold margin-bottom10">Sorry!</p>
+                                    <p class="font14">You are not authorised to add any listing.<br />Please contact us at <a href="mailto:contact@bikewale.com">contact@bikewale.com</a></p>
+                                </div>
+                            </div>
+                        <% } %>
                             </div>
                             <div id="sell-bike-right-col" class="grid-5 omega">
                                 <div class="sell-bike-banner">
@@ -471,14 +500,7 @@
                                 </div>
                             </div>
                             <div class="clear"></div>
-                             </section>
-                        <%} else { %>
-                            <section data-bind="if: isFakeCustomer()">
-                                <div id="sell-bike-left-col" class="grid-7 panel-group">
-                                    <h2> Sorry, you are not authorized. </h2>
-                                    </div>
-                                </section>
-                        <% } %>
+                             
 
                         </div>
                         

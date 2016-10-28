@@ -637,6 +637,18 @@ textarea {
   height: 39px;
   background-position: -320px -87px; }
 
+.no-auth-icon {
+    width: 35px;
+	height: 38px;
+	background-position: -373px 0;
+}
+
+.no-auth-edit-icon {
+    width: 36px;
+	height: 39px;
+	background-position: -373px -45px;
+}
+
 .step-2-inactive,
 .step-3-inactive {
   cursor: not-allowed; }
