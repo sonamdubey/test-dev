@@ -19,9 +19,9 @@ namespace Bikewale.Mobile.New
         protected MUpcomingBikes mctrlUpcomingBikes;
         protected MNewLaunchedBikes mctrlNewLaunchedBikes;
         protected MMostPopularBikes mctrlMostPopularBikes;
-        protected NewsWidget ctrlNews;
-        protected ExpertReviewsWidget ctrlExpertReviews;
-        protected VideosWidget ctrlVideos;
+        protected NewNewsWidget ctrlNews;
+        protected NewExpertReviewsWidget ctrlExpertReviews;
+        protected NewVideosWidget ctrlVideos;
         protected CompareBikesMin ctrlCompareBikes;
         protected short reviewTabsCnt = 0;
         //Variable to Assing ACTIVE .css class
@@ -52,8 +52,11 @@ namespace Bikewale.Mobile.New
             mctrlUpcomingBikes.pageSize = 6;
 
             ctrlNews.TotalRecords = 3;
+            ctrlNews.ShowWidgetTitle = false;
             ctrlExpertReviews.TotalRecords = 3;
+            ctrlExpertReviews.ShowWidgetTitle = false;
             ctrlVideos.TotalRecords = 3;
+            ctrlVideos.ShowWidgetTitle = false;
             ctrlCompareBikes.TotalRecords = 1;
 
             BindBrandsRepeaters();

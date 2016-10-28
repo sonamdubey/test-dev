@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.NewVideosWidget" %>
-<div class="model-expert-review-container">
-                        
+<div class="model-expert-review-container">                    
     <asp:Repeater ID="rptVideos" runat="server">
         <ItemTemplate> 
         <div class="margin-bottom20">

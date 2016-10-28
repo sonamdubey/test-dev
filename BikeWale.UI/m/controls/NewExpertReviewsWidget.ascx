@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.NewExpertReviewsWidget" %>
-
+ <% if(ShowWidgetTitle) { %>
 <h3 class="model-section-subtitle">Expert Reviews</h3>
+<% } %>
 <asp:Repeater ID="rptExpertReviews" runat="server">
     <ItemTemplate>
         <div class="model-expert-review-container">

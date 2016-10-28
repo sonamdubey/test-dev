@@ -20,9 +20,9 @@ namespace Bikewale.Mobile
     /// </summary>
     public class Default : System.Web.UI.Page
     {
-        protected NewsWidget ctrlNews;
-        protected ExpertReviewsWidget ctrlExpertReviews;
-        protected VideosWidget ctrlVideos;
+        protected NewNewsWidget ctrlNews;
+        protected NewExpertReviewsWidget ctrlExpertReviews;
+        protected NewVideosWidget ctrlVideos;
         protected CompareBikesMin ctrlCompareBikes;
         protected MOnRoadPricequote MOnRoadPricequote;
         protected MUpcomingBikes mctrlUpcomingBikes;
@@ -51,8 +51,11 @@ namespace Bikewale.Mobile
             BindBikesWidgets();
 
             ctrlNews.TotalRecords = 3;
+            ctrlNews.ShowWidgetTitle = false;
             ctrlExpertReviews.TotalRecords = 3;
+            ctrlExpertReviews.ShowWidgetTitle = false;
             ctrlVideos.TotalRecords = 3;
+            ctrlVideos.ShowWidgetTitle = false;
             ctrlCompareBikes.TotalRecords = 4;
             MOnRoadPricequote.PQSourceId = (int)PQSourceEnum.Mobile_HP_PQ_Widget;
 

@@ -17,12 +17,12 @@ namespace Bikewale.New
 {
     public class Default : System.Web.UI.Page
     {
-        protected News_new ctrlNews;
+        protected News_Widget ctrlNews;
         protected UpcomingBikes_new ctrlUpcomingBikes;
         protected NewLaunchedBikes_new ctrlNewLaunchedBikes;
         protected MostPopularBikes_new ctrlMostPopularBikes;
-        protected ExpertReviews ctrlExpertReviews;
-        protected VideosControl ctrlVideos;
+        protected NewExpertReviews ctrlExpertReviews;
+        protected NewVideosControl ctrlVideos;
         protected ComparisonMin ctrlCompareBikes;
         protected NewBikesOnRoadPrice NBOnRoadPrice;
         protected short reviewTabsCnt = 0;
@@ -62,8 +62,11 @@ namespace Bikewale.New
             ctrlUpcomingBikes.pageSize = 9;
 
             ctrlNews.TotalRecords = 3;
+            ctrlNews.ShowWidgetTitle = false;
             ctrlExpertReviews.TotalRecords = 3;
+            ctrlExpertReviews.ShowWidgetTitle = false;
             ctrlVideos.TotalRecords = 3;
+            ctrlVideos.ShowWidgetTitle = false;
             ctrlCompareBikes.TotalRecords = 4;
 
             NBOnRoadPrice.PQSourceId = (int)PQSourceEnum.Desktop_New_PQ_Widget;
