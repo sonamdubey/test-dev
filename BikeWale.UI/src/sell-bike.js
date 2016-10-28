@@ -97,11 +97,27 @@ var validation = {
 
 }
 
+var congratsScreenDoneFunction = function () {
+    window.location = "/mybikewale/";
+};
+
+var editMyAd = function () {
+    vmSellBike.formStep(1);
+};
+
 var sellBike = function () {
     var self = this;
-    self.inquiryId = ko.observable();
+    self.inquiryId = ko.observable(0);
     self.customerId = ko.observable();
-    self.isFakeCustomer = ko.observable(false);
+    
+    if (isAuthorized == "False") {
+        self.isFakeCustomer = ko.observable(true);
+    }
+    else
+    {
+        self.isFakeCustomer = ko.observable(false);
+    }
+
     self.formStep = ko.observable(1);
 
     self.bikeDetails = ko.observable(new bikeDetails);
@@ -159,9 +175,10 @@ var bikeDetails = function () {
         self.makeMaskingName = $(event.target).find(':selected').attr("data-masking");
         var blankEntry = { "modelId": -1, "modelName": "", "maskingName": "" };
         
-        if (self.make()!=null) {
+        if (self.make() != null) {
             $.ajax({
                 type: "Get",
+                async: false,
                 url: "/api/modellist/?requestType=3&makeId=" + self.make(),
                 contentType: "application/json",
                 dataType: 'json',
@@ -178,8 +195,10 @@ var bikeDetails = function () {
                     $('#version-select-element.select-box').removeClass('done');
 
                     if (isEdit == "True") {
-                        debugger;
-                        vmSellBike.bikeDetails().model(inquiryDetails.model.modelId);
+                        self.model(inquiryDetails.model.modelId);
+                        $("#model-select-element select").trigger("change").trigger("chosen:updated");
+                        
+
                     }
                 }
             });
@@ -188,10 +207,12 @@ var bikeDetails = function () {
     };
 
     self.modelChanged = function (data, event) {
-        self.versionArray([]);
+        self.versionArray([]);        
 
-        self.modelId = $(event.target).val();
+        self.modelId = $(event.target).val() ? $(event.target).val() : self.model();
         self.modelName = $(event.target).find(':selected').text();
+
+       
 
         var blankEntry = { "versionId": -1, "versionName": "" };
 
@@ -210,7 +231,13 @@ var bikeDetails = function () {
                     }
                 },
                 complete: function (xhr, ajaxOptions, thrownError) {
-                    $('#version-select-element.select-box').removeClass('done');                    
+                    $('#version-select-element.select-box').removeClass('done');
+
+                    if (isEdit == "True") {
+                        self.version(inquiryDetails.version.versionId);
+                        $("#version-select-element select").trigger("change").trigger("chosen:updated");
+
+                    }
                 }
             });
         }
@@ -238,6 +265,12 @@ var bikeDetails = function () {
                     }
                 },
                 complete: function (xhr, ajaxOptions, thrownError) {
+
+                    if (isEdit == "True") {
+                        self.color(inquiryDetails.color);
+                        $("#select-color-box select").trigger("change").trigger("chosen:updated");
+                        $('#select-color-box').addClass('selection-done');
+                    }
                 }
             });
         }
@@ -369,8 +402,12 @@ var bikeDetails = function () {
 
     
     self.colorSelection = function (data, event) {
-        var element = $(event.currentTarget);
-        colorId = data.colorId;
+        if (event != null) {
+            var element = $(event.currentTarget);
+        }
+        if (data != null) {
+            colorId = data.colorId;
+        }
         if (!element.hasClass('active')) {
             var selection = element.find('.color-box-label').text();
             self.color(selection);
@@ -464,11 +501,16 @@ var personalDetails = function () {
     self.termsCheckbox = ko.observable(true);
 
     self.sellerType = function (data, event) {
-        var element = $(event.currentTarget);
 
-        if (!element.hasClass('checked')) {
-            sellerType.check(element);
+        if(event != null) {
+            var element = $(event.currentTarget);
+            
+            if (!element.hasClass('checked')) {
+                sellerType.check(element);
+            }
         }
+
+        
     };
 
     self.sellerName = ko.observable('').extend({
@@ -557,7 +599,7 @@ var personalDetails = function () {
             var pdetails = vmSellBike.personalDetails();
 
           var inquiryData = {
-               "InquiryId": 0,
+              "InquiryId": vmSellBike.inquiryId() > 0 ? vmSellBike.inquiryId() : 0,
                 "make": {
                     "makeId": bdetails.makeId,
                     "makeName": bdetails.makeName,
@@ -865,25 +907,7 @@ $(document).ready(function () {
 
         
 
-        if(isEdit == "True")
-        {
-            inquiryDetails = JSON.parse(inquiryDetails);
-            var bdetails = vmSellBike.bikeDetails();
-            var pdetails = vmSellBike.personalDetails();
-            debugger;
-            bdetails.make(inquiryDetails.make.makeId);
-            //bdetails.model(inquiryDetails.model.modleId);
-            bdetails.version(inquiryDetails.version.versionId);
-            bdetails.kmsRidden(inquiryDetails.kiloMeters);
-            //$('#div-kmsRidden').addClass('done');
-            bdetails.city(inquiryDetails.cityId);
-            bdetails.owner(inquiryDetails.owner);
-            bdetails.registeredCity(inquiryDetails.registrationPlace);
-            bdetails.expectedPrice(inquiryDetails.expectedprice);
-            debugger;
-            
-
-        }
+        
 
     });
 
@@ -1229,3 +1253,49 @@ var calender = {
         selectCalendarBox.removeClass('open');
     }
 };
+
+
+
+$(function () {
+    if (isEdit == "True") {
+        if (isAuthorized == "False") {            
+            vmSellBike.isFakeCustomer(true);
+        }
+        inquiryDetails = JSON.parse(inquiryDetails);
+        var bdetails = vmSellBike.bikeDetails();
+        var pdetails = vmSellBike.personalDetails();
+        var mdetails = vmSellBike.moreDetails();
+        bdetails.make(inquiryDetails.make.makeId);
+        bdetails.version(inquiryDetails.version.versionId);
+        bdetails.kmsRidden(inquiryDetails.kiloMeters);
+        bdetails.city(inquiryDetails.cityId);
+        bdetails.owner(inquiryDetails.owner);
+        bdetails.registeredCity(inquiryDetails.registrationPlace);
+        bdetails.expectedPrice(inquiryDetails.expectedprice);
+        $("#div-kmsRidden").addClass('not-empty');
+        $("#div-expectedPrice").addClass('not-empty');
+        bdetails.colorId(inquiryDetails.colorId);
+        bdetails.manufactureYear((new Date(inquiryDetails.manufacturingYear)).getFullYear());
+        bdetails.manufactureMonth((new Date(inquiryDetails.manufacturingYear)).getMonth());       
+        $("#select-registeredCity").trigger("change").trigger("chosen:updated");
+        var monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        var month = (new Date(inquiryDetails.manufacturingYear)).getMonth();
+        bdetails.manufactureMonthName(monthArr[month]);
+        $("#select-calendar-box").addClass('selection-done');
+        pdetails.sellerType(inquiryDetails.seller.sellerType);
+        pdetails.sellerName(inquiryDetails.seller.customerName);
+        pdetails.sellerEmail(inquiryDetails.seller.customerEmail);
+        pdetails.sellerMobile(inquiryDetails.seller.customerMobile);
+        vmSellBike.inquiryId(inquiryDetails.InquiryId);
+        vmSellBike.customerId(inquiryDetails.seller.customerId);
+        mdetails.adDescription(inquiryDetails.otherInfo.adDescription);
+        mdetails.registrationNumber(inquiryDetails.otherInfo.registrationNo);
+        mdetails.insuranceType(inquiryDetails.otherInfo.insuranceType);
+
+        $("#select-insuranceType").trigger("change").trigger("chosen:updated");
+
+        $('#model-select-element select').prop('disabled', true).trigger("chosen:updated");
+        $('#make-select-element select').prop('disabled', true).trigger("chosen:updated");
+        $('#city-select-element select').prop('disabled', true).trigger("chosen:updated");
+    }
+});

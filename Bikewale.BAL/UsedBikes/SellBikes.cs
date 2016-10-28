@@ -132,7 +132,7 @@ namespace Bikewale.BAL.UsedBikes
             return _mobileVerRespo.VerifyMobileVerificationCode(seller.CustomerMobile, seller.Otp, seller.Otp);
         }
 
-        public SellBikeAd GetById(int inquiryId, ulong customerId)
+        public SellBikeAd  GetById(int inquiryId, ulong customerId)
         {
             return _sellBikeRepository.GetById(inquiryId, customerId);
         }
