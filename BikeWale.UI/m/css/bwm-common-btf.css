@@ -260,7 +260,7 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 }
 
 /* featured bikes */
-.features-bikes-container .swiper-container { padding-bottom: 60px; }
+.featured-bikes-panel .bw-tabs-flex { margin-bottom: 15px; }
 
 .upComingbikes li { height: 400px; }
 .comparebikesHomePage li { width: 976px; }

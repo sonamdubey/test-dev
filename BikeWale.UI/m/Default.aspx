@@ -55,10 +55,10 @@
         </section>
         <% } %>
         <section>
-            <div class="container bg-white">
+            <div class="container">
                 <div class="grid-12 alpha omega">
-                    <h2 class="font18 text-center margin-top20 margin-bottom20">Discover your bike</h2>
-                    <div class="bw-tabs-panel padding-bottom20" id="discoverBikesContainer">
+                    <h2 class="font18 text-center margin-top20 margin-bottom10">Discover your bike</h2>
+                    <div class="bw-tabs-panel padding-bottom20 content-box-shadow bg-white" id="discoverBikesContainer">
 
                         <div class="bw-tabs bw-tabs-flex">
                             <ul class="brand-budget-mileage-style-UL">
@@ -101,7 +101,7 @@
 
                                 </ul>
                             </div>
-                            <div class="view-brandType text-center padding-top10 clear">
+                            <div class="view-brandType text-center clear">
                                 <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16">View more brands</a>
                             </div>
                         </div>
@@ -254,10 +254,11 @@
 
         <section>
             <!--  Upcoming, New Launches and Top Selling code starts here -->
-            <div class="container <%= ((mctrlMostPopularBikes.FetchedRecordsCount + mctrlMostPopularBikes.FetchedRecordsCount + mctrlMostPopularBikes.FetchedRecordsCount) > 0 )?"":"hide" %> ">
+            <div class="container <%= ((mctrlMostPopularBikes.FetchedRecordsCount + mctrlMostPopularBikes.FetchedRecordsCount + mctrlMostPopularBikes.FetchedRecordsCount) > 0 )?"margin-bottom20":"hide" %> ">
                 <div class="grid-12 alpha omega">
-                    <h2 class="font18 text-center margin-top20 margin-bottom20">Featured bikes</h2>
-                    <div class="bw-tabs-panel">
+                    <h2 class="font18 text-center margin-top20 margin-bottom10">Featured bikes</h2>
+                    <div class="featured-bikes-panel content-box-shadow padding-bottom15">
+                        <div class="bw-tabs-panel">
                         <div class="bw-tabs bw-tabs-flex">
                             <ul>
                                 <li class="active" style="<%= (mctrlMostPopularBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="mctrlMostPopularBikes">Most Popular</li>
@@ -271,8 +272,6 @@
                                     <div class="swiper-wrapper discover-bike-carousel">
                                         <BW:MMostPopularBikes PageId="4" runat="server" ID="mctrlMostPopularBikes" />
                                     </div>
-                                    <!-- Add Pagination -->
-                                    <div class="swiper-pagination"></div>
                                 </div>
                             </div>
                             <div class="bw-tabs-data hide features-bikes-container" id="mctrlNewLaunchedBikes">
@@ -280,24 +279,21 @@
                                     <div class="swiper-wrapper discover-bike-carousel">
                                         <BW:MNewLaunchedBikes PageId="4" runat="server" ID="mctrlNewLaunchedBikes" />
                                     </div>
-                                    <!-- Add Pagination -->
-                                    <div class="swiper-pagination"></div>
                                 </div>
                             </div>
                             <div class="bw-tabs-data hide features-bikes-container" id="mctrlUpcomingBikes">
                                 <div class="swiper-container card-container">
                                     <div class="swiper-wrapper discover-bike-carousel">
                                         <BW:MUpcomingBikes runat="server" ID="mctrlUpcomingBikes" />
-                                        <!-- Upcoming Bikes Control-->
                                     </div>
-                                    <!-- Add Pagination -->
-                                    <div class="swiper-pagination"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="clear"></div>
+                        <div class="clear"></div>
+                    </div>
                 </div>
+                <div class="clear"></div>
             </div>
         </section>
 
@@ -312,7 +308,7 @@
             <!-- #include file="/ads/Ad320x150_Second.aspx" -->
         </section>
         <% } %>
-        <section class="home-compare">
+        <section>
             <!--  Compare section code starts here -->
             <BW:CompareBike ID="ctrlCompareBikes" runat="server" />
         </section>

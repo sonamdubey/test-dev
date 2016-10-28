@@ -272,7 +272,7 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 .swiper-container .overlay{position:absolute; left:0; right:0; top:0; bottom:0; z-index:8;}
 
 /* featured bikes */
-.features-bikes-container .swiper-container { padding-bottom: 60px; }
+.featured-bikes-panel .bw-tabs-flex { margin-bottom: 15px; }
 
 /* swiper-card */
 .card-container {

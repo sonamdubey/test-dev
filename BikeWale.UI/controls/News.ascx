@@ -38,7 +38,7 @@
         </asp:Repeater>
         <!-- main content -->
 
-        <div>
+        <div class="more-article-target">
             <a href="/news/">Read all news<span class="bwsprite blue-right-arrow-icon"></span></a>
         </div>
     </div>

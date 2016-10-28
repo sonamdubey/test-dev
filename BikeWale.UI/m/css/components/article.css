@@ -1,0 +1,14 @@
+﻿.review-image-wrapper {
+    width: 120px;
+    height: 68px;
+    border: 1px solid #e2e2e2;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10px;
+}
+
+.review-heading-wrapper {
+    width: 55%;
+    display: inline-block;
+    vertical-align: top;
+}

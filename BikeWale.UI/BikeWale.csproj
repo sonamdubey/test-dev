@@ -1810,6 +1810,7 @@
     <Content Include="css\bw-pq.css" />
     <Content Include="css\cancellation.css" />
     <Content Include="css\chosen.min.css" />
+    <Content Include="css\components\article.css" />
     <Content Include="css\components\compare-bikes.css" />
     <Content Include="css\css-new-photos.css" />
     <Content Include="css\css-research-photos.css" />
@@ -2310,6 +2311,7 @@
     <Content Include="m\css\bwm-model-btf.css" />
     <Content Include="m\css\bwm-model.css" />
     <Content Include="m\css\bwm-newbikes.css" />
+    <Content Include="m\css\components\article.css" />
     <Content Include="m\css\components\compare-bikes.css" />
     <Content Include="m\css\dealerpricequote.css" />
     <Content Include="m\css\dealerpricequote-old.css" />
