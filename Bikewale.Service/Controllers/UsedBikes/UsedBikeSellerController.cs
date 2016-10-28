@@ -1,4 +1,5 @@
-﻿using Bikewale.DTO.UsedBikes;
+﻿using Bikewale.DTO.Used;
+using Bikewale.DTO.UsedBikes;
 using Bikewale.Entities.Used;
 using Bikewale.Interfaces.Used;
 using Bikewale.Notifications;
@@ -106,6 +107,13 @@ namespace Bikewale.Service.Controllers.UsedBikes
             }
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Oct 2016
+        /// Description :   Sell Bike image upload API
+        /// </summary>
+        /// <param name="profileId"></param>
+        /// <param name="isMain"></param>
+        /// <returns></returns>
         [HttpPost, Route("api/used/{profileId}/image/upload/")]
         public IHttpActionResult Post(string profileId, bool? isMain)
         {
@@ -115,8 +123,8 @@ namespace Bikewale.Service.Controllers.UsedBikes
                 var request = HttpContext.Current.Request;
                 UInt64 customerId = 0;
                 if (!string.IsNullOrEmpty(strCustomerId)
-                    && request.Files != null
-                    && request.Files.Count > 0
+                    && (request.Files != null
+                    && request.Files.Count > 0)
                     && Utility.UsedBikeProfileId.IsValidProfileId(profileId)
                     && UInt64.TryParse(strCustomerId, out customerId)
                     && customerId > 0)
@@ -128,7 +136,8 @@ namespace Bikewale.Service.Controllers.UsedBikes
                     "",
                     request.Files
                     );
-                    return Ok(uploadResult);
+                    SellBikeImageUploadResultDTO result = UsedBikeBuyerMapper.Convert(uploadResult);
+                    return Ok(result);
                 }
                 else
                 {

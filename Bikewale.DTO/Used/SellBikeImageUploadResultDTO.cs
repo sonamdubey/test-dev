@@ -1,15 +1,19 @@
-﻿using System.Collections.Generic;
-namespace Bikewale.Entities.Used
+﻿
+using Newtonsoft.Json;
+using System.Collections.Generic;
+namespace Bikewale.DTO.Used
 {
     /// <summary>
     /// Created by  :   Sumit Kate on 28 Oct 2016
-    /// Description :   SellBike Image Upload Result Entity
+    /// Description :   SellBike Image Upload Result DTO
     /// It contains one request's status
     /// </summary>
-    public class SellBikeImageUploadResultEntity
+    public class SellBikeImageUploadResultDTO
     {
-        public ICollection<SellBikeImageUploadResultBase> ImageResult { get; set; }
-        public ImageUploadResultStatus Status { get; set; }
+        [JsonProperty("imageResult")]
+        public IEnumerable<SellBikeImageUploadResultDTOBase> ImageResult { get; set; }
+        [JsonProperty("status")]
+        public ImageUploadResultStatusDTO Status { get; set; }
     }
 
     /// <summary>
@@ -17,21 +21,24 @@ namespace Bikewale.Entities.Used
     /// Description :   SellBikeImageUploadResult Base
     /// It shows individual image status
     /// </summary>
-    public class SellBikeImageUploadResultBase
+    public class SellBikeImageUploadResultDTOBase
     {
-        public ImageUploadStatus Status { get; set; }
+        [JsonProperty("status")]
+        public ImageUploadStatusDTO Status { get; set; }
+        [JsonProperty("imgUrl")]
         public string ImgUrl { get; set; }
+        [JsonProperty("photoId")]
         public string PhotoId { get; set; }
     }
 
-    public enum ImageUploadResultStatus
+    public enum ImageUploadResultStatusDTO
     {
         Success = 1,
         UnauthorizedAccess = 2,
         FileUploadLimitExceeded = 3
     }
 
-    public enum ImageUploadStatus
+    public enum ImageUploadStatusDTO
     {
         Success = 1,
         NoFile = 2,

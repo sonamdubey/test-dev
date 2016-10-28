@@ -286,7 +286,16 @@ namespace Bikewale.DAL.Used
             throw new NotImplementedException();
         }
 
-
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Oct 2016
+        /// Description :   Save Bike Photo
+        /// </summary>
+        /// <param name="isMain"></param>
+        /// <param name="isDealer"></param>
+        /// <param name="inquiryId"></param>
+        /// <param name="originalImageName"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
         public string SaveBikePhotos(bool isMain, bool isDealer, U inquiryId, string originalImageName, string description)
         {
             string photoId = "";
@@ -317,6 +326,15 @@ namespace Bikewale.DAL.Used
             return photoId;
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Oct 2016
+        /// Description :   Upload Image To Common Database to be processed by Image Consumer
+        /// </summary>
+        /// <param name="photoId"></param>
+        /// <param name="imageName"></param>
+        /// <param name="imgC"></param>
+        /// <param name="directoryPath"></param>
+        /// <returns></returns>
         public string UploadImageToCommonDatabase(string photoId, string imageName, ImageCategories imgC, string directoryPath)
         {
             string url = string.Empty;

@@ -151,6 +151,29 @@ namespace Bikewale.BAL.UsedBikes
             return _sellBikeRepository.IsFakeCustomer(custId);
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Oct 2016
+        /// Description :   Sell Bike Image upload
+        /// Algorithm   :   
+        /// 1	read file name
+        /// 2	if file name is blank
+        /// 	2.1	Show alert message "Please select a file to upload" and exit
+        /// 3	is valid file extension
+        /// 	3.1	show error message "You are trying to upload invalid file. We accept only jpg, gif and png file formats." and exit
+        /// 4	create path to upload image to server path
+        /// 	4.1	if host is localhost then set directory path from HttpContext.Current.Request["APPL_PHYSICAL_PATH"] + \bw\used\S<inquiryId>\
+        /// 	4.2 if host is not localhost then set directory path from ConfigurationManager.AppSettings["imgPathFolder"] + \bw\used\S<inquiryId>\
+        /// 5	save file with name <inquiryid>_timestamp.ext to directory path and save path to db call classified_bikephotos_insert and on successful insert returns photoid
+        /// 6	save newly uploaded image details for RabbitMQ processing. call img_allbikephotosinsert(photoid, imageFileName,BIKEWALESELLER,/bw/used/S<inquiryId>/) returns absolute image url
+        /// 	6.1	if image url is absolute or relative, push the image details to rabbitMQ for further upload to amazon s3 server
+        /// 7	show upload image using temp path.(image will be uploaded to s3 by image consumer and path will be host url will be changed by it).
+        /// </summary>
+        /// <param name="isMain"></param>
+        /// <param name="customerId"></param>
+        /// <param name="profileId"></param>
+        /// <param name="description"></param>
+        /// <param name="imageFiles"></param>
+        /// <returns></returns>
         public SellBikeImageUploadResultEntity UploadBikeImage(bool isMain, ulong customerId, string profileId, string description, HttpFileCollection imageFiles)
         {
             SellBikeImageUploadResultEntity result = new SellBikeImageUploadResultEntity();
@@ -208,7 +231,7 @@ namespace Bikewale.BAL.UsedBikes
                                             imgResult.PhotoId = photoId;
 
                                             imgUrl = _sellBikeRepository.UploadImageToCommonDatabase(photoId, fileName, ImageCategories.BIKEWALESELLER, originalImagePath);
-
+                                            imgResult.ImgUrl = imgUrl;
                                             if (Uri.IsWellFormedUriString(imgUrl, UriKind.RelativeOrAbsolute))
                                             {
                                                 //RabbitMq Publish code here
@@ -264,6 +287,12 @@ namespace Bikewale.BAL.UsedBikes
             return result;
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Oct 2016
+        /// Description :   Push Image upload request to RabbitMQ queue
+        /// </summary>
+        /// <param name="photoId"></param>
+        /// <param name="imgUrl"></param>
         private void PushToRabbitMQ(string photoId, string imgUrl)
         {
             try
@@ -289,6 +318,12 @@ namespace Bikewale.BAL.UsedBikes
             }
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Oct 2016
+        /// Description :   Create Image File Directory on Host server
+        /// </summary>
+        /// <param name="profileId"></param>
+        /// <returns></returns>
         private string CreateImageFileDirectory(string profileId)
         {
             string folderpath = Utility.Image.GetPathToSaveImages(String.Format(@"\\bw\\used\\{0}\\", profileId));
@@ -306,6 +341,12 @@ namespace Bikewale.BAL.UsedBikes
             return folderpath;
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Oct 2016
+        /// Description :   Gets the Enum name
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         private string GetDescription(Enum value)
         {
             FieldInfo fi = value.GetType().GetField(value.ToString());
