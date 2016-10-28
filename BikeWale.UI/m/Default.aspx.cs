@@ -72,17 +72,17 @@ namespace Bikewale.Mobile
             try
             {
                 //to get Most Popular Bikes
-                mctrlMostPopularBikes.totalCount = 6;
+                mctrlMostPopularBikes.totalCount = 9;
                 mctrlMostPopularBikes.PQSourceId = (int)PQSourceEnum.Mobile_HP_MostPopular;
 
                 //To get Upcoming Bike List Details 
-                mctrlNewLaunchedBikes.pageSize = 6;
+                mctrlNewLaunchedBikes.pageSize = 9;
                 mctrlNewLaunchedBikes.curPageNo = null;
                 mctrlNewLaunchedBikes.PQSourceId = (int)PQSourceEnum.Mobile_HP_NewLaunches;
 
                 //To get Upcoming Bike List Details 
                 mctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-                mctrlUpcomingBikes.pageSize = 6;
+                mctrlUpcomingBikes.pageSize = 9;
             }
             catch (Exception ex)
             {

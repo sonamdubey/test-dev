@@ -39,17 +39,17 @@ namespace Bikewale.Mobile.New
         {
 
             //to get Most Popular Bikes
-            mctrlMostPopularBikes.totalCount = 6;
+            mctrlMostPopularBikes.totalCount = 9;
             mctrlMostPopularBikes.PQSourceId = (int)PQSourceEnum.Mobile_New_MostPopular;
 
             //To get Upcoming Bike List Details 
-            mctrlNewLaunchedBikes.pageSize = 6;
+            mctrlNewLaunchedBikes.pageSize = 9;
             mctrlNewLaunchedBikes.curPageNo = null;
             mctrlNewLaunchedBikes.PQSourceId = (int)PQSourceEnum.Mobile_New_NewLaunches;
 
             //To get Upcoming Bike List Details 
             mctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            mctrlUpcomingBikes.pageSize = 6;
+            mctrlUpcomingBikes.pageSize = 9;
 
             ctrlNews.TotalRecords = 3;
             ctrlNews.ShowWidgetTitle = false;
@@ -57,7 +57,7 @@ namespace Bikewale.Mobile.New
             ctrlExpertReviews.ShowWidgetTitle = false;
             ctrlVideos.TotalRecords = 3;
             ctrlVideos.ShowWidgetTitle = false;
-            ctrlCompareBikes.TotalRecords = 1;
+            ctrlCompareBikes.TotalRecords = 4;
 
             BindBrandsRepeaters();
         }
