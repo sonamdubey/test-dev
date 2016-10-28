@@ -494,6 +494,8 @@
             var inquiryId = '<%= inquiryId %>';
             var isAuthorized = '<%= isAuthorized%>';
             var inquiryDetails = '<%= Newtonsoft.Json.JsonConvert.SerializeObject(inquiryDTO) %>';
+            var userName = '<%= userName%>';
+            var userEmail = '<%= userEmail%>';
         </script>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>

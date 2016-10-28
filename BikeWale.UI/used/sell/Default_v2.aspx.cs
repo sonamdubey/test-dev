@@ -41,6 +41,8 @@ namespace Bikewale.Used.Sell
         protected bool isAuthorized = true;
         protected SellBikeAd inquiryDetailsObject = null;
         protected SellBikeAdDTO inquiryDTO;
+        protected string userEmail = null;
+        protected string userName = null;
 
         protected override void OnInit(EventArgs e)
         {
@@ -66,6 +68,8 @@ namespace Bikewale.Used.Sell
                 if (CurrentUser.Id != null)
                 {
                     userId = CurrentUser.Id;
+                    userEmail = CurrentUser.Email;
+                    userName = CurrentUser.Name;
                 }
             }
             catch (Exception ex)
@@ -127,7 +131,7 @@ namespace Bikewale.Used.Sell
             try
             {
                 inquiryId = Convert.ToUInt64(Request.QueryString["id"]);
-                
+
                 if (Request.QueryString["id"] != null)
                 {
                     if (userId == "-1") //user not logged-in
@@ -136,7 +140,7 @@ namespace Bikewale.Used.Sell
 
                     }
 
-                    isEdit = true;                    
+                    isEdit = true;
                     GetInquiryDetails();
                 }
             }
@@ -174,7 +178,7 @@ namespace Bikewale.Used.Sell
                 inquiryDTO = ConvertToDto(inquiryDetailsObject);
 
                 if (inquiryDTO != null)
-                inquiryDTO.ManufacturingYear = (DateTime)inquiryDTO.ManufacturingYear;
+                    inquiryDTO.ManufacturingYear = (DateTime)inquiryDTO.ManufacturingYear;
 
                 if (inquiryDetailsObject == null)
                 {

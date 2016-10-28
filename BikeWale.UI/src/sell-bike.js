@@ -223,15 +223,24 @@ var bikeDetails = function () {
                 contentType: "application/json",
                 dataType: 'json',
                 success: function (response) {
+                    if(response.Version.length > 1){
                     if (response) {
                         var tempArr = [];
                         tempArr.push(blankEntry);
                         tempArr = tempArr.concat(response.Version);
                         self.versionArray(tempArr);
+                        $('#version-select-element.select-box').removeClass('done');
+                        $('#version-select-element select').prop('disabled', false).trigger("chosen:updated");
+                    }
+                    } else
+                    {
+                        self.versionArray(response.Version);                        
+                        $('#version-select-element.select-box').addClass('done');
+                        $('#version-select-element select').prop('disabled', true).trigger("chosen:updated");
                     }
                 },
                 complete: function (xhr, ajaxOptions, thrownError) {
-                    $('#version-select-element.select-box').removeClass('done');
+                    
 
                     if (isEdit == "True") {
                         self.version(inquiryDetails.version.versionId);
@@ -242,7 +251,7 @@ var bikeDetails = function () {
             });
         }
        
-        
+     
         
     };
 
@@ -584,6 +593,7 @@ var personalDetails = function () {
     };
 
     self.listYourBike = function () {
+        debugger;
         self.validate(true);
 
         if (!("colorId" in window))
@@ -1297,5 +1307,12 @@ $(function () {
         $('#model-select-element select').prop('disabled', true).trigger("chosen:updated");
         $('#make-select-element select').prop('disabled', true).trigger("chosen:updated");
         $('#city-select-element select').prop('disabled', true).trigger("chosen:updated");
+    }
+
+    if(userId != null)
+    {
+        var pdetails = vmSellBike.personalDetails();
+        pdetails.sellerName(userName);
+        pdetails.sellerEmail(userEmail);
     }
 });
