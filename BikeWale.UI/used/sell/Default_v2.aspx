@@ -79,14 +79,14 @@
                                                 </div>
                                                 <div id="model-select-element" class="grid-4 select-box">
                                                     <p class="select-label">Model<sup>*</sup></p>
-                                                    <select class="chosen-select" data-placeholder="Select model" data-bind="options: modelArray(), chosen: {}, value: model, optionsText: 'modelName', optionsValue: 'modelId', validationElement: model, event: { change: modelChanged }">                                                       
+                                                    <select class="chosen-select" data-placeholder="Select model" data-bind="options: modelArray(), chosen: {}, value: model, optionsText: 'modelName', optionsValue: 'modelId', validationElement: model, event: { change: modelChanged }" disabled>                                                       
                                                     </select>
                                                     <span class="boundary"></span>
                                                     <span class="error-text" data-bind="validationMessage: model"></span>
                                                 </div>
                                                 <div id="version-select-element" class="grid-4 omega select-box">
                                                     <p class="select-label">Version<sup>*</sup></p>                                                                                                 
-                                                    <select class="chosen-select" data-placeholder="Select version" data-bind="options: versionArray(), chosen: {}, value: version, optionsText: 'versionName', optionsValue: 'versionId', validationElement: version, event: { change: versionChanged }">  
+                                                    <select class="chosen-select" data-placeholder="Select version" data-bind="options: versionArray(), chosen: {}, value: version, optionsText: 'versionName', optionsValue: 'versionId', validationElement: version, event: { change: versionChanged }" disabled>  
                                                     </select>                                                   
                                                     <span class="boundary"></span>
                                                     <span class="error-text" data-bind="validationMessage: version"></span>

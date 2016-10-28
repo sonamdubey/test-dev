@@ -167,8 +167,6 @@ var bikeDetails = function () {
     self.makeChanged = function (data, event) {
         self.modelArray([]);
         self.versionArray([]);
-       
-        
 
         self.makeId = $(event.target).val();
         self.makeName = $(event.target).find(':selected').text();
@@ -193,12 +191,11 @@ var bikeDetails = function () {
                 complete: function (xhr, ajaxOptions, thrownError) {
                     $('#model-select-element.select-box').removeClass('done');
                     $('#version-select-element.select-box').removeClass('done');
+                    $('#model-select-element select').prop('disabled', false).trigger("chosen:updated");
 
                     if (isEdit == "True") {
                         self.model(inquiryDetails.model.modelId);
                         $("#model-select-element select").trigger("change").trigger("chosen:updated");
-                        
-
                     }
                 }
             });
@@ -240,8 +237,6 @@ var bikeDetails = function () {
                     }
                 },
                 complete: function (xhr, ajaxOptions, thrownError) {
-                    
-
                     if (isEdit == "True") {
                         self.version(inquiryDetails.version.versionId);
                         $("#version-select-element select").trigger("change").trigger("chosen:updated");
