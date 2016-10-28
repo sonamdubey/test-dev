@@ -35,7 +35,7 @@
                 <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
                 <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
             </div>
-            <div class="text-center margin-top20">
+            <div class="text-center margin-top10">
                 <a class="font16" href="<%= FormatCompleteListUrl() %>">View complete list</a>
             </div>
         </div>

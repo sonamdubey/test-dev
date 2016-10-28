@@ -209,19 +209,18 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 }
 
 .swiper-card {
-    margin-left: 5px;
-    width:200px;
-    min-height:210px;
-    border:1px solid #e2e2e2\9;
-    background:#fff;
-    -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-    -moz-box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-    -ms-box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-    -webkit-border-radius:2px;
-    -moz-border-radius:2px;
-    -ms-border-radius:2px;
-    border-radius:2px;
+    width: 200px;
+    min-height: 210px;
+    border: 1px solid #e2e2e2\9;
+    background: #fff;
+    -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 1px 4px rgba(0,0,0,.2);
+    -ms-box-shadow: 0 1px 4px rgba(0,0,0,.2);
+    box-shadow: 0 1px 4px rgba(0,0,0,.2);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px;
 }
 
 .swiper-card a:hover {
@@ -268,10 +267,6 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 /* dealers */
 #makeDealersContent h2 { margin-bottom: 15px }
 #makeDealersContent .swiper-slide:first-child { margin-left: 5px; }
-.card-container {
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
 
 #makeDealersContent .card-container .swiper-slide { 
     width:308px;
