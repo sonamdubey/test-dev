@@ -4,6 +4,7 @@
 <%@ Register Src="~/m/controls/DealersCard.ascx" TagName="Dealers" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/NewAlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
 
 <%@ Import Namespace="Bikewale.Common" %>
 
@@ -30,11 +31,12 @@
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/new/bwm-modelprice-in-city.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 </head>
+
 <body class="bg-light-grey">
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
 
-        <section class="bg-white box-shadow padding-top10 margin-bottom25">
+        <section class="bg-white box-shadow padding-top10 margin-bottom10">
               <%if(isDiscontinued) { %> <div class="discont-text-label font14 text-white text-center">Discontinued</div>     <% } %>
             <div id="modelCityPriceDetails">
                 <div class="bike-image">
@@ -44,15 +46,7 @@
                     price in <%=cityName %></h1>
             </div>
             <p class="font14 text-light-grey padding-right20 padding-left20 margin-bottom10">
-                <%=bikeName %> <% if(!isDiscontinued) { %> on-road <% } else { %> ex-showroom <% } %> price in <%=cityName %>&nbsp;<span class="bwmsprite inr-grey-xxsm-icon"></span>
-                <% if (firstVersion != null && !isDiscontinued)
-                   { %><%=CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()) %> <% }
-                   else if (firstVersion != null)
-                   { %> <%=CommonOpn.FormatPrice(firstVersion.ExShowroomPrice.ToString())   %> <%} %> onwards. 
-                       <% if (versionCount > 1)
-                          { %> This bike comes in <%=versionCount %> versions.<br />
-                Click on any version name to know <% if(!isDiscontinued) { %> on-road <% } %> price in <%= cityName %>:
-                <% } %>
+                <%= pageDescription %>
             </p>
 
             <div>
@@ -69,24 +63,28 @@
                     <ItemTemplate>
                         <% if (!isDiscontinued)
                            { %>
-                        <div class="content-inner-block-20 margin-top5 font14 priceTable <%# (Convert.ToUInt32(DataBinder.Eval(Container.DataItem, "VersionId")) != versionId)?"hide":string.Empty %>" id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>">
-                            <div class="version-details-row margin-bottom15">
-                                <p class="details-left-column text-light-grey vertical-top">Ex-showroom</p>
-                                <p class="details-right-column vertical-top"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold">&nbsp;<%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"ExShowroomPrice").ToString()) %></span></p>
-                            </div>
-                            <div class="version-details-row margin-bottom15">
-                                <p class="details-left-column text-light-grey vertical-top">RTO</p>
-                                <p class="details-right-column vertical-top"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold">&nbsp;<%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"RTO").ToString()) %></span></p>
-                            </div>
-                            <div class="version-details-row margin-bottom15">
-                                <p class="details-left-column text-light-grey vertical-top">Insurance (comprehensive)</p>
-                                <p class="details-right-column vertical-top"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold">&nbsp; <%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Insurance").ToString()) %></span></p>
-                            </div>
-                            <div class="border-divider margin-bottom15"></div>
-                            <div class="version-details-row">
-                                <p class="details-left-column text-bold vertical-top">On-road price in <%= cityName %></p>
-                                <p class="details-right-column vertical-top"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold">&nbsp;<%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"OnRoadPrice").ToString()) %></span></p>
-                            </div>
+                        <div class="content-inner-block-20 font14 priceTable <%# (Convert.ToUInt32(DataBinder.Eval(Container.DataItem, "VersionId")) != versionId)?"hide":string.Empty %>" id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>">
+                            <table cellspacing="0" cellpadding="0" width="100%" border="0">
+                                <tr>
+                                    <td width="65%" class="padding-bottom15 text-light-grey">Ex-showroom</td>
+                                    <td width="45%" align="right" class="padding-bottom15"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold"><%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"ExShowroomPrice").ToString()) %></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="padding-bottom15 text-light-grey">RTO</td>
+                                    <td align="right" class="padding-bottom15"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold"><%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"RTO").ToString()) %></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="padding-bottom15 text-light-grey">Insurance (comprehensive)</td>
+                                    <td align="right" class="padding-bottom15"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold"><%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Insurance").ToString()) %></span></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="padding-bottom15 border-divider"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold">On-road price in <%= cityName %></td>
+                                    <td align="right"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold"><%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"OnRoadPrice").ToString()) %></span></td>
+                                </tr>
+                            </table>
                         </div>
                         <%}
                            else
@@ -128,10 +126,25 @@
             </div>
         </section>
 
+
         <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
             <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
         </section>
 
+        <% if (ctrlRecentUsedBikes.fetchedCount > 0) { %>
+           <section>
+               <div class="box-shadow bg-white margin-bottom10">
+                    <BW:MostRecentUsedBikes runat="server" ID="ctrlRecentUsedBikes" />
+                </div>
+           </section>
+        <%} %>
+        <span class="font13 text-light-grey padding-right20 padding-left20 margin-bottom10"><strong>Disclaimer</strong>:</span>
+    <p class="font12 text-light-grey padding-right20 padding-left20 margin-bottom10"> 
+        BikeWale takes utmost care in gathering precise and accurate information about <%=makeName %> <%=modelName %> 
+        price in <%= cityName %>
+        However, this information is only indicative and may not reflect the final price you may pay. For more information please read <a href="/termsconditions.aspx" target="_blank">terms and conditions</a>,<a href="/visitoragreement.aspx" target="_blank"> visitor agreement </a> and  <a href="/privacypolicy.aspx" target="_blank">privacy policy</a>.
+    </p>
+        
 
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
 
@@ -180,10 +193,19 @@
                 }
 
                 $(window).scroll(function () {
-                    if (floatButton.offset().top < footer.offset().top - 50)
-                        floatButton.addClass('float-fixed').show();
-                    if (floatButton.offset().top > footer.offset().top - 50)
-                        floatButton.removeClass('float-fixed').hide();
+                    try
+                    {
+                        if (floatButton != null) {
+                            if (floatButton.offset().top < footer.offset().top - 50)
+                                floatButton.addClass('float-fixed').show();
+                            if (floatButton.offset().top > footer.offset().top - 50)
+                                floatButton.removeClass('float-fixed').hide();
+                        }
+                    }
+                    catch(e)
+                    {
+
+                    }
                 });
 
                 $('.model-versions-tabs-wrapper li').on('click', function () {
@@ -202,5 +224,6 @@
             });
         </script>
     </form>
+
 </body>
 </html>

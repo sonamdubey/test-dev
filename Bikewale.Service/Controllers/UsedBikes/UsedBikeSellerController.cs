@@ -1,12 +1,16 @@
-﻿using Bikewale.DTO.UsedBikes;
+﻿using Bikewale.DTO.Used;
+using Bikewale.DTO.UsedBikes;
 using Bikewale.Entities.Used;
 using Bikewale.Interfaces.Used;
+using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.UsedBikes;
 using Bikewale.Service.Utilities;
+using System;
+using System.Linq;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.ModelBinding;
-
 namespace Bikewale.Service.Controllers.UsedBikes
 {
     public class UsedBikeSellerController : CompressionApiController
@@ -101,6 +105,52 @@ namespace Bikewale.Service.Controllers.UsedBikes
             {
                 return BadRequest(ModelState);
             }
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Oct 2016
+        /// Description :   Sell Bike image upload API
+        /// </summary>
+        /// <param name="profileId"></param>
+        /// <param name="isMain"></param>
+        /// <returns></returns>
+        [HttpPost, Route("api/used/{profileId}/image/upload/")]
+        public IHttpActionResult Post(string profileId, bool? isMain)
+        {
+            try
+            {
+                string strCustomerId = Request.Headers.Contains("customerId") ? Request.Headers.GetValues("customerId").FirstOrDefault() : "";
+                var request = HttpContext.Current.Request;
+                UInt64 customerId = 0;
+                if (!string.IsNullOrEmpty(strCustomerId)
+                    && (request.Files != null
+                    && request.Files.Count > 0)
+                    && Utility.UsedBikeProfileId.IsValidProfileId(profileId)
+                    && UInt64.TryParse(strCustomerId, out customerId)
+                    && customerId > 0)
+                {
+                    SellBikeImageUploadResultEntity uploadResult = _usedBikesRepo.UploadBikeImage(
+                    isMain.HasValue ? isMain.Value : false,
+                    customerId,
+                    profileId,
+                    "",
+                    request.Files
+                    );
+                    SellBikeImageUploadResultDTO result = UsedBikeBuyerMapper.Convert(uploadResult);
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("api/used/{0}/image/upload/?isMain={1},FileUploadCount={2},contentType={3}", profileId, isMain, HttpContext.Current.Request.Files.Count, HttpContext.Current.Request.ContentType));
+                objErr.SendMail();
+                return InternalServerError();
+            }
+
         }
     }
 }

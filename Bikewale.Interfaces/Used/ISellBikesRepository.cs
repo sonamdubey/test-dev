@@ -13,5 +13,7 @@ namespace Bikewale.Interfaces.Used
         T GetById(U inquiryId, UInt64 customerId);
         bool UpdateOtherInformation(SellBikeAdOtherInformation otherInfo, U inquiryId, UInt64 customerId);
         bool IsFakeCustomer(ulong customerId);
+        string SaveBikePhotos(bool isMain, bool isDealer, U inquiryId, string originalImageName, string description);
+        string UploadImageToCommonDatabase(string photoId, string imageName, ImageCategories imgC, string directoryPath);
     }
 }

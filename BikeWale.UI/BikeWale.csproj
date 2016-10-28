@@ -385,6 +385,10 @@
       <DependentUpon>NewsMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\OtherUsedBikeByCity.ascx.cs">
+      <DependentUpon>OtherUsedBikeByCity.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\PopularModelCompare.ascx.cs">
       <DependentUpon>PopularModelCompare.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -603,6 +607,10 @@
     </Compile>
     <Compile Include="controls\SimilarBikesHorizontal.ascx.cs">
       <DependentUpon>SimilarBikesHorizontal.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\SimilarUsedBikes.ascx.cs">
+      <DependentUpon>SimilarUsedBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\SimilarVideos.ascx.cs">
@@ -1318,14 +1326,6 @@
       <DependentUpon>Search.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="used\SearchResult.aspx.cs">
-      <DependentUpon>SearchResult.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="used\Search_v2.aspx.cs">
-      <DependentUpon>Search_v2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="used\sell\confirmation.aspx.cs">
       <DependentUpon>confirmation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1737,6 +1737,7 @@
     <Content Include="controls\DealerCard.ascx" />
     <Content Include="controls\LeadCaptureControl.ascx" />
     <Content Include="controls\NewsMin.ascx" />
+    <Content Include="controls\OtherUsedBikeByCity.ascx" />
     <Content Include="controls\PopularModelCompare.ascx" />
     <Content Include="controls\AddBikeToCompare.ascx" />
     <Content Include="controls\AlternativeBikes.ascx" />
@@ -1797,6 +1798,7 @@
     <Content Include="controls\SimilarBikes.ascx" />
     <Content Include="controls\SimilarCompareBikes.ascx" />
     <Content Include="controls\SimilarBikesHorizontal.ascx" />
+    <Content Include="controls\SimilarUsedBikes.ascx" />
     <Content Include="controls\SimilarVideos.ascx" />
     <Content Include="controls\TipsAdvicesMin.ascx" />
     <Content Include="controls\TopUsedListedBike.ascx" />
@@ -2604,8 +2606,6 @@
     <Content Include="used\Default.aspx" />
     <Content Include="used\Default_v2.aspx" />
     <Content Include="used\Search.aspx" />
-    <Content Include="used\SearchResult.aspx" />
-    <Content Include="used\Search_v2.aspx" />
     <Content Include="used\sell\confirmation.aspx" />
     <Content Include="used\sell\default.aspx" />
     <Content Include="used\sell\Default_v2.aspx" />

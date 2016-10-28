@@ -386,10 +386,14 @@ var usedBikes = function () {
 
     self.SetDefaultFilters = function () {
         try {
-            self.KmsDriven(200000);
-            self.BikeAge(8);
-            self.BudgetValues([0, 7]);
-            self.CurPageNo(1);
+            if (!self.Filters()["kms"])
+                self.KmsDriven(200000);
+            if (!self.Filters()["age"])
+                self.BikeAge(8);
+            if (!self.Filters()["budget"])
+                self.BudgetValues([0, 7]);
+            if (!self.Filters()["pn"])
+                self.CurPageNo(1);
             self.ApplyPagination();
 
             $("#previous-owners-list li").removeClass("active");
@@ -542,7 +546,7 @@ var usedBikes = function () {
         return false;
     };
 
-    self.SetPageFilters = function () {
+    self.SetPageFilters = function (d,e) {
 
         try {
 
@@ -624,7 +628,7 @@ var usedBikes = function () {
                 });
             }
 
-            self.GetUsedBikes();
+            self.GetUsedBikes(self.Filters()["pn"]!=""?e:null);
             
         } catch (e) {
             console.warn("Unable to set page filters : " + e.message);
@@ -647,13 +651,16 @@ $(function () {
     vwUsedBikes.SetDefaultFilters();
     vwUsedBikes.TotalBikes() > 0 ? vwUsedBikes.OnInit(true) : vwUsedBikes.OnInit(false);
 
-    
-
+    vwUsedBikes.PreviousQS(pageQS);
     if (selectedModelId && selectedModelId != "" && selectedModelId != "0") {
         var ele = bikesList.find("ul.bike-model-list span[data-modelid=" + selectedModelId + "]");
         ele.closest("ul.bike-model-list li").addClass("active");
-        if (vwUsedBikes.Filters()["model"])
-            vwUsedBikes.Filters()["model"] += "+" + selectedModelId;
+        var moIds = (vwUsedBikes.Filters()["model"]) ? vwUsedBikes.Filters()["model"].split("+") : null;
+        if (moIds != null && moIds.length > 0)
+        {
+            if ($.inArray(selectedModelId, moIds) == -1)
+                vwUsedBikes.Filters()["model"] += "+" + selectedModelId;
+        }            
         else vwUsedBikes.Filters()["model"] = selectedModelId;
     }
     else if (selectedMakeId && selectedMakeId != "0") {
@@ -669,8 +676,12 @@ $(function () {
             selectedBikeFilters.append('<p data-id="mk-' + ele.attr("data-makeid") + '" data-type="make">' + tab.find('.category-label').text() + '<span class="bwsprite cross-icon"></span></p>');
         }
 
-        if (vwUsedBikes.Filters()["make"])
-            vwUsedBikes.Filters()["make"] += "+" + selectedMakeId;
+        var mkIds = (vwUsedBikes.Filters()["make"]) ? vwUsedBikes.Filters()["make"].split("+") : null;
+
+        if (mkIds != null && mkIds.length > 0) {
+            if ($.inArray(selectedMakeId, mkIds) == -1)
+                vwUsedBikes.Filters()["make"] += "+" + selectedMakeId;
+        }
         else vwUsedBikes.Filters()["make"] = selectedMakeId;
     }
 
@@ -685,7 +696,7 @@ $(function () {
 
     filters.set.bike();
 
-    vwUsedBikes.SetPageFilters();
+    vwUsedBikes.SetPageFilters(null,event);
 
 });
 

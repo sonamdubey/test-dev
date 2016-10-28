@@ -159,31 +159,39 @@ namespace Bikewale.Service.Controllers.UsedBikes
         /// Description : Getting used bike details by profileId
         /// </summary>
         /// <param name="profileId"></param>
+        /// <param name="customerId"></param>
         /// <returns></returns>
-        [HttpGet, Route("api/used/inquiry/url/{profileId}/"), ResponseType(typeof(InquiryDetailsDTO))]
-        public IHttpActionResult GetInquiryDetailsByProfileId(string profileId)
+        [HttpGet, Route("api/used/inquiry/url/{profileId}/{customerId}"), ResponseType(typeof(InquiryDetailsDTO))]
+        public IHttpActionResult GetInquiryDetailsByProfileId(string profileId, string customerId)
         {
             InquiryDetails objInquiryDetailsByProfileId = null;
             InquiryDetailsDTO objInquiryDetailsDTO = null;
+            string platformId = string.Empty;
             try
             {
-                objInquiryDetailsByProfileId = _objUsedBikes.GetInquiryDetailsByProfileId(profileId);
-
-                if (objInquiryDetailsByProfileId != null)
+                if (Request.Headers.Contains("platformId") && Request.Headers.GetValues("platformId").FirstOrDefault() != null)
                 {
-                    objInquiryDetailsDTO = UsedBikeBuyerMapper.Convert(objInquiryDetailsByProfileId);
-                    if (objInquiryDetailsDTO != null)
-                        return Ok(objInquiryDetailsDTO);
+                    platformId = Request.Headers.GetValues("platformId").FirstOrDefault().ToString();
+
+                    objInquiryDetailsByProfileId = _objUsedBikes.GetInquiryDetailsByProfileId(profileId, customerId, platformId);
+
+                    if (objInquiryDetailsByProfileId != null)
+                    {
+                        objInquiryDetailsDTO = UsedBikeBuyerMapper.Convert(objInquiryDetailsByProfileId);
+                        if (objInquiryDetailsDTO != null)
+                            return Ok(objInquiryDetailsDTO);
+                        else
+                            return NotFound();
+                    }
                     else
-                        return NotFound();
+                        return BadRequest();
                 }
                 else
                     return BadRequest();
-
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in API function GetInquiryDetailsByProfileId for profileId : {0}", profileId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in API function GetInquiryDetailsByProfileId for profileId : {0}, customerId : {1}", profileId, customerId));
                 objErr.SendMail();
                 return InternalServerError();
             }

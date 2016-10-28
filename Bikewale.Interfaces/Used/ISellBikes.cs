@@ -1,5 +1,6 @@
 ﻿
 using Bikewale.Entities.Used;
+using System.Web;
 namespace Bikewale.Interfaces.Used
 {
     /// <summary>
@@ -16,5 +17,6 @@ namespace Bikewale.Interfaces.Used
         bool VerifyMobile(SellerEntity seller);
         bool IsFakeCustomer(ulong customerId);
         bool RemoveBikePhotos(ulong customerId, string profileId, string photoId);
+        SellBikeImageUploadResultEntity UploadBikeImage(bool isMain, ulong customerId, string profileId, string description, HttpFileCollection imageFile);
     }
 }
