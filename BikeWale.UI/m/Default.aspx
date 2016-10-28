@@ -5,6 +5,9 @@
 <%@ Register Src="/m/controls/VideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/CompareBikesMin.ascx" TagName="CompareBike" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/MOnRoadPricequote.ascx" TagName="MOnRoadPricequote" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/MUpcomingBikes.ascx" TagName="MUpcomingBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/MNewLaunchedBikes.ascx" TagName="MNewLaunchedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="MMostPopularBikes" TagPrefix="BW" %>
 <!doctype html>
 <html>
 <head>
@@ -52,7 +55,6 @@
         </section>
         <% } %>
         <section>
-            <!--  Upcoming, New Launches and Top Selling code starts here -->
             <div class="container bg-white">
                 <div class="grid-12 alpha omega">
                     <h2 class="font18 text-center margin-top20 margin-bottom20">Discover your bike</h2>
@@ -249,7 +251,56 @@
                 <div class="clear"></div>
             </div>
         </section>
-        <!-- Upcoming, new launches Ends here -->
+
+        <section>
+            <!--  Upcoming, New Launches and Top Selling code starts here -->
+            <div class="container <%= ((mctrlMostPopularBikes.FetchedRecordsCount + mctrlMostPopularBikes.FetchedRecordsCount + mctrlMostPopularBikes.FetchedRecordsCount) > 0 )?"":"hide" %> ">
+                <div class="grid-12 alpha omega">
+                    <h2 class="font18 text-center margin-top20 margin-bottom20">Featured bikes</h2>
+                    <div class="bw-tabs-panel">
+                        <div class="bw-tabs bw-tabs-flex">
+                            <ul>
+                                <li class="active" style="<%= (mctrlMostPopularBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="mctrlMostPopularBikes">Most Popular</li>
+                                <li style="<%= (mctrlNewLaunchedBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="mctrlNewLaunchedBikes">New launches</li>
+                                <li style="<%= (mctrlUpcomingBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="mctrlUpcomingBikes">Upcoming </li>
+                            </ul>
+                        </div>
+                        <div class="grid-12 alpha omega">
+                            <div class="bw-tabs-data features-bikes-container" id="mctrlMostPopularBikes">
+                                <div class="swiper-container card-container">
+                                    <div class="swiper-wrapper discover-bike-carousel">
+                                        <BW:MMostPopularBikes PageId="4" runat="server" ID="mctrlMostPopularBikes" />
+                                    </div>
+                                    <!-- Add Pagination -->
+                                    <div class="swiper-pagination"></div>
+                                </div>
+                            </div>
+                            <div class="bw-tabs-data hide features-bikes-container" id="mctrlNewLaunchedBikes">
+                                <div class="swiper-container card-container">
+                                    <div class="swiper-wrapper discover-bike-carousel">
+                                        <BW:MNewLaunchedBikes PageId="4" runat="server" ID="mctrlNewLaunchedBikes" />
+                                    </div>
+                                    <!-- Add Pagination -->
+                                    <div class="swiper-pagination"></div>
+                                </div>
+                            </div>
+                            <div class="bw-tabs-data hide features-bikes-container" id="mctrlUpcomingBikes">
+                                <div class="swiper-container card-container">
+                                    <div class="swiper-wrapper discover-bike-carousel">
+                                        <BW:MUpcomingBikes runat="server" ID="mctrlUpcomingBikes" />
+                                        <!-- Upcoming Bikes Control-->
+                                    </div>
+                                    <!-- Add Pagination -->
+                                    <div class="swiper-pagination"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </section>
+
         <section class="lazy home-getFinalPrice-banner" data-original="http://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/onroad-price-banner.jpg">
             <!--  Get Final Price code starts here -->
             <BW:MOnRoadPricequote PageId="5" ID="MOnRoadPricequote" runat="server" />

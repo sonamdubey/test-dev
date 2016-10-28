@@ -21,6 +21,9 @@ namespace Bikewale.Mobile
         protected VideosWidget ctrlVideos;
         protected CompareBikesMin ctrlCompareBikes;
         protected MOnRoadPricequote MOnRoadPricequote;
+        protected MUpcomingBikes mctrlUpcomingBikes;
+        protected MNewLaunchedBikes mctrlNewLaunchedBikes;
+        protected MMostPopularBikes mctrlMostPopularBikes;
         protected short reviewTabsCnt = 0;
         //Variable to Assing ACTIVE .css class
         protected bool isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
@@ -41,6 +44,8 @@ namespace Bikewale.Mobile
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            BindBikesWidgets();
+
             ctrlNews.TotalRecords = 3;
             ctrlExpertReviews.TotalRecords = 3;
             ctrlVideos.TotalRecords = 3;
@@ -48,6 +53,24 @@ namespace Bikewale.Mobile
             MOnRoadPricequote.PQSourceId = (int)PQSourceEnum.Mobile_HP_PQ_Widget;
 
             BindBrandsRepeaters();
+
+        }
+
+        private void BindBikesWidgets()
+        {
+
+            //to get Most Popular Bikes
+            mctrlMostPopularBikes.totalCount = 6;
+            mctrlMostPopularBikes.PQSourceId = (int)PQSourceEnum.Mobile_New_MostPopular;
+
+            //To get Upcoming Bike List Details 
+            mctrlNewLaunchedBikes.pageSize = 6;
+            mctrlNewLaunchedBikes.curPageNo = null;
+            mctrlNewLaunchedBikes.PQSourceId = (int)PQSourceEnum.Mobile_New_NewLaunches;
+
+            //To get Upcoming Bike List Details 
+            mctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+            mctrlUpcomingBikes.pageSize = 6;
         }
 
         /// <summary>

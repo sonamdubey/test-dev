@@ -1,25 +1,21 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
+using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Mobile.Controls;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using Bikewale.Mobile.Controls;
-using Bikewale.Common;
-using Bikewale.Entities.PriceQuote;
-using Microsoft.Practices.Unity;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Cache.BikeData;
-using Bikewale.Cache.Core;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.DAL.BikeData;
 
 namespace Bikewale.Mobile.New
 {
-	public class Default : System.Web.UI.Page
-	{
+    public class Default : System.Web.UI.Page
+    {
         protected MUpcomingBikes mctrlUpcomingBikes;
         protected MNewLaunchedBikes mctrlNewLaunchedBikes;
         protected MMostPopularBikes mctrlMostPopularBikes;
@@ -43,13 +39,13 @@ namespace Bikewale.Mobile.New
         {
 
             //to get Most Popular Bikes
-           mctrlMostPopularBikes.totalCount = 6;
-           mctrlMostPopularBikes.PQSourceId = (int)PQSourceEnum.Mobile_New_MostPopular;
+            mctrlMostPopularBikes.totalCount = 6;
+            mctrlMostPopularBikes.PQSourceId = (int)PQSourceEnum.Mobile_New_MostPopular;
 
             //To get Upcoming Bike List Details 
-           mctrlNewLaunchedBikes.pageSize = 6;
-           mctrlNewLaunchedBikes.curPageNo = null;
-           mctrlNewLaunchedBikes.PQSourceId = (int)PQSourceEnum.Mobile_New_NewLaunches;
+            mctrlNewLaunchedBikes.pageSize = 6;
+            mctrlNewLaunchedBikes.curPageNo = null;
+            mctrlNewLaunchedBikes.PQSourceId = (int)PQSourceEnum.Mobile_New_NewLaunches;
 
             //To get Upcoming Bike List Details 
             mctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
@@ -98,5 +94,5 @@ namespace Bikewale.Mobile.New
                 objErr.SendMail();
             }
         }
-	}
+    }
 }
