@@ -6,6 +6,9 @@
 <%@ Register Src="~/controls/ComparisonMin.ascx" TagName="CompareBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/PopularUsedBikes.ascx" TagName="PopularUsedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/OnRoadPriceQuote.ascx" TagName="OnRoadPriceQuote" TagPrefix="BW" %>
+<%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/NewLaunchedBikes_new.ascx" TagName="NewLaunchedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikes" TagPrefix="BW" %>
 
 <!doctype html>
 <html>
@@ -268,6 +271,60 @@
             </div>
         </section>
         <!--  Ends here -->
+
+        <section class="container <%= ((ctrlMostPopularBikes.FetchedRecordsCount + ctrlNewLaunchedBikes.FetchedRecordsCount + ctrlUpcomingBikes.FetchedRecordsCount) > 0 )?"":"hide" %> ">
+            <!--  Discover bikes section code starts here -->
+            <div class="grid-12">
+                <h2 class="text-bold text-center margin-top40 margin-bottom20 font22">Featured bikes</h2>
+                <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow padding-bottom15">
+                    <div class="bw-tabs bw-tabs-flex">
+                        <ul>
+                            <li class="active" style="<%= (ctrlMostPopularBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlMostPopularBikes">
+                                <h3>Most Popular</h3>
+                            </li>
+                            <li style="<%= (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlNewLaunchedBikes">
+                                <h3>New launches</h3>
+                            </li>
+                            <li style="<%= (ctrlUpcomingBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlUpcomingBikes">
+                                <h3>Upcoming</h3>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bw-tabs-data <%= (ctrlMostPopularBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlMostPopularBikes">
+                        <div class="jcarousel-wrapper inner-content-carousel">
+                            <div class="jcarousel">
+                                <ul>
+                                    <BW:MostPopularBikes PageId="5" runat="server" ID="ctrlMostPopularBikes" />
+                                    <!-- Most Popular Bikes Control-->
+                                </ul>
+                            </div>
+                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
+                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+                        </div>
+                    </div>
+
+                    <div class="bw-tabs-data hide <%= (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlNewLaunchedBikes">
+                        <BW:NewLaunchedBikes PageId="5" runat="server" ID="ctrlNewLaunchedBikes" />
+                        <!-- New Launched Bikes Control-->
+                    </div>
+
+                    <div class="bw-tabs-data hide <%= (ctrlUpcomingBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlUpcomingBikes">
+                        <div class="jcarousel-wrapper inner-content-carousel">
+                            <div class="jcarousel">
+                                <ul>
+                                    <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
+                                    <!-- Upcoming Bikes Control-->
+                                </ul>
+                            </div>
+                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
+                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </section>
+
         <section class="lazy home-getFinalPrice-banner" data-original="http://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/d/get-final-price-banner.jpg">
             <BW:OnRoadPriceQuote ID="ctrlOnRoadPriceQuote" PageId="1" runat="server" />
         </section>

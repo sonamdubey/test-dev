@@ -15,6 +15,9 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Default : System.Web.UI.Page
     {
         protected News_new ctrlNews;
@@ -23,6 +26,11 @@ namespace Bikewale
         protected ComparisonMin ctrlCompareBikes;
         protected PopularUsedBikes ctrlPopularUsedBikes;
         protected OnRoadPricequote ctrlOnRoadPriceQuote;
+
+        protected UpcomingBikes_new ctrlUpcomingBikes;
+        protected NewLaunchedBikes_new ctrlNewLaunchedBikes;
+        protected MostPopularBikes_new ctrlMostPopularBikes;
+
         protected short reviewTabsCnt = 0;
         //Variable to Assing ACTIVE .css class
         protected bool isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
@@ -41,6 +49,8 @@ namespace Bikewale
             DeviceDetection dd = new DeviceDetection("/");
             dd.DetectDevice();
 
+            BindBikesWidgets();
+
             ctrlNews.TotalRecords = 3;
             ctrlExpertReviews.TotalRecords = 3;
             ctrlVideos.TotalRecords = 3;
@@ -49,6 +59,21 @@ namespace Bikewale
             ctrlOnRoadPriceQuote.PQSourceId = (int)PQSourceEnum.Desktop_HP_PQ_Widget;
 
             BindRepeaters();
+        }
+
+        private void BindBikesWidgets()
+        {
+            //to get Most Popular Bikes
+            ctrlMostPopularBikes.totalCount = 9;
+            ctrlMostPopularBikes.PQSourceId = (int)PQSourceEnum.Desktop_New_MostPopular;
+
+            //To get Upcoming Bike List Details 
+            ctrlNewLaunchedBikes.pageSize = 9;
+            ctrlNewLaunchedBikes.PQSourceId = (int)PQSourceEnum.Desktop_New_NewLaunches;
+
+            //To get Upcoming Bike List Details 
+            ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+            ctrlUpcomingBikes.pageSize = 9;
         }
 
         /// <summary>

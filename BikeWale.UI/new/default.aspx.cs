@@ -50,16 +50,16 @@ namespace Bikewale.New
             dd.DetectDevice();
 
             //to get Most Popular Bikes
-            ctrlMostPopularBikes.totalCount = 6;
+            ctrlMostPopularBikes.totalCount = 9;
             ctrlMostPopularBikes.PQSourceId = (int)PQSourceEnum.Desktop_New_MostPopular;
 
             //To get Upcoming Bike List Details 
-            ctrlNewLaunchedBikes.pageSize = 6;
+            ctrlNewLaunchedBikes.pageSize = 9;
             ctrlNewLaunchedBikes.PQSourceId = (int)PQSourceEnum.Desktop_New_NewLaunches;
 
             //To get Upcoming Bike List Details 
             ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            ctrlUpcomingBikes.pageSize = 6;
+            ctrlUpcomingBikes.pageSize = 9;
 
             ctrlNews.TotalRecords = 3;
             ctrlExpertReviews.TotalRecords = 3;
