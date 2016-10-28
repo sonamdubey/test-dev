@@ -24,6 +24,10 @@ namespace Bikewale.Entities.Used
         public string PhotoId { get; set; }
     }
 
+    /// <summary>
+    /// Created by  :   Sumit Kate on 28 Oct 2016
+    /// Description :   SellBike Image Upload Result Status
+    /// </summary>
     public enum ImageUploadResultStatus
     {
         Success = 1,
@@ -31,6 +35,10 @@ namespace Bikewale.Entities.Used
         FileUploadLimitExceeded = 3
     }
 
+    /// <summary>
+    /// Created by  :   Sumit Kate on 28 Oct 2016
+    /// Description :   SellBikeImageUploadResultBase status
+    /// </summary>
     public enum ImageUploadStatus
     {
         Success = 1,

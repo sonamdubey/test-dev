@@ -320,7 +320,7 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, String.Format(""));
+                ErrorClass objErr = new ErrorClass(err, String.Format("SaveBikePhotos({0},{1},{2},{3},{4})", isMain, isDealer, inquiryId, originalImageName, description));
                 objErr.SendMail();
             }
             return photoId;

@@ -31,6 +31,10 @@ namespace Bikewale.DTO.Used
         public string PhotoId { get; set; }
     }
 
+    /// <summary>
+    /// Created by  :   Sumit Kate on 28 Oct 2016
+    /// Description :   SellBike Image Upload Result DTO Status
+    /// </summary>
     public enum ImageUploadResultStatusDTO
     {
         Success = 1,
@@ -38,6 +42,10 @@ namespace Bikewale.DTO.Used
         FileUploadLimitExceeded = 3
     }
 
+    /// <summary>
+    /// Created by  :   Sumit Kate on 28 Oct 2016
+    /// Description :   SellBikeImageUploadResult DTO Base status
+    /// </summary>
     public enum ImageUploadStatusDTO
     {
         Success = 1,
