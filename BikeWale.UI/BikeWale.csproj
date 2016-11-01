@@ -945,6 +945,10 @@
       <DependentUpon>ModelSpecsFeatures.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\service\ServiceCenterDetails.aspx.cs">
+      <DependentUpon>ServiceCenterDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\new\newbikedealers\DealerDetails.aspx.cs">
       <DependentUpon>DealerDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2337,6 +2341,7 @@
     <Content Include="m\css\insurance.css" />
     <Content Include="m\css\jqm-demos.css" />
     <Content Include="m\css\jquery.mobile-1.4.2.min.css" />
+    <Content Include="m\css\service\details.css" />
     <Content Include="m\css\service\listing.css" />
     <Content Include="m\css\used\landing.css" />
     <Content Include="m\css\mobile-rsa.css" />
@@ -2357,6 +2362,7 @@
     <Content Include="m\new\ModelGallery.aspx" />
     <Content Include="m\new\ModelPricesInCity.aspx" />
     <Content Include="m\new\ModelSpecsFeatures.aspx" />
+    <Content Include="m\service\ServiceCenterDetails.aspx" />
     <Content Include="m\new\newbikedealers\DealerDetails.aspx" />
     <Content Include="m\Default.aspx" />
     <Content Include="m\faq.aspx" />
@@ -2429,6 +2435,7 @@
     <Content Include="m\src\common.js" />
     <Content Include="m\src\common.min.js" />
     <Content Include="m\src\dealerdetail.js" />
+    <Content Include="m\src\service\details.js" />
     <Content Include="m\src\service\listing.js" />
     <Content Include="m\src\dealerlisting.js" />
     <Content Include="m\src\dealerpricequote.js" />
@@ -2674,6 +2681,9 @@
     <Content Include="m\sass\service\_listing-style.sass" />
     <Content Include="m\sass\modules\_horizontal-swiper.sass" />
     <Content Include="m\sass\modules\_bike-tips.sass" />
+    <Content Include="m\sass\service\details.sass" />
+    <Content Include="m\sass\service\_details-style.sass" />
+    <Content Include="m\sass\modules\_select-box.sass" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
