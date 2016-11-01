@@ -16,12 +16,8 @@
     %>
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link href="/min/m/css/service/listing.css" rel="stylesheet" type="text/css" />
-    <!--
-    <style type="text/css">
-        @charset "utf-8";.swiper-card,.swiper-slide:first-child{margin-left:5px}#dealersList a:hover,.swiper-card a:hover{text-decoration:none}.padding-15-20{padding:15px 20px}#dealersList{padding:0 20px 20px}#dealersList li{border-top:1px solid #e2e2e2;padding-top:15px;margin-top:20px;font-size:14px}#dealersList li:first-child{border-top:0;margin-top:0}#dealersList a{display:block}.featured-tag{width:74px;text-align:center;background:#3799a7;margin-bottom:5px;z-index:1;font-size:12px;color:#fff;line-height:20px;-webkit-border-radius:2px;-moz-border-radius:2px;-o-border-radius:2px;border-radius:2px}.vertical-top{display:inline-block;vertical-align:top}.dealership-details{width:92%}.leadcapturebtn.btn{font-size:14px;padding:9px 21px}.dealership-loc-icon{width:10px;height:14px;background-position:-40px -436px;position:relative;top:4px;margin-right:3px}.star-white{width:8px;height:8px;background-position:-174px -447px;margin-right:4px}.tel-sm-grey-icon{width:10px;height:10px;background-position:0 -437px;position:relative;top:5px;margin-right:3px}.card-container{padding-top:5px;padding-bottom:5px}.card-container .swiper-slide{width:200px}.swiper-card{width:200px;min-height:210px;border:1px solid #e2e2e2\9;background:#fff;-webkit-box-shadow:0 1px 4px rgba(0,0,0,.2);-moz-box-shadow:0 1px 4px rgba(0,0,0,.2);-ms-box-shadow:0 1px 4px rgba(0,0,0,.2);box-shadow:0 1px 4px rgba(0,0,0,.2);-webkit-border-radius:2px;-moz-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.swiper-image-preview{height:95px;padding:5px 5px 0}.swiper-image-preview img{height:90px}.padding-10-15{padding:10px 15px}.btn-card{padding:6px;overflow:hidden}.text-truncate{width:100%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}#makeTabsContentWrapper h2{margin-bottom:13px}#makeUsedBikeContent > h2{padding-bottom:20px;}
-    </style>
-    -->
+    <link href="/m/css/service/listing.css" rel="stylesheet" type="text/css" />
+    
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
 
@@ -53,13 +49,13 @@
 
         <section>
             <div class="container bg-white box-shadow card-bottom-margin">
-                <h2 class="text-black text-bold padding-15-20 border-solid-bottom"><%=totalDealers %> <%=makeName%> showrooms in <%=cityName%></h2>
+                <h2 class="padding-15-20 border-solid-bottom"><%=totalDealers %> <%=makeName%> showrooms in <%=cityName%></h2>
                 <ul id="center-list">
                     <asp:Repeater ID="rptDealers" runat="server">
                         <ItemTemplate>
                             <li>
                                 <a href="" title="Name of service center | Make | City">
-                                    <h3 class="text-truncate margin-bottom5">
+                                    <h3 class="text-truncate margin-bottom5 text-black">
                                         <%# (DataBinder.Eval(Container.DataItem,"Name")) %>
                                     </h3>
                                     <p class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Address").ToString()))?"hide":"margin-bottom5" %>">
@@ -80,13 +76,96 @@
         </section>
 
         <section>
-            <div class="container margin-bottom30">
-                <div class="grid-12 font12">
-                    <span class="font14"><strong>Disclaimer:</strong></span> The above mentioned information about <%=makeName %> dealership showrooms in <%=cityName %> is furnished to the best of our knowledge. 
-                        All <%=makeName %> bike models and colour options may not be available at each of the <%=makeName %> dealers. 
-                        We recommend that you call and check with your nearest <%=makeName %> dealer before scheduling a showroom visit.
+            <div class="container bg-white box-shadow card-bottom-margin">
+                <h2 class="padding-top15 padding-right20 padding-left20">Tips from BikeWale experts to keep your bike in good shape!</h2>
+                <ul id="bw-tips-list">
+                    <li>
+                        <a href="">
+                            <span class="service-sprite care-icon"></span>
+                            <h3 class="text-unbold margin-left10 vertical-middle">Bike Care - Maintenance tips</h3>
+                            <span class="bwmsprite right-arrow"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="service-sprite faq-icon"></span>
+                            <h3 class="text-unbold margin-left10 vertical-middle">Bike troubleshooting - FAQs</h3>
+                            <span class="bwmsprite right-arrow"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <div class="container bg-white box-shadow card-bottom-margin padding-bottom20 padding-top15">
+                <div class="padding-right20 padding-left20 margin-bottom15">
+                    <h2 class="margin-bottom5">Looking to buy a new Bajaj bike in Mumbai?</h2>
+                    <p>Check out authorised Bajaj dealers in Mumbai</p>
                 </div>
-                <div class="clear"></div>
+                <div class="bw-horizontal-swiper swiper-container card-container margin-bottom15">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="">
+                                    <div class="target-link margin-bottom5 text-truncate font14">Executive Bajaj, Ghatkopar</div>        
+                                    <p class="margin-bottom5 text-light-grey">
+                                        <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                        <span class="vertical-top details-column">Paragon Plaza, Phoenix MarketCity, Unit Nos 24/25, Next to Maruti Showroom, LBS Road, Ghatkopar (W)</span>
+                                    </p>
+                                    <p class="text-truncate">
+                                        <span class="bwmsprite tel-sm-grey-icon pos-top0 margin-right5"></span>
+                                        <span class="text-bold text-default">02132-5544763</span>
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="">
+                                    <p class="target-link margin-bottom5 text-truncate font14">Executive Bajaj, Ghatkopar</p>        
+                                    <p class="margin-bottom5 text-light-grey">
+                                        <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                        <span class="vertical-top details-column">Paragon Plaza, Phoenix MarketCity, Unit Nos 24/25, Next to Maruti Showroom, LBS Road, Ghatkopar (W)</span>
+                                    </p>
+                                    <p class="text-truncate">
+                                        <span class="bwmsprite tel-sm-grey-icon pos-top0 margin-right5"></span>
+                                        <span class="text-bold text-default">02132-5544763</span>
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="">
+                                    <p class="target-link margin-bottom5 text-truncate font14">Executive Bajaj, Ghatkopar</p>        
+                                    <p class="margin-bottom5 text-light-grey">
+                                        <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                        <span class="vertical-top details-column">Paragon Plaza, Phoenix MarketCity, Unit Nos 24/25, Next to Maruti Showroom, LBS Road, Ghatkopar (W)</span>
+                                    </p>
+                                    <p class="text-truncate">
+                                        <span class="bwmsprite tel-sm-grey-icon pos-top0 margin-right5"></span>
+                                        <span class="text-bold text-default">02132-5544763</span>
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="padding-right20 padding-left20 font14">
+                    <a href="" title="">View all Bajaj dealers <span class="bwmsprite blue-right-arrow-icon"></span></a>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container margin-bottom20 font12 padding-top5 padding-right20 padding-left20">
+                <span class="font14"><strong>Disclaimer:</strong></span> The above mentioned information about <%=makeName %> dealership showrooms in <%=cityName %> is furnished to the best of our knowledge. 
+                    All <%=makeName %> bike models and colour options may not be available at each of the <%=makeName %> dealers. 
+                    We recommend that you call and check with your nearest <%=makeName %> dealer before scheduling a showroom visit.
             </div>
         </section>
 

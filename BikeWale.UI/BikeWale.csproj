@@ -2337,6 +2337,7 @@
     <Content Include="m\css\insurance.css" />
     <Content Include="m\css\jqm-demos.css" />
     <Content Include="m\css\jquery.mobile-1.4.2.min.css" />
+    <Content Include="m\css\service\listing.css" />
     <Content Include="m\css\used\landing.css" />
     <Content Include="m\css\mobile-rsa.css" />
     <Content Include="m\css\model-gallery.css" />
@@ -2671,6 +2672,8 @@
     <Content Include="m\sass\base\_typography.sass" />
     <Content Include="m\sass\modules\_card.sass" />
     <Content Include="m\sass\service\_listing-style.sass" />
+    <Content Include="m\sass\modules\_horizontal-swiper.sass" />
+    <Content Include="m\sass\modules\_bike-tips.sass" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

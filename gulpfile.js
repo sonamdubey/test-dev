@@ -72,6 +72,12 @@ gulp.task('bwm-service-sass', function () {
         .pipe(gulp.dest(sassPaths.bwm.service.target));
 });
 
+gulp.task('bwm-service-css', function () {
+    return gulp.src(sassPaths.bwm.service.source, { base: 'BikeWale.UI/m/sass/service/' })
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('BikeWale.UI/m/css/service/'));
+});
+
 //Watch task
 gulp.task('watch-sass', function () {
     gulp.watch(paths.bwSASS, ['bw-sass']);
@@ -82,4 +88,4 @@ gulp.task('bwm-sass', function (callback) {
     gulpSequence('bwm-service-sass')(callback)
 });
 
-gulp.task('default', gulpSequence('clean', 'minify-bw-css', 'minify-bw-js', 'minify-bwm-css', 'minify-bwm-js', 'bw-sass', 'bwm-sass'));
+gulp.task('default', gulpSequence('clean', 'minify-bw-css', 'minify-bw-js', 'minify-bwm-css', 'minify-bwm-js', 'bw-sass', 'bwm-sass', 'bwm-service-css'));
