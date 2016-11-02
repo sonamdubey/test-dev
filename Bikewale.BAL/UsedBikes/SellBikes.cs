@@ -136,9 +136,10 @@ namespace Bikewale.BAL.UsedBikes
                 }
                 else
                 {
-                    //Register the new customer
+                    //Register the new customer and send login details
                     objCust = new CustomerEntity() { CustomerName = user.CustomerName, CustomerEmail = user.CustomerEmail, CustomerMobile = user.CustomerMobile };
                     user.CustomerId = _objCustomer.Add(objCust);
+                    SendEmailSMSToDealerCustomer.CustomerRegistrationEmail(objCust.CustomerEmail,objCust.CustomerName,objCust.Password);
                 }
             }
             catch (Exception ex)
