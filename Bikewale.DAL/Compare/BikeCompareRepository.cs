@@ -342,7 +342,9 @@ namespace Bikewale.DAL.Compare
                                     Price1 = GetInt32(reader["Price1"]),
                                     Price2 = GetInt32(reader["Price2"]),
                                     HostUrl1 = GetString(reader["HostUrl1"]),
-                                    HostUrl2 = GetString(reader["HostUrl2"])
+                                    HostUrl2 = GetString(reader["HostUrl2"]),
+                                    City1 = GetString(reader["city1"]),
+                                    City2 = GetString(reader["city2"])
                                 });
                             }
                             reader.Close();

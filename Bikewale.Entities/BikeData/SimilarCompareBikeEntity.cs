@@ -27,5 +27,7 @@ namespace Bikewale.Entities.BikeData
         public string OriginalImagePath2 { get; set; }
         public string HostUrl1 { get; set; }
         public string HostUrl2 { get; set; }
+        public string City1 { get; set; }
+        public string City2 { get; set; }
     }
 }
