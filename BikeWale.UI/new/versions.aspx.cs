@@ -1395,19 +1395,23 @@ namespace Bikewale.New
         {
             try
             {
-                if (modelPageEntity != null && modelPageEntity.ModelColors != null)
+                if (modelPageEntity != null && modelPageEntity.ModelColors != null && modelPageEntity.ModelColors.Count() > 0)
                 {
-                    colorStr.AppendFormat("{0} is available in {1} different colors :", bikeName, modelPageEntity.ModelColors.Count());
-                    int colorCount = modelPageEntity.ModelColors.Count() - 1;
-                    var colors = modelPageEntity.ModelColors.ToArray();
-                    for (int i = 0; i < colorCount; i++)
-                    {
-                        colorStr.AppendFormat(" {0},", colors[i].ColorName);
-                    }
-
+                    int colorCount = modelPageEntity.ModelColors.Count();
+                    string lastColor = modelPageEntity.ModelColors.Last().ColorName;
                     if (colorCount > 1)
-                        colorStr.AppendFormat(" and {0}", colors[colorCount].ColorName);
-                    else colorStr.AppendFormat(" {0}", colors[colorCount].ColorName);
+                    {
+                        colorStr.AppendFormat("{0} is available in {1} different colors : ", bikeName, colorCount);
+                        var colorArr = modelPageEntity.ModelColors.Select(x => x.ColorName).Take(colorCount - 1);
+                        // Comma separated colors (except last one)
+                        colorStr.Append(string.Join(",", colorArr));
+                        // Append last color with And
+                        colorStr.AppendFormat(" and {0}.", lastColor);
+                    }
+                    else if (colorCount == 1)
+                    {
+                        colorStr.AppendFormat("{0} is available in {1} color.", bikeName, lastColor);
+                    }
                 }
             }
             catch (Exception ex)

@@ -32,6 +32,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.New
@@ -86,6 +87,7 @@ namespace Bikewale.Mobile.New
 
         #endregion Subscription model ends
         protected string pgDescription = string.Empty;
+        private StringBuilder colorStr = new StringBuilder();
         #region Events
         protected override void OnInit(EventArgs e)
         {
@@ -167,9 +169,10 @@ namespace Bikewale.Mobile.New
                     }
                     SetFlagsAtEnd();
                     TotalUsedBikes();
+                    BindColorString();
                     CreateMetas();
 
-                ctrlTopCityPrices.TopCount = 4;
+                    ctrlTopCityPrices.TopCount = 4;
                 }
             }
             catch (Exception ex)
@@ -266,15 +269,17 @@ namespace Bikewale.Mobile.New
             ctrlRecentUsedBikes.TopCount = 6;
             ctrlRecentUsedBikes.header = "Recently uploaded Used " + modelPage.ModelDetails.ModelName + " bikes " + (cityId > 0 ? String.Format("in {0}", cityName) : string.Empty);
         }
+
         /// <summary>
         /// Created By :-Subodh Jain 07 oct 2016
         /// Desc:- Metas description according to discountinue,upcoming,continue bikes
         /// </summary>
         private void CreateMetas()
         {
+
             if (modelPage.ModelDetails.Futuristic)
             {
-                pgDescription = string.Format("{0} {1} Price in India is expected between Rs. {2} and Rs. {3}. Check out {0} {1}  specifications, reviews, mileage, versions, news & photos at BikeWale.com. Launch date of {1} is around {4}", modelPage.ModelDetails.MakeBase.MakeName, modelPage.ModelDetails.ModelName, modelPage.UpcomingBike.EstimatedPriceMin, modelPage.UpcomingBike.EstimatedPriceMax, modelPage.UpcomingBike.ExpectedLaunchDate);
+                pgDescription = string.Format("{0} {1} Price in India is expected between Rs. {2} and Rs. {3}. Check out {0} {1}  specifications, reviews, mileage, versions, news & photos at BikeWale.com. Launch date of {1} is around {4}", modelPage.ModelDetails.MakeBase.MakeName, modelPage.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMin)), Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMax)), modelPage.UpcomingBike.ExpectedLaunchDate);
             }
             else if (!modelPage.ModelDetails.New)
             {
@@ -282,11 +287,10 @@ namespace Bikewale.Mobile.New
             }
             else
             {
-                pgDescription = String.Format("{0} Price in India - Rs. {1}. Find {0} Reviews, Specs, Features, Mileage, On Road Price. See {2} Colors, Images at Bikewale.", bikeName, Bikewale.Utility.Format.FormatNumeric(price.ToString()), bikeModelName);
+                pgDescription = String.Format("{0} Price in India - {1}. Find {2} Reviews, Specs, Features, Mileage, On Road Price and Images at Bikewale. {3}", bikeName, Bikewale.Utility.Format.FormatNumeric(price.ToString()), bikeModelName, colorStr);
 
             }
         }
-
 
         protected void btnVariant_Command(object sender, CommandEventArgs e)
         {
@@ -1071,6 +1075,36 @@ namespace Bikewale.Mobile.New
                 objErr.SendMail();
             }
 
+        }
+
+        private void BindColorString()
+        {
+            try
+            {
+                if (modelPage != null && modelPage.ModelColors != null && modelPage.ModelColors.Count() > 0)
+                {
+                    int colorCount = modelPage.ModelColors.Count();
+                    string lastColor = modelPage.ModelColors.Last().ColorName;
+                    if (colorCount > 1)
+                    {
+                        colorStr.AppendFormat("{0} is available in {1} different colors : ", bikeName, colorCount);
+                        var colorArr = modelPage.ModelColors.Select(x => x.ColorName).Take(colorCount - 1);
+                        // Comma separated colors (except last one)
+                        colorStr.Append(string.Join(",", colorArr));
+                        // Append last color with And
+                        colorStr.AppendFormat(" and {0}.", lastColor);
+                    }
+                    else if (colorCount == 1)
+                    {
+                        colorStr.AppendFormat("{0} is available in {1} color.", bikeName, lastColor);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "BindColorString");
+                objErr.SendMail();
+            }
         }
 
     }
