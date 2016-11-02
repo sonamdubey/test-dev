@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.PopularUsedBikes" %>
+<%if(FetchedRecordsCount > 0) { %>
 <div class="container">
-    <div class="grid-12 alpha omega <%= (FetchedRecordsCount > 0)?"":"hide" %>">
+    <div class="grid-12 alpha omega ">
         <h2 class="text-center margin-top20 margin-bottom10"><%= FormatControlHeader() %></h2>
         <div class="content-box-shadow padding-top15 padding-bottom20">
             <div class="swiper-container card-container used-swiper">
@@ -42,3 +43,4 @@
     </div>
     <div class="clear"></div>
 </div>
+<% } %>

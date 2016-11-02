@@ -1397,6 +1397,7 @@ namespace Bikewale.New
             {
                 if (modelPageEntity != null && modelPageEntity.ModelColors != null)
                 {
+
                     colorStr.AppendFormat("{0} is available in {1} different colors :", bikeName, modelPageEntity.ModelColors.Count());
                     int colorCount = modelPageEntity.ModelColors.Count() - 1;
                     var colors = modelPageEntity.ModelColors.ToArray();
@@ -1406,6 +1407,7 @@ namespace Bikewale.New
                     }
 
                     if (colorCount > 1)
+                        //colorStr = colorStr.ToString().Substring(1);
                         colorStr.AppendFormat(" and {0}", colors[colorCount].ColorName);
                     else colorStr.AppendFormat(" {0}", colors[colorCount].ColorName);
                 }
