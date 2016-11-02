@@ -39,7 +39,7 @@ namespace Bikewale.Controls
         {
             BindSimilarCompareBikesControl objAlt = new BindSimilarCompareBikesControl();
             objAlt.cityid = cityid.HasValue ? cityid.Value : Convert.ToInt16(Bikewale.Utility.BWConfiguration.Instance.DefaultCity);
-            fetchedCount = objAlt.BindAlternativeBikes(rptSimilarBikes, versionsList, TopCount);
+            fetchedCount = objAlt.BindPopularCompareBikes(rptSimilarBikes, versionsList, TopCount);
         }
 
         public override void Dispose()

@@ -29,6 +29,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI.WebControls;
 
@@ -83,6 +84,7 @@ namespace Bikewale.New
         protected UsedBikes ctrlRecentUsedBikes;
         public Bikewale.Entities.Used.Search.SearchResult UsedBikes = null;
         protected uint totalUsedBikes;
+        private StringBuilder colorStr = new StringBuilder();
 
         #region Subscription model variables
 
@@ -248,6 +250,7 @@ namespace Bikewale.New
                     Trace.Warn("Trace 23 : Page Load ends");
                     BindControls();
                     TotalUsedBikes();
+                    BindColorString();
                     CreateMetas();
                 }
             }
@@ -319,6 +322,7 @@ namespace Bikewale.New
         /// </summary>
         private void CreateMetas()
         {
+
             if (modelPageEntity.ModelDetails.Futuristic)
             {
                 pgDescription = string.Format("{0} {1} Price in India is expected between Rs. {2} and Rs. {3}. Check out {0} {1}  specifications, reviews, mileage, versions, news & photos at BikeWale.com. Launch date of {1} is around {4}", modelPageEntity.ModelDetails.MakeBase.MakeName, modelPageEntity.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMin)), Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMax)), modelPageEntity.UpcomingBike.ExpectedLaunchDate);
@@ -329,7 +333,7 @@ namespace Bikewale.New
             }
             else
             {
-                pgDescription = String.Format("{0} Price in India - Rs. {1}. Find {0} Reviews, Specs, Features, Mileage, On Road Price. See {2} Colors, Images at Bikewale.", bikeName, Bikewale.Utility.Format.FormatNumeric(price.ToString()), bikeModelName);
+                pgDescription = String.Format("{0} Price in India - {1}. Find {2} Reviews, Specs, Features, Mileage, On Road Price and Images at Bikewale. {3}", bikeName, Bikewale.Utility.Format.FormatNumeric(price.ToString()), bikeModelName, colorStr);
 
             }
         }
@@ -1385,6 +1389,32 @@ namespace Bikewale.New
                 objErr.SendMail();
             }
 
+        }
+
+        private void BindColorString()
+        {
+            try
+            {
+                if (modelPageEntity != null && modelPageEntity.ModelColors != null)
+                {
+                    colorStr.AppendFormat("{0} is available in {1} different colors :", bikeName, modelPageEntity.ModelColors.Count());
+                    int colorCount = modelPageEntity.ModelColors.Count() - 1;
+                    var colors = modelPageEntity.ModelColors.ToArray();
+                    for (int i = 0; i < colorCount; i++)
+                    {
+                        colorStr.AppendFormat(" {0},", colors[i].ColorName);
+                    }
+
+                    if (colorCount > 1)
+                        colorStr.AppendFormat(" and {0}", colors[colorCount].ColorName);
+                    else colorStr.AppendFormat(" {0}", colors[colorCount].ColorName);
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "BindColorString");
+                objErr.SendMail();
+            }
         }
 
 

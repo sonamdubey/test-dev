@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.bikeModel" EnableViewState="false" Trace="false" %>
 
 <%@ Register Src="~/controls/NewAlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
-<%--<%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW" %>--%>
 <%@ Register Src="~/controls/News.ascx" TagName="LatestNews" TagPrefix="BW" %>
 <%@ Register Src="~/controls/NewExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
 <%@ Register Src="~/controls/NewVideosControl.ascx" TagName="Videos" TagPrefix="BW" %>
@@ -16,7 +15,7 @@
 <head>
     <%
         var modDetails = modelPageEntity.ModelDetails;
-        title = String.Format("{0} Price, Reviews, Spec, Photos, Mileage | Bikewale", bikeName);
+        title = String.Format("{0} Price, Reviews, Spec, Photos, Mileage, Colors | Bikewale", bikeName);
         description = pgDescription;
         canonical = String.Format("http://www.bikewale.com/{0}-bikes/{1}/", modelPageEntity.ModelDetails.MakeBase.MaskingName, modelPageEntity.ModelDetails.MaskingName);
         AdId = "1442913773076";
@@ -647,7 +646,7 @@
                         <% } %>
                         <%if (modelPageEntity.ModelColors != null && modelPageEntity.ModelColors.Count() > 0)
                         { %>
-                        <a href="#modelColorsContent" rel="nofollow">Colours</a>
+                        <a href="#modelColorsContent" rel="nofollow">Colors</a>
                         <%} %>
                         <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
                            { %>

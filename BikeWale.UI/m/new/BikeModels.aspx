@@ -13,7 +13,7 @@
 <head>
     <%
         description = pgDescription;
-        title = String.Format("{0} Price, Reviews, Spec, Photos, Mileage | Bikewale", bikeName);
+        title = String.Format("{0} Price, Reviews, Spec, Photos, Mileage, Colors | Bikewale", bikeName);
         canonical = String.Format("http://www.bikewale.com/{0}-bikes/{1}/", modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName);
         AdPath = "/1017752/Bikewale_Mobile_Model";
         AdId = "1444028976556";
@@ -370,7 +370,7 @@
                             <% } %>
                             <%if (modelPage.ModelColors != null && modelPage.ModelColors.Count() > 0)
                             { %>
-                            <li data-tabs="#modelColoursContent">Colours</li>
+                            <li data-tabs="#modelColoursContent">Colors</li>
                             <%} %>
                             <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
                              { %>
