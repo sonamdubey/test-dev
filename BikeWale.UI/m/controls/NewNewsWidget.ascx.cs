@@ -14,6 +14,8 @@ namespace Bikewale.Mobile.Controls
         public int? ModelId { get; set; }
         public int FetchedRecordsCount { get; set; }
         public string WidgetTitle { get; set; }
+        private bool _showWidget = true;
+        public bool ShowWidgetTitle { get { return _showWidget; } set { _showWidget = value; } }
         public ArticleSummary firstPost;
 
         protected override void OnInit(EventArgs e)

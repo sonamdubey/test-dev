@@ -312,7 +312,7 @@ namespace Bikewale.DAL.Compare
                 {
                     cmd.CommandText = "getsimilarcomparebikeslist_13102016";
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.String, 20, versionList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionidlist", DbType.String, 20, versionList));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityid));
                     // LogLiveSps.LogSpInGrayLog(command);
