@@ -98,7 +98,7 @@
                         <% if (modelPage.ModelDetails.ReviewCount > 0)
 
                                        { %>
-                        <span itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating">
+                        <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
                         <meta itemprop="ratingValue" content="<%=modelPage.ModelDetails.ReviewRate %>">
                         <meta itemprop="worstRating" content="1">
                         <meta itemprop="bestRating" content="5">
@@ -720,7 +720,7 @@
                 { %>   
                 <!-- colours code starts here -->    
                 <div id="modelColoursContent" class="bw-model-tabs-data font14">
-                    <h2 class="padding-top15 padding-right20 padding-left20"><%=bikeName %> Colours</h2>
+                    <h2 class="padding-top15 padding-right20 padding-left20"><%=bikeName %> Colors</h2>
                     <ul id="modelColorsList" class="padding-top5 padding-right20 padding-left20">
                     <asp:Repeater ID="rptColors" runat="server">
                             <ItemTemplate>                        

@@ -399,7 +399,7 @@ namespace Bikewale.Mobile.New
             string multiColour = ".";
 
             if (colourCount > 1)
-                multiColour = string.Format(" and {0} colours.", colourCount);
+                multiColour = string.Format(" and {0} colors.", colourCount);
             else if (colourCount == 1)
                 multiColour = string.Format(" and 1 colour.");
 
