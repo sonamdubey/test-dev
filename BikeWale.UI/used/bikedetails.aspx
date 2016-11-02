@@ -1,332 +1,476 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Used.BikeDetails"  %>
-<%@ Import Namespace="Bikewale.Common" %>
-<%
-    title = "Used " + objInquiry.ModelYearOnly + " " + objInquiry.BikeName + " (" + profileId.ToUpper() + ") for sale in " + objInquiry.CityName;
-    description = "BikeWale - Used " + objInquiry.BikeName + " for sale in " + objInquiry.CityName + ". The bikes is of " + objInquiry.ModelYearOnly + " model year and its profile id is #" + profileId.ToUpper() + ". Get phone number of the seller and call directly to inspect and test drive the bike.";
-    keywords = "used " + objInquiry.BikeName + ", used " + objInquiry.BikeName + " for sale, used " + objInquiry.BikeName + " in " + objInquiry.CityName;
-    canonical = bikeCanonical;
-    AdId = "1475576441273";
-    AdPath = "/1017752/BikeWale_UsedBikes_Details_";
-   is300x250BTFShown=false;
-   is300x250Shown = true;
-   isAd970x90Shown = true;
-   isAd970x90BottomShown = true;
-   alternate = alternateUrl; 
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Used.BikeDetails" EnableViewState="false" %>
 
-%>
-<!-- #include file="/includes/headUsed.aspx" -->
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/common/bt.js?v1.1"></script>
-<link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/css/used-cd.css" />
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/classified/bikedetails.js?<%= staticFileVersion %>"></script>
-<style type="text/css">
-    .feature-list li { float: left; width: 170px; }
-    .cd-tbl th { font-weight:bold; }
-    #reqPhotos.buttons { background: #f5f5f5; color: #82888b; border: 1px solid #ccc; font-size:14px;}
-    #reqPhotos.buttons:hover { background: #82888b; color: #fff; text-decoration: none; border:1px solid #82888b; }
-    #buyer_form input, #verifiy_mobile input { border:1px solid #ccc; padding:5px; }
-    #colorbox { width:720px !important; height:570px !important; }
-</style>
-<script type="text/javascript">
-    var bikeName = '<%= objInquiry.BikeName %>';
-    var re = /^[0-9]*$/;
-    var inquiryId = '<%= sellInqId %>';
-    var profileId = '<%= profileId %>';
-    var _isDealer = '<%= isDealer ? "1" : "0" %>';
-    var consumerType = _isDealer == "1" ? "1" : "2";
-    var actualPhoto = "0";
-    var sellerContact = "";
-    var sellerName = "";
-    var bikeModel = '<%= objInquiry.ModelName %>';
-    var makeYear = "";
-    var isDetailsViewed = "0";
-    var custId = '<%= CurrentUser.Id %>';
+<%@ Register Src="/controls/UsedBikeLeadCaptureControl.ascx" TagPrefix="BW" TagName="UBLeadCapturePopup" %>
+<%@ Register Src="~/controls/SimilarUsedBikes.ascx" TagPrefix="BW" TagName="SimilarUsedBikes" %>
+<%@ Register Src="~/m/controls/UploadPhotoRequestPopup.ascx" TagPrefix="BW" TagName="UploadPhotoRequestPopup" %>
+<%@ Register Src="~/controls/OtherUsedBikeByCity.ascx" TagPrefix="BW" TagName="OtherUsedBikes" %>
 
-    var price = '<%=objInquiry.AskingPrice%>';
-    var year = '<%=Convert.ToDateTime(objInquiry.ModelYear).Year.ToString()%>';
-    var kms = '<%=objInquiry.Kms%>';
+<!DOCTYPE html>
+<html>
+<head>
+    <%  
+        isHeaderFix = false;
+        title = pgTitle;
+        keywords = pgKeywords;
+        description = pgDescription;
+        canonical = pgCanonicalUrl;
+        ogImage = (firstImage != null) ? Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImagePath, firstImage.HostUrl, Bikewale.Utility.ImageSize._360x202) : string.Empty;
+        AdId = "1395992162974";
+        AdPath = "/1017752/BikeWale_UsedBikes_Details_";
+        isAd300x250Shown = false;
+        isAd970x90BTFShown = false;
+        alternate = pgAlternateUrl;
+        TargetedModel = (inquiryDetails!=null && inquiryDetails.Model != null) ? inquiryDetails.Model.ModelName : string.Empty;
+        TargetedCity = (inquiryDetails != null &&  inquiryDetails.City != null) ? inquiryDetails.City.CityName : string.Empty;
+    %>
+    <!-- #include file="/includes/headscript_desktop_min.aspx" -->
+    <style type="text/css">
+        @charset "utf-8";.padding-left30{padding-left:30px}.ad-summary-label{position:relative;top:-5px}#ad-summary .model-details-label{color:#4d5057}.inr-md-lg{width:12px;height:17px;background-position:-64px -515px;position:relative;top:1px}.ad-summary-btn.btn{padding:8px 32px}#bike-main-carousel .jcarousel-wrapper{width:385px}#bike-main-carousel .jcarousel{padding-top:0}#bike-main-carousel .jcarousel li{float:left;width:385px;height:220px;margin-right:0;cursor:pointer}#bike-main-carousel .carousel-img-container{display:table;width:385px;height:220px;text-align:center;line-height:0}#bike-main-carousel .carousel-img-container span{display:table-cell;vertical-align:middle;width:100%;height:220px;background:url(http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center center no-repeat #f5f5f5}#bike-main-carousel .carousel-img-container img{max-width:100%;height:220px}.model-media-details{position:absolute;right:10px;bottom:30px;font-size:12px;cursor:pointer}.model-media-item{display:inline-block;vertical-align:middle;padding:4px 5px;color:#4d5057;background:rgba(255,255,255,.8);border-radius:2px;line-height:0}.btn-inv-teal.btn-sm,.inv-teal-sm{padding:6px 19px}.gallery-photo-icon{width:16px;height:12px;background-position:-213px -207px}.model-media-count{position:relative;top:-1px}#bike-main-carousel .jcarousel-control-next,#bike-main-carousel .jcarousel-control-prev,.photos-next-navigation,.photos-prev-navigation{width:26px;height:48px}#bike-main-carousel .jcarousel-control-left{left:0}#bike-main-carousel .jcarousel-control-right{right:0}#bike-main-carousel .jcarousel-control-prev,.photos-prev-navigation{background-position:-125px -355px}#bike-main-carousel .jcarousel-control-next,.photos-next-navigation{background-position:-150px -355px}#bike-main-carousel .jcarousel-control-prev:hover,.photos-prev-navigation{background-position:-125px -386px}#bike-main-carousel .jcarousel-control-next:hover,.photos-next-navigation:hover{background-position:-150px -386px}#bike-main-carousel .jcarousel-control-prev.inactive,.photos-prev-navigation.inactive{background-position:-125px -325px;cursor:not-allowed}#bike-main-carousel .jcarousel-control-next.inactive,.photos-next-navigation.inactive{background-position:-150px -325px;cursor:not-allowed}#bike-no-image{width:100%;margin:0 auto 20px;height:185px;display:table;position:relative;text-align:center;background-color:#f5f5f5}.model-details-label,.specs-features-list .grid-6 p{text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.no-image-content{display:table-cell;vertical-align:middle}.no-image-icon{width:40px;height:30px;background-position:-97px -543px}.request-media-icon{width:38px;height:31px;background-position:-142px -543px;margin-top:25px}.btn-inv-teal{background:0 0;color:#3799a7;border:1px solid #3799a7}.btn-inv-teal:hover{color:#fff;background:#41b4c4;border-color:#41b4c4;text-decoration:none}.btn-inv-teal:focus{color:#fff;background:#3799a7;text-decoration:none}.inv-teal-sm{font-size:14px}.key-value-list p{width:50%;float:left;margin-top:10px}.key-value-list li:first-child p{margin-top:0}.bike-details-key{color:#82888b}.bike-details-value{font-weight:700}#makeOverallTabsWrapper{width:100%;height:45px}.overall-floating-tabs{width:976px;background:#fff;border-bottom:1px solid #e2e2e2}#makeOverallTabs.fixed-tab{position:fixed;top:0;margin:0 auto;z-index:5;border-bottom:0;-moz-box-shadow:0 2px 2px #e2e2e2,0 1px 1px #f1f1f1;-webkit-box-shadow:0 2px 2px #e2e2e2,0 1px 1px #f1f1f1;-o-box-shadow:0 2px 2px #e2e2e2,0 1px 1px #f1f1f1;-ms-box-shadow:0 2px 2px #e2e2e2,0 1px 1px #f1f1f1;box-shadow:0 2px 2px #e2e2e2,0 1px 1px #f1f1f1}.overall-specs-tabs-wrapper{display:table;background:#fff}.overall-specs-tabs-wrapper a{padding:10px 20px;display:table-cell;font-size:14px;color:#82888b}.overall-specs-tabs-wrapper a:hover{text-decoration:none;color:#4d5057}.overall-specs-tabs-wrapper a.active{border-bottom:3px solid #ef3f30;font-weight:700;color:#4d5057}.specs-features-list .grid-6 p{margin-bottom:25px;width:100%}.blue-right-arrow-icon{width:6px;height:10px;background-position:-74px -469px;position:relative;top:1px;left:7px}.used-bikes-carousel .model-jcarousel-image-preview{height:160px;line-height:0;background:#f5f5f5;margin-bottom:10px}.used-bikes-carousel .card-image-block{background-color:#f5f5f5}.author-grey-sm-icon,.kms-driven-icon,.model-date-icon,.model-loc-icon{width:10px;height:12px;margin-right:5px;vertical-align:middle}.model-date-icon{background-position:-65px -543px}.kms-driven-icon{background-position:-65px -563px}.model-loc-icon{background-position:-82px -543px}.used-bikes-carousel .card-desc-block .grid-6{margin-bottom:6px}.model-details-label{width:82%;display:inline-block;vertical-align:middle;color:#82888b}#similarContent .inner-content-carousel .jcarousel li{min-height:365px}.blackOut-window-model{display:none;background:#222;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9;opacity:.95;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";filter:alpha(opacity=95);-moz-opacity:.95;-khtml-opacity:.95}.modelgallery-close-btn{z-index:9}.bike-gallery-popup{display:none;width:730px;height:545px;margin:40px auto 0;overflow-y:auto;position:fixed;top:4%;right:5%;left:5%;z-index:10}.modelgallery-close-btn{position:fixed;top:20px;right:20px}.connected-carousels .navigation,.connected-carousels .stage{width:640px;position:relative;margin:0 auto 20px}.connected-carousels .carousel-stage{height:360px}.connected-carousels .carousel{overflow:hidden;position:relative}.connected-carousels .carousel ul{width:20000em;position:relative;list-style:none;margin:0;padding:0}.connected-carousels .carousel-stage li{float:left;width:640px;height:360px}.connected-carousels .stage-slide{width:100%;height:360px;display:table;text-align:center}.stage-slide .stage-image-placeholder{width:640px;display:table-cell;vertical-align:middle}.stage-image-placeholder img{max-width:100%;max-height:360px;background:#fff}.bike-gallery-details{position:absolute;bottom:0;font-size:14px;width:640px;color:#fff;padding:10px 20px 5px;background:linear-gradient(to bottom,rgba(0,0,0,0),rgba(5,0,0,.7))}.carousel-navigation li{width:145px;height:85px;margin-right:10px;float:left;cursor:pointer}.carousel-navigation .navigation-slide{width:100%;height:85px;display:table;text-align:center;line-height:0}.navigation-slide .navigation-image-placeholder{display:table-cell;vertical-align:middle;border:2px solid rgba(34,34,34,.1)}.carousel-navigation li.active .navigation-image-placeholder{border:2px solid #ccc}.navigation-image-placeholder img{max-height:81px}.connected-carousels .navigation:hover .photos-next-navigation,.connected-carousels .navigation:hover .photos-prev-navigation,.connected-carousels .stage:hover .photos-next-stage,.connected-carousels .stage:hover .photos-prev-stage{display:block}.photos-next-stage,.photos-prev-stage{display:none;width:40px;height:80px;text-indent:-9999px;border:1px solid #e2e2e2;background-color:#fff;padding:10px 5px;-moz-border-radius:2px;-webkit-border-radius:2px;-o-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.connected-carousels .stage .next,.connected-carousels .stage .prev{position:absolute;top:40%;z-index:1}.photos-prev-stage{background-position:-30px -73px;left:-20px}.photos-next-stage{background-position:-61px -73px;right:-20px}.photos-prev-stage:hover{background-position:-30px -128px}.photos-next-stage:hover{background-position:-61px -128px}.photos-prev-stage.inactive{background-position:-30px -18px;cursor:not-allowed}.photos-next-stage.inactive{background-position:-61px -18px;cursor:not-allowed}.photos-next-navigation,.photos-prev-navigation{display:none;text-indent:-9999px;border:1px solid #eee;background-color:#fff;padding:10px 5px;-moz-border-radius:2px;-webkit-border-radius:2px;-o-border-radius:2px;-ms-border-radius:2px;border-radius:2px;position:absolute;top:20%;z-index:2}.photos-prev-navigation{left:-15px}.photos-next-navigation{right:-15px}#get-seller-details-popup.bwm-fullscreen-popup,#request-media-popup.bwm-fullscreen-popup{padding:30px 60px 50px;display:none}#get-seller-details-popup.bw-popup,#request-media-popup.bw-popup{width:480px;top:33%}#request-media-popup .popup-inner-container{padding:0}#mobile-verification-section,#request-sent-section,#seller-details-section,#update-mobile-content{display:none}.btn-fixed-width{padding-right:0;padding-left:0;width:205px}.size-small .icon-outer-container{width:92px;height:92px;margin-bottom:10px}.size-small .icon-inner-container{width:84px;height:84px;margin:3px auto}.otp-icon{width:29px;height:29px;background-position:-109px -177px}.edit-blue-icon{position:relative;top:13px;cursor:pointer}.thankyou-icon{width:52px;height:58px;background-position:-165px -436px;margin-top:10px}.margin-bottom35{margin-bottom:35px}.dealer-details-list li{margin-bottom:25px}.dealer-details-list .data-key{font-size:12px;color:#82888b}.dealer-details-list .data-value,.input-box input{font-size:16px;font-weight:700}.text-truncate{width:100%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}input[type=text]:focus,input[type=number]:focus{outline:0;box-shadow:none}.input-box{height:60px;text-align:left}.input-box input{width:100%;display:block;padding:7px 0;border-bottom:1px solid #82888b;color:#4d5057}.input-box label,.input-number-prefix{font-size:16px;position:absolute;color:#82888b;top:4px}.input-box label{left:0;-webkit-transition:.2s ease all;-moz-transition:.2s ease all;-o-transition:.2s ease all;transition:.2s ease all}.input-number-box input{padding-left:30px}.input-number-prefix{display:none;font-weight:700}.boundary{position:relative;width:100%;display:block}.boundary:after,.boundary:before{content:'';position:absolute;bottom:0;width:0;height:2px;background-color:#41b4c4;-webkit-transition:.2s ease all;-moz-transition:.2s ease all;-o-transition:.2s ease all;transition:.2s ease all}.boundary:before{left:50%}.boundary:after{right:50%}.error-text{display:none;font-size:12px;position:relative;top:4px;left:0;color:#d9534f}.input-box.input-number-box input:focus~.input-number-prefix,.input-box.input-number-box.not-empty .input-number-prefix,.input-box.invalid .error-text{display:inline-block}.input-box input:focus~label,.input-box.not-empty label{top:-16px;font-size:12px}.input-box input:focus~.boundary:after,.input-box input:focus~.boundary:before{width:50%}.input-box.invalid .boundary:after,.input-box.invalid .boundary:before{background-color:#d9534f;width:50%}#ub-ajax-loader{display:none}#modal-window{background:#000;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9;opacity:.5;display:none;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";filter:alpha(opacity=50);-moz-opacity:.5;-khtml-opacity:.5}#spinner-content{width:50px;height:50px;position:fixed;top:45%;left:10%;right:0;margin:0 auto;z-index:999}.bw-spinner{-webkit-animation:rotator 1.4s linear infinite;animation:rotator 1.4s linear infinite}@-webkit-keyframes rotator{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(270deg);transform:rotate(270deg)}}@keyframes rotator{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(270deg);transform:rotate(270deg)}}.circle-path{stroke-dasharray:187;stroke-dashoffset:0;-webkit-transform-origin:center;transform-origin:center;-webkit-animation:dash 1.4s ease-in-out infinite,colors 5.6s ease-in-out infinite;animation:dash 1.4s ease-in-out infinite,colors 5.6s ease-in-out infinite}@-webkit-keyframes colors{0%,100%{stroke:#ef3f30}}@keyframes colors{0%,100%{stroke:#ef3f30}}@-webkit-keyframes dash{0%{stroke-dashoffset:187}50%{stroke-dashoffset:46.75;-webkit-transform:rotate(135deg);transform:rotate(135deg)}100%{stroke-dashoffset:187;-webkit-transform:rotate(450deg);transform:rotate(450deg)}}@keyframes dash{0%{stroke-dashoffset:187}50%{stroke-dashoffset:46.75;-webkit-transform:rotate(135deg);transform:rotate(135deg)}100%{stroke-dashoffset:187;-webkit-transform:rotate(450deg);transform:rotate(450deg)}}@media only screen and (max-width:1024px){#bike-main-carousel .jcarousel li{width:365px}#bike-main-carousel .jcarousel-control-left,#bike-main-carousel .jcarousel-control-right{top:35%}}.bike-sold-msg{width:89%;padding:10px 20px;font-size:14px;display:inline-block;vertical-align:middle}.used-sprite{background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/used-sprite.png?v1=14Oct2016) no-repeat;display:inline-block}.sold-icon{width:87px;height:64px;background-position:0 -209px;vertical-align:middle}
+    </style>
 
-    var buyersName = "";
-    var buyersEmail = ""
-    var buyersMobile = "";
-    var isBuyingReq = true, isPhotoReqDone = false;
-
-    var compareCaption = "";
-</script>
-<div class="container_12">
-    <div class="grid_12">
-        <ul class="breadcrumb">
-            <li>You are here: </li>
-            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                <a href="/" itemprop="url">
-                    <span itemprop="title">Home</span>
-                </a>
-            </li>
-            <li class="fwd-arrow">&rsaquo;</li>
-            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                <a href="/used/" itemprop="url">
-                    <span itemprop="title">Used Bikes</span>
-                </a>
-            </li>
-            <li class="fwd-arrow">&rsaquo;</li>
-            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                <a href="/used/bikes-in-<%=objInquiry.CityMaskingName.ToLower().Replace(" ","") %>/#<%= GetBackToSearch() %>" itemprop="url">
-                    <span itemprop="title">Search Result</span>
-                </a>
-            </li>            
-            <li class="fwd-arrow">&rsaquo;</li>
-            <li class="current"><strong><%= objInquiry.BikeName %></strong></li>
-        </ul><div class="clear"></div>
-    </div>
-    <div class="grid_8 margin-top10">       
-        <h1>Used, <%= objInquiry.BikeName %></h1>
-        <div class="grey-bg content-block margin-top15 border-light">
-            <div class="text-highlight">For Sale at <%= objInquiry.AreaName == "" ? "" : objInquiry.AreaName + ", " %><%= objInquiry.CityName %>, <span title="<%= objInquiry.StateName %>"><%= objInquiry.StateCode %></span></div>
-            <div class="margin-top10">
-                <table class="cd-tbl" width="100%" cellspacing="0" cellpadding="0" border="0">
-                    <tr>
-                        <th width="140">Asking Price (Rs.)</th>
-                        <td width="180" class="price2" style="color: #cc0000;"><%= objInquiry.AskingPrice %></td>
-                        <th width="160">Kms Done</th>
-                        <td><%= objInquiry.Kms %></td>
-                    </tr>
-                    <tr>
-                        <th>Model Year</th>
-                        <td><%= objInquiry.ModelYear %></td>
-                        <th>Color</th>
-                        <td style="padding: 0;"><%= GetColorCode() %></td>
-                    </tr>
-                    <tr>
-                        <th>Registration</th>
-                        <td><%= objInquiry.Registration %></td>
-                        <th>Profile Id</th>
-                        <td><%= profileId %></td>
-                    </tr>
-                    <tr>
-                        <th>Owner</th>
-                        <td><%= objInquiry.Owner %></td>
-                        <th>Seller</th>
-                        <td><%= objInquiry.Seller %></td>
-                    </tr>
-                    <tr>
-                        <th>Insurance</th>
-                        <td><%= objInquiry.Insurance %>
-                            <br />
-                            <span class="text-grey"><%= objInquiry.InsuranceExpiry %></span>
-
-                            <%--<% if(!String.IsNullOrEmpty(objInquiry.Insurance) && !(objInquiry.Insurance).ToLower().Contains("insurance")) {%>
-                            <div style="position: relative; color: #999; font-size: 11px; margin-top: 1px;">
-                                Up to 60% off - <a onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'Used_Bike_Detail_Page', act: 'Insurance_Clicked',lab: '<%= objInquiry.BikeName + "_" + objInquiry.CityName %>' });" target="_blank" href="/insurance/">PolicyBoss</a>
-                                <span style="margin-left: 8px; vertical-align: super; font-size: 9px;">Ad</span>
-                            </div> 
-                        <% } %>  --%>
-                        </td>                        
-                        <th>Lifetime-Tax</th>
-                        <td><%= objInquiry.LifetimeTax %></td>
-                    </tr>
-                    <tr>
-                        <th valign="top">Engine</th>
-                        <td><%= objInquiry.Engine %></td>
-                        <th valign="top">Fuel Type</th>
-                        <td valign="top">Petrol</td>
-                    </tr>
-                    <tr>
-                        <td colspan="4" align="right" style="padding:0; padding-right:30px"><div class="margin-top10"><a id="contact-seller" class="action-btn">Get Seller Details</a></div></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div id="scrollable_imgs" runat="server" class="scrollable-img margin-top15">
-            <div class="thumb_preview">
-                <%--<a id="profile_link" rel="slide" title="<%= objPhotos.FrontImageDescription %>" href="<%= GetImagePath( objPhotos.FrontImageLarge, objPhotos.DirectoryPath, objPhotos.HostUrl ) %>">--%>
-                <a id="profile_link" rel="slide" title="<%= objPhotos.FrontImageDescription %>" href="<%= GetOriginalImagePath( objPhotos.OriginalImagePath, objPhotos.HostUrl, Bikewale.Utility.ImageSize._642x361 ) %>">
-                    <img id="inlarge" style="position: absolute; border: 0; z-index: 1001; margin-top: 1px; margin-left: 1px;" class="hide" alt="inlarge" src="http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/inlarge.gif" />
-                    <%--<img id="front_img" border="0" alt="<%= objInquiry.ModelYearOnly + " " + objInquiry.BikeName %>" src="<%= GetImagePath( objPhotos.FrontImageMidThumb, objPhotos.DirectoryPath, objPhotos.HostUrl ) %>" /></a>--%>
-                    <img id="front_img" border="0" alt="<%= objInquiry.ModelYearOnly + " " + objInquiry.BikeName %>" src="<%= GetOriginalImagePath( objPhotos.OriginalImagePath, objPhotos.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" width="300" height="222" /></a>
-            </div>
-            <div class="img-desc hide">
-                <img alt="loading..." title="click to inlarge this image" style="margin-right: 5px;" src="http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/m01.gif" align="left" border="0" /><span id="img_description"><%= objPhotos.FrontImageDescription %></span><div class="clear"></div>
-            </div>
-            <div class="thumb_navi">
-                <div id="navi" class="scrollable">
-                    <div class="items">
-                        <div>
-                            <asp:repeater id="rptPhotos" runat="server">
-							    <itemtemplate>
-								    <%= GetPageItemContainer() %>
-								    <%--<a class="img_thumb" href="<%# GetImagePath( DataBinder.Eval( Container.DataItem, "ImageUrlThumb" ).ToString(), DataBinder.Eval( Container.DataItem, "DirectoryPath" ).ToString(), DataBinder.Eval( Container.DataItem, "HostUrl" ).ToString() )%>"><img alt="loading.." title="click to view" src="<%# GetImagePath( DataBinder.Eval( Container.DataItem, "ImageUrlThumbSmall" ).ToString(), DataBinder.Eval( Container.DataItem, "DirectoryPath" ).ToString(), DataBinder.Eval( Container.DataItem, "HostUrl" ).ToString() )%>" border="0" /></a>--%>
-                                    <a class="img_thumb" href="<%# GetOriginalImagePath( DataBinder.Eval( Container.DataItem, "OriginalImagePath" ).ToString(), DataBinder.Eval( Container.DataItem, "HostUrl" ).ToString(),Bikewale.Utility.ImageSize._310x174 )%>"><img alt="loading.." title="click to view" src="<%# GetOriginalImagePath( DataBinder.Eval( Container.DataItem, "OriginalImagePath" ).ToString(), DataBinder.Eval( Container.DataItem, "HostUrl" ).ToString(),Bikewale.Utility.ImageSize._110x61 )%>" border="0" width="80" height="59"/></a>
-								    <%--<a rel="slide" name="front<%# DataBinder.Eval( Container.DataItem, "IsMain" ).ToString() == "True" ? "1" : "0"%>" class="aslide" title="<%# DataBinder.Eval( Container.DataItem, "Description" ) %>" href="<%# GetImagePath( DataBinder.Eval( Container.DataItem, "ImageUrlFull" ).ToString(), DataBinder.Eval( Container.DataItem, "DirectoryPath" ).ToString(), DataBinder.Eval( Container.DataItem, "HostUrl" ).ToString() )%>"></a>--%>
-                                    <a rel="slide" name="front<%# DataBinder.Eval( Container.DataItem, "IsMain" ).ToString() == "True" ? "1" : "0"%>" class="aslide" title="<%# DataBinder.Eval( Container.DataItem, "Description" ) %>" href="<%# GetOriginalImagePath( DataBinder.Eval( Container.DataItem, "OriginalImagePath" ).ToString(), DataBinder.Eval( Container.DataItem, "HostUrl" ).ToString(),Bikewale.Utility.ImageSize._642x361 )%>"></a>
-							    </itemtemplate>
-						    </asp:repeater>
-                        </div>
+    <script type="text/javascript">
+        <!-- #include file="\includes\gacode_desktop.aspx" -->
+    </script>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <!-- #include file="/includes/headBW.aspx" -->
+        <% if(inquiryDetails!=null) { %>
+        <section class="bg-light-grey padding-top10" id="breadcrumb">
+            <div class="container">
+                <div class="grid-12">
+                    <div class="breadcrumb margin-bottom15">
+                        <!-- breadcrumb code starts here -->
+                        <ul>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/" itemprop="url">
+                                <span itemprop="title">Home</span></a>
+                            </li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                                <span class="bwsprite fa-angle-right margin-right10"></span>
+                                <a href="/used/" itemprop="url">
+                                    <span itemprop="title">Used Bikes</span>
+                                </a>
+                            </li>
+                            <% if (inquiryDetails != null && inquiryDetails.City != null)
+                               { %>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                                <span class="bwsprite fa-angle-right margin-right10"></span>
+                                <a href="/used/bikes-in-<%= inquiryDetails.City.CityMaskingName %>/" itemprop="url">
+                                    <span itemprop="title"><%= inquiryDetails.City.CityName %></span>
+                                </a>
+                            </li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                                <span class="bwsprite fa-angle-right margin-right10"></span>
+                                <a href="<%= string.Format("/used/{0}-{1}-bikes-in-{2}/", inquiryDetails.Make.MaskingName, inquiryDetails.Model.MaskingName, inquiryDetails.City.CityMaskingName) %>" itemprop="url">
+                                    <span itemprop="title"><%= inquiryDetails.Model.ModelName %></span>
+                                </a>
+                            </li>
+                            <% } %>
+                            <li><span class="bwsprite fa-angle-right margin-right10"></span>
+                                <span><%= string.Format("{0} {1} in {2}",modelYear,bikeName,(inquiryDetails!=null && inquiryDetails.City!=null ) ? inquiryDetails.City.CityName:string.Empty) %></span>
+                            </li>
+                        </ul>
+                        <div class="clear"></div>
                     </div>
                 </div>
                 <div class="clear"></div>
-                <div id="navigate_img" runat="server" class="scrollable-navi">
-                    <div class="navi"></div>
-                    <a class="prev browse left"></a><a class="next browse right"></a>
-                    <div class="clear"></div>
-                </div>
-                <script type="text/javascript">
-                    $("#navi").scrollable().navigator();
-                    $("a[rel='slide']").colorbox({ width: "700px", height: "550px" });
-                    $("a[name='front1']").attr("rel", "nofollow");
-                    $("a.img_thumb").click(function (e) {
-                        e.preventDefault();
-                        var imgDesc = $(this).next().attr("title");
-
-                        $("#profile_link").attr("href", $(this).next().attr("href")).attr("title", imgDesc != "" ? imgDesc : "Actual bike photos");
-                        $("#front_img").hide().attr("src", $(this).attr("href")).fadeIn(700);
-                        $("#img_description").text(imgDesc != "" ? imgDesc : "Actual bike photos");
-
-                        $("a.aslide").attr("rel", "slide");
-                        $(this).next().attr("rel", "nofollow");
-                        $("a[rel='slide']").colorbox({ width: "700px", height: "550px" });
-                    });
-                </script>
             </div>
-            <div class="clear"></div>
-        </div>
-        
-        <div id="requestPhotos" runat="server" visible="false" class="grey-bg content-block margin-top15">Photos of this bike not uploaded by the seller. <a id="reqPhotos" class="buttons margin-left10">Request seller to upload photos</a></div>
-        
-        <div class="margin-top15">
-            <h2 id="std_features" class="<%=  objInquiry.Parse_Features() == "<ul class='ul-tick-chk'></ul>" ? "hide" : ""  %>">Standard Features</h2>
-            <div class="margin-top10">
-                <div class="feature-list">
-                    <%= objInquiry.Parse_Features()%>
+        </section>
+
+        <% if (!isBikeSold)
+           { %>
+        <section>
+            <div class="container">
+                <div class="grid-12 margin-bottom20">
+                    <div class="content-box-shadow content-inner-block-20">
+                        <h1 class="margin-bottom20"><%=modelYear %>, <%= bikeName %></h1>
+                        <div id="bike-main-carousel" class="grid-5 alpha">
+                            <%if (inquiryDetails.PhotosCount > 0)
+                              { %>
+                            <div class="jcarousel-wrapper">
+                                <div class="jcarousel">
+                                    <ul>
+                                        <% for (int i = 0; i < inquiryDetails.PhotosCount; i++)
+                                           {
+                                               var photo = inquiryDetails.Photo[i];  %>
+                                        <li>
+                                            <div class="carousel-img-container">
+                                                <span>
+                                                    <% if (i < 4)
+                                                       { %>
+                                                    <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(photo.OriginalImagePath,photo.HostUrl,Bikewale.Utility.ImageSize._642x361) %>" title="<%= bikeName %>" alt="<%= bikeName %>" border="0">
+                                                    <% }
+                                                       else
+                                                       { %>
+                                                    <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(photo.OriginalImagePath,photo.HostUrl,Bikewale.Utility.ImageSize._642x361) %>" border="0" alt="<%= bikeName %>" title="<%= bikeName %>" src="">
+                                                    <% } %>
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <% } %>
+                                    </ul>
+                                </div>
+                                <% if (inquiryDetails.PhotosCount > 1)
+                                   { %>
+                                <div class="model-media-details">
+                                    <div class="model-media-item">
+                                        <span class="bwsprite gallery-photo-icon"></span>
+                                        <span class="model-media-count"><%= inquiryDetails.PhotosCount %></span>
+                                    </div>
+                                </div>
+                                <span class="jcarousel-control-left">
+                                    <a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow"></a>
+                                </span>
+                                <span class="jcarousel-control-right">
+                                    <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
+                                </span>
+                                <% } %>
+                            </div>
+
+                            <% }
+                              else
+                              { %>
+                            <div id="bike-no-image">
+                                <div class=" no-image-content ">
+                                    <span class="bwsprite no-image-icon"></span>
+                                    <p class="font12 text-bold text-light-grey margin-top5 margin-bottom15">Seller has not uploaded any photos</p>
+                                    <% if (!isPhotoRequestDone)
+                                       { %>
+                                    <a href="javascript:void(0)" id="request-media-btn" class="btn btn-inv-teal btn-sm font14 text-bold" rel="nofollow">Request photos</a>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <% } %>
+                        </div>
+                        <% if (inquiryDetails.MinDetails != null)
+                           { %>
+                        <div id="ad-summary" class="grid-7 padding-left30 omega font14">
+                            <h2 class="text-default ad-summary-label margin-bottom10">Ad summary</h2>
+                            <% if (!string.IsNullOrEmpty(modelYear))
+                               { %>
+                            <div class="grid-4 alpha margin-bottom10">
+                                <span class="bwsprite model-date-icon"></span>
+                                <span class="model-details-label"><%= modelYear %> model</span>
+                            </div>
+                            <% } %>
+                            <% if (inquiryDetails.MinDetails.KmsDriven > 0)
+                               { %>
+                            <div class="grid-4 alpha omega margin-bottom10">
+                                <span class="bwsprite kms-driven-icon"></span>
+                                <span class="model-details-label"><%= Bikewale.Utility.Format.FormatPrice(inquiryDetails.MinDetails.KmsDriven.ToString()) %> kms</span>
+                            </div>
+                            <div class="clear"></div>
+                            <% } %>
+                            <% if (!string.IsNullOrEmpty(inquiryDetails.MinDetails.OwnerType))
+                               { %>
+                            <div class="grid-4 alpha margin-bottom10">
+                                <span class="bwsprite author-grey-sm-icon"></span>
+                                <span class="model-details-label"><%= Bikewale.Utility.Format.AddNumberOrdinal(Convert.ToUInt16(inquiryDetails.MinDetails.OwnerType),4) %> owner</span>
+                            </div>
+                            <% } %>
+                            <% if (inquiryDetails.City != null && !string.IsNullOrEmpty(inquiryDetails.City.CityName))
+                               { %>
+                            <div class="grid-4 alpha omega margin-bottom10">
+                                <span class="bwsprite model-loc-icon"></span>
+                                <span class="model-details-label"><%= inquiryDetails.City.CityName %></span>
+                            </div>
+                            <div class="clear"></div>
+                            <% } %>
+                            <div class="margin-top5 margin-bottom10">
+                                <span class="bwsprite inr-md-lg"></span>
+                                <span class="font24 text-bold"><%= Bikewale.Utility.Format.FormatPrice(inquiryDetails.MinDetails.AskingPrice.ToString()) %></span>
+                            </div>
+                            <a href="javascript:void(0)" class="btn btn-orange ad-summary-btn font14 used-bike-lead" rel="nofollow" data-profile-id="<%= profileId %>" data-ga-cat="Used_Bike_Detail" data-ga-act="Get_Seller_Details_Clicked" data-ga-lab="<%= profileId %>">Get seller details</a>
+                        </div>
+                        <% } %>
+                        <div class="clear"></div>
+
+                        <div class="margin-bottom20 border-solid-bottom"></div>
+                        <% if (inquiryDetails.OtherDetails != null)
+                           { %>
+                        <h2 class="text-default margin-bottom15">Bike details</h2>
+                        <div class="grid-6 alpha border-solid-right margin-bottom20">
+                            <ul class="key-value-list font14">
+                                <li>
+                                    <p class="bike-details-key">Profile ID</p>
+                                    <p class="bike-details-value">S<%= inquiryDetails.OtherDetails.Id %></p>
+                                </li>
+                                <li>
+                                    <p class="bike-details-key">Date updated</p>
+                                    <p class="bike-details-value"><%= Bikewale.Utility.FormatDate.GetDDMMYYYY(inquiryDetails.OtherDetails.LastUpdatedOn.ToString()) %></p>
+                                </li>
+                                <li>
+                                    <p class="bike-details-key">Seller</p>
+                                    <p class="bike-details-value"><%= inquiryDetails.OtherDetails.Seller %></p>
+                                </li>
+                                <li>
+                                    <p class="bike-details-key">Registration year</p>
+                                    <p class="bike-details-value"><%= Bikewale.Utility.FormatDate.GetFormatDate(inquiryDetails.MinDetails.ModelYear.ToString(),"MMM yyyy") %></p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="grid-6 padding-left40 omega margin-bottom20">
+                            <ul class="key-value-list font14">
+                                <% if (!string.IsNullOrEmpty(inquiryDetails.OtherDetails.Color.ColorName))
+                                   { %>
+                                <li>
+                                    <p class="bike-details-key">Colour</p>
+                                    <p class="bike-details-value"><%= inquiryDetails.OtherDetails.Color.ColorName %></p>
+                                </li>
+                                <%} %>
+                                <li>
+                                    <p class="bike-details-key">Bike registered at</p>
+                                    <p class="bike-details-value"><%= inquiryDetails.OtherDetails.RegisteredAt %></p>
+                                </li>
+                                <li>
+                                    <p class="bike-details-key">Insurance</p>
+                                    <p class="bike-details-value"><%= inquiryDetails.OtherDetails.Insurance %></p>
+                                </li>
+                                <li>
+                                    <p class="bike-details-key">Registration no.</p>
+                                    <p class="bike-details-value"><%= inquiryDetails.OtherDetails.RegistrationNo %></p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
+
+                        <% if (!string.IsNullOrEmpty(inquiryDetails.OtherDetails.Description))
+                           { %>
+
+                        <div class="margin-bottom20 border-solid-bottom"></div>
+
+                        <h2 class="text-default margin-bottom15">Ad description</h2>
+                        <p class="font14 text-light-grey"><%= inquiryDetails.OtherDetails.Description %></p>
+                        <%  }
+                   } %>
+                    </div>
                 </div>
                 <div class="clear"></div>
-                <div class="hr-dotted"></div>
-            </div>            
-        </div>
+            </div>
+        </section>
+        <% }
+           else
+           { %>
+        <section>
+            <div class="container">
+                <div class="grid-12 margin-bottom20">
+                    <div class="content-box-shadow content-inner-block-20">
+                        <span class="used-sprite sold-icon"></span>
+                        <div class="bike-sold-msg text-grey">The <%= bikeName %> bike you are looking for has been sold. You might want to consider other used bikes shown below.</div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <% } %>
 
-        <div id="salersNote" runat="server" class="margin-top15">
-            <h2>Seller's Note</h2>
-            <div class="margin-top10"><%= objInquiry.CustomersNote %></div>            
-        </div>
-        <div  id="addDetails" class="margin-top15" runat="server">
-            <h2>Additional Details</h2>
-            <p class='<%= objInquiry.Warranties == "--" ? "hide" : "margin-top10" %>' ><span class="price2">Warranties:</span> <%= objInquiry.Warranties %></p>
-            <p class='<%= objInquiry.Modifications == "--" ? "hide" : "margin-top10" %>' ><span class="price2">Modifications:</span> <%= objInquiry.Modifications %></p>
-        </div>
-        <div class="grey-bg content-block margin-top15 <%=  objInquiry.Parse_Features() == "<ul class='ul-tick-chk'></ul>" ? "hide" : "" %>">
-            View <%= objInquiry.BikeName %> <a title="<%= objInquiry.BikeName %> Standard Specifications" href="<%= researchBaseUrl%>">Specifications</a>
-        </div>
-        <div id="contact" class="hide">
-            <a id="closeBox" class="gb-close right-float"></a>
-            <div id="buyer_form" style="height: 260px;">
-                <h2 id="form_title">Interested? Get Seller Details</h2>
-                <p id="byline_text" class="margin-top10">For privacy concerns, We hide owner details. Please fill this form to get owner's details.</p>
-                <table class="tbl-default margin-top5" width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td>Your Name</td>
-                        <td>
-                            <input type="text" id="txtName" size="27" class="text" /></td>
-                    </tr>
-                    <tr>
-                        <td>Email</td>
-                        <td>
-                            <input type="text" id="txtEmail" size="27" class="text" /></td>
-                    </tr>
-                    <tr>
-                        <td>Mobile Number</td>
-                        <td>
-                            <input type="text" id="txtMobile" maxlength="10" class="text" /></td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td><a id="get_details" class="buttons">Get Details</a><div id="process_img" class="process-inline"></div></td>                        
-                    </tr>
-                </table>
+        <% if ((inquiryDetails.SpecsFeatures != null && !isBikeSold) || ctrlOtherUsedBikes.FetchedRecordsCount > 0 || ctrlSimilarUsedBikes.FetchedRecordsCount > 0)
+           { %>
+        <section>
+            <div class="container">
+                <div id="makeTabsContentWrapper" class="grid-12 margin-bottom20">
+                    <div class="content-box-shadow">
+                        <div id="makeOverallTabsWrapper">
+                            <div id="makeOverallTabs" class="overall-floating-tabs">
+                                <div class="overall-specs-tabs-wrapper">
+                                    <% if (inquiryDetails.SpecsFeatures != null && !isBikeSold)
+                                       { %>
+                                    <a href="#specsContent" rel="nofollow">Specs & Features</a>
+                                    <% } %>
+                                    <% if (ctrlSimilarUsedBikes.FetchedRecordsCount > 0)
+                                       { %>
+                                    <a href="#similarContent" rel="nofollow">Similar bikes</a>
+                                    <% } %>
+                                    <% if (ctrlOtherUsedBikes.FetchedRecordsCount > 0)
+                                       { %>
+                                    <a href="#usedContent" rel="nofollow">Other used bikes</a>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                        <% if (inquiryDetails.SpecsFeatures != null && !isBikeSold)
+                           { %>
+                        <div id="specsContent" class="bw-model-tabs-data specs-features-list font14">
+                            <h2 class="content-inner-block-20">Specifications summary</h2>
+                            <div class="grid-4 omega">
+                                <div class="grid-6 text-light-grey">
+                                    <p>Displacement</p>
+                                    <p>Max Power</p>
+                                    <p>Maximum Torque</p>
+                                    <p>No. of gears</p>
+                                </div>
+                                <div class="grid-6 omega text-bold">
+                                    <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.Displacement,"cc") %></p>
+                                    <p title="<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.MaxPower, "bhp",inquiryDetails.SpecsFeatures.MaxPowerRPM, "rpm") %>"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.MaxPower, "bhp",inquiryDetails.SpecsFeatures.MaxPowerRPM, "rpm") %></p>
+                                    <p title="<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.MaximumTorque, "Nm",inquiryDetails.SpecsFeatures.MaximumTorqueRPM, "rpm") %>"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.MaximumTorque, "Nm",inquiryDetails.SpecsFeatures.MaximumTorqueRPM, "rpm") %></p>
+                                    <p><%= inquiryDetails.SpecsFeatures.NoOfGears %></p>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="grid-4 omega">
+                                <div class="grid-6 text-light-grey">
+                                    <p>Mileage</p>
+                                    <p>Brake Type</p>
+                                    <p>Front Disc</p>
+                                    <p>Rear Disc</p>
+                                </div>
+                                <div class="grid-6 omega text-bold">
+                                    <p><%=  Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.FuelEfficiencyOverall,"kmpl") %></p>
+                                    <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.BrakeType) %></p>
+                                    <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.FrontDisc) %></p>
+                                    <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.RearDisc) %></p>
+
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="grid-4">
+                                <div class="grid-6 text-light-grey">
+                                    <p>Alloy Wheels</p>
+                                    <p>Kerb Weight</p>
+                                    <p>Top Speed</p>
+                                    <p>Fuel Tank Capacity</p>
+                                </div>
+                                <div class="grid-6 alpha text-bold">
+                                    <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.AlloyWheels) %></p>
+                                    <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.KerbWeight,"kg") %></p>
+                                    <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.TopSpeed, "kmph") %></p>
+                                    <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.FuelTankCapacity, "litres") %></p>
+
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="padding-left20 margin-bottom10">
+                                <a href="<%= moreBikeSpecsUrl %>" title="<%= string.Format("{0} Specifications",bikeName) %>">View full specifications<span class="bwsprite blue-right-arrow-icon"></span></a>
+                            </div>
+
+                            <div class="grid-8 alpha margin-bottom25">
+                                <h2 class="content-inner-block-20">Features summary</h2>
+                                <div class="grid-6 omega">
+                                    <div class="grid-6 text-light-grey">
+                                        <p>Speedometer</p>
+                                        <p>Fuel Guage</p>
+                                        <p>Tachometer Type</p>
+                                    </div>
+                                    <div class="grid-6 omega text-bold">
+                                        <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.Speedometer) %></p>
+                                        <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.FuelGauge) %></p>
+                                        <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.DigitalFuelGauge) %></p>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="grid-6 padding-left15">
+                                    <div class="grid-6 omega text-light-grey">
+                                        <p>Digital Fuel Guage</p>
+                                        <p>Tripmeter</p>
+                                        <p>Electric Start</p>
+                                    </div>
+                                    <div class="grid-6 padding-left20 omega text-bold">
+                                        <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.DigitalFuelGauge) %></p>
+                                        <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.Tripmeter) %></p>
+                                        <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.ElectricStart) %></p>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="clear"></div>
+                                <div class="padding-left20">
+                                    <a href="<%= moreBikeFeaturesUrl %>" title="<%= string.Format("{0} Features",bikeName) %>">View all features <span class="bwsprite blue-right-arrow-icon"></span></a>
+                                </div>
+                            </div>
+                            <div class="grid-4 text-center alpha margin-bottom25">
+                                <!-- #include file="/ads/Ad300x250BTF.aspx" -->
+                            </div>
+                            <div class="clear"></div>
+                            <div class="margin-right10 margin-left10 border-solid-bottom"></div>
+                        </div>
+                        <% } %>
+
+                        <BW:SimilarUsedBikes runat="server" ID="ctrlSimilarUsedBikes"></BW:SimilarUsedBikes>
+                        <BW:OtherUsedBikes ID="ctrlOtherUsedBikes" runat="server" />
+
+                        <div id="overallMakeDetailsFooter"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
             </div>
-            <div id="verifiy_mobile" class="hide">
-                <h2>One-time Mobile Verification</h2>
-                <p class="margin-top10">We have just sent you an SMS with a 5-digit verification code on your mobile number. Please enter the verification code below to proceed.</p>
-                <div class="margin-top10">
-                    <img align="absmiddle" class="redirect-lt" src="http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/mobi-verif.gif" border="0" />
-                    <input type="text" id="txtCwiCode" maxlength="5" style="margin-left: 10px;" value="Enter your code here" onfocus="javascript:if(this.value == 'Enter your code here') { this.value=''; }" onblur="javascript:if(this.value == '') { this.value='Enter your code here'; }" />
-                    <a id="btnVerifyCode" class="buttons redirect-lt">Verify</a><div id="processCode" class="process-inline"></div>
+        </section>
+        <% } %>
+
+        <% if (inquiryDetails != null && inquiryDetails.PhotosCount > 1 && !isBikeSold)
+           { %>
+        <!-- gallery -->
+        <section>
+            <div class="blackOut-window-model"></div>
+            <div class="bike-gallery-popup" id="bike-gallery-popup">
+                <div class="modelgallery-close-btn bwsprite cross-lg-white cur-pointer"></div>
+                <div class="bike-gallery-heading">
+                    <p class="font18 text-bold margin-left30 text-white margin-bottom20"><%=modelYear %>, <%= bikeName %> Photos</p>
+
+                    <div class="connected-carousels">
+                        <div class="stage">
+                            <div class="carousel carousel-stage">
+                                <ul>
+                                    <% foreach (var photo in inquiryDetails.Photo)
+                                       { %>
+                                    <li>
+                                        <div class="stage-slide">
+                                            <div class="stage-image-placeholder">
+                                                <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(photo.OriginalImagePath,photo.HostUrl,Bikewale.Utility.ImageSize._642x361) %>" alt="<%= bikeName %>" title="<%= bikeName %>" src="">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <% } %>
+                                </ul>
+                            </div>
+                            <div class="bike-gallery-details">
+                                <span class="rightfloat bike-gallery-count"></span>
+                            </div>
+                            <a href="#" class="prev photos-prev-stage bwsprite" rel="nofollow"></a>
+                            <a href="#" class="next photos-next-stage bwsprite" rel="nofollow"></a>
+                        </div>
+
+                        <div class="navigation">
+                            <a href="#" class="prev photos-prev-navigation bwsprite" rel="nofollow"></a>
+                            <a href="#" class="next photos-next-navigation bwsprite" rel="nofollow"></a>
+                            <div class="carousel carousel-navigation">
+                                <ul>
+                                    <% foreach (var photo in inquiryDetails.Photo)
+                                       { %>
+                                    <li>
+                                        <div class="navigation-slide">
+                                            <div class="navigation-image-placeholder">
+                                                <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(photo.OriginalImagePath,photo.HostUrl,Bikewale.Utility.ImageSize._642x361) %>" alt="<%= bikeName %>" src="">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <% } %>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            <div id="seller_details" class="hide">
-                <h2>Seller Details</h2>
-                <p class="margin-top10">We have sent these details through SMS</p>               
-                <table class="tbl-default margin-top10" width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <th width="120">Seller Name</th>
-                        <td><span id="seller_name"></span></td>
-                    </tr>
-                    <tr>
-                        <th>Contact Person</th>
-                        <td><span id="contact_person"></span></td>
-                    </tr>
-                    <tr>
-                        <th>Email</th>
-                        <td><span id="seller_email"></span></td>
-                    </tr>
-                    <tr>
-                        <th>Mobile Number</th>
-                        <td><span id="seller_mobile"></span></td>
-                    </tr>
-                    <tr>
-                        <th valign="top">Address</th>
-                        <td><span id="seller_address"></span></td>
-                    </tr>
-                </table>              
-            </div>
-            <div id="photos_req_msg" class="hide">
-                <h2>It's Done!</h2>
-                <div id="photos_req_confirm" class="margin-top15">
-                    Your request to the seller submitted successfully. We will inform you as seller updates photos of this bike.
-                </div>
-            </div>
-            <div id="not_auth" class="alert margin-top20 hide">Oops! You have reached the maximum limit for viewing inquiry details in a day.</div>
-            <div id="initWait" class="process-inline" style="padding-left: 20px;">Loading...</div>
-        </div>
-        <script language="javascript">
-            $("#contact-seller").bt({           
-                contentSelector: "$('#contact').html()", fill: '#ffffff', strokeWidth: 1, strokeStyle: '#D3D3D3', trigger: ['click', 'none'], width: '400px', spikeLength: 7, shadow: true, positions: ['left', 'right', 'bottom'],
-                preShow: function (box) {
-                    $("div.bt-wrapper").hide();
-                }, showTip: function (box) {
-                    boxObj = $(box);
-                    boxObj.show();
-                    isBuyingReq = $(this).attr("id") == "reqPhotos" ? false : true;
-                    initBT_Box(boxObj);
-                }
-            });
-            $("#reqPhotos").bt({
-                contentSelector: "$('#contact').html()", fill: '#ffffff', strokeWidth: 1, strokeStyle: '#D3D3D3', trigger: ['click', 'none'], width: '330px', spikeLength: 7, shadow: true, positions: ['top', 'bottom'],
-                preShow: function (box) {
-                    $("div.bt-wrapper").hide();
-                }, showTip: function (box) {
-                    boxObj = $(box);
-                    boxObj.show();
-                    isBuyingReq = $(this).attr("id") == "reqPhotos" ? false : true;
-                    initBT_Box(boxObj);
-                }
-            });
-        </script>
-    </div>
-    <!--    Left Container ends here -->
-    <div class="grid_4">
-        <div id="other_models" runat="server" class="margin-top15">
-            <h2>More <%= objInquiry.MakeName +" "+ objInquiry.ModelName %></h2>
-            <p class="margin-top5">Located in <%= objInquiry.CityName +", "+ objInquiry.StateCode %></p>
-            <ul class="ul-normal">
-                <asp:repeater id="rptBikeDetails" runat="server">
-				    <%--<itemtemplate><li><a href="/used/bikedetails.aspx?bike=<%# DataBinder.Eval(Container.DataItem, "ProfileId") %>"><%# DataBinder.Eval(Container.DataItem, "MakeYear") %>, <%# DataBinder.Eval(Container.DataItem, "BikeName") %></a><br><span class="text-grey">@ Rs.<%# DataBinder.Eval(Container.DataItem, "Price") %>; Kms:<%# DataBinder.Eval(Container.DataItem, "Kilometers") %>;</span></li></itemtemplate>--%>
-                    <itemtemplate><li><a href="/used/bikes-in-<%# DataBinder.Eval(Container.DataItem, "CityMaskingName").ToString() %>/<%# DataBinder.Eval(Container.DataItem, "MakeMaskingName").ToString() %>-<%# DataBinder.Eval(Container.DataItem, "ModelMaskingName").ToString() %>-<%# DataBinder.Eval(Container.DataItem, "ProfileId") %>/"><%# DataBinder.Eval(Container.DataItem, "MakeYear") %>, <%# DataBinder.Eval(Container.DataItem, "BikeName") %></a><br><span class="text-grey">@ Rs.<%# DataBinder.Eval(Container.DataItem, "Price") %>; Kms:<%# DataBinder.Eval(Container.DataItem, "Kilometers") %>;</span></li></itemtemplate>
-			    </asp:repeater>
-            </ul>
-        </div>
-        <div class="margin-top15">
-            <!-- BikeWale_UsedBike/BikeWale_UsedBike_300x250 -->
-            <!-- #include file="/ads/Ad300x250.aspx" -->
-        </div>  
-    </div>
-    <!--    Right Container ends here -->
-</div>
-<!-- #include file="/includes/footerInner.aspx" -->
+        </section>
+        <% } %>
+
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+
+        <%if (inquiryDetails != null && inquiryDetails.PhotosCount == 0 && !isBikeSold)
+          { %>
+        <BW:UploadPhotoRequestPopup runat="server" ID="widgetUploadPhotoRequest"></BW:UploadPhotoRequestPopup>
+        <%} %>
+
+        <BW:UBLeadCapturePopup runat="server" ID="ctrlUBLeadCapturePopup"></BW:UBLeadCapturePopup>
+        <% } %>
+        <!-- #include file="/includes/footerBW.aspx" -->
+        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty%>/src/used-details.js?<%= staticFileVersion%>"></script>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        <!--[if lt IE 9]>
+            <script src="/src/html5.js"></script>
+        <![endif]-->
+    </form>
+</body>
+</html>

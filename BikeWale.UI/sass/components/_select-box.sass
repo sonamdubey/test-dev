@@ -19,6 +19,9 @@
 		background: transparent url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat
 		@include border-radius(0)
 
+		&:focus
+			outline: none !important
+
 		.chosen-single
 			@extend .text-truncate
 			color: $text-primary
@@ -72,6 +75,10 @@
 			border: 1px solid $border-light
 			@include box-shadow()
 			@include border-radius(2px)
+
+	.chosen-single
+		&:focus
+			outline: none !important
 
 
 .select-box.select-box-no-input

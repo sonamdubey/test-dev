@@ -285,5 +285,85 @@ namespace Bikewale.DAL.Used
         {
             throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Oct 2016
+        /// Description :   Save Bike Photo
+        /// </summary>
+        /// <param name="isMain"></param>
+        /// <param name="isDealer"></param>
+        /// <param name="inquiryId"></param>
+        /// <param name="originalImageName"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
+        public string SaveBikePhotos(bool isMain, bool isDealer, U inquiryId, string originalImageName, string description)
+        {
+            string photoId = "";
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("classified_bikephotos_insert"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, inquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_description", DbType.String, 200, description));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_directorypath", DbType.String, 200, Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isreplicated", DbType.Boolean, Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 300, originalImageName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealer", DbType.Boolean, isDealer));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismain", DbType.Boolean, isMain));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, 100, Utility.BWConfiguration.Instance.ImgHostURL));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbType.Int64, ParameterDirection.Output));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    photoId = cmd.Parameters["par_photoid"].Value.ToString();
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, String.Format("SaveBikePhotos({0},{1},{2},{3},{4})", isMain, isDealer, inquiryId, originalImageName, description));
+                objErr.SendMail();
+            }
+            return photoId;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Oct 2016
+        /// Description :   Upload Image To Common Database to be processed by Image Consumer
+        /// </summary>
+        /// <param name="photoId"></param>
+        /// <param name="imageName"></param>
+        /// <param name="imgC"></param>
+        /// <param name="directoryPath"></param>
+        /// <returns></returns>
+        public string UploadImageToCommonDatabase(string photoId, string imageName, ImageCategories imgC, string directoryPath)
+        {
+            string url = string.Empty;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "img_allbikephotosinsert";
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_itemid", DbType.Int64, photoId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_origfilename", DbType.String, imageName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbType.Int32, imgC));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dirpath", DbType.String, directoryPath));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, Utility.BWConfiguration.Instance.RabbitImgHostURL));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_url", DbType.String, 255, ParameterDirection.Output));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+
+                    url = cmd.Parameters["par_url"].Value.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("UploadImageToCommonDatabase({0},{1},{2},{3})", photoId, imageName, imgC, directoryPath));
+                objErr.SendMail();
+            } // catch Exception
+            return url;
+        }
     }
 }

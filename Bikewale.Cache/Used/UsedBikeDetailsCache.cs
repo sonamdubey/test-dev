@@ -118,24 +118,24 @@ namespace Bikewale.Cache.Used
             }
             return objUsedBikes;
         }
-        
+
         /// <summary>
         /// Created by : Sajal Gupta on 06-10-2016
         /// Description : Getting used bike details  by profileId
         /// </summary>
         /// <param name="profileId"></param>
         /// <returns></returns>
-        public InquiryDetails GetInquiryDetailsByProfileId(string profileId)
+        public InquiryDetails GetInquiryDetailsByProfileId(string profileId, string customerId)
         {
             InquiryDetails objInquiryDetailsByProfileId = null;
-            string key = String.Format("BW_Used_Profile_{0}", profileId);
+            string key = String.Format("BW_Used_Profile_{0}_Cid_{1}", profileId, customerId);
             try
             {
-                objInquiryDetailsByProfileId = _cache.GetFromCache<InquiryDetails>(key, new TimeSpan(1, 0, 0, 0), () => _objUsedBikes.GetInquiryDetailsByProfileId(profileId));
+                objInquiryDetailsByProfileId = _cache.GetFromCache<InquiryDetails>(key, new TimeSpan(1, 0, 0, 0), () => _objUsedBikes.GetInquiryDetailsByProfileId(profileId, customerId));
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in Cache Layer function GetInquiryDetailsByProfileId for profileId : {0}", profileId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in Cache Layer function GetInquiryDetailsByProfileId for profileId : {0}, customerId : {1}", profileId, customerId));
                 objErr.SendMail();
             }
             return objInquiryDetailsByProfileId;

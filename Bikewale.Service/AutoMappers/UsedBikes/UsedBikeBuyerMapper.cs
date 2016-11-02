@@ -118,6 +118,19 @@ namespace Bikewale.Service.AutoMappers.UsedBikes
 
         #endregion
 
-
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Oct 2016
+        /// Description :   Converts Sell Bike image result entity to DTO
+        /// </summary>
+        /// <param name="uploadResult"></param>
+        /// <returns></returns>
+        internal static SellBikeImageUploadResultDTO Convert(SellBikeImageUploadResultEntity uploadResult)
+        {
+            AutoMapper.Mapper.CreateMap<SellBikeImageUploadResultEntity, SellBikeImageUploadResultDTO>();
+            AutoMapper.Mapper.CreateMap<SellBikeImageUploadResultBase, SellBikeImageUploadResultDTOBase>();
+            AutoMapper.Mapper.CreateMap<ImageUploadStatus, ImageUploadStatusDTO>();
+            AutoMapper.Mapper.CreateMap<ImageUploadResultStatus, ImageUploadResultStatusDTO>();
+            return AutoMapper.Mapper.Map<SellBikeImageUploadResultEntity, SellBikeImageUploadResultDTO>(uploadResult);
+        }
     }
 }

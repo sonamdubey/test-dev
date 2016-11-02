@@ -12,7 +12,6 @@ using Bikewale.DAL.Used;
 using Bikewale.DTO.BikeBooking.Make;
 using Bikewale.DTO.BikeBooking.Model;
 using Bikewale.DTO.BikeBooking.Version;
-using Bikewale.DTO.Customer;
 using Bikewale.DTO.UsedBikes;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Customer;
@@ -27,6 +26,7 @@ using Bikewale.Interfaces.Used;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 
 namespace Bikewale.Used.Sell
 {
@@ -38,9 +38,11 @@ namespace Bikewale.Used.Sell
         protected string userId = null;
         protected bool isEdit = false;
         protected ulong inquiryId = 0;
-        protected bool isAuthorized = false;
+        protected bool isAuthorized = true;
         protected SellBikeAd inquiryDetailsObject = null;
         protected SellBikeAdDTO inquiryDTO;
+        protected string userEmail = null;
+        protected string userName = null;
 
         protected override void OnInit(EventArgs e)
         {
@@ -66,6 +68,8 @@ namespace Bikewale.Used.Sell
                 if (CurrentUser.Id != null)
                 {
                     userId = CurrentUser.Id;
+                    userEmail = CurrentUser.Email;
+                    userName = CurrentUser.Name;
                 }
             }
             catch (Exception ex)
@@ -118,14 +122,25 @@ namespace Bikewale.Used.Sell
             }
         }
 
+        /// <summary>
+        /// Created By : Sajal Gupta on 22/10/2016
+        /// Description : Function to check if it is edit request.
+        /// </summary>
         protected void CheckIsEdit()
         {
             try
             {
+                inquiryId = Convert.ToUInt64(Request.QueryString["id"]);
+
                 if (Request.QueryString["id"] != null)
                 {
+                    if (userId == "-1") //user not logged-in
+                    {
+                        Response.Redirect("/users/login.aspx?ReturnUrl=" + ConfigurationManager.AppSettings["bwHostUrl"] + "/used/sell/default_v2.aspx?id=" + inquiryId);
+
+                    }
+
                     isEdit = true;
-                    inquiryId = Convert.ToUInt64(Request.QueryString["id"]);
                     GetInquiryDetails();
                 }
             }
@@ -136,18 +151,23 @@ namespace Bikewale.Used.Sell
             }
         }
 
+
+        /// <summary>
+        /// Created By : Sajal Gupta on 22/10/2016
+        /// Description : Function to fetch inquiryDetails.
+        /// </summary>
         protected void GetInquiryDetails()
         {
             try
             {
                 ISellBikes obj;
-                
+
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<ICustomerRepository<CustomerEntity, UInt32>, CustomerRepository<CustomerEntity, UInt32>>();
                     container.RegisterType<ICustomer<CustomerEntity, UInt32>, Customer<CustomerEntity, UInt32>>();
                     container.RegisterType<IMobileVerificationRepository, MobileVerificationRepository>();
-                    container.RegisterType<IMobileVerification, MobileVerification>();                    
+                    container.RegisterType<IMobileVerification, MobileVerification>();
                     container.RegisterType<IUsedBikeBuyerRepository, UsedBikeBuyerRepository>();
                     container.RegisterType<ISellBikesRepository<SellBikeAd, int>, SellBikesRepository<SellBikeAd, int>>();
                     container.RegisterType<ISellBikes, SellBikes>();
@@ -156,6 +176,9 @@ namespace Bikewale.Used.Sell
 
                 SellBikeAd inquiryDetailsObject = obj.GetById((int)inquiryId, Convert.ToUInt64(userId));
                 inquiryDTO = ConvertToDto(inquiryDetailsObject);
+
+                if (inquiryDTO != null)
+                    inquiryDTO.ManufacturingYear = (DateTime)inquiryDTO.ManufacturingYear;
 
                 if (inquiryDetailsObject == null)
                 {
@@ -175,6 +198,10 @@ namespace Bikewale.Used.Sell
 
         }
 
+        /// <summary>
+        /// Created By : Sajal Gupta on 24/10/2016
+        /// Description : Function to convert entity to DTO.
+        /// </summary>
         private SellBikeAdDTO ConvertToDto(SellBikeAd inquiryDetailsObject)
         {
             AutoMapper.Mapper.CreateMap<Bikewale.Entities.BikeData.BikeMakeEntityBase, BBMakeBase>();

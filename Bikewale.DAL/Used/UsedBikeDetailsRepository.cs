@@ -22,6 +22,8 @@ namespace Bikewale.DAL.Used
         /// <summary>
         /// Created by  : Sushil Kumar on 29th August 2016
         /// Description : To get profile details for the specified inquiry id
+        /// Modified By : Sushil Kumar on 17th August 2016
+        /// Description : Added AdStatus and CustomerId for sold bikes scenario
         /// </summary>
         /// <param name="inquiryId"></param>
         /// <returns></returns>
@@ -30,7 +32,7 @@ namespace Bikewale.DAL.Used
             ClassifiedInquiryDetails _objInquiryDetails = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("classified_getprofiledetails"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("classified_getprofiledetails_12102016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -42,6 +44,8 @@ namespace Bikewale.DAL.Used
                         //used bike details make,model,version
                         if (dr.Read())
                         {
+                            _objInquiryDetails.AdStatus = SqlReaderConvertor.ToInt16(dr["adstatus"]);
+                            _objInquiryDetails.CustomerId = SqlReaderConvertor.ParseToUInt32(dr["customerid"]);
                             _objInquiryDetails.Make = new BikeMakeEntityBase();
                             _objInquiryDetails.Make.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
                             _objInquiryDetails.Make.MakeName = Convert.ToString(dr["Make"]);
@@ -98,6 +102,14 @@ namespace Bikewale.DAL.Used
                                 _objInquiryDetails.SpecsFeatures.MaximumTorqueRPM = SqlReaderConvertor.ToFloat(dr["MaximumTorqueRPM"]);
                                 _objInquiryDetails.SpecsFeatures.FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["FuelEfficiencyOverall"]);
                                 _objInquiryDetails.SpecsFeatures.BrakeType = Convert.ToString(dr["BrakeType"]);
+
+                                _objInquiryDetails.SpecsFeatures.FuelTankCapacity = SqlReaderConvertor.ToFloat(dr["FuelTankCapacity"]);
+                                _objInquiryDetails.SpecsFeatures.AlloyWheels = SqlReaderConvertor.ToBoolean(dr["AlloyWheels"]);
+                                _objInquiryDetails.SpecsFeatures.TopSpeed = SqlReaderConvertor.ToFloat(dr["TopSpeed"]);
+                                _objInquiryDetails.SpecsFeatures.FrontDisc = SqlReaderConvertor.ToBoolean(dr["FrontDisc"]);
+                                _objInquiryDetails.SpecsFeatures.RearDisc = SqlReaderConvertor.ToBoolean(dr["RearDisc"]);
+                                _objInquiryDetails.SpecsFeatures.KerbWeight = SqlReaderConvertor.ToUInt16(dr["KerbWeight"]);
+
                                 #endregion
 
                                 #region Features
@@ -323,16 +335,16 @@ namespace Bikewale.DAL.Used
         /// </summary>
         /// <param name="profileId"></param>
         /// <returns>city, make and model name</returns>
-        public InquiryDetails GetInquiryDetailsByProfileId(string profileId)
+        public InquiryDetails GetInquiryDetailsByProfileId(string profileId, string customerId)
         {
             InquiryDetails objInquiryDetails = null;
-
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getinquirydetailsbyprofileid_12102016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_profileid", DbType.String, 50, profileId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerId", DbType.String, 50, customerId));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr.Read())
@@ -342,13 +354,14 @@ namespace Bikewale.DAL.Used
                             objInquiryDetails.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
                             objInquiryDetails.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
                             objInquiryDetails.ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]);
+                            objInquiryDetails.IsRedirect = SqlReaderConvertor.ToBoolean(dr["IsRedirect"]);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in DAL function GetInquiryDetailsByProfileId for profileId : {0}", profileId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in DAL function GetInquiryDetailsByProfileId for profileId : {0}, customerId : {1}", profileId, customerId));
                 objErr.SendMail();
             }
             return objInquiryDetails;

@@ -10,7 +10,7 @@
             <li class="active" data-tabs="photos" id="photos-tab">Photos</li>
             <li data-tabs="videos" id="videos-tab">Videos</li>
         </ul>
-        <% } %>>
+        <% } %>
         <div id="bike-gallery-popup">
             <div class="bw-tabs-data" id="photos">
                 <div class="font14 text-white margin-bottom15">
@@ -79,7 +79,7 @@
                     </div>
                 </div>
             </div>
-            <% } %>>
+            <% } %>
         </div>
     </div>
 </section>

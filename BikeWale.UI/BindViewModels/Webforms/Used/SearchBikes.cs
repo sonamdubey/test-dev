@@ -56,6 +56,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
         public string Model { get; set; }
         public string Make { get; set; }
         public string BikeName { get; set; }
+        public string CurrentQS { get; set; }
         public Bikewale.Entities.Used.Search.SearchResult UsedBikes = null;
         public IEnumerable<CityEntityBase> Cities = null;
         public IEnumerable<BikeMakeModelBase> MakeModels = null;
@@ -114,9 +115,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             {
                 Cities = objCitiesCache.GetAllCities(EnumBikeType.Used);
 
-                SelectedCity = (from c in Cities
-                                where c.CityMaskingName == _cityMaskingName
-                                select c).FirstOrDefault();
+                SelectedCity = Cities.FirstOrDefault(c => c.CityMaskingName == _cityMaskingName);
                 if (SelectedCity != null)
                 {
                     City = SelectedCity.CityName;
@@ -142,14 +141,14 @@ namespace Bikewale.BindViewModels.Webforms.Used
 
                 if (MakeModels != null)
                 {
-                    var _objMake = MakeModels.Where(m => m.Make.MaskingName == _makeMaskingName).FirstOrDefault();
+                    var _objMake = MakeModels.FirstOrDefault(m => m.Make.MaskingName == _makeMaskingName);
                     if (_objMake != null && _objMake.Make != null)
                     {
                         Make = _objMake.Make.MakeName;
                         SelectedMake = _objMake.Make;
                         if (_objMake.Models != null)
                         {
-                            var _objModel = _objMake.Models.Where(m => m.MaskingName == _modelMaskingName).FirstOrDefault();
+                            var _objModel = _objMake.Models.FirstOrDefault(m => m.MaskingName == _modelMaskingName);
                             if (_objModel != null)
                                 Model = _objModel.ModelName;
                         }
@@ -175,19 +174,29 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 GetAllCities();
                 GetAllMakeModels();
                 InputFilters objFilters = new InputFilters();
+                CurrentQS = string.Empty;
 
-                // If inputs are set by hash, hash overrides the query string parameters
-                if (CityId > 0)
-                    objFilters.City = CityId;
+                if (ModelId > 0)
+                {
+                    objFilters.Model = Convert.ToString(ModelId);
+                    CurrentQS = string.Format("{0}&model={1}", CurrentQS, ModelId);
+                }
 
                 // Don't pass the make ids when modelid is fetched through Query string 
                 if (ModelId == 0 && MakeId > 0)
                 {
                     objFilters.Make = Convert.ToString(MakeId);
+                    CurrentQS = string.Format("{0}&make={1}", CurrentQS, MakeId);
                 }
 
-                if (ModelId > 0)
-                    objFilters.Model = Convert.ToString(ModelId);
+                // If inputs are set by hash, hash overrides the query string parameters
+                if (CityId > 0)
+                {
+                    objFilters.City = CityId;
+                    CurrentQS = string.Format("{0}&city={1}", CurrentQS, CityId);
+                }
+
+                if (!string.IsNullOrEmpty(CurrentQS)) CurrentQS = CurrentQS.Substring(1);
 
                 objFilters.PN = _pageNo;
                 objFilters.PS = _pageSize;
@@ -201,7 +210,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : CreateMetas");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : BindSearchPageData");
                 objErr.SendMail();
             }
             return true;

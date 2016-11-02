@@ -477,9 +477,9 @@ namespace Bikewale.DAL.Dealer
                             while (dr.Read())
                             {
                                 dealerdetail = new DealersList();
-                                dealerdetail.DealerId = SqlReaderConvertor.ParseToInt16(dr["DealerId"]);
+                                dealerdetail.DealerId = SqlReaderConvertor.ToUInt16(dr["DealerId"]);
                                 dealerdetail.Name = Convert.ToString(dr["DealerName"]);
-                                dealerdetail.DealerType = SqlReaderConvertor.ParseToInt16(dr["DealerPackage"]);
+                                dealerdetail.DealerType = SqlReaderConvertor.ToUInt16(dr["DealerPackage"]);
                                 dealerdetail.City = Convert.ToString(dr["City"]);
                                 dealerdetail.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
                                 dealerdetail.EMail = Convert.ToString(dr["EMail"]);
@@ -495,7 +495,7 @@ namespace Bikewale.DAL.Dealer
 
                             if (dr.NextResult() && dr.Read())
                             {
-                                dealers.TotalCount = !Convert.IsDBNull(dr["TotalCount"]) ? Convert.ToUInt16(dr["TotalCount"]) : default(UInt16);
+                                dealers.TotalCount = SqlReaderConvertor.ToUInt16(dr["TotalCount"]);
                             }
 
                             if (dr.NextResult() && dr.Read())
@@ -559,7 +559,7 @@ namespace Bikewale.DAL.Dealer
 
                                 };
                                 dealers.DealerDetails.City = Convert.ToString(dr["City"]);
-                                dealers.DealerDetails.DealerType = SqlReaderConvertor.ParseToInt16(dr["DealerType"]);
+                                dealers.DealerDetails.DealerType = SqlReaderConvertor.ToUInt16(dr["DealerType"]);
                                 dealers.DealerDetails.EMail = Convert.ToString(dr["EMail"]);
                                 dealers.DealerDetails.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
                                 dealers.DealerDetails.DealerId = dealerId;
@@ -663,7 +663,7 @@ namespace Bikewale.DAL.Dealer
                                 };
                                 dealers.DealerDetails.CityMaskingName = Convert.ToString(dr["citymaskingname"]);
                                 dealers.DealerDetails.City = Convert.ToString(dr["City"]);
-                                dealers.DealerDetails.DealerType = SqlReaderConvertor.ParseToInt16(dr["DealerType"]);
+                                dealers.DealerDetails.DealerType = SqlReaderConvertor.ToUInt16(dr["DealerType"]);
                                 dealers.DealerDetails.EMail = Convert.ToString(dr["EMail"]);
                                 dealers.DealerDetails.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
                                 dealers.DealerDetails.DealerId = Convert.ToUInt16(dealerId);

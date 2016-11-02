@@ -42,7 +42,7 @@
             </div>
         </section>
 
-        <section>
+        <div>
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow">
@@ -50,9 +50,13 @@
                             <h1>Sell your bike</h1>
                         </div>
                         <div id="sell-bike-content">
-                            <section data-bind="if: !isFakeCustomer()">
+                        
                             <div id="sell-bike-left-col" class="grid-7 panel-group">
                                 <!-- start of form steps -->
+
+                                <% if(isAuthorized) { %>
+                            <div data-bind="if: !isFakeCustomer()">
+
                                 <div data-bind="visible: formStep() < 4">
                                     <div class="panel panel-divider">
                                         <div class="panel-head">
@@ -61,7 +65,7 @@
                                         </div>
                                         <div class="panel-body" data-bind="visible: formStep() == 1, with: bikeDetails ">
                                             <div class="panel-row margin-bottom10">
-                                                <div class="grid-4 alpha select-box">
+                                                <div id="make-select-element" class="grid-4 alpha select-box">
                                                     <p class="select-label">Make<sup>*</sup></p>
                                                     <select class="chosen-select" data-placeholder="Select make" data-bind="chosen: {}, value: make, validationElement: make, event: { change: makeChanged }">
                                                          <option value></option>
@@ -78,14 +82,14 @@
                                                 </div>
                                                 <div id="model-select-element" class="grid-4 select-box">
                                                     <p class="select-label">Model<sup>*</sup></p>
-                                                    <select class="chosen-select" data-placeholder="Select model" data-bind="options: modelArray(), chosen: {}, value: model, optionsText: 'modelName', optionsValue: 'modelId', validationElement: model, event: { change: modelChanged }">                                                       
+                                                    <select class="chosen-select" data-placeholder="Select model" data-bind="options: modelArray(), chosen: {}, value: model, optionsText: 'modelName', optionsValue: 'modelId', validationElement: model, event: { change: modelChanged }" disabled>                                                       
                                                     </select>
                                                     <span class="boundary"></span>
                                                     <span class="error-text" data-bind="validationMessage: model"></span>
                                                 </div>
                                                 <div id="version-select-element" class="grid-4 omega select-box">
                                                     <p class="select-label">Version<sup>*</sup></p>                                                                                                 
-                                                    <select class="chosen-select" data-placeholder="Select version" data-bind="options: versionArray(), chosen: {}, value: version, optionsText: 'versionName', optionsValue: 'versionId', validationElement: version, event: { change: versionChanged }">  
+                                                    <select class="chosen-select" data-placeholder="Select version" data-bind="options: versionArray(), chosen: {}, value: version, optionsText: 'versionName', optionsValue: 'versionId', validationElement: version, event: { change: versionChanged }" disabled>  
                                                     </select>                                                   
                                                     <span class="boundary"></span>
                                                     <span class="error-text" data-bind="validationMessage: version"></span>
@@ -128,7 +132,7 @@
                                             </div>
 
                                             <div class="panel-row margin-bottom20">
-                                                <div class="select-box">
+                                                <div id="city-select-element" class="select-box">
                                                     <p class="select-label">City<sup>*</sup></p>
                                                     <select class="chosen-select" data-placeholder="Select city" data-bind="chosen: {}, value: city, validationElement: city">
                                                         <option value></option>
@@ -146,7 +150,7 @@
                                             </div>
 
                                             <div class="panel-row margin-bottom20">
-                                                <div class="input-box form-control-box" data-bind="css: expectedPrice().length > 0 ? 'not-empty' : ''">
+                                                <div id="div-expectedPrice" class="input-box form-control-box" data-bind="css: expectedPrice().length > 0 ? 'not-empty' : ''">
                                                     <input type="number" id="expectedPrice" min="1" data-bind="textInput: expectedPrice, validationElement: expectedPrice" />
                                                     <label for="expectedPrice">Expected price<sup>*</sup></label>
                                                     <span class="boundary"></span>
@@ -173,7 +177,7 @@
                                             <div class="panel-row margin-bottom20">
                                                 <div class="select-box">
                                                     <p class="select-label">Bike registered at<sup>*</sup></p>
-                                                    <select class="chosen-select" data-placeholder="Select city" data-bind="chosen: {}, value: registeredCity, validationElement: registeredCity">
+                                                    <select id="select-registeredCity" class="chosen-select" data-placeholder="Select city" data-bind="chosen: {}, value: registeredCity, validationElement: registeredCity">
                                                         <option value></option>
                                                         <% if (objCityList != null)
                                                                 { %>
@@ -387,11 +391,11 @@
                                             <div class="panel-row">
                                                 <div class="select-box select-box-no-input">
                                                     <p class="select-label">Insurance<sup>*</sup></p>
-                                                    <select class="chosen-select" data-bind="chosen: {}, value: moreDetails().insuranceType" data-title="Insurance">
+                                                    <select id="select-insuranceType" class="chosen-select" data-bind="chosen: {}, value: moreDetails().insuranceType" data-title="Insurance">
                                                         <option value></option>
-                                                        <option value="1">Comprehensive</option>
-                                                        <option value="2">Third Party</option>
-                                                        <option value="3">No Insurance</option>
+                                                        <option value="Comprehensive">Comprehensive</option>
+                                                        <option value="Third Party">Third Party</option>
+                                                        <option value="No Insurance">No Insurance</option>
                                                     </select>
                                                     <span class="boundary"></span>
                                                 </div>
@@ -425,10 +429,36 @@
                                         <p class="font14">Your profile ID is <span data-bind="text: inquiryId"></span>. You can find and edit your ad later using this id. Your bike ad will be live after verification.</p>
                                     </div>
                                     <div id="form-success-btn-group">
-                                        <input type="button" class="btn btn-orange btn-primary-small margin-right20" value="Done" />
-                                        <input type="button" class="btn btn-white btn-primary-small" value="Edit my Ad" />
+                                        <input type="button" class="btn btn-orange btn-primary-small margin-right20" value="Done" data-bind="click: congratsScreenDoneFunction" />
+                                        <input  type="button" class="btn btn-white btn-primary-small" value="Edit my Ad " data-bind="click: editMyAd" />
                                     </div>
                                 </div>
+
+                            </div>
+                            <div data-bind="if: isFakeCustomer()">
+                                <div class="icon-outer-container rounded-corner50 text-center inline-block">
+                                    <div class="icon-inner-container rounded-corner50">
+                                        <span class="sell-bike-sprite no-auth-edit-icon margin-top20"></span>
+                                    </div>
+                                </div>
+                                <div class="margin-left20 inline-block">
+                                    <p class="font18 text-bold margin-bottom10">Sorry!</p>
+                                    <p class="font14">You are not authorised to edit this listing</p>
+                                </div>
+                            </div>
+                        <%} else { %>
+                            <div data-bind="if: isFakeCustomer()">
+                                <div class="icon-outer-container rounded-corner50 text-center inline-block">
+                                    <div class="icon-inner-container rounded-corner50">
+                                        <span class="sell-bike-sprite no-auth-icon margin-top20"></span>
+                                    </div>
+                                </div>
+                                <div class="margin-left20 inline-block">
+                                    <p class="font18 text-bold margin-bottom10">Sorry!</p>
+                                    <p class="font14">You are not authorised to add any listing.<br />Please contact us at <a href="mailto:contact@bikewale.com">contact@bikewale.com</a></p>
+                                </div>
+                            </div>
+                        <% } %>
                             </div>
                             <div id="sell-bike-right-col" class="grid-5 omega">
                                 <div class="sell-bike-banner">
@@ -470,12 +500,8 @@
                                 </div>
                             </div>
                             <div class="clear"></div>
-                             </section>
-                            <section data-bind="if: isFakeCustomer()">
-                                <div id="sell-bike-left-col" class="grid-7 panel-group">
-                                    <h2> Sorry, you are not authorized. </h2>
-                                    </div>
-                                </section>
+                             
+
                         </div>
                         
                     </div>
@@ -490,23 +516,31 @@
             var inquiryId = '<%= inquiryId %>';
             var isAuthorized = '<%= isAuthorized%>';
             var inquiryDetails = '<%= Newtonsoft.Json.JsonConvert.SerializeObject(inquiryDTO) %>';
+            var userName = '<%= userName%>';
+            var userEmail = '<%= userEmail%>';
         </script>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
-        <script type="text/javascript">
-            
-        </script>
+        
         <!-- #include file="/includes/footerBW.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="/src/knockout.validation.js"></script>
         <script type="text/javascript" src="/src/dropzone.js"></script>
+        <% if(isAuthorized) { %>
         <script type="text/javascript" src="/src/sell-bike.js"></script>
+        <%} %>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
         <!--[if lt IE 9]>
             <script src="/src/html5.js"></script>
         <![endif]-->
 
+<%--        <script type="text/javascript">
+            $(window).on('beforeunload', function () {
+                return "jkxasjdlajsdljlasd";
+            });
+        </script>--%>
+        
     </form>
 </body>
 </html>

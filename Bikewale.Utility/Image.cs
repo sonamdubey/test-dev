@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Configuration;
+using System.Web;
 
 namespace Bikewale.Utility
 {
@@ -17,6 +19,57 @@ namespace Bikewale.Utility
             }
             return imgUrl;
         }
+
+        /// <summary>
+        /// Written By : Ashish G. Kamble on 23/8/2012
+        /// This function will return true is file name has one of follwing extension JPEG, GIF, PNG. Else will return false        
+        /// </summary>
+        /// <param name="imageFileName">name of the image file</param>
+        /// <returns></returns>
+        public static bool IsValidFileExtension(string imageFileName, out string extension)
+        {
+            bool isImageFileName = false;
+
+            try
+            {
+                // Extract extension from file name.
+                int lastDotIndex = imageFileName.LastIndexOf('.');
+                string fileExtension = imageFileName.Substring(lastDotIndex, imageFileName.Length - lastDotIndex).ToLower();
+
+                // Check the extension
+                if (fileExtension == ".jpg" || fileExtension == ".jpeg" || fileExtension == ".gif" || fileExtension == ".png")
+                {
+                    extension = fileExtension;
+                    isImageFileName = true;
+                }
+                else
+                {
+                    extension = String.Empty;
+                }
+            }
+            finally
+            {
+
+            }
+
+            return isImageFileName;
+        }
+
+        public static string GetPathToSaveImages(string relativePath)
+        {
+            string physicalPath = string.Empty;
+
+            if (HttpContext.Current.Request["HTTP_HOST"].IndexOf("localhost") >= 0)
+            {
+                physicalPath = HttpContext.Current.Request["APPL_PHYSICAL_PATH"].ToLower() + relativePath;
+            }
+            else
+            {
+                physicalPath = ConfigurationManager.AppSettings["imgPathFolder"] + relativePath;
+            }
+            return physicalPath;
+        }
+
     }
 
     public class ImageSize

@@ -20,9 +20,13 @@ namespace Bikewale.Entities.BikeData
         [DataMember]
         public string SmallPicUrl { get; set; }
         [DataMember]
+        public string CityName { get; set; }
+        [DataMember]
         public string LargePicUrl { get; set; }
         [DataMember]
         public string OriginalImagePath { get; set; }
+        [DataMember]
+        public string CityMaskingName { get; set; }
         [DataMember]
         public Double ReviewRate { get; set; }
         [DataMember]
@@ -37,5 +41,6 @@ namespace Bikewale.Entities.BikeData
         private BikeVersionEntityBase objDesc = new BikeVersionEntityBase();
         [DataMember]
         public BikeVersionEntityBase VersionBase { get { return objDesc; } set { objDesc = value; } }
+
     }
 }

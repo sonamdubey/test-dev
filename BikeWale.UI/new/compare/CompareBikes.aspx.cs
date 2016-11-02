@@ -391,6 +391,7 @@ namespace Bikewale.New
         {
             ctrlSimilarBikes.TopCount = 4;
             ctrlSimilarBikes.versionsList = verList;
+
         }
 
 
