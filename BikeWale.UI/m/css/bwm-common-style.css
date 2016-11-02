@@ -344,10 +344,6 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 /* dealers */
 #makeDealersContent h2 { margin-bottom: 15px }
 #makeDealersContent .swiper-slide:first-child { margin-left: 5px; }
-.card-container {
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
 
 #makeDealersContent .card-container .swiper-slide { 
     width:308px;

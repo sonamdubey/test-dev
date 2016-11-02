@@ -69,6 +69,12 @@ vertical-align: top; width: 90px; height: 70px; margin: 0 0 15px; text-align: ce
     display: block;
 }
 
+.article-control #makeNewsContent {
+    padding-top: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
 .review-image-wrapper {
     width: 120px;
     height: 68px;
@@ -76,6 +82,16 @@ vertical-align: top; width: 90px; height: 70px; margin: 0 0 15px; text-align: ce
     display: inline-block;
     vertical-align: top;
     margin-right: 10px;
+}
+
+.review-image-wrapper a {
+    width: 100%;
+    display: block;
+}
+
+.review-image-wrapper img {
+    width: 100%;
+    height: 68px;
 }
 
 .review-heading-wrapper {

@@ -292,7 +292,7 @@
         <section class="container <%= ((ctrlMostPopularBikes.FetchedRecordsCount + ctrlNewLaunchedBikes.FetchedRecordsCount + ctrlUpcomingBikes.FetchedRecordsCount) > 0 )?"":"hide" %> ">
             <!--  Discover bikes section code starts here -->
             <div class="grid-12">
-                <h2 class="text-bold text-center margin-top40 margin-bottom20 font22">Featured bikes</h2>
+                <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Featured bikes</h2>
                 <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow padding-bottom15">
                     <div class="bw-tabs bw-tabs-flex">
                         <ul>
@@ -344,7 +344,7 @@
 
         <section class="container">
             <!--  Compare section code starts here -->
-            <h2 class="text-bold text-center margin-top40 margin-bottom20 font22">Compare bikes</h2>
+            <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Compare bikes</h2>
             <div class="grid-12">
                 <div class="content-box-shadow padding-top20 padding-bottom20">
                     <BW:CompareBikes ID="ctrlCompareBikes" runat="server" />
@@ -362,7 +362,7 @@
         <section class="container">
             <!--  Tools you may need section code starts here -->
             <div class="grid-12">
-                <h2 class="text-bold text-center margin-top40 margin-bottom20 font22">Tools you may need</h2>
+                <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Tools you may need</h2>
                 <div class="bw-tabs-panel tools-may-need-wrapper content-box-shadow">
                     <div class="bw-tabs bw-tabs-flex">
                         <ul class="tools-may-need-UL">
@@ -428,8 +428,8 @@
             <!--  News Bikes latest updates code starts here -->
             <div class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
                 <div class="grid-12">
-                    <h2 class="text-bold text-center margin-top40 margin-bottom20 font22">Latest updates from the bike industry</h2>
-                    <div class="bw-tabs-panel content-box-shadow margin-bottom30">
+                    <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Latest updates from the bike industry</h2>
+                    <div class="bw-tabs-panel margin-bottom30 padding-bottom20 content-box-shadow article-control">
                         <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
                             <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
                                 <ul>
@@ -445,18 +445,24 @@
                                 </ul>
                             </div>
                         </div>
-                        <%if (!isNewsZero)
-                          { %>
-                        <BW:News runat="server" ID="ctrlNews" />
-                        <% } %>
-                        <%if (!isExpertReviewZero)
-                          { %>
-                        <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
-                        <% } %>
-                        <%if (!isVideoZero)
-                          { %>
-                        <BW:Videos runat="server" ID="ctrlVideos" />
-                        <% } %>
+                        <div class="bw-tabs-data padding-left10 padding-right10" id="ctrlNews">
+                            <%if (!isNewsZero)
+                              { %>
+                            <BW:News runat="server" ID="ctrlNews" />
+                            <% } %>
+                        </div>
+                        <div class="bw-tabs-data hide padding-left10 padding-right10" id="ctrlExpertReviews">
+                            <%if (!isExpertReviewZero)
+                              { %>
+                            <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
+                            <% } %>
+                        </div>
+                        <div class="bw-tabs-data hide padding-left10 padding-right10" id="ctrlVideos">
+                            <%if (!isVideoZero)
+                              { %>
+                            <BW:Videos runat="server" ID="ctrlVideos" />
+                            <% } %>
+                        </div>
                     </div>
                 </div>
                 <div class="clear"></div>

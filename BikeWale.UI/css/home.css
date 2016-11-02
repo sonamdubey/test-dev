@@ -69,7 +69,7 @@
 
 #compare-sidebar-list .compare-bikes-target {
     width: 100%;
-    height: 100px;
+    min-height: 100px;
     padding-top: 10px;
     padding-bottom: 10px;
     display: table;
