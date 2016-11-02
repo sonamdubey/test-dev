@@ -60,7 +60,7 @@
                                         </div>
                                         <div style="float:left;width:60px;" id ='dtlstPhotosPending_<%# DataBinder.Eval(Container.DataItem,"ID")%>' class='pending <%# DataBinder.Eval(Container.DataItem, "StatusId").ToString()=="1"? "show" : "hide" %>' pending="<%# DataBinder.Eval(Container.DataItem, "StatusId").ToString()=="1"? "true" : "false" %>">
                                             <p style="color:#555555;font-weight:bold;">
-                                            <img align="center" src='/images/search-loading.gif'/>
+                                            <img align="center" src='http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif'/>
                                             </p>
                                         </div>   
                                     </td>
