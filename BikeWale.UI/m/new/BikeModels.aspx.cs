@@ -355,7 +355,7 @@ namespace Bikewale.Mobile.New
 
             if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
             {
-                ctrlAlternativeBikes.VersionId = modelPage.ModelVersions[0].VersionId;
+                ctrlAlternativeBikes.VersionId = Convert.ToUInt32(modelPage.ModelVersions[0].VersionId);
                 ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Mobile_ModelPage_Alternative;
                 ctrlAlternativeBikes.WidgetTitle = bikeName;
                 ctrlAlternativeBikes.modelName = modelPage.ModelDetails.ModelName;

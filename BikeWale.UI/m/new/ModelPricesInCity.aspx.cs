@@ -380,10 +380,10 @@ namespace Bikewale.Mobile.New
             ctrlAlternateBikes.modelName = modelName;
             ctrlAlternateBikes.IsPriceInCity = true;
             ctrlAlternateBikes.CityName = cityName;
-            ctrlAlternateBikes.CityId = (int)cityId;
+            ctrlAlternateBikes.CityId = cityId;
 
             if (firstVersion != null)
-                ctrlAlternateBikes.VersionId = (int)firstVersion.VersionId;
+                ctrlAlternateBikes.VersionId = firstVersion.VersionId;
         }
 
         public void BindDescription()
