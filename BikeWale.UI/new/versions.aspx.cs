@@ -1412,6 +1412,7 @@ namespace Bikewale.New
                     {
                         colorStr.AppendFormat("{0} is available in {1} color.", bikeName, lastColor);
                     }
+                        //colorStr = colorStr.ToString().Substring(1);
                 }
             }
             catch (Exception ex)
