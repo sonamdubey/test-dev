@@ -16,3 +16,14 @@
 	-moz-transition:	$duration $function $property
 	-o-transition:		$duration $function $property
 	transition:			$duration $function $property
+
+@mixin transform($property)
+	-webkit-transform:	$property
+	-moz-transform:		$property
+	-o-transform:		$property
+	transform:			$property
+
+// transition
+	$duration = seconds you want the transition to last - e.g. 0.3s
+	$function = how you want it to transition - e.g. ease-in-out
+	$property = the property you want to transition - e.g. transform
