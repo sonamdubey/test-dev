@@ -925,6 +925,10 @@
       <DependentUpon>VideosWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\service\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\service\ServiceCenterInCountry.aspx.cs">
       <DependentUpon>ServiceCenterInCountry.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2346,6 +2350,7 @@
     <Content Include="m\css\jqm-demos.css" />
     <Content Include="m\css\jquery.mobile-1.4.2.min.css" />
     <Content Include="m\css\service\details.css" />
+    <Content Include="m\css\service\landing.css" />
     <Content Include="m\css\service\listing.css" />
     <Content Include="m\css\service\location.css" />
     <Content Include="m\css\used\landing.css" />
@@ -2362,6 +2367,7 @@
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
     <Content Include="m\css\dealer\details.css" />
+    <Content Include="m\service\Default.aspx" />
     <Content Include="m\service\ServiceCenterInCountry.aspx" />
     <Content Include="m\new\dealersincountry.aspx" />
     <Content Include="m\new\dealersinindia.aspx" />
@@ -2696,6 +2702,8 @@
     <Content Include="m\sass\modules\_article.sass" />
     <Content Include="m\sass\modules\_section-heading.sass" />
     <Content Include="m\sass\modules\_accordion.sass" />
+    <Content Include="m\sass\service\landing.sass" />
+    <Content Include="m\sass\service\_landing-style.sass" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
