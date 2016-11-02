@@ -71,12 +71,12 @@
                     <div class="breadcrumb margin-bottom15">
                         <!-- breadcrumb code starts here -->
                         <ul>
-                            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="http://www.bikewale.com/" itemprop="url">
+                            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/" itemprop="url">
                                 <span itemprop="title">Home</span></a>
                             </li>
                             <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
-                                <a href="http://www.bikewale.com/<%= modelPageEntity.ModelDetails.MakeBase.MaskingName %>-bikes/" itemprop="url">
+                                <a href="/<%= modelPageEntity.ModelDetails.MakeBase.MaskingName %>-bikes/" itemprop="url">
                                     <span itemprop="title"><%= modelPageEntity.ModelDetails.MakeBase.MakeName %> Bikes</span>
                                 </a></li>
                             <li><span class="bwsprite fa-angle-right margin-right10"></span>

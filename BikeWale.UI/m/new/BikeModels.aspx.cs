@@ -287,7 +287,7 @@ namespace Bikewale.Mobile.New
             }
             else
             {
-                pgDescription = String.Format("{0} Price in India - {1}. Find {2} Reviews, Specs, Features, Mileage, On Road Price and Images at Bikewale. {3}", bikeName, Bikewale.Utility.Format.FormatNumeric(price.ToString()), bikeModelName, colorStr);
+                pgDescription = String.Format("{0} Price in India - Rs. {1}. Find {2} Reviews, Specs, Features, Mileage, On Road Price and Images at Bikewale. {3}", bikeName, Bikewale.Utility.Format.FormatNumeric(price.ToString()), bikeModelName, colorStr);
 
             }
         }

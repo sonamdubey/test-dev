@@ -98,7 +98,7 @@
                         <% if (modelPage.ModelDetails.ReviewCount > 0)
 
                                        { %>
-                        <span itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating">
+                        <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
                         <meta itemprop="ratingValue" content="<%=modelPage.ModelDetails.ReviewRate %>">
                         <meta itemprop="worstRating" content="1">
                         <meta itemprop="bestRating" content="5">
