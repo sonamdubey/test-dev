@@ -39,7 +39,7 @@ namespace Bikewale.Notifications.MailTemplates
                 message.AppendFormat(" your biking passion at full-throttle with reviews, news, comparison, upcoming bikes and more. </p>");
                 message.AppendFormat("<p>For future reference your user id and password are as listed below:</p>");
 
-                message.AppendFormat("User ID : {0}<br>", customerId);
+                message.AppendFormat("User ID  : {0}<br>", customerId);
                 message.AppendFormat("Password : {0}<br>", password);
 
                 message.AppendFormat("<p>You can change your password by clicking here <a href='http://www.bikewale.com/MyBikewale/changepassword/'>Change Password</a></p>");
