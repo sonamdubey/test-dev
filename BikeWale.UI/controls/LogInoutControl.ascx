@@ -2,14 +2,14 @@
 <% if(loggedInUser != "-1") { %>
         <li>
             <a href="<%= Bikewale.Common.CommonOpn.AppPath + "m/users/login.aspx?logout=logout&ReturnUrl=" + HttpContext.Current.Request.RawUrl%>" rel="nofollow">
-                <span class="bwmsprite insurance-icon"></span>
+                <span class="bwmsprite myBikeWale-icon"></span>
                 <span class="navbarTitle">Logout</span>
             </a>
         </li>
         <% } else { %>
         <li>
             <a href="/m/users/login.aspx" rel="nofollow">
-                <span class="bwmsprite insurance-icon"></span>
+                <span class="bwmsprite myBikeWale-icon"></span>
                 <span class="navbarTitle">Login</span>
             </a>
         </li>
