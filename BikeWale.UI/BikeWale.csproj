@@ -1128,6 +1128,10 @@
       <DependentUpon>BookingListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="service\ServiceCenterInCountry.aspx.cs">
+      <DependentUpon>ServiceCenterInCountry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="service\ServiceCenterDetails.aspx.cs">
       <DependentUpon>ServiceCenterDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1874,6 +1878,7 @@
     <Content Include="css\search.css" />
     <Content Include="css\service\details.css" />
     <Content Include="css\service\listing.css" />
+    <Content Include="css\service\location.css" />
     <Content Include="css\slideshow.css" />
     <Content Include="css\specsandfeature.css" />
     <Content Include="css\style.css" />
@@ -2469,6 +2474,7 @@
     <Content Include="m\videos\default.aspx" />
     <Content Include="m\videos\VideoMakeModel.aspx" />
     <Content Include="News\RepeaterPagerNews.ascx" />
+    <Content Include="service\ServiceCenterInCountry.aspx" />
     <Content Include="service\ServiceCenterDetails.aspx" />
     <Content Include="new\BikeDealerDetails.aspx" />
     <Content Include="service\ServiceCenterList.aspx" />
@@ -2499,6 +2505,7 @@
     <Content Include="src\dealerpricequote.js" />
     <Content Include="src\dealersbylocation.js" />
     <Content Include="src\dealer\details.js" />
+    <Content Include="src\service\location.js" />
     <Content Include="src\service\details.js" />
     <Content Include="src\service\listing.js" />
     <Content Include="src\dealer\location.js" />
@@ -2686,6 +2693,8 @@
     <Content Include="sass\service\_details-style.sass" />
     <Content Include="sass\service\details.sass" />
     <Content Include="sass\components\_select-box.sass" />
+    <Content Include="sass\service\location.sass" />
+    <Content Include="sass\service\_location-style.sass" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
