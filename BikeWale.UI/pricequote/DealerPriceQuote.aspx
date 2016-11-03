@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.BikeBooking.DealerPriceQuote" Trace="false" EnableEventValidation="false" %>
-<%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/NewAlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Import Namespace="Bikewale.BikeBooking" %>
 
@@ -666,21 +666,10 @@
             </div>
             <div class="clear"></div>
         </section>
-        <section class="margin-bottom30 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
-            <div class="container">
-                <div class="grid-12 alternative-section" id="alternative-bikes-section">
-                    <h2 class="text-bold text-center margin-top20 margin-bottom30 font22"><%= BikeName %> alternatives</h2>
-                    <div class="content-box-shadow">
-                        <div class="jcarousel-wrapper alternatives-carousel margin-top20">
-                            <div class="jcarousel">
-                                <ul>
-                                    <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
-                                </ul>
-                            </div>
-                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
-                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
-                        </div>
-                    </div>
+        <section>
+            <div class="container margin-bottom30 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
+                <div class="grid-12">
+                    <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
                 </div>
                 <div class="clear"></div>
             </div>
