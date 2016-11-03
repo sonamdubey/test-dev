@@ -8,7 +8,6 @@ using System;
 using System.Data;
 using System.Web;
 using System.Web.Http;
-using BikewaleOpr.Entity;
 namespace BikewaleOpr.Service
 {
     /// <summary>
@@ -110,7 +109,7 @@ namespace BikewaleOpr.Service
         {
             try
             {
-               
+
                 bool isUpdated = false;
                 using (IUnityContainer container = new UnityContainer())
                 {
@@ -118,11 +117,11 @@ namespace BikewaleOpr.Service
                     IDealers objDealer = container.Resolve<DealersRepository>();
                     TermsHtmlFormatting htmlFormat = new TermsHtmlFormatting();
                     dealerOffer.Terms = htmlFormat.MakeHtmlList(dealerOffer.Terms);
-                    
+
                     isUpdated = objDealer.UpdateDealerBikeOffers(dealerOffer);
                     if (isUpdated)
                     {
-                        return Ok("Dealer Bike Offers Updated."); 
+                        return Ok("Dealer Bike Offers Updated.");
                     }
                     else
                     {
@@ -132,7 +131,6 @@ namespace BikewaleOpr.Service
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("UpdateDealerBikeOffers ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
 
@@ -164,7 +162,6 @@ namespace BikewaleOpr.Service
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("EditAvailabilityDays ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
@@ -196,7 +193,6 @@ namespace BikewaleOpr.Service
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("DeleteDealerDisclaimer ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
@@ -227,7 +223,6 @@ namespace BikewaleOpr.Service
             }
             catch (Exception ex)
             {
-                //HttpContext.Current.Trace.Warn("EditDisclaimer ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }

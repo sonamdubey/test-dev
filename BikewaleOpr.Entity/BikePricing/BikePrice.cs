@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BikewaleOpr.Entity.BikePricing
+namespace BikewaleOpr.Entities.BikePricing
 {
     /// <summary>
     /// Created By : Ashish G. Kamble on 23 Sept 2016

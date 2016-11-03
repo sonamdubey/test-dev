@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BikewaleOpr.Entity
+namespace BikewaleOpr.Entities
 {
     /// Created by: Aditi Srivastava on 01 Sep 2016
     /// Summary: To save and update dealer offers

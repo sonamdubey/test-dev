@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Entities.Used;
+﻿using Bikewale.Entities.Used;
 using Bikewale.Entities.Used.Search;
 using Bikewale.Interfaces.Used.Search;
 using Bikewale.Notifications;
 using MySql.CoreDAL;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 
 namespace Bikewale.DAL.Used.Search
 {
@@ -21,6 +18,8 @@ namespace Bikewale.DAL.Used.Search
     {
         /// <summary>
         /// Function to get the used bikes search results from the database
+        /// Modified by :   Sumit Kate on 25 Oct 2016
+        /// Description :   read LastUpdated from data reader
         /// </summary>
         /// <param name="searchQuery">Pass acutal sql query which needs to be executed in db</param>
         /// <returns></returns>
@@ -59,17 +58,17 @@ namespace Bikewale.DAL.Used.Search
 
                                 objBike.CityMaskingName = Convert.ToString(dr["citymaskingname"]);
                                 objBike.CityName = Convert.ToString(dr["city"]);
-                                                                
+
                                 objBike.MakeMaskingName = Convert.ToString(dr["makemaskingname"]);
                                 objBike.MakeName = Convert.ToString(dr["makename"]);
                                 objBike.ModelMaskingName = Convert.ToString(dr["modelmaskingname"]);
                                 objBike.ModelName = Convert.ToString(dr["modelname"]);
                                 objBike.VersionName = Convert.ToString(dr["versionname"]);
-                                
+
                                 objBike.Photo = new BikePhoto();
                                 objBike.Photo.HostUrl = Convert.ToString(dr["hosturl"]);
                                 objBike.Photo.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
-                                
+                                objBike.LastUpdated = Utility.SqlReaderConvertor.ToDateTime(dr["lastupdated"]);
                                 objBikesList.Add(objBike);
                             }
 
@@ -93,7 +92,7 @@ namespace Bikewale.DAL.Used.Search
             }
             catch (Exception ex)
             {
-                ErrorClass objError = new ErrorClass(ex, "Bikewale.DAL.Used.Search.GetUsedBikesList");
+                ErrorClass objError = new ErrorClass(ex, String.Format("Bikewale.DAL.Used.Search.GetUsedBikesList({0})", searchQuery));
                 objError.SendMail();
             }
 

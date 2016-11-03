@@ -24,6 +24,8 @@ namespace Bikewale.DAL.Used
         /// Description : To get profile details for the specified inquiry id
         /// Modified By : Sushil Kumar on 17th August 2016
         /// Description : Added AdStatus and CustomerId for sold bikes scenario
+        /// Modified by :   Sumit Kate on 25 Oct 2016
+        /// Description :   Changed the sp to read lastupdated value
         /// </summary>
         /// <param name="inquiryId"></param>
         /// <returns></returns>
@@ -32,7 +34,7 @@ namespace Bikewale.DAL.Used
             ClassifiedInquiryDetails _objInquiryDetails = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("classified_getprofiledetails_12102016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("classified_getprofiledetails_25102016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 

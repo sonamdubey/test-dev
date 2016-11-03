@@ -66,7 +66,6 @@ var mapDimension = function () {
 
 
 function initializeMap(dealerArr) {
-
     var i, marker, dealer, markerPosition, content, zIndex;
 
     var mapProp = {
@@ -79,9 +78,8 @@ function initializeMap(dealerArr) {
         },
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
-
-
     map = new google.maps.Map(document.getElementById("dealersMap"), mapProp);
+   
     infowindow = new google.maps.InfoWindow();
     for (i = 0; i < dealerArr.length; i++) {
         dealer = dealerArr[i];
@@ -110,6 +108,7 @@ function initializeMap(dealerArr) {
         else
             content = '<div class="dealer-info-tooltip"><a href="' + dealer.id + '-' + dealer.dealermaskingname + '/" class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div><div><span class="bwsprite phone-black-icon vertical-top margin-right5"></span><span class="vertical-top dealership-card-details">' + dealer.maskingNumber + '</span></div></div></a></div>';
         google.maps.event.addListener(marker, 'mouseover', (function (marker, content, infowindow) {
+       
             return function () {
                 infowindow.setContent(content);
                 infowindow.open(map, marker);
@@ -128,13 +127,18 @@ function initializeMap(dealerArr) {
 
 // dealer card mouseover show tooltip
 $(document).on('mouseover', '#dealersList li', function () {
+
     var currentLI = $(this),
         currentDealerId = currentLI.attr('data-item-id');
-    for (var i = 0; i < markerArr.length; i++) {
-        if (markerArr[i].dealerId == currentDealerId) {
-            infowindow.setContent(markerArr[i].dealerName);
-            infowindow.open(map, markerArr[i]);
-            break;
+    var latitude = currentLI.attr('data-lat');
+    var longitude = currentLI.attr('data-log');
+    if (latitude != 0 || longitude != 0) {
+        for (var i = 0; i < markerArr.length; i++) {
+            if (markerArr[i].dealerId == currentDealerId) {
+                infowindow.setContent(markerArr[i].dealerName);
+                infowindow.open(map, markerArr[i]);
+                break;
+            }
         }
     }
 });

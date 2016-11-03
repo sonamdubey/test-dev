@@ -50,6 +50,9 @@
     <Compile Include="AreaEntityBase.cs" />
     <Compile Include="BikeAvailabilityByColor.cs" />
     <Compile Include="BikeColorAvailability.cs" />
+    <Compile Include="BikeData\BikeMakeEntityBase.cs" />
+    <Compile Include="BikeData\BikeModelEntityBase.cs" />
+    <Compile Include="BikeData\BikeVersionEntityBase.cs" />
     <Compile Include="BikeMakeEntityBase.cs" />
     <Compile Include="BikeModelEntityBase.cs" />
     <Compile Include="BikePricing\BikePrice.cs" />
@@ -93,6 +96,7 @@
     <Compile Include="NewBikeDealers.cs" />
     <Compile Include="OfferEntity.cs" />
     <Compile Include="OfferEntityBase.cs" />
+    <Compile Include="PopularComparisions\PopularBikeComparision.cs" />
     <Compile Include="PQ_BikeVarient.cs" />
     <Compile Include="PQ_DealerDetailEntity.cs" />
     <Compile Include="PQ_Price.cs" />

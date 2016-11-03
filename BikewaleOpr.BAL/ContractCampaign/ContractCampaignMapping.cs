@@ -1,5 +1,5 @@
 ﻿using Bikewale.Notifications;
-using BikewaleOpr.Entity.ContractCampaign;
+using BikewaleOpr.Entities.ContractCampaign;
 using BikewaleOpr.Interface.ContractCampaign;
 using System.Collections.Generic;
 
@@ -123,7 +123,5 @@ namespace BikewaleOpr.BAL.ContractCampaign
             }
             return isCampaignContractAdded;
         }
-
-
     }
 }

@@ -42,31 +42,5 @@
             </div>
         </div>
     </div>
-    <div class="grid-6 margin-top20">
-        <div class="compare-list-home">
-            <ul>
-                <asp:Repeater runat="server" ID="rptCompareBike">
-                    <ItemTemplate>
-                        <li>
-                            <p class="font16 text-center padding-bottom15">
-                                <a href="<%# FormatComparisonUrl(DataBinder.Eval(Container.DataItem,"MakeMaskingName1").ToString(),DataBinder.Eval(Container.DataItem,"ModelMaskingName1").ToString(),DataBinder.Eval(Container.DataItem,"MakeMaskingName2").ToString(),DataBinder.Eval(Container.DataItem,"ModelMaskingName2").ToString()) %>">
-                                    <%# FormatBikeCompareAnchorText(DataBinder.Eval(Container.DataItem,"Bike1").ToString(),DataBinder.Eval(Container.DataItem,"Bike2").ToString()) %>
-                                </a>
-                            </p>
-                            <div class="font16 text-light-grey">
-                                <span class="margin-right50">
-                                    <span class="fa fa-rupee"></span><span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Price1").ToString()) %></span>
-                                </span>
-                                <span class="fa fa-rupee"></span><span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Price2").ToString()) %></span>
-                            </div>
-                        </li>
-                    </ItemTemplate>
-                </asp:Repeater>
-            </ul>
-            <div class="text-center margin-top20">
-                <a href="/comparebikes/" class="btn btn-orange">View more comparisons</a>
-            </div>
-        </div>
-    </div>
     <div class="clear"></div>
 </div>

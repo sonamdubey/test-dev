@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BikewaleOpr.Entity.ManufacturerCampaign
+namespace BikewaleOpr.Entities.ManufacturerCampaign
 {
     /// <summary>
     /// Created by : Sajal Gupta on 01/09/2016

@@ -1,6 +1,6 @@
 ﻿
 using Newtonsoft.Json;
-namespace BikewaleOpr.Entity.ContractCampaign
+namespace BikewaleOpr.Entities.ContractCampaign
 {
     /// <summary>
     /// Created by  :   Sushil Kumar on 14 July 2016

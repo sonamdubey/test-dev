@@ -1,4 +1,4 @@
-﻿using BikewaleOpr.Entity;
+﻿using BikewaleOpr.Entities;
 using BikeWaleOpr.Common;
 using MySql.CoreDAL;
 using System;

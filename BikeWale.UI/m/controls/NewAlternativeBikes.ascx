@@ -23,7 +23,7 @@
                                  class="target-link font13 text-truncate" title="<%# DataBinder.Eval(Container.DataItem, "MakeBase.MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem, "ModelBase.ModelName").ToString() %>"><%# DataBinder.Eval(Container.DataItem, "MakeBase.MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem, "ModelBase.ModelName").ToString() %></a>
                             <% if (!IsPriceInCity)
                             { %>
-                            <p class="text-truncate text-light-grey font12 margin-top5">Ex-showroom, <%= ConfigurationManager.AppSettings["defaultName"] %></p>
+                            <p class="text-truncate text-light-grey font12 margin-top5">Ex-showroom, <%# DataBinder.Eval(Container.DataItem, "CityName").ToString() %></p>
                             <p class="font18 text-bold margin-bottom10">
                                 <span class="bwmsprite inr-xsm-icon"></span>
                                 <span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem, "MinPrice").ToString()) %></span>

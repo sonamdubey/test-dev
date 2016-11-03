@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BikewaleOpr.Entity.ContractCampaign
+namespace BikewaleOpr.Entities.ContractCampaign
 {
     public class ManufactureDealerCampaign
     {
