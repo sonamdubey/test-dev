@@ -1128,6 +1128,10 @@
       <DependentUpon>BookingListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="service\ServiceCenterList.aspx.cs">
+      <DependentUpon>ServiceCenterList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="new\dealersincountry.aspx.cs">
       <DependentUpon>dealersincountry.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1863,6 +1867,7 @@
     <Content Include="css\rsa.css" />
     <Content Include="css\new\bookinglisting.css" />
     <Content Include="css\search.css" />
+    <Content Include="css\service\listing.css" />
     <Content Include="css\slideshow.css" />
     <Content Include="css\specsandfeature.css" />
     <Content Include="css\style.css" />
@@ -2459,6 +2464,7 @@
     <Content Include="m\videos\VideoMakeModel.aspx" />
     <Content Include="News\RepeaterPagerNews.ascx" />
     <Content Include="new\BikeDealerDetails.aspx" />
+    <Content Include="service\ServiceCenterList.aspx" />
     <Content Include="new\dealersincountry.aspx" />
     <Content Include="new\browsenewbikedealerdetails.aspx" />
     <Content Include="new\dealersinstate.aspx" />
@@ -2486,6 +2492,7 @@
     <Content Include="src\dealerpricequote.js" />
     <Content Include="src\dealersbylocation.js" />
     <Content Include="src\dealer\details.js" />
+    <Content Include="src\service\listing.js" />
     <Content Include="src\dealer\location.js" />
     <Content Include="src\dealer\listing.js" />
     <Content Include="src\frameworks.js" />
@@ -2659,6 +2666,15 @@
     <Content Include="rewriterules.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="sass\components\_card-header.sass" />
+    <Content Include="sass\components\_mixins.sass" />
+    <Content Include="sass\components\_typography.sass" />
+    <Content Include="sass\service\listing.sass" />
+    <Content Include="sass\service\_listing-style.sass" />
+    <Content Include="sass\components\_variables.sass" />
+    <Content Include="sass\modules\_section.sass" />
+    <Content Include="sass\modules\_bike-tips.sass" />
+    <Content Include="sass\modules\_card.sass" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
