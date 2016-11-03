@@ -40,7 +40,7 @@ namespace Bikewale.Controls
         private void BindPopularCompareBikes()
         {
             BindSimilarCompareBikesControl objAlt = new BindSimilarCompareBikesControl();
-            objAlt.cityid = cityid.HasValue ? cityid.Value : Convert.ToInt16(Bikewale.Utility.BWConfiguration.Instance.DefaultCity);
+            objAlt.cityid = cityid.HasValue && cityid > 0 ? cityid.Value : Convert.ToInt16(Bikewale.Utility.BWConfiguration.Instance.DefaultCity);
             fetchedCount = objAlt.BindPopularCompareBikes(rptPopularCompareBikes, versionId, TopCount);
         }
 

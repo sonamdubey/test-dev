@@ -1,360 +1,238 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Used.Default" Trace="false" Debug="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Used.Default" EnableViewState="false"%>
+<%@ Register Src="~/controls/UsedRecentBikes.ascx" TagPrefix="BW" TagName="RecentUsedBikes" %>
+<!DOCTYPE html>
 
-<%@ Register Src="~/controls/TopUsedListedBike.ascx" TagPrefix="ub" TagName="TopUsedListedBikes" %>
-<%@ Register TagPrefix="BP" TagName="InstantBikePrice" Src="/controls/instantbikeprice.ascx" %>
-<%@ Register TagPrefix="TA" TagName="TipsAdvicesMin" Src="/controls/TipsAdvicesMin.ascx" %>
-<%@ Register TagPrefix="US" TagName="UsedBike" Src="~/controls/UsedBikeSearch.ascx" %>
-<%--<%@ Register TagPrefix="BB" TagName="BrowseBikes" Src="/controls/browsebikes.ascx" %>--%>
-<%
-    title = "Used Bikes in India - Buy & Sell Second Hand Bikes";
-    keywords = "Used bikes, used bike, used bikes for sale, second hand bikes, buy used bike";
-    description = "With more than 10,000 used bikes listed for sale, BikeWale is India's largest source of used bikes in India. Find a second hand bikes or list your bikes for sale.";
-    alternate = "http://www.bikewale.com/m/used/";
-    AdId = "1475575707820";
-    AdPath = " /1017752/BikeWale_UsedBikes_HomePage_";
-     is300x250Shown = false;
-    isAd970x90Shown = true;
-    isAd970x90BottomShown = true;
-%>
-<!-- #include file="/includes/headUsed.aspx" -->
-<style type="text/css">
-    .col {
-        float: left;
-        padding-bottom: 5px;
-        width: 100px;
-    }
+<html>
+<head>
+    <%
+        title = "Used Bikes in India - Buy & Sell Second Hand Bikes";
+        description = "With more than 10,000 used bikes listed for sale, BikeWale is India's largest source of used bikes in India. Find a second hand bike or list your bike for sale.";
+        keywords = "Used bikes, used bike, used bikes for sale, second hand bikes, buy used bike";
+        canonical = "http://www.bikewale.com/used/";
+        alternate = "http://www.bikewale.com/m/used/";
+        isHeaderFix = false;
+        isAd970x90Shown = false;
+        isTransparentHeader = true; 
+    %>
 
-    .tabs-container {
-        border: 1px solid #bfbfbf;
-        overflow: hidden;
-        margin-left: 20px;
-    }
+    <title>Used Bikes in India</title>
 
-        .tabs-container li a {
-            border-left: 1px solid #bfbfbf;
-            color: #5e5e5e;
-            padding: 11px 18px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+    <!-- #include file="/includes/headscript_desktop_min.aspx" -->
 
-        .tabs-container li {
-            font-weight: bold;
-            float: left;
-            padding: 10px 0px;
-            background: #f5f5f5;
-        }
+    <style type="text/css">
+        @charset "utf-8";#used-landing-box .welcome-box{margin-top:85px}.used-landing-banner{background:url(http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/used-landing-banner.jpg?v1=06Oct2016) center no-repeat #53442a;height:268px;padding-top:1px}.section-container{margin-bottom:25px}h2.section-header{font-size:18px;text-align:center;margin-bottom:20px}.padding-25-30{padding:25px 30px}.negative-50{margin-top:-50px}.usedbikes-search-container{margin:0 auto;width:570px}#search-form-city{width:334px}#search-form-budget{width:233px}#search-form-budget,#search-form-city{height:44px;float:left}#search-form-city .chosen-container{border:1px solid #e2e2e2;border-radius:0;padding:12px 20px}.form-selection-box{width:100%;padding:12px 20px;border:1px solid #e2e2e2;border-left:0;position:relative;text-align:left;cursor:pointer;color:#666}#budget-list-box::after,#budget-list-box::before{border-left:10px solid transparent;border-right:10px solid transparent;content:"";left:46.5%;z-index:1}.pos-top18{top:18px}#budget-list-box{display:none;position:absolute;top:43px;left:-1px;z-index:1;width:234px;background:#fff;border:1px solid #e2e2e2;border-radius:0 0 2px 2px}.input-label-box{display:inline-block;margin:5px 0;padding:3px 8px;width:49%;font-size:14px;color:#82888b}#min-input-label.input-label-box{width:51%}#search-form-budget #min-input-label,#search-form-budget.max-active #max-input-label{color:#4d5057}#search-form-budget.max-active #min-input-label{color:#82888b}#max-budget-list{display:none}#search-form-budget li{display:block;padding:5px 20px;color:#82888b;cursor:pointer;background:0 0}#search-form-budget li:hover{background:#f5f5f5}#budget-list-box::before{border-bottom:10px solid #e2e2e2;position:absolute;top:-11px}#budget-list-box::after{border-bottom:10px solid #f5f5f5;position:absolute;top:-10px}#min-max-budget-box.open .fa-angle-down{-moz-transform:rotateZ(180deg);-webkit-transform:rotateZ(180deg);-o-transform:rotateZ(180deg);-ms-transform:rotateZ(180deg);transform:rotateZ(180deg)}#upDownArrow.fa-angle-down{transition:all .5s ease-in-out 0s;font-size:20px}#min-max-budget-box.open+#budget-list-box{display:block}.search-bikes-btn.btn-lg{margin-top:35px;padding:8px 64px}.text-underline{text-decoration:underline}.btn-inv-teal:focus,.btn-inv-teal:hover,.city-card-target:hover{text-decoration:none}.used-sprite{background:url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/used-sprite.png?v1=06Oct2016) no-repeat;display:inline-block}.buyer,.contact-buyer,.free-cost,.listing-time{width:36px;height:36px;margin-bottom:18px}.free-cost{background-position:0 0}.buyer{background-position:0 -41px}.listing-time{background-position:0 -82px}.contact-buyer{background-position:0 -123px}.profile-id-icon{width:36px;height:36px;background-position:0 -164px}#sell-btn.btn{padding:8px 77px}#profile-id-popup.bw-popup{display:none;width:480px;top:33%;padding:30px 50px;min-height:420px}.size-small .icon-outer-container{width:92px;height:92px}.size-small .icon-inner-container{width:84px;height:84px;margin:3px auto}input[type=text]:focus,input[type=number]:focus{outline:0;box-shadow:none}.input-box{height:60px;text-align:left}.input-box input{font-size:16px;width:100%;display:block;padding:7px 0;border-bottom:1px solid #82888b;font-weight:700;color:#4d5057}.input-box label,.input-number-prefix{font-size:16px;position:absolute;color:#82888b;top:4px}.input-box label{left:0;-webkit-transition:.2s ease all;-moz-transition:.2s ease all;-o-transition:.2s ease all;transition:.2s ease all}.input-number-box input{padding-left:30px}.input-number-prefix{display:none;font-weight:700}.boundary{position:relative;width:100%;display:block}.boundary:after,.boundary:before{content:'';position:absolute;bottom:0;width:0;height:2px;background-color:#41b4c4;-webkit-transition:.2s ease all;-moz-transition:.2s ease all;-o-transition:.2s ease all;transition:.2s ease all}.boundary:before{left:50%}.boundary:after{right:50%}.error-text{display:none;font-size:12px;position:relative;top:4px;left:0;color:#d9534f}.input-box.input-number-box input:focus~.input-number-prefix,.input-box.input-number-box.not-empty .input-number-prefix,.input-box.invalid .error-text{display:inline-block}.input-box input:focus~label,.input-box.not-empty label{top:-16px;font-size:12px}.input-box input:focus~.boundary:after,.input-box input:focus~.boundary:before{width:50%}.input-box.invalid .boundary:after,.input-box.invalid .boundary:before{background-color:#d9534f;width:50%}.brand-type-container li{display:inline-block;vertical-align:top;width:180px;height:85px;margin:0 5px 30px;text-align:center;font-size:18px;-moz-border-radius:2px;-webkit-border-radius:2px;-o-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.model-details-label,.model-media-item{vertical-align:middle;display:inline-block}.brand-1,.brand-10,.brand-11,.brand-12,.brand-13,.brand-14,.brand-15,.brand-16,.brand-17,.brand-18,.brand-19,.brand-2,.brand-20,.brand-22,.brand-23,.brand-24,.brand-3,.brand-34,.brand-37,.brand-38,.brand-39,.brand-4,.brand-40,.brand-41,.brand-42,.brand-5,.brand-6,.brand-7,.brand-71,.brand-8,.brand-81,.brand-9,.brand-type{height:50px}.brand-type{width:180px;display:block;margin:0 auto}.brand-type-title{margin-top:10px;display:block}.brand-type-container a{text-decoration:none;color:#82888b;display:inline-block}.brand-type-container li:hover span.brand-type-title{color:#4d5057;font-weight:700}.brand-bottom-border{overflow:hidden}.brandlogosprite{background:url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?v=04Oct2016) no-repeat;display:inline-block}.brand-2{width:87px;background-position:0 0}.brand-7{width:56px;background-position:-96px 0}.brand-1{width:88px;background-position:-162px 0}.brand-8{width:100px;background-position:-260px 0}.brand-12{width:67px;background-position:-370px 0}.brand-40{width:125px;background-position:-447px 0}.brand-34{width:122px;background-position:-582px 0}.brand-22{width:121px;background-position:-714px 0}.brand-3{width:44px;background-position:-845px 0}.brand-17{width:86px;background-position:-899px 0}.brand-15{width:118px;background-position:-995px 0}.brand-4{width:43px;background-position:-1123px 0}.brand-9{width:99px;background-position:-1176px 0}.brand-16{width:117px;background-position:-1285px 0}.brand-5{width:59px;background-position:-1412px 0}.brand-19{width:122px;background-position:-1481px 0}.brand-13{width:122px;background-position:-1613px 0}.brand-6{width:63px;background-position:-1745px 0}.brand-10{width:102px;background-position:-1818px 0}.brand-14{width:127px;background-position:-1930px 0}.brand-39{width:89px;background-position:-2067px 0}.brand-20{width:82px;background-position:-2166px 0}.brand-11{width:121px;background-position:-2258px 0}.brand-41{width:63px;background-position:-2389px 0}.brand-42{width:64px;background-position:-2461px 0}.brand-81{width:71px;background-position:-2535px 0}.brand-71{width:39px;background-position:-2616px 0}.brand-37{width:119px;background-position:-2665px 0}.brand-18{width:63px;background-position:-2794px 0}.city-card-target{display:block}.city-image-preview{width:292px;height:114px;display:block;margin-bottom:15px;text-align:center;padding-top:10px}#city-jcarousel .inner-content-carousel .jcarousel-control-left,#city-jcarousel .inner-content-carousel .jcarousel-control-right{top:32%}.city-sprite{background:url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?24062016) no-repeat;display:inline-block}.ahmedabad-icon,.c1-icon,.c10-icon,.c105-icon,.c12-icon,.c176-icon,.c2-icon,.chandigarh-icon,.kolkata-icon,.lucknow-icon{height:92px}.c1-icon{width:130px;background-position:0 0}.c12-icon{width:186px;background-position:-140px 0}.c2-icon{width:136px;background-position:-336px 0}.c10-icon{width:70px;background-position:-482px 0}.c176-icon{width:53px;background-position:-562px 0}.c105-icon{width:65px;background-position:-625px 0}.kolkata-icon{width:182px;background-position:-700px 0}.lucknow-icon{width:174px;background-position:-892px 0}.ahmedabad-icon,.chandigarh-icon{width:0;background-position:0 0}.btn-inv-teal{background:0 0;color:#3799a7;border:1px solid #3799a7}.btn-inv-teal:hover{color:#fff;background:#41b4c4;border-color:#41b4c4}.btn-inv-teal:focus{color:#fff;background:#3799a7}.inv-teal-sm{font-size:14px;padding:6px 19px}.teal-next{width:6px;height:10px;background-position:-82px -469px;margin-left:6px}#recent-uploads li{height:305px}.used-carousel .card-image-block,.used-carousel .model-jcarousel-image-preview{height:160px;background-color:#f5f5f5;line-height:0}.used-carousel .card-desc-block{padding-top:15px}.model-media-details{position:absolute;right:10px;bottom:10px;font-size:12px}.model-media-item{padding:4px 5px;color:#4d5057;background:rgba(255,255,255,.8);border-radius:2px}.gallery-photo-icon{width:16px;height:12px;background-position:-213px -207px}.model-media-count{position:relative;top:-1px}.model-details-label{width:84%;color:#82888b;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.author-grey-sm-icon,.kms-driven-icon,.model-date-icon,.model-loc-icon{width:10px;height:12px;margin-right:5px;vertical-align:middle}.model-date-icon{background-position:-65px -543px}.kms-driven-icon{background-position:-65px -563px}.author-grey-sm-icon{height:10px;margin-right:4px}.model-loc-icon{background-position:-82px -543px}@media only screen and (max-width:1024px){.brand-type,.brand-type-container li{width:170px}}
+    </style>
 
-            .tabs-container li:hover {
-                background-color: #E2E2E2;
-                font-weight: bold;
-                float: left;
-            }
-
-            .tabs-container li a.first {
-                border-left: 0px;
-            }
-
-            .tabs-container li a.active-tab {
-                color: #898585 !important;
-                text-decoration: none;
-                font-weight: bold;
-                background: #fff;
-            }
-
-            .tabs-container li a:hover {
-                text-decoration: none;
-            }
-
-    .find-used-bikes-container td select {
-        width: 195px;
-    }
-</style>
-<div class="container_12">
-    <div class="grid_12">
-        <ul class="breadcrumb">
-            <li>You are here: </li>
-            <li  itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/" itemprop="url"><span itemprop="title">Home</span></a></li>
-            <li class="fwd-arrow">&rsaquo;</li>
-            <li class="current"><strong>Used Bikes</strong></li>
-        </ul>
-        <div class="clear"></div>
-    </div>
-    <div class="grid_8 margin-top10">
-        <!--    Left Container starts here -->
-        <h1>Used Bikes <span>Buy &amp; sell used bikes</span></h1>
-        <div class="grid_4 alpha grey-bg margin-top15" style="height: 288px;">
-            <div class="content-block">
-                <h2 class="hd2">Find Used Bikes</h2>
-                <p class="margin-top5">Thousands of used bikes listed for sale</p>
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" class="tbl-default margin-top10 find-used-bikes-container">
-                    <tr>
-                        <td>Your City</td>
-                        <td>
-                            <asp:dropdownlist id="ddlCity" runat="server" tabindex="1"></asp:dropdownlist>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Budget</td>
-                        <td>
-                            <asp:dropdownlist id="ddlPriceRange" runat="server" tabindex="2">
-                                    <asp:ListItem Value="-1" Text="-- Any Budget --"></asp:ListItem>
-				                    <asp:ListItem Value="0" Text="Up to 10,000"></asp:ListItem>
-                                    <asp:ListItem Value="1" Text="10,000-20,000"></asp:ListItem>
-                                    <asp:ListItem Value="2" Text="20,000-35,000"></asp:ListItem>
-                                    <asp:ListItem Value="3" Text="35,000-50,000"></asp:ListItem>
-                                    <asp:ListItem Value="4" Text="50,000-80,000"></asp:ListItem>
-                                    <asp:ListItem Value="5" Text="80,000-150,000"></asp:ListItem>
-                                    <asp:ListItem Value="6" Text="150,000 or above"></asp:ListItem>   
-                                </asp:dropdownlist>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Bike Make</td>
-                        <td>
-                            <asp:dropdownlist id="ddlMake" runat="server" tabindex="3"></asp:dropdownlist>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td>
-                            <div>
-                                <input type="button" id="btnSearchUsedBike" tabindex="4" runat="server" value="Find Used Bike" class="action-btn text_white" onclick="SearchByCriteria()" />
+    <script type="text/javascript">
+        <!-- #include file="\includes\gacode_desktop.aspx" -->
+    </script>
+</head>
+<body class="bg-light-grey">
+    <form id="form1" runat="server">
+        <!-- #include file="/includes/headBW.aspx" -->
+        <header class="used-landing-banner">
+            <div id="used-landing-box" class="container">
+                <div class="welcome-box">
+                    <h1 class="font30 text-uppercase margin-bottom30">Used bikes</h1>
+                    <h2 class="font20 text-unbold text-white">View wide range of used bikes</h2>
+                </div>
+            </div>
+        </header>     
+        <section>
+            <div class="container section-container">
+                   <div id="search-used-bikes" class="grid-12">
+                    <div class="content-box-shadow negative-50 text-center padding-25-30">
+                        <h2 class="section-header">Search used bikes</h2>
+                        <div class="usedbikes-search-container">
+                            <div id="search-form-city" class="form-control-box">
+                                 <select class="form-control chosen-select" id="drpCities">
+                                     
+                                    <option >Select a city</option>
+                                    <% foreach(var city in viewModel.Cities){ %> 
+                                    <option id="selectedCity" data-item-id="<%=city.CityId%>" data-citymaskingname="<%=city.CityMaskingName%>"><%=city.CityName %></option>
+                                 <%} %>
+                                </select>
                             </div>
-                            <div id="process_img" class="hide text-highlight">Redirecting Please wait...</div>
-                        </td>
-                    </tr>
-                </table>
-                <div class="sept-dashed margin-top10"></div>
-                <div class="margin-top15">
-                    Search By Profile Id
-                        <%--<input type="text" id="txtlocateProfile" style="width:100px;" />&nbsp;<a id="btnLocateProfile" class="buttons">Go</a>--%>
-
-                    <input name="txtProfileId" type="text" value="Profile Id" id="txtProfileId" tabindex="1" placeholder="Profile Id" style="width: 90px;" /><span class="error">*</span>
-                    <input name="btnSearchProfileId" type="button" id="btnSearchProfileId" tabindex="2" value="Go" class="buttons text_white btn-xs" onclick="SearchByProfile()" />
-                    <div id="spn_txtProfile" class="error"></div>
+                            <div id="search-form-budget" class="form-control-box">
+                                <div id="min-max-budget-box" class="form-selection-box">
+                                    <span id="budget-default-label">Select budget</span>
+                                    <span id="min-amount"></span>
+                                    <span id="max-amount"></span>
+                                    <span id="upDownArrow" class="fa fa-angle-down position-abt pos-top18 pos-right20"></span>
+                                    <div class="clear"></div>
+                                </div>
+                                <div id="budget-list-box">
+                                    <div id="user-budget-input" class="bg-light-grey text-light-grey">
+                                        <div id="min-input-label" class="input-label-box border-solid-right">Min</div><div id="max-input-label" class="input-label-box">Max</div>
+                                    </div>
+                                    <ul id="min-budget-list" class="text-left"></ul>
+                                    <ul id="max-budget-list" class="text-right"></ul>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                            <a data-bind="attr: { href: redirectUrl }"  id="searchCityBudget" class="btn btn-orange btn-lg search-bikes-btn margin-bottom20" >Search</a>
+                            <div>
+                                <a href="javascript:void(0)" id="profile-id-popup-target" class="font14 text-underline" rel="nofollow">Search by Profile ID</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="margin-top10"></div>
+                <div class="clear"></div>
             </div>
-        </div>
-        <div class="grid_4 omega grey-bg margin-top15">
-            <div class="content-block">
-                <h2>Sell Your Bike Here</h2>
-                <p class="black-text">Sell your bike in a faster and easiest way</p>
-                <div class="dotted-line margin-top5"></div>
-                <div id="sybh-list" class="padding-top10">
-                    <div><a class="person pointer" title="BikeWale team works with you to get you best price for your bike">Get Expert Help</a></div>
-                    <div class="sep"></div>
-                    <div><a class="timer pointer" title="Your bike is listed for sale until it is sold">Unlimited Time Period</a></div>
-                    <div class="sep"></div>
-                    <div><a class="watch pointer" title="BikeWale is committed to give your bike maximum exposure">Maximum Visibility</a></div>
-                    <div class="sep"></div>
-                    <div><a class="award pointer" title="Buyers' mobile numbers are verified before they are sent to you">Genuine Buyers</a></div>
-                    <div class="sep"></div>
+        </section>
+
+        <section>
+            <div class="container section-container">
+                <div class="grid-12">
+                    <h2 class="section-header">Best way to sell your bike</h2>
+                    <div class="content-box-shadow text-center padding-top25 padding-bottom25 padding-right20 padding-left20 font14">
+                        <div class="margin-bottom20">
+                            <div class="grid-3">
+                                <span class="used-sprite free-cost"></span>
+                                <p class="text-bold margin-bottom5">Free of cost</p>
+                                <p>You can upload your bike ad absolutely free</p>
+                            </div>
+                            <div class="grid-3">
+                                <span class="used-sprite buyer"></span>
+                                <p class="text-bold margin-bottom5">Genuine buyers </p>
+                                <p>We let only verified buyers to get in touch with you</p>
+                            </div>
+                            <div class="grid-3">
+                                <span class="used-sprite listing-time"></span>
+                                <p class="text-bold margin-bottom5">Unlimited listing duration</p>
+                                <p>Your bike listing will stay active until it is sold</p>
+                            </div>
+                            <div class="grid-3">
+                                <span class="used-sprite contact-buyer"></span>
+                                <p class="text-bold margin-bottom5">Get buyer details</p>
+                                <p>We will send you the details of buyers thorugh SMS and mail</p>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <a href="/used/sell/" title="Sell your bike" id="sell-btn" class="btn btn-teal">Sell</a>
+                    </div>
                 </div>
-                <div class="action-btn margin-top10 center-align"><a href="/used/sell/">Sell My Bike Now</a></div>
+                <div class="clear"></div>
             </div>
+        </section>
+     
+           <% if( viewModel.TopMakeList!= null && viewModel.OtherMakeList!= null){  %>
+        <section>
+            <div class="container section-container">
+                <div class="grid-12">
+                    <h2 class="section-header">Search used bikes by brands</h2>
+                    <div class="content-box-shadow padding-top20">
+                        <div class="brand-type-container">
+                            <ul class="text-center">
+                                  <% foreach(var bike in viewModel.TopMakeList){ %>  
+                                <li>
+                                    <a href="/used/<%=bike.MaskingName %>-bikes-in-india/" title="<%=bike.MakeName %> used bikes in India">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-<%=bike.MakeId %>"></span>
+                                        </span>
+                                        <span class="brand-type-title"><%=bike.MakeName %></span>
+                                    </a>
+                                </li>                                    
+                                  <% } %>
+                            </ul>
+                            <div class="brand-bottom-border margin-right20 margin-left20 border-solid-top hide"></div>
+                            <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide margin-left5">
+                                <% foreach(var bike in viewModel.OtherMakeList){ %> 
+                                <li>
+                                     <a href="/used/<%=bike.MaskingName %>-bikes-in-india/" title="<%=bike.MakeName %> used bikes in India">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-<%=bike.MakeId %>"></span>
+                                        </span>
+                                        <span class="brand-type-title"><%=bike.MakeName %></span>
+                                    </a>
+                                </li>                                    
+                                <%} %>
+                            </ul>
+                        </div>
+                        <div class="view-brandType text-center padding-bottom25">
+                            <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16" rel="nofollow">View <span>more</span> brands</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <%} %>
+       
+        <% if(viewModel.objCitiesWithCount != null) { %>
+        <section>
+            <div class="container text-center section-container">
+                <h2 class="section-header">Search used bikes by cities</h2>
+                <div class="grid-12">
+                    <div id="city-jcarousel" class="content-box-shadow padding-top20 padding-bottom20">
+                        <div class="jcarousel-wrapper inner-content-carousel margin-bottom5">
+                            <div class="jcarousel">
+                                <ul>
+                                    <%foreach (Bikewale.Entities.Used.UsedBikeCities objCity in viewModel.objCitiesWithCount)
+                                        {%>
+                                        <li>
+                                            <a href="/used/bikes-in-<%=objCity.CityMaskingName %>/" title="Used bikes in <%=objCity.CityName %>" class="city-card-target">
+                                                <div class="city-image-preview">
+                                                    <span class="city-sprite c<%=objCity.CityId %>-icon"></span>
+                                                </div>
+                                                <div class="text-left font14 padding-left20 padding-right20 padding-bottom25">
+                                                    <p class="text-default text-bold margin-bottom5"><%=objCity.CityName %></p>
+                                                    <p class="text-light-grey"><%=objCity.bikesCount %> Used bikes</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    <%} %>
+                                </ul>
+                             </div>
+                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+                        </div>
+                        <a href="/used/browse-bikes-by-cities/" title="Browse used bike by cities" class="btn btn-inv-teal inv-teal-sm margin-top10">View all cities<span class="bwsprite teal-next"></span></a>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <% } %>
+                     
+
+        <section>
+               <BW:RecentUsedBikes ID="ctrlRecentUsedBikes" runat="server" />
+        </section>
+
+        <!-- profile-id -->
+        <div id="profile-id-popup" class="bw-popup text-center size-small">
+            <div class="bwsprite cross-lg-lgt-grey close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
+            <div class="icon-outer-container rounded-corner50">
+                <div class="icon-inner-container rounded-corner50">
+                    <span class="used-sprite profile-id-icon margin-top25"></span>
+                </div>
+            </div>
+            <p class="font18 text-bold margin-top10 margin-bottom10">Search by Profile ID</p>
+            <p class="font14 text-light-grey margin-bottom30">If you like a certain listing you can search it by its Profile ID. The unique Profile ID is mentioned in the Ad details.</p>
+            <div class="input-box form-control-box margin-bottom15">
+                <input type="text" id="listingProfileId">
+                <label for="listingProfileId">Profile ID</label>
+                <span class="boundary"></span>
+                <span class="error-text"></span>
+            </div>
+            <a class="btn btn-orange btn-fixed-width" id="search-profile-id-btn">Search</a>
         </div>
-        <div class="clear"></div>
-        <%-- <div class="margin-top15">
-                <h2>Browse Used Bikes by City</h2>
-                <ul class="ul-hrz margin-top10">
-                    <li><a href="/used-bikes-in-newdelhi/">New Delhi</a></li>
-                     <li><a href="/used-bikes-in-bangalore/">Bangalore</a></li>
-                     <li><a href="/used-bikes-in-pune/">Pune</a></li>
-                     <li><a href="/used-bikes-in-ahmedabad/">Ahmedabad</a></li>
-                     <li><a href="/used-bikes-in-coimbatore/">Coimbatore</a></li>
-                     <li><a href="/used-bikes-in-chandigarh/">Chandigarh</a></li>                 
-                     <li><a href="/used-bikes-in-mumbai/">Mumbai</a></li>
-                     <li><a href="/used-bikes-in-chennai/">Chennai</a></li>
-                     <li><a href="/used-bikes-in-hyderabad/">Hyderabad</a></li>
-                     <li><a href="/used-bikes-in-kolkata/">Kolkata</a></li>
-                     <li><a href="/used-bikes-in-kochi/">Kochi</a></li>
-                     <li><a href="/used-bikes-in-pondicherry/">Pondicherry</a></li>
-                </ul>
-            </div><div class="clear"></div>--%>
-        <US:UsedBike ID="ubSearch" runat="server"></US:UsedBike>
-        <div class="grey-bg content-block margin-top15">
-            <ub:TopUsedListedBikes ID="ubUsedBikesRecentMin" runat="server" TopRecords="20" DisplayTwoColumn="true"></ub:TopUsedListedBikes>
-            <div class="clear"></div>
-        </div>
-    </div>
-    <div class="grid_4 right-grid">
-        <%--<div>
-            <!-- BikeWale_UsedBike/BikeWale_UsedBike_300x250 -->
-            <!-- #include file="/ads/Ad300x250.aspx" -->
-        </div>--%>
-        <div class="light-grey-bg content-block border-radius5 padding-bottom20 margin-top15">
-            <BP:InstantBikePrice ID="getPriceQuoteMin" runat="server" />
-        </div>
-        <div class="margin-top15">
-            <TA:TipsAdvicesMin runat="server" ID="TipsAdvicesMin" />
-        </div>
-        <div>
-                <%--<!-- BikeWale_UsedBike/BikeWale_UsedBike_300x250 -->--%>
-                <!-- #include file="/ads/Ad300x250BTF.aspx" -->
-        </div>        
-    </div>
-</div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#ddlCity option[value='-1']").attr("disabled", "disabled");        
-    });
 
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 
-    $("#txtProfileId").focusin(function () {
-        if ($.trim($(this).val()) == "Profile Id")
-            $(this).val("");
-    });
+        <!-- #include file="/includes/footerBW.aspx" -->
+        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/used-landing.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" >  
+        var CustomerId="<%=currentUser%>";
+            </script>
 
-    function SearchByProfile() {
-        $("#spn_txtProfile").text("Processing Please wait..");
-        var profileId = $.trim($("#txtProfileId").val());
-        profileId = profileId.replace(" ", "");
-        var customerId = <%=customerId%>;
-
-        if (profileId != "" && profileId != "ProfileId") {
-            var profileType = profileId.substring(0, 1);
-            var profileIdVal = profileId.substring(1);
-            var re = /^[0-9]*$/;
-            var profileEx = /^[sS]+$/;
-
-            if (re.test(profileIdVal) && profileEx.test(profileType)) {
-                $.ajax({
-                    type: "GET",
-                    url: "/api/used/inquiry/url/" + profileId + "/" + customerId,
-                    headers: { "platformId": 1 },
-                    dataType: 'json',
-                    success: function (data) {
-                        if(data != null)
-                        {
-                            if (data.isRedirect == false)                           
-                                $("#spn_txtProfile").text(data.message);
-                            else
-                                location.href = data.url;
-                        }
-                    },
-                    complete: function (xhr) {
-                        if (xhr.status == 400 || xhr.status == 500) {
-                            $("#spn_txtProfile").text('Please enter correct profile id');
-                        }
-                    }
-                });
-            } else {
-                $("#spn_txtProfile").text("Invalid Profile Id");
-                $("#txtProfileId").focus();
-            }
-        } else {
-            $("#spn_txtProfile").text("Enter profile Id");
-        }
-    }
-
-    function SearchByCriteria() {
-        if ($("#ddlCity").val() != "0") {
-            var cityId = $("#ddlCity").val().split('_')[0];
-
-            //var city = $("#ddlCity option:selected").text().toLowerCase().replace(/ /g, "");
-            //alert(city);
-            var city = $("#ddlCity option:selected").val().split('_')[1];
-            //alert(cityName);
-            var distance = "50";
-        }
-        else {
-            cityId = $("#ddlCity").val();
-        }
-
-        var search_href = "";
-        var searchCriteria = "";
-
-        //if ($("#ddlCity").val() == "-1") {
-        //   $("#spn_City").text("Select city");
-        //    $("#ddlCity").focus();
-        //    return false;
-        //}
-
-        //    var modelId = $("#ddlMakeModel").val();
-        //    var makeId = modelId.split(".")[0];
-
-        //var modelId = $("#ddlMake").val();
-        var makeId = $("#ddlMake").val().split('_')[0];//modelId// modelId.split(".")[0];
-        var make = $("#ddlMake").val().split('_')[1];
-        var budget = $("#ddlPriceRange").val();
-
-        if (cityId > 0) {
-            if (makeId != "0") {
-                if (budget != "-1") {
-                    search_href = "/used/" + make + "-bikes-in-" + city + "/";
-                    searchCriteria = "make=" + makeId + "&city=" + cityId + "&dist=" + distance + "&budget=" + budget;
-                }
-                else {
-                    search_href = "/used/" + make + "-bikes-in-" + city + "/";
-                    searchCriteria = "make=" + makeId + "&city=" + cityId + "&dist=" + distance;
-                }
-            }
-            else {
-                if (makeId == "0" && budget != "-1") {
-                    search_href = "/used/bikes-in-" + city + "/";
-                    searchCriteria = "budget=" + budget + "&city=" + cityId + "&dist=" + distance;
-                }
-                else {
-                    search_href = "/used/bikes-in-" + city + "/";
-                    searchCriteria = "city=" + cityId + "&dist=" + distance;
-                }
-            }
-        }
-        else {
-            if (makeId != "0") {
-                if (budget != "-1") {
-                    search_href = "/used/" + make + "-bikes-in-india/";
-                    searchCriteria = "make=" + makeId + "&budget=" + budget;
-                }
-                else {
-                    search_href = "/used/" + make + "-bikes-in-india/";
-                    searchCriteria = "make=" + makeId;
-                }
-            }
-            else {
-                if (makeId == "0" && budget != "-1") {
-                    search_href = "/used/bikes-in-india/";
-                    searchCriteria = "budget=" + budget;
-                }
-                else {
-                    search_href = "/used/bikes-in-india/";
-                    //searchCriteria = "";//"city=" + cityId + "&dist=" + distance;
-                }
-            }
-        }
-
-        //else if (makeId == "0" && budget != "-1") {
-        //    search_href = "/used-bikes-in-" + city + "/#budget=" + budget;
-        //    searchCriteria = "city=" + cityId + "&dist=" + distance + "&budget=" + budget;
-        //}
-        //else {
-        //    search_href = "/used-bikes-in-" + city + "/";
-        //    searchCriteria = "city=" + cityId + "&dist=" + distance;
-        //}
-
-        $("#btnSearchUsedBike").addClass("hide");
-        $("#process_img").removeClass("hide").addClass("show");
-
-        $.ajax({
-            type: "POST",
-            url: "/ajaxpro/Bikewale.Ajax.AjaxClassifiedSearch,Bikewale.ashx",
-            data: '{"queryString":"' + searchCriteria + '"}',
-            beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "SaveUsedSearchCriteria"); },
-            success: function (response) {
-                var status = eval('(' + response + ')');
-
-                if (status.value == true) {
-                    location.href = search_href;
-                }
-                else {
-                    $("#btnSearchUsedBike").removeClass("hide").addClass("show");
-                }
-            }
-        });
-    }
-
-
-</script>
-<!-- #include file="/includes/footerInner.aspx" -->
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        <!--[if lt IE 9]>
+            <script src="/src/html5.js"></script>
+        <![endif]-->
+    </form>
+</body>
+</html>

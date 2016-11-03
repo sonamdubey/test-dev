@@ -13,7 +13,7 @@
 <head>
     <%
         description = pgDescription;
-        title = String.Format("{0} Price, Reviews, Spec, Photos, Mileage | Bikewale", bikeName);
+        title = String.Format("{0} Price, Reviews, Spec, Photos, Mileage, Colors | Bikewale", bikeName);
         canonical = String.Format("http://www.bikewale.com/{0}-bikes/{1}/", modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName);
         AdPath = "/1017752/Bikewale_Mobile_Model";
         AdId = "1444028976556";
@@ -98,7 +98,7 @@
                         <% if (modelPage.ModelDetails.ReviewCount > 0)
 
                                        { %>
-                        <span itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating">
+                        <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
                         <meta itemprop="ratingValue" content="<%=modelPage.ModelDetails.ReviewRate %>">
                         <meta itemprop="worstRating" content="1">
                         <meta itemprop="bestRating" content="5">
@@ -370,7 +370,7 @@
                             <% } %>
                             <%if (modelPage.ModelColors != null && modelPage.ModelColors.Count() > 0)
                             { %>
-                            <li data-tabs="#modelColoursContent">Colours</li>
+                            <li data-tabs="#modelColoursContent">Colors</li>
                             <%} %>
                             <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
                              { %>
@@ -720,7 +720,7 @@
                 { %>   
                 <!-- colours code starts here -->    
                 <div id="modelColoursContent" class="bw-model-tabs-data font14">
-                    <h2 class="padding-top15 padding-right20 padding-left20"><%=bikeName %> Colours</h2>
+                    <h2 class="padding-top15 padding-right20 padding-left20"><%=bikeName %> Colors</h2>
                     <ul id="modelColorsList" class="padding-top5 padding-right20 padding-left20">
                     <asp:Repeater ID="rptColors" runat="server">
                             <ItemTemplate>                        

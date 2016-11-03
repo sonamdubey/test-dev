@@ -467,7 +467,7 @@
                             </div>
                             <h3>Terms and Conditions</h3>
                             <div  class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
-                                <img src="http:/img2.aeplcdn.com/bikewaleimg/images/search-loading.gif" />
+                                <img src="http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
                             </div>
                             <div id="terms" class="breakup-text-container padding-bottom10 font14">
                             </div>

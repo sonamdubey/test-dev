@@ -128,7 +128,7 @@ namespace Bikewale.New
             string multiColour = ".";
 
             if (colourCount > 1)
-                multiColour = string.Format(" and {0} colours.", colourCount);
+                multiColour = string.Format(" and {0} colors.", colourCount);
             else if (colourCount == 1)
                 multiColour = string.Format(" and 1 colour.");
 
@@ -438,10 +438,10 @@ namespace Bikewale.New
             ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_Alternative;
             ctrlAlternativeBikes.WidgetTitle = bikeName;
             ctrlAlternativeBikes.model = modelName;
-            ctrlAlternativeBikes.cityId = (int)cityId;
+            ctrlAlternativeBikes.cityId = cityId;
             ctrlAlternativeBikes.cityName = cityName;
             if (firstVersion != null)
-                ctrlAlternativeBikes.VersionId = (int)firstVersion.VersionId;
+                ctrlAlternativeBikes.VersionId = firstVersion.VersionId;
         }
     }   // class
 }   // namespace

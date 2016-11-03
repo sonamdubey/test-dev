@@ -1,4 +1,4 @@
-﻿using BikewaleOpr.Entity.ContractCampaign;
+﻿using BikewaleOpr.Entities.ContractCampaign;
 using System.Collections.Generic;
 
 namespace BikewaleOpr.Interface.ContractCampaign

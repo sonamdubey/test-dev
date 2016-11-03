@@ -27,9 +27,75 @@ vertical-align: top; width: 90px; height: 70px; margin: 0 0 15px; text-align: ce
     background-position: -1577px 0;
 }
 
-.compare-bikes-container { background-color: #fff; }
-
 .tools-need-container ul li a { display: table; text-decoration: none; }
 .tools-need-container ul li a span.tools-need-logo { display: table-cell; vertical-align: top; width: 92px; height: 92px; overflow: hidden; }
 .tools-need-container ul li a span.tools-need-desc { display: table-cell; color: #565a5c; padding-left: 20px; }
 .tools-need-container ul li a span.tools-need-text { display: block; margin-top: 20px; }
+
+#main-compare-bikes-target {
+    width: 100%;
+    min-height: 200px;
+    margin-bottom: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: block;
+    border: 1px solid #e2e2e2;
+    border-radius: 1px;
+    background: #fff;
+    overflow: hidden;
+}
+
+#main-compare-bikes-target .comparison-image {
+    width: 120px;
+    height: 67px;
+    margin: 0 auto 15px;
+    overflow: hidden;
+    display: block;
+    text-align: center;
+}
+
+#main-compare-bikes-target img {
+    height: 67px;
+}
+
+#main-compare-bikes-target .grid-6:first-child:after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 55px;
+    width: 22px;
+    height: 21px;
+    background: url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png) no-repeat;
+    display: block;
+}
+
+.article-control #makeNewsContent {
+    padding-top: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.review-image-wrapper {
+    width: 120px;
+    height: 68px;
+    border: 1px solid #e2e2e2;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10px;
+}
+
+.review-image-wrapper a {
+    width: 100%;
+    display: block;
+}
+
+.review-image-wrapper img {
+    width: 100%;
+    height: 68px;
+}
+
+.review-heading-wrapper {
+    width: 55%;
+    display: inline-block;
+    vertical-align: top;
+}

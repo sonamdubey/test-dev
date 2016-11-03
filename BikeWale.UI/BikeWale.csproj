@@ -433,16 +433,8 @@
       <DependentUpon>BrowseUserReviews.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\CompareBikesMin.ascx.cs">
-      <DependentUpon>CompareBikesMin.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="controls\ComparisonMin.ascx.cs">
       <DependentUpon>ComparisonMin.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\ComparisonMin_old.ascx.cs">
-      <DependentUpon>ComparisonMin_old.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\DateControl.ascx.cs">
@@ -649,6 +641,10 @@
       <DependentUpon>UsedBikeWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\UsedRecentBikes.ascx.cs">
+      <DependentUpon>UsedRecentBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\UserFeedBack.ascx.cs">
       <DependentUpon>UserFeedBack.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -755,10 +751,6 @@
     </Compile>
     <Compile Include="m\controls\CompareBikeMin.ascx.cs">
       <DependentUpon>CompareBikeMin.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\controls\CompareBikeMin_old.ascx.cs">
-      <DependentUpon>CompareBikeMin_old.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\CompareBikesMin.ascx.cs">
@@ -1310,12 +1302,12 @@
     <Compile Include="used\common\ParseSearchCriteria.cs" />
     <Compile Include="used\common\SearchCommon.cs" />
     <Compile Include="used\common\SellBikeCommon.cs" />
-    <Compile Include="used\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="used\Default20102016.aspx.cs">
+      <DependentUpon>Default20102016.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="used\Default_v2.aspx.cs">
-      <DependentUpon>Default_v2.aspx</DependentUpon>
+    <Compile Include="used\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="used\Search.aspx.cs">
@@ -1744,10 +1736,8 @@
     <Content Include="controls\BrowseBikes.ascx" />
     <Content Include="controls\BrowseUserReviews.ascx" />
     <Content Include="controls\CalculateEMIMin.ascx" />
-    <Content Include="controls\CompareBikesMin.ascx" />
     <Content Include="controls\ComparisonMin.ascx" />
     <Content Include="controls\ComparisonMinInner.ascx" />
-    <Content Include="controls\ComparisonMin_old.ascx" />
     <Content Include="controls\DateControl.ascx" />
     <Content Include="controls\DiscussIt.ascx" />
     <Content Include="controls\EMICalculatorMin.ascx" />
@@ -1801,6 +1791,7 @@
     <Content Include="controls\UsedBikes.ascx" />
     <Content Include="controls\UsedBikeSearch.ascx" />
     <Content Include="controls\UsedBikeWidget.ascx" />
+    <Content Include="controls\UsedRecentBikes.ascx" />
     <Content Include="controls\UserFeedBack.ascx" />
     <Content Include="controls\UserReviewsList.ascx" />
     <Content Include="controls\UsersTestimonials.ascx" />
@@ -1819,6 +1810,8 @@
     <Content Include="css\bw-pq.css" />
     <Content Include="css\cancellation.css" />
     <Content Include="css\chosen.min.css" />
+    <Content Include="css\components\article.css" />
+    <Content Include="css\components\compare-bikes.css" />
     <Content Include="css\css-new-photos.css" />
     <Content Include="css\css-research-photos.css" />
     <Content Include="css\datepicker.css" />
@@ -1864,6 +1857,7 @@
     <Content Include="css\style_carousal.css" />
     <Content Include="css\used-cd.css" />
     <Content Include="css\used-search.css" />
+    <Content Include="css\used\bikes-in-city.css" />
     <Content Include="css\used\landing.css" />
     <Content Include="css\used\details.css" />
     <Content Include="default.aspx" />
@@ -2262,7 +2256,6 @@
     <Content Include="m\controls\AlternativeBikes.ascx" />
     <Content Include="m\controls\BookBikeSlug.ascx" />
     <Content Include="m\controls\CompareBikeMin.ascx" />
-    <Content Include="m\controls\CompareBikeMin_old.ascx" />
     <Content Include="m\controls\CompareBikesMin.ascx" />
     <Content Include="m\controls\DealersCard.ascx" />
     <Content Include="m\controls\ExpertReviewsWidget.ascx" />
@@ -2318,6 +2311,9 @@
     <Content Include="m\css\bwm-model-btf.css" />
     <Content Include="m\css\bwm-model.css" />
     <Content Include="m\css\bwm-newbikes.css" />
+    <Content Include="m\css\components\article.css" />
+    <Content Include="m\css\components\compare-bikes.css" />
+    <Content Include="m\css\components\used-swiper.css" />
     <Content Include="m\css\dealerpricequote.css" />
     <Content Include="m\css\dealerpricequote-old.css" />
     <Content Include="m\css\dealer\landing.css" />
@@ -2590,8 +2586,8 @@
     <Content Include="used\BikesByModel.aspx" />
     <Content Include="used\BikesInCity.aspx" />
     <Content Include="used\bikesold.aspx" />
+    <Content Include="used\Default20102016.aspx" />
     <Content Include="used\Default.aspx" />
-    <Content Include="used\Default_v2.aspx" />
     <Content Include="used\Search.aspx" />
     <Content Include="used\sell\confirmation.aspx" />
     <Content Include="used\sell\default.aspx" />

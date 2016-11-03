@@ -408,7 +408,7 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
 
 .used-swiper .swiper-image-preview {
     width: 100%;
-    height: auto;
+    height: 110px;
     padding: 5px 5px 0;
     display: table;
     text-align: center;

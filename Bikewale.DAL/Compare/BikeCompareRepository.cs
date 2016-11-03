@@ -231,6 +231,8 @@ namespace Bikewale.DAL.Compare
         /// <summary>
         /// Modified by :   Sumit Kate on 29 Jan 2016
         /// Description :   Populate Versions image related entity properties.
+        /// Modified By : Sushil Kumar on 27th Oct 2016
+        /// Description : Removed unused properties binding image
         /// </summary>
         /// <param name="topCount"></param>
         /// <returns></returns>
@@ -239,7 +241,7 @@ namespace Bikewale.DAL.Compare
             List<TopBikeCompareBase> topBikeList = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikecomparisonmin_29012016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikecomparisonmin_27102016"))
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
@@ -265,9 +267,6 @@ namespace Bikewale.DAL.Compare
 
                                     Price1 = GetUint32(reader["Price1"]),
                                     Price2 = GetUint32(reader["Price2"]),
-
-                                    HostURL = GetString(reader["HostUrl"]),
-                                    OriginalImagePath = GetString(reader["OriginalImagePath"]),
 
                                     VersionId1 = GetUInt16(reader["VersionId1"]),
                                     VersionId2 = GetUInt16(reader["VersionId2"]),
@@ -299,22 +298,23 @@ namespace Bikewale.DAL.Compare
 
         /// <summary>
         /// Created by: Sangram Nandkhile on 11 May 2016
-        /// </summary>
+        /// Modified by :Subodh Jain on 21 oct 2016
+        /// Desc : Added cityid as parameter
         /// <param name="versionList"></param>
         /// <param name="topCount"></param>
         /// <returns></returns>
-        public IEnumerable<SimilarCompareBikeEntity> GetSimilarCompareBikes(string versionList, uint topCount)
+        public IEnumerable<SimilarCompareBikeEntity> GetSimilarCompareBikes(string versionList, uint topCount, int cityid)
         {
             List<SimilarCompareBikeEntity> similarBikeList = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getsimilarcomparebikeslist_12092016";
+                    cmd.CommandText = "getsimilarcomparebikeslist_13102016";
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionidlist", DbType.String, 20, versionList));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_percentdeviation", DbType.Int16, DBNull.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityid));
                     // LogLiveSps.LogSpInGrayLog(command);
                     using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -342,7 +342,9 @@ namespace Bikewale.DAL.Compare
                                     Price1 = GetInt32(reader["Price1"]),
                                     Price2 = GetInt32(reader["Price2"]),
                                     HostUrl1 = GetString(reader["HostUrl1"]),
-                                    HostUrl2 = GetString(reader["HostUrl2"])
+                                    HostUrl2 = GetString(reader["HostUrl2"]),
+                                    City1 = GetString(reader["city1"]),
+                                    City2 = GetString(reader["city2"])
                                 });
                             }
                             reader.Close();

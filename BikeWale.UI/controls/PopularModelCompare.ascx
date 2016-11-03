@@ -17,7 +17,7 @@
                                             
                                         </div>
                                     </div>
-                                    <p class="text-light-grey margin-bottom5">Ex-showroom,  <%=Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
+                                    <p class="text-light-grey margin-bottom5">Ex-showroom, <%# DataBinder.Eval(Container.DataItem, "City1").ToString() %> </p>
                                     <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-default text-bold"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem, "Price1").ToString())%></span>
                                 </div>
                                 <div class="grid-6 padding-left30 omega">
@@ -26,7 +26,7 @@
                                            <img src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath2").ToString(),DataBinder.Eval(Container.DataItem,"HostURL2").ToString(),Bikewale.Utility.ImageSize._174x98) %>" />
                                         </div>
                                     </div>
-                                    <p class="text-light-grey margin-bottom5">Ex-showroom, <%=Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
+                                    <p class="text-light-grey margin-bottom5">Ex-showroom, <%# DataBinder.Eval(Container.DataItem, "City2").ToString() %></p>
                                     <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-default text-bold"><%#Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem, "Price2").ToString())%></span>
                                 </div>
                                 <div class="clear"></div>

@@ -18,6 +18,8 @@ namespace Bikewale.Mobile.Controls
         public string MakeName { get; set; }
         public string ModelName { get; set; }
         protected string linkTitle = string.Empty;
+        private bool _showWidget = true;
+        public bool ShowWidgetTitle { get { return _showWidget; } set { _showWidget = value; } }
 
 
         protected override void OnInit(EventArgs e)

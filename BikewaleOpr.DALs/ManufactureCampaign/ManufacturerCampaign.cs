@@ -1,8 +1,8 @@
 ﻿using Bikewale.Notifications;
 using Bikewale.Utility;
 using BikewaleOpr.Entities;
-using BikewaleOpr.Entity.ContractCampaign;
-using BikewaleOpr.Entity.ManufacturerCampaign;
+using BikewaleOpr.Entities.ContractCampaign;
+using BikewaleOpr.Entities.ManufacturerCampaign;
 using BikewaleOpr.Interface.ManufacturerCampaign;
 using MySql.CoreDAL;
 using System;
@@ -456,9 +456,9 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         /// </summary>
         /// <param name="campaignId"></param>
         /// <returns></returns>
-        public List<BikewaleOpr.Entity.ManufacturerCampaign.ManufacturerCampaignEntity> FetchCampaignDetails(int campaignId)
+        public List<BikewaleOpr.Entities.ManufacturerCampaign.ManufacturerCampaignEntity> FetchCampaignDetails(int campaignId)
         {
-            List<BikewaleOpr.Entity.ManufacturerCampaign.ManufacturerCampaignEntity> objManufacturerCampaignDetails = null;
+            List<BikewaleOpr.Entities.ManufacturerCampaign.ManufacturerCampaignEntity> objManufacturerCampaignDetails = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("fetchcampaigndetails"))
@@ -469,10 +469,10 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                     {
                         if (dr != null)
                         {
-                            objManufacturerCampaignDetails = new List<BikewaleOpr.Entity.ManufacturerCampaign.ManufacturerCampaignEntity>();
+                            objManufacturerCampaignDetails = new List<BikewaleOpr.Entities.ManufacturerCampaign.ManufacturerCampaignEntity>();
                             while (dr.Read())
                             {
-                                objManufacturerCampaignDetails.Add(new BikewaleOpr.Entity.ManufacturerCampaign.ManufacturerCampaignEntity() { CampaignDescription = dr["Description"].ToString(), CampaignMaskingNumber = dr["maskingnumber"].ToString(), IsActive = SqlReaderConvertor.ToInt32(dr["isactive"]), IsDefault = SqlReaderConvertor.ToInt32(dr["isdefault"]), PageId = SqlReaderConvertor.ToInt32(dr["pageid"]), TemplateHtml = dr["templatehtml"].ToString(), TemplateId = SqlReaderConvertor.ToInt32(dr["id"]) });
+                                objManufacturerCampaignDetails.Add(new BikewaleOpr.Entities.ManufacturerCampaign.ManufacturerCampaignEntity() { CampaignDescription = dr["Description"].ToString(), CampaignMaskingNumber = dr["maskingnumber"].ToString(), IsActive = SqlReaderConvertor.ToInt32(dr["isactive"]), IsDefault = SqlReaderConvertor.ToInt32(dr["isdefault"]), PageId = SqlReaderConvertor.ToInt32(dr["pageid"]), TemplateHtml = dr["templatehtml"].ToString(), TemplateId = SqlReaderConvertor.ToInt32(dr["id"]) });
                             }
                         }
                     }
