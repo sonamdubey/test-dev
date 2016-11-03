@@ -67,6 +67,7 @@ gulp.task('bw-sass', function (callback) {
 gulp.task('bw-service-sass', function () {
     return gulp.src(sassPaths.bw.service.source, { base: 'BikeWale.UI/sass/service/' })
         .pipe(sass().on('error', sass.logError))
+        .pipe(cleanCss())
         .pipe(gulp.dest(sassPaths.bw.service.target));
 });
 
