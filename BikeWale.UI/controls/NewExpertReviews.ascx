@@ -21,7 +21,7 @@
                     </div>
                     <div class="article-stats-right-grid">
                         <span class="bwsprite author-grey-sm-icon"></span>
-                        <span class="article-stats-content"><%# DataBinder.Eval(Container.DataItem, "AuthorName").ToString()%></span>
+                        <span class="article-stats-content"><%# DataBinder.Eval(Container.DataItem, "AuthorName").ToString() %></span>
                     </div>
                     <p class="line-height17 margin-top10">
                         <%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Description").ToString(),280) %>

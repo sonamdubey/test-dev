@@ -35,7 +35,7 @@ namespace Bikewale.PriceQuote
         protected LeadCaptureControl ctrlLeadCapture;
         protected HtmlGenericControl divAllVersions, div_ShowPQ, divUserReviews;
 
-        protected string city = string.Empty, priceQuoteId = string.Empty, make = string.Empty, imgPath = String.Empty, dealerId = string.Empty;
+        protected string city = string.Empty, priceQuoteId = string.Empty, make = string.Empty, imgPath = String.Empty, dealerId = string.Empty,modelName = string.Empty;
         protected uint cityId = 0, areaId = 0;
         protected MakeModelVersion mmv = null;
         protected BikeQuotationEntity objQuotation = null;
@@ -124,7 +124,7 @@ namespace Bikewale.PriceQuote
 
 
                     BindVersion(mmv.ModelId);
-
+                    modelName = mmv.Model;
                     BindAlternativeBikeControl(Convert.ToString(PriceQuoteQueryString.VersionId));
 
                     //To get Upcoming Bike List Details 
@@ -303,6 +303,7 @@ namespace Bikewale.PriceQuote
                 ctrlAlternativeBikes.VersionId = Convert.ToUInt32(versionId);
                 ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_PQ_Alternative;
                 ctrlAlternativeBikes.cityId = cityId;
+                ctrlAlternativeBikes.model = modelName;
             }
         }
     }   // End of class

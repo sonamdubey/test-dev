@@ -225,6 +225,8 @@ namespace Bikewale.Mobile.New
         {
             ctrlCompareBikes.versionId = versionId;
             ctrlCompareBikes.versionName = bikeModelName;
+            ctrlCompareBikes.cityid = Convert.ToInt32(cityId);
+            ctrlCompareBikes.TopCount = 6;
             ////news,videos,revews, user reviews
             ctrlNews.TotalRecords = 3;
             ctrlNews.ModelId = Convert.ToInt32(modelId);
@@ -358,6 +360,7 @@ namespace Bikewale.Mobile.New
                 ctrlAlternativeBikes.VersionId = Convert.ToUInt32(modelPage.ModelVersions[0].VersionId);
                 ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Mobile_ModelPage_Alternative;
                 ctrlAlternativeBikes.WidgetTitle = bikeName;
+                ctrlAlternativeBikes.CityId = cityId;
                 ctrlAlternativeBikes.modelName = modelPage.ModelDetails.ModelName;
             }
         }
