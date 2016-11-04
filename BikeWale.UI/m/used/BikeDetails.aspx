@@ -141,14 +141,18 @@
                             <p class="specs-features-label">Bike registered at</p>
                             <p class="specs-features-value"><%= inquiryDetails.OtherDetails.RegisteredAt %></p>
                         </li>
+                         <% if (!String.IsNullOrEmpty(inquiryDetails.OtherDetails.Insurance)) %>
                         <li>
                             <p class="specs-features-label">Insurance</p>
                             <p class="specs-features-value"><%= inquiryDetails.OtherDetails.Insurance %></p>
                         </li>
+                        <%} %>
+                        <% if (!String.IsNullOrEmpty(inquiryDetails.OtherDetails.RegistrationNo)) %>
                         <li>
                             <p class="specs-features-label">Registration no.</p>
                             <p class="specs-features-value"><%= inquiryDetails.OtherDetails.RegistrationNo %></p>
                         </li>
+                        <%} %>
                     </ul>
                     <div class="clear"></div>
                     <% if (!string.IsNullOrEmpty(inquiryDetails.OtherDetails.Description))
