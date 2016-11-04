@@ -381,6 +381,10 @@
       <DependentUpon>LeadCaptureControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\LogInoutControl.ascx.cs">
+      <DependentUpon>LogInoutControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\NewsMin.ascx.cs">
       <DependentUpon>NewsMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1076,6 +1080,10 @@
       <DependentUpon>Search.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\users\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\videos\video.aspx.cs">
       <DependentUpon>video.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1728,6 +1736,7 @@
     <Content Include="content\UserReviews\WriteReviews.aspx" />
     <Content Include="controls\DealerCard.ascx" />
     <Content Include="controls\LeadCaptureControl.ascx" />
+    <Content Include="controls\LogInoutControl.ascx" />
     <Content Include="controls\NewsMin.ascx" />
     <Content Include="controls\OtherUsedBikeByCity.ascx" />
     <Content Include="controls\PopularModelCompare.ascx" />
@@ -2454,6 +2463,7 @@
     <Content Include="m\used\BikesInCity.aspx" />
     <Content Include="m\used\Default.aspx" />
     <Content Include="m\used\Search.aspx" />
+    <Content Include="m\users\Login.aspx" />
     <Content Include="m\videos\video.aspx" />
     <Content Include="m\videos\VideoCategories.aspx" />
     <Content Include="m\videos\default.aspx" />
