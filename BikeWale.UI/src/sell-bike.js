@@ -110,7 +110,7 @@ var sellBike = function () {
     self.inquiryId = ko.observable(0);
     self.customerId = ko.observable();
     self.profileId = ko.pureComputed(function getProfileId() {
-       return (self.personalDetails().sellerTypeVal() == 1 ? "D" : "S" + self.inquiryId());
+       return ((self.personalDetails().sellerTypeVal() == 1 ? "D" : "S") + self.inquiryId());
     }, this);
     if (isAuthorized == "False") {
         self.isFakeCustomer = ko.observable(true);
@@ -181,8 +181,8 @@ var sellBike = function () {
                 });
 
                 this.on("removedfile", function (file) {
-                    if(self.removePhoto($(file._removeLink).attr("photoid")))
-                        setProfilePhoto();
+                    self.removePhoto($(file._removeLink).attr("photoid"));
+                    setProfilePhoto();
                 });
 
                 this.on("success", function (file,response) {
@@ -735,6 +735,7 @@ var personalDetails = function () {
             colorId = 0;
 
         var sellerType = $('#seller-type-list .checked').attr("value");
+        debugger;
         self.sellerTypeVal(sellerType);
         var km = vmSellBike.bikeDetails().kmsRidden();
 
