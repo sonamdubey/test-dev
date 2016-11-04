@@ -734,8 +734,7 @@ var personalDetails = function () {
         if (!("colorId" in window))
             colorId = 0;
 
-        var sellerType = $('#seller-type-list .checked').attr("value");
-        debugger;
+        var sellerType = $('#seller-type-list .checked').attr("value");        
         self.sellerTypeVal(sellerType);
         var km = vmSellBike.bikeDetails().kmsRidden();
 
