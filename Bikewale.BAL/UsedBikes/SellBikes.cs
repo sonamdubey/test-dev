@@ -149,7 +149,7 @@ namespace Bikewale.BAL.UsedBikes
                     //Register the new customer and send login details
                     objCust = new CustomerEntity() { CustomerName = user.CustomerName, CustomerEmail = user.CustomerEmail, CustomerMobile = user.CustomerMobile };
                     user.CustomerId = _objCustomer.Add(objCust);
-                    SendEmailSMSToDealerCustomer.CustomerRegistrationEmail(objCust.CustomerEmail,objCust.CustomerName,objCust.Password);
+                    SendEmailSMSToDealerCustomer.CustomerRegistrationEmail(objCust.CustomerEmail, objCust.CustomerName, objCust.Password);
                 }
             }
             catch (Exception ex)
@@ -478,10 +478,13 @@ namespace Bikewale.BAL.UsedBikes
                 if (Utility.UsedBikeProfileId.IsValidProfileId(profileId))
                 {
                     Utility.UsedBikeProfileId.SplitProfileId(profileId, out inquiryId, out inquiryType);
-                    inqId = Convert.ToInt32(inquiryId);
-                    if (customerId > 0 && _sellBikeRepository.GetById(inqId, customerId) != null)
+                    if (!String.IsNullOrEmpty(inquiryId))
                     {
-                        isSuccess = _sellBikeRepository.MarkMainImage(inqId, photoId, inquiryType.Equals("D", StringComparison.CurrentCultureIgnoreCase));
+                        inqId = Convert.ToInt32(inquiryId);
+                        if (customerId > 0 && _sellBikeRepository.GetById(inqId, customerId) != null)
+                        {
+                            isSuccess = _sellBikeRepository.MarkMainImage(inqId, photoId, inquiryType.Equals("D", StringComparison.CurrentCultureIgnoreCase));
+                        }
                     }
                 }
             }
