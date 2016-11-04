@@ -176,9 +176,12 @@ namespace Bikewale.Used.Sell
                     if (obj != null)
                     {
                         SellBikeAd inquiryDetailsObject = obj.GetById((int)inquiryId, Convert.ToUInt64(userId));
-                        inquiryDTO = ConvertToDto(inquiryDetailsObject);
-                        if (inquiryDTO != null)
-                            inquiryDTO.ManufacturingYear = (DateTime)inquiryDTO.ManufacturingYear;
+                        if (inquiryDetailsObject != null)
+                        {
+                            inquiryDTO = ConvertToDto(inquiryDetailsObject);
+                            if (inquiryDTO != null)
+                                inquiryDTO.ManufacturingYear = (DateTime)inquiryDTO.ManufacturingYear;
+                        }
                         isAuthorized = inquiryDetailsObject == null ? false : true;
                     }
                 }

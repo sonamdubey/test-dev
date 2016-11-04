@@ -184,15 +184,18 @@ namespace Bikewale.BAL.UsedBikes
                 if (sellBike != null)
                 {
                     sellBike.Photos = _sellBikeRepository.GetBikePhotos(inquiryId, false);
-                    foreach (BikePhoto photo in sellBike.Photos)
+                    if (sellBike.Photos != null)
                     {
-                        if (!photo.HostUrl.Contains("aeplcdn"))
+                        foreach (BikePhoto photo in sellBike.Photos)
                         {
-                            photo.ImageUrl = String.Format("http://{0}{1}", photo.HostUrl, photo.OriginalImagePath);
-                        }
-                        else
-                        {
-                            photo.ImageUrl = Utility.Image.GetPathToShowImages(photo.OriginalImagePath, photo.HostUrl, ImageSize._144x81);
+                            if (!photo.HostUrl.Contains("aeplcdn"))
+                            {
+                                photo.ImageUrl = String.Format("http://{0}{1}", photo.HostUrl, photo.OriginalImagePath);
+                            }
+                            else
+                            {
+                                photo.ImageUrl = Utility.Image.GetPathToShowImages(photo.OriginalImagePath, photo.HostUrl, ImageSize._144x81);
+                            }
                         }
                     }
                 }
