@@ -142,14 +142,14 @@
             dictDefaultMessage: "Drop files here to upload",
             dictFallbackMessage: "Your browser does not support drag'n'drop file uploads.",
             dictFallbackText: "Please use the fallback form below to upload your files like in the olden days.",
-            dictFileTooBig: "File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.",
-            dictInvalidFileType: "You can't upload files of this type.",
+            dictFileTooBig: "File is too big.",
+            dictInvalidFileType: "Invalid file type.",
             dictResponseError: "Server responded with {{statusCode}} code.",
             dictCancelUpload: "Cancel upload",
             dictCancelUploadConfirmation: "Are you sure you want to cancel this upload?",
             dictRemoveFile: "Remove File",
             dictRemoveFileConfirmation: null,
-            dictMaxFilesExceeded: "You can not upload any more files.",
+            dictMaxFilesExceeded: "File upload limit reached.",
             accept: function (file, done) {
                 return done();
             },
@@ -248,7 +248,7 @@
             reset: function () {
                 return this.element.classList.remove("dz-started");
             },
-            addedfile: function (file) {
+            addedfile: function (file) {                
                 var node, removeFileEvent, removeLink, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2, _results;
                 if (this.element === this.previewsContainer) {
                     this.element.classList.add("dz-started");
@@ -267,7 +267,7 @@
                         node = _ref1[_j];
                         node.innerHTML = this.filesize(file.size);
                     }
-                    if (this.options.addRemoveLinks) {
+                    if (this.options.addRemoveLinks) {                        
                         file._removeLink = Dropzone.createElement("<a class=\"dz-remove\" href=\"javascript:void(0);\" data-dz-remove><span class=\"dz-remove-icon bwsprite cross-md-white\"></span></a>");
                         file.previewElement.appendChild(file._removeLink);
                     }
@@ -308,7 +308,7 @@
                 }
                 return this._updateMaxFilesReachedClass();
             },
-            thumbnail: function (file, dataUrl) {
+            thumbnail: function (file, dataUrl) {                
                 var thumbnailElement, _i, _len, _ref;
                 if (file.previewElement) {
                     file.previewElement.classList.remove("dz-file-preview");
@@ -380,7 +380,7 @@
                 return this.emit("error", file, "Upload canceled.");
             },
             canceledmultiple: noop,
-            complete: function (file) {
+            complete: function (file) {                
                 if (file._removeLink) {
                     file._removeLink.innerHTML = "<span class=\"dz-remove-icon bwsprite cross-md-white\" title=\"Remove photo\"></span>";
                 }

@@ -61,7 +61,7 @@ namespace Bikewale.Service.AutoMappers.UsedBikes
             AutoMapper.Mapper.CreateMap<Bikewale.Entities.Used.SellAdStatus, Bikewale.DTO.UsedBikes.SellAdStatus>();
             AutoMapper.Mapper.CreateMap<SellBikeAdOtherInformation, SellBikeAdOtherInformationDTO>();
             AutoMapper.Mapper.CreateMap<SellerEntity, SellerDTO>();
-
+            AutoMapper.Mapper.CreateMap<BikePhoto, Bikewale.DTO.Used.Search.BikePhoto>();
             AutoMapper.Mapper.CreateMap<SellBikeAd, SellBikeAdDTO>();
             return AutoMapper.Mapper.Map<SellBikeAdDTO>(sellBikeAd);
         }
@@ -74,7 +74,7 @@ namespace Bikewale.Service.AutoMappers.UsedBikes
             AutoMapper.Mapper.CreateMap<Bikewale.DTO.UsedBikes.SellAdStatus, Bikewale.Entities.Used.SellAdStatus>();
             AutoMapper.Mapper.CreateMap<SellBikeAdOtherInformationDTO, SellBikeAdOtherInformation>();
             AutoMapper.Mapper.CreateMap<SellerDTO, SellerEntity>();
-
+            AutoMapper.Mapper.CreateMap<Bikewale.DTO.Used.Search.BikePhoto, BikePhoto>();
             AutoMapper.Mapper.CreateMap<SellBikeAdDTO, SellBikeAd>();
             return AutoMapper.Mapper.Map<SellBikeAd>(sellBikeAd);
         }

@@ -5,6 +5,7 @@ using Bikewale.Interfaces.Used;
 using Bikewale.Notifications;
 using MySql.CoreDAL;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 namespace Bikewale.DAL.Used
@@ -364,6 +365,85 @@ namespace Bikewale.DAL.Used
                 objErr.SendMail();
             } // catch Exception
             return url;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 02 Nov 2016
+        /// Description :   Returns the used Bike photos
+        /// </summary>
+        /// <param name="inquiryId"></param>
+        /// <param name="isApproved"></param>
+        /// <returns></returns>
+        public IEnumerable<BikePhoto> GetBikePhotos(U inquiryId, bool isApproved)
+        {
+            ICollection<BikePhoto> photos = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("classified_getlistingphotos"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.String, 50, inquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isaprooved", DbType.SByte, 8, isApproved ? 1 : 0));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null)
+                        {
+                            photos = new List<BikePhoto>();
+
+                            while (dr.Read())
+                            {
+                                photos.Add(
+                                    new BikePhoto()
+                                    {
+                                        IsMain = Utility.SqlReaderConvertor.ToBoolean(dr["ismain"]),
+                                        HostUrl = Convert.ToString(dr["hosturl"]),
+                                        OriginalImagePath = Convert.ToString(dr["originalimagepath"]),
+                                        Id = Utility.SqlReaderConvertor.ToUInt32(dr["id"])
+                                    }
+                                    );
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("GetBikePhotos({0},{1})", inquiryId, isApproved));
+                objErr.SendMail();
+            }
+            return photos;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 03 Nov 2016
+        /// Description :   Marks gived photoid as main image for sell bike inquiry specified by inquiryid
+        /// </summary>
+        /// <param name="inquiryId"></param>
+        /// <param name="photoId"></param>
+        /// <param name="isDealer"></param>
+        /// <returns></returns>
+        public bool MarkMainImage(U inquiryId, uint photoId, bool isDealer)
+        {
+            bool isMain = false;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("classified_bikephotos_mainimage"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbType.Int32, photoId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealer", DbType.Boolean, isDealer));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    isMain = true;
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, String.Format("MarkMainImage({0})", inquiryId, photoId, isDealer));
+                objErr.SendMail();
+            }
+            return isMain;
         }
     }
 }

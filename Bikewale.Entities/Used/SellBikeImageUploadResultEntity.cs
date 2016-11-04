@@ -32,7 +32,8 @@ namespace Bikewale.Entities.Used
     {
         Success = 1,
         UnauthorizedAccess = 2,
-        FileUploadLimitExceeded = 3
+        FileUploadLimitExceeded = 3,
+        InternalError = 4
     }
 
     /// <summary>

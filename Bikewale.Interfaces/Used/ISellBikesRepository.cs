@@ -1,6 +1,7 @@
 ﻿
 using Bikewale.Entities.Used;
 using System;
+using System.Collections.Generic;
 namespace Bikewale.Interfaces.Used
 {
     /// <summary>
@@ -15,5 +16,7 @@ namespace Bikewale.Interfaces.Used
         bool IsFakeCustomer(ulong customerId);
         string SaveBikePhotos(bool isMain, bool isDealer, U inquiryId, string originalImageName, string description);
         string UploadImageToCommonDatabase(string photoId, string imageName, ImageCategories imgC, string directoryPath);
+        IEnumerable<BikePhoto> GetBikePhotos(U inquiryId, bool isApproved);
+        bool MarkMainImage(U inquiryId, uint photoId, bool isDealer);
     }
 }
