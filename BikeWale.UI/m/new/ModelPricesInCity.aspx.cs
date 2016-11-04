@@ -374,7 +374,7 @@ namespace Bikewale.Mobile.New
 
         private void BindAlternativeBikeControl()
         {
-            ctrlAlternateBikes.TopCount = 6;
+            ctrlAlternateBikes.TopCount = 9;
             ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_PriceInCity_AlternateBikes;
             ctrlAlternateBikes.WidgetTitle = bikeName;
             ctrlAlternateBikes.modelName = modelName;
