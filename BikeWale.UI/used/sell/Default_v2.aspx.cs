@@ -170,25 +170,21 @@ namespace Bikewale.Used.Sell
                     container.RegisterType<IMobileVerification, MobileVerification>();
                     container.RegisterType<IUsedBikeBuyerRepository, UsedBikeBuyerRepository>();
                     container.RegisterType<ISellBikesRepository<SellBikeAd, int>, SellBikesRepository<SellBikeAd, int>>();
+                    container.RegisterType<IUsedBikeSellerRepository, UsedBikeSellerRepository>();
                     container.RegisterType<ISellBikes, SellBikes>();
                     obj = container.Resolve<ISellBikes>();
+                    if (obj != null)
+                    {
+                        SellBikeAd inquiryDetailsObject = obj.GetById((int)inquiryId, Convert.ToUInt64(userId));
+                        if (inquiryDetailsObject != null)
+                        {
+                            inquiryDTO = ConvertToDto(inquiryDetailsObject);
+                            if (inquiryDTO != null)
+                                inquiryDTO.ManufacturingYear = (DateTime)inquiryDTO.ManufacturingYear;
+                        }
+                        isAuthorized = inquiryDetailsObject == null ? false : true;
+                    }
                 }
-
-                SellBikeAd inquiryDetailsObject = obj.GetById((int)inquiryId, Convert.ToUInt64(userId));
-                inquiryDTO = ConvertToDto(inquiryDetailsObject);
-
-                if (inquiryDTO != null)
-                    inquiryDTO.ManufacturingYear = (DateTime)inquiryDTO.ManufacturingYear;
-
-                if (inquiryDetailsObject == null)
-                {
-                    isAuthorized = false;
-                }
-                else
-                {
-                    isAuthorized = true;
-                }
-
             }
             catch (Exception ex)
             {
@@ -210,6 +206,7 @@ namespace Bikewale.Used.Sell
             AutoMapper.Mapper.CreateMap<Bikewale.Entities.Used.SellAdStatus, Bikewale.DTO.UsedBikes.SellAdStatus>();
             AutoMapper.Mapper.CreateMap<SellBikeAdOtherInformation, SellBikeAdOtherInformationDTO>();
             AutoMapper.Mapper.CreateMap<SellerEntity, SellerDTO>();
+            AutoMapper.Mapper.CreateMap<BikePhoto, Bikewale.DTO.Used.Search.BikePhoto>();
             AutoMapper.Mapper.CreateMap<SellBikeAd, SellBikeAdDTO>();
             return AutoMapper.Mapper.Map<SellBikeAdDTO>(inquiryDetailsObject);
         }

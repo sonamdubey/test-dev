@@ -18,5 +18,6 @@ namespace Bikewale.Interfaces.Used
         bool IsFakeCustomer(ulong customerId);
         bool RemoveBikePhotos(ulong customerId, string profileId, string photoId);
         SellBikeImageUploadResultEntity UploadBikeImage(bool isMain, ulong customerId, string profileId, string description, HttpFileCollection imageFile);
+        bool MakeMainImage(uint photoId, ulong customerId, string profileId);
     }
 }

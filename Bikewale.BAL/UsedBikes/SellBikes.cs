@@ -5,13 +5,14 @@ using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Interfaces.Used;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using RabbitMqPublishing;
 using System;
-using System.Web;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Web;
 namespace Bikewale.BAL.UsedBikes
@@ -95,7 +96,7 @@ namespace Bikewale.BAL.UsedBikes
 
         private void AddOrUpdateAd(SellBikeAd ad)
         {
-           
+
             if (ad.InquiryId > 0)
             {
                 _sellBikeRepository.Update(ad);
@@ -107,8 +108,8 @@ namespace Bikewale.BAL.UsedBikes
                 ad.InquiryId = (uint)inquiryId;
                 string bikeName = String.Format("{0} {1} {2}", ad.Make.MakeName, ad.Model.ModelName, ad.Version.VersionName);
                 string profileId = null;
-                
-                 if (ad.Seller.SellerType == SellerType.Individual)
+
+                if (ad.Seller.SellerType == SellerType.Individual)
                 {
                     profileId = String.Format("S{0}", ad.InquiryId);
                 }
@@ -116,9 +117,9 @@ namespace Bikewale.BAL.UsedBikes
                 else if (ad.Seller.SellerType == SellerType.Dealer)
                 {
                     profileId = String.Format("D{0}", ad.InquiryId);
-                } 
+                }
                 //send sms and email to seller on successful listing
-                
+
                 SendEmailSMSToDealerCustomer.UsedBikeAdEmailToIndividual(ad.Seller, profileId, bikeName, ad.Expectedprice.ToString());
                 SMSTypes smsType = new SMSTypes();
                 smsType.UsedSellSuccessfulListingSMS(
@@ -169,9 +170,44 @@ namespace Bikewale.BAL.UsedBikes
             return _mobileVerRespo.VerifyMobileVerificationCode(seller.CustomerMobile, seller.Otp, seller.Otp);
         }
 
-        public SellBikeAd  GetById(int inquiryId, ulong customerId)
+        /// <summary>
+        /// Modified by :   Sumit Kate on 02 Nov 2016
+        /// Description :   Return bike photos along with profile details
+        /// </summary>
+        /// <param name="inquiryId"></param>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        public SellBikeAd GetById(int inquiryId, ulong customerId)
         {
-            return _sellBikeRepository.GetById(inquiryId, customerId);
+            try
+            {
+                SellBikeAd sellBike = _sellBikeRepository.GetById(inquiryId, customerId);
+                if (sellBike != null)
+                {
+                    sellBike.Photos = _sellBikeRepository.GetBikePhotos(inquiryId, false);
+                    if (sellBike.Photos != null)
+                    {
+                        foreach (BikePhoto photo in sellBike.Photos)
+                        {
+                            if (!photo.HostUrl.Contains("aeplcdn"))
+                            {
+                                photo.ImageUrl = String.Format("http://{0}{1}", photo.HostUrl, photo.OriginalImagePath);
+                            }
+                            else
+                            {
+                                photo.ImageUrl = Utility.Image.GetPathToShowImages(photo.OriginalImagePath, photo.HostUrl, ImageSize._144x81);
+                            }
+                        }
+                    }
+                }
+                return sellBike;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("GetById({0},{1})", inquiryId, customerId));
+                objErr.SendMail();
+                return null;
+            }
         }
 
         public bool IsFakeCustomer(ulong custId)
@@ -199,10 +235,10 @@ namespace Bikewale.BAL.UsedBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("RemoveBikePhotos: ProfileId {0}, CustomerId {1}, photoId {2}", profileId, customerId,photoId));
+                ErrorClass objErr = new ErrorClass(ex, String.Format("RemoveBikePhotos: ProfileId {0}, CustomerId {1}, photoId {2}", profileId, customerId, photoId));
                 objErr.SendMail();
             }
-           
+
             return isSuccess;
         }
 
@@ -236,20 +272,22 @@ namespace Bikewale.BAL.UsedBikes
             {
                 string inquiryId = String.Empty;
                 string inquiryType = String.Empty;
-
+                SellBikeAd ad = null;
                 Utility.UsedBikeProfileId.SplitProfileId(profileId, out inquiryId, out inquiryType);
-
+                IEnumerable<BikePhoto> photos = null;
                 if (null != _sellBikeRepository.GetById(Convert.ToInt32(inquiryId), customerId))
                 {
-                    int index = 0;
+                    int index = 0, photoCount = 0;
                     string imageFileName, fileExtension, folderpath, fileName, fileSaveLocation, photoId, imgUrl;
                     string originalImagePath = String.Format("/bw/used/{0}/", profileId);
                     HttpPostedFile imageFile = null;
                     result.ImageResult = new List<SellBikeImageUploadResultBase>();
 
+                    photos = _sellBikeRepository.GetBikePhotos(Convert.ToInt32(inquiryId), false);
+                    photoCount = photos != null ? photos.Count() : 0;
                     result.Status = ImageUploadResultStatus.Success;
 
-                    if (imageFiles.Count <= MAX_UPLOAD_FILES_LIMIT)
+                    if (MAX_UPLOAD_FILES_LIMIT > photoCount)
                     {
                         folderpath = CreateImageFileDirectory(profileId);
                         foreach (string file in imageFiles)
@@ -266,12 +304,15 @@ namespace Bikewale.BAL.UsedBikes
 
                                     if (Utility.Image.IsValidFileExtension(imageFileName, out fileExtension))
                                     {
-                                        fileName = String.Format("{0}_{1}{2}", Utility.UsedBikeProfileId.GetProfileNo(profileId), DateTime.Now.ToString("yyyyMMddhhmmssfff"), fileExtension);
+                                        fileName = String.Format("{0}_{1}_{2}{3}",
+                                            Utility.UsedBikeProfileId.GetProfileNo(profileId),
+                                            DateTime.Now.ToString("yyyyMMddhhmmssfff"),
+                                            RandomNoGenerator.GetUniqueKey(10),
+                                            fileExtension);
 
                                         fileSaveLocation = String.Format("{0}{1}", folderpath, fileName);
 
                                         imageFile.SaveAs(fileSaveLocation);
-
                                         //call DAL to save
                                         photoId = _sellBikeRepository.SaveBikePhotos(
                                              (index == 0 && isMain),
@@ -336,6 +377,7 @@ namespace Bikewale.BAL.UsedBikes
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("UploadBikeImage({0},{1},{2},{3},{4})", isMain, customerId, profileId, description, (imageFiles != null ? Newtonsoft.Json.JsonConvert.SerializeObject(imageFiles.AllKeys) : "")));
                 objErr.SendMail();
+                result.Status = ImageUploadResultStatus.InternalError;
 
             }
 
@@ -415,6 +457,41 @@ namespace Bikewale.BAL.UsedBikes
                 return attributes[0].Description;
             else
                 return value.ToString();
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 03 Nov 2016
+        /// Description :   Marks Main Image for gived profile id
+        /// </summary>
+        /// <param name="photoId"></param>
+        /// <param name="customerId"></param>
+        /// <param name="profileId"></param>
+        /// <returns></returns>
+        public bool MakeMainImage(uint photoId, ulong customerId, string profileId)
+        {
+            bool isSuccess = false;
+            try
+            {
+                string inquiryId = String.Empty;
+                string inquiryType = String.Empty;
+                int inqId = 0;
+                if (Utility.UsedBikeProfileId.IsValidProfileId(profileId))
+                {
+                    Utility.UsedBikeProfileId.SplitProfileId(profileId, out inquiryId, out inquiryType);
+                    inqId = Convert.ToInt32(inquiryId);
+                    if (customerId > 0 && _sellBikeRepository.GetById(inqId, customerId) != null)
+                    {
+                        isSuccess = _sellBikeRepository.MarkMainImage(inqId, photoId, inquiryType.Equals("D", StringComparison.CurrentCultureIgnoreCase));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("MakeMainImage({0},{1},{2})", photoId, customerId, profileId));
+                objErr.SendMail();
+            }
+
+            return isSuccess;
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using Bikewale.DTO.BikeBooking.Make;
 using Bikewale.DTO.BikeBooking.Model;
 using Bikewale.DTO.BikeBooking.Version;
+using Bikewale.DTO.Used.Search;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 namespace Bikewale.DTO.UsedBikes
 {
@@ -58,6 +60,8 @@ namespace Bikewale.DTO.UsedBikes
         public SellerDTO Seller { get; set; }
         [JsonProperty("otherInfo")]
         public SellBikeAdOtherInformationDTO OtherInfo { get; set; }
+        [JsonProperty("photos")]
+        public IEnumerable<BikePhoto> Photos { get; set; }
     }
 
     /// <summary>

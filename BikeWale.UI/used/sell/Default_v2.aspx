@@ -42,7 +42,7 @@
             </div>
         </section>
 
-        <div>
+        <section>
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow">
@@ -358,7 +358,7 @@
                                         <div class="panel-body panel-body-3" data-bind="visible: formStep() == 3">
                                             <div class="panel-row margin-bottom40">
                                                 <p class="font16 margin-bottom5 text-black">Add Photos</p>
-                                                <p class="font14 text-light-grey margin-bottom20">Listings with photos are likely to get 3x more responses! The first photo will be made profile photo of your listing.<br />(Supported formats: .jpg, .png; Image Size < 4 MB and Image Count < 10).
+                                                <p class="font14 text-light-grey margin-bottom20">Ads with photos are likely to get more responses! You can upload upto 10 photos with first photo being the profile photo for the ad.<br />Supported formats: .jpg, .png; Image Size < 4 MB
                                                 </p>
                                                 <div id="add-photos-dropzone" class="dropzone dz-clickable">
                                                     <div class="dz-message">

@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 namespace Bikewale.Entities.Used
 {
     /// <summary>
@@ -26,6 +26,7 @@ namespace Bikewale.Entities.Used
         public SellAdStatus Status { get; set; }
         public SellerEntity Seller { get; set; }
         public SellBikeAdOtherInformation OtherInfo { get; set; }
+        public IEnumerable<BikePhoto> Photos { get; set; }
     }
     /// <summary>
     /// Created by  :   Sumit Kate on 14 Oct 2016
