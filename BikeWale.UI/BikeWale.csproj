@@ -2695,6 +2695,8 @@
     <Content Include="sass\components\_select-box.sass" />
     <Content Include="sass\service\location.sass" />
     <Content Include="sass\service\_location-style.sass" />
+    <Content Include="sass\modules\_article.sass" />
+    <Content Include="sass\modules\_accordion.sass" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

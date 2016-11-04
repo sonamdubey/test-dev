@@ -1,2 +1,102 @@
-﻿.padding-15-20
+﻿#listing-left-column
+	&.grid-4
+		width: 32.333333%
+		padding-right: 20px
+		padding-left: 20px
+		@include box-shadow(0, 0, 8px, 0, #ddd)
+		z-index: 1
+
+#listing-right-column.grid-8
+	width: 67.66667%
+
+// common
+.padding-15-20
 	padding: 15px 20px
+
+// search field
+#filter-input
+	margin-top: 20px
+	background: #fff
+
+	.search-icon-grey
+		position: absolute
+		right: 10px
+		top: 10px
+		cursor: pointer
+		z-index: 2
+
+// state-city
+#location-list
+	.item-state
+		border-top: 1px solid #f1f1f1
+		
+		&:first-child
+			border-top: 0
+
+	a,
+	.type-state
+		color: $text-primary
+		font-size: $font-size-base
+		display: block
+		padding-top: 13px
+		padding-bottom: 13px
+		
+	.type-state
+		&:hover
+			color: #2a2a2a
+			text-decoration: none
+
+	.location-list-city
+		display: none
+
+		a
+			color: $text-light
+			padding-top: 10px
+			padding-bottom: 10px
+
+			&:hover
+				color: $text-primary
+				text-decoration: none
+
+.dealer-location-tooltip
+	.type-state:hover,
+	a:hover
+		color: #2a2a2a
+		text-decoration: none
+
+#location-list
+	.type-state
+		font-size: $font-size-medium
+
+#no-result
+	display: none
+	font-size: $font-size-medium
+	padding-top: 13px
+	padding-bottom: 13px
+	color: $text-light
+
+// map
+.gm-style-iw + div
+	display: none
+
+.labels
+	top: -14px
+	left: -12px
+	
+	a
+		color: $text-primary
+		background-color: $white
+		font-size: 10px
+		font-weight: bold
+		text-align: center
+		width: 24px
+		height: 24px
+		display: block
+		@include border-radius(50%)
+		white-space: nowrap
+		padding-top: 4px
+		border: 2px solid $text-light
+
+		&:hover
+			border: 2px solid #ef3f30
+			text-decoration: none

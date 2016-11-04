@@ -315,3 +315,28 @@ function mapCityArray(listitem) {
 
 mapDealersArray();
 initializeMap(locationArr, initialLat, initialLong, initialZoom); //india
+
+// faqs
+$('.accordion-list').on('click', '.accordion-head', function () {
+    var element = $(this);
+
+    if (!element.hasClass('active')) {
+        accordion.open(element);
+    }
+    else {
+        accordion.close(element);
+    }
+});
+
+var accordion = {
+    open: function (element) {
+        var elementSiblings = element.closest('.accordion-list').find('.accordion-head.active');
+        elementSiblings.removeClass('active').next('.accordion-body').slideUp();
+
+        element.addClass('active').next('.accordion-body').slideDown();
+    },
+
+    close: function (element) {
+        element.removeClass('active').next('.accordion-body').slideUp();
+    }
+};
