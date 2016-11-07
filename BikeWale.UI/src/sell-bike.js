@@ -643,17 +643,15 @@ var personalDetails = function () {
     self.mobileLabel = ko.observable(true);
     self.termsCheckbox = ko.observable(true);
 
-    self.sellerType = function (data, event) {
-
+    self.sellerType = function (data, event) {        
         if(event != null) {
             var element = $(event.currentTarget);
             
             if (!element.hasClass('checked')) {
                 sellerType.check(element);
             }
+            self.sellerTypeVal(element.attr("value"));
         }
-
-        
     };
 
     self.sellerName = ko.observable('').extend({
@@ -963,11 +961,10 @@ var moreDetails = function () {
     self.updateAd = function () {
 
         var moreDetailsData = {
-            "registrationNo" : vmSellBike.moreDetails().registrationNumber(),
+            "registrationNo": vmSellBike.moreDetails().registrationNumber(),
             "insuranceType" :  vmSellBike.moreDetails().insuranceType(),
-            "adDescription" : vmSellBike.moreDetails().adDescription()
-        }
-
+            "adDescription" : vmSellBike.moreDetails().adDescription().replace(/\s/g,' ')
+        }        
         $.ajax({
             type: "Post",
             url: "/api/used/sell/listing/otherinfo/?inquiryId=" + vmSellBike.inquiryId() + "&customerId=" + vmSellBike.customerId(),
@@ -1325,7 +1322,7 @@ $(function () {
     if (isEdit == "True") {
         if (isAuthorized == "False") {            
             vmSellBike.isFakeCustomer(true);
-        }
+        }        
         inquiryDetails = JSON.parse(inquiryDetails);
         var bdetails = vmSellBike.bikeDetails();
         var pdetails = vmSellBike.personalDetails();
@@ -1351,12 +1348,12 @@ $(function () {
         pdetails.sellerName(inquiryDetails.seller.customerName);
         pdetails.sellerEmail(inquiryDetails.seller.customerEmail);
         pdetails.sellerMobile(inquiryDetails.seller.customerMobile);
+        pdetails.sellerTypeVal(inquiryDetails.seller.sellerType);
         vmSellBike.inquiryId(inquiryDetails.InquiryId);
         vmSellBike.customerId(inquiryDetails.seller.customerId);
         mdetails.adDescription(inquiryDetails.otherInfo.adDescription);
         mdetails.registrationNumber(inquiryDetails.otherInfo.registrationNo);
-        mdetails.insuranceType(inquiryDetails.otherInfo.insuranceType);
-
+        mdetails.insuranceType(inquiryDetails.otherInfo.insuranceType);        
         $("#select-insuranceType").trigger("change").trigger("chosen:updated");
 
         $('#model-select-element select').prop('disabled', true).trigger("chosen:updated");

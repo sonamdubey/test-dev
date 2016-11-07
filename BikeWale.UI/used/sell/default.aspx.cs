@@ -26,7 +26,6 @@ using Bikewale.Interfaces.Used;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 
 namespace Bikewale.Used.Sell
 {
@@ -135,7 +134,7 @@ namespace Bikewale.Used.Sell
                 {
                     if (userId == "-1") //user not logged-in
                     {
-                        Response.Redirect("/users/login.aspx?ReturnUrl=" + ConfigurationManager.AppSettings["bwHostUrl"] + "/used/sell/default_v2.aspx?id=" + inquiryId);
+                        Response.Redirect(String.Format("/users/login.aspx?ReturnUrl={0}/used/sell/?id={1}", Utility.BWConfiguration.Instance.BwHostUrl, inquiryId));
                     }
                     isEdit = true;
                     GetInquiryDetails();
