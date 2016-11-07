@@ -1363,7 +1363,9 @@ $(function () {
         $('#make-select-element select').prop('disabled', true).trigger("chosen:updated");
         $('#city-select-element select').prop('disabled', true).trigger("chosen:updated");
 
-        vmSellBike.serverImg(inquiryDetails.photos);                        
+        vmSellBike.serverImg(inquiryDetails.photos);
+        if (window.location.hash == "#uploadphoto")
+            vmSellBike.formStep(3);
     }    
     if(userId != null)
     {
