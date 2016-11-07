@@ -5,10 +5,10 @@
 <html>
 <head>
      <% 
-         title = string.Format("{0} Bike Showrooms in India | {0} Bike Dealers in India - BikeWale - BikeWale", objMMV.MakeName, stateName);
-         keywords = string.Format("{0} bike dealers, {0} bike showrooms, {0} dealers, {0} showrooms, {0} dealerships, dealerships, test drive, {0} dealer contact number", objMMV.MakeName);
-         description = string.Format("{0} bike dealer showrooms in India. Find {0} dealer showroom information for more than {1} dealers in {2} cities", objMMV.MakeName, DealerCount, citiesCount);
-         canonical = string.Format("http://www.bikewale.com/{0}-dealer-showrooms-in-india/", objMMV.MaskingName);
+         title = string.Format("Authorised {0}  Service Centers in India | {0} bike servicing  in India -  BikeWale", objMMV.MakeName);
+         keywords = string.Format("{0} Servicing centers, {0} service centers, {0} service center contact details, Service Schedule for {0} bikes, bike repair, {0} bike repairing", objMMV.MakeName);
+         description = string.Format("There are {1} authorised {0}  service centers in {2} in India. Get in touch with your nearest {0} bikes service center to get your bike serviced. Check your service schedules now.", objMMV.MakeName, ServiceCenterList.ServiceCenterCount, ServiceCenterList.CityCount);
+         canonical = string.Format("http://www.bikewale.com/{0}-service-centers-in-india/", objMMV.MaskingName);
         AdPath = "/1017752/Bikewale_Mobile_Model";
         AdId = "1444028976556";
         Ad_320x50 = true;
@@ -36,26 +36,26 @@
             <div class="container bg-white card-bottom-margin">
                 <h1 class="card-header"><%=objMMV.MakeName %> service centers in India</h1>
                 <div class="card-inner-padding font14 text-light-grey">
-                    <p id="service-main-content">There are 100 authorised Honda service centers in India. BikeWale strongly recommends you to avail services only from authorized Honda service centers. These authorised service centers are </p><p id="service-more-content">spread over 50 cities to service your Honda bike and keep your bike moving. Enter the name of your city in the search box provided below to find authorised Honda service centers in your city.</p><a href="javascript:void(0)" id="read-more-target" rel="nofollow">Read more</a>
+                    <p id="service-main-content">There are <%=ServiceCenterList.ServiceCenterCount %> authorised <%=objMMV.MakeName %> service centers in India. BikeWale strongly recommends you to avail services only from authorized <%=objMMV.MakeName %> service centers. These authorised service centers are </p><p id="service-more-content">spread over <%=ServiceCenterList.CityCount%> cities to service your <%=objMMV.MakeName %> bike and keep your bike moving. Enter the name of your city in the search box provided below to find authorised <%=objMMV.MakeName %> service centers in your city.</p><a href="javascript:void(0)" id="read-more-target" rel="nofollow">Read more</a>
                 </div>
             </div>
         </section>
 
         <section>
             <div class="container bg-white box-shadow card-bottom-margin">
-                <h2 class="padding-15-20 border-solid-bottom"><%=DealerCount%> <%=objMMV.MakeName %> service centers in <%=citiesCount%> cities</h2>
+                <h2 class="padding-15-20 border-solid-bottom"><%=ServiceCenterList.ServiceCenterCount%> <%=objMMV.MakeName %> service centers in <%=ServiceCenterList.CityCount%> cities</h2>
                 <div class="content-inner-block-20">
                     <div class="form-control-box">
                         <span class="bwmsprite search-icon-grey"></span>
                         <input type="text" class="form-control padding-right40" placeholder="Type to select city" id="getCityInput" />
                     </div>
                     <ul id="location-list">
-                                  <% foreach (Bikewale.Entities.DealerLocator.StateCityEntity st in states.stateCityList)
+                                  <% foreach (var st in ServiceCenterList.ServiceCenterDetailsList)
                        { %>
                                 <li  class="item-state">
                                     <a data-item-id="<%=st.Id %>" data-item-name="<%=st.Name %>" data-lat="<%=st.Lat %>" data-long ="<%=st.Long %>" data-dealercount="<%=st.DealerCountState%>"  href="javascript:void(0)" rel="nofollow" class="type-state" data-item-id="<%=st.Id %>"><%=st.Name %></a>
                                                  <ul class="location-list-city">
-                                                     <% foreach (Bikewale.Entities.Location.DealerCityEntity stcity in st.Cities)
+                                                     <% foreach (var stcity in st.Cities)
                        { %>
                                     
                                         <li>
@@ -188,33 +188,6 @@
             </div>
         </section>
 
-         <% if(ctrlNewLaunchedBikes.FetchedRecordsCount > 0 ||ctrlUpcomingBikes.FetchedRecordsCount  >0){ %>
-        <section>
-            <div class="container bg-white margin-bottom10 box-shadow">
-               <% if (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)
-                           { %>
-                          <h2 class="font18 padding-15-20">Newly launched <%=objMMV.MakeName %> bikes</h2>
-                <div class="swiper-container card-container">
-                    <div class="swiper-wrapper">
-                        <BW:MNewLaunchedBikes runat="server" ID="ctrlNewLaunchedBikes" />
-                    </div>
-                </div>
-                        <%} %>
-
-                <div class="margin-top20 margin-right20 margin-left20 border-solid-bottom"></div>
-                 <% if (ctrlUpcomingBikes.FetchedRecordsCount > 0)
-           { %> <h2 class="font18 padding-15-20">Upcoming <%=objMMV.MakeName %> bikes</h2>
-                <div class="swiper-container card-container">
-                    <div class="swiper-wrapper">
-                        <BW:MUpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
-                    </div>
-                </div>
-        <%} %>
-            </div>
-        </section>
-        <%} %>
-        
-    
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
