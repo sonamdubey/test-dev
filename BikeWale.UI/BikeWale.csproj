@@ -1330,12 +1330,12 @@
       <DependentUpon>confirmation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="used\sell\default.aspx.cs">
-      <DependentUpon>default.aspx</DependentUpon>
+    <Compile Include="used\sell\default_v1.aspx.cs">
+      <DependentUpon>default_v1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="used\sell\Default_v2.aspx.cs">
-      <DependentUpon>Default_v2.aspx</DependentUpon>
+    <Compile Include="used\sell\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="used\sell\UploadBasic.aspx.cs">
@@ -2613,8 +2613,8 @@
     <Content Include="used\Default.aspx" />
     <Content Include="used\Search.aspx" />
     <Content Include="used\sell\confirmation.aspx" />
-    <Content Include="used\sell\default.aspx" />
-    <Content Include="used\sell\Default_v2.aspx" />
+    <Content Include="used\sell\default_v1.aspx" />
+    <Content Include="used\sell\Default.aspx" />
     <Content Include="used\sell\UploadBasic.aspx" />
     <Content Include="used\sell\UploadPhotos.aspx" />
     <Content Include="used\sell\UploadPreview.aspx" />
