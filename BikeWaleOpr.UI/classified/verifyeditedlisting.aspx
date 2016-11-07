@@ -23,7 +23,7 @@
                 </tr>
                 <% foreach(var listing in sellListing) { %>
                 <tr class="dtItem text-align-center" id="detailed_edit_row">
-                    <td><%=listing.InquiryId %></td>
+                    <td><%=listing.ProfileId %></td>
                     <td><%=String.IsNullOrEmpty(listing.Version.VersionName)?"-":listing.Version.VersionName %></td>
                     <td><%=String.IsNullOrEmpty(listing.NewVersion.VersionName)?"-":listing.NewVersion.VersionName %></td>
                     <td><%=(listing.KiloMeters==0)?"-":listing.KiloMeters.ToString() %></td>
