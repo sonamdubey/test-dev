@@ -107,6 +107,9 @@
     <Compile Include="PriceQuote\IPriceQuote.cs" />
     <Compile Include="PriceQuote\IPriceQuoteCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceCenters\IServiceCenters.cs" />
+    <Compile Include="ServiceCenters\IServiceCentersCacheRepository.cs" />
+    <Compile Include="ServiceCenters\IServiceCentersRepository.cs" />
     <Compile Include="Used\ISearchFilters.cs" />
     <Compile Include="Used\ISearch.cs" />
     <Compile Include="Used\ISearchQuery.cs" />
