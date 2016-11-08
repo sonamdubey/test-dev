@@ -360,7 +360,7 @@
                                         <div class="clear"></div>
                                     </div>
                                     <div class="panel">
-                                        <div class="panel-head">
+                                        <div class="panel-head" id="uploadphoto">
                                             <span class="sell-bike-sprite" data-bind="css: (formStep() == 3) ? 'step-3-active' : 'step-3-inactive'"></span>
                                             <span class="panel-title">More details</span>
                                         </div>
