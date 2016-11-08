@@ -1,20 +1,23 @@
-﻿using Bikewale.Cache.BikeData;
+﻿using Bikewale.BAL.ServiceCenter;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
+using Bikewale.Cache.ServiceCenter;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
+using Bikewale.DAL.ServiceCenter;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.service;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
-using Bikewale.Mobile.Controls;
+using Bikewale.Interfaces.ServiceCenter;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Service
 {
@@ -27,9 +30,10 @@ namespace Bikewale.Mobile.Service
     {
         protected uint cityId, makeId;
         protected ushort totalDealers;
-        protected Repeater rptMakes, rptCities, rptPopularBrands, rptOtherBrands;
-        protected MNewLaunchedBikes mctrlNewLaunchedBikes;
-        protected MUpcomingBikes mctrlUpcomingBikes;
+        public IEnumerable<BikeMakeEntityBase> TopMakeList;
+        public IEnumerable<BikeMakeEntityBase> OtherMakeList;
+        public IEnumerable<BikeMakeEntityBase> makes;
+        public IEnumerable<CityEntityBase> cities;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -49,10 +53,7 @@ namespace Bikewale.Mobile.Service
                 originalUrl = Request.ServerVariables["URL"];
 
             BindMakes();
-            mctrlNewLaunchedBikes.pageSize = 6;
-            mctrlNewLaunchedBikes.curPageNo = null;
-            mctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            mctrlUpcomingBikes.pageSize = 6;
+
             if (makeId > 0)
                 BindCitiesDropdown();
 
@@ -69,7 +70,7 @@ namespace Bikewale.Mobile.Service
         /// </summary>
         private void BindMakes()
         {
-            IEnumerable<BikeMakeEntityBase> _makes = null;
+
             try
             {
                 using (IUnityContainer container = new UnityContainer())
@@ -79,17 +80,13 @@ namespace Bikewale.Mobile.Service
                              .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
                             ;
                     var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
-                    _makes = objCache.GetMakesByType(EnumBikeType.Dealer);
-                    if (_makes != null && _makes.Count() > 0)
+                    makes = objCache.GetMakesByType(EnumBikeType.ServiceCenter);
+                    if (makes != null && makes.Count() > 0)
                     {
-                        rptMakes.DataSource = _makes;
-                        rptMakes.DataBind();
 
-                        rptPopularBrands.DataSource = _makes.Take(6);
-                        rptPopularBrands.DataBind();
+                        TopMakeList = makes.Take(6);
+                        OtherMakeList = makes.Skip(6);
 
-                        rptOtherBrands.DataSource = _makes.Skip(6).OrderBy(m => m.MakeName);
-                        rptOtherBrands.DataBind();
                     }
                 }
             }
@@ -109,20 +106,18 @@ namespace Bikewale.Mobile.Service
         /// </summary>
         private void BindCitiesDropdown()
         {
-            IEnumerable<CityEntityBase> _cities = null;
+
             try
             {
+                IServiceCenter ObjServiceCenter = null;
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IDealer, DealersRepository>();
-
-                    var objCities = container.Resolve<IDealer>();
-                    _cities = objCities.FetchDealerCitiesByMake(makeId);
-                    if (_cities != null && _cities.Count() > 0)
-                    {
-                        rptCities.DataSource = _cities;
-                        rptCities.DataBind();
-                    }
+                    container.RegisterType<IServiceCenter, ServiceCenter<ServiceCenterLocatorList, int>>()
+                    .RegisterType<IServiceCenterCacheRepository, ServiceCenterCacheRepository>()
+                    .RegisterType<IServiceCenterRepository<ServiceCenterLocatorList, int>, ServiceCenterRepository<ServiceCenterLocatorList, int>>()
+                    .RegisterType<ICacheManager, MemcacheManager>();
+                    ObjServiceCenter = container.Resolve<IServiceCenter>();
+                    cities = ObjServiceCenter.GetServiceCenterCities(Convert.ToUInt32(makeId));
                 }
             }
             catch (Exception ex)

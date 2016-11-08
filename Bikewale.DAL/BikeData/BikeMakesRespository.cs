@@ -7,9 +7,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Web;
 
 namespace Bikewale.DAL.BikeData
@@ -43,10 +43,10 @@ namespace Bikewale.DAL.BikeData
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes_new_29032016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes_new_08112016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, makeType.ToString()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.Int32, makeType));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -444,8 +444,8 @@ namespace Bikewale.DAL.BikeData
             return bikeLinkList;
 
         }
-        
-        
+
+
         /// <summary>
         /// Created by  :   Sumit Kate on 13 Sep 2016
         /// Description :   Returns all makes and their models

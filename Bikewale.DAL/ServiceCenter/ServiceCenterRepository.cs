@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.service;
+﻿using Bikewale.Entities.Location;
+using Bikewale.Entities.service;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -145,8 +146,47 @@ namespace Bikewale.DAL.ServiceCenter
             }
             return objStateCityList;
         }
+        public IEnumerable<CityEntityBase> GetServiceCenterCities(uint makeId)
+        {
+            IList<CityEntityBase> objCityList = null;
+            try
+            {
+                if (makeId > 0)
+                {
 
+                    using (DbCommand cmd = DbFactory.GetDBCommand("getservicecenterscitiesbymakeid"))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, Convert.ToInt32(makeId)));
 
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                        {
+                            if (dr != null)
+                            {
+                                objCityList = new List<CityEntityBase>();
+                                while (dr.Read())
+                                {
+                                    objCityList.Add(new CityEntityBase
+                                    {
+                                        CityId = SqlReaderConvertor.ToUInt16(dr["CityId"]),
+                                        CityName = Convert.ToString(dr["City"]),
+                                        CityMaskingName = Convert.ToString(dr["CityMaskingName"])
+                                    });
+                                }
+                                dr.Close();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "GetServiceCenterCities");
+                objErr.SendMail();
+            }
+
+            return objCityList;
+        }
 
 
     }

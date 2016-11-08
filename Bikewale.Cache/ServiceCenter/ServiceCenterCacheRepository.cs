@@ -1,9 +1,11 @@
 ﻿
+using Bikewale.Entities.Location;
 using Bikewale.Entities.service;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Notifications;
 using System;
+using System.Collections.Generic;
 namespace Bikewale.Cache.ServiceCenter
 {
 
@@ -36,8 +38,27 @@ namespace Bikewale.Cache.ServiceCenter
             string key = string.Empty;
             try
             {
-                key = String.Format("BW_ServiceCenter_{0}", makeId);
+                key = String.Format("BW_ServiceCenterCityState_{0}", makeId);
                 objStateCityList = _cache.GetFromCache<ServiceCenterLocatorList>(key, new TimeSpan(1, 0, 0), () => _objServiceCenter.GetServiceCenterList(makeId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "CityCacheRepository.GetServiceCenterList");
+                objErr.SendMail();
+            }
+
+
+            return objStateCityList;
+        }
+        public IEnumerable<CityEntityBase> GetServiceCenterCities(uint makeId)
+        {
+
+            IEnumerable<CityEntityBase> objStateCityList = null;
+            string key = string.Empty;
+            try
+            {
+                key = String.Format("BW_ServiceCenterCity_{0}", makeId);
+                objStateCityList = _cache.GetFromCache<IEnumerable<CityEntityBase>>(key, new TimeSpan(1, 0, 0), () => _objServiceCenter.GetServiceCenterCities(makeId));
             }
             catch (Exception ex)
             {

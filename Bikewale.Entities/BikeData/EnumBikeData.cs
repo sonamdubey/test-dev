@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Bikewale.Entities.BikeData
 {
     /// <summary>
@@ -24,6 +19,7 @@ namespace Bikewale.Entities.BikeData
         NewBikeSpecs = 9,
         UsedBikeSpecs = 10,
         NewBikeSpecification = 11,
-        Dealer = 12
+        Dealer = 12,
+        ServiceCenter = 13
     }
 }
