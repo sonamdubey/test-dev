@@ -61,6 +61,10 @@ namespace Bikewale.Mobile.Service
             }
 
         }
+        /// <summary>
+        /// Created By:-Subodh Jain 7 nov 2016
+        /// Summary:- For Service center city state list
+        /// </summary>
         private void BindCities()
         {
             IServiceCenter ObjServiceCenter = null;
