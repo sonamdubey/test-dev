@@ -2311,7 +2311,9 @@
     <Content Include="m\css\bwm-model-btf.css" />
     <Content Include="m\css\bwm-model.css" />
     <Content Include="m\css\bwm-newbikes.css" />
+    <Content Include="m\css\compare\landing.css" />
     <Content Include="m\css\components\article.css" />
+    <Content Include="m\css\components\compare-bikes-list.css" />
     <Content Include="m\css\components\compare-bikes.css" />
     <Content Include="m\css\components\used-swiper.css" />
     <Content Include="m\css\dealerpricequote.css" />
