@@ -1,0 +1,23 @@
+﻿.prev-arrow, .next-arrow {
+    width: 12px;
+    height: 16px;
+    position: relative;
+    top: 3px;
+}
+
+.prev-arrow {
+    background-position: -132px -370px;
+}
+
+.next-arrow {
+    background-position: -158px -370px;
+}
+
+.next-prev-article-target:hover {
+    text-decoration: none;
+}
+
+.next-prev-article-title {
+    font-size: 11px;
+    text-decoration: underline;
+}
