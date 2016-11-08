@@ -47,7 +47,7 @@ namespace Bikewale.DAL.Used.Search
                                 UsedBikeBase objBike = new UsedBikeBase();
 
                                 objBike.InquiryId = Convert.ToUInt32(dr["inquiryid"]);
-                                objBike.ProfileId = Convert.ToString(dr["profileid"]);
+                                objBike.ProfileId = Convert.ToString(dr["profileid"]).ToLower();
                                 objBike.AskingPrice = Convert.ToUInt32(dr["price"]);
                                 objBike.KmsDriven = Convert.ToUInt32(dr["kilometers"]);
                                 objBike.ModelMonth = Convert.ToString(dr["bikemonth"]);
