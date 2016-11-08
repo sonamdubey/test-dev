@@ -16,6 +16,7 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Pager;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Web;
@@ -29,6 +30,7 @@ namespace Bikewale.Content
 
     public class DefaultRT : System.Web.UI.Page
     {
+        protected UpcomingBikesCMS ctrlUpcoming;
         protected Repeater rptRoadTest;
         //protected MakeModelSearch MakeModelSearch;
         protected HtmlGenericControl alertObj;
@@ -221,7 +223,7 @@ namespace Bikewale.Content
 
                         BindRoadtest(_objRoadTestList);
                         BindLinkPager(objPager, Convert.ToInt32(_objRoadTestList.RecordCount), makeName, modelName);
-
+                        BindUpcoming();
                     }
                     else
                     {
@@ -316,6 +318,21 @@ namespace Bikewale.Content
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 8 Nov 2016
+        /// Summary  : Bind upcoming bikes list
+        /// </summary>
+        private void BindUpcoming()
+        {
+            var cookies = this.Context.Request.Cookies;
+            string city = cookies["location"].Value.Substring(cookies["location"].Value.IndexOf('_') + 1);
+            if (String.IsNullOrEmpty(city))
+                city = BWConfiguration.Instance.DefaultName;
+            ctrlUpcoming.sortBy = (int)EnumUpcomingBikesFilter.Default;
+            ctrlUpcoming.pageSize = 4;
+            ctrlUpcoming.cityName = city;
+            //ctrlUpcoming.MakeId = 1;
         }
     }
 }

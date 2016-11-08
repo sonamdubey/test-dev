@@ -4,6 +4,7 @@ using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Controls;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Pager;
@@ -28,11 +29,10 @@ namespace Bikewale.Content
         protected Repeater rptFeatures;
         protected Bikewale.Mobile.Controls.LinkPagerControl ctrlPager;
         protected string prevUrl = string.Empty, nextUrl = string.Empty;
-
+        protected UpcomingBikesCMS ctrlUpcomingBikes;
         private int _pageNo = 1;
         private const int _pageSize = 10, _pagerSlotSize = 5;
-        private bool _isContentFound = true;
-
+        private bool _isContentFound = true;  
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -66,6 +66,8 @@ namespace Bikewale.Content
         /// <summary>
         /// Written By : Ashwini Todkar on 25 Sept 2014
         /// Summary    : method to fetch features list and total features count from carwale api
+        /// Modified By: Aditi Srivastava on 8 Nov 2016
+        /// Summay     : Added function to bind upcoming bikes widget 
         /// </summary>      
         private async void GetFeaturesList()
         {
@@ -98,7 +100,8 @@ namespace Bikewale.Content
 
                         BindFeatures(_objFeaturesList);
                         BindLinkPager(objPager, Convert.ToInt32(_objFeaturesList.RecordCount));
-
+                        
+                        BindUpcoming();
 
                     }
                     else
@@ -118,7 +121,7 @@ namespace Bikewale.Content
             finally
             {
                 if (!_isContentFound)
-                    Response.Redirect("/pagenotfound.aspx", true);
+                    Response.Redirect("/pagenotfound.aspx", false);
             }
         }
 
@@ -182,6 +185,20 @@ namespace Bikewale.Content
             rptFeatures.DataSource = _objFeaturesList.Articles;
             rptFeatures.DataBind();
         }
-
+        /// <summary>
+        /// Created by : Aditi Srivastava on 8 Nov 2016
+        /// Summary  : Bind upcoming bikes list
+        /// </summary>
+        private void BindUpcoming()
+        {
+            var cookies = this.Context.Request.Cookies;
+            string city = cookies["location"].Value.Substring(cookies["location"].Value.IndexOf('_') + 1);
+            if (String.IsNullOrEmpty(city))
+                city = BWConfiguration.Instance.DefaultName;
+            ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+            ctrlUpcomingBikes.pageSize = 4;
+            ctrlUpcomingBikes.cityName = city;
+           // ctrlUpcomingBikes.MakeId = 1;
+        }
     }
 }

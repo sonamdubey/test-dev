@@ -625,6 +625,10 @@
       <DependentUpon>UpcomingBikesMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\UpcomingBikesCMS.ascx.cs">
+      <DependentUpon>UpcomingBikesCMS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\UpcomingBikes_new.ascx.cs">
       <DependentUpon>UpcomingBikes_new.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1787,6 +1791,7 @@
     <Content Include="controls\UpcomingBikeHome.ascx" />
     <Content Include="controls\UpcomingBikeSearch.ascx" />
     <Content Include="controls\UpcomingBikesMin.ascx" />
+    <Content Include="controls\UpcomingBikesCMS.ascx" />
     <Content Include="controls\UpcomingBikes_new.ascx" />
     <Content Include="controls\UsedBikes.ascx" />
     <Content Include="controls\UsedBikeSearch.ascx" />
