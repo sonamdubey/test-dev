@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Service.ServiceCenterList" EnableViewState="false" %>
-<%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="PopularBikeMake" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/DealersCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,8 +87,8 @@
 
         <section>
             <div class="container bg-white box-shadow card-bottom-margin">
-                <h2 class="padding-top15 padding-right20 padding-left20">Tips from BikeWale experts to keep your bike in good shape!</h2>
-                <ul id="bw-tips-list">
+                <h2 class="padding-top15 padding-right20 padding-left20">Tips from BikeWale experts to keep your bike in good shape!</h2>                                                                              
+                <ul id="bw-tips-list">                   
                     <li>
                         <a href="">
                             <span class="service-sprite care-icon"></span>
@@ -109,66 +108,11 @@
         </section>
 
         <section>
-            <div class="container bg-white box-shadow card-bottom-margin padding-bottom20 padding-top15">
-                <div class="padding-right20 padding-left20 margin-bottom15">
-                    <h2 class="margin-bottom5">Looking to buy a new Bajaj bike in Mumbai?</h2>
-                    <p>Check out authorised Bajaj dealers in Mumbai</p>
-                </div>
-                <div class="bw-horizontal-swiper swiper-container card-container margin-bottom15">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="">
-                                    <div class="target-link margin-bottom5 text-truncate font14">Executive Bajaj, Ghatkopar</div>        
-                                    <p class="margin-bottom5 text-light-grey">
-                                        <span class="bwmsprite dealership-loc-icon vertical-top"></span>
-                                        <span class="vertical-top details-column">Paragon Plaza, Phoenix MarketCity, Unit Nos 24/25, Next to Maruti Showroom, LBS Road, Ghatkopar (W)</span>
-                                    </p>
-                                    <p class="text-truncate">
-                                        <span class="bwmsprite tel-sm-grey-icon pos-top0 margin-right5"></span>
-                                        <span class="text-bold text-default">02132-5544763</span>
-                                    </p>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="">
-                                    <p class="target-link margin-bottom5 text-truncate font14">Executive Bajaj, Ghatkopar</p>        
-                                    <p class="margin-bottom5 text-light-grey">
-                                        <span class="bwmsprite dealership-loc-icon vertical-top"></span>
-                                        <span class="vertical-top details-column">Paragon Plaza, Phoenix MarketCity, Unit Nos 24/25, Next to Maruti Showroom, LBS Road, Ghatkopar (W)</span>
-                                    </p>
-                                    <p class="text-truncate">
-                                        <span class="bwmsprite tel-sm-grey-icon pos-top0 margin-right5"></span>
-                                        <span class="text-bold text-default">02132-5544763</span>
-                                    </p>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="">
-                                    <p class="target-link margin-bottom5 text-truncate font14">Executive Bajaj, Ghatkopar</p>        
-                                    <p class="margin-bottom5 text-light-grey">
-                                        <span class="bwmsprite dealership-loc-icon vertical-top"></span>
-                                        <span class="vertical-top details-column">Paragon Plaza, Phoenix MarketCity, Unit Nos 24/25, Next to Maruti Showroom, LBS Road, Ghatkopar (W)</span>
-                                    </p>
-                                    <p class="text-truncate">
-                                        <span class="bwmsprite tel-sm-grey-icon pos-top0 margin-right5"></span>
-                                        <span class="text-bold text-default">02132-5544763</span>
-                                    </p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="padding-right20 padding-left20 font14">
-                    <a href="" title="">View all Bajaj dealers <span class="bwmsprite blue-right-arrow-icon"></span></a>
-                </div>
+            <div class="container bg-white box-shadow card-bottom-margin padding-bottom20 padding-top15">                
+                <!-- dealer card -->
+                <% if (ctrlDealerCard.showWidget) { %>
+                    <BW:DealerCard runat="server" ID="ctrlDealerCard" />
+                <% }  %>
             </div>
         </section>
 

@@ -74,7 +74,8 @@ namespace Bikewale.Entities.PriceQuote
         Desktop_MakePage_GetOffersFromDealer = 58,
         Mobile_MakePage_GetOffersFromDealer = 59,
         Desktop_dealer_details_Get_offers = 60,
-        Mobile_dealer_details_Get_offers = 61
+        Mobile_dealer_details_Get_offers = 61,
+        Mobile_ServiceCenter_Listing_CityPage = 62
         //Desktop_DealerLocator_GetOfferButton = 44,
         //Desktop_DealerLocator_GetOfferButton_Floating = 45,
         //Desktop_PriceInCity_SelectAreas = 46,

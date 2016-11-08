@@ -9,6 +9,7 @@ using Bikewale.DAL.Location;
 using Bikewale.DAL.ServiceCenters;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.ServiceCenters;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
@@ -38,6 +39,7 @@ namespace Bikewale.Mobile.Service
         protected BikeMakeEntityBase objBMEB;
         protected CityEntityBase objCEB;
         public IEnumerable<ServiceCenterDetails> serviceCentersList = null;
+        protected DealersCard ctrlDealerCard;
 
         protected override void OnInit(EventArgs e)
         {
@@ -67,6 +69,8 @@ namespace Bikewale.Mobile.Service
                 {
                     BindServiceCentersList();
                     GetCityNameByCityMaskingName(urlCityMaskingName);
+
+                    BindDealerCard();
                 }
                 else
                 {
@@ -75,6 +79,19 @@ namespace Bikewale.Mobile.Service
                     this.Page.Visible = false;
                 }
             }
+        }
+
+        private void BindDealerCard()
+        {
+            ctrlDealerCard.MakeId = makeId;
+            ctrlDealerCard.makeMaskingName = makeMaskingName;
+            ctrlDealerCard.CityId = cityId;
+            ctrlDealerCard.cityName = cityName;
+            ctrlDealerCard.PageName = "Service_Center_Listing_City";
+            ctrlDealerCard.TopCount = 9;
+            ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_ServiceCenter_Listing_CityPage;
+            ctrlDealerCard.LeadSourceId = 16;
+            ctrlDealerCard.DealerId = 0;
         }
 
         /// <summary>
