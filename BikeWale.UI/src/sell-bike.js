@@ -732,7 +732,7 @@ var personalDetails = function () {
         }
     };
 
-    self.sellerTypeVal = ko.observable(0);
+    self.sellerTypeVal = ko.observable(2);
 
     self.listYourBike = function () {
         self.validate(true);
