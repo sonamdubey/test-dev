@@ -32,7 +32,7 @@ namespace Bikewale.Content
         protected Repeater rptRoadTest;
         //protected MakeModelSearch MakeModelSearch;
         protected HtmlGenericControl alertObj;
-        protected LinkPagerControl linkPager;
+        protected Bikewale.Mobile.Controls.LinkPagerControl ctrlPager;
         protected string nextUrl = string.Empty, prevUrl = string.Empty, makeName = string.Empty, modelName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty;
         private const int _pageSize = 10;
         private int _pageNo = 1;
@@ -300,10 +300,10 @@ namespace Bikewale.Content
                 _pagerOutput = objPager.GetPager<PagerOutputEntity>(_pagerEntity);
 
                 // for RepeaterPager
-                linkPager.PagerOutput = _pagerOutput;
-                linkPager.CurrentPageNo = _pageNo;
-                linkPager.TotalPages = objPager.GetTotalPages(recordCount, _pageSize);
-                linkPager.BindPagerList();
+                ctrlPager.PagerOutput = _pagerOutput;
+                ctrlPager.CurrentPageNo = _pageNo;
+                ctrlPager.TotalPages = objPager.GetTotalPages(recordCount, _pageSize);
+                ctrlPager.BindPagerList();
 
                 //For SEO
                 //CreatePrevNextUrl(linkPager.TotalPages,_baseUrl);

@@ -359,7 +359,17 @@ namespace BikeWaleOpr.Classified
 
                     UsedBikeSellerBase seller = _objSellerRepository.GetSellerDetails(inquiryId, false);
                     if (seller != null)
+                    {
+                        SMSTypes newSms = new SMSTypes();
                         SendEmailSMSToDealerCustomer.UsedBikeApprovalEmailToIndividual(seller.Details, profileId, bikeName);
+                        newSms.ApprovalUsedSellListingSMS(
+                            EnumSMSServiceType.ApprovalUsedSellListingToSeller,
+                            seller.Details.CustomerMobile,
+                            profileId,
+                            seller.Details.CustomerName,
+                            HttpContext.Current.Request.ServerVariables["URL"]
+                            );
+                    }
                 }
             }
             catch (SqlException ex)
@@ -406,7 +416,16 @@ namespace BikeWaleOpr.Classified
                     isSuccess = true;
                     UsedBikeSellerBase seller = _objSellerRepository.GetSellerDetails(inquiryId, false);
                     if (seller != null)
+                    {
+                        SMSTypes newSms = new SMSTypes();
                         SendEmailSMSToDealerCustomer.UsedBikeRejectionEmailToSeller(seller.Details, profileId, bikeName);
+                        newSms.RejectionUsedSellListingSMS(
+                            EnumSMSServiceType.RejectionUsedSellListingToSeller,
+                            seller.Details.CustomerMobile,
+                            profileId,
+                            HttpContext.Current.Request.ServerVariables["URL"]
+                            );
+                    }
                 }
             }
             catch (SqlException ex)
