@@ -6,6 +6,13 @@ using Bikewale.Notifications;
 using System;
 namespace Bikewale.Cache.ServiceCenter
 {
+
+    /// <summary>
+    /// Created By:-Subodh jain 7 nov 2016
+    /// Summary:- For service center locator 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="U"></typeparam>
     public class ServiceCenterCacheRepository : IServiceCenterCacheRepository
     {
         private readonly IServiceCenterRepository<ServiceCenterLocatorList, int> _objServiceCenter = null;
@@ -16,7 +23,12 @@ namespace Bikewale.Cache.ServiceCenter
             _objServiceCenter = objServiceCenter;
             _cache = cache;
         }
-
+        /// <summary>
+        /// Created by:-Subodh Jain 7 nov 2016
+        /// Summary:- Get make wise list of service center in cities and state
+        /// </summary>
+        /// <param name="makeid"></param>
+        /// <returns></returns>
         public ServiceCenterLocatorList GetServiceCenterList(uint makeId)
         {
 

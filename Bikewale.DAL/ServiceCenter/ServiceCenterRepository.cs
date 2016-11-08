@@ -10,6 +10,13 @@ using System.Data.Common;
 using System.Linq;
 namespace Bikewale.DAL.ServiceCenter
 {
+
+    /// <summary>
+    /// Created By:-Subodh jain 7 nov 2016
+    /// Summary:- For service center locator 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="U"></typeparam>
     public class ServiceCenterRepository<T, U> : IServiceCenterRepository<T, U> where T : ServiceCenterLocatorList, new()
     {
         public U Add(T t)
