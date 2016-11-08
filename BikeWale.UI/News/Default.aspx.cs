@@ -24,7 +24,8 @@ namespace Bikewale.News
     public class Default : System.Web.UI.Page
     {
         protected Repeater rptNews;
-        protected LinkPagerControl linkPager;
+        //protected LinkPagerControl linkPager;
+        protected Bikewale.Mobile.Controls.LinkPagerControl ctrlPager;
 
         protected string prevUrl = string.Empty, nextUrl = string.Empty;
 
@@ -34,7 +35,7 @@ namespace Bikewale.News
         //No. of news to be displayed on a page
         private const int _pageSize = 10;
 
-        private const int _pagerSlotSize = 10;
+        private const int _pagerSlotSize = 5;
 
         protected override void OnInit(EventArgs e)
         {
@@ -108,7 +109,10 @@ namespace Bikewale.News
                     if (objNews != null)
                     {
                         BindNews(objNews);
-                        BindLinkPager(objPager, Convert.ToInt32(objNews.RecordCount));
+
+                        BindMobileLinkPager(objPager, Convert.ToInt32(objNews.RecordCount));
+
+                        //BindLinkPager(objPager, Convert.ToInt32(objNews.RecordCount));
                     }
                 }
             }
@@ -132,7 +136,7 @@ namespace Bikewale.News
         /// </summary>
         /// <param name="objPager"> Pager instance </param>
         /// <param name="recordCount"> total news available</param>
-        private void BindLinkPager(IPager objPager, int recordCount)
+        /*private void BindLinkPager(IPager objPager, int recordCount)
         {
             PagerOutputEntity _pagerOutput = null;
             PagerEntity _pagerEntity = null;
@@ -157,6 +161,41 @@ namespace Bikewale.News
 
                 //For SEO
                 CreatePrevNextUrl(linkPager.TotalPages);
+            }
+            catch (Exception ex)
+            {
+                Trace.Warn(ex.Message);
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+        }
+         * */
+
+        private void BindMobileLinkPager(IPager objPager, int recordCount)
+        {
+            PagerOutputEntity _pagerOutput = null;
+            PagerEntity _pagerEntity = null;
+
+            try
+            {
+                _pagerEntity = new PagerEntity();
+                _pagerEntity.BaseUrl = "/news/";
+                _pagerEntity.PageNo = _pageNumber; //Current page number
+                _pagerEntity.PagerSlotSize = _pagerSlotSize; // 5 links on a page
+                _pagerEntity.PageUrlType = "page/";
+                _pagerEntity.TotalResults = recordCount; //total News count
+                _pagerEntity.PageSize = _pageSize;        //No. of news to be displayed on a page
+
+                _pagerOutput = objPager.GetPager<PagerOutputEntity>(_pagerEntity);
+
+                // for RepeaterPager
+                ctrlPager.PagerOutput = _pagerOutput;
+                ctrlPager.CurrentPageNo = _pageNumber;
+                ctrlPager.TotalPages = objPager.GetTotalPages(recordCount, _pageSize);
+                ctrlPager.BindPagerList();
+
+                //For SEO
+                CreatePrevNextUrl(ctrlPager.TotalPages);
             }
             catch (Exception ex)
             {
