@@ -364,12 +364,13 @@ var bikeDetails = function () {
                         self.versionArray(tempArr);
                         $('#version-select-element.select-box').removeClass('done');
                         $('#version-select-element select').prop('disabled', false).trigger("chosen:updated");
+                        $('#version-select-element .chosen-disabled').removeClass('single-version');
                     }
                     else {
                         self.versionArray(response.Version);
                         $('#version-select-element.select-box').addClass('done');
                         $('#version-select-element select').prop('disabled', true).trigger("chosen:updated");
-                        //$('#version-select-element chosen-container chosen-container-single chosen-single').css('opacity','1.0');
+                        $('#version-select-element .chosen-disabled').addClass('single-version');
                     }
                 },
                 complete: function (xhr, ajaxOptions, thrownError) {
