@@ -1,45 +1,33 @@
-﻿using Bikewale.BAL.Location;
+﻿using Bikewale.BAL.ServiceCenter;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
+using Bikewale.Cache.ServiceCenter;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
-using Bikewale.DAL.Dealer;
+using Bikewale.DAL.ServiceCenter;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.DealerLocator;
-using Bikewale.Entities.Location;
+using Bikewale.Entities.service;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.Dealer;
-using Bikewale.Interfaces.Location;
-using Bikewale.Mobile.Controls;
-using Bikewale.Utility;
+using Bikewale.Interfaces.ServiceCenter;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
-
 namespace Bikewale.Mobile.Service
 {
     /// <summary>
-    /// Created by : Vivek Gupta on 28th jun 2016
-    /// Summary: To show dealers in State and list of cities
+
+    /// Created by :Subodh Jain 7 nov 2016
+    /// Summary: For Service Center Locator page in India
     /// </summary>
     public class ServiceCenterInCountry : Page
     {
         protected BikeMakeEntityBase objMMV;
-        protected MNewLaunchedBikes ctrlNewLaunchedBikes;
-        protected MUpcomingBikes ctrlUpcomingBikes;
         public ushort makeId;
-        public string cityArr = string.Empty, makeMaskingName = string.Empty, stateMaskingName = string.Empty, stateName = string.Empty, stateArray = string.Empty;
-        public uint stateCount = 0, DealerCount = 0;
-        protected uint countryCount = 0;
-        public uint citiesCount = 0, stateCountDealers = 0;
-        public uint cityId = 0, DealerCountCity, stateId = 0;
-        public DealerStateCities dealerCity;
-        public DealerLocatorList states = null;
-
+        public uint cityId;
+        public string makeMaskingName = string.Empty;
+        public ServiceCenterLocatorList ServiceCenterList;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -52,10 +40,15 @@ namespace Bikewale.Mobile.Service
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Form.Action = Request.RawUrl;
+            //code for device detection added by Ashwini Todkar
+            // Modified By :Ashish Kamble on 5 Feb 2016
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
+
             if (ProcessQS())
             {
-                checkDealersForMakeCity(makeId);
-
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
@@ -63,27 +56,34 @@ namespace Bikewale.Mobile.Service
                     objMMV = makesRepository.GetMakeDetails(makeId.ToString());
 
                 }
-                ctrlNewLaunchedBikes.pageSize = 6;
-                ctrlNewLaunchedBikes.makeid = makeId;
-                ctrlUpcomingBikes.pageSize = 6;
-                ctrlUpcomingBikes.MakeId = makeId;
-                BindStatesCities();
+                BindCities();
+
             }
+
         }
-
-
-        private void BindStatesCities()
+        /// <summary>
+        /// Created By:-Subodh Jain 7 nov 2016
+        /// Summary:- For Service center city state list
+        /// </summary>
+        private void BindCities()
         {
-
-            IState objStatesCity = null;
-            using (IUnityContainer container = new UnityContainer())
+            try
             {
-                container.RegisterType<IState, States>();
-                objStatesCity = container.Resolve<IState>();
-                states = objStatesCity.GetDealerStatesCities(Convert.ToUInt32(makeId));
-                DealerCount = states.totalDealers;
-                citiesCount = states.totalCities;
-
+                IServiceCenter ObjServiceCenter = null;
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IServiceCenter, ServiceCenter<ServiceCenterLocatorList, int>>()
+                    .RegisterType<IServiceCenterCacheRepository, ServiceCenterCacheRepository>()
+                    .RegisterType<IServiceCenterRepository<ServiceCenterLocatorList, int>, ServiceCenterRepository<ServiceCenterLocatorList, int>>()
+                    .RegisterType<ICacheManager, MemcacheManager>();
+                    ObjServiceCenter = container.Resolve<IServiceCenter>();
+                    ServiceCenterList = ObjServiceCenter.GetServiceCenterList(Convert.ToUInt32(makeId));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ServiceCenterInCountry.BindCities");
+                objErr.SendMail();
             }
         }
 
@@ -125,6 +125,8 @@ namespace Bikewale.Mobile.Service
                         if (objMakeResponse.StatusCode == 200)
                         {
                             _makeId = Convert.ToString(objMakeResponse.MakeId);
+                            makeId = Convert.ToUInt16(_makeId);
+
                         }
                         else if (objMakeResponse.StatusCode == 301)
                         {
@@ -145,7 +147,6 @@ namespace Bikewale.Mobile.Service
                     }
                 }
 
-                makeId = Convert.ToUInt16(_makeId);
                 //verify the id as passed in the url
                 if (CommonOpn.CheckId(_makeId) == false)
                 {
@@ -167,47 +168,7 @@ namespace Bikewale.Mobile.Service
             return isSuccess;
         }
 
-        /// <summary>
-        /// Created By : Sushil Kumar bon 31st March 2016
-        /// Description : To redirect user to dealer listing page if make and city already provided by user
-        /// </summary>
-        /// <param name="_makeId"></param>
-        private bool checkDealersForMakeCity(ushort _makeId)
-        {
-            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
-            cityId = currentCityArea.CityId;
-            if (cityId > 0)
-            {
-                IEnumerable<CityEntityBase> _cities = null;
-                try
-                {
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IDealer, DealersRepository>();
-                        var objCities = container.Resolve<IDealer>();
-                        _cities = objCities.FetchDealerCitiesByMake(_makeId);
-                        if (_cities != null && _cities.Count() > 0)
-                        {
-                            var _city = _cities.FirstOrDefault(x => x.CityId == cityId);
-                            if (_city != null)
-                            {
-                                string _redirectUrl = String.Format("/m/{0}-dealer-showrooms-in-{1}/", makeMaskingName, _city.CityMaskingName);
-                                Response.Redirect(_redirectUrl, false);
-                                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                                this.Page.Visible = false;
-                                return true;
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ErrorClass objErr = new ErrorClass(ex, "checkDealersForMakeCity");
-                    objErr.SendMail();
-                }
-            }
-            return false;
-        }
+
 
     }   // End of class
 }   // End of namespace
