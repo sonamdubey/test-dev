@@ -36,9 +36,9 @@ namespace Bikewale.Mobile.Service
         protected uint cityId, makeId, totalServiceCenters;
         protected string clientIP = string.Empty, pageUrl = string.Empty;
         protected LeadCaptureControl ctrlLeadCapture;
-        protected BikeMakeEntityBase objBMEB;
-        protected CityEntityBase objCEB;
-        public IEnumerable<ServiceCenterDetails> serviceCentersList = null;
+        protected BikeMakeEntityBase objBikeMakeEntityBase;
+        protected CityEntityBase objCityEntityBase;
+        protected IEnumerable<ServiceCenterDetails> serviceCentersList = null;
         protected DealersCard ctrlDealerCard;
 
         protected override void OnInit(EventArgs e)
@@ -113,11 +113,11 @@ namespace Bikewale.Mobile.Service
                         .RegisterType<ICity, CityRepository>()
                         .RegisterType<ICacheManager, MemcacheManager>();
                     var cityRepository = container.Resolve<ICityCacheRepository>();
-                    objCEB = cityRepository.GetCityDetails(cityMaskingName);
+                    objCityEntityBase = cityRepository.GetCityDetails(cityMaskingName);
                 }
 
-                if (objCEB != null)
-                    cityName = objCEB.CityName;
+                if (objCityEntityBase != null)
+                    cityName = objCityEntityBase.CityName;
             }
             catch (Exception ex)
             {
@@ -139,11 +139,11 @@ namespace Bikewale.Mobile.Service
                 {
                     container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
                     var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
-                    objBMEB = makesRepository.GetMakeDetails(makeId.ToString());
+                    objBikeMakeEntityBase = makesRepository.GetMakeDetails(makeId.ToString());
                 }
 
-                if (objBMEB != null)
-                    makeName = objBMEB.MakeName;
+                if (objBikeMakeEntityBase != null)
+                    makeName = objBikeMakeEntityBase.MakeName;
             }
             catch (Exception ex)
             {
@@ -158,7 +158,7 @@ namespace Bikewale.Mobile.Service
         /// </summary>
         private void BindServiceCentersList()
         {
-            ServiceCenterData objSCD = null;
+            ServiceCenterData objServiceCenterData = null;
 
             try
             {
@@ -169,12 +169,12 @@ namespace Bikewale.Mobile.Service
                     container.RegisterType<IServiceCentersCacheRepository, ServiceCentersCacheRepository>();
                     container.RegisterType<IServiceCenters, ServiceCenters>();
                     var objSC = container.Resolve<IServiceCenters>();
-                    objSCD = objSC.GetServiceCentersByCity(cityId, (int)makeId);
+                    objServiceCenterData = objSC.GetServiceCentersByCity(cityId, (int)makeId);
 
-                    if (objSCD != null && objSCD.Count > 0)
+                    if (objServiceCenterData != null && objServiceCenterData.Count > 0)
                     {
-                        serviceCentersList = objSCD.ServiceCenters;
-                        totalServiceCenters = objSCD.Count;
+                        serviceCentersList = objServiceCenterData.ServiceCenters;
+                        totalServiceCenters = objServiceCenterData.Count;
                     }
                 }
 
@@ -217,7 +217,7 @@ namespace Bikewale.Mobile.Service
                 }
                 catch (Exception ex)
                 {
-                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
+                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetMakeIdByMakeMaskingName");
                     objErr.SendMail();
                     Response.Redirect("pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();

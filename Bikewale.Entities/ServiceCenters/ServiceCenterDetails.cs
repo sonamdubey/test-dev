@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.ServiceCenters
 {
@@ -7,22 +8,23 @@ namespace Bikewale.Entities.ServiceCenters
     /// Created On  : 07 Nov 2016
     /// Description : Service center data on city listing page.
     /// </summary>
+
+    [Serializable, DataContract]
     public class ServiceCenterDetails
     {
-        [JsonProperty("serviceCenterId")]
+        [DataMember]
         public uint ServiceCenterId { get; set; }
 
-        [JsonProperty("name")]
+        [DataMember]
         public string Name { get; set; }
 
-        [JsonProperty("address")]
+        [DataMember]
         public string Address { get; set; }
 
-        [JsonProperty("phone")]
+        [DataMember]
         public string Phone { get; set; }
 
-        [JsonProperty("mobile")]
+        [DataMember]
         public string Mobile { get; set; }
     }
 }
-     

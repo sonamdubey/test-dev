@@ -23,7 +23,7 @@ namespace Bikewale.DAL.ServiceCenters
         /// </summary>     
         public ServiceCenterData GetServiceCentersByCity(uint cityId, int makeId)
         {
-            ServiceCenterData serviceCenters = new ServiceCenterData();
+            ServiceCenterData serviceCenters = null;
             IList<ServiceCenterDetails> objServiceCenterList = null;
 
             try
@@ -38,12 +38,12 @@ namespace Bikewale.DAL.ServiceCenters
                     {
                         if (dr != null)
                         {
+                            serviceCenters = new ServiceCenterData();
                             objServiceCenterList = new List<ServiceCenterDetails>();
+                            ServiceCenterDetails objServiceCenterDetails = new ServiceCenterDetails();
 
                             while (dr.Read())
                             {
-                                ServiceCenterDetails objServiceCenterDetails = new ServiceCenterDetails();
-
                                 objServiceCenterDetails.ServiceCenterId = SqlReaderConvertor.ToUInt32(dr["id"]);
                                 objServiceCenterDetails.Name = Convert.ToString(dr["name"]);
                                 objServiceCenterDetails.Address = Convert.ToString(dr["address"]);
@@ -70,7 +70,7 @@ namespace Bikewale.DAL.ServiceCenters
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersRepository.GetServiceCentersByCity");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Error in ServiceCentersRepository.GetServiceCentersByCity for paramerters cityId : {0}, makeId : {1}", cityId, makeId));
                 objErr.SendMail();
             }
             return serviceCenters;

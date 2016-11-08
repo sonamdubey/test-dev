@@ -53,7 +53,7 @@
                     <% foreach (var serviceCenter in serviceCentersList)
                        { %>                     
                             <li>
-                                <a href="" title="Name of service center | Make | City">
+                                <a href="/m/service/ServiceCenterDetails.aspx?Id=<%= serviceCenter.ServiceCenterId %>" title="<%= serviceCenter.Name %> | <%= makeName %> | <%= cityName %>">
                                     <h3 class="text-truncate margin-bottom5 text-black">                                    
                                         <%= serviceCenter.Name %>
                                     </h3>     

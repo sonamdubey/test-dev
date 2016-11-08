@@ -1,11 +1,7 @@
-﻿using Bikewale.Cache.Core;
-using Bikewale.Cache.ServiceCenters;
-using Bikewale.DAL.ServiceCenters;
-using Bikewale.Entities.ServiceCenters;
+﻿using Bikewale.Entities.ServiceCenters;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.ServiceCenters;
 using Bikewale.Notifications;
-using Microsoft.Practices.Unity;
 using System;
 
 namespace Bikewale.BAL.ServiceCenters
@@ -16,18 +12,15 @@ namespace Bikewale.BAL.ServiceCenters
     /// </summary>
     public class ServiceCenters : IServiceCenters
     {
-        private readonly IServiceCentersCacheRepository objSCCR = null;
+        private readonly ICacheManager _cache = null;
+        private readonly IServiceCentersRepository _obServiceCentersRepository = null;
+        private readonly IServiceCentersCacheRepository _obServiceCentersCacheRepository = null;
 
-        public ServiceCenters()
+        public ServiceCenters(ICacheManager cache, IServiceCentersRepository obServiceCentersRepository, IServiceCentersCacheRepository obServiceCentersCacheRepository)
         {
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<ICacheManager, MemcacheManager>();
-                container.RegisterType<IServiceCentersRepository, ServiceCentersRepository>();
-                container.RegisterType<IServiceCentersCacheRepository, ServiceCentersCacheRepository>();
-
-                objSCCR = container.Resolve<IServiceCentersCacheRepository>();
-            }
+            _cache = cache;
+            _obServiceCentersRepository = obServiceCentersRepository;
+            _obServiceCentersCacheRepository = obServiceCentersCacheRepository;
         }
 
         /// <summary>
@@ -39,9 +32,9 @@ namespace Bikewale.BAL.ServiceCenters
             ServiceCenterData objServiceCenterData = null;
             try
             {
-                if (objSCCR != null)
+                if (_obServiceCentersCacheRepository != null && cityId > 0 && makeId > 0)
                 {
-                    objServiceCenterData = objSCCR.GetServiceCentersByCity(cityId, makeId);
+                    objServiceCenterData = _obServiceCentersCacheRepository.GetServiceCentersByCity(cityId, makeId);
                 }
             }
             catch (Exception ex)
