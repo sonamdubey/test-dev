@@ -20,7 +20,6 @@ namespace Bikewale.Controls
         public int? MakeId { get; set; }
         public int? ModelId { get; set; }
         public int? curPageNo { get; set; }
-        public string cityName { get; set; }
         public int FetchedRecordsCount { get; set; }
         protected override void OnInit(EventArgs e)
         {

@@ -295,14 +295,8 @@ namespace Bikewale.News
         /// </summary>
         private void BindUpcoming()
         {
-            var cookies = this.Context.Request.Cookies;
-            string city = cookies["location"].Value.Substring(cookies["location"].Value.IndexOf('_') + 1);
-            if (String.IsNullOrEmpty(city))
-                city = BWConfiguration.Instance.DefaultName;
             ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            ctrlUpcomingBikes.pageSize = 4;
-            ctrlUpcomingBikes.cityName = city;
-            ctrlUpcomingBikes.MakeId = 12;
+            ctrlUpcomingBikes.pageSize = 4;          
         }
 
     }//End of Class

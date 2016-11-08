@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.News.news" Trace="false"  Debug="false" Async="true"%>
 <%@ Import NameSpace="Bikewale.Common" %>
+<%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpComingBikesCMS.ascx" %>
 <!Doctype html>
 <html>
 <head>
@@ -143,7 +144,7 @@
 						<div class="margin-bottom20">
                             <!-- Ad -->
                         </div>
-                        <div class="content-box-shadow padding-15-20-10 margin-bottom20">
+                        <%--<div class="content-box-shadow padding-15-20-10 margin-bottom20">
                             <h2>Upcoming Royal Enfield bikes</h2>
                             <ul class="sidebar-bike-list">
                                 <li>
@@ -186,7 +187,16 @@
                             <div class="margin-top10 margin-bottom10">
                                 <a href="" class="font14">View all upcoming Royal Enfield bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
                             </div>
-                        </div>
+                        </div>--%>
+                        <% if (ctrlUpcomingBikes.FetchedRecordsCount > 0)
+                           { %>
+                        <div class="content-box-shadow padding-15-20-10 margin-bottom20">
+                        <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
+                        <div class="margin-top10 margin-bottom10">
+                                <a href="<%=upcomingBikesLink %>" class="font14">View all upcoming bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
+                            </div>
+                            </div>
+                        <% } %>
 						<%--<div class="margin-top15">
                             <!-- BikeWale_News/BikeWale_News_300x250 -->
                             <!-- #include file="/ads/Ad300x250.aspx" -->

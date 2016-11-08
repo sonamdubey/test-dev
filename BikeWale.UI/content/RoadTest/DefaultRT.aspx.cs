@@ -325,14 +325,8 @@ namespace Bikewale.Content
         /// </summary>
         private void BindUpcoming()
         {
-            var cookies = this.Context.Request.Cookies;
-            string city = cookies["location"].Value.Substring(cookies["location"].Value.IndexOf('_') + 1);
-            if (String.IsNullOrEmpty(city))
-                city = BWConfiguration.Instance.DefaultName;
             ctrlUpcoming.sortBy = (int)EnumUpcomingBikesFilter.Default;
             ctrlUpcoming.pageSize = 4;
-            ctrlUpcoming.cityName = city;
-            //ctrlUpcoming.MakeId = 1;
-        }
+       }
     }
 }

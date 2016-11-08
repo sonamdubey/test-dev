@@ -11,7 +11,7 @@
                                         </div>
                                         <div class="bike-target-content inline-block padding-left10">
                                             <h3><%# DataBinder.Eval(Container.DataItem, "MakeBase.MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem, "ModelBase.ModelName").ToString() %></h3>
-                                            <p class="font11 text-light-grey">Ex-showroom <%=this.cityName%></p>
+                                            <p class="font11 text-light-grey">Expected price</p>
                                             <span class="bwsprite inr-md"></span><span class="font16 text-bold"><%# Bikewale.Common.CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"EstimatedPriceMin").ToString()) %></span>
                                         </div>
                                     </a>

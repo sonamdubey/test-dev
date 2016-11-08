@@ -10,7 +10,13 @@ using Bikewale.Memcache;
 using Microsoft.Practices.Unity;
 using System;
 using System.Web;
-
+using System.Linq;
+using Bikewale.Entities.BikeData;
+using Bikewale.Controls;
+using Bikewale.Utility;
+using Bikewale.Cache.BikeData;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.DAL.BikeData;
 
 namespace Bikewale.News
 {
@@ -22,11 +28,12 @@ namespace Bikewale.News
         private string _basicId = string.Empty;
         bool _isContentFount = true;
         protected ArticleDetails objArticle = null;
-
+        protected UpcomingBikesCMS ctrlUpcomingBikes;
         protected string articleUrl = string.Empty, articleTitle = string.Empty, HostUrl = string.Empty, basicId = string.Empty, smallPicUrl = string.Empty, authorName = string.Empty, nextPageArticle = string.Empty, prevPageArticle = string.Empty, originalImgUrl = string.Empty;
         protected string displayDate = string.Empty, mainImgCaption = string.Empty, largePicUrl = string.Empty, content = string.Empty, prevPageUrl = string.Empty, nextPageUrl = string.Empty, hostUrl = string.Empty;
         protected bool isMainImageSet = false;
-
+        protected int makeId;
+        protected string makeMaskingName,upcomingBikesLink;
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -99,7 +106,12 @@ namespace Bikewale.News
                         if (objArticle == null)
                             _isContentFount = false;
                         else
+                        {
                             GetNewsData();
+                            GetTaggedBikeList();
+                            BindUpcoming();
+                        }
+                            
                     }
 
             }
@@ -155,8 +167,46 @@ namespace Bikewale.News
 
             return mainImgUrl;
         }
-
-
+        /// <summary>
+        /// Created by : Aditi Srivastava on 8 Nov 2016
+        /// Summary  : get tagged make in article
+        /// </summary>
+        private void GetTaggedBikeList()
+        {
+            if (objArticle.VehiclTagsList.Any(m => (m.MakeBase!=null)))
+            {
+                makeId = objArticle.VehiclTagsList.Select(e => e.MakeBase).First().MakeId;
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                            .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                            .RegisterType<ICacheManager, MemcacheManager>();
+                    var _objMakeCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    BikeMakeEntityBase objMMV = _objMakeCache.GetMakeDetails(Convert.ToUInt32(makeId));
+                    makeMaskingName = objMMV.MaskingName;
+                }
+                        
+            }
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 8 Nov 2016
+        /// Summary  : Bind upcoming bikes list
+        /// </summary>
+        /// </summary>
+        private void BindUpcoming()
+        {
+            if (String.IsNullOrEmpty(makeMaskingName))
+            {
+                upcomingBikesLink = "/upcoming-bikes/";
+            }
+            else
+            {
+                upcomingBikesLink = String.Format("/{0}-bikes/upcoming/",makeMaskingName);
+            }
+            ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+            ctrlUpcomingBikes.pageSize = 3;
+            ctrlUpcomingBikes.MakeId = makeId;
+        }
 
     }
 }
