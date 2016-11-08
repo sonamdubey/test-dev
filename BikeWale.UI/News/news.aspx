@@ -154,7 +154,7 @@
                                         </div>
                                         <div class="bike-target-content inline-block padding-left10">
                                             <h3>Harley Davison Softail</h3>
-                                            <p class="font11 text-light-grey">Ex-showroom New Delhi</p>
+                                            <p class="font11 text-light-grey">Expected price</p>
                                             <span class="bwsprite inr-md"></span><span class="font16 text-bold">&nbsp;87,000</span>
                                         </div>
                                     </a>
@@ -166,7 +166,7 @@
                                         </div>
                                         <div class="bike-target-content inline-block padding-left10">
                                             <h3>Bajaj Pulsar AS200</h3>
-                                            <p class="font11 text-light-grey">Ex-showroom New Delhi</p>
+                                            <p class="font11 text-light-grey">Expected price</p>
                                             <span class="bwsprite inr-md"></span><span class="font16 text-bold">&nbsp;92,000</span>
                                         </div>
                                     </a>
@@ -178,7 +178,7 @@
                                         </div>
                                         <div class="bike-target-content inline-block padding-left10">
                                             <h3>Honda Unicorn 150</h3>
-                                            <p class="font11 text-light-grey">Ex-showroom New Delhi</p>
+                                            <p class="font11 text-light-grey">Expected price</p>
                                             <span class="bwsprite inr-md"></span><span class="font16 text-bold">&nbsp;1,12,000</span>
                                         </div>
                                     </a>

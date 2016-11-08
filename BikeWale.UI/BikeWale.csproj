@@ -1819,6 +1819,7 @@
     <Content Include="css\components\article.css" />
     <Content Include="css\components\compare-bikes.css" />
     <Content Include="css\components\pagination.css" />
+    <Content Include="css\components\model-gallery.css" />
     <Content Include="css\content\details.css" />
     <Content Include="css\components\sidebar-bike-list.css" />
     <Content Include="css\css-new-photos.css" />
