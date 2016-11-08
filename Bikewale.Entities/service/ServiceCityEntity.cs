@@ -13,7 +13,7 @@ namespace Bikewale.Entities.service
         public string Longitude { get; set; }
 
         [JsonProperty("dealerCount"), DataMember]
-        public uint DealersCount { get; set; }
+        public uint ServiceCenterCountCity { get; set; }
 
         [JsonProperty("id"), DataMember]
         public uint Id { get; set; }

@@ -53,13 +53,13 @@
                                   <% foreach (var st in ServiceCenterList.ServiceCenterDetailsList)
                        { %>
                                 <li  class="item-state">
-                                    <a data-item-id="<%=st.Id %>" data-item-name="<%=st.Name %>" data-lat="<%=st.Lat %>" data-long ="<%=st.Long %>" data-dealercount="<%=st.DealerCountState%>"  href="javascript:void(0)" rel="nofollow" class="type-state" data-item-id="<%=st.Id %>"><%=st.Name %></a>
+                                    <a data-item-id="<%=st.Id %>" data-item-name="<%=st.Name %>" data-lat="<%=st.Lat %>" data-long ="<%=st.Long %>" data-ServiceCenterCount="<%=st.ServiceCenterCountState%>"  href="javascript:void(0)" rel="nofollow" class="type-state" data-item-id="<%=st.Id %>"><%=st.Name %></a>
                                                  <ul class="location-list-city">
                                                      <% foreach (var stcity in st.Cities)
                        { %>
                                     
                                         <li>
-                                            <a data-item-id="<%=stcity.Id %>" data-item-name="<%=stcity.CityName %>" data-lat="<%=stcity.Lattitude %>" data-long ="<%=stcity.Longitude %>" data-link="<%=stcity.Link %>" data-dealercount="<%=stcity.DealersCount%>" title=" <%=objMMV.MakeName%> dealer showrooms in <%=stcity.CityName %>" href="/m/<%=makeMaskingName %>-service-center-in-<%=stcity.CityMaskingName %>/"><%=stcity.CityName %> (<%=stcity.DealersCount %>)</a>
+                                            <a data-item-id="<%=stcity.Id %>" data-item-name="<%=stcity.CityName %>" data-lat="<%=stcity.Lattitude %>" data-long ="<%=stcity.Longitude %>" data-link="<%=stcity.Link %>" data-ServiceCenterCount="<%=stcity.ServiceCenterCountCity%>" title="<%=makeMaskingName %>-service-center-in-<%=stcity.CityMaskingName %>" href="/m/<%=makeMaskingName %>-service-center-in-<%=stcity.CityMaskingName %>/"><%=stcity.CityName %> (<%=stcity.ServiceCenterCountCity %>)</a>
                                         </li>
                                       <%}%>
                                     </ul>

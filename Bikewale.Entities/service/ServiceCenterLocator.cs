@@ -10,7 +10,7 @@ namespace Bikewale.Entities.service
         public string Lat { get; set; }
         public string Long { get; set; }
         public string stateMaskingName { get; set; }
-        public uint DealerCountState { get; set; }
+        public uint ServiceCenterCountState { get; set; }
         public uint totalDealerIndia { get; set; }
         public uint totalCities { get; set; }
         public IEnumerable<ServiceCityEntity> Cities { get; set; }

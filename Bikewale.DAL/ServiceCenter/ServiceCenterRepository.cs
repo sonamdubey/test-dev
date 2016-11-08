@@ -84,7 +84,7 @@ namespace Bikewale.DAL.ServiceCenter
                                         CityMaskingName = Convert.ToString(dr["citymaskingname"]),
                                         Lattitude = Convert.ToString(dr["lattitude"]),
                                         Longitude = Convert.ToString(dr["longitude"]),
-                                        DealersCount = SqlReaderConvertor.ToUInt16(dr["servicecnt"]),
+                                        ServiceCenterCountCity = SqlReaderConvertor.ToUInt16(dr["servicecnt"]),
                                         stateId = SqlReaderConvertor.ToUInt16(dr["stateid"]),
                                         Link = string.Format("{0}/{1}-service-centers-in-{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, makeMaskingname, Convert.ToString(dr["citymaskingname"]))
                                     });
@@ -103,7 +103,7 @@ namespace Bikewale.DAL.ServiceCenter
                                         Long = Convert.ToString(dr["statelongitude"]),
                                         Name = Convert.ToString(dr["name"]),
                                         stateMaskingName = Convert.ToString(dr["statemaskingname"]),
-                                        DealerCountState = SqlReaderConvertor.ToUInt16(dr["statedealercnt"])
+                                        ServiceCenterCountState = SqlReaderConvertor.ToUInt16(dr["statedealercnt"])
                                     });
 
                                 }
@@ -126,7 +126,7 @@ namespace Bikewale.DAL.ServiceCenter
                                 }
 
                                 objStateCityList.CityCount = Convert.ToInt32(objCityList.Count());
-                                objStateCityList.ServiceCenterCount = Convert.ToInt32(objStateCityList.ServiceCenterDetailsList.Sum(m => m.DealerCountState));
+                                objStateCityList.ServiceCenterCount = Convert.ToInt32(objStateCityList.ServiceCenterDetailsList.Sum(m => m.ServiceCenterCountState));
                             }
                             dr.Close();
                         }
@@ -140,7 +140,7 @@ namespace Bikewale.DAL.ServiceCenter
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format(" :GetServiceCenterList, makeId = {0} ", makeId));
+                ErrorClass objErr = new ErrorClass(ex, String.Format("GetServiceCenterList, makeId = {0} ", makeId));
                 objErr.SendMail();
             }
             return objStateCityList;
