@@ -68,18 +68,18 @@ namespace BikeWaleOpr.Classified
 
                     ds = cc.CustomerListingDetail(startIndex, endIndex, inquiryId);
 
-                    recordCount = Convert.ToInt32(ds.Tables[0].Rows[0]["recordCount"]);
+                    recordCount = Convert.ToInt32(ds.Tables[1].Rows[0]["recordCount"]);
                     Trace.Warn("Record Count", recordCount.ToString());
 
                     totalPages = objPager.GetTotalPages(recordCount, pageSize);
-                    if (ds.Tables[1].Rows != null && ds.Tables[1].Rows.Count > 0)
+                    if (ds.Tables[0].Rows != null && ds.Tables[0].Rows.Count > 0)
                     {
                         lblErrorMessage.Visible = false;
                     }
                     else{
                         lblErrorMessage.Visible = true;                        
                     }
-                    rptCustomerList.DataSource = ds.Tables[1];
+                    rptCustomerList.DataSource = ds.Tables[0];
                     rptCustomerList.DataBind(); // Data Bind
 
                     PagerEntity pagerEntity = new PagerEntity();
