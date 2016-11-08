@@ -116,7 +116,7 @@
                     <ul class="specs-features-list">
                         <li>
                             <p class="specs-features-label">Profile ID</p>
-                            <p class="specs-features-value">S<%= inquiryDetails.OtherDetails.Id %></p>
+                            <p class="specs-features-value"><%= profileId %></p>
                         </li>
                         <li>
                             <p class="specs-features-label">Date updated</p>

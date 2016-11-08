@@ -939,7 +939,8 @@ var verificationDetails = function () {
                     }
                     else {
                         $("#otpErrorText").text("");
-                        vmSellBike.formStep(3);
+                        vmSellBike.formStep(3);                        
+                        vmSellBike.initPhotoUpload();
                     }
                 },
                 complete: function (xhr, ajaxOptions, thrownError) {
@@ -1369,7 +1370,10 @@ $(function () {
 
         vmSellBike.serverImg(inquiryDetails.photos);
         if (window.location.hash == "#uploadphoto")
+        {
             vmSellBike.formStep(3);
+            vmSellBike.initPhotoUpload();
+        }            
     }
     if (userId != null) {
         var pdetails = vmSellBike.personalDetails();

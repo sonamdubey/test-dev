@@ -193,7 +193,7 @@
                             <ul class="key-value-list font14">
                                 <li>
                                     <p class="bike-details-key">Profile ID</p>
-                                    <p class="bike-details-value">S<%= inquiryDetails.OtherDetails.Id %></p>
+                                    <p class="bike-details-value"><%= profileId %></p>
                                 </li>
                                 <li>
                                     <p class="bike-details-key">Date updated</p>
