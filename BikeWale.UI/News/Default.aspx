@@ -56,42 +56,44 @@
                                 <h2 class="font14 text-unbold text-light-grey">Latest Indian Bikes News and Views</h2>
                             </div>
                             <div class="section-inner-padding">
-                                <asp:repeater id="rptNews" runat="server">
-                                    <itemtemplate>
-                                        <div id='post-<%# Eval("BasicId") %>' class="<%# Regex.Match(Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")), @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "sponsored-content" : "post-content" %> article-content">
-                                            <%# Regex.Match(Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")), @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
+                                <% foreach (var article in newsArticles) {
+                                       string articleUrl = Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(), article.ArticleUrl, article.CategoryId.ToString());
+                                       %>
+                                        <div id='post-<%= article.BasicId %>' class="<%= Regex.Match(article.AuthorName, @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "sponsored-content" : "post-content" %> article-content">
+                                            <%= Regex.Match(article.AuthorName, @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : string.Empty %>
                                         
                                             <div class="article-image-wrapper">
-                                                <%# string.Format("<a href='{0}'><img src='{1}' alt='{2}' title='{2}' width='100%' border='0' /></a>",Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"BasicId")),Convert.ToString(DataBinder.Eval(Container.DataItem,"ArticleUrl")),Convert.ToString(DataBinder.Eval(Container.DataItem,"CategoryId"))),Bikewale.Utility.Image.GetPathToShowImages(Convert.ToString(DataBinder.Eval(Container.DataItem,"OriginalImgUrl")),Convert.ToString(DataBinder.Eval(Container.DataItem,"HostUrl")),Bikewale.Utility.ImageSize._210x118),Convert.ToString(DataBinder.Eval(Container.DataItem,"Title"))) %>
+                                                <a href='<%= articleUrl %>'>
+                                                    <img src='<%= Bikewale.Utility.Image.GetPathToShowImages(article.OriginalImgUrl,article.HostUrl,Bikewale.Utility.ImageSize._210x118) %>' alt='<%= article.Title %>' title='<%= article.Title %>' width='100%' border='0' /> 
+                                                </a> 
                                             </div>
                                             <div class="article-desc-wrapper">
                                                 <div class="article-category">
-                                                    <span class="text-uppercase font12 text-bold"><%# GetContentCategory(DataBinder.Eval(Container.DataItem,"CategoryId").ToString()) %></span>
+                                                    <span class="text-uppercase font12 text-bold"><%= GetContentCategory(article.CategoryId.ToString()) %></span>
                                                 </div>
                                                 <h3 class="font14 margin-bottom10">
-                                                    <a href="<%# Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"BasicId")),Convert.ToString(DataBinder.Eval(Container.DataItem,"ArticleUrl")),Convert.ToString(DataBinder.Eval(Container.DataItem,"CategoryId"))) %>" rel="bookmark" class="text-black text-bold"><%# Eval("Title") %></a>
+                                                    <a href="<%= articleUrl %>" rel="bookmark" class="text-black text-bold"><%= article.Title %></a>
                                                 </h3>
                                                 <div class="font12 text-light-grey margin-bottom20">
                                                     <div class="article-date">
                                                         <span class="bwsprite calender-grey-icon inline-block"></span>
                                                         <span class="inline-block">
-                                                            <%# Bikewale.Utility.FormatDate.GetFormatDate(Eval("DisplayDate").ToString(),"MMMM dd, yyyy") %>
+                                                            <%= Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(article.DisplayDate),"MMMM dd, yyyy") %>
                                                         </span>
                                                     </div>
                                                     <div class="article-author">
                                                         <span class="bwsprite author-grey-icon inline-block"></span>
                                                         <span class="inline-block">
-                                                            <%# DataBinder.Eval(Container.DataItem,"AuthorName") %>
+                                                            <%= article.AuthorName %>
                                                         </span>
                                                     </div>
                                                 </div>
-                                                <div class="font14 line-height"><%# DataBinder.Eval(Container.DataItem,"Description") %><a href="<%# Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"BasicId")),Convert.ToString(DataBinder.Eval(Container.DataItem,"ArticleUrl")),Convert.ToString(DataBinder.Eval(Container.DataItem,"CategoryId"))) %>">Read full story</a></div>
+                                                <div class="font14 line-height"><%= article.Description %><a href="<%= articleUrl %>">Read full story</a></div>
                                             </div>
                                             <div class="clear"></div>
                                         
                                         </div>
-                                    </itemtemplate>
-                                </asp:repeater>
+                                <% } %>
 
                                 <div id="footer-pagination" class="font14 padding-top10">
                                     <div class="grid-5 alpha omega text-light-grey">
