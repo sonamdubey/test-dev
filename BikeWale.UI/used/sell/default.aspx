@@ -300,7 +300,8 @@
                                             <div class="panel-row margin-bottom20">
                                                 <div id="terms-content">
                                                     <span class="bwsprite unchecked-box" data-bind="click: personalDetails().terms, css: personalDetails().termsCheckbox ? 'checked': ''"></span>
-                                                    <p>I agree with BikeWale sell bike <a href="" target="_blank">Terms & Conditions</a>, visitor agreement and privacy policy *. I agree that by clicking 'List your bike’ button, I am permitting buyers to contact me on my Mobile number.</p>
+                                                    <p>I agree with BikeWale sell bike <a href="/TermsConditions.aspx" target="_blank">Terms & Conditions</a>, <a target="_blank" href="/visitoragreement.aspx">visitor agreement</a> and <a target="_blank" href="/privacypolicy.aspx">privacy policy</a> *. I agree that by clicking 'List your bike’ button, I am permitting buyers to contact me on my Mobile number.</p>
+                                                    <span class="error-text" data-bind="validationMessage: personalDetails().termsCheckbox"></span>
                                                 </div>
                                             </div>
                                         
@@ -391,14 +392,14 @@
                                             <div class="panel-row margin-bottom20">
                                                 <div class="input-box form-control-box" data-bind="css: moreDetails().registrationNumber().length > 0 ? 'not-empty' : ''">
                                                     <input type="text" id="registrationNumber" data-bind="textInput: moreDetails().registrationNumber" />
-                                                    <label for="registrationNumber">Registration number<sup>*</sup></label>
+                                                    <label for="registrationNumber">Registration number</label>
                                                     <span class="boundary"></span>
                                                 </div>
                                             </div>
 
                                             <div class="panel-row">
                                                 <div class="select-box select-box-no-input">
-                                                    <p class="select-label">Insurance<sup>*</sup></p>
+                                                    <p class="select-label">Insurance</p>
                                                     <select id="select-insuranceType" class="chosen-select" data-bind="chosen: {}, value: moreDetails().insuranceType" data-title="Insurance">
                                                         <option value></option>
                                                         <option value="Comprehensive">Comprehensive</option>
