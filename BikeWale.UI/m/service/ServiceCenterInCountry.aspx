@@ -31,7 +31,7 @@
                 </div>
             </section>
         <% } %>
-
+        <%if(objMMV!=null){ %>
         <section>
             <div class="container bg-white card-bottom-margin">
                 <h1 class="card-header"><%=objMMV.MakeName %> service centers in India</h1>
@@ -148,7 +148,7 @@
                 <a href="" class="font14">Read all bike maintenance tips<span class="bwmsprite blue-right-arrow-icon"></span></a>
             </div>
         </section>
-
+        <%} %>
         <section>
             <h2 class="section-heading">Bike troubleshooting - FAQs</h2>
             <div class="container bg-white box-shadow card-bottom-margin padding-bottom20">

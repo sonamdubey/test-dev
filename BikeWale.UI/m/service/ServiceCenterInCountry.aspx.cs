@@ -67,18 +67,23 @@ namespace Bikewale.Mobile.Service
         /// </summary>
         private void BindCities()
         {
-            IServiceCenter ObjServiceCenter = null;
-            using (IUnityContainer container = new UnityContainer())
+            try
             {
-                container.RegisterType<IServiceCenter, ServiceCenter<ServiceCenterLocatorList, int>>()
-                .RegisterType<IServiceCenterCacheRepository, ServiceCenterCacheRepository>()
-                .RegisterType<IServiceCenterRepository<ServiceCenterLocatorList, int>, ServiceCenterRepository<ServiceCenterLocatorList, int>>()
-                .RegisterType<ICacheManager, MemcacheManager>();
-                ObjServiceCenter = container.Resolve<IServiceCenter>();
-                ServiceCenterList = ObjServiceCenter.GetServiceCenterList(Convert.ToUInt32(makeId));
-
-
-
+                IServiceCenter ObjServiceCenter = null;
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IServiceCenter, ServiceCenter<ServiceCenterLocatorList, int>>()
+                    .RegisterType<IServiceCenterCacheRepository, ServiceCenterCacheRepository>()
+                    .RegisterType<IServiceCenterRepository<ServiceCenterLocatorList, int>, ServiceCenterRepository<ServiceCenterLocatorList, int>>()
+                    .RegisterType<ICacheManager, MemcacheManager>();
+                    ObjServiceCenter = container.Resolve<IServiceCenter>();
+                    ServiceCenterList = ObjServiceCenter.GetServiceCenterList(Convert.ToUInt32(makeId));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ServiceCenterInCountry.BindCities");
+                objErr.SendMail();
             }
         }
 
@@ -120,6 +125,8 @@ namespace Bikewale.Mobile.Service
                         if (objMakeResponse.StatusCode == 200)
                         {
                             _makeId = Convert.ToString(objMakeResponse.MakeId);
+                            makeId = Convert.ToUInt16(_makeId);
+
                         }
                         else if (objMakeResponse.StatusCode == 301)
                         {
@@ -140,7 +147,6 @@ namespace Bikewale.Mobile.Service
                     }
                 }
 
-                makeId = Convert.ToUInt16(_makeId);
                 //verify the id as passed in the url
                 if (CommonOpn.CheckId(_makeId) == false)
                 {

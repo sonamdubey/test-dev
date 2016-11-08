@@ -125,7 +125,7 @@ namespace Bikewale.DAL.ServiceCenter
                                     st.Cities = curStateCityList;
                                 }
 
-                                objStateCityList.CityCount = Convert.ToInt32(objCityList.Count());
+                                objStateCityList.CityCount = objCityList.Count();
                                 objStateCityList.ServiceCenterCount = Convert.ToInt32(objStateCityList.ServiceCenterDetailsList.Sum(m => m.ServiceCenterCountState));
                             }
                             dr.Close();
