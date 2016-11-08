@@ -971,7 +971,7 @@ var moreDetails = function () {
         var moreDetailsData = {
             "registrationNo": vmSellBike.moreDetails().registrationNumber(),
             "insuranceType": vmSellBike.moreDetails().insuranceType(),
-            "adDescription": vmSellBike.moreDetails().adDescription().replace(/\s/g, ' ')
+            "adDescription": vmSellBike.moreDetails().adDescription() ? vmSellBike.moreDetails().adDescription().replace(/\s/g, ' ') : ''
         }
         $.ajax({
             type: "Post",
@@ -1330,8 +1330,8 @@ $(function () {
     if (isEdit == "True") {
         if (isAuthorized == "False") {
             vmSellBike.isFakeCustomer(true);
-        }
-        inquiryDetails = JSON.parse(inquiryDetails);
+        }        
+        inquiryDetails = JSON.parse(inquiryDetailsJSON);
         var bdetails = vmSellBike.bikeDetails();
         var pdetails = vmSellBike.personalDetails();
         var mdetails = vmSellBike.moreDetails();
@@ -1375,9 +1375,13 @@ $(function () {
             vmSellBike.initPhotoUpload();
         }            
     }
+    else {
+        $("#kmsRidden").val('');
+        $("#expectedPrice").val('');
+    }
     if (userId != null) {
         var pdetails = vmSellBike.personalDetails();
         pdetails.sellerName(userName);
         pdetails.sellerEmail(userEmail);
-    }
+    }    
 });

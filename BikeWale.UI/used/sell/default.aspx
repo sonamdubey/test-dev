@@ -159,7 +159,7 @@
 
                                             <div class="panel-row margin-bottom20">
                                                 <div id="div-expectedPrice" class="input-box form-control-box" data-bind="css: expectedPrice().length > 0 ? 'not-empty' : ''">
-                                                    <input type="number" id="expectedPrice" min="1" data-bind="textInput: expectedPrice, validationElement: expectedPrice" />
+                                                    <input type="number" min="1" id="expectedPrice" data-bind="textInput: expectedPrice, validationElement: expectedPrice" />
                                                     <label for="expectedPrice">Expected price<sup>*</sup></label>
                                                     <span class="boundary"></span>
                                                     <span class="error-text" data-bind="validationMessage: expectedPrice"></span>
@@ -480,7 +480,7 @@
                                                 <span class="sell-bike-sprite buyers-icon"></span>
                                                 <div class="feature-item inline-block">
                                                     <p class="feature-title">Genuine buyers</p>
-                                                    <p>Over x million are online on BikeWale looking a used bike</p>
+                                                    <p>Over 3.5 million are online on BikeWale looking a used bike</p>
                                                 </div>
                                             </li>
                                             <li>
@@ -524,7 +524,7 @@
             var isEdit = '<%= isEdit %>';
             var inquiryId = '<%= inquiryId %>';
             var isAuthorized = '<%= isAuthorized%>';
-            var inquiryDetails = '<%= Newtonsoft.Json.JsonConvert.SerializeObject(inquiryDTO) %>';
+            var inquiryDetailsJSON = '<%= Newtonsoft.Json.JsonConvert.SerializeObject(inquiryDTO) %>';
             var userName = '<%= userName%>';
             var userEmail = '<%= userEmail%>';
         </script>
