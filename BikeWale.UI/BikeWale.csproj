@@ -1812,6 +1812,8 @@
     <Content Include="css\chosen.min.css" />
     <Content Include="css\components\article.css" />
     <Content Include="css\components\compare-bikes.css" />
+    <Content Include="css\components\pagination.css" />
+    <Content Include="css\components\sidebar-bike-list.css" />
     <Content Include="css\css-new-photos.css" />
     <Content Include="css\css-research-photos.css" />
     <Content Include="css\datepicker.css" />
@@ -1845,6 +1847,7 @@
     <Content Include="css\model-btf.css" />
     <Content Include="css\model.css" />
     <Content Include="css\newbikes.css" />
+    <Content Include="css\content\listing.css" />
     <Content Include="css\new\modelprice-in-city.css" />
     <Content Include="css\new\search.css" />
     <Content Include="css\pikaday.css" />

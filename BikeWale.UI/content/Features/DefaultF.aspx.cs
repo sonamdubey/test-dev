@@ -26,7 +26,7 @@ namespace Bikewale.Content
     public class DefaultF : System.Web.UI.Page
     {
         protected Repeater rptFeatures;
-        protected LinkPagerControl linkPager;
+        protected Bikewale.Mobile.Controls.LinkPagerControl ctrlPager;
         protected string prevUrl = string.Empty, nextUrl = string.Empty;
 
         private int _pageNo = 1;
@@ -159,10 +159,10 @@ namespace Bikewale.Content
                 _pagerOutput = objPager.GetPager<PagerOutputEntity>(_pagerEntity);
 
                 // for RepeaterPager
-                linkPager.PagerOutput = _pagerOutput;
-                linkPager.CurrentPageNo = _pageNo;
-                linkPager.TotalPages = objPager.GetTotalPages(recordCount, _pageSize);
-                linkPager.BindPagerList();
+                ctrlPager.PagerOutput = _pagerOutput;
+                ctrlPager.CurrentPageNo = _pageNo;
+                ctrlPager.TotalPages = objPager.GetTotalPages(recordCount, _pageSize);
+                ctrlPager.BindPagerList();
 
                 //For SEO
                 //CreatePrevNextUrl(linkPager.TotalPages);
