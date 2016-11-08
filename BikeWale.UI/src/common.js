@@ -143,7 +143,7 @@ $(document).ready(function () {
 	
 	// login code starts 
 	$("#firstLogin").click(function(){		
-	    window.location.href = "/users/login.aspx?ReturnUrl=" + window.location.href;
+	    window.location.href = "/users/login.aspx?ReturnUrl=" + window.location.pathname;
 	});
 	$(".blackOut-window").mouseup(function(e){
 		var loginPopUp = $(".loginPopUpWrapper");

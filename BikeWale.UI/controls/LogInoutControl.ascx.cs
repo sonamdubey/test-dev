@@ -2,7 +2,11 @@
 
 namespace Bikewale.Controls
 {
-    public class LogInoutControl : UserControl
+    /// <summary>
+    /// Created by : Sangram Nandkhile on 08 Nov 2016
+    /// Summary: Control to show nav links depending on if the customer is logged in o not
+    /// </summary>
+    public class LogInOutControl : UserControl
     {
         protected string loggedInUser = Bikewale.Common.CurrentUser.Id;
     }   // End of Class

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.LogInoutControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.LogInOutControl" %>
 <% if(loggedInUser != "-1") { %>
         <li>
             <a href="<%= Bikewale.Common.CommonOpn.AppPath + "m/users/login.aspx?logout=logout&ReturnUrl=" + HttpContext.Current.Request.RawUrl%>" rel="nofollow">

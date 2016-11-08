@@ -66,8 +66,8 @@
                 <span class="bwmsprite insurance-icon"></span>
                 <span class="navbarTitle">Insurance</span>
             </a>
-        </li>--%>
-        <BW:Login ID="ctrlLogin" runat="server" />
+        </li>
+        <BW:Login ID="ctrlLogin" runat="server" />--%>
     </ul>
     <a class="bwmsprite google-play-logo" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DMobilesite%26utm_medium%3DDrawer%26utm_campaign=BikeWale%2520MobilesiteDrawer" target="_blank" rel="nofollow"></a>
 </nav>
