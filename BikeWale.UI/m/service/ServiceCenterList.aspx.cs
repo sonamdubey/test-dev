@@ -81,6 +81,10 @@ namespace Bikewale.Mobile.Service
             }
         }
 
+        /// <summary>
+        /// Created by : SAJAL GUPTA on 08-11-2016
+        /// Description: Method to bind dealer card widget data.
+        /// </summary>
         private void BindDealerCard()
         {
             ctrlDealerCard.MakeId = makeId;
