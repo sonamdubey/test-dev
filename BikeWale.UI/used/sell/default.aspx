@@ -1,15 +1,23 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="Default.aspx.cs" Inherits="Bikewale.Used.Sell.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="Default.aspx.cs" Inherits="Bikewale.Used.Sell.Default" EnableViewState="false" %>
 
 <!DOCTYPE html>
 
 <html>
 <head>
-    <title>Sell Bike</title>
-
+    <%
+    title = "Sell Bike | Sell Used Bike in India - BikeWale";
+    description = "Sell Your Used / pre-owned bike at bikewale.com. Selling at bikewale.com is easy, quick, effective and guaranteed.";
+    keywords = "sell bike, bike sale, used bike sell, second-hand bike sell, sell bike India, list your bike";
+    AdId = "1475577527140";
+    AdPath = "/1017752/BikeWale_UsedSellBikes_";
+    isAd300x250Shown = false;
+    isAd300x250BTFShown = false;
+    isAd970x90Shown = false;
+%>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
 
-    <link href="/css/sell-bike.css" rel="stylesheet" type="text/css" />
-    <link href="/css/dropzone.css" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/sell-bike.css" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/dropzone.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>
@@ -248,11 +256,11 @@
                                         <div class="panel-body" data-bind="visible: formStep() == 2 && !verificationDetails().status()">
                                             <div class="panel-row margin-bottom30">
                                                 <ul id="seller-type-list">
-                                                    <li data-bind="click: personalDetails().sellerType, attr: {value: 2}" class="checked">
+                                                    <li data-bind="click: personalDetails().sellerType, attr: { value: 2 }, css: personalDetails().sellerTypeVal() == 2 ? 'checked' : ''" >
                                                         <span class="bwsprite radio-icon"></span>
                                                         <span class="seller-label">I am an Individual</span>
                                                     </li>
-                                                    <li data-bind="click: personalDetails().sellerType, attr: { value: 1 }">
+                                                    <li data-bind="click: personalDetails().sellerType, attr: { value: 1 }, css: personalDetails().sellerTypeVal() == 1 ? 'checked' : ''">
                                                         <span class="bwsprite radio-icon"></span>
                                                         <span class="seller-label">I am a dealer</span>
                                                     </li>
@@ -292,7 +300,8 @@
                                             <div class="panel-row margin-bottom20">
                                                 <div id="terms-content">
                                                     <span class="bwsprite unchecked-box" data-bind="click: personalDetails().terms, css: personalDetails().termsCheckbox ? 'checked': ''"></span>
-                                                    <p>I agree with BikeWale sell bike <a href="" target="_blank">Terms & Conditions</a>, visitor agreement and privacy policy *. I agree that by clicking 'List your bike’ button, I am permitting buyers to contact me on my Mobile number.</p>
+                                                    <p>I agree with BikeWale sell bike <a href="/TermsConditions.aspx" target="_blank">Terms & Conditions</a>, <a target="_blank" href="/visitoragreement.aspx">visitor agreement</a> and <a target="_blank" href="/privacypolicy.aspx">privacy policy</a> *. I agree that by clicking 'List your bike’ button, I am permitting buyers to contact me on my Mobile number.</p>
+                                                    <span class="error-text" data-bind="validationMessage: personalDetails().termsCheckbox"></span>
                                                 </div>
                                             </div>
                                         
@@ -383,14 +392,14 @@
                                             <div class="panel-row margin-bottom20">
                                                 <div class="input-box form-control-box" data-bind="css: moreDetails().registrationNumber().length > 0 ? 'not-empty' : ''">
                                                     <input type="text" id="registrationNumber" data-bind="textInput: moreDetails().registrationNumber" />
-                                                    <label for="registrationNumber">Registration number<sup>*</sup></label>
+                                                    <label for="registrationNumber">Registration number</label>
                                                     <span class="boundary"></span>
                                                 </div>
                                             </div>
 
                                             <div class="panel-row">
                                                 <div class="select-box select-box-no-input">
-                                                    <p class="select-label">Insurance<sup>*</sup></p>
+                                                    <p class="select-label">Insurance</p>
                                                     <select id="select-insuranceType" class="chosen-select" data-bind="chosen: {}, value: moreDetails().insuranceType" data-title="Insurance">
                                                         <option value></option>
                                                         <option value="Comprehensive">Comprehensive</option>
@@ -525,21 +534,21 @@
         <!-- #include file="/includes/footerBW.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
-        <script type="text/javascript" src="/src/knockout.validation.js"></script>
-        <script type="text/javascript" src="/src/dropzone.js"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/knockout.validation.js"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dropzone.js"></script>
         <% if(isAuthorized) { %>
-        <script type="text/javascript" src="/src/sell-bike.js"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/sell-bike.js"></script>
         <%} %>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
         <!--[if lt IE 9]>
             <script src="/src/html5.js"></script>
         <![endif]-->
 
-<%--        <script type="text/javascript">
-            $(window).on('beforeunload', function () {
-                return "jkxasjdlajsdljlasd";
-            });
-        </script>--%>
+        <script type="text/javascript">
+            window.onbeforeunload = function () {
+                return "Do you want to reload?";
+            }
+        </script>
         
     </form>
 </body>
