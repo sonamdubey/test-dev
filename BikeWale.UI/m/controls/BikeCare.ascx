@@ -25,5 +25,5 @@
                     </p>
                 </div>
                 <%} %>
-                <a href="" class="font14">Read all bike maintenance tips<span class="bwmsprite blue-right-arrow-icon"></span></a>
+                <a href="/m/bike-care/" class="font14">Read all bike maintenance tips<span class="bwmsprite blue-right-arrow-icon"></span></a>
             </div>

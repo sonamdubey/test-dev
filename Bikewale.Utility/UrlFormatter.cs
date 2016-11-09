@@ -174,6 +174,9 @@ namespace Bikewale.Utility
                     case EnumCMSContentType.Features:
                         _articleUrl = string.Format("/features/{0}-{1}/", articleUrl, basicId);
                         break;
+                    case EnumCMSContentType.TipsAndAdvices:
+                        _articleUrl = string.Format("/bike-care/{0}-{1}/", articleUrl, basicId);
+                        break;
                     default:
                         _articleUrl = "/";
                         break;
