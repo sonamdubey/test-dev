@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.service;
+using Bikewale.Entities.ServiceCenters;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -146,7 +147,64 @@ namespace Bikewale.DAL.ServiceCenter
             return objStateCityList;
         }
 
+        /// <summary>
+        /// Created By : Sajal Gupta on 07/11/2016
+        /// Description: DAL layer Function for fetching service center data.
+        /// </summary>     
+        public ServiceCenterData GetServiceCentersByCity(uint cityId, int makeId)
+        {
+            ServiceCenterData serviceCenters = null;
+            IList<ServiceCenterDetails> objServiceCenterList = null;
 
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getservicecentersbycity"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityId", DbType.Int32, cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            serviceCenters = new ServiceCenterData();
+                            objServiceCenterList = new List<ServiceCenterDetails>();
+                            ServiceCenterDetails objServiceCenterDetails = new ServiceCenterDetails();
+
+                            while (dr.Read())
+                            {
+                                objServiceCenterDetails.ServiceCenterId = SqlReaderConvertor.ToUInt32(dr["id"]);
+                                objServiceCenterDetails.Name = Convert.ToString(dr["name"]);
+                                objServiceCenterDetails.Address = Convert.ToString(dr["address"]);
+                                objServiceCenterDetails.Phone = Convert.ToString(dr["phone"]);
+                                objServiceCenterDetails.Mobile = Convert.ToString(dr["mobile"]);
+
+                                objServiceCenterList.Add(objServiceCenterDetails);
+                            }
+
+                            serviceCenters.ServiceCenters = objServiceCenterList;
+
+                            if (dr.NextResult())
+                            {
+                                if (dr.Read())
+                                {
+                                    serviceCenters.Count = SqlReaderConvertor.ToUInt32(dr["totalServiceCenters"]);
+                                }
+                            }
+
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Error in ServiceCentersRepository.GetServiceCentersByCity for paramerters cityId : {0}, makeId : {1}", cityId, makeId));
+                objErr.SendMail();
+            }
+            return serviceCenters;
+        }
 
 
     }

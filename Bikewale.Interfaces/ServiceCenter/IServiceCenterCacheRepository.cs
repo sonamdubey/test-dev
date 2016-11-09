@@ -1,5 +1,6 @@
 ﻿
 using Bikewale.Entities.service;
+using Bikewale.Entities.ServiceCenters;
 namespace Bikewale.Interfaces.ServiceCenter
 {
     /// <summary>
@@ -11,5 +12,6 @@ namespace Bikewale.Interfaces.ServiceCenter
     public interface IServiceCenterCacheRepository
     {
         ServiceCenterLocatorList GetServiceCenterList(uint makeid);
+        ServiceCenterData GetServiceCentersByCity(uint cityId, int makeId);
     }
 }

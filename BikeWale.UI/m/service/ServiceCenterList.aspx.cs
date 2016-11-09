@@ -1,20 +1,22 @@
-﻿using Bikewale.BAL.ServiceCenters;
+﻿
+using Bikewale.BAL.ServiceCenter;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
-using Bikewale.Cache.ServiceCenters;
+using Bikewale.Cache.ServiceCenter;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Location;
-using Bikewale.DAL.ServiceCenters;
+using Bikewale.DAL.ServiceCenter;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.service;
 using Bikewale.Entities.ServiceCenters;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
-using Bikewale.Interfaces.ServiceCenters;
+using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Memcache;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
@@ -38,7 +40,7 @@ namespace Bikewale.Mobile.Service
         protected LeadCaptureControl ctrlLeadCapture;
         protected BikeMakeEntityBase objBikeMakeEntityBase;
         protected CityEntityBase objCityEntityBase;
-        protected IEnumerable<ServiceCenterDetails> serviceCentersList = null;
+        protected IEnumerable<Bikewale.Entities.ServiceCenters.ServiceCenterDetails> serviceCentersList = null;
         protected DealersCard ctrlDealerCard;
 
         protected override void OnInit(EventArgs e)
@@ -164,11 +166,12 @@ namespace Bikewale.Mobile.Service
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<ICacheManager, MemcacheManager>();
-                    container.RegisterType<IServiceCentersRepository, ServiceCentersRepository>();
-                    container.RegisterType<IServiceCentersCacheRepository, ServiceCentersCacheRepository>();
-                    container.RegisterType<IServiceCenters, ServiceCenters>();
-                    var objSC = container.Resolve<IServiceCenters>();
+                    container.RegisterType<IServiceCenter, ServiceCenter<ServiceCenterLocatorList, int>>()
+                    .RegisterType<IServiceCenterCacheRepository, ServiceCenterCacheRepository>()
+                    .RegisterType<IServiceCenterRepository<ServiceCenterLocatorList, int>, ServiceCenterRepository<ServiceCenterLocatorList, int>>()
+                    .RegisterType<ICacheManager, MemcacheManager>();
+                    var objSC = container.Resolve<IServiceCenter>();
+
                     objServiceCenterData = objSC.GetServiceCentersByCity(cityId, (int)makeId);
 
                     if (objServiceCenterData != null && objServiceCenterData.Count > 0)
