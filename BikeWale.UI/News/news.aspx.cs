@@ -2,13 +2,20 @@
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
+using Bikewale.Controls;
+using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.Location;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Memcache;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
+using System.Linq;
 using System.Web;
 
 
@@ -26,6 +33,8 @@ namespace Bikewale.News
         protected string articleUrl = string.Empty, articleTitle = string.Empty, HostUrl = string.Empty, basicId = string.Empty, smallPicUrl = string.Empty, authorName = string.Empty, nextPageArticle = string.Empty, prevPageArticle = string.Empty, originalImgUrl = string.Empty;
         protected string displayDate = string.Empty, mainImgCaption = string.Empty, largePicUrl = string.Empty, content = string.Empty, prevPageUrl = string.Empty, nextPageUrl = string.Empty, hostUrl = string.Empty;
         protected bool isMainImageSet = false;
+        protected MostPopularBikesMin ctrlPopularBikes;
+        private BikeMakeEntityBase _taggedMakeObj;
 
         protected override void OnInit(EventArgs e)
         {
@@ -47,9 +56,23 @@ namespace Bikewale.News
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
 
+            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+
+
             ProcessQS();
             if (!String.IsNullOrEmpty(_basicId))
                 GetNewsArticleDetails();
+
+            ctrlPopularBikes.totalCount = 4;
+            ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+            ctrlPopularBikes.cityName = currentCityArea.City;
+            if (_taggedMakeObj != null)
+            {
+                ctrlPopularBikes.makeId = _taggedMakeObj.MakeId;
+                ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
+                ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
+            }
+
         }
 
         private void ProcessQS()
@@ -87,20 +110,24 @@ namespace Bikewale.News
         {
             try
             {
-                    using (IUnityContainer container = new UnityContainer())
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IArticles, Articles>()
+                            .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                            .RegisterType<ICacheManager, MemcacheManager>();
+                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
+
+                    objArticle = _cache.GetNewsDetails(Convert.ToUInt32(_basicId));
+
+                    if (objArticle == null)
+                        _isContentFount = false;
+                    else
                     {
-                        container.RegisterType<IArticles, Articles>()
-                                .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                                .RegisterType<ICacheManager, MemcacheManager>();
-                        ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
-
-                        objArticle = _cache.GetNewsDetails(Convert.ToUInt32(_basicId));
-
-                        if (objArticle == null)
-                            _isContentFount = false;
-                        else
-                            GetNewsData();
+                        GetNewsData();
+                        GetTaggedBikeList();
                     }
+
+                }
 
             }
             catch (Exception err)
@@ -156,6 +183,42 @@ namespace Bikewale.News
             return mainImgUrl;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private void GetTaggedBikeList()
+        {
+            if (objArticle != null && objArticle.VehiclTagsList != null)
+            {
+
+                var taggedMakeObj = objArticle.VehiclTagsList.FirstOrDefault(m => !string.IsNullOrEmpty(m.MakeBase.MaskingName));
+                if (taggedMakeObj != null)
+                {
+                    _taggedMakeObj = taggedMakeObj.MakeBase;
+                }
+                else
+                {
+                    _taggedMakeObj = objArticle.VehiclTagsList.FirstOrDefault().MakeBase;
+                    FetchMakeDetails();
+                }
+            }
+        }
+
+        private void FetchMakeDetails()
+        {
+
+            if (_taggedMakeObj != null && _taggedMakeObj.MakeId > 0)
+            {
+
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
+                    var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+                    _taggedMakeObj = makesRepository.GetMakeDetails(_taggedMakeObj.MakeId.ToString());
+
+                }
+            }
+        }
 
 
     }

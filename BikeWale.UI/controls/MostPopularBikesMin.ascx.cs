@@ -9,16 +9,19 @@ namespace Bikewale.Controls
     {
         // public Repeater rptMostPopularBikes, rptPopoularBikeMake;
         public int? totalCount { get; set; }
-        public int? makeId { get; set; }
         public int FetchedRecordsCount { get; set; }
         public string PageId { get; set; }
         public int PQSourceId { get; set; }
         public int? CityId { get; set; }
         public string cityName = string.Empty;
         public string cityMaskingName = string.Empty;
+        public int? makeId { get; set; }
         public string makeName = string.Empty;
+        public string makeMasking = string.Empty;
         public bool mostPopular = false, mostPopularByMake = false;
         public IEnumerable<MostPopularBikesBase> popularBikes = null;
+
+        protected string popularBikesByMakeLink = string.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -35,7 +38,7 @@ namespace Bikewale.Controls
         {
             BindMostPopularBikesControl objPop = new BindMostPopularBikesControl();
             objPop.totalCount = totalCount.HasValue && totalCount.Value > 0 ? totalCount : 4;
-            objPop.makeId = makeId;
+            objPop.makeId = makeId.HasValue ? makeId : 0;
             objPop.cityId = CityId;
             if (CityId.HasValue && CityId > 0)
             {
@@ -48,6 +51,7 @@ namespace Bikewale.Controls
             }
             popularBikes = objPop.popularBikes;
             FetchedRecordsCount = objPop.FetchedRecordsCount;
+
         }
 
     }

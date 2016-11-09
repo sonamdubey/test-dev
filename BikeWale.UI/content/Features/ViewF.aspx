@@ -74,13 +74,11 @@
                                         <asp:repeater id="rptPages" runat="server">
                                                 <headertemplate>
                                                     <ul>
-                                                     <%--   <li style="border:none;" ><a>Read Pages : </a></li>--%>
                                                 </headertemplate>
 					                            <itemtemplate>
                                                     <li>
                                                         <a href="#<%#Eval("pageId") %>"><%#Eval("PageName") %></a>
                                                     </li>
-						                          <%--  <%# CreateNavigationLink(DataBinder.Eval( Container.DataItem, "Priority" ).ToString(), Url ) %>--%>
 					                            </itemtemplate>
                                                 <footertemplate>
                                                     <li>
@@ -88,11 +86,7 @@
                                                     </li>
                                                     </ul>
                                                 </footertemplate>
-					                         <%--   <footertemplate>
-						                            <% if ( ShowGallery )  { %>
-						                            <%# CreateNavigationLink( Str, Url ) %>
-						                            <% } %>	
-					                            </footertemplate>--%>
+
 				                            </asp:repeater>
                                     </div>
                                 </div>
@@ -111,34 +105,6 @@
                                 <div id="divPhotos">
                                     <PG:PhotoGallery runat="server" ID="ctrPhotoGallery" />
                                 </div>
-                                <%--<div class="margin-top10">
-			                            <asp:Label ID="lblDetails" runat="server" />
-			                            <asp:DataList ID="dlstPhoto" runat="server" RepeatDirection="Horizontal" RepeatColumns="3" ItemStyle-VerticalAlign="top">
-				                            <itemtemplate>
-					                            <a rel="slidePhoto" target="_blank" href="<%# "http://" + DataBinder.Eval( Container.DataItem, "HostURL" ).ToString() + DataBinder.Eval( Container.DataItem, "ImagePathLarge" ).ToString() %>" title="<b><%# DataBinder.Eval( Container.DataItem, "Caption" ) %></b>" />
-						                            <img alt="<%# DataBinder.Eval( Container.DataItem, "CategoryName" ) %>" border="0" style="margin:0px 45px 10px 0px;cursor:pointer;" src="<%# "http://" + DataBinder.Eval( Container.DataItem, "HostURL" ).ToString() + DataBinder.Eval( Container.DataItem, "ImagePathThumbNail" ).ToString() %>" title="Click to view larger photo" />
-					                            </a>
-				                            </itemtemplate>
-			                            </asp:DataList>
-		                            </div>--%>
-                                <%--<div class="margin-top10 content-block grey-bg" id="bottomNav" runat="server">
-			                            <div align="right" style="width:245px;float:right;">
-				                            <asp:DropDownList ID="drpPages_footer" AutoPostBack="true" CssClass="drpClass" runat="server"></asp:DropDownList>
-			                            </div>
-			                            <div style="width:380px; padding:5px 0;">
-				                            <b>Read Page : </b>
-				                            <asp:Repeater ID="rptPages_footer" runat="server">
-					                            <itemtemplate>
-						                            <%# CreateNavigationLink(DataBinder.Eval( Container.DataItem, "Priority" ).ToString(), Url) %>
-					                            </itemtemplate>
-					                            <footertemplate>
-						                            <% if ( ShowGallery )  { %>
-						                            <%# CreateNavigationLink( Str, Url ) %>
-						                            <% } %>	
-					                            </footertemplate>
-				                            </asp:Repeater>
-			                            </div>	
-		                            </div>--%>
                             </div>
                         </div>
                     </div>

@@ -25,5 +25,10 @@
         </li>
         <% } %>
     </ul>
+    <% if(!string.IsNullOrEmpty(makeMasking)) { %>
+    <div class="margin-top10 margin-bottom10">
+        <a href="/<%= makeMasking %>-bikes/" title="All popular <%= makeName %> bikes" class="font14">View all popular <%= makeName %> bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
+    </div>
+    <% } %>
 </div>
 <%} %>
