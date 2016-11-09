@@ -102,7 +102,6 @@ footer ul li a:hover { text-decoration: underline; }
 .vs-circle-vert { position: relative; border-radius: 50%; background: #f2f2f2; border: 1px solid #e2e2e2; padding: 20px; display: block; font-size: 25px; margin: 110px auto 0 auto; width: 72px; height: 72px; }
 .vs-circle-vert-line { width: 1px; height: 265px; background:#e4e4e4; position: absolute; top: -90px; left: 70px; }
 
-#nav, .loginPopUpWrapper { background: #fff; width:325px; position: fixed; top: 0; right: 0; bottom: 0; left: -325px; overflow-y: hidden; z-index: 10; }
 #nav:hover, .loginPopUpWrapper:hover { overflow-y: auto; }
 .navUL { padding-top: 20px; }
 .navUL li, .profileUL li { display:block; position: relative; }

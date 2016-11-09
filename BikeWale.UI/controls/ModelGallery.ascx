@@ -1,9 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.ModelGallery" %>
 <!-- Start of Model Page Gallery -->
-<section class="model-gallery-container">
-    <div class="blackOut-window-model"></div>
-    <div class="modelgallery-close-btn position-abt pos-top20 pos-right20 bwsprite cross-lg-white cur-pointer hide"></div>
-    <div class="bw-tabs-panel bike-gallery-popup hide" id="bike-gallery-popup">
+<section>
+    <div class="model-gallery-container">
+        <div class="blackOut-window-model"></div>
+        <div class="modelgallery-close-btn position-abt pos-top20 pos-right20 bwsprite cross-lg-white cur-pointer hide"></div>
+        <div class="bw-tabs-panel bike-gallery-popup hide" id="bike-gallery-popup">
         <% if(videoCount > 0) { %>
         <div class="text-center photos-videos-tabs margin-bottom20">
             <div class="bw-tabs home-tabs">
@@ -39,13 +40,13 @@
                         <span class="leftfloatbike-gallery-details"></span>
                         <span class="rightfloat bike-gallery-count"></span>
                     </div>
-                    <a href="#" class="prev photos-prev-stage bwsprite hide" rel="nofollow"></a>
-                    <a href="#" class="next photos-next-stage bwsprite hide" rel="nofollow"></a>
+                    <a href="#" class="prev photos-prev-stage bwsprite hide media-prev-next-stage" rel="nofollow"></a>
+                    <a href="#" class="next photos-next-stage bwsprite hide media-prev-next-stage" rel="nofollow"></a>
                 </div>
 
                 <div class="navigation-photos navigation-media">
-                    <a href="#" class="prev photos-prev-navigation bwsprite hide" rel="nofollow"></a>
-                    <a href="#" class="next photos-next-navigation bwsprite hide" rel="nofollow"></a>
+                    <a href="#" class="prev photos-prev-navigation bwsprite hide media-prev-next-nav" rel="nofollow"></a>
+                    <a href="#" class="next photos-next-navigation bwsprite hide media-prev-next-nav" rel="nofollow"></a>
                     <div class="carousel-photos carousel-navigation-photos carousel-navigation-media">
                         <ul>
                             <asp:Repeater ID="rptNavigationPhoto" runat="server">
@@ -94,6 +95,7 @@
             </div>
         </div>
         <% } %>
+    </div>
     </div>
 </section>
 <!-- End of Model Page Gallery -->
