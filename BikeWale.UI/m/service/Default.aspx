@@ -314,7 +314,6 @@ Revving the motorcycle to the redline will not make the battery charge faster â€
                 if (!isNaN(selMakeId) && selMakeId != "0") {
                     if (!isNaN(selCityId) && selCityId != "0") {
                         ddlcityMasking = $ddlCities.find("li.activeCity").attr("cityMaskingName");
-                        //window.location.href = "/m/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
                         window.location.href = "/m/" + ddlmakemasking + "-service-centers-in-" + ddlcityMasking + "/";
                     }
                     else {
