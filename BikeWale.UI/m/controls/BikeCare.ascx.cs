@@ -20,7 +20,7 @@ namespace Bikewale.Mobile.Controls
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            BindMaintainanceTipsControl objTipsAndAdvice = new BindMaintainanceTipsControl();
+            BindBikeCareControl objTipsAndAdvice = new BindBikeCareControl();
             objTipsAndAdvice.TotalRecords = TotalRecords;
             objTipsAndAdvice.MakeId = MakeId;
             objTipsAndAdvice.ModelId = ModelId;

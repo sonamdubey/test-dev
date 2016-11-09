@@ -19,7 +19,7 @@ namespace Bikewale.BindViewModels.Controls
     /// Created By :Subodh Jain on 8 nov 2016
     /// Summary : Class have functions to bind the MaintainanceTips reviews.
     /// </summary>
-    public class BindMaintainanceTipsControl
+    public class BindBikeCareControl
     {
         public int TotalRecords { get; set; }
         public int? MakeId { get; set; }
