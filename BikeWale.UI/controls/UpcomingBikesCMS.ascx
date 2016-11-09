@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.UpcomingBikesCMS" %>
-    <!-- Upcoming Bikes Starts here-->
-              <h2>Upcoming bikes</h2>       
+            <h2>Upcoming bikes</h2>       
               <asp:Repeater ID="rptUpcomingBikes" runat="server" >
               <ItemTemplate>
                             <ul  class="sidebar-bike-list">

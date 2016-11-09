@@ -1,10 +1,14 @@
 ﻿using Bikewale.BAL.EditCMS;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Controls;
+using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
@@ -21,15 +25,17 @@ namespace Bikewale.Content
 {
     public class ViewRT : System.Web.UI.Page
     {
+        protected UpcomingBikesCMS ctrlUpcomingBikes;
         protected Repeater rptPages, rptPageContent;
         private string _basicId = string.Empty;
         protected ArticlePageDetails objRoadtest;
         protected StringBuilder _bikeTested;
         protected ArticlePhotoGallery ctrPhotoGallery;
         private bool _isContentFount = true;
-
+        protected string upcomingBikesLink;
         protected string articleUrl = string.Empty, articleTitle = string.Empty, basicId = string.Empty, authorName = string.Empty, displayDate = string.Empty;
-
+        protected string makeMaskingName;
+        protected int makeId;
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -125,7 +131,11 @@ namespace Bikewale.Content
                         BindPages();
                         GetRoadtestData();
                         if (objRoadtest.VehiclTagsList.Count > 0)
+                        {
                             GetTaggedBikeList();
+                            GetTaggedBikeMakes();
+                        }
+                        BindUpcoming();
                     }
                     else
                     {
@@ -201,6 +211,46 @@ namespace Bikewale.Content
             displayDate = objRoadtest.DisplayDate.ToString();
             articleUrl = objRoadtest.ArticleUrl;
             basicId = objRoadtest.BasicId.ToString();
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 8 Nov 2016
+        /// Summary  : To get tagged make in article
+        /// </summary>
+        private void GetTaggedBikeMakes()
+        {
+            if (objRoadtest.VehiclTagsList.Any(m => (m.MakeBase != null)))
+            {
+                makeId = objRoadtest.VehiclTagsList.Select(e => e.MakeBase).First().MakeId;
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                            .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                            .RegisterType<ICacheManager, MemcacheManager>();
+                    var _objMakeCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    BikeMakeEntityBase objMMV = _objMakeCache.GetMakeDetails(Convert.ToUInt32(makeId));
+                    makeMaskingName = objMMV.MaskingName;
+                }
+
+            }
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 8 Nov 2016
+        /// Summary  : Bind upcoming bikes list
+        /// </summary>
+        /// </summary>
+        private void BindUpcoming()
+        {
+            if (String.IsNullOrEmpty(makeMaskingName))
+            {
+                upcomingBikesLink = "/upcoming-bikes/";
+            }
+            else
+            {
+                upcomingBikesLink = String.Format("/{0}-bikes/upcoming/", makeMaskingName);
+            }
+            ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+            ctrlUpcomingBikes.pageSize = 3;
+            ctrlUpcomingBikes.MakeId = makeId;
         }
     }
 }
