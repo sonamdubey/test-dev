@@ -40,7 +40,7 @@
             <div class="container bg-white card-bottom-margin">
                 <h1 class="card-header"><%=makeName%> service center in <%=cityName%></h1>
                 <div class="card-inner-padding font14 text-light-grey">
-                    <p id="service-main-content">Is your <%= makeName %> bike due for a service or are you looking to repair your <%= makeName %> bike? BikeWale brings you the list of all authorised <%= makeName %> service centers in <%= cityName %>.<% if(totalServiceCenters > 0 ) { %> <%= makeName %> has <%= totalServiceCenters %> authorised</p><p id="service-more-content">service center<% if(totalServiceCenters > 1 ) { %>s<%} %> in <%= cityName %>. <%} %> We recommend availing services only from authorised service centers.<br />Authorised <%= makeName %> service centers abide by the servicing standards of Honda with an assurance of genuine <%= makeName %> spare parts. BikeWale strongly recommends to use only <%= makeName %> genuine spare parts for your safety and durability of your bike. For more information on pick-up and drop facility, prices and service schedules get in touch with any of the below mentioned authorised <%= makeName %> service centers in City. Do check out the maintenance tips and answers to FAQs from BikeWale experts!</p><a href="javascript:void(0)" id="read-more-target" rel="nofollow">Read more</a>
+                    <p id="service-main-content">Is your <%= makeName %> bike due for a service or are you looking to repair your <%= makeName %> bike? BikeWale brings you the list of all authorised <%= makeName %> service centers in <%= cityName %>.<% if(totalServiceCenters > 0 ) { %> <%= makeName %> has <%= totalServiceCenters %> authorised</p><p id="service-more-content">service center<% if(totalServiceCenters > 1 ) { %>s<%} %> in <%= cityName %>. <%} %> We recommend availing services only from authorised service centers.<br />Authorised <%= makeName %> service centers abide by the servicing standards of Honda with an assurance of genuine <%= makeName %> spare parts. BikeWale strongly recommends to use only <%= makeName %> genuine spare parts for your safety and durability of your bike. For more information on pick-up and drop facility, prices and service schedules get in touch with any of the below mentioned authorised <%= makeName %> service centers in City. Do check out the maintenance tips and answers to FAQs from BikeWale experts!</p><a href="javascript:void(0)" id="read-more-target" rel="nofollow">... Read more</a>
                 </div>
             </div>
         </section>
@@ -53,7 +53,7 @@
                     <% foreach (var serviceCenter in serviceCentersList)
                        { %>                     
                             <li>
-                                <a href="/m/service/ServiceCenterDetails.aspx?Id=<%= serviceCenter.ServiceCenterId %>" title="<%= serviceCenter.Name %> | <%= makeName %> | <%= cityName %>">
+                                <a href="/m/service/ServiceCenterDetails.aspx?Id=<%= serviceCenter.ServiceCenterId %>" title="<%= serviceCenter.Name %> | <%= makeName %> | <%= cityName %>" class="center-list-item">
                                     <h3 class="text-truncate margin-bottom5 text-black">                                    
                                         <%= serviceCenter.Name %>
                                     </h3>     
@@ -75,15 +75,45 @@
                                             <% } %>
                                         </span>                                        
                                     </p>   
-                                    <% } %>                                                                   
-                                    <button type="button" class="btn btn-white service-btn margin-top15">Get service center details</button>
+                                    <% } %>
                                 </a>
+                                <%--<a href="tel:" class="btn btn-inv-green service-btn"><span class="bwmsprite tel-green-icon margin-right10"></span>Call service centre</a>--%>
+                                <button type="button" class="btn btn-inv-green service-btn contact-service-btn"><span class="bwmsprite tel-green-icon margin-right10"></span>Call service centre</button>
                             </li>
                     <% } %>                  
                 </ul>
             </div>
         </section>
         <% } %>
+
+        <div class="modal-background"></div>
+        <div id="contact-service-popup" class="modal-popup-container">
+            <div class="popup-header">Sai Service Agency</div>
+            <div class="popup-body">
+                <p class="body-label">Select one of the phone numbers to talk to service center executive</p>
+                <ul class="popup-list margin-bottom20">
+                    <li>
+                        <span class="bwmsprite radio-uncheck"></span>
+                        <span class="list-label">8234823484</span>
+                    </li>
+                    <li>
+                        <span class="bwmsprite radio-uncheck"></span>
+                        <span class="list-label">022 2567 2567</span>
+                    </li>
+                    <li>
+                        <span class="bwmsprite radio-uncheck"></span>
+                        <span class="list-label">9987345345</span>
+                    </li>                         
+                </ul>
+                <div class="grid-6 alpha">
+                    <p class="btn btn-white btn-full-width btn-size-0 cancel-popup-btn">Cancel</p>
+                </div>
+                <div class="grid-6 omega">
+                    <a href="" id="call-service-btn" class="btn btn-orange btn-full-width btn-size-0">Call</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
 
         <section>
             <div class="container bg-white box-shadow card-bottom-margin">
@@ -108,7 +138,7 @@
         </section>
 
         <section>
-            <div class="container bg-white box-shadow card-bottom-margin padding-bottom20 padding-top15">                
+            <div class="container bg-white box-shadow card-bottom-margin">                
                 <!-- dealer card -->
                 <% if (ctrlDealerCard.showWidget) { %>
                     <BW:DealerCard runat="server" ID="ctrlDealerCard" />

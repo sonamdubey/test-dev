@@ -47,17 +47,29 @@
     #center-list li:first-child {
       border-top: 0;
       margin-top: 0; }
-  #center-list a {
+  #center-list .center-list-item {
+    margin-bottom: 15px;
     display: block; }
-    #center-list a:hover {
-      text-decoration: none; }
+  #center-list a:hover {
+    text-decoration: none; }
 
 .details-column {
   width: 92%; }
 
 .service-btn {
   font-size: 14px;
-  padding: 9px 22px; }
+  padding: 9px 0;
+  width: 180px; }
+
+.btn-inv-green {
+  background: #fff;
+  color: #00aa33;
+  border: 1px solid #00aa33; }
+  .btn-inv-green.active {
+    background: #1b9618;
+    color: #fff; }
+    .btn-inv-green.active .tel-green-icon {
+      background-position: -83px -111px; }
 
 .dealership-loc-icon {
   width: 10px;
@@ -118,6 +130,68 @@
   position: absolute;
   right: 0;
   top: 22px; }
+
+.modal-popup-container {
+  display: none;
+  width: 80%;
+  min-height: 305px;
+  position: fixed;
+  top: 14%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  z-index: 4;
+  margin: 0 auto; }
+  .modal-popup-container .popup-header {
+    font-size: 16px;
+    color: #e2e2e2;
+    padding: 17px 20px;
+    background: #2a2a2a; }
+  .modal-popup-container .popup-body {
+    padding: 20px 20px 30px; }
+  .modal-popup-container .body-label {
+    font-size: 12px;
+    color: #a2a2a2;
+    margin-bottom: 15px; }
+  .modal-popup-container .popup-list li {
+    font-size: 14px;
+    color: #82888b;
+    cursor: pointer;
+    margin-top: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px; }
+    .modal-popup-container .popup-list li:first-child {
+      margin-top: 0; }
+  .modal-popup-container .popup-list .active {
+    color: #4d5057;
+    font-weight: 700; }
+    .modal-popup-container .popup-list .active .radio-uncheck {
+      background-position: -179px -59px; }
+
+.btn-size-0 {
+  font-size: 14px;
+  padding: 5px 0; }
+
+.radio-uncheck {
+  width: 14px;
+  height: 14px;
+  position: relative;
+  top: 2px;
+  margin-right: 15px;
+  background-position: -179px -80px; }
+
+.modal-background {
+  display: none;
+  background: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  opacity: 0.6;
+  -moz-opacity: 0.6;
+  -khtml-opacity: 0.6; }
 
 .bw-horizontal-swiper.card-container .swiper-slide {
   width: 308px; }

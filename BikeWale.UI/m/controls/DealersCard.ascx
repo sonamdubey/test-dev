@@ -20,7 +20,7 @@
 
                                 <p class="margin-bottom5 text-light-grey <%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Address").ToString()))?"hide":string.Empty %>">
                                     <span class="bwmsprite dealership-loc-icon vertical-top"></span>
-                                    <span class="vertical-top dealership-address"><%# Convert.ToString(DataBinder.Eval(Container.DataItem,"Address")) %></span>
+                                    <span class="vertical-top dealership-address details-column"><%# Convert.ToString(DataBinder.Eval(Container.DataItem,"Address")) %></span>
                                 </p>
                             </a>
                             <a href="tel:<%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %>" class="text-default text-bold text-truncate <%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":"block" %>"><span class="bwmsprite tel-sm-grey-icon pos-top0 margin-right5"></span><%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %></a>
@@ -35,9 +35,6 @@
         <a href="/m<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> Dealer showrooms in <%= cityName %>">View all <%=makeName %> dealer showrooms <span class="bwmsprite blue-right-arrow-icon font14"></span></a>
     </div>
 </div>
-<script>
-    $('.dealer-details-main-content').on('click', function () { $(this).hide(); $(this).next('.dealer-details-more-content').show(); });      
-</script>
 <% }
        else
        { %>
