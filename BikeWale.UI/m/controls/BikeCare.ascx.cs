@@ -5,6 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 namespace Bikewale.Mobile.Controls
 {
+    /// <summary>
+    /// Created By:- Subodh Jain 08 nov 2016
+    /// Summart :- Tips And Advice widget
+    /// </summary>
     public class BikeCare : System.Web.UI.UserControl
     {
         public int TotalRecords { get; set; }

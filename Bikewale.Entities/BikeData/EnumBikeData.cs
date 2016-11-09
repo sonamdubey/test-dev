@@ -4,6 +4,8 @@ namespace Bikewale.Entities.BikeData
     /// <summary>
     /// Modified by :   Sumit Kate on 29 Mar 2016
     /// Description :   Dealer value is added
+    ///  Modified by :   Subodh Jain  on 08 Nov 2016
+    /// Description :   ServiceCenter value is added
     /// </summary>
     public enum EnumBikeType
     {

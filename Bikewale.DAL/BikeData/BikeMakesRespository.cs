@@ -33,6 +33,8 @@ namespace Bikewale.DAL.BikeData
         /// Description :   Updated SP GetBikeMakes_New_03032016. Populate PopularityIndex.
         /// Modified by :   Sumit Kate on 29 Mar 2016
         /// Description :   GetBikeMakes_New_29032016 support Dealer request type which returns the makes list of BW and AB dealers
+        /// Modified by :-Subodh 0n 08 nov 2016
+        /// Description : getbikemakes_new_08112016 added ServiceCenter and changed par_request from string to tinyint(2)
         /// </summary>
         /// <param name="makeType">Type of bike data</param>
         /// <returns>Returns list of type BikeMakeEntityBase</returns>

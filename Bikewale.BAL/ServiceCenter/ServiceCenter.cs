@@ -3,9 +3,9 @@ using Bikewale.Entities.Location;
 using Bikewale.Entities.service;
 using Bikewale.Entities.ServiceCenters;
 using Bikewale.Interfaces.ServiceCenter;
-using System.Collections.Generic;
 using Bikewale.Notifications;
 using System;
+using System.Collections.Generic;
 namespace Bikewale.BAL.ServiceCenter
 {
     /// <summary>
@@ -23,16 +23,7 @@ namespace Bikewale.BAL.ServiceCenter
         {
             _objServiceCenter = ObjServiceCenter;
         }
-        /// <summary>
-        /// Created by:-Subodh Jain 7 nov 2016
-        /// Summary:- Get make wise list of service center in cities and state
-        /// </summary>
-        /// <param name="makeid"></param>
-        /// <returns></returns>
-        public ServiceCenterLocatorList GetServiceCenterList(uint makeid)
-        {
-            return _objServiceCenter.GetServiceCenterList(makeid);
-        }
+
 
         /// <summary>
         /// Created By : Sajal Gupta on 07/11/2016

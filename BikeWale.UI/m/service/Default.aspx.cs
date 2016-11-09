@@ -1,16 +1,11 @@
-﻿using Bikewale.BAL.ServiceCenter;
-using Bikewale.Cache.BikeData;
+﻿using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
-using Bikewale.Cache.ServiceCenter;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
-using Bikewale.DAL.ServiceCenter;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
-using Bikewale.Entities.service;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Mobile.Controls;
 using Microsoft.Practices.Unity;
 using System;
@@ -29,10 +24,10 @@ namespace Bikewale.Mobile.Service
         protected uint cityId, makeId;
         protected ushort totalDealers;
         protected BikeCare ctrlBikeCare;
-        public IEnumerable<BikeMakeEntityBase> TopMakeList;
-        public IEnumerable<BikeMakeEntityBase> OtherMakeList;
-        public IEnumerable<BikeMakeEntityBase> makes;
-        public IEnumerable<CityEntityBase> cities;
+        protected IEnumerable<BikeMakeEntityBase> TopMakeList;
+        protected IEnumerable<BikeMakeEntityBase> OtherMakeList;
+        protected IEnumerable<BikeMakeEntityBase> makes;
+        protected IEnumerable<CityEntityBase> cities;
 
         protected override void OnInit(EventArgs e)
         {
@@ -46,18 +41,8 @@ namespace Bikewale.Mobile.Service
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Modified By :Lucky Rathore on 12 July 2016.
-            Form.Action = Request.RawUrl;
-            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
-            if (String.IsNullOrEmpty(originalUrl))
-                originalUrl = Request.ServerVariables["URL"];
-
             BindMakes();
             ctrlBikeCare.TotalRecords = 3;
-            if (makeId > 0)
-                BindCitiesDropdown();
-
-
         }
         /// <summary>
         /// Created By:-Subodh Jain 8 nov 2016
@@ -88,70 +73,9 @@ namespace Bikewale.Mobile.Service
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, "BindMakes");
+                ErrorClass objErr = new ErrorClass(ex, "LocateServiceCenter.BindMakes");
                 objErr.SendMail();
             }
         }
-
-
-        /// <summary>
-        /// Created By:- Subodh Jain 08 nov 2016
-        /// Description : To bind cities list to dropdown
-        /// </summary>
-        private void BindCitiesDropdown()
-        {
-
-            try
-            {
-                IServiceCenter ObjServiceCenter = null;
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IServiceCenter, ServiceCenter<ServiceCenterLocatorList, int>>()
-                    .RegisterType<IServiceCenterCacheRepository, ServiceCenterCacheRepository>()
-                    .RegisterType<IServiceCenterRepository<ServiceCenterLocatorList, int>, ServiceCenterRepository<ServiceCenterLocatorList, int>>()
-                    .RegisterType<ICacheManager, MemcacheManager>();
-                    ObjServiceCenter = container.Resolve<IServiceCenter>();
-                    cities = ObjServiceCenter.GetServiceCenterCities(Convert.ToUInt32(makeId));
-                }
-            }
-            catch (Exception ex)
-            {
-                Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, "BindCitiesDropdown");
-                objErr.SendMail();
-            }
-        }
-
-
-        #region Set user location from location cookie
-        /// <summary>
-        /// Created By : Sushil Kumar on 27th March 2016
-        /// Description : To set user location
-        /// </summary>
-        /// <returns></returns>
-        private void GetLocationCookie()
-        {
-            string location = String.Empty;
-            try
-            {
-                if (this.Context.Request.Cookies.AllKeys.Contains("location") && !string.IsNullOrEmpty(this.Context.Request.Cookies["location"].Value) && this.Context.Request.Cookies["location"].Value != "0")
-                {
-                    location = this.Context.Request.Cookies["location"].Value;
-                    string[] arr = System.Text.RegularExpressions.Regex.Split(location, "_");
-
-                    if (arr.Length > 0)
-                    {
-                        uint.TryParse(arr[0], out cityId);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "GetLocationCookie");
-                objErr.SendMail();
-            }
-        }
-        #endregion
-
     }
 }

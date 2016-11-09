@@ -150,6 +150,8 @@ namespace Bikewale.Utility
         ///  Created By : Sushil Kumar 
         ///  Created On  : 16th August 2016
         ///  Description : To get article url for news,expert reviews and features listing pages
+        /// Modified by :-Subodh 0n 08 nov 2016
+        /// Description : To get article url for TipsAndAdvices
         /// </summary>
         /// <param name="basicId"></param>
         /// <param name="articleUrl"></param>
