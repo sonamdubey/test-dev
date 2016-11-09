@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.NewExpertReviewsWidget" %>
-
+ <% if(ShowWidgetTitle) { %>
 <h3 class="model-section-subtitle">Expert Reviews</h3>
+<% } %>
 <asp:Repeater ID="rptExpertReviews" runat="server">
     <ItemTemplate>
         <div class="model-expert-review-container">
@@ -30,7 +31,7 @@
     </ItemTemplate>
 </asp:Repeater>
 <div>
-    <a title="<%= linkTitle %>" href="<%=MoreExpertReviewUrl%>"  class="bw-ga" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="myBikeName">Read all expert reviews<span class="bwmsprite blue-right-arrow-icon"></span></a>
+    <a title="<%= linkTitle %>" href="<%=MoreExpertReviewUrl%>"  class="bw-ga font14" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="myBikeName">Read all expert reviews<span class="bwmsprite blue-right-arrow-icon"></span></a>
 </div>
 <script type="text/javascript">
     $(document).ready(function () { $("img.lazy").lazyload(); });

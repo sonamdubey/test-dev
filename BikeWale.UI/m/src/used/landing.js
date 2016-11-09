@@ -329,7 +329,7 @@ $('#search-profile-id-btn').on('click', function () {
     if (validateProfileId(listingProfileId)) {
         $.ajax({
             type: "GET",
-            url: "/api/used/inquiry/url/" + listingProfileId.val() + "/-1",
+            url: "/api/used/inquiry/url/" + listingProfileId.val() + "/-1/",
             headers: {"platformId": 2},
             dataType: 'json',
             success: function (data) {
@@ -356,7 +356,7 @@ function validateProfileId(inputBox) {
         isValid = false;
         validate.setError(inputBox, 'Please enter profile id');
     }
-    else if (!(profileId.charAt(0).toLowerCase() == 's' || profileId.charAt(0).toLowerCase() == 'd')) {
+    else if (!(/^((d|D)|(s|S))[0-9]+$/.test(profileId))) {
         isValid = false;
         validate.setError(inputBox, 'Please enter correct profile id');
     }

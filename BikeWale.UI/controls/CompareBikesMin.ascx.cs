@@ -1,10 +1,6 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.Entities.Compare;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
@@ -143,30 +139,6 @@ namespace Bikewale.Controls
             objComp.BindBikeCompare(rptCompareBike, 1);
             this.m_TopRecord = objComp.FetchTopRecord();
             this.m_FetchedRecordsCount = objComp.FetchedRecordCount;
-
-            this.m_TopCompareImage = Bikewale.Utility.Image.GetPathToShowImages(m_TopRecord.OriginalImagePath, m_TopRecord.HostURL, Bikewale.Utility.ImageSize._310x174);
-
-            if (this.m_TopRecord.ReviewCount1 > 0)
-            {
-                this.m_Bike1ReviewText = String.Format(_ReviewCountString, this.m_TopRecord.ReviewCount1);
-                this.m_Bike1ReviewLink = String.Format(_ExistingReviewLink, this.m_TopRecord.MakeMaskingName1, this.m_TopRecord.ModelMaskingName1);
-            }
-            else
-            {
-                this.m_Bike1ReviewText = _WriteReviewString;
-                this.m_Bike1ReviewLink = String.Format(_WriteReviewLink, this.m_TopRecord.ModelId1);
-            }
-
-            if (this.m_TopRecord.ReviewCount2 > 0)
-            {
-                this.m_Bike2ReviewText = String.Format(_ReviewCountString, this.m_TopRecord.ReviewCount2);
-                this.m_Bike2ReviewLink = String.Format(_ExistingReviewLink, this.m_TopRecord.MakeMaskingName2, this.m_TopRecord.ModelMaskingName2);
-            }
-            else
-            {
-                this.m_Bike2ReviewText = _WriteReviewString;
-                this.m_Bike2ReviewLink = String.Format(_WriteReviewLink, this.m_TopRecord.ModelId2);
-            }
         }
 
 

@@ -1,6 +1,6 @@
 ﻿using Bikewale.Notifications;
 using BikewaleOpr.BAL.ContractCampaign;
-using BikewaleOpr.Entity.ContractCampaign;
+using BikewaleOpr.Entities.ContractCampaign;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Interface.ManufacturerCampaign;
 using Microsoft.Practices.Unity;

@@ -2,6 +2,7 @@
 using Bikewale.Entities.Location;
 using Bikewale.Entities.service;
 using System.Collections.Generic;
+using Bikewale.Entities.ServiceCenters;
 namespace Bikewale.Interfaces.ServiceCenter
 {
     /// <summary>
@@ -14,5 +15,6 @@ namespace Bikewale.Interfaces.ServiceCenter
     {
         ServiceCenterLocatorList GetServiceCenterList(uint makeId);
         IEnumerable<CityEntityBase> GetServiceCenterCities(uint makeId);
+        ServiceCenterData GetServiceCentersByCity(uint cityId, int makeId);
     }
 }

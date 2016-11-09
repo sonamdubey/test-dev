@@ -1,32 +1,57 @@
 ﻿using BikewaleOpr.common;
+using BikewaleOpr.DALs.Bikedata;
+using BikewaleOpr.DALs.PopularComparisions;
+using BikewaleOpr.Entities.PopularComparisions;
+using BikewaleOpr.Interface.BikeData;
+using BikewaleOpr.Interface.PopularComparisions;
 using BikeWaleOpr.Common;
-using BikeWaleOpr.RabbitMQ;
-using MySql.CoreDAL;
-using RabbitMqPublishing;
+using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Specialized;
-using System.Configuration;
-using System.Data;
-using System.Data.Common;
+using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.IO;
+using System.Linq;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.Content
 {
-    public partial class BikeComparisonList : Page
+    public class BikeComparisonList : Page
     {
         protected DropDownList drpMake1, drpModel1, drpVersion1, drpMake2, drpModel2, drpVersion2;
         protected Button btnSave, btnCancel;
-        protected Label lblMessage;
-        protected Repeater MyRepeater;
         protected HtmlInputHidden hdn_drpModel1, hdn_drpVersion1, hdn_drpModel2, hdn_drpVersion2;
-        protected HtmlInputFile filPhoto;
         protected HtmlInputCheckBox chkIsActive;
-        protected string cId = string.Empty, hostUrl = string.Empty, originalImgPath = string.Empty, timeStamp = CommonOpn.GetTimeStamp();
+        protected string cId = string.Empty;
         public string hostURL = string.Empty;
+        protected IEnumerable<PopularBikeComparision> objBikeComps = null;
+
+        private IPopularBikeComparisions _objCompBikesRepo = null;
+        private IBikeMakes _objMakesRepo = null;
+        private IBikeModels _objModelsRepo = null;
+        private IBikeVersions _objVersionsRepo = null;
+        private ushort compareId; private bool isDataSaved;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public BikeComparisonList()
+        {
+            using (IUnityContainer container = new UnityContainer())
+            {
+
+                container.RegisterType<IPopularBikeComparisions, PopularBikeComparisionsRepository>()
+                .RegisterType<IBikeMakes, BikeMakesRepository>()
+                .RegisterType<IBikeModels, BikeModelsRepository>()
+                .RegisterType<IBikeVersions, BikeVersionsRepository>();
+
+                _objCompBikesRepo = container.Resolve<IPopularBikeComparisions>();
+                _objMakesRepo = container.Resolve<IBikeMakes>();
+                _objModelsRepo = container.Resolve<IBikeModels>();
+                _objVersionsRepo = container.Resolve<IBikeVersions>();
+
+            }
+        }
 
         public string SelectedVersion1
         {
@@ -144,24 +169,28 @@ namespace BikeWaleOpr.Content
             }
         }
 
-        //Fill Bike Makes
-
+        /// <summary>
+        /// Created By : Sushil Kumar on 26th Oct 2016 
+        /// Description : Fill Bike Makes
+        /// </summary>
         void FillMakes()
         {
-            MakeModelVersion mmv = new MakeModelVersion();
-            DataTable dt = new DataTable();
             try
             {
-                dt = mmv.GetMakes("New");
-                drpMake1.DataSource = dt;
-                drpMake1.DataValueField = "value";
-                drpMake1.DataTextField = "text";
-                drpMake1.DataBind();
+                if (_objMakesRepo != null)
+                {
+                    var _objMakes = _objMakesRepo.GetMakes("NEW");
+                    drpMake1.DataSource = _objMakes;
+                    drpMake1.DataValueField = "MakeId";
+                    drpMake1.DataTextField = "MakeName";
+                    drpMake1.DataBind();
 
-                drpMake2.DataSource = dt;
-                drpMake2.DataValueField = "value";
-                drpMake2.DataTextField = "text";
-                drpMake2.DataBind();
+                    drpMake2.DataSource = _objMakes;
+                    drpMake2.DataValueField = "MakeId";
+                    drpMake2.DataTextField = "MakeName";
+                    drpMake2.DataBind();
+                }
+
             }
             catch (SqlException err)
             {
@@ -175,6 +204,64 @@ namespace BikeWaleOpr.Content
             drpMake2.Items.Insert(0, item);
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 26th Oct 2016 
+        /// Description : Fill Bikes Data on update/edit
+        /// </summary>
+        /// <param name="_objComparision"></param>
+        private void FillBikeData(PopularBikeComparision _objComparision)
+        {
+            drpMake1.SelectedValue = _objComparision.MakeId1.ToString();
+            if (_objModelsRepo != null)
+            {
+                var _objModels = _objModelsRepo.GetModels(_objComparision.MakeId1, "NEW");
+                drpModel1.DataSource = _objModels;
+                drpModel1.DataTextField = "ModelName";
+                drpModel1.DataValueField = "ModelId";
+                drpModel1.DataBind();
+                drpModel1.Items.Insert(0, new ListItem("--Select--", "0"));
+                drpModel1.SelectedIndex = drpModel1.Items.IndexOf(drpModel1.Items.FindByValue(_objComparision.ModelId1.ToString()));
+                drpModel1.Enabled = true;
+
+                if (_objVersionsRepo != null)
+                {
+                    var _objVersions = _objVersionsRepo.GetVersions(_objComparision.ModelId1, "NEW");
+                    drpVersion1.DataSource = _objVersions;
+                    drpVersion1.DataTextField = "VersionName";
+                    drpVersion1.DataValueField = "VersionId";
+                    drpVersion1.DataBind();
+                    drpVersion1.Items.Insert(0, new ListItem("--Select--", "0"));
+                    drpVersion1.SelectedIndex = drpVersion1.Items.IndexOf(drpVersion1.Items.FindByValue(_objComparision.VersionId1.ToString()));
+                    drpVersion1.Enabled = true;
+                }
+            }
+
+            drpMake2.SelectedValue = _objComparision.MakeId2.ToString();
+            if (_objModelsRepo != null)
+            {
+                var _objModels = _objModelsRepo.GetModels(_objComparision.MakeId2, "NEW");
+                drpModel2.DataSource = _objModels;
+                drpModel2.DataTextField = "ModelName";
+                drpModel2.DataValueField = "ModelId";
+                drpModel2.DataBind();
+                drpModel2.Items.Insert(0, new ListItem("--Select--", "0"));
+                drpModel2.SelectedIndex = drpModel2.Items.IndexOf(drpModel2.Items.FindByValue(_objComparision.ModelId2.ToString()));
+                drpModel2.Enabled = true;
+
+                if (_objVersionsRepo != null)
+                {
+                    var _objVersions = _objVersionsRepo.GetVersions(_objComparision.ModelId2, "NEW");
+                    drpVersion2.DataSource = _objVersions;
+                    drpVersion2.DataTextField = "VersionName";
+                    drpVersion2.DataValueField = "VersionId";
+                    drpVersion2.DataBind();
+                    drpVersion2.Items.Insert(0, new ListItem("--Select--", "0"));
+                    drpVersion2.SelectedIndex = drpVersion2.Items.IndexOf(drpVersion2.Items.FindByValue(_objComparision.VersionId2.ToString()));
+                    drpVersion2.Enabled = true;
+                }
+            }
+        }
+
         // Shows all the data from the Con_BikeComparisonList table
         /// <summary>
         /// Modified By : Sadhana Upadhyay on 10th Feb 2014
@@ -184,32 +271,11 @@ namespace BikeWaleOpr.Content
         /// </summary>
         void ShowBikeComparision()
         {
-
-            //string sql = " SELECT BL.ID as ID, BMA1.Name + ' ' + BMO1.Name + ' ' + BV1.Name as Bike1, "
-            //                + " BMA2.Name + ' ' + BMO2.Name + ' ' +  BV2.Name as Bike2, BL.EntryDate, BL.HostURL, BL.ImagePath, BL.ImageName, BL.DisplayPriority, BL.IsActive "
-            //                + " FROM Con_BikeComparisonList BL, BikeVersions AS BV1,  BikeModels AS BMO1, "
-            //                + " BikeMakes AS BMA1 , BikeVersions AS BV2,  BikeModels AS BMO2, BikeMakes AS BMA2 "
-            //                + " WHERE Bv1.ID = BL.VersionId1 AND BMO1.ID = Bv1.BikeModelId AND BMa1.ID = BMo1.BikeMakeId "
-            //                + " AND Bv2.ID = BL.VersionId2 AND BMo2.ID = Bv2.BikeModelId AND BMa2.ID = BMo2.BikeMakeId AND BL.IsArchived = 0 "
-            //                + " ORDER BY ID ASC";
-
-            CommonOpn op = new CommonOpn();
-
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand())
+                if (_objCompBikesRepo != null)
                 {
-                    cmd.CommandText = "con_getbikecomparisonlisting";
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
-                    {
-                        if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
-                        {
-                            MyRepeater.DataSource = ds.Tables[0];
-                            MyRepeater.DataBind();
-                        }
-                    }
+                    objBikeComps = _objCompBikesRepo.GetBikeComparisions();
                 }
             }
             catch (Exception ex)
@@ -225,84 +291,32 @@ namespace BikeWaleOpr.Content
         /// Modified By : Sadhana Upadhyay on 13th feb 2014
         /// Summary : Rplaced Inline query with procedure
         /// </summary>
-
-        void LoadBikeComparision(string URLData)
+        void LoadBikeComparision(string comparisionId)
         {
-            AjaxFunctions aj = new AjaxFunctions();
-
-            if (URLData != null)
+            try
             {
-
-                btnSave.Text = "Update";
-                btnCancel.Visible = true;
-
-                CommonOpn objCom = new CommonOpn();
-
-                try
+                if (!string.IsNullOrEmpty(comparisionId))
                 {
-                    using (DbCommand cmd = DbFactory.GetDBCommand())
+                    btnSave.Text = "Update";
+                    btnCancel.Visible = true;
+
+                    if (objBikeComps != null && objBikeComps.Count() > 0)
                     {
-                        cmd.CommandText = "getbikecomparisondetailbyid";
-                        cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int32, URLData));
-
-
-                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                        var _objComparision = objBikeComps.FirstOrDefault(x => x.ComparisionId == Convert.ToUInt16(comparisionId));
+                        if (_objComparision != null)
                         {
-                            if (dr != null && dr.Read())
-                            {
-
-                                drpMake1.SelectedValue = dr["Make1"].ToString();
-
-                                drpModel1.DataSource = aj.GetModels(dr["Make1"].ToString());
-                                drpModel1.DataTextField = "Text";
-                                drpModel1.DataValueField = "Value";
-                                drpModel1.DataBind();
-                                drpModel1.Items.Insert(0, new ListItem("--Select--", "0"));
-                                drpModel1.SelectedIndex = drpModel1.Items.IndexOf(drpModel1.Items.FindByValue(dr["Model1"].ToString()));
-                                drpModel1.Enabled = true;
-
-                                drpVersion1.DataSource = aj.GetVersions(dr["Model1"].ToString());
-                                drpVersion1.DataTextField = "Text";
-                                drpVersion1.DataValueField = "Value";
-                                drpVersion1.DataBind();
-                                drpVersion1.Items.Insert(0, new ListItem("--Select--", "0"));
-                                drpVersion1.SelectedIndex = drpVersion1.Items.IndexOf(drpVersion1.Items.FindByValue(dr["Version1"].ToString()));
-                                drpVersion1.Enabled = true;
-
-                                drpMake2.SelectedValue = dr["Make2"].ToString();
-
-                                drpModel2.DataSource = aj.GetModels(dr["Make2"].ToString());
-                                drpModel2.DataTextField = "Text";
-                                drpModel2.DataValueField = "Value";
-                                drpModel2.DataBind();
-                                drpModel2.Items.Insert(0, new ListItem("--Select--", "0"));
-                                drpModel2.SelectedIndex = drpModel2.Items.IndexOf(drpModel2.Items.FindByValue(dr["Model2"].ToString()));
-                                drpModel2.Enabled = true;
-
-                                drpVersion2.DataSource = aj.GetVersions(dr["Model2"].ToString());
-                                drpVersion2.DataTextField = "Text";
-                                drpVersion2.DataValueField = "Value";
-                                drpVersion2.DataBind();
-                                drpVersion2.Items.Insert(0, new ListItem("--Select--", "0"));
-                                drpVersion2.SelectedIndex = drpVersion2.Items.IndexOf(drpVersion2.Items.FindByValue(dr["Version2"].ToString()));
-                                drpVersion2.Enabled = true;
-
-                                hostUrl = dr["HostURL"].ToString();
-                                hostURL = dr["HostURL"].ToString();
-                                originalImgPath = dr["OriginalImagePath"].ToString();
-                                chkIsActive.Checked = Convert.ToBoolean(dr["IsActive"].ToString());
-                            }
+                            FillBikeData(_objComparision);
                         }
+                        chkIsActive.Checked = _objComparision.IsActive;
                     }
                 }
-                catch (Exception err)
-                {
-                    Trace.Warn(err.Message + err.Source);
-                    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                    objErr.ConsumeError();
-                }
+            }
+            catch (Exception err)
+            {
+                Trace.Warn(err.Message + err.Source);
+                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                objErr.ConsumeError();
             }
         }
 
@@ -315,167 +329,44 @@ namespace BikeWaleOpr.Content
         /// <param name="e"></param>
         void btnSave_Click(object Sender, EventArgs e)
         {
-            int isActive = (chkIsActive.Checked == true ? 1 : 0);
-            int URLData;
 
-            if (Request.QueryString["id"] == null)
-            {
-                URLData = -1;
-            }
-            else
-            {
-                URLData = Int16.Parse(Request.QueryString["id"]);
-            }
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand())
+                if (Request.QueryString["id"] != null)
                 {
-                    cmd.CommandText = "bikecomparisionlist";
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    compareId = UInt16.Parse(Request.QueryString["id"]);
+                }
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int16, URLData));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid1", DbType.Int16, drpVersion1.SelectedItem.Value));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid2", DbType.Int16, drpVersion2.SelectedItem.Value));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_entrydate", DbType.DateTime, DateTime.Now));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Boolean, isActive));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_compid", DbType.Int32, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_status", DbType.Int16, ParameterDirection.Output));
+                if (_objCompBikesRepo != null)
+                {
 
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
 
-                    int Status = Int16.Parse(cmd.Parameters["par_status"].Value.ToString());
-                    if (Status == 0)
-                    {
-                        Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Duplicate data not allowed');", true);
-                    }
-                    if (Status == 1)
-                    {
-                        Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Data successfully inserted');", true);
-                    }
-                    if (Status == 2)
+                    isDataSaved = _objCompBikesRepo.SaveBikeComparision(compareId, Convert.ToUInt32(drpVersion1.SelectedItem.Value), Convert.ToUInt32(drpVersion2.SelectedItem.Value), chkIsActive.Checked);
+                }
+
+                if (isDataSaved)
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Data successfully inserted');", true);
+                    if (compareId > 0)
                     {
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Data successfully updated');", true);
                     }
-                    cId = cmd.Parameters["par_compid"].Value.ToString();
 
                     // Removed memcached key which shows data on home page and new page
                     MemCachedUtil.Remove("BW_CompareBikes_Cnt_4");
-                    MemCachedUtil.Remove("BW_CompareBikes_Cnt_1");
-                    if (!String.IsNullOrEmpty(filPhoto.Value))
-                        UploadImage(cId);
-                    ShowBikeComparision();
                     Response.Redirect("/content/bikecomparisonlist.aspx");
                 }
-            }
-
-            catch (SqlException err)
-            {
-                Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.ConsumeError();
-            } // catch SqlException
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.ConsumeError();
-            } // catch Exception
-        }
-
-        /// <summary>
-        /// Created By : Sadhana Upadhyay on 11th Feb 2014
-        /// Summary : To save Compare Bike Image using RabbitMQ
-        /// Modified By : Sadhana Upadhyay on 11 Aug 2015
-        /// Summary : To change image saving logic for IPC
-        /// </summary>
-        /// <param name="cId"></param>
-        /// <returns></returns>
-        void UploadImage(string cId)
-        {
-            CommonOpn co = new CommonOpn();
-            string imgPath = ImagingOperations.GetPathToSaveImages("\\bw\\bikecomparison\\");
-
-
-            try
-            {
-                if (!Directory.Exists(imgPath))
+                else
                 {
-                    Directory.CreateDirectory(imgPath);
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Duplicate data not allowed');", true);
                 }
-
-                string imageName = (drpMake1.SelectedItem.Text + "_" + drpModel1.SelectedItem.Text + "_vs_" + drpMake2.SelectedItem.Text + "_" + drpModel2.SelectedItem.Text + ".jpg").Replace(" ", "").ToLower();
-                // upload file for temporary purpose
-                Trace.Warn("Inside RabbitMQ");
-                //rabbitmq code here 
-                string hostUrl = ConfigurationManager.AppSettings["RabbitImgHostURL"].ToString();
-                string imageUrl = "http://" + hostUrl + "/bw/bikecomparison/" + imageName;
-                //Save Original image
-                ImagingOperations.SaveImageContent(filPhoto, "/bw/bikecomparison/" + imageName);
-
-                RabbitMqPublish rabbitmqPublish = new RabbitMqPublish();
-                NameValueCollection nvc = new NameValueCollection();
-                //add items to nvc
-                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ID).ToLower(), cId);
-                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.CATEGORY).ToLower(), "BikeComparisionList");
-                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.CUSTOMSIZEWIDTH).ToLower(), "-1");
-                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.CUSTOMSIZEHEIGHT).ToLower(), "-1");
-                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISWATERMARK).ToLower(), Convert.ToString(false));
-                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISCROP).ToLower(), Convert.ToString(false));
-                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISMAIN).ToLower(), Convert.ToString(false));
-                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.SAVEORIGINAL).ToLower(), Convert.ToString(true));
-                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ONLYREPLICATE).ToLower(), Convert.ToString(true));
-                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.LOCATION).ToLower(), imageUrl);
-                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.IMAGETARGETPATH).ToLower(), "/bw/bikecomparison/" + imageName + "?" + timeStamp);
-                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISMASTER).ToLower(), "1");
-
-                rabbitmqPublish.PublishToQueue(ConfigurationManager.AppSettings["ImageQueueName"], nvc);
-
-                SaveBikeComparePhoto(cId);
             }
             catch (Exception err)
             {
+                Trace.Warn(err.Message + err.Source);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-        }   //End of UploadImage
-
-        /// <summary>
-        /// Created By : Sadhana Upadhyay on 19th Feb 2014
-        /// Summary : To save Bike Comparison photo
-        /// MOdified BY : Sadhana Upadhyay on 11 Aug 2015
-        /// Summary : To save Bike photo to IPC
-        /// </summary>
-        void SaveBikeComparePhoto(string photoId)
-        {
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand())
-                {
-                    cmd.CommandText = "savebikecomparisonphoto";
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int16, photoId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, 100, ConfigurationManager.AppSettings["imgHostURL"]));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imagename", DbType.String, 150, (drpMake1.SelectedItem.Text + "_" + drpModel1.SelectedItem.Text + "_vs_" + drpMake2.SelectedItem.Text + "_" + drpModel2.SelectedItem.Text + ".jpg?").Replace(" ", "").ToLower() + timeStamp));
-
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imagepath", DbType.String, 50, "/bw/bikecomparison/"));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isreplicated", DbType.Boolean, 0));
-
-                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
-                }
-            }
-            catch (SqlException err)
-            {
-                Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.ConsumeError();
-            } // catch SqlException
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.ConsumeError();
             } // catch Exception
         }
 

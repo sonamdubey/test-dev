@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace Bikewale.DTO.Used.Search
 {
@@ -45,7 +46,10 @@ namespace Bikewale.DTO.Used.Search
         public string ModelMaskingName { get; set; }
         [JsonProperty("version")]
         public string VersionName { get; set; }
-
+        [JsonProperty("lastUpdated")]
+        public DateTime LastUpdated { get; set; }
+        [JsonProperty("strLastUpdated")]
+        public string StrLastUpdated { get { return LastUpdated.ToString("dd MMM yy"); } }
         [JsonProperty("bikeName")]
         public string BikeName { get { return string.Format("{0} {1} {2}", MakeName, ModelName, VersionName); } }
     }

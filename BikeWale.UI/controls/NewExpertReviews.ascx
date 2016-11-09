@@ -1,5 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.NewExpertReviews" %>
+<% if(ShowWidgetTitle) { %>
 <h3 class="model-section-subtitle padding-right10 padding-left10">Expert Reviews</h3>
+<% } %>
 <div class="model-expert-review-container" id="ctrlExpertReviews">
     <asp:Repeater ID="rptExpertReviews" runat="server">
         <ItemTemplate>
@@ -19,7 +21,7 @@
                     </div>
                     <div class="article-stats-right-grid">
                         <span class="bwsprite author-grey-sm-icon"></span>
-                        <span class="article-stats-content"><%# DataBinder.Eval(Container.DataItem, "AuthorName").ToString()%></span>
+                        <span class="article-stats-content"><%# DataBinder.Eval(Container.DataItem, "AuthorName").ToString() %></span>
                     </div>
                     <p class="line-height17 margin-top10">
                         <%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Description").ToString(),280) %>
@@ -29,7 +31,7 @@
             </div>
         </ItemTemplate>
     </asp:Repeater>    
-    <div class="padding-left10">
+    <div class="padding-left10 more-article-target">
         <a title="<%= linkTitle %>" href="<%=MoreExpertReviewUrl %>" class="bw-ga" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="myBikeName">Read all expert reviews<span class="bwsprite blue-right-arrow-icon"></span></a>        
     </div>
 </div><!-- Ends here-->

@@ -1,7 +1,10 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BindViewModels.Controls;
+using Bikewale.Common;
+using Bikewale.Entities.Used;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI.WebControls;
-
 namespace Bikewale.Used
 {
     /// <summary>
@@ -11,6 +14,8 @@ namespace Bikewale.Used
     public class BikesInCity : System.Web.UI.Page
     {
         protected Repeater rptCity;
+        protected IEnumerable<UsedBikeCities> objBikeCityCountTop = null;
+        protected IEnumerable<UsedBikeCities> objBikeCityCount = null;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -34,19 +39,26 @@ namespace Bikewale.Used
                 originalUrl = Request.ServerVariables["URL"];
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
-
-            if (!IsPostBack)
-            {
-                BindCities();
-            }
+            BindCities();
         }
-
+        /// <summary>
+        /// Created By Subodh Jain on 20 oct 2016
+        /// Desc : Bind cities on City page
+        /// </summary>
         private void BindCities()
         {
-            SearchCommon objSC = new SearchCommon();
-
-            rptCity.DataSource = objSC.GetUsedBikeByCityWithCount();
-            rptCity.DataBind();
+            try
+            {
+                BindUsedBikesCityWithCount objBikeCity = new BindUsedBikesCityWithCount();
+                objBikeCityCount = objBikeCity.GetUsedBikeByCityWithCount();
+                objBikeCityCountTop = objBikeCityCount.Where(x => x.priority > 0); ;
+                objBikeCityCount = objBikeCityCount.OrderBy(c => c.CityName);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikesInCity.BindCities");
+                objErr.SendMail();
+            }
         }
     }
 }

@@ -39,7 +39,7 @@ namespace Bikewale.BikeBooking
         protected List<VersionColor> objColors = null;
         protected BikeVersionEntity objVersionDetails = null;
         protected List<BikeVersionsListEntity> versionList = null;
-        protected AlternativeBikes ctrlAlternativeBikes;
+        protected NewAlternativeBikes ctrlAlternativeBikes;
         protected string BikeName = string.Empty, pageUrl = string.Empty, clientIP = string.Empty, cityArea = string.Empty, city = string.Empty, area = string.Empty;
         protected uint totalPrice = 0, bookingAmount, dealerId = 0, cityId = 0, versionId = 0, pqId = 0, areaId = 0, insuranceAmount = 0, totalDiscount = 0;
         protected bool IsInsuranceFree, isUSPBenfits, isoffer, isEMIAvailable, IsDiscount;
@@ -363,8 +363,10 @@ namespace Bikewale.BikeBooking
 
             if (!String.IsNullOrEmpty(versionId) && versionId != "0")
             {
-                ctrlAlternativeBikes.VersionId = Convert.ToInt32(versionId);
+                ctrlAlternativeBikes.VersionId = Convert.ToUInt32(versionId);
                 ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_DPQ_Alternative;
+                ctrlAlternativeBikes.cityId = cityId;
+                ctrlAlternativeBikes.model = modelName;
             }
         }
 

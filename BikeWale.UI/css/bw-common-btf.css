@@ -54,10 +54,6 @@
 .bw-tabs-inner-margin35 ul { margin-bottom: 35px; }
 .bw-tabs-inner-margin40 ul { margin-bottom: 40px; }
 
-.compare-list-home li {padding-bottom: 25px; text-align: center; display:block; }
-.compare-now-image-preview a { width: 100%; height: 268px; display:block; background: url('http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
-.compare-now-image-preview a img { width: 100%; height: 268px; }
-
 /* news, review and videos section on home page classes */
 .news-expert-video-content .img-preview { width:100%; height:174px; display:table; text-align:center;}
 .news-expert-video-content .img-preview a { display:table-cell; vertical-align:middle; background: url('http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }

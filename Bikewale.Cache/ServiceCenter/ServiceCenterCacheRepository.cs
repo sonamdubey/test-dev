@@ -1,6 +1,7 @@
 ﻿
 using Bikewale.Entities.Location;
 using Bikewale.Entities.service;
+using Bikewale.Entities.ServiceCenters;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Notifications;
@@ -25,6 +26,8 @@ namespace Bikewale.Cache.ServiceCenter
             _objServiceCenter = objServiceCenter;
             _cache = cache;
         }
+
+
         /// <summary>
         /// Created by:-Subodh Jain 7 nov 2016
         /// Summary:- Get make wise list of service center in cities and state
@@ -74,6 +77,25 @@ namespace Bikewale.Cache.ServiceCenter
 
 
             return objStateCityList;
+        }
+
+        /// <summary>
+        /// Created By : Sajal Gupta on 07/11/2016
+        /// Description: Cache layer for Function for fetching service center data from cache.
+        /// </summary>
+        public ServiceCenterData GetServiceCentersByCity(uint cityId, int makeId)
+        {
+            string key = String.Format("BW_ServiceCenterList_{0}_{1}", cityId, makeId);
+            try
+            {
+                return _cache.GetFromCache<ServiceCenterData>(key, new TimeSpan(1, 0, 0, 0), () => _objServiceCenter.GetServiceCentersByCity(cityId, makeId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersCacheRepository.GetServiceCentersByCity");
+                objErr.SendMail();
+            }
+            return null;
         }
     }
 }

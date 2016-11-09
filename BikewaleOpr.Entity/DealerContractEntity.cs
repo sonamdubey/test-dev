@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BikewaleOpr.Entity
+namespace BikewaleOpr.Entities
 {
     /// <summary>
     /// Created by  :   Sumit Kate on 12 July 2016

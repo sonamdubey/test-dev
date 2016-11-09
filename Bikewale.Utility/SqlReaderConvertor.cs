@@ -53,6 +53,12 @@ namespace Bikewale.Utility
             return ((DBNull.Value != reader) ? Convert.ToSingle(reader) : retVal);
         }
 
+        public static UInt64 ToUInt64(object reader)
+        {
+            UInt64 retVal = default(UInt64);
+            return ((DBNull.Value != reader) ? Convert.ToUInt64(reader) : retVal);
+        }
+
         public static UInt32 ToUInt32(object reader)
         {
             UInt32 retVal = default(UInt32);

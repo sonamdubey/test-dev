@@ -146,7 +146,10 @@
                                                 </a>
                                             </div>
                                             <div class="model-details-content font14">
-                                                <h2 class="margin-bottom10"><a href="<%= string.Format("/used/bikes-in-{0}/{1}-{2}-{3}/",bike.CityMaskingName,bike.MakeMaskingName,bike.ModelMaskingName,bike.ProfileId) %>" class="text-truncate text-black" title="<%= curBikeName %>"><%= curBikeName %></a></h2>
+                                                <h2 class="margin-bottom5"><a href="<%= string.Format("/used/bikes-in-{0}/{1}-{2}-{3}/",bike.CityMaskingName,bike.MakeMaskingName,bike.ModelMaskingName,bike.ProfileId) %>" class="text-truncate text-black" title="<%= curBikeName %>"><%= curBikeName %></a></h2>
+                                                <div class="margin-bottom5">
+                                                    <span class="font12 text-xt-light-grey">Updated on: <%= bike.LastUpdated.ToString("dd MMM yy") %></span>
+                                                </div>
                                                 <%if(!string.IsNullOrEmpty(bike.ModelYear)) { %>
                                                  <div class="grid-6 alpha"> 
                                                     <span class="bwsprite model-date-icon"></span>
@@ -202,6 +205,9 @@
                                             </div>
                                             <div class="model-details-content font14">
                                                 <h2 class="margin-bottom10"><a href="" data-bind="text: bikeName, attr: { 'href': '/used/bikes-in-' + cityMasking + '/' + makeMasking + '-' + modelMasking + '-' + profileId + '/' }" class="text-truncate text-black" ></a></h2>
+                                                <div class="margin-bottom5">
+                                                    <span class="font12 text-xt-light-grey" data-bind="text: 'Updated on: ' + strLastUpdated"></span>
+                                                </div>
                                                  <div class="grid-6 alpha" data-bind="visible: modelYear > 0"> 
                                                     <span class="bwsprite model-date-icon"></span>
                                                     <span class="model-details-label" data-bind="text: modelYear + ' model'"></span>

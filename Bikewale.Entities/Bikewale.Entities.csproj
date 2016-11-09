@@ -261,6 +261,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="service\ServiceCenterLocatorList.cs" />
     <Compile Include="service\ServiceCenterLocator.cs" />
+    <Compile Include="ServiceCenters\ServiceCenterData.cs" />
+    <Compile Include="ServiceCenters\ServiceCenterDetails.cs" />
     <Compile Include="service\ServiceCityEntity.cs" />
     <Compile Include="UrlShortner\UrlShortnerResponse.cs" />
     <Compile Include="Used\BikeDetails.cs" />
@@ -279,6 +281,8 @@
     <Compile Include="Used\PurchaseInquiryResultEntity.cs" />
     <Compile Include="Used\PurchaseInquiryStatusCode.cs" />
     <Compile Include="Used\PurchaseInquiryStatusEntity.cs" />
+    <Compile Include="Used\SellAdStatus.cs" />
+    <Compile Include="Used\SellBikes.cs" />
     <Compile Include="Used\UsedBikeCities.cs" />
     <Compile Include="Used\UsedBikeSellerBase.cs" />
     <Compile Include="Used\SearchResult.cs" />

@@ -4,9 +4,9 @@
 <%@ Register Src="~/m/controls/MNewLaunchedBikes.ascx" TagName="MNewLaunchedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="MMostPopularBikes" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/CompareBikesMin.ascx" TagName="CompareBike" TagPrefix="BW" %>
-<%@ Register Src="/m/controls/NewsWidget.ascx" TagName="News" TagPrefix="BW" %>
-<%@ Register Src="/m/controls/ExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
-<%@ Register Src="/m/controls/VideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
+<%@ Register Src="/m/controls/NewNewsWidget.ascx" TagName="News" TagPrefix="BW" %>
+<%@ Register Src="/m/controls/NewExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
+<%@ Register Src="/m/controls/NewVideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
 
 <!doctype html>
 <html>
@@ -90,48 +90,44 @@
             <!--  Upcoming, New Launches and Top Selling code starts here -->
             <div class="container <%= ((mctrlMostPopularBikes.FetchedRecordsCount + mctrlMostPopularBikes.FetchedRecordsCount + mctrlMostPopularBikes.FetchedRecordsCount) > 0 )?"":"hide" %> ">
                 <div class="grid-12 alpha omega">
-                    <h2 class="font18 text-center margin-top20 margin-bottom20">Featured bikes</h2>
-                    <div class="bw-tabs-panel">
-                        <div class="bw-tabs bw-tabs-flex">
-                            <ul>
-                                <li class="active" style="<%= (mctrlMostPopularBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="mctrlMostPopularBikes">Most Popular</li>
-                                <li style="<%= (mctrlNewLaunchedBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="mctrlNewLaunchedBikes">New launches</li>
-                                <li style="<%= (mctrlUpcomingBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="mctrlUpcomingBikes">Upcoming </li>
-                            </ul>
-                        </div>
-                        <div class="grid-12 alpha omega">
-                            <div class="bw-tabs-data features-bikes-container" id="mctrlMostPopularBikes">
-                                <div class="swiper-container card-container">
-                                    <div class="swiper-wrapper discover-bike-carousel">
-                                        <BW:MMostPopularBikes PageId="4" runat="server" ID="mctrlMostPopularBikes" />
-                                    </div>
-                                    <!-- Add Pagination -->
-                                    <div class="swiper-pagination"></div>
-                                </div>
+                    <h2 class="font18 text-center margin-top20 margin-bottom10">Featured bikes</h2>
+                    <div class="featured-bikes-panel content-box-shadow padding-bottom15">
+                        <div class="bw-tabs-panel">
+                            <div class="bw-tabs bw-tabs-flex">
+                                <ul>
+                                    <li class="active" style="<%= (mctrlMostPopularBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="mctrlMostPopularBikes">Most Popular</li>
+                                    <li style="<%= (mctrlNewLaunchedBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="mctrlNewLaunchedBikes">New launches</li>
+                                    <li style="<%= (mctrlUpcomingBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="mctrlUpcomingBikes">Upcoming </li>
+                                </ul>
                             </div>
-                            <div class="bw-tabs-data hide features-bikes-container" id="mctrlNewLaunchedBikes">
-                                <div class="swiper-container card-container">
-                                    <div class="swiper-wrapper discover-bike-carousel">
-                                        <BW:MNewLaunchedBikes PageId="4" runat="server" ID="mctrlNewLaunchedBikes" />
+                            <div class="grid-12 alpha omega">
+                                <div class="bw-tabs-data features-bikes-container" id="mctrlMostPopularBikes">
+                                    <div class="swiper-container card-container">
+                                        <div class="swiper-wrapper discover-bike-carousel">
+                                            <BW:MMostPopularBikes PageId="4" runat="server" ID="mctrlMostPopularBikes" />
+                                        </div>
                                     </div>
-                                    <!-- Add Pagination -->
-                                    <div class="swiper-pagination"></div>
                                 </div>
-                            </div>
-                            <div class="bw-tabs-data hide features-bikes-container" id="mctrlUpcomingBikes">
-                                <div class="swiper-container card-container">
-                                    <div class="swiper-wrapper discover-bike-carousel">
-                                        <BW:MUpcomingBikes runat="server" ID="mctrlUpcomingBikes" />
-                                        <!-- Upcoming Bikes Control-->
+                                <div class="bw-tabs-data hide features-bikes-container" id="mctrlNewLaunchedBikes">
+                                    <div class="swiper-container card-container">
+                                        <div class="swiper-wrapper discover-bike-carousel">
+                                            <BW:MNewLaunchedBikes PageId="4" runat="server" ID="mctrlNewLaunchedBikes" />
+                                        </div>
                                     </div>
-                                    <!-- Add Pagination -->
-                                    <div class="swiper-pagination"></div>
+                                </div>
+                                <div class="bw-tabs-data hide features-bikes-container" id="mctrlUpcomingBikes">
+                                    <div class="swiper-container card-container">
+                                        <div class="swiper-wrapper discover-bike-carousel">
+                                            <BW:MUpcomingBikes runat="server" ID="mctrlUpcomingBikes" />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="clear"></div>
                     </div>
-                    <div class="clear"></div>
                 </div>
+                <div class="clear"></div>
             </div>
         </section>
 
@@ -152,8 +148,8 @@
         <section class="container">
             <!-- Tools you may need code starts here -->
             <div class="grid-12">
-                <h2 class="font18 text-center margin-top20 margin-bottom20">Tools you may need</h2>
-                <div class="tools-need-container margin-bottom20 text-center">
+                <h2 class="font18 text-center margin-top20 margin-bottom10">Tools you may need</h2>
+                <div class="tools-need-container margin-bottom10 text-center">
                     <ul>
                         <li class="bg-white content-inner-block-20 content-box-shadow margin-bottom20">
                             <a href="/m/pricequote/">
@@ -223,36 +219,42 @@
                 }
             }
         %>
-        <section class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
+        <section>
             <!--  News, reviews and videos code starts here -->
-            <div class="container">
-                <div class="grid-12 alpha omega">
-                    <h2 class="font18 text-center margin-top20 margin-bottom20">Latest updates</h2>
-                    <div class="bw-tabs-panel">
-                        <div class="bw-tabs">
-                            <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
-                                <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
-                                    <ul>
-                                        <li class="<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">News</li>
-                                        <li class="<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>
-                                        <li class="<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
-                                    </ul>
+            <div class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
+                <div class="grid-12 alpha omega margin-bottom20">
+                    <h2 class="font18 text-center margin-top20 margin-bottom10">Latest updates</h2>
+                    <div class="content-box-shadow">
+                        <div class="bw-tabs-panel article-control padding-bottom20">
+                            <div class="bw-tabs">
+                                <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
+                                    <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
+                                        <ul>
+                                            <li class="<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">News</li>
+                                            <li class="<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>
+                                            <li class="<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="grid-12">
-                            <%if (!isNewsZero)
-                              { %>
-                            <BW:News runat="server" ID="ctrlNews" />
-                            <% } %>
-                            <%if (!isExpertReviewZero)
-                              { %>
-                            <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
-                            <% } %>
-                            <%if (!isVideoZero)
-                              { %>
-                            <BW:Videos runat="server" ID="ctrlVideos" />
-                            <% } %>
+                            <div class="bw-tabs-data" id="ctrlNews">
+                                <%if (!isNewsZero)
+                                    { %>
+                                <BW:News runat="server" ID="ctrlNews" />
+                                <% } %>
+                            </div>
+                            <div class="bw-tabs-data hide margin-right20 margin-left20" id="ctrlExpertReviews">
+                                <%if (!isExpertReviewZero)
+                                    { %>
+                                <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
+                                <% } %>
+                            </div>
+                            <div class="bw-tabs-data hide margin-right20 margin-left20" id="ctrlVideos">
+                                <%if (!isVideoZero)
+                                    { %>
+                                <BW:Videos runat="server" ID="ctrlVideos" />
+                                <% } %>
+                            </div>
                         </div>
                     </div>
                 </div>

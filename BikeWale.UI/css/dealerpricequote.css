@@ -113,6 +113,7 @@ a.text-darker-black:hover { text-decoration:none; }
 .dealership-address { width:92%; }
 .vertical-top { display:inline-block;vertical-align:top; }
 .disclaimer {list-style-type: disc; padding-left:20px;}
+#modelAlternateBikeContent{ background: #fff; -moz-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -webkit-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -o-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -ms-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; border: 1px solid #e2e2e2\9;}
 
 @media only screen and (max-width:1024px) {
     #pqBikeDetails.grid-8 { width:640px; }

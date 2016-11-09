@@ -409,7 +409,7 @@ var usedBikes = function () {
                 $(this).removeClass('tab-checked active');
                 $(this).closest('li').find('.bike-model-list li').removeClass('active');
             });
-            $('#bike, #owners, .type-slider').empty();
+            $('#bike, #owners, #seller, .type-slider').empty();
 
         } catch (e) {
             console.warn("Unable to set default records : " + e.message);
@@ -576,14 +576,18 @@ var usedBikes = function () {
             if (self.Filters()["owner"]) {
                 var arr = self.Filters()["owner"].split("+");
                 $.each(arr, function (i, val) {
-                    $("#previous-owners-list li[data-ownerid=" + val + "]").addClass("active");
+                    var element = $("#previous-owners-list li[data-ownerid=" + val + "]");
+                    element.addClass("active");
+                    filters.selection.set.owner(element);
                 });
             }
 
             if (self.Filters()["st"]) {
                 var arr = self.Filters()["st"].split("+");
                 $.each(arr, function (i, val) {
-                    $("#seller-type-list li[data-sellerid=" + val + "]").addClass("checked");
+                    var element = $("#seller-type-list li[data-sellerid=" + val + "]");
+                    element.addClass("checked");
+                    filters.selection.set.seller(element);
                 });
             }
 

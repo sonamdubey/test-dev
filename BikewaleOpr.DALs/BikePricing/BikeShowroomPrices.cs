@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bikewale.Notifications;
-using BikewaleOpr.Entity.BikePricing;
+using BikewaleOpr.Entities.BikePricing;
 using BikewaleOpr.Interface.BikePricing;
 using MySql.CoreDAL;
 
