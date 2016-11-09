@@ -729,3 +729,7 @@ textarea {
 .not-allowed {
     pointer-events: none;
 }
+
+#version-select-element .chosen-disabled.single-version{
+    opacity: 1 !important;
+}

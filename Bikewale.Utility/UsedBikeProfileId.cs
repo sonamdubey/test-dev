@@ -18,7 +18,7 @@ namespace Bikewale.Utility
             if (string.IsNullOrEmpty(profileId))
                 isValid = false;
 
-            if (!Regex.IsMatch(profileId, @"^((d|D)|(s|S))[0-9]*$"))
+            if (!Regex.IsMatch(profileId, @"^((d|D)|(s|S))[0-9]+$"))
                 isValid = false;
 
             if (!string.IsNullOrEmpty(profileId) && profileId.Length > 10)

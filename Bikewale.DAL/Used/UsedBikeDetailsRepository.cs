@@ -84,7 +84,7 @@ namespace Bikewale.DAL.Used
                             _objInquiryDetails.OtherDetails = new BikeDetails();
                             _objInquiryDetails.OtherDetails.Id = SqlReaderConvertor.ToUInt32(dr["sellerid"]);
                             _objInquiryDetails.OtherDetails.LastUpdatedOn = SqlReaderConvertor.ToDateTime(dr["LastUpdatedOn"]);
-                            _objInquiryDetails.OtherDetails.Seller = Convert.ToString(dr["SellerType"]);
+                            _objInquiryDetails.OtherDetails.Seller = Convert.ToByte(dr["SellerType"]).ToString() == "1" ? "D" : "S";
                             _objInquiryDetails.OtherDetails.Insurance = Convert.ToString(dr["insurancetype"]);
                             _objInquiryDetails.OtherDetails.Description = Convert.ToString(dr["Description"]);
                             _objInquiryDetails.OtherDetails.RegisteredAt = Convert.ToString(dr["RegisteredAt"]);

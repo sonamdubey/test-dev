@@ -193,7 +193,7 @@
                             <ul class="key-value-list font14">
                                 <li>
                                     <p class="bike-details-key">Profile ID</p>
-                                    <p class="bike-details-value">S<%= inquiryDetails.OtherDetails.Id %></p>
+                                    <p class="bike-details-value"><%= profileId %></p>
                                 </li>
                                 <li>
                                     <p class="bike-details-key">Date updated</p>
@@ -222,14 +222,18 @@
                                     <p class="bike-details-key">Bike registered at</p>
                                     <p class="bike-details-value"><%= inquiryDetails.OtherDetails.RegisteredAt %></p>
                                 </li>
+                                <% if (!String.IsNullOrEmpty(inquiryDetails.OtherDetails.Insurance)) {%>
                                 <li>
                                     <p class="bike-details-key">Insurance</p>
                                     <p class="bike-details-value"><%= inquiryDetails.OtherDetails.Insurance %></p>
                                 </li>
+                                <%} %>
+                                <% if (!String.IsNullOrEmpty(inquiryDetails.OtherDetails.RegistrationNo)){ %>
                                 <li>
                                     <p class="bike-details-key">Registration no.</p>
                                     <p class="bike-details-value"><%= inquiryDetails.OtherDetails.RegistrationNo %></p>
                                 </li>
+                                <%} %>
                             </ul>
                         </div>
                         <div class="clear"></div>

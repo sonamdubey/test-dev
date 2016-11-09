@@ -1,11 +1,10 @@
-﻿using System;
-using System.Web;
-using System.Text;
-using AjaxPro;
-using Bikewale.Common;
-using Bikewale.Used;
+﻿using Bikewale.Common;
 using Bikewale.CV;
 using Bikewale.Mails;
+using Bikewale.Used;
+using System;
+using System.Text;
+using System.Web;
 
 namespace Bikewale.Ajax
 {
@@ -150,12 +149,12 @@ namespace Bikewale.Ajax
             return isVerified;
         }
 
-         
-         //This function returns seller information in JSON format
-         //Gets following arguments
-         //BikeId : id of the Bike listed for sell
-         //isDealer : true if its a dealer
-        
+
+        //This function returns seller information in JSON format
+        //Gets following arguments
+        //BikeId : id of the Bike listed for sell
+        //isDealer : true if its a dealer
+
         [AjaxPro.AjaxMethod()]
         public bool UploadPhotosRequest(string sellInquiryId, string consumerType, string buyerMessage, string buyerName, string buyerEmail, string buyerMobile, string bikeName)
         {
@@ -207,7 +206,7 @@ namespace Bikewale.Ajax
                             {
                                 string subject = "Upload Bike Photos";
                                 string profileId = (consumerType == "1" ? "D" : "S") + sellInquiryId;
-                                string listingUrl = HttpContext.Current.Request.ServerVariables["HTTP_HOST"] + "/used/sell/uploadbasic.aspx?id=" + profileId;
+                                string listingUrl = HttpContext.Current.Request.ServerVariables["HTTP_HOST"] + "/used/sell/default.aspx?id=" + profileId + "#uploadphoto";
                                 string mailBody = "";
 
                                 if (isDealer)
