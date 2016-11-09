@@ -98,6 +98,7 @@ namespace Bikewale.Mobile.Service
             ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_ServiceCenter_Listing_CityPage;
             ctrlDealerCard.LeadSourceId = 16;
             ctrlDealerCard.DealerId = 0;
+            ctrlDealerCard.isHeadingNeeded = false;
         }
 
         /// <summary>

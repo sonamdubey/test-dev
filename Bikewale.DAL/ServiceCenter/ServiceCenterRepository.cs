@@ -170,10 +170,10 @@ namespace Bikewale.DAL.ServiceCenter
                         {
                             serviceCenters = new ServiceCenterData();
                             objServiceCenterList = new List<ServiceCenterDetails>();
-                            ServiceCenterDetails objServiceCenterDetails = new ServiceCenterDetails();
 
                             while (dr.Read())
                             {
+                                ServiceCenterDetails objServiceCenterDetails = new ServiceCenterDetails();
                                 objServiceCenterDetails.ServiceCenterId = SqlReaderConvertor.ToUInt32(dr["id"]);
                                 objServiceCenterDetails.Name = Convert.ToString(dr["name"]);
                                 objServiceCenterDetails.Address = Convert.ToString(dr["address"]);
@@ -206,6 +206,56 @@ namespace Bikewale.DAL.ServiceCenter
             return serviceCenters;
         }
 
+        /// <summary>
+        /// Created By : Sajal Gupta on 09/11/2016
+        /// Description: DAL layer Function for fetching service center complete data.
+        /// </summary>     
+        public ServiceCenterCompleteData GetServiceCenterDataById(uint serviceCenterId)
+        {
+            ServiceCenterCompleteData objServiceCenterCompleteData = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getservicecenterdetails"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_serviceCenterId", DbType.Int32, serviceCenterId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objServiceCenterCompleteData = new ServiceCenterCompleteData();
+
+                            dr.Read();
+
+                            objServiceCenterCompleteData.Id = serviceCenterId;
+                            objServiceCenterCompleteData.Name = Convert.ToString(dr["name"]);
+                            objServiceCenterCompleteData.Address = Convert.ToString(dr["address"]);
+                            objServiceCenterCompleteData.Phone = Convert.ToString(dr["phone"]);
+                            objServiceCenterCompleteData.Mobile = Convert.ToString(dr["mobile"]);
+                            objServiceCenterCompleteData.CityId = SqlReaderConvertor.ToUInt32(dr["cityId"]);
+                            objServiceCenterCompleteData.StateId = SqlReaderConvertor.ToUInt32(dr["stateId"]);
+                            objServiceCenterCompleteData.AreaId = SqlReaderConvertor.ToUInt32(dr["areaId"]);
+                            objServiceCenterCompleteData.Pincode = Convert.ToString(dr["pincode"]);
+                            objServiceCenterCompleteData.Email = Convert.ToString(dr["email"]);
+                            objServiceCenterCompleteData.Lattitude = Convert.ToString(dr["lattitude"]);
+                            objServiceCenterCompleteData.Longitude = Convert.ToString(dr["longitude"]);
+                            objServiceCenterCompleteData.MakeId = SqlReaderConvertor.ToUInt32(dr["makeId"]);
+                            objServiceCenterCompleteData.DealerId = SqlReaderConvertor.ToUInt32(dr["dealerId"]);
+                            objServiceCenterCompleteData.IsActive = SqlReaderConvertor.ToUInt32(dr["isActive"]);
+
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Error in ServiceCenterRepository.GetServiceCenterById for paramerters serviceCenterId : {0}", serviceCenterId));
+                objErr.SendMail();
+            }
+            return objServiceCenterCompleteData;
+        }
 
     }
 }

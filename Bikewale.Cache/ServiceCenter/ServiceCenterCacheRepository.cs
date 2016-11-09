@@ -70,5 +70,24 @@ namespace Bikewale.Cache.ServiceCenter
             }
             return null;
         }
+
+        /// <summary>
+        /// Created By : Sajal Gupta on 07/11/2016
+        /// Description: Cache layer for Function for fetching service center data from cache.
+        /// </summary>
+        public ServiceCenterCompleteData GetServiceCenterDataById(uint serviceCenterId)
+        {
+            string key = String.Format("BW_ServiceCenterData_{0}", serviceCenterId);
+            try
+            {
+                return _cache.GetFromCache<ServiceCenterCompleteData>(key, new TimeSpan(1, 0, 0, 0), () => _objServiceCenter.GetServiceCenterDataById(serviceCenterId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Error in ServiceCentersCacheRepository.GetServiceCenterDataById for parameters serviceCenterId : {0}", serviceCenterId));
+                objErr.SendMail();
+            }
+            return null;
+        }
     }
 }

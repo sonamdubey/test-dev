@@ -53,5 +53,26 @@ namespace Bikewale.BAL.ServiceCenter
             }
             return objServiceCenterData;
         }
+
+        /// <summary>
+        /// Created By : Sajal Gupta on 09/11/2016
+        /// Description: BAL layer Function for fetching service center complete data from cache.
+        /// </summary>
+        public ServiceCenterCompleteData GetServiceCenterDataById(uint serviceCenterId)
+        {
+            try
+            {
+                if (_objServiceCenter != null && serviceCenterId > 0)
+                {
+                    return _objServiceCenter.GetServiceCenterDataById(serviceCenterId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Error in ServiceCenters.GetServiceCenterDataById for parameters serviceCenterId : {0}", serviceCenterId));
+                objErr.SendMail();
+            }
+            return null;
+        }
     }
 }

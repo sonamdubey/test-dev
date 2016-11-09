@@ -1,15 +1,20 @@
-﻿using Bikewale.Cache.BikeData;
+﻿using Bikewale.BAL.ServiceCenter;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
+using Bikewale.Cache.ServiceCenter;
 using Bikewale.CoreDAL;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
+using Bikewale.DAL.ServiceCenter;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.service;
+using Bikewale.Entities.ServiceCenters;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Mobile.Controls;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
@@ -31,7 +36,7 @@ namespace Bikewale.Mobile.Service
     public class ServiceCenterDetails : System.Web.UI.Page
     {
         protected Repeater rptModels, rptModelList;
-        protected uint dealerId, campaignId = 0, cityId;
+        protected uint dealerId, campaignId = 0, cityId, serviceCenterId = 0;
         protected int dealerBikesCount = 0;
         protected DealerDetailEntity dealerDetails;
         protected bool isDealerDetail;
@@ -45,6 +50,8 @@ namespace Bikewale.Mobile.Service
         protected string makeMaskingName;
         protected int makeId;
         protected string cityMaskingName = String.Empty;
+        protected ServiceCenterCompleteData objServiceCenterCompleteData = null;
+        protected BikeMakeEntityBase objBikeMakeEntityBase;
 
         protected override void OnInit(EventArgs e)
         {
@@ -53,12 +60,61 @@ namespace Bikewale.Mobile.Service
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            if (ProcessQueryString() && dealerId > 0)
+            if (ProcessQueryString() && serviceCenterId > 0)
             {
-                GetDealerDetails();
+                BindServiceCenterData();
+                //GetDealerDetails();
+                BindDealerCard();
             }
+        }
 
+        private void BindServiceCenterData()
+        {
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IServiceCenter, ServiceCenter<ServiceCenterLocatorList, int>>()
+                    .RegisterType<IServiceCenterCacheRepository, ServiceCenterCacheRepository>()
+                    .RegisterType<IServiceCenterRepository<ServiceCenterLocatorList, int>, ServiceCenterRepository<ServiceCenterLocatorList, int>>()
+                    .RegisterType<ICacheManager, MemcacheManager>();
+                    var objServiceCenter = container.Resolve<IServiceCenter>();
+
+                    objServiceCenterCompleteData = objServiceCenter.GetServiceCenterDataById(serviceCenterId);
+
+                    if (objServiceCenterCompleteData != null)
+                    {
+                        cityId = objServiceCenterCompleteData.CityId;
+                        makeId = (int)objServiceCenterCompleteData.MakeId;
+                        GetMakeNameByMakeId(objServiceCenterCompleteData.MakeId);
+                        dealerLat = Convert.ToDouble(objServiceCenterCompleteData.Lattitude);
+                        dealerLong = Convert.ToDouble(objServiceCenterCompleteData.Longitude);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("BindServiceCenterData for serviceCenterId : {0} ", serviceCenterId));
+                objErr.SendMail();
+            }
+        }
+
+        /// <summary>
+        /// Created by : SAJAL GUPTA on 08-11-2016
+        /// Description: Method to bind dealer card widget data.
+        /// </summary>
+        private void BindDealerCard()
+        {
+            ctrlDealerCard.MakeId = (uint)makeId;
+            ctrlDealerCard.makeMaskingName = makeMaskingName;
+            ctrlDealerCard.CityId = cityId;
+            ctrlDealerCard.cityName = cityName;
+            ctrlDealerCard.PageName = "Service_Center_DetailsPage";
+            ctrlDealerCard.TopCount = 9;
+            ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_ServiceCenter_DetailsPage;
+            ctrlDealerCard.LeadSourceId = 17;
+            ctrlDealerCard.DealerId = 0;
+            ctrlDealerCard.isHeadingNeeded = false;
         }
 
         #region Get Dealer Details
@@ -144,53 +200,50 @@ namespace Bikewale.Mobile.Service
         }
         #endregion
 
+        /// <summary>
+        /// Created by : SAJAL GUPTA on 08-11-2016
+        /// Description: Method to get make name by makeId.
+        /// </summary>
+        /// <param name="cityMaskingName"></param>
+        private void GetMakeNameByMakeId(uint makeId)
+        {
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
+                    var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+                    objBikeMakeEntityBase = makesRepository.GetMakeDetails(makeId.ToString());
+                }
+
+                if (objBikeMakeEntityBase != null)
+                {
+                    makeName = objBikeMakeEntityBase.MakeName;
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetMakeNameByMakeId");
+                objErr.SendMail();
+            }
+        }
+
         #region Private Method to process querystring
         /// <summary>
-        /// Created By : Sushil Kumar
-        /// Created On : 16th March 2016 
-        /// Description : Private Method to parse encoded query string and get values for dealerId and campaignId
-        /// Modified By : Lucky Rathore on 30 March 2016
-        /// Description : Renamed dealerQuery from _dealerQuery.
-        /// Modified By : Sajal Gupta on 29-09-2016
-        /// Description : Changed query string parametres.
-        /// Modified by :   Sumit Kate on 03 Oct 2016
-        /// Description :   Handle Make masking name rename 301 redirection
+        /// Created By : Sajal Gupta
+        /// Created On : 09-11-2016
+        /// Description : Private Method to parse encoded query string and get values for serviceCenterId
         /// </summary>
         private bool ProcessQueryString()
         {
             var currentReq = HttpContext.Current.Request;
-            MakeMaskingResponse objResponse = null;
             bool isSucess = true;
             try
             {
-
                 if (currentReq.QueryString != null && currentReq.QueryString.HasKeys())
                 {
-                    uint.TryParse(currentReq.QueryString["dealerId"], out dealerId);
+                    uint.TryParse(currentReq.QueryString["id"], out serviceCenterId);
                     makeMaskingName = currentReq.QueryString["makemaskingname"];
-
-                    if (!String.IsNullOrEmpty(makeMaskingName))
-                    {
-
-                        using (IUnityContainer container = new UnityContainer())
-                        {
-                            container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
-                                  .RegisterType<ICacheManager, MemcacheManager>()
-                                  .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
-                                 ;
-                            var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
-
-                            objResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
-                        }
-                    }
-                    else
-                    {
-                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                        isSucess = false;
-                    }
-                    return true;
                 }
                 else
                 {
@@ -202,40 +255,9 @@ namespace Bikewale.Mobile.Service
             }
             catch (Exception ex)
             {
-                Trace.Warn("ProcessQueryString Ex: ", ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, currentReq.ServerVariables["URL"]);
                 objErr.SendMail();
                 isSucess = false;
-            }
-            finally
-            {
-                if (objResponse != null)
-                {
-                    if (objResponse.StatusCode == 200)
-                    {
-                        makeId = Convert.ToInt32(objResponse.MakeId);
-                        isSucess = true;
-                    }
-                    else if (objResponse.StatusCode == 301)
-                    {
-                        CommonOpn.RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName));
-                        isSucess = false;
-                    }
-                    else
-                    {
-                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                        isSucess = false;
-                    }
-                }
-                else
-                {
-                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
-                    isSucess = false;
-                }
             }
             return isSucess;
         }

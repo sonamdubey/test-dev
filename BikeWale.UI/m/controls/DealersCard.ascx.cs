@@ -36,7 +36,7 @@ namespace Bikewale.Mobile.Controls
         public bool IsDiscontinued { get; set; }
         public string PageName { get; set; }
         public int DealerId { get; set; }
-
+        public bool isHeadingNeeded = true;
 
         public bool showWidget = false;
         public string dealerUrl = string.Empty;
