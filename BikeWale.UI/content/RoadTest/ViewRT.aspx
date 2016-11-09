@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.ViewRT" Trace="false" Async="true" Debug="false" %>
 <%@ Register TagPrefix="PG" TagName="PhotoGallery" Src="/controls/ArticlePhotoGallery.ascx" %>
+<%@ Register Src="~/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
 <!Doctype html>
 <html>
 <head>
@@ -18,15 +19,12 @@
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link href="/css/content/details.css" rel="stylesheet" type="text/css" />
-    <link href="/css/components/model-gallery.css" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>
     
     <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
-
-    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/common/jquery.colorbox-min.js?v=1.0"></script>
 </head>
 <body class="bg-light-grey header-fixed-inner">
     <form runat="server">
@@ -61,108 +59,93 @@
                     <div id="content" class="grid-8 alpha">
                         <div class="bg-white">
                             <div class="section-header">
-                                <h1><%= articleTitle%></h1>
+                                <h1 class="margin-bottom5"><%= articleTitle%></h1>
                                 <div>
 									<span class="bwsprite calender-grey-sm-icon"></span>
 									<span class="article-stats-content margin-right20"><%= Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "MMMM dd, yyyy hh:mm tt") %></span>
 									<span class="bwsprite author-grey-sm-icon"></span>
-									<span class="article-stats-content"><%= authorName %></span>
+									<span class="article-stats-content margin-right20"><%= authorName %></span>
+                                    <span class="font12 inline-block text-light-grey"><%= (_bikeTested!=null && !String.IsNullOrEmpty(_bikeTested.ToString())) ? String.Format("{0}",_bikeTested) : "" %></span>
 								</div>
-                                <div>
-                                    <%= (_bikeTested!=null && !String.IsNullOrEmpty(_bikeTested.ToString())) ? String.Format("| {0}",_bikeTested) : "" %>
-                                </div>
-                                <%--<ul class="social">
-                                    <li>
-                                        <fb:like href="http://www.bikewale.com/expert-reviews/<%= articleUrl%>-<%= basicId %>.html" send="false" layout="button_count" width="80" show_faces="false"></fb:like>
-                                    </li>
-                                    <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.bikewale.com/expert-reviews/<%= articleUrl%>-<%= basicId %>.html" data-via='<%=articleTitle %>' data-lang="en">Tweet</a></li>
-                                    <li>
-                                        <div class="g-plusone" data-size="medium" data-href="http://www.bikewale.com/expert-reviews/<%= articleUrl%>-<%= basicId %>.html"></div>
-                                    </li>
-                                </ul>--%>
                             </div>
                             <div class="section-inner-padding">
-                                <div class="block-spacing" id="topNav" runat="server">
-                                    <div style="padding: 5px 0;">
-                                        <asp:repeater id="rptPages" runat="server">
-                                                    <headertemplate>
-                                                        <ul>
-                                                            <li style="border:none;" ><a>Read Pages : </a></li>
-                                                    </headertemplate>
-					                                <itemtemplate>
-                                                        <li>
-                                                            <a href="#<%#Eval("pageId") %>"><%#Eval("PageName") %></a>
-                                                        </li>
-						                              <%--  <%# CreateNavigationLink(DataBinder.Eval( Container.DataItem, "Priority" ).ToString(), Url ) %>--%>
-					                                </itemtemplate>
-                                                    <footertemplate>
-                                                        <li>
-                                                            <a href="#divPhotos">Photos</a>
-                                                        </li>
-                                                        </ul>
-                                                    </footertemplate>
-					                             <%--   <footertemplate>
-						                                <% if ( ShowGallery )  { %>
-						                                <%# CreateNavigationLink( Str, Url ) %>
-						                                <% } %>	
-					                                </footertemplate>--%>
-				                                </asp:repeater>
-                                    </div>
+                                <div id="topNav" runat="server" class="margin-bottom10">
+                                    <asp:repeater id="rptPages" runat="server">
+                                        <headertemplate>
+                                        <ul>
+                                        </headertemplate>
+					                    <itemtemplate>
+                                            <li>
+                                                <a href="#<%#Eval("pageId") %>"><%#Eval("PageName") %></a>
+                                            </li>
+						                    <%--<%# CreateNavigationLink(DataBinder.Eval( Container.DataItem, "Priority" ).ToString(), Url ) %>--%>
+					                    </itemtemplate>
+                                        <footertemplate>
+                                            <li>
+                                                <a href="#divPhotos">Photos</a>
+                                            </li>
+                                        </ul>
+                                        </footertemplate>
+					                    <%--   <footertemplate>
+						                    <% if ( ShowGallery )  { %>
+						                    <%# CreateNavigationLink( Str, Url ) %>
+						                    <% } %>	
+					                    </footertemplate>--%>
+				                    </asp:repeater>
                                 </div>
-                                <div class="margin-top10">
-                                    <%-- %><div class="format-content"><asp:Label ID="lblDetails" runat="server" /></div>
-                                       <div id="divOtherInfo" runat="server"></div>
-			                            <asp:DataList ID="dlstPhoto" runat="server" RepeatDirection="Horizontal" RepeatColumns="3" ItemStyle-VerticalAlign="top">
-				                            <itemtemplate>
-					                            <a rel="slidePhoto" target="_blank" href="<%# "http://" + DataBinder.Eval( Container.DataItem, "HostURL" ).ToString() + DataBinder.Eval( Container.DataItem, "ImagePathLarge" ).ToString() %>" title="<b><%# DataBinder.Eval( Container.DataItem, "Caption" ).ToString() %></b>" />
-						                            <img border="0" alt="<%# MakeMaskName + " " + ModelMaskName %>" style="margin:0px 45px 10px 0px;cursor:pointer;" src="<%# "http://" + DataBinder.Eval( Container.DataItem, "HostURL" ).ToString() + DataBinder.Eval( Container.DataItem, "ImagePathThumbNail" ).ToString() %>" title="Click to view larger photo" />
-					                            </a>
-				                            </itemtemplate>
-			                            </asp:DataList>--%>
-                                    <asp:repeater id="rptPageContent" runat="server">
-					                            <itemtemplate>
-                                                    <div class="margin-top10 margin-bottom10">
-                                                        <h3 class="content-block grey-bg"><%#Eval("PageName") %></h3>
-                                                        <div id='<%#Eval("pageId") %>' class="margin-top10 article-content">
-                                                            <%#Eval("content") %>
-                                                        </div>
-                                                    </div>
-					                            </itemtemplate>             
-				                        </asp:repeater>
-                                </div>
+                                <div class="clear"></div>
+                                <%-- %><div class="format-content"><asp:Label ID="lblDetails" runat="server" /></div>
+                                    <div id="divOtherInfo" runat="server"></div>
+			                        <asp:DataList ID="dlstPhoto" runat="server" RepeatDirection="Horizontal" RepeatColumns="3" ItemStyle-VerticalAlign="top">
+				                        <itemtemplate>
+					                        <a rel="slidePhoto" target="_blank" href="<%# "http://" + DataBinder.Eval( Container.DataItem, "HostURL" ).ToString() + DataBinder.Eval( Container.DataItem, "ImagePathLarge" ).ToString() %>" title="<b><%# DataBinder.Eval( Container.DataItem, "Caption" ).ToString() %></b>" />
+						                        <img border="0" alt="<%# MakeMaskName + " " + ModelMaskName %>" style="margin:0px 45px 10px 0px;cursor:pointer;" src="<%# "http://" + DataBinder.Eval( Container.DataItem, "HostURL" ).ToString() + DataBinder.Eval( Container.DataItem, "ImagePathThumbNail" ).ToString() %>" title="Click to view larger photo" />
+					                        </a>
+				                        </itemtemplate>
+			                        </asp:DataList>--%>
+                                <asp:repeater id="rptPageContent" runat="server">
+					                <itemtemplate>
+                                        <div class="margin-top10 margin-bottom10">
+                                            <h3 class="article-content-title"><%#Eval("PageName") %></h3>
+                                            <div id='<%#Eval("pageId") %>' class="margin-top10 article-content">
+                                                <%#Eval("content") %>
+                                            </div>
+                                        </div>
+					                </itemtemplate>             
+				                </asp:repeater>
+
                                 <div id="divPhotos">
                                     <PG:PhotoGallery runat="server" ID="ctrPhotoGallery" />
                                 </div>
-                                <%--	    <div class="margin-top10 content-block grey-bg" id="bottomNav" runat="server">
-			                            <div align="right" style="width:245px;float:right;">
-				                            <asp:DropDownList ID="drpPages_footer" CssClass="drpClass" runat="server"></asp:DropDownList>
-			                            </div>
-			                            <div style="width:380px; padding:5px 0;">
-				                            <b>Read Page : </b>
-				                            <asp:Repeater ID="rptPages_footer" runat="server">
-					                            <itemtemplate>
-						                            <%# CreateNavigationLink(DataBinder.Eval( Container.DataItem, "Priority" ).ToString()) %>
-					                            </itemtemplate>
-					                            <footertemplate>
-						                            <% if ( ShowGallery )  { %>
-						                            <%# CreateNavigationLink( str ) %>
-						                            <% } %>	
-					                            </footertemplate>
-				                            </asp:Repeater>
-			                            </div>	
-		                            </div>--%>
+                            <%--<div class="margin-top10 content-block grey-bg" id="bottomNav" runat="server">
+			                        <div align="right" style="width:245px;float:right;">
+				                        <asp:DropDownList ID="drpPages_footer" CssClass="drpClass" runat="server"></asp:DropDownList>
+			                        </div>
+			                        <div style="width:380px; padding:5px 0;">
+				                        <b>Read Page : </b>
+				                        <asp:Repeater ID="rptPages_footer" runat="server">
+					                        <itemtemplate>
+						                        <%# CreateNavigationLink(DataBinder.Eval( Container.DataItem, "Priority" ).ToString()) %>
+					                        </itemtemplate>
+					                        <footertemplate>
+						                        <% if ( ShowGallery )  { %>
+						                        <%# CreateNavigationLink( str ) %>
+						                        <% } %>	
+					                        </footertemplate>
+				                        </asp:Repeater>
+			                        </div>	
+		                        </div>--%>
                             </div>
                         </div>
                     </div>
 
                     <div class="grid-4 omega">
                         <!-- Right Container starts here -->
-                        <div class="margin-top15">
+                        <div>
                             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
                             <!-- #include file="/ads/Ad300x250.aspx" -->
                         </div>
-        
-                        <div class="margin-top15">
+                        <div>
                             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
                             <!-- #include file="/ads/Ad300x250BTF.aspx" -->
                         </div>
@@ -174,20 +157,21 @@
         </section>
 
 
-        <div id="back-to-top" class="back-to-top"><a><span></span></a></div>        
+        <div class="back-to-top" id="back-to-top"></div>
 
         <!-- #include file="/includes/footerBW.aspx" -->
+                <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
 
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
 		<link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/jquery.floating-social-share.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common.min.js?<%= staticFileVersion %>"></script>
-		<script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/jquery.floating-social-share.min.js?<%= staticFileVersion %>">"></script>
+		<script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/jquery.floating-social-share.min.js?<%= staticFileVersion %>"></script>
+
+        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/content/details.js?<%= staticFileVersion %>"></script>
 
         <script type="text/javascript">
             $(document).ready(function () {
-                var speed = 300;
-                //input parameter : id of element, scroll up speed 
-                //ScrollToTop("back-to-top", speed);
+                $("body").floatingSocialShare();
 
                 $('#drpPages,#drpPages_footer').change(function () {
                     // Modified By :Lucky Rathore on 12 July 2016.
@@ -200,12 +184,8 @@
                     }
                     location.href = url;
                 });
+
             });
-                // $("a[rel='slidePhoto']").colorbox({
-                //onComplete: function () {
-                //    pageTracker._trackPageview("/roadtestphotos/" + this.href);
-                //}
-                //});
         </script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
         <!--[if lt IE 9]>

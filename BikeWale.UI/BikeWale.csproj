@@ -2476,6 +2476,7 @@
     <Content Include="src\common.js" />
     <Content Include="src\common.min.js" />
     <Content Include="src\common\chosen.jquery.min.js" />
+    <Content Include="src\content\details.js" />
     <Content Include="src\dealerlisting.js" />
     <Content Include="src\dealerpricequote.js" />
     <Content Include="src\dealersbylocation.js" />
