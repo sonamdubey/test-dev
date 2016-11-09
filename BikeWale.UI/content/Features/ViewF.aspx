@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.ViewF" Trace="false" Debug="false" Async="true" %>
 <%@ Register TagPrefix="PG" TagName="PhotoGallery" Src="/controls/ArticlePhotoGallery.ascx" %>
+<%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/controls/MostPopularBikesMin.ascx" %>
+<%@ Register Src="~/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
 <!Doctype html>
 <html>
 <head>
@@ -66,57 +68,90 @@
 								</div>
                             </div>
                             <div class="section-inner-padding">
-                                <div id="topNav" runat="server">
-                                    <div class="text-bold">
-                                        Read Pages
-                                    </div>
-                                    <div style="padding: 5px 0;">
-                                        <asp:repeater id="rptPages" runat="server">
-                                                <headertemplate>
-                                                    <ul>
-                                                </headertemplate>
-					                            <itemtemplate>
-                                                    <li>
-                                                        <a href="#<%#Eval("pageId") %>"><%#Eval("PageName") %></a>
-                                                    </li>
-					                            </itemtemplate>
-                                                <footertemplate>
-                                                    <li>
-                                                        <a href="#divPhotos">Photos</a>
-                                                    </li>
-                                                    </ul>
-                                                </footertemplate>
-
-				                            </asp:repeater>
-                                    </div>
+                                <div id="topNav" runat="server" class="margin-bottom10">
+                                    <asp:repeater id="rptPages" runat="server">
+                                        <headertemplate>
+                                        <ul>
+                                        </headertemplate>
+					                    <itemtemplate>
+                                            <li>
+                                                <a href="#<%#Eval("pageId") %>"><%#Eval("PageName") %></a>
+                                            </li>
+					                    </itemtemplate>
+                                        <footertemplate>
+                                            <li>
+                                                <a href="#divPhotos">Photos</a>
+                                            </li>
+                                        </ul>
+                                        </footertemplate>
+				                    </asp:repeater>
                                 </div>
-                                <div class="margin-top10">
-                                    <asp:repeater id="rptPageContent" runat="server">
-					                            <itemtemplate>
-                                                    <div class="margin-top10 margin-bottom10">
-                                                        <h3 class="content-block grey-bg"><%#Eval("PageName") %></h3>
-                                                        <div id="<%#Eval("pageId") %>" class="margin-top10 article-content">
-                                                            <%#Eval("content") %>
-                                                        </div>
-                                                    </div>
-					                            </itemtemplate>             
-				                            </asp:repeater>
-                                </div>
+                                <div class="clear"></div>
+                                <asp:repeater id="rptPageContent" runat="server">
+					                <itemtemplate>
+                                        <div class="margin-top10 margin-bottom10">
+                                            <h3 class="article-content-title"><%#Eval("PageName") %></h3>
+                                            <div id='<%#Eval("pageId") %>' class="margin-top10 article-content">
+                                                <%#Eval("content") %>
+                                            </div>
+                                        </div>
+					                </itemtemplate>             
+				                </asp:repeater>
                                 <div id="divPhotos">
                                     <PG:PhotoGallery runat="server" ID="ctrPhotoGallery" />
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                                                    
                     <div class="grid-4 omega">
-                        <div class="margin-top15">
-                            <!-- bikewale_newbike/bikewale_newbike_hp_300x250 -->
-                            <!-- #include file="/ads/ad300x250.aspx" -->
+                    <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
+						<div class="margin-bottom20">
+                                 <!-- #include file="/ads/ad300x250.aspx" -->
                         </div>
-                        <div class="margin-top15">
-                            <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
-                            <!-- #include file="/ads/Ad300x250BTF.aspx" -->
+                        <div class="content-box-shadow padding-15-20-10 margin-bottom20">
+                            <h2>Upcoming Royal Enfield bikes</h2>
+                            <ul class="sidebar-bike-list">
+                                <li>
+                                    <a href="" title="Harley Davison Softail" class="bike-target-link">
+                                        <div class="bike-target-image inline-block">
+                                            <img src="http://imgd1.aeplcdn.com//110x61//bw/models/tvs-apache-rtr-200-4v.jpg" />
+                                        </div>
+                                        <div class="bike-target-content inline-block padding-left10">
+                                            <h3>Harley Davison Softail</h3>
+                                            <p class="font11 text-light-grey">Expected price</p>
+                                            <span class="bwsprite inr-md"></span><span class="font16 text-bold">&nbsp;87,000</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" title="Bajaj Pulsar AS200" class="bike-target-link">
+                                        <div class="bike-target-image inline-block">
+                                            <img src="http://imgd1.aeplcdn.com//110x61//bw/models/tvs-apache-rtr-200-4v.jpg" />
+                                        </div>
+                                        <div class="bike-target-content inline-block padding-left10">
+                                            <h3>Bajaj Pulsar AS200</h3>
+                                            <p class="font11 text-light-grey">Expected price</p>
+                                            <span class="bwsprite inr-md"></span><span class="font16 text-bold">&nbsp;92,000</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" title="Honda Unicorn 150" class="bike-target-link">
+                                        <div class="bike-target-image inline-block">
+                                            <img src="http://imgd1.aeplcdn.com//110x61//bw/models/tvs-apache-rtr-200-4v.jpg" />
+                                        </div>
+                                        <div class="bike-target-content inline-block padding-left10">
+                                            <h3>Honda Unicorn 150</h3>
+                                            <p class="font11 text-light-grey">Expected price</p>
+                                            <span class="bwsprite inr-md"></span><span class="font16 text-bold">&nbsp;1,12,000</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="margin-top10 margin-bottom10">
+                                <a href="" class="font14">View all upcoming Royal Enfield bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
+                            </div>
                         </div>
                     </div>
                     <div class="clear"></div>
@@ -128,18 +163,16 @@
         <div id="back-to-top" class="back-to-top"><a><span></span></a></div>        
 
         <!-- #include file="/includes/footerBW.aspx" -->
-
+          <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
 		<link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/jquery.floating-social-share.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common.min.js?<%= staticFileVersion %>"></script>
 		<script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/jquery.floating-social-share.min.js?<%= staticFileVersion %>">"></script>
-
+                 <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/content/details.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
-            //$(document).ready(function () {
-            //    var speed = 300;
-            //    //input parameter : id of element, scroll up speed 
-            //    ScrollToTop("back-to-top", speed);
-            //});
+            $(document).ready(function () {
+                $("body").floatingSocialShare();
+            });
         </script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
         <!--[if lt IE 9]>

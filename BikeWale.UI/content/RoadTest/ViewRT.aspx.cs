@@ -3,12 +3,17 @@ using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Controls;
+using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.Location;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Memcache;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -27,6 +32,8 @@ namespace Bikewale.Content
         protected StringBuilder _bikeTested;
         protected ArticlePhotoGallery ctrPhotoGallery;
         protected ModelGallery ctrlModelGallery;
+        protected MostPopularBikesMin ctrlPopularBikes;
+        private BikeMakeEntityBase _taggedMakeObj;
         private bool _isContentFount = true;
 
         protected string articleUrl = string.Empty, articleTitle = string.Empty, basicId = string.Empty, authorName = string.Empty, displayDate = string.Empty;
@@ -53,6 +60,7 @@ namespace Bikewale.Content
             ProcessQS();
             GetRoadtestDetails();
 
+
             using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<IArticles, Articles>()
@@ -69,9 +77,19 @@ namespace Bikewale.Content
                     ctrPhotoGallery.BindPhotos();
 
                     ctrlModelGallery.bikeName = string.Empty;
-                    ctrlModelGallery.modelId = 99;
                     ctrlModelGallery.Photos = objImg.ToList();
                 }
+            }
+
+            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+            ctrlPopularBikes.totalCount = 4;
+            ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+            ctrlPopularBikes.cityName = currentCityArea.City;
+            if (_taggedMakeObj != null)
+            {
+                ctrlPopularBikes.makeId = _taggedMakeObj.MakeId;
+                ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
+                ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
             }
         }
 
@@ -129,8 +147,7 @@ namespace Bikewale.Content
                     {
                         BindPages();
                         GetRoadtestData();
-                        if (objRoadtest.VehiclTagsList.Count > 0)
-                            GetTaggedBikeList();
+                        GetTaggedBikeList();
                     }
                     else
                     {
@@ -157,32 +174,70 @@ namespace Bikewale.Content
             }
         }
 
+
         /// <summary>
         /// 
         /// </summary>
         private void GetTaggedBikeList()
         {
-            if (objRoadtest.VehiclTagsList.Any(m => (m.MakeBase != null && !String.IsNullOrEmpty(m.MakeBase.MaskingName))))
+            if (objRoadtest != null && objRoadtest.VehiclTagsList.Count > 0)
             {
-                _bikeTested = new StringBuilder();
 
-                _bikeTested.Append("Bike Tested: ");
-
-                IEnumerable<int> ids = objRoadtest.VehiclTagsList
-                       .Select(e => e.ModelBase.ModelId)
-                       .Distinct();
-
-                foreach (var i in ids)
+                var taggedMakeObj = objRoadtest.VehiclTagsList.FirstOrDefault(m => !string.IsNullOrEmpty(m.MakeBase.MaskingName));
+                if (taggedMakeObj != null)
                 {
-                    VehicleTag item = objRoadtest.VehiclTagsList.Where(e => e.ModelBase.ModelId == i).First();
-                    if (!String.IsNullOrEmpty(item.MakeBase.MaskingName))
-                    {
-                        _bikeTested.Append("<a title='" + item.MakeBase.MakeName + " " + item.ModelBase.ModelName + " Bikes' href='/" + item.MakeBase.MaskingName + "-bikes/" + item.ModelBase.MaskingName + "/'>" + item.ModelBase.ModelName + "</a>   ");
-                    }
+                    _taggedMakeObj = taggedMakeObj.MakeBase;
                 }
-                Trace.Warn("biketested", _bikeTested.ToString());
+                else
+                {
+                    _taggedMakeObj = objRoadtest.VehiclTagsList.FirstOrDefault().MakeBase;
+                    FetchMakeDetails();
+                }
             }
         }
+
+        private void FetchMakeDetails()
+        {
+
+            if (_taggedMakeObj != null && _taggedMakeObj.MakeId > 0)
+            {
+
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
+                    var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+                    _taggedMakeObj = makesRepository.GetMakeDetails(_taggedMakeObj.MakeId.ToString());
+
+                }
+            }
+        }
+
+        /* /// <summary>
+         /// 
+         /// </summary>
+         private void GetTaggedBikeList()
+         {
+             if (objRoadtest.VehiclTagsList.Any(m => (m.MakeBase != null && !String.IsNullOrEmpty(m.MakeBase.MaskingName))))
+             {
+                 _bikeTested = new StringBuilder();
+
+                 _bikeTested.Append("Bike Tested: ");
+
+                 IEnumerable<int> ids = objRoadtest.VehiclTagsList
+                        .Select(e => e.ModelBase.ModelId)
+                        .Distinct();
+
+                 foreach (var i in ids)
+                 {
+                     VehicleTag item = objRoadtest.VehiclTagsList.Where(e => e.ModelBase.ModelId == i).First();
+                     if (!String.IsNullOrEmpty(item.MakeBase.MaskingName))
+                     {
+                         _bikeTested.Append("<a title='" + item.MakeBase.MakeName + " " + item.ModelBase.ModelName + " Bikes' href='/" + item.MakeBase.MaskingName + "-bikes/" + item.ModelBase.MaskingName + "/'>" + item.ModelBase.ModelName + "</a>   ");
+                     }
+                 }
+                 Trace.Warn("biketested", _bikeTested.ToString());
+             }
+         }  */
 
         /// <summary>
         /// 

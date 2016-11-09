@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.ViewRT" Trace="false" Async="true" Debug="false" %>
 <%@ Register TagPrefix="PG" TagName="PhotoGallery" Src="/controls/ArticlePhotoGallery.ascx" %>
 <%@ Register Src="~/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
+<%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/controls/MostPopularBikesMin.ascx" %>
 <!Doctype html>
 <html>
 <head>
@@ -78,7 +79,6 @@
                                             <li>
                                                 <a href="#<%#Eval("pageId") %>"><%#Eval("PageName") %></a>
                                             </li>
-						                    <%--<%# CreateNavigationLink(DataBinder.Eval( Container.DataItem, "Priority" ).ToString(), Url ) %>--%>
 					                    </itemtemplate>
                                         <footertemplate>
                                             <li>
@@ -86,23 +86,9 @@
                                             </li>
                                         </ul>
                                         </footertemplate>
-					                    <%--   <footertemplate>
-						                    <% if ( ShowGallery )  { %>
-						                    <%# CreateNavigationLink( Str, Url ) %>
-						                    <% } %>	
-					                    </footertemplate>--%>
 				                    </asp:repeater>
                                 </div>
                                 <div class="clear"></div>
-                                <%-- %><div class="format-content"><asp:Label ID="lblDetails" runat="server" /></div>
-                                    <div id="divOtherInfo" runat="server"></div>
-			                        <asp:DataList ID="dlstPhoto" runat="server" RepeatDirection="Horizontal" RepeatColumns="3" ItemStyle-VerticalAlign="top">
-				                        <itemtemplate>
-					                        <a rel="slidePhoto" target="_blank" href="<%# "http://" + DataBinder.Eval( Container.DataItem, "HostURL" ).ToString() + DataBinder.Eval( Container.DataItem, "ImagePathLarge" ).ToString() %>" title="<b><%# DataBinder.Eval( Container.DataItem, "Caption" ).ToString() %></b>" />
-						                        <img border="0" alt="<%# MakeMaskName + " " + ModelMaskName %>" style="margin:0px 45px 10px 0px;cursor:pointer;" src="<%# "http://" + DataBinder.Eval( Container.DataItem, "HostURL" ).ToString() + DataBinder.Eval( Container.DataItem, "ImagePathThumbNail" ).ToString() %>" title="Click to view larger photo" />
-					                        </a>
-				                        </itemtemplate>
-			                        </asp:DataList>--%>
                                 <asp:repeater id="rptPageContent" runat="server">
 					                <itemtemplate>
                                         <div class="margin-top10 margin-bottom10">
@@ -117,37 +103,58 @@
                                 <div id="divPhotos">
                                     <PG:PhotoGallery runat="server" ID="ctrPhotoGallery" />
                                 </div>
-                            <%--<div class="margin-top10 content-block grey-bg" id="bottomNav" runat="server">
-			                        <div align="right" style="width:245px;float:right;">
-				                        <asp:DropDownList ID="drpPages_footer" CssClass="drpClass" runat="server"></asp:DropDownList>
-			                        </div>
-			                        <div style="width:380px; padding:5px 0;">
-				                        <b>Read Page : </b>
-				                        <asp:Repeater ID="rptPages_footer" runat="server">
-					                        <itemtemplate>
-						                        <%# CreateNavigationLink(DataBinder.Eval( Container.DataItem, "Priority" ).ToString()) %>
-					                        </itemtemplate>
-					                        <footertemplate>
-						                        <% if ( ShowGallery )  { %>
-						                        <%# CreateNavigationLink( str ) %>
-						                        <% } %>	
-					                        </footertemplate>
-				                        </asp:Repeater>
-			                        </div>	
-		                        </div>--%>
                             </div>
                         </div>
                     </div>
 
                     <div class="grid-4 omega">
-                        <!-- Right Container starts here -->
-                        <div>
-                            <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
-                            <!-- #include file="/ads/Ad300x250.aspx" -->
+                       <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
+						<div class="margin-bottom20">
+                                 <!-- #include file="/ads/ad300x250.aspx" -->
                         </div>
-                        <div>
-                            <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
-                            <!-- #include file="/ads/Ad300x250BTF.aspx" -->
+                        <div class="content-box-shadow padding-15-20-10 margin-bottom20">
+                            <h2>Upcoming Royal Enfield bikes</h2>
+                            <ul class="sidebar-bike-list">
+                                <li>
+                                    <a href="" title="Harley Davison Softail" class="bike-target-link">
+                                        <div class="bike-target-image inline-block">
+                                            <img src="http://imgd1.aeplcdn.com//110x61//bw/models/tvs-apache-rtr-200-4v.jpg" />
+                                        </div>
+                                        <div class="bike-target-content inline-block padding-left10">
+                                            <h3>Harley Davison Softail</h3>
+                                            <p class="font11 text-light-grey">Expected price</p>
+                                            <span class="bwsprite inr-md"></span><span class="font16 text-bold">&nbsp;87,000</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" title="Bajaj Pulsar AS200" class="bike-target-link">
+                                        <div class="bike-target-image inline-block">
+                                            <img src="http://imgd1.aeplcdn.com//110x61//bw/models/tvs-apache-rtr-200-4v.jpg" />
+                                        </div>
+                                        <div class="bike-target-content inline-block padding-left10">
+                                            <h3>Bajaj Pulsar AS200</h3>
+                                            <p class="font11 text-light-grey">Expected price</p>
+                                            <span class="bwsprite inr-md"></span><span class="font16 text-bold">&nbsp;92,000</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" title="Honda Unicorn 150" class="bike-target-link">
+                                        <div class="bike-target-image inline-block">
+                                            <img src="http://imgd1.aeplcdn.com//110x61//bw/models/tvs-apache-rtr-200-4v.jpg" />
+                                        </div>
+                                        <div class="bike-target-content inline-block padding-left10">
+                                            <h3>Honda Unicorn 150</h3>
+                                            <p class="font11 text-light-grey">Expected price</p>
+                                            <span class="bwsprite inr-md"></span><span class="font16 text-bold">&nbsp;1,12,000</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="margin-top10 margin-bottom10">
+                                <a href="" class="font14">View all upcoming Royal Enfield bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
+                            </div>
                         </div>
                     </div>
                     <div class="clear"></div>
