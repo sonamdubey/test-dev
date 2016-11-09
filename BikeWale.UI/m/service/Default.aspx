@@ -273,7 +273,6 @@ Revving the motorcycle to the redline will not make the battery charge faster â€
             });
 
             function getCities(mId) {
-                
                 $ddlCities.empty();
                 if (!isNaN(mId) && mId != "0") {
                     if (!checkCacheCityAreas(mId)) {
