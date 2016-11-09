@@ -1,0 +1,137 @@
+.card-header {
+  padding: 15px 20px;
+  -webkit-box-shadow: 0 2px 2px 0 #dcdcdc;
+  -moz-box-shadow: 0 2px 2px 0 #dcdcdc;
+  -ms-box-shadow: 0 2px 2px 0 #dcdcdc;
+  -o-box-shadow: 0 2px 2px 0 #dcdcdc;
+  box-shadow: 0 2px 2px 0 #dcdcdc; }
+
+.card-bottom-margin {
+  margin-bottom: 10px; }
+
+.card-inner-padding {
+  padding: 15px 20px;
+  -webkit-box-shadow: 0 2px 2px 0 #dcdcdc;
+  -moz-box-shadow: 0 2px 2px 0 #dcdcdc;
+  -ms-box-shadow: 0 2px 2px 0 #dcdcdc;
+  -o-box-shadow: 0 2px 2px 0 #dcdcdc;
+  box-shadow: 0 2px 2px 0 #dcdcdc; }
+
+#service-main-content,
+#service-more-content {
+  display: inline; }
+
+#service-more-content {
+  display: none; }
+  #service-more-content.active {
+    display: block; }
+
+.padding-15-20 {
+  padding: 15px 20px; }
+
+.vertical-top {
+  display: inline-block;
+  vertical-align: top; }
+
+.vertical-middle {
+  display: inline-block;
+  vertical-align: middle; }
+
+#center-list {
+  padding: 0 20px 20px; }
+  #center-list li {
+    border-top: 1px solid #e2e2e2;
+    padding-top: 15px;
+    margin-top: 20px;
+    font-size: 14px; }
+    #center-list li:first-child {
+      border-top: 0;
+      margin-top: 0; }
+  #center-list a {
+    display: block; }
+    #center-list a:hover {
+      text-decoration: none; }
+
+.details-column {
+  width: 92%; }
+
+.service-btn {
+  font-size: 14px;
+  padding: 9px 22px; }
+
+.dealership-loc-icon {
+  width: 10px;
+  height: 14px;
+  background-position: -40px -436px;
+  position: relative;
+  top: 4px;
+  margin-right: 3px; }
+
+.tel-sm-grey-icon {
+  width: 10px;
+  height: 10px;
+  background-position: 0 -437px;
+  position: relative;
+  top: 5px;
+  margin-right: 3px; }
+
+.service-sprite {
+  background: url("http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwm-service-sprite.png") no-repeat;
+  display: inline-block; }
+
+.blue-right-arrow-icon {
+  width: 10px;
+  height: 12px;
+  background-position: -56px -435px;
+  position: relative;
+  top: 1px;
+  left: 2px; }
+
+#bw-tips-list {
+  padding: 0 20px 5px; }
+  #bw-tips-list li:first-child {
+    border-bottom: 1px solid #e2e2e2; }
+  #bw-tips-list a {
+    display: block;
+    padding-top: 17px;
+    padding-bottom: 17px;
+    position: relative; }
+    #bw-tips-list a:hover {
+      text-decoration: none; }
+
+.care-icon,
+.faq-icon {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle; }
+
+.care-icon {
+  background-position: 0 -45px; }
+
+.faq-icon {
+  background-position: -22px -45px; }
+
+.right-arrow {
+  width: 8px;
+  height: 12px;
+  background-position: -182px -394px;
+  position: absolute;
+  right: 0;
+  top: 22px; }
+
+.bw-horizontal-swiper.card-container .swiper-slide {
+  width: 308px; }
+
+.bw-horizontal-swiper .swiper-card {
+  width: 308px;
+  font-size: 14px;
+  min-height: 140px; }
+  .bw-horizontal-swiper .swiper-card a {
+    display: block;
+    padding: 15px 10px 10px; }
+
+@media only screen and (max-width: 320px) {
+  .bw-horizontal-swiper.card-container .swiper-slide {
+    width: 275px; }
+  .bw-horizontal-swiper .swiper-card {
+    width: 275px; } }

@@ -90,6 +90,7 @@
     <Compile Include="PriceQuote\PriceQuoteRespository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Used\SellBikesRepository.cs" />
+    <Compile Include="ServiceCenter\ServiceCenterRepository.cs" />
     <Compile Include="Used\UsedBikesRepository.cs" />
     <Compile Include="Used\UsedBikeBuyerRepository.cs" />
     <Compile Include="Used\SearchRepository.cs" />

@@ -248,6 +248,7 @@
     <Compile Include="BindViewModels\Controls\BindAlternativeBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindBikeCompareControl.cs" />
     <Compile Include="BindViewModels\Controls\BindExpertReviewsControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindMaintainanceTipsControl.cs" />
     <Compile Include="BindViewModels\Controls\BindMakePage.cs" />
     <Compile Include="BindViewModels\Controls\BindModelGallery.cs" />
     <Compile Include="BindViewModels\Controls\BindMostPopularBikesControl.cs" />
@@ -913,6 +914,10 @@
       <DependentUpon>VideosWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\service\ServiceCenterInCountry.aspx.cs">
+      <DependentUpon>ServiceCenterInCountry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\new\dealersincountry.aspx.cs">
       <DependentUpon>dealersincountry.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -931,6 +936,10 @@
     </Compile>
     <Compile Include="m\new\ModelSpecsFeatures.aspx.cs">
       <DependentUpon>ModelSpecsFeatures.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\service\ServiceCenterDetails.aspx.cs">
+      <DependentUpon>ServiceCenterDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\new\newbikedealers\DealerDetails.aspx.cs">
@@ -975,6 +984,10 @@
     </Compile>
     <Compile Include="m\new\newbikedealers\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\service\ServiceCenterList.aspx.cs">
+      <DependentUpon>ServiceCenterList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\new\newbikedealers\NewBikeDealerList.aspx.cs">
@@ -2324,6 +2337,9 @@
     <Content Include="m\css\insurance.css" />
     <Content Include="m\css\jqm-demos.css" />
     <Content Include="m\css\jquery.mobile-1.4.2.min.css" />
+    <Content Include="m\css\service\details.css" />
+    <Content Include="m\css\service\listing.css" />
+    <Content Include="m\css\service\location.css" />
     <Content Include="m\css\used\landing.css" />
     <Content Include="m\css\mobile-rsa.css" />
     <Content Include="m\css\model-gallery.css" />
@@ -2338,11 +2354,13 @@
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
     <Content Include="m\css\dealer\details.css" />
+    <Content Include="m\service\ServiceCenterInCountry.aspx" />
     <Content Include="m\new\dealersincountry.aspx" />
     <Content Include="m\new\dealersinindia.aspx" />
     <Content Include="m\new\ModelGallery.aspx" />
     <Content Include="m\new\ModelPricesInCity.aspx" />
     <Content Include="m\new\ModelSpecsFeatures.aspx" />
+    <Content Include="m\service\ServiceCenterDetails.aspx" />
     <Content Include="m\new\newbikedealers\DealerDetails.aspx" />
     <Content Include="m\Default.aspx" />
     <Content Include="m\faq.aspx" />
@@ -2381,6 +2399,7 @@
     <Content Include="m\new\compare\CompareBikeDetails.aspx" />
     <Content Include="m\new\Default.aspx" />
     <Content Include="m\new\newbikedealers\Default.aspx" />
+    <Content Include="m\service\ServiceCenterList.aspx" />
     <Content Include="m\new\newbikedealers\NewBikeDealerList.aspx" />
     <Content Include="m\new\newbikedealers\NewBikeDealerList_old.aspx" />
     <Content Include="m\new\newbikelaunch\Default.aspx" />
@@ -2414,6 +2433,8 @@
     <Content Include="m\src\common.js" />
     <Content Include="m\src\common.min.js" />
     <Content Include="m\src\dealerdetail.js" />
+    <Content Include="m\src\service\details.js" />
+    <Content Include="m\src\service\listing.js" />
     <Content Include="m\src\dealerlisting.js" />
     <Content Include="m\src\dealerpricequote.js" />
     <Content Include="m\src\dealerpricequote-old.js" />
@@ -2433,6 +2454,7 @@
     <Content Include="m\src\BikeBooking\bookinglisting.js" />
     <Content Include="m\src\new\search.js" />
     <Content Include="m\src\Plugins.js" />
+    <Content Include="m\src\service\location.js" />
     <Content Include="m\src\used-details.js" />
     <Content Include="m\src\used-search.js" />
     <Content Include="m\src\used\bikes-in-city.js" />
@@ -2650,6 +2672,22 @@
     <Content Include="rewriterules.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="m\sass\service\listing.sass" />
+    <Content Include="m\sass\base\_variables.sass" />
+    <Content Include="m\sass\base\_mixins.sass" />
+    <Content Include="m\sass\base\_typography.sass" />
+    <Content Include="m\sass\modules\_card.sass" />
+    <Content Include="m\sass\service\_listing-style.sass" />
+    <Content Include="m\sass\modules\_horizontal-swiper.sass" />
+    <Content Include="m\sass\modules\_bike-tips.sass" />
+    <Content Include="m\sass\service\details.sass" />
+    <Content Include="m\sass\service\_details-style.sass" />
+    <Content Include="m\sass\modules\_select-box.sass" />
+    <Content Include="m\sass\service\location.sass" />
+    <Content Include="m\sass\service\_location-style.sass" />
+    <Content Include="m\sass\modules\_article.sass" />
+    <Content Include="m\sass\modules\_section-heading.sass" />
+    <Content Include="m\sass\modules\_accordion.sass" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
