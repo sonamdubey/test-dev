@@ -31,6 +31,7 @@ namespace Bikewale.Content
         protected ArticlePageDetails objRoadtest;
         protected StringBuilder _bikeTested;
         protected ArticlePhotoGallery ctrPhotoGallery;
+        protected ModelGallery ctrlModelGallery;
         private bool _isContentFount = true;
         protected string upcomingBikesLink;
         protected string articleUrl = string.Empty, articleTitle = string.Empty, basicId = string.Empty, authorName = string.Empty, displayDate = string.Empty;
@@ -72,6 +73,10 @@ namespace Bikewale.Content
                     ctrPhotoGallery.BasicId = Convert.ToInt32(_basicId);
                     ctrPhotoGallery.ModelImageList = objImg;
                     ctrPhotoGallery.BindPhotos();
+
+                    ctrlModelGallery.bikeName = string.Empty;
+                    ctrlModelGallery.modelId = 99;
+                    ctrlModelGallery.Photos = objImg.ToList();
                 }
             }
         }
