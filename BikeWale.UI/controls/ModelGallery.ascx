@@ -19,8 +19,8 @@
         </div>
         <div class="bw-tabs-data" id="Photos">
             <div class="connected-carousels-photos">
-                <div class="stage-photos">
-                    <div class="carousel-photos carousel-stage-photos">
+                <div class="stage-photos stage-media">
+                    <div class="carousel-photos carousel-stage-photos carousel-stage-media">
                         <ul>
                             <asp:Repeater ID="rptModelPhotos" runat="server">
                                 <ItemTemplate>
@@ -43,10 +43,10 @@
                     <a href="#" class="next photos-next-stage bwsprite hide" rel="nofollow"></a>
                 </div>
 
-                <div class="navigation-photos">
+                <div class="navigation-photos navigation-media">
                     <a href="#" class="prev photos-prev-navigation bwsprite hide" rel="nofollow"></a>
                     <a href="#" class="next photos-next-navigation bwsprite hide" rel="nofollow"></a>
-                    <div class="carousel-photos carousel-navigation-photos">
+                    <div class="carousel-photos carousel-navigation-photos carousel-navigation-media">
                         <ul>
                             <asp:Repeater ID="rptNavigationPhoto" runat="server">
                                 <ItemTemplate>
@@ -67,17 +67,17 @@
         <% if(videoCount > 0) { %>
         <div class="bw-tabs-data hide" id="Videos">
             <div class="connected-carousels-videos">
-                <div class="stage-videos">
-                        <div class="carousel-videos carousel-stage-videos">
+                <div class="stage-videos stage-media">
+                        <div class="carousel-videos carousel-stage-videos carousel-stage-media">
                             <div class="yt-iframe-container">
                                 <iframe id="video-iframe" src="" frameborder="0" allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>
-                <div class="navigation-videos">
+                <div class="navigation-videos navigation-media">
                     <a href="#" class="prev videos-prev-navigation bwsprite hide" rel="nofollow"></a>
                     <a href="#" class="next videos-next-navigation bwsprite hide" rel="nofollow"></a>
-                    <div class="carousel-videos carousel-navigation-videos">
+                    <div class="carousel-videos carousel-navigation-videos carousel-navigation-media">
                         <ul>
                             <asp:Repeater ID="rptVideoNav" runat="server">
                                 <ItemTemplate>

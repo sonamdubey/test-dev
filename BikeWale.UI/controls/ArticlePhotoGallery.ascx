@@ -14,28 +14,26 @@
         <div id="gallery" class="white-shadow content-inner-block margin-top10" >
             <div class="jcarousel-wrapper article-jcarousel-wrapper">
                 <div class="jcarousel article-jcarousel">
-                    
-                         <asp:Repeater ID="rptPhotos" runat="server">
-                            <headertemplate>
-                                <ul id="image-gallery">                
-                            </headertemplate>
-                                <itemtemplate>
-                                    <li>
-                                        <a rel="gallery" class="pics cboxElement" href="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem,"HostURL").ToString(),Bikewale.Utility.ImageSize._640x348)%>">
-                                            <%--<img border="0" src='<%# Bikewale.Common.ImagingFunctions.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"ImagePathLarge").ToString(),DataBinder.Eval(Container.DataItem,"HostURL").ToString())%>' alt="<%#Eval("AltImageName") %>" title="<%#Eval("ImageTitle") %>" class="thumb">--%>
-                                            <img border="0" src='<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem,"HostURL").ToString(),Bikewale.Utility.ImageSize._640x348)%>' alt="<%#Eval("AltImageName") %>" title="<%#Eval("ImageTitle") %>" class="thumb">
-                                        </a>
-                                    </li>
-                                </itemtemplate>
-                            <footertemplate>
-                                </ul>
-                            </footertemplate>
-                        </asp:Repeater>
-                    </div>
-                    <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive"></a></span>
-                    <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
-                    <div class="clear"></div>
-                 
+                    <asp:Repeater ID="rptPhotos" runat="server">
+                        <headertemplate>
+                            <ul id="image-gallery">                
+                        </headertemplate>
+                            <itemtemplate>
+                                <li>
+                                    <a rel="gallery" class="pics cboxElement" href="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem,"HostURL").ToString(),Bikewale.Utility.ImageSize._640x348)%>">
+                                        <%--<img border="0" src='<%# Bikewale.Common.ImagingFunctions.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"ImagePathLarge").ToString(),DataBinder.Eval(Container.DataItem,"HostURL").ToString())%>' alt="<%#Eval("AltImageName") %>" title="<%#Eval("ImageTitle") %>" class="thumb">--%>
+                                        <img border="0" src='<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem,"HostURL").ToString(),Bikewale.Utility.ImageSize._640x348)%>' alt="<%#Eval("AltImageName") %>" title="<%#Eval("ImageTitle") %>" class="thumb">
+                                    </a>
+                                </li>
+                            </itemtemplate>
+                        <footertemplate>
+                            </ul>
+                        </footertemplate>
+                    </asp:Repeater>
+                </div>
+                <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive"></a></span>
+                <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+                <div class="clear"></div>  
             </div>
         </div>
     </div>
