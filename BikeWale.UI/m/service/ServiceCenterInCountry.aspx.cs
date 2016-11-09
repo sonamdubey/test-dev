@@ -40,13 +40,6 @@ namespace Bikewale.Mobile.Service
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Form.Action = Request.RawUrl;
-            //code for device detection added by Ashwini Todkar
-            // Modified By :Ashish Kamble on 5 Feb 2016
-            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
-            if (String.IsNullOrEmpty(originalUrl))
-                originalUrl = Request.ServerVariables["URL"];
-
             if (ProcessQS())
             {
                 using (IUnityContainer container = new UnityContainer())
@@ -69,14 +62,14 @@ namespace Bikewale.Mobile.Service
         {
             try
             {
-                IServiceCenter ObjServiceCenter = null;
+                IServiceCenterCacheRepository ObjServiceCenter = null;
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IServiceCenter, ServiceCenter<ServiceCenterLocatorList, int>>()
                     .RegisterType<IServiceCenterCacheRepository, ServiceCenterCacheRepository>()
                     .RegisterType<IServiceCenterRepository<ServiceCenterLocatorList, int>, ServiceCenterRepository<ServiceCenterLocatorList, int>>()
                     .RegisterType<ICacheManager, MemcacheManager>();
-                    ObjServiceCenter = container.Resolve<IServiceCenter>();
+                    ObjServiceCenter = container.Resolve<IServiceCenterCacheRepository>();
                     ServiceCenterList = ObjServiceCenter.GetServiceCenterList(Convert.ToUInt32(makeId));
                 }
             }

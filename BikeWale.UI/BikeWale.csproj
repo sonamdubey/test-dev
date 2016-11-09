@@ -248,7 +248,7 @@
     <Compile Include="BindViewModels\Controls\BindAlternativeBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindBikeCompareControl.cs" />
     <Compile Include="BindViewModels\Controls\BindExpertReviewsControl.cs" />
-    <Compile Include="BindViewModels\Controls\BindMaintainanceTipsControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindBikeCareControl.cs" />
     <Compile Include="BindViewModels\Controls\BindMakePage.cs" />
     <Compile Include="BindViewModels\Controls\BindModelGallery.cs" />
     <Compile Include="BindViewModels\Controls\BindMostPopularBikesControl.cs" />
@@ -746,6 +746,10 @@
       <DependentUpon>AlternativeBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\BikeCare.ascx.cs">
+      <DependentUpon>BikeCare.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\BookBikeSlug.ascx.cs">
       <DependentUpon>BookBikeSlug.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -912,6 +916,10 @@
     </Compile>
     <Compile Include="m\controls\VideosWidget.ascx.cs">
       <DependentUpon>VideosWidget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\service\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\service\ServiceCenterInCountry.aspx.cs">
@@ -2267,6 +2275,7 @@
     <Content Include="m\content\userreviews\ListReviews.aspx" />
     <Content Include="m\content\userreviews\ReviewDetails.aspx" />
     <Content Include="m\controls\AlternativeBikes.ascx" />
+    <Content Include="m\controls\BikeCare.ascx" />
     <Content Include="m\controls\BookBikeSlug.ascx" />
     <Content Include="m\controls\CompareBikeMin.ascx" />
     <Content Include="m\controls\CompareBikesMin.ascx" />
@@ -2338,6 +2347,7 @@
     <Content Include="m\css\jqm-demos.css" />
     <Content Include="m\css\jquery.mobile-1.4.2.min.css" />
     <Content Include="m\css\service\details.css" />
+    <Content Include="m\css\service\landing.css" />
     <Content Include="m\css\service\listing.css" />
     <Content Include="m\css\service\location.css" />
     <Content Include="m\css\used\landing.css" />
@@ -2354,6 +2364,7 @@
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
     <Content Include="m\css\dealer\details.css" />
+    <Content Include="m\service\Default.aspx" />
     <Content Include="m\service\ServiceCenterInCountry.aspx" />
     <Content Include="m\new\dealersincountry.aspx" />
     <Content Include="m\new\dealersinindia.aspx" />
@@ -2688,6 +2699,8 @@
     <Content Include="m\sass\modules\_article.sass" />
     <Content Include="m\sass\modules\_section-heading.sass" />
     <Content Include="m\sass\modules\_accordion.sass" />
+    <Content Include="m\sass\service\landing.sass" />
+    <Content Include="m\sass\service\_landing-style.sass" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.service;
+﻿using Bikewale.Entities.Location;
+using Bikewale.Entities.service;
 using Bikewale.Entities.ServiceCenters;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Notifications;
@@ -146,7 +147,52 @@ namespace Bikewale.DAL.ServiceCenter
             }
             return objStateCityList;
         }
+        /// <summary>
+        /// Created by:-Subodh Jain 7 nov 2016
+        /// Summary:- Get make wise list of cities for service center
+        /// </summary>
+        /// <param name="makeid"></param>
+        /// <returns></returns>
+        public IEnumerable<CityEntityBase> GetServiceCenterCities(uint makeId)
+        {
+            IList<CityEntityBase> objCityList = null;
+            try
+            {
+                if (makeId > 0)
+                {
 
+                    using (DbCommand cmd = DbFactory.GetDBCommand("getservicecenterscitiesbymakeid"))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, Convert.ToInt32(makeId)));
+
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                        {
+                            if (dr != null)
+                            {
+                                objCityList = new List<CityEntityBase>();
+                                while (dr.Read())
+                                {
+                                    objCityList.Add(new CityEntityBase
+                                    {
+                                        CityId = SqlReaderConvertor.ToUInt16(dr["CityId"]),
+                                        CityName = Convert.ToString(dr["City"]),
+                                        CityMaskingName = Convert.ToString(dr["CityMaskingName"])
+                                    });
+                                }
+                                dr.Close();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "GetServiceCenterCities");
+                objErr.SendMail();
+            }
+               return objCityList;
+        }
         /// <summary>
         /// Created By : Sajal Gupta on 07/11/2016
         /// Description: DAL layer Function for fetching service center data.
