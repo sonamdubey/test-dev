@@ -2,9 +2,9 @@
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.ServiceCenter;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 namespace Bikewale.Service.Controllers.ServiceCenter
@@ -31,13 +31,7 @@ namespace Bikewale.Service.Controllers.ServiceCenter
                     objcityList = _objServiceCenter.GetServiceCenterCities(makeId);
                     if (objcityList != null)
                     {
-                        var cityList = objcityList.Select(
-                            city => new CityBase()
-                            {
-                                CityId = city.CityId,
-                                CityName = city.CityName,
-                                CityMaskingName =  city.CityMaskingName
-                            }).OrderBy(x => x.CityName).ToList();
+                        IEnumerable<CityBase> cityList = ServiceCenterMapper.Convert(objcityList);
                         return Ok(cityList);
                     }
 
