@@ -10,12 +10,14 @@ using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.Pager;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Pager;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Web;
@@ -38,6 +40,7 @@ namespace Bikewale.Content
         private int _pageNo = 1;
         private const int _pagerSlotSize = 5;
         private bool _isContentFound = true;
+        protected MostPopularBikesMin ctrlPopularBikes;
 
         protected override void OnInit(EventArgs e)
         {
@@ -57,13 +60,20 @@ namespace Bikewale.Content
             dd.DetectDevice();
 
             CommonOpn op = new CommonOpn();
+            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
             Trace.Warn("current url :" + HttpContext.Current.Request.Url);
+
             if (!IsPostBack)
             {
                 string _makeName = string.Empty, _makeId = string.Empty, _modelId = string.Empty, _modelName = string.Empty;
                 ProcessQS(out _makeName, out _makeId, out _modelId, out _modelName);
                 GetRoadTestList(_makeId, _modelId, _makeName, _modelName);
             }
+
+            ctrlPopularBikes.totalCount = 4;
+            ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+            ctrlPopularBikes.cityName = currentCityArea.City;
+            ctrlPopularBikes.makeId = 0;
         }
 
         private void ProcessQS(out string _makeName, out string _makeId, out string _modelId, out string _modelName)

@@ -2,6 +2,7 @@
 
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" Src="~/m/controls/LinkPagerControl.ascx" %>
+<%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/controls/MostPopularBikesMin.ascx" %>
 <!Doctype html>
 <html>
 <head>
@@ -100,59 +101,9 @@
                     <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 
                     <div class="grid-4 omega">
-                        <div class="content-box-shadow padding-15-20-10 margin-bottom20">
-                            <h2>Popular bikes</h2>
-                            <ul class="sidebar-bike-list">
-                                <li>
-                                    <a href="" title="Harley Davison Softail" class="bike-target-link">
-                                        <div class="bike-target-image inline-block">
-                                            <img src="http://imgd1.aeplcdn.com//110x61//bw/models/tvs-apache-rtr-200-4v.jpg" />
-                                        </div>
-                                        <div class="bike-target-content inline-block padding-left10">
-                                            <h3>Harley Davison Softail</h3>
-                                            <p class="font11 text-light-grey">Ex-showroom New Delhi</p>
-                                            <span class="bwsprite inr-md"></span><span class="font16 text-bold">&nbsp;87,000</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="" title="Bajaj Pulsar AS200" class="bike-target-link">
-                                        <div class="bike-target-image inline-block">
-                                            <img src="http://imgd1.aeplcdn.com//110x61//bw/models/tvs-apache-rtr-200-4v.jpg" />
-                                        </div>
-                                        <div class="bike-target-content inline-block padding-left10">
-                                            <h3>Bajaj Pulsar AS200</h3>
-                                            <p class="font11 text-light-grey">Ex-showroom New Delhi</p>
-                                            <span class="bwsprite inr-md"></span><span class="font16 text-bold">&nbsp;92,000</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="" title="Honda Unicorn 150" class="bike-target-link">
-                                        <div class="bike-target-image inline-block">
-                                            <img src="http://imgd1.aeplcdn.com//110x61//bw/models/tvs-apache-rtr-200-4v.jpg" />
-                                        </div>
-                                        <div class="bike-target-content inline-block padding-left10">
-                                            <h3>Honda Unicorn 150</h3>
-                                            <p class="font11 text-light-grey">Ex-showroom New Delhi</p>
-                                            <span class="bwsprite inr-md"></span><span class="font16 text-bold">&nbsp;1,12,000</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="" title="Royal Enfield Thunderbird 350" class="bike-target-link">
-                                        <div class="bike-target-image inline-block">
-                                            <img src="http://imgd1.aeplcdn.com//110x61//bw/models/tvs-apache-rtr-200-4v.jpg" />
-                                        </div>
-                                        <div class="bike-target-content inline-block padding-left10">
-                                            <h3>Royal Enfield Thunderbird 350</h3>
-                                            <p class="font11 text-light-grey">Ex-showroom New Delhi</p>
-                                            <span class="bwsprite inr-md"></span><span class="font16 text-bold">&nbsp;1,32,000</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                        
+                        <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
+
                         <div class="content-box-shadow padding-15-20-10 margin-bottom20">
                             <h2>Upcoming bikes</h2>
                             <ul class="sidebar-bike-list">

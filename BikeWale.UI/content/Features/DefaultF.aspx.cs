@@ -6,6 +6,7 @@ using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.Pager;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
@@ -28,6 +29,7 @@ namespace Bikewale.Content
         protected Repeater rptFeatures;
         protected Bikewale.Mobile.Controls.LinkPagerControl ctrlPager;
         protected string prevUrl = string.Empty, nextUrl = string.Empty;
+        protected MostPopularBikesMin ctrlPopularBikes;
 
         private int _pageNo = 1;
         private const int _pageSize = 10, _pagerSlotSize = 5;
@@ -53,6 +55,7 @@ namespace Bikewale.Content
 
 
             CommonOpn op = new CommonOpn();
+            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
 
             if (Request["pn"] != null && Request.QueryString["pn"] != "")
             {
@@ -61,13 +64,18 @@ namespace Bikewale.Content
             }
 
             GetFeaturesList();
+
+            ctrlPopularBikes.totalCount = 4;
+            ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+            ctrlPopularBikes.cityName = currentCityArea.City;
+            ctrlPopularBikes.makeId = 0;
         }
 
         /// <summary>
         /// Written By : Ashwini Todkar on 25 Sept 2014
         /// Summary    : method to fetch features list and total features count from carwale api
-        /// </summary>      
-        private async void GetFeaturesList()
+        /// </summary>  
+        private void GetFeaturesList()
         {
             try
             {
@@ -91,7 +99,7 @@ namespace Bikewale.Content
                             .RegisterType<ICacheManager, MemcacheManager>();
                     ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-                    _objFeaturesList = _cache.GetArticlesByCategoryList(_featuresCategoryId, _startIndex, _endIndex,0,0);                
+                    _objFeaturesList = _cache.GetArticlesByCategoryList(_featuresCategoryId, _startIndex, _endIndex, 0, 0);
 
                     if (_objFeaturesList != null && _objFeaturesList.Articles.Count > 0)
                     {

@@ -1,6 +1,9 @@
 ﻿using Bikewale.BindViewModels.Webforms.EditCMS;
 using Bikewale.Common;
+using Bikewale.Controls;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.Location;
+using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -17,6 +20,7 @@ namespace Bikewale.News
         protected string prevUrl = string.Empty, nextUrl = string.Empty;
         private NewsListing objNews = null;
         protected IEnumerable<ArticleSummary> newsArticles = null;
+        protected MostPopularBikesMin ctrlPopularBikes;
 
         protected override void OnInit(EventArgs e)
         {
@@ -42,7 +46,14 @@ namespace Bikewale.News
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
 
+            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+
             GetNewsList();
+
+            ctrlPopularBikes.totalCount = 4;
+            ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+            ctrlPopularBikes.cityName = currentCityArea.City;
+            ctrlPopularBikes.makeId = 0;
         }
 
         /// <summary>

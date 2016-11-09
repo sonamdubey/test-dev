@@ -21,6 +21,8 @@ namespace Bikewale.BindViewModels.Controls
         public int? makeId { get; set; }
         public int FetchedRecordsCount { get; set; }
         public int? cityId { get; set; }
+        public IEnumerable<MostPopularBikesBase> popularBikes = null;
+
         /// <summary>
         ///  Modified by    :   Sumit Kate on 01 Jul 2016
         ///  Description    :   Call the Cache Layer to get the Data
@@ -29,7 +31,6 @@ namespace Bikewale.BindViewModels.Controls
         public void BindMostPopularBikes(Repeater rptr)
         {
             FetchedRecordsCount = 0;
-            IEnumerable<MostPopularBikesBase> popularBase = null;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
@@ -41,16 +42,16 @@ namespace Bikewale.BindViewModels.Controls
 
                     //IBikeModelsRepository<BikeModelEntity, int> objVersion = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
                     IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
-                    popularBase = modelCache.GetMostPopularBikes(totalCount, makeId);
+                    popularBikes = modelCache.GetMostPopularBikes(totalCount, makeId);
                 }
-                if (popularBase != null)
+                if (popularBikes != null && popularBikes.Count() > 0)
                 {
-                    if (popularBase.Count() > 0)
+                    if (rptr != null)
                     {
-                        FetchedRecordsCount = popularBase.Count();
-                        rptr.DataSource = popularBase;
+                        rptr.DataSource = popularBikes;
                         rptr.DataBind();
                     }
+                    FetchedRecordsCount = popularBikes.Count();
                 }
             }
             catch (Exception ex)
@@ -67,7 +68,6 @@ namespace Bikewale.BindViewModels.Controls
         public void BindMostPopularBikesMakeCity(Repeater rptr)
         {
             FetchedRecordsCount = 0;
-            IEnumerable<MostPopularBikesBase> popularBikes = null;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
@@ -81,14 +81,14 @@ namespace Bikewale.BindViewModels.Controls
                     IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
                     popularBikes = modelCache.GetMostPopularBikesbyMakeCity((uint)totalCount, (uint)makeId, (uint)cityId);
                 }
-                if (popularBikes != null)
+                if (popularBikes != null && popularBikes.Count() > 0)
                 {
-                    if (popularBikes.Count() > 0)
+                    if (rptr != null)
                     {
-                        FetchedRecordsCount = popularBikes.Count();
                         rptr.DataSource = popularBikes;
                         rptr.DataBind();
                     }
+                    FetchedRecordsCount = popularBikes.Count();
                 }
             }
             catch (Exception ex)
