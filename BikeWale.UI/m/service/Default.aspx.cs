@@ -7,6 +7,7 @@ using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Mobile.Controls;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,8 @@ namespace Bikewale.Mobile.Service
         {
             BindMakes();
             ctrlBikeCare.TotalRecords = 3;
+            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+            cityId = currentCityArea.CityId;
         }
         /// <summary>
         /// Created By:-Subodh Jain 8 nov 2016

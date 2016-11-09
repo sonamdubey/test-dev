@@ -36,7 +36,7 @@ namespace Bikewale.Service.Controllers.ServiceCenter
                             {
                                 CityId = city.CityId,
                                 CityName = city.CityName,
-                                CityMaskingName = city.CityId + "_" + city.CityMaskingName.Trim()
+                                CityMaskingName =  city.CityMaskingName
                             }).OrderBy(x => x.CityName).ToList();
                         return Ok(cityList);
                     }

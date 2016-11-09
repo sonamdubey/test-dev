@@ -287,7 +287,7 @@ Revving the motorcycle to the redline will not make the battery charge faster â€
                             success: function (data) {
                                 lscache.set(key + mId, data, 30);
                                 $("div.locator-search-city-form span").text("Select city");
-                                setOptions(data);
+                                setOptions(data);   
                             },
                             complete: function (xhr) {
                                 if (xhr.status != 200) {
@@ -301,10 +301,9 @@ Revving the motorcycle to the redline will not make the battery charge faster â€
                     }
                     else {
                         $("div.locator-search-city-form span").text("Select city")
-                        data = lscache.get(key + mId);
+                        data = lscache.get(key + mId);          
                         setOptions(data);
                     }
-
                 }
             }
 
@@ -313,7 +312,7 @@ Revving the motorcycle to the redline will not make the battery charge faster â€
                 ddlcityId = $ddlCities.find("li.activeCity").attr("cityId");
                 if (!isNaN(selMakeId) && selMakeId != "0") {
                     if (!isNaN(selCityId) && selCityId != "0") {
-                        ddlcityMasking = $ddlCities.find("li.activeCity").attr("cityMaskingName");
+                        ddlcityMasking = $ddlCities.find("li.activeCity").attr("citymaskingname");
                         window.location.href = "/m/" + ddlmakemasking + "-service-centers-in-" + ddlcityMasking + "/";
                     }
                     else {
@@ -335,11 +334,21 @@ Revving the motorcycle to the redline will not make the battery charge faster â€
             function setOptions(optList) {
                 if (optList != null) {
                     $.each(optList, function (i, value) {
-                        $ddlCities.append($('<li>').text(value.cityName).attr('cityId', value.cityId).attr('cityMaskingName', value.cityMaskingName));
+                        $ddlCities.append($('<li>').text(value.cityName).attr('cityId', value.cityId).attr('citymaskingname', value.cityMaskingName));
                     });
                 }
                 else {
                     $("div.locator-search-city-form span").text("No cities available");
+                }
+
+                if (optList) {
+                    var selectedElement = $.grep(optList, function (element, index) {
+                        return element.cityId == selCityId;
+                    });
+                    if (selectedElement.length > 0) {
+                        $("div.locator-search-city-form span").text(selectedElement[0].cityName);
+                        $('#sliderCityList li[cityId="' + selectedElement[0].cityId + '"]').addClass('activeCity');
+                    }
                 }
             }
 

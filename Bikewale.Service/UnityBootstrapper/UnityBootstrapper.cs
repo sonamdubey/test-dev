@@ -84,6 +84,8 @@ namespace Bikewale.Service.UnityConfiguration
         /// Description :   Register Road Test/Feature/Article BAL classes for CMS Controller constructor resolution
         /// Modified By :   Sajal Gupta on 10-10-2016
         /// Description :   Register usedBikeDetailsRepository, usedBikeDetails
+        ///  /// Modified By : Subodh Jain on 08 Nov 2016
+        /// Description :   Register Service Center
         /// </summary>
         /// <returns></returns>
         public static IUnityContainer Initialize()
