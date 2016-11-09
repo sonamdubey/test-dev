@@ -19,5 +19,7 @@ namespace Bikewale.Entities.BikeData
 
         [JsonProperty("videos")]
         public IEnumerable<BikeVideoEntity> Videos { get; set; }
+        [JsonProperty("TipsAndAdvices")]
+        public IEnumerable<ArticleSummary> TipsAndAdvices { get; set; }
     }
 }

@@ -1157,7 +1157,7 @@ namespace Bikewale.BAL.BikeData
             IEnumerable<ArticleSummary> objRecentNews = null;
             IEnumerable<ArticleSummary> objExpertReview = null;
             IEnumerable<BikeVideoEntity> objVideos = null;
-
+            IEnumerable<ArticleSummary> objMtips = null;
 
             try
             {
@@ -1167,14 +1167,14 @@ namespace Bikewale.BAL.BikeData
                 var newsTask = Task.Factory.StartNew(() => objRecentNews = _cacheArticles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), 2, 0, Convert.ToUInt32(modelId)));
                 var expReviewTask = Task.Factory.StartNew(() => objExpertReview = _cacheArticles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.RoadTest), 2, 0, Convert.ToUInt32(modelId)));
                 var videosTask = Task.Factory.StartNew(() => objVideos = GetVideosByModelIdViaGrpc(Convert.ToInt32(modelId)));
-
-                Task.WaitAll(reviewTask, newsTask, expReviewTask, videosTask); //calling tasks asynchronously, this will wait untill all tasks are completed
+                var TipsAndAdvices = Task.Factory.StartNew(() => objMtips = _cacheArticles.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.TipsAndAdvices), 2, 0, Convert.ToUInt32(modelId)));
+                Task.WaitAll(reviewTask, newsTask, expReviewTask, videosTask, TipsAndAdvices); //calling tasks asynchronously, this will wait untill all tasks are completed
 
                 objModelArticles.ReviewDetails = objReview;
                 objModelArticles.News = objRecentNews;
                 objModelArticles.ExpertReviews = objExpertReview;
                 objModelArticles.Videos = objVideos;
-
+                objModelArticles.TipsAndAdvices = objMtips;
             }
             catch (Exception ex)
             {

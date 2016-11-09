@@ -4,14 +4,12 @@ using Bikewale.Cache.Core;
 using Bikewale.Cache.ServiceCenter;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
-using Bikewale.DAL.Dealer;
 using Bikewale.DAL.ServiceCenter;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.service;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.ServiceCenter;
 using Microsoft.Practices.Unity;
 using System;
@@ -22,9 +20,8 @@ using System.Web.UI;
 namespace Bikewale.Mobile.Service
 {
     /// <summary>
-    /// Created By  : Sushil Kumar 
-    /// Created on : 27th March 2016
-    /// Locate new bike dealers  
+    /// Created By  : Subodh Jain 08 nov 2016
+    /// Summary :- Locate new bike dealers  
     /// </summary>
     public class LocateServiceCenter : Page
     {
@@ -59,14 +56,9 @@ namespace Bikewale.Mobile.Service
 
 
         }
-
-
         /// <summary>
-        /// Created By  : Sushil Kumar
-        /// Created On  : 27th March 2016
-        /// Description : To bind makes list to dropdown
-        /// Modified by :   Sumit Kate on 29 Mar 2016
-        /// Description :   Get the makes list of BW and AB dealers
+        /// Created By:-Subodh Jain 8 nov 2016
+        /// Submmary:- Bind Make for service center
         /// </summary>
         private void BindMakes()
         {
@@ -100,8 +92,7 @@ namespace Bikewale.Mobile.Service
 
 
         /// <summary>
-        /// Created By  : Sushil Kumar
-        /// Created On  : 27th March 2016
+        /// Created By:- Subodh Jain 08 nov 2016
         /// Description : To bind cities list to dropdown
         /// </summary>
         private void BindCitiesDropdown()

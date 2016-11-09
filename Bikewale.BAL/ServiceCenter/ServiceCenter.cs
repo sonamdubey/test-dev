@@ -30,6 +30,12 @@ namespace Bikewale.BAL.ServiceCenter
         {
             return _objServiceCenter.GetServiceCenterList(makeid);
         }
+        /// <summary>
+        /// Created by:-Subodh Jain 7 nov 2016
+        /// Summary:- Get make wise list of cities for service center
+        /// </summary>
+        /// <param name="makeid"></param>
+        /// <returns></returns>
         public IEnumerable<CityEntityBase> GetServiceCenterCities(uint makeid)
         {
             return _objServiceCenter.GetServiceCenterCities(makeid);
