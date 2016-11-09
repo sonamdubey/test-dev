@@ -76,6 +76,27 @@ namespace Bikewale.BAL.UsedBikes
                     else
                     {
                         result.Status.Code = SellAdStatus.MobileVerified;
+                        string bikeName = String.Format("{0} {1} {2}", ad.Make.MakeName, ad.Model.ModelName, ad.Version.VersionName);
+                        string profileId = null;
+
+                        if (ad.Seller.SellerType == SellerType.Individual)
+                        {
+                            profileId = String.Format("S{0}", ad.InquiryId);
+                        }
+
+                        else if (ad.Seller.SellerType == SellerType.Dealer)
+                        {
+                            profileId = String.Format("D{0}", ad.InquiryId);
+                        }
+                        //send sms and email to seller on successful listing
+
+                        SendEmailSMSToDealerCustomer.UsedBikeAdEmailToIndividual(ad.Seller, profileId, bikeName, ad.Expectedprice.ToString());
+                        SMSTypes smsType = new SMSTypes();
+                        smsType.UsedSellSuccessfulListingSMS(
+                            EnumSMSServiceType.SuccessfulUsedSelllistingToSeller,
+                            ad.Seller.CustomerMobile,
+                            profileId,
+                            HttpContext.Current.Request.ServerVariables["URL"].ToString());
                     }
                 }
                 else // Redirect user
@@ -106,27 +127,27 @@ namespace Bikewale.BAL.UsedBikes
             {
                 int inquiryId = _sellBikeRepository.Add(ad);
                 ad.InquiryId = (uint)inquiryId;
-                string bikeName = String.Format("{0} {1} {2}", ad.Make.MakeName, ad.Model.ModelName, ad.Version.VersionName);
-                string profileId = null;
+                //string bikeName = String.Format("{0} {1} {2}", ad.Make.MakeName, ad.Model.ModelName, ad.Version.VersionName);
+                //string profileId = null;
 
-                if (ad.Seller.SellerType == SellerType.Individual)
-                {
-                    profileId = String.Format("S{0}", ad.InquiryId);
-                }
+                //if (ad.Seller.SellerType == SellerType.Individual)
+                //{
+                //    profileId = String.Format("S{0}", ad.InquiryId);
+                //}
 
-                else if (ad.Seller.SellerType == SellerType.Dealer)
-                {
-                    profileId = String.Format("D{0}", ad.InquiryId);
-                }
-                //send sms and email to seller on successful listing
+                //else if (ad.Seller.SellerType == SellerType.Dealer)
+                //{
+                //    profileId = String.Format("D{0}", ad.InquiryId);
+                //}
+                ////send sms and email to seller on successful listing
 
-                SendEmailSMSToDealerCustomer.UsedBikeAdEmailToIndividual(ad.Seller, profileId, bikeName, ad.Expectedprice.ToString());
-                SMSTypes smsType = new SMSTypes();
-                smsType.UsedSellSuccessfulListingSMS(
-                    EnumSMSServiceType.SuccessfulUsedSelllistingToSeller,
-                    ad.Seller.CustomerMobile,
-                    profileId,
-                    HttpContext.Current.Request.ServerVariables["URL"].ToString());
+                //SendEmailSMSToDealerCustomer.UsedBikeAdEmailToIndividual(ad.Seller, profileId, bikeName, ad.Expectedprice.ToString());
+                //SMSTypes smsType = new SMSTypes();
+                //smsType.UsedSellSuccessfulListingSMS(
+                //    EnumSMSServiceType.SuccessfulUsedSelllistingToSeller,
+                //    ad.Seller.CustomerMobile,
+                //    profileId,
+                //    HttpContext.Current.Request.ServerVariables["URL"].ToString());
             }
         }
 
@@ -167,7 +188,33 @@ namespace Bikewale.BAL.UsedBikes
 
         public bool VerifyMobile(SellerEntity seller)
         {
-            return _mobileVerRespo.VerifyMobileVerificationCode(seller.CustomerMobile, seller.Otp, seller.Otp);
+            bool mobileVerified= _mobileVerRespo.VerifyMobileVerificationCode(seller.CustomerMobile, seller.Otp, seller.Otp);
+            
+            if (mobileVerified)
+            {
+                //string bikeName = String.Format("{0} {1} {2}", ad.Make.MakeName, ad.Model.ModelName, ad.Version.VersionName);
+                //string profileId = null;
+
+                //if (ad.Seller.SellerType == SellerType.Individual)
+                //{
+                //    profileId = String.Format("S{0}", ad.InquiryId);
+                //}
+
+                //else if (ad.Seller.SellerType == SellerType.Dealer)
+                //{
+                //    profileId = String.Format("D{0}", ad.InquiryId);
+                //}
+                ////send sms and email to seller on successful listing
+
+                //SendEmailSMSToDealerCustomer.UsedBikeAdEmailToIndividual(ad.Seller, profileId, bikeName, ad.Expectedprice.ToString());
+                //SMSTypes smsType = new SMSTypes();
+                //smsType.UsedSellSuccessfulListingSMS(
+                //    EnumSMSServiceType.SuccessfulUsedSelllistingToSeller,
+                //    ad.Seller.CustomerMobile,
+                //    profileId,
+                //    HttpContext.Current.Request.ServerVariables["URL"].ToString());
+            }
+            return mobileVerified;
         }
 
         /// <summary>
