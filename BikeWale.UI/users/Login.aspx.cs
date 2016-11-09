@@ -15,7 +15,6 @@ namespace BikWale.Users
         protected HtmlGenericControl errEmail;
         protected TextBox txtLoginid, txtPasswd, txtNameSignup, txtEmailSignup, txtMobileSignup, txtRegPasswdSignup;
         protected HiddenField hdnAuthData;
-        private string header = "Registered Members : Please Login Here";
         public string RedirectUrl = "/";
         bool logout = false;
 
@@ -151,8 +150,6 @@ namespace BikWale.Users
         /// </summary>
         private void RedirectPath()
         {
-            //if (!String.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
-            //{
             string returnUrl = Request.QueryString["ReturnUrl"];
             if (!string.IsNullOrEmpty(returnUrl) && IsLocalUrl(returnUrl))
             {
@@ -162,18 +159,6 @@ namespace BikWale.Users
             {
                 Response.Redirect("/", false);
             }
-            //}
-            //else if (RedirectUrl != "")
-            //{
-            //    if (!string.IsNullOrEmpty(RedirectUrl))
-            //    {
-            //        Response.Redirect(RedirectUrl, false);
-            //    }
-            //    else
-            //    {
-            //        Response.Redirect("/", false);
-            //    }
-            //}
             HttpContext.Current.ApplicationInstance.CompleteRequest();
         }
 
@@ -192,10 +177,7 @@ namespace BikWale.Users
                 }
                 else
                 {
-                    return ((url[0] == '/' && (url.Length == 1 ||
-                            (url[1] != '/' && url[1] != '\\'))) ||   // "/" or "/foo" but not "//" or "/\"
-                            (url.Length > 1 &&
-                             url[0] == '~' && url[1] == '/'));   // "~/" or "~/foo"
+                    return ((url[0] == '/' && (url.Length == 1 || (url[1] != '/' && url[1] != '\\'))) || (url.Length > 1 && url[0] == '~' && url[1] == '/'));
                 }
             }
             catch (Exception ex)
