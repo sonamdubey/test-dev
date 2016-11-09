@@ -73,11 +73,14 @@
                                         </a>
                                     </div>
                                     <div class="margin-right20 margin-left20 padding-top10 font14">
-                                        <h2 class="margin-bottom10">
+                                        <h2 class="margin-bottom5">
                                         <a href="<%= string.Format("/m/used/bikes-in-{0}/{1}-{2}-{3}/",bike.CityMaskingName,bike.MakeMaskingName,bike.ModelMaskingName,bike.ProfileId) %>" title="<%= curBikeName %>">
                                                 <%= curBikeName %>
                                             </a>
                                         </h2>
+                                        <div class="margin-bottom5">
+                                            <span class="font12 text-x-light">Updated on: <%= bike.LastUpdated.ToString("dd MMM yy") %></span>
+                                        </div>
                                         <%if(!string.IsNullOrEmpty(bike.ModelYear)) { %>
                                         <div class="grid-6 alpha omega margin-bottom5 ">
                                             <span class="bwmsprite model-date-icon"></span>
@@ -129,6 +132,9 @@
                             </div>
                             <div class="margin-right20 margin-left20 padding-top10 font14">
                                 <h2 class="margin-bottom10"><a data-bind="text: bikeName, attr: { 'href': '/m/used/bikes-in-' + cityMasking + '/' + makeMasking + '-' + modelMasking + '-' + profileId + '/' }"></a></h2>
+                                <div class="margin-bottom5">
+                                    <span class="font12 text-x-light" data-bind="text: 'Updated on: ' + strLastUpdated"></span>
+                                </div>
                                 <div class="grid-6 alpha omega margin-bottom5" data-bind="visible : modelYear > 0">
                                     <span class="bwmsprite model-date-icon"></span>
                                     <span class="model-details-label" data-bind="text: modelYear + ' model'"></span>

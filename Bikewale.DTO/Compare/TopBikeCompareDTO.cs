@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.DTO.Compare
 {
@@ -12,6 +8,8 @@ namespace Bikewale.DTO.Compare
     /// Description :   Top Bike Compare DTO
     /// Modified by : Sumit Kate on 29 Jan 2016
     /// Description :   Added HostUrl1, HostUrl2, VersionImgUrl1, VersionImgUrl2 as string to Bikewale.Entities.Compare.TopBikeCompareBase entity.
+    /// Modified By : Sushil Kumar on 27th Oct 2016
+    /// Description : Removed unused methods for reviews and topcompare image
     /// </summary>
     public class TopBikeCompareDTO
     {
@@ -41,18 +39,6 @@ namespace Bikewale.DTO.Compare
         public UInt32 Price1 { get; set; }
         [JsonProperty("price2")]
         public UInt32 Price2 { get; set; }
-        [JsonProperty("review1")]
-        public UInt16 Review1 { get; set; }
-        [JsonProperty("review2")]
-        public UInt16 Review2 { get; set; }
-        [JsonProperty("reviewCount1")]
-        public UInt16 ReviewCount1 { get; set; }
-        [JsonProperty("reviewCount2")]
-        public UInt16 ReviewCount2 { get; set; }
-        [JsonProperty("hostURL")]
-        public string HostURL { get; set; }
-        [JsonProperty("originalImagePath")]
-        public string OriginalImagePath { get; set; }
         [JsonProperty("hostUrl1")]
         public string HostUrl1 { get; set; }
         [JsonProperty("hostUrl2")]

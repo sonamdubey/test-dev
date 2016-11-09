@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.bikeModel" EnableViewState="false" Trace="false" %>
 
 <%@ Register Src="~/controls/NewAlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
-<%--<%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW" %>--%>
 <%@ Register Src="~/controls/News.ascx" TagName="LatestNews" TagPrefix="BW" %>
 <%@ Register Src="~/controls/NewExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
 <%@ Register Src="~/controls/NewVideosControl.ascx" TagName="Videos" TagPrefix="BW" %>
@@ -16,7 +15,7 @@
 <head>
     <%
         var modDetails = modelPageEntity.ModelDetails;
-        title = String.Format("{0} Price, Reviews, Spec, Photos, Mileage | Bikewale", bikeName);
+        title = String.Format("{0} Price, Reviews, Spec, Photos, Mileage, Colors | Bikewale", bikeName);
         description = pgDescription;
         canonical = String.Format("http://www.bikewale.com/{0}-bikes/{1}/", modelPageEntity.ModelDetails.MakeBase.MaskingName, modelPageEntity.ModelDetails.MaskingName);
         AdId = "1442913773076";
@@ -72,10 +71,10 @@
                     <div class="breadcrumb margin-bottom15">
                         <!-- breadcrumb code starts here -->
                         <ul>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/" itemprop="url">
+                            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/" itemprop="url">
                                 <span itemprop="title">Home</span></a>
                             </li>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <a href="/<%= modelPageEntity.ModelDetails.MakeBase.MaskingName %>-bikes/" itemprop="url">
                                     <span itemprop="title"><%= modelPageEntity.ModelDetails.MakeBase.MakeName %> Bikes</span>
@@ -162,7 +161,7 @@
                                         <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(modelPageEntity.ModelDetails.ReviewRate)) %>
                                     </p>
 
-                                    <span itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating">
+                                    <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
 
                                         <meta itemprop="ratingValue" content="<%=modelPageEntity.ModelDetails.ReviewRate %>">
                                         <meta itemprop="worstRating" content="1">
@@ -647,7 +646,7 @@
                         <% } %>
                         <%if (modelPageEntity.ModelColors != null && modelPageEntity.ModelColors.Count() > 0)
                         { %>
-                        <a href="#modelColorsContent" rel="nofollow">Colours</a>
+                        <a href="#modelColorsContent" rel="nofollow">Colors</a>
                         <%} %>
                         <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
                            { %>
@@ -694,7 +693,7 @@
                             <% } %>
                             <%if (modelPageEntity.ModelColors != null && modelPageEntity.ModelColors.Count() > 0)
                             { %>
-                            <a href="#modelColorsContent" rel="nofollow">Colours</a>
+                            <a href="#modelColorsContent" rel="nofollow">Colors</a>
                             <%} %>
                             <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
                                { %>
@@ -1136,7 +1135,7 @@
                         <%if (modelPageEntity.ModelColors != null && modelPageEntity.ModelColors.Count() > 0)
                             { %>
                         <div id="modelColorsContent" class="bw-model-tabs-data padding-top20 font14">
-                            <h2 class="padding-left20 padding-right20"><%=bikeName %> Colours</h2>
+                            <h2 class="padding-left20 padding-right20"><%=bikeName %> Colors</h2>
                             <ul id="modelColorsList">
                                 <asp:Repeater ID="rptColor" runat="server">
                                     <ItemTemplate>

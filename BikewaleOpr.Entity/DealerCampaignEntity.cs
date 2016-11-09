@@ -1,5 +1,5 @@
 ﻿
-namespace BikewaleOpr.Entity
+namespace BikewaleOpr.Entities
 {
     /// <summary>
     /// Created by  :   Sumit Kate on 11 July 2016

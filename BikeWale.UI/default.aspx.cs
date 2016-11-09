@@ -15,14 +15,23 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale
 {
+    /// <summary>
+    /// Created By : Sushil Kumar on 28th Oct 2016
+    /// Description : Added new launched,upcoming and poular bikes widget 
+    /// </summary>
     public class Default : System.Web.UI.Page
     {
-        protected News_new ctrlNews;
-        protected ExpertReviews ctrlExpertReviews;
-        protected VideosControl ctrlVideos;
+        protected News_Widget ctrlNews;
+        protected NewExpertReviews ctrlExpertReviews;
+        protected NewVideosControl ctrlVideos;
         protected ComparisonMin ctrlCompareBikes;
         protected PopularUsedBikes ctrlPopularUsedBikes;
         protected OnRoadPricequote ctrlOnRoadPriceQuote;
+
+        protected UpcomingBikes_new ctrlUpcomingBikes;
+        protected NewLaunchedBikes_new ctrlNewLaunchedBikes;
+        protected MostPopularBikes_new ctrlMostPopularBikes;
+
         protected short reviewTabsCnt = 0;
         //Variable to Assing ACTIVE .css class
         protected bool isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
@@ -41,14 +50,48 @@ namespace Bikewale
             DeviceDetection dd = new DeviceDetection("/");
             dd.DetectDevice();
 
+            BindBikesWidgets();
+
             ctrlNews.TotalRecords = 3;
+            ctrlNews.ShowWidgetTitle = false;
+
             ctrlExpertReviews.TotalRecords = 3;
+            ctrlExpertReviews.ShowWidgetTitle = false;
+
             ctrlVideos.TotalRecords = 3;
+            ctrlVideos.ShowWidgetTitle = false;
             ctrlCompareBikes.TotalRecords = 4;
             ctrlPopularUsedBikes.TotalRecords = 6;
             ctrlOnRoadPriceQuote.PQSourceId = (int)PQSourceEnum.Desktop_HP_PQ_Widget;
 
             BindRepeaters();
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 28th Oct 2016
+        /// Description : Added new launched,upcoming and poular bikes binding 
+        /// </summary>
+        private void BindBikesWidgets()
+        {
+            try
+            {
+                //to get Most Popular Bikes
+                ctrlMostPopularBikes.totalCount = 9;
+                ctrlMostPopularBikes.PQSourceId = (int)PQSourceEnum.Desktop_HP_MostPopular;
+
+                //To get Upcoming Bike List Details 
+                ctrlNewLaunchedBikes.pageSize = 9;
+                ctrlNewLaunchedBikes.PQSourceId = (int)PQSourceEnum.Desktop_HP_NewLaunches;
+
+                //To get Upcoming Bike List Details 
+                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                ctrlUpcomingBikes.pageSize = 9;
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindBikesWidgets");
+                objErr.SendMail();
+            }
         }
 
         /// <summary>
@@ -80,7 +123,6 @@ namespace Bikewale
             }
             catch (Exception ex)
             {
-                Trace.Warn(ex.Message);
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindRepeaters");
                 objErr.SendMail();
             }

@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="BikewaleOpr.Global" Language="C#" %>
+﻿<%@ Application Inherits="BikewaleOpr.Global" Language="C#" %>

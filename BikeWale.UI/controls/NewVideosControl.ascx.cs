@@ -24,6 +24,8 @@ namespace Bikewale.Controls
         protected string MoreVideoUrl = string.Empty;
         public string WidgetTitle = string.Empty;
         protected string linkTitle = string.Empty;
+        private bool _showWidget = true;
+        public bool ShowWidgetTitle { get { return _showWidget; } set { _showWidget = value; } }
 
         protected override void OnInit(EventArgs e)
         {

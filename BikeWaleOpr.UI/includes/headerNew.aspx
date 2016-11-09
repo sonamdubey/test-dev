@@ -1,4 +1,3 @@
-<%@Import namespace="BikeWaleOpr.Common"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -25,7 +24,7 @@
 			
             <div class="floatRight">
                 <span class="font13 text-bold margin-right20 verical-middle">
-				    Welcome <%= CurrentUser.UserName %>
+				    Welcome <%= BikeWaleOpr.Common.CurrentUser.UserName %>
                 </span>
                 <a href="/common/logout.aspx?logout=logout" class="btn btn-default verical-middle">Logout</a>
             </div>

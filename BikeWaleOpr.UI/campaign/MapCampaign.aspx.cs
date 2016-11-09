@@ -1,5 +1,5 @@
 ﻿using BikewaleOpr.Common;
-using BikewaleOpr.Entity;
+using BikewaleOpr.Entities;
 using BikeWaleOpr.Common;
 using System;
 using System.Linq;
@@ -119,8 +119,10 @@ namespace BikewaleOpr.Campaign
         #region Functions
 
         /// <summary>
-        /// Created By : Sangram Nandkhile on 21st March 2016.
-        /// Description : Parses query string to fetch campaign id, dealerid and dealerName
+        /// Created By  :   Sangram Nandkhile on 21st March 2016.
+        /// Description :   Parses query string to fetch campaign id, dealerid and dealerName
+        /// Modified by :   Sumit Kate 24 Oct 2016
+        /// Description :   Only Standard/Deluxe/Premium Packages are allowed
         /// </summary>
         private bool ParseQueryString()
         {
@@ -134,12 +136,6 @@ namespace BikewaleOpr.Campaign
                 else
                 {
                     isValid = false;
-                    if (!isValid)
-                    {
-                        Response.Redirect("../pagenotfound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                    }
                 }
 
                 if (!string.IsNullOrEmpty(Request.QueryString["contractid"]))
@@ -150,8 +146,11 @@ namespace BikewaleOpr.Campaign
                 if (!string.IsNullOrEmpty(Request.QueryString["packageId"]))
                 {
                     packageId = Convert.ToInt32(Request.QueryString["packageId"]);
+                    if (!Enumerable.Range(82, 87).Contains(packageId))
+                    {
+                        isValid = false;
+                    }
                 }
-
 
                 if (!string.IsNullOrEmpty(Request.QueryString["packageName"]))
                 {
@@ -188,6 +187,15 @@ namespace BikewaleOpr.Campaign
             {
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.MapCampaign.ParseQueryString");
                 objErr.SendMail();
+            }
+            finally
+            {
+                if (!isValid)
+                {
+                    Response.Redirect("../pagenotfound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
             return isValid;
         }

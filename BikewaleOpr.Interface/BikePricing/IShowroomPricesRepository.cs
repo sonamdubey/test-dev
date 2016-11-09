@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BikewaleOpr.Entity.BikePricing;
+using BikewaleOpr.Entities.BikePricing;
 
 namespace BikewaleOpr.Interface.BikePricing
 {
