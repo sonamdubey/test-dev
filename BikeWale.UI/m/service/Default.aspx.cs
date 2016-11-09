@@ -11,6 +11,7 @@ using Bikewale.Entities.service;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.ServiceCenter;
+using Bikewale.Mobile.Controls;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -27,10 +28,12 @@ namespace Bikewale.Mobile.Service
     {
         protected uint cityId, makeId;
         protected ushort totalDealers;
+        protected BikeCare ctrlBikeCare;
         public IEnumerable<BikeMakeEntityBase> TopMakeList;
         public IEnumerable<BikeMakeEntityBase> OtherMakeList;
         public IEnumerable<BikeMakeEntityBase> makes;
         public IEnumerable<CityEntityBase> cities;
+
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -50,7 +53,7 @@ namespace Bikewale.Mobile.Service
                 originalUrl = Request.ServerVariables["URL"];
 
             BindMakes();
-
+            ctrlBikeCare.TotalRecords = 3;
             if (makeId > 0)
                 BindCitiesDropdown();
 
