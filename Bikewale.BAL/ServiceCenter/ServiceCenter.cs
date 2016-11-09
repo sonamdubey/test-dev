@@ -1,6 +1,9 @@
 ﻿
 using Bikewale.Entities.service;
+using Bikewale.Entities.ServiceCenters;
 using Bikewale.Interfaces.ServiceCenter;
+using Bikewale.Notifications;
+using System;
 namespace Bikewale.BAL.ServiceCenter
 {
     /// <summary>
@@ -12,11 +15,11 @@ namespace Bikewale.BAL.ServiceCenter
     public class ServiceCenter<T, U> : IServiceCenter where T : ServiceCenterLocatorList, new()
     {
         private readonly IServiceCenterCacheRepository _objServiceCenter = null;
+
+
         public ServiceCenter(IServiceCenterCacheRepository ObjServiceCenter)
         {
             _objServiceCenter = ObjServiceCenter;
-
-
         }
         /// <summary>
         /// Created by:-Subodh Jain 7 nov 2016
@@ -27,6 +30,28 @@ namespace Bikewale.BAL.ServiceCenter
         public ServiceCenterLocatorList GetServiceCenterList(uint makeid)
         {
             return _objServiceCenter.GetServiceCenterList(makeid);
+        }
+
+        /// <summary>
+        /// Created By : Sajal Gupta on 07/11/2016
+        /// Description: BAL layer Function for fetching service center data from cache.
+        /// </summary>
+        public ServiceCenterData GetServiceCentersByCity(uint cityId, int makeId)
+        {
+            ServiceCenterData objServiceCenterData = null;
+            try
+            {
+                if (_objServiceCenter != null && cityId > 0 && makeId > 0)
+                {
+                    objServiceCenterData = _objServiceCenter.GetServiceCentersByCity(cityId, makeId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ServiceCenters.GetServiceCentersByCity");
+                objErr.SendMail();
+            }
+            return objServiceCenterData;
         }
     }
 }
