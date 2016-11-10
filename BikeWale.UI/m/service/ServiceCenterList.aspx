@@ -77,8 +77,11 @@
                                     </p>   
                                     <% } %>
                                 </a>
-                                <%--<a href="tel:" class="btn btn-inv-green service-btn"><span class="bwmsprite tel-green-icon margin-right10"></span>Call service centre</a>--%>
-                                <button type="button" class="btn btn-inv-green service-btn contact-service-btn"><span class="bwmsprite tel-green-icon margin-right10"></span>Call service centre</button>
+                                <% if(!serviceCenter.Phone.Contains(",")) { %>
+                                <a href="tel:" class="btn btn-inv-green service-btn" data-service-number="<%= serviceCenter.Phone.Trim()%>"><span class="bwmsprite tel-green-icon margin-right10"></span>Call service centre</a>
+                                <% } else { %>
+                                <button type="button" class="btn btn-inv-green service-btn contact-service-btn" data-service-name="<%= serviceCenter.Name %>" data-service-number="<%= serviceCenter.Phone.Trim()%>"><span class="bwmsprite tel-green-icon margin-right10"></span>Call service centre</button>
+                                <% } %>
                             </li>
                     <% } %>                  
                 </ul>
