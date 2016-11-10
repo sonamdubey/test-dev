@@ -62,7 +62,7 @@
                         <ul class="text-center">
                            <%foreach(var bikebrand in TopMakeList) {%>
                                       <li>
-                                        <a href="/m/<%=bikebrand.MaskingName %>-service-centers-in-india/">
+                                        <a href="/m/<%=bikebrand.MaskingName %>-service-center-in-india/">
                                             <span class="brand-type">
                                                 <span class="lazy brandlogosprite brand-<%=bikebrand.MakeId %>"></span>
                                             </span>
@@ -76,7 +76,7 @@
                                  <%foreach (var bikebrand in OtherMakeList)
                                    {%>
                                       <li>
-                                        <a href="/m/<%=bikebrand.MaskingName %>-service-centers-in-india/">
+                                        <a href="/m/<%=bikebrand.MaskingName %>-service-center-in-india/">
                                             <span class="brand-type">
                                                 <span class="lazy brandlogosprite brand-<%=bikebrand.MakeId %>"></span>
                                             </span>
@@ -100,7 +100,7 @@
         </section>
         <%} %>
         <section>
-            <h2 class="section-heading">Bike troubleshooting - FAQs</h2>
+            <h2 class="section-heading">Bike Troubleshooting - FAQs</h2>
             <div class="container bg-white box-shadow card-bottom-margin padding-bottom20">
                 <ul class="accordion-list">
                     <li>

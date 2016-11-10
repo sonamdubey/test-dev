@@ -3,9 +3,9 @@
 <html>
 <head>
     <%
-        title = "FAQs - BikeWale";
-        keywords = "";
-        description = "";
+        title = "Tips to repair your bikes | Troubleshoot your bike - BikeWale";
+        keywords = " Bike repairs, repairing bikes, troubleshooting bikes, bike repairing, bike issues ";
+        description = "BikeWale brings you some of the common tips to troubleshoot your bike. Check out the troubleshooting tips from Bike Experts.";
 
         AdPath = "";
         AdId = "";    
@@ -27,7 +27,7 @@
                 <div class="faq-top-banner">
                   <!-- Top banner code starts here -->
 			        <h1 class="text-uppercase text-white text-center padding-top30 font25">FAQ<span class="font16">s</span></h1>
-                    <p class=" font16 text-white text-center">What can we help you with?</p>
+                    <h2 class=" font16 text-white text-center">What can we help you with?</h2>
                 </div>
                 <!-- Top banner code ends here --> 
             </div>

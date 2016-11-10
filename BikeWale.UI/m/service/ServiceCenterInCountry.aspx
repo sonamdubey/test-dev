@@ -6,7 +6,7 @@
      <% 
          title = string.Format("Authorised {0}  Service Centers in India | {0} bike servicing  in India -  BikeWale", objMMV.MakeName);
          keywords = string.Format("{0} Servicing centers, {0} service centers, {0} service center contact details, Service Schedule for {0} bikes, bike repair, {0} bike repairing", objMMV.MakeName);
-         description = string.Format("There are {1} authorised {0}  service centers in {2} in India. Get in touch with your nearest {0} bikes service center to get your bike serviced. Check your service schedules now.", objMMV.MakeName, ServiceCenterList.ServiceCenterCount, ServiceCenterList.CityCount);
+         description = string.Format("There are {1} authorised {0}  service centers in {2} cities in India. Get in touch with your nearest {0} bikes service center to get your bike serviced. Check your service schedules now.", objMMV.MakeName, ServiceCenterList.ServiceCenterCount, ServiceCenterList.CityCount);
          canonical = string.Format("http://www.bikewale.com/{0}-service-centers-in-india/", objMMV.MaskingName);
         AdPath = "/1017752/Bikewale_Mobile_Model";
         AdId = "1444028976556";
@@ -77,9 +77,8 @@
             <BW:BikeCare runat="server" ID="ctrlBikeCare" />
         </section>
         <%} %>
-        <%} %>
         <section>
-            <h2 class="section-heading">Bike troubleshooting - FAQs</h2>
+            <h2 class="section-heading">Bike Troubleshooting - FAQs</h2>
             <div class="container bg-white box-shadow card-bottom-margin padding-bottom20">
                 <ul class="accordion-list">
                          <li>
@@ -119,7 +118,7 @@ Revving the motorcycle to the redline will not make the battery charge faster â€
                 </div>
             </div>
         </section>
-
+        <%} %>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
