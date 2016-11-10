@@ -62,10 +62,11 @@ namespace Bikewale.Mobile.Service
             }
 
         }
-        private bool checkDealersForMakeCity(ushort _makeId)
+        private bool checkDealersForMakeCity(ushort makeId)
         {
             GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
-            cityId = currentCityArea.CityId;
+            if (currentCityArea != null)
+                cityId = currentCityArea.CityId;
             if (cityId > 0)
             {
                 IEnumerable<CityEntityBase> cities = null;

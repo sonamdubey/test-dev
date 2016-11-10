@@ -5,10 +5,7 @@
     <%
         title = "Tips to repair your bikes | Troubleshoot your bike - BikeWale";
         keywords = " Bike repairs, repairing bikes, troubleshooting bikes, bike repairing, bike issues ";
-        description = "BikeWale brings you some of the common tips to troubleshoot your bike. Check out the troubleshooting tips from Bike Experts.";
-
-        AdPath = "";
-        AdId = "";    
+        description = "BikeWale brings you some of the common tips to troubleshoot your bike. Check out the troubleshooting tips from Bike Experts."; 
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <style type="text/css">
