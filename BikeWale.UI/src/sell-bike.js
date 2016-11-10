@@ -468,7 +468,7 @@ var bikeDetails = function () {
         },
         {
             validator: validation.kmsMaxValue,
-            message: 'Please enter kms value less than 10,00,000',
+            message: 'Please enter valid kms',
             onlyIf: function () {
                 return self.validate();
             }
@@ -494,7 +494,7 @@ var bikeDetails = function () {
         },
         {
             validator: validation.priceMaxValue,
-            message: 'Please enter expected price less than 60,00,000',
+            message: 'Please enter valid price',
             onlyIf: function () {
                 return self.validate();
             }
@@ -592,6 +592,7 @@ var bikeDetails = function () {
         }
 
         scrollToForm.activate();
+        vmSellBike.verificationDetails().status(false);
     };
 
     self.errors = ko.validation.group(self);
@@ -736,6 +737,7 @@ var personalDetails = function () {
 
     self.listYourBike = function () {
         self.validate(true);
+        debugger;
 
         if (!("colorId" in window))
             colorId = 0;
@@ -805,7 +807,7 @@ var personalDetails = function () {
                         vmSellBike.inquiryId(res.InquiryId);
                         vmSellBike.customerId(res.CustomerId);
                     }
-                    else if (res != null && res.Status != null && res.Status.Code == 5) {
+                    else if (res != null && res.Status != null && res.Status.Code == 5) {                    
                         vmSellBike.inquiryId(res.InquiryId);
                         vmSellBike.customerId(res.CustomerId);
                         vmSellBike.formStep(3);
@@ -902,7 +904,7 @@ var verificationDetails = function () {
     });
 
     self.submitUpdatedMobile = function () {
-        self.validateMobile(true);
+        self.validateMobile(true);              
 
         if (self.errorMobile().length === 0) {
             self.updateMobileStatus(false);
@@ -911,6 +913,7 @@ var verificationDetails = function () {
             $('#otpCode').focus();
             self.validateOTP(false);
             scrollToForm.activate();
+            vmSellBike.personalDetails().listYourBike();
         }
         else {
             self.errorMobile.showAllMessages();
@@ -1337,7 +1340,7 @@ $(function () {
     if (isEdit == "True") {
         if (isAuthorized == "False") {
             vmSellBike.isFakeCustomer(true);
-        }        
+        }
         inquiryDetails = JSON.parse(inquiryDetailsJSON);
         var bdetails = vmSellBike.bikeDetails();
         var pdetails = vmSellBike.personalDetails();
@@ -1359,17 +1362,19 @@ $(function () {
         var month = (new Date(inquiryDetails.manufacturingYear)).getMonth();
         bdetails.manufactureMonthName(monthArr[month]);
         $("#select-calendar-box").addClass('selection-done');
-        pdetails.sellerType(inquiryDetails.seller.sellerType);
+        pdetails.sellerTypeVal(inquiryDetails.seller.sellerType);
         pdetails.sellerName(inquiryDetails.seller.customerName);
         pdetails.sellerEmail(inquiryDetails.seller.customerEmail);
         pdetails.sellerMobile(inquiryDetails.seller.customerMobile);
-        pdetails.sellerTypeVal(inquiryDetails.seller.sellerType);
+        pdetails.sellerType(inquiryDetails.seller.sellerType);
         vmSellBike.inquiryId(inquiryDetails.InquiryId);
         vmSellBike.customerId(inquiryDetails.seller.customerId);
         mdetails.adDescription(inquiryDetails.otherInfo.adDescription);
         mdetails.registrationNumber(inquiryDetails.otherInfo.registrationNo);
         mdetails.insuranceType(inquiryDetails.otherInfo.insuranceType);
         $("#select-insuranceType").trigger("change").trigger("chosen:updated");
+        $('#month-list').find("[data-value='" + ((new Date(inquiryDetails.manufacturingYear)).getMonth() + 1) + "']").addClass('selected');
+        $('#year-list').find("[data-value='" + ((new Date(inquiryDetails.manufacturingYear)).getFullYear()) + "']").addClass('selected');
 
         $('#model-select-element select').prop('disabled', true).trigger("chosen:updated");
         $('#make-select-element select').prop('disabled', true).trigger("chosen:updated");
@@ -1380,7 +1385,14 @@ $(function () {
         {
             vmSellBike.formStep(3);
             vmSellBike.initPhotoUpload();
-        }            
+        }
+
+        $('#submitButtonStep1').val("Update and Continue");
+        $('#submitButtonStep2').val("Update and Continue");
+        $('#submitButtonStep3').val("Update my listing");
+        
+
+        debugger;
     }
     else {
         $("#kmsRidden").val('');
