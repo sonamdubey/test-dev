@@ -5,6 +5,7 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Notifications;
 using System;
+using System.Collections.Generic;
 namespace Bikewale.Cache.ServiceCenter
 {
 
@@ -62,6 +63,21 @@ namespace Bikewale.Cache.ServiceCenter
             try
             {
                 return _cache.GetFromCache<ServiceCenterData>(key, new TimeSpan(1, 0, 0, 0), () => _objServiceCenter.GetServiceCentersByCity(cityId, makeId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersCacheRepository.GetServiceCentersByCity");
+                objErr.SendMail();
+            }
+            return null;
+        }
+
+        public IEnumerable<ModelServiceSchedule> GetServiceScheduleByMake(int makeId)
+        {
+            string key = String.Format("BW_ServiceScheduleByMake_{0}", makeId);
+            try
+            {
+                return _cache.GetFromCache<IEnumerable<ModelServiceSchedule>>(key, new TimeSpan(1, 0, 0, 0), () => _objServiceCenter.GetServiceScheduleByMake(makeId));
             }
             catch (Exception ex)
             {

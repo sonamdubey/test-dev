@@ -7,6 +7,7 @@ using Bikewale.DAL.Dealer;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.ServiceCenters;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
@@ -32,20 +33,17 @@ namespace Bikewale.Mobile.Service
     {
         protected Repeater rptModels, rptModelList;
         protected uint dealerId, campaignId = 0, cityId;
-        protected int dealerBikesCount = 0;
+        protected int makeId, dealerBikesCount = 0;
         protected DealerDetailEntity dealerDetails;
         protected bool isDealerDetail;
-        protected string cityName = string.Empty;
-        protected string makeName = string.Empty, dealerName = string.Empty, dealerArea = string.Empty, dealerCity = string.Empty;
+        protected string cityName = string.Empty, makeName = string.Empty, maskingNumber = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, dealerName = string.Empty, dealerArea = string.Empty, dealerCity = string.Empty, clientIP = CommonOpn.GetClientIP();
         protected double dealerLat, dealerLong;
         protected DealersCard ctrlDealerCard;
+        protected ServiceCenterCard ctrlServiceCenterCard;
+        protected ServiceSchedule ctrlServiceSchedule;
         protected LeadCaptureControl ctrlLeadCapture;
-        protected String clientIP = CommonOpn.GetClientIP();
-        protected string maskingNumber;
-        protected string makeMaskingName;
-        protected int makeId;
-        protected string cityMaskingName = String.Empty;
 
+        protected ServiceCenterData centerList = null;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -57,9 +55,39 @@ namespace Bikewale.Mobile.Service
             if (ProcessQueryString() && dealerId > 0)
             {
                 GetDealerDetails();
+                BindControls();
             }
-
         }
+
+        private void BindControls()
+        {
+            ctrlServiceCenterCard.MakeId = 1; //(uint)dealerDetails.MakeId;
+            //ctrlServiceCenterCard.makeMaskingName = dealerDetails.MakeMaskingName;
+            //ctrlServiceCenterCard.makeName = dealerDetails.MakeName;
+            ctrlServiceCenterCard.CityId = 1; //(uint)dealerDetails.CityId;
+            //ctrlServiceCenterCard.cityName = dealerCity;
+            //ctrlServiceCenterCard.PageName = "Dealer_Details";
+            ctrlServiceCenterCard.TopCount = 9;
+            //ctrlServiceCenterCard.PQSourceId = (int)PQSourceEnum.Mobile_dealer_details_Get_offers;
+            //ctrlServiceCenterCard.LeadSourceId = 15;
+            //ctrlServiceCenterCard.DealerId = dealerId;
+
+            ctrlDealerCard.MakeId = (uint)dealerDetails.MakeId;
+            ctrlDealerCard.makeMaskingName = dealerDetails.MakeMaskingName;
+            ctrlDealerCard.makeName = dealerDetails.MakeName;
+            ctrlDealerCard.CityId = (uint)dealerDetails.CityId;
+            ctrlDealerCard.cityName = dealerCity;
+            ctrlDealerCard.PageName = "Dealer_Details";
+            ctrlDealerCard.TopCount = 6;
+            ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_dealer_details_Get_offers;
+            ctrlDealerCard.LeadSourceId = 15;
+            ctrlDealerCard.DealerId = (int)dealerId;
+            ctrlLeadCapture.CityId = (uint)dealerDetails.CityId;
+
+            ctrlServiceSchedule.makeId = 1;
+            ctrlLeadCapture.CityId = (uint)dealerDetails.CityId;
+        }
+
 
         #region Get Dealer Details
         /// <summary>
@@ -80,19 +108,15 @@ namespace Bikewale.Mobile.Service
                 {
                     container.RegisterType<IDealerCacheRepository, DealerCacheRepository>()
                              .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IDealer, DealersRepository>()
-                            ;
+                             .RegisterType<IDealer, DealersRepository>();
                     var objCache = container.Resolve<IDealerCacheRepository>();
-                    dealer = objCache.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId);
 
+                    dealer = objCache.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId);
                     if (dealer != null && dealer.DealerDetails != null)
                     {
                         dealerDetails = dealer.DealerDetails;
-
                         isDealerDetail = true;
-
                         cityMaskingName = dealerDetails.CityMaskingName;
-
                         dealerName = dealerDetails.Name;
                         dealerArea = dealerDetails.Area.AreaName;
                         dealerCity = dealerDetails.City;
@@ -101,24 +125,9 @@ namespace Bikewale.Mobile.Service
                             dealerLat = dealerDetails.Area.Latitude;
                             dealerLong = dealerDetails.Area.Longitude;
                         }
-                        ctrlDealerCard.MakeId = (uint)dealerDetails.MakeId;
-                        ctrlDealerCard.makeMaskingName = dealerDetails.MakeMaskingName;
-                        ctrlDealerCard.makeName = dealerDetails.MakeName;
-                        ctrlDealerCard.CityId = (uint)dealerDetails.CityId;
-                        ctrlDealerCard.cityName = dealerCity;
-                        ctrlDealerCard.PageName = "Dealer_Details";
-                        ctrlDealerCard.TopCount = 6;
-                        ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_dealer_details_Get_offers;
-                        ctrlDealerCard.LeadSourceId = 15;
-
                         makeName = dealerDetails.MakeName;
                         campaignId = dealerDetails.CampaignId;
-                        ctrlDealerCard.DealerId = (int)dealerId;
-
-                        ctrlLeadCapture.CityId = (uint)dealerDetails.CityId;
-
                         maskingNumber = dealerDetails.MaskingNumber;
-
                         if (dealer.Models != null && dealer.Models.Count() > 0)
                         {
                             rptModels.DataSource = dealer.Models;
@@ -136,11 +145,9 @@ namespace Bikewale.Mobile.Service
             }
             catch (Exception ex)
             {
-                Trace.Warn(ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, "GetDealerDetails");
                 objErr.SendMail();
             }
-
         }
         #endregion
 
@@ -148,13 +155,7 @@ namespace Bikewale.Mobile.Service
         /// <summary>
         /// Created By : Sushil Kumar
         /// Created On : 16th March 2016 
-        /// Description : Private Method to parse encoded query string and get values for dealerId and campaignId
-        /// Modified By : Lucky Rathore on 30 March 2016
-        /// Description : Renamed dealerQuery from _dealerQuery.
-        /// Modified By : Sajal Gupta on 29-09-2016
-        /// Description : Changed query string parametres.
-        /// Modified by :   Sumit Kate on 03 Oct 2016
-        /// Description :   Handle Make masking name rename 301 redirection
+        /// Description : Process query string dealerId and campaignId
         /// </summary>
         private bool ProcessQueryString()
         {
@@ -163,23 +164,18 @@ namespace Bikewale.Mobile.Service
             bool isSucess = true;
             try
             {
-
                 if (currentReq.QueryString != null && currentReq.QueryString.HasKeys())
                 {
                     uint.TryParse(currentReq.QueryString["dealerId"], out dealerId);
                     makeMaskingName = currentReq.QueryString["makemaskingname"];
-
                     if (!String.IsNullOrEmpty(makeMaskingName))
                     {
-
                         using (IUnityContainer container = new UnityContainer())
                         {
                             container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
                                   .RegisterType<ICacheManager, MemcacheManager>()
-                                  .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
-                                 ;
+                                  .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
                             var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
-
                             objResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
                         }
                     }
@@ -202,7 +198,6 @@ namespace Bikewale.Mobile.Service
             }
             catch (Exception ex)
             {
-                Trace.Warn("ProcessQueryString Ex: ", ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, currentReq.ServerVariables["URL"]);
                 objErr.SendMail();
                 isSucess = false;

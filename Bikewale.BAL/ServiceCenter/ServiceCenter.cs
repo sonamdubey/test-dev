@@ -4,6 +4,7 @@ using Bikewale.Entities.ServiceCenters;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Notifications;
 using System;
+using System.Collections.Generic;
 namespace Bikewale.BAL.ServiceCenter
 {
     /// <summary>
@@ -52,6 +53,28 @@ namespace Bikewale.BAL.ServiceCenter
                 objErr.SendMail();
             }
             return objServiceCenterData;
+        }
+
+        /// <summary>
+        /// Created By : Sangram Nandkhile on 09/11/2016
+        /// Description: BAL layer Function for fetching service schedule from cache
+        /// </summary>
+        public IEnumerable<ModelServiceSchedule> GetServiceScheduleByMake(int makeId)
+        {
+            IEnumerable<ModelServiceSchedule> objServiceSchedule = null;
+            try
+            {
+                if (_objServiceCenter != null && makeId > 0)
+                {
+                    objServiceSchedule = _objServiceCenter.GetServiceScheduleByMake(makeId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ServiceCenters.GetServiceScheduleByMake");
+                objErr.SendMail();
+            }
+            return objServiceSchedule;
         }
     }
 }

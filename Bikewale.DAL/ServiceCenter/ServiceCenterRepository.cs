@@ -170,16 +170,16 @@ namespace Bikewale.DAL.ServiceCenter
                         {
                             serviceCenters = new ServiceCenterData();
                             objServiceCenterList = new List<ServiceCenterDetails>();
-                            ServiceCenterDetails objServiceCenterDetails = new ServiceCenterDetails();
+                            ServiceCenterDetails objServiceCenterDetails = null;
 
                             while (dr.Read())
                             {
+                                objServiceCenterDetails = new ServiceCenterDetails();
                                 objServiceCenterDetails.ServiceCenterId = SqlReaderConvertor.ToUInt32(dr["id"]);
                                 objServiceCenterDetails.Name = Convert.ToString(dr["name"]);
                                 objServiceCenterDetails.Address = Convert.ToString(dr["address"]);
                                 objServiceCenterDetails.Phone = Convert.ToString(dr["phone"]);
                                 objServiceCenterDetails.Mobile = Convert.ToString(dr["mobile"]);
-
                                 objServiceCenterList.Add(objServiceCenterDetails);
                             }
 
@@ -192,7 +192,6 @@ namespace Bikewale.DAL.ServiceCenter
                                     serviceCenters.Count = SqlReaderConvertor.ToUInt32(dr["totalServiceCenters"]);
                                 }
                             }
-
                             dr.Close();
                         }
                     }
@@ -206,6 +205,63 @@ namespace Bikewale.DAL.ServiceCenter
             return serviceCenters;
         }
 
+        /// <summary>
+        /// Created By : Sangram Nandkhile on 09/11/2016
+        /// Description: DAL layer Function for fetching Service Schedule data
+        /// </summary>
+        public IEnumerable<ModelServiceSchedule> GetServiceScheduleByMake(int makeId)
+        {
+            IList<ModelServiceSchedule> modelSchedules = null;
+            ModelServiceSchedule model = null;
+            IList<ServiceScheduleBase> scheduleList = null;
+            ServiceScheduleBase schedule = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getserviceschedulebymake"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            modelSchedules = new List<ModelServiceSchedule>();
+                            while (dr.Read())
+                            {
+                                model = new ModelServiceSchedule();
+                                model.Schedules = new List<ServiceScheduleBase>();
+                                model.ModelId = SqlReaderConvertor.ToInt32(dr["id"]);
+                                model.ModelName = Convert.ToString(dr["bikename"]);
+                                modelSchedules.Add(model);
+                            }
+                            scheduleList = new List<ServiceScheduleBase>();
+                            if (dr.NextResult())
+                            {
+                                while (dr.Read())
+                                {
+                                    schedule = new ServiceScheduleBase();
+                                    ushort curModel = SqlReaderConvertor.ToUInt16(dr["bikemodelid"]);
+                                    schedule.ServiceNo = SqlReaderConvertor.ToUInt32(dr["serviceno"]);
+                                    schedule.Kms = Convert.ToString(dr["kms"]);
+                                    schedule.Days = SqlReaderConvertor.ToUInt32(dr["days"]);
+                                    ModelServiceSchedule selectedModel = modelSchedules.FirstOrDefault(x => x.ModelId == curModel);
+                                    if (selectedModel != null)
+                                        selectedModel.Schedules.Add(schedule);
+                                }
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Error in ServiceCentersRepository.GetServiceScheduleByMake for paramerters makeId : {0}", makeId));
+                objErr.SendMail();
+            }
+            return modelSchedules;
+        }
 
     }
 }

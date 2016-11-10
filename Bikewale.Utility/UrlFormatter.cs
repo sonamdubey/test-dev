@@ -206,6 +206,12 @@ namespace Bikewale.Utility
             return dealerUrl;
         }
 
+        public static string GetServiceCenterUrl(string makeMaskingName, string cityMaskingName, string dealerName, int dealerId)
+        {
+            string dealerUrl = string.Empty;
+            dealerUrl = string.Format("/{0}-dealer-showrooms-in-{1}/{2}-{3}/", makeMaskingName, cityMaskingName, dealerId, RemoveSpecialCharUrl(dealerName));
+            return dealerUrl;
+        }
     }
 }
 
