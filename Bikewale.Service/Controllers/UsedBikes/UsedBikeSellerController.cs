@@ -91,14 +91,14 @@ namespace Bikewale.Service.Controllers.UsedBikes
 
 
         [HttpPost, ResponseType(typeof(bool)), Route("api/used/sell/listing/{profileId}/verifymobile/")]
-        public IHttpActionResult Post([FromBody]SellerDTO seller)
+        public IHttpActionResult Post([FromBody]SellerDTO seller,[FromUri]int profileId)
         {
             SellerEntity sellerEntity = null;
             bool result;
             if (ModelState.IsValid)
             {
                 sellerEntity = UsedBikeBuyerMapper.Convert(seller);
-                result = _usedBikesRepo.VerifyMobile(sellerEntity);
+                result = _usedBikesRepo.VerifyMobile(sellerEntity,profileId);
                 return Ok(result);
             }
             else

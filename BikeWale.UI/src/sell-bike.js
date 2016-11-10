@@ -930,7 +930,8 @@ var verificationDetails = function () {
             var mobileVerificationData = {
                 "sellerType": vmSellBike.personalDetails().sellerTypeVal() ,
                 "otp": otp,
-                "customerMobile": mobile
+                "customerMobile": mobile,
+                "customerId"    : vmSellBike.customerId()
             }
 
             $.ajax({
