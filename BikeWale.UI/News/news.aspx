@@ -5,12 +5,16 @@
 <html>
 <head>
 	<%
-		title = articleTitle + " - BikeWale News";
-		description = "BikeWale coverage on " + articleTitle + ". Get the latest reviews and photos for " + articleTitle + " on BikeWale coverage.";
-		canonical= "http://www.bikewale.com/news/" + basicId + "-" + articleUrl + ".html";
-		fbTitle 		= title;
-		fbImage = GetMainImagePath();//fbLogoUrl;
-		alternate = "http://www.bikewale.com/m/news/" + basicId + "-" + articleUrl + ".html";
+        if(metas!=null)
+        {
+            title = metas.Title;
+            description = metas.Description;
+            canonical = metas.CanonicalUrl;
+            fbTitle = metas.Title;
+            fbImage = metas.ShareImage;
+            alternate = metas.AlternateUrl;  
+        }
+		
 		AdId="1395995626568";
 		AdPath="/1017752/BikeWale_News_";
 	%>
@@ -41,34 +45,37 @@
                                 <span itemprop="title">Bike News</span>
                             </a>
                         </li>
-                        <li><span class="bwsprite fa-angle-right margin-right10"></span><%= articleTitle%></li>
+                        <% if(objArticle!=null) { %>
+                        <li><span class="bwsprite fa-angle-right margin-right10"></span><%= objArticle.Title  %></li> 
+                         <% } %>
                     </ul>
                     <div class="clear"></div>
                 </div>
             </div>
             <div class="clear"></div>
         </section>
-
+        
 		<section>
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div id="content" class="grid-8 alpha">
                         <div class="bg-white">
+                            <% if(objArticle!=null) { %>
                             <div class="section-header">
-                                <h1 class="margin-bottom5"><%= articleTitle %></h1>
+                                <h1 class="margin-bottom5"><%= objArticle.Title %></h1>
 								<div>
 									<span class="bwsprite calender-grey-sm-icon"></span>
-									<span class="article-stats-content margin-right20"><%= Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "MMMM dd, yyyy hh:mm tt") %></span>
+									<span class="article-stats-content margin-right20"><%= Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(objArticle.DisplayDate), "MMMM dd, yyyy hh:mm tt") %></span>
 									<span class="bwsprite author-grey-sm-icon"></span>
-									<span class="article-stats-content"><%= authorName%></span>
+									<span class="article-stats-content"><%= objArticle.AuthorName %></span>
 								</div>
                             </div>
                             <div class="section-inner-padding">
-								<div id="post-<%= basicId%>">
+								<div id="post-<%= objArticle.BasicId %>">
 									<div class="article-content padding-top5">
-										<%if(!String.IsNullOrEmpty(GetMainImagePath())) %>
-											<div style="text-align:center;"><img alt='<%= articleTitle%>' title='<%= articleTitle%>' src='<%= GetMainImagePath() %>'></div>
-										<%= content %>
+										<%if(!String.IsNullOrEmpty(metas.ShareImage)) %>
+											<div style="text-align:center;"><img alt='<%= objArticle.Title %>' title='<%= objArticle.Title %>' src='<%= metas.ShareImage %>'></div>
+										<%= objArticle.Content %>
 										<div class="clear"></div>
 									</div>
 								</div>
@@ -94,6 +101,7 @@
 								</div>
 								<div class="clear"></div>
 							</div>
+                            <% } %>
 						</div>
 					</div>
 
@@ -148,21 +156,14 @@
                                 <a href="" class="font14">View all upcoming Royal Enfield bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
                             </div>
                         </div>
-						<%--<div class="margin-top15">
-                            <!-- BikeWale_News/BikeWale_News_300x250 -->
-                            <!-- #include file="/ads/Ad300x250.aspx" -->
-                        </div>--%>
-
-                        <%--<div>
-                            <!-- BikeWale_News/BikeWale_News_300x250 -->
-                            <!-- #include file="/ads/Ad300x250BTF.aspx" -->
-                        </div>--%>
 					</div>
 					<div class="clear"></div>
 				</div>
 				<div class="clear"></div>
 			</div>
 		</section>
+
+        
 
 		<!-- #include file="/includes/footerBW.aspx" -->
 
