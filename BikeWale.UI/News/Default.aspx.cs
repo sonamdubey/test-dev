@@ -24,7 +24,7 @@ namespace Bikewale.News
     /// </summary>
     public class Default : System.Web.UI.Page
     {
-        protected UpcomingBikesCMS ctrlUpcomingBikes;
+        protected UpcomingBikesMinNew ctrlUpcomingBikes;
         protected Repeater rptNews;
         //protected LinkPagerControl linkPager;
         protected Bikewale.Mobile.Controls.LinkPagerControl ctrlPager;
@@ -37,7 +37,7 @@ namespace Bikewale.News
         //No. of news to be displayed on a page
         private const int _pageSize = 10;
 
-        private const int _pagerSlotSize = 5;
+        private const int _pagerSlotSize = 10;
 
         protected override void OnInit(EventArgs e)
         {
@@ -115,7 +115,6 @@ namespace Bikewale.News
                         BindMobileLinkPager(objPager, Convert.ToInt32(objNews.RecordCount));
 
                         BindUpcoming();
-                        //BindLinkPager(objPager, Convert.ToInt32(objNews.RecordCount));
                     }
                 }
             }
@@ -133,46 +132,6 @@ namespace Bikewale.News
             rptNews.DataBind();
         }
 
-        /// <summary>
-        /// Written By : Ashwini Todkar on 24 Sept 2014
-        /// PopulateWhere to bind link pager control 
-        /// </summary>
-        /// <param name="objPager"> Pager instance </param>
-        /// <param name="recordCount"> total news available</param>
-        /*private void BindLinkPager(IPager objPager, int recordCount)
-        {
-            PagerOutputEntity _pagerOutput = null;
-            PagerEntity _pagerEntity = null;
-
-            try
-            {
-                _pagerEntity = new PagerEntity();
-                _pagerEntity.BaseUrl = "/news/";
-                _pagerEntity.PageNo = _pageNumber; //Current page number
-                _pagerEntity.PagerSlotSize = _pagerSlotSize; // 5 links on a page
-                _pagerEntity.PageUrlType = "page/";
-                _pagerEntity.TotalResults = recordCount; //total News count
-                _pagerEntity.PageSize = _pageSize;        //No. of news to be displayed on a page
-
-                _pagerOutput = objPager.GetPager<PagerOutputEntity>(_pagerEntity);
-
-                // for RepeaterPager
-                linkPager.PagerOutput = _pagerOutput;
-                linkPager.CurrentPageNo = _pageNumber;
-                linkPager.TotalPages = objPager.GetTotalPages(recordCount, _pageSize);
-                linkPager.BindPagerList();
-
-                //For SEO
-                CreatePrevNextUrl(linkPager.TotalPages);
-            }
-            catch (Exception ex)
-            {
-                Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-        }
-         * */
 
         private void BindMobileLinkPager(IPager objPager, int recordCount)
         {
@@ -203,7 +162,7 @@ namespace Bikewale.News
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " Bikewale.News.BindMobileLinkPager");
                 objErr.SendMail();
             }
         }
@@ -296,7 +255,9 @@ namespace Bikewale.News
         private void BindUpcoming()
         {
             ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            ctrlUpcomingBikes.pageSize = 4;          
+            ctrlUpcomingBikes.pageSize = 9;
+            ctrlUpcomingBikes.topCount = 4;
+            ctrlUpcomingBikes.upcomingBikesLink = "/upcoming-bikes/";
         }
 
     }//End of Class

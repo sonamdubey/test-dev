@@ -29,7 +29,7 @@ namespace Bikewale.Content
         protected Repeater rptFeatures;
         protected Bikewale.Mobile.Controls.LinkPagerControl ctrlPager;
         protected string prevUrl = string.Empty, nextUrl = string.Empty;
-        protected UpcomingBikesCMS ctrlUpcomingBikes;
+        protected UpcomingBikesMinNew ctrlUpcomingBikes;
         private int _pageNo = 1;
         private const int _pageSize = 10, _pagerSlotSize = 5;
         private bool _isContentFound = true;  
@@ -193,8 +193,9 @@ namespace Bikewale.Content
         {
                        
             ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            ctrlUpcomingBikes.pageSize = 4;
-           
+            ctrlUpcomingBikes.pageSize = 9;
+            ctrlUpcomingBikes.topCount = 4;
+            ctrlUpcomingBikes.upcomingBikesLink = "/upcoming-bikes/";
         }
     }
 }

@@ -23,9 +23,13 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Content
 {
+    /// <summary>
+    /// Modified By : Aditi Srivastava on 10 Nov 2016
+    /// Description : Added control for upcoming bikes widget
+    /// </summary>
     public class ViewRT : System.Web.UI.Page
     {
-        protected UpcomingBikesCMS ctrlUpcomingBikes;
+        protected UpcomingBikesMinNew ctrlUpcomingBikes;
         protected Repeater rptPages, rptPageContent;
         private string _basicId = string.Empty;
         protected ArticlePageDetails objRoadtest;
@@ -225,7 +229,7 @@ namespace Bikewale.Content
         {
             if (objRoadtest.VehiclTagsList.Any(m => (m.MakeBase != null)))
             {
-                makeId = objRoadtest.VehiclTagsList.Select(e => e.MakeBase).First().MakeId;
+                makeId = objRoadtest.VehiclTagsList.First().MakeBase.MakeId;
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
@@ -247,15 +251,16 @@ namespace Bikewale.Content
         {
             if (String.IsNullOrEmpty(makeMaskingName))
             {
-                upcomingBikesLink = "/upcoming-bikes/";
+                ctrlUpcomingBikes.upcomingBikesLink = "/upcoming-bikes/";
             }
             else
             {
-                upcomingBikesLink = String.Format("/{0}-bikes/upcoming/", makeMaskingName);
+                ctrlUpcomingBikes.upcomingBikesLink = String.Format("/{0}-bikes/upcoming/", makeMaskingName);
             }
             ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            ctrlUpcomingBikes.pageSize = 3;
+            ctrlUpcomingBikes.pageSize = 9;
             ctrlUpcomingBikes.MakeId = makeId;
+            ctrlUpcomingBikes.topCount = 3;
         }
     }
 }

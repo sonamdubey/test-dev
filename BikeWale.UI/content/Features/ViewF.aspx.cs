@@ -26,13 +26,16 @@ namespace Bikewale.Content
 {
     /// <summary>
     /// Modified By : Ashwini Todkar on 24 Sept 2014
+    /// Modified By : Aditi Srivastava on 10 Nov 2016
+    /// Description : Added control for upcoming bikes widget
+    /// </summary>
     /// </summary>
     public class ViewF : System.Web.UI.Page
     {
         //protected DropDownList drpPages, drpPages_footer;
         protected Repeater rptPages, rptPageContent;
         protected ArticlePhotoGallery ctrPhotoGallery;
-        protected UpcomingBikesCMS ctrlUpcomingBikes;
+        protected UpcomingBikesMinNew ctrlUpcomingBikes;
         //protected DataList dlstPhoto;
         protected HtmlGenericControl topNav, bottomNav;
         protected string PageId = "1", Str = string.Empty, canonicalUrl = String.Empty;
@@ -195,7 +198,7 @@ namespace Bikewale.Content
         {
             if (objFeature.VehiclTagsList.Any(m => (m.MakeBase != null)))
             {
-                makeId = objFeature.VehiclTagsList.Select(e => e.MakeBase).First().MakeId;
+                makeId = objFeature.VehiclTagsList.First().MakeBase.MakeId;
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
@@ -217,15 +220,16 @@ namespace Bikewale.Content
         {
             if (String.IsNullOrEmpty(makeMaskingName))
             {
-                upcomingBikeslink = "/upcoming-bikes/";
+                ctrlUpcomingBikes.upcomingBikesLink = "/upcoming-bikes/";
             }
             else
             {
-                upcomingBikeslink = String.Format("/{0}-bikes/upcoming/", makeMaskingName);
+                ctrlUpcomingBikes.upcomingBikesLink  = String.Format("/{0}-bikes/upcoming/", makeMaskingName);
             }
             ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            ctrlUpcomingBikes.pageSize = 3;
+            ctrlUpcomingBikes.pageSize = 9;
             ctrlUpcomingBikes.MakeId = makeId;
+            ctrlUpcomingBikes.topCount = 3;
         }
     }
 }

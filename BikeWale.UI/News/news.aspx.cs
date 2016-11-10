@@ -22,18 +22,20 @@ namespace Bikewale.News
 {
     /// <summary>
     /// Created By : Ashwini Todkar on 3 Oct 2014
+    /// Modified By : Aditi Srivastava on 10 Nov 2016
+    /// Description : Added control for upcoming bikes widget
     /// </summary>
-    public class news : System.Web.UI.Page
+     public class news : System.Web.UI.Page
     {
         private string _basicId = string.Empty;
         bool _isContentFount = true;
         protected ArticleDetails objArticle = null;
-        protected UpcomingBikesCMS ctrlUpcomingBikes;
+        protected UpcomingBikesMinNew ctrlUpcomingBikes;
         protected string articleUrl = string.Empty, articleTitle = string.Empty, HostUrl = string.Empty, basicId = string.Empty, smallPicUrl = string.Empty, authorName = string.Empty, nextPageArticle = string.Empty, prevPageArticle = string.Empty, originalImgUrl = string.Empty;
         protected string displayDate = string.Empty, mainImgCaption = string.Empty, largePicUrl = string.Empty, content = string.Empty, prevPageUrl = string.Empty, nextPageUrl = string.Empty, hostUrl = string.Empty;
         protected bool isMainImageSet = false;
         protected int makeId;
-        protected string makeMaskingName,upcomingBikesLink;
+        protected string makeMaskingName;
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -175,7 +177,7 @@ namespace Bikewale.News
         {
             if (objArticle.VehiclTagsList.Any(m => (m.MakeBase!=null)))
             {
-                makeId = objArticle.VehiclTagsList.Select(e => e.MakeBase).First().MakeId;
+                makeId = objArticle.VehiclTagsList.First().MakeBase.MakeId;
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
@@ -197,15 +199,16 @@ namespace Bikewale.News
         {
             if (String.IsNullOrEmpty(makeMaskingName))
             {
-                upcomingBikesLink = "/upcoming-bikes/";
+                ctrlUpcomingBikes.upcomingBikesLink = "/upcoming-bikes/";
             }
             else
             {
-                upcomingBikesLink = String.Format("/{0}-bikes/upcoming/",makeMaskingName);
+                ctrlUpcomingBikes.upcomingBikesLink = String.Format("/{0}-bikes/upcoming/", makeMaskingName);
             }
             ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            ctrlUpcomingBikes.pageSize = 3;
+            ctrlUpcomingBikes.pageSize = 9;
             ctrlUpcomingBikes.MakeId = makeId;
+            ctrlUpcomingBikes.topCount = 3;
         }
 
     }

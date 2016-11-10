@@ -2,7 +2,7 @@
 
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" Src="~/m/controls/LinkPagerControl.ascx" %>
-<%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpComingBikesCMS.ascx" %>
+<%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpcomingBikesMinNew.ascx" %>
 <!Doctype html>
 <html>
 <head>
@@ -154,16 +154,8 @@
                                 </li>
                             </ul>
                         </div>
-                        <% if (ctrlUpcomingBikes.FetchedRecordsCount > 0)
-                           { %>
-                        <div class="content-box-shadow padding-15-20-10 margin-bottom20">
-                        <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
-                        <div class="margin-top10 margin-bottom10">
-                                <a href="/upcoming-bikes/" class="font14">View all upcoming bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
-                            </div>
-                            </div>
-                        <% } %>
-                        <div class="margin-bottom20">
+                         <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
+                         <div class="margin-bottom20">
                             <!-- Ad -->
                         </div>
                         

@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.ViewF" Trace="false" Debug="false" Async="true" %>
 <%@ Register TagPrefix="PG" TagName="PhotoGallery" Src="/controls/ArticlePhotoGallery.ascx" %>
-<%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpComingBikesCMS.ascx" %>
+<%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpcomingBikesMinNew.ascx" %>
 <!Doctype html>
 <html>
 <head>
@@ -144,15 +144,7 @@
                         </div>
                     </div>
                     <div class="grid-4 omega">
-                         <% if (ctrlUpcomingBikes.FetchedRecordsCount > 0)
-                           { %>
-                        <div class="content-box-shadow padding-15-20-10 margin-bottom20">
                         <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
-                        <div class="margin-top10 margin-bottom10">
-                                <a href="<%=upcomingBikeslink%>" class="font14">View all upcoming bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
-                            </div>
-                            </div>
-                        <% } %>
                         <div class="margin-top15">
                             <!-- bikewale_newbike/bikewale_newbike_hp_300x250 -->
                             <!-- #include file="/ads/ad300x250.aspx" -->
