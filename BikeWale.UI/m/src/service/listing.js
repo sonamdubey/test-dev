@@ -27,7 +27,7 @@ contactPopup.on('click', '.popup-list li', function () {
 $('.contact-service-btn').on('click', function () {
     modalPopup.open(contactPopup);
     appendState('contactService');
-    contactServicePopup.initial.selection();
+    contactServicePopup.set.contactList($(this));
 });
 
 $('.cancel-popup-btn').on('click', function () {
@@ -67,6 +67,23 @@ var contactServicePopup = {
     },
 
     set: {
+        contactList: function (element) {
+            var serviceName = element.attr('data-service-name'),
+                serviceNumbers = element.attr('data-service-number'),
+                contacts = serviceNumbers.split(','),
+                contactsLength = contacts.length,
+                popupList = contactPopup.find('.popup-list');
+
+            popupList.empty();
+
+            contactPopup.find('.popup-header').text(serviceName);
+            for (var i = 0; i < contactsLength; i++) {
+                popupList.append('<li><span class="bwmsprite radio-uncheck"></span><span class="list-label">' + contacts[i] + '</span></li>');
+            };
+
+            contactServicePopup.initial.selection();
+        },
+
         selection: function (element) {
             var elementValue = element.find('.list-label').text();
 

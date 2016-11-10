@@ -14,7 +14,7 @@ readMoreTarget.on('click', function () {
     }
     else {
         serviceMoreContent.removeClass('active');
-        readMoreTarget.text('Read more');
+        readMoreTarget.text('... Read more');
     }
 });
 
@@ -26,6 +26,7 @@ $('#location-list').on('click', '.type-state', function (event) {
 
     if (!item.hasClass('active')) {
         $('.location-list-city').hide();
+        $('#location-list .type-state.active').removeClass('active');
         item.addClass('active').siblings('.location-list-city').show();
     }
     else {

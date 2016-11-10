@@ -24,7 +24,7 @@
 #service-more-content {
   display: none; }
   #service-more-content.active {
-    display: block; }
+    display: inline; }
 
 .padding-15-20 {
   padding: 15px 20px; }

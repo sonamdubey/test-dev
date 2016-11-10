@@ -36,7 +36,7 @@
             <div class="container bg-white card-bottom-margin">
                 <h1 class="card-header"><%=objMMV.MakeName %> service centers in India</h1>
                 <div class="card-inner-padding font14 text-light-grey">
-                    <p id="service-main-content">There are <%=ServiceCenterList.ServiceCenterCount %> authorised <%=objMMV.MakeName %> service centers in India. BikeWale strongly recommends you to avail services only from authorized <%=objMMV.MakeName %> service centers. These authorised service centers are </p><p id="service-more-content">spread over <%=ServiceCenterList.CityCount%> cities to service your <%=objMMV.MakeName %> bike and keep your bike moving. Enter the name of your city in the search box provided below to find authorised <%=objMMV.MakeName %> service centers in your city.</p><a href="javascript:void(0)" id="read-more-target" rel="nofollow">Read more</a>
+                    <p id="service-main-content">There are <%=ServiceCenterList.ServiceCenterCount %> authorised <%=objMMV.MakeName %> service centers in India. BikeWale strongly recommends you to avail services only from authorized <%=objMMV.MakeName %> service centers. These authorised service centers are</p><p id="service-more-content"> spread over <%=ServiceCenterList.CityCount%> cities to service your <%=objMMV.MakeName %> bike and keep your bike moving. Enter the name of your city in the search box provided below to find authorised <%=objMMV.MakeName %> service centers in your city. </p><a href="javascript:void(0)" id="read-more-target" rel="nofollow">... Read more</a>
                 </div>
             </div>
         </section>
