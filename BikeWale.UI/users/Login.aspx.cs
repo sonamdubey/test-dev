@@ -9,14 +9,16 @@ using System.Web.UI.WebControls;
 
 namespace BikWale.Users
 {
+    /// <summary>
+    /// Modified by: Sangram Nandkhile
+    /// Summary: Removed unused variables, 
+    /// </summary>
     public class Login : System.Web.UI.Page
     {
         protected Button btnLogin, btnSignup;
         protected HtmlGenericControl errEmail;
         protected TextBox txtLoginid, txtPasswd, txtNameSignup, txtEmailSignup, txtMobileSignup, txtRegPasswdSignup;
         protected HiddenField hdnAuthData;
-        public string RedirectUrl = "/";
-        bool logout = false;
 
         protected override void OnInit(EventArgs e)
         {
@@ -30,10 +32,6 @@ namespace BikWale.Users
             if (!IsPostBack)
             {
                 if (Request["logout"] != null && Request.QueryString["logout"] == "logout")
-                {
-                    logout = true;
-                }
-                if (logout)
                 {
                     CurrentUser.EndSession();
                     HttpCookie rememberMe = Request.Cookies.Get("RememberMe");
@@ -146,12 +144,13 @@ namespace BikWale.Users
         }
 
         /// <summary>
+        /// Modidied by :Sangram on 9 nov 2016
         /// Desc: Redirect to return url after login or logout
         /// </summary>
         private void RedirectPath()
         {
             string returnUrl = Request.QueryString["ReturnUrl"];
-            if (!string.IsNullOrEmpty(returnUrl) && IsLocalUrl(returnUrl))
+            if (IsLocalUrl(returnUrl))
             {
                 Response.Redirect(returnUrl, false);
             }
@@ -163,7 +162,8 @@ namespace BikWale.Users
         }
 
         /// <summary>
-        /// Function to check if url is local url or not
+        /// Created by : Sangram Nandkhile on 09 Nov 2016
+        /// Desc: Function to check if url is local url or not
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>

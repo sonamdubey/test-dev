@@ -20,6 +20,8 @@ namespace Bikewale.DAL.Used.Search
         /// Function to get the used bikes search results from the database
         /// Modified by :   Sumit Kate on 25 Oct 2016
         /// Description :   read LastUpdated from data reader
+        /// Modified by :   Sangram Nandkhile on 09 Nov 2016
+        /// Description :   Added lower() for profile id
         /// </summary>
         /// <param name="searchQuery">Pass acutal sql query which needs to be executed in db</param>
         /// <returns></returns>
