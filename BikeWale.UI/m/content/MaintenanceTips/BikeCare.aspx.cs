@@ -22,14 +22,10 @@ using System.Web;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.Mobile.Content
+namespace Bikewale.m.content.MaintenanceTips
 {
-    /// <summary>
-    /// Created By : Ashwini Todkar on 21 May 2014
-    /// </summary>
-    public class RoadTest : System.Web.UI.Page
+    public class BikeCare : System.Web.UI.Page
     {
-        protected Repeater rptRoadTest;
         protected ListPagerControl listPager;
         protected DropDownList ddlMakes;
         protected HtmlSelect ddlModels;
@@ -51,8 +47,6 @@ namespace Bikewale.Mobile.Content
             {
                 ProcessQueryString();
                 GetRoadTestList();
-                BindMakes();
-                AutoFill();
             }
         }
 
@@ -66,22 +60,20 @@ namespace Bikewale.Mobile.Content
 
                 int _startIndex = 0, _endIndex = 0;
                 objPager.GetStartEndIndex(_pageSize, _curPageNo, out _startIndex, out _endIndex);
-                CMSContent _objRoadTestList = null;
+                CMSContent objRoadTestList = null;
 
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IArticles, Articles>()
                             .RegisterType<ICMSCacheContent, CMSCacheRepository>()
                             .RegisterType<ICacheManager, MemcacheManager>();
-                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
+                    ICMSCacheContent cache = container.Resolve<ICMSCacheContent>();
 
-                    _objRoadTestList = _cache.GetArticlesByCategoryList(Convert.ToString((int)EnumCMSContentType.RoadTest), _startIndex, _endIndex, string.IsNullOrEmpty(makeId) ? 0 : Convert.ToInt32(makeId), string.IsNullOrEmpty(modelId) ? 0 : Convert.ToInt32(modelId));
+                    objRoadTestList = cache.GetArticlesByCategoryList(Convert.ToString((int)EnumCMSContentType.TipsAndAdvices), _startIndex, _endIndex, string.IsNullOrEmpty(makeId) ? 0 : Convert.ToInt32(makeId), string.IsNullOrEmpty(modelId) ? 0 : Convert.ToInt32(modelId));
 
-                    if (_objRoadTestList != null && _objRoadTestList.Articles.Count > 0)
+                    if (objRoadTestList != null && objRoadTestList.Articles.Count > 0)
                     {
-
-                        BindRoadtest(_objRoadTestList);
-                        BindLinkPager(objPager, Convert.ToInt32(_objRoadTestList.RecordCount));
+                        BindLinkPager(objPager, Convert.ToInt32(objRoadTestList.RecordCount));
 
                     }
                     else
@@ -130,15 +122,10 @@ namespace Bikewale.Mobile.Content
         {
             PagerOutputEntity _pagerOutput = null;
             PagerEntity _pagerEntity = null;
-            string _baseUrl = "/m/expert-reviews/";
+            string _baseUrl = "/m/bike-care/";
 
             try
             {
-                if (!String.IsNullOrEmpty(makeId) && !String.IsNullOrEmpty(modelId))
-                    _baseUrl = Request.QueryString["make"] + "-bikes/" + Request.QueryString["model"] + "/expert-reviews/";
-                else if (!String.IsNullOrEmpty(Request.QueryString["make"]))
-                    _baseUrl = "/m/" + Request.QueryString["make"] + "-bikes/" + "/expert-reviews/";
-
                 _pagerEntity = new PagerEntity();
                 _pagerEntity.BaseUrl = _baseUrl;
                 _pagerEntity.PageNo = _curPageNo; //Current page number
@@ -167,18 +154,12 @@ namespace Bikewale.Mobile.Content
             }
         }
 
-        private void BindRoadtest(CMSContent _objRoadtestList)
-        {
-            rptRoadTest.DataSource = _objRoadtestList.Articles;
-            rptRoadTest.DataBind();
-        }
-
         private void BindMakes()
         {
             try
             {
                 MakeModelVersion mmv = new MakeModelVersion();
-                mmv.GetMakes(EnumBikeType.RoadTest, ref ddlMakes);
+                mmv.GetMakes(EnumBikeType.ServiceCenter, ref ddlMakes);
 
             }
             catch (Exception ex)
@@ -188,39 +169,6 @@ namespace Bikewale.Mobile.Content
             }
         }
 
-        void AutoFill()
-        {
-            MakeModelVersion mmv = new MakeModelVersion();
-            try
-            {
-                HttpContext.Current.Trace.Warn("AUTO FILL");
-                if (makeId != "" && makeId != "-1" && ddlModels != null)
-                {
-                    if (ddlMakes != null)
-                    {
-                        ddlMakes.SelectedIndex = ddlMakes.Items.IndexOf(ddlMakes.Items.FindByValue(makeId + '_' + Request.QueryString["make"].ToString()));
-                    }
-                    ddlModels.Disabled = false;
-                    ddlModels.DataSource = mmv.GetModelsWithMappingName(makeId, "ROADTEST");
-                    ddlModels.DataTextField = "Text";
-                    ddlModels.DataValueField = "Value";
-                    ddlModels.DataBind();
-                    ListItem item = new ListItem("--Select Model--", "0");
-                    ddlModels.Items.Insert(0, item);
-
-                    if (modelId != "" && modelId != "-1")
-                    {
-                        ddlModels.SelectedIndex = ddlModels.Items.IndexOf(ddlModels.Items.FindByValue(modelId + '_' + Request.QueryString["model"].ToString()));
-                    }
-                }
-            }
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-        }
 
         private void ProcessQueryString()
         {
@@ -343,6 +291,9 @@ namespace Bikewale.Mobile.Content
                 else
                     _curPageNo = Convert.ToInt32(Request.QueryString["pn"]);
             }
+
+
+
         }
     }
 }

@@ -722,6 +722,13 @@
       <DependentUpon>viewF.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\content\MaintenanceTips\BikeCare.aspx.cs">
+      <DependentUpon>BikeCare.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\content\MaintenanceTips\BikeCare.aspx.designer.cs">
+      <DependentUpon>BikeCare.aspx</DependentUpon>
+    </Compile>
     <Compile Include="m\content\RoadTest\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2269,6 +2276,7 @@
     <Content Include="m\ContactUs.aspx" />
     <Content Include="m\content\Features\Default.aspx" />
     <Content Include="m\content\Features\viewF.aspx" />
+    <Content Include="m\content\MaintenanceTips\BikeCare.aspx" />
     <Content Include="m\content\RoadTest\Default.aspx" />
     <Content Include="m\content\RoadTest\viewRT.aspx" />
     <Content Include="m\content\userreviews\Default.aspx" />
