@@ -23,51 +23,54 @@
 <body class="bg-light-grey">
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
-        <% if(dealerDetails != null)
+        <% if (objServiceCenterCompleteData != null)
         { %>
              <section>
             <div class="container bg-white card-bottom-margin">
-                <h1 class="card-header"><%= dealerDetails.Name %></h1>
+                <h1 class="card-header"><%= objServiceCenterCompleteData.Name %></h1>
                 <div class="card-inner-padding font14 text-light-grey">
                     <h2 class="font14 margin-bottom15"><%= string.Format("Authorized {0} service center", makeName) %></h2>
 
-                    <%if (!string.IsNullOrEmpty(dealerDetails.Address))
+                    <%if (!string.IsNullOrEmpty(objServiceCenterCompleteData.Address))
                      { %>
                     <p class="margin-bottom10">
                         <span class="bwmsprite dealership-loc-icon vertical-top"></span>
-                        <span class="vertical-top details-column text-light-grey"><%= dealerDetails.Address %></span>
+                        <span class="vertical-top details-column text-light-grey"><%= objServiceCenterCompleteData.Address %></span>
                     </p>
                     <% } %>
 
-                    <% if (!string.IsNullOrEmpty(dealerDetails.MaskingNumber))
+                    <% if (!(String.IsNullOrEmpty(objServiceCenterCompleteData.Mobile)) || !(String.IsNullOrEmpty(objServiceCenterCompleteData.Phone)))
                     { %>
                     <div class="margin-bottom10">
-                        <a href="tel:<%= dealerDetails.MaskingNumber %>" class="text-default text-bold maskingNumber">
+                        <a href="" class="text-default text-bold maskingNumber">
                             <span class="bwmsprite tel-sm-grey-icon vertical-top"></span>
-                            <span class="vertical-top text-bold details-column"><%= dealerDetails.MaskingNumber %></span>
+                            <span class="vertical-top text-bold details-column">
+                                <% if (!(String.IsNullOrEmpty(objServiceCenterCompleteData.Mobile)))
+                                   { %>
+                                            <%= objServiceCenterCompleteData.Mobile.Trim()%><% }
+                        if (!(String.IsNullOrEmpty(objServiceCenterCompleteData.Mobile)) && !(String.IsNullOrEmpty(objServiceCenterCompleteData.Phone)))
+                        {%>, <%}
+                        if (!(String.IsNullOrEmpty(objServiceCenterCompleteData.Phone)))
+                        { %>
+                                            <%= objServiceCenterCompleteData.Phone.Trim() %>
+                                            <% } %>
+                            </span>
                         </a>
                     </div>
                     <% } %>
 
-                    <% if (!string.IsNullOrEmpty(dealerDetails.EMail))
+                    <% if (!string.IsNullOrEmpty(objServiceCenterCompleteData.Email))
                     { %>
                     <div class="margin-bottom10">
-                        <a href="mailto:<%= dealerDetails.EMail %>" class="text-light-grey">
+                        <a href="mailto:<%= objServiceCenterCompleteData.Email %>" class="text-light-grey">
                             <span class="bwmsprite mail-grey-icon vertical-top"></span>
-                            <span class="vertical-top details-column text-light-grey"><%= dealerDetails.EMail %></span>
+                            <span class="vertical-top details-column text-light-grey"><%= objServiceCenterCompleteData.Email %></span>
                         </a>
                     </div>
-                    <% } %>
+                    <% } %>                    
 
-                    <% if (!string.IsNullOrEmpty(dealerDetails.WorkingHours))
-                    { %>
-                    <div class="margin-bottom10">
-                        <span class="bwmsprite clock-icon vertical-top"></span>
-                        <span class="vertical-top details-column text-light-grey">Working hours: <%= dealerDetails.WorkingHours %></span>
-                    </div>
-                    <%} %>
-
-                    <% if(dealerLat> 0 && dealerLong>0) { %>
+                    <% if (dealerLat > 0 && dealerLong > 0)
+                       { %>
                     <div class="border-solid-bottom margin-bottom15 padding-top10"></div>
                     
                     <h2 class="font14 text-default margin-bottom15">Get commute distance and time:</h2>
@@ -120,18 +123,18 @@
             </div>
         </section>
 
+        <% if (ctrlDealerCard.showWidget) { %>
         <section>
             <div class="container bg-white box-shadow card-bottom-margin padding-bottom20 padding-top15">
                 <div class="padding-right20 padding-left20 margin-bottom15">
                     <h2 class="margin-bottom5">Looking to buy a new Bajaj bike in Mumbai?</h2>
                     <p>Check out authorised Bajaj dealers in Mumbai</p>
+                    <BW:DealerCard runat="server" ID="ctrlDealerCard" />  
+               
                 </div>
-                <!-- dealer card -->
-                <% if (ctrlDealerCard.showWidget) { %>
-                    <BW:DealerCard runat="server" ID="ctrlDealerCard" />
-                <% }  %>
-            </div>
+            </div>            
         </section>
+         <% }  %>
 
         <section>
             <div class="container margin-bottom20 font12 padding-top5 padding-right20 padding-left20">
@@ -141,7 +144,7 @@
             </div>
         </section>
 
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>   
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>        
          <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />

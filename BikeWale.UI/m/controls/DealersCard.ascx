@@ -7,7 +7,9 @@
        { 
 %>
 <div id="makeDealersContent" class="bw-model-tabs-data padding-bottom20 padding-top15 font14">
+    <% if(isHeadingNeeded)  { %>  
     <h2 class="padding-right20 padding-left20 text-bold"><%= makeName %> dealers in <%= cityName %></h2>
+    <% } %>
     <div class="swiper-container card-container margin-bottom15">
         <!-- dealers by city -->
         <div class="swiper-wrapper">
