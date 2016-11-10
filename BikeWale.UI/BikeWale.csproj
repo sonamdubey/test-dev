@@ -2700,6 +2700,7 @@
     <Content Include="m\sass\modules\_article.sass" />
     <Content Include="m\sass\modules\_section-heading.sass" />
     <Content Include="m\sass\modules\_accordion.sass" />
+    <Content Include="m\sass\modules\_modal.sass" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
