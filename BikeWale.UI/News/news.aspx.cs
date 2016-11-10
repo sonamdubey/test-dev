@@ -35,7 +35,6 @@ namespace Bikewale.News
         protected string displayDate = string.Empty, mainImgCaption = string.Empty, largePicUrl = string.Empty, content = string.Empty, prevPageUrl = string.Empty, nextPageUrl = string.Empty, hostUrl = string.Empty;
         protected bool isMainImageSet = false;
         protected int makeId;
-        protected string makeMaskingName;
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -185,7 +184,7 @@ namespace Bikewale.News
                             .RegisterType<ICacheManager, MemcacheManager>();
                     var _objMakeCache = container.Resolve<IBikeMakesCacheRepository<int>>();
                     BikeMakeEntityBase objMMV = _objMakeCache.GetMakeDetails(Convert.ToUInt32(makeId));
-                    makeMaskingName = objMMV.MaskingName;
+                    ctrlUpcomingBikes.makeMaskingName = objMMV.MaskingName;
                 }
                         
             }
@@ -197,14 +196,6 @@ namespace Bikewale.News
         /// </summary>
         private void BindUpcoming()
         {
-            if (String.IsNullOrEmpty(makeMaskingName))
-            {
-                ctrlUpcomingBikes.upcomingBikesLink = "/upcoming-bikes/";
-            }
-            else
-            {
-                ctrlUpcomingBikes.upcomingBikesLink = String.Format("/{0}-bikes/upcoming/", makeMaskingName);
-            }
             ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
             ctrlUpcomingBikes.pageSize = 9;
             ctrlUpcomingBikes.MakeId = makeId;

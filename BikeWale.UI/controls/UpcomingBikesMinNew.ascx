@@ -5,9 +5,9 @@
               <%foreach(var bike in objBikeList){ %>
                    <ul  class="sidebar-bike-list">
                                 <li>
-                                    <a href="<%= Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(bike.MakeBase.MakeName),Convert.ToString(bike.ModelBase.MaskingName)) %>" title="<%= String.Format("{0} {1}",bike.MakeBase.MakeName.ToString(),bike.ModelBase.ModelName.ToString()) %>" class="bike-target-link">
+                                    <a href="<%= Bikewale.Utility.UrlFormatter.BikePageUrl(bike.MakeBase.MakeName,bike.ModelBase.MaskingName) %>" title="<%= String.Format("{0} {1}",bike.MakeBase.MakeName,bike.ModelBase.ModelName) %>" class="bike-target-link">
                                         <div class="bike-target-image inline-block">
-                                            <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath.ToString(),bike.HostUrl.ToString(),Bikewale.Utility.ImageSize._110x61) %>" alt="<%= String.Format("{0} {1}",bike.MakeBase.MakeName.ToString(),bike.ModelBase.ModelName.ToString()) %>" border="0">
+                                            <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" alt="<%= String.Format("{0} {1}",bike.MakeBase.MakeName,bike.ModelBase.ModelName) %>" border="0">
                                         </div>
                                         <div class="bike-target-content inline-block padding-left10">
                                             <h3><%=String.Format("{0} {1}", bike.MakeBase.MakeName.ToString(), bike.ModelBase.ModelName.ToString())%></h3>

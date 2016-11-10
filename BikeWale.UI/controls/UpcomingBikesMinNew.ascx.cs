@@ -23,6 +23,7 @@ namespace Bikewale.Controls
         public int FetchedRecordsCount { get; set; }
         public int topCount { get; set; }
         public string upcomingBikesLink;
+        public string makeMaskingName;
         public IEnumerable<UpcomingBikeEntity> objBikeList=null;
         protected override void OnInit(EventArgs e)
         {
@@ -44,7 +45,14 @@ namespace Bikewale.Controls
             objUpcoming.MakeId = this.MakeId;
             objUpcoming.ModelId = this.ModelId;
             objUpcoming.pageSize = this.pageSize;
-
+            if (String.IsNullOrEmpty(makeMaskingName))
+            {
+                upcomingBikesLink = "/upcoming-bikes/";
+            }
+            else
+            {
+                upcomingBikesLink = String.Format("/{0}-bikes/upcoming/", makeMaskingName);
+            }
             objBikeList = objUpcoming.GetUpcomingBikes().Take(topCount);
             
             this.FetchedRecordsCount = objUpcoming.FetchedRecordsCount;

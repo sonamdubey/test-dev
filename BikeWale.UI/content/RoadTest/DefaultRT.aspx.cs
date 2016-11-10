@@ -328,7 +328,6 @@ namespace Bikewale.Content
             ctrlUpcoming.sortBy = (int)EnumUpcomingBikesFilter.Default;
             ctrlUpcoming.pageSize = 9;
             ctrlUpcoming.topCount = 4;
-            ctrlUpcoming.upcomingBikesLink = "/upcoming-bikes/";
         }
     }
 }
