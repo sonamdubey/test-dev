@@ -16,7 +16,7 @@
         //menu = "10";
     %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-      <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/service/landing.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/m/css/service/landing.css">
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>
