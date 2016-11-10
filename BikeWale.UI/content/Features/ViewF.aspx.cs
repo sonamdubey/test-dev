@@ -26,6 +26,8 @@ namespace Bikewale.Content
 {
     /// <summary>
     /// Modified By : Ashwini Todkar on 24 Sept 2014
+    /// Modified By : Sushil Kumar on 10th Nov 2016
+    /// Description : Bind most popular bikes widget for edit cms
     /// </summary>
     public class ViewF : System.Web.UI.Page
     {
@@ -124,6 +126,8 @@ namespace Bikewale.Content
         /// <summary>
         /// Written By : Ashwini Todkar on 24 Sept 2014
         /// PopulateWhere to fetch feature details from api asynchronously
+        /// Modified By : Sushil Kumar on 10th Nov 2016
+        /// Description : Bind most popular bikes widget for edit cms
         /// </summary>
         private void GetFeatureDetails()
         {
@@ -180,9 +184,6 @@ namespace Bikewale.Content
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private void GetFeatureData()
         {
             articleTitle = objFeature.Title;
@@ -202,7 +203,8 @@ namespace Bikewale.Content
         }
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : To get tagged bike along with article
         /// </summary>
         private void GetTaggedBikeList()
         {
@@ -222,6 +224,10 @@ namespace Bikewale.Content
             }
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : To get make details by id
+        /// </summary>
         private void FetchMakeDetails()
         {
 

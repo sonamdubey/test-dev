@@ -1,7 +1,6 @@
 ﻿using Bikewale.BAL.EditCMS;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
-using Bikewale.Common;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Pager;
@@ -18,7 +17,8 @@ using System.Web;
 namespace Bikewale.BindViewModels.Webforms.EditCMS
 {
     /// <summary>
-    /// 
+    /// Modified By : Sushil Kumar on 10th Nov 2016
+    /// Description : Common logic to bind news listing page 
     /// </summary>
     public class NewsListing
     {
@@ -38,7 +38,6 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             using (IUnityContainer container = new UnityContainer())
             {
 
-
                 container.RegisterType<IArticles, Articles>()
                         .RegisterType<ICMSCacheContent, CMSCacheRepository>()
                         .RegisterType<ICacheManager, MemcacheManager>()
@@ -50,11 +49,11 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         }
 
         /// <summary>
-        /// 
+        /// Modified By : Sushil Kumar on 10th Nov 2016
+        /// Description : To process query string for page number
         /// </summary>
         public void ProcessQueryString(string pageNo)
         {
-            CommonOpn op = new CommonOpn();
 
             if (!string.IsNullOrEmpty(pageNo))
             {
@@ -73,8 +72,6 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
 
                 int _startIndex = 0, _endIndex = 0;
                 _objPager.GetStartEndIndex(_pageSize, _pageNumber, out _startIndex, out _endIndex);
-
-
 
                 List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
                 categorList.Add(EnumCMSContentType.AutoExpo2016);
@@ -104,6 +101,14 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
         }
 
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : Bind pages for news list
+        /// </summary>
+        /// <param name="ctrlPager"></param>
+        /// <param name="objPager"></param>
+        /// <param name="recordCount"></param>
         private void BindLinkPager(LinkPagerControl ctrlPager, IPager objPager, int recordCount)
         {
             PagerOutputEntity _pagerOutput = null;

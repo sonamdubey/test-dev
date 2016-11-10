@@ -1154,6 +1154,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created by Subodh Jain on 22 sep 2016
         /// Des:- To fetch most popular bikes on make and city
+        /// Modified By : Sushil Kumar on 10th Nov 2016
+        /// Description : Get cityname with other info
         /// </summary>
         /// <param name="topCount"></param>
         /// <param name="makeId"></param>

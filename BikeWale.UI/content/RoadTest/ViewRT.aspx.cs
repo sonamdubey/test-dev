@@ -34,7 +34,7 @@ namespace Bikewale.Content
         protected ModelGallery ctrlModelGallery;
         protected MostPopularBikesMin ctrlPopularBikes;
         private BikeMakeEntityBase _taggedMakeObj;
-        private bool _isContentFount = true;
+        private bool _isContentFound = true;
 
         protected string articleUrl = string.Empty, articleTitle = string.Empty, basicId = string.Empty, authorName = string.Empty, displayDate = string.Empty;
 
@@ -151,7 +151,7 @@ namespace Bikewale.Content
                     }
                     else
                     {
-                        _isContentFount = false;
+                        _isContentFound = false;
                     }
                 }
 
@@ -165,7 +165,7 @@ namespace Bikewale.Content
             }
             finally
             {
-                if (!_isContentFount)
+                if (!_isContentFound)
                 {
                     Response.Redirect("/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
@@ -176,7 +176,8 @@ namespace Bikewale.Content
 
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : To get tagged bike along with article
         /// </summary>
         private void GetTaggedBikeList()
         {
@@ -196,6 +197,11 @@ namespace Bikewale.Content
             }
         }
 
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : To get make details by id
+        /// </summary>
         private void FetchMakeDetails()
         {
 
@@ -212,36 +218,6 @@ namespace Bikewale.Content
             }
         }
 
-        /* /// <summary>
-         /// 
-         /// </summary>
-         private void GetTaggedBikeList()
-         {
-             if (objRoadtest.VehiclTagsList.Any(m => (m.MakeBase != null && !String.IsNullOrEmpty(m.MakeBase.MaskingName))))
-             {
-                 _bikeTested = new StringBuilder();
-
-                 _bikeTested.Append("Bike Tested: ");
-
-                 IEnumerable<int> ids = objRoadtest.VehiclTagsList
-                        .Select(e => e.ModelBase.ModelId)
-                        .Distinct();
-
-                 foreach (var i in ids)
-                 {
-                     VehicleTag item = objRoadtest.VehiclTagsList.Where(e => e.ModelBase.ModelId == i).First();
-                     if (!String.IsNullOrEmpty(item.MakeBase.MaskingName))
-                     {
-                         _bikeTested.Append("<a title='" + item.MakeBase.MakeName + " " + item.ModelBase.ModelName + " Bikes' href='/" + item.MakeBase.MaskingName + "-bikes/" + item.ModelBase.MaskingName + "/'>" + item.ModelBase.ModelName + "</a>   ");
-                     }
-                 }
-                 Trace.Warn("biketested", _bikeTested.ToString());
-             }
-         }  */
-
-        /// <summary>
-        /// 
-        /// </summary>
         private void BindPages()
         {
             rptPages.DataSource = objRoadtest.PageList;
@@ -251,9 +227,7 @@ namespace Bikewale.Content
             rptPageContent.DataBind();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
+
         private void GetRoadtestData()
         {
             articleTitle = objRoadtest.Title;

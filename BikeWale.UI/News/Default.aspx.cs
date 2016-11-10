@@ -29,7 +29,9 @@ namespace Bikewale.News
 
         /// <summary>
         /// Modified By : Sushil Kumar on 26th July 2016
-        /// Description : Added Features,expert reviews and autoexpo categories for multiple categories 
+        /// Description : Added Features,expert reviews and autoexpo categories for multiple categories
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : Fetch most pouplar bikes list
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -53,11 +55,11 @@ namespace Bikewale.News
             ctrlPopularBikes.totalCount = 4;
             ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
             ctrlPopularBikes.cityName = currentCityArea.City;
-            ctrlPopularBikes.makeId = 0;
         }
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : Get news list
         /// </summary>
         private void GetNewsList()
         {
@@ -79,7 +81,8 @@ namespace Bikewale.News
         }
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : Get category name by id
         /// </summary>
         /// <param name="catId"></param>
         /// <returns></returns>

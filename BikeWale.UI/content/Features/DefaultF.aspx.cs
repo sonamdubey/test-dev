@@ -23,6 +23,8 @@ namespace Bikewale.Content
     /// <summary>
     /// Modified By : Ashwini Todkar on 25 Sept 2014
     /// Retrieved features from carwale web api
+    /// Modified By : Sushil Kumar on 10th Nov 2016
+    /// Description : Bind most popular bikes widget for edit cms
     /// </summary>
     public class DefaultF : System.Web.UI.Page
     {
@@ -40,6 +42,13 @@ namespace Bikewale.Content
             base.Load += new EventHandler(Page_Load);
         }
 
+
+        /// <summary>
+        /// Modified By : Sushil Kumar on 10th Nov 2016
+        /// Description : Bind most popular bikes widget for edit cms
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Page_Load(object sender, EventArgs e)
         {
             // Modified By :Lucky Rathore on 12 July 2016.
@@ -68,7 +77,6 @@ namespace Bikewale.Content
             ctrlPopularBikes.totalCount = 4;
             ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
             ctrlPopularBikes.cityName = currentCityArea.City;
-            ctrlPopularBikes.makeId = 0;
         }
 
         /// <summary>

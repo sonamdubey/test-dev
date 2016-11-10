@@ -12,7 +12,8 @@ using System.Web;
 namespace Bikewale.News
 {
     /// <summary>
-    /// 
+    /// Created By : Sushil Kumar on 10th Nov 2016
+    /// Description : Bind news details page
     /// </summary>
     public class news : System.Web.UI.Page
     {
@@ -51,6 +52,10 @@ namespace Bikewale.News
 
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : Bind news details page
+        /// </summary>
         private void BindNewsDetails()
         {
             try
@@ -87,6 +92,10 @@ namespace Bikewale.News
             }
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : Bind page level widgets
+        /// </summary>
         private void BindPageWidgets()
         {
             if (ctrlPopularBikes != null)
@@ -103,31 +112,6 @@ namespace Bikewale.News
             }
 
         }
-
-        ////PopulateWhere to set news details
-        //private void GetNewsData()
-        //{
-        //    articleTitle = objArticle.Title;
-        //    authorName = objArticle.AuthorName;
-        //    displayDate = objArticle.DisplayDate.ToString();
-        //    articleUrl = objArticle.ArticleUrl;
-        //    HostUrl = objArticle.HostUrl;
-        //    basicId = objArticle.BasicId.ToString();
-        //    smallPicUrl = objArticle.SmallPicUrl;
-        //    mainImgCaption = objArticle.MainImgCaption;
-        //    largePicUrl = objArticle.LargePicUrl;
-        //    content = objArticle.Content;
-        //    prevPageUrl = "/news/" + objArticle.PrevArticle.BasicId + "-" + objArticle.PrevArticle.ArticleUrl + ".html";
-        //    nextPageUrl = "/news/" + objArticle.NextArticle.BasicId + "-" + objArticle.NextArticle.ArticleUrl + ".html";
-        //    isMainImageSet = objArticle.IsMainImageSet;
-        //    originalImgUrl = objArticle.OriginalImgUrl;
-        //}
-
-
-
-
-
-
 
     }
 }

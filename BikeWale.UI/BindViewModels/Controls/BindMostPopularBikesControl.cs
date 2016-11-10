@@ -15,6 +15,10 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.BindViewModels.Controls
 {
+    /// <summary>
+    /// Modified By : Sushil Kumar on 10th Nov 2016
+    /// Description : Added provision to bind most popular bikes for edit cms
+    /// </summary>
     public class BindMostPopularBikesControl
     {
         public int? totalCount { get; set; }
@@ -24,8 +28,10 @@ namespace Bikewale.BindViewModels.Controls
         public IEnumerable<MostPopularBikesBase> popularBikes = null;
 
         /// <summary>
-        ///  Modified by    :   Sumit Kate on 01 Jul 2016
-        ///  Description    :   Call the Cache Layer to get the Data
+        ///  Modified by :   Sumit Kate on 01 Jul 2016
+        ///  Description :   Call the Cache Layer to get the Data
+        /// Modified By : Sushil Kumar on 10th Nov 2016
+        /// Description : Added provision to bind most popular bikes for edit cms
         /// </summary>
         /// <param name="rptr"></param>
         public void BindMostPopularBikes(Repeater rptr)
@@ -40,7 +46,6 @@ namespace Bikewale.BindViewModels.Controls
                         .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
                         .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
 
-                    //IBikeModelsRepository<BikeModelEntity, int> objVersion = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
                     IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
                     popularBikes = modelCache.GetMostPopularBikes(totalCount, makeId);
                 }
@@ -63,6 +68,8 @@ namespace Bikewale.BindViewModels.Controls
         /// <summary>
         /// created by Subodh Jain on 22 sep 2016
         /// des :- to fetch details for popular bikes widget 
+        /// Modified By : Sushil Kumar on 10th Nov 2016
+        /// Description : Added provision to bind most popular bikes for edit cms
         /// </summary>
         /// <param name="rptr"></param>
         public void BindMostPopularBikesMakeCity(Repeater rptr)
