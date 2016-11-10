@@ -1,6 +1,7 @@
 ﻿using Bikewale.BindViewModels.Webforms.EditCMS;
 using Bikewale.Common;
 using Bikewale.Controls;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Location;
 using Bikewale.Utility;
@@ -15,6 +16,7 @@ namespace Bikewale.News
     /// </summary>
     public class Default : System.Web.UI.Page
     {
+        protected UpcomingBikesCMS ctrlUpcomingBikes;
         protected Bikewale.Mobile.Controls.LinkPagerControl ctrlPager;
 
         protected string prevUrl = string.Empty, nextUrl = string.Empty;
@@ -47,6 +49,7 @@ namespace Bikewale.News
             dd.DetectDevice();
 
             GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                        BindUpcoming();
 
             GetNewsList();
 
@@ -94,7 +97,15 @@ namespace Bikewale.News
 
         }
 
-
+        /// <summary>
+        /// Created by : Aditi Srivastava on 8 Nov 2016
+        /// Summary  : Bind upcoming bikes list
+        /// </summary>
+        private void BindUpcoming()
+        {
+            ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+            ctrlUpcomingBikes.pageSize = 4;          
+        }
 
     }//End of Class
 }//End of NameSpace

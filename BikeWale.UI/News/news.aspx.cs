@@ -7,7 +7,13 @@ using Bikewale.Entities.Location;
 using Bikewale.Entities.SEO;
 using System;
 using System.Web;
-
+using System.Linq;
+using Bikewale.Entities.BikeData;
+using Bikewale.Controls;
+using Bikewale.Utility;
+using Bikewale.Cache.BikeData;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.DAL.BikeData;
 
 namespace Bikewale.News
 {
@@ -19,13 +25,13 @@ namespace Bikewale.News
         private string _basicId = string.Empty;
         protected ArticleDetails objArticle = null;
         protected NewsDetails objNews;
+        protected UpcomingBikesCMS ctrlUpcomingBikes;
         private BikeMakeEntityBase _taggedMakeObj;
         protected GlobalCityAreaEntity currentCityArea;
         protected PageMetaTags metas;
 
         protected MostPopularBikesMin ctrlPopularBikes;
-
-
+        protected int makeId;
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -77,8 +83,7 @@ namespace Bikewale.News
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
-
-
+                            
             }
             catch (Exception ex)
             {
@@ -102,32 +107,29 @@ namespace Bikewale.News
                 }
             }
 
+            BindUpcoming();
+
         }
 
-        ////PopulateWhere to set news details
-        //private void GetNewsData()
-        //{
-        //    articleTitle = objArticle.Title;
-        //    authorName = objArticle.AuthorName;
-        //    displayDate = objArticle.DisplayDate.ToString();
-        //    articleUrl = objArticle.ArticleUrl;
-        //    HostUrl = objArticle.HostUrl;
-        //    basicId = objArticle.BasicId.ToString();
-        //    smallPicUrl = objArticle.SmallPicUrl;
-        //    mainImgCaption = objArticle.MainImgCaption;
-        //    largePicUrl = objArticle.LargePicUrl;
-        //    content = objArticle.Content;
-        //    prevPageUrl = "/news/" + objArticle.PrevArticle.BasicId + "-" + objArticle.PrevArticle.ArticleUrl + ".html";
-        //    nextPageUrl = "/news/" + objArticle.NextArticle.BasicId + "-" + objArticle.NextArticle.ArticleUrl + ".html";
-        //    isMainImageSet = objArticle.IsMainImageSet;
-        //    originalImgUrl = objArticle.OriginalImgUrl;
-        //}
-
-
-
-
-
-
+        /// <summary>
+        /// Created by : Aditi Srivastava on 8 Nov 2016
+        /// Summary  : Bind upcoming bikes list
+        /// </summary>
+        /// </summary>
+        private void BindUpcoming()
+        {
+            //if (_taggedMakeObj!=null)
+            //{
+            //    upcomingBikesLink = "/upcoming-bikes/";
+            //}
+            //else
+            //{
+            //    upcomingBikesLink = String.Format("/{0}-bikes/upcoming/",makeMaskingName);
+            //}
+            ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+            ctrlUpcomingBikes.pageSize = 3;
+            ctrlUpcomingBikes.MakeId = makeId;
+        }
 
     }
 }

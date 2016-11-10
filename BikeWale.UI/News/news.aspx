@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.News.news"  %>
 <%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/controls/MostPopularBikesMin.ascx" %>
 <%@ Import NameSpace="Bikewale.Common" %>
+<%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpComingBikesCMS.ascx" %>
 <!Doctype html>
 <html>
 <head>
@@ -112,50 +113,15 @@
 						<div class="margin-bottom20">
                             <!-- BikeWale_News/BikeWale_News_300x250 -->
                         </div>
+                        <% if (ctrlUpcomingBikes.FetchedRecordsCount > 0)
+                           { %>
                         <div class="content-box-shadow padding-15-20-10 margin-bottom20">
-                            <h2>Upcoming Royal Enfield bikes</h2>
-                            <ul class="sidebar-bike-list">
-                                <li>
-                                    <a href="" title="Harley Davison Softail" class="bike-target-link">
-                                        <div class="bike-target-image inline-block">
-                                            <img src="http://imgd1.aeplcdn.com//110x61//bw/models/tvs-apache-rtr-200-4v.jpg" />
-                                        </div>
-                                        <div class="bike-target-content inline-block padding-left10">
-                                            <h3>Harley Davison Softail</h3>
-                                            <p class="font11 text-light-grey">Expected price</p>
-                                            <span class="bwsprite inr-md"></span><span class="font16 text-bold">&nbsp;87,000</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="" title="Bajaj Pulsar AS200" class="bike-target-link">
-                                        <div class="bike-target-image inline-block">
-                                            <img src="http://imgd1.aeplcdn.com//110x61//bw/models/tvs-apache-rtr-200-4v.jpg" />
-                                        </div>
-                                        <div class="bike-target-content inline-block padding-left10">
-                                            <h3>Bajaj Pulsar AS200</h3>
-                                            <p class="font11 text-light-grey">Expected price</p>
-                                            <span class="bwsprite inr-md"></span><span class="font16 text-bold">&nbsp;92,000</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="" title="Honda Unicorn 150" class="bike-target-link">
-                                        <div class="bike-target-image inline-block">
-                                            <img src="http://imgd1.aeplcdn.com//110x61//bw/models/tvs-apache-rtr-200-4v.jpg" />
-                                        </div>
-                                        <div class="bike-target-content inline-block padding-left10">
-                                            <h3>Honda Unicorn 150</h3>
-                                            <p class="font11 text-light-grey">Expected price</p>
-                                            <span class="bwsprite inr-md"></span><span class="font16 text-bold">&nbsp;1,12,000</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                            <div class="margin-top10 margin-bottom10">
-                                <a href="" class="font14">View all upcoming Royal Enfield bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
+                        <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
+                        <div class="margin-top10 margin-bottom10">
+                                <a href="#" class="font14">View all upcoming bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
                             </div>
-                        </div>
+                            </div>
+                        <% } %>
 					</div>
 					<div class="clear"></div>
 				</div>

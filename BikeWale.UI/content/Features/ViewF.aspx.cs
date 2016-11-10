@@ -32,6 +32,7 @@ namespace Bikewale.Content
         //protected DropDownList drpPages, drpPages_footer;
         protected Repeater rptPages, rptPageContent;
         protected ArticlePhotoGallery ctrPhotoGallery;
+        protected UpcomingBikesCMS ctrlUpcomingBikes;
         //protected DataList dlstPhoto;
         protected HtmlGenericControl topNav, bottomNav;
         protected string PageId = "1", Str = string.Empty, canonicalUrl = String.Empty;
@@ -39,8 +40,9 @@ namespace Bikewale.Content
         protected int StrCount = 0;
         protected MostPopularBikesMin ctrlPopularBikes;
         private BikeMakeEntityBase _taggedMakeObj;
+        protected string upcomingBikeslink, makeMaskingName;
+        protected int makeId;
         protected ModelGallery ctrlModelGallery;
-
         protected string articleUrl = string.Empty, articleTitle = string.Empty, authorName = string.Empty, displayDate = string.Empty;
 
         protected ArticlePageDetails objFeature = null;
@@ -155,6 +157,8 @@ namespace Bikewale.Content
                             ctrlModelGallery.bikeName = objFeature.Title;
                             ctrlModelGallery.Photos = objImg.ToList();
                         }
+                        GetTaggedBikeList();
+                        BindUpcoming();
                     }
                     else
                     {
@@ -219,6 +223,7 @@ namespace Bikewale.Content
                     _taggedMakeObj = objFeature.VehiclTagsList.FirstOrDefault().MakeBase;
                     FetchMakeDetails();
                 }
+                makeMaskingName = _taggedMakeObj.MaskingName;
             }
         }
 
@@ -236,6 +241,26 @@ namespace Bikewale.Content
 
                 }
             }
+        }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 8 Nov 2016
+        /// Summary  : Bind upcoming bikes list
+        /// </summary>
+        /// </summary>
+        private void BindUpcoming()
+        {
+            if (String.IsNullOrEmpty(makeMaskingName))
+            {
+                upcomingBikeslink = "/upcoming-bikes/";
+            }
+            else
+            {
+                upcomingBikeslink = String.Format("/{0}-bikes/upcoming/", makeMaskingName);
+            }
+            ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+            ctrlUpcomingBikes.pageSize = 3;
+            ctrlUpcomingBikes.MakeId = makeId;
         }
     }
 }

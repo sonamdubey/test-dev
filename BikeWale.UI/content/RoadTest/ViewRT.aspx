@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.ViewRT" Trace="false" Async="true" Debug="false" %>
 <%@ Register TagPrefix="PG" TagName="PhotoGallery" Src="/controls/ArticlePhotoGallery.ascx" %>
+<%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpComingBikesCMS.ascx" %>
 <%@ Register Src="~/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
 <%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/controls/MostPopularBikesMin.ascx" %>
 <!Doctype html>
@@ -106,8 +107,7 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="grid-4 omega">
+                     <div class="grid-4 omega">
                        <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
 						<div class="margin-bottom20">
                                  <!-- #include file="/ads/ad300x250.aspx" -->
@@ -119,6 +119,16 @@
                                     <a href="" title="Harley Davison Softail" class="bike-target-link">
                                         <div class="bike-target-image inline-block">
                                             <img src="http://imgd1.aeplcdn.com//110x61//bw/models/tvs-apache-rtr-200-4v.jpg" />
+                    <% if (ctrlUpcomingBikes.FetchedRecordsCount > 0)
+                           { %>
+                        <div class="content-box-shadow padding-15-20-10 margin-bottom20">
+                        <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
+                        <div class="margin-top10 margin-bottom10">
+                                <a href="<%=upcomingBikesLink%>" class="font14">View all upcoming bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
+                            </div>
+                            </div>
+                        <% } %>
+                            <div class="margin-top15">
                                         </div>
                                         <div class="bike-target-content inline-block padding-left10">
                                             <h3>Harley Davison Softail</h3>

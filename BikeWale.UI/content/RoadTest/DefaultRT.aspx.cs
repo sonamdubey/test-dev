@@ -31,6 +31,7 @@ namespace Bikewale.Content
 
     public class DefaultRT : System.Web.UI.Page
     {
+        protected UpcomingBikesCMS ctrlUpcoming;
         protected Repeater rptRoadTest;
         //protected MakeModelSearch MakeModelSearch;
         protected HtmlGenericControl alertObj;
@@ -231,7 +232,7 @@ namespace Bikewale.Content
 
                         BindRoadtest(_objRoadTestList);
                         BindLinkPager(objPager, Convert.ToInt32(_objRoadTestList.RecordCount), makeName, modelName);
-
+                        BindUpcoming();
                     }
                     else
                     {
@@ -327,5 +328,14 @@ namespace Bikewale.Content
                 objErr.SendMail();
             }
         }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 8 Nov 2016
+        /// Summary  : Bind upcoming bikes list
+        /// </summary>
+        private void BindUpcoming()
+        {
+            ctrlUpcoming.sortBy = (int)EnumUpcomingBikesFilter.Default;
+            ctrlUpcoming.pageSize = 4;
+       }
     }
 }
