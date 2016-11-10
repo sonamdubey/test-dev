@@ -1,13 +1,12 @@
 ï»¿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Service.ServiceCenterInCountry" EnableViewState="false" %>
-<%@ Register Src="~/m/controls/MUpcomingBikes.ascx" TagName="MUpcomingBikes" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/MNewLaunchedBikes.ascx" TagName="MNewLaunchedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/BikeCare.ascx" TagName="BikeCare" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
      <% 
          title = string.Format("Authorised {0}  Service Centers in India | {0} bike servicing  in India -  BikeWale", objMMV.MakeName);
          keywords = string.Format("{0} Servicing centers, {0} service centers, {0} service center contact details, Service Schedule for {0} bikes, bike repair, {0} bike repairing", objMMV.MakeName);
-         description = string.Format("There are {1} authorised {0}  service centers in {2} in India. Get in touch with your nearest {0} bikes service center to get your bike serviced. Check your service schedules now.", objMMV.MakeName, ServiceCenterList.ServiceCenterCount, ServiceCenterList.CityCount);
+         description = string.Format("There are {1} authorised {0}  service centers in {2} cities in India. Get in touch with your nearest {0} bikes service center to get your bike serviced. Check your service schedules now.", objMMV.MakeName, ServiceCenterList.ServiceCenterCount, ServiceCenterList.CityCount);
          canonical = string.Format("http://www.bikewale.com/{0}-service-centers-in-india/", objMMV.MaskingName);
         AdPath = "/1017752/Bikewale_Mobile_Model";
         AdId = "1444028976556";
@@ -73,84 +72,13 @@
             </div>
         </section>
 
+      <%if(ctrlBikeCare.FetchedRecordsCount>0) {%>
         <section>
-            <h2 class="section-heading">Bike Care - Maintenance tips</h2>
-            <div class="container bg-white box-shadow card-bottom-margin content-inner-block-20">
-                <div class="margin-bottom20 font14">
-                    <div class="review-image-wrapper">
-                        <a href="" title="">
-                            <img class="lazy" data-original="https://imgd1.aeplcdn.com//370x208//bw/ec/24006/Side-75983.jpg?wm=0" alt="New colour scheme for Bajaj Pulsar RS200 in Columbia" src="">
-                        </a>
-                    </div>
-                    <div class="review-heading-wrapper">
-                        <a href="" title="" class="target-link">New colour scheme for Bajaj Pulsar RS200</a>
-                        <div class="grid-7 alpha padding-right5">
-                            <span class="bwmsprite calender-grey-sm-icon"></span>
-                            <span class="article-stats-content">Jun 07, 2016</span>
-                        </div>
-                        <div class="grid-5 alpha omega">
-                            <span class="bwmsprite author-grey-sm-icon"></span>
-                            <span class="article-stats-content">BikeWale Team</span>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    <p class="margin-top10">
-                        The Bajaj Pulsar RS200 gets a new white and red colour scheme combo for the Columbian market. The RS200 is available in India in three solid colours namely yellow, red...
-                    </p>
-                </div>
-
-                <div class="margin-bottom20 font14">
-                    <div class="review-image-wrapper">
-                        <a href="" title="">
-                            <img class="lazy" data-original="https://imgd1.aeplcdn.com//370x208//bw/ec/23838/Bajaj-Avenger-150-Street-Front-threequarter-74921.jpg?wm=0" alt="New colour scheme for Bajaj Pulsar RS200 in Columbia" src="">
-                        </a>
-                    </div>
-                    <div class="review-heading-wrapper">
-                        <a href="" title="" class="target-link">New colour scheme for Bajaj Pulsar RS200 in Columbia</a>
-                        <div class="grid-7 alpha padding-right5">
-                            <span class="bwmsprite calender-grey-sm-icon"></span>
-                            <span class="article-stats-content">Jun 07, 2016</span>
-                        </div>
-                        <div class="grid-5 alpha omega">
-                            <span class="bwmsprite author-grey-sm-icon"></span>
-                            <span class="article-stats-content">BikeWale Team</span>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    <p class="margin-top10">
-                        The Bajaj Pulsar RS200 gets a new white and red colour scheme combo for the Columbian market. The RS200 is available in India in three solid colours namely yellow, red...
-                    </p>
-                </div>
-
-                <div class="margin-bottom20 font14">
-                    <div class="review-image-wrapper">
-                        <a href="" title="">
-                            <img class="lazy" data-original="https://imgd1.aeplcdn.com//370x208//bw/ec/23997/Side-75963.jpg?wm=0" alt="New colour scheme for Bajaj Pulsar RS200 in Columbia" src="">
-                        </a>
-                    </div>
-                    <div class="review-heading-wrapper">
-                        <a href="" title="" class="target-link">New colour scheme for Bajaj Pulsar RS200 in Columbia</a>
-                        <div class="grid-7 alpha padding-right5">
-                            <span class="bwmsprite calender-grey-sm-icon"></span>
-                            <span class="article-stats-content">Jun 07, 2016</span>
-                        </div>
-                        <div class="grid-5 alpha omega">
-                            <span class="bwmsprite author-grey-sm-icon"></span>
-                            <span class="article-stats-content">BikeWale Team</span>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    <p class="margin-top10">
-                        The Bajaj Pulsar RS200 gets a new white and red colour scheme combo for the Columbian market. The RS200 is available in India in three solid colours namely yellow, red...
-                    </p>
-                </div>
-                
-                <a href="" class="font14">Read all bike maintenance tips<span class="bwmsprite blue-right-arrow-icon"></span></a>
-            </div>
+            <BW:BikeCare runat="server" ID="ctrlBikeCare" />
         </section>
         <%} %>
         <section>
-            <h2 class="section-heading">Bike troubleshooting - FAQs</h2>
+            <h2 class="section-heading">Bike Troubleshooting - FAQs</h2>
             <div class="container bg-white box-shadow card-bottom-margin padding-bottom20">
                 <ul class="accordion-list">
                          <li>
@@ -186,11 +114,11 @@ Revving the motorcycle to the redline will not make the battery charge faster â€
                 </ul>
 
                 <div class="padding-left20">
-                    <a href="" class="font14">Read all FAQs<span class="bwmsprite blue-right-arrow-icon"></span></a>
+                    <a href="/m/bike-troubleshooting/" class="font14">Read all FAQs<span class="bwmsprite blue-right-arrow-icon"></span></a>
                 </div>
             </div>
         </section>
-
+        <%} %>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />

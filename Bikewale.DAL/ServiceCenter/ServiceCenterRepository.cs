@@ -191,7 +191,7 @@ namespace Bikewale.DAL.ServiceCenter
                 ErrorClass objErr = new ErrorClass(ex, "GetServiceCenterCities");
                 objErr.SendMail();
             }
-               return objCityList;
+            return objCityList;
         }
         /// <summary>
         /// Created By : Sajal Gupta on 07/11/2016
@@ -216,10 +216,10 @@ namespace Bikewale.DAL.ServiceCenter
                         {
                             serviceCenters = new ServiceCenterData();
                             objServiceCenterList = new List<ServiceCenterDetails>();
-                            ServiceCenterDetails objServiceCenterDetails = new ServiceCenterDetails();
 
                             while (dr.Read())
                             {
+                                ServiceCenterDetails objServiceCenterDetails = new ServiceCenterDetails();
                                 objServiceCenterDetails.ServiceCenterId = SqlReaderConvertor.ToUInt32(dr["id"]);
                                 objServiceCenterDetails.Name = Convert.ToString(dr["name"]);
                                 objServiceCenterDetails.Address = Convert.ToString(dr["address"]);

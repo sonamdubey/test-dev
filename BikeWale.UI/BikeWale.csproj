@@ -2373,6 +2373,7 @@
     <Content Include="m\customerror.aspx" />
     <Content Include="m\css\dealer\details.css" />
     <Content Include="m\service\Default.aspx" />
+    <Content Include="m\service\faq.aspx" />
     <Content Include="m\service\ServiceCenterInCountry.aspx" />
     <Content Include="m\new\dealersincountry.aspx" />
     <Content Include="m\new\dealersinindia.aspx" />
