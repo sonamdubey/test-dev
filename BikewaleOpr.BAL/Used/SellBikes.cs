@@ -2,7 +2,7 @@
 using Bikewale.Notifications;
 using BikewaleOpr.Interface.Used;
 using System.Collections.Generic;
-
+using System.Web;
 
 namespace BikewaleOpr.BAL.Used
 {
@@ -40,10 +40,28 @@ namespace BikewaleOpr.BAL.Used
                 UsedBikeSellerBase seller = _sellerRepo.GetSellerDetails((int)inquiryId, false);
                 if (seller != null)
                 {
+                    SMSTypes newSms = new SMSTypes();
                     if (isApproved == 0)
+                    {
                         SendEmailSMSToDealerCustomer.UsedBikeRejectionEmailToSeller(seller.Details, profileId, bikeName);
+                        newSms.RejectionUsedSellListingSMS(
+                            EnumSMSServiceType.RejectionUsedSellListingToSeller,
+                            seller.Details.CustomerMobile,
+                            profileId,
+                            HttpContext.Current.Request.ServerVariables["URL"]
+                            );
+                    }
                     else
+                    {
                         SendEmailSMSToDealerCustomer.UsedBikeApprovalEmailToIndividual(seller.Details, profileId, bikeName);
+                        newSms.ApprovalUsedSellListingSMS(
+                            EnumSMSServiceType.ApprovalUsedSellListingToSeller,
+                            seller.Details.CustomerMobile,
+                            profileId,
+                            seller.Details.CustomerName,
+                            HttpContext.Current.Request.ServerVariables["URL"]
+                            );
+                    }
                 }
             }
             return isSuccess;

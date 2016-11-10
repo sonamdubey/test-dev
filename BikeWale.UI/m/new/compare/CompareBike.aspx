@@ -12,10 +12,10 @@
     Ad_Bot_320x50 = true;
 %>
 <!-- #include file="/includes/headermobile.aspx" -->
+<link href="/m/css/compare/landing.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
 <style>
-    a {text-decoration:none !important;}
-    .ui-title { color: #fff; }
+    
 </style>
     <input type="hidden" id="hdnMake1" runat="server" />
 <input type="hidden" id="hdnMake2" runat="server" />
@@ -27,85 +27,92 @@
 <input type="hidden" id="hdnVersionId2" runat="server" value="-1"/>
 
 
-    <div class="padding5">
-        <div id="br-cr"  itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-            <a href="/m/new/" class="normal" itemprop="url"><span itemprop="title">New Bikes</span></a> &rsaquo; 
-            <span class="lightgray">Compare Bikes</span>
-        </div>
-        <div style="position:relative;">
-	        <h1>Compare Bikes</h1>
-        </div>
-
-    <div class="new-line5">
-        <div id="divMakeddl1" style="border:1px solid #b3b4c6; background-color:white; padding:5px 10px;font-size:14px;text-align:center;" onclick="OpenPopup(this)">Select Make Model Version</div>
-        <%--<div data-role="popup" id="popupDdlBike" data-overlay-theme="a" data-theme="c" data-dismissible="false"  class="ui-corner-all">--%>
-        <div id="divListContainer" style="display:none;">
-            <div class="divMake" style="min-height:100% !important;background-color:#f8f8f8;">
-                <div data-role="header" data-theme="b"  class="ui-corner-top" data-icon="delete">
-                    <a href="#" onclick="CloseWindow()" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-                    <h1>Select Make</h1>
-                </div>
-            
-                <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
-                    <ul data-role="listview" id="ddlMake1" runat="server"></ul>
+<div>
+    <div class="grid-12 margin-top10">
+        <div class="content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20">
+            <h1 class="margin-bottom15 text-center">Compare bikes</h1>
+            <div id="divMakeddl1" class="grid-6 compare-box">
+                <div class="compare-box-placeholder text-center" onclick="OpenPopup(this)">
+                    <span class="grey-bike"></span>
+                    <p>Select bike 1</p>
                 </div>
             </div>
-            <div class="divModel" style="display:none;min-height:100% !important;background-color:#f8f8f8;">
-                <div data-role="header" data-theme="b" class="ui-corner-top" >
-                    <a href="#" onclick="CloseWindow()" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-                    <h1>Select Model</h1>
+            <div id="divListContainer" style="display:none;">
+                <div class="divMake" style="min-height:100% !important;background-color:#f8f8f8;">
+                    <div data-role="header" data-theme="b"  class="ui-corner-top" data-icon="delete">
+                        <a href="#" onclick="CloseWindow()" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+                        <h1>Select Make</h1>
+                    </div>
+            
+                    <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+                        <ul data-role="listview" id="ddlMake1" runat="server"></ul>
+                    </div>
                 </div>
-                <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
-                    <ul id="Ul1" data-role="listview" type="ddlModel1">
+                <div class="divModel" style="display:none;min-height:100% !important;background-color:#f8f8f8;">
+                    <div data-role="header" data-theme="b" class="ui-corner-top" >
+                        <a href="#" onclick="CloseWindow()" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+                        <h1>Select Model</h1>
+                    </div>
+                    <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+                        <ul id="Ul1" data-role="listview" type="ddlModel1">
                    
+                        </ul>
+                    </div>
+                </div>
+                <div class="divVersion" style="display:none;min-height:100% !important;background-color:#f8f8f8;">
+                    <div data-role="header" data-theme="b" class="ui-corner-top" >
+                        <a href="#" onclick="CloseWindow()" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+                        <h1>Select Version</h1>
+                    </div>
+                    <ul data-role="listview" type="ddlVersion1">
                     </ul>
                 </div>
             </div>
-            <div class="divVersion" style="display:none;min-height:100% !important;background-color:#f8f8f8;">
-                <div data-role="header" data-theme="b" class="ui-corner-top" >
-                    <a href="#" onclick="CloseWindow()" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-                    <h1>Select Version</h1>
-                </div>
-                <ul data-role="listview" type="ddlVersion1">
-                </ul>
-            </div>
-        </div>
-        <div class="new-line5" style="text-align:center;">Vs</div>
-        <div class="new-line5" id="divMakeddl2" style="border:1px solid #b3b4c6; background-color:white; padding:5px 10px;font-size:14px;text-align:center;" onclick="OpenPopup(this)">Select Make Model Version</div>
-        <div id="divListContainer2" style="display:none;">
-            <div class="divMake" style="min-height:100% !important;background-color:#f8f8f8;">
-                <div data-role="header" data-theme="b"  class="ui-corner-top">
-                    <a href="#" onclick="CloseWindow()" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-                    <h1>Select Make</h1>
-                </div>
-                <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
-                    <ul data-role="listview" id="ddlMake2" runat="server"></ul>
+
+            <div id="divMakeddl2" class="grid-6 compare-box">
+                <div class="compare-box-placeholder text-center" onclick="OpenPopup(this)">
+                    <span class="grey-bike"></span>
+                    <p>Select bike 2</p>
                 </div>
             </div>
-            <div class="divModel" style="display:none;min-height:100% !important;background-color:#f8f8f8;">
-                <img id="imgLoaderModel" src="/m/images/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
-                <div data-role="header" data-theme="b" class="ui-corner-top" >
-                    <a href="#" onclick="CloseWindow()" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-                    <h1>Select Model</h1>
+
+            <div id="divListContainer2" style="display:none;">
+                <div class="divMake" style="min-height:100% !important;background-color:#f8f8f8;">
+                    <div data-role="header" data-theme="b"  class="ui-corner-top">
+                        <a href="#" onclick="CloseWindow()" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+                        <h1>Select Make</h1>
+                    </div>
+                    <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+                        <ul data-role="listview" id="ddlMake2" runat="server"></ul>
+                    </div>
                 </div>
-                <ul data-role="listview" type="ddlModel2">
+                <div class="divModel" style="display:none;min-height:100% !important;background-color:#f8f8f8;">
+                    <img id="imgLoaderModel" src="/m/images/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
+                    <div data-role="header" data-theme="b" class="ui-corner-top" >
+                        <a href="#" onclick="CloseWindow()" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+                        <h1>Select Model</h1>
+                    </div>
+                    <ul data-role="listview" type="ddlModel2">
                 
-                </ul>
-            </div>
-            <div class="divVersion" style="display:none;min-height:100% !important;background-color:#f8f8f8;">
-                <div data-role="header" data-theme="b" class="ui-corner-top" >
-                    <a href="#" onclick="CloseWindow()" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-                    <h1>Select Version</h1>
+                    </ul>
                 </div>
-                <ul data-role="listview" type="ddlVersion2">
-                </ul>
+                <div class="divVersion" style="display:none;min-height:100% !important;background-color:#f8f8f8;">
+                    <div data-role="header" data-theme="b" class="ui-corner-top" >
+                        <a href="#" onclick="CloseWindow()" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+                        <h1>Select Version</h1>
+                    </div>
+                    <ul data-role="listview" type="ddlVersion2">
+                    </ul>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+            <div class="margin-top20 text-center">
+                <a data-theme="b" data-rel="popup" data-role="button" data-transition="pop" data-position-to="window" onclick="VerifyVersion();" id="compare-button">Compare now</a>
             </div>
         </div>
     </div>
-    <%--<div class="new-line10" style="text-align:center;"><span class="linkButtonBig" onclick="VerifyVersion();">&nbsp;&nbsp;Compare&nbsp;&nbsp;</span></div>--%>
-    <div class="new-line10 " style="text-align:center;">
-        <a data-theme="b"  style="color : #fff !important;" data-rel="popup" data-role="button" data-transition="pop" data-position-to="window" onclick="VerifyVersion();">Compare</a>
-    </div>
+    <div class="clear"></div>
 
     <div data-role="popup" id="popupDialog" data-overlay-theme="a" data-theme="c" data-dismissible="false"  class="ui-corner-all">
         <div data-role="header" data-theme="a" class="ui-corner-top" style="background-color:#000;">
@@ -116,38 +123,43 @@
             <a href="#" data-role="button" data-rel="back" data-theme="c" data-mini="true">OK</a>
         </div>
     </div>
-    <div style="padding-bottom:5px;" class="new-line15">
-        <div class="new-line10">
-                <CB:CompareBike ID="NewBikeDealers1" runat="server" ></CB:CompareBike>
-        </div>
+    
     </div>
+
+    <div class="container margin-bottom20">
+        <div class="grid-12 alpha omega">
+            <CB:CompareBike ID="NewBikeDealers1" runat="server" ></CB:CompareBike>
+        </div>
+        <div class="clear"></div>
     </div>
 
 
 <script type="text/javascript">
     
+    var formatedMake1, formatedMake2, formatedModel1, formatedModel2;
+
     $(document).ready(function () {
-        var bikeName = "";
+        var bikeName = "",
+            divMakeddl1 = "#divMakeddl1",
+            divMakeddl2 = "#divMakeddl2";
+ 
         if ($("#hdnVersionId1").val() != "-1" && $("#hdnVersionId2").val() != "-1") {
             formatedMake1 = $("#hdnMake1").val();
             formatedMake2 = $("#hdnMake2").val();
             formatedModel1 = $("#hdnModel1").val();
             formatedModel2 = $("#hdnModel2").val();
-            $("#divMakeddl1").html($("#hdnBikeName1").val());
-            $("#divMakeddl2").html($("#hdnBikeName2").val());
         }
     });
 
     function OpenPopup(divMakeddl) {
+        var compareBox = $(divMakeddl).closest('.compare-box');
+
         $("#divParentPageContainer").hide();
-        $("#divForPopup").attr("style", "z-index:1002;width:100%;height:100%;position:absolute;");
-        $(divMakeddl).next().show();
-        //$("#divListContainer").show();
+        $("#divForPopup").attr("style", "z-index:10;width:100%;height:100%;position:absolute;");        
+        $(compareBox).next().show();
         $(".divMake").show();
-        //$("#divForPopup").html($("#divListContainer1").html());
-        $("#divForPopup").html($(divMakeddl).next().html());
-        $(".divModel").hide();
-        $(".divVersion").hide();
+        $("#divForPopup").html($(compareBox).next().html());
+        $(".divModel, .divVersion").hide();
     }
 
     function ShowModel(a) {
@@ -236,23 +248,31 @@
         $("#divParentPageContainer").show();
         bikeName += " " + $(a).text();
         type = $(a).attr("type");
+
+        var element = $('<div class="selected-bike position-rel"><span class="bwmsprite cancel-select cross-sm-dark-grey cur-pointer position-abt pos-top5 pos-right5"></span><img src="http://imgd4.aeplcdn.com//210x118//bw/models/benelli-tnt25.jpg" border="0" /><p class="selected-bike-label text-bold text-truncate font12 margin-bottom5">' + bikeName + '</p><p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p><p class="text-default"><span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16">81,618</span></p></div>');
+        
         if (type == "1") {
             formatedMake1 = formatURL(makeName1);
             formatedModel1 = modelName1;
             $("#hdnVersionId1").val($(a).attr("id"));
-            $("#divMakeddl1").html(bikeName);
+
+            $(divMakeddl1).find('.compare-box-placeholder').hide();
+            $(divMakeddl1).append(element);
         }
         else if (type == "2") {
             formatedMake2 = formatURL(makeName2);
             formatedModel2 = modelName2;
             $("#hdnVersionId2").val($(a).attr("id"));
-            $("#divMakeddl2").html(bikeName);
+
+            $(divMakeddl2).find('.compare-box-placeholder').hide();
+            $(divMakeddl2).append(element);
         }
+        $('#divListContainer, #divListContainer2').hide();
     }
 
     function VerifyVersion() {
         var isError = false;
-        if (typeof formatedMake1 != "undefined" && typeof formatedMake2 != "undefined" && typeof formatedModel1 != "undefined" && typeof formatedModel2 != "undefined") {
+        if (formatedMake1 && formatedMake2 && formatedModel1 && formatedModel2) {
             var ver1 = $("#hdnVersionId1").val();
             var ver2 = $("#hdnVersionId2").val();
             if (ver1 == "-1" && ver2 == "-1") {
@@ -309,8 +329,8 @@
         $("#hdnMake2").val(formatedMake2);
         $("#hdnModel1").val(formatedModel1);
         $("#hdnModel2").val(formatedModel2);
-        $("#hdnBikeName1").val($("#divMakeddl1").html());
-        $("#hdnBikeName2").val($("#divMakeddl2").html());
+        $("#hdnBikeName1").val($("#divMakeddl1 p").html());
+        $("#hdnBikeName2").val($("#divMakeddl2 p").html());
         location.href = "/m/comparebikes/" + url + '/?' + qs;
     }
 
@@ -326,7 +346,24 @@
         $(".divVersion").hide();
         $("#divForPopup").hide();
         $("#divParentPageContainer").show();
+        $('#divListContainer, #divListContainer2').hide();
     }
+
+    $('.compare-box').on('click', '.cancel-select', function (event) {
+        var selectedBike = $(this).closest('.selected-bike'),
+            compareBox = $(this).closest('.compare-box');
+
+        selectedBike.siblings('.compare-box-placeholder').show();
+        selectedBike.remove();
+        if ($(compareBox).attr('id') == 'divMakeddl1') {
+            formatedMake1 = null;
+            formatedModel1 = null;
+        }
+        else {
+            formatedMake2 = null;
+            formatedModel2 = null;
+        }
+    });
 
 </script>
 <!-- #include file="/includes/footermobile.aspx" -->

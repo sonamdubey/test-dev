@@ -1,0 +1,120 @@
+﻿.compare-box {
+    width: 49%;
+    height: 170px;
+    border: 1px solid #e2e2e2;
+    border-radius: 2px;
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+    background: #fff;
+    padding: 0;
+}
+
+.compare-box-placeholder {
+    padding-top: 40px;
+    height: 170px;
+    cursor: pointer;
+}
+
+.compare-box-placeholder p {
+    font-size: 16px;
+    color: #82888b;
+}
+
+.grey-bike {
+    width: 52px;
+    height: 31px;
+    background: url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/grey-bike.png) no-repeat;
+    display: inline-block;
+    margin-bottom: 18px;
+}
+
+.selected-bike {
+    padding: 10px 20px 10px 10px;
+}
+
+#divMakeddl2 .selected-bike {
+    padding-right: 10px;
+    padding-left: 20px;
+}
+
+.selected-bike .cross-sm-dark-grey {
+    background-position: -80px -235px;
+    width: 20px;
+    height: 20px;    
+}
+
+.selected-bike img {
+    width: 128px;
+    height: 72px;
+}
+
+#compare-button {
+    width: 200px;
+    margin: 0;
+}
+
+.ui-title {
+    color: #fff;
+}
+
+#divMakeddl1:after {
+    content: '';
+    position: absolute;
+    right: -20px;
+    top: 65px;
+    width: 37px;
+    height: 37px;
+    background: url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider-lg.png) no-repeat;
+    display: block;
+    z-index: 1;
+}
+
+/* overwrite css */
+.container {
+    border-bottom: 0;
+    padding: 0;
+}
+
+.content-box-shadow {
+    border: 0;
+}
+
+/* compare bikes list */
+.compare-bikes-list a {
+    width: 100%;
+    min-height: 140px;
+    padding-top: 15px;
+    padding-bottom: 12px;
+    display: block;
+    border-top: 1px solid #e2e2e2;
+    background: #fff;
+    overflow: hidden;
+}
+
+.compare-bikes-list li:first-child a {
+    border-top: 0;
+}
+
+.compare-bikes-list .comparison-image {
+    width: 80px;
+    height: 45px;
+    margin-bottom: 5px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.compare-bikes-list img {
+    height: 45px;
+}
+
+.compare-bikes-list .grid-6:first-child:after {
+    content: '';
+    position: absolute;
+    right: -3px;
+    top: 45px;
+    width: 22px;
+    height: 21px;
+    background: url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png) no-repeat;
+    display: block;
+}

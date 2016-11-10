@@ -522,5 +522,53 @@ namespace Bikewale.Notifications
                 objErr.SendMail();
             }
         }
+        /// <summary>
+        /// Created By  : Aditi Srivastava on 28 Oct 2016
+        /// Description : Send SMS to seller on approval of used bike listing
+        /// </summary>
+        /// <param name="smsType"></param>
+        /// <param name="number"></param>
+        /// <param name="profileId"></param>
+        /// <param name="customerName"></param>
+        /// <param name="pageurl"></param>
+        public void ApprovalUsedSellListingSMS(EnumSMSServiceType smsType, string number, string profileId,string customerName, string pageurl)
+        {
+            string message=String.Format("Hi {0}, your bike listing (profile id - {1}) has been verified and approved on BikeWale. We wish you good luck with your listing.",customerName,profileId);
+             try
+            {
+                SMSCommon sc = new SMSCommon();
+                 
+                sc.ProcessSMS(number, message, smsType, pageurl);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.ApprovalUsedSellListingSMSToSeller({0},{1},{2},{3})", number, message, pageurl, profileId));
+                objErr.SendMail();
+            }
+        }
+        /// <summary>
+        /// Created By  : Aditi Srivastava on 28 Oct 2016
+        /// Description : Send SMS to seller on rejection of used bike listing
+        /// </summary>
+        /// <param name="smsType"></param>
+        /// <param name="number"></param>
+        /// <param name="profileId"></param>
+        /// <param name="customerName"></param>
+        /// <param name="pageurl"></param>
+        public void RejectionUsedSellListingSMS(EnumSMSServiceType smsType, string number, string profileId, string pageurl)
+        {
+            string message = String.Format("Your bike listing (profile id - {0}) has not been approved on BikeWale. Listing price or photos could be an issue. Please re-submit it with correct info.", profileId);
+            try
+            {
+                SMSCommon sc = new SMSCommon();
+
+                sc.ProcessSMS(number, message, smsType, pageurl);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.RejectionUsedSellListingSMSToSeller({0},{1},{2},{3})", number, message, pageurl, profileId));
+                objErr.SendMail();
+            }
+        }
     }   //End of class
 }   //End of namespace
