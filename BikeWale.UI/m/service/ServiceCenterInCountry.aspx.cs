@@ -10,6 +10,7 @@ using Bikewale.Entities.service;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.ServiceCenter;
+using Bikewale.Mobile.Controls;
 using Microsoft.Practices.Unity;
 using System;
 using System.Web;
@@ -24,6 +25,7 @@ namespace Bikewale.Mobile.Service
     public class ServiceCenterInCountry : Page
     {
         protected BikeMakeEntityBase objMMV;
+        protected BikeCare ctrlBikeCare;
         public ushort makeId;
         public uint cityId;
         public string makeMaskingName = string.Empty;
@@ -50,6 +52,7 @@ namespace Bikewale.Mobile.Service
 
                 }
                 BindCities();
+                ctrlBikeCare.TotalRecords = 3;
 
             }
 
