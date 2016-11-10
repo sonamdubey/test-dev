@@ -28,12 +28,14 @@
 
 
 <div>
-    <div class="grid-12 text-center margin-top10">
+    <div class="grid-12 margin-top10">
         <div class="content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20">
-            <h1 class="margin-bottom15">Compare bikes</h1>
-            <div id="divMakeddl1" class="grid-6 compare-box" onclick="OpenPopup(this)">
-                <span class="grey-bike"></span>
-                <p>Select bike 1</p>
+            <h1 class="margin-bottom15 text-center">Compare bikes</h1>
+            <div id="divMakeddl1" class="grid-6 compare-box">
+                <div class="compare-box-placeholder text-center" onclick="OpenPopup(this)">
+                    <span class="grey-bike"></span>
+                    <p>Select bike 1</p>
+                </div>
             </div>
             <div id="divListContainer" style="display:none;">
                 <div class="divMake" style="min-height:100% !important;background-color:#f8f8f8;">
@@ -67,9 +69,11 @@
                 </div>
             </div>
 
-            <div id="divMakeddl2" class="grid-6 compare-box" onclick="OpenPopup(this)">
-                <span class="grey-bike"></span>
-                <p>Select bike 2</p>
+            <div id="divMakeddl2" class="grid-6 compare-box">
+                <div class="compare-box-placeholder text-center" onclick="OpenPopup(this)">
+                    <span class="grey-bike"></span>
+                    <p>Select bike 2</p>
+                </div>
             </div>
 
             <div id="divListContainer2" style="display:none;">
@@ -103,7 +107,7 @@
             </div>
             <div class="clear"></div>
 
-            <div class="margin-top20">
+            <div class="margin-top20 text-center">
                 <a data-theme="b" data-rel="popup" data-role="button" data-transition="pop" data-position-to="window" onclick="VerifyVersion();" id="compare-button">Compare now</a>
             </div>
         </div>
@@ -132,28 +136,30 @@
 
 <script type="text/javascript">
     
+    var formatedMake1, formatedMake2, formatedModel1, formatedModel2;
+
     $(document).ready(function () {
-        var bikeName = "";
+        var bikeName = "",
+            divMakeddl1 = "#divMakeddl1",
+            divMakeddl2 = "#divMakeddl2";
+ 
         if ($("#hdnVersionId1").val() != "-1" && $("#hdnVersionId2").val() != "-1") {
             formatedMake1 = $("#hdnMake1").val();
             formatedMake2 = $("#hdnMake2").val();
             formatedModel1 = $("#hdnModel1").val();
             formatedModel2 = $("#hdnModel2").val();
-            $("#divMakeddl1 p").html($("#hdnBikeName1").val());
-            $("#divMakeddl2 p").html($("#hdnBikeName2").val());
         }
     });
 
     function OpenPopup(divMakeddl) {
+        var compareBox = $(divMakeddl).closest('.compare-box');
+
         $("#divParentPageContainer").hide();
-        $("#divForPopup").attr("style", "z-index:1002;width:100%;height:100%;position:absolute;");
-        $(divMakeddl).next().show();
-        //$("#divListContainer").show();
+        $("#divForPopup").attr("style", "z-index:10;width:100%;height:100%;position:absolute;");        
+        $(compareBox).next().show();
         $(".divMake").show();
-        //$("#divForPopup").html($("#divListContainer1").html());
-        $("#divForPopup").html($(divMakeddl).next().html());
-        $(".divModel").hide();
-        $(".divVersion").hide();
+        $("#divForPopup").html($(compareBox).next().html());
+        $(".divModel, .divVersion").hide();
     }
 
     function ShowModel(a) {
@@ -242,24 +248,31 @@
         $("#divParentPageContainer").show();
         bikeName += " " + $(a).text();
         type = $(a).attr("type");
+
+        var element = $('<div class="selected-bike position-rel"><span class="bwmsprite cancel-select cross-sm-dark-grey cur-pointer position-abt pos-top5 pos-right5"></span><img src="http://imgd4.aeplcdn.com//210x118//bw/models/benelli-tnt25.jpg" border="0" /><p class="selected-bike-label text-bold text-truncate font12 margin-bottom5">' + bikeName + '</p><p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p><p class="text-default"><span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16">81,618</span></p></div>');
+        
         if (type == "1") {
             formatedMake1 = formatURL(makeName1);
             formatedModel1 = modelName1;
             $("#hdnVersionId1").val($(a).attr("id"));
-            $("#divMakeddl1 p").html(bikeName);
+
+            $(divMakeddl1).find('.compare-box-placeholder').hide();
+            $(divMakeddl1).append(element);
         }
         else if (type == "2") {
             formatedMake2 = formatURL(makeName2);
             formatedModel2 = modelName2;
             $("#hdnVersionId2").val($(a).attr("id"));
-            $("#divMakeddl2 p").html(bikeName);
+
+            $(divMakeddl2).find('.compare-box-placeholder').hide();
+            $(divMakeddl2).append(element);
         }
         $('#divListContainer, #divListContainer2').hide();
     }
 
     function VerifyVersion() {
         var isError = false;
-        if (typeof formatedMake1 != "undefined" && typeof formatedMake2 != "undefined" && typeof formatedModel1 != "undefined" && typeof formatedModel2 != "undefined") {
+        if (formatedMake1 && formatedMake2 && formatedModel1 && formatedModel2) {
             var ver1 = $("#hdnVersionId1").val();
             var ver2 = $("#hdnVersionId2").val();
             if (ver1 == "-1" && ver2 == "-1") {
@@ -335,6 +348,22 @@
         $("#divParentPageContainer").show();
         $('#divListContainer, #divListContainer2').hide();
     }
+
+    $('.compare-box').on('click', '.cancel-select', function (event) {
+        var selectedBike = $(this).closest('.selected-bike'),
+            compareBox = $(this).closest('.compare-box');
+
+        selectedBike.siblings('.compare-box-placeholder').show();
+        selectedBike.remove();
+        if ($(compareBox).attr('id') == 'divMakeddl1') {
+            formatedMake1 = null;
+            formatedModel1 = null;
+        }
+        else {
+            formatedMake2 = null;
+            formatedModel2 = null;
+        }
+    });
 
 </script>
 <!-- #include file="/includes/footermobile.aspx" -->
