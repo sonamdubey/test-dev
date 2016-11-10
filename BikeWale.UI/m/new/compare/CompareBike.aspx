@@ -29,8 +29,8 @@
 
 <div>
     <div class="grid-12 text-center margin-top10">
-        <div class="content-box-shadow padding-top15 padding-right10 padding-left10 padding-bottom20">
-            <h1 class="margin-bottom10">Compare bikes</h1>
+        <div class="content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20">
+            <h1 class="margin-bottom15">Compare bikes</h1>
             <div id="divMakeddl1" class="grid-6 compare-box" onclick="OpenPopup(this)">
                 <span class="grey-bike"></span>
                 <p>Select bike 1</p>

@@ -32,6 +32,18 @@
     color: #fff;
 }
 
+#divMakeddl1:after {
+    content: '';
+    position: absolute;
+    right: -20px;
+    top: 65px;
+    width: 37px;
+    height: 37px;
+    background: url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider-lg.png) no-repeat;
+    display: block;
+    z-index: 1;
+}
+
 /* overwrite css */
 .container {
     border-bottom: 0;
