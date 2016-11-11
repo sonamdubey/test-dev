@@ -5,6 +5,10 @@ using System;
 
 namespace Bikewale.Mobile.Content
 {
+    /// <summary>
+    /// Created By:- Subodh jain 11 Nov 2016
+    /// Summary :- Bike Care Landing page
+    /// </summary>
     public class BikeCare : System.Web.UI.Page
     {
         BikeCareModels objBikeCare = null;
@@ -21,6 +25,10 @@ namespace Bikewale.Mobile.Content
         {
             BikeCareTips();
         }
+        /// <summary>
+        /// Created By:- Subodh jain 11 Nov 2016
+        /// Summary :- Bike Care Landing page Binding
+        /// </summary>
         private void BikeCareTips()
         {
             objBikeCare = new BikeCareModels();
