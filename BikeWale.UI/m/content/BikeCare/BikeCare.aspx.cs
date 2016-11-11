@@ -4,15 +4,14 @@ using Bikewale.Mobile.Controls;
 using System;
 using System.Collections.Generic;
 
-namespace Bikewale.Mobile.Content.MaintenanceTips
+namespace Bikewale.Mobile.Content
 {
     public class BikeCare : System.Web.UI.Page
     {
         BikeCareModels objBikeCare = null;
         public LinkPagerControl ctrlPager;
         protected uint makeId, modelId;
-        private const int _pageSize = 10;
-        int _curPageNo = 1;
+
         protected IEnumerable<ArticleSummary> objArticleList;
         protected override void OnInit(EventArgs e)
         {
@@ -22,21 +21,18 @@ namespace Bikewale.Mobile.Content.MaintenanceTips
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            BikeCare();
+            BikeCareTips();
 
         }
-        private void BikeCare()
+        private void BikeCareTips()
         {
             objBikeCare = new BikeCareModels();
             if (objBikeCare != null)
             {
+                objArticleList = objBikeCare.BikeCare();
                 objBikeCare.BindLinkPager(ctrlPager);
+
             }
         }
-
-
-
-
-
     }
 }

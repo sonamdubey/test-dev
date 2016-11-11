@@ -23,7 +23,7 @@ namespace Bikewale.BindViewModels.Webforms.ServiceCenter
     public class BikeCareModels
     {
         private IPager objPager = null;
-        private const int _pageSize = 20;
+        private const int _pageSize = 10;
         private int _pageNo = 1;
         public int startIndex = 0, endIndex = 0;
         private const int _pagerSlotSize = 5;
@@ -31,7 +31,7 @@ namespace Bikewale.BindViewModels.Webforms.ServiceCenter
         int curPageNo = 1;
         public string prevUrl = string.Empty, nextUrl = string.Empty;
         public uint makeId, modelId, totalrecords;
-        private void BikeCare()
+        public IEnumerable<ArticleSummary> BikeCare()
         {
             try
             {
@@ -64,7 +64,7 @@ namespace Bikewale.BindViewModels.Webforms.ServiceCenter
                 ErrorClass objErr = new ErrorClass(ex, "BindMaintainanceTipsControl.MaintainanceTips");
                 objErr.SendMail();
             }
-
+            return objArticleList;
         }
         private IPager GetPager()
         {
@@ -83,7 +83,7 @@ namespace Bikewale.BindViewModels.Webforms.ServiceCenter
             PagerEntity _pagerEntity = null;
             int recordCount = Convert.ToInt32(totalrecords);
             string _baseUrl = RemoveTrailingPage(HttpContext.Current.Request.RawUrl.ToLower());
-
+            IPager objPager = GetPager();
             try
             {
                 GetStartEndIndex(_pageSize, _pageNo, out startIndex, out endIndex, recordCount);
