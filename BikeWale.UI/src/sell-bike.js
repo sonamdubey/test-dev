@@ -904,7 +904,7 @@ var verificationDetails = function () {
 
     self.submitUpdatedMobile = function () {
         self.validateMobile(true);              
-
+        $('#otpCode').val("");
         if (self.errorMobile().length === 0) {
             self.updateMobileStatus(false);
             vmSellBike.personalDetails().sellerMobile(self.updatedMobile());
