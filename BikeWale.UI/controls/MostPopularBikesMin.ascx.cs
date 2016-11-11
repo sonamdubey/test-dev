@@ -16,14 +16,13 @@ namespace Bikewale.Controls
         public string PageId { get; set; }
         public int PQSourceId { get; set; }
         public int CityId { get; set; }
-        public string cityName = string.Empty;
-        public string cityMaskingName = string.Empty;
+        public string cityName = "Mumbai";
 
 
         public int makeId { get; set; }
         public string makeName = string.Empty;
         public string makeMasking = string.Empty;
-        public bool mostPopular = false, mostPopularByMake = false;
+
         public IEnumerable<MostPopularBikesBase> popularBikes = null;
 
         protected string popularBikesByMakeLink = string.Empty;
