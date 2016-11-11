@@ -11,7 +11,8 @@ using System.Web;
 namespace Bikewale.News
 {
     /// <summary>
-    /// 
+    /// Created By : Sushil Kumar on 10th Nov 2016
+    /// Description : Bind news details page
     /// Modified By : Aditi Srivastava on 10 Nov 2016
     /// Description : Added control for upcoming bikes widget
     /// </summary>
@@ -52,6 +53,10 @@ namespace Bikewale.News
 
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : Bind news details page
+        /// </summary>
         private void BindNewsDetails()
         {
             try
@@ -88,6 +93,10 @@ namespace Bikewale.News
         }
 
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : Bind page level widgets
+        /// </summary>
         private void BindPageWidgets()
         {
             if (ctrlPopularBikes != null)

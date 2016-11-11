@@ -5,17 +5,22 @@ using System.Collections.Generic;
 
 namespace Bikewale.Controls
 {
+    /// <summary>
+    /// Modified By : Sushil Kumar on 10th Nov 2016
+    /// Description : Added provision to bind most popular bikes for edit cms
+    /// </summary>
     public class MostPopularBikesMin : System.Web.UI.UserControl
     {
-        // public Repeater rptMostPopularBikes, rptPopoularBikeMake;
         public int? totalCount { get; set; }
         public int FetchedRecordsCount { get; set; }
         public string PageId { get; set; }
         public int PQSourceId { get; set; }
-        public int? CityId { get; set; }
+        public int CityId { get; set; }
         public string cityName = string.Empty;
         public string cityMaskingName = string.Empty;
-        public int? makeId { get; set; }
+
+
+        public int makeId { get; set; }
         public string makeName = string.Empty;
         public string makeMasking = string.Empty;
         public bool mostPopular = false, mostPopularByMake = false;
@@ -38,9 +43,9 @@ namespace Bikewale.Controls
         {
             BindMostPopularBikesControl objPop = new BindMostPopularBikesControl();
             objPop.totalCount = totalCount.HasValue && totalCount.Value > 0 ? totalCount : 4;
-            objPop.makeId = makeId.HasValue ? makeId : 0;
+            objPop.makeId = makeId;
             objPop.cityId = CityId;
-            if (CityId.HasValue && CityId > 0)
+            if (CityId > 0)
             {
                 objPop.BindMostPopularBikesMakeCity(null);
 

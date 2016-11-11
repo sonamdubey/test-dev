@@ -29,11 +29,14 @@ namespace Bikewale.Content
     //Modified By : Ashwini Todkar on 29 Sept 2014
     //Modified code to retrieve roadtest from api
 
+    /// <summary>
+    /// Modified By : Sushil Kumar on 10th Nov 2016
+    /// Description : Bind most popular bikes widget for edit cms
+    /// </summary>
     public class DefaultRT : System.Web.UI.Page
     {
         protected UpcomingBikesMinNew ctrlUpcoming;
         protected Repeater rptRoadTest;
-        //protected MakeModelSearch MakeModelSearch;
         protected HtmlGenericControl alertObj;
         protected Bikewale.Mobile.Controls.LinkPagerControl ctrlPager;
         protected string nextUrl = string.Empty, prevUrl = string.Empty, makeName = string.Empty, modelName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty;
@@ -48,6 +51,12 @@ namespace Bikewale.Content
             base.Load += new EventHandler(Page_Load);
         }
 
+        /// <summary>
+        /// Modified By : Sushil Kumar on 10th Nov 2016
+        /// Description : Bind most popular bikes widget for edit cms
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Page_Load(object sender, EventArgs e)
         {
             // Modified By :Lucky Rathore on 12 July 2016.
@@ -74,7 +83,6 @@ namespace Bikewale.Content
             ctrlPopularBikes.totalCount = 4;
             ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
             ctrlPopularBikes.cityName = currentCityArea.City;
-            ctrlPopularBikes.makeId = 0;
         }
 
         private void ProcessQS(out string _makeName, out string _makeId, out string _modelId, out string _modelName)

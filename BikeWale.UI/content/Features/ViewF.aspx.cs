@@ -94,10 +94,9 @@ namespace Bikewale.Content
                 /** Modified By : Ashwini Todkar on 12 Aug 2014 , add when consuming carwale api
                //Check if basic id exists in mapped carwale basic id log **/
                 string _mappedBasicId = BasicIdMapping.GetCWBasicId(_basicId);
-                Trace.Warn("Carwale basic id : " + _mappedBasicId);
 
                 //if id exists then redirect url to new basic id url
-                if (!String.IsNullOrEmpty(_mappedBasicId))
+                if (!_basicId.Equals(_mappedBasicId))
                 {
                     // Modified By :Lucky Rathore on 12 July 2016.
                     Form.Action = Request.RawUrl;
@@ -107,7 +106,6 @@ namespace Bikewale.Content
                     string _newUrlTitle = _newUrl.Substring(_titleStartIndex, _titleEndIndex - _titleStartIndex + 1);
                     _newUrl = _newUrlTitle + _mappedBasicId + "/";
                     CommonOpn.RedirectPermanent(_newUrl);
-                    Trace.Warn("_newUrl : " + _newUrl);
                 }
             }
             else
@@ -121,6 +119,8 @@ namespace Bikewale.Content
         /// <summary>
         /// Written By : Ashwini Todkar on 24 Sept 2014
         /// PopulateWhere to fetch feature details from api asynchronously
+        /// Modified By : Sushil Kumar on 10th Nov 2016
+        /// Description : Bind most popular bikes widget for edit cms
         /// </summary>
         private void GetFeatureDetails()
         {
@@ -178,9 +178,6 @@ namespace Bikewale.Content
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private void GetFeatureData()
         {
             articleTitle = objFeature.Title;
@@ -200,7 +197,8 @@ namespace Bikewale.Content
         }
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : To get tagged bike along with article
         /// </summary>
         private void GetTaggedBikeList()
         {
@@ -220,6 +218,10 @@ namespace Bikewale.Content
             }
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : To get make details by id
+        /// </summary>
         private void FetchMakeDetails()
         {
 
@@ -247,7 +249,7 @@ namespace Bikewale.Content
 
             if (ctrlPopularBikes != null)
             {
-                
+
 
                 ctrlPopularBikes.totalCount = 3;
                 ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);

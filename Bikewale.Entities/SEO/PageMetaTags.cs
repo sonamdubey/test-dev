@@ -2,7 +2,8 @@
 namespace Bikewale.Entities.SEO
 {
     /// <summary>
-    /// 
+    /// Modified By : Sushil Kumar on 10th Nov 2016
+    /// Description : Entity for metas related to seo
     /// </summary>
     public class PageMetaTags
     {

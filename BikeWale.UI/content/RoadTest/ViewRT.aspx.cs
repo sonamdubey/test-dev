@@ -1,5 +1,4 @@
 ﻿using Bikewale.BAL.EditCMS;
-using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
@@ -68,26 +67,6 @@ namespace Bikewale.Content
             GetRoadtestDetails();
             BindPageWidgets();
 
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IArticles, Articles>()
-                           .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                           .RegisterType<ICacheManager, MemcacheManager>();
-                ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
-
-                IEnumerable<ModelImage> objImg = _cache.GetArticlePhotos(Convert.ToInt32(_basicId));
-
-                if (objImg != null && objImg.Count() > 0)
-                {
-                    ctrPhotoGallery.BasicId = Convert.ToInt32(_basicId);
-                    ctrPhotoGallery.ModelImageList = objImg;
-                    ctrPhotoGallery.BindPhotos();
-
-                    ctrlModelGallery.bikeName = string.Empty;
-                    ctrlModelGallery.Photos = objImg.ToList();
-                }
-            }
-
         }
 
 
@@ -104,9 +83,7 @@ namespace Bikewale.Content
 
                 string basicId = BasicIdMapping.GetCWBasicId(_basicId);
 
-                Trace.Warn("Carwale basic id : " + basicId);
-
-                if (!String.IsNullOrEmpty(basicId))
+                if (!_basicId.Equals(basicId))
                 {
                     // Modified By :Lucky Rathore on 12 July 2016.
                     Form.Action = Request.RawUrl;
@@ -145,6 +122,7 @@ namespace Bikewale.Content
                         BindPages();
                         GetRoadtestData();
                         GetTaggedBikeList();
+                        BindGallery(objRoadtest.Title);
 
                     }
                     else
@@ -157,7 +135,6 @@ namespace Bikewale.Content
             }
             catch (Exception err)
             {
-                Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
@@ -172,9 +149,46 @@ namespace Bikewale.Content
             }
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : To bind model gallery
+        /// </summary>
+        private void BindGallery(string articleTitle)
+        {
+            try
+            {
+
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IArticles, Articles>()
+                               .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                               .RegisterType<ICacheManager, MemcacheManager>();
+                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
+
+                    IEnumerable<ModelImage> objImg = _cache.GetArticlePhotos(Convert.ToInt32(_basicId));
+
+                    if (objImg != null && objImg.Count() > 0)
+                    {
+                        ctrPhotoGallery.BasicId = Convert.ToInt32(_basicId);
+                        ctrPhotoGallery.ModelImageList = objImg;
+                        ctrPhotoGallery.BindPhotos();
+
+                        ctrlModelGallery.bikeName = articleTitle;
+                        ctrlModelGallery.Photos = objImg.ToList();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : To get tagged bike along with article
         /// </summary>
         private void GetTaggedBikeList()
         {
@@ -194,6 +208,11 @@ namespace Bikewale.Content
             }
         }
 
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : To get make details by id
+        /// </summary>
         private void FetchMakeDetails()
         {
 
@@ -244,10 +263,6 @@ namespace Bikewale.Content
             }
 
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
         private void BindPages()
         {
             rptPages.DataSource = objRoadtest.PageList;
@@ -257,9 +272,7 @@ namespace Bikewale.Content
             rptPageContent.DataBind();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
+
         private void GetRoadtestData()
         {
             articleTitle = objRoadtest.Title;

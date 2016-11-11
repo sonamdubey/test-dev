@@ -21,7 +21,8 @@ using System.Web;
 namespace Bikewale.BindViewModels.Webforms.EditCMS
 {
     /// <summary>
-    /// 
+    /// Created By : Sushil Kumar on 10th Nov 2016
+    /// Description : Common logic to bind news details page
     /// </summary>
     public class NewsDetails
     {
@@ -35,7 +36,8 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         public PageMetaTags PageMetas { get; set; }
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : Fetch required aticles list
         /// </summary>
         public NewsDetails()
         {
@@ -79,61 +81,98 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : Common logic to bind meta tags
+        /// </summary>
         private void CreateMetaTags()
         {
             PageMetas = new PageMetaTags();
 
-            PageMetas.Title = string.Format("{0} - BikeWale News",ArticleDetails.Title);
-            PageMetas.ShareImage = Image.GetPathToShowImages(ArticleDetails.OriginalImgUrl, ArticleDetails.HostUrl, Bikewale.Utility.ImageSize._640x348);
-            PageMetas.Description = string.Format("BikeWale coverage on {0}. Get the latest reviews and photos for {0} on BikeWale coverage.", ArticleDetails.Title);
-            PageMetas.CanonicalUrl = string.Format("http://www.bikewale.com/news/{0}-{1}.html",ArticleDetails.BasicId, ArticleDetails.ArticleUrl);
-            PageMetas.NextPageUrl = string.Format("/news/{0}-{1}.html", ArticleDetails.PrevArticle.BasicId, ArticleDetails.PrevArticle.ArticleUrl);
-            PageMetas.PreviousPageUrl = string.Format("/news/{0}-{1}.html", ArticleDetails.NextArticle.BasicId, ArticleDetails.NextArticle.ArticleUrl);
-            PageMetas.AlternateUrl = string.Format("http://www.bikewale.com/m/news/{0}-{1}.html", ArticleDetails.BasicId, ArticleDetails.ArticleUrl); ;
+            try
+            {
+                PageMetas.Title = string.Format("{0} - BikeWale News", ArticleDetails.Title);
+                PageMetas.ShareImage = Image.GetPathToShowImages(ArticleDetails.OriginalImgUrl, ArticleDetails.HostUrl, Bikewale.Utility.ImageSize._640x348);
+                PageMetas.Description = string.Format("BikeWale coverage on {0}. Get the latest reviews and photos for {0} on BikeWale coverage.", ArticleDetails.Title);
+                PageMetas.CanonicalUrl = string.Format("http://www.bikewale.com/news/{0}-{1}.html", ArticleDetails.BasicId, ArticleDetails.ArticleUrl);
+                PageMetas.NextPageUrl = string.Format("/news/{0}-{1}.html", ArticleDetails.PrevArticle.BasicId, ArticleDetails.PrevArticle.ArticleUrl);
+                PageMetas.PreviousPageUrl = string.Format("/news/{0}-{1}.html", ArticleDetails.NextArticle.BasicId, ArticleDetails.NextArticle.ArticleUrl);
+                PageMetas.AlternateUrl = string.Format("http://www.bikewale.com/m/news/{0}-{1}.html", ArticleDetails.BasicId, ArticleDetails.ArticleUrl); ;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.GetTaggedBikeList");
+                objErr.SendMail();
+            }
         }
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : To get tagged bike along with article
         /// </summary>
         private void GetTaggedBikeList()
         {
-            if (ArticleDetails != null && ArticleDetails.VehiclTagsList.Count > 0)
+            try
             {
+                if (ArticleDetails != null && ArticleDetails.VehiclTagsList.Count > 0)
+                {
 
-                var taggedMakeObj = ArticleDetails.VehiclTagsList.FirstOrDefault(m => !string.IsNullOrEmpty(m.MakeBase.MaskingName));
-                if (taggedMakeObj != null)
-                {
-                    TaggedMake = taggedMakeObj.MakeBase;
+                    var taggedMakeObj = ArticleDetails.VehiclTagsList.FirstOrDefault(m => !string.IsNullOrEmpty(m.MakeBase.MaskingName));
+                    if (taggedMakeObj != null)
+                    {
+                        TaggedMake = taggedMakeObj.MakeBase;
+                    }
+                    else
+                    {
+                        TaggedMake = ArticleDetails.VehiclTagsList.FirstOrDefault().MakeBase;
+                        FetchMakeDetails();
+                    }
                 }
-                else
-                {
-                    TaggedMake = ArticleDetails.VehiclTagsList.FirstOrDefault().MakeBase;
-                    FetchMakeDetails();
-                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.GetTaggedBikeList");
+                objErr.SendMail();
             }
         }
 
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : Fetch make details from makeID
+        /// </summary>
         private void FetchMakeDetails()
         {
-
-            if (TaggedMake != null && TaggedMake.MakeId > 0)
+            try
             {
 
-                using (IUnityContainer container = new UnityContainer())
+                if (TaggedMake != null && TaggedMake.MakeId > 0)
                 {
-                    container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
-                    var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
-                    TaggedMake = makesRepository.GetMakeDetails(TaggedMake.MakeId.ToString());
 
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
+                        var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+                        TaggedMake = makesRepository.GetMakeDetails(TaggedMake.MakeId.ToString());
+
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.FetchMakeDetails");
+                objErr.SendMail();
             }
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : Process query string for article id
+        /// </summary>
         private void ProcessQueryString()
         {
             var request = HttpContext.Current.Request;
-            
+
             try
             {
                 string _basicId = request.QueryString["id"];
@@ -149,17 +188,17 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                         string newUrl = "/news/" + _basicId + "-" + request["t"] + ".html";
                         Bikewale.Common.CommonOpn.RedirectPermanent(newUrl);
                     }
-                    uint.TryParse(_basicId,out BasicId);
+                    uint.TryParse(_basicId, out BasicId);
                 }
                 else
                 {
                     IsPageNotFound = true;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                
-                throw;
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.ProcessQueryString");
+                objErr.SendMail();
             }
         }
 
