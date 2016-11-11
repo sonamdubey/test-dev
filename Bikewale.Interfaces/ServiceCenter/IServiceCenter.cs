@@ -1,5 +1,5 @@
 ﻿
-using Bikewale.Entities.service;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.ServiceCenters;
 using System.Collections.Generic;
 namespace Bikewale.Interfaces.ServiceCenter
@@ -13,7 +13,8 @@ namespace Bikewale.Interfaces.ServiceCenter
     /// <typeparam name="U"></typeparam>
     public interface IServiceCenter
     {
-        ServiceCenterLocatorList GetServiceCenterList(uint makeId);
+
+        IEnumerable<CityEntityBase> GetServiceCenterCities(uint makeId);
         ServiceCenterData GetServiceCentersByCity(uint cityId, int makeId);
         IEnumerable<ModelServiceSchedule> GetServiceScheduleByMake(uint makeId);
         ServiceCenterCompleteData GetServiceCenterDataById(uint serviceCenterId);

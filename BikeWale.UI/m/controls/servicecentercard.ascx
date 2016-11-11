@@ -9,7 +9,7 @@
                { %>
             <div class="swiper-slide">
                 <div class="swiper-card">
-                    <a href="<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName,cityMaskingName, serviceCenter.Name,(int)serviceCenter.ServiceCenterId) %>" title="<%= serviceCenter.Name%>">
+                    <a href="/m<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName,cityMaskingName, serviceCenter.Name,(int)serviceCenter.ServiceCenterId) %>" title="<%= serviceCenter.Name%>">
                         <div class="target-link margin-bottom5 text-truncate font14"><%= serviceCenter.Name%></div>
                         <% if (!string.IsNullOrEmpty(serviceCenter.Address))
                            { %>

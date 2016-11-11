@@ -17,6 +17,7 @@ namespace Bikewale.Mobile.Controls
     {
         protected Repeater rptDealers, rptPopularCityDealers;
 
+        public uint ServiceCenterId { get; set; }
         public uint MakeId { get; set; }
         public uint ModelId { get; set; }
         public ushort TopCount { get; set; }
@@ -56,7 +57,10 @@ namespace Bikewale.Mobile.Controls
                 centerData = serviceViewModel.GetServiceCenterList((int)MakeId, CityId);
                 if (centerData != null && centerData.ServiceCenters != null)
                 {
-                    ServiceCenteList = centerData.ServiceCenters.Take(TopCount);
+
+                    IEnumerable<ServiceCenterDetails> totalList = (from sc in centerData.ServiceCenters where sc.ServiceCenterId != ServiceCenterId select sc);
+                    if (totalList != null)
+                        ServiceCenteList = totalList.Take(TopCount);
                     showWidget = true;
                     widgetTitle = string.Format("Other {0} service centers in {1}", makeName, cityName);
                 }

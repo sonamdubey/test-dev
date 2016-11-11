@@ -570,5 +570,29 @@ namespace Bikewale.Notifications
                 objErr.SendMail();
             }
         }
+        /// <summary>
+        /// Created By  : Aditi Srivastava on 9 Nov 2016
+        /// Description : Send SMS to seller on approval of changes in used bike listing
+        /// </summary>
+        /// <param name="smsType"></param>
+        /// <param name="number"></param>
+        /// <param name="profileId"></param>
+        /// <param name="customerName"></param>
+        /// <param name="pageurl"></param>
+        public void ApprovalEditedUsedSellListingSMS(EnumSMSServiceType smsType, string number, string profileId, string customerName, string pageurl)
+        {
+            string message = String.Format("Hi {0}, the changes in your bike listing(profile id - {1}) has been verified and approved on BikeWale. We wish you good luck with your listing.", customerName, profileId);
+            try
+            {
+                SMSCommon sc = new SMSCommon();
+
+                sc.ProcessSMS(number, message, smsType, pageurl);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.EditedApprovalUsedSellListingSMSToSeller({0},{1},{2},{3})", number, message, pageurl, profileId));
+                objErr.SendMail();
+            }
+        }
     }   //End of class
 }   //End of namespace

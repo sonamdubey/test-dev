@@ -95,6 +95,7 @@ namespace Bikewale.Mobile.Service
 
         private void BindControls()
         {
+            ctrlServiceCenterCard.ServiceCenterId = serviceCenterId;
             ctrlServiceCenterCard.MakeId = makeId;
             ctrlServiceCenterCard.makeMaskingName = makeMaskingName;
             ctrlServiceCenterCard.makeName = makeName;

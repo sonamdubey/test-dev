@@ -13,23 +13,21 @@
     <div class="swiper-container card-container margin-bottom15">
         <!-- dealers by city -->
         <div class="swiper-wrapper">
-            <asp:Repeater ID="rptDealers" runat="server">
-                <ItemTemplate>
-                    <div class="swiper-slide">
-                        <div class="swiper-card">
-                        <a href = "/m<%# Bikewale.Utility.UrlFormatter.GetDealerUrl(makeMaskingName, cityMaskingName, DataBinder.Eval(Container.DataItem,"Name").ToString(),Convert.ToInt32(DataBinder.Eval(Container.DataItem,"DealerId"))) %>" title="<%#DataBinder.Eval(Container.DataItem,"Name").ToString()%>">
-                                <%# GetDealerDetailLink(DataBinder.Eval(Container.DataItem,"DealerType").ToString(), DataBinder.Eval(Container.DataItem,"DealerId").ToString(), DataBinder.Eval(Container.DataItem,"CampaignId").ToString(), DataBinder.Eval(Container.DataItem,"Name").ToString()) %>
-
-                                <p class="margin-bottom5 text-light-grey <%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Address").ToString()))?"hide":string.Empty %>">
+           <% foreach (var dealers in dealerList)
+                       { %> 
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                               <a href = "/m<%= Bikewale.Utility.UrlFormatter.GetDealerUrl(makeMaskingName, cityMaskingName, dealers.Name.ToString(),Convert.ToInt32(dealers.DealerId))%>" title="<%=dealers.Name.ToString()%>"> 
+                               <%= GetDealerDetailLink(dealers.DealerType.ToString(), dealers.DealerId.ToString(), dealers.CampaignId.ToString(), dealers.Name.ToString()) %>
+                                 <p class="margin-bottom5 text-light-grey <%= (String.IsNullOrEmpty(dealers.Address.ToString()))?"hide":string.Empty %>">
                                     <span class="bwmsprite dealership-loc-icon vertical-top"></span>
-                                    <span class="vertical-top dealership-address details-column"><%# Convert.ToString(DataBinder.Eval(Container.DataItem,"Address")) %></span>
+                                    <span class="vertical-top dealership-address details-column"><%= Convert.ToString(dealers.Address) %></span>
                                 </p>
                             </a>
-                            <a href="tel:<%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %>" class="text-default text-bold text-truncate <%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":"block" %>"><span class="bwmsprite tel-sm-grey-icon pos-top0 margin-right5"></span><%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %></a>
+                                <a href="tel:<%= dealers.MaskingNumber%>" class="text-default text-bold text-truncate <%= (String.IsNullOrEmpty(dealers.MaskingNumber))? "hide":"block" %>"><span class="bwmsprite tel-sm-grey-icon pos-top0 margin-right5"></span><%= dealers.MaskingNumber %></a>
+                            </div>
                         </div>
-                    </div>                        
-                </ItemTemplate>
-            </asp:Repeater>
+            <% } %>
         </div>
     </div>
 

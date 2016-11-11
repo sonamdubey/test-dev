@@ -10,7 +10,6 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Configuration;
 using System.Web;
 
 namespace Bikewale.BAL.EditCMS
@@ -160,7 +159,9 @@ namespace Bikewale.BAL.EditCMS
                     case "1": //EnumCMSContentType.News
                         categoryIdList = Convert.ToString((int)EnumCMSContentType.News) + "," + (short)EnumCMSContentType.AutoExpo2016;
                         break;
-
+                    case "5":// //EnumCMSContentType.TipsAndAdvices
+                        categoryIdList = Convert.ToString((int)EnumCMSContentType.TipsAndAdvices);
+                        break;
                     default:
                         break;
                 }

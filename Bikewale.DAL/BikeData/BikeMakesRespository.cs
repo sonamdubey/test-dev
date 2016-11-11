@@ -7,9 +7,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Web;
 
 namespace Bikewale.DAL.BikeData
@@ -33,6 +33,8 @@ namespace Bikewale.DAL.BikeData
         /// Description :   Updated SP GetBikeMakes_New_03032016. Populate PopularityIndex.
         /// Modified by :   Sumit Kate on 29 Mar 2016
         /// Description :   GetBikeMakes_New_29032016 support Dealer request type which returns the makes list of BW and AB dealers
+        /// Modified by :-Subodh 0n 08 nov 2016
+        /// Description : getbikemakes_new_08112016 added ServiceCenter and changed par_request from string to tinyint(2)
         /// </summary>
         /// <param name="makeType">Type of bike data</param>
         /// <returns>Returns list of type BikeMakeEntityBase</returns>
@@ -43,10 +45,10 @@ namespace Bikewale.DAL.BikeData
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes_new_29032016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes_new_08112016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, makeType.ToString()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.Int32, makeType));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -444,8 +446,8 @@ namespace Bikewale.DAL.BikeData
             return bikeLinkList;
 
         }
-        
-        
+
+
         /// <summary>
         /// Created by  :   Sumit Kate on 13 Sep 2016
         /// Description :   Returns all makes and their models

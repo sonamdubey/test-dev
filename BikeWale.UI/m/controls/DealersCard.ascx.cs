@@ -25,7 +25,7 @@ namespace Bikewale.Mobile.Controls
     /// </summary>
     public class DealersCard : UserControl
     {
-        protected Repeater rptDealers, rptPopularCityDealers;
+        protected Repeater rptPopularCityDealers;
         public uint MakeId { get; set; }
         public uint ModelId { get; set; }
         public ushort TopCount { get; set; }
@@ -37,7 +37,7 @@ namespace Bikewale.Mobile.Controls
         public string PageName { get; set; }
         public int DealerId { get; set; }
         public bool isHeadingNeeded = true;
-
+        public IEnumerable<DealersList> dealerList { get; set; }
         public bool showWidget = false;
         public string dealerUrl = string.Empty;
         protected bool isCitySelected { get { return CityId > 0; } }
@@ -115,10 +115,7 @@ namespace Bikewale.Mobile.Controls
                             {
                                 showWidget = true;
                             }
-                            rptDealers.DataSource = _dealers.Dealers.Take(TopCount);
-                            rptDealers.DataBind();
-
-
+                            dealerList = _dealers.Dealers.Take(TopCount);
                         }
                     }
                     else
