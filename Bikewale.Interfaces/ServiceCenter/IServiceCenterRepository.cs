@@ -18,7 +18,7 @@ namespace Bikewale.Interfaces.ServiceCenter
         ServiceCenterLocatorList GetServiceCenterList(uint makeId);
         IEnumerable<CityEntityBase> GetServiceCenterCities(uint makeId);
         ServiceCenterData GetServiceCentersByCity(uint cityId, int makeId);
-        IEnumerable<ModelServiceSchedule> GetServiceScheduleByMake(int makeId);
+        IEnumerable<ModelServiceSchedule> GetServiceScheduleByMake(uint makeId);
         ServiceCenterCompleteData GetServiceCenterDataById(uint serviceCenterId);
     }
 }

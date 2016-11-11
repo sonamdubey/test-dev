@@ -222,6 +222,16 @@ namespace Bikewale.Utility
             dealerUrl = string.Format("/{0}-service-center-in-{1}/{2}-{3}/", makeMaskingName, cityMaskingName, serviceCenterId, RemoveSpecialCharUrl(serviceCenterName));
             return dealerUrl;
         }
+
+        /// <summary>
+        ///  Created By : Sangram Nandkhile
+        ///  Created On  : 11-11-2016
+        ///  Description : To get url for serviceCenter.
+        /// </summary>
+        public static object GetServiceCenterUrl(string makeMaskingName, string cityMaskingName)
+        {
+            return string.Format("/{0}-service-center-in-{1}/", makeMaskingName, cityMaskingName);
+        }
     }
 }
 

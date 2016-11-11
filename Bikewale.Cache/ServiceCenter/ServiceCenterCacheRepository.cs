@@ -98,7 +98,7 @@ namespace Bikewale.Cache.ServiceCenter
             return null;
         }
 
-        public IEnumerable<ModelServiceSchedule> GetServiceScheduleByMake(int makeId)
+        public IEnumerable<ModelServiceSchedule> GetServiceScheduleByMake(uint makeId)
         {
             string key = String.Format("BW_ServiceScheduleByMake_{0}", makeId);
             try

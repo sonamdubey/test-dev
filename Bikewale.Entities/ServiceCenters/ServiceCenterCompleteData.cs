@@ -31,6 +31,12 @@ namespace Bikewale.Entities.ServiceCenters
         public uint CityId { get; set; }
 
         [DataMember]
+        public string CityName { get; set; }
+
+        [DataMember]
+        public string CityMaskingName { get; set; }
+
+        [DataMember]
         public uint StateId { get; set; }
 
         [DataMember]

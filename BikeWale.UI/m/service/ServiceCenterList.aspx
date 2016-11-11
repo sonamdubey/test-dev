@@ -119,7 +119,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/bike-troubleshooting/" title="Bike troubleshooting - FAQs">
+                        <a href="/m/bike-troubleshooting/" target="_blank" title="Bike troubleshooting - FAQs">
                             <span class="service-sprite faq-icon"></span>
                             <h3 class="text-unbold margin-left10 vertical-middle">Bike troubleshooting - FAQs</h3>
                             <span class="bwmsprite right-arrow"></span>

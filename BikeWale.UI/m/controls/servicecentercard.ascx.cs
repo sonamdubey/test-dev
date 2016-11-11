@@ -3,8 +3,8 @@ using Bikewale.Common;
 using Bikewale.Entities.ServiceCenters;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Controls
 {
@@ -14,20 +14,15 @@ namespace Bikewale.Mobile.Controls
     /// </summary>
     public class ServiceCenterCard : UserControl
     {
-        protected Repeater rptDealers, rptPopularCityDealers;
-
+        public uint ServiceCenterId { get; set; }
         public uint MakeId { get; set; }
         public uint ModelId { get; set; }
         public ushort TopCount { get; set; }
         public uint CityId { get; set; }
         public string makeName = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty, makeMaskingName = string.Empty, widgetTitle = string.Empty;
-        public int LeadSourceId = 25;
-        public int PQSourceId { get; set; }
-        public bool IsDiscontinued { get; set; }
-        protected bool isCitySelected { get { return CityId > 0; } }
         public string pageName { get; set; }
         public bool showWidget = false;
-        public uint DealerId { get; set; }
+
 
         public ServiceCenterData centerData;
         public IEnumerable<ServiceCenterDetails> ServiceCenteList;
@@ -43,22 +38,8 @@ namespace Bikewale.Mobile.Controls
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (isValidData())
+            if (MakeId > 0)
                 BindDealers();
-        }
-
-        /// <summary>
-        /// Function to validate the data passed to the widget
-        /// </summary>
-        /// <returns></returns>
-        private bool isValidData()
-        {
-            bool isValid = true;
-            if (MakeId <= 0)
-            {
-                isValid = false;
-            }
-            return isValid;
         }
 
         /// <summary>
@@ -73,7 +54,10 @@ namespace Bikewale.Mobile.Controls
                 centerData = serviceViewModel.GetServiceCenterList((int)MakeId, CityId);
                 if (centerData != null && centerData.ServiceCenters != null)
                 {
-                    ServiceCenteList = centerData.ServiceCenters;
+
+                    IEnumerable<ServiceCenterDetails> totalList = (from sc in centerData.ServiceCenters where sc.ServiceCenterId != ServiceCenterId select sc);
+                    if (totalList != null)
+                        ServiceCenteList = totalList.Take(TopCount);
                     showWidget = true;
                     widgetTitle = string.Format("Other {0} service centers in {1}", makeName, cityName);
                 }

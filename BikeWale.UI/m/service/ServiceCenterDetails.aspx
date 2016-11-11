@@ -8,10 +8,10 @@
 <html>
 <head>
     <%
-        keywords = String.Format("{0}, {0} dealer, {0} Showroom, {0} {1}", dealerName, dealerCity);
-        description = String.Format("{2} is dealer of {0} bikes in {1}. Get best offers on {0} bikes at {2} showroom", makeName, dealerCity, dealerName);
-        title = String.Format("{0} {1} - {0} Showroom in {1} - BikeWale", dealerName, dealerCity);
-        canonical =  String.Format("http://www.bikewale.com{0}",Bikewale.Utility.UrlFormatter.GetDealerUrl(makeMaskingName, cityMaskingName, dealerName, (int)dealerId));
+        keywords = String.Format("{0}, {0} {1}, {2} servicing {1}", serviceCenteName, serviceCity, makeName);
+        description = String.Format("{0} is an authorised service center of {1}. Get all details related to servicing cost, pick and drop facility and service schedule from {0}", serviceCenteName,makeName );
+        title = String.Format("{0} {1} | {0} service center in {1} - BikeWale ", serviceCenteName, serviceCity);
+        canonical = String.Format("http://www.bikewale.com{0}", Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, cityMaskingName, serviceCenteName, (int)dealerId));
     %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <link rel="stylesheet" type="text/css" href="/m/css/service/details.css">
@@ -42,20 +42,21 @@
                     <% if (!(String.IsNullOrEmpty(objServiceCenterData.Mobile)) || !(String.IsNullOrEmpty(objServiceCenterData.Phone)))
                     { %>
                     <div class="margin-bottom10">
-                        <a href="" class="text-default text-bold maskingNumber">
+                        <% if(!objServiceCenterData.Phone.Contains(",")) { %>
+                        <a href="tel:<%=objServiceCenterData.Phone %>" class="text-default text-bold maskingNumber">
                             <span class="bwmsprite tel-sm-grey-icon vertical-top"></span>
                             <span class="vertical-top text-bold details-column">
-                                <% if (!(String.IsNullOrEmpty(objServiceCenterData.Mobile)))
-                                   { %>
-                                            <%= objServiceCenterData.Mobile.Trim()%><% }
-                        if (!(String.IsNullOrEmpty(objServiceCenterData.Mobile)) && !(String.IsNullOrEmpty(objServiceCenterData.Phone)))
-                        {%>, <%}
-                        if (!(String.IsNullOrEmpty(objServiceCenterData.Phone)))
-                        { %>
-                                            <%= objServiceCenterData.Phone.Trim() %>
-                                            <% } %>
+                                <%=objServiceCenterData.Phone %>
                             </span>
                         </a>
+                        <% } else { %>
+                        <a href="javascript:void(0)" class="text-default text-bold maskingNumber contact-service-btn" data-service-name="<%= objServiceCenterData.Name %>" data-service-number="<%= objServiceCenterData.Phone %>">
+                            <span class="bwmsprite tel-sm-grey-icon vertical-top"></span>
+                            <span class="vertical-top text-bold details-column">
+                                 <%=objServiceCenterData.Phone %>
+                            </span>
+                        </a>
+                        <% } %>
                     </div>
                     <% } %>
 
@@ -69,7 +70,7 @@
                     </div>
                     <% } %>                    
 
-                    <% if (dealerLat > 0 && dealerLong > 0)
+                    <% if (serviceLat > 0 && serviceLong > 0)
                        { %>
                     <div class="border-solid-bottom margin-bottom15 padding-top10"></div>
                     
@@ -83,19 +84,37 @@
                         Time: <span id="commuteDuration"></span>
                     </div>
                     <div id="commuteResults"></div>
-                    <a id="anchorGetDir" href="http://maps.google.com/maps?z=12&t=m&q=loc:<%= dealerLat %>,<%= dealerLong %>" target="_blank"><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
+                    <a id="linkMap" href="http://maps.google.com/maps?z=12&t=m&q=loc:<%= serviceLat %>,<%= serviceLong %>" target="_blank"><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
                     <% } %>
                 </div>
             </div>
         </section>
        <% } %>
+
+        <div class="modal-background"></div>
+        <div id="contact-service-popup" class="modal-popup-container">
+            <div class="popup-header"></div>
+            <div class="popup-body">
+                <p class="body-label">Select one of the phone numbers to talk to service center executive</p>
+                <ul class="popup-list margin-bottom20"></ul>
+                <div class="grid-6 alpha">
+                    <p class="btn btn-white btn-full-width btn-size-0 cancel-popup-btn">Cancel</p>
+                </div>
+                <div class="grid-6 omega">
+                    <a href="" id="call-service-btn" class="btn btn-orange btn-full-width btn-size-0">Call</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+
         <section>
             <% if (ctrlServiceCenterCard.showWidget)
                    { %>
                     <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
                 <% }  %>
         </section>
-
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>        
+        
         <section>
             <!-- schedule widget start -->
             <BW:ServiceSchedule runat="server" ID="ctrlServiceSchedule" />
@@ -127,10 +146,9 @@
         <section>
             <div class="container bg-white box-shadow card-bottom-margin padding-bottom20 padding-top15">
                 <div class="padding-right20 padding-left20 margin-bottom15">
-                    <h2 class="margin-bottom5">Looking to buy a new Bajaj bike in Mumbai?</h2>
-                    <p>Check out authorised Bajaj dealers in Mumbai</p>
+                    <h2 class="margin-bottom5">Looking to buy a new <%= makeName %> bike in <%=serviceCity %>?</h2>
+                    <p>Check out authorised <%= makeName %> dealers in <%=serviceCity %></p>
                     <BW:DealerCard runat="server" ID="ctrlDealerCard" />  
-               
                 </div>
             </div>            
         </section>
@@ -138,13 +156,12 @@
 
         <section>
             <div class="container margin-bottom20 font12 padding-top5 padding-right20 padding-left20">
-                <span class="font14"><strong>Disclaimer:</strong></span> The above mentioned information about <%=makeName %> dealership showrooms in <%=cityName %> is furnished to the best of our knowledge. 
+                <span class="font14"><strong>Disclaimer:</strong></span> The above mentioned information about <%=makeName %> dealership showrooms in <%=serviceCity %> is furnished to the best of our knowledge. 
                     All <%=makeName %> bike models and colour options may not be available at each of the <%=makeName %> dealers. 
                     We recommend that you call and check with your nearest <%=makeName %> dealer before scheduling a showroom visit.
             </div>
         </section>
 
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>        
          <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
@@ -152,38 +169,11 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
-            var versionId, dealerId = "<%= dealerId %>", cityId = "<%= cityId %>", clientIP = "<%= Bikewale.Common.CommonOpn.GetClientIP()%>",campaignId = "<%= campaignId %>";                                              
-             var dealerLat = "<%= dealerLat %>", dealerLong = "<%= dealerLong%>";
+            var versionId, dealerId = "<%= dealerId %>", cityId = "<%= cityId %>", clientIP = "<%= clientIP%>",campaignId = "<%= campaignId %>";                                              
+             var serviceLat = "<%= serviceLat %>", serviceLong = "<%= serviceLong%>";
              var bodHt, footerHt, scrollPosition, leadSourceId;                         
              var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey%>";
-            var cityArea = "<%= dealerCity + "_" + dealerArea%>";
             var pageUrl = window.location.href;
-            $(window).scroll(function () {
-                bodHt = $('body').height();
-                footerHt = $('footer').height();
-                scrollPosition = $(this).scrollTop();
-                if ($('.float-button').hasClass('float-fixed')) {
-                    if (scrollPosition + $(window).height() > (bodHt - footerHt))
-                        $('.float-button').removeClass('float-fixed').hide();
-                }
-                if (scrollPosition + $(window).height() < (bodHt - footerHt))
-                    $('.float-button').addClass('float-fixed').show();
-            });
-           $(".leadcapturebtn").click(function(e){
-               ele = $(this);
-               
-               var leadOptions = {
-                   "dealerid" : dealerId,                    
-                   "leadsourceid" : ele.attr('data-leadsourceid'),
-                   "pqsourceid" : ele.attr('data-pqsourceid'),
-                   "pageurl" : pageUrl,
-                   "clientip" : clientIP,
-                   "isregisterpq": true,
-                   "isdealerbikes": true,
-                   "campid": campaignId
-               };
-               dleadvm.setOptions(leadOptions);
-           });
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/service/details.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />

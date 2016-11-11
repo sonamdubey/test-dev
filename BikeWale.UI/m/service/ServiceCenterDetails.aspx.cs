@@ -26,16 +26,17 @@ namespace Bikewale.Mobile.Service
     /// Modified On : 25 March 2016
     /// Description : To show dealer details based on dealer id an campaign id.
     /// Modified By : Lucky Rathore on 30 March 2016
-    /// Description : dealerLat, dealerLong, dealerName, dealerArea, dealerCity added and _dealerQuery removed.
+    /// Description : serviceLat, dealerLong, dealerName, dealerArea, dealerCity added and _dealerQuery removed.
     /// </summary>
     public class ServiceCenterDetails : System.Web.UI.Page
     {
         protected Repeater rptModels, rptModelList;
-        protected uint dealerId, campaignId = 0, cityId, serviceCenterId = 0;
-        protected int makeId, dealerBikesCount = 0;
+        protected uint dealerId, campaignId = 0, cityId, serviceCenterId = 0, makeId = 0;
+        protected int objServicemakeId, dealerBikesCount = 0;
         protected bool isDealerDetail;
-        protected string cityName = string.Empty, makeName = string.Empty, maskingNumber = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, dealerName = string.Empty, dealerArea = string.Empty, dealerCity = string.Empty, clientIP = CommonOpn.GetClientIP();
-        protected double dealerLat, dealerLong;
+        protected string makeName = string.Empty, maskingNumber = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty,
+            serviceCenteName = string.Empty, serviceCity = string.Empty, clientIP = CommonOpn.GetClientIP();
+        protected double serviceLat, serviceLong;
         protected DealersCard ctrlDealerCard;
         protected ServiceCenterCard ctrlServiceCenterCard;
         protected ServiceSchedule ctrlServiceSchedule;
@@ -54,7 +55,6 @@ namespace Bikewale.Mobile.Service
             if (ProcessQueryString() && serviceCenterId > 0)
             {
                 BindServiceCenterData();
-                //GetDealerDetails();
                 BindControls();
             }
         }
@@ -75,11 +75,14 @@ namespace Bikewale.Mobile.Service
 
                     if (objServiceCenterData != null)
                     {
+                        serviceCenteName = objServiceCenterData.Name;
                         cityId = objServiceCenterData.CityId;
-                        makeId = (int)objServiceCenterData.MakeId;
+                        makeId = objServiceCenterData.MakeId;
                         GetMakeNameByMakeId(objServiceCenterData.MakeId);
-                        dealerLat = Convert.ToDouble(objServiceCenterData.Lattitude);
-                        dealerLong = Convert.ToDouble(objServiceCenterData.Longitude);
+                        serviceCity = objServiceCenterData.CityName;
+                        cityMaskingName = objServiceCenterData.CityMaskingName;
+                        serviceLat = Convert.ToDouble(objServiceCenterData.Lattitude);
+                        serviceLong = Convert.ToDouble(objServiceCenterData.Longitude);
                     }
                 }
             }
@@ -92,20 +95,18 @@ namespace Bikewale.Mobile.Service
 
         private void BindControls()
         {
-            ctrlServiceCenterCard.MakeId = (uint)makeId; //(uint)dealerDetails.MakeId;
-            //ctrlServiceCenterCard.makeMaskingName = dealerDetails.MakeMaskingName;
-            //ctrlServiceCenterCard.makeName = dealerDetails.MakeName;
-            ctrlServiceCenterCard.CityId = cityId; //(uint)dealerDetails.CityId;
-            //ctrlServiceCenterCard.cityName = dealerCity;
-            //ctrlServiceCenterCard.PageName = "Dealer_Details";
+            ctrlServiceCenterCard.ServiceCenterId = serviceCenterId;
+            ctrlServiceCenterCard.MakeId = makeId;
+            ctrlServiceCenterCard.makeMaskingName = makeMaskingName;
+            ctrlServiceCenterCard.makeName = makeName;
+            ctrlServiceCenterCard.CityId = cityId;
+            ctrlServiceCenterCard.cityName = serviceCity;
+            ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
             ctrlServiceCenterCard.TopCount = 9;
-            //ctrlServiceCenterCard.PQSourceId = (int)PQSourceEnum.Mobile_dealer_details_Get_offers;
-            //ctrlServiceCenterCard.LeadSourceId = 15;
-            //ctrlServiceCenterCard.DealerId = dealerId;
-            ctrlDealerCard.MakeId = (uint)makeId;
+            ctrlDealerCard.MakeId = makeId;
             ctrlDealerCard.makeMaskingName = makeMaskingName;
             ctrlDealerCard.CityId = cityId;
-            ctrlDealerCard.cityName = cityName;
+            ctrlDealerCard.cityName = serviceCity;
             ctrlDealerCard.PageName = "Service_Center_DetailsPage";
             ctrlDealerCard.TopCount = 9;
             ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_ServiceCenter_DetailsPage;
@@ -115,7 +116,9 @@ namespace Bikewale.Mobile.Service
 
             ctrlLeadCapture.CityId = cityId;
 
-            ctrlServiceSchedule.makeId = 1;
+            ctrlServiceSchedule.MakeId = makeId;
+            ctrlServiceSchedule.MakeName = makeName;
+
             ctrlLeadCapture.CityId = cityId;
         }
 

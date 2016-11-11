@@ -9,7 +9,7 @@
                { %>
             <div class="swiper-slide">
                 <div class="swiper-card">
-                    <a href="<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName,cityMaskingName, serviceCenter.Name,(int)serviceCenter.ServiceCenterId) %>" title="<%= serviceCenter.Name%>">
+                    <a href="/m<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName,cityMaskingName, serviceCenter.Name,(int)serviceCenter.ServiceCenterId) %>" title="<%= serviceCenter.Name%>">
                         <div class="target-link margin-bottom5 text-truncate font14"><%= serviceCenter.Name%></div>
                         <% if (!string.IsNullOrEmpty(serviceCenter.Address))
                            { %>
@@ -18,11 +18,11 @@
                             <span class="vertical-top details-column"><%= Bikewale.Utility.FormatDescription.TruncateDescription(serviceCenter.Address, 95) %></span>
                         </p>
                         <% } %>
-                        <% if (!string.IsNullOrEmpty(serviceCenter.Mobile))
+                        <% if (!string.IsNullOrEmpty(serviceCenter.Phone))
                            { %>
                         <p class="text-truncate">
                             <span class="bwmsprite tel-sm-grey-icon pos-top0 margin-right5"></span>
-                            <span class="text-bold text-default"><%=serviceCenter.Mobile %> </span>
+                            <span class="text-bold text-default"><%=serviceCenter.Phone %></span>
                         </p>
                         <% } %>
                     </a>
@@ -33,10 +33,7 @@
     </div>
 
 <div class="padding-right20 padding-left20 font14">
-    <a href="<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> service centers in <%=cityName %>">View all <%= makeName %> service centers <span class="bwmsprite blue-right-arrow-icon"></span></a>
+    <a href="/m<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> service centers in <%=cityName %>">View all <%= makeName %> service centers <span class="bwmsprite blue-right-arrow-icon"></span></a>
 </div>
     </div>
 <% } %>
-<script type="text/javascript">
-     var bikeCity='<%=makeName%> '+'_'+'<%=cityName%>'
-</script>
