@@ -737,7 +737,6 @@ var personalDetails = function () {
 
     self.listYourBike = function () {
         self.validate(true);
-        debugger;
 
         if (!("colorId" in window))
             colorId = 0;
@@ -1390,9 +1389,6 @@ $(function () {
         $('#submitButtonStep1').val("Update and Continue");
         $('#submitButtonStep2').val("Update and Continue");
         $('#submitButtonStep3').val("Update my listing");
-        
-
-        debugger;
     }
     else {
         $("#kmsRidden").val('');
