@@ -7,13 +7,6 @@ using Bikewale.Entities.Location;
 using Bikewale.Entities.SEO;
 using System;
 using System.Web;
-using System.Linq;
-using Bikewale.Entities.BikeData;
-using Bikewale.Controls;
-using Bikewale.Utility;
-using Bikewale.Cache.BikeData;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.DAL.BikeData;
 
 namespace Bikewale.News
 {
@@ -22,7 +15,7 @@ namespace Bikewale.News
     /// Modified By : Aditi Srivastava on 10 Nov 2016
     /// Description : Added control for upcoming bikes widget
     /// </summary>
-     public class news : System.Web.UI.Page
+    public class news : System.Web.UI.Page
     {
         private string _basicId = string.Empty;
         protected ArticleDetails objArticle = null;
@@ -85,7 +78,7 @@ namespace Bikewale.News
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
-                            
+
             }
             catch (Exception ex)
             {
@@ -94,37 +87,31 @@ namespace Bikewale.News
             }
         }
 
+
         private void BindPageWidgets()
         {
             if (ctrlPopularBikes != null)
             {
-                ctrlPopularBikes.totalCount = 4;
+                ctrlPopularBikes.totalCount = 3;
                 ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
                 ctrlPopularBikes.cityName = currentCityArea.City;
+
+                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                ctrlUpcomingBikes.pageSize = 9;
+                ctrlUpcomingBikes.topCount = 3;
+
+
                 if (_taggedMakeObj != null)
                 {
                     ctrlPopularBikes.makeId = _taggedMakeObj.MakeId;
                     ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
                     ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
+                    ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
+                    ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
+
                 }
             }
 
-            BindUpcoming();
-
-                    ctrlUpcomingBikes.makeMaskingName = objMMV.MaskingName;
-        }
-
-        /// <summary>
-        /// Created by : Aditi Srivastava on 8 Nov 2016
-        /// Summary  : Bind upcoming bikes list
-        /// </summary>
-        /// </summary>
-        private void BindUpcoming()
-        {
-            ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            ctrlUpcomingBikes.pageSize = 9;
-            ctrlUpcomingBikes.MakeId = makeId;
-            ctrlUpcomingBikes.topCount = 3;
         }
 
     }

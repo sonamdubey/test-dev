@@ -40,8 +40,7 @@
         relPrevPageUrl = prevUrl;
         relNextPageUrl = nextUrl;
 	    fbImage = Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo;
-        //modified by SajalGupta for unfilled impression of ads on 04 Aug 2016.
-        isAd300x250Shown = false;
+        isAd300x250BTFShown = false;
     %>
 <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link href="/css/content/listing.css" rel="stylesheet" type="text/css" />
@@ -149,12 +148,14 @@
 
                     <div class="grid-4 omega">
                         <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
-                        <BW:UpcomingBikes ID="ctrlUpcoming" runat="server" />
+                      
                         <div class="margin-bottom20">
-                            <!-- Ad -->
+                           <!-- #include file="/ads/Ad300x250.aspx" -->
                         </div>
+
+                          <BW:UpcomingBikes ID="ctrlUpcoming" runat="server" />
                         
-                        <a href="" id="on-road-price-widget" class="content-box-shadow content-inner-block-20">
+                        <a href="/pricequote/" id="on-road-price-widget" class="content-box-shadow content-inner-block-20">
                             <span class="inline-block">
                                 <img src="https://imgd1.aeplcdn.com/0x0/bw/static/design15/on-road-price.png" alt="Rupee" border="0" />
                             </span><h2 class="text-default inline-block">Get accurate on-road price for bikes</h2>
@@ -162,7 +163,7 @@
                         </a>
                         <%--<div>
 				        <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
-				        <!-- #include file="/ads/Ad300x250.aspx" -->
+				        
 				        </div>--%>
 			        
 			            <%--<div>

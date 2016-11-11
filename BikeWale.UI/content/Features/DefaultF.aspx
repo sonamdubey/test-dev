@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.DefaultF" Trace="false" Async="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.DefaultF"  %>
 
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" Src="~/m/controls/LinkPagerControl.ascx" %>
@@ -17,8 +17,7 @@
         relNextPageUrl = nextUrl;
 	    AdId = "1395986297721";
 	    AdPath = "/1017752/BikeWale_New_";
-        //modified by SajalGupta for unfilled impression of ads on 04 Aug 2016.
-        isAd300x250Shown = false;
+        isAd300x250BTFShown = false;
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link href="/css/content/listing.css" rel="stylesheet" type="text/css" />
@@ -104,27 +103,17 @@
                     <div class="grid-4 omega">
                         
                         <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
-
-                         <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
-                         <div class="margin-bottom20">
-                            <!-- Ad -->
+                          <div class="margin-bottom20">
+                           <!-- #include file="/ads/Ad300x250.aspx" -->
                         </div>
-                        
-                        <a href="" id="on-road-price-widget" class="content-box-shadow content-inner-block-20">
+                         <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
+
+                        <a href="/pricequote/" id="on-road-price-widget" class="content-box-shadow content-inner-block-20">
                             <span class="inline-block">
                                 <img src="https://imgd1.aeplcdn.com/0x0/bw/static/design15/on-road-price.png" alt="Rupee" border="0" />
                             </span><h2 class="text-default inline-block">Get accurate on-road price for bikes</h2>
                             <span class="bwsprite right-arrow"></span>
                         </a>
-                        <%--<div>
-				        <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
-				        <!-- #include file="/ads/Ad300x250.aspx" -->
-				        </div>--%>
-			        
-			            <%--<div>
-				            <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
-				            <!-- #include file="/ads/Ad300x250BTF.aspx" -->
-			            </div>--%>
                     </div>
                     <div class="clear"></div>
                 </div>

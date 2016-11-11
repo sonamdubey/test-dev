@@ -112,14 +112,13 @@
                     <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 
                     <div class="grid-4 omega">
-                         <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
-
-                        </div>                        
-                        <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />                     
+                        <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
                         <div class="margin-bottom20">
                             <!-- #include file="/ads/Ad300x250.aspx" -->
                         </div>
-                        <a href="" id="on-road-price-widget" class="content-box-shadow content-inner-block-20">
+                        <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
+                   
+                        <a href="/pricequote/" id="on-road-price-widget" class="content-box-shadow content-inner-block-20">
                             <span class="inline-block">
                                 <img src="https://imgd1.aeplcdn.com/0x0/bw/static/design15/on-road-price.png" alt="Rupee" border="0" />
                             </span><h2 class="text-default inline-block">Get accurate on-road price for bikes</h2>
@@ -130,7 +129,6 @@
                 
                 </div>
                 <div class="clear"></div>
-            </div>
         </section>
         
         <!-- #include file="/includes/footerBW.aspx" -->

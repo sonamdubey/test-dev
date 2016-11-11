@@ -46,6 +46,7 @@ namespace Bikewale.Content
         private BikeMakeEntityBase _taggedMakeObj;
         protected int makeId;
         protected ModelGallery ctrlModelGallery;
+        private GlobalCityAreaEntity currentCityArea;
         protected string articleUrl = string.Empty, articleTitle = string.Empty, authorName = string.Empty, displayDate = string.Empty;
 
         protected ArticlePageDetails objFeature = null;
@@ -77,16 +78,7 @@ namespace Bikewale.Content
             if (!String.IsNullOrEmpty(_basicId))
             {
                 GetFeatureDetails();
-                GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
-                ctrlPopularBikes.totalCount = 4;
-                ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
-                ctrlPopularBikes.cityName = currentCityArea.City;
-                if (_taggedMakeObj != null)
-                {
-                    ctrlPopularBikes.makeId = _taggedMakeObj.MakeId;
-                    ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
-                    ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
-                }
+                BindPageWidgets();
             }
         }
 
@@ -161,7 +153,6 @@ namespace Bikewale.Content
                             ctrlModelGallery.Photos = objImg.ToList();
                         }
                         GetTaggedBikeList();
-                        BindUpcoming();
                     }
                     else
                     {
@@ -226,7 +217,6 @@ namespace Bikewale.Content
                     _taggedMakeObj = objFeature.VehiclTagsList.FirstOrDefault().MakeBase;
                     FetchMakeDetails();
                 }
-                makeMaskingName = _taggedMakeObj.MaskingName;
             }
         }
 
@@ -251,12 +241,34 @@ namespace Bikewale.Content
         /// Summary  : Bind upcoming bikes list
         /// </summary>
         /// </summary>
-        private void BindUpcoming()
+        private void BindPageWidgets()
         {
-            ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            ctrlUpcomingBikes.pageSize = 9;
-            ctrlUpcomingBikes.MakeId = makeId;
-            ctrlUpcomingBikes.topCount = 3;
+            currentCityArea = GlobalCityArea.GetGlobalCityArea();
+
+            if (ctrlPopularBikes != null)
+            {
+                
+
+                ctrlPopularBikes.totalCount = 3;
+                ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                ctrlPopularBikes.cityName = currentCityArea.City;
+
+                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                ctrlUpcomingBikes.pageSize = 9;
+                ctrlUpcomingBikes.topCount = 3;
+
+
+                if (_taggedMakeObj != null)
+                {
+                    ctrlPopularBikes.makeId = _taggedMakeObj.MakeId;
+                    ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
+                    ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
+                    ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
+                    ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
+
+                }
+            }
+
         }
     }
 }
