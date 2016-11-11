@@ -84,9 +84,14 @@ namespace Bikewale.Content
             ctrlPopularBikes.totalCount = 4;
             ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
             ctrlPopularBikes.cityName = currentCityArea.City;
-            ctrlPopularBikes.makeId = Convert.ToInt32(makeId);
-            ctrlPopularBikes.makeMasking = makeMaskingName;
-            ctrlPopularBikes.makeName = makeName;
+
+            if (!string.IsNullOrEmpty(makeId) && makeId!="0")
+            {
+                ctrlPopularBikes.makeId = Convert.ToInt32(makeId);
+                ctrlPopularBikes.makeMasking = makeMaskingName;
+                ctrlPopularBikes.makeName = makeName;
+            }
+          
 
         }
 

@@ -2,7 +2,7 @@
 <%if (FetchedRecordsCount > 0)
   { %>
 <div class="content-box-shadow padding-15-20-10 margin-bottom20">
-    <h2>Popular bikes</h2>
+    <h2>Popular <%= !string.IsNullOrEmpty(makeName)? makeName : string.Empty %> bikes</h2>
     <ul class="sidebar-bike-list">
         <%foreach (var bike in popularBikes) { 
             string bikeName = string.Format("{0} {1}",bike.objMake.MakeName,bike.objModel.ModelName);  

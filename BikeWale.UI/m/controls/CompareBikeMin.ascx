@@ -11,18 +11,18 @@
                     <div class="comparison-image">
                         <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.VersionImgUrl1,bike.HostUrl1,Bikewale.Utility.ImageSize._110x61) %>" src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif">
                     </div>
-                    <h3 class="font14 text-black margin-bottom5 padding-right10"><%= bike.Bike1 %></h3>
+                    <h3 class="font12 text-black margin-bottom5 padding-right10"><%= bike.Bike1 %></h3>
                     <div class="text-default text-bold">
-                        <span class="bwmsprite inr-xxsm-icon"></span><span class="font14"><%= string.Format("{0}{1}",Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price1)),bike.Price1 > 0 ? " onwards" : string.Empty)  %></span>
+                        <span class="bwmsprite inr-xxsm-icon"></span><span class="font16"><%= string.Format("{0}{1}",Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price1)),bike.Price1 > 0 ? "<span class='font14'> onwards</span>" : string.Empty)  %></span>
                     </div>
                 </div>
                 <div class="grid-6 padding-left15">
                     <div class="comparison-image">
                         <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.VersionImgUrl2,bike.HostUrl2,Bikewale.Utility.ImageSize._110x61) %>" src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif">
                     </div>
-                    <h3 class="font14 text-black margin-bottom5"><%= bike.Bike2 %></h3>
+                    <h3 class="font12 text-black margin-bottom5"><%= bike.Bike2 %></h3>
                     <div class="text-default text-bold">
-                        <span class="bwmsprite inr-xxsm-icon"></span><span class="font14"><%= string.Format("{0}{1}",Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price2)),bike.Price2 > 0 ? " onwards" : string.Empty)  %></span>
+                        <span class="bwmsprite inr-xxsm-icon"></span><span class="font16"><%= string.Format("{0}{1}",Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price2)),bike.Price2 > 0 ? "<span class='font14'> onwards</span>" : string.Empty)  %></span>
                     </div>
                 </div>
                 <div class="clear"></div>

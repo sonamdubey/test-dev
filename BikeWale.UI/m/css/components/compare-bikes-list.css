@@ -14,15 +14,15 @@
 }
 
 .compare-bikes-list .comparison-image {
-    width: 80px;
-    height: 45px;
+    width: 110px;
+    height: 62px;
     margin-bottom: 5px;
     overflow: hidden;
     text-align: center;
 }
 
 .compare-bikes-list img {
-    height: 45px;
+    height: 62px;
 }
 
 .compare-bikes-list .grid-6:first-child:after {
