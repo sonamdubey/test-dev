@@ -53,7 +53,7 @@
                     <% foreach (var serviceCenter in serviceCentersList)
                        { %>                     
                             <li>
-                                <a href="/m/service/ServiceCenterDetails.aspx?Id=<%= serviceCenter.ServiceCenterId %>" title="<%= serviceCenter.Name %> | <%= makeName %> | <%= cityName %>" class="center-list-item">
+                                <a href="/m<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, urlCityMaskingName, serviceCenter.Name, Convert.ToInt32(serviceCenter.ServiceCenterId)) %> "  title="<%= serviceCenter.Name %> | <%= makeName %> | <%= cityName %>" class="center-list-item">
                                     <h3 class="text-truncate margin-bottom5 text-black">                                    
                                         <%= serviceCenter.Name %>
                                     </h3>     
