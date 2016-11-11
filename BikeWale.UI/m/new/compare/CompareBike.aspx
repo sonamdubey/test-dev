@@ -128,7 +128,7 @@
 
     <div class="container margin-bottom20">
         <div class="grid-12 alpha omega">
-            <CB:CompareBike ID="NewBikeDealers1" runat="server" ></CB:CompareBike>
+            <CB:CompareBike ID="ctrlCompareBikes" runat="server" ></CB:CompareBike>
         </div>
         <div class="clear"></div>
     </div>
@@ -137,6 +137,38 @@
 <script type="text/javascript">
     
     var formatedMake1, formatedMake2, formatedModel1, formatedModel2;
+
+    var CompareBikeModel = function()  
+    {
+        var self = this;
+        self.MakeId1 = ko.observable();
+        self.ModelId1 = ko.observable();
+        self.VersionId1 = ko.observable();
+
+        self.MakeId2 = ko.observable();
+        self.ModelId2 = ko.observable();
+        self.VersionId2 = ko.observable();
+
+        self.SelectMake = function (d,e) {
+
+        };
+
+        self.SelectModel = function (d,e) {
+            var selectedMakeId = 12;
+            if(selectedMakeId  && selectedMakeId > 0)
+            {
+
+            }
+
+        };
+
+        self.SelectVersion = function (d,e) {
+
+        };
+    }
+
+    var vmCompare = new CompareBikeModel();
+
 
     $(document).ready(function () {
         var bikeName = "",

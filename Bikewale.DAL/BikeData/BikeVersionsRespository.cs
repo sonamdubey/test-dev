@@ -165,9 +165,6 @@ namespace Bikewale.DAL.BikeData
 
                     var paramColl = cmd.Parameters;
 
-                    // LogLiveSps.LogSpInGrayLog(cmd);
-
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, id));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbType.String, ParameterDirection.Output));

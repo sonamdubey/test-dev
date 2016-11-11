@@ -5,6 +5,7 @@ using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Mobile.Controls;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace Bikewale.Mobile.New
     public class CompareBike : System.Web.UI.Page
     {
         protected HtmlGenericControl ddlMake1, ddlMake2;
+        protected CompareBikeMin ctrlCompareBikes;
 
         protected override void OnInit(EventArgs e)
         {
@@ -33,6 +35,7 @@ namespace Bikewale.Mobile.New
             if (!Page.IsPostBack)
             {
                 LoadCompareBikeMakes();
+                ctrlCompareBikes.TotalRecords = 3;
             }
         }
 
