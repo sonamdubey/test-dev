@@ -272,6 +272,7 @@
     <Compile Include="BindViewModels\Webforms\DealerDetails\BikeDealerDetails.cs" />
     <Compile Include="BindViewModels\Webforms\FeedbackCancellationModel.cs" />
     <Compile Include="BindViewModels\Webforms\ModelPageVM.cs" />
+    <Compile Include="BindViewModels\Webforms\ServiceCenter\BikeCareModelcs.cs" />
     <Compile Include="BindViewModels\Webforms\Used\SearchBikes.cs" />
     <Compile Include="BindViewModels\Webforms\Used\UsedBikeDetails.cs" />
     <Compile Include="BindViewModels\Webforms\Used\UsedBikeLanding.cs" />

@@ -275,6 +275,8 @@ namespace Bikewale.BAL.EditCMS
         /// <summary>
         /// Created By : Sushil Kumar on 21st July 2016
         /// Description : Caching for Articles by list according to pagination
+        /// Modified By: Subodh Jain on 10 Nov 2016
+        /// Description : Added TipsAndAdvices case
         /// </summary>
         /// <param name="categoryIdList"></param>
         /// <param name="startIndex"></param>
@@ -296,7 +298,9 @@ namespace Bikewale.BAL.EditCMS
                     case "1": //EnumCMSContentType.News
                         categoryIdList = Convert.ToString((int)EnumCMSContentType.News) + "," + (short)EnumCMSContentType.AutoExpo2016;
                         break;
-
+                    case "5": //EnumCMSContentType.TipsAndAdvices
+                        categoryIdList = Convert.ToString((int)EnumCMSContentType.TipsAndAdvices);
+                        break;
                     default:
                         break;
                 }
