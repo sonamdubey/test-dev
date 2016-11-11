@@ -904,7 +904,7 @@ var verificationDetails = function () {
 
     self.submitUpdatedMobile = function () {
         self.validateMobile(true);              
-
+        $('#otpCode').val("");
         if (self.errorMobile().length === 0) {
             self.updateMobileStatus(false);
             vmSellBike.personalDetails().sellerMobile(self.updatedMobile());
@@ -1392,6 +1392,7 @@ $(function () {
         $('#btnSaveBikeDetails').val("Update and Continue");
         $('#btnListBike').val("Update and Continue");
         $('#btnUpdateAd').val("Update my listing");
+        $('#btnEditAd').hide();
     }
     else {
         $("#kmsRidden").val('');

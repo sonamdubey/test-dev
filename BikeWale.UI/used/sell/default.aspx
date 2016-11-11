@@ -443,7 +443,7 @@
                                     </div>
                                     <div id="form-success-btn-group">
                                         <input type="button" class="btn btn-orange btn-primary-small margin-right20" value="Done" data-bind="click: congratsScreenDoneFunction" />
-                                        <input  type="button" class="btn btn-white btn-primary-small" value="Edit my Ad " data-bind="click: editMyAd" />
+                                        <input  type="button" id ="btnEditAd" class="btn btn-white btn-primary-small" value="Edit my Ad " data-bind="click: editMyAd" />
                                     </div>
                                 </div>
 
@@ -484,7 +484,7 @@
                                                 <span class="sell-bike-sprite buyers-icon"></span>
                                                 <div class="feature-item inline-block">
                                                     <p class="feature-title">Genuine buyers</p>
-                                                    <p>Over 3.5 million are online on BikeWale looking a used bike</p>
+                                                    <p>Over 3.5 million users on BikeWale are looking a used bike</p>
                                                 </div>
                                             </li>
                                             <li>
