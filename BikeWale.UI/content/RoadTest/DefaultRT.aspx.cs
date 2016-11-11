@@ -10,12 +10,14 @@ using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.Pager;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Pager;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Web;
@@ -27,23 +29,34 @@ namespace Bikewale.Content
     //Modified By : Ashwini Todkar on 29 Sept 2014
     //Modified code to retrieve roadtest from api
 
+    /// <summary>
+    /// Modified By : Sushil Kumar on 10th Nov 2016
+    /// Description : Bind most popular bikes widget for edit cms
+    /// </summary>
     public class DefaultRT : System.Web.UI.Page
     {
+        protected UpcomingBikesMinNew ctrlUpcoming;
         protected Repeater rptRoadTest;
-        //protected MakeModelSearch MakeModelSearch;
         protected HtmlGenericControl alertObj;
-        protected LinkPagerControl linkPager;
+        protected Bikewale.Mobile.Controls.LinkPagerControl ctrlPager;
         protected string nextUrl = string.Empty, prevUrl = string.Empty, makeName = string.Empty, modelName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty;
         private const int _pageSize = 10;
         private int _pageNo = 1;
         private const int _pagerSlotSize = 5;
         private bool _isContentFound = true;
+        protected MostPopularBikesMin ctrlPopularBikes;
 
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
         }
 
+        /// <summary>
+        /// Modified By : Sushil Kumar on 10th Nov 2016
+        /// Description : Bind most popular bikes widget for edit cms
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Page_Load(object sender, EventArgs e)
         {
             // Modified By :Lucky Rathore on 12 July 2016.
@@ -57,13 +70,19 @@ namespace Bikewale.Content
             dd.DetectDevice();
 
             CommonOpn op = new CommonOpn();
+            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
             Trace.Warn("current url :" + HttpContext.Current.Request.Url);
+
             if (!IsPostBack)
             {
                 string _makeName = string.Empty, _makeId = string.Empty, _modelId = string.Empty, _modelName = string.Empty;
                 ProcessQS(out _makeName, out _makeId, out _modelId, out _modelName);
                 GetRoadTestList(_makeId, _modelId, _makeName, _modelName);
             }
+
+            ctrlPopularBikes.totalCount = 4;
+            ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+            ctrlPopularBikes.cityName = currentCityArea.City;
         }
 
         private void ProcessQS(out string _makeName, out string _makeId, out string _modelId, out string _modelName)
@@ -221,7 +240,7 @@ namespace Bikewale.Content
 
                         BindRoadtest(_objRoadTestList);
                         BindLinkPager(objPager, Convert.ToInt32(_objRoadTestList.RecordCount), makeName, modelName);
-
+                        BindUpcoming();
                     }
                     else
                     {
@@ -300,10 +319,10 @@ namespace Bikewale.Content
                 _pagerOutput = objPager.GetPager<PagerOutputEntity>(_pagerEntity);
 
                 // for RepeaterPager
-                linkPager.PagerOutput = _pagerOutput;
-                linkPager.CurrentPageNo = _pageNo;
-                linkPager.TotalPages = objPager.GetTotalPages(recordCount, _pageSize);
-                linkPager.BindPagerList();
+                ctrlPager.PagerOutput = _pagerOutput;
+                ctrlPager.CurrentPageNo = _pageNo;
+                ctrlPager.TotalPages = objPager.GetTotalPages(recordCount, _pageSize);
+                ctrlPager.BindPagerList();
 
                 //For SEO
                 //CreatePrevNextUrl(linkPager.TotalPages,_baseUrl);
@@ -316,6 +335,16 @@ namespace Bikewale.Content
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 8 Nov 2016
+        /// Summary  : Bind upcoming bikes list
+        /// </summary>
+        private void BindUpcoming()
+        {
+            ctrlUpcoming.sortBy = (int)EnumUpcomingBikesFilter.Default;
+            ctrlUpcoming.pageSize = 9;
+            ctrlUpcoming.topCount = 4;
         }
     }
 }

@@ -266,7 +266,9 @@ $(".modelgallery-close-btn, .blackOut-window-model").click(function () {
     $(".blackOut-window-model").hide();
     $(".bike-gallery-popup").removeClass("show").addClass("hide");
     $(".modelgallery-close-btn").removeClass("show").addClass("hide");
-    videoiFrame.setAttribute("src", "");
+    if (videoiFrame != undefined) {
+        videoiFrame.setAttribute("src", "");
+    }
     var galleryThumbIndex = $(".carousel-navigation-photos ul li.active").index();
     $(".carousel-stage").jcarousel('scroll', galleryThumbIndex);
 });

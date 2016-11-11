@@ -3,12 +3,17 @@ using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Controls;
+using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.Location;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Memcache;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -19,17 +24,26 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Content
 {
+    /// <summary>
+    /// Modified By : Aditi Srivastava on 10 Nov 2016
+    /// Description : Added control for upcoming bikes widget
+    /// </summary>
     public class ViewRT : System.Web.UI.Page
     {
+        protected UpcomingBikesMinNew ctrlUpcomingBikes;
         protected Repeater rptPages, rptPageContent;
         private string _basicId = string.Empty;
         protected ArticlePageDetails objRoadtest;
         protected StringBuilder _bikeTested;
         protected ArticlePhotoGallery ctrPhotoGallery;
-        private bool _isContentFount = true;
-
+        protected ModelGallery ctrlModelGallery;
+        protected MostPopularBikesMin ctrlPopularBikes;
+        private GlobalCityAreaEntity currentCityArea;
+        private BikeMakeEntityBase _taggedMakeObj;
+        private bool _isContentFound = true;
+        protected string upcomingBikesLink;
         protected string articleUrl = string.Empty, articleTitle = string.Empty, basicId = string.Empty, authorName = string.Empty, displayDate = string.Empty;
-
+        protected int makeId;
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -51,23 +65,8 @@ namespace Bikewale.Content
 
             ProcessQS();
             GetRoadtestDetails();
+            BindPageWidgets();
 
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IArticles, Articles>()
-                           .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                           .RegisterType<ICacheManager, MemcacheManager>();
-                ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
-
-                IEnumerable<ModelImage> objImg = _cache.GetArticlePhotos(Convert.ToInt32(_basicId));
-
-                if (objImg != null && objImg.Count() > 0)
-                {
-                    ctrPhotoGallery.BasicId = Convert.ToInt32(_basicId);
-                    ctrPhotoGallery.ModelImageList = objImg;
-                    ctrPhotoGallery.BindPhotos();
-                }
-            }
         }
 
 
@@ -84,9 +83,7 @@ namespace Bikewale.Content
 
                 string basicId = BasicIdMapping.GetCWBasicId(_basicId);
 
-                Trace.Warn("Carwale basic id : " + basicId);
-
-                if (!String.IsNullOrEmpty(basicId))
+                if (!_basicId.Equals(basicId))
                 {
                     // Modified By :Lucky Rathore on 12 July 2016.
                     Form.Action = Request.RawUrl;
@@ -124,12 +121,13 @@ namespace Bikewale.Content
                     {
                         BindPages();
                         GetRoadtestData();
-                        if (objRoadtest.VehiclTagsList.Count > 0)
-                            GetTaggedBikeList();
+                        GetTaggedBikeList();
+                        BindGallery(objRoadtest.Title);
+
                     }
                     else
                     {
-                        _isContentFount = false;
+                        _isContentFound = false;
                     }
                 }
 
@@ -137,13 +135,12 @@ namespace Bikewale.Content
             }
             catch (Exception err)
             {
-                Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
             finally
             {
-                if (!_isContentFount)
+                if (!_isContentFound)
                 {
                     Response.Redirect("/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
@@ -153,35 +150,127 @@ namespace Bikewale.Content
         }
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : To bind model gallery
+        /// </summary>
+        private void BindGallery(string articleTitle)
+        {
+            try
+            {
+
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IArticles, Articles>()
+                               .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                               .RegisterType<ICacheManager, MemcacheManager>();
+                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
+
+                    IEnumerable<ModelImage> objImg = _cache.GetArticlePhotos(Convert.ToInt32(_basicId));
+
+                    if (objImg != null && objImg.Count() > 0)
+                    {
+                        ctrPhotoGallery.BasicId = Convert.ToInt32(_basicId);
+                        ctrPhotoGallery.ModelImageList = objImg;
+                        ctrPhotoGallery.BindPhotos();
+
+                        ctrlModelGallery.bikeName = articleTitle;
+                        ctrlModelGallery.Photos = objImg.ToList();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : To get tagged bike along with article
         /// </summary>
         private void GetTaggedBikeList()
         {
-            if (objRoadtest.VehiclTagsList.Any(m => (m.MakeBase != null && !String.IsNullOrEmpty(m.MakeBase.MaskingName))))
+            if (objRoadtest != null && objRoadtest.VehiclTagsList.Count > 0)
             {
-                _bikeTested = new StringBuilder();
 
-                _bikeTested.Append("Bike Tested: ");
-
-                IEnumerable<int> ids = objRoadtest.VehiclTagsList
-                       .Select(e => e.ModelBase.ModelId)
-                       .Distinct();
-
-                foreach (var i in ids)
+                var taggedMakeObj = objRoadtest.VehiclTagsList.FirstOrDefault(m => !string.IsNullOrEmpty(m.MakeBase.MaskingName));
+                if (taggedMakeObj != null)
                 {
-                    VehicleTag item = objRoadtest.VehiclTagsList.Where(e => e.ModelBase.ModelId == i).First();
-                    if (!String.IsNullOrEmpty(item.MakeBase.MaskingName))
+                    _taggedMakeObj = taggedMakeObj.MakeBase;
+                }
+                else
+                {
+                    _taggedMakeObj = objRoadtest.VehiclTagsList.FirstOrDefault().MakeBase;
+                    FetchMakeDetails();
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : To get make details by id
+        /// </summary>
+        private void FetchMakeDetails()
+        {
+
+            try
+            {
+                if (_taggedMakeObj != null && _taggedMakeObj.MakeId > 0)
+                {
+
+                    using (IUnityContainer container = new UnityContainer())
                     {
-                        _bikeTested.Append("<a title='" + item.MakeBase.MakeName + " " + item.ModelBase.ModelName + " Bikes' href='/" + item.MakeBase.MaskingName + "-bikes/" + item.ModelBase.MaskingName + "/'>" + item.ModelBase.ModelName + "</a>   ");
+                        container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
+                        var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+                        _taggedMakeObj = makesRepository.GetMakeDetails(_taggedMakeObj.MakeId.ToString());
+
                     }
                 }
-                Trace.Warn("biketested", _bikeTested.ToString());
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.ViewRT.FetchMakeDetails");
+                objErr.SendMail();
             }
         }
 
         /// <summary>
-        /// 
+        /// Created by : Aditi Srivastava on 8 Nov 2016
+        /// Summary  : Bind upcoming bikes list
         /// </summary>
+        /// </summary>
+        private void BindPageWidgets()
+        {
+            currentCityArea = GlobalCityArea.GetGlobalCityArea();
+
+            if (ctrlPopularBikes != null)
+            {
+
+
+                ctrlPopularBikes.totalCount = 3;
+                ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                ctrlPopularBikes.cityName = currentCityArea.City;
+
+                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                ctrlUpcomingBikes.pageSize = 9;
+                ctrlUpcomingBikes.topCount = 3;
+
+
+                if (_taggedMakeObj != null)
+                {
+                    ctrlPopularBikes.makeId = _taggedMakeObj.MakeId;
+                    ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
+                    ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
+                    ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
+                    ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
+
+                }
+            }
+
+        }
         private void BindPages()
         {
             rptPages.DataSource = objRoadtest.PageList;
@@ -191,9 +280,7 @@ namespace Bikewale.Content
             rptPageContent.DataBind();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
+
         private void GetRoadtestData()
         {
             articleTitle = objRoadtest.Title;
@@ -202,5 +289,6 @@ namespace Bikewale.Content
             articleUrl = objRoadtest.ArticleUrl;
             basicId = objRoadtest.BasicId.ToString();
         }
+
     }
 }

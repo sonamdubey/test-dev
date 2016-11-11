@@ -23,22 +23,49 @@ namespace Bikewale.BindViewModels.Webforms.ServiceCenter
     public class BikeCareModels
     {
         private IPager objPager = null;
-        private const int _pageSize = 10;
+        private const int _pageSize = 4;
         private int _pageNo = 1;
         public int startIndex = 0, endIndex = 0;
         private const int _pagerSlotSize = 5;
-        protected IEnumerable<ArticleSummary> objArticleList;
-        int curPageNo = 1;
-        public string prevUrl = string.Empty, nextUrl = string.Empty;
-        public uint makeId, modelId, totalrecords;
-        public IEnumerable<ArticleSummary> BikeCare()
+        public string prevUrl = string.Empty, nextUrl = string.Empty, title = string.Empty, description = string.Empty, keywords = string.Empty;
+        public int makeId, modelId;
+        public uint totalrecords;
+        private ICMSCacheContent _cache;
+        public CMSContent objArticleList = null;
+        public BikeCareModels()
         {
+            using (IUnityContainer container = new UnityContainer())
+            {
+
+                container.RegisterType<IArticles, Articles>()
+                              .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                              .RegisterType<ICacheManager, MemcacheManager>();
+                _cache = container.Resolve<ICMSCacheContent>();
+
+            }
+
+
+            ProcessQueryString();
+            BikeCare();
+            CreateMetas();
+        }
+        private void CreateMetas()
+        {
+            title = string.Format("Bike Care | Maintenance Tips from Bike Experts - BikeWale");
+            description = string.Format("BikeWale brings you maintenance tips from the bike experts to help you keep your bike in good shape. Read through these maintenance tips to learn more about your bike maintenance");
+            keywords = string.Format("Bike maintenance, bike common issues, bike common problems, Maintaining bikes, bike care");
+
+        }
+        private void BikeCare()
+        {
+
             try
             {
+
                 IPager objPager = GetPager();
 
-                int startIndex = 0, endIndex = 0;
-                objPager.GetStartEndIndex(_pageSize, curPageNo, out startIndex, out endIndex);
+
+                objPager.GetStartEndIndex(_pageSize, _pageNo, out startIndex, out endIndex);
 
                 List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
                 categorList.Add(EnumCMSContentType.TipsAndAdvices);
@@ -48,12 +75,9 @@ namespace Bikewale.BindViewModels.Webforms.ServiceCenter
 
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IArticles, Articles>()
-                               .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                               .RegisterType<ICacheManager, MemcacheManager>();
-                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
-                    totalrecords = Convert.ToUInt32(endIndex - startIndex);
-                    objArticleList = _cache.GetMostRecentArticlesByIdList(_contentType, totalrecords, makeId, modelId);
+
+                    objArticleList = _cache.GetArticlesByCategoryList(_contentType, startIndex, endIndex, makeId, modelId);
+                    totalrecords = objArticleList.RecordCount;
                 }
 
 
@@ -64,7 +88,7 @@ namespace Bikewale.BindViewModels.Webforms.ServiceCenter
                 ErrorClass objErr = new ErrorClass(ex, "BindMaintainanceTipsControl.MaintainanceTips");
                 objErr.SendMail();
             }
-            return objArticleList;
+
         }
         private IPager GetPager()
         {
@@ -89,12 +113,12 @@ namespace Bikewale.BindViewModels.Webforms.ServiceCenter
                 GetStartEndIndex(_pageSize, _pageNo, out startIndex, out endIndex, recordCount);
 
                 _pagerEntity = new PagerEntity();
-                _pagerEntity.BaseUrl = string.Format("{0}page", _baseUrl);
+                _pagerEntity.BaseUrl = string.Format("{0}?pn", _baseUrl);
                 _pagerEntity.PageNo = _pageNo; //Current page number
                 _pagerEntity.PagerSlotSize = _pagerSlotSize; // 5 links on a page
                 _pagerEntity.TotalResults = (int)recordCount; //total News count
                 _pagerEntity.PageSize = _pageSize;  //No. of news to be displayed on a page
-                _pagerOutput = objPager.GetUsedBikePager<PagerOutputEntity>(_pagerEntity);
+                _pagerOutput = objPager.GetTipsAndAdvicePager<PagerOutputEntity>(_pagerEntity);
 
                 // for RepeaterPager
 
@@ -114,13 +138,38 @@ namespace Bikewale.BindViewModels.Webforms.ServiceCenter
                 objErr.SendMail();
             }
         }
+
+        private void ProcessQueryString()
+        {
+            HttpContext page = HttpContext.Current;
+
+            try
+            {
+
+                if (!String.IsNullOrEmpty(page.Request.QueryString["pn"]))
+                {
+                    int result;
+                    int.TryParse(page.Request.QueryString["pn"], out result);
+                    _pageNo = result;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, page.Request.ServerVariables["URL"] + "ParseQueryString");
+                objErr.SendMail();
+            }
+
+
+        }
+
         public string RemoveTrailingPage(string rawUrl)
         {
             string retUrl = rawUrl;
-            if (rawUrl.Contains("/page-"))
+            if (rawUrl.Contains("?pn="))
             {
-                string[] urlArray = rawUrl.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
-                retUrl = string.Format("/{0}/", string.Join("/", urlArray.Take(urlArray.Length - 1).ToArray()));
+                string[] urlArray = rawUrl.Split(new string[] { "?" }, StringSplitOptions.RemoveEmptyEntries);
+                retUrl = string.Format("{0}", string.Join("/", urlArray.Take(urlArray.Length - 1).ToArray()));
             }
             return retUrl;
         }

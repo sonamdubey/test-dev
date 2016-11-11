@@ -1,6 +1,5 @@
-﻿using System;
-using System.Data;
-using Bikewale.Common;
+﻿using Bikewale.Common;
+using System;
 using System.Collections;
 using System.Web;
 
@@ -15,26 +14,18 @@ namespace Bikewale.Memcache
 
         public static string GetCWBasicId(string BWBasicId)
         {
-            string _cwBasicId = string.Empty;
+            string _cwBasicId = BWBasicId;
 
             try
             {
                 BWMemcache objCache = new BWMemcache();
 
                 Hashtable ht = objCache.GetHashTable("BW_BasicIdMapping");
-                //HttpContext.Current.Trace.Warn("basic  id count : ", ht.Count.ToString());
-
-                //foreach (DictionaryEntry entry in ht)
-                //{
-                //    HttpContext.Current.Trace.Warn(entry.Key + ":" + entry.Value);
-                //}
                 if (ht[Convert.ToInt32(BWBasicId)] != null)
                     _cwBasicId = ht[Convert.ToInt32(BWBasicId)].ToString();
-                //HttpContext.Current.Trace.Warn("mapped basic id : " + _cwBasicId);
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }

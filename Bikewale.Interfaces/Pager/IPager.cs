@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Entities.Pager;
+﻿using Bikewale.Entities.Pager;
 
 namespace Bikewale.Interfaces.Pager
 {
@@ -14,6 +9,8 @@ namespace Bikewale.Interfaces.Pager
     {
         T GetPager<T>(PagerEntity pagerDetails) where T : PagerOutputEntity, new();
         T GetUsedBikePager<T>(PagerEntity pagerDetails) where T : PagerOutputEntity, new();
+        T GetTipsAndAdvicePager<T>(PagerEntity pagerDetails) where T : PagerOutputEntity, new();
+
         void GetStartEndIndex(int pageSize, int currentPageNo, out int startIndex, out int endIndex);
         int GetTotalPages(int totalRecords, int pageSize);
     }

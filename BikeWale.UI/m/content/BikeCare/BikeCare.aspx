@@ -1,15 +1,16 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Async="true" Trace="false" Inherits="Bikewale.Mobile.Content.BikeCare" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Register TagPrefix="BikeWale" TagName="Pager" Src="/m/controls/LinkPagerControl.ascx" %>
-<!-- #include file="/includes/headermobile.aspx" -->
 <%
-    title = "Bike Care | Maintenance Tips from Bike Experts - BikeWale";
-    description = "BikeWale brings you maintenance tips from the bike experts to help you keep your bike in good shape. Read through these maintenance tips to learn more about your bike maintenance";
-    keywords = "Bike maintenance, bike common issues, bike common problems, Maintaining bikes, bike care";
-    
-    
-    
+    title = pgTitle;
+    description = pgDescription;
+    keywords = pgKeywords;
+    relPrevPageUrl = pgPrevUrl;
+    relNextPageUrl =pgNextUrl;
+  
 %>
+<!-- #include file="/includes/headermobile.aspx" -->
+
 <style type="text/css">
 	#divListing .box1 { padding-top:20px; }
 	.sponsored-tag-wrapper { width: 92px;height: 24px;background: #4d5057; color: #fff; font-size: 12px; line-height: 25px; padding: 0 9px; top:-8px; left:-10px; }
@@ -26,13 +27,13 @@
  <h1>Bike Care</h1>
 <h2>BikeWale brings you maintenance tips from experts to rescue you from common problems</h2>
 	<div id="divListing">
-         <%foreach(var article in objArticleList) {%>
-				 <a class="normal" href="/m/<%=Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId),article.ArticleUrl,Bikewale.Entities.CMS.EnumCMSContentType.TipsAndAdvices.ToString()) %>" title="<%=article.Title%>">
+         <%foreach(var article in objArticleList.Articles) {%>
+				 <a class="normal" href="/m<%=Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId),article.ArticleUrl,Bikewale.Entities.CMS.EnumCMSContentType.TipsAndAdvices.ToString()) %>" title="<%=article.Title%>">
 					<div class="box1 new-line15" >
 						<%= Regex.Match(article.AuthorName, @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
 						<div class="article-wrapper">
 							<div class="article-image-wrapper">
-                                <img alt='Bike Care:<%=article.Title%>' title="Expert reviews: <%=article.Title%>" src="<%=Bikewale.Utility.Image.GetPathToShowImages(Convert.ToString(article.OriginalImgUrl),Convert.ToString(article.HostUrl),Bikewale.Utility.ImageSize._110x61) %>" width="100%" border="0">
+                                <img alt='Bike Care:<%=article.Title%>' title="Bike Care: <%=article.Title%>" src="<%=Bikewale.Utility.Image.GetPathToShowImages(Convert.ToString(article.OriginalImgUrl),Convert.ToString(article.HostUrl),Bikewale.Utility.ImageSize._110x61) %>" width="100%" border="0">
 							</div>
 							<div class="padding-left10 article-desc-wrapper">
 								<h2 class="font14 text-bold text-black">
