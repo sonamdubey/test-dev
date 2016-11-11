@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.ViewF" Trace="false" Debug="false" Async="true" %>
 <%@ Register TagPrefix="PG" TagName="PhotoGallery" Src="/controls/ArticlePhotoGallery.ascx" %>
 <%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/controls/MostPopularBikesMin.ascx" %>
-<%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpComingBikesCMS.ascx" %>
+<%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpcomingBikesMinNew.ascx" %>
 <%@ Register Src="~/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
 <!Doctype html>
 <html>
@@ -108,15 +108,7 @@
                     <div class="grid-4 omega">
                     <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
 						<div class="margin-bottom20">
-                         <% if (ctrlUpcomingBikes.FetchedRecordsCount > 0)
-                           { %>
-                        <div class="content-box-shadow padding-15-20-10 margin-bottom20">
                         <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
-                        <div class="margin-top10 margin-bottom10">
-                                <a href="<%=upcomingBikeslink%>" class="font14">View all upcoming bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
-                            </div>
-                            </div>
-                        <% } %>
                                  <!-- #include file="/ads/ad300x250.aspx" -->
                         </div>
                         <div class="content-box-shadow padding-15-20-10 margin-bottom20">

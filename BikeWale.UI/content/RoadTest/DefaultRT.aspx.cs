@@ -31,7 +31,7 @@ namespace Bikewale.Content
 
     public class DefaultRT : System.Web.UI.Page
     {
-        protected UpcomingBikesCMS ctrlUpcoming;
+        protected UpcomingBikesMinNew ctrlUpcoming;
         protected Repeater rptRoadTest;
         //protected MakeModelSearch MakeModelSearch;
         protected HtmlGenericControl alertObj;
@@ -335,7 +335,8 @@ namespace Bikewale.Content
         private void BindUpcoming()
         {
             ctrlUpcoming.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            ctrlUpcoming.pageSize = 4;
-       }
+            ctrlUpcoming.pageSize = 9;
+            ctrlUpcoming.topCount = 4;
+        }
     }
 }

@@ -19,13 +19,15 @@ namespace Bikewale.News
 {
     /// <summary>
     /// 
+    /// Modified By : Aditi Srivastava on 10 Nov 2016
+    /// Description : Added control for upcoming bikes widget
     /// </summary>
-    public class news : System.Web.UI.Page
+     public class news : System.Web.UI.Page
     {
         private string _basicId = string.Empty;
         protected ArticleDetails objArticle = null;
         protected NewsDetails objNews;
-        protected UpcomingBikesCMS ctrlUpcomingBikes;
+        protected UpcomingBikesMinNew ctrlUpcomingBikes;
         private BikeMakeEntityBase _taggedMakeObj;
         protected GlobalCityAreaEntity currentCityArea;
         protected PageMetaTags metas;
@@ -109,6 +111,7 @@ namespace Bikewale.News
 
             BindUpcoming();
 
+                    ctrlUpcomingBikes.makeMaskingName = objMMV.MaskingName;
         }
 
         /// <summary>
@@ -118,17 +121,10 @@ namespace Bikewale.News
         /// </summary>
         private void BindUpcoming()
         {
-            //if (_taggedMakeObj!=null)
-            //{
-            //    upcomingBikesLink = "/upcoming-bikes/";
-            //}
-            //else
-            //{
-            //    upcomingBikesLink = String.Format("/{0}-bikes/upcoming/",makeMaskingName);
-            //}
             ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            ctrlUpcomingBikes.pageSize = 3;
+            ctrlUpcomingBikes.pageSize = 9;
             ctrlUpcomingBikes.MakeId = makeId;
+            ctrlUpcomingBikes.topCount = 3;
         }
 
     }

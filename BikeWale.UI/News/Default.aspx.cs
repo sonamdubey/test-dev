@@ -16,7 +16,7 @@ namespace Bikewale.News
     /// </summary>
     public class Default : System.Web.UI.Page
     {
-        protected UpcomingBikesCMS ctrlUpcomingBikes;
+        protected UpcomingBikesMinNew ctrlUpcomingBikes;
         protected Bikewale.Mobile.Controls.LinkPagerControl ctrlPager;
 
         protected string prevUrl = string.Empty, nextUrl = string.Empty;
@@ -24,6 +24,7 @@ namespace Bikewale.News
         protected IEnumerable<ArticleSummary> newsArticles = null;
         protected MostPopularBikesMin ctrlPopularBikes;
 
+        private const int _pagerSlotSize = 10;
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -104,8 +105,9 @@ namespace Bikewale.News
         private void BindUpcoming()
         {
             ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            ctrlUpcomingBikes.pageSize = 4;          
-        }
+            ctrlUpcomingBikes.pageSize = 9;
+            ctrlUpcomingBikes.topCount = 4;
+          }
 
     }//End of Class
 }//End of NameSpace

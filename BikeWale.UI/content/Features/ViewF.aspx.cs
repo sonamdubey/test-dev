@@ -26,21 +26,24 @@ namespace Bikewale.Content
 {
     /// <summary>
     /// Modified By : Ashwini Todkar on 24 Sept 2014
+    /// Modified By : Aditi Srivastava on 10 Nov 2016
+    /// Description : Added control for upcoming bikes widget
+    /// </summary>
     /// </summary>
     public class ViewF : System.Web.UI.Page
     {
         //protected DropDownList drpPages, drpPages_footer;
         protected Repeater rptPages, rptPageContent;
         protected ArticlePhotoGallery ctrPhotoGallery;
-        protected UpcomingBikesCMS ctrlUpcomingBikes;
+        protected UpcomingBikesMinNew ctrlUpcomingBikes;
         //protected DataList dlstPhoto;
         protected HtmlGenericControl topNav, bottomNav;
         protected string PageId = "1", Str = string.Empty, canonicalUrl = String.Empty;
         protected bool ShowGallery = false, IsPhotoGalleryPage = false;
         protected int StrCount = 0;
         protected MostPopularBikesMin ctrlPopularBikes;
+        protected string upcomingBikeslink;
         private BikeMakeEntityBase _taggedMakeObj;
-        protected string upcomingBikeslink, makeMaskingName;
         protected int makeId;
         protected ModelGallery ctrlModelGallery;
         protected string articleUrl = string.Empty, articleTitle = string.Empty, authorName = string.Empty, displayDate = string.Empty;
@@ -250,17 +253,10 @@ namespace Bikewale.Content
         /// </summary>
         private void BindUpcoming()
         {
-            if (String.IsNullOrEmpty(makeMaskingName))
-            {
-                upcomingBikeslink = "/upcoming-bikes/";
-            }
-            else
-            {
-                upcomingBikeslink = String.Format("/{0}-bikes/upcoming/", makeMaskingName);
-            }
             ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            ctrlUpcomingBikes.pageSize = 3;
+            ctrlUpcomingBikes.pageSize = 9;
             ctrlUpcomingBikes.MakeId = makeId;
+            ctrlUpcomingBikes.topCount = 3;
         }
     }
 }
