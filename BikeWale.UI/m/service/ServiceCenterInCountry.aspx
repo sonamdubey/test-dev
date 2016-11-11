@@ -114,7 +114,7 @@ Revving the motorcycle to the redline will not make the battery charge faster â€
                 </ul>
 
                 <div class="padding-left20">
-                    <a href="/m/bike-troubleshooting/" class="font14">Read all FAQs<span class="bwmsprite blue-right-arrow-icon"></span></a>
+                    <a href="/m/bike-troubleshooting/" target="_blank" class="font14">Read all FAQs<span class="bwmsprite blue-right-arrow-icon"></span></a>
                 </div>
             </div>
         </section>
