@@ -5,7 +5,7 @@
                  <div class="margin-bottom20 font14">
                     <div class="review-image-wrapper">
                         <a href="/m<%=Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId),article.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.TipsAndAdvices)) %>" title="<%=article.Title%>">
-                            <img class="lazy"  alt="<%=article.Title%>" src="<%=Bikewale.Utility.Image.GetPathToShowImages(Convert.ToString(article.OriginalImgUrl),Convert.ToString(article.HostUrl),Bikewale.Utility.ImageSize._370x208) %>">
+                            <img class="lazy"  alt="<%=article.Title%>" src="<%=Bikewale.Utility.Image.GetPathToShowImages(article.OriginalImgUrl,article.HostUrl,Bikewale.Utility.ImageSize._370x208) %>">
                         </a>
                     </div>
                     <div class="review-heading-wrapper">
