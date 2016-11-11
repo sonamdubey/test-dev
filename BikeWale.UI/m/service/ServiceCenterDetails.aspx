@@ -43,33 +43,17 @@
                     { %>
                     <div class="margin-bottom10">
                         <% if(!objServiceCenterData.Phone.Contains(",")) { %>
-                        <a href="tel:<%=objServiceCenterData.Phone.ToString() %>" class="text-default text-bold maskingNumber">
+                        <a href="tel:<%=objServiceCenterData.Phone %>" class="text-default text-bold maskingNumber">
                             <span class="bwmsprite tel-sm-grey-icon vertical-top"></span>
                             <span class="vertical-top text-bold details-column">
-                                <% if (!(String.IsNullOrEmpty(objServiceCenterData.Mobile)))
-                                   { %>
-                                            <%= objServiceCenterData.Mobile.Trim()%><% }
-                        if (!(String.IsNullOrEmpty(objServiceCenterData.Mobile)) && !(String.IsNullOrEmpty(objServiceCenterData.Phone)))
-                        {%>, <%}
-                        if (!(String.IsNullOrEmpty(objServiceCenterData.Phone)))
-                        { %>
-                                            <%= objServiceCenterData.Phone.Trim() %>
-                                            <% } %>
+                                <%=objServiceCenterData.Phone %>
                             </span>
                         </a>
                         <% } else { %>
                         <a href="javascript:void(0)" class="text-default text-bold maskingNumber contact-service-btn" data-service-name="<%= objServiceCenterData.Name %>" data-service-number="<%= objServiceCenterData.Phone %>">
                             <span class="bwmsprite tel-sm-grey-icon vertical-top"></span>
                             <span class="vertical-top text-bold details-column">
-                                <% if (!(String.IsNullOrEmpty(objServiceCenterData.Mobile)))
-                                   { %>
-                                            <%= objServiceCenterData.Mobile.Trim()%><% }
-                        if (!(String.IsNullOrEmpty(objServiceCenterData.Mobile)) && !(String.IsNullOrEmpty(objServiceCenterData.Phone)))
-                        {%>, <%}
-                        if (!(String.IsNullOrEmpty(objServiceCenterData.Phone)))
-                        { %>
-                                            <%= objServiceCenterData.Phone.Trim() %>
-                                            <% } %>
+                                 <%=objServiceCenterData.Phone %>
                             </span>
                         </a>
                         <% } %>
