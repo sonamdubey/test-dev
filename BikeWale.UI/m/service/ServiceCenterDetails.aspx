@@ -14,7 +14,7 @@
         canonical =  String.Format("http://www.bikewale.com{0}",Bikewale.Utility.UrlFormatter.GetDealerUrl(makeMaskingName, cityMaskingName, dealerName, (int)dealerId));
     %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link href="/m/css/service/details.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/m/css/service/details.css">
     <script src="http://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->

@@ -150,6 +150,8 @@ namespace Bikewale.Utility
         ///  Created By : Sushil Kumar 
         ///  Created On  : 16th August 2016
         ///  Description : To get article url for news,expert reviews and features listing pages
+        /// Modified by :-Subodh 0n 08 nov 2016
+        /// Description : To get article url for TipsAndAdvices
         /// </summary>
         /// <param name="basicId"></param>
         /// <param name="articleUrl"></param>
@@ -173,6 +175,9 @@ namespace Bikewale.Utility
                         break;
                     case EnumCMSContentType.Features:
                         _articleUrl = string.Format("/features/{0}-{1}/", articleUrl, basicId);
+                        break;
+                    case EnumCMSContentType.TipsAndAdvices:
+                        _articleUrl = string.Format("/bike-care/{0}-{1}/", articleUrl, basicId);
                         break;
                     default:
                         _articleUrl = "/";

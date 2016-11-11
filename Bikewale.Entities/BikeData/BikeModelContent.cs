@@ -6,6 +6,10 @@ using System.Collections.Generic;
 
 namespace Bikewale.Entities.BikeData
 {
+    /// <summary>
+    /// Modified By:- Subodh Jain 08 Nov 2016
+    /// Description:- Added TipsAndAdvices
+    /// </summary>
     public class BikeModelContent
     {
         [JsonProperty("reviewDetails")]
@@ -19,5 +23,8 @@ namespace Bikewale.Entities.BikeData
 
         [JsonProperty("videos")]
         public IEnumerable<BikeVideoEntity> Videos { get; set; }
+
+        [JsonProperty("TipsAndAdvices")]
+        public IEnumerable<ArticleSummary> TipsAndAdvices { get; set; }
     }
 }

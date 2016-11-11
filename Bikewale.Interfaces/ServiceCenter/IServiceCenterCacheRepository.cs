@@ -1,5 +1,7 @@
 ﻿
+using Bikewale.Entities.Location;
 using Bikewale.Entities.service;
+using System.Collections.Generic;
 using Bikewale.Entities.ServiceCenters;
 using System.Collections.Generic;
 namespace Bikewale.Interfaces.ServiceCenter
@@ -14,6 +16,7 @@ namespace Bikewale.Interfaces.ServiceCenter
     public interface IServiceCenterCacheRepository
     {
         ServiceCenterLocatorList GetServiceCenterList(uint makeid);
+        IEnumerable<CityEntityBase> GetServiceCenterCities(uint makeid);
         ServiceCenterData GetServiceCentersByCity(uint cityId, int makeId);
         IEnumerable<ModelServiceSchedule> GetServiceScheduleByMake(int makeId);
         ServiceCenterCompleteData GetServiceCenterDataById(uint serviceCenterId);

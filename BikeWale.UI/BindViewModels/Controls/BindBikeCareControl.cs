@@ -12,8 +12,6 @@ using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.BindViewModels.Controls
 {
@@ -21,7 +19,7 @@ namespace Bikewale.BindViewModels.Controls
     /// Created By :Subodh Jain on 8 nov 2016
     /// Summary : Class have functions to bind the MaintainanceTips reviews.
     /// </summary>
-    public class BindMaintainanceTipsControl
+    public class BindBikeCareControl
     {
         public int TotalRecords { get; set; }
         public int? MakeId { get; set; }
@@ -34,13 +32,14 @@ namespace Bikewale.BindViewModels.Controls
         /// <summary>
         /// Summary : Function to bind the expert reviews control. Function will cache the data from CW api on bikewale
         /// </summary>
-        public void MaintainanceTips(Repeater rptr)
+        public IEnumerable<ArticleSummary> MaintainanceTips()
         {
-            FetchedRecordsCount = 0;
+           
+            IEnumerable<ArticleSummary> objArticleList = null;
 
             try
             {
-                IEnumerable<ArticleSummary> _objArticleList = null;
+
                 List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
                 categorList.Add(EnumCMSContentType.TipsAndAdvices);
                 string _contentType = CommonApiOpn.GetContentTypesString(categorList);
@@ -52,17 +51,9 @@ namespace Bikewale.BindViewModels.Controls
                     container.RegisterType<IArticles, Articles>()
                            .RegisterType<ICMSCacheContent, CMSCacheRepository>()
                            .RegisterType<ICacheManager, MemcacheManager>();
-                    ICMSCacheContent _objArticles = container.Resolve<ICMSCacheContent>();
+                    ICMSCacheContent objArticles = container.Resolve<ICMSCacheContent>();
 
-                    _objArticleList = _objArticles.GetMostRecentArticlesByIdList(_contentType, Convert.ToUInt32(TotalRecords), Convert.ToUInt32(MakeId), Convert.ToUInt32(ModelId));
-
-                    if (_objArticleList != null && _objArticleList.Count() > 0)
-                    {
-                        FetchedRecordsCount = _objArticleList.Count();
-
-                        rptr.DataSource = _objArticleList;
-                        rptr.DataBind();
-                    }
+                    objArticleList = objArticles.GetMostRecentArticlesByIdList(_contentType, Convert.ToUInt32(TotalRecords), Convert.ToUInt32(MakeId), Convert.ToUInt32(ModelId));
                 }
 
 
@@ -73,6 +64,7 @@ namespace Bikewale.BindViewModels.Controls
                 ErrorClass objErr = new ErrorClass(ex, "BindMaintainanceTipsControl.MaintainanceTips");
                 objErr.SendMail();
             }
+            return objArticleList;
         }
     }
 }

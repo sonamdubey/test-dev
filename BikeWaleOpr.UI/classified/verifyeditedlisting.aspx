@@ -52,7 +52,6 @@ var userid = '<%= CurrentUser.Id %>';
       $('#detailed_edit_row').html('<td colspan=7 class="greenMsg">This listing has been approved</td>').animate({ left: '250px' });
   });
     $('td #btnDiscard').click(function () {
-        //debugger;
       acceptReject($(this), 0);
       $('#detailed_edit_row').html('<td colspan=7 class="redMsg">This listing has been discarded </td>').animate({ left: '250px' });
   });
