@@ -484,7 +484,7 @@
                                                 <span class="sell-bike-sprite buyers-icon"></span>
                                                 <div class="feature-item inline-block">
                                                     <p class="feature-title">Genuine buyers</p>
-                                                    <p>Over 3.5 million are online on BikeWale looking a used bike</p>
+                                                    <p>Over 3.5 million users on BikeWale are looking a used bike</p>
                                                 </div>
                                             </li>
                                             <li>
