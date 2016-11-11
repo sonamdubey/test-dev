@@ -1,5 +1,35 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.LogInoutControl" %>
-<% if(loggedInUser != "-1") { %>
+<% if(loggedInUser == "-1") { %>
+        <li class="padding-top10 padding-bottom15">
+            <div class="border-solid-top"></div>
+        </li>
+        <li>
+            <p class="font12 text-light-grey padding-left15">Profile</p>
+        </li>
+        <li>
+            <a href="">
+                <span class="bwmsprite home-icon"></span>
+                <span class="navbarTitle">My Profile</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <span class="bwmsprite home-icon"></span>
+                <span class="navbarTitle">My Inquiries</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <span class="bwmsprite home-icon"></span>
+                <span class="navbarTitle">Subscribe Newsletters</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <span class="bwmsprite home-icon"></span>
+                <span class="navbarTitle">Change password</span>
+            </a>
+        </li>
         <li>
             <a href="<%= Bikewale.Common.CommonOpn.AppPath + "m/users/login.aspx?logout=logout&ReturnUrl=" + HttpContext.Current.Request.RawUrl%>" rel="nofollow">
                 <span class="bwmsprite myBikeWale-icon"></span>
