@@ -216,16 +216,24 @@ namespace Bikewale.Content
         private void FetchMakeDetails()
         {
 
-            if (_taggedMakeObj != null && _taggedMakeObj.MakeId > 0)
+            try
             {
-
-                using (IUnityContainer container = new UnityContainer())
+                if (_taggedMakeObj != null && _taggedMakeObj.MakeId > 0)
                 {
-                    container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
-                    var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
-                    _taggedMakeObj = makesRepository.GetMakeDetails(_taggedMakeObj.MakeId.ToString());
 
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
+                        var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+                        _taggedMakeObj = makesRepository.GetMakeDetails(_taggedMakeObj.MakeId.ToString());
+
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.ViewRT.FetchMakeDetails");
+                objErr.SendMail();
             }
         }
 

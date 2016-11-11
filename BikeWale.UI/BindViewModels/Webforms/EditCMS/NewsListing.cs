@@ -46,19 +46,25 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 _objNewsCache = container.Resolve<ICMSCacheContent>();
                 _objPager = container.Resolve<IPager>();
             }
+            ProcessQueryString();
         }
 
         /// <summary>
         /// Modified By : Sushil Kumar on 10th Nov 2016
         /// Description : To process query string for page number
         /// </summary>
-        public void ProcessQueryString(string pageNo)
+        public void ProcessQueryString()
         {
-
-            if (!string.IsNullOrEmpty(pageNo))
+            var request = HttpContext.Current.Request;
+            if (request != null && !string.IsNullOrEmpty(request["pn"]))
             {
-                int.TryParse(pageNo, out _pageNumber);
+                string pageNo = request.QueryString["pn"];
+                if (!string.IsNullOrEmpty(pageNo))
+                {
+                    int.TryParse(pageNo, out _pageNumber);
+                }
             }
+
         }
 
         /// <summary>
@@ -95,7 +101,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.News.NewsListing.GetNewsList");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.News.NewsListing.FetchNewsList");
                 objErr.SendMail();
 
             }

@@ -52,7 +52,7 @@ namespace Bikewale.News
             dd.DetectDevice();
 
             GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
-                        BindUpcoming();
+            BindUpcoming();
 
             GetNewsList();
 
@@ -71,9 +71,6 @@ namespace Bikewale.News
             try
             {
                 objNews = new NewsListing();
-
-                if (Request["pn"] != null)
-                    objNews.ProcessQueryString(Request.QueryString["pn"]);
                 objNews.FetchNewsList(ctrlPager);
                 newsArticles = objNews.objNewsList;
             }
@@ -110,7 +107,7 @@ namespace Bikewale.News
             ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
             ctrlUpcomingBikes.pageSize = 9;
             ctrlUpcomingBikes.topCount = 4;
-          }
+        }
 
     }//End of Class
 }//End of NameSpace

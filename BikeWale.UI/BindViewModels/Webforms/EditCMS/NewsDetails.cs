@@ -101,7 +101,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.GetTaggedBikeList");
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.CreateMetaTags");
                 objErr.SendMail();
             }
         }
@@ -185,7 +185,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                     //if id exists then redirect url to new basic id url
                     if (!_basicId.Equals(request["id"]))
                     {
-                        string newUrl = "/news/" + _basicId + "-" + request["t"] + ".html";
+                        string newUrl = string.Format("/news/{0}-{1}.html", _basicId, request["t"]);
                         Bikewale.Common.CommonOpn.RedirectPermanent(newUrl);
                     }
                     uint.TryParse(_basicId, out BasicId);
