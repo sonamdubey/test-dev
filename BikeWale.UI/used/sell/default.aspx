@@ -547,7 +547,13 @@
         <!--[if lt IE 9]>
             <script src="/src/html5.js"></script>
         <![endif]-->
-
+        <script type="text/javascript">
+            window.onbeforeunload = function () {
+                if (vmSellBike.formStep() < 4) {
+                    return true;
+                }                
+            }
+        </script>
         
     </form>
 </body>
