@@ -36,11 +36,6 @@ $('.cancel-popup-btn').on('click', function () {
     modalPopup.close(container);
 });
 
-$('#apply-sort-by').on('click', function () {
-    history.back();
-    sortBy.close();
-});
-
 var modalPopup = {
     open: function (container) {
         container.show();

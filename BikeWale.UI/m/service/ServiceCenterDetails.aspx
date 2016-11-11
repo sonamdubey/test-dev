@@ -42,7 +42,8 @@
                     <% if (!(String.IsNullOrEmpty(objServiceCenterData.Mobile)) || !(String.IsNullOrEmpty(objServiceCenterData.Phone)))
                     { %>
                     <div class="margin-bottom10">
-                        <a href="" class="text-default text-bold maskingNumber">
+                        <% if(!objServiceCenterData.Phone.Contains(",")) { %>
+                        <a href="tel:<%=objServiceCenterData.Phone.ToString() %>" class="text-default text-bold maskingNumber">
                             <span class="bwmsprite tel-sm-grey-icon vertical-top"></span>
                             <span class="vertical-top text-bold details-column">
                                 <% if (!(String.IsNullOrEmpty(objServiceCenterData.Mobile)))
@@ -56,6 +57,22 @@
                                             <% } %>
                             </span>
                         </a>
+                        <% } else { %>
+                        <a href="javascript:void(0)" class="text-default text-bold maskingNumber contact-service-btn" data-service-name="<%= objServiceCenterData.Name %>" data-service-number="<%= objServiceCenterData.Phone %>">
+                            <span class="bwmsprite tel-sm-grey-icon vertical-top"></span>
+                            <span class="vertical-top text-bold details-column">
+                                <% if (!(String.IsNullOrEmpty(objServiceCenterData.Mobile)))
+                                   { %>
+                                            <%= objServiceCenterData.Mobile.Trim()%><% }
+                        if (!(String.IsNullOrEmpty(objServiceCenterData.Mobile)) && !(String.IsNullOrEmpty(objServiceCenterData.Phone)))
+                        {%>, <%}
+                        if (!(String.IsNullOrEmpty(objServiceCenterData.Phone)))
+                        { %>
+                                            <%= objServiceCenterData.Phone.Trim() %>
+                                            <% } %>
+                            </span>
+                        </a>
+                        <% } %>
                     </div>
                     <% } %>
 
@@ -89,6 +106,23 @@
             </div>
         </section>
        <% } %>
+
+        <div class="modal-background"></div>
+        <div id="contact-service-popup" class="modal-popup-container">
+            <div class="popup-header"></div>
+            <div class="popup-body">
+                <p class="body-label">Select one of the phone numbers to talk to service center executive</p>
+                <ul class="popup-list margin-bottom20"></ul>
+                <div class="grid-6 alpha">
+                    <p class="btn btn-white btn-full-width btn-size-0 cancel-popup-btn">Cancel</p>
+                </div>
+                <div class="grid-6 omega">
+                    <a href="" id="call-service-btn" class="btn btn-orange btn-full-width btn-size-0">Call</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+
         <section>
             <% if (ctrlServiceCenterCard.showWidget)
                    { %>
