@@ -211,6 +211,17 @@ namespace Bikewale.Utility
             return dealerUrl;
         }
 
+        /// <summary>
+        ///  Created By : Sajal Gupta 
+        ///  Created On  : 11-11-2016
+        ///  Description : To get url for serviceCenter.
+        /// </summary>
+        public static string GetServiceCenterUrl(string makeMaskingName, string cityMaskingName, string serviceCenterName, int serviceCenterId)
+        {
+            string dealerUrl = string.Empty;
+            dealerUrl = string.Format("/{0}-service-center-in-{1}/{2}-{3}/", makeMaskingName, cityMaskingName, serviceCenterId, RemoveSpecialCharUrl(serviceCenterName));
+            return dealerUrl;
+        }
     }
 }
 

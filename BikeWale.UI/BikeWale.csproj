@@ -256,6 +256,8 @@
     <Compile Include="BindViewModels\Controls\BindNewsControl.cs" />
     <Compile Include="BindViewModels\Controls\BindNewsWidget.cs" />
     <Compile Include="BindViewModels\Controls\BindOtherUsedBikesForCity.cs" />
+    <Compile Include="BindViewModels\Controls\BindServiceCenter.cs" />
+    <Compile Include="BindViewModels\Controls\BindServiceSchedule.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarUsedBikes.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarVideos.cs" />
@@ -796,6 +798,14 @@
     </Compile>
     <Compile Include="m\controls\MNewLaunchedBikes.ascx.cs">
       <DependentUpon>MNewLaunchedBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\servicecentercard.ascx.cs">
+      <DependentUpon>servicecentercard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\serviceschedule.ascx.cs">
+      <DependentUpon>serviceschedule.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\UploadPhotoRequestPopup.ascx.cs">
@@ -2288,6 +2298,8 @@
     <Content Include="m\controls\LocateDealer.ascx" />
     <Content Include="m\controls\MMostPopularBikes.ascx" />
     <Content Include="m\controls\MNewLaunchedBikes.ascx" />
+    <Content Include="m\controls\servicecentercard.ascx" />
+    <Content Include="m\controls\serviceschedule.ascx" />
     <Content Include="m\controls\UploadPhotoRequestPopup.ascx" />
     <Content Include="m\controls\PopularModelComparison.ascx" />
     <Content Include="controls\UsedBikeLeadCaptureControl.ascx" />
@@ -2700,6 +2712,7 @@
     <Content Include="m\sass\modules\_article.sass" />
     <Content Include="m\sass\modules\_section-heading.sass" />
     <Content Include="m\sass\modules\_accordion.sass" />
+    <Content Include="m\sass\modules\_modal.sass" />
     <Content Include="m\sass\service\landing.sass" />
     <Content Include="m\sass\service\_landing-style.sass" />
     <None Include="Web.Debug.config">

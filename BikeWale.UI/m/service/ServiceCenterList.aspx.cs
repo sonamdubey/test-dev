@@ -1,5 +1,4 @@
-﻿
-using Bikewale.BAL.ServiceCenter;
+﻿using Bikewale.BAL.ServiceCenter;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;

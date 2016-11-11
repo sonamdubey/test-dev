@@ -412,7 +412,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .navUL li a.sept-nav-list { padding: 15px 0 0 55px; color: #82888b; height: 36px; }
 .blackOut-window { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.5; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
 /* sprite classes */
-.bwmsprite { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v2.png?v1=2Nov2016) no-repeat; display: inline-block; }
+.bwmsprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v2.png?v1=9Nov2016) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
@@ -443,9 +443,14 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .fa-angle-left { width:17px; height:18px; background-position:-154px -103px; }
 .fa-angle-right {width: 6px;height: 13px;background-position: -162px -58px;}
 .map-loc-icon { width:12px; height:16px; background-position:-40px -164px; }
-.tel-grey-icon { width:16px; height:16px; background-position:-40px -111px; }
-.tel-green-icon { width:16px; height:16px; background-position:-62px -111px; }
-.tel-white-icon { width:18px; height:18px; background-position:-83px -109px; position:relative; top:3px; }
+.tel-grey-icon, .tel-green-icon, .tel-white-icon {
+    width:16px; 
+    height:16px;
+    vertical-align: middle;
+}
+.tel-grey-icon { background-position:-40px -111px; }
+.tel-green-icon { background-position:-62px -111px; }
+.tel-white-icon { background-position:-83px -111px; }
 .inr-xxsm-icon { width:11px; height:10px; background-position:-54px -94px; }
 .inr-grey-xxsm-icon { width:8px; height:10px; background-position:-76px -87px; }
 .inr-red-xxsm-icon { width:8px; height:10px; background-position:-91px -87px; }
