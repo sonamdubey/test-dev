@@ -35,7 +35,7 @@ namespace Bikewale.Mobile.Service
         protected int objServicemakeId, dealerBikesCount = 0;
         protected bool isDealerDetail;
         protected string makeName = string.Empty, maskingNumber = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty,
-            serviceCenteName = string.Empty, dealerArea = string.Empty, serviceCity = string.Empty, clientIP = CommonOpn.GetClientIP();
+            serviceCenteName = string.Empty, serviceCity = string.Empty, clientIP = CommonOpn.GetClientIP();
         protected double serviceLat, serviceLong;
         protected DealersCard ctrlDealerCard;
         protected ServiceCenterCard ctrlServiceCenterCard;
@@ -101,11 +101,7 @@ namespace Bikewale.Mobile.Service
             ctrlServiceCenterCard.CityId = cityId;
             ctrlServiceCenterCard.cityName = serviceCity;
             ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
-            //ctrlServiceCenterCard.PageName = "Service_Center_DetailsPage";
             ctrlServiceCenterCard.TopCount = 9;
-            //ctrlServiceCenterCard.PQSourceId = (int)PQSourceEnum.Mobile_dealer_details_Get_offers;
-            //ctrlServiceCenterCard.LeadSourceId = 15;
-            //ctrlServiceCenterCard.DealerId = dealerId;
             ctrlDealerCard.MakeId = makeId;
             ctrlDealerCard.makeMaskingName = makeMaskingName;
             ctrlDealerCard.CityId = cityId;
