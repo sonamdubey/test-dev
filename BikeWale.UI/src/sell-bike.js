@@ -926,11 +926,20 @@ var verificationDetails = function () {
 
             var otp = vmSellBike.verificationDetails().otpCode();
             var mobile = vmSellBike.personalDetails().sellerMobile();
+         
+            var mobileVerificationData = {
+                "sellerType": vmSellBike.personalDetails().sellerTypeVal() ,
+                "otp": otp,
+                "customerMobile": mobile,
+                "customerId": vmSellBike.customerId(),
+                "inquiryId" : vmSellBike.inquiryId()
+            }
 
             $.ajax({
                 type: "Post",
-                url: "/api/mobileverification/validateotp/?mobile=" + mobile + "&otp=" + otp,
+                url: "/api/used/sell/listing/verifymobile/",
                 contentType: "application/json",
+                data: ko.toJSON(mobileVerificationData),
                 dataType: 'json',
                 success: function (response) {
                     if (!response) {

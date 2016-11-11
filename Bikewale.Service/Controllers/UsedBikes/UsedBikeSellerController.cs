@@ -90,8 +90,8 @@ namespace Bikewale.Service.Controllers.UsedBikes
         }
 
 
-        [HttpPost, ResponseType(typeof(bool)), Route("api/used/sell/listing/{profileId}/verifymobile/")]
-        public IHttpActionResult Post(SellerDTO seller)
+        [HttpPost, ResponseType(typeof(bool)), Route("api/used/sell/listing/verifymobile/")]
+        public IHttpActionResult Post([FromBody]SellerDTO seller)
         {
             SellerEntity sellerEntity = null;
             bool result;

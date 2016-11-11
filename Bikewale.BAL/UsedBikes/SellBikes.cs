@@ -76,6 +76,7 @@ namespace Bikewale.BAL.UsedBikes
                     else
                     {
                         result.Status.Code = SellAdStatus.MobileVerified;
+                        SendNotification(ad);
                     }
                 }
                 else // Redirect user
@@ -106,27 +107,6 @@ namespace Bikewale.BAL.UsedBikes
             {
                 int inquiryId = _sellBikeRepository.Add(ad);
                 ad.InquiryId = (uint)inquiryId;
-                string bikeName = String.Format("{0} {1} {2}", ad.Make.MakeName, ad.Model.ModelName, ad.Version.VersionName);
-                string profileId = null;
-
-                if (ad.Seller.SellerType == SellerType.Individual)
-                {
-                    profileId = String.Format("S{0}", ad.InquiryId);
-                }
-
-                else if (ad.Seller.SellerType == SellerType.Dealer)
-                {
-                    profileId = String.Format("D{0}", ad.InquiryId);
-                }
-                //send sms and email to seller on successful listing
-
-                SendEmailSMSToDealerCustomer.UsedBikeAdEmailToIndividual(ad.Seller, profileId, bikeName, ad.Expectedprice.ToString());
-                SMSTypes smsType = new SMSTypes();
-                smsType.UsedSellSuccessfulListingSMS(
-                    EnumSMSServiceType.SuccessfulUsedSelllistingToSeller,
-                    ad.Seller.CustomerMobile,
-                    profileId,
-                    HttpContext.Current.Request.ServerVariables["URL"].ToString());
             }
         }
 
@@ -164,12 +144,41 @@ namespace Bikewale.BAL.UsedBikes
         {
             return _sellBikeRepository.UpdateOtherInformation(adInformation, inquiryAd, customerId);
         }
-
+        /// <summary>
+        /// Modified By : Aditi Srivastava on 10 Nov 2016
+        /// Description : Send email notifcation for successful listing when mobile is verified
+        /// </summary>
+        /// <param name="seller"></param>
+        /// <param name="inquiryId"></param>
+        /// <returns></returns>
         public bool VerifyMobile(SellerEntity seller)
         {
-            return _mobileVerRespo.VerifyMobileVerificationCode(seller.CustomerMobile, seller.Otp, seller.Otp);
+            bool mobileVerified= _mobileVerRespo.VerifyMobileVerificationCode(seller.CustomerMobile, seller.Otp, seller.Otp);
+            
+            if (mobileVerified)
+            {
+                //send notification for successful listing
+                SellBikeAd ad = _sellBikeRepository.GetById((int)seller.InquiryId, seller.CustomerId);
+                SendNotification(ad);
+            }
+            return mobileVerified;
         }
-
+        /// <summary>
+        /// Created by : Aditi Srivastava on 10 Nov 2016
+        /// Description: To send email and sms to seller on succesful listing of used bike
+        /// </summary>
+        public void SendNotification(SellBikeAd ad)
+        {
+            string bikeName = String.Format("{0} {1} {2}", ad.Make.MakeName, ad.Model.ModelName, ad.Version.VersionName);
+            string profileId = (ad.Seller.SellerType == SellerType.Individual) ? String.Format("S{0}", ad.InquiryId) : String.Format("D{0}", ad.InquiryId);
+            SendEmailSMSToDealerCustomer.UsedBikeAdEmailToIndividual(ad.Seller, profileId, bikeName, ad.Expectedprice.ToString());
+            SMSTypes smsType = new SMSTypes();
+            smsType.UsedSellSuccessfulListingSMS(
+                EnumSMSServiceType.SuccessfulUsedSelllistingToSeller,
+                ad.Seller.CustomerMobile,
+                profileId,
+                HttpContext.Current.Request.ServerVariables["URL"].ToString());
+        }
         /// <summary>
         /// Modified by :   Sumit Kate on 02 Nov 2016
         /// Description :   Return bike photos along with profile details
