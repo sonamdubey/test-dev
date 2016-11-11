@@ -16,7 +16,7 @@ namespace Bikewale.Controls
         public string PageId { get; set; }
         public int PQSourceId { get; set; }
         public int CityId { get; set; }
-        public string cityName = "Mumbai";
+        public string cityName = string.Empty;
 
 
         public int makeId { get; set; }
