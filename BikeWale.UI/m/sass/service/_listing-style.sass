@@ -6,7 +6,7 @@
 	display: none
 
 	&.active
-		display: block
+		display: inline
 
 // common
 .padding-15-20
@@ -33,9 +33,11 @@
 			border-top: 0
 			margin-top: 0
 
-	a
+	.center-list-item
+		margin-bottom: 15px
 		display: block
 
+	a
 		&:hover
 			text-decoration: none
 
@@ -44,7 +46,20 @@
 
 .service-btn
 	font-size: 14px
-	padding: 9px 22px
+	padding: 9px 0
+	width: 180px
+
+.btn-inv-green
+	background: #fff
+	color: #00aa33
+	border: 1px solid #00aa33
+
+	&.active
+		background: #1b9618
+		color: #fff
+
+		.tel-green-icon
+			background-position: -83px -111px
 
 // icons
 .dealership-loc-icon
