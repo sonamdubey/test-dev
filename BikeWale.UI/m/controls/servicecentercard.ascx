@@ -18,11 +18,11 @@
                             <span class="vertical-top details-column"><%= Bikewale.Utility.FormatDescription.TruncateDescription(serviceCenter.Address, 95) %></span>
                         </p>
                         <% } %>
-                        <% if (!string.IsNullOrEmpty(serviceCenter.Mobile))
+                        <% if (!string.IsNullOrEmpty(serviceCenter.Phone))
                            { %>
                         <p class="text-truncate">
                             <span class="bwmsprite tel-sm-grey-icon pos-top0 margin-right5"></span>
-                            <span class="text-bold text-default"><a href="tel:<%=serviceCenter.Mobile %>"></a> </span>
+                            <span class="text-bold text-default"><%=serviceCenter.Phone %></span>
                         </p>
                         <% } %>
                     </a>
