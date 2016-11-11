@@ -1389,6 +1389,7 @@ $(function () {
         $('#btnSaveBikeDetails').val("Update and Continue");
         $('#btnListBike').val("Update and Continue");
         $('#btnUpdateAd').val("Update my listing");
+        $('#btnEditAd').hide();
     }
     else {
         $("#kmsRidden").val('');
