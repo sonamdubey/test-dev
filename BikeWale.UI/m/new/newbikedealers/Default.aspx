@@ -304,7 +304,6 @@
                 if (!isNaN(selMakeId) && selMakeId != "0") {
                     if (!isNaN(selCityId) && selCityId != "0") {
                         ddlcityMasking = $ddlCities.find("li.activeCity").attr("cityMaskingName");
-                        //window.location.href = "/m/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
                         window.location.href = "/m/" + ddlmakemasking + "-dealer-showrooms-in-" + ddlcityMasking + "/";
                     }
                     else {

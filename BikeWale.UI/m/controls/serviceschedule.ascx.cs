@@ -1,7 +1,6 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.Entities.ServiceCenters;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Web.UI;
 
@@ -13,9 +12,10 @@ namespace Bikewale.Mobile.Controls
     /// </summary>
     public class ServiceSchedule : UserControl
     {
-        public int makeId { get; set; }
+        public uint MakeId { get; set; }
+        public string MakeName { get; set; }
         public string jsonBikeSchedule;
-        protected IEnumerable<ModelServiceSchedule> bikeScheduleList = null;
+        protected IEnumerable<ModelServiceSchedule> BikeScheduleList = null;
 
         protected override void OnInit(EventArgs e)
         {
@@ -29,8 +29,8 @@ namespace Bikewale.Mobile.Controls
         protected void Page_Load(object sender, EventArgs e)
         {
             BindServiceSchedule scheduleViewModel = new BindServiceSchedule();
-            bikeScheduleList = scheduleViewModel.GetServiceScheduleList(makeId);
-            jsonBikeSchedule = Newtonsoft.Json.JsonConvert.SerializeObject(bikeScheduleList);
+            BikeScheduleList = scheduleViewModel.GetServiceScheduleList(MakeId);
+            jsonBikeSchedule = Newtonsoft.Json.JsonConvert.SerializeObject(BikeScheduleList);
         }
 
     }

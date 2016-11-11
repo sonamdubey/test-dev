@@ -209,11 +209,11 @@ namespace Bikewale.DAL.ServiceCenter
         /// Created By : Sangram Nandkhile on 09/11/2016
         /// Description: DAL layer Function for fetching Service Schedule data
         /// </summary>
-        public IEnumerable<ModelServiceSchedule> GetServiceScheduleByMake(int makeId)
+        public IEnumerable<ModelServiceSchedule> GetServiceScheduleByMake(uint makeId)
         {
-            IList<ModelServiceSchedule> modelSchedules = null;
+            ICollection<ModelServiceSchedule> modelSchedules = null;
             ModelServiceSchedule model = null;
-            IList<ServiceScheduleBase> scheduleList = null;
+            ICollection<ServiceScheduleBase> scheduleList = null;
             ServiceScheduleBase schedule = null;
             try
             {
@@ -243,7 +243,7 @@ namespace Bikewale.DAL.ServiceCenter
                                     schedule = new ServiceScheduleBase();
                                     ushort curModel = SqlReaderConvertor.ToUInt16(dr["bikemodelid"]);
                                     schedule.ServiceNo = SqlReaderConvertor.ToUInt32(dr["serviceno"]);
-                                    schedule.Kms = Convert.ToString(dr["kms"]);
+                                    schedule.Kms = Convert.ToString(dr["kms"]).Trim();
                                     schedule.Days = SqlReaderConvertor.ToUInt32(dr["days"]);
                                     ModelServiceSchedule selectedModel = modelSchedules.FirstOrDefault(x => x.ModelId == curModel);
                                     if (selectedModel != null)
@@ -291,6 +291,8 @@ namespace Bikewale.DAL.ServiceCenter
                             objServiceCenterCompleteData.Phone = Convert.ToString(dr["phone"]);
                             objServiceCenterCompleteData.Mobile = Convert.ToString(dr["mobile"]);
                             objServiceCenterCompleteData.CityId = SqlReaderConvertor.ToUInt32(dr["cityId"]);
+                            objServiceCenterCompleteData.CityName = Convert.ToString(dr["cityname"]);
+                            objServiceCenterCompleteData.CityMaskingName = Convert.ToString(dr["citymaskingname"]);
                             objServiceCenterCompleteData.StateId = SqlReaderConvertor.ToUInt32(dr["stateId"]);
                             objServiceCenterCompleteData.AreaId = SqlReaderConvertor.ToUInt32(dr["areaId"]);
                             objServiceCenterCompleteData.Pincode = Convert.ToString(dr["pincode"]);

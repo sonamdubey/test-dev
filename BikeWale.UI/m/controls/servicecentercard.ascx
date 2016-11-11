@@ -22,7 +22,7 @@
                            { %>
                         <p class="text-truncate">
                             <span class="bwmsprite tel-sm-grey-icon pos-top0 margin-right5"></span>
-                            <span class="text-bold text-default"><%=serviceCenter.Mobile %> </span>
+                            <span class="text-bold text-default"><a href="tel:<%=serviceCenter.Mobile %>"></a> </span>
                         </p>
                         <% } %>
                     </a>
@@ -33,10 +33,7 @@
     </div>
 
 <div class="padding-right20 padding-left20 font14">
-    <a href="<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> service centers in <%=cityName %>">View all <%= makeName %> service centers <span class="bwmsprite blue-right-arrow-icon"></span></a>
+    <a href="<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> service centers in <%=cityName %>">View all <%= makeName %> service centers <span class="bwmsprite blue-right-arrow-icon"></span></a>
 </div>
     </div>
 <% } %>
-<script type="text/javascript">
-     var bikeCity='<%=makeName%> '+'_'+'<%=cityName%>'
-</script>

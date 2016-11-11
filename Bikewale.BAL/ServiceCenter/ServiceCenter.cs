@@ -59,7 +59,7 @@ namespace Bikewale.BAL.ServiceCenter
         /// Created By : Sangram Nandkhile on 09/11/2016
         /// Description: BAL layer Function for fetching service schedule from cache
         /// </summary>
-        public IEnumerable<ModelServiceSchedule> GetServiceScheduleByMake(int makeId)
+        public IEnumerable<ModelServiceSchedule> GetServiceScheduleByMake(uint makeId)
         {
             IEnumerable<ModelServiceSchedule> objServiceSchedule = null;
             try

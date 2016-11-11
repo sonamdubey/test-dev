@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.BikeData
@@ -6,11 +7,11 @@ namespace Bikewale.Entities.BikeData
     [Serializable, DataContract]
     public class BikeModelEntityBase
     {
-        [DataMember]
+        [DataMember, JsonProperty("ModelId")]
         public int ModelId { get; set; }
-        [DataMember]
+        [DataMember, JsonProperty("ModelName")]
         public string ModelName { get; set; }
-        [DataMember]
+        [DataMember, JsonProperty("MaskingName")]
         public string MaskingName { get; set; }
     }
 }

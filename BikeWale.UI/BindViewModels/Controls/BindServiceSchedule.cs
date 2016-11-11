@@ -20,7 +20,7 @@ namespace Bikewale.BindViewModels.Controls
         public int MakeId { get; set; }
         public uint CityId { get; set; }
 
-        public IEnumerable<ModelServiceSchedule> GetServiceScheduleList(int makeId)
+        public IEnumerable<ModelServiceSchedule> GetServiceScheduleList(uint makeId)
         {
             IEnumerable<ModelServiceSchedule> bikeScheduleList = null;
 
