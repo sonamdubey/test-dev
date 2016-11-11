@@ -2354,6 +2354,7 @@
     <Content Include="m\css\bwm-newbikes.css" />
     <Content Include="m\css\components\article.css" />
     <Content Include="m\css\components\compare-bikes.css" />
+    <Content Include="m\css\components\pagination.css" />
     <Content Include="m\css\components\used-swiper.css" />
     <Content Include="m\css\dealerpricequote.css" />
     <Content Include="m\css\dealerpricequote-old.css" />
