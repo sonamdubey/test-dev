@@ -20,6 +20,10 @@ using System.Linq;
 using System.Web;
 namespace Bikewale.BindViewModels.Webforms.ServiceCenter
 {
+    /// <summary>
+    /// Created By:- Subodh jain 11 Nov 2016
+    /// Summary :- Bike Care Landing page
+    /// </summary>
     public class BikeCareModels
     {
         private IPager objPager = null;
@@ -49,6 +53,10 @@ namespace Bikewale.BindViewModels.Webforms.ServiceCenter
             BikeCare();
             CreateMetas();
         }
+        /// <summary>
+        /// Created By:- Subodh jain 11 Nov 2016
+        /// Summary :- Bike Care Landing page metas
+        /// </summary>
         private void CreateMetas()
         {
             title = string.Format("Bike Care | Maintenance Tips from Bike Experts - BikeWale");
@@ -56,6 +64,10 @@ namespace Bikewale.BindViewModels.Webforms.ServiceCenter
             keywords = string.Format("Bike maintenance, bike common issues, bike common problems, Maintaining bikes, bike care");
 
         }
+        /// <summary>
+        /// Created By:- Subodh jain 11 Nov 2016
+        /// Summary :- Bike Care Landing page Articles of tips And Advice
+        /// </summary>
         private void BikeCare()
         {
 
@@ -70,18 +82,12 @@ namespace Bikewale.BindViewModels.Webforms.ServiceCenter
                 List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
                 categorList.Add(EnumCMSContentType.TipsAndAdvices);
                 string _contentType = CommonApiOpn.GetContentTypesString(categorList);
-
-
-
                 using (IUnityContainer container = new UnityContainer())
                 {
 
                     objArticleList = _cache.GetArticlesByCategoryList(_contentType, startIndex, endIndex, makeId, modelId);
                     totalrecords = objArticleList.RecordCount;
                 }
-
-
-
             }
             catch (Exception ex)
             {
@@ -100,7 +106,10 @@ namespace Bikewale.BindViewModels.Webforms.ServiceCenter
             }
             return _objPager;
         }
-
+        /// <summary>
+        /// Created By:- Subodh jain 11 Nov 2016
+        /// Summary :- Bike Care Landing page bind link pager
+        /// </summary>
         public void BindLinkPager(LinkPagerControl _ctrlPager)
         {
             PagerOutputEntity _pagerOutput = null;
