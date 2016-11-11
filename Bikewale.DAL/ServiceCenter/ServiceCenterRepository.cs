@@ -295,8 +295,8 @@ namespace Bikewale.DAL.ServiceCenter
                             objServiceCenterCompleteData.AreaId = SqlReaderConvertor.ToUInt32(dr["areaId"]);
                             objServiceCenterCompleteData.Pincode = Convert.ToString(dr["pincode"]);
                             objServiceCenterCompleteData.Email = Convert.ToString(dr["email"]);
-                            objServiceCenterCompleteData.Lattitude = Convert.ToString(dr["lattitude"]);
-                            objServiceCenterCompleteData.Longitude = Convert.ToString(dr["longitude"]);
+                            objServiceCenterCompleteData.Lattitude = SqlReaderConvertor.ParseToDouble(dr["lattitude"]);
+                            objServiceCenterCompleteData.Longitude = SqlReaderConvertor.ParseToDouble(dr["longitude"]);
                             objServiceCenterCompleteData.MakeId = SqlReaderConvertor.ToUInt32(dr["makeId"]);
                             objServiceCenterCompleteData.DealerId = SqlReaderConvertor.ToUInt32(dr["dealerId"]);
                             objServiceCenterCompleteData.IsActive = SqlReaderConvertor.ToUInt32(dr["isActive"]);

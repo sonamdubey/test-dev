@@ -40,7 +40,7 @@ namespace Bikewale.Mobile.Service
         protected ServiceCenterCard ctrlServiceCenterCard;
         protected ServiceSchedule ctrlServiceSchedule;
         protected LeadCaptureControl ctrlLeadCapture;
-        protected ServiceCenterCompleteData objServiceCenterCompleteData = null;
+        protected ServiceCenterCompleteData objServiceCenterData = null;
         protected BikeMakeEntityBase objBikeMakeEntityBase;
 
         protected ServiceCenterData centerList = null;
@@ -71,15 +71,15 @@ namespace Bikewale.Mobile.Service
                     .RegisterType<ICacheManager, MemcacheManager>();
                     var objServiceCenter = container.Resolve<IServiceCenter>();
 
-                    objServiceCenterCompleteData = objServiceCenter.GetServiceCenterDataById(serviceCenterId);
+                    objServiceCenterData = objServiceCenter.GetServiceCenterDataById(serviceCenterId);
 
-                    if (objServiceCenterCompleteData != null)
+                    if (objServiceCenterData != null)
                     {
-                        cityId = objServiceCenterCompleteData.CityId;
-                        makeId = (int)objServiceCenterCompleteData.MakeId;
-                        GetMakeNameByMakeId(objServiceCenterCompleteData.MakeId);
-                        dealerLat = Convert.ToDouble(objServiceCenterCompleteData.Lattitude);
-                        dealerLong = Convert.ToDouble(objServiceCenterCompleteData.Longitude);
+                        cityId = objServiceCenterData.CityId;
+                        makeId = (int)objServiceCenterData.MakeId;
+                        GetMakeNameByMakeId(objServiceCenterData.MakeId);
+                        dealerLat = Convert.ToDouble(objServiceCenterData.Lattitude);
+                        dealerLong = Convert.ToDouble(objServiceCenterData.Longitude);
                     }
                 }
             }

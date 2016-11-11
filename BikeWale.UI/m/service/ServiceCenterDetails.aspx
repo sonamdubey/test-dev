@@ -23,48 +23,48 @@
 <body class="bg-light-grey">
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
-        <% if (objServiceCenterCompleteData != null)
+        <% if (objServiceCenterData != null)
         { %>
              <section>
             <div class="container bg-white card-bottom-margin">
-                <h1 class="card-header"><%= objServiceCenterCompleteData.Name %></h1>
+                <h1 class="card-header"><%= objServiceCenterData.Name %></h1>
                 <div class="card-inner-padding font14 text-light-grey">
                     <h2 class="font14 margin-bottom15"><%= string.Format("Authorized {0} service center", makeName) %></h2>
 
-                    <%if (!string.IsNullOrEmpty(objServiceCenterCompleteData.Address))
+                    <%if (!string.IsNullOrEmpty(objServiceCenterData.Address))
                      { %>
                     <p class="margin-bottom10">
                         <span class="bwmsprite dealership-loc-icon vertical-top"></span>
-                        <span class="vertical-top details-column text-light-grey"><%= objServiceCenterCompleteData.Address %></span>
+                        <span class="vertical-top details-column text-light-grey"><%= objServiceCenterData.Address %></span>
                     </p>
                     <% } %>
 
-                    <% if (!(String.IsNullOrEmpty(objServiceCenterCompleteData.Mobile)) || !(String.IsNullOrEmpty(objServiceCenterCompleteData.Phone)))
+                    <% if (!(String.IsNullOrEmpty(objServiceCenterData.Mobile)) || !(String.IsNullOrEmpty(objServiceCenterData.Phone)))
                     { %>
                     <div class="margin-bottom10">
                         <a href="" class="text-default text-bold maskingNumber">
                             <span class="bwmsprite tel-sm-grey-icon vertical-top"></span>
                             <span class="vertical-top text-bold details-column">
-                                <% if (!(String.IsNullOrEmpty(objServiceCenterCompleteData.Mobile)))
+                                <% if (!(String.IsNullOrEmpty(objServiceCenterData.Mobile)))
                                    { %>
-                                            <%= objServiceCenterCompleteData.Mobile.Trim()%><% }
-                        if (!(String.IsNullOrEmpty(objServiceCenterCompleteData.Mobile)) && !(String.IsNullOrEmpty(objServiceCenterCompleteData.Phone)))
+                                            <%= objServiceCenterData.Mobile.Trim()%><% }
+                        if (!(String.IsNullOrEmpty(objServiceCenterData.Mobile)) && !(String.IsNullOrEmpty(objServiceCenterData.Phone)))
                         {%>, <%}
-                        if (!(String.IsNullOrEmpty(objServiceCenterCompleteData.Phone)))
+                        if (!(String.IsNullOrEmpty(objServiceCenterData.Phone)))
                         { %>
-                                            <%= objServiceCenterCompleteData.Phone.Trim() %>
+                                            <%= objServiceCenterData.Phone.Trim() %>
                                             <% } %>
                             </span>
                         </a>
                     </div>
                     <% } %>
 
-                    <% if (!string.IsNullOrEmpty(objServiceCenterCompleteData.Email))
+                    <% if (!string.IsNullOrEmpty(objServiceCenterData.Email))
                     { %>
                     <div class="margin-bottom10">
-                        <a href="mailto:<%= objServiceCenterCompleteData.Email %>" class="text-light-grey">
+                        <a href="mailto:<%= objServiceCenterData.Email %>" class="text-light-grey">
                             <span class="bwmsprite mail-grey-icon vertical-top"></span>
-                            <span class="vertical-top details-column text-light-grey"><%= objServiceCenterCompleteData.Email %></span>
+                            <span class="vertical-top details-column text-light-grey"><%= objServiceCenterData.Email %></span>
                         </a>
                     </div>
                     <% } %>                    

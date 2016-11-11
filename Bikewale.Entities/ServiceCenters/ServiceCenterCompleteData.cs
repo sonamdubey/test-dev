@@ -43,10 +43,10 @@ namespace Bikewale.Entities.ServiceCenters
         public string Email { get; set; }
 
         [DataMember]
-        public string Lattitude { get; set; }
+        public double Lattitude { get; set; }
 
         [DataMember]
-        public string Longitude { get; set; }
+        public double Longitude { get; set; }
 
         [DataMember]
         public uint MakeId { get; set; }
