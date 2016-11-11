@@ -931,12 +931,13 @@ var verificationDetails = function () {
                 "sellerType": vmSellBike.personalDetails().sellerTypeVal() ,
                 "otp": otp,
                 "customerMobile": mobile,
-                "customerId"    : vmSellBike.customerId()
+                "customerId": vmSellBike.customerId(),
+                "inquiryId" : vmSellBike.inquiryId()
             }
 
             $.ajax({
                 type: "Post",
-                url: "/api/used/sell/listing/" + vmSellBike.inquiryId() + "/verifymobile/",
+                url: "/api/used/sell/listing/verifymobile/",
                 contentType: "application/json",
                 data: ko.toJSON(mobileVerificationData),
                 dataType: 'json',

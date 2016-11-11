@@ -7,6 +7,8 @@ namespace Bikewale.DTO.UsedBikes
     /// <summary>
     /// Created by  :   Sumit Kate on 14 Oct 2016
     /// Description :   Sell Bike Ad Seller DTO
+    /// Modified By : Aditi Srivastava on 10 Nov 2016
+    /// Description : Added inquiryid
     /// </summary>
     public class SellerDTO : Customer.CustomerBase
     {
@@ -15,6 +17,8 @@ namespace Bikewale.DTO.UsedBikes
         public SellerType SellerType { get; set; }
         [JsonProperty("otp")]
         public string Otp { get; set; }
+        [JsonProperty("inquiryId")]
+        public uint InquiryId { get; set; }
 
     }
 

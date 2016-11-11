@@ -144,15 +144,21 @@ namespace Bikewale.BAL.UsedBikes
         {
             return _sellBikeRepository.UpdateOtherInformation(adInformation, inquiryAd, customerId);
         }
-
-        public bool VerifyMobile(SellerEntity seller,int inquiryId)
+        /// <summary>
+        /// Modified By : Aditi Srivastava on 10 Nov 2016
+        /// Description : Send email notifcation for successful listing when mobile is verified
+        /// </summary>
+        /// <param name="seller"></param>
+        /// <param name="inquiryId"></param>
+        /// <returns></returns>
+        public bool VerifyMobile(SellerEntity seller)
         {
             bool mobileVerified= _mobileVerRespo.VerifyMobileVerificationCode(seller.CustomerMobile, seller.Otp, seller.Otp);
             
             if (mobileVerified)
             {
                 //send notification for successful listing
-                SellBikeAd ad = _sellBikeRepository.GetById(inquiryId, seller.CustomerId);
+                SellBikeAd ad = _sellBikeRepository.GetById((int)seller.InquiryId, seller.CustomerId);
                 SendNotification(ad);
             }
             return mobileVerified;
@@ -164,17 +170,7 @@ namespace Bikewale.BAL.UsedBikes
         public void SendNotification(SellBikeAd ad)
         {
             string bikeName = String.Format("{0} {1} {2}", ad.Make.MakeName, ad.Model.ModelName, ad.Version.VersionName);
-            string profileId = null;
-
-            if (ad.Seller.SellerType == SellerType.Individual)
-            {
-                profileId = String.Format("S{0}", ad.InquiryId);
-            }
-
-            else if (ad.Seller.SellerType == SellerType.Dealer)
-            {
-                profileId = String.Format("D{0}", ad.InquiryId);
-            }
+            string profileId = (ad.Seller.SellerType == SellerType.Individual) ? String.Format("S{0}", ad.InquiryId) : String.Format("D{0}", ad.InquiryId);
             SendEmailSMSToDealerCustomer.UsedBikeAdEmailToIndividual(ad.Seller, profileId, bikeName, ad.Expectedprice.ToString());
             SMSTypes smsType = new SMSTypes();
             smsType.UsedSellSuccessfulListingSMS(
