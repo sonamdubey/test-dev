@@ -58,7 +58,7 @@
                        { %>
                                     
                                         <li>
-                                            <a data-item-id="<%=stcity.Id %>" data-item-name="<%=stcity.CityName %>" data-lat="<%=stcity.Lattitude %>" data-long ="<%=stcity.Longitude %>" data-link="<%=stcity.Link %>" data-ServiceCenterCount="<%=stcity.ServiceCenterCountCity%>" title="<%=makeMaskingName %>-service-center-in-<%=stcity.CityMaskingName %>" href="/m/<%=makeMaskingName %>-service-center-in-<%=stcity.CityMaskingName %>/"><%=stcity.CityName %> (<%=stcity.ServiceCenterCountCity %>)</a>
+                                            <a data-item-id="<%=stcity.Id %>" data-item-name="<%=stcity.CityName %>" data-lat="<%=stcity.Lattitude %>" data-long ="<%=stcity.Longitude %>" data-link="<%=stcity.Link %>" data-ServiceCenterCount="<%=stcity.ServiceCenterCountCity%>" title="<%=makeMaskingName %> service center in <%=stcity.CityMaskingName %>" href="/m/<%=makeMaskingName %>-service-center-in-<%=stcity.CityMaskingName %>/"><%=stcity.CityName %> (<%=stcity.ServiceCenterCountCity %>)</a>
                                         </li>
                                       <%}%>
                                     </ul>

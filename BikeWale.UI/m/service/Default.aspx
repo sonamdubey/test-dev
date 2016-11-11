@@ -62,7 +62,7 @@
                         <ul class="text-center">
                            <%foreach(var bikebrand in TopMakeList) {%>
                                       <li>
-                                        <a href="/m/<%=bikebrand.MaskingName %>-service-center-in-india/">
+                                        <a href="/m/<%=bikebrand.MaskingName %>-service-center-in-india/" title="<%=bikebrand.MakeName %> Service Center in India">
                                             <span class="brand-type">
                                                 <span class="lazy brandlogosprite brand-<%=bikebrand.MakeId %>"></span>
                                             </span>
@@ -76,7 +76,7 @@
                                  <%foreach (var bikebrand in OtherMakeList)
                                    {%>
                                       <li>
-                                        <a href="/m/<%=bikebrand.MaskingName %>-service-center-in-india/">
+                                        <a href="/m/<%=bikebrand.MaskingName %>-service-center-in-india/"  title="<%=bikebrand.MakeName %> Service Center in India">
                                             <span class="brand-type">
                                                 <span class="lazy brandlogosprite brand-<%=bikebrand.MakeId %>"></span>
                                             </span>
@@ -136,7 +136,7 @@ Revving the motorcycle to the redline will not make the battery charge faster â€
                 </ul>
 
                 <div class="padding-left20">
-                    <a href="/m/bike-troubleshooting/" class="font14">Read all FAQs<span class="bwmsprite blue-right-arrow-icon"></span></a>
+                    <a href="/m/bike-troubleshooting/" title="Bike Troubleshooting- FAQs" class="font14">Read all FAQs<span class="bwmsprite blue-right-arrow-icon"></span></a>
                 </div>
             </div>
         </section>
@@ -313,7 +313,7 @@ Revving the motorcycle to the redline will not make the battery charge faster â€
                 if (!isNaN(selMakeId) && selMakeId != "0") {
                     if (!isNaN(selCityId) && selCityId != "0") {
                         ddlcityMasking = $ddlCities.find("li.activeCity").attr("citymaskingname");
-                        window.location.href = "/m/" + ddlmakemasking + "-service-centers-in-" + ddlcityMasking + "/";
+                        window.location.href = "/m/" + ddlmakemasking + "-service-center-in-" + ddlcityMasking + "/";
                     }
                     else {
                         setError($("div.locator-search-city-form"), "Please select city!");
