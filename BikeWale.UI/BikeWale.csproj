@@ -272,8 +272,11 @@
     <Compile Include="BindViewModels\Controls\BindVideosSectionSubCatwise.cs" />
     <Compile Include="BindViewModels\Webforms\CommonModel.cs" />
     <Compile Include="BindViewModels\Webforms\DealerDetails\BikeDealerDetails.cs" />
+    <Compile Include="BindViewModels\Webforms\EditCMS\NewsDetails.cs" />
+    <Compile Include="BindViewModels\Webforms\EditCMS\NewsListing.cs" />
     <Compile Include="BindViewModels\Webforms\FeedbackCancellationModel.cs" />
     <Compile Include="BindViewModels\Webforms\ModelPageVM.cs" />
+    <Compile Include="BindViewModels\Webforms\ServiceCenter\BikeCareModelcs.cs" />
     <Compile Include="BindViewModels\Webforms\Used\SearchBikes.cs" />
     <Compile Include="BindViewModels\Webforms\Used\UsedBikeDetails.cs" />
     <Compile Include="BindViewModels\Webforms\Used\UsedBikeLanding.cs" />
@@ -378,6 +381,10 @@
     </Compile>
     <Compile Include="controls\LeadCaptureControl.ascx.cs">
       <DependentUpon>LeadCaptureControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\MostPopularBikesMin.ascx.cs">
+      <DependentUpon>MostPopularBikesMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\NewsMin.ascx.cs">
@@ -624,8 +631,8 @@
       <DependentUpon>UpcomingBikeSearch.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\UpcomingBikesMin.ascx.cs">
-      <DependentUpon>UpcomingBikesMin.ascx</DependentUpon>
+    <Compile Include="controls\UpcomingBikesMinNew.ascx.cs">
+      <DependentUpon>UpcomingBikesMinNew.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\UpcomingBikes_new.ascx.cs">
@@ -722,6 +729,10 @@
     </Compile>
     <Compile Include="m\content\Features\viewF.aspx.cs">
       <DependentUpon>viewF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\content\BikeCare\BikeCare.aspx.cs">
+      <DependentUpon>BikeCare.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\content\RoadTest\Default.aspx.cs">
@@ -1751,6 +1762,7 @@
     <Content Include="content\UserReviews\WriteReviews.aspx" />
     <Content Include="controls\DealerCard.ascx" />
     <Content Include="controls\LeadCaptureControl.ascx" />
+    <Content Include="controls\MostPopularBikesMin.ascx" />
     <Content Include="controls\NewsMin.ascx" />
     <Content Include="controls\OtherUsedBikeByCity.ascx" />
     <Content Include="controls\PopularModelCompare.ascx" />
@@ -1817,7 +1829,7 @@
     <Content Include="controls\TopUsedListedBike.ascx" />
     <Content Include="controls\UpcomingBikeHome.ascx" />
     <Content Include="controls\UpcomingBikeSearch.ascx" />
-    <Content Include="controls\UpcomingBikesMin.ascx" />
+    <Content Include="controls\UpcomingBikesMinNew.ascx" />
     <Content Include="controls\UpcomingBikes_new.ascx" />
     <Content Include="controls\UsedBikes.ascx" />
     <Content Include="controls\UsedBikeSearch.ascx" />
@@ -1841,8 +1853,13 @@
     <Content Include="css\bw-pq.css" />
     <Content Include="css\cancellation.css" />
     <Content Include="css\chosen.min.css" />
+    <Content Include="css\components\article-next-prev.css" />
     <Content Include="css\components\article.css" />
     <Content Include="css\components\compare-bikes.css" />
+    <Content Include="css\components\pagination.css" />
+    <Content Include="css\components\model-gallery.css" />
+    <Content Include="css\content\details.css" />
+    <Content Include="css\components\sidebar-bike-list.css" />
     <Content Include="css\css-new-photos.css" />
     <Content Include="css\css-research-photos.css" />
     <Content Include="css\datepicker.css" />
@@ -1876,6 +1893,7 @@
     <Content Include="css\model-btf.css" />
     <Content Include="css\model.css" />
     <Content Include="css\newbikes.css" />
+    <Content Include="css\content\listing.css" />
     <Content Include="css\new\modelprice-in-city.css" />
     <Content Include="css\new\search.css" />
     <Content Include="css\pikaday.css" />
@@ -2279,6 +2297,7 @@
     <Content Include="m\ContactUs.aspx" />
     <Content Include="m\content\Features\Default.aspx" />
     <Content Include="m\content\Features\viewF.aspx" />
+    <Content Include="m\content\BikeCare\BikeCare.aspx" />
     <Content Include="m\content\RoadTest\Default.aspx" />
     <Content Include="m\content\RoadTest\viewRT.aspx" />
     <Content Include="m\content\userreviews\Default.aspx" />
@@ -2347,6 +2366,7 @@
     <Content Include="m\css\bwm-newbikes.css" />
     <Content Include="m\css\components\article.css" />
     <Content Include="m\css\components\compare-bikes.css" />
+    <Content Include="m\css\components\pagination.css" />
     <Content Include="m\css\components\used-swiper.css" />
     <Content Include="m\css\dealerpricequote.css" />
     <Content Include="m\css\dealerpricequote-old.css" />
@@ -2519,6 +2539,7 @@
     <Content Include="src\common.js" />
     <Content Include="src\common.min.js" />
     <Content Include="src\common\chosen.jquery.min.js" />
+    <Content Include="src\content\details.js" />
     <Content Include="src\dealerlisting.js" />
     <Content Include="src\dealerpricequote.js" />
     <Content Include="src\dealersbylocation.js" />

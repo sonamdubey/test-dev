@@ -4,8 +4,10 @@ using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Controls;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.Pager;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
@@ -22,22 +24,31 @@ namespace Bikewale.Content
     /// <summary>
     /// Modified By : Ashwini Todkar on 25 Sept 2014
     /// Retrieved features from carwale web api
+    /// Modified By : Sushil Kumar on 10th Nov 2016
+    /// Description : Bind most popular bikes widget for edit cms
     /// </summary>
     public class DefaultF : System.Web.UI.Page
     {
         protected Repeater rptFeatures;
-        protected LinkPagerControl linkPager;
+        protected Bikewale.Mobile.Controls.LinkPagerControl ctrlPager;
         protected string prevUrl = string.Empty, nextUrl = string.Empty;
-
+        protected MostPopularBikesMin ctrlPopularBikes;
+        protected UpcomingBikesMinNew ctrlUpcomingBikes;
         private int _pageNo = 1;
         private const int _pageSize = 10, _pagerSlotSize = 5;
-        private bool _isContentFound = true;
-
+        private bool _isContentFound = true;  
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
         }
 
+
+        /// <summary>
+        /// Modified By : Sushil Kumar on 10th Nov 2016
+        /// Description : Bind most popular bikes widget for edit cms
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Page_Load(object sender, EventArgs e)
         {
             // Modified By :Lucky Rathore on 12 July 2016.
@@ -53,6 +64,7 @@ namespace Bikewale.Content
 
 
             CommonOpn op = new CommonOpn();
+            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
 
             if (Request["pn"] != null && Request.QueryString["pn"] != "")
             {
@@ -61,13 +73,19 @@ namespace Bikewale.Content
             }
 
             GetFeaturesList();
+
+            ctrlPopularBikes.totalCount = 4;
+            ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+            ctrlPopularBikes.cityName = currentCityArea.City;
         }
 
         /// <summary>
         /// Written By : Ashwini Todkar on 25 Sept 2014
         /// Summary    : method to fetch features list and total features count from carwale api
-        /// </summary>      
-        private async void GetFeaturesList()
+        /// Modified By: Aditi Srivastava on 8 Nov 2016
+        /// Summay     : Added function to bind upcoming bikes widget 
+        /// </summary>  
+        private void GetFeaturesList()
         {
             try
             {
@@ -91,14 +109,15 @@ namespace Bikewale.Content
                             .RegisterType<ICacheManager, MemcacheManager>();
                     ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-                    _objFeaturesList = _cache.GetArticlesByCategoryList(_featuresCategoryId, _startIndex, _endIndex,0,0);                
+                    _objFeaturesList = _cache.GetArticlesByCategoryList(_featuresCategoryId, _startIndex, _endIndex, 0, 0);
 
                     if (_objFeaturesList != null && _objFeaturesList.Articles.Count > 0)
                     {
 
                         BindFeatures(_objFeaturesList);
                         BindLinkPager(objPager, Convert.ToInt32(_objFeaturesList.RecordCount));
-
+                        
+                        BindUpcoming();
 
                     }
                     else
@@ -118,7 +137,7 @@ namespace Bikewale.Content
             finally
             {
                 if (!_isContentFound)
-                    Response.Redirect("/pagenotfound.aspx", true);
+                    Response.Redirect("/pagenotfound.aspx", false);
             }
         }
 
@@ -159,10 +178,10 @@ namespace Bikewale.Content
                 _pagerOutput = objPager.GetPager<PagerOutputEntity>(_pagerEntity);
 
                 // for RepeaterPager
-                linkPager.PagerOutput = _pagerOutput;
-                linkPager.CurrentPageNo = _pageNo;
-                linkPager.TotalPages = objPager.GetTotalPages(recordCount, _pageSize);
-                linkPager.BindPagerList();
+                ctrlPager.PagerOutput = _pagerOutput;
+                ctrlPager.CurrentPageNo = _pageNo;
+                ctrlPager.TotalPages = objPager.GetTotalPages(recordCount, _pageSize);
+                ctrlPager.BindPagerList();
 
                 //For SEO
                 //CreatePrevNextUrl(linkPager.TotalPages);
@@ -182,6 +201,16 @@ namespace Bikewale.Content
             rptFeatures.DataSource = _objFeaturesList.Articles;
             rptFeatures.DataBind();
         }
-
+        /// <summary>
+        /// Created by : Aditi Srivastava on 8 Nov 2016
+        /// Summary  : Bind upcoming bikes list
+        /// </summary>
+        private void BindUpcoming()
+        {
+                       
+            ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+            ctrlUpcomingBikes.pageSize = 9;
+            ctrlUpcomingBikes.topCount = 4;
+        }
     }
 }

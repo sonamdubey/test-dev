@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.RoadTest"  Async="true" Trace="false"%>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Content.RoadTest"  Async="true" Trace="false"%>
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Register TagPrefix="Pager" TagName="Pager" Src="/m/controls/ListPagerControl.ascx" %>
 <% 
