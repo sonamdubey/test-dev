@@ -266,9 +266,11 @@ namespace Bikewale.Content
                     ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
                     ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
                     ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
+                    ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
 
                 }
             }
+            
 
         }
         private void BindPages()

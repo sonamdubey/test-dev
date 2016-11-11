@@ -23,7 +23,7 @@ namespace Bikewale.Controls
         public int FetchedRecordsCount { get; set; }
         public int topCount { get; set; }
         public string upcomingBikesLink;
-        public string makeMaskingName;
+        public string makeMaskingName, makeName;
         public IEnumerable<UpcomingBikeEntity> objBikeList=null;
         protected override void OnInit(EventArgs e)
         {
