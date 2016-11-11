@@ -17,7 +17,8 @@
         alternate = "http://www.bikewale.com/m/news/";
         AdId = "1395995626568";
         AdPath = "/1017752/BikeWale_News_";
-        isAd300x250Shown=false;
+        isAd300x250Shown=true;
+        isAd300x250BTFShown = false;
     
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
@@ -113,10 +114,12 @@
 
                     <div class="grid-4 omega">
                         <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
+                        
+                        <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
+
                         <div class="margin-bottom20">
                             <!-- #include file="/ads/Ad300x250.aspx" -->
                         </div>
-                        <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
                    
                         <a href="/pricequote/" id="on-road-price-widget" class="content-box-shadow content-inner-block-20">
                             <span class="inline-block">

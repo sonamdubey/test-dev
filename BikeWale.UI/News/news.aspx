@@ -18,6 +18,9 @@
 		
 		AdId="1395995626568";
 		AdPath="/1017752/BikeWale_News_";
+        isAd300x250Shown = true;
+        isAd300x250BTFShown = false;
+        
 	%>
 
 	<!-- #include file="/includes/headscript_desktop_min.aspx" -->
@@ -111,7 +114,7 @@
 					<div class="grid-4 omega">
 					     <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
 						<div class="margin-bottom20">
-                            <!-- BikeWale_News/BikeWale_News_300x250 -->
+                              <!-- #include file="/ads/ad300x250.aspx" -->
                         </div>
                         <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
 					</div>

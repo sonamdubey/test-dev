@@ -16,7 +16,7 @@
                         <span class="bwmsprite inr-xxsm-icon"></span><span class="font14"><%= string.Format("{0}{1}",Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price1)),bike.Price1 > 0 ? " onwards" : string.Empty)  %></span>
                     </div>
                 </div>
-                <div class="grid-6">
+                <div class="grid-6 padding-left15">
                     <div class="comparison-image">
                         <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.VersionImgUrl2,bike.HostUrl2,Bikewale.Utility.ImageSize._110x61) %>" src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif">
                     </div>

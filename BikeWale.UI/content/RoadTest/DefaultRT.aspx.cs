@@ -45,6 +45,7 @@ namespace Bikewale.Content
         private const int _pagerSlotSize = 5;
         private bool _isContentFound = true;
         protected MostPopularBikesMin ctrlPopularBikes;
+        string makeId = string.Empty, modelId = string.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -75,17 +76,21 @@ namespace Bikewale.Content
 
             if (!IsPostBack)
             {
-                string _makeName = string.Empty, _makeId = string.Empty, _modelId = string.Empty, _modelName = string.Empty;
-                ProcessQS(out _makeName, out _makeId, out _modelId, out _modelName);
-                GetRoadTestList(_makeId, _modelId, _makeName, _modelName);
+
+                ProcessQS();
+                GetRoadTestList(makeId, modelId, makeName, modelName);
             }
 
             ctrlPopularBikes.totalCount = 4;
             ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
             ctrlPopularBikes.cityName = currentCityArea.City;
+            ctrlPopularBikes.makeId = Convert.ToInt32(makeId);
+            ctrlPopularBikes.makeMasking = makeMaskingName;
+            ctrlPopularBikes.makeName = makeName;
+
         }
 
-        private void ProcessQS(out string _makeName, out string _makeId, out string _modelId, out string _modelName)
+        private void ProcessQS()
         {
             if (Request["pn"] != null && Request.QueryString["pn"] != "")
             {
@@ -94,14 +99,9 @@ namespace Bikewale.Content
                     _pageNo = Convert.ToInt32(_pageNumber);
             }
 
-            _makeName = string.Empty;
-            _makeId = string.Empty;
-            _modelId = string.Empty;
-            _modelName = string.Empty;
-
-            _makeName = Request.QueryString["make"];
-            makeMaskingName = _makeName;
-            if (!String.IsNullOrEmpty(_makeName))
+            makeName = Request.QueryString["make"];
+            makeMaskingName = makeName;
+            if (!String.IsNullOrEmpty(makeName))
             {
                 MakeMaskingResponse objResponse = null;
 
@@ -132,7 +132,7 @@ namespace Bikewale.Content
                     {
                         if (objResponse.StatusCode == 200)
                         {
-                            _makeId = Convert.ToString(objResponse.MakeId);
+                            makeId = Convert.ToString(objResponse.MakeId);
                         }
                         else if (objResponse.StatusCode == 301)
                         {
@@ -160,14 +160,14 @@ namespace Bikewale.Content
                             .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
                             .RegisterType<ICacheManager, MemcacheManager>();
                     var _objMakeCache = container1.Resolve<IBikeMakesCacheRepository<int>>();
-                    BikeMakeEntityBase objMMV = _objMakeCache.GetMakeDetails(Convert.ToUInt32(_makeId));
+                    BikeMakeEntityBase objMMV = _objMakeCache.GetMakeDetails(Convert.ToUInt32(makeId));
                     makeName = objMMV.MakeName;
                 }
 
 
             }
 
-            if (!String.IsNullOrEmpty(_makeId))
+            if (!String.IsNullOrEmpty(makeId))
             {
                 modelMaskingName = Request.QueryString["model"];
                 if (!String.IsNullOrEmpty(modelMaskingName))
@@ -183,13 +183,13 @@ namespace Bikewale.Content
                         objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
                         if (objResponse != null && objResponse.StatusCode == 200)
                         {
-                            _modelId = objResponse.ModelId.ToString();
-                            _modelName = Request.QueryString["model"];
+                            modelId = objResponse.ModelId.ToString();
+                            modelName = Request.QueryString["model"];
                             using (IUnityContainer modelContainer = new UnityContainer())
                             {
                                 modelContainer.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
                                 IBikeModels<BikeModelEntity, int> objClient = modelContainer.Resolve<IBikeModels<BikeModelEntity, int>>();
-                                BikeModelEntity bikemodelEnt = objClient.GetById(Convert.ToInt32(_modelId));
+                                BikeModelEntity bikemodelEnt = objClient.GetById(Convert.ToInt32(modelId));
                                 modelName = bikemodelEnt.ModelName;
 
                             }

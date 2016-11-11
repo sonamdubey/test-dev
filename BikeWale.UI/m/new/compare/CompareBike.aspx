@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Mobile.New.CompareBike" Trace="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Mobile.New.CompareBike" EnableViewState="false" %>
 <%@ Register TagPrefix="CB" TagName="CompareBike" Src="/m/controls/CompareBikeMin.ascx" %>
 <%
     title = "Compare Bikes | New Bike Comparisons in India - BikeWale";
@@ -31,7 +31,7 @@
     <div class="grid-12 margin-top10">
         <div class="content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20">
             <h1 class="margin-bottom15 text-center">Compare bikes</h1>
-            <div id="divMakeddl1" class="grid-6 compare-box">
+            <div id="divMakeddl1" class="grid-6 compare-box" data-bike="1">
                 <div class="compare-box-placeholder text-center" onclick="OpenPopup(this)">
                     <span class="grey-bike"></span>
                     <p>Select bike 1</p>
@@ -77,7 +77,7 @@
             </div>
 
             <div id="divListContainer2" style="display:none;">
-                <div class="divMake" style="min-height:100% !important;background-color:#f8f8f8;">
+                <div class="divMake" style="min-height:100% !important;background-color:#f8f8f8;" data-bike="2">
                     <div data-role="header" data-theme="b"  class="ui-corner-top">
                         <a href="#" onclick="CloseWindow()" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
                         <h1>Select Make</h1>
@@ -126,6 +126,17 @@
     
     </div>
 
+
+   <%-- <div class="bikesList" style="display:none;min-height:100% !important;background-color:#f8f8f8;">
+        <img id="bikeloader" src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
+        <div data-role="header" data-theme="b" class="ui-corner-top" >
+            <a href="#" onclick="CloseWindow()" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+            <h1>Select Make</h1>
+        </div>
+        <ul data-role="listview" id="ddlMake2" runat="server"></ul>
+    </div>--%>
+
+
     <div class="container margin-bottom20">
         <div class="grid-12 alpha omega">
             <CB:CompareBike ID="ctrlCompareBikes" runat="server" ></CB:CompareBike>
@@ -136,51 +147,13 @@
 
 <script type="text/javascript">
     
-    var formatedMake1, formatedMake2, formatedModel1, formatedModel2;
-
-    var CompareBikeModel = function()  
-    {
-        var self = this;
-        self.MakeId1 = ko.observable();
-        self.ModelId1 = ko.observable();
-        self.VersionId1 = ko.observable();
-
-        self.MakeId2 = ko.observable();
-        self.ModelId2 = ko.observable();
-        self.VersionId2 = ko.observable();
-
-        self.SelectMake = function (d,e) {
-
-        };
-
-        self.SelectModel = function (d,e) {
-            var selectedMakeId = 12;
-            if(selectedMakeId  && selectedMakeId > 0)
-            {
-
-            }
-
-        };
-
-        self.SelectVersion = function (d,e) {
-
-        };
-    }
-
-    var vmCompare = new CompareBikeModel();
-
+    var formatedMake1 = null, formatedMake2 = null, formatedModel1 = null, formatedModel2 = null;
 
     $(document).ready(function () {
         var bikeName = "",
             divMakeddl1 = "#divMakeddl1",
             divMakeddl2 = "#divMakeddl2";
  
-        if ($("#hdnVersionId1").val() != "-1" && $("#hdnVersionId2").val() != "-1") {
-            formatedMake1 = $("#hdnMake1").val();
-            formatedMake2 = $("#hdnMake2").val();
-            formatedModel1 = $("#hdnModel1").val();
-            formatedModel2 = $("#hdnModel2").val();
-        }
     });
 
     function OpenPopup(divMakeddl) {
@@ -235,8 +208,8 @@
         var type = $(a).attr("type");
         $.ajax({
             type: "POST",
-            url: "/ajaxpro/Bikewale.Ajax.AjaxCompareBikes,Bikewale.ashx",
-            data: '{"modelId":"' + modelId + '", "compareBikes":"new"}',
+            url: "/ajaxpro/Bikewale.Ajax.AjaxCommon,Bikewale.ashx",
+            data: '{"modelId":"' + modelId + '", "requestType":"compare"}',
             beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetVersions"); },
             success: function (response) {
                 var jsonString = eval('(' + response + ')');
@@ -245,9 +218,9 @@
                 {
                     for (var i = 0; i < resObj.Table.length; i++) {
                         if (type == "1")
-                            retVal += "<li><a onclick=\"ShowBikeName(this);\" id ='" + resObj.Table[i].Value + "' type='1'>" + resObj.Table[i].Text + "</a></li>";
+                            retVal += "<li data-hosturl='" + resObj.Table[i].HostURL + "' data-price='" + resObj.Table[i].VersionPrice + "' data-imagepath='" + resObj.Table[i].OriginalImagePath + "' ><a onclick=\"ShowBikeName(this);\" id ='" + resObj.Table[i].Value + "' type='1'>" + resObj.Table[i].Text + "</a></li>";
                         else if (type == "2")
-                            retVal += "<li><a onclick=\"ShowBikeName(this);\" id ='" + resObj.Table[i].Value + "' type='2'>" + resObj.Table[i].Text + "</a></li>";
+                            retVal += "<li data-hosturl='" + resObj.Table[i].HostURL + "' data-price='" + resObj.Table[i].VersionPrice + "' data-imagepath='" + resObj.Table[i].OriginalImagePath + "' ><a onclick=\"ShowBikeName(this);\" id ='" + resObj.Table[i].Value + "' type='2'>" + resObj.Table[i].Text + "</a></li>";
                     }
                 }
                 if (retVal != "") {
@@ -279,9 +252,27 @@
         $("#divForPopup").hide();
         $("#divParentPageContainer").show();
         bikeName += " " + $(a).text();
-        type = $(a).attr("type");
 
-        var element = $('<div class="selected-bike position-rel"><span class="bwmsprite cancel-select cross-sm-dark-grey cur-pointer position-abt pos-top5 pos-right5"></span><img src="http://imgd4.aeplcdn.com//210x118//bw/models/benelli-tnt25.jpg" border="0" /><p class="selected-bike-label text-bold text-truncate font12 margin-bottom5">' + bikeName + '</p><p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p><p class="text-default"><span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16">81,618</span></p></div>');
+        var ele = $(a).parent();
+        type = $(a).attr("type");
+        bikeprice = ele.attr("data-price");
+        bikeimage = "http://imgd3.aeplcdn.com/210x118/bikewaleimg/images/noimage.png";
+        bikeimghost = ele.attr("data-hosturl");
+        bikeimgpath = ele.attr("data-imagepath");
+        
+        if (bikeprice != null && bikeprice != '' && bikeprice != "0")
+        {
+            bikeprice = formatPrice(bikeprice);
+            bikeprice = '<span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16">' + bikeprice + '</span>';
+        }            
+        else bikeprice = "Price not available";
+
+        if (bikeimghost != "" || bikeimgpath!="")
+        {
+            bikeimage = bikeimghost + "/210x118/" + bikeimgpath;
+        }
+
+        var element = $('<div class="selected-bike position-rel"><span class="bwmsprite cancel-select cross-sm-dark-grey cur-pointer position-abt pos-top5 pos-right5"></span><img src="'+ bikeimage +'" border="0" /><p class="selected-bike-label text-bold text-truncate font12 margin-bottom5">' + bikeName + '</p><p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p><p class="text-default">'+bikeprice+'</p></div>');
         
         if (type == "1") {
             formatedMake1 = formatURL(makeName1);
@@ -396,6 +387,16 @@
             formatedModel2 = null;
         }
     });
+
+    function formatPrice(price) {
+        price = price.toString();
+        var lastThree = price.substring(price.length - 3);
+        var otherNumbers = price.substring(0, price.length - 3);
+        if (otherNumbers != '')
+            lastThree = ',' + lastThree;
+        var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+        return price;
+    }
 
 </script>
 <!-- #include file="/includes/footermobile.aspx" -->

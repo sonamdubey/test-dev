@@ -14,7 +14,7 @@
                 </div>
                 <div class="bike-target-content inline-block padding-left10">
                     <h3><%= bikeName %></h3>
-                    <p class="font11 text-light-grey">Ex-showroom <%= !string.IsNullOrEmpty(bike.CityName)?bike.CityName : "Mumbai"  %></p>
+                    <p class="font11 text-light-grey">Ex-showroom <%= !string.IsNullOrEmpty(bike.CityName)?bike.CityName : cityName  %></p>
                     <% if(bike.VersionPrice > 0) { %>
                     <span class="bwsprite inr-md"></span><span class="font16 text-bold">&nbsp;<%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.VersionPrice)) %></span>
                     <% } else { %>
