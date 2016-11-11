@@ -42,7 +42,7 @@ namespace Bikewale.Used.Sell
         protected SellBikeAdDTO inquiryDTO;
         protected string userEmail = null;
         protected string userName = null;
-
+        
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
