@@ -130,8 +130,10 @@
         </section>
 
         <section>
-            <div class="container bg-white box-shadow card-bottom-margin">                
+            <div class="container bg-white box-shadow card-bottom-margin padding-top15 padding-right20 padding-left20">                
                 <!-- dealer card -->
+                   <h2 class="margin-bottom5">Looking to buy a new <%= makeName %> bike in <%=cityName %>?</h2>
+                    <p>Check out authorised <%= makeName %> dealers in <%=cityName %></p>
                 <% if (ctrlDealerCard.showWidget) { %>
                     <BW:DealerCard runat="server" ID="ctrlDealerCard" />
                 <% }  %>
