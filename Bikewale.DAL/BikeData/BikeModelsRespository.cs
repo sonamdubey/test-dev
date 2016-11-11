@@ -757,7 +757,7 @@ namespace Bikewale.DAL.BikeData
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId.HasValue && makeId.Value > 0 ? makeId : Convert.DBNull));
 
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
@@ -1154,6 +1154,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created by Subodh Jain on 22 sep 2016
         /// Des:- To fetch most popular bikes on make and city
+        /// Modified By : Sushil Kumar on 10th Nov 2016
+        /// Description : Get cityname with other info
         /// </summary>
         /// <param name="topCount"></param>
         /// <param name="makeId"></param>
@@ -1169,7 +1171,7 @@ namespace Bikewale.DAL.BikeData
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId > 0 ? makeId : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
 
 
@@ -1204,6 +1206,7 @@ namespace Bikewale.DAL.BikeData
                                 objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
                                 objData.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
                                 objData.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
+                                objData.CityName = Convert.ToString(dr["cityname"]);
                                 objList.Add(objData);
                             }
                             dr.Close();

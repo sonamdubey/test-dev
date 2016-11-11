@@ -1,32 +1,33 @@
-﻿using Bikewale.BAL.EditCMS;
-using Bikewale.Cache.CMS;
-using Bikewale.Cache.Core;
+﻿using Bikewale.BindViewModels.Webforms.EditCMS;
 using Bikewale.Common;
+using Bikewale.Controls;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.EditCMS;
-using Bikewale.Memcache;
-using Microsoft.Practices.Unity;
+using Bikewale.Entities.Location;
+using Bikewale.Entities.SEO;
 using System;
 using System.Web;
-
 
 namespace Bikewale.News
 {
     /// <summary>
-    /// Created By : Ashwini Todkar on 3 Oct 2014
+    /// Created By : Sushil Kumar on 10th Nov 2016
+    /// Description : Bind news details page
+    /// Modified By : Aditi Srivastava on 10 Nov 2016
+    /// Description : Added control for upcoming bikes widget
     /// </summary>
     public class news : System.Web.UI.Page
     {
         private string _basicId = string.Empty;
-        bool _isContentFount = true;
         protected ArticleDetails objArticle = null;
+        protected NewsDetails objNews;
+        protected UpcomingBikesMinNew ctrlUpcomingBikes;
+        private BikeMakeEntityBase _taggedMakeObj;
+        protected GlobalCityAreaEntity currentCityArea;
+        protected PageMetaTags metas;
 
-        protected string articleUrl = string.Empty, articleTitle = string.Empty, HostUrl = string.Empty, basicId = string.Empty, smallPicUrl = string.Empty, authorName = string.Empty, nextPageArticle = string.Empty, prevPageArticle = string.Empty, originalImgUrl = string.Empty;
-        protected string displayDate = string.Empty, mainImgCaption = string.Empty, largePicUrl = string.Empty, content = string.Empty, prevPageUrl = string.Empty, nextPageUrl = string.Empty, hostUrl = string.Empty;
-        protected bool isMainImageSet = false;
-
+        protected MostPopularBikesMin ctrlPopularBikes;
+        protected int makeId;
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -47,116 +48,80 @@ namespace Bikewale.News
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
 
-            ProcessQS();
-            if (!String.IsNullOrEmpty(_basicId))
-                GetNewsArticleDetails();
-        }
 
-        private void ProcessQS()
-        {
-            if (Request["id"] != null && Request.QueryString["id"] != string.Empty)
-            {
-                /** Modified By : Ashwini Todkar on 12 Aug 2014 , add when consuming carwale api
-                //Check if basic id exists in mapped carwale basic id log **/
-                _basicId = BasicIdMapping.GetCWBasicId(Request["id"]);
+            BindNewsDetails();
 
-                //if id exists then redirect url to new basic id url
-                if (!String.IsNullOrEmpty(_basicId))
-                {
-                    string newUrl = "/news/" + _basicId + "-" + Request["t"] + ".html";
-                    CommonOpn.RedirectPermanent(newUrl);    //302 redirection to new basic id
-                }
-                else
-                {
-                    _basicId = Request["id"];
-                }
-            }
-            else
-            {
-                Response.Redirect("/pagenotfound.aspx", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
-            }
         }
 
         /// <summary>
-        /// Written By : Ashwini Todkar on 24 Sept 2014
-        /// PopulateWhere to fetch news details from api asynchronously
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : Bind news details page
         /// </summary>
-        private void GetNewsArticleDetails()
+        private void BindNewsDetails()
         {
             try
             {
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IArticles, Articles>()
-                                .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                                .RegisterType<ICacheManager, MemcacheManager>();
-                        ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
-
-                        objArticle = _cache.GetNewsDetails(Convert.ToUInt32(_basicId));
-
-                        if (objArticle == null)
-                            _isContentFount = false;
-                        else
-                            GetNewsData();
-                    }
-
-            }
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (!_isContentFount)
+                objNews = new NewsDetails();
+                if (!objNews.IsPageNotFound)
+                {
+                    objArticle = objNews.ArticleDetails;
+                    _taggedMakeObj = objNews.TaggedMake;
+                    currentCityArea = objNews.CityArea;
+                    metas = objNews.PageMetas;
+                    BindPageWidgets();
+                }
+                else if (!objNews.IsContentFound)
                 {
                     Response.Redirect("/news/", false);
                     if (HttpContext.Current != null)
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
+                else
+                {
+                    Response.Redirect("/pagenotfound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.News.NewsListing.GetNewsList");
+                objErr.SendMail();
             }
         }
 
 
-
-
-        //PopulateWhere to set news details
-        private void GetNewsData()
-        {
-            articleTitle = objArticle.Title;
-            authorName = objArticle.AuthorName;
-            displayDate = objArticle.DisplayDate.ToString();
-            articleUrl = objArticle.ArticleUrl;
-            HostUrl = objArticle.HostUrl;
-            basicId = objArticle.BasicId.ToString();
-            smallPicUrl = objArticle.SmallPicUrl;
-            mainImgCaption = objArticle.MainImgCaption;
-            largePicUrl = objArticle.LargePicUrl;
-            content = objArticle.Content;
-            prevPageUrl = "/news/" + objArticle.PrevArticle.BasicId + "-" + objArticle.PrevArticle.ArticleUrl + ".html";
-            nextPageUrl = "/news/" + objArticle.NextArticle.BasicId + "-" + objArticle.NextArticle.ArticleUrl + ".html";
-            isMainImageSet = objArticle.IsMainImageSet;
-            originalImgUrl = objArticle.OriginalImgUrl;
-        }
-
         /// <summary>
-        /// Written By : Ashwini Todkar to get main image
+        /// Created By : Sushil Kumar on 10th Nov 2016
+        /// Description : Bind page level widgets
         /// </summary>
-        /// <returns></returns>
-        protected String GetMainImagePath()
+        private void BindPageWidgets()
         {
-            String mainImgUrl = String.Empty;
-            //mainImgUrl = ImagingFunctions.GetPathToShowImages(objArticle.LargePicUrl, objArticle.HostUrl);
-            mainImgUrl = ImagingFunctions.GetPathToShowImages(objArticle.OriginalImgUrl, objArticle.HostUrl, Bikewale.Utility.ImageSize._640x348);
+            if (ctrlPopularBikes != null)
+            {
+                ctrlPopularBikes.totalCount = 3;
+                ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                ctrlPopularBikes.cityName = currentCityArea.City;
 
-            return mainImgUrl;
+                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                ctrlUpcomingBikes.pageSize = 9;
+                ctrlUpcomingBikes.topCount = 3;
+
+
+                if (_taggedMakeObj != null)
+                {
+                    ctrlPopularBikes.makeId = _taggedMakeObj.MakeId;
+                    ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
+                    ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
+                    ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
+                    ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
+
+                }
+            }
+
         }
-
-
 
     }
 }
