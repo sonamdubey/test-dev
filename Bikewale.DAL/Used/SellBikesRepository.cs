@@ -210,7 +210,6 @@ namespace Bikewale.DAL.Used
                             };
                             SellerType st;
                             SellAdStatus sa;
-                            //Enum.TryParse<SellerType>(Utility.SqlReaderConvertor.ToUInt16(dr["sellertype"]), out st);
                             st = (SellerType)Convert.ToByte(dr["sellertype"]);
                             Enum.TryParse<SellAdStatus>(Convert.ToString(dr["statusid"]), out sa);
                             objAd.Seller.SellerType = st;

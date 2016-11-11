@@ -243,7 +243,7 @@
                                             </div>
 
                                             <div class="panel-row">
-                                                <input type="button" id="submitButtonStep1" class="btn btn-orange btn-primary-big" value="Save and Continue" data-bind="click: saveBikeDetails" />
+                                                <input type="button" id="btnSaveBikeDetails" class="btn btn-orange btn-primary-big" value="Save and Continue" data-bind="click: saveBikeDetails" />
                                             </div>
                                         </div>
                                         <div class="clear"></div>
@@ -306,7 +306,7 @@
                                             </div>
                                         
                                             <div class="panel-row">
-                                                <input type="button" id ="submitButtonStep2" class="btn btn-orange btn-primary-big margin-right20" value="List your bike" data-bind="click: personalDetails().listYourBike" />
+                                                <input type="button" id ="btnListBike" class="btn btn-orange btn-primary-big margin-right20" value="List your bike" data-bind="click: personalDetails().listYourBike" />
                                                 <input type="button" class="btn btn-white btn-primary-small" value="Previous" data-bind="click: personalDetails().backToBikeDetails" />
                                             </div>
 
@@ -419,7 +419,7 @@
                                             </div>
 
                                             <div class="panel-row">
-                                                <input type="button" id="submitButtonStep3" class="btn btn-orange btn-primary-big margin-right20" value="Update my Ad" data-bind="click: moreDetails().updateAd" />
+                                                <input type="button" id="btnUpdateAd" class="btn btn-orange btn-primary-big margin-right20" value="Update my Ad" data-bind="click: moreDetails().updateAd" />
                                                 <input type="button" class="btn btn-white btn-primary-small" value="No Thanks" data-bind="click: moreDetails().noThanks" />
                                             </div>
 
@@ -438,7 +438,7 @@
                                         <% if(!isEdit) { %>
                                         <p class="font14">Your profile ID is <span data-bind="text: profileId"></span>. You can find and edit your ad later using this id. Your bike ad will be live after verification.</p>
                                         <% } else { %>
-                                        <p class="font14">Your changes have been recorded.Your ad will be live after verification.</p>
+                                        <p class="font14">Your changes have been recorded. Your ad will be live after verification.</p>
                                         <% } %>
                                     </div>
                                     <div id="form-success-btn-group">

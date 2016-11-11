@@ -1386,9 +1386,9 @@ $(function () {
             vmSellBike.initPhotoUpload();
         }
 
-        $('#submitButtonStep1').val("Update and Continue");
-        $('#submitButtonStep2').val("Update and Continue");
-        $('#submitButtonStep3').val("Update my listing");
+        $('#btnSaveBikeDetails').val("Update and Continue");
+        $('#btnListBike').val("Update and Continue");
+        $('#btnUpdateAd').val("Update my listing");
     }
     else {
         $("#kmsRidden").val('');
