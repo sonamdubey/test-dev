@@ -83,7 +83,7 @@
                         Time: <span id="commuteDuration"></span>
                     </div>
                     <div id="commuteResults"></div>
-                    <a id="anchorGetDir" href="http://maps.google.com/maps?z=12&t=m&q=loc:<%= serviceLat %>,<%= serviceLong %>" target="_blank"><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
+                    <a id="linkMap" href="http://maps.google.com/maps?z=12&t=m&q=loc:<%= serviceLat %>,<%= serviceLong %>" target="_blank"><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
                     <% } %>
                 </div>
             </div>
@@ -156,32 +156,6 @@
              var bodHt, footerHt, scrollPosition, leadSourceId;                         
              var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey%>";
             var pageUrl = window.location.href;
-            $(window).scroll(function () {
-                bodHt = $('body').height();
-                footerHt = $('footer').height();
-                scrollPosition = $(this).scrollTop();
-                if ($('.float-button').hasClass('float-fixed')) {
-                    if (scrollPosition + $(window).height() > (bodHt - footerHt))
-                        $('.float-button').removeClass('float-fixed').hide();
-                }
-                if (scrollPosition + $(window).height() < (bodHt - footerHt))
-                    $('.float-button').addClass('float-fixed').show();
-            });
-           $(".leadcapturebtn").click(function(e){
-               ele = $(this);
-               
-               var leadOptions = {
-                   "dealerid" : dealerId,                    
-                   "leadsourceid" : ele.attr('data-leadsourceid'),
-                   "pqsourceid" : ele.attr('data-pqsourceid'),
-                   "pageurl" : pageUrl,
-                   "clientip" : clientIP,
-                   "isregisterpq": true,
-                   "isdealerbikes": true,
-                   "campid": campaignId
-               };
-               dleadvm.setOptions(leadOptions);
-           });
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/service/details.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />

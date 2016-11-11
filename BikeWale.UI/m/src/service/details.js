@@ -39,7 +39,7 @@ function savePosition(position) {
 }
 
 function setUserLocation(position) {
-    $("#anchorGetDir").attr("href", "https://maps.google.com/?saddr=" + position.coords.latitude + "," + position.coords.longitude + "&daddr=" + dealerLat + "," + dealerLong + '');
+    $("#linkMap").attr("href", "https://maps.google.com/?saddr=" + position.coords.latitude + "," + position.coords.longitude + "&daddr=" + serviceLat + "," + serviceLong + '');
 }
 $("#assistanceBrandInput").on("keyup", function () {
     locationFilter($(this));
@@ -84,8 +84,8 @@ function initializeMap() {
 
 function route(origin_place_id, travel_mode, directionsService) {
 
-    _lat = dealerLat;
-    _lng = dealerLong;
+    _lat = serviceLat;
+    _lng = serviceLong;
     destination_place_id = new google.maps.LatLng(_lat, _lng);
 
     if (!origin_place_id || !destination_place_id) {

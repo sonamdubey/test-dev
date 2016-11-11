@@ -7,7 +7,7 @@ namespace Bikewale.Entities.Compare
     /// Created by  :   Sumit Kate on 22 Jan 2016
     /// Description :   
     /// </summary>
-    [Serializable,DataContract]
+    [Serializable, DataContract]
     public class BikeEntityBase
     {
         [DataMember]

@@ -33,7 +33,7 @@
     </div>
 
 <div class="padding-right20 padding-left20 font14">
-    <a href="<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> service centers in <%=cityName %>">View all <%= makeName %> service centers <span class="bwmsprite blue-right-arrow-icon"></span></a>
+    <a href="/m<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> service centers in <%=cityName %>">View all <%= makeName %> service centers <span class="bwmsprite blue-right-arrow-icon"></span></a>
 </div>
     </div>
 <% } %>

@@ -1,6 +1,5 @@
 ﻿
 using Bikewale.Entities.BikeData;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -9,18 +8,18 @@ namespace Bikewale.Entities.ServiceCenters
     [Serializable, DataContract]
     public class ServiceScheduleBase
     {
-        [DataMember, JsonProperty("ServiceNo")]
+        [DataMember]
         public uint ServiceNo { get; set; }
-        [DataMember, JsonProperty("Kms")]
+        [DataMember]
         public string Kms { get; set; }
-        [DataMember, JsonProperty("Days")]
+        [DataMember]
         public uint Days { get; set; }
     }
 
     [Serializable, DataContract]
     public class ModelServiceSchedule : BikeModelEntityBase
     {
-        [DataMember, JsonProperty("Schedules")]
+        [DataMember]
         public IList<ServiceScheduleBase> Schedules { get; set; }
     }
 }

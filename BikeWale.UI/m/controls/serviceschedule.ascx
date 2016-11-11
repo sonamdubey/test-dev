@@ -5,10 +5,10 @@
                 <p class="margin-bottom15">Get your <%= MakeName %> bike serviced with time period given below.</p>
                 <div class="select-box margin-bottom20">
                     <p class="font12 text-light-grey">Model</p>
-                    <select class="chosen-select" data-bind="event: { change: GetModelId }" <%--data-bind="options: bikes, value: selectedModelId, optionsValue: ModelId, optionsText: ModelName, event: { change: GetModelId }  "--%>>
+                    <select class="chosen-select" data-bind="event: { change: GetModelId }"
                         <% foreach (var bike in BikeScheduleList)
                            { %>
-                            <option value="<%= bike.ModelId %>" data-bind=""><%=bike.ModelName %></option>
+                            <option value="<%= bike.ModelId %>"><%=bike.ModelName %></option>
                         <% } %>
                     </select>
                 </div>

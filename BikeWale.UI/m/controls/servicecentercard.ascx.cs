@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Controls
 {
@@ -15,8 +14,6 @@ namespace Bikewale.Mobile.Controls
     /// </summary>
     public class ServiceCenterCard : UserControl
     {
-        protected Repeater rptDealers, rptPopularCityDealers;
-
         public uint ServiceCenterId { get; set; }
         public uint MakeId { get; set; }
         public uint ModelId { get; set; }
