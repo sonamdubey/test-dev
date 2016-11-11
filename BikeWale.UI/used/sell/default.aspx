@@ -243,7 +243,7 @@
                                             </div>
 
                                             <div class="panel-row">
-                                                <input type="button" class="btn btn-orange btn-primary-big" value="Save and Continue" data-bind="click: saveBikeDetails" />
+                                                <input type="button" id="btnSaveBikeDetails" class="btn btn-orange btn-primary-big" value="Save and Continue" data-bind="click: saveBikeDetails" />
                                             </div>
                                         </div>
                                         <div class="clear"></div>
@@ -306,7 +306,7 @@
                                             </div>
                                         
                                             <div class="panel-row">
-                                                <input type="button" class="btn btn-orange btn-primary-big margin-right20" value="List your bike" data-bind="click: personalDetails().listYourBike" />
+                                                <input type="button" id ="btnListBike" class="btn btn-orange btn-primary-big margin-right20" value="List your bike" data-bind="click: personalDetails().listYourBike" />
                                                 <input type="button" class="btn btn-white btn-primary-small" value="Previous" data-bind="click: personalDetails().backToBikeDetails" />
                                             </div>
 
@@ -419,7 +419,7 @@
                                             </div>
 
                                             <div class="panel-row">
-                                                <input type="button" class="btn btn-orange btn-primary-big margin-right20" value="Update my Ad" data-bind="click: moreDetails().updateAd" />
+                                                <input type="button" id="btnUpdateAd" class="btn btn-orange btn-primary-big margin-right20" value="Update my Ad" data-bind="click: moreDetails().updateAd" />
                                                 <input type="button" class="btn btn-white btn-primary-small" value="No Thanks" data-bind="click: moreDetails().noThanks" />
                                             </div>
 
@@ -435,7 +435,11 @@
                                     </div>
                                     <div class="success-text inline-block">
                                         <p class="font18 text-bold margin-bottom10">Congratulations!</p>
-                                        <p class="font14">Your profile ID is <span data-bind="text: inquiryId"></span>. You can find and edit your ad later using this id. Your bike ad will be live after verification.</p>
+                                        <% if(!isEdit) { %>
+                                        <p class="font14">Your profile ID is <span data-bind="text: profileId"></span>. You can find and edit your ad later using this id. Your bike ad will be live after verification.</p>
+                                        <% } else { %>
+                                        <p class="font14">Your changes have been recorded. Your ad will be live after verification.</p>
+                                        <% } %>
                                     </div>
                                     <div id="form-success-btn-group">
                                         <input type="button" class="btn btn-orange btn-primary-small margin-right20" value="Done" data-bind="click: congratsScreenDoneFunction" />
@@ -493,7 +497,7 @@
                                             <li>
                                                 <span class="sell-bike-sprite listing-icon"></span>
                                                 <div class="feature-item inline-block">
-                                                    <p class="feature-title">Listing is here to stay</p>
+                                                    <p class="feature-title">Unlimited listing duration</p>
                                                     <p>Your bike ad will be visible to our users until you've sold your bike</p>
                                                 </div>
                                             </li>
@@ -501,7 +505,7 @@
                                                 <span class="sell-bike-sprite message-icon"></span>
                                                 <div class="feature-item inline-block">
                                                     <p class="feature-title">Get contact details of buyers</p>
-                                                    <p>Keep yourself away from frenzy calls as we will send buyers details</p>
+                                                    <p>We will send you the details of buyers through SMS and mail</p>
                                                 </div>
                                             </li>
                                         </ul>
@@ -519,6 +523,8 @@
             </div>
         </section>
 
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+
         <script type="text/javascript"> 
             var userId = '<%= userId%>';    
             var isEdit = '<%= isEdit %>';
@@ -528,8 +534,6 @@
             var userName = '<%= userName%>';
             var userEmail = '<%= userEmail%>';
         </script>
-
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
         
         <!-- #include file="/includes/footerBW.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
@@ -543,10 +547,11 @@
         <!--[if lt IE 9]>
             <script src="/src/html5.js"></script>
         <![endif]-->
-
         <script type="text/javascript">
             window.onbeforeunload = function () {
-                return "Do you want to reload?";
+                if (vmSellBike.formStep() < 4) {
+                    return true;
+                }                
             }
         </script>
         
