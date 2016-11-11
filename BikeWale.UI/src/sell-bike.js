@@ -934,7 +934,8 @@ var verificationDetails = function () {
                 "otp": otp,
                 "customerMobile": mobile,
                 "customerId": vmSellBike.customerId(),
-                "inquiryId" : vmSellBike.inquiryId()
+                "inquiryId": vmSellBike.inquiryId(),
+                "isEdit"   : isEdit
             }
 
             $.ajax({

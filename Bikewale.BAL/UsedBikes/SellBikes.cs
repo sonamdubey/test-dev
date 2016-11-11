@@ -25,7 +25,7 @@ namespace Bikewale.BAL.UsedBikes
     {
         private const uint MAX_FILE_SIZE_IN_BYTES = 4194304;
         private const uint MAX_UPLOAD_FILES_LIMIT = 10;
-
+        protected bool isEdit = false;
         private readonly ISellBikesRepository<SellBikeAd, int> _sellBikeRepository = null;
         private readonly ICustomer<CustomerEntity, UInt32> _objCustomer = null;
         private readonly ICustomerRepository<CustomerEntity, UInt32> _objCustomerRepo = null;
@@ -76,6 +76,7 @@ namespace Bikewale.BAL.UsedBikes
                     else
                     {
                         result.Status.Code = SellAdStatus.MobileVerified;
+                        if(!isEdit)
                         SendNotification(ad);
                     }
                 }
@@ -101,7 +102,7 @@ namespace Bikewale.BAL.UsedBikes
             if (ad.InquiryId > 0)
             {
                 _sellBikeRepository.Update(ad);
-
+                isEdit = true;
             }
             else
             {
@@ -154,8 +155,8 @@ namespace Bikewale.BAL.UsedBikes
         public bool VerifyMobile(SellerEntity seller)
         {
             bool mobileVerified= _mobileVerRespo.VerifyMobileVerificationCode(seller.CustomerMobile, seller.Otp, seller.Otp);
-            
-            if (mobileVerified)
+            isEdit = seller.IsEdit;
+            if (mobileVerified && !isEdit)
             {
                 //send notification for successful listing
                 SellBikeAd ad = _sellBikeRepository.GetById((int)seller.InquiryId, seller.CustomerId);

@@ -19,6 +19,8 @@ namespace Bikewale.DTO.UsedBikes
         public string Otp { get; set; }
         [JsonProperty("inquiryId")]
         public uint InquiryId { get; set; }
+        [JsonProperty("isEdit")]
+        public bool IsEdit { get; set; }
 
     }
 
