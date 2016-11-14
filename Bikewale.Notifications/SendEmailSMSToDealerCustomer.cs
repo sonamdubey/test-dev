@@ -482,7 +482,7 @@ namespace Bikewale.Notifications
          /// <param name="formattedPrice"></param>
          public static void UsedBikeEditedRejectionEmailToSeller(CustomerEntityBase seller, string profileId, string bikeName)
          {
-             ComposeEmailBase objEmail = new EditedListingApprovalEmailToSeller(seller.CustomerName, profileId, bikeName);
+             ComposeEmailBase objEmail = new EditedListingRejectionEmailToSeller(seller.CustomerName, profileId, bikeName);
              objEmail.Send(seller.CustomerEmail, String.Format("Changes to your {0} bike listing have not been approved on BikeWale.", bikeName));
          }
     }
