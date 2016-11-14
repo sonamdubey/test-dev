@@ -59,7 +59,7 @@ namespace Bikewale.Mobile.Controls
                     if (totalList != null)
                         ServiceCenteList = totalList.Take(TopCount);
 
-                    if (centerData.Count != 1)
+                    if (centerData.Count > 1)
                         showWidget = true;
 
                     widgetTitle = string.Format("Other {0} service centers in {1}", makeName, cityName);
