@@ -46,7 +46,6 @@ namespace Bikewale.Content
         private bool _isContentFound = true;
         protected MostPopularBikesMin ctrlPopularBikes;
         string makeId = string.Empty, modelId = string.Empty;
-
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -138,6 +137,7 @@ namespace Bikewale.Content
                         if (objResponse.StatusCode == 200)
                         {
                             makeId = Convert.ToString(objResponse.MakeId);
+                            makeId = Convert.ToInt32(objResponse.MakeId);
                         }
                         else if (objResponse.StatusCode == 301)
                         {
@@ -341,12 +341,17 @@ namespace Bikewale.Content
                 objErr.SendMail();
             }
         }
+        
+
         /// <summary>
         /// Created by : Aditi Srivastava on 8 Nov 2016
         /// Summary  : Bind upcoming bikes list
         /// </summary>
         private void BindUpcoming()
         {
+            ctrlUpcoming.makeName = makeName;
+            ctrlUpcoming.makeMaskingName = makeMaskingName;
+            ctrlUpcoming.MakeId = makeId;
             ctrlUpcoming.sortBy = (int)EnumUpcomingBikesFilter.Default;
             ctrlUpcoming.pageSize = 9;
             ctrlUpcoming.topCount = 4;

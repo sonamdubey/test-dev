@@ -117,6 +117,7 @@ namespace Bikewale.News
                     ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
                     ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
                     ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
+                    ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
 
                 }
             }
