@@ -27,7 +27,7 @@
         { %>
              <section>
             <div class="container bg-white card-bottom-margin">
-                <h1 class="card-header"><%= objServiceCenterData.Name %></h1>
+                <h1 class="card-header"><%= objServiceCenterData.Name %>, <%= objServiceCenterData.CityName %></h1>
                 <div class="card-inner-padding font14 text-light-grey">
                     <h2 class="font14 margin-bottom15"><%= string.Format("Authorized {0} service center", makeName) %></h2>
 
