@@ -91,7 +91,7 @@
                 </div>
             </div>
         </section> --%>
-        <% if( viewModel.TopMakeList!= null && viewModel.OtherMakeList!= null){  %>
+        <% if( viewModel.TopMakeList!= null ){  %>
         <section>
             <div class="container text-center section-container">
                 <h2 class="font18 section-heading">Search used bikes by brands</h2>
@@ -108,7 +108,8 @@
                         </li>
                         <% } %>
                     </ul>
-
+                    
+                    <% if (viewModel.OtherMakeList!= null){%>
                     <ul id="more-brand-nav" class="brand-style-moreBtn brandTypeMore border-top1 padding-top25 text-center">
                         <% foreach(var bike in viewModel.OtherMakeList){ %> 
                         <li>
@@ -121,10 +122,11 @@
                         </li>
                         <% } %>
                     </ul>
-
+                  
                     <div class="text-center">
                         <a href="javascript:void(0)" id="more-brand-tab" class="font14" rel="nofollow">View more brands</a>
                     </div>
+                      <%} %>
                 </div>
             </div>
         </section>

@@ -80,8 +80,9 @@ namespace Bikewale.Entities.PriceQuote
         Desktop_HP_MostPopular = 62,
         Desktop_HP_NewLaunches = 63,
         Mobile_HP_MostPopular = 64,
-        Mobile_HP_NewLaunches = 65
-
+        Mobile_HP_NewLaunches = 65,
+        Mobile_ServiceCenter_Listing_CityPage = 66,
+        Mobile_ServiceCenter_DetailsPage = 67
 
     }
 }

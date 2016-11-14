@@ -1,0 +1,67 @@
+﻿.modal-popup-container
+	display: none
+	width: 80%
+	min-height: 270px
+	position: fixed
+	top: 14%
+	left: 0
+	right: 0
+	background: #fff
+	z-index: 4
+	margin: 0 auto
+
+	.popup-header
+		font-size: $font-size-medium
+		color: #e2e2e2
+		padding: 17px 20px
+		background: #2a2a2a
+
+	.popup-body
+		padding: 20px
+
+	.body-label
+		font-size: 12px
+		color: #a2a2a2
+		margin-bottom: 15px
+
+	.popup-list
+		li
+			font-size: 14px
+			color: #82888b
+			cursor: pointer
+			margin-top: 10px
+			padding-top: 5px
+			padding-bottom: 5px
+
+			&:first-child
+				margin-top: 0
+
+		.active
+			color: $text-primary
+			font-weight: $font-bold
+
+			.radio-uncheck
+				background-position: -179px -59px
+
+.btn-size-0
+	font-size: 14px
+	padding: 5px 0
+
+.radio-uncheck
+	width: 14px
+	height: 14px
+	position: relative
+	top: 2px
+	margin-right: 15px
+	background-position: -179px -80px
+
+.modal-background
+	display: none
+	background: #000
+	position: fixed
+	top: 0
+	left: 0
+	right: 0
+	bottom: 0
+	z-index: 3
+	@include opacity(0.6)

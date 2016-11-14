@@ -4,6 +4,9 @@ var gulp = require('gulp'),
   del = require('del'),
   sass = require('gulp-sass'),
   watch = require('gulp-watch');
+  gulpSequence = require('gulp-sequence'),
+  fs = require('fs'),
+  replace = require('gulp-replace');
 
 var paths = {
     bwCSS: 'BikeWale.UI/css/**',
@@ -11,56 +14,137 @@ var paths = {
     bwmCSS: 'BikeWale.UI/m/css/**',
     bwmJS: 'BikeWale.UI/m/src/**',
     bwSASS: 'BikeWale.UI/sass/**',
+    bwmSASS: 'BikeWale.UI/m/sass/**',
     destinationD_CSS: 'BikeWale.UI/min/css',
     destinationD_JS: 'BikeWale.UI/min/src',
     destinationM_CSS: 'BikeWale.UI/min/m/css',
     destinationM_JS: 'BikeWale.UI/min/m/src'
 };
 
-gulp.task('clean', function() {
+var sassPaths = {
+    bwm: {
+        service: {
+            source: 'BikeWale.UI/m/sass/service/**',
+            target: 'BikeWale.UI/min/m/css/service'
+        }
+    }
+}
+
+var page = {
+    mobile: {
+        service: {
+            baseFolder: 'BikeWale.UI/m/service',
+            landing: 'BikeWale.UI/m/service/Default.aspx',
+            city: 'BikeWale.UI/m/service/ServiceCenterInCountry.aspx',
+            listing: 'BikeWale.UI/m/service/ServiceCenterList.aspx',
+            details: 'BikeWale.UI/m/service/ServiceCenterDetails.aspx',
+        }
+    }
+}
+
+gulp.task('clean', function () {
     return del(['BikeWale.UI/min']);
 });
 
-gulp.task('minify-bw-css', ['clean'], function () {
+gulp.task('minify-bw-css', function () {
     return gulp.src(paths.bwCSS, { base: 'BikeWale.UI/css/' })
         .pipe(cleanCss())
         .pipe(gulp.dest(paths.destinationD_CSS));
 });
 
-gulp.task('minify-bw-js', ['clean'], function () {
+gulp.task('minify-bw-js', function () {
     return gulp.src(paths.bwJS, { base: 'BikeWale.UI/src/' })
-        .pipe(uglify().on('error', function(e){
+        .pipe(uglify().on('error', function (e) {
             console.log(e);
-         }))
+        }))
         .pipe(gulp.dest(paths.destinationD_JS));
 });
 
-gulp.task('minify-bwm-css', ['clean'], function() {
+gulp.task('minify-bwm-css', function () {
     return gulp.src(paths.bwmCSS, { base: 'BikeWale.UI/m/css/' })
         .pipe(cleanCss())
         .pipe(gulp.dest(paths.destinationM_CSS));
 });
 
-gulp.task('minify-bwm-js', ['clean'], function() {
+gulp.task('minify-bwm-js', function () {
     return gulp.src(paths.bwmJS, { base: 'BikeWale.UI/m/src/' })
-        .pipe(uglify().on('error', function(e){
+        .pipe(uglify().on('error', function (e) {
             console.log(e);
-         }))
+        }))
         .pipe(gulp.dest(paths.destinationM_JS));
 });
-
-gulp.task('sass', function () {
+gulp.task('bw-sass', function () {
     return gulp.src(paths.bwSASS, { base: 'BikeWale.UI/sass/' })
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest(paths.destinationD_CSS));
 });
 
-//Watch task
-gulp.task('watch-sass', function () {
-    gulp.watch(paths.bwSASS, ['sass']);
+gulp.task('bwm-service-sass', function () {
+    return gulp.src(sassPaths.bwm.service.source, { base: 'BikeWale.UI/m/sass/service/' })
+        .pipe(sass().on('error', sass.logError))
+        .pipe(cleanCss())
+        .pipe(gulp.dest(sassPaths.bwm.service.target));
 });
 
-gulp.task('default', ['clean', 'minify-bw-css', 'minify-bw-js', 'minify-bwm-css', 'minify-bwm-js']);
+gulp.task('bwm-service-css', function () {
+    return gulp.src(sassPaths.bwm.service.source, { base: 'BikeWale.UI/m/sass/service/' })
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('BikeWale.UI/m/css/service/'));
+});
 
+//Watch task
+gulp.task('watch-sass', function () {
+    gulp.watch(paths.bwSASS, ['bw-sass']);
+    gulp.watch(paths.bwmSASS, ['bwm-sass']);
+});
 
-gulp.task('sell-form', ['sass']);
+gulp.task('bwm-sass', function (callback) {
+    gulpSequence('bwm-service-sass')(callback)
+});
+
+// replace css reference with internal css
+gulp.task('replace-css-reference', function (callback) {
+    gulpSequence('mobile-service-center')(callback)
+});
+
+gulp.task('mobile-service-center', function (callback) {
+    gulpSequence('mobile-service-landing', 'mobile-service-city', 'mobile-service-listing', 'mobile-service-details')(callback)
+});
+
+gulp.task('mobile-service-landing', function () {
+    return gulp.src(page.mobile.service.landing, { base: page.mobile.service.baseFolder })
+        .pipe(replace(/<link rel="stylesheet" type="text\/css" href="\/m\/css\/service\/landing.css"[^>]*>/, function () {
+            var style = fs.readFileSync(sassPaths.bwm.service.target + '/landing.css', 'utf-8');
+            return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
+        }))
+        .pipe(gulp.dest(page.mobile.service.baseFolder));
+});
+
+gulp.task('mobile-service-city', function () {
+    return gulp.src(page.mobile.service.city, { base: page.mobile.service.baseFolder })
+        .pipe(replace(/<link rel="stylesheet" type="text\/css" href="\/m\/css\/service\/location.css"[^>]*>/, function () {
+            var style = fs.readFileSync(sassPaths.bwm.service.target + '/location.css', 'utf-8');
+            return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
+        }))
+        .pipe(gulp.dest(page.mobile.service.baseFolder));
+});
+
+gulp.task('mobile-service-listing', function () {
+    return gulp.src(page.mobile.service.listing, { base: page.mobile.service.baseFolder })
+        .pipe(replace(/<link rel="stylesheet" type="text\/css" href="\/m\/css\/service\/listing.css"[^>]*>/, function () {
+            var style = fs.readFileSync(sassPaths.bwm.service.target + '/listing.css', 'utf-8');
+            return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
+        }))
+        .pipe(gulp.dest(page.mobile.service.baseFolder));
+});
+
+gulp.task('mobile-service-details', function () {
+    return gulp.src(page.mobile.service.details, { base: page.mobile.service.baseFolder })
+        .pipe(replace(/<link rel="stylesheet" type="text\/css" href="\/m\/css\/service\/details.css"[^>]*>/, function () {
+            var style = fs.readFileSync(sassPaths.bwm.service.target + '/details.css', 'utf-8');
+            return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
+        }))
+        .pipe(gulp.dest(page.mobile.service.baseFolder));
+});
+
+gulp.task('default', gulpSequence('clean', 'minify-bw-css', 'minify-bw-js', 'minify-bwm-css', 'minify-bwm-js', 'bw-sass', 'bwm-sass', 'bwm-service-css', 'replace-css-reference'));

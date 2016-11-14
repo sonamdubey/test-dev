@@ -6,7 +6,9 @@ using System.Collections.Generic;
 namespace Bikewale.Interfaces.Location
 {
     /// <summary>
-    /// Created By : Vivek Gupta on 24 june 2016    
+    /// Created By : Vivek Gupta on 24 june 2016
+    /// Modified by : Sajal Gupta on 8-11-2016
+    /// Desc : Added GetCityDetails() method.
     /// </summary>
     public interface ICityCacheRepository
     {
@@ -14,5 +16,6 @@ namespace Bikewale.Interfaces.Location
         IEnumerable<CityEntityBase> GetAllCities(EnumBikeType requestType);
         DealerStateCities GetDealerStateCities(uint makeId, uint stateId);
         IEnumerable<UsedBikeCities> GetUsedBikeByCityWithCount();
+        CityEntityBase GetCityDetails(string cityMasking);
     }
 }

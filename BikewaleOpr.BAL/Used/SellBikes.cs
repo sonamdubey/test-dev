@@ -53,9 +53,9 @@ namespace BikewaleOpr.BAL.Used
                     }
                     else
                     {
-                        SendEmailSMSToDealerCustomer.UsedBikeApprovalEmailToIndividual(seller.Details, profileId, bikeName);
-                        newSms.ApprovalUsedSellListingSMS(
-                            EnumSMSServiceType.ApprovalUsedSellListingToSeller,
+                        SendEmailSMSToDealerCustomer.UsedBikeEditedApprovalEmailToSeller(seller.Details, profileId, bikeName);
+                        newSms.ApprovalEditedUsedSellListingSMS(
+                            EnumSMSServiceType.ApprovalEditedUsedBikeListingToSeller,
                             seller.Details.CustomerMobile,
                             profileId,
                             seller.Details.CustomerName,
