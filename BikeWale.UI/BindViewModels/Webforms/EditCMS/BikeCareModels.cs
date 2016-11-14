@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-namespace Bikewale.BindViewModels.Webforms.ServiceCenter
+namespace Bikewale.BindViewModels.Webforms.EditCMS
 {
     /// <summary>
     /// Created By:- Subodh jain 11 Nov 2016
@@ -74,7 +74,7 @@ namespace Bikewale.BindViewModels.Webforms.ServiceCenter
             try
             {
 
-                IPager objPager = GetPager();
+                objPager = GetPager();
 
 
                 objPager.GetStartEndIndex(_pageSize, _pageNo, out startIndex, out endIndex);
@@ -116,7 +116,7 @@ namespace Bikewale.BindViewModels.Webforms.ServiceCenter
             PagerEntity _pagerEntity = null;
             int recordCount = Convert.ToInt32(totalrecords);
             string _baseUrl = RemoveTrailingPage(HttpContext.Current.Request.RawUrl.ToLower());
-            IPager objPager = GetPager();
+
             try
             {
                 GetStartEndIndex(_pageSize, _pageNo, out startIndex, out endIndex, recordCount);

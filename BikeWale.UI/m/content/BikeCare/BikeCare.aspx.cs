@@ -1,4 +1,4 @@
-﻿using Bikewale.BindViewModels.Webforms.ServiceCenter;
+﻿using Bikewale.BindViewModels.Webforms.EditCMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Mobile.Controls;
 using System;
@@ -13,7 +13,7 @@ namespace Bikewale.Mobile.Content
     {
         BikeCareModels objBikeCare = null;
         public LinkPagerControl ctrlPager;
-        protected uint makeId, modelId;
+        protected uint makeId, modelId, totalArticles;
         public string pgPrevUrl = string.Empty, pgNextUrl = string.Empty, pgTitle = string.Empty, pgDescription = string.Empty, pgKeywords = string.Empty;
         protected CMSContent objArticleList;
         protected override void OnInit(EventArgs e)
@@ -42,6 +42,7 @@ namespace Bikewale.Mobile.Content
                 pgKeywords = objBikeCare.keywords;
                 pgPrevUrl = objBikeCare.prevUrl;
                 pgNextUrl = objBikeCare.nextUrl;
+                totalArticles = objBikeCare.totalrecords;
 
             }
         }

@@ -272,11 +272,12 @@
     <Compile Include="BindViewModels\Controls\BindVideosSectionSubCatwise.cs" />
     <Compile Include="BindViewModels\Webforms\CommonModel.cs" />
     <Compile Include="BindViewModels\Webforms\DealerDetails\BikeDealerDetails.cs" />
+    <Compile Include="BindViewModels\Webforms\EditCMS\DetailPageBikeCare.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\NewsDetails.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\NewsListing.cs" />
     <Compile Include="BindViewModels\Webforms\FeedbackCancellationModel.cs" />
     <Compile Include="BindViewModels\Webforms\ModelPageVM.cs" />
-    <Compile Include="BindViewModels\Webforms\ServiceCenter\BikeCareModelcs.cs" />
+    <Compile Include="BindViewModels\Webforms\EditCMS\BikeCareModels.cs" />
     <Compile Include="BindViewModels\Webforms\Used\SearchBikes.cs" />
     <Compile Include="BindViewModels\Webforms\Used\UsedBikeDetails.cs" />
     <Compile Include="BindViewModels\Webforms\Used\UsedBikeLanding.cs" />
@@ -721,6 +722,10 @@
     </Compile>
     <Compile Include="m\bikebooking\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\content\BikeCare\ViewBikeCare.aspx.cs">
+      <DependentUpon>ViewBikeCare.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\content\Features\Default.aspx.cs">
@@ -2295,6 +2300,7 @@
     <Content Include="m\bikebooking\cancellation.aspx" />
     <Content Include="m\bikebooking\Default.aspx" />
     <Content Include="m\ContactUs.aspx" />
+    <Content Include="m\content\BikeCare\ViewBikeCare.aspx" />
     <Content Include="m\content\Features\Default.aspx" />
     <Content Include="m\content\Features\viewF.aspx" />
     <Content Include="m\content\BikeCare\BikeCare.aspx" />

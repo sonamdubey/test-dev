@@ -28,6 +28,7 @@
 <div class="padding5">
 <h1 class="margin-bottom5">Bike Care</h1>
 <h2 class="font14 text-unbold">BikeWale brings you maintenance tips from experts to rescue you from common problems</h2>
+   <% if(objArticleList!=null){%>
 	<div id="divListing">
          <%foreach(var article in objArticleList.Articles) {%>
 				 <a class="normal" href="/m<%=Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId),article.ArticleUrl,Bikewale.Entities.CMS.EnumCMSContentType.TipsAndAdvices.ToString()) %>" title="<%=article.Title%>">
@@ -55,11 +56,12 @@
         <%} %>
         <div class="margin-top10">
              <div class="grid-5 omega text-light-grey">
-                 <div class="font13"><span class="text-bold">1-20</span> of <span class="text-bold">2,065</span> articles</div>
+                 <div class="font13"><span class="text-bold">1-20</span> of <span class="text-bold"><%=totalArticles %></span> articles</div>
              </div> 
 	         <BikeWale:Pager ID="ctrlPager" runat="server" />
             <div class="clear"></div>
         </div>
     </div>
+    <%} %>
 </div>
     <!-- #include file="/includes/footermobile.aspx" -->
