@@ -36,6 +36,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         public uint totalRecords;
         private ICMSCacheContent _objBikeCareCache;
         public CMSContent objArticleList = null;
+
         // <summary>
         /// Created By:- Subodh jain 11 Nov 2016
         /// Summary :- Bike Care Landing page Constructor (resolving interface)

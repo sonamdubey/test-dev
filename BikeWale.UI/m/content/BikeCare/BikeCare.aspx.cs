@@ -16,6 +16,7 @@ namespace Bikewale.Mobile.Content
         protected uint makeId, modelId, totalArticles;
         public string pgPrevUrl = string.Empty, pgNextUrl = string.Empty, pgTitle = string.Empty, pgDescription = string.Empty, pgKeywords = string.Empty;
         protected CMSContent objArticleList;
+        public int startIndex = 0, endIndex = 0;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -43,7 +44,8 @@ namespace Bikewale.Mobile.Content
                 pgPrevUrl = objBikeCare.prevUrl;
                 pgNextUrl = objBikeCare.nextUrl;
                 totalArticles = objBikeCare.totalRecords;
-
+                startIndex = objBikeCare.startIndex;
+                endIndex = objBikeCare.endIndex;
             }
         }
     }

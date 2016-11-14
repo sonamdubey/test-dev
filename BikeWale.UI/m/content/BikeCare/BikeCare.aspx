@@ -56,7 +56,7 @@
         <%} %>
         <div class="margin-top10">
              <div class="grid-5 omega text-light-grey">
-                 <div class="font13"><span class="text-bold">1-20</span> of <span class="text-bold"><%=totalArticles %></span> articles</div>
+                 <div class="font13"><span class="text-bold"><%=startIndex %>-<%=endIndex %></span> of <span class="text-bold"><%=totalArticles %></span> articles</div>
              </div> 
 	         <BikeWale:Pager ID="ctrlPager" runat="server" />
             <div class="clear"></div>
