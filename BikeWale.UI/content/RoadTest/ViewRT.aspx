@@ -20,7 +20,7 @@
         AdPath = "/1017752/Bikewale_Reviews_";
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link href="/css/content/details.css" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/content/details.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
