@@ -456,5 +456,11 @@ namespace Bikewale.Notifications
             ComposeEmailBase objEmail = new CustomerRegistrationMailTemplate(customerEmail, customerName, password);
             objEmail.Send(customerEmail, "BikeWale Registration.");
         }
+
+        public static void UsedBikeAdEmailToIndividual(CustomerEntityBase seller, string profileId, string bikeName, string formattedPrice)
+        {
+            ComposeEmailBase objEmail = new ListingEmailtoIndividualTemplate(seller.CustomerEmail, seller.CustomerName, profileId, bikeName, formattedPrice);
+            objEmail.Send(seller.CustomerEmail, String.Format("You have successfully listed your {0} bike on BikeWale.", bikeName));
+        }
     }
 }
