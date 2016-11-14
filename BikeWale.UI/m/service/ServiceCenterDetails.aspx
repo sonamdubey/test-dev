@@ -47,16 +47,12 @@
                         <% if(!objServiceCenterData.Phone.Contains(",")) { %>
                         <a href="tel:<%=objServiceCenterData.Phone %>" class="text-default text-bold maskingNumber">
                             <span class="bwmsprite tel-sm-grey-icon vertical-top"></span>
-                            <span class="vertical-top text-bold details-column">
-                                <%=objServiceCenterData.Phone %>
-                            </span>
+                            <span class="vertical-top text-bold details-column"><%=objServiceCenterData.Phone %></span>
                         </a>
                         <% } else { %>
-                        <a href="javascript:void(0)" class="text-default text-bold maskingNumber contact-service-btn" data-service-name="<%= objServiceCenterData.Name %>" data-service-number="<%= objServiceCenterData.Phone %>">
+                        <a href="javascript:void(0)" class="text-default text-bold maskingNumber contact-service-btn" data-service-name="<%= objServiceCenterData.Name %>" data-service-number="<%= objServiceCenterData.Phone %>" rel="nofollow">
                             <span class="bwmsprite tel-sm-grey-icon vertical-top"></span>
-                            <span class="vertical-top text-bold details-column">
-                                 <%=objServiceCenterData.Phone %>
-                            </span>
+                            <span class="vertical-top text-bold details-column"><%=objServiceCenterData.Phone %></span>
                         </a>
                         <% } %>
                     </div>

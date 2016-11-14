@@ -66,27 +66,23 @@
                                     <% } %>
                                 <% if(!serviceCenter.Phone.Contains(",")) { %>
                                     <% if(!(String.IsNullOrEmpty(serviceCenter.Phone))) {  %>
-                                <span class="vertical-top bwmsprite tel-sm-grey-icon"></span>
-                                <div class="vertical-top details-column text-bold">
-                                    <a href="tel:<%= serviceCenter.Phone.Trim()%>" class="text-default">
-                                        <%= serviceCenter.Phone.Trim() %>
-                                    </a>
-                                </div>
+                                    <span class="vertical-top bwmsprite tel-sm-grey-icon"></span>
+                                    <a href="tel:<%= serviceCenter.Phone.Trim()%>" class="vertical-top details-column text-bold text-default"><%= serviceCenter.Phone.Trim() %></a>
                                 <% } %>
                                 <% } else { %>
-                        <a href="javascript:void(0)" class="text-default text-bold maskingNumber contact-service-btn" data-service-name="<%= serviceCenter.Name %>" data-service-number="<%= serviceCenter.Phone %>">
-                            <span class="bwmsprite tel-sm-grey-icon vertical-top"></span>
-                            <span class="vertical-top text-bold details-column">
-                                 <%=serviceCenter.Phone %>
-                            </span>
-                        </a>
+                            <a href="javascript:void(0)" class="text-default text-bold maskingNumber contact-service-btn" data-service-name="<%= serviceCenter.Name %>" data-service-number="<%= serviceCenter.Phone %>" rel="nofollow">
+                                <span class="bwmsprite tel-sm-grey-icon vertical-top"></span>
+                                <span class="vertical-top text-bold details-column"><%=serviceCenter.Phone %></span>
+                            </a>
                         <% } %>
                                 <% if(!(String.IsNullOrEmpty(serviceCenter.Phone))) { %>
-                                <% if(!serviceCenter.Phone.Contains(",")) { %>
-                                <a href="tel:<%= serviceCenter.Phone.Trim()%>" class="btn btn-inv-green service-btn"><span class="bwmsprite tel-green-icon margin-right10"></span>Call service centre</a>
+                                <div class="margin-top15">
+                                    <% if(!serviceCenter.Phone.Contains(",")) { %>
+                                    <a href="tel:<%= serviceCenter.Phone.Trim()%>" class="btn btn-inv-green service-btn"><span class="bwmsprite tel-green-icon margin-right10"></span>Call service centre</a>
                                 <% } else { %>
-                                <button type="button" class="btn btn-inv-green service-btn contact-service-btn" data-service-name="<%= serviceCenter.Name %>" data-service-number="<%= serviceCenter.Phone.Trim()%>"><span class="bwmsprite tel-green-icon margin-right10"></span>Call service centre</button>
-                                <% } %>
+                                    <button type="button" class="btn btn-inv-green service-btn contact-service-btn" data-service-name="<%= serviceCenter.Name %>" data-service-number="<%= serviceCenter.Phone.Trim()%>"><span class="bwmsprite tel-green-icon margin-right10"></span>Call service centre</button>
+                                    <% } %>
+                                </div>
                                 <% } %>
                             </li>
                     <% } %>                  
