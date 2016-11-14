@@ -90,9 +90,10 @@
 
                                 <div id="footer-pagination" class="font14 padding-top10">
                                     <div class="grid-5 alpha omega text-light-grey">
-                                        <p>Showing <span class="text-default text-bold">1-10</span> of <span class="text-default text-bold">26,398</span> articles</p>                                        
+                                                                              <p>Showing <span class="text-default text-bold"><%= startIndex %>-<%= endIndex %></span> of <span class="text-default text-bold"><%= totalArticles %></span> articles</p>                                     
                                     </div>
 				                    <BikeWale:RepeaterPager ID="ctrlPager" runat="server" />
+                                   <div class="clear"></div>
                                 </div>
                             </div>
                         </div>

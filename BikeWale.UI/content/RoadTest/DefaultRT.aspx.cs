@@ -46,6 +46,8 @@ namespace Bikewale.Content
         private bool _isContentFound = true;
         protected MostPopularBikesMin ctrlPopularBikes;
         string makeId = string.Empty, modelId = string.Empty;
+        protected string startIndex, endIndex, totalArticles;
+
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -70,8 +72,6 @@ namespace Bikewale.Content
             dd.DetectDevice();
 
             CommonOpn op = new CommonOpn();
-            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
-            Trace.Warn("current url :" + HttpContext.Current.Request.Url);
 
             if (!IsPostBack)
             {
@@ -79,18 +79,6 @@ namespace Bikewale.Content
                 ProcessQS();
                 GetRoadTestList(makeId, modelId, makeName, modelName);
             }
-
-            ctrlPopularBikes.totalCount = 4;
-            ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
-            ctrlPopularBikes.cityName = currentCityArea.City;
-
-            if (!string.IsNullOrEmpty(makeId) && makeId!="0")
-            {
-                ctrlPopularBikes.makeId = Convert.ToInt32(makeId);
-                ctrlPopularBikes.makeMasking = makeMaskingName;
-                ctrlPopularBikes.makeName = makeName;
-            }
-          
 
         }
 
@@ -137,7 +125,6 @@ namespace Bikewale.Content
                         if (objResponse.StatusCode == 200)
                         {
                             makeId = Convert.ToString(objResponse.MakeId);
-                            makeId = Convert.ToInt32(objResponse.MakeId);
                         }
                         else if (objResponse.StatusCode == 301)
                         {
@@ -243,9 +230,14 @@ namespace Bikewale.Content
                     if (_objRoadTestList != null && _objRoadTestList.Articles.Count > 0)
                     {
 
-                        BindRoadtest(_objRoadTestList);
+                        rptRoadTest.DataSource = _objRoadTestList.Articles;
+                        rptRoadTest.DataBind();
+
                         BindLinkPager(objPager, Convert.ToInt32(_objRoadTestList.RecordCount), makeName, modelName);
-                        BindUpcoming();
+                        BindPageWidgets();
+                        totalArticles = Format.FormatPrice(_objRoadTestList.RecordCount.ToString());
+                        startIndex = Format.FormatPrice(_startIndex.ToString());
+                        endIndex = Format.FormatPrice(_endIndex > _objRoadTestList.RecordCount ? _objRoadTestList.RecordCount.ToString() : _endIndex.ToString());
                     }
                     else
                     {
@@ -257,8 +249,7 @@ namespace Bikewale.Content
             }
             catch (Exception err)
             {
-                Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"] + "GetRoadTestList");
                 objErr.SendMail();
             }
             finally
@@ -284,15 +275,6 @@ namespace Bikewale.Content
             return _objPager;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="_objRoadtestList"></param>
-        private void BindRoadtest(CMSContent _objRoadtestList)
-        {
-            rptRoadTest.DataSource = _objRoadtestList.Articles;
-            rptRoadTest.DataBind();
-        }
 
         /// <summary>
         /// Written By : Ashwini Todkar on 24 Sept 2014
@@ -336,25 +318,48 @@ namespace Bikewale.Content
             }
             catch (Exception ex)
             {
-                Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BindLinkPager");
                 objErr.SendMail();
             }
         }
-        
+
 
         /// <summary>
         /// Created by : Aditi Srivastava on 8 Nov 2016
         /// Summary  : Bind upcoming bikes list
         /// </summary>
-        private void BindUpcoming()
+        private void BindPageWidgets()
         {
-            ctrlUpcoming.makeName = makeName;
-            ctrlUpcoming.makeMaskingName = makeMaskingName;
-            ctrlUpcoming.MakeId = makeId;
-            ctrlUpcoming.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            ctrlUpcoming.pageSize = 9;
-            ctrlUpcoming.topCount = 4;
+
+            try
+            {
+                GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+
+                ctrlPopularBikes.totalCount = 4;
+                ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                ctrlPopularBikes.cityName = currentCityArea.City;
+
+                ctrlUpcoming.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                ctrlUpcoming.pageSize = 9;
+                ctrlUpcoming.topCount = 4;
+
+                if (!string.IsNullOrEmpty(makeId) && makeId != "0")
+                {
+                    ctrlPopularBikes.makeId = Convert.ToInt32(makeId);
+                    ctrlPopularBikes.makeMasking = makeMaskingName;
+                    ctrlPopularBikes.makeName = makeName;
+
+                    ctrlUpcoming.makeName = makeName;
+                    ctrlUpcoming.makeMaskingName = makeMaskingName;
+                    ctrlUpcoming.MakeId = Convert.ToInt32(makeId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BindPageWidgets");
+                objErr.SendMail();
+            }
         }
     }
 }
