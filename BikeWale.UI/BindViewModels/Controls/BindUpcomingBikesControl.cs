@@ -1,17 +1,17 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
+using Bikewale.Common;
+using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
-using Microsoft.Practices.Unity;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.BAL.BikeData;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Cache.Core;
-using Bikewale.Cache.BikeData;
-using Bikewale.DAL.BikeData;
 
 namespace Bikewale.BindViewModels.Controls
 {
@@ -29,6 +29,11 @@ namespace Bikewale.BindViewModels.Controls
         public int? ModelId { get; set; }
         public int? curPageNo { get; set; }
         public int FetchedRecordsCount { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rptr"></param>
         public void BindUpcomingBikes(Repeater rptr)
         {
             FetchedRecordsCount = 0;
@@ -124,7 +129,7 @@ namespace Bikewale.BindViewModels.Controls
 
                     var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
 
-                    objBikeList = objCache.GetUpcomingBikesList(filter,pageSize, MakeId, ModelId, curPageNo);
+                    objBikeList = objCache.GetUpcomingBikesList(filter, pageSize, MakeId, ModelId, curPageNo);
                     if (objBikeList != null)
                         FetchedRecordsCount = objBikeList.Count();
                 }
@@ -135,10 +140,10 @@ namespace Bikewale.BindViewModels.Controls
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-           return objBikeList;
-             
+            return objBikeList;
+
         }
     }
 
-    
+
 }

@@ -65,13 +65,10 @@ namespace Bikewale.Content
             dd.DetectDevice();
 
 
-            CommonOpn op = new CommonOpn();
-
-
-            if (Request["pn"] != null && Request.QueryString["pn"] != "")
+            if (Request["pn"] != null && !string.IsNullOrEmpty(Request.QueryString["pn"]))
             {
-                if (CommonOpn.CheckId(Request.QueryString["pn"]) == true)
-                    _pageNo = Convert.ToInt32(Request.QueryString["pn"]);
+                int.TryParse(Request.QueryString["pn"], out _pageNo);
+                if (_pageNo < 1) _pageNo = 1;
             }
 
             GetFeaturesList();

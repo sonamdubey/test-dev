@@ -126,17 +126,6 @@
     
     </div>
 
-
-   <%-- <div class="bikesList" style="display:none;min-height:100% !important;background-color:#f8f8f8;">
-        <img id="bikeloader" src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
-        <div data-role="header" data-theme="b" class="ui-corner-top" >
-            <a href="#" onclick="CloseWindow()" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-            <h1>Select Make</h1>
-        </div>
-        <ul data-role="listview" id="ddlMake2" runat="server"></ul>
-    </div>--%>
-
-
     <div class="container margin-bottom20">
         <div class="grid-12 alpha omega">
             <CB:CompareBike ID="ctrlCompareBikes" runat="server" ></CB:CompareBike>
