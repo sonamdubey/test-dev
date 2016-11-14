@@ -85,7 +85,7 @@
                                     </li>
                            <%} %>
                         </ul>
-                  
+
                 </div>
                 <div class="view-brandType text-center">
                     <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font14">View more brands</a>
@@ -107,30 +107,27 @@
                         <div class="accordion-head">
                             <p class="accordion-head-title">What to do if you have a puncture?</p>
                             <span class="bwmsprite arrow-sm-down"></span>
-                        </div>                        
+                        </div>
                         <div class="accordion-body">
-                            <p>There's two kinds of tyres available to the public, the tube type and the tubeless type. If you've got spoked rims, you've got a tyre with a tube. The puncture will leave you without air suddenly, and the best you can do is flag down a passing cab or rickshaw, go to the puncture repair shop and get the person to the motorcycle. Repeat the trip to the repair shop (this time with the wheel) and back again to the motorcycle. If that isn't possible, put the bike in first, engage the clutch and walk the motorcycle to the shop. Remember that you risk damaging your tyre this way.
-Tubeless tyres are a lot easier to deal with. The very thing that punctures the tyre also seals the hole, so the leak is far slower. You can ride the motorcycle, but be very careful. Ride it with too little air and you risk damaging the tyre beyond repair. If the nearest puncture repair shop isn't equipped with a tubeless puncture repair kit, make them fill a lot of air in the tyre and ride on. If you can't find a puncture repair shop, even a bicycle pump can help you fill air in the tyre.</p>
+                            <p>There's two kinds of tyres available to the public, the tube type and the tubeless type. If you've got spoked rims, you've got a tyre with a tube. The puncture will leave you without air suddenly, and the best you can do is flag down a passing cab or rickshaw, go to the puncture repair shop and get the person to the motorcycle. Repeat the trip to the repair shop (this time with the wheel) and back again to the motorcycle. If that isn't possible, put the bike in first, engage the clutch and walk the motorcycle to the shop. Remember that you risk damaging your tyre this way.<br /><br />Tubeless tyres are a lot easier to deal with. The very thing that punctures the tyre also seals the hole, so the leak is far slower. You can ride the motorcycle, but be very careful. Ride it with too little air and you risk damaging the tyre beyond repair. If the nearest puncture repair shop isn't equipped with a tubeless puncture repair kit, make them fill a lot of air in the tyre and ride on. If you can't find a puncture repair shop, even a bicycle pump can help you fill air in the tyre.</p>
                         </div>
                     </li>
                     <li>
                         <div class="accordion-head">
                             <p class="accordion-head-title">What to do if your battery is weak and you have no kick start lever?</p>
                             <span class="bwmsprite arrow-sm-down"></span>
-                        </div>                        
+                        </div>
                         <div class="accordion-body">
-                            <p>TWe've all been there at some point, and there's the obvious - jumper cables. Remember to take a jump from a battery that has a higher rating than yours, else you run the risk of two motorcycles that won’t start after your attempts. The next obvious thing to do is to either remove the battery, get it charged and reinstall it, or replace it with a fully charged one. There are a few other things you can do if jumper cables aren’t available, or you don’t know how to remove your battery. Note: if it is a large motorcycle (say over 400cc) do not attempt anything you read beyond this. If, however, you have a small motorcycle with a carburettor, here's exactly what you need to do: stick it in second, pull the clutch in, push the bike and release the clutch. As soon as it catches, pull the clutch in. If you have a helping hand, it is far safer to have one person sit on the motorcycle while the other pushes. Another trick that you can use for small motorcycles is putting them on the main stand – the same rules apply. Stick it in second, leave the ignition on and just give the rear wheel torque by pulling it in the correct direction. If you give it a hard enough tug, the bike should start. 
-There is one other condition under which a push-start will not achieve any results at all: if you have fuel injection on your motorcycle, turn the key over to the ‘on’ position and put your ear near the fuel tank. If you hear a noise, however weak, it means that the fuel pump is still working enough to send fuel to the engine, and you have a chance of the bike starting. Pull the fuses to the headlamp to keep it from taking any more juice away from the fuel pump and try the push start. If you turn your key to ‘on’ and hear nothing at all, then don’t bother trying, your motorcycle won’t start no matter how much you push it. 
-Revving the motorcycle to the redline will not make the battery charge faster – anything beyond 3000 rpm is a waste of fuel, so go for a 20-30 minute cruise to make sure the battery gets charged enough to crank the engine should you stall for any reason.</p>
+                            <p>We've all been there at some point, and there's the obvious - jumper cables.<br /><br />Remember to take a jump from a battery that has a higher rating than yours, else you run the risk of two motorcycles that won’t start after your attempts. The next obvious thing to do is to either remove the battery, get it charged and reinstall it, or replace it with a fully charged one. There are a few other things you can do if jumper cables aren’t available, or you don’t know how to remove your battery.<br /><br />Note: if it is a large motorcycle (say over 400cc) do not attempt anything you read beyond this. If, however, you have a small motorcycle with a carburettor, here's exactly what you need to do: stick it in second, pull the clutch in, push the bike and release the clutch. As soon as it catches, pull the clutch in. If you have a helping hand, it is far safer to have one person sit on the motorcycle while the other pushes. Another trick that you can use for small motorcycles is putting them on the main stand – the same rules apply. Stick it in second, leave the ignition on and just give the rear wheel torque by pulling it in the correct direction. If you give it a hard enough tug, the bike should start.<br /><br />There is one other condition under which a push-start will not achieve any results at all: if you have fuel injection on your motorcycle, turn the key over to the ‘on’ position and put your ear near the fuel tank. If you hear a noise, however weak, it means that the fuel pump is still working enough to send fuel to the engine, and you have a chance of the bike starting. Pull the fuses to the headlamp to keep it from taking any more juice away from the fuel pump and try the push start. If you turn your key to ‘on’ and hear nothing at all, then don’t bother trying, your motorcycle won’t start no matter how much you push it.<br /><br />Revving the motorcycle to the redline will not make the battery charge faster – anything beyond 3000 rpm is a waste of fuel, so go for a 20-30 minute cruise to make sure the battery gets charged enough to crank the engine should you stall for any reason.</p>
                         </div>
                     </li>
                     <li>
                         <div class="accordion-head">
                             <p class="accordion-head-title">What to do if your clutch cable breaks?</p>
                             <span class="bwmsprite arrow-sm-down"></span>
-                        </div>                        
+                        </div>
                         <div class="accordion-body">
-                            <p>If you have a scooter, obviously this isn’t a problem. However, this can be quite a big issue if you’ve got something that needs gears to be shifted manually. The best thing to do is to stick it in neutral and either push the motorcycle along or have someone tow you. If this isn’t possible, though, technology and a little bit of looking ahead can help you get to help. There’s something called ‘synchromesh’ that gearboxes have today, and that means that you can actually change gears without using the clutch lever. It will take a little bit of practice, though, especially while downshifting. Upshifts will be a lot smoother. The biggest problem will be coming to a halt and taking off from a halt. For this, the obvious solution will be to not do it at all, so you can either wait for a time when there won’t be traffic or use a route with little to no traffic or stop signals. If it cannot be avoided, though, you’ll have to slow down as much you can in first gear, and then try to put it into neutral while using the brakes to come to a complete halt. Starting it will be very tricky, because it will be almost impossible to get it going with just enough throttle to remain in control of the motorcycle. If you have a main stand, you can try putting it on the main stand, putting it in gear and then doing a running start with it. Remember – these are very risky manoeuvres, so please do not try them unless there is an emergency and you cannot afford to wait at all. </p>
+                            <p>If you have a scooter, obviously this isn’t a problem. However, this can be quite a big issue if you’ve got something that needs gears to be shifted manually.<br /><br />The best thing to do is to stick it in neutral and either push the motorcycle along or have someone tow you. If this isn’t possible, though, technology and a little bit of looking ahead can help you get to help. There’s something called ‘synchromesh’ that gearboxes have today, and that means that you can actually change gears without using the clutch lever. It will take a little bit of practice, though, especially while downshifting. Upshifts will be a lot smoother. The biggest problem will be coming to a halt and taking off from a halt. For this, the obvious solution will be to not do it at all, so you can either wait for a time when there won’t be traffic or use a route with little to no traffic or stop signals.<br /><br />If it cannot be avoided, though, you’ll have to slow down as much you can in first gear, and then try to put it into neutral while using the brakes to come to a complete halt. Starting it will be very tricky, because it will be almost impossible to get it going with just enough throttle to remain in control of the motorcycle. If you have a main stand, you can try putting it on the main stand, putting it in gear and then doing a running start with it.<br /><br />Remember – these are very risky manoeuvres, so please do not try them unless there is an emergency and you cannot afford to wait at all.</p>
                         </div>
                     </li>
                 </ul>
@@ -141,7 +138,7 @@ Revving the motorcycle to the redline will not make the battery charge faster �
             </div>
         </section>
 
-      
+
         <%if (makes!=null) {%>
           <div id="locatorSearchBar" class="bwm-fullscreen-popup">
             <div class="locator-brand-slider-wrapper bwm-brand-city-box form-control-box text-left">
@@ -156,8 +153,8 @@ Revving the motorcycle to the redline will not make the battery charge faster �
                      <%} %>
                 </ul>
             </div>
-            
-            
+
+
             <div class="locator-city-slider-wrapper bwm-brand-city-box form-control-box text-left">
                 <div class="user-input-box">
                     <span class="back-arrow-box"><span class="bwmsprite back-long-arrow-left"></span></span>
@@ -175,7 +172,7 @@ Revving the motorcycle to the redline will not make the battery charge faster �
         </div>
         <%} %>
 
-        
+
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
@@ -287,7 +284,7 @@ Revving the motorcycle to the redline will not make the battery charge faster �
                             success: function (data) {
                                 lscache.set(key + mId, data, 30);
                                 $("div.locator-search-city-form span").text("Select city");
-                                setOptions(data);   
+                                setOptions(data);
                             },
                             complete: function (xhr) {
                                 if (xhr.status != 200) {
@@ -301,7 +298,7 @@ Revving the motorcycle to the redline will not make the battery charge faster �
                     }
                     else {
                         $("div.locator-search-city-form span").text("Select city")
-                        data = lscache.get(key + mId);          
+                        data = lscache.get(key + mId);
                         setOptions(data);
                     }
                 }

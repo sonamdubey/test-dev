@@ -68,12 +68,12 @@
                             <span class="vertical-top details-column text-light-grey"><%= objServiceCenterData.Email %></span>
                         </a>
                     </div>
-                    <% } %>                    
+                    <% } %>
 
                     <% if (serviceLat > 0 && serviceLong > 0)
                        { %>
                     <div class="border-solid-bottom margin-bottom15 padding-top10"></div>
-                    
+
                     <h2 class="font14 text-default margin-bottom15">Get commute distance and time:</h2>
                     <div class="form-control-box margin-bottom15">
                         <input id="locationSearch" type="text" class="form-control padding-right40" placeholder="Type in your location" />
@@ -113,8 +113,8 @@
                     <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
                 <% }  %>
         </section>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>        
-        
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+
         <section>
             <!-- schedule widget start -->
             <BW:ServiceSchedule runat="server" ID="ctrlServiceSchedule" />
@@ -144,20 +144,20 @@
 
         <% if (ctrlDealerCard.showWidget) { %>
         <section>
-            <div class="container bg-white box-shadow card-bottom-margin padding-bottom20 padding-top15">
-                <div class="padding-right20 padding-left20 margin-bottom15">
+            <div class="container bg-white box-shadow card-bottom-margin">
+                <div class="margin-right20 margin-left20 padding-top15">
                     <h2 class="margin-bottom5">Looking to buy a new <%= makeName %> bike in <%=serviceCity %>?</h2>
                     <p>Check out authorised <%= makeName %> dealers in <%=serviceCity %></p>
-                    <BW:DealerCard runat="server" ID="ctrlDealerCard" />  
                 </div>
-            </div>            
+                    <BW:DealerCard runat="server" ID="ctrlDealerCard" />
+            </div>
         </section>
          <% }  %>
 
         <section>
             <div class="container margin-bottom20 font12 padding-top5 padding-right20 padding-left20">
-                <span class="font14"><strong>Disclaimer:</strong></span> The above mentioned information about <%=makeName %> dealership showrooms in <%=serviceCity %> is furnished to the best of our knowledge. 
-                    All <%=makeName %> bike models and colour options may not be available at each of the <%=makeName %> dealers. 
+                <span class="font14"><strong>Disclaimer:</strong></span> The above mentioned information about <%=makeName %> dealership showrooms in <%=serviceCity %> is furnished to the best of our knowledge.
+                    All <%=makeName %> bike models and colour options may not be available at each of the <%=makeName %> dealers.
                     We recommend that you call and check with your nearest <%=makeName %> dealer before scheduling a showroom visit.
             </div>
         </section>
@@ -169,9 +169,9 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
-            var versionId, dealerId = "<%= dealerId %>", cityId = "<%= cityId %>", clientIP = "<%= clientIP%>",campaignId = "<%= campaignId %>";                                              
+            var versionId, dealerId = "<%= dealerId %>", cityId = "<%= cityId %>", clientIP = "<%= clientIP%>",campaignId = "<%= campaignId %>";
              var serviceLat = "<%= serviceLat %>", serviceLong = "<%= serviceLong%>";
-             var bodHt, footerHt, scrollPosition, leadSourceId;                         
+             var bodHt, footerHt, scrollPosition, leadSourceId;
              var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey%>";
             var pageUrl = window.location.href;
         </script>
