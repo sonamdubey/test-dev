@@ -62,21 +62,32 @@
                                         <span class="bwmsprite dealership-loc-icon vertical-top"></span>
                                         <span class="vertical-top details-column text-light-grey"> <%= serviceCenter.Address %></span>
                                     </p>   
-                                    <% } %>
-                                    <% if(!(String.IsNullOrEmpty(serviceCenter.Mobile)) || !(String.IsNullOrEmpty(serviceCenter.Phone))) {  %>
-                                    <p>
-                                        <span class="vertical-top bwmsprite tel-sm-grey-icon"></span>
-                                        <span class="vertical-top details-column text-default text-bold">
-                                            <% if(!(String.IsNullOrEmpty(serviceCenter.Mobile))) { %>
-                                            <%= serviceCenter.Mobile.Trim()%><% }
-                                               if(!(String.IsNullOrEmpty(serviceCenter.Mobile)) && !(String.IsNullOrEmpty(serviceCenter.Phone))){%>, <%} 
-                                            if(!(String.IsNullOrEmpty(serviceCenter.Phone))) { %>
-                                            <%= serviceCenter.Phone.Trim() %>
-                                            <% } %>
-                                        </span>                                        
-                                    </p>   
-                                    <% } %>
                                 </a>
+                                    <% } %>
+                                <% if(!serviceCenter.Phone.Contains(",")) { %>
+                                    <% if(!(String.IsNullOrEmpty(serviceCenter.Phone))) {  %>
+                                <span class="vertical-top bwmsprite tel-sm-grey-icon"></span>
+                                <div class="vertical-top details-column text-bold">
+                                    <a href="tel:<%= serviceCenter.Phone.Trim()%>" class="text-default">
+                                        <%= serviceCenter.Phone.Trim() %>
+                                    </a>
+                                </div>
+                                <% } %>
+                                <% }  else { %>
+                                       <span class="vertical-top bwmsprite tel-sm-grey-icon"></span>
+                                       <div class="vertical-top details-column text-default text-bold">
+                                      <% String[] phoneArray = serviceCenter.Phone.Split(',');   
+                                           var count = phoneArray.Length;
+                                           var i = 1;                                   
+                                           foreach (var phoneNumber in phoneArray)
+                                           {
+                                              %>
+                                        <a href="tel:<%= phoneNumber.Trim()%>" class="text-default">
+                                            <%= phoneNumber.Trim() %><%if(i < count){%>, <%} i++;%> 
+                                        </a>
+                                     <%  } %>
+                                         </div>
+                               <%  } %>
                                 <% if(!(String.IsNullOrEmpty(serviceCenter.Phone))) { %>
                                 <% if(!serviceCenter.Phone.Contains(",")) { %>
                                 <a href="tel:<%= serviceCenter.Phone.Trim()%>" class="btn btn-inv-green service-btn"><span class="bwmsprite tel-green-icon margin-right10"></span>Call service centre</a>
@@ -129,14 +140,17 @@
             </div>
         </section>
 
+        <% if (ctrlDealerCard.showWidget) { %>
         <section>
-            <div class="container bg-white box-shadow card-bottom-margin">                
-                <!-- dealer card -->
-                <% if (ctrlDealerCard.showWidget) { %>
-                    <BW:DealerCard runat="server" ID="ctrlDealerCard" />
-                <% }  %>
-            </div>
+            <div class="container bg-white box-shadow card-bottom-margin padding-bottom20 padding-top15">
+                <div class="padding-right20 padding-left20 margin-bottom15">
+                    <h2 class="margin-bottom5">Looking to buy a new <%= makeName %> bike in <%=cityName %>?</h2>
+                    <p>Check out authorised <%= makeName %> dealers in <%=cityName %></p>
+                    <BW:DealerCard runat="server" ID="ctrlDealerCard" />  
+                </div>
+            </div>            
         </section>
+         <% }  %>
 
         <section>
             <div class="container margin-bottom20 font12 padding-top5 padding-right20 padding-left20">
