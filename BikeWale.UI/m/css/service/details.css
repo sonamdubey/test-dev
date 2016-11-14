@@ -118,7 +118,7 @@
 .modal-popup-container {
   display: none;
   width: 80%;
-  min-height: 305px;
+  min-height: 270px;
   position: fixed;
   top: 14%;
   left: 0;
@@ -132,7 +132,7 @@
     padding: 17px 20px;
     background: #2a2a2a; }
   .modal-popup-container .popup-body {
-    padding: 20px 20px 30px; }
+    padding: 20px; }
   .modal-popup-container .body-label {
     font-size: 12px;
     color: #a2a2a2;

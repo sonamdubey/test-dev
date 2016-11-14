@@ -5,7 +5,7 @@
 <html>
 <head>
 
-    <% 
+    <%
         keywords = String.Format("{0} servicing {1}, {0} service center in {1}, {0} Service centers, {0} service schedules, {0} bike repair, repairing, servicing ", makeName, cityName);
         description = String.Format("There are {0} {1} service centers in {2}. Get in touch with your nearest {1} service center for service repairing, schedule details, pricing, pick and drop facility. Check the Service schedule for {1} bikes now.",totalServiceCenters,  makeName, cityName);
         title = String.Format("{0} service centers in {1} | {0} bike servicing in {1} - BikeWale ", makeName, cityName);
@@ -15,7 +15,7 @@
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <link rel="stylesheet" type="text/css" href="/m/css/service/listing.css">
-    
+
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
 
@@ -51,17 +51,17 @@
                 <h2 class="padding-15-20 border-solid-bottom"><%=totalServiceCenters %> <%=makeName%> service center<% if(totalServiceCenters > 1 ) { %>s<%} %> in <%=cityName%></h2>
                 <ul id="center-list">
                     <% foreach (var serviceCenter in serviceCentersList)
-                       { %>                     
+                       { %>
                             <li>
                                 <a href="/m<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, urlCityMaskingName, serviceCenter.Name, Convert.ToInt32(serviceCenter.ServiceCenterId)) %> "  title="<%= serviceCenter.Name %> | <%= makeName %> | <%= cityName %>" class="center-list-item">
-                                    <h3 class="text-truncate margin-bottom5 text-black">                                    
+                                    <h3 class="text-truncate margin-bottom5 text-black">
                                         <%= serviceCenter.Name %>
-                                    </h3>     
-                                    <% if(!(String.IsNullOrEmpty(serviceCenter.Address))) { %>                               
+                                    </h3>
+                                    <% if(!(String.IsNullOrEmpty(serviceCenter.Address))) { %>
                                     <p class = "margin-bottom5" >
                                         <span class="bwmsprite dealership-loc-icon vertical-top"></span>
                                         <span class="vertical-top details-column text-light-grey"> <%= serviceCenter.Address %></span>
-                                    </p>   
+                                    </p>
                                 </a>
                                     <% } %>
                                 <% if(!serviceCenter.Phone.Contains(",")) { %>
@@ -85,7 +85,7 @@
                                 </div>
                                 <% } %>
                             </li>
-                    <% } %>                  
+                    <% } %>
                 </ul>
             </div>
         </section>
@@ -109,8 +109,8 @@
 
         <section>
             <div class="container bg-white box-shadow card-bottom-margin">
-                <h2 class="padding-top15 padding-right20 padding-left20">Tips from BikeWale experts to keep your bike in good shape!</h2>                                                                              
-                <ul id="bw-tips-list">                   
+                <h2 class="padding-top15 padding-right20 padding-left20">Tips from BikeWale experts to keep your bike in good shape!</h2>
+                <ul id="bw-tips-list">
                     <li>
                         <a href="/bike-care/" target="_blank" title="Bike Care - Maintenance tips">
                             <span class="service-sprite care-icon"></span>
@@ -128,6 +128,7 @@
                 </ul>
             </div>
         </section>
+
 
         <% if (ctrlDealerCard.showWidget) { %>
         <section>
@@ -155,7 +156,7 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/service/listing.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
-        
+
     </form>
 </body>
 </html>
