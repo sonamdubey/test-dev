@@ -27,7 +27,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
     public class BikeCareModels
     {
         private IPager objPager = null;
-        private const int _pageSize = 2;
+        private const int _pageSize = 10;
         private int _pageNo = 1;
         public int startIndex = 0, endIndex = 0;
         private const int _pagerSlotSize = 5;

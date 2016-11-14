@@ -2,17 +2,6 @@
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Register TagPrefix="Pager" TagName="Pager" Src="/m/controls/ListPagerControl.ascx" %>
 <% 
-    //title = "Road tests, First drives of New Bikes in India";
-    //description = "Road testing a bike is the only way to know true capabilities of a bike. Read our road tests to know how bikes perform on various aspects.";
-    //keywords = "road test, road tests, roadtests, roadtest, bike reviews, expert bike reviews, detailed bike reviews, test-drives, comprehensive bike tests, bike preview, first drives";
-    //canonical = "http://www.bikewale.com" + "/expert-reviews/";
-    //relPrevPageUrl = String.IsNullOrEmpty(prevPageUrl) ? "" : "http://www.bikewale.com" + prevPageUrl;
-    //relNextPageUrl = String.IsNullOrEmpty(nextPageUrl) ? "" : "http://www.bikewale.com" + nextPageUrl;
-    //AdPath = "/1017752/Bikewale_Mobile_NewBikes";
-    //AdId = "1398766302464";
-    //menu = "7";
-    //Ad_320x50 = true;
-    //Ad_Bot_320x50 = true;
     if (string.IsNullOrEmpty(modelName) && string.IsNullOrEmpty(makeName))
     {
         title = "Expert Bike Reviews India - Bike Comparison & Road Tests - BikeWale";

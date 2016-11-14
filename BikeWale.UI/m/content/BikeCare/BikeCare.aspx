@@ -6,7 +6,7 @@
     description = pgDescription;
     keywords = pgKeywords;
     relPrevPageUrl = pgPrevUrl;
-    relNextPageUrl =pgNextUrl;
+    relNextPageUrl = pgNextUrl;
   
 %>
 <!-- #include file="/includes/headermobile.aspx" -->
