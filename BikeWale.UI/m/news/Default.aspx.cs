@@ -76,6 +76,7 @@ namespace Bikewale.Mobile.News
                 categorList.Add(EnumCMSContentType.RoadTest);
                 categorList.Add(EnumCMSContentType.ComparisonTests);
                 categorList.Add(EnumCMSContentType.SpecialFeature);
+                categorList.Add(EnumCMSContentType.TipsAndAdvices);
                 string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
 
                 categorList.Clear();
@@ -190,6 +191,9 @@ namespace Bikewale.Mobile.News
                         case EnumCMSContentType.ComparisonTests:
                         case EnumCMSContentType.RoadTest:
                             _category = "EXPERT REVIEWS";
+                            break;
+                        case EnumCMSContentType.TipsAndAdvices:
+                            _category = "Bike Care";
                             break;
                         default:
                             break;
