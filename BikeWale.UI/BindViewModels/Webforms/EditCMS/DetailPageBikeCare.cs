@@ -11,7 +11,6 @@ using Bikewale.Interfaces.EditCMS;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Web;
 namespace Bikewale.BindViewModels.Webforms.EditCMS
@@ -30,7 +29,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         public ArticlePageDetails objTipsAndAdvice;
         public IEnumerable<ModelImage> objImg = null;
         private bool isContentFound = true;
-        private ICMSCacheContent _cache;
+        private ICMSCacheContent _objDetailsBikeCarecache;
         /// <summary>
         /// Created By:-Subodh Jain 12 Nov 2016
         /// Summary :- Detaile Page for TipsAndAdvice resolving interface
@@ -42,19 +41,15 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 container.RegisterType<IArticles, Articles>()
                    .RegisterType<ICMSCacheContent, CMSCacheRepository>()
                    .RegisterType<ICacheManager, MemcacheManager>();
-                _cache = container.Resolve<ICMSCacheContent>();
+                _objDetailsBikeCarecache = container.Resolve<ICMSCacheContent>();
             }
             if (ProcessQueryString())
             {
                 GetTipsAndAdviceDetails();
+                CreateMetas();
             }
-            else
-            {
 
-                page.Response.Redirect("/m/bike-care/", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-            }
-            CreateMetas();
+
 
 
         }
@@ -84,8 +79,10 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             else
             {
                 isSuccess = false;
-            }
+                page.Response.Redirect("/m/bike-care/", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
 
+            }
             return isSuccess;
         }
         /// <summary>
@@ -96,25 +93,20 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         {
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+
+
+                objTipsAndAdvice = _objDetailsBikeCarecache.GetArticlesDetails(BasicId);
+
+                if (objTipsAndAdvice != null)
                 {
-                    container.RegisterType<IArticles, Articles>()
-                       .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                       .RegisterType<ICacheManager, MemcacheManager>();
-                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
-
-                    objTipsAndAdvice = _cache.GetArticlesDetails(BasicId);
-
-                    if (objTipsAndAdvice != null)
-                    {
-                        GetTipsAndAdviceData();
-                        objImg = _cache.GetArticlePhotos(Convert.ToInt32(BasicId));
-                    }
-                    else
-                    {
-                        isContentFound = false;
-                    }
+                    GetTipsAndAdviceData();
+                    objImg = _objDetailsBikeCarecache.GetArticlePhotos(Convert.ToInt32(BasicId));
                 }
+                else
+                {
+                    isContentFound = false;
+                }
+
             }
             catch (Exception ex)
             {
@@ -137,48 +129,13 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         /// </summary>
         private void GetTipsAndAdviceData()
         {
-            baseUrl = "/m/bike-care/" + objTipsAndAdvice.ArticleUrl + '-' + BasicId.ToString() + "/";
-            canonicalUrl = "http://www.bikewale.com/bike-care/" + objTipsAndAdvice.ArticleUrl + '-' + BasicId.ToString() + ".html";
+            baseUrl = string.Format("/m/bike-care/{0}-{1}/", objTipsAndAdvice.ArticleUrl, BasicId.ToString());
+            canonicalUrl = string.Format("http://www.bikewale.com/bike-care/{0}-{1}.html", objTipsAndAdvice.ArticleUrl, BasicId.ToString());
             data = objTipsAndAdvice.Description;
             author = objTipsAndAdvice.AuthorName;
             pageTitle = objTipsAndAdvice.Title;
             displayDate = objTipsAndAdvice.DisplayDate.ToString();
 
-            if (objTipsAndAdvice.VehiclTagsList != null && objTipsAndAdvice.VehiclTagsList.Count > 0)
-            {
-                if (objTipsAndAdvice.VehiclTagsList.Any(m => (m.MakeBase != null && !String.IsNullOrEmpty(m.MakeBase.MaskingName))))
-                {
-                    bikeTested = new StringBuilder();
-
-                    bikeTested.Append("Bike Tested: ");
-
-                    IEnumerable<int> ids = objTipsAndAdvice.VehiclTagsList
-                           .Select(e => e.ModelBase.ModelId)
-                           .Distinct();
-
-                    foreach (var i in ids)
-                    {
-                        VehicleTag item = objTipsAndAdvice.VehiclTagsList.Where(e => e.ModelBase.ModelId == i).First();
-                        if (!String.IsNullOrEmpty(item.MakeBase.MaskingName))
-                        {
-                            bikeTested.Append("<a title='" + item.MakeBase.MakeName + " " + item.ModelBase.ModelName + " Bikes' href='/m/" + item.MakeBase.MaskingName + "-bikes/" + item.ModelBase.MaskingName + "/'>" + item.ModelBase.ModelName + "</a>   ");
-                        }
-                    }
-                }
-            }
-        }
-
-
-        /// <summary>
-        /// Created By:-Subodh Jain 12 Nov 2016
-        /// Summary :- to Get GetImageUrl
-        /// </summary>
-        protected string GetImageUrl(string hostUrl, string imagePath)
-        {
-            string imgUrl = String.Empty;
-            imgUrl = Bikewale.Common.ImagingFunctions.GetPathToShowImages(imagePath, hostUrl);
-
-            return imgUrl;
         }
     }
 }

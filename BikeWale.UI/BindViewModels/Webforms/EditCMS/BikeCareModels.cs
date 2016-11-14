@@ -27,7 +27,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
     public class BikeCareModels
     {
         private IPager objPager = null;
-        private const int _pageSize = 10;
+        private const int _pageSize = 2;
         private int _pageNo = 1;
         public int startIndex = 0, endIndex = 0;
         private const int _pagerSlotSize = 5;
@@ -120,19 +120,20 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             PagerOutputEntity _pagerOutput = null;
             PagerEntity _pagerEntity = null;
             int recordCount = Convert.ToInt32(totalRecords);
-            string _baseUrl = RemoveTrailingPage(HttpContext.Current.Request.RawUrl.ToLower());
+            string _baseUrl = "/m/bike-care/";
 
             try
             {
                 GetStartEndIndex(_pageSize, _pageNo, out startIndex, out endIndex, recordCount);
 
                 _pagerEntity = new PagerEntity();
-                _pagerEntity.BaseUrl = string.Format("{0}?pn", _baseUrl);
+                _pagerEntity.BaseUrl = _baseUrl;
                 _pagerEntity.PageNo = _pageNo; //Current page number
                 _pagerEntity.PagerSlotSize = _pagerSlotSize; // 5 links on a page
+                _pagerEntity.PageUrlType = "page/";
                 _pagerEntity.TotalResults = (int)recordCount; //total News count
                 _pagerEntity.PageSize = _pageSize;  //No. of news to be displayed on a page
-                _pagerOutput = objPager.GetTipsAndAdvicePager<PagerOutputEntity>(_pagerEntity);
+                _pagerOutput = objPager.GetPager<PagerOutputEntity>(_pagerEntity);
 
                 // for RepeaterPager
 
@@ -166,9 +167,9 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
 
                 if (!String.IsNullOrEmpty(page.Request.QueryString["pn"]))
                 {
-                    int result;
-                    int.TryParse(page.Request.QueryString["pn"], out result);
-                    _pageNo = result;
+
+                    int.TryParse(page.Request.QueryString["pn"], out _pageNo);
+
                 }
 
             }

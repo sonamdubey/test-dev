@@ -35,17 +35,25 @@ namespace Bikewale.Mobile.Content
             objBikeCare = new BikeCareModels();
             if (objBikeCare != null)
             {
+                try
+                {
 
-                objBikeCare.BindLinkPager(ctrlPager);
-                objArticleList = objBikeCare.objArticleList;
-                pgTitle = objBikeCare.title;
-                pgDescription = objBikeCare.description;
-                pgKeywords = objBikeCare.keywords;
-                pgPrevUrl = objBikeCare.prevUrl;
-                pgNextUrl = objBikeCare.nextUrl;
-                totalArticles = objBikeCare.totalRecords;
-                startIndex = objBikeCare.startIndex;
-                endIndex = objBikeCare.endIndex;
+                    objBikeCare.BindLinkPager(ctrlPager);
+                    objArticleList = objBikeCare.objArticleList;
+                    pgTitle = objBikeCare.title;
+                    pgDescription = objBikeCare.description;
+                    pgKeywords = objBikeCare.keywords;
+                    pgPrevUrl = objBikeCare.prevUrl;
+                    pgNextUrl = objBikeCare.nextUrl;
+                    totalArticles = objBikeCare.totalRecords;
+                    startIndex = objBikeCare.startIndex;
+                    endIndex = objBikeCare.endIndex;
+                }
+                catch (Exception ex)
+                {
+                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikeCare.BikeCareTips");
+                    objErr.SendMail();
+                }
             }
         }
     }

@@ -29,17 +29,29 @@ namespace Bikewale.Mobile.Content
         {
             DetailBikeCare();
         }
+        /// <summary>
+        /// Created By:-Subodh Jain 12 Nov 2016
+        /// Summary :- Detaile Page for TipsAndAdvice
+        /// </summary>
         private void DetailBikeCare()
         {
             objDetailBikeCare = new DetailPageBikeCare();
-            objTipsAndAdvice = objDetailBikeCare.objTipsAndAdvice;
-            objImg = objDetailBikeCare.objImg;
-            pageTitle = objDetailBikeCare.title;
-            pageDescription = objDetailBikeCare.description;
-            pageKeywords = objDetailBikeCare.keywords;
-            displayDate = objDetailBikeCare.displayDate;
-            bikeTested = objDetailBikeCare.bikeTested;
-            canonicalUrl = objDetailBikeCare.canonicalUrl;
+            try
+            {
+                objTipsAndAdvice = objDetailBikeCare.objTipsAndAdvice;
+                objImg = objDetailBikeCare.objImg;
+                pageTitle = objDetailBikeCare.title;
+                pageDescription = objDetailBikeCare.description;
+                pageKeywords = objDetailBikeCare.keywords;
+                displayDate = objDetailBikeCare.displayDate;
+                bikeTested = objDetailBikeCare.bikeTested;
+                canonicalUrl = objDetailBikeCare.canonicalUrl;
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ViewBikeCare.DetailBikeCare");
+                objErr.SendMail();
+            }
 
 
         }
