@@ -12,6 +12,8 @@
         description = String.Format("{0} is an authorised service center of {1}. Get all details related to servicing cost, pick and drop facility and service schedule from {0}", serviceCenteName,makeName );
         title = String.Format("{0} {1} | {0} service center in {1} - BikeWale ", serviceCenteName, serviceCity);
         canonical = String.Format("http://www.bikewale.com{0}", Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, cityMaskingName, serviceCenteName, (int)serviceCenterId));
+        Ad_320x50 = true;
+        Ad_Bot_320x50 = true;
     %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <link rel="stylesheet" type="text/css" href="/m/css/service/details.css">
@@ -125,14 +127,14 @@
                 <h2 class="padding-top15 padding-right20 padding-left20">Tips from BikeWale experts to keep your bike in good shape!</h2>
                 <ul id="bw-tips-list">
                     <li>
-                        <a href="">
+                        <a href="/bike-care/" target="_blank" title="Bike Care - Maintenance tips" >
                             <span class="service-sprite care-icon"></span>
                             <h3 class="text-unbold margin-left10 vertical-middle">Bike Care - Maintenance tips</h3>
                             <span class="bwmsprite right-arrow"></span>
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="/m/bike-troubleshooting/" target="_blank" title="Bike troubleshooting - FAQs">
                             <span class="service-sprite faq-icon"></span>
                             <h3 class="text-unbold margin-left10 vertical-middle">Bike troubleshooting - FAQs</h3>
                             <span class="bwmsprite right-arrow"></span>
@@ -156,9 +158,7 @@
 
         <section>
             <div class="container margin-bottom20 font12 padding-top5 padding-right20 padding-left20">
-                <span class="font14"><strong>Disclaimer:</strong></span> The above mentioned information about <%=makeName %> dealership showrooms in <%=serviceCity %> is furnished to the best of our knowledge. 
-                    All <%=makeName %> bike models and colour options may not be available at each of the <%=makeName %> dealers. 
-                    We recommend that you call and check with your nearest <%=makeName %> dealer before scheduling a showroom visit.
+                <span class="font14"><strong>Disclaimer:</strong></span> The above-mentioned information about authorised <%= makeName %> service centers is furnished to best of our knowledge. The facilities of pick and drop, timings and service schedule related information might vary slightly from service center to service center. Please check with the authorised <%= makeName %> service center before scheduling an appointment.
             </div>
         </section>
 

@@ -246,7 +246,6 @@ function validateControl() {
 }
 
 function checkStatus(chk) {
-    debugger;
     $('#btnSignup').attr("disabled", chk.checked ? false : true);
 }
 

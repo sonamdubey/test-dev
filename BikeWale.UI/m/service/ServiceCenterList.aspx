@@ -73,21 +73,14 @@
                                     </a>
                                 </div>
                                 <% } %>
-                                <% }  else { %>
-                                       <span class="vertical-top bwmsprite tel-sm-grey-icon"></span>
-                                       <div class="vertical-top details-column text-default text-bold">
-                                      <% String[] phoneArray = serviceCenter.Phone.Split(',');   
-                                           var count = phoneArray.Length;
-                                           var i = 1;                                   
-                                           foreach (var phoneNumber in phoneArray)
-                                           {
-                                              %>
-                                        <a href="tel:<%= phoneNumber.Trim()%>" class="text-default">
-                                            <%= phoneNumber.Trim() %><%if(i < count){%>, <%} i++;%> 
-                                        </a>
-                                     <%  } %>
-                                         </div>
-                               <%  } %>
+                                <% } else { %>
+                        <a href="javascript:void(0)" class="text-default text-bold maskingNumber contact-service-btn" data-service-name="<%= serviceCenter.Name %>" data-service-number="<%= serviceCenter.Phone %>">
+                            <span class="bwmsprite tel-sm-grey-icon vertical-top"></span>
+                            <span class="vertical-top text-bold details-column">
+                                 <%=serviceCenter.Phone %>
+                            </span>
+                        </a>
+                        <% } %>
                                 <% if(!(String.IsNullOrEmpty(serviceCenter.Phone))) { %>
                                 <% if(!serviceCenter.Phone.Contains(",")) { %>
                                 <a href="tel:<%= serviceCenter.Phone.Trim()%>" class="btn btn-inv-green service-btn"><span class="bwmsprite tel-green-icon margin-right10"></span>Call service centre</a>
@@ -123,7 +116,7 @@
                 <h2 class="padding-top15 padding-right20 padding-left20">Tips from BikeWale experts to keep your bike in good shape!</h2>                                                                              
                 <ul id="bw-tips-list">                   
                     <li>
-                        <a href="/bike-care/" title="Bike Care - Maintenance tips">
+                        <a href="/bike-care/" target="_blank" title="Bike Care - Maintenance tips">
                             <span class="service-sprite care-icon"></span>
                             <h3 class="text-unbold margin-left10 vertical-middle">Bike Care - Maintenance tips</h3>
                             <span class="bwmsprite right-arrow"></span>
