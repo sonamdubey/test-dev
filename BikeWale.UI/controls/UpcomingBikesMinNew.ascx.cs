@@ -2,10 +2,6 @@
 using Bikewale.Entities.BikeData;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
 {
@@ -24,7 +20,7 @@ namespace Bikewale.Controls
         public int topCount { get; set; }
         public string upcomingBikesLink;
         public string makeMaskingName, makeName;
-        public IEnumerable<UpcomingBikeEntity> objBikeList=null;
+        public IEnumerable<UpcomingBikeEntity> objBikeList = null;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -53,9 +49,14 @@ namespace Bikewale.Controls
             {
                 upcomingBikesLink = String.Format("/{0}-bikes/upcoming/", makeMaskingName);
             }
-            objBikeList = objUpcoming.GetUpcomingBikes().Take(topCount);
-            
-            this.FetchedRecordsCount = objUpcoming.FetchedRecordsCount;
+
+            objUpcoming.BindUpcomingBikes(null);
+            if (objUpcoming.FetchedRecordsCount > 0)
+            {
+                objBikeList = objUpcoming.objUpcomingBikes;
+                this.FetchedRecordsCount = objUpcoming.FetchedRecordsCount;
+            }
+
         }
     }
 }

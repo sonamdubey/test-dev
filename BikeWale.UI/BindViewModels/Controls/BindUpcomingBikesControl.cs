@@ -29,9 +29,12 @@ namespace Bikewale.BindViewModels.Controls
         public int? ModelId { get; set; }
         public int? curPageNo { get; set; }
         public int FetchedRecordsCount { get; set; }
+        public IEnumerable<UpcomingBikeEntity> objUpcomingBikes = null;
+        private const ushort TotalWidgetItems = 9;
 
         /// <summary>
-        /// 
+        /// Modified By : Sushil Kumar on 14th Nov 2016
+        /// Description : Get always 9 records and output total as per requirement.Also make provisions to use bikes object publicy to avoid repeater binding
         /// </summary>
         /// <param name="rptr"></param>
         public void BindUpcomingBikes(Repeater rptr)
@@ -68,19 +71,21 @@ namespace Bikewale.BindViewModels.Controls
 
                     var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
 
-                    objBikeList = objCache.GetUpcomingBikesList(filter, pageSize, MakeId, ModelId, curPageNo);
+                    objBikeList = objCache.GetUpcomingBikesList(filter, TotalWidgetItems, MakeId, ModelId, curPageNo);
 
                 }
 
 
-                if (objBikeList != null)
+                if (objBikeList != null && objBikeList.Count() > 0)
                 {
-                    FetchedRecordsCount = objBikeList.Count();
+                    objUpcomingBikes = objBikeList.Take(pageSize);
+                    FetchedRecordsCount = objUpcomingBikes.Count();
 
-                    if (FetchedRecordsCount > 0)
+                    if (rptr != null)
                     {
                         rptr.DataSource = objBikeList;
                         rptr.DataBind();
+
                     }
                 }
             }
@@ -89,59 +94,6 @@ namespace Bikewale.BindViewModels.Controls
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-        }
-        /// <summary>
-        /// Created By :  Aditi Srivastava on 10 Nov 2016
-        /// Description:  Get upcoming bikes list
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<UpcomingBikeEntity> GetUpcomingBikes()
-        {
-            FetchedRecordsCount = 0;
-
-            IEnumerable<UpcomingBikeEntity> objBikeList = null;
-
-            try
-            {
-
-                EnumUpcomingBikesFilter filter = EnumUpcomingBikesFilter.Default;
-
-                switch (sortBy)
-                {
-                    case 0: filter = EnumUpcomingBikesFilter.Default;
-                        break;
-                    case 1: filter = EnumUpcomingBikesFilter.PriceLowToHigh;
-                        break;
-                    case 2: filter = EnumUpcomingBikesFilter.PriceHighToLow;
-                        break;
-                    case 3: filter = EnumUpcomingBikesFilter.LaunchDateSooner;
-                        break;
-                    case 4: filter = EnumUpcomingBikesFilter.LaunchDateLater;
-                        break;
-                }
-
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
-                        .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                        .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
-                        .RegisterType<ICacheManager, MemcacheManager>();
-
-                    var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
-
-                    objBikeList = objCache.GetUpcomingBikesList(filter, pageSize, MakeId, ModelId, curPageNo);
-                    if (objBikeList != null)
-                        FetchedRecordsCount = objBikeList.Count();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            return objBikeList;
-
         }
     }
 
