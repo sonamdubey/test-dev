@@ -42,7 +42,7 @@ namespace Bikewale.Mobile.Content
                 pgKeywords = objBikeCare.keywords;
                 pgPrevUrl = objBikeCare.prevUrl;
                 pgNextUrl = objBikeCare.nextUrl;
-                totalArticles = objBikeCare.totalrecords;
+                totalArticles = objBikeCare.totalRecords;
 
             }
         }

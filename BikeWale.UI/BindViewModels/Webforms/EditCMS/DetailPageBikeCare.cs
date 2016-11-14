@@ -31,7 +31,10 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         public IEnumerable<ModelImage> objImg = null;
         private bool isContentFound = true;
         private ICMSCacheContent _cache;
-
+        /// <summary>
+        /// Created By:-Subodh Jain 12 Nov 2016
+        /// Summary :- Detaile Page for TipsAndAdvice resolving interface
+        /// </summary>
         public DetailPageBikeCare()
         {
             using (IUnityContainer container = new UnityContainer())
@@ -55,6 +58,10 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
 
 
         }
+        /// <summary>
+        /// Created By:-Subodh Jain 12 Nov 2016
+        /// Summary :- Detaile Page for TipsAndAdvice CreateMetas
+        /// </summary>
         private void CreateMetas()
         {
             title = string.Format("{0} |Maintenance Tips from Bike Experts - BikeWale", pageTitle);
@@ -62,6 +69,10 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             keywords = string.Format("Bike maintenance, bike common issues, bike common problems, Maintaining bikes, bike care");
 
         }
+        /// <summary>
+        /// Created By:-Subodh Jain 12 Nov 2016
+        /// Summary :- Detaile Page for TipsAndAdvice ProcessQueryString
+        /// </summary>
         private bool ProcessQueryString()
         {
             bool isSuccess = true;
@@ -108,7 +119,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, page.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "DetailPageBikeCare.GetTipsAndAdviceDetails");
                 objErr.SendMail();
             }
             finally
@@ -158,7 +169,10 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         }
 
 
-
+        /// <summary>
+        /// Created By:-Subodh Jain 12 Nov 2016
+        /// Summary :- to Get GetImageUrl
+        /// </summary>
         protected string GetImageUrl(string hostUrl, string imagePath)
         {
             string imgUrl = String.Empty;

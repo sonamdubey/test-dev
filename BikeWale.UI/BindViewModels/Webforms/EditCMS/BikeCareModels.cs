@@ -33,9 +33,13 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         private const int _pagerSlotSize = 5;
         public string prevUrl = string.Empty, nextUrl = string.Empty, title = string.Empty, description = string.Empty, keywords = string.Empty;
         public int makeId, modelId;
-        public uint totalrecords;
-        private ICMSCacheContent _cache;
+        public uint totalRecords;
+        private ICMSCacheContent _objBikeCareCache;
         public CMSContent objArticleList = null;
+        // <summary>
+        /// Created By:- Subodh jain 11 Nov 2016
+        /// Summary :- Bike Care Landing page Constructor (resolving interface)
+        /// </summary>
         public BikeCareModels()
         {
             using (IUnityContainer container = new UnityContainer())
@@ -44,7 +48,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 container.RegisterType<IArticles, Articles>()
                               .RegisterType<ICMSCacheContent, CMSCacheRepository>()
                               .RegisterType<ICacheManager, MemcacheManager>();
-                _cache = container.Resolve<ICMSCacheContent>();
+                _objBikeCareCache = container.Resolve<ICMSCacheContent>();
 
             }
 
@@ -85,13 +89,13 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 using (IUnityContainer container = new UnityContainer())
                 {
 
-                    objArticleList = _cache.GetArticlesByCategoryList(_contentType, startIndex, endIndex, makeId, modelId);
-                    totalrecords = objArticleList.RecordCount;
+                    objArticleList = _objBikeCareCache.GetArticlesByCategoryList(_contentType, startIndex, endIndex, makeId, modelId);
+                    totalRecords = objArticleList.RecordCount;
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BindMaintainanceTipsControl.MaintainanceTips");
+                ErrorClass objErr = new ErrorClass(ex, "BikeCareModels.BikeCare");
                 objErr.SendMail();
             }
 
@@ -114,7 +118,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         {
             PagerOutputEntity _pagerOutput = null;
             PagerEntity _pagerEntity = null;
-            int recordCount = Convert.ToInt32(totalrecords);
+            int recordCount = Convert.ToInt32(totalRecords);
             string _baseUrl = RemoveTrailingPage(HttpContext.Current.Request.RawUrl.ToLower());
 
             try
@@ -143,10 +147,14 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikeCareModels.BindLinkPager");
                 objErr.SendMail();
             }
         }
+        /// <summary>
+        /// Created By:- Subodh jain 11 Nov 2016
+        /// Summary :- Bike Care Landing page ProcessQueryString
+        /// </summary>
 
         private void ProcessQueryString()
         {
@@ -165,13 +173,17 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, page.Request.ServerVariables["URL"] + "ParseQueryString");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikeCareModels.ParseQueryString");
                 objErr.SendMail();
             }
 
 
         }
 
+        /// <summary>
+        /// Created By:- Subodh jain 11 Nov 2016
+        /// Summary :- Bike Care Landing page remove trailing page from link
+        /// </summary>
         public string RemoveTrailingPage(string rawUrl)
         {
             string retUrl = rawUrl;
@@ -182,6 +194,10 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             return retUrl;
         }
+        /// <summary>
+        /// Created By:- Subodh jain 11 Nov 2016
+        /// Summary :- Bike Care Landing page Get Start and End index
+        /// </summary>
         public void GetStartEndIndex(int pageSize, int currentPageNo, out int startIndex, out int endIndex, int totalCount)
         {
             startIndex = 0;
