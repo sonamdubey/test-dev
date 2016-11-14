@@ -122,6 +122,8 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .findBtn { float:left; }
 .findBtn .btn-md { padding: 8px 20px; border-radius: 0 2px 2px 0; }
 
+#nav, .loginPopUpWrapper { background: #fff; width:325px; position: fixed; top: 0; right: 0; bottom: 0; left: -325px; overflow-y: hidden; z-index: 10; }
+
 /* Carousel */
 .jcarousel-wrapper { position: relative; width: 976px; }
 .jcarousel { position: relative; overflow: hidden; padding: 10px 0 20px 0; }

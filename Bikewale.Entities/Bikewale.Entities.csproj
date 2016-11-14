@@ -262,6 +262,7 @@
     <Compile Include="ServiceCenters\ServiceScheduleBase.cs" />
     <Compile Include="ServiceCenters\ServiceCenterCompleteData.cs" />
     <Compile Include="service\ServiceCenterLocatorList.cs" />
+    <Compile Include="SEO\PageMetaTags.cs" />
     <Compile Include="service\ServiceCenterLocator.cs" />
     <Compile Include="ServiceCenters\ServiceCenterData.cs" />
     <Compile Include="ServiceCenters\ServiceCenterDetails.cs" />
