@@ -49,28 +49,32 @@ namespace Bikewale.Videos
         }
 
         /// <summary>
-        /// Create a meta descriptin tag using switch case
+        /// Desc:Create a meta descriptin tag using switch case
+        /// Modified by: Sangram Nandkhile on 14 Nov 2016
+        /// Desc: used new variable to store description.
         /// </summary>
         private void CreateDescriptionTag()
         {
             if (isMakeModelTag)
             {
-                metaKeywords = String.Format("{0},{1}, {0} {1}", videoModel.MakeName, videoModel.ModelName);
+                string bikeName = String.Format("{0} {1}",videoModel.MakeName, videoModel.ModelName);
+                metaKeywords = String.Format("{0},{1}, {2}", videoModel.MakeName, videoModel.ModelName, bikeName);
                 metaDesc = videoModel.Description;
+
                 switch (videoModel.SubCatId)
                 {
                     case "55":
-                        metaTitle = String.Format("Expert Video Review - {0} {1} - BikeWale", videoModel.MakeName, videoModel.ModelName);
+                        metaTitle = String.Format("Expert Video Review - {0} - BikeWale", bikeName);
                         videoModel.SubCatName = "Expert Reviews";
                         break;
                     case "57":
-                        metaTitle = String.Format("First Ride Video Review - {0} {1} - BikeWale", videoModel.MakeName, videoModel.ModelName);
+                        metaTitle = String.Format("First Ride Video Review - {0} - BikeWale", bikeName);
                         break;
                     case "59":
-                        metaTitle = String.Format("Bike Launch Video Review - {0} {1} - BikeWale", videoModel.MakeName, videoModel.ModelName);
+                        metaTitle = String.Format("Bike Launch Video Review - {0} - BikeWale", bikeName);
                         break;
                     case "53":
-                        metaTitle = String.Format("Do It Yourself - {0} {1} - BikeWale", videoModel.MakeName, videoModel.ModelName);
+                        metaTitle = String.Format("Do It Yourself - {0} - BikeWale", bikeName);
                         break;
                     default:
                         if (metaDesc == string.Empty)
