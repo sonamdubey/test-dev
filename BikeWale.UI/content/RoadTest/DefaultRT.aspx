@@ -42,8 +42,8 @@
 	    fbImage = Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo;
         isAd300x250BTFShown = false;
     %>
-<!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link href="/css/content/listing.css" rel="stylesheet" type="text/css" />
+    <!-- #include file="/includes/headscript_desktop_min.aspx" -->
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/content/listing.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->

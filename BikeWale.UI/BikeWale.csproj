@@ -1873,6 +1873,7 @@
     <Content Include="css\used\bikes-in-city.css" />
     <Content Include="css\used\landing.css" />
     <Content Include="css\used\details.css" />
+    <Content Include="css\video\landing.css" />
     <Content Include="default.aspx" />
     <Content Include="editor\css\content.css" />
     <Content Include="editor\css\content_old.css" />
