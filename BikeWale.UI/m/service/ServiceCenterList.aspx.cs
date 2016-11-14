@@ -24,7 +24,6 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 
-
 namespace Bikewale.Mobile.Service
 {
     /// <summary>

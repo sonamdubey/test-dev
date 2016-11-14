@@ -2,7 +2,7 @@
 <% if(BikeScheduleList!= null) { %>
 <div id="service-schedular" class="container bg-white box-shadow card-bottom-margin padding-15-20">
                 <h2 class="margin-bottom5">Is your <%= MakeName %> bike due for a service?</h2>
-                <p class="margin-bottom15">Get your <%= MakeName %> bike serviced with time period given below.</p>
+                <p class="margin-bottom15">Get your <%= MakeName %> bike serviced within given time period or km range, whichever condition gets satisfied earlier.</p>
                 <div class="select-box margin-bottom20">
                     <p class="font12 text-light-grey">Model</p>
                     <select class="chosen-select" data-bind="event: { change: GetModelId }"
@@ -25,7 +25,7 @@
                         <tr>
 							<td data-bind="text: ServiceNo" width="20%" class="padding-bottom10 padding-top10 padding-right10 font14 divider-top" valign="top"></td>
                             <td data-bind="visible: $root.isKms(),text: Kms + ' Kms'" width="40%" class="padding-bottom10 padding-top10 padding-right10 divider-top" valign="top"></td>
-							<td data-bind="visible: $root.isDays(), text: Days" width="40%" class="padding-bottom10 padding-top10 divider-top" valign="top"></td>
+							<td data-bind="visible: $root.isDays(), text: Days + ' days'" width="40%" class="padding-bottom10 padding-top10 divider-top" valign="top"></td>
                         </tr>
                         <!-- /ko -->
                     </tbody>
