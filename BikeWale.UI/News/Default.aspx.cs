@@ -23,6 +23,7 @@ namespace Bikewale.News
         private NewsListing objNews = null;
         protected IEnumerable<ArticleSummary> newsArticles = null;
         protected MostPopularBikesMin ctrlPopularBikes;
+        protected string startIndex, endIndex, totalArticles;
 
         private const int _pagerSlotSize = 10;
         protected override void OnInit(EventArgs e)
@@ -73,6 +74,10 @@ namespace Bikewale.News
                 objNews = new NewsListing();
                 objNews.FetchNewsList(ctrlPager);
                 newsArticles = objNews.objNewsList;
+                startIndex = Bikewale.Utility.Format.FormatPrice(objNews.StartIndex.ToString());
+                endIndex = Format.FormatPrice(objNews.EndIndex.ToString());
+                totalArticles = Format.FormatPrice(objNews.TotalArticles.ToString());
+
             }
             catch (Exception ex)
             {

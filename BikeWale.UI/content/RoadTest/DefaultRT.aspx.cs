@@ -45,6 +45,8 @@ namespace Bikewale.Content
         private const int _pagerSlotSize = 5;
         private bool _isContentFound = true;
         protected MostPopularBikesMin ctrlPopularBikes;
+        string makeId = string.Empty, modelId = string.Empty;
+        protected string startIndex, endIndex, totalArticles;
 
         protected override void OnInit(EventArgs e)
         {
@@ -70,22 +72,17 @@ namespace Bikewale.Content
             dd.DetectDevice();
 
             CommonOpn op = new CommonOpn();
-            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
-            Trace.Warn("current url :" + HttpContext.Current.Request.Url);
 
             if (!IsPostBack)
             {
-                string _makeName = string.Empty, _makeId = string.Empty, _modelId = string.Empty, _modelName = string.Empty;
-                ProcessQS(out _makeName, out _makeId, out _modelId, out _modelName);
-                GetRoadTestList(_makeId, _modelId, _makeName, _modelName);
+
+                ProcessQS();
+                GetRoadTestList(makeId, modelId, makeName, modelName);
             }
 
-            ctrlPopularBikes.totalCount = 4;
-            ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
-            ctrlPopularBikes.cityName = currentCityArea.City;
         }
 
-        private void ProcessQS(out string _makeName, out string _makeId, out string _modelId, out string _modelName)
+        private void ProcessQS()
         {
             if (Request["pn"] != null && Request.QueryString["pn"] != "")
             {
@@ -94,14 +91,9 @@ namespace Bikewale.Content
                     _pageNo = Convert.ToInt32(_pageNumber);
             }
 
-            _makeName = string.Empty;
-            _makeId = string.Empty;
-            _modelId = string.Empty;
-            _modelName = string.Empty;
-
-            _makeName = Request.QueryString["make"];
-            makeMaskingName = _makeName;
-            if (!String.IsNullOrEmpty(_makeName))
+            makeName = Request.QueryString["make"];
+            makeMaskingName = makeName;
+            if (!String.IsNullOrEmpty(makeName))
             {
                 MakeMaskingResponse objResponse = null;
 
@@ -132,7 +124,7 @@ namespace Bikewale.Content
                     {
                         if (objResponse.StatusCode == 200)
                         {
-                            _makeId = Convert.ToString(objResponse.MakeId);
+                            makeId = Convert.ToString(objResponse.MakeId);
                         }
                         else if (objResponse.StatusCode == 301)
                         {
@@ -160,14 +152,14 @@ namespace Bikewale.Content
                             .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
                             .RegisterType<ICacheManager, MemcacheManager>();
                     var _objMakeCache = container1.Resolve<IBikeMakesCacheRepository<int>>();
-                    BikeMakeEntityBase objMMV = _objMakeCache.GetMakeDetails(Convert.ToUInt32(_makeId));
+                    BikeMakeEntityBase objMMV = _objMakeCache.GetMakeDetails(Convert.ToUInt32(makeId));
                     makeName = objMMV.MakeName;
                 }
 
 
             }
 
-            if (!String.IsNullOrEmpty(_makeId))
+            if (!String.IsNullOrEmpty(makeId))
             {
                 modelMaskingName = Request.QueryString["model"];
                 if (!String.IsNullOrEmpty(modelMaskingName))
@@ -183,13 +175,13 @@ namespace Bikewale.Content
                         objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
                         if (objResponse != null && objResponse.StatusCode == 200)
                         {
-                            _modelId = objResponse.ModelId.ToString();
-                            _modelName = Request.QueryString["model"];
+                            modelId = objResponse.ModelId.ToString();
+                            modelName = Request.QueryString["model"];
                             using (IUnityContainer modelContainer = new UnityContainer())
                             {
                                 modelContainer.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
                                 IBikeModels<BikeModelEntity, int> objClient = modelContainer.Resolve<IBikeModels<BikeModelEntity, int>>();
-                                BikeModelEntity bikemodelEnt = objClient.GetById(Convert.ToInt32(_modelId));
+                                BikeModelEntity bikemodelEnt = objClient.GetById(Convert.ToInt32(modelId));
                                 modelName = bikemodelEnt.ModelName;
 
                             }
@@ -238,9 +230,14 @@ namespace Bikewale.Content
                     if (_objRoadTestList != null && _objRoadTestList.Articles.Count > 0)
                     {
 
-                        BindRoadtest(_objRoadTestList);
+                        rptRoadTest.DataSource = _objRoadTestList.Articles;
+                        rptRoadTest.DataBind();
+
                         BindLinkPager(objPager, Convert.ToInt32(_objRoadTestList.RecordCount), makeName, modelName);
-                        BindUpcoming();
+                        BindPageWidgets();
+                        totalArticles = Format.FormatPrice(_objRoadTestList.RecordCount.ToString());
+                        startIndex = Format.FormatPrice(_startIndex.ToString());
+                        endIndex = Format.FormatPrice(_endIndex > _objRoadTestList.RecordCount ? _objRoadTestList.RecordCount.ToString() : _endIndex.ToString());
                     }
                     else
                     {
@@ -252,8 +249,7 @@ namespace Bikewale.Content
             }
             catch (Exception err)
             {
-                Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"] + "GetRoadTestList");
                 objErr.SendMail();
             }
             finally
@@ -279,15 +275,6 @@ namespace Bikewale.Content
             return _objPager;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="_objRoadtestList"></param>
-        private void BindRoadtest(CMSContent _objRoadtestList)
-        {
-            rptRoadTest.DataSource = _objRoadtestList.Articles;
-            rptRoadTest.DataBind();
-        }
 
         /// <summary>
         /// Written By : Ashwini Todkar on 24 Sept 2014
@@ -331,20 +318,48 @@ namespace Bikewale.Content
             }
             catch (Exception ex)
             {
-                Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BindLinkPager");
                 objErr.SendMail();
             }
         }
+
+
         /// <summary>
         /// Created by : Aditi Srivastava on 8 Nov 2016
         /// Summary  : Bind upcoming bikes list
         /// </summary>
-        private void BindUpcoming()
+        private void BindPageWidgets()
         {
-            ctrlUpcoming.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            ctrlUpcoming.pageSize = 9;
-            ctrlUpcoming.topCount = 4;
+
+            try
+            {
+                GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+
+                ctrlPopularBikes.totalCount = 4;
+                ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                ctrlPopularBikes.cityName = currentCityArea.City;
+
+                ctrlUpcoming.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                ctrlUpcoming.pageSize = 9;
+                ctrlUpcoming.topCount = 4;
+
+                if (!string.IsNullOrEmpty(makeId) && makeId != "0")
+                {
+                    ctrlPopularBikes.makeId = Convert.ToInt32(makeId);
+                    ctrlPopularBikes.makeMasking = makeMaskingName;
+                    ctrlPopularBikes.makeName = makeName;
+
+                    ctrlUpcoming.makeName = makeName;
+                    ctrlUpcoming.makeMaskingName = makeMaskingName;
+                    ctrlUpcoming.MakeId = Convert.ToInt32(makeId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BindPageWidgets");
+                objErr.SendMail();
+            }
         }
     }
 }

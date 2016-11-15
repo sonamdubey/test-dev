@@ -27,6 +27,8 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         private ICMSCacheContent _objNewsCache = null;
         private IPager _objPager = null;
         public IEnumerable<ArticleSummary> objNewsList = null;
+        public int StartIndex, EndIndex;
+        public uint TotalArticles;
 
         public string prevUrl = string.Empty, nextUrl = string.Empty;
 
@@ -96,6 +98,9 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 if (objNews != null && objNews.RecordCount > 0)
                 {
                     objNewsList = objNews.Articles;
+                    TotalArticles = objNews.RecordCount;
+                    StartIndex = _startIndex;
+                    EndIndex = _endIndex > objNews.RecordCount ? Convert.ToInt32(objNews.RecordCount) : _endIndex;
                     BindLinkPager(ctrlPager, _objPager, Convert.ToInt32(objNews.RecordCount));
                 }
             }

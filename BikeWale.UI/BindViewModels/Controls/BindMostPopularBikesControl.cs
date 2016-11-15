@@ -26,6 +26,7 @@ namespace Bikewale.BindViewModels.Controls
         public int FetchedRecordsCount { get; set; }
         public int? cityId { get; set; }
         public IEnumerable<MostPopularBikesBase> popularBikes = null;
+        private const ushort TotalWidgetItems = 9;
 
         /// <summary>
         ///  Modified by :   Sumit Kate on 01 Jul 2016
@@ -47,10 +48,13 @@ namespace Bikewale.BindViewModels.Controls
                         .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
 
                     IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
-                    popularBikes = modelCache.GetMostPopularBikes(totalCount, makeId);
+
+                    popularBikes = modelCache.GetMostPopularBikes(TotalWidgetItems, makeId);
                 }
                 if (popularBikes != null && popularBikes.Count() > 0)
                 {
+                    popularBikes = popularBikes.Take(Convert.ToInt32(totalCount));
+
                     if (rptr != null)
                     {
                         rptr.DataSource = popularBikes;

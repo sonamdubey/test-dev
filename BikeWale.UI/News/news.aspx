@@ -13,15 +13,18 @@
             canonical = metas.CanonicalUrl;
             fbTitle = metas.Title;
             fbImage = metas.ShareImage;
-            alternate = metas.AlternateUrl;  
+            alternate = metas.AlternateUrl;
         }
-		
+
 		AdId="1395995626568";
 		AdPath="/1017752/BikeWale_News_";
+        isAd300x250Shown = true;
+        isAd300x250BTFShown = false;
+
 	%>
 
 	<!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link href="/css/content/details.css" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/content/details.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
@@ -47,7 +50,7 @@
                             </a>
                         </li>
                         <% if(objArticle!=null) { %>
-                        <li><span class="bwsprite fa-angle-right margin-right10"></span><%= objArticle.Title  %></li> 
+                        <li><span class="bwsprite fa-angle-right margin-right10"></span><%= objArticle.Title  %></li>
                          <% } %>
                     </ul>
                     <div class="clear"></div>
@@ -55,7 +58,7 @@
             </div>
             <div class="clear"></div>
         </section>
-        
+
 		<section>
             <div class="container margin-bottom20">
                 <div class="grid-12">
@@ -80,27 +83,33 @@
 										<div class="clear"></div>
 									</div>
 								</div>
-								<div class="grid-6 alpha">
+								<div class="border-solid-top padding-top10">
 									<% if (!String.IsNullOrEmpty(objArticle.PrevArticle.ArticleUrl))
 									   { %>
-										<a href="<%= "/news/" + objArticle.PrevArticle.BasicId + "-" + objArticle.PrevArticle.ArticleUrl + ".html"%>" class="text-default next-prev-article-target">
-											<span class="bwsprite prev-arrow"></span>
-											<span class="text-bold">Previous Article</span><br />
-											<span class="next-prev-article-title"><%=objArticle.PrevArticle.Title %></span>
-										</a>
+									   <div class="grid-6 alpha border-solid-right">
+											<a href="<%= "/news/" + objArticle.PrevArticle.BasicId + "-" + objArticle.PrevArticle.ArticleUrl + ".html"%>" title="<%=objArticle.PrevArticle.Title %>" class="text-default next-prev-article-target">
+												<span class="bwsprite prev-arrow"></span>
+												<div class="next-prev-article-box inline-block padding-left5">
+													<span class="font12 text-light">Previous</span><br />
+													<span class="next-prev-article-title text-truncate"><%=objArticle.PrevArticle.Title %></span>
+												</div>
+											</a>
+										</div>
 									<%} %>
-								</div>
-								<div class="grid-6 omega text-right">
 									<% if (!String.IsNullOrEmpty(objArticle.NextArticle.ArticleUrl))
 									   { %>
-										<a href="<%=  "/news/" + objArticle.NextArticle.BasicId + "-" + objArticle.NextArticle.ArticleUrl + ".html"%>" class="text-default next-prev-article-target">
-											<span class="text-bold">Next Article</span>
-											<span class="bwsprite next-arrow"></span><br />
-											<span class="next-prev-article-title"><%=objArticle.NextArticle.Title %></span>
-										</a>
+									   <div class="grid-6 omega rightfloat">
+											<a href="<%=  "/news/" + objArticle.NextArticle.BasicId + "-" + objArticle.NextArticle.ArticleUrl + ".html"%>" title="<%=objArticle.NextArticle.Title %>" class="text-default next-prev-article-target">
+												<div class="next-prev-article-box inline-block padding-right5">
+													<span class="font12 text-light">Next</span>
+													<span class="next-prev-article-title text-truncate"><%=objArticle.NextArticle.Title %></span>
+												</div>
+												<span class="bwsprite next-arrow"></span>
+											</a>
+										</div>
 									<% } %>
+									<div class="clear"></div>
 								</div>
-								<div class="clear"></div>
 							</div>
                             <% } %>
 						</div>
@@ -111,7 +120,7 @@
 					<div class="grid-4 omega">
 					     <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
 						<div class="margin-bottom20">
-                            <!-- BikeWale_News/BikeWale_News_300x250 -->
+                              <!-- #include file="/ads/ad300x250.aspx" -->
                         </div>
                         <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
 					</div>
@@ -121,7 +130,7 @@
 			</div>
 		</section>
 
-        
+
 
 		<!-- #include file="/includes/footerBW.aspx" -->
 

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.DefaultRT" Trace="false" Async="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.DefaultRT" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" Src="~/m/controls/LinkPagerControl.ascx" %>
 <%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/controls/MostPopularBikesMin.ascx" %>
@@ -42,8 +42,8 @@
 	    fbImage = Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo;
         isAd300x250BTFShown = false;
     %>
-<!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link href="/css/content/listing.css" rel="stylesheet" type="text/css" />
+    <!-- #include file="/includes/headscript_desktop_min.aspx" -->
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/content/listing.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
@@ -136,9 +136,10 @@
 
                                 <div id="footer-pagination" class="font14 padding-top10">
                                     <div class="grid-5 alpha omega text-light-grey">
-                                        <p>Showing <span class="text-default text-bold">1-10</span> of <span class="text-default text-bold">26,398</span> articles</p>                                        
+                                                                       <p>Showing <span class="text-default text-bold"><%= startIndex %>-<%= endIndex %></span> of <span class="text-default text-bold"><%= totalArticles %></span> articles</p>                                        
                                     </div>
 				                    <BikeWale:RepeaterPager ID="ctrlPager" runat="server" />
+                                     <div class="clear"></div>
                                 </div>
                             </div>
                         </div>
@@ -149,11 +150,13 @@
                     <div class="grid-4 omega">
                         <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
                       
-                        <div class="margin-bottom20">
+                       
+                          <BW:UpcomingBikes ID="ctrlUpcoming" runat="server" />
+
+                         <div class="margin-bottom20">
                            <!-- #include file="/ads/Ad300x250.aspx" -->
                         </div>
 
-                          <BW:UpcomingBikes ID="ctrlUpcoming" runat="server" />
                         
                         <a href="/pricequote/" id="on-road-price-widget" class="content-box-shadow content-inner-block-20">
                             <span class="inline-block">
