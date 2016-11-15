@@ -21,7 +21,7 @@
         isHeaderFix = false;
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link href="/min/css/service/listing.css" rel="stylesheet" type="text/css" />
+    <link href="/css/service/listing.css" rel="stylesheet" type="text/css" />
     <script src="http://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
@@ -100,21 +100,26 @@
                                                     </p>
                                                 </div>
                                             </a>
-                                            <div class="padding-left20 service-center-lead-content margin-top15">
+                                            <div class="service-center-lead-content margin-top15 padding-left20 padding-right20">
                                                 <button type="button" class="btn btn-white service-btn get-details-btn font14">Get details on phone</button>
+
                                                 <div class="lead-mobile-content">
                                                     <div class="input-box input-number-box form-control-box type-user-details">
                                                         <input type="tel" id="lead-input-<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" class="service-center-lead-mobile" maxlength="10">
                                                         <label for="lead-input-<%# DataBinder.Eval(Container.DataItem,"DealerId") %>">Type in your mobile number</label>
-                                                        <span class="input-number-prefix">+91</span>
+                                                        <span class="input-number-prefix">+91-</span>
                                                         <span class="boundary"></span>
                                                         <span class="error-text"></span>
                                                     </div>
-                                                    <button type="button" class="btn btn-orange submit-service-center-lead-btn font14">Send</button>
+                                                    <button type="button" class="btn btn-orange submit-service-center-lead-btn font14">Send details</button>
                                                     <div class="clear"></div>
                                                 </div>
+
+                                                <div class="service-center-lead-response font12 text-light-grey">
+                                                    <span class="service-sprite response-icon"></span>
+                                                    <p class="response-text inline-block"></p>
+                                                </div>
                                             </div>
-                                            <div class="service-center-lead-response">Service Center details successfully sent on your phone.<br />Not Received? <span style="color: #0288d1">Resend</span></div>
                                         </li>
                                     </ItemTemplate>
                                 </asp:Repeater>

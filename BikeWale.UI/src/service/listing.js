@@ -173,13 +173,24 @@ readMoreTarget.on('click', function () {
     }
 });
 
-$('#center-list').on('click', '.get-details-btn', function () {
-    var element = $(this),
-        leadCaptureContainer = element.siblings('.lead-mobile-content');
+// send service center details
+var attemptCount = 1,
+    successMessage = 'Service Center details successfully<br />sent on your phone.<br />Not Received? <span class="service-center-resend-btn">Resend</span>',
+    threeAttemptsMessage = 'Sorry! You have reached the limit of sending details of this service center. Look for a different service center.',
+    tenAttemptsMessage = 'Sorry! You have reached the daily limit of sending details.<br />Please try again after a day.';
 
-    element.hide();
-    leadCaptureContainer.show();
-    leadCaptureContainer.find('input').focus();
+$('#center-list').on('click', '.get-details-btn', function () {
+    var getDetailsBtn = $(this),
+        listItem = getDetailsBtn.closest('li'),
+        centerList = $('#center-list');
+
+    if (attemptCount != 10) {
+        centerList.find('.input-active').removeClass('input-active');
+        captureLeadMobile.inputBox.set(listItem);
+    }
+    else {
+        captureLeadMobile.responseBox.set(listItem, 'response-active limit-reached', tenAttemptsMessage);
+    }
 });
 
 $('.service-center-lead-mobile').on('focus', function () {
@@ -195,30 +206,77 @@ $('.service-center-lead-mobile').on('blur', function () {
 });
 
 $('.submit-service-center-lead-btn').on('click', function () {
-    var element = $(this),
-        inputbox = element.siblings('.input-box').find('input'),
+    var sendBtn = $(this),
+        listItem = sendBtn.closest('li'),
+        inputbox = listItem.find('input'),
         valid = validatePhone(inputbox);
+
     if (!valid) {
         // invalid
     }
     else {
-        var inputParent = element.closest('.service-center-lead-content');
-        inputParent.hide();
-        inputParent.siblings('.service-center-lead-response').show();
-
+        captureLeadMobile.checkAttempts(attemptCount, listItem);
     }
 });
 
+// resend details
+$('#center-list').on('click', '.service-center-resend-btn', function () {
+    var resendBtn = $(this),
+        listItem = resendBtn.closest('li');
+
+    if (attemptCount != 3) {
+        captureLeadMobile.inputBox.set(listItem);
+    }
+    else {
+        captureLeadMobile.responseBox.set(listItem, 'response-active limit-reached', threeAttemptsMessage);
+    }
+});
+
+var captureLeadMobile = {
+    inputBox: {
+        set: function (listElement) {
+            var inputContainer = listElement.find('.lead-mobile-content');
+
+            listElement.removeClass('response-active').addClass('input-active');
+            inputContainer.find('input').focus();
+        }
+    },
+
+    responseBox: {
+        set: function (listElement, stateClass, message) {
+            var responseContainer = listElement.find('.response-text');
+            
+            listElement.removeClass('input-active').addClass(stateClass);
+            responseContainer.html(message).show();
+        }
+    },
+
+    checkAttempts: function (count, listItem) {
+        if (count < 3) {
+            captureLeadMobile.responseBox.set(listItem, 'response-active', successMessage);
+        }
+
+        if (count == 3) {
+            captureLeadMobile.responseBox.set(listItem, 'response-active limit-reached', threeAttemptsMessage);
+        }
+
+        if (count == 10) {
+            captureLeadMobile.responseBox.set(listItem, 'response-active limit-reached', tenAttemptsMessage);
+        }
+    }
+};
+
 function validatePhone(inputElement) {
-    var leadMobileNo = inputElement.val();
-    var isValid = true,
-      reMobile = /^[1-9][0-9]{9}$/;
+    var leadMobileNo = inputElement.val(),
+        isValid = true,
+        reMobile = /[7-9][0-9]{9}$/;
+
     if (leadMobileNo == "") {
-        validate.setError(inputElement, "Enter your mobile number");
+        validate.setError(inputElement, "Enter your mobile number!");
         isValid = false;
     }
     else if (leadMobileNo[0] == "0") {
-        validate.setError(inputElement, "Mobile no. should not start with 0");
+        validate.setError(inputElement, "Enter a valid mobile number!");
         isValid = false;
     }
     else if (!reMobile.test(leadMobileNo) && isValid) {
