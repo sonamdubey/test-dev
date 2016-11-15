@@ -132,12 +132,12 @@
 
         <% if (ctrlDealerCard.showWidget) { %>
         <section>
-            <div class="container bg-white box-shadow card-bottom-margin padding-bottom20 padding-top15">
-                <div class="padding-right20 padding-left20 margin-bottom15">
+            <div class="container bg-white box-shadow card-bottom-margin">
+                <div class="margin-right20 margin-left20 padding-top15">
                     <h2 class="margin-bottom5">Looking to buy a new <%= makeName %> bike in <%=cityName %>?</h2>
                     <p>Check out authorised <%= makeName %> dealers in <%=cityName %></p>
-                    <BW:DealerCard runat="server" ID="ctrlDealerCard" />  
                 </div>
+                <BW:DealerCard runat="server" ID="ctrlDealerCard" />
             </div>            
         </section>
          <% }  %>
