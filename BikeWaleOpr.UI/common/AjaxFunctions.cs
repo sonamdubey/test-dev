@@ -171,37 +171,6 @@ namespace BikeWaleOpr
             return CommonOpn.GetModelFromMake(makeId);
         }
 
-        //this function returns the dataset containing the name and id of the new versions
-        //available
-        [Ajax.AjaxMethod()]
-        public DataSet GetNewVersions(string modelId)
-        {
-            throw new Exception("Method not used/commented");
-
-            //DataSet ds = new DataSet();
-
-            //if (modelId == "")
-            //    return ds;
-
-            //Database db = new Database();
-            //string sql = "";
-
-            //sql = " SELECT ID AS Value, Name AS Text FROM BikeVersions WHERE IsDeleted = 0 AND "
-            //    + " BikeModelId =" + modelId + " AND New = 1 ORDER BY Text ";
-
-            //try
-            //{
-            //    ds = db.SelectAdaptQry(sql);
-            //}
-            //catch (Exception err)
-            //{
-            //    ErrorClass objErr = new ErrorClass(err, "AjaxFunctions.GetVersions");
-            //    objErr.SendMail();
-            //}
-
-            //return ds;
-        }
-
         //this function returns a string containing the help contents 
         // for any given id
         /// <summary>

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Data;
-using System.Data.SqlClient;
+﻿using BikeWaleOpr.BAL.Pager;
 using BikeWaleOpr.Common;
-using BikeWaleOpr.Interfaces.Pager;
-using BikeWaleOpr.BAL.Pager;
-using BikeWaleOpr.Entities.Pager;
 using BikeWaleOpr.Controls;
+using BikeWaleOpr.Entities.Pager;
+using System;
+using System.Data;
+using System.Web;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.Classified
 {
@@ -24,15 +20,15 @@ namespace BikeWaleOpr.Classified
 
         protected int recordCount = 0, currentPageNo = 0;
 
-        protected override void OnInit( EventArgs e )
-		{
-			InitializeComponent();
-		}
-		
-		void InitializeComponent()
-		{
-			base.Load += new EventHandler( Page_Load );
-		}
+        protected override void OnInit(EventArgs e)
+        {
+            InitializeComponent();
+        }
+
+        void InitializeComponent()
+        {
+            base.Load += new EventHandler(Page_Load);
+        }
 
         void Page_Load(object Sender, EventArgs e)
         {
@@ -44,6 +40,8 @@ namespace BikeWaleOpr.Classified
         /// <summary>
         /// Created By : Sanjay Soni ON 30/9/2014
         /// Description : To Bind All Listings
+        /// Modified By : Sushil Kumar on 11th Nov 2016
+        /// Description : Fixed compare bikes issue on listing page of verified listing
         /// </summary>
         protected void BindRepeater()
         {
@@ -51,36 +49,31 @@ namespace BikeWaleOpr.Classified
             string inquiryId = String.Empty;
             try
             {
-                    Pager objPager = new Pager();
+                Pager objPager = new Pager();
 
-                    int startIndex = 0, endIndex = 0, pageSize = 20, totalPages = 0;
+                int startIndex = 0, endIndex = 0, pageSize = 20, totalPages = 0;
 
-                    objPager.GetStartEndIndex(pageSize, currentPageNo, out startIndex, out endIndex);
+                objPager.GetStartEndIndex(pageSize, currentPageNo, out startIndex, out endIndex);
 
 
-                    ClassifiedCommon cc = new ClassifiedCommon();
-                    if (IsPostBack)                    
-                    {
-                        startIndex = 1;
-                        endIndex = 20;
-                        inquiryId = txtProfileId.Text;
-                    }
+                ClassifiedCommon cc = new ClassifiedCommon();
+                if (IsPostBack)
+                {
+                    startIndex = 1;
+                    endIndex = 20;
+                    inquiryId = txtProfileId.Text;
+                }
 
-                    ds = cc.CustomerListingDetail(startIndex, endIndex, inquiryId);
+                ds = cc.CustomerListingDetail(startIndex, endIndex, inquiryId);
 
+                if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                {
                     recordCount = Convert.ToInt32(ds.Tables[1].Rows[0]["recordCount"]);
-                    Trace.Warn("Record Count", recordCount.ToString());
 
-                    totalPages = objPager.GetTotalPages(recordCount, pageSize);
-                    if (ds.Tables[0].Rows != null && ds.Tables[0].Rows.Count > 0)
-                    {
-                        lblErrorMessage.Visible = false;
-                    }
-                    else{
-                        lblErrorMessage.Visible = true;                        
-                    }
                     rptCustomerList.DataSource = ds.Tables[0];
                     rptCustomerList.DataBind(); // Data Bind
+
+                    totalPages = objPager.GetTotalPages(recordCount, pageSize);
 
                     PagerEntity pagerEntity = new PagerEntity();
                     pagerEntity.BaseUrl = "/classified/verifycustomerlisting.aspx?";
@@ -96,11 +89,21 @@ namespace BikeWaleOpr.Classified
                     linkPager.PagerOutput = pagerOutput;
                     linkPager.CurrentPageNo = currentPageNo;
                     linkPager.TotalPages = totalPages;
+
+                    if (ds.Tables[0].Rows != null && ds.Tables[0].Rows.Count > 0)
+                    {
+                        lblErrorMessage.Visible = false;
+                    }
+                    else
+                    {
+                        lblErrorMessage.Visible = true;
+                    }
+                }
+
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("BindRepeater ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "BindRepeater");
                 objErr.SendMail();
             }
         }   //End of BindRepeater
@@ -114,14 +117,12 @@ namespace BikeWaleOpr.Classified
             try
             {
                 currentPageNo = Convert.ToInt32(Request.QueryString["pn"]);
-                Trace.Warn(currentPageNo.ToString());
                 if (currentPageNo == 0)
                     currentPageNo = 1;
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("ProcessQS ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "ProcessQS");
                 objErr.SendMail();
             }
         }

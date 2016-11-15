@@ -6,7 +6,6 @@ using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.Content;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Memcache;
 using Microsoft.Practices.Unity;
@@ -71,7 +70,7 @@ namespace Bikewale.Mobile.Content
                 string _basicId = BasicIdMapping.GetCWBasicId(Request.QueryString["id"]);
 
                 //if id exists then redirect url to new basic id url
-                if (!String.IsNullOrEmpty(_basicId))
+                if (!_basicId.Equals(Request.QueryString["id"]))
                 {
                     string _newUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
                     var _titleStartIndex = _newUrl.IndexOf('/');

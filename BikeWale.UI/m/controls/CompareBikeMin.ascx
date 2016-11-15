@@ -1,24 +1,34 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.CompareBikeMin" %>
-<style>
-    @media screen and (min-width:315px) {
-        .compareImageContainer {width:100%;margin:auto;}
-    }
 
-    @media screen and (max-width:329px) {
-        .compareImageContainer img {max-width:100%;height:auto;}
-    
-    }
-</style>
-<h2>Popular Comparisons</h2>
-<asp:Repeater ID="rptCompareList" runat="server">
-    <ItemTemplate>
-        <a href="/m/comparebikes/<%#DataBinder.Eval(Container.DataItem,"MakeMaskingName1")%>-<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName1")%>-vs-<%#DataBinder.Eval(Container.DataItem,"MakeMaskingName2")%>-<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName2")%>/?bike1=<%# DataBinder.Eval(Container.DataItem,"VersionId1")%>&bike2=<%# DataBinder.Eval(Container.DataItem,"VersionId2")%>" class="normal">
-            <div class="box1 new-line5">
-                <div class="compareImageContainer">
-                    <img src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem,"HostURL").ToString(),Bikewale.Utility.ImageSize._640x348) %>" /></div>
-
-                <div style="text-align: center;"><%# DataBinder.Eval( Container.DataItem, "Bike1" ) %>&nbsp;<span class="red-text">vs</span>&nbsp;<%# DataBinder.Eval( Container.DataItem, "Bike2" ) %></div>
-            </div>
-        </a>
-    </ItemTemplate>
-</asp:Repeater>
+<% if(FetchedRecordsCount > 0) { %>
+<h2 class="font18 text-center margin-top20 margin-bottom10">Popular Comparisons</h2>
+<div class="content-box-shadow grid-12">
+    <ul class="compare-bikes-list">
+         <%foreach(var bike in compareList) { %>
+        <li>
+            <a href="<%= FormatComparisonUrl(bike.MakeMaskingName1,bike.ModelMaskingName1,bike.MakeMaskingName2,bike.ModelMaskingName2, bike.VersionId1, bike.VersionId2)%>" title="Compare <%= FormatBikeCompareAnchorText(bike.Bike1,bike.Bike2) %>">
+                <div class="grid-6">
+                    <div class="comparison-image">
+                        <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.VersionImgUrl1,bike.HostUrl1,Bikewale.Utility.ImageSize._110x61) %>" src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif">
+                    </div>
+                    <h3 class="font12 text-black margin-bottom5 padding-right10"><%= bike.Bike1 %></h3>
+                    <div class="text-default text-bold">
+                        <span class="bwmsprite inr-xxsm-icon"></span><span class="font16"><%= string.Format("{0}{1}",Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price1)),bike.Price1 > 0 ? "<span class='font14'> onwards</span>" : string.Empty)  %></span>
+                    </div>
+                </div>
+                <div class="grid-6 padding-left15">
+                    <div class="comparison-image">
+                        <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.VersionImgUrl2,bike.HostUrl2,Bikewale.Utility.ImageSize._110x61) %>" src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif">
+                    </div>
+                    <h3 class="font12 text-black margin-bottom5"><%= bike.Bike2 %></h3>
+                    <div class="text-default text-bold">
+                        <span class="bwmsprite inr-xxsm-icon"></span><span class="font16"><%= string.Format("{0}{1}",Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price2)),bike.Price2 > 0 ? "<span class='font14'> onwards</span>" : string.Empty)  %></span>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </a>
+        </li>
+        <% }  %>
+    </ul>
+</div>
+<% }  %>

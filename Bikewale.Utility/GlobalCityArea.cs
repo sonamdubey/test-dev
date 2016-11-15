@@ -27,7 +27,7 @@ namespace Bikewale.Utility
                     location = cookies["location"].Value;
                     if (!String.IsNullOrEmpty(location) && location.IndexOf('_') != -1)
                     {
-                        string[] locArray = location.Split('_');//1_Mumbai_59_Aarey Colony	
+                        string[] locArray = location.Split('_');
 
                         objGlobalCityArea.CityId = Convert.ToUInt32(locArray[0]);
                         objGlobalCityArea.City = Convert.ToString(locArray[1]);
