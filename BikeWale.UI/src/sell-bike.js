@@ -145,7 +145,7 @@ var sellBike = function () {
 
     self.photoUploadUrl = ko.pureComputed(function () {
         if (self.inquiryId() > 0 && self.personalDetails() && self.personalDetails().sellerTypeVal()) {
-            var photoUrl = self.profileId() + "/image/upload/?isMain=false";
+            var photoUrl = "/api/used/" + self.profileId() + "/image/upload/?isMain=false&extension=";
         }
         return photoUrl;
     }, this)
@@ -156,11 +156,14 @@ var sellBike = function () {
             maxFilesize: 4,
             maxFiles: 10,
             addRemoveLinks: true,
-            acceptedFiles: ".png, .jpg",
-            url: "/api/used/" + self.photoUploadUrl(),
+            acceptedFiles: ".png, .jpg",            
+            url: self.photoUploadUrl(),
             headers: { "customerId": self.customerId() },
             init: function () {
-                var myDropzone = this;
+                var myDropzone = this;                
+                myDropzone.itemId = self.inquiryId();
+                myDropzone.photoIdGenerateUrl = self.photoUploadUrl();
+                myDropzone.customerId = self.customerId();
                 $(self.serverImg()).each(function (i) {
                     var uF = { name: this.id, size: 12345 };
                     myDropzone.files.push(uF)
@@ -186,7 +189,7 @@ var sellBike = function () {
 
                 this.on("success", function (file, response) {
                     var resp = JSON.parse(response);
-                    setProfilePhoto();
+                    //setProfilePhoto();
                     if (resp && resp.imageResult && resp.imageResult.length > 0 && resp.status == 1) {
                         setRemoveLinkUrl(file, resp.imageResult);
                     }
