@@ -332,6 +332,10 @@
     <Compile Include="common\StateCity.cs" />
     <Compile Include="common\UrlRewrite.cs" />
     <Compile Include="common\Validations.cs" />
+    <Compile Include="content\BikeCare\BikeCare.aspx.cs">
+      <DependentUpon>BikeCare.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="content\Features\DefaultF.aspx.cs">
       <DependentUpon>DefaultF.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1753,6 +1757,7 @@
     <Content Include="bin\Newtonsoft.Json.dll" />
     <!--     <Content Include="bin\Newtonsoft.Json.xml" /> -->
     <Content Include="contactus.aspx" />
+    <Content Include="content\BikeCare\BikeCare.aspx" />
     <Content Include="content\Features\DefaultF.aspx" />
     <Content Include="content\Features\ViewF.aspx" />
     <Content Include="content\RepeaterPager.ascx" />
