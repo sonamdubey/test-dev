@@ -36,11 +36,13 @@
 
 	.dealer-card-content
 		padding-top: 15px
-		padding-bottom: 20px
 		font-size: 14px
 		border-top: 1px solid #e2e2e2
 
 	li
+		padding-bottom: 20px
+		cursor: pointer
+
 		&:first-child
 			.dealer-card-content
 				border-top: 0
@@ -50,8 +52,41 @@
 	width: 92%
 
 .service-btn
-	padding-top: 9px
-	padding-bottom: 9px
+	padding: 9px 0
+	width: 180px
+
+.lead-mobile-content
+	display: none
+	position: relative
+	top: 5px
+
+	.input-box
+		width: 170px
+		height: 40px
+		display: inline-block
+		vertical-align: middle
+
+		label
+			top: 9px
+			font-size: 12px
+
+		input:focus ~ label,
+		&.not-empty label
+			top: -14px
+			font-size: 11px
+
+.submit-service-center-lead-btn
+	margin-left: 20px
+	display: inline-block
+	vertical-align: top
+	padding: 9px 0
+	width: 80px
+	position: relative
+	top: -7px
+
+.service-center-lead-response
+	padding: 15px 20px 0
+	display: none
 
 // map
 .dealer-map-wrapper
@@ -101,3 +136,7 @@
 	position: relative
 	top: 1px
 	left: 7px
+
+@media only screen and (max-width: 1024px)
+	.submit-lead-mobile-btn
+		margin-left: 10px

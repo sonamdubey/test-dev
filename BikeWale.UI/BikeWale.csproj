@@ -2675,6 +2675,8 @@
     <Content Include="sass\modules\_section.sass" />
     <Content Include="sass\modules\_bike-tips.sass" />
     <Content Include="sass\modules\_card.sass" />
+    <Content Include="sass\components\_input-box.sass" />
+    <Content Include="sass\components\_box-boundary.sass" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

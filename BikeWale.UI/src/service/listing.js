@@ -172,3 +172,97 @@ readMoreTarget.on('click', function () {
         readMoreTarget.text('Read more');
     }
 });
+
+$('#center-list').on('click', '.get-details-btn', function () {
+    var element = $(this),
+        leadCaptureContainer = element.siblings('.lead-mobile-content');
+
+    element.hide();
+    leadCaptureContainer.show();
+    leadCaptureContainer.find('input').focus();
+});
+
+$('.service-center-lead-mobile').on('focus', function () {
+    var inputField = $(this);
+
+    validate.onFocus(inputField);
+});
+
+$('.service-center-lead-mobile').on('blur', function () {
+    var inputField = $(this);
+
+    validate.onBlur(inputField);
+});
+
+$('.submit-service-center-lead-btn').on('click', function () {
+    var element = $(this),
+        inputbox = element.siblings('.input-box').find('input'),
+        valid = validatePhone(inputbox);
+    if (!valid) {
+        // invalid
+    }
+    else {
+        var inputParent = element.closest('.service-center-lead-content');
+        inputParent.hide();
+        inputParent.siblings('.service-center-lead-response').show();
+
+    }
+});
+
+function validatePhone(inputElement) {
+    var leadMobileNo = inputElement.val();
+    var isValid = true,
+      reMobile = /^[1-9][0-9]{9}$/;
+    if (leadMobileNo == "") {
+        validate.setError(inputElement, "Enter your mobile number");
+        isValid = false;
+    }
+    else if (leadMobileNo[0] == "0") {
+        validate.setError(inputElement, "Mobile no. should not start with 0");
+        isValid = false;
+    }
+    else if (!reMobile.test(leadMobileNo) && isValid) {
+        validate.setError(inputElement, "10 digit mobile number only!");
+        isValid = false;
+    }
+    else
+        validate.hideError(inputElement)
+    return isValid;
+}
+
+/* form validation */
+var validate = {
+    setError: function (element, message) {
+        var elementLength = element.val().length;
+        errorTag = element.siblings('span.error-text');
+
+        errorTag.show().text(message);
+        if (!elementLength) {
+            element.closest('.input-box').removeClass('not-empty').addClass('invalid');
+        }
+        else {
+            element.closest('.input-box').addClass('not-empty invalid');
+        }
+    },
+
+    hideError: function (element) {
+        element.closest('.input-box').removeClass('invalid').addClass('not-empty');
+        element.siblings('span.error-text').text('');
+    },
+
+    onFocus: function (inputField) {
+        if (inputField.closest('.input-box').hasClass('invalid')) {
+            validate.hideError(inputField);
+        }
+    },
+
+    onBlur: function (inputField) {
+        var inputLength = inputField.val().length;
+        if (!inputLength) {
+            inputField.closest('.input-box').removeClass('not-empty');
+        }
+        else {
+            inputField.closest('.input-box').addClass('not-empty');
+        }
+    }
+}
