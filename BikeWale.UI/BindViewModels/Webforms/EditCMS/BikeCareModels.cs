@@ -36,7 +36,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         public uint totalRecords;
         private ICMSCacheContent _objBikeCareCache;
         public CMSContent objArticleList = null;
-        HttpContext page = HttpContext.Current;
+        HttpRequest page = HttpContext.Current.Request;
 
         // <summary>
         /// Created By:- Subodh jain 11 Nov 2016
@@ -121,7 +121,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             PagerOutputEntity _pagerOutput = null;
             PagerEntity _pagerEntity = null;
             int recordCount = Convert.ToInt32(totalRecords);
-            string _baseUrl = RemoveTrailingPage(HttpContext.Current.Request.RawUrl.ToLower());
+            string _baseUrl = RemoveTrailingPage(page.RawUrl.ToLower());
 
             try
             {

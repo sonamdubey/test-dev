@@ -7,6 +7,10 @@ namespace Bikewale.Content
 {
     public class BikeCare : System.Web.UI.Page
     {
+        /// <summary>
+        /// Created By:- Subodh jain 11 Nov 2016
+        /// Summary :- Bike Care Landing page Desktop
+        /// </summary>
         BikeCareModels objBikeCare = null;
         public LinkPagerControl ctrlPager;
         protected uint makeId, modelId, totalArticles;
