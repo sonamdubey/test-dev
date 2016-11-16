@@ -397,8 +397,35 @@ header.fixed { position: fixed; left: 0; right: 0; top: 0; z-index: 3; }
 .header-fixed { background: #333333; padding:15px 10px; height:50px; z-index: 3; }
 header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-index: 3;}
 .header-fixed-inner { padding-top: 65px; }
-#nav, .loginPopUpWrapper { background: #fff; width:275px; position: fixed; top: 0; right: 0; bottom: 0; left: -275px; overflow-y: scroll; z-index: 10; }
-.navUL { padding-top: 20px; }
+#nav, .loginPopUpWrapper { background: #fff; width:275px; position: fixed; top: 0; right: 0; bottom: 0; overflow-y: scroll; z-index: 10; }
+.loginPopUpWrapper {
+    left: -275px;
+}
+#nav {
+    display: none;
+    left: 0;
+}
+#nav-app-content {
+    width: 275px;
+    border-top: 1px solid #e2e2e2;
+    padding: 10px;
+    background: #f5f5f5;
+}
+#nav-app-content p {
+    width: 69%;
+}
+.nav-app-install-btn {
+    padding: 6px 18px;
+}
+.drawer-active #nav-app-content {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+}
+.navUL {
+    padding-bottom: 130px;
+}
 .navUL li { display:block; position: relative; }
 .navUL li a { color:#1a1a1a; font-size: 14px; text-decoration:none; display:block; height: 48px; padding: 6px 0 0 15px;font-weight:normal; }
 .navUL li a:hover, .navUL li a.active { font-weight: 600; }
@@ -1063,4 +1090,21 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     width: 64px;
     height: 64px;
     margin: 3px auto;
+}
+
+#ub-ajax-loader{display:none;width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(245,245,245,.95);z-index:11}
+
+/* user logged in state */
+#user-banner-content {
+    height: 108px;
+    background: #4d5057;
+    position: relative;
+}
+
+.user-details-content {
+    position: absolute;
+    left: 0;
+    bottom: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
 }
