@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.LogInoutControl" %>
-<% if(loggedInUser == "-1") { %>
+<% if (loggedInUserId > 0)
+   { %>
         <li class="padding-top10 padding-bottom15">
             <div class="border-solid-top"></div>
         </li>
@@ -7,25 +8,25 @@
             <p class="font12 text-light-grey padding-left15">Profile</p>
         </li>
         <li>
-            <a href="">
+            <a href="/users/MyContactDetails.aspx">
                 <span class="bwmsprite home-icon"></span>
                 <span class="navbarTitle">My Profile</span>
             </a>
         </li>
         <li>
-            <a href="">
+            <a href="/mybikewale/myinquiries/">
                 <span class="bwmsprite home-icon"></span>
                 <span class="navbarTitle">My Inquiries</span>
             </a>
         </li>
         <li>
-            <a href="">
+            <a href="/users/newssubscription.aspx">
                 <span class="bwmsprite home-icon"></span>
                 <span class="navbarTitle">Subscribe Newsletters</span>
             </a>
         </li>
         <li>
-            <a href="">
+            <a href="/mybikewale/changepassword/">
                 <span class="bwmsprite home-icon"></span>
                 <span class="navbarTitle">Change password</span>
             </a>

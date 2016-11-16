@@ -1,16 +1,19 @@
 ﻿<%@ Register Src="~/controls/LogInOutControl.ascx" TagPrefix="BW" TagName="Login" %>
+
 <nav id="nav">
+    <% if(Bikewale.Common.CurrentUser.UserId > 0) { %>
     <div id="user-banner-content">
         <div class="user-details-content">
             <div class="image-content">
-
             </div>
             <div class="details-content text-white">
-                <p class="font18 text-bold">John Doe</p>
-                <p class="font12">john.doe@gmail.com</p>
+                <p class="font18 text-bold"><%=Bikewale.Common.CurrentUser.Name%></p>
+                <p class="font12"><%=Bikewale.Common.CurrentUser.Email %></p>
             </div>
         </div>
     </div>
+    <% } %>
+
     <!-- nav code starts here -->
     <ul class="navUL padding-top10">
         <li>

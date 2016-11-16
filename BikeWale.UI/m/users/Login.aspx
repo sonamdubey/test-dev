@@ -7,7 +7,6 @@
     title = "User Login - BikeWale";
     description = "bikewale.com user login";
     keywords = "users, login, register, forgot password";
-    
 %>
 <!-- #include file="/includes/headscript_mobile.aspx" -->
 <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/login.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
@@ -19,7 +18,7 @@
         
         <div id="header" class="header-fixed"> <!-- Header code starts here -->
             <div class="leftfloat">
-                <span class="navbarBtn bwmsprite nav-icon margin-right25"></span>
+                <span id="navbarBtn" class="navbarBtn bwmsprite nav-icon margin-right25"></span>
                 <a href="/" id="bwheader-logo" class="bwmsprite bw-logo" title="Bikewale"></a>
            
             </div>
@@ -124,7 +123,8 @@
 
 
         </script>
-         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/login/login.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script> 
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/login/login.js?<%= staticFileVersion %>"></script>
     </form>
 </body>
 </html>
