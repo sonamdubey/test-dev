@@ -171,4 +171,4 @@ gulp.task('mobile-service-details', function () {
         .pipe(gulp.dest('BikeWale.UI/min/m/service'));
 });
 
-gulp.task('default', gulpSequence('clean', 'minify-bw-css', 'minify-bw-js', 'minify-bwm-css', 'minify-bwm-js', 'bw-sass', 'bwm-sass', 'bwm-service-css', 'replace-css-reference'));
+gulp.task('default', gulpSequence('clean', 'minify-bw-css', 'minify-bw-js', 'minify-bwm-css', 'minify-bwm-js', 'bw-sass', 'bwm-sass', 'bw-service-css', 'bwm-service-css', 'replace-css-reference'));
