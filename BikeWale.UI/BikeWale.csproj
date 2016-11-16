@@ -63,6 +63,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\AjaxPro.2.dll</HintPath>
     </Reference>
+    <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Carwale.BL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Carwale.BL.dll</HintPath>
@@ -375,10 +379,6 @@
     </Compile>
     <Compile Include="controls\LeadCaptureControl.ascx.cs">
       <DependentUpon>LeadCaptureControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\LogInoutControl.ascx.cs">
-      <DependentUpon>LogInoutControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\NewsMin.ascx.cs">
@@ -1076,10 +1076,6 @@
       <DependentUpon>Search.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\users\Login.aspx.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="m\videos\video.aspx.cs">
       <DependentUpon>video.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1728,7 +1724,6 @@
     <Content Include="content\UserReviews\WriteReviews.aspx" />
     <Content Include="controls\DealerCard.ascx" />
     <Content Include="controls\LeadCaptureControl.ascx" />
-    <Content Include="controls\LogInoutControl.ascx" />
     <Content Include="controls\NewsMin.ascx" />
     <Content Include="controls\OtherUsedBikeByCity.ascx" />
     <Content Include="controls\PopularModelCompare.ascx" />
@@ -1819,6 +1814,7 @@
     <Content Include="css\bw-pq.css" />
     <Content Include="css\cancellation.css" />
     <Content Include="css\chosen.min.css" />
+    <Content Include="css\components\article.css" />
     <Content Include="css\components\compare-bikes.css" />
     <Content Include="css\css-new-photos.css" />
     <Content Include="css\css-research-photos.css" />
@@ -1830,6 +1826,7 @@
     <Content Include="css\dealer\location.css" />
     <Content Include="css\dealer\details.css" />
     <Content Include="css\dealer\listing.css" />
+    <Content Include="css\dropzone.css" />
     <Content Include="css\global.css" />
     <Content Include="css\home.css" />
     <Content Include="css\images\animated-overlay.gif" />
@@ -1859,6 +1856,7 @@
     <Content Include="css\rsa.css" />
     <Content Include="css\new\bookinglisting.css" />
     <Content Include="css\search.css" />
+    <Content Include="css\sell-bike.css" />
     <Content Include="css\slideshow.css" />
     <Content Include="css\specsandfeature.css" />
     <Content Include="css\style.css" />
@@ -2319,7 +2317,9 @@
     <Content Include="m\css\bwm-model-btf.css" />
     <Content Include="m\css\bwm-model.css" />
     <Content Include="m\css\bwm-newbikes.css" />
+    <Content Include="m\css\components\article.css" />
     <Content Include="m\css\components\compare-bikes.css" />
+    <Content Include="m\css\components\used-swiper.css" />
     <Content Include="m\css\dealerpricequote.css" />
     <Content Include="m\css\dealerpricequote-old.css" />
     <Content Include="m\css\dealer\landing.css" />
@@ -2450,7 +2450,6 @@
     <Content Include="m\used\BikesInCity.aspx" />
     <Content Include="m\used\Default.aspx" />
     <Content Include="m\used\Search.aspx" />
-    <Content Include="m\users\Login.aspx" />
     <Content Include="m\videos\video.aspx" />
     <Content Include="m\videos\VideoCategories.aspx" />
     <Content Include="m\videos\default.aspx" />
@@ -2539,11 +2538,14 @@
     <Content Include="src\graybox.js" />
     <Content Include="src\home.js" />
     <Content Include="src\html5.js" />
+    <Content Include="src\imageUpload.js" />
     <Content Include="src\insurance.js" />
     <Content Include="src\jquery-ui-1.10.4.custom.min.js" />
     <!-- <Content Include="src\knockout.js" /> -->
+    <Content Include="src\dropzone.js" />
     <Content Include="src\jquery.floating-social-share.js" />
     <Content Include="src\jquery.floating-social-share.min.js" />
+    <Content Include="src\knockout.validation.js" />
     <Content Include="src\login\login.js" />
     <!-- <Content Include="src\markerwithlabel.js" /> -->
     <Content Include="src\model.js" />
@@ -2565,6 +2567,7 @@
     <Content Include="src\Research\photogallery\jquery.ad-gallery.js" /> -->
     <Content Include="src\Research\write_reviews.js" />
     <Content Include="src\used-landing.js" />
+    <Content Include="src\sell-bike.js" />
     <Content Include="src\used-details.js" />
     <Content Include="src\used-search.js" />
     <Content Include="src\Used\search.js" />
@@ -2657,6 +2660,19 @@
     <Content Include="rewriterules.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="sass\sell-bike.sass" />
+    <None Include="sass\components\_card-header.sass" />
+    <Content Include="sass\components\_variables.sass" />
+    <Content Include="sass\sell-bike\_style.sass" />
+    <Content Include="sass\components\_typography.sass" />
+    <Content Include="sass\components\_select-box.sass" />
+    <Content Include="sass\components\_mixins.sass" />
+    <None Include="sass\components\_box-boundary.sass" />
+    <Content Include="sass\components\_input-box.sass" />
+    <Content Include="sass\sell-bike\_color-box.sass" />
+    <Content Include="sass\components\_textarea-box.sass" />
+    <Content Include="sass\sell-bike\_sidebar-banner.sass" />
+    <Content Include="sass\sell-bike\_calendar.sass" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

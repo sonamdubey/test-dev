@@ -9,6 +9,11 @@ using System.Web.UI.WebControls;
 
 namespace BikWale.Mobile.Users
 {
+    /// <summary>
+    /// Created by: Sangram Nandkhile on 04 Nov 2016
+    /// Desc: Login page for mobile
+    /// </summary>
+
     public class Login : System.Web.UI.Page
     {
         protected Button btnLogin, btnSignup;
@@ -16,34 +21,6 @@ namespace BikWale.Mobile.Users
         protected TextBox txtLoginid, txtPasswd, txtNameSignup, txtEmailSignup, txtMobileSignup, txtRegPasswdSignup;
         protected HiddenField hdnAuthData;
         bool logout = false;
-
-        private string redirectUrl = "/";
-
-        private string header = "Registered Members : Please Login Here";
-        private bool _showFooter = true;
-
-        public bool ShowFooter
-        {
-            get { return _showFooter; }
-            set { _showFooter = value; }
-        }
-
-        public string RedirectUrl
-        {
-            get { return redirectUrl; }
-            set { redirectUrl = value; }
-        }
-
-        public string EmailId
-        {
-            set { txtLoginid.Text = value; }
-        }
-
-        public string Header
-        {
-            get { return header; }
-            set { header = value; }
-        }
 
         protected override void OnInit(EventArgs e)
         {
@@ -54,28 +31,26 @@ namespace BikWale.Mobile.Users
 
         private void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (Request["logout"] != null && Request.QueryString["logout"] == "logout")
             {
-                if (Request["logout"] != null && Request.QueryString["logout"] == "logout")
-                {
-                    logout = true;
-                }
-
-                if (logout == true)
-                {
-                    CurrentUser.EndSession();
-
-                    HttpCookie rememberMe = Request.Cookies.Get("RememberMe");
-
-                    if (rememberMe != null)
-                    {
-                        rememberMe.Expires = DateTime.Now.AddDays(-1);
-                        Response.Cookies.Add(rememberMe);
-                    }
-
-                    RedirectPath();
-                }
+                logout = true;
             }
+
+            if (logout == true)
+            {
+                CurrentUser.EndSession();
+
+                HttpCookie rememberMe = Request.Cookies.Get("RememberMe");
+
+                if (rememberMe != null)
+                {
+                    rememberMe.Expires = DateTime.Now.AddDays(-1);
+                    Response.Cookies.Add(rememberMe);
+                }
+
+                RedirectPath();
+            }
+
         }
 
         private void LoginUser(object sender, EventArgs e)
@@ -157,7 +132,7 @@ namespace BikWale.Mobile.Users
         }
 
         /// <summary>
-        /// 
+        /// Creates authenticate Coockie
         /// </summary>
         /// <param name="authTicket"></param>
         /// <param name="rememberMe"></param>
@@ -181,7 +156,7 @@ namespace BikWale.Mobile.Users
         }
 
         /// <summary>
-        /// 
+        /// Desc: redirects users to return url
         /// </summary>
         private void RedirectPath()
         {
@@ -208,31 +183,6 @@ namespace BikWale.Mobile.Users
                 Response.Redirect(CommonOpn.AppPath + "MyBikeWale/");
             }
 
-            // Commenting this code as we do not wish redirect users to any other pages apart from mybikewale
-
-            //if (!String.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
-            //{
-            //    string returnUrl = Request.QueryString["ReturnUrl"];
-            //    if (!string.IsNullOrEmpty(returnUrl))
-            //        Response.Redirect(returnUrl, false);
-            //    else
-            //        Response.Redirect("/", false);
-
-            //    HttpContext.Current.ApplicationInstance.CompleteRequest();
-            //}
-            //else if (RedirectUrl != "")
-            //{
-            //    if (!string.IsNullOrEmpty(RedirectUrl))
-            //    {
-            //        Response.Redirect(RedirectUrl, false);
-            //    }
-            //    else
-            //    {
-            //        Response.Redirect("/", false);
-            //    }
-
-            //    HttpContext.Current.ApplicationInstance.CompleteRequest();
-            //}
         }
     }
 }

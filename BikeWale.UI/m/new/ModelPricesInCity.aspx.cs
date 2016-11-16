@@ -374,16 +374,16 @@ namespace Bikewale.Mobile.New
 
         private void BindAlternativeBikeControl()
         {
-            ctrlAlternateBikes.TopCount = 6;
+            ctrlAlternateBikes.TopCount = 9;
             ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_PriceInCity_AlternateBikes;
             ctrlAlternateBikes.WidgetTitle = bikeName;
             ctrlAlternateBikes.modelName = modelName;
             ctrlAlternateBikes.IsPriceInCity = true;
             ctrlAlternateBikes.CityName = cityName;
-            ctrlAlternateBikes.CityId = (int)cityId;
+            ctrlAlternateBikes.CityId = cityId;
 
             if (firstVersion != null)
-                ctrlAlternateBikes.VersionId = (int)firstVersion.VersionId;
+                ctrlAlternateBikes.VersionId = firstVersion.VersionId;
         }
 
         public void BindDescription()
@@ -399,7 +399,7 @@ namespace Bikewale.Mobile.New
             string multiColour = ".";
 
             if (colourCount > 1)
-                multiColour = string.Format(" and {0} colours.", colourCount);
+                multiColour = string.Format(" and {0} colors.", colourCount);
             else if (colourCount == 1)
                 multiColour = string.Format(" and 1 colour.");
 

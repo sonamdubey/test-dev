@@ -14,7 +14,7 @@
                                     <img class="swiper-lazy" src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath1").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl1").ToString(),Bikewale.Utility.ImageSize._310x174) %>" alt="<%# DataBinder.Eval(Container.DataItem,"Model1").ToString() %>" title="<%# DataBinder.Eval(Container.DataItem,"Model1").ToString() %>" />
                                     <span class="swiper-lazy-preloader"></span>
                                 </div>
-                                <p class="font11 text-light-grey margin-bottom5">Ex-showroom ,<%=Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
+                                <p class="font11 text-light-grey margin-bottom5">Ex-showroom ,<%# DataBinder.Eval(Container.DataItem, "City1").ToString() %></p>
                                 <span class="bwmsprite inr-dark-md-icon"></span>&nbsp;<span class="font16 text-default text-bold"><%# DataBinder.Eval(Container.DataItem, "Price1").ToString() %></span>
                             </div>
                             <div class="grid-6">
@@ -22,7 +22,7 @@
                                     <img class="swiper-lazy" src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath2").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl2").ToString(),Bikewale.Utility.ImageSize._310x174) %>" alt="<%# DataBinder.Eval(Container.DataItem,"Model2").ToString() %>" title="<%# DataBinder.Eval(Container.DataItem,"Model2").ToString() %>" />
                                     <span class="swiper-lazy-preloader"></span>
                                 </div>
-                                <p class="font11 text-light-grey margin-bottom5">Ex-showroom ,<%=Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
+                                <p class="font11 text-light-grey margin-bottom5">Ex-showroom ,<%# DataBinder.Eval(Container.DataItem, "City2").ToString() %></p>
                                 <span class="bwmsprite inr-dark-md-icon"></span>&nbsp;<span class="font16 text-default text-bold"><%# DataBinder.Eval(Container.DataItem, "Price2").ToString() %></span>
                             </div>
                             <div class="clear"></div>

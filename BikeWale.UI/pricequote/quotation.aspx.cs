@@ -31,11 +31,11 @@ namespace Bikewale.PriceQuote
     {
         //protected Repeater rptAllVersions;
         protected UpcomingBikes_new ctrlUpcomingBikes;
-        protected AlternativeBikes ctrlAlternativeBikes;
+        protected NewAlternativeBikes ctrlAlternativeBikes;
         protected LeadCaptureControl ctrlLeadCapture;
         protected HtmlGenericControl divAllVersions, div_ShowPQ, divUserReviews;
 
-        protected string city = string.Empty, priceQuoteId = string.Empty, make = string.Empty, imgPath = String.Empty, dealerId = string.Empty;
+        protected string city = string.Empty, priceQuoteId = string.Empty, make = string.Empty, imgPath = String.Empty, dealerId = string.Empty, modelName = string.Empty;
         protected uint cityId = 0, areaId = 0;
         protected MakeModelVersion mmv = null;
         protected BikeQuotationEntity objQuotation = null;
@@ -124,7 +124,7 @@ namespace Bikewale.PriceQuote
 
 
                     BindVersion(mmv.ModelId);
-
+                    modelName = mmv.Model;
                     BindAlternativeBikeControl(Convert.ToString(PriceQuoteQueryString.VersionId));
 
                     //To get Upcoming Bike List Details 
@@ -158,7 +158,7 @@ namespace Bikewale.PriceQuote
             try
             {
                 objQuotation = objPriceQuote.GetPriceQuoteById(Convert.ToUInt64(priceQuoteId), LeadSourceEnum.DPQ_Desktop);
-                if(objQuotation!=null)
+                if (objQuotation != null)
                     objQuotation.ManufacturerAd = Format.FormatManufacturerAd(objQuotation.ManufacturerAd, objQuotation.CampaignId, objQuotation.ManufacturerName, objQuotation.MaskingNumber, Convert.ToString(objQuotation.ManufacturerId), objQuotation.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objQuotation.MaskingNumber) ? "hide" : string.Empty);
 
             }
@@ -296,12 +296,14 @@ namespace Bikewale.PriceQuote
 
         private void BindAlternativeBikeControl(String versionId)
         {
-            ctrlAlternativeBikes.TopCount = 6;
+            ctrlAlternativeBikes.TopCount = 9;
 
             if (!String.IsNullOrEmpty(versionId) && versionId != "0")
             {
-                ctrlAlternativeBikes.VersionId = Convert.ToInt32(versionId);
+                ctrlAlternativeBikes.VersionId = Convert.ToUInt32(versionId);
                 ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_PQ_Alternative;
+                ctrlAlternativeBikes.cityId = cityId;
+                ctrlAlternativeBikes.model = modelName;
             }
         }
     }   // End of class

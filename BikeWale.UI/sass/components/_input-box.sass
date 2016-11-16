@@ -1,0 +1,74 @@
+﻿input[type="text"]:focus,
+input[type="number"]:focus
+    outline: none
+    box-shadow: none
+
+.input-box
+	height: 60px
+	text-align: left
+
+	input
+		width: 100%
+		display: block
+		padding: 7px 0
+		border-bottom: 1px solid $text-light
+		font-size: $font-size-medium
+		font-weight: $font-bold
+		color: $text-primary
+
+	label
+		position: absolute
+		top: 4px
+		left: 0
+		user-select: none
+		font-size: $font-size-medium
+		color: $text-light
+		cursor: text
+		@include transition(0.2s, ease, all)
+
+.input-number-box
+	input
+		padding-left: 30px
+
+	.input-number-prefix
+		display: none
+		font-size: $font-size-medium
+		position: absolute
+		top: 4px
+		font-weight: $font-bold
+		color: $text-light
+
+	.input-number-label
+		position: relative
+		top: 4px
+		color: $text-x-light
+
+// on focus
+.input-box input:focus ~ label
+	top: -16px
+	font-size: 12px
+
+.input-box input:focus ~ .input-number-prefix
+	display: inline-block
+
+.input-box.not-empty
+	label
+		top: -16px
+		font-size: $font-size-small
+
+.input-box.input-number-box input:focus ~ .input-number-prefix,
+.input-box.input-number-box.not-empty .input-number-prefix
+    display: inline-block
+
+.input-box input:focus ~ .boundary:before,
+.input-box input:focus ~ .boundary:after
+    width: 50%
+
+/* type number */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button
+    -webkit-appearance: none
+    margin: 0
+
+input[type="number"]
+    -moz-appearance: textfield

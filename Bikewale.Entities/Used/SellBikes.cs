@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 namespace Bikewale.Entities.Used
 {
     /// <summary>
@@ -24,10 +24,12 @@ namespace Bikewale.Entities.Used
         public uint ColorId { get; set; }
         public ushort SourceId { get; set; }
         public string ClientIp { get; set; }
+        public string PageUrl { get; set; }
         public SellAdStatus Status { get; set; }
         public SellerEntity Seller { get; set; }
         public SellBikeAdOtherInformation OtherInfo { get; set; }
         public ushort PhotoCount { get; set; }
+        public IEnumerable<BikePhoto> Photos { get; set; }
         public bool IsBikeDataEdited { get; set; }
     }
     /// <summary>
@@ -45,9 +47,17 @@ namespace Bikewale.Entities.Used
     /// <summary>
     /// Created by  :   Sumit Kate on 14 COt 2016
     /// Description :   Seller Entity
+    /// Modified By : Aditi Srivastava on 10 Nov 2016
+    /// Description : Added inquiryid
+    /// /// Modified By : Aditi Srivastava on 11 Nov 2016
+    /// Description : Added isEdited check
+    /// 
     /// </summary>
     public class SellerEntity : Customer.CustomerEntityBase
     {
         public SellerType SellerType { get; set; }
+        public string Otp { get; set; }
+        public uint InquiryId { get; set; }
+        public bool IsEdit { get; set; }
     }
 }

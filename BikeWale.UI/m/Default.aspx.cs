@@ -14,13 +14,21 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile
 {
+    /// <summary>
+    /// Created By : Sushil Kumar on 28th Oct 2016
+    /// Description : Added new launched,upcoming and poular bikes widget 
+    /// </summary>
     public class Default : System.Web.UI.Page
     {
-        protected NewsWidget ctrlNews;
-        protected ExpertReviewsWidget ctrlExpertReviews;
-        protected VideosWidget ctrlVideos;
+        protected NewNewsWidget ctrlNews;
+        protected NewExpertReviewsWidget ctrlExpertReviews;
+        protected NewVideosWidget ctrlVideos;
         protected CompareBikesMin ctrlCompareBikes;
         protected MOnRoadPricequote MOnRoadPricequote;
+        protected MUpcomingBikes mctrlUpcomingBikes;
+        protected MNewLaunchedBikes mctrlNewLaunchedBikes;
+        protected MMostPopularBikes mctrlMostPopularBikes;
+        protected PopularUsedBikes ctrlPopularUsedBikes;
         protected short reviewTabsCnt = 0;
         //Variable to Assing ACTIVE .css class
         protected bool isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
@@ -41,13 +49,49 @@ namespace Bikewale.Mobile
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            BindBikesWidgets();
+
             ctrlNews.TotalRecords = 3;
+            ctrlNews.ShowWidgetTitle = false;
             ctrlExpertReviews.TotalRecords = 3;
+            ctrlExpertReviews.ShowWidgetTitle = false;
             ctrlVideos.TotalRecords = 3;
+            ctrlVideos.ShowWidgetTitle = false;
             ctrlCompareBikes.TotalRecords = 4;
             MOnRoadPricequote.PQSourceId = (int)PQSourceEnum.Mobile_HP_PQ_Widget;
 
             BindBrandsRepeaters();
+
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 28th Oct 2016
+        /// Description : Added new launched,upcoming and poular bikes binding 
+        /// </summary>
+        private void BindBikesWidgets()
+        {
+            try
+            {
+                //to get Most Popular Bikes
+                mctrlMostPopularBikes.totalCount = 9;
+                mctrlMostPopularBikes.PQSourceId = (int)PQSourceEnum.Mobile_HP_MostPopular;
+
+                //To get Upcoming Bike List Details 
+                mctrlNewLaunchedBikes.pageSize = 9;
+                mctrlNewLaunchedBikes.curPageNo = null;
+                mctrlNewLaunchedBikes.PQSourceId = (int)PQSourceEnum.Mobile_HP_NewLaunches;
+
+                //To get Upcoming Bike List Details 
+                mctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                mctrlUpcomingBikes.pageSize = 9;
+
+                ctrlPopularUsedBikes.TotalRecords = 6;
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindBikesWidgets");
+                objErr.SendMail();
+            }
         }
 
         /// <summary>

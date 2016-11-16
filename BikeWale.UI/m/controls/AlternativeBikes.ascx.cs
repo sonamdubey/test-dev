@@ -15,10 +15,10 @@ namespace Bikewale.Mobile.Controls
     public class AlternativeBikes : System.Web.UI.UserControl
     {
         public Repeater rptAlternateBikes;
-        public int VersionId { get; set; }
+        public uint VersionId { get; set; }
 
-        private int _topCount = 6;
-        public int TopCount
+        private ushort _topCount = 6;
+        public ushort TopCount
         {
             get { return _topCount; }
             set { _topCount = value; }

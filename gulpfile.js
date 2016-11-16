@@ -1,13 +1,16 @@
 var gulp = require('gulp'),
   cleanCss = require('gulp-clean-css'),
   uglify = require('gulp-uglify'),
-  del = require('del');
+  del = require('del'),
+  sass = require('gulp-sass'),
+  watch = require('gulp-watch');
 
 var paths = {
     bwCSS: 'BikeWale.UI/css/**',
     bwJS: 'BikeWale.UI/src/**',
     bwmCSS: 'BikeWale.UI/m/css/**',
     bwmJS: 'BikeWale.UI/m/src/**',
+    bwSASS: 'BikeWale.UI/sass/**',
     destinationD_CSS: 'BikeWale.UI/min/css',
     destinationD_JS: 'BikeWale.UI/min/src',
     destinationM_CSS: 'BikeWale.UI/min/m/css',
@@ -46,4 +49,18 @@ gulp.task('minify-bwm-js', ['clean'], function() {
         .pipe(gulp.dest(paths.destinationM_JS));
 });
 
+gulp.task('sass', function () {
+    return gulp.src(paths.bwSASS, { base: 'BikeWale.UI/sass/' })
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest(paths.destinationD_CSS));
+});
+
+//Watch task
+gulp.task('watch-sass', function () {
+    gulp.watch(paths.bwSASS, ['sass']);
+});
+
 gulp.task('default', ['clean', 'minify-bw-css', 'minify-bw-js', 'minify-bwm-css', 'minify-bwm-js']);
+
+
+gulp.task('sell-form', ['sass']);

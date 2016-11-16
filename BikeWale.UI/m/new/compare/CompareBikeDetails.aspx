@@ -6,7 +6,7 @@
     {
         title = "Compare " + bikeDetails.Rows[0]["Make"] + " " + bikeDetails.Rows[0]["Model"] + " vs " + bikeDetails.Rows[1]["Make"] + " " + bikeDetails.Rows[1]["Model"] + " - BikeWale";
         keywords = "bike compare, compare bike, compare bikes, bike comparison, bike comparison india";
-        description = "Compare " + bikeDetails.Rows[0]["Make"] + " " + bikeDetails.Rows[0]["Model"] + " and " + bikeDetails.Rows[1]["Make"] + " " + bikeDetails.Rows[1]["Model"] + " at Bikewale. Compare Price, Mileage, Engine Power, Space, Features, Specifications, Colours and much more.";
+        description = "Compare " + bikeDetails.Rows[0]["Make"] + " " + bikeDetails.Rows[0]["Model"] + " and " + bikeDetails.Rows[1]["Make"] + " " + bikeDetails.Rows[1]["Model"] + " at Bikewale. Compare Price, Mileage, Engine Power, Space, Features, Specifications, Colors and much more.";
         canonical = "http://www.bikewale.com/comparebikes/" + bikeDetails.Rows[0]["MakeMaskingName"] + "-" + bikeDetails.Rows[0]["ModelMaskingName"] + "-vs-" + bikeDetails.Rows[1]["MakeMaskingName"] + "-" + bikeDetails.Rows[1]["ModelMaskingName"];
         AdPath = "/1017752/Bikewale_Mobile_NewBikes";
         AdId = "1398766302464";

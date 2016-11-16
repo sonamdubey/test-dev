@@ -522,5 +522,102 @@ namespace Bikewale.Notifications
                 objErr.SendMail();
             }
         }
+        /// <summary>
+        /// Created By  : Aditi Srivastava on 28 Oct 2016
+        /// Description : Send SMS to seller on approval of used bike listing
+        /// </summary>
+        public void ApprovalUsedSellListingSMS(EnumSMSServiceType smsType, string number, string profileId,string customerName, string pageurl)
+        {
+            string message=String.Format("Hi {0}, your bike listing (profile id - {1}) has been verified and approved on BikeWale. We wish you good luck with your listing.",customerName,profileId.ToUpper());
+             try
+            {
+                SMSCommon sc = new SMSCommon();
+                 
+                sc.ProcessSMS(number, message, smsType, pageurl);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.ApprovalUsedSellListingSMSToSeller({0},{1},{2},{3})", number, message, pageurl, profileId));
+                objErr.SendMail();
+            }
+        }
+        /// <summary>
+        /// Created By  : Aditi Srivastava on 28 Oct 2016
+        /// Description : Send SMS to seller on rejection of used bike listing
+        /// </summary>
+        public void RejectionUsedSellListingSMS(EnumSMSServiceType smsType, string number, string profileId, string pageurl)
+        {
+            string message = String.Format("Your bike listing (profile id - {0}) has not been approved on BikeWale. Listing price or photos could be an issue. Please re-submit it with correct info.", profileId.ToUpper());
+            try
+            {
+                SMSCommon sc = new SMSCommon();
+
+                sc.ProcessSMS(number, message, smsType, pageurl);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.RejectionUsedSellListingSMS({0},{1},{2},{3})", number, message, pageurl, profileId));
+                objErr.SendMail();
+            }
+        }
+        
+        /// <summary>
+        /// Created by  : Aditi Srivastava on 28 Oct 2016
+        /// Description : Send sms to used bike seller on succesfully listing their bike
+        /// </summary>
+         public void UsedSellSuccessfulListingSMS(EnumSMSServiceType smsType, string number,string profileid,string pageurl)
+        {
+            string message = String.Format("Congratulations! You have successfully posted a bike listing (profile id -{0}) on BikeWale. It will be verified by us before it is made available to buyers.", profileid.ToUpper());
+            try
+            {
+                SMSCommon sc = new SMSCommon();
+                sc.ProcessSMS(number, message, smsType, pageurl);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.UsedSellSuccessfulListingSMS({0},{1},{2})", number, message, pageurl));
+                objErr.SendMail();
+            }
+        }
+        /// <summary>
+         /// Created By  : Aditi Srivastava on 9 Nov 2016
+         /// Description : Send SMS to seller on approval of changes in used bike listing
+         /// </summary>
+         public void ApprovalEditedUsedSellListingSMS(EnumSMSServiceType smsType, string number, string profileId, string customerName, string pageurl)
+         {
+             string message = String.Format("Hi {0}, the changes in your bike listing(profile id - {1}) have been verified and approved on BikeWale. We wish you good luck with your listing.", customerName, profileId.ToUpper());
+             try
+             {
+                 SMSCommon sc = new SMSCommon();
+ 
+                 sc.ProcessSMS(number, message, smsType, pageurl);
+             }
+             catch (Exception ex)
+             {
+                 ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.ApprovalEditedUsedSellListingSMS({0},{1},{2},{3})", number, message, pageurl, profileId));
+                 objErr.SendMail();
+             }
+         }
+
+         /// <summary>
+         /// Created By  : Aditi Srivastava on 14 Nov 2016
+         /// Description : Send SMS to seller on rejection of changes in used bike listing
+         /// </summary>
+         public void RejectionEditedUsedSellListingSMS(EnumSMSServiceType smsType, string number, string profileId, string customerName, string pageurl)
+         {
+             string message = String.Format("Hi {0}, the changes to your bike listing(profile id - {1}) have not been approved on BikeWale. Listing price or photos could be an issue. Please re-submit it with correct info.", customerName, profileId.ToUpper());
+             try
+             {
+                 SMSCommon sc = new SMSCommon();
+
+                 sc.ProcessSMS(number, message, smsType, pageurl);
+             }
+             catch (Exception ex)
+             {
+                 ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.RejectionEditedUsedSellListingSMS({0},{1},{2},{3})", number, message, pageurl, profileId));
+                 objErr.SendMail();
+             }
+         }
+        
     }   //End of class
 }   //End of namespace

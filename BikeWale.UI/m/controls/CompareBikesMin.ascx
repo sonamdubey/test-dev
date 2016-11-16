@@ -1,8 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.CompareBikesMin" %>
 
 <div class="container">
-    <div class="grid-12 bg-white padding-bottom20">
-        <h2 class="font18 text-center margin-top20 margin-bottom20">Compare bikes</h2>
+    <h2 class="font18 text-center margin-top20 margin-bottom10">Compare bikes</h2>
+    <div class="grid-12 content-box-shadow padding-top20 padding-bottom10">
         <a href="<%= FormatComparisonUrl(TopRecord.MakeMaskingName1,TopRecord.ModelMaskingName1,TopRecord.MakeMaskingName2,TopRecord.ModelMaskingName2,TopRecord.VersionId1,TopRecord.VersionId2) %>" title="Compare <%= FormatBikeCompareAnchorText(TopRecord.Bike1,TopRecord.Bike2) %>" id="main-compare-bikes-target">
             <div class="grid-6">
                 <div class="comparison-image">
@@ -24,7 +24,7 @@
                 <h3 class="font14 text-black margin-bottom5"><%= TopRecord.Bike2 %></h3>
                 <div class="text-default text-bold">
                     <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(TopRecord.Price2)) %></span>
-                     <% if(TopRecord.Price2 > 0) { %>
+                        <% if(TopRecord.Price2 > 0) { %>
                     <span class="font12">&nbsp;onwards</span>
                     <% } %>
                 </div>
