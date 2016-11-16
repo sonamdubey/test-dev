@@ -6,6 +6,7 @@ using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
+using System.Web;
 namespace Bikewale.BAL.ServiceCenter
 {
     /// <summary>
@@ -17,13 +18,13 @@ namespace Bikewale.BAL.ServiceCenter
     public class ServiceCenter<T, U> : IServiceCenter where T : ServiceCenterLocatorList, new()
     {
         private readonly IServiceCenterCacheRepository _objServiceCenter = null;
+        private readonly IServiceCenterRepository<ServiceCenterLocatorList, int> _objSMSData = null;
 
-
-        public ServiceCenter(IServiceCenterCacheRepository ObjServiceCenter)
+        public ServiceCenter(IServiceCenterCacheRepository ObjServiceCenter, IServiceCenterRepository<ServiceCenterLocatorList, int> ObjSMSData)
         {
             _objServiceCenter = ObjServiceCenter;
+            _objSMSData = ObjSMSData;
         }
-
 
         /// <summary>
         /// Created By : Sajal Gupta on 07/11/2016
@@ -98,6 +99,38 @@ namespace Bikewale.BAL.ServiceCenter
         public IEnumerable<CityEntityBase> GetServiceCenterCities(uint makeid)
         {
             return _objServiceCenter.GetServiceCenterCities(makeid);
+        }
+
+        /// <summary>
+        /// Created By : Sajal Gupta on 16/11/2016
+        /// Description: BAL layer Function for sending service center sms data from DAL.
+        /// </summary>
+        public int GetServiceCenterSMSData(uint serviceCenterId, string mobileNumber)
+        {
+            try
+            {
+                ServiceCenterSMSData objSMSData = _objSMSData.GetServiceCenterSMSData(serviceCenterId, mobileNumber);
+
+                if (objSMSData != null)
+                {
+                    if (objSMSData.SMSStatus == EnumServiceCenterSMSStatus.Success)
+                    {
+                        SMSTypes newSms = new SMSTypes();
+                        newSms.ServiceCenterDetailsSMS(mobileNumber, objSMSData.Name, objSMSData.Address, objSMSData.Phone, objSMSData.CityName, HttpContext.Current.Request.ServerVariables["URL"]);
+                        return 1;
+                    }
+                    else if (objSMSData.SMSStatus == EnumServiceCenterSMSStatus.Daily_Limit_Exceeded)
+                    {
+                        return 2;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Error in ServiceCenters.GetServiceCenterSMSData for parameters serviceCenterId : {0}, mobileNumber : {1}", serviceCenterId, mobileNumber));
+                objErr.SendMail();
+            }
+            return 0;
         }
 
     }

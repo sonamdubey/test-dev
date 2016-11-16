@@ -50,5 +50,43 @@ namespace Bikewale.Service.Controllers.ServiceCenter
             }
             return NotFound();
         }
+
+        /// <summary>
+        /// Created By:- Sajal Gupta on 16-11-2016
+        /// Summary :- For service center locator sms data
+        /// </summary>
+        [HttpPost, Route("api/servicecenter/{id}/details/sms/")]
+        public IHttpActionResult GetServiceCenterSMSData(uint id, string mobile)
+        {
+            if (id > 0)
+            {
+                try
+                {
+                    int status = _objServiceCenter.GetServiceCenterSMSData(id, mobile);
+                    if (status == 1)
+                    {
+                        return Ok("Success");
+                    }
+                    else if (status == 2)
+                    {
+                        return Ok("Daily Limit Exceeded");
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Service.Controllers.City.SeriveCenterController.GetServiceCenterSMSData {0},{1}", id, mobile));
+                    objErr.SendMail();
+                    return InternalServerError();
+                }
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
     }
 }
