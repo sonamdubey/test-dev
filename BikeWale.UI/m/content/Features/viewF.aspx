@@ -2,7 +2,7 @@
 <%	
     title = pageTitle + " - Bikewale ";
     keywords = "features, stories, travelogues, specials, drives";
-    description = "";
+    description = string.Format("Read about {0}. Read through more bike care tips to learn more about your bike maintenance.", pageTitle);
     canonical = "http://www.bikewale.com" + url;
     AdPath = "/1017752/Bikewale_Mobile_NewBikes";
     AdId = "1398766302464";
