@@ -1167,6 +1167,22 @@
       <DependentUpon>BookingListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="service\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="service\ServiceCenterInCountry.aspx.cs">
+      <DependentUpon>ServiceCenterInCountry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="service\ServiceCenterDetails.aspx.cs">
+      <DependentUpon>ServiceCenterDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="service\ServiceCenterList.aspx.cs">
+      <DependentUpon>ServiceCenterList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="new\dealersincountry.aspx.cs">
       <DependentUpon>dealersincountry.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1864,6 +1880,7 @@
     <Content Include="css\cancellation.css" />
     <Content Include="css\chosen.min.css" />
     <Content Include="css\components\article-next-prev.css" />
+    <Content Include="css\components\card.css" />
     <Content Include="css\components\article.css" />
     <Content Include="css\components\compare-bikes.css" />
     <Content Include="css\components\pagination.css" />
@@ -1910,6 +1927,10 @@
     <Content Include="css\rsa.css" />
     <Content Include="css\new\bookinglisting.css" />
     <Content Include="css\search.css" />
+    <Content Include="css\service\details.css" />
+    <Content Include="css\service\landing.css" />
+    <Content Include="css\service\listing.css" />
+    <Content Include="css\service\location.css" />
     <Content Include="css\slideshow.css" />
     <Content Include="css\specsandfeature.css" />
     <Content Include="css\style.css" />
@@ -2529,7 +2550,11 @@
     <Content Include="m\videos\default.aspx" />
     <Content Include="m\videos\VideoMakeModel.aspx" />
     <Content Include="News\RepeaterPagerNews.ascx" />
+    <Content Include="service\Default.aspx" />
+    <Content Include="service\ServiceCenterInCountry.aspx" />
+    <Content Include="service\ServiceCenterDetails.aspx" />
     <Content Include="new\BikeDealerDetails.aspx" />
+    <Content Include="service\ServiceCenterList.aspx" />
     <Content Include="new\dealersincountry.aspx" />
     <Content Include="new\browsenewbikedealerdetails.aspx" />
     <Content Include="new\dealersinstate.aspx" />
@@ -2558,6 +2583,9 @@
     <Content Include="src\dealerpricequote.js" />
     <Content Include="src\dealersbylocation.js" />
     <Content Include="src\dealer\details.js" />
+    <Content Include="src\service\location.js" />
+    <Content Include="src\service\details.js" />
+    <Content Include="src\service\listing.js" />
     <Content Include="src\dealer\location.js" />
     <Content Include="src\dealer\listing.js" />
     <Content Include="src\frameworks.js" />
@@ -2750,6 +2778,25 @@
     <Content Include="m\sass\modules\_modal.sass" />
     <Content Include="m\sass\service\landing.sass" />
     <Content Include="m\sass\service\_landing-style.sass" />
+    <Content Include="sass\components\_card-header.sass" />
+    <Content Include="sass\components\_mixins.sass" />
+    <Content Include="sass\components\_typography.sass" />
+    <Content Include="sass\service\listing.sass" />
+    <Content Include="sass\service\_listing-style.sass" />
+    <Content Include="sass\components\_variables.sass" />
+    <Content Include="sass\modules\_section.sass" />
+    <Content Include="sass\modules\_bike-tips.sass" />
+    <Content Include="sass\modules\_card.sass" />
+    <Content Include="sass\service\_details-style.sass" />
+    <Content Include="sass\service\details.sass" />
+    <Content Include="sass\components\_select-box.sass" />
+    <Content Include="sass\service\location.sass" />
+    <Content Include="sass\service\_location-style.sass" />
+    <Content Include="sass\modules\_article.sass" />
+    <Content Include="sass\modules\_accordion.sass" />
+    <Content Include="sass\service\landing.sass" />
+    <Content Include="sass\service\_landing-style.sass" />
+    <Content Include="sass\modules\_brand-logo.sass" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
