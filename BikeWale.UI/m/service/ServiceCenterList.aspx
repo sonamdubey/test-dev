@@ -62,27 +62,27 @@
                                         <span class="bwmsprite dealership-loc-icon vertical-top"></span>
                                         <span class="vertical-top details-column text-light-grey"> <%= serviceCenter.Address %></span>
                                     </p>
-                                    <% } %>
-                                    <% if(!(String.IsNullOrEmpty(serviceCenter.Mobile)) || !(String.IsNullOrEmpty(serviceCenter.Phone))) {  %>
-                                    <p>
-                                        <span class="vertical-top bwmsprite tel-sm-grey-icon"></span>
-                                        <span class="vertical-top details-column text-default text-bold">
-                                            <% if(!(String.IsNullOrEmpty(serviceCenter.Mobile))) { %>
-                                            <%= serviceCenter.Mobile.Trim()%><% }
-                                               if(!(String.IsNullOrEmpty(serviceCenter.Mobile)) && !(String.IsNullOrEmpty(serviceCenter.Phone))){%>, <%}
-                                            if(!(String.IsNullOrEmpty(serviceCenter.Phone))) { %>
-                                            <%= serviceCenter.Phone.Trim() %>
-                                            <% } %>
-                                        </span>
-                                    </p>
-                                    <% } %>
                                 </a>
-                                <% if(!(String.IsNullOrEmpty(serviceCenter.Phone))) { %>
+                                    <% } %>
                                 <% if(!serviceCenter.Phone.Contains(",")) { %>
-                                <a href="tel:<%= serviceCenter.Phone.Trim()%>" class="btn btn-inv-green service-btn"><span class="bwmsprite tel-green-icon margin-right10"></span>Call service centre</a>
-                                <% } else { %>
-                                <button type="button" class="btn btn-inv-green service-btn contact-service-btn" data-service-name="<%= serviceCenter.Name %>" data-service-number="<%= serviceCenter.Phone.Trim()%>"><span class="bwmsprite tel-green-icon margin-right10"></span>Call service centre</button>
+                                    <% if(!(String.IsNullOrEmpty(serviceCenter.Phone))) {  %>
+                                    <span class="vertical-top bwmsprite tel-sm-grey-icon"></span>
+                                    <a href="tel:<%= serviceCenter.Phone.Trim()%>" class="vertical-top details-column text-bold text-default"><%= serviceCenter.Phone.Trim() %></a>
                                 <% } %>
+                                <% } else { %>
+                            <a href="javascript:void(0)" class="text-default text-bold maskingNumber contact-service-btn" data-service-name="<%= serviceCenter.Name %>" data-service-number="<%= serviceCenter.Phone %>" rel="nofollow">
+                                <span class="bwmsprite tel-sm-grey-icon vertical-top"></span>
+                                <span class="vertical-top text-bold details-column"><%=serviceCenter.Phone %></span>
+                            </a>
+                        <% } %>
+                                <% if(!(String.IsNullOrEmpty(serviceCenter.Phone))) { %>
+                                <div class="margin-top15">
+                                    <% if(!serviceCenter.Phone.Contains(",")) { %>
+                                    <a href="tel:<%= serviceCenter.Phone.Trim()%>" class="btn btn-inv-green service-btn"><span class="bwmsprite tel-green-icon margin-right10"></span>Call service centre</a>
+                                <% } else { %>
+                                    <button type="button" class="btn btn-inv-green service-btn contact-service-btn" data-service-name="<%= serviceCenter.Name %>" data-service-number="<%= serviceCenter.Phone.Trim()%>"><span class="bwmsprite tel-green-icon margin-right10"></span>Call service centre</button>
+                                    <% } %>
+                                </div>
                                 <% } %>
                             </li>
                     <% } %>
@@ -112,7 +112,7 @@
                 <h2 class="padding-top15 padding-right20 padding-left20">Tips from BikeWale experts to keep your bike in good shape!</h2>
                 <ul id="bw-tips-list">
                     <li>
-                        <a href="/bike-care/" title="Bike Care - Maintenance tips">
+                        <a href="/m/bike-care/" target="_blank" title="Bike Care - Maintenance tips">
                             <span class="service-sprite care-icon"></span>
                             <h3 class="text-unbold margin-left10 vertical-middle">Bike Care - Maintenance tips</h3>
                             <span class="bwmsprite right-arrow"></span>
@@ -129,18 +129,18 @@
             </div>
         </section>
 
+
+        <% if (ctrlDealerCard.showWidget) { %>
         <section>
             <div class="container bg-white box-shadow card-bottom-margin">
-                <!-- dealer card -->
-                <div class="margin-left20 margin-right20 padding-top15">
+                <div class="margin-right20 margin-left20 padding-top15">
                     <h2 class="margin-bottom5">Looking to buy a new <%= makeName %> bike in <%=cityName %>?</h2>
                     <p>Check out authorised <%= makeName %> dealers in <%=cityName %></p>
                 </div>
-                <% if (ctrlDealerCard.showWidget) { %>
-                    <BW:DealerCard runat="server" ID="ctrlDealerCard" />
-                <% }  %>
-            </div>
+                <BW:DealerCard runat="server" ID="ctrlDealerCard" />
+            </div>            
         </section>
+         <% }  %>
 
         <section>
             <div class="container margin-bottom20 font12 padding-top5 padding-right20 padding-left20">

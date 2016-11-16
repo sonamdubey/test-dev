@@ -1,20 +1,25 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
+using Bikewale.Common;
+using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
-using Microsoft.Practices.Unity;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.BAL.BikeData;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Cache.Core;
-using Bikewale.Cache.BikeData;
-using Bikewale.DAL.BikeData;
 
 namespace Bikewale.BindViewModels.Controls
 {
+    /// <summary>
+    /// Modified By :  Aditi Srivastava on 10 Nov 2016
+    /// Description:  Added function to fetch upcoming bikes
+    /// </summary>
+    /// <returns></returns>
     public class BindUpcomingBikesControl
     {
 
@@ -24,7 +29,14 @@ namespace Bikewale.BindViewModels.Controls
         public int? ModelId { get; set; }
         public int? curPageNo { get; set; }
         public int FetchedRecordsCount { get; set; }
+        public IEnumerable<UpcomingBikeEntity> objUpcomingBikes = null;
+        private const ushort TotalWidgetItems = 9;
 
+        /// <summary>
+        /// Modified By : Sushil Kumar on 14th Nov 2016
+        /// Description : Get always 9 records and output total as per requirement.Also make provisions to use bikes object publicy to avoid repeater binding
+        /// </summary>
+        /// <param name="rptr"></param>
         public void BindUpcomingBikes(Repeater rptr)
         {
             FetchedRecordsCount = 0;
@@ -59,19 +71,21 @@ namespace Bikewale.BindViewModels.Controls
 
                     var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
 
-                    objBikeList = objCache.GetUpcomingBikesList(filter, pageSize, MakeId, ModelId, curPageNo);
+                    objBikeList = objCache.GetUpcomingBikesList(filter, TotalWidgetItems, MakeId, ModelId, curPageNo);
 
                 }
 
 
-                if (objBikeList != null)
+                if (objBikeList != null && objBikeList.Count() > 0)
                 {
-                    FetchedRecordsCount = objBikeList.Count();
+                    objUpcomingBikes = objBikeList.Take(pageSize);
+                    FetchedRecordsCount = objUpcomingBikes.Count();
 
-                    if (FetchedRecordsCount > 0)
+                    if (rptr != null)
                     {
                         rptr.DataSource = objBikeList;
                         rptr.DataBind();
+
                     }
                 }
             }
@@ -81,6 +95,7 @@ namespace Bikewale.BindViewModels.Controls
                 objErr.SendMail();
             }
         }
-
     }
+
+
 }

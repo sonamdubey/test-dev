@@ -2,7 +2,7 @@
 <%@ Register TagPrefix="Pager" TagName="Pager" Src="/m/controls/ListPagerControl.ascx" %>
 <% 
 	title = "Features - Stories, Specials & Travelogues - BikeWale";
-	description = "Features section of BikeWale brings specials, stories, travelogues and much more.";
+    description = "Learn about the trending stories related to bike and bike products. Know more about features, do's and dont's of different bike products exclusively on BikeWale";
 	keywords = "features, stories, travelogues, specials, drives.";
 	canonical = "http://www.bikewale.com/features/";
 	relPrevPageUrl = String.IsNullOrEmpty(prevPageUrl) ? "" : "http://www.bikewale.com" + prevPageUrl;

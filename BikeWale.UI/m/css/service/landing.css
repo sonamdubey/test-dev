@@ -12,6 +12,25 @@
   -ms-border-radius: 2px;
   border-radius: 2px; }
 
+.card-header {
+  padding: 15px 20px;
+  -webkit-box-shadow: 0 2px 2px 0 #dcdcdc;
+  -moz-box-shadow: 0 2px 2px 0 #dcdcdc;
+  -ms-box-shadow: 0 2px 2px 0 #dcdcdc;
+  -o-box-shadow: 0 2px 2px 0 #dcdcdc;
+  box-shadow: 0 2px 2px 0 #dcdcdc; }
+
+.card-bottom-margin {
+  margin-bottom: 10px; }
+
+.card-inner-padding {
+  padding: 15px 20px;
+  -webkit-box-shadow: 0 2px 2px 0 #dcdcdc;
+  -moz-box-shadow: 0 2px 2px 0 #dcdcdc;
+  -ms-box-shadow: 0 2px 2px 0 #dcdcdc;
+  -o-box-shadow: 0 2px 2px 0 #dcdcdc;
+  box-shadow: 0 2px 2px 0 #dcdcdc; }
+
 .section-heading {
   text-align: center;
   font-size: 18px;
@@ -19,7 +38,7 @@
   margin-bottom: 10px; }
 
 .locator-landing-banner {
-  background: #8d8c8a url(http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/m/dealer-locator-banner.jpg) no-repeat center bottom;
+  background: #565b5e url(http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/m/bwm-service-banner.jpg) no-repeat center;
   background-size: cover;
   height: 130px;
   padding-top: 25px; }
