@@ -168,6 +168,22 @@
     left: 7px;
 }
 
+/* artcile swiper */
+.article-photos-swiper .swiper-slide {
+    width: 90px !important;
+    height: 50px;
+}
+
+.article-photos-swiper .swiper-slide:first-child {
+    margin-left: 0;
+}
+
+.article-photos-swiper .swiper-slide img {
+    width: 100%;
+    height: 50px;
+    border: 1px solid #e2e2e2;
+}
+
 @media (max-width: 350px) {
     .article-head .article-stats-content {
         width: 87%;
