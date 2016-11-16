@@ -32,7 +32,7 @@ namespace Bikewale.Content
     {
         protected UpcomingBikesMinNew ctrlUpcomingBikes;
         protected Repeater rptPages, rptPageContent;
-        private string _basicId = string.Empty;
+        protected string basicId = string.Empty;
         protected ArticlePageDetails objRoadtest;
         protected StringBuilder _bikeTested;
         protected ArticlePhotoGallery ctrPhotoGallery;
@@ -42,7 +42,7 @@ namespace Bikewale.Content
         private BikeMakeEntityBase _taggedMakeObj;
         private bool _isContentFound = true;
         protected string upcomingBikesLink;
-        protected string articleUrl = string.Empty, articleTitle = string.Empty, basicId = string.Empty, authorName = string.Empty, displayDate = string.Empty;
+        protected string articleUrl = string.Empty, articleTitle = string.Empty, authorName = string.Empty, displayDate = string.Empty;
         protected int makeId;
         protected override void OnInit(EventArgs e)
         {
@@ -70,7 +70,7 @@ namespace Bikewale.Content
             dd.DetectDevice();
 
 
-            if (!ProcessQS())
+            if (ProcessQS())
             {
                 if (!string.IsNullOrEmpty(basicId))
                     GetRoadtestDetails();
@@ -88,14 +88,14 @@ namespace Bikewale.Content
         /// </summary>
         private bool ProcessQS()
         {
+            basicId = Request.QueryString["id"];
+
             if (!String.IsNullOrEmpty(Request.QueryString["id"]) && CommonOpn.CheckId(Request.QueryString["id"]))
             {
-                //id = Request.QueryString["id"].ToString();
-                _basicId = Request.QueryString["id"];
 
-                string basicId = BasicIdMapping.GetCWBasicId(_basicId);
+                string _basicId = BasicIdMapping.GetCWBasicId(basicId);
 
-                if (!_basicId.Equals(basicId))
+                if (!basicId.Equals(_basicId))
                 {
                     // Modified By :Lucky Rathore on 12 July 2016.
                     Form.Action = Request.RawUrl;
@@ -103,9 +103,9 @@ namespace Bikewale.Content
                     var _titleStartIndex = _newUrl.LastIndexOf('/') + 1;
                     var _titleEndIndex = _newUrl.LastIndexOf('-');
                     string _newUrlTitle = _newUrl.Substring(_titleStartIndex, _titleEndIndex - _titleStartIndex + 1);
-                    _newUrl = "/expert-reviews/" + _newUrlTitle + basicId + ".html";
+                    _newUrl = string.Format("/expert-reviews/{0}-{1}.html", _newUrlTitle, _basicId);
                     CommonOpn.RedirectPermanent(_newUrl);
-                    return true;
+                    return false;
                 }
             }
             else
@@ -113,9 +113,10 @@ namespace Bikewale.Content
                 Response.Redirect("/expert-reviews/", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
+                return false;
             }
 
-            return false;
+            return true;
         }
 
         private void GetRoadtestDetails()
@@ -130,7 +131,7 @@ namespace Bikewale.Content
                            .RegisterType<ICacheManager, MemcacheManager>();
                     ICMSCacheContent _objArticles = container.Resolve<ICMSCacheContent>();
 
-                    objRoadtest = _objArticles.GetArticlesDetails(Convert.ToUInt32(_basicId));
+                    objRoadtest = _objArticles.GetArticlesDetails(Convert.ToUInt32(basicId));
 
                     if (objRoadtest != null)
                     {
@@ -180,11 +181,11 @@ namespace Bikewale.Content
                                .RegisterType<ICacheManager, MemcacheManager>();
                     ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-                    IEnumerable<ModelImage> objImg = _cache.GetArticlePhotos(Convert.ToInt32(_basicId));
+                    IEnumerable<ModelImage> objImg = _cache.GetArticlePhotos(Convert.ToInt32(basicId));
 
                     if (objImg != null && objImg.Count() > 0)
                     {
-                        ctrPhotoGallery.BasicId = Convert.ToInt32(_basicId);
+                        ctrPhotoGallery.BasicId = Convert.ToInt32(basicId);
                         ctrPhotoGallery.ModelImageList = objImg;
                         ctrPhotoGallery.BindPhotos();
 
@@ -193,10 +194,10 @@ namespace Bikewale.Content
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.ViewRT.BindGallery");
+                objErr.SendMail();
             }
         }
 

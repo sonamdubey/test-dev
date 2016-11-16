@@ -45,7 +45,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         public NewsDetails()
         {
             CityArea = GlobalCityArea.GetGlobalCityArea();
-            if (!ProcessQueryString() && BasicId > 0)
+            if (ProcessQueryString() && BasicId > 0)
                 GetNewsArticleDetails();
         }
 
@@ -192,14 +192,14 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                         string newUrl = string.Format("/news/{0}-{1}.html", _basicId, request["t"]);
                         Bikewale.Common.CommonOpn.RedirectPermanent(newUrl);
                         IsPermanentRedirect = true;
-                        return true;
+                        return false;
                     }
                     uint.TryParse(_basicId, out BasicId);
                 }
                 else
                 {
                     IsPageNotFound = true;
-                    return true;
+                    return false;
                 }
             }
             catch (Exception ex)
@@ -208,7 +208,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 objErr.SendMail();
             }
 
-            return false;
+            return true;
         }
 
 

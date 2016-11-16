@@ -79,7 +79,7 @@ namespace Bikewale.Content
             dd.DetectDevice();
 
 
-            if (!ProcessQS())
+            if (ProcessQS())
             {
                 if (!String.IsNullOrEmpty(_basicId))
                 {
@@ -97,10 +97,9 @@ namespace Bikewale.Content
         /// </summary>
         private bool ProcessQS()
         {
-            bool isPageRedirect = false;
-            if (Request.QueryString["id"] != null && Request.QueryString["id"].ToString() != "" && CommonOpn.CheckId(Request.QueryString["id"]))
+            _basicId = Request.QueryString["id"];
+            if (!string.IsNullOrEmpty(_basicId) && CommonOpn.CheckId(_basicId))
             {
-                _basicId = Request.QueryString["id"].ToString();
 
                 /** Modified By : Ashwini Todkar on 12 Aug 2014 , add when consuming carwale api
                //Check if basic id exists in mapped carwale basic id log **/
@@ -117,7 +116,7 @@ namespace Bikewale.Content
                     string _newUrlTitle = _newUrl.Substring(_titleStartIndex, _titleEndIndex - _titleStartIndex + 1);
                     _newUrl = _newUrlTitle + _mappedBasicId + "/";
                     CommonOpn.RedirectPermanent(_newUrl);
-                    isPageRedirect = true;
+                    return false;
                 }
             }
             else
@@ -125,9 +124,10 @@ namespace Bikewale.Content
                 Response.Redirect("/pagenotfound.aspx", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
+                return false;
             }
 
-            return isPageRedirect;
+            return true;
         }
 
         /// <summary>
