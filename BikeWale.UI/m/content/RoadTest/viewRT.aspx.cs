@@ -1,5 +1,4 @@
 ﻿using Bikewale.BAL.EditCMS;
-using Bikewale.BAL.GrpcFiles;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
@@ -9,12 +8,10 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Memcache;
-using Grpc.CMS;
 using log4net;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -76,7 +73,7 @@ namespace Bikewale.Content
 
                 string basicId = BasicIdMapping.GetCWBasicId(Request["id"]);
 
-                if (!String.IsNullOrEmpty(basicId))
+                if (!basicId.Equals(Request.QueryString["id"]))
                 {
                     string _newUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
 
@@ -133,7 +130,7 @@ namespace Bikewale.Content
                 }
 
 
-                
+
             }
             catch (Exception ex)
             {

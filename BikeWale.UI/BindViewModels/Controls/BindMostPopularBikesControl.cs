@@ -15,21 +15,29 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.BindViewModels.Controls
 {
+    /// <summary>
+    /// Modified By : Sushil Kumar on 10th Nov 2016
+    /// Description : Added provision to bind most popular bikes for edit cms
+    /// </summary>
     public class BindMostPopularBikesControl
     {
         public int? totalCount { get; set; }
         public int? makeId { get; set; }
         public int FetchedRecordsCount { get; set; }
         public int? cityId { get; set; }
+        public IEnumerable<MostPopularBikesBase> popularBikes = null;
+        private const ushort TotalWidgetItems = 9;
+
         /// <summary>
-        ///  Modified by    :   Sumit Kate on 01 Jul 2016
-        ///  Description    :   Call the Cache Layer to get the Data
+        ///  Modified by :   Sumit Kate on 01 Jul 2016
+        ///  Description :   Call the Cache Layer to get the Data
+        /// Modified By : Sushil Kumar on 10th Nov 2016
+        /// Description : Added provision to bind most popular bikes for edit cms
         /// </summary>
         /// <param name="rptr"></param>
         public void BindMostPopularBikes(Repeater rptr)
         {
             FetchedRecordsCount = 0;
-            IEnumerable<MostPopularBikesBase> popularBase = null;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
@@ -39,18 +47,20 @@ namespace Bikewale.BindViewModels.Controls
                         .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
                         .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
 
-                    //IBikeModelsRepository<BikeModelEntity, int> objVersion = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
                     IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
-                    popularBase = modelCache.GetMostPopularBikes(totalCount, makeId);
+
+                    popularBikes = modelCache.GetMostPopularBikes(TotalWidgetItems, makeId);
                 }
-                if (popularBase != null)
+                if (popularBikes != null && popularBikes.Count() > 0)
                 {
-                    if (popularBase.Count() > 0)
+                    popularBikes = popularBikes.Take(Convert.ToInt32(totalCount));
+
+                    if (rptr != null)
                     {
-                        FetchedRecordsCount = popularBase.Count();
-                        rptr.DataSource = popularBase;
+                        rptr.DataSource = popularBikes;
                         rptr.DataBind();
                     }
+                    FetchedRecordsCount = popularBikes.Count();
                 }
             }
             catch (Exception ex)
@@ -62,12 +72,13 @@ namespace Bikewale.BindViewModels.Controls
         /// <summary>
         /// created by Subodh Jain on 22 sep 2016
         /// des :- to fetch details for popular bikes widget 
+        /// Modified By : Sushil Kumar on 10th Nov 2016
+        /// Description : Added provision to bind most popular bikes for edit cms
         /// </summary>
         /// <param name="rptr"></param>
         public void BindMostPopularBikesMakeCity(Repeater rptr)
         {
             FetchedRecordsCount = 0;
-            IEnumerable<MostPopularBikesBase> popularBikes = null;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
@@ -81,14 +92,14 @@ namespace Bikewale.BindViewModels.Controls
                     IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
                     popularBikes = modelCache.GetMostPopularBikesbyMakeCity((uint)totalCount, (uint)makeId, (uint)cityId);
                 }
-                if (popularBikes != null)
+                if (popularBikes != null && popularBikes.Count() > 0)
                 {
-                    if (popularBikes.Count() > 0)
+                    if (rptr != null)
                     {
-                        FetchedRecordsCount = popularBikes.Count();
                         rptr.DataSource = popularBikes;
                         rptr.DataBind();
                     }
+                    FetchedRecordsCount = popularBikes.Count();
                 }
             }
             catch (Exception ex)
