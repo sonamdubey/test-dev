@@ -157,29 +157,17 @@ namespace Bikewale.New
                 if (currentReq.QueryString != null && currentReq.QueryString.HasKeys())
                 {
                     makeMaskingName = currentReq.QueryString["make"];
-
                     dealerId = Convert.ToUInt32(currentReq.QueryString["dealerid"]);
                     if (dealerId > 0 && !string.IsNullOrEmpty(makeMaskingName))
                     {
-                        if (!String.IsNullOrEmpty(makeMaskingName))
+                        using (IUnityContainer container = new UnityContainer())
                         {
-
-                            using (IUnityContainer container = new UnityContainer())
-                            {
-                                container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
-                                      .RegisterType<ICacheManager, MemcacheManager>()
-                                      .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
-                                     ;
-                                var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
-
-                                objResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
-                            }
-                        }
-                        else
-                        {
-                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                            HttpContext.Current.ApplicationInstance.CompleteRequest();
-                            this.Page.Visible = false;
+                            container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                                  .RegisterType<ICacheManager, MemcacheManager>()
+                                  .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                                 ;
+                            var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                            objResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
                         }
                     }
                     else

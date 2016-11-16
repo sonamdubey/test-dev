@@ -23,7 +23,7 @@ function initializeMap() {
         scrollwheel: false,
         streetViewControl: false,
         mapTypeControl: false,
-        center: new google.maps.LatLng(dealerLat, dealerLong),
+        center: new google.maps.LatLng(serviceLat, serviceLong),
         zoom: 15,
         disableDefaultUI: true,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -347,16 +347,13 @@ function getLocation() {
 $(document).on("click", "#getUserLocation", function () { getLocation(); })
 
 function route(origin_place_id, travel_mode, directionsService, directionsDisplay) {
-
-
-    _lat = dealerLat;
-    _lng = dealerLong;
+    _lat = serviceLat;
+    _lng = serviceLong;
     destination_place_id = new google.maps.LatLng(_lat, _lng);
 
     if (!origin_place_id || !destination_place_id) {
         return;
     }
-
     directionsService.route({
         origin: origin_place_id,
         destination: destination_place_id,
@@ -380,7 +377,6 @@ function getCommuteInfo(result) {
     }
     $('#commuteDistance').text((totalDistance / 1000).toFixed(2) + " kms");
     $('#commuteDuration').text(totalDuration.toString().toHHMMSS());
-
 }
 
 function showError(error) {
