@@ -148,7 +148,7 @@ var sellBike = function () {
             var photoUrl = "/api/used/" + self.profileId() + "/image/upload/?isMain=false&extension=";
         }
         return photoUrl;
-    }, this)
+    });
 
     self.serverImg = ko.observableArray([]);
     self.initPhotoUpload = function () {
@@ -189,7 +189,7 @@ var sellBike = function () {
 
                 this.on("success", function (file, response) {
                     var resp = JSON.parse(response);
-                    //setProfilePhoto();
+                    setProfilePhoto();
                     if (resp && resp.imageResult && resp.imageResult.length > 0 && resp.status == 1) {
                         setRemoveLinkUrl(file, resp.imageResult);
                     }

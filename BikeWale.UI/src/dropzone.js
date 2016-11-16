@@ -1243,10 +1243,9 @@
             imgUpldUtil = new ImageUploadUtility();
             imgUpldUtil.itemId = this.itemId;
             photoId = this.photoId;
-            for (_i = 0, _len = files.length; _i < _len; _i++) {
-                file = files[_i];
-                file.xhr = xhr;
-            }
+            $(files).each(function () {
+                this.xhr = xhr;
+            });
             method = resolveOption(this.options.method, files);
             url = resolveOption(this.options.url + "." + files[0].name.substring(files[0].name.indexOf('.') + 1), files);
             xhr.open(method, url, true);
@@ -1402,7 +1401,8 @@
         };
 
         Dropzone.prototype._finished = function (files, responseText, e) {
-            var file, _i, _len;
+            var file, _i, _len, itemId = this.itemId;            
+
             for (_i = 0, _len = files.length; _i < _len; _i++) {
                 file = files[_i];
                 file.status = Dropzone.SUCCESS;                

@@ -269,14 +269,15 @@ namespace Bikewale.BAL.UsedBikes
                 string inquiryType = String.Empty;
                 Utility.UsedBikeProfileId.SplitProfileId(profileId, out inquiryId, out inquiryType);
                 IEnumerable<BikePhoto> photos = null;
-                if (null != _sellBikeRepository.GetById(Convert.ToInt32(inquiryId), customerId))
+                int inqId = Convert.ToInt32(inquiryId);
+                if (null != _sellBikeRepository.GetById(inqId, customerId))
                 {
-                    int index = 0, photoCount = 0;
+                    int photoCount = 0;
                     string fileName, photoId;
                     string originalImagePath = String.Format("/bw/used/{0}/", profileId);
                     result.ImageResult = new List<SellBikeImageUploadResultBase>();
 
-                    photos = _sellBikeRepository.GetBikePhotos(Convert.ToInt32(inquiryId), false);
+                    photos = _sellBikeRepository.GetBikePhotos(inqId, false);
                     photoCount = photos != null ? photos.Count() : 0;
                     result.Status = ImageUploadResultStatus.Success;
 
@@ -290,9 +291,9 @@ namespace Bikewale.BAL.UsedBikes
                             RandomNoGenerator.GetUniqueKey(10),
                             fileExtension);
                         photoId = _sellBikeRepository.SaveBikePhotos(
-                             (index == 0 && isMain),
+                             isMain,
                              inquiryType.Equals("D", StringComparison.CurrentCultureIgnoreCase),
-                             Convert.ToInt32(inquiryId),
+                             inqId,
                              originalImagePath + fileName,
                              description
                              );

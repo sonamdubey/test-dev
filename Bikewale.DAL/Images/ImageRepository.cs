@@ -8,6 +8,12 @@ using System.Data.Common;
 
 namespace Bikewale.DAL.Images
 {
+    /// <summary>
+    /// Created by  :   Sumit Kate on 09 Nov 2016
+    /// Description :   Image DAL
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="U"></typeparam>
     public class ImageRepository<T, U> : IImageRepository<T, U> where T : Image, new()
     {
         public bool Update(T t)
@@ -30,6 +36,12 @@ namespace Bikewale.DAL.Images
             throw new System.NotImplementedException();
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 09 Nov 2016
+        /// Description :   Inserts into img_photos table returns photo id
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
         public ulong Add(T t)
         {
             ulong id = 0;

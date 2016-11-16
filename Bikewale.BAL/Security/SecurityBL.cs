@@ -32,8 +32,9 @@ namespace Bikewale.BAL.Security
             {
                 string[] tokens = new string[2];
                 string signature = "", policyJSONBase64 = "", awsURI = "";
-                awsURI = "https://" + bucketName + ".s3.amazonaws.com/";
-                string jsonPolicy = "{'expiration':'" + DateTime.Now.AddHours(1).ToString("yyyy-MM-ddTHH:mm:sss.fffZ") + "','conditions': [{'bucket':'" + bucketName + "'},['starts-with', '$key', ''],['starts-with', '$Content-Type', ''],{'acl': 'public-read'},{'success_action_status': '201'}]}";
+                awsURI = String.Format("https://{0}.s3.amazonaws.com/", bucketName);
+                string jsonPolicy = String.Format("{'expiration':'{0}','conditions': [{'bucket':'{1}'},['starts-with', '$key', ''],['starts-with', '$Content-Type', ''],{'acl': 'public-read'},{'success_action_status': '201'}]}", DateTime.Now.AddHours(1).ToString("yyyy-MM-ddTHH:mm:sss.fffZ"), bucketName);
+
                 policyJSONBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(jsonPolicy));
 
                 var encoding = new ASCIIEncoding();
@@ -63,7 +64,6 @@ namespace Bikewale.BAL.Security
         {
             string baseHash = "";
             char[] hashPadding = null;
-            //long N = 1;
             try
             {
                 while (uniqueId != 0)
