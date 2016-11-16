@@ -96,6 +96,14 @@ namespace Bikewale.News
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.News.NewsListing.BindNewsDetails");
                 objErr.SendMail();
             }
+            finally
+            {
+                if (objNews.IsPermanentRedirect)
+                {
+                    string newUrl = string.Format("/news/{0}-{1}.html", objNews.MappedCWId, Request["t"]);
+                    Bikewale.Common.CommonOpn.RedirectPermanent(newUrl);
+                }
+            }
         }
 
 

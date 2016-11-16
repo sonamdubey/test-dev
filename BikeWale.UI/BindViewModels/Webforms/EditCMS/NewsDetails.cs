@@ -35,7 +35,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         public bool IsPermanentRedirect { get; set; }
         public GlobalCityAreaEntity CityArea { get; set; }
         public PageMetaTags PageMetas { get; set; }
-
+        public string MappedCWId { get; set; }
         /// <summary>
         /// Created By : Sushil Kumar on 10th Nov 2016
         /// Description : Fetch required aticles list
@@ -176,10 +176,9 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         private bool ProcessQueryString()
         {
             var request = HttpContext.Current.Request;
-
+            string _basicId = request.QueryString["id"];
             try
-            {
-                string _basicId = request.QueryString["id"];
+            {                
 
                 if (!string.IsNullOrEmpty(_basicId))
                 {
@@ -189,9 +188,8 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                     //if id exists then redirect url to new basic id url
                     if (!_basicId.Equals(request["id"]))
                     {
-                        string newUrl = string.Format("/news/{0}-{1}.html", _basicId, request["t"]);
-                        Bikewale.Common.CommonOpn.RedirectPermanent(newUrl);
                         IsPermanentRedirect = true;
+                        MappedCWId = _basicId;
                         return false;
                     }
                     uint.TryParse(_basicId, out BasicId);
@@ -207,7 +205,6 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.ProcessQueryString");
                 objErr.SendMail();
             }
-
             return true;
         }
 
