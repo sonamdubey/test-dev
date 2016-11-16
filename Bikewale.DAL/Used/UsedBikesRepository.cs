@@ -174,6 +174,8 @@ namespace Bikewale.DAL.UsedBikes
         /// <summary>
         /// Created:- by Subodh Jain on 14 sep 2016
         /// Description:- Fetch Most recent used bikes for particular model and city
+        /// Modified by :   Sangram Nandkhile on 09 Nov 2016
+        /// Description :   Added lower() for profile id
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="cityId"></param>
@@ -211,7 +213,7 @@ namespace Bikewale.DAL.UsedBikes
                                     ModelName = Convert.ToString(dr["modelname"]),
                                     VersionName = Convert.ToString(dr["versionname"]),
                                     BikePrice = SqlReaderConvertor.ParseToUInt32(dr["bikeprice"]),
-                                    ProfileId = Convert.ToString(dr["ProfileId"]),
+                                    ProfileId = Convert.ToString(dr["ProfileId"]).ToLower(),
                                     Kilometer = SqlReaderConvertor.ParseToUInt32(dr["Kilometers"]),
                                     OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                     owner = SqlReaderConvertor.ParseToUInt32(dr["owner"]),
@@ -271,7 +273,7 @@ namespace Bikewale.DAL.UsedBikes
                                     ModelName = Convert.ToString(dr["modelname"]),
                                     VersionName = Convert.ToString(dr["versionname"]),
                                     BikePrice = SqlReaderConvertor.ParseToUInt32(dr["bikeprice"]),
-                                    ProfileId = Convert.ToString(dr["ProfileId"]),
+                                    ProfileId = Convert.ToString(dr["ProfileId"]).ToLower(),
                                     Kilometer = SqlReaderConvertor.ParseToUInt32(dr["Kilometers"]),
                                     OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                     owner = SqlReaderConvertor.ParseToUInt32(dr["owner"]),

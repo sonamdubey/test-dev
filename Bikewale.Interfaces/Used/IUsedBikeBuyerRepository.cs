@@ -12,6 +12,5 @@ namespace Bikewale.Interfaces.Used
         bool UploadPhotosRequest(string sellInquiryId, UInt64 buyerId, byte consumerType, string buyerMessage);
         bool HasShownInterestInUsedBike(bool isDealer, string inquiryId, UInt64 buyerId);
         bool IsPhotoRequestDone(string sellInquiryId, UInt64 buyerId, bool isDealer);
-
     }
 }

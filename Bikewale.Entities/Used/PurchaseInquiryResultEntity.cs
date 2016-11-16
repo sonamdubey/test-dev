@@ -1,4 +1,4 @@
-﻿
+﻿using Bikewale.Entities.Customer;
 namespace Bikewale.Entities.Used
 {
     /// <summary>
@@ -8,7 +8,7 @@ namespace Bikewale.Entities.Used
     public class PurchaseInquiryResultEntity
     {
         public PurchaseInquiryStatusEntity InquiryStatus { get; set; }
-        public Customer.CustomerEntityBase Seller { get; set; }
+        public CustomerEntityBase Seller { get; set; }
         public string SellerAddress { get; set; }
     }
 }
