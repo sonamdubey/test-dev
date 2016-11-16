@@ -8,8 +8,8 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-
 namespace Bikewale.Content
 {
     public class ViewBikeCare : System.Web.UI.Page
@@ -27,7 +27,9 @@ namespace Bikewale.Content
         protected IEnumerable<ModelImage> objImg = null;
         protected UpcomingBikesMinNew ctrlUpcoming;
         protected MostPopularBikesMin ctrlPopularBikes;
-
+        protected ModelGallery ctrlModelGallery;
+        protected ArticlePhotoGallery ctrPhotoGallery;
+        public uint basicId;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -55,6 +57,7 @@ namespace Bikewale.Content
                 displayDate = objDetailBikeCare.displayDate;
                 bikeTested = objDetailBikeCare.bikeTested;
                 canonicalUrl = objDetailBikeCare.canonicalUrl;
+                basicId = objDetailBikeCare.BasicId;
             }
             catch (Exception ex)
             {
@@ -81,6 +84,15 @@ namespace Bikewale.Content
                 ctrlUpcoming.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 ctrlUpcoming.pageSize = 9;
                 ctrlUpcoming.topCount = 4;
+                if (objImg != null && objImg.Count() > 0)
+                {
+                    ctrPhotoGallery.BasicId = Convert.ToInt32(basicId);
+                    ctrPhotoGallery.ModelImageList = objImg;
+                    ctrPhotoGallery.BindPhotos();
+
+                    ctrlModelGallery.bikeName = objTipsAndAdvice.Title;
+                    ctrlModelGallery.Photos = objImg.ToList();
+                }
 
             }
             catch (Exception ex)
