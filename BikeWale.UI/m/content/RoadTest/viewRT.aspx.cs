@@ -2,12 +2,16 @@
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Memcache;
+using Bikewale.Mobile.Controls;
+using Bikewale.Utility;
 using log4net;
 using Microsoft.Practices.Unity;
 using System;
@@ -27,6 +31,9 @@ namespace Bikewale.Content
     {
         protected HtmlSelect ddlPages;
         protected Repeater rptPageContent;
+        protected GlobalCityAreaEntity currentCityArea;
+        protected MUpcomingBikesMin ctrlUpcomingBikes;
+        protected MPopularBikesMin ctrlPopularBikes;
         protected uint BasicId = 0, pageId = 1;
         protected String baseUrl = String.Empty, pageTitle = String.Empty, modelName = String.Empty, modelUrl = String.Empty;
         protected String data = String.Empty, nextPageUrl = String.Empty, prevPageUrl = String.Empty, author = String.Empty, displayDate = String.Empty, canonicalUrl = String.Empty;
@@ -34,7 +41,7 @@ namespace Bikewale.Content
         protected Repeater rptPhotos;
         protected ArticlePageDetails objRoadtest;
         private bool _isContentFound = true;
-
+        private BikeMakeEntityBase _taggedMakeObj;
         static bool _useGrpc = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.UseGrpc);
         static readonly ILog _logger = LogManager.GetLogger(typeof(ViewRT));
         static bool _logGrpcErrors = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.LogGrpcErrors);
@@ -51,6 +58,7 @@ namespace Bikewale.Content
                 if (ProcessQueryString())
                 {
                     GetRoadTestDetails();
+                    BindPageWidgets();
                 }
                 else
                 {
@@ -161,6 +169,8 @@ namespace Bikewale.Content
 
             if (objRoadtest.VehiclTagsList != null && objRoadtest.VehiclTagsList.Count > 0)
             {
+                _taggedMakeObj = objRoadtest.VehiclTagsList.FirstOrDefault().MakeBase;
+
                 if (objRoadtest.VehiclTagsList.Any(m => (m.MakeBase != null && !String.IsNullOrEmpty(m.MakeBase.MaskingName))))
                 {
                     _bikeTested = new StringBuilder();
@@ -195,6 +205,38 @@ namespace Bikewale.Content
             imgUrl = Bikewale.Common.ImagingFunctions.GetPathToShowImages(imagePath, hostUrl);
 
             return imgUrl;
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 16 Nov 2016
+        /// Description: Bind upcoming and popular bikes
+        /// </summary>
+        protected void BindPageWidgets()
+        {
+            currentCityArea = GlobalCityArea.GetGlobalCityArea();
+            if (ctrlPopularBikes != null)
+            {
+                ctrlPopularBikes.totalCount = 4;
+                ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                ctrlPopularBikes.cityName = currentCityArea.City;
+                if (_taggedMakeObj != null)
+                {
+                    ctrlPopularBikes.makeId = _taggedMakeObj.MakeId;
+                    ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
+                    ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
+
+                }
+            }
+            if (ctrlUpcomingBikes != null)
+            {
+                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                ctrlUpcomingBikes.pageSize = 4;
+                if (_taggedMakeObj != null)
+                {
+                    ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
+                    ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
+                    ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
+                }
+            }
         }
     }
 }

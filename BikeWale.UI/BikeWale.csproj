@@ -816,6 +816,14 @@
       <DependentUpon>MNewLaunchedBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\MPopularBikesMin.ascx.cs">
+      <DependentUpon>MPopularBikesMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\MUpcomingBikesMin.ascx.cs">
+      <DependentUpon>MUpcomingBikesMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\servicecentercard.ascx.cs">
       <DependentUpon>servicecentercard.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2324,6 +2332,8 @@
     <Content Include="m\controls\LocateDealer.ascx" />
     <Content Include="m\controls\MMostPopularBikes.ascx" />
     <Content Include="m\controls\MNewLaunchedBikes.ascx" />
+    <Content Include="m\controls\MPopularBikesMin.ascx" />
+    <Content Include="m\controls\MUpcomingBikesMin.ascx" />
     <Content Include="m\controls\servicecentercard.ascx" />
     <Content Include="m\controls\serviceschedule.ascx" />
     <Content Include="m\controls\UploadPhotoRequestPopup.ascx" />

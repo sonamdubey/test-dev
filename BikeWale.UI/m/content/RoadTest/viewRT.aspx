@@ -1,4 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.viewRT" Async="true" Trace="false" %>
+<%@ Register Src="~/m/controls/MUpcomingBikesMin.ascx" TagPrefix="BW" TagName="MUpcomingBikesMin"  %>
+<%@ Register Src="~/m/controls/MPopularBikesMin.ascx" TagPrefix="BW" TagName="MPopularBikesMin"  %>
 <%	
     keywords     = modelName + " ,road test, road tests, roadtests, roadtest, bike reviews, expert bike reviews, detailed bike reviews, test-drives, comprehensive bike tests, bike preview, first drives";
     title        = pageTitle + " - BikeWale.";
@@ -108,6 +110,8 @@
 	        <div style="clear:both;"></div>
         </div>--%>
 </div>
+<BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
+<BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
 <script type="text/javascript">
     $(document).ready(function () {
         var pageId = 1;

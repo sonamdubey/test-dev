@@ -2,15 +2,23 @@
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Memcache;
+using Bikewale.Mobile.Controls;
 using log4net;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections;
 using System.Web;
+using System.Linq;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.DAL.BikeData;
+using Bikewale.Entities.Location;
+using Bikewale.Utility;
 
 namespace Bikewale.Mobile.Content
 {
@@ -27,7 +35,10 @@ namespace Bikewale.Mobile.Content
         protected String _newsId = String.Empty;
         private ArticleDetails objNews = null;
         private bool _isContentFound = true;
-
+        protected MUpcomingBikesMin ctrlUpcomingBikes;
+        protected MPopularBikesMin ctrlPopularBikes;
+        private BikeMakeEntityBase _taggedMakeObj;
+        protected GlobalCityAreaEntity currentCityArea;
         static bool _useGrpc = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.UseGrpc);
         static bool _logGrpcErrors = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.LogGrpcErrors);
         static readonly ILog _logger = LogManager.GetLogger(typeof(newsdetails));
@@ -50,7 +61,11 @@ namespace Bikewale.Mobile.Content
                 int _basicId = 0;
 
                 if (Int32.TryParse(_newsId, out _basicId))
+                {
                     GetNewsDetails(_basicId);
+                    BindPageWidgets();
+
+                }
                 else
                 {
                     Response.Redirect("/m/pagenotfound.aspx", true);
@@ -109,9 +124,10 @@ namespace Bikewale.Mobile.Content
                     ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
                     objNews = _cache.GetNewsDetails(Convert.ToUInt32(_basicId));
-
+                    
                     if (objNews != null)
                         GetNewsData();
+
                     else
                         _isContentFound = false;
                 }
@@ -146,7 +162,11 @@ namespace Bikewale.Mobile.Content
             prevPageTitle = objNews.PrevArticle.Title;
             pageViews = objNews.Views;
             pageUrl = _newsId + '-' + objNews.ArticleUrl + ".html";
-
+            if (objNews != null && objNews.VehiclTagsList.Count > 0)
+            {
+                _taggedMakeObj = objNews.VehiclTagsList.FirstOrDefault().MakeBase;
+                 FetchMakeDetails();
+            }
             if (!String.IsNullOrEmpty(objNews.NextArticle.ArticleUrl))
                 nextPageUrl = objNews.NextArticle.BasicId + "-" + objNews.NextArticle.ArticleUrl + ".html";
 
@@ -160,6 +180,59 @@ namespace Bikewale.Mobile.Content
             //mainImgUrl = ImagingFunctions.GetPathToShowImages( objNews.LargePicUrl, objNews.HostUrl);
             mainImgUrl = Bikewale.Utility.Image.GetPathToShowImages(objNews.OriginalImgUrl, objNews.HostUrl, Bikewale.Utility.ImageSize._640x348);
             return mainImgUrl;
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 16 Nov 2016
+        /// Description: bind upcoming and popular bikes
+        /// </summary>
+        protected void BindPageWidgets()
+        {
+            currentCityArea = GlobalCityArea.GetGlobalCityArea();
+            if (ctrlPopularBikes != null)
+            {
+                ctrlPopularBikes.totalCount = 4;
+                ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                ctrlPopularBikes.cityName = currentCityArea.City;
+                if (ctrlUpcomingBikes != null)
+                {
+                    ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                    ctrlUpcomingBikes.pageSize = 4;
+                }
+               if (_taggedMakeObj != null)
+                {
+                    ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
+                    ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
+                    ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
+                    ctrlPopularBikes.makeId = _taggedMakeObj.MakeId;
+                    ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
+                    ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
+                }
+            }
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 16 Nov 2016
+        /// Description: get make details according to makeid
+        /// </summary>
+        private void FetchMakeDetails()
+        {
+            try
+            {
+                if (_taggedMakeObj != null && _taggedMakeObj.MakeId > 0)
+                {
+
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
+                        var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+                        _taggedMakeObj = makesRepository.GetMakeDetails(_taggedMakeObj.MakeId.ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.newsdetails.FetchMakeDetails");
+                objErr.SendMail();
+            }
         }
     }
 }

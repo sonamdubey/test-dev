@@ -1,4 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Mobile.Content.newsdetails" Trace="false" Async="true" %>
+<%@ Register Src="~/m/controls/MUpcomingBikesMin.ascx" TagPrefix="BW" TagName="MUpcomingBikesMin"  %>
+<%@ Register Src="~/m/controls/MPopularBikesMin.ascx" TagPrefix="BW" TagName="MPopularBikesMin"  %>
 <% 
     title = newsTitle + " - BikeWale News";
     description = "BikeWale coverage on " + newsTitle + ". Get the latest reviews and photos for " + newsTitle + " on BikeWale coverage.";
@@ -68,8 +70,9 @@
         </a>
     <%} %>
 </div>
-
-<div class="back-to-top" id="back-to-top"></div>
+        <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
+        <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
+        <div class="back-to-top" id="back-to-top"></div>
 
 <!-- #include file="/includes/footermobile.aspx" -->
 <script type="text/javascript">

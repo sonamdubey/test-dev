@@ -1,4 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Content.viewF" Async="true" Trace="false" %>
+<%@ Register Src="~/m/controls/MUpcomingBikesMin.ascx" TagPrefix="BW" TagName="MUpcomingBikesMin"  %>
+<%@ Register Src="~/m/controls/MPopularBikesMin.ascx" TagPrefix="BW" TagName="MPopularBikesMin"  %>
 <%	
     title = pageTitle + " - Bikewale ";
     keywords = "features, stories, travelogues, specials, drives";
@@ -131,6 +133,8 @@
 	        <div style="clear:both;"></div>
         </div>--%>
 </div>
+<BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
+<BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
 <script type="text/javascript">
     $(document).ready(function () {
         var pageId = 1;
