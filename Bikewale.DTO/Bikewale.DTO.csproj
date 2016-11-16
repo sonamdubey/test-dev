@@ -88,6 +88,7 @@
     <Compile Include="AutoComplete\V2\Payload.cs" />
     <Compile Include="AutoComplete\SuggestionList.cs" />
     <Compile Include="AutoComplete\V2\SuggestionList.cs" />
+    <Compile Include="AWS\Token.cs" />
     <Compile Include="BikeBooking\BikeBookingListingDTO.cs" />
     <Compile Include="BikeBooking\BikeBookingListingOutput.cs" />
     <Compile Include="BikeBooking\BikeBookingOfferDTO.cs" />
@@ -143,6 +144,8 @@
     <Compile Include="Dealer\NewBikeDealerList.cs" />
     <Compile Include="Dealer\v2\NewBikeDealerBase.cs" />
     <Compile Include="Dealer\v2\NewBikeDealerList.cs" />
+    <Compile Include="Images\ImageDTO.cs" />
+    <Compile Include="Images\ImageTokenDTO.cs" />
     <Compile Include="Insurance\ClientResponse.cs" />
     <Compile Include="Insurance\InsuranceLead.cs" />
     <Compile Include="Insurance\PostInsuranceDetail.cs" />

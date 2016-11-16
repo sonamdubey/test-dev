@@ -2538,6 +2538,7 @@
     <Content Include="src\graybox.js" />
     <Content Include="src\home.js" />
     <Content Include="src\html5.js" />
+    <Content Include="src\imageUpload.js" />
     <Content Include="src\insurance.js" />
     <Content Include="src\jquery-ui-1.10.4.custom.min.js" />
     <!-- <Content Include="src\knockout.js" /> -->

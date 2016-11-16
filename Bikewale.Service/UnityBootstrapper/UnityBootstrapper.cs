@@ -6,8 +6,10 @@ using Bikewale.BAL.Compare;
 using Bikewale.BAL.Customer;
 using Bikewale.BAL.Dealer;
 using Bikewale.BAL.EditCMS;
+using Bikewale.BAL.Images;
 using Bikewale.BAL.Pager;
 using Bikewale.BAL.PriceQuote;
+using Bikewale.BAL.Security;
 using Bikewale.BAL.Used.Search;
 using Bikewale.BAL.UsedBikes;
 using Bikewale.Cache.App;
@@ -26,6 +28,7 @@ using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Customer;
 using Bikewale.DAL.Dealer;
 using Bikewale.DAL.Feedback;
+using Bikewale.DAL.Images;
 using Bikewale.DAL.Location;
 using Bikewale.DAL.NewBikeSearch;
 using Bikewale.DAL.Used;
@@ -47,11 +50,13 @@ using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Feedback;
+using Bikewale.Interfaces.Images;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Interfaces.Security;
 using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.Used.Search;
 using Bikewale.Interfaces.UsedBikes;
@@ -81,6 +86,8 @@ namespace Bikewale.Service.UnityConfiguration
         /// Description :   Register Road Test/Feature/Article BAL classes for CMS Controller constructor resolution
         /// Modified By :   Sajal Gupta on 10-10-2016
         /// Description :   Register usedBikeDetailsRepository, usedBikeDetails
+        /// Modified by :   Sumit Kate on 15 Nov 2016
+        /// Description :   Register IImage, ISecurity and IImageRepository interfaces
         /// </summary>
         /// <returns></returns>
         public static IUnityContainer Initialize()
@@ -145,10 +152,13 @@ namespace Bikewale.Service.UnityConfiguration
 
             container.RegisterType<IUsedBikeBuyer, Bikewale.BAL.Used.UsedBikeBuyer>();
             container.RegisterType<IUsedBikeBuyerRepository, UsedBikeBuyerRepository>();
-            container.RegisterType<IUsedBikeSellerRepository, UsedBikeSellerRepository>();           
+            container.RegisterType<IUsedBikeSellerRepository, UsedBikeSellerRepository>();
 
             container.RegisterType<ISellBikes, SellBikes>();
             container.RegisterType<ISellBikesRepository<SellBikeAd, int>, SellBikesRepository<SellBikeAd, int>>();
+            container.RegisterType<IImage, ImageBL>();
+            container.RegisterType<IImageRepository<Entities.Images.Image, ulong>, ImageRepository<Entities.Images.Image, ulong>>();
+            container.RegisterType<ISecurity, SecurityBL>();
             return container;
         }
     }
