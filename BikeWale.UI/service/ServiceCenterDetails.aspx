@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" Inherits="Bikewale.New.BikeDealerDetails" AutoEventWireup="false" EnableViewState="false" %>
+﻿<%@ Page Language="C#" Inherits="Bikewale.Service.ServiceCenterDetails" AutoEventWireup="false" EnableViewState="false" %>
 <%@ Register Src="~/controls/DealerCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <!DOCTYPE html>
@@ -18,9 +18,7 @@
         isAd300x250BTFShown = false;
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <style type="text/css">
-        @charset "utf-8";.dropdown-menu,.input-box input{border-bottom:1px solid #82888b}#modelsAvailable a:hover,.card .card-target:hover{text-decoration:none}.padding-14-20{padding:14px 20px}.padding-top50{padding-top:50px}.featured-tag{width:74px;text-align:center;line-height:20px;background:#3799a7;z-index:1;font-weight:400;font-size:12px;color:#fff;border-radius:2px}.vertical-top{display:inline-block;vertical-align:top}.dealership-card-details{width:92%}#get-direction-button{width:50px;height:50px;background:#f9f9f9;position:absolute;right:20px;bottom:20px;-webkit-border-radius:50%;-moz-border-radius:50%;-o-border-radius:50%;border-radius:50%;text-align:center;cursor:pointer;-webkit-box-shadow:1px 5px 15px #aaa;-moz-box-shadow:1px 5px 15px #aaa;-o-box-shadow:1px 5px 15px #aaa;box-shadow:1px 5px 15px #aaa}#get-direction-button:hover{-webkit-box-shadow:1px 5px 15px #999;-moz-box-shadow:1px 5px 15px #999;-o-box-shadow:1px 5px 15px #999;box-shadow:1px 5px 15px #999}#commute-distance-form .form-control{width:225px;padding-right:35px}.location-details{display:none}#submitAssistanceFormBtn.btn{padding:8px 56px}input{font-family:'Open Sans',sans-serif,Arial}input[type=text]:focus,input[type=email]:focus,input[type=tel]:focus{outline:0;box-shadow:none}.input-box{height:60px;text-align:left;display:inline-block;vertical-align:top}.input-box input{width:100%;display:block;padding:6px 0;font-size:16px;font-weight:700;color:#4d5057}.input-box label,.input-number-prefix{font-size:16px;position:absolute;color:#82888b}.input-box label{top:5px;left:0;pointer-events:none;-webkit-transition:.2s ease all;-moz-transition:.2s ease all;-o-transition:.2s ease all;transition:.2s ease all}.input-number-box input{padding-left:30px}.input-number-prefix{display:none;top:6px;font-weight:700}.boundary{position:relative;width:100%;display:block}.boundary:after,.boundary:before{content:'';position:absolute;bottom:0;width:0;height:2px;background-color:#41b4c4;-webkit-transition:.2s ease all;-moz-transition:.2s ease all;-o-transition:.2s ease all;transition:.2s ease all}.boundary:before{left:50%}.boundary:after{right:50%}.error-text{display:none;font-size:12px;position:relative;top:0;left:0;color:#d9534f}.dropdown-select-wrapper.invalid .error-text,.input-box.input-number-box input:focus~.input-number-prefix,.input-box.input-number-box.not-empty .input-number-prefix,.input-box.invalid .error-text{display:inline-block}.input-box input:focus~label,.input-box.not-empty label{top:-14px;font-size:12px}.input-box input:focus~.boundary:after,.input-box input:focus~.boundary:before{width:50%}.dropdown-select-wrapper.invalid .boundary:after,.dropdown-select-wrapper.invalid .boundary:before,.input-box.invalid .boundary:after,.input-box.invalid .boundary:before{background-color:#d9534f;width:50%}.type-user-details.form-control-box{width:292px}.type-dropdown{width:462px}.type-dropdown,.type-sumit-button{display:inline-block;vertical-align:bottom;height:60px}.type-sumit-button{margin-left:35px}.dropdown-select{display:none}.dropdown-menu{width:100%;min-width:125px;font-size:16px;position:relative;display:inline-block;vertical-align:middle;color:#4d5057}.dropdown-menu .dropdown-label,.dropdown-menu .dropdown-selected-item{width:100%;font-weight:700;background:url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% no-repeat;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dropdown-menu .dropdown-selected-item{background-position:98%;border-bottom:1px solid #e2e2e2;padding:8px 30px 8px 10px}.dropdown-menu .dropdown-label{cursor:pointer;display:inline-block;z-index:0}.dropdown-menu .dropdown-list-wrapper{display:none;width:100%;overflow:hidden;position:absolute;top:3px;left:0;background:#fff;z-index:1;-webkit-border-radius:2px;-moz-border-radius:2px;-o-border-radius:2px;-ms-border-radius:2px;border-radius:2px;border:1px solid #e2e2e2\9;-webkit-box-shadow:-3px 3px 15px 1px #ddd;-moz-box-shadow:-3px 3px 15px 1px #ddd;-ms-box-shadow:-3px 3px 15px 1px #ddd;-o-box-shadow:-3px 3px 15px 1px #ddd;box-shadow:-3px 3px 15px 1px #ddd}#modelsAvailable li,.dropdown-menu.dropdown-active .dropdown-list-wrapper{display:inline-block}.dropdown-menu .dropdown-menu-list{padding-top:10px;padding-bottom:10px}.dropdown-menu .dropdown-menu-list li{padding:5px 10px;cursor:pointer;white-space:nowrap}.dropdown-menu .dropdown-menu-list li[data-option-value=""]:hover{background:0 0;cursor:default}.dropdown-menu .dropdown-with-select li:hover{background:#eee}#modelsAvailable li{width:290px;min-height:260px;margin:0 15px 25px 14px;vertical-align:top}.image-block{width:290px;height:163px;line-height:0}.image-block div{background:url(http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center center no-repeat}.image-block img{max-width:100%;height:163px}.details-block{padding:12px 20px 10px}.text-truncate{width:100%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.dealership-loc-icon,.phone-black-icon{width:10px;position:relative;margin-right:5px}.dealership-loc-icon{height:12px;background-position:-52px -469px;top:4px}.phone-black-icon{height:10px;background-position:-73px -444px;top:5px}.star-white{width:8px;height:8px;background-position:-222px -107px;margin-right:4px}.clock-icon,.mail-grey-icon{width:12px;margin-right:5px;position:relative}.mail-grey-icon{height:10px;background-position:-92px -446px;top:5px}.clock-icon{height:12px;background-position:-213px -224px;top:4px}.get-direction-icon{width:20px;height:20px;background-position:-112px -441px;margin-top:15px}.crosshair-icon{width:20px;height:20px;background:url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/detect-location-icon.png) no-repeat}.inr-md-lg{width:12px;height:17px;background-position:-64px -515px;position:relative;top:1px}.gm-style-cc{display:none}.card{width:292px;min-height:140px;border:1px solid #f6f6f6;-webkit-box-shadow:0 1px 2px 0 rgba(0,0,0,.2);-moz-box-shadow:0 1px 2px 0 rgba(0,0,0,.2);-ms-box-shadow:0 1px 2px 0 rgba(0,0,0,.2);-o-box-shadow:0 1px 2px 0 rgba(0,0,0,.2);box-shadow:0 1px 2px 0 rgba(0,0,0,.2);float:left;margin-left:30px;margin-bottom:20px}.card:first-child{margin-left:20px}.card .card-target{min-height:140px;display:block;padding:15px 20px 0}.card .text-truncate{width:100%}.details-column{width:92%}@media only screen and (max-width:1024px){.location-details{font-size:13px}#dealer-map{width:365px!important}#modelsAvailable li{margin:0 8px 25px}.type-user-details.form-control-box{width:275px}#city-dealer-list li{width:280px}}
-    </style>
+    <link href="/css/service/details.css" rel="stylesheet" type="text/css" />
     <script src="http://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
@@ -39,16 +37,16 @@
                                 <a itemprop="url" href="/"><span itemprop="title">Home</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/new/"><span itemprop="title">New Bikes</span></a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href=""><span itemprop="title">Used Bikes</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/dealer-showroom-locator/"><span itemprop="title">Dealer Showroom</span></a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href=""><span itemprop="title">Service Center Locator</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/<%=makeMaskingName %>-dealer-showrooms-in-india/"><span itemprop="title"><%=makeName%> Dealer Showrooms</span></a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href=""><span itemprop="title"><%=makeName%> Service Centers</span></a>
                             </li>
                              <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/<%=makeMaskingName %>-dealer-showrooms-in-<%=cityMaskingName %>/"><span itemprop="title"><%=makeName%> Dealer Showroom in <%=cityName%></span></a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href=""><span itemprop="title"><%=makeName%> Service Center in <%=cityName%></span></a>
                             </li>
                             <li class="current"><span class="bwsprite fa-angle-right margin-right10"></span><%=dealerName %></li>
                         </ul>
@@ -58,37 +56,30 @@
                 <div class="clear"></div>
             </div>
         </section>
+
         <section>
-            <div class="container margin-bottom20" id="dealerInfo">
+            <div class="container section-bottom-margin">
                 <div class="grid-12">
-                    <div class="content-box-shadow">
-                        <div class="content-box-shadow padding-14-20">
-                            <h1><%=dealerName %></h1>
-                        </div>
-                        <div class="content-inner-block-20">
+                    <div class="bg-white">
+                        <h1 class="section-header"><%=dealerName %></h1>
+                        <div class="section-inner-padding">
                             <div class="grid-7 alpha omega font14">
                                 <%if(dealerObj!=null){ %>
                                 
-                                <div class="margin-bottom10">
-                                    <%if (dealerObj.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || dealerObj.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe))
-                                  { %>
-                                    <span class="featured-tag inline-block margin-right10"><span class="bwsprite star-white"></span>Featured</span>
-                                    <%} %>
-                                    <h2 class="font14 text-black text-bold inline-block">Authorized <%=makeName %> dealer in <%=cityName %></h2>
-                                </div>
+                                <h2 class="font14 margin-bottom10">Authorized <%=makeName %> service center in <%=cityName %></h2>
                             
                                 <% if (!string.IsNullOrEmpty(address))
                                    {%>
                                 <div class="margin-bottom10">
                                     <span class="bwsprite dealership-loc-icon vertical-top"></span>
-                                    <span class="vertical-top text-light-grey dealership-card-details"><%=address %></span>
+                                    <span class="vertical-top text-light-grey details-column"><%=address %></span>
                                 </div>
                                 <%} %>
                                 <% if (!string.IsNullOrEmpty(maskingNumber))
                                    {%>
                                 <div class="margin-bottom10">
                                     <span class="bwsprite phone-black-icon vertical-top"></span>
-                                    <span class="vertical-top text-bold dealership-card-details"><%=maskingNumber %></span>
+                                    <span class="vertical-top text-bold details-column"><%=maskingNumber %></span>
                                 </div>
                                 <%} %>
                                 <% if (!string.IsNullOrEmpty(eMail))
@@ -113,8 +104,8 @@
                                 <div id="commute-distance-form" class="margin-top20">
                                     <p class="text-bold margin-bottom15">Get commute distance and time:</p>
                                     <div class="leftfloat form-control-box margin-right15">
-                                        <input id="locationSearch" type="text" class="form-control" placeholder="Enter your location" />
-                                        <span id="getUserLocation" class="crosshair-icon font12 position-abt pos-right10 pos-top10 cur-pointer"></span>
+                                        <input id="locationSearch" type="text" class="form-control" placeholder="Type in your location" />
+                                        <span id="getUserLocation" class="crosshair-icon"></span>
                                     </div>
                                     <div class="location-details padding-top10 padding-bottom10 leftfloat">
                                         Distance: <span id="commuteDistance" class="margin-right10"></span>
@@ -143,6 +134,278 @@
                 <div class="clear"></div>
             </div>
         </section>
+
+        <section>
+            <div class="container section-bottom-margin">
+                <div class="grid-12">
+                    <div class="content-box-shadow padding-bottom20">
+                        <h2 class="section-h2-title padding-15-20-20">Other Bajaj service centers in Mumbai</h2>
+                        <ul class="bw-horizontal-cards">
+                            <li class="card">
+                                <a href="" title="Executive Bajaj - Malad" class="card-target">
+                                    <h3 class="text-black text-bold text-truncate margin-bottom5">Executive Bajaj - Malad</h3>
+                                    <p class="text-light-grey margin-bottom5">
+                                        <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
+                                        <span class="vertical-top details-column">11, Link House, Plot No.446, Near Lakozy Toyota, Link Road, Malad (W)</span>
+                                    </p>
+                                    <p class="text-default">
+                                        <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
+                                        <span class="text-bold vertical-top details-column">7620914785</span>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="card">
+                                <a href="" title="Kamala Landmarc Motorbikes - Malad" class="card-target">
+                                    <h3 class="text-black text-bold text-truncate margin-bottom5">Kamala Landmarc Motorbikes - Malad</h3>
+                                    <p class="text-light-grey margin-bottom5">
+                                        <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
+                                        <span class="vertical-top details-column">11, Link House, Plot No.446, Near Lakozy Toyota, Link Road, Malad (W)</span>
+                                    </p>
+                                    <p class="text-default">
+                                        <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
+                                        <span class="text-bold vertical-top details-column">7620914785</span>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="card">
+                                <a href="" title="Executive Bajaj - Malad" class="card-target">
+                                    <h3 class="text-black text-bold text-truncate margin-bottom5">Executive Bajaj - Malad</h3>
+                                    <p class="text-light-grey margin-bottom5">
+                                        <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
+                                        <span class="vertical-top details-column">11, Link House, Plot No.446, Near Lakozy Toyota, Link Road, Malad (W)</span>
+                                    </p>
+                                    <p class="text-default">
+                                        <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
+                                        <span class="text-bold vertical-top details-column">7620914785</span>
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="clear"></div>
+                        <div class="padding-left20 font14">
+                            <a href="">View all Bajaj service centers<span class="bwsprite blue-right-arrow-icon"></span></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+
+        <section>
+            <div id="service-scheduler" class="container section-bottom-margin">
+                <div class="grid-12">
+                    <div class="content-box-shadow padding-15-20-20">
+                        <h2 class="section-h2-title margin-bottom10">Is your bajaj bike due for a service?</h2>
+                        <p class="font14 margin-bottom25">Get you Bajaj bike serviced with time period given below.</p>
+                        <div id="scheduler-left-column" class="grid-4 alpha">
+                            <div class="select-box">
+                                <p class="font12 text-xt-light-grey">Model</p>
+                                <select class="chosen-select" data-placeholder="Select model">
+                                    <option value="1">Pulsar RS200</option>
+                                    <option value="2">CB Shine</option>
+                                    <option value="3">CB ShineSP</option>
+                                    <option value="4">CB Unicorn 150</option>
+                                    <option value="5">Pulsar RS200</option>
+                                    <option value="6">CB Shine</option>
+                                    <option value="7">CB ShineSP</option>
+                                    <option value="8">CB Unicorn 150</option>
+                                </select>
+                            </div>
+                            <img id="service-model-image" src="http://imgd1.aeplcdn.com//310x174//bw/models/honda-cb-shine-kick/drum/spokes-111.jpg?20151209184344" alt="Honda CB Shine" title="Honda CB Shine" />
+                        </div>
+                        <div class="grid-8 omega">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <thead>
+                                    <tr>
+                                        <th align="left" width="20%">Service no.</th>
+                                        <th align="left" width="40%">Validity from the date of purchase</th>
+                                        <th align="left" width="40%">Validity from the date of previous service</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+							            <td>1</td>
+                                        <td>0-600 kms</td>
+							            <td>60 days</td>
+						            </tr>
+                                    <tr>
+							            <td>2</td>
+                                        <td>500-1000 kms</td>
+							            <td>100 days</td>
+						            </tr>
+                                    <tr>
+							            <td>3</td>
+                                        <td>1000-5000 kms</td>
+							            <td>250 days</td>
+						            </tr>
+                                    <tr>
+							            <td>4</td>
+                                        <td>5000-10000 kms</td>
+							            <td>500 days</td>
+						            </tr>
+                                </tbody>
+                            </table>
+                            <!-- no days -->
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="hide">
+                                <thead>
+                                    <tr>
+                                        <th align="left" width="30%">Service no.</th>
+                                        <th align="left" width="70%">Validity from the date of previous service</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+							            <td>1</td>
+                                        <td>0-600 kms</td>
+						            </tr>
+                                    <tr>
+							            <td>2</td>
+                                        <td>500-1000 kms</td>
+						            </tr>
+                                    <tr>
+							            <td>3</td>
+                                        <td>1000-5000 kms</td>
+						            </tr>
+                                    <tr>
+							            <td>4</td>
+                                        <td>5000-10000 kms</td>
+						            </tr>
+                                </tbody>
+                            </table>
+                            <!-- no kms -->
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="hide">
+                                <thead>
+                                    <tr>
+                                        <th align="left" width="30%">Service no.</th>
+                                        <th align="left" width="70%">Validity from the date of previous service</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+							            <td>1</td>
+							            <td>60 days</td>
+						            </tr>
+                                    <tr>
+							            <td>2</td>
+                                        <td>100 days</td>
+						            </tr>
+                                    <tr>
+							            <td>3</td>
+                                        <td>250 days</td>
+						            </tr>
+                                    <tr>
+							            <td>4</td>
+                                        <td>500 days</td>
+						            </tr>
+                                </tbody>
+                            </table>
+                            <!-- no service -->
+                            <div id="service-not-avaiable" class="hide">
+                                <span class="service-sprite calender-lg"></span>
+                                <p class="font14 text-light-grey">Sorry! The service schedule for Bajaj Pulsar is not available.<br />Please check out the service schedule for other Bajaj bikes.</p>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container section-bottom-margin">
+                <div class="grid-12">
+                    <div class="content-box-shadow">
+                        <h2 class="section-h2-title padding-15-20">Tips from BikeWale experts to keep your bike in good shape!</h2>
+                        <ul id="bw-tips-list">
+                            <li class="grid-6">
+                                <a href="">
+                                    <span class="service-sprite care-icon"></span>
+                                    <h3 class="bike-tips-label margin-left10 inline-block">Bike Care - Maintenance tips</h3>
+                                    <span class="bwsprite right-arrow"></span>
+                                </a>
+                            </li>
+                            <li class="grid-6">
+                                <a href="">
+                                    <span class="service-sprite faq-icon"></span>
+                                    <h3 class="bike-tips-label margin-left10 inline-block">Bike troubleshooting - FAQs</h3>
+                                    <span class="bwsprite right-arrow"></span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container section-bottom-margin">
+                <div class="grid-12">
+                    <div class="content-box-shadow padding-bottom20">
+                        <div class="padding-15-20-20">
+                            <h2 class="section-h2-title margin-bottom10">Looking to buy a new Bajaj bike in Mumbai?</h2>
+                            <p class="font14">Check out authorised Bajaj dealers in Mumbai</p>
+                        </div>
+                        <ul class="bw-horizontal-cards">
+                            <li class="card">
+                                <a href="" title="Executive Bajaj - Malad" class="card-target">
+                                    <p class="text-black text-bold text-truncate margin-bottom5">Executive Bajaj - Malad</p>
+                                    <p class="text-light-grey margin-bottom5">
+                                        <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
+                                        <span class="vertical-top details-column">11, Link House, Plot No.446, Near Lakozy Toyota, Link Road, Malad (W)</span>
+                                    </p>
+                                    <p class="text-default">
+                                        <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
+                                        <span class="text-bold vertical-top details-column">7620914785</span>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="card">
+                                <a href="" title="Kamala Landmarc Motorbikes - Malad" class="card-target">
+                                    <p class="text-black text-bold text-truncate margin-bottom5">Kamala Landmarc Motorbikes - Malad</p>
+                                    <p class="text-light-grey margin-bottom5">
+                                        <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
+                                        <span class="vertical-top details-column">11, Link House, Plot No.446, Near Lakozy Toyota, Link Road, Malad (W)</span>
+                                    </p>
+                                    <p class="text-default">
+                                        <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
+                                        <span class="text-bold vertical-top details-column">7620914785</span>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="card">
+                                <a href="" title="Executive Bajaj - Malad" class="card-target">
+                                    <p class="text-black text-bold text-truncate margin-bottom5">Executive Bajaj - Malad</p>
+                                    <p class="text-light-grey margin-bottom5">
+                                        <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
+                                        <span class="vertical-top details-column">11, Link House, Plot No.446, Near Lakozy Toyota, Link Road, Malad (W)</span>
+                                    </p>
+                                    <p class="text-default">
+                                        <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
+                                        <span class="text-bold vertical-top details-column">7620914785</span>
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="clear"></div>
+                        <a href="" class="margin-left20">View all Bajaj dealers<span class="bwsprite blue-right-arrow-icon"></span></a>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container section-bottom-margin">
+                <div class="grid-12 font12">
+                    <p><span class="font14"><strong>Disclaimer</strong>:</span> The above-mentioned information about authorised Honda service centers is furnished to best of our knowledge. The facilities of pick and drop, timings and service schedule related information might vary slightly from service center to service center. Please check with the authorised Make service center before scheduling an appointment.</p>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+
        <%if (dealerObj != null && dealerObj.CampaignId > 0 && (dealerObj.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || dealerObj.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)))
          { %>
         <section id="dealerAssistance">
@@ -332,7 +595,7 @@
         
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealer/details.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/service/details.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
 
         <!--[if lt IE 9]>

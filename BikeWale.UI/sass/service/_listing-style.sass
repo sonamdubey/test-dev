@@ -1,0 +1,103 @@
+﻿#service-main-content,
+#service-more-content
+	display: inline
+
+#service-more-content
+	display: none
+
+	&.active
+		display: inline
+
+#listing-left-column
+	&.grid-4
+		width: 32.333333%
+		@include box-shadow(0, 0, 8px, 0, #ddd)
+		z-index: 1
+
+#listing-right-column.grid-8
+	width: 67.66667%
+
+// common
+.padding-15-20
+	padding: 15px 20px
+
+.vertical-top
+	display: inline-block
+	vertical-align: top
+
+#center-list
+	a
+		padding-right: 20px
+		padding-left: 20px
+		display: block
+
+		&:hover
+			text-decoration: none
+
+	.dealer-card-content
+		padding-top: 15px
+		padding-bottom: 20px
+		font-size: 14px
+		border-top: 1px solid #e2e2e2
+
+	li
+		&:first-child
+			.dealer-card-content
+				border-top: 0
+				margin-top: 0
+
+.details-column
+	width: 92%
+
+.service-btn
+	padding-top: 9px
+	padding-bottom: 9px
+
+// map
+.dealer-map-wrapper
+	width: 100%
+	height: 530px
+	display: block
+	position: relative
+
+.dealer-info-tooltip
+	max-width: 350px
+
+#dealersMap
+	.dealership-card-details
+		width: 80%
+
+.dealer-info-tooltip
+	a
+		&:hover
+			text-decoration: none
+
+			p
+				text-decoration: underline
+
+// icons
+.dealership-loc-icon
+	width: 9px
+	height: 12px
+	background-position: -52px -469px
+	position: relative
+	top: 4px
+
+.phone-black-icon
+	width: 10px
+	height: 10px
+	background-position: -73px -444px
+	position: relative
+	top: 5px
+
+.service-sprite
+	background: url('http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-service-sprite.png') no-repeat
+	display: inline-block
+
+.blue-right-arrow-icon
+	width: 6px
+	height: 10px
+	background-position: -74px -469px
+	position: relative
+	top: 1px
+	left: 7px

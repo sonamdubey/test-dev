@@ -1167,6 +1167,18 @@
       <DependentUpon>BookingListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="service\ServiceCenterInCountry.aspx.cs">
+      <DependentUpon>ServiceCenterInCountry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="service\ServiceCenterDetails.aspx.cs">
+      <DependentUpon>ServiceCenterDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="service\ServiceCenterList.aspx.cs">
+      <DependentUpon>ServiceCenterList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="new\dealersincountry.aspx.cs">
       <DependentUpon>dealersincountry.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1864,6 +1876,7 @@
     <Content Include="css\cancellation.css" />
     <Content Include="css\chosen.min.css" />
     <Content Include="css\components\article-next-prev.css" />
+    <Content Include="css\components\card.css" />
     <Content Include="css\components\article.css" />
     <Content Include="css\components\compare-bikes.css" />
     <Content Include="css\components\pagination.css" />
@@ -1910,6 +1923,9 @@
     <Content Include="css\rsa.css" />
     <Content Include="css\new\bookinglisting.css" />
     <Content Include="css\search.css" />
+    <Content Include="css\service\details.css" />
+    <Content Include="css\service\listing.css" />
+    <Content Include="css\service\location.css" />
     <Content Include="css\slideshow.css" />
     <Content Include="css\specsandfeature.css" />
     <Content Include="css\style.css" />
@@ -2529,7 +2545,10 @@
     <Content Include="m\videos\default.aspx" />
     <Content Include="m\videos\VideoMakeModel.aspx" />
     <Content Include="News\RepeaterPagerNews.ascx" />
+    <Content Include="service\ServiceCenterInCountry.aspx" />
+    <Content Include="service\ServiceCenterDetails.aspx" />
     <Content Include="new\BikeDealerDetails.aspx" />
+    <Content Include="service\ServiceCenterList.aspx" />
     <Content Include="new\dealersincountry.aspx" />
     <Content Include="new\browsenewbikedealerdetails.aspx" />
     <Content Include="new\dealersinstate.aspx" />
@@ -2558,6 +2577,9 @@
     <Content Include="src\dealerpricequote.js" />
     <Content Include="src\dealersbylocation.js" />
     <Content Include="src\dealer\details.js" />
+    <Content Include="src\service\location.js" />
+    <Content Include="src\service\details.js" />
+    <Content Include="src\service\listing.js" />
     <Content Include="src\dealer\location.js" />
     <Content Include="src\dealer\listing.js" />
     <Content Include="src\frameworks.js" />
