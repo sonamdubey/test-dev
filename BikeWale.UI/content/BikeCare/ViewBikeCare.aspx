@@ -84,14 +84,15 @@
                             </div>
                         </div>
                     </div>
+                  
                        <div class="grid-4 omega">
                         <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
                       
-                       
+                           <!-- #include file="/ads/Ad300x250.aspx" -->
                           <BW:UpcomingBikes ID="ctrlUpcoming" runat="server" />
 
                          <div class="margin-bottom20">
-                           <!-- #include file="/ads/Ad300x250.aspx" -->
+                         
                         </div>
                     <div class="clear"></div>
                 </div>

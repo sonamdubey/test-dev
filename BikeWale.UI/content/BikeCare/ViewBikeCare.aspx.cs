@@ -14,6 +14,10 @@ namespace Bikewale.Content
 {
     public class ViewBikeCare : System.Web.UI.Page
     {
+        /// <summary>
+        /// Created By:-Subodh Jain 12 Nov 2016
+        /// Summary :- Detaile Page for TipsAndAdvice
+        /// </summary>
         DetailPageBikeCare objDetailBikeCare;
 
         protected String baseUrl = String.Empty, pageTitle = String.Empty, modelName = String.Empty, modelUrl = String.Empty, pageDescription = String.Empty, pageKeywords = String.Empty;
