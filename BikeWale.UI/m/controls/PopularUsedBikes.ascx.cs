@@ -11,7 +11,7 @@ namespace Bikewale.Mobile.Controls
         public uint TotalRecords { get; set; }
         public int FetchedRecordsCount { get; set; }
 
-        protected string cityName = String.Empty;
+        protected string _cityName = String.Empty;
         protected static int? cityId = null;
 
         protected override void OnInit(EventArgs e)
@@ -21,7 +21,7 @@ namespace Bikewale.Mobile.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            CheckCityCookie(out cityId, out cityName);
+            CheckCityCookie(out cityId, out _cityName);
             BindPopularUsedBikes();
         }
 
@@ -52,7 +52,10 @@ namespace Bikewale.Mobile.Controls
                 if (_locArray != null && _locArray.Length > 0)
                 {
                     cityId = Convert.ToInt32(_locArray[0]);
-                    cityName = (_locArray[1]).Replace('-', ' ');
+                    if (_locArray.Length > 1)
+                    {
+                        cityName = (_locArray[1]).Replace('-', ' ');
+                    }
                 }
             }
 
@@ -60,20 +63,19 @@ namespace Bikewale.Mobile.Controls
 
         protected string FormatControlHeader()
         {
-            return String.Format("Popular used bikes in {0}", !String.IsNullOrEmpty(cityName) ? cityName : "India");
+            return String.Format("Popular used bikes in {0}", !String.IsNullOrEmpty(_cityName) ? _cityName : "India");
         }
 
         protected string FormatUsedBikeUrl(string makeMaskingName, string cityMaskingName)
         {
             string url = String.Empty;
-            cityName = cityMaskingName.Trim();
             if (cityId.HasValue)
             {
-                url = String.Format("/used/{0}-bikes-in-{1}/", makeMaskingName, cityName);
+                url = String.Format("/m/used/{0}-bikes-in-{1}/", makeMaskingName, cityMaskingName.Trim());
             }
             else
             {
-                url = String.Format("/used/{0}-bikes-in-india/", makeMaskingName);
+                url = String.Format("/m/used/{0}-bikes-in-india/", makeMaskingName);
             }
             return url;
         }
@@ -83,11 +85,11 @@ namespace Bikewale.Mobile.Controls
             string url = String.Empty;
             if (cityId.HasValue)
             {
-                url = String.Format("/used/bikes-in-{0}/", cityName);
+                url = String.Format("/m/used/bikes-in-{0}/", _cityName);
             }
             else
             {
-                url = "/used/bikes-in-india/";
+                url = "/m/used/bikes-in-india/";
             }
             return url;
         }

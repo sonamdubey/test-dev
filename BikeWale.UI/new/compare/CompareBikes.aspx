@@ -305,7 +305,7 @@
             <ul class="featured-bike-tabs-inner padding-top20">
                 <li id="liSpecs" class="fbike-active-tab first_tab">Specs</li>
                 <li id="liFeatures">Features</li>
-                <li id="liColors">Colours</li>
+                <li id="liColors">Colors</li>
             </ul>
         </div>
         <div class="tab_inner_container">

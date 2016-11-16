@@ -1,7 +1,7 @@
 ﻿using BikewaleOpr.common.ContractCampaignAPI;
 using BikewaleOpr.DALs.ManufactureCampaign;
-using BikewaleOpr.Entity.ContractCampaign;
-using BikewaleOpr.Entity.ManufacturerCampaign;
+using BikewaleOpr.Entities.ContractCampaign;
+using BikewaleOpr.Entities.ManufacturerCampaign;
 using BikewaleOpr.Interface.ManufacturerCampaign;
 using BikeWaleOpr.Common;
 using Microsoft.Practices.Unity;
@@ -78,7 +78,7 @@ namespace BikewaleOpr.manufacturecampaign
                 {
                     container.RegisterType<IManufacturerCampaignRepository, ManufacturerCampaign>();
                     IManufacturerCampaignRepository objMfgCampaign = container.Resolve<IManufacturerCampaignRepository>();
-                    List<BikewaleOpr.Entity.ManufacturerCampaign.ManufacturerCampaignEntity> dataReader = objMfgCampaign.FetchCampaignDetails(campaignId);
+                    List<BikewaleOpr.Entities.ManufacturerCampaign.ManufacturerCampaignEntity> dataReader = objMfgCampaign.FetchCampaignDetails(campaignId);
                     if (dataReader != null)
                     {
                         int count = 0;

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Entities.Compare
 {
@@ -12,8 +8,10 @@ namespace Bikewale.Entities.Compare
     /// Description : Introduce [Serializable].
     /// Modified By :   Sumit Kate on 29 Jan 2016
     /// Description :   Added HostUrl1, HostUrl2, VersionImgUrl1, VersionImgUrl2 as string to Bikewale.Entities.Compare.TopBikeCompareBase entity.
+    /// Modified By : Sushil Kumar on 27th Oct 2016
+    /// Description : Removed unused properties hosturl,reviews
     /// </summary>
-    [Serializable,DataContract]
+    [Serializable, DataContract]
     public class TopBikeCompareBase
     {
         [DataMember]
@@ -42,18 +40,6 @@ namespace Bikewale.Entities.Compare
         public UInt32 Price1 { get; set; }
         [DataMember]
         public UInt32 Price2 { get; set; }
-        [DataMember]
-        public UInt16 Review1 { get; set; }
-        [DataMember]
-        public UInt16 Review2 { get; set; }
-        [DataMember]
-        public UInt16 ReviewCount1 { get; set; }
-        [DataMember]
-        public UInt16 ReviewCount2 { get; set; }
-        [DataMember]
-        public string HostURL { get; set; }
-        [DataMember]
-        public string OriginalImagePath { get; set; }
         [DataMember]
         public string HostUrl1 { get; set; }
         [DataMember]

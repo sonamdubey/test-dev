@@ -1,0 +1,74 @@
+﻿@charset "utf-8";
+#popular-city-list {
+    margin-right: 10px;
+    margin-left: 10px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+#popular-city-list li {
+    margin: 12px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#popular-city-list a {
+    width: 292px;
+    height: 201px;
+    border: 1px solid #f6f6f6;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    -ms-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    -o-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.city-card-target {
+    display: block;
+}
+
+.city-card-target:hover {
+    text-decoration: none;
+}
+
+
+#other-city-list li {
+    font-size: 16px;
+    margin-bottom: 20px
+}
+
+#other-city-list a {
+    color: #82888b;
+}
+
+.city-bike-count {
+    color: #a2a2a2;
+}
+
+.city-image-preview {
+    width: 292px;
+    height: 114px;
+    display: block;
+    margin-bottom: 15px;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.city-sprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?24062016) no-repeat; display: inline-block; }
+.mumbai-icon, .pune-icon, .bangalore-icon, .delhi-icon, .chennai-icon, .hyderabad-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon { height: 92px; }
+.mumbai-icon { width: 130px; background-position: 0 0; }
+.pune-icon { width: 186px; background-position: -140px 0; }
+.bangalore-icon { width: 136px; background-position: -336px 0; }
+.delhi-icon { width: 70px; background-position: -482px 0; }
+.chennai-icon { width: 53px; background-position: -562px 0; }
+.hyderabad-icon { width: 65px; background-position: -625px 0; }
+.kolkata-icon { width: 182px; background-position: -700px 0; }
+.lucknow-icon { width: 174px; background-position: -892px 0; }
+.ahmedabad-icon { width: 0px; background-position: 0 0; }
+.chandigarh-icon { width: 0px; background-position: 0 0; }
+
+@media only screen and (max-width:1024px) {
+    #popular-city-list li {
+        margin: 6px
+    }
+}

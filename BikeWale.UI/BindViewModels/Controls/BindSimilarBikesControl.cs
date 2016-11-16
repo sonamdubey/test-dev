@@ -21,7 +21,7 @@ namespace Bikewale.BindViewModels.Controls
     {
         public uint FetchedRecordsCount { get; set; }
         public int cityid { get; set; }
-        public uint BindAlternativeBikes(Repeater rptSimlarCompareBikes, string versionList, uint count)
+        public uint BindAlternativeCompareBikes(Repeater rptSimlarCompareBikes, string versionList, uint count)
         {
             try
             {

@@ -18,6 +18,7 @@
                 <li><a href="/m/comparebikes/">Compare Bikes</a></li>
                 <li><a href="/m/pricequote/">Check On-Road Price</a></li>
                 <li><a href="/m/dealer-showroom-locator/">Locate Dealer</a></li>
+                <li><a href="/m/bike-service-center/">Locate Service Center</a></li>
                 <li><a href="/m/upcoming-bikes/">Upcoming Bikes</a></li>
                 <li><a href="/m/new-bikes-launches/">New Launches</a></li>
                 <li><a href="/m/bikebooking/">Book Your Bike</a></li>
@@ -46,6 +47,7 @@
                 <li><a href="/m/user-reviews/">User Reviews</a></li>
                 <li><a href="/m/features/">Features</a></li>
                 <li><a href="/m/bike-videos/">Videos</a></li>
+                <li><a href="/m/bike-care/">Bike Care</a></li>
             </ul>
         </li>
         <%--<li>

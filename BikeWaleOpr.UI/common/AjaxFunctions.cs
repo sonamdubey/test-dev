@@ -1,24 +1,17 @@
+using BikeWaleOpr.Common;
+using MySql.CoreDAL;
 /*THIS CLASS contains all the functions which are to be implemented as ajax server side functions.
 */
 using System;
-using System.Text;
 using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using Ajax;
-using BikeWaleOpr.Common;
 using System.Text.RegularExpressions;
-using System.Configuration;
-using MySql.CoreDAL;
-using AjaxPro;
+using System.Web;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr
 {
-	public class AjaxFunctions
-	{
+    public class AjaxFunctions
+    {
         private char _delimiter = '|';
 
         [Ajax.AjaxMethod()]
@@ -34,13 +27,13 @@ namespace BikeWaleOpr
             if (!string.IsNullOrEmpty(stateId) && uint.TryParse(stateId, out _stateId))
             {
                 sql = " select id as Value, name as Text from cities where stateid =" + _stateId + " and isdeleted = 0 order by text ";
-            }             
+            }
 
             try
             {
                 if (_stateId > 0)
                 {
-                    ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly); 
+                    ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly);
                 }
             }
             catch (Exception err)
@@ -65,17 +58,17 @@ namespace BikeWaleOpr
             string sql = "";
 
             uint _makeId = default(uint);
-            if(!string.IsNullOrEmpty(makeId) && uint.TryParse(makeId,out _makeId))
+            if (!string.IsNullOrEmpty(makeId) && uint.TryParse(makeId, out _makeId))
             {
                 sql = " select id AS Value, name AS Text from bikemodels where isdeleted = 0 and bikemakeid =" + _makeId + " order by text ";
             }
 
-            
+
             try
             {
                 if (_makeId > 0)
                 {
-                    ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly); 
+                    ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly);
                 }
             }
             catch (Exception err)
@@ -103,14 +96,14 @@ namespace BikeWaleOpr
             {
                 sql = " select id as Value, name as Text from bikeversions where isdeleted = 0 and  bikemodelid =" + modelId + " order by text ";
             }
-            
+
             try
             {
                 if (_modelid > 0)
                 {
-                    ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly); 
+                    ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly);
                 }
-                
+
             }
             catch (Exception err)
             {
@@ -167,87 +160,6 @@ namespace BikeWaleOpr
             return url.Replace(" ", "").Replace("-", "").Replace("/", "").ToLower();
         }
 
-        [Ajax.AjaxMethod()]
-        public bool UpdateLaunchDate(string Id, string minPrice, string maxPrice, string expLaunch, string newLaunch, string modelId)
-        {
-            throw new Exception("Method not used/commented");
-
-            //string[] tempDate = newLaunch.Split('-');
-            //DateTime newLaunchDate = new DateTime(int.Parse(tempDate[0]), int.Parse(tempDate[1]), int.Parse(tempDate[2]), int.Parse(tempDate[3]), int.Parse(tempDate[4]), 0);
-
-            //bool retVal = false;
-            //SqlConnection con;
-            //SqlCommand cmd;
-            //SqlParameter prm;
-            //Database db = new Database();
-            //CommonOpn op = new CommonOpn();
-
-            //string conStr = db.GetConString();
-            //con = new SqlConnection(conStr);
-
-            //try
-            //{
-            //    cmd = new SqlCommand("CON_UpdateExpectedBikeLaunches", con);
-            //    cmd.CommandType = CommandType.StoredProcedure;
-
-            //    prm = cmd.Parameters.Add("@Id", SqlDbType.BigInt);
-            //    prm.Value = Id;
-
-            //    prm = cmd.Parameters.Add("@ExpectedLaunch", SqlDbType.VarChar, 250);
-            //    prm.Value = expLaunch;
-
-            //    prm = cmd.Parameters.Add("@LaunchDate", SqlDbType.DateTime);
-            //    prm.Value = newLaunchDate;
-
-            //    prm = cmd.Parameters.Add("@EstimatedPriceMin", SqlDbType.Decimal);
-            //    prm.Value = minPrice;
-            //    prm.Precision = 5;
-            //    prm.Scale = 2;
-
-            //    prm = cmd.Parameters.Add("@EstimatedPriceMax", SqlDbType.Decimal);
-            //    prm.Value = maxPrice;
-            //    prm.Precision = 5;
-            //    prm.Scale = 2;
-
-            //    prm = cmd.Parameters.Add("@ModelId", SqlDbType.VarChar, 10);
-            //    prm.Value = modelId;
-
-            //    prm = cmd.Parameters.Add("@Url", SqlDbType.VarChar, 100);
-            //    prm.Value = ConfigurationManager.AppSettings["imgHostURL"];
-
-            //    con.Open();
-            //    //run the command
-            //    cmd.ExecuteNonQuery();
-
-            //    retVal = true;
-
-            //}
-            //catch (SqlException err)
-            //{
-            //    //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
-            //    HttpContext.Current.Trace.Warn(err.Message.ToString());
-            //    ErrorClass objErr = new ErrorClass(err, "AjaxFunctions.UpdateLaunchDet");
-            //    objErr.SendMail();
-            //    retVal = false;
-            //} // catch SqlException
-            //catch (Exception err)
-            //{
-            //    HttpContext.Current.Trace.Warn(err.Message.ToString());
-            //    ErrorClass objErr = new ErrorClass(err, "AjaxFunctions.UpdateLaunchDet");
-            //    objErr.SendMail();
-            //    retVal = false;
-            //} // catch Exception
-            //finally
-            //{
-            //    //close the connection	
-            //    if (con.State == ConnectionState.Open)
-            //    {
-            //        con.Close();
-            //    }
-            //}
-            //return retVal;
-        }
-
         //this function returns the dataset containing the name and id of the new models
         //available
         /*Summary   : Get Model from Make
@@ -259,37 +171,6 @@ namespace BikeWaleOpr
             return CommonOpn.GetModelFromMake(makeId);
         }
 
-        //this function returns the dataset containing the name and id of the new versions
-        //available
-        [Ajax.AjaxMethod()]
-        public DataSet GetNewVersions(string modelId)
-        {
-            throw new Exception("Method not used/commented");
-
-            //DataSet ds = new DataSet();
-
-            //if (modelId == "")
-            //    return ds;
-
-            //Database db = new Database();
-            //string sql = "";
-
-            //sql = " SELECT ID AS Value, Name AS Text FROM BikeVersions WHERE IsDeleted = 0 AND "
-            //    + " BikeModelId =" + modelId + " AND New = 1 ORDER BY Text ";
-
-            //try
-            //{
-            //    ds = db.SelectAdaptQry(sql);
-            //}
-            //catch (Exception err)
-            //{
-            //    ErrorClass objErr = new ErrorClass(err, "AjaxFunctions.GetVersions");
-            //    objErr.SendMail();
-            //}
-
-            //return ds;
-        }
-
         //this function returns a string containing the help contents 
         // for any given id
         /// <summary>
@@ -299,7 +180,7 @@ namespace BikeWaleOpr
         /// <param name="cityId"></param>
         /// <param name="price"></param>
         /// <returns></returns>
-        [Ajax.AjaxMethod(),AjaxPro.AjaxMethod()]
+        [Ajax.AjaxMethod(), AjaxPro.AjaxMethod()]
         public string CalculateInsurancePremium(string bikeVersionId, string cityId, double price)
         {
             return CommonOpn.GetInsurancePremium(bikeVersionId, cityId, price).ToString();
@@ -314,48 +195,48 @@ namespace BikeWaleOpr
         /// <param name="cityId"></param>
         /// <param name="price"></param>
         /// <returns></returns>
-        [Ajax.AjaxMethod(),AjaxPro.AjaxMethod()]
+        [Ajax.AjaxMethod(), AjaxPro.AjaxMethod()]
         public string CalculateRegistrationCharges(string bikeVersionId, string cityId, double price)
         {
             return CommonOpn.GetRegistrationCharges(bikeVersionId, cityId, price).ToString();
         }
 
         [Ajax.AjaxMethod()]
-		public string MapOemCities(string cityName, string cityId, string cwCityName)
-		{
-			string retVal = "Some Prob";
-			ContentCommon.MapCities(cityName.Trim(), cityId.Trim(), cwCityName.Trim()).ToString();
-			
-			return retVal;
-		}
-		
-		[Ajax.AjaxMethod()]
-		public string MapUOemCities(string cityName, string cityId, string cwCityName)
-		{
-			//update the city
-			string retVal = "Some Prob";
-			ContentCommon.UpdateCities(cityName.Trim(), cityId.Trim(), cwCityName.Trim()).ToString();
-			
-			return retVal;
-		}
-		
-		[Ajax.AjaxMethod()]
-		public string MapOemBikes(string bikeName, string bikeId, string cwBikeName)
-		{
-			string retVal = "Some Prob";
-			ContentCommon.MapBikes(bikeName.Trim(), bikeId.Trim(), cwBikeName.Trim()).ToString();
-			
-			return retVal;
-		}
-		
-		[Ajax.AjaxMethod()]
-		public string MapUOemBikes(string bikeName, string bikeId, string cwBikeName)
-		{
-			string retVal = "Some Prob";
-			ContentCommon.UpdateBikes(bikeName.Trim(), bikeId.Trim(), cwBikeName.Trim()).ToString();
-			
-			return retVal;
-		}
+        public string MapOemCities(string cityName, string cityId, string cwCityName)
+        {
+            string retVal = "Some Prob";
+            ContentCommon.MapCities(cityName.Trim(), cityId.Trim(), cwCityName.Trim()).ToString();
+
+            return retVal;
+        }
+
+        [Ajax.AjaxMethod()]
+        public string MapUOemCities(string cityName, string cityId, string cwCityName)
+        {
+            //update the city
+            string retVal = "Some Prob";
+            ContentCommon.UpdateCities(cityName.Trim(), cityId.Trim(), cwCityName.Trim()).ToString();
+
+            return retVal;
+        }
+
+        [Ajax.AjaxMethod()]
+        public string MapOemBikes(string bikeName, string bikeId, string cwBikeName)
+        {
+            string retVal = "Some Prob";
+            ContentCommon.MapBikes(bikeName.Trim(), bikeId.Trim(), cwBikeName.Trim()).ToString();
+
+            return retVal;
+        }
+
+        [Ajax.AjaxMethod()]
+        public string MapUOemBikes(string bikeName, string bikeId, string cwBikeName)
+        {
+            string retVal = "Some Prob";
+            ContentCommon.UpdateBikes(bikeName.Trim(), bikeId.Trim(), cwBikeName.Trim()).ToString();
+
+            return retVal;
+        }
 
 
     }//class

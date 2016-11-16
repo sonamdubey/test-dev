@@ -11,6 +11,8 @@ namespace Bikewale.Entities.PriceQuote
     /// Modified By : Sushil Kumar
     /// Modified On : 6th June 2016
     /// Description : Mobile_PriceInCity_SelectAreas,Mobile_PriceInCity_Alternative and  Mobile_PriceInCity_DealerCard_GetOffers added.
+    /// Modified By : Sushil Kumar on 28th Oct 2016
+    /// Description : Added pqsources for bikes list on homepage desktop and mobile 
     /// </summary>
     public enum PQSourceEnum
     {
@@ -74,18 +76,13 @@ namespace Bikewale.Entities.PriceQuote
         Desktop_MakePage_GetOffersFromDealer = 58,
         Mobile_MakePage_GetOffersFromDealer = 59,
         Desktop_dealer_details_Get_offers = 60,
-        Mobile_dealer_details_Get_offers = 61
-        //Desktop_DealerLocator_GetOfferButton = 44,
-        //Desktop_DealerLocator_GetOfferButton_Floating = 45,
-        //Desktop_PriceInCity_SelectAreas = 46,
-        //Desktop_PriceInCity_Alternative = 47,
-        //Desktop_PriceInCity_DealerCard_GetOffers = 48,
-        //Mobile_PriceInCity_SelectAreas = 49,
-        //Mobile_PriceInCity_Alternative = 50,
-        //Mobile_PriceInCity_DealerCard_GetOffers = 51,
-        //Desktop_SpecsAndFeature_PQOnroad = 52,
-        //Mobile_SpecsAndFeaturePage_CheckOnRoadPrice = 54,
-        //Mobile_SpecsAndFeaturePage_GetOffersFromDealer = 55
+        Mobile_dealer_details_Get_offers = 61,
+        Desktop_HP_MostPopular = 62,
+        Desktop_HP_NewLaunches = 63,
+        Mobile_HP_MostPopular = 64,
+        Mobile_HP_NewLaunches = 65,
+        Mobile_ServiceCenter_Listing_CityPage = 66,
+        Mobile_ServiceCenter_DetailsPage = 67
 
     }
 }

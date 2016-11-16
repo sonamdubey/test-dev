@@ -17,12 +17,12 @@ namespace Bikewale.New
 {
     public class Default : System.Web.UI.Page
     {
-        protected News_new ctrlNews;
+        protected News_Widget ctrlNews;
         protected UpcomingBikes_new ctrlUpcomingBikes;
         protected NewLaunchedBikes_new ctrlNewLaunchedBikes;
         protected MostPopularBikes_new ctrlMostPopularBikes;
-        protected ExpertReviews ctrlExpertReviews;
-        protected VideosControl ctrlVideos;
+        protected NewExpertReviews ctrlExpertReviews;
+        protected NewVideosControl ctrlVideos;
         protected ComparisonMin ctrlCompareBikes;
         protected NewBikesOnRoadPrice NBOnRoadPrice;
         protected short reviewTabsCnt = 0;
@@ -50,20 +50,23 @@ namespace Bikewale.New
             dd.DetectDevice();
 
             //to get Most Popular Bikes
-            ctrlMostPopularBikes.totalCount = 6;
+            ctrlMostPopularBikes.totalCount = 9;
             ctrlMostPopularBikes.PQSourceId = (int)PQSourceEnum.Desktop_New_MostPopular;
 
             //To get Upcoming Bike List Details 
-            ctrlNewLaunchedBikes.pageSize = 6;
+            ctrlNewLaunchedBikes.pageSize = 9;
             ctrlNewLaunchedBikes.PQSourceId = (int)PQSourceEnum.Desktop_New_NewLaunches;
 
             //To get Upcoming Bike List Details 
             ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            ctrlUpcomingBikes.pageSize = 6;
+            ctrlUpcomingBikes.pageSize = 9;
 
             ctrlNews.TotalRecords = 3;
+            ctrlNews.ShowWidgetTitle = false;
             ctrlExpertReviews.TotalRecords = 3;
+            ctrlExpertReviews.ShowWidgetTitle = false;
             ctrlVideos.TotalRecords = 3;
+            ctrlVideos.ShowWidgetTitle = false;
             ctrlCompareBikes.TotalRecords = 4;
 
             NBOnRoadPrice.PQSourceId = (int)PQSourceEnum.Desktop_New_PQ_Widget;

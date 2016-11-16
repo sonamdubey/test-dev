@@ -22,7 +22,7 @@ using System.Web;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.Content
+namespace Bikewale.Mobile.Content
 {
     /// <summary>
     /// Created By : Ashwini Todkar on 21 May 2014

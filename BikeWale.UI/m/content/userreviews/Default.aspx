@@ -10,8 +10,6 @@
     %>
 <!-- #include file="/includes/headermobile.aspx" -->
 <script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
-<%--    <input type="hidden" id="hdnMake" runat="server"/>
-    <input type="hidden" id="hdnModel" runat="server" />--%>
     <div class="padding5">
         <div id="br-cr">
             <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">

@@ -1,31 +1,29 @@
 ﻿<%@ Register Src="/m/controls/BookBikeSlug.ascx" TagPrefix="BikeBooking" TagName="BookBikeSlug" %>
-<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"  xmlns:fb="http://www.facebook.com/2008/fbml">
+    <script language="c#" runat="server">	    
+	    private string title = "", description = "", keywords = "", AdId = "", AdPath = "",ShowTargeting="",TargetedModel="", TargetedSeries="", TargetedMakes="",TargetedModels="", AdModel_300x250=""
+        ,AdSeries_300x250="", canonical = "",relPrevPageUrl = "",relNextPageUrl = "",fbTitle = "",fbImage = "", menu = "",OGImage = "";
+        private bool Ad_320x50 = false, Ad_Bot_320x50 = false, Ad_300x250 = false, EnableOG = true;
+        private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
+        private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
+    </script> 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-	<%if(keywords != "") {%>
-        <meta name="keywords" content="<%= keywords %>" />
-    <%} %>
+    <% if(!String.IsNullOrEmpty(keywords)) { %><meta name="keywords" content="<%= keywords %>" /><% } %>
     <meta name="description" content="<%= description %>" />
     <% if(!string.IsNullOrEmpty(canonical)){ %><link rel="canonical" href="<%= canonical %>" /> <% } %>
-    <% if(!String.IsNullOrEmpty(fbTitle) && !String.IsNullOrEmpty(fbImage)) { %>
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="<%=fbTitle%>"/> 
-        <meta property="og:image" content="<%=fbImage%>"/> 
-        <meta property="og:url" content="<%= canonical %>" />
-        <meta property="og:description" content="<%= description %>" />
+    <%if (EnableOG){ %>
+    <meta property="og:title" content="<%=title %>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="<%=description%>" />
+    <%if(!String.IsNullOrEmpty(canonical)) { %><meta property="og:url" content="<%=canonical %>" /> <% } %>
+    <meta property="og:image" content="<%= string.IsNullOrEmpty(OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : OGImage %>" />
     <% } %>
     <title><%= title %></title>
     <%if(!String.IsNullOrEmpty(relPrevPageUrl)) { %><link rel="prev" href="<%= relPrevPageUrl %>" /><% } %>
     <%if(!String.IsNullOrEmpty(relNextPageUrl)){ %><link rel="next" href="<%= relNextPageUrl %>" /><% }%>
-    <script language="c#" runat="server">	    
-	    private string title = "", description = "", keywords = "", AdId = "", AdPath = "",ShowTargeting="",TargetedModel="", TargetedSeries="", TargetedMakes="",TargetedModels="", AdModel_300x250=""
-        ,AdSeries_300x250="", canonical = "",relPrevPageUrl = "",relNextPageUrl = "",fbTitle = "",fbImage = "", menu = "";
-        private bool Ad_320x50 = false, Ad_Bot_320x50 = false, Ad_300x250 = false;
-        private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
-        private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
-    </script> 
+
     <!-- #include file="/includes/gacode.aspx" --> 
     <script type="text/javascript">
         setTimeout(function () {

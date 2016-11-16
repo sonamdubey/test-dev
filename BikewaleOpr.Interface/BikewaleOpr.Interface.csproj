@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BikeData\IBikeMakes.cs" />
+    <Compile Include="BikeData\IBikeModels.cs" />
+    <Compile Include="BikeData\IBikeVersions.cs" />
     <Compile Include="BikePricing\IShowroomPricesRepository.cs" />
     <Compile Include="ContractCampaign\IContractCampaign.cs" />
     <Compile Include="IDealerPriceQuote.cs" />
@@ -50,9 +53,16 @@
     <Compile Include="ManufacturerCampaign\IManufacturerReleaseMaskingNumber.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Popular Comparisions\IPopularBikeComparisions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Used\ISellBikes.cs" />
+    <Compile Include="Used\ISellerRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
+      <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
+      <Name>Bikewale.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BikewaleOpr.Entity\BikewaleOpr.Entity.csproj">
       <Project>{caf758ed-4954-4be3-be15-345dbc891970}</Project>
       <Name>BikewaleOpr.Entity</Name>

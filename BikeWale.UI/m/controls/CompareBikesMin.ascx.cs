@@ -4,6 +4,10 @@ using System;
 
 namespace Bikewale.Mobile.Controls
 {
+    /// <summary>
+    /// Modified By : Sushil Kumar on 27th Oct 2016
+    /// Description : Removed unused methods for reviews and topcompare image
+    /// </summary>
     public class CompareBikesMin : System.Web.UI.UserControl
     {
         public uint TotalRecords { get; set; }
@@ -13,7 +17,6 @@ namespace Bikewale.Mobile.Controls
         public string Bike2ReviewLink { get; set; }
         public string Bike1ReviewText { get; set; }
         public string Bike2ReviewText { get; set; }
-        public string TopCompareImage { get; set; }
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -32,29 +35,6 @@ namespace Bikewale.Mobile.Controls
             this.TopRecord = objComp.FetchTopRecord();
             this.FetchedRecordsCount = objComp.FetchedRecordCount;
 
-            this.TopCompareImage = Bikewale.Utility.Image.GetPathToShowImages(TopRecord.OriginalImagePath, TopRecord.HostURL, Bikewale.Utility.ImageSize._360x202);
-
-            if (this.TopRecord.ReviewCount1 > 0)
-            {
-                this.Bike1ReviewText = String.Format("{0} reviews", this.TopRecord.ReviewCount1);
-                this.Bike1ReviewLink = String.Format("/m/{0}-bikes/{1}/user-reviews/", this.TopRecord.MakeMaskingName1, this.TopRecord.ModelMaskingName1);
-            }
-            else
-            {
-                this.Bike1ReviewText = "Not yet reviewed";
-                //this.Bike1ReviewLink = String.Format("/m/content/userreviews/writereviews.aspx?bikem={0}", this.TopRecord.ModelId1);
-            }
-
-            if (this.TopRecord.ReviewCount2 > 0)
-            {
-                this.Bike2ReviewText = String.Format("{0} reviews", this.TopRecord.ReviewCount2);
-                this.Bike2ReviewLink = String.Format("/m/{0}-bikes/{1}/user-reviews/", this.TopRecord.MakeMaskingName2, this.TopRecord.ModelMaskingName2);
-            }
-            else
-            {
-                this.Bike2ReviewText = "Not yet reviewed";
-                //this.Bike2ReviewLink = String.Format("/m/content/userreviews/writereviews.aspx?bikem={0}", this.TopRecord.ModelId2);
-            }
         }
 
         protected string FormatComparisonUrl(string make1MaskName, string model1MaskName, string make2MaskName, string model2MaskName, uint versionId1, uint versionId2)
@@ -69,15 +49,6 @@ namespace Bikewale.Mobile.Controls
             string anchorText = String.Empty;
             anchorText = String.Format("{0} vs {1}", bike1, bike2);
             return anchorText;
-        }
-
-        protected string FormatAnchorTag(string reviewLink, string reviewText)
-        {
-            if (!reviewText.Equals("Not yet reviewed"))
-            {
-                return String.Format("<a class=\"margin-left5\" href=\"{0}\">{1}</a>", reviewLink, reviewText);
-            }
-            return string.Empty;
         }
     }
 }

@@ -71,7 +71,7 @@
         <section>
             <div class="text-center">
                 <div id="loading">
-                    <img src="http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif"   />
+                    <img src="http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif"   />
                 </div>
             </div>
         </section>

@@ -10,7 +10,6 @@ using Bikewale.Memcache;
 using log4net;
 using Microsoft.Practices.Unity;
 using System;
-using System.Configuration;
 using System.Web;
 
 namespace Bikewale.Mobile.Content
@@ -74,7 +73,7 @@ namespace Bikewale.Mobile.Content
                 string basicid = BasicIdMapping.GetCWBasicId(Request["id"]);
                 Trace.Warn("basicid" + basicid);
                 //if id exists then redirect url to new basic id url
-                if (!String.IsNullOrEmpty(basicid))
+                if (!basicid.Equals(Request.QueryString["id"]))
                 {
                     string newUrl = "/m/news/" + basicid + "-" + Request["t"] + ".html";
                     Trace.Warn("New url : " + newUrl);

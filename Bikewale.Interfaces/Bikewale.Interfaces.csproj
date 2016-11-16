@@ -107,6 +107,9 @@
     <Compile Include="PriceQuote\IPriceQuote.cs" />
     <Compile Include="PriceQuote\IPriceQuoteCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceCenter\IServiceCenter.cs" />
+    <Compile Include="ServiceCenter\IServiceCenterCacheRepository.cs" />
+    <Compile Include="ServiceCenter\IServiceCenterRepository.cs" />
     <Compile Include="Used\ISearchFilters.cs" />
     <Compile Include="Used\ISearch.cs" />
     <Compile Include="Used\ISearchQuery.cs" />
@@ -115,6 +118,8 @@
     <Compile Include="UsedBikes\IUsedBikesRepository.cs" />
     <Compile Include="UsedBikes\IPopularUsedBikesCacheRepository.cs" />
     <Compile Include="Used\ISearchRepository.cs" />
+    <Compile Include="Used\ISellBikes.cs" />
+    <Compile Include="Used\ISellBikesRepository.cs" />
     <Compile Include="Used\IUsedBikeBuyer.cs" />
     <Compile Include="Used\IUsedBikeBuyerRepository.cs" />
     <Compile Include="Used\IUsedBikeDetails.cs" />
