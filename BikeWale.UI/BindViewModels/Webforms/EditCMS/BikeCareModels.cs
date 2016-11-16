@@ -36,6 +36,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         public uint totalRecords;
         private ICMSCacheContent _objBikeCareCache;
         public CMSContent objArticleList = null;
+        HttpRequest page = HttpContext.Current.Request;
 
         // <summary>
         /// Created By:- Subodh jain 11 Nov 2016
@@ -120,7 +121,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             PagerOutputEntity _pagerOutput = null;
             PagerEntity _pagerEntity = null;
             int recordCount = Convert.ToInt32(totalRecords);
-            string _baseUrl = "/m/bike-care/";
+            string _baseUrl = RemoveTrailingPage(page.RawUrl.ToLower());
 
             try
             {
@@ -189,10 +190,10 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         public string RemoveTrailingPage(string rawUrl)
         {
             string retUrl = rawUrl;
-            if (rawUrl.Contains("?pn="))
+            if (rawUrl.Contains("/page/"))
             {
-                string[] urlArray = rawUrl.Split(new string[] { "?" }, StringSplitOptions.RemoveEmptyEntries);
-                retUrl = string.Format("{0}", string.Join("/", urlArray.Take(urlArray.Length - 1).ToArray()));
+                string[] urlArray = rawUrl.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
+                retUrl = string.Format("/{0}/", string.Join("/", urlArray.Take(urlArray.Length - 2).ToArray()));
             }
             return retUrl;
         }
@@ -209,6 +210,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             if (totalCount < endIndex)
                 endIndex = totalCount;
         }
+
 
     }
 }

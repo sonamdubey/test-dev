@@ -215,31 +215,25 @@ namespace Bikewale.Mobile.Content
         protected void BindPageWidgets()
         {
             currentCityArea = GlobalCityArea.GetGlobalCityArea();
-            if (ctrlPopularBikes != null)
-            {
+           
                 ctrlPopularBikes.totalCount = 4;
                 ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
                 ctrlPopularBikes.cityName = currentCityArea.City;
+                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                ctrlUpcomingBikes.pageSize = 4;
                 if (_taggedMakeObj != null)
                 {
                     ctrlPopularBikes.makeId = _taggedMakeObj.MakeId;
                     ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
                     ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
-
+                    ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
+                    ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
+                    ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
                 }
-            }
-                if (ctrlUpcomingBikes != null)
-                {
-                    ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-                    ctrlUpcomingBikes.pageSize = 4;
-                    if (_taggedMakeObj != null)
-                    {
-                        ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
-                        ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
-                        ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
-                    }
-                }    
-        }
+        } 
+                
+           
+      
         /// <summary>
         /// Created by : Aditi Srivastava on 16 Nov 2016
         /// Description: get make details if a make is tagged

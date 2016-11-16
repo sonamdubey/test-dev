@@ -332,6 +332,10 @@
     <Compile Include="common\StateCity.cs" />
     <Compile Include="common\UrlRewrite.cs" />
     <Compile Include="common\Validations.cs" />
+    <Compile Include="content\BikeCare\BikeCare.aspx.cs">
+      <DependentUpon>BikeCare.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="content\Features\DefaultF.aspx.cs">
       <DependentUpon>DefaultF.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1761,6 +1765,7 @@
     <Content Include="bin\Newtonsoft.Json.dll" />
     <!--     <Content Include="bin\Newtonsoft.Json.xml" /> -->
     <Content Include="contactus.aspx" />
+    <Content Include="content\BikeCare\BikeCare.aspx" />
     <Content Include="content\Features\DefaultF.aspx" />
     <Content Include="content\Features\ViewF.aspx" />
     <Content Include="content\RepeaterPager.ascx" />
@@ -2382,11 +2387,13 @@
     <Content Include="m\css\bwm-model.css" />
     <Content Include="m\css\bwm-newbikes.css" />
     <Content Include="m\css\compare\landing.css" />
+    <Content Include="m\css\components\article-next-prev.css" />
     <Content Include="m\css\components\article.css" />
     <Content Include="m\css\components\compare-bikes-list.css" />
     <Content Include="m\css\components\compare-bikes.css" />
     <Content Include="m\css\components\pagination.css" />
     <Content Include="m\css\components\used-swiper.css" />
+    <Content Include="m\css\content\details.css" />
     <Content Include="m\css\dealerpricequote.css" />
     <Content Include="m\css\dealerpricequote-old.css" />
     <Content Include="m\css\dealer\landing.css" />

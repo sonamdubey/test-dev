@@ -132,9 +132,10 @@
             <%} %>
 	        <div style="clear:both;"></div>
         </div>--%>
-</div>
-<BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
-<BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
+    <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
+        <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
+    </div>
+
 <script type="text/javascript">
     $(document).ready(function () {
         var pageId = 1;
