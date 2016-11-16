@@ -1,6 +1,4 @@
 <%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Service.Default" EnableViewState="false" %>
-<%@ Register Src="~/controls/NewLaunchedBikes_new.ascx" TagName="NewLaunchedBikes" TagPrefix="BW" %>
-<%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
 
 <%@ Import Namespace="Bikewale.Common" %>
 <!doctype html>
@@ -71,7 +69,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-
+        <% if (TopMakeList!=null){ %>
         <section>
             <div class="container section-bottom-margin">
                 <div class="grid-12">
@@ -90,6 +88,7 @@
                                         </li>
                                   <%} %>
                             </ul>
+                            <% if (OtherMakeList!=null){ %>
                             <div class="brand-bottom-border border-solid-top hide"></div>
                             <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide margin-left5">
                              <% foreach (var make in OtherMakeList){ %>
@@ -107,12 +106,13 @@
                         <div class="view-brandType text-center padding-bottom25">
                             <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16" rel="nofollow">View <span>more</span> brands</a>
                         </div>
+                        <%} %>
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
-
+        <%} %>
         <section>
             <div class="container section-bottom-margin">
                 <h2 class="section-heading">Bike Care - Maintenance Tips</h2>
@@ -248,7 +248,7 @@
             var selCityId = '<%= (cityId > 0)?cityId:0%>';
             lscache.flushExpired();
             var key = "ServiceCenterCitiesByMake_";
-            lscache.setBucket('DLPage');  
+            lscache.setBucket('SCPage');  
 
             $(function () {
                 $(window).on("scroll", function () {
@@ -277,7 +277,6 @@
                     if (!isNaN(ddlmakeId) && ddlmakeId != "0") {
                         if (!isNaN(ddlcityId) && ddlcityId != "0") {
                             ddlcityMasking = $("#ddlCities option:selected").attr("maskingName");
-                            //window.location.href = "/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
                             window.location.href = "/" + ddlmakemasking + "-service-center-in-" + ddlcityMasking+ "/";
                         }
                         else {
