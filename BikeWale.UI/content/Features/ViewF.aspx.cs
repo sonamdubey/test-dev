@@ -59,6 +59,12 @@ namespace Bikewale.Content
             base.Load += new EventHandler(Page_Load);
         }
 
+        /// <summary>
+        /// Modified by : Sushil Kumar on 16th Nov 2016
+        /// Description : Handle page redirection 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Page_Load(object sender, EventArgs e)
         {
             // Modified By :Lucky Rathore on 12 July 2016.
@@ -73,20 +79,25 @@ namespace Bikewale.Content
             dd.DetectDevice();
 
 
-            ProcessQS();
-
-            if (!String.IsNullOrEmpty(_basicId))
+            if (!ProcessQS())
             {
-                GetFeatureDetails();
-                BindPageWidgets();
+                if (!String.IsNullOrEmpty(_basicId))
+                {
+                    GetFeatureDetails();
+                    BindPageWidgets();
+                }
             }
+
+
         }
 
         /// <summary>
-        /// 
+        /// Modified by : Sushil Kumar on 16th Nov 2016
+        /// Description : Handle page redirection 
         /// </summary>
-        private void ProcessQS()
+        private bool ProcessQS()
         {
+            bool isPageRedirect = false;
             if (Request.QueryString["id"] != null && Request.QueryString["id"].ToString() != "" && CommonOpn.CheckId(Request.QueryString["id"]))
             {
                 _basicId = Request.QueryString["id"].ToString();
@@ -106,6 +117,7 @@ namespace Bikewale.Content
                     string _newUrlTitle = _newUrl.Substring(_titleStartIndex, _titleEndIndex - _titleStartIndex + 1);
                     _newUrl = _newUrlTitle + _mappedBasicId + "/";
                     CommonOpn.RedirectPermanent(_newUrl);
+                    isPageRedirect = true;
                 }
             }
             else
@@ -114,6 +126,8 @@ namespace Bikewale.Content
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }
+
+            return isPageRedirect;
         }
 
         /// <summary>

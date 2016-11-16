@@ -56,33 +56,39 @@ namespace Bikewale.News
         /// <summary>
         /// Created By : Sushil Kumar on 10th Nov 2016
         /// Description : Bind news details page
+        /// Modified by : Sushil Kumar on 16th Nov 2016
+        /// Description : Handle page redirection 
         /// </summary>
         private void BindNewsDetails()
         {
             try
             {
                 objNews = new NewsDetails();
-                if (!objNews.IsPageNotFound)
+                if (!objNews.IsPermanentRedirect)
                 {
-                    objArticle = objNews.ArticleDetails;
-                    _taggedMakeObj = objNews.TaggedMake;
-                    currentCityArea = objNews.CityArea;
-                    metas = objNews.PageMetas;
-                    BindPageWidgets();
-                }
-                else if (!objNews.IsContentFound)
-                {
-                    Response.Redirect("/news/", false);
-                    if (HttpContext.Current != null)
+                    if (!objNews.IsPageNotFound)
+                    {
+                        objArticle = objNews.ArticleDetails;
+                        _taggedMakeObj = objNews.TaggedMake;
+                        currentCityArea = objNews.CityArea;
+                        metas = objNews.PageMetas;
+                        BindPageWidgets();
+                    }
+                    else if (!objNews.IsContentFound)
+                    {
+                        Response.Redirect("/news/", false);
+                        if (HttpContext.Current != null)
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
+                    else
+                    {
+                        Response.Redirect("/pagenotfound.aspx", false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                        this.Page.Visible = false;
+                    }
                 }
-                else
-                {
-                    Response.Redirect("/pagenotfound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
-                }
+
 
             }
             catch (Exception ex)

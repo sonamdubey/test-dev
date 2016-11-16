@@ -49,6 +49,13 @@ namespace Bikewale.Content
             base.Load += new EventHandler(Page_Load);
         }
 
+
+        /// <summary>
+        /// Modified by : Sushil Kumar on 16th Nov 2016
+        /// Description : Handle page redirection 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Page_Load(object sender, EventArgs e)
         {
             // Modified By :Lucky Rathore on 12 July 2016.
@@ -63,18 +70,23 @@ namespace Bikewale.Content
             dd.DetectDevice();
 
 
-            ProcessQS();
-            GetRoadtestDetails();
-            BindPageWidgets();
+            if (!ProcessQS())
+            {
+                if (!string.IsNullOrEmpty(basicId))
+                    GetRoadtestDetails();
+                BindPageWidgets();
+            }
+
 
         }
 
 
 
         /// <summary>
-        /// 
+        /// Modified by : Sushil Kumar on 16th Nov 2016
+        /// Description : Handle page redirection  
         /// </summary>
-        private void ProcessQS()
+        private bool ProcessQS()
         {
             if (!String.IsNullOrEmpty(Request.QueryString["id"]) && CommonOpn.CheckId(Request.QueryString["id"]))
             {
@@ -93,6 +105,7 @@ namespace Bikewale.Content
                     string _newUrlTitle = _newUrl.Substring(_titleStartIndex, _titleEndIndex - _titleStartIndex + 1);
                     _newUrl = "/expert-reviews/" + _newUrlTitle + basicId + ".html";
                     CommonOpn.RedirectPermanent(_newUrl);
+                    return true;
                 }
             }
             else
@@ -101,6 +114,8 @@ namespace Bikewale.Content
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }
+
+            return false;
         }
 
         private void GetRoadtestDetails()
@@ -270,7 +285,7 @@ namespace Bikewale.Content
 
                 }
             }
-            
+
 
         }
         private void BindPages()
