@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Bikewale.DTO.BikeData;
 using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.Version;
@@ -12,6 +13,8 @@ namespace Bikewale.Service.AutoMappers.Version
         /// <summary>
         /// Modified by :   Sumit Kate on 12 Apr 2016
         /// Description :   Mapping for MakeBase and ModelBase
+        /// Modified by :   Aditi srivastava on 17 Oct 2016
+        /// Description :   Mapping for Version Colors
         /// </summary>
         /// <param name="objVersion"></param>
         /// <returns></returns>
@@ -48,6 +51,20 @@ namespace Bikewale.Service.AutoMappers.Version
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeVersionEntity, DTO.Version.v2.VersionDetails>();
             return Mapper.Map<BikeVersionEntity, DTO.Version.v2.VersionDetails>(objVersion);
+        }
+
+        /// <summary>
+        /// Created by  : Aditi srivastava on 20 Oct 2016
+        /// Description : Mapping for Version Colors
+        /// </summary>
+        /// <param name="objVersionColors"></param>
+        /// <returns></returns>
+        internal static IEnumerable<DTO.BikeData.BikeColorsbyVersionsDTO> Convert(IEnumerable<Bikewale.Entities.BikeData.BikeColorsbyVersion> objVersionColors)
+        {
+            Mapper.CreateMap<Bikewale.Entities.BikeData.BikeColorsbyVersion, Bikewale.DTO.BikeData.BikeColorsbyVersionsDTO>();
+            //Mapper.CreateMap<IEnumerable<Bikewale.Entities.BikeData.BikeColorsbyVersion>, BikeColorsbyVersion>();
+            return Mapper.Map<IEnumerable<Bikewale.Entities.BikeData.BikeColorsbyVersion>, IEnumerable<BikeColorsbyVersionsDTO>>(objVersionColors);
+
         }
     }
 }

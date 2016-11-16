@@ -5,7 +5,7 @@
                 <p class="margin-bottom15">Get your <%= MakeName %> bike serviced within given time period or km range, whichever condition gets satisfied earlier.</p>
                 <div class="select-box margin-bottom20">
                     <p class="font12 text-light-grey">Model</p>
-                    <select class="chosen-select" data-bind="event: { change: GetModelId }"
+                    <select id="selBikes" class="chosen-select" data-bind="event: { change: GetModelId }"
                         <% foreach (var bike in BikeScheduleList)
                            { %>
                             <option value="<%= bike.ModelId %>"><%=bike.ModelName %></option>
@@ -94,4 +94,5 @@
     var vm = new SchedulesViewModel();
     ko.applyBindings(vm,$("#service-schedular")[0]);
     vm.selectedModelId(vm.bikes()[0].ModelId);
+    vm.currentBikeName($( "#selBikes option:selected").text());
 </script>

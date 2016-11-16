@@ -222,14 +222,18 @@
                                     <p class="bike-details-key">Bike registered at</p>
                                     <p class="bike-details-value"><%= inquiryDetails.OtherDetails.RegisteredAt %></p>
                                 </li>
+                                <% if (!String.IsNullOrEmpty(inquiryDetails.OtherDetails.Insurance)) {%>
                                 <li>
                                     <p class="bike-details-key">Insurance</p>
                                     <p class="bike-details-value"><%= inquiryDetails.OtherDetails.Insurance %></p>
                                 </li>
+                                <%} %>
+                                <% if (!String.IsNullOrEmpty(inquiryDetails.OtherDetails.RegistrationNo)){ %>
                                 <li>
                                     <p class="bike-details-key">Registration no.</p>
                                     <p class="bike-details-value"><%= inquiryDetails.OtherDetails.RegistrationNo %></p>
                                 </li>
+                                <%} %>
                             </ul>
                         </div>
                         <div class="clear"></div>

@@ -12,5 +12,7 @@ namespace Bikewale.Entities.Used
         public string HostUrl { get; set; }
         public string OriginalImagePath { get; set; }
         public bool IsMain { get; set; }
+        public uint Id { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

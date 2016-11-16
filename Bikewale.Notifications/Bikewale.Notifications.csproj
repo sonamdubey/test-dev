@@ -72,6 +72,7 @@
     <Compile Include="JSExceptionTemplate.cs" />
     <Compile Include="MailTemplates\BookingCancellationTemplate.cs" />
     <Compile Include="MailTemplates\CancellationFeedbackTemplate.cs" />
+    <Compile Include="MailTemplates\CustomerRegistrationMailTemplate.cs" />
     <Compile Include="MailTemplates\ErrorMailTemplate.cs" />
     <Compile Include="MailTemplates\FeedbackMailer.cs" />
     <Compile Include="MailTemplates\NewBikePriceQuoteMailToDealerTemplate.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="MailTemplates\PreBookingConfirmationToCustomer.cs" />
     <Compile Include="MailTemplates\UsedBikes\EditedListingApprovalEmailToSeller.cs" />
     <Compile Include="MailTemplates\UsedBikes\ListingApprovalEmailToSeller.cs" />
+    <Compile Include="MailTemplates\UsedBikes\ListingEmailtoIndividualTemplate.cs" />
     <Compile Include="MailTemplates\UsedBikes\ListingRejectionEmailToSeller.cs" />
     <Compile Include="MailTemplates\UsedBikes\PhotoRequestEmailToDealerSellerTemplate.cs" />
     <Compile Include="MailTemplates\UsedBikes\PhotoRequestEmailToIndividualSellerTemplate.cs" />

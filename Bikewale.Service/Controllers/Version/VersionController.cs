@@ -1,10 +1,12 @@
-﻿using Bikewale.DTO.Version;
+﻿using Bikewale.DTO.BikeData;
+using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Version;
 using Bikewale.Service.Utilities;
 using System;
+using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -16,14 +18,18 @@ namespace Bikewale.Service.Controllers.Version
     /// Created On : 24th August 2015
     /// Modified by :   Sumit Kate on 18 May 2016
     /// Description :   Extend from CompressionApiController instead of ApiController 
+    /// Modified by :   Aditi Srivastava on 20 Oct 2016
+    /// Description :   New api to get version colors by version id
     /// </summary>
     public class VersionController : CompressionApiController//ApiController
     {
 
         private readonly IBikeVersions<BikeVersionEntity, uint> _versionRepository = null;
-        public VersionController(IBikeVersions<BikeVersionEntity, uint> versionRepository)
+        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionColorCache = null;
+        public VersionController(IBikeVersions<BikeVersionEntity, uint> versionRepository, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionColorCache)
         {
             _versionRepository = versionRepository;
+            _objVersionColorCache = objVersionColorCache;
         }
 
         #region Version Details
@@ -149,6 +155,37 @@ namespace Bikewale.Service.Controllers.Version
             return NotFound();
         }   // Get  Versions Specifications
         #endregion
+
+        /// <summary>
+        /// Created By: Aditi Srivastava on 17 Oct 2016
+        /// Summary: Get version colors by version id
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(BikeColorsbyVersionDTO)), Route("api/version/{versionId}/color/")]
+        public IHttpActionResult GetVersionColor(uint versionId)
+        {
+            IEnumerable<Bikewale.Entities.BikeData.BikeColorsbyVersion> objVersionColors = null;
+            BikeColorsbyVersionDTO objDTOVersionColors = new BikeColorsbyVersionDTO();
+            try
+            {
+                objVersionColors = _objVersionColorCache.GetColorsbyVersionId(versionId);
+
+                if (objVersionColors != null)
+                {
+                    objDTOVersionColors.VersionColors = VersionListMapper.Convert(objVersionColors);
+
+                    return Ok(objDTOVersionColors);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Service.Version.VersionController.GetVersionColor(VersionId={0}", versionId));
+                objErr.SendMail();
+                return InternalServerError();
+            }
+            return NotFound();
+        }
 
     }
 }

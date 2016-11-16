@@ -10,6 +10,7 @@ using Bikewale.BAL.Pager;
 using Bikewale.BAL.PriceQuote;
 using Bikewale.BAL.ServiceCenter;
 using Bikewale.BAL.Used.Search;
+using Bikewale.BAL.UsedBikes;
 using Bikewale.Cache.App;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
@@ -35,6 +36,7 @@ using Bikewale.DAL.UsedBikes;
 using Bikewale.DAL.UserReviews;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Customer;
+using Bikewale.Entities.Used;
 using Bikewale.Entities.service;
 using Bikewale.Interfaces.App;
 using Bikewale.Interfaces.AppAlert;
@@ -153,7 +155,10 @@ namespace Bikewale.Service.UnityConfiguration
                    .RegisterType<ICacheManager, MemcacheManager>();
             container.RegisterType<IUsedBikeBuyer, Bikewale.BAL.Used.UsedBikeBuyer>();
             container.RegisterType<IUsedBikeBuyerRepository, UsedBikeBuyerRepository>();
-            container.RegisterType<IUsedBikeSellerRepository, UsedBikeSellerRepository>();
+            container.RegisterType<IUsedBikeSellerRepository, UsedBikeSellerRepository>();           
+
+            container.RegisterType<ISellBikes, SellBikes>();
+            container.RegisterType<ISellBikesRepository<SellBikeAd, int>, SellBikesRepository<SellBikeAd, int>>();
             return container;
         }
     }

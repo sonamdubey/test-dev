@@ -353,7 +353,7 @@ namespace Bikewale.Mobile.New
 
         private void BindAlternativeBikeControl()
         {
-            ctrlAlternativeBikes.TopCount = 6;
+            ctrlAlternativeBikes.TopCount = 9;
 
             if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
             {
