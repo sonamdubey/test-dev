@@ -44,7 +44,8 @@ namespace Bikewale.Notifications
         SuccessfulUsedSelllistingToSeller = 30,
         ApprovalUsedSellListingToSeller = 31,
         RejectionUsedSellListingToSeller = 32,
-        ApprovalEditedUsedBikeListingToSeller = 33
+        ApprovalEditedUsedBikeListingToSeller = 33,
+        ServiceCenterDetailsSMSToCustomer = 34
     }
 
     public class SMSCommon

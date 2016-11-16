@@ -531,13 +531,13 @@ namespace Bikewale.Notifications
         /// <param name="profileId"></param>
         /// <param name="customerName"></param>
         /// <param name="pageurl"></param>
-        public void ApprovalUsedSellListingSMS(EnumSMSServiceType smsType, string number, string profileId,string customerName, string pageurl)
+        public void ApprovalUsedSellListingSMS(EnumSMSServiceType smsType, string number, string profileId, string customerName, string pageurl)
         {
-            string message=String.Format("Hi {0}, your bike listing (profile id - {1}) has been verified and approved on BikeWale. We wish you good luck with your listing.",customerName,profileId);
-             try
+            string message = String.Format("Hi {0}, your bike listing (profile id - {1}) has been verified and approved on BikeWale. We wish you good luck with your listing.", customerName, profileId);
+            try
             {
                 SMSCommon sc = new SMSCommon();
-                 
+
                 sc.ProcessSMS(number, message, smsType, pageurl);
             }
             catch (Exception ex)
@@ -590,9 +590,32 @@ namespace Bikewale.Notifications
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.EditedApprovalUsedSellListingSMSToSeller({0},{1},{2},{3})", number, message, pageurl, profileId));
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.ApprovalEditedUsedSellListingSMS({0},{1},{2},{3})", number, message, pageurl, profileId));
                 objErr.SendMail();
             }
         }
+
+        /// <summary>
+        /// Created By  : Sajal Gupta on 16-11-2016
+        /// Description : Send SMS to customer on requesting service center details.
+        /// </summary>
+        public void ServiceCenterDetailsSMS(string number, string name, string address, string phone, string city, string pageUrl)
+        {
+            try
+            {
+                string message = String.Format("BikeWale: Details of servicecenter details nearby:{0}{0}{1}{0}{2},{3}{0}{4}{0}{0}Thanks for visiting BikeWale.", Environment.NewLine, name, address, city, phone);
+
+                EnumSMSServiceType esms = EnumSMSServiceType.ServiceCenterDetailsSMSToCustomer;
+                SMSCommon sc = new SMSCommon();
+                sc.ProcessSMS(number, message, esms, pageUrl);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.ServiceCenterDetailsSMS({0},{1},{2},{3},{4},{5})", number, name, address, phone, city, pageUrl));
+                objErr.SendMail();
+            }
+        }
+
+
     }   //End of class
 }   //End of namespace
