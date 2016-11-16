@@ -359,7 +359,7 @@ namespace Bikewale.BikeBooking
         /// <param name="versionId"></param>
         private void BindAlternativeBikeControl(String versionId)
         {
-            ctrlAlternativeBikes.TopCount = 6;
+            ctrlAlternativeBikes.TopCount = 9;
 
             if (!String.IsNullOrEmpty(versionId) && versionId != "0")
             {

@@ -32,18 +32,20 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         public uint BasicId;
         public bool IsContentFound { get; set; }
         public bool IsPageNotFound { get; set; }
+        public bool IsPermanentRedirect { get; set; }
         public GlobalCityAreaEntity CityArea { get; set; }
         public PageMetaTags PageMetas { get; set; }
-
+        public string MappedCWId { get; set; }
         /// <summary>
         /// Created By : Sushil Kumar on 10th Nov 2016
         /// Description : Fetch required aticles list
+        /// Modified By : Sushil Kumar on 16th Nov 2016
+        /// Description : Handle thread abort 
         /// </summary>
         public NewsDetails()
         {
             CityArea = GlobalCityArea.GetGlobalCityArea();
-            ProcessQueryString();
-            if (!IsPageNotFound && BasicId > 0)
+            if (ProcessQueryString() && BasicId > 0)
                 GetNewsArticleDetails();
         }
 
@@ -168,14 +170,15 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         /// <summary>
         /// Created By : Sushil Kumar on 10th Nov 2016
         /// Description : Process query string for article id
+        /// Modified By : Sushil Kumar on 16th Nov 2016
+        /// Description : Handle thread abort by passing processquerystring status
         /// </summary>
-        private void ProcessQueryString()
+        private bool ProcessQueryString()
         {
             var request = HttpContext.Current.Request;
-
+            string _basicId = request.QueryString["id"];
             try
-            {
-                string _basicId = request.QueryString["id"];
+            {                
 
                 if (!string.IsNullOrEmpty(_basicId))
                 {
@@ -185,14 +188,16 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                     //if id exists then redirect url to new basic id url
                     if (!_basicId.Equals(request["id"]))
                     {
-                        string newUrl = string.Format("/news/{0}-{1}.html", _basicId, request["t"]);
-                        Bikewale.Common.CommonOpn.RedirectPermanent(newUrl);
+                        IsPermanentRedirect = true;
+                        MappedCWId = _basicId;
+                        return false;
                     }
                     uint.TryParse(_basicId, out BasicId);
                 }
                 else
                 {
                     IsPageNotFound = true;
+                    return false;
                 }
             }
             catch (Exception ex)
@@ -200,6 +205,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.ProcessQueryString");
                 objErr.SendMail();
             }
+            return true;
         }
 
 

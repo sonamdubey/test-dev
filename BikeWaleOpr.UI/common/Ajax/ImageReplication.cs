@@ -1,10 +1,6 @@
-﻿using System;
-using System.Web;
-using BikeWaleOpr.Common;
-using BikeWaleOpr.RabbitMQ;
+﻿using BikeWaleOpr.RabbitMQ;
+using System;
 using System.Data;
-using System.Data.SqlClient;
-using AjaxPro;
 
 namespace BikeWaleOpr.Common.Ajax
 {
@@ -154,7 +150,7 @@ namespace BikeWaleOpr.Common.Ajax
         /// <param name="Category"></param>
         /// <returns></returns>
         [AjaxPro.AjaxMethod()]
-        public string CheckImageStatusByCategory(string imageId,string Category)
+        public string CheckImageStatusByCategory(string imageId, string Category)
         {
             string json = string.Empty;
             BikeCommonRQ bikeRQ = new BikeCommonRQ();
@@ -165,7 +161,7 @@ namespace BikeWaleOpr.Common.Ajax
 
                 DataSet ds = bikeRQ.CheckImageStatus(imageId, imageType);
 
-                if (ds.Tables.Count > 0)
+                if (ds != null && ds.Tables.Count > 0)
                     json = JSON.GetJSONString(ds.Tables[0]);
             }
             catch (Exception err)
