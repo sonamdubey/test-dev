@@ -31,6 +31,7 @@ namespace Bikewale.Content
     {
         protected HtmlSelect ddlPages;
         protected Repeater rptPageContent;
+        protected ModelGallery photoGallery;
         protected GlobalCityAreaEntity currentCityArea;
         protected MUpcomingBikesMin ctrlUpcomingBikes;
         protected MPopularBikesMin ctrlPopularBikes;
@@ -125,6 +126,7 @@ namespace Bikewale.Content
 
                         if (objImg != null && objImg.Count() > 0)
                         {
+                            photoGallery.Photos = objImg.ToList();
                             rptPhotos.DataSource = objImg;
                             rptPhotos.DataBind();
                         }
