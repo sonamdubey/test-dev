@@ -1,4 +1,4 @@
-﻿<%@ Register Src="~/controls/LogInOutControl.ascx" TagPrefix="BW" TagName="Login" %>
+﻿<%@ Register Src="~/m/controls/LogInOutControl.ascx" TagPrefix="BW" TagName="Login" %>
 
 <nav id="nav">
     <% if(Bikewale.Common.CurrentUser.UserId > 0) { %>

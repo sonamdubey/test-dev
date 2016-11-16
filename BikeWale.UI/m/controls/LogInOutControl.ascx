@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.LogInoutControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.LogInOutControl" %>
 <% if (loggedInUserId > 0)
    { %>
         <li class="padding-top10 padding-bottom15">
