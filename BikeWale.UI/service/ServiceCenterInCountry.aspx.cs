@@ -71,6 +71,10 @@ namespace Bikewale.Service
 
             }
         }
+        /// <summary>
+        /// Created by : Subodh Jain on 16 Nov 2016
+        /// Summary: To show list of State and list of cities for service center
+        /// </summary>
         private void BindStatesCities()
         {
             try
@@ -125,7 +129,6 @@ namespace Bikewale.Service
                 }
                 catch (Exception ex)
                 {
-                    Trace.Warn("ProcessQueryString Ex: ", ex.Message);
                     ErrorClass objErr = new ErrorClass(ex, "");
                     objErr.SendMail();
                     isSuccess = false;
