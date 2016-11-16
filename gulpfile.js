@@ -11,12 +11,16 @@ var gulp = require('gulp'),
 var paths = {
     bwCSS: 'BikeWale.UI/css/**',
     bwJS: 'BikeWale.UI/src/**',
+
     bwmCSS: 'BikeWale.UI/m/css/**',
     bwmJS: 'BikeWale.UI/m/src/**',
     bwSASS: 'BikeWale.UI/sass/**',
     bwmSASS: 'BikeWale.UI/m/sass/**',
+    bwmSASS: 'BikeWale.UI/m/sass/**',
+
     destinationD_CSS: 'BikeWale.UI/min/css',
     destinationD_JS: 'BikeWale.UI/min/src',
+
     destinationM_CSS: 'BikeWale.UI/min/m/css',
     destinationM_JS: 'BikeWale.UI/min/m/src'
 };
@@ -36,6 +40,12 @@ var page = {
             baseFolder: 'BikeWale.UI/m/service',
             landing: 'BikeWale.UI/m/service/Default.aspx',
             city: 'BikeWale.UI/m/service/ServiceCenterInCountry.aspx',
+            listing: 'BikeWale.UI/m/service/ServiceCenterList.aspx',
+            details: 'BikeWale.UI/m/service/ServiceCenterDetails.aspx',
+        }
+    }
+}
+
             listing: 'BikeWale.UI/m/service/ServiceCenterList.aspx',
             details: 'BikeWale.UI/m/service/ServiceCenterDetails.aspx',
         }
@@ -149,3 +159,16 @@ gulp.task('mobile-service-details', function () {
 });
 
 gulp.task('default', gulpSequence('clean', 'minify-bw-css', 'minify-bw-js', 'minify-bwm-css', 'minify-bwm-js', 'bw-sass', 'bwm-sass', 'bwm-service-css', 'replace-css-reference'));
+        .pipe(gulp.dest('BikeWale.UI/min/m/service'));
+});
+
+gulp.task('mobile-service-details', function () {
+    return gulp.src(page.mobile.service.details, { base: page.mobile.service.baseFolder })
+        .pipe(replace(/<link rel="stylesheet" type="text\/css" href="\/m\/css\/service\/details.css"[^>]*>/, function () {
+            var style = fs.readFileSync(sassPaths.bwm.service.target + '/details.css', 'utf-8');
+            return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
+        }))
+        .pipe(gulp.dest('BikeWale.UI/min/m/service'));
+});
+
+gulp.task('default', gulpSequence('clean', 'minify-bw-css', 'minify-bw-js', 'minify-bwm-css', 'minify-bwm-js', 'bw-sass', 'bwm-sass', 'bw-service-css', 'bwm-service-css', 'replace-css-reference'));
