@@ -97,6 +97,7 @@
                 </div>
                 <div class="clear"></div>
             </div>
+            <div class="clear"></div>
         </section>
         <div class="back-to-top" id="back-to-top"></div>
 
