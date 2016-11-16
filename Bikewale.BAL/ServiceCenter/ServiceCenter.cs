@@ -105,7 +105,7 @@ namespace Bikewale.BAL.ServiceCenter
         /// Created By : Sajal Gupta on 16/11/2016
         /// Description: BAL layer Function for sending service center sms data from DAL.
         /// </summary>
-        public int GetServiceCenterSMSData(uint serviceCenterId, string mobileNumber)
+        public int GetServiceCenterSMSData(uint serviceCenterId, string mobileNumber, string pageUrl)
         {
             try
             {
@@ -116,12 +116,12 @@ namespace Bikewale.BAL.ServiceCenter
                     if (objSMSData.SMSStatus == EnumServiceCenterSMSStatus.Success)
                     {
                         SMSTypes newSms = new SMSTypes();
-                        newSms.ServiceCenterDetailsSMS(mobileNumber, objSMSData.Name, objSMSData.Address, objSMSData.Phone, objSMSData.CityName, HttpContext.Current.Request.ServerVariables["URL"]);
-                        return 1;
+                        newSms.ServiceCenterDetailsSMS(mobileNumber, objSMSData.Name, objSMSData.Address, objSMSData.Phone, objSMSData.CityName, pageUrl);
+                        return (int)EnumServiceCenterSMSStatus.Success;
                     }
                     else if (objSMSData.SMSStatus == EnumServiceCenterSMSStatus.Daily_Limit_Exceeded)
                     {
-                        return 2;
+                        return (int)EnumServiceCenterSMSStatus.Daily_Limit_Exceeded;
                     }
                 }
             }

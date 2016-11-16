@@ -389,26 +389,23 @@ namespace Bikewale.DAL.ServiceCenter
                                 status = SqlReaderConvertor.ToUInt16(dr["status"]);
                                 if (status == 1)
                                 {
-                                    if (dr.NextResult())
+                                    if (dr.NextResult() && dr.Read())
                                     {
-                                        if (dr.Read())
-                                        {
-                                            objSMSData.SMSStatus = EnumServiceCenterSMSStatus.Success;
-                                            objSMSData.Name = Convert.ToString(dr["name"]);
-                                            objSMSData.Address = Convert.ToString(dr["address"]);
-                                            objSMSData.Phone = Convert.ToString(dr["phone"]);
-                                            objSMSData.CityId = SqlReaderConvertor.ToUInt32(dr["cityId"]);
-                                            objSMSData.CityName = Convert.ToString(dr["cityname"]);
-                                            dr.Close();
-                                        }
+                                        objSMSData.SMSStatus = EnumServiceCenterSMSStatus.Success;
+                                        objSMSData.Name = Convert.ToString(dr["name"]);
+                                        objSMSData.Address = Convert.ToString(dr["address"]);
+                                        objSMSData.Phone = Convert.ToString(dr["phone"]);
+                                        objSMSData.CityId = SqlReaderConvertor.ToUInt32(dr["cityId"]);
+                                        objSMSData.CityName = Convert.ToString(dr["cityname"]);
+                                        dr.Close();
                                     }
                                 }
-                                else if(status == 2)
+                                else if (status == 2)
                                 {
                                     objSMSData.SMSStatus = EnumServiceCenterSMSStatus.Daily_Limit_Exceeded;
                                 }
                                 dr.Close();
-                            }                                                        
+                            }
                         }
                     }
                 }

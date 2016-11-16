@@ -56,13 +56,13 @@ namespace Bikewale.Service.Controllers.ServiceCenter
         /// Summary :- For service center locator sms data
         /// </summary>
         [HttpPost, Route("api/servicecenter/{id}/details/sms/")]
-        public IHttpActionResult GetServiceCenterSMSData(uint id, string mobile)
+        public IHttpActionResult GetServiceCenterSMSData(uint id, string mobile, string pageUrl)
         {
             if (id > 0)
             {
                 try
                 {
-                    int status = _objServiceCenter.GetServiceCenterSMSData(id, mobile);
+                    int status = _objServiceCenter.GetServiceCenterSMSData(id, mobile, pageUrl);
                     if (status == 1)
                     {
                         return Ok("Success");

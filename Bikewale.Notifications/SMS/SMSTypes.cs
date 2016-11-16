@@ -590,7 +590,7 @@ namespace Bikewale.Notifications
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.EditedApprovalUsedSellListingSMSToSeller({0},{1},{2},{3})", number, message, pageurl, profileId));
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.ApprovalEditedUsedSellListingSMS({0},{1},{2},{3})", number, message, pageurl, profileId));
                 objErr.SendMail();
             }
         }
