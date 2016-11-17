@@ -400,7 +400,7 @@
       <DependentUpon>MostPopularBikesMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-     <Compile Include="controls\LogInoutControl.ascx.cs">
+    <Compile Include="controls\LogInoutControl.ascx.cs">
       <DependentUpon>LogInoutControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -2411,6 +2411,7 @@
     <Content Include="m\css\components\compare-bikes.css" />
     <Content Include="m\css\components\pagination.css" />
     <Content Include="m\css\components\used-swiper.css" />
+    <Content Include="m\css\content\listing.css" />
     <Content Include="m\css\dealerpricequote.css" />
     <Content Include="m\css\dealerpricequote-old.css" />
     <Content Include="m\css\dealer\landing.css" />

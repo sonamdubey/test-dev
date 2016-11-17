@@ -1,4 +1,8 @@
-﻿#pagination-list {
+﻿#pagination-list-content {
+    width:auto
+}
+
+#pagination-list {
     margin-right: 20px;
     margin-left: 20px;
     overflow: hidden;
@@ -43,7 +47,7 @@
 }
 
 .pagination-control-next {
-    right: 5px;
+    right: 0;
 }
 
 .prev-page-icon, .next-page-icon {

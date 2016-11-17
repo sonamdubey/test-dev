@@ -160,6 +160,10 @@
 }
 
 /* pagination */
+#pagination-list-content {
+    width:auto
+}
+
 #pagination-list {
     margin-right: 20px;
     margin-left: 20px;
