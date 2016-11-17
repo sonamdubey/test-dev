@@ -22,10 +22,7 @@
     <link href="/css/service/listing.css" rel="stylesheet" type="text/css" />
     <script src="http://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_desktop.aspx" -->
-        var currentCityName = '<%= cityName %>';
-        var pageUrl = '<%= pageUrl %>';
-        var clientip = '<%= clientIP %>';
+        <!-- #include file="\includes\gacode_desktop.aspx" -->       
     </script>
 
 </head>
@@ -172,8 +169,8 @@
         <section>
             <div class="container section-bottom-margin">
                 <div class="grid-12">
-                    <div class="content-box-shadow padding-bottom20">
-                        <div class="padding-15-20 margin-bottom5">
+                    <div class="content-box-shadow">
+                        <div class="padding-top15 padding-right20 padding-left20">
                             <h2 class="section-h2-title margin-bottom10">Looking to buy a new <%= makeName %> bike in <%= cityName %>?</h2>
                             <p class="font14">Check out authorised <%= makeName %> dealers in <%= cityName %></p>
                         </div>      
@@ -195,6 +192,11 @@
             </div>
         </section>
 
+        <script type="text/javascript">        
+            var currentCityName = '<%= cityName %>';
+            var pageUrl = '<%= pageUrl %>';
+            var clientip = '<%= clientIP %>';
+        </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />

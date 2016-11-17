@@ -222,7 +222,6 @@ $('.submit-service-center-lead-btn').on('click', function () {
             $.ajax({
                 type: "POST",
                 url: "/api/servicecenter/" + serviceCenterId + "/details/sms/?mobile=" + inputbox.val() + "&pageUrl=" + window.location.href.replace('&', '%26'),
-                data: {},
                 success: function (response) {
                         if (response == 2)
                         {
@@ -245,7 +244,6 @@ $('.submit-service-center-lead-btn').on('click', function () {
 $('#center-list').on('click', '.service-center-resend-btn', function () {
     var resendBtn = $(this),
         listItem = resendBtn.closest('li');
-    debugger;
     if (attemptCount != 4 ) {
         captureLeadMobile.inputBox.set(listItem);
     }
@@ -276,7 +274,6 @@ var captureLeadMobile = {
     },
 
     checkAttempts: function (count, listItem) {
-        debugger;
         if (count < 4) {
             captureLeadMobile.responseBox.set(listItem, 'response-active', successMessage);
         }

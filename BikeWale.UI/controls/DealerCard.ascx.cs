@@ -24,6 +24,8 @@ namespace Bikewale.Controls
     /// Description :   Added Model ID
     /// Modified by :   Sumit Kate on 22 Jun 2016
     /// Description :   Added Repeater to bind the Popular City Dealers when city is not selected
+    /// Modified by Sajal Gupta on 17-11-2016
+    /// Description : Added isHeading variable for making heading of repeater optional.
     /// </summary>
     public class DealerCard : UserControl
     {

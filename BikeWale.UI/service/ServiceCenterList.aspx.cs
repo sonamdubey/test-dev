@@ -26,8 +26,8 @@ using System.Web.UI;
 namespace Bikewale.Service
 {
     /// <summary>
-    /// Created By : Sushil Kumar on 19th March 2016
-    /// Class to show the bike dealers details
+    /// Created By : Sajal Gupta on 16-11-2016
+    /// Class to show the bike service center listing for particular make and city.
     /// </summary>
     public class ServiceCenterList : Page
     {
@@ -61,37 +61,35 @@ namespace Bikewale.Service
             Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(originalUrl);
             dd.DetectDevice();
 
-            if (ProcessQueryString())
+            if (ProcessQueryString() && GetMakeIdByMakeMaskingName()  && makeId > 0 && cityId > 0)
             {
-                GetMakeIdByMakeMaskingName();
+                
                 GetMakeNameByMakeId(makeId);
-
-                if (makeId > 0 && cityId > 0)
-                {
-                    BindServiceCentersList();
-                    GetCityNameByCityMaskingName(urlCityMaskingName);
-                }
-                else
-                {
-                    Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
-                }
+                BindServiceCentersList();
+                GetCityNameByCityMaskingName(urlCityMaskingName);
+                BindUserControls();
             }
-
-            BindUserControls();
-
+            else
+            {
+                Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
+            }
         }
 
+        /// <summary>
+        /// Created by : SAJAL GUPTA on 16-11-2016
+        /// Description: Method to bind dealer car data.
+        /// </summary>
+        /// <param name="cityMaskingName"></param>
         private void BindUserControls()
         {
             ctrlDealerCard.MakeId = Convert.ToUInt32(makeId);
             ctrlDealerCard.makeName = makeName;
             ctrlDealerCard.makeMaskingName = makeMaskingName;
             ctrlDealerCard.CityId = cityId;
-            ctrlDealerCard.LeadSourceId = 29;
+            ctrlDealerCard.LeadSourceId = 11;
             ctrlDealerCard.TopCount = 3;
-            ctrlDealerCard.pageName = "Service_Locator_City_Desktop";
             ctrlDealerCard.isHeading = false;
         }
 
@@ -191,8 +189,9 @@ namespace Bikewale.Service
         /// Modified by :   Sumit Kate on 03 Oct 2016
         /// Description :   Handle Make masking name rename 301 redirection
         /// </summary>
-        private void GetMakeIdByMakeMaskingName()
+        private bool GetMakeIdByMakeMaskingName()
         {
+            bool isValidMake = true;
             if (!string.IsNullOrEmpty(makeMaskingName))
             {
                 MakeMaskingResponse objMakeResponse = null;
@@ -212,11 +211,12 @@ namespace Bikewale.Service
                 }
                 catch (Exception ex)
                 {
-                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
+                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "GetMakeIdByMakeMaskingName");
                     objErr.SendMail();
                     Response.Redirect("pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
+                    isValidMake = false;
                 }
                 finally
                 {
@@ -229,12 +229,14 @@ namespace Bikewale.Service
                         else if (objMakeResponse.StatusCode == 301)
                         {
                             CommonOpn.RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objMakeResponse.MaskingName));
+                            isValidMake = false;
                         }
                         else
                         {
                             Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                             HttpContext.Current.ApplicationInstance.CompleteRequest();
                             this.Page.Visible = false;
+                            isValidMake = false;
                         }
                     }
                     else
@@ -242,6 +244,7 @@ namespace Bikewale.Service
                         Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
+                        isValidMake = false;
                     }
                 }
             }
@@ -250,7 +253,10 @@ namespace Bikewale.Service
                 Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
+                isValidMake = false;
             }
+
+            return isValidMake;
         }
 
         #region Private Method to process querystring
@@ -273,6 +279,7 @@ namespace Bikewale.Service
                     {
                         cityId = CitiMapping.GetCityId(urlCityMaskingName);
                         isValidQueryString = true;
+
                     }
                     else
                     {
@@ -292,7 +299,6 @@ namespace Bikewale.Service
             }
             catch (Exception ex)
             {
-                Trace.Warn("ProcessQueryString Ex: ", ex.Message);
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, currentReq.ServerVariables["URL"]);
                 objErr.SendMail();
             }
