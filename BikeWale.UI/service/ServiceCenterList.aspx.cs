@@ -1,24 +1,27 @@
-﻿using Bikewale.Cache.BikeData;
+﻿using Bikewale.BAL.ServiceCenter;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
-using Bikewale.Cache.DealersLocator;
+using Bikewale.Cache.Location;
+using Bikewale.Cache.ServiceCenter;
 using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
-using Bikewale.DAL.Dealer;
+using Bikewale.DAL.Location;
+using Bikewale.DAL.ServiceCenter;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.service;
+using Bikewale.Entities.ServiceCenters;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.Dealer;
+using Bikewale.Interfaces.Location;
+using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Memcache;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Service
 {
@@ -29,14 +32,13 @@ namespace Bikewale.Service
     public class ServiceCenterList : Page
     {
         protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, urlCityMaskingName = string.Empty;
-        protected uint cityId, makeId;
-        protected ushort totalDealers;
-        protected Repeater rptDealers; //rptMakes, rptCities ;
+        protected uint cityId, makeId, totalServiceCenters;
         protected string clientIP = string.Empty, pageUrl = string.Empty;
         protected bool areDealersPremium = false;
-        protected UsedBikeWidget ctrlRecentUsedBikes;
-        protected MostPopularBikes_new ctrlPopoularBikeMake;
-        protected LeadCaptureControl ctrlLeadCapture;
+        protected IEnumerable<Bikewale.Entities.ServiceCenters.ServiceCenterDetails> serviceCentersList = null;
+        protected DealerCard ctrlDealerCard;
+        protected BikeMakeEntityBase objBikeMakeEntityBase;
+        protected CityEntityBase objCityEntityBase;
 
         protected override void OnInit(EventArgs e)
         {
@@ -62,12 +64,12 @@ namespace Bikewale.Service
             if (ProcessQueryString())
             {
                 GetMakeIdByMakeMaskingName();
+                GetMakeNameByMakeId(makeId);
 
                 if (makeId > 0 && cityId > 0)
                 {
-                    BindMakesDropdown();
-                    BindCitiesDropdown();
-                    BindDealerList();
+                    BindServiceCentersList();
+                    GetCityNameByCityMaskingName(urlCityMaskingName);
                 }
                 else
                 {
@@ -83,157 +85,104 @@ namespace Bikewale.Service
 
         private void BindUserControls()
         {
-            ctrlPopoularBikeMake.makeId = (int)makeId;
-            ctrlPopoularBikeMake.cityId = (int)cityId;
-            ctrlPopoularBikeMake.totalCount = 9;
-            ctrlPopoularBikeMake.cityname = cityName;
-            ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
-            ctrlPopoularBikeMake.makeName = makeName;
-
-            ctrlRecentUsedBikes.CityId = (int?)cityId;
-            ctrlRecentUsedBikes.MakeId = makeId;
-            ctrlRecentUsedBikes.TopCount = 4;
-            ctrlRecentUsedBikes.isAd = true;
-            ctrlRecentUsedBikes.cityName = cityName;
-            ctrlRecentUsedBikes.cityMaskingName = cityMaskingName;
-            ctrlRecentUsedBikes.AdId = "1395986297721";
-
-            ctrlLeadCapture.CityId = cityId;
-
-            //ctrlLeadCapture.ModelId = modelId;
-            //ctrlLeadCapture.AreaId = 0;
+            ctrlDealerCard.MakeId = Convert.ToUInt32(makeId);
+            ctrlDealerCard.makeName = makeName;
+            ctrlDealerCard.makeMaskingName = makeMaskingName;
+            ctrlDealerCard.CityId = cityId;
+            ctrlDealerCard.LeadSourceId = 29;
+            ctrlDealerCard.TopCount = 6;
+            ctrlDealerCard.pageName = "Service_Locator_City_Desktop";
+            ctrlDealerCard.isHeading = false;
         }
 
         /// <summary>
-        /// Created By  : Sushil Kumar
-        /// Created On  : 20th March 2016
-        /// Description : To bind dealerlist
+        /// Created by : SAJAL GUPTA on 08-11-2016
+        /// Description: Method to get city name by citymasking name.
         /// </summary>
-        private void BindDealerList()
+        /// <param name="cityMaskingName"></param>
+        private void GetCityNameByCityMaskingName(string cityMaskingName)
         {
-            DealersEntity _dealers = null;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IDealerCacheRepository, DealerCacheRepository>()
-                             .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IDealer, DealersRepository>()
-                            ;
-                    var objCache = container.Resolve<IDealerCacheRepository>();
-                    _dealers = objCache.GetDealerByMakeCity(cityId, makeId);
-
-                    if (_dealers != null && _dealers.TotalCount > 0)
-                    {
-                        rptDealers.DataSource = _dealers.Dealers;
-                        rptDealers.DataBind();
-                        totalDealers = _dealers.TotalCount;
-
-                        if (totalDealers > 0)
-                        {
-                            int _countStdDealers = _dealers.Dealers.Count(m => m.DealerType < 2);// counting only standard or invalid dealers
-                            int _countPreDel = _dealers.Dealers.Count(m => m.DealerType > 1);// counting only deluxe or premium dealers
-                            if (_countStdDealers < 3 && _countPreDel > 0)
-                            {
-                                areDealersPremium = true;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                    }
+                    container.RegisterType<ICityCacheRepository, CityCacheRepository>()
+                        .RegisterType<ICity, CityRepository>()
+                        .RegisterType<ICacheManager, MemcacheManager>();
+                    var cityRepository = container.Resolve<ICityCacheRepository>();
+                    objCityEntityBase = cityRepository.GetCityDetails(cityMaskingName);
                 }
+
+                if (objCityEntityBase != null)
+                    cityName = objCityEntityBase.CityName;
             }
             catch (Exception ex)
             {
-                Trace.Warn(ex.Message);
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindDealerList");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetCityNameByCityMaskingName");
                 objErr.SendMail();
             }
         }
 
-
         /// <summary>
-        /// Created By  : Sushil Kumar
-        /// Created On  : 20th March 2016
-        /// Description : To bind makes list to dropdown
-        /// Modified by :   Sumit Kate on 29 Mar 2016
-        /// Description :   Get the makes list of BW and AB dealers
+        /// Created by : SAJAL GUPTA on 08-11-2016
+        /// Description: Method to get make name by makeId.
         /// </summary>
-        private void BindMakesDropdown()
+        /// <param name="cityMaskingName"></param>
+        private void GetMakeNameByMakeId(uint makeId)
         {
-            IEnumerable<BikeMakeEntityBase> _makes = null;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
-                             .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
-                            ;
-                    var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
-                    _makes = objCache.GetMakesByType(EnumBikeType.Dealer);
-                    if (_makes != null && _makes.Count() > 0)
-                    {
-                        //rptMakes.DataSource = _makes;
-                        //rptMakes.DataBind();
-                        var firstMake = _makes.FirstOrDefault(x => x.MakeId == makeId);
-                        if (firstMake != null)
-                        {
-                            makeName = firstMake.MakeName;
-                            makeMaskingName = firstMake.MaskingName;
-                        }
-                    }
+                    container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
+                    var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+                    objBikeMakeEntityBase = makesRepository.GetMakeDetails(makeId.ToString());
                 }
+
+                if (objBikeMakeEntityBase != null)
+                    makeName = objBikeMakeEntityBase.MakeName;
             }
             catch (Exception ex)
             {
-                Trace.Warn(ex.Message);
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindMakesDropdown");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetMakeNameByMakeId");
                 objErr.SendMail();
             }
         }
 
-
         /// <summary>
-        /// Created By  : Sushil Kumar
-        /// Created On  : 20th March 2016
-        /// Description : To bind cities list to dropdown
+        /// Created by : Sajal Gupta on 16-11-2016.
+        /// description : To bind ServiceCenters list.
         /// </summary>
-        private void BindCitiesDropdown()
+        private void BindServiceCentersList()
         {
-            IEnumerable<CityEntityBase> _cities = null;
+            ServiceCenterData objServiceCenterData = null;
+
             try
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IDealer, DealersRepository>();
+                    container.RegisterType<IServiceCenter, ServiceCenter<ServiceCenterLocatorList, int>>()
+                    .RegisterType<IServiceCenterCacheRepository, ServiceCenterCacheRepository>()
+                    .RegisterType<IServiceCenterRepository<ServiceCenterLocatorList, int>, ServiceCenterRepository<ServiceCenterLocatorList, int>>()
+                    .RegisterType<ICacheManager, MemcacheManager>();
+                    var objSC = container.Resolve<IServiceCenter>();
 
-                    var objCities = container.Resolve<IDealer>();
-                    _cities = objCities.FetchDealerCitiesByMake(makeId);
-                    if (_cities != null && _cities.Count() > 0)
+                    objServiceCenterData = objSC.GetServiceCentersByCity(cityId, (int)makeId);
+
+                    if (objServiceCenterData != null && objServiceCenterData.Count > 0)
                     {
-                        //rptCities.DataSource = _cities;
-                        //rptCities.DataBind();
-                        var firstCity = _cities.FirstOrDefault(x => x.CityId == cityId);
-                        if (firstCity != null)
-                        {
-                            cityName = firstCity.CityName;
-                            cityMaskingName = firstCity.CityMaskingName;
-                        }
+                        serviceCentersList = objServiceCenterData.ServiceCenters;
+                        totalServiceCenters = objServiceCenterData.Count;
                     }
                 }
+
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindCitiesDropdown");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindServiceCentersList : ");
                 objErr.SendMail();
             }
         }
-
 
         /// <summary>
         /// Created By  : Sushil Kumar

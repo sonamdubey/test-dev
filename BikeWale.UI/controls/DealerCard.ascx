@@ -4,7 +4,9 @@
 <% if (isCitySelected)
    { %>
 <div id="makeDealersContent" class="bw-model-tabs-data padding-top20 padding-bottom20 border-solid-bottom font14">
+    <% if(isHeading) { %>
     <h2 class="font15 text-bold text-x-black padding-right20 padding-left20 margin-bottom15"><%=makeName %> dealers in <%=cityName %></h2>
+    <% } %>
     <ul id="city-dealer-list" class="bw-horizontal-cards">
         <asp:Repeater ID="rptDealers" runat="server">
             <ItemTemplate>

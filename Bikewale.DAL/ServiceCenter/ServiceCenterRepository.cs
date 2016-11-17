@@ -226,6 +226,8 @@ namespace Bikewale.DAL.ServiceCenter
                                 objServiceCenterDetails.Address = Convert.ToString(dr["address"]);
                                 objServiceCenterDetails.Phone = Convert.ToString(dr["phone"]);
                                 objServiceCenterDetails.Mobile = Convert.ToString(dr["mobile"]);
+                                objServiceCenterDetails.Lattitude = Convert.ToString(dr["lattitude"]);
+                                objServiceCenterDetails.Longitude = Convert.ToString(dr["longitude"]);
                                 objServiceCenterList.Add(objServiceCenterDetails);
                             }
 

@@ -41,6 +41,7 @@ namespace Bikewale.Controls
         public string pageName { get; set; }
         public bool showWidget = false;
         public uint DealerId { get; set; }
+        public bool isHeading = true;
 
         protected override void OnInit(EventArgs e)
         {
@@ -54,7 +55,9 @@ namespace Bikewale.Controls
         protected void Page_Load(object sender, EventArgs e)
         {
             if (isValidData())
+            {
                 BindDealers();
+            }
         }
 
         /// <summary>
@@ -87,7 +90,7 @@ namespace Bikewale.Controls
             {
                 if (TopCount <= 0) { TopCount = 3; }
                 DealersEntity _dealers = null;
-                
+
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IDealerCacheRepository, DealerCacheRepository>()
@@ -108,7 +111,7 @@ namespace Bikewale.Controls
                             if (DealerId > 0)
                             {
 
-                                _dealers.Dealers = _dealers.Dealers.Where(m=>m.DealerId!= DealerId);
+                                _dealers.Dealers = _dealers.Dealers.Where(m => m.DealerId != DealerId);
                             }
                             if (_dealers.Dealers.Count() > 0)
                             {
