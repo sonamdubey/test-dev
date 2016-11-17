@@ -22,7 +22,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
     public class DetailPageBikeCare
     {
         HttpContext page = HttpContext.Current;
-        protected uint BasicId = 0;
+        public uint BasicId = 0;
         public String baseUrl = String.Empty, pageTitle = String.Empty, modelName = String.Empty, modelUrl = String.Empty;
         public String data = String.Empty, nextPageUrl = String.Empty, prevPageUrl = String.Empty, author = String.Empty, displayDate = String.Empty, canonicalUrl = String.Empty, title = String.Empty, description = String.Empty, keywords = String.Empty;
         public StringBuilder bikeTested;
