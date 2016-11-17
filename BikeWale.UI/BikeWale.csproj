@@ -2785,6 +2785,8 @@
     <Content Include="sass\modules\_card.sass" />
     <Content Include="sass\service\_details-style.sass" />
     <Content Include="sass\service\details.sass" />
+    <Content Include="sass\components\_input-box.sass" />
+    <Content Include="sass\components\_box-boundary.sass" />
     <Content Include="sass\components\_select-box.sass" />
     <Content Include="sass\service\location.sass" />
     <Content Include="sass\service\_location-style.sass" />

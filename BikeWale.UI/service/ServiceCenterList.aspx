@@ -101,10 +101,28 @@
                                                         <span class="vertical-top text-bold text-default details-column"><%= serviceCenter.Phone%></span>
                                                     </p>
                                                     <% } %>
-                                                    <button type="button" class="btn btn-white btn-full-width service-btn font14 margin-top15">Get service center details</button>
                                                 </div>
                                             </a>
+                                            <div class="service-center-lead-content margin-top15 padding-left20 padding-right20">
+                                                <button type="button" class="btn btn-white service-btn get-details-btn font14">Get details on phone</button>
 
+                                                <div class="lead-mobile-content">
+                                                    <div class="input-box input-number-box form-control-box type-user-details">
+                                                        <input type="tel" id="lead-input-<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" class="service-center-lead-mobile" maxlength="10">
+                                                        <label for="lead-input-<%# DataBinder.Eval(Container.DataItem,"DealerId") %>">Type in your mobile number</label>
+                                                        <span class="input-number-prefix">+91-</span>
+                                                        <span class="boundary"></span>
+                                                        <span class="error-text"></span>
+                                                    </div>
+                                                    <button type="button" class="btn btn-orange submit-service-center-lead-btn font14">Send details</button>
+                                                    <div class="clear"></div>
+                                                </div>
+
+                                                <div class="service-center-lead-response font12 text-light-grey">
+                                                    <span class="service-sprite response-icon"></span>
+                                                    <p class="response-text inline-block"></p>
+                                                </div>
+                                            </div>
                                         </li>
                                     <% } %>
                             </ul>
