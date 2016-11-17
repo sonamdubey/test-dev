@@ -41,12 +41,13 @@ namespace Bikewale.Content
         protected StringBuilder _bikeTested;
         protected Repeater rptPhotos;
         protected ArticlePageDetails objRoadtest;
+        protected IEnumerable<ModelImage> objImg = null; 
         private bool _isContentFound = true;
         private BikeMakeEntityBase _taggedMakeObj;
         static bool _useGrpc = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.UseGrpc);
         static readonly ILog _logger = LogManager.GetLogger(typeof(ViewRT));
         static bool _logGrpcErrors = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.LogGrpcErrors);
-
+       
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -125,12 +126,13 @@ namespace Bikewale.Content
                         GetRoadTestData();
                         BindPages();
 
-                        IEnumerable<ModelImage> objImg = _cache.GetArticlePhotos(Convert.ToInt32(BasicId));
+                        objImg = _cache.GetArticlePhotos(Convert.ToInt32(BasicId));
 
                         if (objImg != null && objImg.Count() > 0)
                         {
                             photoGallery.Photos = objImg.ToList();
                             photoGallery.isModelPage = false;
+                            photoGallery.articleName = pageTitle;
                             rptPhotos.DataSource = objImg;
                             rptPhotos.DataBind();
                         }

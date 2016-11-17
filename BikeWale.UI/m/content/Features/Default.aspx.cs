@@ -1,5 +1,6 @@
 ﻿using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.Pager;
+using Bikewale.BindViewModels.Webforms.EditCMS;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
@@ -18,6 +19,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Web;
 using System.Web.UI.WebControls;
+using System.Linq;
 
 namespace Bikewale.Mobile.Content
 {
@@ -29,13 +31,18 @@ namespace Bikewale.Mobile.Content
     /// </summary>
     public class Features : System.Web.UI.Page
     {
+        private IPager objPager = null;
         protected Repeater rptFeatures;
         protected ListPagerControl listPager;
+        public LinkPagerControl ctrlPager;
         protected int curPageNo = 1;
         protected string prevPageUrl = String.Empty, nextPageUrl = String.Empty;
-        private const int _pageSize = 10;
+        private const int _pageSize = 10, _pagerSlotSize=5;
         private bool _isContentFound = true;
-
+        protected int startIndex = 0, endIndex = 0;
+        protected uint totalArticles;
+        HttpRequest page = HttpContext.Current.Request;
+        protected int totalrecords;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -49,6 +56,14 @@ namespace Bikewale.Mobile.Content
                     Int32.TryParse(Request.QueryString["pn"], out curPageNo);
 
                 GetFeaturesList();
+                //objFeatures = new BikeCareModels();
+                //if (objFeatures != null)
+                //{
+                //    objFeatures.BindLinkPager(ctrlPager);
+                //    startIndex = objFeatures.startIndex;
+                //    endIndex = objFeatures.endIndex;
+                //    totalArticles = objFeatures.totalRecords;
+                //}
             }
         }
         /// <summary>
@@ -85,8 +100,9 @@ namespace Bikewale.Mobile.Content
 
                         int _totalPages = objPager.GetTotalPages(Convert.ToInt32(_objFeaturesList.RecordCount), _pageSize);
                         BindFeatures(_objFeaturesList);
-                        BindLinkPager(objPager, Convert.ToInt32(_objFeaturesList.RecordCount), _totalPages);
-
+                       // BindLinkPager(objPager, Convert.ToInt32(_objFeaturesList.RecordCount), _totalPages);
+                        totalrecords = Convert.ToInt32(_objFeaturesList.RecordCount);
+                        BindNewPager(ctrlPager);
                     }
                     else
                     {
@@ -156,5 +172,82 @@ namespace Bikewale.Mobile.Content
             }
             return _objPager;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_ctrlPager"></param>
+        public void BindNewPager(LinkPagerControl _ctrlPager)
+        {
+            objPager = GetPager();
+            objPager.GetStartEndIndex(_pageSize, curPageNo, out startIndex, out endIndex);
+            PagerOutputEntity _pagerOutput = null;
+            PagerEntity _pagerEntity = null;
+            int recordCount = totalrecords;
+            string _baseUrl = RemoveTrailingPage(page.RawUrl.ToLower());
+
+            try
+            {
+                GetStartEndIndex(_pageSize, curPageNo, out startIndex, out endIndex, recordCount);
+
+                _pagerEntity = new PagerEntity();
+                _pagerEntity.BaseUrl = _baseUrl;
+                _pagerEntity.PageNo = curPageNo; //Current page number
+                _pagerEntity.PagerSlotSize = _pagerSlotSize; // 5 links on a page
+                _pagerEntity.PageUrlType = "page/";
+                _pagerEntity.TotalResults = (int)recordCount; //total News count
+                _pagerEntity.PageSize = _pageSize;  //No. of news to be displayed on a page
+                _pagerOutput = objPager.GetPager<PagerOutputEntity>(_pagerEntity);
+
+                // for RepeaterPager
+
+                _ctrlPager.PagerOutput = _pagerOutput;
+                _ctrlPager.CurrentPageNo = curPageNo;
+                _ctrlPager.TotalPages = objPager.GetTotalPages((int)recordCount, _pageSize);
+                _ctrlPager.BindPagerList();
+
+                //For SEO
+
+                prevPageUrl = String.IsNullOrEmpty(_pagerOutput.PreviousPageUrl) ? string.Empty : "http://www.bikewale.com" + _pagerOutput.PreviousPageUrl;
+                nextPageUrl = String.IsNullOrEmpty(_pagerOutput.NextPageUrl) ? string.Empty : "http://www.bikewale.com" + _pagerOutput.NextPageUrl;
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikeCareModels.BindLinkPager");
+                objErr.SendMail();
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="currentPageNo"></param>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <param name="totalCount"></param>
+        public void GetStartEndIndex(int pageSize, int currentPageNo, out int startIndex, out int endIndex, int totalCount)
+        {
+            startIndex = 0;
+            endIndex = 0;
+            endIndex = currentPageNo * pageSize;
+            startIndex = (endIndex - pageSize) + 1;
+            if (totalCount < endIndex)
+                endIndex = totalCount;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rawUrl"></param>
+        /// <returns></returns>
+        public string RemoveTrailingPage(string rawUrl)
+        {
+            string retUrl = rawUrl;
+            if (rawUrl.Contains("/page/"))
+            {
+                string[] urlArray = rawUrl.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
+                retUrl = string.Format("/{0}/", string.Join("/", urlArray.Take(urlArray.Length - 2).ToArray()));
+            }
+            return retUrl;
+        }
+
     }
 }

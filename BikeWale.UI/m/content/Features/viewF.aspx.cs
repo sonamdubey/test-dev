@@ -45,7 +45,7 @@ namespace Bikewale.Mobile.Content
         private BikeMakeEntityBase _taggedMakeObj;
         protected GlobalCityAreaEntity currentCityArea;
         private bool _isContentFount = true;
-
+        protected IEnumerable<ModelImage> objImg = null;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -132,12 +132,13 @@ namespace Bikewale.Mobile.Content
                         GetFeatureData();
                         BindPages();
                         BindPageWidgets();
-                        IEnumerable<ModelImage> objImg = _cache.GetArticlePhotos(BasicId);
+                        objImg = _cache.GetArticlePhotos(BasicId);
 
                         if (objImg != null && objImg.Count() > 0)
                         {
                             photoGallery.Photos = objImg.ToList();
                             photoGallery.isModelPage = false;
+                            photoGallery.articleName = pageTitle;
                             rptPhotos.DataSource = objImg;
                             rptPhotos.DataBind();
                         }

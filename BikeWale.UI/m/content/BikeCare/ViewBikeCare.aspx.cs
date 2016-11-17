@@ -63,6 +63,7 @@ namespace Bikewale.Mobile.Content
                 if(objImg!=null)
                 photoGallery.Photos = objImg.ToList();
                 photoGallery.isModelPage = false;
+                photoGallery.articleName = pageTitle;
             }
             catch (Exception ex)
             {

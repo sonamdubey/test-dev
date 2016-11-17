@@ -72,7 +72,7 @@
                         
                     <%} %>
 
-                    <% if (objTipsAndAdvice != null)
+                    <% if (objTipsAndAdvice != null && objImg!=null)
                        {%>
                         <div class="border-solid-top padding-top10">
                             <h3 class="margin-bottom10">Photos</h3>

@@ -9,7 +9,7 @@ namespace Bikewale.Mobile.Controls
     public class ModelGallery : System.Web.UI.UserControl
     {
         protected Repeater rptVideoNav, rptModelPhotos, rptNavigationPhoto;
-        public string bikeName = String.Empty, modelName = string.Empty;
+        public string bikeName = String.Empty, modelName = string.Empty, articleName=string.Empty;
         public int imageCount = 0, videoCount = 0;
         public int modelId;
         public List<ModelImage> Photos;

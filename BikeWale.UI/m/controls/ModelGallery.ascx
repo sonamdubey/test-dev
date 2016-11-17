@@ -5,7 +5,7 @@
         <%if(isModelPage){ %>
         <h1 class="font16 text-white"><%=bikeName %> Photos</h1>
         <%} else{ %>
-        <h3 class="font16 text-white"><%=bikeName %> Photos</h3>
+        <h3 class="font16 text-white"><%=articleName %> Photos</h3>
         <%} %>
         <div class="gallery-close-btn position-abt pos-top15 pos-right15 bwmsprite cross-md-white cur-pointer"></div>
 

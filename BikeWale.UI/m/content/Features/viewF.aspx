@@ -69,7 +69,8 @@
                         </li>
                     </ul>
                     <div class="clear"></div>
-
+                    <%if (objImg!=null)
+                      { %>
                     <div class="border-solid-top padding-top10">
                         <h3 class="margin-bottom10">Photos</h3>
                         <div class="swiper-container article-photos-swiper">
@@ -87,6 +88,7 @@
                             <div class="bwmsprite swiper-button-prev"></div>
                         </div>
                     </div>
+                    <%} %>
                 </div>
             </div>
         </section>
