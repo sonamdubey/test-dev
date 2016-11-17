@@ -77,7 +77,7 @@
                                     <% foreach (var serviceCenter in serviceCentersList)
                                      { %>
                                 
-                                        <li data-item-id="<%= serviceCenter.ServiceCenterId %>" data-item-inquired="false" data-lat="<%= serviceCenter.Lattitude %>" data-log="<%= serviceCenter.Longitude %>" data-address="<%= serviceCenter.Address %>" 
+                                        <li data-item-id="<%= serviceCenter.ServiceCenterId %>" data-item-inquired="false" data-lat="<%= serviceCenter.Lattitude %>" data-log="<%= serviceCenter.Longitude %>"  data-item-number="<%= serviceCenter.Phone%>" data-address="<%= serviceCenter.Address %>" 
                                              data-item-url="<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, urlCityMaskingName, serviceCenter.Name, Convert.ToInt32(serviceCenter.ServiceCenterId)) %> " >
 
                                             <a href="<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, urlCityMaskingName, serviceCenter.Name, Convert.ToInt32(serviceCenter.ServiceCenterId)) %>" title="" class="dealer-card-target font14">
@@ -195,7 +195,7 @@
         <script type="text/javascript">        
             var currentCityName = '<%= cityName %>';
             var pageUrl = '<%= pageUrl %>';
-            var clientip = '<%= clientIP %>';
+            var clientip = '<%= clientIP %>';            
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW.aspx" -->
