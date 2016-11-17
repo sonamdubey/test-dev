@@ -64,7 +64,13 @@ var galleryTop = new Swiper('.carousel-stage-photos', {
 });
 
 $(".gallery-close-btn").on('click', function () {
-    window.location.href = '../';
+    if (typeof (articleGallery) == undefined) {
+        window.location.href = '../'; // model page gallery
+    }
+    else {
+        articleGallery.close();
+        history.back();
+    }
 });
 
 var currentStagePhoto, currentStageActiveImage;
