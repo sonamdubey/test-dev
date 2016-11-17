@@ -123,9 +123,6 @@
         <br />
         <br />
         Color Codes: 
-		<%--<asp:textbox runat="server" id="txtHexCode1" maxlength="6" columns="6" runat="server" tabindex="5" />
-        <asp:textbox runat="server" id="txtHexCode2" maxlength="6" columns="6" runat="server" tabindex="6" />
-        <asp:textbox runat="server" id="txtHexCode3" maxlength="6" columns="6" runat="server" tabindex="7" />--%>
         <div class="input_fields_wrap">
             <span>
                 <input type="text" class="hexCodeText" maxlength="6" columns="6" style="width: 59px;" name="mytext[]" tabindex="5" /></span>

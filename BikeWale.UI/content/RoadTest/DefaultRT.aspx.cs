@@ -37,7 +37,6 @@ namespace Bikewale.Content
     {
         protected UpcomingBikesMinNew ctrlUpcoming;
         protected Repeater rptRoadTest;
-        protected HtmlGenericControl alertObj;
         protected Bikewale.Mobile.Controls.LinkPagerControl ctrlPager;
         protected string nextUrl = string.Empty, prevUrl = string.Empty, makeName = string.Empty, modelName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty;
         private const int _pageSize = 10;
@@ -238,12 +237,6 @@ namespace Bikewale.Content
                         totalArticles = Format.FormatPrice(_objRoadTestList.RecordCount.ToString());
                         startIndex = Format.FormatPrice(_startIndex.ToString());
                         endIndex = Format.FormatPrice(_endIndex > _objRoadTestList.RecordCount ? _objRoadTestList.RecordCount.ToString() : _endIndex.ToString());
-                    }
-                    else
-                    {
-                        alertObj.Visible = true;
-                        alertObj.InnerText = "Sorry! No road tests have been carried out for the selected bike.";
-                        _isContentFound = false;
                     }
                 }
             }
