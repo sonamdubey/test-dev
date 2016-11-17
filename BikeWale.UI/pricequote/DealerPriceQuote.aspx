@@ -717,6 +717,7 @@
                 }
             };
 
+           
             var BikeEMI = function () {
                 var self = this;
                 self.breakPoints = ko.observable(5);
@@ -817,7 +818,17 @@
             ko.applyBindings(EMIviewModel, $("#EMISection")[0]);
 
             <% } %>
-            
+
+            $( document ).ready(function() {
+                var city, area;
+                <%if(detailedDealer != null && detailedDealer.SecondaryDealers != null && detailedDealer.SecondaryDealers.Count() > 0){%>
+                
+                    city='<%detailedDealer.Secondar%>';
+                    triggerGA('Dealer_PQ', ' Secondary_Dealer_Card_Shown', "<%= string.Format("{0}_{1}_{2}_{3}", makeName,modelName,city,area)%>");
+
+                <%}%>
+            });
+
             $("#dealer-assist-msg .assistance-response-close").on("click", function(){
                 $("#dealer-assist-msg").parent().slideUp();
             });
