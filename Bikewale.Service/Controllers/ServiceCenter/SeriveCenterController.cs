@@ -62,19 +62,7 @@ namespace Bikewale.Service.Controllers.ServiceCenter
             {
                 try
                 {
-                    int status = _objServiceCenter.GetServiceCenterSMSData(id, mobile, pageUrl);
-                    if (status == 1)
-                    {
-                        return Ok("Success");
-                    }
-                    else if (status == 2)
-                    {
-                        return Ok("Daily Limit Exceeded");
-                    }
-                    else
-                    {
-                        return NotFound();
-                    }
+                    return Ok(_objServiceCenter.GetServiceCenterSMSData(id, mobile, pageUrl));
                 }
                 catch (Exception ex)
                 {

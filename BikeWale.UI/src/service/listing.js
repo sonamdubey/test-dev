@@ -177,6 +177,7 @@ readMoreTarget.on('click', function () {
 var attemptCount = 1,
     successMessage = 'Service Center details successfully<br />sent on your phone.<br />Not Received? <span class="service-center-resend-btn">Resend</span>',
     threeAttemptsMessage = 'Sorry! You have reached the limit of sending details of this service center. Look for a different service center.',
+    failureMessage = "Sorry!, Something went wrong. Please try again.", 
     tenAttemptsMessage = 'Sorry! You have reached the daily limit of sending details.<br />Please try again after a day.';
 
 $('#center-list').on('click', '.get-details-btn', function () {
@@ -191,6 +192,7 @@ $('#center-list').on('click', '.get-details-btn', function () {
     else {
         captureLeadMobile.responseBox.set(listItem, 'response-active limit-reached', tenAttemptsMessage);
     }
+    attemptCount = 1;
 });
 
 $('.service-center-lead-mobile').on('focus', function () {
@@ -211,11 +213,31 @@ $('.submit-service-center-lead-btn').on('click', function () {
         inputbox = listItem.find('input'),
         valid = validatePhone(inputbox);
 
+    var serviceCenterId = $(this).attr("data-id");
+
     if (!valid) {
         // invalid
     }
-    else {
-        captureLeadMobile.checkAttempts(attemptCount, listItem);
+    else {        
+            $.ajax({
+                type: "POST",
+                url: "/api/servicecenter/" + serviceCenterId + "/details/sms/?mobile=" + inputbox.val() + "&pageUrl=" + window.location.href.replace('&', '%26'),
+                data: {},
+                success: function (response) {
+                        if (response == 2)
+                        {
+                            captureLeadMobile.checkAttempts(10, listItem);
+                        }
+                        else if(response == 1)
+                        {
+                            captureLeadMobile.checkAttempts(attemptCount, listItem);
+                        }
+                        else
+                        {
+                            captureLeadMobile.responseBox.set(listItem, 'response-active limit-reached', failureMessage);
+                        }
+                }
+            });
     }
 });
 
@@ -223,13 +245,15 @@ $('.submit-service-center-lead-btn').on('click', function () {
 $('#center-list').on('click', '.service-center-resend-btn', function () {
     var resendBtn = $(this),
         listItem = resendBtn.closest('li');
-
-    if (attemptCount != 3) {
+    debugger;
+    if (attemptCount != 4 ) {
         captureLeadMobile.inputBox.set(listItem);
     }
     else {
         captureLeadMobile.responseBox.set(listItem, 'response-active limit-reached', threeAttemptsMessage);
     }
+
+    attemptCount = attemptCount + 1;
 });
 
 var captureLeadMobile = {
@@ -252,11 +276,12 @@ var captureLeadMobile = {
     },
 
     checkAttempts: function (count, listItem) {
-        if (count < 3) {
+        debugger;
+        if (count < 4) {
             captureLeadMobile.responseBox.set(listItem, 'response-active', successMessage);
         }
 
-        if (count == 3) {
+        if (count == 4) {
             captureLeadMobile.responseBox.set(listItem, 'response-active limit-reached', threeAttemptsMessage);
         }
 

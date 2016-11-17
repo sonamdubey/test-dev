@@ -8,6 +8,7 @@ namespace Bikewale.Entities.ServiceCenters
     public enum EnumServiceCenterSMSStatus
     {
         Success = 1,
-        Daily_Limit_Exceeded = 2
+        Daily_Limit_Exceeded = 2,
+        Invalid = 3
     }
 }

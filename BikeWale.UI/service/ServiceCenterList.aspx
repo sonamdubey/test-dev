@@ -8,8 +8,8 @@
         keywords = String.Format("{0} servicing {1}, {0} service center in {1}, {0} Service centers, {0} service schedules, {0} bike repair, repairing, servicing", makeName, cityName);
         description = String.Format("There are {0} {1} service centers in {2}. Get in touch with your nearest {1} service center for service repairing, schedule details, pricing, pick and drop facility. Check the Service schedule for {1} bikes now.", totalServiceCenters, makeName, cityName);
         title = String.Format("{0} service centers in {1} | {0} bike servicing in {1} - BikeWale", makeName, cityName);
-        canonical = String.Format("http://www.bikewale.com/{0}-dealer-showrooms-in-{1}/", makeMaskingName, cityMaskingName);
-        alternate = String.Format("http://www.bikewale.com/m/{0}-dealer-showrooms-in-{1}/", makeMaskingName, cityMaskingName);
+        canonical = String.Format("http://www.bikewale.com/{0}-service-center-in-{1}/", makeMaskingName, cityMaskingName);
+        alternate = String.Format("http://www.bikewale.com/m/{0}-service-center-in-{1}/", makeMaskingName, cityMaskingName);
         AdId = "1395986297721";
         AdPath = "/1017752/BikeWale_New_";
         isAd970x90Shown = true;
@@ -39,18 +39,15 @@
                         <!-- breadcrumb code starts here -->
                         <ul>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <a itemprop="url" href="/"><span itemprop="title">Home</span></a>
+                                <a itemprop="url" href="/" title ="Home"><span itemprop="title">Home</span></a>
+                            </li>                            
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/bike-service-center/" title="Service Center Locator"><span itemprop="title">Service Center Locator</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href=""><span itemprop="title">Used Bikes</span></a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href= "<%= String.Format("/{0}-service-center-in-india/", makeMaskingName) %>" title="<%= String.Format("{0} Bikes Service Centers", makeName) %>"><span itemprop="title"><%=makeName%> Bikes Service Centers</span></a>
                             </li>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href=""><span itemprop="title">Service Center Locator</span></a>
-                            </li>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href=""><span itemprop="title"><%=makeName%> Bikes Service Centers</span></a>
-                            </li>
-                            <li class="current"><span class="bwsprite fa-angle-right margin-right10"></span><%=makeName%> Bikes Service Center in <%=cityName %></li>
+                            <li class="current"><span class="bwsprite fa-angle-right margin-right10"></span><%=makeName%> bikes service center in <%=cityName %></li>
                         </ul>
                         <div class="clear"></div>
                     </div>
@@ -65,7 +62,7 @@
                     <div class="bg-white">
                         <h1 class="section-header"><%=makeName%> service centers in <%=cityName%></h1>
                         <div class="section-inner-padding font14 text-light-grey">
-                            <p id="service-main-content">Is your Honda bike due for a service or are you looking to repair your Honda bike? BikeWale brings you the list of all authorised Make service centers in City. Make has 100 authorised service centers in Mumbai. We recommend availing services only from authorised service centers. Authorised Honda service centers abide by the servicing standards of Honda with an assurance of genuine Honda spare parts. </p><p id="service-more-content">BikeWale strongly recommends to use only Make genuine spare parts for your safety and durability of your bike. For more information on pick-up and drop facility, prices and service schedules get in touch with any of the below mentioned authorised make service centers in City. Do check out the maintenance tips and answers to FAQs from BikeWale experts! </p><a href="javascript:void(0)" id="read-more-target" rel="nofollow">Read more</a>
+                            <p id="service-main-content">Is your <%= makeName %> bike due for a service or are you looking to repair your <%= makeName %> bike? BikeWale brings you the list of all authorised  <%= makeName %> service centers in <%= cityName %>. <%= makeName %> has <%= totalServiceCenters %> authorised service centers in <%= cityName %>. We recommend availing services only from authorised service centers. Authorised <%= makeName %> service centers abide by the servicing standards of <%= makeName %> with an assurance of genuine <%= makeName %> spare parts.</p><p id="service-more-content">BikeWale strongly recommends to use only <%= makeName %> genuine spare parts for your safety and durability of your bike. For more information on pick-up and drop facility, prices and service schedules get in touch with any of the below mentioned authorised <%= makeName %> service centers in <%= cityName %>. Do check out the maintenance tips and answers to FAQs from BikeWale experts!</p><a href="javascript:void(0)" id="read-more-target" rel="nofollow">Read more</a>
                         </div>
                     </div>
                 </div>
@@ -108,13 +105,13 @@
 
                                                 <div class="lead-mobile-content">
                                                     <div class="input-box input-number-box form-control-box type-user-details">
-                                                        <input type="tel" id="lead-input-<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" class="service-center-lead-mobile" maxlength="10">
-                                                        <label for="lead-input-<%# DataBinder.Eval(Container.DataItem,"DealerId") %>">Type in your mobile number</label>
+                                                        <input type="tel" id="lead-input-<%= serviceCenter.ServiceCenterId %>" class="service-center-lead-mobile" maxlength="10">
+                                                        <label for="lead-input-<%= serviceCenter.ServiceCenterId %>">Type in your mobile number</label>
                                                         <span class="input-number-prefix">+91-</span>
                                                         <span class="boundary"></span>
                                                         <span class="error-text"></span>
                                                     </div>
-                                                    <button type="button" class="btn btn-orange submit-service-center-lead-btn font14">Send details</button>
+                                                    <button type="button" class="btn btn-orange submit-service-center-lead-btn font14" data-id ="<%= serviceCenter.ServiceCenterId %>">Send details</button>
                                                     <div class="clear"></div>
                                                 </div>
 
@@ -150,14 +147,14 @@
                         <h2 class="section-h2-title padding-15-20">Tips from BikeWale experts to keep your bike in good shape!</h2>
                         <ul id="bw-tips-list">
                             <li class="grid-6">
-                                <a href="">
+                                <a href="/bike-care/" target="_blank" title="Bike Care - Maintenance tips">
                                     <span class="service-sprite care-icon"></span>
                                     <h3 class="bike-tips-label margin-left10 inline-block">Bike Care - Maintenance tips</h3>
                                     <span class="bwsprite right-arrow"></span>
                                 </a>
                             </li>
                             <li class="grid-6">
-                                <a href="">
+                                <a href="/bike-troubleshooting/" target="_blank" title="Bike troubleshooting - FAQs">
                                     <span class="service-sprite faq-icon"></span>
                                     <h3 class="bike-tips-label margin-left10 inline-block">Bike troubleshooting - FAQs</h3>
                                     <span class="bwsprite right-arrow"></span>

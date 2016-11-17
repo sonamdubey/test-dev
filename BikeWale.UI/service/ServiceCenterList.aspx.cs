@@ -90,7 +90,7 @@ namespace Bikewale.Service
             ctrlDealerCard.makeMaskingName = makeMaskingName;
             ctrlDealerCard.CityId = cityId;
             ctrlDealerCard.LeadSourceId = 29;
-            ctrlDealerCard.TopCount = 6;
+            ctrlDealerCard.TopCount = 3;
             ctrlDealerCard.pageName = "Service_Locator_City_Desktop";
             ctrlDealerCard.isHeading = false;
         }

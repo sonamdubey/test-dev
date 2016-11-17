@@ -6,7 +6,6 @@ using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
-using System.Web;
 namespace Bikewale.BAL.ServiceCenter
 {
     /// <summary>
@@ -105,7 +104,7 @@ namespace Bikewale.BAL.ServiceCenter
         /// Created By : Sajal Gupta on 16/11/2016
         /// Description: BAL layer Function for sending service center sms data from DAL.
         /// </summary>
-        public int GetServiceCenterSMSData(uint serviceCenterId, string mobileNumber, string pageUrl)
+        public EnumServiceCenterSMSStatus GetServiceCenterSMSData(uint serviceCenterId, string mobileNumber, string pageUrl)
         {
             try
             {
@@ -117,11 +116,15 @@ namespace Bikewale.BAL.ServiceCenter
                     {
                         SMSTypes newSms = new SMSTypes();
                         newSms.ServiceCenterDetailsSMS(mobileNumber, objSMSData.Name, objSMSData.Address, objSMSData.Phone, objSMSData.CityName, pageUrl);
-                        return (int)EnumServiceCenterSMSStatus.Success;
+                        return EnumServiceCenterSMSStatus.Success;
                     }
                     else if (objSMSData.SMSStatus == EnumServiceCenterSMSStatus.Daily_Limit_Exceeded)
                     {
-                        return (int)EnumServiceCenterSMSStatus.Daily_Limit_Exceeded;
+                        return EnumServiceCenterSMSStatus.Daily_Limit_Exceeded;
+                    }
+                    else
+                    {
+                        return EnumServiceCenterSMSStatus.Invalid;
                     }
                 }
             }
