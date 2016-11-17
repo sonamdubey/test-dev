@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Content.ViewBikeCare" %>
 <%@ Register Src="~/m/controls/MUpcomingBikesMin.ascx" TagPrefix="BW" TagName="MUpcomingBikesMin"  %>
 <%@ Register Src="~/m/controls/MPopularBikesMin.ascx" TagPrefix="BW" TagName="MPopularBikesMin"  %>
+<%@ Register Src="~/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery"  %>
 <%	
     keywords = pageKeywords;
     title = pageTitle;
@@ -77,6 +78,7 @@
 </div>
 <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
 <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
+<BW:ModelGallery runat="server" ID="photoGallery" />
 <script type="text/javascript">
     $(document).ready(function () {
         var pageId = 1;

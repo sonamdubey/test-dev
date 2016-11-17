@@ -13,6 +13,8 @@ namespace Bikewale.Mobile.Controls
         public int imageCount = 0, videoCount = 0;
         public int modelId;
         public List<ModelImage> Photos;
+        //set this variable to false when model gallery is injected to any other page
+        public bool isModelPage=true;
 
         protected override void OnInit(EventArgs e)
         {

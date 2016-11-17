@@ -102,7 +102,10 @@ namespace Bikewale.Content
 
             return isSuccess;
         }
-
+        /// <summary>
+        /// Modified By : Aditi Srivastava on 17 Nov 2016
+        /// Summary     : Added photo gallery control
+        /// </summary>
         private void GetRoadTestDetails()
         {
             try
@@ -127,6 +130,7 @@ namespace Bikewale.Content
                         if (objImg != null && objImg.Count() > 0)
                         {
                             photoGallery.Photos = objImg.ToList();
+                            photoGallery.isModelPage = false;
                             rptPhotos.DataSource = objImg;
                             rptPhotos.DataBind();
                         }

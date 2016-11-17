@@ -2,7 +2,6 @@
 <%@ Register Src="~/m/controls/MUpcomingBikesMin.ascx" TagPrefix="BW" TagName="MUpcomingBikesMin"  %>
 <%@ Register Src="~/m/controls/MPopularBikesMin.ascx" TagPrefix="BW" TagName="MPopularBikesMin"  %>
 <%@ Register Src="~/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery"  %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -107,7 +106,6 @@
         
         <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
         <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
-
         <BW:ModelGallery runat="server" ID="photoGallery" />
 
         <div class="back-to-top" id="back-to-top"></div>

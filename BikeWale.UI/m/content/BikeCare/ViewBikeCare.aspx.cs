@@ -23,6 +23,7 @@ namespace Bikewale.Mobile.Content
         private GlobalCityAreaEntity currentCityArea;
         protected MUpcomingBikesMin ctrlUpcomingBikes;
         protected MPopularBikesMin ctrlPopularBikes;
+        protected ModelGallery photoGallery;
         protected String baseUrl = String.Empty, pageTitle = String.Empty, modelName = String.Empty, modelUrl = String.Empty, pageDescription = String.Empty, pageKeywords = String.Empty;
         protected String data = String.Empty, nextPageUrl = String.Empty, prevPageUrl = String.Empty, author = String.Empty, displayDate = String.Empty, canonicalUrl = String.Empty;
         protected ArticlePageDetails objTipsAndAdvice;
@@ -43,6 +44,8 @@ namespace Bikewale.Mobile.Content
         /// <summary>
         /// Created By:-Subodh Jain 12 Nov 2016
         /// Summary :- Detaile Page for TipsAndAdvice
+        /// Modified by : Aditi Srivastava on 17 Nov 2016
+        /// Summary  :   Added model gallery control
         /// </summary>
         private void DetailBikeCare()
         {
@@ -57,6 +60,9 @@ namespace Bikewale.Mobile.Content
                 displayDate = objDetailBikeCare.displayDate;
                 bikeTested = objDetailBikeCare.bikeTested;
                 canonicalUrl = objDetailBikeCare.canonicalUrl;
+                if(objImg!=null)
+                photoGallery.Photos = objImg.ToList();
+                photoGallery.isModelPage = false;
             }
             catch (Exception ex)
             {
