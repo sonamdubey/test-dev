@@ -2502,6 +2502,7 @@
     <Content Include="m\src\chosen-mobile.js" />
     <Content Include="m\src\common.js" />
     <Content Include="m\src\common.min.js" />
+    <Content Include="m\src\content\details.js" />
     <Content Include="m\src\dealerdetail.js" />
     <Content Include="m\src\service\details.js" />
     <Content Include="m\src\service\listing.js" />

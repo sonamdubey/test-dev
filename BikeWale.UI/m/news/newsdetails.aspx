@@ -16,7 +16,7 @@
     %>
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/m/css/content/details.css" />
+    <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/content/details.css?<%= staticFileVersion %>" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>
@@ -94,16 +94,7 @@
             </div>
         </section>
         <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
-        <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
-
-        <%--<div class="new-line5">
-            <ul class="socialplugins  new-line10">
-                <li><fb:like href="http://www.bikewale.com/news/<%= pageUrl%>" send="false" layout="button_count"  show_faces="false"></fb:like></li>
-                <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.bikewale.com/news/<%= pageUrl %>" data-via='<%= title %>' data-lang="en">Tweet</a></li>
-                <li><div class="g-plusone" data-size="medium" data-href="http://www.bikewale.com/news/<%= pageUrl %>"></div></li>
-            </ul>  
-            <div class="clear"></div> 
-        </div>--%>                
+        <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />              
             
         <div class="back-to-top" id="back-to-top"></div>
 
@@ -116,6 +107,33 @@
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
         <script type="text/javascript">
             ga_pg_id = "11";
+
+            // share
+            $('.share-btn').click(function () {
+                var str = $(this).attr('data-attr');
+                var cururl = window.location.href;
+                switch (str) {
+                    case 'fb':
+                        url = 'https://www.facebook.com/sharer/sharer.php?u=';
+                        break;
+                    case 'tw':
+                        url = 'https://twitter.com/home?status=';
+                        break;
+                    case 'gp':
+                        url = 'https://plus.google.com/share?url=';
+                        break;
+                    case 'wp':
+                        var text = document.getElementsByTagName("title")[0].innerHTML;
+                        var message = encodeURIComponent(text) + " - " + encodeURIComponent(cururl);
+                        var whatsapp_url = "whatsapp://send?text=" + message;
+                        url = whatsapp_url;
+                        window.open(url, '_blank');
+                        return;
+                }
+                url += cururl;
+                window.open(url, '_blank');
+            });
+
         </script>
     </form>
 </body>

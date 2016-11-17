@@ -15,7 +15,7 @@
         //menu = "8";
     %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/m/css/content/details.css" />
+    <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/content/details.css?<%= staticFileVersion %>" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>
@@ -88,11 +88,12 @@
                         </div>
                     </div>
                 </div>
-           <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
-           <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
-           <BW:ModelGallery runat="server" ID="photoGallery" />
             </div>
         </section>
+
+        <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
+        <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
+        <BW:ModelGallery runat="server" ID="photoGallery" />
 
         <div class="back-to-top" id="back-to-top"></div>
 
@@ -103,6 +104,8 @@
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/content/details.js?<%= staticFileVersion %>"></script>
 
         <script type="text/javascript">
             $(document).ready(function () {
@@ -115,21 +118,6 @@
             
                 });
             });
-
-            var articleSwiper = new Swiper('.article-photos-swiper', {
-                slideActiveClass: '',
-                spaceBetween: 10,
-                slidesPerView: 'auto',
-                slideToClickedSlide: true,
-                preloadImages: false,
-                lazyLoading: true,
-                lazyLoadingInPrevNext: true,
-                watchSlidesProgress: true,
-                watchSlidesVisibility: true,
-                nextButton: '.swiper-button-next',
-                prevButton: '.swiper-button-prev'
-            });
-
         </script>
     </form>
 </body>

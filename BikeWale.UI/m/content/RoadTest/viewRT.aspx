@@ -16,7 +16,7 @@
     %>
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/m/css/content/details.css" />
+    <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/content/details.css?<%= staticFileVersion %>" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>
@@ -32,7 +32,7 @@
                     <h1 class="margin-bottom10"><%= pageTitle %></h1>
                     <div class="grid-6 alpha padding-right5">
                         <span class="bwmsprite calender-grey-sm-icon"></span>
-                        <span class="article-stats-content"><%=Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "MMMM dd, yyyy hh:mm tt") %></span>
+                        <span class="article-stats-content"><%=Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "MMM dd, yyyy hh:mm tt") %></span>
                     </div>
                     <div class="grid-6 alpha omega">
                         <span class="bwmsprite author-grey-sm-icon"></span>
@@ -94,15 +94,6 @@
                 </div>
             </div>
         </section>
-    
-        <%--<div class="new-line5">
-            <ul class="socialplugins  new-line10">
-                <li><fb:like href="<%= canonicalUrl%>" send="false" layout="button_count"  show_faces="false"></fb:like></li>
-                <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= canonicalUrl %>" data-via='<%= title %>' data-lang="en">Tweet</a></li>
-                <li><div class="g-plusone" data-size="medium" data-href="<%= canonicalUrl %>"></div></li>
-            </ul>  
-            <div class="clear"></div> 
-        </div>--%>
         
         <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
         <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
@@ -117,6 +108,9 @@
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/content/details.js?<%= staticFileVersion %>"></script>m
+
         <script type="text/javascript">
             $(document).ready(function () {
                 var pageId = 1;
@@ -130,64 +124,7 @@
         
             ga_pg_id = "13";
 
-            // article gallery
-            var articleGallery = true;
-
-            var articleSwiper = new Swiper('.article-photos-swiper', {
-                slideActiveClass: '',
-                spaceBetween: 10,
-                slidesPerView: 'auto',
-                slideToClickedSlide: true,
-                preloadImages: false,
-                lazyLoading: true,
-                lazyLoadingInPrevNext: true,
-                watchSlidesProgress: true,
-                watchSlidesVisibility: true,
-                nextButton: '.swiper-button-next',
-                prevButton: '.swiper-button-prev'
-            });
-
-            $('.article-photos-swiper').on('click', '.swiper-slide', function () {
-                var clickedImg = $(this),
-                    imgIndex = clickedImg.index();
-
-                articleGallery.open();
-                window.dispatchEvent(new Event('resize'));
-                appendState('gallery');
-
-                var clickedSlide = $('.carousel-navigation-photos .swiper-slide')[imgIndex];
-                $('.carousel-navigation-photos .swiper-slide').removeClass('swiper-slide-active');
-                $(clickedSlide).addClass('swiper-slide-active');
-                galleryThumbs.slideTo(imgIndex, 500);
-                galleryTop.slideTo(imgIndex, 500);
-            });
-
-            var appendState = function (state) {
-                window.history.pushState(state, '', '');
-            };
-
-            $(window).on('popstate', function (event) {
-                if ($('.model-gallery-container').is(':visible')) {
-                    articleGallery.close();
-                }
-            });
-
-            var articleGallery = {
-                open: function () {
-                    lockPopup();
-                    $('.model-gallery-container').show();
-                    $('body').addClass('article-gallery-active');
-                },
-
-                close: function () {
-                    unlockPopup();
-                    $('.model-gallery-container').hide();
-                    $('body').removeClass('article-gallery-active');
-                }
-            };
-
         </script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/model-gallery.js?<%= staticFileVersion %>"></script>
     </form>
 </body>
 </html>

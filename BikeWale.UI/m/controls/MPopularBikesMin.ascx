@@ -21,7 +21,7 @@
                                              <% if(bike.VersionPrice > 0) { %>
                                             <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.VersionPrice)) %></span> 
                                         <%} else{ %>
-                                            <span class="text-bold font16">Price unavailable</span>
+                                            <span class="font14">Price unavailable</span>
                                             <%} %>
                                         </p>
                                     </div>
