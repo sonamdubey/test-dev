@@ -46,10 +46,10 @@
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div id="content" class="grid-8 alpha">
-                        <div>
+                        <div class="bg-white">
                             <div class="section-header">
-		                    <h1 >Bike Care</h1>
-                            <h2>BikeWale brings you maintenance tips from experts to rescue you from common problems</h2>
+		                    <h1 class="margin-bottom5">Bike Care</h1>
+                            <h2 class="font14 text-unbold">BikeWale brings you maintenance tips from experts to rescue you from common problems</h2>
                                 </div>
                             <div class="section-inner-padding">
                                 <% foreach (var article in objArticleList.Articles) {%>					
