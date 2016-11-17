@@ -47,7 +47,10 @@
                 <div class="grid-12">
                     <div id="content" class="grid-8 alpha">
                         <div class="bg-white">
-		                    <h1 class="section-header">Bike Care</h1>
+                            <div class="section-header">
+		                    <h1 class="margin-bottom5">Bike Care</h1>
+                            <h2 class="font14 text-unbold">BikeWale brings you maintenance tips from experts to rescue you from common problems</h2>
+                                </div>
                             <div class="section-inner-padding">
                                 <% foreach (var article in objArticleList.Articles) {%>					
 						                <div id='post-<%=article.BasicId%>' class="article-content">
@@ -75,7 +78,7 @@
 											            </span>
 										            </div>
 									            </div>
-									            <div class="font14 line-height"><%= Bikewale.Utility.FormatDescription.TruncateDescription(Convert.ToString(article.Description) ,250)%><a href="/bike-care/<%=article.ArticleUrl %>-<%=article.BasicId%>.html">Read full review</a></div>
+									            <div class="font14 line-height"><%= Bikewale.Utility.FormatDescription.TruncateDescription(Convert.ToString(article.Description) ,250)%><a href="/bike-care/<%=article.ArticleUrl %>-<%=article.BasicId%>.html" title=" <%=article.Title%>">Read full story</a></div>
 								            </div>
 								            <div class="clear"></div>
 						                </div>

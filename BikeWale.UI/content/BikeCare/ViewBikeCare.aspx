@@ -2,13 +2,18 @@
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/controls/MostPopularBikesMin.ascx" %>
 <%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpcomingBikesMinNew.ascx" %>
+<%@ Register Src="~/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
+<%@ Register TagPrefix="PG" TagName="PhotoGallery" Src="/controls/ArticlePhotoGallery.ascx" %>
    <%	
     keywords = pageKeywords;
     title = pageTitle;
     description  = pageDescription;
-    AdPath = "/1017752/Bikewale_Mobile_NewBikes";
-    AdId = "1398766302464";
-  
+    canonical = string.Format("http://www.bikewale.com/bike-care/{0}-{1}.html", pageTitle, basicId);
+    alternate = string.Format("http://www.bikewale.com/bike-care/m/{0}-{1}.html", pageTitle, basicId);
+    AdId = "1395995626568";
+    AdPath = "/1017752/BikeWale_News_";
+    isAd300x250Shown = true;
+    isAd300x250BTFShown = false;
 %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/content/details.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
@@ -33,7 +38,7 @@
                         </li>
 						<li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
 							<span class="bwsprite fa-angle-right margin-right10"></span>
-                            <a href="/expert-reviews/" itemprop="url">
+                            <a href="/bike-care/" itemprop="url">
                                 <span itemprop="title">Bike Care</span>
                             </a>
                         </li>
@@ -68,8 +73,9 @@
                                     <ul>
                                    <% foreach (var page in objTipsAndAdvice.PageList) {%>
                                             <li><a href="#<%=page.pageId %>"><%=page.PageName %></a></li>				                
-                                            <li><a href="#divPhotos">Photos</a></li>
+                                            
                                     <%} %>
+                                        <li><a href="#divPhotos">Photos</a></li>
                                         </ul>
                                 </div>
                                 <div class="clear"></div>
@@ -80,6 +86,9 @@
                                             </div>
                                         </div>
                                 <%} %>
+                                <div id="divPhotos">
+                                    <PG:PhotoGallery runat="server" ID="ctrPhotoGallery" />
+                                </div>
 					           <%} %>
                             </div>
                         </div>
@@ -103,7 +112,7 @@
         <div class="back-to-top" id="back-to-top"></div>
 
         <!-- #include file="/includes/footerBW.aspx" -->
-               
+               <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
 		<link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/jquery.floating-social-share.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common.min.js?<%= staticFileVersion %>"></script>
