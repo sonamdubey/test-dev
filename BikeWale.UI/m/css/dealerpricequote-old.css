@@ -39,7 +39,7 @@
 #offersPopup ul li { width:100%; margin-top:15px; margin-bottom:15px; }
 #offersPopup ul li:first-child { margin-top:0; }
 .pricequote-benefits-list li { width:100%; min-height:35px;}
-.offer-benefit-sprite { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/offerbenefitsprite.png?v1=1Apr2016v1) no-repeat; display: inline-block; }
+.offer-benefit-sprite { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/offerbenefitsprite.png?v1=1Apr2016v1) no-repeat; display: inline-block; }
 .benifitIcon_1 , .benifitIcon_2 , .benifitIcon_3 , .benifitIcon_4 , .benifitIcon_5 , .offerIcon_1 , .offerIcon_2 , .offerIcon_3 , .offerIcon_4 , .offerIcon_5, .offerIcon_6, .offerIcon_7 { width:30px; }
 .benifitIcon_1 { height:26px; background-position:0 -181px; }
 .benifitIcon_2 { height:30px; background-position:0 -141px; }
@@ -65,7 +65,7 @@
 .ui-slider .ui-slider-range { border: none; display: block; font-size: 0.7em; position: absolute; z-index: 1; border-radius: 0px; }
 .ui-widget-header { background: #565a5c; height: 6px; }
 .ui-slider { position: relative; text-align: left; }
-.ui-slider .ui-slider-handle { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/slider-sprite.png?v=11Mar2016) no-repeat; cursor:pointer; height:20px; width:20px; display:block; margin-left: -9px; position: absolute; outline:none; top: -7px; z-index: 2; background-position:0 0; }
+.ui-slider .ui-slider-handle { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/slider-sprite.png?v=11Mar2016) no-repeat; cursor:pointer; height:20px; width:20px; display:block; margin-left: -9px; position: absolute; outline:none; top: -7px; z-index: 2; background-position:0 0; }
 .emi-slider-box-right-section { text-align:right; }
 .pos-top2 { top:2px; }
 .btn.emi-quote-btn { padding:8px 31px; }
@@ -73,7 +73,7 @@
 .slider-range-points ul li { float:left; position:relative; }
 .slider-range-points ul.range-pointsUL li { width:14%; }
 .slider-range-points ul.range-pointsUL.month-range li { width:10%;}
-.range-points-bar { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/slider-sprite.png?v=11Mar2016) no-repeat; height:5px; width:2px; display:block; z-index: 1; background-position:-30px 0px; }
+.range-points-bar { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/slider-sprite.png?v=11Mar2016) no-repeat; height:5px; width:2px; display:block; z-index: 1; background-position:-30px 0px; }
 .range-points-bar span { position:absolute; top:5px; left:-20px; font-size:11px; color:#a8afb3;}
 .range-points-bar:first-child span { left:0; }
 .tenure-rate-interest .range-points-bar span { left:0px; }

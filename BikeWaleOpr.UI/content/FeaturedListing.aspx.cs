@@ -280,7 +280,7 @@ namespace BikeWaleOpr.Content
             string tempImageName = GetSelectedBikeName().Replace('/', '-').ToLower() + "-" + imgName + ".jpg";
             fullTempImagePath = imgPath + tempImageName;
             string hostUrl = ConfigurationManager.AppSettings["RabbitImgHostURL"];
-            string imageUrl = "http://" + hostUrl + "/bw/featured/";
+            string imageUrl = "https://" + hostUrl + "/bw/featured/";
 
             flphoto.PostedFile.SaveAs(fullTempImagePath);
             //rabbitmq publishing
@@ -499,9 +499,9 @@ namespace BikeWaleOpr.Content
         public string GetString(string str)
         {
             if (Convert.ToInt16(str) > 0)
-                return "<img src=http://opr.carwale.com/Images/tick.jpg /> ";
+                return "<img src=https://opr.carwale.com/Images/tick.jpg /> ";
             else
-                return "<img src=http://opr.carwale.com/images/delete.gif /> ";
+                return "<img src=https://opr.carwale.com/images/delete.gif /> ";
         }
 
         //public string  GetImage( string str )
@@ -515,7 +515,7 @@ namespace BikeWaleOpr.Content
         //    }
         //    else
         //    {
-        //        imgpath = "http://server/images/featured/";
+        //        imgpath = "https://server/images/featured/";
         //    }
 
         //    fullPath = imgPath + str + ".jpg";

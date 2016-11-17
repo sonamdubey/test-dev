@@ -110,7 +110,7 @@
 			<asp:TemplateColumn>
 			  <itemtemplate>
 					<div class="alignCenter">
-						<asp:ImageButton ID="btnDelete" runat="server" ImageUrl="http://opr.carwale.com/images/icons/delete.ico" CommandName="Delete" class="deleteBike"/>
+						<asp:ImageButton ID="btnDelete" runat="server" ImageUrl="https://opr.carwale.com/images/icons/delete.ico" CommandName="Delete" class="deleteBike"/>
 					</div>
 				</itemtemplate>
 			</asp:TemplateColumn>

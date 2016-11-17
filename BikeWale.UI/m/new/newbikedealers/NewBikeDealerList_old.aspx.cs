@@ -118,7 +118,7 @@ namespace Bikewale.Mobile.New
         protected string GetDealerCity(string cityName)
         {
             city = cityName;
-            canonicalUrl = "http://www.bikewale.com/m/new/" + Request.QueryString["make"] + "-" + "dealers/" + Request.QueryString["city"] + "-" + city.ToLower() + ".html";
+            canonicalUrl = "https://www.bikewale.com/m/new/" + Request.QueryString["make"] + "-" + "dealers/" + Request.QueryString["city"] + "-" + city.ToLower() + ".html";
             return "";
         }
 

@@ -11,7 +11,7 @@
     isAd970x90Shown = true;
 %>
 <!-- #include file="/includes/headSell.aspx" -->
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/classified/sellbike.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/classified/sellbike.js?<%= staticFileVersion %>"></script>
 <div class="container_12">
     <div class="grid_12">
         <ul class="breadcrumb">
@@ -93,7 +93,7 @@
                             <input type="hidden" id="hdnBikeColor" runat="server" />
                             <div id="comboColors" style="display: inline-block;" title="Choose color of your bike">
                                 <div id="colorPreview"></div>
-                                <img id="drpColorImg" style="padding: 2px 2px 0 0;" src="http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/drop.png" border="0" align="right" /><div id="selectedColor" runat="server" style="padding: 5px;">-- Select Color --</div>
+                                <img id="drpColorImg" style="padding: 2px 2px 0 0;" src="https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/drop.png" border="0" align="right" /><div id="selectedColor" runat="server" style="padding: 5px;">-- Select Color --</div>
                             </div>
                             <div id="colors">
                                 <ul class="ul-normal">

@@ -30,7 +30,7 @@
                 You must read, agree with and accept all of the terms and conditions contained in this User Agreement and bikewale.com's Privacy 
 	            Policy, which include  terms and conditions expressly set out below and those incorporated by reference, before you may become 
 	            a member of bikewale.com. bikewale.com’s Privacy Policy may be viewed by clicking on the following link:
-	            <a href="http://www.bikewale.com/privacypolicy.aspx" target="_blank" >PrivacyPolicy</a> 
+	            <a href="https://www.bikewale.com/privacypolicy.aspx" target="_blank" >PrivacyPolicy</a> 
             </p>
 
             <p>

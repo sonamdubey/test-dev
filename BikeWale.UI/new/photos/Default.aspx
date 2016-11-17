@@ -5,8 +5,8 @@
     title = String.Format("{0} Photos - BikeWale", bikeName);
     keywords = string.Format("{0} photos, {0} pictures, {0} images, {1} {0} photos", modelName, makename);
     description = String.Format("View pictures of {0} in different colors and angles. Check out {2} photos of {1} on BikeWale", modelName, bikeName, photoGallary.FetchedCount);
-    canonical = String.Format("http://www.bikewale.com/{0}-bikes/{1}/photos/", objModelEntity.MakeBase.MaskingName, objModelEntity.MaskingName); 
-    alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/{1}/photos/", objModelEntity.MakeBase.MaskingName, objModelEntity.MaskingName);
+    canonical = String.Format("https://www.bikewale.com/{0}-bikes/{1}/photos/", objModelEntity.MakeBase.MaskingName, objModelEntity.MaskingName); 
+    alternate = string.Format("https://www.bikewale.com/m/{0}-bikes/{1}/photos/", objModelEntity.MakeBase.MaskingName, objModelEntity.MaskingName);
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
     ShowTargeting = "1";
@@ -22,8 +22,8 @@
     string staticUrl1 = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
     
 </script>
-<link rel="stylesheet" type="text/css" href="<%= !String.IsNullOrEmpty(staticUrl1) ? "http://st2.aeplcdn.com" + staticUrl1 : "" %>/css/jquery.ad-gallery.css" />
-<link type="text/css" href="<%= !String.IsNullOrEmpty(staticUrl1) ? "http://st2.aeplcdn.com" + staticUrl1 : "" %>/css/css-research-photos.css" rel="Stylesheet" />
+<link rel="stylesheet" type="text/css" href="<%= !String.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : "" %>/css/jquery.ad-gallery.css" />
+<link type="text/css" href="<%= !String.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : "" %>/css/css-research-photos.css" rel="Stylesheet" />
 <style type="text/css">
     .font26 {
         font-size: 26px !important;
@@ -34,7 +34,7 @@
 
 
 <!--[if IE 7]><style type="text/css">#galleryHolder{width:600px;height:400px;*height:475px;margin-bottom:10px;}.ad-gallery{margin: 0;*margin: 10px 0 0 0;padding:0;}</style><![endif]-->
-<script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl1) ? "http://st2.aeplcdn.com" + staticUrl1 : "" %>/src/new/photogallery/jquery.ad-gallery.js"></script>
+<script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : "" %>/src/new/photogallery/jquery.ad-gallery.js"></script>
 <script type="text/javascript">
     var MakeId = '<%= objModelEntity.MakeBase.MakeId%>';
     var ModelId = '<%= objModelEntity.ModelId%>';
@@ -45,7 +45,7 @@
     var MainCategory = '0';
     var selectedImagePath = '<%= selectedImagePath%>';
 </script>
-<script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl1) ? "http://st2.aeplcdn.com" + staticUrl1 : "" %>/src/new/photogallery/image-gallery.js?v=2.0"></script>
+<script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : "" %>/src/new/photogallery/image-gallery.js?v=2.0"></script>
 <div class="container_12">
     <div class="grid_12 margin-bottom15">
         <ul class="breadcrumb">

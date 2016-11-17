@@ -14,8 +14,8 @@
 </head>
 <body class="bg-light-grey">
     <!-- #include file="/includes/Navigation_Mobile.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/new/bwm-bookinglisting.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
+    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/new/bwm-bookinglisting.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
     <div class="blackOut-window"></div>
     <!-- global-search-popup code starts here -->
 
@@ -159,7 +159,7 @@
                             <img src="/images/no_result_m.png" />
                         </div>
                         <div id="loading" class="hide">
-                            <img src="http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
+                            <img src="https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
                         </div>
                     </div>
                 </div>
@@ -403,7 +403,7 @@
             </div>
             <h3>Terms and Conditions</h3>
             <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
-                <img src="http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
+                <img src="https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
             </div>
             <div id="terms" class="breakup-text-container padding-bottom10 font14">
             </div>
@@ -444,7 +444,7 @@
     </script>
     <!-- all other js plugins -->
     <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-    <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/BikeBooking/bookinglisting.js?<%= staticFileVersion %>" type="text/javascript"></script>
+    <script src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/BikeBooking/bookinglisting.js?<%= staticFileVersion %>" type="text/javascript"></script>
     <script>
         $('.chosen-container').attr('style', 'width:100%;');
         $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");

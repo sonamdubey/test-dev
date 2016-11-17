@@ -14,13 +14,13 @@
         keywords = metaKeywords;
         if (isModel)
         {
-            canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/videos/", makeMaskingName, modelMaskingName);
-            alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/{1}/videos/", makeMaskingName, modelMaskingName);
+            canonical = string.Format("https://www.bikewale.com/{0}-bikes/{1}/videos/", makeMaskingName, modelMaskingName);
+            alternate = string.Format("https://www.bikewale.com/m/{0}-bikes/{1}/videos/", makeMaskingName, modelMaskingName);
         }
         else
         {
-            canonical = string.Format("http://www.bikewale.com/{0}-bikes/videos/", makeMaskingName);
-            alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/videos/", makeMaskingName);
+            canonical = string.Format("https://www.bikewale.com/{0}-bikes/videos/", makeMaskingName);
+            alternate = string.Format("https://www.bikewale.com/m/{0}-bikes/videos/", makeMaskingName);
         }
          %>
     <!-- #include file="/includes/headscript.aspx" -->
@@ -59,7 +59,7 @@
                             <li>
                                 <div class="video-image-wrapper rounded-corner2">
                                     <a href="<%# string.Format("/bike-videos/{0}-{1}/", DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(), DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>">
-                                        <img class="lazy" data-original="<%#String.Format("http://img.youtube.com/vi/{0}/mqdefault.jpg",DataBinder.Eval(Container.DataItem,"VideoId")) %>"
+                                        <img class="lazy" data-original="<%#String.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg",DataBinder.Eval(Container.DataItem,"VideoId")) %>"
                                             alt="<%#DataBinder.Eval(Container.DataItem,"VideoTitle") %>" title="<%#DataBinder.Eval(Container.DataItem,"VideoTitle") %>" src="" border="0" />
                                     </a>
                                 </div>
@@ -84,7 +84,7 @@
         <section>
             <div class="text-center">
                 <div id="loading">
-                    <img src="http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif"   />
+                    <img src="https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif"   />
                 </div>
             </div>
         </section>
@@ -92,7 +92,7 @@
             <li>
                 <div class="video-image-wrapper rounded-corner2">
                     <a data-bind="attr: { href: '/bike-videos/' + VideoTitleUrl() + '-' + BasicId() + '/' }">
-                        <img class="lazy" data-bind="attr: { title: VideoTitle(), alt: VideoTitle(), src: '' }, lazyload: 'http://img.youtube.com/vi/' + VideoId() + '/mqdefault.jpg' "
+                        <img class="lazy" data-bind="attr: { title: VideoTitle(), alt: VideoTitle(), src: '' }, lazyload: 'https://img.youtube.com/vi/' + VideoId() + '/mqdefault.jpg' "
                             border="0" />
                     </a>
                 </div>
@@ -125,8 +125,8 @@
         </script>
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
-        <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/Videos/videoByCategory.js?<%= staticFileVersion %>"></script>
+        <script src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/Videos/videoByCategory.js?<%= staticFileVersion %>"></script>
     </form>
 </body>
 </html>

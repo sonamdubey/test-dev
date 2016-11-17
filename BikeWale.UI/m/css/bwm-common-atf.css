@@ -56,7 +56,7 @@ input:-ms-input-placeholder, .ui-autocomplete-input { color: #a8afb3; font-size:
 }
 .form-control:focus, input[type="text"]:focus, input[type="number"]:focus, input[type="search"]:focus, textarea:focus { border-color: #66afe9; outline: 0; -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 4px rgba(102,175,233,.6);
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 4px rgba(102,175,233,.6); }
-select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  background:#fff url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png) no-repeat 96% 50%; padding-right: 30px;  background: #fff\0; padding-right: 5px\0; }
+select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  background:#fff url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png) no-repeat 96% 50%; padding-right: 30px;  background: #fff\0; padding-right: 5px\0; }
 
 .input-xs { padding: 5px 10px; }
 .input-sm { padding: 8px 10px; }
@@ -96,7 +96,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 #appBanner { background:#e2e2e2; padding:5px 5px 0; position:relative; overflow:hidden; }
 .app-banner-img-container { float:left; width:130px; height:95px; position:relative; margin-right:12px; }
 .app-banner-img-container img { position:absolute; bottom:0; }
-.banner-close-btn { width:30px; height:30px; background: url("http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/banner-close-btn.png") no-repeat; position:absolute; top:0; right:0; cursor:pointer; }
+.banner-close-btn { width:30px; height:30px; background: url("https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/banner-close-btn.png") no-repeat; position:absolute; top:0; right:0; cursor:pointer; }
 .app-banner-text-container { float:left; }
 .app-banner-btn-container { padding:10px 25px 10px 0; }
 .app-banner-btn-container .btn { padding:6px 10px; }
@@ -112,7 +112,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .header-fixed-inner { padding-top: 65px; }
 
 /* sprite classes */
-.bwmsprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v2.png?v1=07Oct2016) no-repeat; display: inline-block; }
+.bwmsprite { background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v2.png?v1=07Oct2016) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}

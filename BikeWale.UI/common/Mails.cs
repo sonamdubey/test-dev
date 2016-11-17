@@ -17,15 +17,15 @@ namespace Bikewale.Common
                 string subject = "Purchase Request Arrived : Bike #" + bikeId;
 
                 CustomerDetails cd = new CustomerDetails(customerId);
-                message.Append("<img align=\"right\" src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
                 message.Append("<h4>Dear " + dealer + ",</h4>");
                 message.Append("<p>Greetings from bikewale!</p>");
                 message.Append("<p>bikewale has received a Used Bike Purchase Inquiry for Your Bike #");
-                message.Append(bikeId + "<p><a href=\"http://www.bikewale.com/Used/BikeDetails.aspx?bike=");
+                message.Append(bikeId + "<p><a href=\"https://www.bikewale.com/Used/BikeDetails.aspx?bike=");
                 message.Append(bikeId + "\">Click Here</a> Or copy and paste the following link");
                 message.Append(" to know details of your bike.</p>");
-                message.Append("<p><a href=\"http://www.bikewale.com/Used/BikeDetails.aspx?bike=");
-                message.Append(bikeId + "\">http://www.bikewale.com/Used/BikeDetails.aspx?bike=");
+                message.Append("<p><a href=\"https://www.bikewale.com/Used/BikeDetails.aspx?bike=");
+                message.Append(bikeId + "\">https://www.bikewale.com/Used/BikeDetails.aspx?bike=");
                 message.Append(bikeId + "</a>");
                 message.Append("<div style=\"background-color:#B5EDBC;\"><h5>Customer Details:</h5>");
                 message.Append("<table border=\"0\">");
@@ -66,7 +66,7 @@ namespace Bikewale.Common
 
                 CustomerDetails cd = new CustomerDetails(customerId);
 
-                message.Append("<img align=\"right\" src=\"http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
 
                 message.Append("<h4>Dear " + cd.Name + ",</h4>");
 
@@ -82,16 +82,16 @@ namespace Bikewale.Common
                 message.Append("User ID : " + cd.Email + "<br>");
                 message.Append("Password : " + cd.Password + "<br>");
 
-                message.Append("<p>You can change your password by clicking here <a href='http://www.bikewale.com/MyBikewale/changepassword/'>Change Password</a></p>");
+                message.Append("<p>You can change your password by clicking here <a href='https://www.bikewale.com/MyBikewale/changepassword/'>Change Password</a></p>");
 
                 /*
                 string cipher = bikewaleSecurity.EncodeVerificationCode( customerId.ToString() );
                 
-                message.Append( "<p>Please <a target=\"_blank\" href=\"http://www.bikewale.com/users/verifyEmail.aspx?verify=" );
+                message.Append( "<p>Please <a target=\"_blank\" href=\"https://www.bikewale.com/users/verifyEmail.aspx?verify=" );
                 message.Append( cipher + "\">click here</a>" );
                 message.Append( " to activate your account or copy and paste the following link in the browser’s address-bar.</p>" );
-                message.Append( "<a target=\"_blank\" href=\"http://www.bikewale.com/users/verifyEmail.aspx?verify=" );
-                message.Append( cipher + "\">http://www.bikewale.com/users/verifyEmail.aspx?verify=" + cipher + "</a>" );
+                message.Append( "<a target=\"_blank\" href=\"https://www.bikewale.com/users/verifyEmail.aspx?verify=" );
+                message.Append( cipher + "\">https://www.bikewale.com/users/verifyEmail.aspx?verify=" + cipher + "</a>" );
                 */
 
                 message.Append("<br>Warm Regards,<br><br>");
@@ -128,7 +128,7 @@ namespace Bikewale.Common
 
                 CustomerDetails cd = new CustomerDetails(customerId);
 
-                message.Append("<img align=\"right\" src=\"http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"https://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
 
                 message.Append("<h4>Dear " + cd.Name + ",</h4>");
 
@@ -144,16 +144,16 @@ namespace Bikewale.Common
                 message.Append("User ID : " + cd.Email + "<br>");
                 message.Append("Password : " + password + "<br>");
 
-                message.Append("<p>You can change your password by clicking here <a href='http://www.bikewale.com/MyBikewale/changepassword/'>Change Password</a></p>");
+                message.Append("<p>You can change your password by clicking here <a href='https://www.bikewale.com/MyBikewale/changepassword/'>Change Password</a></p>");
 
                 /*
                 string cipher = bikewaleSecurity.EncodeVerificationCode( customerId.ToString() );
                 
-                message.Append( "<p>Please <a target=\"_blank\" href=\"http://www.bikewale.com/users/verifyEmail.aspx?verify=" );
+                message.Append( "<p>Please <a target=\"_blank\" href=\"https://www.bikewale.com/users/verifyEmail.aspx?verify=" );
                 message.Append( cipher + "\">click here</a>" );
                 message.Append( " to activate your account or copy and paste the following link in the browser’s address-bar.</p>" );
-                message.Append( "<a target=\"_blank\" href=\"http://www.bikewale.com/users/verifyEmail.aspx?verify=" );
-                message.Append( cipher + "\">http://www.bikewale.com/users/verifyEmail.aspx?verify=" + cipher + "</a>" );
+                message.Append( "<a target=\"_blank\" href=\"https://www.bikewale.com/users/verifyEmail.aspx?verify=" );
+                message.Append( cipher + "\">https://www.bikewale.com/users/verifyEmail.aspx?verify=" + cipher + "</a>" );
                 */
 
                 message.Append("<br>Warm Regards,<br><br>");
@@ -189,7 +189,7 @@ namespace Bikewale.Common
                 StringBuilder message = new StringBuilder();
                 string subject = "BikeWale Password Recovery.";
 
-                message.Append("<img align=\"right\" src=\"http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"https://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
 
                 message.Append("<h4>Dear " + customerName + ",</h4>");
 
@@ -204,7 +204,7 @@ namespace Bikewale.Common
                 message.Append("User ID : " + email + "<br>");
                 //message.Append( "Password : " + password + "<br>" );
                 message.Append("Please click the below link to reset your password.<br>");
-                message.Append("http://www.bikewale.com/users/resetcustomerpassword.aspx?tkn=" + token);
+                message.Append("https://www.bikewale.com/users/resetcustomerpassword.aspx?tkn=" + token);
                 message.Append("<br>Above link is valid for 24 hours only.<br>");
 
                 message.Append("<p>We request your presence on the portal and look forward to serve your diverse needs.</p>");
@@ -237,7 +237,7 @@ namespace Bikewale.Common
         //        StringBuilder message = new StringBuilder();
         //        string subject = "BikeWale Password Recovery.";
 
-        //        message.Append("<img align=\"right\" src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
+        //        message.Append("<img align=\"right\" src=\"https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
 
         //        message.Append( "<h4>Dear " + customerName + ",</h4>" );
 
@@ -290,11 +290,11 @@ namespace Bikewale.Common
 
                 message.Append("<p>This mail is an auto-responder for your request to re-send your account activation code.</p>");
 
-                message.Append("<p>Please <a target=\"_blank\" href=\"http://www.bikewale.com/users/verifyEmail.aspx?verify=");
+                message.Append("<p>Please <a target=\"_blank\" href=\"https://www.bikewale.com/users/verifyEmail.aspx?verify=");
                 message.Append(code + "\">click here</a>");
                 message.Append(" to activate your account or copy and paste the following link in the browser’s address-bar.</p>");
-                message.Append("<a target=\"_blank\" href=\"http://www.bikewale.com/users/verifyEmail.aspx?verify=");
-                message.Append(code + "\">http://www.bikewale.com/users/verifyEmail.aspx?verify=" + code + "</a>");
+                message.Append("<a target=\"_blank\" href=\"https://www.bikewale.com/users/verifyEmail.aspx?verify=");
+                message.Append(code + "\">https://www.bikewale.com/users/verifyEmail.aspx?verify=" + code + "</a>");
 
                 message.Append("<p>Once again, thanks you for becoming a member of Bikewale</p>");
 
@@ -339,18 +339,18 @@ namespace Bikewale.Common
                 //message.Append( "City: " + cd.City + "</p>" );
 
                 message.Append("<p>If you would like to make any changes in your listing, ");
-                message.Append("<a href='http://www.bikewale.com/MyBikewale/'>click here to update.</a></p>");
+                message.Append("<a href='https://www.bikewale.com/MyBikewale/'>click here to update.</a></p>");
 
                 message.Append("<p>Please remove your bike if it has been sold already, so that ever growing number of ");
                 message.Append("prospective buyers do not cause inconvenience to you. ");
-                message.Append("<a href='http://www.bikewale.com/MyBikewale/'>Click here to remove your bike now.</a></p>");
+                message.Append("<a href='https://www.bikewale.com/MyBikewale/'>Click here to remove your bike now.</a></p>");
 
                 message.Append("<p>Alternatively you can also remove your bike by sending SMS 'SOLD' to 56767767.</p>");
 
                 message.Append("<p>We are committed to deliver value by bringing genuine buyers for your bike.</p>");
 
                 message.Append("<p>We gauge that with the sale of " + bikeName + ", you would be interested buying a new bike. Want to ");
-                message.Append("know about a new bike’s price? BikeWale’s <a href='http://www.bikewale.com/pricequote/'>Instant Price Quote</a> is a helpful tool which will ");
+                message.Append("know about a new bike’s price? BikeWale’s <a href='https://www.bikewale.com/pricequote/'>Instant Price Quote</a> is a helpful tool which will ");
                 message.Append("enable you to evaluate your purchase options on the price front.</p>");
 
                 message.Append("<br><br>Warm Regards,<br>");
@@ -380,7 +380,7 @@ namespace Bikewale.Common
                 StringBuilder message = new StringBuilder();
                 string subject = senderName + " has referred you BikeWale.";
 
-                message.Append("<img align=\"right\" src=\"http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
                 message.Append("<h4>Hello,</h4>");
                 message.Append("<p>Greetings from Bikewale!</p>");
                 message.Append("<p><b>" + senderName + "(" + senderEmail + ")" + "</b> ");
@@ -461,7 +461,7 @@ namespace Bikewale.Common
                 message.Append("<p style='font-size:11px'>This mail was sent to you because ");
                 message.Append("you have subscribed to this discussion as 'Instant Email'. ");
                 message.Append("If you no longer wish to receive such emails, please visit ");
-                message.Append("<a href='http://www.bikewale.com/mybikewale/forums/subscriptions.aspx'>My Subscriptions</a> page to manage your existing subscriptions.<br><br>");
+                message.Append("<a href='https://www.bikewale.com/mybikewale/forums/subscriptions.aspx'>My Subscriptions</a> page to manage your existing subscriptions.<br><br>");
                 message.Append("This is an automated mail. Please do not reply to this mail. For all queries contact "
                                 + "<a href='mailto:contact@bikewale.com'>contact@bikewale.com</a></p>");
 
@@ -537,7 +537,7 @@ namespace Bikewale.Common
                     subject = "Used Bike Purchase Inquiry Arrived.";
                 }
 
-                message.Append("<img align=\"right\" src=\"http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"https://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
                 message.Append("<b>Dear " + name + ",</b>");
 
                 message.Append("<p>Greetings from Bikewale!</p>");
@@ -557,8 +557,8 @@ namespace Bikewale.Common
                     message.Append("<p><a href=\"http://www.bikewale.com/Used/BikeDetails.aspx?bike=");
                     message.Append(inquiryId + "\">Click Here</a> Or copy and paste the following link");
                     message.Append(" to know details of your stock bike.</p>");
-                    message.Append("<p><a href=\"http://www.bikewale.com/Used/BikeDetails.aspx?bike=");
-                    message.Append(inquiryId + "\">http://www.bikewale.com/Used/BikeDetails.aspx?bike=");
+                    message.Append("<p><a href=\"https://www.bikewale.com/Used/BikeDetails.aspx?bike=");
+                    message.Append(inquiryId + "\">https://www.bikewale.com/Used/BikeDetails.aspx?bike=");
                     message.Append(inquiryId + "</a></p>");
 
                     message.Append("<p>Make-Model-Version: " + bikeName + "<br>");
@@ -629,7 +629,7 @@ namespace Bikewale.Common
                     subject = "Used Bike Purchase Inquiry Arrived.";
                 }
 
-                message.Append("<img align=\"right\" src=\"http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"https://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
                 message.Append("<b>Dear " + name + ",</b>");
 
                 message.Append("<p>Greetings from Bikewale!</p>");
@@ -743,14 +743,14 @@ namespace Bikewale.Common
 
                 CustomerDetails cd = new CustomerDetails(buyerId);
 
-                //message.Append( "<img align=\"right\" src=\"http://www.bikewale.com/images/bw-logo.png\" />" );
+                //message.Append( "<img align=\"right\" src=\"https://www.bikewale.com/images/bw-logo.png\" />" );
                 message.Append("Dear " + cd.Name + ",");
 
                 message.Append("<p>You short listed a bike to buy. Congratulations!</p>");
 
                 message.Append("<p>The bike you have shown interest in is " + bikeName + " (#" + profileNo + "), done " + kilometers + " KM listed for Rs. " + bikePrice + "/-. </p> ");
 
-                message.Append("<p><a href=\"http://www.bikewale.com/Used/BikeDetails.aspx?bike=");
+                message.Append("<p><a href=\"https://www.bikewale.com/Used/BikeDetails.aspx?bike=");
                 message.Append(profileNo + "\">Please click here to view complete details of the bike.</a></p>");
 
                 message.Append("<p>You may contact the seller directly, details as below:<br>");
@@ -766,7 +766,7 @@ namespace Bikewale.Common
                 //}
 
                 //message.Append( "<p>Would you like to know how much you should be paying for this bike? ");
-                //message.Append( "bikewale’s <a href='http://bikewale.com/Mybikewale/BikeValuation/ValuationRequest.aspx'>");
+                //message.Append( "bikewale’s <a href='https://bikewale.com/Mybikewale/BikeValuation/ValuationRequest.aspx'>");
                 //message.Append( "Used Bike Valuation</a> could help you with it. Simply feed in the details of the bike and you will get close-to-accurate prices for the same.</p>" );
 
                 message.Append("<p>Feel free to contact for any other assistance.</p>");
@@ -840,7 +840,7 @@ namespace Bikewale.Common
             //        message.Append("<span style=\"font-size: 9px;\">This email was sent to"
             //                        + " <a href=\"mailto:" + custMail + "\">" 
             //                        + custMail + "</a>. To stop receiving this newsletter click"
-            //                        + " <a href=\"http://www.bikewale.com/Newsletter/Unsubscribe.aspx\">here</a>.</span>");
+            //                        + " <a href=\"https://www.bikewale.com/Newsletter/Unsubscribe.aspx\">here</a>.</span>");
 
             //        op.SendNewsletterMail(custMail, subject, message.ToString(), true);
 
@@ -867,7 +867,7 @@ namespace Bikewale.Common
 
                 subject = "Used Bike Purchase Inquiry Arrived.";
 
-                message.Append("<img align=\"right\" src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
                 message.Append("<b>Dear " + name + ",</b>");
 
                 message.Append("<p>Greetings from bikewale!</p>");
@@ -910,20 +910,20 @@ namespace Bikewale.Common
                 message.Append("<p>Greetings from bikewale!</p>");
                 message.Append("<p>Some buyer has viewed your bike (#" + profileNo + ") at bikewale and sent you a message.</p>");
 
-                message.Append("<p>To view the buyer's details <a href='http://www.bikewale.com/Mybikewale/'>"
+                message.Append("<p>To view the buyer's details <a href='https://www.bikewale.com/Mybikewale/'>"
                                 + "click here</a>.<br> Or copy and paste the following link in your brwoser: <br>"
-                                + "http://www.bikewale.com/Mybikewale/ </p>");
+                                + "https://www.bikewale.com/Mybikewale/ </p>");
 
                 message.Append("<p>Bike details as follows: <br><br>Make-Model-Version: " + bikeName + "<br>");
                 message.Append("Year: " + bikeYear + "<br>");
                 message.Append("Kilometers: " + kilometers + "<br>");
                 message.Append("Price: " + bikePrice + "</p>");
 
-                message.Append("<p><a href=\"http://www.bikewale.com/Used/BikeDetails.aspx?bike=");
+                message.Append("<p><a href=\"https://www.bikewale.com/Used/BikeDetails.aspx?bike=");
                 message.Append(profileNo + "\">Click Here</a> here to view complete details of the above bike<br>");
                 message.Append("Or copy and paste the link ");
-                message.Append("<a href=\"http://www.bikewale.com/Used/BikeDetails.aspx?bike=");
-                message.Append(profileNo + "\">http://www.bikewale.com/Used/BikeDetails.aspx?bike=");
+                message.Append("<a href=\"https://www.bikewale.com/Used/BikeDetails.aspx?bike=");
+                message.Append(profileNo + "\">https://www.bikewale.com/Used/BikeDetails.aspx?bike=");
                 message.Append(profileNo + "</a></p>");
 
 
@@ -964,7 +964,7 @@ namespace Bikewale.Common
                                 + "<tr><td><b>Dear " + questionerName + ",</b></td></tr>");
 
 
-                message.Append("<tr><td><p>Greetings from <a href='http://www.bikewale.com'>bikewale!</a></p>");
+                message.Append("<tr><td><p>Greetings from <a href='https://www.bikewale.com'>bikewale!</a></p>");
 
                 message.Append("<p>An answer is posted for your question <a href='" + questionUrl + "'>" + question + "</a>.</p>");
 
@@ -1005,7 +1005,7 @@ namespace Bikewale.Common
                                 + "style=\"border:1px solid #FDA8D7;background-color:#FFE8EB;font-size:12px;font-family:Verdana, Arial, Helvetica, sans-serif;\">"
                                 + "<tr><td><b>Dear " + expertName + ",</b></td></tr>");
 
-                message.Append("<tr><td><p>Greetings from <a href='http://www.bikewale.com'>bikewale!</a></p>");
+                message.Append("<tr><td><p>Greetings from <a href='https://www.bikewale.com'>bikewale!</a></p>");
 
                 message.Append("<p>A new question, <a href='" + questionUrl + "'>" + question + "</a> is asked at bikewale Answers.</p>");
 
@@ -1017,7 +1017,7 @@ namespace Bikewale.Common
 
                 message.Append("<p style='font-size:11px'>Disclaimer:<br>"
                                 + "Change your preferences for receiving mails from bikewale Answers "
-                                + " <a href='http://www.bikewale.com/mybikewale/answers/preferences.aspx'>here</a>. </p>");
+                                + " <a href='https://www.bikewale.com/mybikewale/answers/preferences.aspx'>here</a>. </p>");
 
                 message.Append("</td></tr></table>");
 
@@ -1048,7 +1048,7 @@ namespace Bikewale.Common
                                 + "<tr><td><b>Dear " + reviewerName + ",</b></td></tr>");
 
 
-                message.Append("<tr><td><p>Greetings from <a href='http://www.bikewale.com'>bikewale!</a></p>");
+                message.Append("<tr><td><p>Greetings from <a href='https://www.bikewale.com'>bikewale!</a></p>");
 
                 message.Append("<p>A comment is posted on your review <a href='" + reviewUrl + "'>" + title + "</a>.</p>");
 
@@ -1113,32 +1113,32 @@ namespace Bikewale.Common
 
                 message.Append("<table width=600 border=0 cellspacing=0 cellpadding=0>");
                 message.Append("<tr><td align=center><table width=557 border=0 align=center cellpadding=0 cellspacing=0>");
-                message.Append("<tr><td height=16></td></tr><tr><td><a href=http://www.bikewale.com/?ltsrc=17128 target=_blank>");
-                message.Append("<img src=http://img.bikewale.com/cw-common/logo.jpg border=0></a></td>");
+                message.Append("<tr><td height=16></td></tr><tr><td><a href=https://www.bikewale.com/?ltsrc=17128 target=_blank>");
+                message.Append("<img src=https://img.bikewale.com/cw-common/logo.jpg border=0></a></td>");
                 message.Append("</tr><tr><td height=18></td></tr><tr><td style='font-family:Tahoma; font-size:12px; color:#070707;'>");
 
                 message.Append("Dear " + customerName + ",");
-                message.Append("<br><br>Thank you for choosing <a href=http://www.bikewale.com/?ltsrc=17128 target=_blank style='color:#034fb6;'>www.bikewale.com</a>");
+                message.Append("<br><br>Thank you for choosing <a href=https://www.bikewale.com/?ltsrc=17128 target=_blank style='color:#034fb6;'>www.bikewale.com</a>");
                 message.Append(" to sell your bike.");
                 message.Append("</td></tr><tr><td height=7></td></tr><tr><td style='font-family:Tahoma; font-size:12px; color:#070707;'></td></tr><tr><td>");
                 message.Append("<table width=100% border=0 cellspacing=0 cellpadding=0 style='border:1px solid #f2f2f2;'>");
                 message.Append("<tr><td height=10></td><td height=10></td></tr><tr><td width=46% align=center valign=top>");
                 message.Append("<table width=90% border=0 align=center cellpadding=0 cellspacing=0>");
                 message.Append("<tr><td height=65>&nbsp;</td></tr><tr><td>");
-                message.Append("<img src=http://img.bikewale.com/bikes/" + versionId + "b.jpg border=0></td></tr>");
+                message.Append("<img src=https://img.bikewale.com/bikes/" + versionId + "b.jpg border=0></td></tr>");
                 message.Append("<tr><td>&nbsp;</td></tr><tr><td align=center>");
-                message.Append("<img src=http://img.bikewale.com/Mailer/PaidList/mark_img.jpg width=58 height=48 border=0></td>");
+                message.Append("<img src=https://img.bikewale.com/Mailer/PaidList/mark_img.jpg width=58 height=48 border=0></td>");
                 message.Append("</tr><tr><td align=center style='font-family:Arial, Helvetica, sans-serif; font-size:20px; font-weight:bold; color:#16a607;'>");
                 message.Append("Your bike advertisement <br>has been published.");
                 message.Append("</td></tr><tr><td height=22>&nbsp;</td></tr><tr><td align=center>");
-                message.Append("<a href='http://www.bikewale.com/used/BikeDetails.aspx?bike=" + profileId + "&ltsrc=17128'>");
-                message.Append("<img src=http://img.bikewale.com/Mailer/PaidList/view_btn.jpg width=151 height=25 border=0></a></td></tr>");
+                message.Append("<a href='https://www.bikewale.com/used/BikeDetails.aspx?bike=" + profileId + "&ltsrc=17128'>");
+                message.Append("<img src=https://img.bikewale.com/Mailer/PaidList/view_btn.jpg width=151 height=25 border=0></a></td></tr>");
                 message.Append("<tr><td height=56>&nbsp;</td></tr><tr>");
                 message.Append("<td style='font-family:Arial, Helvetica, sans-serif; font-size:11px; color:#9d9d9d; text-align:justify;'>");
                 message.Append("<em><strong>Tip:</strong> Your username and password has been sent to you separately via email. After you login,");
                 message.Append("you can make changes to the advertisement, upload photos and even remove your ad (once your bike is sold).</em>");
                 message.Append("</td></tr><tr><td>&nbsp;</td></tr></table></td>");
-                message.Append("<td width=54% align=center valign=top background=http://img.bikewale.com/Mailer/PaidList/right_bg.gif style='background-image:url(http://img.bikewale.com/Mailer/PaidList/right_bg.gif); background-repeat:no-repeat;'>");
+                message.Append("<td width=54% align=center valign=top background=https://img.bikewale.com/Mailer/PaidList/right_bg.gif style='background-image:url(https://img.bikewale.com/Mailer/PaidList/right_bg.gif); background-repeat:no-repeat;'>");
                 message.Append("<table width=90% border=0 align=center cellpadding=0 cellspacing=0>");
                 message.Append("<tr><td height=32 colspan=3 valign=bottom style='font-family:Arial, Helvetica, sans-serif; font-size:18px; font-weight:bold; color:#034fb6;'>CAR SELLING TIPS</td>");
                 message.Append("</tr><tr>");

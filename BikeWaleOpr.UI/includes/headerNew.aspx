@@ -8,7 +8,7 @@
 <script src="/src/AjaxFunctions.js?03102016" type="text/javascript"></script>
 <script src="/src/knockout.js?03102016" type="text/javascript"></script>
 <script type="text/javascript" src="/src/common/common.js?03102016"></script>
-<script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/common/chosen.jquery.min.js?v15416"></script>
+<script type="text/javascript" src="https://st2.aeplcdn.com/bikewale/src/common/chosen.jquery.min.js?v15416"></script>
 <title>BikeWale Operations</title>
 <style type="text/css">
     .chosen-container {padding: 8px;}

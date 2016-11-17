@@ -32,7 +32,7 @@
         	<div class="container_12">
             	<div class="grid_8">
                     <ul>
-                    	<li><a href="http://www.carwale.com">CarWale</a></li>
+                    	<li><a href="https://www.carwale.com">CarWale</a></li>
                         <li>|</li>
                         <li><a href="/aboutus.aspx">About Us</a></li>
                         <li>|</li>                       
@@ -63,10 +63,10 @@
                         <!-- search code end here -->
                         <!-- Social media icon code start here -->
                         <div class="left-float margin-left10">
-                        	<a href="http://www.carwale.com" target="_blank"  class="icon-sprite fb-icon"></a>
+                        	<a href="https://www.carwale.com" target="_blank"  class="icon-sprite fb-icon"></a>
                         </div>
                         <div class="left-float margin-left10">
-                        	<a href="http://www.carwale.com" target="_blank"  class="icon-sprite tw-icon"></a>
+                        	<a href="https://www.carwale.com" target="_blank"  class="icon-sprite tw-icon"></a>
                         </div>
                         <!-- Social media icon code start here -->
                     </div>

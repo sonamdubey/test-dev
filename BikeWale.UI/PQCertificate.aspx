@@ -10,7 +10,7 @@
             .hide { display:none}
             .breakhere {page-break-before: always}
         </style>
-    <script type="text/javascript" src="http://st.carwale.com/jquery-1.7.2.min.js?v=1.0" ></script>
+    <script type="text/javascript" src="https://st.carwale.com/jquery-1.7.2.min.js?v=1.0" ></script>
     <script type="text/javascript">
         setTimeout(function () {
             var a = document.createElement("script");
@@ -263,22 +263,22 @@
                             <div style="padding-top:10px; text-align:center;">
                     
                                 <div class="next-step">
-                                    <div><img src="http://imgd3.aeplcdn.com/0x0/bw/static/design15/mailer-images/dealer-confirmation.png" border="0"></div>
+                                    <div><img src="https://imgd3.aeplcdn.com/0x0/bw/static/design15/mailer-images/dealer-confirmation.png" border="0"></div>
                                     <div  class="next-step-heading" style="margin:15px 0;">Get in touch with Dealership</div>
                     		            <div class="next-step-content"> <%= objPQ.objDealer.Organization  %> will get back to you and schedule your visit to the showroom. Alternatively, you can also call them to set-up a visit  at a convenient time.</div>
                                 </div>
                                 <div class="next-step">
-                                    <div><img src="http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/claim-price.png" border="0"></div>
+                                    <div><img src="https://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/claim-price.png" border="0"></div>
                                     <div class="next-step-heading" style="margin:15px 0 26px;">Claim your Price</div>
                     		            <div class="next-step-content">Please present this price certificate to dealership to claim the price for your purchase.</div>
                                 </div>
                                 <div class="next-step">
-                                    <div><img src="http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/documentation.png" border="0"></div>
+                                    <div><img src="https://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/documentation.png" border="0"></div>
                                     <div class="next-step-heading" style="margin:15px 0;">Be ready with Documentation</div>
                     		            <div class="next-step-content">Please be ready with all the required documents and payment to avoid multiple visits and faster vehicle delivery.</div>
                                 </div>
                               <div class="next-step">
-                                    <div><img src="http://imgd4.aeplcdn.com/0x0/bw/static/design15/mailer-images/buy-your-bike.png" border="0"></div>
+                                    <div><img src="https://imgd4.aeplcdn.com/0x0/bw/static/design15/mailer-images/buy-your-bike.png" border="0"></div>
                                     <div class="next-step-heading" style="margin:15px 0 26px;">Buy your Bike!</div>
                     		            <div class="next-step-content">Dealer will help you in RTO formalities. Ride out from the dealership on your newly purchased <%=BikeName %>.</div>
                                 </div>

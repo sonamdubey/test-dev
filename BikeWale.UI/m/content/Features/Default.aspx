@@ -4,9 +4,9 @@
 	title = "Features - Stories, Specials & Travelogues - BikeWale";
 	description = "Features section of BikeWale brings specials, stories, travelogues and much more.";
 	keywords = "features, stories, travelogues, specials, drives.";
-	canonical = "http://www.bikewale.com/features/";
-	relPrevPageUrl = String.IsNullOrEmpty(prevPageUrl) ? "" : "http://www.bikewale.com" + prevPageUrl;
-	relNextPageUrl = String.IsNullOrEmpty(nextPageUrl) ? "" : "http://www.bikewale.com" + nextPageUrl;
+	canonical = "https://www.bikewale.com/features/";
+	relPrevPageUrl = String.IsNullOrEmpty(prevPageUrl) ? "" : "https://www.bikewale.com" + prevPageUrl;
+	relNextPageUrl = String.IsNullOrEmpty(nextPageUrl) ? "" : "https://www.bikewale.com" + nextPageUrl;
 	AdPath = "/1017752/Bikewale_Mobile_NewBikes";
 	AdId = "1398766302464";
 	menu = "8";
@@ -29,7 +29,7 @@
 </style>
 <div class="padding5">
 		<div id="br-cr">
-			<span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+			<span itemscope="" itemtype="https://data-vocabulary.org/Breadcrumb">
 			<a href="/m/" class="normal" itemprop="url"><span itemprop="title">Home</span></a> </span>
 			&rsaquo; <span class="lightgray">Features</span></div>
 		<h1>Latest Bike Features</h1>

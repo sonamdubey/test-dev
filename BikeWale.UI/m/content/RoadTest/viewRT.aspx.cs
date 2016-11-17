@@ -153,7 +153,7 @@ namespace Bikewale.Content
         {
 
             baseUrl = "/m/expert-reviews/" + objRoadtest.ArticleUrl + '-' + BasicId.ToString() + "/";
-            canonicalUrl = "http://www.bikewale.com/expert-reviews/" + objRoadtest.ArticleUrl + '-' + BasicId.ToString() + ".html";
+            canonicalUrl = "https://www.bikewale.com/expert-reviews/" + objRoadtest.ArticleUrl + '-' + BasicId.ToString() + ".html";
             data = objRoadtest.Description;
             author = objRoadtest.AuthorName;
             pageTitle = objRoadtest.Title;

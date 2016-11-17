@@ -70,7 +70,7 @@
                                 <asp:Repeater ID="rptVideoNav" runat="server">
                                     <ItemTemplate>
                                         <div class="swiper-slide">
-                                            <img iframe-data="<%# DataBinder.Eval(Container.DataItem,"VideoUrl").ToString() %>" src="<%# String.Format("http://img.youtube.com/vi/{0}/1.jpg",DataBinder.Eval(Container.DataItem,"VideoId").ToString()) %>" width="83" height="47" />
+                                            <img iframe-data="<%# DataBinder.Eval(Container.DataItem,"VideoUrl").ToString() %>" src="<%# String.Format("https://img.youtube.com/vi/{0}/1.jpg",DataBinder.Eval(Container.DataItem,"VideoId").ToString()) %>" width="83" height="47" />
                                         </div>
                                     </ItemTemplate>
                                 </asp:Repeater>

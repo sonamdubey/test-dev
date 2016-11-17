@@ -8,10 +8,10 @@
     title = "Upcoming Bikes in India - Expected Launches in 2012";
     keywords = "Find out upcoming new bikes in 2012 in India. From small to super-luxury, from announced to highly speculated models, from near future to end of year, know about every upcoming bike launch in India this year.";
     description = "upcoming bikes, new upcoming launches, upcoming bike launches, upcoming models, future bikes, future bike launches, 2012 bikes, speculated launches, futuristic models";
-    canonical = "http://www.bikewale.com/upcoming-bikes/";
+    canonical = "https://www.bikewale.com/upcoming-bikes/";
     prevPageUrl = prevUrl;
     nextPageUrl = nextUrl;
-    alternate = "http://www.bikewale.com/m/upcoming-bikes/";
+    alternate = "https://www.bikewale.com/m/upcoming-bikes/";
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
 %>
@@ -21,11 +21,11 @@
     <div class="grid_12">
         <ul class="breadcrumb">
             <li>You are here: </li>
-            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+            <li itemscope="" itemtype="https://data-vocabulary.org/Breadcrumb">
                 <a itemprop="url" href="/"><span itemprop="title">Home</span></a>
             </li>
             <li class="fwd-arrow">&rsaquo;</li>
-            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+            <li itemscope="" itemtype="https://data-vocabulary.org/Breadcrumb">
                 <a itemprop="url" href="/new/"><span itemprop="title">New</span></a>
             </li>
             <li class="fwd-arrow">&rsaquo;</li>

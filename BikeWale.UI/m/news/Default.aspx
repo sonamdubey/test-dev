@@ -4,9 +4,9 @@
 	title       = "Bike News - Latest Indian Bike News & Views - BikeWale";
 	description = "Latest news updates on Indian bikes industry, expert views and interviews exclusively on BikeWale.";
 	keywords    = "news, bike news, auto news, latest bike news, indian bike news, bike news of india"; 
-	canonical   = "http://www.bikewale.com/news/";
-	relPrevPageUrl = String.IsNullOrEmpty(prevPageUrl) ? "" : "http://www.bikewale.com" + prevPageUrl;
-	relNextPageUrl = String.IsNullOrEmpty(nextPageUrl) ? "" : "http://www.bikewale.com" + nextPageUrl;
+	canonical   = "https://www.bikewale.com/news/";
+	relPrevPageUrl = String.IsNullOrEmpty(prevPageUrl) ? "" : "https://www.bikewale.com" + prevPageUrl;
+	relNextPageUrl = String.IsNullOrEmpty(nextPageUrl) ? "" : "https://www.bikewale.com" + nextPageUrl;
 	AdPath = "/1017752/Bikewale_Mobile_NewBikes";
 	AdId = "1398766302464";
 	Ad_320x50 = true;

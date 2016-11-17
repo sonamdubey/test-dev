@@ -18,7 +18,7 @@
 			Privacy of your personal information is very important to us. We do not  disclose your personal information to third 
 			parties for their marketing purposes without your explicit consent. Please read this  Privacy  Policy to learn more 
 			about the ways in which we use and protect your personal information. The privacy practices of this statement apply 
-			to our services available under the domain and sub-domains of <a href="http://www.bikewale.com" target="_blank" onclick="return top.js.OpenExtLink(window,event,this)"> www.bikewale.com </a> ( <a href="http://bikewale.com" target="_blank" onclick="return top.js.OpenExtLink(window,event,this)"> <q>bikewale.com</q></a> or "Site") and apply generally 
+			to our services available under the domain and sub-domains of <a href="https://www.bikewale.com" target="_blank" onclick="return top.js.OpenExtLink(window,event,this)"> www.bikewale.com </a> ( <a href="http://bikewale.com" target="_blank" onclick="return top.js.OpenExtLink(window,event,this)"> <q>bikewale.com</q></a> or "Site") and apply generally 
 			to our parent, affiliates, subsidiaries or joint venture websites whose specific privacy policies are available from our 
 			Privacy Central pages. By visiting this Site you agree to be bound by the terms and conditions of this Privacy Policy. 
 			If you do not agree please do not use or access our Site.
@@ -73,7 +73,7 @@
 		are automatically deleted from your hard drive at the end of a session. You are always free to decline our cookies if your browser permits, 
 		although in that case you may not be able to use certain features on the Site and you may be required to reenter your password more frequently 
 		during a session.<br> 
-        <p>bikeWale serves all its advertisements using Google's Doubeclick ad serving platform. You may opt-out of the advertising-related data collection <a href="http://www.networkadvertising.org/managing/opt_out.asp">here</a> (choose Google from the list).</p><br />
+        <p>bikeWale serves all its advertisements using Google's Doubeclick ad serving platform. You may opt-out of the advertising-related data collection <a href="https://www.networkadvertising.org/managing/opt_out.asp">here</a> (choose Google from the list).</p><br />
 		If you choose to buy or sell bikes using the Site then we collect information about your buying and selling behavior. We also collect other users' 
 		comments about you in our feedback area. If you choose to post messages on our forum or leave feedback for other users, we will collect that 
 		information. We retain this information as necessary to resolve disputes, provide customer support and troubleshoot problems as permitted by law. 

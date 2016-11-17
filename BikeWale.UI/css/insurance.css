@@ -28,7 +28,7 @@
 #contactDetails, #responseContainer { display:none; }
 #responseContainer p { line-height:2; }
 .selectCityContainer .ui-autocomplete-input, .bikeDetailsContainer .ui-autocomplete-input, .bikeDetailsContainer .hasDatepicker { color:#4d5057; }
-.sponsored-icon { background: #fff url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/policy-boss-logo.png) no-repeat; width:142px; height:42px; display:inline-block; }
+.sponsored-icon { background: #fff url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/policy-boss-logo.png) no-repeat; width:142px; height:42px; display:inline-block; }
 .sponsored-heading { color:#565a5c; }
 li:focus { outline:none; }
 

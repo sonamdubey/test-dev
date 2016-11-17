@@ -29,7 +29,7 @@
                     <div class="pad5"><%#GetFormattedAddress(DataBinder.Eval(Container.DataItem, "Address").ToString(), DataBinder.Eval(Container.DataItem, "CityName").ToString(), DataBinder.Eval(Container.DataItem, "State.StateName").ToString(),DataBinder.Eval(Container.DataItem, "PinCode").ToString())%></div>
                     <div class='<%# String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem, "PhoneNo").ToString()) ? "hide" : "pad5" %>'>Phone : <%#DataBinder.Eval(Container.DataItem, "PhoneNo").ToString()%></div>
                     <div class='<%# String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem, "Fax").ToString()) ? "hide" : "pad5" %>'>Fax : <%#DataBinder.Eval(Container.DataItem, "Fax").ToString()%></div>
-                    <div class='<%# String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem, "Website").ToString()) ? "hide" : "pad5" %>'>Website : <a target="new" href="http://<%#DataBinder.Eval(Container.DataItem, "Website").ToString().Replace("http://", "")%>"><%#DataBinder.Eval(Container.DataItem, "Website").ToString().Replace("http://", "")%></a></div>
+                    <div class='<%# String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem, "Website").ToString()) ? "hide" : "pad5" %>'>Website : <a target="new" href="https://<%#DataBinder.Eval(Container.DataItem, "Website").ToString().Replace("http://", "")%>"><%#DataBinder.Eval(Container.DataItem, "Website").ToString().Replace("http://", "")%></a></div>
                     <div class='<%# String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem, "Email").ToString()) ? "hide" : "pad5"%>'>Email : <%#DataBinder.Eval(Container.DataItem, "Email").ToString()%></div>
                     <div class="borBot"></div>
                 </itemtemplate>

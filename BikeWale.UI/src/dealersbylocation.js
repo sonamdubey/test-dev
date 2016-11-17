@@ -23,7 +23,7 @@ $(window).scroll(function () {
 var markerArr = [];
 var map, infowindow;
 var minZoomLevel = 5;
-var markerIcon = 'http://imgd2.aeplcdn.com/0x0/bw/static/design15/marker-icon.png';
+var markerIcon = 'https://imgd2.aeplcdn.com/0x0/bw/static/design15/marker-icon.png';
 
 function initializeMap(arrList, latPos, longPos, zoomLevel) {
     var mapProp = {

@@ -854,18 +854,18 @@ namespace Bikewale.New
             switch (featureValue)
             {
                 case "True":
-                    adString = "<img align=\"absmiddle\" src=\"http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/tick.gif\" />";
+                    adString = "<img align=\"absmiddle\" src=\"https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/tick.gif\" />";
                     break;
                 case "False":
-                    adString = "<img align=\"absmiddle\" src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/delete.ico\" />";
+                    adString = "<img align=\"absmiddle\" src=\"https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/delete.ico\" />";
                     break;
                 default:
                     adString = "-";
                     break;
             }
             Trace.Warn("adstring : ", adString);
-            Trace.Warn("adstring 1: ", "http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/tick.gif");
-            Trace.Warn("adstring 2: ", "http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/delete.ico");
+            Trace.Warn("adstring 1: ", "https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/tick.gif");
+            Trace.Warn("adstring 2: ", "https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/delete.ico");
             return adString;
         }   // End of ShowFeature method
 
@@ -972,7 +972,7 @@ namespace Bikewale.New
                 {
                     colorString += "<div style='width:100; text-align:center;padding:5px;'> "
                                 + " <div style='border:1px solid #dddddd;width:50px;margin:auto;background-color:#" + drv[jTmp].Row["HexCode"].ToString() + "'>"
-                                + " <img src='http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/spacer.gif' width='50' height='45' /></div> "
+                                + " <img src='https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/spacer.gif' width='50' height='45' /></div> "
                                 + " <div style='padding-top:3px;'>" + drv[jTmp].Row["Color"].ToString() + "</div></div> ";
                 }
 

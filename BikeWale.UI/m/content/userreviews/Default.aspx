@@ -3,13 +3,13 @@
     title 			= "User Reviews on Bikes in India";
 	description 	= "Know what users are saying about the bike you aspire to buy. Read first hand user feedback on bikes in India. Write your own review or write comments on others' reviews to let people know about your experience.";
 	keywords		= "bike user reviews, bike users reviews, customer bike reviews, customer bike feedback, bike reviews, bike owner feedback, owner bike reviews, owner report, owner comments";
-    canonical       = "http://www.bikewale.com/user-reviews/";
+    canonical       = "https://www.bikewale.com/user-reviews/";
     AdPath = "/1017752/Bikewale_Mobile_NewBikes";
     AdId = "1398766302464";
     menu = "9";
     %>
 <!-- #include file="/includes/headermobile.aspx" -->
-<script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
+<script type="text/javascript" src="https://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
 <%--    <input type="hidden" id="hdnMake" runat="server"/>
     <input type="hidden" id="hdnModel" runat="server" />--%>
     <div class="padding5">
@@ -22,7 +22,7 @@
         <div class="box1 new-line5">
             <div class="new-line5"><asp:DropDownList ID="ddlMake" runat="server" class="textAlignLeft" data-mini="true"><asp:ListItem Text="--Select Make--" Value="0" /></asp:DropDownList></div> 
             <div id="divModel" class="new-line15">
-                <img id="imgLoaderMake" src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
+                <img id="imgLoaderMake" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
                 <select data-mini="true" id="ddlModel">
                         <option value="0">--Select Model--</option>         
                 </select>

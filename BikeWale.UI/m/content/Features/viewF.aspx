@@ -3,13 +3,13 @@
     title = pageTitle + " - Bikewale ";
     keywords = "features, stories, travelogues, specials, drives";
     description = "";
-    canonical = "http://www.bikewale.com" + url;
+    canonical = "https://www.bikewale.com" + url;
     AdPath = "/1017752/Bikewale_Mobile_NewBikes";
     AdId = "1398766302464";
     menu = "8";
 %>
 <!-- #include file="/includes/headermobile.aspx" -->
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/m/src/loadPhotos.js?v=1.0"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/m/src/loadPhotos.js?v=1.0"></script>
 
 <style>
 	.imgWidth{width:100%;max-width:100%;height:auto;}
@@ -32,9 +32,9 @@
         <div class="new-line5 f-12"><%= displayDate %> | By <%=author %></div>
         <div class="new-line5">
             <ul class="socialplugins  new-line10">
-                <li><fb:like href="http://www.bikewale.com<%= url%>" send="false" layout="button_count"  show_faces="false"></fb:like></li>
+                <li><fb:like href="https://www.bikewale.com<%= url%>" send="false" layout="button_count"  show_faces="false"></fb:like></li>
                 <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.bikewale.com<%= url %>" data-via='<%= title %>' data-lang="en">Tweet</a></li>
-                <li><div class="g-plusone" data-size="medium" data-href="http://www.bikewale.com<%= url %>"></div></li>
+                <li><div class="g-plusone" data-size="medium" data-href="https://www.bikewale.com<%= url %>"></div></li>
             </ul>  
             <div class="clear"></div> 
        <%-- </div>
@@ -116,8 +116,8 @@
         <%--<div class="box1 new-line5" style="overflow:hidden">
              <ul class="socialplugins  new-line10">
                 <li><fb:like href="http://www.bikewale.com<%= baseUrl%>" send="false" layout="button_count"  show_faces="false"></fb:like></li>
-                <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.bikewale.com/<%= baseUrl %>/" data-via='<%= title %>' data-lang="en">Tweet</a></li>
-                <li><div class="g-plusone" data-size="medium" data-href="http://www.bikewale.com/<%= baseUrl %>/"></div></li>
+                <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="https://www.bikewale.com/<%= baseUrl %>/" data-via='<%= title %>' data-lang="en">Tweet</a></li>
+                <li><div class="g-plusone" data-size="medium" data-href="https://www.bikewale.com/<%= baseUrl %>/"></div></li>
             </ul>
             <div class="clear"></div>
         </div>

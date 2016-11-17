@@ -358,8 +358,8 @@ namespace Bikewale.BikeBooking
                        CustCity = objCustomer.objCustomerBase.cityDetails.CityName,
                        PlatformId = 1,  //Desktop
                        ApplicationId = 2, //Carwale
-                       RequestToPGUrl = string.Format("http://{0}/bikebooking/RedirectToBillDesk.aspx", HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString()),
-                       ReturnUrl = string.Format("http://{0}/bikebooking/billdeskresponse.aspx?sourceId=1&MPQ={1}", HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString(), EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString))
+                       RequestToPGUrl = string.Format("https://{0}/bikebooking/RedirectToBillDesk.aspx", HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString()),
+                       ReturnUrl = string.Format("https://{0}/bikebooking/billdeskresponse.aspx?sourceId=1&MPQ={1}", HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString(), EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString))
                    };
                     //PGCookie.PGAmount = transaction.Amount.ToString();
 
@@ -394,14 +394,14 @@ namespace Bikewale.BikeBooking
 
                     if (transresp == "Transaction Failure" || transresp == "Invalid information!")
                     {
-                        HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/pricequote/bookingsummary_new.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
+                        HttpContext.Current.Response.Redirect("https://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/pricequote/bookingsummary_new.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
                 }
                 else
                 {
-                    HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/pricequote/bookingsummary_new.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
+                    HttpContext.Current.Response.Redirect("https://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/pricequote/bookingsummary_new.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }

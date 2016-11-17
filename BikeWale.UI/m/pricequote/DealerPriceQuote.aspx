@@ -17,7 +17,7 @@
 	%>
 	<script>var quotationPage = true;</script>
 	<!-- #include file="/includes/headscript_mobile.aspx" -->
-	<link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/dealerpricequote.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+	<link href="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/css/dealerpricequote.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
 	<script type="text/javascript">
 		var dealerId = '<%= dealerId%>';
 		var pqId = '<%= pqId%>';
@@ -174,7 +174,7 @@
 					<asp:Repeater ID="rptDiscount" runat="server">
 						<ItemTemplate>
 							<tr>
-								<td align="left" class="padding-bottom15">Minus <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img class='insurance-free-icon' alt='Free_icon' src='http://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %></td>
+								<td align="left" class="padding-bottom15">Minus <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img class='insurance-free-icon' alt='Free_icon' src='https://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %></td>
 								<td align="right" class="padding-bottom15 text-bold"><span class="bwmsprite inr-xxsm-icon"></span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></td>
 							</tr>
 						</ItemTemplate>
@@ -304,9 +304,9 @@
 
 					<%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
 					  { %>
-					<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&callback=initializeDealerMap" async defer></script>
+					<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&callback=initializeDealerMap" async defer></script>
 					<div id="dealerMap" style="height: 94px; position: relative; text-align: center">
-						<img src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
+						<img src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
 					</div>
 					<script type="text/javascript">
 						function initializeDealerMap() {
@@ -315,7 +315,7 @@
 							var longitude = '<%= longitude %>';
 
 							try {
-								mapUrl = "http://maps.google.com/?q=" + latitude + "," + longitude;
+								mapUrl = "https://maps.google.com/?q=" + latitude + "," + longitude;
 								latLng = new google.maps.LatLng(latitude, longitude),
 								mapOptions = {
 									zoom: 13,
@@ -574,7 +574,7 @@
 			</div>
 			<h3>Terms and Conditions</h3>
 			<div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
-				<img src="http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
+				<img src="https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
 			</div>
 			<div id="terms" class="breakup-text-container padding-bottom10 font14">
 			</div>
@@ -584,7 +584,7 @@
 		<!-- Terms and condition Popup end -->
 		<!-- #include file="/includes/footerBW_Mobile.aspx" -->
 		<!-- #include file="/includes/footerscript_Mobile.aspx" -->
-		<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/dealerpricequote.js?<%= staticFileVersion %>"></script>
+		<script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/dealerpricequote.js?<%= staticFileVersion %>"></script>
 
 		<script type="text/javascript">
 			var leadSourceId;

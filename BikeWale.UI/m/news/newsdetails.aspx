@@ -2,7 +2,7 @@
 <% 
     title = newsTitle + " - BikeWale News";
     description = "BikeWale coverage on " + newsTitle + ". Get the latest reviews and photos for " + newsTitle + " on BikeWale coverage.";
-    canonical = "http://www.bikewale.com/news/" + pageUrl;
+    canonical = "https://www.bikewale.com/news/" + pageUrl;
     fbTitle = newsTitle;
     fbImage = GetMainImagePath();
     AdPath = "/1017752/Bikewale_Mobile_NewBikes";
@@ -28,9 +28,9 @@
     <div class="new-line5 lightgray f-12" style="font-size:13px;"><%= Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "MMMM dd, yyyy hh:mm tt") %>  | By <%= author  %></div>    
     <div class="new-line5">
         <ul class="socialplugins  new-line10">
-            <li><fb:like href="http://www.bikewale.com/news/<%= pageUrl%>" send="false" layout="button_count"  show_faces="false"></fb:like></li>
-            <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.bikewale.com/news/<%= pageUrl %>" data-via='<%= title %>' data-lang="en">Tweet</a></li>
-            <li><div class="g-plusone" data-size="medium" data-href="http://www.bikewale.com/news/<%= pageUrl %>"></div></li>
+            <li><fb:like href="https://www.bikewale.com/news/<%= pageUrl%>" send="false" layout="button_count"  show_faces="false"></fb:like></li>
+            <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="https://www.bikewale.com/news/<%= pageUrl %>" data-via='<%= title %>' data-lang="en">Tweet</a></li>
+            <li><div class="g-plusone" data-size="medium" data-href="https://www.bikewale.com/news/<%= pageUrl %>"></div></li>
         </ul>  
         <div class="clear"></div> 
     </div>

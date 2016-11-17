@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.MyBikeWale.RemoveFromListing" %>
-<script type="text/javascript" src="http://st.carwale.com/jquery-1.7.2.min.js?v=1.0" ></script>
+<script type="text/javascript" src="https://st.carwale.com/jquery-1.7.2.min.js?v=1.0" ></script>
 <form runat="server">
     <div id="div_RemoveInquiry" runat="server">
         <p><asp:Label ID="lblMsg" runat="server" /></p>	

@@ -170,15 +170,15 @@ li.offertxt:hover span {display:inline}
 .color-box.color-count-three span { width:100%; height:33.33%; display:block !important; }
 #model-expert-review-container { margin-bottom: 25px; }
 .model-preview-image-container { max-width:292px; height:164px; display:table; text-align:center; border:1px solid #e2e2e2; }
-.model-preview-image-container a { width:292px; height:164px; display:block; background: url('http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
+.model-preview-image-container a { width:292px; height:164px; display:block; background: url('https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
 .model-preview-image-container a img { width:100%; height:164px; }
 .model-user-review-rating-container { max-width:148px; height:84px; margin-right: 20px; border:1px solid #e2e2e2; background:#f9f9f9; padding-top:17px; text-align:center;}
 .model-user-review-rating-container p:first-child { width: 148px; }
 .model-user-review-container .model-user-review-title-container { width: auto; float: none; }
 .upcoming-text-label{background:#4c4c4c;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:-20px;}
-.upcoming-text-label:after{content: "";background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=9Sep2016) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px;}
+.upcoming-text-label:after{content: "";background:url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=9Sep2016) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px;}
 .discontinued-text-label { background:#A8AFB3;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:-20px; }
-.discontinued-text-label:after { content: "";background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/discontinued-ribbon.png?v=10May2016v1) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px; }
+.discontinued-text-label:after { content: "";background:url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/discontinued-ribbon.png?v=10May2016v1) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px; }
 .chosen-results::-webkit-scrollbar {width: 10px;border-radius: 5px;}
 .chosen-results::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);-moz-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);-o-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);box-shadow: inset 0 0 2px rgba(0,0,0,0.2);}
 .chosen-results::-webkit-scrollbar-thumb {background-color: rgba(204, 204, 204,0.7);}
@@ -216,7 +216,7 @@ li.offertxt:hover span {display:inline}
 .model-comparison-list .comparison-image {
     display: table-cell;
     vertical-align: middle;
-    background: url('http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;
+    background: url('https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;
 }
 
 .model-comparison-list h3 + .grid-6 {
@@ -230,7 +230,7 @@ li.offertxt:hover span {display:inline}
     top: 30px;
     width: 22px;
     height: 21px;
-    background: url('http://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png') no-repeat;
+    background: url('https://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png') no-repeat;
     display: block;
 }
 

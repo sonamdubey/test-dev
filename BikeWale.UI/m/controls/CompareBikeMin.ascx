@@ -9,7 +9,7 @@
             <a href="<%= FormatComparisonUrl(bike.MakeMaskingName1,bike.ModelMaskingName1,bike.MakeMaskingName2,bike.ModelMaskingName2, bike.VersionId1, bike.VersionId2)%>" title="Compare <%= FormatBikeCompareAnchorText(bike.Bike1,bike.Bike2) %>">
                 <div class="grid-6">
                     <div class="comparison-image">
-                        <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.VersionImgUrl1,bike.HostUrl1,Bikewale.Utility.ImageSize._110x61) %>" src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif">
+                        <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.VersionImgUrl1,bike.HostUrl1,Bikewale.Utility.ImageSize._110x61) %>" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif">
                     </div>
                     <h3 class="font12 text-black margin-bottom5 padding-right10"><%= bike.Bike1 %></h3>
                     <div class="text-default text-bold">
@@ -18,7 +18,7 @@
                 </div>
                 <div class="grid-6 padding-left15">
                     <div class="comparison-image">
-                        <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.VersionImgUrl2,bike.HostUrl2,Bikewale.Utility.ImageSize._110x61) %>" src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif">
+                        <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.VersionImgUrl2,bike.HostUrl2,Bikewale.Utility.ImageSize._110x61) %>" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif">
                     </div>
                     <h3 class="font12 text-black margin-bottom5"><%= bike.Bike2 %></h3>
                     <div class="text-default text-bold">

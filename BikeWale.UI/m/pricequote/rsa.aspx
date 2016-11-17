@@ -4,7 +4,7 @@
 %>
 <!-- #include file="/includes/headermobile_noad.aspx" -->
 <%--<link type="text/css" href="../css/mobile-rsa.css" rel="stylesheet" />--%>
-<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/mobile-rsa.css?<%= staticFileVersion %>" />
+<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/mobile-rsa.css?<%= staticFileVersion %>" />
 <body>
     <div>
         <div class="padding5">
@@ -12,7 +12,7 @@
             <!--header starts here-->
             <div class="rsa-header">
                 <div>
-                    <img src="http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/rsa-logo.png" border="0">
+                    <img src="https://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/rsa-logo.png" border="0">
                 </div>
                 <div class="header-seperator"></div>
                 <div class=" new-line10">

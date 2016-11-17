@@ -25,7 +25,7 @@ namespace Bikewale.News
         }
         private void GenerateNewsSiteMap()
         {
-            string mydomain = "http://www.bikewale.com/news/";
+            string mydomain = "https://www.bikewale.com/news/";
 
             XmlTextWriter writer = null;
             CMSContent objNews = null;
@@ -55,8 +55,8 @@ namespace Bikewale.News
                 writer.Formatting = System.Xml.Formatting.Indented;
                 writer.WriteStartDocument();
                 writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
-                writer.WriteAttributeString("xmlns", "news", null, "http://www.google.com/schemas/sitemap-news/0.9");
-                writer.WriteAttributeString("xmlns", "image", null, "http://www.google.com/schemas/sitemap-image/1.1");
+                writer.WriteAttributeString("xmlns", "news", null, "https://www.google.com/schemas/sitemap-news/0.9");
+                writer.WriteAttributeString("xmlns", "image", null, "https://www.google.com/schemas/sitemap-image/1.1");
                 if (objNews != null && objNews.RecordCount > 0)
                 {
                     articles = objNews.Articles;

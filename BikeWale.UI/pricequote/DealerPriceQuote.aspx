@@ -17,7 +17,7 @@
         
     %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/dealerpricequote.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/dealerpricequote.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         var dealerId = '<%= dealerId%>';
         var pqId = '<%= pqId%>';
@@ -585,9 +585,9 @@
                                         <%} %>
                                         <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
                                           { %>
-                                        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&callback=initializeDealerMap" async defer></script>
+                                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&callback=initializeDealerMap" async defer></script>
                                         <div id="dealerMap" class=" margin-top15 text-center position-rel" style="height: 100px">
-                                            <img class="position-abs" src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
+                                            <img class="position-abs" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
                                         </div>
                                         <script type="text/javascript">
                                             function initializeDealerMap() {
@@ -596,7 +596,7 @@
                                                 var longitude = '<%= longitude %>';
 
                                                 try {
-                                                    mapUrl = "http://maps.google.com/?q=" + latitude + "," + longitude;
+                                                    mapUrl = "https://maps.google.com/?q=" + latitude + "," + longitude;
                                                     latLng = new google.maps.LatLng(latitude, longitude),
                                                     mapOptions = {
                                                         zoom: 13,
@@ -681,7 +681,7 @@
                 </div>
                 <h3>Terms and conditions</h3>
                 <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
-                    <img class="lazy" data-original="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif"  src="" />
+                    <img class="lazy" data-original="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif"  src="" />
                 </div>
                 <div id="terms" class="breakup-text-container padding-bottom10 font14">
                 </div>
@@ -923,7 +923,7 @@
                 $(".blackOut-window").hide();
             });
         </script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealerpricequote.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/dealerpricequote.js?<%= staticFileVersion %>"></script>
     </form>
 </body>
 </html>

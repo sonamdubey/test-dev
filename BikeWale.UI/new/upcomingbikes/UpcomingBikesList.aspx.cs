@@ -151,7 +151,7 @@ namespace Bikewale.New
 
         private void CreatePrevNextUrl()
         {
-            string mainUrl = "http://www.bikewale.com/upcoming-bikes/page/";
+            string mainUrl = "https://www.bikewale.com/upcoming-bikes/page/";
             string prevPageNumber = string.Empty, nextPageNumber = string.Empty;
 
             if (PageNumber == string.Empty || PageNumber == "1")    //if page is first page

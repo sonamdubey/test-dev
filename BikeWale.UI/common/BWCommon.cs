@@ -438,11 +438,11 @@ namespace Bikewale.Common
                 string imgPath;
                 if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToLower().IndexOf("bikewale.com") >= 0)
                 {
-                    imgPath = "http://img.aeplcdn.com/Contents/uc.xml";
+                    imgPath = "https://img.aeplcdn.com/Contents/uc.xml";
                 }
                 else
                 {
-                    imgPath = "http://server/Contents/uc.xml";
+                    imgPath = "https://server/Contents/uc.xml";
                 }
 
                 XmlTextReader reader = new XmlTextReader(imgPath);
@@ -554,11 +554,11 @@ namespace Bikewale.Common
                 string imgPath;
                 if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToLower().IndexOf("bikewale.com") >= 0)
                 {
-                    imgPath = "http://img.aeplcdn.com/Contents/rt.xml";
+                    imgPath = "https://img.aeplcdn.com/Contents/rt.xml";
                 }
                 else
                 {
-                    imgPath = "http://server/Contents/rt.xml";
+                    imgPath = "https://server/Contents/rt.xml";
                 }
 
                 XmlTextReader reader = new XmlTextReader(imgPath);
@@ -664,11 +664,11 @@ namespace Bikewale.Common
                 string imgPath;
                 if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToLower().IndexOf("bikewale.com") >= 0)
                 {
-                    imgPath = "http://img.aeplcdn.com/Contents/nl.xml";
+                    imgPath = "https://img.aeplcdn.com/Contents/nl.xml";
                 }
                 else
                 {
-                    imgPath = "http://server/Contents/nl.xml";
+                    imgPath = "https://server/Contents/nl.xml";
                 }
 
                 XmlTextReader reader = new XmlTextReader(imgPath);

@@ -313,8 +313,8 @@ namespace Bikewale.Content
 
                 //For SEO
                 //CreatePrevNextUrl(linkPager.TotalPages,_baseUrl);
-                prevUrl = String.IsNullOrEmpty(_pagerOutput.PreviousPageUrl) ? "" : "http://www.bikewale.com" + _pagerOutput.PreviousPageUrl;
-                nextUrl = String.IsNullOrEmpty(_pagerOutput.NextPageUrl) ? "" : "http://www.bikewale.com" + _pagerOutput.NextPageUrl;
+                prevUrl = String.IsNullOrEmpty(_pagerOutput.PreviousPageUrl) ? "" : "https://www.bikewale.com" + _pagerOutput.PreviousPageUrl;
+                nextUrl = String.IsNullOrEmpty(_pagerOutput.NextPageUrl) ? "" : "https://www.bikewale.com" + _pagerOutput.NextPageUrl;
             }
             catch (Exception ex)
             {

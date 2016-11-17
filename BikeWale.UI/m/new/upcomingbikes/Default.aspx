@@ -4,9 +4,9 @@
     title = "Upcoming Bikes in India - Expected Launches in 2014";
     keywords = "Find out upcoming new bikes in 2014 in India. From small to super-luxury, from announced to highly speculated models, from near future to end of year, know about every upcoming bike launch in India this year.";
     description = "upcoming bikes, new upcoming launches, upcoming bike launches, upcoming models, future bikes, future bike launches, 2012 bikes, speculated launches, futuristic models";
-    canonical = "http://www.bikewale.com/upcoming-bikes/";
-    relPrevPageUrl = String.IsNullOrEmpty(prevPageUrl) ? "" : "http://www.bikewale.com" + prevPageUrl;
-    relNextPageUrl = String.IsNullOrEmpty(nextPageUrl) ? "" : "http://www.bikewale.com" + nextPageUrl;
+    canonical = "https://www.bikewale.com/upcoming-bikes/";
+    relPrevPageUrl = String.IsNullOrEmpty(prevPageUrl) ? "" : "https://www.bikewale.com" + prevPageUrl;
+    relNextPageUrl = String.IsNullOrEmpty(nextPageUrl) ? "" : "https://www.bikewale.com" + nextPageUrl;
     AdPath = "/1017752/Bikewale_Mobile_NewBikes";
     AdId = "1398766302464";
     Ad_320x50 = true;

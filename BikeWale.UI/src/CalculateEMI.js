@@ -121,7 +121,7 @@ function prtSched(months) {
     }
 
     ls = "<h3 style='border-bottom:2px solid #555555;font-family:arial, verdana;'>BikeWale EMI Schedule</h3>";
-    ls += "<div align='right' class='doNotPrint' style='padding:5px;'><a href='javascript:print()' title='Print the EMI schedule'><img border='0' src='http://www.carwale.com/images/icons/print.gif' />&nbsp;Print</a></div>";
+    ls += "<div align='right' class='doNotPrint' style='padding:5px;'><a href='javascript:print()' title='Print the EMI schedule'><img border='0' src='https://www.carwale.com/images/icons/print.gif' />&nbsp;Print</a></div>";
     ls += "<p align='justify'>Following  Schedule Is For : " + document.getElementById('txtloanamount').value
 	  + " to repay in " + months
 	  + " months.<br>"

@@ -65,7 +65,7 @@
 .viewMoreOffersBtn { cursor: pointer; color: #0288d1; margin-left:25px; }
 .viewBreakupText { cursor: pointer; color: #0288d1; margin-top:3px; }
 .breakup-header { width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:left; }
-.offers-sprite {background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v2Sep2016) no-repeat; display: inline-block;}
+.offers-sprite {background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v2Sep2016) no-repeat; display: inline-block;}
 #otpPopup { display:none; }
 .user-contact-details-icon{width:29px;height:30px;background-position:-109px -216px}
 .otp-icon { width:29px; height:29px; background-position: -109px -177px; }
@@ -138,7 +138,7 @@
 .breakupCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }
 
 .upcoming-text-label{background:#4c4c4c;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:-10px}
-.upcoming-text-label:after{content: "";background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=9Sep2016) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px;}
+.upcoming-text-label:after{content: "";background:url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=9Sep2016) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px;}
 #ctrlExpertReviews li{min-height:236px;height:auto;}
 #ctrlExpertReviews li .front{height:100%;}
 .view-breakup-text {cursor:pointer;color:#0288d1;}
@@ -170,7 +170,7 @@
 .contact-icon { background-position: -107px -280px; }
 .call-icon { background-position: -107px -135px; }
 
-.offer-list-container ul.offersList li, .offer-list-container ul.moreOffersList li { background:url("http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/star-icon.png") no-repeat 0 3px; padding: 0 0 0 18px;} 
+.offer-list-container ul.offersList li, .offer-list-container ul.moreOffersList li { background:url("https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/star-icon.png") no-repeat 0 3px; padding: 0 0 0 18px;} 
 .bike-details-list-ul { list-style:disc; margin-left:18px; }
 #faqSlug .icon-outer-container { width:82px; height:82px; }
 #faqSlug .icon-inner-container { width:72px; height:72px; }
@@ -301,7 +301,7 @@
     top: 45px;
     width: 22px;
     height: 21px;
-    background: url('http://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png') no-repeat;
+    background: url('https://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png') no-repeat;
     display: block;
 }
 
@@ -354,7 +354,7 @@
 .dropdown-menu .dropdown-label, .dropdown-menu .dropdown-selected-item {
 	width: 100%;
 	font-weight: bold;
-	background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%;
+	background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;

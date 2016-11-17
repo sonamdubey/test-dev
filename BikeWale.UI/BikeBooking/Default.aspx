@@ -7,7 +7,7 @@
         title = "Book Bikes, Scooters in India and Avail Great Benefits - BikeWale";
         keywords = "book bikes, book scooters, buy bikes, buy scooters, bikes prices, avail offers, avail discounts, instant bike on-road price";
         description = "BikeWale - India's favourite bike portal. Book your bikes, scooters and avail exciting offers and benefits exclusively on BikeWale.";
-        canonical = "http://www.bikewale.com";
+        canonical = "https://www.bikewale.com";
         isHeaderFix = false;
         isAd970x90Shown = false;
         isTransparentHeader = true;
@@ -17,7 +17,7 @@
          
     %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bookinglanding.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bookinglanding.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css" />
 </head>
 <body class="bg-light-grey">
     <form id="form1" runat="server">
@@ -201,7 +201,7 @@
             </div>
         </section>
 
-        <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
+        <script src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
 
         <script>
             $(window).on("scroll", function () {
