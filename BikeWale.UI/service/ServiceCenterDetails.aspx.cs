@@ -1,4 +1,5 @@
 ﻿using Bikewale.BindViewModels.Webforms.Service;
+using Bikewale.Controls;
 using Bikewale.CoreDAL;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.ServiceCenters;
@@ -10,23 +11,20 @@ using System.Web.UI;
 namespace Bikewale.Service
 {
     /// <summary>
-    /// Created By : Aditi Srivastava on 26 Sep 2016
-    /// Class to show the bike dealers details
+    /// Created By : Sangram Nandkhile on 17 Nov 2016
+    /// Class to show the service center details
     /// </summary>
     public class ServiceCenterDetails : Page
     {
         protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, urlCityMaskingName = string.Empty,
-        address = string.Empty, maskingNumber = string.Empty, eMail = string.Empty, workingHours = string.Empty, modelImage = string.Empty, dealerName = string.Empty, dealerMaskingName = string.Empty,
-        clientIP = string.Empty;
+        address = string.Empty, maskingNumber = string.Empty, eMail = string.Empty, workingHours = string.Empty, modelImage = string.Empty, dealerName = string.Empty, dealerMaskingName = string.Empty, clientIP = string.Empty;
         protected uint makeId, cityId, serviceCenterId;
         protected ushort totalDealers;
         protected ServiceCenterCompleteData objServiceCenterData = null;
-        //protected Repeater rptMakes, rptCities, rptDealers;
-        //protected bool areDealersPremium = false;
-        //protected DealerBikesEntity dealerDetails = null;
-        //protected DealerCard ctrlDealerCard;
-        //protected LeadCaptureControl ctrlLeadCapture;
-        //protected DealerDetailEntity dealerObj;
+        protected ServiceCenterCard ctrlServiceCenterCard;
+        protected ServiceSchedule ctrlServiceSchedule;
+        protected DealerCard ctrlDealerCard;
+
         public ServiceDetailsPage serviceVM;
 
         protected override void OnInit(EventArgs e)
@@ -57,33 +55,31 @@ namespace Bikewale.Service
                 {
                     RedirectToPageNotFound();
                 }
-                //if (dealerId > 0)
-                //{
-                //    GetDealerDetails(dealerId);
-                //    ctrlDealerCard.MakeId = Convert.ToUInt32(makeId);
-                //    ctrlDealerCard.makeName = makeName;
-                //    ctrlDealerCard.makeMaskingName = makeMaskingName;
-                //    ctrlDealerCard.CityId = cityId;
-                //    ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Desktop_dealer_details_Get_offers;
-                //    ctrlDealerCard.LeadSourceId = 38;
-                //    ctrlDealerCard.TopCount = Convert.ToUInt16(cityId > 0 ? 3 : 6);
-                //    ctrlDealerCard.pageName = "DealerDetail_Page_Desktop";
-                //    ctrlDealerCard.DealerId = (uint)dealerId;
-                //    ctrlLeadCapture.CityId = cityId;
-                //    ctrlLeadCapture.AreaId = 0;
-                //}
-                //else
-                //{
-                //    Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
-                //    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                //    this.Page.Visible = false;
-                //}
             }
         }
-
+        /// <summary>
+        /// Desc; Bind Controls
+        /// </summary>
         private void BindControls()
         {
+            ctrlServiceSchedule.MakeId = serviceVM.MakeId;
+            ctrlServiceSchedule.MakeName = serviceVM.MakeName;
 
+            ctrlServiceCenterCard.MakeId = serviceVM.MakeId;
+            ctrlServiceCenterCard.CityId = serviceVM.CityId;
+            ctrlServiceCenterCard.makeName = serviceVM.MakeName;
+            ctrlServiceCenterCard.cityName = serviceVM.CityName;
+            ctrlServiceCenterCard.makeMaskingName = makeMaskingName;
+            ctrlServiceCenterCard.cityMaskingName = serviceVM.CityMaskingName;
+            ctrlServiceCenterCard.TopCount = 3;
+            ctrlServiceCenterCard.ServiceCenterId = serviceCenterId;
+
+            ctrlDealerCard.MakeId = makeId;
+            ctrlDealerCard.makeMaskingName = makeMaskingName;
+            ctrlDealerCard.CityId = serviceVM.CityId;
+            ctrlDealerCard.cityName = serviceVM.CityName;
+            ctrlDealerCard.TopCount = 3;
+            ctrlDealerCard.LeadSourceId = 17;
         }
 
         #region Private Method to process querystring
@@ -116,7 +112,7 @@ namespace Bikewale.Service
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ProcessQueryString()");
+                ErrorClass objErr = new ErrorClass(ex, "ServiceCenterDetails.ProcessQueryString()");
                 objErr.SendMail();
             }
             finally

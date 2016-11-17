@@ -54,21 +54,18 @@ namespace Bikewale.Mobile.Controls
                 centerData = serviceViewModel.GetServiceCenterList((int)MakeId, CityId);
                 if (centerData != null && centerData.ServiceCenters != null)
                 {
-
-                    IEnumerable<ServiceCenterDetails> totalList = (from sc in centerData.ServiceCenters where sc.ServiceCenterId != ServiceCenterId select sc);
+                    IEnumerable<ServiceCenterDetails> totalList = centerData.ServiceCenters.Where(x => x.ServiceCenterId != ServiceCenterId);
                     if (totalList != null)
                         ServiceCenteList = totalList.Take(TopCount);
-
                     if (centerData.Count > 1)
                         showWidget = true;
 
                     widgetTitle = string.Format("Other {0} service centers in {1}", makeName, cityName);
                 }
-
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(err, "ServiceCenterCard.BindDealers()");
                 objErr.SendMail();
             }
         }

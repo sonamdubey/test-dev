@@ -279,6 +279,8 @@ namespace Bikewale.DAL.ServiceCenter
                                 model.Schedules = new List<ServiceScheduleBase>();
                                 model.ModelId = SqlReaderConvertor.ToInt32(dr["id"]);
                                 model.ModelName = Convert.ToString(dr["bikename"]);
+                                model.HostUrl = Convert.ToString(dr["HostUrl"]);
+                                model.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 modelSchedules.Add(model);
                             }
                             scheduleList = new List<ServiceScheduleBase>();

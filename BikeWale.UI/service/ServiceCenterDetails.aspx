@@ -1,6 +1,5 @@
 ﻿<%@ Page Language="C#" Inherits="Bikewale.Service.ServiceCenterDetails" AutoEventWireup="false" EnableViewState="false" %>
 <%@ Register Src="~/controls/DealerCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
-<%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <%@ Register Src="~/controls/serviceschedule.ascx" TagName="ServiceSchedule" TagPrefix="BW" %>
 <!DOCTYPE html>
@@ -12,7 +11,7 @@
                 keywords = String.Format("{0}, {0} {1}, {2} servicing {1}", serviceVM.objServiceCenterData.Name, serviceVM.CityName, serviceVM.MakeName);
                 description = String.Format("{0} is an authorised service center of {1}. Get all details related to servicing cost, pick and drop facility and service schedule from {0}", serviceVM.objServiceCenterData.Name, serviceVM.MakeName);
                 title = String.Format("{0} {1} | {0} service center in {1} - BikeWale ", serviceVM.objServiceCenterData.Name, serviceVM.objServiceCenterData.CityName);
-                string url = Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, cityMaskingName, serviceVM.objServiceCenterData.Name, serviceCenterId);
+                string url = Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, serviceVM.CityMaskingName, serviceVM.objServiceCenterData.Name, serviceCenterId);
                 canonical = string.Format("http://www.bikewale.com{0}", url);
                 alternate = string.Format("http://www.bikewale.com/m{0}", url);
                 AdId = "1395986297721";
@@ -48,13 +47,13 @@
                                     <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href=""><span itemprop="title">Used Bikes</span></a>
                                 </li>
                                 <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                    <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href=""><span itemprop="title">Service Center Locator</span></a>
+                                    <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/bike-service-center/"><span itemprop="title">Service Center Locator</span></a>
                                 </li>
                                 <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                    <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href=""><span itemprop="title"><%=serviceVM.MakeName%> Service Centers</span></a>
+                                    <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/<%=makeMaskingName %>-service-center-in-india/"><span itemprop="title"><%=serviceVM.MakeName%> Service Centers</span></a>
                                 </li>
                                  <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                    <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href=""><span itemprop="title"><%=serviceVM.MakeName%> Service Center in <%=serviceVM.objServiceCenterData.CityName%></span></a>
+                                    <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/<%=makeMaskingName %>-service-center-in-<%=serviceVM.CityMaskingName %>/"><span itemprop="title"><%=serviceVM.MakeName%> Service Center in <%=serviceVM.objServiceCenterData.CityName%></span></a>
                                 </li>
                                 <li class="current"><span class="bwsprite fa-angle-right margin-right10"></span><%=serviceVM.objServiceCenterData.Name %></li>
                             </ul>
@@ -74,7 +73,7 @@
                                 <div class="grid-7 alpha omega font14">
                                     <% if (serviceVM.objServiceCenterData != null)
                                       { %>
-                                    <h2 class="font14 margin-bottom10">Authorized <%= serviceVM.MakeName %> service center in <%=cityName %></h2>
+                                    <h2 class="font14 margin-bottom10">Authorized <%= serviceVM.MakeName %> service center in <%=serviceVM.CityName %></h2>
                                     <% if (!string.IsNullOrEmpty(serviceVM.objServiceCenterData.Address))
                                        {%>
                                     <div class="margin-bottom10">
@@ -136,182 +135,13 @@
             </section>
 
             <section>
-                <div class="container section-bottom-margin">
-                    <div class="grid-12">
-                        <div class="content-box-shadow padding-bottom20">
-                            <h2 class="section-h2-title padding-15-20-20">Other Bajaj service centers in Mumbai</h2>
-                            <ul class="bw-horizontal-cards">
-                                <li class="card">
-                                    <a href="" title="Executive Bajaj - Malad" class="card-target">
-                                        <h3 class="text-black text-bold text-truncate margin-bottom5">Executive Bajaj - Malad</h3>
-                                        <p class="text-light-grey margin-bottom5">
-                                            <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                                            <span class="vertical-top details-column">11, Link House, Plot No.446, Near Lakozy Toyota, Link Road, Malad (W)</span>
-                                        </p>
-                                        <p class="text-default">
-                                            <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
-                                            <span class="text-bold vertical-top details-column">7620914785</span>
-                                        </p>
-                                    </a>
-                                </li>
-                                <li class="card">
-                                    <a href="" title="Kamala Landmarc Motorbikes - Malad" class="card-target">
-                                        <h3 class="text-black text-bold text-truncate margin-bottom5">Kamala Landmarc Motorbikes - Malad</h3>
-                                        <p class="text-light-grey margin-bottom5">
-                                            <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                                            <span class="vertical-top details-column">11, Link House, Plot No.446, Near Lakozy Toyota, Link Road, Malad (W)</span>
-                                        </p>
-                                        <p class="text-default">
-                                            <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
-                                            <span class="text-bold vertical-top details-column">7620914785</span>
-                                        </p>
-                                    </a>
-                                </li>
-                                <li class="card">
-                                    <a href="" title="Executive Bajaj - Malad" class="card-target">
-                                        <h3 class="text-black text-bold text-truncate margin-bottom5">Executive Bajaj - Malad</h3>
-                                        <p class="text-light-grey margin-bottom5">
-                                            <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                                            <span class="vertical-top details-column">11, Link House, Plot No.446, Near Lakozy Toyota, Link Road, Malad (W)</span>
-                                        </p>
-                                        <p class="text-default">
-                                            <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
-                                            <span class="text-bold vertical-top details-column">7620914785</span>
-                                        </p>
-                                    </a>
-                                </li>
-                            </ul>
-                            <div class="clear"></div>
-                            <div class="padding-left20 font14">
-                                <a href="">View all Bajaj service centers<span class="bwsprite blue-right-arrow-icon"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                </div>
+                <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
             </section>
-
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
             <section>
-                <div id="service-scheduler" class="container section-bottom-margin">
-                    <div class="grid-12">
-                        <div class="content-box-shadow padding-15-20-20">
-                            <h2 class="section-h2-title margin-bottom10">Is your bajaj bike due for a service?</h2>
-                            <p class="font14 margin-bottom25">Get you Bajaj bike serviced with time period given below.</p>
-                            <div id="scheduler-left-column" class="grid-4 alpha">
-                                <div class="select-box">
-                                    <p class="font12 text-xt-light-grey">Model</p>
-                                    <select class="chosen-select" data-placeholder="Select model">
-                                        <option value="1">Pulsar RS200</option>
-                                        <option value="2">CB Shine</option>
-                                        <option value="3">CB ShineSP</option>
-                                        <option value="4">CB Unicorn 150</option>
-                                        <option value="5">Pulsar RS200</option>
-                                        <option value="6">CB Shine</option>
-                                        <option value="7">CB ShineSP</option>
-                                        <option value="8">CB Unicorn 150</option>
-                                    </select>
-                                </div>
-                                <img id="service-model-image" src="http://imgd1.aeplcdn.com//310x174//bw/models/honda-cb-shine-kick/drum/spokes-111.jpg?20151209184344" alt="Honda CB Shine" title="Honda CB Shine" />
-                            </div>
-                            <div class="grid-8 omega">
-                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                    <thead>
-                                        <tr>
-                                            <th align="left" width="20%">Service no.</th>
-                                            <th align="left" width="40%">Validity from the date of purchase</th>
-                                            <th align="left" width="40%">Validity from the date of previous service</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-							                <td>1</td>
-                                            <td>0-600 kms</td>
-							                <td>60 days</td>
-						                </tr>
-                                        <tr>
-							                <td>2</td>
-                                            <td>500-1000 kms</td>
-							                <td>100 days</td>
-						                </tr>
-                                        <tr>
-							                <td>3</td>
-                                            <td>1000-5000 kms</td>
-							                <td>250 days</td>
-						                </tr>
-                                        <tr>
-							                <td>4</td>
-                                            <td>5000-10000 kms</td>
-							                <td>500 days</td>
-						                </tr>
-                                    </tbody>
-                                </table>
-                                <!-- no days -->
-                                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="hide">
-                                    <thead>
-                                        <tr>
-                                            <th align="left" width="30%">Service no.</th>
-                                            <th align="left" width="70%">Validity from the date of previous service</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-							                <td>1</td>
-                                            <td>0-600 kms</td>
-						                </tr>
-                                        <tr>
-							                <td>2</td>
-                                            <td>500-1000 kms</td>
-						                </tr>
-                                        <tr>
-							                <td>3</td>
-                                            <td>1000-5000 kms</td>
-						                </tr>
-                                        <tr>
-							                <td>4</td>
-                                            <td>5000-10000 kms</td>
-						                </tr>
-                                    </tbody>
-                                </table>
-                                <!-- no kms -->
-                                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="hide">
-                                    <thead>
-                                        <tr>
-                                            <th align="left" width="30%">Service no.</th>
-                                            <th align="left" width="70%">Validity from the date of previous service</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-							                <td>1</td>
-							                <td>60 days</td>
-						                </tr>
-                                        <tr>
-							                <td>2</td>
-                                            <td>100 days</td>
-						                </tr>
-                                        <tr>
-							                <td>3</td>
-                                            <td>250 days</td>
-						                </tr>
-                                        <tr>
-							                <td>4</td>
-                                            <td>500 days</td>
-						                </tr>
-                                    </tbody>
-                                </table>
-                                <!-- no service -->
-                                <div id="service-not-avaiable" class="hide">
-                                    <span class="service-sprite calender-lg"></span>
-                                    <p class="font14 text-light-grey">Sorry! The service schedule for Bajaj Pulsar is not available.<br />Please check out the service schedule for other Bajaj bikes.</p>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                </div>
+                <BW:ServiceSchedule runat="server" ID="ctrlServiceSchedule" />
             </section>
-
+        
             <section>
                 <div class="container section-bottom-margin">
                     <div class="grid-12">
@@ -339,64 +169,22 @@
                     <div class="clear"></div>
                 </div>
             </section>
-
+         <% if(ctrlDealerCard.showWidget){ %>
             <section>
                 <div class="container section-bottom-margin">
                     <div class="grid-12">
                         <div class="content-box-shadow padding-bottom20">
                             <div class="padding-15-20-20">
-                                <h2 class="section-h2-title margin-bottom10">Looking to buy a new Bajaj bike in Mumbai?</h2>
-                                <p class="font14">Check out authorised Bajaj dealers in Mumbai</p>
+                                <h2 class="section-h2-title margin-bottom10">Looking to buy a new <%=serviceVM.MakeName %> bike in <%=serviceVM.CityName %>?</h2>
+                                <p class="font14">Check out authorised <%=serviceVM.MakeName %> dealers in <%=serviceVM.CityName %></p>
                             </div>
-                            <ul class="bw-horizontal-cards">
-                                <li class="card">
-                                    <a href="" title="Executive Bajaj - Malad" class="card-target">
-                                        <p class="text-black text-bold text-truncate margin-bottom5">Executive Bajaj - Malad</p>
-                                        <p class="text-light-grey margin-bottom5">
-                                            <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                                            <span class="vertical-top details-column">11, Link House, Plot No.446, Near Lakozy Toyota, Link Road, Malad (W)</span>
-                                        </p>
-                                        <p class="text-default">
-                                            <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
-                                            <span class="text-bold vertical-top details-column">7620914785</span>
-                                        </p>
-                                    </a>
-                                </li>
-                                <li class="card">
-                                    <a href="" title="Kamala Landmarc Motorbikes - Malad" class="card-target">
-                                        <p class="text-black text-bold text-truncate margin-bottom5">Kamala Landmarc Motorbikes - Malad</p>
-                                        <p class="text-light-grey margin-bottom5">
-                                            <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                                            <span class="vertical-top details-column">11, Link House, Plot No.446, Near Lakozy Toyota, Link Road, Malad (W)</span>
-                                        </p>
-                                        <p class="text-default">
-                                            <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
-                                            <span class="text-bold vertical-top details-column">7620914785</span>
-                                        </p>
-                                    </a>
-                                </li>
-                                <li class="card">
-                                    <a href="" title="Executive Bajaj - Malad" class="card-target">
-                                        <p class="text-black text-bold text-truncate margin-bottom5">Executive Bajaj - Malad</p>
-                                        <p class="text-light-grey margin-bottom5">
-                                            <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                                            <span class="vertical-top details-column">11, Link House, Plot No.446, Near Lakozy Toyota, Link Road, Malad (W)</span>
-                                        </p>
-                                        <p class="text-default">
-                                            <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
-                                            <span class="text-bold vertical-top details-column">7620914785</span>
-                                        </p>
-                                    </a>
-                                </li>
-                            </ul>
-                            <div class="clear"></div>
-                            <a href="" class="margin-left20">View all Bajaj dealers<span class="bwsprite blue-right-arrow-icon"></span></a>
+                            <BW:DealerCard runat="server" ID="ctrlDealerCard" />
                         </div>
                     </div>
                     <div class="clear"></div>
                 </div>
             </section>
-
+        <% } %>
             <section>
                 <div class="container section-bottom-margin">
                     <div class="grid-12 font12">
@@ -404,31 +192,10 @@
                     </div>
                     <div class="clear"></div>
                 </div>
-            </section>
-
-            <% if(ctrlDealerCard.showWidget){ %>
-            <section>
-                <div class="container margin-bottom20">
-                    <div class="grid-12">
-                        <div class="content-box-shadow">
-                              <BW:DealerCard runat="server" ID="ctrlDealerCard" />
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                </div>
-            </section>
-            <% } %>      
+            </section>   
         <% } %>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW.aspx" -->
         <script type="text/javascript">
-            var versionId = "";
-            $("#getLeadBike").change(function () {
-                var val = $(this).val();
-                if (val && val != "" && val != "0") {
-                    versionId = val;
-                }
-            });
             var serviceLat = '<%= serviceVM!= null && serviceVM.objServiceCenterData.Lattitude> 0? serviceVM.objServiceCenterData.Lattitude.ToString() : string.Empty %>';
             var serviceLong = '<%= serviceVM!= null && serviceVM.objServiceCenterData.Longitude> 0? serviceVM.objServiceCenterData.Longitude.ToString() : string.Empty %>';
             var currentCityName = '<%=cityName%>';

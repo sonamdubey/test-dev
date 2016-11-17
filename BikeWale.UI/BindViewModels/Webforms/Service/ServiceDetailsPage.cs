@@ -28,9 +28,8 @@ namespace Bikewale.BindViewModels.Webforms.Service
                         MakeMaskingName = string.Empty,
                         CityMaskingName = string.Empty,
                         CityName = string.Empty,
-                        ServiceCity = string.Empty,
                         ClientIP = string.Empty;
-        public uint campaignId, cityId, serviceCenterId, makeId;
+        public uint CityId, ServiceCenterId, MakeId;
         public BikeMakeEntityBase objBikeMakeEntityBase;
 
         public bool BindServiceCenterData(uint serviceCenterId)
@@ -49,11 +48,10 @@ namespace Bikewale.BindViewModels.Webforms.Service
 
                     if (objServiceCenterData != null)
                     {
-                        CityName = objServiceCenterData.Name;
-                        cityId = objServiceCenterData.CityId;
-                        makeId = objServiceCenterData.MakeId;
+                        CityId = objServiceCenterData.CityId;
+                        MakeId = objServiceCenterData.MakeId;
                         MakeName = GetMakeNameByMakeId(objServiceCenterData.MakeId);
-                        ServiceCity = objServiceCenterData.CityName;
+                        CityName = objServiceCenterData.CityName;
                         CityMaskingName = objServiceCenterData.CityMaskingName;
                         ClientIP = CommonOpn.GetClientIP();
                         isDataReturned = true;

@@ -20,6 +20,10 @@ namespace Bikewale.Entities.ServiceCenters
     public class ModelServiceSchedule : BikeModelEntityBase
     {
         [DataMember]
+        public string HostUrl { get; set; }
+        [DataMember]
+        public string OriginalImagePath { get; set; }
+        [DataMember]
         public IList<ServiceScheduleBase> Schedules { get; set; }
     }
 }

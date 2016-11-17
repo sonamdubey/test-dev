@@ -114,12 +114,9 @@ namespace Bikewale.Mobile.Service
             ctrlDealerCard.DealerId = 0;
             ctrlDealerCard.isHeadingNeeded = false;
 
-            ctrlLeadCapture.CityId = cityId;
-
             ctrlServiceSchedule.MakeId = makeId;
             ctrlServiceSchedule.MakeName = makeName;
 
-            ctrlLeadCapture.CityId = cityId;
         }
 
         /// <summary>

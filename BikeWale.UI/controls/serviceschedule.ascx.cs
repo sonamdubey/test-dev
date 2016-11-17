@@ -32,6 +32,5 @@ namespace Bikewale.Controls
             BikeScheduleList = scheduleViewModel.GetServiceScheduleList(MakeId);
             jsonBikeSchedule = Newtonsoft.Json.JsonConvert.SerializeObject(BikeScheduleList);
         }
-
     }
 }
