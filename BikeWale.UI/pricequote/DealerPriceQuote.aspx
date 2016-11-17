@@ -821,10 +821,8 @@
 
             $( document ).ready(function() {
                 <%if(detailedDealer != null && detailedDealer.SecondaryDealers != null && detailedDealer.SecondaryDealers.Count() > 0){%>
-                <%foreach(var dealer in detailedDealer.SecondaryDealers){%>
-                triggerGA('Dealer_PQ', ' Secondary_Dealer_Card_Shown', '<%= string.Format("{0}_{1}_{2}_{3}", makeName,modelName,city,dealer.Area)%>');
-                <%}%>
-                <%}%>
+                triggerGA('Dealer_PQ', ' Secondary_Dealer_Card_Shown', '<%= string.Format("{0}_{1}_{2}_{3}", makeName,modelName,CityArea.City,CityArea.Area)%>');
+                 <%}%>
             });
 
             $("#dealer-assist-msg .assistance-response-close").on("click", function(){

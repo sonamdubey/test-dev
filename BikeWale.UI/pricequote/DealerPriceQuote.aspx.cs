@@ -8,6 +8,7 @@ using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Customer;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
@@ -32,6 +33,7 @@ namespace Bikewale.BikeBooking
     /// </summary>
     public class DealerPriceQuote : System.Web.UI.Page
     {
+        protected GlobalCityAreaEntity CityArea { get; set; }
         protected Repeater rptPriceList, rptDisclaimer, rptOffers, rptDiscount, rptVersion, rptUSPBenefits, rptDealers;
         protected DropDownList ddlVersion;
         protected HtmlGenericControl div_GetPQ;
@@ -40,7 +42,7 @@ namespace Bikewale.BikeBooking
         protected BikeVersionEntity objVersionDetails = null;
         protected List<BikeVersionsListEntity> versionList = null;
         protected NewAlternativeBikes ctrlAlternativeBikes;
-        protected string BikeName = string.Empty, pageUrl = string.Empty, clientIP = string.Empty, cityArea = string.Empty, city = string.Empty, area = string.Empty;
+        protected string BikeName = string.Empty, pageUrl = string.Empty, clientIP = string.Empty,cityArea = string.Empty, city = string.Empty, area = string.Empty;
         protected uint totalPrice = 0, bookingAmount, dealerId = 0, cityId = 0, versionId = 0, pqId = 0, areaId = 0, insuranceAmount = 0, totalDiscount = 0;
         protected bool IsInsuranceFree, isUSPBenfits, isoffer, isEMIAvailable, IsDiscount;
         protected CustomerEntity objCustomer = new CustomerEntity();
@@ -459,7 +461,7 @@ namespace Bikewale.BikeBooking
         /// Created By : Sushil Kumar on 15th March 2016
         /// Description : To set user location
         /// Modified By : Aditi srivastava on 17 Nov 2016
-        /// Description : get city name from cookie
+        /// Description : get city area name from global city
         /// </summary>
         /// <returns></returns>
         protected string GetLocationCookie()
@@ -482,9 +484,10 @@ namespace Bikewale.BikeBooking
                         {
                             location = String.Format("<span>{0}</span>", arr[1]);
                         }
-                        city = arr[1];
+                        
                     }
                 }
+                CityArea = GlobalCityArea.GetGlobalCityArea();
             }
             catch (Exception ex)
             {
