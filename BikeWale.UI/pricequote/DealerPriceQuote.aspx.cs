@@ -139,6 +139,7 @@ namespace Bikewale.BikeBooking
         {
             try
             {
+                
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IDealerPriceQuoteDetail, DealerPriceQuoteDetail>();
@@ -147,6 +148,7 @@ namespace Bikewale.BikeBooking
 
                     if (detailedDealer != null)
                     {
+                        city = GetLocationCookie();
                         if (detailedDealer.objMake != null)
                         {
                             makeName = detailedDealer.objMake.MakeName;
@@ -456,6 +458,8 @@ namespace Bikewale.BikeBooking
         /// <summary>
         /// Created By : Sushil Kumar on 15th March 2016
         /// Description : To set user location
+        /// Modified By : Aditi srivastava on 17 Nov 2016
+        /// Description : get city name from cookie
         /// </summary>
         /// <returns></returns>
         protected string GetLocationCookie()
@@ -478,6 +482,7 @@ namespace Bikewale.BikeBooking
                         {
                             location = String.Format("<span>{0}</span>", arr[1]);
                         }
+                        city = arr[1];
                     }
                 }
             }

@@ -820,12 +820,10 @@
             <% } %>
 
             $( document ).ready(function() {
-                var city, area;
                 <%if(detailedDealer != null && detailedDealer.SecondaryDealers != null && detailedDealer.SecondaryDealers.Count() > 0){%>
-                
-                    city='<%detailedDealer.Secondar%>';
-                    triggerGA('Dealer_PQ', ' Secondary_Dealer_Card_Shown', "<%= string.Format("{0}_{1}_{2}_{3}", makeName,modelName,city,area)%>");
-
+                <%foreach(var dealer in detailedDealer.SecondaryDealers){%>
+                triggerGA('Dealer_PQ', ' Secondary_Dealer_Card_Shown', '<%= string.Format("{0}_{1}_{2}_{3}", makeName,modelName,city,dealer.Area)%>');
+                <%}%>
                 <%}%>
             });
 
@@ -908,6 +906,7 @@
             }
 
             function GetBikeVerLoc() {
+              
                 return bikeName + "_" + versionName + "_" + getCityArea;
             }
 
