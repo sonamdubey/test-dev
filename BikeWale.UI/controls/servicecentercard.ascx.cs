@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 
-namespace Bikewale.Mobile.Controls
+namespace Bikewale.Controls
 {
     /// <summary>
     /// Created By :  Sangram Nandkhile on 09-Nov-2016
@@ -57,11 +57,12 @@ namespace Bikewale.Mobile.Controls
                     IEnumerable<ServiceCenterDetails> totalList = centerData.ServiceCenters.Where(x => x.ServiceCenterId != ServiceCenterId);
                     if (totalList != null)
                         ServiceCenteList = totalList.Take(TopCount);
+
                     if (centerData.Count > 1)
                         showWidget = true;
-
                     widgetTitle = string.Format("Other {0} service centers in {1}", makeName, cityName);
                 }
+
             }
             catch (Exception err)
             {

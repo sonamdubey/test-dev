@@ -194,8 +194,11 @@ namespace Bikewale.Utility
         /// <returns></returns>
         public static string RemoveSpecialCharUrl(string url)
         {
-            url = (Regex.Replace(url, "[^0-9a-zA-Z]+", "-")).ToLower();
-            url = (Regex.Replace(url, @"\-+", "-")).TrimEnd('-');
+            if (!string.IsNullOrEmpty(url))
+            {
+                url = (Regex.Replace(url, "[^0-9a-zA-Z]+", "-")).ToLower();
+                url = (Regex.Replace(url, @"\-+", "-")).TrimEnd('-');
+            }
             return url;
         }
 
@@ -216,7 +219,7 @@ namespace Bikewale.Utility
         ///  Created On  : 11-11-2016
         ///  Description : To get url for serviceCenter.
         /// </summary>
-        public static string GetServiceCenterUrl(string makeMaskingName, string cityMaskingName, string serviceCenterName, int serviceCenterId)
+        public static string GetServiceCenterUrl(string makeMaskingName, string cityMaskingName, string serviceCenterName, uint serviceCenterId)
         {
             string dealerUrl = string.Empty;
             dealerUrl = string.Format("/{0}-service-center-in-{1}/{2}-{3}/", makeMaskingName, cityMaskingName, serviceCenterId, RemoveSpecialCharUrl(serviceCenterName));

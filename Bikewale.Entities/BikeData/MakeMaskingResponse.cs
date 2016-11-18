@@ -9,7 +9,6 @@ namespace Bikewale.Entities.BikeData
     {
         public uint MakeId { get; set; }
         public string MaskingName { get; set; }
-        //public bool Redirect { get; set; }
         public ushort StatusCode { get; set; }
     }
 }

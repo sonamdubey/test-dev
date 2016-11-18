@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.ServiceCenterCard" %>
-<% if (showWidget)
+<% if (showWidget && ServiceCenteList!= null)
    { %>
 <div class="container bg-white box-shadow card-bottom-margin padding-bottom20">
     <h2 class="padding-15-20"><%= widgetTitle %></h2>
@@ -9,7 +9,7 @@
                { %>
             <div class="swiper-slide">
                 <div class="swiper-card">
-                    <a href="/m<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName,cityMaskingName, serviceCenter.Name,(int)serviceCenter.ServiceCenterId) %>" title="<%= serviceCenter.Name%>">
+                    <a href="/m<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName,cityMaskingName, serviceCenter.Name,serviceCenter.ServiceCenterId) %>" title="<%= serviceCenter.Name%>">
                         <div class="target-link margin-bottom5 text-truncate font14"><%= serviceCenter.Name%></div>
                         <% if (!string.IsNullOrEmpty(serviceCenter.Address))
                            { %>

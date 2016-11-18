@@ -58,7 +58,10 @@ namespace Bikewale.Mobile.Service
                 BindControls();
             }
         }
-
+        /// <summary>
+        /// Created by : Sangram Nandkhile on 16 Nov 2016
+        /// Desc: Binds the bike service data by service center Id
+        /// </summary>
         private void BindServiceCenterData()
         {
             try
@@ -114,12 +117,9 @@ namespace Bikewale.Mobile.Service
             ctrlDealerCard.DealerId = 0;
             ctrlDealerCard.isHeadingNeeded = false;
 
-            ctrlLeadCapture.CityId = cityId;
-
             ctrlServiceSchedule.MakeId = makeId;
             ctrlServiceSchedule.MakeName = makeName;
 
-            ctrlLeadCapture.CityId = cityId;
         }
 
         /// <summary>
