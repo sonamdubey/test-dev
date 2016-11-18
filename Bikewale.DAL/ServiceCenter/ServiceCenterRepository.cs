@@ -272,43 +272,42 @@ namespace Bikewale.DAL.ServiceCenter
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        if (dr != null)
+                        if (dr != null && dr.Read())
                         {
-                            if (dr.Read())
+
+                            if (Convert.ToBoolean(dr["isdataavailable"]))
                             {
-                                if (Convert.ToBoolean(dr["isdataavailable"]))
+                                if (dr.NextResult())
                                 {
-                                    if (dr.NextResult())
+                                    modelSchedules = new List<ModelServiceSchedule>();
+                                    while (dr.Read())
                                     {
-                                        modelSchedules = new List<ModelServiceSchedule>();
-                                        while (dr.Read())
-                                        {
-                                            model = new ModelServiceSchedule();
-                                            model.Schedules = new List<ServiceScheduleBase>();
-                                            model.ModelId = SqlReaderConvertor.ToInt32(dr["id"]);
-                                            model.ModelName = Convert.ToString(dr["bikename"]);
-                                            model.HostUrl = Convert.ToString(dr["HostUrl"]);
-                                            model.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
-                                            modelSchedules.Add(model);
-                                        }
+                                        model = new ModelServiceSchedule();
+                                        model.Schedules = new List<ServiceScheduleBase>();
+                                        model.ModelId = SqlReaderConvertor.ToInt32(dr["id"]);
+                                        model.ModelName = Convert.ToString(dr["bikename"]);
+                                        model.HostUrl = Convert.ToString(dr["HostUrl"]);
+                                        model.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                                        modelSchedules.Add(model);
                                     }
-                                    scheduleList = new List<ServiceScheduleBase>();
-                                    if (dr.NextResult())
+                                }
+                                scheduleList = new List<ServiceScheduleBase>();
+                                if (dr.NextResult())
+                                {
+                                    while (dr.Read())
                                     {
-                                        while (dr.Read())
-                                        {
-                                            schedule = new ServiceScheduleBase();
-                                            ushort curModel = SqlReaderConvertor.ToUInt16(dr["bikemodelid"]);
-                                            schedule.ServiceNo = SqlReaderConvertor.ToUInt32(dr["serviceno"]);
-                                            schedule.Kms = Convert.ToString(dr["kms"]).Trim();
-                                            schedule.Days = SqlReaderConvertor.ToUInt32(dr["days"]);
-                                            ModelServiceSchedule selectedModel = modelSchedules.FirstOrDefault(x => x.ModelId == curModel);
-                                            if (selectedModel != null)
-                                                selectedModel.Schedules.Add(schedule);
-                                        }
+                                        schedule = new ServiceScheduleBase();
+                                        ushort curModel = SqlReaderConvertor.ToUInt16(dr["bikemodelid"]);
+                                        schedule.ServiceNo = SqlReaderConvertor.ToUInt32(dr["serviceno"]);
+                                        schedule.Kms = Convert.ToString(dr["kms"]).Trim();
+                                        schedule.Days = SqlReaderConvertor.ToUInt32(dr["days"]);
+                                        ModelServiceSchedule selectedModel = modelSchedules.FirstOrDefault(x => x.ModelId == curModel);
+                                        if (selectedModel != null)
+                                            selectedModel.Schedules.Add(schedule);
                                     }
                                 }
                             }
+
                             dr.Close();
                         }
                     }
