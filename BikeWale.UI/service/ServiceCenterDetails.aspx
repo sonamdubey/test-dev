@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" Inherits="Bikewale.Service.ServiceCenterDetails" AutoEventWireup="false" EnableViewState="false" %>
+﻿<%@ Page Language="C#" Inherits="Bikewale.ServiceCenter.ServiceCenterDetails" AutoEventWireup="false" EnableViewState="false" %>
 <%@ Register Src="~/controls/DealerCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <%@ Register Src="~/controls/serviceschedule.ascx" TagName="ServiceSchedule" TagPrefix="BW" %>

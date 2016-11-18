@@ -8,7 +8,7 @@ using System;
 using System.Web;
 using System.Web.UI;
 
-namespace Bikewale.Service
+namespace Bikewale.ServiceCenter
 {
     /// <summary>
     /// Created By : Sangram Nandkhile on 17 Nov 2016
@@ -16,15 +16,12 @@ namespace Bikewale.Service
     /// </summary>
     public class ServiceCenterDetails : Page
     {
-        protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, urlCityMaskingName = string.Empty,
-        address = string.Empty, maskingNumber = string.Empty, eMail = string.Empty, workingHours = string.Empty, modelImage = string.Empty, dealerName = string.Empty, dealerMaskingName = string.Empty, clientIP = string.Empty;
+        protected string makeName = string.Empty, cityName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, clientIP = string.Empty;
         protected uint makeId, cityId, serviceCenterId;
-        protected ushort totalDealers;
         protected ServiceCenterCompleteData objServiceCenterData = null;
         protected ServiceCenterCard ctrlServiceCenterCard;
         protected ServiceSchedule ctrlServiceSchedule;
         protected DealerCard ctrlDealerCard;
-
         public ServiceDetailsPage serviceVM;
 
         protected override void OnInit(EventArgs e)
@@ -80,7 +77,6 @@ namespace Bikewale.Service
             ctrlDealerCard.CityId = serviceVM.CityId;
             ctrlDealerCard.cityName = serviceVM.CityName;
             ctrlDealerCard.TopCount = 3;
-            ctrlDealerCard.LeadSourceId = 17;
         }
 
         #region Private Method to process querystring
