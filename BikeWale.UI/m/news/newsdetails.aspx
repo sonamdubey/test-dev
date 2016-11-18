@@ -20,6 +20,9 @@
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>
+    <style>
+        .next-page-title { height: 3em;overflow: hidden;}
+    </style>
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -70,7 +73,7 @@
                                     <span class="bwmsprite prev-arrow"></span>
                                     <div class="next-prev-article-box inline-block padding-left5">
                                         <span class="font12 text-light">Previous</span><br>
-                                        <span class="next-prev-article-title"><%=prevPageTitle %></span>
+                                        <span class="next-prev-article-title next-page-title"><%=prevPageTitle %></span>
                                     </div>
                                 </a>
                             <%} %>						
@@ -81,7 +84,7 @@
 						        <a href="/m/news/<%= nextPageUrl %>" title="<%=nextPageTitle %>" class="text-default next-prev-article-target">
 							        <div class="next-prev-article-box inline-block padding-right5">
 								        <span class="font12 text-light">Next</span>
-								        <span class="next-prev-article-title"><%=nextPageTitle %></span>
+								        <span class="next-prev-article-title next-page-title"><%=nextPageTitle %></span>
 							        </div>
 							        <span class="bwmsprite next-arrow"></span>
 						        </a>

@@ -28,13 +28,14 @@ namespace Bikewale.Mobile.Content
     /// Modified By : Ashwini Todkar on 30 Sept 2014
     /// Created By : Sushil Kumar on 28th July 2016
     /// Description : Removed commented code realted to get features old content 
+    /// Modified by : Aditi Srivastava on 18 Nov 2016
+    /// Summary     : Replaced drop down page numbers with Link pagination
     /// </summary>
     public class Features : System.Web.UI.Page
     {
         private IPager objPager = null;
         protected Repeater rptFeatures;
-        protected ListPagerControl listPager;
-        public LinkPagerControl ctrlPager;
+        protected LinkPagerControl ctrlPager;
         protected int curPageNo = 1;
         protected string prevPageUrl = String.Empty, nextPageUrl = String.Empty;
         private const int _pageSize = 10, _pagerSlotSize=5;
@@ -56,14 +57,6 @@ namespace Bikewale.Mobile.Content
                     Int32.TryParse(Request.QueryString["pn"], out curPageNo);
 
                 GetFeaturesList();
-                //objFeatures = new BikeCareModels();
-                //if (objFeatures != null)
-                //{
-                //    objFeatures.BindLinkPager(ctrlPager);
-                //    startIndex = objFeatures.startIndex;
-                //    endIndex = objFeatures.endIndex;
-                //    totalArticles = objFeatures.totalRecords;
-                //}
             }
         }
         /// <summary>
@@ -100,9 +93,8 @@ namespace Bikewale.Mobile.Content
 
                         int _totalPages = objPager.GetTotalPages(Convert.ToInt32(_objFeaturesList.RecordCount), _pageSize);
                         BindFeatures(_objFeaturesList);
-                       // BindLinkPager(objPager, Convert.ToInt32(_objFeaturesList.RecordCount), _totalPages);
                         totalrecords = Convert.ToInt32(_objFeaturesList.RecordCount);
-                        BindNewPager(ctrlPager);
+                        BindLinkPager(ctrlPager);
                     }
                     else
                     {
@@ -133,35 +125,16 @@ namespace Bikewale.Mobile.Content
             }
         }
 
-        private void BindLinkPager(IPager objPager, int recordCount, int totalPages)
-        {
-            PagerEntity pagerEntity = new PagerEntity();
-
-            pagerEntity.BaseUrl = "/m/features/";
-            pagerEntity.PageNo = curPageNo;
-            pagerEntity.PagerSlotSize = totalPages;
-            pagerEntity.PageUrlType = "page/";
-            pagerEntity.TotalResults = recordCount;
-            pagerEntity.PageSize = _pageSize;
-
-            PagerOutputEntity pagerOutput = objPager.GetPager<PagerOutputEntity>(pagerEntity);
-
-            listPager.PagerOutput = pagerOutput;
-            listPager.TotalPages = totalPages;
-            listPager.CurrentPageNo = curPageNo;
-            listPager.BindPageNumbers();
-
-            //get next and prev page links for SEO
-            prevPageUrl = pagerOutput.PreviousPageUrl;
-            nextPageUrl = pagerOutput.NextPageUrl;
-        }
-
         private void BindFeatures(CMSContent _objFeaturesList)
         {
             rptFeatures.DataSource = _objFeaturesList.Articles;
             rptFeatures.DataBind();
         }
-
+        /// <summary>
+        /// Created by : Aditi Srivastava on 17 Nov 2016
+        /// Summary    : Get pager instance
+        /// </summary>
+        /// <returns></returns>
         private IPager GetPager()
         {
             IPager _objPager = null;
@@ -173,10 +146,11 @@ namespace Bikewale.Mobile.Content
             return _objPager;
         }
         /// <summary>
-        /// 
+        ///  Created by : Aditi Srivastava on 17 Nov 2016
+        /// Summary     : Create pagination
         /// </summary>
         /// <param name="_ctrlPager"></param>
-        public void BindNewPager(LinkPagerControl _ctrlPager)
+        public void BindLinkPager(LinkPagerControl _ctrlPager)
         {
             objPager = GetPager();
             objPager.GetStartEndIndex(_pageSize, curPageNo, out startIndex, out endIndex);
@@ -217,7 +191,8 @@ namespace Bikewale.Mobile.Content
             }
         }
         /// <summary>
-        /// 
+        /// Created By : Aditi Srivastava on 17 Nov 2016
+        /// Summary    : Set current page's start and end index of articles
         /// </summary>
         /// <param name="pageSize"></param>
         /// <param name="currentPageNo"></param>
@@ -234,7 +209,8 @@ namespace Bikewale.Mobile.Content
                 endIndex = totalCount;
         }
         /// <summary>
-        /// 
+        /// Created By : Aditi Srivastava on 17 Nov 2016
+        /// Summary    : Remove trailing page from link
         /// </summary>
         /// <param name="rawUrl"></param>
         /// <returns></returns>

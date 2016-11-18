@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Mobile.Content.Features"  Async="true" Trace="false"%>
-<%@ Register TagPrefix="Pager" TagName="Pager" Src="/m/controls/ListPagerControl.ascx" %>
 <%@ Register TagPrefix="BikeWale" TagName="newPager" Src="/m/controls/LinkPagerControl.ascx" %>
 <% 
 	title = "Features - Stories, Specials & Travelogues - BikeWale";
@@ -63,7 +62,7 @@
 				</ItemTemplate>
 			</asp:Repeater>
         </div>
-		<%--<Pager:Pager id="listPager" runat="server"></Pager:Pager>--%>
+
     <div class="margin-top10">
              <div class="grid-5 omega text-light-grey">
                  <div class="font13"><span class="text-bold"><%=startIndex %>-<%=endIndex %></span> of <span class="text-bold"><%=totalrecords %></span> features</div>

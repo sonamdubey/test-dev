@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.News.Default"  Trace="false" Async="true"%>
-<%@ Register TagPrefix="Pager" TagName="Pager" Src="/m/controls/ListPagerControl.ascx" %>
+<%@ Register TagPrefix="BikeWale" TagName="newPager" Src="/m/controls/LinkPagerControl.ascx" %>
 <% 
 	title       = "Bike News - Latest Indian Bike News & Views - BikeWale";
 	description = "Latest news updates on Indian bikes industry, expert views and interviews exclusively on BikeWale.";
@@ -27,6 +27,7 @@
 	.calender-grey-icon, .author-grey-icon { width:14px; height:15px; position:relative; top:-1px; margin-right:6px; }
 	.calender-grey-icon { background-position:-40px -460px; }
 	.author-grey-icon { background-position:-64px -460px; }
+    #pagination-list{margin-right:20px;margin-left:20px;overflow:hidden}#pagination-list li{float:left;margin-right:2px;margin-left:2px}#pagination-list .active,#pagination-list a{color:#82888b;font-size:12px;padding-right:5px;padding-left:5px;border:1px solid #f3f3f3;display:block;min-width:25px;text-align:center}#pagination-list a:hover{text-decoration:none}#pagination-list li.active{color:#4d5057;font-weight:700;border:1px solid #a2a2a2;border-radius:1px}.pagination-control-next,.pagination-control-prev{position:absolute;top:0;height:20px}.pagination-control-prev{left:0}.pagination-control-next{right:5px}.next-page-icon,.prev-page-icon{width:18px;height:18px}.prev-page-icon{background-position:-164px -391px}.next-page-icon{background-position:-178px -391px}.pagination-control-next.inactive .next-page-icon,.pagination-control-prev.inactive .prev-page-icon{opacity:.2;pointer-events:none}
 </style>
 
 	<div class="padding5">
@@ -64,7 +65,13 @@
 				</ItemTemplate>
 			 </asp:Repeater>              
 		</div>
-		<Pager:Pager id="listPager" runat="server"></Pager:Pager>
+        <div class="margin-top10">
+             <div class="grid-5 omega text-light-grey">
+                 <div class="font13"><span class="text-bold"><%=startIndex %>-<%=endIndex %></span> of <span class="text-bold"><%=totalrecords %></span> news articles</div>
+             </div> 
+	         <BikeWale:newPager ID="ctrlPager" runat="server" />
+            <div class="clear"></div>
+        </div>
 </div>
 <!-- #include file="/includes/footermobile.aspx" -->
 <script type="text/javascript">
