@@ -1,5 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Service.ServiceCenterInCountry" EnableViewState="false" Trace="false" Debug="false" %>
+<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.ServiceCenter.ServiceCenterInCountry" EnableViewState="false" Trace="false" Debug="false" %>
 <%@ Import Namespace="Bikewale.Common" %>
+<%@ Register Src="~/controls/BikeCare.ascx" TagName="BikeCare" TagPrefix="BW" %>
 
 <!doctype html>
 <html>
@@ -20,7 +21,6 @@
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>
-  
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -52,24 +52,22 @@
                 <div class="clear"></div>
             </div>
         </section>
-
         <section>
             <div class="container section-bottom-margin">
                 <div class="grid-12">
                     <div class="bg-white">
                         <h1 class="section-header"><%=objMMV.MakeName %> service centers in India</h1>
-                        <p class="section-inner-padding font14 text-light-grey">There are <%=ServiceCenterList.ServiceCenterCount %> authorised <%=objMMV.MakeName %> service centers in India. BikeWale strongly recommends you to avail services only from authorized <%=objMMV.MakeName %> service centers. These authorised service centers are spread over <%=ServiceCenterList.CityCount%> cities to service your <%=objMMV.MakeName %> bike and keep your bike moving. Enter the name of your city in the search box provided below to find authorised <%=objMMV.MakeName %> service centers in your city.</p>
+                        <p class="section-inner-padding font14 text-light-grey">There are <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(ServiceCenterList.ServiceCenterCount ))%> authorised <%=objMMV.MakeName %> service centers in India. BikeWale strongly recommends you to avail services only from authorized <%=objMMV.MakeName %> service centers. These authorised service centers are spread over <%=Bikewale.Utility.Format.FormatPrice(Convert.ToString(ServiceCenterList.CityCount))%> cities to service your <%=objMMV.MakeName %> bike and keep your bike moving. Enter the name of your city in the search box provided below to find authorised <%=objMMV.MakeName %> service centers in your city.</p>
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
-
         <section>
             <div class="container section-bottom-margin">
                 <div class="grid-12">
                     <div class="content-box-shadow">
-                        <h2 class="section-h2-title padding-15-20"><%=ServiceCenterList.ServiceCenterCount%> <%=objMMV.MakeName %> service centers in <%=ServiceCenterList.CityCount%> cities</h2>
+                        <h2 class="section-h2-title padding-15-20"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(ServiceCenterList.ServiceCenterCount))%> <%=objMMV.MakeName %> service centers in <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(ServiceCenterList.CityCount))%> cities</h2>
                         <div id="listing-left-column" class="grid-4">
                             <div id="filter-input" class="form-control-box">
                                 <span class="bwsprite search-icon-grey"></span>
@@ -77,12 +75,12 @@
                             </div>
                             <ul id="location-list">
                                          <% foreach (var st in ServiceCenterList.ServiceCenterDetailsList)
-                       { %>
-                                    <li  class="item-state">
+                                            { %>
+                                            <li  class="item-state">
                                         <p data-item-id="<%=st.Id %>" data-item-name="<%=st.Name %>" data-lat="<%=st.Lat %>" data-long ="<%=st.Long %>" data-ServiceCenterCount="<%=st.ServiceCenterCountState%>" class="type-state cur-pointer" data-item-id="<%=st.Id %>"><%=st.Name %></p>
                                         <ul class="location-list-city">
-                                                                              <% foreach (var stcity in st.Cities)
-                       { %>
+                                                    <% foreach (var stcity in st.Cities)
+                                                    { %>
                                                 <li>
                                                     <a data-item-id="<%=stcity.CityId %>" data-item-name="<%=stcity.CityName %>" data-lat="<%=stcity.Lattitude %>" data-long ="<%=stcity.Longitude %>" data-link="<%=stcity.Link %>" data-ServiceCenterCount="<%=stcity.ServiceCenterCountCity%>" title="<%=makeMaskingName %> service center in <%=stcity.CityMaskingName %>" href="/<%=makeMaskingName %>-service-center-in-<%=stcity.CityMaskingName %>/"><%=stcity.CityName %> (<%=stcity.ServiceCenterCountCity %>)</a>
                                                 </li>
@@ -108,90 +106,11 @@
             </div>
             <div id="listing-footer"></div>
         </section>
-
+           <%if(ctrlBikeCare.FetchedRecordsCount>0) {%>
         <section>
-            <div class="container section-bottom-margin">
-                <h2 class="section-heading">Bike Care - Maintenance tips</h2>
-                <div class="grid-12">
-                    <div class="content-box-shadow content-inner-block-20">
-                        <ul class="article-list">
-                            <li>
-                                <div class="grid-4 alpha">
-                                    <div class="model-preview-image-container">
-                                        <a href="" title="TVS Apache RTR 200 4V Carb vs Bajaj Pulsar AS200 vs Honda Hornet 160R: Comparison Test">
-                                            <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/ec/23488/Side-73148.jpg?wm=0" alt="TVS Apache RTR 200 4V Carb vs Bajaj Pulsar AS200 vs Honda Hornet 160R: Comparison Test" src="">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="grid-8 padding-left5 omega">
-                                    <a href="" class="article-target-link">TVS Apache RTR 200 4V Carb vs Bajaj Pulsar AS200 vs Honda Hornet 160R: Comparison Test</a>
-                                    <div class="article-stats-left-grid margin-bottom10">
-                                        <span class="bwsprite calender-grey-sm-icon"></span>
-                                        <span class="article-stats-content">Nov 15, 2016</span>
-                                    </div>
-                                    <div class="article-stats-right-grid margin-bottom10">
-                                        <span class="bwsprite author-grey-sm-icon"></span>
-                                        <span class="article-stats-content">Sagar Bhanushali</span>
-                                    </div>
-                                    <p class="font14 line-height17">Jagan Kumar from TVS and RACR’s Rajini Krishnan shared wins in the Indian Motorcycle Racing Championship’s (IMRC) Super Sport category at the Madras Motor Race Track. Ami Van Poederooijen won overall in the combined Pro Stock and Super Sport category...</p>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-
-                            <li>
-                                <div class="grid-4 alpha">
-                                    <div class="model-preview-image-container">
-                                        <a href="" title="TVS Apache RTR 200 4V Carb vs Bajaj Pulsar AS200 vs Honda Hornet 160R: Comparison Test">
-                                            <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/ec/21085/Honda-CB-Shine-Side-61910.jpg?wm=0&t=181939320&t=181939320" alt="TVS Apache RTR 200 4V Carb vs Bajaj Pulsar AS200 vs Honda Hornet 160R: Comparison Test" src="">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="grid-8 padding-left5 omega">
-                                    <a href="" class="article-target-link">Bajaj Avenger 220 Cruise vs Royal Enfield Thunderbird 350 : Comparison Test</a>
-                                    <div class="article-stats-left-grid margin-bottom10">
-                                        <span class="bwsprite calender-grey-sm-icon"></span>
-                                        <span class="article-stats-content">Nov 15, 2016</span>
-                                    </div>
-                                    <div class="article-stats-right-grid margin-bottom10">
-                                        <span class="bwsprite author-grey-sm-icon"></span>
-                                        <span class="article-stats-content">Sagar Bhanushali</span>
-                                    </div>
-                                    <p class="font14 line-height17">Jagan Kumar from TVS and RACR’s Rajini Krishnan shared wins in the Indian Motorcycle Racing Championship’s (IMRC) Super Sport category...</p>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-
-                            <li>
-                                <div class="grid-4 alpha">
-                                    <div class="model-preview-image-container">
-                                        <a href="" title="TVS Apache RTR 200 4V Carb vs Bajaj Pulsar AS200 vs Honda Hornet 160R: Comparison Test">
-                                            <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/ec/23488/Side-73148.jpg?wm=0" alt="TVS Apache RTR 200 4V Carb vs Bajaj Pulsar AS200 vs Honda Hornet 160R: Comparison Test" src="">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="grid-8 padding-left5 omega">
-                                    <a href="" class="article-target-link">TVS Apache RTR 200 4V Carb vs Bajaj Pulsar AS200 vs Honda Hornet 160R: Comparison Test</a>
-                                    <div class="article-stats-left-grid margin-bottom10">
-                                        <span class="bwsprite calender-grey-sm-icon"></span>
-                                        <span class="article-stats-content">Nov 15, 2016</span>
-                                    </div>
-                                    <div class="article-stats-right-grid margin-bottom10">
-                                        <span class="bwsprite author-grey-sm-icon"></span>
-                                        <span class="article-stats-content">Sagar Bhanushali</span>
-                                    </div>
-                                    <p class="font14 line-height17">Indian Motorcycle Racing Championship’s (IMRC) Super Sport category at the Madras Motor Race Track. Ami Van Poederooijen won overall in the combined Pro Stock and Super Sport category...</p>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-                        </ul>
-
-                        <a href="" class="font14">Read all bike maintenance tips<span class="bwsprite blue-right-arrow-icon"></span></a>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
+            <BW:BikeCare runat="server" ID="ctrlBikeCare" />
         </section>
-
+        <%} %>
         <section>
             <div class="container section-bottom-margin">
                 <h2 class="section-heading">Bike troubleshooting - FAQs</h2>
@@ -227,7 +146,7 @@
                             </li>
                         </ul>
 
-                        <a href="" class="font14 margin-left20">Read all FAQs<span class="bwsprite blue-right-arrow-icon"></span></a>
+                        <a href="/bike-troubleshooting/" target="_blank"  title="Bike Troubleshooting- FAQs" class="font14 margin-left20">Read all FAQs<span class="bwsprite blue-right-arrow-icon"></span></a>
                     </div>
                 </div>
                 <div class="clear"></div>
