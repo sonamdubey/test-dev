@@ -1,15 +1,23 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="Default.aspx.cs" Inherits="Bikewale.Used.Sell.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="Default.aspx.cs" Inherits="Bikewale.Used.Sell.Default" EnableViewState="false" %>
 
 <!DOCTYPE html>
 
 <html>
 <head>
-    <title>Sell Bike</title>
-
+    <%
+    title = "Sell Bike | Sell Used Bike in India - BikeWale";
+    description = "Sell Your Used / pre-owned bike at bikewale.com. Selling at bikewale.com is easy, quick, effective and guaranteed.";
+    keywords = "sell bike, bike sale, used bike sell, second-hand bike sell, sell bike India, list your bike";
+    AdId = "1475577527140";
+    AdPath = "/1017752/BikeWale_UsedSellBikes_";
+    isAd300x250Shown = false;
+    isAd300x250BTFShown = false;
+    isAd970x90Shown = false;
+%>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
 
-    <link href="/css/sell-bike.css" rel="stylesheet" type="text/css" />
-    <link href="/css/dropzone.css" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/sell-bike.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/dropzone.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>
@@ -151,7 +159,7 @@
 
                                             <div class="panel-row margin-bottom20">
                                                 <div id="div-expectedPrice" class="input-box form-control-box" data-bind="css: expectedPrice().length > 0 ? 'not-empty' : ''">
-                                                    <input type="number" id="expectedPrice" min="1" data-bind="textInput: expectedPrice, validationElement: expectedPrice" />
+                                                    <input type="number" min="1" id="expectedPrice" data-bind="textInput: expectedPrice, validationElement: expectedPrice" />
                                                     <label for="expectedPrice">Expected price<sup>*</sup></label>
                                                     <span class="boundary"></span>
                                                     <span class="error-text" data-bind="validationMessage: expectedPrice"></span>
@@ -235,7 +243,7 @@
                                             </div>
 
                                             <div class="panel-row">
-                                                <input type="button" class="btn btn-orange btn-primary-big" value="Save and Continue" data-bind="click: saveBikeDetails" />
+                                                <input type="button" id="btnSaveBikeDetails" class="btn btn-orange btn-primary-big" value="Save and Continue" data-bind="click: saveBikeDetails" />
                                             </div>
                                         </div>
                                         <div class="clear"></div>
@@ -248,11 +256,11 @@
                                         <div class="panel-body" data-bind="visible: formStep() == 2 && !verificationDetails().status()">
                                             <div class="panel-row margin-bottom30">
                                                 <ul id="seller-type-list">
-                                                    <li data-bind="click: personalDetails().sellerType, attr: {value: 2}" class="checked">
+                                                    <li data-bind="click: personalDetails().sellerType, attr: { value: 2 }, css: personalDetails().sellerTypeVal() == 2 ? 'checked' : ''" >
                                                         <span class="bwsprite radio-icon"></span>
                                                         <span class="seller-label">I am an Individual</span>
                                                     </li>
-                                                    <li data-bind="click: personalDetails().sellerType, attr: { value: 1 }">
+                                                    <li data-bind="click: personalDetails().sellerType, attr: { value: 1 }, css: personalDetails().sellerTypeVal() == 1 ? 'checked' : ''">
                                                         <span class="bwsprite radio-icon"></span>
                                                         <span class="seller-label">I am a dealer</span>
                                                     </li>
@@ -292,12 +300,13 @@
                                             <div class="panel-row margin-bottom20">
                                                 <div id="terms-content">
                                                     <span class="bwsprite unchecked-box" data-bind="click: personalDetails().terms, css: personalDetails().termsCheckbox ? 'checked': ''"></span>
-                                                    <p>I agree with BikeWale sell bike <a href="" target="_blank">Terms & Conditions</a>, visitor agreement and privacy policy *. I agree that by clicking 'List your bike’ button, I am permitting buyers to contact me on my Mobile number.</p>
+                                                    <p>I agree with BikeWale sell bike <a href="/TermsConditions.aspx" target="_blank">Terms & Conditions</a>, <a target="_blank" href="/visitoragreement.aspx">visitor agreement</a> and <a target="_blank" href="/privacypolicy.aspx">privacy policy</a> *. I agree that by clicking 'List your bike’ button, I am permitting buyers to contact me on my Mobile number.</p>
+                                                    <span class="error-text" data-bind="validationMessage: personalDetails().termsCheckbox"></span>
                                                 </div>
                                             </div>
                                         
                                             <div class="panel-row">
-                                                <input type="button" class="btn btn-orange btn-primary-big margin-right20" value="List your bike" data-bind="click: personalDetails().listYourBike" />
+                                                <input type="button" id ="btnListBike" class="btn btn-orange btn-primary-big margin-right20" value="List your bike" data-bind="click: personalDetails().listYourBike" />
                                                 <input type="button" class="btn btn-white btn-primary-small" value="Previous" data-bind="click: personalDetails().backToBikeDetails" />
                                             </div>
 
@@ -351,7 +360,7 @@
                                         <div class="clear"></div>
                                     </div>
                                     <div class="panel">
-                                        <div class="panel-head">
+                                        <div class="panel-head" id="uploadphoto">
                                             <span class="sell-bike-sprite" data-bind="css: (formStep() == 3) ? 'step-3-active' : 'step-3-inactive'"></span>
                                             <span class="panel-title">More details</span>
                                         </div>
@@ -383,14 +392,14 @@
                                             <div class="panel-row margin-bottom20">
                                                 <div class="input-box form-control-box" data-bind="css: moreDetails().registrationNumber().length > 0 ? 'not-empty' : ''">
                                                     <input type="text" id="registrationNumber" data-bind="textInput: moreDetails().registrationNumber" />
-                                                    <label for="registrationNumber">Registration number<sup>*</sup></label>
+                                                    <label for="registrationNumber">Registration number</label>
                                                     <span class="boundary"></span>
                                                 </div>
                                             </div>
 
                                             <div class="panel-row">
                                                 <div class="select-box select-box-no-input">
-                                                    <p class="select-label">Insurance<sup>*</sup></p>
+                                                    <p class="select-label">Insurance</p>
                                                     <select id="select-insuranceType" class="chosen-select" data-bind="chosen: {}, value: moreDetails().insuranceType" data-title="Insurance">
                                                         <option value></option>
                                                         <option value="Comprehensive">Comprehensive</option>
@@ -410,7 +419,7 @@
                                             </div>
 
                                             <div class="panel-row">
-                                                <input type="button" class="btn btn-orange btn-primary-big margin-right20" value="Update my Ad" data-bind="click: moreDetails().updateAd" />
+                                                <input type="button" id="btnUpdateAd" class="btn btn-orange btn-primary-big margin-right20" value="Update my Ad" data-bind="click: moreDetails().updateAd" />
                                                 <input type="button" class="btn btn-white btn-primary-small" value="No Thanks" data-bind="click: moreDetails().noThanks" />
                                             </div>
 
@@ -426,11 +435,15 @@
                                     </div>
                                     <div class="success-text inline-block">
                                         <p class="font18 text-bold margin-bottom10">Congratulations!</p>
-                                        <p class="font14">Your profile ID is <span data-bind="text: inquiryId"></span>. You can find and edit your ad later using this id. Your bike ad will be live after verification.</p>
+                                        <% if(!isEdit) { %>
+                                        <p class="font14">Your profile ID is <span data-bind="text: profileId"></span>. You can find and edit your ad later using this id. Your bike ad will be live after verification.</p>
+                                        <% } else { %>
+                                        <p class="font14">Your changes have been recorded. Your ad will be live after verification.</p>
+                                        <% } %>
                                     </div>
                                     <div id="form-success-btn-group">
                                         <input type="button" class="btn btn-orange btn-primary-small margin-right20" value="Done" data-bind="click: congratsScreenDoneFunction" />
-                                        <input  type="button" class="btn btn-white btn-primary-small" value="Edit my Ad " data-bind="click: editMyAd" />
+                                        <input  type="button" id ="btnEditAd" class="btn btn-white btn-primary-small" value="Edit my Ad " data-bind="click: editMyAd" />
                                     </div>
                                 </div>
 
@@ -471,7 +484,7 @@
                                                 <span class="sell-bike-sprite buyers-icon"></span>
                                                 <div class="feature-item inline-block">
                                                     <p class="feature-title">Genuine buyers</p>
-                                                    <p>Over x million are online on BikeWale looking a used bike</p>
+                                                    <p>Over 3.5 million users on BikeWale are looking a used bike</p>
                                                 </div>
                                             </li>
                                             <li>
@@ -484,7 +497,7 @@
                                             <li>
                                                 <span class="sell-bike-sprite listing-icon"></span>
                                                 <div class="feature-item inline-block">
-                                                    <p class="feature-title">Listing is here to stay</p>
+                                                    <p class="feature-title">Unlimited listing duration</p>
                                                     <p>Your bike ad will be visible to our users until you've sold your bike</p>
                                                 </div>
                                             </li>
@@ -492,7 +505,7 @@
                                                 <span class="sell-bike-sprite message-icon"></span>
                                                 <div class="feature-item inline-block">
                                                     <p class="feature-title">Get contact details of buyers</p>
-                                                    <p>Keep yourself away from frenzy calls as we will send buyers details</p>
+                                                    <p>We will send you the details of buyers through SMS and mail</p>
                                                 </div>
                                             </li>
                                         </ul>
@@ -510,36 +523,38 @@
             </div>
         </section>
 
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+
         <script type="text/javascript"> 
             var userId = '<%= userId%>';    
             var isEdit = '<%= isEdit %>';
             var inquiryId = '<%= inquiryId %>';
             var isAuthorized = '<%= isAuthorized%>';
-            var inquiryDetails = '<%= Newtonsoft.Json.JsonConvert.SerializeObject(inquiryDTO) %>';
+            var inquiryDetailsJSON = '<%= Newtonsoft.Json.JsonConvert.SerializeObject(inquiryDTO) %>';
             var userName = '<%= userName%>';
             var userEmail = '<%= userEmail%>';
         </script>
-
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
         
         <!-- #include file="/includes/footerBW.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
-        <script type="text/javascript" src="/src/knockout.validation.js"></script>
-        <script type="text/javascript" src="/src/dropzone.js"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/knockout.validation.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/imageUpload.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dropzone.js?<%=staticFileVersion %>"></script>
         <% if(isAuthorized) { %>
-        <script type="text/javascript" src="/src/sell-bike.js"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/sell-bike.js?<%=staticFileVersion %>"></script>
         <%} %>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
         <!--[if lt IE 9]>
             <script src="/src/html5.js"></script>
         <![endif]-->
-
-<%--        <script type="text/javascript">
-            $(window).on('beforeunload', function () {
-                return "jkxasjdlajsdljlasd";
-            });
-        </script>--%>
+        <script type="text/javascript">
+            window.onbeforeunload = function () {
+                if (vmSellBike.formStep() < 4) {
+                    return true;
+                }                
+            }
+        </script>
         
     </form>
 </body>

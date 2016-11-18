@@ -56,32 +56,33 @@ namespace Bikewale.Used
             if (!isPageNotFound)
             {
 
-                if (inquiryDetails != null && inquiryDetails.PhotosCount == 0)
+                if (inquiryDetails != null)
                 {
+                    BindUserControls();
                     widgetUploadPhotoRequest.ProfileId = profileId;
                     widgetUploadPhotoRequest.BikeName = bikeName;
-
-                    BindUserControls();
-
-                    using (IUnityContainer container = new UnityContainer())
+                    if (inquiryDetails.PhotosCount == 0)
                     {
-                        bool isDealer;
-                        string inquiryId = "", consumerType = "";
-                        CustomerEntityBase buyer = new CustomerEntityBase();
-
-                        BWCookies.GetBuyerDetailsFromCookie(ref buyer);
-
-                        if (buyer.CustomerId > 0)
+                        using (IUnityContainer container = new UnityContainer())
                         {
-                            container.RegisterType<IUsedBikeBuyerRepository, UsedBikeBuyerRepository>();
-                            IUsedBikeBuyerRepository _buyerRepo = container.Resolve<IUsedBikeBuyerRepository>();
-                            UsedBikeProfileId.SplitProfileId(profileId, out inquiryId, out consumerType);
-                            //set bool for dealer listing or individual
-                            isDealer = consumerType.Equals("D", StringComparison.CurrentCultureIgnoreCase);
+                            bool isDealer;
+                            string inquiryId = "", consumerType = "";
+                            CustomerEntityBase buyer = new CustomerEntityBase();
 
-                            isPhotoRequestDone = _buyerRepo.IsPhotoRequestDone(inquiryId, buyer.CustomerId, isDealer);
+                            BWCookies.GetBuyerDetailsFromCookie(ref buyer);
+
+                            if (buyer.CustomerId > 0)
+                            {
+                                container.RegisterType<IUsedBikeBuyerRepository, UsedBikeBuyerRepository>();
+                                IUsedBikeBuyerRepository _buyerRepo = container.Resolve<IUsedBikeBuyerRepository>();
+                                UsedBikeProfileId.SplitProfileId(profileId, out inquiryId, out consumerType);
+                                //set bool for dealer listing or individual
+                                isDealer = consumerType.Equals("D", StringComparison.CurrentCultureIgnoreCase);
+
+                                isPhotoRequestDone = _buyerRepo.IsPhotoRequestDone(inquiryId, buyer.CustomerId, isDealer);
+                            }
+
                         }
-
                     }
                 }
             }
@@ -153,7 +154,7 @@ namespace Bikewale.Used
                         modelYear = usedBikeDetails.ModelYear;
                         moreBikeSpecsUrl = usedBikeDetails.MoreBikeSpecsUrl;
                         moreBikeFeaturesUrl = usedBikeDetails.MoreBikeFeaturesUrl;
-                        profileId = string.Format("S{0}", inquiryId);
+                        profileId = usedBikeDetails.ProfileId;
                         isPageNotFound = usedBikeDetails.IsPageNotFoundRedirection;
                         isBikeSold = usedBikeDetails.IsBikeSold;
                     }

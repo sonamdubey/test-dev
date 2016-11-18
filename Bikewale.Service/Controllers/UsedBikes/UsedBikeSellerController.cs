@@ -90,8 +90,8 @@ namespace Bikewale.Service.Controllers.UsedBikes
         }
 
 
-        [HttpPost, ResponseType(typeof(bool)), Route("api/used/sell/listing/{profileId}/verifymobile/")]
-        public IHttpActionResult Post(SellerDTO seller)
+        [HttpPost, ResponseType(typeof(bool)), Route("api/used/sell/listing/verifymobile/")]
+        public IHttpActionResult Post([FromBody]SellerDTO seller)
         {
             SellerEntity sellerEntity = null;
             bool result;
@@ -115,16 +115,13 @@ namespace Bikewale.Service.Controllers.UsedBikes
         /// <param name="isMain"></param>
         /// <returns></returns>
         [HttpPost, Route("api/used/{profileId}/image/upload/")]
-        public IHttpActionResult Post(string profileId, bool? isMain)
+        public IHttpActionResult Post(string profileId, string extension, bool? isMain)
         {
             try
             {
                 string strCustomerId = Request.Headers.Contains("customerId") ? Request.Headers.GetValues("customerId").FirstOrDefault() : "";
-                var request = HttpContext.Current.Request;
                 UInt64 customerId = 0;
                 if (!string.IsNullOrEmpty(strCustomerId)
-                    && (request.Files != null
-                    && request.Files.Count > 0)
                     && Utility.UsedBikeProfileId.IsValidProfileId(profileId)
                     && UInt64.TryParse(strCustomerId, out customerId)
                     && customerId > 0)
@@ -133,11 +130,23 @@ namespace Bikewale.Service.Controllers.UsedBikes
                     isMain.HasValue ? isMain.Value : false,
                     customerId,
                     profileId,
-                    "",
-                    request.Files
+                    extension,
+                    ""
                     );
                     SellBikeImageUploadResultDTO result = UsedBikeBuyerMapper.Convert(uploadResult);
-                    return Ok(result);
+
+                    if (result != null && result.Status == ImageUploadResultStatusDTO.Success)
+                    {
+                        return Ok(result);
+                    }
+                    else if (result == null)
+                    {
+                        return InternalServerError();
+                    }
+                    else
+                    {
+                        return BadRequest("Server refused the request");
+                    }
                 }
                 else
                 {

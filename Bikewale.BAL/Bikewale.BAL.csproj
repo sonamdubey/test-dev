@@ -126,6 +126,7 @@
     <Compile Include="GrpcFiles\GrpcToBikeWaleConvert.cs" />
     <Compile Include="GrpcFiles\Messages.cs" />
     <Compile Include="GrpcFiles\MessagesGrpc.cs" />
+    <Compile Include="Images\ImageBL.cs" />
     <Compile Include="Location\Cities.cs" />
     <Compile Include="Location\States.cs" />
     <Compile Include="MobileVerification\MobileVerification.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="PriceQuote\PQByCityArea.cs" />
     <Compile Include="PriceQuote\PriceQuote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\SecurityBL.cs" />
     <Compile Include="UsedBikes\SellBikes.cs" />
     <Compile Include="ServiceCenter\ServiceCenter.cs" />
     <Compile Include="Used\ProcessSearchFilters.cs" />

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+
 namespace Bikewale.DAL.Used
 {
     /// <summary>
@@ -92,7 +93,7 @@ namespace Bikewale.DAL.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_expectedprice", DbType.Int64, ad.Expectedprice));
                     //cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 250, ad.OtherInfo.AdDescription));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbType.Byte, ad.SourceId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sellertype", DbType.Byte, Convert.ToByte(ad.Seller.SellerType)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sellertype", DbType.Int16, (int)ad.Seller.SellerType));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customername", DbType.String, 50, ad.Seller.CustomerName));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbType.String, 100, ad.Seller.CustomerEmail));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, 20, ad.Seller.CustomerMobile));
@@ -129,9 +130,9 @@ namespace Bikewale.DAL.Used
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "classified_updateotherindivdualsellbikeinfo";
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_registrationno", DbType.String, 50, otherInfo.RegistrationNo));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_registrationno", DbType.String, 50, Utility.FormatDescription.SanitizeHtml(otherInfo.RegistrationNo)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_insurancetype", DbType.String, 20, otherInfo.InsuranceType));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 250, otherInfo.AdDescription));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 250, Utility.FormatDescription.SanitizeHtml(otherInfo.AdDescription)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerId", DbType.Int32, customerId));
                     isSuccess = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
@@ -209,7 +210,7 @@ namespace Bikewale.DAL.Used
                             };
                             SellerType st;
                             SellAdStatus sa;
-                            Enum.TryParse<SellerType>(Convert.ToString(dr["sellertype"]), out st);
+                            st = (SellerType)Convert.ToByte(dr["sellertype"]);
                             Enum.TryParse<SellAdStatus>(Convert.ToString(dr["statusid"]), out sa);
                             objAd.Seller.SellerType = st;
 

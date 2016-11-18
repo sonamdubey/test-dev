@@ -73,7 +73,7 @@ var validation = {
 
     userMobile: function (val) {
         var regexMobile = /^[1-9][0-9]{9}$/;
-        
+
         if (val[0] == "0" || !regexMobile.test(val)) {
             vmSellBike.personalDetails().mobileLabel(false);
             return false;
@@ -110,13 +110,12 @@ var sellBike = function () {
     self.inquiryId = ko.observable(0);
     self.customerId = ko.observable();
     self.profileId = ko.pureComputed(function getProfileId() {
-       return ((self.personalDetails().sellerTypeVal() == 1 ? "D" : "S") + self.inquiryId());
+        return ((self.personalDetails().sellerTypeVal() == 1 ? "D" : "S") + self.inquiryId());
     }, this);
     if (isAuthorized == "False") {
         self.isFakeCustomer = ko.observable(true);
     }
-    else
-    {
+    else {
         self.isFakeCustomer = ko.observable(false);
     }
 
@@ -146,35 +145,38 @@ var sellBike = function () {
 
     self.photoUploadUrl = ko.pureComputed(function () {
         if (self.inquiryId() > 0 && self.personalDetails() && self.personalDetails().sellerTypeVal()) {
-            var photoUrl = self.profileId() + "/image/upload/?isMain=false";
+            var photoUrl = "/api/used/" + self.profileId() + "/image/upload/?isMain=false&extension=";
         }
         return photoUrl;
-    }, this)
+    });
 
-    self.serverImg = ko.observableArray([]);    
+    self.serverImg = ko.observableArray([]);
     self.initPhotoUpload = function () {
         $('#add-photos-dropzone').dropzone({
             maxFilesize: 4,
             maxFiles: 10,
             addRemoveLinks: true,
-            acceptedFiles: ".png, .jpg",
-            url: "/api/used/" + self.photoUploadUrl(),
+            acceptedFiles: ".png, .jpg",            
+            url: self.photoUploadUrl(),
             headers: { "customerId": self.customerId() },
             init: function () {
-                var myDropzone = this;                                
-                $(self.serverImg()).each(function (i) {                    
+                var myDropzone = this;                
+                myDropzone.itemId = self.inquiryId();
+                myDropzone.photoIdGenerateUrl = self.photoUploadUrl();
+                myDropzone.customerId = self.customerId();
+                $(self.serverImg()).each(function (i) {
                     var uF = { name: this.id, size: 12345 };
                     myDropzone.files.push(uF)
                     myDropzone.emit("addedfile", uF);
                     myDropzone.emit("thumbnail", uF, this.imageUrl);
                     myDropzone.createThumbnailFromUrl(uF, this.imageUrl);
                     myDropzone.emit("complete", uF);
-                    setProfilePhoto();                    
+                    setProfilePhoto();
                     $(myDropzone.files[i].previewElement).addClass("dz-success").find("#spinner-content").hide();
                     $(myDropzone.files[i].previewElement).addClass("dz-success").find(".dz-success-mark").hide();
                     $(myDropzone.files[i].previewElement).find(".dz-remove").attr("photoid", this.id);
                 });
-                myDropzone.options.maxFiles -= self.serverImg().length;                
+                myDropzone.options.maxFiles -= self.serverImg().length;
 
                 this.on("sending", function (file) {
                     $(file.previewElement).find('#spinner-content').hide();
@@ -185,16 +187,15 @@ var sellBike = function () {
                     setProfilePhoto();
                 });
 
-                this.on("success", function (file,response) {
+                this.on("success", function (file, response) {
                     var resp = JSON.parse(response);
                     setProfilePhoto();
-                    if(resp && resp.imageResult && resp.imageResult.length > 0 && resp.status == 1)
-                    {                        
+                    if (resp && resp.imageResult && resp.imageResult.length > 0 && resp.status == 1) {
                         setRemoveLinkUrl(file, resp.imageResult);
                     }
                 });
 
-                this.on("error", function (file, response) {                    
+                this.on("error", function (file, response) {
                     $(file.previewElement).find('#spinner-content').hide();
                     if (file.xhr && file.xhr.status == 0)
                         $(file.previewElement).find('.dz-error-message').text("You're offline.");
@@ -206,13 +207,13 @@ var sellBike = function () {
                     });
                 });
 
-                this.on("maxfilesexceeded", function (file) {                                        
+                this.on("maxfilesexceeded", function (file) {
                     $(file.previewElement).find('.dz-error-message').text("File upload limit reached");
                 });
 
-                this.on("addedfiles", function (file) {                    
+                this.on("addedfiles", function (file) {
                     if (file.length > myDropzone.options.maxFiles) {
-                        $(file).each(function (i) {                            
+                        $(file).each(function (i) {
                             if (i >= self.serverImg().length) {
                                 myDropzone.cancelUpload(this);
                                 myDropzone.removeFile(this);
@@ -238,7 +239,7 @@ var sellBike = function () {
                         xhr.setRequestHeader('customerId', self.customerId());
                     },
                     success: function (response) {
-                        
+
                     },
                     complete: function (xhr, ajaxOptions, thrownError) {
                         if (xhr && xhr.status == 4) {
@@ -311,7 +312,7 @@ var bikeDetails = function () {
         self.makeName = $(event.target).find(':selected').text();
         self.makeMaskingName = $(event.target).find(':selected').attr("data-masking");
         var blankEntry = { "modelId": -1, "modelName": "", "maskingName": "" };
-        
+
         if (self.make() != null) {
             $.ajax({
                 type: "Get",
@@ -343,12 +344,12 @@ var bikeDetails = function () {
     };
 
     self.modelChanged = function (data, event) {
-        self.versionArray([]);        
+        self.versionArray([]);
 
         self.modelId = $(event.target).val() ? $(event.target).val() : self.model();
         self.modelName = $(event.target).find(':selected').text();
 
-       
+
 
         var blankEntry = { "versionId": -1, "versionName": "" };
 
@@ -359,20 +360,20 @@ var bikeDetails = function () {
                 contentType: "application/json",
                 dataType: 'json',
                 success: function (response) {
-                    if(response.Version.length > 1){
-                    if (response) {
+                    if (response && response.Version.length > 1) {
                         var tempArr = [];
                         tempArr.push(blankEntry);
                         tempArr = tempArr.concat(response.Version);
                         self.versionArray(tempArr);
                         $('#version-select-element.select-box').removeClass('done');
                         $('#version-select-element select').prop('disabled', false).trigger("chosen:updated");
+                        $('#version-select-element .chosen-disabled').removeClass('single-version');
                     }
-                    } else
-                    {
-                        self.versionArray(response.Version);                        
+                    else {
+                        self.versionArray(response.Version);
                         $('#version-select-element.select-box').addClass('done');
                         $('#version-select-element select').prop('disabled', true).trigger("chosen:updated");
+                        $('#version-select-element .chosen-disabled').addClass('single-version');
                     }
                 },
                 complete: function (xhr, ajaxOptions, thrownError) {
@@ -384,9 +385,9 @@ var bikeDetails = function () {
                 }
             });
         }
-       
-     
-        
+
+
+
     };
 
     self.versionChanged = function (data, event) {
@@ -417,10 +418,10 @@ var bikeDetails = function () {
                 }
             });
         }
-        
+
     };
 
-   self.make = ko.observable().extend({
+    self.make = ko.observable().extend({
         required: {
             params: true,
             message: 'Please select brand',
@@ -470,7 +471,7 @@ var bikeDetails = function () {
         },
         {
             validator: validation.kmsMaxValue,
-            message: 'Please enter kms value less than 10,00,000',
+            message: 'Please enter valid kms',
             onlyIf: function () {
                 return self.validate();
             }
@@ -496,7 +497,7 @@ var bikeDetails = function () {
         },
         {
             validator: validation.priceMaxValue,
-            message: 'Please enter expected price less than 60,00,000',
+            message: 'Please enter valid price',
             onlyIf: function () {
                 return self.validate();
             }
@@ -543,7 +544,7 @@ var bikeDetails = function () {
         }
     });
 
-    
+
     self.colorSelection = function (data, event) {
         if (event != null) {
             var element = $(event.currentTarget);
@@ -585,7 +586,7 @@ var bikeDetails = function () {
 
     self.saveBikeDetails = function (data, event) {
         self.validate(true);
-        
+
         if (self.errors().length === 0) {
             vmSellBike.formStep(2);
         }
@@ -594,11 +595,12 @@ var bikeDetails = function () {
         }
 
         scrollToForm.activate();
+        vmSellBike.verificationDetails().status(false);
     };
 
     self.errors = ko.validation.group(self);
     self.colorError = ko.validation.group(self.otherColor);
-    
+
     self.manufactureYear = ko.observable('');
     self.manufactureMonth = ko.observable('');
     self.manufactureMonthName = ko.observable('');
@@ -641,19 +643,27 @@ var personalDetails = function () {
 
     self.validate = ko.observable(false);
     self.mobileLabel = ko.observable(true);
-    self.termsCheckbox = ko.observable(true);
+    self.termsCheckbox = ko.observable(true).extend({
+        validation: [{
+            validator: function (val) {
+                return val;
+            },
+            message: 'Required!',
+            onlyIf: function () {
+                return self.validate();
+            }
+        }]
+    });
 
     self.sellerType = function (data, event) {
-
-        if(event != null) {
+        if (event != null) {
             var element = $(event.currentTarget);
-            
+
             if (!element.hasClass('checked')) {
                 sellerType.check(element);
             }
+            self.sellerTypeVal(element.attr("value"));
         }
-
-        
     };
 
     self.sellerName = ko.observable('').extend({
@@ -726,15 +736,15 @@ var personalDetails = function () {
         }
     };
 
-    self.sellerTypeVal = ko.observable(0);
+    self.sellerTypeVal = ko.observable(2);
 
-    self.listYourBike = function () {        
+    self.listYourBike = function () {
         self.validate(true);
 
         if (!("colorId" in window))
             colorId = 0;
 
-        var sellerType = $('#seller-type-list .checked').attr("value");        
+        var sellerType = $('#seller-type-list .checked').attr("value");
         self.sellerTypeVal(sellerType);
         var km = vmSellBike.bikeDetails().kmsRidden();
 
@@ -742,19 +752,19 @@ var personalDetails = function () {
 
             var bdetails = vmSellBike.bikeDetails();
             var pdetails = vmSellBike.personalDetails();
-          var inquiryData = {
-              "InquiryId": vmSellBike.inquiryId() > 0 ? vmSellBike.inquiryId() : 0,
+            var inquiryData = {
+                "InquiryId": vmSellBike.inquiryId() > 0 ? vmSellBike.inquiryId() : 0,
                 "make": {
                     "makeId": bdetails.makeId,
                     "makeName": bdetails.makeName,
                     "maskingName": bdetails.makeMaskingName
                 },
-                "model": { 
+                "model": {
                     "modelId": bdetails.modelId,
                     "modelName": bdetails.modelName,
                     "maskingName": null
                 },
-                "version": { 
+                "version": {
                     "versionId": bdetails.versionId,
                     "versionName": bdetails.versionName,
                     "modelName": bdetails.modelName,
@@ -784,29 +794,28 @@ var personalDetails = function () {
                     "insuranceType": "",
                     "adDescription": ""
                 }
-           }        
+            }
 
-          $.ajax({
+            $.ajax({
                 type: "POST",
-                url: "/api/used/sell/listing/",                
+                url: "/api/used/sell/listing/",
                 contentType: "application/json",
                 data: ko.toJSON(inquiryData),
                 async: false,
-                success: function (response) {                    
-                    var res = JSON.parse(response);                    
+                success: function (response) {
+                    var res = JSON.parse(response);
                     if (res != null && res.Status != null && res.Status.Code == 4) {      // if user is not verified
-                        vmSellBike.verificationDetails().status(true);                     
+                        vmSellBike.verificationDetails().status(true);
                         vmSellBike.inquiryId(res.InquiryId);
                         vmSellBike.customerId(res.CustomerId);
-                        }
-                    else if (res != null && res.Status != null && res.Status.Code == 5) {
+                    }
+                    else if (res != null && res.Status != null && res.Status.Code == 5) {                    
                         vmSellBike.inquiryId(res.InquiryId);
                         vmSellBike.customerId(res.CustomerId);
                         vmSellBike.formStep(3);
                         vmSellBike.initPhotoUpload();
                     }
-                    else 
-                    {
+                    else {
                         vmSellBike.isFakeCustomer(true);
                     }
                 },
@@ -814,7 +823,7 @@ var personalDetails = function () {
 
                 }
             });
-            
+
             //scrollToForm.activate();
         }
         else {
@@ -830,7 +839,7 @@ var personalDetails = function () {
         vmSellBike.formStep(1);
         scrollToForm.activate();
         vmSellBike.verificationDetails().status(false);
-    };    
+    };
 
     self.errors = ko.validation.group(self);
     self.mobileError = ko.validation.group(self.sellerMobile);
@@ -897,8 +906,8 @@ var verificationDetails = function () {
     });
 
     self.submitUpdatedMobile = function () {
-        self.validateMobile(true);
-
+        self.validateMobile(true);              
+        $('#otpCode').val("");
         if (self.errorMobile().length === 0) {
             self.updateMobileStatus(false);
             vmSellBike.personalDetails().sellerMobile(self.updatedMobile());
@@ -906,6 +915,7 @@ var verificationDetails = function () {
             $('#otpCode').focus();
             self.validateOTP(false);
             scrollToForm.activate();
+            vmSellBike.personalDetails().listYourBike();
         }
         else {
             self.errorMobile.showAllMessages();
@@ -916,25 +926,36 @@ var verificationDetails = function () {
         self.validateOTP(true);
 
         if (self.errorOTP().length === 0) {
-            
+
             scrollToForm.activate();
-            
+
             var otp = vmSellBike.verificationDetails().otpCode();
             var mobile = vmSellBike.personalDetails().sellerMobile();
+         
+            var mobileVerificationData = {
+                "sellerType": vmSellBike.personalDetails().sellerTypeVal() ,
+                "otp": otp,
+                "customerMobile": mobile,
+                "customerId": vmSellBike.customerId(),
+                "inquiryId": vmSellBike.inquiryId(),
+                "isEdit"   : isEdit
+            }
 
             $.ajax({
                 type: "Post",
-                url: "/api/mobileverification/validateotp/?mobile=" + mobile + "&otp=" + otp ,
+                url: "/api/used/sell/listing/verifymobile/",
                 contentType: "application/json",
+                data: ko.toJSON(mobileVerificationData),
                 dataType: 'json',
-                success: function (response) {                    
+                success: function (response) {
                     if (!response) {
                         $("#otpErrorText").show().text("Please enter correct otp");
                         $('#otpCode').focus();
                     }
                     else {
                         $("#otpErrorText").text("");
-                        vmSellBike.formStep(3);
+                        vmSellBike.formStep(3);                        
+                        vmSellBike.initPhotoUpload();
                     }
                 },
                 complete: function (xhr, ajaxOptions, thrownError) {
@@ -963,11 +984,10 @@ var moreDetails = function () {
     self.updateAd = function () {
 
         var moreDetailsData = {
-            "registrationNo" : vmSellBike.moreDetails().registrationNumber(),
-            "insuranceType" :  vmSellBike.moreDetails().insuranceType(),
-            "adDescription" : vmSellBike.moreDetails().adDescription()
+            "registrationNo": vmSellBike.moreDetails().registrationNumber(),
+            "insuranceType": vmSellBike.moreDetails().insuranceType(),
+            "adDescription": vmSellBike.moreDetails().adDescription() ? vmSellBike.moreDetails().adDescription().replace(/\s/g, ' ') : ''
         }
-
         $.ajax({
             type: "Post",
             url: "/api/used/sell/listing/otherinfo/?inquiryId=" + vmSellBike.inquiryId() + "&customerId=" + vmSellBike.customerId(),
@@ -975,8 +995,8 @@ var moreDetails = function () {
             dataType: 'json',
             data: ko.toJSON(moreDetailsData),
             success: function (response) {
-                
-               
+
+
             }
            ,
             complete: function (xhr, ajaxOptions, thrownError) {
@@ -987,7 +1007,7 @@ var moreDetails = function () {
         vmSellBike.formStep(4);
         scrollToForm.activate();
     };
-    
+
     self.noThanks = function () {
         vmSellBike.formStep(4);
         scrollToForm.activate();
@@ -1018,21 +1038,21 @@ $(document).ready(function () {
 });
 
 function setPhotoId() {
-    
+
 }
 
 var setProfilePhoto = function () {
-    var container = $('#add-photos-dropzone .dz-preview.dz-success').first();    
+    var container = $('#add-photos-dropzone .dz-preview.dz-success').first();
     if (!container.hasClass('dz-profile-photo')) {
         container.addClass('dz-profile-photo');
-        container.append('<div id="profile-photo-content"><span class="sell-bike-sprite ribbon-icon"></span><span class="ribbon-label">Profile photo</span></div>')        
+        container.append('<div id="profile-photo-content"><span class="sell-bike-sprite ribbon-icon"></span><span class="ribbon-label">Profile photo</span></div>')
         vmSellBike.markMainImage($(container).find(".dz-remove").attr("photoid"));
     }
 };
 
-function setRemoveLinkUrl(file,imageResult) {
+function setRemoveLinkUrl(file, imageResult) {
     var container = $('#add-photos-dropzone .dz-preview.dz-success');
-    var existingPhotoCount = $('#add-photos-dropzone .dz-preview.dz-success[photoid]').length;    
+    var existingPhotoCount = $('#add-photos-dropzone .dz-preview.dz-success[photoid]').length;
     $(file._removeLink).attr("photoid", imageResult[0].photoId);
 }
 
@@ -1121,16 +1141,16 @@ $('.select-box select').on('change', function () {
 });
 
 // Disable Mouse scrolling
-$('input[type=number]').on('mousewheel', function (e) { $(this).blur();});
+$('input[type=number]').on('mousewheel', function (e) { $(this).blur(); });
 // Disable keyboard scrolling
 $('input[type=number]').on('keydown', function (e) {
-var key = e.charCode || e.keyCode;
+    var key = e.charCode || e.keyCode;
     // Disable Up and Down Arrows on Keyboard
-if (key == 38 || key == 40) {
-    e.preventDefault();
-} else {
-    return;
-}
+    if (key == 38 || key == 40) {
+        e.preventDefault();
+    } else {
+        return;
+    }
 });
 
 var scrollToForm = {
@@ -1187,7 +1207,7 @@ $('#month-list').on('click', 'li', function () {
 var calender = {
 
     width: 360,
-    
+
     year: {
         list: $('#year-list'),
 
@@ -1196,7 +1216,7 @@ var calender = {
                 yearCount = endYear - startYear,
                 years = [],
                 limit = 5;
-            
+
             for (var i = endYear; i >= startYear; i--) {
                 years.push(i);
             }
@@ -1215,7 +1235,7 @@ var calender = {
                 }
 
                 var item = '';
-                for(var x = 0; x < bundle.length; x++) {
+                for (var x = 0; x < bundle.length; x++) {
                     item += '<span data-value="' + bundle[x] + '">' + bundle[x] + '</span>';
                 };
 
@@ -1227,7 +1247,7 @@ var calender = {
                     $('<li>' + item + '</li>').insertBefore(listItems.first());
                 }
             }
-                        
+
         },
 
         selection: function (element) {
@@ -1289,7 +1309,7 @@ var calender = {
             }
 
             var currentMonth = new Date().getMonth() + 1;
-            
+
         },
 
         selection: function (element) {
@@ -1323,10 +1343,10 @@ var calender = {
 
 $(function () {
     if (isEdit == "True") {
-        if (isAuthorized == "False") {            
+        if (isAuthorized == "False") {
             vmSellBike.isFakeCustomer(true);
         }
-        inquiryDetails = JSON.parse(inquiryDetails);
+        inquiryDetails = JSON.parse(inquiryDetailsJSON);
         var bdetails = vmSellBike.bikeDetails();
         var pdetails = vmSellBike.personalDetails();
         var mdetails = vmSellBike.moreDetails();
@@ -1339,25 +1359,27 @@ $(function () {
         bdetails.expectedPrice(inquiryDetails.expectedprice);
         $("#div-kmsRidden").addClass('not-empty');
         $("#div-expectedPrice").addClass('not-empty');
-        bdetails.colorId(inquiryDetails.colorId);        
+        bdetails.colorId(inquiryDetails.colorId);
         bdetails.manufactureYear((new Date(inquiryDetails.manufacturingYear)).getFullYear());
-        bdetails.manufactureMonth((new Date(inquiryDetails.manufacturingYear)).getMonth() + 1);       
+        bdetails.manufactureMonth((new Date(inquiryDetails.manufacturingYear)).getMonth() + 1);
         $("#select-registeredCity").trigger("change").trigger("chosen:updated");
         var monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         var month = (new Date(inquiryDetails.manufacturingYear)).getMonth();
         bdetails.manufactureMonthName(monthArr[month]);
         $("#select-calendar-box").addClass('selection-done');
-        pdetails.sellerType(inquiryDetails.seller.sellerType);
+        pdetails.sellerTypeVal(inquiryDetails.seller.sellerType);
         pdetails.sellerName(inquiryDetails.seller.customerName);
         pdetails.sellerEmail(inquiryDetails.seller.customerEmail);
         pdetails.sellerMobile(inquiryDetails.seller.customerMobile);
+        pdetails.sellerType(inquiryDetails.seller.sellerType);
         vmSellBike.inquiryId(inquiryDetails.InquiryId);
         vmSellBike.customerId(inquiryDetails.seller.customerId);
         mdetails.adDescription(inquiryDetails.otherInfo.adDescription);
         mdetails.registrationNumber(inquiryDetails.otherInfo.registrationNo);
         mdetails.insuranceType(inquiryDetails.otherInfo.insuranceType);
-
         $("#select-insuranceType").trigger("change").trigger("chosen:updated");
+        $('#month-list').find("[data-value='" + ((new Date(inquiryDetails.manufacturingYear)).getMonth() + 1) + "']").addClass('selected');
+        $('#year-list').find("[data-value='" + ((new Date(inquiryDetails.manufacturingYear)).getFullYear()) + "']").addClass('selected');
 
         $('#model-select-element select').prop('disabled', true).trigger("chosen:updated");
         $('#make-select-element select').prop('disabled', true).trigger("chosen:updated");
@@ -1365,12 +1387,23 @@ $(function () {
 
         vmSellBike.serverImg(inquiryDetails.photos);
         if (window.location.hash == "#uploadphoto")
+        {
             vmSellBike.formStep(3);
-    }    
-    if(userId != null)
-    {
+            vmSellBike.initPhotoUpload();
+        }
+
+        $('#btnSaveBikeDetails').val("Update and Continue");
+        $('#btnListBike').val("Update and Continue");
+        $('#btnUpdateAd').val("Update my listing");
+        $('#btnEditAd').hide();
+    }
+    else {
+        $("#kmsRidden").val('');
+        $("#expectedPrice").val('');
+    }
+    if (userId != null) {
         var pdetails = vmSellBike.personalDetails();
         pdetails.sellerName(userName);
         pdetails.sellerEmail(userEmail);
-    }
+    }    
 });

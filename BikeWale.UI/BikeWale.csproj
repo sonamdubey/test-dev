@@ -400,10 +400,6 @@
       <DependentUpon>MostPopularBikesMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-     <Compile Include="controls\LogInoutControl.ascx.cs">
-      <DependentUpon>LogInoutControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="controls\NewsMin.ascx.cs">
       <DependentUpon>NewsMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -826,6 +822,10 @@
     </Compile>
     <Compile Include="m\controls\LocateDealer.ascx.cs">
       <DependentUpon>LocateDealer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\LogInOutControl.ascx.cs">
+      <DependentUpon>LogInOutControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\MMostPopularBikes.ascx.cs">
@@ -1389,12 +1389,8 @@
       <DependentUpon>confirmation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="used\sell\default_v1.aspx.cs">
-      <DependentUpon>default_v1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="used\sell\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="used\sell\default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="used\sell\UploadBasic.aspx.cs">
@@ -1797,7 +1793,6 @@
     <Content Include="content\UserReviews\WriteReviews.aspx" />
     <Content Include="controls\DealerCard.ascx" />
     <Content Include="controls\LeadCaptureControl.ascx" />
-    <Content Include="controls\LogInoutControl.ascx" />
     <Content Include="controls\MostPopularBikesMin.ascx" />
     <Content Include="controls\NewsMin.ascx" />
     <Content Include="controls\OtherUsedBikeByCity.ascx" />
@@ -2356,6 +2351,7 @@
     <Content Include="m\controls\LinkPagerControl.ascx" />
     <Content Include="m\controls\ListPagerControl.ascx" />
     <Content Include="m\controls\LocateDealer.ascx" />
+    <Content Include="m\controls\LogInOutControl.ascx" />
     <Content Include="m\controls\MMostPopularBikes.ascx" />
     <Content Include="m\controls\MNewLaunchedBikes.ascx" />
     <Content Include="m\controls\servicecentercard.ascx" />
@@ -2643,6 +2639,7 @@
     <Content Include="src\graybox.js" />
     <Content Include="src\home.js" />
     <Content Include="src\html5.js" />
+    <Content Include="src\imageUpload.js" />
     <Content Include="src\insurance.js" />
     <Content Include="src\jquery-ui-1.10.4.custom.min.js" />
     <!-- <Content Include="src\knockout.js" /> -->
@@ -2704,8 +2701,7 @@
     <Content Include="used\Default.aspx" />
     <Content Include="used\Search.aspx" />
     <Content Include="used\sell\confirmation.aspx" />
-    <Content Include="used\sell\default_v1.aspx" />
-    <Content Include="used\sell\Default.aspx" />
+    <Content Include="used\sell\default.aspx" />
     <Content Include="used\sell\UploadBasic.aspx" />
     <Content Include="used\sell\UploadPhotos.aspx" />
     <Content Include="used\sell\UploadPreview.aspx" />

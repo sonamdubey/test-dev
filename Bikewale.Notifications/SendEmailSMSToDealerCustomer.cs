@@ -456,11 +456,35 @@ namespace Bikewale.Notifications
             ComposeEmailBase objEmail = new CustomerRegistrationMailTemplate(customerEmail, customerName, password);
             objEmail.Send(customerEmail, "BikeWale Registration.");
         }
-
+        
+         /// <summary>
+         /// Created by  :   Aditi Srivastava on 14 Nov 2016
+         /// Description :   Send Email to individual seller when the changes in used bike listing are rejected
+         /// </summary>
+         /// <param name="seller"></param>
+         /// <param name="buyer"></param>
+         /// <param name="profileId"></param>
+         /// <param name="bikeName"></param>
+         /// <param name="formattedPrice"></param>
+         public static void UsedBikeEditedRejectionEmailToSeller(CustomerEntityBase seller, string profileId, string bikeName)
+         {
+             ComposeEmailBase objEmail = new EditedListingRejectionEmailToSeller(seller.CustomerName, profileId, bikeName);
+             objEmail.Send(seller.CustomerEmail, String.Format("Changes to your {0} bike listing have not been approved on BikeWale.", bikeName));
+         }
+         
+         /// <summary>
+        /// Created by  :   Aditi Srivastava on 14 Oct 2016
+        /// Description :   Send Email to individual seller about listing their bike details
+        /// </summary>
+        /// <param name="seller"></param>
+        /// <param name="buyer"></param>
+        /// <param name="profileId"></param>
+        /// <param name="bikeName"></param>
+        /// <param name="formattedPrice"></param>
         public static void UsedBikeAdEmailToIndividual(CustomerEntityBase seller, string profileId, string bikeName, string formattedPrice)
         {
             ComposeEmailBase objEmail = new ListingEmailtoIndividualTemplate(seller.CustomerEmail, seller.CustomerName, profileId, bikeName, formattedPrice);
-            objEmail.Send(seller.CustomerEmail, String.Format("You have successfully listed your {0} bike on BikeWale.", bikeName));
+            objEmail.Send(seller.CustomerEmail, String.Format("You have successfully listed your {0} bike on BikeWale.",bikeName));
         }
     }
 }

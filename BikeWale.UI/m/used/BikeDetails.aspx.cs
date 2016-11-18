@@ -160,7 +160,7 @@ namespace Bikewale.Mobile.Used
                         modelYear = usedBikeDetails.ModelYear;
                         moreBikeSpecsUrl = usedBikeDetails.MoreBikeSpecsUrl;
                         moreBikeFeaturesUrl = usedBikeDetails.MoreBikeFeaturesUrl;
-                        profileId = string.Format("S{0}", inquiryId);
+                        profileId = usedBikeDetails.ProfileId;
                         isPageNotFound = usedBikeDetails.IsPageNotFoundRedirection;
                         isBikeSold = usedBikeDetails.IsBikeSold;
                     }

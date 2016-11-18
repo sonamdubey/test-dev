@@ -79,6 +79,7 @@
     <Compile Include="Dealer\DealersRepository.cs" />
     <Compile Include="Dealer\OfferRepository.cs" />
     <Compile Include="Feedback\FeedbackRepository.cs" />
+    <Compile Include="Images\ImageRepository.cs" />
     <Compile Include="Insurance\InsuranceLeadRespositry.cs" />
     <Compile Include="Location\AreaRepository.cs" />
     <Compile Include="Location\CityRepository.cs" />

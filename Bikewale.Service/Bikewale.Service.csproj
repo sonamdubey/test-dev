@@ -226,6 +226,7 @@
     <Compile Include="AutoMappers\Compare\TopBikeCompareBaseMapper.cs" />
     <Compile Include="AutoMappers\DealerLocator\DealerBikesEntityMapper.cs" />
     <Compile Include="AutoMappers\Dealer\DealerListMapper.cs" />
+    <Compile Include="AutoMappers\Images\ImageMapper.cs" />
     <Compile Include="AutoMappers\Make\MakePageEntityMapper.cs" />
     <Compile Include="AutoMappers\NewBikeSearch\SearchOutputMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\Area\PQAreaListMapper.cs" />
@@ -275,6 +276,7 @@
     <Compile Include="Controllers\Dealer\DealersListController.cs" />
     <Compile Include="Controllers\Dealer\OffersController.cs" />
     <Compile Include="Controllers\Dealer\TermsController.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\Insurance\InsuranceLeadController.cs" />
     <Compile Include="Controllers\Insurance\InsuranceModelsController.cs" />
     <Compile Include="Controllers\Insurance\InsuranceVersionsController.cs" />

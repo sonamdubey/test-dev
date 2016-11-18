@@ -28,7 +28,7 @@ namespace Bikewale.Notifications.MailTemplates.UsedBikes
         {
             this.sellerEmail = sellerEmail;
             this.sellerName = sellerName;
-            this.profileNo = profileNo;
+            this.profileNo = profileNo.ToUpper();
             this.bikeName = bikeName;
             this.bikePrice = bikePrice;
         }

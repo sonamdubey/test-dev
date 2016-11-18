@@ -1,6 +1,5 @@
 ﻿
 using Bikewale.Entities.Used;
-using System.Web;
 namespace Bikewale.Interfaces.Used
 {
     /// <summary>
@@ -8,6 +7,8 @@ namespace Bikewale.Interfaces.Used
     /// Summary: Interface for Sell bikes - BAL
     /// Modified By : Aditi Srivastava on 27 Oct 2016
     /// Description : Added function to remove bike photos
+    /// Modified By : Aditi Srivastava on 10 Nov 2016
+    /// Description : Added function to send notification
     /// </summary>
     public interface ISellBikes
     {
@@ -15,9 +16,10 @@ namespace Bikewale.Interfaces.Used
         bool UpdateOtherInformation(SellBikeAdOtherInformation adInformation, int inquiryAd, ulong customerId);
         SellBikeAd GetById(int inquiryId, ulong customerId);
         bool VerifyMobile(SellerEntity seller);
+        void SendNotification(SellBikeAd ad);
         bool IsFakeCustomer(ulong customerId);
         bool RemoveBikePhotos(ulong customerId, string profileId, string photoId);
-        SellBikeImageUploadResultEntity UploadBikeImage(bool isMain, ulong customerId, string profileId, string description, HttpFileCollection imageFile);
+        SellBikeImageUploadResultEntity UploadBikeImage(bool isMain, ulong customerId, string profileId, string fileExtension, string description);
         bool MakeMainImage(uint photoId, ulong customerId, string profileId);
     }
 }

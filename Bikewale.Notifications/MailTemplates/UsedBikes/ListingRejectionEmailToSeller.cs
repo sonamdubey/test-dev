@@ -26,7 +26,7 @@ namespace Bikewale.Notifications.MailTemplates.UsedBikes
         public ListingRejectionEmailToSeller(string sellerName, string profileNo, string bikeName)
         {
             this.sellerName = sellerName;
-            this.profileNo = profileNo;
+            this.profileNo = profileNo.ToUpper();
             this.bikeName = bikeName;
         }
         /// <summary>

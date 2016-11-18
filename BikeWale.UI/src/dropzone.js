@@ -248,7 +248,7 @@
             reset: function () {
                 return this.element.classList.remove("dz-started");
             },
-            addedfile: function (file) {                
+            addedfile: function (file) {
                 var node, removeFileEvent, removeLink, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2, _results;
                 if (this.element === this.previewsContainer) {
                     this.element.classList.add("dz-started");
@@ -267,7 +267,7 @@
                         node = _ref1[_j];
                         node.innerHTML = this.filesize(file.size);
                     }
-                    if (this.options.addRemoveLinks) {                        
+                    if (this.options.addRemoveLinks) {
                         file._removeLink = Dropzone.createElement("<a class=\"dz-remove\" href=\"javascript:void(0);\" data-dz-remove><span class=\"dz-remove-icon bwsprite cross-md-white\"></span></a>");
                         file.previewElement.appendChild(file._removeLink);
                     }
@@ -308,7 +308,7 @@
                 }
                 return this._updateMaxFilesReachedClass();
             },
-            thumbnail: function (file, dataUrl) {                
+            thumbnail: function (file, dataUrl) {
                 var thumbnailElement, _i, _len, _ref;
                 if (file.previewElement) {
                     file.previewElement.classList.remove("dz-file-preview");
@@ -380,7 +380,7 @@
                 return this.emit("error", file, "Upload canceled.");
             },
             canceledmultiple: noop,
-            complete: function (file) {                
+            complete: function (file) {
                 if (file._removeLink) {
                     file._removeLink.innerHTML = "<span class=\"dz-remove-icon bwsprite cross-md-white\" title=\"Remove photo\"></span>";
                 }
@@ -417,6 +417,10 @@
             this.clickableElements = [];
             this.listeners = [];
             this.files = [];
+            this.itemId;
+            this.photoIdGenerateUrl;
+            this.customerId;
+            this.photoId;
             if (typeof this.element === "string") {
                 this.element = document.querySelector(this.element);
             }
@@ -1234,14 +1238,16 @@
         };
 
         Dropzone.prototype.uploadFiles = function (files) {
-            var file, formData, handleError, headerName, headerValue, headers, i, input, inputName, inputType, key, method, option, progressObj, response, updateProgress, url, value, xhr, _i, _j, _k, _l, _len, _len1, _len2, _len3, _m, _ref, _ref1, _ref2, _ref3, _ref4, _ref5;
+            var file, formData, handleError, headerName, headerValue, headers, i, input, inputName, inputType, key, method, option, progressObj, response, updateProgress, url, value, xhr, _i, _j, _k, _l, _len, _len1, _len2, _len3, _m, _ref, _ref1, _ref2, _ref3, _ref4, _ref5, imgUpldUtil, photoId;
             xhr = new XMLHttpRequest();
-            for (_i = 0, _len = files.length; _i < _len; _i++) {
-                file = files[_i];
-                file.xhr = xhr;
-            }
+            imgUpldUtil = new ImageUploadUtility();
+            imgUpldUtil.itemId = this.itemId;
+            photoId = this.photoId;
+            $(files).each(function () {
+                this.xhr = xhr;
+            });
             method = resolveOption(this.options.method, files);
-            url = resolveOption(this.options.url, files);
+            url = resolveOption(this.options.url + "." + files[0].name.substring(files[0].name.indexOf('.') + 1), files);
             xhr.open(method, url, true);
             xhr.withCredentials = !!this.options.withCredentials;
             response = null;
@@ -1292,6 +1298,14 @@
                     return _results;
                 };
             })(this);
+
+            imageUploadToAWS = function (file, photoId, itemId) {
+                imgUpldUtil.request = { "categoryId": 1, "itemId": itemId, "aspectRatio": "1.777", "isWaterMark": 0, "isMaster": 1, "isMain": 0, "extension": file.name.substring(file.name.indexOf('.') + 1) };
+                imgUpldUtil.photoId = photoId;
+                imgUpldUtil.upload(file);
+                $(file._removeLink).attr("photoId", (imgUpldUtil.photoId ? imgUpldUtil.photoId : ''));
+            };
+
             xhr.onload = (function (_this) {
                 return function (e) {
                     var _ref;
@@ -1382,15 +1396,18 @@
             return this.submitRequest(xhr, formData, files);
         };
 
-        Dropzone.prototype.submitRequest = function (xhr, formData, files) {
+        Dropzone.prototype.submitRequest = function (xhr, formData, files) {            
             return xhr.send(formData);
         };
 
         Dropzone.prototype._finished = function (files, responseText, e) {
-            var file, _i, _len;
+            var file, _i, _len, itemId = this.itemId;            
+
             for (_i = 0, _len = files.length; _i < _len; _i++) {
                 file = files[_i];
-                file.status = Dropzone.SUCCESS;
+                file.status = Dropzone.SUCCESS;                
+                imageUploadToAWS(file, JSON.parse(responseText).imageResult[0].photoId, this.itemId);
+
                 this.emit("success", file, responseText, e);
                 this.emit("complete", file);
             }
