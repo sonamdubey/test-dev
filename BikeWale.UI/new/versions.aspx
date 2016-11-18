@@ -773,7 +773,7 @@
                             </div>
 
                             <%if(modelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(modelPageEntity.ModelDesc.SmallDescription)){ %>
-                                <div class="margin-bottom20">
+                                <div id="model-overview-content" class="margin-bottom20">
                                     <h3><%= modelPageEntity.ModelDetails.ModelName %> overview</h3>
                                     <p class="font14 text-light-grey line-height17 inline">
                                         <span class="model-preview-main-content">
