@@ -55,7 +55,10 @@ namespace Bikewale.Controls
                 if (_locArray != null && _locArray.Length > 0)
                 {
                     cityId = Convert.ToInt32(_locArray[0]);
-                    cityName = (_locArray[1]).Replace('-', ' ');
+                    if (_locArray.Length > 1)
+                    {
+                        cityName = (_locArray[1]).Replace('-', ' ');
+                    }
                 }
             }
 

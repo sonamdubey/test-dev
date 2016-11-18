@@ -1,104 +1,111 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Content.RoadTest"  Async="true" Trace="false"%>
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Register TagPrefix="BikeWale" TagName="newPager" Src="/m/controls/LinkPagerControl.ascx" %>
-<% 
-    if (string.IsNullOrEmpty(modelName) && string.IsNullOrEmpty(makeName))
-    {
-        title = "Expert Bike Reviews India - Bike Comparison & Road Tests - BikeWale";
-        description = "Latest expert reviews on upcoming and new bikes in India. Read bike comparison tests and road tests exclusively on BikeWale";
-        keywords = "Expert bike reviews, bike road tests, bike comparison tests, bike reviews, road tests, expert reviews, bike comparison, comparison tests";
-        canonical = "http://www.bikewale.com/expert-reviews/";
-    }
-    // Model Name exists
-    else if (!string.IsNullOrEmpty(modelName))
-    {
-        title = string.Format("{0} {1} Expert Reviews India - Bike Comparison & Road Tests - BikeWale", makeName, modelName);
-        description = string.Format("Latest expert reviews on {0} {1} in India. Read {0} {1} comparison tests and road tests exclusively on BikeWale", makeName, modelName);
-        keywords = string.Format("{0} {1} expert reviews, {0} {1} road tests, {0} {1} comparison tests, {0} {1} reviews, {0}{1} bike comparison", makeName, modelName);
-        canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/expert-reviews/", makeMaskingName, modelMaskingName);
-    }
-    // Make name exists
-    else
-    {
-        title = string.Format("{0} Bikes Expert Reviews India - Bike Comparison & Road Tests - BikeWale", makeName);
-        description = string.Format("Latest expert reviews on upcoming and new {0} bikes in India. Read {0} bike comparison tests and road tests exclusively on BikeWale", makeName);
-        keywords = string.Format("{0} bike expert reviews, {0} bike road tests, {0} bike comparison tests, {0} bike reviews, {0} road tests, {0} expert reviews, {0} bike comparison, {0} comparison tests.", makeName);
-        canonical = string.Format("http://www.bikewale.com/{0}-bikes/expert-reviews/", makeMaskingName);
-    }
-    fbTitle = title;
-    AdId = "1395986297721";
-    AdPath = "/1017752/Bikewale_Reviews_";
-    fbImage = Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo;
-%>
-<!-- #include file="/includes/headermobile.aspx" -->
-<style type="text/css">
-	#divListing .box1 { padding-top:20px; }
-	.sponsored-tag-wrapper { width: 92px;height: 24px;background: #4d5057; color: #fff; font-size: 12px; line-height: 25px; padding: 0 9px; top:-8px; left:-10px; }
-	.sponsored-left-tag {width: 0;height: 0;border-top: 13px solid transparent;border-bottom: 15px solid transparent;border-right: 10px solid #fff;position: relative;top: -6px;left: 12px;font-size: 0;line-height: 0;z-index: 1; }
-	.article-wrapper { display:table; margin-bottom:10px; }
-	.article-image-wrapper { width:120px; }
-	.article-image-wrapper, .article-desc-wrapper { display:table-cell; vertical-align:top; }
-	.article-stats-wrapper { min-width:115px; padding-right:10px; }
-	.calender-grey-icon, .author-grey-icon { width:14px; height:15px; position:relative; top:-1px; margin-right:6px; }
-	.calender-grey-icon { background-position:-40px -460px; }
-	.author-grey-icon { background-position:-64px -460px; }
-     #pagination-list{margin-right:20px;margin-left:20px;overflow:hidden}#pagination-list li{float:left;margin-right:2px;margin-left:2px}#pagination-list .active,#pagination-list a{color:#82888b;font-size:12px;padding-right:5px;padding-left:5px;border:1px solid #f3f3f3;display:block;min-width:25px;text-align:center}#pagination-list a:hover{text-decoration:none}#pagination-list li.active{color:#4d5057;font-weight:700;border:1px solid #a2a2a2;border-radius:1px}.pagination-control-next,.pagination-control-prev{position:absolute;top:0;height:20px}.pagination-control-prev{left:0}.pagination-control-next{right:5px}.next-page-icon,.prev-page-icon{width:18px;height:18px}.prev-page-icon{background-position:-164px -391px}.next-page-icon{background-position:-178px -391px}.pagination-control-next.inactive .next-page-icon,.pagination-control-prev.inactive .prev-page-icon{opacity:.2;pointer-events:none}
-</style>
-<script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
-<div class="padding5">
-	<div id="br-cr">
-		<span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-		<a href="/m/" class="normal" itemprop="url"><span itemprop="title">Home</span></a> </span>
-        &rsaquo; <span class="lightgray">Expert Reviews</span></div>
-    <% if (!string.IsNullOrEmpty(modelName)) 
-           {%>
-        <h1><%= makeName  %> <%= modelName %> Expert Reviews</h1>
-        <% }
-           else if(!string.IsNullOrEmpty(makeName)) { %>
-		<h1><%= makeName  %> Bikes Expert Reviews</h1>
-        <% } else {
-         %>
-        <h1>Expert Reviews</h1>
-        <% } %>
-		<div class="new-line10"><a class="normal" href="/m/expert-reviews/">Show all expert reviews&nbsp;&nbsp;<span class="arr-small">»</span></a></div>
-	<%--<div class="pgsubhead">Latest Bike Expert Reviews</div>--%>
-	<div id="divListing">
-		<asp:Repeater id="rptRoadTest" runat="server">
-			<itemtemplate>
-				<a class="normal" href='<%# string.Format("/m{0}", Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"BasicId")),Convert.ToString(DataBinder.Eval(Container.DataItem,"ArticleUrl")),(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest).ToString())) %>' >
-					<div class="box1 new-line15" >
-						<%# Regex.Match(Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")), @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
-						<div class="article-wrapper">
-							<div class="article-image-wrapper">
-                                <img alt='Expert Review: <%# DataBinder.Eval(Container.DataItem, "Title") %>' title="Expert reviews: <%# DataBinder.Eval(Container.DataItem, "Title") %>" src='<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgUrl").ToString(), DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>' width="100%" border="0">
-							</div>
-							<div class="padding-left10 article-desc-wrapper">
-								<h2 class="font14 text-bold text-black">
-                                    Expert Review: <%# DataBinder.Eval(Container.DataItem, "Title") %>
-								</h2>
-							</div>
-						</div>
-						<div class="article-stats-wrapper font12 leftfloat text-light-grey">
-							<span class="bwmsprite calender-grey-icon inline-block"></span><span class="inline-block"><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem,"DisplayDate").ToString(),"MMMM dd, yyyy") %></span>
-						</div>
-						<div class="article-stats-wrapper font12 leftfloat text-light-grey">
-							<span class="bwmsprite author-grey-icon inline-block"></span><span class="inline-block"><%# DataBinder.Eval(Container.DataItem, "AuthorName") %></span>
-						</div>
-						<div class="clear"></div>
-					</div>
-				</a>
-			</itemtemplate>
-		</asp:Repeater>                
-	</div>
-    <div class="margin-top10">
-             <div class="grid-5 omega text-light-grey">
-                 <div class="font13"><span class="text-bold"><%=startIndex %>-<%=endIndex %></span> of <span class="text-bold"><%=totalrecords %></span> expert reviews</div>
-             </div> 
-	         <BikeWale:newPager ID="ctrlPager" runat="server" />
+<!DOCTYPE html>
+<html>
+<head>
+    <% 
+        if (string.IsNullOrEmpty(modelName) && string.IsNullOrEmpty(makeName))
+        {
+            title = "Expert Bike Reviews India - Bike Comparison & Road Tests - BikeWale";
+            description = "Latest expert reviews on upcoming and new bikes in India. Read bike comparison tests and road tests exclusively on BikeWale";
+            keywords = "Expert bike reviews, bike road tests, bike comparison tests, bike reviews, road tests, expert reviews, bike comparison, comparison tests";
+            canonical = "http://www.bikewale.com/expert-reviews/";
+        }
+        // Model Name exists
+        else if (!string.IsNullOrEmpty(modelName))
+        {
+            title = string.Format("{0} {1} Expert Reviews India - Bike Comparison & Road Tests - BikeWale", makeName, modelName);
+            description = string.Format("Latest expert reviews on {0} {1} in India. Read {0} {1} comparison tests and road tests exclusively on BikeWale", makeName, modelName);
+            keywords = string.Format("{0} {1} expert reviews, {0} {1} road tests, {0} {1} comparison tests, {0} {1} reviews, {0}{1} bike comparison", makeName, modelName);
+            canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/expert-reviews/", makeMaskingName, modelMaskingName);
+        }
+        // Make name exists
+        else
+        {
+            title = string.Format("{0} Bikes Expert Reviews India - Bike Comparison & Road Tests - BikeWale", makeName);
+            description = string.Format("Latest expert reviews on upcoming and new {0} bikes in India. Read {0} bike comparison tests and road tests exclusively on BikeWale", makeName);
+            keywords = string.Format("{0} bike expert reviews, {0} bike road tests, {0} bike comparison tests, {0} bike reviews, {0} road tests, {0} expert reviews, {0} bike comparison, {0} comparison tests.", makeName);
+            canonical = string.Format("http://www.bikewale.com/{0}-bikes/expert-reviews/", makeMaskingName);
+        }
+        //fbTitle = title;
+        AdId = "1395986297721";
+        AdPath = "/1017752/Bikewale_Reviews_";
+        //fbImage = Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo;
+    %>
+
+    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
+
+    <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/content/listing.css?<%= staticFileVersion %>" />
+    <script type="text/javascript">
+        <!-- #include file="\includes\gacode_mobile.aspx" -->
+    </script>
+</head>
+<body class="bg-light-grey">
+    <form runat="server">
+        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <section>
+            <div class="container box-shadow bg-white section-bottom-margin">
+            		        
+            <% if (!string.IsNullOrEmpty(modelName)) {%>
+                <h1 class="box-shadow padding-15-20"><%= makeName  %> <%= modelName %> Expert Reviews</h1>
+            <% }
+            else if(!string.IsNullOrEmpty(makeName)) { %>
+		        <h1 class="box-shadow padding-15-20"><%= makeName  %> Bikes Expert Reviews</h1>
+            <% }
+            else { %>
+                <h1 class="box-shadow padding-15-20">Expert Reviews</h1>
+            <% } %>
+	        
+    	        <div id="divListing" class="article-list">
+		            <asp:Repeater id="rptRoadTest" runat="server">
+			            <itemtemplate>
+				            <a href="<%# string.Format("/m{0}", Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"BasicId")),Convert.ToString(DataBinder.Eval(Container.DataItem,"ArticleUrl")),(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest).ToString())) %>" title="Expert Review: <%# DataBinder.Eval(Container.DataItem, "Title") %>">
+
+					            <div class="article-item-content">
+						            <%# Regex.Match(Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")), @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
+
+						            <div class="article-wrapper">
+							            <div class="article-image-wrapper">
+                                            <img class="lazy" alt='Expert Review: <%# DataBinder.Eval(Container.DataItem, "Title") %>' title="Expert reviews: <%# DataBinder.Eval(Container.DataItem, "Title") %>" data-original='<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgUrl").ToString(), DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>' width="100%" border="0" src="">
+							            </div>
+							            <div class="padding-left10 article-desc-wrapper">
+								            <h2 class="font14">Expert Review: <%# DataBinder.Eval(Container.DataItem, "Title") %></h2>
+							            </div>
+						            </div>
+
+						            <div class="article-stats-wrapper font12 leftfloat text-light-grey">
+							            <span class="bwmsprite calender-grey-icon inline-block"></span><span class="inline-block"><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem,"DisplayDate").ToString(),"MMM dd, yyyy") %></span>
+						            </div>
+						            <div class="article-stats-wrapper font12 leftfloat text-light-grey">
+							            <span class="bwmsprite author-grey-icon inline-block"></span><span class="inline-block"><%# DataBinder.Eval(Container.DataItem, "AuthorName") %></span>
+						            </div>
+						            <div class="clear"></div>
+
+					            </div>
+				            </a>
+			            </itemtemplate>
+		            </asp:Repeater>                
+	            </div>  
+                   <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
+                    <div class="grid-5 omega text-light-grey font13">
+                        <span class="text-bold text-default"><%=startIndex %>-<%=endIndex %></span> of <span class="text-bold text-default"><%=totalrecords %></span> articles
+	         </div>
+                        <BikeWale:newPager ID="ctrlPager" runat="server" />
             <div class="clear"></div>
-        </div>
-</div>
-<!-- #include file="/includes/footermobile.aspx" -->
-<script type="text/javascript">
-	ga_pg_id = "12";
-</script>
+                           </div>
+                    <div class="clear"></div>
+             </div>
+        </section>
+       <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+       <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+
+        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        <script type="text/javascript">
+            ga_pg_id = "12";
+        </script>
+    </form>
+</body>
+</html>

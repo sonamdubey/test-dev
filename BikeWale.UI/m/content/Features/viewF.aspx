@@ -8,12 +8,11 @@
     <%	
         title = pageTitle + " - Bikewale ";
         keywords = "features, stories, travelogues, specials, drives";
-        description = "";
+    description = string.Format("Read about {0}. Read through more bike care tips to learn more about your bike maintenance.", pageTitle);
         canonical = "http://www.bikewale.com" + url;
         AdPath = "/1017752/Bikewale_Mobile_NewBikes";
         AdId = "1398766302464";
-        //menu = "8";
-    %>
+        %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/content/details.css?<%= staticFileVersion %>" />
     <script type="text/javascript">

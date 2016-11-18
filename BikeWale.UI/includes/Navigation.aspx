@@ -52,6 +52,7 @@
                 <li><a href="/user-reviews/">User Reviews</a></li>
                 <li><a href="/features/">Features</a></li>
                 <li><a href="/bike-videos/">Videos</a></li>
+                <li><a href="/bike-care/">Bike Care</a></li>
             </ul>
         </li>
         <%--<li>

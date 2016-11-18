@@ -594,5 +594,20 @@ namespace Bikewale.Notifications
                 objErr.SendMail();
             }
         }
+
+        public void UsedSellSuccessfulListingSMS(EnumSMSServiceType smsType, string number, string profileid, string pageurl)
+        {
+            string message = String.Format("Congratulations! You have successfully posted a bike listing (profile id -{0}) on BikeWale. It will be verified by us before it is made available to buyers.", profileid.ToUpper());
+            try
+            {
+                SMSCommon sc = new SMSCommon();
+                sc.ProcessSMS(number, message, smsType, pageurl);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.UsedSellSuccessfulListingSMSToSeller({0},{1},{2})", number, message, pageurl));
+                objErr.SendMail();
+            }
+        }
     }   //End of class
 }   //End of namespace

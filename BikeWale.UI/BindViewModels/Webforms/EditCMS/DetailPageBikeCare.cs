@@ -22,7 +22,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
     public class DetailPageBikeCare
     {
         HttpContext page = HttpContext.Current;
-        protected uint BasicId = 0;
+        public uint BasicId = 0;
         public String baseUrl = String.Empty, pageTitle = String.Empty, modelName = String.Empty, modelUrl = String.Empty;
         public String data = String.Empty, nextPageUrl = String.Empty, prevPageUrl = String.Empty, author = String.Empty, displayDate = String.Empty, canonicalUrl = String.Empty, title = String.Empty, description = String.Empty, keywords = String.Empty;
         public StringBuilder bikeTested;
@@ -60,7 +60,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         private void CreateMetas()
         {
             title = string.Format("{0} |Maintenance Tips from Bike Experts - BikeWale", pageTitle);
-            description = string.Format("BikeWale brings you tips to keep your bike in good shape. Read through this tip to learn more about your bike maintenance");
+            description = string.Format("Read about {0}. Read through more bike care tips to learn more about your bike maintenance.", pageTitle);
             keywords = string.Format("Bike maintenance, bike common issues, bike common problems, Maintaining bikes, bike care");
 
         }

@@ -18,6 +18,7 @@
                     <th style="font-size: 13px">Kms ridden</th>
                     <th style="font-size: 13px">Price</th>
                     <th style="font-size: 13px">Manufacturing Year</th>
+                    <th>City</th>
                     <th style="font-size: 13px;">Photos</th>
                     <th colspan="3" style="width:210px;font-size: 13px">Listing Status</th>
                 </tr>
@@ -29,6 +30,7 @@
                     <td><%=(listing.KiloMeters==0)?"-":listing.KiloMeters.ToString() %></td>
                     <td><%=(listing.Expectedprice==0)?"-": listing.Expectedprice.ToString()%></td>
                     <td><%=listing.ManufacturingYear.Equals(default(DateTime)) ? "-" : String.Format("{0} {1}",listing.ManufacturingYear.ToString("MMMM"), listing.ManufacturingYear.Year.ToString()) %></td>
+                    <td><%=listing.RegistrationPlace %></td>
                     <td>
                         <%if( listing.PhotoCount > 0 ) { %>
                         <input id="btnLView" onclick ="<%= string.Format("javascript:window.open('/classified/listingphotos.aspx?profileid={0}','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')", listing.InquiryId) %>"  type="button" value ="View Photos"  /></td>
@@ -45,23 +47,22 @@
     </div>
 </div>
 <script type="text/javascript">
-var userid = '<%= CurrentUser.Id %>';
- var BwOprHostUrl = '<%= ConfigurationManager.AppSettings["BwOprHostUrlForJs"]%>';
+    var userid = '<%= CurrentUser.Id %>';
+    var BwOprHostUrl = '<%= ConfigurationManager.AppSettings["BwOprHostUrlForJs"]%>';
     $('td #btnApprove').click(function () {
-      acceptReject($(this), 1);
-      $('#detailed_edit_row').html('<td colspan=7 class="greenMsg">This listing has been approved</td>').animate({ left: '250px' });
-  });
+        acceptReject($(this), 1);
+        $(this).parent().parent().html('<td colspan=9 class="greenMsg">This listing has been approved</td>').animate({ left: '250px' });
+    });
     $('td #btnDiscard').click(function () {
-      acceptReject($(this), 0);
-      $('#detailed_edit_row').html('<td colspan=7 class="redMsg">This listing has been discarded </td>').animate({ left: '250px' });
-  });
+        acceptReject($(this), 0);
+        $(this).parent().parent().html('<td colspan=9 class="redMsg">This listing has been discarded </td>').animate({ left: '250px' });
+    });
 
-  function acceptReject(btn, status) {
-      var selInquiry = (btn).attr('data-attr-id');
-      var profileId = (btn).attr('data-attr-profileid');
-      var bikename = (btn).attr('data-attr-bikename');
-      var uri = BwOprHostUrl + "/api/used/sell/pendinginquiries/" + selInquiry + "/?isApproved=" + status + "&approvedBy=" + userid + "&profileId=" + profileId + "&bikeName=" + bikename;
-      console.log(uri);
+    function acceptReject(btn, status) {
+        var selInquiry = (btn).attr('data-attr-id');
+        var profileId = (btn).attr('data-attr-profileid');
+        var bikename = (btn).attr('data-attr-bikename');
+        var uri = BwOprHostUrl + "/api/used/sell/pendinginquiries/" + selInquiry + "/?isApproved=" + status + "&approvedBy=" + userid + "&profileId=" + profileId + "&bikeName=" + bikename;
         $.ajax({
             type: "POST",
             url: uri,
@@ -73,6 +74,6 @@ var userid = '<%= CurrentUser.Id %>';
                 }
             }
         });
-}
+    }
 </script>
 <!-- #Include file="/includes/footerNew.aspx" -->

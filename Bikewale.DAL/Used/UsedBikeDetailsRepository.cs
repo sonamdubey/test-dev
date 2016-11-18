@@ -368,5 +368,50 @@ namespace Bikewale.DAL.Used
             }
             return objInquiryDetails;
         }
+        /// <summary>
+        /// Created by  :   Sumit Kate on 02 Nov 2016
+        /// Description :   Returns the used Bike photos
+        /// </summary>
+        /// <param name="inquiryId"></param>
+        /// <param name="isApproved"></param>
+        /// <returns></returns>
+        public IEnumerable<BikePhoto> GetBikePhotos(uint inquiryId, bool isApproved)
+        {
+            ICollection<BikePhoto> photos = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("classified_getlistingphotos"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.String, 50, inquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isaprooved", DbType.SByte, 8, isApproved ? 1 : 0));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null)
+                        {
+                            photos = new List<BikePhoto>();
+
+                            while (dr.Read())
+                            {
+                                photos.Add(
+                                    new BikePhoto()
+                                    {
+                                        IsMain = Utility.SqlReaderConvertor.ToBoolean(dr["ismain"]),
+                                        HostUrl = Convert.ToString(dr["hosturl"]),
+                                        OriginalImagePath = Convert.ToString(dr["originalimagepath"])
+                                    }
+                                    );
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("GetBikePhotos({0},{1})", inquiryId, isApproved));
+                objErr.SendMail();
+            }
+            return photos;
+        }
     }
 }

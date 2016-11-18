@@ -14,7 +14,7 @@
                 </div>
                 <div class="bike-target-content inline-block padding-left10">
                     <h3><%= bikeName %></h3>
-                    <p class="font11 text-light-grey">Ex-showroom <%= !string.IsNullOrEmpty(bike.CityName)? bike.CityName : System.Configuration.ConfigurationManager.AppSettings["DefaultCity"]  %></p>
+                    <p class="font11 text-light-grey">Ex-showroom <%= !string.IsNullOrEmpty(bike.CityName)? bike.CityName :  Bikewale.Common.Configuration.GetDefaultCityName %></p>
                     <% if(bike.VersionPrice > 0) { %>
                     <span class="bwsprite inr-md"></span><span class="font16 text-bold">&nbsp;<%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.VersionPrice)) %></span>
                     <% } else { %>
@@ -27,7 +27,7 @@
     </ul>
     <% if(!string.IsNullOrEmpty(makeMasking)) { %>
     <div class="margin-top10 margin-bottom10">
-        <a href="/<%= makeMasking %>-bikes/" title="All popular <%= makeName %> bikes" class="font14">View all popular <%= makeName %> bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
+        <a href="/<%= makeMasking %>-bikes/" title="All <%= makeName %> bikes" class="font14">View all <%= makeName %> bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
     </div>
     <% } %>
 </div>

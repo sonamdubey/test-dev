@@ -3,7 +3,7 @@ var gulp = require('gulp'),
   uglify = require('gulp-uglify'),
   del = require('del'),
   sass = require('gulp-sass'),
-  watch = require('gulp-watch'),
+  watch = require('gulp-watch');
   gulpSequence = require('gulp-sequence'),
   fs = require('fs'),
   replace = require('gulp-replace');
@@ -73,7 +73,6 @@ gulp.task('minify-bwm-js', function () {
         }))
         .pipe(gulp.dest(paths.destinationM_JS));
 });
-
 gulp.task('bw-sass', function () {
     return gulp.src(paths.bwSASS, { base: 'BikeWale.UI/sass/' })
         .pipe(sass().on('error', sass.logError))

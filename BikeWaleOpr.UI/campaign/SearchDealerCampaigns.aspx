@@ -102,9 +102,8 @@
             </tbody>
         </table>
     </div>
-    <script type="text/html" id="DealerCampaignList">
-        <%--<tr class="dtItem" data-bind="style: { 'background-color': (ContractStatus == 1) ? '#32cd32' : '#fffacd' }">--%>
-        <tr class="dtItem">
+    <script type="text/html" id="DealerCampaignList">        
+        <tr class="dtItem" data-bind="style: { 'background-color': ColorCode }">
             <td data-bind="text : $index() + 1"></td>
             <td data-bind="text: ContractId"></td>
             <td data-bind="text: PackageName"></td>
@@ -114,8 +113,7 @@
             <td data-bind="text: CampaignEmailId"></td>
             <td data-bind="text: CampaignLeadServingRadius"></td>
             <td data-bind="text: MaskingNumber"></td>
-            <td data-bind="text: ContractStatus"></td>
-            
+            <td data-bind="text: Status"></td>
             <td >
                 <a  data-bind="attr: { href: '/campaign/DealersRules.aspx?campaignid=' + CampaignId() + '&dealerid='+ $root.dealerId() },text: (NoOfRules() > 0) ? 'Yes' : 'No'" target="_blank"></a>
             </td>
@@ -169,7 +167,28 @@
     });
 
     var DealerViewModel = function (model) {
-        ko.mapping.fromJS(model, {}, this);
+        var self = this;
+        self.models = model;
+        $(self.models.Table).each(function () {
+            switch (parseInt(this.ContractStatus)) {
+                case 1:
+                    this.ColorCode = '#dff0d8';
+                    break;
+                case 2:
+                    this.ColorCode = '#d9edf7';
+                    break;
+                case 3:
+                    this.ColorCode = '#d9534f';
+                    break;
+                case 4:
+                    this.ColorCode = '#fcf8e3';
+                    break;
+                case 5:
+                    this.ColorCode = '#ff6666';
+                    break;
+            }
+        });
+        ko.mapping.fromJS(self.models, {}, this);
     };
 
     $("#getCampaigns").click(function () {

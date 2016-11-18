@@ -12,8 +12,7 @@
         //fbImage = GetMainImagePath();
         AdPath = "/1017752/Bikewale_Mobile_NewBikes";
         AdId = "1398766302464";
-        //menu = "6";
-    %>
+          %>
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/content/details.css?<%= staticFileVersion %>" />

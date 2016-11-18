@@ -515,7 +515,7 @@ namespace Bikewale.New
 
         private void BindAlternativeBikeControl(BikeModelPageEntity modelPage)
         {
-            ctrlAlternativeBikes.TopCount = 6;
+            ctrlAlternativeBikes.TopCount = 9;
             ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_ModelPage_Alternative;
             ctrlAlternativeBikes.WidgetTitle = bikeName;
             ctrlAlternativeBikes.model = modelPage.ModelDetails.ModelName;
