@@ -9,7 +9,13 @@
     keywords = pgKeywords;
     relPrevPageUrl = pgPrevUrl;
     relNextPageUrl = pgNextUrl;
-  
+    canonical = "http://www.bikewale.com/bike-care/";
+    alternate = "http://www.bikewale.com/m/bike-care/";
+    AdId = "1395995626568";
+    AdPath = "/1017752/BikeWale_News_";
+    isAd300x250Shown = true;
+    isAd300x250BTFShown = false;
+
 %>
             <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/content/listing.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
@@ -41,17 +47,20 @@
                 <div class="grid-12">
                     <div id="content" class="grid-8 alpha">
                         <div class="bg-white">
-		                    <h1 class="section-header">Bike Care</h1>
+                            <div class="section-header">
+		                    <h1 class="margin-bottom5">Bike Care</h1>
+                            <h2 class="font14 text-unbold">BikeWale brings you maintenance tips from experts to rescue you from common problems</h2>
+                                </div>
                             <div class="section-inner-padding">
                                 <% foreach (var article in objArticleList.Articles) {%>					
-						                <div id='post-<%=article.BasicId%>'  %> article-content">
+						                <div id='post-<%=article.BasicId%>' class="article-content">
 							                
 								            <div class="article-image-wrapper">
 									            <%= string.Format("<a href='/bike-care/{0}-{1}.html'><img src='{2}' alt='{3}' title='{3}' width='100%' border='0' /></a>", article.ArticleUrl,article.BasicId,Bikewale.Utility.Image.GetPathToShowImages(article.OriginalImgUrl,article.HostUrl,Bikewale.Utility.ImageSize._210x118),article.Title) %>
 								            </div>
 								            <div class="article-desc-wrapper">
 									            <h2 class="font14 margin-bottom10">
-										            <a href='/bike-care/<%=article.ArticleUrl %>-<%=article.BasicId%>.html' rel="bookmark" class="text-black text-bold">
+										            <a href='/bike-care/<%=article.ArticleUrl %>-<%=article.BasicId%>.html' rel="bookmark" class="text-black text-bold" title=" <%=article.Title%>">
 											            <%=article.Title%>
 										            </a>
 									            </h2>
@@ -65,11 +74,11 @@
 										            <div class="article-author">
 											            <span class="bwsprite author-grey-icon inline-block"></span>
 											            <span class="inline-block">
-												            <%=article.ArticleUrl  %>
+												            <%=article.AuthorName  %>
 											            </span>
 										            </div>
 									            </div>
-									            <div class="font14 line-height"><%=article.Description%><a href="/bike-care/<%=article.ArticleUrl %>-<%=article.BasicId%>.html">Read full review</a></div>
+									            <div class="font14 line-height"><%= Bikewale.Utility.FormatDescription.TruncateDescription(Convert.ToString(article.Description) ,250)%><a href="/bike-care/<%=article.ArticleUrl %>-<%=article.BasicId%>.html" title=" <%=article.Title%>">Read full story</a></div>
 								            </div>
 								            <div class="clear"></div>
 						                </div>
@@ -89,11 +98,11 @@
 
                     <div class="grid-4 omega">
                         <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
-                      
+                       
                        
                           <BW:UpcomingBikes ID="ctrlUpcoming" runat="server" />
 
-                         <div class="margin-bottom20">
+                          <div class="margin-bottom20">
                            <!-- #include file="/ads/Ad300x250.aspx" -->
                         </div>
                         <a href="/pricequote/" id="on-road-price-widget" class="content-box-shadow content-inner-block-20">

@@ -4,6 +4,7 @@
     keywords = pageKeywords;
     title = pageTitle;
     description  = pageDescription;
+    canonical = string.Format("http://www.bikewale.com/bike-care/{0}-{1}.html", pageTitle, basicId);
     AdPath = "/1017752/Bikewale_Mobile_NewBikes";
     AdId = "1398766302464";
   

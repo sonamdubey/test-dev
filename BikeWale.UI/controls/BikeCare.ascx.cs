@@ -3,10 +3,10 @@ using Bikewale.Entities.CMS.Articles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-namespace Bikewale.Mobile.Controls
+namespace Bikewale.Controls
 {
     /// <summary>
-    /// Created By:- Subodh Jain 08 nov 2016
+    /// Created By:- Subodh Jain 16 nov 2016
     /// Summart :- Tips And Advice widget
     /// </summary>
     public class BikeCare : System.Web.UI.UserControl

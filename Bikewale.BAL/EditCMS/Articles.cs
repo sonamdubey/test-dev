@@ -159,9 +159,6 @@ namespace Bikewale.BAL.EditCMS
                     case "1": //EnumCMSContentType.News
                         categoryIdList = Convert.ToString((int)EnumCMSContentType.News) + "," + (short)EnumCMSContentType.AutoExpo2016;
                         break;
-                    case "5":// //EnumCMSContentType.TipsAndAdvices
-                        categoryIdList = Convert.ToString((int)EnumCMSContentType.TipsAndAdvices);
-                        break;
                     default:
                         break;
                 }
@@ -297,9 +294,6 @@ namespace Bikewale.BAL.EditCMS
 
                     case "1": //EnumCMSContentType.News
                         categoryIdList = Convert.ToString((int)EnumCMSContentType.News) + "," + (short)EnumCMSContentType.AutoExpo2016;
-                        break;
-                    case "5": //EnumCMSContentType.TipsAndAdvices
-                        categoryIdList = Convert.ToString((int)EnumCMSContentType.TipsAndAdvices);
                         break;
                     default:
                         break;

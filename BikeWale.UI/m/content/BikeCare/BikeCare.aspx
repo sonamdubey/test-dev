@@ -7,6 +7,9 @@
     keywords = pgKeywords;
     relPrevPageUrl = pgPrevUrl;
     relNextPageUrl = pgNextUrl;
+    canonical = "http://www.bikewale.com/bike-care/";
+    AdId = "1395986297721";
+    AdPath = "/1017752/Bikewale_Reviews_";
   
 %>
 <!-- #include file="/includes/headermobile.aspx" -->

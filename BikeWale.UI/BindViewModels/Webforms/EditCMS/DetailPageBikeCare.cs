@@ -22,13 +22,13 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
     public class DetailPageBikeCare
     {
         HttpContext page = HttpContext.Current;
-        protected uint BasicId = 0;
+        public uint BasicId = 0;
         public String baseUrl = String.Empty, pageTitle = String.Empty, modelName = String.Empty, modelUrl = String.Empty;
         public String data = String.Empty, nextPageUrl = String.Empty, prevPageUrl = String.Empty, author = String.Empty, displayDate = String.Empty, canonicalUrl = String.Empty, title = String.Empty, description = String.Empty, keywords = String.Empty;
         public StringBuilder bikeTested;
         public ArticlePageDetails objTipsAndAdvice;
         public IEnumerable<ModelImage> objImg = null;
-        private bool isContentFound = true;
+        public bool isContentFound = true, pageNotFound = false;
         private ICMSCacheContent _objDetailsBikeCarecache;
         /// <summary>
         /// Created By:-Subodh Jain 12 Nov 2016
@@ -79,8 +79,8 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             else
             {
                 isSuccess = false;
-                page.Response.Redirect("/m/bike-care/", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                pageNotFound = true;
+
 
             }
             return isSuccess;
@@ -129,7 +129,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         /// </summary>
         private void GetTipsAndAdviceData()
         {
-            baseUrl = string.Format("/m/bike-care/{0}-{1}/", objTipsAndAdvice.ArticleUrl, BasicId.ToString());
+
             canonicalUrl = string.Format("http://www.bikewale.com/bike-care/{0}-{1}.html", objTipsAndAdvice.ArticleUrl, BasicId.ToString());
             data = objTipsAndAdvice.Description;
             author = objTipsAndAdvice.AuthorName;
