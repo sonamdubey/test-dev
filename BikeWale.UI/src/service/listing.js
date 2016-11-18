@@ -64,7 +64,6 @@ var mapDimension = function () {
 };
 
 
-
 function initializeMap(dealerArr) {
 
     var i, marker, dealer, markerPosition, content, zIndex;
@@ -144,8 +143,10 @@ $(document).on('mouseover', '#center-list li', function () {
     }
 });
 
-mapDealersArray();
-initializeMap(dealerArr);
+if (dealerArr.length > 0) {
+    mapDealersArray();
+    initializeMap(dealerArr);
+}
 
 function mapDealersArray() {
     $("ul#center-list li").each(function () {
