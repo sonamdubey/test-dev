@@ -226,6 +226,8 @@ namespace Bikewale.DAL.ServiceCenter
                                 objServiceCenterDetails.Address = Convert.ToString(dr["address"]);
                                 objServiceCenterDetails.Phone = Convert.ToString(dr["phone"]);
                                 objServiceCenterDetails.Mobile = Convert.ToString(dr["mobile"]);
+                                objServiceCenterDetails.Lattitude = Convert.ToString(dr["lattitude"]);
+                                objServiceCenterDetails.Longitude = Convert.ToString(dr["longitude"]);
                                 objServiceCenterList.Add(objServiceCenterDetails);
                             }
 
@@ -331,27 +333,28 @@ namespace Bikewale.DAL.ServiceCenter
                         {
                             objServiceCenterCompleteData = new ServiceCenterCompleteData();
 
-                            dr.Read();
+                            if (dr.Read())
+                            {
+                                objServiceCenterCompleteData.Id = serviceCenterId;
+                                objServiceCenterCompleteData.Name = Convert.ToString(dr["name"]);
+                                objServiceCenterCompleteData.Address = Convert.ToString(dr["address"]);
+                                objServiceCenterCompleteData.Phone = Convert.ToString(dr["phone"]);
+                                objServiceCenterCompleteData.Mobile = Convert.ToString(dr["mobile"]);
+                                objServiceCenterCompleteData.CityId = SqlReaderConvertor.ToUInt32(dr["cityId"]);
+                                objServiceCenterCompleteData.CityName = Convert.ToString(dr["cityname"]);
+                                objServiceCenterCompleteData.CityMaskingName = Convert.ToString(dr["citymaskingname"]);
+                                objServiceCenterCompleteData.StateId = SqlReaderConvertor.ToUInt32(dr["stateId"]);
+                                objServiceCenterCompleteData.AreaId = SqlReaderConvertor.ToUInt32(dr["areaId"]);
+                                objServiceCenterCompleteData.Pincode = Convert.ToString(dr["pincode"]);
+                                objServiceCenterCompleteData.Email = Convert.ToString(dr["email"]);
+                                objServiceCenterCompleteData.Lattitude = SqlReaderConvertor.ParseToDouble(dr["lattitude"]);
+                                objServiceCenterCompleteData.Longitude = SqlReaderConvertor.ParseToDouble(dr["longitude"]);
+                                objServiceCenterCompleteData.MakeId = SqlReaderConvertor.ToUInt32(dr["makeId"]);
+                                objServiceCenterCompleteData.DealerId = SqlReaderConvertor.ToUInt32(dr["dealerId"]);
+                                objServiceCenterCompleteData.IsActive = SqlReaderConvertor.ToUInt32(dr["isActive"]);
 
-                            objServiceCenterCompleteData.Id = serviceCenterId;
-                            objServiceCenterCompleteData.Name = Convert.ToString(dr["name"]);
-                            objServiceCenterCompleteData.Address = Convert.ToString(dr["address"]);
-                            objServiceCenterCompleteData.Phone = Convert.ToString(dr["phone"]);
-                            objServiceCenterCompleteData.Mobile = Convert.ToString(dr["mobile"]);
-                            objServiceCenterCompleteData.CityId = SqlReaderConvertor.ToUInt32(dr["cityId"]);
-                            objServiceCenterCompleteData.CityName = Convert.ToString(dr["cityname"]);
-                            objServiceCenterCompleteData.CityMaskingName = Convert.ToString(dr["citymaskingname"]);
-                            objServiceCenterCompleteData.StateId = SqlReaderConvertor.ToUInt32(dr["stateId"]);
-                            objServiceCenterCompleteData.AreaId = SqlReaderConvertor.ToUInt32(dr["areaId"]);
-                            objServiceCenterCompleteData.Pincode = Convert.ToString(dr["pincode"]);
-                            objServiceCenterCompleteData.Email = Convert.ToString(dr["email"]);
-                            objServiceCenterCompleteData.Lattitude = SqlReaderConvertor.ParseToDouble(dr["lattitude"]);
-                            objServiceCenterCompleteData.Longitude = SqlReaderConvertor.ParseToDouble(dr["longitude"]);
-                            objServiceCenterCompleteData.MakeId = SqlReaderConvertor.ToUInt32(dr["makeId"]);
-                            objServiceCenterCompleteData.DealerId = SqlReaderConvertor.ToUInt32(dr["dealerId"]);
-                            objServiceCenterCompleteData.IsActive = SqlReaderConvertor.ToUInt32(dr["isActive"]);
-
-                            dr.Close();
+                                dr.Close();
+                            }
                         }
                     }
                 }
@@ -364,5 +367,59 @@ namespace Bikewale.DAL.ServiceCenter
             return objServiceCenterCompleteData;
         }
 
+        /// <summary>
+        /// Created By : Sajal Gupta on 15/11/2016
+        /// Description: DAL layer Function for fetching service center details for sending sms.
+        /// </summary>     
+        public ServiceCenterSMSData GetServiceCenterSMSData(uint serviceCenterId, string mobileNumber)
+        {
+            ServiceCenterSMSData objSMSData = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getservicecenteraddress"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_servicecenterid", DbType.Int32, serviceCenterId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobilenumber", DbType.String, mobileNumber));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objSMSData = new ServiceCenterSMSData();
+                            int status;
+                            if (dr.Read())
+                            {
+                                status = SqlReaderConvertor.ToUInt16(dr["status"]);
+                                if (status == 1)
+                                {
+                                    if (dr.NextResult() && dr.Read())
+                                    {
+                                        objSMSData.SMSStatus = EnumServiceCenterSMSStatus.Success;
+                                        objSMSData.Name = Convert.ToString(dr["name"]);
+                                        objSMSData.Address = Convert.ToString(dr["address"]);
+                                        objSMSData.Phone = Convert.ToString(dr["phone"]);
+                                        objSMSData.CityId = SqlReaderConvertor.ToUInt32(dr["cityId"]);
+                                        objSMSData.CityName = Convert.ToString(dr["cityname"]);
+                                        dr.Close();
+                                    }
+                                }
+                                else if (status == 2)
+                                {
+                                    objSMSData.SMSStatus = EnumServiceCenterSMSStatus.Daily_Limit_Exceeded;
+                                }
+                                dr.Close();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Error in ServiceCenterRepository.GetServiceCenterSMSData for parameters serviceCenterId : {0}, mobileNumber : {1}", serviceCenterId, mobileNumber));
+                objErr.SendMail();
+            }
+            return objSMSData;
+        }
     }
 }

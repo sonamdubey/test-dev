@@ -1203,7 +1203,7 @@
     <Compile Include="servicecenter\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
+    </Compile>    
     <Compile Include="servicecenter\ServiceCenterDetails.aspx.cs">
       <DependentUpon>ServiceCenterDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2594,8 +2594,8 @@
     <Content Include="News\RepeaterPagerNews.ascx" />
     <Content Include="servicecenter\Default.aspx" />
     <Content Include="servicecenter\faq.aspx" />
-    <Content Include="servicecenter\ServiceCenterDetails.aspx" />
     <Content Include="servicecenter\ServiceCenterInCountry.aspx" />
+    <Content Include="servicecenter\ServiceCenterDetails.aspx" />
     <Content Include="servicecenter\ServiceCenterList.aspx" />
     <Content Include="new\BikeDealerDetails.aspx" />
     <Content Include="new\dealersincountry.aspx" />
@@ -2808,20 +2808,8 @@
     </Content>
     <Content Include="sass\sell-bike.sass" />
     <None Include="sass\components\_card-header.sass" />
-    <Content Include="sass\components\_card-header.sass" />
-    <Content Include="sass\components\_mixins.sass" />
-    <Content Include="sass\components\_typography.sass" />
-    <Content Include="sass\service\listing.sass" />
-    <Content Include="sass\service\_listing-style.sass" />
-    <Content Include="sass\components\_variables.sass" />
     <Content Include="sass\sell-bike\_style.sass" />
     <Content Include="sass\components\_typography.sass" />
-    <Content Include="sass\modules\_section.sass" />
-    <Content Include="sass\modules\_bike-tips.sass" />
-    <Content Include="sass\modules\_card.sass" />
-    <Content Include="sass\service\_details-style.sass" />
-    <Content Include="sass\service\details.sass" />
-    <Content Include="sass\components\_select-box.sass" />
     <Content Include="sass\components\_mixins.sass" />
     <None Include="sass\components\_box-boundary.sass" />
     <Content Include="sass\components\_input-box.sass" />
@@ -2845,6 +2833,24 @@
     <Content Include="m\sass\modules\_article.sass" />
     <Content Include="m\sass\modules\_section-heading.sass" />
     <Content Include="m\sass\modules\_accordion.sass" />
+    <Content Include="sass\components\_card-header.sass" />
+    <Content Include="sass\components\_mixins.sass" />
+    <Content Include="sass\components\_typography.sass" />
+    <Content Include="sass\service\listing.sass" />
+    <Content Include="sass\service\_listing-style.sass" />
+    <Content Include="sass\components\_variables.sass" />
+    <Content Include="sass\modules\_section.sass" />
+    <Content Include="sass\modules\_bike-tips.sass" />
+    <Content Include="sass\modules\_card.sass" />
+    <Content Include="sass\service\_details-style.sass" />
+    <Content Include="sass\service\details.sass" />
+    <Content Include="sass\components\_input-box.sass" />
+    <Content Include="sass\components\_box-boundary.sass" />
+    <Content Include="sass\components\_select-box.sass" />
+    <Content Include="sass\service\location.sass" />
+    <Content Include="sass\service\_location-style.sass" />
+    <Content Include="sass\modules\_article.sass" />
+    <Content Include="sass\modules\_accordion.sass" />
     <Content Include="m\sass\modules\_modal.sass" />
     <Content Include="m\sass\service\landing.sass" />
     <Content Include="m\sass\service\_landing-style.sass" />

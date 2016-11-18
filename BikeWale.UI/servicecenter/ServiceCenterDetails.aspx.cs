@@ -1,44 +1,29 @@
-﻿using Bikewale.Cache.BikeData;
-using Bikewale.Cache.Core;
-using Bikewale.Cache.DealersLocator;
+﻿using Bikewale.BindViewModels.Webforms.Service;
 using Bikewale.Controls;
 using Bikewale.CoreDAL;
-using Bikewale.DAL.BikeData;
-using Bikewale.DAL.Dealer;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.DealerLocator;
-using Bikewale.Entities.PriceQuote;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.Dealer;
+using Bikewale.Entities.ServiceCenters;
 using Bikewale.Notifications;
-using Bikewale.Utility;
-using Microsoft.Practices.Unity;
 using System;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.ServiceCenter
 {
     /// <summary>
-    /// Created By : Aditi Srivastava on 26 Sep 2016
-    /// Class to show the bike dealers details
+    /// Created By : Sangram Nandkhile on 17 Nov 2016
+    /// Class to show the service center details
     /// </summary>
     public class ServiceCenterDetails : Page
     {
-        protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, urlCityMaskingName = string.Empty,
-        address = string.Empty, maskingNumber = string.Empty, eMail = string.Empty, workingHours = string.Empty, modelImage = string.Empty, dealerName = string.Empty, dealerMaskingName = string.Empty,
-        clientIP = string.Empty, pageUrl = string.Empty;
-        protected int makeId;
-        protected uint cityId, dealerId;
-        protected ushort totalDealers;
-        protected Repeater rptMakes, rptCities, rptDealers;
-        protected bool areDealersPremium = false;
-        protected DealerBikesEntity dealerDetails = null;
+        protected string makeName = string.Empty, cityName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, clientIP = string.Empty;
+        protected uint makeId, cityId, serviceCenterId;
+        protected ServiceCenterCompleteData objServiceCenterData = null;
+        protected ServiceCenterCard ctrlServiceCenterCard;
+        protected ServiceSchedule ctrlServiceSchedule;
         protected DealerCard ctrlDealerCard;
-        protected LeadCaptureControl ctrlLeadCapture;
-        protected DealerDetailEntity dealerObj;
+        public ServiceDetailsPage serviceVM;
+
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -51,101 +36,54 @@ namespace Bikewale.ServiceCenter
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
             Form.Action = Request.RawUrl;
             string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
             if (String.IsNullOrEmpty(originalUrl))
                 originalUrl = Request.ServerVariables["URL"];
-
             Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(originalUrl);
             dd.DetectDevice();
-
             if (ProcessQueryString())
             {
-                if (dealerId > 0)
+                if (serviceCenterId > 0 && serviceVM.BindServiceCenterData(serviceCenterId))
                 {
-                    GetDealerDetails(dealerId);
-                    ctrlDealerCard.MakeId = Convert.ToUInt32(makeId);
-                    ctrlDealerCard.makeName = makeName;
-                    ctrlDealerCard.makeMaskingName = makeMaskingName;
-                    ctrlDealerCard.CityId = cityId;
-                    ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Desktop_dealer_details_Get_offers;
-                    ctrlDealerCard.LeadSourceId = 38;
-                    ctrlDealerCard.TopCount = Convert.ToUInt16(cityId > 0 ? 3 : 6);
-                    ctrlDealerCard.pageName = "DealerDetail_Page_Desktop";
-                    ctrlDealerCard.DealerId = (uint)dealerId;
-                    ctrlLeadCapture.CityId = cityId;
-                    ctrlLeadCapture.AreaId = 0;
+                    BindControls();
                 }
-                else
+                else // If servie Object is null, redirect to page not found
                 {
-                    Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    RedirectToPageNotFound();
                 }
             }
-
         }
-
-
         /// <summary>
-        /// Created by: Aditi Srivastava on 27 Sep 2016
-        /// Summary: Get dealer details by dealer id and make id
+        /// Created By : Sangram Nandkhile on 17 Nov 2016
+        /// Desc: Bind Controls for page
         /// </summary>
-        /// <param name="dealerid"></param>
-        private void GetDealerDetails(uint dealerid)
+        private void BindControls()
         {
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IDealerCacheRepository, DealerCacheRepository>()
-                             .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IDealer, DealersRepository>()
-                            ;
-                    var objCache = container.Resolve<IDealerCacheRepository>();
-                    dealerDetails = objCache.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId);
+            ctrlServiceSchedule.MakeId = serviceVM.MakeId;
+            ctrlServiceSchedule.MakeName = serviceVM.MakeName;
 
-                    if (dealerDetails != null && dealerDetails.DealerDetails != null)
-                    {
-                        dealerObj = dealerDetails.DealerDetails;
-                        dealerName = dealerObj.Name;
-                        dealerMaskingName = UrlFormatter.RemoveSpecialCharUrl(dealerName);
-                        cityName = dealerObj.City;
-                        if (dealerObj.Area != null)
-                            areaName = dealerObj.Area.AreaName;
-                        address = dealerObj.Address;
-                        maskingNumber = dealerObj.MaskingNumber;
-                        eMail = dealerObj.EMail;
-                        workingHours = dealerObj.WorkingHours;
-                        makeName = dealerObj.MakeName;
-                        cityMaskingName = dealerObj.CityMaskingName;
-                        cityId = (uint)dealerObj.CityId;
-                    }
-                    else
-                    {
-                        Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, "GetDealerDetails");
-                objErr.SendMail();
-            }
+            ctrlServiceCenterCard.MakeId = serviceVM.MakeId;
+            ctrlServiceCenterCard.CityId = serviceVM.CityId;
+            ctrlServiceCenterCard.makeName = serviceVM.MakeName;
+            ctrlServiceCenterCard.cityName = serviceVM.CityName;
+            ctrlServiceCenterCard.makeMaskingName = makeMaskingName;
+            ctrlServiceCenterCard.cityMaskingName = serviceVM.CityMaskingName;
+            ctrlServiceCenterCard.TopCount = 3;
+            ctrlServiceCenterCard.ServiceCenterId = serviceCenterId;
+
+            ctrlDealerCard.MakeId = makeId;
+            ctrlDealerCard.makeMaskingName = makeMaskingName;
+            ctrlDealerCard.CityId = serviceVM.CityId;
+            ctrlDealerCard.cityName = serviceVM.CityName;
+            ctrlDealerCard.TopCount = 3;
         }
-
 
         #region Private Method to process querystring
+
         /// <summary>
-        /// Created By : Aditi Srivastava
-        /// Created On : 26th Sep 2016 
-        /// Description : Private Method to validate query string based on dealer id
-        /// Modified by :   Sumit Kate on 03 Oct 2016
-        /// Description :   Handle Make masking name rename 301 redirection
+        /// Created By :   Sangram Nandkhile on 16 Nov 2016
+        /// Description :  Handle Make masking name rename 301 redirection
         /// </summary>
         private bool ProcessQueryString()
         {
@@ -157,51 +95,21 @@ namespace Bikewale.ServiceCenter
                 if (currentReq.QueryString != null && currentReq.QueryString.HasKeys())
                 {
                     makeMaskingName = currentReq.QueryString["make"];
-
-                    dealerId = Convert.ToUInt32(currentReq.QueryString["dealerid"]);
-                    if (dealerId > 0 && !string.IsNullOrEmpty(makeMaskingName))
+                    serviceCenterId = Convert.ToUInt32(currentReq.QueryString["id"]);
+                    if (serviceCenterId > 0 && !string.IsNullOrEmpty(makeMaskingName))
                     {
-                        if (!String.IsNullOrEmpty(makeMaskingName))
-                        {
-
-                            using (IUnityContainer container = new UnityContainer())
-                            {
-                                container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
-                                      .RegisterType<ICacheManager, MemcacheManager>()
-                                      .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
-                                     ;
-                                var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
-
-                                objResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
-                            }
-                        }
-                        else
-                        {
-                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                            HttpContext.Current.ApplicationInstance.CompleteRequest();
-                            this.Page.Visible = false;
-                        }
+                        serviceVM = new ServiceDetailsPage();
+                        objResponse = serviceVM.GetMakeResponse(makeMaskingName);
                     }
-                    else
-                    {
-                        Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                    }
-                    clientIP = Bikewale.Common.CommonOpn.GetClientIP();
-                    pageUrl = currentReq.ServerVariables["URL"];
                 }
                 else
                 {
-                    Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    RedirectToPageNotFound();
                 }
             }
             catch (Exception ex)
             {
-                Trace.Warn("ProcessQueryString Ex: ", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, currentReq.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "ServiceCenterDetails.ProcessQueryString()");
                 objErr.SendMail();
             }
             finally
@@ -210,7 +118,7 @@ namespace Bikewale.ServiceCenter
                 {
                     if (objResponse.StatusCode == 200)
                     {
-                        makeId = Convert.ToInt32(objResponse.MakeId);
+                        makeId = objResponse.MakeId;
                         isValidQueryString = true;
                     }
                     else if (objResponse.StatusCode == 301)
@@ -220,23 +128,25 @@ namespace Bikewale.ServiceCenter
                     }
                     else
                     {
-                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
+                        RedirectToPageNotFound();
                         isValidQueryString = false;
                     }
                 }
                 else
                 {
-                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    RedirectToPageNotFound();
                     isValidQueryString = false;
                 }
             }
             return isValidQueryString;
         }
-
         #endregion
+
+        public void RedirectToPageNotFound()
+        {
+            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
+            this.Page.Visible = false;
+        }
     }   // End of class
 }   // End of namespace
