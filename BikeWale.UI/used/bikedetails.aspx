@@ -201,7 +201,7 @@
                                 </li>
                                 <li>
                                     <p class="bike-details-key">Seller</p>
-                                    <p class="bike-details-value"><%= inquiryDetails.OtherDetails.Seller %></p>
+                                    <p class="bike-details-value"><%= inquiryDetails.OtherDetails.Seller.Equals("s",StringComparison.CurrentCultureIgnoreCase) ? "Individual" : "Dealer" %></p>
                                 </li>
                                 <li>
                                     <p class="bike-details-key">Registration year</p>
