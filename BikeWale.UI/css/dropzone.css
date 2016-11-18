@@ -37,7 +37,9 @@
 .dropzone.dz-drag-hover .dz-message {
     opacity: 0.5;
 }
-.dz-preview {
+/* add-more-photos */
+.dz-preview,
+#add-more-photos {
     position: relative;
     display: inline-block;
     vertical-align: top;
@@ -219,6 +221,23 @@
     top: 2px;
     color: #ef3f30;
 }
+/* add-more-photos */
+#add-more-photos {
+    display: inline-block;
+    vertical-align: top;
+}
+#add-more-photos .more-photos-content {
+    overflow: hidden;
+    width: 142px;
+    height: 80px;
+    background: #ececec;
+    cursor: pointer;
+    text-align: center;
+    padding-top: 15px;
+}
+#add-more-photos span {
+    cursor: pointer;
+}
 /* icons */
 .ribbon-icon {
     width: 14px;
@@ -234,6 +253,11 @@
 }
 .retry-icon {
     background-position: -340px -131px;
+}
+.plus-icon {
+    width: 28px;
+    height: 28px;
+    background-position: -373px -87px;
 }
 /* fallback */
 .dz-browser-not-supported .dz-message {

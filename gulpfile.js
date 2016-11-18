@@ -60,7 +60,13 @@ gulp.task('watch-sass', function () {
     gulp.watch(paths.bwSASS, ['sass']);
 });
 
-gulp.task('default', ['clean', 'minify-bw-css', 'minify-bw-js', 'minify-bwm-css', 'minify-bwm-js']);
+gulp.task('bw-framework', ['clean', 'minify-bw-js'], function () {
+    return gulp.src('BikeWale.UI/src/frameworks.js', { base: 'BikeWale.UI/src/' })
+        .pipe(gulp.dest(paths.destinationD_JS));
+});
+
+
+gulp.task('default', ['clean', 'minify-bw-css', 'minify-bw-js', 'minify-bwm-css', 'minify-bwm-js', 'bw-framework']);
 
 
 gulp.task('sell-form', ['sass']);
