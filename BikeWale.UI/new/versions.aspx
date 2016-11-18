@@ -724,7 +724,7 @@
                         <% if ((modelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(modelPageEntity.ModelDesc.SmallDescription)) || modelPageEntity.ModelVersionSpecs !=null)
                            { %>
                         <div id="modelSummaryContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom">
-                            <h2><%=bikeName %> Summary</h2>
+                            <h2>About <%=bikeName %></h2>
                             <p class="font14 text-light-grey line-height17 margin-bottom15">The price of Make Model is Rs. 'x' onwards (Ex-showroom, Mumbai) and is available in 'y' variants. Model has a mileage of 'z' kmpl and a top speed of 'x' kmph. It is available in 2 different colours : colour 1, colour 2.</p>
 
                             <div class="border-solid-bottom margin-bottom20">
@@ -774,7 +774,7 @@
 
                             <%if(modelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(modelPageEntity.ModelDesc.SmallDescription)){ %>
                                 <div id="model-overview-content" class="margin-bottom20">
-                                    <h3><%= modelPageEntity.ModelDetails.ModelName %> overview</h3>
+                                    <h3><%= modelPageEntity.ModelDetails.ModelName %> preview</h3>
                                     <p class="font14 text-light-grey line-height17 inline">
                                         <span class="model-preview-main-content">
                                             <%= modelPageEntity.ModelDesc.SmallDescription %>

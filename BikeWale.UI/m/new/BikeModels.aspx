@@ -403,7 +403,7 @@
                 <div id="modelSummaryContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom15 border-solid-bottom">
                     <%if (modelPage.ModelDesc != null && !string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription))
                       { %>
-                    <h2><%=bikeName %> Summary</h2>
+                    <h2>About <%=bikeName %></h2>
                     <p class="font14 text-light-grey line-height17 margin-bottom15">The price of Make Model is Rs. 'x' onwards (Ex-showroom, Mumbai) and is available in 'y' variants. Model has a mileage of 'z' kmpl and a top speed of 'x' kmph. It is available in 2 different colours : colour 1, colour 2.</p>
 
                     <div class="border-solid-bottom padding-bottom10 margin-bottom15">
@@ -444,7 +444,7 @@
                         </table>
                     </div>
 
-                    <h3><%= modelPage.ModelDetails.ModelName %> overview</h3>
+                    <h3><%= modelPage.ModelDetails.ModelName %> preview</h3>
                     <p class="font14 text-light-grey line-height17 inline">
                         <span class="model-preview-main-content">
                             <%= modelPage.ModelDesc.SmallDescription %>
