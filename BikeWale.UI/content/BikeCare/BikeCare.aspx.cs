@@ -9,12 +9,12 @@ using System;
 
 namespace Bikewale.Content
 {
+    /// <summary>
+    /// Created By:- Subodh jain 11 Nov 2016
+    /// Summary :- Bike Care Landing page Desktop
+    /// </summary> 
     public class BikeCare : System.Web.UI.Page
     {
-        /// <summary>
-        /// Created By:- Subodh jain 11 Nov 2016
-        /// Summary :- Bike Care Landing page Desktop
-        /// </summary> 
         BikeCareModels objBikeCare = null;
         protected UpcomingBikesMinNew ctrlUpcoming;
         protected MostPopularBikesMin ctrlPopularBikes;
@@ -23,6 +23,7 @@ namespace Bikewale.Content
         public string pgPrevUrl = string.Empty, pgNextUrl = string.Empty, pgTitle = string.Empty, pgDescription = string.Empty, pgKeywords = string.Empty;
         protected CMSContent objArticleList;
         public int startIndex = 0, endIndex = 0;
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -33,6 +34,7 @@ namespace Bikewale.Content
             BikeCareTips();
             BindPageWidgets();
         }
+
         /// <summary>
         /// Created By:- Subodh jain 15 Nov 2016
         /// Summary :- Bike Care Landing page Binding
@@ -64,6 +66,7 @@ namespace Bikewale.Content
                 }
             }
         }
+
         /// <summary>
         /// Created By:- Subodh jain 15 Nov 2016
         /// Summary :- Bike Care Landing page Binding for widgets

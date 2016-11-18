@@ -15,7 +15,7 @@
     AdPath = "/1017752/BikeWale_News_";
     isAd300x250Shown = true;
     isAd300x250BTFShown = false;
-  
+
 %>
             <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/content/listing.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
@@ -98,12 +98,12 @@
 
                     <div class="grid-4 omega">
                         <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
-                       <!-- #include file="/ads/Ad300x250.aspx" -->
+                       
                        
                           <BW:UpcomingBikes ID="ctrlUpcoming" runat="server" />
 
-                         <div class="margin-bottom20">
-                          
+                          <div class="margin-bottom20">
+                           <!-- #include file="/ads/Ad300x250.aspx" -->
                         </div>
                         <a href="/pricequote/" id="on-road-price-widget" class="content-box-shadow content-inner-block-20">
                             <span class="inline-block">

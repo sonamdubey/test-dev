@@ -140,7 +140,7 @@ gulp.task('mobile-service-landing', function () {
             var style = fs.readFileSync(sassPaths.bwm.service.target + '/landing.css', 'utf-8');
             return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
         }))
-        .pipe(gulp.dest(page.mobile.service.baseFolder));
+        .pipe(gulp.dest('BikeWale.UI/min/m/service'));
 });
 
 gulp.task('mobile-service-city', function () {
@@ -149,7 +149,7 @@ gulp.task('mobile-service-city', function () {
             var style = fs.readFileSync(sassPaths.bwm.service.target + '/location.css', 'utf-8');
             return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
         }))
-        .pipe(gulp.dest(page.mobile.service.baseFolder));
+        .pipe(gulp.dest('BikeWale.UI/min/m/service'));
 });
 
 gulp.task('mobile-service-listing', function () {
@@ -158,7 +158,7 @@ gulp.task('mobile-service-listing', function () {
             var style = fs.readFileSync(sassPaths.bwm.service.target + '/listing.css', 'utf-8');
             return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
         }))
-        .pipe(gulp.dest(page.mobile.service.baseFolder));
+        .pipe(gulp.dest('BikeWale.UI/min/m/service'));
 });
 
 gulp.task('mobile-service-details', function () {
@@ -167,7 +167,7 @@ gulp.task('mobile-service-details', function () {
             var style = fs.readFileSync(sassPaths.bwm.service.target + '/details.css', 'utf-8');
             return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
         }))
-        .pipe(gulp.dest(page.mobile.service.baseFolder));
+        .pipe(gulp.dest('BikeWale.UI/min/m/service'));
 });
 
-gulp.task('default', gulpSequence('clean', 'minify-bw-css', 'minify-bw-js', 'minify-bwm-css', 'minify-bwm-js', 'bw-sass', 'bwm-sass', 'bwm-service-css', 'replace-css-reference'));
+gulp.task('default', gulpSequence('clean', 'minify-bw-css', 'minify-bw-js', 'minify-bwm-css', 'minify-bwm-js', 'bw-sass', 'bwm-sass', 'bw-service-css', 'bwm-service-css', 'replace-css-reference'));

@@ -3,15 +3,14 @@ using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.ServiceCenter;
 using Bikewale.Common;
+using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
-using Bikewale.DAL.Dealer;
 using Bikewale.DAL.ServiceCenter;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.service;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
@@ -21,7 +20,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 
-namespace Bikewale.Service
+namespace Bikewale.ServiceCenter
 {
     /// <summary>
     /// Created by : Sangram Nandkhile on 27 Jun 2016
@@ -30,6 +29,7 @@ namespace Bikewale.Service
     public class ServiceCenterInCountry : Page
     {
         protected BikeMakeEntityBase objMMV;
+        protected BikeCare ctrlBikeCare;
         public ushort makeId;
         public uint cityId;
         public string makeMaskingName = string.Empty;
@@ -57,9 +57,8 @@ namespace Bikewale.Service
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
 
-            if (ProcessQS())
+            if (ProcessQS() && checkServiceCenterForMakeCity(makeId))
             {
-                checkDealersForMakeCity(makeId);
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
@@ -68,6 +67,7 @@ namespace Bikewale.Service
 
                 }
                 BindStatesCities();
+                ctrlBikeCare.TotalRecords = 3;
 
             }
         }
@@ -112,7 +112,7 @@ namespace Bikewale.Service
 
             if (!string.IsNullOrEmpty(Request["make"]))
             {
-                makeMaskingName = Request["make"].ToString();
+                makeMaskingName = Request["make"];
                 try
                 {
                     using (IUnityContainer container = new UnityContainer())
@@ -129,7 +129,7 @@ namespace Bikewale.Service
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, "");
+                    ErrorClass objErr = new ErrorClass(ex, "ServiceCenterInCountry.ProcessQS");
                     objErr.SendMail();
                     isSuccess = false;
                 }
@@ -166,7 +166,6 @@ namespace Bikewale.Service
             }
             else
             {
-                Trace.Warn("make id : ", Request.QueryString["make"]);
                 Response.Redirect("/new/", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
@@ -176,11 +175,11 @@ namespace Bikewale.Service
         }
 
         /// <summary>
-        /// Created By : Sushil Kumar bon 31st March 2016
+        /// Created By : Sushil Kumar on 31st March 2016
         /// Description : To redirect user to dealer listing page if make and city already provided by user
         /// </summary>
         /// <param name="_makeId"></param>
-        private bool checkDealersForMakeCity(ushort _makeId)
+        private bool checkServiceCenterForMakeCity(ushort _makeId)
         {
             GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
             cityId = currentCityArea.CityId;
@@ -189,11 +188,15 @@ namespace Bikewale.Service
                 IEnumerable<CityEntityBase> _cities = null;
                 try
                 {
+                    IServiceCenterCacheRepository ObjServiceCenter = null;
                     using (IUnityContainer container = new UnityContainer())
                     {
-                        container.RegisterType<IDealer, DealersRepository>();
-                        var objCities = container.Resolve<IDealer>();
-                        _cities = objCities.FetchDealerCitiesByMake(_makeId);
+                        container.RegisterType<IServiceCenter, ServiceCenter<ServiceCenterLocatorList, int>>()
+                     .RegisterType<IServiceCenterCacheRepository, ServiceCenterCacheRepository>()
+                     .RegisterType<IServiceCenterRepository<ServiceCenterLocatorList, int>, ServiceCenterRepository<ServiceCenterLocatorList, int>>()
+                     .RegisterType<ICacheManager, MemcacheManager>();
+                        ObjServiceCenter = container.Resolve<IServiceCenterCacheRepository>();
+                        _cities = ObjServiceCenter.GetServiceCenterCities(_makeId);
                         if (_cities != null && _cities.Count() > 0)
                         {
                             var _city = _cities.FirstOrDefault(x => x.CityId == cityId);
@@ -203,19 +206,18 @@ namespace Bikewale.Service
                                 Response.Redirect(_redirectUrl, false);
                                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                                 this.Page.Visible = false;
-                                return true;
+                                return false;
                             }
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    Trace.Warn(ex.Message);
-                    ErrorClass objErr = new ErrorClass(ex, "checkDealersForMakeCity");
+                    ErrorClass objErr = new ErrorClass(ex, "ServiceCenterInCountry.checkDealersForMakeCity");
                     objErr.SendMail();
                 }
             }
-            return false;
+            return true;
         }
 
     }   // End of class

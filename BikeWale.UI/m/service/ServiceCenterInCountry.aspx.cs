@@ -46,9 +46,9 @@ namespace Bikewale.Mobile.Service
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (ProcessQS())
+            if (ProcessQS() && checkServiceCenterForMakeCity(makeId))
             {
-                checkDealersForMakeCity(makeId);
+
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
@@ -62,45 +62,45 @@ namespace Bikewale.Mobile.Service
             }
 
         }
-        private bool checkDealersForMakeCity(ushort makeId)
+        private bool checkServiceCenterForMakeCity(ushort _makeId)
         {
             GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
-            if (currentCityArea != null)
-                cityId = currentCityArea.CityId;
+            cityId = currentCityArea.CityId;
             if (cityId > 0)
             {
-                IEnumerable<CityEntityBase> cities = null;
+                IEnumerable<CityEntityBase> _cities = null;
                 try
                 {
+                    IServiceCenterCacheRepository ObjServiceCenter = null;
                     using (IUnityContainer container = new UnityContainer())
                     {
                         container.RegisterType<IServiceCenter, ServiceCenter<ServiceCenterLocatorList, int>>()
-                   .RegisterType<IServiceCenterCacheRepository, ServiceCenterCacheRepository>()
-                   .RegisterType<IServiceCenterRepository<ServiceCenterLocatorList, int>, ServiceCenterRepository<ServiceCenterLocatorList, int>>()
-                   .RegisterType<ICacheManager, MemcacheManager>();
-                        var objCities = container.Resolve<IServiceCenter>();
-                        cities = objCities.GetServiceCenterCities(makeId);
-                        if (cities != null && cities.Count() > 0)
+                     .RegisterType<IServiceCenterCacheRepository, ServiceCenterCacheRepository>()
+                     .RegisterType<IServiceCenterRepository<ServiceCenterLocatorList, int>, ServiceCenterRepository<ServiceCenterLocatorList, int>>()
+                     .RegisterType<ICacheManager, MemcacheManager>();
+                        ObjServiceCenter = container.Resolve<IServiceCenterCacheRepository>();
+                        _cities = ObjServiceCenter.GetServiceCenterCities(_makeId);
+                        if (_cities != null && _cities.Count() > 0)
                         {
-                            var _city = cities.FirstOrDefault(x => x.CityId == cityId);
+                            var _city = _cities.FirstOrDefault(x => x.CityId == cityId);
                             if (_city != null)
                             {
                                 string _redirectUrl = String.Format("/m/{0}-service-center-in-{1}/", makeMaskingName, _city.CityMaskingName);
                                 Response.Redirect(_redirectUrl, false);
                                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                                 this.Page.Visible = false;
-                                return true;
+                                return false;
                             }
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, "checkDealersForMakeCity");
+                    ErrorClass objErr = new ErrorClass(ex, "ServiceCenterInCountry.checkDealersForMakeCity");
                     objErr.SendMail();
                 }
             }
-            return false;
+            return true;
         }
         /// <summary>
         /// Created By:-Subodh Jain 7 nov 2016

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web;
 namespace Bikewale.Content
 {
     public class ViewBikeCare : System.Web.UI.Page
@@ -30,6 +31,7 @@ namespace Bikewale.Content
         protected ModelGallery ctrlModelGallery;
         protected ArticlePhotoGallery ctrPhotoGallery;
         public uint basicId;
+        HttpContext page = HttpContext.Current;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -46,23 +48,34 @@ namespace Bikewale.Content
         /// </summary>
         private void DetailBikeCare()
         {
+
             objDetailBikeCare = new DetailPageBikeCare();
-            try
+            if (objDetailBikeCare != null && !objDetailBikeCare.pageNotFound)
             {
-                objTipsAndAdvice = objDetailBikeCare.objTipsAndAdvice;
-                objImg = objDetailBikeCare.objImg;
-                pageTitle = objDetailBikeCare.title;
-                pageDescription = objDetailBikeCare.description;
-                pageKeywords = objDetailBikeCare.keywords;
-                displayDate = objDetailBikeCare.displayDate;
-                bikeTested = objDetailBikeCare.bikeTested;
-                canonicalUrl = objDetailBikeCare.canonicalUrl;
-                basicId = objDetailBikeCare.BasicId;
+
+
+                try
+                {
+                    objTipsAndAdvice = objDetailBikeCare.objTipsAndAdvice;
+                    objImg = objDetailBikeCare.objImg;
+                    pageTitle = objDetailBikeCare.title;
+                    pageDescription = objDetailBikeCare.description;
+                    pageKeywords = objDetailBikeCare.keywords;
+                    displayDate = objDetailBikeCare.displayDate;
+                    bikeTested = objDetailBikeCare.bikeTested;
+                    canonicalUrl = objDetailBikeCare.canonicalUrl;
+                    basicId = objDetailBikeCare.BasicId;
+                }
+                catch (Exception ex)
+                {
+                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ViewBikeCare.DetailBikeCare");
+                    objErr.SendMail();
+                }
             }
-            catch (Exception ex)
+            else
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ViewBikeCare.DetailBikeCare");
-                objErr.SendMail();
+                page.Response.Redirect("/bike-care/", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
             }
 
 

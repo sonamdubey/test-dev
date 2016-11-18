@@ -97,7 +97,9 @@
                        <div class="grid-4 omega">
                         <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
                       
-                           <!-- #include file="/ads/Ad300x250.aspx" -->
+                         	<div class="margin-bottom20">
+                                 <!-- #include file="/ads/ad300x250.aspx" -->
+                        </div>
                           <BW:UpcomingBikes ID="ctrlUpcoming" runat="server" />
 
                          <div class="margin-bottom20">

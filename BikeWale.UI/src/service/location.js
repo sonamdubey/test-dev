@@ -105,13 +105,13 @@ function initializeMap(arrList, latPos, longPos, zoomLevel) {
 	for (i = 0; i < arrList.length; i++) {
 		element = arrList[i];
 		markerPosition = new google.maps.LatLng(element.latitude, element.longitude);
-
+		debugger;
 		marker = new MarkerWithLabel({
 			id: element.id,
 			name: element.name,
 			position: markerPosition,   
 			icon: markerIcon,
-			labelText: element.isstate ? '<a href="javascript:void(0);" rel="nofollow" class="tooltip-marker" data-id="' + element.id + '">' + element.dealerCount + '</a>' : '<a href="' + element.link + '"  data-id="' + element.id + '">' + element.dealerCount + '</a>',
+			labelText: element.isstate ? '<a href="javascript:void(0);" rel="nofollow" class="tooltip-marker" data-id="' + element.id + '">' + element.ServiceCenterCount + '</a>' : '<a href="' + element.link + '"  data-id="' + element.id + '">' + element.ServiceCenterCount + '</a>',
 			labelClass: 'labels label-' + element.id
 		});
 
@@ -289,7 +289,7 @@ function mapDealersArray() {
         _objStateCity.name = _self.attr("data-item-name")
         _objStateCity.latitude = _self.attr("data-lat");
         _objStateCity.longitude = _self.attr("data-long");
-        _objStateCity.dealerCount = _self.attr("data-dealercount");
+        _objStateCity.ServiceCenterCount = _self.attr("data-ServiceCenterCount");
         _objStateCity.isstate = true;
         locationArr.push(_objStateCity);
     });
@@ -305,7 +305,7 @@ function mapCityArray(listitem) {
         _objCity.name = _self.attr("data-item-name")
         _objCity.latitude = _self.attr("data-lat");
         _objCity.longitude = _self.attr("data-long");
-        _objCity.dealerCount = _self.attr("data-dealercount");
+        _objCity.ServiceCenterCount = _self.attr("data-ServiceCenterCount");
         _objCity.link = _self.attr("data-link");
         _objCity.isstate = false;
         citynewArr.push(_objCity);
