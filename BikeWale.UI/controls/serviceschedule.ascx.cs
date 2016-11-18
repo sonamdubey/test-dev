@@ -1,5 +1,6 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.Entities.ServiceCenters;
+using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Web.UI;
@@ -7,7 +8,7 @@ using System.Web.UI;
 namespace Bikewale.Controls
 {
     /// <summary>
-    /// Created By :  Sangram Nandkhile on 09-Nov-2016
+    /// Created By :  Sangram Nandkhile on 09 Nov 2016
     /// Description : Service Schedule for make
     /// </summary>
     public class ServiceSchedule : UserControl
@@ -28,9 +29,20 @@ namespace Bikewale.Controls
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            BindServiceSchedule scheduleViewModel = new BindServiceSchedule();
-            BikeScheduleList = scheduleViewModel.GetServiceScheduleList(MakeId);
-            jsonBikeSchedule = Newtonsoft.Json.JsonConvert.SerializeObject(BikeScheduleList);
+            try
+            {
+                BindServiceSchedule scheduleViewModel = new BindServiceSchedule();
+                BikeScheduleList = scheduleViewModel.GetServiceScheduleList(MakeId);
+                if (BikeScheduleList != null)
+                {
+                    jsonBikeSchedule = Newtonsoft.Json.JsonConvert.SerializeObject(BikeScheduleList);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ServiceSchedule.Page_Load()");
+                objErr.SendMail();
+            }
         }
     }
 }

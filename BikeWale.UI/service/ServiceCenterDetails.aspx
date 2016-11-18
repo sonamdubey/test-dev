@@ -133,10 +133,11 @@
                     <div class="clear"></div>
                 </div>
             </section>
-
+         <% if(ctrlServiceCenterCard.showWidget){ %>
             <section>
                 <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
             </section>
+        <% } %>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
             <section>
                 <BW:ServiceSchedule runat="server" ID="ctrlServiceSchedule" />
