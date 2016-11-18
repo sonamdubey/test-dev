@@ -471,7 +471,7 @@ namespace Bikewale.BikeBooking
                 CityArea = GlobalCityArea.GetGlobalCityArea();
                 if (CityArea != null)
                 {
-                        if (CityArea.Area !=null)
+                        if (CityArea.Area !=null && !String.IsNullOrEmpty(CityArea.Area))
                         {
                             location = String.Format("<span>{0}</span>, <span>{1}</span>",CityArea.Area, CityArea.City);
                         }
