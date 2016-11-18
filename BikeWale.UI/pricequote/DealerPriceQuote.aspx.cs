@@ -42,7 +42,7 @@ namespace Bikewale.BikeBooking
         protected BikeVersionEntity objVersionDetails = null;
         protected List<BikeVersionsListEntity> versionList = null;
         protected NewAlternativeBikes ctrlAlternativeBikes;
-        protected string BikeName = string.Empty, pageUrl = string.Empty, clientIP = string.Empty,cityArea = string.Empty, city = string.Empty, area = string.Empty;
+        protected string BikeName = string.Empty, pageUrl = string.Empty, clientIP = string.Empty,cityArea = string.Empty;
         protected uint totalPrice = 0, bookingAmount, dealerId = 0, cityId = 0, versionId = 0, pqId = 0, areaId = 0, insuranceAmount = 0, totalDiscount = 0;
         protected bool IsInsuranceFree, isUSPBenfits, isoffer, isEMIAvailable, IsDiscount;
         protected CustomerEntity objCustomer = new CustomerEntity();
@@ -150,7 +150,6 @@ namespace Bikewale.BikeBooking
 
                     if (detailedDealer != null)
                     {
-                        city = GetLocationCookie();
                         if (detailedDealer.objMake != null)
                         {
                             makeName = detailedDealer.objMake.MakeName;
@@ -469,25 +468,19 @@ namespace Bikewale.BikeBooking
             string location = String.Empty;
             try
             {
-                if (this.Context.Request.Cookies.AllKeys.Contains("location") && !string.IsNullOrEmpty(this.Context.Request.Cookies["location"].Value) && this.Context.Request.Cookies["location"].Value != "0")
+                CityArea = GlobalCityArea.GetGlobalCityArea();
+                if (CityArea != null)
                 {
-                    location = this.Context.Request.Cookies["location"].Value.Replace('-', ' ');
-                    string[] arr = Regex.Split(location, "_");
-
-                    if (arr.Length > 0)
-                    {
-                        if (arr.Length > 2)
+                        if (CityArea.Area !=null)
                         {
-                            location = String.Format("<span>{0}</span>, <span>{1}</span>", arr[3], arr[1]);
+                            location = String.Format("<span>{0}</span>, <span>{1}</span>",CityArea.Area, CityArea.City);
                         }
                         else
                         {
-                            location = String.Format("<span>{0}</span>", arr[1]);
+                            location = String.Format("<span>{0}</span>", CityArea.City);
                         }
-                        
-                    }
                 }
-                CityArea = GlobalCityArea.GetGlobalCityArea();
+                
             }
             catch (Exception ex)
             {
