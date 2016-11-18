@@ -57,9 +57,9 @@
             <div class="container section-bottom-margin">
                 <div class="grid-12">
                     <div class="bg-white">
-                        <h1 class="section-header"><%=makeName%> service centers in <%=cityName%></h1>
+                        <h1 class="section-header"><%=makeName%> service center<% if(totalServiceCenters > 1){ %>s<%}%> in <%=cityName%></h1>
                         <div class="section-inner-padding font14 text-light-grey">
-                            <p id="service-main-content">Is your <%= makeName %> bike due for a service or are you looking to repair your <%= makeName %> bike? BikeWale brings you the list of all authorised  <%= makeName %> service centers in <%= cityName %>. <%= makeName %> has <%= totalServiceCenters %> authorised service centers in <%= cityName %>. We recommend availing services only from authorised service centers. Authorised <%= makeName %> service centers abide by the servicing standards of <%= makeName %> with an assurance of genuine <%= makeName %> spare parts.</p><p id="service-more-content">BikeWale strongly recommends to use only <%= makeName %> genuine spare parts for your safety and durability of your bike. For more information on pick-up and drop facility, prices and service schedules get in touch with any of the below mentioned authorised <%= makeName %> service centers in <%= cityName %>. Do check out the maintenance tips and answers to FAQs from BikeWale experts!</p><a href="javascript:void(0)" id="read-more-target" rel="nofollow">Read more</a>
+                            <p id="service-main-content">Is your <%= makeName %> bike due for a service or are you looking to repair your <%= makeName %> bike? BikeWale brings you the list of all authorised  <%= makeName %> service centers in <%= cityName %>. <%= makeName %> has <%= totalServiceCenters %> authorised service center<% if(totalServiceCenters > 1){ %>s<%}%> in <%= cityName %>. We recommend availing services only from authorised service centers. Authorised <%= makeName %> service centers abide by the servicing standards of <%= makeName %> with an assurance of genuine <%= makeName %> spare parts.</p><p id="service-more-content">BikeWale strongly recommends to use only <%= makeName %> genuine spare parts for your safety and durability of your bike. For more information on pick-up and drop facility, prices and service schedules get in touch with any of the below mentioned authorised <%= makeName %> service centers in <%= cityName %>. Do check out the maintenance tips and answers to FAQs from BikeWale experts!</p><a href="javascript:void(0)" id="read-more-target" rel="nofollow">Read more</a>
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
             <div class="container section-bottom-margin">
                 <div class="grid-12">
                     <div class="content-box-shadow">
-                        <h2 class="section-h2-title padding-15-20"><%=totalServiceCenters %> <%=makeName %> service centers in <%=cityName %></h2>
+                        <h2 class="section-h2-title padding-15-20"><%=totalServiceCenters %> <%=makeName %> service center<% if(totalServiceCenters > 1){ %>s<%}%> in <%=cityName %></h2>
                         <div id="listing-left-column" class="grid-4 alpha omega">
                             <ul id="center-list">
                                     <% foreach (var serviceCenter in serviceCentersList)
@@ -80,7 +80,7 @@
                                         <li data-item-id="<%= serviceCenter.ServiceCenterId %>" data-item-inquired="false" data-lat="<%= serviceCenter.Lattitude %>" data-log="<%= serviceCenter.Longitude %>"  data-item-number="<%= serviceCenter.Phone%>" data-address="<%= serviceCenter.Address %>" 
                                              data-item-url="<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, urlCityMaskingName, serviceCenter.Name, Convert.ToInt32(serviceCenter.ServiceCenterId)) %> " >
 
-                                            <a href="<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, urlCityMaskingName, serviceCenter.Name, Convert.ToInt32(serviceCenter.ServiceCenterId)) %>" title="" class="dealer-card-target font14">
+                                            <a href="<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, urlCityMaskingName, serviceCenter.Name, Convert.ToInt32(serviceCenter.ServiceCenterId)) %>" title="<%= serviceCenter.Name %>" class="dealer-card-target font14">
                                                 <div class="dealer-card-content">
                                                     <h3 class="dealer-name text-black text-bold margin-bottom5"><%= serviceCenter.Name %></h3>
                                                     <% if(!(String.IsNullOrEmpty(serviceCenter.Address))) { %>
@@ -96,10 +96,11 @@
                                                     </p>
                                                     <% } %>
                                                 </div>
-                                            </a>
+                                            </a>                                            
                                             <div class="service-center-lead-content margin-top15 padding-left20 padding-right20">
+                                                <% if(!(String.IsNullOrEmpty(serviceCenter.Address))) { %>
                                                 <button type="button" class="btn btn-white service-btn get-details-btn font14">Get details on phone</button>
-
+                                                <%} %>
                                                 <div class="lead-mobile-content">
                                                     <div class="input-box input-number-box form-control-box type-user-details">
                                                         <input type="tel" id="lead-input-<%= serviceCenter.ServiceCenterId %>" class="service-center-lead-mobile" maxlength="10">

@@ -84,60 +84,65 @@ function initializeMap(dealerArr) {
     map = new google.maps.Map(document.getElementById("dealersMap"), mapProp);
     infowindow = new google.maps.InfoWindow();
     for (i = 0; i < dealerArr.length; i++) {
-        dealer = dealerArr[i];
-        markerPosition = new google.maps.LatLng(dealer.latitude, dealer.longitude);
-        if (!dealer.isFeatured) {
-            markerIcon = blackMarkerImage;
-            zIndex = 100;
-        }
-        else{
-            markerIcon = redMarkerImage;
-            zIndex = 101;
-        }
-        marker = new google.maps.Marker({
-            dealerId: dealer.id,
-            dealerName: dealer.name,
-            dealerNumber: dealer.maskingNumber,
-            position: markerPosition,
-            icon: markerIcon,
-            zIndex: zIndex
-        });
-
-       // /hero-service-center-in-newdelhi/134463-arc-motors-pvt-ltd/
-
-
-        markerArr.push(marker);
-        marker.setMap(map);
-        if (dealer.maskingNumber == '')
-            content = '<div class="dealer-info-tooltip"><a href="' + dealer.url.trim() + '" title ="' + dealer.name + '" class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div></div></a></div>';
-        else
-            content = '<div class="dealer-info-tooltip"><a href="' + dealer.url.trim() + '" title ="' + dealer.name + '"  class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div><div><span class="bwsprite phone-black-icon vertical-top margin-right5"></span><span class="vertical-top dealership-card-details">' + dealer.maskingNumber + '</span></div></div></a></div>';
-        google.maps.event.addListener(marker, 'mouseover', (function (marker, content, infowindow) {
-            return function () {
-                infowindow.setContent(content);
-                infowindow.open(map, marker);
-            };
-        })(marker, content, infowindow));
-
-        var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ 'address': currentCityName + ", India" }, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                map.setCenter(results[0].geometry.location);
-                map.fitBounds(results[0].geometry.viewport);
+        
+            dealer = dealerArr[i];
+            markerPosition = new google.maps.LatLng(dealer.latitude, dealer.longitude);
+            if (!dealer.isFeatured) {
+                markerIcon = blackMarkerImage;
+                zIndex = 100;
             }
-        });
-    }
+            else {
+                markerIcon = redMarkerImage;
+                zIndex = 101;
+            }
+            marker = new google.maps.Marker({
+                dealerId: dealer.id,
+                dealerName: dealer.name,
+                dealerNumber: dealer.maskingNumber,
+                position: markerPosition,
+                icon: markerIcon,
+                zIndex: zIndex
+            });
+
+            // /hero-service-center-in-newdelhi/134463-arc-motors-pvt-ltd/
+
+
+            markerArr.push(marker);
+            marker.setMap(map);
+            if (dealer.maskingNumber == '')
+                content = '<div class="dealer-info-tooltip"><a href="' + dealer.url.trim() + '" title ="' + dealer.name + '" class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div></div></a></div>';
+            else
+                content = '<div class="dealer-info-tooltip"><a href="' + dealer.url.trim() + '" title ="' + dealer.name + '"  class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div><div><span class="bwsprite phone-black-icon vertical-top margin-right5"></span><span class="vertical-top dealership-card-details">' + dealer.maskingNumber + '</span></div></div></a></div>';
+            google.maps.event.addListener(marker, 'mouseover', (function (marker, content, infowindow) {
+                return function () {
+                    infowindow.setContent(content);
+                    infowindow.open(map, marker);
+                };
+            })(marker, content, infowindow));
+
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ 'address': currentCityName + ", India" }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    map.setCenter(results[0].geometry.location);
+                    map.fitBounds(results[0].geometry.viewport);
+                }
+            });
+        }    
 }
 
 // dealer card mouseover show tooltip
 $(document).on('mouseover', '#center-list li', function () {
     var currentLI = $(this),
         currentDealerId = currentLI.attr('data-item-id');
-    for (var i = 0; i < markerArr.length; i++) {
-        if (markerArr[i].dealerId == currentDealerId) {
-            infowindow.setContent(markerArr[i].dealerName);
-            infowindow.open(map, markerArr[i]);
-            break;
+    var latitude = currentLI.attr('data-lat');
+    var longitude = currentLI.attr('data-log');
+    if (latitude != 0 || longitude != 0) {
+        for (var i = 0; i < markerArr.length; i++) {
+            if (markerArr[i].dealerId == currentDealerId) {
+                infowindow.setContent(markerArr[i].dealerName);
+                infowindow.open(map, markerArr[i]);
+                break;
+            }
         }
     }
 });
@@ -215,6 +220,8 @@ $('.submit-service-center-lead-btn').on('click', function () {
         listItem = sendBtn.closest('li'),
         inputbox = listItem.find('input'),
         valid = validatePhone(inputbox);
+
+    $('.lead-mobile-content input').val(inputbox.val());
 
     var serviceCenterId = $(this).attr("data-id");
 

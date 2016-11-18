@@ -1171,15 +1171,15 @@
       <DependentUpon>BookingListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="service\ServiceCenterInCountry.aspx.cs">
+    <Compile Include="servicecenter\ServiceCenterInCountry.aspx.cs">
       <DependentUpon>ServiceCenterInCountry.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="service\ServiceCenterDetails.aspx.cs">
+    <Compile Include="servicecenter\ServiceCenterDetails.aspx.cs">
       <DependentUpon>ServiceCenterDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="service\ServiceCenterList.aspx.cs">
+    <Compile Include="servicecenter\ServiceCenterList.aspx.cs">
       <DependentUpon>ServiceCenterList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -2550,10 +2550,10 @@
     <Content Include="m\videos\default.aspx" />
     <Content Include="m\videos\VideoMakeModel.aspx" />
     <Content Include="News\RepeaterPagerNews.ascx" />
-    <Content Include="service\ServiceCenterInCountry.aspx" />
-    <Content Include="service\ServiceCenterDetails.aspx" />
+    <Content Include="servicecenter\ServiceCenterInCountry.aspx" />
+    <Content Include="servicecenter\ServiceCenterDetails.aspx" />
     <Content Include="new\BikeDealerDetails.aspx" />
-    <Content Include="service\ServiceCenterList.aspx" />
+    <Content Include="servicecenter\ServiceCenterList.aspx" />
     <Content Include="new\dealersincountry.aspx" />
     <Content Include="new\browsenewbikedealerdetails.aspx" />
     <Content Include="new\dealersinstate.aspx" />
