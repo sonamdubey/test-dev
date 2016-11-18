@@ -11,8 +11,27 @@
 	-o-box-shadow:		$horizontal $vertical $blur $spread $color
 	box-shadow:			$horizontal $vertical $blur $spread $color
 
+@mixin box-shadow-card()
+	-webkit-box-shadow: 0 2px 2px #e2e2e2,0 1px 1px #f1f1f1
+	-moz-box-shadow:	0 2px 2px #e2e2e2,0 1px 1px #f1f1f1
+	-ms-box-shadow:		0 2px 2px #e2e2e2,0 1px 1px #f1f1f1
+	-o-box-shadow:		0 2px 2px #e2e2e2,0 1px 1px #f1f1f1
+	box-shadow:			0 2px 2px #e2e2e2,0 1px 1px #f1f1f1
+	border:				1px solid #e2e2e2\9
+
 @mixin transition($duration, $function, $property)
 	-webkit-transition: $duration $function $property
 	-moz-transition:	$duration $function $property
 	-o-transition:		$duration $function $property
 	transition:			$duration $function $property
+
+@mixin transform($property)
+	-webkit-transform:	$property
+	-moz-transform:		$property
+	-o-transform:		$property
+	transform:			$property
+
+// transition
+	$duration = seconds you want the transition to last - e.g. 0.3s
+	$function = how you want it to transition - e.g. ease-in-out
+	$property = the property you want to transition - e.g. transform
