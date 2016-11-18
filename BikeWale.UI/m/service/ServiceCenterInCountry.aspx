@@ -23,7 +23,14 @@
 </head>
 <body class="bg-light-grey">
     <form runat="server">
-    
+        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+         <% if(Ad_320x50){ %>
+            <section>
+                <div>
+                    <!-- #include file="/ads/Ad320x50_mobile.aspx" -->
+                </div>
+            </section>
+        <% } %>
         <%if(objMMV!=null){ %>
         <section>
             <div class="container bg-white card-bottom-margin">
