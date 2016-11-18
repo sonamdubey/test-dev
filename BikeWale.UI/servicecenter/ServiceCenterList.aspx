@@ -67,6 +67,7 @@
             </div>
         </section>
 
+        <% if(totalServiceCenters > 0){ %>
         <section>
             <div class="container section-bottom-margin">
                 <div class="grid-12">
@@ -74,7 +75,9 @@
                         <h2 class="section-h2-title padding-15-20"><%=totalServiceCenters %> <%=makeName %> service center<% if(totalServiceCenters > 1){ %>s<%}%> in <%=cityName %></h2>
                         <div id="listing-left-column" class="grid-4 alpha omega">
                             <ul id="center-list">
-                                    <% foreach (var serviceCenter in serviceCentersList)
+                                    <% if (serviceCentersList != null)
+                                       { 
+                                        foreach (var serviceCenter in serviceCentersList)
                                      { %>
                                 
                                         <li data-item-id="<%= serviceCenter.ServiceCenterId %>" data-item-inquired="false" data-lat="<%= serviceCenter.Lattitude %>" data-log="<%= serviceCenter.Longitude %>"  data-item-number="<%= serviceCenter.Phone%>" data-address="<%= serviceCenter.Address %>" 
@@ -119,7 +122,8 @@
                                                 </div>
                                             </div>
                                         </li>
-                                    <% } %>
+                                    <% }
+                                       } %>
                             </ul>
                         </div>
                         <div id="listing-right-column" class="grid-8 alpha omega">
@@ -137,6 +141,7 @@
             </div>
             <div id="listing-footer"></div>
         </section>
+        <%} %>
 
         <section>
             <div class="container section-bottom-margin">
