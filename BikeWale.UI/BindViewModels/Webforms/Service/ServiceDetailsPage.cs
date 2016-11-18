@@ -32,6 +32,10 @@ namespace Bikewale.BindViewModels.Webforms.Service
         public uint CityId, ServiceCenterId, MakeId;
         public BikeMakeEntityBase objBikeMakeEntityBase;
 
+        /// <summary>
+        /// Created by : Sangram Nandkhile on 16 Nov 2016
+        /// Desc: Binds the bike service data by service center Id
+        /// </summary>
         public bool BindServiceCenterData(uint serviceCenterId)
         {
             bool isDataReturned = false;
@@ -96,6 +100,10 @@ namespace Bikewale.BindViewModels.Webforms.Service
             return curMakename;
         }
 
+        /// <summary>
+        /// Created by : Sangram Nandkhile on 16 Nov 2016
+        /// Desc: return make entity by Make masking name response
+        /// </summary>
         public MakeMaskingResponse GetMakeResponse(string makeMaskingName)
         {
             MakeMaskingResponse response = null;
@@ -115,7 +123,7 @@ namespace Bikewale.BindViewModels.Webforms.Service
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceDetailsPage.GetMakeResponse()");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("ServiceDetailsPage.GetMakeResponse()- MakeMaskingName: {0}", makeMaskingName));
                 objErr.SendMail();
             }
             return response;

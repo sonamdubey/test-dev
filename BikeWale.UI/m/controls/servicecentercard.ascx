@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.ServiceCenterCard" %>
-<% if (showWidget)
+<% if (showWidget && ServiceCenteList!= null)
    { %>
 <div class="container bg-white box-shadow card-bottom-margin padding-bottom20">
     <h2 class="padding-15-20"><%= widgetTitle %></h2>

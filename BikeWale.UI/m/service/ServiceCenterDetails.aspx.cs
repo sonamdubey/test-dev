@@ -58,7 +58,10 @@ namespace Bikewale.Mobile.Service
                 BindControls();
             }
         }
-
+        /// <summary>
+        /// Created by : Sangram Nandkhile on 16 Nov 2016
+        /// Desc: Binds the bike service data by service center Id
+        /// </summary>
         private void BindServiceCenterData()
         {
             try

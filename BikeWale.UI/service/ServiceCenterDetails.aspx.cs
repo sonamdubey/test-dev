@@ -58,7 +58,8 @@ namespace Bikewale.Service
             }
         }
         /// <summary>
-        /// Desc; Bind Controls
+        /// Created By : Sangram Nandkhile on 17 Nov 2016
+        /// Desc: Bind Controls for page
         /// </summary>
         private void BindControls()
         {

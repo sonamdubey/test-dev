@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.ServiceCenterCard" %>
+<% if(ServiceCenteList!=null) { %>
 <div class="container section-bottom-margin">
                     <div class="grid-12">
                         <div class="content-box-shadow padding-bottom20">
@@ -7,7 +8,7 @@
                                  <% foreach (var serviceCenter in ServiceCenteList)
                                     { %>
                                 <li class="card">
-                                    <a href="<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName,cityMaskingName, serviceCenter.Name,serviceCenter.ServiceCenterId) %>" title="Executive Bajaj - Malad" class="card-target">
+                                    <a href="<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName,cityMaskingName, serviceCenter.Name,serviceCenter.ServiceCenterId) %>" title="<%=serviceCenter.Name %>" class="card-target">
                                         <h3 class="text-black text-bold text-truncate margin-bottom5"><%=serviceCenter.Name %></h3>
                                         <% if (!string.IsNullOrEmpty(serviceCenter.Address)){ %>
                                         <p class="text-light-grey margin-bottom5">
@@ -27,9 +28,10 @@
                             </ul>
                             <div class="clear"></div>
                             <div class="padding-left20 font14">
-                                <a href="<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, cityMaskingName) %>">View all <%= makeName %> service centers<span class="bwsprite blue-right-arrow-icon"></span></a>
+                                <a href="<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, cityMaskingName) %>" title="View all <%= makeName %> service centers in <%=cityName %>" >View all <%= makeName %> service centers in <%=cityName %><span class="bwsprite blue-right-arrow-icon"></span></a>
                             </div>
                         </div>
                     </div>
                     <div class="clear"></div>
-                </div>
+</div>
+<% } %>

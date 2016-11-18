@@ -44,16 +44,13 @@
                                     <a itemprop="url" href="/"><span itemprop="title">Home</span></a>
                                 </li>
                                 <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                    <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href=""><span itemprop="title">Used Bikes</span></a>
+                                    <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/bike-service-center/" title="Service Center Locator"><span itemprop="title">Service Center Locator</span></a>
                                 </li>
                                 <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                    <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/bike-service-center/"><span itemprop="title">Service Center Locator</span></a>
-                                </li>
-                                <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                    <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/<%=makeMaskingName %>-service-center-in-india/"><span itemprop="title"><%=serviceVM.MakeName%> Service Centers</span></a>
+                                    <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/<%=makeMaskingName %>-service-center-in-india/" title="<%=serviceVM.MakeName%> Service Centers"><span itemprop="title"><%=serviceVM.MakeName%> Service Centers</span></a>
                                 </li>
                                  <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                    <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/<%=makeMaskingName %>-service-center-in-<%=serviceVM.CityMaskingName %>/"><span itemprop="title"><%=serviceVM.MakeName%> Service Center in <%=serviceVM.objServiceCenterData.CityName%></span></a>
+                                    <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/<%=makeMaskingName %>-service-center-in-<%=serviceVM.CityMaskingName %>/" title="<%=serviceVM.MakeName%> Service Center in <%=serviceVM.objServiceCenterData.CityName%>"><span itemprop="title"><%=serviceVM.MakeName%> Service Center in <%=serviceVM.objServiceCenterData.CityName%></span></a>
                                 </li>
                                 <li class="current"><span class="bwsprite fa-angle-right margin-right10"></span><%=serviceVM.objServiceCenterData.Name %></li>
                             </ul>
@@ -150,14 +147,14 @@
                             <h2 class="section-h2-title padding-15-20">Tips from BikeWale experts to keep your bike in good shape!</h2>
                             <ul id="bw-tips-list">
                                 <li class="grid-6">
-                                    <a href="">
+                                    <a href="/bike-care/" title="Bike Care - Maintenance tips">
                                         <span class="service-sprite care-icon"></span>
                                         <h3 class="bike-tips-label margin-left10 inline-block">Bike Care - Maintenance tips</h3>
                                         <span class="bwsprite right-arrow"></span>
                                     </a>
                                 </li>
                                 <li class="grid-6">
-                                    <a href="">
+                                    <a href="/bike-troubleshooting/" title="Bike troubleshooting - FAQs">
                                         <span class="service-sprite faq-icon"></span>
                                         <h3 class="bike-tips-label margin-left10 inline-block">Bike troubleshooting - FAQs</h3>
                                         <span class="bwsprite right-arrow"></span>
@@ -200,15 +197,9 @@
             var serviceLat = '<%= serviceVM!= null && serviceVM.objServiceCenterData.Lattitude> 0? serviceVM.objServiceCenterData.Lattitude.ToString() : string.Empty %>';
             var serviceLong = '<%= serviceVM!= null && serviceVM.objServiceCenterData.Longitude> 0? serviceVM.objServiceCenterData.Longitude.ToString() : string.Empty %>';
             var currentCityName = '<%=cityName%>';
-            var bikeCityId = '<%=cityId%>';
             var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>";
-            var pageUrl = window.location.href;
-            var clientIP = '<%= clientIP %>';
             var pageSrcId = eval("<%= Bikewale.Utility.BWConfiguration.Instance.SourceId %>");
-            var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>";
-            var MakeName = "<%= serviceVM.MakeName%>";
         </script>
-        
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/service/details.js?<%= staticFileVersion %>"></script>
