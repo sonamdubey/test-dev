@@ -65,7 +65,7 @@
                 <div class="container section-bottom-margin">
                     <div class="grid-12">
                         <div class="bg-white">
-                            <h1 class="section-header"><%=serviceVM.objServiceCenterData.Name %></h1>
+                            <h1 class="section-header"><%=serviceVM.objServiceCenterData.Name %>, <%= serviceVM.CityName %></h1>
                             <div class="section-inner-padding">
                                 <div class="grid-7 alpha omega font14">
                                     <% if (serviceVM.objServiceCenterData != null)
@@ -147,14 +147,14 @@
                             <h2 class="section-h2-title padding-15-20">Tips from BikeWale experts to keep your bike in good shape!</h2>
                             <ul id="bw-tips-list">
                                 <li class="grid-6">
-                                    <a href="/bike-care/" title="Bike Care - Maintenance tips">
+                                    <a href="/bike-care/" title="Bike Care - Maintenance tips" target="_blank">
                                         <span class="service-sprite care-icon"></span>
                                         <h3 class="bike-tips-label margin-left10 inline-block">Bike Care - Maintenance tips</h3>
                                         <span class="bwsprite right-arrow"></span>
                                     </a>
                                 </li>
                                 <li class="grid-6">
-                                    <a href="/bike-troubleshooting/" title="Bike troubleshooting - FAQs">
+                                    <a href="/bike-troubleshooting/" title="Bike troubleshooting - FAQs" target="_blank">
                                         <span class="service-sprite faq-icon"></span>
                                         <h3 class="bike-tips-label margin-left10 inline-block">Bike troubleshooting - FAQs</h3>
                                         <span class="bwsprite right-arrow"></span>
@@ -171,7 +171,7 @@
             <section>
                 <div class="container section-bottom-margin">
                     <div class="grid-12">
-                        <div class="content-box-shadow padding-bottom20">
+                        <div class="content-box-shadow">
                             <div class="padding-15-20-20">
                                 <h2 class="section-h2-title margin-bottom10">Looking to buy a new <%=serviceVM.MakeName %> bike in <%=serviceVM.CityName %>?</h2>
                                 <p class="font14">Check out authorised <%=serviceVM.MakeName %> dealers in <%=serviceVM.CityName %></p>
