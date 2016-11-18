@@ -104,9 +104,6 @@ function initializeMap(dealerArr) {
                 zIndex: zIndex
             });
 
-            // /hero-service-center-in-newdelhi/134463-arc-motors-pvt-ltd/
-
-
             markerArr.push(marker);
             marker.setMap(map);
             if (dealer.maskingNumber == '')
