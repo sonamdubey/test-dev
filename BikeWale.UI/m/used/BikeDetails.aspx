@@ -124,7 +124,7 @@
                         </li>
                         <li>
                             <p class="specs-features-label">Seller</p>
-                            <p class="specs-features-value"><%= inquiryDetails.OtherDetails.Seller %></p>
+                            <p class="specs-features-value"><%= inquiryDetails.OtherDetails.Seller.Equals("s",StringComparison.CurrentCultureIgnoreCase) ? "Individual" : "Dealer" %></p>
                         </li>
                         <li>
                             <p class="specs-features-label">Manufacturing year</p>
