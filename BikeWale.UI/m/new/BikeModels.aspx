@@ -359,7 +359,7 @@
                         <ul class="overall-specs-tabs-wrapper">
                             <% if ((modelPage.ModelDesc != null && !string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) || modelPage.ModelVersionSpecs != null)
                            { %>
-                            <li data-tabs="#modelSummaryContent">About</li>
+                            <li data-tabs="#modelSummaryContent">Summary</li>
                             <% } %>
                             <% if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
                             { %>
@@ -403,12 +403,56 @@
                 <div id="modelSummaryContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom15 border-solid-bottom">
                     <%if (modelPage.ModelDesc != null && !string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription))
                       { %>
-                    <h2>About <%=bikeName %></h2>
-                    <h3>Preview</h3>
-                    <p class="font14 text-light-grey line-height17">                        
-                        <span class="model-preview-more-content" style="display: block !important">
+                    <h2><%=bikeName %> Summary</h2>
+                    <p class="font14 text-light-grey line-height17 margin-bottom15">The price of Make Model is Rs. 'x' onwards (Ex-showroom, Mumbai) and is available in 'y' variants. Model has a mileage of 'z' kmpl and a top speed of 'x' kmph. It is available in 2 different colours : colour 1, colour 2.</p>
+
+                    <div class="border-solid-bottom padding-bottom10 margin-bottom15">
+                        <table id="model-key-highlights" cellspacing="0" cellpadding="0" width="100%" border="0" class="font14 text-left">
+                            <thead>
+                                <tr>
+                                    <th colspan="2"><%= modelPage.ModelDetails.ModelName %> key highlights</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td valign="top" width="36%">Price</td>
+                                    <td valign="top" width="64%">
+                                        <span class="bwmsprite inr-dark-grey-xsm-icon"></span><span class="text-bold">1,23,000</span><br />
+                                        <span class="font12 text-light-grey">Ex-showroom Delhi</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top">Top speed</td>
+                                    <td valign="top" class="text-bold">142 kmph</td>
+                                </tr>
+                                <tr>
+                                    <td valign="top">Mileage</td>
+                                    <td valign="top" class="text-bold">25 kmpl</td>
+                                </tr>
+                                <tr>
+                                    <td valign="top">Colours</td>
+                                    <td valign="top" class="text-bold">
+                                        <ul class="model-color-list">
+                                            <li class="leftfloat">Black</li>
+                                            <li class="leftfloat">Geny Grey Metallic</li>
+                                            <li class="leftfloat">Maple Brown Metallic</li>
+                                            <li class="leftfloat">Imperial Red Metallic</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3><%= modelPage.ModelDetails.ModelName %> overview</h3>
+                    <p class="font14 text-light-grey line-height17 inline">
+                        <span class="model-preview-main-content">
+                            <%= modelPage.ModelDesc.SmallDescription %>
+                        </span>                                
+                        <span class="model-preview-more-content hide">
                             <%= modelPage.ModelDesc.FullDescription %>
                         </span>
+                        <a href="javascript:void(0)" class="font14 read-more-model-preview">Read more</a>
                     </p>
                     <% } %>
                     <% if (modelPage.ModelVersionSpecs != null)
