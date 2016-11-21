@@ -284,7 +284,9 @@ input[type="number"] {
   color: #d9534f; }
 
 .invalid ~ .boundary:before,
-.invalid ~ .boundary:after {
+.invalid ~ .boundary:after,
+.invalid .boundary:before,
+.invalid .boundary:after {
   background-color: #d9534f;
   width: 50%; }
 

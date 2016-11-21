@@ -15,33 +15,35 @@ $(document).ready(function () {
     
     mapDimension();
     $(window).on('scroll', function () {
-        var windowTop = $(window).scrollTop(),
-            mapWrapperOffset = mapWrapper.offset(),
-            listingFooterOffset = listingFooter.offset();
+        if (typeof (mapColumn[0]) != 'undefined') { // sticky feature if dealers are present
+            var windowTop = $(window).scrollTop(),
+                mapWrapperOffset = mapWrapper.offset(),
+                listingFooterOffset = listingFooter.offset();
 
-        if (windowTop > mapWrapperOffset.top) {
-            mapColumn.css({
-                'position': 'fixed',
-                'top': 0,
-                'left': mapWrapperOffset.left
-            });
-
-            if (windowTop > listingFooterOffset.top - windowHeight - 20) {
+            if (windowTop > mapWrapperOffset.top) {
                 mapColumn.css({
-                    'position': 'absolute',
-                    'top': 'auto',
-                    'left': 0,
-                    'bottom': 0
+                    'position': 'fixed',
+                    'top': 0,
+                    'left': mapWrapperOffset.left
                 });
+
+                if (windowTop > listingFooterOffset.top - windowHeight - 20) {
+                    mapColumn.css({
+                        'position': 'absolute',
+                        'top': 'auto',
+                        'left': 0,
+                        'bottom': 0
+                    });
+                }
             }
+            else {
+                mapColumn.css({
+                    'position': 'relative',
+                    'top': 0,
+                    'left': 0
+                });
+            }  
         }
-        else {
-            mapColumn.css({
-                'position': 'relative',
-                'top': 0,
-                'left': 0
-            });
-        }  
     });    
 
 });
@@ -65,6 +67,9 @@ var mapDimension = function () {
 
 
 function initializeMap(dealerArr) {
+    if (dealerArr.length == 0) {
+        return false; // don't render google map if 0 dealers
+    }
 
     var i, marker, dealer, markerPosition, content, zIndex;
 
@@ -106,9 +111,9 @@ function initializeMap(dealerArr) {
             markerArr.push(marker);
             marker.setMap(map);
             if (dealer.maskingNumber == '')
-                content = '<div class="dealer-info-tooltip"><a href="' + dealer.url.trim() + '" title ="' + dealer.name + '" class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div></div></a></div>';
+                content = '<div class="dealer-info-tooltip"><a href="' + $.trim(dealer.url) + '" title ="' + dealer.name + '" class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div></div></a></div>';
             else
-                content = '<div class="dealer-info-tooltip"><a href="' + dealer.url.trim() + '" title ="' + dealer.name + '"  class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div><div><span class="bwsprite phone-black-icon vertical-top margin-right5"></span><span class="vertical-top dealership-card-details">' + dealer.maskingNumber + '</span></div></div></a></div>';
+                content = '<div class="dealer-info-tooltip"><a href="' + $.trim(dealer.url) + '" title ="' + dealer.name + '"  class="text-black block"><p class="font16 text-bold margin-bottom5">' + dealer.name + '</p><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div><div><span class="bwsprite phone-black-icon vertical-top margin-right5"></span><span class="vertical-top dealership-card-details">' + dealer.maskingNumber + '</span></div></div></a></div>';
             google.maps.event.addListener(marker, 'mouseover', (function (marker, content, infowindow) {
                 return function () {
                     infowindow.setContent(content);
@@ -143,10 +148,8 @@ $(document).on('mouseover', '#center-list li', function () {
     }
 });
 
-if (dealerArr.length > 0) {
-    mapDealersArray();
-    initializeMap(dealerArr);
-}
+mapDealersArray();
+initializeMap(dealerArr);
 
 function mapDealersArray() {
     $("ul#center-list li").each(function () {
@@ -305,7 +308,7 @@ function validatePhone(inputElement) {
         validate.setError(inputElement, "Enter your mobile number!");
         isValid = false;
     }
-    else if (leadMobileNo[0] == "0") {
+    else if (leadMobileNo[0] < 7) {
         validate.setError(inputElement, "Enter a valid mobile number!");
         isValid = false;
     }

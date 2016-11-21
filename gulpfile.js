@@ -170,4 +170,10 @@ gulp.task('mobile-service-details', function () {
         .pipe(gulp.dest('BikeWale.UI/min/m/service'));
 });
 
-gulp.task('default', gulpSequence('clean', 'minify-bw-css', 'minify-bw-js', 'minify-bwm-css', 'minify-bwm-js', 'bw-sass', 'bwm-sass', 'bw-service-css', 'bwm-service-css', 'replace-css-reference'));
+// replace desktop frameworks js, ie8 fix
+gulp.task('bw-framework-js', function () {
+    return gulp.src('BikeWale.UI/src/frameworks.js', { base: 'BikeWale.UI/src/' })
+        .pipe(gulp.dest(paths.destinationD_JS));
+});
+
+gulp.task('default', gulpSequence('clean', 'minify-bw-css', 'minify-bw-js', 'minify-bwm-css', 'minify-bwm-js', 'bw-framework-js', 'bw-sass', 'bwm-sass', 'bw-service-css', 'bwm-service-css', 'replace-css-reference'));

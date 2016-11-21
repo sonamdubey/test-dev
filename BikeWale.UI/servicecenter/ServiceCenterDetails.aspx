@@ -29,7 +29,7 @@
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>
 </head>
-<body class="bg-light-grey padding-top50">
+<body class="bg-light-grey header-fixed-inner">
     <form id="Form1" runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <% if (serviceVM != null && serviceVM.objServiceCenterData != null)
