@@ -177,7 +177,6 @@ var sellBike = function () {
                     $(myDropzone.files[i].previewElement).find(".dz-remove").attr("photoid", this.id);
                 });
                 myDropzone.options.maxFiles -= self.serverImg().length;
-
                 if (myDropzone.options.maxFiles != 0) {
                     morePhotos.attach();
                 }
@@ -190,7 +189,7 @@ var sellBike = function () {
                 });
 
                 this.on("removedfile", function (file) {
-                    debugger;
+                    morePhotos.detach();
                     if (myDropzone.options.maxFiles < 10)
                         ++myDropzone.options.maxFiles;
                     self.removePhoto($(file._removeLink).attr("photoid"));
@@ -204,15 +203,10 @@ var sellBike = function () {
                 });
 
                 this.on("success", function (file, response) {
-                    debugger;
                     var resp = JSON.parse(response);
-                    setProfilePhoto();
-                    myDropzone.options.maxFiles = 10 - myDropzone.files.length;
+                    setProfilePhoto();                    
                     if (resp && resp.imageResult && resp.imageResult.length > 0 && resp.status == 1) {
                         setRemoveLinkUrl(file, resp.imageResult);
-                    }                    
-                    if (myDropzone.files.length > myDropzone.options.maxFiles) {
-                        morePhotos.detach();
                     }
                 });
 
@@ -233,7 +227,7 @@ var sellBike = function () {
                 });
 
                 this.on("addedfiles", function (file) {
-                    debugger;
+                    morePhotos.detach();
                     if (myDropzone.files.length > myDropzone.options.maxFiles) {
                         $(file).each(function (i) {
                             if (10 > i >= self.serverImg().length) {
