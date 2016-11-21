@@ -74,6 +74,8 @@ namespace Bikewale.BindViewModels.Controls
         /// des :- to fetch details for popular bikes widget 
         /// Modified By : Sushil Kumar on 10th Nov 2016
         /// Description : Added provision to bind most popular bikes for edit cms
+        /// Modified By : Sushil Kumar on 16th Nov 2016
+        /// Description : Handle top count for other pages edit cms
         /// </summary>
         /// <param name="rptr"></param>
         public void BindMostPopularBikesMakeCity(Repeater rptr)
@@ -90,10 +92,13 @@ namespace Bikewale.BindViewModels.Controls
 
 
                     IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
-                    popularBikes = modelCache.GetMostPopularBikesbyMakeCity((uint)totalCount, (uint)makeId, (uint)cityId);
+
+                    popularBikes = modelCache.GetMostPopularBikesbyMakeCity(TotalWidgetItems, (uint)makeId, (uint)cityId);
                 }
                 if (popularBikes != null && popularBikes.Count() > 0)
                 {
+                    popularBikes = popularBikes.Take(Convert.ToInt32(totalCount));
+
                     if (rptr != null)
                     {
                         rptr.DataSource = popularBikes;
