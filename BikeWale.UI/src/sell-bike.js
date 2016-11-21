@@ -190,20 +190,28 @@ var sellBike = function () {
                 });
 
                 this.on("removedfile", function (file) {
+                    debugger;
+                    if (myDropzone.options.maxFiles < 10)
+                        ++myDropzone.options.maxFiles;
                     self.removePhoto($(file._removeLink).attr("photoid"));
                     setProfilePhoto();
-                    if (file.length < myDropzone.options.maxFiles) {
+                    if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
                         morePhotos.attach();
+                    }
+                    else {
+                        morePhotos.detach();
                     }
                 });
 
                 this.on("success", function (file, response) {
+                    debugger;
                     var resp = JSON.parse(response);
                     setProfilePhoto();
+                    myDropzone.options.maxFiles = 10 - myDropzone.files.length;
                     if (resp && resp.imageResult && resp.imageResult.length > 0 && resp.status == 1) {
                         setRemoveLinkUrl(file, resp.imageResult);
-                    }
-                    if (file.length > myDropzone.options.maxFiles) {
+                    }                    
+                    if (myDropzone.files.length > myDropzone.options.maxFiles) {
                         morePhotos.detach();
                     }
                 });
@@ -225,18 +233,23 @@ var sellBike = function () {
                 });
 
                 this.on("addedfiles", function (file) {
-                    if (file.length > myDropzone.options.maxFiles) {
+                    debugger;
+                    if (myDropzone.files.length > myDropzone.options.maxFiles) {
                         $(file).each(function (i) {
-                            if (i >= self.serverImg().length) {
+                            if (10 > i >= self.serverImg().length) {
                                 myDropzone.cancelUpload(this);
                                 myDropzone.removeFile(this);
                             }
                         });
-                        morePhotos.detach();
                     }
-                    else {
+                    if (myDropzone.options.maxFiles > 0)
+                        myDropzone.options.maxFiles -= file.length;
+                    if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
                         morePhotos.attach();
                     }
+                    else {
+                        morePhotos.detach();
+                    }                    
                 });
                 
             }
