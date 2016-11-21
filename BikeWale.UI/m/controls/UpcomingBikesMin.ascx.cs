@@ -11,7 +11,7 @@ namespace Bikewale.Mobile.Controls
     /// Created By : Aditi Srivastava on 16 Nov 2016
     /// Summary    : To inject upcoming bikes widget for cms pages
     /// </summary>
-    public class MUpcomingBikesMin : System.Web.UI.UserControl
+    public class UpcomingBikesMin : System.Web.UI.UserControl
     {
 
         public Repeater rptUpcomingBikes;

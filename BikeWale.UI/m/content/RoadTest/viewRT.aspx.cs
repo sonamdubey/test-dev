@@ -32,7 +32,7 @@ namespace Bikewale.Content
         protected Repeater rptPageContent;
         protected ModelGallery photoGallery;
         protected GlobalCityAreaEntity currentCityArea;
-        protected MUpcomingBikesMin ctrlUpcomingBikes;
+        protected UpcomingBikesMin ctrlUpcomingBikes;
         protected PopularBikesMin ctrlPopularBikes;
         protected uint BasicId = 0, pageId = 1;
         protected String baseUrl = String.Empty, pageTitle = String.Empty, modelName = String.Empty, modelUrl = String.Empty;
@@ -40,7 +40,7 @@ namespace Bikewale.Content
         protected StringBuilder _bikeTested;
         protected Repeater rptPhotos;
         protected ArticlePageDetails objRoadtest;
-        protected IEnumerable<ModelImage> objImg = null;
+        private IEnumerable<ModelImage> objImg = null;
         private bool _isContentFound = true;
         private BikeMakeEntityBase _taggedMakeObj;
         protected override void OnInit(EventArgs e)
@@ -170,8 +170,8 @@ namespace Bikewale.Content
         {
             try
             {
-                baseUrl = "/m/expert-reviews/" + objRoadtest.ArticleUrl + '-' + BasicId.ToString() + "/";
-                canonicalUrl = "http://www.bikewale.com/expert-reviews/" + objRoadtest.ArticleUrl + '-' + BasicId.ToString() + ".html";
+                baseUrl = string.Format("/m/expert-reviews/{0}-{1}/", objRoadtest.ArticleUrl, BasicId);
+                canonicalUrl = string.Format("http://www.bikewale.com/expert-reviews/{0}-{1}", objRoadtest.ArticleUrl, BasicId);
                 data = objRoadtest.Description;
                 author = objRoadtest.AuthorName;
                 pageTitle = objRoadtest.Title;
@@ -196,7 +196,7 @@ namespace Bikewale.Content
                             VehicleTag item = objRoadtest.VehiclTagsList.Where(e => e.ModelBase.ModelId == i).First();
                             if (!String.IsNullOrEmpty(item.MakeBase.MaskingName))
                             {
-                                _bikeTested.Append("<a title='" + item.MakeBase.MakeName + " " + item.ModelBase.ModelName + " Bikes' href='/m/" + item.MakeBase.MaskingName + "-bikes/" + item.ModelBase.MaskingName + "/'>" + item.ModelBase.ModelName + "</a>   ");
+                                _bikeTested.Append(string.Format("<a title={0} {1} Bikes href=/m/{2}-bikes/{3}/>{4}</a>", item.MakeBase.MakeName, item.ModelBase.ModelName, item.MakeBase.MaskingName, item.ModelBase.MaskingName, item.ModelBase.ModelName));
                             }
                         }
                     }

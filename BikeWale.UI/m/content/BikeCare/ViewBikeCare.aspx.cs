@@ -21,7 +21,7 @@ namespace Bikewale.Mobile.Content
     {
         DetailPageBikeCare objDetailBikeCare;
         private GlobalCityAreaEntity currentCityArea;
-        protected MUpcomingBikesMin ctrlUpcomingBikes;
+        protected UpcomingBikesMin ctrlUpcomingBikes;
         protected PopularBikesMin ctrlPopularBikes;
         protected ModelGallery photoGallery;
         protected String baseUrl = String.Empty, pageTitle = String.Empty, modelName = String.Empty, modelUrl = String.Empty, pageDescription = String.Empty, pageKeywords = String.Empty;

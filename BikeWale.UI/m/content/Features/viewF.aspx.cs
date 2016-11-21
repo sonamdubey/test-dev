@@ -29,7 +29,7 @@ namespace Bikewale.Mobile.Content
     {
         //protected Repeater rptPages, rptPageContent;
         protected Repeater rptPageContent;
-        protected MUpcomingBikesMin ctrlUpcomingBikes;
+        protected UpcomingBikesMin ctrlUpcomingBikes;
         protected PopularBikesMin ctrlPopularBikes;
         protected ModelGallery photoGallery;
         protected HtmlSelect ddlPages;
