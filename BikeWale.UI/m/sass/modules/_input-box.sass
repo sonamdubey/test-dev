@@ -1,0 +1,61 @@
+﻿input[type="text"]:focus,
+input[type="number"]:focus
+	outline: none
+	box-shadow: none
+
+.input-box
+	height: 60px
+	text-align: left
+	
+	input
+		width: 100%
+		display: block
+		padding: 7px 0
+		border-bottom: 1px solid $text-light
+		color: $text-primary
+		
+	label
+		position: absolute
+		top: 4px
+		left: 0
+		font-size: $font-size-medium
+		color: $text-light
+		@include transition(0.2s, ease, all)
+
+.input-box input,
+.input-number-prefix
+	font-size: $font-size-medium
+	font-weight: $font-bold
+		
+.input-number-box
+	input
+		padding-left: 30px
+
+	.input-number-label
+		font-size: $font-size-small
+		position: relative
+		top: 4px
+		color: $text-x-light
+
+.input-number-prefix
+	display: none
+	position: absolute
+	top: 7px
+	color: $text-light
+
+/* on focus */
+.input-box
+	input:focus ~ label,
+	&.not-empty label
+		top: -14px
+		font-size: $font-size-small
+
+.input-number-box
+	input:focus ~ .input-number-prefix,
+	&.not-empty .input-number-prefix
+		display: inline-block
+
+.input-box
+	input:focus ~ .boundary:before,
+	input:focus ~ .boundary:after
+		width: 50%

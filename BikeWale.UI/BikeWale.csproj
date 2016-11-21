@@ -1152,6 +1152,10 @@
       <DependentUpon>Search.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\used\sell\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\users\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1203,7 +1207,7 @@
     <Compile Include="servicecenter\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>    
+    </Compile>
     <Compile Include="servicecenter\ServiceCenterDetails.aspx.cs">
       <DependentUpon>ServiceCenterDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2553,6 +2557,7 @@
     <Content Include="m\src\common.js" />
     <Content Include="m\src\common.min.js" />
     <Content Include="m\src\dealerdetail.js" />
+    <Content Include="m\src\sell-bike.js" />
     <Content Include="m\src\service\details.js" />
     <Content Include="m\src\service\listing.js" />
     <Content Include="m\src\dealerlisting.js" />
@@ -2586,6 +2591,7 @@
     <Content Include="m\used\BikesInCity.aspx" />
     <Content Include="m\used\Default.aspx" />
     <Content Include="m\used\Search.aspx" />
+    <Content Include="m\used\sell\Default.aspx" />
     <Content Include="m\users\Login.aspx" />
     <Content Include="m\videos\video.aspx" />
     <Content Include="m\videos\VideoCategories.aspx" />
@@ -2807,6 +2813,13 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="sass\sell-bike.sass" />
+    <Content Include="m\sass\sell-bike\sell-bike.sass" />
+    <Content Include="m\sass\sell-bike\_sell-bike-style.sass" />
+    <Content Include="m\sass\sell-bike\_icons.sass" />
+    <Content Include="m\sass\sell-bike\_tabs.sass" />
+    <Content Include="m\sass\modules\_input-box.sass" />
+    <Content Include="m\sass\modules\_box-boundary.sass" />
+    <Content Include="m\sass\sell-bike\_media.sass" />
     <None Include="sass\components\_card-header.sass" />
     <Content Include="sass\sell-bike\_style.sass" />
     <Content Include="sass\components\_typography.sass" />
