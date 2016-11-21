@@ -40,7 +40,7 @@ namespace Bikewale.Content
         protected StringBuilder _bikeTested;
         protected Repeater rptPhotos;
         protected ArticlePageDetails objRoadtest;
-        private IEnumerable<ModelImage> objImg = null;
+        protected IEnumerable<ModelImage> objImg = null;
         private bool _isContentFound = true;
         private BikeMakeEntityBase _taggedMakeObj;
         protected override void OnInit(EventArgs e)
