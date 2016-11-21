@@ -42,6 +42,13 @@ namespace Bikewale.Used
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
+
+            Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(originalUrl);
+            dd.DetectDevice();
+
             LoadUsedBikesList();
 
         }
