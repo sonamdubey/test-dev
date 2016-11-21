@@ -10,6 +10,8 @@
         description = String.Format("There are {0} {1} service centers in {2}. Get in touch with your nearest {1} service center for service repairing, schedule details, pricing, pick and drop facility. Check the Service schedule for {1} bikes now.",totalServiceCenters,  makeName, cityName);
         title = String.Format("{0} service centers in {1} | {0} bike servicing in {1} - BikeWale ", makeName, cityName);
         canonical = String.Format("http://www.bikewale.com/{0}-service-center-in-{1}/", makeMaskingName, urlCityMaskingName);
+        AdPath = "/1017752/Bikewale_Mobile_Model";
+        AdId = "1444028976556";
         Ad_320x50 = true;
         Ad_Bot_320x50 = true;
     %>

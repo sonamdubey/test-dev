@@ -61,9 +61,9 @@ namespace Bikewale.Service
             Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(originalUrl);
             dd.DetectDevice();
 
-            if (ProcessQueryString() && GetMakeIdByMakeMaskingName()  && makeId > 0 && cityId > 0)
+            if (ProcessQueryString() && GetMakeIdByMakeMaskingName() && makeId > 0 && cityId > 0)
             {
-                
+
                 GetMakeNameByMakeId(makeId);
                 BindServiceCentersList();
                 GetCityNameByCityMaskingName(urlCityMaskingName);
@@ -233,26 +233,17 @@ namespace Bikewale.Service
                         }
                         else
                         {
-                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                            HttpContext.Current.ApplicationInstance.CompleteRequest();
-                            this.Page.Visible = false;
                             isValidMake = false;
                         }
                     }
                     else
                     {
-                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
                         isValidMake = false;
                     }
                 }
             }
             else
             {
-                Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
                 isValidMake = false;
             }
 
@@ -283,18 +274,14 @@ namespace Bikewale.Service
                     }
                     else
                     {
-                        Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
+                        return false;
                     }
                     clientIP = Bikewale.Common.CommonOpn.GetClientIP();
                     pageUrl = currentReq.ServerVariables["URL"];
                 }
                 else
                 {
-                    Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    return false;
                 }
             }
             catch (Exception ex)
