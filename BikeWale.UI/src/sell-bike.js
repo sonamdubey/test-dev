@@ -177,19 +177,34 @@ var sellBike = function () {
                     $(myDropzone.files[i].previewElement).find(".dz-remove").attr("photoid", this.id);
                 });
                 myDropzone.options.maxFiles -= self.serverImg().length;
+                if (myDropzone.options.maxFiles != 0) {
+                    morePhotos.attach();
+                }
+                else {
+                    morePhotos.detach();
+                }
 
                 this.on("sending", function (file) {
                     $(file.previewElement).find('#spinner-content').hide();
                 });
 
                 this.on("removedfile", function (file) {
+                    morePhotos.detach();
+                    if (myDropzone.options.maxFiles < 10)
+                        ++myDropzone.options.maxFiles;
                     self.removePhoto($(file._removeLink).attr("photoid"));
                     setProfilePhoto();
+                    if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
+                        morePhotos.attach();
+                    }
+                    else {
+                        morePhotos.detach();
+                    }
                 });
 
                 this.on("success", function (file, response) {
                     var resp = JSON.parse(response);
-                    setProfilePhoto();
+                    setProfilePhoto();                    
                     if (resp && resp.imageResult && resp.imageResult.length > 0 && resp.status == 1) {
                         setRemoveLinkUrl(file, resp.imageResult);
                     }
@@ -212,15 +227,25 @@ var sellBike = function () {
                 });
 
                 this.on("addedfiles", function (file) {
-                    if (file.length > myDropzone.options.maxFiles) {
+                    morePhotos.detach();
+                    if (myDropzone.files.length > myDropzone.options.maxFiles) {
                         $(file).each(function (i) {
-                            if (i >= self.serverImg().length) {
+                            if (10 > i >= self.serverImg().length) {
                                 myDropzone.cancelUpload(this);
                                 myDropzone.removeFile(this);
                             }
                         });
                     }
+                    if (myDropzone.options.maxFiles > 0)
+                        myDropzone.options.maxFiles -= file.length;
+                    if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
+                        morePhotos.attach();
+                    }
+                    else {
+                        morePhotos.detach();
+                    }                    
                 });
+                
             }
         });
     }
@@ -1037,6 +1062,10 @@ $(document).ready(function () {
     calender.month.set();
 });
 
+$('#add-photos-dropzone').on('click', '#add-more-photos', function (event) {
+    $('#add-photos-dropzone').trigger('click');
+});
+
 function setPhotoId() {
 
 }
@@ -1339,6 +1368,27 @@ var calender = {
     }
 };
 
+
+var morePhotos = {
+    dropzoneDiv: $('#add-photos-dropzone'),
+
+    attach: function () {
+        var addPhotosDiv;
+
+        if (!morePhotos.dropzoneDiv.hasClass('dz-under-limit')) {
+            addPhotosDiv = '<div id="add-more-photos"><div class="more-photos-content"><span class="sell-bike-sprite plus-icon"></span><br /><span class="font12 text-light-grey">Add photos</span></div></div>';
+
+            morePhotos.dropzoneDiv.addClass('dz-under-limit').append(addPhotosDiv);
+        }        
+    },
+
+    detach: function () {
+        if (morePhotos.dropzoneDiv.hasClass('dz-under-limit')) {
+            morePhotos.dropzoneDiv.removeClass('dz-under-limit');
+            morePhotos.dropzoneDiv.find('#add-more-photos').remove();
+        }
+    }
+};
 
 
 $(function () {

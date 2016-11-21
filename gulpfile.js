@@ -130,6 +130,9 @@ gulp.task('replace-css-reference', function (callback) {
     gulpSequence('mobile-service-center')(callback)
 });
 
+
+gulp.task('default', ['clean', 'minify-bw-css', 'minify-bw-js', 'minify-bwm-css', 'minify-bwm-js', 'bw-framework']);
+
 gulp.task('mobile-service-center', function (callback) {
     gulpSequence('mobile-service-landing', 'mobile-service-city', 'mobile-service-listing', 'mobile-service-details')(callback)
 });
