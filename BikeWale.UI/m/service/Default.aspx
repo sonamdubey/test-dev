@@ -27,7 +27,7 @@
         <section>
             <div class="container locator-landing-banner text-center">
                 <h1 class="font24 text-uppercase text-white">Bike service center locator</h1>
-                <h2 class="font14 text-unbold text-white">Find bike service center across 200+ cities in India</h2>
+                <h2 class="font14 text-unbold text-white">Find bike service center across 1000+ cities in India</h2>
             </div>
         </section>
 
