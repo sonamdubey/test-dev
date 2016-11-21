@@ -23,6 +23,7 @@ namespace Bikewale.ServiceCenter
         protected ServiceSchedule ctrlServiceSchedule;
         protected DealerCard ctrlDealerCard;
         public ServiceDetailsPage serviceVM;
+        public bool showDealerWidget = false;
 
         protected override void OnInit(EventArgs e)
         {
@@ -72,12 +73,16 @@ namespace Bikewale.ServiceCenter
             ctrlServiceCenterCard.TopCount = 3;
             ctrlServiceCenterCard.ServiceCenterId = serviceCenterId;
 
-            ctrlDealerCard.MakeId = makeId;
-            ctrlDealerCard.makeMaskingName = makeMaskingName;
-            ctrlDealerCard.CityId = serviceVM.CityId;
-            ctrlDealerCard.cityName = serviceVM.CityName;
-            ctrlDealerCard.TopCount = 3;
-            ctrlDealerCard.isHeading = false;
+            if (ctrlDealerCard != null)
+            {
+                ctrlDealerCard.MakeId = makeId;
+                ctrlDealerCard.makeMaskingName = makeMaskingName;
+                ctrlDealerCard.CityId = serviceVM.CityId;
+                ctrlDealerCard.cityName = serviceVM.CityName;
+                ctrlDealerCard.TopCount = 3;
+                ctrlDealerCard.isHeading = false;
+                showDealerWidget = ctrlDealerCard.showWidget;
+            }
         }
 
         #region Private Method to process querystring
