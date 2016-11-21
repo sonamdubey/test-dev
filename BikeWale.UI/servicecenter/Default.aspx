@@ -7,7 +7,7 @@
     <%
         title = "Locate Authorised Bike Service Center | Bikes Servicing Center Nearby - BikeWale";
         keywords = "servicing, bike servicing, authorised service centers, bike service centers, servicing bikes, bike repairing, repair bikes";
-        description = "Locate authorised service centers in India. Find authorised service centers of Hero, Honda, Bajaj, Royal Enfield, Harley Davidson, Yamaha, KTM, Aprilia and many more brands in more than 200 cities.";
+        description = "Locate authorised service centers in India. Find authorised service centers of Hero, Honda, Bajaj, Royal Enfield, Harley Davidson, Yamaha, KTM, Aprilia and many more brands in more than 1000+ cities.";
         canonical = "http://www.bikewale.com/bike-service-center/";
         alternate = "http://www.bikewale.com/m/bike-service-center/";
         isHeaderFix = false;
