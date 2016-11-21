@@ -77,6 +77,7 @@ namespace Bikewale.ServiceCenter
             ctrlDealerCard.CityId = serviceVM.CityId;
             ctrlDealerCard.cityName = serviceVM.CityName;
             ctrlDealerCard.TopCount = 3;
+            ctrlDealerCard.isHeading = false;
         }
 
         #region Private Method to process querystring

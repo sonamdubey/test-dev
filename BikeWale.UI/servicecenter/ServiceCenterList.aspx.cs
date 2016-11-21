@@ -31,10 +31,9 @@ namespace Bikewale.Service
     /// </summary>
     public class ServiceCenterList : Page
     {
-        protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, urlCityMaskingName = string.Empty;
+        protected string makeName = string.Empty, cityName = string.Empty, makeMaskingName = string.Empty, urlCityMaskingName = string.Empty;
         protected uint cityId, makeId, totalServiceCenters;
         protected string clientIP = string.Empty, pageUrl = string.Empty;
-        protected bool areDealersPremium = false;
         protected IEnumerable<Bikewale.Entities.ServiceCenters.ServiceCenterDetails> serviceCentersList = null;
         protected DealerCard ctrlDealerCard;
         protected BikeMakeEntityBase objBikeMakeEntityBase;
@@ -61,9 +60,9 @@ namespace Bikewale.Service
             Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(originalUrl);
             dd.DetectDevice();
 
-            if (ProcessQueryString() && GetMakeIdByMakeMaskingName()  && makeId > 0 && cityId > 0)
+            if (ProcessQueryString() && makeId > 0 && cityId > 0)
             {
-                
+
                 GetMakeNameByMakeId(makeId);
                 BindServiceCentersList();
                 GetCityNameByCityMaskingName(urlCityMaskingName);
@@ -211,11 +210,8 @@ namespace Bikewale.Service
                 }
                 catch (Exception ex)
                 {
-                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "GetMakeIdByMakeMaskingName");
+                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetMakeIdByMakeMaskingName");
                     objErr.SendMail();
-                    Response.Redirect("pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
                     isValidMake = false;
                 }
                 finally
@@ -233,26 +229,17 @@ namespace Bikewale.Service
                         }
                         else
                         {
-                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                            HttpContext.Current.ApplicationInstance.CompleteRequest();
-                            this.Page.Visible = false;
                             isValidMake = false;
                         }
                     }
                     else
                     {
-                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
                         isValidMake = false;
                     }
                 }
             }
             else
             {
-                Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
                 isValidMake = false;
             }
 
@@ -275,31 +262,28 @@ namespace Bikewale.Service
                 {
                     makeMaskingName = currentReq.QueryString["make"].ToLower();
                     urlCityMaskingName = currentReq.QueryString["city"].ToLower();
+                    clientIP = Bikewale.Common.CommonOpn.GetClientIP();
+                    pageUrl = currentReq.ServerVariables["URL"];
+
                     if (!String.IsNullOrEmpty(urlCityMaskingName) && !String.IsNullOrEmpty(makeMaskingName))
                     {
                         cityId = CitiMapping.GetCityId(urlCityMaskingName);
-                        isValidQueryString = true;
+                        isValidQueryString = GetMakeIdByMakeMaskingName() && (cityId > 0);
 
                     }
                     else
                     {
-                        Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
+                        return false;
                     }
-                    clientIP = Bikewale.Common.CommonOpn.GetClientIP();
-                    pageUrl = currentReq.ServerVariables["URL"];
                 }
                 else
                 {
-                    Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    return false;
                 }
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, currentReq.ServerVariables["URL"]);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("ProcessQueryString for {0} makeMaskingName", makeMaskingName));
                 objErr.SendMail();
             }
             return isValidQueryString;
