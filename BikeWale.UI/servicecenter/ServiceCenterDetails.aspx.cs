@@ -23,7 +23,6 @@ namespace Bikewale.ServiceCenter
         protected ServiceSchedule ctrlServiceSchedule;
         protected DealerCard ctrlDealerCard;
         public ServiceDetailsPage serviceVM;
-        public bool showDealerWidget = false;
 
         protected override void OnInit(EventArgs e)
         {
@@ -81,7 +80,6 @@ namespace Bikewale.ServiceCenter
                 ctrlDealerCard.cityName = serviceVM.CityName;
                 ctrlDealerCard.TopCount = 3;
                 ctrlDealerCard.isHeading = false;
-                showDealerWidget = ctrlDealerCard.showWidget;
             }
         }
 

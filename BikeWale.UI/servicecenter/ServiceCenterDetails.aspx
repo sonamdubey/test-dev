@@ -167,7 +167,7 @@
                     <div class="clear"></div>
                 </div>
             
-                <% if (showDealerWidget)
+                <% if (ctrlDealerCard.showWidget)
                    { %>
         <section>
             <div class="container section-bottom-margin">
