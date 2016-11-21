@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Mobile.Content.newsdetails" Trace="false" Async="true" %>
-<%@ Register Src="~/m/controls/MUpcomingBikesMin.ascx" TagPrefix="BW" TagName="MUpcomingBikesMin"  %>
-<%@ Register Src="~/m/controls/MPopularBikesMin.ascx" TagPrefix="BW" TagName="MPopularBikesMin"  %>
+<%@ Register Src="~/m/controls/UpcomingBikesMin.ascx" TagPrefix="BW" TagName="MUpcomingBikesMin"  %>
+<%@ Register Src="~/m/controls/PopularBikesMin.ascx" TagPrefix="BW" TagName="MPopularBikesMin"  %>
 <!DOCTYPE html>
 <html>
 <head>
