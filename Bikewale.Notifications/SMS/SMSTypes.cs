@@ -629,7 +629,7 @@ namespace Bikewale.Notifications
         {
             try
             {
-                string message = String.Format("BikeWale: Details of servicecenter details nearby:{0}{0}{1}{0}{2},{3}{0}{4}{0}{0}Thanks for visiting BikeWale.", Environment.NewLine, name, address, city, phone);
+                string message = String.Format("Details of service center details nearby:{0}{0}{1}{0}{2},{3}{0}{4}{0}{0}Thanks for visiting BikeWale.", Environment.NewLine, name, address, city, phone);
 
                 EnumSMSServiceType esms = EnumSMSServiceType.ServiceCenterDetailsSMSToCustomer;
                 SMSCommon sc = new SMSCommon();
