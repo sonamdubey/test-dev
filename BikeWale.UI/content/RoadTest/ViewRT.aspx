@@ -8,7 +8,7 @@
 <head>
     <%
         title = articleTitle;
-        //description 	= RoadTestPageDesc;
+        description 	= "Learn about the trending stories related to bike and bike products. Know more about features, do's and dont's of different bike products exclusively on BikeWale";
         //keywords		= RoadTestPageKeywords;
         canonical = "http://www.bikewale.com/expert-reviews/" + articleUrl + "-" + basicId + ".html";
         //prevPageUrl     = prevUrl;

@@ -34,7 +34,7 @@
             <div id="divMakeddl1" class="grid-6 compare-box" data-bike="1">
                 <div class="compare-box-placeholder text-center" onclick="OpenPopup(this)">
                     <span class="grey-bike"></span>
-                    <p>Tap to select bike 1</p>
+                    <p>Tap to select<br /> bike 1</p>
                 </div>
             </div>
             <div id="divListContainer" style="display:none;">
@@ -72,7 +72,7 @@
             <div id="divMakeddl2" class="grid-6 compare-box">
                 <div class="compare-box-placeholder text-center" onclick="OpenPopup(this)">
                     <span class="grey-bike"></span>
-                    <p>Tap to select bike 2</p>
+                    <p>Tap to select<br /> bike 2</p>
                 </div>
             </div>
 

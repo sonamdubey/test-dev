@@ -296,7 +296,7 @@ namespace Bikewale.PriceQuote
 
         private void BindAlternativeBikeControl(String versionId)
         {
-            ctrlAlternativeBikes.TopCount = 6;
+            ctrlAlternativeBikes.TopCount = 9;
 
             if (!String.IsNullOrEmpty(versionId) && versionId != "0")
             {
