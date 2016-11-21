@@ -30,7 +30,7 @@
             <div id="service-center-box" class="container">
                 <div class="welcome-box">
                     <h1 class="font30 text-uppercase margin-bottom30">Bike Service Center Locator</h1>
-                    <h2 class="font20 text-unbold text-white margin-bottom50">Find bike service center across 200+ cities in India</h2>
+                    <h2 class="font20 text-unbold text-white margin-bottom50">Find bike service center across 1000+ cities in India</h2>
                 </div>
             </div>
         </header>

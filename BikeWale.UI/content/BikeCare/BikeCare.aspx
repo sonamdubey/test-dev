@@ -47,9 +47,9 @@
                 <div class="grid-12">
                     <div id="content" class="grid-8 alpha">
                         <div class="bg-white">
-                            <div class="section-header">
-		                    <h1 class="margin-bottom5">Bike Care</h1>
-                            <h2 class="font14 text-unbold">BikeWale brings you maintenance tips from experts to rescue you from common problems</h2>
+                            <div id="news-header" class="section-header">
+		                    <h1 class="margin-right5">Bike Care</h1>
+                            <h2 class="font14 text-unbold text-light-grey">Maintenance Tips from BikeWale Experts</h2>
                                 </div>
                             <div class="section-inner-padding">
                                 <% foreach (var article in objArticleList.Articles) {%>					
