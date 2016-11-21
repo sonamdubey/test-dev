@@ -40,8 +40,23 @@ namespace Bikewale.Used
             this.Load += new EventHandler(Page_Load);
         }
 
+
+
+        /// <summary>
+        /// Modified by : Sajal Gupta on 21/11/2016
+        /// Desc : Added device detection
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
+
+            Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(originalUrl);
+            dd.DetectDevice();
+
             LoadUsedBikesList();
 
         }
