@@ -48,7 +48,8 @@ namespace Bikewale.Mobile.Content
             {
                 if (ProcessQueryString())
                 {
-                    GetFeatureDetails();
+                    if (BasicId > 0)
+                        GetFeatureDetails();
                 }
                 else
                 {

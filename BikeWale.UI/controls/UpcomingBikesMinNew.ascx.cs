@@ -40,7 +40,7 @@ namespace Bikewale.Controls
             objUpcoming.sortBy = this.sortBy;
             objUpcoming.MakeId = this.MakeId;
             objUpcoming.ModelId = this.ModelId;
-            objUpcoming.pageSize = this.pageSize;
+            objUpcoming.pageSize = this.topCount;
             if (String.IsNullOrEmpty(makeMaskingName))
             {
                 upcomingBikesLink = "/upcoming-bikes/";

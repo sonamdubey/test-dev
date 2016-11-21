@@ -22,7 +22,13 @@ namespace Bikewale.BindViewModels.Controls
         public int FetchedRecordsCount { get; set; }
         public int PQSourceId { get; set; }
         public uint cityId { get; set; }
+        private const ushort TotalWidgetItems = 9;
 
+        /// <summary>
+        /// Modified By : Sushil Kumar on 10th Nov 2016
+        /// Description : Set default fetched record count to 9 and pass toprecord count data only
+        /// </summary>
+        /// <param name="rptAlternativeBikes"></param>
         public void BindAlternativeBikes(Repeater rptAlternativeBikes)
         {
             FetchedRecordsCount = 0;
@@ -36,13 +42,18 @@ namespace Bikewale.BindViewModels.Controls
                               .RegisterType<ICacheManager, MemcacheManager>()
                              ;
                     var objCache = container.Resolve<IBikeVersionCacheRepository<BikeVersionEntity, int>>();
-                    IEnumerable<SimilarBikeEntity> objSimilarBikes = objCache.GetSimilarBikesList(Convert.ToInt32(VersionId), Convert.ToUInt32(TopCount), cityId);
+                    IEnumerable<SimilarBikeEntity> objSimilarBikes = objCache.GetSimilarBikesList(Convert.ToInt32(VersionId), TotalWidgetItems, cityId);
 
 
                     if (objSimilarBikes != null && objSimilarBikes.Count() > 0)
                     {
-                        rptAlternativeBikes.DataSource = objSimilarBikes;
-                        rptAlternativeBikes.DataBind();
+                        objSimilarBikes = objSimilarBikes.Take(TopCount);
+                        if (rptAlternativeBikes != null)
+                        {
+                            rptAlternativeBikes.DataSource = objSimilarBikes;
+                            rptAlternativeBikes.DataBind();
+                        }
+
 
                         FetchedRecordsCount = objSimilarBikes.Count();
                     }
