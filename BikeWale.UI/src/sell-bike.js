@@ -177,7 +177,7 @@ var sellBike = function () {
                     $(myDropzone.files[i].previewElement).find(".dz-remove").attr("photoid", this.id);
                 });
                 myDropzone.options.maxFiles -= self.serverImg().length;
-                if (myDropzone.options.maxFiles != 0) {
+                if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
                     morePhotos.attach();
                 }
                 else {
