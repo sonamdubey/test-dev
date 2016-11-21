@@ -849,6 +849,14 @@
       <DependentUpon>MNewLaunchedBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\PopularBikesMin.ascx.cs">
+      <DependentUpon>PopularBikesMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\UpcomingBikesMin.ascx.cs">
+      <DependentUpon>UpcomingBikesMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\servicecentercard.ascx.cs">
       <DependentUpon>servicecentercard.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2391,6 +2399,8 @@
     <Content Include="m\controls\LogInOutControl.ascx" />
     <Content Include="m\controls\MMostPopularBikes.ascx" />
     <Content Include="m\controls\MNewLaunchedBikes.ascx" />
+    <Content Include="m\controls\PopularBikesMin.ascx" />
+    <Content Include="m\controls\UpcomingBikesMin.ascx" />
     <Content Include="m\controls\servicecentercard.ascx" />
     <Content Include="m\controls\serviceschedule.ascx" />
     <Content Include="m\controls\UploadPhotoRequestPopup.ascx" />
@@ -2439,11 +2449,14 @@
     <Content Include="m\css\bwm-model.css" />
     <Content Include="m\css\bwm-newbikes.css" />
     <Content Include="m\css\compare\landing.css" />
+    <Content Include="m\css\components\article-next-prev.css" />
     <Content Include="m\css\components\article.css" />
     <Content Include="m\css\components\compare-bikes-list.css" />
     <Content Include="m\css\components\compare-bikes.css" />
     <Content Include="m\css\components\pagination.css" />
     <Content Include="m\css\components\used-swiper.css" />
+    <Content Include="m\css\content\details.css" />
+    <Content Include="m\css\content\listing.css" />
     <Content Include="m\css\dealerpricequote.css" />
     <Content Include="m\css\dealerpricequote-old.css" />
     <Content Include="m\css\dealer\landing.css" />
@@ -2552,6 +2565,7 @@
     <Content Include="m\src\chosen-mobile.js" />
     <Content Include="m\src\common.js" />
     <Content Include="m\src\common.min.js" />
+    <Content Include="m\src\content\details.js" />
     <Content Include="m\src\dealerdetail.js" />
     <Content Include="m\src\service\details.js" />
     <Content Include="m\src\service\listing.js" />

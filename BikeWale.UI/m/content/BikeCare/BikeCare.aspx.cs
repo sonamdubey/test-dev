@@ -1,7 +1,9 @@
 ﻿using Bikewale.BindViewModels.Webforms.EditCMS;
+using Bikewale.Common;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Mobile.Controls;
 using System;
+using System.Web;
 
 namespace Bikewale.Mobile.Content
 {
@@ -33,7 +35,7 @@ namespace Bikewale.Mobile.Content
         private void BikeCareTips()
         {
             objBikeCare = new BikeCareModels();
-            if (objBikeCare != null)
+            if (objBikeCare != null && !objBikeCare.pageNotFound)
             {
                 try
                 {
@@ -54,6 +56,13 @@ namespace Bikewale.Mobile.Content
                     Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikeCare.BikeCareTips");
                     objErr.SendMail();
                 }
+            }
+            else
+            {
+                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
+
             }
         }
     }

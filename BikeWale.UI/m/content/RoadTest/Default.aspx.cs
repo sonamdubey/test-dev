@@ -18,6 +18,7 @@ using Bikewale.Interfaces.Pager;
 using Bikewale.Mobile.Controls;
 using Microsoft.Practices.Unity;
 using System;
+using System.Linq;
 using System.Web;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
@@ -26,19 +27,23 @@ namespace Bikewale.Mobile.Content
 {
     /// <summary>
     /// Created By : Ashwini Todkar on 21 May 2014
+    /// Modified by : Aditi Srivastava on 18 Nov 2016
+    /// Summary     : Replaced drop down page numbers with Link pagination
     /// </summary>
     public class RoadTest : System.Web.UI.Page
     {
+        private IPager objPager = null;
         protected Repeater rptRoadTest;
-        protected ListPagerControl listPager;
+        protected LinkPagerControl ctrlPager;
         protected DropDownList ddlMakes;
         protected HtmlSelect ddlModels;
-
+        protected int startIndex = 0, endIndex = 0, totalrecords;
         protected int totalPages = 0;
-        private const int _pageSize = 10;
+        private const int _pageSize = 10, _pagerSlotSize = 5;
         protected string prevPageUrl = String.Empty, nextPageUrl = String.Empty, modelId = string.Empty, makeId = string.Empty, makeName = string.Empty, modelName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty;
         private bool _isContentFound = true;
         int _curPageNo = 1;
+        HttpRequest page = HttpContext.Current.Request;
 
         protected override void OnInit(EventArgs e)
         {
@@ -55,7 +60,10 @@ namespace Bikewale.Mobile.Content
                 AutoFill();
             }
         }
-
+        /// <summary>
+        /// Created By : Aditi Srivastava on 16 Nov 2016
+        /// Summary    : To inject pagination widget
+        /// </summary>
         private void GetRoadTestList()
         {
             try
@@ -80,8 +88,13 @@ namespace Bikewale.Mobile.Content
                     if (_objRoadTestList != null && _objRoadTestList.Articles.Count > 0)
                     {
 
-                        BindRoadtest(_objRoadTestList);
-                        BindLinkPager(objPager, Convert.ToInt32(_objRoadTestList.RecordCount));
+                        if (_objRoadTestList != null)
+                        {
+                            rptRoadTest.DataSource = _objRoadTestList.Articles;
+                            rptRoadTest.DataBind();
+                        }
+                        totalrecords = Convert.ToInt32(_objRoadTestList.RecordCount);
+                        BindLinkPager(ctrlPager);
 
                     }
                     else
@@ -120,58 +133,6 @@ namespace Bikewale.Mobile.Content
         }
 
 
-        /// <summary>
-        /// Written By : Ashwini Todkar on 24 Sept 2014
-        /// PopulateWhere to bind link pager control 
-        /// </summary>
-        /// <param name="objPager"> Pager instance </param>
-        /// <param name="recordCount"> total news available</param>
-        private void BindLinkPager(IPager objPager, int recordCount)
-        {
-            PagerOutputEntity _pagerOutput = null;
-            PagerEntity _pagerEntity = null;
-            string _baseUrl = "/m/expert-reviews/";
-
-            try
-            {
-                if (!String.IsNullOrEmpty(makeId) && !String.IsNullOrEmpty(modelId))
-                    _baseUrl = Request.QueryString["make"] + "-bikes/" + Request.QueryString["model"] + "/expert-reviews/";
-                else if (!String.IsNullOrEmpty(Request.QueryString["make"]))
-                    _baseUrl = "/m/" + Request.QueryString["make"] + "-bikes/" + "/expert-reviews/";
-
-                _pagerEntity = new PagerEntity();
-                _pagerEntity.BaseUrl = _baseUrl;
-                _pagerEntity.PageNo = _curPageNo; //Current page number
-                _pagerEntity.PagerSlotSize = objPager.GetTotalPages(recordCount, _pageSize); // 5 links on a page
-                _pagerEntity.PageUrlType = "page/";
-                _pagerEntity.TotalResults = recordCount; //total News count
-                _pagerEntity.PageSize = _pageSize;        //No. of news to be displayed on a page
-
-                _pagerOutput = objPager.GetPager<PagerOutputEntity>(_pagerEntity);
-
-                // for RepeaterPager
-                listPager.PagerOutput = _pagerOutput;
-                listPager.CurrentPageNo = _curPageNo;
-                listPager.TotalPages = objPager.GetTotalPages(recordCount, _pageSize);
-                listPager.BindPageNumbers();
-
-                //For SEO            
-                prevPageUrl = _pagerOutput.PreviousPageUrl;
-                nextPageUrl = _pagerOutput.NextPageUrl;
-            }
-            catch (Exception ex)
-            {
-                Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-        }
-
-        private void BindRoadtest(CMSContent _objRoadtestList)
-        {
-            rptRoadTest.DataSource = _objRoadtestList.Articles;
-            rptRoadTest.DataBind();
-        }
 
         private void BindMakes()
         {
@@ -343,6 +304,86 @@ namespace Bikewale.Mobile.Content
                 else
                     _curPageNo = Convert.ToInt32(Request.QueryString["pn"]);
             }
+        }
+
+        /// <summary>
+        ///  Created by : Aditi Srivastava on 18 Nov 2016
+        /// Summary     : Create pagination
+        /// </summary>
+        /// <param name="_ctrlPager"></param>
+        public void BindLinkPager(LinkPagerControl _ctrlPager)
+        {
+            objPager = GetPager();
+            objPager.GetStartEndIndex(_pageSize, _curPageNo, out startIndex, out endIndex);
+            PagerOutputEntity _pagerOutput = null;
+            PagerEntity _pagerEntity = null;
+            int recordCount = totalrecords;
+            string _baseUrl = RemoveTrailingPage(page.RawUrl.ToLower());
+
+            try
+            {
+                GetStartEndIndex(_pageSize, _curPageNo, out startIndex, out endIndex, recordCount);
+
+                _pagerEntity = new PagerEntity();
+                _pagerEntity.BaseUrl = _baseUrl;
+                _pagerEntity.PageNo = _curPageNo; //Current page number
+                _pagerEntity.PagerSlotSize = _pagerSlotSize; // 5 links on a page
+                _pagerEntity.PageUrlType = "page/";
+                _pagerEntity.TotalResults = (int)recordCount; //total News count
+                _pagerEntity.PageSize = _pageSize;  //No. of news to be displayed on a page
+                _pagerOutput = objPager.GetPager<PagerOutputEntity>(_pagerEntity);
+
+                // for RepeaterPager
+
+                _ctrlPager.PagerOutput = _pagerOutput;
+                _ctrlPager.CurrentPageNo = _curPageNo;
+                _ctrlPager.TotalPages = objPager.GetTotalPages((int)recordCount, _pageSize);
+                _ctrlPager.BindPagerList();
+
+                //For SEO
+
+                prevPageUrl = String.IsNullOrEmpty(_pagerOutput.PreviousPageUrl) ? string.Empty : "http://www.bikewale.com" + _pagerOutput.PreviousPageUrl;
+                nextPageUrl = String.IsNullOrEmpty(_pagerOutput.NextPageUrl) ? string.Empty : "http://www.bikewale.com" + _pagerOutput.NextPageUrl;
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikeCareModels.BindLinkPager");
+                objErr.SendMail();
+            }
+        }
+        /// <summary>
+        /// Created By : Aditi Srivastava on 18 Nov 2016
+        /// Summary    : Set current page's start and end index of articles
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="currentPageNo"></param>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <param name="totalCount"></param>
+        public void GetStartEndIndex(int pageSize, int currentPageNo, out int startIndex, out int endIndex, int totalCount)
+        {
+            startIndex = 0;
+            endIndex = 0;
+            endIndex = currentPageNo * pageSize;
+            startIndex = (endIndex - pageSize) + 1;
+            if (totalCount < endIndex)
+                endIndex = totalCount;
+        }
+        /// <summary>
+        /// Created By : Aditi Srivastava on 18 Nov 2016
+        /// Summary    : Remove trailing page from link
+        /// </summary>
+        /// <param name="rawUrl"></param>
+        /// <returns></returns>
+        public string RemoveTrailingPage(string rawUrl)
+        {
+            string retUrl = rawUrl;
+            if (rawUrl.Contains("/page/"))
+            {
+                string[] urlArray = rawUrl.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
+                retUrl = string.Format("/{0}/", string.Join("/", urlArray.Take(urlArray.Length - 2).ToArray()));
+            }
+            return retUrl;
         }
     }
 }

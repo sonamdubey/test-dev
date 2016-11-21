@@ -37,7 +37,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         private ICMSCacheContent _objBikeCareCache;
         public CMSContent objArticleList = null;
         HttpRequest page = HttpContext.Current.Request;
-
+        public bool pageNotFound = false;
         // <summary>
         /// Created By:- Subodh jain 11 Nov 2016
         /// Summary :- Bike Care Landing page Constructor (resolving interface)
@@ -163,21 +163,20 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
 
         private void ProcessQueryString()
         {
-            HttpContext page = HttpContext.Current;
-
             try
             {
 
-                if (!String.IsNullOrEmpty(page.Request.QueryString["pn"]))
+                if (!String.IsNullOrEmpty(page.QueryString["pn"]))
                 {
 
-                    int.TryParse(page.Request.QueryString["pn"], out _pageNo);
+                    int.TryParse(page.QueryString["pn"], out _pageNo);
 
                 }
 
             }
             catch (Exception ex)
             {
+                pageNotFound = true;
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikeCareModels.ParseQueryString");
                 objErr.SendMail();
             }

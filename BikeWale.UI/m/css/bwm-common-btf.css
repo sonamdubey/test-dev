@@ -209,6 +209,7 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 }
 
 .swiper-card {
+    margin-left: 5px;
     width: 200px;
     min-height: 210px;
     border: 1px solid #e2e2e2\9;
