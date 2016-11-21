@@ -72,12 +72,15 @@ namespace Bikewale.ServiceCenter
             ctrlServiceCenterCard.TopCount = 3;
             ctrlServiceCenterCard.ServiceCenterId = serviceCenterId;
 
-            ctrlDealerCard.MakeId = makeId;
-            ctrlDealerCard.makeMaskingName = makeMaskingName;
-            ctrlDealerCard.CityId = serviceVM.CityId;
-            ctrlDealerCard.cityName = serviceVM.CityName;
-            ctrlDealerCard.TopCount = 3;
-            ctrlDealerCard.isHeading = false;
+            if (ctrlDealerCard != null)
+            {
+                ctrlDealerCard.MakeId = makeId;
+                ctrlDealerCard.makeMaskingName = makeMaskingName;
+                ctrlDealerCard.CityId = serviceVM.CityId;
+                ctrlDealerCard.cityName = serviceVM.CityName;
+                ctrlDealerCard.TopCount = 3;
+                ctrlDealerCard.isHeading = false;
+            }
         }
 
         #region Private Method to process querystring

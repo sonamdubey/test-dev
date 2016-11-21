@@ -166,24 +166,26 @@
                     </div>
                     <div class="clear"></div>
                 </div>
-            </section>
-         <% if(ctrlDealerCard.showWidget){ %>
-            <section>
-                <div class="container section-bottom-margin">
-                    <div class="grid-12">
-                        <div class="content-box-shadow">
-                            <div class="padding-15-20-20">
-                                <h2 class="section-h2-title margin-bottom10">Looking to buy a new <%=serviceVM.MakeName %> bike in <%=serviceVM.CityName %>?</h2>
-                                <p class="font14">Check out authorised <%=serviceVM.MakeName %> dealers in <%=serviceVM.CityName %></p>
-                            </div>
-                            <BW:DealerCard runat="server" ID="ctrlDealerCard" />
-                        </div>
+            
+                <% if (ctrlDealerCard.showWidget)
+                   { %>
+        <section>
+            <div class="container section-bottom-margin">
+                <div class="grid-12">
+                    <div class="content-box-shadow">
+                        <div class="padding-top15 padding-right20 padding-left20">
+                            <h2 class="section-h2-title margin-bottom10">Looking to buy a new <%=serviceVM.MakeName %> bike in <%=serviceVM.CityName %>?</h2>
+                            <p class="font14">Check out authorised <%=serviceVM.MakeName %> dealers in <%=serviceVM.CityName %></p>
+                        </div>      
+                             <BW:DealerCard runat="server" ID="ctrlDealerCard" />                                            
                     </div>
-                    <div class="clear"></div>
                 </div>
-            </section>
+                <div class="clear"></div>
+            </div>
+        </section>
         <% } %>
-            <section>
+
+
                 <div class="container section-bottom-margin">
                     <div class="grid-12 font12">
                         <p><span class="font14"><strong>Disclaimer</strong>:</span> The above-mentioned information about authorised <%= serviceVM.MakeName %> service centers is furnished to best of our knowledge. The facilities of pick and drop, timings and service schedule related information might vary slightly from service center to service center. Please check with the authorised <%= serviceVM.MakeName %> service center before scheduling an appointment.</p>

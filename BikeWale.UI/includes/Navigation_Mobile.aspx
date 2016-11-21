@@ -1,7 +1,7 @@
 ﻿<%@ Register Src="~/m/controls/LogInOutControl.ascx" TagPrefix="BW" TagName="Login" %>
 
 <nav id="nav">
-    <% if(Bikewale.Common.CurrentUser.UserId > 0) { %>
+    <%--<% if(Bikewale.Common.CurrentUser.UserId > 0) { %>
     <div id="user-banner-content">
         <div class="user-details-content">
             <div class="image-content">
@@ -12,7 +12,7 @@
             </div>
         </div>
     </div>
-    <% } %>
+    <% } %>--%>
 
     <!-- nav code starts here -->
     <ul class="navUL padding-top10">
