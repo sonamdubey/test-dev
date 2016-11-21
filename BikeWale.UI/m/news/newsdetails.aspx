@@ -8,8 +8,6 @@
         title = newsTitle + " - BikeWale News";
         description = "BikeWale coverage on " + newsTitle + ". Get the latest reviews and photos for " + newsTitle + " on BikeWale coverage.";
         canonical = "http://www.bikewale.com/news/" + pageUrl;
-        //fbTitle = newsTitle;
-        //fbImage = GetMainImagePath();
         AdPath = "/1017752/Bikewale_Mobile_NewBikes";
         AdId = "1398766302464";
           %>

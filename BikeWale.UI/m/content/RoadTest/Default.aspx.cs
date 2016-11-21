@@ -18,10 +18,10 @@ using Bikewale.Interfaces.Pager;
 using Bikewale.Mobile.Controls;
 using Microsoft.Practices.Unity;
 using System;
+using System.Linq;
 using System.Web;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Linq;
 
 namespace Bikewale.Mobile.Content
 {
@@ -37,9 +37,9 @@ namespace Bikewale.Mobile.Content
         protected LinkPagerControl ctrlPager;
         protected DropDownList ddlMakes;
         protected HtmlSelect ddlModels;
-        protected int startIndex=0, endIndex = 0,totalrecords;
+        protected int startIndex = 0, endIndex = 0, totalrecords;
         protected int totalPages = 0;
-        private const int _pageSize = 10,_pagerSlotSize=5;
+        private const int _pageSize = 10, _pagerSlotSize = 5;
         protected string prevPageUrl = String.Empty, nextPageUrl = String.Empty, modelId = string.Empty, makeId = string.Empty, makeName = string.Empty, modelName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty;
         private bool _isContentFound = true;
         int _curPageNo = 1;
@@ -60,7 +60,10 @@ namespace Bikewale.Mobile.Content
                 AutoFill();
             }
         }
-
+        /// <summary>
+        /// Created By : Aditi Srivastava on 16 Nov 2016
+        /// Summary    : To inject pagination widget
+        /// </summary>
         private void GetRoadTestList()
         {
             try
@@ -85,7 +88,11 @@ namespace Bikewale.Mobile.Content
                     if (_objRoadTestList != null && _objRoadTestList.Articles.Count > 0)
                     {
 
-                        BindRoadtest(_objRoadTestList);
+                        if (_objRoadTestList != null)
+                        {
+                            rptRoadTest.DataSource = _objRoadTestList.Articles;
+                            rptRoadTest.DataBind();
+                        }
                         totalrecords = Convert.ToInt32(_objRoadTestList.RecordCount);
                         BindLinkPager(ctrlPager);
 
@@ -125,11 +132,7 @@ namespace Bikewale.Mobile.Content
             return _objPager;
         }
 
-        private void BindRoadtest(CMSContent _objRoadtestList)
-        {
-            rptRoadTest.DataSource = _objRoadtestList.Articles;
-            rptRoadTest.DataBind();
-        }
+
 
         private void BindMakes()
         {
@@ -302,7 +305,7 @@ namespace Bikewale.Mobile.Content
                     _curPageNo = Convert.ToInt32(Request.QueryString["pn"]);
             }
         }
-    
+
         /// <summary>
         ///  Created by : Aditi Srivastava on 18 Nov 2016
         /// Summary     : Create pagination

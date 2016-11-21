@@ -6,9 +6,9 @@
 <html>
 <head>
     <%	
-        keywords     = modelName + " ,road test, road tests, roadtests, roadtest, bike reviews, expert bike reviews, detailed bike reviews, test-drives, comprehensive bike tests, bike preview, first drives";
-        title        = pageTitle + " - BikeWale.";
-        description  = "BikeWale tests " + modelName + ", Read the complete road test report to know how it performed.";
+        keywords     = string.Format("{0},road test, road tests, roadtests, roadtest, bike reviews, expert bike reviews, detailed bike reviews, test-drives, comprehensive bike tests, bike preview, first drives",modelName);
+        title        = string.Format("{0}- BikeWale.",pageTitle);
+        description = string.Format("BikeWale tests {0}, Read the complete road test report to know how it performed.", modelName);
         canonical    = canonicalUrl;
         AdPath = "/1017752/Bikewale_Mobile_NewBikes";
         AdId = "1398766302464";

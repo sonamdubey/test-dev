@@ -1,8 +1,8 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.Entities.BikeData;
+using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Controls
 {
@@ -10,17 +10,17 @@ namespace Bikewale.Mobile.Controls
     /// Created By : Aditi Srivastava on 16 Nov 2016
     /// Summary    : To inject popular bikes widget for cms pages
     /// </summary>
-    public class MPopularBikesMin : System.Web.UI.UserControl
+    public class PopularBikesMin : System.Web.UI.UserControl
     {
         public int? totalCount { get; set; }
         public int sortBy { get; set; }
         public int pageSize { get; set; }
         public int makeId { get; set; }
         public int FetchedRecordsCount { get; set; }
-    
+
         public string makeName = string.Empty;
         public string makeMasking = string.Empty;
-        
+
         public int CityId { get; set; }
         public string cityName = string.Empty;
 
@@ -35,26 +35,37 @@ namespace Bikewale.Mobile.Controls
             PopularBikes();
         }
 
+        /// <summary>
+        /// Created By : Aditi Srivastava on 16 Nov 2016
+        /// Summary    : To inject popular bikes widget for cms pages
+        /// </summary>
         private void PopularBikes()
         {
-            BindMostPopularBikesControl objPop = new BindMostPopularBikesControl();
-            objPop.totalCount = totalCount.HasValue && totalCount.Value > 0 ? totalCount : 4;
-            objPop.makeId = makeId;
-            objPop.cityId = CityId;
-            if (CityId > 0)
+            try
             {
-                objPop.BindMostPopularBikesMakeCity(null);
+                BindMostPopularBikesControl objPop = new BindMostPopularBikesControl();
+                objPop.totalCount = totalCount.HasValue && totalCount.Value > 0 ? totalCount : 4;
+                objPop.makeId = makeId;
+                objPop.cityId = CityId;
+                if (CityId > 0)
+                {
+                    objPop.BindMostPopularBikesMakeCity(null);
 
+                }
+                else
+                {
+                    objPop.BindMostPopularBikes(null);
+                }
+                objPopularBikes = objPop.popularBikes;
+                FetchedRecordsCount = objPop.FetchedRecordsCount;
             }
-            else
+            catch (Exception ex)
             {
-                objPop.BindMostPopularBikes(null);
+                ErrorClass objErr = new ErrorClass(ex, "PopularBikesMin.PopularBikes");
+                objErr.SendMail();
             }
-            objPopularBikes = objPop.popularBikes;
-            FetchedRecordsCount = objPop.FetchedRecordsCount;
-
         }
-              
+
 
     }
 }

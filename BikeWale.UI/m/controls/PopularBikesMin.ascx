@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.MPopularBikesMin" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.PopularBikesMin" %>
 <%if(FetchedRecordsCount>0) {%>
 <section>
             <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">

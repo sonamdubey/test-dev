@@ -28,10 +28,8 @@
             keywords = string.Format("{0} bike expert reviews, {0} bike road tests, {0} bike comparison tests, {0} bike reviews, {0} road tests, {0} expert reviews, {0} bike comparison, {0} comparison tests.", makeName);
             canonical = string.Format("http://www.bikewale.com/{0}-bikes/expert-reviews/", makeMaskingName);
         }
-        //fbTitle = title;
         AdId = "1395986297721";
         AdPath = "/1017752/Bikewale_Reviews_";
-        //fbImage = Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo;
     %>
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->

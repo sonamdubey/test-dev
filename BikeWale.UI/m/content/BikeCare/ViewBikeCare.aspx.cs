@@ -2,13 +2,13 @@
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.Location;
 using Bikewale.Mobile.Controls;
+using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
-using Bikewale.Entities.Location;
-using Bikewale.Utility;
+using System.Text;
 namespace Bikewale.Mobile.Content
 {
     /// <summary>
@@ -22,7 +22,7 @@ namespace Bikewale.Mobile.Content
         DetailPageBikeCare objDetailBikeCare;
         private GlobalCityAreaEntity currentCityArea;
         protected MUpcomingBikesMin ctrlUpcomingBikes;
-        protected MPopularBikesMin ctrlPopularBikes;
+        protected PopularBikesMin ctrlPopularBikes;
         protected ModelGallery photoGallery;
         protected String baseUrl = String.Empty, pageTitle = String.Empty, modelName = String.Empty, modelUrl = String.Empty, pageDescription = String.Empty, pageKeywords = String.Empty;
         protected String data = String.Empty, nextPageUrl = String.Empty, prevPageUrl = String.Empty, author = String.Empty, displayDate = String.Empty, canonicalUrl = String.Empty;
@@ -60,10 +60,7 @@ namespace Bikewale.Mobile.Content
                 displayDate = objDetailBikeCare.displayDate;
                 bikeTested = objDetailBikeCare.bikeTested;
                 canonicalUrl = objDetailBikeCare.canonicalUrl;
-                if(objImg!=null)
-                photoGallery.Photos = objImg.ToList();
-                photoGallery.isModelPage = false;
-                photoGallery.articleName = pageTitle;
+
             }
             catch (Exception ex)
             {
@@ -90,7 +87,7 @@ namespace Bikewale.Mobile.Content
                 else
                 {
                     _taggedMakeObj = objTipsAndAdvice.VehiclTagsList.FirstOrDefault().MakeBase;
-                    
+
                 }
             }
         }
@@ -125,6 +122,10 @@ namespace Bikewale.Mobile.Content
                     ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
                 }
             }
+            if (objImg != null)
+                photoGallery.Photos = objImg.ToList();
+            photoGallery.isModelPage = false;
+            photoGallery.articleName = pageTitle;
         }
 
     }

@@ -1,11 +1,16 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.Entities.BikeData;
+using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Controls
 {
+    /// <summary>
+    /// Created By : Aditi Srivastava on 16 Nov 2016
+    /// Summary    : To inject upcoming bikes widget for cms pages
+    /// </summary>
     public class MUpcomingBikesMin : System.Web.UI.UserControl
     {
 
@@ -17,7 +22,7 @@ namespace Bikewale.Mobile.Controls
         public int? ModelId { get; set; }
         public int? curPageNo { get; set; }
         public int FetchedRecordsCount { get; set; }
-        public string makeMaskingName,upcomingBikesLink,makeName;
+        public string makeMaskingName, upcomingBikesLink, makeName;
         public IEnumerable<UpcomingBikeEntity> objBikeList = null;
         protected override void OnInit(EventArgs e)
         {
@@ -28,31 +33,42 @@ namespace Bikewale.Mobile.Controls
         {
             UpcomingBikes();
         }
-
+        /// <summary>
+        /// Created By : Aditi Srivastava on 16 Nov 2016
+        /// Summary    : To inject upcoming bikes widget for cms pages
+        /// </summary>
         private void UpcomingBikes()
         {
-            BindUpcomingBikesControl objUpcoming = new BindUpcomingBikesControl();
-            objUpcoming.sortBy = sortBy;
-            objUpcoming.MakeId = MakeId;
-            objUpcoming.ModelId =ModelId;
-            objUpcoming.pageSize = pageSize;
-            if (String.IsNullOrEmpty(makeMaskingName))
+            try
             {
-                upcomingBikesLink = "/m/upcoming-bikes/";
-            }
-            else
-            {
-                upcomingBikesLink = String.Format("/m/{0}-bikes/upcoming/", makeMaskingName);
-            }
+                BindUpcomingBikesControl objUpcoming = new BindUpcomingBikesControl();
+                objUpcoming.sortBy = sortBy;
+                objUpcoming.MakeId = MakeId;
+                objUpcoming.ModelId = ModelId;
+                objUpcoming.pageSize = pageSize;
+                if (String.IsNullOrEmpty(makeMaskingName))
+                {
+                    upcomingBikesLink = "/m/upcoming-bikes/";
+                }
+                else
+                {
+                    upcomingBikesLink = String.Format("/m/{0}-bikes/upcoming/", makeMaskingName);
+                }
 
-            objUpcoming.BindUpcomingBikes(null);
-            if (objUpcoming.FetchedRecordsCount > 0)
+                objUpcoming.BindUpcomingBikes(null);
+                if (objUpcoming.FetchedRecordsCount > 0)
+                {
+                    objBikeList = objUpcoming.objUpcomingBikes;
+                    FetchedRecordsCount = objUpcoming.FetchedRecordsCount;
+                }
+            }
+            catch (Exception ex)
             {
-                objBikeList = objUpcoming.objUpcomingBikes;
-                FetchedRecordsCount = objUpcoming.FetchedRecordsCount;
+                ErrorClass objErr = new ErrorClass(ex, "MUpcomingBikesMin.UpcomingBikes");
+                objErr.SendMail();
             }
         }
-              
+
 
     }
 }

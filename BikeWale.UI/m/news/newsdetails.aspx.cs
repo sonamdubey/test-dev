@@ -2,23 +2,22 @@
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
+using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.Location;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Memcache;
 using Bikewale.Mobile.Controls;
+using Bikewale.Utility;
 using log4net;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections;
-using System.Web;
 using System.Linq;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.DAL.BikeData;
-using Bikewale.Entities.Location;
-using Bikewale.Utility;
+using System.Web;
 
 namespace Bikewale.Mobile.Content
 {
@@ -36,7 +35,7 @@ namespace Bikewale.Mobile.Content
         private ArticleDetails objNews = null;
         private bool _isContentFound = true;
         protected MUpcomingBikesMin ctrlUpcomingBikes;
-        protected MPopularBikesMin ctrlPopularBikes;
+        protected PopularBikesMin ctrlPopularBikes;
         private BikeMakeEntityBase _taggedMakeObj;
         protected GlobalCityAreaEntity currentCityArea;
         static bool _useGrpc = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.UseGrpc);
@@ -47,6 +46,7 @@ namespace Bikewale.Mobile.Content
         {
             this.Load += new EventHandler(Page_Load);
         }
+
         //Modified By: Aditi Srivastava on 7 Sep 2016
         //SUmmary: Added request rawURL on form action
         protected void Page_Load(object sender, EventArgs e)
@@ -124,7 +124,7 @@ namespace Bikewale.Mobile.Content
                     ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
                     objNews = _cache.GetNewsDetails(Convert.ToUInt32(_basicId));
-                    
+
                     if (objNews != null)
                         GetNewsData();
 
@@ -165,7 +165,7 @@ namespace Bikewale.Mobile.Content
             if (objNews != null && objNews.VehiclTagsList.Count > 0)
             {
                 _taggedMakeObj = objNews.VehiclTagsList.FirstOrDefault().MakeBase;
-                 FetchMakeDetails();
+                FetchMakeDetails();
             }
             if (!String.IsNullOrEmpty(objNews.NextArticle.ArticleUrl))
                 nextPageUrl = objNews.NextArticle.BasicId + "-" + objNews.NextArticle.ArticleUrl + ".html";
@@ -187,27 +187,37 @@ namespace Bikewale.Mobile.Content
         /// </summary>
         protected void BindPageWidgets()
         {
-            currentCityArea = GlobalCityArea.GetGlobalCityArea();
-            if (ctrlPopularBikes != null)
+            try
             {
-                ctrlPopularBikes.totalCount = 4;
-                ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
-                ctrlPopularBikes.cityName = currentCityArea.City;
-                if (ctrlUpcomingBikes != null)
+                currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                if (ctrlPopularBikes != null)
                 {
-                    ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-                    ctrlUpcomingBikes.pageSize = 4;
-                }
-               if (_taggedMakeObj != null)
-                {
-                    ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
-                    ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
-                    ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
-                    ctrlPopularBikes.makeId = _taggedMakeObj.MakeId;
-                    ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
-                    ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
+                    ctrlPopularBikes.totalCount = 4;
+                    ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                    ctrlPopularBikes.cityName = currentCityArea.City;
+                    if (ctrlUpcomingBikes != null)
+                    {
+                        ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                        ctrlUpcomingBikes.pageSize = 4;
+                    }
+                    if (_taggedMakeObj != null)
+                    {
+                        ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
+                        ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
+                        ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
+                        ctrlPopularBikes.makeId = _taggedMakeObj.MakeId;
+                        ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
+                        ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
+                    }
+
                 }
             }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "newsdetails.BindPageWidgets");
+                objErr.SendMail();
+            }
+
         }
         /// <summary>
         /// Created by : Aditi Srivastava on 16 Nov 2016
