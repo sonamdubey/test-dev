@@ -166,26 +166,7 @@
                     </div>
                     <div class="clear"></div>
                 </div>
-            <%--</section>
-         <% if(ctrlDealerCard.showWidget){ %>
-            <section>
-                <div class="container section-bottom-margin">
-                    <div class="grid-12">
-                        <div class="content-box-shadow">
-                            <div class="padding-15-20-20">
-                                <h2 class="section-h2-title margin-bottom10">Looking to buy a new <%=serviceVM.MakeName %> bike in <%=serviceVM.CityName %>?</h2>
-                                <p class="font14">Check out authorised <%=serviceVM.MakeName %> dealers in <%=serviceVM.CityName %></p>
-                            </div>
-                            <BW:DealerCard runat="server" ID="ctrlDealerCard" />
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                </div>
-            </section>
-        <% } %>
-            <section>--%>
-
-
+            
                 <% if (showDealerWidget)
                    { %>
         <section>
@@ -196,7 +177,7 @@
                             <h2 class="section-h2-title margin-bottom10">Looking to buy a new <%=serviceVM.MakeName %> bike in <%=serviceVM.CityName %>?</h2>
                             <p class="font14">Check out authorised <%=serviceVM.MakeName %> dealers in <%=serviceVM.CityName %></p>
                         </div>      
-                             <BW:DealerCard runat="server" ID="DealerCard1" />                                            
+                             <BW:DealerCard runat="server" ID="ctrlDealerCard" />                                            
                     </div>
                 </div>
                 <div class="clear"></div>
