@@ -229,25 +229,34 @@ $('.submit-service-center-lead-btn').on('click', function () {
     if (!valid) {
         // invalid
     }
-    else {        
+    else {
+        if (attemptCount < 4) {
             $.ajax({
                 type: "POST",
                 url: "/api/servicecenter/" + serviceCenterId + "/details/sms/?mobile=" + inputbox.val() + "&pageUrl=" + window.location.href.replace('&', '%26'),
                 success: function (response) {
-                        if (response == 2)
-                        {
-                            captureLeadMobile.checkAttempts(10, listItem);
-                        }
-                        else if(response == 1)
-                        {
-                            captureLeadMobile.checkAttempts(attemptCount, listItem);
-                        }
-                        else
-                        {
-                            captureLeadMobile.responseBox.set(listItem, 'response-active limit-reached', failureMessage);
-                        }
+                    if (response == 2) {
+                        captureLeadMobile.checkAttempts(10, listItem);
+                    }
+                    else if (response == 1) {
+                        captureLeadMobile.checkAttempts(attemptCount, listItem);
+                    }
+                    else {
+                        captureLeadMobile.responseBox.set(listItem, 'response-active limit-reached', failureMessage);
+                    }
+                },
+                failure: function (xhr, ajaxOptions, thrownError) {
+                    captureLeadMobile.responseBox.set(listItem, 'response-active limit-reached', failureMessage);
+                },
+                complete: function (xhr, ajaxOptions, thrownError) {
+                    if (xhr.status != 200)
+                        captureLeadMobile.responseBox.set(listItem, 'response-active limit-reached', failureMessage);
                 }
             });
+        }
+        else {
+            captureLeadMobile.checkAttempts(attemptCount, listItem);
+        }
     }
 });
 
@@ -262,7 +271,7 @@ $('#center-list').on('click', '.service-center-resend-btn', function () {
         captureLeadMobile.responseBox.set(listItem, 'response-active limit-reached', threeAttemptsMessage);
     }
 
-    attemptCount = attemptCount + 1;
+    attemptCount++;
 });
 
 var captureLeadMobile = {
