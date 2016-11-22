@@ -6,5 +6,6 @@
 *.user
 *.XML
 *.orig
+BikeWale.UI/build/
 BikeWale.UI/min/
 node_modules/

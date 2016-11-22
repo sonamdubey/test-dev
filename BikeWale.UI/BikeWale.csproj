@@ -2458,6 +2458,7 @@
     <Content Include="m\css\insurance.css" />
     <Content Include="m\css\jqm-demos.css" />
     <Content Include="m\css\jquery.mobile-1.4.2.min.css" />
+    <Content Include="m\css\sell-bike.css" />
     <Content Include="m\css\service\details.css" />
     <Content Include="m\css\service\landing.css" />
     <Content Include="m\css\service\listing.css" />
@@ -2553,6 +2554,7 @@
     <Content Include="m\src\bwm-cancellation.js" />
     <Content Include="m\src\bwm-model.js" />
     <Content Include="m\src\bwm-newbikes.js" />
+    <Content Include="m\src\chosen-jquery-min-mobile.js" />
     <Content Include="m\src\chosen-mobile.js" />
     <Content Include="m\src\common.js" />
     <Content Include="m\src\common.min.js" />
@@ -2820,6 +2822,8 @@
     <Content Include="m\sass\modules\_input-box.sass" />
     <Content Include="m\sass\modules\_box-boundary.sass" />
     <Content Include="m\sass\sell-bike\_media.sass" />
+    <Content Include="m\sass\sell-bike\_color-box.sass" />
+    <Content Include="m\sass\modules\_slideIn-drawer.sass" />
     <None Include="sass\components\_card-header.sass" />
     <Content Include="sass\sell-bike\_style.sass" />
     <Content Include="sass\components\_typography.sass" />

@@ -5,7 +5,7 @@
 <head>
     <title>Sell bikes</title>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link href="/min/m/css/sell-bike.css" rel="stylesheet" type="text/css" />
+    <link href="/build/min/m/css/sell-bike.css" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
@@ -49,16 +49,127 @@
                         <span class="error-text" data-bind="validationMessage: kmsRidden"></span>
                     </div>
 
+                    <div class="slideIn-input-box-content row-bottom-margin" data-bind="css: city().length > 0 ? 'selection-done' : ''">
+                        <div id="city-select-element" class="slideIn-input-box">
+                            <p class="slideIn-input-label city-box-default">City<sup>*</sup></p>
+                            <p class="selected-option-box city-box-default" data-bind="text: city, validationElement: city"></p>
+                            <span class="boundary"></span>
+                            <span class="error-text" data-bind="validationMessage: city"></span>
+                        </div>
+                    </div>                    
+
                     <div id="div-expectedPrice" class="input-box form-control-box row-bottom-margin" data-bind="css: expectedPrice().length > 0 ? 'not-empty' : ''">
                         <input type="number" min="1" id="expectedPrice" data-bind="textInput: expectedPrice, validationElement: expectedPrice" />
                         <label for="expectedPrice">Expected price<sup>*</sup></label>
                         <span class="boundary"></span>
                         <span class="error-text" data-bind="validationMessage: expectedPrice"></span>
                     </div>
+
+                    <div class="select-box select-box-no-input row-bottom-margin">
+                        <p class="select-label">Owner<sup>*</sup></p>
+                        <select class="chosen-select" data-bind="chosen: {}, value: owner, validationElement: owner" data-title="Owner">
+                            <option value></option>
+                            <option value="1">I bought it new</option>
+                            <option value="2">I'm the second owner</option>
+                            <option value="3">I'm the third owner</option>
+                            <option value="4">I'm the fourth owner</option>
+                            <option value="5">Four or more previous owners</option>
+                        </select>
+                        <span class="boundary"></span>
+                        <span class="error-text" data-bind="validationMessage: owner"></span>
+                    </div>
+
+                    <div class="slideIn-input-box-content row-bottom-margin" data-bind="css: registeredCity().length > 0 ? 'selection-done' : ''">
+                        <div id="registration-select-element" class="slideIn-input-box">
+                            <p class="slideIn-input-label city-box-default">Bike registered at<sup>*</sup></p>
+                            <p class="selected-option-box city-box-default" data-bind="text: registeredCity, validationElement: registeredCity"></p>
+                            <span class="boundary"></span>
+                            <span class="error-text" data-bind="validationMessage: registeredCity"></span>
+                        </div>
+                    </div>
+
+                    <div class="color-box-content row-bottom-margin">
+                        <div id="select-color-box" class="select-color-box">
+                            <p class="select-color-label color-box-default">Colour<sup>*</sup></p>
+                            <p id="selected-color" class="color-box-default" data-bind="text: color, validationElement: color "></p>
+                            <span class="boundary"></span>
+                            <span class="error-text" data-bind="validationMessage: color"></span>
+                        </div>
+                    </div>
                     
                     <div class="text-center margin-bottom15">
                         <input type="button" id="btnSaveBikeDetails" class="btn btn-orange btn-primary-big" value="Save and Continue"  data-bind="click: saveBikeDetails"/>
                     </div>
+
+                    <!-- city drawer starts here -->
+                    <div id="city-slideIn-drawer" class="slideIn-drawer-container">
+                        <div class="form-control-box text-left">
+                        <div class="filter-input-box">
+                            <span id="close-city-filter" class="back-arrow-box">
+                                <span class="bwmsprite back-long-arrow-left"></span>
+                            </span>
+                            <input type="text" class="form-control" placeholder="Type to select city" id="" autocomplete="off">
+                        </div>
+                    
+                        <ul class="filter-list" >
+                            <li>Ahmedabad</li>
+                            <li>Bangalore</li>
+                            <li>Chennai</li>
+                            <li>Kolkata</li>
+                            <li>Mumbai</li>
+                        </ul>
+                    </div>
+                    </div>
+                    <!-- city drawer ends here -->
+
+                    <!-- color popup starts here -->
+                    <div class="modal-background"></div>
+                    <div id="color-popup" class="modal-popup-container">
+                        <div class="popup-header">Colour</div>
+                        <div class="popup-body">
+                            <ul class="popup-list margin-bottom15">
+                                <li class="color-list-item" data-bind="click: colorSelection">
+                                    <div class="color-box color-count-one">
+                                        <span style="background-color: rgb(19, 22, 29);"></span>
+                                    </div>
+                                    <p class="color-box-label">Black</p>
+                                </li>
+                                <li class="color-list-item" data-bind="click: colorSelection">
+                                    <div class="color-box color-count-one">
+                                        <span style="background-color: rgb(124, 80, 41)"></span>
+                                    </div>
+                                    <p class="color-box-label">Divine Black</p>
+                                </li>                               
+                            </ul>
+                            <ul>
+                                <li class="other-color-item">
+                                    <div class="color-box">
+                                        <span></span>
+                                    </div>
+                                    <div class="input-box input-color-box form-control-box" data-bind="css: otherColor().length > 0 ? 'not-empty' : '', validationElement: otherColor">
+                                        <input type="text" id="otherColor" data-bind="textInput: otherColor" />
+                                        <label for="otherColor">Other, please specify</label>
+                                        <span class="boundary"></span>
+                                        <span class="error-text" data-bind="validationMessage: otherColor"></span>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <div class="margin-top10 padding-right20 padding-left20">
+                                <div class="grid-6 alpha">
+                                    <button type="button" class="btn btn-white btn-full-width btn-size-sm cancel-popup-btn">Cancel</button>
+                                </div>
+                                <div class="grid-6 omega">
+                                    <button type="button" class="btn btn-orange btn-full-width btn-size-sm" data-bind="click: otherColor().length > 0 ? submitOtherColor : submitColor">Done</button>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <!-- color popup ends here -->
+
 
                 </div>
 
@@ -156,6 +267,9 @@
 
                 <div class="form-step-body" data-bind="visible: formStep() == 3">
                     <h2>More details</h2>
+                    <p class="font12 text-light-grey margin-bottom20">Ads with photos are likely to get more responses!</p>
+                    <p class="font16 text-black margin-bottom5">Add Photos</p>
+                    <p class="font14 text-light-grey margin-bottom15">Ads with photos are likely to get more responses! You can upload upto 10 photos with first photo being the cover for the ad.Supported formats: .jpg, .png; Image size : < 4 MB</p>
                 </div>
 
             </div>
@@ -165,10 +279,13 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css" rel="stylesheet" />
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/knockout.validation.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/sell-bike.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        
     </form>
 </body>
 </html>

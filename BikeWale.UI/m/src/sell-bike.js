@@ -1,7 +1,42 @@
-﻿ko.validation.init({
+﻿var selectColorBox = $('#select-color-box');
+
+ko.validation.init({
     errorElementClass: 'invalid',
     insertMessages: false
 }, true);
+
+//for jquery chosen
+ko.bindingHandlers.chosen = {
+    init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+        var $element = $(element);
+        var options = ko.unwrap(valueAccessor());
+        if (typeof options === 'object')
+            $element.chosen(options);
+
+        ['options', 'selectedOptions', 'value'].forEach(function (propName) {
+            if (allBindings.has(propName)) {
+                var prop = allBindings.get(propName);
+                if (ko.isObservable(prop)) {
+                    prop.subscribe(function () {
+                        $element.trigger('chosen:updated');
+                    });
+                }
+            }
+        });
+    }
+}
+
+$(document).ready(function () {
+    var selectDropdownBox = $('.select-box-no-input');
+
+    selectDropdownBox.each(function () {
+        var text = $(this).find('.chosen-select').attr('data-title'),
+            searchBox = $(this).find('.chosen-search')
+
+        searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
+    });
+    
+});
 
 // custom validation function
 var validation = {
@@ -73,7 +108,7 @@ var validation = {
 var sellBike = function () {
     var self = this;
 
-    self.formStep = ko.observable(2);
+    self.formStep = ko.observable(3);
 
     self.bikeDetails = ko.observable(new bikeDetails);
 
@@ -101,6 +136,9 @@ var bikeDetails = function () {
     var self = this;
 
     self.validate = ko.observable(false);
+    self.validateOtherColor = ko.observable(false);
+
+    self.citySelectionStatus = ko.observable(''); // bike city or registered city
 
     self.kmsRidden = ko.observable('').extend({
         validation: [{
@@ -154,6 +192,88 @@ var bikeDetails = function () {
         }]
     });
 
+    self.city = ko.observable('').extend({
+        required: {
+            params: true,
+            message: 'Please select city',
+            onlyIf: function () {
+                return self.validate();
+            }
+        }
+    });
+
+    self.registeredCity = ko.observable('').extend({
+        required: {
+            params: true,
+            message: 'Please select city',
+            onlyIf: function () {
+                return self.validate();
+            }
+        }
+    });
+
+    self.owner = ko.observable().extend({
+        required: {
+            params: true,
+            message: 'Please select owner type',
+            onlyIf: function () {
+                return self.validate();
+            }
+        }
+    });
+
+    self.color = ko.observable().extend({
+        required: {
+            params: true,
+            message: 'Please select a colour',
+            onlyIf: function () {
+                return self.validate();
+            }
+        }
+    });
+
+
+    self.colorSelection = function (data, event) {
+        if (event != null) {
+            var element = $(event.currentTarget);
+        }
+        if (data != null) {
+            colorId = data.colorId;
+        }
+        if (!element.hasClass('active')) {
+            var selection = element.find('.color-box-label').text();
+            self.color(selection);
+            self.otherColor('');
+            colorBox.active(element);
+        }
+    };
+
+    self.otherColor = ko.observable('').extend({
+        pattern: {
+            params: '[A-Za-z\s]',
+            message: 'Please enter valid color',
+            onlyIf: function () {
+                return self.validateOtherColor();
+            }
+        }
+    });
+
+    self.submitColor = function (data, event) {
+        modalPopup.close('#color-popup');
+    };
+
+    self.submitOtherColor = function (data, event) {
+        self.validateOtherColor(true);
+
+        if (self.colorError().length === 0) {
+            colorBox.userInput();
+            self.color(self.otherColor());
+            modalPopup.close('#color-popup');
+        } else {
+            self.colorError.showAllMessages();
+        }
+    };
+
     self.saveBikeDetails = function (data, event) {
         self.validate(true);
 
@@ -169,6 +289,7 @@ var bikeDetails = function () {
     };
 
     self.errors = ko.validation.group(self);
+    self.colorError = ko.validation.group(self.otherColor);
 };
 
 var personalDetails = function () {
@@ -398,15 +519,128 @@ var verificationDetails = function () {
 var vmSellBike = new sellBike();
 ko.applyBindings(vmSellBike, document.getElementById('sell-bike-content'));
 
+// city
+var cityListContainer = $('#city-slideIn-drawer'),
+    effect = 'slide',
+    options = { direction: 'right' },
+    duration = 500;
+
+$('#city-select-element').on('click', '.city-box-default', function () {
+    cityListSelection.open();
+    vmSellBike.bikeDetails().citySelectionStatus('bike-city');
+    appendState('bikeCity');
+});
+
+$('#registration-select-element').on('click', '.city-box-default', function () {
+    cityListSelection.open();
+    vmSellBike.bikeDetails().citySelectionStatus('registered-city');
+    appendState('registrationCity');
+});
+
+$('#close-city-filter').on('click', function () {
+    cityListSelection.close();
+});
+
+$('#city-slideIn-drawer').on('click', '.filter-list li', function () {
+    var element = $(this).text();
+
+    if (vmSellBike.bikeDetails().citySelectionStatus() == 'bike-city') {
+        vmSellBike.bikeDetails().city(element);
+    }
+    else if (vmSellBike.bikeDetails().citySelectionStatus() == 'registered-city') {
+        vmSellBike.bikeDetails().registeredCity(element);
+    }
+
+    cityListSelection.close();
+
+});
+
+var cityListSelection = {
+    open: function () {
+        cityListContainer.show(effect, options, duration, function () {
+            cityListContainer.addClass('fix-header-input');
+        });
+    },
+
+    close: function () {
+        cityListContainer.hide(effect, options, duration, function () { });
+        cityListContainer.removeClass('fix-header-input');
+    }
+};
 
 // seller type
 var sellerType = {
-
     check: function (element) {
         element.siblings('.checked').removeClass('checked');
         element.addClass('checked');
     }
 }
+
+// color
+selectColorBox.on('click', '.color-box-default', function () {
+    modalPopup.open('#color-popup');
+    appendState('colorPopup');
+});
+
+var colorBox = {
+    popup: $('#color-popup'),
+
+    active: function (element) {
+        colorBox.popup.find('li.active').removeClass('active');
+        element.addClass('active');
+        selectColorBox.addClass('selection-done');
+    },
+
+    userInput: function () {
+        colorBox.popup.find('li.active').removeClass('active');
+        selectColorBox.addClass('selection-done');
+    }
+};
+
+$('.cancel-popup-btn').on('click', function () {
+    var container = $(this).closest('.modal-popup-container');
+    history.back();
+    modalPopup.close(container);
+});
+
+// modal popup
+var modalPopup = {
+    open: function (container) {
+        $(container).show();
+        $('html, body').addClass('lock-browser-scroll');
+        $('.modal-background').show();
+    },
+
+    close: function (container) {
+        $(container).hide();
+        $('html, body').removeClass('lock-browser-scroll');
+        $('.modal-background').hide();
+    }
+};
+
+/* popup state */
+var appendState = function (state) {
+    window.history.pushState(state, '', '');
+};
+
+$(window).on('popstate', function (event) {
+    if ($('#city-slideIn-drawer').is(':visible')) {
+        cityListSelection.close();
+    }
+    if ($('#color-popup').is(':visible')) {
+        modalPopup.close('#color-popup');
+    }
+});
+
+$('.chosen-container').on('touchstart', function (event) {
+    event.preventDefault();
+    $(this).trigger('mousedown');
+});
+
+$('.select-box select').on('change', function () {
+    $(this).closest('.select-box').addClass('done');
+    $('body').trigger('click'); // prevent chosen select from triggering background click events
+});
 
 var scrollToForm = {
     container: $('#sell-bike-content'),

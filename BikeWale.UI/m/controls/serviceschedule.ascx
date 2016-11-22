@@ -3,7 +3,7 @@
 <div id="service-schedular" class="container bg-white box-shadow card-bottom-margin padding-15-20">
                 <h2 class="margin-bottom5">Is your <%= MakeName %> bike due for a service?</h2>
                 <p class="margin-bottom15">Get your <%= MakeName %> bike serviced within given time period or km range, whichever condition gets satisfied earlier.</p>
-                <div class="select-box margin-bottom20">
+                <div class="select-box size-small margin-bottom20">
                     <p class="font12 text-light-grey">Model</p>
                     <select id="selBikes" class="chosen-select" data-bind="event: { change: GetModelId }"
                         <% foreach (var bike in BikeScheduleList)

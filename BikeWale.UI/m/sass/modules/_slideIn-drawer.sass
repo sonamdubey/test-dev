@@ -1,0 +1,86 @@
+﻿.slideIn-input-box-content
+	height: 60px
+
+.slideIn-input-box
+	padding-bottom: 5px
+	position: relative
+	border-bottom: 1px solid $text-light
+	background: #fff url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat
+	height: 36px
+	
+	.slideIn-input-label
+		font-size: $font-size-medium
+		color: $text-light
+		position: absolute
+		top: 4px
+		
+	.city-box-default
+		width: 100%
+		cursor: pointer
+
+.selection-done
+	.slideIn-input-label
+		font-size: $font-size-small
+		top: -14px
+		
+
+.selected-option-box
+	font-size: $font-size-medium
+	color: $text-primary
+	font-weight: $font-bold
+	height: 36px
+	padding-top: 7px
+
+.slideIn-drawer-container
+	display: none
+	width: 100%
+	position: fixed
+	top: 0
+	right: 0
+	bottom: 0
+	left: 0
+	background: #f5f5f5
+	z-index: 2
+	overflow-x: hidden
+	overflow-y: scroll
+
+	.filter-input-box
+		width: 100%
+
+		input[type="text"]
+			padding-left: 50px
+
+	.back-arrow-box
+		width: 40px
+		height: 30px
+		position: absolute
+		top: 5px
+		left: 5px
+		z-index: 2
+		cursor: pointer
+
+		.back-long-arrow-left
+			position: absolute
+			top: 7px
+			left: 10px
+
+	.filter-list
+		li
+			border-top: 1px solid #ccc
+			font-size: $font-size-base
+			padding: 15px 20px
+			color: #333
+			cursor: pointer
+
+			&:hover
+				background: #e9e9e9
+
+// fixed
+.slideIn-drawer-container
+	&.fix-header-input
+		padding-top: 40px
+
+		.filter-input-box
+			position: fixed
+			top: 0
+			left: 0
