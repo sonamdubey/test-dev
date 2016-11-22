@@ -17,7 +17,7 @@
         isHeaderFix = false;
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link href="/css/service/location.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/service/location.css" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>
