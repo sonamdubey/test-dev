@@ -1,10 +1,14 @@
 ﻿using Bikewale.BindViewModels.Webforms.EditCMS;
+using Bikewale.Common;
+using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.Location;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -99,7 +103,7 @@ namespace Bikewale.Mobile.Content
                 else
                 {
                     _taggedMakeObj = objTipsAndAdvice.VehiclTagsList.FirstOrDefault().MakeBase;
-
+                     FetchMakeDetails();
                 }
             }
         }
@@ -138,6 +142,32 @@ namespace Bikewale.Mobile.Content
                 photoGallery.Photos = objImg.ToList();
             photoGallery.isModelPage = false;
             photoGallery.articleName = pageTitle;
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 22 Nov 2016
+        /// Description: fetch make details from tagged list
+        /// </summary>
+        private void FetchMakeDetails()
+        {
+            try
+            {
+                if (_taggedMakeObj != null && _taggedMakeObj.MakeId > 0)
+                {
+
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
+                        var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+                        _taggedMakeObj = makesRepository.GetMakeDetails(_taggedMakeObj.MakeId.ToString());
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.mobile.ViewBikeCare.FetchMakeDetails");
+                objErr.SendMail();
+            }
         }
 
     }

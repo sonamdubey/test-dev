@@ -2,10 +2,12 @@
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
+using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.Location;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
@@ -165,7 +167,10 @@ namespace Bikewale.Content
                 }
             }
         }
-
+        /// <summary>
+        /// Modified by : Aditi Srivastava on 22 Nov 2016
+        /// Description : To get masking name of tagged make for url if it is null
+        /// </summary>
         private void GetRoadTestData()
         {
             try
@@ -180,6 +185,8 @@ namespace Bikewale.Content
                 if (objRoadtest.VehiclTagsList != null && objRoadtest.VehiclTagsList.Count > 0)
                 {
                     _taggedMakeObj = objRoadtest.VehiclTagsList.FirstOrDefault().MakeBase;
+                    if (_taggedMakeObj.MaskingName == null)
+                        FetchMakeDetails();
 
                     if (objRoadtest.VehiclTagsList.Any(m => (m.MakeBase != null && !String.IsNullOrEmpty(m.MakeBase.MaskingName))))
                     {
@@ -249,5 +256,32 @@ namespace Bikewale.Content
                 objErr.SendMail();
             }
         }
+         /// <summary>
+        /// Created by : Aditi Srivastava on 22 Nov 2016
+        /// Description: fetch make details from tagged list
+        /// </summary>
+        private void FetchMakeDetails()
+        {
+            try
+            {
+                if (_taggedMakeObj != null && _taggedMakeObj.MakeId > 0)
+                {
+
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
+                        var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+                        _taggedMakeObj = makesRepository.GetMakeDetails(_taggedMakeObj.MakeId.ToString());
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.mobile.viewRT.FetchMakeDetails");
+                objErr.SendMail();
+            }
+        }
+
     }
 }

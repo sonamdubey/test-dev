@@ -2,10 +2,12 @@
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
+using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.Location;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
@@ -178,7 +180,7 @@ namespace Bikewale.Mobile.Content
             author = objFeature.AuthorName;
             pageTitle = objFeature.Title;
             displayDate = Convert.ToDateTime(objFeature.DisplayDate).ToString("MMMM dd, yyyy hh:mm tt");
-            FetchMakeDetails();
+            GetTaggedBikeList();
             if (objFeature.TagsList != null && objFeature.TagsList.Count > 0)
             {
                 if (objFeature.VehiclTagsList != null && objFeature.VehiclTagsList.Count > 0)
@@ -245,28 +247,53 @@ namespace Bikewale.Mobile.Content
             }
         }
 
-
-
         /// <summary>
         /// Created by : Aditi Srivastava on 16 Nov 2016
-        /// Description: get make details if a make is tagged
+        /// Description: Get details of tagged vehicles
+        /// </summary>
+        private void GetTaggedBikeList()
+        {
+            if (objFeature != null && objFeature.VehiclTagsList.Count > 0)
+            {
+
+                var taggedMakeObj = objFeature.VehiclTagsList.FirstOrDefault(m => !string.IsNullOrEmpty(m.MakeBase.MaskingName));
+                if (taggedMakeObj != null)
+                {
+                    _taggedMakeObj = taggedMakeObj.MakeBase;
+                }
+                else
+                {
+                    _taggedMakeObj = objFeature.VehiclTagsList.FirstOrDefault().MakeBase;
+                    FetchMakeDetails();
+                }
+            }
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 22 Nov 2016
+        /// Description: fetch make details from tagged list
         /// </summary>
         private void FetchMakeDetails()
         {
             try
             {
-                if (objFeature.VehiclTagsList != null && objFeature.VehiclTagsList.Count > 0)
+                if (_taggedMakeObj != null && _taggedMakeObj.MakeId > 0)
                 {
-                    _taggedMakeObj = objFeature.VehiclTagsList.FirstOrDefault().MakeBase;
 
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
+                        var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+                        _taggedMakeObj = makesRepository.GetMakeDetails(_taggedMakeObj.MakeId.ToString());
+
+                    }
                 }
-
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.newsdetails.FetchMakeDetails");
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.mobile.viewF.FetchMakeDetails");
                 objErr.SendMail();
             }
         }
+       
     }
 }
