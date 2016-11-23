@@ -691,7 +691,7 @@
                             <% if(modelPageEntity.ModelVersionSpecs != null ){ %>
                             <a href="#modelSpecsFeaturesContent" rel="nofollow">Specs & Features</a>
                             <% } %>
-                            <%if (modelPageEntity.ModelColors != null && modelPageEntity.ModelColors.Count() > 0)
+                            <%if (modelPageEntity.ModelColors != null && modelPageEntity.ModelColors.Count()> 0)
                             { %>
                             <a href="#modelColorsContent" rel="nofollow">Colors</a>
                             <%} %>
@@ -724,8 +724,8 @@
                         <% if ((modelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(modelPageEntity.ModelDesc.SmallDescription)) || modelPageEntity.ModelVersionSpecs !=null)
                            { %>
                         <div id="modelSummaryContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom">
-                            <h2>About <%=bikeName %></h2>
-                            <p class="font14 text-light-grey line-height17 margin-bottom15">The price of Make Model is Rs. 'x' onwards (Ex-showroom, Mumbai) and is available in 'y' variants. Model has a mileage of 'z' kmpl and a top speed of 'x' kmph. It is available in 2 different colours : colour 1, colour 2.</p>
+                            <h2><%=bikeName %> summary</h2>
+                            <p class="font14 text-light-grey line-height17 margin-bottom15"><%=summaryDescription %></p>
 
                             <div class="border-solid-bottom margin-bottom20">
                                 <div class="grid-8 alpha margin-bottom10">
@@ -736,33 +736,40 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                           <% if (modelPageEntity.ModelDetails.MinPrice > 0){%> 
                                             <tr>
                                                 <td width="36%">Price</td>
                                                 <td width="64%">
                                                     <span class="bwsprite inr-sm-dark"></span>
-                                                    <span class="text-bold">1,23,000</span>
-                                                    <span class="font12 text-light-grey">(Ex-showroom Delhi)</span>
+                                                    <span class="text-bold"><%=Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPageEntity.ModelDetails.MinPrice))%></span>
+                                                    <span class="font12 text-light-grey">(Ex-showroom Mumbai)</span>
                                                 </td>
                                             </tr>
+                                            <%} %>
+                                            <%if(modelPageEntity != null && modelPageEntity.ModelVersionSpecs != null && modelPageEntity.ModelVersionSpecs.TopSpeed > 0) {%>
                                             <tr>
                                                 <td>Top speed</td>
-                                                <td class="text-bold">142 kmph</td>
+                                                <td class="text-bold"> <%=modelPageEntity.ModelVersionSpecs.TopSpeed %> kmph</td>
                                             </tr>
+                                            <%} %>
+                                            <%if(modelPageEntity != null && modelPageEntity.ModelVersionSpecs != null && modelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0) {%>
                                             <tr>
                                                 <td>Mileage</td>
-                                                <td class="text-bold">25 kmpl</td>
+                                                <td class="text-bold"> <%=modelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall %> kmpl</td>
                                             </tr>
+                                            <%} %>
+                                            <%if(modelPageEntity != null && modelPageEntity.ModelColors != null ) {%>
                                             <tr>
                                                 <td valign="top">Colours</td>
                                                 <td valign="top" class="text-bold">
                                                     <ul class="model-color-list">
-                                                        <li class="leftfloat">Black</li>
-                                                        <li class="leftfloat">Geny Grey Metallic</li>
-                                                        <li class="leftfloat">Maple Brown Metallic</li>
-                                                        <li class="leftfloat">Imperial Red Metallic</li>
+                                                          <%foreach(var colorName in  modelPageEntity.ModelColors){ %>
+                                                        <li class="leftfloat"><%=colorName.ColorName %></li>
+                                                        <%} %>
                                                     </ul>
                                                 </td>
                                             </tr>
+                                            <%} %>
                                         </tbody>
                                     </table>
                                 </div>

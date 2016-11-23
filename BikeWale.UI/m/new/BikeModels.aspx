@@ -417,29 +417,35 @@
                                 <tr>
                                     <td valign="top" width="36%">Price</td>
                                     <td valign="top" width="64%">
-                                        <span class="bwmsprite inr-dark-grey-xsm-icon"></span><span class="text-bold">1,23,000</span><br />
-                                        <span class="font12 text-light-grey">Ex-showroom Delhi</span>
+                                        <span class="bwmsprite inr-dark-grey-xsm-icon"></span><span class="text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPage.ModelDetails.MinPrice)) %></span><br />
+                                        <span class="font12 text-light-grey">Ex-showroom Mumbai</span>
                                     </td>
                                 </tr>
+                                <% if(modelPage!=null && modelPage.ModelVersionSpecs!=null && modelPage.ModelVersionSpecs.TopSpeed>0) {%>
                                 <tr>
                                     <td valign="top">Top speed</td>
-                                    <td valign="top" class="text-bold">142 kmph</td>
+                                    <td valign="top" class="text-bold"><%=modelPage.ModelVersionSpecs.TopSpeed%></td>
                                 </tr>
+                                <%} %>
+                                <%if (modelPage != null && modelPage.ModelVersionSpecs != null && modelPage.ModelVersionSpecs.FuelEfficiencyOverall > 0)
+                                  { %>
                                 <tr>
                                     <td valign="top">Mileage</td>
-                                    <td valign="top" class="text-bold">25 kmpl</td>
+                                    <td valign="top" class="text-bold"><%= modelPage.ModelVersionSpecs.FuelEfficiencyOverall%> kmpl</td>
                                 </tr>
+                                <%} %>
+                                   <%if (modelPage != null && modelPage.ModelColors != null){ %> 
                                 <tr>
                                     <td valign="top">Colours</td>
                                     <td valign="top" class="text-bold">
                                         <ul class="model-color-list">
-                                            <li class="leftfloat">Black</li>
-                                            <li class="leftfloat">Geny Grey Metallic</li>
-                                            <li class="leftfloat">Maple Brown Metallic</li>
-                                            <li class="leftfloat">Imperial Red Metallic</li>
-                                        </ul>
+                                            <%foreach(var colorName in  modelPage.ModelColors){ %>
+                                            <li class="leftfloat"><%=colorName.ColorName%></li>
+                                        <%} %>
+                                             </ul>
                                     </td>
                                 </tr>
+                                <%} %>
                             </tbody>
                         </table>
                     </div>

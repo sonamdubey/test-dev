@@ -192,9 +192,11 @@ namespace Bikewale.Mobile.New
             {
                 string versionDescirption = versionCount > 1 ? string.Format(" and is available in {0} versions", versionCount) : string.Format(" and is available in {0} version", versionCount);
                 string specsDescirption = string.Empty;
-                if (modelPage != null && modelPage.ModelVersionSpecs != null && (modelPage.ModelVersionSpecs.TopSpeed >0 || modelPage.ModelVersionSpecs.FuelEfficiencyOverall >0))
+                string priceDescription = modelPage.ModelDetails.MinPrice > 0 ? string.Format("is Rs. {0} onwards (Ex-showroom, Mumbai)", Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPage.ModelDetails.MinPrice))) : string.Empty;
+
+                if (modelPage != null && modelPage.ModelVersionSpecs != null && (modelPage.ModelVersionSpecs.TopSpeed > 0 || modelPage.ModelVersionSpecs.FuelEfficiencyOverall > 0))
                 {
-                    if ((modelPage.ModelVersionSpecs.TopSpeed >0 && modelPage.ModelVersionSpecs.FuelEfficiencyOverall>0))
+                    if ((modelPage.ModelVersionSpecs.TopSpeed > 0 && modelPage.ModelVersionSpecs.FuelEfficiencyOverall > 0))
                         specsDescirption = string.Format("{0} has a mileage of {1} kmpl and a top speed of {2} kmph.", bikeModelName, modelPage.ModelVersionSpecs.FuelEfficiencyOverall, modelPage.ModelVersionSpecs.TopSpeed);
                     else if (modelPage.ModelVersionSpecs.TopSpeed == 0)
                     {
@@ -205,11 +207,11 @@ namespace Bikewale.Mobile.New
                         specsDescirption = string.Format("{0} has a top speed of {2} kmph.", bikeModelName, modelPage.ModelVersionSpecs.TopSpeed);
                     }
                 }
-                summaryDescription = string.Format("The price of {0} is Rs. {1} onwards (Ex-showroom, Mumbai){2}.{3}{4}", bikeName, Bikewale.Utility.Format.FormatNumeric(price.ToString()), versionDescirption, specsDescirption, colorStr);
+                summaryDescription = string.Format("The price of {0} {1}{2}.{3}{4}", bikeName, priceDescription, versionDescirption, specsDescirption, colorStr);
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindDescription");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "NewBikeModels.BindDescription");
                 objErr.SendMail();
             }
         }
