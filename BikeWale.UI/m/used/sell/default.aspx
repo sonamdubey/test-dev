@@ -265,11 +265,40 @@
 
                 </div>
 
-                <div class="form-step-body" data-bind="visible: formStep() == 3">
+                <div class="form-step-body" data-bind="visible: formStep() == 3, with: moreDetails">
                     <h2>More details</h2>
                     <p class="font12 text-light-grey margin-bottom20">Ads with photos are likely to get more responses!</p>
                     <p class="font16 text-black margin-bottom5">Add Photos</p>
                     <p class="font14 text-light-grey margin-bottom15">Ads with photos are likely to get more responses! You can upload upto 10 photos with first photo being the cover for the ad.Supported formats: .jpg, .png; Image size : < 4 MB</p>
+
+                    <div class="input-box form-control-box row-bottom-margin" data-bind="css: registrationNumber().length > 0 ? 'not-empty' : ''">
+                        <input type="text" id="registrationNumber" data-bind="textInput: registrationNumber" />
+                        <label for="registrationNumber">Registration number</label>
+                        <span class="boundary"></span>
+                    </div>
+
+                    <div class="select-box select-box-no-input">
+                        <p class="select-label">Insurance</p>
+                        <select id="select-insuranceType" class="chosen-select" data-bind="chosen: {}, value: insuranceType" data-title="Insurance">
+                            <option value></option>
+                            <option value="Comprehensive">Comprehensive</option>
+                            <option value="Third Party">Third Party</option>
+                            <option value="No Insurance">No Insurance</option>
+                        </select>
+                        <span class="boundary"></span>
+                    </div>
+
+                    <div class="textarea-box form-control-box margin-bottom30">
+                        <p class="textarea-label">Ad description</p>
+                        <textarea rows="2" cols="20" data-bind=" value: adDescription "></textarea>
+                        <span class="boundary"></span>
+                    </div>
+
+                    <div>
+                        <input type="button" class="btn btn-white btn-primary-small margin-right10" value="No Thanks" data-bind="click: noThanks" />
+                        <input type="button" id="btnUpdateAd" class="btn btn-orange btn-primary-big" value="Update my Ad" data-bind="click: updateAd" />
+                    </div>
+
                 </div>
 
             </div>

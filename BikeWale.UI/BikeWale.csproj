@@ -2824,6 +2824,7 @@
     <Content Include="m\sass\sell-bike\_media.sass" />
     <Content Include="m\sass\sell-bike\_color-box.sass" />
     <Content Include="m\sass\modules\_slideIn-drawer.sass" />
+    <Content Include="m\sass\modules\_textarea-box.sass" />
     <None Include="sass\components\_card-header.sass" />
     <Content Include="sass\sell-bike\_style.sass" />
     <Content Include="sass\components\_typography.sass" />

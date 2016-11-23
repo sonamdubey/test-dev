@@ -116,6 +116,8 @@ var sellBike = function () {
 
     self.verificationDetails = ko.observable(new verificationDetails);
 
+    self.moreDetails = ko.observable(new moreDetails);
+
     self.gotoStep1 = function () {
         if (self.formStep() > 1) {
             self.formStep(1);
@@ -514,6 +516,25 @@ var verificationDetails = function () {
     self.errorOTP = ko.validation.group(self.otpCode);
     self.errorMobile = ko.validation.group(self.updatedMobile);
 
+};
+
+var moreDetails = function () {
+    var self = this;
+
+    self.insuranceType = ko.observable();
+    self.adDescription = ko.observable();
+
+    self.registrationNumber = ko.observable('');
+
+    self.updateAd = function () {
+        vmSellBike.formStep(4);
+        scrollToForm.activate();
+    };
+
+    self.noThanks = function () {
+        vmSellBike.formStep(4);
+        scrollToForm.activate();
+    };
 };
 
 var vmSellBike = new sellBike();
