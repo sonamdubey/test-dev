@@ -668,6 +668,7 @@ var personalDetails = function () {
 
     self.validate = ko.observable(false);
     self.mobileLabel = ko.observable(true);
+    self.isEdit = ko.observable(false);
     self.termsCheckbox = ko.observable(true).extend({
         validation: [{
             validator: function (val) {
@@ -1422,6 +1423,7 @@ $(function () {
         pdetails.sellerEmail(inquiryDetails.seller.customerEmail);
         pdetails.sellerMobile(inquiryDetails.seller.customerMobile);
         pdetails.sellerType(inquiryDetails.seller.sellerType);
+        pdetails.isEdit(true);
         vmSellBike.inquiryId(inquiryDetails.InquiryId);
         vmSellBike.customerId(inquiryDetails.seller.customerId);
         mdetails.adDescription(inquiryDetails.otherInfo.adDescription);

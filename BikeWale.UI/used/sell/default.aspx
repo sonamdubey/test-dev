@@ -254,7 +254,7 @@
                                             <span class="panel-title">Personal details</span>
                                         </div>
                                         <div class="panel-body" data-bind="visible: formStep() == 2 && !verificationDetails().status()">
-                                            <div class="panel-row margin-bottom30">
+                                            <div class="panel-row margin-bottom30" data-bind="style: {'pointer-events' : personalDetails().isEdit() ? 'none' : ''}">
                                                 <ul id="seller-type-list">
                                                     <li data-bind="click: personalDetails().sellerType, attr: { value: 2 }, css: personalDetails().sellerTypeVal() == 2 ? 'checked' : ''" >
                                                         <span class="bwsprite radio-icon"></span>
