@@ -5,7 +5,7 @@
         <div class="content-box-shadow padding-15-20-20">
             <h2 class="section-h2-title margin-bottom10">Is your <%=MakeName %> bike due for a service?</h2>
             <p class="font14 margin-bottom25">Get you <%=MakeName %> bike serviced within given time period or km range, whichever condition gets satisfied earlier.</p>
-            <div id="scheduler-left-column" class="grid-4 alpha">
+         <div id="scheduler-left-column" class="grid-4 alpha">
                 <div class="select-box">
                     <p class="font12 text-xt-light-grey">Model</p>
                     <select class="chosen-select" data-bind="event: { change: GetModelId }" data-placeholder="Select model">
