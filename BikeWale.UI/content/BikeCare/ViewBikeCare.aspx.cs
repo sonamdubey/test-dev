@@ -99,13 +99,13 @@ namespace Bikewale.Content
             {
                 GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
 
-                ctrlPopularBikes.totalCount = 4;
+                ctrlPopularBikes.totalCount = 3;
                 ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
                 ctrlPopularBikes.cityName = currentCityArea.City;
 
                 ctrlUpcoming.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 ctrlUpcoming.pageSize = 9;
-                ctrlUpcoming.topCount = 4;
+                ctrlUpcoming.topCount = 3;
                 if (objImg != null && objImg.Count() > 0)
                 {
                     ctrPhotoGallery.BasicId = Convert.ToInt32(basicId);
