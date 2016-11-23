@@ -315,6 +315,7 @@ $('a.read-more-model-preview').click(function () {
         $('.model-preview-more-content').hide();
         self.text(self.text() === 'Read more' ? 'Collapse' : 'Read more');
         self.removeClass('open');
+        $('html, body').animate({ scrollTop: $('.model-preview-main-content').offset().top - 44 }, 500)
     }
 });
 

@@ -55,7 +55,7 @@ namespace Bikewale.New
         protected PQOnRoadPrice pqOnRoad;
         protected int grid1_size = 9, grid2_size = 3;
         protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor, rptOffers, rptVariants, rptSecondaryDealers;
-        protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty;
+        protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty, summaryDescription = string.Empty;
         protected String clientIP = CommonOpn.GetClientIP();
         protected bool isCitySelected, isAreaSelected, isBikeWalePQ, isDiscontinued, isOnRoadPrice, toShowOnRoadPriceButton;
         //Varible to Hide or show controlers
@@ -252,11 +252,45 @@ namespace Bikewale.New
                     TotalUsedBikes();
                     BindColorString();
                     CreateMetas();
+                    BindDescription();
                 }
             }
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("Page_load({0})", Request.QueryString["model"]));
+                objErr.SendMail();
+            }
+        }
+        /// <summary>
+        /// Created By :-Subodh Jain 07 oct 2016
+        /// Desc:- To bind Description on model page
+        /// </summary>
+        private void BindDescription()
+        {
+            try
+            {
+                string versionDescirption = modelPageEntity.ModelVersions.Count > 1 ? string.Format(" and is available in {0} versions", modelPageEntity.ModelVersions.Count) : string.Format(" and is available in {0} version", modelPageEntity.ModelVersions.Count);
+                string specsDescirption = string.Empty;
+                string priceDescription = modelPageEntity.ModelDetails.MinPrice > 0 ? string.Format("is Rs. {0} onwards (Ex-showroom, {1})", Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPageEntity.ModelDetails.MinPrice)), Bikewale.Utility.BWConfiguration.Instance.DefaultCity) : string.Empty;
+
+                if (modelPageEntity != null && modelPageEntity.ModelVersionSpecs != null && (modelPageEntity.ModelVersionSpecs.TopSpeed > 0 || modelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0))
+                {
+                    if ((modelPageEntity.ModelVersionSpecs.TopSpeed > 0 && modelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0))
+                        specsDescirption = string.Format("{0} has a mileage of {1} kmpl and a top speed of {2} kmph.", bikeModelName, modelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall, modelPageEntity.ModelVersionSpecs.TopSpeed);
+                    else if (modelPageEntity.ModelVersionSpecs.TopSpeed == 0)
+                    {
+                        specsDescirption = string.Format("{0} has a mileage of {1} kmpl.", bikeModelName, modelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall);
+                    }
+                    else
+                    {
+                        specsDescirption = string.Format("{0} has a top speed of {2} kmph.", bikeModelName, modelPageEntity.ModelVersionSpecs.TopSpeed);
+                    }
+                }
+                summaryDescription = string.Format("The price of {0} {1}{2}.{3}{4}", bikeName, priceDescription, versionDescirption, specsDescirption, colorStr);
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "bikeModel.BindDescription");
                 objErr.SendMail();
             }
         }

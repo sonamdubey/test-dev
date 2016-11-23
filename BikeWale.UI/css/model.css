@@ -196,6 +196,34 @@ li.offertxt:hover span {display:inline}
 #modelDetailsFloatingCardContent.fixed-card { top:0; }
 #modelDetailsFloatingCardContent .overall-specs-tabs-wrapper { display:none; }
 #modelDetailsFloatingCardContent.activate-tabs .overall-specs-tabs-wrapper { display:block; }
+
+/* model key highlights */
+#model-key-highlights tr td {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-top: 1px solid #eee; 
+}
+
+#model-key-highlights tbody tr:first-child td {
+    border-top: 0;
+}
+
+#model-key-highlights .model-color-list li {
+    margin-right: 3px;
+}
+
+#model-key-highlights .model-color-list li:after {
+    content: ", ";
+}
+
+#model-key-highlights .model-color-list li:last-child:after {
+    content: none;
+}
+
+.inline {
+    display: inline;
+}
+
 /**/
 .inline-block-top { display:inline-block; vertical-align:top; }
 .model-card-image-content { width:117px; height:66px; background:#ccc; }

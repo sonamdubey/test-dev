@@ -655,6 +655,7 @@ $('a.read-more-model-preview').click(function () {
         $('.model-preview-more-content').hide();
         $(this).text($(this).text() === 'Read more' ? 'Collapse' : 'Read more');
         $(this).removeClass('open');
+        $('html, body').animate({ scrollTop: $('#model-overview-content').offset().top - $("#modelDetailsFloatingCardContent").height() - 10 }, 500);
     }
 
 });

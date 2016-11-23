@@ -636,7 +636,7 @@
                     <div class="overall-specs-tabs-wrapper content-box-shadow">
                         <% if ((modelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(modelPageEntity.ModelDesc.SmallDescription)) || modelPageEntity.ModelVersionSpecs != null)
                            { %>
-                        <a href="#modelSummaryContent" rel="nofollow">About</a>
+                        <a href="#modelSummaryContent" rel="nofollow">Summary</a>
                         <%} %>
                         <% if(modelPageEntity.ModelVersions!= null && modelPageEntity.ModelVersions.Count > 0) { %>
                         <a href="#modelPricesContent" rel="nofollow">Prices</a>
@@ -683,7 +683,7 @@
                         <div class="overall-specs-tabs-wrapper">
                             <% if ((modelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(modelPageEntity.ModelDesc.SmallDescription)) || modelPageEntity.ModelVersionSpecs != null)
                                { %>
-                            <a class="active" href="#modelSummaryContent" rel="nofollow">About</a>
+                            <a class="active" href="#modelSummaryContent" rel="nofollow">Summary</a>
                             <%} %>
                             <% if(modelPageEntity.ModelVersions!= null && modelPageEntity.ModelVersions.Count > 0) { %>
                             <a href="#modelPricesContent" rel="nofollow">Prices</a>
@@ -691,7 +691,7 @@
                             <% if(modelPageEntity.ModelVersionSpecs != null ){ %>
                             <a href="#modelSpecsFeaturesContent" rel="nofollow">Specs & Features</a>
                             <% } %>
-                            <%if (modelPageEntity.ModelColors != null && modelPageEntity.ModelColors.Count() > 0)
+                            <%if (modelPageEntity.ModelColors != null && modelPageEntity.ModelColors.Count()> 0)
                             { %>
                             <a href="#modelColorsContent" rel="nofollow">Colors</a>
                             <%} %>
@@ -724,21 +724,76 @@
                         <% if ((modelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(modelPageEntity.ModelDesc.SmallDescription)) || modelPageEntity.ModelVersionSpecs !=null)
                            { %>
                         <div id="modelSummaryContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom">
+                            <h2><%=bikeName %> summary</h2>
+                            <p class="font14 text-light-grey line-height17 margin-bottom15"><%=summaryDescription %></p>
+
+                            <div class="border-solid-bottom margin-bottom20">
+                                <div class="grid-8 alpha margin-bottom10">
+                                    <table id="model-key-highlights" cellspacing="0" cellpadding="0" width="100%" border="0" class="font14 text-left">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2"><%= modelPageEntity.ModelDetails.ModelName %> key highlights</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                           <% if (modelPageEntity.ModelDetails.MinPrice > 0){%> 
+                                            <tr>
+                                                <td width="36%">Price</td>
+                                                <td width="64%">
+                                                    <span class="bwsprite inr-sm-dark"></span>
+                                                    <span class="text-bold"><%=Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPageEntity.ModelDetails.MinPrice))%></span>
+                                                    <span class="font12 text-light-grey">(Ex-showroom Mumbai)</span>
+                                                </td>
+                                            </tr>
+                                            <%} %>
+                                            <%if(modelPageEntity != null && modelPageEntity.ModelVersionSpecs != null && modelPageEntity.ModelVersionSpecs.TopSpeed > 0) {%>
+                                            <tr>
+                                                <td>Top speed</td>
+                                                <td class="text-bold"> <%=modelPageEntity.ModelVersionSpecs.TopSpeed %> kmph</td>
+                                            </tr>
+                                            <%} %>
+                                            <%if(modelPageEntity != null && modelPageEntity.ModelVersionSpecs != null && modelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0) {%>
+                                            <tr>
+                                                <td>Mileage</td>
+                                                <td class="text-bold"> <%=modelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall %> kmpl</td>
+                                            </tr>
+                                            <%} %>
+                                            <%if(modelPageEntity != null && modelPageEntity.ModelColors != null ) {%>
+                                            <tr>
+                                                <td valign="top">Colours</td>
+                                                <td valign="top" class="text-bold">
+                                                    <ul class="model-color-list">
+                                                          <%foreach(var colorName in  modelPageEntity.ModelColors){ %>
+                                                        <li class="leftfloat"><%=colorName.ColorName %></li>
+                                                        <%} %>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                            <%} %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="grid-4 text-center alpha omega margin-bottom10">
+                                    <!-- #include file="/ads/Ad300x250.aspx" -->
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+
                             <%if(modelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(modelPageEntity.ModelDesc.SmallDescription)){ %>
-                            <div class="grid-8 alpha margin-bottom20">
-                                <h2>About <%=bikeName %></h2>
-                                <h3>Preview</h3>
-                                <p class="font14 text-light-grey line-height17">                                
-                                    <span class="model-preview-more-content" style="display: block !important;">
-                                        <%= modelPageEntity.ModelDesc.FullDescription %>
-                                    </span>                                
-                                </p>
-                            </div>
-                            <div class="grid-4 text-center alpha omega margin-bottom20">
-                                <!-- #include file="/ads/Ad300x250.aspx" -->
-                            </div>
+                                <div id="model-overview-content" class="margin-bottom20">
+                                    <h3><%= modelPageEntity.ModelDetails.ModelName %> preview</h3>
+                                    <p class="font14 text-light-grey line-height17 inline">
+                                        <span class="model-preview-main-content">
+                                            <%= modelPageEntity.ModelDesc.SmallDescription %>
+                                        </span>                                
+                                        <span class="model-preview-more-content hide">
+                                            <%= modelPageEntity.ModelDesc.FullDescription %>
+                                        </span>
+                                        <a href="javascript:void(0)" class="font14 read-more-model-preview" rel="nofollow">Read more</a>
+                                    </p>
+                                </div>
                             <%} %>
-                            <div class="clear"></div>
+                            
                             <% if(modelPageEntity.ModelVersionSpecs != null){ %>
                             <h3>Specification summary</h3>
                             <div class="grid-3 border-light-right omega">
