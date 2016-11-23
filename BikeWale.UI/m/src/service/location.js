@@ -28,6 +28,7 @@ $('#location-list').on('click', '.type-state', function (event) {
         $('.location-list-city').hide();
         $('#location-list .type-state.active').removeClass('active');
         item.addClass('active').siblings('.location-list-city').show();
+        $('html, body').animate({ scrollTop: item.offset().top });
     }
     else {
         item.removeClass('active').siblings('.location-list-city').hide();

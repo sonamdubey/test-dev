@@ -105,7 +105,7 @@ function initializeMap(arrList, latPos, longPos, zoomLevel) {
 	for (i = 0; i < arrList.length; i++) {
 		element = arrList[i];
 		markerPosition = new google.maps.LatLng(element.latitude, element.longitude);
-		debugger;
+		
 		marker = new MarkerWithLabel({
 			id: element.id,
 			name: element.name,
@@ -183,6 +183,7 @@ $('#location-list').on('click', '.type-state', function (event) {
         item.addClass('active').siblings('.location-list-city').show();
         var cityArr = mapCityArray(item);
         initializeMap(cityArr, item.attr('data-lat'), item.attr('data-long'), 7); // set map with city lat-long
+        $('html, body').animate({ scrollTop: item.offset().top });
     }
     else {
         item.removeClass('active').siblings('.location-list-city').hide();
