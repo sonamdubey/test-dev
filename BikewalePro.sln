@@ -89,6 +89,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.DealerAreaCommuteD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeWale.Sitemap", "BikeWale.Sitemap\BikeWale.Sitemap.csproj", "{86942D61-0DBE-43BD-8467-436B96B5A14A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.ExpiringListingReminder", "Bikewale.ExpiringListingReminder\Bikewale.ExpiringListingReminder.csproj", "{6117ADDD-60A3-4A6C-B920-437C249BD26F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -227,6 +229,10 @@ Global
 		{86942D61-0DBE-43BD-8467-436B96B5A14A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86942D61-0DBE-43BD-8467-436B96B5A14A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86942D61-0DBE-43BD-8467-436B96B5A14A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6117ADDD-60A3-4A6C-B920-437C249BD26F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6117ADDD-60A3-4A6C-B920-437C249BD26F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6117ADDD-60A3-4A6C-B920-437C249BD26F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6117ADDD-60A3-4A6C-B920-437C249BD26F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -266,5 +272,6 @@ Global
 		{16F4A3EB-AB13-44C2-99CD-A942C05F3222} = {D2AE1DE5-22CC-4CA0-AD06-E5B85E93F6E9}
 		{21C81630-557F-4744-80CC-7E1F91B73D1F} = {B11DD9B4-6451-432B-B918-C2F42563C1B2}
 		{86942D61-0DBE-43BD-8467-436B96B5A14A} = {B11DD9B4-6451-432B-B918-C2F42563C1B2}
+		{6117ADDD-60A3-4A6C-B920-437C249BD26F} = {B11DD9B4-6451-432B-B918-C2F42563C1B2}
 	EndGlobalSection
 EndGlobal

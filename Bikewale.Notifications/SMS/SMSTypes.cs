@@ -1,5 +1,7 @@
 ﻿using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.UrlShortner;
 using Bikewale.Notifications.NotificationDAL;
+using Bikewale.Utility;
 using System;
 using System.Configuration;
 using System.Web;
@@ -642,6 +644,37 @@ namespace Bikewale.Notifications
             }
         }
 
+        /// <summary>
+        /// Created By  : Sajal Gupta on 23-11-2016
+        /// Description : Send SMS to seller for notifying expiry of listing.
+        /// </summary>
+        public void ExpiringListingReminderSMS(string number, string pageUrl, int remainingDays, string repostUrl, string removeUrl, string makeName, string modelName)
+        {
+            try
+            {
+                string remainingTime;
+                if (remainingDays == 1)
+                    remainingTime = "24 hours";
+                else
+                    remainingTime = "7 days";
 
+                UrlShortnerResponse shortRepostUrl = null;
+                UrlShortnerResponse shortRemoveUrl = null;
+
+                shortRepostUrl = new UrlShortner().GetShortUrl(repostUrl);
+                shortRemoveUrl = new UrlShortner().GetShortUrl(removeUrl);
+
+                string message = String.Format("Your Ad on BikeWale will expire in next {0}. If you have already sold your {1} {2} bike, visit {3} to remove your ad. If not sold yet, visit {4} to re-post it. Team BikeWale", remainingTime, makeName, modelName, shortRemoveUrl.ShortUrl, shortRepostUrl.ShortUrl);
+
+                EnumSMSServiceType esms = EnumSMSServiceType.BikeListingExpirySMSToSeller;
+                SMSCommon sc = new SMSCommon();
+                sc.ProcessSMS(number, message, esms, pageUrl);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.ExpiringListingReminderSMS({0},{1},{2},{3},{4},{5},{6})", number, pageUrl, remainingDays, repostUrl, removeUrl, makeName, modelName));
+                objErr.SendMail();
+            }
+        }
     }   //End of class
 }   //End of namespace
