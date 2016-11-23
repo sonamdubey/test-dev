@@ -1,4 +1,7 @@
-﻿var selectColorBox = $('#select-color-box');
+﻿var selectColorBox = $('#select-color-box'),
+    effect = 'slide',
+    options = { direction: 'right' },
+    duration = 500;
 
 ko.validation.init({
     errorElementClass: 'invalid',
@@ -34,6 +37,12 @@ $(document).ready(function () {
             searchBox = $(this).find('.chosen-search')
 
         searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
+    });
+
+    Dropzone.autoDiscover = false;
+
+    $('#add-photos-dropzone').dropzone({
+        url: "/file/post"
     });
     
 });
@@ -108,7 +117,7 @@ var validation = {
 var sellBike = function () {
     var self = this;
 
-    self.formStep = ko.observable(3);
+    self.formStep = ko.observable(1);
 
     self.bikeDetails = ko.observable(new bikeDetails);
 
@@ -141,6 +150,64 @@ var bikeDetails = function () {
     self.validateOtherColor = ko.observable(false);
 
     self.citySelectionStatus = ko.observable(''); // bike city or registered city
+
+    self.bikeStatus = ko.observable(false);
+
+    self.makeName = ko.observable('');
+    self.modelName = ko.observable('');
+    self.versionName = ko.observable('');
+
+    self.makeChanged = function (data, event) {
+        var element = $(event.currentTarget);
+
+        self.modelName('');
+        self.versionName('');
+        self.bikeStatus(false);
+
+        self.makeName(element.text());
+
+        bikePopup.stageModel();
+        bikePopup.scrollToHead();
+
+        // beforesend - bikePopup.showLoader()
+        // complete - bikePopup.hideLoader()
+        
+    };
+
+    self.modelChanged = function (data, event) {
+        var element = $(event.currentTarget);
+
+        self.versionName('');
+        self.bikeStatus(false);
+
+        self.modelName(element.text());
+
+        bikePopup.stageVersion();
+        bikePopup.scrollToHead();
+    };
+
+    self.versionChanged = function (data, event) {
+        var element = $(event.currentTarget);
+
+        self.versionName(element.text());
+        self.bikeStatus(true);
+
+        bikePopup.close();
+    };
+
+    self.bike = ko.computed(function () {
+        if (self.bikeStatus()) {
+            return self.makeName() + ' ' + self.modelName() + ' ' + self.versionName();
+        }
+    }).extend({
+        required: {
+            params: true,
+            message: 'Please select bike',
+            onlyIf: function () {
+                return self.validate();
+            }
+        }
+    });
 
     self.kmsRidden = ko.observable('').extend({
         validation: [{
@@ -262,6 +329,7 @@ var bikeDetails = function () {
 
     self.submitColor = function (data, event) {
         modalPopup.close('#color-popup');
+        history.back();
     };
 
     self.submitOtherColor = function (data, event) {
@@ -271,6 +339,7 @@ var bikeDetails = function () {
             colorBox.userInput();
             self.color(self.otherColor());
             modalPopup.close('#color-popup');
+            history.back();
         } else {
             self.colorError.showAllMessages();
         }
@@ -540,11 +609,88 @@ var moreDetails = function () {
 var vmSellBike = new sellBike();
 ko.applyBindings(vmSellBike, document.getElementById('sell-bike-content'));
 
+// bike popup
+var selectBikeMake = $('#select-make-wrapper'),
+    selectBikeModel = $('#select-model-wrapper'),
+    selectBikeVersion = $('#select-version-wrapper');
+
+$('#bike-select-element').on('click', '.bike-box-default', function () {
+    bikePopup.open();
+    appendState('selectBike');
+});
+
+$('#close-bike-popup').on('click', function () {
+    bikePopup.close();
+    history.back();
+});
+
+$('#select-model-back-btn').on('click', function () {
+    bikePopup.stageMake();
+});
+
+$('#select-version-back-btn').on('click', function () {
+    bikePopup.stageModel();
+});
+
+var bikePopup = {
+    container: $('#select-bike-cover-popup'),
+
+    loader: $('.cover-popup-loader-body'),
+
+    makeBody: $('#select-make-wrapper'),
+
+    modelBody: $('#select-model-wrapper'),
+
+    versionBody: $('#select-version-wrapper'),
+
+    open: function () {
+        bikePopup.container.show(effect, options, duration, function () {
+            bikePopup.container.addClass('extra-padding');
+        });
+        $('html, body').addClass('lock-browser-scroll');
+    },
+
+    close: function () {
+        bikePopup.container.hide(effect, options, duration, function () {
+            bikePopup.stageMake();
+        });
+        bikePopup.container.removeClass('extra-padding');
+        $('html, body').removeClass('lock-browser-scroll');
+    },
+
+    stageMake: function () {
+        bikePopup.modelBody.hide();
+        bikePopup.versionBody.hide();
+        bikePopup.makeBody.show();
+    },
+
+    stageModel: function () {
+        bikePopup.makeBody.hide();
+        bikePopup.versionBody.hide();
+        bikePopup.modelBody.show();
+    },
+
+    stageVersion: function () {
+        bikePopup.makeBody.hide();
+        bikePopup.modelBody.hide();
+        bikePopup.versionBody.show();
+    },
+
+    showLoader: function () {
+        bikePopup.container.find(bikePopup.loader).show();
+    },
+
+    hideLoader: function () {
+        bikePopup.container.find(bikePopup.loader).hide();
+    },
+
+    scrollToHead: function () {
+        $('.cover-window-popup').animate({ scrollTop: 0 });
+    }
+};
+
 // city
-var cityListContainer = $('#city-slideIn-drawer'),
-    effect = 'slide',
-    options = { direction: 'right' },
-    duration = 500;
+var cityListContainer = $('#city-slideIn-drawer');
 
 $('#city-select-element').on('click', '.city-box-default', function () {
     cityListSelection.open();
@@ -651,11 +797,42 @@ $(window).on('popstate', function (event) {
     if ($('#color-popup').is(':visible')) {
         modalPopup.close('#color-popup');
     }
+    if ($('#select-bike-cover-popup').is(':visible')) {
+        bikePopup.close();
+    }
 });
 
+$('#add-photos-dropzone').on('click', '#add-more-photos', function (event) {
+    $('#add-photos-dropzone').trigger('click');
+});
+
+var morePhotos = {
+    dropzoneDiv: $('#add-photos-dropzone'),
+
+    attach: function () {
+        var addPhotosDiv;
+
+        if (!morePhotos.dropzoneDiv.hasClass('dz-under-limit')) {
+            addPhotosDiv = '<div id="add-more-photos"><div class="more-photos-content"><span class="sell-bike-sprite plus-icon"></span><br /><span class="font12 text-light-grey">Add photos</span></div></div>';
+
+            morePhotos.dropzoneDiv.addClass('dz-under-limit').append(addPhotosDiv);
+        }
+    },
+
+    detach: function () {
+        if (morePhotos.dropzoneDiv.hasClass('dz-under-limit')) {
+            morePhotos.dropzoneDiv.removeClass('dz-under-limit');
+            morePhotos.dropzoneDiv.find('#add-more-photos').remove();
+        }
+    }
+};
+
 $('.chosen-container').on('touchstart', function (event) {
+    event.stopPropagation();
     event.preventDefault();
     $(this).trigger('mousedown');
+}).on('touchend', function (event) {
+    event.preventDefault();
 });
 
 $('.select-box select').on('change', function () {
@@ -674,3 +851,16 @@ var scrollToForm = {
         }, 200);
     }
 };
+
+// Disable Mouse scrolling
+$('input[type=number]').on('mousewheel', function (event) { $(this).blur(); });
+// Disable keyboard scrolling
+$('input[type=number]').on('keydown', function (event) {
+    var key = event.charCode || event.keyCode;
+    // Disable Up and Down Arrows on Keyboard
+    if (key == 38 || key == 40) {
+        event.preventDefault();
+    } else {
+        return;
+    }
+});
