@@ -634,7 +634,7 @@
 			});
 			$(document).ready(function () {
                 <%if (objPriceQuote.SecondaryDealers != null && objPriceQuote.SecondaryDealers.Count() > 0){%>
-                triggerGA('Dealer_PQ', ' Secondary_Dealer_Card_Shown', '<%= string.Format("{0}_{1}_{2}_{3}", objPriceQuote.objMake.MakeName,objPriceQuote.objModel.ModelName,currentCity,currentArea)%>');
+                triggerGA('Dealer_PQ', 'Secondary_Dealer_Card_Shown', '<%= string.Format("{0}_{1}_{2}_{3}", objPriceQuote.objMake.MakeName,objPriceQuote.objModel.ModelName,currentCity,currentArea)%>');
 			    <%}%>
 			});
 

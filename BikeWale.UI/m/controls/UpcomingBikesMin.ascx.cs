@@ -46,15 +46,15 @@ namespace Bikewale.Mobile.Controls
                 objUpcoming.MakeId = MakeId;
                 objUpcoming.ModelId = ModelId;
                 objUpcoming.pageSize = pageSize;
-                if (String.IsNullOrEmpty(makeMaskingName))
-                {
-                    upcomingBikesLink = "/m/upcoming-bikes/";
-                }
-                else
-                {
-                    upcomingBikesLink = String.Format("/m/{0}-bikes/upcoming/", makeMaskingName);
-                }
-
+                //if (String.IsNullOrEmpty(makeMaskingName))
+                //{
+                //    upcomingBikesLink = "/m/upcoming-bikes/";
+                //}
+                //else
+                //{
+                //    upcomingBikesLink = String.Format("/m/{0}-bikes/upcoming/", makeMaskingName);
+                //}
+                upcomingBikesLink = "/m/upcoming-bikes/";
                 objUpcoming.BindUpcomingBikes(null);
                 if (objUpcoming.FetchedRecordsCount > 0)
                 {
@@ -64,7 +64,7 @@ namespace Bikewale.Mobile.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MUpcomingBikesMin.UpcomingBikes");
+                ErrorClass objErr = new ErrorClass(ex, "UpcomingBikesMin.UpcomingBikes");
                 objErr.SendMail();
             }
         }

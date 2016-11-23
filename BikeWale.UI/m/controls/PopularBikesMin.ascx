@@ -34,7 +34,7 @@
                 </div>
                  <% if(!string.IsNullOrEmpty(makeMasking)) { %>
                 <div class="margin-top15 margin-left20 font14">
-                    <a href="/<%= makeMasking %>-bikes/" title="View all <%=(!String.IsNullOrEmpty(makeName) ? makeName: "") %> bikes">View all <%=(!String.IsNullOrEmpty(makeName) ? makeName: "") %> bikes<span class="bwmsprite blue-right-arrow-icon"></span></a>
+                    <a href="/m/<%= makeMasking %>-bikes/" title="View all <%=(!String.IsNullOrEmpty(makeName) ? makeName: "") %> bikes">View all <%=(!String.IsNullOrEmpty(makeName) ? makeName: "") %> bikes<span class="bwmsprite blue-right-arrow-icon"></span></a>
                 </div>
                 <%} %>
             </div>
