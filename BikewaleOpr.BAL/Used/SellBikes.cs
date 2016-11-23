@@ -43,19 +43,20 @@ namespace BikewaleOpr.BAL.Used
                     SMSTypes newSms = new SMSTypes();
                     if (isApproved == 0)
                     {
-                        SendEmailSMSToDealerCustomer.UsedBikeRejectionEmailToSeller(seller.Details, profileId, bikeName);
-                        newSms.RejectionUsedSellListingSMS(
-                            EnumSMSServiceType.RejectionUsedSellListingToSeller,
+                        SendEmailSMSToDealerCustomer.UsedBikeEditedRejectionEmailToSeller(seller.Details, profileId, bikeName);
+                        newSms.RejectionEditedUsedSellListingSMS(
+                            EnumSMSServiceType.RejectionEditedUsedBikeListingToSeller,
                             seller.Details.CustomerMobile,
                             profileId,
+                            seller.Details.CustomerName,
                             HttpContext.Current.Request.ServerVariables["URL"]
                             );
                     }
                     else
                     {
-                        SendEmailSMSToDealerCustomer.UsedBikeApprovalEmailToIndividual(seller.Details, profileId, bikeName);
-                        newSms.ApprovalUsedSellListingSMS(
-                            EnumSMSServiceType.ApprovalUsedSellListingToSeller,
+                        SendEmailSMSToDealerCustomer.UsedBikeEditedApprovalEmailToSeller(seller.Details, profileId, bikeName);
+                        newSms.ApprovalEditedUsedSellListingSMS(
+                            EnumSMSServiceType.ApprovalEditedUsedBikeListingToSeller,
                             seller.Details.CustomerMobile,
                             profileId,
                             seller.Details.CustomerName,

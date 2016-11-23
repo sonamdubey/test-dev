@@ -632,6 +632,12 @@
 			$("#leadLink").on("click", function () {
 				dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Get_More_Details_Clicked_Link", "lab": bikeName + "_" + getCityArea });
 			});
+			$(document).ready(function () {
+                <%if (objPriceQuote.SecondaryDealers != null && objPriceQuote.SecondaryDealers.Count() > 0){%>
+                triggerGA('Dealer_PQ', 'Secondary_Dealer_Card_Shown', '<%= string.Format("{0}_{1}_{2}_{3}", objPriceQuote.objMake.MakeName,objPriceQuote.objModel.ModelName,currentCity,currentArea)%>');
+			    <%}%>
+			});
+
 			$('.tnc').on('click', function (e) {
 				LoadTerms($(this).attr("id"));
 			});

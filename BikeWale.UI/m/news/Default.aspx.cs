@@ -16,22 +16,28 @@ using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Web;
 using System.Web.UI.WebControls;
+using System.Linq;
 
 namespace Bikewale.Mobile.News
 {
     /// <summary>
     /// Created By : Ashwini Todkar on 21 May 2014
     /// Modified By : Ashwini Todkar on 1 Oct 2014
+    /// Modified by : Aditi Srivastava on 18 Nov 2016
+    /// Summary     : Replaced drop down page numbers with Link pagination
     /// </summary>
     public class Default : System.Web.UI.Page
     {
+        private IPager objPager = null;
         protected Repeater rptNews;
         protected int curPageNo = 1, totalPages = 0;
         protected string prevPageUrl = String.Empty, nextPageUrl = String.Empty;
-        protected ListPagerControl listPager;
-        private const int _pageSize = 10;
-
+        protected LinkPagerControl ctrlPager;
+        private const int _pageSize = 10, _pagerSlotSize = 5;
+        protected int startIndex = 0, endIndex = 0, totalrecords;
+        HttpRequest page = HttpContext.Current.Request;
         static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
 
         protected override void OnInit(EventArgs e)
@@ -76,6 +82,7 @@ namespace Bikewale.Mobile.News
                 categorList.Add(EnumCMSContentType.RoadTest);
                 categorList.Add(EnumCMSContentType.ComparisonTests);
                 categorList.Add(EnumCMSContentType.SpecialFeature);
+                categorList.Add(EnumCMSContentType.TipsAndAdvices);
                 string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
 
                 categorList.Clear();
@@ -92,7 +99,8 @@ namespace Bikewale.Mobile.News
                     if (objNews != null && objNews.RecordCount > 0)
                     {
                         BindNews(objNews);
-                        BindLinkPager(objPager, Convert.ToInt32(objNews.RecordCount));
+                        totalrecords = Convert.ToInt32(objNews.RecordCount);
+                        BindLinkPager(ctrlPager);
                     }
                 }
             }
@@ -110,48 +118,7 @@ namespace Bikewale.Mobile.News
         }
 
 
-        /// <summary>
-        /// Written By : Ashwini Todkar on 24 Sept 2014
-        /// PopulateWhere to bind link pager control 
-        /// </summary>
-        /// <param name="objPager"> Pager instance </param>
-        /// <param name="recordCount"> total news available</param>
-        private void BindLinkPager(IPager objPager, int recordCount)
-        {
-            PagerOutputEntity _pagerOutput = null;
-            PagerEntity _pagerEntity = null;
-
-            try
-            {
-                _pagerEntity = new PagerEntity();
-                _pagerEntity.BaseUrl = "/m/news/";
-                _pagerEntity.PageNo = curPageNo; //Current page number
-                _pagerEntity.PagerSlotSize = objPager.GetTotalPages(recordCount, _pageSize); // 5 links on a page
-                _pagerEntity.PageUrlType = "page/";
-                _pagerEntity.TotalResults = recordCount; //total News count
-                _pagerEntity.PageSize = _pageSize;        //No. of news to be displayed on a page
-
-                _pagerOutput = objPager.GetPager<PagerOutputEntity>(_pagerEntity);
-
-                // for RepeaterPager
-                listPager.PagerOutput = _pagerOutput;
-                listPager.CurrentPageNo = curPageNo;
-                listPager.TotalPages = objPager.GetTotalPages(recordCount, _pageSize);
-                listPager.BindPageNumbers();
-
-                //For SEO
-                //get next and prev page links for SEO
-                prevPageUrl = _pagerOutput.PreviousPageUrl;
-                nextPageUrl = _pagerOutput.NextPageUrl;
-            }
-            catch (Exception ex)
-            {
-                Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-        }
-
+       
         //PopulateWhere to create Pager instance
         private IPager GetPager()
         {
@@ -191,6 +158,9 @@ namespace Bikewale.Mobile.News
                         case EnumCMSContentType.RoadTest:
                             _category = "EXPERT REVIEWS";
                             break;
+                        case EnumCMSContentType.TipsAndAdvices:
+                            _category = "Bike Care";
+                            break;
                         default:
                             break;
                     }
@@ -203,6 +173,86 @@ namespace Bikewale.Mobile.News
                 objErr.SendMail();
             }
             return _category;
+        }
+
+        /// <summary>
+        ///  Created by : Aditi Srivastava on 18 Nov 2016
+        /// Summary     : Create pagination
+        /// </summary>
+        /// <param name="_ctrlPager"></param>
+        public void BindLinkPager(LinkPagerControl _ctrlPager)
+        {
+            objPager = GetPager();
+            objPager.GetStartEndIndex(_pageSize, curPageNo, out startIndex, out endIndex);
+            PagerOutputEntity _pagerOutput = null;
+            PagerEntity _pagerEntity = null;
+            int recordCount = totalrecords;
+            string _baseUrl = RemoveTrailingPage(page.RawUrl.ToLower());
+
+            try
+            {
+                GetStartEndIndex(_pageSize, curPageNo, out startIndex, out endIndex, recordCount);
+
+                _pagerEntity = new PagerEntity();
+                _pagerEntity.BaseUrl = _baseUrl;
+                _pagerEntity.PageNo = curPageNo; //Current page number
+                _pagerEntity.PagerSlotSize = _pagerSlotSize; // 5 links on a page
+                _pagerEntity.PageUrlType = "page/";
+                _pagerEntity.TotalResults = (int)recordCount; //total News count
+                _pagerEntity.PageSize = _pageSize;  //No. of news to be displayed on a page
+                _pagerOutput = objPager.GetPager<PagerOutputEntity>(_pagerEntity);
+
+                // for RepeaterPager
+
+                _ctrlPager.PagerOutput = _pagerOutput;
+                _ctrlPager.CurrentPageNo = curPageNo;
+                _ctrlPager.TotalPages = objPager.GetTotalPages((int)recordCount, _pageSize);
+                _ctrlPager.BindPagerList();
+
+                //For SEO
+
+                prevPageUrl = String.IsNullOrEmpty(_pagerOutput.PreviousPageUrl) ? string.Empty : "http://www.bikewale.com" + _pagerOutput.PreviousPageUrl;
+                nextPageUrl = String.IsNullOrEmpty(_pagerOutput.NextPageUrl) ? string.Empty : "http://www.bikewale.com" + _pagerOutput.NextPageUrl;
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikeCareModels.BindLinkPager");
+                objErr.SendMail();
+            }
+        }
+        /// <summary>
+        /// Created By : Aditi Srivastava on 18 Nov 2016
+        /// Summary    : Set current page's start and end index of articles
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="currentPageNo"></param>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <param name="totalCount"></param>
+        public void GetStartEndIndex(int pageSize, int currentPageNo, out int startIndex, out int endIndex, int totalCount)
+        {
+            startIndex = 0;
+            endIndex = 0;
+            endIndex = currentPageNo * pageSize;
+            startIndex = (endIndex - pageSize) + 1;
+            if (totalCount < endIndex)
+                endIndex = totalCount;
+        }
+        /// <summary>
+        /// Created By : Aditi Srivastava on 18 Nov 2016
+        /// Summary    : Remove trailing page from link
+        /// </summary>
+        /// <param name="rawUrl"></param>
+        /// <returns></returns>
+        public string RemoveTrailingPage(string rawUrl)
+        {
+            string retUrl = rawUrl;
+            if (rawUrl.Contains("/page/"))
+            {
+                string[] urlArray = rawUrl.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
+                retUrl = string.Format("/{0}/", string.Join("/", urlArray.Take(urlArray.Length - 2).ToArray()));
+            }
+            return retUrl;
         }
     }
 }

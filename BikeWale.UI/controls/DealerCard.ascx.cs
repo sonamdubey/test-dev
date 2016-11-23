@@ -24,6 +24,8 @@ namespace Bikewale.Controls
     /// Description :   Added Model ID
     /// Modified by :   Sumit Kate on 22 Jun 2016
     /// Description :   Added Repeater to bind the Popular City Dealers when city is not selected
+    /// Modified by Sajal Gupta on 17-11-2016
+    /// Description : Added isHeading variable for making heading of repeater optional.
     /// </summary>
     public class DealerCard : UserControl
     {
@@ -41,6 +43,7 @@ namespace Bikewale.Controls
         public string pageName { get; set; }
         public bool showWidget = false;
         public uint DealerId { get; set; }
+        public bool isHeading = true;
 
         protected override void OnInit(EventArgs e)
         {
@@ -54,7 +57,9 @@ namespace Bikewale.Controls
         protected void Page_Load(object sender, EventArgs e)
         {
             if (isValidData())
+            {
                 BindDealers();
+            }
         }
 
         /// <summary>
@@ -87,7 +92,7 @@ namespace Bikewale.Controls
             {
                 if (TopCount <= 0) { TopCount = 3; }
                 DealersEntity _dealers = null;
-                
+
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IDealerCacheRepository, DealerCacheRepository>()
@@ -108,7 +113,7 @@ namespace Bikewale.Controls
                             if (DealerId > 0)
                             {
 
-                                _dealers.Dealers = _dealers.Dealers.Where(m=>m.DealerId!= DealerId);
+                                _dealers.Dealers = _dealers.Dealers.Where(m => m.DealerId != DealerId);
                             }
                             if (_dealers.Dealers.Count() > 0)
                             {

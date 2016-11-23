@@ -23,7 +23,7 @@
                                 </ul>
                   <%} %>
                        <div class="margin-top10 margin-bottom10">
-                                <a href="<%=upcomingBikesLink %>" title="View all upcoming <%=(!String.IsNullOrEmpty(makeName) ? makeName: "") %> bikes" class="font14">View all upcoming bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
+                                <a href="<%=upcomingBikesLink %>" title="View all upcoming <%=(!String.IsNullOrEmpty(makeName) ? makeName: "") %> bikes" class="font14">View all upcoming <%=(!String.IsNullOrEmpty(makeName) ? makeName: "")%> bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
                             </div>
                             </div>
                       <%} %>

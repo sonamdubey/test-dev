@@ -420,7 +420,7 @@ namespace Bikewale.Mobile.BikeBooking
 
         private void BindAlternativeBikeControl(string versionId)
         {
-            ctrlAlternateBikes.TopCount = 6;
+            ctrlAlternateBikes.TopCount = 9;
 
             if (!String.IsNullOrEmpty(versionId) && versionId != "0")
             {

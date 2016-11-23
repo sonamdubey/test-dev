@@ -209,6 +209,7 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 }
 
 .swiper-card {
+    margin-left: 5px;
     width: 200px;
     min-height: 210px;
     border: 1px solid #e2e2e2\9;
@@ -292,8 +293,35 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 .vs-circle-vert-line { width: 1px; height: 265px; background:#e4e4e4; position: absolute; top: -90px; left: 70px; }
 
 /* nav classes */
-#nav, .loginPopUpWrapper { background: #fff; width:275px; position: fixed; top: 0; right: 0; bottom: 0; left: -275px; overflow-y: scroll; z-index: 10; }
-.navUL { padding-top: 20px; }
+#nav, .loginPopUpWrapper { background: #fff; width:275px; position: fixed; top: 0; right: 0; bottom: 0; overflow-y: scroll; z-index: 10; }
+.loginPopUpWrapper {
+    left: -275px;
+}
+#nav {
+    display: none;
+    left: 0;
+}
+#nav-app-content {
+    width: 275px;
+    border-top: 1px solid #e2e2e2;
+    padding: 10px;
+    background: #f5f5f5;
+}
+#nav-app-content p {
+    width: 69%;
+}
+.nav-app-install-btn {
+    padding: 6px 18px;
+}
+.drawer-active #nav-app-content {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+}
+.navUL {
+    padding-bottom: 130px;
+}
 .navUL li { display:block; position: relative; }
 .navUL li a { color:#1a1a1a; font-size: 14px; text-decoration:none; display:block; height: 48px; padding: 6px 0 0 15px;font-weight:normal; }
 .navUL li a:hover, .navUL li a.active { font-weight: 600; }
@@ -775,3 +803,17 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 }
 
 #ub-ajax-loader{display:none;width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(245,245,245,.95);z-index:11}
+/* user logged in state */
+#user-banner-content {
+    height: 108px;
+    background: #4d5057;
+    position: relative;
+}
+
+.user-details-content {
+    position: absolute;
+    left: 0;
+    bottom: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+}

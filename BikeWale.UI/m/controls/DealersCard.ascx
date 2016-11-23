@@ -7,27 +7,27 @@
        { 
 %>
 <div id="makeDealersContent" class="bw-model-tabs-data padding-bottom20 padding-top15 font14">
+    <% if(isHeadingNeeded)  { %>  
     <h2 class="padding-right20 padding-left20 text-bold"><%= makeName %> dealers in <%= cityName %></h2>
+    <% } %>
     <div class="swiper-container card-container margin-bottom15">
         <!-- dealers by city -->
         <div class="swiper-wrapper">
-            <asp:Repeater ID="rptDealers" runat="server">
-                <ItemTemplate>
-                    <div class="swiper-slide">
-                        <div class="swiper-card">
-                        <a href = "/m<%# Bikewale.Utility.UrlFormatter.GetDealerUrl(makeMaskingName, cityMaskingName, DataBinder.Eval(Container.DataItem,"Name").ToString(),Convert.ToInt32(DataBinder.Eval(Container.DataItem,"DealerId"))) %>">
-                                <%# GetDealerDetailLink(DataBinder.Eval(Container.DataItem,"DealerType").ToString(), DataBinder.Eval(Container.DataItem,"DealerId").ToString(), DataBinder.Eval(Container.DataItem,"CampaignId").ToString(), DataBinder.Eval(Container.DataItem,"Name").ToString()) %>
-
-                                <p class="margin-bottom5 text-light-grey <%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Address").ToString()))?"hide":string.Empty %>">
+           <% foreach (var dealers in dealerList)
+                       { %> 
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                               <a href = "/m<%= Bikewale.Utility.UrlFormatter.GetDealerUrl(makeMaskingName, cityMaskingName, dealers.Name.ToString(),Convert.ToInt32(dealers.DealerId))%>" title="<%=dealers.Name.ToString()%>"> 
+                               <%= GetDealerDetailLink(dealers.DealerType.ToString(), dealers.DealerId.ToString(), dealers.CampaignId.ToString(), dealers.Name.ToString()) %>
+                                 <p class="margin-bottom5 text-light-grey <%= (String.IsNullOrEmpty(dealers.Address.ToString()))?"hide":string.Empty %>">
                                     <span class="bwmsprite dealership-loc-icon vertical-top"></span>
-                                    <span class="vertical-top dealership-address"><%# Convert.ToString(DataBinder.Eval(Container.DataItem,"Address")) %></span>
+                                    <span class="vertical-top dealership-address details-column"><%= Convert.ToString(dealers.Address) %></span>
                                 </p>
                             </a>
-                            <a href="tel:<%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %>" class="text-default text-bold text-truncate <%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":"block" %>"><span class="bwmsprite tel-sm-grey-icon pos-top0 margin-right5"></span><%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %></a>
+                                <a href="tel:<%= dealers.MaskingNumber%>" class="text-default text-bold text-truncate <%= (String.IsNullOrEmpty(dealers.MaskingNumber))? "hide":"block" %>"><span class="bwmsprite tel-sm-grey-icon pos-top0 margin-right5"></span><%= dealers.MaskingNumber %></a>
+                            </div>
                         </div>
-                    </div>                        
-                </ItemTemplate>
-            </asp:Repeater>
+            <% } %>
         </div>
     </div>
 
@@ -35,9 +35,6 @@
         <a href="/m<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> Dealer showrooms in <%= cityName %>">View all <%=makeName %> dealer showrooms <span class="bwmsprite blue-right-arrow-icon font14"></span></a>
     </div>
 </div>
-<script>
-    $('.dealer-details-main-content').on('click', function () { $(this).hide(); $(this).next('.dealer-details-more-content').show(); });      
-</script>
 <% }
        else
        { %>

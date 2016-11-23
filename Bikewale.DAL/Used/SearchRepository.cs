@@ -20,6 +20,8 @@ namespace Bikewale.DAL.Used.Search
         /// Function to get the used bikes search results from the database
         /// Modified by :   Sumit Kate on 25 Oct 2016
         /// Description :   read LastUpdated from data reader
+        /// Modified by :   Sangram Nandkhile on 09 Nov 2016
+        /// Description :   Added lower() for profile id
         /// </summary>
         /// <param name="searchQuery">Pass acutal sql query which needs to be executed in db</param>
         /// <returns></returns>
@@ -47,7 +49,7 @@ namespace Bikewale.DAL.Used.Search
                                 UsedBikeBase objBike = new UsedBikeBase();
 
                                 objBike.InquiryId = Convert.ToUInt32(dr["inquiryid"]);
-                                objBike.ProfileId = Convert.ToString(dr["profileid"]);
+                                objBike.ProfileId = Convert.ToString(dr["profileid"]).ToLower();
                                 objBike.AskingPrice = Convert.ToUInt32(dr["price"]);
                                 objBike.KmsDriven = Convert.ToUInt32(dr["kilometers"]);
                                 objBike.ModelMonth = Convert.ToString(dr["bikemonth"]);

@@ -1,154 +1,129 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.viewRT" Async="true" Trace="false" %>
-<%	
-    keywords     = modelName + " ,road test, road tests, roadtests, roadtest, bike reviews, expert bike reviews, detailed bike reviews, test-drives, comprehensive bike tests, bike preview, first drives";
-    title        = pageTitle + " - BikeWale.";
-    description  = "BikeWale tests " + modelName + ", Read the complete road test report to know how it performed.";
-    canonical    = canonicalUrl;
-    AdPath = "/1017752/Bikewale_Mobile_NewBikes";
-    AdId = "1398766302464";
-    menu = "7";
-%>
-<!-- #include file="/includes/headermobile.aspx" -->
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/m/src/loadPhotos.js?v=1.0"></script>
+<%@ Register Src="~/m/controls/UpcomingBikesMin.ascx" TagPrefix="BW" TagName="MUpcomingBikesMin"  %>
+<%@ Register Src="~/m/controls/PopularBikesMin.ascx" TagPrefix="BW" TagName="MPopularBikesMin"  %>
+<%@ Register Src="~/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery"  %>
+<!DOCTYPE html>
+<html>
+<head>
+    <%	
+        keywords     = string.Format("{0},road test, road tests, roadtests, roadtest, bike reviews, expert bike reviews, detailed bike reviews, test-drives, comprehensive bike tests, bike preview, first drives",modelName);
+        title        = string.Format("{0}- BikeWale.",pageTitle);
+        description = string.Format("BikeWale tests {0}, Read the complete road test report to know how it performed.", modelName);
+        canonical    = canonicalUrl;
+        AdPath = "/1017752/Bikewale_Mobile_NewBikes";
+        AdId = "1398766302464";
+          %>
 
-<style>
-	.imgWidth{width:100%;max-width:100%;height:auto;}
-	.ulist {margin:0px;padding:0px 0px 0px 15px;}
-	.ulist li {margin-bottom:10px;}
-	.over-flow {overflow:hidden;}
-    .socialplugins li{float:left;width:84px;}
-</style>
-<div class="padding5">
-        <div id="br-cr">
-            <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-            <a href="/m/" itemprop="url" class="normal"><span itemprop="title">Home</span></a></span> &rsaquo; 
-            <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-            <a href="/m/expert-reviews/" itemprop="url" class="normal"><span itemprop="title">Expert Reviews</span></a></span> &rsaquo;
-            <span class="lightgray"><%= pageTitle %></span>
-        </div>
+    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/content/details.css?<%= staticFileVersion %>" />
+    <script type="text/javascript">
+        <!-- #include file="\includes\gacode_mobile.aspx" -->
+    </script>
     
-        <h1><%= pageTitle %></h1>
-        <div class="new-line5 f-12"><%=Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "MMMM dd, yyyy hh:mm tt") %> | By <%=author %> <%= (_bikeTested != null && !String.IsNullOrEmpty(_bikeTested.ToString())) ? String.Format("| {0}",_bikeTested) : "" %></div>
-        <div class="new-line5">
-            <ul class="socialplugins  new-line10">
-                <li><fb:like href="<%= canonicalUrl%>" send="false" layout="button_count"  show_faces="false"></fb:like></li>
-                <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= canonicalUrl %>" data-via='<%= title %>' data-lang="en">Tweet</a></li>
-                <li><div class="g-plusone" data-size="medium" data-href="<%= canonicalUrl %>"></div></li>
-            </ul>  
-            <div class="clear"></div> 
-        </div>
-        <%--<div class="new-line10 margin-bottom10">
-            <select id="ddlPages" name="ddlPages" runat="server"></select>
-            <div style="padding:5px 0;">			   
-				<asp:Repeater ID="rptPages" runat="server">
-                    <headertemplate>
-                        <ul data-role="listview" data-theme="d" data-inset="true">
-                            <li style="border:none;" ><a>Read Pages : </a></li>
-                    </headertemplate>
-					<itemtemplate>
-                        <li>
-                            <a href="#<%#Eval("pageId") %>"><%#Eval("PageName") %></a>
-                        </li>
+</head>
+<body class="bg-light-grey">
+    <form runat="server">
+        <!-- #include file="/includes/headBW_Mobile.aspx" -->
 
-					</itemtemplate>
-                    <footertemplate>
-                        </ul>
-                    </footertemplate>
-				</asp:Repeater>
-            </div>
-        </div>--%>
-        <div class="box1 new-line5" style="position:relative;">
-             <asp:Repeater ID="rptPageContent" runat="server">
-					    <itemtemplate>
-                            <div class="margin-top10 margin-bottom10">
-                                <h3 class="ui-bar ui-bar-a" role="heading"><%#Eval("PageName") %></h3>
-                                <div id='<%#Eval("pageId") %>' class="margin-top-10 article-content">
-                                    <%#Eval("content") %>
+        <section>
+            <div class="container box-shadow bg-white section-bottom-margin">
+                <div class="box-shadow article-head padding-15-20">
+                    <h1 class="margin-bottom10"><%= pageTitle %></h1>
+                    <div class="grid-6 alpha padding-right5">
+                        <span class="bwmsprite calender-grey-sm-icon"></span>
+                        <span class="article-stats-content"><%=Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "MMM dd, yyyy hh:mm tt") %></span>
+                    </div>
+                    <div class="grid-6 alpha omega">
+                        <span class="bwmsprite author-grey-sm-icon"></span>
+                        <span class="article-stats-content"><%=author %></span>
+                    </div>
+                    <div class="clear"></div>
+                    <%= (_bikeTested != null && !String.IsNullOrEmpty(_bikeTested.ToString())) ? String.Format("<div class='font12 text-light-grey margin-top5'>{0}</div>",_bikeTested) : "" %>
+                </div>
+
+                <div class="article-content-padding">
+                    <div id="divDesc" class="article-content">
+                        <asp:Repeater ID="rptPageContent" runat="server">
+				            <itemtemplate>
+                                <div class="margin-bottom10">
+                                    <h3 class="margin-bottom10" role="heading"><%#Eval("PageName") %></h3>
+                                    <div id='<%#Eval("pageId") %>' class="margin-top-10 article-content">
+                                        <%#Eval("content") %>
+                                    </div>
                                 </div>
+				            </itemtemplate>             
+		                </asp:Repeater>
+                    </div>
+
+                    <p class="margin-bottom10 font14 text-light-grey border-light-top">Share this story</p>
+                    <ul class="social-wrapper">
+                        <li class="whatsapp-container rounded-corner2 text-center share-btn" data-attr="wp">
+                            <span data-text="share this video" data-link="www.google.com" class="social-icons-sprite whatsapp-icon"></span>
+                        </li>
+                        <li class="fb-container rounded-corner2 text-center share-btn" data-attr="fb">
+                            <span class="social-icons-sprite fb-icon"></span>
+                        </li>
+                        <li class="tweet-container rounded-corner2 text-center share-btn" data-attr="tw">
+                            <span class="social-icons-sprite tweet-icon"></span>
+                        </li>
+                        <li class="gplus-container rounded-corner2 text-center  share-btn" data-attr="gp">
+                            <span class="social-icons-sprite gplus-icon"></span>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                    <%if (objImg!=null){ %>
+                    <div class="border-solid-top padding-top10">
+                        <h3 class="margin-bottom10">Photos</h3>
+                        <div class="swiper-container article-photos-swiper">
+                                <div class="swiper-wrapper">
+                                <asp:Repeater id="rptPhotos" runat="server">
+			                        <itemtemplate>
+				                        <div class="swiper-slide">
+                                            <img class="swiper-lazy" title="<%#DataBinder.Eval(Container.DataItem, "ImageName").ToString()%>" alt="<%#DataBinder.Eval(Container.DataItem, "ImageName").ToString()%>" data-src='<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>'>
+                                            <span class="swiper-lazy-preloader"></span>
+				                        </div>
+			                        </itemtemplate>
+		                        </asp:Repeater>
                             </div>
-					    </itemtemplate>             
-				</asp:Repeater>
-        </div>
-            <div class="box1 margin-top-10">
-	            <div id="divPhotos" style="position:relative;top:-5px;">
-                    <h3 class="ui-bar ui-bar-a" role="heading">Photos</h3>
-		            <asp:Repeater id="rptPhotos" runat="server">
-			            <itemtemplate>
-				            <div style="width:50%;float:left;margin-top:10px;">
-					            <div style="margin:auto;width:80px;border:1px solid #DBDCDE;padding:3px;" onClick="ShowLargePhotos(this);" class="thumbDiv">
-						            <img style="width:100%;max-width:100%;height:auto;" title="<%#DataBinder.Eval(Container.DataItem, "ImageName").ToString()%>" alt="<%#DataBinder.Eval(Container.DataItem, "ImageName").ToString()%>" src='<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._640x348) %>'>
-					            </div>
-				            </div>
-			            </itemtemplate>
-		            </asp:Repeater>	
-		            <div style="clear:both;"></div>	
-	            </div>
-	            <div id="divPhotosOverlay"></div>
-	            <div id="divLargeImgContainer" style="display:none;">
-		            <div id="divLargeImg" style="margin-top:10px;"></div>
-		            <div>
-			            <div class="prev" onClick="PrevClicked();"><span class="arr-big">«<span style="position:relative;left:-3px;">«</span><span style="position:relative;left:-6px;">«</span><span style="position:relative;left:-9px;">«</span></span></div>
-			            <div class="next" onClick="NextClicked();"><span class="arr-big"><span style="position:relative;right:-9px;">»</span><span style="position:relative;right:-6px;">»</span><span style="position:relative;right:-3px;">»</span>»</span></div>
-			            <div style="clear:both;"></div>
-		            </div>
-		            <div>
-			            <table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
-				            <tr><td align="center"><span onClick="ShowThumbnails();">View Thumbnails&nbsp;&nbsp;<span class="arr-small">&raquo;</span></span></td></tr>
-			            </table>
-		            </div>
-	            </div>
-        </div>
-       <%-- <div id="divPageNav" class="new-line10">
-            <% if( !String.IsNullOrEmpty(prevPageUrl)) {%>
-	        <div class="prev"><a class="normal ui-link" href="<%=prevPageUrl %>"><span class="arr-big">&laquo;</span>&nbsp;Prev</a></div>
-            <%} %>
-            <% if( !String.IsNullOrEmpty(nextPageUrl)) {%>
-	        <div class="next"><a class="normal ui-link" href="<%=nextPageUrl %>">Next<span class="arr-big">&nbsp;&raquo;</span></a></div>	
-            <%} %>
-	        <div style="clear:both;"></div>
-        </div>--%>
-</div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        var pageId = 1;
-        var pageUrl = '<%= baseUrl%>';
-        $("#ddlPages").change(function () {
-            pageId = $(this).val();
-            window.location.href = pageUrl + 'p' + pageId + '/';
+                            <div class="bwmsprite swiper-button-next"></div>
+                            <div class="bwmsprite swiper-button-prev"></div>
+                        </div>
+                    </div>
+                    <%} %>
+                </div>
+            </div>
+        </section>
+        
+        <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
+        <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
+        <BW:ModelGallery runat="server" ID="photoGallery" />
 
-        });
-    });
+        <div class="back-to-top" id="back-to-top"></div>
 
-    function LoadLargePhoto() {
-        var imgLarge = $(document.createElement("img"));
-        imgLarge.attr("src", fullUrl)
-        imgLarge.attr("style", "height: auto !important;max-width: 100% !important;width: 100%;");
-        imgLarge.bind("load", function () {
-            setTimeout(function () {
-                $("#divLargeImg").html("");
-                imgLarge.appendTo("#divLargeImg");
-                $("#divPhotosOverlay").hide();
-                $("#divPhotos").hide();
-                $("#divLargeImgContainer").show();
-                $("#divLargeImgContainer .prev").show();
-                $("#divLargeImgContainer .next").show();
-                if (currentIndex == 0)
-                    $("#divLargeImgContainer .prev").hide();
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 
-                if (currentIndex == (parseInt(totalThumbDivs) - 1))
-                    $("#divLargeImgContainer .next").hide();
-            }, 2000);
-        });
-    }
+        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
 
-    function ShowThumbnails() {
-        $("#divPhotosOverlay").hide();
-        $("#divLargeImgContainer").hide();
-        $("#divPhotos").show();
-    }
-</script>
-<div class="back-to-top" id="back-to-top"></div>
-<!-- #include file="/includes/footermobile.aspx" -->
-<script type="text/javascript">
-    ga_pg_id = "13";
-</script>
+        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/content/details.js?<%= staticFileVersion %>"></script>m
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var pageId = 1;
+                var pageUrl = '<%= baseUrl%>';
+                $("#ddlPages").change(function () {
+                    pageId = $(this).val();
+                    window.location.href = pageUrl + 'p' + pageId + '/';
+
+                });
+            });
+        
+            ga_pg_id = "13";
+
+        </script>
+    </form>
+</body>
+</html>

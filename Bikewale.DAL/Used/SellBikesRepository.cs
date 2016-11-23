@@ -5,8 +5,10 @@ using Bikewale.Interfaces.Used;
 using Bikewale.Notifications;
 using MySql.CoreDAL;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+
 namespace Bikewale.DAL.Used
 {
     /// <summary>
@@ -21,9 +23,9 @@ namespace Bikewale.DAL.Used
         /// </summary>
         /// <param name="ad"></param>
         /// <returns></returns>
-        public U Add(T ad)
+        public int Add(T ad)
         {
-            U inquiryId = default(U);
+            int inquiryId = default(int);
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
@@ -46,12 +48,12 @@ namespace Bikewale.DAL.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbType.String, 100, ad.Seller.CustomerEmail));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, 20, ad.Seller.CustomerMobile));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, ad.Seller.CustomerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, ad.ClientIp));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CommonOpn.GetClientIP()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_statusid", DbType.Byte, Convert.ToByte(ad.Status)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, ParameterDirection.InputOutput));
 
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
-                    inquiryId = (U)cmd.Parameters["par_inquiryid"].Value;
+                    inquiryId = Utility.SqlReaderConvertor.ToInt32(cmd.Parameters["par_inquiryid"].Value);
                 }
             }
             catch (Exception ex)
@@ -85,15 +87,16 @@ namespace Bikewale.DAL.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikecolorid", DbType.String, 100, ad.ColorId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_kilometers", DbType.Int32, ad.KiloMeters));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, ad.CityId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_registrationno", DbType.String, 50, ad.OtherInfo.RegistrationNo));
+                    //cmd.Parameters.Add(DbFactory.GetDbParam("par_registrationno", DbType.String, 50, ad.OtherInfo.RegistrationNo));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_registrationplace", DbType.String, 50, ad.RegistrationPlace));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_insurancetype", DbType.String, 20, ad.OtherInfo.InsuranceType));
+                    //cmd.Parameters.Add(DbFactory.GetDbParam("par_insurancetype", DbType.String, 20, ad.OtherInfo.InsuranceType));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_expectedprice", DbType.Int64, ad.Expectedprice));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 250, ad.OtherInfo.AdDescription));
+                    //cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 250, ad.OtherInfo.AdDescription));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbType.Byte, ad.SourceId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50, ad.Seller.CustomerName));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 100, ad.Seller.CustomerEmail));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 20, ad.Seller.CustomerMobile));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sellertype", DbType.Int16, (int)ad.Seller.SellerType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customername", DbType.String, 50, ad.Seller.CustomerName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbType.String, 100, ad.Seller.CustomerEmail));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, 20, ad.Seller.CustomerMobile));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, ad.Seller.CustomerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CommonOpn.GetClientIP()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_statusid", DbType.Byte, Convert.ToByte(ad.Status)));
@@ -127,9 +130,9 @@ namespace Bikewale.DAL.Used
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "classified_updateotherindivdualsellbikeinfo";
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_registrationno", DbType.String, 50, otherInfo.RegistrationNo));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_registrationno", DbType.String, 50, Utility.FormatDescription.SanitizeHtml(otherInfo.RegistrationNo)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_insurancetype", DbType.String, 20, otherInfo.InsuranceType));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 250, otherInfo.AdDescription));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 250, Utility.FormatDescription.SanitizeHtml(otherInfo.AdDescription)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerId", DbType.Int32, customerId));
                     isSuccess = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
@@ -207,7 +210,7 @@ namespace Bikewale.DAL.Used
                             };
                             SellerType st;
                             SellAdStatus sa;
-                            Enum.TryParse<SellerType>(Convert.ToString(dr["sellertype"]), out st);
+                            st = (SellerType)Convert.ToByte(dr["sellertype"]);
                             Enum.TryParse<SellAdStatus>(Convert.ToString(dr["statusid"]), out sa);
                             objAd.Seller.SellerType = st;
 
@@ -240,5 +243,208 @@ namespace Bikewale.DAL.Used
             throw new NotImplementedException();
         }
         #endregion
+
+
+        /// <summary>
+        /// Created By : Sangram Nandkhile Upadhyay on 13 Oct 2014
+        /// Summary : To get isfake flag by customer id
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        public bool IsFakeCustomer(ulong customerId)
+        {
+            bool isFake = false;
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "checkfakecustomerbyid";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.UInt64, customerId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            isFake = Convert.ToBoolean(dr["IsFake"]);
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("bikeWale.DAL.Used.SellBikesRepository.IsFakeCustomer({0})", customerId));
+                objErr.SendMail();
+            }
+
+            return isFake;
+        }
+
+        U Interfaces.IRepository<T, U>.Add(T t)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Oct 2016
+        /// Description :   Save Bike Photo
+        /// </summary>
+        /// <param name="isMain"></param>
+        /// <param name="isDealer"></param>
+        /// <param name="inquiryId"></param>
+        /// <param name="originalImageName"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
+        public string SaveBikePhotos(bool isMain, bool isDealer, U inquiryId, string originalImageName, string description)
+        {
+            string photoId = "";
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("classified_bikephotos_insert"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, inquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_description", DbType.String, 200, description));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_directorypath", DbType.String, 200, Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isreplicated", DbType.Boolean, Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 300, originalImageName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealer", DbType.Boolean, isDealer));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismain", DbType.Boolean, isMain));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, 100, Utility.BWConfiguration.Instance.ImgHostURL));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbType.Int64, ParameterDirection.Output));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    photoId = cmd.Parameters["par_photoid"].Value.ToString();
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, String.Format("SaveBikePhotos({0},{1},{2},{3},{4})", isMain, isDealer, inquiryId, originalImageName, description));
+                objErr.SendMail();
+            }
+            return photoId;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Oct 2016
+        /// Description :   Upload Image To Common Database to be processed by Image Consumer
+        /// </summary>
+        /// <param name="photoId"></param>
+        /// <param name="imageName"></param>
+        /// <param name="imgC"></param>
+        /// <param name="directoryPath"></param>
+        /// <returns></returns>
+        public string UploadImageToCommonDatabase(string photoId, string imageName, ImageCategories imgC, string directoryPath)
+        {
+            string url = string.Empty;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "img_allbikephotosinsert";
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_itemid", DbType.Int64, photoId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_origfilename", DbType.String, imageName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbType.Int32, imgC));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dirpath", DbType.String, directoryPath));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, Utility.BWConfiguration.Instance.RabbitImgHostURL));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_url", DbType.String, 255, ParameterDirection.Output));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+
+                    url = cmd.Parameters["par_url"].Value.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("UploadImageToCommonDatabase({0},{1},{2},{3})", photoId, imageName, imgC, directoryPath));
+                objErr.SendMail();
+            } // catch Exception
+            return url;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 02 Nov 2016
+        /// Description :   Returns the used Bike photos
+        /// </summary>
+        /// <param name="inquiryId"></param>
+        /// <param name="isApproved"></param>
+        /// <returns></returns>
+        public IEnumerable<BikePhoto> GetBikePhotos(U inquiryId, bool isApproved)
+        {
+            ICollection<BikePhoto> photos = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("classified_getlistingphotos"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.String, 50, inquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isaprooved", DbType.SByte, 8, isApproved ? 1 : 0));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null)
+                        {
+                            photos = new List<BikePhoto>();
+
+                            while (dr.Read())
+                            {
+                                photos.Add(
+                                    new BikePhoto()
+                                    {
+                                        IsMain = Utility.SqlReaderConvertor.ToBoolean(dr["ismain"]),
+                                        HostUrl = Convert.ToString(dr["hosturl"]),
+                                        OriginalImagePath = Convert.ToString(dr["originalimagepath"]),
+                                        Id = Utility.SqlReaderConvertor.ToUInt32(dr["id"])
+                                    }
+                                    );
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("GetBikePhotos({0},{1})", inquiryId, isApproved));
+                objErr.SendMail();
+            }
+            return photos;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 03 Nov 2016
+        /// Description :   Marks gived photoid as main image for sell bike inquiry specified by inquiryid
+        /// </summary>
+        /// <param name="inquiryId"></param>
+        /// <param name="photoId"></param>
+        /// <param name="isDealer"></param>
+        /// <returns></returns>
+        public bool MarkMainImage(U inquiryId, uint photoId, bool isDealer)
+        {
+            bool isMain = false;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("classified_bikephotos_mainimage"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbType.Int32, photoId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealer", DbType.Boolean, isDealer));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    isMain = true;
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, String.Format("MarkMainImage({0})", inquiryId, photoId, isDealer));
+                objErr.SendMail();
+            }
+            return isMain;
+        }
     }
 }

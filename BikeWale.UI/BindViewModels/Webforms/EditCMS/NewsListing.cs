@@ -88,6 +88,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 categorList.Add(EnumCMSContentType.RoadTest);
                 categorList.Add(EnumCMSContentType.ComparisonTests);
                 categorList.Add(EnumCMSContentType.SpecialFeature);
+                categorList.Add(EnumCMSContentType.TipsAndAdvices);
                 string contentTypeList = Bikewale.Utility.CommonApiOpn.GetContentTypesString(categorList);
 
                 categorList.Clear();

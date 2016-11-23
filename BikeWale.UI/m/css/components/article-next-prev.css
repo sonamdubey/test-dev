@@ -1,0 +1,37 @@
+﻿.prev-arrow, .next-arrow {
+    width: 14px;
+    height: 18px;
+    vertical-align: middle;
+}
+
+.prev-arrow {
+    background-position: -159px -219px;
+}
+
+.next-arrow {
+    background-position: -185px -219px;
+}
+
+.next-prev-article-target {
+    display: block;
+}
+
+.next-prev-article-target:hover {
+    text-decoration: none;
+}
+
+.next-prev-article-box {
+    width: 86%;
+}
+
+.next-prev-article-title {
+    display: block;
+    font-weight: bold;
+    font-size: 14px;
+    color: #2a2a2a;
+    text-decoration: none;
+}
+
+.text-light {
+    color: #a2a2a2;
+}

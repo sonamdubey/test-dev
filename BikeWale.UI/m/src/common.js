@@ -383,20 +383,7 @@ $(document).ready(function () {
     $('li.card').click(function () {
         $(this).find('a')[0].click();
     });
-
-
-    // nav bar code starts
-    $(".navbarBtn").click(function () {
-        navbarShow();
-    });
-
-    $(".blackOut-window").mouseup(function (e) {
-        var nav = $("#nav");
-        if (e.target.id !== nav.attr('id') && !nav.has(e.target).length) {
-            nav.stop().animate({ 'left': '-300px' });
-            unlockPopup();
-        }
-    });
+    
     $(".navUL > li > a").click(function (e) {
 
         if (!$(this).hasClass("open")) {
@@ -405,27 +392,20 @@ $(document).ready(function () {
             $(this).addClass("open").next("ul").slideDown(350);
 
             if ($(this).siblings().size() == 0) {
-                navbarHide();
+                navDrawer.close();
             }
 
             $(".nestedUL > li > a").click(function () {
                 $(".nestedUL li a").removeClass("open");
                 $(this).addClass("open");
-                navbarHide();
+                navDrawer.close();
             });
-
         }
         else if ($(this).hasClass("open")) {
             $(this).removeClass("open").next("ul").slideUp(350);
         }
     }); // nav bar code ends here
-
-    function navbarHide() {
-        $('body').addClass('lock-browser-scroll');
-        $("#nav").removeClass('open').stop().animate({ 'left': '-350px' });
-        $(".blackOut-window").hide();
-    }
-    
+        
     function centerItVariableWidth(target, outer) {
         var out = $(outer);
         var tar = target;
@@ -1020,11 +1000,10 @@ function SetCookieInDays(cookieName, cookieValue, nDays) {
     var today = new Date();
     var expire = new Date();
     expire.setTime(today.getTime() + 3600000 * 24 * nDays);
-    if (cookieValue && cookieValue != "")
-    {
+    if (typeof (cookieValue) == "string") {
         cookieValue = cookieValue.toString().replace(/\s+/g, '-');
-        document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + '; path =/';
-    }    
+    }
+    document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + '; path =/';
 }
 
 function getCookie(key) {
@@ -1172,7 +1151,7 @@ $(function () {
 $(function () {
     var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
     var appbanner = getCookie("AppBanner");
-    if ((appbanner == null || appbanner == "true") && !isSafari) {
+    if ((appbanner == null || appbanner == "show") && !isSafari) {
         var hideBannerPages = ['7', '14'];
         if (ga_pg_id == 2) {
             if (typeof isDealerPQ !== 'undefined') {
@@ -1182,7 +1161,7 @@ $(function () {
             }
         } else if (hideBannerPages.indexOf(ga_pg_id) == -1) {
             $("#appBanner").slideDown();
-            SetCookie("AppBanner", true);
+            SetCookie("AppBanner", "show");
             dataLayer.push({ 'event': 'Bikewale_noninteraction', 'cat': GetCatForNav(), 'act': 'App_Download_Banner_Shown' });
         }
     }
@@ -1190,13 +1169,13 @@ $(function () {
 
 $("#btnCrossApp").click(function () {
     $("#appBanner").slideUp();
-    SetCookieInDays("AppBanner", false, 30);
+    SetCookieInDays("AppBanner", "hide", 30);
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'Close_Clicked_App_Download_Banner' });
 });
 
 $("#btnInstallApp").click(function () {
     $("#appBanner").slideUp();
-    SetCookieInDays("AppBanner", false, 30);
+    SetCookieInDays("AppBanner", "hide", 30);
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'InstallApp_Clicked_App_Download_Banner' });
 });
 $(window).on('hashchange', function (e) {
@@ -1643,8 +1622,51 @@ function LoadTerms(offerId) {
     $('#termspinner').hide();
 }
 
-$('.btn-white').on('touchstart', function () {
+$('.btn-white, .btn-inv-green').on('touchstart', function () {
     $(this).addClass('active');
 }).on('touchend', function () {
     $(this).removeClass('active');
 })
+
+// navigation
+var navContainer = $("#nav"),
+    effect = 'slide',
+    directionLeft = { direction: 'left' },
+    duration = 500;
+
+$('#navbarBtn').on('click', function () {
+    navDrawer.open();
+    appendState('filter');
+});
+
+$(".blackOut-window").mouseup(function (event) {
+    if (event.target.id !== navContainer.attr('id') && !navContainer.has(event.target).length) {
+        history.back();
+        navDrawer.close();
+    }
+});
+
+var navDrawer = {
+    open: function () {
+        navContainer.show(effect, directionLeft, duration, function () {
+            navContainer.addClass('drawer-active');
+        });
+        lockPopup();
+    },
+
+    close: function () {
+        navContainer.removeClass('drawer-active');
+        navContainer.hide(effect, directionLeft, duration, function () { });
+        unlockPopup();
+    }
+};
+
+var appendState = function (state) {
+    window.history.pushState(state, '', '');
+};
+
+$(window).on('popstate', function (event) {
+    if ($('#nav').is(':visible')) {
+        navDrawer.close();
+    }
+});

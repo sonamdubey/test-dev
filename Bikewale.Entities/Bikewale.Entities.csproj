@@ -62,6 +62,7 @@
     <Compile Include="AutoComplete\AutoSuggestEnum.cs" />
     <Compile Include="AutoComplete\Payload.cs" />
     <Compile Include="AutoComplete\SuggestionOutput.cs" />
+    <Compile Include="AWS\Token.cs" />
     <Compile Include="BikeBooking\AreaEntityBase.cs" />
     <Compile Include="BikeBooking\BikeBooking.cs" />
     <Compile Include="BikeBooking\BikeBookingListingEntity.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="BikeBooking\PQ_Price.cs" />
     <Compile Include="BikeBooking\PQ_QuotationEntity.cs" />
     <Compile Include="BikeBooking\RSAOfferClaimEntity.cs" />
+    <Compile Include="BikeData\BikeColorsbyVersion.cs" />
     <Compile Include="BikeData\BikeMakeModelBase.cs" />
     <Compile Include="BikeData\BikeMakeModelEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntityBase.cs" />
@@ -203,6 +205,8 @@
     <Compile Include="EditCMS\Photos\CMSImage.cs" />
     <Compile Include="EditCMS\Photos\ModelImage.cs" />
     <Compile Include="Feedback\FeedbackTypeEnum.cs" />
+    <Compile Include="Images\Image.cs" />
+    <Compile Include="Images\ImageToken.cs" />
     <Compile Include="Insurance\InsuranceLead.cs" />
     <Compile Include="JSErrorLog\JSExceptionEntity.cs" />
     <Compile Include="Location\AreaEntityBase.cs" />
@@ -259,7 +263,16 @@
     <Compile Include="PriceQuote\v2\PQByCityAreaEntity.cs" />
     <Compile Include="PriceQuote\VersionPrice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceCenters\EnumServiceCenterSMSStatus.cs" />
+    <Compile Include="ServiceCenters\ServiceCenterSMSData.cs" />
+    <Compile Include="ServiceCenters\ServiceScheduleBase.cs" />
+    <Compile Include="ServiceCenters\ServiceCenterCompleteData.cs" />
+    <Compile Include="service\ServiceCenterLocatorList.cs" />
     <Compile Include="SEO\PageMetaTags.cs" />
+    <Compile Include="service\ServiceCenterLocator.cs" />
+    <Compile Include="ServiceCenters\ServiceCenterData.cs" />
+    <Compile Include="ServiceCenters\ServiceCenterDetails.cs" />
+    <Compile Include="service\ServiceCityEntity.cs" />
     <Compile Include="UrlShortner\UrlShortnerResponse.cs" />
     <Compile Include="Used\BikeDetails.cs" />
     <Compile Include="Used\BikeDetailsMin.cs" />
@@ -267,6 +280,7 @@
     <Compile Include="Used\BikePhoto.cs" />
     <Compile Include="Used\BikeSpecifications.cs" />
     <Compile Include="Used\ClassifiedInquiryDetails.cs" />
+    <Compile Include="Used\ImageCategories.cs" />
     <Compile Include="Used\InputFilters.cs" />
     <Compile Include="Used\ClassifiedInquiryDetailsMin.cs" />
     <Compile Include="Used\InquiryDetailsByProfileId.cs" />
@@ -278,6 +292,8 @@
     <Compile Include="Used\PurchaseInquiryStatusCode.cs" />
     <Compile Include="Used\PurchaseInquiryStatusEntity.cs" />
     <Compile Include="Used\SellAdStatus.cs" />
+    <Compile Include="Used\SellBikeAdStatusEntity.cs" />
+    <Compile Include="Used\SellBikeImageUploadResultEntity.cs" />
     <Compile Include="Used\SellBikes.cs" />
     <Compile Include="Used\UsedBikeCities.cs" />
     <Compile Include="Used\UsedBikeSellerBase.cs" />

@@ -1,0 +1,208 @@
+﻿#sell-bike-content
+    position: relative
+    top: 2px
+    min-height: 1000px
+
+#sell-bike-left-col
+    padding: 40px 25px 40px 30px
+
+// panel
+.panel
+	margin-bottom: 40px
+	position: relative
+	
+.panel-divider
+	&:before
+		content: ""
+		width: 1px
+		height: 98%
+		background: #ededed
+		position: absolute
+		top: 36px
+		left: 15px
+
+.panel-row
+	.chosen-select
+		display: none
+
+.panel-title
+    font-size: $font-size-medium
+    font-weight: $font-bold
+    color: $text-black
+    margin-left: 15px
+    display: inline-block
+    vertical-align: middle
+
+.panel-body
+	margin-top: 25px
+	width: 465px
+	float: right
+
+.panel-body-3
+	margin-top: 15px
+
+// seller type
+#seller-type-list
+	li
+		float: left
+		cursor: pointer
+		margin-right: 10px
+
+		span
+			display: inline-block
+			vertical-align: middle
+
+	.seller-label
+		width: 145px
+		font-size: $font-size-medium
+
+	.checked
+		.seller-label
+			font-weight: $font-bold
+
+// terms
+#terms-content
+	p
+		width: 95%
+		font-size: $font-size-small
+		color: $text-light
+		display: inline-block
+		vertical-align: top
+		position: relative
+		top: -2px
+
+// verification
+.verify-title
+	font-size: $font-size-medium
+	color: $text-black
+	margin-bottom: 20px
+
+.verify-desc
+	font-size: $font-size-base
+	margin-bottom: 25px
+
+// form-success
+#form-success
+	.success-text
+		width: 75%
+		padding-left: 15px
+
+#form-success-btn-group
+	margin-top: 10px
+	margin-left: 120px
+
+.text-black
+	color: $text-black
+
+/* sprite */
+.sell-bike-sprite
+    background: url('http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/sell-bike-sprite.png?v1=18Nov2016') no-repeat
+    display: inline-block
+
+.step-1-active,
+.step-2-active,
+.step-3-active,
+.step-2-inactive,
+.step-3-inactive,
+.edit-step
+	width: 30px
+	height: 30px
+	vertical-align: middle
+	cursor: pointer
+
+.step-1-active
+    background-position: -283px 0
+
+.step-2-active
+    background-position: -283px -35px
+
+.step-3-active
+    background-position: -283px -70px
+
+.step-2-inactive
+    background-position: -320px 0
+
+.step-3-inactive
+    background-position: -320px -35px
+
+.edit-step
+    background-position: -283px -105px
+
+.radio-icon
+	width: 18px
+	height: 18px
+	margin-right: 5px
+	background-position: -177px -94px
+
+.checked
+	.radio-icon
+		background-position: -177px -65px
+
+.unchecked-box
+	width: 14px
+	height: 14px
+	background-position: -216px -120px
+	margin-right: 3px
+	vertical-align: top
+	cursor: pointer
+
+.unchecked-box.checked
+	background-position: -216px -135px
+
+.panel-row
+	.edit-blue-icon
+		position: relative
+		top: 10px
+		cursor: pointer
+
+.thankyou-icon
+	width: 51px
+	height: 58px
+	background-position: -165px -436px
+
+.add-photo-icon
+	width: 43px
+	height: 39px
+	background-position: -320px -87px
+
+.no-auth-icon
+	width: 35px
+	height: 38px
+	background-position: -373px 0
+
+.no-auth-edit-icon
+	width: 36px
+	height: 39px
+	background-position: -373px -45px
+
+.step-2-inactive,
+.step-3-inactive
+	cursor: not-allowed
+
+.step-2-inactive ~ .panel-title,
+.step-3-inactive ~ .panel-title
+	color: $text-light
+
+// common classes
+.text-truncate
+	width: 100%
+	text-align: left
+	white-space: nowrap
+	text-overflow: ellipsis
+	overflow: hidden
+
+.btn-primary-big
+	width: 200px
+	padding: 8px 0
+
+.btn-primary-small
+	width: 120px
+	padding: 8px 0
+
+.btn-secondary-big
+	width: 200px
+	padding: 4px 0
+
+.btn-secondary-small
+	width: 120px
+	padding: 4px 0
