@@ -271,7 +271,7 @@ namespace Bikewale.New
             {
                 string versionDescirption = modelPageEntity.ModelVersions.Count > 1 ? string.Format(" and is available in {0} versions", modelPageEntity.ModelVersions.Count) : string.Format(" and is available in {0} version", modelPageEntity.ModelVersions.Count);
                 string specsDescirption = string.Empty;
-                string priceDescription = modelPageEntity.ModelDetails.MinPrice > 0 ? string.Format("is Rs. {0} onwards (Ex-showroom, Mumbai)", Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPageEntity.ModelDetails.MinPrice))) : string.Empty;
+                string priceDescription = modelPageEntity.ModelDetails.MinPrice > 0 ? string.Format("is Rs. {0} onwards (Ex-showroom, {1})", Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPageEntity.ModelDetails.MinPrice)), Bikewale.Utility.BWConfiguration.Instance.DefaultCity) : string.Empty;
 
                 if (modelPageEntity != null && modelPageEntity.ModelVersionSpecs != null && (modelPageEntity.ModelVersionSpecs.TopSpeed > 0 || modelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0))
                 {

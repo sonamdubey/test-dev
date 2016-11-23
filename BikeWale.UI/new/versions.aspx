@@ -789,7 +789,7 @@
                                         <span class="model-preview-more-content hide">
                                             <%= modelPageEntity.ModelDesc.FullDescription %>
                                         </span>
-                                        <a href="javascript:void(0)" class="font14 read-more-model-preview">Read more</a>
+                                        <a href="javascript:void(0)" class="font14 read-more-model-preview" rel="nofollow">Read more</a>
                                     </p>
                                 </div>
                             <%} %>
