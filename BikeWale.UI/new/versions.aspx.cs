@@ -198,7 +198,6 @@ namespace Bikewale.New
         /// </summary>
         protected void Page_Load(object sender, EventArgs e)
         {
-            Trace.Warn("Trace 1 : DeviceDetection Start");
             // Modified By :Ashish Kamble on 5 Feb 2016
             Form.Action = Request.RawUrl;
             //device detection
@@ -207,47 +206,40 @@ namespace Bikewale.New
                 originalUrl = Request.ServerVariables["URL"];
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
-            Trace.Warn("Trace 2 : DeviceDetection End");
 
             #region Do Not change the sequence
 
-            Trace.Warn("Trace 3 : ParseQueryString Start");
             ParseQueryString();
-            Trace.Warn("Trace 4 : ParseQueryString End");
+
 
             #endregion
             try
             {
                 if (modelId > 0)
                 {
-                    Trace.Warn("Trace 5 : CheckCityCookie Start");
                     CheckCityCookie();
-                    Trace.Warn("Trace 6 : CheckCityCookie End");
                     if (hdnVariant != null && hdnVariant.Value != "0")
                         variantId = Convert.ToUInt32(hdnVariant.Value);
-                    Trace.Warn("Trace 7 : FetchModelPageDetails Start");
+
                     modelPageEntity = FetchModelPageDetails(modelId);
-                    Trace.Warn("Trace 8 : FetchModelPageDetails End");
+
                     if (modelPageEntity != null && modelPageEntity.ModelDetails != null && modelPageEntity.ModelDetails.New)
                     {
-                        Trace.Warn("Trace 9 : FetchOnRoadPrice Start");
+
                         FetchOnRoadPrice(modelPageEntity);
                         FillViewModel();
-                        Trace.Warn("Trace 10 : FetchOnRoadPrice End");
+
                     }
 
                     BindPhotoRepeater(modelPageEntity);
                     LoadVariants(modelPageEntity);
-                    Trace.Warn("Trace 18 : BindAlternativeBikeControl Start");
+
                     BindAlternativeBikeControl(modelPageEntity);
-                    Trace.Warn("Trace 19 : BindAlternativeBikeControl End");
-                    Trace.Warn("Trace 20 : LoadNewsVidsReviews starts");
+
                     LoadNewsVidsReviews(modelId, modelPageEntity);
-                    Trace.Warn("Trace 21 : LoadNewsVidsReviews ends");
+
                     ToggleOfferDiv();
-                    //calling _bwutmz cookie logic.
-                    Trace.Warn("Trace 22 : Clear trailing Query");
-                    Trace.Warn("Trace 23 : Page Load ends");
+
                     BindControls();
                     TotalUsedBikes();
                     BindColorString();
@@ -624,7 +616,6 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                Trace.Warn("exception 1 : ");
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
                 objErr.SendMail();
 
@@ -634,14 +625,10 @@ namespace Bikewale.New
             }
             finally
             {
-                Trace.Warn("finally");
                 if (!string.IsNullOrEmpty(modelQuerystring))
                 {
                     if (objResponse != null)
                     {
-                        Trace.Warn(" objResponse.StatusCode : ", objResponse.StatusCode.ToString());
-                        Trace.Warn(" objResponse.ModelId : ", objResponse.ModelId.ToString());
-                        //Trace.Warn(" objResponse.MaskingName : ", objResponse.MaskingName.ToString());
                         if (objResponse.StatusCode == 200)
                         {
                             modelId = objResponse.ModelId;
@@ -653,7 +640,6 @@ namespace Bikewale.New
                         }
                         else
                         {
-                            Trace.Warn("pageNotFound.aspx 1");
                             Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                             HttpContext.Current.ApplicationInstance.CompleteRequest();
                             this.Page.Visible = false;
@@ -661,7 +647,6 @@ namespace Bikewale.New
                     }
                     else
                     {
-                        Trace.Warn("pageNotFound.aspx 2");
                         Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
@@ -669,7 +654,6 @@ namespace Bikewale.New
                 }
                 else
                 {
-                    Trace.Warn("pageNotFound.aspx 3");
                     Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
