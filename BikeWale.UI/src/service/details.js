@@ -78,9 +78,6 @@ function initializeMap() {
     });
 }
 
-initializeMap();
-
-
 function savePosition(position) {
     userLocation = {
         "latitude": position.coords.latitude,
@@ -137,6 +134,7 @@ function route(origin_place_id, travel_mode, directionsService, directionsDispla
     }, function (response, status) {
         if (status === google.maps.DirectionsStatus.OK) {
             getCommuteInfo(response);
+            setUserLocation(origin_place_id);
             directionsDisplay.setDirections(response);
         }
     });
@@ -182,4 +180,7 @@ String.prototype.toHHMMSS = function () {
     i < 10 && (i = "0" + i);
     var o = a + " hrs " + t + " mins ";
     return o
+}
+function setUserLocation(position) {
+    $("#linkMap").attr("href", "https://maps.google.com/?saddr=" + position.lat() + "," + position.lng() + "&daddr=" + serviceLat + "," + serviceLong + '');
 }
