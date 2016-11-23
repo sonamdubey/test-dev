@@ -3,7 +3,7 @@
 .horizontal-tabs-wrapper { width: 100%; display: table; border-bottom: 1px solid #82888b; position:fixed; top: 40px; }
 .horizontal-tabs-wrapper li { display: inline-block; width: auto; padding: 10px 20px; text-align: center; white-space: nowrap; font-size: 14px; color: #82888b; cursor: pointer; }
 .horizontal-tabs-wrapper li.active { border-bottom: 3px solid #ef3f30; color: #fff; font-weight: bold; }
-#bike-gallery-popup { width:100%; max-width: 476px; height:auto; margin:0 auto; position:fixed; top: 25%; left:0%; right:0%; }
+#bike-gallery-popup { width:100%; max-width: 476px; height:auto; margin:0 auto; position:absolute; top: 25%; left:0%; right:0%; }
 .media-title { width: 75%; padding-left: 10px; padding-right: 10px; }
 .gallery-count { width: 25%; text-align: right; padding-right: 10px; }
 #videos { margin-top:35px; }

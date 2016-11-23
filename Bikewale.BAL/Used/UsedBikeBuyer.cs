@@ -190,7 +190,7 @@ namespace Bikewale.BAL.Used
                 //Get Sellers info
                 UsedBikeSellerBase seller = _objSellerRepository.GetSellerDetails(inquiryId, isDealer);
                 //Form the upload url for seller email
-                string listingUrl = string.Format("{0}/used/sell/uploadbasic.aspx?id={1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, request.ProfileId);
+                string listingUrl = string.Format("{0}/used/sell/default.aspx?id={1}#uploadphoto", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, request.ProfileId);
                 if (seller != null)
                 {
                     if (seller.Details != null)
@@ -200,7 +200,8 @@ namespace Bikewale.BAL.Used
                             if (isDealer)
                             {
                                 //Send Email to Dealer
-                                SendEmailSMSToDealerCustomer.UsedBikePhotoRequestEmailToDealer(seller.Details.CustomerEmail, seller.Details.CustomerName, buyer.CustomerName, buyer.CustomerMobile, request.BikeName, request.ProfileId);
+                                //SendEmailSMSToDealerCustomer.UsedBikePhotoRequestEmailToDealer(seller.Details.CustomerEmail, seller.Details.CustomerName, buyer.CustomerName, buyer.CustomerMobile, request.BikeName, request.ProfileId);
+                                SendEmailSMSToDealerCustomer.UsedBikePhotoRequestEmailToIndividual(seller.Details, buyer, request.BikeName, listingUrl);
                             }
                             else
                             {
@@ -309,29 +310,26 @@ namespace Bikewale.BAL.Used
                                 //Check if buyer has crossed the daily lead limiy
                                 if (_objBuyerRepository.IsBuyerEligible(buyer.CustomerMobile))
                                 {
-                                    if (!isDealer)
+                                    //Save the customer inquiry
+                                    if (_objSellerRepository.SaveCustomerInquiry(inquiryId, buyer.CustomerId, sourceId, out isNewInquiry) > 0)
                                     {
-                                        //Save the customer inquiry
-                                        if (_objSellerRepository.SaveCustomerInquiry(inquiryId, buyer.CustomerId, sourceId, out isNewInquiry) > 0)
+                                        //get inquiry details for notification
+                                        inquiryDetails = _objSellerRepository.GetInquiryDetails(inquiryId);
+                                        //get seller details
+                                        UsedBikeSellerBase seller = _objSellerRepository.GetSellerDetails(inquiryId, false);
+                                        result.Seller = seller.Details;
+                                        result.SellerAddress = seller.Address;
+                                        if (isNewInquiry)
                                         {
-                                            //get inquiry details for notification
-                                            inquiryDetails = _objSellerRepository.GetInquiryDetails(inquiryId);
-                                            //get seller details
-                                            UsedBikeSellerBase seller = _objSellerRepository.GetSellerDetails(inquiryId, false);
-                                            result.Seller = seller.Details;
-                                            result.SellerAddress = seller.Address;
-                                            if (isNewInquiry)
-                                            {
-                                                result.InquiryStatus.Code = PurchaseInquiryStatusCode.Success;
-                                                //Notify individual seller
-                                                NotifyPurchaseInquiryIndividualSeller(inquiryDetails.BikeName, pageUrl, profileId, inquiryDetails.Price, seller.Details, buyer);
-                                                //Notify buyer
-                                                NotifyPurchaseInquiryBuyer(inquiryDetails.BikeName, pageUrl, profileId, buyer, seller, inquiryDetails);
-                                            }
-                                            else
-                                            {
-                                                result.InquiryStatus.Code = PurchaseInquiryStatusCode.DuplicateUsedBikeInquiry;
-                                            }
+                                            result.InquiryStatus.Code = PurchaseInquiryStatusCode.Success;
+                                            //Notify individual seller
+                                            NotifyPurchaseInquiryIndividualSeller(inquiryDetails.BikeName, pageUrl, profileId, inquiryDetails.Price, seller.Details, buyer);
+                                            //Notify buyer
+                                            NotifyPurchaseInquiryBuyer(inquiryDetails.BikeName, pageUrl, profileId, buyer, seller, inquiryDetails);
+                                        }
+                                        else
+                                        {
+                                            result.InquiryStatus.Code = PurchaseInquiryStatusCode.DuplicateUsedBikeInquiry;
                                         }
                                     }
                                 }

@@ -88,11 +88,14 @@
     <Compile Include="AutoComplete\V2\Payload.cs" />
     <Compile Include="AutoComplete\SuggestionList.cs" />
     <Compile Include="AutoComplete\V2\SuggestionList.cs" />
+    <Compile Include="AWS\Token.cs" />
     <Compile Include="BikeBooking\BikeBookingListingDTO.cs" />
     <Compile Include="BikeBooking\BikeBookingListingOutput.cs" />
     <Compile Include="BikeBooking\BikeBookingOfferDTO.cs" />
     <Compile Include="BikeBooking\BookingListingFilterDTO.cs" />
     <Compile Include="BikeBooking\PageUrl.cs" />
+    <Compile Include="BikeData\BikeColorsbyVersion.cs" />
+    <Compile Include="BikeData\BikeColorsbyVersionDTO.cs" />
     <Compile Include="BikeData\MakeModelBase.cs" />
     <Compile Include="BikeData\v2\MinSpecs.cs" />
     <Compile Include="Compare\BikeColorDTO.cs" />
@@ -141,6 +144,8 @@
     <Compile Include="Dealer\NewBikeDealerList.cs" />
     <Compile Include="Dealer\v2\NewBikeDealerBase.cs" />
     <Compile Include="Dealer\v2\NewBikeDealerList.cs" />
+    <Compile Include="Images\ImageDTO.cs" />
+    <Compile Include="Images\ImageTokenDTO.cs" />
     <Compile Include="Insurance\ClientResponse.cs" />
     <Compile Include="Insurance\InsuranceLead.cs" />
     <Compile Include="Insurance\PostInsuranceDetail.cs" />
@@ -240,6 +245,7 @@
     <Compile Include="UsedBikes\UsedBikeSellerBaseDTO.cs" />
     <Compile Include="Used\BikePhoto.cs" />
     <Compile Include="Used\InquiryDetailsDTO.cs" />
+    <Compile Include="Used\SellBikeImageUploadResultDTO.cs" />
     <Compile Include="Used\UsedBikeBase.cs" />
     <Compile Include="Used\SearchResult.cs" />
     <Compile Include="Version\ModelVersionList.cs" />

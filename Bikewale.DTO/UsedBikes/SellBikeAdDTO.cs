@@ -1,5 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using Bikewale.DTO.BikeBooking.Make;
+using Bikewale.DTO.BikeBooking.Model;
+using Bikewale.DTO.BikeBooking.Version;
+using Bikewale.DTO.Used.Search;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 namespace Bikewale.DTO.UsedBikes
 {
@@ -11,9 +16,15 @@ namespace Bikewale.DTO.UsedBikes
     {
         [JsonProperty("profileId")]
         public string ProfileId { get; set; }
+        [JsonProperty("InquiryId")]
+        public uint? InquiryId { get; set; }
+        [JsonProperty("make")]
+        public BBMakeBase Make { get; set; }
+        [JsonProperty("model")]
+        public BBModelBase Model { get; set; }
         [Required]
-        [JsonProperty("versionId")]
-        public ushort? VersionId { get; set; }
+        [JsonProperty("version")]
+        public BBVersionBase Version { get; set; }
         [Required]
         [JsonProperty("manufacturingYear")]
         public DateTime? ManufacturingYear { get; set; }
@@ -41,12 +52,18 @@ namespace Bikewale.DTO.UsedBikes
         [JsonProperty("sourceId")]
         public ushort? SourceId { get; set; }
         [Required]
+        [JsonProperty("pageUrl")]
+        public string PageUrl { get; set; }
+        [JsonProperty("status")]
+        public SellAdStatus Status { get; set; }
         [JsonProperty("seller")]
-        public SellBikeAdSellerDTO Seller { get; set; }
+        public SellerDTO Seller { get; set; }
         [JsonProperty("otherInfo")]
         public SellBikeAdOtherInformationDTO OtherInfo { get; set; }
         [JsonProperty("photoCount")]
         public ushort PhotoCount { get; set; }
+        [JsonProperty("photos")]
+        public IEnumerable<BikePhoto> Photos { get; set; }
     }
 
     /// <summary>

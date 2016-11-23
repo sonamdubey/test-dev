@@ -12,6 +12,8 @@ namespace Bikewale.Utility
     /// Summary :   Added new key in Web Config for using grpc UseGrpc
     /// Modified By : Lucky Rathore on 09 May 2016.
     /// Description : Added bikeWaleLogo for bikewale logo image URL.
+    /// Modified by :   Sumit Kate on 11 Nov 2016
+    /// Description :   Added keys for AWSAccessKey, AWSBucketName, AWSSecretKey, AWSEnvironment, AWSImageQueueName, SecurityHashLength web config
     /// </summary>
     public sealed class BWConfiguration
     {
@@ -72,12 +74,16 @@ namespace Bikewale.Utility
             _bikeWaleLogo = string.Empty,
             _CWSAPiHostUrl = string.Empty,
             _WebsiteDomain = string.Empty,
-            _grpcChannelWaitTime=string.Empty,     
-            _grpcArticleServerList=string.Empty,
+            _grpcChannelWaitTime = string.Empty,
+            _grpcArticleServerList = string.Empty,
             _grpcRetryCount = string.Empty,
-            _logGrpcErrors=string.Empty;            
-           
-
+            _logGrpcErrors = string.Empty,
+            _AWSAccessKey = String.Empty,
+            _AWSBucketName = String.Empty,
+            _AWSSecretKey = String.Empty,
+            _AWSEnvironment = string.Empty,
+            _AWSImageQueueName = String.Empty;
+        private readonly int _SecurityHashLength = 0;
 
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
@@ -139,6 +145,12 @@ namespace Bikewale.Utility
             _grpcArticleServerList = ConfigurationManager.AppSettings["GrpcArticleServerList"];
             _grpcRetryCount = ConfigurationManager.AppSettings["GrpcRetryCount"];
             _logGrpcErrors = ConfigurationManager.AppSettings["LogGrpcErrors"];
+            _AWSAccessKey = ConfigurationManager.AppSettings["AWSAccessKey"];
+            _AWSBucketName = ConfigurationManager.AppSettings["AWSBucketName"];
+            _AWSSecretKey = ConfigurationManager.AppSettings["AWSSecretKey"];
+            _AWSEnvironment = ConfigurationManager.AppSettings["AWSEnvironment"];
+            _AWSImageQueueName = ConfigurationManager.AppSettings["AWSImageQueueName"];
+            _SecurityHashLength = Convert.ToInt32(ConfigurationManager.AppSettings["SecurityHashLength"]);
         }
 
         // Static method to provide access to instance
@@ -249,7 +261,12 @@ namespace Bikewale.Utility
         public string GrpcArticleServerList { get { return _grpcArticleServerList; } }
         public string GrpcRetryCount { get { return _grpcRetryCount; } }
         public string LogGrpcErrors { get { return _logGrpcErrors; } }
-        
-        
+        public string AWSAccessKey { get { return _AWSAccessKey; } }
+        public string AWSBucketName { get { return _AWSBucketName; } }
+        public string AWSSecretKey { get { return _AWSSecretKey; } }
+        public string AWSEnvironment { get { return _AWSEnvironment; } }
+        public string AWSImageQueueName { get { return _AWSImageQueueName; } }
+        public int SecurityHashLength { get { return _SecurityHashLength; } }
+
     }   // class
 }   // namespace

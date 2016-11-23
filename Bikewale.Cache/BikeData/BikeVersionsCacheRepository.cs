@@ -117,6 +117,26 @@ namespace Bikewale.Cache.BikeData
             }
             return versions;
         }
-
+        /// <summary>
+        /// Created By: Aditi Srivastava on 17 Oct 2016
+        /// Summary :   Get version colors
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeColorsbyVersion> GetColorsbyVersionId(uint versionId)
+        {
+            IEnumerable<BikeColorsbyVersion> versionColors = null;
+            string key = String.Format("BW_VersionColor_{0}", versionId);
+            try
+            {
+                versionColors = _cache.GetFromCache<IEnumerable<BikeColorsbyVersion>>(key, new TimeSpan(1, 0, 0), () => _objVersions.GetColorsbyVersionId(versionId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("BikeMakesCacheRepository.GetColorsbyVersionId: {0}", versionId));
+                objErr.SendMail();
+            }
+            return versionColors;
+        }
     }
 }

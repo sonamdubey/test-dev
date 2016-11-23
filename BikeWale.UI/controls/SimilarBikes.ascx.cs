@@ -96,14 +96,12 @@ namespace Bikewale.Controls
             }
             catch (SqlException exSql)
             {
-                Trace.Warn("SimilarBikes", exSql.LineNumber.ToString());
                 ErrorClass objErr = new ErrorClass(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
             catch (Exception ex)
             {
                 //Response.Write(ex.Message);
-                Trace.Warn("SimilarBikes", ex.Message.ToString());
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }

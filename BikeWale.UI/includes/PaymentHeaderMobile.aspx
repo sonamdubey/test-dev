@@ -1,5 +1,12 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+    <script language="c#" runat="server">	    
+	    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", 
+        canonical = "",relPrevPageUrl = "",relNextPageUrl = "",fbTitle = "",fbImage = "", menu = "", Ad_HP_Banner_400x310 = "";
+        private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
+        private bool isHeaderFix = true, isAd320x50Shown = false,isAd300x250Shown = false;
+        private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
+    </script>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
@@ -15,13 +22,7 @@
     <title><%= title %></title>
     <%if(!String.IsNullOrEmpty(relPrevPageUrl)) { %><link rel="prev" href="<%= relPrevPageUrl %>" /><% } %>
     <%if(!String.IsNullOrEmpty(relNextPageUrl)){ %><link rel="next" href="<%= relNextPageUrl %>" /><% }%>
-    <script language="c#" runat="server">	    
-	    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", 
-        canonical = "",relPrevPageUrl = "",relNextPageUrl = "",fbTitle = "",fbImage = "", menu = "", Ad_HP_Banner_400x310 = "";
-        private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
-        private bool isHeaderFix = true, isAd320x50Shown = false,isAd300x250Shown = false;
-        private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
-    </script> 
+     
     <!-- #include file="/includes/gacode.aspx" --> 
     <script type="text/javascript">
         setTimeout(function () {

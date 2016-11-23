@@ -35,7 +35,7 @@ namespace Bikewale.PriceQuote
         protected LeadCaptureControl ctrlLeadCapture;
         protected HtmlGenericControl divAllVersions, div_ShowPQ, divUserReviews;
 
-        protected string city = string.Empty, priceQuoteId = string.Empty, make = string.Empty, imgPath = String.Empty, dealerId = string.Empty,modelName = string.Empty;
+        protected string city = string.Empty, priceQuoteId = string.Empty, make = string.Empty, imgPath = String.Empty, dealerId = string.Empty, modelName = string.Empty;
         protected uint cityId = 0, areaId = 0;
         protected MakeModelVersion mmv = null;
         protected BikeQuotationEntity objQuotation = null;

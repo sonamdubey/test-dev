@@ -1,24 +1,17 @@
 // Current User Class
 //
 
-using System;
-using System.Web;
-using System.Configuration;
-using System.Web.Mail;
-using System.Text;
-using System.Data.SqlClient;
-using System.Data.OleDb;
-using System.IO;
-using System.Web.Security;
-using System.Security.Cryptography;
-using System.Data.Common;
-using System.Data;
 using MySql.CoreDAL;
+using System;
+using System.Data;
+using System.Data.Common;
+using System.Web;
+using System.Web.Security;
 
-namespace Bikewale.Common 
+namespace Bikewale.Common
 {
-	public class CurrentUser
-	{
+    public class CurrentUser
+    {
         ///<summary>
         /// This PopulateWhere gets the current user id as logged in. 
         ///if no user is logged in then it returns -1
@@ -51,8 +44,23 @@ namespace Bikewale.Common
                 return userId;
             }
         }
-
-
+        /// <summary>
+        /// Modified by: Sangram Nandkhile on 16 Nov 2016
+        /// Desc: Added a Uint variable for ID which can be used to check user is logged in or not.
+        /// This has been introduced to avoid string comparsion to check with variable Id
+        /// </summary>
+        public static uint UserId
+        {
+            get
+            {
+                uint outId = 0;
+                if (!string.IsNullOrEmpty(Id))
+                {
+                    uint.TryParse(Id, out outId);
+                }
+                return outId;
+            }
+        }
         public static string Role
         {
             get
@@ -234,7 +242,7 @@ namespace Bikewale.Common
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_emailid", DbType.String,100, emailId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_emailid", DbType.String, 100, emailId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -244,8 +252,8 @@ namespace Bikewale.Common
                             dr.Close();
                         }
                     }
-                } 
-                
+                }
+
             }
             catch (Exception err)
             {
@@ -253,7 +261,7 @@ namespace Bikewale.Common
                 ErrorClass objErr = new ErrorClass(err, "CurrentUser.CheckEmailWithCarwale");
                 objErr.SendMail();
             }
- 
+
             return exist;
         }
 
@@ -285,7 +293,7 @@ namespace Bikewale.Common
 
                     using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                     {
-                        cmd.Parameters.Add(DbFactory.GetDbParam("@v_useridtemp", DbType.String,50, userIdTemp));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("@v_useridtemp", DbType.String, 50, userIdTemp));
 
                         MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                     }
@@ -316,13 +324,13 @@ namespace Bikewale.Common
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        if (dr!=null && dr.Read())
+                        if (dr != null && dr.Read())
                         {
                             mappedCustomerId = dr[0].ToString();
                             dr.Close();
                         }
-                    } 
-                }                
+                    }
+                }
             }
             catch (Exception err)
             {
@@ -341,6 +349,6 @@ namespace Bikewale.Common
                 HttpContext.Current.Response.Cookies["CookieBidderId"].Expires = DateTime.Now.AddYears(-1);
             }
         }
-		
+
     }//class
 }//namespace

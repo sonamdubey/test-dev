@@ -150,6 +150,8 @@ namespace Bikewale.Utility
         ///  Created By : Sushil Kumar 
         ///  Created On  : 16th August 2016
         ///  Description : To get article url for news,expert reviews and features listing pages
+        /// Modified by :-Subodh 0n 08 nov 2016
+        /// Description : To get article url for TipsAndAdvices
         /// </summary>
         /// <param name="basicId"></param>
         /// <param name="articleUrl"></param>
@@ -174,6 +176,9 @@ namespace Bikewale.Utility
                     case EnumCMSContentType.Features:
                         _articleUrl = string.Format("/features/{0}-{1}/", articleUrl, basicId);
                         break;
+                    case EnumCMSContentType.TipsAndAdvices:
+                        _articleUrl = string.Format("/bike-care/{0}-{1}.html", articleUrl, basicId);
+                        break;
                     default:
                         _articleUrl = "/";
                         break;
@@ -189,8 +194,11 @@ namespace Bikewale.Utility
         /// <returns></returns>
         public static string RemoveSpecialCharUrl(string url)
         {
-            url = (Regex.Replace(url, "[^0-9a-zA-Z]+", "-")).ToLower();
-            url = (Regex.Replace(url, @"\-+", "-")).TrimEnd('-');
+            if (!string.IsNullOrEmpty(url))
+            {
+                url = (Regex.Replace(url, "[^0-9a-zA-Z]+", "-")).ToLower();
+                url = (Regex.Replace(url, @"\-+", "-")).TrimEnd('-');
+            }
             return url;
         }
 
@@ -206,6 +214,27 @@ namespace Bikewale.Utility
             return dealerUrl;
         }
 
+        /// <summary>
+        ///  Created By : Sajal Gupta 
+        ///  Created On  : 11-11-2016
+        ///  Description : To get url for serviceCenter.
+        /// </summary>
+        public static string GetServiceCenterUrl(string makeMaskingName, string cityMaskingName, string serviceCenterName, uint serviceCenterId)
+        {
+            string dealerUrl = string.Empty;
+            dealerUrl = string.Format("/{0}-service-center-in-{1}/{2}-{3}/", makeMaskingName, cityMaskingName, serviceCenterId, RemoveSpecialCharUrl(serviceCenterName));
+            return dealerUrl;
+        }
+
+        /// <summary>
+        ///  Created By : Sangram Nandkhile
+        ///  Created On  : 11-11-2016
+        ///  Description : To get url for serviceCenter.
+        /// </summary>
+        public static object GetServiceCenterUrl(string makeMaskingName, string cityMaskingName)
+        {
+            return string.Format("/{0}-service-center-in-{1}/", makeMaskingName, cityMaskingName);
+        }
     }
 }
 

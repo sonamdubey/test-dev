@@ -14,12 +14,6 @@
     menu = "4";
 %>
 <!-- #include file="/includes/headermobile.aspx" -->
-<%--<style type="text/css">
-    @media all and (min-width:128px) and (max-width:480px)
-    {
-        table { font-size:12px;}
-    }
-</style>--%>
 <div class="padding5">
     <div id="br-cr"  itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
         <a href="/m/" class="normal" itemprop="url"><span itemprop="title">Home</span></a> &rsaquo; 

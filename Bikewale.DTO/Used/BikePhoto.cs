@@ -10,5 +10,9 @@ namespace Bikewale.DTO.Used.Search
         public string OriginalImagePath { get; set; }
         [JsonProperty("isMain")]
         public bool IsMain { get; set; }
+        [JsonProperty("id")]
+        public uint Id { get; set; }
+        [JsonProperty("imageUrl")]
+        public string ImageUrl { get; set; }
     }
 }

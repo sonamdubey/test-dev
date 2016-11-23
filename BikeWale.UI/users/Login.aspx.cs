@@ -9,40 +9,16 @@ using System.Web.UI.WebControls;
 
 namespace BikWale.Users
 {
+    /// <summary>
+    /// Modified by: Sangram Nandkhile
+    /// Summary: Removed unused variables, 
+    /// </summary>
     public class Login : System.Web.UI.Page
     {
         protected Button btnLogin, btnSignup;
         protected HtmlGenericControl errEmail;
         protected TextBox txtLoginid, txtPasswd, txtNameSignup, txtEmailSignup, txtMobileSignup, txtRegPasswdSignup;
         protected HiddenField hdnAuthData;
-
-        private string redirectUrl = "/";
-
-        private string header = "Registered Members : Please Login Here";
-        private bool _showFooter = true;
-
-        public bool ShowFooter
-        {
-            get { return _showFooter; }
-            set { _showFooter = value; }
-        }
-
-        public string RedirectUrl
-        {
-            get { return redirectUrl; }
-            set { redirectUrl = value; }
-        }
-
-        public string EmailId
-        {
-            set { txtLoginid.Text = value; }
-        }
-
-        public string Header
-        {
-            get { return header; }
-            set { header = value; }
-        }
 
         protected override void OnInit(EventArgs e)
         {
@@ -55,25 +31,15 @@ namespace BikWale.Users
         {
             if (!IsPostBack)
             {
-                bool logout = false;
                 if (Request["logout"] != null && Request.QueryString["logout"] == "logout")
                 {
-                    logout = true;
-                    Trace.Warn("logout");
-                }
-
-                if (logout == true)
-                {
                     CurrentUser.EndSession();
-
                     HttpCookie rememberMe = Request.Cookies.Get("RememberMe");
-
                     if (rememberMe != null)
                     {
                         rememberMe.Expires = DateTime.Now.AddDays(-1);
                         Response.Cookies.Add(rememberMe);
                     }
-
                     RedirectPath();
                 }
             }
@@ -97,7 +63,7 @@ namespace BikWale.Users
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "BikWale.Users.LogIn.LoginUser()");
                 objErr.SendMail();
                 RedirectPath();
             }
@@ -166,53 +132,59 @@ namespace BikWale.Users
         {
             // Add bikewale login cookie
             HttpCookie objCookie = new HttpCookie("_bikewale");
-
             objCookie.Value = authTicket;
-
             // If remember me checked, create persistent cookie
             if (rememberMe)
             {
                 objCookie.Expires = DateTime.Now.AddYears(1);
             }
-
             // Add cookie into response
             HttpContext.Current.Response.Cookies.Add(objCookie);
-
             RedirectPath();
         }
 
         /// <summary>
-        /// 
+        /// Modidied by :Sangram on 9 nov 2016
+        /// Desc: Redirect to return url after login or logout
         /// </summary>
         private void RedirectPath()
         {
-            // Redirect to the requested page.
-
-            //Response.Redirect(CommonOpn.AppPath + "MyBikeWale/");
-
-            if (!String.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
+            string returnUrl = Request.QueryString["ReturnUrl"];
+            if (IsLocalUrl(returnUrl))
             {
-                string returnUrl = Request.QueryString["ReturnUrl"];
-
-                if (!string.IsNullOrEmpty(returnUrl))
-                    Response.Redirect(returnUrl, false);
-                else
-                    Response.Redirect("/", false);
-
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                Response.Redirect(returnUrl, false);
             }
-            else if (RedirectUrl != "")
+            else
             {
-                if (!string.IsNullOrEmpty(RedirectUrl))
+                Response.Redirect("/", false);
+            }
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
+        }
+
+        /// <summary>
+        /// Created by : Sangram Nandkhile on 09 Nov 2016
+        /// Desc: Function to check if url is local url or not
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        private bool IsLocalUrl(string url)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(url))
                 {
-                    Response.Redirect(RedirectUrl, false);
+                    return false;
                 }
                 else
                 {
-                    Response.Redirect("/", false);
+                    return ((url[0] == '/' && (url.Length == 1 || (url[1] != '/' && url[1] != '\\'))) || (url.Length > 1 && url[0] == '~' && url[1] == '/'));
                 }
-
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "IsLocalUrl()");
+                objErr.SendMail();
+                return false;
             }
         }
     }

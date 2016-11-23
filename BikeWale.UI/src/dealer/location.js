@@ -183,6 +183,7 @@ $('#location-list').on('click', '.type-state', function (event) {
         item.addClass('active').siblings('.location-list-city').show();
         var cityArr = mapCityArray(item);
         initializeMap(cityArr, item.attr('data-lat'), item.attr('data-long'), 7); // set map with city lat-long
+        $('html, body').animate({ scrollTop: item.offset().top });
     }
     else {
         item.removeClass('active').siblings('.location-list-city').hide();

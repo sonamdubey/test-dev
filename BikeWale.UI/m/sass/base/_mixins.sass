@@ -1,0 +1,34 @@
+﻿@mixin border-radius($radius)
+	-webkit-border-radius: $radius
+	-moz-border-radius:    $radius
+	-ms-border-radius:     $radius
+	border-radius:         $radius
+	
+@mixin box-shadow($horizontal: 0, $vertical: 2px, $blur: 10px, $spread: 1px, $color: #dcdcdc)
+	-webkit-box-shadow: $horizontal $vertical $blur $spread $color
+	-moz-box-shadow:	$horizontal $vertical $blur $spread $color
+	-ms-box-shadow:		$horizontal $vertical $blur $spread $color
+	-o-box-shadow:		$horizontal $vertical $blur $spread $color
+	box-shadow:			$horizontal $vertical $blur $spread $color
+
+@mixin transition($duration, $function, $property)
+	-webkit-transition: $duration $function $property
+	-moz-transition:	$duration $function $property
+	-o-transition:		$duration $function $property
+	transition:			$duration $function $property
+
+@mixin transform($property)
+	-webkit-transform:	$property
+	-moz-transform:		$property
+	-o-transform:		$property
+	transform:			$property
+
+@mixin opacity($number)
+	opacity: $number
+	-moz-opacity: $number
+	-khtml-opacity: $number
+
+// transition
+	$duration = seconds you want the transition to last - e.g. 0.3s
+	$function = how you want it to transition - e.g. ease-in-out
+	$property = the property you want to transition - e.g. transform

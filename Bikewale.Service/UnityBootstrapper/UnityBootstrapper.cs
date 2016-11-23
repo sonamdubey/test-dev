@@ -6,15 +6,20 @@ using Bikewale.BAL.Compare;
 using Bikewale.BAL.Customer;
 using Bikewale.BAL.Dealer;
 using Bikewale.BAL.EditCMS;
+using Bikewale.BAL.Images;
 using Bikewale.BAL.Pager;
 using Bikewale.BAL.PriceQuote;
+using Bikewale.BAL.ServiceCenter;
+using Bikewale.BAL.Security;
 using Bikewale.BAL.Used.Search;
+using Bikewale.BAL.UsedBikes;
 using Bikewale.Cache.App;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Compare;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
+using Bikewale.Cache.ServiceCenter;
 using Bikewale.Cache.Used;
 using Bikewale.Cache.UsedBikes;
 using Bikewale.Cache.UserReviews;
@@ -25,13 +30,17 @@ using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Customer;
 using Bikewale.DAL.Dealer;
 using Bikewale.DAL.Feedback;
+using Bikewale.DAL.Images;
 using Bikewale.DAL.Location;
 using Bikewale.DAL.NewBikeSearch;
+using Bikewale.DAL.ServiceCenter;
 using Bikewale.DAL.Used;
 using Bikewale.DAL.UsedBikes;
 using Bikewale.DAL.UserReviews;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Customer;
+using Bikewale.Entities.Used;
+using Bikewale.Entities.service;
 using Bikewale.Interfaces.App;
 using Bikewale.Interfaces.AppAlert;
 using Bikewale.Interfaces.AppDeepLinking;
@@ -45,11 +54,14 @@ using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Feedback;
+using Bikewale.Interfaces.Images;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Interfaces.Security;
+using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.Used.Search;
 using Bikewale.Interfaces.UsedBikes;
@@ -79,6 +91,10 @@ namespace Bikewale.Service.UnityConfiguration
         /// Description :   Register Road Test/Feature/Article BAL classes for CMS Controller constructor resolution
         /// Modified By :   Sajal Gupta on 10-10-2016
         /// Description :   Register usedBikeDetailsRepository, usedBikeDetails
+        ///  /// Modified By : Subodh Jain on 08 Nov 2016
+        /// Description :   Register Service Center
+        /// Modified by :   Sumit Kate on 15 Nov 2016
+        /// Description :   Register IImage, ISecurity and IImageRepository interfaces
         /// </summary>
         /// <returns></returns>
         public static IUnityContainer Initialize()
@@ -140,10 +156,19 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IUsedBikesRepository, UsedBikesRepository>();
             container.RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>();
             container.RegisterType<IUsedBikes, Bikewale.BAL.UsedBikes.UsedBikes>();
-
+            container.RegisterType<IServiceCenter, ServiceCenter<ServiceCenterLocatorList, int>>()
+                   .RegisterType<IServiceCenterCacheRepository, ServiceCenterCacheRepository>()
+                   .RegisterType<IServiceCenterRepository<ServiceCenterLocatorList, int>, ServiceCenterRepository<ServiceCenterLocatorList, int>>()
+                   .RegisterType<ICacheManager, MemcacheManager>();
             container.RegisterType<IUsedBikeBuyer, Bikewale.BAL.Used.UsedBikeBuyer>();
             container.RegisterType<IUsedBikeBuyerRepository, UsedBikeBuyerRepository>();
             container.RegisterType<IUsedBikeSellerRepository, UsedBikeSellerRepository>();
+
+            container.RegisterType<ISellBikes, SellBikes>();
+            container.RegisterType<ISellBikesRepository<SellBikeAd, int>, SellBikesRepository<SellBikeAd, int>>();
+            container.RegisterType<IImage, ImageBL>();
+            container.RegisterType<IImageRepository<Entities.Images.Image, ulong>, ImageRepository<Entities.Images.Image, ulong>>();
+            container.RegisterType<ISecurity, SecurityBL>();
             return container;
         }
     }
