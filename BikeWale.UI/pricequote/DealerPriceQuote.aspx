@@ -821,7 +821,7 @@
 
             $( document ).ready(function() {
                 <%if(detailedDealer != null && detailedDealer.SecondaryDealers != null && detailedDealer.SecondaryDealers.Count() > 0){%>
-                triggerGA('Dealer_PQ', ' Secondary_Dealer_Card_Shown', '<%= string.Format("{0}_{1}_{2}_{3}", makeName,modelName,CityArea.City,CityArea.Area)%>');
+                triggerGA('Dealer_PQ', 'Secondary_Dealer_Card_Shown', '<%= string.Format("{0}_{1}_{2}_{3}", makeName,modelName,CityArea.City,CityArea.Area)%>');
                  <%}%>
             });
 
