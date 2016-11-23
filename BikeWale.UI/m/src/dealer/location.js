@@ -12,6 +12,7 @@ $('#location-list').on('click', '.type-state', function (event) {
     if (!item.hasClass('active')) {
         $('.location-list-city').hide();
         item.addClass('active').siblings('.location-list-city').show();
+        $('html, body').animate({ scrollTop: item.offset().top });
     }
     else {
         item.removeClass('active').siblings('.location-list-city').hide();
