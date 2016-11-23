@@ -742,7 +742,7 @@
                                                 <td width="64%">
                                                     <span class="bwsprite inr-sm-dark"></span>
                                                     <span class="text-bold"><%=Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPageEntity.ModelDetails.MinPrice))%></span>
-                                                    <span class="font12 text-light-grey">(Ex-showroom Mumbai)</span>
+                                                    <span class="font12 text-light-grey">(Ex-showroom <%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %>)</span>
                                                 </td>
                                             </tr>
                                             <%} %>

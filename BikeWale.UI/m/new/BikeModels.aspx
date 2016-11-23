@@ -418,7 +418,7 @@
                                     <td valign="top" width="36%">Price</td>
                                     <td valign="top" width="64%">
                                         <span class="bwmsprite inr-dark-grey-xsm-icon"></span><span class="text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPage.ModelDetails.MinPrice)) %></span><br />
-                                        <span class="font12 text-light-grey">Ex-showroom Mumbai</span>
+                                        <span class="font12 text-light-grey">Ex-showroom <%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span>
                                     </td>
                                 </tr>
                                 <% if(modelPage!=null && modelPage.ModelVersionSpecs!=null && modelPage.ModelVersionSpecs.TopSpeed>0) {%>
