@@ -577,6 +577,7 @@ namespace Bikewale.DAL.BikeData
                                 objModel.ModelBase.ModelName = Convert.ToString(dr["ModelName"]);
                                 objModel.ModelBase.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
                                 objModel.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                                objModel.BikeName = string.Format("{0} {1}", objModel.MakeBase.MakeName, objModel.ModelBase.ModelName);
                                 objModelList.Add(objModel);
 
                                 recordCount = Convert.ToInt32(dr["RecordCount"]);
