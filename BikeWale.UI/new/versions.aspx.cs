@@ -53,7 +53,7 @@ namespace Bikewale.New
         protected PopularModelCompare ctrlPopularCompare;
         protected VersionSpecifications bikeSpecs;
         protected PQOnRoadPrice pqOnRoad;
-        protected int grid1_size = 9, grid2_size = 3;
+        protected int grid1_size = 9, grid2_size = 3, colorCount;
         protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor, rptOffers, rptVariants, rptSecondaryDealers;
         protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty, summaryDescription = string.Empty;
         protected String clientIP = CommonOpn.GetClientIP();
@@ -1415,7 +1415,7 @@ namespace Bikewale.New
             {
                 if (modelPageEntity != null && modelPageEntity.ModelColors != null && modelPageEntity.ModelColors.Count() > 0)
                 {
-                    int colorCount = modelPageEntity.ModelColors.Count();
+                    colorCount = modelPageEntity.ModelColors.Count();
                     string lastColor = modelPageEntity.ModelColors.Last().ColorName;
                     if (colorCount > 1)
                     {

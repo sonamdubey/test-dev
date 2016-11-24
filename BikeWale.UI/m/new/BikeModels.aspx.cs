@@ -84,7 +84,7 @@ namespace Bikewale.Mobile.New
         protected string hide = "";
         #region Subscription model variables
         protected ModelPageVM viewModel = null;
-
+        protected int colorCount;
         #endregion Subscription model ends
         protected string pgDescription = string.Empty;
         private StringBuilder colorStr = new StringBuilder();
@@ -1120,7 +1120,7 @@ namespace Bikewale.Mobile.New
             {
                 if (modelPage != null && modelPage.ModelColors != null && modelPage.ModelColors.Count() > 0)
                 {
-                    int colorCount = modelPage.ModelColors.Count();
+                    colorCount = modelPage.ModelColors.Count();
                     string lastColor = modelPage.ModelColors.Last().ColorName;
                     if (colorCount > 1)
                     {

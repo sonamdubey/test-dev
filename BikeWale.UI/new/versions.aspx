@@ -724,6 +724,8 @@
                         <% if ((modelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(modelPageEntity.ModelDesc.SmallDescription)) || modelPageEntity.ModelVersionSpecs !=null)
                            { %>
                         <div id="modelSummaryContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom">
+                            <%if (!modelPageEntity.ModelDetails.Futuristic && modelPageEntity.ModelDetails.MinPrice>0)
+                              { %>
                             <h2><%=bikeName %> summary</h2>
                             <p class="font14 text-light-grey line-height17 margin-bottom15"><%=summaryDescription %></p>
 
@@ -758,7 +760,7 @@
                                                 <td class="text-bold"> <%=modelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall %> kmpl</td>
                                             </tr>
                                             <%} %>
-                                            <%if(modelPageEntity != null && modelPageEntity.ModelColors != null ) {%>
+                                            <%if(modelPageEntity != null && modelPageEntity.ModelColors != null && colorCount>0) {%>
                                             <tr>
                                                 <td valign="top">Colours</td>
                                                 <td valign="top" class="text-bold">
@@ -778,7 +780,7 @@
                                 </div>
                                 <div class="clear"></div>
                             </div>
-
+                            <%} %>
                             <%if(modelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(modelPageEntity.ModelDesc.SmallDescription)){ %>
                                 <div id="model-overview-content" class="margin-bottom20">
                                     <h3><%= modelPageEntity.ModelDetails.ModelName %> preview</h3>
