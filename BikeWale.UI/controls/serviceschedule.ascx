@@ -15,7 +15,7 @@
                         <% } %>
                     </select>
                 </div>
-                <img data-bind="attr: { src: imagePath() }" id="service-model-image" src="http://imgd1.aeplcdn.com//310x174//bw/models/honda-cb-shine-kick/drum/spokes-111.jpg?20151209184344" />
+                <img data-bind="attr: { src: imagePath() }" id="service-model-image" src="" />
             </div>
             <div class="grid-8 omega">
                 <table data-bind="visible: isDataExist()" width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -29,7 +29,7 @@
                     <tbody data-bind="foreach: bikesList">
                         <!-- ko foreach : Schedules -->
                         <tr>
-                            <td data-bind="text: ServiceNo">1</td>
+                            <td data-bind="text: ServiceNo"></td>
                             <td data-bind="visible: $root.isKms(), text: Kms + ' Kms'"></td>
                             <td data-bind="visible: $root.isDays(), text: Days + ' days'"></td>
                         </tr>
