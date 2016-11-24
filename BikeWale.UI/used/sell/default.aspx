@@ -367,7 +367,7 @@
                                         <div class="panel-body panel-body-3" data-bind="visible: formStep() == 3">
                                             <div class="panel-row margin-bottom40">
                                                 <p class="font16 margin-bottom5 text-black">Add Photos</p>
-                                                <p class="font14 text-light-grey margin-bottom20">Ads with photos are likely to get more responses! You can upload upto 10 photos with first photo being the profile photo for the ad.<br />Supported formats: .jpg, .png; Image Size < 4 MB
+                                                <p class="font14 text-light-grey margin-bottom20">Ads with photos are likely to 50% get more responses! You can upload upto 10 photos with first photo being the profile photo for the ad.<br />Supported formats: .jpg, .png; Image Size < 4 MB
                                                 </p>
                                                 <div id="add-photos-dropzone" class="dropzone dz-clickable">
                                                     <div class="dz-message">
