@@ -63,6 +63,12 @@ namespace Bikewale.BAL.BikeData
             return objMakeList;
         }
 
+        public BikeMakeEntityBase GetMakeDetails(uint makeId)
+        {
+            return makesRepository.GetMakeDetails(makeId);
+
+        }
+
         public U Add(T t)
         {
             throw new NotImplementedException();
@@ -100,8 +106,8 @@ namespace Bikewale.BAL.BikeData
         {
             return makesRepository.GetDiscontinuedBikeModelsByMake(makeId);
         }
-        
-         /// <summary>
+
+        /// <summary>
         /// Created by  :   Sumit Kate on 13 Sep 2016
         /// Description :   Gets Makes and their models by calling DAL
         /// </summary>
@@ -119,6 +125,6 @@ namespace Bikewale.BAL.BikeData
         public System.Collections.Hashtable GetOldMaskingNames()
         {
             return makesRepository.GetOldMaskingNames();
-        }        
+        }
     }   // Class
 }   //Namespace

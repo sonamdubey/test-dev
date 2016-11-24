@@ -28,9 +28,10 @@ namespace Bikewale.Mobile.New
         protected Repeater rptUpcomingBikes;
         protected IEnumerable<UpcomingBikeEntity> objList = null;
         protected PageMetaTags meta;
-        protected int totalPages = 0, curPageNo = 1, currentYear = DateTime.Now.Year, makeId;
+        protected int totalPages = 0, curPageNo = 1, currentYear = DateTime.Now.Year;
+        protected uint makeId;
         protected string prevPageUrl = string.Empty, nextPageUrl = string.Empty, makeMaskingName = string.Empty, makeName = string.Empty;
-
+        protected bool isMake = false;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -85,6 +86,15 @@ namespace Bikewale.Mobile.New
                     curPageNo = 1;
             }
             makeMaskingName = Request.QueryString["make"];
+            if (!string.IsNullOrEmpty(makeMaskingName))
+            {
+                MakeMaskingResponse objMake = MakeHelper.GetMakeByMaskingName(makeMaskingName);
+                if (objMake.StatusCode == 200)
+                {
+                    makeId = objMake.MakeId;
+                    isMake = true;
+                }
+            }
         }
         /// <summary>
         /// Written By : Ashwini Todkar on 15 May 2014
@@ -104,25 +114,21 @@ namespace Bikewale.Mobile.New
                     IPager objPager = container.Resolve<IPager>();
                     UpcomingBikesListInputEntity objInput = new UpcomingBikesListInputEntity();
 
-                    int startIndex = 0, endIndex = 0, recordCount = 0, pageSize = 10;
+                    int startIndex = 0, endIndex = 0, totalCount = 0, pageSize = 2;
                     objPager.GetStartEndIndex(pageSize, curPageNo, out startIndex, out endIndex);
                     objInput.StartIndex = startIndex;
                     objInput.EndIndex = endIndex;
-
-                    objList = objModel.GetUpcomingBikesList(objInput, EnumUpcomingBikesFilter.Default, out recordCount);
-
-                    recordCount = objList.Count();
-                    if (recordCount > 0)
+                    if (isMake)
+                        objInput.MakeId = (int)makeId;
+                    objList = objModel.GetUpcomingBikesList(objInput, EnumUpcomingBikesFilter.Default, out totalCount);
+                    int recordCount = objList.Count();
+                    if (recordCount > 0 && isMake)
                     {
                         var firstModel = objList.FirstOrDefault();
-                        if (firstModel != null)
-                        {
-                            makeId = firstModel.MakeBase.MakeId;
-                            makeName = firstModel.MakeBase.MakeName;
-                        }
+                        makeName = firstModel != null ? firstModel.MakeBase.MakeName : string.Empty;
                     }
 
-                    totalPages = objPager.GetTotalPages(recordCount, pageSize);
+                    totalPages = objPager.GetTotalPages(totalCount, pageSize);
                     //if current page number exceeded the total pages count i.e. the page is not available 
                     if (curPageNo > totalPages)
                     {
@@ -133,11 +139,11 @@ namespace Bikewale.Mobile.New
                     else
                     {
                         PagerEntity pagerEntity = new PagerEntity();
-                        pagerEntity.BaseUrl = "/m/upcoming-bikes/";
+                        pagerEntity.BaseUrl = !isMake ? "/m/upcoming-bikes/" : string.Format("/m/{0}-bikes/upcoming/", makeMaskingName);
                         pagerEntity.PageNo = curPageNo;
                         pagerEntity.PagerSlotSize = totalPages;
                         pagerEntity.PageUrlType = "page/";
-                        pagerEntity.TotalResults = recordCount;
+                        pagerEntity.TotalResults = totalCount;
                         pagerEntity.PageSize = pageSize;
 
                         PagerOutputEntity pagerOutput = objPager.GetPager<PagerOutputEntity>(pagerEntity);

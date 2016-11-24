@@ -308,7 +308,46 @@ namespace Bikewale.DAL.BikeData
             }
             return dt;
         }
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 24 Nov 2016
+        /// Summarry; Fetch make list by UINT makeid (method overload)
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public BikeMakeEntityBase GetMakeDetails(uint makeId)
+        {
+            BikeMakeEntityBase makeDetails = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getmakedetails";
 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makename", DbType.String, 30, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbType.String, 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_used", DbType.Boolean, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_futuristic", DbType.Boolean, ParameterDirection.Output));
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+                    if (!string.IsNullOrEmpty(cmd.Parameters["par_makename"].Value.ToString()))
+                    {
+                        makeDetails = new BikeMakeEntityBase();
+                        makeDetails.MakeName = cmd.Parameters["par_makename"].Value.ToString();
+                        makeDetails.MaskingName = cmd.Parameters["par_makemaskingname"].Value.ToString();
+                        makeDetails.MakeId = Convert.ToInt32(makeId);
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return makeDetails;
+        }
         /// <summary>
         ///     Get Makeid and make name from the make id
         /// </summary>
