@@ -13,7 +13,10 @@ namespace Bikewale.ExpiringListingReminder
     /// </summary>
     public class NotifySellerListingExpiry
     {
-        private SellerDetailsListsEntity objSellerDetailsListsEntity;
+        private SellerDetailsListEntity objSellerDetailsListsEntity;
+        private readonly Utility.UrlShortner url = new Utility.UrlShortner();
+        private readonly ExpiringListingSellerDetailsRepository objSellerDetails = new ExpiringListingSellerDetailsRepository();
+        private readonly SMSTypes newSms = new SMSTypes();
 
         private readonly string _repostUrl = "{0}/used/inquiry/{1}/repost/";
         private readonly string _removeUrl = "{0}/used/inquiry/{1}/remove/";
@@ -34,7 +37,7 @@ namespace Bikewale.ExpiringListingReminder
         {
             try
             {
-                ExpiringListingSellerDetailsRepository objSellerDetails = new ExpiringListingSellerDetailsRepository();
+
                 objSellerDetailsListsEntity = objSellerDetails.getExpiringListings();
 
                 Logs.WriteInfoLog("started function SendExpiringListingReminderSMS()");
@@ -57,57 +60,22 @@ namespace Bikewale.ExpiringListingReminder
         /// Created By Sajal Gupta on 23-11-2016.
         /// Desc : Send sms to seller about expiry listing.
         /// </summary>
-        public void SendExpiringListingReminderSMS()
+        private void SendExpiringListingReminderSMS()
         {
             try
             {
-                Utility.UrlShortner url = new Utility.UrlShortner();
-
-                foreach (var seller in objSellerDetailsListsEntity.sellerDetailsOneDayRemaining)
+                if (objSellerDetailsListsEntity != null)
                 {
-                    string repostUrl = string.Format(_repostUrl, _hostUrl, seller.inquiryId);
-                    string removeUrl = string.Format(_removeUrl, _hostUrl, seller.inquiryId);
+                    foreach (var seller in objSellerDetailsListsEntity.sellerDetailsOneDayRemaining)
+                    {
+                        SendSMS(seller, 1);
+                    }
 
-                    UrlShortnerResponse shortRepostUrl = url.GetShortUrl(repostUrl);
-                    UrlShortnerResponse shortRemoveUrl = url.GetShortUrl(removeUrl);
-
-                    if (shortRepostUrl != null)
-                        repostUrl = shortRepostUrl.ShortUrl;
-
-                    if (shortRemoveUrl != null)
-                        removeUrl = shortRemoveUrl.ShortUrl;
-
-                    string message = string.Format(_messageOneDay, seller.makeName, seller.modelName, removeUrl, repostUrl);
-
-                    Logs.WriteInfoLog("One day remaining Message sent to inquiryId " + seller.inquiryId);
-
-                    SMSTypes newSms = new SMSTypes();
-                    newSms.ExpiringListingReminderSMS(seller.sellerMobileNumber, "SendExpiringListingReminderSMS()", 1, message);
+                    foreach (var seller in objSellerDetailsListsEntity.sellerDetailsSevenDaysRemaining)
+                    {
+                        SendSMS(seller, 7);
+                    }
                 }
-
-                foreach (var seller in objSellerDetailsListsEntity.sellerDetailsSevenDaysRemaining)
-                {
-
-                    string repostUrl = string.Format(_repostUrl, _hostUrl, seller.inquiryId);
-                    string removeUrl = string.Format(_removeUrl, _hostUrl, seller.inquiryId);
-
-                    UrlShortnerResponse shortRepostUrl = url.GetShortUrl(repostUrl);
-                    UrlShortnerResponse shortRemoveUrl = url.GetShortUrl(removeUrl);
-
-                    if (shortRepostUrl != null)
-                        repostUrl = shortRepostUrl.ShortUrl;
-
-                    if (shortRemoveUrl != null)
-                        removeUrl = shortRemoveUrl.ShortUrl;
-
-                    string message = string.Format(_messageSevenDay, seller.makeName, seller.modelName, removeUrl, repostUrl);
-
-                    Logs.WriteInfoLog("Seven day remaining Message sent to inquiryId " + seller.inquiryId);
-
-                    SMSTypes newSms = new SMSTypes();
-                    newSms.ExpiringListingReminderSMS(seller.sellerMobileNumber, "SendExpiringListingReminderSMS()", 7, message);
-                }
-
             }
             catch (Exception ex)
             {
@@ -121,35 +89,106 @@ namespace Bikewale.ExpiringListingReminder
         /// Created By Sajal Gupta on 23-11-2016.
         /// Desc : Send email to seller about expiry listing.
         /// </summary>
-        public void SendExpiringListingReminderEmail()
+        private void SendExpiringListingReminderEmail()
         {
             try
             {
-                foreach (var seller in objSellerDetailsListsEntity.sellerDetailsOneDayRemaining)
+                if (objSellerDetailsListsEntity != null)
                 {
-                    string repostUrl = string.Format(_repostUrl, _hostUrl, seller.inquiryId);
+                    foreach (var seller in objSellerDetailsListsEntity.sellerDetailsOneDayRemaining)
+                    {
+                        SendEmail(seller, 1);
+                    }
 
-                    Logs.WriteInfoLog("One day remaining Email sent to inquiryId " + seller.inquiryId);
-
-                    ComposeEmailBase objEmail = new ExpiringListingReminderEmail(seller.sellerName, seller.makeName, seller.modelName, 1, repostUrl);
-                    objEmail.Send(seller.sellerEmail, _emailSubjectOneDay);
+                    foreach (var seller in objSellerDetailsListsEntity.sellerDetailsSevenDaysRemaining)
+                    {
+                        SendEmail(seller, 7);
+                    }
                 }
-
-                foreach (var seller in objSellerDetailsListsEntity.sellerDetailsSevenDaysRemaining)
-                {
-                    string repostUrl = string.Format(_repostUrl, _hostUrl, seller.inquiryId);
-
-                    Logs.WriteInfoLog("Seven day remaining Email sent to inquiryId " + seller.inquiryId);
-
-                    ComposeEmailBase objEmail = new ExpiringListingReminderEmail(seller.sellerName, seller.makeName, seller.modelName, 7, repostUrl);
-                    objEmail.Send(seller.sellerEmail, _emailSubjectSevenDay);
-                }
-
             }
             catch (Exception ex)
             {
                 Logs.WriteErrorLog("Exception in SendExpiringListingReminderEmail : " + ex.Message);
                 SendMail.HandleException(ex, "SendExpiringListingReminderEmail");
+            }
+        }
+
+        /// <summary>
+        /// Created By Sajal Gupta on 23-11-2016.
+        /// Desc : Send sms.
+        /// </summary>
+        private void SendSMS(SellerDetailsEntity seller, int dayRemaining)
+        {
+            try
+            {
+                string repostUrl = string.Format(_repostUrl, _hostUrl, seller.inquiryId);
+                string removeUrl = string.Format(_removeUrl, _hostUrl, seller.inquiryId);
+                string message;
+
+                UrlShortnerResponse shortRepostUrl = url.GetShortUrl(repostUrl);
+                UrlShortnerResponse shortRemoveUrl = url.GetShortUrl(removeUrl);
+
+                if (shortRepostUrl != null)
+                    repostUrl = shortRepostUrl.ShortUrl;
+
+                if (shortRemoveUrl != null)
+                    removeUrl = shortRemoveUrl.ShortUrl;
+
+                if (dayRemaining == 1)
+                    message = string.Format(_messageOneDay, seller.makeName, seller.modelName, removeUrl, repostUrl);
+                else
+                    message = string.Format(_messageSevenDay, seller.makeName, seller.modelName, removeUrl, repostUrl);
+
+
+                newSms.ExpiringListingReminderSMS(seller.sellerMobileNumber, "SendExpiringListingReminderSMS()", dayRemaining, message);
+
+                if (dayRemaining == 1)
+                    Logs.WriteInfoLog("One day remaining Message sent to inquiryId " + seller.inquiryId);
+                else
+                    Logs.WriteInfoLog("Seven day remaining Message sent to inquiryId " + seller.inquiryId);
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog("Exception in SendSMS : " + ex.Message);
+                SendMail.HandleException(ex, "SendSMS");
+            }
+
+        }
+
+
+
+        /// <summary>
+        /// Created By Sajal Gupta on 23-11-2016.
+        /// Desc : Send email.
+        /// </summary>
+        private void SendEmail(SellerDetailsEntity seller, int dayRemaining)
+        {
+            try
+            {
+                string repostUrl = string.Format(_repostUrl, _hostUrl, seller.inquiryId);
+                UrlShortnerResponse shortRepostUrl;
+                shortRepostUrl = url.GetShortUrl(repostUrl);
+
+                if (shortRepostUrl != null)
+                    repostUrl = shortRepostUrl.ShortUrl;
+
+                ComposeEmailBase objEmail = new ExpiringListingReminderEmail(seller.sellerName, seller.makeName, seller.modelName, dayRemaining, repostUrl);
+
+                if (dayRemaining == 1)
+                {
+                    objEmail.Send(seller.sellerEmail, _emailSubjectOneDay);
+                    Logs.WriteInfoLog("One day remaining Email sent to inquiryId " + seller.inquiryId);
+                }
+                else
+                {
+                    objEmail.Send(seller.sellerEmail, _emailSubjectSevenDay);
+                    Logs.WriteInfoLog("Seven day remaining Email sent to inquiryId " + seller.inquiryId);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog("Exception in SendEmail : " + ex.Message);
+                SendMail.HandleException(ex, "SendEmail");
             }
         }
 

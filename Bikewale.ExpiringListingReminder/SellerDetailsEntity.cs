@@ -7,7 +7,7 @@ namespace Bikewale.ExpiringListingReminder
     /// </summary>
     public class SellerDetailsEntity
     {
-        public string inquiryId { get; set; }
+        public int inquiryId { get; set; }
         public string makeName { get; set; }
         public string modelName { get; set; }
         public string sellerName { get; set; }

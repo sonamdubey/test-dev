@@ -1,4 +1,5 @@
-﻿using Consumer;
+﻿using Bikewale.Utility;
+using Consumer;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,9 @@ namespace Bikewale.ExpiringListingReminder
         /// Created By Sajal Gupta on 23-11-2016.
         /// Desc : Send Lists of seller data for expiry listing.
         /// </summary>
-        public SellerDetailsListsEntity getExpiringListings()
+        public SellerDetailsListEntity getExpiringListings()
         {
-            SellerDetailsListsEntity objSellerDetailsListsEntity = null;
+            SellerDetailsListEntity objSellerDetailsListsEntity = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
@@ -28,7 +29,7 @@ namespace Bikewale.ExpiringListingReminder
                     {
                         if (dr != null)
                         {
-                            objSellerDetailsListsEntity = new SellerDetailsListsEntity();
+                            objSellerDetailsListsEntity = new SellerDetailsListEntity();
                             ICollection<SellerDetailsEntity> objListSevenDays = new Collection<SellerDetailsEntity>();
 
 
@@ -36,7 +37,7 @@ namespace Bikewale.ExpiringListingReminder
                             {
                                 objListSevenDays.Add(new SellerDetailsEntity()
                                 {
-                                    inquiryId = Convert.ToString(dr["Inquiryid"]),
+                                    inquiryId = SqlReaderConvertor.ToUInt16(dr["Inquiryid"]),
                                     makeName = Convert.ToString(dr["MakeName"]),
                                     modelName = Convert.ToString(dr["ModelName"]),
                                     sellerName = Convert.ToString(dr["CustomerName"]),
@@ -55,7 +56,7 @@ namespace Bikewale.ExpiringListingReminder
                                 {
                                     objListOneDays.Add(new SellerDetailsEntity()
                                     {
-                                        inquiryId = Convert.ToString(dr["Inquiryid"]),
+                                        inquiryId = SqlReaderConvertor.ToUInt16(dr["Inquiryid"]),
                                         makeName = Convert.ToString(dr["MakeName"]),
                                         modelName = Convert.ToString(dr["ModelName"]),
                                         sellerName = Convert.ToString(dr["CustomerName"]),
