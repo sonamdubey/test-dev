@@ -413,7 +413,7 @@
                                             <div class="panel-row margin-bottom30">
                                                 <div class="textarea-box form-control-box">
                                                     <p class="textarea-label">Ad description</p>
-                                                    <textarea rows="2" cols="20" data-bind=" value: moreDetails().adDescription "></textarea>
+                                                    <textarea maxlength="250" rows="2" cols="20" data-bind=" value: moreDetails().adDescription "></textarea>
                                                     <span class="boundary"></span>
                                                 </div>
                                             </div>
