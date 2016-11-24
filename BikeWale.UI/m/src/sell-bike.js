@@ -50,6 +50,7 @@ $(document).ready(function () {
 // custom validation function
 var validation = {
     greaterThanOne: function (val) {
+        val = val.replace(/,/g, "");
         if (val < 1) {
             return false;
         }
@@ -57,6 +58,7 @@ var validation = {
     },
 
     kmsMaxValue: function (val) {
+        val = val.replace(/,/g, "");
         if (val > 999999) {
             return false;
         }
@@ -64,6 +66,7 @@ var validation = {
     },
 
     priceMaxValue: function (val) {
+        val = val.replace(/,/g, "");
         if (val > 6000000) {
             return false;
         }
@@ -110,6 +113,14 @@ var validation = {
             return false;
         }
         return true;
+    },
+
+    isNumber: function (val) {
+        val = val.replace(/,/g, "");
+        if (isNaN(val)) {
+            return false;
+        }
+        return true;
     }
 
 }
@@ -117,7 +128,7 @@ var validation = {
 var sellBike = function () {
     var self = this;
 
-    self.formStep = ko.observable(1);
+    self.formStep = ko.observable(3);
 
     self.bikeDetails = ko.observable(new bikeDetails);
 
@@ -220,6 +231,13 @@ var bikeDetails = function () {
             }
         },
         {
+            validator: validation.isNumber,
+            message: 'Please enter valid kms',
+            onlyIf: function () {
+                return self.validate();
+            }
+        },
+        {
             validator: validation.greaterThanOne,
             message: 'Please enter kms value greater than 1',
             onlyIf: function () {
@@ -241,6 +259,13 @@ var bikeDetails = function () {
                 return !ko.validation.utils.isEmptyVal(val);
             },
             message: 'Please enter expected price',
+            onlyIf: function () {
+                return self.validate();
+            }
+        },
+        {
+            validator: validation.isNumber,
+            message: 'Please enter valid price',
             onlyIf: function () {
                 return self.validate();
             }
@@ -647,7 +672,7 @@ var bikePopup = {
         bikePopup.container.show(effect, options, duration, function () {
             bikePopup.container.addClass('extra-padding');
         });
-        $('html, body').addClass('lock-browser-scroll');
+        windowScreen.lock();
     },
 
     close: function () {
@@ -655,7 +680,7 @@ var bikePopup = {
             bikePopup.stageMake();
         });
         bikePopup.container.removeClass('extra-padding');
-        $('html, body').removeClass('lock-browser-scroll');
+        windowScreen.unlock();
     },
 
     stageMake: function () {
@@ -727,11 +752,13 @@ var cityListSelection = {
         cityListContainer.show(effect, options, duration, function () {
             cityListContainer.addClass('fix-header-input');
         });
+        windowScreen.lock();
     },
 
     close: function () {
         cityListContainer.hide(effect, options, duration, function () { });
         cityListContainer.removeClass('fix-header-input');
+        windowScreen.unlock();
     }
 };
 
@@ -774,14 +801,37 @@ $('.cancel-popup-btn').on('click', function () {
 var modalPopup = {
     open: function (container) {
         $(container).show();
-        $('html, body').addClass('lock-browser-scroll');
         $('.modal-background').show();
+        windowScreen.lock();
     },
 
     close: function (container) {
         $(container).hide();
-        $('html, body').removeClass('lock-browser-scroll');
-        $('.modal-background').hide();
+        $(".modal-background").hide();
+        windowScreen.unlock();
+    }
+};
+
+var windowScreen = {
+    htmlElement: $('html'),
+
+    bodyElement: $('body'),
+
+    lock: function () {
+        if ($(document).height() > $(window).height()) {
+            var windowScrollTop = windowScreen.htmlElement.scrollTop() ? windowScreen.htmlElement.scrollTop() : windowScreen.bodyElement.scrollTop();
+            if (windowScrollTop < 0) {
+                windowScrollTop = 0;
+            }
+            windowScreen.htmlElement.addClass('lock-browser-scroll').css('top', -windowScrollTop);
+        }
+    },
+
+    unlock: function () {
+        var windowScrollTop = parseInt(windowScreen.htmlElement.css('top'));
+        
+        windowScreen.htmlElement.removeClass('lock-browser-scroll');
+        $('html, body').scrollTop(-windowScrollTop);
     }
 };
 
@@ -864,3 +914,21 @@ $('input[type=number]').on('keydown', function (event) {
         return;
     }
 });
+
+$('#kmsRidden, #expectedPrice').on('keyup', function () {
+    var inputBox = $(this),
+        inputValue = inputBox.val(),
+        withoutCommaValue = inputValue.replace(/,/g, "");
+
+    inputBox.attr('data-value', withoutCommaValue);
+    inputBox.val(formatNumber(withoutCommaValue));
+});
+
+// input value formatter
+var formatNumber = function (num) {
+    var thMatch = /(\d+)(\d{3})$/,
+        thRest = thMatch.exec(num);
+
+    if (!thRest) return num;
+    return (thRest[1].replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + thRest[2]);
+}

@@ -24,25 +24,27 @@
 		overflow: hidden
 
 		li
-			font-size: $font-size-medium
-			padding: 10px 20px 10px 0
-			margin-right: 20px
-			margin-left: 20px
-			display: block
-			position: relative
-			border-top: 1px solid $border-x-light
-			cursor: pointer
+			padding-right: 20px
+			padding-left: 20px
+
+			span
+				font-size: $font-size-medium
+				padding: 10px 20px 10px 0
+				display: block
+				position: relative
+				border-top: 1px solid $border-x-light
+				cursor: pointer
+
+			&:hover
+				background-color: $border-x-light
 
 			&:first-child
-				padding-top: 0
-				border-top: 0
-
-				.grey-right-icon
-					top: 5px
+				span
+					border-top: 0
 
 	.with-arrow
 		li
-			background: url('https://imgd1.aeplcdn.com/0x0/bw/static/design15/grey-right-arrow.png') no-repeat 100% 50%
+			background: url('https://imgd1.aeplcdn.com/0x0/bw/static/design15/grey-right-arrow.png') no-repeat 94% 50%
 
 	.cover-popup-loader-body
 		display: none

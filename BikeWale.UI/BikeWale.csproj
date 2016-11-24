@@ -2821,7 +2821,6 @@
     <Content Include="m\sass\sell-bike\_tabs.sass" />
     <Content Include="m\sass\modules\_input-box.sass" />
     <Content Include="m\sass\modules\_box-boundary.sass" />
-    <Content Include="m\sass\sell-bike\_media.sass" />
     <Content Include="m\sass\sell-bike\_color-box.sass" />
     <Content Include="m\sass\modules\_slideIn-input-box.sass" />
     <Content Include="m\sass\modules\_textarea-box.sass" />

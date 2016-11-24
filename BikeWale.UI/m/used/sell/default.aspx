@@ -56,7 +56,7 @@
                         </div>
                     
                         <div id="div-kmsRidden" class="input-box form-control-box row-bottom-margin" data-bind="css: kmsRidden().length > 0 ? 'not-empty' : ''">
-                            <input type="number" id="kmsRidden" min="1" data-bind="textInput: kmsRidden, validationElement: kmsRidden" />
+                            <input type="text" id="kmsRidden" data-value="" data-bind="textInput: kmsRidden, validationElement: kmsRidden" />
                             <label for="kmsRidden">Kms ridden<sup>*</sup></label>
                             <span class="boundary"></span>
                             <span class="error-text" data-bind="validationMessage: kmsRidden"></span>
@@ -73,7 +73,7 @@
                         </div>                    
 
                         <div id="div-expectedPrice" class="input-box form-control-box row-bottom-margin" data-bind="css: expectedPrice().length > 0 ? 'not-empty' : ''">
-                            <input type="number" min="1" id="expectedPrice" data-bind="textInput: expectedPrice, validationElement: expectedPrice" />
+                            <input type="text" id="expectedPrice" data-value="" data-bind="textInput: expectedPrice, validationElement: expectedPrice" />
                             <label for="expectedPrice">Expected price<sup>*</sup></label>
                             <span class="boundary"></span>
                             <span class="error-text" data-bind="validationMessage: expectedPrice"></span>
@@ -131,10 +131,10 @@
                                     <p class="no-back-btn-label head-label inline-block">Select Make</p>
                                 </div>
                                 <ul class="cover-popup-list with-arrow">
-                                    <li data-bind="click: makeChanged">Bajaj</li>
-                                    <li data-bind="click: makeChanged">Honda</li>
-                                    <li data-bind="click: makeChanged">Hero</li>
-                                    <li data-bind="click: makeChanged">Royal Enfield</li>
+                                    <li data-bind="click: makeChanged"><span>Bajaj</span></li>
+                                    <li data-bind="click: makeChanged"><span>Honda</span></li>
+                                    <li data-bind="click: makeChanged"><span>Hero</span></li>
+                                    <li data-bind="click: makeChanged"><span>Royal Enfield</span></li>
                                 </ul>
                             </div>
 
@@ -145,10 +145,10 @@
                                     </div><p class="head-label inline-block">Select Model</p>
                                 </div>
                                 <ul class="cover-popup-list with-arrow">
-                                    <li data-bind="click: modelChanged">CT 100</li>
-                                    <li data-bind="click: modelChanged">Platina</li>
-                                    <li data-bind="click: modelChanged">Discover 125</li>
-                                    <li data-bind="click: modelChanged">Discover 150S</li>
+                                    <li data-bind="click: modelChanged"><span>CT 100</span></li>
+                                    <li data-bind="click: modelChanged"><span>Platina</span></li>
+                                    <li data-bind="click: modelChanged"><span>Discover 125</span></li>
+                                    <li data-bind="click: modelChanged"><span>Discover 150S</span></li>
                                 </ul>
                             </div>
 
@@ -159,9 +159,9 @@
                                     </div><p class="head-label inline-block">Select Version</p>
                                 </div>
                                 <ul class="cover-popup-list">
-                                    <li data-bind="click: versionChanged">Kick/Drum/Spokes</li>
-                                    <li data-bind="click: versionChanged">Electric Start/Drum/Alloy</li>
-                                    <li data-bind="click: versionChanged">CBS</li>
+                                    <li data-bind="click: versionChanged"><span>Kick/Drum/Spokes</span></li>
+                                    <li data-bind="click: versionChanged"><span>Electric Start/Drum/Alloy</span></li>
+                                    <li data-bind="click: versionChanged"><span>CBS</span></li>
                                 </ul>
                             </div>
 
@@ -175,19 +175,36 @@
                         <!-- city drawer starts here -->
                        <div id="city-slideIn-drawer" class="slideIn-drawer-container">
                             <div class="form-control-box text-left">
-                                <div class="filter-input-box">
-                                    <span id="close-city-filter" class="back-arrow-box">
-                                        <span class="bwmsprite back-long-arrow-left"></span>
-                                    </span>
-                                    <input type="text" class="form-control" placeholder="Type to select city" autocomplete="off">
+                                <div class="drawer-top-header">
+                                    <div>
+                                        <span id="close-city-filter" class="back-arrow-box inline-block">
+                                            <span class="bwmsprite back-long-arrow-left"></span>
+                                        </span><p class="head-label inline-block">Select city</p>
+                                    </div>
+                                    <div class="filter-input-box">
+                                        <div class="form-control-box">
+                                            <input type="text" class="form-control padding-right40" placeholder="Type to select city" autocomplete="off">
+                                            <span class="bwmsprite search-icon-grey"></span>
+                                        </div>
+                                    </div>
                                 </div>
                     
                                 <ul class="filter-list" >
-                                    <li>Ahmedabad</li>
-                                    <li>Bangalore</li>
-                                    <li>Chennai</li>
-                                    <li>Kolkata</li>
-                                    <li>Mumbai</li>
+                                    <li><span>Ahmedabad</span></li>
+                                    <li><span>Bangalore</span></li>
+                                    <li><span>Chennai</span></li>
+                                    <li><span>Kolkata</span></li>
+                                    <li><span>Mumbai</span></li>
+                                    <li><span>Ahmedabad</span></li>
+                                    <li><span>Bangalore</span></li>
+                                    <li><span>Chennai</span></li>
+                                    <li><span>Kolkata</span></li>
+                                    <li><span>Mumbai</span></li>
+                                    <li><span>Ahmedabad</span></li>
+                                    <li><span>Bangalore</span></li>
+                                    <li><span>Chennai</span></li>
+                                    <li><span>Kolkata</span></li>
+                                    <li><span>Mumbai</span></li>
                                 </ul>
                             </div>
                         </div>
@@ -195,10 +212,10 @@
 
                         <!-- color popup starts here -->
                         <div class="modal-background"></div>
-                        <div id="color-popup" class="modal-popup-container">
+                        <div id="color-popup" class="modal-popup-container with-footer">
                             <div class="popup-header">Colour</div>
                             <div class="popup-body">
-                                <ul class="popup-list margin-bottom15">
+                                <ul class="popup-list popup-color-list margin-bottom15">
                                     <li class="color-list-item" data-bind="click: colorSelection">
                                         <div class="color-box color-count-one">
                                             <span style="background-color: rgb(19, 22, 29);"></span>
@@ -210,7 +227,31 @@
                                             <span style="background-color: rgb(124, 80, 41)"></span>
                                         </div>
                                         <p class="color-box-label">Divine Black</p>
-                                    </li>                               
+                                    </li>
+                                    <li class="color-list-item" data-bind="click: colorSelection">
+                                        <div class="color-box color-count-one">
+                                            <span style="background-color: rgb(19, 22, 29);"></span>
+                                        </div>
+                                        <p class="color-box-label">Black</p>
+                                    </li>
+                                    <li class="color-list-item" data-bind="click: colorSelection">
+                                        <div class="color-box color-count-one">
+                                            <span style="background-color: rgb(19, 22, 29);"></span>
+                                        </div>
+                                        <p class="color-box-label">Black</p>
+                                    </li>
+                                    <li class="color-list-item" data-bind="click: colorSelection">
+                                        <div class="color-box color-count-one">
+                                            <span style="background-color: rgb(124, 80, 41)"></span>
+                                        </div>
+                                        <p class="color-box-label">Divine Black</p>
+                                    </li>
+                                    <li class="color-list-item" data-bind="click: colorSelection">
+                                        <div class="color-box color-count-one">
+                                            <span style="background-color: rgb(19, 22, 29);"></span>
+                                        </div>
+                                        <p class="color-box-label">Black</p>
+                                    </li>                       
                                 </ul>
                                 <ul>
                                     <li class="other-color-item">
@@ -225,19 +266,18 @@
                                         </div>
                                     </li>
                                 </ul>
-
-                                <div class="margin-top10 padding-right20 padding-left20">
-                                    <div class="grid-6 alpha">
-                                        <button type="button" class="btn btn-white btn-full-width btn-size-sm cancel-popup-btn">Cancel</button>
-                                    </div>
-                                    <div class="grid-6 omega">
-                                        <button type="button" class="btn btn-orange btn-full-width btn-size-sm" data-bind="click: otherColor().length > 0 ? submitOtherColor : submitColor">Done</button>
-                                    </div>
-                                    <div class="clear"></div>
+                            </div>
+                            <div class="popup-footer">
+                                <div class="grid-6 alpha">
+                                    <button type="button" class="btn btn-white btn-full-width btn-size-sm cancel-popup-btn">Cancel</button>
                                 </div>
-
+                                <div class="grid-6 omega">
+                                    <button type="button" class="btn btn-orange btn-full-width btn-size-sm" data-bind="click: otherColor().length > 0 ? submitOtherColor : submitColor">Done</button>
+                                </div>
                                 <div class="clear"></div>
                             </div>
+
+                            <div class="clear"></div>
                         </div>
                         <!-- color popup ends here -->
                     
@@ -315,7 +355,7 @@
                             </div>
 
                             <div class="text-center row-bottom-margin">
-                                <input type="button" class="btn btn-orange btn-primary-big" value="Verify" data-bind="click: verificationDetails().verifySeller" />
+                                <input type="button" class="btn btn-orange btn-primary-small" value="Verify" data-bind="click: verificationDetails().verifySeller" />
                             </div>
                         </div>
 
@@ -339,7 +379,7 @@
                         <h2>More details</h2>
                         <p class="font12 text-light-grey margin-bottom20">Ads with photos are likely to get more responses!</p>
                         <p class="font16 text-black margin-bottom5">Add Photos</p>
-                        <p class="font14 text-light-grey margin-bottom20">Ads with photos are likely to get more responses! You can upload upto 10 photos with first photo being the cover for the ad.    Supported formats: .jpg, .png; Image size : < 4 MB</p>
+                        <p class="font14 text-light-grey margin-bottom20">Ads with photos are likely to get 50% more responses! You can upload upto 10 photos with first photo being the profile photo for the ad. Supported formats: .jpg, .png; Image Size < 4 MB</p>
 
                         <div id="add-photos-dropzone" class="dropzone dz-clickable">
                             <div class="dz-message">
@@ -381,8 +421,7 @@
                         </div>
 
                         <div class="text-center">
-                            <input type="button" class="btn btn-white btn-primary-small margin-right10" value="No Thanks" data-bind="click: noThanks" />
-                            <input type="button" id="btnUpdateAd" class="btn btn-orange btn-primary-big" value="Update my Ad" data-bind="click: updateAd" />
+                            <input type="button" class="btn btn-white btn-primary-small margin-right20" value="No Thanks" data-bind="click: noThanks" /><input type="button" id="btnUpdateAd" class="btn btn-orange btn-primary-big" value="Update my Ad" data-bind="click: updateAd" />
                         </div>
 
                     </div>

@@ -28,6 +28,9 @@
 .step-3-inactive ~ .tab-title {
   color: #82888b; }
 
+#sell-bike-content {
+  -webkit-tap-highlight-color: transparent; }
+
 #form-step-tabs {
   min-height: 130px;
   padding-top: 15px;
@@ -35,7 +38,7 @@
   border-bottom: 1px solid #e2e2e2; }
 
 .form-step-body {
-  padding: 15px 20px 20px; }
+  padding: 15px 20px 40px; }
 
 .form-step-title {
   margin-bottom: 25px; }
@@ -43,6 +46,9 @@
 .row-bottom-margin,
 .margin-bottom15 {
   margin-bottom: 15px; }
+
+.add-photos-separator {
+  margin-bottom: 40px; }
 
 .btn-primary-big,
 .btn-primary-small {
@@ -90,6 +96,28 @@
 .verify-desc {
   font-size: 14px;
   margin-bottom: 25px; }
+
+.form-response-body {
+  padding: 20px 40px 40px;
+  min-height: 250px; }
+
+@media only screen and (max-width: 320px) {
+  #seller-type-list li:first-child {
+    width: 160px; }
+  #seller-type-list .seller-label {
+    font-size: 14px; }
+  .btn-primary-big,
+  .btn-primary-small {
+    font-size: 13px;
+    padding-top: 6px;
+    padding-bottom: 6px; }
+  .btn-primary-big {
+    min-width: 145px; }
+  .btn-primary-small {
+    min-width: 110px; }
+  .form-response-body {
+    padding-right: 30px;
+    padding-left: 30px; } }
 
 input[type="text"]:focus,
 input[type="number"]:focus {
@@ -288,6 +316,70 @@ input[type="number"]:focus {
   background-color: #d9534f;
   width: 50%; }
 
+.cover-window-popup {
+  display: none;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background: #fff; }
+  .cover-window-popup .cover-popup-back,
+  .cover-window-popup .body-popup-back {
+    padding: 15px 15px 12px; }
+  .cover-window-popup .cover-popup-header {
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 12px; }
+  .cover-window-popup .cover-popup-list {
+    overflow: hidden; }
+    .cover-window-popup .cover-popup-list li {
+      padding-right: 20px;
+      padding-left: 20px; }
+      .cover-window-popup .cover-popup-list li span {
+        font-size: 16px;
+        padding: 10px 20px 10px 0;
+        display: block;
+        position: relative;
+        border-top: 1px solid #f5f5f5;
+        cursor: pointer; }
+      .cover-window-popup .cover-popup-list li:hover {
+        background-color: #f5f5f5; }
+      .cover-window-popup .cover-popup-list li:first-child span {
+        border-top: 0; }
+  .cover-window-popup .with-arrow li {
+    background: url("https://imgd1.aeplcdn.com/0x0/bw/static/design15/grey-right-arrow.png") no-repeat 94% 50%; }
+  .cover-window-popup .cover-popup-loader-body {
+    display: none; }
+
+.bike-banner {
+  width: 100%;
+  height: 110px;
+  background: #fff url(http://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/bike-popup-banner.png) repeat-x center bottom; }
+
+.cover-popup-body-head .head-label {
+  font-size: 16px;
+  font-weight: 700;
+  color: #000; }
+
+.cover-popup-body-head .body-popup-back {
+  padding-left: 20px; }
+
+.cover-popup-body-head .no-back-btn-label {
+  padding-top: 13px;
+  padding-left: 20px;
+  padding-bottom: 12px; }
+
+#select-model-wrapper, #select-version-wrapper {
+  display: none; }
+
+.extra-padding .cover-popup-body {
+  padding-bottom: 40px; }
+
 .slideIn-input-box-content {
   height: 60px; }
 
@@ -295,7 +387,6 @@ input[type="number"]:focus {
   padding-bottom: 5px;
   position: relative;
   border-bottom: 1px solid #82888b;
-  background: #fff url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
   height: 36px; }
   .slideIn-input-box .slideIn-input-label {
     font-size: 16px;
@@ -305,6 +396,8 @@ input[type="number"]:focus {
   .slideIn-input-box .city-box-default {
     width: 100%;
     cursor: pointer; }
+  .slideIn-input-box .selected-option-box {
+    padding-right: 20px; }
 
 .selection-done .slideIn-input-label {
   font-size: 12px;
@@ -325,7 +418,7 @@ input[type="number"]:focus {
   right: 0;
   bottom: 0;
   left: 0;
-  background: #f5f5f5;
+  background: #fff;
   z-index: 2;
   overflow-x: hidden;
   overflow-y: scroll; }
@@ -351,11 +444,13 @@ input[type="number"]:focus {
     padding: 15px 20px;
     color: #333;
     cursor: pointer; }
+    .slideIn-drawer-container .filter-list li:first-child {
+      border-top: 0; }
     .slideIn-drawer-container .filter-list li:hover {
-      background: #e9e9e9; }
+      background: #f5f5f5; }
 
 .slideIn-drawer-container.fix-header-input {
-  padding-top: 40px; }
+  padding-top: 41px; }
   .slideIn-drawer-container.fix-header-input .filter-input-box {
     position: fixed;
     top: 0;
@@ -366,7 +461,7 @@ input[type="number"]:focus {
   width: 80%;
   min-height: 200px;
   position: fixed;
-  top: 14%;
+  top: 10%;
   left: 0;
   right: 0;
   background: #fff;
@@ -378,7 +473,9 @@ input[type="number"]:focus {
     padding: 17px 20px;
     background: #2a2a2a; }
   .modal-popup-container .popup-body {
-    padding: 20px; }
+    padding: 20px;
+    max-height: 325px;
+    overflow-y: scroll; }
   .modal-popup-container .body-label {
     font-size: 12px;
     color: #a2a2a2;
@@ -397,6 +494,12 @@ input[type="number"]:focus {
     font-weight: 700; }
     .modal-popup-container .popup-list .active .radio-uncheck {
       background-position: -179px -59px; }
+  .modal-popup-container .popup-footer {
+    padding: 20px; }
+
+.with-footer .popup-body {
+  max-height: 240px;
+  padding-bottom: 0; }
 
 .btn-size-0,
 .btn-size-sm {
@@ -465,14 +568,22 @@ input[type="number"]:focus {
 
 #color-popup .color-list-item {
   cursor: pointer; }
-  #color-popup .color-list-item:hover {
-    background: #f5f5f5; }
 
 #color-popup .active {
   pointer-events: none; }
   #color-popup .active .color-box-label {
     color: #4d5057;
     font-weight: 700; }
+
+.color-list-item.active .color-box {
+  position: relative; }
+  .color-list-item.active .color-box:before {
+    content: "";
+    background: rgba(0, 0, 0, 0.2) url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/white-tick-mark.png) 48% no-repeat;
+    width: 28px;
+    height: 28px;
+    display: block;
+    position: absolute; }
 
 .color-box,
 .color-box-label {
@@ -528,7 +639,7 @@ input[type="number"]:focus {
   top: -14px; }
 
 .sell-bike-sprite {
-  background: url("http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwm-sell-bike.png") no-repeat;
+  background: url("http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/bwm-sell-bike.png") no-repeat;
   display: inline-block; }
 
 .step-1-active,
@@ -570,6 +681,19 @@ input[type="number"]:focus {
   background-position: -110px -120px;
   cursor: pointer; }
 
+.grey-right-icon {
+  width: 7px;
+  height: 11px;
+  background-position: -69px -421px;
+  position: absolute;
+  top: 15px;
+  right: 0; }
+
+.add-photo-icon {
+  width: 43px;
+  height: 39px;
+  background-position: -37px -87px; }
+
 #seller-type-list .checked {
   background: none !important; }
   #seller-type-list .checked .radio-icon {
@@ -592,6 +716,16 @@ input[type="number"]:focus {
   width: 64px;
   height: 64px;
   margin: 3px auto; }
+
+.no-auth-icon {
+  width: 27px;
+  height: 28px;
+  background-position: -90px 0; }
+
+.no-auth-edit-icon {
+  width: 28px;
+  height: 28px;
+  background-position: -90px -35px; }
 
 textarea {
   border: none;
@@ -636,13 +770,3 @@ textarea {
 .textarea-box textarea:focus ~ .boundary:before,
 .textarea-box textarea:focus ~ .boundary:after {
   width: 50%; }
-
-@media only screen and (max-width: 320px) {
-  #seller-type-list li:first-child {
-    width: 160px; }
-  #seller-type-list .seller-label {
-    font-size: 14px; }
-  .btn-primary-big {
-    min-width: 145px; }
-  .btn-primary-small {
-    min-width: 110px; } }

@@ -44,15 +44,25 @@
 	.color-list-item
 		cursor: pointer
 
-		&:hover
-			background: #f5f5f5
-
 	.active
 		pointer-events: none
 
 		.color-box-label
 			color: $text-primary
 			font-weight: $font-bold
+
+.color-list-item
+	&.active
+		.color-box
+			position: relative
+		
+			&:before
+				content: ""
+				background: rgba(0,0,0,0.2) url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/white-tick-mark.png) 48% no-repeat
+				width: 28px
+				height: 28px
+				display: block
+				position: absolute
 
 
 .color-box,

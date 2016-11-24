@@ -1,4 +1,7 @@
-﻿#form-step-tabs
+﻿#sell-bike-content
+	-webkit-tap-highlight-color: rgba(0,0,0,0)
+
+#form-step-tabs
 	min-height: 130px
 	padding-top: 15px
 	padding-bottom: 15px
@@ -77,3 +80,28 @@
 .form-response-body
 	padding: 20px 40px 40px
 	min-height: 250px
+
+@media only screen and (max-width: 320px)
+	#seller-type-list
+		li
+			&:first-child
+				width: 160px
+
+		.seller-label
+			font-size: 14px
+
+	.btn-primary-big,
+	.btn-primary-small
+		font-size: 13px
+		padding-top: 6px
+		padding-bottom: 6px
+
+	.btn-primary-big
+		min-width: 145px
+
+	.btn-primary-small
+		min-width: 110px
+
+	.form-response-body
+		padding-right: 30px
+		padding-left: 30px
