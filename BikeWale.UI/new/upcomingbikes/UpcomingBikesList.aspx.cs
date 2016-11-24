@@ -5,6 +5,7 @@ using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.SEO;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Microsoft.Practices.Unity;
@@ -19,18 +20,24 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.New
 {
+    /// <summary>
+    /// Modified by: Sangram Nandkhile on 24 Nov 2016
+    /// Summary: Added makename and helper function
+    /// </summary>
     public class UpcomingBikesList : Page
     {
         protected Repeater rptLaunches;
         protected RepeaterPager rpgUpcomingBikes;
-        public int serial = 0;
+        public int currentYear = DateTime.Now.Year;
         protected string PageNumber = string.Empty, SelectClause = string.Empty, FromClause = string.Empty, WhereClause = string.Empty,
-            OrderByClause = string.Empty, BaseUrl = string.Empty, RecordCntQry = string.Empty, prevUrl = string.Empty, nextUrl = string.Empty;
+            OrderByClause = string.Empty, BaseUrl = string.Empty, RecordCntQry = string.Empty, prevUrl = string.Empty, nextUrl = string.Empty,
+            pageTitle = string.Empty, makeMaskingName = string.Empty, makeName = string.Empty;
         protected UpcomingBikeSearch UpcomingBikeSearch;
         protected Bikewale.Controls.NewBikeLaunches ctrl_NewBikeLaunches;
         protected DropDownList drpSort;
         protected HtmlGenericControl alertObj;
-
+        protected bool isMake = false;
+        protected PageMetaTags meta = null;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -44,7 +51,7 @@ namespace Bikewale.New
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string makeId = string.Empty, makeName = string.Empty, sort = string.Empty;
+            string makeId = string.Empty, sort = string.Empty;
             alertObj.Visible = false;
             // Modified By :Lucky Rathore on 12 July 2016.
             Form.Action = Request.RawUrl;
@@ -56,16 +63,13 @@ namespace Bikewale.New
 
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
-
             ctrl_NewBikeLaunches.PQSourceId = (int)PQSourceEnum.Desktop_Upcoming_NewLaunches;
-
             if (!IsPostBack)
             {
                 if (Request["pn"] != null && Request.QueryString["pn"] != "")
                 {
                     if (Bikewale.Common.CommonOpn.CheckId(Request.QueryString["pn"]) == true)
                         PageNumber = Request.QueryString["pn"];
-                    Trace.Warn("pn: " + Request.QueryString["pn"]);
                 }
                 if (!String.IsNullOrEmpty(Request.QueryString["sort"]))
                 {
@@ -74,11 +78,8 @@ namespace Bikewale.New
                 }
                 if (!String.IsNullOrEmpty(Request.QueryString["make"]))
                 {
-                    string makeMaskingName = Request.QueryString["make"];
-
-
+                    makeMaskingName = Request.QueryString["make"];
                     MakeMaskingResponse objMakeResponse = null;
-
                     try
                     {
                         using (IUnityContainer containerInner = new UnityContainer())
@@ -88,7 +89,6 @@ namespace Bikewale.New
                                   .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
                                  ;
                             var objCache = containerInner.Resolve<IBikeMakesCacheRepository<int>>();
-
                             objMakeResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
                         }
                     }
@@ -107,6 +107,12 @@ namespace Bikewale.New
                             if (objMakeResponse.StatusCode == 200)
                             {
                                 makeId = Convert.ToString(objMakeResponse.MakeId);
+                                isMake = true;
+                                var objMake = new MakeHelper().GetMakeNameByMakeId(Convert.ToUInt16(makeId));
+                                if (objMake != null)
+                                {
+                                    makeName = objMake.MakeName;
+                                }
                             }
                             else if (objMakeResponse.StatusCode == 301)
                             {
@@ -127,11 +133,11 @@ namespace Bikewale.New
                         }
                     }
 
-                    if (!string.IsNullOrEmpty(makeId))
+                    if (isMake)
                     {
-                        makeName = Request.QueryString["make"].ToString();
+                        //masking = Request.QueryString["make"].ToString();
                         UpcomingBikeSearch.MakeId = makeId;
-                        FetchUpcomingBikes(makeId, makeName, sort);
+                        FetchUpcomingBikes(makeId, makeMaskingName, sort);
                     }
                     else
                     {
@@ -147,11 +153,40 @@ namespace Bikewale.New
             }
             if (String.IsNullOrEmpty(makeId) && String.IsNullOrEmpty(sort))
                 CreatePrevNextUrl();
+            CreateMetaTags();
         }   // End of Page Load
+
+        /// <summary>
+        /// Written By : Sangram Nandkhile on 23 Nov 2016
+        /// Summary : To create meta and title
+        /// </summary>
+        private void CreateMetaTags()
+        {
+            meta = new PageMetaTags();
+            if (isMake)
+            {
+                meta.Title = string.Format("Upcoming {1} Bikes in India - Expected {1} Bike New Launches in {0}", currentYear, makeName);
+                meta.Description = string.Format("Check out upcoming {1} bikes in {0} in India. From small to super-luxury, from announced to highly speculated models, from near future to end of year, know about every upcoming bike launch in India this year.", currentYear, makeName);
+                meta.Keywords = string.Format("Upcoming {1} bikes, new upcoming {1} launches, upcoming {1} bike launches, upcoming {1} models, future {1} bikes, future {1} bike launches, {0} {1} bikes, speculated {1} launches, futuristic {1} models", currentYear, makeName);
+                meta.CanonicalUrl = string.Format("http://www.bikewale.com/{0}-bikes/upcoming/", makeMaskingName);
+                meta.AlternateUrl = string.Format("http://www.bikewale.com/m/{0}-bikes/upcoming/", makeMaskingName);
+                pageTitle = string.Format("Upcoming {0} Bikes in India", makeName);
+
+            }
+            else
+            {
+                meta.Title = string.Format("Upcoming Bikes in India - Expected Launches in {0}", currentYear);
+                meta.Description = string.Format("Find out upcoming new bikes in {0} in India. From small to super-luxury, from announced to highly speculated models, from near future to end of year, know about every upcoming bike launch in India this year.", currentYear);
+                meta.Keywords = string.Format("Upcoming bikes, new upcoming launches, upcoming bike launches, upcoming models, future bikes, future bike launches, {0} bikes, speculated launches, futuristic models", currentYear);
+                meta.CanonicalUrl = "http://www.bikewale.com/upcoming-bikes/";
+                meta.AlternateUrl = "http://www.bikewale.com/m/upcoming-bikes/";
+                pageTitle = "Upcoming Bikes in India";
+            }
+        }
 
         private void CreatePrevNextUrl()
         {
-            string mainUrl = "http://www.bikewale.com/upcoming-bikes/page/";
+            string mainUrl = isMake ? string.Format("http://www.bikewale.com/{0}-bikes/upcoming/page/", makeMaskingName) : "http://www.bikewale.com/upcoming-bikes/page/";
             string prevPageNumber = string.Empty, nextPageNumber = string.Empty;
 
             if (PageNumber == string.Empty || PageNumber == "1")    //if page is first page
@@ -171,8 +206,6 @@ namespace Bikewale.New
                 nextPageNumber = (int.Parse(PageNumber) + 1).ToString();
                 nextUrl = mainUrl + nextPageNumber + "/";
             }
-            //Trace.Warn("-----previous page url is :  " + prevUrl);
-            //Trace.Warn("-----Next page url is :  " + nextUrl);
         }
 
         #region Fetch Upcoming Bikes (Based on Make)
@@ -180,9 +213,9 @@ namespace Bikewale.New
         /// PopulateWhere to fetch data on Upcoming bikes based on Make
         /// </summary>
         /// <param name="makeId">Bike Make Id</param>
-        /// <param name="makeName">Bike Make Name</param>
+        /// <param name="mkMaskingName">Bike Make Name</param>
         /// <param name="sort">Criteria on which the data is sorted.</param>
-        private void FetchUpcomingBikes(string makeId, string makeName, string sort)
+        private void FetchUpcomingBikes(string makeId, string mkMaskingName, string sort)
         {
             DbCommand cmd = DbFactory.GetDBCommand();
             SelectClause = " mo.makename, mo.makemaskingname as makemaskingname , mo.name as modelname,mo.maskingname as modelmaskingname, ecl.expectedlaunch, ecl.estimatedpricemin, ecl.estimatedpricemax, ecl.hosturl, ecl.largepicimagepath, csy.smalldescription as description, ecl.originalimagepath ";
@@ -197,16 +230,11 @@ namespace Bikewale.New
             }
             OrderByClause = GetSortCriteria(sort);
             if (sort != string.Empty)
-                BaseUrl = "/" + makeName + "-bikes/upcoming/sort/" + sort + "/";
+                BaseUrl = "/" + mkMaskingName + "-bikes/upcoming/sort/" + sort + "/";
             else
-                BaseUrl = "/" + makeName + "-bikes/upcoming/";
-            //if(PageNumber != string.Empty)
-            //BaseUrl = "/" + makeName + "-bikes/upcoming/page/" + PageNumber + "/";
-
+                BaseUrl = "/" + mkMaskingName + "-bikes/upcoming/";
             cmd.Parameters.Add(DbFactory.GetDbParam("@makeid", DbType.Int32, makeId));
-
             RecordCntQry = " select count(*) from " + FromClause + " where " + WhereClause;
-
             BindData(cmd);
         }
         #endregion
@@ -240,7 +268,6 @@ namespace Bikewale.New
             }
             catch (Exception err)
             {
-                Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             } // catch Exception
@@ -275,7 +302,6 @@ namespace Bikewale.New
                 //initialize the grid, and this will also bind the repeater
                 rpgUpcomingBikes.InitializeGrid();
                 recordCount = rpgUpcomingBikes.RecordCount;
-                Trace.Warn("recordCount: " + recordCount.ToString());
                 if (recordCount == 0)
                 {
                     alertObj.Visible = true;
@@ -285,11 +311,9 @@ namespace Bikewale.New
                 {
                     alertObj.Visible = false;
                 }
-                Trace.Warn("BaseURL" + BaseUrl);
             }
             catch (Exception err)
             {
-                Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
@@ -343,7 +367,6 @@ namespace Bikewale.New
             }
             else
             {
-                //formattedPrice = price.Replace(".00", "");
                 formattedPrice = Bikewale.Common.CommonOpn.FormatNumeric(price);
             }
             return formattedPrice;

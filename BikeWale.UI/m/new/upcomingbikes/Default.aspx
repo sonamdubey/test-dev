@@ -1,26 +1,28 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.UpcomingbikesList" Trace="false" %>
 <%@ Register TagPrefix="Pager" TagName="Pager" Src="/m/controls/ListPagerControl.ascx" %>
 <% 
-    title = meta.Title;
-    keywords = meta.Keywords;
-    description = meta.Description;
-    canonical = meta.CanonicalUrl;
-    relPrevPageUrl = meta.PreviousPageUrl;
-    relNextPageUrl = meta.NextPageUrl;
-    AdPath = "/1017752/Bikewale_Mobile_NewBikes";
-    AdId = "1398766302464";
-    Ad_320x50 = true;
-    Ad_Bot_320x50 = true;
-    menu = "4";
+    if (meta != null)
+    {
+        title = meta.Title;
+        keywords = meta.Keywords;
+        description = meta.Description;
+        canonical = meta.CanonicalUrl;
+        relPrevPageUrl = meta.PreviousPageUrl;
+        relNextPageUrl = meta.NextPageUrl;
+        AdPath = "/1017752/Bikewale_Mobile_NewBikes";
+        AdId = "1398766302464";
+        Ad_320x50 = true;
+        Ad_Bot_320x50 = true;
+    }
 %>
 <!-- #include file="/includes/headermobile.aspx" -->
 <div class="padding5">
     <div id="br-cr"  itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
         <a href="/m/" class="normal" itemprop="url"><span itemprop="title">Home</span></a> &rsaquo; 
-        <!--<a href="/m/new/" class="normal">New Bikes</a> &rsaquo; -->
+        <a href="/m/new/" class="normal">New Bikes</a> &rsaquo; 
         <span class="lightgray">Upcoming Bikes</span>
     </div>
-    <h1>Upcoming Bikes</h1>
+    <h1><%= pageTitle %></h1>
     <Pager:Pager ID="listPager_top" runat="server" />
     <div id="pagesContainer" class="box1 new-line5" style="padding-top:0px;padding-bottom:0px;margin-top:10px;">
 	    <div type="page" id="page1">

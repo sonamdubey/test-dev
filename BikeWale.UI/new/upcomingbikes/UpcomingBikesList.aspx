@@ -5,13 +5,16 @@
 <%@ Register TagPrefix="NBL" TagName="NewBikeLaunches" Src="/controls/NewBikeLaunches.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%
-    title = "Upcoming Bikes in India - Expected Launches in 2012";
-    keywords = "Find out upcoming new bikes in 2012 in India. From small to super-luxury, from announced to highly speculated models, from near future to end of year, know about every upcoming bike launch in India this year.";
-    description = "upcoming bikes, new upcoming launches, upcoming bike launches, upcoming models, future bikes, future bike launches, 2012 bikes, speculated launches, futuristic models";
-    canonical = "http://www.bikewale.com/upcoming-bikes/";
+    if (meta != null)
+    {
+        title = meta.Title;
+        keywords = meta.Keywords;
+        description = meta.Description;
+        canonical = meta.CanonicalUrl;
+        alternate = meta.AlternateUrl;
+    }
     prevPageUrl = prevUrl;
     nextPageUrl = nextUrl;
-    alternate = "http://www.bikewale.com/m/upcoming-bikes/";
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
 %>
@@ -35,7 +38,7 @@
     </div>
     <div class="grid_8 margin-top10">
         <span id="spnError" runat="server"></span>
-        <h1>Upcoming Bikes in India <span>Latest information on expected new bike launches in India.</span></h1>
+        <h1><%= pageTitle %> </h1><span>Latest information on expected new bike launches in India.</span>
         <BikeWale:UpcomingBikeSearch ID="UpcomingBikeSearch" runat="server" />
         <div id="alertObj" runat="server"></div>
         <BikeWale:RepeaterPager ID="rpgUpcomingBikes" PageSize="10" PagerPageSize="10" runat="server">
