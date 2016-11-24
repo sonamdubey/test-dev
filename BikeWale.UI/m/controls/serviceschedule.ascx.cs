@@ -30,7 +30,8 @@ namespace Bikewale.Mobile.Controls
         {
             BindServiceSchedule scheduleViewModel = new BindServiceSchedule();
             BikeScheduleList = scheduleViewModel.GetServiceScheduleList(MakeId);
-            jsonBikeSchedule = Newtonsoft.Json.JsonConvert.SerializeObject(BikeScheduleList);
+            if (BikeScheduleList != null)
+                jsonBikeSchedule = Newtonsoft.Json.JsonConvert.SerializeObject(BikeScheduleList);
         }
 
     }

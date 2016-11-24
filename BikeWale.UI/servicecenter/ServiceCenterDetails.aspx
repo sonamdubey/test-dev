@@ -24,7 +24,6 @@
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link rel="stylesheet" type="text/css" href="/css/service/details.css" />
-    <script src="http://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>
@@ -117,7 +116,7 @@
                                        { %>
                                     <div id="dealer-map" style="width:378px;height:254px;border:1px solid #eee;"></div>
                                     <div id="get-direction-button" title="Get directions">
-                                        <a href="https://maps.google.com/?saddr=&amp;daddr=<%=serviceVM.objServiceCenterData.Lattitude %>,<%=serviceVM.objServiceCenterData.Longitude %>" target="_blank">
+                                        <a id="linkMap" href="https://maps.google.com/?saddr=&amp;daddr=<%=serviceVM.objServiceCenterData.Lattitude %>,<%=serviceVM.objServiceCenterData.Longitude %>" target="_blank">
                                             <span class="bwsprite get-direction-icon"></span>
                                         </a>
                                     </div>
@@ -212,4 +211,5 @@
         <![endif]-->
     </form>
 </body>
+    <script src="http://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places&callback=initializeMap" async defer"></script>
 </html>
