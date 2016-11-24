@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.LogInOutControl" %>
-<%--<% if (loggedInUserId > 0)
+<% if (loggedInUserId > 0)
    { %>
         <li class="padding-top10 padding-bottom15">
             <div class="border-solid-top"></div>
@@ -44,4 +44,4 @@
                 <span class="navbarTitle">Login</span>
             </a>
         </li>
-        <% } %>--%>
+        <% } %>
