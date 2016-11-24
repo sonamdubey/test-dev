@@ -47,7 +47,8 @@ namespace Bikewale.Notifications
         ApprovalEditedUsedBikeListingToSeller = 33,
         RejectionEditedUsedBikeListingToSeller = 34,
         ServiceCenterDetailsSMSToCustomer = 35,
-        BikeListingExpirySMSToSeller = 36
+        BikeListingExpirySevenDaySMSToSeller = 36,
+        BikeListingExpiryOneDaySMSToSeller = 37
     }
 
     public class SMSCommon

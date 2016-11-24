@@ -1,5 +1,4 @@
-﻿using Bikewale.Utility;
-using Consumer;
+﻿using Consumer;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
@@ -31,56 +30,49 @@ namespace Bikewale.ExpiringListingReminder
                         {
                             objSellerDetailsListsEntity = new SellerDetailsListsEntity();
                             ICollection<SellerDetailsEntity> objListSevenDays = new Collection<SellerDetailsEntity>();
-                            ICollection<SellerDetailsEntity> objListOneDays = new Collection<SellerDetailsEntity>();
+
 
                             while (dr.Read())
                             {
-                                SellerDetailsEntity seller = new SellerDetailsEntity();
-
-                                seller.daysToExpire = 7;
-                                seller.inquiryId = Convert.ToString(dr["Inquiryid"]);
-                                seller.makeName = Convert.ToString(dr["MakeName"]);
-                                seller.makeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
-                                seller.customerId = SqlReaderConvertor.ToInt32(dr["CustomerId"]);
-                                seller.modelName = Convert.ToString(dr["ModelName"]);
-                                seller.modelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
-                                seller.sellerName = Convert.ToString(dr["CustomerName"]);
-                                seller.number = Convert.ToString(dr["CustomerMobile"]);
-                                seller.sellerEmail = Convert.ToString(dr["CustomerEmail"]);
-
-                                objListSevenDays.Add(seller);
-                            }
-
-                            if (dr.NextResult() && dr.Read())
-                            {
-                                while (dr.Read())
+                                objListSevenDays.Add(new SellerDetailsEntity()
                                 {
-                                    SellerDetailsEntity seller = new SellerDetailsEntity();
-
-                                    seller.daysToExpire = 1;
-                                    seller.inquiryId = Convert.ToString(dr["Inquiryid"]);
-                                    seller.makeName = Convert.ToString(dr["MakeName"]);
-                                    seller.makeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
-                                    seller.customerId = SqlReaderConvertor.ToInt32(dr["CustomerId"]);
-                                    seller.modelName = Convert.ToString(dr["ModelName"]);
-                                    seller.modelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
-                                    seller.sellerName = Convert.ToString(dr["CustomerName"]);
-                                    seller.number = Convert.ToString(dr["CustomerMobile"]);
-                                    seller.sellerEmail = Convert.ToString(dr["CustomerEmail"]);
-
-                                    objListOneDays.Add(seller);
-                                }
+                                    inquiryId = Convert.ToString(dr["Inquiryid"]),
+                                    makeName = Convert.ToString(dr["MakeName"]),
+                                    modelName = Convert.ToString(dr["ModelName"]),
+                                    sellerName = Convert.ToString(dr["CustomerName"]),
+                                    sellerMobileNumber = Convert.ToString(dr["CustomerMobile"]),
+                                    sellerEmail = Convert.ToString(dr["CustomerEmail"])
+                                });
                             }
 
                             objSellerDetailsListsEntity.sellerDetailsSevenDaysRemaining = objListSevenDays;
-                            objSellerDetailsListsEntity.sellerDetailsOneDayRemaining = objListOneDays;
 
+                            if (dr.NextResult())
+                            {
+                                ICollection<SellerDetailsEntity> objListOneDays = new Collection<SellerDetailsEntity>();
+
+                                while (dr.Read())
+                                {
+                                    objListOneDays.Add(new SellerDetailsEntity()
+                                    {
+                                        inquiryId = Convert.ToString(dr["Inquiryid"]),
+                                        makeName = Convert.ToString(dr["MakeName"]),
+                                        modelName = Convert.ToString(dr["ModelName"]),
+                                        sellerName = Convert.ToString(dr["CustomerName"]),
+                                        sellerMobileNumber = Convert.ToString(dr["CustomerMobile"]),
+                                        sellerEmail = Convert.ToString(dr["CustomerEmail"])
+                                    });
+                                }
+
+                                objSellerDetailsListsEntity.sellerDetailsOneDayRemaining = objListOneDays;
+                            }
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
+                Logs.WriteErrorLog("Exception in getExpiringListings : " + ex.Message);
                 SendMail.HandleException(ex, "ExpiringListingSellerDetailsRepository");
             }
 

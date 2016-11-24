@@ -39,7 +39,7 @@ namespace Bikewale.Notifications.MailTemplates.UsedBikes
 
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("<p>Hi {0},</p>", sellerName);
-            sb.AppendFormat("<p>Your ad posting on BikeWale  of {0} {1} will expire in next  {2}. If you have already sold your bike, we request you to delete your Ad.</p>", makeName, modelName, remainingTime);
+            sb.AppendFormat("<p>Your ad posting on BikeWale of {0} {1} will expire in next  {2}. If you have already sold your bike, we request you to delete your Ad.</p>", makeName, modelName, remainingTime);
             sb.AppendFormat("<p>If not sold yet, please re-post your bike Ad with comprehensive bike details and better photos quality. Visit {0} to re-post your Ad.", shortRepostUrl.ShortUrl);
 
             if (remainingDays == 1)
