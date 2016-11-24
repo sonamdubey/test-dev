@@ -40,13 +40,9 @@ namespace Bikewale.ExpiringListingReminder
 
                 objSellerDetailsListsEntity = objSellerDetails.getExpiringListings();
 
-                Logs.WriteInfoLog("started function SendExpiringListingReminderSMS()");
-                SendExpiringListingReminderSMS();
-                Logs.WriteInfoLog("function SendExpiringListingReminderSMS() ended");
-
-                Logs.WriteInfoLog("started function SendExpiringListingReminderEmail()");
-                SendExpiringListingReminderEmail();
-                Logs.WriteInfoLog("function SendExpiringListingReminderEmail() ended");
+                Logs.WriteInfoLog("started function SendExpiringListingReminderSMSAndEmail()");
+                SendExpiringListingReminderSMSAndEmail();
+                Logs.WriteInfoLog("function SendExpiringListingReminderSMSAndEmail() ended");
 
             }
             catch (Exception ex)
@@ -58,9 +54,9 @@ namespace Bikewale.ExpiringListingReminder
 
         /// <summary>
         /// Created By Sajal Gupta on 23-11-2016.
-        /// Desc : Send sms to seller about expiry listing.
+        /// Desc : Send sms and email to seller about expiry listing.
         /// </summary>
-        private void SendExpiringListingReminderSMS()
+        private void SendExpiringListingReminderSMSAndEmail()
         {
             try
             {
@@ -68,48 +64,21 @@ namespace Bikewale.ExpiringListingReminder
                 {
                     foreach (var seller in objSellerDetailsListsEntity.sellerDetailsOneDayRemaining)
                     {
-                        SendSMS(seller, 1);
+                        SendSMS(seller, EnumSMSServiceType.BikeListingExpiryOneDaySMSToSeller);
+                        SendEmail(seller, EnumSMSServiceType.BikeListingExpiryOneDaySMSToSeller);
                     }
 
                     foreach (var seller in objSellerDetailsListsEntity.sellerDetailsSevenDaysRemaining)
                     {
-                        SendSMS(seller, 7);
+                        SendSMS(seller, EnumSMSServiceType.BikeListingExpirySevenDaySMSToSeller);
+                        SendEmail(seller, EnumSMSServiceType.BikeListingExpirySevenDaySMSToSeller);
                     }
                 }
             }
             catch (Exception ex)
             {
-                Logs.WriteErrorLog("Exception in SendExpiringListingReminderSMS : " + ex.Message);
-                SendMail.HandleException(ex, "SendExpiringListingReminderSMS");
-            }
-        }
-
-
-        /// <summary>
-        /// Created By Sajal Gupta on 23-11-2016.
-        /// Desc : Send email to seller about expiry listing.
-        /// </summary>
-        private void SendExpiringListingReminderEmail()
-        {
-            try
-            {
-                if (objSellerDetailsListsEntity != null)
-                {
-                    foreach (var seller in objSellerDetailsListsEntity.sellerDetailsOneDayRemaining)
-                    {
-                        SendEmail(seller, 1);
-                    }
-
-                    foreach (var seller in objSellerDetailsListsEntity.sellerDetailsSevenDaysRemaining)
-                    {
-                        SendEmail(seller, 7);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Logs.WriteErrorLog("Exception in SendExpiringListingReminderEmail : " + ex.Message);
-                SendMail.HandleException(ex, "SendExpiringListingReminderEmail");
+                Logs.WriteErrorLog("Exception in SendExpiringListingReminderSMSAndEmail : " + ex.Message);
+                SendMail.HandleException(ex, "SendExpiringListingReminderSMSAndEmail");
             }
         }
 
@@ -117,7 +86,7 @@ namespace Bikewale.ExpiringListingReminder
         /// Created By Sajal Gupta on 23-11-2016.
         /// Desc : Send sms.
         /// </summary>
-        private void SendSMS(SellerDetailsEntity seller, int dayRemaining)
+        private void SendSMS(SellerDetailsEntity seller, EnumSMSServiceType dayRemaining)
         {
             try
             {
@@ -134,23 +103,23 @@ namespace Bikewale.ExpiringListingReminder
                 if (shortRemoveUrl != null)
                     removeUrl = shortRemoveUrl.ShortUrl;
 
-                if (dayRemaining == 1)
+                if (dayRemaining == EnumSMSServiceType.BikeListingExpiryOneDaySMSToSeller)
+                {
                     message = string.Format(_messageOneDay, seller.makeName, seller.modelName, removeUrl, repostUrl);
-                else
-                    message = string.Format(_messageSevenDay, seller.makeName, seller.modelName, removeUrl, repostUrl);
-
-
-                newSms.ExpiringListingReminderSMS(seller.sellerMobileNumber, "SendExpiringListingReminderSMS()", dayRemaining, message);
-
-                if (dayRemaining == 1)
+                    newSms.ExpiringListingReminderSMS(seller.sellerMobileNumber, "SendExpiringListingReminderSMS()", dayRemaining, message);
                     Logs.WriteInfoLog("One day remaining Message sent to inquiryId " + seller.inquiryId);
+                }
                 else
+                {
+                    message = string.Format(_messageSevenDay, seller.makeName, seller.modelName, removeUrl, repostUrl);
+                    newSms.ExpiringListingReminderSMS(seller.sellerMobileNumber, "SendExpiringListingReminderSMS()", dayRemaining, message);
                     Logs.WriteInfoLog("Seven day remaining Message sent to inquiryId " + seller.inquiryId);
+                }
             }
             catch (Exception ex)
             {
                 Logs.WriteErrorLog("Exception in SendSMS : " + ex.Message);
-                SendMail.HandleException(ex, "SendSMS");
+                SendMail.HandleException(ex, string.Format("SendSMS for para {0}, {1}", seller, dayRemaining));
             }
 
         }
@@ -161,7 +130,7 @@ namespace Bikewale.ExpiringListingReminder
         /// Created By Sajal Gupta on 23-11-2016.
         /// Desc : Send email.
         /// </summary>
-        private void SendEmail(SellerDetailsEntity seller, int dayRemaining)
+        private void SendEmail(SellerDetailsEntity seller, EnumSMSServiceType dayRemaining)
         {
             try
             {
@@ -172,15 +141,15 @@ namespace Bikewale.ExpiringListingReminder
                 if (shortRepostUrl != null)
                     repostUrl = shortRepostUrl.ShortUrl;
 
-                ComposeEmailBase objEmail = new ExpiringListingReminderEmail(seller.sellerName, seller.makeName, seller.modelName, dayRemaining, repostUrl);
-
-                if (dayRemaining == 1)
+                if (dayRemaining == EnumSMSServiceType.BikeListingExpiryOneDaySMSToSeller)
                 {
+                    ComposeEmailBase objEmail = new ExpiringListingReminderEmail(seller.sellerName, seller.makeName, seller.modelName, EnumSMSServiceType.BikeListingExpiryOneDaySMSToSeller, repostUrl);
                     objEmail.Send(seller.sellerEmail, _emailSubjectOneDay);
                     Logs.WriteInfoLog("One day remaining Email sent to inquiryId " + seller.inquiryId);
                 }
                 else
                 {
+                    ComposeEmailBase objEmail = new ExpiringListingReminderEmail(seller.sellerName, seller.makeName, seller.modelName, EnumSMSServiceType.BikeListingExpirySevenDaySMSToSeller, repostUrl);
                     objEmail.Send(seller.sellerEmail, _emailSubjectSevenDay);
                     Logs.WriteInfoLog("Seven day remaining Email sent to inquiryId " + seller.inquiryId);
                 }
@@ -188,7 +157,7 @@ namespace Bikewale.ExpiringListingReminder
             catch (Exception ex)
             {
                 Logs.WriteErrorLog("Exception in SendEmail : " + ex.Message);
-                SendMail.HandleException(ex, "SendEmail");
+                SendMail.HandleException(ex, string.Format("SendEmail for par {0}, {1}", seller, dayRemaining));
             }
         }
 

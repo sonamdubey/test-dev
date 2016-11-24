@@ -646,23 +646,16 @@ namespace Bikewale.Notifications
         /// Created By  : Sajal Gupta on 23-11-2016
         /// Description : Send SMS to seller for notifying expiry of listing.
         /// </summary>
-        public void ExpiringListingReminderSMS(string number, string pageUrl, int remainingDays, string message)
+        public void ExpiringListingReminderSMS(string number, string pageUrl, EnumSMSServiceType esms, string message)
         {
             try
             {
-                EnumSMSServiceType esms;
-
-                if (remainingDays == 1)
-                    esms = EnumSMSServiceType.BikeListingExpiryOneDaySMSToSeller;
-                else
-                    esms = EnumSMSServiceType.BikeListingExpirySevenDaySMSToSeller;
-
                 SMSCommon sc = new SMSCommon();
                 sc.ProcessSMS(number, message, esms, pageUrl);
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.ExpiringListingReminderSMS({0},{1},{2},{3}})", number, pageUrl, remainingDays, message));
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.ExpiringListingReminderSMS({0},{1},{2},{3}})", number, pageUrl, esms, message));
                 objErr.SendMail();
             }
         }

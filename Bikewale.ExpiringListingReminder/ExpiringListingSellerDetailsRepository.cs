@@ -32,9 +32,9 @@ namespace Bikewale.ExpiringListingReminder
                             objSellerDetailsListsEntity = new SellerDetailsListEntity();
                             ICollection<SellerDetailsEntity> objListSevenDays = new Collection<SellerDetailsEntity>();
 
-
                             while (dr.Read())
                             {
+
                                 objListSevenDays.Add(new SellerDetailsEntity()
                                 {
                                     inquiryId = SqlReaderConvertor.ToUInt16(dr["Inquiryid"]),
@@ -74,7 +74,7 @@ namespace Bikewale.ExpiringListingReminder
             catch (Exception ex)
             {
                 Logs.WriteErrorLog("Exception in getExpiringListings : " + ex.Message);
-                SendMail.HandleException(ex, "ExpiringListingSellerDetailsRepository");
+                SendMail.HandleException(ex, "ExpiringListingSellerDetailsRepository.getExpiringListings");
             }
 
             return objSellerDetailsListsEntity;

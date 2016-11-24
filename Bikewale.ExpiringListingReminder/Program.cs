@@ -19,6 +19,7 @@ namespace Bikewale.ExpiringListingReminder
             catch (Exception ex)
             {
                 Logs.WriteErrorLog("Exception in Main : " + ex.Message);
+                SendMail.HandleException(ex, "Bikewale.ExpiringListingReminder.Main()");
             }
 
             Logs.WriteInfoLog("Ended the Expiring Listing Reminder Job");
