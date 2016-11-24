@@ -103,7 +103,7 @@ namespace Bikewale.ExpiringListingReminder
                 if (shortRemoveUrl != null)
                     removeUrl = shortRemoveUrl.ShortUrl;
 
-                if (dayRemaining == EnumSMSServiceType.BikeListingExpiryOneDaySMSToSeller)
+                if (EnumSMSServiceType.BikeListingExpiryOneDaySMSToSeller.Equals(dayRemaining))
                 {
                     message = string.Format(_messageOneDay, seller.makeName, seller.modelName, removeUrl, repostUrl);
                     newSms.ExpiringListingReminderSMS(seller.sellerMobileNumber, "SendExpiringListingReminderSMS()", dayRemaining, message);
@@ -118,7 +118,7 @@ namespace Bikewale.ExpiringListingReminder
             }
             catch (Exception ex)
             {
-                Logs.WriteErrorLog("Exception in SendSMS : " + ex.Message);
+                Logs.WriteErrorLog(string.Format("SendSMS for para {0}, {1}", seller, dayRemaining) + ex.Message);
                 SendMail.HandleException(ex, string.Format("SendSMS for para {0}, {1}", seller, dayRemaining));
             }
 
@@ -141,7 +141,7 @@ namespace Bikewale.ExpiringListingReminder
                 if (shortRepostUrl != null)
                     repostUrl = shortRepostUrl.ShortUrl;
 
-                if (dayRemaining == EnumSMSServiceType.BikeListingExpiryOneDaySMSToSeller)
+                if (EnumSMSServiceType.BikeListingExpiryOneDaySMSToSeller.Equals(dayRemaining))
                 {
                     ComposeEmailBase objEmail = new ExpiringListingReminderEmail(seller.sellerName, seller.makeName, seller.modelName, EnumSMSServiceType.BikeListingExpiryOneDaySMSToSeller, repostUrl);
                     objEmail.Send(seller.sellerEmail, _emailSubjectOneDay);
@@ -156,7 +156,7 @@ namespace Bikewale.ExpiringListingReminder
             }
             catch (Exception ex)
             {
-                Logs.WriteErrorLog("Exception in SendEmail : " + ex.Message);
+                Logs.WriteErrorLog(string.Format("SendEmail for par {0}, {1}", seller, dayRemaining) + ex.Message);
                 SendMail.HandleException(ex, string.Format("SendEmail for par {0}, {1}", seller, dayRemaining));
             }
         }
