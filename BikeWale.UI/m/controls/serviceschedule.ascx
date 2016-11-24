@@ -41,58 +41,61 @@
             </div>
 <% } %>
 <script type="text/javascript">
-    var bikeschedule = JSON.parse('<%=jsonBikeSchedule %>'.replace(/\s/g,' '));
-    function SchedulesViewModel() {
-        var self = this;
-        self.bikes = ko.observable(bikeschedule);
-        self.currentBikeName = ko.observable();
-        self.bikesList = ko.observable(self.bikes());
-        self.isDataExist = ko.observable();
-        self.isDays = ko.observable();
-        self.isKms = ko.observable();
-        self.selectedModelId = ko.observable();
-        self.GetModelId = function (data, event) {
-            self.selectedModelId($(event.target).val());
-            var bikename = ko.utils.arrayFirst(self.bikes(), function (bike) {
-                return bike.ModelId == self.selectedModelId();
+    <% if (!string.IsNullOrEmpty(jsonBikeSchedule))
+       {%>
+        var bikeschedule = JSON.parse('<%=jsonBikeSchedule %>'.replace(/\s/g, ' '));
+        function SchedulesViewModel() {
+            var self = this;
+            self.bikes = ko.observable(bikeschedule);
+            self.currentBikeName = ko.observable();
+            self.bikesList = ko.observable(self.bikes());
+            self.isDataExist = ko.observable();
+            self.isDays = ko.observable();
+            self.isKms = ko.observable();
+            self.selectedModelId = ko.observable();
+            self.GetModelId = function (data, event) {
+                self.selectedModelId($(event.target).val());
+                var bikename = ko.utils.arrayFirst(self.bikes(), function (bike) {
+                    return bike.ModelId == self.selectedModelId();
+                });
+                if (bikename != null)
+                    self.currentBikeName(bikename.ModelName);
+            };
+            function isDaysDataExists(sch) {
+                var isFound = false;
+                ko.utils.arrayForEach(sch, function (s) {
+                    if (s.Days && s.Days > 0) {
+                        isFound = true;
+                    }
+                });
+                return isFound;
+            }
+            function isKmsDataExists(sch) {
+                var isFound = false;
+                ko.utils.arrayForEach(sch, function (s) {
+                    if (s.Kms && s.Kms.length > 0) {
+                        isFound = true;
+                    }
+                });
+                return isFound;
+            }
+            self.selectedModelId.subscribe(function () {
+                var arr = ko.utils.arrayFirst(self.bikes(), function (b) {
+                    return b.ModelId == self.selectedModelId();
+                });
+                self.bikesList(null);
+                self.bikesList(arr);
+                if (arr.Schedules.length > 0)
+                    self.isDataExist(true);
+                else
+                    self.isDataExist(false);
+                self.isDays(isDaysDataExists(arr.Schedules));
+                self.isKms(isKmsDataExists(arr.Schedules));
             });
-            if(bikename != null)
-            self.currentBikeName(bikename.ModelName);
-        };
-        function isDaysDataExists(sch) {
-            var isFound = false;
-            ko.utils.arrayForEach(sch, function (s) {
-                if (s.Days && s.Days > 0) {
-                    isFound = true;
-                }
-            });
-            return isFound;
         }
-        function isKmsDataExists(sch) {
-            var isFound = false;
-            ko.utils.arrayForEach(sch, function (s) {
-                if (s.Kms && s.Kms.length > 0) {
-                    isFound = true;
-                }
-            });
-            return isFound;
-        }
-        self.selectedModelId.subscribe(function () {
-            var arr = ko.utils.arrayFirst(self.bikes(), function (b) {
-                return b.ModelId == self.selectedModelId();
-            });
-            self.bikesList(null);
-            self.bikesList(arr);
-            if(arr.Schedules.length > 0)
-                self.isDataExist(true);
-            else
-                self.isDataExist(false);
-            self.isDays(isDaysDataExists(arr.Schedules));
-            self.isKms(isKmsDataExists(arr.Schedules));
-        });
-    }
-    var vm = new SchedulesViewModel();
-    ko.applyBindings(vm,$("#service-schedular")[0]);
-    vm.selectedModelId(vm.bikes()[0].ModelId);
-    vm.currentBikeName($( "#selBikes option:selected").text());
+        var vm = new SchedulesViewModel();
+        ko.applyBindings(vm, $("#service-schedular")[0]);
+        vm.selectedModelId(vm.bikes()[0].ModelId);
+        vm.currentBikeName($("#selBikes option:selected").text());
+    <% } %>
 </script>

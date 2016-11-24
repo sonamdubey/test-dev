@@ -4,7 +4,6 @@ $(document).ready(function () {
     $('.chosen-select').chosen();
 });
 
-initializeMap();
 
 function getLocation() {
     if (navigator.geolocation) {
@@ -39,7 +38,7 @@ function savePosition(position) {
 }
 
 function setUserLocation(position) {
-    $("#linkMap").attr("href", "https://maps.google.com/?saddr=" + position.coords.latitude + "," + position.coords.longitude + "&daddr=" + serviceLat + "," + serviceLong + '');
+    $("#linkMap").attr("href", "https://maps.google.com/?saddr=" + position.lat() + "," + position.lng() + "&daddr=" + serviceLat + "," + serviceLong + '');
 }
 $("#assistanceBrandInput").on("keyup", function () {
     locationFilter($(this));
@@ -76,14 +75,11 @@ function initializeMap() {
             route(origin_place_id, travel_mode, directionsService);
             $('.location-details').show();
         }
-
-
     });
 }
 
 
 function route(origin_place_id, travel_mode, directionsService) {
-
     _lat = serviceLat;
     _lng = serviceLong;
     destination_place_id = new google.maps.LatLng(_lat, _lng);
@@ -99,6 +95,7 @@ function route(origin_place_id, travel_mode, directionsService) {
     }, function (response, status) {
         if (status === google.maps.DirectionsStatus.OK) {
             getCommuteInfo(response);
+            setUserLocation(origin_place_id);
         }
         else {
             $(".location-details").addClass("hide");
@@ -118,7 +115,6 @@ function getCommuteInfo(result) {
     $('#commuteDuration').text(totalDuration.toString().toHHMMSS());
     $(".location-details").removeClass("hide");
 }
-
 
 function showError(error) {
     switch (error.code) {
