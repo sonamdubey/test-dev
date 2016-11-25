@@ -1,14 +1,7 @@
-﻿using Bikewale.BAL.BikeData;
-using Bikewale.Cache.BikeData;
-using Bikewale.Cache.Core;
-using Bikewale.common;
+﻿using Bikewale.common;
 using Bikewale.Common;
 using Bikewale.Controls;
-using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Cache.Core;
-using Microsoft.Practices.Unity;
 using System;
 using System.Web;
 using System.Web.UI;
@@ -22,10 +15,10 @@ namespace Bikewale.New.PhotoGallery
     public class BikePhotos : System.Web.UI.Page
     {
         protected PhotoGallaryMin photoGallary;
-        protected string photoId = string.Empty, imageId = string.Empty, selectedImagePath = string.Empty, bikeName = string.Empty, modelName = string.Empty, makename = string.Empty, modelImage = string.Empty;
+        protected string photoId = string.Empty, imageId = string.Empty, selectedImagePath = string.Empty,
+            bikeName = string.Empty, modelName = string.Empty, makename = string.Empty, modelImage = string.Empty;
         protected BikeModelEntity objModelEntity = null;
         protected uint modelId = 0;
-
 
         protected override void OnInit(EventArgs e)
         {
@@ -44,26 +37,20 @@ namespace Bikewale.New.PhotoGallery
             {
                 if (ProcessQueryString())
                 {
-
-                    using (IUnityContainer container = new UnityContainer())
+                    objModelEntity = new ModelHelper().GetModelDataById(modelId);
+                    if (objModelEntity != null)
                     {
-                        container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
-                        IBikeModels<BikeModelEntity, int> objModel = container.Resolve<IBikeModels<BikeModelEntity, int>>();
-                        //Get Model details
-                        objModelEntity = objModel.GetById(Convert.ToInt32(modelId));
-                        if (objModelEntity != null)
-                        {
-                            modelName = objModelEntity.ModelName;
-                            makename = objModelEntity.MakeBase.MakeName;
-                            bikeName = string.Format("{0} {1}", objModelEntity.MakeBase.MakeName, objModelEntity.ModelName);
-                            photoGallary.modelId = objModelEntity.ModelId;
-                            photoGallary.ImageId = imageId;
-                            modelImage = Utility.Image.GetPathToShowImages(objModelEntity.OriginalImagePath, objModelEntity.HostUrl, Bikewale.Utility.ImageSize._476x268);
-                        }
+                        modelName = objModelEntity.ModelName;
+                        makename = objModelEntity.MakeBase.MakeName;
+                        bikeName = string.Format("{0} {1}", objModelEntity.MakeBase.MakeName, objModelEntity.ModelName);
+                        photoGallary.modelId = objModelEntity.ModelId;
+                        photoGallary.ImageId = imageId;
+                        modelImage = Utility.Image.GetPathToShowImages(objModelEntity.OriginalImagePath, objModelEntity.HostUrl, Bikewale.Utility.ImageSize._476x268);
                     }
                 }
             }
         }
+
         /// <summary>
         /// Created By : Sadhana Upadhyay on 4 July 2014
         /// Summary : Validation for query string
@@ -79,18 +66,8 @@ namespace Bikewale.New.PhotoGallery
             {
                 if (!string.IsNullOrEmpty(modelQuerystring))
                 {
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
-                                 .RegisterType<ICacheManager, MemcacheManager>()
-                                 .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                                ;
-                        var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-                        objResponse = objCache.GetModelMaskingResponse(modelQuerystring);
-                        success = true;
-                    }
                     objResponse = new ModelHelper().GetModelDataByMasking((modelQuerystring));
-                    modelId = HandleMakeRedirection(objResponse, modelQuerystring);
+                    modelId = HandleModelRedirection(objResponse, modelQuerystring);
                     if (objResponse.StatusCode == 200)
                         success = true;
                 }
@@ -104,20 +81,21 @@ namespace Bikewale.New.PhotoGallery
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }
-            finally
-            {
-
-            }
             return success;
         }
 
-        private uint HandleMakeRedirection(ModelMaskingResponse objResponse, string modelMask)
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 25 Nov 2016
+        /// Summary: Private method to handle model masking redirections
+        /// </summary>
+        private uint HandleModelRedirection(ModelMaskingResponse objResponse, string modelMask)
         {
+            uint modelID = 0;
             if (objResponse != null)
             {
                 if (objResponse.StatusCode == 200)
                 {
-                    modelId = objResponse.ModelId;
+                    modelID = objResponse.ModelId;
                 }
                 else if (objResponse.StatusCode == 301)
                 {
@@ -136,8 +114,7 @@ namespace Bikewale.New.PhotoGallery
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }
-
-            return 0;
+            return modelID;
         }   //End of ProcessQueryString
     }   //End of class
 }   //End of namespace
