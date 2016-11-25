@@ -5,7 +5,7 @@
 <head>
     <title>Sell bikes</title>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link href="/build/min/m/css/sell-bike.css" rel="stylesheet" type="text/css" />
+    <link href="/m/css/sell-bike.css" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/dropzone.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">

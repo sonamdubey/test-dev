@@ -422,39 +422,44 @@ input[type="number"]:focus {
   z-index: 2;
   overflow-x: hidden;
   overflow-y: scroll; }
-  .slideIn-drawer-container .filter-input-box {
-    width: 100%; }
-    .slideIn-drawer-container .filter-input-box input[type="text"] {
-      padding-left: 50px; }
   .slideIn-drawer-container .back-arrow-box {
-    width: 40px;
-    height: 30px;
-    position: absolute;
-    top: 5px;
-    left: 5px;
+    padding: 15px 15px 12px 20px;
     z-index: 2;
     cursor: pointer; }
-    .slideIn-drawer-container .back-arrow-box .back-long-arrow-left {
-      position: absolute;
-      top: 7px;
-      left: 10px; }
+  .slideIn-drawer-container .drawer-top-header .head-label {
+    font-size: 16px;
+    font-weight: 700;
+    color: #000; }
+  .slideIn-drawer-container .filter-input-box {
+    padding: 0 20px 12px; }
   .slideIn-drawer-container .filter-list li {
-    border-top: 1px solid #ccc;
-    font-size: 14px;
-    padding: 15px 20px;
-    color: #333;
-    cursor: pointer; }
-    .slideIn-drawer-container .filter-list li:first-child {
+    padding-right: 20px;
+    padding-left: 20px; }
+    .slideIn-drawer-container .filter-list li span {
+      font-size: 16px;
+      padding: 10px 20px 10px 0;
+      display: block;
+      position: relative;
+      border-top: 1px solid #f5f5f5;
+      cursor: pointer; }
+    .slideIn-drawer-container .filter-list li:hover {
+      background-color: #f5f5f5; }
+    .slideIn-drawer-container .filter-list li:first-child span {
       border-top: 0; }
     .slideIn-drawer-container .filter-list li:hover {
       background: #f5f5f5; }
 
-.slideIn-drawer-container.fix-header-input {
-  padding-top: 41px; }
-  .slideIn-drawer-container.fix-header-input .filter-input-box {
-    position: fixed;
-    top: 0;
-    left: 0; }
+.slideIn-drawer-container.fix-header-input .filter-list {
+  margin-top: 100px;
+  margin-bottom: 40px; }
+
+.slideIn-drawer-container.fix-header-input .drawer-top-header {
+  width: 100%;
+  background: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2; }
 
 .modal-popup-container {
   display: none;
@@ -499,7 +504,7 @@ input[type="number"]:focus {
 
 .with-footer .popup-body {
   max-height: 240px;
-  padding-bottom: 0; }
+  padding-bottom: 10px; }
 
 .btn-size-0,
 .btn-size-sm {
@@ -688,6 +693,14 @@ input[type="number"]:focus {
   position: absolute;
   top: 15px;
   right: 0; }
+
+.search-icon-grey {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  z-index: 2;
+  background-position: -34px -275px; }
 
 .add-photo-icon {
   width: 43px;
