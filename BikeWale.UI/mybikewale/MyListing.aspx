@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.MyBikeWale.MyListing" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.MyBikeWale.MyListing" EnableViewState="false" %>
 <%@ Import NameSpace="Bikewale.Common" %>
 <%
     AdId = "1395996606542";
@@ -27,7 +27,7 @@
             </li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li class="current"><strong>My Inquiries</strong></li>
-        </ul><div class="clear"></div>
+        </ul><div class="clear"></div> 
     </div>    
     
     <div class="grid_8 margin-top10">
@@ -35,53 +35,72 @@
             <h1>Sell Your Bike - Easy & Fast</h1>
             <h3 class="grey-bg border-light padding5 margin-top10 margin-bottom10 isfake">You are not authorized to add any listing. Please contact us on <u>contact@bikewale.com</u></h3>
         </div>
-        <h2>My Bike(s) Listed For Sale</h2>
-        <asp:DataList runat="server" ID="rptListings" RepeatColumns="1" RepeatDirection="Horizontal">
-            <ItemTemplate>
-                <div id="div_<%# DataBinder.Eval(Container.DataItem, "InquiryId") %>" class="grey-bg content-block border-light margin-top10">
-                    <div class="grid_2 alpha omega">
-                        <%--<img src="<%# GetImagePath(DataBinder.Eval(Container.DataItem, "ImageUrlThumbSmall").ToString(), DataBinder.Eval(Container.DataItem, "DirectoryPath").ToString(), DataBinder.Eval(Container.DataItem, "HostURL").ToString())%>" title="<%# DataBinder.Eval(Container.DataItem, "Bike") %>" />--%>
-                        <img src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(), DataBinder.Eval(Container.DataItem, "HostURL").ToString(),Bikewale.Utility.ImageSize._110x61)%>" title="<%# DataBinder.Eval(Container.DataItem, "Bike") %>" />
-                        <div class="margin-top5">Profile : S<%# DataBinder.Eval(Container.DataItem, "InquiryId") %></div>
-                        <%--<div class="margin-top5"><a href="/used/bikedetails.aspx?bike=S<%# DataBinder.Eval(Container.DataItem, "InquiryId") %>">View Bike Details</a></div>--%>
-                        <div class="<%# DataBinder.Eval(Container.DataItem, "StatusId").ToString() == "1" ?  "margin-top5" : "hide" %> <%= isFake ? "hide" : "" %>"><a href="/used/bikes-in-<%# DataBinder.Eval( Container.DataItem, "CityMaskingName" ).ToString().Trim() %>/<%# DataBinder.Eval( Container.DataItem, "MakeMaskingName" ).ToString() %>-<%# DataBinder.Eval( Container.DataItem, "ModelMaskingName" ).ToString() %>-S<%# DataBinder.Eval( Container.DataItem, "InquiryId" ) %>/">View Bike Details</a></div>
+        <h2>My Bike(s) Listed For Sale</h2>        
+                <% if (listingDetailsList != null)
+                   { 
+                    foreach (var listingDetails in listingDetailsList)  
+                   { %>
+                <div id="div_<%= listingDetails.InquiryId %>" class="grey-bg content-block border-light margin-top10">
+                    <div class="grid_2 alpha omega">                        
+                        <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(listingDetails.Photo.OriginalImagePath, listingDetails.Photo.HostUrl, Bikewale.Utility.ImageSize._110x61)%>" title="<%= listingDetails.BikeName %>" />
+                        <div class="margin-top5">Profile : <%= (listingDetails.SellerType == 2 ? "S":"D")%><%= listingDetails.InquiryId %></div>      
+                        <% if(listingDetails.StatusId == 1 &&  !isFake) { %>                  
+                        <div class="margin-top5"><a href="/used/bikes-in-<%= listingDetails.CityMaskingName %>/<%= listingDetails.MakeMaskingName %>-<%= listingDetails.ModelMaskingName %>-<%= (listingDetails.SellerType == 2 ? "S":"D")%><%= listingDetails.InquiryId%>/">View Bike Details</a></div>
+                        <% } %>
                     </div>
                     <div class="grid_4 alpha omega">
-                        <h3><%# DataBinder.Eval(Container.DataItem, "Bike") %></h3>
+                        <h3><%= listingDetails.BikeName %></h3>
                         <div class="margin-top20">
-                            <span class="margin-right10 text-highlight">Total Buyers : <%# DataBinder.Eval(Container.DataItem, "TotalViews") %></span>
-                            <a class="buttons btn-xs <%# Convert.ToInt32(DataBinder.Eval(Container.DataItem, "TotalViews")) == 0 ? "hide" : "show" %> <%# DataBinder.Eval(Container.DataItem,"StatusId").ToString() == "2" ? "hide" : "" %>" href="/mybikewale/buyerdetails.aspx?id=<%# DataBinder.Eval(Container.DataItem, "InquiryId") %>">View Buyer Details</a>
-                            <div class="margin-top10">Bike Listed On : <%# Convert.ToDateTime(DataBinder.Eval(Container.DataItem, "EntryDate")).ToString("MMMM dd, yyyy") %></div>
+                            <span class="margin-right10 text-highlight">Total Buyers : <%= listingDetails.TotalViews %></span>
+                            <% if(listingDetails.TotalViews != 0 && listingDetails.StatusId != 2) { %>
+                            <a class="buttons btn-xs" href="/mybikewale/buyerdetails.aspx?id=<%= listingDetails.InquiryId %>">View Buyer Details</a>
+                            <% } %>
+                            <div class="margin-top10">Bike Listed On : <%= listingDetails.EntryDate.ToString("MMMM dd, yyyy") %></div>
                         </div>
                     </div>                    
                     <div class="grid_2 omega">
                         <ul class="bikeDetails">
-                            <li><span class="text-highlight">Make Year : </span><span><%# Convert.ToDateTime(DataBinder.Eval(Container.DataItem, "MakeYear")).ToString("MMM, yyyy") %></span></li>
-                            <li><span class="text-highlight">Kms Done : </span><span><%# CommonOpn.FormatNumeric(DataBinder.Eval(Container.DataItem, "Kilometers").ToString()) %></span></li>
-                            <li><span class="text-highlight">Rs : </span><span><%# CommonOpn.FormatNumeric(DataBinder.Eval(Container.DataItem, "Price").ToString()) %></span></li>
-                            <li><span class="text-highlight">Color : </span><span><%# DataBinder.Eval(Container.DataItem, "Color") %></span></li>
-                            <li><span class="text-highlight">Registration : </span><span><%# DataBinder.Eval(Container.DataItem, "RegistrationPlace") %></span></li>
-                            <li><span class="text-highlight">Owners : </span><span><%# DataBinder.Eval(Container.DataItem, "Owner") %></span></li>
+                            <li><span class="text-highlight">Make Year : </span><span><%= listingDetails.ModelYear.ToString("MMM, yyyy") %></span></li>
+                            <li><span class="text-highlight">Kms Done : </span><span><%= CommonOpn.FormatNumeric(listingDetails.KmsDriven.ToString()) %></span></li>
+                            <li><span class="text-highlight">Rs : </span><span><%= CommonOpn.FormatNumeric(listingDetails.AskingPrice.ToString()) %></span></li>
+                            <li><span class="text-highlight">Color : </span><span><%= listingDetails.Color %></span></li>
+                            <li><span class="text-highlight">Registration : </span><span><%= listingDetails.RegisteredAt %></span></li>
+                            <li><span class="text-highlight">Owners : </span><span><%= listingDetails.Owner %></span></li>
                         </ul>                        
                     </div>
                     <div class="clear"></div>
-                    <% if(!isFake) { %>
-                    <div class="margin-top10">                                        
-                        <div class="<%# DataBinder.Eval(Container.DataItem, "StatusId").ToString() == "1" ?  "left-float" : "hide" %>"><a target="_blank" href="/used/sell/default.aspx?id=<%# DataBinder.Eval(Container.DataItem, "InquiryId") %>">Edit bike details</a> | <a target="_blank" href="/used/sell/default.aspx?id=<%# DataBinder.Eval(Container.DataItem, "InquiryId") %>#uploadphoto">Upload bike photos</a> | <a class="pointer" onclick="removeBike('<%# DataBinder.Eval(Container.DataItem, "InquiryId") %>')">Remove from listing</a></div>                        
-                        
-                        <div id="div_status <%= isFake ? "hide" : "" %>"" class="right-float" style="color:#f00;">
-                            <%# GetStatus(DataBinder.Eval(Container.DataItem, "StatusId").ToString(),Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsApproved")),DataBinder.Eval(Container.DataItem, "InquiryId").ToString()) %>
+                    <% if (!isFake && listingDetails.DaysRemaining < 91)
+                       { %>
+                    <div class="margin-top10"> 
+                        <% if(listingDetails.StatusId == 1) { %>                                       
+                        <div class= "left-float"><a target="_blank" href="/used/sell/default.aspx?id=<%= listingDetails.InquiryId %>">Edit bike details</a> | <a target="_blank" href="/used/sell/default.aspx?id=<%= listingDetails.InquiryId %>#uploadphoto">Upload bike photos</a> | <a class="pointer" onclick="removeBike('<%= listingDetails.InquiryId %>')">Remove from listing</a></div>                        
+                        <% } 
+                           if (!isFake) { %>
+                        <div id="div_status" class="right-float" style="color:#f00;">
+                            <%= GetStatus(listingDetails.StatusId, listingDetails.IsApproved, listingDetails.InquiryId) %>
                         </div>
+                        <% } %>
                     <div class="clear"></div>
                     </div> 
-                    <% } %>                                       
+                    <% } %>
+                    <% if (listingDetails.DaysRemaining > 83 && listingDetails.DaysRemaining < 90 && listingDetails.StatusId == 1 && listingDetails.IsApproved) 
+                       { %>
+                    <div class="margin-top10">This listing is about to expire. Haven't sold this bike? <a href= <%= string.Format("/used/inquiry/{0}/repost/", listingDetails.InquiryId)%>>Click here</a> to repost.</div>
+                    <% } 
+                        else if(listingDetails.DaysRemaining > 90) 
+                       { %>   
+                    <div class="margin-top10">This listing has expired. Haven't sold this bike? <a href= <%= string.Format("/used/inquiry/{0}/repost/", listingDetails.InquiryId)%>>Click here</a> to repost.                   
+                    <div class="right-float" style="color:#f00;">[Expired]</div>  
+                    </div>                                                   
+                    <% } %>                                    
                 </div>
-            </ItemTemplate>
-        </asp:DataList>
+            <%  }
+                }  else { %>
         <div id="div_SellYourBike" class="content-block grey-bg border-light margin-top15" runat="server">
             <span class="margin-right10 margin-left10" style="font-size:14px;">You have not listed any bike</span>
             <a href="/used/sell/" class="action-btn">List Your Bike Here</a>
         </div>
+        <% } %>
 	</div>
     <div class="grid_4">
         <div class="margin-top15">
