@@ -480,6 +480,26 @@ namespace Bikewale.Notifications
                 objErr.SendMail();
             }
         }
+        public void SMSForPhotoUploadTwoDays(string customerName, string customerNumber, string make, string model, string pageUrl, string profileId)
+        {
+            try
+            {
+                EnumSMSServiceType smsEnum = EnumSMSServiceType.SMSForPhotoUploadTwoDays;
+                string message = string.Empty;
+                string editUrl = string.Format("{0}/used/sell/?id={1}", Utility.BWConfiguration.Instance.BwHostUrl, profileId);
+                message = string.Format("Add high-quality images to your {0} {1} bike Ad. Ads with photos get 50% more responses. Click here to add photos - {2}. Team BikeWale", make, model, editUrl);
+
+                SMSCommon sc = new SMSCommon();
+                sc.ProcessPrioritySMS(customerNumber, message, smsEnum, pageUrl, true);
+            }
+            catch (Exception err)
+            {
+                HttpContext.Current.Trace.Warn("Notifications.SMSBikeBookingCancellation : " + err.Message);
+                ErrorClass objErr = new ErrorClass(err, "Notifications.SMSBikeBookingCancellation");
+                objErr.SendMail();
+            }
+
+        }
 
 
         public void BookingCancallationSMSToUser(string number, string customerName, string pageUrl)
@@ -638,6 +658,26 @@ namespace Bikewale.Notifications
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.ServiceCenterDetailsSMS({0},{1},{2},{3},{4},{5})", number, name, address, phone, city, pageUrl));
+                objErr.SendMail();
+            }
+        }
+        /// <summary>
+        /// Created By  : Subodh Jain on 25-Nov-2016
+        /// Description : Send SMS to customer For Photo Upload.
+        /// </summary>
+        public void SMSNoPhotoUploadTwoDays(string customerName, string customerMobile, string make, string model, string profileId)
+        {
+            try
+            {
+                string message = String.Format("Add high-quality images to your {0} {1} bike Ad. Ads with photos get 50% more responses. Click here to add photos - <URL>. Team BikeWale", make, model);
+
+                EnumSMSServiceType esms = EnumSMSServiceType.ServiceCenterDetailsSMSToCustomer;
+                SMSCommon sc = new SMSCommon();
+                sc.ProcessSMS(customerMobile, message, esms, "");
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.SMSNoPhotoUploadTwoDays({0},{1},{2},{3},{4})", customerMobile, customerName, make, model, profileId));
                 objErr.SendMail();
             }
         }

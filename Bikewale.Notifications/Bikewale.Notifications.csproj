@@ -90,6 +90,8 @@
     <Compile Include="MailTemplates\UsedBikes\ListingRejectionEmailToSeller.cs" />
     <Compile Include="MailTemplates\UsedBikes\PhotoRequestEmailToDealerSellerTemplate.cs" />
     <Compile Include="MailTemplates\UsedBikes\PhotoRequestEmailToIndividualSellerTemplate.cs" />
+    <Compile Include="MailTemplates\UsedBikes\PhotoRequestToCustomerForSevenDays.cs" />
+    <Compile Include="MailTemplates\UsedBikes\PhotoRequestToCustomerForThreeDays.cs" />
     <Compile Include="MailTemplates\UsedBikes\PurchaseInquiryEmailToBuyerTemplate.cs" />
     <Compile Include="MailTemplates\UsedBikes\PurchaseInquiryEmailToIndividualSellerTemplate.cs" />
     <Compile Include="MySqlDbUtilities.cs" />
