@@ -58,7 +58,6 @@ namespace Bikewale.Controls
             {
                 container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
                 IBikeModels<BikeModelEntity, int> objModel = container.Resolve<IBikeModels<BikeModelEntity, int>>();
-
                 //Get Model details
                 objModelEntity = objModel.GetById(Convert.ToInt32(modelId));
 
