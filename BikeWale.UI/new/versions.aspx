@@ -760,7 +760,7 @@
                                                 <td class="text-bold"> <%=modelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall %> kmpl</td>
                                             </tr>
                                             <%} %>
-                                            <%if(modelPageEntity != null && modelPageEntity.ModelColors != null && colorCount>0) {%>
+                                            <%if(colorCount>0) {%>
                                             <tr>
                                                 <td valign="top">Colours</td>
                                                 <td valign="top" class="text-bold">
