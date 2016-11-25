@@ -279,6 +279,7 @@
     <Compile Include="Used\BikePhoto.cs" />
     <Compile Include="Used\BikeSpecifications.cs" />
     <Compile Include="Used\ClassifiedInquiryDetails.cs" />
+    <Compile Include="Used\CustomerListingDetails.cs" />
     <Compile Include="Used\ImageCategories.cs" />
     <Compile Include="Used\InputFilters.cs" />
     <Compile Include="Used\ClassifiedInquiryDetailsMin.cs" />
