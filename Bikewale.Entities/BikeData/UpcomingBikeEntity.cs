@@ -32,5 +32,8 @@ namespace Bikewale.Entities.BikeData
         private BikeDescriptionEntity objDesc = new BikeDescriptionEntity();
         [DataMember]
         public BikeDescriptionEntity BikeDescription { get { return objDesc; } set { objDesc = value; } }
+
+        [DataMember]
+        public string BikeName { get; set; }
     }
 }

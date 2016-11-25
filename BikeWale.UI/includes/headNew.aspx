@@ -4,36 +4,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml"> 
     <%--html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/" --%>
 <head>
-
     <script language="c#" runat="server">
-        private bool EnableOG=false;
+        private bool EnableOG = true;
         private string OGImage=String.Empty;   
     </script>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
-    <%if(keywords != "") {%>
-<meta name="keywords" content="<%= keywords %>" />
-    <%} %>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><%= title %></title>   
 <meta name="description" content="<%= description %>" />
-<%if(!string.IsNullOrEmpty(alternate)) {%><meta name="alternate" content="<%= alternate %>" /><%} %>
-<% if(!String.IsNullOrEmpty(fbTitle) && !String.IsNullOrEmpty(fbImage)) { %>
-<meta property="og:type" content="website" />
-<meta property="og:title" content="<%=fbTitle%>"/> 
-<meta property="og:image" content="<%=fbImage%>"/> 
-<meta property="og:url" content="<%= canonical %>" />
-<meta property="og:description" content="<%= description %>" />
- <% } %>
-
+<%if(keywords != "") {%><meta name="keywords" content="<%= keywords %>" /> <%} %>
+<%if(!string.IsNullOrEmpty(alternate)) {%>
+<meta name="alternate" content="<%= alternate %>" /><%} %>
 <% if(EnableOG){ %>
 <meta property="og:title" content="<%= title %>" />
 <meta property="og:type" content="website" />
 <meta property="og:description" content="<%= description %>" />
-   <% if(!String.IsNullOrEmpty(canonical)) { %> 
-<meta property="og:url" content="<%=canonical %>" /> <% } %>
+<% if(!String.IsNullOrEmpty(canonical)) { %><meta property="og:url" content="<%=canonical %>" /> <% } %>
 <meta property="og:image" content="<%= string.IsNullOrEmpty(OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : OGImage %>" />
-    <%} %>
-
-<title><%= title %></title>
-    
+    <%} %>   
 <% if(!string.IsNullOrEmpty(canonical)){ %><link rel="canonical" href="<%= canonical %>" /> <% } %>
 <% if( prevPageUrl != "" ) { %><link rel="prev" href="<%= prevPageUrl %>" /><% } %>
 <% if( nextPageUrl != "" ) { %><link rel="next" href="<%= nextPageUrl %>" /><% } %>
@@ -44,10 +31,7 @@
         private bool isHeaderFix = true, isAd970x90Shown = true, isAd970x90BottomShown = true, isAd300x250Shown = true, isAd300x250_BTFShown = true;
         private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
         private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
-        
     </script>
-    
-
     <!-- #include file="/includes/gacode.aspx" --> 
     <script type="text/javascript">
         setTimeout(function () {

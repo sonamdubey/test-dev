@@ -200,7 +200,6 @@
     <Compile Include="EditCMS\Articles\Image.cs" />
     <Compile Include="EditCMS\Articles\Page.cs" />
     <Compile Include="EditCMS\Articles\VehicleTag.cs" />
-    <Compile Include="EditCMS\Photos\BikeMakeEntityBase.cs" />
     <Compile Include="EditCMS\Photos\BikeModelEntityBase.cs" />
     <Compile Include="EditCMS\Photos\CMSImage.cs" />
     <Compile Include="EditCMS\Photos\ModelImage.cs" />
