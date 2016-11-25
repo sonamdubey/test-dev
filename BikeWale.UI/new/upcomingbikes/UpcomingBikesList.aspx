@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.UpcomingBikesList" Trace="false" Debug="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.UpcomingBikesList" Trace="false" EnableViewState="false" Debug="false" %>
 
 <%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" Src="~/controls/RepeaterPager.ascx" %>
 <%@ Register TagPrefix="BikeWale" TagName="UpcomingBikeSearch" Src="~/controls/UpcomingBikeSearch.ascx" %>

@@ -135,7 +135,6 @@ namespace Bikewale.New
 
                     if (isMake)
                     {
-                        //masking = Request.QueryString["make"].ToString();
                         UpcomingBikeSearch.MakeId = makeId;
                         FetchUpcomingBikes(makeId, makeMaskingName, sort);
                     }

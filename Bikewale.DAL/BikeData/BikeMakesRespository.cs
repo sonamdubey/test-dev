@@ -342,7 +342,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(err, string.Format("BikeMakeEntityBase.GetMakeDetails(): makeId : {0}", makeId));
                 objErr.SendMail();
             }
 
