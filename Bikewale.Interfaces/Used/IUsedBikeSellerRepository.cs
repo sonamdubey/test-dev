@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.Used;
 using System;
+using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.Used
 {
@@ -10,6 +11,8 @@ namespace Bikewale.Interfaces.Used
     /// Description :   Added source id parameter to SaveCustomerInquiry method
     /// Modified By  :  Aditi Srivastava on 27 Oct 2016
     /// Description :   Added function to delete used bikes photos
+    /// Modified by :  Sajal Gupta on 25-11-2016
+    /// Desc        : Added function GetCustomerListingDetails()
     /// </summary>
     public interface IUsedBikeSellerRepository
     {
@@ -17,5 +20,6 @@ namespace Bikewale.Interfaces.Used
         int SaveCustomerInquiry(string inquiryId, ulong customerId, UInt16 sourceId, out bool isNew);
         ClassifiedInquiryDetailsMin GetInquiryDetails(string inquiryId);
         bool RemoveBikePhotos(int inquiryId, string photoId);
+        IEnumerable<CustomerListingDetails> GetCustomerListingDetails(uint cutomerId);
     }
 }
