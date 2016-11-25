@@ -7,8 +7,17 @@ using System.Data;
 using System.Data.Common;
 namespace NoPhotoListingsCommunication
 {
+
+    /// <summary>
+    /// Created By:-Subodh Jain 24 Nov 2016
+    /// summary:- For photo upload sms and mail
+    /// </summary>
     public class NoPhotoSMSDAL
     {
+        /// <summary>
+        /// Created By:-Subodh Jain 24 Nov 2016
+        /// summary:- For photo upload sms and mail
+        /// </summary>
         public NoPhotoUserListEntity SendSMSNoPhoto()
         {
             Logs.WriteInfoLog("Started  NoPhotoSMSDAL");
