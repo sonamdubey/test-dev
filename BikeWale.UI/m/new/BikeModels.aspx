@@ -401,8 +401,8 @@
                 <%if (modelPage.ModelDesc != null && !string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription) || (modelPage.ModelVersionSpecs != null))
                   { %>
                 <div id="modelSummaryContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom15 border-solid-bottom">
-                    <%if (modelPage.ModelDesc != null && !string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription))
-                      { %>
+                  <%if (!modelPage.ModelDetails.Futuristic && modelPage.ModelDetails.MinPrice > 0)
+                              { %>
                     <h2><%=bikeName %> summary</h2>
                     <p class="font14 text-light-grey line-height17 margin-bottom15"><%=summaryDescription %></p>
 
@@ -414,6 +414,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                  <% if (modelPage.ModelDetails.MinPrice > 0){%> 
                                 <tr>
                                     <td valign="top" width="36%">Price</td>
                                     <td valign="top" width="64%">
@@ -421,6 +422,7 @@
                                         <span class="font12 text-light-grey">Ex-showroom <%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span>
                                     </td>
                                 </tr>
+                                <%} %>
                                 <% if(modelPage!=null && modelPage.ModelVersionSpecs!=null && modelPage.ModelVersionSpecs.TopSpeed>0) {%>
                                 <tr>
                                     <td valign="top">Top speed</td>
@@ -434,7 +436,7 @@
                                     <td valign="top" class="text-bold"><%= modelPage.ModelVersionSpecs.FuelEfficiencyOverall%> kmpl</td>
                                 </tr>
                                 <%} %>
-                                   <%if (modelPage != null && modelPage.ModelColors != null){ %> 
+                                   <%if (colorCount>0){ %> 
                                 <tr>
                                     <td valign="top">Colours</td>
                                     <td valign="top" class="text-bold">
@@ -449,7 +451,7 @@
                             </tbody>
                         </table>
                     </div>
-
+                    <%} %>
                     <h3><%= modelPage.ModelDetails.ModelName %> preview</h3>
                     <p class="font14 text-light-grey line-height17 inline">
                         <span class="model-preview-main-content">
@@ -460,7 +462,6 @@
                         </span>
                         <a href="javascript:void(0)" class="font14 read-more-model-preview">Read more</a>
                     </p>
-                    <% } %>
                     <% if (modelPage.ModelVersionSpecs != null)
                        { %>
                     <h3 class="margin-top15">Specification summary</h3>
@@ -510,10 +511,10 @@
                     </div>
                     <% } %>
                 </div>
-                <% } %>
+              <%} %>
 
                 <div id="modelPricesContent" class="bw-model-tabs-data">
-                    <% if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
+                    <% if (modelPage !=null && modelPage.ModelVersions != null && modelPage.ModelVersions.Count() > 0)
                        { %>
                     <h2 class="padding-top15 padding-right20 padding-left20"><%= bikeName %> Prices</h2>
                     <!-- varient code starts here -->
