@@ -128,7 +128,7 @@ var validation = {
 var sellBike = function () {
     var self = this;
 
-    self.formStep = ko.observable(3);
+    self.formStep = ko.observable(1);
 
     self.bikeDetails = ko.observable(new bikeDetails);
 

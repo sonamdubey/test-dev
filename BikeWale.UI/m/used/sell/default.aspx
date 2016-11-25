@@ -376,8 +376,7 @@
                     </div>
 
                     <div class="form-step-body" data-bind="visible: formStep() == 3, with: moreDetails">
-                        <h2>More details</h2>
-                        <p class="font12 text-light-grey margin-bottom20">Ads with photos are likely to get more responses!</p>
+                        <h2 class="margin-bottom15">More details</h2>
                         <p class="font16 text-black margin-bottom5">Add Photos</p>
                         <p class="font14 text-light-grey margin-bottom20">Ads with photos are likely to get 50% more responses! You can upload upto 10 photos with first photo being the profile photo for the ad. Supported formats: .jpg, .png; Image Size < 4 MB</p>
 
