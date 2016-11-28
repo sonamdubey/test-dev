@@ -10,6 +10,10 @@ using System.Data.SqlClient;
 
 namespace Bikewale.Notifications
 {
+    /// <summary>
+    /// Modified by:-Subodh Jain 24 Nov 2016
+    /// Summary:- Added SMSForPhotoUploadTwoDays
+    /// </summary>
     public enum EnumSMSServiceType
     {
         UsedPurchaseInquiryIndividualSeller = 1,
@@ -48,7 +52,8 @@ namespace Bikewale.Notifications
         RejectionEditedUsedBikeListingToSeller = 34,
         ServiceCenterDetailsSMSToCustomer = 35,
         BikeListingExpirySevenDaySMSToSeller = 36,
-        BikeListingExpiryOneDaySMSToSeller = 37
+        BikeListingExpiryOneDaySMSToSeller = 37,
+        SMSForPhotoUploadTwoDays = 38
     }
 
     public class SMSCommon

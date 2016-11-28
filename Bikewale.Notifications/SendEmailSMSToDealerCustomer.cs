@@ -119,6 +119,16 @@ namespace Bikewale.Notifications
         }
 
         /// <summary>
+        /// Created By  : Subodh Jain on 25-Nov-2016
+        /// Description : Send SMS to customer For Photo Upload.
+        /// </summary>
+        public static void SMSNoPhotoUploadTwoDays(string customerName, string customerMobile, string make, string model, string profileId, string editUrl)
+        {
+            Bikewale.Notifications.SMSTypes obj = new Bikewale.Notifications.SMSTypes();
+            obj.SMSForPhotoUploadTwoDays(customerName, customerMobile, make, model, profileId, editUrl);
+        }
+
+        /// <summary>
         /// Created By : Sadhana Upadhyay on 22 Dec 2014
         /// Summary : To send prebooking bike email to customer
         /// Modified By : Lucky Rathore on 11 May 2016.
@@ -333,6 +343,36 @@ namespace Bikewale.Notifications
             ComposeEmailBase objEmail = new PhotoRequestEmailToDealerSellerTemplate(sellerName, buyerName, buyerContact, bikeName, profileId);
             objEmail.Send(dealerEmail, "Upload Bike Photos");
         }
+        /// <summary>
+        /// Created By  : Subodh Jain on 25-Nov-2016
+        /// Description : Send Email to customer For Photo Upload after three days.
+        /// </summary>
+        /// <param name="CustomerEmail"></param>
+        /// <param name="CustomerName"></param>
+        /// <param name="CustomerNumber"></param>
+        /// <param name="Make"></param>
+        /// <param name="Model"></param>
+        /// <param name="profileId"></param>
+        public static void UsedBikePhotoRequestEmailForThreeDays(string CustomerEmail, string CustomerName, string Make, string Model, string profileId)
+        {
+            ComposeEmailBase objEmail = new PhotoRequestToCustomerForThreeDays(CustomerName, Make, Model, profileId);
+            objEmail.Send(CustomerEmail, "Upload Bike Photos Three Days");
+        }
+        /// <summary>
+        /// Created By  : Subodh Jain on 25-Nov-2016
+        /// Description : Send Email to customer For Photo Upload after Seven days.
+        /// </summary>
+        /// <param name="CustomerEmail"></param>
+        /// <param name="CustomerName"></param>
+        /// <param name="CustomerNumber"></param>
+        /// <param name="Make"></param>
+        /// <param name="Model"></param>
+        /// <param name="profileId"></param>
+        public static void UsedBikePhotoRequestEmailForSevenDays(string CustomerEmail, string CustomerName, string Make, string Model, string profileId)
+        {
+            ComposeEmailBase objEmail = new PhotoRequestToCustomerForSevenDays(CustomerName, Make, Model, profileId);
+            objEmail.Send(CustomerEmail, "Upload Bike Photos Seven Days");
+        }
 
         /// <summary>
         /// Created by  :   Sumit Kate on 01 Sep 2016
@@ -413,7 +453,7 @@ namespace Bikewale.Notifications
         {
             ComposeEmailBase objEmail = new ListingApprovalEmailToSeller(seller.CustomerName, profileId, bikeName);
             objEmail.Send(seller.CustomerEmail, String.Format("Your {0} bike listing has been approved on BikeWale.", bikeName));
-       }
+        }
 
         /// <summary>
         /// Created by  :   Aditi Srivastava on 20 Oct 2016
@@ -429,9 +469,9 @@ namespace Bikewale.Notifications
             ComposeEmailBase objEmail = new ListingRejectionEmailToSeller(seller.CustomerName, profileId, bikeName);
             objEmail.Send(seller.CustomerEmail, String.Format(" Your {0} listing has not been approved on BikeWale", bikeName));
         }
-    
 
-    /// <summary>
+
+        /// <summary>
         /// Created by  :   Aditi Srivastava on 9 Nov 2016
         /// Description :   Send Email to individual seller when the changes in used bike listing are approved
         /// </summary>
@@ -456,23 +496,23 @@ namespace Bikewale.Notifications
             ComposeEmailBase objEmail = new CustomerRegistrationMailTemplate(customerEmail, customerName, password);
             objEmail.Send(customerEmail, "BikeWale Registration.");
         }
-        
-         /// <summary>
-         /// Created by  :   Aditi Srivastava on 14 Nov 2016
-         /// Description :   Send Email to individual seller when the changes in used bike listing are rejected
-         /// </summary>
-         /// <param name="seller"></param>
-         /// <param name="buyer"></param>
-         /// <param name="profileId"></param>
-         /// <param name="bikeName"></param>
-         /// <param name="formattedPrice"></param>
-         public static void UsedBikeEditedRejectionEmailToSeller(CustomerEntityBase seller, string profileId, string bikeName)
-         {
-             ComposeEmailBase objEmail = new EditedListingRejectionEmailToSeller(seller.CustomerName, profileId, bikeName);
-             objEmail.Send(seller.CustomerEmail, String.Format("Changes to your {0} bike listing have not been approved on BikeWale.", bikeName));
-         }
-         
-         /// <summary>
+
+        /// <summary>
+        /// Created by  :   Aditi Srivastava on 14 Nov 2016
+        /// Description :   Send Email to individual seller when the changes in used bike listing are rejected
+        /// </summary>
+        /// <param name="seller"></param>
+        /// <param name="buyer"></param>
+        /// <param name="profileId"></param>
+        /// <param name="bikeName"></param>
+        /// <param name="formattedPrice"></param>
+        public static void UsedBikeEditedRejectionEmailToSeller(CustomerEntityBase seller, string profileId, string bikeName)
+        {
+            ComposeEmailBase objEmail = new EditedListingRejectionEmailToSeller(seller.CustomerName, profileId, bikeName);
+            objEmail.Send(seller.CustomerEmail, String.Format("Changes to your {0} bike listing have not been approved on BikeWale.", bikeName));
+        }
+
+        /// <summary>
         /// Created by  :   Aditi Srivastava on 14 Oct 2016
         /// Description :   Send Email to individual seller about listing their bike details
         /// </summary>
@@ -484,7 +524,7 @@ namespace Bikewale.Notifications
         public static void UsedBikeAdEmailToIndividual(CustomerEntityBase seller, string profileId, string bikeName, string formattedPrice)
         {
             ComposeEmailBase objEmail = new ListingEmailtoIndividualTemplate(seller.CustomerEmail, seller.CustomerName, profileId, bikeName, formattedPrice);
-            objEmail.Send(seller.CustomerEmail, String.Format("You have successfully listed your {0} bike on BikeWale.",bikeName));
+            objEmail.Send(seller.CustomerEmail, String.Format("You have successfully listed your {0} bike on BikeWale.", bikeName));
         }
     }
 }
