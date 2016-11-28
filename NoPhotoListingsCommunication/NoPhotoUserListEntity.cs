@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NoPhotoListingsCommunication
+namespace Bikewale.NoPhotoListingsCommunication
 {
     public class NoPhotoUserListEntity
     {

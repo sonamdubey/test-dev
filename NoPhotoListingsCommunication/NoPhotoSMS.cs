@@ -3,7 +3,7 @@ using Bikewale.Notifications;
 using Consumer;
 using System;
 using System.Collections.Generic;
-namespace NoPhotoListingsCommunication
+namespace Bikewale.NoPhotoListingsCommunication
 {
     /// <summary>
     /// Created By:-Subodh Jain 24 Nov 2016

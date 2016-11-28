@@ -89,7 +89,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.DealerAreaCommuteD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeWale.Sitemap", "BikeWale.Sitemap\BikeWale.Sitemap.csproj", "{86942D61-0DBE-43BD-8467-436B96B5A14A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoPhotoListingsCommunication", "NoPhotoListingsCommunication\NoPhotoListingsCommunication.csproj", "{40BBCABE-D507-4B64-A3EB-285938837A1A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeWale.NoPhotoListingsCommunication", "NoPhotoListingsCommunication\BikeWale.NoPhotoListingsCommunication.csproj", "{40BBCABE-D507-4B64-A3EB-285938837A1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

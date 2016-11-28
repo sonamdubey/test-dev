@@ -1,5 +1,5 @@
 ﻿
-namespace NoPhotoListingsCommunication
+namespace Bikewale.NoPhotoListingsCommunication
 {
     public class NoPhotoSMSEntity
     {

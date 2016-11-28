@@ -2,7 +2,7 @@
 using Bikewale.Notifications;
 using Consumer;
 using System;
-namespace NoPhotoListingsCommunication
+namespace Bikewale.NoPhotoListingsCommunication
 {
     /// <summary>
     /// Created By:-Subodh Jain 24 Nov 2016
