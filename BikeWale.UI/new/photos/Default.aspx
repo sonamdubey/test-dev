@@ -1,4 +1,4 @@
-﻿﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.PhotoGallery.BikePhotos" Trace="false" Debug="true" Async="true" EnableViewState="false" %>
+﻿﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.PhotoGallery.BikePhotos" Debug="false" EnableViewState="false" %>
 
 <%@ Register TagPrefix="PG" TagName="PhotoGallary" Src="/controls/PhotoGallaryMin.ascx" %>
 <%
@@ -11,9 +11,6 @@
     AdPath = "/1017752/BikeWale_New_";
     ShowTargeting = "1";
     TargetedModel = objModelEntity.ModelName;
-    EnableOG = true;
-    OGImage = modelImage;
-    //modified by SajalGupta for unfilled impression of ads on 04 Aug 2016.
     isAd300x250_BTFShown = false;
 %>
 <!-- #include file="/includes/headNew.aspx" -->
@@ -40,10 +37,7 @@
     var ModelId = '<%= objModelEntity.ModelId%>';
     var MakeName = '<%=objModelEntity.MakeBase.MakeName %>';
     var ModelName = '<%=objModelEntity.ModelName %>';
-    var ImageName = '<%=imageId%>';
-
     var MainCategory = '0';
-    var selectedImagePath = '<%= selectedImagePath%>';
 </script>
 <script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl1) ? "http://st2.aeplcdn.com" + staticUrl1 : "" %>/src/new/photogallery/image-gallery.js?v=2.0"></script>
 <div class="container_12">
@@ -61,7 +55,6 @@
             <li class="current"><strong>Photos</strong></li>
         </ul>
         <div class="clear"></div>
-        <%--<h1><%= makename %> <%= modelName %> Photos</h1>--%>
     </div>
     <div class="grid_12">
         <PG:PhotoGallary ID="photoGallary" runat="server"></PG:PhotoGallary>

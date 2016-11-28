@@ -15,8 +15,7 @@ namespace Bikewale.New.PhotoGallery
     public class BikePhotos : System.Web.UI.Page
     {
         protected PhotoGallaryMin photoGallary;
-        protected string photoId = string.Empty, imageId = string.Empty, selectedImagePath = string.Empty,
-            bikeName = string.Empty, modelName = string.Empty, makename = string.Empty, modelImage = string.Empty;
+        protected string photoId = string.Empty, bikeName = string.Empty, modelName = string.Empty, makename = string.Empty, modelImage = string.Empty;
         protected BikeModelEntity objModelEntity = null;
         protected uint modelId = 0;
 
@@ -44,7 +43,7 @@ namespace Bikewale.New.PhotoGallery
                         makename = objModelEntity.MakeBase.MakeName;
                         bikeName = string.Format("{0} {1}", objModelEntity.MakeBase.MakeName, objModelEntity.ModelName);
                         photoGallary.modelId = objModelEntity.ModelId;
-                        photoGallary.ImageId = imageId;
+                        photoGallary.BikeName = bikeName;
                         modelImage = Utility.Image.GetPathToShowImages(objModelEntity.OriginalImagePath, objModelEntity.HostUrl, Bikewale.Utility.ImageSize._476x268);
                     }
                 }
@@ -60,7 +59,6 @@ namespace Bikewale.New.PhotoGallery
         {
             ModelMaskingResponse objResponse = null;
             string modelQuerystring = Request.QueryString["model"];
-            string VersionIdStr = Request.QueryString["vid"];
             bool success = false;
             try
             {
