@@ -503,7 +503,6 @@ namespace Bikewale.Notifications
             }
             catch (Exception err)
             {
-                HttpContext.Current.Trace.Warn("SMSTypes.SMSForPhotoUploadTwoDays " + err.Message);
                 ErrorClass objErr = new ErrorClass(err, "SMSTypes.SMSForPhotoUploadTwoDays");
                 objErr.SendMail();
             }

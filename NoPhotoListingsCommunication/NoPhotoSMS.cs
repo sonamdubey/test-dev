@@ -64,9 +64,10 @@ namespace Bikewale.NoPhotoListingsCommunication
             try
             {
                 UrlShortnerResponse response = null;
+                Logs.WriteInfoLog("Started SMS for two days list");
                 foreach (var CustomerDetails in objTwoDaySMSList)
                 {
-                    Logs.WriteInfoLog("Started SMS for two days list");
+
                     string editUrl = string.Format("{0}/used/sell/?id={1}", Utility.BWConfiguration.Instance.BwHostUrl, CustomerDetails.InquiryId);
                     if (!String.IsNullOrEmpty(editUrl))
                     {
@@ -74,8 +75,8 @@ namespace Bikewale.NoPhotoListingsCommunication
                     }
                     string shortUrl = response != null ? response.ShortUrl : editUrl;
                     SendEmailSMSToDealerCustomer.SMSNoPhotoUploadTwoDays(CustomerDetails.CustomerName, CustomerDetails.CustomerNumber, CustomerDetails.Make, CustomerDetails.Model, CustomerDetails.InquiryId, shortUrl);
-                    Logs.WriteInfoLog("Ended SMS for two days list");
                 }
+                Logs.WriteInfoLog("Ended SMS for two days list");
             }
             catch (Exception ex)
             {
@@ -92,12 +93,12 @@ namespace Bikewale.NoPhotoListingsCommunication
         {
             try
             {
+                Logs.WriteInfoLog("Started Email for three days list");
                 foreach (var CustomerDetails in objThreeDayMailList)
                 {
-                    Logs.WriteInfoLog("Started Email for three days list");
                     SendEmailSMSToDealerCustomer.UsedBikePhotoRequestEmailForThreeDays(CustomerDetails.CustomerEmail, CustomerDetails.CustomerName, CustomerDetails.Make, CustomerDetails.Model, CustomerDetails.InquiryId);
-                    Logs.WriteInfoLog("Ended Email for three days list");
                 }
+                Logs.WriteInfoLog("Ended Email for three days list");
 
             }
             catch (Exception ex)
@@ -115,12 +116,14 @@ namespace Bikewale.NoPhotoListingsCommunication
         {
             try
             {
+                Logs.WriteInfoLog("Started Email for seven days list");
                 foreach (var CustomerDetails in objSevenDayMailList)
                 {
-                    Logs.WriteInfoLog("Started Email for seven days list");
+
                     SendEmailSMSToDealerCustomer.UsedBikePhotoRequestEmailForSevenDays(CustomerDetails.CustomerEmail, CustomerDetails.CustomerName, CustomerDetails.Make, CustomerDetails.Model, CustomerDetails.InquiryId);
-                    Logs.WriteInfoLog("Ended Email for seven days list");
+
                 }
+                Logs.WriteInfoLog("Ended Email for seven days list");
 
             }
             catch (Exception ex)

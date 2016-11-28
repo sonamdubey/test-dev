@@ -1,6 +1,10 @@
 ﻿
 namespace Bikewale.NoPhotoListingsCommunication
 {
+    /// <summary>
+    /// Created By:-Subodh Jain 24 Nov 2016
+    /// summary:- For photo upload sms and mail
+    /// </summary>
     public class NoPhotoSMSEntity
     {
         public string CustomerName { get; set; }
