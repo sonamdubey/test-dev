@@ -738,6 +738,10 @@
       <DependentUpon>RemoveFromListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="mybikewale\repostad.aspx.cs">
+      <DependentUpon>repostad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\bikebooking\cancellation.aspx.cs">
       <DependentUpon>cancellation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2364,6 +2368,7 @@
     <Content Include="mybikewale\Default.aspx" />
     <Content Include="mybikewale\MyListing.aspx" />
     <Content Include="mybikewale\RemoveFromListing.aspx" />
+    <Content Include="mybikewale\repostad.aspx" />
     <Content Include="m\advertisewithus.aspx" />
     <Content Include="m\bikebooking\cancellation.aspx" />
     <Content Include="m\bikebooking\Default.aspx" />
