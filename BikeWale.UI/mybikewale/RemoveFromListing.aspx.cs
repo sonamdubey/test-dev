@@ -74,6 +74,7 @@ namespace Bikewale.MyBikeWale
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            Form.Action = Request.RawUrl;
             inquiryId = Request["Id"].ToString();
 
             if (!IsUserLoggedin())
@@ -93,7 +94,7 @@ namespace Bikewale.MyBikeWale
                     FillStatusSell();
                     lblRemoveStatus.Visible = false;
                     isAuthorised = true;
-                }                
+                }
             }
         }
 

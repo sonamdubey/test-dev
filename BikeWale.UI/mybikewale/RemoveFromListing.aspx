@@ -1,9 +1,8 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.MyBikeWale.RemoveFromListing" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.MyBikeWale.RemoveFromListing" EnableViewState="false" %>
 <%
     title = "My BikeWale - Remove Sell Bike Ad";
 %>
 <!-- #include file="/includes/headMyBikeWale.aspx" -->
-<script type="text/javascript" src="http://st.carwale.com/jquery-1.7.2.min.js?v=1.0" ></script>
 
  <div class="container_12 container-min-height"> 
       
@@ -20,13 +19,14 @@
             </ul><div class="clear"></div>
         </div>
     <div class="grid_12 margin-top10">
+        <div id="div_<%= inquiryId %>"></div>
     <div id="div_RemoveInquiry" class="content-block grey-bg border-light margin-top15" runat="server">
         <% if(isAuthorised) { %>  
         <p><asp:Label ID="lblMsg" runat="server" /></p>	
 	    <asp:DropDownList ID="drpStatus" runat="server" Width="250px"/>
 	    <div style="margin-top:10px;">Comments if any:</div>
 	    <asp:TextBox TextMode="MultiLine" ID="txtComments" Rows="5" Columns="33" runat="server"	/>
-		   <div style="margin-top:10px;"><asp:button cssClass="action-btn text_white" ID="btnSave" text="Remove My Bike" runat="server" />
+		   <div style="margin-top:10px;"><asp:button cssClass="action-btn text_white" ID="btnSave" onclientclick="javascript:form_Submit" text="Remove My Bike" runat="server" />
 		    <input class="action-btn text_white" type="button" value="Cancel" onclick="javascript:window.close()" />
                </div> 
         <% } 
@@ -41,9 +41,8 @@
         <asp:Label id="lblRemoveStatus" runat="server"></asp:Label>
     </div>
     </div>
-<script type="text/javascript">
-    document.getElementById('btnSave').onclick = form_Submit;    
-    inquiryId = '<%= inquiryId%>';
+<script type="text/javascript">    
+   var inquiryId = '<%= inquiryId%>';
 
     function form_Submit(e) {
         if (document.getElementById('drpStatus').options[0].selected) {
@@ -54,8 +53,8 @@
     }
     
     function post_status() {
-        var objParent = opener.document.getElementById("div_" + inquiryId);
-            
+        var objParent = document.getElementById("div_" + inquiryId);
+        document.getElementById("div_RemoveInquiry").style.visibility = 'hidden';
         objParent.innerHTML = "<b>Your bike listing S" + inquiryId + " has been successfully removed.</b>";
         self.close();        
     }

@@ -73,7 +73,7 @@
                        { %>
                     <div class="margin-top10"> 
                         <% if(listingDetails.StatusId == 1) { %>                                       
-                        <div class= "left-float"><a target="_blank" href="/used/sell/default.aspx?id=<%= listingDetails.InquiryId %>">Edit bike details</a> | <a target="_blank" href="/used/sell/default.aspx?id=<%= listingDetails.InquiryId %>#uploadphoto">Upload bike photos</a> | <a class="pointer" onclick="removeBike('<%= listingDetails.InquiryId %>')">Remove from listing</a></div>                        
+                        <div class= "left-float"><a target="_blank" href="/used/sell/default.aspx?id=<%= listingDetails.InquiryId %>">Edit bike details</a> | <a target="_blank" href="/used/sell/default.aspx?id=<%= listingDetails.InquiryId %>#uploadphoto">Upload bike photos</a> | <a class="pointer" title="Remove this listing" href="/used/inquiry/<%= listingDetails.InquiryId %>/remove/">Remove from listing</a></div>                        
                         <% } 
                            if (!isFake) { %>
                         <div id="div_status" class="right-float" style="color:#f00;">
@@ -86,11 +86,11 @@
                     <% if (listingDetails.DaysRemaining > 83 && listingDetails.DaysRemaining < 90 && listingDetails.StatusId == 1 && listingDetails.IsApproved) 
                        { %>
                     <div class="margin-top10">This listing is about to expire. Haven't sold this bike? <a href= <%= string.Format("/used/inquiry/{0}/repost/", listingDetails.InquiryId)%>>Click here</a> to repost.</div>
-                    <% } 
-                        else if(listingDetails.DaysRemaining > 90) 
+                    <% }
+                       else if (listingDetails.StatusId == 6 && listingDetails.DaysRemaining > 90) 
                        { %>   
                     <div class="margin-top10">This listing has expired. Haven't sold this bike? <a href= <%= string.Format("/used/inquiry/{0}/repost/", listingDetails.InquiryId)%>>Click here</a> to repost.                   
-                    <div class="right-float" style="color:#f00;">[Expired]</div>  
+                    <div class="right-float" style="color:#f00;">[ Expired ]</div>  
                     </div>                                                   
                     <% } %>                                    
                 </div>
@@ -110,10 +110,6 @@
     </div>
 </div>
 <script type="text/javascript">
-    var isRemoved = false;
-
-    function removeBike(bikeId) {
-        window.location = "/mybikewale/removeFromListing.aspx?id=" + bikeId;
-         }
+    var isRemoved = false;   
 </script>
 <!-- #include file="/includes/footerinner.aspx" -->
