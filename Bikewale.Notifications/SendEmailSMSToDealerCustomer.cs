@@ -125,7 +125,7 @@ namespace Bikewale.Notifications
         public static void SMSNoPhotoUploadTwoDays(string customerName, string customerMobile, string make, string model, string profileId)
         {
             Bikewale.Notifications.SMSTypes obj = new Bikewale.Notifications.SMSTypes();
-            obj.SMSNoPhotoUploadTwoDays(customerName, customerMobile, make, model, profileId);
+            obj.SMSForPhotoUploadTwoDays(customerName, customerMobile, make, model, profileId);
         }
 
         /// <summary>
