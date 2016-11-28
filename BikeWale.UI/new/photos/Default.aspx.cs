@@ -41,7 +41,8 @@ namespace Bikewale.New.PhotoGallery
                     {
                         modelName = objModelEntity.ModelName;
                         makename = objModelEntity.MakeBase.MakeName;
-                        bikeName = string.Format("{0} {1}", objModelEntity.MakeBase.MakeName, objModelEntity.ModelName);
+                        if (objModelEntity.MakeBase != null)
+                            bikeName = string.Format("{0} {1}", objModelEntity.MakeBase.MakeName, objModelEntity.ModelName);
                         photoGallary.modelId = objModelEntity.ModelId;
                         photoGallary.BikeName = bikeName;
                         modelImage = Utility.Image.GetPathToShowImages(objModelEntity.OriginalImagePath, objModelEntity.HostUrl, Bikewale.Utility.ImageSize._476x268);
