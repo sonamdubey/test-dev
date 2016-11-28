@@ -319,6 +319,7 @@
     <Compile Include="common\Mails\ClassifiedMailContent.cs" />
     <Compile Include="common\MakeHelper.cs" />
     <Compile Include="common\MakeModelVersion.cs" />
+    <Compile Include="common\ModelHelper.cs" />
     <Compile Include="common\ModelVersionDescription.cs" />
     <Compile Include="common\PriceQuoteQuerySting.cs" />
     <Compile Include="common\RegisterCustomer.cs" />
