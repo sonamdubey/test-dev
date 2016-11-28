@@ -109,7 +109,4 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    var isRemoved = false;   
-</script>
 <!-- #include file="/includes/footerinner.aspx" -->

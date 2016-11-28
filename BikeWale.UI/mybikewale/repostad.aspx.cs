@@ -5,11 +5,6 @@ using Bikewale.Common;
 using Bikewale.DAL.Customer;
 using Bikewale.DAL.MobileVerification;
 using Bikewale.DAL.Used;
-using Bikewale.DTO.BikeBooking.Make;
-using Bikewale.DTO.BikeBooking.Model;
-using Bikewale.DTO.BikeBooking.Version;
-using Bikewale.DTO.UsedBikes;
-using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Customer;
 using Bikewale.Entities.Used;
 using Bikewale.Interfaces.Customer;
@@ -28,7 +23,6 @@ namespace Bikewale.MyBikewale
     /// </summary>
     public class RepostSellBikeAd : System.Web.UI.Page
     {
-        protected SellBikeAdDTO inquiryDTO;
         protected int inquiryId = 0;
         protected UInt64 userId;
         protected bool isAuthorized = false, isReposted = false;
@@ -97,12 +91,6 @@ namespace Bikewale.MyBikewale
                     if (obj != null)
                     {
                         SellBikeAd inquiryDetailsObject = obj.GetById(inquiryId, userId);
-                        if (inquiryDetailsObject != null)
-                        {
-                            inquiryDTO = ConvertToDto(inquiryDetailsObject);
-                            if (inquiryDTO != null)
-                                inquiryDTO.ManufacturingYear = (DateTime)inquiryDTO.ManufacturingYear;
-                        }
                         isAuthorized = inquiryDetailsObject == null ? false : true;
                     }
                 }
@@ -113,23 +101,6 @@ namespace Bikewale.MyBikewale
                 objErr.SendMail();
             }
             return isAuthorized;
-        }
-
-        /// <summary>
-        /// Created By : Sajal Gupta on 24/10/2016
-        /// Description : Function to convert entity to DTO.
-        /// </summary>
-        private SellBikeAdDTO ConvertToDto(SellBikeAd inquiryDetailsObject)
-        {
-            AutoMapper.Mapper.CreateMap<Bikewale.Entities.BikeData.BikeMakeEntityBase, BBMakeBase>();
-            AutoMapper.Mapper.CreateMap<Bikewale.Entities.BikeData.BikeModelEntityBase, BBModelBase>();
-            AutoMapper.Mapper.CreateMap<BikeVersionEntityBase, BBVersionBase>();
-            AutoMapper.Mapper.CreateMap<Bikewale.Entities.Used.SellAdStatus, Bikewale.DTO.UsedBikes.SellAdStatus>();
-            AutoMapper.Mapper.CreateMap<SellBikeAdOtherInformation, SellBikeAdOtherInformationDTO>();
-            AutoMapper.Mapper.CreateMap<SellerEntity, SellerDTO>();
-            AutoMapper.Mapper.CreateMap<BikePhoto, Bikewale.DTO.Used.Search.BikePhoto>();
-            AutoMapper.Mapper.CreateMap<SellBikeAd, SellBikeAdDTO>();
-            return AutoMapper.Mapper.Map<SellBikeAdDTO>(inquiryDetailsObject);
         }
 
         /// <summary>
