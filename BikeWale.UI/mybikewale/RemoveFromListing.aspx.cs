@@ -42,6 +42,8 @@ namespace Bikewale.MyBikeWale
         bool _isMemcachedUsed;
         protected static MemcachedClient _mc = null;
 
+        protected bool isAuthorised = false;
+
         public RemoveFromListing()
         {
             _isMemcachedUsed = bool.Parse(ConfigurationManager.AppSettings.Get("IsMemcachedUsed"));
@@ -90,11 +92,8 @@ namespace Bikewale.MyBikeWale
 
                     FillStatusSell();
                     lblRemoveStatus.Visible = false;
-                }
-                else
-                {
-                    this.Page.Visible = false;
-                }
+                    isAuthorised = true;
+                }                
             }
         }
 

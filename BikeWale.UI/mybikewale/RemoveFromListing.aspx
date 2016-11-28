@@ -1,20 +1,46 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.MyBikeWale.RemoveFromListing" %>
+<%
+    title = "My BikeWale - Remove Sell Bike Ad";
+%>
+<!-- #include file="/includes/headMyBikeWale.aspx" -->
 <script type="text/javascript" src="http://st.carwale.com/jquery-1.7.2.min.js?v=1.0" ></script>
-<form runat="server">
-    <div id="div_RemoveInquiry" runat="server">
+
+ <div class="container_12 container-min-height"> 
+      
+    <div class="grid_12">
+            <ul class="breadcrumb">
+                <li>You are here: </li>
+                <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="/" itemprop="url">
+                        <span itemprop="title">Home</span>
+                    </a>
+                </li>
+                <li class="fwd-arrow">&rsaquo;</li>
+                <li class="current"><strong>My BikeWale</strong></li>
+            </ul><div class="clear"></div>
+        </div>
+    <div class="grid_12 margin-top10">
+    <div id="div_RemoveInquiry" class="content-block grey-bg border-light margin-top15" runat="server">
+        <% if(isAuthorised) { %>  
         <p><asp:Label ID="lblMsg" runat="server" /></p>	
-	    <asp:DropDownList ID="drpStatus" runat="server" />
+	    <asp:DropDownList ID="drpStatus" runat="server" Width="250px"/>
 	    <div style="margin-top:10px;">Comments if any:</div>
 	    <asp:TextBox TextMode="MultiLine" ID="txtComments" Rows="5" Columns="33" runat="server"	/>
-	    <div align="center" style="margin-top:10px;">
-		    <asp:button ID="btnSave" text="Remove My Bike" runat="server" />
-		    <input type="button" value="Cancel" onclick="javascript:window.close()" />
-	    </div>
+		   <div style="margin-top:10px;"><asp:button cssClass="action-btn text_white" ID="btnSave" text="Remove My Bike" runat="server" />
+		    <input class="action-btn text_white" type="button" value="Cancel" onclick="javascript:window.close()" />
+               </div> 
+        <% } 
+        else
+        { %>
+     <div class="margin-top20 text-bold">You don't have access to remove this listing because this listing was posted using a different login id.</div>
+                    <div class="margin-top10">You should use the same login credentials (email and password) that you had used while posting this listing on BikeWale.</div>
+
+     <% } %>
     </div>
     <div>
         <asp:Label id="lblRemoveStatus" runat="server"></asp:Label>
     </div>
-    </form>
+    </div>
 <script type="text/javascript">
     document.getElementById('btnSave').onclick = form_Submit;    
     inquiryId = '<%= inquiryId%>';
@@ -40,4 +66,7 @@
             post_status();
         }
     });
- </script>
+ </script>     
+     </div>
+
+<!-- #include file="/includes/footerInner.aspx" -->
