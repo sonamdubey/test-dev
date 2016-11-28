@@ -60,6 +60,15 @@ namespace Bikewale.MyBikewale
             Form.Action = Request.RawUrl;
             if (ProcessQueryString())
             {
+                // Check if user is logged in or not
+                if (CurrentUser.UserId > 0)
+                {
+                    userId = CurrentUser.UserId;
+                }
+                else // If user is not logged in, redirect user to login page
+                {
+                    RedirectToLogin();
+                }
                 GetInquiryDetails(inquiryId);
             }
         }
@@ -129,16 +138,6 @@ namespace Bikewale.MyBikewale
         /// </summary>
         private bool ProcessQueryString()
         {
-            // Check if user is logged in or not
-            if (CurrentUser.UserId > 0)
-            {
-                userId = CurrentUser.UserId;
-            }
-            else // If user is not logged in, redirect user to login page
-            {
-                NotAuthorizedRedirect();
-                return false;
-            }
             try
             {
                 string strInquiryId = Request.QueryString["id"];
@@ -156,7 +155,7 @@ namespace Bikewale.MyBikewale
             return false;
         }
 
-        private void NotAuthorizedRedirect()
+        private void RedirectToLogin()
         {
             Response.Redirect(String.Format("/users/login.aspx?ReturnUrl=/used/inquiry/{0}/repost/", inquiryId));
             HttpContext.Current.ApplicationInstance.CompleteRequest();
