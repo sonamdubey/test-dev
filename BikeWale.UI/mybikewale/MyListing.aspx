@@ -114,9 +114,8 @@
 
     function removeBike(bikeId) {
         var left = (screen.width - 300) / 2;
-        var top = (screen.height - 250) / 2;
-        var type = "1";	//for sell inquiry
-        window.open("/mybikewale/removeFromListing.aspx?type=" + type + "&id=" + bikeId, "remove", "menu=no,address=no,scrollbars=no,resizable=no,width=310,height=290,left=" + left + ",top=" + top);
+        var top = (screen.height - 250) / 2;        
+        window.open("/mybikewale/removeFromListing.aspx?id=" + bikeId, "remove", "menu=no,address=no,scrollbars=no,resizable=no,width=310,height=290,left=" + left + ",top=" + top);
     }
 </script>
 <!-- #include file="/includes/footerinner.aspx" -->

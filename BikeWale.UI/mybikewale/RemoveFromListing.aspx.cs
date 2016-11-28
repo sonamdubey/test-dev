@@ -1,16 +1,26 @@
-﻿using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
+﻿using Bikewale.BAL.Customer;
+using Bikewale.BAL.MobileVerification;
+using Bikewale.BAL.UsedBikes;
 using Bikewale.Common;
-using Bikewale;
-using System.Data;
-using System.Data.SqlClient;
+using Bikewale.DAL.Customer;
+using Bikewale.DAL.MobileVerification;
+using Bikewale.DAL.Used;
+using Bikewale.Entities.Customer;
+using Bikewale.Entities.Used;
+using Bikewale.Interfaces.Customer;
+using Bikewale.Interfaces.MobileVerification;
+using Bikewale.Interfaces.Used;
 using Enyim.Caching;
-using System.Configuration;
-using System.Data.Common;
+using Microsoft.Practices.Unity;
 using MySql.CoreDAL;
+using System;
+using System.Configuration;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Web;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.MyBikeWale
 {
@@ -26,9 +36,9 @@ namespace Bikewale.MyBikeWale
         protected TextBox txtComments;
         protected HtmlContainerControl div_RemoveInquiry;
 
-        public string inquiryId = "",inquiryType = "";
+        public string inquiryId = "";
         public string isRemovedListing = "0";
-        
+
         bool _isMemcachedUsed;
         protected static MemcachedClient _mc = null;
 
@@ -53,29 +63,118 @@ namespace Bikewale.MyBikeWale
             this.Load += new EventHandler(Page_Load);
             this.btnSave.Click += new EventHandler(btnSave_Click);
         }
+
+        /// <summary>
+        /// Modified by : Sajal Gupta on 28-11-2016
+        /// Desc : Added Check of authorised user
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request["Id"] == null || !CommonOpn.CheckId(Request["Id"]))
+            inquiryId = Request["Id"].ToString();
+
+            if (!IsUserLoggedin())
             {
-                btnSave.Enabled = false;
-                return;
+                NotAuthorizedRedirect();
             }
             else
-                inquiryId = Request["Id"].ToString();
-
-            if (Request["type"] == null || !CommonOpn.CheckId(Request["type"]))
             {
-                btnSave.Enabled = false;
-                return;
-            }
-            else
-                inquiryType = Request["type"].ToString();
+                if (IsAuthorisedUser())
+                {
+                    if (Request["Id"] == null || !CommonOpn.CheckId(Request["Id"]))
+                    {
+                        btnSave.Enabled = false;
+                        return;
+                    }
 
-            if(!IsPostBack)
-            {
-                FillStatusSell();
-                lblRemoveStatus.Visible = false;
+                    FillStatusSell();
+                    lblRemoveStatus.Visible = false;
+                }
+                else
+                {
+                    this.Page.Visible = false;
+                }
             }
+        }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 28-11-2016
+        /// Desc       : Check if user is logged in
+        /// </summary>
+        /// <returns></returns>
+        protected bool IsUserLoggedin()
+        {
+            try
+            {
+                if (CurrentUser.Id == null || Convert.ToInt32(CurrentUser.Id) < 0)
+                    return false;
+                else
+                    return true;
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "RemoveFromListing.IsUserLoggedin()");
+                objErr.SendMail();
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 28-11-2016
+        /// Desc       : Check if user is authorised.
+        /// </summary>
+        /// <returns></returns>
+        protected bool IsAuthorisedUser()
+        {
+            try
+            {
+                ISellBikes obj;
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<Bikewale.Interfaces.Customer.ICustomerRepository<CustomerEntity, UInt32>, CustomerRepository<CustomerEntity, UInt32>>();
+                    container.RegisterType<ICustomer<CustomerEntity, UInt32>, Customer<CustomerEntity, UInt32>>();
+                    container.RegisterType<IMobileVerificationRepository, MobileVerificationRepository>();
+                    container.RegisterType<IMobileVerification, MobileVerification>();
+                    container.RegisterType<IUsedBikeBuyerRepository, UsedBikeBuyerRepository>();
+                    container.RegisterType<ISellBikesRepository<SellBikeAd, int>, SellBikesRepository<SellBikeAd, int>>();
+                    container.RegisterType<IUsedBikeSellerRepository, UsedBikeSellerRepository>();
+                    container.RegisterType<ISellBikes, SellBikes>();
+                    obj = container.Resolve<ISellBikes>();
+                    if (obj != null)
+                    {
+                        SellBikeAd inquiryDetailsObject = obj.GetById(Convert.ToInt32(inquiryId), Convert.ToUInt32(CurrentUser.Id));
+
+                        if (inquiryDetailsObject == null || !inquiryDetailsObject.Status.Equals(SellAdStatus.Approved))
+                            return false;
+                        else
+                            return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "RemoveFromListing.IsAuthorisedUser()");
+                objErr.SendMail();
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 28-11-2016
+        /// Desc       : redirect if user not logged in.
+        /// </summary>
+        /// <returns></returns>
+        private void NotAuthorizedRedirect()
+        {
+            Response.Redirect(String.Format("/users/login.aspx?ReturnUrl=/used/inquiry/{0}/remove/", inquiryId));
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
+            this.Page.Visible = false;
         }
 
         protected void FillStatusSell()
@@ -96,7 +195,7 @@ namespace Bikewale.MyBikeWale
             UpdateSoldStatus();
 
             //div_RemoveInquiry.Visible = false;
-            
+
             //lblRemoveStatus.Text = "Your inquiry has been removed from bikewale listing.";
             //lblRemoveStatus.Visible = true;
 
@@ -151,7 +250,7 @@ namespace Bikewale.MyBikeWale
                 {
                     //cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt).Value = inquiryId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbType.Int64, inquiryId));
-                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);                                                                                                        
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException err)
