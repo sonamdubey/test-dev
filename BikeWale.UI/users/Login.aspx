@@ -82,7 +82,7 @@
                             <div class="bw-blackbg-tooltip hide"></div>                            
                         </div>
                         <div class="form-control-box margin-bottom20">
-	                        <p class="form-mobile-prefix pos-left0">+91</p>
+	                        <p class="form-mobile-prefix position-abt pos-left10">+91</p>
                             <asp:TextBox runat="server" name="txtMobileSignup" id="txtMobileSignup" class="form-control padding-left40" MaxLength="10" placeholder="Mobile no." />
                             <span class="bwsprite error-icon hide"></span>
                             <div class="bw-blackbg-tooltip hide"></div>
