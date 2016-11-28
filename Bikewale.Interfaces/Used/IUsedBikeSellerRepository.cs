@@ -20,6 +20,7 @@ namespace Bikewale.Interfaces.Used
         int SaveCustomerInquiry(string inquiryId, ulong customerId, UInt16 sourceId, out bool isNew);
         ClassifiedInquiryDetailsMin GetInquiryDetails(string inquiryId);
         bool RemoveBikePhotos(int inquiryId, string photoId);
+        bool RepostSellBikeAd(int inquiryId, ulong customerId);
         IEnumerable<CustomerListingDetails> GetCustomerListingDetails(uint cutomerId);
     }
 }

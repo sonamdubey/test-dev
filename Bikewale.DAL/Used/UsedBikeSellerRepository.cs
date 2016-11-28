@@ -184,7 +184,32 @@ namespace Bikewale.DAL.Used
             }
             return isRemoved;
         }
-
+	/// <summary>
+        /// Created by: Sangram Nandkhile on 25 Nov 2016
+        /// Desc: To repost ad listing
+        /// </summary>
+        /// <returns></returns>
+        public bool RepostSellBikeAd(int inquiryId, ulong customerId)
+        {
+            bool isPosted = false;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("classified_repostlisting"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int64, customerId));
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    isPosted = true;
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, String.Format("UsedBikeSellerRepository.RepostSellBikeAd(inquiryId: {0},customerId: {1})", inquiryId, customerId));
+                objErr.SendMail();
+            }
+            return isPosted;
+        }
         /// <summary>
         /// Created by : sajal gupta on 25-11-2016
         /// Desc : To fetch liting details from db.

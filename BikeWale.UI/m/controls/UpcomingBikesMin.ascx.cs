@@ -46,15 +46,14 @@ namespace Bikewale.Mobile.Controls
                 objUpcoming.MakeId = MakeId;
                 objUpcoming.ModelId = ModelId;
                 objUpcoming.pageSize = pageSize;
-                //if (String.IsNullOrEmpty(makeMaskingName))
-                //{
-                //    upcomingBikesLink = "/m/upcoming-bikes/";
-                //}
-                //else
-                //{
-                //    upcomingBikesLink = String.Format("/m/{0}-bikes/upcoming/", makeMaskingName);
-                //}
-                upcomingBikesLink = "/m/upcoming-bikes/";
+                if (String.IsNullOrEmpty(makeMaskingName))
+                {
+                    upcomingBikesLink = "/m/upcoming-bikes/";
+                }
+                else
+                {
+                    upcomingBikesLink = String.Format("/m/{0}-bikes/upcoming/", makeMaskingName);
+                }
                 objUpcoming.BindUpcomingBikes(null);
                 if (objUpcoming.FetchedRecordsCount > 0)
                 {
