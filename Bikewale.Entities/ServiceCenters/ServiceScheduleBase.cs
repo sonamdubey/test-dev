@@ -24,6 +24,6 @@ namespace Bikewale.Entities.ServiceCenters
         [DataMember]
         public string OriginalImagePath { get; set; }
         [DataMember]
-        public IList<ServiceScheduleBase> Schedules { get; set; }
+        public ICollection<ServiceScheduleBase> Schedules { get; set; }
     }
 }

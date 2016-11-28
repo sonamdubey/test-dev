@@ -159,80 +159,6 @@ namespace Bikewale.DAL.BikeData
             return t;
         }
 
-        /// <summary>
-        /// Create By : Ashish Kamble on 22 Apr 2014
-        /// Summary : Function to get all models with series information for the given makeid.
-        /// </summary>
-        /// <param name="makeId">Only positive numbers are allowed.</param>
-        /// <returns>Returns list containg BikeModelsListEntity.</returns>
-        public List<BikeModelsListEntity> GetModelsList(U makeId)
-        {
-            List<BikeModelsListEntity> objList = null;
-            //Database db = null;
-            //try
-            //{
-            //    using (SqlCommand cmd = new SqlCommand())
-            //    {
-            //        cmd.CommandText = "GetSerieswiseModels_New";
-            //        cmd.CommandType = CommandType.StoredProcedure;
-
-            //        cmd.Parameters.Add("@MakeId", SqlDbType.VarChar, 10).Value = makeId;
-
-            //        db = new Database();
-
-            //        using (SqlDataReader dr = db.SelectQry(cmd))
-            //        {
-            //            if (dr != null)
-            //            {
-            //                objList = new List<BikeModelsListEntity>();
-
-            //                while (dr.Read())
-            //                {
-            //                    BikeModelsListEntity objModel = new BikeModelsListEntity();
-
-            //                    objModel.ModelSeries.SeriesId = Convert.ToInt16(dr["SeriesId"]);
-            //                    objModel.ModelSeries.SeriesName = Convert.ToString(dr["Series"]);
-            //                    objModel.ModelSeries.MaskingName = Convert.ToString(dr["SeriesMaskingName"]);
-            //                    objModel.ModelId = Convert.ToInt32(dr["ModelId"]);
-            //                    objModel.ModelName = Convert.ToString(dr["Model"]);
-            //                    objModel.ModelCount = Convert.ToUInt16(dr["ModelCount"]);
-            //                    objModel.MinPrice = Convert.ToInt64(dr["MinPrice"]);
-            //                    objModel.MaxPrice = Convert.ToInt64(dr["MaxPrice"]);
-            //                    objModel.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
-            //                    objModel.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
-            //                    objModel.SeriesSmallPicUrl = Convert.ToString(dr["SmallPicUrl"]);
-            //                    objModel.SeriesHostUrl = Convert.ToString(dr["HostUrl"]);
-            //                    objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
-            //                    objModel.MakeBase.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
-            //                    objModel.ModelRank = Convert.ToUInt16(dr["ModelRank"]);
-            //                    objModel.MakeBase.MakeName = Convert.ToString(dr["MakeName"]);
-            //                    objModel.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
-            //                    objList.Add(objModel);
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-            //catch (SqlException err)
-            //{
-            //    HttpContext.Current.Trace.Warn("SQL Exception in GetModelsList", err.Message);
-            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //}
-            //catch (Exception err)
-            //{
-            //    HttpContext.Current.Trace.Warn("Exception in GetModelsList", err.Message);
-            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //}
-            //finally
-            //{
-            //    db.CloseConnection();
-            //}
-
-            return objList;
-        }
-
         public BikeDescriptionEntity GetMakeDescription(U makeId)
         {
             BikeDescriptionEntity objMake = null;
@@ -541,14 +467,18 @@ namespace Bikewale.DAL.BikeData
                                 {
                                     foreach (var bikeMake in makeModels)
                                     {
-                                        bikeMake.Models = from bike in Models
-                                                          where bike.MakeId == bikeMake.Make.MakeId
-                                                          select new BikeModelEntityBase()
-                                                          {
-                                                              ModelId = bike.ModelId,
-                                                              ModelName = bike.ModelName,
-                                                              MaskingName = bike.MaskingName
-                                                          };
+                                        var models = (from bike in Models
+                                                      where bike.MakeId == bikeMake.Make.MakeId
+                                                      select new BikeModelEntityBase()
+                                                      {
+                                                          ModelId = bike.ModelId,
+                                                          ModelName = bike.ModelName,
+                                                          MaskingName = bike.MaskingName
+                                                      });
+                                        if (models != null)
+                                        {
+                                            bikeMake.Models = models.ToList();
+                                        }
                                     }
                                 }
                             }
