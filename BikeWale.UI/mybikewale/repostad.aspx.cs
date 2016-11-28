@@ -57,6 +57,7 @@ namespace Bikewale.MyBikewale
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Form.Action = Request.RawUrl;
             if (ProcessQueryString())
             {
                 GetInquiryDetails(inquiryId);
