@@ -36,7 +36,7 @@
             <h3 class="grey-bg border-light padding5 margin-top10 margin-bottom10 isfake">You are not authorized to add any listing. Please contact us on <u>contact@bikewale.com</u></h3>
         </div>
         <h2>My Bike(s) Listed For Sale</h2>        
-                <% if (listingDetailsList != null)
+                <% if (listingDetailsList != null && listingDetailsList.Count() > 0)
                    { 
                     foreach (var listingDetails in listingDetailsList)  
                    { %>
@@ -83,7 +83,7 @@
                     <div class="clear"></div>
                     </div> 
                     <% } %>
-                    <% if (listingDetails.DaysRemaining > 83 && listingDetails.DaysRemaining < 90 && listingDetails.StatusId == 1 && listingDetails.IsApproved) 
+                    <% if (listingDetails.DaysRemaining > 82 && listingDetails.DaysRemaining < 91 && listingDetails.StatusId == 1 && listingDetails.IsApproved) 
                        { %>
                     <div class="margin-top10">This listing is about to expire. Haven't sold this bike? <a href= <%= string.Format("/used/inquiry/{0}/repost/", listingDetails.InquiryId)%>>Click here</a> to repost.</div>
                     <% }
