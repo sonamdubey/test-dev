@@ -1,5 +1,7 @@
 ﻿using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.UrlShortner;
 using Bikewale.Notifications.NotificationDAL;
+using Bikewale.Utility;
 using System;
 using System.Configuration;
 using System.Web;
@@ -480,22 +482,37 @@ namespace Bikewale.Notifications
                 objErr.SendMail();
             }
         }
-        public void SMSForPhotoUploadTwoDays(string customerName, string customerNumber, string make, string model, string pageUrl, string profileId)
+        /// <summary>
+        /// Created By  : Subodh Jain on 25-Nov-2016
+        /// Description : Send SMS to customer For Photo Upload.
+        /// </summary>
+        /// <param name="customerName"></param>
+        /// <param name="customerNumber"></param>
+        /// <param name="make"></param>
+        /// <param name="model"></param>
+        /// <param name="profileId"></param>
+        public void SMSForPhotoUploadTwoDays(string customerName, string customerNumber, string make, string model, string profileId)
         {
             try
             {
+                UrlShortnerResponse response = null;
                 EnumSMSServiceType smsEnum = EnumSMSServiceType.SMSForPhotoUploadTwoDays;
                 string message = string.Empty;
                 string editUrl = string.Format("{0}/used/sell/?id={1}", Utility.BWConfiguration.Instance.BwHostUrl, profileId);
-                message = string.Format("Add high-quality images to your {0} {1} bike Ad. Ads with photos get 50% more responses. Click here to add photos - {2}. Team BikeWale", make, model, editUrl);
+                if (!String.IsNullOrEmpty(editUrl))
+                {
+                    response = new UrlShortner().GetShortUrl(editUrl);
+                }
+                string shortUrl = response != null ? response.ShortUrl : editUrl;
+                message = string.Format("Add high-quality images to your {0} {1} bike Ad. Ads with photos get 50% more responses. Click here to add photos - {2}. Team BikeWale", make, model, shortUrl);
 
                 SMSCommon sc = new SMSCommon();
-                sc.ProcessPrioritySMS(customerNumber, message, smsEnum, pageUrl, true);
+                sc.ProcessPrioritySMS(customerNumber, message, smsEnum, "SMSTypes.SMSForPhotoUploadTwoDays", true);
             }
             catch (Exception err)
             {
-                HttpContext.Current.Trace.Warn("Notifications.SMSBikeBookingCancellation : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Notifications.SMSBikeBookingCancellation");
+                HttpContext.Current.Trace.Warn("SMSTypes.SMSForPhotoUploadTwoDays " + err.Message);
+                ErrorClass objErr = new ErrorClass(err, "SMSTypes.SMSForPhotoUploadTwoDays");
                 objErr.SendMail();
             }
 
@@ -661,26 +678,7 @@ namespace Bikewale.Notifications
                 objErr.SendMail();
             }
         }
-        /// <summary>
-        /// Created By  : Subodh Jain on 25-Nov-2016
-        /// Description : Send SMS to customer For Photo Upload.
-        /// </summary>
-        public void SMSNoPhotoUploadTwoDays(string customerName, string customerMobile, string make, string model, string profileId)
-        {
-            try
-            {
-                string message = String.Format("Add high-quality images to your {0} {1} bike Ad. Ads with photos get 50% more responses. Click here to add photos - <URL>. Team BikeWale", make, model);
 
-                EnumSMSServiceType esms = EnumSMSServiceType.ServiceCenterDetailsSMSToCustomer;
-                SMSCommon sc = new SMSCommon();
-                sc.ProcessSMS(customerMobile, message, esms, "");
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.SMSNoPhotoUploadTwoDays({0},{1},{2},{3},{4})", customerMobile, customerName, make, model, profileId));
-                objErr.SendMail();
-            }
-        }
 
 
     }   //End of class
