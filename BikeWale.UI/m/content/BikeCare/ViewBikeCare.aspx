@@ -33,7 +33,7 @@
                     </div>
                     <div class="grid-6 alpha omega">
                         <span class="bwmsprite author-grey-sm-icon"></span>
-                        <span class="article-stats-content"><%=author %></span>
+                        <span class="article-stats-content"><%=objTipsAndAdvice.AuthorName%></span>
                     </div>
                     <div class="clear"></div>
                     <%= (bikeTested != null && !String.IsNullOrEmpty(bikeTested.ToString())) ? String.Format("<div class='font12 text-light-grey margin-top5'>{0}</div>",bikeTested) : "" %>
