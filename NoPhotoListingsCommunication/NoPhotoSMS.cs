@@ -1,5 +1,7 @@
 ﻿
+using Bikewale.Entities.UrlShortner;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using Consumer;
 using System;
 using System.Collections.Generic;
@@ -61,10 +63,17 @@ namespace Bikewale.NoPhotoListingsCommunication
         {
             try
             {
+                UrlShortnerResponse response = null;
                 foreach (var CustomerDetails in objTwoDaySMSList)
                 {
                     Logs.WriteInfoLog("Started SMS for two days list");
-                    SendEmailSMSToDealerCustomer.SMSNoPhotoUploadTwoDays(CustomerDetails.CustomerName, CustomerDetails.CustomerNumber, CustomerDetails.Make, CustomerDetails.Model, CustomerDetails.InquiryId);
+                    string editUrl = string.Format("{0}/used/sell/?id={1}", Utility.BWConfiguration.Instance.BwHostUrl, CustomerDetails.InquiryId);
+                    if (!String.IsNullOrEmpty(editUrl))
+                    {
+                        response = new UrlShortner().GetShortUrl(editUrl);
+                    }
+                    string shortUrl = response != null ? response.ShortUrl : editUrl;
+                    SendEmailSMSToDealerCustomer.SMSNoPhotoUploadTwoDays(CustomerDetails.CustomerName, CustomerDetails.CustomerNumber, CustomerDetails.Make, CustomerDetails.Model, CustomerDetails.InquiryId, shortUrl);
                     Logs.WriteInfoLog("Ended SMS for two days list");
                 }
             }

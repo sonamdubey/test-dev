@@ -122,10 +122,10 @@ namespace Bikewale.Notifications
         /// Created By  : Subodh Jain on 25-Nov-2016
         /// Description : Send SMS to customer For Photo Upload.
         /// </summary>
-        public static void SMSNoPhotoUploadTwoDays(string customerName, string customerMobile, string make, string model, string profileId)
+        public static void SMSNoPhotoUploadTwoDays(string customerName, string customerMobile, string make, string model, string profileId, string editUrl)
         {
             Bikewale.Notifications.SMSTypes obj = new Bikewale.Notifications.SMSTypes();
-            obj.SMSForPhotoUploadTwoDays(customerName, customerMobile, make, model, profileId);
+            obj.SMSForPhotoUploadTwoDays(customerName, customerMobile, make, model, profileId, editUrl);
         }
 
         /// <summary>

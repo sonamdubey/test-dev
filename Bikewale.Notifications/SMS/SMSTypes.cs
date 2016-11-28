@@ -1,7 +1,5 @@
 ﻿using Bikewale.Entities.BikeBooking;
-using Bikewale.Entities.UrlShortner;
 using Bikewale.Notifications.NotificationDAL;
-using Bikewale.Utility;
 using System;
 using System.Configuration;
 using System.Web;
@@ -491,20 +489,14 @@ namespace Bikewale.Notifications
         /// <param name="make"></param>
         /// <param name="model"></param>
         /// <param name="profileId"></param>
-        public void SMSForPhotoUploadTwoDays(string customerName, string customerNumber, string make, string model, string profileId)
+        public void SMSForPhotoUploadTwoDays(string customerName, string customerNumber, string make, string model, string profileId, string editUrl)
         {
             try
             {
-                UrlShortnerResponse response = null;
                 EnumSMSServiceType smsEnum = EnumSMSServiceType.SMSForPhotoUploadTwoDays;
                 string message = string.Empty;
-                string editUrl = string.Format("{0}/used/sell/?id={1}", Utility.BWConfiguration.Instance.BwHostUrl, profileId);
-                if (!String.IsNullOrEmpty(editUrl))
-                {
-                    response = new UrlShortner().GetShortUrl(editUrl);
-                }
-                string shortUrl = response != null ? response.ShortUrl : editUrl;
-                message = string.Format("Add high-quality images to your {0} {1} bike Ad. Ads with photos get 50% more responses. Click here to add photos - {2}. Team BikeWale", make, model, shortUrl);
+
+                message = string.Format("Add high-quality images to your {0} {1} bike Ad. Ads with photos get 50% more responses. Click here to add photos - {2}. Team BikeWale", make, model, editUrl);
 
                 SMSCommon sc = new SMSCommon();
                 sc.ProcessPrioritySMS(customerNumber, message, smsEnum, "SMSTypes.SMSForPhotoUploadTwoDays", true);
