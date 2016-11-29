@@ -59,3 +59,11 @@ input[type="number"]:focus
 	input:focus ~ .boundary:before,
 	input:focus ~ .boundary:after
 		width: 50%
+
+	&.input-no-focus
+		input:focus
+			border-color: #82888b
+
+		input:focus ~ .boundary:before,
+		input:focus ~ .boundary:after
+			width: 0

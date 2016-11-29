@@ -6,6 +6,7 @@
     <title>Sell bikes</title>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <link href="/m/css/sell-bike.css" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/zebra-datepicker.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/dropzone.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
@@ -53,6 +54,13 @@
                                 <span class="error-text" data-bind="validationMessage: bike"></span>
                                 <span class="bwmsprite grey-right-icon"></span>
                             </div>
+                        </div>
+
+                        <div class="input-box form-control-box input-no-focus row-bottom-margin" data-bind="css: manufacturingDate().length > 0 ? 'not-empty' : ''">
+                            <input type="text" id="manufacturingDate" data-bind="textInput: manufacturingDate, validationElement: manufacturingDate" />
+                            <label for="manufacturingDate">Year of manufacturing<sup>*</sup></label>
+                            <span class="boundary"></span>
+                            <span class="error-text" data-bind="validationMessage: manufacturingDate"></span>
                         </div>
                     
                         <div id="div-kmsRidden" class="input-box form-control-box row-bottom-margin" data-bind="css: kmsRidden().length > 0 ? 'not-empty' : ''">
@@ -472,6 +480,7 @@
 
             </div>
         </section>
+
         
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
@@ -480,6 +489,7 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/knockout.validation.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/zebra-datepicker.js?<%=staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dropzone.js?<%=staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/sell-bike.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />

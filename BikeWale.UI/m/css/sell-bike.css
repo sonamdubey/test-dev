@@ -67,6 +67,9 @@
   white-space: nowrap;
   overflow: hidden; }
 
+.dp_visible .dp_footer {
+  display: none !important; }
+
 #seller-type-list {
   overflow: hidden;
   margin-bottom: 25px; }
@@ -177,6 +180,13 @@ input[type="number"]:focus {
 .input-box input:focus ~ .boundary:before,
 .input-box input:focus ~ .boundary:after {
   width: 50%; }
+
+.input-box.input-no-focus input:focus {
+  border-color: #82888b; }
+
+.input-box.input-no-focus input:focus ~ .boundary:before,
+.input-box.input-no-focus input:focus ~ .boundary:after {
+  width: 0; }
 
 .select-box {
   height: 60px;

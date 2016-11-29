@@ -39,6 +39,20 @@ $(document).ready(function () {
         searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
     });
 
+    var monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        currentDate = new Date(),
+        currentMonth = currentDate.getMonth(),
+        currentYear = currentDate.getFullYear();
+
+    $('#manufacturingDate').Zebra_DatePicker({
+        format: 'M Y',
+        direction: ['Jan 1980', monthList[currentMonth] + ' ' + currentYear],
+        start_date: monthList[currentMonth] + ' ' + currentYear,
+        onSelect: function () {
+            vmSellBike.bikeDetails().manufacturingDate($(this).val());
+        }
+    });
+
     Dropzone.autoDiscover = false;
 
     $('#add-photos-dropzone').dropzone({
@@ -369,6 +383,16 @@ var bikeDetails = function () {
             self.colorError.showAllMessages();
         }
     };
+
+    self.manufacturingDate = ko.observable('').extend({
+        required: {
+            params: true,
+            message: 'Please select year of manufacturing',
+            onlyIf: function () {
+                return self.validate();
+            }
+        }
+    });
 
     self.saveBikeDetails = function (data, event) {
         self.validate(true);
