@@ -640,7 +640,7 @@
                                 <%} %>
                                 <%else
                                   { %>
-                                <div class="pq-no-premium-dealer font14 text-light-grey">Sorry, there are no dealers nearby</div>
+                                <div class="pq-no-premium-dealer font14 text-light-grey">Sorry, there are no partner dealers nearby</div>
                                 <%} %>
                             </div>
                             <%if (detailedDealer != null && detailedDealer.SecondaryDealers != null && detailedDealer.SecondaryDealers.Count() > 0 )
