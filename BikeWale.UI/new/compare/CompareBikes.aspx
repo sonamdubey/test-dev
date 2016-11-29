@@ -334,10 +334,7 @@
                                                        <td>
                                                            <a title='View complete details of <%# DataBinder.Eval(Container.DataItem,"Bike")%>' href='/<%# DataBinder.Eval(Container.DataItem,"MakeMaskingName")%>-bikes/<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName") %>/'><img class="second-img" alt="<%#DataBinder.Eval(Container.DataItem,"Bike")%>" src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImagePath").ToString(), DataBinder.Eval(Container.DataItem,"HostURL").ToString(),Bikewale.Utility.ImageSize._310x174) %>" border="0"/></a>
                                                        </td>
-                                                   </tr>
-                                                   <tr class="<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"Futuristic")) ? "hide" : "" %>">
-                                                        <td><%# GetModelRatings(DataBinder.Eval(Container.DataItem,"BikeVersionId").ToString()) %></td>
-                                                   </tr>
+                                                   </tr>                                                   
                                                    <tr class="<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"Futuristic")) ? "hide" : "" %>" >
                                                        <td>
                                                         <strong>Price Rs. <%# Bikewale.Common.CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></strong><br />

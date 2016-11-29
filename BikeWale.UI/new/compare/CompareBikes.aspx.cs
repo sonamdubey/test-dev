@@ -317,7 +317,7 @@ namespace Bikewale.New
 
             sql = @" select (select maskingname from bikemakes   where id = cv.bikemakeid) as makemaskingname, cv.bikemodelid as modelid, cv.modelname as modelname,cv.modelmaskingname as modelmaskingname, ifnull(cv.modelreviewrate, 0) as modelrate, ifnull(cv.modelreviewcount, 0) as modeltotal, 
                 ifnull(cv.reviewrate, 0) as versionrate, ifnull(cv.reviewcount, 0) as versiontotal 
-                from bikeversions as cv   where cv.id = @id ";
+                from bikeversions as cv   where cv.id = " + versionId;
 
 
             string reviewString = "";
@@ -326,7 +326,6 @@ namespace Bikewale.New
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.UInt32, versionId));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
                     {
                         if (dr != null)

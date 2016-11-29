@@ -8,8 +8,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Web;
 using System.Linq;
+using System.Web;
 
 
 namespace Bikewale.DAL.BikeData
@@ -598,7 +598,7 @@ namespace Bikewale.DAL.BikeData
                             ColorName = vc.Key.ColorName,
                             HexCode = vc.Select(hc => hc.ColorCode)
                         }
-                        );
+                        ).ToList();
                 }
             }
             catch (Exception ex)
