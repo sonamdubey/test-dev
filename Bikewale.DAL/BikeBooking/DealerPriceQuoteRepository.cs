@@ -27,6 +27,8 @@ namespace Bikewale.DAL.BikeBooking
         /// Summary :  to save customer detail in newbikedealerpricequote table
         /// Modified By : Sadhana Upadhyay on 29 Dec 2015
         /// Summary : To save utmz, utma, LeadSourceId, deviceId
+        /// Modified By : Sushil Kumar on 29th Nov 2016
+        /// Description : Removed unused function UpdateAppointmentDate
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="pqId"></param>
@@ -1065,7 +1067,8 @@ namespace Bikewale.DAL.BikeBooking
 
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 29th Nov 2016
+        /// Description : To update dealer daily limit count  
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="abInquiryId"></param>
@@ -1103,7 +1106,8 @@ namespace Bikewale.DAL.BikeBooking
 
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 29th Nov 2016
+        /// Description : To check dealer daily limit count exceeds or not for campaign
         /// </summary>
         /// <param name="campaignId"></param>
         /// <returns></returns>
@@ -1129,7 +1133,7 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " DealerPriceQuoteRepository.UpdateDealerDailyLeadCount");
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " DealerPriceQuoteRepository.IsDealerDailyLeadLimitExceeds");
                 objErr.SendMail();
             }
 

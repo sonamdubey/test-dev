@@ -125,6 +125,8 @@ namespace Bikewale.BAL.PriceQuote
 
         /// <summary>
         /// Pushes Inquiry in AutoBiz using API
+        /// Modified By : Sushil Kumar on 29th Nov 2016
+        /// Description : Added feature to pass autobiz leads only when dealer leads does not exceeds daily limit count    
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="pqId"></param>
@@ -173,7 +175,8 @@ namespace Bikewale.BAL.PriceQuote
         }
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 29th Nov 2016
+        /// Description : Update dealer campaign daily lead count
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="abInquiryId"></param>

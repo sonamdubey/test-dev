@@ -19,6 +19,8 @@ namespace BikewaleOpr.Common
         /// Created by  :   Sumit Kate on 19 Mar 2016
         /// Description :   Fetch the Dealer Campaign details
         ///                 SP Called : BW_FetchBWDealerCampaign
+        /// Modified By : Sushil Kumar on 29th Nov 2016
+        /// Description : Modified SP to fetch dealer daily limit     
         /// </summary>
         /// <param name="campaignId">Campaign Id</param>
         /// <returns></returns>
@@ -59,6 +61,8 @@ namespace BikewaleOpr.Common
         ///                 SP Called : BW_InsertBWDealerCampaign
         /// Updated by  :   Sangram Nandkhile on 31st March 2016
         /// Description :   Used out parameter 'NewCampaignId' and changed return type
+        /// Modified By : Sushil Kumar on 29th Nov 2016
+        /// Description : Modified SP to add dealer limit for the dealer campaign     
         /// </summary>
         /// <param name="isActive"></param>
         /// <param name="userId"></param>
@@ -72,7 +76,7 @@ namespace BikewaleOpr.Common
         /// <param name="dealerEmailId"></param>
         /// <param name="isBookingAvailable"></param>
         /// <returns></returns>
-        public int InsertBWDealerCampaign(bool isActive, int userId, int dealerId, int contractId, int dealerLeadServingRadius, string maskingNumber, string dealerName, string dealerEmailId,int dailyleadlimit, bool isBookingAvailable = false)
+        public int InsertBWDealerCampaign(bool isActive, int userId, int dealerId, int contractId, int dealerLeadServingRadius, string maskingNumber, string dealerName, string dealerEmailId, int dailyleadlimit, bool isBookingAvailable = false)
         {
             int newCampaignId = 0;
             try
@@ -109,6 +113,8 @@ namespace BikewaleOpr.Common
         /// Created by  :   Sumit Kate on 19 Mar 2016
         /// Description :   Save the new Dealer Campaign
         ///                 SP Called : BW_UpdateBWDealerCampaign
+        /// Modified By : Sushil Kumar on 29th Nov 2016
+        /// Description : Modified SP to update dealer limit for the dealer campaign          
         /// </summary>
         /// <param name="isActive"></param>
         /// <param name="campaignId"></param>

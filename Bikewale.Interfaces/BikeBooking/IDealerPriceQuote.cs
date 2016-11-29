@@ -10,6 +10,11 @@ namespace Bikewale.Interfaces.BikeBooking
     /// Created By : Sadhana Upadhyay on 29 Oct 2014
     /// Modified By : Lucky Rathore on 06 June 2016 
     /// Description : DealerInfo IsDealerExists(uint versionId, uint areaId) Added.
+    /// Modified By : Sushil Kumar on 29th Nov 2016
+    /// Description : Added function feature 
+    ///                 1.UpdateDealerDailyLeadCount
+    ///                 2.IsDealerDailyLeadLimitExceeds
+    ///               to pass autobiz leads only when dealer leads does not exceeds daily limit count    
     /// </summary>
     public interface IDealerPriceQuote
     {

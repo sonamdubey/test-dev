@@ -21,6 +21,8 @@ namespace BikewaleOpr.Campaign
     /// <summary>
     /// Created by: Sangram Nandkhile on 25 Mar 2016
     /// Desc:       To manage dealer campaigs with add/update/delete options
+    /// Modified By : Sushil Kumar on 29th Nov 2016
+    /// Description : Added dailylimit textbox 
     /// </summary>
     public class ManageDealers : System.Web.UI.Page
     {
@@ -53,6 +55,8 @@ namespace BikewaleOpr.Campaign
         /// <summary>
         /// Modified by :   Sumit Kate on 18 Apr 2016
         /// Description :   Save the Areas to Dealer Commute Distance mapping
+        /// Modified By : Sushil Kumar on 29th Nov 2016
+        /// Description : Added dailylimit textbox to update daily limit lead for the dealer campaign
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -249,6 +253,8 @@ namespace BikewaleOpr.Campaign
         /// Description : To fetch current campaign details
         /// Updated by: Sangram
         /// Summary:    Added dealerMobile,hdnOldMaskingNumber,oldMaskingNumber
+        /// Modified By : Sushil Kumar on 29th Nov 2016
+        /// Description : Added dailylimit textbox to update daily limit lead for the dealer campaign
         /// </summary>
         private void FetchDealeCampaign()
         {

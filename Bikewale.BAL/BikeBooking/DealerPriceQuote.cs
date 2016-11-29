@@ -411,12 +411,24 @@ namespace Bikewale.BAL.BikeBooking
         }
 
 
-
+        /// <summary>
+        /// Created By : Sushil Kumar on 29th Nov 2016
+        /// Description : To update dealer daily limit count   
+        /// </summary>
+        /// <param name="campaignId"></param>
+        /// <param name="abInquiryId"></param>
+        /// <returns></returns>
         public bool UpdateDealerDailyLeadCount(uint campaignId, uint abInquiryId)
         {
             return dealerPQRepository.UpdateDealerDailyLeadCount(campaignId, abInquiryId);
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 29th Nov 2016
+        /// Description : To check dealer daily limit count exceeds or not for campaign
+        /// </summary>
+        /// <param name="campaignId"></param>
+        /// <returns></returns>
         public bool IsDealerDailyLeadLimitExceeds(uint campaignId)
         {
             return dealerPQRepository.IsDealerDailyLeadLimitExceeds(campaignId);
