@@ -1,0 +1,111 @@
+﻿/*
+
+    Zebra_DatePicker: a lightweight jQuery date picker plugin
+
+    Default theme
+
+    copyright (c) 2011 - 2014 Stefan Gabos
+    http://stefangabos.ro/jquery/zebra-datepicker/
+
+*/
+
+.Zebra_DatePicker *,
+.Zebra_DatePicker *:after,
+.Zebra_DatePicker *:before  { -moz-box-sizing: content-box !important; -webkit-box-sizing: content-box !important; box-sizing: content-box !important; -webkit-tap-highlight-color: transparent; }
+
+.Zebra_DatePicker           { padding: 15px 20px 10px; position: absolute; top: 0; background: #fff; border: 1px solid #e2e2e2; z-index: 2; font-size: 14px; -webkit-box-shadow: 0 2px 10px 1px #ccc; -moz-box-shadow: 0 2px 10px 1px #ccc; -ms-box-shadow: 0 2px 10px 1px #ccc; -o-box-shadow: 0 2px 10px 1px #ccc; box-shadow: 0 2px 10px 1px #ccc; }
+
+.Zebra_DatePicker *         { margin: 0; padding: 0; color: #82888b; border: none }
+
+/* = GLOBALS
+----------------------------------------------------------------------------------------------------------------------*/
+.Zebra_DatePicker table                      { border-collapse: collapse; border-spacing: 0; width: auto; table-layout: auto; }
+
+.Zebra_DatePicker .dp_heading                { font-size: 16px; font-weight: 400; text-align: left; padding-bottom: 15px; border-bottom: 1px solid #e2e2e2; }
+
+.Zebra_DatePicker .dp_body_controls          { height: 50px; border-bottom: 1px solid #f5f5f5; margin-bottom: 10px; }
+
+.Zebra_DatePicker td                         { text-align: center; padding: 5px 0; }
+.Zebra_DatePicker td.dp_hover                { font-weight: bold; }
+
+.Zebra_DatePicker tr                         { width: 100%; display: table; }
+.Zebra_DatePicker td                         { display: table-cell; cursor: pointer }
+
+.dp_daypicker td,
+.dp_daypicker th,
+.dp_monthpicker td,
+.dp_yearpicker td         { width: 30px; padding-top: 10px; padding-bottom: 10px; }
+
+/* = VISIBLE/HIDDEN STATES (USE TRANSITIONS FOR EFFECTS)
+----------------------------------------------------------------------------------------------------------------------*/
+.Zebra_DatePicker.dp_visible               { visibility: visible; filter: alpha(opacity=100); -khtml-opacity: 1; -moz-opacity: 1; opacity: 1; transition: opacity 0.1s ease-in-out }
+.Zebra_DatePicker.dp_hidden                { visibility: hidden; filter: alpha(opacity=0); -khtml-opacity: 0; -moz-opacity: 0; opacity: 0 }
+
+/* = HEADER
+----------------------------------------------------------------------------------------------------------------------*/
+
+.dp_header td             { color: #4d5057 }
+
+.dp_header .dp_previous,
+.dp_header .dp_next       { width: 30px; position: relative; }
+
+.dp_header .dp_previous   { right: 10px }
+.dp_header .dp_next       { left: 10px }
+
+.dp_header .dp_caption    { font-weight: bold; font-size: 16px; }
+
+/* = DATEPICKER
+----------------------------------------------------------------------------------------------------------------------*/
+.dp_daypicker th            { background: #82888b; color: #fff; }
+.dp_not_in_month            { background: #F3F3F3; color: #CDCDCD; cursor: default }
+.dp_not_in_month_selectable { background: #F3F3F3; color: #CDCDCD; cursor: pointer }
+.dp_weekend                 { background: #D8D8D8 }
+.dp_weekend_disabled        { color: #CCC; cursor: default }
+.dp_selected                { color: #4d5057; font-weight: bold; }
+.dp_week_number             { background: #FFCC33; color: #555; cursor: text; font-style: italic }
+
+/* = MONTHPICKER
+----------------------------------------------------------------------------------------------------------------------*/
+.dp_monthpicker td    { width: 25% }
+
+/* = YEARPICKER
+----------------------------------------------------------------------------------------------------------------------*/
+.dp_yearpicker td     { width: 25% }
+
+/* = FOOTER
+----------------------------------------------------------------------------------------------------------------------*/
+.dp_footer            { margin-top: 3px }
+
+/* = SELECT CURRENT DAY
+----------------------------------------------------------------------------------------------------------------------*/
+.dp_today { color: #FFF; padding: 3px }
+
+/* = CLEAR DATE
+----------------------------------------------------------------------------------------------------------------------*/
+.dp_clear { color: #FFF; padding: 3px }
+
+/* = SOME MORE GLOBALS (MUST BE LAST IN ORDER TO OVERWRITE PREVIOUS PROPERTIES)
+----------------------------------------------------------------------------------------------------------------------*/
+
+.Zebra_DatePicker .dp_disabled_current    { color: #E38585 }
+.Zebra_DatePicker .dp_disabled            { color: #e2e2e2; cursor: default }
+
+@media only screen and (max-width: 768px) {
+    .dp-prev-icon,
+    .dp-next-icon {
+        width: 10px;
+        height: 16px;
+        position: absolute;
+        top: 15px;
+    }
+
+    .dp-prev-icon {
+        background-position: -159px -219px;
+        left: 10px;
+    }
+
+    .dp-next-icon {
+        background-position: -185px -219px;
+        right: 10px;
+    }
+}

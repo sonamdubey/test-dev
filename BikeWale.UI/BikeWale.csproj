@@ -1991,6 +1991,7 @@
     <Content Include="css\used\landing.css" />
     <Content Include="css\used\details.css" />
     <Content Include="css\video\landing.css" />
+    <Content Include="css\zebra-datepicker.css" />
     <Content Include="default.aspx" />
     <Content Include="editor\css\content.css" />
     <Content Include="editor\css\content_old.css" />
@@ -2739,6 +2740,7 @@
     <Content Include="src\used-search.js" />
     <Content Include="src\Used\search.js" />
     <Content Include="src\Videos\videoByCategory.js" />
+    <Content Include="src\zebra-datepicker.js" />
     <Content Include="staticHtml\premium.html" />
     <Content Include="staticHtml\standard.html" />
     <Content Include="TermsConditions.aspx" />
