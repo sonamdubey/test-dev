@@ -97,14 +97,14 @@ namespace Bikewale.BAL.UsedBikes
                         {
                             if (objInquiryDetailsByProfileId.StatusId == 2 || objInquiryDetailsByProfileId.StatusId == 4 || (objInquiryDetailsByProfileId.StatusId == 5 && objInquiryDetailsByProfileId.IsRedirect == false))
                                 objInquiryDetailsByProfileId.Message = "Please enter correct profile id";
-                            if (objInquiryDetailsByProfileId.StatusId == 3)
+                            if (objInquiryDetailsByProfileId.StatusId == 3 || objInquiryDetailsByProfileId.StatusId == 6)
                                 objInquiryDetailsByProfileId.Message = "Bike sold out";
                         }
                         else if (Convert.ToInt32(platformId) == 2) //mobile
                         {
                             if (objInquiryDetailsByProfileId.StatusId == 2 || objInquiryDetailsByProfileId.StatusId == 4 || objInquiryDetailsByProfileId.StatusId == 5)
                                 objInquiryDetailsByProfileId.Message = "Please enter correct profile id";
-                            if (objInquiryDetailsByProfileId.StatusId == 3)
+                            if (objInquiryDetailsByProfileId.StatusId == 3 || objInquiryDetailsByProfileId.StatusId == 6)
                                 objInquiryDetailsByProfileId.Message = "Bike sold out";
                         }
                     }
