@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Entities.Customer;
+﻿using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.BikeBooking;
-using Bikewale.Entities.Location;
-using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Dealer;
+using Bikewale.Entities.PriceQuote;
+using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.BikeBooking
 {
@@ -37,5 +31,7 @@ namespace Bikewale.Interfaces.BikeBooking
         PQOutputEntity ProcessPQ(PriceQuoteParametersEntity PQParams);
         BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId);
         DealerInfo IsDealerExists(uint versionId, uint areaId);
+        bool UpdateDealerDailyLeadCount(uint campaignId, uint abInquiryId);
+        bool IsDealerDailyLeadLimitExceeds(uint campaignId);
     }
 }

@@ -23,6 +23,11 @@ namespace Bikewale.BAL.PriceQuote
     /// </summary>
     public class LeadNotificationBL : ILeadNofitication
     {
+        private readonly TCApi_Inquiry _objInquiry;
+        public LeadNotificationBL()
+        {
+            _objInquiry = new TCApi_Inquiry();
+        }
         /// <summary>
         /// Sends Email and SMS to Customer
         /// Modified By : Lucky Rathore on 13 May 2016
@@ -133,31 +138,30 @@ namespace Bikewale.BAL.PriceQuote
             string abInquiryId = string.Empty, campaignId = string.Empty;
             try
             {
+                IDealerPriceQuote objDealer = null;
+
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
                     container.RegisterType<IPriceQuote, Bikewale.BAL.PriceQuote.PriceQuote>();
-                    IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
+                    objDealer = container.Resolve<IDealerPriceQuote>();
                     IPriceQuote objPriceQuote = container.Resolve<IPriceQuote>();
                     PriceQuoteParametersEntity details = objPriceQuote.FetchPriceQuoteDetailsById(pqId);
                     campaignId = details.CampaignId.HasValue ? details.CampaignId.Value.ToString() : "0";
                 }
 
-                string jsonInquiryDetails = String.Format("{{ \"CustomerName\": \"{0}\", \"CustomerMobile\":\"{1}\", \"CustomerEmail\":\"{2}\", \"VersionId\":\"{3}\", \"CityId\":\"{4}\", \"CampaignId\":\"{5}\", \"InquirySourceId\":\"39\", \"Eagerness\":\"1\",\"ApplicationId\":\"2\"}}", customerName, customerMobile, customerEmail, versionId, cityId, campaignId);
-
-                TCApi_Inquiry objInquiry = new TCApi_Inquiry();
-                abInquiryId = objInquiry.AddNewCarInquiry(dealerId, jsonInquiryDetails);
-
-                if (!String.IsNullOrEmpty(abInquiryId))
+                //update dealer's daily lead count
+                if (objDealer != null && !objDealer.IsDealerDailyLeadLimitExceeds(Convert.ToUInt32(campaignId)))
                 {
-                    if (abInquiryId != "0" && abInquiryId != "-1")
+
+                    string jsonInquiryDetails = String.Format("{{ \"CustomerName\": \"{0}\", \"CustomerMobile\":\"{1}\", \"CustomerEmail\":\"{2}\", \"VersionId\":\"{3}\", \"CityId\":\"{4}\", \"CampaignId\":\"{5}\", \"InquirySourceId\":\"39\", \"Eagerness\":\"1\",\"ApplicationId\":\"2\"}}", customerName, customerMobile, customerEmail, versionId, cityId, campaignId);
+
+                    abInquiryId = _objInquiry.AddNewCarInquiry(dealerId, jsonInquiryDetails);
+                    int abInqId = 0;
+                    if (Int32.TryParse(abInquiryId, out abInqId) && abInqId > 0)
                     {
-                        using (IUnityContainer container = new UnityContainer())
-                        {
-                            container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
-                            IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
-                            objDealer.PushedToAB(pqId, Convert.ToUInt32(abInquiryId));
-                        }
+                        if (objDealer.UpdateDealerDailyLeadCount(Convert.ToUInt32(campaignId), (uint)abInqId))
+                            objDealer.PushedToAB(pqId, (uint)abInqId);
                     }
                 }
             }
@@ -166,6 +170,34 @@ namespace Bikewale.BAL.PriceQuote
                 ErrorClass objErr = new ErrorClass(ex, "LeadNotificationBL.PushtoAB");
                 objErr.SendMail();
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="abInquiryId"></param>
+        /// <param name="cityId"></param>
+        private bool UpdateDealerDailyLeadCount(uint campaignId, uint abInquiryId)
+        {
+            bool isUpdateDealerCount = false;
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
+                    IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
+
+                    isUpdateDealerCount = objDealer.UpdateDealerDailyLeadCount(campaignId, abInquiryId);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "LeadNotificationBL.UpdateDealerDailyLeadCount");
+                objErr.SendMail();
+            }
+            return isUpdateDealerCount;
         }
 
         /// <summary>

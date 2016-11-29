@@ -27,10 +27,10 @@ namespace BikewaleOpr.Campaign
         #region variable
 
         protected int dealerId, contractId, campaignId, currentUserId;
-        protected string dealerName, oldMaskingNumber, dealerMobile, reqFormMaskingNumber, reqFormRadius;
+        protected string dealerName, oldMaskingNumber, dealerMobile, reqFormMaskingNumber, reqFormRadius, reqLeadsLimit;
         protected Button btnUpdate;
         protected ManageDealerCampaign dealerCampaign;
-        protected TextBox txtdealerRadius, txtDealerEmail, txtMaskingNumber, txtCampaignName;
+        protected TextBox txtdealerRadius, txtDealerEmail, txtMaskingNumber, txtCampaignName, txtLeadsLimit;
         protected string startDate, endDate;
         public Label lblGreenMessage, lblErrorSummary;
         public HtmlGenericControl textArea;
@@ -73,6 +73,7 @@ namespace BikewaleOpr.Campaign
                         reqFormMaskingNumber,
                         txtCampaignName.Text.Trim(),
                         txtDealerEmail.Text.Trim(),
+                        Convert.ToInt32(reqLeadsLimit),
                         false);
 
                     lblGreenMessage.Text = "Selected campaign has been Updated !";
@@ -89,6 +90,7 @@ namespace BikewaleOpr.Campaign
                          reqFormMaskingNumber,
                          txtCampaignName.Text.Trim(),
                          txtDealerEmail.Text.Trim(),
+                        Convert.ToInt32(reqLeadsLimit),
                          false);
                     lblGreenMessage.Text = "New campaign has been added !";
                     isCampaignPresent = true;
@@ -196,6 +198,8 @@ namespace BikewaleOpr.Campaign
                 reqFormMaskingNumber = Request.Form["txtMaskingNumber"] as string;
             if (Request.Form["txtdealerRadius"] != null)
                 reqFormRadius = Request.Form["txtdealerRadius"] as string;
+            if (Request.Form["txtLeadsLimit"] != null)
+                reqLeadsLimit = Request.Form["txtLeadsLimit"] as string;
             SetPageVariables();
         }
 
@@ -264,10 +268,7 @@ namespace BikewaleOpr.Campaign
                     oldMaskingNumber = txtMaskingNumber.Text;
                     txtDealerEmail.Text = dtCampaign.Rows[0]["DealerEmailId"].ToString().Trim();
                     dealerMobile = dtCampaign.Rows[0]["dealerMobile"].ToString();
-                }
-                else
-                {
-                    //Response.Redirect("../pagenotfound.aspx");
+                    txtLeadsLimit.Text = dtCampaign.Rows[0]["dailyleadlimit"].ToString().Trim();
                 }
             }
             catch (Exception ex)

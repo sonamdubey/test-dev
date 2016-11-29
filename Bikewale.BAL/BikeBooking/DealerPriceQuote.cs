@@ -410,5 +410,17 @@ namespace Bikewale.BAL.BikeBooking
             return pageDetail;
         }
 
+
+
+        public bool UpdateDealerDailyLeadCount(uint campaignId, uint abInquiryId)
+        {
+            return dealerPQRepository.UpdateDealerDailyLeadCount(campaignId, abInquiryId);
+        }
+
+        public bool IsDealerDailyLeadLimitExceeds(uint campaignId)
+        {
+            return dealerPQRepository.IsDealerDailyLeadLimitExceeds(campaignId);
+        }
+
     }   //End of Class
 }   //End of namespace
