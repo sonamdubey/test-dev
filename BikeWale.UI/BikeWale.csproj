@@ -1158,6 +1158,10 @@
       <DependentUpon>Search.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\used\sell\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\users\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2466,6 +2470,7 @@
     <Content Include="m\css\insurance.css" />
     <Content Include="m\css\jqm-demos.css" />
     <Content Include="m\css\jquery.mobile-1.4.2.min.css" />
+    <Content Include="m\css\sell-bike.css" />
     <Content Include="m\css\service\details.css" />
     <Content Include="m\css\service\landing.css" />
     <Content Include="m\css\service\listing.css" />
@@ -2561,11 +2566,13 @@
     <Content Include="m\src\bwm-cancellation.js" />
     <Content Include="m\src\bwm-model.js" />
     <Content Include="m\src\bwm-newbikes.js" />
+    <Content Include="m\src\chosen-jquery-min-mobile.js" />
     <Content Include="m\src\chosen-mobile.js" />
     <Content Include="m\src\common.js" />
     <Content Include="m\src\common.min.js" />
     <Content Include="m\src\content\details.js" />
     <Content Include="m\src\dealerdetail.js" />
+    <Content Include="m\src\sell-bike.js" />
     <Content Include="m\src\service\details.js" />
     <Content Include="m\src\service\listing.js" />
     <Content Include="m\src\dealerlisting.js" />
@@ -2599,6 +2606,7 @@
     <Content Include="m\used\BikesInCity.aspx" />
     <Content Include="m\used\Default.aspx" />
     <Content Include="m\used\Search.aspx" />
+    <Content Include="m\used\sell\Default.aspx" />
     <Content Include="m\users\Login.aspx" />
     <Content Include="m\videos\video.aspx" />
     <Content Include="m\videos\VideoCategories.aspx" />
@@ -2820,6 +2828,17 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="sass\sell-bike.sass" />
+    <Content Include="m\sass\sell-bike\sell-bike.sass" />
+    <Content Include="m\sass\sell-bike\_sell-bike-style.sass" />
+    <Content Include="m\sass\sell-bike\_icons.sass" />
+    <Content Include="m\sass\sell-bike\_tabs.sass" />
+    <Content Include="m\sass\modules\_input-box.sass" />
+    <Content Include="m\sass\modules\_box-boundary.sass" />
+    <Content Include="m\sass\sell-bike\_color-box.sass" />
+    <Content Include="m\sass\modules\_slideIn-input-box.sass" />
+    <Content Include="m\sass\modules\_textarea-box.sass" />
+    <Content Include="m\sass\modules\_bike-popup.sass" />
+    <Content Include="m\sass\modules\_slideIn-drawer.sass" />
     <None Include="sass\components\_card-header.sass" />
     <Content Include="sass\sell-bike\_style.sass" />
     <Content Include="sass\components\_typography.sass" />

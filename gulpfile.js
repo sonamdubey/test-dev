@@ -36,6 +36,11 @@ var sassPaths = {
         service: {
             source: 'BikeWale.UI/m/sass/service/**',
             target: 'BikeWale.UI/build/min/m/css/service'
+        },
+
+        sellBike: {
+            source: 'BikeWale.UI/m/sass/sell-bike/**',
+            target: 'BikeWale.UI/build/min/m/css/'
         }
     }
 }
@@ -50,6 +55,7 @@ var page = {
             details: 'BikeWale.UI/servicecenter/ServiceCenterDetails.aspx',
         }
     },
+
     mobile: {
         service: {
             baseFolder: 'BikeWale.UI/m/service',
@@ -112,7 +118,7 @@ gulp.task('bw-service-css', function () {
 });
 
 gulp.task('bwm-sass', function (callback) {
-    gulpSequence('bwm-service-sass')(callback)
+    gulpSequence('bwm-service-sass', 'bwm-sell-bike-sass')(callback)
 });
 
 gulp.task('bwm-service-sass', function () {
@@ -122,10 +128,23 @@ gulp.task('bwm-service-sass', function () {
         .pipe(gulp.dest(sassPaths.bwm.service.target));
 });
 
+gulp.task('bwm-sell-bike-sass', function () {
+    return gulp.src(sassPaths.bwm.sellBike.source, { base: 'BikeWale.UI/m/sass/sell-bike/' })
+        .pipe(sass().on('error', sass.logError))
+        .pipe(cleanCss())
+        .pipe(gulp.dest(sassPaths.bwm.sellBike.target));
+});
+
 gulp.task('bwm-service-css', function () {
     return gulp.src(sassPaths.bwm.service.source, { base: 'BikeWale.UI/m/sass/service/' })
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('BikeWale.UI/m/css/service/'));
+});
+
+gulp.task('bwm-sell-bike-css', function () {
+    return gulp.src(sassPaths.bwm.sellBike.source, { base: 'BikeWale.UI/m/sass/sell-bike/' })
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('BikeWale.UI/m/css/'));
 });
 
 //Watch task
@@ -170,6 +189,7 @@ gulp.task('desktop-service-listing', function () {
         }))
         .pipe(gulp.dest('BikeWale.UI/build/servicecenter'));
 });
+
 
 gulp.task('desktop-service-details', function () {
     return gulp.src(page.desktop.service.details, { base: page.desktop.service.baseFolder })
@@ -227,4 +247,4 @@ gulp.task('bw-framework-js', function () {
         .pipe(gulp.dest(paths.destinationD_JS));
 });
 
-gulp.task('default', gulpSequence('clean', 'minify-bw-css', 'minify-bw-js', 'minify-bwm-css', 'minify-bwm-js', 'bw-framework-js', 'bw-sass', 'bwm-sass', 'bw-service-css', 'bwm-service-css', 'replace-css-reference'));
+gulp.task('default', gulpSequence('clean', 'minify-bw-css', 'minify-bw-js', 'minify-bwm-css', 'minify-bwm-js', 'bw-framework-js', 'bw-sass', 'bwm-sass', 'bw-service-css', 'bwm-service-css', 'bwm-sell-bike-css', 'replace-css-reference'));
