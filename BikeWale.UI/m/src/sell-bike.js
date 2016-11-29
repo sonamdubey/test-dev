@@ -157,6 +157,9 @@ var sellBike = function () {
 var bikeDetails = function () {
     var self = this;
 
+    self.modelArray = ko.observableArray();
+    self.versionArray = ko.observableArray();
+
     self.validate = ko.observable(false);
     self.validateOtherColor = ko.observable(false);
 
@@ -168,17 +171,48 @@ var bikeDetails = function () {
     self.modelName = ko.observable('');
     self.versionName = ko.observable('');
 
+    self.makeId = ko.observable('');
+    self.makeMaskingName = ko.observable('');
+
+    self.modelId = ko.observable('');
+    self.modelMaskingName = ko.observable('');
+
+    self.versionId = ko.observable('');
+    self.versionMaskingName = ko.observable('');
+
     self.makeChanged = function (data, event) {
         var element = $(event.currentTarget);
 
         self.modelName('');
         self.versionName('');
-        self.bikeStatus(false);
+        
 
         self.makeName(element.text());
+        self.makeId(element.attr("data-id"));
+        self.makeMaskingName(element.attr("data-makeMasking"));
 
         bikePopup.stageModel();
         bikePopup.scrollToHead();
+
+        if (self.makeName() != null) {
+            $.ajax({
+                type: "Get",
+                async: false,
+                url: "/api/modellist/?requestType=3&makeId=" + self.makeId(),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    if (response) {                        
+                        self.modelArray(response.modelList);
+                    }
+                },
+                complete: function (xhr, ajaxOptions, thrownError) {
+                    
+                }
+            });
+        }
+
+        self.bikeStatus(false);
 
         // beforesend - bikePopup.showLoader()
         // complete - bikePopup.hideLoader()
@@ -191,14 +225,35 @@ var bikeDetails = function () {
         self.versionName('');
         self.bikeStatus(false);
 
-        self.modelName(element.text());
+        self.modelName(data.modelName);
+        self.modelId(data.modelId);
+        self.modelMaskingName(data.maskingName);
 
         bikePopup.stageVersion();
         bikePopup.scrollToHead();
+
+        if (self.modelId() != null && self.modelId() != -1) {
+            $.ajax({
+                type: "Get",
+                url: "/api/versionList/?requestType=3&modelId=" + self.modelId(),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    self.versionArray(response.Version);
+                },
+                complete: function (xhr, ajaxOptions, thrownError) {
+                }
+            });
+        }
+
+       
     };
 
     self.versionChanged = function (data, event) {
         var element = $(event.currentTarget);
+
+        self.versionName(data.versionName);
+        self.versionId(data.versionId);
 
         self.versionName(element.text());
         self.bikeStatus(true);
@@ -335,8 +390,6 @@ var bikeDetails = function () {
             colorId = data.colorId;
         }
         if (!element.hasClass('active')) {
-            var selection = element.find('.color-box-label').text();
-            self.color(selection);
             self.otherColor('');
             colorBox.active(element);
         }
@@ -353,6 +406,8 @@ var bikeDetails = function () {
     });
 
     self.submitColor = function (data, event) {
+        var selectedColor = $('#color-popup li.active .color-box-label').text();
+        self.color(selectedColor);
         modalPopup.close('#color-popup');
         history.back();
     };

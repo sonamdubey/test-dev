@@ -131,11 +131,11 @@
                                     <p class="no-back-btn-label head-label inline-block">Select Make</p>
                                 </div>
                                 <ul class="cover-popup-list with-arrow">
-                                    <li data-bind="click: makeChanged"><span>Bajaj</span></li>
-                                    <li data-bind="click: makeChanged"><span>Honda</span></li>
-                                    <li data-bind="click: makeChanged"><span>Hero</span></li>
-                                    <li data-bind="click: makeChanged"><span>Royal Enfield</span></li>
+                                    <% foreach(var make in objMakeList)  { %>
+                                    <li data-bind="click: makeChanged" data-id="<%= make.MakeId %>" data-name="<%= make.MakeName %>" data-makeMasking="<%= make.MaskingName %>"><span><%= make.MakeName %></span></li>    
+                                    <% } %>                                
                                 </ul>
+                                
                             </div>
 
                             <div id="select-model-wrapper" class="cover-popup-body">
@@ -144,11 +144,10 @@
                                         <span class="bwmsprite back-long-arrow-left"></span>
                                     </div><p class="head-label inline-block">Select Model</p>
                                 </div>
-                                <ul class="cover-popup-list with-arrow">
-                                    <li data-bind="click: modelChanged"><span>CT 100</span></li>
-                                    <li data-bind="click: modelChanged"><span>Platina</span></li>
-                                    <li data-bind="click: modelChanged"><span>Discover 125</span></li>
-                                    <li data-bind="click: modelChanged"><span>Discover 150S</span></li>
+                               <ul class="cover-popup-list with-arrow" data-bind="foreach: modelArray">
+                                    <li data-bind=" click: function (d, e) { $parent.modelChanged(d,e) }">
+                                        <span data-bind="text: modelName, attr: { 'data-id': modelId }" ></span>
+                                    </li>
                                 </ul>
                             </div>
 
@@ -158,10 +157,10 @@
                                         <span class="bwmsprite back-long-arrow-left"></span>
                                     </div><p class="head-label inline-block">Select Version</p>
                                 </div>
-                                <ul class="cover-popup-list">
-                                    <li data-bind="click: versionChanged"><span>Kick/Drum/Spokes</span></li>
-                                    <li data-bind="click: versionChanged"><span>Electric Start/Drum/Alloy</span></li>
-                                    <li data-bind="click: versionChanged"><span>CBS</span></li>
+                                <ul class="cover-popup-list" data-bind="foreach: versionArray">
+                                    <li data-bind="click: function (d, e) { $parent.versionChanged(d, e) }">
+                                        <span data-bind="text: versionName, attr: { 'data-id': versionId }" ></span>
+                                    </li>                                    
                                 </ul>
                             </div>
 
