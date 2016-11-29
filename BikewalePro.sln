@@ -91,7 +91,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeWale.Sitemap", "BikeWal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.ExpiringListingReminder", "Bikewale.ExpiringListingReminder\Bikewale.ExpiringListingReminder.csproj", "{6117ADDD-60A3-4A6C-B920-437C249BD26F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeWale.NoPhotoListingsCommunication", "NoPhotoListingsCommunication\BikeWale.NoPhotoListingsCommunication.csproj", "{40BBCABE-D507-4B64-A3EB-285938837A1A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.NoPhotoListingsCommunication", "NoPhotoListingsCommunication\Bikewale.NoPhotoListingsCommunication.csproj", "{40BBCABE-D507-4B64-A3EB-285938837A1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
