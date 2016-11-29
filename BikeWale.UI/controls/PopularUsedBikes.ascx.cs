@@ -66,7 +66,12 @@ namespace Bikewale.Controls
 
         protected string FormatControlHeader()
         {
-            return String.Format("Popular used bikes in {0}", !String.IsNullOrEmpty(cityName) ? cityName : "India");
+            string header = string.Empty;
+            if (PQSourceId == 68)
+                header = string.Format("Looking for used bikes? Explore");
+            else
+                header = String.Format("Popular used bikes in {0}", !String.IsNullOrEmpty(cityName) ? cityName : "India");
+            return header;
         }
 
         protected string FormatUsedBikeUrl(string makeMaskingName, string cityMaskingName)

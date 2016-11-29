@@ -37,7 +37,7 @@
             </div>
         </div>
             <div class="text-center margin-top10">
-                <a class="font14" href="<%= FormatCompleteListUrl() %>">View more used bikes</a>
+                <a class="font14" title="Second-hand bikes in India" href="<%= FormatCompleteListUrl() %>">View more used bikes</a>
             </div>
         </div>
     </div>

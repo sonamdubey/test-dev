@@ -1,5 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Service.LocateServiceCenter" EnableViewState="false" %>
 <%@ Register Src="~/m/controls/BikeCare.ascx" TagName="BikeCare" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/MUpcomingBikes.ascx" TagName="MUpcomingBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/MNewLaunchedBikes.ascx" TagName="MNewLaunchedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="MMostPopularBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/PopularUsedBikes.ascx" TagName="PopularUsedBikes" TagPrefix="BW" %>
 
 <!DOCTYPE html>
 <html>
@@ -97,6 +101,57 @@
         <%if(ctrlBikeCare.FetchedRecordsCount>0) {%>
         <section>
             <BW:BikeCare runat="server" ID="ctrlBikeCare" />
+        </section>
+        <%} %>
+        <%if(mctrlMostPopularBikes.FetchedRecordsCount + mctrlMostPopularBikes.FetchedRecordsCount + mctrlMostPopularBikes.FetchedRecordsCount > 0 ) {%>
+        <section>
+            <!--  Upcoming, New Launches and Top Selling code starts here -->
+            <div class="container margin-bottom20">
+                <div class="grid-12 alpha omega">
+                    <h2 class="font18 text-center margin-top20 margin-bottom10">Looking for used bikes? Explore</h2>
+                    <div class="featured-bikes-panel content-box-shadow padding-bottom15">
+                        <div class="bw-tabs-panel">
+                        <div class="bw-tabs bw-tabs-flex">
+                            <ul>
+                                <li class="active" style="<%= (mctrlMostPopularBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="mctrlMostPopularBikes">Most Popular</li>
+                                <li style="<%= (mctrlNewLaunchedBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="mctrlNewLaunchedBikes">New launches</li>
+                                <li style="<%= (mctrlUpcomingBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="mctrlUpcomingBikes">Upcoming </li>
+                            </ul>
+                        </div>
+                        <div class="grid-12 alpha omega">
+                            <div class="bw-tabs-data features-bikes-container" id="mctrlMostPopularBikes">
+                                <div class="swiper-container card-container">
+                                    <div class="swiper-wrapper discover-bike-carousel">
+                                        <BW:MMostPopularBikes PageId="4" runat="server" ID="mctrlMostPopularBikes" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bw-tabs-data hide features-bikes-container" id="mctrlNewLaunchedBikes">
+                                <div class="swiper-container card-container">
+                                    <div class="swiper-wrapper discover-bike-carousel">
+                                        <BW:MNewLaunchedBikes PageId="4" runat="server" ID="mctrlNewLaunchedBikes" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bw-tabs-data hide features-bikes-container" id="mctrlUpcomingBikes">
+                                <div class="swiper-container card-container">
+                                    <div class="swiper-wrapper discover-bike-carousel">
+                                        <BW:MUpcomingBikes runat="server" ID="mctrlUpcomingBikes" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <%} %>
+        <%if(ctrlPopularUsedBikes.FetchedRecordsCount>0){ %>
+        <section>
+            <BW:PopularUsedBikes runat="server" ID="ctrlPopularUsedBikes" />
         </section>
         <%} %>
         <section>
