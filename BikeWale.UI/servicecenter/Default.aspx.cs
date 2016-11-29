@@ -90,6 +90,10 @@ namespace Bikewale.ServiceCenter
                 objErr.SendMail();
             }
         }
+        /// <summary>
+        /// Created By : Subodh Jain  on 28th Nov 2016
+        /// Description : Added new launched,upcoming and poular bikes binding 
+        /// </summary>
         private void BindBikesWidgets()
         {
             try
