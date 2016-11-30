@@ -51,7 +51,7 @@ namespace Bikewale.Mobile.Service
             BindBikesWidgets();
             GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
             cityId = currentCityArea.CityId;
-            countWidgetFetch=(ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount ;
+            countWidgetFetch = ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount;
         }
         /// <summary>
         /// Created By : Subodh Jain  on 28th Nov 2016

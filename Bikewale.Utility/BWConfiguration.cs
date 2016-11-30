@@ -82,7 +82,9 @@ namespace Bikewale.Utility
             _AWSBucketName = String.Empty,
             _AWSSecretKey = String.Empty,
             _AWSEnvironment = string.Empty,
-            _AWSImageQueueName = String.Empty;
+            _AWSImageQueueName = String.Empty,
+            _SponsoredModelId = string.Empty;
+
         private readonly int _SecurityHashLength = 0;
 
         // Private constructor, so no outsiders have access.
@@ -150,6 +152,7 @@ namespace Bikewale.Utility
             _AWSSecretKey = ConfigurationManager.AppSettings["AWSSecretKey"];
             _AWSEnvironment = ConfigurationManager.AppSettings["AWSEnvironment"];
             _AWSImageQueueName = ConfigurationManager.AppSettings["AWSImageQueueName"];
+            _SponsoredModelId = ConfigurationManager.AppSettings["SponsoredModelIds"];
             _SecurityHashLength = Convert.ToInt32(ConfigurationManager.AppSettings["SecurityHashLength"]);
         }
 
@@ -267,6 +270,7 @@ namespace Bikewale.Utility
         public string AWSEnvironment { get { return _AWSEnvironment; } }
         public string AWSImageQueueName { get { return _AWSImageQueueName; } }
         public int SecurityHashLength { get { return _SecurityHashLength; } }
+        public string SponsoredModelId { get { return _SponsoredModelId; } }
 
     }   // class
 }   // namespace
