@@ -179,6 +179,8 @@ var validation = {
 var sellBike = function () {
     var self = this;
 
+    self.inquiryId = ko.observable();
+
     self.formStep = ko.observable(1);
 
     self.bikeDetails = ko.observable(new bikeDetails);
@@ -223,6 +225,8 @@ var bikeDetails = function () {
 
     self.color = ko.observable();
     self.colorId = ko.observable();
+    self.cityId = ko.observable('');
+    self.regCityId = ko.observable('');    
 
     self.makeName = ko.observable('');
     self.modelName = ko.observable('');
@@ -510,6 +514,12 @@ var bikeDetails = function () {
         }
     });
 
+    self.manufacturingTime = ko.computed(function () {
+        var selectedDate = new Date(self.manufacturingDate());
+
+        return selectedDate.getFullYear() + '-' + (selectedDate.getMonth() + 1) + '-01';
+    });
+
     self.saveBikeDetails = function (data, event) {
         self.validate(true);
 
@@ -657,9 +667,9 @@ var personalDetails = function () {
                     "price": 0,
                     "maskingName": null
                 },
-                "manufacturingYear": bdetails.manufacturingDate(),
+                "manufacturingYear": bdetails.manufacturingTime(),
                 "kiloMeters": bdetails.kmsRidden(),
-                "cityId": bdetails.city(),
+                "cityId": bdetails.cityId(),
                 "expectedprice": bdetails.expectedPrice(),
                 "owner": bdetails.owner(),
                 "registrationPlace": bdetails.registeredCity(),
@@ -958,13 +968,15 @@ $('#close-city-filter').on('click', function () {
 });
 
 $('#city-slideIn-drawer').on('click', '.filter-list li', function () {
-    var element = $(this).text();
+    var element = $(this);
 
     if (vmSellBike.bikeDetails().citySelectionStatus() == 'bike-city') {
-        vmSellBike.bikeDetails().city(element);
+        vmSellBike.bikeDetails().city(element.text());
+        vmSellBike.bikeDetails().cityId(element.attr("data-cityId"));
     }
     else if (vmSellBike.bikeDetails().citySelectionStatus() == 'registered-city') {
-        vmSellBike.bikeDetails().registeredCity(element);
+        vmSellBike.bikeDetails().registeredCity(element.text());
+        vmSellBike.bikeDetails().regCityId(element.attr("data-cityId"));
     }
 
     cityListSelection.close();
