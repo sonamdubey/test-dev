@@ -2,9 +2,12 @@
 using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
+using Bikewale.DAL.Location;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Location;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -15,6 +18,7 @@ namespace Bikewale.Mobile.Used.Sell
     {
         protected IEnumerable<Bikewale.Entities.BikeData.BikeMakeEntityBase> objMakeList = null;
         private IBikeMakesCacheRepository<int> _makesRepository;
+        protected List<CityEntityBase> objCityList = null;
 
         /// <summary>
         /// Created By : Sajal Gupta on 29/11/2016
@@ -23,6 +27,7 @@ namespace Bikewale.Mobile.Used.Sell
         protected void Page_Load(object sender, EventArgs e)
         {
             BindMakes();
+            BindCities();
         }
 
         /// <summary>
@@ -46,6 +51,24 @@ namespace Bikewale.Mobile.Used.Sell
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.m.used.sell.default.BindMakes()");
+                objErr.SendMail();
+            }
+        }
+
+        /// <summary>
+        /// Created By : Sajal Gupta on 20/10/2016
+        /// Description : Function to bind Cities (both registered at and current city).
+        /// </summary>
+        protected void BindCities()
+        {
+            ICity _city = new CityRepository();
+            try
+            {
+                objCityList = _city.GetAllCities(EnumBikeType.All);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.sell.default.BindCities()");
                 objErr.SendMail();
             }
         }

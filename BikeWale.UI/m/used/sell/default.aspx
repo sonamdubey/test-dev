@@ -197,21 +197,10 @@
                                 </div>
                     
                                 <ul class="filter-list" >
-                                    <li><span>Ahmedabad</span></li>
-                                    <li><span>Bangalore</span></li>
-                                    <li><span>Chennai</span></li>
-                                    <li><span>Kolkata</span></li>
-                                    <li><span>Mumbai</span></li>
-                                    <li><span>Ahmedabad</span></li>
-                                    <li><span>Bangalore</span></li>
-                                    <li><span>Chennai</span></li>
-                                    <li><span>Kolkata</span></li>
-                                    <li><span>Mumbai</span></li>
-                                    <li><span>Ahmedabad</span></li>
-                                    <li><span>Bangalore</span></li>
-                                    <li><span>Chennai</span></li>
-                                    <li><span>Kolkata</span></li>
-                                    <li><span>Mumbai</span></li>
+                                    <% foreach (var city in objCityList)
+                                       { %>
+                                    <li data-cityId="<%= city.CityId %>" data-cityName="<%= city.CityName %>" data-cityMasking="<%=city.CityMaskingName %>"><span><%= city.CityName %></span></li>    
+                                    <% } %>                                    
                                 </ul>
                             </div>
                         </div>
