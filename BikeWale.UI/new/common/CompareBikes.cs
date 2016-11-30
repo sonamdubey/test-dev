@@ -66,14 +66,14 @@ namespace Bikewale.New
         /// </summary>
         /// <param name="versions"></param>
         /// <returns></returns>
-        public static string GetFeaturedBike(string versions)
+        public static Int64 GetFeaturedBike(string versions)
         {
-            string featuredBikeId = string.Empty;
+            Int64 featuredBikeId = -1;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeCompare, BikeCompareRepository>();
+                    container.RegisterType<IBikeCompare, Bikewale.BAL.Compare.BikeComparison>();
 
                     var _objCompare = container.Resolve<IBikeCompare>();
 

@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
+using System;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.Compare
@@ -16,7 +17,7 @@ namespace Bikewale.Interfaces.Compare
         IEnumerable<TopBikeCompareBase> CompareList(uint topCount);
         ICollection<SimilarCompareBikeEntity> GetSimilarCompareBikes(string versionList, ushort topCount, int cityid);
         ICollection<SimilarCompareBikeEntity> GetSimilarCompareBikeSponsored(string versionList, ushort topCount, int cityid, uint sponsoredVersionId);
-        string GetFeaturedBike(string versions);
+        Int64 GetFeaturedBike(string versions);
 
     }
 }

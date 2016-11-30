@@ -1,4 +1,5 @@
-﻿using Bikewale.DAL.Compare;
+﻿using Bikewale.BAL.Compare;
+using Bikewale.DAL.Compare;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Notifications;
@@ -20,6 +21,7 @@ namespace Bikewale.BindViewModels.Controls
     {
         public uint FetchedRecordsCount { get; set; }
         public int cityid { get; set; }
+        private Int64 SponsoredVersionId { get; set; }
 
 
         /// <summary>
@@ -40,9 +42,22 @@ namespace Bikewale.BindViewModels.Controls
                 {
                     container.RegisterType<IBikeCompare, BikeCompareRepository>();
                     IBikeCompare objCompare = container.Resolve<IBikeCompare>();
-                    objSimilarBikes = objCompare.GetSimilarCompareBikes(versionList, count, cityid);
+
+                    CheckSponsoredBikeForAnyVersion(versionList);
+
+                    if (SponsoredVersionId > 0)
+                    {
+                        objSimilarBikes = objCompare.GetSimilarCompareBikeSponsored(versionList, count, cityid, (uint)SponsoredVersionId);
+                    }
+                    else
+                    {
+                        objSimilarBikes = objCompare.GetSimilarCompareBikes(versionList, count, cityid);
+                    }
+
+
                     if (objSimilarBikes != null)
                         FetchedRecordsCount = (uint)objSimilarBikes.Count();
+
                 }
             }
             catch (Exception ex)
@@ -52,6 +67,18 @@ namespace Bikewale.BindViewModels.Controls
             }
 
             return objSimilarBikes;
+        }
+
+        private void CheckSponsoredBikeForAnyVersion(string versionList)
+        {
+
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IBikeCompare, BikeComparison>();
+                IBikeCompare objCompare = container.Resolve<IBikeCompare>();
+                SponsoredVersionId = objCompare.GetFeaturedBike(versionList);
+            }
+
         }
     }
 }

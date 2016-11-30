@@ -352,14 +352,9 @@ namespace Bikewale.DAL.Compare
                     }
                 }
             }
-            catch (SqlException sqEx)
-            {
-                ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "GetSimilarCompareBikes");
                 objErr.SendMail();
             }
 
@@ -433,7 +428,7 @@ namespace Bikewale.DAL.Compare
         }
 
 
-        public string GetFeaturedBike(string versions)
+        public Int64 GetFeaturedBike(string versions)
         {
             throw new NotImplementedException();
         }

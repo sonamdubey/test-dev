@@ -39,7 +39,7 @@ namespace Bikewale.BAL.Compare
         // Modified By : Sadhana Upadhyay on 9 Sept 2014
         // Summary : to get sponsored bike by web api
         /***********************************************************/
-        public string GetFeaturedBike(string versions)
+        public Int64 GetFeaturedBike(string versions)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace Bikewale.BAL.Compare
 
                     if (_grpcInt != null)
                     {
-                        return _grpcInt.IntOutput.ToString();
+                        return _grpcInt.IntOutput;
                     }
                     else
                     {
@@ -69,9 +69,9 @@ namespace Bikewale.BAL.Compare
             }
         }
 
-        private static string GetFeaturedBikeOldWay(string versions)
+        private static Int64 GetFeaturedBikeOldWay(string versions)
         {
-            string featuredBikeId = string.Empty;
+            Int64 featuredBikeId = -1;
 
             try
             {
@@ -86,7 +86,7 @@ namespace Bikewale.BAL.Compare
 
                 using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
-                    return objClient.GetApiResponseSync<string>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, featuredBikeId);
+                    return objClient.GetApiResponseSync<Int64>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, featuredBikeId);
                 }
             }
             catch (Exception err)

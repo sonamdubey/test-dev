@@ -248,10 +248,10 @@ namespace Bikewale.New
                 versions = versions.Substring(0, versions.Length - 1);
                 // Get version id of the featured bike on the basis of versions selected for comparison
                 // There might be multiple featured Bikes available. But only show top 1
-                string featuredBike = CompareBikes.GetFeaturedBike(versions);
-                if (featuredBike != "-1")
+                Int64 featuredBike = CompareBikes.GetFeaturedBike(versions);
+                if (featuredBike > 0)
                 {
-                    featuredBikeId = featuredBike;
+                    featuredBikeId = featuredBike.ToString();
                     isFeatured = true;
                 }
                 // If featured bike available to show.
