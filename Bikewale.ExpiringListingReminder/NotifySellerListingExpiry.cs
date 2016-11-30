@@ -21,8 +21,8 @@ namespace Bikewale.ExpiringListingReminder
         private readonly string _repostUrl = "{0}/used/inquiry/{1}/repost/";
         private readonly string _removeUrl = "{0}/used/inquiry/{1}/remove/";
 
-        private readonly string _emailSubjectOneDay = "BikeWale listing expiry in 24 hours";
-        private readonly string _emailSubjectSevenDay = "BikeWale listing expiry in 7 days";
+        private readonly string _emailSubjectOneDay = "Your Ad on BikeWale expires in 24 hours.Repost it for Free!";
+        private readonly string _emailSubjectSevenDay = "Your Ad on BikeWale expires in 7 days.Repost it for Free!";
 
         private readonly string _messageOneDay = "Your Ad on BikeWale will expire in next 24 hours. If you have already sold your {0} {1} bike, visit {2} to remove your ad. If not sold yet, visit {3} to re-post it. Team BikeWale";
         private readonly string _messageSevenDay = "Your Ad on BikeWale will expire in next 7 days. If you have already sold your {0} {1} bike, visit {2} to remove your ad. If not sold yet, visit {3} to re-post it. Team BikeWale";

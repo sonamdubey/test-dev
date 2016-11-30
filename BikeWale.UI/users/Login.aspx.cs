@@ -29,6 +29,13 @@ namespace BikWale.Users
 
         private void Page_Load(object sender, EventArgs e)
         {
+            Form.Action = Request.RawUrl;
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
+            Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(originalUrl);
+            dd.DetectDevice();
+
             if (!IsPostBack)
             {
                 if (Request["logout"] != null && Request.QueryString["logout"] == "logout")
