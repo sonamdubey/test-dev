@@ -11,7 +11,10 @@ namespace Bikewale.Controls
         public uint TotalRecords { get; set; }
         public int FetchedRecordsCount { get; set; }
         public int PQSourceId { get; set; }
-
+        public string WidgetTitle { get; set; }
+        //string.Format("Popular used bikes in {0}", !string.IsNullOrEmpty() ? cityName : "India");
+        //public string header { get { return _header; } set { _header = value; } }
+        public string header { get { return String.Format("Popular used bikes in {0}", !String.IsNullOrEmpty(cityName) ? cityName : "India"); } set { header = value; } }
 
         protected string cityName = String.Empty;
         protected static int? cityId = null;
@@ -62,16 +65,6 @@ namespace Bikewale.Controls
                 }
             }
 
-        }
-
-        protected string FormatControlHeader()
-        {
-            string header = string.Empty;
-            if (PQSourceId == 68)
-                header = string.Format("Looking for used bikes? Explore");
-            else
-                header = String.Format("Popular used bikes in {0}", !String.IsNullOrEmpty(cityName) ? cityName : "India");
-            return header;
         }
 
         protected string FormatUsedBikeUrl(string makeMaskingName, string cityMaskingName)

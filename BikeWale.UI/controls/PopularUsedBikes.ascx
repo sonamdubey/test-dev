@@ -2,7 +2,7 @@
 <%if(FetchedRecordsCount > 0) { %>
 <div class="container">
     <div class="grid-12 ">
-        <h2 class="text-bold text-center margin-top30 margin-bottom20 font22"><%= FormatControlHeader() %></h2>
+        <h2 class="text-bold text-center margin-top30 margin-bottom20 font22"><%= header %></h2>
         <div class="content-box-shadow padding-top20 padding-bottom20">
             <div class="jcarousel-wrapper inner-content-carousel">
                 <div class="jcarousel">

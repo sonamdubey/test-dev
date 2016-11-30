@@ -74,6 +74,7 @@ namespace Bikewale.Mobile.Service
                 mctrlUpcomingBikes.pageSize = 9;
 
                 ctrlPopularUsedBikes.PQSourceId = (int)PQSourceEnum.Mobile_ServiceCenter_DefaultPage;
+                ctrlPopularUsedBikes.header = string.Format("Looking for used bikes? Explore");
                 ctrlPopularUsedBikes.TotalRecords = 9;
 
                 ctrlBikeCare.TotalRecords = 3;
