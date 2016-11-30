@@ -356,7 +356,7 @@ namespace Bikewale.Notifications
         public static void UsedBikePhotoRequestEmailForThreeDays(string CustomerEmail, string CustomerName, string Make, string Model, string profileId)
         {
             ComposeEmailBase objEmail = new PhotoRequestToCustomerForThreeDays(CustomerName, Make, Model, profileId);
-            objEmail.Send(CustomerEmail, "Upload Bike Photos Three Days");
+            objEmail.Send(CustomerEmail, "Add photos to your Ad|Improve your responses");
         }
         /// <summary>
         /// Created By  : Subodh Jain on 25-Nov-2016
@@ -371,7 +371,7 @@ namespace Bikewale.Notifications
         public static void UsedBikePhotoRequestEmailForSevenDays(string CustomerEmail, string CustomerName, string Make, string Model, string profileId)
         {
             ComposeEmailBase objEmail = new PhotoRequestToCustomerForSevenDays(CustomerName, Make, Model, profileId);
-            objEmail.Send(CustomerEmail, "Upload Bike Photos Seven Days");
+            objEmail.Send(CustomerEmail, "Add photos to your Ad|Improve your responses");
         }
 
         /// <summary>

@@ -152,6 +152,10 @@ namespace BikWale.Users
             string returnUrl = Request.QueryString["ReturnUrl"];
             if (IsLocalUrl(returnUrl))
             {
+                if (!string.IsNullOrEmpty(Request.QueryString["hash"]))
+                {
+                    returnUrl = string.Format("{0}#uploadphoto", returnUrl);
+                }
                 Response.Redirect(returnUrl, false);
             }
             else

@@ -26,10 +26,10 @@ namespace Bikewale.Notifications.MailTemplates.UsedBikes
 
             if (!string.IsNullOrEmpty(_customerName) && !string.IsNullOrEmpty(_make) && !string.IsNullOrEmpty(_model) && !string.IsNullOrEmpty(_profileId))
             {
-                sb.AppendFormat(@"Dear {4},<p>Thanks for choosing BikeWale to sell your <Make Model> bike.You are missing on opportunities because you have not uploaded any photo yet.</p>
+                sb.AppendFormat(@"Dear {3},<p>Thanks for choosing BikeWale to sell your <Make Model> bike.You are missing on opportunities because you have not uploaded any photo yet.</p>
                       <p>Were you expecting more responses than what you have received? Our data suggests that Ads without photos get far lesser responses than Ads with high-quality photos.
                        BikeWale recommends you to add high-quality photos for your bike to get more responses.</p>
-                       To add photos click on the <a href='{2}/used/sell/?id={3}#uploadphoto'>link</a><p>Cheers!</p><p>Team BikeWale</p>", _make, _model, Utility.BWConfiguration.Instance.BwHostUrl, _profileId, _customerName);
+                       To add photos click on the <a href='{4}/used/sell/?id={2}&hash=uploadphoto'", _make, _model, _profileId, _customerName, Bikewale.Utility.BWConfiguration.Instance.BwHostUrl);
             }
 
             return sb.ToString();
