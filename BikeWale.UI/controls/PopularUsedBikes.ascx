@@ -2,7 +2,7 @@
 <%if(FetchedRecordsCount > 0) { %>
 <div class="container">
     <div class="grid-12 ">
-        <h2 class="text-bold text-center margin-top30 margin-bottom20 font22"><%= FormatControlHeader() %></h2>
+        <h2 class="text-bold text-center margin-top30 margin-bottom20 font22"><%= header %></h2>
         <div class="content-box-shadow padding-top20 padding-bottom20">
             <div class="jcarousel-wrapper inner-content-carousel">
                 <div class="jcarousel">
@@ -37,7 +37,7 @@
                 <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
             </div>
             <div class="text-center margin-top10">
-                <a class="font16" href="<%= FormatCompleteListUrl() %>">View complete list</a>
+                <a class="font16" title="Second-hand bikes in <%=(!string.IsNullOrEmpty(cityName))?cityName:"India"%>" href="<%= FormatCompleteListUrl() %>">View complete list</a>
             </div>
         </div>
     </div>

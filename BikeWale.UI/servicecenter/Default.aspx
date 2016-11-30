@@ -1,5 +1,9 @@
 <%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.ServiceCenter.Default" EnableViewState="false" %>
 <%@ Register Src="~/controls/BikeCare.ascx" TagName="BikeCare" TagPrefix="BW" %>
+<%@ Register Src="~/controls/PopularUsedBikes.ascx" TagName="PopularUsedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/NewLaunchedBikes_new.ascx" TagName="NewLaunchedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikes" TagPrefix="BW" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <!doctype html>
 <html>
@@ -34,7 +38,6 @@
                 </div>
             </div>
         </header>
-
         <section>
             <div class="container">
                 <div class="grid-12">
@@ -118,7 +121,77 @@
             <BW:BikeCare runat="server" ID="ctrlBikeCare" />
         </section>
         <%} %>
+        <%if (countWidgetFetch>0)
+          {%>
+        <section>
+            <div class="container margin-bottom30">
+                <!--  Discover bikes section code starts here -->
+                <div class="grid-12">
+                    <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Looking for new bikes? Explore the popular ones</h2>
+                    <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow padding-bottom15">
+                        <div class="bw-tabs bw-tabs-flex">
+                            <ul>
+                                <%if (ctrlMostPopularBikes.FetchedRecordsCount>0){ %>
+                                <li class="active"  data-tabs="ctrlMostPopularBikes">
+                                    <h3>Most Popular</h3>
+                                </li>
+                                <%} %>
+                                <%if (ctrlNewLaunchedBikes.FetchedRecordsCount > 0){ %>
+                                <li data-tabs="ctrlNewLaunchedBikes">
+                                    <h3>New launches</h3>
+                                </li>
+                                <%} %>
+                                 <%if (ctrlUpcomingBikes.FetchedRecordsCount>0)
+                                   { %>
+                                <li  data-tabs="ctrlUpcomingBikes">
+                                    <h3>Upcoming</h3>
+                                </li>
+                                  <%} %>
+                            </ul>
+                        </div>
+                        <div class="bw-tabs-data <%= (ctrlMostPopularBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlMostPopularBikes">
+                            <div class="jcarousel-wrapper inner-content-carousel">
+                                <div class="jcarousel">
+                                    <ul>
+                                        <BW:MostPopularBikes PageId="5" runat="server" ID="ctrlMostPopularBikes" />
+                                        <!-- Most Popular Bikes Control-->
+                                    </ul>
+                                </div>
+                                <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
+                                <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+                            </div>
+                        </div>
 
+                        <div class="bw-tabs-data hide <%= (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlNewLaunchedBikes">
+                            <BW:NewLaunchedBikes PageId="5" runat="server" ID="ctrlNewLaunchedBikes" />
+                            <!-- New Launched Bikes Control-->
+                        </div>
+
+                        <div class="bw-tabs-data hide <%= (ctrlUpcomingBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlUpcomingBikes">
+                            <div class="jcarousel-wrapper inner-content-carousel">
+                                <div class="jcarousel">
+                                    <ul>
+                                        <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
+                                        <!-- Upcoming Bikes Control-->
+                                    </ul>
+                                </div>
+                                <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
+                                <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <%} %>
+        <%if(ctrlPopularUsedBikes.FetchedRecordsCount > 0){ %>
+         <section>
+            <div >
+                <BW:PopularUsedBikes runat="server" ID="ctrlPopularUsedBikes" />
+            </div>
+        </section>
+        <%} %>
         <section>
             <div class="container section-bottom-margin">
                 <h2 class="section-heading">Bike Troubleshooting - FAQs</h2>

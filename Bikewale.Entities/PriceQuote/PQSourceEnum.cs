@@ -13,6 +13,8 @@ namespace Bikewale.Entities.PriceQuote
     /// Description : Mobile_PriceInCity_SelectAreas,Mobile_PriceInCity_Alternative and  Mobile_PriceInCity_DealerCard_GetOffers added.
     /// Modified By : Sushil Kumar on 28th Oct 2016
     /// Description : Added pqsources for bikes list on homepage desktop and mobile 
+    /// Modified By : Subodh Jain on 28th Nov 2016
+    /// Description : Added pqsources for Service Center on Default desktop and mobile 
     /// </summary>
     public enum PQSourceEnum
     {
@@ -82,7 +84,9 @@ namespace Bikewale.Entities.PriceQuote
         Mobile_HP_MostPopular = 64,
         Mobile_HP_NewLaunches = 65,
         Mobile_ServiceCenter_Listing_CityPage = 66,
-        Mobile_ServiceCenter_DetailsPage = 67
+        Mobile_ServiceCenter_DetailsPage = 67,
+        Desktop_ServiceCenter_DefaultPage = 68,
+        Mobile_ServiceCenter_DefaultPage = 69
 
     }
 }
