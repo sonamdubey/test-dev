@@ -53,6 +53,11 @@ $(document).ready(function () {
         }
     });
 
+    /* set manufacturing date
+    $("#manufacturingDate").val('May 2016').data('Zebra_DatePicker');
+    vmSellBike.bikeDetails().manufacturingDate('May 2016');
+    */
+
     Dropzone.autoDiscover = false;
 
     $('#add-photos-dropzone').dropzone({
