@@ -49,9 +49,10 @@ $(document).ready(function () {
     var monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         currentDate = new Date(),
         currentMonth = currentDate.getMonth(),
-        currentYear = currentDate.getFullYear();
+        currentYear = currentDate.getFullYear(),
+        manufacturingDateInput = $('#manufacturingDate');
 
-    $('#manufacturingDate').Zebra_DatePicker({
+    manufacturingDateInput.Zebra_DatePicker({
         format: 'M Y',
         direction: ['Jan 1980', monthList[currentMonth] + ' ' + currentYear],
         start_date: monthList[currentMonth] + ' ' + currentYear,
@@ -59,6 +60,15 @@ $(document).ready(function () {
             vmSellBike.bikeDetails().manufacturingDate($(this).val());
         }
     });
+
+    // set custom heading for date picker
+    var manufacturingDatePicker = manufacturingDateInput.data('Zebra_DatePicker');
+    manufacturingDatePicker.datepicker.find('.dp_heading').text('Year of manufacturing');
+
+    /* set manufacturing date
+    $("#manufacturingDate").val('May 2016').data('Zebra_DatePicker');
+    vmSellBike.bikeDetails().manufacturingDate('May 2016');
+    */
 
     Dropzone.autoDiscover = false;
 

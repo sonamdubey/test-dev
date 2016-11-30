@@ -2829,7 +2829,7 @@
     <Content Include="rewriterules.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="sass\sell-bike.sass" />
+    <Content Include="sass\sell-bike\sell-bike.sass" />
     <Content Include="m\sass\sell-bike\sell-bike.sass" />
     <Content Include="m\sass\sell-bike\_sell-bike-style.sass" />
     <Content Include="m\sass\sell-bike\_icons.sass" />
@@ -2841,12 +2841,7 @@
     <Content Include="m\sass\modules\_textarea-box.sass" />
     <Content Include="m\sass\modules\_bike-popup.sass" />
     <Content Include="m\sass\modules\_slideIn-drawer.sass" />
-    <None Include="sass\components\_card-header.sass" />
     <Content Include="sass\sell-bike\_style.sass" />
-    <Content Include="sass\components\_typography.sass" />
-    <Content Include="sass\components\_mixins.sass" />
-    <None Include="sass\components\_box-boundary.sass" />
-    <Content Include="sass\components\_input-box.sass" />
     <Content Include="sass\sell-bike\_color-box.sass" />
     <Content Include="sass\components\_textarea-box.sass" />
     <Content Include="sass\sell-bike\_sidebar-banner.sass" />
@@ -2888,22 +2883,12 @@
     <Content Include="m\sass\modules\_modal.sass" />
     <Content Include="m\sass\service\landing.sass" />
     <Content Include="m\sass\service\_landing-style.sass" />
-    <Content Include="sass\components\_card-header.sass" />
-    <Content Include="sass\components\_mixins.sass" />
-    <Content Include="sass\components\_typography.sass" />
     <Content Include="sass\service\listing.sass" />
     <Content Include="sass\service\_listing-style.sass" />
-    <Content Include="sass\components\_variables.sass" />
-    <Content Include="sass\modules\_section.sass" />
-    <Content Include="sass\modules\_bike-tips.sass" />
-    <Content Include="sass\modules\_card.sass" />
     <Content Include="sass\service\_details-style.sass" />
     <Content Include="sass\service\details.sass" />
-    <Content Include="sass\components\_select-box.sass" />
     <Content Include="sass\service\location.sass" />
     <Content Include="sass\service\_location-style.sass" />
-    <Content Include="sass\modules\_article.sass" />
-    <Content Include="sass\modules\_accordion.sass" />
     <Content Include="sass\service\landing.sass" />
     <Content Include="sass\service\_landing-style.sass" />
     <Content Include="sass\modules\_brand-logo.sass" />
@@ -3002,7 +2987,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
