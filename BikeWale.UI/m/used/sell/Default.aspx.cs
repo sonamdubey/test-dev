@@ -19,15 +19,39 @@ namespace Bikewale.Mobile.Used.Sell
         protected IEnumerable<Bikewale.Entities.BikeData.BikeMakeEntityBase> objMakeList = null;
         private IBikeMakesCacheRepository<int> _makesRepository;
         protected List<CityEntityBase> objCityList = null;
-
+        protected string userEmail = null, userName = null, userId = null;
+        
         /// <summary>
         /// Created By : Sajal Gupta on 29/11/2016
         /// Description : Function to be called on page load.
         /// </summary>
         protected void Page_Load(object sender, EventArgs e)
         {
+            BindUserId();
             BindMakes();
             BindCities();
+        }
+
+        /// <summary>
+        /// Created By : Sajal Gupta on 20/10/2016
+        /// Description : Function to bind userId.
+        /// </summary>
+        protected void BindUserId()
+        {
+            try
+            {
+                if (CurrentUser.Id != null)
+                {
+                    userId = CurrentUser.Id;
+                    userEmail = CurrentUser.Email;
+                    userName = CurrentUser.Name;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.sell.default.BindUserId()");
+                objErr.SendMail();
+            }
         }
 
         /// <summary>

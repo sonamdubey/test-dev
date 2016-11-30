@@ -212,26 +212,13 @@
                             <div class="popup-header">Colour</div>
                             <div class="popup-body">
                                 <ul class="popup-list popup-color-list margin-bottom15" data-bind="foreach: colorArray">
-                                    <li class="color-list-item" data-bind="click: colorSelection" >
-                                        <div class="color-box color-count-one">
-                                            <span style="background-color: rgb(19, 22, 29);"></span>
-                                        </div>
+                                    <li class="color-list-item" data-bind="click: $parent.colorSelection" >
+                                        <div class="color-box" data-bind="foreach: hexCode, css: (hexCode.length >= 3) ? 'color-count-three' : (hexCode.length == 2) ? 'color-count-two' : 'color-count-one' ">
+                                            <span data-bind="style: { 'background-color': '#' + $data }"></span>
+                                        </div>                                                                                 
                                         <p class="color-box-label"><span data-bind="text: colorName, attr: { 'data-colorId': colorId }"></span></p>
-                                    </li>                                    
-                                    <%--<li class="color-list-item" data-bind="click: colorSelection">
-                                        <div class="color-box color-count-one">
-                                            <span style="background-color: rgb(255, 255, 255);"></span>
-                                        </div>
-                                        <p class="color-box-label">white</p>
-                                    </li>       --%>                
+                                    </li>                                                                                   
                                 </ul>
-
-                                <%--<ul class="cover-popup-list with-arrow" data-bind="foreach: modelArray">
-                                    <li data-bind=" click: function (d, e) { $parent.modelChanged(d, e) }">
-                                        <span data-bind="text: modelName, attr: { 'data-id': modelId }" ></span>
-                                    </li>
-                                </ul>--%>
-
                                 <ul>
                                     <li class="other-color-item">
                                         <div class="color-box">
@@ -452,6 +439,11 @@
             </div>
         </section>
 
+        <script type="text/javascript">
+            var userId = '<%= userId%>';            
+            var userName = '<%= userName%>';
+            var userEmail = '<%= userEmail%>';
+        </script>
         
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->

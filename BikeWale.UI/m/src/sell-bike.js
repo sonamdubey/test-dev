@@ -32,6 +32,11 @@ ko.bindingHandlers.chosen = {
 }
 
 $(document).ready(function () {
+    if (userId != null) {
+        var pdetails = vmSellBike.personalDetails();
+        pdetails.sellerName(userName);
+        pdetails.sellerEmail(userEmail);
+    }
     var selectDropdownBox = $('.select-box-no-input');
 
     selectDropdownBox.each(function () {
@@ -206,6 +211,9 @@ var bikeDetails = function () {
 
     self.bikeStatus = ko.observable(false);
 
+    self.color = ko.observable();
+    self.colorId = ko.observable();
+
     self.makeName = ko.observable('');
     self.modelName = ko.observable('');
     self.versionName = ko.observable('');
@@ -314,10 +322,7 @@ var bikeDetails = function () {
                 }
             });
         }
-    };
-
-    self.colorChanged = function(data, event) {
-    };
+    };   
 
     self.bike = ko.computed(function () {
         if (self.bikeStatus()) {
@@ -441,6 +446,8 @@ var bikeDetails = function () {
 
 
     self.colorSelection = function (data, event) {
+        self.color(data.colorName);
+        self.colorId(data.colorId);
         if (event != null) {
             var element = $(event.currentTarget);
         }
@@ -614,8 +621,88 @@ var personalDetails = function () {
     self.listYourBike = function () {
         self.validate(true);
 
+        if (!("colorId" in window))
+            colorId = 0;
+
         if (self.errors().length === 0) {
-            // user not verified
+            
+            var bdetails = vmSellBike.bikeDetails();
+            var pdetails = vmSellBike.personalDetails();
+            var inquiryData = {
+                "InquiryId": vmSellBike.inquiryId() > 0 ? vmSellBike.inquiryId() : 0,
+                "make": {
+                    "makeId": bdetails.makeId,
+                    "makeName": bdetails.makeName,
+                    "maskingName": bdetails.makeMaskingName
+                },
+                "model": {
+                    "modelId": bdetails.modelId,
+                    "modelName": bdetails.modelName,
+                    "maskingName": null
+                },
+                "version": {
+                    "versionId": bdetails.versionId,
+                    "versionName": bdetails.versionName,
+                    "modelName": bdetails.modelName,
+                    "price": 0,
+                    "maskingName": null
+                },
+                "manufacturingYear": bdetails.manufacturingDate(),
+                "kiloMeters": bdetails.kmsRidden(),
+                "cityId": bdetails.city(),
+                "expectedprice": bdetails.expectedPrice(),
+                "owner": bdetails.owner(),
+                "registrationPlace": bdetails.registeredCity(),
+                "color": bdetails.color(),
+                "colorId": colorId,
+                "sourceId": 1,
+                "status": 1,
+                "pageUrl": "used/sell",
+                "seller": {
+                    "sellerType": sellerType,
+                    "customerId": userId > 0 ? userId : 0,
+                    "customerName": pdetails.sellerName(),
+                    "customerEmail": pdetails.sellerEmail(),
+                    "customerMobile": pdetails.sellerMobile()
+                },
+                "otherInfo": {
+                    "registrationNo": "",
+                    "insuranceType": "",
+                    "adDescription": ""
+                }
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/api/used/sell/listing/",
+                contentType: "application/json",
+                data: ko.toJSON(inquiryData),
+                async: false,
+                success: function (response) {
+                    var res = JSON.parse(response);
+                    if (res != null && res.Status != null && res.Status.Code == 4) {      // if user is not verified
+                        vmSellBike.verificationDetails().status(true);
+                        vmSellBike.inquiryId(res.InquiryId);
+                        vmSellBike.customerId(res.CustomerId);
+                    }
+                    else if (res != null && res.Status != null && res.Status.Code == 5) {
+                        vmSellBike.inquiryId(res.InquiryId);
+                        vmSellBike.customerId(res.CustomerId);
+                        vmSellBike.formStep(3);
+                        vmSellBike.initPhotoUpload();
+                    }
+                    else {
+                        vmSellBike.isFakeCustomer(true);
+                    }
+                },
+                complete: function (xhr, ajaxOptions, thrownError) {
+
+                }
+            });
+
+            //scrollToForm.activate();
+
+
             vmSellBike.verificationDetails().status(true);
         }
         else {
